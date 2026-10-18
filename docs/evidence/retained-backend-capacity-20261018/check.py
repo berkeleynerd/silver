@@ -31,6 +31,11 @@ RANGES = {
     "gcc/tree-inline.cc": [(5735, 5795), (5861, 6060), (6667, 6720)],
     "gcc/langhooks-def.h": [(145, 158)],
     "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
+    "gcc/ada/gcc-interface/cuintp.cc": [(163, 213)],
+    "gcc/ada/repinfo.adb": [(55, 97), (233, 246)],
+    "gcc/ada/repinfo.ads": [(119, 160)],
+    "gcc/ada/alloc.ads": [(109, 114)],
+    "gcc/ada/uintp.adb": [(1466, 1506), (2361, 2426)],
     "gcc/ada/gcc-interface/trans.cc": [(87, 91), (346, 363), (6705, 6732),
                                        (1201, 1289), (1330, 1369), (4911, 5015),
                                        (5688, 5691), (6779, 6881), (7086, 7116),
@@ -40,7 +45,8 @@ RANGES = {
                                        (9889, 10025), (11006, 11030)],
     "gcc/ada/gcc-interface/decl.cc": [(400, 445), (697, 718), (754, 766), (1278, 1291),
                                       (2370, 2380), (2664, 2712), (3142, 3177),
-                                      (7265, 7402), (10460, 10501), (10685, 10723)],
+                                      (7265, 7402), (9322, 9520),
+                                      (10460, 10501), (10685, 10723), (11324, 11343)],
     "gcc/ada/gcc-interface/misc.cc": [(376, 377), (1475, 1476)],
     "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783),
                                       (2410, 2426), (4095, 4390)],
@@ -58,7 +64,7 @@ RANGES = {
                      (11024, 11113), (11637, 12013), (15095, 15129)],
     "gcc/tree.h": [(5460, 5467), (5500, 5517), (5921, 5929)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1648),
-                         (1696, 1700), (1801, 1871)],
+                         (1696, 1700), (1801, 1871), (2336, 2358)],
     "gcc/stor-layout.cc": [(67, 292), (296, 339), (603, 633), (808, 813), (909, 929),
                             (1675, 1680),
                             (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
@@ -259,6 +265,48 @@ def check_size_function_transfer(all_bytes):
         parameter_bound_from_call_constructor=268435449,
         construction_substitution_body_inlining=False,
         later_function_lowering_required=True,
+        native_execution=False,
+    )
+
+
+def check_backannotation_transfer(all_bytes):
+    decl = all_bytes["gcc/ada/gcc-interface/decl.cc"].decode()
+    start = decl.index("\nannotate_value (tree gnu_size)")
+    annotation = decl[start:decl.index("\n}\n", start)]
+    assert "if (List_Representation_Info >= 3 || type_annotate_only)" in annotation
+    assert "return Uint_Minus_1;" in annotation
+    assert "ops[0] = annotate_value (TREE_OPERAND (inner_op, 0));" in annotation
+    assert "if (ops[i] == No_Uint)" in annotation
+    assert annotation.index("ops[0] = annotate_value (TREE_OPERAND (inner_op, 0));") < annotation.index("if (ops[i] == No_Uint)")
+    assert "ops[0] = UI_From_Int (++var_count);" in annotation
+    conversion = all_bytes["gcc/ada/gcc-interface/cuintp.cc"].decode()
+    assert "const int Max_For_Dint = 5;" in conversion
+    assert "return Vector_To_Uint (vec, tree_int_cst_sgn (Input) < 0);" in conversion
+    uintp = all_bytes["gcc/ada/uintp.adb"].decode()
+    assert "Max_For_Int : constant := 3;" in uintp
+    assert "Uints.Append ((Length => Size, Loc => Udigits.Last + 1));" in uintp
+    repinfo = all_bytes["gcc/ada/repinfo.adb"].decode()
+    assert "return UI_From_Int (-Rep_Table.Last);" in repinfo
+    alloc = all_bytes["gcc/ada/alloc.ads"].decode()
+    for name, value in (("Rep_Table_Initial", 1000), ("Rep_Table_Increment", 200)):
+        assert re.search(r"\b"+name+r"\s*: constant := "+str(value)+r";", alloc)
+    q, examples = 1, []
+    for depth in range(6):
+        assert q == 7*2**depth-6
+        examples.append(dict(converted_multiply_depth=depth, Q=q))
+        q = 2*q+6
+    assert 5 + 3*2 == 11
+    assert 1 + 5*3*2 == 31
+    return dict(
+        scope="regular native annotation interface with structural failed-child retries; source roots and representation-only mode separate",
+        retry_recurrence_examples=examples,
+        Rep_Table_and_cache_requests_per_Q=1,
+        Uint_entries_per_Q=3,
+        Uint_digits_per_Q=11,
+        scalar_constant_requests_per_Q=32,
+        ordinary_unary_requests_per_Q=1,
+        Rep_Table_component_bytes_upper=32,
+        annotation_cache_entry_bytes_lp64=16,
         native_execution=False,
     )
 
@@ -925,6 +973,7 @@ def main():
         "expression_unsharing": check_expression_copy_transfers(all_bytes),
         "whole_body_unsharing": check_whole_body_copy_transfer(all_bytes),
         "generated_size_functions": check_size_function_transfer(all_bytes),
+        "native_backannotation": check_backannotation_transfer(all_bytes),
         "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
         "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
         "ordinary_vectors": {

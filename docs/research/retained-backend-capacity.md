@@ -1379,6 +1379,104 @@ This interface prevents treating their creation or later lowering as absent
 at O0; it does not yet bound symbolic folding, every imported record, or
 source-to-helper multiplicities.
 
+## Native backannotation returns costs to Ada tables
+
+`annotate_value` is another consumer of the GCC size-expression graph
+(`decl.cc:9322–9520`). It writes native representation nodes and Uint values,
+so frontend accounting cannot end at the initial transfer to gigi. This
+component covers regular native mode with `List_Representation_Info<3` and
+`type_annotate_only=false`. A CALL then returns Uint_Minus_1 without visiting
+arguments or inlining a saved body. Representation-only invocations must
+establish their own flags before using this row.
+
+The remaining recursion is source-structural, but not simply once per input
+occurrence. PLUS/MULT can recognize a converted inner operation, annotate
+that inner operation's left child early, and combine its two constants.
+If the early result is No_Uint, the common operand loop revisits the original
+operand, including that same subtree (`:9436–9460,9495–9501`). A failed
+annotation has no cache entry. Ignoring this retry would undercount both work
+and any successful child conversions performed before the failure.
+
+Use a positive structural charge Q(e), conservatively ignoring cache hits:
+
+- A constant, declaration, component reference, regular-mode call or unsupported
+  code has charge one. COMPONENT_REF's parent-field scan is separate pointer
+  traversal, with no recursive annotation of the skipped reference tree.
+- A conversion or NON_LVALUE costs one plus its child's charge.
+- Other handled unary/binary/conditional codes cost one plus their ordinary
+  operand charges, including operands that an earlier failure might skip.
+- PLUS with a sign-bit-set constant right operand adds one for the synthesized
+  constant. Otherwise the PLUS/MULT converted-inner-operation shortcut adds
+  `Q(inner_left)+1` to the preceding ordinary-child charge.
+- BIT_AND with a constant right operand adds two for its synthesized NEGATE
+  and constant. Include the original right operand too, because a failed
+  synthetic annotation can leave No_Uint and cause that original visit.
+
+The generated constant and NEGATE terminate directly; none introduces a
+larger symbolic recursion. Sum Q over the actual annotation roots. This
+recurrence is computable from the input shape using memoized mathematical
+weights, without executing GCC; the source-to-size-expression bridge still
+must supply that shape. Cache success can sharpen it, but failed attempts
+must not be counted only once per unique identity.
+
+For example, an unsupported leaf under nested
+`MULT(CONVERT(MULT(previous,c1)),c2)` can be visited twice per level. The
+unconditional recurrence above gives `Q_next=2*Q_previous+6`, starting at
+one. This illustrates why an unconditional linear forest-size bound is
+unjustified for this helper; it does not claim Silver generates every such
+tree. The selected shape/constant analysis may eliminate the shortcut or
+establish successful caching for a particular family.
+
+Each annotation visit requests at most one `Create_Node`, one cache entry,
+one dynamic-variable serial increment and one direct numerical conversion.
+`Create_Node` appends a four-field Rep_Table record and calls
+`UI_From_Int(-Rep_Table.Last)` (`repinfo.adb:233–246`). Separating the numerical
+routes gives this safe additive interface:
+
+```text
+Rep_Table additions                  <= Q
+GCC annotation-cache entry requests   <= Q
+dynamic-variable serial increments   <= Q
+UI_From_gnu calls                    <= Q
+direct UI_From_Int calls             <= 2Q  (including Create_Node)
+additional Uint entries              <= 3Q
+additional Uint digit words          <= 11Q.
+```
+
+`UI_From_gnu` returns No_Uint if its input does not fit signed 64 bits. If it
+fits signed 32 bits it calls UI_From_Int; otherwise a fixed five-word vector
+feeds Vector_To_Uint (`cuintp.cc:171–213`). UI_From_Int uses at most three
+words, and either conversion appends at most one Uint and its vector length
+(`uintp.adb:1466–1506,2361–2426`). Thus the 11Q digit allowance is 5Q+3(2Q).
+Count up to 3Q total UI_From_Int calls for its hash wrapper interface when
+the nested 32-bit route is included; this does not add another Uint charge.
+
+The 64-bit conversion's loop constructs one base constant and requests five
+each of constant ABS, MOD and DIV folds. Under the earlier at-most-128-bit
+scalar-constant frontier, the constant-only fold bound gives at most 31 scalar
+constant requests per conversion. Annotation itself contributes at most one
+additional scalar constant and one raw NEGATE node per visit. Its direct and
+conversion-induced GCC allocation interface is therefore at most 32Q scalar
+constant requests and Q ordinary unary nodes. No symbolic matcher call is
+hidden in these constant conversion operations.
+
+Rep_Table starts at one, initial 1000, growth 200%; its component has one
+small TCode and three 32-bit Uint fields (`repinfo.adb:71–85`,
+`repinfo.ads:124–128`, `alloc.ads:112–113`). A padded 32-byte component bound
+suffices on the selected native layout. Add Q to the existing fixed demand
+and apply the shared generic-table backing transfer, including append and
+negative-index conversion headroom. The dynamic serial is a signed int and
+needs its incoming value plus Q to fit INT_MAX. The GCC cache begins at 512
+slots and uses ordinary C++ hash growth; each LP64 `tree_int_map` entry is
+16 bytes (`tree-core.h:2336–2358`). Cache retention depends on GC marking, so
+do not infer a smaller lifetime charge solely from a final live count.
+
+This closes the **callback interface**, including failed-child retry behavior.
+Actual root counts and shapes, all fixed backend annotations, phase unlock/
+growth state and the separate representation-report path remain required in
+the whole native join. Independent allocation totals introduce no aggregate
+RAM admission gate.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main

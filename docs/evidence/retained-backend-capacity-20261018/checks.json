@@ -332,6 +332,26 @@
     {
       "path": "gcc/hwint.h",
       "sha256": "888841ebffd486a935a1ed8299ed3f74c71107d0cd59402b06a91483a2035f8a"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9"
+    },
+    {
+      "path": "gcc/ada/repinfo.adb",
+      "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085"
+    },
+    {
+      "path": "gcc/ada/repinfo.ads",
+      "sha256": "858db47e00f3283be7a1d7a731fee97984c82b38a4078b3b9836b534da52daad"
+    },
+    {
+      "path": "gcc/ada/alloc.ads",
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+    },
+    {
+      "path": "gcc/ada/uintp.adb",
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
     }
   ],
   "block_operations": {
@@ -1048,6 +1068,43 @@
     "parameter_bound_from_call_constructor": 268435449,
     "construction_substitution_body_inlining": false,
     "later_function_lowering_required": true,
+    "native_execution": false
+  },
+  "native_backannotation": {
+    "scope": "regular native annotation interface with structural failed-child retries; source roots and representation-only mode separate",
+    "retry_recurrence_examples": [
+      {
+        "converted_multiply_depth": 0,
+        "Q": 1
+      },
+      {
+        "converted_multiply_depth": 1,
+        "Q": 8
+      },
+      {
+        "converted_multiply_depth": 2,
+        "Q": 22
+      },
+      {
+        "converted_multiply_depth": 3,
+        "Q": 50
+      },
+      {
+        "converted_multiply_depth": 4,
+        "Q": 106
+      },
+      {
+        "converted_multiply_depth": 5,
+        "Q": 218
+      }
+    ],
+    "Rep_Table_and_cache_requests_per_Q": 1,
+    "Uint_entries_per_Q": 3,
+    "Uint_digits_per_Q": 11,
+    "scalar_constant_requests_per_Q": 32,
+    "ordinary_unary_requests_per_Q": 1,
+    "Rep_Table_component_bytes_upper": 32,
+    "annotation_cache_entry_bytes_lp64": 16,
     "native_execution": false
   },
   "size_extrema_helpers": {

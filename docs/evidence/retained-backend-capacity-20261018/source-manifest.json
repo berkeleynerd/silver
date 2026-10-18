@@ -682,6 +682,46 @@
       "archive": "bitmap-sources.tar.gz",
       "origin": "retained complete GCC source inventory",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hwint.h"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "git_blob_sha1": "dec64df3154cf547c74c790f7b8196c25077ab49",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/cuintp.cc"
+    },
+    {
+      "path": "gcc/ada/repinfo.adb",
+      "bytes": 84581,
+      "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085",
+      "git_blob_sha1": "aabeda0725ba72f99835d42afa26241f9d83dd9c",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/repinfo.adb"
+    },
+    {
+      "path": "gcc/ada/repinfo.ads",
+      "bytes": 21574,
+      "sha256": "858db47e00f3283be7a1d7a731fee97984c82b38a4078b3b9836b534da52daad",
+      "git_blob_sha1": "6a05f43a5af57932fa0c9e3fff4e4848c3f81947",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/repinfo.ads"
+    },
+    {
+      "path": "gcc/ada/alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+      "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/alloc.ads"
+    },
+    {
+      "path": "gcc/ada/uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "git_blob_sha1": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.adb"
     }
   ]
 }

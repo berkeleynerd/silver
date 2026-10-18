@@ -3,12 +3,12 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies eighty-three complete GCC source files at
+`source-manifest.json` identifies eighty-eight complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;
 six constant-pool/header/generator sources are in `pool-sources.tar.gz`.
-Five Ada files reuse the complete frontend inventory, and three generic GCC
+Ten Ada files reuse the complete frontend inventory, and three generic GCC
 files reuse the earlier emission archive. Eight vector/register/configuration
 sources are in `vector-sources.tar.gz`. Eight block-operation files are in
 `block-sources.tar.gz`. Seven cleanup/control-flow sources from the already
@@ -30,7 +30,7 @@ statistics and host-word configuration; its digest is recorded in
 `configuration-inventory.json`. This is a build-configuration premise, not
 binary attestation.
 
-`check.py` verifies all eighty-three complete-file hashes, checks reused identities
+`check.py` verifies all eighty-eight complete-file hashes, checks reused identities
 against their earlier manifests, extracts LF-numbered source ranges and
 recomputes local integer arithmetic, including ordinary-map growth and the two
 GNAT-node association backbones, constant-label mutation inventory and label
@@ -86,6 +86,10 @@ The generated-size-function continuation separately counts the variable-size
 caller sites, retains the constant-sided skip gate, construction and later
 gimplification paths, and distinguishes the two fixed-size String record
 forms. It leaves source-to-layout counts and transitive folding open.
+The native-backannotation continuation retains the failed-child retry path,
+regular-mode body-inlining exclusion and fixed scalar-conversion loops. It
+checks the structural recurrence's arithmetic and the resulting Uint/Rep_Table
+interfaces; actual source-derived roots and phase composition remain open.
 The bitmap continuation checks word/configuration and sparse fixed-object
 allocation facts, then evaluates dense size/vector products at representation
 boundaries. Linked sparse allocations have no aggregate byte-span gate; their

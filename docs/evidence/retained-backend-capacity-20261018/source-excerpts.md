@@ -3732,6 +3732,33 @@ LF line numbering; complete file identities checked.
 1871: };
 ```
 
+## gcc/tree-core.h:2336–2358
+```text
+2336: struct GTY(()) tree_map_base {
+2337:   tree from;
+2338: };
+2339:
+2340: /* Map from a tree to another tree.  */
+2341:
+2342: struct GTY((for_user)) tree_map {
+2343:   struct tree_map_base base;
+2344:   unsigned int hash;
+2345:   tree to;
+2346: };
+2347:
+2348: /* Map from a decl tree to another tree.  */
+2349: struct GTY((for_user)) tree_decl_map {
+2350:   struct tree_map_base base;
+2351:   tree to;
+2352: };
+2353:
+2354: /* Map from a tree to an int.  */
+2355: struct GTY((for_user)) tree_int_map {
+2356:   struct tree_map_base base;
+2357:   unsigned int to;
+2358: };
+```
+
 ## gcc/varasm.cc:870–920
 ```text
 870:
@@ -6638,6 +6665,209 @@ LF line numbering; complete file identities checked.
 7402:     }
 ```
 
+## gcc/ada/gcc-interface/decl.cc:9322–9520
+```text
+9322: annotate_value (tree gnu_size)
+9323: {
+9324:   static int var_count = 0;
+9325:   TCode tcode;
+9326:   Node_Ref_Or_Val ops[3] = { No_Uint, No_Uint, No_Uint };
+9327:   struct tree_int_map in;
+9328:
+9329:   /* See if we've already saved the value for this node.  */
+9330:   if (EXPR_P (gnu_size) || DECL_P (gnu_size))
+9331:     {
+9332:       struct tree_int_map *e;
+9333:
+9334:       in.base.from = gnu_size;
+9335:       e = annotate_value_cache->find (&in);
+9336:
+9337:       if (e)
+9338: 	return (Node_Ref_Or_Val) e->to;
+9339:     }
+9340:   else
+9341:     in.base.from = NULL_TREE;
+9342:
+9343:   /* If we do not return inside this switch, TCODE will be set to the
+9344:      code to be used in a call to Create_Node.  */
+9345:   switch (TREE_CODE (gnu_size))
+9346:     {
+9347:     case INTEGER_CST:
+9348:       /* For negative values, build NEGATE_EXPR of the opposite.  Such values
+9349: 	 can appear for discriminants in expressions for variants.  */
+9350:       if (tree_int_cst_sgn (gnu_size) < 0)
+9351: 	{
+9352: 	  tree t = wide_int_to_tree (sizetype, -wi::to_wide (gnu_size));
+9353: 	  tcode = Negate_Expr;
+9354: 	  ops[0] = UI_From_gnu (t);
+9355: 	}
+9356:       else
+9357: 	return TREE_OVERFLOW (gnu_size) ? No_Uint : UI_From_gnu (gnu_size);
+9358:       break;
+9359:
+9360:     case COMPONENT_REF:
+9361:       /* The only case we handle here is a simple discriminant reference.  */
+9362:       if (DECL_DISCRIMINANT_NUMBER (TREE_OPERAND (gnu_size, 1)))
+9363: 	{
+9364: 	  tree ref = gnu_size;
+9365: 	  gnu_size = TREE_OPERAND (ref, 1);
+9366:
+9367: 	  /* Climb up the chain of successive extensions, if any.  */
+9368: 	  while (TREE_CODE (TREE_OPERAND (ref, 0)) == COMPONENT_REF
+9369: 		 && DECL_NAME (TREE_OPERAND (TREE_OPERAND (ref, 0), 1))
+9370: 		    == parent_name_id)
+9371: 	    ref = TREE_OPERAND (ref, 0);
+9372:
+9373: 	  if (TREE_CODE (TREE_OPERAND (ref, 0)) == PLACEHOLDER_EXPR)
+9374: 	    {
+9375: 	      /* Fall through to common processing as a FIELD_DECL.  */
+9376: 	      tcode = Discrim_Val;
+9377: 	      ops[0] = UI_From_gnu (DECL_DISCRIMINANT_NUMBER (gnu_size));
+9378: 	    }
+9379: 	  else
+9380: 	    return No_Uint;
+9381: 	}
+9382:       else
+9383: 	return No_Uint;
+9384:       break;
+9385:
+9386:     case PARM_DECL:
+9387:     case VAR_DECL:
+9388:       tcode = Dynamic_Val;
+9389:       ops[0] = UI_From_Int (++var_count);
+9390:       break;
+9391:
+9392:     CASE_CONVERT:
+9393:     case NON_LVALUE_EXPR:
+9394:       return annotate_value (TREE_OPERAND (gnu_size, 0));
+9395:
+9396:       /* Now just list the operations we handle.  */
+9397:     case COND_EXPR:		tcode = Cond_Expr; break;
+9398:     case MINUS_EXPR:		tcode = Minus_Expr; break;
+9399:     case TRUNC_DIV_EXPR:	tcode = Trunc_Div_Expr; break;
+9400:     case CEIL_DIV_EXPR:		tcode = Ceil_Div_Expr; break;
+9401:     case FLOOR_DIV_EXPR:	tcode = Floor_Div_Expr; break;
+9402:     case TRUNC_MOD_EXPR:	tcode = Trunc_Mod_Expr; break;
+9403:     case CEIL_MOD_EXPR:		tcode = Ceil_Mod_Expr; break;
+9404:     case FLOOR_MOD_EXPR:	tcode = Floor_Mod_Expr; break;
+9405:     case EXACT_DIV_EXPR:	tcode = Exact_Div_Expr; break;
+9406:     case NEGATE_EXPR:		tcode = Negate_Expr; break;
+9407:     case MIN_EXPR:		tcode = Min_Expr; break;
+9408:     case MAX_EXPR:		tcode = Max_Expr; break;
+9409:     case ABS_EXPR:		tcode = Abs_Expr; break;
+9410:     case TRUTH_ANDIF_EXPR:
+9411:     case TRUTH_AND_EXPR:	tcode = Truth_And_Expr; break;
+9412:     case TRUTH_ORIF_EXPR:
+9413:     case TRUTH_OR_EXPR:		tcode = Truth_Or_Expr; break;
+9414:     case TRUTH_XOR_EXPR:	tcode = Truth_Xor_Expr; break;
+9415:     case TRUTH_NOT_EXPR:	tcode = Truth_Not_Expr; break;
+9416:     case LT_EXPR:		tcode = Lt_Expr; break;
+9417:     case LE_EXPR:		tcode = Le_Expr; break;
+9418:     case GT_EXPR:		tcode = Gt_Expr; break;
+9419:     case GE_EXPR:		tcode = Ge_Expr; break;
+9420:     case EQ_EXPR:		tcode = Eq_Expr; break;
+9421:     case NE_EXPR:		tcode = Ne_Expr; break;
+9422:
+9423:     case PLUS_EXPR:
+9424:       /* Turn addition of negative constant into subtraction.  */
+9425:       if (TREE_CODE (TREE_OPERAND (gnu_size, 1)) == INTEGER_CST
+9426: 	  && tree_int_cst_sign_bit (TREE_OPERAND (gnu_size, 1)))
+9427: 	{
+9428: 	  tcode = Minus_Expr;
+9429: 	  wide_int wop1 = -wi::to_wide (TREE_OPERAND (gnu_size, 1));
+9430: 	  ops[1] = annotate_value (wide_int_to_tree (sizetype, wop1));
+9431: 	  break;
+9432: 	}
+9433:
+9434:       /* ... fall through ... */
+9435:
+9436:     case MULT_EXPR:
+9437:       tcode = (TREE_CODE (gnu_size) == MULT_EXPR ? Mult_Expr : Plus_Expr);
+9438:       /* Fold conversions from bytes to bits into inner operations.  */
+9439:       if (TREE_CODE (TREE_OPERAND (gnu_size, 1)) == INTEGER_CST
+9440: 	  && CONVERT_EXPR_P (TREE_OPERAND (gnu_size, 0)))
+9441: 	{
+9442: 	  tree inner_op = TREE_OPERAND (TREE_OPERAND (gnu_size, 0), 0);
+9443: 	  if (TREE_CODE (inner_op) == TREE_CODE (gnu_size)
+9444: 	      && TREE_CODE (TREE_OPERAND (inner_op, 1)) == INTEGER_CST)
+9445: 	    {
+9446: 	      ops[0] = annotate_value (TREE_OPERAND (inner_op, 0));
+9447: 	      tree inner_op_op1 = TREE_OPERAND (inner_op, 1);
+9448: 	      tree gnu_size_op1 = TREE_OPERAND (gnu_size, 1);
+9449: 	      widest_int op1;
+9450: 	      if (TREE_CODE (gnu_size) == MULT_EXPR)
+9451: 		op1 = (wi::to_widest (inner_op_op1)
+9452: 		       * wi::to_widest (gnu_size_op1));
+9453: 	      else
+9454: 		{
+9455: 		  op1 = (wi::to_widest (inner_op_op1)
+9456: 			 + wi::to_widest (gnu_size_op1));
+9457: 		  if (wi::zext (op1, TYPE_PRECISION (sizetype)) == 0)
+9458: 		    return ops[0];
+9459: 		}
+9460: 	      ops[1] = annotate_value (wide_int_to_tree (sizetype, op1));
+9461: 	    }
+9462: 	}
+9463:       break;
+9464:
+9465:     case BIT_AND_EXPR:
+9466:       tcode = Bit_And_Expr;
+9467:       /* For negative values in sizetype, build NEGATE_EXPR of the opposite.
+9468: 	 Such values can appear in expressions with aligning patterns.  */
+9469:       if (TREE_CODE (TREE_OPERAND (gnu_size, 1)) == INTEGER_CST)
+9470: 	{
+9471: 	  wide_int wop1 = -wi::to_wide (TREE_OPERAND (gnu_size, 1));
+9472: 	  tree op1 = wide_int_to_tree (sizetype, wop1);
+9473: 	  ops[1] = annotate_value (build1 (NEGATE_EXPR, sizetype, op1));
+9474: 	}
+9475:       break;
+9476:
+9477:     case CALL_EXPR:
+9478:       /* In regular mode, inline back only if symbolic annotation is requested
+9479: 	 in order to avoid memory explosion on big discriminated record types.
+9480: 	 But not in ASIS mode, as symbolic annotation is required for DDA.  */
+9481:       if (List_Representation_Info >= 3 || type_annotate_only)
+9482: 	{
+9483: 	  tree t = maybe_inline_call_in_expr (gnu_size);
+9484: 	  return t ? annotate_value (t) : No_Uint;
+9485: 	}
+9486:       else
+9487: 	return Uint_Minus_1;
+9488:
+9489:     default:
+9490:       return No_Uint;
+9491:     }
+9492:
+9493:   /* Now get each of the operands that's relevant for this code.  If any
+9494:      cannot be expressed as a repinfo node, say we can't.  */
+9495:   for (int i = 0; i < TREE_CODE_LENGTH (TREE_CODE (gnu_size)); i++)
+9496:     if (ops[i] == No_Uint)
+9497:       {
+9498: 	ops[i] = annotate_value (TREE_OPERAND (gnu_size, i));
+9499: 	if (ops[i] == No_Uint)
+9500: 	  return No_Uint;
+9501:       }
+9502:
+9503:   Node_Ref_Or_Val ret = Create_Node (tcode, ops[0], ops[1], ops[2]);
+9504:
+9505:   /* Save the result in the cache.  */
+9506:   if (in.base.from)
+9507:     {
+9508:       struct tree_int_map **h;
+9509:       /* We can't assume the hash table data hasn't moved since the initial
+9510: 	 look up, so we have to search again.  Allocating and inserting an
+9511: 	 entry at that point would be an alternative, but then we'd better
+9512: 	 discard the entry if we decided not to cache it.  */
+9513:       h = annotate_value_cache->find_slot (&in, INSERT);
+9514:       gcc_assert (!*h);
+9515:       *h = ggc_alloc<tree_int_map> ();
+9516:       (*h)->base.from = in.base.from;
+9517:       (*h)->to = ret;
+9518:     }
+9519:
+9520:   return ret;
+```
+
 ## gcc/ada/gcc-interface/decl.cc:10460–10501
 ```text
 10460: create_field_decl_from (tree old_field, tree field_type, tree record_type,
@@ -6725,6 +6955,30 @@ LF line numbering; complete file identities checked.
 10721:   TYPE_SIZE (new_type) = variable_size (TYPE_SIZE (new_type));
 10722:   TYPE_SIZE_UNIT (new_type) = variable_size (TYPE_SIZE_UNIT (new_type));
 10723: }
+```
+
+## gcc/ada/gcc-interface/decl.cc:11324–11343
+```text
+11324: void
+11325: init_gnat_decl (void)
+11326: {
+11327:   /* Initialize the cache of annotated values.  */
+11328:   annotate_value_cache = hash_table<value_annotation_hasher>::create_ggc (512);
+11329:
+11330:   /* Initialize the association of dummy types with subprograms.  */
+11331:   dummy_to_subprog_map = hash_table<dummy_type_hasher>::create_ggc (512);
+11332: }
+11333:
+11334: /* Destroy the data structures of the decl.cc module.  */
+11335:
+11336: void
+11337: destroy_gnat_decl (void)
+11338: {
+11339:   /* Destroy the cache of annotated values.  */
+11340:   annotate_value_cache->empty ();
+11341:   annotate_value_cache = NULL;
+11342:
+11343:   /* Destroy the association of dummy types with subprograms.  */
 ```
 
 ## gcc/vec.h:220–260
@@ -16121,4 +16375,295 @@ LF line numbering; complete file identities checked.
 154: #  define HOST_WIDEST_FAST_INT long
 155: #  define HOST_BITS_PER_WIDEST_FAST_INT HOST_BITS_PER_LONG
 156: #endif
+```
+
+## gcc/ada/gcc-interface/cuintp.cc:163–213
+```text
+163: }
+164:
+165: /* Similar to UI_From_Int, but take a GCC INTEGER_CST.  We use UI_From_Int
+166:    when possible, i.e. for a 32-bit signed value, to take advantage of its
+167:    built-in caching mechanism.  For values of larger magnitude, we compute
+168:    digits into a vector and call Vector_To_Uint.  */
+169:
+170: Uint
+171: UI_From_gnu (tree Input)
+172: {
+173:   tree gnu_type = TREE_TYPE (Input), gnu_base, gnu_temp;
+174:   /* UI_Base is defined so that 5 Uint digits is sufficient to hold the
+175:      largest possible signed 64-bit value.  */
+176:   const int Max_For_Dint = 5;
+177:   int v[Max_For_Dint];
+178:   Vector_Template temp;
+179:   Int_Vector vec;
+180:
+181: #if HOST_BITS_PER_WIDE_INT < 64
+182: #error unsupported HOST_BITS_PER_WIDE_INT setting
+183: #endif
+184:
+185:   /* On 64-bit hosts, tree_fits_shwi_p tells whether the input fits in
+186:      a signed 64-bit integer.  Then a truncation tells whether it fits
+187:      in a signed 32-bit integer.  */
+188:   if (tree_fits_shwi_p (Input))
+189:     {
+190:       HOST_WIDE_INT hw_input = tree_to_shwi (Input);
+191:       if (hw_input == (int) hw_input)
+192: 	return UI_From_Int (hw_input);
+193:     }
+194:   else
+195:     return No_Uint;
+196:
+197:   gnu_base = build_int_cst (gnu_type, UI_Base);
+198:   gnu_temp = Input;
+199:
+200:   for (int i = Max_For_Dint - 1; i >= 0; i--)
+201:     {
+202:       v[i] = tree_to_shwi (fold_build1 (ABS_EXPR, gnu_type,
+203: 					fold_build2 (TRUNC_MOD_EXPR, gnu_type,
+204: 						     gnu_temp, gnu_base)));
+205:       gnu_temp = fold_build2 (TRUNC_DIV_EXPR, gnu_type, gnu_temp, gnu_base);
+206:     }
+207:
+208:   temp.Low_Bound = 1;
+209:   temp.High_Bound = Max_For_Dint;
+210:   vec.Bounds = &temp;
+211:   vec.Array = v;
+212:   return Vector_To_Uint (vec, tree_int_cst_sgn (Input) < 0);
+213: }
+```
+
+## gcc/ada/repinfo.adb:55–97
+```text
+55: with GNAT.HTable;
+56:
+57: package body Repinfo is
+58:
+59:    SSU : Pos renames Ttypes.System_Storage_Unit;
+60:    --  Value for Storage_Unit
+61:
+62:    ---------------------------------------
+63:    -- Representation of GCC Expressions --
+64:    ---------------------------------------
+65:
+66:    --    A table internal to this unit is used to hold the values of back
+67:    --    annotated expressions.
+68:
+69:    --    Node values are stored as Uint values using the negative of the node
+70:    --    index in this table. Constants appear as non-negative Uint values.
+71:
+72:    type Exp_Node is record
+73:       Expr : TCode;
+74:       Op1  : Node_Ref_Or_Val;
+75:       Op2  : Node_Ref_Or_Val;
+76:       Op3  : Node_Ref_Or_Val;
+77:    end record;
+78:
+79:    package Rep_Table is new Table.Table (
+80:       Table_Component_Type => Exp_Node,
+81:       Table_Index_Type     => Nat,
+82:       Table_Low_Bound      => 1,
+83:       Table_Initial        => Alloc.Rep_Table_Initial,
+84:       Table_Increment      => Alloc.Rep_Table_Increment,
+85:       Table_Name           => "BE_Rep_Table");
+86:
+87:    --------------------------------------------------------------
+88:    -- Representation of Front-End Dynamic Size/Offset Entities --
+89:    --------------------------------------------------------------
+90:
+91:    package Dynamic_SO_Entity_Table is new Table.Table (
+92:       Table_Component_Type => Entity_Id,
+93:       Table_Index_Type     => Nat,
+94:       Table_Low_Bound      => 1,
+95:       Table_Initial        => Alloc.Rep_Table_Initial,
+96:       Table_Increment      => Alloc.Rep_Table_Increment,
+97:       Table_Name           => "FE_Rep_Table");
+```
+
+## gcc/ada/repinfo.adb:233–246
+```text
+233:    function Create_Node
+234:      (Expr : TCode;
+235:       Op1  : Node_Ref_Or_Val;
+236:       Op2  : Node_Ref_Or_Val := No_Uint;
+237:       Op3  : Node_Ref_Or_Val := No_Uint) return Node_Ref
+238:    is
+239:    begin
+240:       Rep_Table.Append (
+241:         (Expr => Expr,
+242:          Op1  => Op1,
+243:          Op2  => Op2,
+244:          Op3  => Op3));
+245:       return UI_From_Int (-Rep_Table.Last);
+246:    end Create_Node;
+```
+
+## gcc/ada/repinfo.ads:119–160
+```text
+119:    --  is set to Uint_Minus_1.
+120:
+121:    subtype Node_Ref is Unegative;
+122:    --  Subtype used for negative Uint values used to represent nodes
+123:
+124:    subtype Node_Ref_Or_Val is Uint;
+125:    --  Subtype used for values that can be a Node_Ref (negative) or a value
+126:    --  (non-negative) or No_Uint.
+127:
+128:    type TCode is range 0 .. 27;
+129:    --  Type used on Ada side to represent DEFTREECODE values defined in
+130:    --  tree.def. Only a subset of these tree codes can actually appear.
+131:    --  The names are the names from tree.def in Ada casing.
+132:
+133:    --  name                             code   description     operands  symbol
+134:
+135:    Cond_Expr        : constant TCode :=  1; -- conditional          3      ?<>
+136:    Plus_Expr        : constant TCode :=  2; -- addition             2        +
+137:    Minus_Expr       : constant TCode :=  3; -- subtraction          2        -
+138:    Mult_Expr        : constant TCode :=  4; -- multiplication       2        *
+139:    Trunc_Div_Expr   : constant TCode :=  5; -- truncating div       2       /t
+140:    Ceil_Div_Expr    : constant TCode :=  6; -- div rounding up      2       /c
+141:    Floor_Div_Expr   : constant TCode :=  7; -- div rounding down    2       /f
+142:    Trunc_Mod_Expr   : constant TCode :=  8; -- mod for trunc_div    2     modt
+143:    Ceil_Mod_Expr    : constant TCode :=  9; -- mod for ceil_div     2     modc
+144:    Floor_Mod_Expr   : constant TCode := 10; -- mod for floor_div    2     modf
+145:    Exact_Div_Expr   : constant TCode := 11; -- exact div            2       /e
+146:    Negate_Expr      : constant TCode := 12; -- negation             1        -
+147:    Min_Expr         : constant TCode := 13; -- minimum              2      min
+148:    Max_Expr         : constant TCode := 14; -- maximum              2      max
+149:    Abs_Expr         : constant TCode := 15; -- absolute value       1      abs
+150:    Truth_And_Expr   : constant TCode := 16; -- boolean and          2      and
+151:    Truth_Or_Expr    : constant TCode := 17; -- boolean or           2       or
+152:    Truth_Xor_Expr   : constant TCode := 18; -- boolean xor          2      xor
+153:    Truth_Not_Expr   : constant TCode := 19; -- boolean not          1      not
+154:    Lt_Expr          : constant TCode := 20; -- comparison <         2        <
+155:    Le_Expr          : constant TCode := 21; -- comparison <=        2       <=
+156:    Gt_Expr          : constant TCode := 22; -- comparison >         2        >
+157:    Ge_Expr          : constant TCode := 23; -- comparison >=        2       >=
+158:    Eq_Expr          : constant TCode := 24; -- comparison =         2       ==
+159:    Ne_Expr          : constant TCode := 25; -- comparison /=        2       !=
+160:    Bit_And_Expr     : constant TCode := 26; -- bitwise and          2        &
+```
+
+## gcc/ada/alloc.ads:109–114
+```text
+109:    Pending_Instantiations_Initial   : constant := 10;         -- Inline
+110:    Pending_Instantiations_Increment : constant := 100;
+111:
+112:    Rep_Table_Initial                : constant := 1000;       -- Repinfo
+113:    Rep_Table_Increment              : constant := 200;
+114:
+```
+
+## gcc/ada/uintp.adb:1466–1506
+```text
+1466:    function UI_From_Int (Input : Int) return Valid_Uint is
+1467:       U : Uint;
+1468:
+1469:    begin
+1470:       if Min_Direct <= Input and then Input <= Max_Direct then
+1471:          return Valid_Uint (Int (Uint_Direct_Bias) + Input);
+1472:       end if;
+1473:
+1474:       --  If already in the hash table, return entry
+1475:
+1476:       U := UI_Ints.Get (Input);
+1477:
+1478:       if Present (U) then
+1479:          return U;
+1480:       end if;
+1481:
+1482:       --  For values of larger magnitude, compute digits into a vector and call
+1483:       --  Vector_To_Uint.
+1484:
+1485:       declare
+1486:          Max_For_Int : constant := 3;
+1487:          --  Base is defined so that 3 Uint digits is sufficient to hold the
+1488:          --  largest possible Int value.
+1489:
+1490:          V : UI_Vector (1 .. Max_For_Int);
+1491:
+1492:          Temp_Integer : Int := Input;
+1493:
+1494:       begin
+1495:          for J in reverse V'Range loop
+1496:             V (J) := abs (Temp_Integer rem Base);
+1497:             Temp_Integer := Temp_Integer / Base;
+1498:          end loop;
+1499:
+1500:          U := Vector_To_Uint (V, Input < Int_0);
+1501:          UI_Ints.Set (Input, U);
+1502:          Uints_Min := Uints.Last;
+1503:          Udigits_Min := Udigits.Last;
+1504:          return U;
+1505:       end;
+1506:    end UI_From_Int;
+```
+
+## gcc/ada/uintp.adb:2361–2426
+```text
+2361:    function Vector_To_Uint
+2362:      (In_Vec   : UI_Vector;
+2363:       Negative : Boolean) return Valid_Uint
+2364:    is
+2365:       Size : Int;
+2366:       Val  : Int;
+2367:
+2368:    begin
+2369:       --  The vector can contain leading zeros. These are not stored in the
+2370:       --  table, so loop through the vector looking for first non-zero digit
+2371:
+2372:       for J in In_Vec'Range loop
+2373:          if In_Vec (J) /= Int_0 then
+2374:
+2375:             --  The length of the value is the length of the rest of the vector
+2376:
+2377:             Size := In_Vec'Last - J + 1;
+2378:
+2379:             --  One digit value can always be represented directly
+2380:
+2381:             if Size = Int_1 then
+2382:                if Negative then
+2383:                   return Valid_Uint (Int (Uint_Direct_Bias) - In_Vec (J));
+2384:                else
+2385:                   return Valid_Uint (Int (Uint_Direct_Bias) + In_Vec (J));
+2386:                end if;
+2387:
+2388:             --  Positive two digit values may be in direct representation range
+2389:
+2390:             elsif Size = Int_2 and then not Negative then
+2391:                Val := In_Vec (J) * Base + In_Vec (J + 1);
+2392:
+2393:                if Val <= Max_Direct then
+2394:                   return Valid_Uint (Int (Uint_Direct_Bias) + Val);
+2395:                end if;
+2396:             end if;
+2397:
+2398:             --  The value is outside the direct representation range and must
+2399:             --  therefore be stored in the table. Expand the table to contain
+2400:             --  the count and digits. The index of the new table entry will be
+2401:             --  returned as the result.
+2402:
+2403:             Uints.Append ((Length => Size, Loc => Udigits.Last + 1));
+2404:
+2405:             if Negative then
+2406:                Val := -In_Vec (J);
+2407:             else
+2408:                Val := +In_Vec (J);
+2409:             end if;
+2410:
+2411:             Udigits.Append (Val);
+2412:
+2413:             for K in 2 .. Size loop
+2414:                Udigits.Append (In_Vec (J + K - 1));
+2415:             end loop;
+2416:
+2417:             return Uints.Last;
+2418:          end if;
+2419:       end loop;
+2420:
+2421:       --  Dropped through loop only if vector contained all zeros
+2422:
+2423:       return Uint_0;
+2424:    end Vector_To_Uint;
+2425:
+2426: end Uintp;
 ```
