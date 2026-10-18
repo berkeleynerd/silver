@@ -160,6 +160,19 @@ The [batch review](../reviews/review-literal-frontend-and-imported-frontier-20fb
 accepts the Main attachment, finding and repair without new material findings.
 It preserves the actual imported-frontier derivation as unfinished #119 work.
 
+The subsequent [cold String layout argument](retained-literal-string-layout.md),
+[independently reviewed](../reviews/review-literal-string-layout-bd15740afc.md),
+establishes exactly two size helpers for the first complete Standard.String
+conversion, with no canonical-array/XUT/XVE multiplier. Both are initially
+gimplified and registered before Main's initial lowering, then discarded
+before ordinary helper lowering, IPA, RTL or emission. Symbol UID/order,
+function-definition and private size-name counters each retain a +2 increment.
+Review corrected the XVE field-size explanation in `696a8a995d`: its variable
+field becomes a constant-size pointer; the exported zero-helper result is
+unchanged. Warning residual R, helper allocation totals and the affected
+counter/storage/emission joins remain open. Discard does not erase their
+earlier costs or restore the aggregate conditions by itself.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
@@ -231,6 +244,18 @@ It preserves each selected driver's exact preparation order. This transfer
 still requires actual term/context dimensions after `update_task` and preceding
 transforms; registration counts do not supply them. Hidden substitution work,
 non-kernel validators, other tags and shared backing remain separate obligations.
+
+The [actual preparation-entry packet](retained-why-preparation-entry.md) now
+provides one retained Input_Is_Valid/cvc5 entry: 512 task nodes, 143 mapped
+roots and opened mass 1,793. Offline decoding checks all 157 binder payloads,
+including delayed substitutions and triggers. The successful managed capture
+stops before inlining, printing or prover submission and is not rerun. This
+supplies dimensions for one pair, not all 459 possible pairs. Applying the
+existing generic recurrence already exceeds the representable integer bound
+at logical declaration 37; this is loss of upper-bound precision, not observed
+overflow. A symbol-sensitive, occurrence-weighted refinement and the remaining
+driver/validator/storage/printing joins are still required. Independent review
+of this new capture/decoder packet is pending.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

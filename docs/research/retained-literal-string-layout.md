@@ -21,6 +21,11 @@ pins GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea` and the historical
 Silver inputs. Its offline checks support the source argument; no native
 observation or machine-checked C++ semantics is claimed.
 
+The [independent review](../reviews/review-literal-string-layout-bd15740afc.md)
+accepted the exported result at `bd15740afc`, with the XVE source-description
+correction in `696a8a995d` confirmed separately. The frozen evidence records
+retain their original pre-review status; this note records the disposition.
+
 ## Inputs and the cold conversion
 
 Retain exactly one `with Silver_IO;`, Main/SPARK shell, C >= 1 qualified
@@ -238,5 +243,6 @@ Selected agent settings: GPT-6 Astra / Extra High, assigned by parent;
 runtime confirmation and token/cost evidence unavailable. Round start
 20:01:46 UTC; completion/elapsed time is recorded in the check result.
 Native executions: zero. This round resolved the two-function layout and
-discard boundary, with persistent counter corrections; independent review
-is pending. Only this research note and its evidence directory were edited.
+discard boundary, with persistent counter corrections. Independent review
+accepted those conclusions after the source-description correction above.
+The original worker edited only this research note and its evidence directory.
