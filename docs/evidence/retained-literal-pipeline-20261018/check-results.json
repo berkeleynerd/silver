@@ -1,5 +1,5 @@
 {
-  "case_count": 46,
+  "case_count": 62,
   "cases": [
     {
       "case": "retained",
@@ -299,6 +299,90 @@
       "case": "initial_SSA_dominance_extent_536870908",
       "nulls": 536870908,
       "fits": false
+    },
+    {
+      "case": "initial_CFG_map_growth_16",
+      "nulls": 16,
+      "block_requests": 1,
+      "label_requests": 1
+    },
+    {
+      "case": "initial_CFG_map_growth_17",
+      "nulls": 17,
+      "block_requests": 2,
+      "label_requests": 1
+    },
+    {
+      "case": "initial_CFG_map_growth_19",
+      "nulls": 19,
+      "block_requests": 4,
+      "label_requests": 1
+    },
+    {
+      "case": "initial_CFG_map_growth_20",
+      "nulls": 20,
+      "block_requests": 5,
+      "label_requests": 2
+    },
+    {
+      "case": "initial_EH_hash_envelope_14",
+      "nulls": 14,
+      "slots": 31
+    },
+    {
+      "case": "initial_EH_hash_envelope_15",
+      "nulls": 15,
+      "slots": 61
+    },
+    {
+      "case": "initial_discriminator_hash_envelope_3",
+      "calls": 3,
+      "slots": 31
+    },
+    {
+      "case": "initial_discriminator_hash_envelope_4",
+      "calls": 4,
+      "slots": 61
+    },
+    {
+      "case": "initial_discriminator_prime_region_357913939",
+      "calls": 357913939,
+      "fits": true
+    },
+    {
+      "case": "initial_discriminator_prime_region_357913940",
+      "calls": 357913940,
+      "fits": false
+    },
+    {
+      "case": "initial_local_decl_normalized_vector_1073741823",
+      "calls": 1073741823,
+      "fits": true
+    },
+    {
+      "case": "initial_local_decl_normalized_vector_1073741824",
+      "calls": 1073741824,
+      "fits": false
+    },
+    {
+      "case": "initial_CFG_normalized_vector_1073741819",
+      "nulls": 1073741819,
+      "fits": true
+    },
+    {
+      "case": "initial_CFG_normalized_vector_1073741820",
+      "nulls": 1073741820,
+      "fits": false
+    },
+    {
+      "case": "initial_CFG_bitmap_extent_124",
+      "nulls": 124,
+      "elements": 1
+    },
+    {
+      "case": "initial_CFG_bitmap_extent_125",
+      "nulls": 125,
+      "elements": 2
     }
   ],
   "all_checks_pass": true,

@@ -96,6 +96,7 @@
     "native_graph_and_summary_lifetime": true,
     "native_SSA_helper_backing": true,
     "native_initial_SSA_lifetime": true,
+    "native_initial_CF_CFG_lifetime": true,
     "Main_assembler_object_interface": true,
     "Main_GAS_BFD_storage": true,
     "Why_core": true,
@@ -1052,6 +1053,205 @@
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#initial-ssa-lifetime"
   },
+  "native_initial_CF_CFG_lifetime": {
+    "source_input": {
+      "calls": 1,
+      "nulls": 0,
+      "ordinary_blocks_upper": 2,
+      "initial_CFG_block_slots_upper": 4,
+      "initial_edges_upper": 3,
+      "initial_label_UID_requests_upper": 1,
+      "post_goto_statements_upper": 5
+    },
+    "individual_GGC_request_groups": [
+      {
+        "object": "CF return goto and label tuples",
+        "requests_upper": 2,
+        "raw_bytes_upper": 80
+      },
+      {
+        "object": "CF return LABEL_DECL",
+        "requests_upper": 1,
+        "raw_bytes_upper": 256
+      },
+      {
+        "object": "local-declaration vector backing",
+        "requests_upper": 1,
+        "raw_bytes_upper": 64
+      },
+      {
+        "object": "initial CFG control",
+        "requests_upper": 1,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "initial CFG blocks including entry and exit",
+        "requests_upper": 4,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "initial CFG block-map backing",
+        "requests_upper": 1,
+        "raw_bytes_upper": 256
+      },
+      {
+        "object": "initial CFG label-map backing",
+        "requests_upper": 1,
+        "raw_bytes_upper": 256
+      },
+      {
+        "object": "initial CFG edges",
+        "requests_upper": 3,
+        "raw_bytes_upper": 64
+      },
+      {
+        "object": "initial CFG predecessor and successor vectors",
+        "requests_upper": 6,
+        "raw_bytes_upper": 64
+      },
+      {
+        "object": "initial loops control",
+        "requests_upper": 1,
+        "raw_bytes_upper": 32
+      },
+      {
+        "object": "initial root loop",
+        "requests_upper": 1,
+        "raw_bytes_upper": 1024
+      },
+      {
+        "object": "initial root-loop exit sentinel",
+        "requests_upper": 1,
+        "raw_bytes_upper": 32
+      },
+      {
+        "object": "initial root-loop vector",
+        "requests_upper": 1,
+        "raw_bytes_upper": 16
+      }
+    ],
+    "ordinary_requests": {
+      "CF_return_record_vector_bytes": 136,
+      "EH_hash_control_bytes_upper": 128,
+      "EH_hash_live_entries_upper": 1,
+      "EH_hash_slots_upper": 31,
+      "EH_hash_backing_requests_upper": 2,
+      "EH_hash_each_backing_bytes_upper": 248,
+      "EH_finally_record_requests_upper": 1,
+      "EH_finally_record_bytes": 16,
+      "label_array_requests": 2,
+      "label_array_bytes_each_upper": 64,
+      "discriminator_hash_live_entries_upper": 8,
+      "discriminator_hash_slots_upper": 31,
+      "discriminator_hash_backing_requests_upper": 9,
+      "discriminator_hash_each_backing_bytes_upper": 372,
+      "cleanup_preorder_stack_bytes_upper": 328,
+      "cleanup_dense_visited_bitmap_bytes_upper": 16,
+      "empty_edge_case_hash_control_bytes_upper": 128,
+      "empty_edge_case_hash_backing_bytes": 208,
+      "shared_default_bitmap_headers_upper": 3,
+      "shared_altered_bitmap_live_elements_upper": 1,
+      "shared_altered_bitmap_fresh_elements_upper": 1,
+      "shared_other_bitmap_elements": 0,
+      "root_loop_reverse_order_array_bytes_upper": 16,
+      "root_loop_preorder_stack_bytes_upper": 328,
+      "root_loop_candidate_vector_bytes": 16
+    },
+    "normalized_GC_vectors": {
+      "local_declarations": {
+        "requested_slots_upper": 4,
+        "raw_bytes_upper": 64,
+        "normalized_capacity_upper": 7
+      },
+      "block_map": {
+        "requested_slots_upper": 20,
+        "raw_bytes_upper": 256,
+        "normalized_capacity_upper": 31
+      },
+      "label_map": {
+        "requested_slots_upper": 20,
+        "raw_bytes_upper": 256,
+        "normalized_capacity_upper": 31
+      }
+    },
+    "initial_forward_dominance": {
+      "cold_forward_dominance_unsigned_arrays": 9,
+      "cold_forward_dominance_unsigned_arrays_bytes_each_upper": 16,
+      "cold_forward_dominance_pointer_array_bytes_upper": 32,
+      "cold_forward_dominance_order_array_bytes_upper": 20,
+      "cold_forward_dominance_edge_iterator_array_bytes_upper": 80,
+      "live_ET_nodes_upper": 4,
+      "live_ET_occurrences_upper": 8,
+      "ET_node_pool_blocks_upper": 1,
+      "ET_occurrence_pool_blocks_upper": 1,
+      "each_ET_pool_block_bytes": 65536
+    },
+    "additional_GGC_request_events_upper": 24,
+    "additional_singleton_finalizer_registrations_upper": 0,
+    "additional_DECL_UID_events_upper": 1,
+    "additional_GIMPLE_tuple_count_upper": 2,
+    "additional_CF_block_location_requests_upper": 5,
+    "discriminator_assignment_calls_upper": 8,
+    "discriminator_block_ID_endpoint_upper": 5,
+    "additional_discriminator_location_requests_upper": 8,
+    "direct_gimplifier_interface": {
+      "individual_GGC_request_groups": [
+        {
+          "object": "initial one-argument call tuple",
+          "requests_upper": 1,
+          "raw_bytes_upper": 256
+        },
+        {
+          "object": "initial store/goto/label/return/bind tuple",
+          "requests_upper": 4,
+          "raw_bytes_upper": 128
+        },
+        {
+          "object": "gimplifier descriptor VAR_DECL",
+          "requests_upper": 1,
+          "raw_bytes_upper": 312
+        },
+        {
+          "object": "descriptor and field INIT_EXPR",
+          "requests_upper": 3,
+          "raw_bytes_upper": 40
+        },
+        {
+          "object": "descriptor field COMPONENT_REF",
+          "requests_upper": 2,
+          "raw_bytes_upper": 48
+        }
+      ],
+      "direct_site_GGC_request_events_upper": 11,
+      "additional_DECL_UID_events_upper": 1,
+      "temporary_identifier_misses": 0,
+      "initial_tuple_requests_upper": 5,
+      "context_bytes_upper": 128,
+      "bind_stack_bytes": 72,
+      "compound_lvalue_stack_heap_growth": false,
+      "complete_gimplifier_lifetime_closed": false,
+      "missing": [
+        "Whole-body deep unsharing and declaration/type-field ingress.",
+        "Copies and folding beneath constructor materialization, address/type helpers, warnings and shared caches."
+      ]
+    },
+    "conditional_initial_CF_CFG_lifetime_closed": true,
+    "local_representation_checks": {
+      "CFG_block_edge_and_dominance_signed": true,
+      "label_UID_signed_endpoint": true,
+      "GC_vector_growth_unsigned": true,
+      "GC_vector_normalized_capacity_31_bit": true,
+      "GC_vector_byte_products": true,
+      "EH_hash_prime_and_probe": true,
+      "discriminator_hash_prime_and_probe": true,
+      "discriminator_block_ID_and_value": true,
+      "bitmap_rounding_unsigned": true,
+      "ordinary_byte_products": true
+    },
+    "shared_metadata_bitmap_ET_pool_and_global_counters_closed": false,
+    "whole_native_pipeline_capacity_established": false,
+    "source_argument": "docs/research/retained-literal-pipeline.md#initial-cf-eh-cfg-and-root-loop-lifetime"
+  },
   "Main_assembler_object_interface": {
     "counts": {
       "calls": 1,
@@ -1498,16 +1698,18 @@
   },
   "open_joins": {
     "native_remaining_lifetime_and_collector": {
-      "next_consumer": "complete frontend/gigi/initial-GIMPLE and CF/CFG constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.",
+      "next_consumer": "complete frontend/gigi and gimplifier ingress/helper lifetimes, then remaining pass, shared-pool and GGC collector composition.",
       "available": {
         "graph_scan_count_upper": 4,
         "call_edge_creation_events_upper": 4,
         "new_pool_lifecycle_GGC_events_upper": 10,
         "new_graph_lifecycle_GGC_events_upper": 41,
         "ranger_and_out_of_SSA_backing_closed": true,
-        "initial_SSA_GGC_events_upper": 17
+        "initial_SSA_GGC_events_upper": 17,
+        "initial_CF_CFG_GGC_events_upper": 24,
+        "direct_gimplifier_GGC_events_upper": 11
       },
-      "missing": "Complete source/gigi/initial-GIMPLE and CF/CFG constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
+      "missing": "Complete frontend/gigi and gimplifier deep-unsharing/type-field ingress, materialization copies/folding and shared-helper lifetimes; join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. Initial CF/EH/CFG/root-loop constructors are joined with explicit shared metadata/bitmap/ET demand. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -1665,8 +1867,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 63,
-  "external_source_files_verified": 262,
+  "fixed_input_count": 64,
+  "external_source_files_verified": 265,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

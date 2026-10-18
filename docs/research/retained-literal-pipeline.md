@@ -10,8 +10,9 @@ declaration lifecycle and shared tree/assembler-name backing now have a
 source-derived join. The direct-call graph and IPA-summary lifetime now also
 have a conditional join, and the literal-sized ranger/out-of-SSA backing is
 substituted. Initial SSA infrastructure and renaming also have a separate
-constructor delta. The next native consumer is the remaining frontend,
-gimplifier and CF/CFG construction, followed by shared collector composition.
+constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
+conditional join. The next native consumer is the remaining frontend/gigi and
+gimplifier ingress/helper lifetime, followed by shared collector composition.
 No production rule or option changed; #119 remains incomplete.
 
 ## One source counter interface
@@ -737,14 +738,201 @@ route excludes verification recomputations. `4B<=INT_MAX` protects the
 walk/DFS/depth intermediates already established by the general CFG argument;
 bitmap rounding and ordinary byte products have separate checks.
 
+## Initial CF, EH, CFG and root-loop lifetime
+
+`native_initial_cf_cfg_lifetime(C, N, context)` closes the direct initial
+CF/EH/CFG/root-loop constructor interface **given the established initial
+GIMPLE shape**. It also exposes a separate list of direct gimplifier requests;
+that list does not establish a complete gimplifier lifetime. The aggregate
+joins its block, edge, label and statement counts exactly to the existing
+literal lowering callable. The selected O0/no-debug/no-checking, no local EH
+and whole-unit preservation premises remain unchanged.
+
+Write `b=N+2`, `B=N+4`, `E=N+3`, `H=N+1` and `S=3C+N+2` for ordinary blocks,
+block-index slots, edges, labels and live statements after goto consumption.
+There is one initial CF lowering, EH lowering, CFG construction/cleanup and
+root-loop setup. Later TODO/pass cleanup is not multiplied into this initial
+invocation. Shared source metadata, bitmap/ET pool backing and global counters
+receive explicit interfaces below and remain outside this local closure.
+
+### CF and EH constructors
+
+The existing literal route has one final bare return and no earlier return,
+TRY, cleanup, setjmp, nonlocal label or local handler. CF lowering reuses the
+return and constructs one LABEL_DECL plus a goto and label tuple; there is
+one live entry in the eight-entry, 136-byte return-record vector
+(`gimple-low.cc:122–214,1178–1223`). Pointer stores and ordinary output calls
+retain fallthrough. No fallback return is constructed. The fixed tuple and
+LABEL_DECL ceilings transfer from the pinned null initial-GIMPLE layout:
+80 and 256 raw bytes respectively. No null lifetime subtotal is reused.
+
+The C generated descriptor declarations are attached to the outer bind only
+after body gimplification. `lower_gimple_bind` records them once through
+`record_vars_into` and `add_local_decl`; other binding declarations are not
+VAR_DECLs (`gimplify.cc:404–415`; `gimple-low.cc:908–982,1438–1468`;
+`function.cc:7137–7141`). Thus the initially empty GGC local-declaration vector
+receives at most C pushes and at most C backing requests. It cannot inherit
+the null body's empty-vector cost. Reconnecting existing BLOCK/declaration
+chains does not allocate new nodes.
+
+EH refactoring has no TRY to transform. The void calls have no LHS and there
+is no local region, so EH lowering creates no temporary assignment, landing
+pad, queued goto or region. Nevertheless its finally tree is constructed
+eagerly and receives one 16-byte record per label, at most H
+(`tree-eh.cc:200–259,702–715,2064–2141,2245–2275`). Its ordinary hash control
+is at most 128 bytes. With `prime(q)` the least retained GCC prime at least q,
+each backing is bounded by `8*prime(max(31,2H))`, with at most `1+H` backing
+requests. This includes growth before an insertion; zero local EH regions
+does not imply zero label-hash population. All records have null parents.
+The empty EH bitmap contributes one shared default-obstack header.
+
+### CFG construction and GGC vectors
+
+Initialization creates one CFG control, entry/exit and at most b ordinary
+blocks. The source layouts retain ceilings 128 bytes for each control/block
+and 64 bytes per edge (`cfg.cc:66–85,139–145,278–292`; `tree-cfg.cc:145–215,
+631–663`). There are at most E edges. Every block on the selected path has
+one incoming and one outgoing edge, with entry/exit endpoints, so each edge
+needs at most one new predecessor and one new successor backing. Those
+initial four-pointer requests normalize to at most 64 bytes each.
+
+The initial block and label maps each have logical length 20. Creating a
+new block can grow the first once; assigning a first label UID can grow the
+second once (`tree-cfg.cc:631–663`; `gimple.cc:1904–1931`). Therefore their
+backing-request counts are bounded by
+`1+max(0,B-20)` and `1+max(0,H-20)`. The final block-array adjustment adds no
+growth: block creation already covers every index. The bound counts possible
+requests even where previously normalized spare capacity avoids allocation.
+All H label UIDs are local, starting at zero, and their signed endpoint is
+checked separately from translation-unit DECL_UIDs.
+
+For a pointer vector with extent x and initial request a, use
+
+```text
+V(x,a) = next_power_of_two(8+8*max(a,2x));
+effective_capacity(x,a) = (V(x,a)-8)//8.
+```
+
+The local vector uses `V(C,4)`, the block map `V(B,20)` and the label map
+`V(H,20)`. This is the accepted GC-normalization transfer from the SSA join,
+including unsigned `3x` growth intermediates, the effective 31-bit capacity
+and LP64 byte products. It bounds the request *after* normalization rather
+than substituting logical length for capacity. The callable returns the
+individual requests and sums only their event counts.
+
+Dead-label cleanup runs twice and allocates two 16B-byte ordinary label arrays.
+The selected no-join/no-abnormal path creates no additional label, statement,
+edge or edge-vector growth during cleanup. Forwarder removal returns on its
+single-predecessor/single-successor guard; O0 refuses merges across protected
+user labels. Successful merges only remove a block/edge and transfer the
+existing successor vector (`tree-cfgcleanup.cc:476–519,871–896`;
+`tree-cfg.cc:1850–1935,2100–2160`; `cfghooks.cc:842–921`). No PHI or scalar
+definition exists yet to trigger replacement statements or SSA updates.
+
+### Discriminators and ordinary cleanup backing
+
+`assign_discriminators` visits at most S surviving statements and E edge
+locations, with no PHI operands. It therefore makes at most
+**K=S+E=3C+2N+5** insertion-capable map calls
+(`tree-cfg.cc:1085–1187`). Equal locations can avoid a call but are not assumed.
+The map starts at 13 slots, has 12-byte entries, and is bounded by
+`12*prime(max(13,2K))` bytes per backing and `1+K` backing requests. The map's
+control is stack-resident. This replaces the null body's fixed 156-byte
+backing, which does not cover arbitrary C/N or source-line variation.
+
+The source increments its unsigned block identifier after **each call**, not
+just after CFG blocks. Since every ordinary block has one successor, its
+endpoint is at most **C+2b**; each per-line discriminator changes at most once
+per such segment. Both counters are covered by the explicit endpoint check.
+The hash conditions retain the prime ceiling and unsigned probe-index sum
+`2p-3<=UINT_MAX`. The hash implementation's separate unsigned search/collision
+statistics are not indexes and can wrap with defined unsigned semantics;
+the selected invocation does not use their diagnostic ratios for allocation
+or compilation decisions.
+
+At most K calls reach `location_with_discriminator`. CF's `lower_stmt` also
+makes at most `3C+2N+2` block-location reassociation calls
+(`gimple-low.cc:695–705`; `gimple.h:1934–1936`). These counts are exported to
+the still-open source-location/adhoc-map lifetime; their subsidiary backing
+is not hidden in the CFG GGC delta. Gimplifier-side metadata calls remain
+part of its separate helper interface.
+
+Initial cleanup requests a preorder edge-iterator stack bounded by
+`8+16*max(20,B+2)` and a dense visited bitmap bounded by `8+8*ceil(B/64)`
+(`tree-cfgcleanup.cc:994–1011`). Its altered-block and touched-switch maps
+add two shared bitmap headers; the touched-switch and earlier EH maps stay
+empty. The altered map has indices below B and at most `ceil(B/128)` live
+40-byte elements. Clearing its first set bit releases an emptied element
+before processing that block; subsequent insertions reuse the default
+freelist. No other selected helper in this cleanup populates a sparse bitmap,
+so at most the same number of fresh element objects is needed. This is an
+interface to shared chunk accounting, not a fixed single-chunk claim.
+The eagerly constructed edge-case hash is empty, with control at most 128
+bytes and 208-byte backing (`tree-cfg.cc:1246–1280`).
+
+### Dominance and the root loop
+
+Initial cleanup computes one forward dominance forest; loop discovery reuses
+it and assigns fast-query numbers. The returned cold-demand fields reuse the
+accepted SSA dominance transfer at the same B: nine 4B-byte arrays, one
+8B-byte pointer array, order/iterator arrays of 4(B+1)/16(B+1), B ET nodes
+and at most 2B occurrences. Shared pool coexistence remains open. The optional
+cold field in the SSA result is a conservative alternative demand, not a
+requirement to reconstruct the same preserved forest. The local `4B<=INT_MAX`
+condition protects the established DFS, depth and walk arithmetic.
+
+`loop_optimizer_init(AVOID_CFG_MODIFICATIONS)` discovers no backedge and
+creates only a loops control (32 bytes), root loop (1024), exit sentinel
+(32) and single-pointer GGC vector (16)
+(`tree-cfg.cc:328–345`; `cfgloop.cc:340–380,416–450`;
+`loop-init.cc:43–78,86–133`). Its ordinary requests are a 4B-byte reverse-order
+array, `8+16*max(20,B+1)` preorder stack and 16-byte candidate vector, even
+though the candidate list stays empty. No inner loop, superloop vector,
+recorded-exit hash or extra CFG operation is selected. The fixed inline
+wide-integer loop fields need no dynamic backing. These CFG/root types have
+trivial destructors, so this constructor family adds no singleton finalizer.
+
+### Direct gimplifier interface and the remaining boundary
+
+The source-established initial sequence requires C one-argument call tuples,
+at most 2C stores, N goto/label pairs, one return and one outer bind. Raw
+ceilings are 256 bytes for a call and 128 for the other tuples; these
+conservatively charge the GIMPLE header, virtual-use fields, two call
+points-to records and four call operand positions
+(`gimple.h:220–379`; `gimple.cc:139–181,251–264`). No separate sequence-link
+object is required: tuple links are embedded. The original return is already
+included here and is reused by the CF component.
+
+The selected materialization directly creates C 312-byte descriptor VAR_DECLs,
+C outer and 2C field INIT_EXPRs (40 bytes each), and 2C COMPONENT_REFs (48)
+(`gimplify.cc:629–721,6157–6284`). The constructor has no name, so `get_name`
+returns null and `create_tmp_var_raw` requests no temporary identifier
+(`tree.cc:12055–12083`; `gimple-expr.cc:439–466`). The context is at most
+128 ordinary bytes and its one binding stack is 72 bytes. Component-lvalue
+walks have one reference and fit their ten inline pointers
+(`gimplify.cc:347–434,3504–3555`). These explicitly listed direct sites give
+**9C+2N+2** GGC events and C additional DECL_UID increments.
+
+That direct-site subtotal deliberately excludes copies made by
+`unshare_expr(val)`, address/constructor folding and their shared type/cache
+helpers. Earlier still, `gimplify_body` runs `unshare_body` over the body and
+declaration/type fields (`gimplify.cc:938–1050,21745–21775`); the executable
+statement count alone does not bound that ingress. The callable keeps
+`complete_gimplifier_lifetime_closed=false`. Its next obligation is to join
+these source-named helper and gigi/type-field lifetimes, not to replace them
+with the null body's allowance. The CF constructor delta and direct gimplifier
+subtotal are returned separately so later composition can retain this boundary.
+
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
-repair. The remaining constructor join must cover source/frontend, gigi,
-gimplifier and CF/CFG lifetimes, existing RTL/DF/helper ceilings, shared
+repair. The remaining constructor join must cover source/frontend, gigi and
+gimplifier ingress/helper lifetimes, existing RTL/DF/helper ceilings, shared
 identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
 pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
-ordinary requests; the established warning gates are retained. The separate
+ordinary requests; initial CF/EH/CFG/root-loop constructors now provide their
+separate event sum and shared metadata/bitmap/ET demand. The established warning
+gates are retained. The separate
 `5C+5`, `8C+33` and initial-SSA `6C+10+L` deltas are usable inputs, not the complete sum; no
 40,098-event null allowance is reused.
 
@@ -856,3 +1044,16 @@ creation counter open despite the per-phase name bound. The packet passes
 GC-vector boundary and the dominance extent. No native tool ran. Independent
 review remains pending against the frozen implementation commit; whole-pipeline
 capacity remains false.
+
+The next constructor round retains selected GPT-6 Astra / Extra High, with
+runtime identity, elapsed time and token/cost measurements unavailable. It
+closes the initial CF/EH/CFG/root-loop interface and exposes the direct
+gimplifier subtotal separately. Source inspection prevented transferring the
+null program's fixed EH/discriminator hash sizes and identified the per-call
+discriminator-ID increments. It also kept whole-body deep unsharing and
+folding/shared-helper work open rather than inferring their lifetime from
+the executable shape. The packet passes 62 offline cases, including map
+growth, hash prime regions, normalized vectors and sparse-bitmap extents.
+No native tool ran. The new constructor interface is frozen for independent
+review; the earlier initial-SSA review is accepted in `d91ef84ef6`. Whole
+pipeline capacity remains false.

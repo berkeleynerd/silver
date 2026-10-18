@@ -462,6 +462,124 @@ def native_initial_ssa_lifetime(c, n, context):
         source_argument='docs/research/retained-literal-pipeline.md#initial-ssa-lifetime')
 
 
+def native_initial_cf_cfg_lifetime(c, n, context):
+    """Initial CF/EH/CFG/root-loop constructors, given the established GIMPLE shape.
+
+    Direct gimplifier sites are exposed separately: their count does not close
+    deep unsharing, expression folding, shared type helpers or metadata.
+    """
+    require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
+            'literal initial CF/CFG counters')
+    b, blocks, edges, labels = n+2, n+4, n+3, n+1
+    post_goto_statements = 3*c+n+2
+    discriminator_calls = post_goto_statements+edges
+    discriminator_endpoint = c+2*b
+    prime = lambda request: next((p for p in context.primes if p>=request),None)
+    eh_slots = prime(max(31,2*labels))
+    discrim_slots = prime(max(13,2*discriminator_calls))
+
+    def gc_vector(extent, initial):
+        requested = max(initial,2*extent)
+        raw = 1 << (8+8*requested-1).bit_length()
+        return dict(requested_slots_upper=requested,raw_bytes_upper=raw,
+                    normalized_capacity_upper=(raw-8)//8)
+
+    vectors = dict(local_declarations=gc_vector(c,4),
+                   block_map=gc_vector(blocks,20),label_map=gc_vector(labels,20))
+    block_backings = 1+max(0,blocks-20)
+    label_backings = 1+max(0,labels-20)
+    ggc = [
+        dict(object='CF return goto and label tuples',requests_upper=2,raw_bytes_upper=80),
+        dict(object='CF return LABEL_DECL',requests_upper=1,raw_bytes_upper=256),
+        dict(object='local-declaration vector backing',requests_upper=c,
+             raw_bytes_upper=vectors['local_declarations']['raw_bytes_upper']),
+        dict(object='initial CFG control',requests_upper=1,raw_bytes_upper=128),
+        dict(object='initial CFG blocks including entry and exit',requests_upper=blocks,raw_bytes_upper=128),
+        dict(object='initial CFG block-map backing',requests_upper=block_backings,
+             raw_bytes_upper=vectors['block_map']['raw_bytes_upper']),
+        dict(object='initial CFG label-map backing',requests_upper=label_backings,
+             raw_bytes_upper=vectors['label_map']['raw_bytes_upper']),
+        dict(object='initial CFG edges',requests_upper=edges,raw_bytes_upper=64),
+        dict(object='initial CFG predecessor and successor vectors',requests_upper=2*edges,raw_bytes_upper=64),
+        dict(object='initial loops control',requests_upper=1,raw_bytes_upper=32),
+        dict(object='initial root loop',requests_upper=1,raw_bytes_upper=1024),
+        dict(object='initial root-loop exit sentinel',requests_upper=1,raw_bytes_upper=32),
+        dict(object='initial root-loop vector',requests_upper=1,raw_bytes_upper=16)]
+    # This list deliberately identifies direct sites, not a whole-gimplifier sum.
+    direct = [
+        dict(object='initial one-argument call tuple',requests_upper=c,raw_bytes_upper=256),
+        dict(object='initial store/goto/label/return/bind tuple',requests_upper=2*c+2*n+2,raw_bytes_upper=128),
+        dict(object='gimplifier descriptor VAR_DECL',requests_upper=c,raw_bytes_upper=312),
+        dict(object='descriptor and field INIT_EXPR',requests_upper=3*c,raw_bytes_upper=40),
+        dict(object='descriptor field COMPONENT_REF',requests_upper=2*c,raw_bytes_upper=48)]
+    ordinary = dict(
+        CF_return_record_vector_bytes=136,
+        EH_hash_control_bytes_upper=128,EH_hash_live_entries_upper=labels,
+        EH_hash_slots_upper=eh_slots,EH_hash_backing_requests_upper=1+labels,
+        EH_hash_each_backing_bytes_upper=None if eh_slots is None else 8*eh_slots,
+        EH_finally_record_requests_upper=labels,EH_finally_record_bytes=16,
+        label_array_requests=2,label_array_bytes_each_upper=16*blocks,
+        discriminator_hash_live_entries_upper=discriminator_calls,
+        discriminator_hash_slots_upper=discrim_slots,
+        discriminator_hash_backing_requests_upper=1+discriminator_calls,
+        discriminator_hash_each_backing_bytes_upper=None if discrim_slots is None else 12*discrim_slots,
+        cleanup_preorder_stack_bytes_upper=8+16*max(20,blocks+2),
+        cleanup_dense_visited_bitmap_bytes_upper=8+8*((blocks+63)//64),
+        empty_edge_case_hash_control_bytes_upper=128,empty_edge_case_hash_backing_bytes=208,
+        shared_default_bitmap_headers_upper=3,
+        shared_altered_bitmap_live_elements_upper=(blocks+127)//128,
+        shared_altered_bitmap_fresh_elements_upper=(blocks+127)//128,
+        shared_other_bitmap_elements=0,
+        root_loop_reverse_order_array_bytes_upper=4*blocks,
+        root_loop_preorder_stack_bytes_upper=8+16*max(20,blocks+1),
+        root_loop_candidate_vector_bytes=16)
+    initial_ssa = native_initial_ssa_lifetime(c,n,context)['ordinary_requests']
+    dominance = {k:v for k,v in initial_ssa.items()
+                 if k.startswith(('cold_forward_dominance_','live_ET_','ET_','each_ET_'))}
+    checks = dict(
+        CFG_block_edge_and_dominance_signed=4*blocks <= I32,
+        label_UID_signed_endpoint=labels <= I32,
+        GC_vector_growth_unsigned=3*max(c,blocks,labels) <= 2**32-1,
+        GC_vector_normalized_capacity_31_bit=all(v['normalized_capacity_upper'] <= I32 for v in vectors.values()),
+        GC_vector_byte_products=all(v['raw_bytes_upper'] <= I64 for v in vectors.values()),
+        EH_hash_prime_and_probe=eh_slots is not None and 2*eh_slots-3 <= 2**32-1,
+        discriminator_hash_prime_and_probe=discrim_slots is not None and 2*discrim_slots-3 <= 2**32-1,
+        discriminator_block_ID_and_value=discriminator_endpoint <= 2**32-1,
+        bitmap_rounding_unsigned=blocks+127 <= 2**32-1,
+        ordinary_byte_products=max(16*blocks,8+16*max(20,blocks+2),
+            0 if eh_slots is None else 8*eh_slots,
+            0 if discrim_slots is None else 12*discrim_slots) <= I64)
+    return dict(source_input=dict(calls=c,nulls=n,ordinary_blocks_upper=b,
+                                  initial_CFG_block_slots_upper=blocks,initial_edges_upper=edges,
+                                  initial_label_UID_requests_upper=labels,
+                                  post_goto_statements_upper=post_goto_statements),
+        individual_GGC_request_groups=ggc,ordinary_requests=ordinary,
+        normalized_GC_vectors=vectors,initial_forward_dominance=dominance,
+        additional_GGC_request_events_upper=sum(g['requests_upper'] for g in ggc),
+        additional_singleton_finalizer_registrations_upper=0,
+        additional_DECL_UID_events_upper=1,
+        additional_GIMPLE_tuple_count_upper=2,
+        additional_CF_block_location_requests_upper=3*c+2*n+2,
+        discriminator_assignment_calls_upper=discriminator_calls,
+        discriminator_block_ID_endpoint_upper=discriminator_endpoint,
+        additional_discriminator_location_requests_upper=discriminator_calls,
+        direct_gimplifier_interface=dict(
+            individual_GGC_request_groups=direct,
+            direct_site_GGC_request_events_upper=sum(g['requests_upper'] for g in direct),
+            additional_DECL_UID_events_upper=c,temporary_identifier_misses=0,
+            initial_tuple_requests_upper=3*c+2*n+2,
+            context_bytes_upper=128,bind_stack_bytes=72,
+            compound_lvalue_stack_heap_growth=False,
+            complete_gimplifier_lifetime_closed=False,
+            missing=['Whole-body deep unsharing and declaration/type-field ingress.',
+                     'Copies and folding beneath constructor materialization, address/type helpers, warnings and shared caches.']),
+        conditional_initial_CF_CFG_lifetime_closed=all(checks.values()),
+        local_representation_checks=checks,
+        shared_metadata_bitmap_ET_pool_and_global_counters_closed=False,
+        whole_native_pipeline_capacity_established=False,
+        source_argument='docs/research/retained-literal-pipeline.md#initial-cf-eh-cfg-and-root-loop-lifetime')
+
+
 def evaluate(descriptor_path, context, source_override=None):
     descriptor_path = Path(descriptor_path).resolve()
     descriptor = read(descriptor_path)
@@ -510,6 +628,7 @@ def evaluate(descriptor_path, context, source_override=None):
     graph = native_graph_lifetime(c,n,context)
     ssa_helpers = native_ssa_helper_backing(c,n,context)
     initial_ssa = native_initial_ssa_lifetime(c,n,context)
+    initial_cf_cfg = native_initial_cf_cfg_lifetime(c,n,context)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -534,6 +653,13 @@ def evaluate(descriptor_path, context, source_override=None):
             native['initial_SSA']['SSA_name_vector_length_upper'] and
             initial_ssa['initial_SSA_operand_slab_requested_bytes_upper'] ==
             native['initial_SSA']['operand_slab_requested_bytes_upper'], 'literal initial SSA join')
+    require(initial_cf_cfg['source_input'] == dict(
+        calls=c,nulls=n,ordinary_blocks_upper=native['CF_EH_CFG']['ordinary_blocks_upper'],
+        initial_CFG_block_slots_upper=native['CF_EH_CFG']['block_index_slots_upper'],
+        initial_edges_upper=native['CF_EH_CFG']['edges_upper'],
+        initial_label_UID_requests_upper=native['CF_EH_CFG']['label_UID_requests_upper'],
+        post_goto_statements_upper=native['CF_EH_CFG']['live_CFG_statements_upper']),
+        'literal initial CF/CFG shape join')
     assembler = context.assembler['evaluate'](raw,context.assembler_context)
     require(assembler['source_identity'] == identity(raw) and
             assembler['counts'] == dict(calls=c,nulls=n,
@@ -565,6 +691,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
         native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
         native_initial_SSA_lifetime=initial_ssa['conditional_initial_SSA_lifetime_closed'],
+        native_initial_CF_CFG_lifetime=initial_cf_cfg['conditional_initial_CF_CFG_lifetime_closed'],
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         Why_core=selected_why['literal_Main_core_fits'],
@@ -575,13 +702,15 @@ def evaluate(descriptor_path, context, source_override=None):
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'complete frontend/gigi/initial-GIMPLE and CF/CFG constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.',
+            'next_consumer':'complete frontend/gigi and gimplifier ingress/helper lifetimes, then remaining pass, shared-pool and GGC collector composition.',
             'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
                              new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
                              new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
                              ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed'],
-                             initial_SSA_GGC_events_upper=initial_ssa['additional_GGC_request_events_upper']),
-            'missing':'Complete source/gigi/initial-GIMPLE and CF/CFG constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
+                             initial_SSA_GGC_events_upper=initial_ssa['additional_GGC_request_events_upper'],
+                             initial_CF_CFG_GGC_events_upper=initial_cf_cfg['additional_GGC_request_events_upper'],
+                             direct_gimplifier_GGC_events_upper=initial_cf_cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper']),
+            'missing':'Complete frontend/gigi and gimplifier deep-unsharing/type-field ingress, materialization copies/folding and shared-helper lifetimes; join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. Initial CF/EH/CFG/root-loop constructors are joined with explicit shared metadata/bitmap/ET demand. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -604,6 +733,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
         native_pool_lifetime=pools,native_graph_lifetime=graph,native_SSA_helper_backing=ssa_helpers,
         native_initial_SSA_lifetime=initial_ssa,
+        native_initial_CF_CFG_lifetime=initial_cf_cfg,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         Why_core=why,selected_Why_core=selected_why,

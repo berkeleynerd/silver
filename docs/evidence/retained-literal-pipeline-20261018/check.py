@@ -91,6 +91,14 @@ def main():
             assert initial['additional_singleton_finalizer_registrations_upper']==1
             assert initial['additional_global_SSA_name_creation_events_upper']==3*c+1
             assert not initial['global_SSA_creation_counter_lifetime_closed']
+            cfg=result['native_initial_CF_CFG_lifetime']
+            assert cfg['conditional_initial_CF_CFG_lifetime_closed']
+            assert cfg['source_input']['initial_CFG_block_slots_upper']==n+4
+            assert cfg['source_input']['post_goto_statements_upper']==3*c+n+2
+            assert cfg['additional_singleton_finalizer_registrations_upper']==0
+            assert cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper']==9*c+2*n+2
+            assert not cfg['direct_gimplifier_interface']['complete_gimplifier_lifetime_closed']
+            assert not cfg['shared_metadata_bitmap_ET_pool_and_global_counters_closed']
             assembler=result['Main_assembler_object_interface']
             assert assembler['local_interface_fits']
             storage=result['Main_GAS_BFD_storage']
@@ -241,6 +249,44 @@ def main():
             assert ordinary['walk_preorder_stack_bytes_upper']==8+16*(n+5)
             assert initial['conditional_initial_SSA_lifetime_closed']==expected
             rows.append(dict(case='initial_SSA_dominance_extent_'+str(n),nulls=n,fits=expected))
+        for n,block_requests,label_requests in ((16,1,1),(17,2,1),(19,4,1),(20,5,2)):
+            cfg=module.native_initial_cf_cfg_lifetime(1,n,context)
+            groups={g['object']:g for g in cfg['individual_GGC_request_groups']}
+            assert groups['initial CFG block-map backing']['requests_upper']==block_requests
+            assert groups['initial CFG label-map backing']['requests_upper']==label_requests
+            assert groups['initial CFG predecessor and successor vectors']['requests_upper']==2*(n+3)
+            assert cfg['conditional_initial_CF_CFG_lifetime_closed']
+            rows.append(dict(case='initial_CFG_map_growth_'+str(n),nulls=n,
+                             block_requests=block_requests,label_requests=label_requests))
+        for n,slots in ((14,31),(15,61)):
+            cfg=module.native_initial_cf_cfg_lifetime(1,n,context)
+            assert cfg['ordinary_requests']['EH_hash_slots_upper']==slots
+            rows.append(dict(case='initial_EH_hash_envelope_'+str(n),nulls=n,slots=slots))
+        for c,slots in ((3,31),(4,61)):
+            cfg=module.native_initial_cf_cfg_lifetime(c,0,context)
+            assert cfg['ordinary_requests']['discriminator_hash_slots_upper']==slots
+            assert cfg['discriminator_assignment_calls_upper']==3*c+5
+            assert cfg['discriminator_block_ID_endpoint_upper']==c+4
+            rows.append(dict(case='initial_discriminator_hash_envelope_'+str(c),calls=c,slots=slots))
+        boundary=(1073741823-5)//3
+        for c,expected in ((boundary,True),(boundary+1,False)):
+            cfg=module.native_initial_cf_cfg_lifetime(c,0,context)
+            assert cfg['local_representation_checks']['discriminator_hash_prime_and_probe']==expected
+            assert cfg['conditional_initial_CF_CFG_lifetime_closed']==expected
+            rows.append(dict(case='initial_discriminator_prime_region_'+str(c),calls=c,fits=expected))
+        for c,expected in ((1073741823,True),(1073741824,False)):
+            cfg=module.native_initial_cf_cfg_lifetime(c,0,context)
+            assert cfg['local_representation_checks']['GC_vector_normalized_capacity_31_bit']==expected
+            rows.append(dict(case='initial_local_decl_normalized_vector_'+str(c),calls=c,fits=expected))
+        for n,expected in ((1073741819,True),(1073741820,False)):
+            cfg=module.native_initial_cf_cfg_lifetime(1,n,context)
+            assert cfg['local_representation_checks']['GC_vector_normalized_capacity_31_bit']==expected
+            rows.append(dict(case='initial_CFG_normalized_vector_'+str(n),nulls=n,fits=expected))
+        for n,elements in ((124,1),(125,2)):
+            cfg=module.native_initial_cf_cfg_lifetime(1,n,context)
+            assert cfg['ordinary_requests']['shared_altered_bitmap_live_elements_upper']==elements
+            assert cfg['ordinary_requests']['shared_altered_bitmap_fresh_elements_upper']==elements
+            rows.append(dict(case='initial_CFG_bitmap_extent_'+str(n),nulls=n,elements=elements))
     result=dict(case_count=len(rows),cases=rows,all_checks_pass=True,
                 native_tool_executions=0,whole_literal_pipeline_capacity_established=False)
     args.output.write_text(json.dumps(result,indent=2)+'\n')
