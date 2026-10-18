@@ -480,6 +480,326 @@
       "path": "gcc/target.def",
       "bytes": 349626,
       "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    },
+    {
+      "path": "gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "path": "gcc/cfghooks.cc",
+      "bytes": 45042,
+      "sha256": "cc9020e0a6cf256aa1b02b8d8d05977b82212e1266e0acc36cce47f6424f4c32"
+    },
+    {
+      "path": "gcc/cse.cc",
+      "bytes": 240025,
+      "sha256": "23209573e8355647e0a3eb8c895e7e21ab23d220b0959b4cbda5cff8b2b49325"
+    },
+    {
+      "path": "gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "path": "gcc/df-core.cc",
+      "bytes": 73101,
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "path": "gcc/stack-ptr-mod.cc",
+      "bytes": 3285,
+      "sha256": "2f8e85f23f8396edeafa1e9887c5624431f18972b7b00d3271cbbebae28e304c"
+    },
+    {
+      "path": "gcc/reginfo.cc",
+      "bytes": 39713,
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "path": "gcc/mode-switching.cc",
+      "bytes": 41576,
+      "sha256": "342ea847c94e896a502ca9f898e524233a8750b1a584a698d21bb03b25aa7bdc"
+    },
+    {
+      "path": "gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "path": "gcc/common.opt",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "path": "gcc/config/i386/i386-passes.def",
+      "bytes": 1723,
+      "sha256": "c762beb64ffdb3a2bbd11ac8950a20eea6a7feb37e33580adc1e880a6f31e9a1"
+    },
+    {
+      "path": "gcc/config/i386/i386-features.cc",
+      "bytes": 154425,
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f"
+    },
+    {
+      "path": "gcc/config/i386/predicates.md",
+      "bytes": 71950,
+      "sha256": "5075f3aae42a16baab5e7e9c9fdab376b7cfcfea81f0f9ca53d55e1db9ecbf87"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "path": "gcc/ira-costs.cc",
+      "bytes": 88610,
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "path": "gcc/expmed.cc",
+      "bytes": 212451,
+      "sha256": "2acdfff77f692abe44fc09e377a531026dfad4f72d20242776c0eb4166b96c9b"
+    },
+    {
+      "path": "gcc/cfgloopanal.cc",
+      "bytes": 17707,
+      "sha256": "71881e9ad95f2e5699a889b10aaa0dfaf4d3a1bc8c116bcf9e3c8ba7cea2a39b"
+    },
+    {
+      "path": "gcc/alias.cc",
+      "bytes": 112284,
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "path": "gcc/params.opt",
+      "bytes": 67891,
+      "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f"
+    },
+    {
+      "path": "gcc/fwprop.cc",
+      "bytes": 33900,
+      "sha256": "5f47c4b15bb38847b910ac950203822cbfdb55c98002b4572c41b85575cefda5"
+    },
+    {
+      "path": "gcc/cprop.cc",
+      "bytes": 57775,
+      "sha256": "5cf06c392a2739beb22d7e1ecf892b94ebd41b41dc63bd89435f423b37cd49fe"
+    },
+    {
+      "path": "gcc/gcse.cc",
+      "bytes": 132336,
+      "sha256": "5876219b5e067e14a72f275a32a3d5ed08cb36bc076bae6cd2f65ce12e4d414a"
+    },
+    {
+      "path": "gcc/store-motion.cc",
+      "bytes": 35272,
+      "sha256": "e0e66ed69bbbe387710297ced7121439ce59e1b1c5ccd3612751f8840fac604a"
+    },
+    {
+      "path": "gcc/ifcvt.cc",
+      "bytes": 186213,
+      "sha256": "89610dc131ff28c3c570b64177ded7882de5a1bd680086befc69efbbc127af28"
+    },
+    {
+      "path": "gcc/loop-init.cc",
+      "bytes": 16620,
+      "sha256": "475ea3527abbea9ca7582753bc9ebea01ecfd6bbae3c62cedc63af2dfe9ecb92"
+    },
+    {
+      "path": "gcc/web.cc",
+      "bytes": 12744,
+      "sha256": "77300202c5493019d18f8de165b20091c271c0e25410907d716df57741374be3"
+    },
+    {
+      "path": "gcc/dse.cc",
+      "bytes": 114786,
+      "sha256": "8e4b5a7b7591a1563499a9815ce6db3cc8fe43406b2b095da09afa0d9f04328d"
+    },
+    {
+      "path": "gcc/auto-inc-dec.cc",
+      "bytes": 52046,
+      "sha256": "2bb2142bfc281295c5da3b56cacc722d6b0207f2770277760e56b4b3c9d29194"
+    },
+    {
+      "path": "gcc/init-regs.cc",
+      "bytes": 4759,
+      "sha256": "e070c07ac8cdd87e4dbb76183ea1b7c96ec772144dbf68f43b7b4a19bc9e5fe1"
+    },
+    {
+      "path": "gcc/dce.cc",
+      "bytes": 35652,
+      "sha256": "ce426b6a0c772d45b9612714550cc966ce9cd0c2d1e4275f517daee1efca0099"
+    },
+    {
+      "path": "gcc/ext-dce.cc",
+      "bytes": 45093,
+      "sha256": "9d2263ea694c43acbfc0393e42598120d9ff42013aa7a1c9026b23b52fd2a946"
+    },
+    {
+      "path": "gcc/combine.cc",
+      "bytes": 504429,
+      "sha256": "0d640ad6db7f7f86b2590cdeae0a2a5478c8cda7990b4da62e98c0e4c570e595"
+    },
+    {
+      "path": "gcc/late-combine.cc",
+      "bytes": 31087,
+      "sha256": "abe7f11eb59f0cadef2994860d5f57e6412ad1a17045af9cb78c8851ecac53f4"
+    },
+    {
+      "path": "gcc/bb-reorder.cc",
+      "bytes": 95021,
+      "sha256": "16a1b38367359cc0ecc61eaf1222daeccde19184bfc87d506d79a44b6a0eaef2"
+    },
+    {
+      "path": "gcc/modulo-sched.cc",
+      "bytes": 101945,
+      "sha256": "76ef7a7f7869aadf3977acc1701ad9c261eab6678503428d27a715b8399a0f9f"
+    },
+    {
+      "path": "gcc/sched-rgn.cc",
+      "bytes": 111823,
+      "sha256": "fb4172386f76f8845f68ed15cfcebda59b1e02c26d88eee2ae8ab5ae468962c2"
+    },
+    {
+      "path": "gcc/avoid-store-forwarding.cc",
+      "bytes": 20316,
+      "sha256": "13d5f86841bf6e9704454feefe432b8fb5017be81dea1034a3f6bd9f9a0b1cfd"
+    },
+    {
+      "path": "gcc/early-remat.cc",
+      "bytes": 81606,
+      "sha256": "9a61e0acba785933f297bfb8e147261ca679df93f32eb19696bfdb4dae7eb79b"
+    },
+    {
+      "path": "gcc/dep-fusion.cc",
+      "bytes": 4066,
+      "sha256": "bb0d598c087cfec762c31c11244397751ceb421d3230c9c0daf2a0d1916f75d9"
+    },
+    {
+      "path": "gcc/config/i386/pentium.md",
+      "bytes": 11001,
+      "sha256": "3d86ef21af08beb9802472b8c9bb681cd3b65ee4bc2b8a0cb3890dcd599c7029"
+    },
+    {
+      "path": "gcc/config/i386/ppro.md",
+      "bytes": 27441,
+      "sha256": "499c2e0849aa72a25a3c7c242e8e85cbe369425504351896511b5a6befc4f7e1"
+    },
+    {
+      "path": "gcc/config/i386/k6.md",
+      "bytes": 10000,
+      "sha256": "e7f77a101ab0b88a1d8b8f6672af9d5b4872f4afc8e3842189378eff03c9de35"
+    },
+    {
+      "path": "gcc/config/i386/athlon.md",
+      "bytes": 51799,
+      "sha256": "bb4c6e0d3449e41ff6f56880c8fbdc9bf448860bac0b198ed54593321b9d30b0"
+    },
+    {
+      "path": "gcc/config/i386/bdver1.md",
+      "bytes": 35642,
+      "sha256": "53725cbe312aa11697a669ce05a7fa6d915f2957fe217726c40b4839cc960f63"
+    },
+    {
+      "path": "gcc/config/i386/bdver3.md",
+      "bytes": 33665,
+      "sha256": "d22aa408c8f086d87ab7a432050b560d0b97f2fa54c8729562a29fd65f111699"
+    },
+    {
+      "path": "gcc/config/i386/btver2.md",
+      "bytes": 49822,
+      "sha256": "0ce51b319cdf1632ac7cd8902eae28c22324670118028ac9c8d0efe304b8179c"
+    },
+    {
+      "path": "gcc/config/i386/znver.md",
+      "bytes": 50401,
+      "sha256": "0acfd3754c883e1ef792f4ba058cf1e9f8bee7329bfbab6a21ccc89fb4cc2576"
+    },
+    {
+      "path": "gcc/config/i386/zn4zn5.md",
+      "bytes": 68237,
+      "sha256": "562b5b4ec75b6d950e2d22e54ab576c30de5faed8a2adf4f99dc0f2d5baea28f"
+    },
+    {
+      "path": "gcc/config/i386/geode.md",
+      "bytes": 4634,
+      "sha256": "6633784fd9f7f58fc5e0334ff21f13fcc0724a556dec63d6e9ee71e29980d4fc"
+    },
+    {
+      "path": "gcc/config/i386/atom.md",
+      "bytes": 28256,
+      "sha256": "f78870916a314dd33d295accc67370bc2b6060e671719dc8559b207659041991"
+    },
+    {
+      "path": "gcc/config/i386/slm.md",
+      "bytes": 25849,
+      "sha256": "704585ff5db111ebed6aa3e27378dddf09a5da93d72bc511022bd94a6479c0d3"
+    },
+    {
+      "path": "gcc/config/i386/glm.md",
+      "bytes": 22332,
+      "sha256": "368bdc7fb2826a436b34152c1bf8b47c7f98dd56728fc23c0bf653e4c6b6718a"
+    },
+    {
+      "path": "gcc/config/i386/core2.md",
+      "bytes": 25222,
+      "sha256": "5505e50eb296f96bd14f846ed9f256bdb5b96a18b33a8373274ee96d4f4d9cfb"
+    },
+    {
+      "path": "gcc/config/i386/haswell.md",
+      "bytes": 22034,
+      "sha256": "caa5a6e9c5dd29e2da976d5cbd2b9bb278b3f941e48b7a1e81339025d77de3f9"
+    },
+    {
+      "path": "gcc/config/i386/lujiazui.md",
+      "bytes": 28071,
+      "sha256": "acd432a415d22de937bd0cb6b5c0bda0bc90e63ce7286928e08604fd8667e5da"
+    },
+    {
+      "path": "gcc/config/i386/yongfeng.md",
+      "bytes": 31074,
+      "sha256": "bad46d093abc2c819df405e79d05d01e529187820c887ef5889c3c3edfcdf68f"
+    },
+    {
+      "path": "gcc/config/i386/constraints.md",
+      "bytes": 18453,
+      "sha256": "dddc5eb7a550e5db9fc4350024877d9917728985697e17ed1f8059ef17dbebed"
+    },
+    {
+      "path": "gcc/config/i386/mmx.md",
+      "bytes": 226884,
+      "sha256": "34f2f6ff61792b6bc7c2b0a58f6ef07427c6a90873bbbc65e8ad8bc81b022562"
+    },
+    {
+      "path": "gcc/config/i386/sse.md",
+      "bytes": 1170312,
+      "sha256": "a5afc2af3435e4d510595f974d326f1449d0835043b35053c39760d7f7139fca"
+    },
+    {
+      "path": "gcc/config/i386/sync.md",
+      "bytes": 40614,
+      "sha256": "d228fdb6e9b63bb0c9f927be33bee61c4159580eca2ce825daa1b5ff0d988bfd"
+    },
+    {
+      "path": "gcc/config/i386/subst.md",
+      "bytes": 20122,
+      "sha256": "57109d346ec72f87c926980e9f33a58eacf2e6f2e58fcbc3bc44a022eea18c61"
     }
   ],
   "silver_main_api_files": [

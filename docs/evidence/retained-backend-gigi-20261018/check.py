@@ -166,6 +166,71 @@ RANGES = {
     "gcc/target.def": [(2140, 2155), (6268, 6278)],
 
 }
+# The next O0 shape join includes target pass insertion and lazy RTL setup.
+# Empty excerpt lists still pin complete files used to exclude optimization
+# gates or machine-description split patterns.
+EXTRA_RANGES = {
+    "gcc/passes.def": [(463, 577)],
+    "gcc/passes.cc": [(622, 749)],
+    "gcc/function.cc": [(1550, 1804), (1807, 2039), (4980, 5043), (7172, 7190)],
+    "gcc/cfgrtl.cc": [(1854, 1963), (3741, 3815), (3893, 3958),
+                     (4072, 4227), (4296, 4320), (4555, 4640), (4891, 4994)],
+    "gcc/cfg.cc": [(278, 294), (1068, 1073)],
+    "gcc/cfghooks.cc": [(684, 756)],
+    "gcc/cfgcleanup.cc": [(3222, 3247), (3269, 3293)],
+    "gcc/cse.cc": [(7073, 7120), (7662, 7680), (7736, 7754), (7812, 7831)],
+    "gcc/recog.cc": [(3492, 3615), (4508, 4533), (4749, 4767)],
+    "gcc/emit-rtl.cc": [(3942, 3971)],
+    "gcc/df-core.cc": [(684, 714), (731, 795)],
+    "gcc/stack-ptr-mod.cc": [(82, 116)],
+    "gcc/reginfo.cc": [(532, 538), (934, 982)],
+    "gcc/mode-switching.cc": [(795, 839), (1299, 1326)],
+    "gcc/lower-subreg.cc": [(278, 301), (1793, 1810), (1835, 1855), (1880, 1898)],
+    "gcc/opts.cc": [(588, 621), (1475, 1521)],
+    "gcc/common.opt": [(1293, 1295), (1313, 1315), (2498, 2500),
+                        (2809, 2811), (3025, 3031)],
+    "gcc/config/i386/i386-passes.def": [(20, 40)],
+    "gcc/config/i386/i386-features.cc": [(2913, 2931), (2946, 2962),
+                                         (3182, 3188), (3212, 3220),
+                                         (4319, 4325), (5012, 5018), (5200, 5206)],
+    "gcc/config/i386/i386-options.cc": [(1885, 1930), (1991, 2002), (3299, 3334)],
+    "gcc/config/i386/i386.cc": [(1831, 1840), (13013, 13042), (17893, 17901)],
+    "gcc/config/i386/i386.h": [(2619, 2661)],
+    "gcc/config/i386/i386.md": [(1413, 1435), (23762, 23766), (30807, 30809)],
+    "gcc/config/i386/predicates.md": [(685, 687)],
+    "gcc/toplev.cc": [(1791, 1828), (1871, 1887)],
+    "gcc/ira.cc": [(1654, 1661), (1702, 1715), (5671, 5693),
+                    (5745, 5753), (5814, 5847), (6205, 6228), (6250, 6269)],
+    "gcc/ira-costs.cc": [(2529, 2542)],
+    "gcc/lra.cc": [(684, 688), (2698, 2701)],
+    "gcc/expmed.cc": [(252, 344)],
+    "gcc/expr.cc": [(118, 205)],
+    "gcc/cfgloopanal.cc": [(434, 492)],
+    "gcc/alias.cc": [(3281, 3316)],
+    "gcc/targhooks.cc": [(1334, 1338)],
+    "gcc/target.def": [(5867, 5874)],
+    "gcc/rtl.h": [(862, 868)],
+    "gcc/params.opt": [(869, 871)],
+}
+GATE_FILES = (
+    "fwprop.cc", "cprop.cc", "gcse.cc", "store-motion.cc", "ifcvt.cc",
+    "loop-init.cc", "web.cc", "dse.cc", "auto-inc-dec.cc", "init-regs.cc",
+    "dce.cc", "ext-dce.cc", "combine.cc", "late-combine.cc", "bb-reorder.cc",
+    "modulo-sched.cc", "sched-rgn.cc", "avoid-store-forwarding.cc",
+    "early-remat.cc", "dep-fusion.cc",
+)
+MD_FILES = (
+    "i386.md", "pentium.md", "ppro.md", "k6.md", "athlon.md", "bdver1.md",
+    "bdver3.md", "btver2.md", "znver.md", "zn4zn5.md", "geode.md", "atom.md",
+    "slm.md", "glm.md", "core2.md", "haswell.md", "lujiazui.md", "yongfeng.md",
+    "predicates.md", "constraints.md", "mmx.md", "sse.md", "sync.md", "subst.md",
+)
+for _name, _ranges in EXTRA_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
+for _name in GATE_FILES:
+    RANGES.setdefault("gcc/" + _name, [])
+for _name in MD_FILES:
+    RANGES.setdefault("gcc/config/i386/" + _name, [])
 INTERFACE = ("trans", "utils", "utils2", "decl")
 MAIN_APIS = ("src/silver_arguments.ads", "src/silver_io.ads")
 
@@ -500,6 +565,30 @@ def check_sources(sources, inventory):
     assert "case CONST_INT:\n      return GEN_INT (get_uint ());" in emit
     assert "if (copied && len > 0)" in emit
     assert "if (ivs == 0)\n    return;" in sources["gcc/function.cc"]
+    # At O0, exiting CFG layout can split an edge solely for its location.
+    rtlcfg = sources["gcc/cfgrtl.cc"]
+    assert "if (!optimize && !DECL_IGNORED_P (current_function_decl))" in rtlcfg
+    assert "nb = split_edge (e);" in rtlcfg
+    assert "INSN_LOCATION (BB_END (nb)) = e->goto_locus;" in rtlcfg
+    assert "make_single_succ_edge (bb, edge_in->dest, EDGE_FALLTHRU);" in rtlcfg
+    assert "e = ggc_cleared_alloc<edge_def> ();" in sources["gcc/cfg.cc"]
+    assert "bb_original = new copy_map_t (10);" in sources["gcc/cfg.cc"]
+    assert "bb_copy = new copy_map_t (10);" in sources["gcc/cfg.cc"]
+    assert "loop_copy = new copy_map_t (10);" in sources["gcc/cfg.cc"]
+    assert "if (! n_entities)\n    return 0;" in sources["gcc/mode-switching.cc"]
+    assert "f = ggc_cleared_alloc<machine_function> ();" in sources["gcc/config/i386/i386-options.cc"]
+    assert "if (!crtl->has_asm_statement)\n    return 0;" in sources["gcc/function.cc"]
+    assert "return ((!timode_p || TARGET_64BIT)" in sources["gcc/config/i386/i386-features.cc"]
+    assert "&& TARGET_STV && TARGET_SSE2 && optimize > 1);" in sources["gcc/config/i386/i386-features.cc"]
+    assert "if (!rtl_initialized)\n    ira_init_once ();" in sources["gcc/toplev.cc"]
+    assert "init_dummy_function_start ();" in sources["gcc/toplev.cc"]
+    assert "memset (insn_code_data, 0, sizeof (insn_code_data));" in sources["gcc/lra.cc"]
+    # Pin every selected MD include; a missing included file must not silently
+    # disappear from the manual no-split review.
+    for name in MD_FILES:
+        source = sources["gcc/config/i386/" + name]
+        for include in re.findall(r'\(include "([^"]+)"\)', source):
+            assert include in MD_FILES, (name, include)
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -551,6 +640,16 @@ def arithmetic():
         "null_rtl_cleanup_nop_ceiling": 5-1,
         "null_rtl_blockage_nodes_and_one_element_vectors_including_unshare": [2, 2],
         "null_rtl_dynamic_pseudos_stack_slots_calls_jumps": [0, 0, 0, 0],
+        "null_pre_IRA_location_edge_split_ceiling": 5,
+        "null_pre_IRA_block_edge_slot_ceilings": [5+5, 6+5, 7+5],
+        "null_pre_IRA_lifetime_label_note_insn_ceilings": [3, 7+5, 5+5],
+        "null_pre_IRA_lifetime_chain_node_ceiling": 3+12+10,
+        "null_pre_IRA_first_unused_chain_uid_ceiling": 1+3+12+10,
+        "null_pre_IRA_new_dynamic_pseudos_stack_slots_calls_jumps": [0, 0, 0, 0],
+        "null_pre_IRA_CFG_copy_hash_initial_requests": [10, 10, 10],
+        "null_pre_IRA_trivial_dead_count_array_length": 98,
+        "null_pre_IRA_hard_regs_live_count_array_length": 92,
+        "ira_init_once_selected_dynamic_allocation_requests": 0,
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],
         "main_fixed_framework_bind_upper_bound": bind["U"] + 2*bind["F"],

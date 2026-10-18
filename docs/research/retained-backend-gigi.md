@@ -2243,6 +2243,134 @@ rounding and subsequent RTL passes remain separate fixed obligations. The
 1,782-byte subtotal and 15-node count cannot be substituted for those costs
 or for an assembled-object/linker bound.
 
+#### O0 RTL shape through entry to IRA
+
+The 15-chain-node result above ends at `pass_expand`. The following join
+continues only to **entry to `pass_ira`**, under the same selected options,
+with ordinary O0 optimization defaults, no inline assembly, no target/function
+attributes and no target flags enabling extra pre-IRA transforms.
+`passes.def:463–516` and `config/i386/i386-passes.def:27–40` are both part of
+the schedule: inspecting the generic pass list alone would miss target passes.
+
+The ordinary O0 defaults disable wide-type splitting, compare elimination,
+stack-adjustment combination and frame-pointer omission; live-range shrinking
+starts disabled (`opts.cc:588–621`, the pinned `common.opt` declarations).
+The x86_64 optimization-level override does not turn on frame-pointer omission
+at O0 (`i386-options.cc:1885–1930`). The optional pre-IRA CSE, forward/constant
+propagation, PRE/hoist/store motion, if-conversion, web/DSE/DCE, combine,
+partitioning, scheduling, early-rematerialization and dependency-fusion passes
+all require positive optimization in their gates; the loop2 gate also performs
+loop-state cleanup on its false branch. `pass_jump_after_combine` requires
+threading and expensive-optimization flags, both absent here. The three
+wide-subregister passes and live-range-shrinking pass are disabled by their
+specific flags. The pinned gate files retain those exclusions as source
+claims, not a claim that every pass with an optimization-sounding name is
+skipped. The x86 STV (both instances), x86 CSE, partial-AVX-dependency and APX
+conversion insertions likewise require positive optimization
+(`i386-features.cc:2955–2960,3212–3220,4319–4325,5012–5018`).
+
+The active pre-IRA paths have these effects:
+
+| Path | Shape consequence and retained work |
+| --- | --- |
+| Virtual-register instantiation | Both nop and blockage have no operands requiring substitution; the generic operand loop adds no register, move or instruction. The void result and empty parameter/local-object set have no declaration RTL to instantiate. The x86 stack-local list is empty (`function.cc:1550–2039`, `i386.cc:17893–17901`). |
+| Enter CFG layout, initial jump cleanup | Rechains existing header/footer instructions, initializes three copy maps at request 10, deletes/merges ordinary fallthrough blocks. Layout merges can retain an edge location with one nop, just like the previous ordinary RTL merges. Across both phases there are at most four merges because no new blocks exist yet (`cfgrtl.cc:4555–4583,4891–4994`, `cfg.cc:1068–1073`). The jump pass requests a 98-element int register-use array under no variable-tracking debug bindings (`cfgcleanup.cc:3222–3247`, `cse.cc:7073–7120`). |
+| Register-info initialization | Sets bookkeeping globals; prior O0 dataflow is absent (`reginfo.cc:934–982`). |
+| Leave CFG layout | Preserves linear fallthrough order, but can add the location blocks described below. No branch inversion, return substitution or forced-jump route is entered for the no-jump linear shape (`cfgrtl.cc:3893–3958,4072–4227,4296–4320,4613–4640`). |
+| Split all instructions | Scans at most the bounded chain and requests a block bitmap. Neither cached const0 nop nor the standalone blockage matches a selected x86 splitter. The only root-wildcard splitter is the TLS-address predicate; it requires an actual MEM containing a TLS address, absent here (`recog.cc:3492–3615`, `emit-rtl.cc:3942–3971`, `i386.md:23762–23766`, `predicates.md:685–687`, `i386.cc:13013–13042`). The complete selected MD include set is pinned. |
+| O0 dataflow initialization | Creates the dataflow object, scan/liveness problem state, bitmap infrastructure, and a 92-element unsigned hard-register-live-count array; scans the chain and artificial entry/exit references. It changes metadata, not the instruction shape (`df-core.cc:684–795`). |
+| Stack-pointer modification scan | Records `sp_is_unchanging = true`, and updates artificial exit uses. No source instruction writes SP (`stack-ptr-mod.cc:82–116`). |
+| Mode switching | The pass is active on x86, but returns before graph/bitmap work because all six entity flags remain zero. The machine-function record starts cleared. This body invokes none of the FP/string expanders that enable flags; the interrupt-attribute branch is absent (`mode-switching.cc:795–839`, `i386-options.cc:1991–2002,3299–3334`, `i386.h:2619–2661`). |
+| Assembly-constraint matching | Returns immediately because `has_asm_statement` is false (`function.cc:7172–7190`). |
+
+**Leaving CFG layout has a second location-preservation cost.**
+`fixup_reorder_chain` checks each ordinary block's outgoing edges at O0 even
+without debug emission. If an edge's location is not represented by its source
+or destination instruction, it splits that edge and inserts a nop into the new
+block (`cfgrtl.cc:4145–4211`). There are at most five such original edges:
+each of the at most five ordinary blocks in the linear shape has one successor;
+the entry edge is not visited. Each split adds one ordinary block, one edge,
+one BASIC_BLOCK note and one nop, with no label, jump, pseudo or stack slot.
+`rtl_split_edge` stays on its fallthrough/same-partition route
+(`:1854–1963`). The new outgoing edge is allocated cleared, with unknown
+`goto_locus` (`cfg.cc:278–294`); even if the newly inserted block is subsequently
+visited by the enclosing loop, that edge does not trigger another split.
+The original redirected edge still carries its original location. No extra
+exit forwarder is needed because exit has only one predecessor.
+
+This gives the following conservative **IRA-entry shape**, distinct from the
+smaller expansion-only interface:
+
+```text
+ordinary blocks <= 5 + 5 = 10
+edges including entry/exit <= 6 + 5 = 11
+block-index slots <= 7 + 5 = 12
+cumulative CODE_LABEL / NOTE / INSN allocations <= 3 / 12 / 10
+cumulative instruction-chain allocations <= 25
+new dynamic pseudos / stack slots / calls / jumps = 0 / 0 / 0 / 0
+```
+
+The ten INSN allowance is one blockage plus at most nine nops: four for
+merges across expansion and CFG-layout cleanup together, and five for location
+edge splits. It is deliberately not a sum of four additional nops per cleanup
+invocation. With instruction UIDs beginning at one and no other instruction
+constructor on this path, the first unused per-function chain UID is at most
+26. None of this prices dataflow's artificial-register references, allocated
+pool chunks, hash capacities or bitmap storage. In particular, a body with no
+explicit REG operands does not imply an empty artificial liveness problem.
+
+`pass_ira` and `pass_reload` are mandatory for the selected x86 target
+(`ira.cc:6205–6269`). Their work remains beyond this join. IRA initializes
+obstacks, runs dataflow, equivalence/alias/loop setup and allocation even at
+O0 (`:5745–5847`); its early PIC hook does return without instructions for
+CM_SMALL/CM_SMALL_PIC (`i386.cc:1831–1840`). The absence of dynamic pseudos
+removes coloring candidates but does not remove those setups. Hardware frame
+setup/teardown, the return, unwind notes, final emission and assembled output
+are still unpaid by the 25-node interface.
+
+#### Late RTL initialization and retained fixed witnesses
+
+The native initialization witness immediately before
+`Compilation_Unit_to_gnu (gnat_root)` does not include lazy RTL initialization.
+`init_function_start` calls `initialize_rtl` before Main's
+`prepare_function_start` (`function.cc:5026–5041`). This is a separate
+source-selected phase (`toplev.cc:1871–1887`):
+
+1. `ira_init_once` resets fixed cost-pointer arrays, zeroes the fixed
+   instruction-code cache and reads the LRA target hook. The selected x86
+   hook uses `default_lra_p`, which returns true. These leaf routines have
+   **zero dynamic allocation requests** (`ira.cc:1654–1661`,
+   `ira-costs.cc:2529–2542`, `lra.cc:684–688,2698–2701`,
+   `target.def:5867–5874`, `targhooks.cc:1334–1338`). This is a source-derived
+   result for that wrapper; it does not include later lazy cache entries.
+2. `backend_init_target` initializes fake stack MEMs, fixed alias bases and
+   recognition state, then pushes a dummy function context for target costs,
+   expression support and IRA target tables. It restores that context at the
+   end (`toplev.cc:1791–1828`, `function.cc:4980–5020`). With LRA selected,
+   old reload initialization is skipped.
+3. Inside the dummy context, loop extents come from target modes, registers,
+   register classes and the two speed/size cases, rather than Main's statement
+   count. Examples are one fake stack MEM per mode (`reginfo.cc:532–538`),
+   fixed artificial integer-operation patterns (`expmed.cc:252–344`), five
+   basic lower-subregister cost patterns (`lower-subreg.cc:278–301`), the
+   synthetic move/load/store sequences (`cfgloopanal.cc:434–492`), and fixed
+   mode/register probes (`expr.cc:118–205`). These synthetic sequences must be
+   counted even for empty Main; they are outside Main's chain bound.
+
+This identifies a suitable **candidate separate fixed witness interval**:
+entry/exit of the first selected `initialize_rtl` with recorded target/options
+and initial lazy-cache state. A retained event trace can discharge a fixed
+subterm only after its reachable target hooks and initial state are shown to
+be source-independent, or every remaining input-dependent component receives
+its own bound. The inspected top-level mode/register loops and dummy context
+are helpful evidence for that decomposition, not complete transitive
+independence of every target helper. Global alias identities, lazy caches,
+allocator rounding, GC scheduling and generated recognizer provenance remain
+explicit joins. An unchanged concrete trace is not by itself a universal
+fixed-space bound, and a post-Main process-memory snapshot would also include
+source-dependent trees and metadata. No witness has been executed or assigned
+a numerical whole-initialization capacity by this lane.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

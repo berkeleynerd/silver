@@ -96,3 +96,15 @@ unsharing. The register-array raw subtotal is 1,782 bytes on LP64; one-time
 backend, manager, allocator and later RTL/emission costs remain outside it.
 The checker verifies 96 source files and 2 Silver API specifications; the 74
 non-Ada full-file identities also match the retained full-source inventory.
+
+The IRA-entry extension follows mandatory pre-allocation RTL passes, including
+x86 target insertions. Leaving CFG-layout mode can split up to five edges to
+preserve locations and adds a block note plus nop for each. The conditional
+output grows to ten blocks, eleven edges, twelve block-index slots and 25
+cumulative instruction-chain nodes, still with no dynamic pseudos or stack
+slots. The one-time IRA wrapper itself has no allocation requests; lazy target
+RTL initialization remains a separate fixed-witness candidate with explicit
+source-independence obligations. IRA/LRA, machine frame/return generation and
+output costs are not closed. The updated checker verifies 160 GCC/Ada source
+files and two Silver API specifications; all 138 non-Ada source identities
+also match the retained full-source manifest. No native/prover run was made.

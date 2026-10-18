@@ -12782,6 +12782,126 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 461:
 ```
 
+## gcc/passes.def:463–577
+
+```text
+463:   PUSH_INSERT_PASSES_WITHIN (pass_rest_of_compilation)
+464:       NEXT_PASS (pass_instantiate_virtual_regs);
+465:       NEXT_PASS (pass_into_cfg_layout_mode);
+466:       NEXT_PASS (pass_jump);
+467:       NEXT_PASS (pass_lower_subreg);
+468:       NEXT_PASS (pass_df_initialize_opt);
+469:       NEXT_PASS (pass_cse);
+470:       NEXT_PASS (pass_rtl_fwprop);
+471:       NEXT_PASS (pass_rtl_cprop);
+472:       NEXT_PASS (pass_rtl_pre);
+473:       NEXT_PASS (pass_rtl_hoist);
+474:       NEXT_PASS (pass_hardreg_pre);
+475:       NEXT_PASS (pass_rtl_cprop);
+476:       NEXT_PASS (pass_rtl_store_motion);
+477:       NEXT_PASS (pass_cse_after_global_opts);
+478:       NEXT_PASS (pass_rtl_ifcvt);
+479:       NEXT_PASS (pass_reginfo_init);
+480:       /* Perform loop optimizations.  It might be better to do them a bit
+481:          sooner, but we want the profile feedback to work more
+482:          efficiently.  */
+483:       NEXT_PASS (pass_loop2);
+484:       PUSH_INSERT_PASSES_WITHIN (pass_loop2)
+485:           NEXT_PASS (pass_rtl_loop_init);
+486:           NEXT_PASS (pass_rtl_move_loop_invariants);
+487:           NEXT_PASS (pass_rtl_unroll_loops);
+488:           NEXT_PASS (pass_rtl_doloop);
+489:           NEXT_PASS (pass_rtl_loop_done);
+490:       POP_INSERT_PASSES ()
+491:       NEXT_PASS (pass_lower_subreg2);
+492:       NEXT_PASS (pass_web);
+493:       NEXT_PASS (pass_rtl_cprop);
+494:       NEXT_PASS (pass_cse2);
+495:       NEXT_PASS (pass_rtl_dse1);
+496:       NEXT_PASS (pass_rtl_fwprop_addr);
+497:       NEXT_PASS (pass_inc_dec);
+498:       NEXT_PASS (pass_initialize_regs);
+499:       NEXT_PASS (pass_ud_rtl_dce);
+500:       NEXT_PASS (pass_ext_dce);
+501:       NEXT_PASS (pass_combine);
+502:       NEXT_PASS (pass_late_combine);
+503:       NEXT_PASS (pass_if_after_combine);
+504:       NEXT_PASS (pass_jump_after_combine);
+505:       NEXT_PASS (pass_partition_blocks);
+506:       NEXT_PASS (pass_outof_cfg_layout_mode);
+507:       NEXT_PASS (pass_split_all_insns);
+508:       NEXT_PASS (pass_lower_subreg3);
+509:       NEXT_PASS (pass_df_initialize_no_opt);
+510:       NEXT_PASS (pass_stack_ptr_mod);
+511:       NEXT_PASS (pass_mode_switching);
+512:       NEXT_PASS (pass_match_asm_constraints);
+513:       NEXT_PASS (pass_sms);
+514:       NEXT_PASS (pass_live_range_shrinkage);
+515:       NEXT_PASS (pass_sched);
+516:       NEXT_PASS (pass_rtl_avoid_store_forwarding);
+517:       NEXT_PASS (pass_early_remat);
+518:       NEXT_PASS (pass_dep_fusion);
+519:       NEXT_PASS (pass_ira);
+520:       NEXT_PASS (pass_reload);
+521:       /* In the following, some passes are tied to 'pass_postreload' and others
+522:          to 'pass_late_compilation'.  The difference is that the latter also
+523:          run for 'targetm.no_register_allocation' targets.  */
+524:       NEXT_PASS (pass_postreload);
+525:       PUSH_INSERT_PASSES_WITHIN (pass_postreload)
+526:           NEXT_PASS (pass_postreload_cse);
+527:           NEXT_PASS (pass_late_combine);
+528:           NEXT_PASS (pass_gcse2);
+529:           NEXT_PASS (pass_split_after_reload);
+530:           NEXT_PASS (pass_ree);
+531:           NEXT_PASS (pass_compare_elim_after_reload);
+532:           NEXT_PASS (pass_thread_prologue_and_epilogue);
+533:           NEXT_PASS (pass_rtl_dse2);
+534:           NEXT_PASS (pass_stack_adjustments);
+535:           NEXT_PASS (pass_jump2);
+536:           NEXT_PASS (pass_duplicate_computed_gotos);
+537:           NEXT_PASS (pass_sched_fusion);
+538:           NEXT_PASS (pass_peephole2);
+539:           NEXT_PASS (pass_if_after_reload);
+540:           NEXT_PASS (pass_dep_fusion);
+541:           NEXT_PASS (pass_regrename);
+542:           NEXT_PASS (pass_fold_mem_offsets);
+543:           NEXT_PASS (pass_cprop_hardreg);
+544:           NEXT_PASS (pass_fast_rtl_dce);
+545:           NEXT_PASS (pass_reorder_blocks);
+546:           NEXT_PASS (pass_leaf_regs);
+547:           NEXT_PASS (pass_split_before_sched2);
+548:           NEXT_PASS (pass_sched2);
+549:           NEXT_PASS (pass_stack_regs);
+550:           PUSH_INSERT_PASSES_WITHIN (pass_stack_regs)
+551:               NEXT_PASS (pass_split_before_regstack);
+552:               NEXT_PASS (pass_stack_regs_run);
+553:           POP_INSERT_PASSES ()
+554:       POP_INSERT_PASSES ()
+555:       NEXT_PASS (pass_late_thread_prologue_and_epilogue);
+556:       /* No target-independent code motion is allowed beyond this point,
+557:          excepting the legacy delayed-branch pass.  */
+558:       NEXT_PASS (pass_late_compilation);
+559:       PUSH_INSERT_PASSES_WITHIN (pass_late_compilation)
+560:           NEXT_PASS (pass_zero_call_used_regs);
+561:           NEXT_PASS (pass_compute_alignments);
+562:           NEXT_PASS (pass_variable_tracking);
+563:           NEXT_PASS (pass_free_cfg);
+564:           NEXT_PASS (pass_machine_reorg);
+565:           NEXT_PASS (pass_cleanup_barriers);
+566:           NEXT_PASS (pass_delay_slots);
+567:           NEXT_PASS (pass_split_for_shorten_branches);
+568:           NEXT_PASS (pass_convert_to_eh_region_ranges);
+569:           NEXT_PASS (pass_shorten_branches);
+570:           NEXT_PASS (pass_set_nothrow_function_flags);
+571:           NEXT_PASS (pass_dwarf2_frame);
+572:           NEXT_PASS (pass_final);
+573:       POP_INSERT_PASSES ()
+574:       NEXT_PASS (pass_df_finish);
+575:   POP_INSERT_PASSES ()
+576:   NEXT_PASS (pass_clean_state);
+577:   TERMINATE_PASS_LIST (all_passes)
+```
+
 ## gcc/gimple-low.cc:122–214
 
 ```text
@@ -18729,6 +18849,139 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 610: }; // class pass_all_optimizations_g
 ```
 
+## gcc/passes.cc:622–749
+
+```text
+622: const pass_data pass_data_rest_of_compilation =
+623: {
+624:   RTL_PASS, /* type */
+625:   "*rest_of_compilation", /* name */
+626:   OPTGROUP_NONE, /* optinfo_flags */
+627:   TV_REST_OF_COMPILATION, /* tv_id */
+628:   PROP_rtl, /* properties_required */
+629:   0, /* properties_provided */
+630:   0, /* properties_destroyed */
+631:   0, /* todo_flags_start */
+632:   0, /* todo_flags_finish */
+633: };
+634:
+635: class pass_rest_of_compilation : public rtl_opt_pass
+636: {
+637: public:
+638:   pass_rest_of_compilation (gcc::context *ctxt)
+639:     : rtl_opt_pass (pass_data_rest_of_compilation, ctxt)
+640:   {}
+641:
+642:   /* opt_pass methods: */
+643:   bool gate (function *) final override
+644:     {
+645:       /* Early return if there were errors.  We can run afoul of our
+646:          consistency checks, and there's not really much point in fixing them.  */
+647:       return !(rtl_dump_and_exit || flag_syntax_only || seen_error ());
+648:     }
+649:
+650: }; // class pass_rest_of_compilation
+651:
+652: } // anon namespace
+653:
+654: static rtl_opt_pass *
+655: make_pass_rest_of_compilation (gcc::context *ctxt)
+656: {
+657:   return new pass_rest_of_compilation (ctxt);
+658: }
+659:
+660: namespace {
+661:
+662: /* A container pass (only) for '!targetm.no_register_allocation' targets, for
+663:    passes to run if reload completed (..., but not run them if it failed, for
+664:    example for an invalid 'asm').  See also 'pass_late_compilation'.  */
+665:
+666: const pass_data pass_data_postreload =
+667: {
+668:   RTL_PASS, /* type */
+669:   "*all-postreload", /* name */
+670:   OPTGROUP_NONE, /* optinfo_flags */
+671:   TV_POSTRELOAD, /* tv_id */
+672:   PROP_rtl, /* properties_required */
+673:   0, /* properties_provided */
+674:   0, /* properties_destroyed */
+675:   0, /* todo_flags_start */
+676:   0, /* todo_flags_finish */
+677: };
+678:
+679: class pass_postreload : public rtl_opt_pass
+680: {
+681: public:
+682:   pass_postreload (gcc::context *ctxt)
+683:     : rtl_opt_pass (pass_data_postreload, ctxt)
+684:   {}
+685:
+686:   /* opt_pass methods: */
+687:   bool gate (function *) final override
+688:   {
+689:     if (reload_completed)
+690:       gcc_checking_assert (!targetm.no_register_allocation);
+691:     return reload_completed;
+692:   }
+693:
+694: }; // class pass_postreload
+695:
+696: } // anon namespace
+697:
+698: static rtl_opt_pass *
+699: make_pass_postreload (gcc::context *ctxt)
+700: {
+701:   return new pass_postreload (ctxt);
+702: }
+703:
+704: namespace {
+705:
+706: /* A container pass like 'pass_postreload', but for passes to run also for
+707:    'targetm.no_register_allocation' targets.  */
+708:
+709: const pass_data pass_data_late_compilation =
+710: {
+711:   RTL_PASS, /* type */
+712:   "*all-late_compilation", /* name */
+713:   OPTGROUP_NONE, /* optinfo_flags */
+714:   TV_LATE_COMPILATION, /* tv_id */
+715:   PROP_rtl, /* properties_required */
+716:   0, /* properties_provided */
+717:   0, /* properties_destroyed */
+718:   0, /* todo_flags_start */
+719:   0, /* todo_flags_finish */
+720: };
+721:
+722: class pass_late_compilation : public rtl_opt_pass
+723: {
+724: public:
+725:   pass_late_compilation (gcc::context *ctxt)
+726:     : rtl_opt_pass (pass_data_late_compilation, ctxt)
+727:   {}
+728:
+729:   /* opt_pass methods: */
+730:   bool gate (function *) final override
+731:   {
+732:     return reload_completed || targetm.no_register_allocation;
+733:   }
+734:
+735: }; // class pass_late_compilation
+736:
+737: } // anon namespace
+738:
+739: static rtl_opt_pass *
+740: make_pass_late_compilation (gcc::context *ctxt)
+741: {
+742:   return new pass_late_compilation (ctxt);
+743: }
+744:
+745: /* Pre-SLP scalar cleanup, it has several cleanup passes like FRE, DSE.  */
+746:
+747: namespace {
+748:
+749: const pass_data pass_data_pre_slp_scalar_cleanup =
+```
+
 ## gcc/ipa-inline.cc:3009–3059
 
 ```text
@@ -19942,6 +20195,16 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2788: {
 2789:   return false;
 2790: }
+```
+
+## gcc/targhooks.cc:1334–1338
+
+```text
+1334: default_lra_p (void)
+1335: {
+1336:   return true;
+1337: }
+1338:
 ```
 
 ## gcc/gimple-ssa-nonnull-compare.cc:136–143
@@ -22928,6 +23191,597 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5646:
 ```
 
+## gcc/function.cc:1550–1804
+
+```text
+1550: instantiate_virtual_regs_in_insn (rtx_insn *insn)
+1551: {
+1552:   poly_int64 offset;
+1553:   int insn_code, i;
+1554:   bool any_change = false;
+1555:   rtx set, new_rtx, x;
+1556:   rtx_insn *seq;
+1557:
+1558:   /* There are some special cases to be handled first.  */
+1559:   set = single_set (insn);
+1560:   if (set)
+1561:     {
+1562:       /* We're allowed to assign to a virtual register.  This is interpreted
+1563:          to mean that the underlying register gets assigned the inverse
+1564:          transformation.  This is used, for example, in the handling of
+1565:          non-local gotos.  */
+1566:       new_rtx = instantiate_new_reg (SET_DEST (set), &offset);
+1567:       if (new_rtx)
+1568:         {
+1569:           start_sequence ();
+1570:
+1571:           instantiate_virtual_regs_in_rtx (&SET_SRC (set));
+1572:           x = simplify_gen_binary (PLUS, GET_MODE (new_rtx), SET_SRC (set),
+1573:                                    gen_int_mode (-offset, GET_MODE (new_rtx)));
+1574:           x = force_operand (x, new_rtx);
+1575:           if (x != new_rtx)
+1576:             emit_move_insn (new_rtx, x);
+1577:
+1578:           seq = end_sequence ();
+1579:
+1580:           emit_insn_before (seq, insn);
+1581:           delete_insn (insn);
+1582:           return;
+1583:         }
+1584:
+1585:       /* Handle a straight copy from a virtual register by generating a
+1586:          new add insn.  The difference between this and falling through
+1587:          to the generic case is avoiding a new pseudo and eliminating a
+1588:          move insn in the initial rtl stream.  */
+1589:       new_rtx = instantiate_new_reg (SET_SRC (set), &offset);
+1590:       if (new_rtx
+1591:           && maybe_ne (offset, 0)
+1592:           && REG_P (SET_DEST (set))
+1593:           && REGNO (SET_DEST (set)) > LAST_VIRTUAL_REGISTER)
+1594:         {
+1595:           start_sequence ();
+1596:
+1597:           x = expand_simple_binop (GET_MODE (SET_DEST (set)), PLUS, new_rtx,
+1598:                                    gen_int_mode (offset,
+1599:                                                  GET_MODE (SET_DEST (set))),
+1600:                                    SET_DEST (set), 1, OPTAB_LIB_WIDEN);
+1601:           if (x != SET_DEST (set))
+1602:             emit_move_insn (SET_DEST (set), x);
+1603:
+1604:           seq = end_sequence ();
+1605:
+1606:           emit_insn_before (seq, insn);
+1607:           delete_insn (insn);
+1608:           return;
+1609:         }
+1610:
+1611:       extract_insn (insn);
+1612:       insn_code = INSN_CODE (insn);
+1613:
+1614:       /* Handle a plus involving a virtual register by determining if the
+1615:          operands remain valid if they're modified in place.  */
+1616:       poly_int64 delta;
+1617:       if (GET_CODE (SET_SRC (set)) == PLUS
+1618:           && recog_data.n_operands >= 3
+1619:           && recog_data.operand_loc[1] == &XEXP (SET_SRC (set), 0)
+1620:           && recog_data.operand_loc[2] == &XEXP (SET_SRC (set), 1)
+1621:           && poly_int_rtx_p (recog_data.operand[2], &delta)
+1622:           && (new_rtx = instantiate_new_reg (recog_data.operand[1], &offset)))
+1623:         {
+1624:           offset += delta;
+1625:
+1626:           /* If the sum is zero, then replace with a plain move.  */
+1627:           if (known_eq (offset, 0)
+1628:               && REG_P (SET_DEST (set))
+1629:               && REGNO (SET_DEST (set)) > LAST_VIRTUAL_REGISTER)
+1630:             {
+1631:               start_sequence ();
+1632:               emit_move_insn (SET_DEST (set), new_rtx);
+1633:               seq = end_sequence ();
+1634:
+1635:               emit_insn_before (seq, insn);
+1636:               delete_insn (insn);
+1637:               return;
+1638:             }
+1639:
+1640:           x = gen_int_mode (offset, recog_data.operand_mode[2]);
+1641:
+1642:           /* Using validate_change and apply_change_group here leaves
+1643:              recog_data in an invalid state.  Since we know exactly what
+1644:              we want to check, do those two by hand.  */
+1645:           if (safe_insn_predicate (insn_code, 1, new_rtx)
+1646:               && safe_insn_predicate (insn_code, 2, x))
+1647:             {
+1648:               *recog_data.operand_loc[1] = recog_data.operand[1] = new_rtx;
+1649:               *recog_data.operand_loc[2] = recog_data.operand[2] = x;
+1650:               any_change = true;
+1651:
+1652:               /* Fall through into the regular operand fixup loop in
+1653:                  order to take care of operands other than 1 and 2.  */
+1654:             }
+1655:         }
+1656:     }
+1657:   else
+1658:     {
+1659:       extract_insn (insn);
+1660:       insn_code = INSN_CODE (insn);
+1661:     }
+1662:
+1663:   /* In the general case, we expect virtual registers to appear only in
+1664:      operands, and then only as either bare registers or inside memories.  */
+1665:   for (i = 0; i < recog_data.n_operands; ++i)
+1666:     {
+1667:       x = recog_data.operand[i];
+1668:       switch (GET_CODE (x))
+1669:         {
+1670:         case MEM:
+1671:           {
+1672:             rtx addr = XEXP (x, 0);
+1673:
+1674:             if (!instantiate_virtual_regs_in_rtx (&addr))
+1675:               continue;
+1676:
+1677:             start_sequence ();
+1678:             x = replace_equiv_address (x, addr, true);
+1679:             /* It may happen that the address with the virtual reg
+1680:                was valid (e.g. based on the virtual stack reg, which might
+1681:                be acceptable to the predicates with all offsets), whereas
+1682:                the address now isn't anymore, for instance when the address
+1683:                is still offsetted, but the base reg isn't virtual-stack-reg
+1684:                anymore.  Below we would do a force_reg on the whole operand,
+1685:                but this insn might actually only accept memory.  Hence,
+1686:                before doing that last resort, try to reload the address into
+1687:                a register, so this operand stays a MEM.  */
+1688:             if (!safe_insn_predicate (insn_code, i, x))
+1689:               {
+1690:                 addr = force_reg (GET_MODE (addr), addr);
+1691:                 x = replace_equiv_address (x, addr, true);
+1692:               }
+1693:             seq = end_sequence ();
+1694:             if (seq)
+1695:               emit_insn_before (seq, insn);
+1696:           }
+1697:           break;
+1698:
+1699:         case REG:
+1700:           new_rtx = instantiate_new_reg (x, &offset);
+1701:           if (new_rtx == NULL)
+1702:             continue;
+1703:           if (known_eq (offset, 0))
+1704:             x = new_rtx;
+1705:           else
+1706:             {
+1707:               start_sequence ();
+1708:
+1709:               /* Careful, special mode predicates may have stuff in
+1710:                  insn_data[insn_code].operand[i].mode that isn't useful
+1711:                  to us for computing a new value.  */
+1712:               /* ??? Recognize address_operand and/or "p" constraints
+1713:                  to see if (plus new offset) is a valid before we put
+1714:                  this through expand_simple_binop.  */
+1715:               x = expand_simple_binop (GET_MODE (x), PLUS, new_rtx,
+1716:                                        gen_int_mode (offset, GET_MODE (x)),
+1717:                                        NULL_RTX, 1, OPTAB_LIB_WIDEN);
+1718:               seq = end_sequence ();
+1719:               emit_insn_before (seq, insn);
+1720:             }
+1721:           break;
+1722:
+1723:         case SUBREG:
+1724:           new_rtx = instantiate_new_reg (SUBREG_REG (x), &offset);
+1725:           if (new_rtx == NULL)
+1726:             continue;
+1727:           start_sequence ();
+1728:           if (maybe_ne (offset, 0))
+1729:             new_rtx = expand_simple_binop
+1730:               (GET_MODE (new_rtx), PLUS, new_rtx,
+1731:                gen_int_mode (offset, GET_MODE (new_rtx)),
+1732:                NULL_RTX, 1, OPTAB_LIB_WIDEN);
+1733:           x = force_subreg (recog_data.operand_mode[i], new_rtx,
+1734:                             GET_MODE (new_rtx), SUBREG_BYTE (x));
+1735:           gcc_assert (x);
+1736:           seq = end_sequence ();
+1737:           emit_insn_before (seq, insn);
+1738:           break;
+1739:
+1740:         default:
+1741:           continue;
+1742:         }
+1743:
+1744:       /* At this point, X contains the new value for the operand.
+1745:          Validate the new value vs the insn predicate.  Note that
+1746:          asm insns will have insn_code -1 here.  */
+1747:       if (!safe_insn_predicate (insn_code, i, x))
+1748:         {
+1749:           start_sequence ();
+1750:           if (REG_P (x))
+1751:             {
+1752:               gcc_assert (REGNO (x) <= LAST_VIRTUAL_REGISTER);
+1753:               x = copy_to_reg (x);
+1754:             }
+1755:           else
+1756:             x = force_reg (insn_data[insn_code].operand[i].mode, x);
+1757:           seq = end_sequence ();
+1758:           if (seq)
+1759:             emit_insn_before (seq, insn);
+1760:         }
+1761:
+1762:       *recog_data.operand_loc[i] = recog_data.operand[i] = x;
+1763:       any_change = true;
+1764:     }
+1765:
+1766:   if (any_change)
+1767:     {
+1768:       /* Propagate operand changes into the duplicates.  */
+1769:       for (i = 0; i < recog_data.n_dups; ++i)
+1770:         *recog_data.dup_loc[i]
+1771:           = copy_rtx (recog_data.operand[(unsigned)recog_data.dup_num[i]]);
+1772:
+1773:       /* Force re-recognition of the instruction for validation.  */
+1774:       INSN_CODE (insn) = -1;
+1775:     }
+1776:
+1777:   if (asm_noperands (PATTERN (insn)) >= 0)
+1778:     {
+1779:       if (!check_asm_operands (PATTERN (insn)))
+1780:         {
+1781:           error_for_asm (insn, "impossible constraint in %<asm%>");
+1782:           /* For asm goto, instead of fixing up all the edges
+1783:              just clear the template and clear input and output operands
+1784:              and strip away clobbers.  */
+1785:           if (JUMP_P (insn))
+1786:             {
+1787:               rtx asm_op = extract_asm_operands (PATTERN (insn));
+1788:               PATTERN (insn) = asm_op;
+1789:               PUT_MODE (asm_op, VOIDmode);
+1790:               ASM_OPERANDS_TEMPLATE (asm_op) = ggc_strdup ("");
+1791:               ASM_OPERANDS_OUTPUT_CONSTRAINT (asm_op) = "";
+1792:               ASM_OPERANDS_OUTPUT_IDX (asm_op) = 0;
+1793:               ASM_OPERANDS_INPUT_VEC (asm_op) = rtvec_alloc (0);
+1794:               ASM_OPERANDS_INPUT_CONSTRAINT_VEC (asm_op) = rtvec_alloc (0);
+1795:             }
+1796:           else
+1797:             delete_insn (insn);
+1798:         }
+1799:     }
+1800:   else
+1801:     {
+1802:       if (recog_memoized (insn) < 0)
+1803:         fatal_insn_not_found (insn);
+1804:     }
+```
+
+## gcc/function.cc:1807–2039
+
+```text
+1807: /* Subroutine of instantiate_decls.  Given RTL representing a decl,
+1808:    do any instantiation required.  */
+1809:
+1810: void
+1811: instantiate_decl_rtl (rtx x)
+1812: {
+1813:   rtx addr;
+1814:
+1815:   if (x == 0)
+1816:     return;
+1817:
+1818:   /* If this is a CONCAT, recurse for the pieces.  */
+1819:   if (GET_CODE (x) == CONCAT)
+1820:     {
+1821:       instantiate_decl_rtl (XEXP (x, 0));
+1822:       instantiate_decl_rtl (XEXP (x, 1));
+1823:       return;
+1824:     }
+1825:
+1826:   /* If this is not a MEM, no need to do anything.  Similarly if the
+1827:      address is a constant or a register that is not a virtual register.  */
+1828:   if (!MEM_P (x))
+1829:     return;
+1830:
+1831:   addr = XEXP (x, 0);
+1832:   if (CONSTANT_P (addr)
+1833:       || (REG_P (addr)
+1834:           && !VIRTUAL_REGISTER_P (addr)))
+1835:     return;
+1836:
+1837:   instantiate_virtual_regs_in_rtx (&XEXP (x, 0));
+1838: }
+1839:
+1840: /* Helper for instantiate_decls called via walk_tree: Process all decls
+1841:    in the given DECL_VALUE_EXPR.  */
+1842:
+1843: static tree
+1844: instantiate_expr (tree *tp, int *walk_subtrees, void *data ATTRIBUTE_UNUSED)
+1845: {
+1846:   tree t = *tp;
+1847:   if (! EXPR_P (t))
+1848:     {
+1849:       *walk_subtrees = 0;
+1850:       if (DECL_P (t))
+1851:         {
+1852:           if (DECL_RTL_SET_P (t))
+1853:             instantiate_decl_rtl (DECL_RTL (t));
+1854:           if (TREE_CODE (t) == PARM_DECL && DECL_NAMELESS (t)
+1855:               && DECL_INCOMING_RTL (t))
+1856:             instantiate_decl_rtl (DECL_INCOMING_RTL (t));
+1857:           if ((VAR_P (t) || TREE_CODE (t) == RESULT_DECL)
+1858:               && DECL_HAS_VALUE_EXPR_P (t))
+1859:             {
+1860:               tree v = DECL_VALUE_EXPR (t);
+1861:               walk_tree (&v, instantiate_expr, NULL, NULL);
+1862:             }
+1863:         }
+1864:     }
+1865:   return NULL;
+1866: }
+1867:
+1868: /* Subroutine of instantiate_decls: Process all decls in the given
+1869:    BLOCK node and all its subblocks.  */
+1870:
+1871: static void
+1872: instantiate_decls_1 (tree let)
+1873: {
+1874:   tree t;
+1875:
+1876:   for (t = BLOCK_VARS (let); t; t = DECL_CHAIN (t))
+1877:     {
+1878:       if (DECL_RTL_SET_P (t))
+1879:         instantiate_decl_rtl (DECL_RTL (t));
+1880:       if (VAR_P (t) && DECL_HAS_VALUE_EXPR_P (t))
+1881:         {
+1882:           tree v = DECL_VALUE_EXPR (t);
+1883:           walk_tree (&v, instantiate_expr, NULL, NULL);
+1884:         }
+1885:     }
+1886:
+1887:   /* Process all subblocks.  */
+1888:   for (t = BLOCK_SUBBLOCKS (let); t; t = BLOCK_CHAIN (t))
+1889:     instantiate_decls_1 (t);
+1890: }
+1891:
+1892: /* Scan all decls in FNDECL (both variables and parameters) and instantiate
+1893:    all virtual registers in their DECL_RTL's.  */
+1894:
+1895: static void
+1896: instantiate_decls (tree fndecl)
+1897: {
+1898:   tree decl;
+1899:   unsigned ix;
+1900:
+1901:   /* Process all parameters of the function.  */
+1902:   for (decl = DECL_ARGUMENTS (fndecl); decl; decl = DECL_CHAIN (decl))
+1903:     {
+1904:       instantiate_decl_rtl (DECL_RTL (decl));
+1905:       instantiate_decl_rtl (DECL_INCOMING_RTL (decl));
+1906:       if (DECL_HAS_VALUE_EXPR_P (decl))
+1907:         {
+1908:           tree v = DECL_VALUE_EXPR (decl);
+1909:           walk_tree (&v, instantiate_expr, NULL, NULL);
+1910:         }
+1911:     }
+1912:
+1913:   if ((decl = DECL_RESULT (fndecl))
+1914:       && TREE_CODE (decl) == RESULT_DECL)
+1915:     {
+1916:       if (DECL_RTL_SET_P (decl))
+1917:         instantiate_decl_rtl (DECL_RTL (decl));
+1918:       if (DECL_HAS_VALUE_EXPR_P (decl))
+1919:         {
+1920:           tree v = DECL_VALUE_EXPR (decl);
+1921:           walk_tree (&v, instantiate_expr, NULL, NULL);
+1922:         }
+1923:     }
+1924:
+1925:   /* Process the saved static chain if it exists.  */
+1926:   decl = DECL_STRUCT_FUNCTION (fndecl)->static_chain_decl;
+1927:   if (decl && DECL_HAS_VALUE_EXPR_P (decl))
+1928:     instantiate_decl_rtl (DECL_RTL (DECL_VALUE_EXPR (decl)));
+1929:
+1930:   /* Now process all variables defined in the function or its subblocks.  */
+1931:   if (DECL_INITIAL (fndecl))
+1932:     instantiate_decls_1 (DECL_INITIAL (fndecl));
+1933:
+1934:   FOR_EACH_LOCAL_DECL (cfun, ix, decl)
+1935:     if (DECL_RTL_SET_P (decl))
+1936:       instantiate_decl_rtl (DECL_RTL (decl));
+1937:   vec_free (cfun->local_decls);
+1938: }
+1939:
+1940: /* Return the value of STACK_DYNAMIC_OFFSET for the current function.
+1941:    This is done through a function wrapper so that the macro sees a
+1942:    predictable set of included files.  */
+1943:
+1944: poly_int64
+1945: get_stack_dynamic_offset ()
+1946: {
+1947:   return STACK_DYNAMIC_OFFSET (current_function_decl);
+1948: }
+1949:
+1950: /* Pass through the INSNS of function FNDECL and convert virtual register
+1951:    references to hard register references.  */
+1952:
+1953: static void
+1954: instantiate_virtual_regs (void)
+1955: {
+1956:   rtx_insn *insn;
+1957:
+1958:   /* Compute the offsets to use for this function.  */
+1959:   in_arg_offset = FIRST_PARM_OFFSET (current_function_decl);
+1960:   var_offset = targetm.starting_frame_offset ();
+1961:   dynamic_offset = get_stack_dynamic_offset ();
+1962:   out_arg_offset = STACK_POINTER_OFFSET;
+1963: #ifdef FRAME_POINTER_CFA_OFFSET
+1964:   cfa_offset = FRAME_POINTER_CFA_OFFSET (current_function_decl);
+1965: #else
+1966:   cfa_offset = ARG_POINTER_CFA_OFFSET (current_function_decl);
+1967: #endif
+1968:
+1969:   /* Initialize recognition, indicating that volatile is OK.  */
+1970:   init_recog ();
+1971:
+1972:   /* Scan through all the insns, instantiating every virtual register still
+1973:      present.  */
+1974:   for (insn = get_insns (); insn; insn = NEXT_INSN (insn))
+1975:     if (INSN_P (insn))
+1976:       {
+1977:         /* These patterns in the instruction stream can never be recognized.
+1978:            Fortunately, they shouldn't contain virtual registers either.  */
+1979:         if (GET_CODE (PATTERN (insn)) == USE
+1980:             || GET_CODE (PATTERN (insn)) == CLOBBER
+1981:             || GET_CODE (PATTERN (insn)) == ASM_INPUT
+1982:             || DEBUG_MARKER_INSN_P (insn))
+1983:           continue;
+1984:         else if (DEBUG_BIND_INSN_P (insn))
+1985:           instantiate_virtual_regs_in_rtx (INSN_VAR_LOCATION_PTR (insn));
+1986:         else
+1987:           instantiate_virtual_regs_in_insn (insn);
+1988:
+1989:         if (insn->deleted ())
+1990:           continue;
+1991:
+1992:         instantiate_virtual_regs_in_rtx (&REG_NOTES (insn));
+1993:
+1994:         /* Instantiate any virtual registers in CALL_INSN_FUNCTION_USAGE.  */
+1995:         if (CALL_P (insn))
+1996:           instantiate_virtual_regs_in_rtx (&CALL_INSN_FUNCTION_USAGE (insn));
+1997:       }
+1998:
+1999:   /* Instantiate the virtual registers in the DECLs for debugging purposes.  */
+2000:   instantiate_decls (current_function_decl);
+2001:
+2002:   targetm.instantiate_decls ();
+2003:
+2004:   /* Indicate that, from now on, assign_stack_local should use
+2005:      frame_pointer_rtx.  */
+2006:   virtuals_instantiated = 1;
+2007: }
+2008:
+2009: namespace {
+2010:
+2011: const pass_data pass_data_instantiate_virtual_regs =
+2012: {
+2013:   RTL_PASS, /* type */
+2014:   "vregs", /* name */
+2015:   OPTGROUP_NONE, /* optinfo_flags */
+2016:   TV_NONE, /* tv_id */
+2017:   0, /* properties_required */
+2018:   0, /* properties_provided */
+2019:   0, /* properties_destroyed */
+2020:   0, /* todo_flags_start */
+2021:   0, /* todo_flags_finish */
+2022: };
+2023:
+2024: class pass_instantiate_virtual_regs : public rtl_opt_pass
+2025: {
+2026: public:
+2027:   pass_instantiate_virtual_regs (gcc::context *ctxt)
+2028:     : rtl_opt_pass (pass_data_instantiate_virtual_regs, ctxt)
+2029:   {}
+2030:
+2031:   /* opt_pass methods: */
+2032:   unsigned int execute (function *) final override
+2033:     {
+2034:       instantiate_virtual_regs ();
+2035:       return 0;
+2036:     }
+2037:
+2038: }; // class pass_instantiate_virtual_regs
+2039:
+```
+
+## gcc/function.cc:4980–5043
+
+```text
+4980:   bitint_extended = -1;
+4981: }
+4982:
+4983: void
+4984: push_dummy_function (bool with_decl)
+4985: {
+4986:   tree fn_decl, fn_type, fn_result_decl;
+4987:
+4988:   gcc_assert (!in_dummy_function);
+4989:   in_dummy_function = true;
+4990:
+4991:   if (with_decl)
+4992:     {
+4993:       fn_type = build_function_type_list (void_type_node, NULL_TREE);
+4994:       fn_decl = build_decl (UNKNOWN_LOCATION, FUNCTION_DECL, NULL_TREE,
+4995:                             fn_type);
+4996:       fn_result_decl = build_decl (UNKNOWN_LOCATION, RESULT_DECL,
+4997:                                          NULL_TREE, void_type_node);
+4998:       DECL_RESULT (fn_decl) = fn_result_decl;
+4999:       DECL_ARTIFICIAL (fn_decl) = 1;
+5000:       tree fn_name = get_identifier (" ");
+5001:       SET_DECL_ASSEMBLER_NAME (fn_decl, fn_name);
+5002:     }
+5003:   else
+5004:     fn_decl = NULL_TREE;
+5005:
+5006:   push_struct_function (fn_decl);
+5007: }
+5008:
+5009: /* Initialize the rtl expansion mechanism so that we can do simple things
+5010:    like generate sequences.  This is used to provide a context during global
+5011:    initialization of some passes.  You must call expand_dummy_function_end
+5012:    to exit this context.  */
+5013:
+5014: void
+5015: init_dummy_function_start (void)
+5016: {
+5017:   push_dummy_function (false);
+5018:   prepare_function_start ();
+5019: }
+5020:
+5021: /* Generate RTL for the start of the function SUBR (a FUNCTION_DECL tree node)
+5022:    and initialize static variables for generating RTL for the statements
+5023:    of the function.  */
+5024:
+5025: void
+5026: init_function_start (tree subr)
+5027: {
+5028:   /* Initialize backend, if needed.  */
+5029:   initialize_rtl ();
+5030:
+5031:   prepare_function_start ();
+5032:   decide_function_section (subr);
+5033:
+5034:   /* Warn if this value is an aggregate type,
+5035:      regardless of which calling convention we are using for it.  */
+5036:   if (AGGREGATE_TYPE_P (TREE_TYPE (DECL_RESULT (subr))))
+5037:     warning_at (DECL_SOURCE_LOCATION (DECL_RESULT (subr)),
+5038:                 OPT_Waggregate_return, "function returns an aggregate");
+5039: }
+5040:
+5041: /* Expand code to verify the stack_protect_guard.  This is invoked at
+5042:    the end of a function to be protected.  */
+5043:
+```
+
+## gcc/function.cc:7172–7190
+
+```text
+7172: {
+7173:   basic_block bb;
+7174:   rtx_insn *insn;
+7175:   rtx pat, *p_sets;
+7176:   int noutputs;
+7177:
+7178:   if (!crtl->has_asm_statement)
+7179:     return 0;
+7180:
+7181:   df_set_flags (DF_DEFER_INSN_RESCAN);
+7182:   FOR_EACH_BB_FN (bb, fun)
+7183:     {
+7184:       FOR_BB_INSNS (bb, insn)
+7185:         {
+7186:           if (!INSN_P (insn))
+7187:             continue;
+7188:
+7189:           pat = PATTERN (insn);
+7190:
+```
+
 ## gcc/stmt.cc:96–109
 
 ```text
@@ -23493,6 +24347,41 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7100: }
 ```
 
+## gcc/emit-rtl.cc:3942–3971
+
+```text
+3942: try_split (rtx pat, rtx_insn *trial, int last)
+3943: {
+3944:   rtx_insn *before, *after;
+3945:   rtx note;
+3946:   rtx_insn *seq, *tem;
+3947:   profile_probability probability;
+3948:   rtx_insn *insn_last, *insn;
+3949:   int njumps = 0;
+3950:   rtx_insn *call_insn = NULL;
+3951:
+3952:   if (any_condjump_p (trial)
+3953:       && (note = find_reg_note (trial, REG_BR_PROB, 0)))
+3954:     split_branch_probability
+3955:       = profile_probability::from_reg_br_prob_note (XINT (note, 0));
+3956:   else
+3957:     split_branch_probability = profile_probability::uninitialized ();
+3958:
+3959:   probability = split_branch_probability;
+3960:
+3961:   seq = split_insns (pat, trial);
+3962:
+3963:   split_branch_probability = profile_probability::uninitialized ();
+3964:
+3965:   if (!seq)
+3966:     return trial;
+3967:
+3968:   int split_insn_count = 0;
+3969:   /* Avoid infinite loop if any insn of the result matches
+3970:      the original pattern.  */
+3971:   insn_last = seq;
+```
+
 ## gcc/ada/gcc-interface/misc.cc:402–435
 
 ```text
@@ -23844,6 +24733,70 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 8111: }
 ```
 
+## gcc/config/i386/i386.cc:1831–1840
+
+```text
+1831: ix86_init_pic_reg (void)
+1832: {
+1833:   edge entry_edge;
+1834:   rtx_insn *seq;
+1835:
+1836:   if (!ix86_use_pseudo_pic_reg ())
+1837:     return;
+1838:
+1839:   start_sequence ();
+1840:
+```
+
+## gcc/config/i386/i386.cc:13013–13042
+
+```text
+13013: ix86_tls_address_pattern_p (rtx op)
+13014: {
+13015:   subrtx_var_iterator::array_type array;
+13016:   FOR_EACH_SUBRTX_VAR (iter, array, op, ALL)
+13017:     {
+13018:       rtx op = *iter;
+13019:       if (MEM_P (op))
+13020:         {
+13021:           rtx *x = &XEXP (op, 0);
+13022:           while (GET_CODE (*x) == PLUS)
+13023:             {
+13024:               int i;
+13025:               for (i = 0; i < 2; i++)
+13026:                 {
+13027:                   rtx u = XEXP (*x, i);
+13028:                   if (GET_CODE (u) == ZERO_EXTEND)
+13029:                     u = XEXP (u, 0);
+13030:                   if (GET_CODE (u) == UNSPEC
+13031:                       && XINT (u, 1) == UNSPEC_TP)
+13032:                     return true;
+13033:                 }
+13034:               x = &XEXP (*x, 0);
+13035:             }
+13036:
+13037:           iter.skip_subrtxes ();
+13038:         }
+13039:     }
+13040:
+13041:   return false;
+13042: }
+```
+
+## gcc/config/i386/i386.cc:17893–17901
+
+```text
+17893: ix86_instantiate_decls (void)
+17894: {
+17895:   struct stack_local_entry *s;
+17896:
+17897:   for (s = ix86_stack_locals; s; s = s->next)
+17898:     if (s->rtl != NULL_RTX)
+17899:       instantiate_decl_rtl (s->rtl);
+17900: }
+17901:
+```
+
 ## gcc/config/i386/i386.h:778–801
 
 ```text
@@ -23885,6 +24838,54 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 992: /* Number of hardware registers that go into the DWARF-2 unwind info.
 ```
 
+## gcc/config/i386/i386.h:2619–2661
+
+```text
+2619: };
+2620:
+2621: enum ix86_entity
+2622: {
+2623:   X86_DIRFLAG = 0,
+2624:   AVX_U128,
+2625:   I387_ROUNDEVEN,
+2626:   I387_TRUNC,
+2627:   I387_FLOOR,
+2628:   I387_CEIL,
+2629:   MAX_386_ENTITIES
+2630: };
+2631:
+2632: enum x86_dirflag_state
+2633: {
+2634:   X86_DIRFLAG_RESET,
+2635:   X86_DIRFLAG_ANY
+2636: };
+2637:
+2638: enum avx_u128_state
+2639: {
+2640:   AVX_U128_CLEAN,
+2641:   AVX_U128_DIRTY,
+2642:   AVX_U128_ANY
+2643: };
+2644:
+2645: /* Define this macro if the port needs extra instructions inserted
+2646:    for mode switching in an optimizing compilation.  */
+2647:
+2648: #define OPTIMIZE_MODE_SWITCHING(ENTITY) \
+2649:    ix86_optimize_mode_switching[(ENTITY)]
+2650:
+2651: /* If you define `OPTIMIZE_MODE_SWITCHING', you have to define this as
+2652:    initializer for an array of integers.  Each initializer element N
+2653:    refers to an entity that needs mode switching, and specifies the
+2654:    number of different modes that might need to be set for this
+2655:    entity.  The position of the initializer in the initializer -
+2656:    starting counting at zero - determines the integer that is used to
+2657:    refer to the mode-switched entity in question.  */
+2658:
+2659: #define NUM_MODES_FOR_MODE_SWITCHING                    \
+2660:   { X86_DIRFLAG_ANY, AVX_U128_ANY,                      \
+2661:     I387_CW_ANY, I387_CW_ANY, I387_CW_ANY, I387_CW_ANY  }
+```
+
 ## gcc/config/i386/i386.md:505–513
 
 ```text
@@ -23921,6 +24922,52 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 21060:    (set_attr "length_immediate" "0")
 21061:    (set_attr "modrm" "0")])
 21062:
+```
+
+## gcc/config/i386/i386.md:1413–1435
+
+```text
+1413: (include "pentium.md")
+1414: (include "ppro.md")
+1415: (include "k6.md")
+1416: (include "athlon.md")
+1417: (include "bdver1.md")
+1418: (include "bdver3.md")
+1419: (include "btver2.md")
+1420: (include "znver.md")
+1421: (include "zn4zn5.md")
+1422: (include "geode.md")
+1423: (include "atom.md")
+1424: (include "slm.md")
+1425: (include "glm.md")
+1426: (include "core2.md")
+1427: (include "haswell.md")
+1428: (include "lujiazui.md")
+1429: (include "yongfeng.md")
+1430:
+1431:
+1432: ;; Operand and operator predicates and constraints
+1433:
+1434: (include "predicates.md")
+1435: (include "constraints.md")
+```
+
+## gcc/config/i386/i386.md:23762–23766
+
+```text
+23762: (define_split
+23763:   [(match_operand 0 "tls_address_pattern")]
+23764:   "TARGET_TLS_DIRECT_SEG_REFS"
+23765:   [(match_dup 0)]
+23766:   "operands[0] = ix86_rewrite_tls_address (operands[0]);")
+```
+
+## gcc/config/i386/i386.md:30807–30809
+
+```text
+30807: (include "mmx.md")
+30808: (include "sse.md")
+30809: (include "sync.md")
 ```
 
 ## gcc/config/i386/i386-options.cc:2273–2286
@@ -23977,6 +25024,115 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2683:   /* Validate -mincoming-stack-boundary= value or default it to
 2684:      MIN_STACK_BOUNDARY/PREFERRED_STACK_BOUNDARY.  */
 2685:   ix86_incoming_stack_boundary = ix86_default_incoming_stack_boundary;
+```
+
+## gcc/config/i386/i386-options.cc:1885–1930
+
+```text
+1885: static void
+1886: ix86_recompute_optlev_based_flags (struct gcc_options *opts,
+1887:                                    struct gcc_options *opts_set)
+1888: {
+1889:   /* Set the default values for switches whose default depends on TARGET_64BIT
+1890:      in case they weren't overwritten by command line options.  */
+1891:   if (TARGET_64BIT_P (opts->x_ix86_isa_flags))
+1892:     {
+1893:       if (opts->x_optimize >= 1)
+1894:         SET_OPTION_IF_UNSET (opts, opts_set, flag_omit_frame_pointer,
+1895:                              !USE_IX86_FRAME_POINTER);
+1896:       if (opts->x_flag_asynchronous_unwind_tables
+1897:           && TARGET_64BIT_MS_ABI)
+1898:         SET_OPTION_IF_UNSET (opts, opts_set, flag_unwind_tables, 1);
+1899:       if (opts->x_flag_asynchronous_unwind_tables == 2)
+1900:         opts->x_flag_unwind_tables
+1901:           = opts->x_flag_asynchronous_unwind_tables = 1;
+1902:       if (opts->x_flag_pcc_struct_return == 2)
+1903:         opts->x_flag_pcc_struct_return = 0;
+1904:     }
+1905:   else
+1906:     {
+1907:       if (opts->x_optimize >= 1)
+1908:           SET_OPTION_IF_UNSET (opts, opts_set, flag_omit_frame_pointer,
+1909:                                !(USE_IX86_FRAME_POINTER || opts->x_optimize_size));
+1910:       if (opts->x_flag_asynchronous_unwind_tables == 2)
+1911:         opts->x_flag_asynchronous_unwind_tables = !USE_IX86_FRAME_POINTER;
+1912:       if (opts->x_flag_pcc_struct_return == 2)
+1913:         {
+1914:           /* Intel MCU psABI specifies that -freg-struct-return should
+1915:              be on.  Instead of setting DEFAULT_PCC_STRUCT_RETURN to 0,
+1916:              we check -miamcu so that -freg-struct-return is always
+1917:              turned on if -miamcu is used.  */
+1918:           if (TARGET_IAMCU_P (opts->x_target_flags))
+1919:             opts->x_flag_pcc_struct_return = 0;
+1920:           else
+1921:             opts->x_flag_pcc_struct_return = DEFAULT_PCC_STRUCT_RETURN;
+1922:         }
+1923:     }
+1924:
+1925:   /* Keep nonleaf frame pointers.  */
+1926:   if (opts->x_flag_omit_frame_pointer)
+1927:     opts->x_target_flags &= ~MASK_OMIT_LEAF_FRAME_POINTER;
+1928:   else if (TARGET_OMIT_LEAF_FRAME_POINTER_P (opts->x_target_flags))
+1929:     opts->x_flag_omit_frame_pointer = 1;
+1930: }
+```
+
+## gcc/config/i386/i386-options.cc:1991–2002
+
+```text
+1991: ix86_init_machine_status (void)
+1992: {
+1993:   struct machine_function *f;
+1994:
+1995:   f = ggc_cleared_alloc<machine_function> ();
+1996:   f->call_abi = ix86_abi;
+1997:   f->stack_frame_required = true;
+1998:   f->silent_p = true;
+1999:
+2000:   return f;
+2001: }
+2002:
+```
+
+## gcc/config/i386/i386-options.cc:3299–3334
+
+```text
+3299:
+3300:   if (cfun->machine->func_type == TYPE_UNKNOWN)
+3301:     {
+3302:       if (lookup_attribute ("interrupt",
+3303:                             TYPE_ATTRIBUTES (TREE_TYPE (fndecl))))
+3304:         {
+3305:           if (ix86_function_naked (fndecl))
+3306:             error_at (DECL_SOURCE_LOCATION (fndecl),
+3307:                       "interrupt and naked attributes are not compatible");
+3308:
+3309:           if (no_callee_saved_registers)
+3310:             {
+3311:               const char *attr;
+3312:               if (no_callee_saved_registers == TYPE_PRESERVE_NONE)
+3313:                 attr = "preserve_none";
+3314:               else
+3315:                 attr = "no_callee_saved_registers";
+3316:               error_at (DECL_SOURCE_LOCATION (fndecl),
+3317:                         "%qs and %qs attributes are not compatible",
+3318:                         "interrupt", attr);
+3319:             }
+3320:
+3321:           int nargs = 0;
+3322:           for (tree arg = DECL_ARGUMENTS (fndecl);
+3323:                arg;
+3324:                arg = TREE_CHAIN (arg))
+3325:             nargs++;
+3326:           cfun->machine->call_saved_registers
+3327:             = TYPE_NO_CALLER_SAVED_REGISTERS;
+3328:           cfun->machine->func_type
+3329:             = nargs == 2 ? TYPE_EXCEPTION : TYPE_INTERRUPT;
+3330:
+3331:           ix86_optimize_mode_switching[X86_DIRFLAG] = 1;
+3332:
+3333:           /* Only dwarf2out.cc can handle -WORD(AP) as a pointer argument.  */
+3334:           if (write_symbols != NO_DEBUG && write_symbols != DWARF2_DEBUG)
 ```
 
 ## gcc/config/elfos.h:212–220
@@ -24065,6 +25221,18 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4146: #define LAST_VIRTUAL_REGISTER           ((FIRST_VIRTUAL_REGISTER) + 5)
 ```
 
+## gcc/rtl.h:862–868
+
+```text
+862: /* Nonzero if DEBUG_MARKER_INSN_P may possibly hold.  */
+863: #define MAY_HAVE_DEBUG_MARKER_INSNS debug_nonbind_markers_p
+864: /* Nonzero if DEBUG_BIND_INSN_P may possibly hold.  */
+865: #define MAY_HAVE_DEBUG_BIND_INSNS flag_var_tracking_assignments
+866: /* Nonzero if DEBUG_INSN_P may possibly hold.  */
+867: #define MAY_HAVE_DEBUG_INSNS                                    \
+868:   (MAY_HAVE_DEBUG_MARKER_INSNS || MAY_HAVE_DEBUG_BIND_INSNS)
+```
+
 ## gcc/rtl.cc:222–244
 
 ```text
@@ -24126,6 +25294,99 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 211:   memset (&crtl->expr, 0, sizeof (crtl->expr));
 212: }
 213:
+```
+
+## gcc/expr.cc:118–205
+
+```text
+118: init_expr_target (void)
+119: {
+120:   rtx pat;
+121:   int num_clobbers;
+122:   rtx mem, mem1;
+123:   rtx reg;
+124:
+125:   /* Try indexing by frame ptr and try by stack ptr.
+126:      It is known that on the Convex the stack ptr isn't a valid index.
+127:      With luck, one or the other is valid on any machine.  */
+128:   mem = gen_rtx_MEM (word_mode, stack_pointer_rtx);
+129:   mem1 = gen_rtx_MEM (word_mode, frame_pointer_rtx);
+130:
+131:   /* A scratch register we can modify in-place below to avoid
+132:      useless RTL allocations.  */
+133:   reg = gen_rtx_REG (word_mode, LAST_VIRTUAL_REGISTER + 1);
+134:
+135:   rtx_insn *insn = as_a<rtx_insn *> (rtx_alloc (INSN));
+136:   pat = gen_rtx_SET (NULL_RTX, NULL_RTX);
+137:   PATTERN (insn) = pat;
+138:
+139:   for (machine_mode mode = VOIDmode; (int) mode < NUM_MACHINE_MODES;
+140:        mode = (machine_mode) ((int) mode + 1))
+141:     {
+142:       int regno;
+143:
+144:       direct_load[(int) mode] = direct_store[(int) mode] = 0;
+145:       PUT_MODE (mem, mode);
+146:       PUT_MODE (mem1, mode);
+147:
+148:       /* See if there is some register that can be used in this mode and
+149:          directly loaded or stored from memory.  */
+150:
+151:       if (mode != VOIDmode && mode != BLKmode)
+152:         for (regno = 0; regno < FIRST_PSEUDO_REGISTER
+153:              && (direct_load[(int) mode] == 0 || direct_store[(int) mode] == 0);
+154:              regno++)
+155:           {
+156:             if (!targetm.hard_regno_mode_ok (regno, mode))
+157:               continue;
+158:
+159:             set_mode_and_regno (reg, mode, regno);
+160:
+161:             SET_SRC (pat) = mem;
+162:             SET_DEST (pat) = reg;
+163:             if (recog (pat, insn, &num_clobbers) >= 0)
+164:               direct_load[(int) mode] = 1;
+165:
+166:             SET_SRC (pat) = mem1;
+167:             SET_DEST (pat) = reg;
+168:             if (recog (pat, insn, &num_clobbers) >= 0)
+169:               direct_load[(int) mode] = 1;
+170:
+171:             SET_SRC (pat) = reg;
+172:             SET_DEST (pat) = mem;
+173:             if (recog (pat, insn, &num_clobbers) >= 0)
+174:               direct_store[(int) mode] = 1;
+175:
+176:             SET_SRC (pat) = reg;
+177:             SET_DEST (pat) = mem1;
+178:             if (recog (pat, insn, &num_clobbers) >= 0)
+179:               direct_store[(int) mode] = 1;
+180:           }
+181:     }
+182:
+183:   mem = gen_rtx_MEM (VOIDmode, gen_raw_REG (Pmode, LAST_VIRTUAL_REGISTER + 1));
+184:
+185:   opt_scalar_float_mode mode_iter;
+186:   FOR_EACH_MODE_IN_CLASS (mode_iter, MODE_FLOAT)
+187:     {
+188:       scalar_float_mode mode = mode_iter.require ();
+189:       scalar_float_mode srcmode;
+190:       FOR_EACH_MODE_UNTIL (srcmode, mode)
+191:         {
+192:           enum insn_code ic;
+193:
+194:           ic = can_extend_p (mode, srcmode, 0);
+195:           if (ic == CODE_FOR_nothing)
+196:             continue;
+197:
+198:           PUT_MODE (mem, srcmode);
+199:
+200:           if (insn_operand_matches (ic, 1, mem))
+201:             float_extend_from_mem[mode][srcmode] = true;
+202:         }
+203:     }
+204: }
+205:
 ```
 
 ## gcc/genemit.cc:175–179
@@ -24565,6 +25826,663 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1469:   return ret;
 1470: }
 1471:
+```
+
+## gcc/cfgrtl.cc:1854–1963
+
+```text
+1854: rtl_split_edge (edge edge_in)
+1855: {
+1856:   basic_block bb, new_bb;
+1857:   rtx_insn *before;
+1858:
+1859:   /* Abnormal edges cannot be split.  */
+1860:   gcc_assert (!(edge_in->flags & EDGE_ABNORMAL));
+1861:
+1862:   /* We are going to place the new block in front of edge destination.
+1863:      Avoid existence of fallthru predecessors.  */
+1864:   if ((edge_in->flags & EDGE_FALLTHRU) == 0)
+1865:     {
+1866:       edge e = find_fallthru_edge (edge_in->dest->preds);
+1867:
+1868:       if (e)
+1869:         force_nonfallthru (e);
+1870:     }
+1871:
+1872:   /* Create the basic block note.  */
+1873:   if (edge_in->dest != EXIT_BLOCK_PTR_FOR_FN (cfun))
+1874:     before = BB_HEAD (edge_in->dest);
+1875:   else
+1876:     before = NULL;
+1877:
+1878:   /* If this is a fall through edge to the exit block, the blocks might be
+1879:      not adjacent, and the right place is after the source.  */
+1880:   if ((edge_in->flags & EDGE_FALLTHRU)
+1881:       && edge_in->dest == EXIT_BLOCK_PTR_FOR_FN (cfun))
+1882:     {
+1883:       before = NEXT_INSN (BB_END (edge_in->src));
+1884:       bb = create_basic_block (before, NULL, edge_in->src);
+1885:       BB_COPY_PARTITION (bb, edge_in->src);
+1886:     }
+1887:   else
+1888:     {
+1889:       if (edge_in->src == ENTRY_BLOCK_PTR_FOR_FN (cfun))
+1890:         {
+1891:           bb = create_basic_block (before, NULL, edge_in->dest->prev_bb);
+1892:           BB_COPY_PARTITION (bb, edge_in->dest);
+1893:         }
+1894:       else
+1895:         {
+1896:           basic_block after = edge_in->dest->prev_bb;
+1897:           /* If this is post-bb reordering, and the edge crosses a partition
+1898:              boundary, the new block needs to be inserted in the bb chain
+1899:              at the end of the src partition (since we put the new bb into
+1900:              that partition, see below). Otherwise we may end up creating
+1901:              an extra partition crossing in the chain, which is illegal.
+1902:              It can't go after the src, because src may have a fall-through
+1903:              to a different block.  */
+1904:           if (crtl->bb_reorder_complete
+1905:               && (edge_in->flags & EDGE_CROSSING))
+1906:             {
+1907:               after = last_bb_in_partition (edge_in->src);
+1908:               before = get_last_bb_insn (after);
+1909:               /* The instruction following the last bb in partition should
+1910:                  be a barrier, since it cannot end in a fall-through.  */
+1911:               gcc_checking_assert (BARRIER_P (before));
+1912:               before = NEXT_INSN (before);
+1913:             }
+1914:           bb = create_basic_block (before, NULL, after);
+1915:           /* Put the split bb into the src partition, to avoid creating
+1916:              a situation where a cold bb dominates a hot bb, in the case
+1917:              where src is cold and dest is hot. The src will dominate
+1918:              the new bb (whereas it might not have dominated dest).  */
+1919:           BB_COPY_PARTITION (bb, edge_in->src);
+1920:         }
+1921:     }
+1922:
+1923:   make_single_succ_edge (bb, edge_in->dest, EDGE_FALLTHRU);
+1924:
+1925:   /* Can't allow a region crossing edge to be fallthrough.  */
+1926:   if (BB_PARTITION (bb) != BB_PARTITION (edge_in->dest)
+1927:       && edge_in->dest != EXIT_BLOCK_PTR_FOR_FN (cfun))
+1928:     {
+1929:       new_bb = force_nonfallthru (single_succ_edge (bb));
+1930:       gcc_assert (!new_bb);
+1931:     }
+1932:
+1933:   /* For non-fallthru edges, we must adjust the predecessor's
+1934:      jump instruction to target our new block.  */
+1935:   if ((edge_in->flags & EDGE_FALLTHRU) == 0)
+1936:     {
+1937:       edge redirected = redirect_edge_and_branch (edge_in, bb);
+1938:       gcc_assert (redirected);
+1939:     }
+1940:   else
+1941:     {
+1942:       if (edge_in->src != ENTRY_BLOCK_PTR_FOR_FN (cfun))
+1943:         {
+1944:           /* For asm goto even splitting of fallthru edge might
+1945:              need insn patching, as other labels might point to the
+1946:              old label.  */
+1947:           rtx_insn *last = BB_END (edge_in->src);
+1948:           if (last
+1949:               && JUMP_P (last)
+1950:               && edge_in->dest != EXIT_BLOCK_PTR_FOR_FN (cfun)
+1951:               && (extract_asm_operands (PATTERN (last))
+1952:                   || JUMP_LABEL (last) == before)
+1953:               && patch_jump_insn (last, before, bb))
+1954:             df_set_bb_dirty (edge_in->src);
+1955:         }
+1956:       redirect_edge_succ (edge_in, bb);
+1957:     }
+1958:
+1959:   return bb;
+1960: }
+1961:
+1962: /* Queue instructions for insertion on an edge between two basic blocks.
+1963:    The new instructions and basic blocks (if any) will not appear in the
+```
+
+## gcc/cfgrtl.cc:3741–3815
+
+```text
+3741: class pass_into_cfg_layout_mode : public rtl_opt_pass
+3742: {
+3743: public:
+3744:   pass_into_cfg_layout_mode (gcc::context *ctxt)
+3745:     : rtl_opt_pass (pass_data_into_cfg_layout_mode, ctxt)
+3746:   {}
+3747:
+3748:   /* opt_pass methods: */
+3749:   unsigned int execute (function *) final override
+3750:     {
+3751:       cfg_layout_initialize (0);
+3752:       return 0;
+3753:     }
+3754:
+3755: }; // class pass_into_cfg_layout_mode
+3756:
+3757: } // anon namespace
+3758:
+3759: rtl_opt_pass *
+3760: make_pass_into_cfg_layout_mode (gcc::context *ctxt)
+3761: {
+3762:   return new pass_into_cfg_layout_mode (ctxt);
+3763: }
+3764:
+3765: namespace {
+3766:
+3767: const pass_data pass_data_outof_cfg_layout_mode =
+3768: {
+3769:   RTL_PASS, /* type */
+3770:   "outof_cfglayout", /* name */
+3771:   OPTGROUP_NONE, /* optinfo_flags */
+3772:   TV_CFG, /* tv_id */
+3773:   0, /* properties_required */
+3774:   0, /* properties_provided */
+3775:   PROP_cfglayout, /* properties_destroyed */
+3776:   0, /* todo_flags_start */
+3777:   0, /* todo_flags_finish */
+3778: };
+3779:
+3780: class pass_outof_cfg_layout_mode : public rtl_opt_pass
+3781: {
+3782: public:
+3783:   pass_outof_cfg_layout_mode (gcc::context *ctxt)
+3784:     : rtl_opt_pass (pass_data_outof_cfg_layout_mode, ctxt)
+3785:   {}
+3786:
+3787:   /* opt_pass methods: */
+3788:   unsigned int execute (function *) final override;
+3789:
+3790: }; // class pass_outof_cfg_layout_mode
+3791:
+3792: unsigned int
+3793: pass_outof_cfg_layout_mode::execute (function *fun)
+3794: {
+3795:   basic_block bb;
+3796:
+3797:   FOR_EACH_BB_FN (bb, fun)
+3798:     if (bb->next_bb != EXIT_BLOCK_PTR_FOR_FN (fun))
+3799:       bb->aux = bb->next_bb;
+3800:
+3801:   cfg_layout_finalize ();
+3802:
+3803:   return 0;
+3804: }
+3805:
+3806: } // anon namespace
+3807:
+3808: rtl_opt_pass *
+3809: make_pass_outof_cfg_layout_mode (gcc::context *ctxt)
+3810: {
+3811:   return new pass_outof_cfg_layout_mode (ctxt);
+3812: }
+3813:
+3814:
+3815: /* Link the basic blocks in the correct order, compacting the basic
+```
+
+## gcc/cfgrtl.cc:3893–3958
+
+```text
+3893: fixup_reorder_chain (void)
+3894: {
+3895:   basic_block bb;
+3896:   rtx_insn *insn = NULL;
+3897:
+3898:   if (cfg_layout_function_header)
+3899:     {
+3900:       set_first_insn (cfg_layout_function_header);
+3901:       insn = cfg_layout_function_header;
+3902:       while (NEXT_INSN (insn))
+3903:         insn = NEXT_INSN (insn);
+3904:     }
+3905:
+3906:   /* First do the bulk reordering -- rechain the blocks without regard to
+3907:      the needed changes to jumps and labels.  */
+3908:
+3909:   for (bb = ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb; bb; bb = (basic_block)
+3910:        bb->aux)
+3911:     {
+3912:       if (BB_HEADER (bb))
+3913:         {
+3914:           if (insn)
+3915:             SET_NEXT_INSN (insn) = BB_HEADER (bb);
+3916:           else
+3917:             set_first_insn (BB_HEADER (bb));
+3918:           SET_PREV_INSN (BB_HEADER (bb)) = insn;
+3919:           insn = BB_HEADER (bb);
+3920:           while (NEXT_INSN (insn))
+3921:             insn = NEXT_INSN (insn);
+3922:         }
+3923:       if (insn)
+3924:         SET_NEXT_INSN (insn) = BB_HEAD (bb);
+3925:       else
+3926:         set_first_insn (BB_HEAD (bb));
+3927:       SET_PREV_INSN (BB_HEAD (bb)) = insn;
+3928:       insn = BB_END (bb);
+3929:       if (BB_FOOTER (bb))
+3930:         {
+3931:           SET_NEXT_INSN (insn) = BB_FOOTER (bb);
+3932:           SET_PREV_INSN (BB_FOOTER (bb)) = insn;
+3933:           while (NEXT_INSN (insn))
+3934:             insn = NEXT_INSN (insn);
+3935:         }
+3936:     }
+3937:
+3938:   SET_NEXT_INSN (insn) = cfg_layout_function_footer;
+3939:   if (cfg_layout_function_footer)
+3940:     SET_PREV_INSN (cfg_layout_function_footer) = insn;
+3941:
+3942:   while (NEXT_INSN (insn))
+3943:     insn = NEXT_INSN (insn);
+3944:
+3945:   set_last_insn (insn);
+3946:   if (flag_checking)
+3947:     verify_insn_chain ();
+3948:
+3949:   /* Now add jumps and labels as needed to match the blocks new
+3950:      outgoing edges.  */
+3951:
+3952:   bool remove_unreachable_blocks = false;
+3953:   for (bb = ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb; bb ; bb = (basic_block)
+3954:        bb->aux)
+3955:     {
+3956:       edge e_fall, e_taken, e;
+3957:       rtx_insn *bb_end_insn;
+3958:       rtx ret_label = NULL_RTX;
+```
+
+## gcc/cfgrtl.cc:4072–4227
+
+```text
+4072:           else
+4073:             {
+4074:               /* Otherwise we have some return, switch or computed
+4075:                  jump.  In the 99% case, there should not have been a
+4076:                  fallthru edge.  */
+4077:               gcc_assert (returnjump_p (bb_end_insn) || !e_fall);
+4078:               continue;
+4079:             }
+4080:         }
+4081:       else
+4082:         {
+4083:           /* No fallthru implies a noreturn function with EH edges, or
+4084:              something similarly bizarre.  In any case, we don't need to
+4085:              do anything.  */
+4086:           if (! e_fall)
+4087:             continue;
+4088:
+4089:           /* If the fallthru block is still next, nothing to do.  */
+4090:           if (bb->aux == e_fall->dest)
+4091:             continue;
+4092:
+4093:           /* A fallthru to exit block.  */
+4094:           if (e_fall->dest == EXIT_BLOCK_PTR_FOR_FN (cfun))
+4095:             continue;
+4096:         }
+4097:
+4098:       /* If E_FALL->dest is just a return block, then we can emit a
+4099:          return rather than a jump to the return block.  */
+4100:       rtx_insn *ret, *use;
+4101:       basic_block dest;
+4102:       if (!asm_goto
+4103:           && bb_is_just_return (e_fall->dest, &ret, &use)
+4104:           && ((PATTERN (ret) == simple_return_rtx && targetm.have_simple_return ())
+4105:               || (PATTERN (ret) == ret_rtx && targetm.have_return ())))
+4106:         {
+4107:           ret_label = PATTERN (ret);
+4108:           dest = EXIT_BLOCK_PTR_FOR_FN (cfun);
+4109:
+4110:           e_fall->flags &= ~EDGE_CROSSING;
+4111:           /* E_FALL->dest might become unreachable as a result of
+4112:              replacing the jump with a return.  So arrange to remove
+4113:              unreachable blocks.  */
+4114:           remove_unreachable_blocks = true;
+4115:         }
+4116:       else
+4117:         {
+4118:           dest = e_fall->dest;
+4119:         }
+4120:
+4121:       /* We got here if we need to add a new jump insn.
+4122:          Note force_nonfallthru can delete E_FALL and thus we have to
+4123:          save E_FALL->src prior to the call to force_nonfallthru.  */
+4124:       nb = force_nonfallthru_and_redirect (e_fall, dest, ret_label);
+4125:       if (nb)
+4126:         {
+4127:           nb->aux = bb->aux;
+4128:           bb->aux = nb;
+4129:           /* Don't process this new block.  */
+4130:           bb = nb;
+4131:         }
+4132:     }
+4133:
+4134:   relink_block_chain (/*stay_in_cfglayout_mode=*/false);
+4135:
+4136:   /* Annoying special case - jump around dead jumptables left in the code.  */
+4137:   FOR_EACH_BB_FN (bb, cfun)
+4138:     {
+4139:       edge e = find_fallthru_edge (bb->succs);
+4140:
+4141:       if (e && !can_fallthru (e->src, e->dest))
+4142:         force_nonfallthru (e);
+4143:     }
+4144:
+4145:   /* Ensure goto_locus from edges has some instructions with that locus in RTL
+4146:      when not optimizing.  */
+4147:   if (!optimize && !DECL_IGNORED_P (current_function_decl))
+4148:     FOR_EACH_BB_FN (bb, cfun)
+4149:       {
+4150:         edge e;
+4151:         edge_iterator ei;
+4152:
+4153:         FOR_EACH_EDGE (e, ei, bb->succs)
+4154:           if (LOCATION_LOCUS (e->goto_locus) != UNKNOWN_LOCATION
+4155:               && !(e->flags & EDGE_ABNORMAL))
+4156:             {
+4157:               edge e2;
+4158:               edge_iterator ei2;
+4159:               basic_block dest, nb;
+4160:               rtx_insn *end;
+4161:
+4162:               insn = BB_END (e->src);
+4163:               end = PREV_INSN (BB_HEAD (e->src));
+4164:               while (insn != end
+4165:                      && (!NONDEBUG_INSN_P (insn) || !INSN_HAS_LOCATION (insn)))
+4166:                 insn = PREV_INSN (insn);
+4167:               if (insn != end
+4168:                   && loc_equal (INSN_LOCATION (insn), e->goto_locus))
+4169:                 continue;
+4170:               if (simplejump_p (BB_END (e->src))
+4171:                   && !INSN_HAS_LOCATION (BB_END (e->src)))
+4172:                 {
+4173:                   INSN_LOCATION (BB_END (e->src)) = e->goto_locus;
+4174:                   continue;
+4175:                 }
+4176:               dest = e->dest;
+4177:               if (dest == EXIT_BLOCK_PTR_FOR_FN (cfun))
+4178:                 {
+4179:                   /* Non-fallthru edges to the exit block cannot be split.  */
+4180:                   if (!(e->flags & EDGE_FALLTHRU))
+4181:                     continue;
+4182:                 }
+4183:               else
+4184:                 {
+4185:                   insn = BB_HEAD (dest);
+4186:                   end = NEXT_INSN (BB_END (dest));
+4187:                   while (insn != end && !NONDEBUG_INSN_P (insn))
+4188:                     insn = NEXT_INSN (insn);
+4189:                   if (insn != end && INSN_HAS_LOCATION (insn)
+4190:                       && loc_equal (INSN_LOCATION (insn), e->goto_locus))
+4191:                     continue;
+4192:                 }
+4193:               nb = split_edge (e);
+4194:               if (!INSN_P (BB_END (nb)))
+4195:                 BB_END (nb) = emit_insn_after_noloc (gen_nop (), BB_END (nb),
+4196:                                                          nb);
+4197:               INSN_LOCATION (BB_END (nb)) = e->goto_locus;
+4198:
+4199:               /* If there are other incoming edges to the destination block
+4200:                  with the same goto locus, redirect them to the new block as
+4201:                  well, this can prevent other such blocks from being created
+4202:                  in subsequent iterations of the loop.  */
+4203:               for (ei2 = ei_start (dest->preds); (e2 = ei_safe_edge (ei2)); )
+4204:                 if (LOCATION_LOCUS (e2->goto_locus) != UNKNOWN_LOCATION
+4205:                     && !(e2->flags & (EDGE_ABNORMAL | EDGE_FALLTHRU))
+4206:                     && e->goto_locus == e2->goto_locus)
+4207:                   redirect_edge_and_branch (e2, nb);
+4208:                 else
+4209:                   ei_next (&ei2);
+4210:             }
+4211:       }
+4212:
+4213:   /* Replacing a jump with a return may have exposed an unreachable
+4214:      block.  Conditionally remove them if such transformations were
+4215:      made.  */
+4216:   if (remove_unreachable_blocks)
+4217:     delete_unreachable_blocks ();
+4218: }
+4219:
+4220: /* Perform sanity checks on the insn chain.
+4221:    1. Check that next/prev pointers are consistent in both the forward and
+4222:       reverse direction.
+4223:    2. Count insns in chain, going both directions, and check if equal.
+4224:    3. Check that get_last_insn () returns the actual end of chain.  */
+4225:
+4226: DEBUG_FUNCTION void
+4227: verify_insn_chain (void)
+```
+
+## gcc/cfgrtl.cc:4296–4320
+
+```text
+4296: force_one_exit_fallthru (void)
+4297: {
+4298:   edge e, predecessor = NULL;
+4299:   bool more = false;
+4300:   edge_iterator ei;
+4301:   basic_block forwarder, bb;
+4302:
+4303:   FOR_EACH_EDGE (e, ei, EXIT_BLOCK_PTR_FOR_FN (cfun)->preds)
+4304:     if (e->flags & EDGE_FALLTHRU)
+4305:       {
+4306:         if (predecessor == NULL)
+4307:           predecessor = e;
+4308:         else
+4309:           {
+4310:             more = true;
+4311:             break;
+4312:           }
+4313:       }
+4314:
+4315:   if (!more)
+4316:     return;
+4317:
+4318:   /* Exit has several fallthru predecessors.  Create a forwarder block for
+4319:      them.  */
+4320:   forwarder = split_edge (predecessor);
+```
+
+## gcc/cfgrtl.cc:4555–4640
+
+```text
+4555: cfg_layout_initialize (int flags)
+4556: {
+4557:   rtx_insn_list *x;
+4558:   basic_block bb;
+4559:
+4560:   /* Once bb partitioning is complete, cfg layout mode should not be
+4561:      re-entered.  Entering cfg layout mode may require fixups.  As an
+4562:      example, if edge forwarding performed when optimizing the cfg
+4563:      layout required moving a block from the hot to the cold
+4564:      section. This would create an illegal partitioning unless some
+4565:      manual fixup was performed.  */
+4566:   gcc_assert (!crtl->bb_reorder_complete || !crtl->has_bb_partition);
+4567:
+4568:   initialize_original_copy_tables ();
+4569:
+4570:   cfg_layout_rtl_register_cfg_hooks ();
+4571:
+4572:   record_effective_endpoints ();
+4573:
+4574:   /* Make sure that the targets of non local gotos are marked.  */
+4575:   for (x = nonlocal_goto_handler_labels; x; x = x->next ())
+4576:     {
+4577:       bb = BLOCK_FOR_INSN (x->insn ());
+4578:       bb->flags |= BB_NON_LOCAL_GOTO_TARGET;
+4579:     }
+4580:
+4581:   cleanup_cfg (CLEANUP_CFGLAYOUT | flags);
+4582: }
+4583:
+4584: /* Splits superblocks.  */
+4585: void
+4586: break_superblocks (void)
+4587: {
+4588:   bool need = false;
+4589:   basic_block bb;
+4590:
+4591:   auto_sbitmap superblocks (last_basic_block_for_fn (cfun));
+4592:   bitmap_clear (superblocks);
+4593:
+4594:   FOR_EACH_BB_FN (bb, cfun)
+4595:     if (bb->flags & BB_SUPERBLOCK)
+4596:       {
+4597:         bb->flags &= ~BB_SUPERBLOCK;
+4598:         bitmap_set_bit (superblocks, bb->index);
+4599:         need = true;
+4600:       }
+4601:
+4602:   if (need)
+4603:     {
+4604:       rebuild_jump_labels (get_insns ());
+4605:       find_many_sub_basic_blocks (superblocks);
+4606:     }
+4607: }
+4608:
+4609: /* Finalize the changes: reorder insn list according to the sequence specified
+4610:    by aux pointers, enter compensation code, rebuild scope forest.  */
+4611:
+4612: void
+4613: cfg_layout_finalize (void)
+4614: {
+4615:   free_dominance_info (CDI_DOMINATORS);
+4616:   force_one_exit_fallthru ();
+4617:   rtl_register_cfg_hooks ();
+4618:   if (reload_completed && !targetm.have_epilogue ())
+4619:     fixup_fallthru_exit_predecessor ();
+4620:   fixup_reorder_chain ();
+4621:
+4622:   rebuild_jump_labels (get_insns ());
+4623:   delete_dead_jumptables ();
+4624:
+4625:   if (flag_checking)
+4626:     verify_insn_chain ();
+4627:   checking_verify_flow_info ();
+4628: }
+4629:
+4630:
+4631: /* Same as split_block but update cfg_layout structures.  */
+4632:
+4633: static basic_block
+4634: cfg_layout_split_block (basic_block bb, void *insnp)
+4635: {
+4636:   rtx insn = (rtx) insnp;
+4637:   basic_block new_bb = rtl_split_block (bb, insn);
+4638:
+4639:   BB_FOOTER (new_bb) = BB_FOOTER (bb);
+4640:   BB_FOOTER (bb) = NULL;
+```
+
+## gcc/cfgrtl.cc:4891–4994
+
+```text
+4891: cfg_layout_merge_blocks (basic_block a, basic_block b)
+4892: {
+4893:   /* If B is a forwarder block whose outgoing edge has no location, we'll
+4894:      propagate the locus of the edge between A and B onto it.  */
+4895:   const bool forward_edge_locus
+4896:     = (b->flags & BB_FORWARDER_BLOCK) != 0
+4897:       && LOCATION_LOCUS (EDGE_SUCC (b, 0)->goto_locus) == UNKNOWN_LOCATION;
+4898:   rtx_insn *insn;
+4899:
+4900:   gcc_checking_assert (cfg_layout_can_merge_blocks_p (a, b));
+4901:
+4902:   if (dump_file)
+4903:     fprintf (dump_file, "Merging block %d into block %d...\n", b->index,
+4904:                          a->index);
+4905:
+4906:   /* If there was a CODE_LABEL beginning B, delete it.  */
+4907:   if (LABEL_P (BB_HEAD (b)))
+4908:     {
+4909:       delete_insn (BB_HEAD (b));
+4910:     }
+4911:
+4912:   /* We should have fallthru edge in a, or we can do dummy redirection to get
+4913:      it cleaned up.  */
+4914:   if (JUMP_P (BB_END (a)))
+4915:     try_redirect_by_replacing_jump (EDGE_SUCC (a, 0), b, true);
+4916:   gcc_assert (!JUMP_P (BB_END (a)));
+4917:
+4918:   /* If not optimizing, preserve the locus of the single edge between
+4919:      blocks A and B if necessary by emitting a nop.  */
+4920:   if (!optimize
+4921:       && !forward_edge_locus
+4922:       && !DECL_IGNORED_P (current_function_decl))
+4923:     emit_nop_for_unique_locus_between (a, b);
+4924:
+4925:   /* Move things from b->footer after a->footer.  */
+4926:   if (BB_FOOTER (b))
+4927:     {
+4928:       if (!BB_FOOTER (a))
+4929:         BB_FOOTER (a) = BB_FOOTER (b);
+4930:       else
+4931:         {
+4932:           rtx_insn *last = BB_FOOTER (a);
+4933:
+4934:           while (NEXT_INSN (last))
+4935:             last = NEXT_INSN (last);
+4936:           SET_NEXT_INSN (last) = BB_FOOTER (b);
+4937:           SET_PREV_INSN (BB_FOOTER (b)) = last;
+4938:         }
+4939:       BB_FOOTER (b) = NULL;
+4940:     }
+4941:
+4942:   /* Move things from b->header before a->footer.
+4943:      Note that this may include dead tablejump data, but we don't clean
+4944:      those up until we go out of cfglayout mode.  */
+4945:    if (BB_HEADER (b))
+4946:      {
+4947:       if (! BB_FOOTER (a))
+4948:         BB_FOOTER (a) = BB_HEADER (b);
+4949:       else
+4950:         {
+4951:           rtx_insn *last = BB_HEADER (b);
+4952:
+4953:           while (NEXT_INSN (last))
+4954:             last = NEXT_INSN (last);
+4955:           SET_NEXT_INSN (last) = BB_FOOTER (a);
+4956:           SET_PREV_INSN (BB_FOOTER (a)) = last;
+4957:           BB_FOOTER (a) = BB_HEADER (b);
+4958:         }
+4959:       BB_HEADER (b) = NULL;
+4960:     }
+4961:
+4962:   /* In the case basic blocks are not adjacent, move them around.  */
+4963:   if (NEXT_INSN (BB_END (a)) != BB_HEAD (b))
+4964:     {
+4965:       insn = unlink_insn_chain (BB_HEAD (b), BB_END (b));
+4966:
+4967:       emit_insn_after_noloc (insn, BB_END (a), a);
+4968:     }
+4969:   /* Otherwise just re-associate the instructions.  */
+4970:   else
+4971:     {
+4972:       insn = BB_HEAD (b);
+4973:       BB_END (a) = BB_END (b);
+4974:     }
+4975:
+4976:   /* emit_insn_after_noloc doesn't call df_insn_change_bb.
+4977:      We need to explicitly call. */
+4978:   update_bb_for_insn_chain (insn, BB_END (b), a);
+4979:
+4980:   /* Skip possible DELETED_LABEL insn.  */
+4981:   if (!NOTE_INSN_BASIC_BLOCK_P (insn))
+4982:     insn = NEXT_INSN (insn);
+4983:   gcc_assert (NOTE_INSN_BASIC_BLOCK_P (insn));
+4984:   BB_HEAD (b) = BB_END (b) = NULL;
+4985:   delete_insn (insn);
+4986:
+4987:   df_bb_delete (b->index);
+4988:
+4989:   if (forward_edge_locus)
+4990:     EDGE_SUCC (b, 0)->goto_locus = EDGE_SUCC (a, 0)->goto_locus;
+4991:
+4992:   if (dump_file)
+4993:     fprintf (dump_file, "Merged blocks %d and %d.\n", a->index, b->index);
+4994: }
 ```
 
 ## gcc/cfgbuild.cc:73–119
@@ -25562,6 +27480,67 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3207: namespace {
 ```
 
+## gcc/cfgcleanup.cc:3222–3247
+
+```text
+3222: class pass_jump : public rtl_opt_pass
+3223: {
+3224: public:
+3225:   pass_jump (gcc::context *ctxt)
+3226:     : rtl_opt_pass (pass_data_jump, ctxt)
+3227:   {}
+3228:
+3229:   /* opt_pass methods: */
+3230:   unsigned int execute (function *) final override;
+3231:
+3232: }; // class pass_jump
+3233:
+3234: unsigned int
+3235: pass_jump::execute (function *)
+3236: {
+3237:   delete_trivially_dead_insns (get_insns (), max_reg_num ());
+3238:   if (dump_file)
+3239:     dump_flow_info (dump_file, dump_flags);
+3240:   cleanup_cfg ((optimize ? CLEANUP_EXPENSIVE : 0)
+3241:                | (flag_thread_jumps && flag_expensive_optimizations
+3242:                   ? CLEANUP_THREADING : 0));
+3243:   return 0;
+3244: }
+3245:
+3246: } // anon namespace
+3247:
+```
+
+## gcc/cfgcleanup.cc:3269–3293
+
+```text
+3269: class pass_jump_after_combine : public rtl_opt_pass
+3270: {
+3271: public:
+3272:   pass_jump_after_combine (gcc::context *ctxt)
+3273:     : rtl_opt_pass (pass_data_jump_after_combine, ctxt)
+3274:   {}
+3275:
+3276:   /* opt_pass methods: */
+3277:   bool gate (function *) final override
+3278:   {
+3279:     return flag_thread_jumps && flag_expensive_optimizations;
+3280:   }
+3281:   unsigned int execute (function *) final override;
+3282:
+3283: }; // class pass_jump_after_combine
+3284:
+3285: unsigned int
+3286: pass_jump_after_combine::execute (function *)
+3287: {
+3288:   /* Jump threading does not keep dominators up-to-date.  */
+3289:   free_dominance_info (CDI_DOMINATORS);
+3290:   cleanup_cfg (CLEANUP_THREADING);
+3291:   return 0;
+3292: }
+3293:
+```
+
 ## gcc/jump.cc:70–101
 
 ```text
@@ -25634,6 +27613,1595 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6276:  void, (void),
 6277:  hook_void_void)
 6278:
+```
+
+## gcc/target.def:5867–5874
+
+```text
+5867: DEFHOOK
+5868: (lra_p,
+5869:  "A target hook which returns true if we use LRA instead of reload pass.\n\
+5870: \n\
+5871: The default version of this target hook returns true.  New ports\n\
+5872: should use LRA, and existing ports are encouraged to convert.",
+5873:  bool, (void),
+5874:  default_lra_p)
+```
+
+## gcc/cfg.cc:278–294
+
+```text
+278: unchecked_make_edge (basic_block src, basic_block dst, int flags)
+279: {
+280:   edge e;
+281:   e = ggc_cleared_alloc<edge_def> ();
+282:   n_edges_for_fn (cfun)++;
+283:
+284:   e->probability = profile_probability::uninitialized ();
+285:   e->src = src;
+286:   e->dest = dst;
+287:   e->flags = flags;
+288:
+289:   connect_src (e);
+290:   connect_dest (e);
+291:
+292:   execute_on_growing_pred (e);
+293:   return e;
+294: }
+```
+
+## gcc/cfg.cc:1068–1073
+
+```text
+1068: initialize_original_copy_tables (void)
+1069: {
+1070:   bb_original = new copy_map_t (10);
+1071:   bb_copy = new copy_map_t (10);
+1072:   loop_copy = new copy_map_t (10);
+1073: }
+```
+
+## gcc/cfghooks.cc:684–756
+
+```text
+684: split_edge (edge e)
+685: {
+686:   basic_block ret;
+687:   profile_count count = e->count ();
+688:   edge f;
+689:   bool irr = (e->flags & EDGE_IRREDUCIBLE_LOOP) != 0;
+690:   bool back = (e->flags & EDGE_DFS_BACK) != 0;
+691:   class loop *loop;
+692:   basic_block src = e->src, dest = e->dest;
+693:
+694:   if (!cfg_hooks->split_edge)
+695:     internal_error ("%s does not support split_edge", cfg_hooks->name);
+696:
+697:   if (current_loops != NULL)
+698:     rescan_loop_exit (e, false, true);
+699:
+700:   ret = cfg_hooks->split_edge (e);
+701:   ret->count = count;
+702:   single_succ_edge (ret)->probability = profile_probability::always ();
+703:
+704:   if (irr)
+705:     {
+706:       ret->flags |= BB_IRREDUCIBLE_LOOP;
+707:       single_pred_edge (ret)->flags |= EDGE_IRREDUCIBLE_LOOP;
+708:       single_succ_edge (ret)->flags |= EDGE_IRREDUCIBLE_LOOP;
+709:     }
+710:   if (back)
+711:     {
+712:       single_pred_edge (ret)->flags &= ~EDGE_DFS_BACK;
+713:       single_succ_edge (ret)->flags |= EDGE_DFS_BACK;
+714:     }
+715:
+716:   if (dom_info_available_p (CDI_DOMINATORS))
+717:     set_immediate_dominator (CDI_DOMINATORS, ret, single_pred (ret));
+718:
+719:   if (dom_info_state (CDI_DOMINATORS) >= DOM_NO_FAST_QUERY)
+720:     {
+721:       /* There are two cases:
+722:
+723:          If the immediate dominator of e->dest is not e->src, it
+724:          remains unchanged.
+725:
+726:          If immediate dominator of e->dest is e->src, it may become
+727:          ret, provided that all other predecessors of e->dest are
+728:          dominated by e->dest.  */
+729:
+730:       if (get_immediate_dominator (CDI_DOMINATORS, single_succ (ret))
+731:           == single_pred (ret))
+732:         {
+733:           edge_iterator ei;
+734:           FOR_EACH_EDGE (f, ei, single_succ (ret)->preds)
+735:             {
+736:               if (f == single_succ_edge (ret))
+737:                 continue;
+738:
+739:               if (!dominated_by_p (CDI_DOMINATORS, f->src,
+740:                                    single_succ (ret)))
+741:                 break;
+742:             }
+743:
+744:           if (!f)
+745:             set_immediate_dominator (CDI_DOMINATORS, single_succ (ret), ret);
+746:         }
+747:     }
+748:
+749:   if (current_loops != NULL)
+750:     {
+751:       loop = find_common_loop (src->loop_father, dest->loop_father);
+752:       add_bb_to_loop (ret, loop);
+753:
+754:       /* If we split the latch edge of loop adjust the latch block.  */
+755:       if (loop->latch == src
+756:           && loop->header == dest)
+```
+
+## gcc/cse.cc:7073–7120
+
+```text
+7073: delete_trivially_dead_insns (rtx_insn *insns, int nreg)
+7074: {
+7075:   int *counts;
+7076:   rtx_insn *insn, *prev;
+7077:   rtx *replacements = NULL;
+7078:   int ndead = 0;
+7079:
+7080:   timevar_push (TV_DELETE_TRIVIALLY_DEAD);
+7081:   /* First count the number of times each register is used.  */
+7082:   if (MAY_HAVE_DEBUG_BIND_INSNS)
+7083:     {
+7084:       counts = XCNEWVEC (int, nreg * 3);
+7085:       for (insn = insns; insn; insn = NEXT_INSN (insn))
+7086:         if (DEBUG_BIND_INSN_P (insn))
+7087:           {
+7088:             count_reg_usage (INSN_VAR_LOCATION_LOC (insn), counts + nreg,
+7089:                              NULL_RTX, 1);
+7090:             TREE_VISITED (INSN_VAR_LOCATION_DECL (insn)) = 0;
+7091:           }
+7092:         else if (INSN_P (insn))
+7093:           {
+7094:             count_reg_usage (insn, counts, NULL_RTX, 1);
+7095:             note_stores (insn, count_stores, counts + nreg * 2);
+7096:           }
+7097:       /* If there can be debug insns, COUNTS are 3 consecutive arrays.
+7098:          First one counts how many times each pseudo is used outside
+7099:          of debug insns, second counts how many times each pseudo is
+7100:          used in debug insns and third counts how many times a pseudo
+7101:          is stored.  */
+7102:     }
+7103:   else
+7104:     {
+7105:       counts = XCNEWVEC (int, nreg);
+7106:       for (insn = insns; insn; insn = NEXT_INSN (insn))
+7107:         if (INSN_P (insn))
+7108:           count_reg_usage (insn, counts, NULL_RTX, 1);
+7109:       /* If no debug insns can be present, COUNTS is just an array
+7110:          which counts how many times each pseudo is used.  */
+7111:     }
+7112:   /* Pseudo PIC register should be considered as used due to possible
+7113:      new usages generated.  */
+7114:   if (!reload_completed
+7115:       && pic_offset_table_rtx
+7116:       && REGNO (pic_offset_table_rtx) >= FIRST_PSEUDO_REGISTER)
+7117:     counts[REGNO (pic_offset_table_rtx)]++;
+7118:   /* Go from the last insn to the first and delete insns that only set unused
+7119:      registers or copy a register to itself.  As we delete an insn, remove
+7120:      usage counts for registers it uses.
+```
+
+## gcc/cse.cc:7662–7680
+
+```text
+7662: class pass_cse : public rtl_opt_pass
+7663: {
+7664: public:
+7665:   pass_cse (gcc::context *ctxt)
+7666:     : rtl_opt_pass (pass_data_cse, ctxt)
+7667:   {}
+7668:
+7669:   /* opt_pass methods: */
+7670:   bool gate (function *) final override { return optimize > 0; }
+7671:   unsigned int execute (function *) final override
+7672:   {
+7673:     return rest_of_handle_cse ();
+7674:   }
+7675:
+7676: }; // class pass_cse
+7677:
+7678: } // anon namespace
+7679:
+7680: rtl_opt_pass *
+```
+
+## gcc/cse.cc:7736–7754
+
+```text
+7736: class pass_cse2 : public rtl_opt_pass
+7737: {
+7738: public:
+7739:   pass_cse2 (gcc::context *ctxt)
+7740:     : rtl_opt_pass (pass_data_cse2, ctxt)
+7741:   {}
+7742:
+7743:   /* opt_pass methods: */
+7744:   bool gate (function *) final override
+7745:     {
+7746:       return optimize > 0 && flag_rerun_cse_after_loop;
+7747:     }
+7748:
+7749:   unsigned int execute (function *) final override
+7750:   {
+7751:     return rest_of_handle_cse2 ();
+7752:   }
+7753:
+7754: }; // class pass_cse2
+```
+
+## gcc/cse.cc:7812–7831
+
+```text
+7812: class pass_cse_after_global_opts : public rtl_opt_pass
+7813: {
+7814: public:
+7815:   pass_cse_after_global_opts (gcc::context *ctxt)
+7816:     : rtl_opt_pass (pass_data_cse_after_global_opts, ctxt)
+7817:   {}
+7818:
+7819:   /* opt_pass methods: */
+7820:   bool gate (function *) final override
+7821:     {
+7822:       return optimize > 0 && flag_rerun_cse_after_global_opts;
+7823:     }
+7824:
+7825:   unsigned int execute (function *) final override
+7826:     {
+7827:       return rest_of_handle_cse_after_global_opts ();
+7828:     }
+7829:
+7830: }; // class pass_cse_after_global_opts
+7831:
+```
+
+## gcc/recog.cc:3492–3615
+
+```text
+3492: split_insn (rtx_insn *insn)
+3493: {
+3494:   /* Split insns here to get max fine-grain parallelism.  */
+3495:   rtx_insn *first = PREV_INSN (insn);
+3496:   rtx_insn *last = try_split (PATTERN (insn), insn, 1);
+3497:   rtx insn_set, last_set, note;
+3498:
+3499:   if (last == insn)
+3500:     return NULL;
+3501:
+3502:   /* If the original instruction was a single set that was known to be
+3503:      equivalent to a constant, see if we can say the same about the last
+3504:      instruction in the split sequence.  The two instructions must set
+3505:      the same destination.  */
+3506:   insn_set = single_set (insn);
+3507:   if (insn_set)
+3508:     {
+3509:       last_set = single_set (last);
+3510:       if (last_set && rtx_equal_p (SET_DEST (last_set), SET_DEST (insn_set)))
+3511:         {
+3512:           note = find_reg_equal_equiv_note (insn);
+3513:           if (note && CONSTANT_P (XEXP (note, 0)))
+3514:             set_unique_reg_note (last, REG_EQUAL, XEXP (note, 0));
+3515:           else if (CONSTANT_P (SET_SRC (insn_set)))
+3516:             set_unique_reg_note (last, REG_EQUAL,
+3517:                                  copy_rtx (SET_SRC (insn_set)));
+3518:         }
+3519:     }
+3520:
+3521:   /* try_split returns the NOTE that INSN became.  */
+3522:   SET_INSN_DELETED (insn);
+3523:
+3524:   /* ??? Coddle to md files that generate subregs in post-reload
+3525:      splitters instead of computing the proper hard register.  */
+3526:   if (reload_completed && first != last)
+3527:     {
+3528:       first = NEXT_INSN (first);
+3529:       for (;;)
+3530:         {
+3531:           if (INSN_P (first))
+3532:             cleanup_subreg_operands (first);
+3533:           if (first == last)
+3534:             break;
+3535:           first = NEXT_INSN (first);
+3536:         }
+3537:     }
+3538:
+3539:   return last;
+3540: }
+3541:
+3542: /* Split all insns in the function.  If UPD_LIFE, update life info after.  */
+3543:
+3544: void
+3545: split_all_insns (void)
+3546: {
+3547:   bool changed;
+3548:   bool need_cfg_cleanup = false;
+3549:   basic_block bb;
+3550:
+3551:   auto_sbitmap blocks (last_basic_block_for_fn (cfun));
+3552:   bitmap_clear (blocks);
+3553:   changed = false;
+3554:
+3555:   FOR_EACH_BB_REVERSE_FN (bb, cfun)
+3556:     {
+3557:       rtx_insn *insn, *next;
+3558:       bool finish = false;
+3559:
+3560:       rtl_profile_for_bb (bb);
+3561:       for (insn = BB_HEAD (bb); !finish ; insn = next)
+3562:         {
+3563:           /* Can't use `next_real_insn' because that might go across
+3564:              CODE_LABELS and short-out basic blocks.  */
+3565:           next = NEXT_INSN (insn);
+3566:           finish = (insn == BB_END (bb));
+3567:
+3568:           /* If INSN has a REG_EH_REGION note and we split INSN, the
+3569:              resulting split may not have/need REG_EH_REGION notes.
+3570:
+3571:              If that happens and INSN was the last reference to the
+3572:              given EH region, then the EH region will become unreachable.
+3573:              We cannot leave the unreachable blocks in the CFG as that
+3574:              will trigger a checking failure.
+3575:
+3576:              So track if INSN has a REG_EH_REGION note.  If so and we
+3577:              split INSN, then trigger a CFG cleanup.  */
+3578:           rtx note = find_reg_note (insn, REG_EH_REGION, NULL_RTX);
+3579:           if (INSN_P (insn))
+3580:             {
+3581:               rtx set = single_set (insn);
+3582:
+3583:               /* Don't split no-op move insns.  These should silently
+3584:                  disappear later in final.  Splitting such insns would
+3585:                  break the code that handles LIBCALL blocks.  */
+3586:               if (set && set_noop_p (set))
+3587:                 {
+3588:                   /* Nops get in the way while scheduling, so delete them
+3589:                      now if register allocation has already been done.  It
+3590:                      is too risky to try to do this before register
+3591:                      allocation, and there are unlikely to be very many
+3592:                      nops then anyways.  */
+3593:                   if (reload_completed)
+3594:                       delete_insn_and_edges (insn);
+3595:                   if (note)
+3596:                     need_cfg_cleanup = true;
+3597:                 }
+3598:               else
+3599:                 {
+3600:                   if (split_insn (insn))
+3601:                     {
+3602:                       bitmap_set_bit (blocks, bb->index);
+3603:                       changed = true;
+3604:                       if (note)
+3605:                         need_cfg_cleanup = true;
+3606:                     }
+3607:                 }
+3608:             }
+3609:         }
+3610:     }
+3611:
+3612:   default_rtl_profile ();
+3613:   if (changed)
+3614:     {
+3615:       find_many_sub_basic_blocks (blocks);
+```
+
+## gcc/recog.cc:4508–4533
+
+```text
+4508: class pass_split_all_insns : public rtl_opt_pass
+4509: {
+4510: public:
+4511:   pass_split_all_insns (gcc::context *ctxt)
+4512:     : rtl_opt_pass (pass_data_split_all_insns, ctxt)
+4513:   {}
+4514:
+4515:   /* opt_pass methods: */
+4516:   /* The epiphany backend creates a second instance of this pass, so
+4517:      we need a clone method.  */
+4518:   opt_pass * clone () final override
+4519:   {
+4520:     return new pass_split_all_insns (m_ctxt);
+4521:   }
+4522:   unsigned int execute (function *) final override
+4523:     {
+4524:       split_all_insns ();
+4525:       return 0;
+4526:     }
+4527:
+4528: }; // class pass_split_all_insns
+4529:
+4530: } // anon namespace
+4531:
+4532: rtl_opt_pass *
+4533: make_pass_split_all_insns (gcc::context *ctxt)
+```
+
+## gcc/recog.cc:4749–4767
+
+```text
+4749: recog_init ()
+4750: {
+4751:   /* The information is zero-initialized, so we don't need to do anything
+4752:      first time round.  */
+4753:   if (!this_target_recog->x_initialized)
+4754:     {
+4755:       this_target_recog->x_initialized = true;
+4756:       return;
+4757:     }
+4758:   memset (this_target_recog->x_bool_attr_masks, 0,
+4759:           sizeof (this_target_recog->x_bool_attr_masks));
+4760:   for (unsigned int i = 0; i < NUM_INSN_CODES; ++i)
+4761:     if (this_target_recog->x_op_alt[i])
+4762:       {
+4763:         free (this_target_recog->x_op_alt[i]);
+4764:         this_target_recog->x_op_alt[i] = 0;
+4765:       }
+4766: }
+4767:
+```
+
+## gcc/df-core.cc:684–714
+
+```text
+684: rest_of_handle_df_initialize (void)
+685: {
+686:   gcc_assert (!df);
+687:   df = XCNEW (class df_d);
+688:   df->changeable_flags = 0;
+689:
+690:   bitmap_obstack_initialize (&df_bitmap_obstack);
+691:
+692:   /* Set this to a conservative value.  Stack_ptr_mod will compute it
+693:      correctly later.  */
+694:   crtl->sp_is_unchanging = 0;
+695:
+696:   df_scan_add_problem ();
+697:   df_scan_alloc (NULL);
+698:
+699:   /* These three problems are permanent.  */
+700:   df_lr_add_problem ();
+701:   if (optimize > 1)
+702:     df_live_add_problem ();
+703:
+704:   df->hard_regs_live_count = XCNEWVEC (unsigned int, FIRST_PSEUDO_REGISTER);
+705:
+706:   df_hard_reg_init ();
+707:   /* After reload, some ports add certain bits to regs_ever_live so
+708:      this cannot be reset.  */
+709:   df_compute_regs_ever_live (true);
+710:   df_scan_blocks ();
+711:   df_compute_regs_ever_live (false);
+712:   return 0;
+713: }
+714:
+```
+
+## gcc/df-core.cc:731–795
+
+```text
+731: class pass_df_initialize_opt : public rtl_opt_pass
+732: {
+733: public:
+734:   pass_df_initialize_opt (gcc::context *ctxt)
+735:     : rtl_opt_pass (pass_data_df_initialize_opt, ctxt)
+736:   {}
+737:
+738:   /* opt_pass methods: */
+739:   bool gate (function *) final override { return optimize > 0; }
+740:   unsigned int execute (function *) final override
+741:     {
+742:       return rest_of_handle_df_initialize ();
+743:     }
+744:
+745: }; // class pass_df_initialize_opt
+746:
+747: } // anon namespace
+748:
+749: rtl_opt_pass *
+750: make_pass_df_initialize_opt (gcc::context *ctxt)
+751: {
+752:   return new pass_df_initialize_opt (ctxt);
+753: }
+754:
+755:
+756: namespace {
+757:
+758: const pass_data pass_data_df_initialize_no_opt =
+759: {
+760:   RTL_PASS, /* type */
+761:   "no-opt dfinit", /* name */
+762:   OPTGROUP_NONE, /* optinfo_flags */
+763:   TV_DF_SCAN, /* tv_id */
+764:   0, /* properties_required */
+765:   0, /* properties_provided */
+766:   0, /* properties_destroyed */
+767:   0, /* todo_flags_start */
+768:   0, /* todo_flags_finish */
+769: };
+770:
+771: class pass_df_initialize_no_opt : public rtl_opt_pass
+772: {
+773: public:
+774:   pass_df_initialize_no_opt (gcc::context *ctxt)
+775:     : rtl_opt_pass (pass_data_df_initialize_no_opt, ctxt)
+776:   {}
+777:
+778:   /* opt_pass methods: */
+779:   bool gate (function *) final override { return optimize == 0; }
+780:   unsigned int execute (function *) final override
+781:     {
+782:       return rest_of_handle_df_initialize ();
+783:     }
+784:
+785: }; // class pass_df_initialize_no_opt
+786:
+787: } // anon namespace
+788:
+789: rtl_opt_pass *
+790: make_pass_df_initialize_no_opt (gcc::context *ctxt)
+791: {
+792:   return new pass_df_initialize_no_opt (ctxt);
+793: }
+794:
+795:
+```
+
+## gcc/stack-ptr-mod.cc:82–116
+
+```text
+82:   rtx_insn *insn;
+83:
+84:   /* Assume that the stack pointer is unchanging if alloca hasn't
+85:      been used.  */
+86:   crtl->sp_is_unchanging = !fun->calls_alloca;
+87:   if (crtl->sp_is_unchanging)
+88:     FOR_EACH_BB_FN (bb, fun)
+89:       FOR_BB_INSNS (bb, insn)
+90:         {
+91:           if (INSN_P (insn))
+92:             {
+93:               /* Check if insn modifies the stack pointer.  */
+94:               note_stores (insn, notice_stack_pointer_modification_1, NULL);
+95:               if (! crtl->sp_is_unchanging)
+96:                 return 0;
+97:             }
+98:         }
+99:
+100:   /* The value coming into this pass was 0, and the exit block uses
+101:      are based on this.  If the value is now 1, we need to redo the
+102:      exit block uses.  */
+103:   if (df && crtl->sp_is_unchanging)
+104:     df_update_exit_block_uses ();
+105:
+106:   return 0;
+107: }
+108:
+109: } // anon namespace
+110:
+111: rtl_opt_pass *
+112: make_pass_stack_ptr_mod (gcc::context *ctxt)
+113: {
+114:   return new pass_stack_ptr_mod (ctxt);
+115: }
+116:
+```
+
+## gcc/reginfo.cc:532–538
+
+```text
+532: init_fake_stack_mems (void)
+533: {
+534:   int i;
+535:
+536:   for (i = 0; i < MAX_MACHINE_MODE; i++)
+537:     top_of_stack[i] = gen_rtx_MEM ((machine_mode) i, stack_pointer_rtx);
+538: }
+```
+
+## gcc/reginfo.cc:934–982
+
+```text
+934: reginfo_init (void)
+935: {
+936:   if (df)
+937:     df_compute_regs_ever_live (true);
+938:
+939:   /* This prevents dump_reg_info from losing if called
+940:      before reginfo is run.  */
+941:   reg_pref = NULL;
+942:   reg_info_size = max_regno_since_last_resize = 0;
+943:   /* No more global register variables may be declared.  */
+944:   no_global_reg_vars = 1;
+945:   return 1;
+946: }
+947:
+948: namespace {
+949:
+950: const pass_data pass_data_reginfo_init =
+951: {
+952:   RTL_PASS, /* type */
+953:   "reginfo", /* name */
+954:   OPTGROUP_NONE, /* optinfo_flags */
+955:   TV_NONE, /* tv_id */
+956:   0, /* properties_required */
+957:   0, /* properties_provided */
+958:   0, /* properties_destroyed */
+959:   0, /* todo_flags_start */
+960:   0, /* todo_flags_finish */
+961: };
+962:
+963: class pass_reginfo_init : public rtl_opt_pass
+964: {
+965: public:
+966:   pass_reginfo_init (gcc::context *ctxt)
+967:     : rtl_opt_pass (pass_data_reginfo_init, ctxt)
+968:   {}
+969:
+970:   /* opt_pass methods: */
+971:   unsigned int execute (function *) final override { return reginfo_init (); }
+972:
+973: }; // class pass_reginfo_init
+974:
+975: } // anon namespace
+976:
+977: rtl_opt_pass *
+978: make_pass_reginfo_init (gcc::context *ctxt)
+979: {
+980:   return new pass_reginfo_init (ctxt);
+981: }
+982:
+```
+
+## gcc/mode-switching.cc:795–839
+
+```text
+795: optimize_mode_switching (void)
+796: {
+797:   int e;
+798:   basic_block bb;
+799:   bool need_commit = false;
+800:   static const int num_modes[] = NUM_MODES_FOR_MODE_SWITCHING;
+801: #define N_ENTITIES ARRAY_SIZE (num_modes)
+802:   int entity_map[N_ENTITIES] = {};
+803:   struct bb_info *bb_info[N_ENTITIES] = {};
+804:   int i, j;
+805:   int n_entities = 0;
+806:   int max_num_modes = 0;
+807:   bool emitted ATTRIBUTE_UNUSED = false;
+808:   basic_block post_entry = 0;
+809:   basic_block pre_exit = 0;
+810:   struct edge_list *edge_list = 0;
+811:
+812:   /* These bitmaps are used for the LCM algorithm.  */
+813:   sbitmap *kill, *del, *insert, *antic, *transp, *comp;
+814:   sbitmap *avin, *avout;
+815:
+816:   for (e = N_ENTITIES - 1; e >= 0; e--)
+817:     if (OPTIMIZE_MODE_SWITCHING (e))
+818:       {
+819:         int entry_exit_extra = 0;
+820:
+821:         /* Create the list of segments within each basic block.
+822:            If NORMAL_MODE is defined, allow for two extra
+823:            blocks split from the entry and exit block.  */
+824:         if (targetm.mode_switching.entry && targetm.mode_switching.exit)
+825:           entry_exit_extra = 3;
+826:
+827:         bb_info[n_entities]
+828:           = XCNEWVEC (struct bb_info,
+829:                       last_basic_block_for_fn (cfun) + entry_exit_extra);
+830:         entity_map[n_entities++] = e;
+831:         if (num_modes[e] > max_num_modes)
+832:           max_num_modes = num_modes[e];
+833:       }
+834:
+835:   if (! n_entities)
+836:     return 0;
+837:
+838:   /* Make sure if MODE_ENTRY is defined MODE_EXIT is defined.  */
+839:   gcc_assert ((targetm.mode_switching.entry && targetm.mode_switching.exit)
+```
+
+## gcc/mode-switching.cc:1299–1326
+
+```text
+1299: class pass_mode_switching : public rtl_opt_pass
+1300: {
+1301: public:
+1302:   pass_mode_switching (gcc::context *ctxt)
+1303:     : rtl_opt_pass (pass_data_mode_switching, ctxt)
+1304:   {}
+1305:
+1306:   /* opt_pass methods: */
+1307:   /* The epiphany backend creates a second instance of this pass, so we need
+1308:      a clone method.  */
+1309:   opt_pass * clone () final override { return new pass_mode_switching (m_ctxt); }
+1310:   bool gate (function *) final override
+1311:     {
+1312: #ifdef OPTIMIZE_MODE_SWITCHING
+1313:       return true;
+1314: #else
+1315:       return false;
+1316: #endif
+1317:     }
+1318:
+1319:   unsigned int execute (function *) final override
+1320:     {
+1321: #ifdef OPTIMIZE_MODE_SWITCHING
+1322:       optimize_mode_switching ();
+1323: #endif /* OPTIMIZE_MODE_SWITCHING */
+1324:       return 0;
+1325:     }
+1326:
+```
+
+## gcc/lower-subreg.cc:278–301
+
+```text
+278: init_lower_subreg (void)
+279: {
+280:   struct cost_rtxes rtxes;
+281:
+282:   memset (this_target_lower_subreg, 0, sizeof (*this_target_lower_subreg));
+283:
+284:   twice_word_mode = GET_MODE_2XWIDER_MODE (word_mode).require ();
+285:
+286:   rtxes.target = gen_rtx_REG (word_mode, LAST_VIRTUAL_REGISTER + 1);
+287:   rtxes.source = gen_rtx_REG (word_mode, LAST_VIRTUAL_REGISTER + 2);
+288:   rtxes.set = gen_rtx_SET (rtxes.target, rtxes.source);
+289:   rtxes.zext = gen_rtx_ZERO_EXTEND (twice_word_mode, rtxes.source);
+290:   rtxes.shift = gen_rtx_ASHIFT (twice_word_mode, rtxes.source, const0_rtx);
+291:
+292:   if (LOG_COSTS)
+293:     fprintf (stderr, "\nSize costs\n==========\n\n");
+294:   compute_costs (false, &rtxes);
+295:
+296:   if (LOG_COSTS)
+297:     fprintf (stderr, "\nSpeed costs\n===========\n\n");
+298:   compute_costs (true, &rtxes);
+299: }
+300:
+301: static bool
+```
+
+## gcc/lower-subreg.cc:1793–1810
+
+```text
+1793: class pass_lower_subreg : public rtl_opt_pass
+1794: {
+1795: public:
+1796:   pass_lower_subreg (gcc::context *ctxt)
+1797:     : rtl_opt_pass (pass_data_lower_subreg, ctxt)
+1798:   {}
+1799:
+1800:   /* opt_pass methods: */
+1801:   bool gate (function *) final override { return flag_split_wide_types != 0; }
+1802:   unsigned int execute (function *) final override
+1803:     {
+1804:       decompose_multiword_subregs (false);
+1805:       return 0;
+1806:     }
+1807:
+1808: }; // class pass_lower_subreg
+1809:
+1810: } // anon namespace
+```
+
+## gcc/lower-subreg.cc:1835–1855
+
+```text
+1835: class pass_lower_subreg2 : public rtl_opt_pass
+1836: {
+1837: public:
+1838:   pass_lower_subreg2 (gcc::context *ctxt)
+1839:     : rtl_opt_pass (pass_data_lower_subreg2, ctxt)
+1840:   {}
+1841:
+1842:   /* opt_pass methods: */
+1843:   bool gate (function *) final override
+1844:   {
+1845:     return flag_split_wide_types && flag_split_wide_types_early;
+1846:   }
+1847:   unsigned int execute (function *) final override
+1848:     {
+1849:       decompose_multiword_subregs (true);
+1850:       return 0;
+1851:     }
+1852:
+1853: }; // class pass_lower_subreg2
+1854:
+1855: } // anon namespace
+```
+
+## gcc/lower-subreg.cc:1880–1898
+
+```text
+1880: class pass_lower_subreg3 : public rtl_opt_pass
+1881: {
+1882: public:
+1883:   pass_lower_subreg3 (gcc::context *ctxt)
+1884:     : rtl_opt_pass (pass_data_lower_subreg3, ctxt)
+1885:   {}
+1886:
+1887:   /* opt_pass methods: */
+1888:   bool gate (function *) final override { return flag_split_wide_types; }
+1889:   unsigned int execute (function *) final override
+1890:     {
+1891:       decompose_multiword_subregs (true);
+1892:       return 0;
+1893:     }
+1894:
+1895: }; // class pass_lower_subreg3
+1896:
+1897: } // anon namespace
+1898:
+```
+
+## gcc/opts.cc:588–621
+
+```text
+588:   {
+589:     /* -O1 and -Og optimizations.  */
+590:     { OPT_LEVELS_1_PLUS, OPT_fbit_tests, NULL, 1 },
+591:     { OPT_LEVELS_1_PLUS, OPT_fcombine_stack_adjustments, NULL, 1 },
+592:     { OPT_LEVELS_1_PLUS, OPT_fcompare_elim, NULL, 1 },
+593:     { OPT_LEVELS_1_PLUS, OPT_fcprop_registers, NULL, 1 },
+594:     { OPT_LEVELS_1_PLUS, OPT_fdefer_pop, NULL, 1 },
+595:     { OPT_LEVELS_1_PLUS, OPT_fforward_propagate, NULL, 1 },
+596:     { OPT_LEVELS_1_PLUS, OPT_fguess_branch_probability, NULL, 1 },
+597:     { OPT_LEVELS_1_PLUS, OPT_fipa_profile, NULL, 1 },
+598:     { OPT_LEVELS_1_PLUS, OPT_fipa_pure_const, NULL, 1 },
+599:     { OPT_LEVELS_1_PLUS, OPT_fipa_reference, NULL, 1 },
+600:     { OPT_LEVELS_1_PLUS, OPT_fipa_reference_addressable, NULL, 1 },
+601:     { OPT_LEVELS_1_PLUS, OPT_fjump_tables, NULL, 1 },
+602:     { OPT_LEVELS_1_PLUS, OPT_fmerge_constants, NULL, 1 },
+603:     { OPT_LEVELS_1_PLUS, OPT_fomit_frame_pointer, NULL, 1 },
+604:     { OPT_LEVELS_1_PLUS, OPT_freorder_blocks, NULL, 1 },
+605:     { OPT_LEVELS_1_PLUS, OPT_fshrink_wrap, NULL, 1 },
+606:     { OPT_LEVELS_1_PLUS, OPT_fsplit_wide_types, NULL, 1 },
+607:     { OPT_LEVELS_1_PLUS, OPT_fthread_jumps, NULL, 1 },
+608:     { OPT_LEVELS_1_PLUS, OPT_ftree_builtin_call_dce, NULL, 1 },
+609:     { OPT_LEVELS_1_PLUS, OPT_ftree_ccp, NULL, 1 },
+610:     { OPT_LEVELS_1_PLUS, OPT_ftree_ch, NULL, 1 },
+611:     { OPT_LEVELS_1_PLUS, OPT_ftree_coalesce_vars, NULL, 1 },
+612:     { OPT_LEVELS_1_PLUS, OPT_ftree_copy_prop, NULL, 1 },
+613:     { OPT_LEVELS_1_PLUS, OPT_ftree_dce, NULL, 1 },
+614:     { OPT_LEVELS_1_PLUS, OPT_ftree_dominator_opts, NULL, 1 },
+615:     { OPT_LEVELS_1_PLUS, OPT_ftree_fre, NULL, 1 },
+616:     { OPT_LEVELS_1_PLUS, OPT_ftree_sink, NULL, 1 },
+617:     { OPT_LEVELS_1_PLUS, OPT_ftree_slsr, NULL, 1 },
+618:     { OPT_LEVELS_1_PLUS, OPT_ftree_ter, NULL, 1 },
+619:     { OPT_LEVELS_1_PLUS, OPT_fvar_tracking, NULL, 1 },
+620:
+621:     /* -O1 (and not -Og) optimizations.  */
+```
+
+## gcc/opts.cc:1475–1521
+
+```text
+1475:      and flag_var_tracking_uninit if the user has not specified them.  */
+1476:   if (opts->x_debug_info_level < DINFO_LEVEL_NORMAL
+1477:       || (!dwarf_debuginfo_p (opts) && !codeview_debuginfo_p ())
+1478:       /* We have not yet initialized debug hooks so match that to check
+1479:          whether we're only doing DWARF2_LINENO_DEBUGGING_INFO.  */
+1480: #ifndef DWARF2_DEBUGGING_INFO
+1481:       || true
+1482: #endif
+1483:      )
+1484:     {
+1485:       if ((opts_set->x_flag_var_tracking && opts->x_flag_var_tracking == 1)
+1486:           || (opts_set->x_flag_var_tracking_uninit
+1487:               && opts->x_flag_var_tracking_uninit == 1))
+1488:         {
+1489:           if (opts->x_debug_info_level < DINFO_LEVEL_NORMAL)
+1490:             warning_at (UNKNOWN_LOCATION, 0,
+1491:                         "variable tracking requested, but useless unless "
+1492:                         "producing debug info");
+1493:           else
+1494:             warning_at (UNKNOWN_LOCATION, 0,
+1495:                         "variable tracking requested, but not supported "
+1496:                         "by this debug format");
+1497:         }
+1498:       opts->x_flag_var_tracking = 0;
+1499:       opts->x_flag_var_tracking_uninit = 0;
+1500:       opts->x_flag_var_tracking_assignments = 0;
+1501:     }
+1502:
+1503:   /* One could use EnabledBy, but it would lead to a circular dependency.  */
+1504:   if (!opts_set->x_flag_var_tracking_uninit)
+1505:     opts->x_flag_var_tracking_uninit = opts->x_flag_var_tracking;
+1506:
+1507:   if (!opts_set->x_flag_var_tracking_assignments)
+1508:     opts->x_flag_var_tracking_assignments
+1509:       = (opts->x_flag_var_tracking
+1510:          && !(opts->x_flag_selective_scheduling
+1511:               || opts->x_flag_selective_scheduling2));
+1512:
+1513:   if (opts->x_flag_var_tracking_assignments_toggle)
+1514:     opts->x_flag_var_tracking_assignments
+1515:       = !opts->x_flag_var_tracking_assignments;
+1516:
+1517:   if (opts->x_flag_var_tracking_assignments && !opts->x_flag_var_tracking)
+1518:     opts->x_flag_var_tracking = opts->x_flag_var_tracking_assignments = -1;
+1519:
+1520:   if (opts->x_flag_var_tracking_assignments
+1521:       && (opts->x_flag_selective_scheduling
+```
+
+## gcc/common.opt:1293–1295
+
+```text
+1293: fcombine-stack-adjustments
+1294: Common Var(flag_combine_stack_adjustments) Optimization
+1295: Looks for opportunities to reduce stack adjustments and stack references.
+```
+
+## gcc/common.opt:1313–1315
+
+```text
+1313: fcompare-elim
+1314: Common Var(flag_compare_elim_after_reload) Optimization
+1315: Perform comparison elimination after register allocation has finished.
+```
+
+## gcc/common.opt:2498–2500
+
+```text
+2498: fomit-frame-pointer
+2499: Common Var(flag_omit_frame_pointer) Optimization
+2500: When possible do not generate stack frames.
+```
+
+## gcc/common.opt:2809–2811
+
+```text
+2809: flive-range-shrinkage
+2810: Common Var(flag_live_range_shrinkage) Init(0) Optimization
+2811: Relief of register pressure through live range shrinkage.
+```
+
+## gcc/common.opt:3025–3031
+
+```text
+3025: fsplit-wide-types
+3026: Common Var(flag_split_wide_types) Optimization
+3027: Split wide types into independent registers.
+3028:
+3029: fsplit-wide-types-early
+3030: Common Var(flag_split_wide_types_early) Optimization
+3031: Split wide types into independent registers earlier.
+```
+
+## gcc/config/i386/i386-passes.def:20–40
+
+```text
+20: /*
+21:    Macros that can be used in this file:
+22:    INSERT_PASS_AFTER (PASS, INSTANCE, TGT_PASS)
+23:    INSERT_PASS_BEFORE (PASS, INSTANCE, TGT_PASS)
+24:    REPLACE_PASS (PASS, INSTANCE, TGT_PASS)
+25:  */
+26:
+27:   INSERT_PASS_AFTER (pass_postreload_cse, 1, pass_insert_vzeroupper);
+28:   INSERT_PASS_AFTER (pass_late_combine, 1, pass_stv, false /* timode_p */);
+29:   /* Run the 64-bit STV pass before the CSE pass so that CONST0_RTX and
+30:      CONSTM1_RTX generated by the STV pass can be CSEed.  */
+31:   INSERT_PASS_BEFORE (pass_cse2, 1, pass_stv, true /* timode_p */);
+32:
+33:   INSERT_PASS_BEFORE (pass_shorten_branches, 1, pass_insert_endbr_and_patchable_area);
+34:   /* pass_align_tight_loops must be after pass_insert_endbr_and_patchable_area.
+35:      PR116174.  */
+36:   INSERT_PASS_BEFORE (pass_shorten_branches, 1, pass_align_tight_loops);
+37:
+38:   INSERT_PASS_AFTER (pass_late_combine, 1, pass_x86_cse);
+39:   INSERT_PASS_AFTER (pass_late_combine, 1, pass_remove_partial_avx_dependency);
+40:   INSERT_PASS_AFTER (pass_rtl_ifcvt, 1, pass_apx_nf_convert);
+```
+
+## gcc/config/i386/i386-features.cc:2913–2931
+
+```text
+2913: class pass_insert_vzeroupper : public rtl_opt_pass
+2914: {
+2915: public:
+2916:   pass_insert_vzeroupper(gcc::context *ctxt)
+2917:     : rtl_opt_pass(pass_data_insert_vzeroupper, ctxt)
+2918:   {}
+2919:
+2920:   /* opt_pass methods: */
+2921:   bool gate (function *) final override
+2922:     {
+2923:       return TARGET_AVX && TARGET_VZEROUPPER;
+2924:     }
+2925:
+2926:   unsigned int execute (function *) final override
+2927:     {
+2928:       return rest_of_handle_insert_vzeroupper ();
+2929:     }
+2930:
+2931: }; // class pass_insert_vzeroupper
+```
+
+## gcc/config/i386/i386-features.cc:2946–2962
+
+```text
+2946: class pass_stv : public rtl_opt_pass
+2947: {
+2948: public:
+2949:   pass_stv (gcc::context *ctxt)
+2950:     : rtl_opt_pass (pass_data_stv, ctxt),
+2951:       timode_p (false)
+2952:   {}
+2953:
+2954:   /* opt_pass methods: */
+2955:   bool gate (function *) final override
+2956:     {
+2957:       return ((!timode_p || TARGET_64BIT)
+2958:               && TARGET_STV && TARGET_SSE2 && optimize > 1);
+2959:     }
+2960:
+2961:   unsigned int execute (function *) final override
+2962:     {
+```
+
+## gcc/config/i386/i386-features.cc:3182–3188
+
+```text
+3182:   bool gate (function *) final override
+3183:     {
+3184:       need_endbr = (flag_cf_protection & CF_BRANCH) != 0;
+3185:       patchable_area_size = crtl->patch_area_size - crtl->patch_area_entry;
+3186:       return need_endbr || patchable_area_size;
+3187:     }
+3188:
+```
+
+## gcc/config/i386/i386-features.cc:3212–3220
+
+```text
+3212: ix86_rpad_gate ()
+3213: {
+3214:   return (TARGET_AVX
+3215:           && TARGET_SSE_PARTIAL_REG_DEPENDENCY
+3216:           && TARGET_SSE_MATH
+3217:           && optimize
+3218:           && optimize_function_for_speed_p (cfun));
+3219: }
+3220:
+```
+
+## gcc/config/i386/i386-features.cc:4319–4325
+
+```text
+4319:   bool gate (function *fun) final override
+4320:     {
+4321:       return (TARGET_SSE2
+4322:               && optimize
+4323:               && optimize_function_for_speed_p (fun));
+4324:     }
+4325:
+```
+
+## gcc/config/i386/i386-features.cc:5012–5018
+
+```text
+5012:   bool gate (function *) final override
+5013:     {
+5014:       return (TARGET_APX_NF
+5015:               && optimize
+5016:               && optimize_function_for_speed_p (cfun));
+5017:     }
+5018:
+```
+
+## gcc/config/i386/i386-features.cc:5200–5206
+
+```text
+5200:   bool gate (function *) final override
+5201:     {
+5202:       return TARGET_ALIGN_TIGHT_LOOPS
+5203:              && optimize
+5204:              && optimize_function_for_speed_p (cfun);
+5205:     }
+5206:
+```
+
+## gcc/config/i386/predicates.md:685–687
+
+```text
+685: (define_predicate "tls_address_pattern"
+686:   (and (match_code "set,parallel,unspec,unspec_volatile")
+687:        (match_test "ix86_tls_address_pattern_p (op)")))
+```
+
+## gcc/toplev.cc:1791–1828
+
+```text
+1791: backend_init_target (void)
+1792: {
+1793:   /* This depends on stack_pointer_rtx.  */
+1794:   init_fake_stack_mems ();
+1795:
+1796:   /* Sets static_base_value[HARD_FRAME_POINTER_REGNUM], which is
+1797:      mode-dependent.  */
+1798:   init_alias_target ();
+1799:
+1800:   /* Depends on HARD_FRAME_POINTER_REGNUM.  */
+1801:   if (!ira_use_lra_p)
+1802:     init_reload ();
+1803:
+1804:   /* Depends on the enabled attribute.  */
+1805:   recog_init ();
+1806:
+1807:   /* The following initialization functions need to generate rtl, so
+1808:      provide a dummy function context for them.  */
+1809:   init_dummy_function_start ();
+1810:
+1811:   /* rtx_cost is mode-dependent, so cached values need to be recomputed
+1812:      on a mode change.  */
+1813:   init_expmed ();
+1814:   init_lower_subreg ();
+1815:   init_set_costs ();
+1816:
+1817:   init_expr_target ();
+1818:   ira_init ();
+1819:
+1820:   /* We may need to recompute regno_save_code[] and regno_restore_code[]
+1821:      after a mode change as well.  */
+1822:   caller_save_initialized_p = false;
+1823:
+1824:   expand_dummy_function_end ();
+1825: }
+1826:
+1827: /* Initialize the compiler back end.  This function is called only once,
+1828:    when starting the compiler.  */
+```
+
+## gcc/toplev.cc:1871–1887
+
+```text
+1871: initialize_rtl (void)
+1872: {
+1873:   auto_timevar tv (g_timer, TV_INITIALIZE_RTL);
+1874:
+1875:   /* Initialization done just once per compilation, but delayed
+1876:      till code generation.  */
+1877:   if (!rtl_initialized)
+1878:     ira_init_once ();
+1879:   rtl_initialized = true;
+1880:
+1881:   /* Target specific RTL backend initialization.  */
+1882:   if (!this_target_rtl->target_specific_initialized)
+1883:     {
+1884:       backend_init_target ();
+1885:       this_target_rtl->target_specific_initialized = true;
+1886:     }
+1887: }
+```
+
+## gcc/ira.cc:1654–1661
+
+```text
+1654: ira_init_once (void)
+1655: {
+1656:   ira_init_costs_once ();
+1657:   lra_init_once ();
+1658:
+1659:   ira_use_lra_p = targetm.lra_p ();
+1660: }
+1661:
+```
+
+## gcc/ira.cc:1702–1715
+
+```text
+1702: {
+1703:   this_target_ira_int->free_register_move_costs ();
+1704:   setup_reg_mode_hard_regset ();
+1705:   setup_alloc_regs (flag_omit_frame_pointer != 0);
+1706:   setup_class_subset_and_memory_move_costs ();
+1707:   setup_reg_class_nregs ();
+1708:   setup_prohibited_and_exclude_class_mode_regs ();
+1709:   find_reg_classes ();
+1710:   clarify_prohibited_class_mode_regs ();
+1711:   setup_hard_regno_aclass ();
+1712:   ira_init_costs ();
+1713: }
+1714:
+1715:
+```
+
+## gcc/ira.cc:5671–5693
+
+```text
+5671:          difficult to do this. */
+5672:       FOR_EACH_BB_FN (bb, cfun)
+5673:         {
+5674:           rtx_insn *end = BB_END (bb);
+5675:           if (!JUMP_P (end))
+5676:             continue;
+5677:           extract_insn (end);
+5678:           for (int i = 0; i < recog_data.n_operands; i++)
+5679:             if (recog_data.operand_type[i] != OP_IN)
+5680:               {
+5681:                 bool skip_p = false;
+5682:                 FOR_EACH_EDGE (e, ei, bb->succs)
+5683:                   if (EDGE_CRITICAL_P (e)
+5684:                       && e->dest != EXIT_BLOCK_PTR_FOR_FN (cfun)
+5685:                       && (e->flags & EDGE_ABNORMAL))
+5686:                     {
+5687:                       skip_p = true;
+5688:                       break;
+5689:                     }
+5690:                 if (skip_p)
+5691:                   break;
+5692:                 output_jump_reload_p = true;
+5693:                 FOR_EACH_EDGE (e, ei, bb->succs)
+```
+
+## gcc/ira.cc:5745–5753
+
+```text
+5745:      insns, we will use simplified and faster algorithms in LRA.  */
+5746:   lra_simple_p
+5747:     = (ira_use_lra_p
+5748:        && (num_used_regs >= (1U << 26) / last_basic_block_for_fn (cfun)
+5749:            /* max uid is a good evaluation of the number of insns as most
+5750:               optimizations are done on tree-SSA level.  */
+5751:            || ((uint64_t) get_max_uid ()
+5752:                > (uint64_t) param_ira_simple_lra_insn_threshold * 1000)));
+5753:
+```
+
+## gcc/ira.cc:5814–5847
+
+```text
+5814:   if (warn_clobbered)
+5815:     generate_setjmp_warnings ();
+5816:
+5817:   /* update_equiv_regs can use reg classes of pseudos and they are set up in
+5818:      register pressure sensitive scheduling and loop invariant motion and in
+5819:      live range shrinking.  This info can become obsolete if we add new pseudos
+5820:      since the last set up.  Recalculate it again if the new pseudos were
+5821:      added.  */
+5822:   if (resize_reg_info () && (flag_sched_pressure || flag_live_range_shrinkage
+5823:                              || flag_ira_loop_pressure))
+5824:     ira_set_pseudo_classes (true, ira_dump_file);
+5825:
+5826:   init_alias_analysis ();
+5827:   loop_optimizer_init (AVOID_CFG_MODIFICATIONS);
+5828:   reg_equiv = XCNEWVEC (struct equivalence, max_reg_num ());
+5829:   update_equiv_regs_prescan ();
+5830:   update_equiv_regs ();
+5831:
+5832:   /* Don't move insns if live range shrinkage or register
+5833:      pressure-sensitive scheduling were done because it will not
+5834:      improve allocation but likely worsen insn scheduling.  */
+5835:   if (optimize
+5836:       && !flag_live_range_shrinkage
+5837:       && !(flag_sched_pressure && flag_schedule_insns))
+5838:     combine_and_move_insns ();
+5839:
+5840:   /* Gather additional equivalences with memory.  */
+5841:   if (optimize && flag_expensive_optimizations)
+5842:     add_store_equivs ();
+5843:
+5844:   loop_optimizer_finalize ();
+5845:   free_dominance_info (CDI_DOMINATORS);
+5846:   end_alias_analysis ();
+5847:   free (reg_equiv);
+```
+
+## gcc/ira.cc:6205–6228
+
+```text
+6205: class pass_ira : public rtl_opt_pass
+6206: {
+6207: public:
+6208:   pass_ira (gcc::context *ctxt)
+6209:     : rtl_opt_pass (pass_data_ira, ctxt)
+6210:   {}
+6211:
+6212:   /* opt_pass methods: */
+6213:   bool gate (function *) final override
+6214:     {
+6215:       return !targetm.no_register_allocation;
+6216:     }
+6217:   unsigned int execute (function *) final override
+6218:     {
+6219:       ira_in_progress = true;
+6220:       ira (dump_file);
+6221:       ira_in_progress = false;
+6222:       return 0;
+6223:     }
+6224:
+6225: }; // class pass_ira
+6226:
+6227: } // anon namespace
+6228:
+```
+
+## gcc/ira.cc:6250–6269
+
+```text
+6250: class pass_reload : public rtl_opt_pass
+6251: {
+6252: public:
+6253:   pass_reload (gcc::context *ctxt)
+6254:     : rtl_opt_pass (pass_data_reload, ctxt)
+6255:   {}
+6256:
+6257:   /* opt_pass methods: */
+6258:   bool gate (function *) final override
+6259:     {
+6260:       return !targetm.no_register_allocation;
+6261:     }
+6262:   unsigned int execute (function *) final override
+6263:     {
+6264:       do_reload ();
+6265:       return 0;
+6266:     }
+6267:
+6268: }; // class pass_reload
+6269:
+```
+
+## gcc/ira-costs.cc:2529–2542
+
+```text
+2529: ira_init_costs_once (void)
+2530: {
+2531:   int i;
+2532:
+2533:   init_cost = NULL;
+2534:   for (i = 0; i < MAX_RECOG_OPERANDS; i++)
+2535:     {
+2536:       op_costs[i] = NULL;
+2537:       this_op_costs[i] = NULL;
+2538:     }
+2539:   temp_costs = NULL;
+2540: }
+2541:
+2542: /* Free allocated temporary cost vectors.  */
+```
+
+## gcc/lra.cc:684–688
+
+```text
+684: init_insn_code_data_once (void)
+685: {
+686:   memset (insn_code_data, 0, sizeof (insn_code_data));
+687: }
+688:
+```
+
+## gcc/lra.cc:2698–2701
+
+```text
+2698: lra_init_once (void)
+2699: {
+2700:   init_insn_code_data_once ();
+2701: }
+```
+
+## gcc/expmed.cc:252–344
+
+```text
+252: init_expmed (void)
+253: {
+254:   struct init_expmed_rtl all;
+255:   machine_mode mode = QImode;
+256:   int m, speed;
+257:
+258:   memset (&all, 0, sizeof all);
+259:   for (m = 1; m < MAX_BITS_PER_WORD; m++)
+260:     {
+261:       all.pow2[m] = GEN_INT (HOST_WIDE_INT_1 << m);
+262:       all.cint[m] = GEN_INT (m);
+263:     }
+264:
+265:   /* Avoid using hard regs in ways which may be unsupported.  */
+266:   all.reg = gen_raw_REG (mode, LAST_VIRTUAL_REGISTER + 1);
+267:   all.plus = gen_rtx_PLUS (mode, all.reg, all.reg);
+268:   all.neg = gen_rtx_NEG (mode, all.reg);
+269:   all.mult = gen_rtx_MULT (mode, all.reg, all.reg);
+270:   all.sdiv = gen_rtx_DIV (mode, all.reg, all.reg);
+271:   all.udiv = gen_rtx_UDIV (mode, all.reg, all.reg);
+272:   all.sdiv_32 = gen_rtx_DIV (mode, all.reg, all.pow2[5]);
+273:   all.smod_32 = gen_rtx_MOD (mode, all.reg, all.pow2[5]);
+274:   all.zext = gen_rtx_ZERO_EXTEND (mode, all.reg);
+275:   all.wide_mult = gen_rtx_MULT (mode, all.zext, all.zext);
+276:   all.wide_lshr = gen_rtx_LSHIFTRT (mode, all.wide_mult, all.reg);
+277:   all.wide_trunc = gen_rtx_TRUNCATE (mode, all.wide_lshr);
+278:   all.shift = gen_rtx_ASHIFT (mode, all.reg, all.reg);
+279:   all.shift_mult = gen_rtx_MULT (mode, all.reg, all.reg);
+280:   all.shift_add = gen_rtx_PLUS (mode, all.shift_mult, all.reg);
+281:   all.shift_sub0 = gen_rtx_MINUS (mode, all.shift_mult, all.reg);
+282:   all.shift_sub1 = gen_rtx_MINUS (mode, all.reg, all.shift_mult);
+283:   all.trunc = gen_rtx_TRUNCATE (mode, all.reg);
+284:
+285:   for (speed = 0; speed < 2; speed++)
+286:     {
+287:       crtl->maybe_hot_insn_p = speed;
+288:       set_zero_cost (speed, set_src_cost (const0_rtx, QImode, speed));
+289:
+290:       for (mode = MIN_MODE_INT; mode <= MAX_MODE_INT;
+291:            mode = (machine_mode)(mode + 1))
+292:         init_expmed_one_mode (&all, mode, speed);
+293:
+294:       if (MIN_MODE_PARTIAL_INT != VOIDmode)
+295:         for (mode = MIN_MODE_PARTIAL_INT; mode <= MAX_MODE_PARTIAL_INT;
+296:              mode = (machine_mode)(mode + 1))
+297:           init_expmed_one_mode (&all, mode, speed);
+298:
+299:       if (MIN_MODE_VECTOR_INT != VOIDmode)
+300:         for (mode = MIN_MODE_VECTOR_INT; mode <= MAX_MODE_VECTOR_INT;
+301:              mode = (machine_mode)(mode + 1))
+302:           init_expmed_one_mode (&all, mode, speed);
+303:     }
+304:
+305:   if (alg_hash_used_p ())
+306:     {
+307:       struct alg_hash_entry *p = alg_hash_entry_ptr (0);
+308:       memset (p, 0, sizeof (*p) * NUM_ALG_HASH_ENTRIES);
+309:     }
+310:   else
+311:     set_alg_hash_used_p (true);
+312:   default_rtl_profile ();
+313:
+314:   ggc_free (all.trunc);
+315:   ggc_free (all.shift_sub1);
+316:   ggc_free (all.shift_sub0);
+317:   ggc_free (all.shift_add);
+318:   ggc_free (all.shift_mult);
+319:   ggc_free (all.shift);
+320:   ggc_free (all.wide_trunc);
+321:   ggc_free (all.wide_lshr);
+322:   ggc_free (all.wide_mult);
+323:   ggc_free (all.zext);
+324:   ggc_free (all.smod_32);
+325:   ggc_free (all.sdiv_32);
+326:   ggc_free (all.udiv);
+327:   ggc_free (all.sdiv);
+328:   ggc_free (all.mult);
+329:   ggc_free (all.neg);
+330:   ggc_free (all.plus);
+331:   ggc_free (all.reg);
+332: }
+333:
+334: /* Return an rtx representing minus the value of X.
+335:    MODE is the intended mode of the result,
+336:    useful if X is a CONST_INT.  */
+337:
+338: rtx
+339: negate_rtx (machine_mode mode, rtx x)
+340: {
+341:   rtx result = simplify_unary_operation (NEG, mode, x, mode);
+342:
+343:   if (result == 0)
+344:     result = expand_unop (mode, neg_optab, x, NULL_RTX, 0);
+```
+
+## gcc/cfgloopanal.cc:434–492
+
+```text
+434: init_set_costs (void)
+435: {
+436:   int speed;
+437:   rtx_insn *seq;
+438:   rtx reg1 = gen_raw_REG (SImode, LAST_VIRTUAL_REGISTER + 1);
+439:   rtx reg2 = gen_raw_REG (SImode, LAST_VIRTUAL_REGISTER + 2);
+440:   rtx addr = gen_raw_REG (Pmode, LAST_VIRTUAL_REGISTER + 3);
+441:   rtx mem = validize_mem (gen_rtx_MEM (SImode, addr));
+442:   unsigned i;
+443:
+444:   target_avail_regs = 0;
+445:   target_clobbered_regs = 0;
+446:   for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)
+447:     if (TEST_HARD_REG_BIT (reg_class_contents[GENERAL_REGS], i)
+448:         && !fixed_regs[i])
+449:       {
+450:         target_avail_regs++;
+451:         /* ??? This is only a rough heuristic.  It doesn't cope well
+452:            with alternative ABIs, but that's an optimization rather than
+453:            correctness issue.  */
+454:         if (default_function_abi.clobbers_full_reg_p (i))
+455:           target_clobbered_regs++;
+456:       }
+457:
+458:   target_res_regs = 3;
+459:
+460:   for (speed = 0; speed < 2; speed++)
+461:      {
+462:       crtl->maybe_hot_insn_p = speed;
+463:       /* Set up the costs for using extra registers:
+464:
+465:          1) If not many free registers remain, we should prefer having an
+466:             additional move to decreasing the number of available registers.
+467:             (TARGET_REG_COST).
+468:          2) If no registers are available, we need to spill, which may require
+469:             storing the old value to memory and loading it back
+470:             (TARGET_SPILL_COST).  */
+471:
+472:       start_sequence ();
+473:       emit_move_insn (reg1, reg2);
+474:       seq = end_sequence ();
+475:       target_reg_cost [speed] = seq_cost (seq, speed);
+476:
+477:       start_sequence ();
+478:       emit_move_insn (mem, reg1);
+479:       emit_move_insn (reg2, mem);
+480:       seq = end_sequence ();
+481:       target_spill_cost [speed] = seq_cost (seq, speed);
+482:     }
+483:   default_rtl_profile ();
+484: }
+485:
+486: /* Estimates cost of increased register pressure caused by making N_NEW new
+487:    registers live around the loop.  N_OLD is the number of registers live
+488:    around the loop.  If CALL_P is true, also take into account that
+489:    call-used registers may be clobbered in the loop body, reducing the
+490:    number of available registers before we spill.  */
+491:
+492: unsigned
+```
+
+## gcc/alias.cc:3281–3316
+
+```text
+3281: init_alias_target (void)
+3282: {
+3283:   int i;
+3284:
+3285:   if (!arg_base_value)
+3286:     arg_base_value = gen_rtx_ADDRESS (VOIDmode, 0);
+3287:
+3288:   memset (static_reg_base_value, 0, sizeof static_reg_base_value);
+3289:
+3290:   for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)
+3291:     /* Check whether this register can hold an incoming pointer
+3292:        argument.  FUNCTION_ARG_REGNO_P tests outgoing register
+3293:        numbers, so translate if necessary due to register windows.  */
+3294:     if (FUNCTION_ARG_REGNO_P (OUTGOING_REGNO (i))
+3295:         && targetm.hard_regno_mode_ok (i, Pmode))
+3296:       static_reg_base_value[i] = arg_base_value;
+3297:
+3298:   /* RTL code is required to be consistent about whether it uses the
+3299:      stack pointer, the frame pointer or the argument pointer to
+3300:      access a given area of the frame.  We can therefore use the
+3301:      base address to distinguish between the different areas.  */
+3302:   static_reg_base_value[STACK_POINTER_REGNUM]
+3303:     = unique_base_value (UNIQUE_BASE_VALUE_SP);
+3304:   static_reg_base_value[ARG_POINTER_REGNUM]
+3305:     = unique_base_value (UNIQUE_BASE_VALUE_ARGP);
+3306:   static_reg_base_value[FRAME_POINTER_REGNUM]
+3307:     = unique_base_value (UNIQUE_BASE_VALUE_FP);
+3308:
+3309:   /* The above rules extend post-reload, with eliminations applying
+3310:      consistently to each of the three pointers.  Cope with cases in
+3311:      which the frame pointer is eliminated to the hard frame pointer
+3312:      rather than the stack pointer.  */
+3313:   if (!HARD_FRAME_POINTER_IS_FRAME_POINTER)
+3314:     static_reg_base_value[HARD_FRAME_POINTER_REGNUM]
+3315:       = unique_base_value (UNIQUE_BASE_VALUE_HFP);
+3316: }
+```
+
+## gcc/params.opt:869–871
+
+```text
+869: -param=min-nondebug-insn-uid=
+870: Common Joined UInteger Var(param_min_nondebug_insn_uid) Param IntegerRange(0, 1073741824)
+871: The minimum UID to be used for a nondebug insn.
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)
