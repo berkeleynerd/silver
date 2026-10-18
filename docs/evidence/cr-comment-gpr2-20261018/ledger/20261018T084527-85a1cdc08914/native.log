@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+    "-P",
+    "/tmp/silver-gpr2-cr-comment-20261018/naming-body-indexed/program.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--steps=100000",
+    "--timeout=0",
+    "--memlimit=1000",
+    "-j1",
+    "--no-loop-unrolling",
+    "--subdirs=explore/cr-comment"
+  ],
+  "returncode": 0,
+  "seconds": 0.8264984249981353,
+  "stdout": "Phase 1 of 3: generation of data representation information ...\nPhase 2 of 3: generation of Global contracts ...\nPhase 3 of 3: flow analysis and proof ...\nSummary logged in /tmp/silver-gpr2-cr-comment-20261018/naming-body-indexed/obj/explore/cr-comment/gnatprove/gnatprove.out\n",
+  "stderr": ""
+}
