@@ -578,12 +578,62 @@ def native_initial_cf_cfg_lifetime(c, n, context):
             compound_lvalue_stack_heap_growth=False,
             complete_gimplifier_lifetime_closed=False,
             missing=['Whole-body deep unsharing and declaration/type-field ingress.',
-                     'Copies and folding beneath constructor materialization, address/type helpers, warnings and shared caches.']),
+                     'Data-address subtree copies and remaining helper/shared-cache lifetimes; see native_gimplifier_selected_helpers.']),
         conditional_initial_CF_CFG_lifetime_closed=all(checks.values()),
         local_representation_checks=checks,
         shared_metadata_bitmap_ET_pool_and_global_counters_closed=False,
         whole_native_pipeline_capacity_established=False,
         source_argument='docs/research/retained-literal-pipeline.md#initial-cf-eh-cfg-and-root-loop-lifetime')
+
+
+def native_gimplifier_selected_helpers(c, n):
+    """Additional selected sites, not an exhaustive gimplifier allocation bound.
+
+    Reuses the established two-constructor literal ABI and initial GIMPLE
+    shape. The data-address subtree and whole-body ingress remain unpriced.
+    """
+    require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
+            'literal gimplifier helper counters')
+    requests = [
+        dict(object='materialization copied fat and bounds CONSTRUCTOR',
+             requests_upper=2*c,raw_bytes_upper=24),
+        dict(object='materialization copied constructor element vector',
+             requests_upper=2*c,raw_bytes_upper=128,
+             logical_elements=2,initial_reserved_elements=4,
+             bytes_before_GC_rounding=72),
+        dict(object='materialization copied bounds ADDR_EXPR',
+             requests_upper=c,raw_bytes_upper=32),
+        dict(object='bounds-pool replacement ADDR_EXPR',
+             requests_upper=c,raw_bytes_upper=32)]
+    return dict(
+        source_input=dict(calls=c,nulls=n),
+        individual_GGC_request_groups=requests,
+        selected_site_GGC_request_events_upper=sum(g['requests_upper'] for g in requests),
+        selected_site_additional_DECL_UID_events=0,
+        selected_site_additional_TYPE_UID_events=0,
+        bounds_address_pointer_type_cache_misses=0,
+        bounds_address_fold_convert_replacement_nodes=0,
+        selected_GIMPLE_folding=dict(
+            call_sites_upper=c,store_sites_upper=2*c,
+            generated_matcher_dispatches=0,
+            replacement_tree_or_tuple_allocations=0,
+            conditional_on_established_initial_GIMPLE_shape=True),
+        direct_warning_copy_interface=dict(
+            copy_warning_calls_upper=c+1,
+            insertion_capable_nowarn_map_calls_upper=c+1,
+            incoming_population_and_backing=None,
+            backing_requests_priced=False),
+        conditional_selected_helper_sites_closed=True,
+        whole_body_copy_weight_upper=None,
+        data_address_subtree_copy_requests_upper=None,
+        complete_gimplifier_GGC_request_events_upper=None,
+        complete_gimplifier_lifetime_closed=False,
+        obstructions=[
+            'post_gigi_declaration_and_type_expression_ingress',
+            'retained_data_address_conversion_copy_shape',
+            'post_gigi_nowarn_map_population_and_backing',
+            'remaining_gimplifier_helper_and_shared_state_exhaustion'],
+        source_argument='docs/research/retained-literal-pipeline.md#selected-gimplifier-helpers-and-the-ingress-obstruction')
 
 
 def evaluate(descriptor_path, context, source_override=None):
@@ -635,6 +685,7 @@ def evaluate(descriptor_path, context, source_override=None):
     ssa_helpers = native_ssa_helper_backing(c,n,context)
     initial_ssa = native_initial_ssa_lifetime(c,n,context)
     initial_cf_cfg = native_initial_cf_cfg_lifetime(c,n,context)
+    gimplifier_helpers = native_gimplifier_selected_helpers(c,n)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -735,7 +786,7 @@ def evaluate(descriptor_path, context, source_override=None):
                              initial_SSA_GGC_events_upper=initial_ssa['additional_GGC_request_events_upper'],
                              initial_CF_CFG_GGC_events_upper=initial_cf_cfg['additional_GGC_request_events_upper'],
                              direct_gimplifier_GGC_events_upper=initial_cf_cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper']),
-            'missing':'Complete frontend/gigi and gimplifier deep-unsharing/type-field ingress, materialization copies/folding and shared-helper lifetimes; join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. Initial CF/EH/CFG/root-loop constructors are joined with explicit shared metadata/bitmap/ET demand. The null 40098 allowance is not reused.'},
+            'missing':'Complete frontend/gigi and gimplifier declaration/type-expression ingress, data-address copies, post-gigi warning-map backing and remaining helper lifetimes. Selected constructor/bounds-address copies and GIMPLE-fold replacement sites are priced separately; no complete gimplifier sum is supplied. Join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -764,6 +815,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_pool_lifetime=pools,native_graph_lifetime=graph,native_SSA_helper_backing=ssa_helpers,
         native_initial_SSA_lifetime=initial_ssa,
         native_initial_CF_CFG_lifetime=initial_cf_cfg,
+        native_gimplifier_selected_helpers=gimplifier_helpers,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,

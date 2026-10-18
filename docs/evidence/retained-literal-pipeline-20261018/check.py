@@ -99,6 +99,25 @@ def main():
             assert cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper']==9*c+2*n+2
             assert not cfg['direct_gimplifier_interface']['complete_gimplifier_lifetime_closed']
             assert not cfg['shared_metadata_bitmap_ET_pool_and_global_counters_closed']
+            gimplifier=result['native_gimplifier_selected_helpers']
+            assert gimplifier['source_input']==dict(calls=c,nulls=n)
+            assert gimplifier['selected_site_GGC_request_events_upper']==6*c
+            assert gimplifier['bounds_address_pointer_type_cache_misses']==0
+            assert gimplifier['selected_GIMPLE_folding']['generated_matcher_dispatches']==0
+            assert gimplifier['selected_GIMPLE_folding']['replacement_tree_or_tuple_allocations']==0
+            assert gimplifier['direct_warning_copy_interface']['copy_warning_calls_upper']==c+1
+            assert not gimplifier['direct_warning_copy_interface']['backing_requests_priced']
+            assert gimplifier['whole_body_copy_weight_upper'] is None
+            assert gimplifier['data_address_subtree_copy_requests_upper'] is None
+            assert gimplifier['complete_gimplifier_GGC_request_events_upper'] is None
+            assert not gimplifier['complete_gimplifier_lifetime_closed']
+            vectors=[row for row in gimplifier['individual_GGC_request_groups']
+                     if row['object']=='materialization copied constructor element vector']
+            assert len(vectors)==1 and vectors[0]['requests_upper']==2*c
+            assert vectors[0]['logical_elements']==2
+            assert vectors[0]['initial_reserved_elements']==4
+            assert vectors[0]['bytes_before_GC_rounding']==72
+            assert vectors[0]['raw_bytes_upper']==128
             assembler=result['Main_assembler_object_interface']
             assert assembler['local_interface_fits']
             storage=result['Main_GAS_BFD_storage']

@@ -26,8 +26,8 @@
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
-    "bytes": 34667,
-    "sha256": "616dfe0f8a375a85cae140c5381e93b881f00dda1c464ee63703a5440c5460f4"
+    "bytes": 35200,
+    "sha256": "1ef9c27d700ff1956049e276af4458ab24c741197f5dc3a95106b60c4490183b"
   },
   {
     "path": "docs/evidence/retained-output-rtl-20261018/check.py",

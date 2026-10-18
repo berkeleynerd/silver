@@ -1235,7 +1235,7 @@
       "complete_gimplifier_lifetime_closed": false,
       "missing": [
         "Whole-body deep unsharing and declaration/type-field ingress.",
-        "Copies and folding beneath constructor materialization, address/type helpers, warnings and shared caches."
+        "Data-address subtree copies and remaining helper/shared-cache lifetimes; see native_gimplifier_selected_helpers."
       ]
     },
     "conditional_initial_CF_CFG_lifetime_closed": true,
@@ -1254,6 +1254,67 @@
     "shared_metadata_bitmap_ET_pool_and_global_counters_closed": false,
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#initial-cf-eh-cfg-and-root-loop-lifetime"
+  },
+  "native_gimplifier_selected_helpers": {
+    "source_input": {
+      "calls": 1,
+      "nulls": 0
+    },
+    "individual_GGC_request_groups": [
+      {
+        "object": "materialization copied fat and bounds CONSTRUCTOR",
+        "requests_upper": 2,
+        "raw_bytes_upper": 24
+      },
+      {
+        "object": "materialization copied constructor element vector",
+        "requests_upper": 2,
+        "raw_bytes_upper": 128,
+        "logical_elements": 2,
+        "initial_reserved_elements": 4,
+        "bytes_before_GC_rounding": 72
+      },
+      {
+        "object": "materialization copied bounds ADDR_EXPR",
+        "requests_upper": 1,
+        "raw_bytes_upper": 32
+      },
+      {
+        "object": "bounds-pool replacement ADDR_EXPR",
+        "requests_upper": 1,
+        "raw_bytes_upper": 32
+      }
+    ],
+    "selected_site_GGC_request_events_upper": 6,
+    "selected_site_additional_DECL_UID_events": 0,
+    "selected_site_additional_TYPE_UID_events": 0,
+    "bounds_address_pointer_type_cache_misses": 0,
+    "bounds_address_fold_convert_replacement_nodes": 0,
+    "selected_GIMPLE_folding": {
+      "call_sites_upper": 1,
+      "store_sites_upper": 2,
+      "generated_matcher_dispatches": 0,
+      "replacement_tree_or_tuple_allocations": 0,
+      "conditional_on_established_initial_GIMPLE_shape": true
+    },
+    "direct_warning_copy_interface": {
+      "copy_warning_calls_upper": 2,
+      "insertion_capable_nowarn_map_calls_upper": 2,
+      "incoming_population_and_backing": null,
+      "backing_requests_priced": false
+    },
+    "conditional_selected_helper_sites_closed": true,
+    "whole_body_copy_weight_upper": null,
+    "data_address_subtree_copy_requests_upper": null,
+    "complete_gimplifier_GGC_request_events_upper": null,
+    "complete_gimplifier_lifetime_closed": false,
+    "obstructions": [
+      "post_gigi_declaration_and_type_expression_ingress",
+      "retained_data_address_conversion_copy_shape",
+      "post_gigi_nowarn_map_population_and_backing",
+      "remaining_gimplifier_helper_and_shared_state_exhaustion"
+    ],
+    "source_argument": "docs/research/retained-literal-pipeline.md#selected-gimplifier-helpers-and-the-ingress-obstruction"
   },
   "Main_assembler_object_interface": {
     "counts": {
@@ -2482,7 +2543,7 @@
         "initial_CF_CFG_GGC_events_upper": 24,
         "direct_gimplifier_GGC_events_upper": 11
       },
-      "missing": "Complete frontend/gigi and gimplifier deep-unsharing/type-field ingress, materialization copies/folding and shared-helper lifetimes; join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. Initial CF/EH/CFG/root-loop constructors are joined with explicit shared metadata/bitmap/ET demand. The null 40098 allowance is not reused."
+      "missing": "Complete frontend/gigi and gimplifier declaration/type-expression ingress, data-address copies, post-gigi warning-map backing and remaining helper lifetimes. Selected constructor/bounds-address copies and GIMPLE-fold replacement sites are priced separately; no complete gimplifier sum is supplied. Join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -2648,7 +2709,7 @@
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
   "fixed_input_count": 81,
-  "external_source_files_verified": 265,
+  "external_source_files_verified": 268,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

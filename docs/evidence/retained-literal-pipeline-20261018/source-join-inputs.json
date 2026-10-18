@@ -1182,6 +1182,24 @@
       "path": "gcc/memory-block.cc",
       "bytes": 2268,
       "sha256": "16f4beb0f9a9354ba461e8cf519bc2055db9754193e00e43ff17ee71624963dd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-match-exports.cc",
+      "bytes": 42650,
+      "sha256": "d943d32cb6636698d7412e5a1f716d7dc8ac911926d4e801761fdb58f4524c4d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/warning-control.cc",
+      "bytes": 6859,
+      "sha256": "72c84bba997d426c7606cf7c8e3e9a782684438ede9f9c661d7ce97a8c8fe6ea"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/convert.cc",
+      "bytes": 39639,
+      "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef"
     }
   ]
 }

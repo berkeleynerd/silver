@@ -925,6 +925,112 @@ these source-named helper and gigi/type-field lifetimes, not to replace them
 with the null body's allowance. The CF constructor delta and direct gimplifier
 subtotal are returned separately so later composition can retain this boundary.
 
+### Selected gimplifier helpers and the ingress obstruction
+
+`native_gimplifier_selected_helpers(C, N)` adds **6C requests at named sites**
+to the direct-site interface. This is a partial additive interface, not a
+complete gimplifier bound. It leaves both the whole-body copy weight and the
+complete request count null, and keeps `complete_gimplifier_lifetime_closed`
+false. No null-program lifetime allowance supplies its missing terms.
+
+The established literal ABI has two two-element CONSTRUCTORs: the outer fat
+record and the bounds record addressed by its second field. Bounds values
+are integer constants, including the empty-literal `1..0` case. In
+`internal_get_tmp_var`, the first `gimplify_expr` leaves the constructor
+elements alone; the subsequent `unshare_expr(val)` copies this forest
+(`gimplify.cc:683–711,20744–20775`). The NULL-data copying callback stops at
+constants, types and declarations. The two constructor nodes and the bounds
+ADDR therefore contribute 3C node requests; the two element vectors add 2C
+requests (`gimplify.cc:944–973,1096–1100`; `tree-inline.cc:5735–5795`). Each
+constructor is 24 bytes and each unary ADDR is 32. Each copied vector starts
+from null and reserves four pointer pairs before its logical length/capacity
+is reset to two: `8+4*16=72` bytes rounds to **128 bytes**, not 64
+(`tree-core.h:1636–1648`; `vec.h:731–740,999–1016`). The P_ARRAY value's
+subtree copy is an additional, still unpriced term; this 5C subtotal does not
+assume that an ABI address denotes exactly one GENERIC node.
+
+The Ada bounds-address hook contributes at most C further ADDR nodes
+(`trans.cc:9339–9354`). The original bounds address was built by
+`build_fold_addr_expr` on the bounds record (`utils.cc:4876–4905`;
+`utils2.cc:1671–1734`). Its default pointer type therefore already exists.
+`copy_node` preserves TREE_TYPE. On a pool miss, the pool VAR_DECL receives
+exactly the constructor's type; on a hit, record/union constructor equality
+requires exact type identity (`varasm.cc:3582–3610,3721–3747,3989–3996`).
+Readonly is set on the declaration, without creating a qualified record type.
+Thus the replacement `build_pointer_type` hits the existing default pointer
+type; `build_fold_addr_expr` on the VAR_DECL builds one plain ADDR, and the
+following `fold_convert` returns its identical-type input
+(`tree.cc:7198–7264`; `fold-const.cc:2633–2640,9150–9200`). This route adds
+no type or declaration UID. Bounds-pool declarations, descriptors, RTL and
+backing remain in their previously accepted components and are not charged
+again here.
+
+The selected initial **GIMPLE folding dispatch** also closes locally.
+`maybe_fold_stmt` runs even at O0, for C calls and at most 2C pointer stores
+(`gimplify.cc:3920–3932,5009,7613`). The established store RHS is
+ADDR(STRING_CST) or ADDR(pool VAR_DECL), and its LHS is a component of the
+fresh descriptor. MEM_REF/TARGET_MEM_REF canonicalization cannot rewrite
+these operands (`gimple-fold.cc:6532–6677`). `gimple_extract` excludes ADDR
+single-RHS assignments, and excludes void calls without an LHS, before
+dispatch to the generated matcher (`gimple-match-exports.cc:736–900`). The
+remaining handwritten assignment folder only rewrites ADDR of MEM_REF; the
+direct nonbuiltin call selects none of the virtual, builtin or internal-call
+rewriters (`gimple-fold.cc:456–570,5959–6090`). These selected sites allocate
+zero replacement trees or tuples. This statement does not cover earlier
+GENERIC pointer conversion/folding or metadata expressions.
+
+The exact outstanding dependency is **post-gigi declaration/type-expression
+ingress**, not executable tuple count. Reuse the already established
+[3W whole-body transfer](retained-backend-capacity.md#whole-body-copying-include-protected-children-and-declaration-metadata)
+without claiming a new proof of it. Its W includes the saved body, result
+SIZE/SIZE_UNIT, protected-node children, and reached TYPE_DECL expression
+metadata. BIND opens each declaration's INITIAL/SIZE/SIZE_UNIT. Ordinary
+declaration references and arbitrary TREE_TYPE edges do not open those
+fields; DECL_EXPR/type traversal does (`tree.cc:11637–11993`). Pointer-type
+walks can also allocate duplicate-suppression sets. Later size gimplification
+adds DECL_ORIGINAL_TYPE and the Ada scalar RM endpoints, which are absent
+from that generic whole-body forest (`gimplify.cc:2124–2158,21600–21739`;
+`trans.cc:9375–9407`). For each actual reached metadata root, constants,
+VAR_DECLs and placeholder-containing inputs exit `gimplify_one_sizepos`
+without its unshare/materialization calls. That shortcut needs a source
+projection for every reached root, including fixed imported/helper types.
+
+The next bounded hypothesis is that each literal introduces only its static
+index TYPE_DECL and literal-array TYPE_DECL into Main's body, and that every
+reached metadata root is constant, null or an explicitly excluded placeholder.
+The candidate producer routes are `decl.cc:3142–3193,5013–5020` and
+`utils.cc:2861–2869,2935–2995`; `gnat_pushdecl` distinguishes global and local
+declarations (`:894–1060`), and `add_decl_expr` discards external/global
+declarations (`trans.cc:9110–9145`). The missing exhaustion argument must
+exclude additional fixed/helper local declarations, account for each
+DECL_ORIGINAL_TYPE and RM-root edge, and settle pointer-walker set demand.
+Separately, the data address goes through `convert_to_fat_pointer`'s
+`convert(p_array_type, expr)`, pointer conversion and GENERIC folding
+(`utils.cc:4897–4905,5530`; `convert.cc:54–78,126–129`). Proving that its
+retained result is a plain address or one NOP would bound its copy term;
+the handwritten unary cases alone do not exhaust the generated matcher.
+No affine W(C,N) or complete 7C materialization-copy claim is made here.
+
+A second named dependency is **post-gigi nowarn-map population/backing**.
+The direct call builders and bare return make at most C+1 `copy_warning`
+calls (`gimple.cc:385–431`; `gimplify.cc:1874–1888`). Conservatively export
+C+1 insertion-capable map calls: a nonreserved destination with a source
+spec invokes `nowarn_map->put` (`warning-control.cc:190–220`). Even replacement
+of an existing key can expand the table before lookup (`hash-map.h:168–178`;
+`hash-table.h:1029–1043`). The fixed-prefix 39,257-event witness precedes gigi
+and is not a bound on this incoming map; `gnat_pushdecl` can itself suppress
+warnings (`utils.cc:959`). The callable exports demand without pricing an
+unknown backing. These direct sites do not bound warning activity from any
+still-unprojected metadata/helper route.
+
+The bottleneck is source-correspondence reasoning across these exact ingress
+edges and cache state, not a missing concrete sample. A focused observation
+could falsify the proposed two-declaration/address-shape hypothesis, but
+would not establish it uniformly in C, N and literal length. Complete frontend/
+gigi allocation, helper exhaustion, global counters and collector composition
+remain open. This diagnostic narrows the next investigation without claiming
+that the selected 6C subtotal closes those obligations.
+
 ## Accepted linker and Main ALI interfaces
 
 The aggregate attaches the independently accepted
@@ -1133,3 +1239,19 @@ started at 18:52:40 UTC; no separate attachment timer was recorded. Its exact
 Main-ALI equality and P=976/977 checks join the existing 64 offline cases.
 The 5000-call linker sufficient-bound failure and false complete-pool, parent
 D/W, binder and whole-pipeline verdicts are preserved. No native tool ran.
+
+The gimplifier-dependency round retained selected GPT-6 Astra / Extra High;
+runtime identity and token/cost measurements are unavailable. The recorded
+interval 18:52:40–19:04:11 UTC on 2026-10-18 is 691 seconds and includes the
+separate accepted ALI attachment. The intended outcome was an exhaustive
+conditional gimplifier transfer or an exact obstruction. The achieved result
+is the new 6C selected-site interface and zero selected GIMPLE-fold replacement
+allocations, with explicit ingress/data-copy/warning-state obstructions.
+The 3W copying transfer is reused, not counted as a new closure. Source review
+identified the two-element vector's four-slot initial reservation and proved
+the bounds pointer-cache hit on both pool misses and hits. Linux x86_64
+offline replay passed all 64 cases in 2.860578333 seconds; default composition
+took 2.402922201 seconds. The intentionally failing 5000-call linker bound and
+false complete-gimplifier/whole-pipeline verdicts remain. No native tool ran.
+This increment is frozen for independent review. The next step is to complete
+the source projection across the named ingress edges and cache state.
