@@ -27,7 +27,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
          "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
-         "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch8.adb", "checks.adb",
+         "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch6.adb", "sem_ch8.adb", "checks.adb",
          "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
@@ -600,8 +600,16 @@ def raw_bound_semantics(n, analysis_graph):
                 total_per_copy=per_copy, raw_copies=4*n+4, total=total)
 
 
+def native_runtime_concat_call(n):
+    """Local call processing; runtime spec is already charged/frozen."""
+    assert n >= 2
+    return dict(operands_envelope=n, actual_helper_arity_limit=9,
+                total=dict(ordinary=n, lists=n+2, positive_xref_increments=n),
+                no_new_scalar_query_roots=True)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
-    """Closed addends through final slice; runtime-call/scope helpers excluded."""
+    """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
     first = direct_scalar_and_storage_concat(n, 28, 2, a)["total"].copy()
     first["pending_elist_headers"] = first.pop("elists")
@@ -611,15 +619,17 @@ def combined_native_emitter_vector(n, analysis_graph):
     rows = dict(direct_scalar_storage=first, remaining_copies=copies,
                 up_to_n_suppressed_slice_assignments=assignments,
                 raw_bound_semantics=raw_bound_semantics(n, a)["total"],
-                enabled_final_slice=enabled_final_slice(31, 2, a)["total"])
+                enabled_final_slice=enabled_final_slice(31, 2, a)["total"],
+                native_runtime_concat_call=native_runtime_concat_call(n)["total"])
     keys = sorted(set().union(*(row.keys() for row in rows.values())))
     total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
-    assert total == dict(ordinary=(880*n+520)*a+1181*n+1198,
+    assert total == dict(ordinary=(880*n+520)*a+1182*n+1198,
                         uint=(3736*n+2296)*a+3537*n+1697,
-                        lists=67*n+93, growth=133*n+99,
+                        lists=68*n+95, growth=133*n+99,
                         entities_and_names=26*n+32, name_characters=338*n+423,
                         pending_elist_headers=10*n+11,
-                        pending_elist_elements=20*n+20, hash_wrappers=30*n+30)
+                        pending_elist_elements=20*n+20, hash_wrappers=30*n+30,
+                        positive_xref_increments=n)
     return dict(operands=n, analysis_graph=a, rows=rows, total=total)
 
 
@@ -629,12 +639,13 @@ def combined_native_uniform_vector(c, analysis_graph):
     # For nonnegative p*n+q, sum(n)<=2*c and g<=c give (2*p+q)*c.
     total = {key: c*value for key, value in one.items()}
     a = analysis_graph
-    assert total == dict(ordinary=(2280*a+3560)*c, uint=(9768*a+8771)*c,
-                        lists=227*c, growth=365*c, entities_and_names=84*c,
+    assert total == dict(ordinary=(2280*a+3562)*c, uint=(9768*a+8771)*c,
+                        lists=231*c, growth=365*c, entities_and_names=84*c,
                         name_characters=1099*c, pending_elist_headers=31*c,
-                        pending_elist_elements=60*c, hash_wrappers=90*c)
+                        pending_elist_elements=60*c, hash_wrappers=90*c,
+                        positive_xref_increments=2*c)
     slots = 9*(total["ordinary"]+total["growth"])+61*total["entities_and_names"]
-    assert slots == (20520*a+40449)*c
+    assert slots == (20520*a+40467)*c
     return dict(source_concat_operators=c, uniform_analysis_graph=a, total=total,
                 dynamic_slots=slots)
 
@@ -1118,7 +1129,7 @@ result = {
             native_string_bound_descriptor("literal"))),
             native_concat_query_roots((native_string_bound_descriptor("input"),
                                        native_string_bound_descriptor("image")))],
-        "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime-call helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate",
+        "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; wrapper/scope work; runtime first lookup/fixed dependencies; backend; whole admission predicate",
     },
     "Main_output_concat_transient_placement": {
         "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
@@ -1163,25 +1174,43 @@ result = {
                                     enabled_final_slice(31, 2, 127)],
         "excluded": "runtime concat-call helpers; wrapper/scope work; numeric magnitudes; fixed dependencies/backend",
     },
+    "Main_runtime_concat_call_processing": {
+        "scope": "one generated Str_Concat_r call with2<=r<=min(n,9); charge original operand envelope n",
+        "premises": "runtime spec/types already loaded/frozen under separate fixed-dependency charge; ordinary local/pending placement; normalized resolved aligned Standard String actuals; no diagnostics/pending checks; default validity-parameter and parameter-alias checks off; no frontend inlining/debug override",
+        "ordinary_nodes": "n", "syntax_lists": "n+2",
+        "positive_Xrefs_increments": "n",
+        "other_core_table_additions": 0,
+        "two_empty_lists": "Expand_Call_Helper and Expand_Actuals each allocate Post_Call; both headers count although the first becomes abandoned",
+        "variable_reference_markers": "at most one node and Insert_Action list per source-name operand; Main local declaration/subprogram scope creates no scenario-set record",
+        "xref_primitive": "at most one positive Xrefs-table increment per ordinary source-name operand, no dedup credit; fixed65536 hash headers, links inside Xrefs records",
+        "call_marker": "none: generated call is not from source and Str_Concat_r is no Ada-semantic/bridge/SPARK-semantic target",
+        "new_scalar_query_roots": 0,
+        "examples_not_thresholds": [native_runtime_concat_call(2),
+                                    native_runtime_concat_call(9),
+                                    native_runtime_concat_call(64)],
+        "excluded": "runtime first lookup/spec processing; wrapper/scope work; diagnostics; backend; physical stack/workspace",
+    },
     "combined_Main_native_emitter_addends": {
-        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2; result-object freeze and constrained actual-subtype lookups add zero",
+        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",
         "per_invocation": {
-            "ordinary": "(880*n+520)*A+1181*n+1198",
+            "ordinary": "(880*n+520)*A+1182*n+1198",
             "Uint": "(3736*n+2296)*A+3537*n+1697",
-            "lists": "67*n+93", "growth": "133*n+99",
+            "lists": "68*n+95", "growth": "133*n+99",
             "entities_and_names": "26*n+32", "name_characters": "338*n+423",
             "Elist_headers": "10*n+11", "Elist_elements": "20*n+20",
             "hash_wrappers": "30*n+30",
+            "positive_Xrefs_increments": "n",
         },
         "uniform_Main_bound_in_c": {
-            "ordinary": "(2280*A+3560)*c", "Uint": "(9768*A+8771)*c",
-            "lists": "227*c", "growth": "365*c", "entities_and_names": "84*c",
+            "ordinary": "(2280*A+3562)*c", "Uint": "(9768*A+8771)*c",
+            "lists": "231*c", "growth": "365*c", "entities_and_names": "84*c",
             "name_characters": "1099*c", "Elist_headers": "31*c",
             "Elist_elements": "60*c", "hash_wrappers": "90*c",
-            "dynamic_slots": "(20520*A+40449)*c",
+            "dynamic_slots": "(20520*A+40467)*c",
+            "positive_Xrefs_increments": "2*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
-        "residual_addends": ["source String folding and Image/input constructors", "runtime concat call and any distinct actual-subtype helpers", "action/transient wrapper helpers beyond closed placement/skeleton", "later whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "fixed runtime and backend costs"],
+        "residual_addends": ["source String folding and Image/input constructors", "action/transient wrapper helpers beyond closed placement/skeleton", "later whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "runtime first lookup/spec processing, fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),

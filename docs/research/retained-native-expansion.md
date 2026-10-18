@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records eighty inspected files hash-checked against the complete source
+records eighty-one inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -3119,6 +3119,77 @@ insertion list. The combined vector below now includes this suffix once and
 the zero-cost result-object freeze/actual-subtype lookup bridge. No compiler
 probe is used to justify the allocation count.
 
+### Ordinary runtime concat procedure call
+
+The helper-call branch passes a result name followed by r<=9 normalized
+String operands to System.Concat_r.Str_Concat_r. Its spec has exactly those
+unconstrained String formals, the result in OUT mode and all operands in IN
+mode. It has no defaults, contracts, access/tagged formals, foreign convention,
+renaming, intrinsic status or Inline pragma (`libgnat/s-conca2.ads` through
+`s-conca9.ads`). The emitter moves the resolved operand nodes into the actual
+list; it does not clone or restore their original source constructors
+(`exp_ch4.adb:3492–3544`). The directly emitted call/name/actual-list syntax is
+already charged.
+
+Assume the selected runtime spec and its formal types have been loaded and
+frozen under the fixed-dependency charge; this does not make runtime loading
+or its first spec processing free. Ordinary Main placement, resolved frozen
+values, no pending checks/diagnostics, and the selected native defaults remain
+premises. In particular, Validity_Check_In_Params, Validity_Check_In_Out_Params
+and Check_Aliasing_Of_Parameters are False (`validsw.ads:72–79`,
+`opt.ads:268`). There is no frontend inlining or GNAT debug override.
+
+The complete local call route has the following costs and exclusions:
+
+| Stage | Source reason and allocation effect |
+| --- | --- |
+| Procedure-call analysis | Prebound procedure name and already analyzed operands; Analyze_Call takes its one-interpretation branch. Normalize_Actuals returns on exact positional arity; the first Add_One_Interp sets fields without an interpretation-table entry (`sem_ch6.adb:1610–1725`, `sem_ch4.adb:1329,3918–4333`, `sem_util.adb:25844–25943`, `sem_type.adb:443–460`). |
+| Actual resolution | Resolve returns for moved analyzed values. All formals are unconstrained Standard String, so selected length/range checks construct no condition; Standard String has no fixed-lower-bound aspect. No scalar query, actual-subtype allocation or new transient scope results (`sem_res.adb:4240–4310,4480–4652,4856–5040`, `checks.adb:1318–1370,10251–10412,11197–11325`). |
+| Extra formals/actuals | String has no discriminants, anonymous-access formals or accessibility/BIP result; the extra-formal set is empty. Rechecking it only sets/reads the known flag, and Create_Extra_Actuals has no extra parameter to construct (`sem_ch6.adb:8797–8831,9287–9400,10227–10231`, `exp_ch6.adb:5210–5227`). |
+| Native actual expansion | Expand_Call_Helper allocates an empty Post_Call list, then Expand_Actuals allocates another, replacing the first list identifier. **Both headers count.** Neither list receives an action for these actuals (`exp_ch6.adb:2675–3115,4571–4574,5227`). |
+| Copy/contract routes | The OUT actual is an ordinary aligned result name; IN values are ordinary aligned String names/literals/slices. No packed/unaligned/atomic/volatile/storage-model copy, conversion, predicate, invariant, BIP/controlled result, dispatch or remote-call route applies. The result object's first freeze is already closed. |
+| Return from expansion | With an empty post-call list, Insert_Post_Call_Actions returns before construction. No intrinsic, inherited, protected, null-procedure or inlined-body rewrite applies (`exp_ch6.adb:5249–5743,8098–8104`). |
+
+Two bookkeeping costs remain even though the actual values are resolved.
+Resolve_Actuals examines a source entity-name operand **before** its Resolve
+call. For each such mutable source-name operand it can build a fresh
+Variable_Reference_Marker and Insert_Action list
+(`sem_res.adb:4240–4274`, `sem_util.adb:23907–24032`,
+`sem_elab.adb:3782–3851`). The marker analyzer is a no-op and it has no native
+expansion; its scenario recorder adds no scenario-set entry at Main's local
+declaration/subprogram level (`sem.adb:638`, `expander.adb:519–522`,
+`sem_elab.adb:14015–14030`). Charge **one ordinary node and one list per
+operand**, regardless of whether a particular operand qualifies. Marker
+placement uses the already closed ordinary/pending action path.
+
+The same pass calls Generate_Reference on each source-name operand. For an
+ordinary Main String object, charge **one positive Xrefs-table increment per
+operand**, without deduplication credit. Add_Entry increments the table before
+testing duplicates; its set links live in the Xrefs records with a fixed
+65,536-header table, so there is no separate dynamically allocated set wrapper
+(`lib-xref.adb:188–206,1160–1198`). The second structural Add_Entry route
+requires an end reference to a package/concurrent entity and is excluded.
+The generated result-name and runtime-call-name references fail the
+source-reference gate; they create no Xrefs entries. An independent source
+review confirmed this per-reference primitive bound. The light-mode xref
+inventory does not pay for these additional native calls.
+
+The generated call itself needs no Call_Marker. It is not Comes_From_Source,
+and Str_Concat_r is none of the Ada-semantic, bridge or SPARK-semantic target
+classes (`sem_elab.adb:3563–3700,14397–14474,14663–14668`). This distinction
+does not suppress the source-operand variable markers above. Ghost argument
+preanalysis likewise requires a source call in a Ghost region and is excluded
+(`ghost.adb:2325–2373`).
+
+The local call envelope is therefore **r ordinary nodes, r+2 lists and
+r positive Xrefs increments**, with zero new entities/names, growth events,
+Uint/String values or Elists. Use the original n>=r for a linear per-emitter
+envelope. No additional scalar query root is introduced; A=3*H+7 is unchanged.
+This closes local call processing, not first runtime lookup/spec processing,
+wrapper/scope helpers, diagnostics, backend call lowering or physical stack
+storage. `native_runtime_concat_call` records the separate table dimensions
+and is now included in the combined vector.
+
 ## Combined Main direct-emitter vector
 
 The closed addends can now be composed without stitching their rows by hand.
@@ -3135,21 +3206,24 @@ For one n-operand invocation, add:
    result-storage captures. Incoming normalized RHS values retain Analyzed.
 5. One enabled final result slice at t=31,l=2, including first result-object
    freezing and the nonallocating constrained actual-subtype lookup bridge.
+6. One runtime concat procedure call, including the two empty post-call lists,
+   possible variable-reference markers and source-operand xref attempts.
 
 These charges deliberately overcount mutually exclusive helper-call and slice
 assignment routes. They give the following single vector of closed stages:
 
 | Demand | Per invocation | Whole Main with c source `&` and uniform A |
 | --- | ---: | ---: |
-| Ordinary nodes | `(880*n+520)*A + 1181*n + 1198` | `(2280*A+3560)*c` |
+| Ordinary nodes | `(880*n+520)*A + 1182*n + 1198` | `(2280*A+3562)*c` |
 | Uint appends | `(3736*n+2296)*A + 3537*n + 1697` | `(9768*A+8771)*c` |
-| Syntax-list headers | `67*n+93` | `227*c` |
+| Syntax-list headers | `68*n+95` | `231*c` |
 | Growing-slot events | `133*n+99` | `365*c` |
 | Entities/internal names | `26*n+32` | `84*c` |
 | Name characters, including NUL | `338*n+423` | `1099*c` |
 | Elist headers | `10*n+11` | `31*c` |
 | Elist elements | `20*n+20` | `60*c` |
 | Copy-map hash wrappers | `30*n+30` | `90*c` |
+| Positive Xrefs-table increments | n | `2*c` |
 
 The whole-Main column uses `sum n_i <= 2*c` and `g <= c`, and vanishes for
 c=0. A better source-sensitive calculation sums the per-invocation vector
@@ -3158,7 +3232,7 @@ query-root recurrences; using one maximum A is optional. This scoped A_i
 covers the original and generated query roots in these combined stages;
 remaining callees still need their own root inventories. With the pinned slot
 maxima, the uniform dynamic-slot addend is
-`9*(ordinary+growth)+61*entities = (20520*A+40449)*c`. Node identities/link
+`9*(ordinary+growth)+61*entities = (20520*A+40467)*c`. Node identities/link
 tables, physical bytes and temporary stack/workspace remain separate
 representations. Uint digit demand also needs its numeric-magnitude bound,
 including the already identified cold power-cache extension.
@@ -3167,8 +3241,8 @@ including the already identified cold power-cache extension.
 Its explicit residual addends are:
 
 - Source String folding and initial Image/input construction.
-- Runtime concat procedure-call analysis and any distinct actual-subtype
-  helper it invokes; final result/assignment slice lookups are now closed.
+- First runtime lookups/spec processing; their local call, final-result and
+  assignment-slice processing are now closed under the fixed-source premise.
 - Transient wrapper helpers beyond the closed placement/direct skeleton,
   later whole-scope freezing and name qualification.
 - Numeric magnitudes and query roots in the remaining stages, fixed runtime
@@ -3189,7 +3263,8 @@ At optimization level zero, two through nine retained operands use an available
 deeply copying them. Ten or more take the slice-assignment loop
 (`exp_ch4.adb:3492–3624`). Fewer than two return the retained operand after
 setup. The direct envelope overcounts helper and slice paths, so it does not
-assume helper availability. Runtime loading and call analysis remain separate.
+assume helper availability. The local call analysis is now included above;
+runtime first loading/spec processing remains separate.
 
 Storage has another independent branch. When the enclosing scope already uses
 the secondary stack and `RE_SS_Pool` is available, GNAT generates a constrained
@@ -3220,7 +3295,7 @@ conditional contexts, preserve transient scopes and analyze inserted actions.
 Suppressing checks does not suppress this analysis. The emitter calls it once
 with at most `2*n` collected declarations, and calls `Insert_Action` at most
 `n+5` times. Generated declaration/access/allocator/call/slice/conditional and
-freezing transfers cover the closed local paths above; runtime-call analysis,
+freezing transfers cover the closed local paths above; runtime first loading,
 wrapper/scope handling and the diagnostic error path remain separate.
 
 ## Exact remaining obligations
@@ -3231,15 +3306,16 @@ The following missing addends prevent calling the native construct closed:
   work, with its own String/Uint/node/entity costs. Normalized operand/copy
   shapes, first raw scalar passes and boundary capture are source-supported
   above; those component closures do not supply value/magnitude bounds.
-- Close any distinct runtime-call actual-subtype helpers, later scope freezing,
-  and input/output wrapper helpers. The result/assignment slice lookup bridge
-  and first result-object freeze are closed above. The ordinary macro renaming
-  helper remains unreachable for Main's String objects.
+- Close later scope freezing and input/output wrapper helpers. Local runtime
+  call processing, the result/assignment slice lookup bridge and first
+  result-object freeze are closed above. The ordinary macro renaming helper
+  remains unreachable for Main's String objects.
 - Close up to two runtime-availability and two runtime-entity lookups, final
-  call analysis, remaining helper query roots and conditional error path.
+  remaining helper query roots and conditional error path.
   Dependency sharing requires a cache invariant. Collected scalar declaration
   skeletons, direct initial scalar passes, first bound captures and the final
-  enabled result slice are in the combined vector; whole-scope work is not.
+  enabled result slice and runtime-call bookkeeping are in the combined
+  vector; whole-scope work is not.
 - Bound each remaining generated semantic-helper invocation. The direct native
   Main emitter multiplicity is now source-bounded; runtime library processing
   and additional generated-helper work remain separate.
