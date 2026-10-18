@@ -141,6 +141,14 @@ def main():
             assert protected['backing_requests_upper']==c+2
             assert protected['additional_GGC_request_events_upper']==0
             assert protected['conditional_protected_set_storage_closed']
+            warning=result['native_warning_map_demand']
+            assert warning['prefix_capacity_ceiling']==4093
+            assert warning['direct_warning_copy_calls']==c+1
+            assert warning['selected_initial_gimplifier_warning_put_call_ceiling']==2*c+1
+            assert warning['local_gigi_suppression_call_ceiling']==2*c+n
+            assert warning['other_original_gigi_put_calls'] is None
+            assert warning['conditional_map_transfer'] is None
+            assert not warning['original_gigi_source_count_closed']
             assert not ingress['complete_gimplifier_lifetime_closed']
             assert ingress['complete_gimplifier_GGC_request_events_upper'] is None
             assembler=result['Main_assembler_object_interface']
@@ -256,6 +264,20 @@ def main():
             raise AssertionError('native ingress accepted a mismatched direct subtotal')
         finally:
             context.ingress['evaluate']=ingress_evaluate
+
+        warning_evaluate=context.warning['evaluate']
+        def silently_zeroed_warning_residual(c,n):
+            return warning_evaluate(c,n,0)
+        context.warning['evaluate']=silently_zeroed_warning_residual
+        try:
+            evaluate(original)
+        except ValueError as error:
+            assert str(error)=='literal native warning-map conditional interface join'
+            rows.append(dict(case='unjustified_zero_warning_residual',rejected=str(error)))
+        else:
+            raise AssertionError('unproved original-gigi residual accepted')
+        finally:
+            context.warning['evaluate']=warning_evaluate
 
         for calls,expected in ((1073741822,True),(1073741823,False),
                                (2147483646,False)):

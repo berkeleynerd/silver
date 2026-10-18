@@ -1,5 +1,5 @@
 {
-  "case_count": 72,
+  "case_count": 73,
   "cases": [
     {
       "case": "retained",
@@ -129,6 +129,10 @@
     {
       "case": "native_ingress_direct_subtotal_mismatch",
       "rejected": "literal native ingress/direct/helper interface join"
+    },
+    {
+      "case": "unjustified_zero_warning_residual",
+      "rejected": "literal native warning-map conditional interface join"
     },
     {
       "case": "protected_set_probe_boundary_1073741822",

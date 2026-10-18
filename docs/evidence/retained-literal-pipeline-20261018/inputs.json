@@ -458,5 +458,30 @@
     "path": "docs/research/retained-native-ingress-bound.md",
     "bytes": 23155,
     "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-map-20261018/derive.py",
+    "bytes": 4105,
+    "sha256": "8353bc0cfcfe20903447a0f4e4490f9717ea031a5499b8bb00eaebfbeec94731"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-map-20261018/check.py",
+    "bytes": 9252,
+    "sha256": "24acc83d643897a9261a5ef97cfa4d99b7d095f497af204716ee1f7520eb1065"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json",
+    "bytes": 11561,
+    "sha256": "e0977492d8d1e33c1afd477e39522fde876c75b9af2d51ad6f8716f8c8aa6b55"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-map-20261018/check-results.json",
+    "bytes": 4829,
+    "sha256": "beda69c13a10697e5a8bcaf120609efe12c960509f631ef0dfca10f52f617391"
+  },
+  {
+    "path": "docs/research/retained-literal-warning-map.md",
+    "bytes": 16243,
+    "sha256": "ebdf2fe6c8d2298791773afb87b9e449019870c814839ab4d6877f4b25641d32"
   }
 ]

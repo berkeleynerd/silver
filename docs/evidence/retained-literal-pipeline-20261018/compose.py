@@ -86,6 +86,20 @@ class Context:
         require(re.search(r'^#define GATHER_STATISTICS 0$', selected_host, re.M) and
                 re.search(r'^#define CHECKING_P 0$', selected_host, re.M),
                 'selected unshare set statistics/checking configuration')
+        warning_packet=EVIDENCE/'retained-literal-warning-map-20261018'
+        warning_manifest=read(warning_packet/'source-manifest.json')
+        for row in warning_manifest['files']:
+            relative=row['path'].removeprefix('gcc/ada/') if row['root']=='ada' else row['path']
+            path=roots[row['root']]/relative
+            require(identity(path.read_bytes()) ==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'changed native warning-map source: '+str(path))
+            checked.add(str(path))
+        for row in warning_manifest['retained_inputs']:
+            require(identity((REPO/row['path']).read_bytes()) ==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'changed native warning-map input: '+row['path'])
+        self.warning = runpy.run_path(str(warning_packet/'derive.py'))
         self.source_files_verified = len(checked)
         # These are retained evidence inputs, not a newly observed prefix.
         self.prefix = read(NATIVE/'native-gcc-prefix-witness.json')
@@ -758,6 +772,21 @@ def evaluate(descriptor_path, context, source_override=None):
                 ingress['materialization_data_address_delta']['tree_requests_upper'],
             'literal native ingress/direct/helper interface join')
     protected_storage=native_unshare_protected_set_storage(ingress)
+    warning=context.warning['evaluate'](c,n)
+    require(warning['C']==c and warning['N']==n and
+            warning['direct_warning_copy_calls']==ingress['direct_copy_warning_calls_upper'] and
+            warning['additional_call_location_warning_copy_calls']==c and
+            warning['selected_initial_gimplifier_warning_put_call_ceiling']==2*c+1 and
+            warning['local_gigi_suppression_call_ceiling']==2*c+n and
+            warning['other_original_gigi_put_calls'] is None and
+            warning['conditional_map_transfer'] is None and
+            not warning['original_gigi_source_count_closed'] and
+            not warning['complete_gimplifier_lifetime_closed'],
+            'literal native warning-map conditional interface join')
+    require(context.prefix['counters']['ggc_bytes']['largest_increment']==65536 and
+            warning['prefix_capacity_ceiling']==4093 and
+            max(prime for prime in context.warning['PRIMES'] if 16*prime<=65536)==4093,
+            'literal native warning-map prefix capacity join')
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -868,8 +897,11 @@ def evaluate(descriptor_path, context, source_override=None):
                              initial_CF_CFG_GGC_events_upper=initial_cf_cfg['additional_GGC_request_events_upper'],
                              direct_gimplifier_GGC_events_upper=initial_cf_cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper'],
                              whole_body_copy_GGC_events_upper=ingress['whole_body_GGC_request_events_upper'],
-                             selected_gimplifier_helper_GGC_events_upper=ingress['selected_helper_subtotal_GGC_events_upper']),
-            'missing':'Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
+                             selected_gimplifier_helper_GGC_events_upper=ingress['selected_helper_subtotal_GGC_events_upper'],
+                             selected_gimplifier_warning_put_calls_upper=warning['selected_initial_gimplifier_warning_put_call_ceiling'],
+                             local_original_gigi_warning_suppressions_upper=warning['local_gigi_suppression_call_ceiling'],
+                             remaining_original_gigi_warning_put_calls=None),
+            'missing':'Original frontend/gigi construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -902,6 +934,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_gimplifier_selected_helpers=gimplifier_helpers,
         native_gimplifier_ingress=ingress,
         native_unshare_protected_set_storage=protected_storage,
+        native_warning_map_demand=warning,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,

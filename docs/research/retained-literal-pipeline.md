@@ -1129,6 +1129,26 @@ separately, and no sum of allocation requests becomes a RAM admission gate.
 The frozen ingress packet retains its historical open bookkeeping flag; this
 new aggregate interface closes that specific obligation without rewriting it.
 
+### Warning-map demand: preserve the original-gigi residual
+
+The [conditional warning-map transfer](retained-literal-warning-map.md) now
+receives the same C/N in `native_warning_map_demand`. Exact joins preserve
+C+1 direct copies, add at most C location-setter copies, and return 2C+1
+selected initial-gimplifier insertion-capable calls. The fixed prefix's
+65,536-byte largest rounded request and 16-byte entries supply the separate
+4093-slot incoming-state ceiling. Source and retained-input identities are
+checked before loading the callable.
+
+The known local original-gigi suppressions are at most 2C+N. The remaining
+original-gigi insertion demand R is **uninstantiated**. The aggregate returns
+`other_original_gigi_put_calls=null` and `conditional_map_transfer=null`; it
+adds no map allocation/event subtotal or capacity condition based on an
+invented R. A negative check rejects a callable that silently substitutes
+zero. The source-count closure remains false. Once R is established, the
+accepted leaf transfer supplies the map requests, growth and finalizer bounds;
+later location-changing phases still need their own join. No old direct-call
+subtotal is relabeled as the complete warning lifetime.
+
 ## Accepted linker and Main ALI interfaces
 
 The aggregate attaches the independently accepted
@@ -1388,3 +1408,11 @@ The added cases cover the last-safe-prime transition, prime exhaustion and
 mismatched population/request interfaces. Existing source cases check the
 ordinary object/backing fields and zero added GGC events. No native execution
 was needed. Complete gimplifier and whole-pipeline capacity remain open.
+
+### Conditional warning demand attachment validation
+
+All 73 aggregate cases pass in 3.343617804 seconds; default generation passes
+in 2.869469845 seconds. Existing source variants check the direct and
+location-copy coefficients and retain the null original-gigi residual. The
+new negative case rejects a hidden zero substitution for that residual. These
+are offline checks; no native tools ran and no whole-capacity flag changed.

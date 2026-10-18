@@ -1480,6 +1480,20 @@
     "conditional_protected_set_storage_closed": true,
     "complete_gimplifier_lifetime_closed": false
   },
+  "native_warning_map_demand": {
+    "C": 1,
+    "N": 0,
+    "prefix_capacity_ceiling": 4093,
+    "local_gigi_suppression_call_ceiling": 2,
+    "other_original_gigi_put_calls": null,
+    "direct_warning_copy_calls": 2,
+    "additional_call_location_warning_copy_calls": 1,
+    "selected_initial_gimplifier_warning_put_call_ceiling": 3,
+    "original_gigi_source_count_closed": false,
+    "complete_gimplifier_lifetime_closed": false,
+    "complete_collector_lifetime_closed": false,
+    "conditional_map_transfer": null
+  },
   "Main_assembler_object_interface": {
     "counts": {
       "calls": 1,
@@ -3158,9 +3172,12 @@
         "initial_CF_CFG_GGC_events_upper": 24,
         "direct_gimplifier_GGC_events_upper": 12,
         "whole_body_copy_GGC_events_upper": 36,
-        "selected_gimplifier_helper_GGC_events_upper": 8
+        "selected_gimplifier_helper_GGC_events_upper": 8,
+        "selected_gimplifier_warning_put_calls_upper": 3,
+        "local_original_gigi_warning_suppressions_upper": 2,
+        "remaining_original_gigi_warning_put_calls": null
       },
-      "missing": "Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
+      "missing": "Original frontend/gigi construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -3326,8 +3343,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 92,
-  "external_source_files_verified": 274,
+  "fixed_input_count": 97,
+  "external_source_files_verified": 288,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 72 interface checks. It reuses one context's
+arguments and `--output`, and runs 73 interface checks. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -127,3 +127,9 @@ Main writer result. It supplies only the local three-scan consumer predicate
 and persistent Names contribution. Fixed-child regeneration correspondence,
 complete Names backing, parent storage and launch remain false/open. The
 historical binder packet's parent-reader flag is preserved, not rewritten.
+
+The conditional `native_warning_map_demand` joins C/N, direct C+1 copies and
+the additional C location-setter calls, plus the checked 4093-slot prefix
+ceiling. Original-gigi residual R remains null; no conditional map subtotal
+or fit result is instantiated. The negative test rejects a silent zero
+substitution. The remaining source dependency is named explicitly.
