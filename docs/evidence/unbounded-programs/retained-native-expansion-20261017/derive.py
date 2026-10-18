@@ -1963,6 +1963,40 @@ empty_scanner_pools = dict(Name_entries=0, Name_characters=0, Uint_entries=0,
     Uint_digits=0, String_descriptors=0, String_characters=0)
 
 
+def native_to_gigi_source_interface(logical, counts):
+    """Supply the established gigi source-visit transfer, not GCC allocations.
+
+    Parser identities include promoted entities and are a safe ordinary-node
+    allowance. Fresh generated entities are excluded from A but included in E.
+    The fixed process allowance is not multiplied into the variable Main term.
+    """
+    main = logical["Main_constructor"]["total"]
+    ordinary = counts["parser_nodes"]+main["ordinary"]
+    entities = main["entity_identities"]
+    stores = counts["Integer_declarations"]+counts["Integer_assignments"]
+    visits = ordinary+32*entities+3*stores
+    assert ordinary <= main["node_identities"]
+    assert visits <= main["node_identities"]+32*entities+3*stores
+    return dict(Main_ordinary_allocation_allowance=ordinary,
+        Main_entity_identities=entities, Main_Integer_store_events=stores,
+        Main_type_bound_source_visits=32*entities,
+        Main_extra_diagnostic_scalar_visits=3*stores,
+        Main_source_syntax_visit_bound=visits,
+        Main_constant_or_renaming_external_replays=0,
+        separate_fixed_frontend_allowance=dict(
+            node_identities=logical["fixed"]["node_identities"],
+            entity_identities=logical["fixed"]["entity_identities"]),
+        separate_fixed_Main_scaffold=dict(compilation_units=1,
+            zero_formal_procedure_bodies=2,bare_procedure_returns_upper_bound=2),
+        missing_backend_inputs=[
+            "fixed-input gigi conversion and imported type graph",
+            "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+            "source-to-annotation-root Q and incoming annotation serial",
+            "gimplification, GCC passes, assembler/object/linker composition"],
+        gigi_source_reference="docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+        compiler_execution=False,complete_backend_capacity_result=False)
+
+
 def representative_current_programs():
     """Selected current sample inputs, not a general recognizer or admission rule.
 
@@ -2067,6 +2101,7 @@ def representative_current_programs():
                 parser_ordinary_nodes=ordinary),
             counter_note=item["counter_note"],source_counts=counts,scanner_pools=pools,
             logical_join=logical,selected_backing_checks=physical,
+            gigi_source_interface=native_to_gigi_source_interface(logical,counts),
             parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
             source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
             diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics),

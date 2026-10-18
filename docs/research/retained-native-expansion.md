@@ -5821,6 +5821,45 @@ scanner/parser input, logical join and selected backing check. Validation was
 source/hash inspection and arithmetic regeneration only. No compiler,
 GNATprove, Lean, full test suite or application execution was performed.
 
+### Concrete source-to-gigi inputs
+
+The [gigi source-visit transfer](retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product)
+now has executable inputs for the same five sources. Define A_Main as parser
+node identities plus the cumulative generated ordinary-node allowance. Parser
+identities already include promoted entities, so this remains a conservative
+ordinary-syntax allowance; fresh generated entities are counted separately in
+E_Main. H_store is the source count of Integer declarations plus assignments.
+The `gnat_to_gnu` source-syntax visitation transfer then gives
+
+```text
+V_Main <= A_Main + 32 E_Main + 3 H_store.
+```
+
+| Current source | A_Main | E_Main | H_store | V_Main |
+| --- | ---: | ---: | ---: | ---: |
+| `samples/null.adb` | 38 | 1 | 0 | 70 |
+| `samples/hello_world.adb` | 58 | 3 | 0 | 154 |
+| `samples/for_loop_step.adb` | 4,276 | 17 | 1 | 4,823 |
+| `samples/command_line_greeting.adb` | 744,318 | 194 | 0 | 750,526 |
+| `samples/find_square_difference.adb` | 27,373 | 23 | 2 | 28,115 |
+
+The JSON keeps the fixed frontend allowance of41,216 nodes and40,888 entities
+separate, together with Main's fixed compilation-unit/two-procedure scaffold.
+Those are inputs for their own conversion transfer; they are neither multiplied
+by V_Main nor silently omitted from a complete backend claim. The bound permits
+lazy type conversion and its endpoint roots. The established declaration/action
+ordering supplies zero variable-Main constant/renaming external replays; runtime
+loop iterations do not multiply compiler visits.
+
+This makes the composition useful without pretending that a source visit is a
+GCC allocation. The greeting's larger native expansion reaches this interface
+as750,526 visits, and the mutable-Integer example as28,115; the next transfer
+must price their selected constructor kinds and actual GCC occurrence graphs.
+The existing native logical/backing checks pass at those inputs. Generic
+helpers, folding, fixed imported types, annotation-root Q, gimplification and
+later GCC/object/linker phases remain open. No numeric backend-capacity verdict
+is produced from V_Main alone, and no compiler execution was added.
+
 ### Numeric and concatenation local objects
 
 `native_local_numeric_and_concat_backing` checks actual local representation

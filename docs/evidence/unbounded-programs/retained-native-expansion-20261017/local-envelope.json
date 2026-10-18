@@ -997,6 +997,33 @@
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
         },
+        "gigi_source_interface": {
+          "Main_ordinary_allocation_allowance": 38,
+          "Main_entity_identities": 1,
+          "Main_Integer_store_events": 0,
+          "Main_type_bound_source_visits": 32,
+          "Main_extra_diagnostic_scalar_visits": 0,
+          "Main_source_syntax_visit_bound": 70,
+          "Main_constant_or_renaming_external_replays": 0,
+          "separate_fixed_frontend_allowance": {
+            "node_identities": 41216,
+            "entity_identities": 40888
+          },
+          "separate_fixed_Main_scaffold": {
+            "compilation_units": 1,
+            "zero_formal_procedure_bodies": 2,
+            "bare_procedure_returns_upper_bound": 2
+          },
+          "missing_backend_inputs": [
+            "fixed-input gigi conversion and imported type graph",
+            "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+            "source-to-annotation-root Q and incoming annotation serial",
+            "gimplification, GCC passes, assembler/object/linker composition"
+          ],
+          "gigi_source_reference": "docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+          "compiler_execution": false,
+          "complete_backend_capacity_result": false
+        },
         "parser_auxiliary_backing": {
           "tables": {
             "Scope": {
@@ -3528,6 +3555,33 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "gigi_source_interface": {
+          "Main_ordinary_allocation_allowance": 58,
+          "Main_entity_identities": 3,
+          "Main_Integer_store_events": 0,
+          "Main_type_bound_source_visits": 96,
+          "Main_extra_diagnostic_scalar_visits": 0,
+          "Main_source_syntax_visit_bound": 154,
+          "Main_constant_or_renaming_external_replays": 0,
+          "separate_fixed_frontend_allowance": {
+            "node_identities": 41216,
+            "entity_identities": 40888
+          },
+          "separate_fixed_Main_scaffold": {
+            "compilation_units": 1,
+            "zero_formal_procedure_bodies": 2,
+            "bare_procedure_returns_upper_bound": 2
+          },
+          "missing_backend_inputs": [
+            "fixed-input gigi conversion and imported type graph",
+            "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+            "source-to-annotation-root Q and incoming annotation serial",
+            "gimplification, GCC passes, assembler/object/linker composition"
+          ],
+          "gigi_source_reference": "docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+          "compiler_execution": false,
+          "complete_backend_capacity_result": false
         },
         "parser_auxiliary_backing": {
           "tables": {
@@ -6062,6 +6116,33 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "gigi_source_interface": {
+          "Main_ordinary_allocation_allowance": 4276,
+          "Main_entity_identities": 17,
+          "Main_Integer_store_events": 1,
+          "Main_type_bound_source_visits": 544,
+          "Main_extra_diagnostic_scalar_visits": 3,
+          "Main_source_syntax_visit_bound": 4823,
+          "Main_constant_or_renaming_external_replays": 0,
+          "separate_fixed_frontend_allowance": {
+            "node_identities": 41216,
+            "entity_identities": 40888
+          },
+          "separate_fixed_Main_scaffold": {
+            "compilation_units": 1,
+            "zero_formal_procedure_bodies": 2,
+            "bare_procedure_returns_upper_bound": 2
+          },
+          "missing_backend_inputs": [
+            "fixed-input gigi conversion and imported type graph",
+            "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+            "source-to-annotation-root Q and incoming annotation serial",
+            "gimplification, GCC passes, assembler/object/linker composition"
+          ],
+          "gigi_source_reference": "docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+          "compiler_execution": false,
+          "complete_backend_capacity_result": false
         },
         "parser_auxiliary_backing": {
           "tables": {
@@ -8653,6 +8734,33 @@
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
         },
+        "gigi_source_interface": {
+          "Main_ordinary_allocation_allowance": 744318,
+          "Main_entity_identities": 194,
+          "Main_Integer_store_events": 0,
+          "Main_type_bound_source_visits": 6208,
+          "Main_extra_diagnostic_scalar_visits": 0,
+          "Main_source_syntax_visit_bound": 750526,
+          "Main_constant_or_renaming_external_replays": 0,
+          "separate_fixed_frontend_allowance": {
+            "node_identities": 41216,
+            "entity_identities": 40888
+          },
+          "separate_fixed_Main_scaffold": {
+            "compilation_units": 1,
+            "zero_formal_procedure_bodies": 2,
+            "bare_procedure_returns_upper_bound": 2
+          },
+          "missing_backend_inputs": [
+            "fixed-input gigi conversion and imported type graph",
+            "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+            "source-to-annotation-root Q and incoming annotation serial",
+            "gimplification, GCC passes, assembler/object/linker composition"
+          ],
+          "gigi_source_reference": "docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+          "compiler_execution": false,
+          "complete_backend_capacity_result": false
+        },
         "parser_auxiliary_backing": {
           "tables": {
             "Scope": {
@@ -11192,6 +11300,33 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "gigi_source_interface": {
+          "Main_ordinary_allocation_allowance": 27373,
+          "Main_entity_identities": 23,
+          "Main_Integer_store_events": 2,
+          "Main_type_bound_source_visits": 736,
+          "Main_extra_diagnostic_scalar_visits": 6,
+          "Main_source_syntax_visit_bound": 28115,
+          "Main_constant_or_renaming_external_replays": 0,
+          "separate_fixed_frontend_allowance": {
+            "node_identities": 41216,
+            "entity_identities": 40888
+          },
+          "separate_fixed_Main_scaffold": {
+            "compilation_units": 1,
+            "zero_formal_procedure_bodies": 2,
+            "bare_procedure_returns_upper_bound": 2
+          },
+          "missing_backend_inputs": [
+            "fixed-input gigi conversion and imported type graph",
+            "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+            "source-to-annotation-root Q and incoming annotation serial",
+            "gimplification, GCC passes, assembler/object/linker composition"
+          ],
+          "gigi_source_reference": "docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+          "compiler_execution": false,
+          "complete_backend_capacity_result": false
         },
         "parser_auxiliary_backing": {
           "tables": {
