@@ -2170,6 +2170,155 @@ the successful-cache invariant. The frozen tool/runtime identity and full
 fixed-dependency parse/semantic/expansion envelope remain prerequisites for
 using this cache result in a whole-native capacity predicate.
 
+### Suppressed slice resolution after child analysis
+
+The ordinary slice resolver has a closed suffix once prefix/actual-subtype
+lookup and first bound analysis have been charged. Assume one-dimensional,
+nonpacked Standard String; an explicit `N_Range`; exact Integer-base bounds;
+no overload, implicit dereference, predicate, dimension, diagnostic or pending
+check; all preexisting types frozen; and ordinary nonallocating placement.
+The prefix is an ordinary aligned object-name view, with no build-in-place
+function call. Checks are suppressed throughout. The initial bound trees meet the preceding
+scalar-capture class. After any captures, their range has at most **t ordinary
+nodes and l syntax lists**, no owned entities/itypes/actions, and no mutable
+bound left that fails `Side_Effect_Free(Variable_Ref => True)`. The t/l bounds
+must also cover a bound replaced by its one-node captured name.
+
+Under these explicit premises, the suffix adds:
+
+```text
+ordinary nodes       t + 16
+entities/names       4
+syntax lists         l + 4
+name characters      52, including NUL
+growing events       2
+Uint appends         4.
+```
+
+`Resolve_Range` resolves the already analyzed children and can fold each
+static bound once, adding at most four nodes/two growth events. Its null-range
+comparison is source-only and cannot apply to this artificial range
+(`sem_res.adb:11161–11289`). The two following forced evaluations add at most
+ten nodes/two entities/two lists by the scalar-capture transfer. A second pair
+inside `Set_Slice_Subtype` does not recapture. Generalize that subtype transfer
+to l input syntax lists: its `New_Copy_Tree` adds t nodes and l lists, followed
+by the existing two nodes/two entities/two list headers and four-Uint size
+allowance. Pure scalar conditionals may therefore retain their Expressions
+lists; those lists are copied, not omitted.
+
+Unlike explicit subtype declaration processing, this resolver calls
+`Apply_Range_Check`, whose suppression guard returns **before** check selection
+or construction (`checks.adb:3044–3074`). `Resolve_Implicit_Dereference` does
+not add a dereference to an already String-typed prefix. `Eval_Slice` leaves
+an `N_Range` unchanged, and ordinary nonpacked native slice expansion adds
+nothing (`sem_res.adb:11809–12033`, `sem_eval.adb:4007–4046`,
+`exp_ch4.adb:11367–11522`). First child analysis, allocating actual-subtype
+lookup, enabled range checks, later freezing and action attachment remain
+outside this row.
+
+Composing with the preceding two-pass assignment-check/overlap/guard suffix
+gives **`600*A+t+306` nodes, `l+4` lists, four entities/names, 52 name
+characters, 81 growth events and `2472*A+2648` Uint appends** for one
+new left slice plus those assignment suffixes. The RHS view still needs its
+own analysis and any actual-subtype creation; this row is not a whole
+assignment bound.
+
+### Uncached actual subtype of an input-derived dereference
+
+`Get_Actual_Subtype` first consults an entity's Actual_Subtype or a
+dereference's Actual_Designated_Subtype. Its allocating unconstrained branch
+does **not** populate either cache: it builds/analyzes/freezes a subtype,
+associates it with N and returns it (`sem_util.adb:10270–10374`). Repeated
+calls on the same uncached dereference must therefore be charged repeatedly.
+The name of the helper is not a memoization guarantee.
+
+A useful closed case is N=`P.all`, with Etype Standard String and no
+Actual_Designated_Subtype, where P is an already analyzed, nonvolatile,
+nonrenamed internal pointer **constant**, known non-null. Its named access
+type, Standard String and scalar types are frozen. Neither N nor its original
+node triggers the mutable-renaming exception. Its two-node syntax has no
+owned type decoration, actions or pending checks. Assume the ordinary local,
+no-diagnostic, nonallocating placement used above. This is a specified shape
+of input-result capture, not a proof that every later reference has that
+shape. The pointer type's creation and input call remain separate costs.
+
+For this case, `Build_Actual_Subtype` constructs a fresh String subtype with
+`P.all'First(1) .. P.all'Last(1)`. The first dimension is not omitted here.
+Standard String has no fixed lower-bound index aspect
+(`sem_util.adb:1192–1335`). Its direct construction costs thirteen ordinary
+nodes: four copied view nodes, two attributes, two dimension literals, a
+range, a subtype declaration/indication/mark and an index constraint. It also
+creates one entity/internal name and three lists. Both duplication calls
+return before side-effect removal: the special internal pointer-constant
+exception accepts this dereference even with Variable_Ref=True
+(`exp_util.adb:14270–14291`).
+
+The two fresh attribute analyses add at most eight nodes/four growth events:
+four nodes/two growth for the existing First/Last transfer, plus four/two for
+the dimension literals' mandatory `Fold_Uint`. `Check_Array_Type` resolves
+the literal 1, validates it and folds it; these direct small values allocate
+no Uint (`sem_attr.adb:1975–2022`). Attribute evaluation consults only
+`Get_Actual_Subtype_If_Available` and returns for this unconstrained prefix,
+so it does not recursively call the allocating helper
+(`sem_attr.adb:8727–8750`).
+
+Each resulting bound has at most four ordinary nodes and one list. It is
+pure under Variable_Ref: the pointer's internal-constant exception applies;
+the attribute's argument is a literal; and there is no original mutable
+renaming. The suppressed explicit String-subtype transfer therefore applies
+with **b=8, l=2** after these attribute analyses. Its range check may still
+construct an abandoned check, already included in that transfer. The index
+layout uses existing Standard Integer fallback bounds. Finally, the explicit
+`Freeze_Itype` contributes one node/list and the first array size check's
+four-Uint allowance. Internal names use the earlier length-at-most-12 premise.
+The complete helper envelope for this specified input is:
+
+```text
+ordinary nodes       20*A + 70
+entities/names       2
+syntax lists         8
+name characters      29, including NUL
+growing events       6
+Uint appends         80*A + 159
+Elists/String values 0.
+```
+
+`derive.py` composes the rows, including dimension folding and the explicit
+freeze. Its A and numeric-magnitude premises are the earlier query/layout
+premises. This is per invocation: no one-time cache assumption is used.
+It excludes pointer capture for a mutable original renaming, incoming-view
+decoration, input-function expansion, action placement, whole-scope/backend
+work and the source-to-invocation multiplicity.
+
+### Why a uniform incoming-view constant is not established
+
+The ordinary concat lower-bound conditional spine is captured when its root
+remains an if expression (`exp_ch4.adb:3176–3228`). That observation alone
+does not establish a constant bound on all later value views or scalar bound
+trees. `Side_Effect_Free` has an early case for a non-entity tree whose original
+node names a mutable object renaming. When its Renamed_Object is a slice, the
+case returns True **without walking that slice's bounds or prefix**
+(`exp_util.adb:14479–14514`). Thus forcing a scalar attribute of such a view
+need not collapse the whole attribute to a captured scalar constant.
+
+This is relevant to the current grammar even though author renamings are
+excluded. A concat marks its result OK_To_Rename and can return a slice;
+the source declaration expander expressly permits rewriting an unconstrained
+String object's initializer to a renaming of a slice of such a result
+(`exp_ch4.adb:3441,3629–3632`, `exp_ch3.adb:8603–8643,9485–9487`). Later name
+expansion copies and resets analyzed flags on that recorded view. First/Last
+can simplify a compile-time bound or a bound that is already an entity, but
+their native expansion does not replace every arbitrary pure bound tree
+(`exp_attr.adb:4121–4201`).
+
+No program family growing these bounds is asserted here: full reachability,
+folding and subtype-replay induction remain to be proved. The specific
+constant-size shortcut based solely on forced evaluation is unsupported.
+Keep syntactic and owned-decoration summaries explicit, then establish a
+source/declaration recurrence or a stronger simplification invariant. In
+particular, the t/l premises in the preceding slice row and b/l premises in
+the result-storage row are not discharged by this section.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

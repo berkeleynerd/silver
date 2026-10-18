@@ -275,6 +275,52 @@ def suppressed_slice_assignment_checks(analysis_graph):
     return dict(analysis_graph=a, rows=rows, total=total)
 
 
+def suppressed_slice_resolution(t, lists, analysis_graph):
+    """Suffix after prefix/actual-subtype and first child analysis; no owned types."""
+    assert t >= 3 and lists >= 0 and analysis_graph >= 1
+    rows = {
+        "range_static_folds": dict(ordinary=4, lists=0, growth=2, uint=0,
+                                    entities_and_names=0, name_characters=0),
+        "two_scalar_bound_captures": dict(ordinary=10, lists=2, growth=0, uint=0,
+                                          entities_and_names=2, name_characters=26),
+        "slice_subtype_and_size": dict(ordinary=t+2, lists=lists+2, growth=0, uint=4,
+                                       entities_and_names=2, name_characters=26),
+    }
+    total = {key: sum(row[key] for row in rows.values()) for key in next(iter(rows.values()))}
+    assert total == dict(ordinary=t+16, lists=lists+4, growth=2, uint=4,
+                         entities_and_names=4, name_characters=52)
+    checks = suppressed_slice_assignment_checks(analysis_graph)["total"]
+    combined = {key: total.get(key, 0)+checks.get(key, 0)
+                for key in sorted(total.keys() | checks.keys())}
+    a = analysis_graph
+    assert combined == dict(ordinary=600*a+t+306, lists=lists+4, growth=81,
+                            uint=2472*a+2648, entities_and_names=4, name_characters=52)
+    return dict(range_nodes=t, range_lists=lists, analysis_graph=a, rows=rows,
+                total=total, with_assignment_check_suffix=combined)
+
+
+def uncached_dereference_actual_subtype(analysis_graph):
+    """Frozen unconstrained String view P.all, pure internal constant pointer P."""
+    a = analysis_graph
+    assert a >= 1
+    rows = {
+        "build_actual_subtype_including_two_copies": dict(ordinary=13, lists=3,
+            growth=0, uint=0, entities_and_names=1, name_characters=13),
+        "two_First_Last_analyses": dict(ordinary=4, lists=0,
+            growth=2, uint=0, entities_and_names=0, name_characters=0),
+        "two_dimension_literal_folds": dict(ordinary=4, lists=0,
+            growth=2, uint=0, entities_and_names=0, name_characters=0),
+        "suppressed_subtype_b8_l2": dict(ordinary=2*8+32+20*a, lists=2*2,
+            growth=2, uint=80*a+155, entities_and_names=1, name_characters=16),
+        "explicit_freeze_and_first_size": dict(ordinary=1, lists=1,
+            growth=0, uint=4, entities_and_names=0, name_characters=0),
+    }
+    total = {key: sum(row[key] for row in rows.values()) for key in next(iter(rows.values()))}
+    assert total == dict(ordinary=20*a+70, lists=8, growth=6, uint=80*a+159,
+                         entities_and_names=2, name_characters=29)
+    return dict(analysis_graph=a, rows=rows, total=total)
+
+
 result = {
     "source_commit": pin,
     "source_files_verified": len(files),
@@ -662,6 +708,25 @@ result = {
         "Main_implicit_with_clauses": 9, "ordinary_nodes_per_implicit_with": 4,
         "Main_implicit_with_ordinary_nodes": 36,
         "excluded": "recursive dependency semantic/parse/expansion costs; implicit-with pairs in other units; fixed helper declaration and call analysis; failed lookup/retry configurations; source-to-installed runtime identity",
+    },
+    "suppressed_slice_resolution_suffix": {
+        "premises": "prefix/actual-subtype lookup and first bound analysis already charged; aligned ordinary object-name String view; artificial N_Range; pure captured scalar range t nodes/l lists, no owned entities/itypes/actions; Standard types frozen; checks suppressed; no diagnostics/pending checks/allocating placement",
+        "ordinary_nodes": "t+16", "syntax_lists": "l+4", "growth": 2,
+        "Uint": 4, "entities_and_names": 4, "name_characters": 52,
+        "with_two_assignment_check_passes_overlap_and_guard": "600*A+t+306 nodes,l+4 lists,81 growth,2472*A+2648 Uint,4 entities/names,52 chars",
+        "excluded": "source derivation of t/l or no-owned-decoration invariant; RHS view analysis; prefix/actual-subtype construction; first scalar analysis; enabled range checking; later freezing/backend; placement; source multiplicity",
+        "composition_examples_not_thresholds": [suppressed_slice_resolution(3, 0, 1),
+                                                 suppressed_slice_resolution(31, 2, 127)],
+    },
+    "uncached_dereference_actual_subtype": {
+        "premises": "analyzed ordinary P.all: unconstrained Standard String, no Actual_Designated_Subtype; P internal constant pointer, nonrenamed/nonvolatile/known nonnull; all preexisting types frozen; no owned decoration/actions/pending checks/mutable-original-renaming; ordinary nonallocating placement; query/layout premises; internal names at most12 chars",
+        "ordinary_nodes": "20*A+70", "syntax_lists": 8, "growth": 6,
+        "Uint": "80*A+159", "entities_and_names": 2, "name_characters": 29,
+        "Elists_or_String_values": 0,
+        "memoization": "none: allocating Get_Actual_Subtype branch does not populate either input cache",
+        "excluded": "source derivation of invocation count; different pointer/original-renaming class; input function/capture; action placement; whole-scope/backend",
+        "composition_examples_not_thresholds": [uncached_dereference_actual_subtype(1),
+                                                 uncached_dereference_actual_subtype(127)],
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

@@ -1283,6 +1283,233 @@
     "Main_implicit_with_ordinary_nodes": 36,
     "excluded": "recursive dependency semantic/parse/expansion costs; implicit-with pairs in other units; fixed helper declaration and call analysis; failed lookup/retry configurations; source-to-installed runtime identity"
   },
+  "suppressed_slice_resolution_suffix": {
+    "premises": "prefix/actual-subtype lookup and first bound analysis already charged; aligned ordinary object-name String view; artificial N_Range; pure captured scalar range t nodes/l lists, no owned entities/itypes/actions; Standard types frozen; checks suppressed; no diagnostics/pending checks/allocating placement",
+    "ordinary_nodes": "t+16",
+    "syntax_lists": "l+4",
+    "growth": 2,
+    "Uint": 4,
+    "entities_and_names": 4,
+    "name_characters": 52,
+    "with_two_assignment_check_passes_overlap_and_guard": "600*A+t+306 nodes,l+4 lists,81 growth,2472*A+2648 Uint,4 entities/names,52 chars",
+    "excluded": "source derivation of t/l or no-owned-decoration invariant; RHS view analysis; prefix/actual-subtype construction; first scalar analysis; enabled range checking; later freezing/backend; placement; source multiplicity",
+    "composition_examples_not_thresholds": [
+      {
+        "range_nodes": 3,
+        "range_lists": 0,
+        "analysis_graph": 1,
+        "rows": {
+          "range_static_folds": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0,
+            "entities_and_names": 0,
+            "name_characters": 0
+          },
+          "two_scalar_bound_captures": {
+            "ordinary": 10,
+            "lists": 2,
+            "growth": 0,
+            "uint": 0,
+            "entities_and_names": 2,
+            "name_characters": 26
+          },
+          "slice_subtype_and_size": {
+            "ordinary": 5,
+            "lists": 2,
+            "growth": 0,
+            "uint": 4,
+            "entities_and_names": 2,
+            "name_characters": 26
+          }
+        },
+        "total": {
+          "ordinary": 19,
+          "lists": 4,
+          "growth": 2,
+          "uint": 4,
+          "entities_and_names": 4,
+          "name_characters": 52
+        },
+        "with_assignment_check_suffix": {
+          "entities_and_names": 4,
+          "growth": 81,
+          "lists": 4,
+          "name_characters": 52,
+          "ordinary": 909,
+          "uint": 5120
+        }
+      },
+      {
+        "range_nodes": 31,
+        "range_lists": 2,
+        "analysis_graph": 127,
+        "rows": {
+          "range_static_folds": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0,
+            "entities_and_names": 0,
+            "name_characters": 0
+          },
+          "two_scalar_bound_captures": {
+            "ordinary": 10,
+            "lists": 2,
+            "growth": 0,
+            "uint": 0,
+            "entities_and_names": 2,
+            "name_characters": 26
+          },
+          "slice_subtype_and_size": {
+            "ordinary": 33,
+            "lists": 4,
+            "growth": 0,
+            "uint": 4,
+            "entities_and_names": 2,
+            "name_characters": 26
+          }
+        },
+        "total": {
+          "ordinary": 47,
+          "lists": 6,
+          "growth": 2,
+          "uint": 4,
+          "entities_and_names": 4,
+          "name_characters": 52
+        },
+        "with_assignment_check_suffix": {
+          "entities_and_names": 4,
+          "growth": 81,
+          "lists": 6,
+          "name_characters": 52,
+          "ordinary": 76537,
+          "uint": 316592
+        }
+      }
+    ]
+  },
+  "uncached_dereference_actual_subtype": {
+    "premises": "analyzed ordinary P.all: unconstrained Standard String, no Actual_Designated_Subtype; P internal constant pointer, nonrenamed/nonvolatile/known nonnull; all preexisting types frozen; no owned decoration/actions/pending checks/mutable-original-renaming; ordinary nonallocating placement; query/layout premises; internal names at most12 chars",
+    "ordinary_nodes": "20*A+70",
+    "syntax_lists": 8,
+    "growth": 6,
+    "Uint": "80*A+159",
+    "entities_and_names": 2,
+    "name_characters": 29,
+    "Elists_or_String_values": 0,
+    "memoization": "none: allocating Get_Actual_Subtype branch does not populate either input cache",
+    "excluded": "source derivation of invocation count; different pointer/original-renaming class; input function/capture; action placement; whole-scope/backend",
+    "composition_examples_not_thresholds": [
+      {
+        "analysis_graph": 1,
+        "rows": {
+          "build_actual_subtype_including_two_copies": {
+            "ordinary": 13,
+            "lists": 3,
+            "growth": 0,
+            "uint": 0,
+            "entities_and_names": 1,
+            "name_characters": 13
+          },
+          "two_First_Last_analyses": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0,
+            "entities_and_names": 0,
+            "name_characters": 0
+          },
+          "two_dimension_literal_folds": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0,
+            "entities_and_names": 0,
+            "name_characters": 0
+          },
+          "suppressed_subtype_b8_l2": {
+            "ordinary": 68,
+            "lists": 4,
+            "growth": 2,
+            "uint": 235,
+            "entities_and_names": 1,
+            "name_characters": 16
+          },
+          "explicit_freeze_and_first_size": {
+            "ordinary": 1,
+            "lists": 1,
+            "growth": 0,
+            "uint": 4,
+            "entities_and_names": 0,
+            "name_characters": 0
+          }
+        },
+        "total": {
+          "ordinary": 90,
+          "lists": 8,
+          "growth": 6,
+          "uint": 239,
+          "entities_and_names": 2,
+          "name_characters": 29
+        }
+      },
+      {
+        "analysis_graph": 127,
+        "rows": {
+          "build_actual_subtype_including_two_copies": {
+            "ordinary": 13,
+            "lists": 3,
+            "growth": 0,
+            "uint": 0,
+            "entities_and_names": 1,
+            "name_characters": 13
+          },
+          "two_First_Last_analyses": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0,
+            "entities_and_names": 0,
+            "name_characters": 0
+          },
+          "two_dimension_literal_folds": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0,
+            "entities_and_names": 0,
+            "name_characters": 0
+          },
+          "suppressed_subtype_b8_l2": {
+            "ordinary": 2588,
+            "lists": 4,
+            "growth": 2,
+            "uint": 10315,
+            "entities_and_names": 1,
+            "name_characters": 16
+          },
+          "explicit_freeze_and_first_size": {
+            "ordinary": 1,
+            "lists": 1,
+            "growth": 0,
+            "uint": 4,
+            "entities_and_names": 0,
+            "name_characters": 0
+          }
+        },
+        "total": {
+          "ordinary": 2610,
+          "lists": 8,
+          "growth": 6,
+          "uint": 10319,
+          "entities_and_names": 2,
+          "name_characters": 29
+        }
+      }
+    ]
+  },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
       "line": 2829,
