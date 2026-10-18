@@ -53,8 +53,8 @@ def main():
                 assert launch['launch_graph']['process_ID_decimal_width_upper']==10
                 for phase in launch['launch_graph']['light']:
                     compact=phase['options_content'].encode()
-                    name=hashlib.sha1(compact).hexdigest()[:8]+'.tmp'
-                    assert Path(phase['options_path']).name==name
+                    options_name=hashlib.sha1(compact).hexdigest()[:8]+'.tmp'
+                    assert Path(phase['options_path']).name==options_name
                     assert '-gnates='+phase['options_path'] in phase['argv']
                     assert phase['options_identity']==m.identity(compact+b'\n')
                     if phase['phase']=='phase2':

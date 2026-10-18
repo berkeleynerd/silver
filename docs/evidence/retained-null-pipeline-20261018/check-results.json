@@ -1,25 +1,25 @@
 {
   "cases": [
     {
-      "case": "90549513.tmp",
+      "case": "retained",
       "source_bytes": 69,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
     },
     {
-      "case": "90549513.tmp",
+      "case": "case_CRLF",
       "source_bytes": 73,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
     },
     {
-      "case": "90549513.tmp",
+      "case": "comments_above_old_cap",
       "source_bytes": 6069,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
     },
     {
-      "case": "90549513.tmp",
+      "case": "more_physical_lines",
       "source_bytes": 2069,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
