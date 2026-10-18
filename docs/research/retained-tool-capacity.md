@@ -135,15 +135,23 @@ calls and no symbol references. The IPA transfer composes with this graph;
 the selected x86 entry/exit path reaches the end of pass_expand with at most
 15 cumulative instruction-chain nodes. O0 location-preservation edge splitting
 raises the conservative IRA-entry allowance to 25 nodes, ten ordinary blocks
-and eleven edges. Fixed descendant/helper allocations, IRA/LRA, later RTL and
+and eleven edges. Mandatory LRA adds one unused pseudo and one note; the
+postreload allowance is 26 chain nodes. The selected x86 frame/return transfer
+then reaches at most 42 cumulative chain nodes, including conservative
+location-preserving merge nops, with an eight-byte frame-pointer save and no
+local/spill slots. Fixed/lazy allocator setup, later RTL/unwind and
 output/linker capacity still need their own joins.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
-identifies a possible one-time capture boundary before Main translation and
+identifies a one-time capture boundary before Main translation and
 distinguishes cumulative GGC allocation from counters that can decrease.
-No new setup capture or numerical fixed allowance is claimed: the fixed-root
-read projection, cache interactions and callback independence must be closed
-before using such a witness.
+The fixed semantic-root read projection and absence of GGC collection through
+that boundary are established for the null token class. Its floating-bound
+callbacks have separate Ada numeric-table allowances; variable path/line/node
+metadata remains separate. Executable lifetime/event-counter and no-wrap
+coverage are still required before using a witness. No new setup capture or
+numerical fixed GCC allowance is claimed, and other source classes must match
+the root projection before reusing it.
 
 The proposed native-only `-gnatx` removes cross-reference construction/output
 and its long-local-name ALI analysis loss; combining it with
@@ -161,6 +169,11 @@ disassemblies validate those concrete configuration facts without invoking a
 frontend. Complete raw search/probe spellings reach 222 characters here;
 the earlier P=200 examples are not a realized descriptor for this installation.
 The verified launcher and remaining driver/late-path capacities are unfinished.
+The initial native specs search is now reduced to four filenames plus one
+override, all absent in a retained metadata-only check. Source reconstruction
+matches the six final program and nineteen final library candidates. Individual
+search-buffer and temporary-name requests are bounded without adding an
+aggregate allocation gate; full selected specs/option handling remains open.
 The reusable [individual-obstack transfer](retained-backend-obstacks.md) joins
 the already-bounded native environment strings to chunk requests without
 imposing an aggregate memory or address-span gate.
@@ -170,6 +183,11 @@ selected prover answers and consecutive-answer warnings to raw solver-output
 bytes, with reviewed linear coefficients. Its five-fixed-response constants
 retain all raw-output and other-warning variables. It does not assume successful
 proofs erase diagnostics, nor establish the solver-output/formula/context bounds.
+The [configured startup context](retained-producer-import-context.md) includes
+all nine installed prover drivers: 26 driver files and 21 library files. The
+fixed clone-warning contribution is now bounded; six imported startup formula
+constructions enter the remaining typed-context costs. Lexical clone dependency
+coefficients are not typed-node or allocation bounds.
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
