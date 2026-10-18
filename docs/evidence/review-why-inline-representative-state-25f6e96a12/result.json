@@ -1,0 +1,55 @@
+{
+  "status": "pass",
+  "input_roots_independently_counted": 143,
+  "strict_shape_exclusions": [
+    {
+      "declaration_index": 143,
+      "coordinates": [
+        72,
+        8,
+        0,
+        19
+      ],
+      "bound": [
+        72,
+        7,
+        0,
+        19
+      ]
+    },
+    {
+      "declaration_index": 152,
+      "coordinates": [
+        53,
+        7,
+        0,
+        18
+      ],
+      "bound": [
+        52,
+        7,
+        0,
+        18
+      ]
+    },
+    {
+      "declaration_index": 242,
+      "coordinates": [
+        17,
+        2,
+        0,
+        8
+      ],
+      "bound": [
+        16,
+        2,
+        0,
+        8
+      ]
+    }
+  ],
+  "all_slots_counted": 11968,
+  "distinct_occupied_slots": 6704,
+  "new_native_runs": 0,
+  "elapsed_seconds": 0.669154
+}
