@@ -78,7 +78,7 @@ protection likewise does not establish historical branch resolution. Treating
 these dates as an exact build input would reintroduce the unsupported identity
 claim this task was intended to resolve.
 
-## Exact residual obligation
+## Remaining historical identity question
 
 The missing link is the **SPARK tarball bytes or resolved revision actually
 consumed by the matching June 26 Linux build**, together with the applicable
@@ -89,11 +89,49 @@ asset hash alone cannot supply the missing value. The same floating selection
 also leaves sparklib's build revision unidentified; its relevance must be assessed
 where those library sources enter the capacity/assurance argument.
 
-Until that link is established, the inspected SPARK source can support explicitly
-conditional producer bounds, not an assertion that those bounds have been tied
-to this installed producer. Keep this obligation visible in #119 before using the
-new rule to enlarge admission. This focused investigation does not prescribe a
-tool change or authorize maintainer contact, a new pin, or a rebuilding project.
+That link remains unestablished. It must not be described as recovered from
+the release label, current branch date, successful probes or matching layouts.
+The owner confirmed that no additional retained records are available.
+
+## Relevant behavior within the existing trust boundary
+
+The historical identity question is not automatically an implementation gate.
+The [Oracle](../../oracle.md) already trusts GNAT/GNATprove as external tools,
+and the [existing interface boundary](../trusted-boundary.md#compiler-implementation-and-runtime-imports)
+expressly uses source-reviewed external interface premises without a
+binary-source attestation. The development policy defers independently addable
+attestation work. Requiring the missing tarball as the only route to capacity
+assurance would add a stronger requirement than those policies supply.
+
+For #119, state the relevant behavior relation explicitly: the identified
+installed executable, under the selected target/options and dependency bytes,
+follows the reviewed source's reached allocation, traversal, cache, table/index,
+serialization and runtime-interface behavior. Each component must name its
+source revision and exact behavior being relied on. This is a trusted external
+behavior premise, not a claim of historical build identity or a new theorem
+about the vendor binary. Recheck the affected relation when the pin, invocation
+path or relevant configuration changes.
+
+The retained evidence supports concrete parts of that relation: release/recipe
+association, installed DWARF layouts and limits, static counter instructions,
+and [fixed producer snapshots](retained-producer-fixed.md). The source-derived
+bootstrap count agrees with the installed snapshot, and the observed node/list
+index bases and fixed phase order agree with the reviewed paths. These checks
+do not prove the relation for every execution. Their scope must stay explicit.
+
+This resolves the provenance scope, not the unfinished capacity derivation.
+Every resource domain, source-count transfer, intermediate arithmetic bound and
+composition still needs its argument. A premise saying merely that all accepted
+programs fit or prove would be circular and insufficient. Contradictory tool
+behavior invalidates the affected premise and requires repair. Silver-owned
+source correspondence, compiler legality, complete obligation generation and
+automatic discharge remain required. No new tool pin, compiler rebuild,
+maintainer contact or owner approval step follows from the absent archive.
+
+This interpretation was checked independently against the Oracle,
+`development.md`, `AGENTS.md` and the existing trusted boundary on 2026-10-18.
+It corrects the earlier wording that made exact historical source recovery a
+prerequisite; it does not change any observed identity fact.
 
 Validation comprised read-only upstream GET requests, retained-record and Git-blob
 reconciliation, the narrow installed metadata inspection, local links and authored

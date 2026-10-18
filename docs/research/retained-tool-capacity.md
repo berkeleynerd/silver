@@ -217,8 +217,13 @@ corroborates the selected archive digest, recipe and matching Linux build/upload
 job, but leaves the historical floating SPARK/sparklib downloads unidentified.
 The job logs have expired and no build artifacts remain in that run. Today's
 branch target and its commit date cannot establish the bytes consumed then.
-This is a concrete remaining correspondence obligation, not permission to
-transfer the conditional producer derivation to the installed executable.
+Historical source identity remains unestablished. As the investigation's
+[scope clarification](retained-tool-source-identity.md#relevant-behavior-within-the-existing-trust-boundary)
+explains, the existing external-tool trust boundary permits a precise reviewed
+relevant-behavior premise; it does not require recovering that tarball or adding
+a binary attestation. Record the relation and its actual corroboration for the
+identified tool/configuration. This does not waive any capacity transfer,
+Silver-owned source correspondence or complete automatic-discharge argument.
 
 ## Initial production-route derivation
 
