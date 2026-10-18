@@ -1,0 +1,46 @@
+{
+  "candidate_source_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "source_to_installed_tool_identity": "not established; conditional source arguments retained",
+  "files": [
+    {
+      "path": "src/why/why-types.ads",
+      "bytes": 3694,
+      "sha256": "4de437e94386afa972fecc952e4d4f9f1ab4be5642f894deec610a98876fd0c8"
+    },
+    {
+      "path": "src/why/why-atree.adb",
+      "bytes": 3455,
+      "sha256": "cc00b2b76886de7c955fdeb9cdb459cd926fd03428cb1e20d20eb01202d539ee"
+    },
+    {
+      "path": "src/why/xgen/why-atree.ads-tmpl",
+      "bytes": 5737,
+      "sha256": "4f52010836e06ae5fbcebd3ceab0e397dfdb0560fa11c739ab73e766904389d4"
+    },
+    {
+      "path": "src/why/xgen/why-atree-to_json.adb-tmpl",
+      "bytes": 4655,
+      "sha256": "634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e"
+    },
+    {
+      "path": "src/why/gnat2why-driver.adb",
+      "bytes": 60922,
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    },
+    {
+      "path": "src/why/why-inter.adb",
+      "bytes": 56576,
+      "sha256": "68844f25581617906e556817a63bfdb8f1ae425f91fb532f844f64eda221fc84"
+    },
+    {
+      "path": "src/why/gnat2why-util.adb",
+      "bytes": 65173,
+      "sha256": "f620de261e498788e54f642cc90605675d29aa3475888c0868afa2d6499fbc8d"
+    },
+    {
+      "path": "src/spark/spark_definition.adb",
+      "bytes": 601572,
+      "sha256": "d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e"
+    }
+  ]
+}

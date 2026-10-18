@@ -1,0 +1,10 @@
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+CAPACITY_SNAPSHOT {"all_theory_occurrences": 0, "lists": 0, "method": "DWARF offsets and raw read_memory; no inferior calls", "nodes": 1445, "phase": "before_standard", "retained_elements": 0, "temporary_names": 0}
+CAPACITY_SNAPSHOT {"all_theory_occurrences": 9562, "lists": 1293, "method": "DWARF offsets and raw read_memory; no inferior calls", "nodes": 6481, "phase": "after_standard", "retained_elements": 1714, "temporary_names": 168}
+CAPACITY_SNAPSHOT {"all_theory_occurrences": 10639, "lists": 1482, "method": "DWARF offsets and raw read_memory; no inferior calls", "nodes": 7136, "phase": "before_free", "retained_elements": 1936, "temporary_names": 189}
+
+Breakpoint -4, why.atree.free () at /home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/spark2014/src/src/why/why-atree.adb:38
+warning: 38	/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/spark2014/src/src/why/why-atree.adb: No such file or directory
+Warning: the current language does not match this frame.
+CAPACITY_FINAL [{"all_theory_occurrences": 0, "lists": 0, "method": "DWARF offsets and raw read_memory; no inferior calls", "nodes": 1445, "phase": "before_standard", "retained_elements": 0, "temporary_names": 0}, {"all_theory_occurrences": 9562, "lists": 1293, "method": "DWARF offsets and raw read_memory; no inferior calls", "nodes": 6481, "phase": "after_standard", "retained_elements": 1714, "temporary_names": 168}, {"all_theory_occurrences": 10639, "lists": 1482, "method": "DWARF offsets and raw read_memory; no inferior calls", "nodes": 7136, "phase": "before_free", "retained_elements": 1936, "temporary_names": 189}]

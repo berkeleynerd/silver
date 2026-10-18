@@ -1,0 +1,60 @@
+{
+  "command": [
+    "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+    "-nx",
+    "-q",
+    "-batch",
+    "-x",
+    "/tmp/silver-producer-counter-plan-20261018/probe.gdb",
+    "--args",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatc",
+    "-gnates=/tmp/silver-producer-counter-plan-20261018/options.json",
+    "-gnatec=/tmp/silver-producer-counter-plan-20261018/naming.adc",
+    "-I/tmp/silver-producer-counter-plan-20261018",
+    "/tmp/silver-producer-counter-plan-20261018/main.adb",
+    "-gnateO=/tmp/silver-producer-counter-plan-20261018/object-paths.txt"
+  ],
+  "cwd": "/tmp/silver-producer-counter-plan-20261018/obj",
+  "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+  "debugger_sha256": "e5272927fc1b40345748dfa4133ec2a50caeb5f209a44099dd2c48679911c59c",
+  "elapsed_seconds": 0.8563089759991271,
+  "debugger_exit": 0,
+  "snapshots": [
+    {
+      "all_theory_occurrences": 0,
+      "lists": 0,
+      "method": "DWARF offsets and raw read_memory; no inferior calls",
+      "nodes": 1445,
+      "phase": "before_standard",
+      "retained_elements": 0,
+      "temporary_names": 0
+    },
+    {
+      "all_theory_occurrences": 9562,
+      "lists": 1293,
+      "method": "DWARF offsets and raw read_memory; no inferior calls",
+      "nodes": 6481,
+      "phase": "after_standard",
+      "retained_elements": 1714,
+      "temporary_names": 168
+    },
+    {
+      "all_theory_occurrences": 10639,
+      "lists": 1482,
+      "method": "DWARF offsets and raw read_memory; no inferior calls",
+      "nodes": 7136,
+      "phase": "before_free",
+      "retained_elements": 1936,
+      "temporary_names": 189
+    }
+  ],
+  "scope": "observed isolated null Main, reconstructed producer invocation, no solvers"
+}
