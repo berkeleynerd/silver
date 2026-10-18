@@ -53,18 +53,23 @@ RANGES = {
         (2166, 2435), (2564, 2761), (3009, 3380)],
     "gcc/ada/gcc-interface/gigi.h": [(1299, 1307)],
     "gcc/tree.cc": [
-        (1212, 1230), (1468, 1479), (4080, 4106), (4132, 4223), (6982, 7023),
+        (1212, 1230), (1468, 1479), (4080, 4106), (4132, 4223), (4257, 4283), (6982, 7023),
         (11020, 11077), (11194, 11224)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
     "gcc/gimplify.cc": [
-        (83, 124), (387, 395), (460, 488), (619, 721), (1270, 1282), (1677, 1845),
+        (83, 124), (387, 395), (460, 488), (619, 751), (944, 973), (1097, 1101),
+        (1270, 1282), (1677, 1845),
         (1971, 2008), (2124, 2157), (2198, 2225), (3221, 3235),
+        (3859, 3939), (4651, 4656), (4886, 5013),
         (5036, 5137), (5184, 5809), (6288, 6307), (7002, 7048),
-        (7430, 7470), (7599, 7625), (7723, 7799),
+        (7430, 7470), (7547, 7625), (7723, 7799),
         (19462, 19467), (20483, 20500),
         (21295, 21348), (21502, 21558), (21584, 21761)],
     "gcc/gimplify.h": [(53, 54)],
+    "gcc/gimple.cc": [(251, 263), (328, 340), (385, 405)],
+    "gcc/builtins.cc": [(11051, 11089)],
+    "gcc/internal-fn.def": [(520, 522)],
     "gcc/calls.cc": [(590, 630), (807, 824)],
     "gcc/tree-cfg.cc": [(2185, 2200), (2628, 2652)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
@@ -229,6 +234,18 @@ def check_sources(sources, inventory):
         end = gimplify.index("\n}\n", start)
         helper = gimplify[start:end]
         assert helper.index("if (!condition_coverage_flag)") < helper.index("new hash_map")
+    for name in ("ADD_OVERFLOW", "SUB_OVERFLOW", "MUL_OVERFLOW"):
+        assert f"DEF_INTERNAL_FN ({name}, ECF_CONST | ECF_LEAF | ECF_NOTHROW, NULL)" in sources["gcc/internal-fn.def"]
+    start = tree.index("\nprocess_call_operands (tree t)")
+    end = tree.index("\n}\n", start)
+    assert "TREE_READONLY (t) = read_only;" in tree[start:end]
+    assert "if (tree_invariant_p_1 (inner))\n    return expr;" in tree
+    start = gimplify.index("\ngimplify_call_expr (tree *expr_p,")
+    end = gimplify.index("\n}\n", start)
+    call = gimplify[start:end]
+    assert call.index("if (want_value)\n\t    return GS_ALL_DONE;") < call.index("gimplify_arg (")
+    assert "auto_vec<tree> vargs (nargs);" in gimplify
+    assert sources["gcc/gimple.cc"].count("nargs + 3))") == 2
 
 
 def arithmetic():
@@ -333,6 +350,15 @@ def arithmetic():
         "conditional_extra_VAR_requests": "<= Cprime",
         "conditional_extra_assignment_wrappers_and_raw_assignments": "each <= 2*Cprime",
         "conditional_UID_and_context_push_requests": "<= 2*Cprime+2*A",
+        "overflow_saved_boundary": "SAVE may be elided for readonly invariant IFN calls",
+        "overflow_materialization_input": "I actual call occurrences, retained SAVE children once",
+        "overflow_call_materializations_and_INIT_and_raw_GIMPLE": "each <= I",
+        "overflow_raw_call_operand_positions": "<= 5*I",
+        "overflow_materialization_ordinary_copy_nodes": "sum materialized-call ordinary cut-region weights; not unconditionally linear",
+        "nonbuiltin_scalar_call_helper_visits": "<= 3*X",
+        "nonbuiltin_scalar_call_actual_visits": "<= 3*P",
+        "nonbuiltin_scalar_call_raw_operand_positions": "<= P+3*X",
+        "nonbuiltin_scalar_call_unshare_nodes_and_slots": "<= 3*X nodes, P+5*X slots",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

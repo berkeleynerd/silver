@@ -11690,6 +11690,38 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4223:     }
 ```
 
+## gcc/tree.cc:4257–4283
+
+```text
+4257: /* Return which tree structure is used by T.  */
+4258:
+4259: enum tree_node_structure_enum
+4260: tree_node_structure (const_tree t)
+4261: {
+4262:   const enum tree_code code = TREE_CODE (t);
+4263:   return tree_node_structure_for_code (code);
+4264: }
+4265:
+4266: /* Set various status flags when building a CALL_EXPR object T.  */
+4267:
+4268: static void
+4269: process_call_operands (tree t)
+4270: {
+4271:   bool side_effects = TREE_SIDE_EFFECTS (t);
+4272:   bool read_only = false;
+4273:   int i = call_expr_flags (t);
+4274:
+4275:   /* Calls have side-effects, except those to const or pure functions.  */
+4276:   if ((i & ECF_LOOPING_CONST_OR_PURE) || !(i & (ECF_CONST | ECF_PURE)))
+4277:     side_effects = true;
+4278:   /* Propagate TREE_READONLY of arguments for const functions.  */
+4279:   if (i & ECF_CONST)
+4280:     read_only = true;
+4281:
+4282:   if (!side_effects || read_only)
+4283:     for (i = 1; i < TREE_OPERAND_LENGTH (t); i++)
+```
+
 ## gcc/tree.cc:6982–7023
 
 ```text
@@ -12101,7 +12133,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 488:     {
 ```
 
-## gcc/gimplify.cc:619–721
+## gcc/gimplify.cc:619–751
 
 ```text
 619: }
@@ -12207,6 +12239,81 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 719:     return lookup_tmp_var (val, is_formal, not_gimple_reg);
 720:
 721:   return t;
+722: }
+723:
+724: /* Return a formal temporary variable initialized with VAL.  PRE_P is as
+725:    in gimplify_expr.  Only use this function if:
+726:
+727:    1) The value of the unfactored expression represented by VAL will not
+728:       change between the initialization and use of the temporary, and
+729:    2) The temporary will not be otherwise modified.
+730:
+731:    For instance, #1 means that this is inappropriate for SAVE_EXPR temps,
+732:    and #2 means it is inappropriate for && temps.
+733:
+734:    For other cases, use get_initialized_tmp_var instead.  */
+735:
+736: tree
+737: get_formal_tmp_var (tree val, gimple_seq *pre_p)
+738: {
+739:   return internal_get_tmp_var (val, pre_p, NULL, true, true, false);
+740: }
+741:
+742: /* Return a temporary variable initialized with VAL.  PRE_P and POST_P
+743:    are as in gimplify_expr.  */
+744:
+745: tree
+746: get_initialized_tmp_var (tree val, gimple_seq *pre_p,
+747:                          gimple_seq *post_p /* = NULL */,
+748:                          bool allow_ssa /* = true */)
+749: {
+750:   return internal_get_tmp_var (val, pre_p, post_p, false, allow_ssa, false);
+751: }
+```
+
+## gcc/gimplify.cc:944–973
+
+```text
+944: static tree
+945: mostly_copy_tree_r (tree *tp, int *walk_subtrees, void *data)
+946: {
+947:   tree t = *tp;
+948:   enum tree_code code = TREE_CODE (t);
+949:
+950:   /* Do not copy SAVE_EXPR, TARGET_EXPR or BIND_EXPR nodes themselves, but
+951:      copy their subtrees if we can make sure to do it only once.  */
+952:   if (code == SAVE_EXPR || code == TARGET_EXPR || code == BIND_EXPR)
+953:     {
+954:       if (data && !((hash_set<tree> *)data)->add (t))
+955:         ;
+956:       else
+957:         *walk_subtrees = 0;
+958:     }
+959:
+960:   /* Stop at types, decls, constants like copy_tree_r.  */
+961:   else if (TREE_CODE_CLASS (code) == tcc_type
+962:            || TREE_CODE_CLASS (code) == tcc_declaration
+963:            || TREE_CODE_CLASS (code) == tcc_constant)
+964:     *walk_subtrees = 0;
+965:
+966:   /* Cope with the statement expression extension.  */
+967:   else if (code == STATEMENT_LIST)
+968:     ;
+969:
+970:   /* Leave the bulk of the work to copy_tree_r itself.  */
+971:   else
+972:     copy_tree_r (tp, walk_subtrees, NULL);
+973:
+```
+
+## gcc/gimplify.cc:1097–1101
+
+```text
+1097: tree
+1098: unshare_expr (tree expr)
+1099: {
+1100:   walk_tree (&expr, mostly_copy_tree_r, NULL, NULL);
+1101:   return expr;
 ```
 
 ## gcc/gimplify.cc:1270–1282
@@ -12534,6 +12641,236 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3233:       *label_p = label;
 3234:     }
 3235:
+```
+
+## gcc/gimplify.cc:3859–3939
+
+```text
+3859:    gimplified to an SSA name.  */
+3860:
+3861: enum gimplify_status
+3862: gimplify_arg (tree *arg_p, gimple_seq *pre_p, location_t call_location,
+3863:               bool allow_ssa)
+3864: {
+3865:   bool (*test) (tree);
+3866:   fallback_t fb;
+3867:
+3868:   /* In general, we allow lvalues for function arguments to avoid
+3869:      extra overhead of copying large aggregates out of even larger
+3870:      aggregates into temporaries only to copy the temporaries to
+3871:      the argument list.  Make optimizers happy by pulling out to
+3872:      temporaries those types that fit in registers.  */
+3873:   if (is_gimple_reg_type (TREE_TYPE (*arg_p)))
+3874:     test = is_gimple_val, fb = fb_rvalue;
+3875:   else
+3876:     {
+3877:       test = is_gimple_lvalue, fb = fb_either;
+3878:       /* Also strip a TARGET_EXPR that would force an extra copy.  */
+3879:       if (TREE_CODE (*arg_p) == TARGET_EXPR)
+3880:         {
+3881:           tree init = TARGET_EXPR_INITIAL (*arg_p);
+3882:           if (init
+3883:               && !VOID_TYPE_P (TREE_TYPE (init))
+3884:               /* Currently, due to c++/116015, it is not desirable to
+3885:                  strip a TARGET_EXPR whose initializer is a {}.  The
+3886:                  problem is that if we do elide it, we also have to
+3887:                  replace all the occurrences of the slot temporary in the
+3888:                  initializer with the temporary created for the argument.
+3889:                  But we do not have that temporary yet so the replacement
+3890:                  would be quite awkward and it might be needed to resort
+3891:                  back to a PLACEHOLDER_EXPR.  Note that stripping the
+3892:                  TARGET_EXPR wouldn't help anyway, as gimplify_expr would
+3893:                  just allocate a temporary to store the CONSTRUCTOR into.
+3894:                  (FIXME PR116375.)
+3895:
+3896:                  See convert_for_arg_passing for the C++ code that marks
+3897:                  the TARGET_EXPR as eliding or not.  */
+3898:               && TREE_CODE (init) != CONSTRUCTOR)
+3899:             *arg_p = init;
+3900:         }
+3901:     }
+3902:
+3903:   /* If this is a variable sized type, we must remember the size.  */
+3904:   maybe_with_size_expr (arg_p);
+3905:
+3906:   /* FIXME diagnostics: This will mess up gcc.dg/Warray-bounds.c.  */
+3907:   /* Make sure arguments have the same location as the function call
+3908:      itself.  */
+3909:   protected_set_expr_location (*arg_p, call_location);
+3910:
+3911:   /* There is a sequence point before a function call.  Side effects in
+3912:      the argument list must occur before the actual call. So, when
+3913:      gimplifying arguments, force gimplify_expr to use an internal
+3914:      post queue which is then appended to the end of PRE_P.  */
+3915:   return gimplify_expr (arg_p, pre_p, NULL, test, fb, allow_ssa);
+3916: }
+3917:
+3918: /* Don't fold inside offloading or taskreg regions: it can break code by
+3919:    adding decl references that weren't in the source.  We'll do it during
+3920:    omplower pass instead.  */
+3921:
+3922: static bool
+3923: maybe_fold_stmt (gimple_stmt_iterator *gsi)
+3924: {
+3925:   struct gimplify_omp_ctx *ctx;
+3926:   for (ctx = gimplify_omp_ctxp; ctx; ctx = ctx->outer_context)
+3927:     if ((ctx->region_type & (ORT_TARGET | ORT_PARALLEL | ORT_TASK)) != 0)
+3928:       return false;
+3929:     else if ((ctx->region_type & ORT_HOST_TEAMS) == ORT_HOST_TEAMS)
+3930:       return false;
+3931:   /* Delay folding of builtins until the IL is in consistent state
+3932:      so the diagnostic machinery can do a better job.  */
+3933:   if (gimple_call_builtin_p (gsi_stmt (*gsi)))
+3934:     return false;
+3935:   return fold_stmt (gsi);
+3936: }
+3937:
+3938: static tree
+3939: expand_late_variant_directive (vec<struct omp_variant> all_candidates,
+```
+
+## gcc/gimplify.cc:4651–4656
+
+```text
+4651:           auto_vec<tree> vargs (nargs);
+4652:
+4653:           if (ifn == IFN_ASSUME)
+4654:             {
+4655:               if (simple_condition_p (CALL_EXPR_ARG (*expr_p, 0)))
+4656:                 {
+```
+
+## gcc/gimplify.cc:4886–5013
+
+```text
+4886:           --nargs;
+4887:           *expr_p = build_call_array_loc (loc, TREE_TYPE (call),
+4888:                                           CALL_EXPR_FN (call),
+4889:                                           nargs, CALL_EXPR_ARGP (call));
+4890:
+4891:           /* Copy all CALL_EXPR flags, location and block, except
+4892:              CALL_EXPR_VA_ARG_PACK flag.  */
+4893:           CALL_EXPR_STATIC_CHAIN (*expr_p) = CALL_EXPR_STATIC_CHAIN (call);
+4894:           CALL_EXPR_TAILCALL (*expr_p) = CALL_EXPR_TAILCALL (call);
+4895:           CALL_EXPR_RETURN_SLOT_OPT (*expr_p)
+4896:             = CALL_EXPR_RETURN_SLOT_OPT (call);
+4897:           CALL_FROM_THUNK_P (*expr_p) = CALL_FROM_THUNK_P (call);
+4898:           SET_EXPR_LOCATION (*expr_p, EXPR_LOCATION (call));
+4899:
+4900:           /* Set CALL_EXPR_VA_ARG_PACK.  */
+4901:           CALL_EXPR_VA_ARG_PACK (*expr_p) = 1;
+4902:         }
+4903:     }
+4904:
+4905:   /* If the call returns twice then after building the CFG the call
+4906:      argument computations will no longer dominate the call because
+4907:      we add an abnormal incoming edge to the call.  So do not use SSA
+4908:      vars there.  */
+4909:   bool returns_twice = call_expr_flags (*expr_p) & ECF_RETURNS_TWICE;
+4910:
+4911:
+4912:   /* Gimplify the function arguments.  */
+4913:   if (nargs > 0)
+4914:     {
+4915:       for (i = (PUSH_ARGS_REVERSED ? nargs - 1 : 0);
+4916:            PUSH_ARGS_REVERSED ? i >= 0 : i < nargs;
+4917:            PUSH_ARGS_REVERSED ? i-- : i++)
+4918:         {
+4919:           enum gimplify_status t;
+4920:
+4921:           /* Avoid gimplifying the second argument to va_start, which needs to
+4922:              be the plain PARM_DECL.  */
+4923:           if ((i != 1) || !builtin_va_start_p)
+4924:             {
+4925:               tree *arg_p = &CALL_EXPR_ARG (*expr_p, i);
+4926:
+4927:               if (gimplify_omp_ctxp && gimplify_omp_ctxp->code == OMP_DISPATCH)
+4928:                 gimplify_omp_ctxp->in_call_args = true;
+4929:               t = gimplify_arg (arg_p, pre_p, EXPR_LOCATION (*expr_p),
+4930:                                 !returns_twice);
+4931:               if (gimplify_omp_ctxp && gimplify_omp_ctxp->code == OMP_DISPATCH)
+4932:                 gimplify_omp_ctxp->in_call_args = false;
+4933:
+4934:               if (t == GS_ERROR)
+4935:                 ret = GS_ERROR;
+4936:             }
+4937:         }
+4938:     }
+4939:
+4940:   /* Gimplify the static chain.  */
+4941:   if (CALL_EXPR_STATIC_CHAIN (*expr_p))
+4942:     {
+4943:       if (fndecl && !DECL_STATIC_CHAIN (fndecl))
+4944:         CALL_EXPR_STATIC_CHAIN (*expr_p) = NULL;
+4945:       else
+4946:         {
+4947:           enum gimplify_status t;
+4948:           t = gimplify_arg (&CALL_EXPR_STATIC_CHAIN (*expr_p), pre_p,
+4949:                             EXPR_LOCATION (*expr_p), ! returns_twice);
+4950:           if (t == GS_ERROR)
+4951:             ret = GS_ERROR;
+4952:         }
+4953:     }
+4954:
+4955:   /* Verify the function result.  */
+4956:   if (want_value && fndecl
+4957:       && VOID_TYPE_P (TREE_TYPE (TREE_TYPE (fnptrtype))))
+4958:     {
+4959:       error_at (loc, "using result of function returning %<void%>");
+4960:       ret = GS_ERROR;
+4961:     }
+4962:
+4963:   /* Try this again in case gimplification exposed something.  */
+4964:   if (ret != GS_ERROR)
+4965:     {
+4966:       tree new_tree = fold_call_expr (input_location, *expr_p, !want_value);
+4967:
+4968:       if (new_tree && new_tree != *expr_p)
+4969:         {
+4970:           /* There was a transformation of this call which computes the
+4971:              same value, but in a more efficient way.  Return and try
+4972:              again.  */
+4973:           *expr_p = new_tree;
+4974:           return GS_OK;
+4975:         }
+4976:     }
+4977:   else
+4978:     {
+4979:       *expr_p = error_mark_node;
+4980:       return GS_ERROR;
+4981:     }
+4982:
+4983:   /* If the function is "const" or "pure", then clear TREE_SIDE_EFFECTS on its
+4984:      decl.  This allows us to eliminate redundant or useless
+4985:      calls to "const" functions.  */
+4986:   if (TREE_CODE (*expr_p) == CALL_EXPR)
+4987:     {
+4988:       int flags = call_expr_flags (*expr_p);
+4989:       if (flags & (ECF_CONST | ECF_PURE)
+4990:           /* An infinite loop is considered a side effect.  */
+4991:           && !(flags & (ECF_LOOPING_CONST_OR_PURE)))
+4992:         TREE_SIDE_EFFECTS (*expr_p) = 0;
+4993:     }
+4994:
+4995:   /* If the value is not needed by the caller, emit a new GIMPLE_CALL
+4996:      and clear *EXPR_P.  Otherwise, leave *EXPR_P in its gimplified
+4997:      form and delegate the creation of a GIMPLE_CALL to
+4998:      gimplify_modify_expr.  This is always possible because when
+4999:      WANT_VALUE is true, the caller wants the result of this call into
+5000:      a temporary, which means that we will emit an INIT_EXPR in
+5001:      internal_get_tmp_var which will then be handled by
+5002:      gimplify_modify_expr.  */
+5003:   if (!want_value)
+5004:     {
+5005:       /* The CALL_EXPR in *EXPR_P is already in GIMPLE form, so all we
+5006:          have to do is replicate it as a GIMPLE_CALL tuple.  */
+5007:       gimple_stmt_iterator gsi;
+5008:       call = gimple_build_call_from_tree (*expr_p, fnptrtype);
+5009:       notice_special_calls (call);
+5010:       gimplify_seq_add_stmt (pre_p, call);
+5011:       gsi = gsi_last (*pre_p);
+5012:       maybe_fold_stmt (&gsi);
+5013:       *expr_p = NULL_TREE;
 ```
 
 ## gcc/gimplify.cc:5036–5137
@@ -13397,9 +13734,61 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7470:   /* In case of va_arg internal fn wrappped in a WITH_SIZE_EXPR, add the type
 ```
 
-## gcc/gimplify.cc:7599–7625
+## gcc/gimplify.cc:7547–7625
 
 ```text
+7547:
+7548:   if (TREE_CODE (*from_p) == CALL_EXPR)
+7549:     {
+7550:       /* Since the RHS is a CALL_EXPR, we need to create a GIMPLE_CALL
+7551:          instead of a GIMPLE_ASSIGN.  */
+7552:       gcall *call_stmt;
+7553:       if (CALL_EXPR_FN (*from_p) == NULL_TREE)
+7554:         {
+7555:           /* Gimplify internal functions created in the FEs.  */
+7556:           int nargs = call_expr_nargs (*from_p), i;
+7557:           enum internal_fn ifn = CALL_EXPR_IFN (*from_p);
+7558:           auto_vec<tree> vargs (nargs);
+7559:
+7560:           for (i = 0; i < nargs; i++)
+7561:             {
+7562:               gimplify_arg (&CALL_EXPR_ARG (*from_p, i), pre_p,
+7563:                             EXPR_LOCATION (*from_p));
+7564:               vargs.quick_push (CALL_EXPR_ARG (*from_p, i));
+7565:             }
+7566:           call_stmt = gimple_build_call_internal_vec (ifn, vargs);
+7567:           gimple_call_set_nothrow (call_stmt, TREE_NOTHROW (*from_p));
+7568:           gimple_set_location (call_stmt, EXPR_LOCATION (*expr_p));
+7569:         }
+7570:       else
+7571:         {
+7572:           tree fnptrtype = TREE_TYPE (CALL_EXPR_FN (*from_p));
+7573:           CALL_EXPR_FN (*from_p) = TREE_OPERAND (CALL_EXPR_FN (*from_p), 0);
+7574:           STRIP_USELESS_TYPE_CONVERSION (CALL_EXPR_FN (*from_p));
+7575:           tree fndecl = get_callee_fndecl (*from_p);
+7576:           if (fndecl
+7577:               && fndecl_built_in_p (fndecl, BUILT_IN_EXPECT)
+7578:               && call_expr_nargs (*from_p) == 3)
+7579:             call_stmt = gimple_build_call_internal (IFN_BUILTIN_EXPECT, 3,
+7580:                                                     CALL_EXPR_ARG (*from_p, 0),
+7581:                                                     CALL_EXPR_ARG (*from_p, 1),
+7582:                                                     CALL_EXPR_ARG (*from_p, 2));
+7583:           else
+7584:             {
+7585:               call_stmt = gimple_build_call_from_tree (*from_p, fnptrtype);
+7586:             }
+7587:         }
+7588:       notice_special_calls (call_stmt);
+7589:       if (!gimple_call_noreturn_p (call_stmt) || !should_remove_lhs_p (*to_p))
+7590:         gimple_call_set_lhs (call_stmt, *to_p);
+7591:       else if (TREE_CODE (*to_p) == SSA_NAME)
+7592:         /* The above is somewhat premature, avoid ICEing later for a
+7593:            SSA name w/o a definition.  We may have uses in the GIMPLE IL.
+7594:            ???  This doesn't make it a default-def.  */
+7595:         SSA_NAME_DEF_STMT (*to_p) = gimple_build_nop ();
+7596:
+7597:       assign = call_stmt;
+7598:     }
 7599:   else
 7600:     {
 7601:       assign = gimple_build_assign (*to_p, *from_p);
@@ -13854,6 +14243,120 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 ```text
 53: extern void push_gimplify_context (bool in_ssa = false,
 54:                                    bool rhs_cond_ok = false);
+```
+
+## gcc/gimple.cc:251–263
+
+```text
+251: gimple_build_call_1 (tree fn, unsigned nargs)
+252: {
+253:   gcall *s
+254:     = as_a <gcall *> (gimple_build_with_ops (GIMPLE_CALL, ERROR_MARK,
+255:                                              nargs + 3));
+256:   if (TREE_CODE (fn) == FUNCTION_DECL)
+257:     fn = build_fold_addr_expr (fn);
+258:   gimple_set_op (s, 1, fn);
+259:   gimple_call_set_fntype (s, TREE_TYPE (TREE_TYPE (fn)));
+260:   gimple_call_reset_alias_info (s);
+261:   return s;
+262: }
+263:
+```
+
+## gcc/gimple.cc:328–340
+
+```text
+328:
+329: static inline gcall *
+330: gimple_build_call_internal_1 (enum internal_fn fn, unsigned nargs)
+331: {
+332:   gcall *s
+333:     = as_a <gcall *> (gimple_build_with_ops (GIMPLE_CALL, ERROR_MARK,
+334:                                              nargs + 3));
+335:   s->subcode |= GF_CALL_INTERNAL;
+336:   gimple_call_set_internal_fn (s, fn);
+337:   gimple_call_reset_alias_info (s);
+338:   return s;
+339: }
+340:
+```
+
+## gcc/gimple.cc:385–405
+
+```text
+385: gimple_build_call_from_tree (tree t, tree fnptrtype)
+386: {
+387:   unsigned i, nargs;
+388:   gcall *call;
+389:
+390:   gcc_assert (TREE_CODE (t) == CALL_EXPR);
+391:
+392:   nargs = call_expr_nargs (t);
+393:
+394:   tree fndecl = NULL_TREE;
+395:   if (CALL_EXPR_FN (t) == NULL_TREE)
+396:     call = gimple_build_call_internal_1 (CALL_EXPR_IFN (t), nargs);
+397:   else
+398:     {
+399:       fndecl = get_callee_fndecl (t);
+400:       call = gimple_build_call_1 (fndecl ? fndecl : CALL_EXPR_FN (t), nargs);
+401:     }
+402:
+403:   for (i = 0; i < nargs; i++)
+404:     gimple_call_set_arg (call, i, CALL_EXPR_ARG (t, i));
+405:
+```
+
+## gcc/builtins.cc:11051–11089
+
+```text
+11051:    call node earlier than the warning is generated.  */
+11052:
+11053: tree
+11054: fold_call_expr (location_t loc, tree exp, bool ignore)
+11055: {
+11056:   tree ret = NULL_TREE;
+11057:   tree fndecl = get_callee_fndecl (exp);
+11058:   if (fndecl && fndecl_built_in_p (fndecl)
+11059:       /* If CALL_EXPR_VA_ARG_PACK is set, the arguments aren't finalized
+11060:          yet.  Defer folding until we see all the arguments
+11061:          (after inlining).  */
+11062:       && !CALL_EXPR_VA_ARG_PACK (exp))
+11063:     {
+11064:       int nargs = call_expr_nargs (exp);
+11065:
+11066:       /* Before gimplification CALL_EXPR_VA_ARG_PACK is not set, but
+11067:          instead last argument is __builtin_va_arg_pack ().  Defer folding
+11068:          even in that case, until arguments are finalized.  */
+11069:       if (nargs && TREE_CODE (CALL_EXPR_ARG (exp, nargs - 1)) == CALL_EXPR)
+11070:         {
+11071:           tree fndecl2 = get_callee_fndecl (CALL_EXPR_ARG (exp, nargs - 1));
+11072:           if (fndecl2 && fndecl_built_in_p (fndecl2, BUILT_IN_VA_ARG_PACK))
+11073:             return NULL_TREE;
+11074:         }
+11075:
+11076:       if (avoid_folding_inline_builtin (fndecl))
+11077:         return NULL_TREE;
+11078:
+11079:       if (DECL_BUILT_IN_CLASS (fndecl) == BUILT_IN_MD)
+11080:         return targetm.fold_builtin (fndecl, call_expr_nargs (exp),
+11081:                                      CALL_EXPR_ARGP (exp), ignore);
+11082:       else
+11083:         {
+11084:           tree *args = CALL_EXPR_ARGP (exp);
+11085:           ret = fold_builtin_n (loc, exp, fndecl, args, nargs, ignore);
+11086:           if (ret)
+11087:             return ret;
+11088:         }
+11089:     }
+```
+
+## gcc/internal-fn.def:520–522
+
+```text
+520: DEF_INTERNAL_FN (ADD_OVERFLOW, ECF_CONST | ECF_LEAF | ECF_NOTHROW, NULL)
+521: DEF_INTERNAL_FN (SUB_OVERFLOW, ECF_CONST | ECF_LEAF | ECF_NOTHROW, NULL)
+522: DEF_INTERNAL_FN (MUL_OVERFLOW, ECF_CONST | ECF_LEAF | ECF_NOTHROW, NULL)
 ```
 
 ## gcc/calls.cc:590–630

@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 30,
+  "source_files_checked": 33,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -103,6 +103,15 @@
     "conditional_extra_VAR_requests": "<= Cprime",
     "conditional_extra_assignment_wrappers_and_raw_assignments": "each <= 2*Cprime",
     "conditional_UID_and_context_push_requests": "<= 2*Cprime+2*A",
+    "overflow_saved_boundary": "SAVE may be elided for readonly invariant IFN calls",
+    "overflow_materialization_input": "I actual call occurrences, retained SAVE children once",
+    "overflow_call_materializations_and_INIT_and_raw_GIMPLE": "each <= I",
+    "overflow_raw_call_operand_positions": "<= 5*I",
+    "overflow_materialization_ordinary_copy_nodes": "sum materialized-call ordinary cut-region weights; not unconditionally linear",
+    "nonbuiltin_scalar_call_helper_visits": "<= 3*X",
+    "nonbuiltin_scalar_call_actual_visits": "<= 3*P",
+    "nonbuiltin_scalar_call_raw_operand_positions": "<= P+3*X",
+    "nonbuiltin_scalar_call_unshare_nodes_and_slots": "<= 3*X nodes, P+5*X slots",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

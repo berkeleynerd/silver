@@ -587,7 +587,10 @@ whereas `TREE_READONLY` alone does not satisfy
 and binary operations protect before reusing operands. Constant multiply uses
 its dynamic operand in at most the result and two comparisons; constant
 add/subtract uses at most the result and one comparison. The two-dynamic case
-uses one shared saved overflow call for REALPART/IMAGPART. `emit_check`'s
+requests one shared overflow result for REALPART/IMAGPART through `save_expr`.
+That helper can elide the SAVE for a readonly invariant call, so preserved
+identity sharing cannot be assumed in every case; the call transfer below
+uses actual occurrences for that alternative. `emit_check`'s
 surviving conditional has a side-effecting raise arm, so it is not a pure
 arithmetic region that protection can skip. If folding removes that check,
 the removed branch is no longer a live duplicate. Pure unchecked regions,
@@ -1305,6 +1308,125 @@ same entries bound this component's nested conditional-context pushes; add
 any other producer's pushes before applying the signed-int peak check
 (`:469–488`). These are representation/counter checks, not execution-time or
 aggregate-memory limits.
+
+## Checked-overflow calls preserve a conditional sharing boundary
+
+Let B2 count actual checked Integer32 binary-helper entries with two
+nonconstant operands. It is a subset of the checked-binary events already
+charged above, including any actual source-visit replay. For each such entry,
+`trans.cc:10134–10146` creates at most one two-actual ADD/SUB/MUL_OVERFLOW
+internal call and requests `save_expr` around it, with the result shared by REALPART and
+IMAGPART. This fixes the constructor contribution to the source-to-GENERIC
+graph: one call identity and two incoming references to the save result.
+
+The SAVE is **not unconditional**. These three IFNs have ECF_CONST
+(`internal-fn.def:520–522`). `process_call_operands` can make the call readonly
+and side-effect-free when its arguments are invariant; `save_expr` then
+returns the call directly (`tree.cc:4080–4098,4132–4165,4257–4282`). Whole-body
+unsharing can consequently produce separate calls for the two direct incoming
+references. An ancestor's unsaved repeated references can contribute more
+incoming occurrences too. The actual occurrence weights, not just B2, must
+carry those edges through subsequent folding and unsharing. For this component
+let I count the internal-call occurrences that reach value materialization,
+counting each retained SAVE child once and each unprotected incoming occurrence.
+
+There is an important difference from an ordinary call. When a value is
+wanted, `gimplify_call_expr` returns immediately for these internal calls,
+**before gimplifying their arguments** (`gimplify.cc:4653–4654`). Consequently
+`internal_get_tmp_var`'s unshare is not necessarily a copy of a shallow call.
+It can copy the ordinary operand forest beneath that call. A per-call constant
+copy bound, or multiplying by a lowered argument count of two, is unsound.
+
+The first unresolved retained SAVE enters `get_initialized_tmp_var` with
+`allow_ssa=gimple_in_ssa_p(cfun)=false` at initial lowering
+(`:7758–7799`). That helper makes one complex VAR_DECL, one INIT_EXPR and one
+`unshare_expr` of the call. The assignment path then gimplifies each actual
+once, pushes the two lowered actuals into an `auto_vec<tree>`, and creates one
+GIMPLE_CALL (`:7547–7566`). An unprotected occurrence follows the ordinary
+value-materialization route; it likewise requests one temporary/INIT, but can
+use an SSA_NAME instead of a VAR_DECL. The internal-call constructor has `nargs+3=5`
+operand positions (`gimple.cc:328–340`). The direct event interface is
+
+```text
+complex result materializations       <= I
+INIT_EXPR requests                    <= I   (2*I operand slots)
+raw internal GIMPLE_CALL requests      <= I   (5*I operand slots)
+two-element temporary-vector requests  <= I
+actual first-lowering requests         <= 2*I
+maybe_fold_stmt entries                <= I.
+```
+
+In a combined inventory, count each retained SAVE identity once. Use this
+call output instead of applying the ordinary-arithmetic assignment row to
+that identity. Each temporary requests at most one SSA_NAME or VAR_DECL;
+retain both conservative identity allowances when joining the materialization
+helper. Actual-expression lowering, declaration/vector backing and the folder's replacement sequence
+remain separate charges. Later complex lowering must also consume the
+complex temporary and REALPART/IMAGPART occurrences.
+
+For copy accounting, let Wj be the ordinary incoming-edge weight of the jth
+materialized overflow call and its arguments, stopping at types, declarations,
+constants and protected SAVE/TARGET/BIND identities. Ordinary `unshare_expr` passes no
+protected-node visitation set, so it does not enter their children
+(`gimplify.cc:944–973,1097–1101`). It copies at most Wj nodes and the matching
+operand-position weight. Therefore
+
+```text
+additional overflow-materialization copy nodes <= U = sum_j Wj.
+```
+
+U is a computable weighted-tree transfer. Within each ordinary cut region,
+sum the children's U values and add the current region's W value when its root
+is an internal call that will materialize. Equivalently, each ordinary node
+is charged once for each such call ancestor, including itself. Protected-node
+children are separate roots and reset that ancestor count. The analogous
+recurrence applies to operand positions. Only when all the materialized call
+roots are distinct SAVE children are their regions disjoint and `U<=W` follows.
+With elided SAVEs, use the recurrence rather than asserting linearity or
+charging every call the size of an entire unrelated function. Repeated
+references to one retained overflow SAVE do not add another Wj:
+after resolution they return its temporary without reentering the child.
+This copy allowance charges discarded original objects too; it does not
+claim that both the original and copied actual expressions execute.
+
+### Direct nonbuiltin scalar calls have only shallow replay
+
+For comparison, take a direct nonbuiltin call whose function is its canonical
+ADDR_EXPR, whose result is void or a nonaddressable register scalar, and whose
+actuals lower to integral constants, nonvolatile scalar declarations without
+VALUE_EXPR, or SSA_NAMEs. There is no static chain, aggregate actual,
+lvalue-result request, variadic pack,
+OpenMP variant or returns-twice flag in this specialization. These premises
+are narrower than the complete Silver call frontier: String descriptors,
+reference adaptation and builtin memcmp/memcpy/alloca still require their
+own transfers.
+
+The ordinary call path lowers each actual before returning a value call,
+wrapping its function address in a NOP that remembers the original type
+(`gimplify.cc:4886–5013`). `fold_call_expr` returns without a transformation
+for a nonbuiltin callee (`builtins.cc:11051–11089`). A standalone call needs
+one visit; a direct scalar assignment one; a SAVE materialization at most two;
+and general value materialization at most three: the initial visit,
+`internal_get_tmp_var`'s register-RHS visit, and its INIT's RHS visit. After the
+first visit, later actual visits see the already lowered scalar leaves. The
+canonical function-address NOP is stripped before another is inserted.
+
+For X such occurrences and P total actual positions, a sufficient direct
+interface is `3X` call-helper visits, `3P` actual visits, `3X` NOP requests,
+X result-materialization requests, X INIT requests, X raw GIMPLE_CALLs with
+`P+3X` operand positions, and X GIMPLE-folder entries. A discarded noreturn
+SSA destination can additionally request one GIMPLE_NOP per call
+(`:7585–7598`). The source call and its argument subtrees are consumed only
+once; repeated helper visits are not repeated original argument traversals.
+
+If a result temporary is needed, its one unshare sees at most the CALL_EXPR,
+the type-preserving NOP and the direct ADDR_EXPR, for at most `3X` copied
+ordinary nodes and `P+5X` copied operand positions. Scalar leaves, the
+FUNCTION_DECL, its type and the call-length constant are cut points. The
+GIMPLE constructor also requests one `build_fold_addr_expr` per direct call
+(`gimple.cc:251–263,385–405`); its address/pointer-type transfer is still
+charged separately. Count the temporary's SSA_NAME/VAR_DECL choice using
+the earlier materialization interface, with SAVE requests selecting VAR_DECL.
 
 ## Unresolved terms for whole-backend composition
 

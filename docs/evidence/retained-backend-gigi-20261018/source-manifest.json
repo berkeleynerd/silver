@@ -132,6 +132,21 @@
       "sha256": "aa9c6515ae24a7988578c6c346b5f86b046945cfdd65071bfb2436a8a059919f"
     },
     {
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "path": "gcc/builtins.cc",
+      "bytes": 408736,
+      "sha256": "9e3409dca08e41c7cb4ab9de9ed268eb68be414424c926ae604f7512dba07649"
+    },
+    {
+      "path": "gcc/internal-fn.def",
+      "bytes": 30242,
+      "sha256": "d9cf970a9c13ada6821e8ceedc66983ec00eaeac351f2eade49ab397a0c88438"
+    },
+    {
       "path": "gcc/calls.cc",
       "bytes": 178248,
       "sha256": "f1354772f2dd9465c3eacebfcff2c53f7a0a5036eadc0ba2cf2f014c7a7e42ba"
