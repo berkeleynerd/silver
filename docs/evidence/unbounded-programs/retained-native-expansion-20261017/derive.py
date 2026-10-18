@@ -1435,7 +1435,7 @@ def native_frontend_logical_join(*, counts, scanner_pools,
         selected_configuration_storage=configuration_storage,
         scanner_pool_inputs=scanner_pools,
         diagnostics="native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        remaining="complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+        remaining="complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         whole_native_frontend_closed=False)
 
 
@@ -2005,6 +2005,93 @@ def native_command_line_backing(pathname_length, table_factor=1):
         remaining="controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers")
 
 
+def native_ali_backing(logical, max_identifier_length):
+    """Selected native Main serializer, including individual record capacity.
+
+    Total file bytes are exported for downstream readers, not used as an
+    aggregate heap limit. The small-total alternative addresses the actual
+    fixed Info_Buffer when a single record exceeds its usual EOL reserve.
+    """
+    evidence = Path(__file__).resolve().parent
+    descriptor = json.loads((evidence/"native-ali-inputs.json").read_text())
+    assert max_identifier_length >= 0
+    p = logical["fixed"]["pathname_length_input"]
+    unit_name = descriptor["fixed_nonpath_name_bound"]
+    unit_slots = descriptor["unit_table_last_allowance"]+1
+    generic_depth = descriptor["fixed_instantiation_depth_allowance"]
+    # Decimal Nat<=INT_MAX takes <=10 digits. A generic nesting item is
+    # [dependency|line], at most 23 bytes. A located type adds two delimiters,
+    # dependency|, line, kind, column: 34 bytes before nested generic locations.
+    generic_suffix = 23*generic_depth
+    type_ref = max(unit_name+2,34+generic_suffix)
+    main_header = max_identifier_length+22+22+max(unit_name+2,34)
+    fixed_header = (descriptor["max_fixed_source_name_length"]+22+22+23
+        +(1+descriptor["max_array_dimensions"]+1)*type_ref+34)
+    external_suffix = 2+3+1+descriptor["max_external_name_length"]
+    reference_item = 33+external_suffix+generic_suffix
+    inv = logical["invocation"]
+    sig = inv["max_serialized_signature_characters"]
+    restrictions = descriptor["restrictions"]
+    records = dict(version=4+len(descriptor["verbose_library_version"]),
+        main=3+11+13+13+4, switches=native_command_line_backing(p)["ALI_A_record_max_characters"],
+        parameters=1+16*3, restriction_header=2,
+        restrictions=3+restrictions["max_name_length"]+1+10+1,
+        unit=2+unit_name+p+24+48+8+descriptor["unit_flag_character_allowance"],
+        with_unit=2+unit_name+2*p+24+48+15,
+        task_stacks=2+10+1+10,
+        dependency=2*p+unit_name+64,
+        invocation_attributes=5, invocation_construct=10+sig,
+        invocation_relation=12+2*sig,
+        xref_section=13+p,
+        xref_Main_entity=main_header,xref_fixed_entity=fixed_header,
+        xref_continuation=72+reference_item)
+    max_record = max(records.values())+1  # EOL; tabs charged as spaces.
+    xrefs = logical["tables"]["Xrefs_entries"]
+    fixed_serialized = (
+        sum(records[name]+1 for name in ("version","main","parameters","restriction_header"))
+        +native_command_line_backing(p)["ALI_A_total_bytes_including_LF"]
+        +(restrictions["boolean_count"]+2*restrictions["parameter_count"])*(records["restrictions"]+1)
+        +unit_slots*(records["unit"]+records["task_stacks"]+records["dependency"]+3)
+        +unit_slots**2*(records["with_unit"]+1)
+        +records["invocation_attributes"]+1
+        +inv["ALI_Invocation_Constructs"]*(records["invocation_construct"]+1)
+        +inv["ALI_Invocation_Relations"]*(records["invocation_relation"]+1)
+        +unit_slots+8)  # unit separators and the other possible blank lines
+    xref_serialized = xrefs*(records["xref_section"]
+        +max(main_header,fixed_header)+reference_item+4)
+    file_bytes = fixed_serialized+xref_serialized
+    objects = dict(Info_Buffer=descriptor["buffer_bytes"],
+        With_Flags=unit_slots,Elab_Flags=unit_slots,Elab_All_Flags=unit_slots,
+        Elab_Des_Flags=unit_slots,Elab_All_Des_Flags=unit_slots,
+        Has_Implicit_With=unit_slots,
+        Sdep_Table=4*(unit_slots+1),With_Table=4*unit_slots,
+        Xref_sort_vector=4*(xrefs+1),Xref_current_name=4*32766,
+        Unit_Name_hash_headers=257*8,Unit_Name_hash_wrapper=16,
+        Exact_Source_Name_result=max(max_identifier_length,descriptor["max_fixed_source_name_length"]),
+        dependency_quoted_path=2*p+2)
+    unit_table = native_table_backing_row(unit_slots,0,30,100,
+        4*descriptor["unit_record_field_count"],2**31-1)
+    checks = dict(record_or_complete_buffer_fit=(max_record<=descriptor["max_line"]
+            or file_bytes<descriptor["buffer_bytes"]),
+        EOL_reserve_arithmetic=descriptor["buffer_bytes"]+descriptor["max_line"]+1<=2**31-1,
+        quote_growth_Name_Buffer=2*p+2<=4*32766,
+        local_unit_counters=unit_slots+1<=2**31-1,
+        unit_table_backing=unit_table["all_selected_checks_pass"],
+        xref_sort_counter=xrefs+1<=2**31-1,
+        per_object_pointer_difference=all(size<=2**63-1 for size in objects.values()))
+    return dict(source_descriptor="native-ali-inputs.json",
+        source_descriptor_sha256=hashlib.sha256((evidence/"native-ali-inputs.json").read_bytes()).hexdigest(),
+        record_character_bounds_before_LF=records,max_record_bytes_including_LF=max_record,
+        EOL_reserved_bytes=descriptor["max_line"],single_object_bytes=objects,
+        Units_table=unit_table,Unit_Name_hash_wrapper_count=unit_slots,
+        serialized_file_byte_bound=file_bytes,
+        total_file_bytes_are_not_an_aggregate_heap_gate=True,
+        late_variable_Uint_appends=0,late_variable_name_interning=0,
+        checks=checks,all_selected_checks_pass=all(checks.values()),
+        complete_native_capacity_result=False,
+        remaining="ALI consumers/binder, diagnostic rendering and other late heap/callback representations")
+
+
 def native_to_gigi_source_interface(logical, counts):
     """Supply the established gigi source-visit transfer, not GCC allocations.
 
@@ -2149,18 +2236,19 @@ def representative_current_programs():
             diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics),
             invocation_backing=native_invocation_backing(logical),
             command_line_backing=native_command_line_backing(inputs["pathname_length_premise"]),
+            ali_backing=native_ali_backing(logical,max(map(len,words))),
             local_numeric_and_concat_backing=native_local_numeric_and_concat_backing(logical,counts["concat_lengths"])))
         selected = result[-1]
         component_checks = {name:selected[name]["all_selected_checks_pass"] for name in
             ("selected_backing_checks","parser_auxiliary_backing","source_and_frontend_name_backing",
-             "diagnostic_backing","invocation_backing","command_line_backing","local_numeric_and_concat_backing")}
+             "diagnostic_backing","invocation_backing","command_line_backing","ali_backing","local_numeric_and_concat_backing")}
         component_checks["selected_configuration_storage"] = logical["selected_configuration_storage"]["all_selected_checks_pass"]
         selected["selected_native_predicate"] = dict(components=component_checks,
             all_selected_component_checks_pass=all(component_checks.values()),
             complete_native_capacity_predicate=False,
             remaining_in_dependency_order=[
                 "complete argv/effective search/late path descriptor and pre-launch realization",
-                "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+                "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
                 "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
                 "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"])
     return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],

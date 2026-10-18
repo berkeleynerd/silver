@@ -1,0 +1,688 @@
+{
+  "buffer_bytes": 2112000,
+  "compiler_execution": false,
+  "complete_native_capacity_result": false,
+  "current_source_has_no_generic_types_or_import_export": true,
+  "empty_selected_tables": [
+    "lib__notes__last_val",
+    "lib__version_ref__last_val",
+    "lib__linker_option_lines__last_val",
+    "lib__restriction_set_dependences__last_val",
+    "restrict__no_dependences__last_val",
+    "lib__writ__interrupt_states__last_val",
+    "lib__writ__specific_dispatching__last_val"
+  ],
+  "fixed_instantiation_depth_allowance": 8,
+  "fixed_nonpath_name_bound": 70,
+  "inputs": {
+    "gcc/ada/alloc.ads": {
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+    },
+    "gcc/ada/gnatvsn.ads": {
+      "bytes": 4841,
+      "sha256": "9b925fd0df77805cb2d8a2cfdfad0e890e793c114311aaf2f2a695c7da5a7440"
+    },
+    "gcc/ada/hostparm.ads": {
+      "bytes": 3615,
+      "sha256": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895"
+    },
+    "gcc/ada/lib-util.adb": {
+      "bytes": 9958,
+      "sha256": "74dc8d21ab501b91a6ee323ee2beb9d3bf41808b622736ceb36a6b3509b0e22d"
+    },
+    "gcc/ada/lib-writ.adb": {
+      "bytes": 61061,
+      "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+    },
+    "gcc/ada/lib-xref.adb": {
+      "bytes": 98832,
+      "sha256": "147491988f39790a213cf02e69c6997adb1809df75758940757cc0ebc7a700c4"
+    },
+    "gcc/ada/lib.ads": {
+      "bytes": 51050,
+      "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4"
+    },
+    "gcc/ada/libgnat/s-rident.ads": {
+      "bytes": 36946,
+      "sha256": "e9baa9af82dd10ddcd9ac016f52e230babdcdf19f4f18b0ded647643324949a8"
+    },
+    "gcc/ada/namet.ads": {
+      "bytes": 29827,
+      "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8"
+    },
+    "gcc/ada/osint.adb": {
+      "bytes": 105542,
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+    },
+    "selected/a-except.ads": {
+      "bytes": 14245,
+      "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+    },
+    "selected/a-ioexce.ads": {
+      "bytes": 1409,
+      "sha256": "7edd41e2d352ed7c7918526b34c00b166ac1b11d6d427e1c1f06a7cf19a84056"
+    },
+    "selected/a-stream.ads": {
+      "bytes": 4451,
+      "sha256": "1f9af89dab4acb7b5e50704165316a87ab1fb4f14d04f553e39e125234498b33"
+    },
+    "selected/a-string.ads": {
+      "bytes": 1729,
+      "sha256": "442b67ae5ce5e31702143ec2d7673a66ffa998d7b97afcdd19b552e670d96e02"
+    },
+    "selected/a-sttebu.ads": {
+      "bytes": 6399,
+      "sha256": "7ea218c66ba5dfc6f5870bb854f4be4ece5eaa4349dce839ea6d14c218b9e052"
+    },
+    "selected/a-stuten.ads": {
+      "bytes": 7693,
+      "sha256": "e94fcfe456cd618544fcacbc1ea54120caf3e5ebaca1f5d346f46b235b24a865"
+    },
+    "selected/a-tags.ads": {
+      "bytes": 30616,
+      "sha256": "984f3dd3fccc4d7a9d28c7efd8d34ee7cec531b41fd8d5477037a424535cd048"
+    },
+    "selected/a-textio.ads": {
+      "bytes": 31447,
+      "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267"
+    },
+    "selected/a-unccon.ads": {
+      "bytes": 1554,
+      "sha256": "576b8b0ecb9ab7a72b6686f06f4c30e74c8e4eff1e1ce93de7f3a32da0599864"
+    },
+    "selected/ada.ads": {
+      "bytes": 1253,
+      "sha256": "3915ec3edb9ce5eb7686ad4a3d372c12874be219d2b21fcf55bd05af22cd5bbb"
+    },
+    "selected/i-cstrea.ads": {
+      "bytes": 12784,
+      "sha256": "c879a62f21c9bb4f4bde14b9de42d943d6014e0365168bf62324fe2c0f9a94d9"
+    },
+    "selected/interfac.ads": {
+      "bytes": 9575,
+      "sha256": "cb0812255c9176e7494a2c3a5c83b1cc3f36924adc8f7e69c54d4e7ccc73c366"
+    },
+    "selected/s-conca2.ads": {
+      "bytes": 2911,
+      "sha256": "9cca4fa295483828eb288a2fafdaa1ca1cefc63ee0c2dce67629e6809cda9985"
+    },
+    "selected/s-conca3.ads": {
+      "bytes": 2922,
+      "sha256": "a0e3ded6c761b5bf678f01c9330258988dbddffe6d801df16e0342feb88a97fc"
+    },
+    "selected/s-conca4.ads": {
+      "bytes": 2930,
+      "sha256": "0661c346df20ee3f12378f0031ab0330eaf4be4ba69d8b88638d4f6124686404"
+    },
+    "selected/s-conca5.ads": {
+      "bytes": 2939,
+      "sha256": "3a68b2479d735a2e8c9b49f602f460bd3de887256b16b208c4051ced54bb9576"
+    },
+    "selected/s-conca6.ads": {
+      "bytes": 2947,
+      "sha256": "b5956182332d48a44ef4f0316658d50237263dcaefdc8f5ca35b493d3004b84b"
+    },
+    "selected/s-conca7.ads": {
+      "bytes": 2994,
+      "sha256": "62c8dbabec4268ab82f8955999ceff5dc3c7665091e6f338dccf148092fa12fd"
+    },
+    "selected/s-conca8.ads": {
+      "bytes": 3006,
+      "sha256": "80aa7ac244ffe560a6fc90e4987968306ff60b7955a1c84c441fc86a0b8826b0"
+    },
+    "selected/s-conca9.ads": {
+      "bytes": 3020,
+      "sha256": "de221b475f840622c0716012177f93d390380bf7c59af4445633f1dba4eb2bd5"
+    },
+    "selected/s-crtl.ads": {
+      "bytes": 9186,
+      "sha256": "08986ca6576f77dda5bf33014d533ca2f8fe5b5a69dc288ead6f430eede2c759"
+    },
+    "selected/s-exctab.ads": {
+      "bytes": 4141,
+      "sha256": "7b47d706f502d266c30b31377b6dfa7a491be181cea388a4eaecdc51ea796c77"
+    },
+    "selected/s-ficobl.ads": {
+      "bytes": 8163,
+      "sha256": "239304566b005778faf56a2e7daac9a33fb020730f78066844be96374d1eec75"
+    },
+    "selected/s-imagei.ads": {
+      "bytes": 3367,
+      "sha256": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126"
+    },
+    "selected/s-imgint.ads": {
+      "bytes": 4158,
+      "sha256": "fdd4c20f9e61bd2c1b7f46ad580beb98c590f91cca2302ee3affec81d6402cce"
+    },
+    "selected/s-parame.ads": {
+      "bytes": 8691,
+      "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+    },
+    "selected/s-putima.ads": {
+      "bytes": 6550,
+      "sha256": "f7a8721687fc233cf4b774b6db98ac1deaff3ebe42e0e2f88ddb5e9459db1910"
+    },
+    "selected/s-secsta.ads": {
+      "bytes": 17306,
+      "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76"
+    },
+    "selected/s-soflin.ads": {
+      "bytes": 18985,
+      "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+    },
+    "selected/s-stache.ads": {
+      "bytes": 4445,
+      "sha256": "6691d3001b04e06b221b2c49a0052691a2dd450d084df24295de26b50d8bc98a"
+    },
+    "selected/s-stalib.ads": {
+      "bytes": 12615,
+      "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+    },
+    "selected/s-stoele.ads": {
+      "bytes": 5401,
+      "sha256": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33"
+    },
+    "selected/s-traent.ads": {
+      "bytes": 3759,
+      "sha256": "e55203442b4dbaf3170bfbe04389f371b16f33cc62eb12d9020d0c91a3588f4d"
+    },
+    "selected/s-unstyp.ads": {
+      "bytes": 11027,
+      "sha256": "b98b23b18685b9a87c19905d33ea34a0dd60adbca6913431ce455ab0d0bf0d3e"
+    },
+    "selected/s-wchcon.ads": {
+      "bytes": 11852,
+      "sha256": "9b8ba9e5acda6d9101d5c1213164cabab58ca669c1fd344854b2f772cb7050e2"
+    },
+    "selected/silver_arguments.ads": {
+      "bytes": 1129,
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    "selected/silver_io.ads": {
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    "selected/system.ads": {
+      "bytes": 7503,
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    }
+  },
+  "max_array_dimensions": 1,
+  "max_external_name_length": 39,
+  "max_fixed_source_name_length": 33,
+  "max_interface_progenitors": 0,
+  "max_library_name_length": 1024,
+  "max_line": 2112,
+  "restrictions": {
+    "boolean_count": 90,
+    "max_name_length": 40,
+    "parameter_count": 10
+  },
+  "scope": "Source-selected native Main ALI serialization premises; manual frontier argument required",
+  "selected_specifications": {
+    "ada": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 23
+    },
+    "ada.exceptions": {
+      "array_declarations": [],
+      "external_names": [
+        "__gnat_raise_exception",
+        "__gnat_raise_from_controlled_operation",
+        "__gnat_reraise_library_exception_if_any",
+        "__gnat_get_exception_machine_occurrence"
+      ],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 32
+    },
+    "ada.io_exceptions": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 13
+    },
+    "ada.streams": {
+      "array_declarations": [
+        {
+          "index": "Stream_Element_Offset range <>",
+          "line": 55
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 28
+    },
+    "ada.strings": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 19
+    },
+    "ada.strings.text_buffers": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 25
+    },
+    "ada.strings.utf_encoding": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 108,
+          "name": "To_Unsigned_8"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 111,
+          "name": "To_Unsigned_16"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 114,
+          "name": "To_Unsigned_32"
+        }
+      ],
+      "interface_types": 0,
+      "max_source_word_length": 20
+    },
+    "ada.tags": {
+      "array_declarations": [
+        {
+          "index": "Positive range <>",
+          "line": 104
+        },
+        {
+          "index": "Natural range <>",
+          "line": 215
+        },
+        {
+          "index": "Positive range <>",
+          "line": 247
+        },
+        {
+          "index": "Positive range <>",
+          "line": 262
+        },
+        {
+          "index": "Natural range <>",
+          "line": 286
+        },
+        {
+          "index": "Positive range <>",
+          "line": 447
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 628,
+          "name": "To_Address"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 631,
+          "name": "To_Addr_Ptr"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 634,
+          "name": "To_Type_Specific_Data_Ptr"
+        }
+      ],
+      "interface_types": 0,
+      "max_source_word_length": 28
+    },
+    "ada.text_io": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 27
+    },
+    "ada.unchecked_conversion": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 23
+    },
+    "interfaces": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 23
+    },
+    "interfaces.c_streams": {
+      "array_declarations": [],
+      "external_names": [
+        "__gnat_file_exists",
+        "__gnat_is_regular_file_fd",
+        "__gnat_set_binary_mode",
+        "__gnat_set_text_mode",
+        "__gnat_set_mode",
+        "__gnat_max_path_len",
+        "__gnat_full_name",
+        "__gnat_feof",
+        "__gnat_ferror",
+        "__gnat_fileno",
+        "__gnat_constant_eof",
+        "__gnat_constant_iofbf",
+        "__gnat_constant_iolbf",
+        "__gnat_constant_ionbf",
+        "__gnat_constant_seek_cur",
+        "__gnat_constant_seek_end",
+        "__gnat_constant_seek_set",
+        "__gnat_constant_l_tmpnam",
+        "__gnat_constant_stderr",
+        "__gnat_constant_stdin",
+        "__gnat_constant_stdout"
+      ],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 33
+    },
+    "silver_arguments": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 17
+    },
+    "silver_io": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 17
+    },
+    "system": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 28
+    },
+    "system.concat_2": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_3": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_4": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_5": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_6": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_7": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_8": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.concat_9": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 12
+    },
+    "system.crtl": {
+      "array_declarations": [],
+      "external_names": [
+        "strlen",
+        "strncpy",
+        "atoi",
+        "clearerr",
+        "dup",
+        "dup2",
+        "fclose",
+        "fdopen",
+        "fflush",
+        "fgetc",
+        "fgets",
+        "__gnat_fopen",
+        "fputc",
+        "__gnat_fputwc",
+        "fputs",
+        "free",
+        "__gnat_freopen",
+        "fseek",
+        "__gnat_fseek64",
+        "ftell",
+        "__gnat_ftell64",
+        "getenv",
+        "isatty",
+        "lseek",
+        "malloc",
+        "memcpy",
+        "memmove",
+        "mktemp",
+        "pclose",
+        "popen",
+        "realloc",
+        "rewind",
+        "__gnat_rmdir",
+        "__gnat_chdir",
+        "__gnat_mkdir",
+        "setvbuf",
+        "tmpnam",
+        "tmpfile",
+        "ungetc",
+        "__gnat_unlink",
+        "__gnat_open",
+        "close"
+      ],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 17
+    },
+    "system.exception_table": {
+      "array_declarations": [
+        {
+          "index": "Natural range <>",
+          "line": 65
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 27
+    },
+    "system.file_control_block": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 18
+    },
+    "system.image_i": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 17
+    },
+    "system.img_int": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [
+        {
+          "generic": "Image_I",
+          "line": 41,
+          "name": "Impl"
+        }
+      ],
+      "interface_types": 0,
+      "max_source_word_length": 17
+    },
+    "system.parameters": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 32
+    },
+    "system.put_images": {
+      "array_declarations": [
+        {
+          "index": "Positive range <>",
+          "line": 72
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 33
+    },
+    "system.secondary_stack": {
+      "array_declarations": [
+        {
+          "index": "Memory_Size range <>",
+          "line": 264
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 24
+    },
+    "system.soft_links": {
+      "array_declarations": [],
+      "external_names": [
+        "__gnat_current_target_exception",
+        "__gnat_finalize_library_objects"
+      ],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 32
+    },
+    "system.stack_checking": {
+      "array_declarations": [],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 16
+    },
+    "system.standard_library": {
+      "array_declarations": [],
+      "external_names": [
+        "constraint_error",
+        "numeric_error",
+        "program_error",
+        "storage_error",
+        "tasking_error",
+        "_abort_signal"
+      ],
+      "generic_instances": [
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 70,
+          "name": "To_Ptr"
+        }
+      ],
+      "interface_types": 0,
+      "max_source_word_length": 23
+    },
+    "system.storage_elements": {
+      "array_declarations": [
+        {
+          "index": "Storage_Offset range <>",
+          "line": 68
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 23
+    },
+    "system.traceback_entries": {
+      "array_declarations": [
+        {
+          "index": "Positive range <>",
+          "line": 50
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 17
+    },
+    "system.unsigned_types": {
+      "array_declarations": [
+        {
+          "index": "Natural range <>",
+          "line": 58
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 23
+    },
+    "system.wch_con": {
+      "array_declarations": [
+        {
+          "index": "WC_Encoding_Method",
+          "line": 167
+        },
+        {
+          "index": "WC_Encoding_Method",
+          "line": 191
+        }
+      ],
+      "external_names": [],
+      "generic_instances": [],
+      "interface_types": 0,
+      "max_source_word_length": 29
+    }
+  },
+  "unit_flag_character_allowance": 75,
+  "unit_record_field_count": 26,
+  "unit_table_last_allowance": 40,
+  "verbose_library_version": "GNAT Lib v16"
+}

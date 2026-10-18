@@ -552,7 +552,7 @@
             "String_characters": 0
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -2568,6 +2568,84 @@
           "complete_invocation_capacity_result": false,
           "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
         },
+        "ali_backing": {
+          "source_descriptor": "native-ali-inputs.json",
+          "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+          "record_character_bounds_before_LF": {
+            "version": 16,
+            "main": 44,
+            "switches": 16,
+            "parameters": 49,
+            "restriction_header": 2,
+            "restrictions": 55,
+            "unit": 427,
+            "with_unit": 559,
+            "task_stacks": 23,
+            "dependency": 534,
+            "invocation_attributes": 5,
+            "invocation_construct": 107,
+            "invocation_relation": 206,
+            "xref_section": 213,
+            "xref_Main_entity": 126,
+            "xref_fixed_entity": 788,
+            "xref_continuation": 334
+          },
+          "max_record_bytes_including_LF": 789,
+          "EOL_reserved_bytes": 2112,
+          "single_object_bytes": {
+            "Info_Buffer": 2112000,
+            "With_Flags": 41,
+            "Elab_Flags": 41,
+            "Elab_All_Flags": 41,
+            "Elab_Des_Flags": 41,
+            "Elab_All_Des_Flags": 41,
+            "Has_Implicit_With": 41,
+            "Sdep_Table": 168,
+            "With_Table": 164,
+            "Xref_sort_vector": 329236,
+            "Xref_current_name": 131064,
+            "Unit_Name_hash_headers": 2056,
+            "Unit_Name_hash_wrapper": 16,
+            "Exact_Source_Name_result": 33,
+            "dependency_quoted_path": 402
+          },
+          "Units_table": {
+            "demand": 41,
+            "low_bound": 0,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 104,
+            "backing_capacity_bound": 82,
+            "bytes_with_sentinel": 8632,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Unit_Name_hash_wrapper_count": 41,
+          "serialized_file_byte_bound": 105349244,
+          "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+          "late_variable_Uint_appends": 0,
+          "late_variable_name_interning": 0,
+          "checks": {
+            "record_or_complete_buffer_fit": true,
+            "EOL_reserve_arithmetic": true,
+            "quote_growth_Name_Buffer": true,
+            "local_unit_counters": true,
+            "unit_table_backing": true,
+            "xref_sort_counter": true,
+            "per_object_pointer_difference": true
+          },
+          "all_selected_checks_pass": true,
+          "complete_native_capacity_result": false,
+          "remaining": "ALI consumers/binder, diagnostic rendering and other late heap/callback representations"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -2609,6 +2687,7 @@
             "diagnostic_backing": true,
             "invocation_backing": true,
             "command_line_backing": true,
+            "ali_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -2616,7 +2695,7 @@
           "complete_native_capacity_predicate": false,
           "remaining_in_dependency_order": [
             "complete argv/effective search/late path descriptor and pre-launch realization",
-            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
             "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
             "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
           ]
@@ -3164,7 +3243,7 @@
             "String_characters": 26
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -5180,6 +5259,84 @@
           "complete_invocation_capacity_result": false,
           "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
         },
+        "ali_backing": {
+          "source_descriptor": "native-ali-inputs.json",
+          "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+          "record_character_bounds_before_LF": {
+            "version": 16,
+            "main": 44,
+            "switches": 16,
+            "parameters": 49,
+            "restriction_header": 2,
+            "restrictions": 55,
+            "unit": 427,
+            "with_unit": 559,
+            "task_stacks": 23,
+            "dependency": 534,
+            "invocation_attributes": 5,
+            "invocation_construct": 107,
+            "invocation_relation": 206,
+            "xref_section": 213,
+            "xref_Main_entity": 126,
+            "xref_fixed_entity": 788,
+            "xref_continuation": 334
+          },
+          "max_record_bytes_including_LF": 789,
+          "EOL_reserved_bytes": 2112,
+          "single_object_bytes": {
+            "Info_Buffer": 2112000,
+            "With_Flags": 41,
+            "Elab_Flags": 41,
+            "Elab_All_Flags": 41,
+            "Elab_Des_Flags": 41,
+            "Elab_All_Des_Flags": 41,
+            "Has_Implicit_With": 41,
+            "Sdep_Table": 168,
+            "With_Table": 164,
+            "Xref_sort_vector": 329444,
+            "Xref_current_name": 131064,
+            "Unit_Name_hash_headers": 2056,
+            "Unit_Name_hash_wrapper": 16,
+            "Exact_Source_Name_result": 33,
+            "dependency_quoted_path": 402
+          },
+          "Units_table": {
+            "demand": 41,
+            "low_bound": 0,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 104,
+            "backing_capacity_bound": 82,
+            "bytes_with_sentinel": 8632,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Unit_Name_hash_wrapper_count": 41,
+          "serialized_file_byte_bound": 105415128,
+          "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+          "late_variable_Uint_appends": 0,
+          "late_variable_name_interning": 0,
+          "checks": {
+            "record_or_complete_buffer_fit": true,
+            "EOL_reserve_arithmetic": true,
+            "quote_growth_Name_Buffer": true,
+            "local_unit_counters": true,
+            "unit_table_backing": true,
+            "xref_sort_counter": true,
+            "per_object_pointer_difference": true
+          },
+          "all_selected_checks_pass": true,
+          "complete_native_capacity_result": false,
+          "remaining": "ALI consumers/binder, diagnostic rendering and other late heap/callback representations"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -5221,6 +5378,7 @@
             "diagnostic_backing": true,
             "invocation_backing": true,
             "command_line_backing": true,
+            "ali_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -5228,7 +5386,7 @@
           "complete_native_capacity_predicate": false,
           "remaining_in_dependency_order": [
             "complete argv/effective search/late path descriptor and pre-launch realization",
-            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
             "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
             "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
           ]
@@ -5778,7 +5936,7 @@
             "String_characters": 0
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -7794,6 +7952,84 @@
           "complete_invocation_capacity_result": false,
           "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
         },
+        "ali_backing": {
+          "source_descriptor": "native-ali-inputs.json",
+          "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+          "record_character_bounds_before_LF": {
+            "version": 16,
+            "main": 44,
+            "switches": 16,
+            "parameters": 49,
+            "restriction_header": 2,
+            "restrictions": 55,
+            "unit": 427,
+            "with_unit": 559,
+            "task_stacks": 23,
+            "dependency": 534,
+            "invocation_attributes": 5,
+            "invocation_construct": 107,
+            "invocation_relation": 206,
+            "xref_section": 213,
+            "xref_Main_entity": 126,
+            "xref_fixed_entity": 788,
+            "xref_continuation": 334
+          },
+          "max_record_bytes_including_LF": 789,
+          "EOL_reserved_bytes": 2112,
+          "single_object_bytes": {
+            "Info_Buffer": 2112000,
+            "With_Flags": 41,
+            "Elab_Flags": 41,
+            "Elab_All_Flags": 41,
+            "Elab_Des_Flags": 41,
+            "Elab_All_Des_Flags": 41,
+            "Has_Implicit_With": 41,
+            "Sdep_Table": 168,
+            "With_Table": 164,
+            "Xref_sort_vector": 330400,
+            "Xref_current_name": 131064,
+            "Unit_Name_hash_headers": 2056,
+            "Unit_Name_hash_wrapper": 16,
+            "Exact_Source_Name_result": 33,
+            "dependency_quoted_path": 402
+          },
+          "Units_table": {
+            "demand": 41,
+            "low_bound": 0,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 104,
+            "backing_capacity_bound": 82,
+            "bytes_with_sentinel": 8632,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Unit_Name_hash_wrapper_count": 41,
+          "serialized_file_byte_bound": 105717941,
+          "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+          "late_variable_Uint_appends": 0,
+          "late_variable_name_interning": 0,
+          "checks": {
+            "record_or_complete_buffer_fit": true,
+            "EOL_reserve_arithmetic": true,
+            "quote_growth_Name_Buffer": true,
+            "local_unit_counters": true,
+            "unit_table_backing": true,
+            "xref_sort_counter": true,
+            "per_object_pointer_difference": true
+          },
+          "all_selected_checks_pass": true,
+          "complete_native_capacity_result": false,
+          "remaining": "ALI consumers/binder, diagnostic rendering and other late heap/callback representations"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -7835,6 +8071,7 @@
             "diagnostic_backing": true,
             "invocation_backing": true,
             "command_line_backing": true,
+            "ali_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -7842,7 +8079,7 @@
           "complete_native_capacity_predicate": false,
           "remaining_in_dependency_order": [
             "complete argv/effective search/late path descriptor and pre-launch realization",
-            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
             "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
             "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
           ]
@@ -8448,7 +8685,7 @@
             "String_characters": 26
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -10464,6 +10701,84 @@
           "complete_invocation_capacity_result": false,
           "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
         },
+        "ali_backing": {
+          "source_descriptor": "native-ali-inputs.json",
+          "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+          "record_character_bounds_before_LF": {
+            "version": 16,
+            "main": 44,
+            "switches": 16,
+            "parameters": 49,
+            "restriction_header": 2,
+            "restrictions": 55,
+            "unit": 427,
+            "with_unit": 559,
+            "task_stacks": 23,
+            "dependency": 534,
+            "invocation_attributes": 5,
+            "invocation_construct": 107,
+            "invocation_relation": 206,
+            "xref_section": 213,
+            "xref_Main_entity": 132,
+            "xref_fixed_entity": 788,
+            "xref_continuation": 334
+          },
+          "max_record_bytes_including_LF": 789,
+          "EOL_reserved_bytes": 2112,
+          "single_object_bytes": {
+            "Info_Buffer": 2112000,
+            "With_Flags": 41,
+            "Elab_Flags": 41,
+            "Elab_All_Flags": 41,
+            "Elab_Des_Flags": 41,
+            "Elab_All_Des_Flags": 41,
+            "Has_Implicit_With": 41,
+            "Sdep_Table": 168,
+            "With_Table": 164,
+            "Xref_sort_vector": 332332,
+            "Xref_current_name": 131064,
+            "Unit_Name_hash_headers": 2056,
+            "Unit_Name_hash_wrapper": 16,
+            "Exact_Source_Name_result": 33,
+            "dependency_quoted_path": 402
+          },
+          "Units_table": {
+            "demand": 41,
+            "low_bound": 0,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 104,
+            "backing_capacity_bound": 82,
+            "bytes_with_sentinel": 8632,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Unit_Name_hash_wrapper_count": 41,
+          "serialized_file_byte_bound": 106329902,
+          "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+          "late_variable_Uint_appends": 0,
+          "late_variable_name_interning": 0,
+          "checks": {
+            "record_or_complete_buffer_fit": true,
+            "EOL_reserve_arithmetic": true,
+            "quote_growth_Name_Buffer": true,
+            "local_unit_counters": true,
+            "unit_table_backing": true,
+            "xref_sort_counter": true,
+            "per_object_pointer_difference": true
+          },
+          "all_selected_checks_pass": true,
+          "complete_native_capacity_result": false,
+          "remaining": "ALI consumers/binder, diagnostic rendering and other late heap/callback representations"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -10505,6 +10820,7 @@
             "diagnostic_backing": true,
             "invocation_backing": true,
             "command_line_backing": true,
+            "ali_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -10512,7 +10828,7 @@
           "complete_native_capacity_predicate": false,
           "remaining_in_dependency_order": [
             "complete argv/effective search/late path descriptor and pre-launch realization",
-            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
             "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
             "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
           ]
@@ -11068,7 +11384,7 @@
             "String_characters": 0
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -13084,6 +13400,84 @@
           "complete_invocation_capacity_result": false,
           "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
         },
+        "ali_backing": {
+          "source_descriptor": "native-ali-inputs.json",
+          "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+          "record_character_bounds_before_LF": {
+            "version": 16,
+            "main": 44,
+            "switches": 16,
+            "parameters": 49,
+            "restriction_header": 2,
+            "restrictions": 55,
+            "unit": 427,
+            "with_unit": 559,
+            "task_stacks": 23,
+            "dependency": 534,
+            "invocation_attributes": 5,
+            "invocation_construct": 107,
+            "invocation_relation": 206,
+            "xref_section": 213,
+            "xref_Main_entity": 126,
+            "xref_fixed_entity": 788,
+            "xref_continuation": 334
+          },
+          "max_record_bytes_including_LF": 789,
+          "EOL_reserved_bytes": 2112,
+          "single_object_bytes": {
+            "Info_Buffer": 2112000,
+            "With_Flags": 41,
+            "Elab_Flags": 41,
+            "Elab_All_Flags": 41,
+            "Elab_Des_Flags": 41,
+            "Elab_All_Des_Flags": 41,
+            "Has_Implicit_With": 41,
+            "Sdep_Table": 168,
+            "With_Table": 164,
+            "Xref_sort_vector": 331216,
+            "Xref_current_name": 131064,
+            "Unit_Name_hash_headers": 2056,
+            "Unit_Name_hash_wrapper": 16,
+            "Exact_Source_Name_result": 33,
+            "dependency_quoted_path": 402
+          },
+          "Units_table": {
+            "demand": 41,
+            "low_bound": 0,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 104,
+            "backing_capacity_bound": 82,
+            "bytes_with_sentinel": 8632,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Unit_Name_hash_wrapper_count": 41,
+          "serialized_file_byte_bound": 105976409,
+          "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+          "late_variable_Uint_appends": 0,
+          "late_variable_name_interning": 0,
+          "checks": {
+            "record_or_complete_buffer_fit": true,
+            "EOL_reserve_arithmetic": true,
+            "quote_growth_Name_Buffer": true,
+            "local_unit_counters": true,
+            "unit_table_backing": true,
+            "xref_sort_counter": true,
+            "per_object_pointer_difference": true
+          },
+          "all_selected_checks_pass": true,
+          "complete_native_capacity_result": false,
+          "remaining": "ALI consumers/binder, diagnostic rendering and other late heap/callback representations"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -13125,6 +13519,7 @@
             "diagnostic_backing": true,
             "invocation_backing": true,
             "command_line_backing": true,
+            "ali_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -13132,7 +13527,7 @@
           "complete_native_capacity_predicate": false,
           "remaining_in_dependency_order": [
             "complete argv/effective search/late path descriptor and pre-launch realization",
-            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
             "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
             "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
           ]
@@ -14435,7 +14830,7 @@
           "String_characters": 0
         },
         "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+        "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         "whole_native_frontend_closed": false
       },
       {
@@ -14786,7 +15181,7 @@
           "String_characters": 0
         },
         "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+        "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         "whole_native_frontend_closed": false
       }
     ],

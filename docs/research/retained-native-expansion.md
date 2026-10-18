@@ -6101,6 +6101,131 @@ Uint/Repinfo callbacks and phase unlock plus GCC/object/linker; other fixed
 process classes and the independent proof producer. General verified source
 counters and model/source correspondence are required for production use.
 
+## Native Main ALI serialization and local objects
+
+`native_ali_backing` now joins the selected Main ALI writer to each real-source
+vector. Its [source inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/native-ali-inputs.json)
+reconciles the pinned serializer and 38 selected specifications without running
+the compiler. This closes the **writer's** record/buffer/local-object checks;
+ALI readers, binder behavior, diagnostic rendering and other backend/driver
+objects remain separate.
+
+The actual constants are `Hostparm.Max_Name_Length = 1024`
+(`hostparm.ads:54`) and therefore `Max_Line = 2112`,
+`Max_Buffer = 2,112,000` (`lib-util.adb:32–40`). These are not Namet's
+32,767-character stored-name limit. Writers append before checking capacity.
+`Write_Info_EOL` reserves `Max_Line` for the next record, or flushes the
+buffer and resets both length and column (`:101–119,307–323`). A sufficient
+rule is therefore either:
+
+- each record, including its final LF, has at most 2,112 bytes; or
+- the complete serialized file has fewer than 2,112,000 bytes.
+
+The second alternative bounds this actual fixed buffer, not aggregate process
+memory. It is valid even if the writer flushes sooner. `Write_Info_Tab` is
+charged as spaces up to its requested column, overcounting physical tab bytes.
+The maximum EOL reserve addition is below `Max_Buffer + Max_Line + 1`, hence
+well within signed32 arithmetic. `Osint.Write_Info` sends the current slice
+and an LF directly (`osint.adb:3255–3259`); it creates no whole-file String and
+has no cumulative file-length counter in this path.
+
+### Xref records have bounded headers and continuation items
+
+`Generate_Definition` selects source entities, and ordinary native
+`Generate_Reference` either selects source entities or follows the explicit
+source-alias/component cases (`lib-xref.adb:224–255,997–1065`). The orphan pass
+adds the source/Standard type frontier found by `Get_Type_Reference`
+(`:1540–1588,1680–1820`). Main introduces only ordinary Integer/String objects
+and for indexes, with no source generic/type/import/export declarations.
+Its generated local types cannot introduce interface lists or arbitrary
+source type declarations into this frontier. The fixed selected specification
+inventory has only one-dimensional array declarations and no interface types;
+all eight fixed generic instances belong to the already established closure.
+Charging all eight as an instantiation-depth allowance is conservative. The
+inventory's maximal fixed source word is 33 bytes and explicit external name
+39 bytes; omitted external names occur only with Intrinsic, which the Xref
+language-name writer does not output (`:1597–1633`). Standard names are bounded
+by the fixed nonpath-name allowance70. These are selected-input premises,
+not properties of arbitrary Ada libraries.
+
+Each decimal Nat occupies at most ten characters. One nested generic location
+`[dependency|line]` costs at most23; one located type reference costs at most
+34 plus its generic suffix (`:1990–2131`). A source entity header has22 bytes
+of location/visibility, its exact source name, an optional22-byte renaming
+location, and its type reference (`:2354–2649`). Fixed entities additionally
+allow one23-byte generic-parent location, three type references (ordinary,
+derived-array component, one index), and one34-byte overridden-operation
+location. The selected fixed header is thus at most788 bytes. A Main header
+is at most `identifier_length + 116`; it has no generic nesting.
+
+Before each reference item the writer starts a continuation when its current
+column exceeds72 (`:2678–2715`). An item costs at most33 bytes for the source
+location,45 for `<Ada,external_name>`, and184 for the eight generic locations.
+Thus a continuation has at most334 characters. A long entity header is flushed
+before its reference is appended. New file-section headers cost at most
+`P + 13`, where P bounds the complete reference pathname. The writer therefore
+does not accumulate an unbounded number of references into one record.
+`Exact_Source_Name` returns a slice of the authoritative source and allocates
+no Name entry (`lib.adb:568–619`); its result and `Curnam` have separate object
+bounds in the executable row.
+
+### Other records, table lifetimes and output size
+
+The existing invocation descriptor supplies the six A records. The invocation
+graph supplies at most19 construct and361 relation records; its serialized
+signature bound is97 characters. Selected ordinary calls have no extra entity;
+the generated zero-formal finalizer's `First_Formal_Type` is empty
+(`sem_elab.adb:9173–9207,13068–13185`). Their record maxima are therefore107
+and206 characters. The G attribute line is five characters. Restrictions are
+the named form, since the selected switches omit `-gnatd.R`: the pinned enum
+has90 Boolean and10 parameter cases, with maximal name length40. At most110
+restriction records of55 characters suffice (`lib-writ.adb:1370–1438`).
+
+U/W/D rows price their individual names, two tab stops, flags, timestamps and
+checksums (`:432–619,835–1011,1510–1608`). D quoting can expand a pathname to
+`2P + 2`; this must fit `Name_Buffer`. The source inventory counts all25
+literal U-flag writes, including mutually exclusive cases, for75 characters
+with the object-attribute character. The selected fixed unit table allowance
+is41 slots, separate from the39 semantic compilation units; System is already
+loaded, so `Ensure_System_Dependency` does not add another parse. No variable
+Main syntax adds Linker_Options, notes, external version references,
+Restriction_Set/No_Dependence, interrupt or dispatching records, and their
+retained fixed table populations are zero. CUDA and SCO output switches and
+declarations are absent. T records contain nonnegative stack counters and
+need no `UI_From_Int` allocation. Thus this writer introduces no additional
+variable Uint or interned-name population; fixed naming/file-search results
+remain in the fixed path-normalized allowance.
+
+`Write_ALI` has five Boolean arrays, one Yes_No array and a dependency vector
+of unit-count plus one; `Write_With_Lines` adds one unit vector
+(`lib-writ.adb:231–255,845`). The joined checks price these objects separately,
+the `4*(Xrefs+1)` sort vector and131,064-byte current-name buffer
+(`lib-xref.adb:1830–1868`). The Units table has26 fields each of at most32 bits,
+so104 bytes is a safe component bound; its initial30/growth100 backing and the
+257-header/16-byte-wrapper Unit_Names hash are included. No sum of these
+independent objects becomes an address-space or RAM gate.
+
+The total-file bound counts at most one section, entity header and reference
+per Xref entry, and conservatively permits every unit to emit its own U/T/D
+records and every other unit's W record. It is intentionally loose and is
+exported for downstream ALI-reader composition, not asserted to be an exact
+file length. At P=200 all five real-source examples have maximum record size
+789 bytes including LF and pass the selected writer checks. Their loose total
+file bounds are approximately105–106MB, mainly because the existing Xref count
+uses the complete fixed entity allowance. The native writer streams them;
+the total is not a single allocation.
+
+Regenerate this inventory, then the usual main envelope:
+
+```bash
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-ali.py \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --capture /home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-native-fixed-capture-20261018 \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-ali-inputs.json
+```
+
+No new native compilation, debugger capture, proof, Lean run or test was used.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -6179,8 +6304,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
   individual allocation/caller checks for copy maps and remaining fixed
   non-table heaps. Parser Scope/Suspicious_Labels and their loop serial,
   diagnostic tables/strings, and invocation graph/hash/DFS containers now
-  have the composed backing joins above. Temporary numeric vectors, serialization
-  (including full ALI), and relevant fixed buffers remain separate. The
+  have the composed backing joins above. Temporary numeric vectors and the
+  selected Main ALI writer now have concrete joins; ALI consumers, diagnostic
+  rendering and remaining fixed buffers stay separate. The
   backend's callbacks into Ada Uint/Repinfo allocation are additional to this
   before-gigi constructor sum, even if the AST identity count stays unchanged;
   their phase-unlock/growth state must join the same physical table checks.
