@@ -220,6 +220,78 @@
     {
       "path": "gcc/match.pd",
       "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "path": "gcc/target.def",
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    },
+    {
+      "path": "gcc/coretypes.h",
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "path": "gcc/hooks.cc",
+      "sha256": "d24d95d8ceefa76252b0e1341a0194d106318e95fe53f32e694baa6c8fbb53a9"
+    },
+    {
+      "path": "gcc/config/vxworks-dummy.h",
+      "sha256": "16ef579ecc013e002a7eb368bf85e76da644fa15c0972ec5e3a36263f28e98c0"
+    },
+    {
+      "path": "gcc/config/i386/biarch64.h",
+      "sha256": "ca82f4e070a97aba7eb7374dc83f290cd10946c428e599c42ce4383987271e36"
+    },
+    {
+      "path": "gcc/config/i386/unix.h",
+      "sha256": "0014a3ae6ab57406e731747c7506525770d0a80cd819e3f550306832fda42cc3"
+    },
+    {
+      "path": "gcc/config/i386/att.h",
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "path": "gcc/config/gnu-user.h",
+      "sha256": "1095b158727a2cddc83cd18832064d2b8824538566b0d23271c57fce92e65be2"
+    },
+    {
+      "path": "gcc/config/glibc-stdint.h",
+      "sha256": "5d17b0d72057dbaafa517ff1df1bb64a5f6dc132ecfbfd0ddc1b64e2ee8a079b"
+    },
+    {
+      "path": "gcc/config/i386/x86-64.h",
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user-common.h",
+      "sha256": "5f064832c02395865e22f4f79ca4de568ff42cfb50c102013d0417ce8be8d4b3"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user64.h",
+      "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9"
+    },
+    {
+      "path": "gcc/config/linux.h",
+      "sha256": "86809593d0a2ef1ea63972125d27d827310eff3e25b4fbcdc5923dd84f2d742d"
+    },
+    {
+      "path": "gcc/config/linux-android.h",
+      "sha256": "9137c99e7e1d3eb5316adf3d0aeda41a2f6fbb7b8977c1ba4a256b1d571f3fdb"
+    },
+    {
+      "path": "gcc/config/i386/linux-common.h",
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0"
+    },
+    {
+      "path": "gcc/config/i386/linux64.h",
+      "sha256": "faf45947315176aa120a1c3ac787a1a56c172437654323f83a9c8c98940c824d"
+    },
+    {
+      "path": "gcc/config/initfini-array.h",
+      "sha256": "6df83e308ce1244ab481623a3364cc70fc9bba3fd57afc92e46b6e9098e0fd92"
     }
   ],
   "block_operations": {
@@ -798,6 +870,24 @@
     ],
     "scope": "ordinary integer constants and enumerated successful scalar constant folds",
     "excludes": "symbolic/complex/view-conversion folding, arithmetic scratch, generic types and complete request counts"
+  },
+  "scalar_pointer_types": {
+    "selected_target_headers": 16,
+    "nonstandard_integer_cache_slots": 130,
+    "canonical_pointer_or_reference_type_nodes_per_request": 2,
+    "qualified_type_copies_per_request": 2,
+    "simple_type_copies_per_request": 1,
+    "scalar_layout_constant_requests": 4,
+    "scalar_construction_with_fixup_constant_requests": 6,
+    "unnamed_integer_pair_type_nodes_per_request": 2,
+    "type_hash_record_bytes": 16,
+    "type_hash_initial_request": 1000,
+    "unsigned_type_uid_initial_value": 1,
+    "sufficient_all_phase_type_allocations": 4294967294,
+    "type_bitfield_storage_units_bound": 23,
+    "type_node_bytes_conservative_lp64": 256,
+    "type_node_ggc_rounding_upper_bound": 256,
+    "scope": "scalar/pointer/type-copy local transfers; aggregate layout and source request join separate"
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

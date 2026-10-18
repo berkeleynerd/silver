@@ -3,7 +3,7 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies fifty-five complete GCC source files at
+`source-manifest.json` identifies seventy-three complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;
@@ -16,12 +16,14 @@ retained complete source inventory are in `cleanup-sources.tar.gz`; four
 initial-CFG/location sources are in `cfg-sources.tar.gz`;
 the additional libiberty hash source is in `location-sources.tar.gz`;
 four constant-folder/pattern/configuration files are in `folding-sources.tar.gz`;
+eighteen type/layout/hook and selected Linux header files are in
+`type-sources.tar.gz`, reconciled against the retained complete source manifest;
 `target-options-query.json` retains the selected compiler's target-option query,
 which compiles no source. These identities describe source
 bytes, not a binary attestation. The ordinary Linux LP64 layout remains an
 explicit premise of the String allocation arithmetic.
 
-`check.py` verifies all fifty-five complete-file hashes, checks reused identities
+`check.py` verifies all seventy-three complete-file hashes, checks reused identities
 against their earlier manifests, extracts LF-numbered source ranges and
 recomputes local integer arithmetic, including ordinary-map growth and the two
 GNAT-node association backbones, constant-label mutation inventory and label
@@ -51,6 +53,10 @@ The constant-folding continuation checks Integer constant limb/cache arithmetic,
 the selected sharing-limit default and generated recursive folder calls. Its
 two-request fold row covers only the report's enumerated successful scalar
 constant cases; symbolic folding and arithmetic scratch remain separate.
+The type continuation checks the selected Linux hook/header exclusions,
+scalar-layout constructor arithmetic, type UID/cache domains and a conservative
+fixed-size type-node bound. Aggregate layout, language-specific type data and
+all-phase request counts remain separate.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.

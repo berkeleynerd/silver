@@ -989,11 +989,122 @@ LF line numbering; complete file identities checked.
 377:   line_table->default_range_bits = 0;
 ```
 
-## gcc/tree.cc:783–785
+## gcc/tree.cc:142–156
 ```text
+142: static GTY(()) unsigned next_type_uid = 1;
+143: /* Unique id for next debug decl created.  Use negative numbers,
+144:    to catch erroneous uses.  */
+145: static GTY(()) int next_debug_decl_uid;
+146:
+147: /* Since we cannot rehash a type after it is in the table, we have to
+148:    keep the hash code.  */
+149:
+150: struct GTY((for_user)) type_hash {
+151:   unsigned long hash;
+152:   tree type;
+153: };
+154:
+155: /* Initial size of the hash table (rounded to next prime).  */
+156: #define TYPE_HASH_INITIAL_SIZE 1000
+```
+
+## gcc/tree.cc:770–785
+```text
+770: {
+771:   /* Initialize the hash table of types.  */
+772:   type_hash_table
+773:     = hash_table<type_cache_hasher>::create_ggc (TYPE_HASH_INITIAL_SIZE);
+774:
+775:   debug_expr_for_decl
+776:     = hash_table<tree_decl_map_cache_hasher>::create_ggc (512);
+777:
+778:   value_expr_for_decl
+779:     = hash_table<tree_decl_map_cache_hasher>::create_ggc (512);
+780:
+781:   int_cst_hash_table = hash_table<int_cst_hasher>::create_ggc (1024);
+782:
 783:   poly_int_cst_hash_table = hash_table<poly_int_cst_hasher>::create_ggc (64);
 784:
 785:   int_cst_node = make_int_cst (1, 1);
+```
+
+## gcc/tree.cc:1089–1143
+```text
+1089: tree_code_size (enum tree_code code)
+1090: {
+1091:   switch (TREE_CODE_CLASS (code))
+1092:     {
+1093:     case tcc_declaration:  /* A decl node */
+1094:       switch (code)
+1095: 	{
+1096: 	case FIELD_DECL:	return sizeof (tree_field_decl);
+1097: 	case PARM_DECL:		return sizeof (tree_parm_decl);
+1098: 	case VAR_DECL:		return sizeof (tree_var_decl);
+1099: 	case LABEL_DECL:	return sizeof (tree_label_decl);
+1100: 	case RESULT_DECL:	return sizeof (tree_result_decl);
+1101: 	case CONST_DECL:	return sizeof (tree_const_decl);
+1102: 	case TYPE_DECL:		return sizeof (tree_type_decl);
+1103: 	case FUNCTION_DECL:	return sizeof (tree_function_decl);
+1104: 	case DEBUG_EXPR_DECL:	return sizeof (tree_decl_with_rtl);
+1105: 	case TRANSLATION_UNIT_DECL: return sizeof (tree_translation_unit_decl);
+1106: 	case NAMESPACE_DECL:
+1107: 	case IMPORTED_DECL:
+1108: 	case NAMELIST_DECL:	return sizeof (tree_decl_non_common);
+1109: 	default:
+1110: 	  gcc_checking_assert (code >= NUM_TREE_CODES);
+1111: 	  return lang_hooks.tree_size (code);
+1112: 	}
+1113:
+1114:     case tcc_type:  /* a type node */
+1115:       switch (code)
+1116: 	{
+1117: 	case OFFSET_TYPE:
+1118: 	case ENUMERAL_TYPE:
+1119: 	case BOOLEAN_TYPE:
+1120: 	case INTEGER_TYPE:
+1121: 	case REAL_TYPE:
+1122: 	case OPAQUE_TYPE:
+1123: 	case POINTER_TYPE:
+1124: 	case REFERENCE_TYPE:
+1125: 	case NULLPTR_TYPE:
+1126: 	case FIXED_POINT_TYPE:
+1127: 	case COMPLEX_TYPE:
+1128: 	case VECTOR_TYPE:
+1129: 	case ARRAY_TYPE:
+1130: 	case RECORD_TYPE:
+1131: 	case UNION_TYPE:
+1132: 	case QUAL_UNION_TYPE:
+1133: 	case VOID_TYPE:
+1134: 	case FUNCTION_TYPE:
+1135: 	case METHOD_TYPE:
+1136: 	case BITINT_TYPE:
+1137: 	case LANG_TYPE:		return sizeof (tree_type_non_common);
+1138: 	default:
+1139: 	  gcc_checking_assert (code >= NUM_TREE_CODES);
+1140: 	  return lang_hooks.tree_size (code);
+1141: 	}
+1142:
+1143:     case tcc_reference:   /* a reference */
+```
+
+## gcc/tree.cc:1368–1383
+```text
+1368:     case tcc_type:
+1369:       TYPE_UID (t) = next_type_uid++;
+1370:       SET_TYPE_ALIGN (t, BITS_PER_UNIT);
+1371:       TYPE_USER_ALIGN (t) = 0;
+1372:       TYPE_MAIN_VARIANT (t) = t;
+1373:       TYPE_CANONICAL (t) = t;
+1374:
+1375:       /* Default to no attributes for type, but let target change that.  */
+1376:       TYPE_ATTRIBUTES (t) = NULL_TREE;
+1377:       targetm.set_default_type_attributes (t);
+1378:
+1379:       /* We have not yet computed the alias set for this type.  */
+1380:       TYPE_ALIAS_SET (t) = -1;
+1381:       break;
+1382:
+1383:     case tcc_constant:
 ```
 
 ## gcc/tree.cc:1468–1547
@@ -1425,6 +1536,555 @@ LF line numbering; complete file identities checked.
 2960:   return t;
 ```
 
+## gcc/tree.cc:5840–5965
+```text
+5840: build_qualified_type (tree type, int type_quals MEM_STAT_DECL)
+5841: {
+5842:   tree t;
+5843:
+5844:   /* See if we already have the appropriate qualified variant.  */
+5845:   t = get_qualified_type (type, type_quals);
+5846:
+5847:   /* If not, build it.  */
+5848:   if (!t)
+5849:     {
+5850:       t = build_variant_type_copy (type PASS_MEM_STAT);
+5851:       set_type_quals (t, type_quals);
+5852:
+5853:       if (((type_quals & TYPE_QUAL_ATOMIC) == TYPE_QUAL_ATOMIC))
+5854: 	{
+5855: 	  /* See if this object can map to a basic atomic type.  */
+5856: 	  tree atomic_type = find_atomic_core_type (type);
+5857: 	  if (atomic_type)
+5858: 	    {
+5859: 	      /* Ensure the alignment of this type is compatible with
+5860: 		 the required alignment of the atomic type.  */
+5861: 	      if (TYPE_ALIGN (atomic_type) > TYPE_ALIGN (t))
+5862: 		SET_TYPE_ALIGN (t, TYPE_ALIGN (atomic_type));
+5863: 	    }
+5864: 	}
+5865:
+5866:       if (TYPE_STRUCTURAL_EQUALITY_P (type))
+5867: 	/* Propagate structural equality. */
+5868: 	SET_TYPE_STRUCTURAL_EQUALITY (t);
+5869:       else if (TYPE_CANONICAL (type) != type)
+5870: 	/* Build the underlying canonical type, since it is different
+5871: 	   from TYPE. */
+5872: 	{
+5873: 	  tree c = build_qualified_type (TYPE_CANONICAL (type), type_quals);
+5874: 	  TYPE_CANONICAL (t) = TYPE_CANONICAL (c);
+5875: 	}
+5876:       else
+5877: 	/* T is its own canonical type. */
+5878: 	TYPE_CANONICAL (t) = t;
+5879:
+5880:     }
+5881:
+5882:   return t;
+5883: }
+5884:
+5885: /* Create a variant of type T with alignment ALIGN which
+5886:    is measured in bits.  */
+5887:
+5888: tree
+5889: build_aligned_type (tree type, unsigned int align)
+5890: {
+5891:   tree t;
+5892:
+5893:   if (TYPE_PACKED (type)
+5894:       || TYPE_ALIGN (type) == align)
+5895:     return type;
+5896:
+5897:   for (t = TYPE_MAIN_VARIANT (type); t; t = TYPE_NEXT_VARIANT (t))
+5898:     if (check_aligned_type (t, type, align))
+5899:       return t;
+5900:
+5901:   t = build_variant_type_copy (type);
+5902:   SET_TYPE_ALIGN (t, align);
+5903:   TYPE_USER_ALIGN (t) = 1;
+5904:
+5905:   return t;
+5906: }
+5907:
+5908: /* Create a new distinct copy of TYPE.  The new type is made its own
+5909:    MAIN_VARIANT. If TYPE requires structural equality checks, the
+5910:    resulting type requires structural equality checks; otherwise, its
+5911:    TYPE_CANONICAL points to itself. */
+5912:
+5913: tree
+5914: build_distinct_type_copy (tree type MEM_STAT_DECL)
+5915: {
+5916:   tree t = copy_node (type PASS_MEM_STAT);
+5917:
+5918:   TYPE_POINTER_TO (t) = 0;
+5919:   TYPE_REFERENCE_TO (t) = 0;
+5920:
+5921:   /* Set the canonical type either to a new equivalence class, or
+5922:      propagate the need for structural equality checks. */
+5923:   if (TYPE_STRUCTURAL_EQUALITY_P (type))
+5924:     SET_TYPE_STRUCTURAL_EQUALITY (t);
+5925:   else
+5926:     TYPE_CANONICAL (t) = t;
+5927:
+5928:   /* Make it its own variant.  */
+5929:   TYPE_MAIN_VARIANT (t) = t;
+5930:   TYPE_NEXT_VARIANT (t) = 0;
+5931:
+5932:   /* Note that it is now possible for TYPE_MIN_VALUE to be a value
+5933:      whose TREE_TYPE is not t.  This can also happen in the Ada
+5934:      frontend when using subtypes.  */
+5935:
+5936:   return t;
+5937: }
+5938:
+5939: /* Create a new variant of TYPE, equivalent but distinct.  This is so
+5940:    the caller can modify it. TYPE_CANONICAL for the return type will
+5941:    be equivalent to TYPE_CANONICAL of TYPE, indicating that the types
+5942:    are considered equal by the language itself (or that both types
+5943:    require structural equality checks). */
+5944:
+5945: tree
+5946: build_variant_type_copy (tree type MEM_STAT_DECL)
+5947: {
+5948:   tree t, m = TYPE_MAIN_VARIANT (type);
+5949:
+5950:   t = build_distinct_type_copy (type PASS_MEM_STAT);
+5951:
+5952:   /* Since we're building a variant, assume that it is a non-semantic
+5953:      variant.  This also propagates TYPE_STRUCTURAL_EQUALITY_P. */
+5954:   TYPE_CANONICAL (t) = TYPE_CANONICAL (type);
+5955:   /* Type variants have no alias set defined.  */
+5956:   TYPE_ALIAS_SET (t) = -1;
+5957:
+5958:   /* Add the new type to the chain of variants of TYPE.  */
+5959:   TYPE_NEXT_VARIANT (t) = TYPE_NEXT_VARIANT (m);
+5960:   TYPE_NEXT_VARIANT (m) = t;
+5961:   TYPE_MAIN_VARIANT (t) = m;
+5962:
+5963:   return t;
+5964: }
+5965:
+```
+
+## gcc/tree.cc:6433–6492
+```text
+6433: type_hash_canon (unsigned int hashcode, tree type)
+6434: {
+6435:   type_hash in;
+6436:   type_hash **loc;
+6437:
+6438:   /* The hash table only contains main variants, so ensure that's what we're
+6439:      being passed.  */
+6440:   gcc_assert (TYPE_MAIN_VARIANT (type) == type);
+6441:
+6442:   /* The TYPE_ALIGN field of a type is set by layout_type(), so we
+6443:      must call that routine before comparing TYPE_ALIGNs.  */
+6444:   layout_type (type);
+6445:
+6446:   in.hash = hashcode;
+6447:   in.type = type;
+6448:
+6449:   loc = type_hash_table->find_slot_with_hash (&in, hashcode, INSERT);
+6450:   if (*loc)
+6451:     {
+6452:       tree t1 = ((type_hash *) *loc)->type;
+6453:       gcc_assert (TYPE_MAIN_VARIANT (t1) == t1
+6454: 		  && t1 != type);
+6455:       if (TYPE_UID (type) + 1 == next_type_uid)
+6456: 	--next_type_uid;
+6457:       /* Free also min/max values and the cache for integer
+6458: 	 types.  This can't be done in free_node, as LTO frees
+6459: 	 those on its own.  */
+6460:       if (TREE_CODE (type) == INTEGER_TYPE || TREE_CODE (type) == BITINT_TYPE)
+6461: 	{
+6462: 	  if (TYPE_MIN_VALUE (type)
+6463: 	      && TREE_TYPE (TYPE_MIN_VALUE (type)) == type)
+6464: 	    {
+6465: 	      /* Zero is always in TYPE_CACHED_VALUES.  */
+6466: 	      if (! TYPE_UNSIGNED (type))
+6467: 		int_cst_hash_table->remove_elt (TYPE_MIN_VALUE (type));
+6468: 	      ggc_free (TYPE_MIN_VALUE (type));
+6469: 	    }
+6470: 	  if (TYPE_MAX_VALUE (type)
+6471: 	      && TREE_TYPE (TYPE_MAX_VALUE (type)) == type)
+6472: 	    {
+6473: 	      int_cst_hash_table->remove_elt (TYPE_MAX_VALUE (type));
+6474: 	      ggc_free (TYPE_MAX_VALUE (type));
+6475: 	    }
+6476: 	  if (TYPE_CACHED_VALUES_P (type))
+6477: 	    ggc_free (TYPE_CACHED_VALUES (type));
+6478: 	}
+6479:       free_node (type);
+6480:       return t1;
+6481:     }
+6482:   else
+6483:     {
+6484:       struct type_hash *h;
+6485:
+6486:       h = ggc_alloc<type_hash> ();
+6487:       h->hash = hashcode;
+6488:       h->type = type;
+6489:       *loc = h;
+6490:
+6491:       return type;
+6492:     }
+```
+
+## gcc/tree.cc:7198–7385
+```text
+7198: build_pointer_type_for_mode (tree to_type, machine_mode mode,
+7199: 			     bool can_alias_all)
+7200: {
+7201:   tree t;
+7202:   bool could_alias = can_alias_all;
+7203:
+7204:   if (to_type == error_mark_node)
+7205:     return error_mark_node;
+7206:
+7207:   if (mode == VOIDmode)
+7208:     {
+7209:       addr_space_t as = TYPE_ADDR_SPACE (to_type);
+7210:       mode = targetm.addr_space.pointer_mode (as);
+7211:     }
+7212:
+7213:   /* If the pointed-to type has the may_alias attribute set, force
+7214:      a TYPE_REF_CAN_ALIAS_ALL pointer to be generated.  */
+7215:   if (lookup_attribute ("may_alias", TYPE_ATTRIBUTES (to_type)))
+7216:     can_alias_all = true;
+7217:
+7218:   /* In some cases, languages will have things that aren't a POINTER_TYPE
+7219:      (such as a RECORD_TYPE for fat pointers in Ada) as TYPE_POINTER_TO.
+7220:      In that case, return that type without regard to the rest of our
+7221:      operands.
+7222:
+7223:      ??? This is a kludge, but consistent with the way this function has
+7224:      always operated and there doesn't seem to be a good way to avoid this
+7225:      at the moment.  */
+7226:   if (TYPE_POINTER_TO (to_type) != 0
+7227:       && TREE_CODE (TYPE_POINTER_TO (to_type)) != POINTER_TYPE)
+7228:     return TYPE_POINTER_TO (to_type);
+7229:
+7230:   /* First, if we already have a type for pointers to TO_TYPE and it's
+7231:      the proper mode, use it.  */
+7232:   for (t = TYPE_POINTER_TO (to_type); t; t = TYPE_NEXT_PTR_TO (t))
+7233:     if (TYPE_MODE (t) == mode && TYPE_REF_CAN_ALIAS_ALL (t) == can_alias_all)
+7234:       return t;
+7235:
+7236:   t = make_node (POINTER_TYPE);
+7237:
+7238:   TREE_TYPE (t) = to_type;
+7239:   SET_TYPE_MODE (t, mode);
+7240:   TYPE_REF_CAN_ALIAS_ALL (t) = can_alias_all;
+7241:   TYPE_NEXT_PTR_TO (t) = TYPE_POINTER_TO (to_type);
+7242:   TYPE_POINTER_TO (to_type) = t;
+7243:
+7244:   /* During LTO we do not set TYPE_CANONICAL of pointers and references.  */
+7245:   if (TYPE_STRUCTURAL_EQUALITY_P (to_type) || in_lto_p)
+7246:     SET_TYPE_STRUCTURAL_EQUALITY (t);
+7247:   else if (TYPE_CANONICAL (to_type) != to_type || could_alias)
+7248:     TYPE_CANONICAL (t)
+7249:       = build_pointer_type_for_mode (TYPE_CANONICAL (to_type),
+7250: 				     mode, false);
+7251:
+7252:   /* Lay out the type.  This function has many callers that are concerned
+7253:      with expression-construction, and this simplifies them all.  */
+7254:   layout_type (t);
+7255:
+7256:   return t;
+7257: }
+7258:
+7259: /* By default build pointers in ptr_mode.  */
+7260:
+7261: tree
+7262: build_pointer_type (tree to_type)
+7263: {
+7264:   return build_pointer_type_for_mode (to_type, VOIDmode, false);
+7265: }
+7266:
+7267: /* Same as build_pointer_type_for_mode, but for REFERENCE_TYPE.  */
+7268:
+7269: tree
+7270: build_reference_type_for_mode (tree to_type, machine_mode mode,
+7271: 			       bool can_alias_all)
+7272: {
+7273:   tree t;
+7274:   bool could_alias = can_alias_all;
+7275:
+7276:   if (to_type == error_mark_node)
+7277:     return error_mark_node;
+7278:
+7279:   if (mode == VOIDmode)
+7280:     {
+7281:       addr_space_t as = TYPE_ADDR_SPACE (to_type);
+7282:       mode = targetm.addr_space.pointer_mode (as);
+7283:     }
+7284:
+7285:   /* If the pointed-to type has the may_alias attribute set, force
+7286:      a TYPE_REF_CAN_ALIAS_ALL pointer to be generated.  */
+7287:   if (lookup_attribute ("may_alias", TYPE_ATTRIBUTES (to_type)))
+7288:     can_alias_all = true;
+7289:
+7290:   /* In some cases, languages will have things that aren't a REFERENCE_TYPE
+7291:      (such as a RECORD_TYPE for fat pointers in Ada) as TYPE_REFERENCE_TO.
+7292:      In that case, return that type without regard to the rest of our
+7293:      operands.
+7294:
+7295:      ??? This is a kludge, but consistent with the way this function has
+7296:      always operated and there doesn't seem to be a good way to avoid this
+7297:      at the moment.  */
+7298:   if (TYPE_REFERENCE_TO (to_type) != 0
+7299:       && TREE_CODE (TYPE_REFERENCE_TO (to_type)) != REFERENCE_TYPE)
+7300:     return TYPE_REFERENCE_TO (to_type);
+7301:
+7302:   /* First, if we already have a type for pointers to TO_TYPE and it's
+7303:      the proper mode, use it.  */
+7304:   for (t = TYPE_REFERENCE_TO (to_type); t; t = TYPE_NEXT_REF_TO (t))
+7305:     if (TYPE_MODE (t) == mode && TYPE_REF_CAN_ALIAS_ALL (t) == can_alias_all)
+7306:       return t;
+7307:
+7308:   t = make_node (REFERENCE_TYPE);
+7309:
+7310:   TREE_TYPE (t) = to_type;
+7311:   SET_TYPE_MODE (t, mode);
+7312:   TYPE_REF_CAN_ALIAS_ALL (t) = can_alias_all;
+7313:   TYPE_NEXT_REF_TO (t) = TYPE_REFERENCE_TO (to_type);
+7314:   TYPE_REFERENCE_TO (to_type) = t;
+7315:
+7316:   /* During LTO we do not set TYPE_CANONICAL of pointers and references.  */
+7317:   if (TYPE_STRUCTURAL_EQUALITY_P (to_type) || in_lto_p)
+7318:     SET_TYPE_STRUCTURAL_EQUALITY (t);
+7319:   else if (TYPE_CANONICAL (to_type) != to_type || could_alias)
+7320:     TYPE_CANONICAL (t)
+7321:       = build_reference_type_for_mode (TYPE_CANONICAL (to_type),
+7322: 				       mode, false);
+7323:
+7324:   layout_type (t);
+7325:
+7326:   return t;
+7327: }
+7328:
+7329:
+7330: /* Build the node for the type of references-to-TO_TYPE by default
+7331:    in ptr_mode.  */
+7332:
+7333: tree
+7334: build_reference_type (tree to_type)
+7335: {
+7336:   return build_reference_type_for_mode (to_type, VOIDmode, false);
+7337: }
+7338:
+7339: #define MAX_INT_CACHED_PREC \
+7340:   (HOST_BITS_PER_WIDE_INT > 64 ? HOST_BITS_PER_WIDE_INT : 64)
+7341: static GTY(()) tree nonstandard_integer_type_cache[2 * MAX_INT_CACHED_PREC + 2];
+7342:
+7343: static void
+7344: clear_nonstandard_integer_type_cache (void)
+7345: {
+7346:   for (size_t i = 0 ; i < 2 * MAX_INT_CACHED_PREC + 2 ; i++)
+7347:   {
+7348:     nonstandard_integer_type_cache[i] = NULL;
+7349:   }
+7350: }
+7351:
+7352: /* Builds a signed or unsigned integer type of precision PRECISION.
+7353:    Used for C bitfields whose precision does not match that of
+7354:    built-in target types.  */
+7355: tree
+7356: build_nonstandard_integer_type (unsigned HOST_WIDE_INT precision,
+7357: 				int unsignedp)
+7358: {
+7359:   tree itype, ret;
+7360:
+7361:   if (unsignedp)
+7362:     unsignedp = MAX_INT_CACHED_PREC + 1;
+7363:
+7364:   if (precision <= MAX_INT_CACHED_PREC)
+7365:     {
+7366:       itype = nonstandard_integer_type_cache[precision + unsignedp];
+7367:       if (itype)
+7368: 	return itype;
+7369:     }
+7370:
+7371:   itype = make_node (INTEGER_TYPE);
+7372:   TYPE_PRECISION (itype) = precision;
+7373:
+7374:   if (unsignedp)
+7375:     fixup_unsigned_type (itype);
+7376:   else
+7377:     fixup_signed_type (itype);
+7378:
+7379:   inchash::hash hstate;
+7380:   inchash::add_expr (TYPE_MAX_VALUE (itype), hstate);
+7381:   ret = type_hash_canon (hstate.end (), itype);
+7382:   if (precision <= MAX_INT_CACHED_PREC)
+7383:     nonstandard_integer_type_cache[precision + unsignedp] = ret;
+7384:
+7385:   return ret;
+```
+
+## gcc/tree.cc:7460–7511
+```text
+7460: build_range_type_1 (tree type, tree lowval, tree highval, bool shared)
+7461: {
+7462:   tree itype = make_node (INTEGER_TYPE);
+7463:
+7464:   TREE_TYPE (itype) = type;
+7465:
+7466:   TYPE_MIN_VALUE (itype) = fold_convert (type, lowval);
+7467:   TYPE_MAX_VALUE (itype) = highval ? fold_convert (type, highval) : NULL;
+7468:
+7469:   TYPE_PRECISION (itype) = TYPE_PRECISION (type);
+7470:   SET_TYPE_MODE (itype, TYPE_MODE (type));
+7471:   TYPE_SIZE (itype) = TYPE_SIZE (type);
+7472:   TYPE_SIZE_UNIT (itype) = TYPE_SIZE_UNIT (type);
+7473:   SET_TYPE_ALIGN (itype, TYPE_ALIGN (type));
+7474:   TYPE_USER_ALIGN (itype) = TYPE_USER_ALIGN (type);
+7475:   SET_TYPE_WARN_IF_NOT_ALIGN (itype, TYPE_WARN_IF_NOT_ALIGN (type));
+7476:
+7477:   if (!shared)
+7478:     return itype;
+7479:
+7480:   if ((TYPE_MIN_VALUE (itype)
+7481:        && TREE_CODE (TYPE_MIN_VALUE (itype)) != INTEGER_CST)
+7482:       || (TYPE_MAX_VALUE (itype)
+7483: 	  && TREE_CODE (TYPE_MAX_VALUE (itype)) != INTEGER_CST))
+7484:     {
+7485:       /* Since we cannot reliably merge this type, we need to compare it using
+7486: 	 structural equality checks.  */
+7487:       SET_TYPE_STRUCTURAL_EQUALITY (itype);
+7488:       return itype;
+7489:     }
+7490:
+7491:   hashval_t hash = type_hash_canon_hash (itype);
+7492:   itype = type_hash_canon (hash, itype);
+7493:
+7494:   return itype;
+7495: }
+7496:
+7497: /* Wrapper around build_range_type_1 with SHARED set to true.  */
+7498:
+7499: tree
+7500: build_range_type (tree type, tree lowval, tree highval)
+7501: {
+7502:   return build_range_type_1 (type, lowval, highval, true);
+7503: }
+7504:
+7505: /* Wrapper around build_range_type_1 with SHARED set to false.  */
+7506:
+7507: tree
+7508: build_nonshared_range_type (tree type, tree lowval, tree highval)
+7509: {
+7510:   return build_range_type_1 (type, lowval, highval, false);
+7511: }
+```
+
+## gcc/tree.cc:8025–8088
+```text
+8025: build_complex_type (tree component_type, bool named)
+8026: {
+8027:   gcc_assert (INTEGRAL_TYPE_P (component_type)
+8028: 	      || SCALAR_FLOAT_TYPE_P (component_type)
+8029: 	      || FIXED_POINT_TYPE_P (component_type));
+8030:
+8031:   /* Make a node of the sort we want.  */
+8032:   tree probe = make_node (COMPLEX_TYPE);
+8033:
+8034:   TREE_TYPE (probe) = TYPE_MAIN_VARIANT (component_type);
+8035:   if (TYPE_STRUCTURAL_EQUALITY_P (TREE_TYPE (probe)))
+8036:     SET_TYPE_STRUCTURAL_EQUALITY (probe);
+8037:
+8038:   /* If we already have such a type, use the old one.  */
+8039:   hashval_t hash = type_hash_canon_hash (probe);
+8040:   tree t = type_hash_canon (hash, probe);
+8041:
+8042:   if (t == probe)
+8043:     {
+8044:       /* We created a new type.  The hash insertion will have laid
+8045: 	 out the type.  We need to check the canonicalization and
+8046: 	 maybe set the name.  */
+8047:       gcc_checking_assert (COMPLETE_TYPE_P (t)
+8048: 			   && !TYPE_NAME (t));
+8049:
+8050:       if (TYPE_STRUCTURAL_EQUALITY_P (TREE_TYPE (t)))
+8051: 	;
+8052:       else if (TYPE_CANONICAL (TREE_TYPE (t)) != TREE_TYPE (t))
+8053: 	TYPE_CANONICAL (t)
+8054: 	  = build_complex_type (TYPE_CANONICAL (TREE_TYPE (t)), named);
+8055:
+8056:       /* We need to create a name, since complex is a fundamental type.  */
+8057:       if (named)
+8058: 	{
+8059: 	  const char *name = NULL;
+8060:
+8061: 	  if (TREE_TYPE (t) == char_type_node)
+8062: 	    name = "complex char";
+8063: 	  else if (TREE_TYPE (t) == signed_char_type_node)
+8064: 	    name = "complex signed char";
+8065: 	  else if (TREE_TYPE (t) == unsigned_char_type_node)
+8066: 	    name = "complex unsigned char";
+8067: 	  else if (TREE_TYPE (t) == short_integer_type_node)
+8068: 	    name = "complex short int";
+8069: 	  else if (TREE_TYPE (t) == short_unsigned_type_node)
+8070: 	    name = "complex short unsigned int";
+8071: 	  else if (TREE_TYPE (t) == integer_type_node)
+8072: 	    name = "complex int";
+8073: 	  else if (TREE_TYPE (t) == unsigned_type_node)
+8074: 	    name = "complex unsigned int";
+8075: 	  else if (TREE_TYPE (t) == long_integer_type_node)
+8076: 	    name = "complex long int";
+8077: 	  else if (TREE_TYPE (t) == long_unsigned_type_node)
+8078: 	    name = "complex long unsigned int";
+8079: 	  else if (TREE_TYPE (t) == long_long_integer_type_node)
+8080: 	    name = "complex long long int";
+8081: 	  else if (TREE_TYPE (t) == long_long_unsigned_type_node)
+8082: 	    name = "complex long long unsigned int";
+8083:
+8084: 	  if (name != NULL)
+8085: 	    TYPE_NAME (t) = build_decl (UNKNOWN_LOCATION, TYPE_DECL,
+8086: 					get_identifier (name), t);
+8087: 	}
+8088:     }
+```
+
+## gcc/tree.cc:15095–15129
+```text
+15095: is_empty_type (const_tree type)
+15096: {
+15097:   if (RECORD_OR_UNION_TYPE_P (type))
+15098:     {
+15099:       for (tree field = TYPE_FIELDS (type); field; field = DECL_CHAIN (field))
+15100: 	if (TREE_CODE (field) == FIELD_DECL
+15101: 	    && !DECL_PADDING_P (field)
+15102: 	    && !is_empty_type (TREE_TYPE (field)))
+15103: 	  return false;
+15104:       return true;
+15105:     }
+15106:   else if (TREE_CODE (type) == ARRAY_TYPE)
+15107:     return (integer_minus_onep (array_type_nelts_minus_one (type))
+15108: 	    || TYPE_DOMAIN (type) == NULL_TREE
+15109: 	    || is_empty_type (TREE_TYPE (type)));
+15110:   return false;
+15111: }
+15112:
+15113: /* Implement TARGET_EMPTY_RECORD_P.  Return true if TYPE is an empty type
+15114:    that shouldn't be passed via stack.  */
+15115:
+15116: bool
+15117: default_is_empty_record (const_tree type)
+15118: {
+15119:   if (!abi_version_at_least (12))
+15120:     return false;
+15121:
+15122:   if (type == error_mark_node)
+15123:     return false;
+15124:
+15125:   if (TREE_ADDRESSABLE (type))
+15126:     return false;
+15127:
+15128:   return is_empty_type (TYPE_MAIN_VARIANT (type));
+15129: }
+```
+
 ## gcc/tree-core.h:1138–1253
 ```text
 1138: struct GTY(()) tree_base {
@@ -1586,6 +2246,81 @@ LF line numbering; complete file identities checked.
 1632:   struct tree_common common;
 1633:   tree GTY ((length ("TREE_VEC_LENGTH ((tree)&%h)"))) a[1];
 1634: };
+```
+
+## gcc/tree-core.h:1801–1871
+```text
+1801: struct GTY(()) tree_type_common {
+1802:   struct tree_common common;
+1803:   tree size;
+1804:   tree size_unit;
+1805:   tree attributes;
+1806:   unsigned int uid;
+1807:
+1808:   ENUM_BITFIELD(machine_mode) mode : MACHINE_MODE_BITSIZE;
+1809:
+1810:   unsigned int precision : 16;
+1811:   unsigned lang_flag_0 : 1;
+1812:   unsigned lang_flag_1 : 1;
+1813:   unsigned lang_flag_2 : 1;
+1814:   unsigned lang_flag_3 : 1;
+1815:   unsigned lang_flag_4 : 1;
+1816:   unsigned lang_flag_5 : 1;
+1817:   unsigned lang_flag_6 : 1;
+1818:   unsigned lang_flag_7 : 1;
+1819:
+1820:   /* TYPE_ALIGN in log2; this has to be large enough to hold values
+1821:      of the maximum of BIGGEST_ALIGNMENT and MAX_OFILE_ALIGNMENT,
+1822:      the latter being usually the larger.  For ELF it is 8<<28,
+1823:      so we need to store the value 32 (not 31, as we need the zero
+1824:      as well), hence six bits.  */
+1825:   unsigned align : 6;
+1826:   /* TYPE_STRING_FLAG for INTEGER_TYPE and ARRAY_TYPE.
+1827:      TYPE_CXX_ODR_P for RECORD_TYPE and UNION_TYPE.  */
+1828:   unsigned string_flag : 1;
+1829:   unsigned no_force_blk_flag : 1;
+1830:
+1831:   unsigned warn_if_not_align : 6;
+1832:   unsigned needs_constructing_flag : 1;
+1833:   unsigned transparent_aggr_flag : 1;
+1834:
+1835:   unsigned contains_placeholder_bits : 2;
+1836:   unsigned restrict_flag : 1;
+1837:   unsigned typeless_storage : 1;
+1838:   unsigned empty_flag : 1;
+1839:   unsigned indivisible_p : 1;
+1840:   /* TYPE_NO_NAMED_ARGS_STDARG_P for a stdarg function.
+1841:      Or TYPE_INCLUDES_FLEXARRAY for RECORD_TYPE and UNION_TYPE.  */
+1842:   unsigned no_named_args_stdarg_p : 1;
+1843:   unsigned spare : 1;
+1844:
+1845:   alias_set_type alias_set;
+1846:   tree pointer_to;
+1847:   tree reference_to;
+1848:   union tree_type_symtab {
+1849:     int GTY ((tag ("TYPE_SYMTAB_IS_ADDRESS"))) address;
+1850:     struct die_struct * GTY ((tag ("TYPE_SYMTAB_IS_DIE"))) die;
+1851:   } GTY ((desc ("debug_hooks->tree_type_symtab_field"))) symtab;
+1852:   tree canonical;
+1853:   tree next_variant;
+1854:   tree main_variant;
+1855:   tree context;
+1856:   tree name;
+1857: };
+1858:
+1859: struct GTY(()) tree_type_with_lang_specific {
+1860:   struct tree_type_common common;
+1861:   /* Points to a structure whose details depend on the language in use.  */
+1862:   struct lang_type *lang_specific;
+1863: };
+1864:
+1865: struct GTY(()) tree_type_non_common {
+1866:   struct tree_type_with_lang_specific with_lang_specific;
+1867:   tree values;
+1868:   tree minval;
+1869:   tree maxval;
+1870:   tree lang_1;
+1871: };
 ```
 
 ## gcc/varasm.cc:870–920
@@ -5213,6 +5948,25 @@ LF line numbering; complete file identities checked.
 11594: 						 speed_p);
 11595: }
 11596:
+```
+
+## gcc/config/i386/i386.cc:18489–18497
+```text
+18489: /* Implement TARGET_EMPTY_RECORD_P.  */
+18490:
+18491: static bool
+18492: ix86_is_empty_record (const_tree type)
+18493: {
+18494:   if (!TARGET_64BIT)
+18495:     return false;
+18496:   return default_is_empty_record (type);
+18497: }
+```
+
+## gcc/config/i386/i386.cc:28726–28727
+```text
+28726: #undef TARGET_EMPTY_RECORD_P
+28727: #define TARGET_EMPTY_RECORD_P ix86_is_empty_record
 ```
 
 ## gcc/config/i386/i386-expand.cc:9135–9294
@@ -10674,6 +11428,51 @@ LF line numbering; complete file identities checked.
 16110:    indicated TYPE.  If no CLEANUP_POINT_EXPR is necessary, return EXPR
 ```
 
+## gcc/fold-const.cc:16378–16418
+```text
+16378: round_up_loc (location_t loc, tree value, unsigned int divisor)
+16379: {
+16380:   tree div = NULL_TREE;
+16381:
+16382:   if (divisor == 1)
+16383:     return value;
+16384:
+16385:   /* See if VALUE is already a multiple of DIVISOR.  If so, we don't
+16386:      have to do anything.  Only do this when we are not given a const,
+16387:      because in that case, this check is more expensive than just
+16388:      doing it.  */
+16389:   if (TREE_CODE (value) != INTEGER_CST)
+16390:     {
+16391:       div = build_int_cst (TREE_TYPE (value), divisor);
+16392:
+16393:       if (multiple_of_p (TREE_TYPE (value), value, div))
+16394: 	return value;
+16395:     }
+16396:
+16397:   /* If divisor is a power of two, simplify this to bit manipulation.  */
+16398:   if (pow2_or_zerop (divisor))
+16399:     {
+16400:       if (TREE_CODE (value) == INTEGER_CST)
+16401: 	{
+16402: 	  wide_int val = wi::to_wide (value);
+16403: 	  bool overflow_p;
+16404:
+16405: 	  if ((val & (divisor - 1)) == 0)
+16406: 	    return value;
+16407:
+16408: 	  overflow_p = TREE_OVERFLOW (value);
+16409: 	  val += divisor - 1;
+16410: 	  val &= (int) -divisor;
+16411: 	  if (val == 0)
+16412: 	    overflow_p = true;
+16413:
+16414: 	  return force_fit_type (TREE_TYPE (value), val, -1, overflow_p);
+16415: 	}
+16416:       else
+16417: 	{
+16418: 	  tree t;
+```
+
 ## gcc/genmatch.cc:3259–3268
 ```text
 3259: 		     int depth, const char *in_type, capture_info *cinfo,
@@ -10805,4 +11604,302 @@ LF line numbering; complete file identities checked.
 39:    uniform_integer_cst_p
 40:    HONOR_NANS
 41:    uniform_vector_p
+```
+
+## gcc/stor-layout.cc:1962–2067
+```text
+1962: finalize_type_size (tree type)
+1963: {
+1964:   /* Normally, use the alignment corresponding to the mode chosen.
+1965:      However, where strict alignment is not required, avoid
+1966:      over-aligning structures, since most compilers do not do this
+1967:      alignment.  */
+1968:   bool tua_cleared_p = false;
+1969:   if (TYPE_MODE (type) != BLKmode
+1970:       && TYPE_MODE (type) != VOIDmode
+1971:       && (STRICT_ALIGNMENT || !AGGREGATE_TYPE_P (type)))
+1972:     {
+1973:       unsigned mode_align = GET_MODE_ALIGNMENT (TYPE_MODE (type));
+1974:
+1975:       /* Don't override a larger alignment requirement coming from a user
+1976: 	 alignment of one of the fields.  */
+1977:       if (mode_align >= TYPE_ALIGN (type))
+1978: 	{
+1979: 	  SET_TYPE_ALIGN (type, mode_align);
+1980: 	  /* Remember that we're about to reset this flag.  */
+1981: 	  tua_cleared_p = TYPE_USER_ALIGN (type);
+1982: 	  TYPE_USER_ALIGN (type) = false;
+1983: 	}
+1984:     }
+1985:
+1986:   /* Do machine-dependent extra alignment.  */
+1987: #ifdef ROUND_TYPE_ALIGN
+1988:   SET_TYPE_ALIGN (type,
+1989:                   ROUND_TYPE_ALIGN (type, TYPE_ALIGN (type), BITS_PER_UNIT));
+1990: #endif
+1991:
+1992:   /* If we failed to find a simple way to calculate the unit size
+1993:      of the type, find it by division.  */
+1994:   if (TYPE_SIZE_UNIT (type) == 0 && TYPE_SIZE (type) != 0)
+1995:     /* TYPE_SIZE (type) is computed in bitsizetype.  After the division, the
+1996:        result will fit in sizetype.  We will get more efficient code using
+1997:        sizetype, so we force a conversion.  */
+1998:     TYPE_SIZE_UNIT (type)
+1999:       = fold_convert (sizetype,
+2000: 		      size_binop (FLOOR_DIV_EXPR, TYPE_SIZE (type),
+2001: 				  bitsize_unit_node));
+2002:
+2003:   if (TYPE_SIZE (type) != 0)
+2004:     {
+2005:       TYPE_SIZE (type) = round_up (TYPE_SIZE (type), TYPE_ALIGN (type));
+2006:       TYPE_SIZE_UNIT (type)
+2007: 	= round_up (TYPE_SIZE_UNIT (type), TYPE_ALIGN_UNIT (type));
+2008:     }
+2009:
+2010:   /* Evaluate nonconstant sizes only once, either now or as soon as safe.  */
+2011:   if (TYPE_SIZE (type) != 0 && TREE_CODE (TYPE_SIZE (type)) != INTEGER_CST)
+2012:     TYPE_SIZE (type) = variable_size (TYPE_SIZE (type));
+2013:   if (TYPE_SIZE_UNIT (type) != 0
+2014:       && TREE_CODE (TYPE_SIZE_UNIT (type)) != INTEGER_CST)
+2015:     TYPE_SIZE_UNIT (type) = variable_size (TYPE_SIZE_UNIT (type));
+2016:
+2017:   /* Handle empty records as per the x86-64 psABI.  */
+2018:   TYPE_EMPTY_P (type) = targetm.calls.empty_record_p (type);
+2019:
+2020:   /* Also layout any other variants of the type.  */
+2021:   if (TYPE_NEXT_VARIANT (type)
+2022:       || type != TYPE_MAIN_VARIANT (type))
+2023:     {
+2024:       tree variant;
+2025:       /* Record layout info of this variant.  */
+2026:       tree size = TYPE_SIZE (type);
+2027:       tree size_unit = TYPE_SIZE_UNIT (type);
+2028:       unsigned int align = TYPE_ALIGN (type);
+2029:       unsigned int precision = TYPE_PRECISION (type);
+2030:       unsigned int user_align = TYPE_USER_ALIGN (type);
+2031:       machine_mode mode = TYPE_MODE (type);
+2032:       bool empty_p = TYPE_EMPTY_P (type);
+2033:       bool typeless = AGGREGATE_TYPE_P (type) && TYPE_TYPELESS_STORAGE (type);
+2034:
+2035:       /* Copy it into all variants.  */
+2036:       for (variant = TYPE_MAIN_VARIANT (type);
+2037: 	   variant != NULL_TREE;
+2038: 	   variant = TYPE_NEXT_VARIANT (variant))
+2039: 	{
+2040: 	  TYPE_SIZE (variant) = size;
+2041: 	  TYPE_SIZE_UNIT (variant) = size_unit;
+2042: 	  unsigned valign = align;
+2043: 	  if (TYPE_USER_ALIGN (variant))
+2044: 	    {
+2045: 	      valign = MAX (valign, TYPE_ALIGN (variant));
+2046: 	      /* If we reset TYPE_USER_ALIGN on the main variant, we might
+2047: 		 need to reset it on the variants too.  TYPE_MODE will be set
+2048: 		 to MODE in this variant, so we can use that.  */
+2049: 	      if (tua_cleared_p && GET_MODE_ALIGNMENT (mode) >= valign)
+2050: 		TYPE_USER_ALIGN (variant) = false;
+2051: 	    }
+2052: 	  else
+2053: 	    TYPE_USER_ALIGN (variant) = user_align;
+2054: 	  SET_TYPE_ALIGN (variant, valign);
+2055: 	  TYPE_PRECISION (variant) = precision;
+2056: 	  SET_TYPE_MODE (variant, mode);
+2057: 	  TYPE_EMPTY_P (variant) = empty_p;
+2058: 	  if (AGGREGATE_TYPE_P (variant))
+2059: 	    TYPE_TYPELESS_STORAGE (variant) = typeless;
+2060: 	}
+2061:     }
+2062: }
+2063:
+2064: /* Return a new underlying object for a bitfield started with FIELD.  */
+2065:
+2066: static tree
+2067: start_bitfield_representative (tree field)
+```
+
+## gcc/stor-layout.cc:2437–2469
+```text
+2437: layout_type (tree type)
+2438: {
+2439:   gcc_assert (type);
+2440:
+2441:   if (type == error_mark_node)
+2442:     return;
+2443:
+2444:   /* We don't want finalize_type_size to copy an alignment attribute to
+2445:      variants that don't have it.  */
+2446:   type = TYPE_MAIN_VARIANT (type);
+2447:
+2448:   /* Do nothing if type has been laid out before.  */
+2449:   if (TYPE_SIZE (type))
+2450:     return;
+2451:
+2452:   switch (TREE_CODE (type))
+2453:     {
+2454:     case LANG_TYPE:
+2455:       /* This kind of type is the responsibility
+2456: 	 of the language-specific code.  */
+2457:       gcc_unreachable ();
+2458:
+2459:     case BOOLEAN_TYPE:
+2460:     case INTEGER_TYPE:
+2461:     case ENUMERAL_TYPE:
+2462:       {
+2463: 	scalar_int_mode mode
+2464: 	  = smallest_int_mode_for_size (TYPE_PRECISION (type)).require ();
+2465: 	SET_TYPE_MODE (type, mode);
+2466: 	TYPE_SIZE (type) = bitsize_int (GET_MODE_BITSIZE (mode));
+2467: 	/* Don't set TYPE_PRECISION here, as it may be set by a bitfield.  */
+2468: 	TYPE_SIZE_UNIT (type) = size_int (GET_MODE_SIZE (mode));
+2469: 	break;
+```
+
+## gcc/stor-layout.cc:2558–2576
+```text
+2558:       TYPE_UNSIGNED (type) = TYPE_UNSIGNED (TREE_TYPE (type));
+2559:       if (TYPE_MODE (TREE_TYPE (type)) == BLKmode)
+2560: 	{
+2561: 	  gcc_checking_assert (TREE_CODE (TREE_TYPE (type)) == BITINT_TYPE);
+2562: 	  SET_TYPE_MODE (type, BLKmode);
+2563: 	  TYPE_SIZE (type)
+2564: 	    = int_const_binop (MULT_EXPR, TYPE_SIZE (TREE_TYPE (type)),
+2565: 			       bitsize_int (2));
+2566: 	  TYPE_SIZE_UNIT (type)
+2567: 	    = int_const_binop (MULT_EXPR, TYPE_SIZE_UNIT (TREE_TYPE (type)),
+2568: 			       bitsize_int (2));
+2569: 	  break;
+2570: 	}
+2571:       SET_TYPE_MODE (type,
+2572: 		     GET_MODE_COMPLEX_MODE (TYPE_MODE (TREE_TYPE (type))));
+2573:
+2574:       TYPE_SIZE (type) = bitsize_int (GET_MODE_BITSIZE (TYPE_MODE (type)));
+2575:       TYPE_SIZE_UNIT (type) = size_int (GET_MODE_SIZE (TYPE_MODE (type)));
+2576:       break;
+```
+
+## gcc/stor-layout.cc:2651–2661
+```text
+2651:     case POINTER_TYPE:
+2652:     case REFERENCE_TYPE:
+2653:       {
+2654: 	scalar_int_mode mode = SCALAR_INT_TYPE_MODE (type);
+2655: 	TYPE_SIZE (type) = bitsize_int (GET_MODE_BITSIZE (mode));
+2656: 	TYPE_SIZE_UNIT (type) = size_int (GET_MODE_SIZE (mode));
+2657: 	TYPE_UNSIGNED (type) = 1;
+2658: 	TYPE_PRECISION (type) = GET_MODE_PRECISION (mode);
+2659:       }
+2660:       break;
+2661:
+```
+
+## gcc/stor-layout.cc:2838–2860
+```text
+2838: make_signed_type (int precision)
+2839: {
+2840:   tree type = make_node (INTEGER_TYPE);
+2841:
+2842:   TYPE_PRECISION (type) = precision;
+2843:
+2844:   fixup_signed_type (type);
+2845:   return type;
+2846: }
+2847:
+2848: /* Create and return a type for unsigned integers of PRECISION bits.  */
+2849:
+2850: tree
+2851: make_unsigned_type (int precision)
+2852: {
+2853:   tree type = make_node (INTEGER_TYPE);
+2854:
+2855:   TYPE_PRECISION (type) = precision;
+2856:
+2857:   fixup_unsigned_type (type);
+2858:   return type;
+2859: }
+2860:
+```
+
+## gcc/stor-layout.cc:2991–3040
+```text
+2991: set_min_and_max_values_for_integral_type (tree type,
+2992: 					  int precision,
+2993: 					  signop sgn)
+2994: {
+2995:   /* For bitfields with zero width we end up creating integer types
+2996:      with zero precision.  Don't assign any minimum/maximum values
+2997:      to those types, they don't have any valid value.  */
+2998:   if (precision < 1)
+2999:     return;
+3000:
+3001:   gcc_assert (precision <= WIDE_INT_MAX_PRECISION);
+3002:
+3003:   TYPE_MIN_VALUE (type)
+3004:     = wide_int_to_tree (type, wi::min_value (precision, sgn));
+3005:   TYPE_MAX_VALUE (type)
+3006:     = wide_int_to_tree (type, wi::max_value (precision, sgn));
+3007: }
+3008:
+3009: /* Set the extreme values of TYPE based on its precision in bits,
+3010:    then lay it out.  Used when make_signed_type won't do
+3011:    because the tree code is not INTEGER_TYPE.  */
+3012:
+3013: void
+3014: fixup_signed_type (tree type)
+3015: {
+3016:   int precision = TYPE_PRECISION (type);
+3017:
+3018:   set_min_and_max_values_for_integral_type (type, precision, SIGNED);
+3019:
+3020:   /* Lay out the type: set its alignment, size, etc.  */
+3021:   layout_type (type);
+3022: }
+3023:
+3024: /* Set the extreme values of TYPE based on its precision in bits,
+3025:    then lay it out.  This is used both in `make_unsigned_type'
+3026:    and for enumeral types.  */
+3027:
+3028: void
+3029: fixup_unsigned_type (tree type)
+3030: {
+3031:   int precision = TYPE_PRECISION (type);
+3032:
+3033:   TYPE_UNSIGNED (type) = 1;
+3034:
+3035:   set_min_and_max_values_for_integral_type (type, precision, UNSIGNED);
+3036:
+3037:   /* Lay out the type: set its alignment, size, etc.  */
+3038:   layout_type (type);
+3039: }
+3040:
+```
+
+## gcc/target.def:2324–2330
+```text
+2324: /* Assign default attributes to the newly defined TYPE.  */
+2325: DEFHOOK
+2326: (set_default_type_attributes,
+2327:  "If defined, this target hook is a function which assigns default attributes to\n\
+2328: the newly defined @var{type}.",
+2329:  void, (tree type),
+2330:  hook_void_tree)
+```
+
+## gcc/coretypes.h:362–368
+```text
+362:    everything) and -1 (sometimes indicating that the alias set is
+363:    unknown, sometimes indicating a memory barrier) and -2 (indicating
+364:    that the alias set should be set to a unique value but has not been
+365:    set yet).  */
+366: typedef int alias_set_type;
+367:
+368: class edge_def;
+```
+
+## gcc/hooks.cc:293–298
+```text
+293:
+294: void
+295: hook_void_tree (tree)
+296: {
+297: }
+298:
 ```

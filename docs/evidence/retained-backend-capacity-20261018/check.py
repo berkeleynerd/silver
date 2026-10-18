@@ -44,16 +44,23 @@ RANGES = {
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
     "gcc/ggc.h": [(230, 258)],
-    "gcc/tree.cc": [(783, 785), (1468, 1547), (1581, 1616), (1696, 1729),
+    "gcc/tree.cc": [(142, 156), (770, 785), (1089, 1143), (1368, 1383),
+                     (1468, 1547), (1581, 1616), (1696, 1729),
                      (1776, 1953), (2008, 2013), (2482, 2488), (2616, 2636),
-                     (2926, 2960)],
-    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1634)],
+                     (2926, 2960), (5840, 5965), (6433, 6492), (7198, 7385),
+                     (7460, 7511), (8025, 8088), (15095, 15129)],
+    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1634), (1801, 1871)],
+    "gcc/stor-layout.cc": [(1962, 2067), (2437, 2469), (2558, 2576),
+                            (2651, 2661), (2838, 2860), (2991, 3040)],
+    "gcc/target.def": [(2324, 2330)],
+    "gcc/coretypes.h": [(362, 368)],
+    "gcc/hooks.cc": [(293, 298)],
     "gcc/params.opt": [(248, 250)],
     "gcc/fold-const.cc": [(646, 669), (844, 853), (1087, 1225), (1325, 1342),
                            (1477, 1498), (1920, 2011), (2192, 2203),
                            (2484, 2504), (2626, 2666), (6994, 7007),
                            (9205, 9254), (10986, 11056), (13886, 14015),
-                           (15842, 15938), (15945, 16110)],
+                           (15842, 15938), (15945, 16110), (16378, 16418)],
     "gcc/genmatch.cc": [(3259, 3268), (3331, 3348), (3445, 3485)],
     "gcc/match.pd": [(1, 41)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
@@ -70,7 +77,7 @@ RANGES = {
     "gcc/targhooks.cc": [(2156, 2220)],
     "gcc/defaults.h": [(977, 995)],
     "gcc/config/i386/i386.h": [(1916, 1966)],
-    "gcc/config/i386/i386.cc": [(11580, 11596)],
+    "gcc/config/i386/i386.cc": [(11580, 11596), (18489, 18497), (28726, 28727)],
     "gcc/config/i386/i386-expand.cc": [(9135, 9294), (9510, 9586),
                                       (10010, 10715)],
     "gcc/config/i386/x86-tune-costs.h": [(4139, 4157), (4208, 4220)],
@@ -96,11 +103,78 @@ RANGES = {
                            (570, 608), (662, 680), (890, 999), (1009, 1077)],
 }
 
+# Complete selected target headers are retained for negative override checks;
+# the source excerpts above carry the positive hook/layout sites.
+for _header in (
+    "vxworks-dummy.h", "i386/biarch64.h", "i386/unix.h", "i386/att.h",
+    "gnu-user.h", "glibc-stdint.h", "i386/x86-64.h",
+    "i386/gnu-user-common.h", "i386/gnu-user64.h", "linux.h",
+    "linux-android.h", "i386/linux-common.h", "i386/linux64.h",
+    "initfini-array.h",
+):
+    RANGES["gcc/config/" + _header] = []
+
 
 def read_tar(archive, name):
     with tarfile.open(archive) as src:
         with src.extractfile(name) as member:
             return member.read()
+
+
+def check_type_transfers(all_bytes, bundle):
+    tree = all_bytes["gcc/tree.cc"].decode()
+    layout = all_bytes["gcc/stor-layout.cc"].decode()
+    core = all_bytes["gcc/tree-core.h"].decode()
+    target = all_bytes["gcc/target.def"].decode()
+    assert "unsigned next_type_uid = 1;" in tree
+    assert tree.count("TYPE_UID (t) = next_type_uid++;") == 2
+    assert "#define TYPE_HASH_INITIAL_SIZE 1000" in tree
+    assert "nonstandard_integer_type_cache[2 * MAX_INT_CACHED_PREC + 2]" in tree
+    assert "return sizeof (tree_type_non_common);" in tree
+    assert "TYPE_SIZE (type) = round_up (TYPE_SIZE (type), TYPE_ALIGN (type));" in layout
+    assert "TYPE_SIZE_UNIT (type) = size_int (GET_MODE_SIZE (mode));" in layout
+    hook = target.split("(set_default_type_attributes,", 1)[1].split(
+        "DEFHOOK", 1)[0]
+    assert "hook_void_tree)" in hook
+    assert re.search(r"hook_void_tree \(tree\)\s*\{\s*\}",
+                     all_bytes["gcc/hooks.cc"].decode())
+    config = json.loads((bundle / "configuration-inventory.json").read_text())
+    headers = ["gcc/" + p for p in re.findall(
+        r'# include "(config/[^\"]+)"', config["plugin_headers"]["tm_h"])]
+    for name in [*headers, "gcc/config/i386/i386.cc"]:
+        assert b"TARGET_SET_DEFAULT_TYPE_ATTRIBUTES" not in all_bytes[name]
+        assert not re.search(rb"^\s*#\s*define\s+ROUND_TYPE_ALIGN\b",
+                             all_bytes[name], re.M)
+
+    common = core.split("struct GTY(()) tree_type_common {", 1)[1].split(
+        "struct GTY(()) tree_type_with_lang_specific", 1)[0]
+    # Source-derived conservative bound: one four-byte unit per bitfield.
+    bitfields = re.findall(r"\b(?:[a-z_0-9]+)\s*:\s*(?:[0-9]+|MACHINE_MODE_BITSIZE)\s*;",
+                           common)
+    assert len(bitfields) == 23
+    assert b"typedef int alias_set_type;" in all_bytes["gcc/coretypes.h"]
+    prefix = 24 + 3*8 + 4 + len(bitfields)*4 + 4
+    prefix_aligned = (prefix+7)//8*8
+    bound = prefix_aligned + 8*8 + 8 + 4*8
+    assert bound == 256
+    return dict(
+        selected_target_headers=len(headers),
+        nonstandard_integer_cache_slots=2*64+2,
+        canonical_pointer_or_reference_type_nodes_per_request=2,
+        qualified_type_copies_per_request=2,
+        simple_type_copies_per_request=1,
+        scalar_layout_constant_requests=4,
+        scalar_construction_with_fixup_constant_requests=6,
+        unnamed_integer_pair_type_nodes_per_request=2,
+        type_hash_record_bytes=16,
+        type_hash_initial_request=1000,
+        unsigned_type_uid_initial_value=1,
+        sufficient_all_phase_type_allocations=2**32-2,
+        type_bitfield_storage_units_bound=len(bitfields),
+        type_node_bytes_conservative_lp64=bound,
+        type_node_ggc_rounding_upper_bound=256,
+        scope="scalar/pointer/type-copy local transfers; aggregate layout and source request join separate",
+    )
 
 
 def check_cleanup_transfers(all_bytes):
@@ -589,6 +663,7 @@ def main():
         "cleanup_lowering": check_cleanup_transfers(all_bytes),
         "initial_cfg": check_initial_cfg(all_bytes),
         "integer_constants": check_integer_constant_transfers(all_bytes),
+        "scalar_pointer_types": check_type_transfers(all_bytes, bundle),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

@@ -734,6 +734,117 @@ The result must consume the bridge's generated complex overflow pairs,
 String equality and descriptor/reference shapes as well as source scalar
 operators. No undocumented constant multiplier is substituted for that work.
 
+## Scalar and pointer type constructors
+
+The bridge's generic type requests have the following local transfers. They
+assume the ordinary GCC invariant that a nonnull canonical type is itself
+canonical, the selected Linux target's default type-attribute hook, and completed
+scalar/base types. The scalar precision region is `1..128`; generated complex
+values here are pairs of ordinary 32-bit Integers. Arbitrary records, arrays,
+vector/bitint types, user alignment and language-specific type payloads retain
+their own layout transfers.
+
+| Entry request | Fresh type nodes, including discarded candidates | Other local requests |
+| --- | ---: | --- |
+| `build_pointer_type_for_mode` or reference counterpart | at most 2 | at most 2 scalar/pointer layouts |
+| `build_qualified_type` with ordinary non-atomic qualifiers | at most 2 copies | no new layout or bound expression |
+| `build_aligned_type`, `build_distinct_type_copy`, `build_variant_type_copy` | at most 1 copy | no new layout or bound expression |
+| `make_signed_type`, `make_unsigned_type`, or `build_nonstandard_integer_type` | at most 1 | two scalar-bound constants, one scalar layout; the nonstandard helper also has at most one type-hash insertion |
+| `build_range_type` or `build_nonshared_range_type` | 1 | at most two `fold_convert` requests; shared static ranges may add one type-hash insertion |
+| unnamed `build_complex_type` for the internal Integer pair | at most 2 | at most 2 scalar/complex layouts and 2 type-hash insertions |
+
+Pointer/reference constructors search the existing chain, then construct the
+requested type before an optional call on the canonical referent with
+`can_alias_all=false` (`tree.cc:7198–7338`). That second call either finds the
+inserted type or reaches the canonical referent; it cannot create an unbounded
+canonical chain. The `could_alias` branch can require the second type even when
+the referent was already canonical, so one node per entry request is too small.
+The record-valued Ada fat-pointer shortcut simply returns its existing type.
+
+Qualified-type construction similarly makes one variant and optionally one
+variant of its canonical type (`5840–5885`). Distinct/variant copies call
+`copy_node` once and retain the existing bounds, layout and language-specific
+pointer; they do not recursively copy the pointed-to graph (`5914–5965`). The
+copied Integer-value cache is cleared (`1521–1538`), which is why later constant
+requests must count that new type as a separate cache participant. This is not
+an exemption for a gigi caller that explicitly copies or completes a language
+payload afterward.
+
+`build_nonstandard_integer_type` has a fixed 130-pointer cache on this 64-bit
+host, indexed by precision and signedness only through precision 64
+(`7340–7385`). Precisions 65 through 128 can allocate a fresh candidate on
+every request even if type hashing later finds an equivalent type. Charge
+requests, not just the number of distinct widths. Each scalar fixup requests
+its minimum and maximum once, then calls layout
+(`stor-layout.cc:2838–2860,2991–3040`). Range constructors instead inherit their
+base's existing sizes/alignment and convert their two supplied endpoints
+(`tree.cc:7460–7511`). Their constant-bound special case consumes at most two
+scalar constant requests; symbolic bounds consume the still-separate folder
+transfer.
+
+Unnamed complex construction allocates its candidate before hashing and may
+repeat once for a canonical component (`tree.cc:8025–8088`). It makes no
+TYPE_DECL or name. The `named=true` variant has a separate declaration/name
+path and must not use this row without charging it.
+
+### Completed scalar layout has no symbolic folding
+
+For a new Integer/Boolean/enumeral type in the precision region above, an
+ordinary pointer/reference, or the internal Integer32 pair, `layout_type`
+requests two scalar constants for bit and byte sizes. The mode gives both
+sizes directly (`stor-layout.cc:2460–2469,2558–2576,2651–2661`). Its finalizer
+does not enter the missing-byte-size division or variable-size path, since
+both sizes are constant. It calls `round_up` on each size
+(`1962–2019`). Natural scalar alignment is a power of two in the selected
+region; the constant arm returns the input or requests one `force_fit_type`
+(`fold-const.cc:16378–16418`). Thus, allowing both rounds conservatively,
+
+```text
+one completed scalar/pointer/Integer32-complex layout:
+    scalar constant requests <= 4;
+    symbolic folding requests = 0;
+one signed/unsigned scalar construction including fixup:
+    scalar constant requests <= 6.
+```
+
+An already completed main variant returns immediately. Propagation to existing
+variants changes fields but constructs no trees (`stor-layout.cc:2024–2067`).
+The Linux target has no default-type-attribute override in its selected header
+closure; its hook is `hook_void_tree` (`target.def:2324–2330`). The selected
+empty-record hook reaches `is_empty_type`, whose scalar/pointer/complex cases
+return false without constructing nodes. The Darwin override is outside this
+Linux closure and receives no transferred claim.
+
+### Type identities, cache records and fixed-size allocation
+
+`make_node` and `copy_node` each increment the unsigned32 `next_type_uid` for
+a fresh type (`tree.cc:142,1368–1369,1521`). Starting at one, an all-phase fresh
+type bound T with `1+T <= 2^32-1` is a sufficient no-wrap condition. Include
+startup/fixed types and every discarded candidate. Hash-collision cleanup can
+roll back the most recent UID, but the envelope takes no credit for that
+rollback (`6433–6479`). This is a local counter condition, not a source cap.
+
+All these type codes allocate `tree_type_non_common`, not a
+source-length-dependent object (`tree.cc:1114–1142`). A conservative LP64
+structural byte bound is 256: start with the 24-byte common header, three
+pointers, a four-byte UID, at most four bytes for each of the 23 declared
+bitfields, a four-byte alias-set ID, align the next pointer to eight bytes,
+then eight pointer/union slots, one language pointer and four noncommon
+pointers (`tree-core.h:1801–1871`; `coretypes.h:366`). This deliberately
+does not assume adjacent bitfields share storage. Its individual GGC rounded
+request is at most 256 bytes. The actual ABI can use less; pointed-to type
+data and constant caches are separate.
+
+`type_hash_canon` calls layout, then either discards the candidate or allocates
+one 16-byte `(unsigned long hash, tree type)` record. Its C++ hash table starts
+with request 1000 (`tree.cc:150–156,770–774,6433–6492`). The existing
+hash backing/probe envelope applies to its live records. For the selected
+scalar/range/complex types, completed layout and hash comparison add no new
+type or bound expression. These constructor transfers therefore close their
+own local allocations without assuming that all generic folding or aggregate
+layout is bounded. The remaining gigi-to-request and all-phase sums still
+have to supply T and the corresponding constant/hash requests.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main
