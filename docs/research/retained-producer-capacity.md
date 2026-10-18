@@ -2623,6 +2623,100 @@ their own bound. The entity overload caches `Unique_Name(E)` and interns only
 on a missing entity key; direct string calls used for dependency records must
 be counted separately.
 
+### Common-pool requests through producer serialization
+
+The direct String overload frontier consists of the three metadata
+deserializers (`flow_generated_globals-phase_2-read.adb:124,141,156`), the
+elaboration-time Current_Task name (`phase_2.adb:110`), the driver heap name
+(`gnat2why-driver.adb:1418`), state-name prefix queries
+(`phase_2-visibility.adb:759–772`), and the heap exclusion in failed-proof
+explanation (`flow_error_messages.adb:1604–1614`). Entity-overload cache misses
+contribute at most `E_total`. Ordinary producer translation/serialization,
+before failed-proof explanation, has the sufficient bound
+
+```text
+F_Common,producer <= 71,831 + E_total + 13 E_Main
+U_Common,producer <= F_Common,producer.
+```
+
+The [metadata inventory](../evidence/retained-producer-capacity-20261017/common-metadata-check.json)
+checks the already retained four library ALIs and five witness Main ALIs.
+The installed runtime's 880 ALIs have no `GG` records; the record identifies
+that read-only installed-input inspection without asserting historical build
+attestation. This uses actual fixed metadata domains, not extrapolation from
+observed Common call-counter maxima:
+
+1. `Read_Withed_ALIs` skips a processed filename (`gcc/ada/ali-util.adb:173–214`);
+   `GG_Resolve` reads every ALIs entry once (`phase_2.adb:2047–2052`).
+   `Get_Token` advances past the consumed token without rewinding
+   (`phase_2-read.adb:64–117`). Each nonempty metadata name token therefore
+   contributes at most one call.
+2. The library ALIs contain 7,468 tokens after the `GG` entry kind; the five
+   whole witness Main ALIs contain 9,755. Even charging scalar/size/label tokens
+   as names gives **17,223**. Under the fixed dependency frontier above, their
+   union covers fixed flow-scope/state/ghost records. Repeated context clauses
+   do not repeat loading. Main adds no subprogram/package/generic/invariant/DIC
+   scopes; ordinary objects and loops do not qualify for
+   `Register_Flow_Scopes` (`flow_visibility.adb:855–948`). Main-local objects do
+   not become globals of the enclosing Main. Main's varying rows are charged
+   again below, including conditional-call effects.
+3. Fixed globals/call records identify **`C=12`** callable entities. Their
+   global/state closure, including the six Text_IO Part_Of constituents, has
+   **`G=12`** names. Main calls and constant-input calls are subsets of this
+   fixed callable closure. `Resolved_Inputs` returns distinct external
+   subprogram vertices and `Write_Constants_To_ALI` visits each constant once
+   (`flow_generated_globals-partial.adb:2561–2585,2643–2689`). Constant-call
+   rows therefore add at most **`(1+C)E_Main=13E_Main`** names. Counting all
+   generated Main entities covers generated constant declarations as well.
+4. Main's two direct/proof-call records add at most `2+2C`; its single globals
+   record adds `2+3C+9G` (entity/parent, three call sets, six globals sets and
+   three tasking sets); its flow-scope record adds two. Total:
+   **`6+5C+9G=174`**. Main has no package initialization/local sets or
+   task/locking records.
+5. Prefix-interning `Scope` is reached by Entity_Name projections in
+   `GG_Resolve`. Later `GG_Get_Globals` uses the distinct Flow_Id/Flow_Scope
+   overloads (`phase_2.adb:569–620`). The traversal map comes from
+   `EK_GLOBALS.Parents`, **not** all visibility scopes (`:1717–1748`;
+   `phase_2-traversal.adb:78–117`). Its 16 fixed globals records, Main and
+   Standard have maximum path depth three, including Standard: fixed records
+   have at most one explicit package parent, Main none. `Do_Global` visits
+   each once; each enclosing `Fold` traverses its subtree once
+   (`phase_2.adb:2533–2555,2695–2721`). At most **`3*(16+2)=54`** effective
+   Fold invocations result.
+6. `Categorize_Calls` returns disjoint callee sets (`phase_2.adb:4119–4312`).
+   Each Fold makes at most `C` callee queries, each projecting at most three
+   sets of `G` names with at most two prefix requests per name. Globals
+   up-projection adds at most `8G`: two per mapped name (at most `3G`) and two
+   per output-containment check (at most `G`). Package initialization adds
+   at most `4G`. Fixed packages have no child/local packages, so
+   `States_And_Objects` adds no recursive projection path
+   (`:2373–2375,2442–2498,2616–2625,2932–2961,4524–4787`). All scope queries
+   thus cost at most **`54*(6CG+12G)=54,432`** calls.
+
+Adding 17,223 fixed tokens, 174 Main schema tokens, 54,432 scope calls, the
+two fixed literals, `E_total` entity misses and `13E_Main` constant names gives
+the formula. Charging every observed fixed interned name as both a callee and
+a global would instead give 193 million Main prefix requests; using the actual
+metadata domains avoids that unnecessarily loose estimate.
+
+`Get_Filtered_Variables_For_Proof` is called only inside `Get_Fix`, selected by
+the failed-proof Error_Kind branch of `Error_Msg_Proof`
+(`flow_error_messages.adb:657–664,950–990`). Ordinary all-proved reporting does
+not use it. A whole-process bound including failed-proof diagnostics must add
+that call count explicitly; the formula above does not silently set it to zero
+for arbitrary failed proof runs. Fixed-library processes have their own fixed
+inputs and observations.
+
+Reproduce the source/archive checks, metadata counts and runtime inspection
+without executing a native tool or prover:
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/common_metadata.py \
+  --source-root /path/to/archived/spark-source \
+  --source-archive docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz \
+  --runtime-root /path/to/pinned/gnatprove/adalib
+```
+
 ### Name construction and the remaining lookup connection
 
 The complete archived SPARK Ada-source inventory contains **671** calls to
@@ -2810,7 +2904,8 @@ F_Why <= 6,097 + 13 B_N.
 The ten startup literals and all fixed allocation-funded calls are
 intentionally charged again. `U_Why <= F_Why` supplies a conservative
 cardinality bound too; compare each quantity to its separate representable
-endpoint. This closes **Why-pool calls**, not Common-pool metadata requests.
+endpoint. This measurement argument closes **Why-pool calls**; the preceding
+Common argument instead uses source structure and retained metadata domains.
 The sum of the five full Common witness counts is 13,398, but it is only a
 retained observation until the metadata-load/source-multiplicity connection is
 established. Subtracting their differing pre-Standard counts would be unsound.
@@ -3000,8 +3095,8 @@ python3 docs/evidence/retained-producer-capacity-20261017/string_lengths.py \
   --source-archive docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz
 ```
 
-The remaining closure work is precise: bound Common-pool metadata-name calls
-from source/load invocation counts; propagate the frontend name and path lengths through the
+The remaining closure work is precise: handle any required failed-proof
+Common-pool diagnostic extension; propagate the frontend name and path lengths through the
 remaining identifier constructors, including `Localize_Binders` composition;
 and bound scoped undo peaks. Comments and `To_Local` are closed by the preceding
 source argument. The additive fixed Why
@@ -3120,7 +3215,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
 | `K_fixed` | Bootstrap/Standard plus selected imported dependencies now have the additive four-component envelope above; Main external-constant assumptions are zero. Other fixed entry/exit work and non-Main frontend entity/list contribution remain separate. Distinct fixed library processes have their own measured four-component results in the linked fixed-process record. |
-| Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above; Why-pool calls are at most `6097+13B_N`. Common-pool metadata calls, complete generated-name lengths and undo-stack peaks still require source connections; the four-component fixed envelope does not supply them. |
+| Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above; Why-pool calls are at most `6097+13B_N`, and ordinary Common-pool producer calls at most `71831+E_total+13E_Main`. Failed-proof diagnostic extensions, complete generated-name lengths and undo-stack peaks remain separate; the four-component fixed envelope does not supply them. |
 | Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
 

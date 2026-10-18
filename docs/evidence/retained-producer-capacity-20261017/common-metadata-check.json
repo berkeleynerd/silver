@@ -1,0 +1,63 @@
+{
+  "constant_record_name_bound_per_main_entity": 13,
+  "fixed_callable_names": [
+    "silver_arguments__first_or_default",
+    "silver_arguments__input_is_valid",
+    "silver_arguments__is_message",
+    "silver_arguments__reject",
+    "silver_io__put",
+    "silver_io__put_line",
+    "silver_output_libc__flush",
+    "silver_output_libc__put_byte",
+    "silver_output_libc__set_exit_status",
+    "silver_runtime__argument",
+    "silver_runtime__argument_count",
+    "silver_runtime__set_exit_status"
+  ],
+  "fixed_common_call_allowance": 71831,
+  "fixed_global_contract_count": 16,
+  "fixed_global_state_names": [
+    "ada___ada__text_io__current_err",
+    "ada___ada__text_io__current_in",
+    "ada___ada__text_io__current_out",
+    "ada___ada__text_io__file_system",
+    "ada___ada__text_io__standard_err",
+    "ada___ada__text_io__standard_in",
+    "ada___ada__text_io__standard_out",
+    "silver_io__flushed",
+    "silver_io__succeeded",
+    "silver_io__written_bytes",
+    "silver_io__written_count",
+    "silver_runtime__exit_state"
+  ],
+  "fixed_token_allowance": 17223,
+  "fold_invocation_bound": 54,
+  "main_nonconstant_schema_bound": 174,
+  "maximum_explicit_parent_count": 1,
+  "ordinary_producer_bound": "71831 + E_total + 13 E_Main",
+  "retained_archive_sha256": "41bb848fdb6752bd0bb552f9b8c706817c58a9681ba4bdec93a8814cee42a495",
+  "runtime_inventory": {
+    "files": 880,
+    "gg_records": 0,
+    "root": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "scope": "Read-only installed-runtime metadata inspection; no historical build attestation.",
+    "sorted_name_nul_sha256_nul_size_lf_digest": "cae78df3a73d285e0df1deb5383b9d12c304075fd327fce8658b21b6cfbf6bf0",
+    "total_bytes": 8764198
+  },
+  "scope": "Source/metadata bound for ordinary producer translation and serialization. Failed-proof diagnostic Get_Fix calls are a separate extension.",
+  "scope_intern_call_bound": 54432,
+  "spark_source_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "token_upper_counts": {
+    "probe/first_or_default/obj/main.ali": 1948,
+    "probe/input_is_valid/obj/main.ali": 1947,
+    "probe/library-obj/silver_arguments.ali": 2505,
+    "probe/library-obj/silver_io.ali": 2365,
+    "probe/library-obj/silver_output_libc.ali": 2332,
+    "probe/library-obj/silver_runtime.ali": 266,
+    "probe/put/obj/main.ali": 1952,
+    "probe/put_line/obj/main.ali": 1952,
+    "probe/reject/obj/main.ali": 1956
+  },
+  "toolchain_or_proof_processes_run": false,
+  "verified_complete_ada_files": 279
+}
