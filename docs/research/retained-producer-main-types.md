@@ -160,3 +160,7 @@ for this family once its incoming `n` and `E1` are bounded from source. It
 does not yet yield a numerical admission rule: source-to-typed-expression
 growth, SP/WP size, match preprocessing size, imported declaration storage
 and the four fixed library-body processes remain distinct obligations.
+
+The [subsequent matcher envelope](retained-producer-matchsize.md) supplies a
+lexical/product size transfer for this concrete frontier. It leaves its
+source-to-SP/WP and marked-definition joins explicit.

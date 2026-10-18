@@ -1,0 +1,20 @@
+{
+  "source_archive_sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+  "equality_fixture": {
+    "input": 13,
+    "distributed": 18,
+    "envelope": 108
+  },
+  "quantifier_profiles": {
+    "unit": {
+      "weight": 1,
+      "overhead": 2
+    },
+    "flat_ref": {
+      "weight": 2,
+      "overhead": 3
+    }
+  },
+  "native_executions": 0,
+  "scope": "Arithmetic illustration and source archive identity only; source-to-SP/WP, E1 and whole-process allocation joins remain open"
+}
