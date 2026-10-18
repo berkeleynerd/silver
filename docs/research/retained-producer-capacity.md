@@ -2698,6 +2698,36 @@ simplifies to
 F_Why <= 10 + 13 B_N + F_pretty + F_fixed_point.
 ```
 
+### Pretty-marker requests are confined to fixed contracts
+
+`Usual_Params` starts with `Gen_Marker = GM_None`
+(`gnat2why-util.ads:296–304`). The complete flag-setting frontier is:
+
+- specification conjunctions (`gnat2why-util.adb:644–698`);
+- subprogram postconditions and expression-function axioms
+  (`gnat2why-subprograms.adb:5310,8864`);
+- dynamic predicates (`gnat2why-expr.adb:7533,13240`);
+- cutpoint/assertion or forced pre/postcondition pragmas
+  (`:25760,28105,28471`);
+- type invariants (`:30702`).
+
+The assignments inside `Transform_Expr` only consume or propagate an already
+set flag (`:23627–23643,24803`); they do not turn ordinary `GM_None` Main
+parameters into marker requests. Current Main has none of the annotation,
+predicate, invariant or expression-function forms above. Its API calls use
+precomputed callee specifications, as established in the call transfer, and
+its ordinary branches/loops start from the ordinary parameters. Thus
+**`F_pretty_Main = 0`**. Selected imported contracts may still request markers;
+they belong to the fixed entity translation/completion frontier above.
+
+This reduces the remaining request count to fixed contract work; it does not
+supply its numerical allowance. Marker requests that reach a fresh label can
+be charged to that allocation, but the early Standard.True/False returns
+(`gnat2why-expr.adb:23645–23657`) still require counting the fixed requests.
+The predicate-function early return (`:24996–25000`) is another reason not to
+claim a universal allocation injection outside this grammar. The ordinary
+Main domain and fixed dependencies must remain distinct in this accounting.
+
 ### Serialized label sets have cardinality at most three
 
 All nonempty symbol-label construction paths produce singleton markers,
@@ -2787,6 +2817,34 @@ must be charged along that path. Location labels follow instantiation locations
 (`spark_util.adb:5944–6006`); Main has neither generic instantiations nor enabled
 inlining, while fixed dependencies remain fixed cases. These functions cannot
 be replaced by a fixed short-label assumption.
+
+The label-length part of that connection has explicit source-sized bounds.
+Let `H >= 18` bound every raw `Chars`/attribute name on the relevant frontend
+parent paths, `A_path` bound their acyclic length, `P_file` bound the file names
+used by `Location_String`, and `P_ref` bound the reference names used by
+`Build_Location_String`. These are per-string/path quantities, not sums of
+physical memory use.
+
+| Label or location string | Sufficient length bound |
+| --- | --- |
+| `Shape_Of_Node` | `A_path * (2H + 8)`. Each iteration adds at most two raw names plus bounded punctuation/tags; the two-name attribute-definition branch is the largest name multiplicity. Other branches satisfy the same bound for `H >= 18` (`spark_util.adb:7005–7338`). No source subtree is recursively serialized into this shape. |
+| Shape label | `9 + A_path * (2H + 8)`, adding `GP_Shape:` (`why-gen-expr.adb:4714–4722`; `vc_kinds.ads:1248`). |
+| Main check location | `P_file + 22`, from one filename, two colons and two at-most-ten-digit positive images (`spark_util.adb:5944–6006`). Main has no instantiation/inlining chain. Fixed dependency chains must be bounded separately. |
+| Main check label | `P_file + 78`: `GP_Check:` (9), VC id (at most 10), two colons, the longest `VC_Kind` image (35), and the previous location bound (`why-gen-expr.adb:4272–4283`; `vc_kinds.ads:48–187`). |
+| Main comment location | `P_ref + 11`, from one reference name, a colon and an at-most-ten-digit logical line number (`gcc/ada/sinput.adb:231–277`). This is the different `Build_Location_String` function, not the check-label formatter. |
+| Pretty marker | At most 24: `GP_Pretty_Ada:` (14) plus an at-most-ten-digit node id. The special range-bound images `-1`/`-2` are shorter (`why-gen-expr.adb:4876–4877,4911,4918`; `vc_kinds.ads:1247,1272–1273`). |
+| Branch/loop marker | At most 20 / 15: `branch_id=` plus a trimmed ten-digit node id, or `Loop` plus the eleven-character nonnegative `Node_Id'Image` (`why-gen-expr.adb:1967,4733–4735`). |
+
+For Main paths, `A_Main` may conservatively replace `A_path`; its `H` is the
+maximum of `max(I_max+5,18)` and the fixed called-entity/attribute spellings.
+The longest entity-module suffix above is exactly 24 characters
+(`why-atree-modules.adb:138–167`). String-literal theory/function/axiom names
+use `New_Temp_Identifier ("String_Literal")` and fixed `__def`/`__well_formed`
+suffixes; the literal payload is represented by numeric value nodes, not copied
+into these names (`gnat2why-expr.adb:30274–30335,30472,30508,30525`). These
+bounds are ready for the serializer's per-string parameter, but are not by
+themselves an exhaustive maximum for generated identifiers, localized binders,
+projection names or theory comments.
 
 The remaining closure work is precise: bound precomputed pretty-expression
 markers, fixed-point and metadata-name calls from the source

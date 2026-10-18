@@ -15,7 +15,11 @@
     "other": 32
   },
   "long_long_integer_last": 9223372036854775807,
+  "main_check_label_length_above_filename": 78,
+  "maximum_entity_module_suffix_length": 24,
   "maximum_find_length_sum": 4611686014132420609,
+  "maximum_pretty_marker_length": 24,
+  "maximum_vc_kind_image_length": 35,
   "module_kind_cardinality": 27,
   "natural_last": 2147483647,
   "nid_call_sites": 671,

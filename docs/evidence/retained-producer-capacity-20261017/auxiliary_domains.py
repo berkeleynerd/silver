@@ -82,6 +82,20 @@ def check(source_root, archive):
     assert sum(counts.values()) == 671
     assert counts["other"] == 32
 
+    vc_spec = sources["src/common/vc_kinds.ads"].decode()
+    vc_body = re.search(r"type VC_Kind is\s*\((.*?)\);",
+                        clean(vc_spec), re.S).group(1)
+    vc_images = re.findall(r"\bVC_\w+\b", vc_body)
+    max_vc_image = max(map(len, vc_images))
+    assert max_vc_image == 35
+    module_body = sources["src/why/why-atree-modules.adb"].decode()
+    module_suffixes = module_body[module_body.index("(case K is"):]
+    module_suffixes = module_suffixes[:module_suffixes.index("begin")]
+    max_module_suffix = max(map(len, re.findall(r'"([^"]*)"', module_suffixes)))
+    assert max_module_suffix == 24
+    assert len("GP_Check:") + 10 + 2 + max_vc_image + 22 == 78
+    assert len("GP_Pretty_Ada:") + 10 == 24
+
     identity = json.loads((ROOT / "gnatcoll/identity.json").read_text())
     for name, expected_hash in identity["files"].items():
         assert digest((ROOT / "gnatcoll" / name).read_bytes()) == expected_hash
@@ -107,6 +121,10 @@ def check(source_root, archive):
         "nid_call_sites": sum(counts.values()),
         "lexical_enclosing_call_counts": dict(sorted(counts.items())),
         "nid_calls_by_file": inventory,
+        "maximum_vc_kind_image_length": max_vc_image,
+        "maximum_entity_module_suffix_length": max_module_suffix,
+        "main_check_label_length_above_filename": 78,
+        "maximum_pretty_marker_length": 24,
         "natural_last": natural_last,
         "maximum_find_length_sum": max_string_sum,
         "long_long_integer_last": long_long_last,
