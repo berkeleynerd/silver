@@ -1,5 +1,5 @@
 {
-  "case_count": 66,
+  "case_count": 67,
   "cases": [
     {
       "case": "retained",
@@ -125,6 +125,10 @@
     {
       "case": "GPR_parent_Main_ALI_interface_mismatch",
       "rejected": "literal GPR parent DW interface join"
+    },
+    {
+      "case": "native_ingress_direct_subtotal_mismatch",
+      "rejected": "literal native ingress/direct/helper interface join"
     },
     {
       "case": "VT_rejected",

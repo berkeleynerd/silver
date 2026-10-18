@@ -12,7 +12,8 @@ have a conditional join, and the literal-sized ranger/out-of-SSA backing is
 substituted. Initial SSA infrastructure and renaming also have a separate
 constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
 conditional join. The next native consumer is the remaining frontend/gigi and
-gimplifier ingress/helper lifetime, followed by shared collector composition.
+remaining gimplifier helper lifetime, followed by shared collector composition.
+The reviewed whole-body copy and data-address bounds are now attached separately.
 The independently accepted literal linker and Main ALI adapters also join the
 same source interface; binder parser/graph and complete launch work remain open.
 No production rule or option changed; #119 remains incomplete.
@@ -951,6 +952,10 @@ subtotal are returned separately so later composition can retain this boundary.
 
 ### Selected gimplifier helpers and the ingress obstruction
 
+This subsection preserves the selected 6C component and its original diagnostic
+boundary. The separate whole-body ingress join below resolves W, local metadata
+and data-address copies; the complete lifetime and incoming warning map remain open.
+
 `native_gimplifier_selected_helpers(C, N)` adds **6C requests at named sites**
 to the direct-site interface. This is a partial additive interface, not a
 complete gimplifier bound. It leaves both the whole-body copy weight and the
@@ -1055,6 +1060,36 @@ gigi allocation, helper exhaustion, global counters and collector composition
 remain open. This diagnostic narrows the next investigation without claiming
 that the selected 6C subtotal closes those obligations.
 
+## Native whole-body ingress join
+
+The independently reviewed [ingress packet](retained-native-ingress-bound.md)
+now supplies `native_gimplifier_ingress` from the same actual-source C/N counters.
+The [review](../reviews/review-native-ingress-eb0471fa33.md) accepts its frozen
+`eb0471fa33` argument and the BIND/CF/stack correction in `e4d170e8ed`.
+
+Its source projection includes the two possible local TYPE_DECL/DECL_EXPR roots
+per literal, protected BIND children and their constant/null metadata. The
+incoming-edge occurrence bound is **W <= 9C+3N+1**. Applying the retained 3W
+copy transfer, including 6C constructor-vector requests, gives **33C+9N+3**
+whole-body GGC requests. The raw and rounded request-byte sums are respectively
+1320C+288N+96 and 1728C+288N+96. These are request sums, not peak-memory gates.
+The retained data-address subtree has at most NOP(ADDR(STRING_CST)); copying
+it adds 2C requests. The selected helper subtotal is therefore **8C**, already
+including the earlier 6C component, which must not be added again.
+
+The aggregate checks equality of the direct-site subtotal, CF location calls,
+bind count/depth, stack capacity/request counts/bytes, local-variable demand,
+warning-copy calls and helper subtotal. It checks all 28 pinned source files,
+including the separately retained `match.pd`. It also checks each literal
+length against INT_MAX. The protected-set prime must exist, its probe
+intermediate `2p-3` must fit UINT_MAX, and its `8p` backing request must fit the
+selected signed-size domain. Prime existence alone is insufficient. The set
+object and allocator bookkeeping remain open and separate from the GGC sum.
+
+Original frontend/gigi construction, incoming warning-map backing, other
+helper lifetimes, global counter and collector joins remain unestablished.
+The aggregate retains every complete-lifetime/capacity flag as false.
+
 ## Accepted linker and Main ALI interfaces
 
 The aggregate attaches the independently accepted
@@ -1127,8 +1162,8 @@ results. No production invocation or capacity rule changes.
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
-repair. The remaining constructor join must cover source/frontend, gigi and
-gimplifier ingress/helper lifetimes, existing RTL/DF/helper ceilings, shared
+repair. The remaining constructor join must cover original source/frontend and
+gigi construction, remaining gimplifier helpers, existing RTL/DF/helper ceilings, shared
 identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
 pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
 ordinary requests; initial CF/EH/CFG/root-loop constructors now provide their
@@ -1296,3 +1331,12 @@ took 2.402922201 seconds. The intentionally failing 5000-call linker bound and
 false complete-gimplifier/whole-pipeline verdicts remain. No native tool ran.
 This increment is frozen for independent review. The next step is to complete
 the source projection across the named ingress edges and cache state.
+
+### Reviewed ingress attachment
+
+The separately accepted `eb0471fa33` packet is attached after the #130 repair.
+All 67 aggregate cases pass in 3.542503305 seconds, and default-result generation
+passes in 2.876774008 seconds on Linux x86-64. The additional mismatch case
+rejects divergence in the direct subtotal; existing source variants check the
+new W, whole-body, address-copy and subtotal interfaces. This is offline
+validation with zero new native executions. Full capacity remains false.

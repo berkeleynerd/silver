@@ -97,6 +97,7 @@
     "native_SSA_helper_backing": true,
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
+    "native_whole_body_copy_local_interface": true,
     "Main_assembler_object_interface": true,
     "Main_GAS_BFD_storage": true,
     "literal_output_linker_representation": true,
@@ -1326,6 +1327,140 @@
       "remaining_gimplifier_helper_and_shared_state_exhaustion"
     ],
     "source_argument": "docs/research/retained-literal-pipeline.md#selected-gimplifier-helpers-and-the-ingress-obstruction"
+  },
+  "native_gimplifier_ingress": {
+    "source_input": {
+      "calls": 1,
+      "nulls": 0,
+      "each_literal_length_min": 0,
+      "each_literal_length_max": 2147483647
+    },
+    "ordinary_occurrence_rows": [
+      {
+        "object": "DECL_EXPR, ADDR_EXPR, optional NOP_EXPR",
+        "occurrences": 6,
+        "raw_bytes": 32,
+        "rounded_bytes": 32
+      },
+      {
+        "object": "one-actual CALL_EXPR",
+        "occurrences": 1,
+        "raw_bytes": 56,
+        "rounded_bytes": 64
+      },
+      {
+        "object": "fat and bounds CONSTRUCTOR",
+        "occurrences": 2,
+        "raw_bytes": 24,
+        "rounded_bytes": 32
+      },
+      {
+        "object": "null DECL_EXPR, GOTO_EXPR, LABEL_EXPR",
+        "occurrences": 0,
+        "raw_bytes": 32,
+        "rounded_bytes": 32
+      },
+      {
+        "object": "bare RETURN_EXPR",
+        "occurrences": 1,
+        "raw_bytes": 32,
+        "rounded_bytes": 32
+      }
+    ],
+    "whole_body_copy_weight_upper": 10,
+    "whole_body_individual_GGC_request_groups": [
+      {
+        "object": "DECL_EXPR, ADDR_EXPR, optional NOP_EXPR",
+        "requests_upper": 18,
+        "raw_bytes_upper": 32,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "one-actual CALL_EXPR",
+        "requests_upper": 3,
+        "raw_bytes_upper": 56,
+        "rounded_bytes_upper": 64
+      },
+      {
+        "object": "fat and bounds CONSTRUCTOR",
+        "requests_upper": 6,
+        "raw_bytes_upper": 24,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "null DECL_EXPR, GOTO_EXPR, LABEL_EXPR",
+        "requests_upper": 0,
+        "raw_bytes_upper": 32,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "bare RETURN_EXPR",
+        "requests_upper": 3,
+        "raw_bytes_upper": 32,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "copied two-element constructor vector",
+        "requests_upper": 6,
+        "raw_bytes_upper": 72,
+        "rounded_bytes_upper": 128
+      }
+    ],
+    "whole_body_ordinary_tree_requests_upper": 30,
+    "whole_body_constructor_vector_requests_upper": 6,
+    "whole_body_GGC_request_events_upper": 36,
+    "whole_body_raw_request_bytes_sum_upper": 1416,
+    "whole_body_rounded_request_bytes_sum_upper": 1824,
+    "whole_body_fresh_STRING_CST_TYPE_DECL_and_scalar_constant_requests": 0,
+    "local_decl_expr_metadata_nonconstant_unshare_or_materialization_calls": 0,
+    "pointer_type_walker_duplicate_set_requests": 0,
+    "protected_set": {
+      "object_requests_upper": 1,
+      "initial_slots": 13,
+      "slot_bytes": 8,
+      "distinct_entries_upper": 2,
+      "deletions": 0,
+      "backing_requests_upper": 3,
+      "maximum_backing_slots_upper": 13,
+      "maximum_backing_request_bytes_upper": 104,
+      "selected_prime_table_condition": true,
+      "allocation_domain": "ordinary; separate from GGC deltas",
+      "object_size_and_allocator_bookkeeping_joined": false
+    },
+    "materialization_data_address_delta": {
+      "tree_requests_upper": 2,
+      "raw_and_rounded_bytes_each": 32,
+      "rounded_request_bytes_sum_upper": 64,
+      "fresh_string_type_decl_and_vector_requests": 0
+    },
+    "selected_helper_subtotal_GGC_events_upper": 8,
+    "selected_helper_subtotal_includes_accepted_6C": true,
+    "corrected_direct_gimplifier_GGC_events_upper": 12,
+    "direct_subtotal_bind_correction_GGC_events_upper": 1,
+    "GENERIC_and_GIMPLE_bind_count_upper": 2,
+    "simultaneous_GENERIC_bind_depth_upper": 2,
+    "bind_stack": {
+      "allocation_domain": "ordinary",
+      "capacities_upper": [
+        8,
+        16
+      ],
+      "requests_upper": 2,
+      "request_bytes_upper": [
+        72,
+        136
+      ],
+      "cumulative_request_bytes_upper": 208,
+      "maximum_request_bytes_upper": 136
+    },
+    "corrected_CF_gimple_set_block_calls_upper": 6,
+    "CF_local_declarations_vector_elements_upper": 1,
+    "direct_copy_warning_calls_upper": 2,
+    "conditional_whole_body_ingress_closed": true,
+    "complete_gimplifier_GGC_request_events_upper": null,
+    "complete_gimplifier_lifetime_closed": false,
+    "whole_pipeline_capacity_established": false,
+    "production_admission_changed": false
   },
   "Main_assembler_object_interface": {
     "counts": {
@@ -2994,7 +3129,7 @@
   },
   "open_joins": {
     "native_remaining_lifetime_and_collector": {
-      "next_consumer": "complete frontend/gigi and gimplifier ingress/helper lifetimes, then remaining pass, shared-pool and GGC collector composition.",
+      "next_consumer": "original frontend/gigi constructors and remaining gimplifier helper lifetimes, then remaining pass, shared-pool and GGC collector composition.",
       "available": {
         "graph_scan_count_upper": 4,
         "call_edge_creation_events_upper": 4,
@@ -3003,9 +3138,11 @@
         "ranger_and_out_of_SSA_backing_closed": true,
         "initial_SSA_GGC_events_upper": 17,
         "initial_CF_CFG_GGC_events_upper": 24,
-        "direct_gimplifier_GGC_events_upper": 12
+        "direct_gimplifier_GGC_events_upper": 12,
+        "whole_body_copy_GGC_events_upper": 36,
+        "selected_gimplifier_helper_GGC_events_upper": 8
       },
-      "missing": "Complete frontend/gigi and gimplifier declaration/type-expression ingress, data-address copies, post-gigi warning-map backing and remaining helper lifetimes. Selected constructor/bounds-address copies and GIMPLE-fold replacement sites are priced separately; no complete gimplifier sum is supplied. Join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. The null 40098 allowance is not reused."
+      "missing": "Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Protected-set object/allocator bookkeeping, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -3171,8 +3308,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 87,
-  "external_source_files_verified": 268,
+  "fixed_input_count": 92,
+  "external_source_files_verified": 274,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

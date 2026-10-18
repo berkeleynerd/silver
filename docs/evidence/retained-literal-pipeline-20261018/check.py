@@ -18,7 +18,7 @@ def main():
     module.arguments(parser)
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
-    context=module.Context(args.gcc_root,args.ada_root,args.plugin_include)
+    context=module.Context(args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match)
     fixture=module.read(HERE/'fixture.json')
     fixture['source']=str((HERE/fixture['source']).resolve())
     fixture['shared_inputs']={role:str((HERE/path).resolve())
@@ -127,6 +127,16 @@ def main():
             assert vectors[0]['initial_reserved_elements']==4
             assert vectors[0]['bytes_before_GC_rounding']==72
             assert vectors[0]['raw_bytes_upper']==128
+            ingress=result['native_gimplifier_ingress']
+            assert ingress['source_input']['calls']==c and ingress['source_input']['nulls']==n
+            assert ingress['whole_body_copy_weight_upper']==9*c+3*n+1
+            assert ingress['whole_body_GGC_request_events_upper']==33*c+9*n+3
+            assert ingress['materialization_data_address_delta']['tree_requests_upper']==2*c
+            assert ingress['selected_helper_subtotal_GGC_events_upper']==8*c
+            assert ingress['protected_set']['distinct_entries_upper']==c+1
+            assert result['conditions']['native_whole_body_copy_local_interface']
+            assert not ingress['complete_gimplifier_lifetime_closed']
+            assert ingress['complete_gimplifier_GGC_request_events_upper'] is None
             assembler=result['Main_assembler_object_interface']
             assert assembler['local_interface_fits']
             storage=result['Main_GAS_BFD_storage']
@@ -224,6 +234,22 @@ def main():
                 raise AssertionError('GPR parent accepted mismatched '+field)
             finally:
                 context.gpr_parent['evaluate']=parent_evaluate
+
+        ingress_evaluate=context.ingress['evaluate']
+        def mismatched_ingress(c,n):
+            result=ingress_evaluate(c,n)
+            result['corrected_direct_gimplifier_GGC_events_upper']+=1
+            return result
+        context.ingress['evaluate']=mismatched_ingress
+        try:
+            evaluate(original)
+        except ValueError as error:
+            assert str(error)=='literal native ingress/direct/helper interface join'
+            rows.append(dict(case='native_ingress_direct_subtotal_mismatch',rejected=str(error)))
+        else:
+            raise AssertionError('native ingress accepted a mismatched direct subtotal')
+        finally:
+            context.ingress['evaluate']=ingress_evaluate
 
         rejections=[('VT_rejected',b'\v'+original,fixture),
                     ('concat_rejected',shell+b'Silver_IO.Put ("a" & "b");'+tail,fixture),

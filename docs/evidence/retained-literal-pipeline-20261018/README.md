@@ -23,8 +23,9 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 66 interface checks. It reuses one context's
-successful retained checks across source variations.
+arguments and `--output`, and runs 67 interface checks. It reuses one context's
+successful retained checks across source variations. `--gcc-match FILE` selects
+the pinned `match.pd`; by default its retained source-manifest path is used.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
 The existing source manifests and `source-join-inputs.json` check complete
@@ -80,13 +81,17 @@ constructors from the established GIMPLE shape, including local-declaration
 and index vectors, variable finally/discriminator hashes, ordinary traversal
 backing and shared metadata/bitmap/ET demand. A separate `10C+2N+2` direct-site
 gimplifier subtotal is exposed without claiming the complete gimplifier
-lifetime: deep unsharing, materialization copies/folding and shared helper
-work remain explicit. The corrected direct bound includes up to C call-local
+lifetime. The separate ingress component now supplies whole-body and
+data-address copying; remaining shared helper work stays explicit. The corrected direct bound includes up to C call-local
 binds as well as Main, with a depth-two binding stack (72/136-byte requests).
 The selected helper interface separately prices 6C constructor/vector/bounds
-address requests and zero selected GIMPLE-fold replacements; whole-body W,
-data-address copy and incoming warning-map backing remain open. Later passes
-and complete collector composition stay open.
+address requests and zero selected GIMPLE-fold replacements. The reviewed
+`native_gimplifier_ingress` supplies W<=9C+3N+1, whole-body requests<=33C+9N+3
+and the additional 2C data-address requests. Its selected 8C subtotal includes
+that earlier 6C component. Exact direct/CF/bind/stack/helper joins are checked;
+the protected-set prime, probe arithmetic and individual backing request have
+separate conditions. Original frontend/gigi, incoming warning-map backing,
+remaining helpers, set-object bookkeeping and collector composition stay open.
 
 The independently reviewed literal assembler callable now consumes the same
 source bytes. Its counters, final chain, text bytes and rodata bytes must

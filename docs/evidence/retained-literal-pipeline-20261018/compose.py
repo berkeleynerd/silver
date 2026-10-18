@@ -47,7 +47,7 @@ def load_checked_script(path, arguments):
 
 
 class Context:
-    def __init__(self, gcc_root, ada_root, plugin_include):
+    def __init__(self, gcc_root, ada_root, plugin_include, gcc_match=None):
         pins = read(HERE/'inputs.json')
         for row in pins:
             require(identity((REPO/row['path']).read_bytes()) ==
@@ -66,6 +66,22 @@ class Context:
                         {key:row[key] for key in ('bytes','sha256')},
                         'changed literal source: '+str(path))
                 checked.add(str(path))
+        ingress_packet=EVIDENCE/'retained-native-ingress-bound-20261018'
+        ingress_manifest=read(ingress_packet/'source-manifest.json')
+        match_path=Path(gcc_match) if gcc_match is not None else Path(
+            ingress_manifest['source_root_defaults']['match'])
+        for row in ingress_manifest['files']:
+            if row['path']=='gcc/match.pd':
+                path=match_path
+            elif row['source_root']=='ada':
+                path=roots['ada']/row['path'].removeprefix('gcc/ada/')
+            else:
+                path=roots['gcc']/row['path']
+            require(identity(path.read_bytes()) ==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'changed native ingress source: '+str(path))
+            checked.add(str(path))
+        self.ingress = runpy.run_path(str(ingress_packet/'derive.py'))
         self.source_files_verified = len(checked)
         # These are retained evidence inputs, not a newly observed prefix.
         self.prefix = read(NATIVE/'native-gcc-prefix-witness.json')
@@ -692,6 +708,24 @@ def evaluate(descriptor_path, context, source_override=None):
     initial_ssa = native_initial_ssa_lifetime(c,n,context)
     initial_cf_cfg = native_initial_cf_cfg_lifetime(c,n,context)
     gimplifier_helpers = native_gimplifier_selected_helpers(c,n)
+    ingress = context.ingress['evaluate'](c,n)
+    direct = initial_cf_cfg['direct_gimplifier_interface']
+    require(ingress['source_input']['calls']==c and ingress['source_input']['nulls']==n and
+            ingress['corrected_direct_gimplifier_GGC_events_upper']==direct['direct_site_GGC_request_events_upper'] and
+            ingress['corrected_CF_gimple_set_block_calls_upper']==initial_cf_cfg['additional_CF_block_location_requests_upper'] and
+            ingress['GENERIC_and_GIMPLE_bind_count_upper']==direct['retained_source_bind_tuples_upper'] and
+            ingress['simultaneous_GENERIC_bind_depth_upper']==direct['simultaneous_bind_depth_upper'] and
+            ingress['bind_stack']['capacities_upper'][-1]==direct['bind_stack_allocated_slots_upper'] and
+            ingress['bind_stack']['maximum_request_bytes_upper']==direct['bind_stack_bytes'] and
+            ingress['bind_stack']['requests_upper']==direct['bind_stack_backing_requests_upper'] and
+            ingress['bind_stack']['cumulative_request_bytes_upper']==direct['bind_stack_cumulative_requested_bytes_upper'] and
+            ingress['CF_local_declarations_vector_elements_upper']==c and
+            ingress['direct_copy_warning_calls_upper']==gimplifier_helpers['direct_warning_copy_interface']['copy_warning_calls_upper'] and
+            ingress['selected_helper_subtotal_includes_accepted_6C'] and
+            ingress['selected_helper_subtotal_GGC_events_upper']==gimplifier_helpers['selected_site_GGC_request_events_upper']+
+                ingress['materialization_data_address_delta']['tree_requests_upper'],
+            'literal native ingress/direct/helper interface join')
+    protected_slots=ingress['protected_set']['maximum_backing_slots_upper']
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -776,6 +810,9 @@ def evaluate(descriptor_path, context, source_override=None):
         native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
         native_initial_SSA_lifetime=initial_ssa['conditional_initial_SSA_lifetime_closed'],
         native_initial_CF_CFG_lifetime=initial_cf_cfg['conditional_initial_CF_CFG_lifetime_closed'],
+        native_whole_body_copy_local_interface=(counts['maximum_literal_length']<=ingress['source_input']['each_literal_length_max'] and
+            ingress['conditional_whole_body_ingress_closed'] and protected_slots is not None and
+            2*protected_slots-3<=2**32-1 and 8*protected_slots<=I64),
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
@@ -790,15 +827,17 @@ def evaluate(descriptor_path, context, source_override=None):
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'complete frontend/gigi and gimplifier ingress/helper lifetimes, then remaining pass, shared-pool and GGC collector composition.',
+            'next_consumer':'original frontend/gigi constructors and remaining gimplifier helper lifetimes, then remaining pass, shared-pool and GGC collector composition.',
             'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
                              new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
                              new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
                              ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed'],
                              initial_SSA_GGC_events_upper=initial_ssa['additional_GGC_request_events_upper'],
                              initial_CF_CFG_GGC_events_upper=initial_cf_cfg['additional_GGC_request_events_upper'],
-                             direct_gimplifier_GGC_events_upper=initial_cf_cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper']),
-            'missing':'Complete frontend/gigi and gimplifier declaration/type-expression ingress, data-address copies, post-gigi warning-map backing and remaining helper lifetimes. Selected constructor/bounds-address copies and GIMPLE-fold replacement sites are priced separately; no complete gimplifier sum is supplied. Join remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds. The null 40098 allowance is not reused.'},
+                             direct_gimplifier_GGC_events_upper=initial_cf_cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper'],
+                             whole_body_copy_GGC_events_upper=ingress['whole_body_GGC_request_events_upper'],
+                             selected_gimplifier_helper_GGC_events_upper=ingress['selected_helper_subtotal_GGC_events_upper']),
+            'missing':'Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Protected-set object/allocator bookkeeping, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -829,6 +868,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_initial_SSA_lifetime=initial_ssa,
         native_initial_CF_CFG_lifetime=initial_cf_cfg,
         native_gimplifier_selected_helpers=gimplifier_helpers,
+        native_gimplifier_ingress=ingress,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,
@@ -851,6 +891,8 @@ def arguments(parser):
     parser.add_argument('--gcc-root',type=Path,required=True)
     parser.add_argument('--ada-root',type=Path,required=True)
     parser.add_argument('--plugin-include',type=Path,required=True)
+    parser.add_argument('--gcc-match',type=Path,
+                        help='Pinned match.pd; defaults to the retained ingress manifest path')
 
 
 def main():
@@ -860,7 +902,7 @@ def main():
     parser.add_argument('--source',type=Path)
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
-    result=evaluate(args.descriptor,Context(args.gcc_root,args.ada_root,args.plugin_include),args.source)
+    result=evaluate(args.descriptor,Context(args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match),args.source)
     args.output.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({key:result[key] for key in ('evaluated_predicates_pass',
         'whole_literal_pipeline_capacity_established','next_repair','native_tool_executions')}))

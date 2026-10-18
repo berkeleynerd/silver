@@ -433,5 +433,30 @@
     "path": "docs/reviews/review-literal-gpr-parent-f7904ce722.md",
     "bytes": 9054,
     "sha256": "2cdb84fd29fbf4d7c3e8b5606be36442d64b19be01ec5ea39e9b229a03d53122"
+  },
+  {
+    "path": "docs/evidence/retained-native-ingress-bound-20261018/derive.py",
+    "bytes": 5142,
+    "sha256": "c0a00c39dff5da35b77478e6a7670341fc09366883e52512d8fd952dc2efab36"
+  },
+  {
+    "path": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+    "bytes": 10880,
+    "sha256": "2346c508d0a94161667b9f7850705c17ed58ed80414c0b05cd96eb3dacf4d5b5"
+  },
+  {
+    "path": "docs/evidence/retained-native-ingress-bound-20261018/check.py",
+    "bytes": 10441,
+    "sha256": "baf8f17463837ea0a7a1d75ab7e673cd868ce848288fe388b6606e98a06cd00e"
+  },
+  {
+    "path": "docs/evidence/retained-native-ingress-bound-20261018/check-results.json",
+    "bytes": 26412,
+    "sha256": "243f57f2850ff70ab4951cfdf13df853d73d006d134d632924c603bf83aa1602"
+  },
+  {
+    "path": "docs/research/retained-native-ingress-bound.md",
+    "bytes": 23155,
+    "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
   }
 ]
