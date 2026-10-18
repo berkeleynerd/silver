@@ -5806,6 +5806,130 @@ That removes the GPR generation boundary but changes more of the build
 driver. Both are proposed implementation interfaces under the existing
 authorization; neither launcher nor admission rule is implemented here.
 
+### Selected native command family and argument objects
+
+The [invocation reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-invocation.py)
+now derives the selected Linux x86_64 Main launch class from the production
+project writer, retained native `gnat.xml`, inspected GPR source and pinned GCC
+sources. Its [descriptor](../evidence/unbounded-programs/retained-native-expansion-20261017/native-invocation-inputs.json)
+keeps the source-derived command class separate from the successful direct-GCC
+capture and the retained native ALI. The historical native GPR argv and inherited
+environment were not captured.
+
+The production writer supplies the three Default_Switches
+`-gnat2022`, `-gnata`, `-gnato` and invokes `gprbuild -P ... -p`
+(`src/silver.adb:101–125`). The selected native template supplies four leading
+arguments and one switch each for the generated config and mapping files.
+Thus the native GCC launch has ten arguments excluding its executable:
+
+```text
+-c -x ada -gnatA -gnat2022 -gnata -gnato
+-gnatec={configuration} -gnatem={mapping} {workspace}/main.adb
+```
+
+GPR changes to the object's directory before adding these final inputs
+(`gprbuild-compile.adb:3515–3537`). The selected single-unit source has no
+multi-unit or explicit object-file switch. The native template has no
+Object_Path_Switches; the earlier `-gnateO` byte fixture belongs to the distinct
+producer configuration. With mapping enabled, the default
+Use_Include_Path_File=False also means GPR creates no include-path file
+(`gpr-opt.ads:241`, `gprbuild-compile.adb:3361–3369`). This does **not** clear
+an inherited project-path variable. Those must be controlled separately.
+
+The Ada GCC specs forward six GNAT/configuration switches, one source and
+the output-assembly pair; add the executable, `-quiet`, two retained target
+defaults and at most three dump-option pairs. This gives **19 gnat1 argv
+positions**, including argv[0] (`gcc-interface/lang-specs.h:41–62`,
+`gcc.cc:11025–11120`). The fixed x86_64 target defaults agree with the retained
+direct-driver expansion and native ALI: `-mtune=generic`, `-march=x86-64`.
+The allowance includes a dumpdir pair even when it is absent. No response
+file, user specs/plugin, alternate runtime/target, optimization/debug option,
+coverage, compare-debug or other switch family belongs to this class. Their
+exclusion is a required configuration check, not a claim about arbitrary GPR
+or environment inputs.
+
+The selected options do not take the diagnostics-plain-output expansion in
+`decode_cmdline_options_to_array`; ordinary decoding consumes at least one
+argv item per output, and pruning only removes/reorders (`opts-common.cc:
+1030–1127,1153–1282`). Hence there are at most19 decoded options. Its initial
+and pruned arrays each contain96-byte padded `cl_decoded_option` records on
+the selected LP64 target: eleven eight-byte fields/array positions plus one
+four-byte errors member, rounded to eight-byte alignment (`opts.h:252–294`).
+These are separate1824-byte objects. `gnat_init_options` allocates39 C pointer
+positions and produces at most38 canonical args, then gives the Ada runtime
+one executable-name pointer (`gcc-interface/misc.cc:208–248`).
+`Scan_Compiler_Arguments` allocates a37-position unconstrained-String-pointer
+array and copies each argument; its loop and Len_Arg's terminating-NUL scan
+use signed Ada counts (`back_end.adb:197–204,212–218,303–315`).
+
+`native_command_line_backing` checks these individual arrays and Strings,
+the corresponding counters and joined/quoted option-text arithmetic.
+With P bounding **all** complete raw/normalized/resolved paths, including
+the executable, GCC temporary assembly and default-search probe names, the
+largest selected argument is bounded by `max(14,P+7)`. Quoting can double
+its characters; a two-item decoded diagnostic spelling can add a separator.
+These checks do not replace the remaining GCC-driver prefix/spec/temporary
+object audit or the effective-search descriptor.
+
+The frontend stores exactly six compilation switches for this class.
+Configuration and map cases explicitly disable switch storage
+(`switch-c.adb:501–546,706–728`); backend internal/output arguments are
+skipped (`back_end.adb:240–278`). The retained native Main ALI contains the
+same six A records. Therefore the Compilation_Switches table has demand6,
+low1, initial30,100% growth and16-byte String-pointer components
+(`lib.ads:954–960`, `lib.adb:1173–1190`). It replaces the direct capture's
+five-switch demand in this component rather than adding both.
+The A records total72 bytes including LF; their longest record is16
+characters before LF. These are complete **A-record** bounds, not a bound
+on all ALI serialization. All selected argument and switch checks pass for
+the five P=200 examples.
+
+### Effective-search realization remains an implementation premise
+
+The same selected native class can retain the direct capture's exact
+ADA_INCLUDE_PATH/adainclude and ADA_OBJECTS_PATH/adalib values while removing
+its explicit `-I` library-source directory; the map supplies the workspace
+files. Existing6/4 directory-table allowances are conservative for that
+reduced search shape. To use this result, a launcher must establish the
+**whole** effective configuration before launch: no inherited
+ADA_PRJ_INCLUDE_FILE/ADA_PRJ_OBJECTS_FILE or GNSA_ROOT, no GCC prefix/search/
+compare-debug overrides, a controlled PATH, locale and temporary-directory
+selection, and the exact selected runtime. `osint.adb:462–558` otherwise reads
+all four Ada path variables and default-search data; `2843–2864` can replace
+the relocation prefix through GNSA_ROOT. The current bootstrap clears only
+project/configuration overrides in `scripts/platforms.py`, so it does not
+yet enforce this stronger premise.
+
+The actual relocated default-search prefix and both fallback runtime paths
+must also be included in P. For this finite class require the probed
+`ada_source_path` and `ada_object_path` files to be absent; if an installation
+uses them, use a descriptor that prices their actual bytes instead of ignoring
+them. `Read_Default_Search_Dirs` allocates B+1 bytes, and if r entries are
+relative, a second `B+1+r*prefix_length` object, with signed arithmetic
+(`osint.adb:2324–2447`). This is a configuration dependency, not a restriction
+on application source. No claim is made that the historical native GPR
+environment satisfied it. The proposed launcher can establish these data
+premises without assuming installed GPR/source identity; its realization and
+proof remain authorized future implementation work.
+
+Reproduce the descriptor without executing a compiler:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-invocation.py \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gcc /tmp/silver-backend-compose-20261018/full-source/gcc \
+  --gpr-archive /tmp/silver-retained-gpr-source-20261017/gprbuild-v26.0.0.tar.gz \
+  --fixed-capture /path/to/docs/evidence/retained-native-fixed-capture-20261018 \
+  --output /tmp/native-invocation-inputs.json
+```
+
+The archive hash matches the retained GPR reconciliation; nine Ada source
+files match the complete pinned manifest. The three additional GCC files
+were byte-compared with the exact pinned upstream commit before recording
+their hashes. The regenerator also binds the production source, retained
+project/XML/ALI and direct-capture input. This is source/hash reconciliation
+and arithmetic only; no new compiler, prover, Lean, test or capture run.
+
 ## Real-source composition checks
 
 The [representative inputs](../evidence/unbounded-programs/retained-native-expansion-20261017/representative-inputs.json)
@@ -5966,8 +6090,9 @@ conditional formula and missing inputs explicitly.
 
 Each example now also carries one `selected_native_predicate`: the conjunction
 of the core tables, parser auxiliaries, source/line/name checks, supplied
-configuration-file storage, diagnostic storage, invocation containers and
-numeric/concat local objects. All seven component groups pass for all five examples. This is the composed
+configuration-file storage, diagnostic storage, invocation containers,
+selected command-line objects and numeric/concat local objects. All eight
+component groups pass for all five examples. This is the composed
 **selected-component** result; its `complete_native_capacity_predicate` stays
 false. The output lists the remaining obligations in dependency order:
 complete argv/effective-search/late-path descriptor; remaining local vectors,

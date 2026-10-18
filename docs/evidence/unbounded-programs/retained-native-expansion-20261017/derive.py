@@ -1963,6 +1963,48 @@ empty_scanner_pools = dict(Name_entries=0, Name_characters=0, Uint_entries=0,
     Uint_digits=0, String_descriptors=0, String_characters=0)
 
 
+def native_command_line_backing(pathname_length, table_factor=1):
+    """Selected actual command family; full effective environment stays required.
+
+    The descriptor is source-reconciled against the project/templates and
+    retained direct-GCC/ALI evidence. This is not a successful GPR argv capture.
+    """
+    evidence = Path(__file__).resolve().parent
+    descriptor = json.loads((evidence/"native-invocation-inputs.json").read_text())
+    i32,i64 = 2**31-1,2**63-1
+    argc = descriptor["gnat1_argc_bound"]
+    decoded = descriptor["decoded_option_count_bound"]
+    canonical = descriptor["canonical_save_argc_bound"]
+    max_arg = max(14,pathname_length+7)
+    stored = descriptor["Compilation_Switches"]
+    assert argc == decoded == 19 and canonical == 38 and len(stored) == 6
+    objects = dict(decoded_options=96*decoded,pruned_decoded_options=96*decoded,
+        reconstructed_C_argv=(2*decoded+1)*8,gnat_runtime_argv=8,
+        Ada_argument_pointer_array=(canonical-1)*16+16,
+        largest_copied_Ada_argument=max_arg+16,
+        largest_C_argv0_copy=pathname_length+1,
+        largest_joined_option_text=2*max_arg+2,
+        largest_selected_spec_quoted_argument=2*max_arg+1,
+        largest_stored_switch=max(map(len,stored))+16)
+    checks = dict(decoded_count_and_array_dimension=decoded<=i32,
+        reconstructed_count=2*decoded+1<=i32,
+        Ada_argument_counter=canonical+1<=i32,
+        NUL_scan_and_String_bounds=max_arg+1<=i32,
+        joined_text_int_arithmetic=2*max_arg+2<=i32,
+        per_object_pointer_difference=all(size<=i64 for size in objects.values()))
+    switches = native_table_backing_row(6,1,30,100,16,i32,table_factor)
+    return dict(source_descriptor="native-invocation-inputs.json",
+        source_descriptor_sha256=hashlib.sha256((evidence/"native-invocation-inputs.json").read_bytes()).hexdigest(),
+        conditional_pathname_length=pathname_length,gnat1_argc_bound=argc,
+        decoded_option_count_bound=decoded,canonical_save_argc_bound=canonical,
+        single_object_bytes=objects,checks=checks,Compilation_Switches_table=switches,
+        ALI_A_record_max_characters=descriptor["ALI_A_record_max_characters"],
+        ALI_A_total_bytes_including_LF=descriptor["ALI_A_total_bytes_including_LF"],
+        all_selected_checks_pass=all(checks.values()) and switches["all_selected_checks_pass"],
+        complete_invocation_capacity_result=False,
+        remaining="controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers")
+
+
 def native_to_gigi_source_interface(logical, counts):
     """Supply the established gigi source-visit transfer, not GCC allocations.
 
@@ -2106,11 +2148,12 @@ def representative_current_programs():
             source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
             diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics),
             invocation_backing=native_invocation_backing(logical),
+            command_line_backing=native_command_line_backing(inputs["pathname_length_premise"]),
             local_numeric_and_concat_backing=native_local_numeric_and_concat_backing(logical,counts["concat_lengths"])))
         selected = result[-1]
         component_checks = {name:selected[name]["all_selected_checks_pass"] for name in
             ("selected_backing_checks","parser_auxiliary_backing","source_and_frontend_name_backing",
-             "diagnostic_backing","invocation_backing","local_numeric_and_concat_backing")}
+             "diagnostic_backing","invocation_backing","command_line_backing","local_numeric_and_concat_backing")}
         component_checks["selected_configuration_storage"] = logical["selected_configuration_storage"]["all_selected_checks_pass"]
         selected["selected_native_predicate"] = dict(components=component_checks,
             all_selected_component_checks_pass=all(component_checks.values()),

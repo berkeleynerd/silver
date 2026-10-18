@@ -1,0 +1,203 @@
+{
+  "ALI_A_record_characters": [
+    8,
+    11,
+    8,
+    8,
+    16,
+    15
+  ],
+  "ALI_A_record_max_characters": 16,
+  "ALI_A_total_bytes_including_LF": 72,
+  "Ada_argument_pointer_count_bound": 37,
+  "Compilation_Switches": [
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mtune=generic",
+    "-march=x86-64"
+  ],
+  "Compilation_Switches_count": 6,
+  "canonical_save_argc_bound": 38,
+  "canonical_save_argv_pointer_count_including_sentinel": 39,
+  "complete_capacity_result": false,
+  "decoded_option_component_bytes_upper_bound": 96,
+  "decoded_option_count_bound": 19,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gnat1_argc_bound": 19,
+  "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "limitations": [
+    "GPR installed executable/source identity is not established; the proposed pre-launch validator must check actual generated data",
+    "The existing runtime clears only project/config overrides; the full controlled environment above is not implemented",
+    "The complete GCC driver prefix/spec/temporary storage and default-search path realization remain separate",
+    "The direct successful capture and source-derived GPR class are distinct evidence",
+    "No compiler, proof, test or new capture is run by this script"
+  ],
+  "native_GCC_argument_count": 10,
+  "native_GCC_argv_excluding_executable": [
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatec={configuration}",
+    "-gnatem={mapping}",
+    "{workspace}/main.adb"
+  ],
+  "native_GCC_cwd": "{workspace}/obj",
+  "required_controlled_environment": {
+    "ADA_INCLUDE_PATH": "exact selected native adainclude directory",
+    "ADA_OBJECTS_PATH": "exact selected native adalib directory",
+    "absent": [
+      "ADA_PRJ_INCLUDE_FILE",
+      "ADA_PRJ_OBJECTS_FILE",
+      "GNSA_ROOT",
+      "GCC_EXEC_PREFIX",
+      "COMPILER_PATH",
+      "LIBRARY_PATH",
+      "LPATH",
+      "GCC_COMPARE_DEBUG"
+    ],
+    "other_inputs": "Use a complete controlled environment; pin PATH, temporary-directory selection and locale, and prohibit user specs/plugins or alternate tool/config inputs"
+  },
+  "required_default_search": "Validate actual relocated search-prefix and adainclude/adalib paths; require ada_source_path/ada_object_path absent for this class, or price their exact contents in a different descriptor",
+  "required_path_premise": "P bounds every raw/normalized/resolved complete path, including argv[0], GCC temporary assembly, selected default directories and default-search probe names",
+  "retained_observations": {
+    "direct_capture_argv_count": 20,
+    "direct_capture_environment_keys": [
+      "ADA_INCLUDE_PATH",
+      "ADA_OBJECTS_PATH"
+    ],
+    "historical_native_GPR_argv_or_environment_retained": false,
+    "native_ALI_stored_switches": [
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-mtune=generic",
+      "-march=x86-64"
+    ]
+  },
+  "scope": "Selected Linux x86_64 native Main class, conditional on controlled invocation and search; not production enforcement",
+  "source_derived_gnat1_argv_allowance": {
+    "GNAT_flags_and_configuration": 6,
+    "assembly_output_pair": 2,
+    "dump_option_pairs": 6,
+    "executable": 1,
+    "quiet": 1,
+    "selected_target_defaults": 2,
+    "source": 1
+  },
+  "source_derived_native_object_path_switch_count": 0,
+  "source_derived_native_project_include_path_file_count": 0,
+  "source_inputs": {
+    "gcc/ada/back_end.adb": {
+      "bytes": 14372,
+      "git_blob_sha1": "a5c0b70f20eea80cfdec60806e167a2475c38eb2",
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    "gcc/ada/gcc-interface/lang-specs.h": {
+      "bytes": 3476,
+      "git_blob_sha1": "13048bee32bede46b1e6abfa81b876f4608cda5f",
+      "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    "gcc/ada/gcc-interface/misc.cc": {
+      "bytes": 47742,
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    "gcc/ada/lib-util.adb": {
+      "bytes": 9958,
+      "git_blob_sha1": "c84ca507ff9a30321b7d4a55f384505b25dc6118",
+      "sha256": "74dc8d21ab501b91a6ee323ee2beb9d3bf41808b622736ceb36a6b3509b0e22d"
+    },
+    "gcc/ada/lib.adb": {
+      "bytes": 40494,
+      "git_blob_sha1": "bb0b297f6cb8aa83936b16bafa1d020d1957d1c8",
+      "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+    },
+    "gcc/ada/lib.ads": {
+      "bytes": 51050,
+      "git_blob_sha1": "bda27010b55383850249115799b855753ea970c4",
+      "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4"
+    },
+    "gcc/ada/osint.adb": {
+      "bytes": 105542,
+      "git_blob_sha1": "1e467e681c5a10b580c5a7fcfa5484aba15e9229",
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+    },
+    "gcc/ada/osint.ads": {
+      "bytes": 38709,
+      "git_blob_sha1": "9cda79de7efb5d0da964c320d465825172944607",
+      "sha256": "f3c98d4108e17a7e7716dcde0603e5a557f55cccca82f9448c2c3bf119f19993"
+    },
+    "gcc/ada/switch-c.adb": {
+      "bytes": 59201,
+      "git_blob_sha1": "840915e83a4316530bf71a443d98e9ba222132c6",
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+    },
+    "gcc/gcc.cc": {
+      "bytes": 331859,
+      "git_blob_sha1": "43b0158ee02b58f3392cbc79cf7cb32af830b95d",
+      "sha256": "59ac02bc5147a8a4d79473edc41b8d1af8bd75628e00bfafab0c80eb36614346"
+    },
+    "gcc/opts-common.cc": {
+      "bytes": 64082,
+      "git_blob_sha1": "df03c39b10cded018ed98f97b8e657ceb069e1b7",
+      "sha256": "9b08d0eab835c3720cb37120282ed10b270f881d37acd40733a8d12c6abb448a"
+    },
+    "gcc/opts.h": {
+      "bytes": 20665,
+      "git_blob_sha1": "2d28620edab5885b67aebf28bc8f41cd2fa4173d",
+      "sha256": "ec66640207dd0a237d42e6743c8d2416095f862f9b252535e780c03d5f2d75f0"
+    },
+    "gprbuild/gpr/src/gpr-opt.ads": {
+      "bytes": 13222,
+      "git_blob_sha1": "ef39382e984db7f30d205f1ba40a88b2ca05de69",
+      "sha256": "cc1bbe85525f51f0556b0da441342377d77f384540ad09b84d2b955ceb521443"
+    },
+    "gprbuild/gpr/src/gpr.ads": {
+      "bytes": 122737,
+      "git_blob_sha1": "9999d4a5c16a21d518739f9753d302706168bf5e",
+      "sha256": "375cae80791bdbea2ee55253de326ab2e25a83acc23b11a74b6c471008286f1b"
+    },
+    "gprbuild/src/gprbuild-compile.adb": {
+      "bytes": 138514,
+      "git_blob_sha1": "0777c048ca25f81a9ff6d4726cdb82606195aa7e",
+      "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+    },
+    "retained/direct-native-invocation.json": {
+      "bytes": 1702,
+      "git_blob_sha1": "c6fb9a6f07d335aacc11e20c02fa5c09f4e7fd35",
+      "sha256": "158c3c6ffb96c8c57580f0481f08e0e8b08619e4217ab31b3bbd20c837d8f183"
+    },
+    "retained/main.ali": {
+      "bytes": 3386,
+      "git_blob_sha1": "3aa3e30d0c49a166a9df008022f399eb5d829848",
+      "sha256": "d33e17d3bb3c0c4a8a99b5a3fd844eaa95e2fcc5bff760220d731de17fd75ee1"
+    },
+    "retained/native-gnat.xml": {
+      "bytes": 12862,
+      "git_blob_sha1": "b96278bad5f51f39d90cee5764ef12e851ca8cd2",
+      "sha256": "75860604394acd18884a83321d3644b7f2816906c5dfa7e09b17a1d04c160e30"
+    },
+    "retained/program.gpr": {
+      "bytes": 460,
+      "git_blob_sha1": "3be167db1acc1d78728169ce0e2ccd8aa12c0bf3",
+      "sha256": "119ada4a6986ea543b1ee838412f10fb5ec9e5feaec987f2b2974d2a39637c4d"
+    },
+    "silver/scripts/platforms.py": {
+      "bytes": 3980,
+      "git_blob_sha1": "13a49a39cb5707de182fd7ecd1ec19f0df09b3ed",
+      "sha256": "01e673a58c8aa2158e8314f5005af30292d3f0e95d6dcedb071e9ecf7a62bfc5"
+    },
+    "silver/src/silver.adb": {
+      "bytes": 22230,
+      "git_blob_sha1": "f441f1b30572e5e0dae3cb360ca0c2a272d873a9",
+      "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    }
+  }
+}

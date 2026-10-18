@@ -2516,6 +2516,58 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "command_line_backing": {
+          "source_descriptor": "native-invocation-inputs.json",
+          "source_descriptor_sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1",
+          "conditional_pathname_length": 200,
+          "gnat1_argc_bound": 19,
+          "decoded_option_count_bound": 19,
+          "canonical_save_argc_bound": 38,
+          "single_object_bytes": {
+            "decoded_options": 1824,
+            "pruned_decoded_options": 1824,
+            "reconstructed_C_argv": 312,
+            "gnat_runtime_argv": 8,
+            "Ada_argument_pointer_array": 608,
+            "largest_copied_Ada_argument": 223,
+            "largest_C_argv0_copy": 201,
+            "largest_joined_option_text": 416,
+            "largest_selected_spec_quoted_argument": 415,
+            "largest_stored_switch": 30
+          },
+          "checks": {
+            "decoded_count_and_array_dimension": true,
+            "reconstructed_count": true,
+            "Ada_argument_counter": true,
+            "NUL_scan_and_String_bounds": true,
+            "joined_text_int_arithmetic": true,
+            "per_object_pointer_difference": true
+          },
+          "Compilation_Switches_table": {
+            "demand": 6,
+            "low_bound": 1,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 60,
+            "bytes_with_sentinel": 976,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_A_record_max_characters": 16,
+          "ALI_A_total_bytes_including_LF": 72,
+          "all_selected_checks_pass": true,
+          "complete_invocation_capacity_result": false,
+          "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -2556,6 +2608,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "command_line_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -5075,6 +5128,58 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "command_line_backing": {
+          "source_descriptor": "native-invocation-inputs.json",
+          "source_descriptor_sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1",
+          "conditional_pathname_length": 200,
+          "gnat1_argc_bound": 19,
+          "decoded_option_count_bound": 19,
+          "canonical_save_argc_bound": 38,
+          "single_object_bytes": {
+            "decoded_options": 1824,
+            "pruned_decoded_options": 1824,
+            "reconstructed_C_argv": 312,
+            "gnat_runtime_argv": 8,
+            "Ada_argument_pointer_array": 608,
+            "largest_copied_Ada_argument": 223,
+            "largest_C_argv0_copy": 201,
+            "largest_joined_option_text": 416,
+            "largest_selected_spec_quoted_argument": 415,
+            "largest_stored_switch": 30
+          },
+          "checks": {
+            "decoded_count_and_array_dimension": true,
+            "reconstructed_count": true,
+            "Ada_argument_counter": true,
+            "NUL_scan_and_String_bounds": true,
+            "joined_text_int_arithmetic": true,
+            "per_object_pointer_difference": true
+          },
+          "Compilation_Switches_table": {
+            "demand": 6,
+            "low_bound": 1,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 60,
+            "bytes_with_sentinel": 976,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_A_record_max_characters": 16,
+          "ALI_A_total_bytes_including_LF": 72,
+          "all_selected_checks_pass": true,
+          "complete_invocation_capacity_result": false,
+          "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -5115,6 +5220,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "command_line_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -7636,6 +7742,58 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "command_line_backing": {
+          "source_descriptor": "native-invocation-inputs.json",
+          "source_descriptor_sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1",
+          "conditional_pathname_length": 200,
+          "gnat1_argc_bound": 19,
+          "decoded_option_count_bound": 19,
+          "canonical_save_argc_bound": 38,
+          "single_object_bytes": {
+            "decoded_options": 1824,
+            "pruned_decoded_options": 1824,
+            "reconstructed_C_argv": 312,
+            "gnat_runtime_argv": 8,
+            "Ada_argument_pointer_array": 608,
+            "largest_copied_Ada_argument": 223,
+            "largest_C_argv0_copy": 201,
+            "largest_joined_option_text": 416,
+            "largest_selected_spec_quoted_argument": 415,
+            "largest_stored_switch": 30
+          },
+          "checks": {
+            "decoded_count_and_array_dimension": true,
+            "reconstructed_count": true,
+            "Ada_argument_counter": true,
+            "NUL_scan_and_String_bounds": true,
+            "joined_text_int_arithmetic": true,
+            "per_object_pointer_difference": true
+          },
+          "Compilation_Switches_table": {
+            "demand": 6,
+            "low_bound": 1,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 60,
+            "bytes_with_sentinel": 976,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_A_record_max_characters": 16,
+          "ALI_A_total_bytes_including_LF": 72,
+          "all_selected_checks_pass": true,
+          "complete_invocation_capacity_result": false,
+          "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -7676,6 +7834,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "command_line_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -10253,6 +10412,58 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "command_line_backing": {
+          "source_descriptor": "native-invocation-inputs.json",
+          "source_descriptor_sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1",
+          "conditional_pathname_length": 200,
+          "gnat1_argc_bound": 19,
+          "decoded_option_count_bound": 19,
+          "canonical_save_argc_bound": 38,
+          "single_object_bytes": {
+            "decoded_options": 1824,
+            "pruned_decoded_options": 1824,
+            "reconstructed_C_argv": 312,
+            "gnat_runtime_argv": 8,
+            "Ada_argument_pointer_array": 608,
+            "largest_copied_Ada_argument": 223,
+            "largest_C_argv0_copy": 201,
+            "largest_joined_option_text": 416,
+            "largest_selected_spec_quoted_argument": 415,
+            "largest_stored_switch": 30
+          },
+          "checks": {
+            "decoded_count_and_array_dimension": true,
+            "reconstructed_count": true,
+            "Ada_argument_counter": true,
+            "NUL_scan_and_String_bounds": true,
+            "joined_text_int_arithmetic": true,
+            "per_object_pointer_difference": true
+          },
+          "Compilation_Switches_table": {
+            "demand": 6,
+            "low_bound": 1,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 60,
+            "bytes_with_sentinel": 976,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_A_record_max_characters": 16,
+          "ALI_A_total_bytes_including_LF": 72,
+          "all_selected_checks_pass": true,
+          "complete_invocation_capacity_result": false,
+          "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -10293,6 +10504,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "command_line_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
@@ -12820,6 +13032,58 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "command_line_backing": {
+          "source_descriptor": "native-invocation-inputs.json",
+          "source_descriptor_sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1",
+          "conditional_pathname_length": 200,
+          "gnat1_argc_bound": 19,
+          "decoded_option_count_bound": 19,
+          "canonical_save_argc_bound": 38,
+          "single_object_bytes": {
+            "decoded_options": 1824,
+            "pruned_decoded_options": 1824,
+            "reconstructed_C_argv": 312,
+            "gnat_runtime_argv": 8,
+            "Ada_argument_pointer_array": 608,
+            "largest_copied_Ada_argument": 223,
+            "largest_C_argv0_copy": 201,
+            "largest_joined_option_text": 416,
+            "largest_selected_spec_quoted_argument": 415,
+            "largest_stored_switch": 30
+          },
+          "checks": {
+            "decoded_count_and_array_dimension": true,
+            "reconstructed_count": true,
+            "Ada_argument_counter": true,
+            "NUL_scan_and_String_bounds": true,
+            "joined_text_int_arithmetic": true,
+            "per_object_pointer_difference": true
+          },
+          "Compilation_Switches_table": {
+            "demand": 6,
+            "low_bound": 1,
+            "initial": 30,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 60,
+            "bytes_with_sentinel": 976,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_A_record_max_characters": 16,
+          "ALI_A_total_bytes_including_LF": 72,
+          "all_selected_checks_pass": true,
+          "complete_invocation_capacity_result": false,
+          "remaining": "controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers"
+        },
         "local_numeric_and_concat_backing": {
           "Uint_operand_digit_bound": 74958,
           "maximum_UI_Vector_elements": 149916,
@@ -12860,6 +13124,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "command_line_backing": true,
             "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
