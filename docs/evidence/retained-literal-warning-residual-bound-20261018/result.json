@@ -1,0 +1,66 @@
+{
+  "C": 1,
+  "N": 0,
+  "additional_call_location_warning_copy_calls": 1,
+  "complete_collector_lifetime_closed": false,
+  "complete_gimplifier_lifetime_closed": false,
+  "complete_imported_frontier_capacity_closed": false,
+  "conditional_map_transfer": {
+    "additional_singleton_finalizer_registrations_ceiling": 1,
+    "additional_vector_finalizer_registrations": 0,
+    "additive_GGC_event_ceiling": 11,
+    "checks": {
+      "entry_request_and_pointer_span": true,
+      "live_and_occupied_sufficient_region": true,
+      "load_factor_products": true,
+      "prime_exists": true,
+      "prime_probe_region": true,
+      "probe_addition": true
+    },
+    "conditional_map_interface_fits": true,
+    "incoming_capacity_ceiling": 16381,
+    "incoming_live_or_occupied_ceiling": 4100,
+    "original_gigi_put_call_ceiling": 7,
+    "outgoing_capacity_ceiling": 16381,
+    "outgoing_live_or_occupied_ceiling": 4103,
+    "request_groups": [
+      {
+        "count": 1,
+        "name": "possible_original_gigi_control",
+        "raw_bytes_each": 64,
+        "rounded_bytes_each_ceiling": 64
+      },
+      {
+        "count": 7,
+        "name": "original_gigi_initial_or_replacement_backbones",
+        "raw_bytes_each": 262096,
+        "rounded_bytes_each_ceiling": 262144
+      },
+      {
+        "count": 3,
+        "name": "selected_gimplifier_replacement_backbones",
+        "raw_bytes_each": 262096,
+        "rounded_bytes_each_ceiling": 262144
+      }
+    ]
+  },
+  "direct_warning_copy_calls": 2,
+  "independent_review": "pending",
+  "local_gigi_suppression_call_ceiling": 2,
+  "original_gigi_residual_put_call_ceiling": 5,
+  "original_gigi_source_count_closed": true,
+  "other_original_gigi_put_calls": 5,
+  "prefix_capacity_ceiling": 4093,
+  "residual_breakdown": {
+    "empty_elaboration_function": 1,
+    "imported_procedures": 2,
+    "main_function": 1,
+    "other_selected_routes": 0,
+    "silver_io_namespace": 1,
+    "size_helper_initial_gimplifications": 0,
+    "standard_declarations_and_layout": 0
+  },
+  "selected_initial_gimplifier_warning_put_call_ceiling": 3,
+  "source_argument": "docs/research/retained-literal-warning-residual-bound.md",
+  "whole_literal_pipeline_capacity_established": false
+}

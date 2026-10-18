@@ -1,0 +1,42 @@
+{
+  "scope": "Selected literal family and retained source/configuration premises; handwritten source argument, review pending",
+  "R_put_call_ceiling": 5,
+  "R_counts_replacement_puts": true,
+  "helper_initial_warning_map_puts": 0,
+  "standard_declaration_and_layout_warning_map_puts": 0,
+  "selected_original_gigi_warning_frontier_closed": true,
+  "selected_generated_FUNCTION_DECL_body_frontier_closed": true,
+  "empty_elaboration": {
+    "FUNCTION_DECLs_created": 1,
+    "function_structures_allocated": 1,
+    "persistent_function_definition_number_increment": 1,
+    "finalization_executions": 0,
+    "initial_gimplifications": 0,
+    "ordinary_lowering_executions": 0,
+    "IPA_body_executions": 0,
+    "RTL_expansions": 0,
+    "emitted_functions": 0,
+    "symbol_registration_count": null,
+    "allocation_request_events": null,
+    "allocation_bytes": null
+  },
+  "cold_string_size_helpers": {
+    "FUNCTION_DECLs_created": 2,
+    "initial_gimplifications": 2,
+    "persistent_function_definition_number_increment": 2,
+    "persistent_symbol_next_uid_increment": 2,
+    "persistent_symbol_order_increment": 2,
+    "ordinary_lowering_executions": 0,
+    "IPA_body_executions": 0,
+    "RTL_expansions": 0,
+    "emitted_functions": 0
+  },
+  "non_Main_function_definition_number_increment": 3,
+  "other_generated_FUNCTION_DECL_bodies": 0,
+  "additional_emitted_functions_from_selected_constructor_frontier": 0,
+  "complete_imported_frontier_capacity_closed": false,
+  "complete_gimplifier_lifetime_closed": false,
+  "complete_collector_lifetime_closed": false,
+  "aggregate_conditions_changed": false,
+  "whole_literal_pipeline_capacity_established": false
+}
