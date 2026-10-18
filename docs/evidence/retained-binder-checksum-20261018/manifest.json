@@ -1,0 +1,141 @@
+{
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archive": {
+    "bytes": 1117037,
+    "sha256": "067708f21a12b5421b0b31692cbb79ca7d7d761cfbc9662f01669cf7d3f4f4ea"
+  },
+  "files": [
+    {
+      "path": "corpus/ada-manifest.json",
+      "bytes": 552521,
+      "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/complete-source-manifest.json"
+    },
+    {
+      "path": "corpus/gcc-manifest.json",
+      "bytes": 797748,
+      "sha256": "6f0991bf5e0e98ab27d165696913f4db31a9bd9336afcc48937cdbdb0de12480",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/cuintp.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/trans.cc"
+    },
+    {
+      "path": "gcc/ada/libgnat/g-htable.adb",
+      "bytes": 2663,
+      "sha256": "535a2045806442828904cfede1743da570df0710dd664d853e0ac56c8cd0c51c",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-htable.adb"
+    },
+    {
+      "path": "gcc/ada/libgnat/g-htable.ads",
+      "bytes": 3635,
+      "sha256": "05260b3914cb6dd7bced43716cf97ba80f1fc93e3d8c7f3f17eaed33bd3c2dc5",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-htable.ads"
+    },
+    {
+      "path": "gcc/ada/par-ch4.adb",
+      "bytes": 143417,
+      "sha256": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/par-ch4.adb"
+    },
+    {
+      "path": "gcc/ada/scng.adb",
+      "bytes": 99999,
+      "sha256": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/scng.adb"
+    },
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem_eval.adb"
+    },
+    {
+      "path": "gcc/ada/sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem_res.adb"
+    },
+    {
+      "path": "gcc/ada/uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.adb"
+    },
+    {
+      "path": "gcc/ada/uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.ads"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/fold-const.cc"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc-page.cc"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/hash-table.h"
+    },
+    {
+      "path": "gcc/params.opt",
+      "bytes": 67891,
+      "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/params.opt"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree-core.h"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree.cc"
+    },
+    {
+      "path": "predecessor/manifest.json",
+      "bytes": 62177,
+      "sha256": "515bf7526196f358976f3a3459ede6fd47c495892bafe77b78924dc1cadaa300",
+      "origin": "docs/evidence/retained-binder-options-20261018/manifest.json"
+    },
+    {
+      "path": "predecessor/output/invocation.json",
+      "bytes": 6878,
+      "sha256": "19e30cb5d691b20eee959879245dceaa062a3ba7253d6fa77310e103ecce9a7e",
+      "origin": "docs/evidence/retained-binder-options-20261018/artifacts.tar.gz:output/invocation.json"
+    },
+    {
+      "path": "predecessor/output/output/b__main~1.ads",
+      "bytes": 19920,
+      "sha256": "cc9ec4581c5ad7d716983389559ad4f65a53f1423bbaeb84fda1234889e3e392",
+      "origin": "docs/evidence/retained-binder-options-20261018/artifacts.tar.gz:output/output/b__main~1.ads"
+    },
+    {
+      "path": "predecessor/result.json",
+      "bytes": 20675,
+      "sha256": "3666473d1e6e5c5c8708e5876763027993fd23e62a549ee0f30865b2954ba108",
+      "origin": "docs/evidence/retained-binder-options-20261018/result.json"
+    }
+  ]
+}

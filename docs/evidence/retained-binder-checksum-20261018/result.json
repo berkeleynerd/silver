@@ -1,0 +1,30 @@
+{
+  "scope": "Source-only local checksum ingress bounds and exact missing lifetime transfer",
+  "source_files_verified": 16,
+  "new_native_executions": 0,
+  "checksum_domain": {
+    "bits": 32,
+    "hex_digits": 8,
+    "baseline": 3492425429
+  },
+  "scanner_local_only": {
+    "arithmetic_calls_upper": 16,
+    "Uint_rows_upper": 16,
+    "Udigit_entries_upper": 48,
+    "UI_From_Int_cache_misses_upper": 16,
+    "whole_Ada_semantic_pass_bound": false
+  },
+  "one_UI_To_gnu_call_only": {
+    "required_type": "nonbiased unsigned 32-bit integer",
+    "constant_constructor_or_fold_requests_upper": 8,
+    "global_int_cst_hash_lookups_upper": 7,
+    "new_integer_types": 0,
+    "global_cumulative_cache_allocation_delta_bound": null
+  },
+  "fixed_capture_GGC_bytes": 4481000,
+  "conservative_no_collection_threshold_bytes": 5242880,
+  "headroom_bytes": 761880,
+  "whole_output_checksum_family_GGC_bound_established": false,
+  "missing_transfer": "Bound cumulative global int_cst cache backing allocations, including later tombstone reuse and compaction, after the checksum-dependent requests; also discharge other semantic consumers and call multiplicity.",
+  "production_flags_or_admission_changed": false
+}
