@@ -666,6 +666,12 @@
     "direct_concat_declarations": "2*n",
     "not_included": "direct declaration/entity/name syntax, initializer first analysis/copies, Insert_Actions placement/context movement, compilation-wide multiplicity, backend"
   },
+  "ordinary_initial_Insert_Actions_placement": {
+    "premises": "ordinary expression parent chain to declaration/statement list or unanalyzed short-circuit-right/conditional-branch/elsif condition action field; supplied lists/action analyses already charged; no transient/wrapped/record/concurrent/generic/spec/aggregate-loop context or allocating callbacks",
+    "extra_node_entity_list_name_Uint_String_allocations": 0,
+    "Kill_Current_Values_allocations": 0,
+    "not_included": "supplied action lists/analysis/recursively inserted actions, Insert_Action wrapper, later Expression_With_Actions and Boolean capture, already-analyzed short-circuit insertion, transient placement, replay/source-to-invocation closure"
+  },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
       "line": 2829,

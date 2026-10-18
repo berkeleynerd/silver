@@ -1397,6 +1397,49 @@ declaration **skeleton** only: child analysis and copying, the collection's
 Insert_Actions placement, context-dependent declaration movement and
 compilation-wide multiplicity remain additional.
 
+### Ordinary initial action placement
+
+The placement portion of Insert_Actions adds **zero nodes, entities, lists,
+names, Uint or String values** for the following ordinary initial-analysis
+parent paths. The supplied action list and each action's analysis (including
+actions generated recursively by that analysis) are charged separately.
+Assume no transient scope/wrapped node, record/concurrent/generic/spec
+context, aggregate-loop placement or allocating rewrite callback, and that
+any encountered enclosing short-circuit or scalar conditional expression has
+not yet been analyzed. These are local placement premises, not a proof that
+every source or replayed concat invocation satisfies them.
+
+The parent walk can cross ordinary expression nodes until it reaches a
+declaration/statement list member, including a source assignment, output call,
+if statement or loop. It splices the existing list immediately before that
+member and analyzes its entries. For a right operand of an unanalyzed
+short-circuit, a dependent branch of an unanalyzed conditional, or an elsif
+condition, it attaches the same list to the appropriate Actions field, or
+splices it into that field's existing list, and analyzes its entries
+(`exp_util.adb:8050–8134,8138–8240,8289–8314,8318–8462`). A left short-circuit
+operand or the condition of a scalar conditional continues outward. Nested
+statement bodies stop at their own list member; the walk does not move an
+action past that enclosing statement.
+
+List splicing rewires existing links without adding a list header;
+Insert_List_Before/After_And_Analyze and Analyze_List walk the existing
+entries. Mark_Rewrite_Insertion only sets a flag
+(`nlists.adb:468–602`, `sem.adb:873–883,1269–1332`,
+`atree.adb:1824–1827`). The short-circuit branch's two Kill_Current_Values
+calls clear fields and existing saved-check records; they do not append to
+those tables (`sem_util.adb:22609–22691`, `checks.adb:8922–8968`). Suppression
+wrappers save/restore the fixed check-status array; each Insert_Action's
+one-element list wrapper remains charged in the earlier direct/helper count.
+
+Attaching already analyzed actions does **not** close their later enclosing
+expression expansion. In particular, Expand_Short_Circuit_Operator converts
+useful right-operand actions into Expression_With_Actions. That wrapper can
+capture a Boolean expression into a fresh constant even when there are no
+controlled objects (`exp_ch4.adb:13123–13248,5625–5712`). The already-analyzed
+short-circuit insertion branch can also create the wrapper immediately. Those
+wrapper/capture transfers, transient placement and any replay remain separate;
+zero-cost list movement is not a zero-cost conditional-expression claim.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
