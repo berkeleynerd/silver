@@ -228,6 +228,19 @@ def main():
     manifest = json.loads(prior.read_text())
     assert manifest["commit"] == PIN
     expected = {item["path"]: item for item in manifest["files"]}
+    # Fixed-unit frontier and the complete five-pool backward-move interface.
+    RANGES.update({
+        "frontend.adb": [(72, 100), (308, 324), (387, 414)],
+        "lib-load.adb": [(196, 214), (684, 729), (779, 800)],
+        "rtsfind.adb": [(1136, 1208)],
+        "urealp.adb": [(320, 329), (478, 481)],
+        "stringt.adb": [(108, 149), (232, 240), (371, 376)],
+    })
+    RANGES["uintp.adb"] += [(45, 68), (484, 490), (683, 759), (1466, 1505)]
+    RANGES["sem.adb"] += [(1605, 1680), (1688, 1706)]
+    RANGES["sem_ch12.adb"] += [(13784, 13800), (14214, 14229)]
+    RANGES["freeze.adb"] += [(4720, 4744), (6536, 6565), (7352, 7352),
+                             (7502, 7502), (7643, 7653)]
     records = []
     for name, ranges in RANGES.items():
         data = (args.source / name).read_bytes()
@@ -261,6 +274,32 @@ def main():
         data = (repo / name).read_bytes()
         silver_inputs.append({"path": name, "bytes": len(data),
                               "sha256": hashlib.sha256(data).hexdigest()})
+
+    fixed_support_path = repo / (
+        "docs/evidence/unbounded-programs/retained-source-closure-20261017/"
+        "fixed-support-closure.json")
+    fixed_support_bytes = fixed_support_path.read_bytes()
+    fixed_support = json.loads(fixed_support_bytes)
+    assert fixed_support["selected_specification_count"] == 42
+    assert len(fixed_support["selected_specifications"]) == 42
+    assert set(fixed_support["selected_generic_bodies"]) == {"s-imagei.adb"}
+    k_sem = 42 + 6 + 1 + 1
+    assert k_sem == 50
+    growth_witness = [10, -6, 3, -2, 2]
+    positive = sum(max(0, delta) for delta in growth_witness)
+    negative = sum(max(0, -delta) for delta in growth_witness)
+    assert positive == sum(growth_witness) + negative == 15
+    for name, expected_fragments in {
+        "uintp.adb": ["Uints.Set_Last   (Valid_Uint'Max (M.Save_Uint, Uints_Min));",
+                      "Udigits.Set_Last (Int'Max  (M.Save_Udigit, Udigits_Min));"],
+        "urealp.adb": ["Ureals.Set_Last (Ureal (M));"],
+        "stringt.adb": ["Strings.Set_Last (Strings_Last);",
+                        "String_Chars.Set_Last (String_Chars_Last);",
+                        "String_Chars.Decrement_Last;"],
+    }.items():
+        source = (args.source / name).read_text()
+        for fragment in expected_fragments:
+            assert source.count(fragment) == 1, (name, fragment)
 
     folds = Counter(O=1, P=1, O_loop=2, F=3, R=1, D_lit=3, U=2, H_len=3)
     direct = Counter(B_loop=4, F=28, R=2, D_lit=13, D_alias=4, G=5,
@@ -545,6 +584,24 @@ def main():
             "ALI_xref_sort_vector_words": "Xrefs.Last+1 Nat words",
             "unit_boundary_elist_headers": "<= K_sem+1",
             "unit_boundary_elist_elements": "<= K_sem*(E_X+1)",
+            "fixed_unit_frontier": {
+                "K_sem_upper_bound": k_sem,
+                "unit_boundary_elist_headers_upper_bound": k_sem + 1,
+                "unit_boundary_elist_elements": "<= 50*(E_fixed+E_Main+1)",
+                "fixed_support_result_sha256": hashlib.sha256(fixed_support_bytes).hexdigest(),
+                "premise": "Selected fixed helper closure and no generated library-level instance units",
+            },
+            "pool_lifetime_capture_contract": {
+                "positions": ["Uints.Last", "Udigits.Last", "Ureals.Last",
+                              "Strings.Last", "String_Chars.Last"],
+                "identity": "positive_growth=final-initial+sum_decreases",
+                "post_initialize_hooks": ["Uintp.Release", "Urealp.Release",
+                                          "Stringt.Release", "Stringt.Unstore_String_Char"],
+                "witness_steps": growth_witness,
+                "witness_final_minus_initial": sum(growth_witness),
+                "witness_positive_growth": positive,
+                "scope": "Exact logical-growth accounting; fixed cache/query event reduction still required",
+            },
             "additional_zero_Main_contributions": [
                 "Urefs", "NCT_New_Entities", "NCT_Pending_Itypes",
                 "Suppress_Stack_Entry records", "Warn_On_Suspicious_Index Uint work",

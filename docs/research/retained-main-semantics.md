@@ -1657,6 +1657,128 @@ These results do not establish the complete capacity rule,
 source-to-installed-producer identity or permission to
 remove any current language limit.
 
+## Fixed-unit frontier and lifetime capture contract
+
+The [selected support closure](retained-fixed-support.md) supplies 42 runtime
+specifications, six Silver source units and one possible `System.Image_I`
+body. Adding Main gives the conservative **`K_sem <= 50`**. This deliberately
+includes source units that the light Main process cannot load. It is a count
+of newly analyzed compilation units, not generic instances, semantic calls,
+or generated packages.
+
+`Load_Unit` reuses an existing unit-table entry before its parsing branch
+(`lib-load.adb:684–729,779–800`); `Semantics` calls its analysis body only when
+the compilation unit is not already analyzed (`sem.adb:1651–1680`). The eight
+selected generic instances are nested within fixed specifications. They do
+not take the compilation-unit synthesis branches, whose two call sites
+require the instance's parent to be a compilation unit
+(`sem_ch12.adb:13784–13800,14214–14229`). Main declares no instance or subunit.
+Configuration pragmas and predefined Standard do not add another invocation
+of `Semantics.Do_Analyze`. Dummy error-recovery packages are already marked
+analyzed (`lib-load.adb:196–214`) and lie outside successful legality anyway.
+Thus the earlier unit-boundary transfer becomes
+
+```text
+unit-boundary element-list headers <= 51
+unit-boundary element records      <= 50 (E_fixed + E_Main + 1).
+```
+
+This is not a fixed-unit internal-allocation bound. On a new semantic unit,
+`Do_Analyze` saves the active visibility, pushes Standard, and resets the
+Ghost/generic/suppression context (`sem.adb:1456–1474`). The outer procedure
+resets unit options and restores them on return (`:1605–1646,1688–1706`).
+`Rtsfind` loads and analyzes its unit only as needed, with instance and private
+visibility saved (`rtsfind.adb:1136–1208`). The fixed units cannot name Main's
+local declarations. These facts support separating fixed-unit parse/analysis
+work from the explicitly Main-dependent scope-save term; they do not by
+themselves prove that every allocation is invariant under load order.
+
+### Exact accounting at release points
+
+For the five scalar pool positions
+
+```text
+(Uints.Last, Udigits.Last, Ureals.Last,
+ Strings.Last, String_Chars.Last),
+```
+
+let `L0` and `L1` be a position at the two measurement boundaries and let
+`Delta_minus` sum every decrease of that position between them. Then its
+**exact sum of positive logical growth** is
+
+```text
+Delta_plus = L1 - L0 + Delta_minus.
+```
+
+This telescoping identity counts discarded work and requires no observation
+of each append. The pinned pool sources have the following complete decrease
+frontier after initialization:
+
+| Hook | Decrease determined at entry |
+| --- | --- |
+| `Uintp.Release(M)` | `Uints.Last - max(M.Save_Uint,Uints_Min)` and `Udigits.Last - max(M.Save_Udigit,Udigits_Min)`, each truncated below at zero (`uintp.adb:683–687`) |
+| `Urealp.Release(M)` | `max(0,Ureals.Last-Ureal(M))` (`urealp.adb:478–481`) |
+| `Stringt.Release` | Differences from the saved `Strings_Last` and `String_Chars_Last`, truncated below at zero (`stringt.adb:135–149`) |
+| `Stringt.Unstore_String_Char` | One character position (`stringt.adb:371–376`) |
+
+Both `Uintp.Release_And_Save` overloads call `Release` and then append the
+saved digits (`uintp.adb:693–759`); observing that inner release is sufficient
+and avoids double counting. Generic table `Release` changes backing capacity,
+not the logical last position. Pool initializers must either precede the
+initial boundary or have their resets included as additional decreases.
+String-pool locking shrinks backing allocation but does not invalidate the
+logical identity (`stringt.adb:123–129`).
+
+A minimal record for this identity has the five initial/final positions,
+five accumulated decrease totals, hook counts, and the mark/minimum fields
+needed by each encountered release. Phase/unit tags can partition the record.
+The positions need not begin at zero: their common lower bounds cancel.
+These are source hook locations: a debugger implementation must account for
+every emitted instance, including any inlined copy, before claiming complete
+capture. Resolving one out-of-line symbol does not alone establish that.
+For example, appending 10 entries, dropping six, appending three, dropping two
+and appending two ends at seven entries but has 15 positive appends. Reporting
+only its final seven would omit eight allocations.
+
+This vector concerns logical pool growth. Retained AST/slot/list/name tables,
+auxiliary map domains, allocation capacities and temporary/stack maxima still
+need their own fields or existing source-derived transfers. In particular,
+an exact pool-growth total does not measure the largest local `UI_Vector`.
+No debugger or compiler run was performed for this contract.
+
+### Conditions before an additive fixed measurement is sufficient
+
+Use a fixed isolated-root measurement as a bound only after establishing the
+following event reduction, rather than extrapolating the largest observed
+final state:
+
+1. Cover setup, each selected unit's parse/analysis, and work on fixed entities
+   after those unit bodies return. Keep body-process results separate from
+   Main's simultaneous state. Summing complete isolated fixed contributions
+   may overcount overlapping units; subtract only a proved identical phase.
+2. Account for numeric cache effects. `UI_From_Int` and the power caches retain
+   values and raise `Uints_Min`/`Udigits_Min` (`uintp.adb:45–68,1466–1505`). A
+   later cache insertion can protect intervening temporary allocations from
+   release. Positive-growth accounting handles that retention, but fixed
+   `Expr_Value`/range-cache hits can still suppress arithmetic in
+   an isolated run. A no-cache-credit query transfer or a source proof of
+   unchanged cache behavior is necessary before adding its observed count.
+3. Do not replace the fixed-freeze frontier by “every entity freezes once.”
+   `Freeze_Entity` skips ordinary already-frozen types at `freeze.adb:6536`,
+   but the generic-package path runs before `Set_Is_Frozen` and allocates a
+   list (`:4720–4744,6563–6565`). Private/incomplete/profile branches can reset
+   the flag (`:4791,7352,7502,7643,7653`). Those fixed-source triggers need a
+   count; the exposed ordinary Main scalar/String types and selected callable
+   signatures do not introduce arbitrary repetitions of those branches.
+4. Keep later producer numeric queries/conversions separate from semantic
+   analysis. The archived SPARK source has no call of `Semantics`,
+   `Freeze_Entity` or `Analyze_And_Resolve`, but it does call frontend value and
+   range queries. A completed semantic snapshot is not their lifetime total.
+
+The source reset/once guards and the exact capture identity narrow the missing
+fixed contribution. They do not yet close these cache/query and fixed-freeze
+conditions, and therefore do not establish the whole frontend capacity rule.
+
 ## Reproduction
 
 Run the adjacent [source/equation check](../evidence/retained-main-semantics-20261018/derive.py)
