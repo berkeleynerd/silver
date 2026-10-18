@@ -5855,6 +5855,39 @@ endpoint. All selected local-object checks pass for the five examples;
 other local vectors, recursive-depth arithmetic and serialization remain
 separate.
 
+### Conditional backend callback interface
+
+The [native backannotation transfer](retained-backend-capacity.md#native-backannotation-returns-costs-to-ada-tables)
+supplies a structural visit bound Q that includes the failed early
+inner-left retry. `native_backannotation_backing` accepts that **justified
+external input**, plus the incoming signed annotation-serial bound. It adds
+3Q Uint entries and11Q digit words before running the same core backing
+checks. It also checks Rep_Table at its retained504+Q demand: low1,
+initial1000, growth200%,32-byte padded component, and signed negation of
+the table index (`repinfo.adb:72–85,233–246`, `alloc.ads:112–113`).
+The serial check uses its incoming value plus Q, not Q alone.
+
+Up to3Q UI_From_Int cache requests use the individual cache objects checked
+above. UI_From_gnu's selected local vector has five four-byte words
+(`gcc-interface/cuintp.cc:171–222`); its arguments fit the existing local
+digit envelope. The supplied callback transfer's GCC cache and scalar
+constant allocations stay in the backend component rather than being
+duplicated in this Ada join.
+
+These Ada tables can grow during gigi: the lock sequence before
+Call_Back_End omits Uintp and Repinfo (`gnat1drv.adb:1518–1535`), and
+neither package locks its tables elsewhere. C's Uints_Ptr/Udigits_Ptr refer
+to the exported table pointer cells (`uintp.h:104–108`); conversion reads
+those cells rather than retaining a table backing pointer across mutations
+(`gcc-interface/cuintp.cc:93–120`). The locked AST/name/list tables retain
+their separate phase requirements. This closes the specified numeric
+callback storage interface, not every gigi callback.
+
+No source-to-annotation-root Q or incoming serial is supplied for the five
+examples yet. Their selected predicate therefore does **not** silently run
+this interface at Q=0 or claim backend capacity. The JSON records the
+conditional formula and missing inputs explicitly.
+
 Each example now also carries one `selected_native_predicate`: the conjunction
 of the core tables, parser auxiliaries, source/line/name checks, supplied
 configuration-file storage, diagnostic storage, invocation containers and

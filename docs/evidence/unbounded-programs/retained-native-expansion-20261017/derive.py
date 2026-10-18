@@ -48,6 +48,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "par-ch4.adb", "par-ch5.adb", "par-ch6.adb", "par-ch8.adb", "par-ch10.adb",
          "par-ch11.adb", "par-util.adb", "par-endh.adb", "par-prag.adb", "par.adb", "par-labl.adb",
          "frontend.adb", "fname-uf.adb", "fmap.adb", "switch-c.adb", "nlists.ads", "sinput.ads", "sinput.adb", "sinput-l.adb", "osint.adb",
+         "gnat1drv.adb", "repinfo.ads", "repinfo.adb", "uintp.h", "gcc-interface/cuintp.cc",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
          "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads", "libgnat/s-imagei.adb"
          ] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
@@ -1688,6 +1689,49 @@ def native_local_numeric_and_concat_backing(logical,concat_lengths):
         whole_native_frontend_closed=False)
 
 
+def native_backannotation_backing(logical,visit_bound,incoming_annotation_serial,table_factor=1):
+    """Conditional native backannotation interface; caller supplies justified Q.
+
+    Q is the backend's source-derived traversal recurrence, including failed
+    early inner-left retries. It must cover every selected annotation root.
+    No Q is inferred for any representative source by this function.
+    """
+    assert min(visit_bound,incoming_annotation_serial) >= 0
+    i32,i64 = 2**31-1,2**63-1
+    fixed = fixed_native_inputs["fixed_lifetime_table_growth"]["repinfo__rep_table__last_valX"]
+    assert fixed == 504
+    tables = dict(logical["tables"])
+    tables["Uint_entries"] += 3*visit_bound
+    tables["Uint_digits"] += 11*visit_bound
+    adjusted = dict(logical,tables=tables)
+    core = native_core_table_backing(adjusted,table_factor=table_factor)
+    rep = native_table_backing_row(fixed+visit_bound,1,1000,200,32,i32,table_factor)
+    # The pre-backend lock list omits Uintp/Repinfo. Their table pointer cells
+    # remain live; C reads those exported cells, not a frozen backing address.
+    locks = sources["gnat1drv.adb"].split("--  Back end needs to explicitly unlock tables it needs to touch",1)[1].split("--  Here we call the back end",1)[0]
+    assert "Uintp" not in locks and "Repinfo" not in locks
+    assert "#define Uints_Ptr uintp__uints__table" in sources["uintp.h"]
+    assert "#define Udigits_Ptr uintp__udigits__table" in sources["uintp.h"]
+    checks = dict(core_tables=core["all_selected_checks_pass"],
+        Rep_Table=rep["all_selected_checks_pass"],
+        Rep_Table_index_negation=fixed+visit_bound<=i32,
+        signed_annotation_serial=incoming_annotation_serial+visit_bound<=i32,
+        UI_From_gnu_five_word_vector=5*4+16<=i64,
+        UI_From_Int_hash_individual_wrapper=16<=i64,
+        UI_From_Int_static_bucket_array=1023*8<=i64)
+    return dict(required_backend_visit_bound_Q=visit_bound,
+        incoming_annotation_serial_bound=incoming_annotation_serial,
+        added_Uint_entries=3*visit_bound,added_Uint_digits=11*visit_bound,
+        added_UI_From_Int_hash_requests=3*visit_bound,
+        UI_From_gnu_maximum_operand_digits=5,
+        core_backing=core,Rep_Table_backing=rep,checks=checks,
+        all_selected_checks_pass=all(checks.values()),
+        native_Uint_and_Rep_Table_growth_remains_unlocked=True,
+        source_to_annotation_root_Q_derived_here=False,
+        other_backend_callbacks_and_late_consumers_included=False,
+        whole_native_frontend_closed=False)
+
+
 def source_shape(raw):
     """Physical-line sufficient rule; FF/VT included for fixed runtime files."""
     lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
@@ -2047,6 +2091,14 @@ def representative_current_programs():
 
 
 result = {
+    "native_backannotation_interface": {
+        "function": "native_backannotation_backing(logical, source_derived_Q, incoming_annotation_serial)",
+        "added_Uint_entries": "3Q", "added_Uint_digits": "11Q",
+        "added_UI_From_Int_hash_requests": "3Q", "Rep_Table_demand": "504+Q",
+        "Q_requirement": "all selected annotation roots, including failed early inner-left retry recurrence",
+        "representative_source_Q_supplied": False,
+        "representative_backend_checks_claimed": False,
+        "source": "retained-backend-capacity.md regular native backannotation transfer"},
     "representative_current_programs": representative_current_programs(),
     "native_core_table_backing_join": {
         "arithmetic_fixtures_not_programs_or_thresholds": [native_core_table_backing(
