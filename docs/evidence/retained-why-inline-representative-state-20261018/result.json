@@ -1,0 +1,1582 @@
+{
+  "scope": "retained first Input_Is_Valid/cvc5 inline entry; representative state for all optional metadata exclusions",
+  "complete_nonempty_slot_projection": true,
+  "outer_array_length": 5003,
+  "allocated_key_slots": 11968,
+  "nonempty_key_slots": 6704,
+  "unique_old_declarations": 6704,
+  "bucket_length_max": 7,
+  "declaration_next_tag_at_entry": 6836,
+  "graph_blocks": 326456,
+  "graph_retained_payload_bytes": 9058224,
+  "graph_opaque_tags": [
+    252,
+    255
+  ],
+  "exact_input_graph_isomorphism_blocks": 14477,
+  "input_roots": 244,
+  "projection": {
+    "mapped_keys_unique": 143,
+    "all_miss_input_alternatives_checked": 143,
+    "kind_or_symbol_excluded_old_declarations": 6559,
+    "excluded_kind_counts": {
+      "0": 296,
+      "5": 2735,
+      "2": 2336,
+      "3": 1122,
+      "1": 59,
+      "4": 11
+    },
+    "same_key_old_declarations": 145,
+    "strict_shape_exclusions": [
+      {
+        "declaration_index": 143,
+        "name": "concat_singleton_left_def",
+        "address": 139901598108552,
+        "opened_coordinates": [
+          72,
+          8,
+          0,
+          19
+        ],
+        "candidate_coordinates_upper": [
+          72,
+          7,
+          0,
+          19
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "b"
+        ]
+      },
+      {
+        "declaration_index": 152,
+        "name": "bool_eq_rev",
+        "address": 139901596904648,
+        "opened_coordinates": [
+          53,
+          7,
+          0,
+          18
+        ],
+        "candidate_coordinates_upper": [
+          52,
+          7,
+          0,
+          18
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "n"
+        ]
+      },
+      {
+        "declaration_index": 242,
+        "name": "argument_count__post_axiom",
+        "address": 139901589940704,
+        "opened_coordinates": [
+          17,
+          2,
+          0,
+          8
+        ],
+        "candidate_coordinates_upper": [
+          16,
+          2,
+          0,
+          8
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "n"
+        ]
+      }
+    ],
+    "remaining_old_representatives_are_input_roots": 142,
+    "groups": [
+      {
+        "declaration_index": 7,
+        "kind": "logic",
+        "input_address": 139902142052456,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902142052456
+        ]
+      },
+      {
+        "declaration_index": 8,
+        "kind": "logic",
+        "input_address": 139902141931864,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902141931864
+        ]
+      },
+      {
+        "declaration_index": 9,
+        "kind": "logic",
+        "input_address": 139902141818480,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902141818480
+        ]
+      },
+      {
+        "declaration_index": 10,
+        "kind": "logic",
+        "input_address": 139902141692728,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902141692728
+        ]
+      },
+      {
+        "declaration_index": 11,
+        "kind": "logic",
+        "input_address": 139902141567544,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902141567544
+        ]
+      },
+      {
+        "declaration_index": 24,
+        "kind": "logic",
+        "input_address": 139901966813904,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901966813904
+        ]
+      },
+      {
+        "declaration_index": 25,
+        "kind": "logic",
+        "input_address": 139901966729000,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901966729000
+        ]
+      },
+      {
+        "declaration_index": 26,
+        "kind": "logic",
+        "input_address": 139901966644448,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901966644448
+        ]
+      },
+      {
+        "declaration_index": 27,
+        "kind": "logic",
+        "input_address": 139901966559768,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901966559768
+        ]
+      },
+      {
+        "declaration_index": 28,
+        "kind": "logic",
+        "input_address": 139901966475688,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901966475688
+        ]
+      },
+      {
+        "declaration_index": 29,
+        "kind": "logic",
+        "input_address": 139902199682904,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902199682904
+        ]
+      },
+      {
+        "declaration_index": 30,
+        "kind": "logic",
+        "input_address": 139902199654024,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902199654024
+        ]
+      },
+      {
+        "declaration_index": 35,
+        "kind": "logic",
+        "input_address": 139902199352744,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902199352744
+        ]
+      },
+      {
+        "declaration_index": 36,
+        "kind": "logic",
+        "input_address": 139902199265496,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902199265496
+        ]
+      },
+      {
+        "declaration_index": 37,
+        "kind": "logic",
+        "input_address": 139902199162184,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902199162184
+        ]
+      },
+      {
+        "declaration_index": 38,
+        "kind": "logic",
+        "input_address": 139902199070408,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902199070408
+        ]
+      },
+      {
+        "declaration_index": 39,
+        "kind": "prop",
+        "input_address": 139901586682808,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586682808
+        ]
+      },
+      {
+        "declaration_index": 40,
+        "kind": "prop",
+        "input_address": 139901586670680,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586670680
+        ]
+      },
+      {
+        "declaration_index": 41,
+        "kind": "prop",
+        "input_address": 139901586663072,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586663072
+        ]
+      },
+      {
+        "declaration_index": 42,
+        "kind": "prop",
+        "input_address": 139901586654232,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586654232
+        ]
+      },
+      {
+        "declaration_index": 43,
+        "kind": "prop",
+        "input_address": 139901586645584,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586645584
+        ]
+      },
+      {
+        "declaration_index": 44,
+        "kind": "prop",
+        "input_address": 139901586635800,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586635800
+        ]
+      },
+      {
+        "declaration_index": 45,
+        "kind": "prop",
+        "input_address": 139901586624192,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586624192
+        ]
+      },
+      {
+        "declaration_index": 46,
+        "kind": "prop",
+        "input_address": 139901586612016,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586612016
+        ]
+      },
+      {
+        "declaration_index": 47,
+        "kind": "prop",
+        "input_address": 139901586600080,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586600080
+        ]
+      },
+      {
+        "declaration_index": 48,
+        "kind": "prop",
+        "input_address": 139901586586816,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586586816
+        ]
+      },
+      {
+        "declaration_index": 49,
+        "kind": "prop",
+        "input_address": 139901586575368,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586575368
+        ]
+      },
+      {
+        "declaration_index": 50,
+        "kind": "prop",
+        "input_address": 139901586567192,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586567192
+        ]
+      },
+      {
+        "declaration_index": 51,
+        "kind": "prop",
+        "input_address": 139901586560120,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586560120
+        ]
+      },
+      {
+        "declaration_index": 52,
+        "kind": "prop",
+        "input_address": 139901586551880,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586551880
+        ]
+      },
+      {
+        "declaration_index": 53,
+        "kind": "prop",
+        "input_address": 139901586538936,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586538936
+        ]
+      },
+      {
+        "declaration_index": 54,
+        "kind": "prop",
+        "input_address": 139901586526144,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586526144
+        ]
+      },
+      {
+        "declaration_index": 55,
+        "kind": "prop",
+        "input_address": 139901586516048,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586516048
+        ]
+      },
+      {
+        "declaration_index": 56,
+        "kind": "prop",
+        "input_address": 139901586510376,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586510376
+        ]
+      },
+      {
+        "declaration_index": 57,
+        "kind": "prop",
+        "input_address": 139901586499272,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586499272
+        ]
+      },
+      {
+        "declaration_index": 60,
+        "kind": "logic",
+        "input_address": 139901603125120,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901603125120
+        ]
+      },
+      {
+        "declaration_index": 61,
+        "kind": "logic",
+        "input_address": 139901603121920,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901603121920
+        ]
+      },
+      {
+        "declaration_index": 62,
+        "kind": "logic",
+        "input_address": 139901603109264,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901603109264
+        ]
+      },
+      {
+        "declaration_index": 63,
+        "kind": "prop",
+        "input_address": 139901603117568,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901603117568
+        ]
+      },
+      {
+        "declaration_index": 64,
+        "kind": "logic",
+        "input_address": 139901603032048,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901603032048
+        ]
+      },
+      {
+        "declaration_index": 65,
+        "kind": "logic",
+        "input_address": 139901602979808,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602979808
+        ]
+      },
+      {
+        "declaration_index": 66,
+        "kind": "logic",
+        "input_address": 139901602918448,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602918448
+        ]
+      },
+      {
+        "declaration_index": 67,
+        "kind": "logic",
+        "input_address": 139901602762968,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602762968
+        ]
+      },
+      {
+        "declaration_index": 73,
+        "kind": "logic",
+        "input_address": 139901602501152,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602501152
+        ]
+      },
+      {
+        "declaration_index": 75,
+        "kind": "logic",
+        "input_address": 139901602388448,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602388448
+        ]
+      },
+      {
+        "declaration_index": 78,
+        "kind": "logic",
+        "input_address": 139901602255288,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602255288
+        ]
+      },
+      {
+        "declaration_index": 79,
+        "kind": "logic",
+        "input_address": 139901602252088,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602252088
+        ]
+      },
+      {
+        "declaration_index": 80,
+        "kind": "logic",
+        "input_address": 139901602239400,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602239400
+        ]
+      },
+      {
+        "declaration_index": 81,
+        "kind": "prop",
+        "input_address": 139901602247736,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602247736
+        ]
+      },
+      {
+        "declaration_index": 82,
+        "kind": "logic",
+        "input_address": 139901602162280,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602162280
+        ]
+      },
+      {
+        "declaration_index": 83,
+        "kind": "logic",
+        "input_address": 139901602110040,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602110040
+        ]
+      },
+      {
+        "declaration_index": 84,
+        "kind": "logic",
+        "input_address": 139901602048952,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901602048952
+        ]
+      },
+      {
+        "declaration_index": 85,
+        "kind": "logic",
+        "input_address": 139901601894208,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601894208
+        ]
+      },
+      {
+        "declaration_index": 91,
+        "kind": "logic",
+        "input_address": 139901601632488,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601632488
+        ]
+      },
+      {
+        "declaration_index": 93,
+        "kind": "logic",
+        "input_address": 139901601519552,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601519552
+        ]
+      },
+      {
+        "declaration_index": 95,
+        "kind": "logic",
+        "input_address": 139901601358624,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601358624
+        ]
+      },
+      {
+        "declaration_index": 96,
+        "kind": "logic",
+        "input_address": 139901601306256,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601306256
+        ]
+      },
+      {
+        "declaration_index": 97,
+        "kind": "logic",
+        "input_address": 139901601245728,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601245728
+        ]
+      },
+      {
+        "declaration_index": 98,
+        "kind": "logic",
+        "input_address": 139901601093704,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901601093704
+        ]
+      },
+      {
+        "declaration_index": 104,
+        "kind": "logic",
+        "input_address": 139901600836824,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901600836824
+        ]
+      },
+      {
+        "declaration_index": 106,
+        "kind": "logic",
+        "input_address": 139901600729272,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901600729272
+        ]
+      },
+      {
+        "declaration_index": 109,
+        "kind": "prop",
+        "input_address": 139901586213984,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586213984
+        ]
+      },
+      {
+        "declaration_index": 110,
+        "kind": "prop",
+        "input_address": 139901586204176,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901586204176
+        ]
+      },
+      {
+        "declaration_index": 111,
+        "kind": "prop",
+        "input_address": 139901600353800,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901600353800
+        ]
+      },
+      {
+        "declaration_index": 112,
+        "kind": "logic",
+        "input_address": 139901600143368,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901600143368
+        ]
+      },
+      {
+        "declaration_index": 121,
+        "kind": "prop",
+        "input_address": 139901599872056,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599872056
+        ]
+      },
+      {
+        "declaration_index": 123,
+        "kind": "prop",
+        "input_address": 139901599797120,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599797120
+        ]
+      },
+      {
+        "declaration_index": 124,
+        "kind": "prop",
+        "input_address": 139901599709512,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599709512
+        ]
+      },
+      {
+        "declaration_index": 126,
+        "kind": "prop",
+        "input_address": 139901599596256,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599596256
+        ]
+      },
+      {
+        "declaration_index": 127,
+        "kind": "prop",
+        "input_address": 139901599519584,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599519584
+        ]
+      },
+      {
+        "declaration_index": 128,
+        "kind": "prop",
+        "input_address": 139901599424480,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599424480
+        ]
+      },
+      {
+        "declaration_index": 130,
+        "kind": "prop",
+        "input_address": 139901599328280,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599328280
+        ]
+      },
+      {
+        "declaration_index": 131,
+        "kind": "prop",
+        "input_address": 139901599212824,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599212824
+        ]
+      },
+      {
+        "declaration_index": 133,
+        "kind": "prop",
+        "input_address": 139901599072800,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901599072800
+        ]
+      },
+      {
+        "declaration_index": 135,
+        "kind": "prop",
+        "input_address": 139901598957032,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901598957032
+        ]
+      },
+      {
+        "declaration_index": 136,
+        "kind": "prop",
+        "input_address": 139901598873248,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901598873248
+        ]
+      },
+      {
+        "declaration_index": 137,
+        "kind": "prop",
+        "input_address": 139901598782712,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901598782712
+        ]
+      },
+      {
+        "declaration_index": 138,
+        "kind": "prop",
+        "input_address": 139901598702664,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901598702664
+        ]
+      },
+      {
+        "declaration_index": 139,
+        "kind": "prop",
+        "input_address": 139901598610792,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901598610792
+        ]
+      },
+      {
+        "declaration_index": 141,
+        "kind": "prop",
+        "input_address": 139901598367520,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901598367520
+        ]
+      },
+      {
+        "declaration_index": 143,
+        "kind": "prop",
+        "input_address": 139901573151944,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901573151944,
+          139901598108552
+        ]
+      },
+      {
+        "declaration_index": 144,
+        "kind": "prop",
+        "input_address": 139901597963968,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901597963968
+        ]
+      },
+      {
+        "declaration_index": 146,
+        "kind": "prop",
+        "input_address": 139901597751592,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901597751592
+        ]
+      },
+      {
+        "declaration_index": 148,
+        "kind": "prop",
+        "input_address": 139901597568120,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901597568120
+        ]
+      },
+      {
+        "declaration_index": 150,
+        "kind": "prop",
+        "input_address": 139901597444728,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901597444728
+        ]
+      },
+      {
+        "declaration_index": 151,
+        "kind": "logic",
+        "input_address": 139901597244808,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901597244808
+        ]
+      },
+      {
+        "declaration_index": 152,
+        "kind": "prop",
+        "input_address": 139901572732776,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901572732776,
+          139901596904648
+        ]
+      },
+      {
+        "declaration_index": 153,
+        "kind": "logic",
+        "input_address": 139901596707384,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901596707384
+        ]
+      },
+      {
+        "declaration_index": 155,
+        "kind": "prop",
+        "input_address": 139901585612616,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901585612616
+        ]
+      },
+      {
+        "declaration_index": 156,
+        "kind": "prop",
+        "input_address": 139901585602584,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901585602584
+        ]
+      },
+      {
+        "declaration_index": 157,
+        "kind": "prop",
+        "input_address": 139901596454248,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901596454248
+        ]
+      },
+      {
+        "declaration_index": 159,
+        "kind": "logic",
+        "input_address": 139901596049008,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901596049008
+        ]
+      },
+      {
+        "declaration_index": 161,
+        "kind": "logic",
+        "input_address": 139901595890936,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595890936
+        ]
+      },
+      {
+        "declaration_index": 162,
+        "kind": "logic",
+        "input_address": 139901595847344,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595847344
+        ]
+      },
+      {
+        "declaration_index": 164,
+        "kind": "prop",
+        "input_address": 139901585542072,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901585542072
+        ]
+      },
+      {
+        "declaration_index": 165,
+        "kind": "logic",
+        "input_address": 139901595674152,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595674152
+        ]
+      },
+      {
+        "declaration_index": 167,
+        "kind": "logic",
+        "input_address": 139901595530376,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595530376
+        ]
+      },
+      {
+        "declaration_index": 168,
+        "kind": "logic",
+        "input_address": 139901595468384,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595468384
+        ]
+      },
+      {
+        "declaration_index": 169,
+        "kind": "logic",
+        "input_address": 139901595403416,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595403416
+        ]
+      },
+      {
+        "declaration_index": 170,
+        "kind": "logic",
+        "input_address": 139901595340232,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595340232
+        ]
+      },
+      {
+        "declaration_index": 171,
+        "kind": "logic",
+        "input_address": 139901595267424,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595267424
+        ]
+      },
+      {
+        "declaration_index": 172,
+        "kind": "logic",
+        "input_address": 139901595185464,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595185464
+        ]
+      },
+      {
+        "declaration_index": 177,
+        "kind": "prop",
+        "input_address": 139901595035176,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901595035176
+        ]
+      },
+      {
+        "declaration_index": 178,
+        "kind": "prop",
+        "input_address": 139901594996888,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594996888
+        ]
+      },
+      {
+        "declaration_index": 179,
+        "kind": "prop",
+        "input_address": 139901594959208,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594959208
+        ]
+      },
+      {
+        "declaration_index": 180,
+        "kind": "prop",
+        "input_address": 139901594912992,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594912992
+        ]
+      },
+      {
+        "declaration_index": 181,
+        "kind": "logic",
+        "input_address": 139901594859416,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594859416
+        ]
+      },
+      {
+        "declaration_index": 182,
+        "kind": "logic",
+        "input_address": 139901594763728,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594763728
+        ]
+      },
+      {
+        "declaration_index": 183,
+        "kind": "logic",
+        "input_address": 139901594693656,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594693656
+        ]
+      },
+      {
+        "declaration_index": 188,
+        "kind": "logic",
+        "input_address": 139901594447136,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901594447136
+        ]
+      },
+      {
+        "declaration_index": 195,
+        "kind": "prop",
+        "input_address": 139901970505576,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901970505576
+        ]
+      },
+      {
+        "declaration_index": 196,
+        "kind": "prop",
+        "input_address": 139901970378624,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901970378624
+        ]
+      },
+      {
+        "declaration_index": 197,
+        "kind": "prop",
+        "input_address": 139901970251080,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901970251080
+        ]
+      },
+      {
+        "declaration_index": 198,
+        "kind": "prop",
+        "input_address": 139901970121376,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901970121376
+        ]
+      },
+      {
+        "declaration_index": 199,
+        "kind": "prop",
+        "input_address": 139901969991560,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901969991560
+        ]
+      },
+      {
+        "declaration_index": 200,
+        "kind": "prop",
+        "input_address": 139901969862800,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901969862800
+        ]
+      },
+      {
+        "declaration_index": 201,
+        "kind": "logic",
+        "input_address": 139901969738072,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901969738072
+        ]
+      },
+      {
+        "declaration_index": 202,
+        "kind": "logic",
+        "input_address": 139902141272800,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139902141272800
+        ]
+      },
+      {
+        "declaration_index": 203,
+        "kind": "logic",
+        "input_address": 139901967783008,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901967783008
+        ]
+      },
+      {
+        "declaration_index": 204,
+        "kind": "logic",
+        "input_address": 139901967694000,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901967694000
+        ]
+      },
+      {
+        "declaration_index": 205,
+        "kind": "logic",
+        "input_address": 139901967623160,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901967623160
+        ]
+      },
+      {
+        "declaration_index": 206,
+        "kind": "logic",
+        "input_address": 139901967547088,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901967547088
+        ]
+      },
+      {
+        "declaration_index": 207,
+        "kind": "logic",
+        "input_address": 139901886994312,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901886994312
+        ]
+      },
+      {
+        "declaration_index": 208,
+        "kind": "logic",
+        "input_address": 139901886961216,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901886961216
+        ]
+      },
+      {
+        "declaration_index": 209,
+        "kind": "logic",
+        "input_address": 139901886896184,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901886896184
+        ]
+      },
+      {
+        "declaration_index": 210,
+        "kind": "logic",
+        "input_address": 139901886769400,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901886769400
+        ]
+      },
+      {
+        "declaration_index": 214,
+        "kind": "logic",
+        "input_address": 139901593863320,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901593863320
+        ]
+      },
+      {
+        "declaration_index": 218,
+        "kind": "logic",
+        "input_address": 139901593118760,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901593118760
+        ]
+      },
+      {
+        "declaration_index": 219,
+        "kind": "logic",
+        "input_address": 139901593115560,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901593115560
+        ]
+      },
+      {
+        "declaration_index": 220,
+        "kind": "logic",
+        "input_address": 139901593102904,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901593102904
+        ]
+      },
+      {
+        "declaration_index": 221,
+        "kind": "prop",
+        "input_address": 139901593111208,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901593111208
+        ]
+      },
+      {
+        "declaration_index": 222,
+        "kind": "logic",
+        "input_address": 139901593025848,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901593025848
+        ]
+      },
+      {
+        "declaration_index": 223,
+        "kind": "logic",
+        "input_address": 139901592973600,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901592973600
+        ]
+      },
+      {
+        "declaration_index": 224,
+        "kind": "logic",
+        "input_address": 139901592912520,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901592912520
+        ]
+      },
+      {
+        "declaration_index": 225,
+        "kind": "logic",
+        "input_address": 139901592757312,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901592757312
+        ]
+      },
+      {
+        "declaration_index": 231,
+        "kind": "logic",
+        "input_address": 139901592495496,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901592495496
+        ]
+      },
+      {
+        "declaration_index": 233,
+        "kind": "logic",
+        "input_address": 139901592382520,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901592382520
+        ]
+      },
+      {
+        "declaration_index": 234,
+        "kind": "logic",
+        "input_address": 139901592166848,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901592166848
+        ]
+      },
+      {
+        "declaration_index": 237,
+        "kind": "logic",
+        "input_address": 139901591489376,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901591489376
+        ]
+      },
+      {
+        "declaration_index": 240,
+        "kind": "logic",
+        "input_address": 139901590479536,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901590479536
+        ]
+      },
+      {
+        "declaration_index": 241,
+        "kind": "logic",
+        "input_address": 139901590234840,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901590234840
+        ]
+      },
+      {
+        "declaration_index": 242,
+        "kind": "prop",
+        "input_address": 139901571771856,
+        "goal_uses_unique": false,
+        "same_key_old_addresses": [
+          139901589940704,
+          139901571771856
+        ]
+      },
+      {
+        "declaration_index": 243,
+        "kind": "prop",
+        "input_address": 139901571620312,
+        "goal_uses_unique": true,
+        "same_key_old_addresses": []
+      }
+    ]
+  },
+  "source_insertion_closure": "one merge per distinct non-goal mapped key; earlier local insertions cannot match a later key; goal uses unique",
+  "opened_attribute_attachment": "every remaining old object is an exact input root, checked as the all-miss alternative; no strict-equality attribute-preservation assumption",
+  "representative_envelope": {
+    "seed_saved_entries_per_formula": 8,
+    "delayed_value_nodes": 6,
+    "type_occurrence_nodes": 3,
+    "attribute_universe_entries": 80
+  },
+  "representative_contract_instantiated_for_retained_entry": true,
+  "local_structural_and_registration_transfer_established_under_existing_runtime_and_freshness_premises": true,
+  "attached_local_demands": {
+    "status": "attached_to_new_retained_representative_projection",
+    "hypothesis_origin": "complete_table_projection_and_source_insertion_closure",
+    "numeric_envelope_hypothesis": {
+      "seed_saved_entries_per_formula": 8,
+      "delayed_value_nodes": 6,
+      "type_occurrence_nodes": 3,
+      "attribute_universe_entries": 80
+    },
+    "effective_envelope_including_capture": {
+      "seed_saved_entries_per_formula": 8,
+      "delayed_value_nodes": 6,
+      "type_occurrence_nodes": 3,
+      "attribute_universe_entries": 80
+    },
+    "scope": "frozen first Input_Is_Valid/cvc5 entry; all inline:no exclusion sets",
+    "covers_every_metadata_exclusion_set": true,
+    "metadata_exclusion_set_known": false,
+    "structural": {
+      "output_task_nodes_upper": 512,
+      "maximum_semantic_formula_mass_upper": 99,
+      "maximum_formal_plus_body_bound_slots_upper": 14,
+      "delayed_map_entries_upper": 36,
+      "opening_substitution_map_entries_upper": 50,
+      "delayed_value_term_nodes_upper": 6,
+      "stored_term_occurrences_per_formula_upper": 21483,
+      "semantic_free_count_or_intermediate_product_upper": 99,
+      "instantiated_type_occurrences_upper": 9,
+      "type_substitution_keys_upper": 2,
+      "known_identifier_map_keys_upper": 277,
+      "inline_environment_keys_upper": 45,
+      "inline_no_set_keys_upper": 192,
+      "task_meta_map_keys_upper": 192,
+      "task_clone_map_keys_upper": 76,
+      "each_history_set_keys_upper": 268,
+      "attribute_set_keys_upper": 80,
+      "variable_count_map_keys_upper": 99,
+      "stored_map_height_plus_two_upper": 279
+    },
+    "events": {
+      "kernel": {
+        "replace_recursive_entries_upper": 1613,
+        "unfold_entries_upper": 594,
+        "environment_hits_upper": 85,
+        "relocate_recursive_entries_upper": 156,
+        "type_map_term_entries_upper": 156,
+        "post_type_substitution_recursive_entries_upper": 156,
+        "fresh_variable_identifiers_inside_kernel_upper": 235
+      },
+      "logic_definition_open_calls_upper": 486,
+      "logic_formal_registrations_outside_kernel_upper": 738,
+      "logic_termination_opened_term_entries_upper": 418,
+      "logic_termination_body_registrations_upper": 4,
+      "task_check_match_opened_term_entries_upper": 1613,
+      "task_check_match_body_registrations_upper": 168,
+      "pattern_compile_variable_registrations_upper": 0,
+      "all_fresh_identifier_registrations_upper": 1145,
+      "hidden_substitution_root_calls_upper": 4142,
+      "hidden_substitution_recursive_term_entries_upper": 88982586,
+      "hidden_binder_substitution_updates_upper": 88982586,
+      "free_variable_scan_term_entries_upper": 52907301372,
+      "symbol_and_type_validator_stored_term_entries_upper": 8292438,
+      "symbol_type_fold_recursive_type_entries_upper": 74987619,
+      "unchanged_declaration_symbol_type_entries_upper": 6648,
+      "definition_close_strict_comparisons_upper": 81,
+      "definition_close_semantic_node_pairs_upper": 8019,
+      "candidate_decl_hash_semantic_node_entries_upper": 14157,
+      "type_instantiation_recursive_entries_and_hashcons_requests_upper": 669,
+      "type_matching_recursive_entries_upper": 69984,
+      "unchanged_data_revalidation_calls_upper": 16,
+      "data_positivity_ground_argument_checks_upper": 16,
+      "data_positivity_extract_pos_calls_upper": 22,
+      "data_foundedness_type_entries_upper": 38,
+      "data_foundedness_constructor_entries_upper": 22,
+      "data_declaration_constructor_calls_upper": 0,
+      "pattern_match_compile_calls_upper": 12,
+      "new_named_type_or_logic_or_prop_symbols_upper": 0
+    },
+    "shared_groups": {
+      "Ident.id_register": {
+        "increments_upper": 1145,
+        "initial_counter_required": true
+      },
+      "Decl.Hsdecl": {
+        "increments_upper": 143,
+        "weak_merge_requests_upper": 143,
+        "initial_state_required": true
+      },
+      "Theory.Hstdecl": {
+        "increments_upper": 244,
+        "weak_merge_requests_upper": 244,
+        "initial_state_required": true
+      },
+      "Task.Hstask": {
+        "increments_upper": 512,
+        "weak_merge_requests_upper": 512,
+        "initial_state_required": true
+      },
+      "Ty.Hsty": {
+        "increments_upper": 669,
+        "weak_merge_requests_upper": 669,
+        "initial_state_required": true
+      },
+      "Task.Stdecl.Hcpt": {
+        "increments_upper": 17152,
+        "ephemeron_additions_upper": 17152,
+        "initial_state_required": true
+      }
+    },
+    "fresh_groups": {
+      "inline_fold_Wtask": {
+        "instances_upper": 1,
+        "create_argument": 63,
+        "finds_upper": 512,
+        "sets_upper": 511,
+        "backing": {
+          "stored_entries_upper": 511,
+          "individual_array_length_upper": 2044,
+          "old_plus_new_array_slots_upper": 4088,
+          "resize_multiply_or_threshold_upper": 4088,
+          "single_bucket_chain_cells_upper": 511,
+          "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+        }
+      },
+      "inline_meta_Wtds": {
+        "instances_upper": 1,
+        "create_argument": 17,
+        "finds_upper": 1,
+        "sets_upper": 1,
+        "backing": {
+          "stored_entries_upper": 1,
+          "individual_array_length_upper": 32,
+          "old_plus_new_array_slots_upper": 64,
+          "resize_multiply_or_threshold_upper": 64,
+          "single_bucket_chain_cells_upper": 1,
+          "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+        }
+      },
+      "hit_type_Wty": {
+        "instances_upper": 85,
+        "create_argument": 17,
+        "all_instances_finds_and_sets_upper": 156,
+        "per_instance_backing": {
+          "stored_entries_upper": 5,
+          "individual_array_length_upper": 32,
+          "old_plus_new_array_slots_upper": 64,
+          "resize_multiply_or_threshold_upper": 64,
+          "single_bucket_chain_cells_upper": 5,
+          "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+        }
+      },
+      "termination_Hid": {
+        "instances_upper": 162,
+        "create_argument": 5,
+        "insertions_upper": 0,
+        "initial_and_final_array_length": 16
+      }
+    }
+  },
+  "Decl.Hsdecl_counter_transfer": {
+    "initial": 6836,
+    "increments_upper": 143,
+    "final_upper": 6979,
+    "signed_ocaml_int_fits": true
+  },
+  "Decl.Hsdecl_backing_transfer": {
+    "live_entries_upper": 12111,
+    "individual_outer_array_length_upper": 36336,
+    "individual_bucket_length_upper": 18169,
+    "outer_growth_multiply_upper": 109008,
+    "bucket_growth_multiply_upper": 54507,
+    "shrink_multiply_plus_two_absolute_upper": 36344,
+    "oversize_and_rover_upper": 36336,
+    "find_or_equality_calls_per_request_upper": 18169,
+    "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+  },
+  "unsuccessful_comparand_cost_fully_bounded": false,
+  "all_shared_initial_states_instantiated": false,
+  "runtime_allocation_collector_composition_established": false,
+  "native_inlining_executed": false,
+  "all_fixed_pair_dimensions_established": false,
+  "complete_transform_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "source_argument_machine_checked": false,
+  "new_native_capture_attempts": 2,
+  "successful_complete_state_captures": 1,
+  "solver_runs": 0
+}

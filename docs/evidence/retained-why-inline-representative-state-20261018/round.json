@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-18",
+  "issue": "https://github.com/berkeleynerd/silver/issues/119",
+  "base": "eea188d96f",
+  "scope": "Complete selectable Hsdecl representative projection at retained first Input_Is_Valid/cvc5 inline_trivial entry; attach reviewed conditional local transfer where justified.",
+  "authorization": "Parent-delegated owner-authorized research #119; parent authorized focused capture and one corrected retry after diagnosed decoder failure and offline repair. Parent owns independent review, integration, publication, issue and memory updates.",
+  "worker": {
+    "agent": "/root/why_inline_operations",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null,
+    "unavailable_measurements": "Runtime confirmation, token and monetary measurements were not exposed."
+  },
+  "started_utc": "2026-10-18T21:26:38+00:00",
+  "recorded_utc": "2026-10-18T21:44:38.802831+00:00",
+  "elapsed_seconds_through_record": 1080.802831,
+  "elapsed_scope": "This subthread from assignment clock to evidence-record creation; excludes later review/integration. Native durations are separately measured below.",
+  "platform": "Linux x86_64",
+  "exact_review_inputs": {
+    "README.md": {
+      "bytes": 2103,
+      "sha256": "160e96b5992db8e8ee197357869d491abd7a2300d6d95c2953317f2f009007d6"
+    },
+    "capture.tar.gz": {
+      "bytes": 3791265,
+      "sha256": "5d374cc6d233a717bfc3770839c3322d65d9aaa6feec621b2cfee681d70d1b89"
+    },
+    "check.py": {
+      "bytes": 4410,
+      "sha256": "4a253a7370db6eb72881e108b70bf6ea5f1e8954ca7a668cb4d7a7b7cbb160f3"
+    },
+    "failed-capture.tar.gz": {
+      "bytes": 102174,
+      "sha256": "7675c4201e06abf72d58029fa682f5dff2ad4d577e577ba338190801f39933a3"
+    },
+    "inputs.json": {
+      "bytes": 16510,
+      "sha256": "3527e59eb4d74bc2de8ff6e034063415b474ba4aac3eea6f8a9fc2344e547d73"
+    },
+    "project.py": {
+      "bytes": 17751,
+      "sha256": "bd9e895da2adf445ac5721eae336c11a381b65d37297f6c13613f432c8f523a3"
+    },
+    "result.json": {
+      "bytes": 42528,
+      "sha256": "4a6ef8aa508f75748adc5eab6102fabe21c5f2d74e64827f4100ec29df584852"
+    },
+    "sources.tar.gz": {
+      "bytes": 112646,
+      "sha256": "2e39166907b080a5816e2cac0d7ead26fc5f58d7865c441c99e1289a7af02cd3"
+    },
+    "../../research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    }
+  },
+  "native_capture_attempts": [
+    {
+      "run_id": "20261018T213006-c14a891efb1a",
+      "workers": 1,
+      "managed_duration_seconds": 7.138342259,
+      "debugger_duration_seconds": 4.890503049999097,
+      "completed": false,
+      "failure": "GDB read_memory(addr, 0) rejected an empty cached-hash array; no complete table or graph was produced.",
+      "archive": "failed-capture.tar.gz"
+    },
+    {
+      "run_id": "20261018T213147-a12cd442bb5e",
+      "workers": 1,
+      "managed_duration_seconds": 9.737730754,
+      "debugger_duration_seconds": 7.529223530998934,
+      "completed": true,
+      "guard_hits": [],
+      "failures": [],
+      "archive": "capture.tar.gz"
+    }
+  ],
+  "managed_native_total_seconds": 16.876073013,
+  "debugger_native_total_seconds": 12.41972658099803,
+  "native_capture_attempts_count": 2,
+  "successful_complete_state_captures": 1,
+  "solver_runs": 0,
+  "builds": 0,
+  "proof_runs": 0,
+  "native_inlining_executed": false,
+  "diagnostic_and_rework": "Preserved failed attempt; diagnosed zero-byte read; repaired decoder; offline synthetic reader forbids zero-length reads and checks empty/mixed buckets and inconsistent lengths; one corrected native retry succeeded. No further native run.",
+  "checks": [
+    {
+      "command": "python3 -B docs/evidence/retained-why-inline-representative-state-20261018/check.py",
+      "status": "pass",
+      "elapsed_seconds": 2.06714,
+      "new_native_runs": 0,
+      "scope": "All archive/dependency identities; complete table/graph closure; exact input isomorphism; semantic replay; exhaustive representative projection; all-miss alternatives; local arithmetic; seven focused negative/decoder checks."
+    },
+    {
+      "status": "earlier preparation pass",
+      "elapsed_seconds": 1.97527,
+      "repeat_reason": "Added actual mapped-binary identity and native-result assertions before final focused run. This is an offline check, not repeated expensive native validation."
+    }
+  ],
+  "achieved": "Retained all 5003 buckets and 6704 distinct nonempty objects. Necessary kind/symbol keys leave 142 exact input objects and three shape-excluded old propositions. Distinct mapped keys close local insertion; all-miss alternatives attach actual opened attributes. Conditional E=8,V=6,T=3,A=80 and local 1145-registration arithmetic attach for this entry under stated premises.",
+  "material_source_followups": "Verified wrapper equality requires physical declaration and normal predecessor identity, with valid cached-map invariants explicit. Verified this goal entry constructs a fresh fold memo. No prior operational packet changed.",
+  "remaining_obligations": [
+    "Independent review of complete-state/native-layout/source argument",
+    "Complete unsuccessful comparator-cost transfer",
+    "Other shared initial states and process-lifetime callers",
+    "Runtime allocation and collector composition",
+    "Other fixed entries and downstream transforms/printers",
+    "Complete transformation and whole-pipeline capacity"
+  ],
+  "review": {
+    "status": "pending parent-coordinated independent review",
+    "requested_focus": [
+      "Complete weak-state/native-layout and graph join",
+      "Strict-equality coordinate exclusion including delayed substitutions",
+      "Local insertion and opened-attribute induction",
+      "Wrapper/cached-map invariants, fresh fold memo and absence of foreign insertion"
+    ],
+    "reviewer_model": null,
+    "reviewer_effort": null,
+    "review_elapsed_seconds": null
+  },
+  "bookkeeping": {
+    "cli_memory_updated": false,
+    "harness_written": false,
+    "issues_updated_by_subthread": false,
+    "parent_owns_integration_and_publication": true
+  }
+}
