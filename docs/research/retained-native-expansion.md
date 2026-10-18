@@ -3190,6 +3190,132 @@ wrapper/scope helpers, diagnostics, backend call lowering or physical stack
 storage. `native_runtime_concat_call` records the separate table dimensions
 and is now included in the combined vector.
 
+## Source concat folding and its literal suffix
+
+The native emitter is preceded by semantic String folding. This is a separate
+addend because a folded source concat does not reach that emitter. Charge both
+paths for every source `&`; excluding mutually exclusive paths is unnecessary.
+The following closes Eval_Concatenation/Fold_Str and the literal-resolution
+suffix of concat operands, under the ordinary Main/no-diagnostics premises.
+Parsing, source-name/Image/input constructor analysis and standalone literal
+resolution in a potentially dynamic assignment subtype remain separate.
+
+Let c be the number of source String concat operators, and let B(e) be a sound
+upper bound on the number of characters in source expression e. The value
+summary composes as `B(left & right)=B(left)+B(right)`; a source object name
+uses its declaration's length bound, and every occurrence counts. Literal,
+input and Image seeds are supplied by their existing value/domain analysis.
+For this transfer require `0<=B(e)<=Integer'Last` for each concat, rather than
+assuming the frontend's String table can represent larger strings. This is an
+input-domain premise, not a new admission rule or a table-capacity conclusion.
+
+Resolve_Op_Concat's iterative left-spine walk visits each original operator
+once, with recursively disjoint right children (`sem_res.adb:10580–10639`).
+Resolve_Op_Concat_First sets the operation type to the base Standard String;
+operand resolution also uses that base (`10644–10762,10769–10806`). Thus its
+literal suffix has static Positive low bound 1, even when the surrounding
+assignment target's own subtype has a dynamic low bound. The latter standalone
+literal case must not be charged by this transfer.
+
+Test_Expression_Is_Foldable reads flags/constant values. Its nonstatic-context
+helper returns immediately for String; there are no scalar overflow routes
+(`sem_eval.adb:478–495,7226–7348`). Compile_Time_Known_Value and Get_String_Val
+follow the finite earlier-constant chain without allocation. The latter returns
+an existing literal; its allocating character-recovery route requires an error
+and is excluded (`1812–1918,5293–5309`). Eval_Entity_Name does not replace String
+constant references with their initializer (`2449–2533`). None of this unfolds
+runtime loops or allocates a fresh String for a mere alias.
+
+For each actual fold, Eval_Concatenation (`2342–2443`) either reuses the right
+String when the left is empty, or invokes Start_String once and appends the
+right String. Start_String(S) allocates one descriptor and copies at most the
+left length; its end-of-table sharing optimization can only reduce that charge.
+Store_String_Chars appends the right length directly to the retained table,
+and End_String returns the identifier without allocation
+(`stringt.adb:87–90,157–192,221–243`). No separate character work buffer is
+created by these helpers. Thus one fold adds at most **one String descriptor
+and B(e) retained characters**. Across Main use **c descriptors and sum B(e)**
+over all source concats, even nonfolded ones. Charging only the final value, or
+only source literal bytes, would miss repeated intermediate retained values.
+Parser/scanner String production is an additional charge; parser folding can
+reduce the number of semantic operations but supplies no credit here.
+
+Fold_Str creates one String literal and rewrites the original concat. Include
+one saved-original node and one possible growing-slot event: **two ordinary
+nodes and one growth event**. Analyze_String_Literal sets fields only. Resolve
+reuses an existing literal subtype or calls Set_String_Literal_Subtype once
+(`sem_eval.adb:5118–5144`, `sem_ch2.adb:304–325`,
+`sem_res.adb:12039–12117,13205–13242`). With Standard String's static low bound
+the latter creates one E_String_Literal_Subtype/internal name and at most one
+Uint for its length, reusing the existing low-bound node. Its dynamic-low
+range/unchecked-conversion path cannot run. A fold's empty-left subtype reuse
+likewise retains a known String constant's static low bound; neither input nor
+mutable String names qualify as a compile-time-known constant value here.
+
+Eval_String_Literal invokes String_Type_Len once. For Standard String this
+computes the static Positive range length, costing at most three Uint appends
+for subtraction and addition (`sem_eval.adb:4052–4167,6571–6584`). Null with
+low 1 is legal; the required B(e) premise excludes the too-long diagnostic.
+Character validation either reads existing ASCII characters or is skipped for
+a folded concat. Standard Character is the full base component type, so the
+per-character Uint/aggregate conversion route is excluded
+(`sem_res.adb:12126–12266`). There is no native String-literal expander case.
+The general Resolve tail's Mark_Use_Clauses only reads and marks existing
+use-clause chains (`sem_ch8.adb:9525–9742`). The outer operation-reference/xref
+work is outside this literal/fold suffix.
+
+First freezing of this fresh literal subtype adds at most **one Uint**, and
+no ordinary/entity node, list or name. Its base, component and index are the
+already frozen Standard types. As with the earlier artificial array subtype,
+there are no aspects, packing, predicates, controlled components or delayed
+freeze. The only size arithmetic is `8*String_Literal_Length` in
+Check_Compile_Time_Size (`freeze.adb:822–834`); Set_Small_Size affects RM_Size
+only, leaving Esize unknown (`773–794`). Therefore the alignment helper returns
+before arithmetic. Layout_Type explicitly clears both size fields and returns
+for a String-literal subtype (`layout.adb:237–246`). The remembered
+Size_Known_At_Compile_Time flag and Is_Frozen guard prevent repeated arithmetic.
+No freeze node is created, so Freeze_Before/Freeze_And_Append allocate no
+placement list (`freeze.adb:2804–2850,6537–6552,8143–8187,8265–8286`). A subtype
+registered only after operand resolution may freeze later; its same one-time
+cost is charged here, without claiming the entire later scope walk is free.
+
+Consequently one literal-resolution suffix, including potential first subtype
+creation and freezing, adds at most **one entity/name, thirteen name characters
+including NUL, and five Uint appends**. The five are length conversion, three
+range-length operations, and one size multiplication. A direct
+Set_String_Literal_Subtype plus its first freeze, without Eval_String_Literal,
+costs one entity/name, thirteen characters and two Uint appends. Each Uint
+magnitude is at most `8*(2^31-1)`, hence at most **three base-32768 digits**.
+The existing internal-serial representation premise still applies to names.
+
+For each source operator, conservatively charge two original literal-operand
+resolutions, one folded-result resolution and two explicit post-concat literal
+subtype registrations (`sem_res.adb:10808–10832`). The registrations and the
+folded-result case are mutually exclusive; this deliberate overcount also
+allows a replacement subtype whose earlier one remains retained. Normalized
+literal operands moved into later native calls retain Analyzed, so that move
+does not replay these suffixes. This gives the separate whole-Main addend:
+
+| Demand | Bound |
+| --- | ---: |
+| Ordinary nodes | `2*c` |
+| Growing-slot events | c |
+| Entities/internal names | `5*c` |
+| Name characters, including NUL | `65*c` |
+| Uint appends / retained digit words | `19*c` / `57*c` |
+| String descriptors | c |
+| Retained String characters | `sum B(e)` over source concats |
+| Syntax lists, Elists, hash wrappers, Xrefs | 0 |
+| Dynamic slots | `332*c` |
+
+This addend is recorded by `source_concat_folding` in derive.py. It can be
+added to the following emitter vector. It does not change that vector's A or
+create a new recursive scalar query: the only scalar computations above have
+static Standard endpoints, existing lengths and multiplication by 8. Source
+operand constructors, outer concat overload/name resolution, standalone
+String literals, fixed dependency processing, wrapper/scope helpers and the
+backend are still required for the whole native phase.
+
 ## Combined Main direct-emitter vector
 
 The closed addends can now be composed without stitching their rows by hand.
@@ -3240,7 +3366,8 @@ including the already identified cold power-cache extension.
 **This is not the whole native construct or a usable admission predicate.**
 Its explicit residual addends are:
 
-- Source String folding and initial Image/input construction.
+- The separately closed source-concat folding/literal suffix above, plus
+  initial Image/input and other source operand construction still to close.
 - First runtime lookups/spec processing; their local call, final-result and
   assignment-slice processing are now closed under the fixed-source premise.
 - Transient wrapper helpers beyond the closed placement/direct skeleton,
@@ -3302,10 +3429,11 @@ wrapper/scope handling and the diagnostic error path remain separate.
 
 The following missing addends prevent calling the native construct closed:
 
-- Bound incoming values and earlier semantic `Eval_Concatenation`/`Fold_Str`
-  work, with its own String/Uint/node/entity costs. Normalized operand/copy
-  shapes, first raw scalar passes and boundary capture are source-supported
-  above; those component closures do not supply value/magnitude bounds.
+- Supply incoming source value bounds and initial Image/input and other source
+  operand construction. Semantic `Eval_Concatenation`/`Fold_Str` and the concat
+  literal suffix now have the separate source-sensitive addend above. It does
+  not close outer name/overload resolution, standalone literal resolution into
+  a dynamic target subtype, or the complete source-value analysis.
 - Close later scope freezing and input/output wrapper helpers. Local runtime
   call processing, the result/assignment slice lookup bridge and first
   result-object freeze are closed above. The ordinary macro renaming helper

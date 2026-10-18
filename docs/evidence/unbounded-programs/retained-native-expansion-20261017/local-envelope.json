@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 81,
+  "source_files_verified": 82,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -11,6 +11,7 @@
     "namet.adb": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
     "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
     "validsw.ads": "79ecf115cfadb66ec6cba6d56980167b3f49c0bd594a342efc25ed7c209db2ee",
+    "stringt.adb": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
     "atree.adb": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
     "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
     "uintp.ads": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
@@ -2085,6 +2086,100 @@
     ],
     "excluded": "runtime first lookup/spec processing; wrapper/scope work; diagnostics; backend; physical stack/workspace"
   },
+  "Main_source_concat_folding_and_literal_suffix": {
+    "scope": "Eval_Concatenation/Fold_Str plus Standard_String literal-operand resolution and explicit post-concat subtype creation/freezing; separate additive component, not part of direct-emitter vector",
+    "source_counts": "<=c folds, <=2*c original literal-operand resolutions, <=2*c post-concat subtype registrations; no runtime-trip multiplier",
+    "source_lengths": "B(left&right)=B(left)+B(right); alias uses existing declaration bound; folded values reuse these same source bounds; each B<=IntegerLast is an input-domain premise",
+    "ordinary_nodes": "2*c",
+    "growth": "c",
+    "entities_and_names": "5*c",
+    "name_characters": "65*c",
+    "Uint_appends": "19*c",
+    "Uint_digits": "57*c",
+    "String_descriptors": "c",
+    "String_character_appends": "sum B(e) over source concats",
+    "dynamic_slots": "332*c",
+    "syntax_lists_Elists_hashes_Xrefs": 0,
+    "literal_suffix_per_resolution": {
+      "entities_and_names": 1,
+      "name_characters": 13,
+      "uint": 5,
+      "other_core_allocations": 0
+    },
+    "direct_subtype_and_first_freeze": {
+      "entities_and_names": 1,
+      "name_characters": 13,
+      "uint": 2,
+      "other_core_allocations": 0
+    },
+    "premises": "Main String-only concat; Standard String/Character/Integer frozen; no diagnostics/pending checks; ordinary local/pending placement; literal low bound is static1; no delayed freeze; internal-name serial bound; native source correspondence remains separate",
+    "examples_not_thresholds": [
+      {
+        "source_concat_operators": 0,
+        "source_concat_length_bounds": [],
+        "total": {
+          "ordinary": 0,
+          "growth": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0,
+          "string_descriptors": 0,
+          "string_characters": 0,
+          "lists": 0
+        },
+        "dynamic_slots": 0,
+        "max_local_uint_magnitude": 17179869176,
+        "uint_digits_per_append": 3,
+        "whole_construct_closed": false
+      },
+      {
+        "source_concat_operators": 3,
+        "source_concat_length_bounds": [
+          2,
+          3,
+          4
+        ],
+        "total": {
+          "ordinary": 6,
+          "growth": 3,
+          "entities_and_names": 15,
+          "name_characters": 195,
+          "uint": 57,
+          "string_descriptors": 3,
+          "string_characters": 9,
+          "lists": 0
+        },
+        "dynamic_slots": 996,
+        "max_local_uint_magnitude": 17179869176,
+        "uint_digits_per_append": 3,
+        "whole_construct_closed": false
+      },
+      {
+        "source_concat_operators": 4,
+        "source_concat_length_bounds": [
+          2,
+          4,
+          8,
+          16
+        ],
+        "total": {
+          "ordinary": 8,
+          "growth": 4,
+          "entities_and_names": 20,
+          "name_characters": 260,
+          "uint": 76,
+          "string_descriptors": 4,
+          "string_characters": 30,
+          "lists": 0
+        },
+        "dynamic_slots": 1328,
+        "max_local_uint_magnitude": 17179869176,
+        "uint_digits_per_append": 3,
+        "whole_construct_closed": false
+      }
+    ],
+    "excluded": "parser/scanner strings and parser folding; source name/Image/input constructors; standalone literal resolution in a possibly dynamic target subtype; outer concat name resolution/xrefs; wrapper/scope/backend; full predicate"
+  },
   "combined_Main_native_emitter_addends": {
     "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",
     "per_invocation": {
@@ -2114,7 +2209,8 @@
     },
     "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
     "residual_addends": [
-      "source String folding and Image/input constructors",
+      "separately closed source-concat folding/literal suffix",
+      "initial Image/input and other source operand constructors",
       "action/transient wrapper helpers beyond closed placement/skeleton",
       "later whole-scope freezing and name qualification",
       "numeric magnitudes and query roots in remaining stages",

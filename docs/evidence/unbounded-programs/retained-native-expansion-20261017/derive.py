@@ -22,7 +22,7 @@ pin = "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
 assert manifest["commit"] == pin
 expected = {entry["path"]: entry for entry in manifest["files"]}
 files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
-         "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads",
+         "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads", "stringt.adb",
          "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
@@ -608,6 +608,29 @@ def native_runtime_concat_call(n):
                 no_new_scalar_query_roots=True)
 
 
+def source_concat_folding(concat_length_bounds):
+    """Semantic concat/literal suffix; excludes source operand constructors."""
+    assert all(0 <= length <= 2**31-1 for length in concat_length_bounds)
+    c = len(concat_length_bounds)
+    # At most 2*c original literal-operand resolutions, c folded-result
+    # resolutions, and 2*c explicit post-concat literal-subtype creations.
+    resolving_literals = 3*c
+    direct_subtypes = 2*c
+    total = dict(ordinary=2*c, growth=c,
+                 entities_and_names=resolving_literals+direct_subtypes,
+                 name_characters=13*(resolving_literals+direct_subtypes),
+                 uint=5*resolving_literals+2*direct_subtypes,
+                 string_descriptors=c,
+                 string_characters=sum(concat_length_bounds), lists=0)
+    assert total["entities_and_names"] == 5*c and total["uint"] == 19*c
+    slots = 9*(total["ordinary"]+total["growth"])+61*total["entities_and_names"]
+    assert slots == 332*c
+    return dict(source_concat_operators=c, source_concat_length_bounds=concat_length_bounds,
+                total=total, dynamic_slots=slots,
+                max_local_uint_magnitude=8*(2**31-1), uint_digits_per_append=3,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1190,6 +1213,24 @@ result = {
                                     native_runtime_concat_call(64)],
         "excluded": "runtime first lookup/spec processing; wrapper/scope work; diagnostics; backend; physical stack/workspace",
     },
+    "Main_source_concat_folding_and_literal_suffix": {
+        "scope": "Eval_Concatenation/Fold_Str plus Standard_String literal-operand resolution and explicit post-concat subtype creation/freezing; separate additive component, not part of direct-emitter vector",
+        "source_counts": "<=c folds, <=2*c original literal-operand resolutions, <=2*c post-concat subtype registrations; no runtime-trip multiplier",
+        "source_lengths": "B(left&right)=B(left)+B(right); alias uses existing declaration bound; folded values reuse these same source bounds; each B<=IntegerLast is an input-domain premise",
+        "ordinary_nodes": "2*c", "growth": "c", "entities_and_names": "5*c",
+        "name_characters": "65*c", "Uint_appends": "19*c", "Uint_digits": "57*c",
+        "String_descriptors": "c", "String_character_appends": "sum B(e) over source concats",
+        "dynamic_slots": "332*c", "syntax_lists_Elists_hashes_Xrefs": 0,
+        "literal_suffix_per_resolution": {"entities_and_names": 1, "name_characters": 13,
+            "uint": 5, "other_core_allocations": 0},
+        "direct_subtype_and_first_freeze": {"entities_and_names": 1, "name_characters": 13,
+            "uint": 2, "other_core_allocations": 0},
+        "premises": "Main String-only concat; Standard String/Character/Integer frozen; no diagnostics/pending checks; ordinary local/pending placement; literal low bound is static1; no delayed freeze; internal-name serial bound; native source correspondence remains separate",
+        "examples_not_thresholds": [source_concat_folding([]),
+                                    source_concat_folding([2, 3, 4]),
+                                    source_concat_folding([2, 4, 8, 16])],
+        "excluded": "parser/scanner strings and parser folding; source name/Image/input constructors; standalone literal resolution in a possibly dynamic target subtype; outer concat name resolution/xrefs; wrapper/scope/backend; full predicate",
+    },
     "combined_Main_native_emitter_addends": {
         "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",
         "per_invocation": {
@@ -1210,7 +1251,7 @@ result = {
             "positive_Xrefs_increments": "2*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
-        "residual_addends": ["source String folding and Image/input constructors", "action/transient wrapper helpers beyond closed placement/skeleton", "later whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "runtime first lookup/spec processing, fixed runtime and backend costs"],
+        "residual_addends": ["separately closed source-concat folding/literal suffix", "initial Image/input and other source operand constructors", "action/transient wrapper helpers beyond closed placement/skeleton", "later whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "runtime first lookup/spec processing, fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),
