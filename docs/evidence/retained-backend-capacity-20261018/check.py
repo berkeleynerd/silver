@@ -23,7 +23,7 @@ RANGES = {
     "gcc/input.cc": [(1045, 1059)],
     "gcc/passes.def": [(25, 47)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
-    "gcc/gimplify.cc": [(944, 973), (1096, 1101), (1270, 1282), (1699, 1830)],
+    "gcc/gimplify.cc": [(944, 1050), (1096, 1126), (1270, 1282), (1699, 1830)],
     "gcc/tree-eh.cc": [(618, 655), (710, 877), (940, 1095),
                        (1107, 1283), (1289, 1800), (2333, 2356), (3318, 3349)],
     "gcc/gimple.cc": [(251, 263), (1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
@@ -39,7 +39,7 @@ RANGES = {
                                        (9889, 10025), (11006, 11030)],
     "gcc/ada/gcc-interface/decl.cc": [(400, 445), (697, 718), (754, 766), (1278, 1291),
                                       (3142, 3177)],
-    "gcc/ada/gcc-interface/misc.cc": [(376, 377)],
+    "gcc/ada/gcc-interface/misc.cc": [(376, 377), (1475, 1476)],
     "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783)],
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
@@ -49,8 +49,10 @@ RANGES = {
                      (1776, 1953), (2008, 2013), (2482, 2488), (2616, 2636),
                      (2926, 2960), (3834, 3872), (4132, 4170),
                      (5840, 5965), (6433, 6492), (7198, 7385),
-                     (7460, 7511), (7576, 7668), (8025, 8088), (15095, 15129)],
-    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1634), (1801, 1871)],
+                     (7460, 7511), (7576, 7668), (8025, 8088),
+                     (11637, 12013), (15095, 15129)],
+    "gcc/tree.h": [(5921, 5929)],
+    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1648), (1801, 1871)],
     "gcc/stor-layout.cc": [(67, 87), (296, 339), (603, 633), (909, 929),
                             (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
                             (2651, 2773), (2810, 2821), (2838, 2860), (2991, 3040)],
@@ -71,7 +73,8 @@ RANGES = {
                        (4001, 4038), (4150, 4168), (4184, 4253), (4476, 4523)],
     "gcc/function.h": [(34, 70), (162, 169)],
     "gcc/function.cc": [(203, 218), (5133, 5144)],
-    "gcc/vec.h": [(220, 260), (302, 325), (393, 425), (599, 660), (863, 868), (1394, 1415)],
+    "gcc/vec.h": [(220, 260), (302, 325), (393, 425), (599, 660),
+                  (731, 740), (863, 868), (999, 1016), (1394, 1415)],
     "gcc/vec.cc": [(150, 169)],
     "gcc/expr.cc": [(1096, 1176), (1506, 1590), (2024, 2169),
                      (2237, 2329), (2540, 2579)],
@@ -122,6 +125,46 @@ def read_tar(archive, name):
     with tarfile.open(archive) as src:
         with src.extractfile(name) as member:
             return member.read()
+
+
+def check_expression_copy_transfers(all_bytes):
+    gimplify = all_bytes["gcc/gimplify.cc"].decode()
+    start = gimplify.index("\nmostly_copy_tree_r (")
+    callback = gimplify[start:gimplify.index("\n}\n", start)]
+    assert "code == SAVE_EXPR || code == TARGET_EXPR || code == BIND_EXPR" in callback
+    assert "TREE_CODE_CLASS (code) == tcc_constant" in callback
+    assert "copy_tree_r (tp, walk_subtrees, NULL);" in callback
+    assert "walk_tree (&expr, mostly_copy_tree_r, NULL, NULL);" in gimplify
+    assert "walk_tree_1 (a, b, c, d, NULL)" in all_bytes["gcc/tree.h"].decode()
+    copying = all_bytes["gcc/tree-inline.cc"].decode()
+    assert "CONSTRUCTOR_ELTS (new_tree) = vec_safe_copy (CONSTRUCTOR_ELTS (*tp));" in copying
+    vector = all_bytes["gcc/vec.h"].decode()
+    assert "vec_alloc (new_vec, len PASS_MEM_STAT);" in vector
+    assert "new_vec->embedded_init (len, len);" in vector
+
+    def cost(t):
+        kind, children = t
+        if kind in ("constant", "declaration", "type", "save", "target", "bind"):
+            return 0
+        return (kind != "statement_list") + sum(map(cost, children))
+
+    shared = ("declaration", ())
+    rows = []
+    for depth in range(1, 9):
+        shared = ("expr", (shared, shared))
+        assert cost(shared) == 2**depth-1
+        assert cost(("expr", (("save", (shared,)), ("save", (shared,))))) == 1
+        rows.append(dict(distinct_binary_nodes=depth, expanded_copy_nodes=cost(shared)))
+    return dict(
+        scope="ordinary unshare_expr occurrences; source-to-input and whole-body metadata roots separate",
+        tree_copies_per_eligible_occurrence=1,
+        String_payload_copies=0,
+        constructor_element_bytes_lp64=16,
+        nonempty_constructor_copy_initial_slots="max(4,k), then GC rounding",
+        constructor_copy_new_scalar_or_type_nodes=0,
+        occurrence_examples=rows,
+        native_execution=False,
+    )
 
 
 def check_type_transfers(all_bytes, bundle):
@@ -693,6 +736,7 @@ def main():
         "initial_cfg": check_initial_cfg(all_bytes),
         "integer_constants": check_integer_constant_transfers(all_bytes),
         "scalar_pointer_types": check_type_transfers(all_bytes, bundle),
+        "expression_unsharing": check_expression_copy_transfers(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

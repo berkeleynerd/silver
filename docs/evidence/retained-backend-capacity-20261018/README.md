@@ -3,7 +3,7 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies seventy-three complete GCC source files at
+`source-manifest.json` identifies seventy-four complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;
@@ -18,12 +18,13 @@ the additional libiberty hash source is in `location-sources.tar.gz`;
 four constant-folder/pattern/configuration files are in `folding-sources.tar.gz`;
 eighteen type/layout/hook and selected Linux header files are in
 `type-sources.tar.gz`, reconciled against the retained complete source manifest;
+the tree-walker declaration header is in `copy-sources.tar.gz`;
 `target-options-query.json` retains the selected compiler's target-option query,
 which compiles no source. These identities describe source
 bytes, not a binary attestation. The ordinary Linux LP64 layout remains an
 explicit premise of the String allocation arithmetic.
 
-`check.py` verifies all seventy-three complete-file hashes, checks reused identities
+`check.py` verifies all seventy-four complete-file hashes, checks reused identities
 against their earlier manifests, extracts LF-numbered source ranges and
 recomputes local integer arithmetic, including ordinary-map growth and the two
 GNAT-node association backbones, constant-label mutation inventory and label
@@ -61,6 +62,9 @@ The Character-array continuation closes constant layout and its x86 empty-array
 query, verifies the mode-selection fallback and records the dynamic layout's
 symbolic-helper interface. It does not price those symbolic helpers or infer a
 String length limit from the scalar-mode lookup's unsigned-int temporary.
+The expression-copy continuation checks the callback/walker stop boundaries and
+constructor-vector copy path, and contrasts shared DAG occurrence counts with
+SAVE-protected inputs. It does not claim a source-to-whole-body copy bound.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.

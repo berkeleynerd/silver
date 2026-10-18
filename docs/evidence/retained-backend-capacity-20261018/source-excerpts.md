@@ -989,6 +989,12 @@ LF line numbering; complete file identities checked.
 377:   line_table->default_range_bits = 0;
 ```
 
+## gcc/ada/gcc-interface/misc.cc:1475–1476
+```text
+1475: #undef  LANG_HOOKS_DEEP_UNSHARING
+1476: #define LANG_HOOKS_DEEP_UNSHARING	true
+```
+
 ## gcc/tree.cc:142–156
 ```text
 142: static GTY(()) unsigned next_type_uid = 1;
@@ -2229,6 +2235,387 @@ LF line numbering; complete file identities checked.
 8088:     }
 ```
 
+## gcc/tree.cc:11637–12013
+```text
+11637: walk_type_fields (tree type, walk_tree_fn func, void *data,
+11638: 		  hash_set<tree> *pset, walk_tree_lh lh)
+11639: {
+11640:   tree result = NULL_TREE;
+11641:
+11642:   switch (TREE_CODE (type))
+11643:     {
+11644:     case POINTER_TYPE:
+11645:     case REFERENCE_TYPE:
+11646:     case VECTOR_TYPE:
+11647:       /* We have to worry about mutually recursive pointers.  These can't
+11648: 	 be written in C.  They can in Ada.  It's pathological, but
+11649: 	 there's an ACATS test (c38102a) that checks it.  Deal with this
+11650: 	 by checking if we're pointing to another pointer, that one
+11651: 	 points to another pointer, that one does too, and we have no htab.
+11652: 	 If so, get a hash table.  We check three levels deep to avoid
+11653: 	 the cost of the hash table if we don't need one.  */
+11654:       if (POINTER_TYPE_P (TREE_TYPE (type))
+11655: 	  && POINTER_TYPE_P (TREE_TYPE (TREE_TYPE (type)))
+11656: 	  && POINTER_TYPE_P (TREE_TYPE (TREE_TYPE (TREE_TYPE (type))))
+11657: 	  && !pset)
+11658: 	{
+11659: 	  result = walk_tree_without_duplicates (&TREE_TYPE (type),
+11660: 						 func, data);
+11661: 	  if (result)
+11662: 	    return result;
+11663:
+11664: 	  break;
+11665: 	}
+11666:
+11667:       /* fall through */
+11668:
+11669:     case COMPLEX_TYPE:
+11670:       WALK_SUBTREE (TREE_TYPE (type));
+11671:       break;
+11672:
+11673:     case METHOD_TYPE:
+11674:       WALK_SUBTREE (TYPE_METHOD_BASETYPE (type));
+11675:
+11676:       /* Fall through.  */
+11677:
+11678:     case FUNCTION_TYPE:
+11679:       WALK_SUBTREE (TREE_TYPE (type));
+11680:       {
+11681: 	tree arg;
+11682:
+11683: 	/* We never want to walk into default arguments.  */
+11684: 	for (arg = TYPE_ARG_TYPES (type); arg; arg = TREE_CHAIN (arg))
+11685: 	  WALK_SUBTREE (TREE_VALUE (arg));
+11686:       }
+11687:       break;
+11688:
+11689:     case ARRAY_TYPE:
+11690:       /* Don't follow this nodes's type if a pointer for fear that
+11691: 	 we'll have infinite recursion.  If we have a PSET, then we
+11692: 	 need not fear.  */
+11693:       if (pset
+11694: 	  || (!POINTER_TYPE_P (TREE_TYPE (type))
+11695: 	      && TREE_CODE (TREE_TYPE (type)) != OFFSET_TYPE))
+11696: 	WALK_SUBTREE (TREE_TYPE (type));
+11697:       WALK_SUBTREE (TYPE_DOMAIN (type));
+11698:       break;
+11699:
+11700:     case OFFSET_TYPE:
+11701:       WALK_SUBTREE (TREE_TYPE (type));
+11702:       WALK_SUBTREE (TYPE_OFFSET_BASETYPE (type));
+11703:       break;
+11704:
+11705:     default:
+11706:       break;
+11707:     }
+11708:
+11709:   return NULL_TREE;
+11710: }
+11711:
+11712: /* Apply FUNC to all the sub-trees of TP in a pre-order traversal.  FUNC is
+11713:    called with the DATA and the address of each sub-tree.  If FUNC returns a
+11714:    non-NULL value, the traversal is stopped, and the value returned by FUNC
+11715:    is returned.  If PSET is non-NULL it is used to record the nodes visited,
+11716:    and to avoid visiting a node more than once.  */
+11717:
+11718: tree
+11719: walk_tree_1 (tree *tp, walk_tree_fn func, void *data,
+11720: 	     hash_set<tree> *pset, walk_tree_lh lh)
+11721: {
+11722: #define WALK_SUBTREE_TAIL(NODE)				\
+11723:   do							\
+11724:     {							\
+11725:        tp = & (NODE);					\
+11726:        goto tail_recurse;				\
+11727:     }							\
+11728:   while (0)
+11729:
+11730:  tail_recurse:
+11731:   /* Skip empty subtrees.  */
+11732:   if (!*tp)
+11733:     return NULL_TREE;
+11734:
+11735:   /* Don't walk the same tree twice, if the user has requested
+11736:      that we avoid doing so.  */
+11737:   if (pset && pset->add (*tp))
+11738:     return NULL_TREE;
+11739:
+11740:   /* Call the function.  */
+11741:   int walk_subtrees = 1;
+11742:   tree result = (*func) (tp, &walk_subtrees, data);
+11743:
+11744:   /* If we found something, return it.  */
+11745:   if (result)
+11746:     return result;
+11747:
+11748:   tree t = *tp;
+11749:   tree_code code = TREE_CODE (t);
+11750:
+11751:   /* Even if we didn't, FUNC may have decided that there was nothing
+11752:      interesting below this point in the tree.  */
+11753:   if (!walk_subtrees)
+11754:     {
+11755:       /* But we still need to check our siblings.  */
+11756:       if (code == TREE_LIST)
+11757: 	WALK_SUBTREE_TAIL (TREE_CHAIN (t));
+11758:       else if (code == OMP_CLAUSE)
+11759: 	WALK_SUBTREE_TAIL (OMP_CLAUSE_CHAIN (t));
+11760:       else
+11761: 	return NULL_TREE;
+11762:     }
+11763:
+11764:   if (lh)
+11765:     {
+11766:       result = (*lh) (tp, &walk_subtrees, func, data, pset);
+11767:       if (result || !walk_subtrees)
+11768:         return result;
+11769:     }
+11770:
+11771:   switch (code)
+11772:     {
+11773:     case ERROR_MARK:
+11774:     case IDENTIFIER_NODE:
+11775:     case INTEGER_CST:
+11776:     case REAL_CST:
+11777:     case FIXED_CST:
+11778:     case STRING_CST:
+11779:     case BLOCK:
+11780:     case PLACEHOLDER_EXPR:
+11781:     case SSA_NAME:
+11782:     case FIELD_DECL:
+11783:     case RESULT_DECL:
+11784:       /* None of these have subtrees other than those already walked
+11785: 	 above.  */
+11786:       break;
+11787:
+11788:     case TREE_LIST:
+11789:       WALK_SUBTREE (TREE_VALUE (t));
+11790:       WALK_SUBTREE_TAIL (TREE_CHAIN (t));
+11791:
+11792:     case TREE_VEC:
+11793:       {
+11794: 	int len = TREE_VEC_LENGTH (t);
+11795:
+11796: 	if (len == 0)
+11797: 	  break;
+11798:
+11799: 	/* Walk all elements but the last.  */
+11800: 	for (int i = 0; i < len - 1; ++i)
+11801: 	  WALK_SUBTREE (TREE_VEC_ELT (t, i));
+11802:
+11803: 	/* Now walk the last one as a tail call.  */
+11804: 	WALK_SUBTREE_TAIL (TREE_VEC_ELT (t, len - 1));
+11805:       }
+11806:
+11807:     case VECTOR_CST:
+11808:       {
+11809: 	unsigned len = vector_cst_encoded_nelts (t);
+11810: 	if (len == 0)
+11811: 	  break;
+11812: 	/* Walk all elements but the last.  */
+11813: 	for (unsigned i = 0; i < len - 1; ++i)
+11814: 	  WALK_SUBTREE (VECTOR_CST_ENCODED_ELT (t, i));
+11815: 	/* Now walk the last one as a tail call.  */
+11816: 	WALK_SUBTREE_TAIL (VECTOR_CST_ENCODED_ELT (t, len - 1));
+11817:       }
+11818:
+11819:     case COMPLEX_CST:
+11820:       WALK_SUBTREE (TREE_REALPART (t));
+11821:       WALK_SUBTREE_TAIL (TREE_IMAGPART (t));
+11822:
+11823:     case CONSTRUCTOR:
+11824:       {
+11825: 	unsigned HOST_WIDE_INT idx;
+11826: 	constructor_elt *ce;
+11827:
+11828: 	for (idx = 0; vec_safe_iterate (CONSTRUCTOR_ELTS (t), idx, &ce);
+11829: 	     idx++)
+11830: 	  WALK_SUBTREE (ce->value);
+11831:       }
+11832:       break;
+11833:
+11834:     case SAVE_EXPR:
+11835:       WALK_SUBTREE_TAIL (TREE_OPERAND (t, 0));
+11836:
+11837:     case BIND_EXPR:
+11838:       {
+11839: 	tree decl;
+11840: 	for (decl = BIND_EXPR_VARS (t); decl; decl = DECL_CHAIN (decl))
+11841: 	  {
+11842: 	    /* Walk the DECL_INITIAL and DECL_SIZE.  We don't want to walk
+11843: 	       into declarations that are just mentioned, rather than
+11844: 	       declared; they don't really belong to this part of the tree.
+11845: 	       And, we can see cycles: the initializer for a declaration
+11846: 	       can refer to the declaration itself.  */
+11847: 	    WALK_SUBTREE (DECL_INITIAL (decl));
+11848: 	    WALK_SUBTREE (DECL_SIZE (decl));
+11849: 	    WALK_SUBTREE (DECL_SIZE_UNIT (decl));
+11850: 	  }
+11851: 	WALK_SUBTREE_TAIL (BIND_EXPR_BODY (t));
+11852:       }
+11853:
+11854:     case STATEMENT_LIST:
+11855:       {
+11856: 	tree_stmt_iterator i;
+11857: 	for (i = tsi_start (t); !tsi_end_p (i); tsi_next (&i))
+11858: 	  WALK_SUBTREE (*tsi_stmt_ptr (i));
+11859:       }
+11860:       break;
+11861:
+11862:     case OMP_CLAUSE:
+11863:       {
+11864: 	int len = omp_clause_num_ops[OMP_CLAUSE_CODE (t)];
+11865: 	/* Do not walk the iterator operand of OpenMP MAP clauses.  */
+11866: 	if (OMP_CLAUSE_HAS_ITERATORS (t))
+11867: 	  len--;
+11868: 	for (int i = 0; i < len; i++)
+11869: 	  WALK_SUBTREE (OMP_CLAUSE_OPERAND (t, i));
+11870: 	WALK_SUBTREE_TAIL (OMP_CLAUSE_CHAIN (t));
+11871:       }
+11872:
+11873:     case TARGET_EXPR:
+11874:       {
+11875: 	int i, len;
+11876:
+11877: 	/* TARGET_EXPRs are peculiar: operands 1 and 3 can be the same.
+11878: 	   But, we only want to walk once.  */
+11879: 	len = (TREE_OPERAND (t, 3) == TREE_OPERAND (t, 1)) ? 2 : 3;
+11880: 	for (i = 0; i < len; ++i)
+11881: 	  WALK_SUBTREE (TREE_OPERAND (t, i));
+11882: 	WALK_SUBTREE_TAIL (TREE_OPERAND (t, len));
+11883:       }
+11884:
+11885:     case DECL_EXPR:
+11886:       /* If this is a TYPE_DECL, walk into the fields of the type that it's
+11887: 	 defining.  We only want to walk into these fields of a type in this
+11888: 	 case and not in the general case of a mere reference to the type.
+11889:
+11890: 	 The criterion is as follows: if the field can be an expression, it
+11891: 	 must be walked only here.  This should be in keeping with the fields
+11892: 	 that are directly gimplified in gimplify_type_sizes in order for the
+11893: 	 mark/copy-if-shared/unmark machinery of the gimplifier to work with
+11894: 	 variable-sized types.
+11895:
+11896: 	 Note that DECLs get walked as part of processing the BIND_EXPR.  */
+11897:       if (TREE_CODE (DECL_EXPR_DECL (t)) == TYPE_DECL)
+11898: 	{
+11899: 	  /* Call the function for the decl so e.g. copy_tree_body_r can
+11900: 	     replace it with the remapped one.  */
+11901: 	  result = (*func) (&DECL_EXPR_DECL (t), &walk_subtrees, data);
+11902: 	  if (result || !walk_subtrees)
+11903: 	    return result;
+11904:
+11905: 	  tree *type_p = &TREE_TYPE (DECL_EXPR_DECL (t));
+11906: 	  if (TREE_CODE (*type_p) == ERROR_MARK)
+11907: 	    return NULL_TREE;
+11908:
+11909: 	  /* Call the function for the type.  See if it returns anything or
+11910: 	     doesn't want us to continue.  If we are to continue, walk both
+11911: 	     the normal fields and those for the declaration case.  */
+11912: 	  result = (*func) (type_p, &walk_subtrees, data);
+11913: 	  if (result || !walk_subtrees)
+11914: 	    return result;
+11915:
+11916: 	  tree type = *type_p;
+11917:
+11918: 	  /* But do not walk a pointed-to type since it may itself need to
+11919: 	     be walked in the declaration case if it isn't anonymous.  */
+11920: 	  if (!POINTER_TYPE_P (type))
+11921: 	    {
+11922: 	      result = walk_type_fields (type, func, data, pset, lh);
+11923: 	      if (result)
+11924: 		return result;
+11925: 	    }
+11926:
+11927: 	  /* If this is a record type, also walk the fields.  */
+11928: 	  if (RECORD_OR_UNION_TYPE_P (type))
+11929: 	    {
+11930: 	      tree field;
+11931:
+11932: 	      for (field = TYPE_FIELDS (type); field;
+11933: 		   field = DECL_CHAIN (field))
+11934: 		{
+11935: 		  /* We'd like to look at the type of the field, but we can
+11936: 		     easily get infinite recursion.  So assume it's pointed
+11937: 		     to elsewhere in the tree.  Also, ignore things that
+11938: 		     aren't fields.  */
+11939: 		  if (TREE_CODE (field) != FIELD_DECL)
+11940: 		    continue;
+11941:
+11942: 		  WALK_SUBTREE (DECL_FIELD_OFFSET (field));
+11943: 		  WALK_SUBTREE (DECL_SIZE (field));
+11944: 		  WALK_SUBTREE (DECL_SIZE_UNIT (field));
+11945: 		  if (TREE_CODE (type) == QUAL_UNION_TYPE)
+11946: 		    WALK_SUBTREE (DECL_QUALIFIER (field));
+11947: 		}
+11948: 	    }
+11949:
+11950: 	  /* Same for scalar types.  */
+11951: 	  else if (TREE_CODE (type) == BOOLEAN_TYPE
+11952: 		   || TREE_CODE (type) == ENUMERAL_TYPE
+11953: 		   || TREE_CODE (type) == INTEGER_TYPE
+11954: 		   || TREE_CODE (type) == FIXED_POINT_TYPE
+11955: 		   || TREE_CODE (type) == REAL_TYPE)
+11956: 	    {
+11957: 	      WALK_SUBTREE (TYPE_MIN_VALUE (type));
+11958: 	      WALK_SUBTREE (TYPE_MAX_VALUE (type));
+11959: 	    }
+11960:
+11961: 	  WALK_SUBTREE (TYPE_SIZE (type));
+11962: 	  WALK_SUBTREE_TAIL (TYPE_SIZE_UNIT (type));
+11963: 	}
+11964:       /* FALLTHRU */
+11965:
+11966:     default:
+11967:       if (IS_EXPR_CODE_CLASS (TREE_CODE_CLASS (code)))
+11968: 	{
+11969: 	  int i, len;
+11970:
+11971: 	  /* Walk over all the sub-trees of this operand.  */
+11972: 	  len = TREE_OPERAND_LENGTH (t);
+11973:
+11974: 	  /* Go through the subtrees.  We need to do this in forward order so
+11975: 	     that the scope of a FOR_EXPR is handled properly.  */
+11976: 	  if (len)
+11977: 	    {
+11978: 	      for (i = 0; i < len - 1; ++i)
+11979: 		WALK_SUBTREE (TREE_OPERAND (t, i));
+11980: 	      WALK_SUBTREE_TAIL (TREE_OPERAND (t, len - 1));
+11981: 	    }
+11982: 	}
+11983:       /* If this is a type, walk the needed fields in the type.  */
+11984:       else if (TYPE_P (t))
+11985: 	return walk_type_fields (t, func, data, pset, lh);
+11986:       break;
+11987:     }
+11988:
+11989:   /* We didn't find what we were looking for.  */
+11990:   return NULL_TREE;
+11991:
+11992: #undef WALK_SUBTREE_TAIL
+11993: }
+11994: #undef WALK_SUBTREE
+11995:
+11996: /* Like walk_tree, but does not walk duplicate nodes more than once.  */
+11997:
+11998: tree
+11999: walk_tree_without_duplicates_1 (tree *tp, walk_tree_fn func, void *data,
+12000: 				walk_tree_lh lh)
+12001: {
+12002:   tree result;
+12003:
+12004:   hash_set<tree> pset;
+12005:   result = walk_tree_1 (tp, func, data, &pset, lh);
+12006:   return result;
+12007: }
+12008:
+12009:
+12010: tree
+12011: tree_block (tree t)
+12012: {
+12013:   const enum tree_code_class c = TREE_CODE_CLASS (TREE_CODE (t));
+```
+
 ## gcc/tree.cc:15095–15129
 ```text
 15095: is_empty_type (const_tree type)
@@ -2423,12 +2810,26 @@ LF line numbering; complete file identities checked.
 1595: };
 ```
 
-## gcc/tree-core.h:1631–1634
+## gcc/tree-core.h:1631–1648
 ```text
 1631: struct GTY(()) tree_vec {
 1632:   struct tree_common common;
 1633:   tree GTY ((length ("TREE_VEC_LENGTH ((tree)&%h)"))) a[1];
 1634: };
+1635:
+1636: /* A single element of a CONSTRUCTOR. VALUE holds the actual value of the
+1637:    element. INDEX can optionally design the position of VALUE: in arrays,
+1638:    it is the index where VALUE has to be placed; in structures, it is the
+1639:    FIELD_DECL of the member.  */
+1640: struct GTY(()) constructor_elt {
+1641:   tree index;
+1642:   tree value;
+1643: };
+1644:
+1645: struct GTY(()) tree_constructor {
+1646:   struct tree_typed typed;
+1647:   vec<constructor_elt, va_gc> *elts;
+1648: };
 ```
 
 ## gcc/tree-core.h:1801–1871
@@ -5057,6 +5458,20 @@ LF line numbering; complete file identities checked.
 660: /* Convenience wrapper functions to use when dealing with pointers to
 ```
 
+## gcc/vec.h:731–740
+```text
+731: /* Allocate GC memory for V with space for NELEMS slots.  If NELEMS
+732:    is 0, V is initialized to NULL.  */
+733:
+734: template<typename T, typename A>
+735: inline void
+736: vec_alloc (vec<T, A, vl_embed> *&v, unsigned nelems CXX_MEM_STAT_INFO)
+737: {
+738:   v = NULL;
+739:   vec_safe_reserve (v, nelems, false PASS_MEM_STAT);
+740: }
+```
+
 ## gcc/vec.h:863–868
 ```text
 863: template<typename T, typename A>
@@ -5065,6 +5480,28 @@ LF line numbering; complete file identities checked.
 866: {
 867:   return src ? src->copy (ALONE_PASS_MEM_STAT) : NULL;
 868: }
+```
+
+## gcc/vec.h:999–1016
+```text
+999: /* Return a pointer to a copy of this vector.  */
+1000:
+1001: template<typename T, typename A>
+1002: inline vec<T, A, vl_embed> *
+1003: vec<T, A, vl_embed>::copy (ALONE_MEM_STAT_DECL) const
+1004: {
+1005:   vec<T, A, vl_embed> *new_vec = NULL;
+1006:   unsigned len = length ();
+1007:   if (len)
+1008:     {
+1009:       vec_alloc (new_vec, len PASS_MEM_STAT);
+1010:       new_vec->embedded_init (len, len);
+1011:       vec_copy_construct (new_vec->address (), address (), len);
+1012:     }
+1013:   return new_vec;
+1014: }
+1015:
+1016:
 ```
 
 ## gcc/vec.h:1394–1415
@@ -7362,7 +7799,7 @@ LF line numbering; complete file identities checked.
 1223:
 ```
 
-## gcc/gimplify.cc:944–973
+## gcc/gimplify.cc:944–1050
 ```text
 944: mostly_copy_tree_r (tree *tp, int *walk_subtrees, void *data)
 945: {
@@ -7394,9 +7831,86 @@ LF line numbering; complete file identities checked.
 971:     copy_tree_r (tp, walk_subtrees, NULL);
 972:
 973:   return NULL_TREE;
+974: }
+975:
+976: /* Callback for walk_tree to unshare most of the shared trees rooted at *TP.
+977:    If *TP has been visited already, then *TP is deeply copied by calling
+978:    mostly_copy_tree_r.  DATA is passed to mostly_copy_tree_r unmodified.  */
+979:
+980: static tree
+981: copy_if_shared_r (tree *tp, int *walk_subtrees, void *data)
+982: {
+983:   tree t = *tp;
+984:   enum tree_code code = TREE_CODE (t);
+985:
+986:   /* Skip types, decls, and constants.  But we do want to look at their
+987:      types and the bounds of types.  Mark them as visited so we properly
+988:      unmark their subtrees on the unmark pass.  If we've already seen them,
+989:      don't look down further.  */
+990:   if (TREE_CODE_CLASS (code) == tcc_type
+991:       || TREE_CODE_CLASS (code) == tcc_declaration
+992:       || TREE_CODE_CLASS (code) == tcc_constant)
+993:     {
+994:       if (TREE_VISITED (t))
+995: 	*walk_subtrees = 0;
+996:       else
+997: 	TREE_VISITED (t) = 1;
+998:     }
+999:
+1000:   /* If this node has been visited already, unshare it and don't look
+1001:      any deeper.  */
+1002:   else if (TREE_VISITED (t))
+1003:     {
+1004:       walk_tree (tp, mostly_copy_tree_r, data, NULL);
+1005:       *walk_subtrees = 0;
+1006:     }
+1007:
+1008:   /* Otherwise, mark the node as visited and keep looking.  */
+1009:   else
+1010:     TREE_VISITED (t) = 1;
+1011:
+1012:   return NULL_TREE;
+1013: }
+1014:
+1015: /* Unshare most of the shared trees rooted at *TP.  DATA is passed to the
+1016:    copy_if_shared_r callback unmodified.  */
+1017:
+1018: void
+1019: copy_if_shared (tree *tp, void *data)
+1020: {
+1021:   walk_tree (tp, copy_if_shared_r, data, NULL);
+1022: }
+1023:
+1024: /* Unshare all the trees in the body of FNDECL, as well as in the bodies of
+1025:    any nested functions.  */
+1026:
+1027: static void
+1028: unshare_body (tree fndecl)
+1029: {
+1030:   struct cgraph_node *cgn = cgraph_node::get (fndecl);
+1031:   /* If the language requires deep unsharing, we need a pointer set to make
+1032:      sure we don't repeatedly unshare subtrees of unshareable nodes.  */
+1033:   hash_set<tree> *visited
+1034:     = lang_hooks.deep_unsharing ? new hash_set<tree> : NULL;
+1035:
+1036:   copy_if_shared (&DECL_SAVED_TREE (fndecl), visited);
+1037:   copy_if_shared (&DECL_SIZE (DECL_RESULT (fndecl)), visited);
+1038:   copy_if_shared (&DECL_SIZE_UNIT (DECL_RESULT (fndecl)), visited);
+1039:
+1040:   delete visited;
+1041:
+1042:   if (cgn)
+1043:     for (cgn = first_nested_function (cgn); cgn;
+1044: 	 cgn = next_nested_function (cgn))
+1045:       unshare_body (cgn->decl);
+1046: }
+1047:
+1048: /* Callback for walk_tree to unmark the visited trees rooted at *TP.
+1049:    Subtrees are walked until the first unvisited node is encountered.  */
+1050:
 ```
 
-## gcc/gimplify.cc:1096–1101
+## gcc/gimplify.cc:1096–1126
 ```text
 1096: tree
 1097: unshare_expr (tree expr)
@@ -7404,6 +7918,31 @@ LF line numbering; complete file identities checked.
 1099:   walk_tree (&expr, mostly_copy_tree_r, NULL, NULL);
 1100:   return expr;
 1101: }
+1102:
+1103: /* Worker for unshare_expr_without_location.  */
+1104:
+1105: static tree
+1106: prune_expr_location (tree *tp, int *walk_subtrees, void *)
+1107: {
+1108:   if (EXPR_P (*tp))
+1109:     SET_EXPR_LOCATION (*tp, UNKNOWN_LOCATION);
+1110:   else
+1111:     *walk_subtrees = 0;
+1112:   return NULL_TREE;
+1113: }
+1114:
+1115: /* Similar to unshare_expr but also prune all expression locations
+1116:    from EXPR.  */
+1117:
+1118: tree
+1119: unshare_expr_without_location (tree expr)
+1120: {
+1121:   walk_tree (&expr, mostly_copy_tree_r, NULL, NULL);
+1122:   if (EXPR_P (expr))
+1123:     walk_tree (&expr, prune_expr_location, NULL, NULL);
+1124:   return expr;
+1125: }
+1126:
 ```
 
 ## gcc/gimplify.cc:1270–1282
@@ -12535,4 +13074,17 @@ LF line numbering; complete file identities checked.
 585: {
 586:   return opt_machine_mode ();
 587: }
+```
+
+## gcc/tree.h:5921–5929
+```text
+5921: extern void set_call_expr_flags (tree, int);
+5922: extern tree walk_tree_1 (tree*, walk_tree_fn, void*, hash_set<tree>*,
+5923: 			 walk_tree_lh);
+5924: extern tree walk_tree_without_duplicates_1 (tree*, walk_tree_fn, void*,
+5925: 					    walk_tree_lh);
+5926: #define walk_tree(a,b,c,d) \
+5927: 	walk_tree_1 (a, b, c, d, NULL)
+5928: #define walk_tree_without_duplicates(a,b,c) \
+5929: 	walk_tree_without_duplicates_1 (a, b, c, NULL)
 ```

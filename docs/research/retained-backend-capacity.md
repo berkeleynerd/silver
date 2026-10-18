@@ -924,6 +924,74 @@ need their own scratch/recursion account. These request bounds must be
 multiplied by the possible two canonical layouts; they do not claim complete
 dynamic-array or whole-backend capacity.
 
+## Expression unsharing preserves payload and save boundaries
+
+Generic expression copies must charge repeated incoming edges, but need not
+charge a new String payload at every expression node. For `unshare_expr` and
+the first pass of `unshare_expr_without_location`, `mostly_copy_tree_r` stops
+at types, declarations, constants, SAVE_EXPR, TARGET_EXPR and BIND_EXPR
+(`gimplify.cc:944–973,1096–1126`). Its data argument is NULL on these entries,
+so even the children of those last three nodes remain shared. This preserves
+the one-evaluation boundaries inserted by the [gigi bridge](retained-backend-gigi.md#protection-preserves-shared-checked-operands).
+The second location-pruning pass changes location fields without copying nodes.
+
+Define a copy weight on the finite operand graph by unfolding its incoming
+edges until those stop boundaries. Count one for each ordinary expression,
+TREE_LIST, TREE_VEC and CONSTRUCTOR occurrence. A STATEMENT_LIST contributes
+zero for its own header and links, but includes each member expression's
+weight. TREE_LIST walks its value and chain, not its purpose; CONSTRUCTOR
+walks element values, not field/index metadata. The explicit generic walker
+has no language callback on this invocation (`tree.h:5921–5929`,
+`tree.cc:11719–11993`). Nodes such as BLOCK, SSA_NAME, IDENTIFIER_NODE and
+PLACEHOLDER_EXPR are terminal and are not copied. OpenMP clauses are outside the selected frontier. Generated Ada expression
+codes use their existing node size and ordinary operand traversal.
+
+For each charged occurrence v, let `bytes(v)` be its input `tree_size` and let
+k(v) be its CONSTRUCTOR element count, zero for other kinds. Then:
+
+```text
+fresh tree nodes <= copy_weight(input)
+raw tree allocation requests <= sum(charged occurrences v, bytes(v))
+fresh nonempty constructor vectors <= number of occurrences with k(v)>0
+constructor entries copied = sum(constructor occurrences v, k(v))
+fresh String payloads = fresh scalar constants = fresh types = 0.
+```
+
+`copy_node` allocates one object of the input node's size and copies its
+immediate fields. Its extra declaration/type/options handling is unreachable
+at these stop boundaries (`tree.cc:1468–1547`). `copy_tree_r` separately copies
+a CONSTRUCTOR's element vector; it copies pointer pairs, not their payloads
+(`tree-inline.cc:5735–5795`). On LP64 the constructor node is 24 bytes and each
+element pair is 16. `vec_safe_copy` reserves from a null vector, so k>0 first
+requests capacity `max(4,k)`, then the existing GC rounding applies. The later
+`embedded_init(k,k)` does not undo the allocation already made
+(`vec.h:731–740,863–868,999–1016`). Charge the rounded allocation, not merely
+`8+16k`. Each original input node/vector must already meet the signed length,
+allocation-product and GC-capacity conditions; copying does not increase its
+individual arity, length or precision.
+
+These are **occurrences**, not unique identities. A shared binary DAG with d
+successive nodes, each pointing twice to the previous, requires `2^d-1` copies
+when the terminal is a declaration. Wrapping the reused operands in SAVE_EXPR
+stops that expansion on this entry. The offline fixtures illustrate both
+cases. Applying the result without its save/edge structure could either miss
+exponential duplication or impose an unnecessarily large charge. Every actual
+gigi unshare request still needs a source-derived input shape and multiplicity.
+
+Whole-body unsharing uses a different traversal. Ada selects deep unsharing;
+`unshare_body` supplies a hash set so SAVE/TARGET/BIND children can be visited
+once per protected node identity, though those nodes themselves remain shared
+(`misc.cc:1475–1476`, `gimplify.cc:976–1050`). The initial mark walk can also
+visit declaration/type size roots through BIND and DECL_EXPR. Therefore the
+NULL-data stop formula must not be applied to the entire body without adding
+those roots and the protected-node set. It does establish that this copy
+callback never duplicates a String constant, scalar constant, declaration or
+type. The whole-body expression forest, set capacity, generic pointer-type
+walker scratch and recursive call stack remain separate composition inputs.
+This result does not cover direct `copy_node(STRING_CST)` conversions already
+charged in the gigi payload row, arbitrary `copy_tree_r` users that can copy
+TYPE_DECL or statement lists, or folder-induced replacement trees.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main

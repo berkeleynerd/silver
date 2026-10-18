@@ -292,6 +292,10 @@
     {
       "path": "gcc/config/initfini-array.h",
       "sha256": "6df83e308ce1244ab481623a3364cc70fc9bba3fd57afc92e46b6e9098e0fd92"
+    },
+    {
+      "path": "gcc/tree.h",
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c"
     }
   ],
   "block_operations": {
@@ -921,6 +925,49 @@
       "transitive_symbolic_allocations_included": false
     },
     "scope": "scalar/pointer/type-copy and ordinary Character-array transfers; symbolic folding, other aggregate layout and source request join separate"
+  },
+  "expression_unsharing": {
+    "scope": "ordinary unshare_expr occurrences; source-to-input and whole-body metadata roots separate",
+    "tree_copies_per_eligible_occurrence": 1,
+    "String_payload_copies": 0,
+    "constructor_element_bytes_lp64": 16,
+    "nonempty_constructor_copy_initial_slots": "max(4,k), then GC rounding",
+    "constructor_copy_new_scalar_or_type_nodes": 0,
+    "occurrence_examples": [
+      {
+        "distinct_binary_nodes": 1,
+        "expanded_copy_nodes": 1
+      },
+      {
+        "distinct_binary_nodes": 2,
+        "expanded_copy_nodes": 3
+      },
+      {
+        "distinct_binary_nodes": 3,
+        "expanded_copy_nodes": 7
+      },
+      {
+        "distinct_binary_nodes": 4,
+        "expanded_copy_nodes": 15
+      },
+      {
+        "distinct_binary_nodes": 5,
+        "expanded_copy_nodes": 31
+      },
+      {
+        "distinct_binary_nodes": 6,
+        "expanded_copy_nodes": 63
+      },
+      {
+        "distinct_binary_nodes": 7,
+        "expanded_copy_nodes": 127
+      },
+      {
+        "distinct_binary_nodes": 8,
+        "expanded_copy_nodes": 255
+      }
+    ],
+    "native_execution": false
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

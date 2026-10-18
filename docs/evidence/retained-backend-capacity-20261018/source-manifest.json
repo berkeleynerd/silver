@@ -592,6 +592,15 @@
       "sha256": "6df83e308ce1244ab481623a3364cc70fc9bba3fd57afc92e46b6e9098e0fd92",
       "git_blob_sha1": "79970f6207b8ae1dfb204e62d72a9cba99ebba73",
       "archive": "type-sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "git_blob_sha1": "f8b2d718b7ee13eea791ffe5471ffc4fec98c9c6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.h",
+      "archive": "copy-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
     }
   ]
 }
