@@ -3122,11 +3122,22 @@ initializer's constrained actual type in Set_Etype(Id, Act_T)
 (`sem_ch3.adb:5138–5145,5341`), with the declaration/type-reuse bridge above.
 The plain concat result is explicitly constrained; the secondary result names
 ConstrT. These remain object names, not macro-expanded initializers. Therefore
-Get_Actual_Subtype returns an already available Actual_Subtype or the existing
+Get_Actual_Subtype **on that current value** returns an already available Actual_Subtype or the existing
 constrained nominal type, before its allocating unconstrained branch
 (`sem_util.adb:10270–10374`). This establishes the lookup premise of the
-generated assignment slice/length checks and the final result slice. It does
-not apply to the initial input call's uncached unconstrained P.all.
+generated length checks and final result slice. It does not make an explicit
+Get_Referenced_Object traversal free: that helper follows Renamed_Object even
+without the macro-renaming flag (`sem_util.adb:11265–11278`). In particular,
+Expand_Assign_Array invokes Get_Actual_Subtype on each referenced object,
+rather than on the source name (`exp_ch5.adb:346–355`). A RHS input binding can
+therefore expose its uncached unconstrained P.all and requires the earlier
+`20A+70` node/two-entity/eight-list/six-growth/`80A+159` Uint actual-subtype
+transfer **per assignment**. Charge one such transfer for each of the at most
+n generated concat slice assignments. Their left result slice is constrained;
+other RHS views are constrained or literals. This extra lookup does not replay
+the input call or any source constructor, and its two fixed-view bound
+attributes fit the existing query envelope A. Ordinary source assignments
+need the same allowance separately.
 
 ### Enabled final result slice
 
@@ -4159,8 +4170,8 @@ k = number of base-32768 digits of V.
 ```
 
 It dominates each row above. Thus the per-group retained Uint digit charge is
-`k*((3736*n+2296)*A+3537*n+1697)`; a whole-Main uniform A gives
-`k*(9768*A+8771)*c`. The previously derived local arithmetic-vector peak becomes
+`k*((3816*n+2296)*A+3696*n+1697)`; a whole-Main uniform A gives
+`k*(9928*A+9089)*c`. The previously derived local arithmetic-vector peak becomes
 **5*k+3 digit words**, separate from recursive stack and table-growth storage.
 The per-group k can be used instead of a uniform maximum. Uint-entry counts
 are unchanged; no warm-cache assumption is introduced.
@@ -4315,18 +4326,21 @@ For one n-operand invocation, add:
    freezing and the nonallocating constrained actual-subtype lookup bridge.
 6. One runtime concat procedure call, including the two empty post-call lists,
    possible variable-reference markers and source-operand xref attempts.
+7. Up to n uncached input-dereference actual subtypes after the assignment
+   expander's explicit Get_Referenced_Object traversal. A constrained source
+   name does not justify omitting this separate referenced-object lookup.
 
 These charges deliberately overcount mutually exclusive helper-call and slice
 assignment routes. They give the following single vector of closed stages:
 
 | Demand | Per invocation | Whole Main with c source `&` and uniform A |
 | --- | ---: | ---: |
-| Ordinary nodes | `(880*n+520)*A + 1182*n + 1198` | `(2280*A+3562)*c` |
-| Uint appends | `(3736*n+2296)*A + 3537*n + 1697` | `(9768*A+8771)*c` |
-| Syntax-list headers | `68*n+95` | `231*c` |
-| Growing-slot events | `133*n+99` | `365*c` |
-| Entities/internal names | `26*n+32` | `84*c` |
-| Name characters, including NUL | `338*n+423` | `1099*c` |
+| Ordinary nodes | `(900*n+520)*A + 1252*n + 1198` | `(2320*A+3702)*c` |
+| Uint appends | `(3816*n+2296)*A + 3696*n + 1697` | `(9928*A+9089)*c` |
+| Syntax-list headers | `76*n+95` | `247*c` |
+| Growing-slot events | `139*n+99` | `377*c` |
+| Entities/internal names | `28*n+32` | `88*c` |
+| Name characters, including NUL | `367*n+423` | `1157*c` |
 | Elist headers | `10*n+11` | `31*c` |
 | Elist elements | `20*n+20` | `60*c` |
 | Copy-map hash wrappers | `30*n+30` | `90*c` |
@@ -4339,7 +4353,7 @@ query-root recurrences; using one maximum A is optional. This scoped A_i
 covers the original and generated query roots in these combined stages;
 remaining callees still need their own root inventories. With the pinned slot
 maxima, the uniform dynamic-slot addend is
-`9*(ordinary+growth)+61*entities = (20520*A+40467)*c`. Node identities/link
+`9*(ordinary+growth)+61*entities = (20880*A+42079)*c`. Node identities/link
 tables, physical bytes and temporary stack/workspace remain separate
 representations. For these stages the numeric-magnitude closure above supplies
 `k=digits_32768((16*A+8)*2^127)`, including cold power-cache extension. Multiply

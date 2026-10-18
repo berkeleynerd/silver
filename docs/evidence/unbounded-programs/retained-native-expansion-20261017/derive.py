@@ -849,15 +849,18 @@ def combined_native_emitter_vector(n, analysis_graph):
                    suppressed_slice_resolution(31, 2, a)["with_assignment_check_suffix"].items()}
     rows = dict(direct_scalar_storage=first, remaining_copies=copies,
                 up_to_n_suppressed_slice_assignments=assignments,
+                up_to_n_referenced_input_actual_subtypes={
+                    key: n*value for key, value in
+                    uncached_dereference_actual_subtype(a)["total"].items()},
                 raw_bound_semantics=raw_bound_semantics(n, a)["total"],
                 enabled_final_slice=enabled_final_slice(31, 2, a)["total"],
                 native_runtime_concat_call=native_runtime_concat_call(n)["total"])
     keys = sorted(set().union(*(row.keys() for row in rows.values())))
     total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
-    assert total == dict(ordinary=(880*n+520)*a+1182*n+1198,
-                        uint=(3736*n+2296)*a+3537*n+1697,
-                        lists=68*n+95, growth=133*n+99,
-                        entities_and_names=26*n+32, name_characters=338*n+423,
+    assert total == dict(ordinary=(900*n+520)*a+1252*n+1198,
+                        uint=(3816*n+2296)*a+3696*n+1697,
+                        lists=76*n+95, growth=139*n+99,
+                        entities_and_names=28*n+32, name_characters=367*n+423,
                         pending_elist_headers=10*n+11,
                         pending_elist_elements=20*n+20, hash_wrappers=30*n+30,
                         positive_xref_increments=n)
@@ -870,13 +873,13 @@ def combined_native_uniform_vector(c, analysis_graph):
     # For nonnegative p*n+q, sum(n)<=2*c and g<=c give (2*p+q)*c.
     total = {key: c*value for key, value in one.items()}
     a = analysis_graph
-    assert total == dict(ordinary=(2280*a+3562)*c, uint=(9768*a+8771)*c,
-                        lists=231*c, growth=365*c, entities_and_names=84*c,
-                        name_characters=1099*c, pending_elist_headers=31*c,
+    assert total == dict(ordinary=(2320*a+3702)*c, uint=(9928*a+9089)*c,
+                        lists=247*c, growth=377*c, entities_and_names=88*c,
+                        name_characters=1157*c, pending_elist_headers=31*c,
                         pending_elist_elements=60*c, hash_wrappers=90*c,
                         positive_xref_increments=2*c)
     slots = 9*(total["ordinary"]+total["growth"])+61*total["entities_and_names"]
-    assert slots == (20520*a+40467)*c
+    assert slots == (20880*a+42079)*c
     return dict(source_concat_operators=c, uniform_analysis_graph=a, total=total,
                 dynamic_slots=slots)
 
@@ -1481,7 +1484,7 @@ result = {
         "first_size_bound": "8*(2*M*A+1)",
         "uniform_magnitude": "(16*A+8)*M",
         "digits_per_Uint": "base32768 digit count of ((16*A+8)*2^127)",
-        "retained_digits": "k*((3736*n+2296)*A+3537*n+1697) per group; uniform Main k*(9768*A+8771)*c",
+        "retained_digits": "k*((3816*n+2296)*A+3696*n+1697) per group; uniform Main k*(9928*A+9089)*c",
         "max_local_arithmetic_vectors": "5*k+3 digit words, separate from recursive call stack",
         "examples_not_thresholds": [native_concat_numeric_magnitude(2, 61),
                                     native_concat_numeric_magnitude(64, 1000000),
@@ -1558,22 +1561,22 @@ result = {
         "excluded": "complete source scalar/assignment/comparison/loop expansion multiplicities; backend lowering helpers/checks/ABI representations and exact GCC modes; fixed library bodies; this is a type/constructor frontier, not a complete backend allocation count",
     },
     "combined_Main_native_emitter_addends": {
-        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",
+        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes and referenced-input actual-subtype creation + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and lookup on still-constrained current values add zero",
         "per_invocation": {
-            "ordinary": "(880*n+520)*A+1182*n+1198",
-            "Uint": "(3736*n+2296)*A+3537*n+1697",
-            "lists": "68*n+95", "growth": "133*n+99",
-            "entities_and_names": "26*n+32", "name_characters": "338*n+423",
+            "ordinary": "(900*n+520)*A+1252*n+1198",
+            "Uint": "(3816*n+2296)*A+3696*n+1697",
+            "lists": "76*n+95", "growth": "139*n+99",
+            "entities_and_names": "28*n+32", "name_characters": "367*n+423",
             "Elist_headers": "10*n+11", "Elist_elements": "20*n+20",
             "hash_wrappers": "30*n+30",
             "positive_Xrefs_increments": "n",
         },
         "uniform_Main_bound_in_c": {
-            "ordinary": "(2280*A+3562)*c", "Uint": "(9768*A+8771)*c",
-            "lists": "231*c", "growth": "365*c", "entities_and_names": "84*c",
-            "name_characters": "1099*c", "Elist_headers": "31*c",
+            "ordinary": "(2320*A+3702)*c", "Uint": "(9928*A+9089)*c",
+            "lists": "247*c", "growth": "377*c", "entities_and_names": "88*c",
+            "name_characters": "1157*c", "Elist_headers": "31*c",
             "Elist_elements": "60*c", "hash_wrappers": "90*c",
-            "dynamic_slots": "(20520*A+40467)*c",
+            "dynamic_slots": "(20880*A+42079)*c",
             "positive_Xrefs_increments": "2*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
