@@ -1,0 +1,10 @@
+{
+  "source_files": 11,
+  "first_split": "q <= 2*n^2 under no-Tcase premise",
+  "each_output": "E1(output) <= 3*E1(input)",
+  "terminal_goals": "G(f) <= 6*n^2*E1(f)",
+  "one_flag_slack": "2*a*b + 4*b + 3",
+  "both_flags_slack": "a^2 + b^2 + 4*a*b + 4*a + 8*b + 8",
+  "native_executions": 0,
+  "scope": "Hashes and induction arithmetic only; source correspondence is a reviewed argument, whole source/VC and type frontier remain open"
+}

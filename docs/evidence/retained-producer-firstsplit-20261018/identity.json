@@ -1,0 +1,62 @@
+{
+  "repository": "AdaCore/why3",
+  "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "files": [
+    {
+      "path": "src/core/term.ml",
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+      "bytes": 61841
+    },
+    {
+      "path": "src/core/trans.ml",
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523",
+      "bytes": 17424
+    },
+    {
+      "path": "src/transform/split_goal.ml",
+      "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f",
+      "bytes": 23450
+    },
+    {
+      "path": "src/transform/gnat_split_conj.ml",
+      "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee",
+      "bytes": 11171
+    },
+    {
+      "path": "src/transform/gnat_rewrite.ml",
+      "sha256": "f57a18e137321395bf114b5a6fbd0ddb92e08af56a6f1b8b002592f1a0abbee5",
+      "bytes": 4283
+    },
+    {
+      "path": "src/mlw/vc.ml",
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
+      "bytes": 76631
+    },
+    {
+      "path": "src/mlw/typeinv.ml",
+      "sha256": "b517faf50c123242facae815f2de8e3ba8f2a84b052f56023277d7c96d430920",
+      "bytes": 28755
+    },
+    {
+      "path": "src/mlw/ity.ml",
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+      "bytes": 70996
+    },
+    {
+      "path": "src/mlw/pdecl.ml",
+      "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6",
+      "bytes": 35645
+    },
+    {
+      "path": "src/mlw/eval_match.ml",
+      "sha256": "794bed299489c440853eb5e89ceb283a28de88bbc4db702794c7388f48a6f4ea",
+      "bytes": 8322
+    },
+    {
+      "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+      "bytes": 57834
+    }
+  ],
+  "source_archive_sha256": "fe0199cb55c13dd36c8ba585869dc0ceaedc5d6df8031ddbc1f505fa25865ad3"
+}

@@ -4,7 +4,8 @@
 [#119](https://github.com/berkeleynerd/silver/issues/119). This closes the two
 singleton transformations between the first right split and the final
 [GNAT conjunction split](retained-producer-splitting.md), at the level of term
-occurrences. It does not close the source-to-VC or first-split join, nor count
+occurrences. It does not close the source-to-VC or unconditional first-split
+join, nor count
 all temporary allocations, type substitutions, identifiers or attributes.
 The [retained sources](../evidence/retained-producer-postsplit-20261018/identity.json)
 are Why3 `9390baf120ef260547dfa14f08e11c890b203d9c`; no tool is executed here.
@@ -125,6 +126,11 @@ G <= sum_i L(rewrite(unfold(g_i)))
   <= sum_i occurrences(rewrite(unfold(g_i)))
   <= sum_i E1(g_i,empty,D_i).
 ```
+
+The [first-split record](retained-producer-firstsplit.md) additionally proves
+the conditional bound `G(f) <= 6*n^2*E1(f,empty,D)` for a case-free initial
+VC with `n` term occurrences. Its exact generated/imported type and match
+frontier remains an explicit source dependency.
 
 This supplies the backend structural input needed by the
 [response-schema formula](retained-producer-response.md). The next missing
