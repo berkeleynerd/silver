@@ -1,0 +1,145 @@
+{
+  "review_target": "5d4fd26cbb",
+  "previous_review_target": "0cd5b74cc7",
+  "producer_outputs_reproduced": [
+    {
+      "path": "checks.json",
+      "sha256": "7b97a3478d243d027f02cc3058c66d6db34e3f8f0b91f08d64b1886923e57eac"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "040f2dad7ac6f1d739694eef97af8885c453b1257dedd8c99b19c14de66209f4"
+    },
+    {
+      "path": "source-excerpts.md",
+      "sha256": "758201e9d93cde14f155385b8ec02975185f16466023ae4badbcd83f4a3bbeb3"
+    },
+    {
+      "path": "source-archive-check.json",
+      "sha256": "2b26555a2ca8995719a0292785b23611aaf375137fcd5bbb16436e24d427a097"
+    },
+    {
+      "path": "frontend-invocation-audit.json",
+      "sha256": "6e33c3f544668954e0573fc759ddf85dc82138e17e4e5eca9df9a40fe636d58e"
+    },
+    {
+      "path": "frontend-invocation-excerpts.md",
+      "sha256": "485dd900fc44344830f58945af91a7787f1e5d15930600f18dabfc631aa97b21"
+    }
+  ],
+  "spark_source_files_verified": 35,
+  "frontend_ada_files_verified": 2319,
+  "itype_inventory_reproduced": 37,
+  "independent_parenthesis_sites": [
+    {
+      "file": "atree.adb",
+      "line_lf": 1247
+    },
+    {
+      "file": "atree.adb",
+      "line_lf": 2273
+    },
+    {
+      "file": "atree.adb",
+      "line_lf": 2331
+    },
+    {
+      "file": "atree.adb",
+      "line_lf": 2373
+    },
+    {
+      "file": "atree.ads",
+      "line_lf": 479
+    },
+    {
+      "file": "checks.adb",
+      "line_lf": 8066
+    },
+    {
+      "file": "checks.adb",
+      "line_lf": 11124
+    },
+    {
+      "file": "contracts.adb",
+      "line_lf": 4450
+    },
+    {
+      "file": "exp_ch6.adb",
+      "line_lf": 6471
+    },
+    {
+      "file": "exp_pakd.adb",
+      "line_lf": 380
+    },
+    {
+      "file": "exp_pakd.adb",
+      "line_lf": 1014
+    },
+    {
+      "file": "exp_pakd.adb",
+      "line_lf": 1417
+    },
+    {
+      "file": "exp_util.adb",
+      "line_lf": 10512
+    },
+    {
+      "file": "par-ch3.adb",
+      "line_lf": 2298
+    },
+    {
+      "file": "par-ch3.adb",
+      "line_lf": 3913
+    },
+    {
+      "file": "par-ch4.adb",
+      "line_lf": 1553
+    },
+    {
+      "file": "par-ch4.adb",
+      "line_lf": 1561
+    },
+    {
+      "file": "par-ch4.adb",
+      "line_lf": 1569
+    },
+    {
+      "file": "par-ch4.adb",
+      "line_lf": 1678
+    },
+    {
+      "file": "sem_ch13.adb",
+      "line_lf": 4885
+    },
+    {
+      "file": "sem_ch6.adb",
+      "line_lf": 380
+    },
+    {
+      "file": "sem_res.adb",
+      "line_lf": 6803
+    }
+  ],
+  "L1": {
+    "severity": "low",
+    "frozen_sites": 21,
+    "correct_sites": 22,
+    "repair_commit": "b6061a8458",
+    "repair_byte_identical_reproduction": true,
+    "repaired_inventory_sha256": "b79f817485815199766aba883c886531a550542452c9a13765b9b3d5397a64dc"
+  },
+  "fixed_loop_occurrences": {
+    "index_invariant": 33,
+    "entry_condition": 48,
+    "update_and_location": 26,
+    "exit_condition": 20,
+    "combined_invariants": 8,
+    "initialize_and_prepend": 13,
+    "two_bound_bindings": 14
+  },
+  "wrap_loop_occurrences": 105,
+  "fixed_loop_occurrences_total": 267,
+  "source_identity_record_reproduced": true,
+  "source_identity_established": false,
+  "scope": "Source/evidence review, not complete capacity assurance or installed-tool acceptance"
+}
