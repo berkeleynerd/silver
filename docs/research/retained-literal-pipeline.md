@@ -126,7 +126,8 @@ frontend, gigi allocation and native capacity remain false.
 
 No source-visit count is substituted for helper allocations, original-gigi
 warning insertion demand R, or global collector events. The warning residual
-and conditional map transfer remain null. The aggregate rejects changed source
+was still unknown at this frontend attachment; the later warning-specific
+source argument below now supplies R<=5. The aggregate rejects changed source
 counts, either fixed field becoming zero, constructor or visit subtotals,
 and promotion of frontend/gigi/constructor completeness flags.
 
@@ -1217,7 +1218,7 @@ separately, and no sum of allocation requests becomes a RAM admission gate.
 The frozen ingress packet retains its historical open bookkeeping flag; this
 new aggregate interface closes that specific obligation without rewriting it.
 
-### Warning-map demand: preserve the original-gigi residual
+### Warning-map demand: source-derived residual and requests
 
 The [conditional warning-map transfer](retained-literal-warning-map.md) now
 receives the same C/N in `native_warning_map_demand`. Exact joins preserve
@@ -1227,15 +1228,32 @@ selected initial-gimplifier insertion-capable calls. The fixed prefix's
 4093-slot incoming-state ceiling. Source and retained-input identities are
 checked before loading the callable.
 
-The known local original-gigi suppressions are at most 2C+N. The remaining
-original-gigi insertion demand R is **uninstantiated**. The aggregate returns
-`other_original_gigi_put_calls=null` and `conditional_map_transfer=null`; it
-adds no map allocation/event subtotal or capacity condition based on an
-invented R. A negative check rejects a callable that silently substitutes
-zero. The source-count closure remains false. Once R is established, the
-accepted leaf transfer supplies the map requests, growth and finalizer bounds;
-later location-changing phases still need their own join. No old direct-call
-subtotal is relabeled as the complete warning lifetime.
+The [complete selected warning frontier](retained-literal-warning-residual-bound.md)
+now supplies **R<=5**, including replacement puts: one Main push, one empty
+elaboration push, at most two imported procedure pushes and one namespace
+push. Reserved-location and call-free helper arguments give zero additional
+puts from the Standard graph and the two initial helper gimplifications.
+This source argument is independent of the Main syntax-visit count.
+
+The aggregate calls the new wrapper with the same C/N and checks its complete
+map-transfer result against the frozen callable instantiated with R=5.
+I=2C+N+5 and J=2C+1 give incoming/outgoing occupancy ceilings
+4098+2C+N and 4099+4C+N, and at most **4C+N+7** additional GGC requests.
+The new `native_initial_warning_map_lifetime` predicate checks the supplied
+growth, prime/probe and individual request-size conditions. It covers only
+this original-gigi/initial-Main interval; later location-changing phases and
+the complete collector/gimplifier lifetime remain separate. The negative
+zero-substitution test now rejects replacement of the established bound.
+
+The same source interface supplies the complete selected generated-body
+frontier and zero extra emitted functions under the reviewed helper-discard
+premise. It also exposes one empty-elaboration function structure and +1
+function-definition increment, giving +3 non-Main definition increments
+with the helpers. Its symbol registration and allocation totals remain null.
+`Main_is_only_emitted_body_established` is now true, but the five broader
+pool/graph/emitted-stream/storage/link conditions remain unknown: the missing
+allocator and counter-to-label joins are not discharged by a body count.
+Source review and aggregate attachment review for this increment are pending.
 
 ## Accepted linker and Main ALI interfaces
 
@@ -1524,3 +1542,19 @@ All five source-family conditions remain unknown and whole-pipeline capacity
 remains false. This attachment is pending independent review. No native run
 or broad proof/test was performed; lead runtime settings and token/cost data
 are unavailable.
+
+### Source-derived warning attachment validation
+
+The R<=5 wrapper, generated-body interface and 35 source identities now join
+the aggregate. All 95 offline cases pass in 3.953564226 seconds; default
+generation takes 3.267231906 seconds. Six new rejection cases protect
+replacement-put coverage, the source-closure premise, the empty elaboration's
+function structure and counter, and its still-unknown symbol/allocation counts.
+The changed zero-residual case checks the now-established value rather than an
+uninstantiated parameter. There are 113 repository pins and 290 direct source
+files; overlapping source inventories are not added together.
+
+The new initial warning-map predicate passes for the selected source cases.
+The broader five unknown conditions, the conservative 5,000-call relocation
+failure and false whole-pipeline verdict remain. Review of the R source packet
+and this attachment is pending. No native tool or broad audit was run.

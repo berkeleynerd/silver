@@ -169,9 +169,13 @@ def main():
             assert warning['direct_warning_copy_calls']==c+1
             assert warning['selected_initial_gimplifier_warning_put_call_ceiling']==2*c+1
             assert warning['local_gigi_suppression_call_ceiling']==2*c+n
-            assert warning['other_original_gigi_put_calls'] is None
-            assert warning['conditional_map_transfer'] is None
-            assert not warning['original_gigi_source_count_closed']
+            assert warning['other_original_gigi_put_calls']==5
+            assert warning['original_gigi_source_count_closed']
+            warning_map=warning['conditional_map_transfer']
+            assert warning_map['original_gigi_put_call_ceiling']==2*c+n+5
+            assert warning_map['outgoing_live_or_occupied_ceiling']==4099+4*c+n
+            assert warning_map['additive_GGC_event_ceiling']==4*c+n+7
+            assert result['conditions']['native_initial_warning_map_lifetime']
             assert not ingress['complete_gimplifier_lifetime_closed']
             assert ingress['complete_gimplifier_GGC_request_events_upper'] is None
             assembler=result['Main_assembler_object_interface']
@@ -224,13 +228,15 @@ def main():
             frontier=result['native_unit_frontier']
             assert frontier==result['open_joins']['native_post_prefix_imported_frontier']
             assert not frontier['Main_is_only_defined_body_established']
-            assert not frontier['Main_is_only_emitted_body_established']
+            assert frontier['Main_is_only_emitted_body_established']
             assert frontier['additional_imported_pool_symbol_events_upper'] is None
             assert frontier['additional_imported_defined_bodies_upper'] is None
             assert frontier['additional_emitted_stream_interface'] is None
             assert frontier['cold_String_layout']==context.cold_string
             assert frontier['cold_String_layout']['helper_emitted_functions']==0
             assert frontier['cold_String_layout']['helper_allocation_bytes'] is None
+            assert frontier['selected_generated_function_frontier']['non_Main_function_definition_number_increment']==3
+            assert frontier['selected_generated_function_frontier']['empty_elaboration']['allocation_request_events'] is None
             assert linker['link']['failed_sufficient_checks']==(
                 ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
             if name=='5000_calls':
@@ -308,19 +314,45 @@ def main():
         finally:
             context.ingress['evaluate']=ingress_evaluate
 
-        warning_evaluate=context.warning['evaluate']
+        warning_evaluate=context.warning_residual['evaluate']
         def silently_zeroed_warning_residual(c,n):
-            return warning_evaluate(c,n,0)
-        context.warning['evaluate']=silently_zeroed_warning_residual
+            result=warning_evaluate(c,n)
+            result['other_original_gigi_put_calls']=0
+            result['conditional_map_transfer']=context.warning['evaluate'](c,n,0)['conditional_map_transfer']
+            return result
+        context.warning_residual['evaluate']=silently_zeroed_warning_residual
         try:
             evaluate(original)
         except ValueError as error:
-            assert str(error)=='literal native warning-map conditional interface join'
+            assert str(error)=='literal native warning-map source interface join'
             rows.append(dict(case='unjustified_zero_warning_residual',rejected=str(error)))
         else:
             raise AssertionError('unproved original-gigi residual accepted')
         finally:
-            context.warning['evaluate']=warning_evaluate
+            context.warning_residual['evaluate']=warning_evaluate
+
+        imported_original=context.imported_functions
+        for name,path,value in (
+            ('residual_loses_replacements',('R_counts_replacement_puts',),False),
+            ('unproved_warning_frontier',('selected_original_gigi_warning_frontier_closed',),False),
+            ('missing_elaboration_structure',('empty_elaboration','function_structures_allocated'),0),
+            ('missing_elaboration_counter',('empty_elaboration','persistent_function_definition_number_increment'),0),
+            ('unproved_elaboration_symbol_zero',('empty_elaboration','symbol_registration_count'),0),
+            ('unproved_elaboration_allocation_zero',('empty_elaboration','allocation_request_events'),0)):
+            context.imported_functions=copy.deepcopy(imported_original)
+            target=context.imported_functions
+            for key in path[:-1]:
+                target=target[key]
+            target[path[-1]]=value
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal imported function and warning frontier join'
+                rows.append(dict(case=name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered imported frontier: '+name)
+            finally:
+                context.imported_functions=imported_original
 
         cold_original=context.cold_string
         for name,field,value in (

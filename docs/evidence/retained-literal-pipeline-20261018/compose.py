@@ -102,6 +102,16 @@ class Context:
                     {key:row[key] for key in ('bytes','sha256')},
                     'changed native warning-map input: '+row['path'])
         self.warning = runpy.run_path(str(warning_packet/'derive.py'))
+        residual_packet=EVIDENCE/'retained-literal-warning-residual-bound-20261018'
+        for row in read(residual_packet/'source-manifest.json')['files']:
+            path=(roots['ada']/row['path'].removeprefix('gcc/ada/')
+                  if row['root']=='ada' else roots['gcc']/row['path'])
+            require(identity(path.read_bytes()) ==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'changed original-gigi warning source: '+str(path))
+            checked.add(str(path))
+        self.warning_residual=runpy.run_path(str(residual_packet/'derive.py'))
+        self.imported_functions=read(residual_packet/'interface.json')
         cold_packet=EVIDENCE/'retained-literal-string-layout-20261018'
         self.cold_string=read(cold_packet/'interface.json')
         for row in read(cold_packet/'source-manifest.json')['files']:
@@ -864,17 +874,33 @@ def evaluate(descriptor_path, context, source_override=None):
                 ingress['materialization_data_address_delta']['tree_requests_upper'],
             'literal native ingress/direct/helper interface join')
     protected_storage=native_unshare_protected_set_storage(ingress)
-    warning=context.warning['evaluate'](c,n)
+    warning=context.warning_residual['evaluate'](c,n)
+    warning_transfer=context.warning['evaluate'](c,n,5)['conditional_map_transfer']
     require(warning['C']==c and warning['N']==n and
             warning['direct_warning_copy_calls']==ingress['direct_copy_warning_calls_upper'] and
             warning['additional_call_location_warning_copy_calls']==c and
             warning['selected_initial_gimplifier_warning_put_call_ceiling']==2*c+1 and
             warning['local_gigi_suppression_call_ceiling']==2*c+n and
-            warning['other_original_gigi_put_calls'] is None and
-            warning['conditional_map_transfer'] is None and
-            not warning['original_gigi_source_count_closed'] and
+            warning['other_original_gigi_put_calls']==5 and
+            warning['original_gigi_residual_put_call_ceiling']==5 and
+            warning['conditional_map_transfer']==warning_transfer and
+            warning['original_gigi_source_count_closed'] and
             not warning['complete_gimplifier_lifetime_closed'],
-            'literal native warning-map conditional interface join')
+            'literal native warning-map source interface join')
+    imported=context.imported_functions
+    require(imported['R_put_call_ceiling']==5 and
+            imported['R_counts_replacement_puts'] and
+            imported['selected_original_gigi_warning_frontier_closed'] and
+            imported['helper_initial_warning_map_puts']==0 and
+            imported['selected_generated_FUNCTION_DECL_body_frontier_closed'] and
+            imported['additional_emitted_functions_from_selected_constructor_frontier']==0 and
+            imported['non_Main_function_definition_number_increment']==3 and
+            imported['empty_elaboration']['function_structures_allocated']==1 and
+            imported['empty_elaboration']['persistent_function_definition_number_increment']==1 and
+            imported['empty_elaboration']['symbol_registration_count'] is None and
+            imported['empty_elaboration']['allocation_request_events'] is None and
+            not imported['complete_imported_frontier_capacity_closed'],
+            'literal imported function and warning frontier join')
     require(context.prefix['counters']['ggc_bytes']['largest_increment']==65536 and
             warning['prefix_capacity_ceiling']==4093 and
             max(prime for prime in context.warning['PRIMES'] if 16*prime<=65536)==4093,
@@ -968,6 +994,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_whole_body_copy_local_interface=(counts['maximum_literal_length']<=ingress['source_input']['each_literal_length_max'] and
             ingress['conditional_whole_body_ingress_closed'] and
             protected_storage['conditional_protected_set_storage_closed']),
+        native_initial_warning_map_lifetime=warning_transfer['conditional_map_interface_fits'],
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
@@ -989,13 +1016,14 @@ def evaluate(descriptor_path, context, source_override=None):
         conditions[key]=None
     frontier=dict(imported_constructor_frontier_established=False,
         Main_is_only_defined_body_established=False,
-        Main_is_only_emitted_body_established=False,
+        Main_is_only_emitted_body_established=True,
         additional_imported_pool_symbol_events_upper=None,
         additional_imported_defined_bodies_upper=None,
         additional_emitted_stream_interface=None,
         cold_String_layout=native_cold_string_interface(context),
+        selected_generated_function_frontier=imported,
         affected_predicates=list(unit_dependent),
-        missing='Two cold String helpers and their graph/symbol increments are joined. Complete their allocations/initial gimplification, the other imported declarations and remaining counter-to-emission joins; discard alone does not close these costs.',
+        missing='The selected generated-body frontier and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Complete synthetic-function and original imported allocation totals, empty-elaboration registration and counter-to-emission joins; absent emission does not erase these costs.',
         finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.
@@ -1017,14 +1045,15 @@ def evaluate(descriptor_path, context, source_override=None):
                              selected_gimplifier_helper_GGC_events_upper=ingress['selected_helper_subtotal_GGC_events_upper'],
                              selected_gimplifier_warning_put_calls_upper=warning['selected_initial_gimplifier_warning_put_call_ceiling'],
                              local_original_gigi_warning_suppressions_upper=warning['local_gigi_suppression_call_ceiling'],
-                             remaining_original_gigi_warning_put_calls=None),
-            'missing':'Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Concrete Main constructor and source-syntax visits are attached separately; they are not helper/GGC events or warning R. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
+                             remaining_original_gigi_warning_put_calls=5,
+                             initial_warning_map_GGC_events_upper=warning_transfer['additive_GGC_event_ceiling']),
+            'missing':'Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, and remaining helper lifetimes. Original-gigi R<=5 and initial Main warning-map requests are joined; later warning consumers remain separate. Concrete Main constructor and source-syntax visits are not helper/GGC events. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
                              GAS_BFD_storage=assembler_storage['storage'],
                              local_interface_fits=assembler['local_interface_fits']),
-            'missing':'Complete production-invocation/materialization and imported emitted-body joins (#131); selected stream/region/symbol/relocation/ELF and GAS/BFD storage arithmetic is conditional on that stream being complete.'},
+            'missing':'Complete production-invocation/materialization and counter-to-emitted-stream joins (#131). No additional imported function is emitted, but surviving counters must still be joined to label spelling and complete stream arithmetic.'},
         'producer_frontends_and_consumers': {
             'missing':'Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output.'},
         'binder_and_linker_composition': {

@@ -99,6 +99,7 @@
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
     "native_whole_body_copy_local_interface": true,
+    "native_initial_warning_map_lifetime": true,
     "Main_assembler_object_interface": null,
     "Main_GAS_BFD_storage": null,
     "literal_output_linker_representation": null,
@@ -125,6 +126,7 @@
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
     "native_whole_body_copy_local_interface": true,
+    "native_initial_warning_map_lifetime": true,
     "Main_assembler_object_interface": true,
     "Main_GAS_BFD_storage": true,
     "literal_output_linker_representation": true,
@@ -148,7 +150,7 @@
   "native_unit_frontier": {
     "imported_constructor_frontier_established": false,
     "Main_is_only_defined_body_established": false,
-    "Main_is_only_emitted_body_established": false,
+    "Main_is_only_emitted_body_established": true,
     "additional_imported_pool_symbol_events_upper": null,
     "additional_imported_defined_bodies_upper": null,
     "additional_emitted_stream_interface": null,
@@ -188,6 +190,48 @@
       "aggregate_conditions_changed": false,
       "whole_literal_pipeline_capacity_established": false
     },
+    "selected_generated_function_frontier": {
+      "scope": "Selected literal family and retained source/configuration premises; handwritten source argument, review pending",
+      "R_put_call_ceiling": 5,
+      "R_counts_replacement_puts": true,
+      "helper_initial_warning_map_puts": 0,
+      "standard_declaration_and_layout_warning_map_puts": 0,
+      "selected_original_gigi_warning_frontier_closed": true,
+      "selected_generated_FUNCTION_DECL_body_frontier_closed": true,
+      "empty_elaboration": {
+        "FUNCTION_DECLs_created": 1,
+        "function_structures_allocated": 1,
+        "persistent_function_definition_number_increment": 1,
+        "finalization_executions": 0,
+        "initial_gimplifications": 0,
+        "ordinary_lowering_executions": 0,
+        "IPA_body_executions": 0,
+        "RTL_expansions": 0,
+        "emitted_functions": 0,
+        "symbol_registration_count": null,
+        "allocation_request_events": null,
+        "allocation_bytes": null
+      },
+      "cold_string_size_helpers": {
+        "FUNCTION_DECLs_created": 2,
+        "initial_gimplifications": 2,
+        "persistent_function_definition_number_increment": 2,
+        "persistent_symbol_next_uid_increment": 2,
+        "persistent_symbol_order_increment": 2,
+        "ordinary_lowering_executions": 0,
+        "IPA_body_executions": 0,
+        "RTL_expansions": 0,
+        "emitted_functions": 0
+      },
+      "non_Main_function_definition_number_increment": 3,
+      "other_generated_FUNCTION_DECL_bodies": 0,
+      "additional_emitted_functions_from_selected_constructor_frontier": 0,
+      "complete_imported_frontier_capacity_closed": false,
+      "complete_gimplifier_lifetime_closed": false,
+      "complete_collector_lifetime_closed": false,
+      "aggregate_conditions_changed": false,
+      "whole_literal_pipeline_capacity_established": false
+    },
     "affected_predicates": [
       "native_varpool_and_shared_tree_pool",
       "native_graph_and_summary_lifetime",
@@ -195,7 +239,7 @@
       "Main_GAS_BFD_storage",
       "literal_output_linker_representation"
     ],
-    "missing": "Two cold String helpers and their graph/symbol increments are joined. Complete their allocations/initial gimplification, the other imported declarations and remaining counter-to-emission joins; discard alone does not close these costs.",
+    "missing": "The selected generated-body frontier and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Complete synthetic-function and original imported allocation totals, empty-elaboration registration and counter-to-emission joins; absent emission does not erase these costs.",
     "finding": "https://github.com/berkeleynerd/silver/issues/131"
   },
   "native_lowering_data": {
@@ -1588,14 +1632,66 @@
     "N": 0,
     "prefix_capacity_ceiling": 4093,
     "local_gigi_suppression_call_ceiling": 2,
-    "other_original_gigi_put_calls": null,
+    "other_original_gigi_put_calls": 5,
     "direct_warning_copy_calls": 2,
     "additional_call_location_warning_copy_calls": 1,
     "selected_initial_gimplifier_warning_put_call_ceiling": 3,
-    "original_gigi_source_count_closed": false,
+    "original_gigi_source_count_closed": true,
     "complete_gimplifier_lifetime_closed": false,
     "complete_collector_lifetime_closed": false,
-    "conditional_map_transfer": null
+    "conditional_map_transfer": {
+      "original_gigi_put_call_ceiling": 7,
+      "incoming_live_or_occupied_ceiling": 4100,
+      "outgoing_live_or_occupied_ceiling": 4103,
+      "incoming_capacity_ceiling": 16381,
+      "outgoing_capacity_ceiling": 16381,
+      "request_groups": [
+        {
+          "name": "possible_original_gigi_control",
+          "count": 1,
+          "raw_bytes_each": 64,
+          "rounded_bytes_each_ceiling": 64
+        },
+        {
+          "name": "original_gigi_initial_or_replacement_backbones",
+          "count": 7,
+          "raw_bytes_each": 262096,
+          "rounded_bytes_each_ceiling": 262144
+        },
+        {
+          "name": "selected_gimplifier_replacement_backbones",
+          "count": 3,
+          "raw_bytes_each": 262096,
+          "rounded_bytes_each_ceiling": 262144
+        }
+      ],
+      "additive_GGC_event_ceiling": 11,
+      "additional_singleton_finalizer_registrations_ceiling": 1,
+      "additional_vector_finalizer_registrations": 0,
+      "checks": {
+        "live_and_occupied_sufficient_region": true,
+        "prime_exists": true,
+        "prime_probe_region": true,
+        "probe_addition": true,
+        "entry_request_and_pointer_span": true,
+        "load_factor_products": true
+      },
+      "conditional_map_interface_fits": true
+    },
+    "original_gigi_residual_put_call_ceiling": 5,
+    "residual_breakdown": {
+      "main_function": 1,
+      "empty_elaboration_function": 1,
+      "imported_procedures": 2,
+      "silver_io_namespace": 1,
+      "standard_declarations_and_layout": 0,
+      "size_helper_initial_gimplifications": 0,
+      "other_selected_routes": 0
+    },
+    "source_argument": "docs/research/retained-literal-warning-residual-bound.md",
+    "independent_review": "pending",
+    "complete_imported_frontier_capacity_closed": false,
+    "whole_literal_pipeline_capacity_established": false
   },
   "native_Main_frontend_interface": {
     "scope": "actual selected literal source: Main constructor and gigi source-visit input",
@@ -3551,7 +3647,7 @@
     "native_post_prefix_imported_frontier": {
       "imported_constructor_frontier_established": false,
       "Main_is_only_defined_body_established": false,
-      "Main_is_only_emitted_body_established": false,
+      "Main_is_only_emitted_body_established": true,
       "additional_imported_pool_symbol_events_upper": null,
       "additional_imported_defined_bodies_upper": null,
       "additional_emitted_stream_interface": null,
@@ -3591,6 +3687,48 @@
         "aggregate_conditions_changed": false,
         "whole_literal_pipeline_capacity_established": false
       },
+      "selected_generated_function_frontier": {
+        "scope": "Selected literal family and retained source/configuration premises; handwritten source argument, review pending",
+        "R_put_call_ceiling": 5,
+        "R_counts_replacement_puts": true,
+        "helper_initial_warning_map_puts": 0,
+        "standard_declaration_and_layout_warning_map_puts": 0,
+        "selected_original_gigi_warning_frontier_closed": true,
+        "selected_generated_FUNCTION_DECL_body_frontier_closed": true,
+        "empty_elaboration": {
+          "FUNCTION_DECLs_created": 1,
+          "function_structures_allocated": 1,
+          "persistent_function_definition_number_increment": 1,
+          "finalization_executions": 0,
+          "initial_gimplifications": 0,
+          "ordinary_lowering_executions": 0,
+          "IPA_body_executions": 0,
+          "RTL_expansions": 0,
+          "emitted_functions": 0,
+          "symbol_registration_count": null,
+          "allocation_request_events": null,
+          "allocation_bytes": null
+        },
+        "cold_string_size_helpers": {
+          "FUNCTION_DECLs_created": 2,
+          "initial_gimplifications": 2,
+          "persistent_function_definition_number_increment": 2,
+          "persistent_symbol_next_uid_increment": 2,
+          "persistent_symbol_order_increment": 2,
+          "ordinary_lowering_executions": 0,
+          "IPA_body_executions": 0,
+          "RTL_expansions": 0,
+          "emitted_functions": 0
+        },
+        "non_Main_function_definition_number_increment": 3,
+        "other_generated_FUNCTION_DECL_bodies": 0,
+        "additional_emitted_functions_from_selected_constructor_frontier": 0,
+        "complete_imported_frontier_capacity_closed": false,
+        "complete_gimplifier_lifetime_closed": false,
+        "complete_collector_lifetime_closed": false,
+        "aggregate_conditions_changed": false,
+        "whole_literal_pipeline_capacity_established": false
+      },
       "affected_predicates": [
         "native_varpool_and_shared_tree_pool",
         "native_graph_and_summary_lifetime",
@@ -3598,7 +3736,7 @@
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
-      "missing": "Two cold String helpers and their graph/symbol increments are joined. Complete their allocations/initial gimplification, the other imported declarations and remaining counter-to-emission joins; discard alone does not close these costs.",
+      "missing": "The selected generated-body frontier and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Complete synthetic-function and original imported allocation totals, empty-elaboration registration and counter-to-emission joins; absent emission does not erase these costs.",
       "finding": "https://github.com/berkeleynerd/silver/issues/131"
     },
     "native_remaining_lifetime_and_collector": {
@@ -3619,9 +3757,10 @@
         "selected_gimplifier_helper_GGC_events_upper": 8,
         "selected_gimplifier_warning_put_calls_upper": 3,
         "local_original_gigi_warning_suppressions_upper": 2,
-        "remaining_original_gigi_warning_put_calls": null
+        "remaining_original_gigi_warning_put_calls": 5,
+        "initial_warning_map_GGC_events_upper": 11
       },
-      "missing": "Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Concrete Main constructor and source-syntax visits are attached separately; they are not helper/GGC events or warning R. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
+      "missing": "Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, and remaining helper lifetimes. Original-gigi R<=5 and initial Main warning-map requests are joined; later warning consumers remain separate. Concrete Main constructor and source-syntax visits are not helper/GGC events. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -3765,7 +3904,7 @@
         },
         "local_interface_fits": true
       },
-      "missing": "Complete production-invocation/materialization and imported emitted-body joins (#131); selected stream/region/symbol/relocation/ELF and GAS/BFD storage arithmetic is conditional on that stream being complete."
+      "missing": "Complete production-invocation/materialization and counter-to-emitted-stream joins (#131). No additional imported function is emitted, but surviving counters must still be joined to label spelling and complete stream arithmetic."
     },
     "producer_frontends_and_consumers": {
       "missing": "Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output."
@@ -3787,7 +3926,7 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 108,
+  "fixed_input_count": 113,
   "external_source_files_verified": 290,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
@@ -3805,8 +3944,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T20:29:45.631864+00:00",
-    "completed_utc": "2026-10-18T20:29:48.628643+00:00",
-    "elapsed_seconds": 2.9967674859999534
+    "started_utc": "2026-10-18T20:34:18.122812+00:00",
+    "completed_utc": "2026-10-18T20:34:21.390056+00:00",
+    "elapsed_seconds": 3.2672319060002337
   }
 }

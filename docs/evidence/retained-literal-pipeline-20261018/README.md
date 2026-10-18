@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 89 interface checks. It reuses one context's
+arguments and `--output`, and runs 95 interface checks. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -110,7 +110,7 @@ address requests and zero selected GIMPLE-fold replacements. The reviewed
 and the additional 2C data-address requests. Its selected 8C subtotal includes
 that earlier 6C component. Exact direct/CF/bind/stack/helper joins are checked;
 the protected-set prime, probe arithmetic and individual backing request have
-separate conditions. Original frontend/gigi, incoming warning-map backing,
+separate conditions. Original frontend/gigi, later warning-map consumers,
 remaining helpers and collector composition stay open. The ordinary protected-set
 control/backing join now checks selected statistics/checking configuration,
 prices one <=64-byte object and C+2 backings, and contributes zero GGC events.
@@ -149,8 +149,13 @@ and persistent Names contribution. Fixed-child regeneration correspondence,
 complete Names backing, parent storage and launch remain false/open. The
 historical binder packet's parent-reader flag is preserved, not rewritten.
 
-The conditional `native_warning_map_demand` joins C/N, direct C+1 copies and
+The source-derived `native_warning_map_demand` joins C/N, direct C+1 copies and
 the additional C location-setter calls, plus the checked 4093-slot prefix
-ceiling. Original-gigi residual R remains null; no conditional map subtotal
-or fit result is instantiated. The negative test rejects a silent zero
-substitution. The remaining source dependency is named explicitly.
+ceiling. The later residual source argument supplies R<=5 and the complete
+map request interface, with at most4C+N+7 additional GGC events. The
+`native_initial_warning_map_lifetime` predicate covers this interval only.
+Negative checks reject a zero residual, loss of replacement puts or closure
+premises, and erased empty-elaboration structures/counters. Whole-pipeline
+capacity and the five broader imported-frontier conditions remain open.
+No extra function is emitted, but the empty elaboration's allocation and
+symbol registration and the persistent counter-to-label joins are separate.

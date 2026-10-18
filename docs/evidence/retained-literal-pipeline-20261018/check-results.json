@@ -1,5 +1,5 @@
 {
-  "case_count": 89,
+  "case_count": 95,
   "cases": [
     {
       "case": "retained",
@@ -195,7 +195,31 @@
     },
     {
       "case": "unjustified_zero_warning_residual",
-      "rejected": "literal native warning-map conditional interface join"
+      "rejected": "literal native warning-map source interface join"
+    },
+    {
+      "case": "residual_loses_replacements",
+      "rejected": "literal imported function and warning frontier join"
+    },
+    {
+      "case": "unproved_warning_frontier",
+      "rejected": "literal imported function and warning frontier join"
+    },
+    {
+      "case": "missing_elaboration_structure",
+      "rejected": "literal imported function and warning frontier join"
+    },
+    {
+      "case": "missing_elaboration_counter",
+      "rejected": "literal imported function and warning frontier join"
+    },
+    {
+      "case": "unproved_elaboration_symbol_zero",
+      "rejected": "literal imported function and warning frontier join"
+    },
+    {
+      "case": "unproved_elaboration_allocation_zero",
+      "rejected": "literal imported function and warning frontier join"
     },
     {
       "case": "silently_erased_helpers",
@@ -577,8 +601,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T20:29:33.860147+00:00",
-    "completed_utc": "2026-10-18T20:29:37.720664+00:00",
-    "elapsed_seconds": 3.8605163210013416
+    "started_utc": "2026-10-18T20:33:39.049664+00:00",
+    "completed_utc": "2026-10-18T20:33:43.003241+00:00",
+    "elapsed_seconds": 3.9535642259997985
   }
 }

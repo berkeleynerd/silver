@@ -538,5 +538,30 @@
     "path": "docs/reviews/review-literal-string-layout-bd15740afc.md",
     "bytes": 11146,
     "sha256": "87736a14a5dba393dca57fb0c1c7cf042d83ebf6f7ef53328475f9bb48b371f4"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/derive.py",
+    "bytes": 2032,
+    "sha256": "a300fcc3e7a9422d30ae99c8af18db7fab80a1740cc9af8314ce1e13cd3a6e4c"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/interface.json",
+    "bytes": 1663,
+    "sha256": "637125013a161379bf7c4e455eeb340f6549148b7a98b96c1d48694c1792e9fa"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/source-manifest.json",
+    "bytes": 19183,
+    "sha256": "71a7d1a45c9de524ec17078761d13bf0527690a837113c6618aaf16199c030ae"
+  },
+  {
+    "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/result.json",
+    "bytes": 2216,
+    "sha256": "8996e11351e5b4632a30d0ba1ce39044d84668a6c78e9bdc276775dd540159c0"
+  },
+  {
+    "path": "docs/research/retained-literal-warning-residual-bound.md",
+    "bytes": 17982,
+    "sha256": "bef8c52601a1cf9ffc3531930cdddfae41140951fffbaad3d21fcec4b70daee7"
   }
 ]
