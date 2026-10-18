@@ -11126,6 +11126,98 @@ with at most `2*n` collected declarations, and calls `Insert_Action` at most
 freezing transfers cover the closed local paths above; runtime first loading,
 wrapper/scope handling and the diagnostic error path remain separate.
 
+## Callable null-source capacity composition
+
+The [offline composition](../evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py)
+now evaluates the selected native-null compiler predicates against actual
+source, configuration and mapping bytes. This closes the numerical descriptor
+join identified by the static-lifecycle packet. It is a research composition,
+not a production recognizer or a whole-toolchain capacity rule.
+
+The descriptor has four fields: the exact scope string `selected indexed
+native null compiler`; `files`, whose five roles identify readable Main,
+configuration, mapping, System and gnat1 inputs; `launch_paths`, which identify
+their intended launch names and seven working/output/default-search paths;
+and the supplied complete pathname bound `complete_path_bound`, denoted P.
+File references resolve relative to the descriptor. Launch names must be
+absolute printable-ASCII paths, and both their raw and resolved spellings
+must fit P. The checker cannot establish that an upstream producer supplied
+every path or that the intended launch file contains the checked bytes. Those
+are explicit parent-invocation premises, as are the selected options,
+environment, search-path-file absence and lack of unlisted aliases/overrides.
+
+Main is scanned completely, including trivia, into the exact null token
+sequence. Word case may vary, but an attached identifier character, another
+statement, a declaration or a different pragma is rejected. The research
+scanner covers CR, LF, VT and FF line termination and comments at EOF; this
+does not change the current language's smaller byte alphabet or 4096-byte
+limit. For this class the scan establishes 10 word tokens, 49 word characters,
+20 scanner nodes, 28 parser nodes, one entity, 313 slots and four lists.
+Source length, physical lines, expanded columns and aligned source cursor
+extent are computed from actual bytes rather than inferred from these fixed
+syntax counts. Main, the exact configuration and pinned native System are
+the three physical sources; there are no virtual sources in this projection.
+
+The configuration must equal the reviewed 244-byte form plus the 83-byte
+indexed naming pragma. The mapping must contain precisely the Main body unit,
+`main.adb` and the intended Main launch path. The checker verifies the actual
+System and gnat1 identities against the retained records. Its formula loader
+rechecks the 151 pinned Ada sources, and its composition manifest pins the
+14 formula/component inputs. The explicit indexed configuration delta is
+added to the fixed node, slot, list, name and String demands **before** common
+metadata, invocation and backing composition.
+
+The two selected native-only switches are `-gnatx` and
+`-Wno-free-nonheap-object`. The `-gnatx` source argument supplies zero appended Xrefs
+entries and no X records. It does not remove semantic reference marking or
+the initialized table/hash backing. The GNATprove invocation is unaffected.
+The ALI serializer now accepts the current command projection rather than
+implicitly reusing the older six/seven-switch estimate: 24 original/decoded
+entries, at most 48 canonical saved arguments, and maximum argument length
+`A = max(24, P + 8)`. Conservatively charging every canonical argument gives
+an A-record bound of `A + 4` characters before LF and total A-record bytes
+`48 * (A + 5)`. The process projection also retains the signed option-buffer
+and coverage-filename checks and the selected working-directory buffer bound.
+
+The Ada floating callbacks add their separate 4096 Uint entries, 32768 digit
+words and seven Ureal entries before the mutable table backing is priced.
+This deliberately overcounts any callback values already present in the
+all-roots fixed frontend allowance. Fixed Rep_Table backing remains a separate
+component. The two gigi node-association arrays, encoded frontend name,
+filename identifiers, shared identifier occupancy, source locations and
+collector backing join the corresponding source/table results. Fixed ordinary
+startup acceptance and zero-allocation selected static exit retain their
+explicit read projection; no ordinary heap total is inferred from GGC bytes.
+
+The [retained arithmetic fixture](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-capacity-composition.json)
+uses the 69-byte `samples/null.adb`, prepared configuration/mapping bytes and
+P = 512. Its intended `/tmp/silver-native-null-capacity` invocation was **not
+executed**. All 12 component predicates pass. Representative joined values
+are 41,272 logical nodes, 330,176 raw bytes for each node-association array,
+16,384 aligned source-pointer extent, 737 bytes for the selected frontend
+encoded-name bound, an ALI record maximum of 1184 bytes including LF and an
+ALI serialized-file bound of **2,177,456 bytes**. The selected GGC event upper
+bound remains 40,098. These are component bounds, not an aggregate memory
+admission condition.
+
+Focused offline checks reproduce the retained composition, reject changed
+token/configuration inputs, cover all selected comment terminators, preserve
+graph counts for a comment-only extension above 4096 bytes, and straddle the
+expanded-column boundary at final columns 32766/32767. They also reject
+signed option/coverage arithmetic overflow. The optional formula parameters
+leave the earlier `derive.py` output byte-for-byte unchanged. No compiler,
+prover or debugger ran for this packet.
+
+Independent narrow review replayed the focused checks and accepted the
+actual-byte, indexed-delta, no-xref, current-command, callback and physical-source
+joins. Its selected-switch labeling suggestion is included in the result.
+
+GPR/GCC parent processes, assembler, binder/linker, the independent GNATprove
+producer, complete invocation realization, and production recognizer/proof
+correspondence remain separate joins. The output therefore keeps
+`whole_toolchain_capacity_established: false` and
+`production_admission_changed: false`. This packet does not complete #119.
+
 ## Exact remaining obligations
 
 The constructor sum supplies a common A and all source construct rows listed

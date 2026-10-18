@@ -156,3 +156,34 @@ adds no allocation; the known40,098 GGC subtotal stays unchanged. The packet
 does not close the source/invocation descriptor integration or alter admission.
 No compiler, prover or debugger was executed. The initial read-only objdump
 capture used `-d -C --insn-width=16`; replay invokes no disassembler.
+
+### Callable null-source capacity composition
+
+`compose-null-capacity.py` reads the descriptor and actual Main/config/map
+bytes, checks the pinned native System and gnat1, and joins the existing
+source/table/path, indexed-configuration, selected native no-xref, callback and
+GCC metadata predicates. `null-capacity-inputs.json` pins 14 formula/component
+inputs; the reused formula loader checks 151 Ada sources. The research section
+documents the schema and explicit parent-invocation premises.
+
+`null-capacity-fixture.json`, `.adc` and `.map` are prepared arithmetic inputs,
+not an executed invocation. `native-null-capacity-composition.json` records
+all 12 component predicates passing for the 69-byte null sample and P = 512.
+The ALI bound is 2,177,456 serialized bytes and the known GGC event bound remains
+40,098. Parent processes, other tool stages and production correspondence
+remain separate; whole-toolchain capacity and admission-change flags are false.
+No aggregate RAM/address-space condition is introduced.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py \
+  --descriptor docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.json \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --output /tmp/native-null-capacity-composition.json
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/check-null-capacity.py \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada
+```
+
+The second command compares the retained result and checks selected token,
+comment, configuration, large-source, column and signed-arithmetic boundaries.
+Both commands are offline and launch no native tool. The formula changes use
+optional parameters; the earlier default `derive.py` result remains unchanged.

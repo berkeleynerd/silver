@@ -1,0 +1,75 @@
+{
+  "scope": "Reusable compiler formulas/components for actual null-source composition",
+  "files": [
+    {
+      "path": "derive.py",
+      "bytes": 209291,
+      "sha256": "385d6c8e5236d0e9967fb129cb997039424e91527ffcc3e7284e183a6845ce26"
+    },
+    {
+      "path": "native-fixed-inputs.json",
+      "bytes": 27601,
+      "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+    },
+    {
+      "path": "native-ali-inputs.json",
+      "bytes": 19357,
+      "sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9"
+    },
+    {
+      "path": "native-indexed-invocation.json",
+      "bytes": 4807,
+      "sha256": "9ffaf5d6a5248958d9d6f2ba107096321939f462cd572f92cf0e373d44376047"
+    },
+    {
+      "path": "native-indexed-source-buffers.json",
+      "bytes": 3203,
+      "sha256": "4f2e91941ccc91fed0fcc3e93f45d96e06a112a4548ac9857dc07803ed047089"
+    },
+    {
+      "path": "native-gcc-prefix-witness.json",
+      "bytes": 3891,
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "path": "native-null-source-locations.json",
+      "bytes": 2717,
+      "sha256": "92de9ec47ecc88ab0db231743f9e35efa7d8dbed0be76907e9b4062084c44902"
+    },
+    {
+      "path": "native-null-callback-collector.json",
+      "bytes": 6761,
+      "sha256": "ebc1112acd4fd3c2c56a53365e55e87583cd1cfa912be2ed5a94339877ee7a91"
+    },
+    {
+      "path": "native-collector-closure.json",
+      "bytes": 72173,
+      "sha256": "10f84f314ca3c63cae1b1ca565343ff69255c5f4514e0c687238b93adc79f650"
+    },
+    {
+      "path": "native-process-shell.json",
+      "bytes": 2955,
+      "sha256": "374cbe5484b6c16304b8468d032902ec35f48712ef6039d4f32a3ece4369528c"
+    },
+    {
+      "path": "native-startup-registry.json",
+      "bytes": 316637,
+      "sha256": "2bc3346517330a87893635858491cdd5e003fbffb8d43e83b2c25d2c28112f08"
+    },
+    {
+      "path": "native-static-lifecycle.json",
+      "bytes": 16294,
+      "sha256": "14939013d35bff0dcdbc858baf12d2fa275c4f4c7c28af13de8384a51481170f"
+    },
+    {
+      "path": "indexed-naming-pragma-derived.adc",
+      "bytes": 83,
+      "sha256": "adc40368024311f2a3f4099329776a6a01fd89dd63d0c66c4cd2ace2e8d051b5"
+    },
+    {
+      "path": "native-no-xref-proposal.json",
+      "bytes": 11839,
+      "sha256": "a6043ffecd38bb8823c5e937873a8868e1c7ddb60f7a43575e812d9e249c20fc"
+    }
+  ]
+}

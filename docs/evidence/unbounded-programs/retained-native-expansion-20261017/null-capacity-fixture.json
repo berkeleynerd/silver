@@ -1,0 +1,25 @@
+{
+  "scope": "selected indexed native null compiler",
+  "files": {
+    "Main": "../../../../samples/null.adb",
+    "configuration": "null-capacity-fixture.adc",
+    "mapping": "null-capacity-fixture.map",
+    "System": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "gnat1": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1"
+  },
+  "launch_paths": {
+    "Main": "/tmp/silver-native-null-capacity/main.adb",
+    "configuration": "/tmp/silver-native-null-capacity/config.adc",
+    "mapping": "/tmp/silver-native-null-capacity/main.map",
+    "System": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "gnat1": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+    "cwd": "/tmp/silver-native-null-capacity/obj",
+    "assembly": "/tmp/silver-native-null-capacity/obj/main.s",
+    "native_include": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "native_objects": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "raw_default_prefix": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/",
+    "source_path_probe": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_source_path",
+    "object_path_probe": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_object_path"
+  },
+  "complete_path_bound": 512
+}

@@ -1443,7 +1443,7 @@ def native_diagnostic_rendering(diagnostic, pathname_length):
 
 def native_frontend_logical_join(*, counts, scanner_pools,
         max_identifier_length, input_identifier_length, loop_depth,
-        pathname_length, configuration_storage=None):
+        pathname_length, configuration_storage=None, indexed_configuration_delta=None):
     """Join known native logical tables; not complete tool admission.
 
     Scanner pool inputs must include all actual rescans/lookahead from their
@@ -1456,6 +1456,18 @@ def native_frontend_logical_join(*, counts, scanner_pools,
     core = main_native_construct_vector(**counts)
     main = core["total"]
     fixed = native_fixed_frontend(input_identifier_length, pathname_length)
+    if indexed_configuration_delta is not None:
+        delta = indexed_configuration_delta
+        for field, amount in (
+                ("node_identities", delta["ordinary_node_allowance"]),
+                ("dynamic_slots", delta["dynamic_slot_allowance"]),
+                ("syntax_list_headers", delta["syntax_list_header_allowance"]),
+                ("String_descriptors", delta["String_descriptors"]),
+                ("String_characters", delta["String_characters"]),
+                ("Name_entries", delta["scanner_Name_entries"]+delta["helper_Name_entries"]),
+                ("Name_characters", delta["scanner_Name_characters"]+delta["helper_Name_characters"])):
+            fixed[field] += amount
+        fixed["indexed_configuration_delta"] = delta
     parser_auxiliary = native_parser_auxiliary(counts["loops"], counts["ifs"],
                                                fixed["node_identities"])
     common = native_common_metadata(concats=len(counts["concat_lengths"]),
@@ -2069,7 +2081,7 @@ def native_command_line_backing(pathname_length, table_factor=1):
         remaining="controlled environment/default-search/path realization, complete GCC-driver prefix/spec/temporary storage, remaining late consumers")
 
 
-def native_ali_backing(logical, max_identifier_length):
+def native_ali_backing(logical, max_identifier_length, command_line=None, include_xrefs=True):
     """Selected native Main serializer, including individual record capacity.
 
     Total file bytes are exported for downstream readers, not used as an
@@ -2080,6 +2092,7 @@ def native_ali_backing(logical, max_identifier_length):
     descriptor = json.loads((evidence/"native-ali-inputs.json").read_text())
     assert max_identifier_length >= 0
     p = logical["fixed"]["pathname_length_input"]
+    command_line = command_line or native_command_line_backing(p)
     unit_name = descriptor["fixed_nonpath_name_bound"]
     unit_slots = descriptor["unit_table_last_allowance"]+1
     generic_depth = descriptor["fixed_instantiation_depth_allowance"]
@@ -2097,7 +2110,7 @@ def native_ali_backing(logical, max_identifier_length):
     sig = inv["max_serialized_signature_characters"]
     restrictions = descriptor["restrictions"]
     records = dict(version=4+len(descriptor["verbose_library_version"]),
-        main=3+11+13+13+4, switches=native_command_line_backing(p)["ALI_A_record_max_characters"],
+        main=3+11+13+13+4, switches=command_line["ALI_A_record_max_characters"],
         parameters=1+16*3, restriction_header=2,
         restrictions=3+restrictions["max_name_length"]+1+10+1,
         unit=2+unit_name+p+24+48+8+descriptor["unit_flag_character_allowance"],
@@ -2109,11 +2122,13 @@ def native_ali_backing(logical, max_identifier_length):
         xref_section=13+p,
         xref_Main_entity=main_header,xref_fixed_entity=fixed_header,
         xref_continuation=72+reference_item)
+    if not include_xrefs:
+        records = {name:bound for name,bound in records.items() if not name.startswith("xref_")}
     max_record = max(records.values())+1  # EOL; tabs charged as spaces.
     xrefs = logical["tables"]["Xrefs_entries"]
     fixed_serialized = (
         sum(records[name]+1 for name in ("version","main","parameters","restriction_header"))
-        +native_command_line_backing(p)["ALI_A_total_bytes_including_LF"]
+        +command_line["ALI_A_total_bytes_including_LF"]
         +(restrictions["boolean_count"]+2*restrictions["parameter_count"])*(records["restrictions"]+1)
         +unit_slots*(records["unit"]+records["task_stacks"]+records["dependency"]+3)
         +unit_slots**2*(records["with_unit"]+1)
@@ -2121,8 +2136,8 @@ def native_ali_backing(logical, max_identifier_length):
         +inv["ALI_Invocation_Constructs"]*(records["invocation_construct"]+1)
         +inv["ALI_Invocation_Relations"]*(records["invocation_relation"]+1)
         +unit_slots+8)  # unit separators and the other possible blank lines
-    xref_serialized = xrefs*(records["xref_section"]
-        +max(main_header,fixed_header)+reference_item+4)
+    xref_serialized = (xrefs*(records["xref_section"]
+        +max(main_header,fixed_header)+reference_item+4)) if include_xrefs else 0
     file_bytes = fixed_serialized+xref_serialized
     objects = dict(Info_Buffer=descriptor["buffer_bytes"],
         With_Flags=unit_slots,Elab_Flags=unit_slots,Elab_All_Flags=unit_slots,
@@ -2133,6 +2148,9 @@ def native_ali_backing(logical, max_identifier_length):
         Unit_Name_hash_headers=257*8,Unit_Name_hash_wrapper=16,
         Exact_Source_Name_result=max(max_identifier_length,descriptor["max_fixed_source_name_length"]),
         dependency_quoted_path=2*p+2)
+    if not include_xrefs:
+        for name in ("Xref_sort_vector","Xref_current_name","Exact_Source_Name_result"):
+            del objects[name]
     unit_table = native_table_backing_row(unit_slots,0,30,100,
         4*descriptor["unit_record_field_count"],2**31-1)
     checks = dict(record_or_complete_buffer_fit=(max_record<=descriptor["max_line"]
