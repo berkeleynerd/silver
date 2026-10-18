@@ -1,0 +1,132 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 2199,
+    "sha256": "24201e8d5cf6dcf9556910a117a6b897ddd1c47977adecd8d8af667341da07b2"
+  },
+  {
+    "path": "artifacts.json",
+    "bytes": 32,
+    "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c"
+  },
+  {
+    "path": "build-helper.json",
+    "bytes": 18265,
+    "sha256": "d03835d0a932553114da579cef03563c1ab0ba94a6b919e5579d09169c4709ee"
+  },
+  {
+    "path": "build-helper.source",
+    "bytes": 12476,
+    "sha256": "dd8ba77c8236d30de3adef6db951df01ede1f7b0e0dcc0b651cadc55f0764ca2"
+  },
+  {
+    "path": "build-run.json",
+    "bytes": 13304,
+    "sha256": "d40a7de9ede0ec8b26070a8fb95bf7662e0973435d8229b35809da3ab126a4ee"
+  },
+  {
+    "path": "common-recipe.json",
+    "bytes": 6379,
+    "sha256": "19c8ef984539f892ff28d48434811ec09f039a26dfa419b1cc591d9c052a2b62"
+  },
+  {
+    "path": "common-recipe.source",
+    "bytes": 3848,
+    "sha256": "5693318700f484d68409349e79586ae3fe049ce7a25c75cdb81a2259efe5029e"
+  },
+  {
+    "path": "installed-alire.toml",
+    "bytes": 2145,
+    "sha256": "86f31522c6b033c3b8cb523ef74d81d81292fba19f8e049198da068d727648f3"
+  },
+  {
+    "path": "jobs.json",
+    "bytes": 58581,
+    "sha256": "0ca91807cf380cceb0eede57158d0fc7c6c0f89f4c5a842a8983e0ac2190b031"
+  },
+  {
+    "path": "linux-job-log-response.json",
+    "bytes": 151,
+    "sha256": "22201cceb7f348a6396a0dfec6a1c690be23adcbb4d8f71be3d6aac2a416b795"
+  },
+  {
+    "path": "linux-job-log-stderr.txt",
+    "bytes": 28,
+    "sha256": "d4108102c2e115e0c615356b38538feedc5b9eb42d7a87af11b914111303413c"
+  },
+  {
+    "path": "package-recipe.json",
+    "bytes": 10072,
+    "sha256": "f7419df144bb072f3e66fe6060f9f4fbb1ef6bf0ed9f6868e0cb511ffe4b38c1"
+  },
+  {
+    "path": "package-recipe.source",
+    "bytes": 6482,
+    "sha256": "d7a005e08ea703dd8eb3e04f8de8b669746155310675b715baa64686a0fa8204"
+  },
+  {
+    "path": "recipe-tree.json",
+    "bytes": 35613,
+    "sha256": "15ecc724ec6513acc6538f712140f90c168f6d8dbfb77eb39348bac6da77a2b7"
+  },
+  {
+    "path": "release-helper.json",
+    "bytes": 5219,
+    "sha256": "df94815998e90e228e2763c790b13069cb02a2673d9ae001fe173474d04f918e"
+  },
+  {
+    "path": "release-helper.source",
+    "bytes": 2967,
+    "sha256": "e50d08eba4c0266062c55233237c7b31d40750a1fd447ec1085fb368274ef85d"
+  },
+  {
+    "path": "release.json",
+    "bytes": 19272,
+    "sha256": "14ffeafabc651234cf53b6bd0d82747f6e25e6c26beef01a85b7aa9cd6cd36db"
+  },
+  {
+    "path": "requests.json",
+    "bytes": 3780,
+    "sha256": "d42c32117e57950b26bc37acff1b363bb79b00e9793809f0df489e82ada12ab5"
+  },
+  {
+    "path": "results.json",
+    "bytes": 3473,
+    "sha256": "421fc8becf3da193d83907f805d860c4535fdab754a8e33f884410cdd6ba9c3f"
+  },
+  {
+    "path": "runs.json",
+    "bytes": 39810,
+    "sha256": "0cea6d0df5a79c85c76064056821f661265b851d72dde0e6435e7c9e2d5ae712"
+  },
+  {
+    "path": "spark-branch.json",
+    "bytes": 4113,
+    "sha256": "1cb5e6b807b1df31b0015bcb6400b8ad19532fc66f64bd1b0c65d440bfb25e3a"
+  },
+  {
+    "path": "spark2014.anod",
+    "bytes": 9025,
+    "sha256": "be63c40fa19b2db8d4a5e18ae39315b0b5edbe72245fa0300fd246470e11e1aa"
+  },
+  {
+    "path": "tag.json",
+    "bytes": 407,
+    "sha256": "5d9b8a73d630df5a743a2b55e3eb4feaa0843cb5b10de8764e1602fcdbeb8d78"
+  },
+  {
+    "path": "verify.py",
+    "bytes": 8663,
+    "sha256": "641aabc4e328b1e6700d191990b7df85b194f31ac0cddce0669980cecf76ea8c"
+  },
+  {
+    "path": "workflow.json",
+    "bytes": 41279,
+    "sha256": "c8b813bfacaa1f8e3a5507bfefd9dea3562aafe33a8f0ecff660b46387086b6c"
+  },
+  {
+    "path": "workflow.source",
+    "bytes": 29140,
+    "sha256": "d5a0b7a001cc8ee949e3603d3969b3ca3f965e02b51547edfa9ec121060f44e6"
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "observed_date_utc": "2026-10-18",
+  "method": "Read-only gh api GET requests. Raw responses retained unchanged.",
+  "requests": [
+    {
+      "file": "release.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/releases/tags/gnatprove-16.1.0-1",
+      "status": 200,
+      "sha256": "14ffeafabc651234cf53b6bd0d82747f6e25e6c26beef01a85b7aa9cd6cd36db"
+    },
+    {
+      "file": "tag.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/git/ref/tags/gnatprove-16.1.0-1",
+      "status": 200,
+      "sha256": "5d9b8a73d630df5a743a2b55e3eb4feaa0843cb5b10de8764e1602fcdbeb8d78"
+    },
+    {
+      "file": "recipe-tree.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/git/trees/0334dd54a2c479faa3dfad47a911373581b11739?recursive=1",
+      "status": 200,
+      "sha256": "15ecc724ec6513acc6538f712140f90c168f6d8dbfb77eb39348bac6da77a2b7"
+    },
+    {
+      "file": "runs.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/actions/runs?head_sha=0334dd54a2c479faa3dfad47a911373581b11739&per_page=100",
+      "status": 200,
+      "sha256": "0cea6d0df5a79c85c76064056821f661265b851d72dde0e6435e7c9e2d5ae712"
+    },
+    {
+      "file": "build-run.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/actions/runs/28247767502",
+      "status": 200,
+      "sha256": "d40a7de9ede0ec8b26070a8fb95bf7662e0973435d8229b35809da3ab126a4ee"
+    },
+    {
+      "file": "jobs.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/actions/runs/28247767502/jobs?per_page=100",
+      "status": 200,
+      "sha256": "0ca91807cf380cceb0eede57158d0fc7c6c0f89f4c5a842a8983e0ac2190b031"
+    },
+    {
+      "file": "artifacts.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/actions/runs/28247767502/artifacts?per_page=100",
+      "status": 200,
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c"
+    },
+    {
+      "file": "spark-branch.json",
+      "endpoint": "repos/AdaCore/spark2014/branches/fsf-16",
+      "status": 200,
+      "sha256": "1cb5e6b807b1df31b0015bcb6400b8ad19532fc66f64bd1b0c65d440bfb25e3a"
+    },
+    {
+      "file": "workflow.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/contents/.github/workflows/main.yml?ref=0334dd54a2c479faa3dfad47a911373581b11739",
+      "status": 200,
+      "sha256": "c8b813bfacaa1f8e3a5507bfefd9dea3562aafe33a8f0ecff660b46387086b6c"
+    },
+    {
+      "file": "package-recipe.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/contents/specs/release_package.anod?ref=0334dd54a2c479faa3dfad47a911373581b11739",
+      "status": 200,
+      "sha256": "f7419df144bb072f3e66fe6060f9f4fbb1ef6bf0ed9f6868e0cb511ffe4b38c1"
+    },
+    {
+      "file": "common-recipe.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/contents/specs/common.anod?ref=0334dd54a2c479faa3dfad47a911373581b11739",
+      "status": 200,
+      "sha256": "19c8ef984539f892ff28d48434811ec09f039a26dfa419b1cc591d9c052a2b62"
+    },
+    {
+      "file": "build-helper.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/contents/lib/anod/build.py?ref=0334dd54a2c479faa3dfad47a911373581b11739",
+      "status": 200,
+      "sha256": "d03835d0a932553114da579cef03563c1ab0ba94a6b919e5579d09169c4709ee"
+    },
+    {
+      "file": "release-helper.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/contents/specs/release_github.anod?ref=0334dd54a2c479faa3dfad47a911373581b11739",
+      "status": 200,
+      "sha256": "df94815998e90e228e2763c790b13069cb02a2673d9ae001fe173474d04f918e"
+    },
+    {
+      "file": "linux-job-log-response.json",
+      "endpoint": "repos/alire-project/GNAT-FSF-builds/actions/jobs/84010188140/logs",
+      "status": 410,
+      "sha256": "22201cceb7f348a6396a0dfec6a1c690be23adcbb4d8f71be3d6aac2a416b795"
+    }
+  ]
+}

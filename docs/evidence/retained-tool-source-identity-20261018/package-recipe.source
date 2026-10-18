@@ -1,0 +1,198 @@
+from e3.anod.helper import log
+from e3.anod.spec import Anod
+from e3.anod.loader import spec
+from e3.archive import create_archive
+from e3.hash import sha256
+
+import os
+
+valid_packages = ["gprbuild", "gnat", "gnatcov", "gnatprove", "gnatformat", "gnatdoc", "gnattest"]
+
+
+class ReleasePackage(spec("common")):
+    @property
+    def package(self):
+        if "package" not in self.parsed_qualifier:
+            raise Exception(
+                "--qualifier=package=<%s> required" % ", ".join(valid_packages)
+            )
+
+        if self.parsed_qualifier["package"] not in valid_packages:
+            raise Exception(
+                "Invalid package: '%s' (expects: %s)"
+                % (self.parsed_qualifier["package"], " or ".join(valid_packages))
+            )
+
+        return self.parsed_qualifier["package"]
+
+    @property
+    def version(self):
+        package = self.package
+
+        if package in ["gprbuild", "gnatcov", "gnatformat", "gnatdoc", "gnattest"]:
+            return self.deps[package].version
+        elif package == "gnat":
+            return self.deps["gcc"].version
+        elif package == "gnatprove":
+            return self.deps["spark2014"].version
+
+    @property
+    def package_release(self):
+        """Allows to differentiate between consecutive builds of the same set
+        of sources. For instance when the build options are changed.
+        """
+        package = self.package
+
+        release = {
+            "gprbuild": "1",
+            "gnatcov": "1",
+            "gnatprove": "1",
+            "gnat": "1",
+            "gnatformat": "1",
+            "gnatdoc": "1",
+            "gnattest": "1",
+        }
+
+        if isinstance(r := release[package], dict):
+            if self.env.target.triplet in r:
+                return r[self.env.target.triplet]
+            else:
+                return r["_"]
+        else:
+            return release[package]
+
+    @property
+    def release_name(self):
+        platform = self.env.platform
+
+        # The target triplet for cross compilers on macOS (darwin) x86 and
+        # aarch64 is the same, to differentiate the two hosts we add host CPU
+        # name at the end of platform name. And for consistency we do this on
+        # all other hosts as well.
+        if self.env.is_cross:
+            platform += "-" + self.env.host.cpu.name
+
+        return "%s-%s-%s-%s" % (
+            self.package,
+            platform,
+            self.version,
+            self.package_release,
+        )
+
+    @property
+    def archive_name(self):
+        return "%s.tar.gz" % self.release_name
+
+    @property
+    def build_space_name(self):
+        return "%s-%s-%s" % (self.name, self.package, self.env.platform)
+
+    @property
+    def build_deps(self):
+        pck = self.package
+        if pck == "gprbuild":
+            return [
+                Anod.Dependency("gprbuild"),
+                Anod.Dependency("gpr2", qualifier="tools_only"),
+            ]
+
+        if pck in ["gnatcov", "gnatformat", "gnatdoc", "gnattest"]:
+            return [Anod.Dependency(pck, track=True)]
+
+        if pck == "gnatprove":
+            return [Anod.Dependency("spark2014", track=True)]
+
+        if pck == "gnat":
+            # Note: the binutils are already merged in gcc installation
+
+            if self.env.target.triplet == "arm-eabi":
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                    Anod.Dependency("embedded-runtimes", track=True),
+                ]
+
+            elif self.env.target.triplet == "aarch64-elf":
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                ]
+
+            elif self.env.target.triplet == "riscv64-elf":
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                    Anod.Dependency("embedded-runtimes", track=True),
+                ]
+
+            elif self.env.target.triplet == "x86_64-elf":
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                ]
+
+            elif self.env.target.triplet == "avr":
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                    Anod.Dependency("avrlibc", track=True),
+                ]
+
+            elif self.env.target.triplet == "xtensa-esp32-elf":
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                ]
+
+            elif self.env.host.triplet == self.env.target.triplet:
+                # Native
+                return [
+                    Anod.Dependency("gcc", track=True),
+                    Anod.Dependency("gdb", track=True),
+                ]
+            else:
+                raise Exception(
+                    "Unknown target for gcc package: '%s'" % self.env.target.triplet
+                )
+
+    @Anod.primitive()
+    def build(self):
+        for dep in self.deps.keys():
+            self.deps[dep].merge(self["PKG_DIR"])
+
+        name = self.release_name
+        archive = self.archive_name
+
+        # fix for unwanted pthread.h header in include-fixed
+        extra_header = None
+        if self.package == "gnat":
+            extra_header = os.path.join(
+                self["PKG_DIR"],
+                "lib/gcc",
+                self.env.target.triplet,
+                self.version,
+                "include-fixed/pthread.h"
+            )
+        elif self.package == "gnatprove":
+            extra_header = os.path.join(
+                self["PKG_DIR"],
+                "libexec/spark/lib/gcc",
+                self.env.target.triplet,
+                self.version,
+                "include-fixed/pthread.h"
+            )
+
+        if extra_header is not None and os.path.exists(extra_header):
+            os.remove(extra_header)
+
+        create_archive(
+            filename=archive,
+            from_dir=self["PKG_DIR"],
+            dest=self["INSTALL_DIR"],
+            from_dir_rename=name,
+        )
+
+        sha = sha256(os.path.join(self["INSTALL_DIR"], archive))
+        log.info("archive: %s sha256: %s" % (archive, sha))
+        with open(os.path.join(self["INSTALL_DIR"], archive + ".sha256"), "w") as f:
+            f.write(sha)

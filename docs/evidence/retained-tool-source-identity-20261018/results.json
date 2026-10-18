@@ -1,0 +1,91 @@
+{
+  "scope": "Read-only package/release/build records and shipped identifying metadata. No rebuild, compiler/prover run or binary attestation.",
+  "upstream_repository": "alire-project/GNAT-FSF-builds",
+  "release_id": 345417954,
+  "asset_id": 458798534,
+  "archive_sha256": "82528bef29857e239373fcc36732837d743f5a00805d502c70455422ffc97191",
+  "recipe_commit": "0334dd54a2c479faa3dfad47a911373581b11739",
+  "build_run_id": 28247767502,
+  "linux_job_id": 84010188140,
+  "linux_release_step": {
+    "name": "Release GNATprove",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 8,
+    "started_at": "2026-06-26T16:34:55Z",
+    "completed_at": "2026-06-26T16:35:15Z"
+  },
+  "candidate_spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "source_identity_established": false,
+  "missing_link": "The surviving records do not identify the bytes/revision of the floating SPARK fsf-16 tarball consumed by the June 26 build.",
+  "job_log_http_status": 410,
+  "retained_run_artifacts": 0,
+  "recipe_sources_verified_against_git_tree": [
+    {
+      "path": ".github/workflows/main.yml",
+      "git_blob_sha1": "796bce4d7823fc68dc249b6cfce3d2c53dc98ded",
+      "sha256": "d5a0b7a001cc8ee949e3603d3969b3ca3f965e02b51547edfa9ec121060f44e6"
+    },
+    {
+      "path": "specs/release_package.anod",
+      "git_blob_sha1": "1c584329cdce406088fd1cccde0c7578be8257cf",
+      "sha256": "d7a005e08ea703dd8eb3e04f8de8b669746155310675b715baa64686a0fa8204"
+    },
+    {
+      "path": "specs/common.anod",
+      "git_blob_sha1": "9385017e216fa1c13611536a4c8b5c45df120daf",
+      "sha256": "5693318700f484d68409349e79586ae3fe049ce7a25c75cdb81a2259efe5029e"
+    },
+    {
+      "path": "lib/anod/build.py",
+      "git_blob_sha1": "cefb73da6757147e19ac6fc5af533ed9549ecad6",
+      "sha256": "dd8ba77c8236d30de3adef6db951df01ede1f7b0e0dcc0b651cadc55f0764ca2"
+    },
+    {
+      "path": "specs/release_github.anod",
+      "git_blob_sha1": "901219fc6924bd7c57bd38e8ef733a65292afe47",
+      "sha256": "e50d08eba4c0266062c55233237c7b31d40750a1fd447ec1085fb368274ef85d"
+    }
+  ],
+  "installed_binary_metadata": [
+    {
+      "path": "bin/gnatprove",
+      "bytes": 70178624,
+      "sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "standalone_40_hex_ascii_sequences": [],
+      "dwarf_line_metadata": {
+        "versions": {
+          "5": 395
+        },
+        "tables": 395,
+        "file_entry_fields": [
+          "DW_LNCT_path/DW_FORM_line_strp",
+          "DW_LNCT_directory_index/DW_FORM_udata"
+        ],
+        "file_checksums_present": false
+      }
+    },
+    {
+      "path": "libexec/spark/bin/gnat2why",
+      "bytes": 107177112,
+      "sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+      "standalone_40_hex_ascii_sequences": [],
+      "dwarf_line_metadata": {
+        "versions": {
+          "5": 510
+        },
+        "tables": 510,
+        "file_entry_fields": [
+          "DW_LNCT_path/DW_FORM_line_strp",
+          "DW_LNCT_directory_index/DW_FORM_udata"
+        ],
+        "file_checksums_present": false
+      }
+    }
+  ],
+  "qualifications": [
+    "Current branch commit date is not historical branch-resolution evidence.",
+    "Release asset digest matches Alire selection; original binary archive was not downloaded or independently unpacked in this check.",
+    "Absence of a 40-hex ASCII sequence is limited to that encoding; DWARF inspection covers line-table fields only."
+  ]
+}
