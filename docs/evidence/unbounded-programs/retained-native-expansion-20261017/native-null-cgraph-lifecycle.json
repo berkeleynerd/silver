@@ -1,0 +1,37 @@
+{
+  "scope": "Null cgraph construction, analysis and finalization allocation join",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_sources_verified": 32,
+  "reused_results_verified": 6,
+  "analyze_functions_invocations": 2,
+  "Main_analyze_and_lowering_invocations": 1,
+  "Main_expansion_invocations": 1,
+  "symbol_nodes_at_most": 2,
+  "callgraph_edges_and_references": 0,
+  "generated_functions_aliases_and_version_entries": 0,
+  "new_GGC_events": 0,
+  "updated_selected_known_GGC_subtotal": 40086,
+  "ordinary_requests": {
+    "empty_reachable_call_target_hash_backings": 2,
+    "individual_reachable_call_target_backing_bytes": 104,
+    "ifunc_bitmap_headers": 1,
+    "ifunc_bitmap_elements": 1,
+    "ifunc_bitmap_header_bytes": 32,
+    "ifunc_bitmap_element_bytes": 40
+  },
+  "previously_charged_interfaces": [
+    "One cgraph and one dummy varpool constructor; assembler-name hash",
+    "Initial GIMPLE/CFG/SSA and selected warning/IPA/RTL requests",
+    "ODR hash, cfun stack, bitmap initialization depth, fixed bitmap requests",
+    "Function-output ordering and direct unit emission"
+  ],
+  "remaining_terms": [
+    "Source/path/line-map and Ada callback metadata",
+    "Collector pages/finalizers and allocation callbacks",
+    "Whole-invocation process/library setup and teardown",
+    "Separate assembler, binder, linker and proof producer composition"
+  ],
+  "complete_capacity_result": false,
+  "native_execution": false,
+  "reachability_basis": "Manual selected-route source argument; anchors do not automatically prove reachability"
+}

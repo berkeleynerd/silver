@@ -66,3 +66,10 @@ individual request bounds. It reuses the already closed ranger/out-of-SSA and
 bitmap interfaces and closes the GIMPLE ET coexistence input. Independent
 source review replayed and accepted this pass interface; metadata, cgraph
 lifecycle, collector and process composition remain separate.
+
+`reconcile-null-cgraph-lifecycle.py` then checks 32 complete sources and six
+prior inputs. It joins the two outer analysis calls to one Main lowering and
+expansion, adds two 104-byte ordinary hash backings and the fixed IFUNC bitmap,
+and adds zero GGC events. Independent source review replayed and accepted this
+lifecycle interface. Source metadata, collector callbacks and whole-process
+composition remain open.

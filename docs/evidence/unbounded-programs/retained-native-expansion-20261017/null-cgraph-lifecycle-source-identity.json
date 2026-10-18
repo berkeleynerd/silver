@@ -1,0 +1,199 @@
+{
+  "scope": "Null cgraph construction, analysis and finalization allocation join",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_numbering": "Literal LF",
+  "files": [
+    {
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76"
+    },
+    {
+      "path": "gcc/cgraph.h",
+      "bytes": 138341,
+      "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1"
+    },
+    {
+      "path": "gcc/cgraphbuild.cc",
+      "bytes": 15087,
+      "sha256": "1bc891a8d26c101a0d515394ec34382ac622fd40bd8c6d0e79695c029542f6ea"
+    },
+    {
+      "path": "gcc/symtab.cc",
+      "bytes": 75509,
+      "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc"
+    },
+    {
+      "path": "gcc/symtab-thunks.cc",
+      "bytes": 19763,
+      "sha256": "1c4969cf3aee094e2d8b5f2a8b08fa4afc877907dcce800788e65816216a9cae"
+    },
+    {
+      "path": "gcc/varpool.cc",
+      "bytes": 24150,
+      "sha256": "d450a01353495f850293c2266900abfe6e915ee5be50ff068eccd1fd1cddbdf8"
+    },
+    {
+      "path": "gcc/gimple-walk.cc",
+      "bytes": 26386,
+      "sha256": "7961afc473aead688648198056658ca5d591f83fbe2595d6ad3c2ecd55e3fc48"
+    },
+    {
+      "path": "gcc/tree-nested.cc",
+      "bytes": 118724,
+      "sha256": "d2910d8448c5f42c819d86075894eb435a7054fe29d08f47e580bb88e2981043"
+    },
+    {
+      "path": "gcc/tree-nested.h",
+      "bytes": 2743,
+      "sha256": "e0ab6e7b150c14ebba6948d974051ba3ad2a2ac8dc008ea309c69361259fcc4a"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "path": "gcc/ipa-devirt.cc",
+      "bytes": 143807,
+      "sha256": "74776c1b6db584b085d4dc08bb007ba4c0a7d7941699427fef485586a6c7a97e"
+    },
+    {
+      "path": "gcc/langhooks.cc",
+      "bytes": 26690,
+      "sha256": "f014ada9499002acd773d82d7d9ceb0c5046a20e2de8798c8605640969b78c66"
+    },
+    {
+      "path": "gcc/langhooks-def.h",
+      "bytes": 18024,
+      "sha256": "118e301f1c983dcb7c4f1b7a7b30820861cd53420779e29b0dc8c2a3c489c187"
+    },
+    {
+      "path": "gcc/debug.cc",
+      "bytes": 4839,
+      "sha256": "d8d1c5cbb8523cdbea22b4a94b19d8e33185fed6497e5b83071ae4924b1e1453"
+    },
+    {
+      "path": "gcc/lto-section-in.cc",
+      "bytes": 13399,
+      "sha256": "d99e904cf1474b367105fcb7fbe7fd6e5a594a37ac4f82726c826a2665bb9339"
+    },
+    {
+      "path": "gcc/hash-set.h",
+      "bytes": 5741,
+      "sha256": "052c2a5efb2455e5616b458b32cf0e728a11a4a8bb6cec5aa82cd744b5d5f946"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "path": "gcc/common.opt",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "path": "gcc/asm-toplevel.cc",
+      "bytes": 6937,
+      "sha256": "0c9eaa8c1525ecc76c0a3d918bbbd440e3537815054b6370bc1bdb4763a405f9"
+    },
+    {
+      "path": "gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "path": "gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    }
+  ],
+  "reused_results": [
+    {
+      "path": "native-null-unit-symbols.json",
+      "bytes": 2845,
+      "sha256": "9be6c08aed9008646c23eaa66eddbb5446681e738ff448ccae3ed47a05c17a43"
+    },
+    {
+      "path": "native-null-initial-gimple.json",
+      "bytes": 5240,
+      "sha256": "52914e7fa3db2320af81a457afda45dae33d599d76f33f39e84cc268a7c8487c"
+    },
+    {
+      "path": "native-null-pass-join.json",
+      "bytes": 3822,
+      "sha256": "eb620c69c7751af43236713b0cc27043993fd7ad6d901beab944789440d6abd4"
+    },
+    {
+      "path": "native-rtl-setup.json",
+      "bytes": 2989,
+      "sha256": "302806a957f307d7cd4704f0e7c9d0f303bdda46b37e935dc93c402645b43612"
+    },
+    {
+      "path": "native-pass-framework.json",
+      "bytes": 1421,
+      "sha256": "f4f4daaa2392f7febda07ad898e2d728030f8a9f14063213be16c60712873c17"
+    },
+    {
+      "path": "fixed-gcc-prefix-witness/frontend-exec.json",
+      "bytes": 2170,
+      "sha256": "68f2213db6baad8c51aa498132db15358fade388f7c80ec444d44a726735da96"
+    }
+  ]
+}

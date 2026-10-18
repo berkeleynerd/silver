@@ -10032,6 +10032,141 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output /tmp/native-null-pass-join.json
 ```
 
+## Null call-graph lifecycle allocation join
+
+The selected one-Main/one-dummy graph now connects the priced passes to
+`finalize_compilation_unit`, `analyze_functions`, `compile` and Main expansion.
+This join uses the previous symbol-constructor, GIMPLE/SSA, warning/IPA,
+RTL and output interfaces. It adds **zero GGC events** and two ordinary
+104-byte hash backings plus a fixed bitmap header/element. It is limited to
+those lifecycle calls; collector callbacks, metadata and whole-process
+initialization/finalization remain separate.
+
+### Construction and lowering multiplicity
+
+Main's `finalize_function` gets its previously charged cgraph node, marks it
+defined and forced for output, calls the no-debug hook, and may invoke the
+collector (`cgraphunit.cc:452–514`). It does not create another function.
+The graph is still in parsing state, so its construction-phase enqueue branch
+is false. The later whole-unit wrapper calls `analyze_functions` twice,
+first with `true`, then `false` (`:2593–2599`). Each invocation constructs an
+empty `hash_set<void *> reachable_call_targets`: one prime-13 pointer backing,
+**104 ordinary bytes** (`:1176–1183`, `hash-set.h:45–49`,
+`hash-table.h:645–676`). Neither receives an entry because there are no
+indirect calls and optimization is zero.
+
+The first analysis enqueues the two needed symbols using their existing `aux`
+fields, with no separate worklist allocation (`cgraphunit.cc:288–295,1217–1239`).
+Main's `analyzed` and `lowered` guards cause one invocation of its gimplifier
+and initial lowering list. The loop records `first_analyzed`/`first_analyzed_var`
+after processing, so its next fixed-point iteration discovers no additional
+symbol. The second outer call sees the same first-node sentinels and performs
+no second Main lowering (`:1251–1271,1360–1364,1437–1448`). Repeated
+`process_new_functions` calls return at their absent-vector guard
+(`:301–309`). No generated size function, thunk, versioned alias, top-level
+asm or nested function exists; their wrappers have no selected body iteration
+(`stor-layout.cc:275–295`, `symtab-thunks.cc:170–183`,
+`asm-toplevel.cc:97–118`, `tree-nested.cc:55–63,120–126`).
+
+Main's assembler name is already assigned. Looking for a function version
+returns before constructing a map when its global table is null
+(`cgraph.cc:172–181`). The nested-function lookup likewise reads its null
+manager without creating one (`tree-nested.h:68–72`). After the priced
+lowering list, `compact_blocks` only renumbers/writes the existing block map;
+DF has not been created at this point (`cfg.cc:169–195`). The scalar indices
+remain below the established five-block envelope. The ODR hash and
+assembler-name hash are the same objects charged by the preceding interfaces,
+not new objects per lifecycle invocation. Type-graph updates see no virtual
+function/table (`ipa-devirt.cc:2352–2408,3605–3621`).
+
+### Edges, variable analysis and diagnostics
+
+The call-graph-building pass sees only labels, direct gotos before cleanup
+and the bare return, with no PHIs, calls or local static variables. Its
+statement reference walker invokes no reference callback for a label or
+bare return; a direct goto's destination is a LABEL_DECL, not ADDR_EXPR
+(`cgraphbuild.cc:328–390`, `gimple-walk.cc:778–970`). The EH recorder sees
+neither a personality nor a region tree and returns (`cgraphbuild.cc:148–167`).
+No cgraph edge, reference vector backing or additional symbol is constructed.
+Later edge rebuilding uses the same no-call/no-reference argument.
+
+The dummy has no initializer. Its analysis can adjust its existing void-type
+alignment, but never invokes `record_references_in_initializer` or creates
+that helper's visited-node hash (`varpool.cc:522–541`). On the selected x86
+configuration, the void type selects none of the aggregate/array/scalar
+alignment branches; no new tree is requested (`varasm.cc:1129–1193`,
+`config/i386/i386.cc:18589–18688`). The dummy's hard-register output guard
+remains the previously checked one.
+
+The selected declarations have no weakref/alias/symver/inline attributes.
+Common-attribute handling therefore creates no versioned symbol
+(`cgraphunit.cc:735–855,867–961`). Main is a defined public function, and
+Ada's `warn_unused_global` hook returns false for the dummy, so the global
+declaration checks produce no warning (`:1097–1162`,
+`ada/gcc-interface/misc.cc:1428–1430`). Ada uses the default
+`finalize_early_debug` hook, whose only work here calls the no-debug
+`early_global_decl` callback for Main (`langhooks-def.h:160`,
+`langhooks.cc:962–969`, `debug.cc:27–67`). The retained frontend vector
+contains `-quiet`, so `announce_function` does not call the language name
+printer or locale/diagnostic formatter (`toplev.cc:224–240`). This exclusion
+does not remove host diagnostics for external failures from the process
+boundary.
+
+### Compilation and release
+
+The IFUNC-callee scan is unconditional even though Main is not an IFUNC
+resolver. It allocates **one 32-byte default-obstack bitmap header and one
+40-byte element**, marks the sole function UID, and releases both
+(`symtab.cc:1450–1478`). The caller/alias scans are empty. The established
+fixed bitmap-object transfer and default-obstack initialization-depth bound
+already cover this route; no cumulative ordinary-allocation cap is introduced.
+Runtime `flag_checking=0` excludes the separate symbol-verifier traversals.
+
+`compile` invokes the already priced small/regular/late IPA schedules, marks
+Main for output and reaches the existing ordering/expansion interfaces
+(`cgraphunit.cc:2338–2468`). Main's process flag is cleared on expansion,
+preventing output-in-order and the later expand-all loop from expanding it
+twice. Its untransformed-body lookup returns immediately on the already
+present GIMPLE body (`cgraph.cc:4587–4612`). RTL initialization, queued IPA
+transform, SSA update, pass execution, function-section selection and
+bitmap/cfun/timevar wrappers use their preceding interfaces; no clone or
+streamed LTO body is constructed (`cgraphunit.cc:1827–1948`).
+
+After clean-state has cleared CFG/SSA storage, `release_body` releases the
+transform vector, clears declarations, frees the existing function object
+and walks the empty edge/reference lists (`function.cc:208–225`,
+`final.cc:4517–4545`, `cgraph.cc:2187–2259`). Its LTO-state helper returns
+because there is no `lto_file_data` (`lto-section-in.cc:435–454`). These
+release paths allocate no replacement body. Collection at finalization,
+analysis and expansion remains charged by the collector interface; describing
+their callers here does not assume collection or finalizers are free.
+
+The known GGC subtotal remains **40,086**. This removes the stated cgraph
+analysis/finalization remainder from `E_Main_translation`; source/path/line-map
+metadata, Ada callbacks, collector pages/finalizers, whole-process/library
+setup/teardown and the separate producer/binder/linker joins remain open.
+It does not establish a capacity rule or unlock admission changes.
+
+The [offline lifecycle reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-cgraph-lifecycle.py)
+verifies complete source identities and six earlier inputs, including the
+actual retained `-quiet` argv. Its
+[result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-cgraph-lifecycle.json)
+records the request and multiplicity interface. The source anchors are a
+reconciliation aid for the handwritten reachability argument, not an
+automatic C/C++ proof. No native tool or new witness ran.
+
+Independent narrow review replayed the 32 complete sources and six retained
+inputs byte-for-byte. It inspected the two outer analysis calls and their
+first-node/aux/analyzed guards, the IFUNC scan, lowering and expansion
+multiplicity, and final release helpers. No material finding remained within
+this lifecycle transfer; the metadata, collector and process joins stay open.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-cgraph-lifecycle.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output /tmp/native-null-cgraph-lifecycle.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
