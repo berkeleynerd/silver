@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 51,
+  "source_files_verified": 52,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -52,7 +52,8 @@
     "accessibility.adb": "bfa2e2cb2ff37441fc191efee4fee4f6cbf79dea5031bb735b15078e363c0f27",
     "opt.ads": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
     "sem_attr.adb": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
-    "exp_attr.adb": "0d89c4982b0c5ae4430dae91539301c0adde232f1cc1f8ab4b8a32dfe9621f4b"
+    "exp_attr.adb": "0d89c4982b0c5ae4430dae91539301c0adde232f1cc1f8ab4b8a32dfe9621f4b",
+    "sem.ads": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -671,6 +672,41 @@
     "extra_node_entity_list_name_Uint_String_allocations": 0,
     "Kill_Current_Values_allocations": 0,
     "not_included": "supplied action lists/analysis/recursively inserted actions, Insert_Action wrapper, later Expression_With_Actions and Boolean capture, already-analyzed short-circuit insertion, transient placement, replay/source-to-invocation closure"
+  },
+  "Boolean_expression_with_actions_wrapper": {
+    "premises": "generated wrapper; existing nonempty actions and exact Standard Boolean expression already analyzed/resolved/expanded; frozen relevant types; ordinary non-Ghost nontransient procedure/block; no diagnostic/rewrite callback/BIP; expression name/literal/comparison/short-circuit/not/ordinary Boolean call/analyzed EWA with no pending check; finite known Boolean values; no renaming/OK_To_Rename; no action replay adds scope/freeze/use actions; object action types ordinary Integer/Boolean/String or access to ordinary String",
+    "including_direct_short_circuit_wrapper": {
+      "ordinary_nodes": 8,
+      "entities_and_internal_names": 2,
+      "name_characters_including_NUL": 26,
+      "growing_slot_events": 2,
+      "Uint_appends": 1,
+      "extra_live_scope_stack_entries": 1,
+      "extra_syntax_lists_Elists_String_values": 0
+    },
+    "wrapper_direct": {
+      "ordinary_nodes": 3,
+      "growing_slot_events": 1
+    },
+    "analysis_scope": {
+      "entities_and_internal_names": 1,
+      "Uint_appends": 1,
+      "Uint_magnitude": "incoming_scope_depth + 1",
+      "scope_stack_lifetime": "one push then pop; peak depth, not cumulative retained entries"
+    },
+    "Boolean_capture": {
+      "ordinary_nodes": 5,
+      "entities_and_internal_names": 1,
+      "growing_slot_events": 1,
+      "extra_declaration_range_check_or_final_name_allocations": 0,
+      "list_handling": "append to existing Actions list; no new header"
+    },
+    "mutually_exclusive_semantic_fold": {
+      "ordinary_nodes": 2,
+      "growing_slot_events": 1
+    },
+    "finalization_processing_extra_allocations_for_stated_action_types": 0,
+    "not_included": "first child/action analysis; other action types; pending-freeze scope exits; transient placement; replay and source-to-invocation multiplicity; whole-scope/backend costs"
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {

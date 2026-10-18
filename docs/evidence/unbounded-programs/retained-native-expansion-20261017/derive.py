@@ -33,7 +33,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
-         "sem_attr.adb", "exp_attr.adb"]
+         "sem_attr.adb", "exp_attr.adb", "sem.ads"]
 sources = {}
 hashes = {}
 for name in files:
@@ -389,6 +389,30 @@ result = {
         "extra_node_entity_list_name_Uint_String_allocations": 0,
         "Kill_Current_Values_allocations": 0,
         "not_included": "supplied action lists/analysis/recursively inserted actions, Insert_Action wrapper, later Expression_With_Actions and Boolean capture, already-analyzed short-circuit insertion, transient placement, replay/source-to-invocation closure",
+    },
+    "Boolean_expression_with_actions_wrapper": {
+        "premises": "generated wrapper; existing nonempty actions and exact Standard Boolean expression already analyzed/resolved/expanded; frozen relevant types; ordinary non-Ghost nontransient procedure/block; no diagnostic/rewrite callback/BIP; expression name/literal/comparison/short-circuit/not/ordinary Boolean call/analyzed EWA with no pending check; finite known Boolean values; no renaming/OK_To_Rename; no action replay adds scope/freeze/use actions; object action types ordinary Integer/Boolean/String or access to ordinary String",
+        "including_direct_short_circuit_wrapper": {
+            "ordinary_nodes": 8, "entities_and_internal_names": 2,
+            "name_characters_including_NUL": 26, "growing_slot_events": 2,
+            "Uint_appends": 1, "extra_live_scope_stack_entries": 1,
+            "extra_syntax_lists_Elists_String_values": 0,
+        },
+        "wrapper_direct": {"ordinary_nodes": 3, "growing_slot_events": 1},
+        "analysis_scope": {
+            "entities_and_internal_names": 1, "Uint_appends": 1,
+            "Uint_magnitude": "incoming_scope_depth + 1",
+            "scope_stack_lifetime": "one push then pop; peak depth, not cumulative retained entries",
+        },
+        "Boolean_capture": {
+            "ordinary_nodes": 5, "entities_and_internal_names": 1,
+            "growing_slot_events": 1,
+            "extra_declaration_range_check_or_final_name_allocations": 0,
+            "list_handling": "append to existing Actions list; no new header",
+        },
+        "mutually_exclusive_semantic_fold": {"ordinary_nodes": 2, "growing_slot_events": 1},
+        "finalization_processing_extra_allocations_for_stated_action_types": 0,
+        "not_included": "first child/action analysis; other action types; pending-freeze scope exits; transient placement; replay and source-to-invocation multiplicity; whole-scope/backend costs",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records fifty-one inspected files hash-checked against the complete source
+records fifty-two inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -1437,8 +1437,114 @@ useful right-operand actions into Expression_With_Actions. That wrapper can
 capture a Boolean expression into a fresh constant even when there are no
 controlled objects (`exp_ch4.adb:13123–13248,5625–5712`). The already-analyzed
 short-circuit insertion branch can also create the wrapper immediately. Those
-wrapper/capture transfers, transient placement and any replay remain separate;
-zero-cost list movement is not a zero-cost conditional-expression claim.
+wrapper/capture transfer below has additional premises. Transient placement and
+any replay remain separate; zero-cost list movement is not a zero-cost
+conditional-expression claim.
+
+### Boolean expression-with-actions wrapper
+
+A generated Boolean Expression_With_Actions has a closed local transfer when
+its existing nonempty action list and expression have already been analyzed,
+resolved and expanded, all relevant types are frozen, and no action needs
+finalization. The enclosing context is an ordinary non-Ghost procedure/block,
+with no transient wrap, spec expression, build-in-place return, diagnostic or
+allocating rewrite callback. The inner expression has exact Standard Boolean
+type and no pending check; it is an existing name/literal, comparison,
+short-circuit, Boolean `not`, ordinary Boolean function call, or another
+already analyzed Boolean EWA. A known value reaches an existing Boolean
+literal through constant names. There are no anonymous access, renaming or
+OK_To_Rename expressions. No action opens a scope or adds pending freeze/use
+actions during this replay: its Analyze call returns on the Analyzed guard.
+Input action syntax and the original expression have been charged earlier.
+
+Including construction by the short-circuit wrapper route, one such transfer
+adds at most:
+
+```text
+ordinary nodes              8
+entities/internal names     2
+name characters incl. NUL   26
+growing-slot events          2
+Uint appends                1
+extra live scope entries    1
+syntax lists/Elists          0
+String values               0.
+```
+
+The Uint charge is for the new block's scope depth: its magnitude is at most
+the incoming scope depth plus one. Its retained digit and local arithmetic
+vector costs follow the earlier addition transfer. The extra scope entry is
+a **live stack** increment, popped on return, not a retained entry per wrapper;
+capacity must cover the peak nested depth and Table growth separately.
+
+The direct wrapper makes an EWA, one shallow relocation of the expression,
+and at most one saved original with one growing rewrite. It moves the existing
+action list without constructing a list
+(`exp_ch4.adb:13225–13248`, `exp_util.adb:8161–8182`).
+Analyze_Expression_With_Actions always calls New_Internal_Entity for a fresh
+E_Block and pushes a scope, including for generated wrappers. New_Internal_Entity
+makes one temporary entity/name, appends it to the outer scope and does not run
+type layout for E_Block. Push_Scope computes at most one depth addition, pushes
+one Scope_Stack_Entry and initializes its list fields to No_List/No_Elist.
+Under the already-analyzed-action premise, its loop and Check_Action_OK perform
+no allocations; the latter permits generated code. End_Scope/Pop_Scope clear
+visibility and restore saved fields, with empty pending-freeze/use/action
+fields and a null saved subprogram-name pointer
+(`sem_ch4.adb:2413–2522`, `sem_util.adb:25661–25679`,
+`sem_ch8.adb:5230–5326,9814–10035`, `sem.ads:499–596`).
+
+Generated/rewrite wrappers resolve their existing expression directly and do
+not enter Resolve_Declare_Expression's hidden-map handling. If the expression
+is known and all actions are static constants or static renamings, semantic
+resolution may replace the wrapper with a copy of its Boolean literal. That
+route needs at most two ordinary nodes and one growing event, and excludes
+the native capture route (`sem_res.adb:2567–2581,9381–9512`).
+
+For a surviving wrapper with a non-name expression and nonempty actions,
+Force_Boolean_Evaluation appends a fresh Boolean constant to the **existing**
+action list. It constructs one entity/name and at most five ordinary nodes:
+the declaration, its Boolean type occurrence, the relocated initializer,
+the final flag occurrence and a saved original for the inner rewrite. There
+is at most one growing event (`exp_ch4.adb:5625–5712`). A name expression needs
+no capture. The declaration's usual scalar skeleton applies to Standard
+Boolean, including native Check_Initialization's nonlimited/no-light-expansion
+return, but its checks need not be suppressed: both semantic and native
+Apply_Scalar_Range_Check find an interval inside Boolean's existing 0..1
+range and return without constructing a check. Determine_Range does not
+descend into comparison/short-circuit/not/call/EWA children; they use the type
+bounds. Known names/literals use existing enumeration positions, and internal
+constant forwarding follows finite Boolean initializer chains
+(`sem_ch3.adb:4704–4852,13042–13124`,
+`checks.adb:1318–1341,3238–3421,5127–5304,5550–5628,6112–6130`).
+
+The native declaration has no source-only validity copy check, controlled or
+array work. Is_Captured_Function_Call requires an explicit dereference, so an
+ordinary Boolean function-call initializer cannot trigger that renaming route
+(`exp_ch3.adb:8395–8715`, `exp_util.adb:8896–8916`). Constants do not acquire
+Current_Value in the declaration's variable-only branch. The final bound
+flag occurrence is analyzed without a visibility search; Eval_Entity_Name
+sets staticness and returns, and Expand_Entity_Reference has no renaming,
+variable or Current_Value transformation for it
+(`sem_ch8.adb:6246–6301`, `sem_res.adb:8149–8232`,
+`sem_eval.adb:2454–2530`, `sem_cat.adb:2182–2190`,
+`exp_ch2.adb:372–521`). Freezing the ordinary flag reuses frozen Boolean with
+no delayed-freeze or layout additions, as in the scalar capture transfer.
+
+Process_Transients_In_Expression only calls its allocating worker when an
+object declaration passes Is_Finalizable_Transient. For ordinary Integer,
+Boolean and String objects, or access objects designating ordinary String,
+Needs_Finalization is false; the predicate stops before its alias/container
+searches. This includes the appended Boolean flag
+(`exp_ch4.adb:15228–15245`, `exp_util.adb:9430–9506`,
+`sem_util.adb:23417–23510`). This closes finalization processing for those
+action types; it does not exclude secondary-stack **transient placement** in
+the enclosing compilation.
+
+The wrapper's first child/action analysis, other action types, pending-freeze
+scope exits, enclosing transient handling, repeated wrappers and source-to-
+invocation multiplicity remain separate. In particular, the immediate
+Insert_Actions branch on an already-analyzed short-circuit must charge the
+first analysis of its new actions before reusing this transfer.
 
 ## Required transitive closure
 
