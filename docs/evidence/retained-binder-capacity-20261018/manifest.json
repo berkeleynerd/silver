@@ -475,8 +475,8 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 894695,
-        "sha256": "635778fd87aae8dc473ef43542c26d9f89b5e5e6a87a35713299e785e3a8d003"
+        "bytes": 962336,
+        "sha256": "10ed2e53b1aac3cfcb72318a2ec235a25c72d3a43066f38882a3379f4f33599e"
       },
       "members": {
         "gcc/ada/ali-util.adb": {
@@ -508,6 +508,11 @@
           "bytes": 14372,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/back_end.adb",
           "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+        },
+        "gcc/ada/bcheck.adb": {
+          "bytes": 59616,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bcheck.adb",
+          "sha256": "891effb9c72b133a0acf5a187210c9af7b10b9d3c3ecaf97a042bf461f21f1b1"
         },
         "gcc/ada/bindgen.adb": {
           "bytes": 126166,
@@ -559,6 +564,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/butil.adb",
           "sha256": "2d89c9a94d8724b80bde25dc07f6cef393b3415df87c51916a4e6e4444571be3"
         },
+        "gcc/ada/csets.adb": {
+          "bytes": 40051,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/csets.adb",
+          "sha256": "edb837487132b279f89b79f351150190448a532bf93816909eaf67a073a863d4"
+        },
         "gcc/ada/exp_dbug.adb": {
           "bytes": 55041,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_dbug.adb",
@@ -573,6 +583,11 @@
           "bytes": 3870,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/fmap.ads",
           "sha256": "3b6cfc70a7cdd27ebb20fec4515b7fa8abfb43e6a185afecf0ef2b0caac47a3c"
+        },
+        "gcc/ada/fname.adb": {
+          "bytes": 8086,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/fname.adb",
+          "sha256": "979b585c09db7c4c0565cc551f1495cfeae00e0b1efc116eee52ddea26201d0a"
         },
         "gcc/ada/gcc-interface/decl.cc": {
           "bytes": 414991,
@@ -659,6 +674,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint.adb",
           "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
         },
+        "gcc/ada/scans.adb": {
+          "bytes": 9137,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/scans.adb",
+          "sha256": "a7b2934948f59fa2b15116d3b2959114fb1865b2964150e9a186b580d5679f1e"
+        },
         "gcc/ada/scng.adb": {
           "bytes": 99999,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/scng.adb",
@@ -679,6 +699,16 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sinput.adb",
           "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
         },
+        "gcc/ada/snames.adb-tmpl": {
+          "bytes": 24675,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/snames.adb-tmpl",
+          "sha256": "fd1659f3d00b8485d6825175807e3a13ab5c71f169b59eda0a86e774a55a13e6"
+        },
+        "gcc/ada/snames.ads-tmpl": {
+          "bytes": 117427,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/snames.ads-tmpl",
+          "sha256": "86039b55f96358ca035039f277ded2e0eed9a735ea39922898d4b63348723dea"
+        },
         "gcc/ada/switch-b.adb": {
           "bytes": 21420,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/switch-b.adb",
@@ -689,6 +719,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/table.adb",
           "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
         },
+        "gcc/ada/targparm.adb": {
+          "bytes": 31527,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/targparm.adb",
+          "sha256": "a4a4720e4859263138a9138587521b9d2df7ba6da88f45a81ea86570b3438596"
+        },
         "gcc/ada/tbuild.adb": {
           "bytes": 30177,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/tbuild.adb",
@@ -698,6 +733,21 @@
           "bytes": 46466,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/types.ads",
           "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+        },
+        "gcc/ada/uintp.adb": {
+          "bytes": 69576,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.adb",
+          "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
+        },
+        "gcc/ada/uname.adb": {
+          "bytes": 21813,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uname.adb",
+          "sha256": "eed6c355860732494bffbed9510abec304a3de01d88cdabc55daad0703cc812f"
+        },
+        "gcc/ada/xsnamest.adb": {
+          "bytes": 11241,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/xsnamest.adb",
+          "sha256": "37c86e15b931685aaaa6a496a3d5c803750c78cc135f0768b3a16cb7f8950f77"
         },
         "gcc/cfgrtl.cc": {
           "bytes": 154498,

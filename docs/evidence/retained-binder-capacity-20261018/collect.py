@@ -76,7 +76,9 @@ def main():
                  "bindo-writers.adb", "bindo-diagnostics.adb", "bindo-validators.adb",
                  "back_end.adb", "sinput-l.adb", "sinput.adb", "gcc-interface/utils2.cc",
                  "gcc-interface/decl.cc", "exp_dbug.adb", "tbuild.adb", "fmap.adb", "fmap.ads",
-                 "libgnat/s-os_lib.adb", "libgnat/s-os_lib.ads"]
+                 "libgnat/s-os_lib.adb", "libgnat/s-os_lib.ads",
+                 "snames.ads-tmpl", "snames.adb-tmpl", "xsnamest.adb", "bcheck.adb",
+                 "uname.adb", "targparm.adb", "csets.adb", "uintp.adb", "scans.adb", "fname.adb"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc"]

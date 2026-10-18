@@ -212,7 +212,8 @@ storage as configuration premises.
 
 This extension bounds the native binder's ALI parser tables, signature map and
 contribution to the shared name pools. The following section reduces the graph
-core to its fixed successful witness. Shared startup/path pools remain open.
+core to its fixed successful witness. The composition below also closes the
+selected binder's `Namet` pools; argument/search-directory storage remains separate.
 All input counts below are computed before the first Xref section, under the
 fixed null ALI contract and the exact retained runtime closure.
 
@@ -370,9 +371,9 @@ selected producer, require capacity for `E_in + 5,736` and `C_in + 625,224`.
 starts at 50,000 byte slots; both grow by 100 percent
 (`namet.ads:562–634`, `alloc.ads:88–95`). Apply `Table.Reallocate` to those
 total demands, preserving its index origin, sentinel, growth and allocation
-arithmetic. This leaves the incoming-pool premise explicit. Startup names,
-argv, mapping files, filesystem search and generated-name contributions still
-need their own inventory before claiming whole-binder name capacity.
+arithmetic. This leaves the incoming-pool premise explicit. The composition
+below supplies the remaining selected `Namet` producers; separately allocated
+argument and directory strings still need their own inventory.
 
 ### Binder mapping-file contribution
 
@@ -384,8 +385,12 @@ sources. Thus its mapping has **at most one record**, possibly none. This
 upper bound does not assume that the indexed ALI name is found by the mapping
 producer's default-index `Lib_File_Name` call (`:836–859`).
 
-`Fmap.Initialize` interns its mapping filename, then at most the unit, ALI
-basename and complete ALI path (`fmap.adb:278–350`). `Fmap.Add_To_File_Map`
+`Fmap.Initialize` enters its mapping filename, then its `Read_Source_File`
+call interns the normalized filename through the Config/Full_Name branch of
+`Find_File` (`fmap.adb:278`, `osint.adb:1222–1236,2644`). Both calls are charged:
+`Name_Enter` does not add the first name to the hash table. It then interns
+at most the unit, ALI basename and complete ALI path (`fmap.adb:294–350`).
+`Fmap.Add_To_File_Map`
 adds at most one entry to each of its two tables, whose initial capacities
 are 1,000 (`:55–73,113–133`). Let `T` be the complete mapping filename length
 and `A` a bound on the complete Main ALI path; the indexed name gives
@@ -393,14 +398,105 @@ and `A` a bound on the complete Main ALI path; the indexed name gives
 
 ```text
 mapping raw file bytes <= A + 19; read buffer including EOF <= A + 20
-mapping name additions <= 4 entries and T + A + 20 character slots
+mapping name additions <= 5 entries and 2T + A + 21 character slots
 T <= T_root + 36
 ```
 
-These contributions remain separate from the parser's 5,736-entry budget.
+The two filename occurrences have equal length under the already normalized
+absolute temporary-path descriptor; a different canonicalization must instead
+charge its own second length. These contributions remain separate from the
+parser's 5,736-entry budget.
 They cover the mapping consumer, not all GPR project, response-file or search
-storage. In particular, they do not establish a zero contribution from the
-remaining startup and filesystem-name producers.
+storage. The next section charges the remaining startup and filesystem-name
+producers instead of assigning them zero.
+
+### Complete selected binder name-pool composition
+
+The selected successful route has the following `Namet` producers in addition
+to the parser. `Namet.Reinitialize` creates 256 single-character entries and
+512 character slots (`namet.adb:1309–1340`). `Snames.Initialize` interns the
+generated preset strings (`snames.adb-tmpl:318–346`). `XSnamesT` reads 955
+`Name_*` definitions from the retained spec template; its leading-u, `UP_`
+and `Op_` transformations never lengthen a name (`xsnamest.adb:230–281`).
+Charging all 955, including already-present single letters, contributes at
+most 12,005 more character slots. The largest preset payload is 37 bytes.
+
+| Producer | Maximum entry events |
+| --- | ---: |
+| Single characters and all preset names | 1,211 |
+| ALI parser | 5,736 |
+| Mapping input and its normalized filename | 5 |
+| Successful ALI lookup and object-name construction, 61 files | 122 |
+| Main ALI basename and artificial `s-stalib.ali` seed | 2 |
+| `system.ads` basename and successful full-path lookup | 2 |
+| Spec/body output: lookup plus unconditional enter for each | 4 |
+| Consistency-check body-name lookups, at most two per D row | 1,188 |
+| Duplicate-subunit probes, two for each of six subunit D rows | 12 |
+| **Total before any deduplication** | **8,282** |
+
+Successful `Locate_File` interns at most one found full path; failed directory
+probes allocate no name entry (`osint.adb:1874–1923`). Each raw ALI read calls
+`Object_File_Name`, which unconditionally enters the corresponding object
+name (`:2186–2197,2493–2494`). `Next_Main_File` and the artificial seed each
+intern one basename. `Create_Binder_Output` performs one lookup and calls
+`Create_File_And_Check`, which enters the name again
+(`osint-b.adb:65–149`, `osint.adb:711–717`). Those unconditional entries are
+charged even when the spelling already exists.
+
+The consistency check has two indirect name-producing sites:
+`Reified_Child_Spec` and `Check_Consistency_Of_Sdep` call `Uname.Get_Body_Name`
+(`bcheck.adb:133–138,232–240`, `uname.adb:56–62`). Charging both per dependency
+row avoids assuming the source name was already in the unit table.
+`Check_Duplicated_Subunits` appends `%b`/`%s` to each subunit name and interns
+both (`bcheck.adb:1314–1332`). The checker inventories the six retained plain
+ASCII subunit names, so decoding cannot expand them beyond their original
+row bound; the two-character suffix is charged.
+
+The target reader runs once and loads fixed `system.ads`
+(`targparm.adb:141–157`); all optional AST/restriction callbacks are null.
+The retained file contains no runtime-name or executable-extension String
+and no restriction pragma, so their additional interning routes are absent.
+Source-checksum rescanning is absent under `-x` and coherent D timestamps;
+forced-order names, bind-environment names, source/debug listings and error
+branches remain excluded by the selected controls and fixed successful inputs.
+`Csets`/`Uintp` initialization and the selected graph core do not add names.
+Directory normalization and argv storage use their own String allocations,
+not `Namet`; this distinction does not discharge those separate allocations.
+
+For character storage, let `M` bound the complete ALI paths, `S` the complete
+installed `system.ads` path, `T` the normalized mapping filename and `A` the
+Main ALI path. The preceding table gives the following additive bound:
+
+```text
+C_names <= 768,656 + (S+1) + 122(M+1) + 2T + A + 21
+```
+
+The constant includes startup/parser payloads, two 109-slot body-name probes
+per D row, two 111-slot probes per subunit row, fixed basenames and four
+14-slot generated output-name entries. For the retained installation,
+`M=193`, `S=195`, `A=124`, and `T<=T_root+36`, hence
+`C_names <= 792,737 + 2T_root`. At normalized root `/tmp`, this is **792,745
+slots**. The maximum stored payload is the maximum of 110, the selected
+complete paths and the temporary filename. Each must fit the retained
+`Short` name-length field; this is an existing tool representation condition,
+not a newly chosen path cap.
+
+The name-entry table grows once from 6,000 to **12,000 slots**. Its 16-byte
+layout gives 192,000 bytes, or **288,000** charging old and new backing
+together. The `/tmp` character case grows from 50,000 through 100,000,
+200,000 and 400,000 to **800,000 bytes**; old plus new is **1,200,000 bytes**.
+Other normalized temporary roots use the displayed formula and the same
+growth rule. Even allowing every such temporary filename up to `Short'Last`
+needs at most 1,600,000 character slots on this installation. Table origins,
+sentinels, doubling and byte multiplications remain inside the signed index
+and native allocation domains. `Names_Low_Bound=-399,999,999` and
+`First_Name_Id=Names_Low_Bound+2`; 12,000 slots are far below
+`Names_High_Bound=-300,000,000` (`types.ads:344–346`, `namet.ads:186–202`).
+
+This closes the selected binder process's shared name-table representation
+capacity under the stated filesystem and invocation descriptor. It does not
+reuse these totals for Gprbind, the binder compiler or a broader Silver shell.
+Their separate processes and input structures retain their own obligations.
 
 ## Fixed library/invocation graph projection
 
@@ -511,10 +607,10 @@ and options are not normalized into the indexed witness.
    fixed source/object search, printable single-line generated paths and
    matching artifacts. Bounds on variable Main ALI input length remain
    upstream; the Xref ignore rule does not remove reading that buffer.
-2. Complete the incoming shared name/path inventory and compose it with the
-   parser contribution above, including normalized filesystem paths,
-   diagnostic strings, mapping/options files and generation buffers. The
-   graph-core singleton projection does not cover these shared producers.
+2. Complete the non-`Namet` argument/search-directory and driver storage,
+   diagnostic strings, response/options files and generation buffers. The
+   selected binder name tables and graph core are bounded above; those
+   results do not cover the separate GPR/driver or compiler processes.
 3. Complete the compiler/assembler read projection from this fixed code and
    location interface to object shape and transient representations. Account
    for source buffers, filenames, target/runtime dependencies, generated

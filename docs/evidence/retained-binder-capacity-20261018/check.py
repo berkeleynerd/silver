@@ -199,6 +199,7 @@ def analyze(artifacts, sources):
     result["signature_hash_max_bytes"] = len("standard__main__") + 10 + 1 + 10
     records = Counter()
     signature_texts, signature_hash_texts, args, dep_versions = [], [], [], defaultdict(set)
+    subunit_names = []
     main_proposed = artifacts["cases/unindexed-proposed/main.ali"]
     longest_consumed = 0
     note_source_names = 0
@@ -215,6 +216,9 @@ def analyze(artifacts, sources):
             if line.startswith(b"D "):
                 fields = line.split()
                 dep_versions[fields[1]].add(tuple(fields[2:4]))
+                if len(fields) > 4 and not fields[4][:1].isdigit() and not fields[4].endswith((b"%b", b"%s")):
+                    assert re.fullmatch(rb"[a-z_]+(?:\.[a-z_]+)*", fields[4])
+                    subunit_names.append(fields[4])
             if line.startswith(b"N "):
                 note_source_names += bool(re.match(rb"N .[0-9]+:[0-9]+:", line))
             if line.startswith(b"G c "):
@@ -246,6 +250,34 @@ def analyze(artifacts, sources):
                           + 3*records["D"] + 3*len(signature_texts)
                           + records["L"] + records["N"])
     assert longest_consumed == 108 and note_source_names == 0
+    preset_names = re.findall(rb"^\s*Name_(\w+)\s+: constant Name_Id := N \+ \$;",
+                              sources["gcc/ada/snames.ads-tmpl"], re.M)
+    assert len(preset_names) == 955 and len(subunit_names) == 6
+    # XSnamesT's leading-u/UP_/Op_ transformations never lengthen these names;
+    # charging all entries also includes the single letters Namet already owns.
+    preset_character_bound = 512+sum(len(n)+1 for n in preset_names)
+    namet_entry_bound = (256+len(preset_names)+parser_name_events+5
+                         +2*len(alis)+1+1+2+4+2*records["D"]+2*len(subunit_names))
+    assert namet_entry_bound == 8282
+    max_ali_path = max(len(paths[0])+2,
+                       len(paths[3])+max(len(k) for k in alis if k != "main~1.ali"))
+    system_source_path = len(paths[3])-len(b"adalib/")+len(b"adainclude/system.ads")
+    main_ali_path = len(paths[0])+2
+    system_source = artifacts["compiler-support/system.ads"]
+    assert not re.search(rb"^\s*(?:Run_Time_Name|Executable_Extension)\s*:", system_source, re.M)
+    assert b"pragma Restrictions" not in system_source
+    # Character totals are an upper bound on calls, before deduplication.
+    # Keep the normalized temporary-root length symbolic, rather than assuming
+    # no path names were allocated or selecting a new installation-path cap.
+    namet_char_constant = (
+        preset_character_bound+parser_name_events*(longest_consumed+1)
+        +2*records["D"]*(longest_consumed+1)
+        +2*len(subunit_names)*(longest_consumed+3)
+        +len(b"main~1.ali\0s-stalib.ali\0system.ads\0")
+        +4*len(b"b__main~1.ads\0")
+        +system_source_path+1+2*len(alis)*(max_ali_path+1)
+        +2*36+main_ali_path+21)
+    assert namet_char_constant == 792737
     unit_record = re.search(rb"type Unit_Record is record\n(.*?)   end record;",
                             sources["gcc/ada/ali.ads"], re.S)[1]
     unit_fields = re.findall(rb"^      ([A-Za-z_]+) : ([A-Za-z_]+);", unit_record, re.M)
@@ -289,10 +321,25 @@ def analyze(artifacts, sources):
         "unit_table_realloc_old_plus_new_bytes_bound": 400*320,
         "signature_node_component_bound": 64,
         "signature_nodes_plus_coexisting_buckets_bytes_bound": (900+1500)*64,
-        "mapping_record_bound": 1, "mapping_name_entry_event_bound": 4,
+        "mapping_record_bound": 1, "mapping_name_entry_event_bound": 5,
         "mapping_raw_bytes_excluding_ali_path_bound": len(b"main%b\nmain~1.ali\n\n"),
-        "mapping_name_character_bytes_excluding_paths_bound": len(b"main%b\0main~1.ali\0\0\0"),
+        "mapping_name_character_bytes_excluding_paths_bound": len(b"main%b\0main~1.ali\0\0\0\0"),
+        "mapping_filename_occurrences_in_name_character_bound": 2,
         "gpr_temp_path_bytes_excluding_normalized_root_bound": len(b"/GPR.")+10+len(b"/GNAT-TEMP-000000.TMP"),
+        "namet_total_entry_bound": namet_entry_bound,
+        "namet_entry_table_capacities": [6000, 12000],
+        "namet_entry_table_old_plus_new_bytes_bound": (6000+12000)*16,
+        "namet_preset_entry_bound_including_single_characters": 256+len(preset_names),
+        "namet_preset_character_bound_including_single_characters": preset_character_bound,
+        "namet_preset_payload_bound": max(map(len,preset_names)),
+        "namet_subunit_record_count": len(subunit_names),
+        "namet_character_bound_excluding_normalized_temp_root_bytes": namet_char_constant,
+        "namet_retained_installation_max_ali_path_bytes": max_ali_path,
+        "namet_retained_installation_system_source_path_bytes": system_source_path,
+        "namet_character_table_capacities_at_tmp_root": [50000, 100000, 200000, 400000, 800000],
+        "namet_normalized_temp_root_occurrences_in_character_bound": 2,
+        "namet_character_bound_at_tmp_root": namet_char_constant+2*len(b"/tmp"),
+        "namet_character_table_old_plus_new_bytes_at_tmp_root": 400000+800000,
     }
     return result
 

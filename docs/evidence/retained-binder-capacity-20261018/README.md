@@ -12,8 +12,8 @@ separate historical unindexed proposed-option witness and the complete
 specifications. Original paths are in `manifest.json`.
 The installed files were read; no workspace or artifact was modified.
 
-`sources.tar.gz` contains fifty-three complete inspected source files:
-forty-four GCC Ada files, three GCC backend files, four GPR files and two
+`sources.tar.gz` contains sixty-three complete inspected source files:
+fifty-four GCC Ada files, three GCC backend files, four GPR files and two
 Silver workspace-construction files. The GCC files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -22,7 +22,7 @@ These records identify source text, not historical binary build inputs.
 
 `result.json` records source sizes, explicit/default external names, unit and
 dependency inventories, export-version value reconciliation, ALI record/table,
-signature-map and parser-name contribution bounds, and each
+signature-map and composed binder name-table bounds, and each
 ELF section/symbol and relocation counts. All
 three indexed objects hash-equal. Only workspace-path comments differ in their
 generated bodies, and their exact noncomment byte projection and code-token
