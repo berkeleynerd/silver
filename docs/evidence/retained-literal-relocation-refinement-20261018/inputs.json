@@ -1,0 +1,70 @@
+{
+  "repository_base": "6c0f2ebd8f33b91497a13d953123cd157558bd37",
+  "files": [
+    {
+      "path": "docs/research/retained-linker-relocations.md",
+      "bytes": 9603,
+      "sha256": "639ec20adf7c59523afeb88d4fcd4ba0281c4e13abb4b114aa0a924ba3021342"
+    },
+    {
+      "path": "docs/research/retained-literal-linker.md",
+      "bytes": 17972,
+      "sha256": "38d756be0e1fbd04d062509fe0a691fb5bed804751d8a921ed15e6ac678decd9"
+    },
+    {
+      "path": "docs/evidence/retained-linker-relocations-20261018/result.json",
+      "bytes": 4585,
+      "sha256": "1a944ee938713b7cea7dd6b32cab91e729aad73398eef93256ea495376bf2ab0"
+    },
+    {
+      "path": "docs/evidence/retained-linker-relocations-20261018/inputs.json",
+      "bytes": 767,
+      "sha256": "b8fbfc06d9dfd5d43a708deac451fde2d9cb4b7ad9945a04fd91de86c4d96c2b"
+    },
+    {
+      "path": "docs/evidence/retained-linker-relocations-20261018/sources.json",
+      "bytes": 1889,
+      "sha256": "154dbc5d1886932336b0a245ab5380f9fe5c2b77c4cfeb39222384c088707a48"
+    },
+    {
+      "path": "docs/evidence/retained-linker-relocations-20261018/sources.tar.gz",
+      "bytes": 534646,
+      "sha256": "4979e62e0a7657f16ee21747a5863c6c6362ce3a972bca599b94b2f0be9ee0eb"
+    },
+    {
+      "path": "docs/evidence/retained-linker-relocations-20261018/layout-projection.json",
+      "bytes": 521,
+      "sha256": "6fd6651de122b0634007964fda59194d973a8e7ddd4f09111110fd549ef17b98"
+    },
+    {
+      "path": "docs/evidence/retained-literal-linker-20261018/compose.py",
+      "bytes": 20053,
+      "sha256": "239441a8cd55d783dd22c1509a5eff6ac5f9ecedd003eff959a065aa601bcf4a"
+    },
+    {
+      "path": "docs/evidence/retained-literal-linker-20261018/inputs.json",
+      "bytes": 4977,
+      "sha256": "db203a274e4a0e30e08e02e019d2b11f081ca66fe3282780f0faa97e591109a5"
+    },
+    {
+      "path": "docs/evidence/retained-literal-linker-20261018/result.json",
+      "bytes": 28195,
+      "sha256": "f4a86f4f30b4333a49c3dc1d4dc0db04d59d3ffb187d7d342264a20bab4e0d08"
+    },
+    {
+      "path": "docs/evidence/retained-literal-linker-20261018/review.md",
+      "bytes": 4850,
+      "sha256": "ba6e7f7d846d9e5f998669c882e01f90e58dc9c9acebab92d992136dc5ae183d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-linker-20261018/sources.json",
+      "bytes": 2141,
+      "sha256": "076ead1fda0d00941c2c1ca1859d5960e98b0786c42cb8e14f57e0a0e9c5b52c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-linker-20261018/sources.tar.gz",
+      "bytes": 285791,
+      "sha256": "97c8111b808db029d95a04813780273cec3b6c7d3e842b34d2f192d65672842e"
+    }
+  ]
+}

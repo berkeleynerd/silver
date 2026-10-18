@@ -1,0 +1,26 @@
+{
+  "task": "#119",
+  "author": "root",
+  "model_runtime_confirmed": null,
+  "reasoning_effort_runtime_confirmed": null,
+  "settings_note": "Lead live model/effort and per-task token/cost telemetry unavailable; no lead setting change claimed.",
+  "started_utc": "2026-10-18T22:33:58+00:00",
+  "prepared_utc": "2026-10-18T22:40:27.251934+00:00",
+  "preparation_elapsed_seconds": 389.251934,
+  "focused_check": {
+    "start_utc": "2026-10-18T22:37:09.061432+00:00",
+    "end_utc": "2026-10-18T22:37:13.314279+00:00",
+    "elapsed_seconds": 4.252882010998292
+  },
+  "native_tool_executions": 0,
+  "prior_attempt": {
+    "outcome": "failed test expectation",
+    "detail": "The upper adjacent call count fails both fixed_signed_relocation_reach and the unchanged EH_signed_fields check; corrected assertion to require signed-reach failure without excluding the independent failure. No source or formula change.",
+    "exact_elapsed_seconds": null
+  },
+  "tokens": null,
+  "cost": null,
+  "review": "pending independent review",
+  "aggregate_adoption": false,
+  "production_admission_rule": false
+}
