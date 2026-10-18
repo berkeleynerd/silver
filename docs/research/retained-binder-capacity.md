@@ -599,13 +599,27 @@ without first bounding the number of emitted symbols:
 
 The selected descriptor has no plugins, LTO, offload, sanitizer/profile/split
 stack instrumentation, target-clone attributes or user assembly. Generated
-sources and the four selected specs have no `Machine_Attribute`, `Linker_Alias`
-or `Weak_External` pragma; their Import/Export names are checked separately.
+sources and the four selected specs have no `Machine_Attribute`, `Linker_Alias`,
+`Linker_Section` or `Weak_External` pragma; their Import/Export names are checked separately.
 GNU symbol-version aliases require a `symver` attribute
 (`cgraphunit.cc:736–816`), absent here. Fixed runtime helper names and ordinary
 compiler suffixes contain no source-path text. The filename/random-seed global
 name fallback is bypassed by Gigi's fixed `first_global_object_name`, as shown
 above. Thus no remaining selected naming ingress introduces `@`.
+
+The selected generated object also has **no `.gnu.warning.<name>` producer**.
+An arbitrary section name can enter through `Linker_Section` or a machine
+section attribute (`decl.cc:1617–1621,4269–4273,7451–7457`,
+`utils.cc:3396–3427`), or through assembly; those routes are absent in the
+generated sources and their selected specs. The ordinary ELF selectors choose
+fixed data/text/TLS/exception section prefixes and append only the existing
+symbol name or a numeric suffix (`varasm.cc:7490–7664`,
+`i386.cc:779–929`); none selects `.gnu.warning.`. Fixed metadata sections
+do not add that prefix either. No selected section/metadata producer has a
+linker-warning route. Consequently a warning-section suffix cannot introduce
+a new `@` name through the linker's separate warning-symbol path. This is
+the additional warning-name premise needed by the linker; the zero warning
+sections observed in the retained object only corroborate it.
 
 Under this descriptor, **generated binder nonlocal symbols have no `@` in
 their names**. This supplies the binder part of the linker's `W=0` suffix

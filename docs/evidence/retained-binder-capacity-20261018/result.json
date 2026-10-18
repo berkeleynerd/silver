@@ -10044,6 +10044,7 @@
       "system__soft_links__initialize___elabb",
       "system__traceback__symbolic___elabb"
     ],
+    "observed_gnu_warning_sections": 0,
     "observed_object_additional_names": [
       "ada__containers___elabs",
       "ada__exceptions___elabs",
@@ -10066,7 +10067,8 @@
       "system__traceback__symbolic___elabb"
     ],
     "observed_source_external_name_count": 152,
-    "scope": "source naming alphabet and constructors; object counts and name-length bound remain open"
+    "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
+    "selected_explicit_section_and_assembly_ingress_absent": true
   },
   "signature_hash_max_bytes": 37
 }

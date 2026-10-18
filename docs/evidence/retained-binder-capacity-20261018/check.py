@@ -144,8 +144,15 @@ def analyze(artifacts, sources):
                for values in naming_literals.values())
     selected_source = b"\n".join([indexed_specs[0], indexed_bodies[0]] +
         [v for k,v in artifacts.items() if k.startswith("compiler-support/")])
-    assert not re.search(rb"\bpragma\s+(?:Machine_Attribute|Linker_Alias|Weak_External)\b",
+    assert not re.search(rb"\bpragma\s+(?:Machine_Attribute|Linker_Alias|Linker_Section|Weak_External)\b",
                          outside_comments(selected_source), re.I)
+    assert not re.search(rb"\b(?:Machine_Code|Asm|Asm_Input|Asm_Output)\b",
+                         outside_comments(selected_source), re.I)
+    assert all(b".gnu.warning" not in sources[p] for p in (
+        "gcc/varasm.cc", "gcc/config/i386/i386.cc", "gcc/config/elfos.h",
+        "gcc/config/i386/att.h", "gcc/ada/gcc-interface/utils.cc"))
+    assert all(not s["name"].startswith(".gnu.warning")
+               for s in result["cases"]["indexed-lf"]["object"]["sections"])
     selected_interfaces = re.findall(rb'pragma\s+(?:Import|Export)\s*\([^;]+"([^"\n]+)"\s*\)',
                                     outside_comments(selected_source), re.I)
     assert all(b"@" not in s for s in selected_interfaces)
@@ -165,6 +172,8 @@ def analyze(artifacts, sources):
         "generated_elaboration_names": [n.decode() for n in elab_names],
         "observed_source_external_name_count": len(observed_source_names),
         "observed_object_additional_names": sorted(observed_extra_names),
+        "selected_explicit_section_and_assembly_ingress_absent": True,
+        "observed_gnu_warning_sections": 0,
         "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
     }
     # Only the three workspace comment lines change in these retained cases.
