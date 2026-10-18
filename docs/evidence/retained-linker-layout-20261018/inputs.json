@@ -1,0 +1,22 @@
+[
+  {
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "path": "docs/evidence/retained-link-inputs-20261018/link-script/installed-elf_x86_64.xdc",
+    "bytes": 10896,
+    "sha256": "ae316744bbc3cdc9e040eb4ffed36689b873a12c796d39f220ca1697f897bd3f"
+  },
+  {
+    "path": "docs/evidence/retained-link-no-lto-20261018/check-results.json",
+    "bytes": 884,
+    "sha256": "5b0f1ddd514e90bc96e6b985be57d8f1bad719db51f026feae02bb8abd32ac0a"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/object-check-results.json",
+    "bytes": 1785,
+    "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+  }
+]

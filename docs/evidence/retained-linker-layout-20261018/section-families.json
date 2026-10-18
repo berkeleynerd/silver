@@ -1,0 +1,67 @@
+{
+  "constant_families": [
+    {
+      "family": "GOT, GOT.PLT and GOT dynamic relocation",
+      "bound": 3,
+      "source": "bfd/elflink.c:229-280",
+      "guard": "sgot once per link"
+    },
+    {
+      "family": "ELF dynamic interpreter/version/symbol/string/dynamic/hash/RELR sections",
+      "bound": 10,
+      "source": "bfd/elflink.c:335-460",
+      "guard": "dynamic_sections_created once per link"
+    },
+    {
+      "family": "ELF PLT, PLT reloc, dynamic BSS/read-only copy and their relocs",
+      "bound": 6,
+      "source": "bfd/elflink.c:466-577",
+      "guard": "dynamic_sections_created once per link; GOT counted separately"
+    },
+    {
+      "family": "PIE IFUNC relocation",
+      "bound": 1,
+      "source": "bfd/elf-ifunc.c:35-105",
+      "guard": "irelifunc/iplt once; selected PIE excludes static iplt/igot alternative"
+    },
+    {
+      "family": "x86 PLT.GOT, PLT.SEC, TLS reloc, three EH and three SFrame",
+      "bound": 9,
+      "source": "bfd/elfxx-x86.c:4720-4882",
+      "guard": "single after_open GNU-property setup; union charges optional SFrame"
+    },
+    {
+      "family": "x86 and generic GNU property section",
+      "bound": 2,
+      "source": "bfd/elfxx-x86.c:4257-4529; bfd/elf-properties.c:678-805",
+      "guard": "one each; generic first_pbfd set after creation"
+    },
+    {
+      "family": "object attributes",
+      "bound": 1,
+      "source": "bfd/elf-attrs.c:797-820,2132-2205",
+      "guard": "single setup and one chosen result BFD"
+    },
+    {
+      "family": "EH header, build-id and package notes",
+      "bound": 3,
+      "source": "ld/ldelf.c:1260-1413,1508,1623",
+      "guard": "single after_open; no custom PHDRS"
+    }
+  ],
+  "per_input_elf_occurrence": {
+    "bound": 3,
+    "names": [
+      "COMMON",
+      "LARGE_COMMON",
+      ".tcommon"
+    ],
+    "source": "bfd/elflink.c:5113-5147; bfd/elf64-x86-64.c:6014-6049,6112-6142; bfd/linker.c:1635-1657,1688-1705; bfd/section.c:1114-1151"
+  },
+  "per_input_header_record": {
+    "bound": 1,
+    "family": "dynamic relocation section",
+    "source": "bfd/elfxx-x86.c:983-1003; bfd/elflink.c:4283-4310,15615-15656",
+    "guard": "input SEC_RELOC plus nonzero reloc_count; sreloc cache; new dynamic sections have neither"
+  }
+}
