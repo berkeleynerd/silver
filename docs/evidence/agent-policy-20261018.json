@@ -1,0 +1,61 @@
+{
+  "recorded_at": "2026-10-18T17:25:46.737116+00:00",
+  "host": "Linux x86_64",
+  "codex_cli": "0.163.0",
+  "default": {
+    "profile": "default",
+    "effective": {
+      "model": "gpt-6-astra",
+      "model_reasoning_effort": "xhigh",
+      "plan_mode_reasoning_effort": "xhigh",
+      "agents": {
+        "max_concurrent_threads_per_session": 3,
+        "default_subagent_model": "gpt-6-astra",
+        "default_subagent_reasoning_effort": "xhigh"
+      }
+    },
+    "effective_config_load": true,
+    "strict_config_load": false,
+    "model_turns_started": 0
+  },
+  "profiles": [
+    {
+      "profile": "proof",
+      "profile_loader": "codex --profile proof debug prompt-input",
+      "profile_load_passed": true,
+      "configured": {
+        "model": "gpt-6-astra",
+        "model_reasoning_effort": "xhigh",
+        "plan_mode_reasoning_effort": "xhigh"
+      },
+      "model_turns_started": 0
+    },
+    {
+      "profile": "implementation",
+      "profile_loader": "codex --profile implementation debug prompt-input",
+      "profile_load_passed": true,
+      "configured": {
+        "model": "gpt-6.1-sol",
+        "model_reasoning_effort": "xhigh",
+        "plan_mode_reasoning_effort": "xhigh"
+      },
+      "model_turns_started": 0
+    },
+    {
+      "profile": "routine",
+      "profile_loader": "codex --profile routine debug prompt-input",
+      "profile_load_passed": true,
+      "configured": {
+        "model": "gpt-6.1-sol",
+        "model_reasoning_effort": "high",
+        "plan_mode_reasoning_effort": "high"
+      },
+      "model_turns_started": 0
+    }
+  ],
+  "unchanged_configuration_verified": true,
+  "strict_config_limitation": "Pre-existing unrecognized field mcp_servers.mcp-gateway.type; preserved unchanged. No strict whole-config pass claimed.",
+  "profile_query_limitation": "app-server rejects --profile; profile loading was checked using debug prompt-input, separately from parsed profile settings.",
+  "model_turns_started_for_validation": 0,
+  "live_lead_switch_performed": false
+}

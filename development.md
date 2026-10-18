@@ -337,6 +337,26 @@ and the smallest remaining check. Do not prescribe a fixed verifier count or
 repeat an expensive success solely to obtain a new record. Required obligation
 discharge, source correspondence and independent review remain unchanged.
 
+Use the portable [model and delegation policy](AGENTS.md#models-effort-and-delegation)
+and [host configuration guidance](docs/agent-workflow.md). At a substantive round
+boundary, retain a compact row in the existing task/evidence record with the
+actual model and effort, intended result, achieved result, material findings or
+rework, and available elapsed time/token/cost evidence. Include all subthreads
+when making a whole-team comparison. Separate native execution time from total
+elapsed time; label unavailable measurements and never infer model quality from
+token volume, agent count or an uncontrolled comparison. Reassess when work
+fails repeatedly, stalls or reaches a context handoff; integrate established
+results before opening another investigation. This monitoring adds no approval
+ceremony and does not replace required verification.
+
+Every new review report records the reviewed commit or exact inputs, reviewer
+model(s) and effort actually used, elapsed time and token/cost evidence when
+available, and material findings/disposition. If a setting or measurement is
+unavailable, say so. Record selected settings separately from runtime-confirmed
+settings. Use the existing report format; no additional template or duplicate
+review is required merely to populate these fields. Preserve historical reports
+as history rather than inventing their missing model or cost data.
+
 - When resuming goal-driven work, read the live harness objective and status and
   reconcile them with the owner's current authorization. For an explicitly
   requested new goal, record its scope and completion/stop conditions and keep
