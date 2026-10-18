@@ -23782,6 +23782,357 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7190:
 ```
 
+## gcc/function.cc:5734–5747
+
+```text
+5734: record_insns (rtx_insn *insns, rtx end, hash_table<insn_cache_hasher> **hashp)
+5735: {
+5736:   rtx_insn *tmp;
+5737:   hash_table<insn_cache_hasher> *hash = *hashp;
+5738:
+5739:   if (hash == NULL)
+5740:     *hashp = hash = hash_table<insn_cache_hasher>::create_ggc (17);
+5741:
+5742:   for (tmp = insns; tmp != end; tmp = NEXT_INSN (tmp))
+5743:     {
+5744:       rtx *slot = hash->find_slot (tmp, INSERT);
+5745:       gcc_assert (*slot == NULL);
+5746:       *slot = tmp;
+5747:     }
+```
+
+## gcc/function.cc:5867–5894
+
+```text
+5867: make_prologue_seq (void)
+5868: {
+5869:   if (!targetm.have_prologue ())
+5870:     return NULL;
+5871:
+5872:   start_sequence ();
+5873:   rtx_insn *seq = targetm.gen_prologue ();
+5874:   emit_insn (seq);
+5875:
+5876:   /* Insert an explicit USE for the frame pointer
+5877:      if the profiling is on and the frame pointer is required.  */
+5878:   if (crtl->profile && frame_pointer_needed)
+5879:     emit_use (hard_frame_pointer_rtx);
+5880:
+5881:   /* Retain a map of the prologue insns.  */
+5882:   record_insns (seq, NULL, &prologue_insn_hash);
+5883:   emit_note (NOTE_INSN_PROLOGUE_END);
+5884:
+5885:   /* Ensure that instructions are not moved into the prologue when
+5886:      profiling is on.  The call to the profiling routine can be
+5887:      emitted within the live range of a call-clobbered register.  */
+5888:   if (!targetm.profile_before_prologue () && crtl->profile)
+5889:     emit_insn (gen_blockage ());
+5890:
+5891:   seq = end_sequence ();
+5892:   set_insn_locations (seq, prologue_location);
+5893:
+5894:   return seq;
+```
+
+## gcc/function.cc:6017–6039
+
+```text
+6017: make_epilogue_seq (void)
+6018: {
+6019:   if (!targetm.have_epilogue ())
+6020:     return NULL;
+6021:
+6022:   start_sequence ();
+6023:   emit_note (NOTE_INSN_EPILOGUE_BEG);
+6024:   rtx_insn *seq = targetm.gen_epilogue ();
+6025:   if (seq)
+6026:     emit_jump_insn (seq);
+6027:
+6028:   /* Retain a map of the epilogue insns.  */
+6029:   record_insns (seq, NULL, &epilogue_insn_hash);
+6030:   set_insn_locations (seq, epilogue_location);
+6031:
+6032:   seq = get_insns ();
+6033:   rtx_insn *returnjump = get_last_insn ();
+6034:   end_sequence ();
+6035:
+6036:   if (JUMP_P (returnjump))
+6037:     set_return_jump_label (returnjump);
+6038:
+6039:   return seq;
+```
+
+## gcc/function.cc:6092–6325
+
+```text
+6092: thread_prologue_and_epilogue_insns (void)
+6093: {
+6094:   df_analyze ();
+6095:
+6096:   /* Can't deal with multiple successors of the entry block at the
+6097:      moment.  Function should always have at least one entry
+6098:      point.  */
+6099:   gcc_assert (single_succ_p (ENTRY_BLOCK_PTR_FOR_FN (cfun)));
+6100:
+6101:   edge entry_edge = single_succ_edge (ENTRY_BLOCK_PTR_FOR_FN (cfun));
+6102:   edge orig_entry_edge = entry_edge;
+6103:
+6104:   rtx_insn *split_prologue_seq = make_split_prologue_seq ();
+6105:   rtx_insn *prologue_seq = make_prologue_seq ();
+6106:   rtx_insn *epilogue_seq = make_epilogue_seq ();
+6107:
+6108:   /* Try to perform a kind of shrink-wrapping, making sure the
+6109:      prologue/epilogue is emitted only around those parts of the
+6110:      function that require it.  */
+6111:   try_shrink_wrapping (&entry_edge, prologue_seq);
+6112:
+6113:   /* If the target can handle splitting the prologue/epilogue into separate
+6114:      components, try to shrink-wrap these components separately.  */
+6115:   try_shrink_wrapping_separate (entry_edge->dest);
+6116:
+6117:   /* If that did anything for any component we now need the generate the
+6118:      "main" prologue again.  Because some targets require some of these
+6119:      to be called in a specific order (i386 requires the split prologue
+6120:      to be first, for example), we create all three sequences again here.
+6121:      If this does not work for some target, that target should not enable
+6122:      separate shrink-wrapping.  */
+6123:   if (crtl->shrink_wrapped_separate)
+6124:     {
+6125:       split_prologue_seq = make_split_prologue_seq ();
+6126:       prologue_seq = make_prologue_seq ();
+6127:       epilogue_seq = make_epilogue_seq ();
+6128:     }
+6129:
+6130:   rtl_profile_for_bb (EXIT_BLOCK_PTR_FOR_FN (cfun));
+6131:
+6132:   /* A small fib -- epilogue is not yet completed, but we wish to re-use
+6133:      this marker for the splits of EH_RETURN patterns, and nothing else
+6134:      uses the flag in the meantime.  */
+6135:   epilogue_completed = 1;
+6136:
+6137:   /* Find non-fallthru edges that end with EH_RETURN instructions.  On
+6138:      some targets, these get split to a special version of the epilogue
+6139:      code.  In order to be able to properly annotate these with unwind
+6140:      info, try to split them now.  If we get a valid split, drop an
+6141:      EPILOGUE_BEG note and mark the insns as epilogue insns.  */
+6142:   edge e;
+6143:   edge_iterator ei;
+6144:   FOR_EACH_EDGE (e, ei, EXIT_BLOCK_PTR_FOR_FN (cfun)->preds)
+6145:     {
+6146:       rtx_insn *prev, *last, *trial;
+6147:
+6148:       if (e->flags & EDGE_FALLTHRU)
+6149:         continue;
+6150:       last = BB_END (e->src);
+6151:       if (!eh_returnjump_p (last))
+6152:         continue;
+6153:
+6154:       prev = PREV_INSN (last);
+6155:       trial = try_split (PATTERN (last), last, 1);
+6156:       if (trial == last)
+6157:         continue;
+6158:
+6159:       record_insns (NEXT_INSN (prev), NEXT_INSN (trial), &epilogue_insn_hash);
+6160:       emit_note_after (NOTE_INSN_EPILOGUE_BEG, prev);
+6161:     }
+6162:
+6163:   edge exit_fallthru_edge = find_fallthru_edge (EXIT_BLOCK_PTR_FOR_FN (cfun)->preds);
+6164:
+6165:   if (exit_fallthru_edge)
+6166:     {
+6167:       if (epilogue_seq)
+6168:         {
+6169:           insert_insn_on_edge (epilogue_seq, exit_fallthru_edge);
+6170:           commit_edge_insertions ();
+6171:
+6172:           /* The epilogue insns we inserted may cause the exit edge to no longer
+6173:              be fallthru.  */
+6174:           FOR_EACH_EDGE (e, ei, EXIT_BLOCK_PTR_FOR_FN (cfun)->preds)
+6175:             {
+6176:               if (((e->flags & EDGE_FALLTHRU) != 0)
+6177:                   && returnjump_p (BB_END (e->src)))
+6178:                 e->flags &= ~EDGE_FALLTHRU;
+6179:             }
+6180:
+6181:           find_sub_basic_blocks (BLOCK_FOR_INSN (epilogue_seq));
+6182:         }
+6183:       else if (next_active_insn (BB_END (exit_fallthru_edge->src)))
+6184:         {
+6185:           /* We have a fall-through edge to the exit block, the source is not
+6186:              at the end of the function, and there will be an assembler epilogue
+6187:              at the end of the function.
+6188:              We can't use force_nonfallthru here, because that would try to
+6189:              use return.  Inserting a jump 'by hand' is extremely messy, so
+6190:              we take advantage of cfg_layout_finalize using
+6191:              fixup_fallthru_exit_predecessor.  */
+6192:           cfg_layout_initialize (0);
+6193:           basic_block cur_bb;
+6194:           FOR_EACH_BB_FN (cur_bb, cfun)
+6195:             if (cur_bb->index >= NUM_FIXED_BLOCKS
+6196:                 && cur_bb->next_bb->index >= NUM_FIXED_BLOCKS)
+6197:               cur_bb->aux = cur_bb->next_bb;
+6198:           cfg_layout_finalize ();
+6199:         }
+6200:     }
+6201:
+6202:   /* Insert the prologue.  */
+6203:
+6204:   rtl_profile_for_bb (ENTRY_BLOCK_PTR_FOR_FN (cfun));
+6205:
+6206:   if (split_prologue_seq || prologue_seq)
+6207:     {
+6208:       rtx_insn *split_prologue_insn = split_prologue_seq;
+6209:       if (split_prologue_seq)
+6210:         {
+6211:           while (split_prologue_insn && !NONDEBUG_INSN_P (split_prologue_insn))
+6212:             split_prologue_insn = NEXT_INSN (split_prologue_insn);
+6213:           insert_insn_on_edge (split_prologue_seq, orig_entry_edge);
+6214:         }
+6215:
+6216:       rtx_insn *prologue_insn = prologue_seq;
+6217:       if (prologue_seq)
+6218:         {
+6219:           while (prologue_insn && !NONDEBUG_INSN_P (prologue_insn))
+6220:             prologue_insn = NEXT_INSN (prologue_insn);
+6221:           insert_insn_on_edge (prologue_seq, entry_edge);
+6222:         }
+6223:
+6224:       commit_edge_insertions ();
+6225:
+6226:       /* Look for basic blocks within the prologue insns.  */
+6227:       if (split_prologue_insn
+6228:           && BLOCK_FOR_INSN (split_prologue_insn) == NULL)
+6229:         split_prologue_insn = NULL;
+6230:       if (prologue_insn
+6231:           && BLOCK_FOR_INSN (prologue_insn) == NULL)
+6232:         prologue_insn = NULL;
+6233:       if (split_prologue_insn || prologue_insn)
+6234:         {
+6235:           auto_sbitmap blocks (last_basic_block_for_fn (cfun));
+6236:           bitmap_clear (blocks);
+6237:           if (split_prologue_insn)
+6238:             bitmap_set_bit (blocks,
+6239:                             BLOCK_FOR_INSN (split_prologue_insn)->index);
+6240:           if (prologue_insn)
+6241:             bitmap_set_bit (blocks, BLOCK_FOR_INSN (prologue_insn)->index);
+6242:           find_many_sub_basic_blocks (blocks);
+6243:         }
+6244:     }
+6245:
+6246:   default_rtl_profile ();
+6247:
+6248:   /* Emit sibling epilogues before any sibling call sites.  */
+6249:   for (ei = ei_start (EXIT_BLOCK_PTR_FOR_FN (cfun)->preds);
+6250:        (e = ei_safe_edge (ei));
+6251:        ei_next (&ei))
+6252:     {
+6253:       /* Skip those already handled, the ones that run without prologue.  */
+6254:       if (e->flags & EDGE_IGNORE)
+6255:         {
+6256:           e->flags &= ~EDGE_IGNORE;
+6257:           continue;
+6258:         }
+6259:
+6260:       rtx_insn *insn = BB_END (e->src);
+6261:
+6262:       if (!(CALL_P (insn) && SIBLING_CALL_P (insn)))
+6263:         continue;
+6264:
+6265:       rtx_insn *ep_seq;
+6266:       if (targetm.emit_epilogue_for_sibcall)
+6267:         {
+6268:           start_sequence ();
+6269:           targetm.emit_epilogue_for_sibcall (as_a<rtx_call_insn *> (insn));
+6270:           ep_seq = end_sequence ();
+6271:         }
+6272:       else
+6273:         ep_seq = targetm.gen_sibcall_epilogue ();
+6274:       if (ep_seq)
+6275:         {
+6276:           start_sequence ();
+6277:           emit_note (NOTE_INSN_EPILOGUE_BEG);
+6278:           emit_insn (ep_seq);
+6279:           rtx_insn *seq = end_sequence ();
+6280:
+6281:           /* Retain a map of the epilogue insns.  Used in life analysis to
+6282:              avoid getting rid of sibcall epilogue insns.  Do this before we
+6283:              actually emit the sequence.  */
+6284:           record_insns (seq, NULL, &epilogue_insn_hash);
+6285:           set_insn_locations (seq, epilogue_location);
+6286:
+6287:           emit_insn_before (seq, insn);
+6288:
+6289:           find_sub_basic_blocks (BLOCK_FOR_INSN (insn));
+6290:         }
+6291:     }
+6292:
+6293:   if (epilogue_seq)
+6294:     {
+6295:       rtx_insn *insn, *next;
+6296:
+6297:       /* Similarly, move any line notes that appear after the epilogue.
+6298:          There is no need, however, to be quite so anal about the existence
+6299:          of such a note.  Also possibly move
+6300:          NOTE_INSN_FUNCTION_BEG notes, as those can be relevant for debug
+6301:          info generation.  */
+6302:       for (insn = epilogue_seq; insn; insn = next)
+6303:         {
+6304:           next = NEXT_INSN (insn);
+6305:           if (NOTE_P (insn)
+6306:               && (NOTE_KIND (insn) == NOTE_INSN_FUNCTION_BEG))
+6307:             reorder_insns (insn, insn, PREV_INSN (epilogue_seq));
+6308:         }
+6309:     }
+6310:
+6311:   /* Threading the prologue and epilogue changes the artificial refs in the
+6312:      entry and exit blocks, and may invalidate DF info for tail calls.
+6313:      This is also needed for [[musttail]] conversion even when not
+6314:      optimizing.  */
+6315:   if (optimize
+6316:       || cfun->tail_call_marked
+6317:       || flag_optimize_sibling_calls
+6318:       || flag_ipa_icf_functions
+6319:       || in_lto_p)
+6320:     df_update_entry_exit_and_calls ();
+6321:   else
+6322:     {
+6323:       df_update_entry_block_defs ();
+6324:       df_update_exit_block_uses ();
+6325:     }
+```
+
+## gcc/function.cc:6609–6635
+
+```text
+6609: rest_of_handle_thread_prologue_and_epilogue (function *fun)
+6610: {
+6611:   /* prepare_shrink_wrap is sensitive to the block structure of the control
+6612:      flow graph, so clean it up first.  */
+6613:   if (cfun->tail_call_marked || optimize)
+6614:     cleanup_cfg (0);
+6615:
+6616:   /* On some machines, the prologue and epilogue code, or parts thereof,
+6617:      can be represented as RTL.  Doing so lets us schedule insns between
+6618:      it and the rest of the code and also allows delayed branch
+6619:      scheduling to operate in the epilogue.  */
+6620:   thread_prologue_and_epilogue_insns ();
+6621:
+6622:   /* Some non-cold blocks may now be only reachable from cold blocks.
+6623:      Fix that up.  */
+6624:   fixup_partitions ();
+6625:
+6626:   /* After prologue and epilogue generation, the judgement on whether
+6627:      one memory access onto stack frame may trap or not could change,
+6628:      since we get more exact stack information by now.  So try to
+6629:      remove any EH edges here, see PR90259.  */
+6630:   if (fun->can_throw_non_call_exceptions)
+6631:     purge_all_dead_edges ();
+6632:
+6633:   /* Shrink-wrapping can result in unreachable edges in the epilogue,
+6634:      see PR57320.  */
+6635:   cleanup_cfg (optimize ? CLEANUP_EXPENSIVE : 0);
+```
+
 ## gcc/stmt.cc:96–109
 
 ```text
@@ -24797,6 +25148,1737 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 17901:
 ```
 
+## gcc/config/i386/i386.cc:6629–6676
+
+```text
+6629: gen_push (rtx arg, bool ppx_p)
+6630: {
+6631:   struct machine_function *m = cfun->machine;
+6632:
+6633:   if (m->fs.cfa_reg == stack_pointer_rtx)
+6634:     m->fs.cfa_offset += UNITS_PER_WORD;
+6635:   m->fs.sp_offset += UNITS_PER_WORD;
+6636:
+6637:   if (REG_P (arg) && GET_MODE (arg) != word_mode)
+6638:     arg = gen_rtx_REG (word_mode, REGNO (arg));
+6639:
+6640:   rtx stack = gen_rtx_MEM (word_mode,
+6641:                            gen_rtx_PRE_DEC (Pmode,
+6642:                                             stack_pointer_rtx));
+6643:   return ppx_p ? gen_pushp_di (stack, arg) : gen_rtx_SET (stack, arg);
+6644: }
+6645:
+6646: rtx
+6647: gen_pushfl (void)
+6648: {
+6649:   struct machine_function *m = cfun->machine;
+6650:   rtx flags, mem;
+6651:
+6652:   if (m->fs.cfa_reg == stack_pointer_rtx)
+6653:     m->fs.cfa_offset += UNITS_PER_WORD;
+6654:   m->fs.sp_offset += UNITS_PER_WORD;
+6655:
+6656:   flags = gen_rtx_REG (CCmode, FLAGS_REG);
+6657:
+6658:   mem = gen_rtx_MEM (word_mode,
+6659:                      gen_rtx_PRE_DEC (Pmode, stack_pointer_rtx));
+6660:
+6661:   return gen_pushfl2 (word_mode, mem, flags);
+6662: }
+6663:
+6664: /* Generate an "pop" pattern for input ARG.  */
+6665:
+6666: rtx
+6667: gen_pop (rtx arg, bool ppx_p)
+6668: {
+6669:   if (REG_P (arg) && GET_MODE (arg) != word_mode)
+6670:     arg = gen_rtx_REG (word_mode, REGNO (arg));
+6671:
+6672:   rtx stack = gen_rtx_MEM (word_mode,
+6673:                            gen_rtx_POST_INC (Pmode,
+6674:                                              stack_pointer_rtx));
+6675:
+6676:   return ppx_p ? gen_popp_di (arg, stack) : gen_rtx_SET (arg, stack);
+```
+
+## gcc/config/i386/i386.cc:6776–6894
+
+```text
+6776: ix86_save_reg (unsigned int regno, bool maybe_eh_return, bool ignore_outlined)
+6777: {
+6778:   rtx reg;
+6779:
+6780:   switch (cfun->machine->call_saved_registers)
+6781:     {
+6782:     case TYPE_DEFAULT_CALL_SAVED_REGISTERS:
+6783:       break;
+6784:
+6785:     case TYPE_NO_CALLER_SAVED_REGISTERS:
+6786:       /* If there are no caller-saved registers, we preserve all
+6787:          registers, except for MMX and x87 registers which aren't
+6788:          supported when saving and restoring registers.  Don't
+6789:          explicitly save SP register since it is always preserved.
+6790:
+6791:          Don't preserve registers used for function return value.  */
+6792:       reg = crtl->return_rtx;
+6793:       if (reg)
+6794:         {
+6795:           unsigned int i = REGNO (reg);
+6796:           unsigned int nregs = REG_NREGS (reg);
+6797:           while (nregs-- > 0)
+6798:             if ((i + nregs) == regno)
+6799:               return false;
+6800:         }
+6801:
+6802:       return (df_regs_ever_live_p (regno)
+6803:               && !fixed_regs[regno]
+6804:               && !STACK_REGNO_P (regno)
+6805:               && !MMX_REGNO_P (regno)
+6806:               && (regno != HARD_FRAME_POINTER_REGNUM
+6807:                   || !frame_pointer_needed));
+6808:
+6809:     case TYPE_NO_CALLEE_SAVED_REGISTERS:
+6810:     case TYPE_PRESERVE_NONE:
+6811:       if (regno != HARD_FRAME_POINTER_REGNUM)
+6812:         return false;
+6813:       break;
+6814:     }
+6815:
+6816:   if (regno == REAL_PIC_OFFSET_TABLE_REGNUM
+6817:       && pic_offset_table_rtx)
+6818:     {
+6819:       if (ix86_use_pseudo_pic_reg ())
+6820:         {
+6821:           /* REAL_PIC_OFFSET_TABLE_REGNUM used by call to
+6822:           _mcount in prologue.  */
+6823:           if (!TARGET_64BIT && flag_pic && crtl->profile)
+6824:             return true;
+6825:         }
+6826:       else if (df_regs_ever_live_p (REAL_PIC_OFFSET_TABLE_REGNUM)
+6827:                || crtl->profile
+6828:                || crtl->calls_eh_return
+6829:                || crtl->uses_const_pool
+6830:                || cfun->has_nonlocal_label)
+6831:         return ix86_select_alt_pic_regnum () == INVALID_REGNUM;
+6832:     }
+6833:
+6834:   if (crtl->calls_eh_return && maybe_eh_return)
+6835:     {
+6836:       unsigned i;
+6837:       for (i = 0; ; i++)
+6838:         {
+6839:           unsigned test = EH_RETURN_DATA_REGNO (i);
+6840:           if (test == INVALID_REGNUM)
+6841:             break;
+6842:           if (test == regno)
+6843:             return true;
+6844:         }
+6845:     }
+6846:
+6847:   if (ignore_outlined && cfun->machine->call_ms2sysv)
+6848:     {
+6849:       unsigned count = cfun->machine->call_ms2sysv_extra_regs
+6850:                        + xlogue_layout::MIN_REGS;
+6851:       if (xlogue_layout::is_stub_managed_reg (regno, count))
+6852:         return false;
+6853:     }
+6854:
+6855:   if (crtl->drap_reg
+6856:       && regno == REGNO (crtl->drap_reg)
+6857:       && !cfun->machine->no_drap_save_restore)
+6858:     return true;
+6859:
+6860:   return (df_regs_ever_live_p (regno)
+6861:           && !call_used_or_fixed_reg_p (regno)
+6862:           && (regno != HARD_FRAME_POINTER_REGNUM || !frame_pointer_needed));
+6863: }
+6864:
+6865: /* Return number of saved general prupose registers.  */
+6866:
+6867: static int
+6868: ix86_nsaved_regs (void)
+6869: {
+6870:   int nregs = 0;
+6871:   int regno;
+6872:
+6873:   for (regno = 0; regno < FIRST_PSEUDO_REGISTER; regno++)
+6874:     if (GENERAL_REGNO_P (regno) && ix86_save_reg (regno, true, true))
+6875:       nregs ++;
+6876:   return nregs;
+6877: }
+6878:
+6879: /* Return number of saved SSE registers.  */
+6880:
+6881: static int
+6882: ix86_nsaved_sseregs (void)
+6883: {
+6884:   int nregs = 0;
+6885:   int regno;
+6886:
+6887:   if (!TARGET_64BIT_MS_ABI
+6888:       && (cfun->machine->call_saved_registers
+6889:           != TYPE_NO_CALLER_SAVED_REGISTERS))
+6890:     return 0;
+6891:   for (regno = 0; regno < FIRST_PSEUDO_REGISTER; regno++)
+6892:     if (SSE_REGNO_P (regno) && ix86_save_reg (regno, true, true))
+6893:       nregs ++;
+6894:   return nregs;
+```
+
+## gcc/config/i386/i386.cc:7020–7377
+
+```text
+7020: ix86_compute_frame_layout (void)
+7021: {
+7022:   struct ix86_frame *frame = &cfun->machine->frame;
+7023:   struct machine_function *m = cfun->machine;
+7024:   unsigned HOST_WIDE_INT stack_alignment_needed;
+7025:   HOST_WIDE_INT offset;
+7026:   unsigned HOST_WIDE_INT preferred_alignment;
+7027:   HOST_WIDE_INT size = ix86_get_frame_size ();
+7028:   HOST_WIDE_INT to_allocate;
+7029:
+7030:   /* m->call_ms2sysv is initially enabled in ix86_expand_call for all 64-bit
+7031:    * ms_abi functions that call a sysv function.  We now need to prune away
+7032:    * cases where it should be disabled.  */
+7033:   if (TARGET_64BIT && m->call_ms2sysv)
+7034:     {
+7035:       gcc_assert (TARGET_64BIT_MS_ABI);
+7036:       gcc_assert (TARGET_CALL_MS2SYSV_XLOGUES);
+7037:       gcc_assert (!TARGET_SEH);
+7038:       gcc_assert (TARGET_SSE);
+7039:       gcc_assert (!ix86_using_red_zone ());
+7040:
+7041:       if (crtl->calls_eh_return)
+7042:         {
+7043:           gcc_assert (!reload_completed);
+7044:           m->call_ms2sysv = false;
+7045:           warn_once_call_ms2sysv_xlogues ("__builtin_eh_return");
+7046:         }
+7047:
+7048:       else if (ix86_static_chain_on_stack)
+7049:         {
+7050:           gcc_assert (!reload_completed);
+7051:           m->call_ms2sysv = false;
+7052:           warn_once_call_ms2sysv_xlogues ("static call chains");
+7053:         }
+7054:
+7055:       /* Finally, compute which registers the stub will manage.  */
+7056:       else
+7057:         {
+7058:           unsigned count = xlogue_layout::count_stub_managed_regs ();
+7059:           m->call_ms2sysv_extra_regs = count - xlogue_layout::MIN_REGS;
+7060:           m->call_ms2sysv_pad_in = 0;
+7061:         }
+7062:     }
+7063:
+7064:   frame->nregs = ix86_nsaved_regs ();
+7065:   frame->nsseregs = ix86_nsaved_sseregs ();
+7066:
+7067:   /* 64-bit MS ABI seem to require stack alignment to be always 16,
+7068:      except for function prologues, leaf functions and when the defult
+7069:      incoming stack boundary is overriden at command line or via
+7070:      force_align_arg_pointer attribute.
+7071:
+7072:      Darwin's ABI specifies 128b alignment for both 32 and  64 bit variants
+7073:      at call sites, including profile function calls.
+7074:
+7075:      For APX push2/pop2, the stack also requires 128b alignment.  */
+7076:   if ((ix86_pro_and_epilogue_can_use_push2pop2 (frame->nregs)
+7077:        && crtl->preferred_stack_boundary < 128)
+7078:       || (((TARGET_64BIT_MS_ABI || TARGET_MACHO)
+7079:            && crtl->preferred_stack_boundary < 128)
+7080:           && (!crtl->is_leaf || cfun->calls_alloca != 0
+7081:               || ix86_current_function_calls_tls_descriptor
+7082:               || (TARGET_MACHO && crtl->profile)
+7083:               || ix86_incoming_stack_boundary < 128)))
+7084:     {
+7085:       crtl->preferred_stack_boundary = 128;
+7086:       if (crtl->stack_alignment_needed < 128)
+7087:         crtl->stack_alignment_needed = 128;
+7088:     }
+7089:
+7090:   stack_alignment_needed = crtl->stack_alignment_needed / BITS_PER_UNIT;
+7091:   preferred_alignment = crtl->preferred_stack_boundary / BITS_PER_UNIT;
+7092:
+7093:   gcc_assert (!size || stack_alignment_needed);
+7094:   gcc_assert (preferred_alignment >= STACK_BOUNDARY / BITS_PER_UNIT);
+7095:   gcc_assert (preferred_alignment <= stack_alignment_needed);
+7096:
+7097:   /* The only ABI saving SSE regs should be 64-bit ms_abi or with
+7098:      no_caller_saved_registers attribue.  */
+7099:   gcc_assert (TARGET_64BIT
+7100:               || (cfun->machine->call_saved_registers
+7101:                   == TYPE_NO_CALLER_SAVED_REGISTERS)
+7102:               || !frame->nsseregs);
+7103:   if (TARGET_64BIT && m->call_ms2sysv)
+7104:     {
+7105:       gcc_assert (stack_alignment_needed >= 16);
+7106:       gcc_assert ((cfun->machine->call_saved_registers
+7107:                    == TYPE_NO_CALLER_SAVED_REGISTERS)
+7108:                   || !frame->nsseregs);
+7109:     }
+7110:
+7111:   /* For SEH we have to limit the amount of code movement into the prologue.
+7112:      At present we do this via a BLOCKAGE, at which point there's very little
+7113:      scheduling that can be done, which means that there's very little point
+7114:      in doing anything except PUSHs.  */
+7115:   if (TARGET_SEH)
+7116:     m->use_fast_prologue_epilogue = false;
+7117:   else if (!optimize_bb_for_size_p (ENTRY_BLOCK_PTR_FOR_FN (cfun)))
+7118:     {
+7119:       int count = frame->nregs;
+7120:       struct cgraph_node *node = cgraph_node::get (current_function_decl);
+7121:
+7122:       /* The fast prologue uses move instead of push to save registers.  This
+7123:          is significantly longer, but also executes faster as modern hardware
+7124:          can execute the moves in parallel, but can't do that for push/pop.
+7125:
+7126:          Be careful about choosing what prologue to emit:  When function takes
+7127:          many instructions to execute we may use slow version as well as in
+7128:          case function is known to be outside hot spot (this is known with
+7129:          feedback only).  Weight the size of function by number of registers
+7130:          to save as it is cheap to use one or two push instructions but very
+7131:          slow to use many of them.
+7132:
+7133:          Calling this hook multiple times with the same frame requirements
+7134:          must produce the same layout, since the RA might otherwise be
+7135:          unable to reach a fixed point or might fail its final sanity checks.
+7136:          This means that once we've assumed that a function does or doesn't
+7137:          have a particular size, we have to stick to that assumption
+7138:          regardless of how the function has changed since.  */
+7139:       if (count)
+7140:         count = (count - 1) * FAST_PROLOGUE_INSN_COUNT;
+7141:       if (node->frequency < NODE_FREQUENCY_NORMAL
+7142:           || (flag_branch_probabilities
+7143:               && node->frequency < NODE_FREQUENCY_HOT))
+7144:         m->use_fast_prologue_epilogue = false;
+7145:       else
+7146:         {
+7147:           if (count != frame->expensive_count)
+7148:             {
+7149:               frame->expensive_count = count;
+7150:               frame->expensive_p = expensive_function_p (count);
+7151:             }
+7152:           m->use_fast_prologue_epilogue = !frame->expensive_p;
+7153:         }
+7154:     }
+7155:
+7156:   frame->save_regs_using_mov
+7157:     = TARGET_PROLOGUE_USING_MOVE && m->use_fast_prologue_epilogue;
+7158:
+7159:   /* Skip return address and error code in exception handler.  */
+7160:   offset = INCOMING_FRAME_SP_OFFSET;
+7161:
+7162:   /* Skip pushed static chain.  */
+7163:   if (ix86_static_chain_on_stack)
+7164:     offset += UNITS_PER_WORD;
+7165:
+7166:   /* Skip saved base pointer.  */
+7167:   if (frame_pointer_needed)
+7168:     offset += UNITS_PER_WORD;
+7169:   frame->hfp_save_offset = offset;
+7170:
+7171:   /* The traditional frame pointer location is at the top of the frame.  */
+7172:   frame->hard_frame_pointer_offset = offset;
+7173:
+7174:   /* Register save area */
+7175:   offset += frame->nregs * UNITS_PER_WORD;
+7176:   frame->reg_save_offset = offset;
+7177:
+7178:   /* Calculate the size of the va-arg area (not including padding, if any).  */
+7179:   frame->va_arg_size = ix86_varargs_gpr_size + ix86_varargs_fpr_size;
+7180:
+7181:   /* Also adjust stack_realign_offset for the largest alignment of
+7182:      stack slot actually used.  */
+7183:   if (stack_realign_fp
+7184:       || (cfun->machine->max_used_stack_alignment != 0
+7185:           && (offset % cfun->machine->max_used_stack_alignment) != 0))
+7186:     {
+7187:       /* We may need a 16-byte aligned stack for the remainder of the
+7188:          register save area, but the stack frame for the local function
+7189:          may require a greater alignment if using AVX/2/512.  In order
+7190:          to avoid wasting space, we first calculate the space needed for
+7191:          the rest of the register saves, add that to the stack pointer,
+7192:          and then realign the stack to the boundary of the start of the
+7193:          frame for the local function.  */
+7194:       HOST_WIDE_INT space_needed = 0;
+7195:       HOST_WIDE_INT sse_reg_space_needed = 0;
+7196:
+7197:       if (TARGET_64BIT)
+7198:         {
+7199:           if (m->call_ms2sysv)
+7200:             {
+7201:               m->call_ms2sysv_pad_in = 0;
+7202:               space_needed = xlogue_layout::get_instance ().get_stack_space_used ();
+7203:             }
+7204:
+7205:           else if (frame->nsseregs)
+7206:             /* The only ABI that has saved SSE registers (Win64) also has a
+7207:                16-byte aligned default stack.  However, many programs violate
+7208:                the ABI, and Wine64 forces stack realignment to compensate.  */
+7209:             space_needed = frame->nsseregs * 16;
+7210:
+7211:           sse_reg_space_needed = space_needed = ROUND_UP (space_needed, 16);
+7212:
+7213:           /* 64-bit frame->va_arg_size should always be a multiple of 16, but
+7214:              rounding to be pedantic.  */
+7215:           space_needed = ROUND_UP (space_needed + frame->va_arg_size, 16);
+7216:         }
+7217:       else
+7218:         space_needed = frame->va_arg_size;
+7219:
+7220:       /* Record the allocation size required prior to the realignment AND.  */
+7221:       frame->stack_realign_allocate = space_needed;
+7222:
+7223:       /* The re-aligned stack starts at frame->stack_realign_offset.  Values
+7224:          before this point are not directly comparable with values below
+7225:          this point.  Use sp_valid_at to determine if the stack pointer is
+7226:          valid for a given offset, fp_valid_at for the frame pointer, or
+7227:          choose_baseaddr to have a base register chosen for you.
+7228:
+7229:          Note that the result of (frame->stack_realign_offset
+7230:          & (stack_alignment_needed - 1)) may not equal zero.  */
+7231:       offset = ROUND_UP (offset + space_needed, stack_alignment_needed);
+7232:       frame->stack_realign_offset = offset - space_needed;
+7233:       frame->sse_reg_save_offset = frame->stack_realign_offset
+7234:                                                         + sse_reg_space_needed;
+7235:     }
+7236:   else
+7237:     {
+7238:       frame->stack_realign_offset = offset;
+7239:
+7240:       if (TARGET_64BIT && m->call_ms2sysv)
+7241:         {
+7242:           m->call_ms2sysv_pad_in = !!(offset & UNITS_PER_WORD);
+7243:           offset += xlogue_layout::get_instance ().get_stack_space_used ();
+7244:         }
+7245:
+7246:       /* Align and set SSE register save area.  */
+7247:       else if (frame->nsseregs)
+7248:         {
+7249:           /* If the incoming stack boundary is at least 16 bytes, or DRAP is
+7250:              required and the DRAP re-alignment boundary is at least 16 bytes,
+7251:              then we want the SSE register save area properly aligned.  */
+7252:           if (ix86_incoming_stack_boundary >= 128
+7253:                   || (stack_realign_drap && stack_alignment_needed >= 16))
+7254:             offset = ROUND_UP (offset, 16);
+7255:           offset += frame->nsseregs * 16;
+7256:         }
+7257:       frame->sse_reg_save_offset = offset;
+7258:       offset += frame->va_arg_size;
+7259:     }
+7260:
+7261:   /* Align start of frame for local function.  When a function call
+7262:      is removed, it may become a leaf function.  But if argument may
+7263:      be passed on stack, we need to align the stack when there is no
+7264:      tail call.  */
+7265:   if (m->call_ms2sysv
+7266:       || frame->va_arg_size != 0
+7267:       || size != 0
+7268:       || !crtl->is_leaf
+7269:       || (!crtl->tail_call_emit
+7270:           && cfun->machine->outgoing_args_on_stack)
+7271:       || cfun->calls_alloca
+7272:       || ix86_current_function_calls_tls_descriptor)
+7273:     offset = ROUND_UP (offset, stack_alignment_needed);
+7274:
+7275:   /* Frame pointer points here.  */
+7276:   frame->frame_pointer_offset = offset;
+7277:
+7278:   offset += size;
+7279:
+7280:   /* Add outgoing arguments area.  Can be skipped if we eliminated
+7281:      all the function calls as dead code.
+7282:      Skipping is however impossible when function calls alloca.  Alloca
+7283:      expander assumes that last crtl->outgoing_args_size
+7284:      of stack frame are unused.  */
+7285:   if (ACCUMULATE_OUTGOING_ARGS
+7286:       && (!crtl->is_leaf || cfun->calls_alloca
+7287:           || ix86_current_function_calls_tls_descriptor))
+7288:     {
+7289:       offset += crtl->outgoing_args_size;
+7290:       frame->outgoing_arguments_size = crtl->outgoing_args_size;
+7291:     }
+7292:   else
+7293:     frame->outgoing_arguments_size = 0;
+7294:
+7295:   /* Align stack boundary.  Only needed if we're calling another function
+7296:      or using alloca.  */
+7297:   if (!crtl->is_leaf || cfun->calls_alloca
+7298:       || ix86_current_function_calls_tls_descriptor)
+7299:     offset = ROUND_UP (offset, preferred_alignment);
+7300:
+7301:   /* We've reached end of stack frame.  */
+7302:   frame->stack_pointer_offset = offset;
+7303:
+7304:   /* Size prologue needs to allocate.  */
+7305:   to_allocate = offset - frame->sse_reg_save_offset;
+7306:
+7307:   if (save_regs_using_push_pop (to_allocate))
+7308:     frame->save_regs_using_mov = false;
+7309:
+7310:   if (ix86_using_red_zone ()
+7311:       && crtl->sp_is_unchanging
+7312:       && crtl->is_leaf
+7313:       && !cfun->machine->asm_redzone_clobber_seen
+7314:       && !ix86_pc_thunk_call_expanded
+7315:       && !ix86_current_function_calls_tls_descriptor)
+7316:     {
+7317:       frame->red_zone_size = to_allocate;
+7318:       if (frame->save_regs_using_mov)
+7319:         frame->red_zone_size += frame->nregs * UNITS_PER_WORD;
+7320:       if (frame->red_zone_size > RED_ZONE_SIZE - RED_ZONE_RESERVE)
+7321:         frame->red_zone_size = RED_ZONE_SIZE - RED_ZONE_RESERVE;
+7322:     }
+7323:   else
+7324:     frame->red_zone_size = 0;
+7325:   frame->stack_pointer_offset -= frame->red_zone_size;
+7326:
+7327:   /* The SEH frame pointer location is near the bottom of the frame.
+7328:      This is enforced by the fact that the difference between the
+7329:      stack pointer and the frame pointer is limited to 240 bytes in
+7330:      the unwind data structure.  */
+7331:   if (TARGET_SEH)
+7332:     {
+7333:       /* Force the frame pointer to point at or below the lowest register save
+7334:          area, see the SEH code in config/i386/winnt.cc for the rationale.  */
+7335:       frame->hard_frame_pointer_offset = frame->sse_reg_save_offset;
+7336:
+7337:       /* If we can leave the frame pointer where it is, do so; however return
+7338:          the establisher frame for __builtin_frame_address (0) or else if the
+7339:          frame overflows the SEH maximum frame size.
+7340:
+7341:          Note that the value returned by __builtin_frame_address (0) is quite
+7342:          constrained, because setjmp is piggybacked on the SEH machinery with
+7343:          recent versions of MinGW:
+7344:
+7345:           #    elif defined(__SEH__)
+7346:           #     if defined(__aarch64__) || defined(_ARM64_)
+7347:           #      define setjmp(BUF) _setjmp((BUF), __builtin_sponentry())
+7348:           #     elif (__MINGW_GCC_VERSION < 40702)
+7349:           #      define setjmp(BUF) _setjmp((BUF), mingw_getsp())
+7350:           #     else
+7351:           #      define setjmp(BUF) _setjmp((BUF), __builtin_frame_address (0))
+7352:           #     endif
+7353:
+7354:          and the second argument passed to _setjmp, if not null, is forwarded
+7355:          to the TargetFrame parameter of RtlUnwindEx by longjmp (after it has
+7356:          built an ExceptionRecord on the fly describing the setjmp buffer).  */
+7357:       const HOST_WIDE_INT diff
+7358:         = frame->stack_pointer_offset - frame->hard_frame_pointer_offset;
+7359:       if (diff <= 255 && !crtl->accesses_prior_frames)
+7360:         {
+7361:           /* The resulting diff will be a multiple of 16 lower than 255,
+7362:              i.e. at most 240 as required by the unwind data structure.  */
+7363:           frame->hard_frame_pointer_offset += (diff & 15);
+7364:         }
+7365:       else if (diff <= SEH_MAX_FRAME_SIZE && !crtl->accesses_prior_frames)
+7366:         {
+7367:           /* Ideally we'd determine what portion of the local stack frame
+7368:              (within the constraint of the lowest 240) is most heavily used.
+7369:              But without that complication, simply bias the frame pointer
+7370:              by 128 bytes so as to maximize the amount of the local stack
+7371:              frame that is addressable with 8-bit offsets.  */
+7372:           frame->hard_frame_pointer_offset = frame->stack_pointer_offset - 128;
+7373:         }
+7374:       else
+7375:         frame->hard_frame_pointer_offset = frame->hfp_save_offset;
+7376:     }
+7377: }
+```
+
+## gcc/config/i386/i386.cc:7796–7809
+
+```text
+7796: ix86_add_cfa_restore_note (rtx_insn *insn, rtx reg, HOST_WIDE_INT cfa_offset)
+7797: {
+7798:   if (!crtl->shrink_wrapped
+7799:       && cfa_offset <= cfun->machine->fs.red_zone_offset)
+7800:     return;
+7801:
+7802:   if (insn)
+7803:     {
+7804:       add_reg_note (insn, REG_CFA_RESTORE, reg);
+7805:       RTX_FRAME_RELATED_P (insn) = 1;
+7806:     }
+7807:   else
+7808:     queued_cfa_restores
+7809:       = alloc_reg_note (REG_CFA_RESTORE, reg, queued_cfa_restores);
+```
+
+## gcc/config/i386/i386.cc:8988–9049
+
+```text
+8988: ix86_finalize_stack_frame_flags (void)
+8989: {
+8990:   /* Check if stack realign is really needed after reload, and
+8991:      stores result in cfun */
+8992:   unsigned int incoming_stack_boundary
+8993:     = (crtl->parm_stack_boundary > ix86_incoming_stack_boundary
+8994:        ? crtl->parm_stack_boundary : ix86_incoming_stack_boundary);
+8995:   unsigned int stack_alignment
+8996:     = (crtl->is_leaf && !ix86_current_function_calls_tls_descriptor
+8997:        ? crtl->max_used_stack_slot_alignment
+8998:        : crtl->stack_alignment_needed);
+8999:   unsigned int stack_realign
+9000:     = (incoming_stack_boundary < stack_alignment);
+9001:   bool recompute_frame_layout_p = false;
+9002:
+9003:   if (crtl->stack_realign_finalized)
+9004:     {
+9005:       /* After stack_realign_needed is finalized, we can't no longer
+9006:          change it.  */
+9007:       gcc_assert (crtl->stack_realign_needed == stack_realign);
+9008:       return;
+9009:     }
+9010:
+9011:   /* It is always safe to compute max_used_stack_alignment.  We
+9012:      compute it only if 128-bit aligned load/store may be generated
+9013:      on misaligned stack slot which will lead to segfault. */
+9014:   bool check_stack_slot
+9015:     = (stack_realign || crtl->max_used_stack_slot_alignment >= 128);
+9016:   ix86_find_max_used_stack_alignment (stack_alignment,
+9017:                                       check_stack_slot);
+9018:
+9019:   /* If the only reason for frame_pointer_needed is that we conservatively
+9020:      assumed stack realignment might be needed or -fno-omit-frame-pointer
+9021:      is used, but in the end nothing that needed the stack alignment had
+9022:      been spilled nor stack access, clear frame_pointer_needed and say we
+9023:      don't need stack realignment.
+9024:
+9025:      When vector register is used for piecewise move and store, we don't
+9026:      increase stack_alignment_needed as there is no register spill for
+9027:      piecewise move and store.  Since stack_realign_needed is set to true
+9028:      by checking stack_alignment_estimated which is updated by pseudo
+9029:      vector register usage, we also need to check stack_realign_needed to
+9030:      eliminate frame pointer.  */
+9031:   if ((stack_realign
+9032:        || (!flag_omit_frame_pointer && optimize)
+9033:        || crtl->stack_realign_needed)
+9034:       && frame_pointer_needed
+9035:       && crtl->is_leaf
+9036:       && crtl->sp_is_unchanging
+9037:       && !ix86_current_function_calls_tls_descriptor
+9038:       && !crtl->accesses_prior_frames
+9039:       && !cfun->calls_alloca
+9040:       && !crtl->calls_eh_return
+9041:       /* See ira_setup_eliminable_regset for the rationale.  */
+9042:       && !(STACK_CHECK_MOVING_SP
+9043:            && flag_stack_check
+9044:            && flag_exceptions
+9045:            && cfun->can_throw_non_call_exceptions)
+9046:       && !ix86_frame_pointer_required ()
+9047:       && ix86_get_frame_size () == 0
+9048:       && ix86_nsaved_sseregs () == 0
+9049:       && ix86_varargs_gpr_size + ix86_varargs_fpr_size == 0)
+```
+
+## gcc/config/i386/i386.cc:9266–9907
+
+```text
+9266: ix86_expand_prologue (void)
+9267: {
+9268:   struct machine_function *m = cfun->machine;
+9269:   rtx insn, t;
+9270:   HOST_WIDE_INT allocate;
+9271:   bool int_registers_saved;
+9272:   bool sse_registers_saved;
+9273:   bool save_stub_call_needed;
+9274:   rtx static_chain = NULL_RTX;
+9275:
+9276:   ix86_last_zero_store_uid = 0;
+9277:   if (ix86_function_naked (current_function_decl))
+9278:     {
+9279:       if (flag_stack_usage_info)
+9280:         current_function_static_stack_size = 0;
+9281:       return;
+9282:     }
+9283:
+9284:   ix86_finalize_stack_frame_flags ();
+9285:
+9286:   /* DRAP should not coexist with stack_realign_fp */
+9287:   gcc_assert (!(crtl->drap_reg && stack_realign_fp));
+9288:
+9289:   memset (&m->fs, 0, sizeof (m->fs));
+9290:
+9291:   /* Initialize CFA state for before the prologue.  */
+9292:   m->fs.cfa_reg = stack_pointer_rtx;
+9293:   m->fs.cfa_offset = INCOMING_FRAME_SP_OFFSET;
+9294:
+9295:   /* Track SP offset to the CFA.  We continue tracking this after we've
+9296:      swapped the CFA register away from SP.  In the case of re-alignment
+9297:      this is fudged; we're interested to offsets within the local frame.  */
+9298:   m->fs.sp_offset = INCOMING_FRAME_SP_OFFSET;
+9299:   m->fs.sp_valid = true;
+9300:   m->fs.sp_realigned = false;
+9301:
+9302:   const struct ix86_frame &frame = cfun->machine->frame;
+9303:
+9304:   if (!TARGET_64BIT && ix86_function_ms_hook_prologue (current_function_decl))
+9305:     {
+9306:       /* We should have already generated an error for any use of
+9307:          ms_hook on a nested function.  */
+9308:       gcc_checking_assert (!ix86_static_chain_on_stack);
+9309:
+9310:       /* Check if profiling is active and we shall use profiling before
+9311:          prologue variant. If so sorry.  */
+9312:       if (crtl->profile && flag_fentry != 0)
+9313:         sorry ("%<ms_hook_prologue%> attribute is not compatible "
+9314:                "with %<-mfentry%> for 32-bit");
+9315:
+9316:       /* In ix86_asm_output_function_label we emitted:
+9317:          8b ff     movl.s %edi,%edi
+9318:          55        push   %ebp
+9319:          8b ec     movl.s %esp,%ebp
+9320:
+9321:          This matches the hookable function prologue in Win32 API
+9322:          functions in Microsoft Windows XP Service Pack 2 and newer.
+9323:          Wine uses this to enable Windows apps to hook the Win32 API
+9324:          functions provided by Wine.
+9325:
+9326:          What that means is that we've already set up the frame pointer.  */
+9327:
+9328:       if (frame_pointer_needed
+9329:           && !(crtl->drap_reg && crtl->stack_realign_needed))
+9330:         {
+9331:           rtx push, mov;
+9332:
+9333:           /* We've decided to use the frame pointer already set up.
+9334:              Describe this to the unwinder by pretending that both
+9335:              push and mov insns happen right here.
+9336:
+9337:              Putting the unwind info here at the end of the ms_hook
+9338:              is done so that we can make absolutely certain we get
+9339:              the required byte sequence at the start of the function,
+9340:              rather than relying on an assembler that can produce
+9341:              the exact encoding required.
+9342:
+9343:              However it does mean (in the unpatched case) that we have
+9344:              a 1 insn window where the asynchronous unwind info is
+9345:              incorrect.  However, if we placed the unwind info at
+9346:              its correct location we would have incorrect unwind info
+9347:              in the patched case.  Which is probably all moot since
+9348:              I don't expect Wine generates dwarf2 unwind info for the
+9349:              system libraries that use this feature.  */
+9350:
+9351:           insn = emit_insn (gen_blockage ());
+9352:
+9353:           push = gen_push (hard_frame_pointer_rtx);
+9354:           mov = gen_rtx_SET (hard_frame_pointer_rtx,
+9355:                              stack_pointer_rtx);
+9356:           RTX_FRAME_RELATED_P (push) = 1;
+9357:           RTX_FRAME_RELATED_P (mov) = 1;
+9358:
+9359:           RTX_FRAME_RELATED_P (insn) = 1;
+9360:           add_reg_note (insn, REG_FRAME_RELATED_EXPR,
+9361:                         gen_rtx_PARALLEL (VOIDmode, gen_rtvec (2, push, mov)));
+9362:
+9363:           /* Note that gen_push incremented m->fs.cfa_offset, even
+9364:              though we didn't emit the push insn here.  */
+9365:           m->fs.cfa_reg = hard_frame_pointer_rtx;
+9366:           m->fs.fp_offset = m->fs.cfa_offset;
+9367:           m->fs.fp_valid = true;
+9368:         }
+9369:       else
+9370:         {
+9371:           /* The frame pointer is not needed so pop %ebp again.
+9372:              This leaves us with a pristine state.  */
+9373:           emit_insn (gen_pop (hard_frame_pointer_rtx));
+9374:         }
+9375:     }
+9376:
+9377:   /* The first insn of a function that accepts its static chain on the
+9378:      stack is to push the register that would be filled in by a direct
+9379:      call.  This insn will be skipped by the trampoline.  */
+9380:   else if (ix86_static_chain_on_stack)
+9381:     {
+9382:       static_chain = ix86_static_chain (cfun->decl, false);
+9383:       insn = emit_insn (gen_push (static_chain));
+9384:       emit_insn (gen_blockage ());
+9385:
+9386:       /* We don't want to interpret this push insn as a register save,
+9387:          only as a stack adjustment.  The real copy of the register as
+9388:          a save will be done later, if needed.  */
+9389:       t = plus_constant (Pmode, stack_pointer_rtx, -UNITS_PER_WORD);
+9390:       t = gen_rtx_SET (stack_pointer_rtx, t);
+9391:       add_reg_note (insn, REG_CFA_ADJUST_CFA, t);
+9392:       RTX_FRAME_RELATED_P (insn) = 1;
+9393:     }
+9394:
+9395:   /* Emit prologue code to adjust stack alignment and setup DRAP, in case
+9396:      of DRAP is needed and stack realignment is really needed after reload */
+9397:   if (stack_realign_drap)
+9398:     {
+9399:       int align_bytes = crtl->stack_alignment_needed / BITS_PER_UNIT;
+9400:
+9401:       /* Can't use DRAP in interrupt function.  */
+9402:       if (cfun->machine->func_type != TYPE_NORMAL)
+9403:         sorry ("Dynamic Realign Argument Pointer (DRAP) not supported "
+9404:                "in interrupt service routine.  This may be worked "
+9405:                "around by avoiding functions with aggregate return.");
+9406:
+9407:       /* Only need to push parameter pointer reg if it is caller saved.  */
+9408:       if (!call_used_or_fixed_reg_p (REGNO (crtl->drap_reg)))
+9409:         {
+9410:           /* Push arg pointer reg */
+9411:           insn = emit_insn (gen_push (crtl->drap_reg));
+9412:           RTX_FRAME_RELATED_P (insn) = 1;
+9413:         }
+9414:
+9415:       /* Grab the argument pointer.  */
+9416:       t = plus_constant (Pmode, stack_pointer_rtx, m->fs.sp_offset);
+9417:       insn = emit_insn (gen_rtx_SET (crtl->drap_reg, t));
+9418:       RTX_FRAME_RELATED_P (insn) = 1;
+9419:       m->fs.cfa_reg = crtl->drap_reg;
+9420:       m->fs.cfa_offset = 0;
+9421:
+9422:       /* Align the stack.  */
+9423:       insn = emit_insn (gen_and2_insn (stack_pointer_rtx,
+9424:                                        GEN_INT (-align_bytes)));
+9425:       RTX_FRAME_RELATED_P (insn) = 1;
+9426:
+9427:       /* Replicate the return address on the stack so that return
+9428:          address can be reached via (argp - 1) slot.  This is needed
+9429:          to implement macro RETURN_ADDR_RTX and intrinsic function
+9430:          expand_builtin_return_addr etc.  */
+9431:       t = plus_constant (Pmode, crtl->drap_reg, -UNITS_PER_WORD);
+9432:       t = gen_frame_mem (word_mode, t);
+9433:       insn = emit_insn (gen_push (t));
+9434:       RTX_FRAME_RELATED_P (insn) = 1;
+9435:
+9436:       /* For the purposes of frame and register save area addressing,
+9437:          we've started over with a new frame.  */
+9438:       m->fs.sp_offset = INCOMING_FRAME_SP_OFFSET;
+9439:       m->fs.realigned = true;
+9440:
+9441:       if (static_chain)
+9442:         {
+9443:           /* Replicate static chain on the stack so that static chain
+9444:              can be reached via (argp - 2) slot.  This is needed for
+9445:              nested function with stack realignment.  */
+9446:           insn = emit_insn (gen_push (static_chain));
+9447:           RTX_FRAME_RELATED_P (insn) = 1;
+9448:         }
+9449:     }
+9450:
+9451:   int_registers_saved = (frame.nregs == 0);
+9452:   sse_registers_saved = (frame.nsseregs == 0);
+9453:   save_stub_call_needed = (m->call_ms2sysv);
+9454:   gcc_assert (sse_registers_saved || !save_stub_call_needed);
+9455:
+9456:   if (frame_pointer_needed && !m->fs.fp_valid)
+9457:     {
+9458:       /* Note: AT&T enter does NOT have reversed args.  Enter is probably
+9459:          slower on all targets.  Also sdb didn't like it.  */
+9460:       insn = emit_insn (gen_push (hard_frame_pointer_rtx));
+9461:       RTX_FRAME_RELATED_P (insn) = 1;
+9462:
+9463:       if (m->fs.sp_offset == frame.hard_frame_pointer_offset)
+9464:         {
+9465:           insn = emit_move_insn (hard_frame_pointer_rtx, stack_pointer_rtx);
+9466:           RTX_FRAME_RELATED_P (insn) = 1;
+9467:
+9468:           if (m->fs.cfa_reg == stack_pointer_rtx)
+9469:             m->fs.cfa_reg = hard_frame_pointer_rtx;
+9470:           m->fs.fp_offset = m->fs.sp_offset;
+9471:           m->fs.fp_valid = true;
+9472:         }
+9473:     }
+9474:
+9475:   if (!int_registers_saved)
+9476:     {
+9477:       /* If saving registers via PUSH, do so now.  */
+9478:       if (!frame.save_regs_using_mov)
+9479:         {
+9480:           ix86_emit_save_regs ();
+9481:           m->fs.apx_ppx_used = TARGET_APX_PPX && !crtl->calls_eh_return;
+9482:           int_registers_saved = true;
+9483:           gcc_assert (m->fs.sp_offset == frame.reg_save_offset);
+9484:         }
+9485:
+9486:       /* When using red zone we may start register saving before allocating
+9487:          the stack frame saving one cycle of the prologue.  However, avoid
+9488:          doing this if we have to probe the stack; at least on x86_64 the
+9489:          stack probe can turn into a call that clobbers a red zone location. */
+9490:       else if (ix86_using_red_zone ()
+9491:                 && (! TARGET_STACK_PROBE
+9492:                     || frame.stack_pointer_offset < CHECK_STACK_LIMIT))
+9493:         {
+9494:           HOST_WIDE_INT allocate_offset;
+9495:           if (crtl->shrink_wrapped_separate)
+9496:             {
+9497:               allocate_offset = m->fs.sp_offset - frame.stack_pointer_offset;
+9498:
+9499:               /* Adjust the total offset at the beginning of the function.  */
+9500:               pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+9501:                                          GEN_INT (allocate_offset), -1,
+9502:                                          m->fs.cfa_reg == stack_pointer_rtx);
+9503:               m->fs.sp_offset = cfun->machine->frame.stack_pointer_offset;
+9504:             }
+9505:
+9506:           ix86_emit_save_regs_using_mov (frame.reg_save_offset);
+9507:           int_registers_saved = true;
+9508:         }
+9509:     }
+9510:
+9511:   if (frame.red_zone_size != 0)
+9512:     cfun->machine->red_zone_used = true;
+9513:
+9514:   if (stack_realign_fp)
+9515:     {
+9516:       int align_bytes = crtl->stack_alignment_needed / BITS_PER_UNIT;
+9517:       gcc_assert (align_bytes > MIN_STACK_BOUNDARY / BITS_PER_UNIT);
+9518:
+9519:       /* Record last valid frame pointer offset.  */
+9520:       m->fs.sp_realigned_fp_last = frame.reg_save_offset;
+9521:
+9522:       /* The computation of the size of the re-aligned stack frame means
+9523:          that we must allocate the size of the register save area before
+9524:          performing the actual alignment.  Otherwise we cannot guarantee
+9525:          that there's enough storage above the realignment point.  */
+9526:       allocate = frame.reg_save_offset - m->fs.sp_offset
+9527:                  + frame.stack_realign_allocate;
+9528:       if (allocate)
+9529:         pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+9530:                                    GEN_INT (-allocate), -1, false);
+9531:
+9532:       /* Align the stack.  */
+9533:       emit_insn (gen_and2_insn (stack_pointer_rtx, GEN_INT (-align_bytes)));
+9534:       m->fs.sp_offset = ROUND_UP (m->fs.sp_offset, align_bytes);
+9535:       m->fs.sp_realigned_offset = m->fs.sp_offset
+9536:                                               - frame.stack_realign_allocate;
+9537:       /* The stack pointer may no longer be equal to CFA - m->fs.sp_offset.
+9538:          Beyond this point, stack access should be done via choose_baseaddr or
+9539:          by using sp_valid_at and fp_valid_at to determine the correct base
+9540:          register.  Henceforth, any CFA offset should be thought of as logical
+9541:          and not physical.  */
+9542:       gcc_assert (m->fs.sp_realigned_offset >= m->fs.sp_realigned_fp_last);
+9543:       gcc_assert (m->fs.sp_realigned_offset == frame.stack_realign_offset);
+9544:       m->fs.sp_realigned = true;
+9545:
+9546:       /* SEH unwind emit doesn't currently support REG_CFA_EXPRESSION, which
+9547:          is needed to describe where a register is saved using a realigned
+9548:          stack pointer, so we need to invalidate the stack pointer for that
+9549:          target.  */
+9550:       if (TARGET_SEH)
+9551:         m->fs.sp_valid = false;
+9552:
+9553:       /* If SP offset is non-immediate after allocation of the stack frame,
+9554:          then emit SSE saves or stub call prior to allocating the rest of the
+9555:          stack frame.  This is less efficient for the out-of-line stub because
+9556:          we can't combine allocations across the call barrier, but it's better
+9557:          than using a scratch register.  */
+9558:       else if (!x86_64_immediate_operand (GEN_INT (frame.stack_pointer_offset
+9559:                                                    - m->fs.sp_realigned_offset),
+9560:                                           Pmode))
+9561:         {
+9562:           if (!sse_registers_saved)
+9563:             {
+9564:               ix86_emit_save_sse_regs_using_mov (frame.sse_reg_save_offset);
+9565:               sse_registers_saved = true;
+9566:             }
+9567:           else if (save_stub_call_needed)
+9568:             {
+9569:               ix86_emit_outlined_ms2sysv_save (frame);
+9570:               save_stub_call_needed = false;
+9571:             }
+9572:         }
+9573:     }
+9574:
+9575:   allocate = frame.stack_pointer_offset - m->fs.sp_offset;
+9576:
+9577:   if (flag_stack_usage_info)
+9578:     {
+9579:       /* We start to count from ARG_POINTER.  */
+9580:       HOST_WIDE_INT stack_size = frame.stack_pointer_offset;
+9581:
+9582:       /* If it was realigned, take into account the fake frame.  */
+9583:       if (stack_realign_drap)
+9584:         {
+9585:           if (ix86_static_chain_on_stack)
+9586:             stack_size += UNITS_PER_WORD;
+9587:
+9588:           if (!call_used_or_fixed_reg_p (REGNO (crtl->drap_reg)))
+9589:             stack_size += UNITS_PER_WORD;
+9590:
+9591:           /* This over-estimates by 1 minimal-stack-alignment-unit but
+9592:              mitigates that by counting in the new return address slot.  */
+9593:           current_function_dynamic_stack_size
+9594:             += crtl->stack_alignment_needed / BITS_PER_UNIT;
+9595:         }
+9596:
+9597:       current_function_static_stack_size = stack_size;
+9598:     }
+9599:
+9600:   /* On SEH target with very large frame size, allocate an area to save
+9601:      SSE registers (as the very large allocation won't be described).  */
+9602:   if (TARGET_SEH
+9603:       && frame.stack_pointer_offset > SEH_MAX_FRAME_SIZE
+9604:       && !sse_registers_saved)
+9605:     {
+9606:       HOST_WIDE_INT sse_size
+9607:         = frame.sse_reg_save_offset - frame.reg_save_offset;
+9608:
+9609:       gcc_assert (int_registers_saved);
+9610:
+9611:       /* No need to do stack checking as the area will be immediately
+9612:          written.  */
+9613:       pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+9614:                                  GEN_INT (-sse_size), -1,
+9615:                                  m->fs.cfa_reg == stack_pointer_rtx);
+9616:       allocate -= sse_size;
+9617:       ix86_emit_save_sse_regs_using_mov (frame.sse_reg_save_offset);
+9618:       sse_registers_saved = true;
+9619:     }
+9620:
+9621:   /* If stack clash protection is requested, then probe the stack, unless it
+9622:      is already probed on the target.  */
+9623:   if (allocate >= 0
+9624:       && flag_stack_clash_protection
+9625:       && !ix86_target_stack_probe ())
+9626:     {
+9627:       ix86_adjust_stack_and_probe (allocate, int_registers_saved, false);
+9628:       allocate = 0;
+9629:     }
+9630:
+9631:   /* The stack has already been decremented by the instruction calling us
+9632:      so probe if the size is non-negative to preserve the protection area.  */
+9633:   else if (allocate >= 0 && flag_stack_check == STATIC_BUILTIN_STACK_CHECK)
+9634:     {
+9635:       const HOST_WIDE_INT probe_interval = get_probe_interval ();
+9636:
+9637:       if (STACK_CHECK_MOVING_SP)
+9638:         {
+9639:           if (crtl->is_leaf
+9640:               && !cfun->calls_alloca
+9641:               && allocate <= probe_interval)
+9642:             ;
+9643:
+9644:           else
+9645:             {
+9646:               ix86_adjust_stack_and_probe (allocate, int_registers_saved, true);
+9647:               allocate = 0;
+9648:             }
+9649:         }
+9650:
+9651:       else
+9652:         {
+9653:           HOST_WIDE_INT size = allocate;
+9654:
+9655:           if (TARGET_64BIT && size >= HOST_WIDE_INT_C (0x80000000))
+9656:             size = 0x80000000 - get_stack_check_protect () - 1;
+9657:
+9658:           if (TARGET_STACK_PROBE)
+9659:             {
+9660:               if (crtl->is_leaf && !cfun->calls_alloca)
+9661:                 {
+9662:                   if (size > probe_interval)
+9663:                     ix86_emit_probe_stack_range (0, size, int_registers_saved);
+9664:                 }
+9665:               else
+9666:                 ix86_emit_probe_stack_range (0,
+9667:                                              size + get_stack_check_protect (),
+9668:                                              int_registers_saved);
+9669:             }
+9670:           else
+9671:             {
+9672:               if (crtl->is_leaf && !cfun->calls_alloca)
+9673:                 {
+9674:                   if (size > probe_interval
+9675:                       && size > get_stack_check_protect ())
+9676:                     ix86_emit_probe_stack_range (get_stack_check_protect (),
+9677:                                                  (size
+9678:                                                   - get_stack_check_protect ()),
+9679:                                                  int_registers_saved);
+9680:                 }
+9681:               else
+9682:                 ix86_emit_probe_stack_range (get_stack_check_protect (), size,
+9683:                                              int_registers_saved);
+9684:             }
+9685:         }
+9686:     }
+9687:
+9688:   if (allocate == 0)
+9689:     ;
+9690:   else if (!ix86_target_stack_probe ()
+9691:            || frame.stack_pointer_offset < CHECK_STACK_LIMIT)
+9692:     {
+9693:       pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+9694:                                  GEN_INT (-allocate), -1,
+9695:                                  m->fs.cfa_reg == stack_pointer_rtx);
+9696:     }
+9697:   else
+9698:     {
+9699:       rtx eax = gen_rtx_REG (Pmode, AX_REG);
+9700:       rtx r10 = NULL;
+9701:       const bool sp_is_cfa_reg = (m->fs.cfa_reg == stack_pointer_rtx);
+9702:       bool eax_live = ix86_eax_live_at_start_p ();
+9703:       bool r10_live = false;
+9704:
+9705:       if (TARGET_64BIT)
+9706:         r10_live = (DECL_STATIC_CHAIN (current_function_decl) != 0);
+9707:
+9708:       if (eax_live)
+9709:         {
+9710:           insn = emit_insn (gen_push (eax));
+9711:           allocate -= UNITS_PER_WORD;
+9712:           /* Note that SEH directives need to continue tracking the stack
+9713:              pointer even after the frame pointer has been set up.  */
+9714:           if (sp_is_cfa_reg || TARGET_SEH)
+9715:             {
+9716:               if (sp_is_cfa_reg)
+9717:                 m->fs.cfa_offset += UNITS_PER_WORD;
+9718:               RTX_FRAME_RELATED_P (insn) = 1;
+9719:               add_reg_note (insn, REG_FRAME_RELATED_EXPR,
+9720:                             gen_rtx_SET (stack_pointer_rtx,
+9721:                                          plus_constant (Pmode,
+9722:                                                         stack_pointer_rtx,
+9723:                                                         -UNITS_PER_WORD)));
+9724:             }
+9725:         }
+9726:
+9727:       if (r10_live)
+9728:         {
+9729:           r10 = gen_rtx_REG (Pmode, R10_REG);
+9730:           insn = emit_insn (gen_push (r10));
+9731:           allocate -= UNITS_PER_WORD;
+9732:           if (sp_is_cfa_reg || TARGET_SEH)
+9733:             {
+9734:               if (sp_is_cfa_reg)
+9735:                 m->fs.cfa_offset += UNITS_PER_WORD;
+9736:               RTX_FRAME_RELATED_P (insn) = 1;
+9737:               add_reg_note (insn, REG_FRAME_RELATED_EXPR,
+9738:                             gen_rtx_SET (stack_pointer_rtx,
+9739:                                          plus_constant (Pmode,
+9740:                                                         stack_pointer_rtx,
+9741:                                                         -UNITS_PER_WORD)));
+9742:             }
+9743:         }
+9744:
+9745:       emit_move_insn (eax, GEN_INT (allocate));
+9746:       emit_insn (gen_allocate_stack_worker_probe (Pmode, eax, eax));
+9747:
+9748:       /* Use the fact that AX still contains ALLOCATE.  */
+9749:       insn = emit_insn (gen_pro_epilogue_adjust_stack_sub
+9750:                         (Pmode, stack_pointer_rtx, stack_pointer_rtx, eax));
+9751:
+9752:       if (sp_is_cfa_reg || TARGET_SEH)
+9753:         {
+9754:           if (sp_is_cfa_reg)
+9755:             m->fs.cfa_offset += allocate;
+9756:           RTX_FRAME_RELATED_P (insn) = 1;
+9757:           add_reg_note (insn, REG_FRAME_RELATED_EXPR,
+9758:                         gen_rtx_SET (stack_pointer_rtx,
+9759:                                      plus_constant (Pmode, stack_pointer_rtx,
+9760:                                                     -allocate)));
+9761:         }
+9762:       m->fs.sp_offset += allocate;
+9763:
+9764:       /* Use stack_pointer_rtx for relative addressing so that code works for
+9765:          realigned stack.  But this means that we need a blockage to prevent
+9766:          stores based on the frame pointer from being scheduled before.  */
+9767:       if (r10_live && eax_live)
+9768:         {
+9769:           t = gen_rtx_PLUS (Pmode, stack_pointer_rtx, eax);
+9770:           emit_move_insn (gen_rtx_REG (word_mode, R10_REG),
+9771:                           gen_frame_mem (word_mode, t));
+9772:           t = plus_constant (Pmode, t, UNITS_PER_WORD);
+9773:           emit_move_insn (gen_rtx_REG (word_mode, AX_REG),
+9774:                           gen_frame_mem (word_mode, t));
+9775:           emit_insn (gen_memory_blockage ());
+9776:         }
+9777:       else if (eax_live || r10_live)
+9778:         {
+9779:           t = gen_rtx_PLUS (Pmode, stack_pointer_rtx, eax);
+9780:           emit_move_insn (gen_rtx_REG (word_mode,
+9781:                                        (eax_live ? AX_REG : R10_REG)),
+9782:                           gen_frame_mem (word_mode, t));
+9783:           emit_insn (gen_memory_blockage ());
+9784:         }
+9785:     }
+9786:   gcc_assert (m->fs.sp_offset == frame.stack_pointer_offset);
+9787:
+9788:   /* If we havn't already set up the frame pointer, do so now.  */
+9789:   if (frame_pointer_needed && !m->fs.fp_valid)
+9790:     {
+9791:       insn = gen_add3_insn (hard_frame_pointer_rtx, stack_pointer_rtx,
+9792:                             GEN_INT (frame.stack_pointer_offset
+9793:                                      - frame.hard_frame_pointer_offset));
+9794:       insn = emit_insn (insn);
+9795:       RTX_FRAME_RELATED_P (insn) = 1;
+9796:       add_reg_note (insn, REG_CFA_ADJUST_CFA, NULL);
+9797:
+9798:       if (m->fs.cfa_reg == stack_pointer_rtx)
+9799:         m->fs.cfa_reg = hard_frame_pointer_rtx;
+9800:       m->fs.fp_offset = frame.hard_frame_pointer_offset;
+9801:       m->fs.fp_valid = true;
+9802:     }
+9803:
+9804:   if (!int_registers_saved)
+9805:     ix86_emit_save_regs_using_mov (frame.reg_save_offset);
+9806:   if (!sse_registers_saved)
+9807:     ix86_emit_save_sse_regs_using_mov (frame.sse_reg_save_offset);
+9808:   else if (save_stub_call_needed)
+9809:     ix86_emit_outlined_ms2sysv_save (frame);
+9810:
+9811:   /* For the mcount profiling on 32 bit PIC mode we need to emit SET_GOT
+9812:      in PROLOGUE.  */
+9813:   if (!TARGET_64BIT && pic_offset_table_rtx && crtl->profile && !flag_fentry)
+9814:     {
+9815:       rtx pic = gen_rtx_REG (Pmode, REAL_PIC_OFFSET_TABLE_REGNUM);
+9816:       insn = emit_insn (gen_set_got (pic));
+9817:       RTX_FRAME_RELATED_P (insn) = 1;
+9818:       add_reg_note (insn, REG_CFA_FLUSH_QUEUE, NULL_RTX);
+9819:       emit_insn (gen_prologue_use (pic));
+9820:       /* Deleting already emmitted SET_GOT if exist and allocated to
+9821:          REAL_PIC_OFFSET_TABLE_REGNUM.  */
+9822:       ix86_elim_entry_set_got (pic);
+9823:     }
+9824:
+9825:   if (crtl->drap_reg && !crtl->stack_realign_needed)
+9826:     {
+9827:       /* vDRAP is setup but after reload it turns out stack realign
+9828:          isn't necessary, here we will emit prologue to setup DRAP
+9829:          without stack realign adjustment */
+9830:       t = choose_baseaddr (0, NULL);
+9831:       emit_insn (gen_rtx_SET (crtl->drap_reg, t));
+9832:     }
+9833:
+9834:   /* Prevent instructions from being scheduled into register save push
+9835:      sequence when access to the redzone area is done through frame pointer.
+9836:      The offset between the frame pointer and the stack pointer is calculated
+9837:      relative to the value of the stack pointer at the end of the function
+9838:      prologue, and moving instructions that access redzone area via frame
+9839:      pointer inside push sequence violates this assumption.  */
+9840:   if (frame_pointer_needed && frame.red_zone_size)
+9841:     emit_insn (gen_memory_blockage ());
+9842:
+9843:   /* SEH requires that the prologue end within 256 bytes of the start of
+9844:      the function.  Prevent instruction schedules that would extend that.
+9845:      Further, prevent alloca modifications to the stack pointer from being
+9846:      combined with prologue modifications.  */
+9847:   if (TARGET_SEH)
+9848:     emit_insn (gen_prologue_use (stack_pointer_rtx));
+9849: }
+9850:
+9851: /* Emit code to restore REG using a POP or POPP insn.  */
+9852:
+9853: static void
+9854: ix86_emit_restore_reg_using_pop (rtx reg, bool ppx_p)
+9855: {
+9856:   struct machine_function *m = cfun->machine;
+9857:   rtx_insn *insn = emit_insn (gen_pop (reg, ppx_p));
+9858:
+9859:   ix86_add_cfa_restore_note (insn, reg, m->fs.sp_offset);
+9860:   m->fs.sp_offset -= UNITS_PER_WORD;
+9861:
+9862:   if (m->fs.cfa_reg == crtl->drap_reg
+9863:       && REGNO (reg) == REGNO (crtl->drap_reg))
+9864:     {
+9865:       /* Previously we'd represented the CFA as an expression
+9866:          like *(%ebp - 8).  We've just popped that value from
+9867:          the stack, which means we need to reset the CFA to
+9868:          the drap register.  This will remain until we restore
+9869:          the stack pointer.  */
+9870:       add_reg_note (insn, REG_CFA_DEF_CFA, reg);
+9871:       RTX_FRAME_RELATED_P (insn) = 1;
+9872:
+9873:       /* This means that the DRAP register is valid for addressing too.  */
+9874:       m->fs.drap_valid = true;
+9875:       return;
+9876:     }
+9877:
+9878:   if (m->fs.cfa_reg == stack_pointer_rtx)
+9879:     {
+9880:       rtx x = plus_constant (Pmode, stack_pointer_rtx, UNITS_PER_WORD);
+9881:       x = gen_rtx_SET (stack_pointer_rtx, x);
+9882:       add_reg_note (insn, REG_CFA_ADJUST_CFA, x);
+9883:       RTX_FRAME_RELATED_P (insn) = 1;
+9884:
+9885:       m->fs.cfa_offset -= UNITS_PER_WORD;
+9886:     }
+9887:
+9888:   /* When the frame pointer is the CFA, and we pop it, we are
+9889:      swapping back to the stack pointer as the CFA.  This happens
+9890:      for stack frames that don't allocate other data, so we assume
+9891:      the stack pointer is now pointing at the return address, i.e.
+9892:      the function entry state, which makes the offset be 1 word.  */
+9893:   if (reg == hard_frame_pointer_rtx)
+9894:     {
+9895:       m->fs.fp_valid = false;
+9896:       if (m->fs.cfa_reg == hard_frame_pointer_rtx)
+9897:         {
+9898:           m->fs.cfa_reg = stack_pointer_rtx;
+9899:           m->fs.cfa_offset -= UNITS_PER_WORD;
+9900:
+9901:           add_reg_note (insn, REG_CFA_DEF_CFA,
+9902:                         plus_constant (Pmode, stack_pointer_rtx,
+9903:                                        m->fs.cfa_offset));
+9904:           RTX_FRAME_RELATED_P (insn) = 1;
+9905:         }
+9906:     }
+9907: }
+```
+
+## gcc/config/i386/i386.cc:10309–10744
+
+```text
+10309: ix86_expand_epilogue (int style)
+10310: {
+10311:   struct machine_function *m = cfun->machine;
+10312:   struct machine_frame_state frame_state_save = m->fs;
+10313:   bool restore_regs_via_mov;
+10314:   bool using_drap;
+10315:   bool restore_stub_is_tail = false;
+10316:
+10317:   if (ix86_function_naked (current_function_decl))
+10318:     {
+10319:       /* The program should not reach this point.  */
+10320:       emit_insn (gen_ud2 ());
+10321:       return;
+10322:     }
+10323:
+10324:   ix86_finalize_stack_frame_flags ();
+10325:   const struct ix86_frame &frame = cfun->machine->frame;
+10326:
+10327:   m->fs.sp_realigned = stack_realign_fp;
+10328:   m->fs.sp_valid = stack_realign_fp
+10329:                    || !frame_pointer_needed
+10330:                    || crtl->sp_is_unchanging;
+10331:   gcc_assert (!m->fs.sp_valid
+10332:               || m->fs.sp_offset == frame.stack_pointer_offset);
+10333:
+10334:   /* The FP must be valid if the frame pointer is present.  */
+10335:   gcc_assert (frame_pointer_needed == m->fs.fp_valid);
+10336:   gcc_assert (!m->fs.fp_valid
+10337:               || m->fs.fp_offset == frame.hard_frame_pointer_offset);
+10338:
+10339:   /* We must have *some* valid pointer to the stack frame.  */
+10340:   gcc_assert (m->fs.sp_valid || m->fs.fp_valid);
+10341:
+10342:   /* The DRAP is never valid at this point.  */
+10343:   gcc_assert (!m->fs.drap_valid);
+10344:
+10345:   /* See the comment about red zone and frame
+10346:      pointer usage in ix86_expand_prologue.  */
+10347:   if (frame_pointer_needed && frame.red_zone_size)
+10348:     emit_insn (gen_memory_blockage ());
+10349:
+10350:   using_drap = crtl->drap_reg && crtl->stack_realign_needed;
+10351:   gcc_assert (!using_drap || m->fs.cfa_reg == crtl->drap_reg);
+10352:
+10353:   /* Determine the CFA offset of the end of the red-zone.  */
+10354:   m->fs.red_zone_offset = 0;
+10355:   if (ix86_using_red_zone () && crtl->args.pops_args < 65536)
+10356:     {
+10357:       /* The red-zone begins below return address and error code in
+10358:          exception handler.  */
+10359:       m->fs.red_zone_offset = RED_ZONE_SIZE + INCOMING_FRAME_SP_OFFSET;
+10360:
+10361:       /* When the register save area is in the aligned portion of
+10362:          the stack, determine the maximum runtime displacement that
+10363:          matches up with the aligned frame.  */
+10364:       if (stack_realign_drap)
+10365:         m->fs.red_zone_offset -= (crtl->stack_alignment_needed / BITS_PER_UNIT
+10366:                                   + UNITS_PER_WORD);
+10367:     }
+10368:
+10369:   HOST_WIDE_INT reg_save_offset = frame.reg_save_offset;
+10370:
+10371:   /* Special care must be taken for the normal return case of a function
+10372:      using eh_return: the eax and edx registers are marked as saved, but
+10373:      not restored along this path.  Adjust the save location to match.  */
+10374:   if (crtl->calls_eh_return && style != 2)
+10375:     reg_save_offset -= 2 * UNITS_PER_WORD;
+10376:
+10377:   /* EH_RETURN requires the use of moves to function properly.  */
+10378:   if (crtl->calls_eh_return)
+10379:     restore_regs_via_mov = true;
+10380:   /* SEH requires the use of pops to identify the epilogue.  */
+10381:   else if (TARGET_SEH)
+10382:     restore_regs_via_mov = false;
+10383:   /* If we already save reg with pushp, don't use move at epilogue.  */
+10384:   else if (m->fs.apx_ppx_used)
+10385:     restore_regs_via_mov = false;
+10386:   /* If we're only restoring one register and sp cannot be used then
+10387:      using a move instruction to restore the register since it's
+10388:      less work than reloading sp and popping the register.  */
+10389:   else if (!sp_valid_at (frame.hfp_save_offset) && frame.nregs <= 1)
+10390:     restore_regs_via_mov = true;
+10391:   else if (crtl->shrink_wrapped_separate
+10392:            || (TARGET_EPILOGUE_USING_MOVE
+10393:                && cfun->machine->use_fast_prologue_epilogue
+10394:                && (frame.nregs > 1
+10395:                    || m->fs.sp_offset != reg_save_offset)))
+10396:     restore_regs_via_mov = true;
+10397:   else if (frame_pointer_needed
+10398:            && !frame.nregs
+10399:            && m->fs.sp_offset != reg_save_offset)
+10400:     restore_regs_via_mov = true;
+10401:   else if (frame_pointer_needed
+10402:            && TARGET_USE_LEAVE
+10403:            && cfun->machine->use_fast_prologue_epilogue
+10404:            && frame.nregs == 1)
+10405:     restore_regs_via_mov = true;
+10406:   else
+10407:     restore_regs_via_mov = false;
+10408:
+10409:   if (crtl->shrink_wrapped_separate)
+10410:     gcc_assert (restore_regs_via_mov);
+10411:
+10412:   if (restore_regs_via_mov || frame.nsseregs)
+10413:     {
+10414:       /* Ensure that the entire register save area is addressable via
+10415:          the stack pointer, if we will restore SSE regs via sp.  */
+10416:       if (TARGET_64BIT
+10417:           && m->fs.sp_offset > 0x7fffffff
+10418:           && sp_valid_at (frame.stack_realign_offset + 1)
+10419:           && (frame.nsseregs + frame.nregs) != 0)
+10420:         {
+10421:           pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+10422:                                      GEN_INT (m->fs.sp_offset
+10423:                                               - frame.sse_reg_save_offset),
+10424:                                      style,
+10425:                                      m->fs.cfa_reg == stack_pointer_rtx);
+10426:         }
+10427:     }
+10428:
+10429:   /* If there are any SSE registers to restore, then we have to do it
+10430:      via moves, since there's obviously no pop for SSE regs.  */
+10431:   if (frame.nsseregs)
+10432:     ix86_emit_restore_sse_regs_using_mov (frame.sse_reg_save_offset,
+10433:                                           style == 2);
+10434:
+10435:   if (m->call_ms2sysv)
+10436:     {
+10437:       int pop_incoming_args = crtl->args.pops_args && crtl->args.size;
+10438:
+10439:       /* We cannot use a tail-call for the stub if:
+10440:          1. We have to pop incoming args,
+10441:          2. We have additional int regs to restore, or
+10442:          3. A sibling call will be the tail-call, or
+10443:          4. We are emitting an eh_return_internal epilogue.
+10444:
+10445:          TODO: Item 4 has not yet tested!
+10446:
+10447:          If any of the above are true, we will call the stub rather than
+10448:          jump to it.  */
+10449:       restore_stub_is_tail = !(pop_incoming_args || frame.nregs || style != 1);
+10450:       ix86_emit_outlined_ms2sysv_restore (frame, !restore_stub_is_tail, style);
+10451:     }
+10452:
+10453:   /* If using out-of-line stub that is a tail-call, then...*/
+10454:   if (m->call_ms2sysv && restore_stub_is_tail)
+10455:     {
+10456:       /* TODO: parinoid tests. (remove eventually)  */
+10457:       gcc_assert (m->fs.sp_valid);
+10458:       gcc_assert (!m->fs.sp_realigned);
+10459:       gcc_assert (!m->fs.fp_valid);
+10460:       gcc_assert (!m->fs.realigned);
+10461:       gcc_assert (m->fs.sp_offset == UNITS_PER_WORD);
+10462:       gcc_assert (!crtl->drap_reg);
+10463:       gcc_assert (!frame.nregs);
+10464:       gcc_assert (!crtl->shrink_wrapped_separate);
+10465:     }
+10466:   else if (restore_regs_via_mov)
+10467:     {
+10468:       rtx t;
+10469:
+10470:       if (frame.nregs)
+10471:         ix86_emit_restore_regs_using_mov (reg_save_offset, style == 2);
+10472:
+10473:       /* eh_return epilogues need %ecx added to the stack pointer.  */
+10474:       if (style == 2)
+10475:         {
+10476:           rtx sa = EH_RETURN_STACKADJ_RTX;
+10477:           rtx_insn *insn;
+10478:
+10479:           gcc_assert (!crtl->shrink_wrapped_separate);
+10480:
+10481:           /* Stack realignment doesn't work with eh_return.  */
+10482:           if (crtl->stack_realign_needed)
+10483:             sorry ("Stack realignment not supported with "
+10484:                    "%<__builtin_eh_return%>");
+10485:
+10486:           /* regparm nested functions don't work with eh_return.  */
+10487:           if (ix86_static_chain_on_stack)
+10488:             sorry ("regparm nested function not supported with "
+10489:                    "%<__builtin_eh_return%>");
+10490:
+10491:           if (frame_pointer_needed)
+10492:             {
+10493:               t = gen_rtx_PLUS (Pmode, hard_frame_pointer_rtx, sa);
+10494:               t = plus_constant (Pmode, t, m->fs.fp_offset - UNITS_PER_WORD);
+10495:               emit_insn (gen_rtx_SET (sa, t));
+10496:
+10497:               /* NB: eh_return epilogues must restore the frame pointer
+10498:                  in word_mode since the upper 32 bits of RBP register
+10499:                  can have any values.  */
+10500:               t = gen_frame_mem (word_mode, hard_frame_pointer_rtx);
+10501:               rtx frame_reg = gen_rtx_REG (word_mode,
+10502:                                            HARD_FRAME_POINTER_REGNUM);
+10503:               insn = emit_move_insn (frame_reg, t);
+10504:
+10505:               /* Note that we use SA as a temporary CFA, as the return
+10506:                  address is at the proper place relative to it.  We
+10507:                  pretend this happens at the FP restore insn because
+10508:                  prior to this insn the FP would be stored at the wrong
+10509:                  offset relative to SA, and after this insn we have no
+10510:                  other reasonable register to use for the CFA.  We don't
+10511:                  bother resetting the CFA to the SP for the duration of
+10512:                  the return insn, unless the control flow instrumentation
+10513:                  is done.  In this case the SP is used later and we have
+10514:                  to reset CFA to SP.  */
+10515:               add_reg_note (insn, REG_CFA_DEF_CFA,
+10516:                             plus_constant (Pmode, sa, UNITS_PER_WORD));
+10517:               ix86_add_queued_cfa_restore_notes (insn);
+10518:               add_reg_note (insn, REG_CFA_RESTORE, frame_reg);
+10519:               RTX_FRAME_RELATED_P (insn) = 1;
+10520:
+10521:               m->fs.cfa_reg = sa;
+10522:               m->fs.cfa_offset = UNITS_PER_WORD;
+10523:               m->fs.fp_valid = false;
+10524:
+10525:               pro_epilogue_adjust_stack (stack_pointer_rtx, sa,
+10526:                                          const0_rtx, style,
+10527:                                          flag_cf_protection);
+10528:             }
+10529:           else
+10530:             {
+10531:               t = gen_rtx_PLUS (Pmode, stack_pointer_rtx, sa);
+10532:               t = plus_constant (Pmode, t, m->fs.sp_offset - UNITS_PER_WORD);
+10533:               insn = emit_insn (gen_rtx_SET (stack_pointer_rtx, t));
+10534:               ix86_add_queued_cfa_restore_notes (insn);
+10535:
+10536:               gcc_assert (m->fs.cfa_reg == stack_pointer_rtx);
+10537:               if (m->fs.cfa_offset != UNITS_PER_WORD)
+10538:                 {
+10539:                   m->fs.cfa_offset = UNITS_PER_WORD;
+10540:                   add_reg_note (insn, REG_CFA_DEF_CFA,
+10541:                                 plus_constant (Pmode, stack_pointer_rtx,
+10542:                                                UNITS_PER_WORD));
+10543:                   RTX_FRAME_RELATED_P (insn) = 1;
+10544:                 }
+10545:             }
+10546:           m->fs.sp_offset = UNITS_PER_WORD;
+10547:           m->fs.sp_valid = true;
+10548:           m->fs.sp_realigned = false;
+10549:         }
+10550:     }
+10551:   else
+10552:     {
+10553:       /* SEH requires that the function end with (1) a stack adjustment
+10554:          if necessary, (2) a sequence of pops, and (3) a return or
+10555:          jump instruction.  Prevent insns from the function body from
+10556:          being scheduled into this sequence.  */
+10557:       if (TARGET_SEH)
+10558:         {
+10559:           /* Prevent a catch region from being adjacent to the standard
+10560:              epilogue sequence.  Unfortunately neither crtl->uses_eh_lsda
+10561:              nor several other flags that would be interesting to test are
+10562:              set up yet.  */
+10563:           if (flag_non_call_exceptions)
+10564:             emit_insn (gen_nops (const1_rtx));
+10565:           else
+10566:             emit_insn (gen_blockage ());
+10567:         }
+10568:
+10569:       /* First step is to deallocate the stack frame so that we can
+10570:          pop the registers.  If the stack pointer was realigned, it needs
+10571:          to be restored now.  Also do it on SEH target for very large
+10572:          frame as the emitted instructions aren't allowed by the ABI
+10573:          in epilogues.  */
+10574:       if (!m->fs.sp_valid || m->fs.sp_realigned
+10575:           || (TARGET_SEH
+10576:               && (m->fs.sp_offset - reg_save_offset
+10577:                   >= SEH_MAX_FRAME_SIZE)))
+10578:         {
+10579:           pro_epilogue_adjust_stack (stack_pointer_rtx, hard_frame_pointer_rtx,
+10580:                                      GEN_INT (m->fs.fp_offset
+10581:                                               - reg_save_offset),
+10582:                                      style, false);
+10583:         }
+10584:       else if (m->fs.sp_offset != reg_save_offset)
+10585:         {
+10586:           pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+10587:                                      GEN_INT (m->fs.sp_offset
+10588:                                               - reg_save_offset),
+10589:                                      style,
+10590:                                      m->fs.cfa_reg == stack_pointer_rtx);
+10591:         }
+10592:
+10593:       if (TARGET_APX_PUSH2POP2
+10594:           && ix86_can_use_push2pop2 ()
+10595:           && m->func_type == TYPE_NORMAL)
+10596:         ix86_emit_restore_regs_using_pop2 ();
+10597:       else
+10598:         ix86_emit_restore_regs_using_pop (TARGET_APX_PPX);
+10599:     }
+10600:
+10601:   /* If we used a stack pointer and haven't already got rid of it,
+10602:      then do so now.  */
+10603:   if (m->fs.fp_valid)
+10604:     {
+10605:       /* If the stack pointer is valid and pointing at the frame
+10606:          pointer store address, then we only need a pop.  */
+10607:       if (sp_valid_at (frame.hfp_save_offset)
+10608:           && m->fs.sp_offset == frame.hfp_save_offset)
+10609:         ix86_emit_restore_reg_using_pop (hard_frame_pointer_rtx);
+10610:       /* Leave results in shorter dependency chains on CPUs that are
+10611:          able to grok it fast.  */
+10612:       else if (TARGET_USE_LEAVE
+10613:                || optimize_bb_for_size_p (EXIT_BLOCK_PTR_FOR_FN (cfun))
+10614:                || !cfun->machine->use_fast_prologue_epilogue)
+10615:         ix86_emit_leave (NULL);
+10616:       else
+10617:         {
+10618:           pro_epilogue_adjust_stack (stack_pointer_rtx,
+10619:                                      hard_frame_pointer_rtx,
+10620:                                      const0_rtx, style, !using_drap);
+10621:           ix86_emit_restore_reg_using_pop (hard_frame_pointer_rtx);
+10622:         }
+10623:     }
+10624:
+10625:   if (using_drap)
+10626:     {
+10627:       int param_ptr_offset = UNITS_PER_WORD;
+10628:       rtx_insn *insn;
+10629:
+10630:       gcc_assert (stack_realign_drap);
+10631:
+10632:       if (ix86_static_chain_on_stack)
+10633:         param_ptr_offset += UNITS_PER_WORD;
+10634:       if (!call_used_or_fixed_reg_p (REGNO (crtl->drap_reg)))
+10635:         param_ptr_offset += UNITS_PER_WORD;
+10636:
+10637:       insn = emit_insn (gen_rtx_SET
+10638:                         (stack_pointer_rtx,
+10639:                          plus_constant (Pmode, crtl->drap_reg,
+10640:                                         -param_ptr_offset)));
+10641:       m->fs.cfa_reg = stack_pointer_rtx;
+10642:       m->fs.cfa_offset = param_ptr_offset;
+10643:       m->fs.sp_offset = param_ptr_offset;
+10644:       m->fs.realigned = false;
+10645:
+10646:       add_reg_note (insn, REG_CFA_DEF_CFA,
+10647:                     plus_constant (Pmode, stack_pointer_rtx,
+10648:                                    param_ptr_offset));
+10649:       RTX_FRAME_RELATED_P (insn) = 1;
+10650:
+10651:       if (!call_used_or_fixed_reg_p (REGNO (crtl->drap_reg)))
+10652:         ix86_emit_restore_reg_using_pop (crtl->drap_reg);
+10653:     }
+10654:
+10655:   /* At this point the stack pointer must be valid, and we must have
+10656:      restored all of the registers.  We may not have deallocated the
+10657:      entire stack frame.  We've delayed this until now because it may
+10658:      be possible to merge the local stack deallocation with the
+10659:      deallocation forced by ix86_static_chain_on_stack.   */
+10660:   gcc_assert (m->fs.sp_valid);
+10661:   gcc_assert (!m->fs.sp_realigned);
+10662:   gcc_assert (!m->fs.fp_valid);
+10663:   gcc_assert (!m->fs.realigned);
+10664:   if (m->fs.sp_offset != UNITS_PER_WORD)
+10665:     {
+10666:       pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+10667:                                  GEN_INT (m->fs.sp_offset - UNITS_PER_WORD),
+10668:                                  style, true);
+10669:     }
+10670:   else
+10671:     ix86_add_queued_cfa_restore_notes (get_last_insn ());
+10672:
+10673:   /* Sibcall epilogues don't want a return instruction.  */
+10674:   if (style == 0)
+10675:     {
+10676:       m->fs = frame_state_save;
+10677:       return;
+10678:     }
+10679:
+10680:   if (cfun->machine->func_type != TYPE_NORMAL)
+10681:     emit_jump_insn (gen_interrupt_return ());
+10682:   else if (crtl->args.pops_args && crtl->args.size)
+10683:     {
+10684:       rtx popc = GEN_INT (crtl->args.pops_args);
+10685:
+10686:       /* i386 can only pop 64K bytes.  If asked to pop more, pop return
+10687:          address, do explicit add, and jump indirectly to the caller.  */
+10688:
+10689:       if (crtl->args.pops_args >= 65536)
+10690:         {
+10691:           rtx ecx = gen_rtx_REG (SImode, CX_REG);
+10692:           rtx_insn *insn;
+10693:
+10694:           /* There is no "pascal" calling convention in any 64bit ABI.  */
+10695:           gcc_assert (!TARGET_64BIT);
+10696:
+10697:           insn = emit_insn (gen_pop (ecx));
+10698:           m->fs.cfa_offset -= UNITS_PER_WORD;
+10699:           m->fs.sp_offset -= UNITS_PER_WORD;
+10700:
+10701:           rtx x = plus_constant (Pmode, stack_pointer_rtx, UNITS_PER_WORD);
+10702:           x = gen_rtx_SET (stack_pointer_rtx, x);
+10703:           add_reg_note (insn, REG_CFA_ADJUST_CFA, x);
+10704:           add_reg_note (insn, REG_CFA_REGISTER, gen_rtx_SET (ecx, pc_rtx));
+10705:           RTX_FRAME_RELATED_P (insn) = 1;
+10706:
+10707:           pro_epilogue_adjust_stack (stack_pointer_rtx, stack_pointer_rtx,
+10708:                                      popc, -1, true);
+10709:           emit_jump_insn (gen_simple_return_indirect_internal (ecx));
+10710:         }
+10711:       else
+10712:         emit_jump_insn (gen_simple_return_pop_internal (popc));
+10713:     }
+10714:   else if (!m->call_ms2sysv || !restore_stub_is_tail)
+10715:     {
+10716:       /* In case of return from EH a simple return cannot be used
+10717:          as a return address will be compared with a shadow stack
+10718:          return address.  Use indirect jump instead.  */
+10719:       if (style == 2 && flag_cf_protection)
+10720:         {
+10721:           /* Register used in indirect jump must be in word_mode.  But
+10722:              Pmode may not be the same as word_mode for x32.  */
+10723:           rtx ecx = gen_rtx_REG (word_mode, CX_REG);
+10724:           rtx_insn *insn;
+10725:
+10726:           insn = emit_insn (gen_pop (ecx));
+10727:           m->fs.cfa_offset -= UNITS_PER_WORD;
+10728:           m->fs.sp_offset -= UNITS_PER_WORD;
+10729:
+10730:           rtx x = plus_constant (Pmode, stack_pointer_rtx, UNITS_PER_WORD);
+10731:           x = gen_rtx_SET (stack_pointer_rtx, x);
+10732:           add_reg_note (insn, REG_CFA_ADJUST_CFA, x);
+10733:           add_reg_note (insn, REG_CFA_REGISTER, gen_rtx_SET (ecx, pc_rtx));
+10734:           RTX_FRAME_RELATED_P (insn) = 1;
+10735:
+10736:           emit_jump_insn (gen_simple_return_indirect_internal (ecx));
+10737:         }
+10738:       else
+10739:         emit_jump_insn (gen_simple_return_internal ());
+10740:     }
+10741:
+10742:   /* Restore the state back to the state from the prologue,
+10743:      so that it's correct for the next epilogue.  */
+10744:   m->fs = frame_state_save;
+```
+
+## gcc/config/i386/i386.cc:21251–21262
+
+```text
+21251: ix86_hardreg_mov_ok (rtx dst, rtx src)
+21252: {
+21253:   /* Avoid complex sets of likely_spilled hard registers before reload.  */
+21254:   if (REG_P (dst) && HARD_REGISTER_P (dst)
+21255:       && !REG_P (src) && !MEM_P (src)
+21256:       && !(VECTOR_MODE_P (GET_MODE (dst))
+21257:            ? standard_sse_constant_p (src, GET_MODE (dst))
+21258:            : x86_64_immediate_operand (src, GET_MODE (dst)))
+21259:       && ix86_class_likely_spilled_p (REGNO_REG_CLASS (REGNO (dst)))
+21260:       && ix86_pre_reload_split ())
+21261:     return false;
+21262:   return true;
+```
+
 ## gcc/config/i386/i386.h:778–801
 
 ```text
@@ -24968,6 +27050,47 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 30807: (include "mmx.md")
 30808: (include "sse.md")
 30809: (include "sync.md")
+```
+
+## gcc/config/i386/i386.md:2419–2423
+
+```text
+2419: (define_expand "mov<mode>"
+2420:   [(set (match_operand:SWI1248x 0 "nonimmediate_operand")
+2421:         (match_operand:SWI1248x 1 "general_operand"))]
+2422:   ""
+2423:   "ix86_expand_move (<MODE>mode, operands); DONE;")
+```
+
+## gcc/config/i386/i386.md:20994–21001
+
+```text
+20994: (define_insn "simple_return_internal"
+20995:   [(simple_return)]
+20996:   "reload_completed"
+20997:   "* return ix86_output_function_return (false);"
+20998:   [(set_attr "length" "1")
+20999:    (set_attr "atom_unit" "jeu")
+21000:    (set_attr "length_immediate" "0")
+21001:    (set_attr "modrm" "0")])
+```
+
+## gcc/config/i386/i386.md:21104–21107
+
+```text
+21104: (define_expand "prologue"
+21105:   [(const_int 0)]
+21106:   ""
+21107:   "ix86_expand_prologue (); DONE;")
+```
+
+## gcc/config/i386/i386.md:21181–21184
+
+```text
+21181: (define_expand "epilogue"
+21182:   [(const_int 0)]
+21183:   ""
+21184:   "ix86_expand_epilogue (1); DONE;")
 ```
 
 ## gcc/config/i386/i386-options.cc:2273–2286
@@ -25387,6 +27510,201 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 203:     }
 204: }
 205:
+```
+
+## gcc/expr.cc:4572–4761
+
+```text
+4572: emit_move_insn_1 (rtx x, rtx y)
+4573: {
+4574:   machine_mode mode = GET_MODE (x);
+4575:   enum insn_code code;
+4576:
+4577:   gcc_assert ((unsigned int) mode < (unsigned int) MAX_MACHINE_MODE);
+4578:
+4579:   code = optab_handler (mov_optab, mode);
+4580:   if (code != CODE_FOR_nothing)
+4581:     return emit_insn (GEN_FCN (code) (x, y));
+4582:
+4583:   /* Expand complex moves by moving real part and imag part.  */
+4584:   if (COMPLEX_MODE_P (mode))
+4585:     return emit_move_complex (mode, x, y);
+4586:
+4587:   if (GET_MODE_CLASS (mode) == MODE_DECIMAL_FLOAT
+4588:       || ALL_FIXED_POINT_MODE_P (mode))
+4589:     {
+4590:       rtx_insn *result = emit_move_via_integer (mode, x, y, true);
+4591:
+4592:       /* If we can't find an integer mode, use multi words.  */
+4593:       if (result)
+4594:         return result;
+4595:       else
+4596:         return emit_move_multi_word (mode, x, y);
+4597:     }
+4598:
+4599:   if (GET_MODE_CLASS (mode) == MODE_CC)
+4600:     return emit_move_ccmode (mode, x, y);
+4601:
+4602:   /* Try using a move pattern for the corresponding integer mode.  This is
+4603:      only safe when simplify_subreg can convert MODE constants into integer
+4604:      constants.  At present, it can only do this reliably if the value
+4605:      fits within a HOST_WIDE_INT.  */
+4606:   if (!CONSTANT_P (y)
+4607:       || known_le (GET_MODE_BITSIZE (mode), HOST_BITS_PER_WIDE_INT))
+4608:     {
+4609:       rtx_insn *ret = emit_move_via_integer (mode, x, y, lra_in_progress);
+4610:
+4611:       if (ret)
+4612:         {
+4613:           if (! lra_in_progress || recog (PATTERN (ret), ret, 0) >= 0)
+4614:             return ret;
+4615:         }
+4616:     }
+4617:
+4618:   return emit_move_multi_word (mode, x, y);
+4619: }
+4620:
+4621: /* Generate code to copy Y into X.
+4622:    Both Y and X must have the same mode, except that
+4623:    Y can be a constant with VOIDmode.
+4624:    This mode cannot be BLKmode; use emit_block_move for that.
+4625:
+4626:    Return the last instruction emitted.  */
+4627:
+4628: rtx_insn *
+4629: emit_move_insn (rtx x, rtx y)
+4630: {
+4631:   machine_mode mode = GET_MODE (x);
+4632:   rtx y_cst = NULL_RTX;
+4633:   rtx_insn *last_insn;
+4634:   rtx set;
+4635:
+4636:   gcc_assert (mode != BLKmode
+4637:               && (GET_MODE (y) == mode || GET_MODE (y) == VOIDmode));
+4638:
+4639:   /* If we have a copy that looks like one of the following patterns:
+4640:        (set (subreg:M1 (reg:M2 ...)) (subreg:M1 (reg:M2 ...)))
+4641:        (set (subreg:M1 (reg:M2 ...)) (mem:M1 ADDR))
+4642:        (set (mem:M1 ADDR) (subreg:M1 (reg:M2 ...)))
+4643:        (set (subreg:M1 (reg:M2 ...)) (constant C))
+4644:      where mode M1 is equal in size to M2, try to detect whether the
+4645:      mode change involves an implicit round trip through memory.
+4646:      If so, see if we can avoid that by removing the subregs and
+4647:      doing the move in mode M2 instead.  */
+4648:
+4649:   rtx x_inner = NULL_RTX;
+4650:   rtx y_inner = NULL_RTX;
+4651:
+4652:   auto candidate_subreg_p = [&](rtx subreg) {
+4653:     return (REG_P (SUBREG_REG (subreg))
+4654:             && known_eq (GET_MODE_SIZE (GET_MODE (SUBREG_REG (subreg))),
+4655:                          GET_MODE_SIZE (GET_MODE (subreg)))
+4656:             && optab_handler (mov_optab, GET_MODE (SUBREG_REG (subreg)))
+4657:                != CODE_FOR_nothing);
+4658:   };
+4659:
+4660:   auto candidate_mem_p = [&](machine_mode innermode, rtx mem) {
+4661:     return (!targetm.can_change_mode_class (innermode, GET_MODE (mem), ALL_REGS)
+4662:             && !push_operand (mem, GET_MODE (mem))
+4663:             /* Not a candiate if innermode requires too much alignment.  */
+4664:             && (MEM_ALIGN (mem) >= GET_MODE_ALIGNMENT (innermode)
+4665:                 || targetm.slow_unaligned_access (GET_MODE (mem),
+4666:                                                   MEM_ALIGN (mem))
+4667:                 || !targetm.slow_unaligned_access (innermode,
+4668:                                                    MEM_ALIGN (mem))));
+4669:   };
+4670:
+4671:   if (SUBREG_P (x) && candidate_subreg_p (x))
+4672:     x_inner = SUBREG_REG (x);
+4673:
+4674:   if (SUBREG_P (y) && candidate_subreg_p (y))
+4675:     y_inner = SUBREG_REG (y);
+4676:
+4677:   if (x_inner != NULL_RTX
+4678:       && y_inner != NULL_RTX
+4679:       && GET_MODE (x_inner) == GET_MODE (y_inner)
+4680:       && !targetm.can_change_mode_class (GET_MODE (x_inner), mode, ALL_REGS))
+4681:     {
+4682:       x = x_inner;
+4683:       y = y_inner;
+4684:       mode = GET_MODE (x_inner);
+4685:     }
+4686:   else if (x_inner != NULL_RTX
+4687:            && MEM_P (y)
+4688:            && candidate_mem_p (GET_MODE (x_inner), y))
+4689:     {
+4690:       x = x_inner;
+4691:       y = adjust_address (y, GET_MODE (x_inner), 0);
+4692:       mode = GET_MODE (x_inner);
+4693:     }
+4694:   else if (y_inner != NULL_RTX
+4695:            && MEM_P (x)
+4696:            && candidate_mem_p (GET_MODE (y_inner), x))
+4697:     {
+4698:       x = adjust_address (x, GET_MODE (y_inner), 0);
+4699:       y = y_inner;
+4700:       mode = GET_MODE (y_inner);
+4701:     }
+4702:   else if (x_inner != NULL_RTX
+4703:            && CONSTANT_P (y)
+4704:            && !targetm.can_change_mode_class (GET_MODE (x_inner),
+4705:                                               mode, ALL_REGS)
+4706:            && (y_inner = simplify_subreg (GET_MODE (x_inner), y, mode, 0)))
+4707:     {
+4708:       x = x_inner;
+4709:       y = y_inner;
+4710:       mode = GET_MODE (x_inner);
+4711:     }
+4712:
+4713:   if (CONSTANT_P (y))
+4714:     {
+4715:       if (optimize
+4716:           && SCALAR_FLOAT_MODE_P (GET_MODE (x))
+4717:           && (last_insn = compress_float_constant (x, y)))
+4718:         return last_insn;
+4719:
+4720:       y_cst = y;
+4721:
+4722:       if (!targetm.legitimate_constant_p (mode, y))
+4723:         {
+4724:           y = force_const_mem (mode, y);
+4725:
+4726:           /* If the target's cannot_force_const_mem prevented the spill,
+4727:              assume that the target's move expanders will also take care
+4728:              of the non-legitimate constant.  */
+4729:           if (!y)
+4730:             y = y_cst;
+4731:           else
+4732:             y = use_anchored_address (y);
+4733:         }
+4734:     }
+4735:
+4736:   /* If X or Y are memory references, verify that their addresses are valid
+4737:      for the machine.  */
+4738:   if (MEM_P (x)
+4739:       && (! memory_address_addr_space_p (GET_MODE (x), XEXP (x, 0),
+4740:                                          MEM_ADDR_SPACE (x))
+4741:           && ! push_operand (x, GET_MODE (x))))
+4742:     x = validize_mem (x);
+4743:
+4744:   if (MEM_P (y)
+4745:       && ! memory_address_addr_space_p (GET_MODE (y), XEXP (y, 0),
+4746:                                         MEM_ADDR_SPACE (y)))
+4747:     y = validize_mem (y);
+4748:
+4749:   gcc_assert (mode != BLKmode);
+4750:
+4751:   last_insn = emit_move_insn_1 (x, y);
+4752:
+4753:   if (y_cst && REG_P (x)
+4754:       && (set = single_set (last_insn)) != NULL_RTX
+4755:       && SET_DEST (set) == x
+4756:       && ! rtx_equal_p (y_cst, SET_SRC (set)))
+4757:     set_unique_reg_note (last_insn, REG_EQUAL, copy_rtx (y_cst));
+4758:
+4759:   return last_insn;
+4760: }
+4761:
 ```
 
 ## gcc/genemit.cc:175–179
@@ -26507,6 +28825,136 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3450:           break;
 3451:
 3452:       if (e && !CALL_P (BB_END (bb)) && !can_throw_internal (BB_END (bb)))
+```
+
+## gcc/cfgrtl.cc:2005–2129
+
+```text
+2005: commit_one_edge_insertion (edge e)
+2006: {
+2007:   rtx_insn *before = NULL, *after = NULL, *insns, *tmp, *last;
+2008:   basic_block bb;
+2009:
+2010:   /* Pull the insns off the edge now since the edge might go away.  */
+2011:   insns = e->insns.r;
+2012:   e->insns.r = NULL;
+2013:
+2014:   /* Allow the sequence to contain internal jumps, such as a memcpy loop
+2015:      or an allocation loop.  If such a sequence is emitted during RTL
+2016:      expansion, we'll create the appropriate basic blocks later,
+2017:      at the end of the pass.  But if such a sequence is emitted after
+2018:      initial expansion, we'll need to find the subblocks ourselves.  */
+2019:   bool contains_jump = false;
+2020:   if (!currently_expanding_to_rtl)
+2021:     for (rtx_insn *insn = insns; insn; insn = NEXT_INSN (insn))
+2022:       if (JUMP_P (insn))
+2023:         {
+2024:           rebuild_jump_labels_chain (insns);
+2025:           contains_jump = true;
+2026:           break;
+2027:         }
+2028:
+2029:   /* Figure out where to put these insns.  If the destination has
+2030:      one predecessor, insert there.  Except for the exit block.  */
+2031:   if (single_pred_p (e->dest) && e->dest != EXIT_BLOCK_PTR_FOR_FN (cfun))
+2032:     {
+2033:       bb = e->dest;
+2034:
+2035:       /* Get the location correct wrt a code label, and "nice" wrt
+2036:          a basic block note, and before everything else.  */
+2037:       tmp = BB_HEAD (bb);
+2038:       if (LABEL_P (tmp))
+2039:         tmp = NEXT_INSN (tmp);
+2040:       if (NOTE_INSN_BASIC_BLOCK_P (tmp))
+2041:         tmp = NEXT_INSN (tmp);
+2042:       if (tmp == BB_HEAD (bb))
+2043:         before = tmp;
+2044:       else if (tmp)
+2045:         after = PREV_INSN (tmp);
+2046:       else
+2047:         after = get_last_insn ();
+2048:     }
+2049:
+2050:   /* If the source has one successor and the edge is not abnormal,
+2051:      insert there.  Except for the entry block.
+2052:      Don't do this if the predecessor ends in a jump other than
+2053:      unconditional simple jump.  E.g. for asm goto that points all
+2054:      its labels at the fallthru basic block, we can't insert instructions
+2055:      before the asm goto, as the asm goto can have various of side effects,
+2056:      and can't emit instructions after the asm goto, as it must end
+2057:      the basic block.  */
+2058:   else if ((e->flags & EDGE_ABNORMAL) == 0
+2059:            && single_succ_p (e->src)
+2060:            && e->src != ENTRY_BLOCK_PTR_FOR_FN (cfun)
+2061:            && (!JUMP_P (BB_END (e->src))
+2062:                || simplejump_p (BB_END (e->src))))
+2063:     {
+2064:       bb = e->src;
+2065:
+2066:       /* It is possible to have a non-simple jump here.  Consider a target
+2067:          where some forms of unconditional jumps clobber a register.  This
+2068:          happens on the fr30 for example.
+2069:
+2070:          We know this block has a single successor, so we can just emit
+2071:          the queued insns before the jump.  */
+2072:       if (JUMP_P (BB_END (bb)))
+2073:         before = BB_END (bb);
+2074:       else
+2075:         {
+2076:           /* We'd better be fallthru, or we've lost track of what's what.  */
+2077:           gcc_assert (e->flags & EDGE_FALLTHRU);
+2078:
+2079:           after = BB_END (bb);
+2080:         }
+2081:     }
+2082:
+2083:   /* Otherwise we must split the edge.  */
+2084:   else
+2085:     {
+2086:       bb = split_edge (e);
+2087:
+2088:       /* If E crossed a partition boundary, we needed to make bb end in
+2089:          a region-crossing jump, even though it was originally fallthru.  */
+2090:       if (JUMP_P (BB_END (bb)))
+2091:         before = BB_END (bb);
+2092:       else
+2093:         after = BB_END (bb);
+2094:     }
+2095:
+2096:   /* Now that we've found the spot, do the insertion.  */
+2097:   if (before)
+2098:     {
+2099:       emit_insn_before_noloc (insns, before, bb);
+2100:       last = prev_nonnote_insn (before);
+2101:     }
+2102:   else
+2103:     last = emit_insn_after_noloc (insns, after, bb);
+2104:
+2105:   if (returnjump_p (last))
+2106:     {
+2107:       /* ??? Remove all outgoing edges from BB and add one for EXIT.
+2108:          This is not currently a problem because this only happens
+2109:          for the (single) epilogue, which already has a fallthru edge
+2110:          to EXIT.  */
+2111:
+2112:       e = single_succ_edge (bb);
+2113:       gcc_assert (e->dest == EXIT_BLOCK_PTR_FOR_FN (cfun)
+2114:                   && single_succ_p (bb) && (e->flags & EDGE_FALLTHRU));
+2115:
+2116:       e->flags &= ~EDGE_FALLTHRU;
+2117:       emit_barrier_after (last);
+2118:
+2119:       if (before)
+2120:         delete_insn (before);
+2121:     }
+2122:   else
+2123:     /* Sequences inserted after RTL expansion are expected to be SESE,
+2124:        with only internal branches allowed.  If the sequence jumps outside
+2125:        itself then we do not know how to add the associated edges here.  */
+2126:     gcc_assert (!JUMP_P (last) || currently_expanding_to_rtl);
+2127:
+2128:   if (contains_jump)
+2129:     find_sub_basic_blocks (bb);
 ```
 
 ## gcc/cfgbuild.cc:73–119
@@ -28073,6 +30521,32 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4767:
 ```
 
+## gcc/recog.cc:4553–4573
+
+```text
+4553: class pass_split_after_reload : public rtl_opt_pass
+4554: {
+4555: public:
+4556:   pass_split_after_reload (gcc::context *ctxt)
+4557:     : rtl_opt_pass (pass_data_split_after_reload, ctxt)
+4558:   {}
+4559:
+4560:   /* opt_pass methods: */
+4561:   bool gate (function *) final override
+4562:     {
+4563:       /* If optimizing, then go ahead and split insns now.  */
+4564:       return optimize > 0;
+4565:     }
+4566:
+4567:   unsigned int execute (function *) final override
+4568:     {
+4569:       split_all_insns ();
+4570:       return 0;
+4571:     }
+4572:
+4573: }; // class pass_split_after_reload
+```
+
 ## gcc/df-core.cc:684–714
 
 ```text
@@ -28603,6 +31077,20 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3029: fsplit-wide-types-early
 3030: Common Var(flag_split_wide_types_early) Optimization
 3031: Split wide types into independent registers earlier.
+```
+
+## gcc/common.opt:2996–3004
+
+```text
+2996: fshrink-wrap
+2997: Common Var(flag_shrink_wrap) Optimization
+2998: Emit function prologues only before parts of the function that need it,
+2999: rather than at the top of the function.
+3000:
+3001: fshrink-wrap-separate
+3002: Common Var(flag_shrink_wrap_separate) Init(1) Optimization
+3003: Shrink-wrap parts of the prologue and epilogue separately.
+3004:
 ```
 
 ## gcc/config/i386/i386-passes.def:20–40
@@ -29497,6 +31985,46 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6150:
 6151:   if (need_dce && optimize)
 6152:     run_fast_dce ();
+```
+
+## gcc/ira.cc:2457–2491
+
+```text
+2457: ira_setup_eliminable_regset (void)
+2458: {
+2459:   int i;
+2460:   static const struct {const int from, to; } eliminables[] = ELIMINABLE_REGS;
+2461:   int fp_reg_count = hard_regno_nregs (HARD_FRAME_POINTER_REGNUM, Pmode);
+2462:
+2463:   /* Setup is_leaf as frame_pointer_required may use it.  This function
+2464:      is called by sched_init before ira if scheduling is enabled.  */
+2465:   crtl->is_leaf = leaf_function_p ();
+2466:
+2467:   /* FIXME: If EXIT_IGNORE_STACK is set, we will not save and restore
+2468:      sp for alloca.  So we can't eliminate the frame pointer in that
+2469:      case.  At some point, we should improve this by emitting the
+2470:      sp-adjusting insns for this case.  */
+2471:   frame_pointer_needed
+2472:     = (! flag_omit_frame_pointer
+2473:        || (cfun->calls_alloca && EXIT_IGNORE_STACK)
+2474:        /* We need the frame pointer to catch stack overflow exceptions if
+2475:           the stack pointer is moving (as for the alloca case just above).  */
+2476:        || (STACK_CHECK_MOVING_SP
+2477:            && flag_stack_check
+2478:            && flag_exceptions
+2479:            && cfun->can_throw_non_call_exceptions)
+2480:        || crtl->accesses_prior_frames
+2481:        || (SUPPORTS_STACK_ALIGNMENT && crtl->stack_realign_needed)
+2482:        || targetm.frame_pointer_required ());
+2483:
+2484:     /* The chance that FRAME_POINTER_NEEDED is changed from inspecting
+2485:        RTL is very small.  So if we use frame pointer for RA and RTL
+2486:        actually prevents this, we will spill pseudos assigned to the
+2487:        frame pointer in LRA.  */
+2488:
+2489:   if (frame_pointer_needed)
+2490:     for (i = 0; i < fp_reg_count; i++)
+2491:       df_set_regs_ever_live (HARD_FRAME_POINTER_REGNUM + i, true);
 ```
 
 ## gcc/ira-costs.cc:2529–2542
@@ -31751,6 +34279,381 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 876:               delete_insn (insn);
 877:             }
 878:         }
+```
+
+## gcc/postreload.cc:2437–2452
+
+```text
+2437: class pass_postreload_cse : public rtl_opt_pass
+2438: {
+2439: public:
+2440:   pass_postreload_cse (gcc::context *ctxt)
+2441:     : rtl_opt_pass (pass_data_postreload_cse, ctxt)
+2442:   {}
+2443:
+2444:   /* opt_pass methods: */
+2445:   bool gate (function *) final override
+2446:   {
+2447:     return (optimize > 0 && reload_completed);
+2448:   }
+2449:
+2450:   unsigned int execute (function *) final override;
+2451:
+2452: }; // class pass_postreload_cse
+```
+
+## gcc/postreload-gcse.cc:1442–1462
+
+```text
+1442: class pass_gcse2 : public rtl_opt_pass
+1443: {
+1444: public:
+1445:   pass_gcse2 (gcc::context *ctxt)
+1446:     : rtl_opt_pass (pass_data_gcse2, ctxt)
+1447:   {}
+1448:
+1449:   /* opt_pass methods: */
+1450:   bool gate (function *fun) final override
+1451:     {
+1452:       return (optimize > 0 && flag_gcse_after_reload
+1453:               && optimize_function_for_speed_p (fun));
+1454:     }
+1455:
+1456:   unsigned int execute (function *) final override
+1457:   {
+1458:     rest_of_handle_gcse2 ();
+1459:     return 0;
+1460:   }
+1461:
+1462: }; // class pass_gcse2
+```
+
+## gcc/ree.cc:1411–1425
+
+```text
+1411: class pass_ree : public rtl_opt_pass
+1412: {
+1413: public:
+1414:   pass_ree (gcc::context *ctxt)
+1415:     : rtl_opt_pass (pass_data_ree, ctxt)
+1416:   {}
+1417:
+1418:   /* opt_pass methods: */
+1419:   bool gate (function *) final override { return (optimize > 0 && flag_ree); }
+1420:   unsigned int execute (function *) final override
+1421:   {
+1422:     return rest_of_handle_ree ();
+1423:   }
+1424:
+1425: }; // class pass_ree
+```
+
+## gcc/compare-elim.cc:952–972
+
+```text
+952: class pass_compare_elim_after_reload : public rtl_opt_pass
+953: {
+954: public:
+955:   pass_compare_elim_after_reload (gcc::context *ctxt)
+956:     : rtl_opt_pass (pass_data_compare_elim_after_reload, ctxt)
+957:   {}
+958:
+959:   /* opt_pass methods: */
+960:   bool gate (function *) final override
+961:     {
+962:       /* Setting this target hook value is how a backend indicates the need.  */
+963:       if (targetm.flags_regnum == INVALID_REGNUM)
+964:         return false;
+965:       return flag_compare_elim_after_reload;
+966:     }
+967:
+968:   unsigned int execute (function *) final override
+969:     {
+970:       return execute_compare_elim_after_reload ();
+971:     }
+972:
+```
+
+## gcc/config/i386/i386-expand.cc:364–590
+
+```text
+364: ix86_expand_move (machine_mode mode, rtx operands[])
+365: {
+366:   rtx op0, op1;
+367:   rtx tmp, addend = NULL_RTX;
+368:   enum tls_model model;
+369:
+370:   op0 = operands[0];
+371:   op1 = operands[1];
+372:
+373:   /* Avoid complex sets of likely spilled hard registers before reload.  */
+374:   if (!ix86_hardreg_mov_ok (op0, op1))
+375:     {
+376:       tmp = gen_reg_rtx (mode);
+377:       operands[0] = tmp;
+378:       ix86_expand_move (mode, operands);
+379:       operands[0] = op0;
+380:       operands[1] = tmp;
+381:       op1 = tmp;
+382:     }
+383:
+384:   switch (GET_CODE (op1))
+385:     {
+386:     case CONST:
+387:       tmp = XEXP (op1, 0);
+388:
+389:       if (GET_CODE (tmp) != PLUS
+390:           || !SYMBOL_REF_P (XEXP (tmp, 0)))
+391:         break;
+392:
+393:       op1 = XEXP (tmp, 0);
+394:       addend = XEXP (tmp, 1);
+395:       /* FALLTHRU */
+396:
+397:     case SYMBOL_REF:
+398:       model = SYMBOL_REF_TLS_MODEL (op1);
+399:
+400:       if (model)
+401:         op1 = legitimize_tls_address (op1, model, true);
+402:       else if (ix86_force_load_from_GOT_p (op1))
+403:         {
+404:           /* Load the external function address via GOT slot to avoid PLT.  */
+405:           op1 = gen_rtx_UNSPEC (Pmode, gen_rtvec (1, op1),
+406:                                 (TARGET_64BIT
+407:                                  ? UNSPEC_GOTPCREL
+408:                                  : UNSPEC_GOT));
+409:           op1 = gen_rtx_CONST (Pmode, op1);
+410:           op1 = gen_const_mem (Pmode, op1);
+411:           set_mem_alias_set (op1, GOT_ALIAS_SET);
+412:         }
+413:       else
+414:         {
+415: #if TARGET_PECOFF
+416:           tmp = legitimize_pe_coff_symbol (op1, addend != NULL_RTX);
+417:
+418:           if (tmp)
+419:             {
+420:               op1 = tmp;
+421:               if (!addend)
+422:                 break;
+423:             }
+424:           else
+425: #endif
+426:             {
+427:               op1 = operands[1];
+428:               break;
+429:             }
+430:         }
+431:
+432:       if (addend)
+433:         {
+434:           op1 = force_operand (op1, NULL_RTX);
+435:           op1 = expand_simple_binop (Pmode, PLUS, op1, addend,
+436:                                      op0, 1, OPTAB_DIRECT);
+437:         }
+438:       else
+439:         op1 = force_operand (op1, op0);
+440:
+441:       if (op1 == op0)
+442:         return;
+443:
+444:       op1 = convert_to_mode (mode, op1, 1);
+445:
+446:     default:
+447:       break;
+448:
+449:     case SUBREG:
+450:       /* Transform TImode paradoxical SUBREG into zero_extendditi2.  */
+451:       if (TARGET_64BIT
+452:           && mode == TImode
+453:           && SUBREG_P (op1)
+454:           && GET_MODE (SUBREG_REG (op1)) == DImode
+455:           && SUBREG_BYTE (op1) == 0)
+456:         op1 = gen_rtx_ZERO_EXTEND (TImode, SUBREG_REG (op1));
+457:       /* As not all values in XFmode are representable in real_value,
+458:          we might be called with unfoldable SUBREGs of constants.  */
+459:       if (mode == XFmode
+460:           && CONSTANT_P (SUBREG_REG (op1))
+461:           && can_create_pseudo_p ())
+462:         {
+463:           machine_mode imode = GET_MODE (SUBREG_REG (op1));
+464:           rtx r = force_const_mem (imode, SUBREG_REG (op1));
+465:           if (r)
+466:             r = validize_mem (r);
+467:           else
+468:             r = force_reg (imode, SUBREG_REG (op1));
+469:           op1 = simplify_gen_subreg (mode, r, imode, SUBREG_BYTE (op1));
+470:         }
+471:       break;
+472:     }
+473:
+474:   if ((flag_pic || MACHOPIC_INDIRECT)
+475:       && symbolic_operand (op1, mode))
+476:     {
+477: #if TARGET_MACHO
+478:       if (TARGET_MACHO && !TARGET_64BIT)
+479:         {
+480:           /* dynamic-no-pic */
+481:           if (MACHOPIC_INDIRECT)
+482:             {
+483:               tmp = (op0 && REG_P (op0) && mode == Pmode)
+484:                     ? op0 : gen_reg_rtx (Pmode);
+485:               op1 = machopic_indirect_data_reference (op1, tmp);
+486:               if (MACHOPIC_PURE)
+487:                 op1 = machopic_legitimize_pic_address (op1, mode,
+488:                                                        tmp == op1 ? 0 : tmp);
+489:             }
+490:           if (op0 != op1 && !MEM_P (op0))
+491:             {
+492:               rtx insn = gen_rtx_SET (op0, op1);
+493:               emit_insn (insn);
+494:               return;
+495:             }
+496:         }
+497: #endif
+498:
+499:       if (MEM_P (op0))
+500:         op1 = force_reg (mode, op1);
+501:       else if (!(TARGET_64BIT && x86_64_movabs_operand (op1, DImode)))
+502:         {
+503:           rtx reg = can_create_pseudo_p () ? NULL_RTX : op0;
+504:           op1 = legitimize_pic_address (op1, reg);
+505:           if (op0 == op1)
+506:             return;
+507:           op1 = convert_to_mode (mode, op1, 1);
+508:         }
+509:     }
+510:   else
+511:     {
+512:       if (MEM_P (op0)
+513:           && (PUSH_ROUNDING (GET_MODE_SIZE (mode)) != GET_MODE_SIZE (mode)
+514:               || !push_operand (op0, mode))
+515:           && MEM_P (op1))
+516:         op1 = force_reg (mode, op1);
+517:
+518:       if (push_operand (op0, mode)
+519:           && ! general_no_elim_operand (op1, mode))
+520:         op1 = copy_to_mode_reg (mode, op1);
+521:
+522:       /* Force large constants in 64bit compilation into register
+523:          to get them CSEed.  */
+524:       if (can_create_pseudo_p ()
+525:           && (mode == DImode) && TARGET_64BIT
+526:           && immediate_operand (op1, mode)
+527:           && !x86_64_zext_immediate_operand (op1, VOIDmode)
+528:           && !register_operand (op0, mode)
+529:           && optimize)
+530:         op1 = copy_to_mode_reg (mode, op1);
+531:
+532:       if (can_create_pseudo_p ())
+533:         {
+534:           if (CONST_DOUBLE_P (op1))
+535:             {
+536:               /* If we are loading a floating point constant to a
+537:                  register, force the value to memory now, since we'll
+538:                  get better code out the back end.  */
+539:
+540:               op1 = validize_mem (force_const_mem (mode, op1));
+541:               if (!register_operand (op0, mode))
+542:                 {
+543:                   tmp = gen_reg_rtx (mode);
+544:                   emit_insn (gen_rtx_SET (tmp, op1));
+545:                   emit_move_insn (op0, tmp);
+546:                   return;
+547:                 }
+548:             }
+549:         }
+550:     }
+551:
+552:   /* Special case inserting 64-bit values into a TImode register.  */
+553:   if (TARGET_64BIT
+554:       /* Disable for -O0 (see PR110587) unless naked (PR110533).  */
+555:       && (optimize || ix86_function_naked (current_function_decl))
+556:       && (mode == DImode || mode == DFmode)
+557:       && SUBREG_P (op0)
+558:       && GET_MODE (SUBREG_REG (op0)) == TImode
+559:       && REG_P (SUBREG_REG (op0))
+560:       && REG_P (op1))
+561:     {
+562:       /* Use *insvti_lowpart_1 to set lowpart.  */
+563:       if (SUBREG_BYTE (op0) == 0)
+564:         {
+565:           wide_int mask = wi::mask (64, true, 128);
+566:           tmp = immed_wide_int_const (mask, TImode);
+567:           op0 = SUBREG_REG (op0);
+568:           tmp = gen_rtx_AND (TImode, copy_rtx (op0), tmp);
+569:           if (mode == DFmode)
+570:             op1 = gen_lowpart (DImode, op1);
+571:           op1 = gen_rtx_ZERO_EXTEND (TImode, op1);
+572:           op1 = gen_rtx_IOR (TImode, tmp, op1);
+573:         }
+574:       /* Use *insvti_highpart_1 to set highpart.  */
+575:       else if (SUBREG_BYTE (op0) == 8)
+576:         {
+577:           wide_int mask = wi::mask (64, false, 128);
+578:           tmp = immed_wide_int_const (mask, TImode);
+579:           op0 = SUBREG_REG (op0);
+580:           tmp = gen_rtx_AND (TImode, copy_rtx (op0), tmp);
+581:           if (mode == DFmode)
+582:             op1 = gen_lowpart (DImode, op1);
+583:           op1 = gen_rtx_ZERO_EXTEND (TImode, op1);
+584:           op1 = gen_rtx_ASHIFT (TImode, op1, GEN_INT (64));
+585:           op1 = gen_rtx_IOR (TImode, tmp, op1);
+586:         }
+587:     }
+588:
+589:   emit_insn (gen_rtx_SET (op0, op1));
+590: }
+```
+
+## gcc/shrink-wrap.h:30–31
+
+```text
+30: #define SHRINK_WRAPPING_ENABLED \
+31:   (flag_shrink_wrap && targetm.have_simple_return ())
+```
+
+## gcc/shrink-wrap.cc:647–653
+
+```text
+647: try_shrink_wrapping (edge *entry_edge, rtx_insn *prologue_seq)
+648: {
+649:   /* If we cannot shrink-wrap, are told not to shrink-wrap, or it makes
+650:      no sense to shrink-wrap: then do not shrink-wrap!  */
+651:
+652:   if (!SHRINK_WRAPPING_ENABLED)
+653:     return;
+```
+
+## gcc/shrink-wrap.cc:1774–1799
+
+```text
+1774: use_shrink_wrapping_separate (void)
+1775: {
+1776:   if (!(SHRINK_WRAPPING_ENABLED && flag_shrink_wrap_separate
+1777:         && optimize_function_for_speed_p (cfun)
+1778:         && targetm.shrink_wrap.get_separate_components))
+1779:     return false;
+1780:
+1781:   /* We don't handle "strange" functions.  */
+1782:   if (cfun->calls_alloca
+1783:       || cfun->calls_setjmp
+1784:       || cfun->can_throw_non_call_exceptions
+1785:       || crtl->calls_eh_return
+1786:       || crtl->has_nonlocal_goto
+1787:       || crtl->saves_all_registers)
+1788:     return false;
+1789:
+1790:   return true;
+1791: }
+1792:
+1793: /* The main entry point to this subpass.  FIRST_BB is where the prologue
+1794:    would be normally put.  */
+1795: void
+1796: try_shrink_wrapping_separate (basic_block first_bb)
+1797: {
+1798:   if (!use_shrink_wrapping_separate ())
+1799:     return;
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

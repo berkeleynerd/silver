@@ -627,6 +627,41 @@
       "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
     },
     {
+      "path": "gcc/postreload.cc",
+      "bytes": 74753,
+      "sha256": "ba6a03d4c3a154fe85c03b085924cce9275c5e52201a05647fad7230bb438f32"
+    },
+    {
+      "path": "gcc/postreload-gcse.cc",
+      "bytes": 42531,
+      "sha256": "7298c092c732289a631cde38be53a324a20b441319e2159f54c45dbf0d13c290"
+    },
+    {
+      "path": "gcc/ree.cc",
+      "bytes": 46078,
+      "sha256": "be3c5d41d0a5d6e81ead51a4ffa312ad0b5ea6dbf8a8b42241c9ae345055e994"
+    },
+    {
+      "path": "gcc/compare-elim.cc",
+      "bytes": 27870,
+      "sha256": "4a0f91f9e793a4c74b0e07748b6365b3c67caacaaffff658a393c381205c85a7"
+    },
+    {
+      "path": "gcc/config/i386/i386-expand.cc",
+      "bytes": 790498,
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "path": "gcc/shrink-wrap.h",
+      "bytes": 1214,
+      "sha256": "159cea293acf458a070c7e3f84ef5ce37590dcfc333c15deea384033259a0825"
+    },
+    {
+      "path": "gcc/shrink-wrap.cc",
+      "bytes": 57755,
+      "sha256": "2f5f64386117793eafc0042b4c7de51d4ff5e175129c946cfe54f03761ce7f08"
+    },
+    {
       "path": "gcc/fwprop.cc",
       "bytes": 33900,
       "sha256": "5f47c4b15bb38847b910ac950203822cbfdb55c98002b4572c41b85575cefda5"

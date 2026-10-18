@@ -2425,6 +2425,97 @@ pseudos is a shape and iteration result, not a zero-memory register allocator.
 Machine frame generation, unwind, final emission and object/link output still
 lie beyond this boundary. No compiler or proof execution supplied these counts.
 
+#### Selected x86 frame and return construction
+
+The next boundary is the end of `pass_thread_prologue_and_epilogue`, including
+its O0 CFG cleanup. The preceding postreload CSE, late-combine, GCSE, split and
+redundant-extension passes require positive optimization; compare elimination
+is disabled by its ordinary O0 flag. The x86 AVX upper-register cleanup is
+disabled by the selected target's absent AVX capability. Those gates preserve
+the post-reload shape (`passes.def:520–533`, `postreload.cc:2437–2452`,
+`postreload-gcse.cc:1442–1462`, `ree.cc:1411–1425`,
+`compare-elim.cc:952–972`, `recog.cc:4553–4573`,
+`i386-features.cc:2913–2931`).
+
+O0's frame-pointer policy makes `frame_pointer_needed` true and marks the hard
+frame pointer live (`ira.cc:2457–2491`). Target finalization does not remove it:
+the null leaf has no stack realignment, and the omission optimization requires
+positive optimization (`i386.cc:8988–9049`). There are no local/spill slots,
+callee-saved registers other than this separately handled frame pointer,
+SSE saves, varargs, outgoing arguments, static chain, DRAP, alloca or TLS
+descriptor call. `ix86_save_reg` excludes the required hard frame pointer
+from the ordinary save count (`:6776–6894`).
+
+Consequently the selected layout starts at the 8-byte incoming return-address
+offset and adds the 8-byte saved frame pointer. The hard-frame-pointer save,
+hard-frame-pointer, ordinary-register-save, local-frame-pointer and final
+stack-pointer offsets are all 16. The local allocation and red-zone use are
+both zero (`:7020–7377`). This is an 8-byte hardware register save, distinct
+from the zero compiler-created local/spill slots. The broader target layout
+machinery still runs and is not priced by those offsets.
+
+The target emits exactly these four instruction-chain entries:
+
+```text
+INSN:      push RBP
+INSN:      mov RSP to RBP
+INSN:      pop RBP
+JUMP_INSN: simple_return
+```
+
+The prologue pushes the hard frame pointer and immediately establishes it;
+the remaining save/allocation/profile/probe/realignment branches are absent
+under the selected options and zero layout (`i386.cc:9266–9849`). The generic
+move wrapper reaches the ordinary DI register-to-register move, whose expander
+emits a single SET (`expr.cc:4572–4761`, `i386.md:2419–2423`,
+`i386-expand.cc:364–590`, `i386.cc:21251–21262`). The epilogue finds SP already
+at the frame-pointer save, chooses the single pop rather than a leave or
+adjustment sequence, and emits the normal simple return (`i386.cc:10309–10744`,
+`i386.md:20994–21001,21181–21184`). No calls, dynamic pseudos, new local slots,
+internal branches or exception regions arise. Push/pop patterns use hard
+registers, a PRE_DEC/POST_INC, MEM and SET; the pop also carries a CFA definition
+regnote with `SP+8` and at most one restore regnote
+(`i386.cc:6629–6676,7796–7809,9854–9907`). Those regnotes are not NOTE chain
+entries or the later DWARF CFI records.
+
+Generic threading adds one PROLOGUE_END note and one EPILOGUE_BEG note and
+initializes two instruction hashes at requested size 17
+(`function.cc:5734–5747,5867–5894,6017–6039`). Split-stack and profiling are
+disabled. Both shrink-wrapping routes return before changing the graph because
+ordinary O0 has `flag_shrink_wrap = 0`; the separate flag's default true does
+not bypass that conjunction (`common.opt:2996–3004`, `opts.cc:605`,
+`shrink-wrap.h:30–31`, `shrink-wrap.cc:647–653,1774–1799`). Thus sequences are
+generated once, with no sibling epilogue.
+
+Insertion uses the first ordinary block for the prologue and the sole exit
+predecessor for the epilogue; neither needs an edge split. Installing the return
+adds one BARRIER (`cfgrtl.cc:2005–2129`). Subdivision finds no interior control
+transfer or new label. The existing exit edge is retained with its fallthrough
+flag cleared. Finally `cleanup_cfg (0)` can remove/merge existing blocks and
+preserve a merged edge location with one nop. There are at most nine further
+merges from the at most ten ordinary blocks, not nine per cleanup call. No
+location-edge splitting occurs in this ordinary RTL cleanup; the earlier
+CFG-layout exit was a separate phase (`function.cc:6092–6325,6609–6635`,
+`cfgrtl.cc:1053–1093`, `cfgcleanup.cc:3110–3204`).
+
+The resulting conservative boundary is:
+
+```text
+ordinary blocks / edges / block-index slots <= 10 / 11 / 12
+cumulative CODE_LABEL / NOTE / INSN / JUMP_INSN / BARRIER <= 3 / 15 / 22 / 1 / 1
+cumulative instruction-chain allocations <= 26 + 4 + 2 + 1 + 9 = 42
+first unused per-function chain UID <= 43
+new dynamic pseudos / local stack slots / calls = 1 / 0 / 0
+machine frame save / local allocation = 8 / 0 bytes
+```
+
+This bound ends before later register-stack splitting, frame-note conversion,
+alignment/branch shortening, final output, assembler and linker work. In
+particular, no debug output does not mean no unwind output. The selected
+DWARF-frame pass and any instructions or notes created there still require
+their own source transfer. This packet retains source-derived shape and selected
+requests, not a whole-backend capacity or machine-code-size result.
+
 #### Late RTL initialization and retained fixed witnesses
 
 The native initialization witness immediately before

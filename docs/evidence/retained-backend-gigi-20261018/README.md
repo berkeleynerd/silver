@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 167 complete files at GCC
+`source-manifest.json` pins 174 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -118,3 +118,14 @@ remaining setup/allocator costs stay explicit. The checker now verifies 167
 GCC/Ada source files and two Silver API specifications; all 145 non-Ada source
 identities match the full-source manifest. Machine frame generation and later
 output are outside this boundary. No native/prover run was made.
+
+The frame extension follows selected x86 hard-frame-pointer save/restore and
+the return through generic sequence insertion and post-frame O0 CFG cleanup.
+It charges the two frame notes, return barrier and at most nine further
+location-preserving merge nops. The conditional chain ceiling is 42, with
+first unused UID at most 43; the machine register save is 8 bytes while local
+and spill slots remain zero. The record distinguishes CFA regnotes from later
+DWARF CFI records and leaves unwind/final output open. The checker now verifies
+174 GCC/Ada source files and two Silver API specifications; all 152 non-Ada
+full-file identities match the retained full-source manifest. No native/prover
+run was made.

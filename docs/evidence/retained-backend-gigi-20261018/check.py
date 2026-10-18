@@ -227,6 +227,27 @@ RELOAD_RANGES = {
     "gcc/lra-spills.cc": [(642, 651), (770, 878)],
     "gcc/cfgrtl.cc": [(3434, 3452)],
 }
+FRAME_RANGES = {
+    "gcc/ira.cc": [(2457, 2491)],
+    "gcc/postreload.cc": [(2437, 2452)],
+    "gcc/postreload-gcse.cc": [(1442, 1462)],
+    "gcc/ree.cc": [(1411, 1425)],
+    "gcc/compare-elim.cc": [(952, 972)],
+    "gcc/recog.cc": [(4553, 4573)],
+    "gcc/function.cc": [(5734, 5747), (5867, 5894), (6017, 6039),
+                        (6092, 6325), (6609, 6635)],
+    "gcc/config/i386/i386.cc": [(6629, 6676), (6776, 6894), (7020, 7377),
+                               (7796, 7809), (8988, 9049), (9266, 9907),
+                               (10309, 10744), (21251, 21262)],
+    "gcc/expr.cc": [(4572, 4761)],
+    "gcc/config/i386/i386-expand.cc": [(364, 590)],
+    "gcc/config/i386/i386.md": [(2419, 2423), (20994, 21001),
+                               (21104, 21107), (21181, 21184)],
+    "gcc/common.opt": [(2996, 3004)],
+    "gcc/shrink-wrap.h": [(30, 31)],
+    "gcc/shrink-wrap.cc": [(647, 653), (1774, 1799)],
+    "gcc/cfgrtl.cc": [(2005, 2129)],
+}
 GATE_FILES = (
     "fwprop.cc", "cprop.cc", "gcse.cc", "store-motion.cc", "ifcvt.cc",
     "loop-init.cc", "web.cc", "dse.cc", "auto-inc-dec.cc", "init-regs.cc",
@@ -243,6 +264,8 @@ MD_FILES = (
 for _name, _ranges in EXTRA_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name, _ranges in RELOAD_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
+for _name, _ranges in FRAME_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name in GATE_FILES:
     RANGES.setdefault("gcc/" + _name, [])
@@ -630,6 +653,17 @@ def check_sources(sources, inventory):
     assert "allocno_vec.create (max_reg_num () * 2);" in allocnos
     assert "ira_object_id_map_vec.create (max_reg_num () * 2);" in allocnos
     assert "if (! loops_p)\n    return;" in sources["gcc/ira-emit.cc"]
+    function = sources["gcc/function.cc"]
+    assert "emit_note (NOTE_INSN_PROLOGUE_END);" in function
+    assert "emit_note (NOTE_INSN_EPILOGUE_BEG);" in function
+    assert "hash_table<insn_cache_hasher>::create_ggc (17);" in function
+    assert "cleanup_cfg (optimize ? CLEANUP_EXPENSIVE : 0);" in function
+    assert "(flag_shrink_wrap && targetm.have_simple_return ())" in sources["gcc/shrink-wrap.h"]
+    x86 = sources["gcc/config/i386/i386.cc"]
+    assert "insn = emit_move_insn (hard_frame_pointer_rtx, stack_pointer_rtx);" in x86
+    assert "&& m->fs.sp_offset == frame.hfp_save_offset)\n\tix86_emit_restore_reg_using_pop (hard_frame_pointer_rtx);" in x86
+    assert "emit_jump_insn (gen_simple_return_internal ());" in x86
+    assert "emit_barrier_after (last);" in sources["gcc/cfgrtl.cc"]
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -706,6 +740,13 @@ def arithmetic():
         "null_LRA_inheritance_usage_array_request": 99,
         "null_LRA_assignment_main_and_preference_array_requests": [99]*5,
         "null_LRA_constraint_and_assignment_iterations": [2, 1],
+        "null_post_frame_block_edge_slot_ceilings": [10, 11, 12],
+        "null_post_frame_lifetime_label_note_insn_jump_barrier_ceilings": [3, 13+2, 10+3+9, 1, 1],
+        "null_post_frame_lifetime_chain_node_ceiling": 26+4+2+1+9,
+        "null_post_frame_first_unused_chain_uid_ceiling": 1+26+4+2+1+9,
+        "null_post_frame_new_dynamic_pseudos_stack_slots_calls": [1, 0, 0],
+        "null_post_frame_machine_register_save_and_local_allocation_bytes": [8, 0],
+        "null_post_frame_initial_prologue_epilogue_hash_requests": [17, 17],
         "ira_init_once_selected_dynamic_allocation_requests": 0,
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],

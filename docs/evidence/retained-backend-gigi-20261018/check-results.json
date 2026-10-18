@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 167,
+  "source_files_checked": 174,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -147,6 +147,33 @@
     "null_LRA_constraint_and_assignment_iterations": [
       2,
       1
+    ],
+    "null_post_frame_block_edge_slot_ceilings": [
+      10,
+      11,
+      12
+    ],
+    "null_post_frame_lifetime_label_note_insn_jump_barrier_ceilings": [
+      3,
+      15,
+      22,
+      1,
+      1
+    ],
+    "null_post_frame_lifetime_chain_node_ceiling": 42,
+    "null_post_frame_first_unused_chain_uid_ceiling": 43,
+    "null_post_frame_new_dynamic_pseudos_stack_slots_calls": [
+      1,
+      0,
+      0
+    ],
+    "null_post_frame_machine_register_save_and_local_allocation_bytes": [
+      8,
+      0
+    ],
+    "null_post_frame_initial_prologue_epilogue_hash_requests": [
+      17,
+      17
     ],
     "ira_init_once_selected_dynamic_allocation_requests": 0,
     "retained_bind_coefficients": {
