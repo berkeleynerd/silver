@@ -145,6 +145,18 @@
           "member": "spark-source/src/why/gnat2why-data_decomposition.adb",
           "bytes": 10603,
           "sha256": "efc943681bd3d8b898e7daec1aa998868cbcb3a94bdf6deb49603110ca566d6f"
+        },
+        {
+          "name": "marking",
+          "member": "spark-source/src/spark/spark_definition.adb",
+          "bytes": 601572,
+          "sha256": "d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e"
+        },
+        {
+          "name": "rewriting",
+          "member": "spark-source/src/spark/spark_rewrite.adb",
+          "bytes": 23149,
+          "sha256": "03618ce33d8ee04912d330ee2b4a946297e3f702e2762c186c0895b03493d6ca"
         }
       ]
     },
@@ -168,7 +180,7 @@
     },
     {
       "path": "docs/evidence/retained-producer-null-global-20261018/extra-sources.tar.gz",
-      "sha256": "b79678271411c6159ec596da31b5cebd9f33272b73f44249d658588704cd1600",
+      "sha256": "d6a37043a9fb968e86f5da1085cfffef8bf084e375f8d20c1474db4afc715acd",
       "files": [
         {
           "name": "unique_names",
@@ -211,6 +223,24 @@
           "member": "gcc-source/gcc/ada/osint-c.adb",
           "bytes": 15980,
           "sha256": "4be1e193fe80bbfc0cc0d70a025311087b751af69189b39832cb4455c286766e"
+        },
+        {
+          "name": "compilation_units",
+          "member": "gcc-source/gcc/ada/sem_ch10.adb",
+          "bytes": 276225,
+          "sha256": "234e1a651e8121eda2042d4b26fdd0c16732524262fd51316fe6df670d5e1a58"
+        },
+        {
+          "name": "runtime_loading",
+          "member": "gcc-source/gcc/ada/rtsfind.adb",
+          "bytes": 65279,
+          "sha256": "4d22bd416ef0dbeace081f78aeb49c92ec4731bb875f4436beee0164970aa4e5"
+        },
+        {
+          "name": "subprogram_semantics",
+          "member": "gcc-source/gcc/ada/sem_ch6.adb",
+          "bytes": 545826,
+          "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089"
         }
       ]
     }
@@ -220,6 +250,28 @@
       "path": "src/silver.adb",
       "bytes": 22230,
       "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-global-20261018/system.ads",
+      "bytes": 7503,
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads"
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-global-20261018/system.ali",
+      "bytes": 2428,
+      "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/system.ali"
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-20261018/main.ali",
+      "bytes": 1348,
+      "sha256": "502218f2945958f4aa887b0e51a7bf8407623ce67ae9a1001fefc5dfc3ce85ca"
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-20261018/main.adb",
+      "bytes": 69,
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
     }
   ]
 }

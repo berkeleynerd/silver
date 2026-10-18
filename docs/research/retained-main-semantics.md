@@ -1699,12 +1699,18 @@ themselves prove that every allocation is invariant under load order.
 For this Main light-mode process the authored context roots are only
 `Silver_IO` and `Silver_Arguments`. Arguments itself depends on IO, so reversing
 or repeating the two context clauses does not introduce another dependency
-analysis order. The SPARK marker's selected late runtime root is
-`System.Default_Priority`; its other RTE calls require tasking, protected
-operations or reserved runtime entities absent from Main. Count System once
-whether the IO dependency graph loads it first or the marker requests it after
-a context-free Main. Loading it later adds the separately charged Main scope
-save, not another analysis of System's declarations.
+analysis order. For a parameterless Main, GNATprove's frontend already forces
+`System.Interrupt_Priority` through SPARK_Implicit_Load
+(`sem_ch10.adb:1408–1445`), loading and analyzing System and adding an implicit
+with. The SPARK marker then marks Default_Priority, Priority and
+Interrupt_Priority for the main-subprogram ceiling checks
+(`spark_definition.adb:14100–14125`). Count System once whether the IO dependency
+graph or that implicit root loads it first. Loading it later adds the separately
+charged Main scope save, not another analysis of System's declarations.
+The retained complete fixed witness already took this path, so its frontend
+vector remains valid. The [null global-metadata correction](retained-producer-null-global.md#effect-of-the-system-correction-on-earlier-components)
+adds the previously omitted System visibility scopes while preserving the
+Main-only contract/report and call-graph domains.
 
 Fixed generic/private freeze work occurs while those fixed declarations are
 analyzed, including their finite generated contract bodies. The end of a

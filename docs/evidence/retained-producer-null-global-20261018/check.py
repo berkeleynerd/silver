@@ -33,6 +33,18 @@ def main():
 
     has('driver', 'Action (Standard_Package_Node);')
     has('driver', 'if Present (Cunit (U)) and then Analyzed (Unit (Cunit (U))) then')
+    has('compilation_units', 'SPARK_Implicit_Load (RE_Interrupt_Priority);')
+    has('runtime_loading', 'Discard_Node (RTE (E));')
+    has('runtime_loading', 'Semantics (Cunit (U.Unum));')
+    has('runtime_loading', 'Maybe_Add_With (U);')
+    has('subprogram_semantics', 'Analyze (Decl); Remove (Decl); Set_Has_Completion (Op_Name);')
+    system_source = sources['docs/evidence/retained-producer-null-global-20261018/system.ads']
+    assert re.findall(r'function\s+"([<>=]+)"', system_source) == ['<','<=','>','>=','=']
+    historical_ali = sources['docs/evidence/retained-producer-fixed-20261018/main.ali']
+    assert len(re.findall(r'^GG EK_FLOW_SCOPE ', historical_ali, re.M)) == 7
+    assert 'Z system%s' in historical_ali
+    installed_ali = sources['docs/evidence/retained-producer-null-global-20261018/system.ali']
+    assert not re.search(r'^(?:W |Y |Z |QQ |GG )', installed_ali, re.M)
     has('visibility', 'Hierarchy_Info.Insert (E, Info);')
     has('visibility', 'if Unit_Node = Standard_Package_Node then')
     has('visibility', 'Process (Hierarchy_Info_Maps.Key (C), Hierarchy_Info (C));')
@@ -86,11 +98,18 @@ def main():
           + ['FALSE']*6
           + [x for kind in ['ENTRY_CALLS','SUSPENDS_ON','UNSYNCH_ACCESSES'] for x in [kind,'0']],
         'scope': ['EK_FLOW_SCOPE','main']+['FALSE']*5+['__standard'],
+        'scope_system': ['EK_FLOW_SCOPE','system']+['FALSE']*5+['__standard'],
         'end': ['EK_END_MARKER'],
     }
+    # Full ten-digit homonym suffix is conservative; the selected fixed source
+    # has one declaration per operator. Boolean width placeholders are not
+    # claimed to be a parseable actual row.
+    for name in ['Olt','Ole','Ogt','Oge','Oeq']:
+        gg['scope_'+name] = ['EK_FLOW_SCOPE','system__'+name+'__2147483647']+['FALSE']*5+['system','VISIBLE_PART']
     gg_lines = {k:'GG '+' '.join(v) for k,v in gg.items()}
     lengths = {k:len(v) for k,v in gg_lines.items()}
-    assert lengths == {'direct':25,'proof':31,'globals':288,'scope':62,'end':16}
+    assert lengths == {'direct':25,'proof':31,'globals':288,'scope':62,'scope_system':64,'end':16,
+                       **{'scope_'+name:90 for name in ['Olt','Ole','Ogt','Oge','Oeq']}}
     frontier = [{'line':sources['phase1'].count('\n',0,m.start())+1,'argument':m.group(1)}
                 for m in re.finditer(r'New_GG_Line\s*\((\w+)\)',sources['phase1'])]
 
@@ -151,10 +170,18 @@ def main():
     result = {
         'native_or_proof_executions':0,
         'source_class':'Same Required_Tokens null family with permitted ASCII case/trivia and existing frontend location conditions',
-        'visibility_vertices_per_graph':4, 'visibility_edges_per_graph':16,
+        'visibility_vertices_per_graph':17, 'visibility_edges_per_graph':289,
+        'visibility_hierarchy_entries':7,'visibility_children_keys':1,
+        'visibility_children_set_entries':2,'visibility_nested_keys':1,
+        'visibility_nested_set_entries':5,
         'generated_global_rows':gg_lines,
         'generated_global_line_byte_bounds':lengths,
         'generated_global_total_bytes_with_lf':sum(lengths.values())+len(lengths),
+        'generated_global_row_count':len(lengths),
+        'installed_system_ali_bytes':len(installed_ali.encode()),
+        'installed_system_ali_longest_line':max(map(len,installed_ali.splitlines())),
+        'installed_system_ali_invocation_constructs':len(re.findall(r'^G c ',installed_ali,re.M)),
+        'installed_system_ali_has_gg_or_with_rows':False,
         'qq_header_bytes_with_lf':'16 + configured fixed version-string length',
         'gg_reader_buffer_bytes':max(lengths.values())-3,
         'gg_reader_cursor_maximum':max(lengths.values())-2,
@@ -182,7 +209,7 @@ def main():
         'summary_table_column_widths':widths,'summary_table_row_width':width,
         'ordinary_output_bytes':{'constant':len(ordinary(0)),'filename_byte_coefficient':1},
         'path_evaluations':[],
-        'scope':'Selected GG metadata and ordinary report consumers; generic frontend ALI, SARIF/VSS, project/process orchestration and remaining fixed startup are separate joins.'
+        'scope':'Selected GG metadata and ordinary report consumers, corrected for GNATprove implicit analyzed System; generic frontend ALI, SARIF/VSS, project/process orchestration and remaining fixed startup are separate joins.'
     }
     for p in [222,256,4096]:
         data = ordinary(p)

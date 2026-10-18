@@ -8,12 +8,16 @@ files from the existing SPARK/GNATCOLL archives plus `extra-sources.tar.gz`,
 which retains the already-pinned GCC Unique_Name implementation and installed
 GNAT.Command_Line specification. It also retains the GCC representation-JSON
 writer, switch/default and file-output sources for the four-byte data file.
+The correction also pins GNATprove's implicit-System loading and the removed
+implicit inequality declaration, the selected installed System spec/ALI data,
+and the earlier null probe's Main/ALI inputs. That existing probe already
+contains the seven visibility-scope rows; no new capture was needed.
 These remain external source-behavior
 premises, not installed-binary/source attestations.
 
 Run `python3 docs/evidence/retained-producer-null-global-20261018/check.py`.
 The checker verifies identities and source fragments, inventories phase-1 GG
-emission sites, computes the five selected GG records' size envelope, and
+emission sites, computes the eleven selected GG records' size envelope, and
 reconstructs the configuration JSON and ordinary report formatting bounds.
 It checks the empty data-representation writer/reader path separately from
 the native backannotation callback allowance required by `-gnatR2js`.

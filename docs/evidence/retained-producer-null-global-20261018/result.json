@@ -1,27 +1,49 @@
 {
   "native_or_proof_executions": 0,
   "source_class": "Same Required_Tokens null family with permitted ASCII case/trivia and existing frontend location conditions",
-  "visibility_vertices_per_graph": 4,
-  "visibility_edges_per_graph": 16,
+  "visibility_vertices_per_graph": 17,
+  "visibility_edges_per_graph": 289,
+  "visibility_hierarchy_entries": 7,
+  "visibility_children_keys": 1,
+  "visibility_children_set_entries": 2,
+  "visibility_nested_keys": 1,
+  "visibility_nested_set_entries": 5,
   "generated_global_rows": {
     "direct": "GG EK_DIRECT_CALLS main 0",
     "proof": "GG EK_PROOF_DEPENDENCIES main 0",
     "globals": "GG EK_GLOBALS main local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 0 proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 0 FALSE FALSE FALSE FALSE FALSE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0",
     "scope": "GG EK_FLOW_SCOPE main FALSE FALSE FALSE FALSE FALSE __standard",
-    "end": "GG EK_END_MARKER"
+    "scope_system": "GG EK_FLOW_SCOPE system FALSE FALSE FALSE FALSE FALSE __standard",
+    "end": "GG EK_END_MARKER",
+    "scope_Olt": "GG EK_FLOW_SCOPE system__Olt__2147483647 FALSE FALSE FALSE FALSE FALSE system VISIBLE_PART",
+    "scope_Ole": "GG EK_FLOW_SCOPE system__Ole__2147483647 FALSE FALSE FALSE FALSE FALSE system VISIBLE_PART",
+    "scope_Ogt": "GG EK_FLOW_SCOPE system__Ogt__2147483647 FALSE FALSE FALSE FALSE FALSE system VISIBLE_PART",
+    "scope_Oge": "GG EK_FLOW_SCOPE system__Oge__2147483647 FALSE FALSE FALSE FALSE FALSE system VISIBLE_PART",
+    "scope_Oeq": "GG EK_FLOW_SCOPE system__Oeq__2147483647 FALSE FALSE FALSE FALSE FALSE system VISIBLE_PART"
   },
   "generated_global_line_byte_bounds": {
     "direct": 25,
     "proof": 31,
     "globals": 288,
     "scope": 62,
-    "end": 16
+    "scope_system": 64,
+    "end": 16,
+    "scope_Olt": 90,
+    "scope_Ole": 90,
+    "scope_Ogt": 90,
+    "scope_Oge": 90,
+    "scope_Oeq": 90
   },
-  "generated_global_total_bytes_with_lf": 427,
+  "generated_global_total_bytes_with_lf": 947,
+  "generated_global_row_count": 11,
+  "installed_system_ali_bytes": 2428,
+  "installed_system_ali_longest_line": 67,
+  "installed_system_ali_invocation_constructs": 5,
+  "installed_system_ali_has_gg_or_with_rows": false,
   "qq_header_bytes_with_lf": "16 + configured fixed version-string length",
   "gg_reader_buffer_bytes": 285,
   "gg_reader_cursor_maximum": 286,
-  "gg_longest_token": "EK_PROOF_DEPENDENCIES",
+  "gg_longest_token": "system__Olt__2147483647",
   "gg_emission_source_frontier": [
     {
       "line": 142,
@@ -188,5 +210,5 @@
       "configuration_fits_small_file_reader": true
     }
   ],
-  "scope": "Selected GG metadata and ordinary report consumers; generic frontend ALI, SARIF/VSS, project/process orchestration and remaining fixed startup are separate joins."
+  "scope": "Selected GG metadata and ordinary report consumers, corrected for GNATprove implicit analyzed System; generic frontend ALI, SARIF/VSS, project/process orchestration and remaining fixed startup are separate joins."
 }

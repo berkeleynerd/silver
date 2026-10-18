@@ -11,25 +11,39 @@ the complete sources and checks the following arithmetic offline.
 ## Flow scope and generated-global records
 
 `GNAT_To_Why.Process_All_Units` explicitly visits Standard, then analyzed
-compilation units. It excludes configuration files and the unanalyzed System
-dependency. The selected null Main has no with clauses or runtime operations
-that analyze another unit. Its empty declaration list and null/pragma body
-introduce no additional scope. `Register_Flow_Scopes` gives Standard two
-vertices, Main a spec and body vertex, and one Main hierarchy-map entry. The
-constructor for Main's hierarchy identifies Standard as its parent and has
-no template, instance parent or nested container
-(`gnat2why-driver.adb:644–680,781–793`; `flow_visibility.adb:484–660,855–951`).
-Thus each phase's entity visibility graph has **four vertices**, at most
-16 distinct directed edges, four SCC numbers and adjacency maps of at most
-four entries. Phase 2's name visibility graph independently reconstructs the
-same four-vertex domain (`flow_generated_globals-phase_2-visibility.adb:
-352–423,634–700`). Graph copies do not share a total-node counter.
+compilation units. Although null Main has no authored with clause, GNATprove
+mode calls `SPARK_Implicit_Load(RE_Interrupt_Priority)` for parameterless Main
+(`sem_ch10.adb:1408–1445`). That calls RTE, which loads and semantically
+analyzes System and inserts an implicit with clause
+(`rtsfind.adb:1102–1208,1261–1333,1562–1639,1856–1863`). This differs from
+ordinary native compilation's potentially unanalyzed System checksum dependency.
+The initial version of this packet incorrectly transferred that native-only
+exclusion to the producer; the counts below correct it.
+
+The selected System specification has one package and five intrinsic Address
+comparison declarations. Its types have no DIC/invariant, nested package,
+subprogram body or task/protected declaration. The implicit inequality for its
+explicit equality is inserted, analyzed and **removed** before this traversal
+(`sem_ch6.adb:11359–11436`). Its scalar declarations/freezes and the selected
+SPARK rewriting do not add another retained scope declaration. Visibility
+traversal walks declarations/statements, not all entities in the entity chain
+(`flow_visibility.adb:955–1240`). System's fixed source is retained in the packet.
+
+`Register_Flow_Scopes` consequently gives Standard two vertices, Main two,
+System three and the five comparison functions two each: **17 vertices**,
+at most 289 distinct directed edges and seven hierarchy-map entries. Main
+and System have Standard as parent; the operators are nested in System's
+visible part (`gnat2why-driver.adb:644–680,781–793`;
+`flow_visibility.adb:484–660,855–951`). Phase 2's name graph reconstructs the
+same domain from GG records (`phase_2-visibility.adb:352–423,634–700`). Each
+adjacency set/map has at most seventeen entries; copies have independent counters.
 
 The phase-1 traversal tree has Main as its sole entry, no children and no
 constants. `Write_Contracts_To_ALI` consequently executes once. Its global
 and call sets are empty; locks, task accesses and source objects are absent.
-`GG_Register_Flow_Scope` executes once for Main. The source constructor and
-all conditional finalization cases therefore produce these five GG rows:
+Unlike that contract traversal, `Iterate_Flow_Scopes` visits all seven
+visibility hierarchy entries (`flow_visibility.adb:1243–1255`). The source
+constructor and conditional finalization cases produce eleven GG rows:
 
 | Kind | Nonempty entity payload | Maximum line bytes, excluding LF |
 | --- | --- | ---: |
@@ -37,6 +51,8 @@ all conditional finalization cases therefore produce these five GG rows:
 | `EK_PROOF_DEPENDENCIES` | Main; empty dependency set | 31 |
 | `EK_GLOBALS` | Main; empty parents/global/call/task sets and Boolean properties | 288 |
 | `EK_FLOW_SCOPE` | Main and `__standard`; five Boolean properties | 62 |
+| `EK_FLOW_SCOPE`, once | System and `__standard`; five Boolean properties | 64 |
+| `EK_FLOW_SCOPE`, five times | System comparison name, System container and `VISIBLE_PART` | 90 each |
 | `EK_END_MARKER` | none | 16 |
 
 `Unique_Name` returns the four-byte canonical Main name: no homonym exists,
@@ -45,9 +61,10 @@ and a subprogram whose scope is Standard gets no parent prefix
 `__standard` spelling comes from `phase_1-write.adb:46–53`. Boolean images
 have at most five bytes, and the empty-set count is one `0` byte. This is a
 size envelope; the checker deliberately uses the longer Boolean image for
-every property instead of claiming each property is false. The five rows
-occupy **at most 427 bytes including their LF terminators**. The separate QQ
-version header occupies `16+V_version` bytes including LF, where V_version
+every property instead of claiming each property is false. A System comparison
+name uses at most 23 bytes, charging `system__Oxx` plus even a full ten-digit
+homonym suffix. The eleven rows occupy **at most 947 bytes including LF**.
+The separate QQ version header occupies `16+V_version` bytes including LF, where V_version
 is the configured fixed tool-version string length. This parameter is a
 tool-build input, not a source-program-dependent term.
 
@@ -56,15 +73,18 @@ The complete emission frontier is `phase_1.adb:139–199,387–493,670–846` an
 objects, protected/task entries, constants and special initialization objects
 have no members; their conditional extra rows do not execute. In particular,
 Standard's special visibility vertices do not create a Standard hierarchy
-entry for `Iterate_Flow_Scopes` to serialize.
+entry for `Iterate_Flow_Scopes` to serialize. System contributes scope rows,
+not another generated Main contract. The previously retained null probe's
+`main.ali` already records exactly these seven scope rows and the implicit
+System dependency; it corroborates this correction without a new run.
 
 The phase-2 GG line reader copies a whole line, skips its three-byte prefix,
 and advances `Token_Start` to `Last+1`. Hence its selected buffer is at most
 285 bytes and its cursor at most 286; no GG token is longer than the longest
-fixed label (the checker computes it), and entity-name tokens are at most
-ten bytes. Every parsed list count is zero. `GG_Resolve` does read the other
-ALI lines with `Text_IO.Get_Line`; the **non-GG frontend ALI envelope remains
-a separate join**, as do its generic `Scan_ALI` tables. The five-row result
+fixed label/entity-name envelope (the checker computes it), and entity-name
+tokens are at most 23 bytes. Every parsed list count is zero. `GG_Resolve`
+reads the other ALI lines with `Text_IO.Get_Line`; the **non-GG frontend ALI
+envelope remains a separate join**, as do its generic `Scan_ALI` tables. The GG result
 does not substitute for that envelope.
 
 The selected GG-derived structures have the following distinct domains:
@@ -75,7 +95,8 @@ The selected GG-derived structures have the following distinct domains:
 | Phase-2 traversal tree | 2 (Standard and Main), one child edge |
 | `Phase_1_Info` / `Global_Contracts` after synthetic Standard insertion | 2 each |
 | Direct-call / proof-dependency map | 1 key each, empty values |
-| Name hierarchy / Children map | 1 key each; Standard's child set has Main |
+| Name hierarchy | 7 entries (Main, System and five comparisons) |
+| Children / Nested map | 1 key each; Standard's children are Main/System, System's nested set has five comparisons |
 | Per-fold patch list and recursive scope depth | 2 each |
 | Main task-instance map and its object list | 1 each; instance count 1 |
 | Subprogram, proof-module, lemma-module, tasking and priority call graphs | 1 vertex each; no call edge |
@@ -88,12 +109,61 @@ sets remain empty and its patch list has at most two entries
 (`phase_2.adb:2533–2703,3018–3072`). `GG_Complete` represents Main as an
 environment task even though the source declares no task; it uses Main's
 existing entity name and one object with instance count one
-(`:1184–1245`). Its derived call graphs start from Main and have no callee,
-with'ed package or protected-operation edges (`:743–1176`). Closure can
+(`:1184–1245`). Its derived call graphs start from Main and have no callee
+or protected-operation edges. The priority graph's Top_Level_Packages comes
+from package EK_Globals records, not the frontend implicit-with list; System
+adds no such record (`:743–1176,1734–1741`). Closure can
 therefore add no distinct key or source-dependent iteration count.
 These are independent per-container bounds. The existing fixed-context
 name-pool charge continues to cover elaboration names and Standard metadata;
 the GG reader does not introduce arbitrary program text into those pools.
+
+The implicit with also causes generic `Scan_ALI` to read the installation's
+fixed `system.ali`. The retained selected input has no with/QQ/GG rows and
+five invocation-construct records. It therefore adds no global contract or
+GG hierarchy entry; it does add fixed generic ALI table populations, which
+belong to the remaining generic-reader join. Its file identity and inventory
+are now retained alongside the System specification. The GG reader safely
+leaves its parsing state Before for a file with no GG section
+(`phase_2.adb:1979–2024`).
+
+## Effect of the System correction on earlier components
+
+The correction changes the explicit whole-unit visibility/GG account above.
+It does not invalidate the imported fixed-frontend/Why allowances. The
+[fixed frontend reduction](retained-main-semantics.md#fixed-light-roots-and-first-freeze-reduction)
+already includes analyzed System among its fixed roots and retains the complete
+witness Main, including implicit loading/with creation. Its `A_fixed=12784`
+and fixed maps were measured through the complete light frontend; the source
+argument separately charges Main scope saves when System loads later. This
+paragraph clarifies that Interrupt_Priority can force that load before the
+marker's Default_Priority request. No second System declaration analysis is
+added when the entity is already loaded.
+
+The [fixed producer envelope](retained-producer-fixed.md#selected-imported-dependencies)
+and its [composition](retained-producer-composition.md#fixed-imports-can-remain-paid)
+retain all five API witness contributions even for zero-API Main. Their
+parameterless Main roots take the same implicit-System load, and the retained
+null baseline's phase-1 ALI explicitly contains its System scopes. The source
+reduction already includes fixed imported entities/cache fills, so System's
+fixed declaration/operator roots are not new unpaid Why nodes or module-map
+entries. This is a transfer under the existing isolated-root/cache premises,
+not an extrapolation from the corrected seventeen-vertex graph.
+
+`Build_Flow_Tree` and `Mark_Current_Unit` use Process_Current_Unit rather than
+Process_All_Units (`gnat2why-driver.adb:685–713`). Thus the Main contract tree
+remains one entry and the phase-2 contract fold remains Main plus synthetic
+Standard. Imported System entities fail Analysis_Requested, so they add no
+Main VC, `.spark` reported entity, claim, source flow message or entity timing.
+Marking an implicit with visits only package initial conditions, absent in
+System; Main's priority marking requests only priority types/constants, not
+the package's comparison subprograms (`spark_definition.adb:4289–4307,
+14100–14125`). Those imported type/object entries do not add a subprogram
+call-graph vertex.
+The [Main report shape](retained-producer-null-tail.md), local CFG bound89,
+zero gnatwhy3/solver launches and ordinary-report/SARIF entity counts remain
+unchanged. Generic ALI parsing and all-unit visibility are explicitly different
+consumers and must include the System entries just identified.
 
 ## Data representation JSON
 
@@ -119,7 +189,7 @@ output counters and String slices are constant-sized.
 `Read_Data_Decomposition_JSON_File` ignores units without a compilation unit,
 probes existing representation files, and records a filename only after a
 successful parse. Only Main's four-byte array exists in the selected fresh
-data-representation directory. The optional implicit System dependency has
+data-representation directory. The producer's analyzed System dependency has
 no representation file. Therefore its File_Names set has one entry, the JSON
 array has no element, and `Data_Decomposition_Table` stays empty. `Handle_Entry`
 and its `UI_From_Integral` field conversions execute zero times
