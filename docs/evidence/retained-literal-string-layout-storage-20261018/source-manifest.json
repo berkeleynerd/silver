@@ -1,0 +1,384 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "reviewed_silver_revision": "62471752d9823fe73300f03825c8716999d9e127",
+  "files": [
+    {
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "git_blob_sha1": "2868cb0867dd805fa267a4edc890ded63ab17909",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/tree.h",
+      "root": "gcc",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "git_blob_sha1": "f8b2d718b7ee13eea791ffe5471ffc4fec98c9c6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.h",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "root": "gcc",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "git_blob_sha1": "07e9318f5e8b88cc3a03bdf5a9cab3a372b55856",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-core.h",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "root": "gcc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "git_blob_sha1": "796fc8199213a5e6d954143c8318a92faf2e1a32",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/stor-layout.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "root": "gcc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "git_blob_sha1": "56503e570bc440b65366b0c83a958a14dd3d5712",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/fold-const.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/fold-const.h",
+      "root": "gcc",
+      "bytes": 14525,
+      "sha256": "295bb10088338a87fc6864713268681a60f4cebf143d34394a2e54ba81053db2",
+      "git_blob_sha1": "373031477735aa4273445d81e7767f179c41c71d",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/fold-const.h",
+      "retained_identity_origin": "docs/evidence/retained-literal-original-string-storage-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/convert.cc",
+      "root": "gcc",
+      "bytes": 39639,
+      "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef",
+      "git_blob_sha1": "881797194f8cbda23212fab837669f35c9995035",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/convert.cc",
+      "retained_identity_origin": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/alias.cc",
+      "root": "gcc",
+      "bytes": 112284,
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2",
+      "git_blob_sha1": "6e16b21327f7e61ff7985214d475a9f43c555765",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/alias.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-gigi-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "root": "gcc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "git_blob_sha1": "633ff9e1db2192b7bc0fda1879767b12cb43ab82",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/genmatch.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/stringpool.cc",
+      "root": "gcc",
+      "bytes": 8292,
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1",
+      "git_blob_sha1": "630b3e7c8cf2ee05008f41643a5c46097ea7e25c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/stringpool.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-original-string-storage-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/warning-control.cc",
+      "root": "gcc",
+      "bytes": 6859,
+      "sha256": "72c84bba997d426c7606cf7c8e3e9a782684438ede9f9c661d7ce97a8c8fe6ea",
+      "git_blob_sha1": "fe1dd990d229a59ec740c178d3eaf125d3d16329",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/warning-control.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/defaults.h",
+      "root": "gcc",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a",
+      "git_blob_sha1": "6364216d9681b4c8560af455f3758ce035314c1c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/defaults.h",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/common.opt",
+      "root": "gcc",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f",
+      "git_blob_sha1": "5d0e255a40d99c52bb936158e6e0e4e826c0acd3",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/common.opt",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/params.opt",
+      "root": "gcc",
+      "bytes": 67891,
+      "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f",
+      "git_blob_sha1": "b35ca688cdf15de81915e47be0ec6c19df5a974e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/params.opt",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/calls.cc",
+      "root": "gcc",
+      "bytes": 178248,
+      "sha256": "f1354772f2dd9465c3eacebfcff2c53f7a0a5036eadc0ba2cf2f014c7a7e42ba",
+      "git_blob_sha1": "4cdc2361a4bf031f4c56c828561c2879ec50b805",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/calls.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-gigi-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/target.def",
+      "root": "gcc",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763",
+      "git_blob_sha1": "a9fcce7850fba9999d5961bf298ee4a7c93b411b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/target.def",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "root": "gcc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973",
+      "git_blob_sha1": "4249c55ce6e926329f68532c70bda10aaf30c9f2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "root": "gcc",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380",
+      "git_blob_sha1": "888edfed88f00db6322f84cc2a353e986aebfad9",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386.h",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "root": "ada",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "git_blob_sha1": "68007f35587992eaa8e181fb2939bdc7ccbab48f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/cstand.adb",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/layout.adb",
+      "root": "ada",
+      "bytes": 43148,
+      "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057",
+      "git_blob_sha1": "db5d69507fcd26291b8e30bf13d458bd610f5250",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/layout.adb",
+      "upstream_identity_check": "Byte-for-byte raw commit URL comparison on 2026-10-18; source read only."
+    },
+    {
+      "path": "gcc/ada/exp_dbug.adb",
+      "root": "ada",
+      "bytes": 55041,
+      "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0",
+      "git_blob_sha1": "acbd514688949cfe46604243677085b8cd92a770",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_dbug.adb",
+      "upstream_identity_check": "Byte-for-byte raw commit URL comparison on 2026-10-18; source read only."
+    },
+    {
+      "path": "gcc/ada/namet.ads",
+      "root": "ada",
+      "bytes": 29827,
+      "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8",
+      "git_blob_sha1": "c45f236bcbae9d8578e880a333d2aae876696baf",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/namet.ads",
+      "upstream_identity_check": "Byte-for-byte raw commit URL comparison on 2026-10-18; source read only."
+    },
+    {
+      "path": "gcc/ada/namet.adb",
+      "root": "ada",
+      "bytes": 48624,
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+      "git_blob_sha1": "f1568ad22ebb43a0f0e2e7452b3feb6776730eaf",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/namet.adb",
+      "upstream_identity_check": "Byte-for-byte raw commit URL comparison on 2026-10-18; source read only."
+    },
+    {
+      "path": "gcc/ada/opt.ads",
+      "root": "ada",
+      "bytes": 93026,
+      "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
+      "git_blob_sha1": "9f75ce8ec221101b12b7e24dc35cc2546853338c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/opt.ads",
+      "upstream_identity_check": "Byte-for-byte raw commit URL comparison on 2026-10-18; source read only."
+    },
+    {
+      "path": "gcc/ada/uintp.ads",
+      "root": "ada",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "git_blob_sha1": "a34abac444fcd53ded8609a2a996433bb55d364c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.ads",
+      "upstream_identity_check": "Byte-for-byte raw commit URL comparison on 2026-10-18; source read only."
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "root": "ada",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "git_blob_sha1": "dec64df3154cf547c74c790f7b8196c25077ab49",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/cuintp.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "ada",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "ada",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "root": "ada",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "git_blob_sha1": "3604d4df761cb702c326366f3ba6349fb37f4fc6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils2.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "ada",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/trans.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "root": "ada",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/misc.cc",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "root": "ada",
+      "bytes": 28538,
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835",
+      "git_blob_sha1": "89d89e22e58b08c94ebb340124750d9684253a34",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/ada-tree.h",
+      "retained_identity_origin": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/match.pd",
+      "root": "matcher",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "git_blob_sha1": "7b652afb43de4bc10c729a48cc32ae6766dd247e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/match.pd",
+      "retained_identity_origin": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "path": "libcpp/symtab.cc",
+      "root": "gcc",
+      "bytes": 9383,
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9",
+      "git_blob_sha1": "7a55c96d17f7691b67f5ced95fad77549ef32ebe",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libcpp/symtab.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-original-string-storage-20261018/source-manifest.json"
+    }
+  ],
+  "historical_silver_inputs": [
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "bytes": 38353,
+      "sha256": "a3857f1c88b37a617411164bc0a0b492e78805abf0d46c4222d3a1f491883b1f"
+    },
+    {
+      "path": "docs/evidence/retained-backend-gigi-20261018/source-manifest.json",
+      "bytes": 32026,
+      "sha256": "79170efba70a9491d9b5fcf1a29000fd1b63f22e935aa2967b50ded57f00e44f"
+    },
+    {
+      "path": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json",
+      "bytes": 9834,
+      "sha256": "11f170d0b9fbd0f7f89a9686e2472abd26d5da55d903f8fb9b987c1dab25726c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-original-string-storage-20261018/interface.json",
+      "bytes": 7073,
+      "sha256": "712bc4faab577233742b8203a9a457986f20c19ad5dca53ee0b463fa1d056cbc"
+    },
+    {
+      "path": "docs/evidence/retained-literal-original-string-storage-20261018/source-manifest.json",
+      "bytes": 15522,
+      "sha256": "a000e420a89043e286d68f5a6c40a9bc31b98d5095513d44dbf34e8e100abc46"
+    },
+    {
+      "path": "docs/evidence/retained-literal-string-layout-20261018/interface.json",
+      "bytes": 1186,
+      "sha256": "c163292c7972dfa9893ed84dcb817629be6b962b95d220d3b689c452b59b32d7"
+    },
+    {
+      "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/interface.json",
+      "bytes": 6644,
+      "sha256": "570b14178574a7d14c9de92b23a465d4e960f4138102f11e1970333cbfae4c08"
+    },
+    {
+      "path": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "bytes": 10880,
+      "sha256": "2346c508d0a94161667b9f7850705c17ed58ed80414c0b05cd96eb3dacf4d5b5"
+    },
+    {
+      "path": "docs/research/retained-backend-capacity.md",
+      "bytes": 117197,
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    },
+    {
+      "path": "docs/research/retained-literal-original-string-storage.md",
+      "bytes": 18406,
+      "sha256": "927ec892bb446e6a65d83b7515ef8436142e281215d7eafb25bf320acd78087c"
+    },
+    {
+      "path": "docs/research/retained-literal-string-layout.md",
+      "bytes": 14873,
+      "sha256": "0f7a4ef3a0abf228e6c5e204e518e3386603d93eba35e6bb591e1158ddb13392"
+    },
+    {
+      "path": "docs/research/retained-literal-synthetic-function-storage.md",
+      "bytes": 23056,
+      "sha256": "b8a664861e2fe87b6b4c870dc1d0904b83f89d9005c8a29bc9aaf29947ad5f2e"
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "path": "docs/reviews/review-literal-original-string-storage-db777735c4.md",
+      "bytes": 10592,
+      "sha256": "ff0af2e9c141fdfd658329d12fc3d026f5347afa8c440efc288dabeac90f6201"
+    }
+  ]
+}
