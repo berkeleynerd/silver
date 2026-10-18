@@ -72,6 +72,28 @@ RANGES["src/why/why-atree-modules.ads"].extend([[609, 618]])
 RANGES["src/why/why-inter.adb"].append([846, 880])
 RANGES["src/why/why-gen-arrays.adb"].append([2951, 2955])
 RANGES["src/why/gnat2why-driver.adb"].append([998, 1013])
+RANGES["src/why/gnat2why-subprograms.adb"].extend([
+    [548, 590], [1220, 1246], [1283, 1362], [1368, 1540], [1544, 1696],
+    [1826, 1904], [2000, 2105], [3305, 3310], [4485, 4740], [4958, 5093],
+    [5096, 5422], [5466, 5478], [5580, 5623], [5808, 5900], [6130, 6270],
+    [6644, 6688], [7431, 7470], [7534, 7610], [7614, 7658], [7698, 7735], [8113, 8157],
+    [8472, 8535], [9049, 9134],
+])
+RANGES["src/why/gnat2why-expr.adb"].extend([
+    [2029, 2093], [2362, 2462], [2945, 2990], [3049, 3121], [9459, 9473],
+    [9558, 9676], [14615, 14858], [26695, 26734], [26822, 26841],
+])
+RANGES["src/why/why-gen-binders.adb"].extend([
+    [92, 129], [281, 364], [613, 690], [820, 886], [1222, 1258], [1629, 1640],
+])
+RANGES["src/why/gnat2why-util.adb"].extend([
+    [644, 698], [840, 856], [1007, 1018], [1035, 1040], [1265, 1268],
+])
+RANGES["src/why/why-gen-terms.ads"] = [[31, 38]]
+RANGES["src/why/why-gen-progs.ads"] = [[38, 42]]
+RANGES["src/why/why-gen-expr.adb"].append([3149, 3165])
+RANGES["src/spark/spark_util-subprograms.adb"] = [[786, 859], [1890, 1950]]
+RANGES["src/spark/spark_util.adb"] = [[2450, 2540], [3092, 3153]]
 
 
 def sha(data):
@@ -194,6 +216,34 @@ def main():
     fixture = json.loads((ROOT / "retained-literal-modules.json").read_text())
     result = inspect_fixture(fixture)
     arithmetic = {
+        "ordinary_main_wrapper": {
+            "core_rows": {
+                "registration_four_headers_and_vc_module": [7, 8, 0, 4],
+                "completion_without_fixed_effects": [15, 4, 2, 16],
+                "twelve_sequences_39_slots": [12, 12, 39, 12 + 4 * 39],
+                "return_raise_and_try_handler": [3, 1, 1, 13],
+                "two_eager_finalization_sequences": [2, 2, 3, 10],
+                "four_comments": [4, 0, 0, 4],
+                "two_ignored_empty_contracts": [10, 0, 0, 32],
+                "other_empty_contract_literals": [3, 0, 0, 0],
+                "vc_effects": [1, 3, 0, 0],
+                "vc_function_with_unit_binder": [4, 1, 2, 12],
+            },
+            "core_total": [61, 31, 47, 259],
+            "sequence_arities": [5, 3, 5, 2, 4, 3, 2, 2, 2, 6, 3, 2],
+            "per_fixed_effect_rows": {
+                "unused_logic_binder_and_effect_references": [11, 0, 2, 12],
+                "input_assumption_and_output_dynamic_property": [68, 32, 48, 144],
+                "three_discarded_type_invariant_traversals": [57, 30, 45, 0],
+            },
+            "per_fixed_effect_total": [136, 62, 95, 156],
+            "fixed_effect_root_bound": 5,
+            "unused_default_priority_read": [5, 0, 0, 0],
+            "total_excluding_fixed_constant_assumptions": [746, 341, 522, 1039],
+            "additional_closes": 4,
+            "source_declaration_and_body_multiplicity": 1,
+            "still_separate": "fixed external-constant assumptions and input closure, dependencies, imports, memoized modules",
+        },
         "ordinary_entity_symbol_cache_nodes": {
             "signed_integer_type": 2 * (2 + 12 + 2) + 2 * 2,
             "rank_one_string_type": 2 * (10 + 9 + 2) + 2 * 3 + 2,
@@ -455,6 +505,18 @@ def main():
         "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
     }
     loop = arithmetic["ordinary_range_loop"]
+    wrapper = arithmetic["ordinary_main_wrapper"]
+    assert wrapper["core_total"] == [
+        sum(row[i] for row in wrapper["core_rows"].values()) for i in range(4)
+    ]
+    assert sum(wrapper["sequence_arities"]) == 39
+    assert wrapper["per_fixed_effect_total"] == [
+        sum(row[i] for row in wrapper["per_fixed_effect_rows"].values()) for i in range(4)
+    ]
+    assert wrapper["total_excluding_fixed_constant_assumptions"] == [
+        wrapper["core_total"][i] + 5 * wrapper["per_fixed_effect_total"][i]
+        + wrapper["unused_default_priority_read"][i] for i in range(4)
+    ]
     assert loop["fixed_total"] == [
         sum(row[i] for row in loop["fixed_rows"].values()) for i in range(4)
     ]

@@ -2072,6 +2072,159 @@ gives the deliberately looser but directly entity-based allowance
 previously unpriced symbol cache family; they do not close the enclosing Main
 subprogram theory/VC construction or the remaining fixed translations.
 
+### Enclosing Main theories and VC wrapper
+
+Main is a nondispatching procedure with no formals, user pre/postconditions,
+contract/exit cases, subprogram variant, dynamic termination condition,
+handlers, borrows or source `return`. The [selected public call shapes](retained-producer-calls.md#reachable-branches)
+also have no exceptional or program-exit contract. The corresponding guards
+read contracts, rather than inferring a handler from a possible implementation
+exception (`src/spark/spark_util.adb:2450–2540,3092–3153`). The default
+termination condition is unspecified or static, never dynamic
+(`src/spark/spark_util-subprograms.adb:786–859`). Thus the wrapper does not
+introduce handlers for library effects, variant expression translations or
+body-level contract expressions.
+
+There are four enclosing theory closes:
+
+1. `Translate_Subprogram_Spec`: one regular definition header/close
+   (`src/why/gnat2why-subprograms.adb:9049–9134`). Main has no logic-function or
+   dispatch theory.
+2. `Generate_Subprogram_Completion`: program declaration and post-axiom
+   headers/closes (`:7431–7610`). The procedure's post-axiom body is empty, but
+   its header and close still count. Its `Generate_Axiom_For_Post` eagerly
+   computes logic binders **before** the procedure early return (`:6644–6688`).
+3. `Generate_VCs_For_Subprogram`: one directly created VC module and one
+   header/close (`:4455–4483`).
+
+`Register_Symbol` also registers Main itself using the subprogram arm of
+`Mk_Item_Of_Entity`: one identifier/name pair
+(`src/why/gnat2why-driver.adb:1381–1391`,
+`src/why/why-gen-binders.adb:820–886`). Memoized entity modules remain in
+`27E_all`; the direct VC module is charged here.
+
+The declarations and handled statements are translated once at
+`gnat2why-subprograms.adb:5840–5872`. With no handlers/finally statements,
+`Transform_Handled_Statements` returns its one statement-list translation
+unchanged (`gnat2why-expr.adb:26695–26734,26822–26841`). Every subsequent
+sequence, try block or binding embeds its supplied body once. No whole Main
+body is copied into the specification or completion theories.
+
+Two otherwise easy-to-miss allocation families are retained:
+
+- A zero-parameter `Compute_Binders` call creates a fresh two-node
+  `Unit_Param`, not a shared constant. Completion calls it in its ordinary
+  program declaration, dynamic-effect helper, access-preservation helper and
+  eager post-axiom setup. The VC declaration creates one more unit parameter
+  (`gnat2why-subprograms.adb:1220–1246,1368–1384,6644–6688,7614–7631,8515–8522`,
+  `why-gen-binders.adb:1629–1640`).
+- Finalization eagerly creates two Void sequences. It scans declarations,
+  but ordinary scalar/String objects contain no allocated parts and introduce
+  no borrows. Their memory-leak checks return Void; appending Void adds
+  nothing. Thus this scan adds no per-local-object Why allocation
+  (`gnat2why-expr.adb:2945–2990,3057–3121,9558–9676`,
+  `why-gen-progs.adb:52–102`).
+
+Empty contracts can still allocate Boolean literals (`gnat2why-util.adb:644–698,
+840–856,1007–1018`). Their two ignored runtime-check expressions each allocate
+an identifier/name, binding and abstract expression, even though the contract
+is True (`why-gen-progs.adb:199–213`). These discarded/empty cases are included
+in the following core allowance. Supplied source declarations/body and the
+fixed-effect work below are separate children, included once.
+
+| Core wrapper part | Nodes | Lists | Elements | Occurrences beyond supplied children |
+| --- | ---: | ---: | ---: | ---: |
+| Main registration, four headers and direct VC module | 7 | 8 | 0 | 4 |
+| Completion: local name, eager unit binders, declaration, effects, empty pre/post | 15 | 4 | 2 | 16 |
+| Twelve possible sequences, 39 total argument slots | 12 | 12 | 39 | 168 |
+| Final return raise, try block and handler | 3 | 1 | 1 | 13 |
+| Two eager finalization Void sequences | 2 | 2 | 3 | 10 |
+| Four comments | 4 | 0 | 0 | 4 |
+| Two ignored empty contracts, including their literals | 10 | 0 | 0 | 32 |
+| Other empty-contract literals, including possible assertions/warnings | 3 | 0 | 0 | 0 |
+| VC effects | 1 | 3 | 0 | 0 |
+| VC function declaration with unit binder | 4 | 1 | 2 | 12 |
+| **Core total** | **61** | **31** | **47** | **259** |
+
+The sequence arities are `5,3,5,2,4,3,2,2,2,6,3,2`: initial body,
+post-finalization body, output checks, result append, contract/body assembly,
+input assumptions, moved-output assumptions, precondition runtime check,
+precondition assumption, outer assembly, postcondition checks, and final
+external-constant prepend. Each is charged even where Void filtering avoids
+allocation. The occurrence allowance `1+4n` per `n`-slot sequence allows a
+four-occurrence Void in every slot in addition to separately charged supplied
+children. This overcount is safe for empty/nonempty cases and is not an
+assertion that all sequences are emitted. `Declare_Exceptions` has no entries:
+the sole insertion path handles `N_Label`, excluded from source syntax and
+absent from ordinary light expansion. A parser-generated loop
+`N_Implicit_Label_Declaration` is a different node kind and does not trigger
+that path (`gnat2why-expr.adb:30068–30112`). The parser's `N_Label` constructor
+is in the explicit `<<name>>` parser; loop label declarations use
+`N_Implicit_Label_Declaration` (`gcc/ada/par-ch5.adb:1101–1127`,
+`par-labl.adb:496–525`).
+
+The five possible fixed effect roots are the four concrete Silver_IO output
+objects plus opaque File_System. They are unioned sets, so repeated source
+calls do not multiply the enclosing wrapper's effect count. Let `g <= 5`;
+charging every root as an ordinary static scalar/String overcounts the opaque
+state, which is ignored by invariant processing. Source Main objects are not
+global effects.
+
+| Additional work per possible fixed effect root | Cost |
+| --- | --- |
+| Eager unused logic binder/localization plus read/write effect references | `(11,0,2,12)` |
+| Input assumption and output dynamic property | `2*(34,16,24,72)` |
+| Three discarded type-invariant traversals | `3*(19,10,15,0)` |
+| **Per-root allowance** | **`(136,62,95,156)`** |
+
+For the first row, an opaque-name binder costs at most three nodes and
+localization two; each of its read/write references allows another three-node
+identifier/module construction and six occurrences. Existing registered
+ordinary binders are smaller (`why-gen-binders.adb:281–364,613–690`,
+`gnat2why-subprograms.adb:1544–1696,2067–2097`). The input/output row uses the
+already-derived ordinary declaration suffix allowance. The static String
+and nonempty scalar globals introduce no dynamic predicate-variable inputs.
+The three type-invariant passes are the completion's outputs and the VC's
+inputs/outputs. They can allocate an unused object read `6/3/5` and static
+array traversal `13/7/10` even though the final invariant is True. The two
+Booleans and constrained Natural cost less. These paths are
+`gnat2why-subprograms.adb:1283–1362,1368–1540,2018–2051,8113–8157` and
+`gnat2why-expr.adb:14615–14858`.
+
+`Check_Ceiling_Protocol` eagerly translates the platform's Default_Priority
+before iterating protected-object locks. No selected Main operation introduces
+such a lock. The pinned Linux `libgnat/system-linux-x86.ads:112` defines this
+constant as the scalar literal 48; the retained GCC inventory now also captures
+that line. The unused read fits the earlier static leaf plus expected-type
+allowance `(5,0,0,0)` (`gnat2why-subprograms.adb:548–590`).
+
+Consequently the enclosing contribution is bounded by
+
+```text
+B_Main_wrapper <= (61,31,47,259) + 5*(136,62,95,156) + (5,0,0,0)
+                  + B_fixed_constant_assumptions
+               = (746,341,522,1039) + B_fixed_constant_assumptions
+C_Main_wrapper <= 4.
+```
+
+`B_fixed_constant_assumptions` remains in the fixed dependency derivation; it
+is **not** assumed zero or a chosen empirical constant. `Assume_Value_Of_Constants`
+explicitly skips constants declared in Main, while
+`Assume_Dynamic_Invariant_For_Variables` skips Main-local objects and processes
+each remaining referenced entity at most once using `Already_Included`
+(`gnat2why-expr.adb:2362–2462,2669–2703`). Thus this remaining term cannot
+conceal a replay per source declaration or per use of a local constant. The
+selected fixed types, constants and their assumptions still need complete
+source accounting. The core/global allowance and four closes can now be
+added to the ordinary Main sum without changing source-expression multiplicity.
+
+The six cached Boolean literals from `Why.Gen.Terms` and `Why.Gen.Progs` add
+a further `(6,0,0,0)` bootstrap term
+(`src/why/why-gen-terms.ads:31–38`, `src/why/why-gen-progs.ads:38–42`). Their
+occurrences are charged at use sites. `Init_Why_Sections` initializes Ada lists,
+not Why list IDs (`gnat2why-util.adb:1035–1040,1265–1268`). This still does not
+claim an exhaustive package-elaboration allocation inventory.
+
 ## Aggregate formula and finite remaining helper families
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
@@ -2140,7 +2293,9 @@ again as standalone conversions.
 | Static literal use and definition family | The `R_lit/K_lit/L_i` formula above |
 | Eager array-representation cache attempt | `(17,0,0,0)` |
 | Built-in symbol/module initializer | `(1439,0,0,0)`; includes 117 modules, no theory roots |
+| Cached Boolean literals | `(6,0,0,0)`; other package elaboration still separate |
 | Ordinary Main symbol caches and all memoized entity modules | `(36T_i+50T_s+6O+4+27E_all,0,0,0)`; richer fixed-library symbol fills separate |
+| Enclosing Main core and five selected effect roots | `(746,341,522,1039)` and four closes; fixed external-constant assumptions separate |
 | Ordinary rank-one Character representation key miss | `(148,44,76,711)`; imports separate |
 | Main type translation/completion | Five classified rows in the preceding table; representation attempts and symbol caches separate |
 | Ordinary object/loop symbol and outer theory setup | [Object component](retained-producer-objects.md): per-visit regular/split `Mk_Item`, constant/mutable definitions, constant axioms and loop exception theory pair |
@@ -2169,7 +2324,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | --- | --- |
 | `K_fixed` | The built-in symbol/module initializer is priced above. Remaining: predefined and selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
-| Source-dependent setup and frontend node input | The ordinary Main syntax/entity sum and symbol/module cache allowances are assembled above. Derive Main subprogram-wrapper terms, including any dependence on its local/global set, and supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. |
+| Frontend node input | The ordinary Main syntax/entity sum, symbol/module caches and enclosing core/effect wrapper are assembled above. Supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. Main's external-constant assumptions remain explicitly in `K_fixed`. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,

@@ -798,6 +798,151 @@
    544:       end Rewrite_Node;
 ```
 
+## src/spark/spark_util-subprograms.adb:786-859
+
+```ada
+   786:    function Get_Termination_Condition
+   787:      (E : Entity_Id; Compute : Boolean := False) return Termination_Condition
+   788:    is
+   789:       Terminates_Pragma : constant Node_Id :=
+   790:         Get_Pragma (E, Pragma_Always_Terminates);
+   791:    begin
+   792:       pragma Assert (if Compute then GG_Has_Been_Generated);
+   793:
+   794:       --  Look for an Always_Terminates aspect on E
+   795:
+   796:       if Present (Terminates_Pragma) then
+   797:          declare
+   798:             Assocs : constant List_Id :=
+   799:               Pragma_Argument_Associations (Terminates_Pragma);
+   800:             Cond   : constant Node_Id :=
+   801:               (if No (Assocs) then Empty else Expression (First (Assocs)));
+   802:
+   803:          begin
+   804:             --  If Always_Terminates does not have a condition, the default is
+   805:             --  True.
+   806:
+   807:             if No (Cond) then
+   808:                return (Static, True);
+   809:
+   810:             --  If the condition is known at compile time, get its value
+   811:
+   812:             elsif Compile_Time_Known_Value (Cond) then
+   813:                return (Static, Is_True (Expr_Value (Cond)));
+   814:
+   815:             --  Otherwise, we keep the condition has is
+   816:
+   817:             else
+   818:                return (Dynamic, Cond);
+   819:             end if;
+   820:          end;
+   821:
+   822:       --  The Always_Terminates annotation is implicit on packages, functions,
+   823:       --  and lemmas.
+   824:
+   825:       elsif Has_Implicit_Always_Terminates (E) then
+   826:          return (Static, True);
+   827:
+   828:       --  If E is directly in a package specification, get the annotation from
+   829:       --  there.
+   830:
+   831:       else
+   832:          declare
+   833:             Scop : Entity_Id := Scope (E);
+   834:          begin
+   835:             while Present (Scop) and then Ekind (Scop) = E_Package loop
+   836:                if Present (Get_Pragma (Scop, Pragma_Always_Terminates)) then
+   837:                   return (Static, True);
+   838:                end if;
+   839:                Scop := Scope (Scop);
+   840:             end loop;
+   841:          end;
+   842:
+   843:          --  No applicable annotation was found, compute it or return
+   844:          --  unspecified.
+   845:
+   846:          if Compute then
+   847:             declare
+   848:                Value : constant Boolean :=
+   849:                  (if Ekind (E) in E_Subprogram_Type | E_Task_Type
+   850:                   then False
+   851:                   else not Is_Potentially_Nonreturning_Internal (E));
+   852:             begin
+   853:                return (Static, Value);
+   854:             end;
+   855:          else
+   856:             return (Kind => Unspecified);
+   857:          end if;
+   858:       end if;
+   859:    end Get_Termination_Condition;
+```
+
+## src/spark/spark_util-subprograms.adb:1890-1950
+
+```ada
+  1890:    procedure Process_Referenced_Entities (E : Entity_Id) is
+  1891:
+  1892:       procedure Process_All
+  1893:         (S : Flow_Types.Flow_Id_Sets.Set; Kind : Formal_Kind);
+  1894:       --  Process entities represented in S (as Flow_Ids)
+  1895:
+  1896:       -----------------
+  1897:       -- Process_All --
+  1898:       -----------------
+  1899:
+  1900:       procedure Process_All
+  1901:         (S : Flow_Types.Flow_Id_Sets.Set; Kind : Formal_Kind) is
+  1902:       begin
+  1903:          for F of S loop
+  1904:             case F.Kind is
+  1905:                when Direct_Mapping =>
+  1906:                   Process (Get_Direct_Mapping_Id (F), Kind);
+  1907:
+  1908:                when Magic_String   =>
+  1909:                   pragma Assert (Is_Opaque_For_Proof (F));
+  1910:
+  1911:                when others         =>
+  1912:                   raise Program_Error;
+  1913:             end case;
+  1914:          end loop;
+  1915:       end Process_All;
+  1916:
+  1917:    begin
+  1918:       --  Process global variables read or written in E
+  1919:
+  1920:       case Ekind (E) is
+  1921:          when E_Entry
+  1922:             | E_Function
+  1923:             | E_Procedure
+  1924:             | E_Task_Type
+  1925:             | E_Subprogram_Type =>
+  1926:             declare
+  1927:                Out_Ids    : Flow_Types.Flow_Id_Sets.Set;
+  1928:                In_Ids     : Flow_Types.Flow_Id_Sets.Set;
+  1929:                In_Out_Ids : Flow_Types.Flow_Id_Sets.Set;
+  1930:
+  1931:             begin
+  1932:                --  Also get references to global constants with variable inputs
+  1933:                --  even if they are constants in Why.
+  1934:
+  1935:                Flow_Utility.Get_Proof_Globals
+  1936:                  (Subprogram      => E,
+  1937:                   Reads           => In_Ids,
+  1938:                   Writes          => Out_Ids,
+  1939:                   Erase_Constants => False);
+  1940:
+  1941:                In_Out_Ids :=
+  1942:                  Flow_Types.Flow_Id_Sets.Intersection (Out_Ids, In_Ids);
+  1943:                In_Ids.Difference (In_Out_Ids);
+  1944:                Out_Ids.Difference (In_Out_Ids);
+  1945:
+  1946:                Process_All (In_Ids, E_In_Parameter);
+  1947:                Process_All (In_Out_Ids, E_In_Out_Parameter);
+  1948:                Process_All (Out_Ids, E_Out_Parameter);
+  1949:             end;
+  1950:
+```
+
 ## src/spark/spark_util-types.adb:1521-1620
 
 ```ada
@@ -945,6 +1090,169 @@
    144:
    145:    function Check_Needed_On_Conversion
    146:      (From, To : Type_Kind_Id) return Boolean;
+```
+
+## src/spark/spark_util.adb:2450-2540
+
+```ada
+  2450:    function Get_Exceptions_For_Subp
+  2451:      (Subp : Entity_Id) return Exception_Sets.Set
+  2452:    is
+  2453:       Exc_Prag  : constant Node_Id :=
+  2454:         Get_Pragma (Subp, Pragma_Exceptional_Cases);
+  2455:       Exit_Prag : constant Node_Id := Get_Pragma (Subp, Pragma_Exit_Cases);
+  2456:       Result    : Exception_Sets.Set := Exception_Sets.Empty_Set;
+  2457:
+  2458:    begin
+  2459:       --  If no exceptional cases contract is supplied but there is an exit
+  2460:       --  cases, use it to infer the potentially raised exceptions.
+  2461:
+  2462:       if No (Exc_Prag) and then No (Exit_Prag) then
+  2463:          return Result;
+  2464:
+  2465:       elsif No (Exc_Prag) then
+  2466:          declare
+  2467:             Aggr      : constant Node_Id :=
+  2468:               Expression (First (Pragma_Argument_Associations (Exit_Prag)));
+  2469:             Exit_Case : Node_Id := First (Component_Associations (Aggr));
+  2470:          begin
+  2471:             while Present (Exit_Case) loop
+  2472:                declare
+  2473:                   Exit_Kind : constant Node_Id := Expression (Exit_Case);
+  2474:                begin
+  2475:                   case Nkind (Exit_Kind) is
+  2476:                      when N_Identifier =>
+  2477:                         if Chars (Exit_Kind) = Name_Exception_Raised then
+  2478:                            return Exception_Sets.All_Exceptions;
+  2479:                         end if;
+  2480:
+  2481:                      when N_Aggregate  =>
+  2482:                         Result.Include
+  2483:                           (Entity
+  2484:                              (Expression
+  2485:                                 (First (Component_Associations (Exit_Kind)))));
+  2486:
+  2487:                      when others       =>
+  2488:                         raise Program_Error;
+  2489:                   end case;
+  2490:                end;
+  2491:                Next (Exit_Case);
+  2492:             end loop;
+  2493:          end;
+  2494:          return Result;
+  2495:       end if;
+  2496:
+  2497:       declare
+  2498:          Aggr     : constant Node_Id :=
+  2499:            Expression (First (Pragma_Argument_Associations (Exc_Prag)));
+  2500:          Exc_Case : Node_Id := Last (Component_Associations (Aggr));
+  2501:       begin
+  2502:          --  Collect exceptions in Prag. Start from the last case to look
+  2503:          --  for the others case first. Ignore cases with a statically False
+  2504:          --  postcondition.
+  2505:
+  2506:          while Present (Exc_Case) loop
+  2507:             declare
+  2508:                Exc        : Node_Id := First (Choices (Exc_Case));
+  2509:                Post       : constant Node_Id := Expression (Exc_Case);
+  2510:                False_Post : constant Boolean :=
+  2511:                  Compile_Time_Known_Value (Post)
+  2512:                  and then Is_False (Expr_Value (Post));
+  2513:             begin
+  2514:                while Present (Exc) loop
+  2515:                   case Nkind (Exc) is
+  2516:                      when N_Others_Choice                =>
+  2517:                         if not False_Post then
+  2518:                            pragma Assert (Result.Is_Empty);
+  2519:                            Result := Exception_Sets.All_Exceptions;
+  2520:                         end if;
+  2521:
+  2522:                      when N_Identifier | N_Expanded_Name =>
+  2523:                         if False_Post then
+  2524:                            Result.Exclude (Entity (Exc));
+  2525:                         else
+  2526:                            Result.Include (Entity (Exc));
+  2527:                         end if;
+  2528:
+  2529:                      when others                         =>
+  2530:                         raise Program_Error;
+  2531:                   end case;
+  2532:                   Next (Exc);
+  2533:                end loop;
+  2534:             end;
+  2535:
+  2536:             Prev (Exc_Case);
+  2537:          end loop;
+  2538:       end;
+  2539:       return Result;
+  2540:    end Get_Exceptions_For_Subp;
+```
+
+## src/spark/spark_util.adb:3092-3153
+
+```ada
+  3092:    function Has_Exceptional_Contract (E : Entity_Id) return Boolean
+  3093:    is (not Get_Exceptions_For_Subp (E).Is_Empty);
+  3094:
+  3095:    ----------------------
+  3096:    -- Has_Program_Exit --
+  3097:    ----------------------
+  3098:
+  3099:    function Has_Program_Exit (E : Entity_Id) return Boolean is
+  3100:       Prog_Prag : constant Node_Id := Get_Pragma (E, Pragma_Program_Exit);
+  3101:       Exit_Prag : constant Node_Id := Get_Pragma (E, Pragma_Exit_Cases);
+  3102:
+  3103:    begin
+  3104:       if Present (Prog_Prag) then
+  3105:          declare
+  3106:             Assoc : constant List_Id :=
+  3107:               Pragma_Argument_Associations (Prog_Prag);
+  3108:             pragma Assert (No (Assoc) or else List_Length (Assoc) = 1);
+  3109:             Post  : constant Node_Id :=
+  3110:               (if No (Assoc) then Empty else Expression (First (Assoc)));
+  3111:          begin
+  3112:             return
+  3113:               No (Post)
+  3114:               or else not Compile_Time_Known_Value (Post)
+  3115:               or else not Is_False (Expr_Value (Post));
+  3116:          end;
+  3117:
+  3118:       --  If no program exit contract is supplied but there is an exit cases,
+  3119:       --  use it to infer whether E might exit the program.
+  3120:
+  3121:       elsif Present (Exit_Prag) then
+  3122:          declare
+  3123:             Aggr      : constant Node_Id :=
+  3124:               Expression (First (Pragma_Argument_Associations (Exit_Prag)));
+  3125:             Exit_Case : Node_Id := First (Component_Associations (Aggr));
+  3126:          begin
+  3127:             while Present (Exit_Case) loop
+  3128:                declare
+  3129:                   Exit_Kind : constant Node_Id := Expression (Exit_Case);
+  3130:                begin
+  3131:                   case Nkind (Exit_Kind) is
+  3132:                      when N_Identifier =>
+  3133:                         if Chars (Exit_Kind) = Name_Program_Exit then
+  3134:                            return True;
+  3135:                         end if;
+  3136:
+  3137:                      when N_Aggregate  =>
+  3138:                         null;
+  3139:
+  3140:                      when others       =>
+  3141:                         raise Program_Error;
+  3142:                   end case;
+  3143:                end;
+  3144:                Next (Exit_Case);
+  3145:             end loop;
+  3146:          end;
+  3147:          return False;
+  3148:
+  3149:       else
+  3150:          return False;
+  3151:       end if;
+  3152:    end Has_Program_Exit;
+  3153:
 ```
 
 ## src/spark/spark_util.ads:69-111
@@ -10497,6 +10805,774 @@
  30215:    end Transform_Statements_And_Declarations;
 ```
 
+## src/why/gnat2why-expr.adb:2029-2093
+
+```ada
+  2029:    procedure Assume_Declaration_Of_Entity
+  2030:      (E             : Extended_Object_Kind_Id;
+  2031:       Params        : Transformation_Params;
+  2032:       Initialized   : Boolean;
+  2033:       Top_Predicate : Boolean;
+  2034:       Context       : in out W_Prog_Id)
+  2035:    is
+  2036:       Max_Assocs : constant Natural := 100;
+  2037:       --  If the defining expression of a constant contains more than
+  2038:       --  Max_Assocs N_Component_Association nodes, its definition will not be
+  2039:       --  inlined.
+  2040:
+  2041:       L_Id       : constant W_Expr_Id :=
+  2042:         (if Is_Protected_Type (E)
+  2043:          then
+  2044:            (if Self_Is_Mutable
+  2045:             then New_Deref (Right => Self_Name, Typ => Get_Typ (Self_Name))
+  2046:             else +Self_Name)
+  2047:          else
+  2048:            Transform_Identifier
+  2049:              (Params => Params, Expr => E, Ent => E, Domain => EW_Term));
+  2050:       Do_Valid   : constant Boolean := Object_Has_Valid_Id (E);
+  2051:       L_Id_Valid : constant W_Term_Id :=
+  2052:         Get_Valid_Id_From_Object (E, Params.Ref_Allowed);
+  2053:
+  2054:    begin
+  2055:       pragma Assert (L_Id /= Why_Empty);
+  2056:
+  2057:       --  Assume dynamic property of E
+  2058:
+  2059:       declare
+  2060:          Init_Id : constant W_Expr_Id :=
+  2061:            Get_Init_Id_From_Object (E, Params.Ref_Allowed);
+  2062:          Dyn_Inv : constant W_Prog_Id :=
+  2063:            New_Assume_Statement
+  2064:              (Pred =>
+  2065:                 Compute_Dynamic_Inv_And_Initialization
+  2066:                   (Expr          => +L_Id,
+  2067:                    Ty            => Etype (E),
+  2068:                    Valid         => L_Id_Valid,
+  2069:                    Initialized   =>
+  2070:                      (if Init_Id /= Why_Empty
+  2071:                       then +Init_Id
+  2072:                       elsif Initialized
+  2073:                       then True_Term
+  2074:                       else False_Term),
+  2075:                    Params        => Body_Params,
+  2076:                    Only_Var      => False_Term,
+  2077:                    Top_Predicate => Top_Predicate));
+  2078:       begin
+  2079:          Append (Context, Dyn_Inv);
+  2080:       end;
+  2081:
+  2082:       --  For mutable overlays, assume the dynamic invariant of the overlay for
+  2083:       --  all values of the root object.
+  2084:
+  2085:       if Present (Ultimate_Overlaid_Entity (E)) and then Is_Mutable_In_Why (E)
+  2086:       then
+  2087:          Assume_Dynamic_Invariant_For_Overlay (E, Body_Params, Context);
+  2088:       end if;
+  2089:
+  2090:       --  Constants of access-to-variable types are not constant. Still assume
+  2091:       --  the value of the is_null field if the declaration is null or an
+  2092:       --  allocator.
+  2093:
+```
+
+## src/why/gnat2why-expr.adb:2362-2462
+
+```ada
+  2362:    function Assume_Dynamic_Invariant_For_Variables
+  2363:      (Vars             : Node_Sets.Set;
+  2364:       Params           : Transformation_Params;
+  2365:       Scope            : Entity_Id := Empty;
+  2366:       Exclude_Top_Pred : Entity_Id := Empty;
+  2367:       Initialized      : Boolean := False) return W_Prog_Id
+  2368:    is
+  2369:       Dynamic_Prop_Inputs : W_Prog_Id := +Void;
+  2370:       Includes            : Node_Sets.Set := Vars;
+  2371:       Already_Included    : Node_Sets.Set := Node_Sets.Empty_Set;
+  2372:       Prop_For_Include    : W_Prog_Id;
+  2373:       Top_Predicate       : Boolean;
+  2374:       First_Iter          : Boolean := True;
+  2375:       Variables           : Flow_Id_Sets.Set;
+  2376:       --  Set of variable inputs used in the assumed dynamic invariants.
+  2377:       --  We will also need to assume their dynamic invariant.
+  2378:
+  2379:    begin
+  2380:       while not Node_Sets.Is_Empty (Includes) loop
+  2381:          Prop_For_Include := +Void;
+  2382:          Flow_Id_Sets.Clear (Variables);
+  2383:          for Obj of Includes loop
+  2384:
+  2385:             --  The self reference of a protected subprogram is always
+  2386:             --  initialized. We only consider protected types in first
+  2387:             --  iteration. Indeed, later, they will have been added by
+  2388:             --  Compute_Ada_Node_Set and won't be relevant.
+  2389:
+  2390:             if First_Iter and then Is_Protected_Type (Obj) then
+  2391:
+  2392:                Assume_Declaration_Of_Entity
+  2393:                  (E             => Obj,
+  2394:                   Params        => Params,
+  2395:                   Initialized   => True,
+  2396:                   Top_Predicate => True,
+  2397:                   Context       => Prop_For_Include);
+  2398:
+  2399:             --  No need to assume anything if Obj is not an object, if it is
+  2400:             --  not in SPARK or if it is a local object of the unit.
+  2401:
+  2402:             elsif not (Nkind (Obj) in N_Entity
+  2403:                        and then
+  2404:                          (Is_Object (Obj) or else Is_Named_Number (Obj)))
+  2405:               or else not Ada_Ent_To_Why.Has_Element (Symbol_Table, Obj)
+  2406:               or else
+  2407:                 (Present (Scope) and then Is_Declared_In_Unit (Obj, Scope))
+  2408:             then
+  2409:                null;
+  2410:             else
+  2411:                --  If Obj is the parameter of a predicate function, do not
+  2412:                --  assume the toplevel predicate for checking absence of RTE
+  2413:                --  in the predicate function itself.
+  2414:
+  2415:                Top_Predicate := Exclude_Top_Pred /= Obj;
+  2416:
+  2417:                Assume_Declaration_Of_Entity
+  2418:                  (E             => Obj,
+  2419:                   Params        => Params,
+  2420:                   Initialized   =>
+  2421:                     (if Is_Object (Obj)
+  2422:                        and then Is_Mutable_In_Why (Obj)
+  2423:                        and then not Initialized
+  2424:                      then Is_Initialized_In_Scope (Obj, Scope)
+  2425:                      else True),
+  2426:                   Top_Predicate => Top_Predicate,
+  2427:                   Context       => Prop_For_Include);
+  2428:
+  2429:                --  Add all the variable inputs of the dynamic invariant
+  2430:                --  to the set of variables to consider.
+  2431:
+  2432:                Variables_In_Dynamic_Invariant
+  2433:                  (Etype (Obj), Variables, Current_Subp);
+  2434:             end if;
+  2435:          end loop;
+  2436:
+  2437:          Prepend (Prop_For_Include, Dynamic_Prop_Inputs);
+  2438:          Node_Sets.Union (Already_Included, Includes);
+  2439:          Includes := Compute_Ada_Node_Set (+Prop_For_Include);
+  2440:
+  2441:          --  Add the variable inputs of dynamic predicates to Includes so
+  2442:          --  that their dynamic invariant can be assumed.
+  2443:
+  2444:          for Var of Variables loop
+  2445:             case Var.Kind is
+  2446:                when Direct_Mapping =>
+  2447:                   Node_Sets.Include (Includes, Get_Direct_Mapping_Id (Var));
+  2448:
+  2449:                when Magic_String   =>
+  2450:                   pragma Assert (Is_Opaque_For_Proof (Var));
+  2451:
+  2452:                when others         =>
+  2453:                   raise Program_Error;
+  2454:             end case;
+  2455:          end loop;
+  2456:
+  2457:          Node_Sets.Difference (Includes, Already_Included);
+  2458:          First_Iter := False;
+  2459:       end loop;
+  2460:       return Dynamic_Prop_Inputs;
+  2461:    end Assume_Dynamic_Invariant_For_Variables;
+  2462:
+```
+
+## src/why/gnat2why-expr.adb:2945-2990
+
+```ada
+  2945:
+  2946:    function Check_No_Memory_Leaks
+  2947:      (Ada_Node           : Node_Id;
+  2948:       N                  : Node_Or_Entity_Id;
+  2949:       Is_Uncheck_Dealloc : Boolean := False;
+  2950:       At_End_Of_Scope    : Boolean := False) return W_Prog_Id
+  2951:    is
+  2952:       Init_Typ : constant Entity_Id := Retysp (Etype (N));
+  2953:
+  2954:       --  For Unchecked_Deallocation, we are not interested in the access type
+  2955:       --  itself, but in the designated type. The fact that the argument of
+  2956:       --  Unchecked_Deallocation should not be moved is checked already by the
+  2957:       --  borrow checker. Here we check that all pointers in the designated
+  2958:       --  value, if any, are moved (null being a special case of moved).
+  2959:
+  2960:       Typ  : constant Entity_Id :=
+  2961:         (if Is_Uncheck_Dealloc
+  2962:          then Retysp (Directly_Designated_Type (Init_Typ))
+  2963:          else Init_Typ);
+  2964:       Root : constant Entity_Id :=
+  2965:         (if Nkind (N) = N_Defining_Identifier then N else Get_Root_Object (N));
+  2966:
+  2967:       Result : W_Prog_Id := +Void;
+  2968:       Kind   : constant VC_Kind :=
+  2969:         (if At_End_Of_Scope
+  2970:          then VC_Resource_Leak_At_End_Of_Scope
+  2971:          else VC_Resource_Leak);
+  2972:
+  2973:    begin
+  2974:       --  Nothing to check on borrow/observe of anonymous access type. Do not
+  2975:       --  emit checks for memory leaks for ghost entities that cannot be
+  2976:       --  enabled at runtime.
+  2977:
+  2978:       if Contains_Allocated_Parts (Typ)
+  2979:         and then not Is_Anonymous_Access_Type (Typ)
+  2980:         and then
+  2981:           (not Is_Ghost_Entity (Current_Subp)
+  2982:            or else
+  2983:              not Is_Non_Exec_Assertion_Level
+  2984:                    (Ghost_Assertion_Level (Current_Subp)))
+  2985:         and then
+  2986:           not (Present (Root)
+  2987:                and then Is_Ghost_Entity (Root)
+  2988:                and then
+  2989:                  Is_Non_Exec_Assertion_Level (Ghost_Assertion_Level (Root)))
+  2990:       then
+```
+
+## src/why/gnat2why-expr.adb:3049-3121
+
+```ada
+  3049:
+  3050:       return Result;
+  3051:    end Check_No_Memory_Leaks;
+  3052:
+  3053:    -------------------------------------------
+  3054:    -- Check_No_Memory_Leaks_At_End_Of_Scope --
+  3055:    -------------------------------------------
+  3056:
+  3057:    function Check_No_Memory_Leaks_At_End_Of_Scope
+  3058:      (Decls : List_Id) return W_Prog_Id
+  3059:    is
+  3060:       Cur_Decl : Node_Id := First (Decls);
+  3061:       Result   : W_Statement_Sequence_Id := Void_Sequence;
+  3062:
+  3063:    begin
+  3064:       while Present (Cur_Decl) loop
+  3065:          case Nkind (Cur_Decl) is
+  3066:
+  3067:             --  Only consider objects in SPARK, so that parts of packages
+  3068:             --  marked SPARK_Mode Off are ignored.
+  3069:
+  3070:             when N_Object_Declaration  =>
+  3071:                if Entity_In_SPARK (Defining_Identifier (Cur_Decl)) then
+  3072:                   Append
+  3073:                     (Result,
+  3074:                      Check_No_Memory_Leaks
+  3075:                        (Cur_Decl,
+  3076:                         Defining_Identifier (Cur_Decl),
+  3077:                         At_End_Of_Scope => True));
+  3078:                end if;
+  3079:
+  3080:             --  Objects in local packages should be deallocated before
+  3081:             --  returning from the enclosing subprogram.
+  3082:
+  3083:             when N_Package_Declaration =>
+  3084:                declare
+  3085:                   Pack : constant Entity_Id :=
+  3086:                     Unique_Defining_Entity (Cur_Decl);
+  3087:                begin
+  3088:                   Append
+  3089:                     (Result,
+  3090:                      Check_No_Memory_Leaks_At_End_Of_Scope
+  3091:                        (Visible_Declarations_Of_Package (Pack)));
+  3092:                   Append
+  3093:                     (Result,
+  3094:                      Check_No_Memory_Leaks_At_End_Of_Scope
+  3095:                        (Private_Declarations_Of_Package (Pack)));
+  3096:                end;
+  3097:
+  3098:             when N_Package_Body        =>
+  3099:                Append
+  3100:                  (Result,
+  3101:                   Check_No_Memory_Leaks_At_End_Of_Scope
+  3102:                     (Declarations (Cur_Decl)));
+  3103:
+  3104:             when others                =>
+  3105:                null;
+  3106:          end case;
+  3107:          Next (Cur_Decl);
+  3108:       end loop;
+  3109:
+  3110:       return +Result;
+  3111:    end Check_No_Memory_Leaks_At_End_Of_Scope;
+  3112:
+  3113:    -------------------------------------
+  3114:    -- Check_Or_Assume_All_DICs_At_Use --
+  3115:    -------------------------------------
+  3116:
+  3117:    procedure Check_Or_Assume_All_DICs_At_Use
+  3118:      (Ada_Node : Node_Id;
+  3119:       E        : Type_Kind_Id;
+  3120:       W_Expr   : W_Term_Id;
+  3121:       Params   : Transformation_Params;
+```
+
+## src/why/gnat2why-expr.adb:9459-9473
+
+```ada
+  9459:    function Finalization_Actions
+  9460:      (Scope   : Node_Id;
+  9461:       Exiting : Local_CFG.Vertex;
+  9462:       Params  : Transformation_Params) return W_Statement_Sequence_Id
+  9463:    is
+  9464:       Scopes : Node_Lists.List;
+  9465:    begin
+  9466:       Scopes.Append (Scope);
+  9467:       return Finalization_Actions (Scopes, Exiting, Params);
+  9468:    end Finalization_Actions;
+  9469:
+  9470:    function Finalization_Actions
+  9471:      (Scopes  : Node_Lists.List;
+  9472:       Exiting : Local_CFG.Vertex_Sets.Set;
+  9473:       Params  : Transformation_Params) return W_Statement_Sequence_Id
+```
+
+## src/why/gnat2why-expr.adb:9558-9676
+
+```ada
+  9558:          end if;
+  9559:       end Update_Variable;
+  9560:
+  9561:       --  Start of processing for Finalization_Actions
+  9562:
+  9563:    begin
+  9564:       return Result : W_Statement_Sequence_Id := Void_Sequence do
+  9565:          for S of Scopes loop
+  9566:
+  9567:             --  If S is an handled sequence of statements, the corresponding
+  9568:             --  finalization actions are given by the finally block. This is
+  9569:             --  the simple case, translate it and go to next iteration.
+  9570:
+  9571:             if Nkind (S) = N_Handled_Sequence_Of_Statements then
+  9572:                declare
+  9573:                   Fin_Section : constant List_Id := Finally_Statements (S);
+  9574:                begin
+  9575:                   if Present (Fin_Section) then
+  9576:                      Append
+  9577:                        (Result,
+  9578:                         Transform_Statements_And_Declarations
+  9579:                           (Fin_Section, Params));
+  9580:                   end if;
+  9581:                end;
+  9582:                goto Continue;
+  9583:             end if;
+  9584:
+  9585:             --  Otherwise, the finalization actions are given by end of borrows
+  9586:             --  and leak checks. We analyze control flow to find borrows which
+  9587:             --  may actually be updated.
+  9588:
+  9589:             declare
+  9590:                Decls   : constant List_Id :=
+  9591:                  Declarations
+  9592:                    (if S in N_Block_Statement_Id then S else Get_Body (S));
+  9593:                Borrows : Node_Lists.List;
+  9594:             begin
+  9595:                if Present (Decls) then
+  9596:                   Get_Borrows_From_Decls (Decls, Borrows);
+  9597:                   if not Borrows.Is_Empty then
+  9598:                      if Exiting.Is_Empty then
+  9599:                         --  Having Exiting empty means no analysis should be
+  9600:                         --  performed, we havoc all borrows.
+  9601:
+  9602:                         for E of Borrows loop
+  9603:                            Append (Result, Havoc_Borrowed_Expression (E));
+  9604:                         end loop;
+  9605:
+  9606:                      else
+  9607:                         --  Scan local CFG of S for updates.
+  9608:
+  9609:                         Collect_Vertices_Leading_To (S, Leading_To_Exiting);
+  9610:                         for U of Leading_To_Exiting loop
+  9611:                            case Nkind (U.Node) is
+  9612:
+  9613:                               --  Calls to functions with side effects can
+  9614:                               --  occur inside assignments and object
+  9615:                               --  declarations.
+  9616:
+  9617:                               when N_Object_Declaration       =>
+  9618:                                  declare
+  9619:                                     Src : constant Node_Id :=
+  9620:                                       Expression (U.Node);
+  9621:                                  begin
+  9622:                                     if Nkind (Src) = N_Function_Call then
+  9623:                                        Update_Call_Variables (Src);
+  9624:                                     end if;
+  9625:                                  end;
+  9626:
+  9627:                               when N_Assignment_Statement     =>
+  9628:                                  declare
+  9629:                                     Nm  : constant Node_Id := Name (U.Node);
+  9630:                                     Src : constant Node_Id :=
+  9631:                                       Expression (U.Node);
+  9632:                                  begin
+  9633:                                     --  Direct assignments to borrowers must
+  9634:                                     --  be re-borrows, which do not update
+  9635:                                     --  borrowed object.
+  9636:
+  9637:                                     if Nkind (Nm) /= N_Identifier then
+  9638:                                        Update_Variable (Get_Root_Object (Nm));
+  9639:                                     end if;
+  9640:                                     if Nkind (Src) = N_Function_Call then
+  9641:                                        Update_Call_Variables (Src);
+  9642:                                     end if;
+  9643:                                  end;
+  9644:
+  9645:                               when N_Entry_Call_Statement
+  9646:                                  | N_Procedure_Call_Statement =>
+  9647:                                  Update_Call_Variables (U.Node);
+  9648:
+  9649:                               when others                     =>
+  9650:                                  null;
+  9651:                            end case;
+  9652:                         end loop;
+  9653:
+  9654:                         --  Havoc borrows that are found to have been possibly
+  9655:                         --  updated.
+  9656:
+  9657:                         for E of Borrows loop
+  9658:                            Append
+  9659:                              (Result,
+  9660:                               Havoc_Borrowed_Expression
+  9661:                                 (E,
+  9662:                                  Already_Equal =>
+  9663:                                    not Updated_Borrowers.Contains (E)));
+  9664:                         end loop;
+  9665:
+  9666:                      end if;
+  9667:
+  9668:                   end if;
+  9669:                   Append
+  9670:                     (Result, Check_No_Memory_Leaks_At_End_Of_Scope (Decls));
+  9671:                end if;
+  9672:             end;
+  9673:             <<Continue>>
+  9674:          end loop;
+  9675:       end return;
+  9676:    end Finalization_Actions;
+```
+
+## src/why/gnat2why-expr.adb:14615-14858
+
+```ada
+ 14615:    function Check_Type_Invariants_For_Subprogram
+ 14616:      (E           : Entity_Id;
+ 14617:       Ada_Node    : Node_Id;
+ 14618:       Params      : Transformation_Params;
+ 14619:       For_Input   : Boolean;
+ 14620:       Exceptional : Boolean := False) return W_Prog_Id
+ 14621:    is
+ 14622:       Res : W_Prog_Id := +Void;
+ 14623:
+ 14624:       procedure Add_To_Res (Obj : Node_Id; Inv : W_Pred_Id);
+ 14625:       --  Append assert { Inv } to Res
+ 14626:
+ 14627:       ----------------
+ 14628:       -- Add_To_Res --
+ 14629:       ----------------
+ 14630:
+ 14631:       procedure Add_To_Res (Obj : Node_Id; Inv : W_Pred_Id) is
+ 14632:          Check_Info : Check_Info_Type := New_Check_Info;
+ 14633:       begin
+ 14634:          if not Is_True_Boolean (+Inv) then
+ 14635:             if Obj = E then
+ 14636:                Check_Info.Continuation.Append
+ 14637:                  (Continuation_Type'
+ 14638:                     (Ada_Node => E,
+ 14639:                      Message  =>
+ 14640:                        To_Unbounded_String
+ 14641:                          ("for the result of " & Pretty_Source_Name (E))));
+ 14642:             elsif Is_Concurrent_Type (Obj) then
+ 14643:
+ 14644:                --  Type invariant are not supported on protected objects
+ 14645:
+ 14646:                pragma Assert (False);
+ 14647:             else
+ 14648:                Check_Info.Continuation.Append
+ 14649:                  (Continuation_Type'
+ 14650:                     (Ada_Node => Obj,
+ 14651:                      Message  =>
+ 14652:                        To_Unbounded_String
+ 14653:                          ("for "
+ 14654:                           & Pretty_Source_Name (Obj)
+ 14655:                           & (if For_Input
+ 14656:                              then " before the call"
+ 14657:                              else
+ 14658:                                " at the end of " & Pretty_Source_Name (E)))));
+ 14659:             end if;
+ 14660:
+ 14661:             Res :=
+ 14662:               Sequence
+ 14663:                 (Res,
+ 14664:                  New_Assert
+ 14665:                    (Pred        =>
+ 14666:                       New_VC_Pred
+ 14667:                         (Ada_Node   => (if For_Input then Ada_Node else E),
+ 14668:                          Expr       => Inv,
+ 14669:                          Reason     => VC_Invariant_Check,
+ 14670:                          Check_Info => Check_Info),
+ 14671:                     Assert_Kind => EW_Assert));
+ 14672:          end if;
+ 14673:       end Add_To_Res;
+ 14674:
+ 14675:       procedure Compute_Type_Invariants is new
+ 14676:         Process_Type_Invariants_For_Subprogram (Add_To_Res);
+ 14677:    begin
+ 14678:       Compute_Type_Invariants
+ 14679:         (E, Params, For_Input, Exceptional, Scop => Current_Subp);
+ 14680:
+ 14681:       return Res;
+ 14682:    end Check_Type_Invariants_For_Subprogram;
+ 14683:
+ 14684:    --------------------------------------------
+ 14685:    -- Process_Type_Invariants_For_Subprogram --
+ 14686:    --------------------------------------------
+ 14687:
+ 14688:    procedure Process_Type_Invariants_For_Subprogram
+ 14689:      (E           : Entity_Id;
+ 14690:       Params      : Transformation_Params;
+ 14691:       For_Input   : Boolean;
+ 14692:       Exceptional : Boolean := False;
+ 14693:       Scop        : Entity_Id)
+ 14694:    is
+ 14695:
+ 14696:       procedure Process_Type_Invariants_For_Globals
+ 14697:         (Ids : Flow_Types.Flow_Id_Sets.Set);
+ 14698:       --  Process the type invariants of elements of Ids
+ 14699:       --  @param Ids the set of read / write effects for the subprogram
+ 14700:
+ 14701:       procedure Process_Type_Invariants_For_Params;
+ 14702:       --  Process the type invariants of E's parameters
+ 14703:
+ 14704:       function Compute_Type_Invariant_For_Entity
+ 14705:         (Obj : Entity_Id; Is_Param : Boolean) return W_Pred_Id
+ 14706:       with Pre => Ada_Ent_To_Why.Has_Element (Symbol_Table, Obj);
+ 14707:       --  @param Obj Entity of an object stored in the Symbol_Table
+ 14708:       --  @param Is_Param True if Obj is a parameter and not a global of E
+ 14709:       --  @return a predicate containing the invariants of all parts of Obj
+ 14710:       --          which have an external invariant.
+ 14711:
+ 14712:       -----------------------------------------
+ 14713:       -- Process_Type_Invariants_For_Globals --
+ 14714:       -----------------------------------------
+ 14715:
+ 14716:       procedure Process_Type_Invariants_For_Globals
+ 14717:         (Ids : Flow_Types.Flow_Id_Sets.Set) is
+ 14718:       begin
+ 14719:          for F of Ids loop
+ 14720:             pragma Assert (F.Kind in Direct_Mapping | Magic_String);
+ 14721:
+ 14722:             --  Magic_String are global state with no attached entities. As
+ 14723:             --  such state is translated as private in Why3, we do not need
+ 14724:             --  to consider any type invariant for it.
+ 14725:
+ 14726:             if F.Kind = Direct_Mapping then
+ 14727:                declare
+ 14728:                   Obj : constant Entity_Id := Get_Direct_Mapping_Id (F);
+ 14729:                begin
+ 14730:                   --  Global variables accessed by the subprogram. Abstract
+ 14731:                   --  states and private variables are not considered here,
+ 14732:                   --  as they cannot have visible type invariants.
+ 14733:
+ 14734:                   if Is_Object (Obj) then
+ 14735:                      Process
+ 14736:                        (Obj,
+ 14737:                         Compute_Type_Invariant_For_Entity
+ 14738:                           (Obj, Is_Param => False));
+ 14739:
+ 14740:                   --  Self reference of protected subprograms
+ 14741:
+ 14742:                   else
+ 14743:                      pragma Assert (Is_Concurrent_Type (Obj));
+ 14744:
+ 14745:                      Process
+ 14746:                        (Obj,
+ 14747:                         Compute_Type_Invariant
+ 14748:                           (Expr   => +Concurrent_Self_Binder (Obj).B_Name,
+ 14749:                            Ty     => Obj,
+ 14750:                            Params => Params,
+ 14751:                            Kind   => For_Check,
+ 14752:                            Scop   => Scop));
+ 14753:                   end if;
+ 14754:                end;
+ 14755:             end if;
+ 14756:          end loop;
+ 14757:       end Process_Type_Invariants_For_Globals;
+ 14758:
+ 14759:       ----------------------------------------
+ 14760:       -- Process_Type_Invariants_For_Params --
+ 14761:       ----------------------------------------
+ 14762:
+ 14763:       procedure Process_Type_Invariants_For_Params is
+ 14764:          Formal : Entity_Id := First_Formal (E);
+ 14765:
+ 14766:       begin
+ 14767:          while Present (Formal) loop
+ 14768:             if (if For_Input
+ 14769:                 then Ekind (Formal) /= E_Out_Parameter
+ 14770:                 else not Is_Constant_In_SPARK (Formal))
+ 14771:               and then (not Exceptional or else By_Reference (Formal))
+ 14772:             then
+ 14773:                Process
+ 14774:                  (Formal,
+ 14775:                   Compute_Type_Invariant_For_Entity
+ 14776:                     (Formal, Is_Param => True));
+ 14777:             end if;
+ 14778:
+ 14779:             Next_Formal (Formal);
+ 14780:          end loop;
+ 14781:       end Process_Type_Invariants_For_Params;
+ 14782:
+ 14783:       ---------------------------------------
+ 14784:       -- Compute_Type_Invariant_For_Entity --
+ 14785:       ---------------------------------------
+ 14786:
+ 14787:       function Compute_Type_Invariant_For_Entity
+ 14788:         (Obj : Entity_Id; Is_Param : Boolean) return W_Pred_Id
+ 14789:       is
+ 14790:          Expr : constant W_Term_Id :=
+ 14791:            +Transform_Identifier (Body_Params, Obj, Obj, EW_Term);
+ 14792:       begin
+ 14793:          --  If Is_Param is True, exclude invariants relaxed for parameters of
+ 14794:          --  E.
+ 14795:
+ 14796:          return
+ 14797:            Compute_Type_Invariant
+ 14798:              (Expr   => Expr,
+ 14799:               Ty     => Etype (Obj),
+ 14800:               Kind   => For_Check,
+ 14801:               Params => Params,
+ 14802:               Subp   => (if Is_Param then E else Empty),
+ 14803:               Scop   => Scop);
+ 14804:       end Compute_Type_Invariant_For_Entity;
+ 14805:
+ 14806:       Read_Ids  : Flow_Types.Flow_Id_Sets.Set;
+ 14807:       Write_Ids : Flow_Types.Flow_Id_Sets.Set;
+ 14808:    begin
+ 14809:       --  Assume/check the type invariants of the parameters
+ 14810:
+ 14811:       Process_Type_Invariants_For_Params;
+ 14812:
+ 14813:       Flow_Utility.Get_Proof_Globals
+ 14814:         (Subprogram      => E,
+ 14815:          Reads           => Read_Ids,
+ 14816:          Writes          => Write_Ids,
+ 14817:          Erase_Constants => True);
+ 14818:
+ 14819:       --  If For_Input is True, add the invariants of the variables read by E,
+ 14820:       --  otherwise add the invariants of the variables written by E.
+ 14821:
+ 14822:       if For_Input then
+ 14823:          Process_Type_Invariants_For_Globals (Read_Ids);
+ 14824:       else
+ 14825:          Process_Type_Invariants_For_Globals (Write_Ids);
+ 14826:       end if;
+ 14827:
+ 14828:       --  If For_Input is false and E is a function, add the invariants of its
+ 14829:       --  result.
+ 14830:
+ 14831:       if not For_Input and then Ekind (E) = E_Function then
+ 14832:          declare
+ 14833:             Result : constant W_Term_Id :=
+ 14834:               (if not Result_Is_Mutable
+ 14835:                then +Result_Name
+ 14836:                else
+ 14837:                  New_Deref
+ 14838:                    (Right => Result_Name, Typ => Get_Typ (+Result_Name)));
+ 14839:          begin
+ 14840:             Process
+ 14841:               (E,
+ 14842:                Compute_Type_Invariant
+ 14843:                  (Expr   => Result,
+ 14844:                   Ty     => Etype (E),
+ 14845:                   Kind   => For_Check,
+ 14846:                   Params => Params,
+ 14847:                   Subp   => E,
+ 14848:                   Scop   => Scop));
+ 14849:          end;
+ 14850:       end if;
+ 14851:    end Process_Type_Invariants_For_Subprogram;
+ 14852:
+ 14853:    ----------------
+ 14854:    -- Range_Expr --
+ 14855:    ----------------
+ 14856:
+ 14857:    function Range_Expr
+ 14858:      (N      : Node_Id;
+```
+
+## src/why/gnat2why-expr.adb:26695-26734
+
+```ada
+ 26695:    function Transform_Handled_Statements
+ 26696:      (N : Node_Id; Params : Transformation_Params) return W_Prog_Id
+ 26697:    is
+ 26698:
+ 26699:       function Transform_Handler (Handler : Node_Id) return W_Prog_Id
+ 26700:       is (+Warn_On_Dead_Code
+ 26701:              (First (Statements (Handler)),
+ 26702:               +Transform_Statements_And_Declarations
+ 26703:                  (Statements (Handler), Params),
+ 26704:               Params.Phase,
+ 26705:               Params.Warn_On_Dead));
+ 26706:       --  Transform the statements and warn on dead code if necessary
+ 26707:
+ 26708:       function List_Length_Non_Pragma (L : List_Id) return Nat;
+ 26709:       --  Similar to List_Length, but excluding pragma items
+ 26710:       --  ??? this routine could be moved to the frontend
+ 26711:
+ 26712:       ----------------------------
+ 26713:       -- List_Length_Non_Pragma --
+ 26714:       ----------------------------
+ 26715:
+ 26716:       function List_Length_Non_Pragma (L : List_Id) return Nat is
+ 26717:          Length : Nat := 0;
+ 26718:          Item   : Node_Id := First_Non_Pragma (L);
+ 26719:       begin
+ 26720:          while Present (Item) loop
+ 26721:             Length := Length + 1;
+ 26722:             Next_Non_Pragma (Item);
+ 26723:          end loop;
+ 26724:          return Length;
+ 26725:       end List_Length_Non_Pragma;
+ 26726:
+ 26727:       Handlers : constant List_Id := Exception_Handlers (N);
+ 26728:       Core     : W_Prog_Id :=
+ 26729:         Transform_Statements_And_Declarations (Statements (N), Params);
+ 26730:
+ 26731:       --  Start of processing for Transform_Handled_Statements
+ 26732:
+ 26733:    begin
+ 26734:       if Present (Handlers) then
+```
+
+## src/why/gnat2why-expr.adb:26822-26841
+
+```ada
+ 26822:                 (Ada_Node => N,
+ 26823:                  Prog     => Core,
+ 26824:                  Handler  =>
+ 26825:                    (1 =>
+ 26826:                       New_Handler
+ 26827:                         (Name   => M_Main.Ada_Exc,
+ 26828:                          Arg_Id => Exc_Id,
+ 26829:                          Def    => W_Handler)));
+ 26830:          end;
+ 26831:       end if;
+ 26832:
+ 26833:       if Present (Finally_Statements (N)) then
+ 26834:          Append
+ 26835:            (Core,
+ 26836:             Transform_Statements_And_Declarations
+ 26837:               (Finally_Statements (N), Params));
+ 26838:       end if;
+ 26839:
+ 26840:       return Core;
+ 26841:    end Transform_Handled_Statements;
+```
+
 ## src/why/gnat2why-subprograms.adb:4455-4483
 
 ```ada
@@ -10613,6 +11689,2238 @@
   6258:             Binders  => (1 => Unit_Param),
   6259:             Labels   => Symbol_Sets.Empty_Set,
   6260:             Location => Safe_First_Sloc (E),
+```
+
+## src/why/gnat2why-subprograms.adb:548-590
+
+```ada
+   548:             else raise Program_Error);
+   549:          --  Entity where Priority or Interrupt_Priority pragma is attached
+   550:
+   551:          Prio_Expr : constant Node_Id :=
+   552:            Get_Priority_Or_Interrupt_Priority (Pragma_Entity);
+   553:          --  Priority expression
+   554:
+   555:       begin
+   556:          if Present (Prio_Expr) then
+   557:             return Transform_Term (Prio_Expr, EW_Int_Type, Params);
+   558:          end if;
+   559:
+   560:          --  No explicit priority was given
+   561:
+   562:          if Ekind (E) = E_Task_Type then
+   563:             --  If pragma Interrupt_Priority is present then build expression
+   564:             --  for System.Interrupt_Priority'Last; otherwise for
+   565:             --  System.Priority'Last.
+   566:             return
+   567:               +New_Attribute_Expr
+   568:                  (Domain => EW_Term,
+   569:                   Ty     =>
+   570:                     RTE
+   571:                       (if Present (Get_Rep_Item (E, Name_Interrupt_Priority))
+   572:                        then RE_Interrupt_Priority
+   573:                        else RE_Priority),
+   574:                   Attr   => Attribute_Last,
+   575:                   Params => Params);
+   576:
+   577:          elsif Ekind (E) in Subprogram_Kind and then Might_Be_Main (E) then
+   578:             --  Return expression used that defined System.Default_Priority
+   579:             return
+   580:               Transform_Term
+   581:                 (Expr   =>
+   582:                    Expression
+   583:                      (Enclosing_Declaration (RTE (RE_Default_Priority))),
+   584:                  Params => Params);
+   585:
+   586:          else
+   587:             pragma Assert (Is_Protected_Operation (E));
+   588:             declare
+   589:                PT : constant Entity_Id := Enclosing_Type (E);
+   590:
+```
+
+## src/why/gnat2why-subprograms.adb:1220-1246
+
+```ada
+  1220:    function Compute_Binders
+  1221:      (E          : Entity_Id;
+  1222:       Domain     : EW_Domain;
+  1223:       More_Reads : Flow_Id_Sets.Set := Flow_Id_Sets.Empty_Set)
+  1224:       return Item_Array
+  1225:    is
+  1226:       Binders : constant Item_Array :=
+  1227:         Compute_Subprogram_Parameters (E, Domain, More_Reads);
+  1228:    begin
+  1229:       --  If E has no parameters, return a singleton of unit type.
+  1230:
+  1231:       if Binders'Length = 0 then
+  1232:          return
+  1233:            (1 =>
+  1234:               (Regular,
+  1235:                Local    => True,
+  1236:                Init     => <>,
+  1237:                Is_Moved => <>,
+  1238:                Valid    => <>,
+  1239:                Main     => Unit_Param));
+  1240:       else
+  1241:          return Binders;
+  1242:       end if;
+  1243:    end Compute_Binders;
+  1244:
+  1245:    --------------------------
+  1246:    -- Compute_Call_Effects --
+```
+
+## src/why/gnat2why-subprograms.adb:1283-1362
+
+```ada
+  1283:    function Compute_Dynamic_Property_For_Inputs
+  1284:      (E              : Unit_Kind_Id;
+  1285:       Params         : Transformation_Params;
+  1286:       Pred_Fun_Param : Entity_Id := Empty) return W_Prog_Id
+  1287:    is
+  1288:       Includes : Node_Sets.Set;
+  1289:
+  1290:       procedure Include_Entity (E : Entity_Id; Kind : Formal_Kind);
+  1291:       --  Add an entity to Includes
+  1292:
+  1293:       --------------------
+  1294:       -- Include_Entity --
+  1295:       --------------------
+  1296:
+  1297:       procedure Include_Entity (E : Entity_Id; Kind : Formal_Kind) is
+  1298:          pragma Unreferenced (Kind);
+  1299:       begin
+  1300:          Includes.Include (E);
+  1301:       end Include_Entity;
+  1302:
+  1303:       procedure Include_Referenced_Entities is new
+  1304:         Process_Referenced_Entities (Include_Entity);
+  1305:    begin
+  1306:       --  Collect global variables read or written in E
+  1307:
+  1308:       case Ekind (E) is
+  1309:          when E_Entry
+  1310:             | E_Function
+  1311:             | E_Procedure
+  1312:             | E_Task_Type
+  1313:             | E_Package
+  1314:             | E_Subprogram_Type =>
+  1315:             Include_Referenced_Entities (E);
+  1316:
+  1317:             --  Collect parameters of E if any
+  1318:
+  1319:             if Is_Subprogram_Or_Entry (E) then
+  1320:                Includes.Union (Get_Explicit_Formals (E));
+  1321:
+  1322:                --  If E is a protected subprogram, add the type itself to stand
+  1323:                --  for the self reference.
+  1324:
+  1325:                if Need_Self_Binder (E) and then Entity_Body_In_SPARK (E) then
+  1326:                   Includes.Include (Containing_Protected_Type (E));
+  1327:                end if;
+  1328:
+  1329:             --  Collect discriminants of task types
+  1330:
+  1331:             elsif Is_Task_Type (E) and then Has_Discriminants (E) then
+  1332:                declare
+  1333:                   Discr : Entity_Id := First_Discriminant (E);
+  1334:                begin
+  1335:                   while Present (Discr) loop
+  1336:                      Includes.Include (Discr);
+  1337:                      Next_Discriminant (Discr);
+  1338:                   end loop;
+  1339:                end;
+  1340:             end if;
+  1341:
+  1342:          when others            =>
+  1343:             raise Program_Error;
+  1344:       end case;
+  1345:
+  1346:       return
+  1347:         Assume_Dynamic_Invariant_For_Variables
+  1348:           (Vars             => Includes,
+  1349:            Params           => Params,
+  1350:            Scope            => E,
+  1351:            Exclude_Top_Pred => Pred_Fun_Param,
+  1352:            Initialized      => False);
+  1353:    end Compute_Dynamic_Property_For_Inputs;
+  1354:
+  1355:    ------------------------------------------
+  1356:    -- Compute_Dynamic_Property_For_Effects --
+  1357:    ------------------------------------------
+  1358:
+  1359:    function Compute_Dynamic_Property_For_Effects
+  1360:      (E           : Entity_Id;
+  1361:       Params      : Transformation_Params;
+  1362:       Exceptional : Boolean := False) return W_Pred_Id
+```
+
+## src/why/gnat2why-subprograms.adb:1368-1540
+
+```ada
+  1368:       Dynamic_Prop_Effects : W_Pred_Id := True_Pred;
+  1369:       Formal               : Entity_Id;
+  1370:    begin
+  1371:       --  Compute the dynamic property of mutable parameters
+  1372:
+  1373:       for I in Func_Why_Binders'Range loop
+  1374:          Formal := Get_Ada_Node_From_Item (Func_Why_Binders (I));
+  1375:
+  1376:          --  Only assume dynamic property of concurrent self if the containing
+  1377:          --  protected type is in SPARK. Otherwise, self will have the type
+  1378:          --  EW_Private_Type and no dynamic property applies.
+  1379:
+  1380:          if Func_Why_Binders (I).Kind = Concurrent_Self then
+  1381:             declare
+  1382:                Ada_Type : constant Node_Id :=
+  1383:                  Func_Why_Binders (I).Main.Ada_Node;
+  1384:             begin
+  1385:                if Entity_In_SPARK (Ada_Type) then
+  1386:                   declare
+  1387:                      Self_Expr : constant W_Expr_Id :=
+  1388:                        (if Self_Is_Mutable
+  1389:                         then
+  1390:                           New_Deref
+  1391:                             (Right => Self_Name, Typ => Get_Typ (Self_Name))
+  1392:                         else +Self_Name);
+  1393:                      Dyn_Prop  : constant W_Pred_Id :=
+  1394:                        Compute_Dynamic_Inv_And_Initialization
+  1395:                          (Expr           => +Self_Expr,
+  1396:                           Ty             => Ada_Type,
+  1397:                           Params         => Params,
+  1398:                           All_Global_Inv => All_Global_Inv);
+  1399:                   begin
+  1400:                      Dynamic_Prop_Effects :=
+  1401:                        +New_And_Expr
+  1402:                           (Left   => +Dynamic_Prop_Effects,
+  1403:                            Right  => +Dyn_Prop,
+  1404:                            Domain => EW_Pred);
+  1405:                   end;
+  1406:                end if;
+  1407:             end;
+  1408:          elsif Item_Is_Mutable (Func_Why_Binders (I))
+  1409:            and then Entity_In_SPARK (Formal)
+  1410:          then
+  1411:             --  On exceptional paths, formals with relaxed initialization
+  1412:             --  might not be initialized at toplevel.
+  1413:
+  1414:             if Exceptional then
+  1415:                if By_Reference (Formal) then
+  1416:                   declare
+  1417:                      Ada_Type  : constant Node_Id :=
+  1418:                        Get_Ada_Type_From_Item (Func_Why_Binders (I));
+  1419:                      Init_Expr : constant W_Term_Id :=
+  1420:                        (if Func_Why_Binders (I).Init.Present
+  1421:                         then
+  1422:                           New_Deref
+  1423:                             (Right => Func_Why_Binders (I).Init.Id,
+  1424:                              Typ   => Get_Typ (Func_Why_Binders (I).Init.Id))
+  1425:                         else True_Term);
+  1426:
+  1427:                      Dyn_Prop : constant W_Pred_Id :=
+  1428:                        Compute_Dynamic_Invariant
+  1429:                          (Expr           =>
+  1430:                             +Transform_Identifier
+  1431:                                (Params => Params,
+  1432:                                 Expr   => Formal,
+  1433:                                 Ent    => Formal,
+  1434:                                 Domain => EW_Term),
+  1435:                           Ty             => Ada_Type,
+  1436:                           Params         => Params,
+  1437:                           Initialized    => Init_Expr,
+  1438:                           Valid          =>
+  1439:                             Get_Valid_Id_From_Item
+  1440:                               (Func_Why_Binders (I), Params.Ref_Allowed),
+  1441:                           All_Global_Inv => All_Global_Inv);
+  1442:                   begin
+  1443:                      Dynamic_Prop_Effects :=
+  1444:                        +New_And_Expr
+  1445:                           (Left   => +Dynamic_Prop_Effects,
+  1446:                            Right  => +Dyn_Prop,
+  1447:                            Domain => EW_Pred);
+  1448:                   end;
+  1449:                end if;
+  1450:
+  1451:             --  Otherwise, Compute_Dynamic_Inv_And_Initialization can be used
+  1452:             --  safely.
+  1453:
+  1454:             else
+  1455:                declare
+  1456:                   Ada_Type : constant Node_Id :=
+  1457:                     Get_Ada_Type_From_Item (Func_Why_Binders (I));
+  1458:                   Dyn_Prop : constant W_Pred_Id :=
+  1459:                     Compute_Dynamic_Inv_And_Initialization
+  1460:                       (Expr           =>
+  1461:                          +Transform_Identifier
+  1462:                             (Params => Params,
+  1463:                              Expr   => Formal,
+  1464:                              Ent    => Formal,
+  1465:                              Domain => EW_Term),
+  1466:                        Ty             => Ada_Type,
+  1467:                        Params         => Params,
+  1468:                        Valid          =>
+  1469:                          Get_Valid_Id_From_Item
+  1470:                            (Func_Why_Binders (I), Params.Ref_Allowed),
+  1471:                        All_Global_Inv => All_Global_Inv);
+  1472:                begin
+  1473:                   Dynamic_Prop_Effects :=
+  1474:                     +New_And_Expr
+  1475:                        (Left   => +Dynamic_Prop_Effects,
+  1476:                         Right  => +Dyn_Prop,
+  1477:                         Domain => EW_Pred);
+  1478:                end;
+  1479:             end if;
+  1480:          end if;
+  1481:       end loop;
+  1482:
+  1483:       --  Compute the dynamic property of global output
+  1484:
+  1485:       declare
+  1486:          Read_Ids  : Flow_Types.Flow_Id_Sets.Set;
+  1487:          Write_Ids : Flow_Types.Flow_Id_Sets.Set;
+  1488:
+  1489:       begin
+  1490:          Flow_Utility.Get_Proof_Globals
+  1491:            (Subprogram      => E,
+  1492:             Reads           => Read_Ids,
+  1493:             Writes          => Write_Ids,
+  1494:             Erase_Constants => True);
+  1495:
+  1496:          for Write_Id of Write_Ids loop
+  1497:             if Write_Id.Kind = Direct_Mapping then
+  1498:                declare
+  1499:                   Entity : constant Entity_Id :=
+  1500:                     Get_Direct_Mapping_Id (Write_Id);
+  1501:
+  1502:                begin
+  1503:                   if not Is_Concurrent_Type (Entity) then
+  1504:                      declare
+  1505:                         Init_Id  : constant W_Expr_Id :=
+  1506:                           Get_Init_Id_From_Object (Entity, Params.Ref_Allowed);
+  1507:                         Dyn_Prop : constant W_Pred_Id :=
+  1508:                           Compute_Dynamic_Invariant
+  1509:                             (Expr        =>
+  1510:                                +Transform_Identifier
+  1511:                                   (Params => Params,
+  1512:                                    Expr   => Entity,
+  1513:                                    Ent    => Entity,
+  1514:                                    Domain => EW_Term),
+  1515:                              Ty          => Etype (Entity),
+  1516:                              Params      => Params,
+  1517:                              Valid       =>
+  1518:                                Get_Valid_Id_From_Object
+  1519:                                  (Entity, Params.Ref_Allowed),
+  1520:                              Initialized =>
+  1521:                                (if Init_Id /= Why_Empty
+  1522:                                 then +Init_Id
+  1523:                                 else True_Term));
+  1524:                      begin
+  1525:                         Dynamic_Prop_Effects :=
+  1526:                           +New_And_Expr
+  1527:                              (Left   => +Dynamic_Prop_Effects,
+  1528:                               Right  => +Dyn_Prop,
+  1529:                               Domain => EW_Pred);
+  1530:                      end;
+  1531:                   end if;
+  1532:                end;
+  1533:             end if;
+  1534:          end loop;
+  1535:       end;
+  1536:
+  1537:       return Dynamic_Prop_Effects;
+  1538:    end Compute_Dynamic_Property_For_Effects;
+  1539:
+  1540:    ---------------------
+```
+
+## src/why/gnat2why-subprograms.adb:1544-1696
+
+```ada
+  1544:    function Compute_Effects
+  1545:      (E             : Entity_Id;
+  1546:       Global_Params : Boolean := False;
+  1547:       More_Reads    : Flow_Types.Flow_Id_Sets.Set :=
+  1548:         Flow_Types.Flow_Id_Sets.Empty_Set) return W_Effects_Id
+  1549:    is
+  1550:       Read_Ids  : Flow_Types.Flow_Id_Sets.Set;
+  1551:       Write_Ids : Flow_Types.Flow_Id_Sets.Set;
+  1552:       Eff       : constant W_Effects_Id := New_Effects;
+  1553:
+  1554:       procedure Effects_Append_Binder_To_Reads is new
+  1555:         Effects_Append_Binder (Effects_Append_To_Reads);
+  1556:
+  1557:       procedure Effects_Append_Binder_To_Writes is new
+  1558:         Effects_Append_Binder (Effects_Append_To_Writes);
+  1559:
+  1560:       --  Start of processing for Compute_Effects
+  1561:
+  1562:    begin
+  1563:       --  Collect global variables potentially read and written
+  1564:
+  1565:       Flow_Utility.Get_Proof_Globals
+  1566:         (Subprogram      => E,
+  1567:          Reads           => Read_Ids,
+  1568:          Writes          => Write_Ids,
+  1569:          Erase_Constants => True);
+  1570:
+  1571:       Read_Ids.Union (More_Reads);
+  1572:
+  1573:       for Write_Id of Write_Ids loop
+  1574:          case Write_Id.Kind is
+  1575:             when Direct_Mapping =>
+  1576:                declare
+  1577:                   Entity : constant Entity_Id :=
+  1578:                     Get_Direct_Mapping_Id (Write_Id);
+  1579:
+  1580:                begin
+  1581:                   --  Effects on concurrent types are handled by other means
+  1582:
+  1583:                   if not Is_Concurrent_Type (Entity) then
+  1584:                      Effects_Append_Binder_To_Writes
+  1585:                        (Eff, Ada_Ent_To_Why.Element (Symbol_Table, Entity));
+  1586:
+  1587:                      if Is_Local_Borrower (Entity) then
+  1588:                         Effects_Append_To_Writes
+  1589:                           (Eff, Get_Brower_At_End (Entity));
+  1590:                      end if;
+  1591:                   end if;
+  1592:
+  1593:                end;
+  1594:
+  1595:             when Magic_String   =>
+  1596:                declare
+  1597:                   Cu : constant Ada_Ent_To_Why.Cursor :=
+  1598:                     Ada_Ent_To_Why.Find (Symbol_Table, To_Name (Write_Id));
+  1599:
+  1600:                begin
+  1601:                   --  If Write_Id is in the symbol table, use this mapping
+  1602:
+  1603:                   if Ada_Ent_To_Why.Has_Element (Cu) then
+  1604:                      Effects_Append_Binder_To_Writes
+  1605:                        (Eff, Ada_Ent_To_Why.Element (Cu));
+  1606:
+  1607:                   --  Otherwise, use the id name
+  1608:
+  1609:                   else
+  1610:                      Effects_Append_To_Writes
+  1611:                        (Eff,
+  1612:                         To_Why_Id (Obj => To_Name (Write_Id), Local => False));
+  1613:                   end if;
+  1614:                end;
+  1615:
+  1616:             when others         =>
+  1617:                raise Program_Error;
+  1618:          end case;
+  1619:       end loop;
+  1620:
+  1621:       --  Add all OUT and IN OUT parameters as potential writes.
+  1622:       --  If Global_Params is True, use binders from the Symbol_Table;
+  1623:       --  otherwise, use binders from the function declaration.
+  1624:
+  1625:       if Global_Params then
+  1626:          declare
+  1627:             Formal : Entity_Id := First_Formal (E);
+  1628:          begin
+  1629:             while Present (Formal) loop
+  1630:                declare
+  1631:                   B : constant Item_Type :=
+  1632:                     Ada_Ent_To_Why.Element (Symbol_Table, Formal);
+  1633:                begin
+  1634:                   Effects_Append_Binder_To_Writes (Eff, B);
+  1635:                end;
+  1636:                Next_Formal (Formal);
+  1637:             end loop;
+  1638:          end;
+  1639:       else
+  1640:          declare
+  1641:             Binders : constant Item_Array := Compute_Raw_Binders (E);
+  1642:          begin
+  1643:             for B of Binders loop
+  1644:                Effects_Append_Binder_To_Writes (Eff, B);
+  1645:             end loop;
+  1646:          end;
+  1647:       end if;
+  1648:
+  1649:       for Read_Id of Read_Ids loop
+  1650:          case Read_Id.Kind is
+  1651:             when Direct_Mapping =>
+  1652:                declare
+  1653:                   Entity : constant Entity_Id :=
+  1654:                     Get_Direct_Mapping_Id (Read_Id);
+  1655:
+  1656:                begin
+  1657:                   --  Effects on concurrent types are handled by other means
+  1658:
+  1659:                   if not Is_Concurrent_Type (Entity) then
+  1660:                      Effects_Append_Binder_To_Reads
+  1661:                        (Eff, Ada_Ent_To_Why.Element (Symbol_Table, Entity));
+  1662:                   end if;
+  1663:                end;
+  1664:
+  1665:             when Magic_String   =>
+  1666:                declare
+  1667:                   Cu : constant Ada_Ent_To_Why.Cursor :=
+  1668:                     Ada_Ent_To_Why.Find (Symbol_Table, To_Name (Read_Id));
+  1669:
+  1670:                begin
+  1671:                   --  If Read_Id is in the symbol table, use this mapping
+  1672:
+  1673:                   if Ada_Ent_To_Why.Has_Element (Cu) then
+  1674:                      Effects_Append_Binder_To_Reads
+  1675:                        (Eff, Ada_Ent_To_Why.Element (Cu));
+  1676:
+  1677:                   --  Otherwise, use the id name
+  1678:
+  1679:                   else
+  1680:                      Effects_Append_To_Reads
+  1681:                        (Eff,
+  1682:                         To_Why_Id (Obj => To_Name (Read_Id), Local => False));
+  1683:                   end if;
+  1684:                end;
+  1685:
+  1686:             when others         =>
+  1687:                raise Program_Error;
+  1688:          end case;
+  1689:       end loop;
+  1690:
+  1691:       return +Eff;
+  1692:    end Compute_Effects;
+  1693:
+  1694:    --------------------------------
+  1695:    -- Compute_Guard_For_Dispatch --
+  1696:    --------------------------------
+```
+
+## src/why/gnat2why-subprograms.adb:1826-1904
+
+```ada
+  1826:    function Compute_Moved_Property_For_Deep_Outputs
+  1827:      (E : Entity_Id; Params : Transformation_Params) return W_Prog_Id
+  1828:    is
+  1829:       Assume : W_Prog_Id := +Void;
+  1830:    begin
+  1831:       if (Ekind (E) = E_Function
+  1832:           and then not Is_Function_With_Side_Effects (E))
+  1833:         or else Ekind (E) in E_Package | E_Task_Type
+  1834:       then
+  1835:          return +Void;
+  1836:       end if;
+  1837:
+  1838:       declare
+  1839:          Outputs : constant Entity_Sets.Set :=
+  1840:            Compute_Outputs_With_Allocated_Parts (E);
+  1841:       begin
+  1842:          for Obj of Outputs loop
+  1843:             Append
+  1844:               (Assume,
+  1845:                New_Assume_Statement
+  1846:                  (Pred =>
+  1847:                     Compute_Is_Moved_Or_Reclaimed
+  1848:                       (Expr =>
+  1849:                          +Transform_Identifier
+  1850:                             (Params => Params,
+  1851:                              Expr   => Obj,
+  1852:                              Ent    => Obj,
+  1853:                              Domain => EW_Term),
+  1854:                        Tree => +New_Move_Tree_Access_For_Identitier (Obj),
+  1855:                        Ty   => Expected_Type_For_Move_Tree (Obj))));
+  1856:          end loop;
+  1857:       end;
+  1858:
+  1859:       return Assume;
+  1860:    end Compute_Moved_Property_For_Deep_Outputs;
+  1861:
+  1862:    ------------------------------------------
+  1863:    -- Compute_Outputs_With_Allocated_Parts --
+  1864:    ------------------------------------------
+  1865:
+  1866:    function Compute_Outputs_With_Allocated_Parts
+  1867:      (E : Callable_Kind_Id) return Entity_Sets.Set
+  1868:    is
+  1869:       Outputs : Entity_Sets.Set;
+  1870:    begin
+  1871:       declare
+  1872:          Read_Ids  : Flow_Types.Flow_Id_Sets.Set;
+  1873:          Write_Ids : Flow_Types.Flow_Id_Sets.Set;
+  1874:       begin
+  1875:          Flow_Utility.Get_Proof_Globals
+  1876:            (Subprogram      => E,
+  1877:             Reads           => Read_Ids,
+  1878:             Writes          => Write_Ids,
+  1879:             Erase_Constants => True);
+  1880:
+  1881:          for Write_Id of Write_Ids loop
+  1882:             case Write_Id.Kind is
+  1883:                when Direct_Mapping =>
+  1884:                   declare
+  1885:                      Entity : constant Entity_Id :=
+  1886:                        Get_Direct_Mapping_Id (Write_Id);
+  1887:                      Typ    : constant Entity_Id := Retysp (Etype (Entity));
+  1888:
+  1889:                   begin
+  1890:                      if not Is_Concurrent_Type (Entity)
+  1891:                        and then not Read_Ids.Contains (Write_Id)
+  1892:                        and then Contains_Allocated_Parts (Typ)
+  1893:                        and then not Is_Anonymous_Access_Type (Typ)
+  1894:                      then
+  1895:                         Outputs.Insert (Entity);
+  1896:                      end if;
+  1897:                   end;
+  1898:
+  1899:                when Magic_String   =>
+  1900:                   null;
+  1901:
+  1902:                when others         =>
+  1903:                   raise Program_Error;
+  1904:             end case;
+```
+
+## src/why/gnat2why-subprograms.adb:2000-2105
+
+```ada
+  2000:    function Compute_Subprogram_Parameters
+  2001:      (E          : Callable_Kind_Id;
+  2002:       Domain     : EW_Domain;
+  2003:       More_Reads : Flow_Id_Sets.Set := Flow_Id_Sets.Empty_Set)
+  2004:       return Item_Array
+  2005:    is
+  2006:       Raw_Binders : constant Item_Array := Compute_Raw_Binders (E);
+  2007:    begin
+  2008:       return
+  2009:         (if Domain = EW_Prog
+  2010:          then Raw_Binders
+  2011:          else Add_Logic_Binders (E, Raw_Binders, More_Reads));
+  2012:    end Compute_Subprogram_Parameters;
+  2013:
+  2014:    --------------------------------------------
+  2015:    -- Compute_Type_Invariants_For_Subprogram --
+  2016:    --------------------------------------------
+  2017:
+  2018:    function Compute_Type_Invariants_For_Subprogram
+  2019:      (E           : Entity_Id;
+  2020:       Params      : Transformation_Params;
+  2021:       For_Input   : Boolean;
+  2022:       Exceptional : Boolean := False) return W_Pred_Id
+  2023:    is
+  2024:       Res : W_Pred_Id := True_Pred;
+  2025:
+  2026:       procedure Add_To_Res (Dummy : Node_Id; Inv : W_Pred_Id);
+  2027:       --  Conjunct Inv to Res
+  2028:
+  2029:       ----------------
+  2030:       -- Add_To_Res --
+  2031:       ----------------
+  2032:
+  2033:       procedure Add_To_Res (Dummy : Node_Id; Inv : W_Pred_Id) is
+  2034:       begin
+  2035:          Res := New_And_Pred (Left => Res, Right => Inv);
+  2036:       end Add_To_Res;
+  2037:
+  2038:       procedure Compute_Type_Invariants is new
+  2039:         Process_Type_Invariants_For_Subprogram (Add_To_Res);
+  2040:    begin
+  2041:       Compute_Type_Invariants (E, Params, For_Input, Exceptional, Scop => E);
+  2042:
+  2043:       return Res;
+  2044:    end Compute_Type_Invariants_For_Subprogram;
+  2045:
+  2046:    -----------------------
+  2047:    -- Add_Logic_Binders --
+  2048:    -----------------------
+  2049:
+  2050:    function Add_Logic_Binders
+  2051:      (E           : Entity_Id;
+  2052:       Raw_Binders : Item_Array;
+  2053:       More_Reads  : Flow_Id_Sets.Set := Flow_Id_Sets.Empty_Set)
+  2054:       return Item_Array
+  2055:    is
+  2056:       Effect_Binders : Item_Array :=
+  2057:         Compute_Binders_For_Effects (E, More_Reads);
+  2058:    begin
+  2059:       Localize_Binders (Effect_Binders);
+  2060:       return Raw_Binders & Effect_Binders;
+  2061:    end Add_Logic_Binders;
+  2062:
+  2063:    ---------------------------------
+  2064:    -- Compute_Binders_For_Effects --
+  2065:    ---------------------------------
+  2066:
+  2067:    function Compute_Binders_For_Effects
+  2068:      (E          : Callable_Kind_Id;
+  2069:       More_Reads : Flow_Id_Sets.Set := Flow_Id_Sets.Empty_Set)
+  2070:       return Item_Array
+  2071:    is
+  2072:       Read_Ids  : Flow_Id_Sets.Set;
+  2073:       Write_Ids : Flow_Id_Sets.Set;
+  2074:
+  2075:    begin
+  2076:       --  Collect global variables potentially read and written
+  2077:
+  2078:       Flow_Utility.Get_Proof_Globals
+  2079:         (Subprogram      => E,
+  2080:          Reads           => Read_Ids,
+  2081:          Writes          => Write_Ids,
+  2082:          Erase_Constants => True);
+  2083:
+  2084:       Read_Ids.Union (More_Reads);
+  2085:
+  2086:       --  Do not include binder for self reference as it is already included
+  2087:       --  in binders for parameters.
+  2088:
+  2089:       return
+  2090:         Get_Binders_From_Variables
+  2091:           (Read_Ids.Union (Write_Ids), Ignore_Self => True);
+  2092:    end Compute_Binders_For_Effects;
+  2093:
+  2094:    -------------------------
+  2095:    -- Compute_Raw_Binders --
+  2096:    -------------------------
+  2097:
+  2098:    function Compute_Raw_Binders (E : Entity_Id) return Item_Array is
+  2099:       Binder_Len : constant Natural :=
+  2100:         Number_Formals (E) + (if Need_Self_Binder (E) then 1 else 0);
+  2101:       Result     : Item_Array (1 .. Binder_Len);
+  2102:       Formal     : Entity_Id;
+  2103:       Count      : Positive;
+  2104:
+  2105:    begin
+```
+
+## src/why/gnat2why-subprograms.adb:3305-3310
+
+```ada
+  3305:    procedure Declare_Exceptions (Th : Theory_UC) is
+  3306:    begin
+  3307:       for Exc of Subprogram_Exceptions loop
+  3308:          Emit (Th, New_Exception_Declaration (Name => +Exc));
+  3309:       end loop;
+  3310:    end Declare_Exceptions;
+```
+
+## src/why/gnat2why-subprograms.adb:4485-4740
+
+```ada
+  4485:    procedure Generate_VCs_For_Subprogram
+  4486:      (E : Callable_Kind_Id; Th : Theory_UC; Prog_Name : W_Identifier_Id)
+  4487:    is
+  4488:
+  4489:       function Assume_For_Input return W_Prog_Id;
+  4490:       --  Generate assumptions for dynamic types used in the program. An
+  4491:       --  exception is made for predicate functions generated by the frontend,
+  4492:       --  for which we should not assume that the predicate holds for checking
+  4493:       --  the absence of RTE in the predicate itself.
+  4494:       --  Also assume the type invariants of global inputs of E and of global
+  4495:       --  parameters if E is a boundary subprogram.
+  4496:
+  4497:       function Assume_For_Output return W_Prog_Id;
+  4498:       --  Generate assumptions for deep outputs, that all pointers are moved at
+  4499:       --  subprogram entry.
+  4500:
+  4501:       function RTE_Of_Pre return W_Prog_Id;
+  4502:       --  Compute an expression which contains the RTE checks of the
+  4503:       --  precondition.
+  4504:
+  4505:       function Assume_Or_Assert_Of_Pre return W_Prog_Id;
+  4506:       --  Usually assumes the precondition, except for main programs where
+  4507:       --  the precondition needs to be proved in fact. In this latter case
+  4508:       --  an assertion is returned instead of an assumption.
+  4509:
+  4510:       function Check_Feasibility return W_Prog_Id;
+  4511:       --  Generate an assertion checking that there exists a possible return
+  4512:       --  value for E consistent with its implicit or explicit postcondition.
+  4513:
+  4514:       function Check_Inline_Annotation return W_Prog_Id;
+  4515:       --  Checks that the expression used for inlining is equal to the result.
+  4516:       --  This is done for functions annotated with Inline_For_Proof and
+  4517:       --  Logical_Equal.
+  4518:
+  4519:       function Check_Init_Of_Out_Params return W_Prog_Id;
+  4520:       --  Checks initialization of out parameters at the end of the subprogram.
+  4521:
+  4522:       function Check_Invariants_Of_Outputs
+  4523:         (Exceptional : Boolean := False) return W_Prog_Id;
+  4524:       --  Checks the type invariants of global output and of out parameters if
+  4525:       --  E is a boundary subprogram.
+  4526:       --  If Exceptional is True, only check "by reference" parameters.
+  4527:
+  4528:       function Checking_Of_Refined_Post (Arg : W_Prog_Id) return W_Prog_Id
+  4529:       with Pre => Entity_Body_In_SPARK (E);
+  4530:       --  Encapsulate the translated body inside an abstract program with
+  4531:       --  the Refined_Post as a postcondition.
+  4532:       --  Assume the dynamic property of modified variables after the call.
+  4533:
+  4534:       function Post_As_Pred return W_Pred_Id;
+  4535:       --  Compute the postcondition predicate based on the Ada postcondition
+  4536:
+  4537:       function Try_Block (Prog : W_Prog_Id) return W_Prog_Id;
+  4538:       --  adding try/catch block for the return exception on top of the program
+  4539:
+  4540:       Pre_Prags  : Node_Lists.List;
+  4541:       Post_Prags : Node_Lists.List;
+  4542:
+  4543:       procedure Get_Pre_Post_Pragmas (Decls : List_Id);
+  4544:       --  Retrieve pragmas Precondition and Postcondition from the list
+  4545:       --  of body declarations, and add them to Pre_Prags and Post_Prags
+  4546:       --  when they do not come from aspects.
+  4547:
+  4548:       function Transform_All_Pragmas
+  4549:         (Prags : Node_Lists.List; Comment : String) return W_Prog_Id;
+  4550:       --  Translate the pragma list in Prags into Why3.
+  4551:
+  4552:       --  Mapping from guards to temporary names, and Why program to check
+  4553:       --  contract cases and exit cases on exit.
+  4554:       CC_Guard_Map : Ada_To_Why_Ident.Map;
+  4555:       EC_Guard_Map : Ada_To_Why_Ident.Map;
+  4556:
+  4557:       function CC_EC_And_RTE_Post return W_Prog_Id;
+  4558:       --  Return verification of the contract cases, exit cases on normal
+  4559:       --  return, plus runtime checks for the Post
+  4560:
+  4561:       function Check_Exceptional_Cases
+  4562:         (Exc_Id : W_Identifier_Id) return W_Prog_Id;
+  4563:       --  Return verification of the exceptional cases
+  4564:
+  4565:       function Declare_Old_Variables (P : W_Prog_Id) return W_Prog_Id;
+  4566:
+  4567:       function Declare_Termination_Condition (P : W_Prog_Id) return W_Prog_Id;
+  4568:       --  If E has a dynamic termination condition, introduce a declaration
+  4569:       --  for its value at the beginning of the subprogram.
+  4570:
+  4571:       function Warn_On_Inconsistent_Pre return W_Prog_Id;
+  4572:       --  Generate a VC to warn on inconsistent preconditions
+  4573:
+  4574:       function Warn_On_Inconsistent_Post return W_Prog_Id;
+  4575:       --  Generate a VC to warn on inconsistent postconditions
+  4576:
+  4577:       function Wrap_Decls_For_Guards
+  4578:         (P : W_Prog_Id; Guard_Map : Ada_To_Why_Ident.Map) return W_Prog_Id;
+  4579:       --  Helper subprogram, introduce bindings for guards of contract or exit
+  4580:       --  cases over P.
+  4581:
+  4582:       function Wrap_Decls_For_CC_Guards (P : W_Prog_Id) return W_Prog_Id;
+  4583:
+  4584:       function Wrap_Decls_For_EC_Guards (P : W_Prog_Id) return W_Prog_Id;
+  4585:
+  4586:       ----------------------
+  4587:       -- Assume_For_Input --
+  4588:       ----------------------
+  4589:
+  4590:       function Assume_For_Input return W_Prog_Id is
+  4591:          Pred_Fun_Param : constant Entity_Id :=
+  4592:            (if Ekind (E) = E_Function and then Is_Predicate_Function (E)
+  4593:             then First_Formal (E)
+  4594:             else Empty);
+  4595:          Params         : constant Transformation_Params := Contract_VC_Params;
+  4596:       begin
+  4597:          if Ekind (E) = E_Procedure and then Null_Present (E) then
+  4598:             return +Void;
+  4599:          end if;
+  4600:          return
+  4601:            Sequence
+  4602:              ((1 =>
+  4603:                  New_Comment
+  4604:                    (Comment =>
+  4605:                       NID
+  4606:                         ("Assume dynamic invariants of inputs of the"
+  4607:                          & " subprogram"
+  4608:                          & (if Sloc (E) > 0
+  4609:                             then " " & Build_Location_String (Sloc (E))
+  4610:                             else ""))),
+  4611:                2 =>
+  4612:                  Compute_Dynamic_Property_For_Inputs
+  4613:                    (Params         => Params,
+  4614:                     E              => E,
+  4615:                     Pred_Fun_Param => Pred_Fun_Param),
+  4616:                3 =>
+  4617:                  New_Assume_Statement
+  4618:                    (Pred =>
+  4619:                       Compute_Type_Invariants_For_Subprogram
+  4620:                         (E => E, For_Input => True, Params => Params))));
+  4621:       end Assume_For_Input;
+  4622:
+  4623:       -----------------------
+  4624:       -- Assume_For_Output --
+  4625:       -----------------------
+  4626:
+  4627:       function Assume_For_Output return W_Prog_Id is
+  4628:          Params : constant Transformation_Params := Contract_VC_Params;
+  4629:       begin
+  4630:          if Ekind (E) = E_Procedure and then Null_Present (E) then
+  4631:             return +Void;
+  4632:          end if;
+  4633:          return
+  4634:            Sequence
+  4635:              ((1 =>
+  4636:                  New_Comment
+  4637:                    (Comment =>
+  4638:                       NID
+  4639:                         ("Assume moved pointers in outputs of the"
+  4640:                          & " subprogram"
+  4641:                          & (if Sloc (E) > 0
+  4642:                             then " " & Build_Location_String (Sloc (E))
+  4643:                             else ""))),
+  4644:                2 => Compute_Moved_Property_For_Deep_Outputs (E, Params)));
+  4645:       end Assume_For_Output;
+  4646:
+  4647:       -----------------------------
+  4648:       -- Assume_Or_Assert_Of_Pre --
+  4649:       -----------------------------
+  4650:
+  4651:       function Assume_Or_Assert_Of_Pre return W_Prog_Id is
+  4652:          Params   : constant Transformation_Params := Contract_VC_Params;
+  4653:          Pre_Node : constant Node_Id :=
+  4654:            Get_Location_For_Aspect (E, Pragma_Precondition);
+  4655:          Pre      : W_Pred_Id :=
+  4656:            Get_Static_Call_Contract (Params, E, Pragma_Precondition);
+  4657:          Stmt     : W_Prog_Id;
+  4658:
+  4659:       begin
+  4660:          --  Need to prove precondition of Main before use. The test for
+  4661:          --  entries is just to protect the call to Might_Be_Main.
+  4662:
+  4663:          if Is_Subprogram (E) and then Might_Be_Main (E) then
+  4664:
+  4665:             --  Initial conditions of withed units should only be available to
+  4666:             --  prove the precondition of potential Main subprograms. It cannot
+  4667:             --  be assumed for potential other calls which might occur during
+  4668:             --  the elaboration.
+  4669:
+  4670:             if No (Pre_Node) then
+  4671:                pragma Assert (Is_True_Boolean (+Pre));
+  4672:                Stmt := +Void;
+  4673:             else
+  4674:                Stmt :=
+  4675:                  New_Located_Abstract
+  4676:                    (Ada_Node => Pre_Node,
+  4677:                     Expr     =>
+  4678:                       Assume_Initial_Condition_Of_Withed_Units (E, Params),
+  4679:                     Reason   => VC_Precondition_Main,
+  4680:                     Post     => Pre);
+  4681:             end if;
+  4682:          else
+  4683:             if Is_Entry (E) and then Entity_Body_In_SPARK (E) then
+  4684:                declare
+  4685:                   Params  : constant Transformation_Params :=
+  4686:                     Contract_Body_Params;
+  4687:                   Body_N  : constant Node_Id := Entry_Body (E);
+  4688:                   Barrier : constant Node_Id := Entry_Body_Barrier (Body_N);
+  4689:                begin
+  4690:                   Pre :=
+  4691:                     +New_And_Then_Expr
+  4692:                        (Domain => EW_Pred,
+  4693:                         Left   => +Pre,
+  4694:                         Right  =>
+  4695:                           Transform_Expr
+  4696:                             (Barrier, EW_Bool_Type, EW_Pred, Params));
+  4697:                end;
+  4698:             end if;
+  4699:             Stmt := New_Assume_Statement (Pred => Pre);
+  4700:          end if;
+  4701:
+  4702:          return
+  4703:            Sequence
+  4704:              (New_Comment
+  4705:                 (Comment =>
+  4706:                    NID
+  4707:                      ("Assume Pre of the subprogram"
+  4708:                       & (if Sloc (E) > 0
+  4709:                          then " " & Build_Location_String (Sloc (E))
+  4710:                          else ""))),
+  4711:               Stmt);
+  4712:       end Assume_Or_Assert_Of_Pre;
+  4713:
+  4714:       ------------------------
+  4715:       -- CC_EC_And_RTE_Post --
+  4716:       ------------------------
+  4717:
+  4718:       function CC_EC_And_RTE_Post return W_Prog_Id is
+  4719:          Params : constant Transformation_Params := Contract_VC_Params;
+  4720:       begin
+  4721:          return
+  4722:            Sequence
+  4723:              ((1 =>
+  4724:                  New_Ignore
+  4725:                    (Prog =>
+  4726:                       +Compute_Spec
+  4727:                          (Params, E, Pragma_Postcondition, EW_Prog)),
+  4728:                2 =>
+  4729:                  Compute_Contract_Cases_Exit_Checks
+  4730:                    (Params => Params, E => E, Guard_Map => CC_Guard_Map),
+  4731:                3 =>
+  4732:                  Compute_Exit_Cases_Simple_Checks
+  4733:                    (E         => E,
+  4734:                     Name      => Name_Normal_Return,
+  4735:                     Guard_Map => EC_Guard_Map)));
+  4736:       end CC_EC_And_RTE_Post;
+  4737:
+  4738:       -----------------------------
+  4739:       -- Check_Exceptional_Cases --
+  4740:       -----------------------------
+```
+
+## src/why/gnat2why-subprograms.adb:4958-5093
+
+```ada
+  4958:       function Check_Init_Of_Out_Params return W_Prog_Id is
+  4959:          Param  : Entity_Id := First_Formal (E);
+  4960:          Checks : W_Prog_Id := +Void;
+  4961:
+  4962:       begin
+  4963:          while Present (Param) loop
+  4964:             declare
+  4965:                B : constant Item_Type :=
+  4966:                  Ada_Ent_To_Why.Element (Symbol_Table, Param);
+  4967:             begin
+  4968:                if Ekind (Param) = E_Out_Parameter
+  4969:                  and then Obj_Has_Relaxed_Init (Param)
+  4970:                then
+  4971:                   Continuation_Stack.Append
+  4972:                     (Continuation_Type'
+  4973:                        (E,
+  4974:                         To_Unbounded_String
+  4975:                           ("for parameter "
+  4976:                            & Pretty_Source_Name (Param)
+  4977:                            & " at the end of the subprogram")));
+  4978:
+  4979:                   if B.Init.Present then
+  4980:                      Append
+  4981:                        (Checks,
+  4982:                         New_Located_Assert
+  4983:                           (Ada_Node => Param,
+  4984:                            Pred     =>
+  4985:                              Pred_Of_Boolean_Term
+  4986:                                (New_Deref
+  4987:                                   (Right => B.Init.Id,
+  4988:                                    Typ   => Get_Typ (B.Init.Id))),
+  4989:                            Reason   => VC_Initialization_Check,
+  4990:                            Kind     => EW_Assert));
+  4991:
+  4992:                   elsif Has_Scalar_Full_View (Etype (Param)) then
+  4993:                      Append
+  4994:                        (Checks,
+  4995:                         New_Located_Assert
+  4996:                           (Ada_Node => Param,
+  4997:                            Pred     =>
+  4998:                              +Compute_Is_Initialized
+  4999:                                 (E                  => Etype (Param),
+  5000:                                  Name               =>
+  5001:                                    Transform_Identifier
+  5002:                                      (Body_Params, Param, Param, EW_Term),
+  5003:                                  Params             => Body_Params,
+  5004:                                  Domain             => EW_Pred,
+  5005:                                  Exclude_Components => Relaxed),
+  5006:                            Reason   => VC_Initialization_Check,
+  5007:                            Kind     => EW_Assert));
+  5008:
+  5009:                   elsif Has_Predicates (Etype (Param)) then
+  5010:                      Append
+  5011:                        (Checks,
+  5012:                         New_Predicate_Check
+  5013:                           (Ada_Node => Param,
+  5014:                            W_Expr   =>
+  5015:                              Transform_Identifier
+  5016:                                (Body_Params, Param, Param, EW_Term),
+  5017:                            Ty       => Etype (Param)));
+  5018:                   end if;
+  5019:
+  5020:                   Continuation_Stack.Delete_Last;
+  5021:                end if;
+  5022:             end;
+  5023:             Next_Formal (Param);
+  5024:          end loop;
+  5025:
+  5026:          return Checks;
+  5027:       end Check_Init_Of_Out_Params;
+  5028:
+  5029:       -----------------------------
+  5030:       -- Check_Inline_Annotation --
+  5031:       -----------------------------
+  5032:
+  5033:       function Check_Inline_Annotation return W_Prog_Id is
+  5034:          Need_Check : constant Boolean :=
+  5035:            (Present (Retrieve_Inline_Annotation (E))
+  5036:             and then
+  5037:               (not Is_Expression_Function_Or_Completion (E)
+  5038:                or else not Entity_Body_Compatible_With_SPARK (E)))
+  5039:            or else Has_Logical_Eq_Annotation (E);
+  5040:          Params     : constant Transformation_Params := Contract_VC_Params;
+  5041:       begin
+  5042:          if Need_Check then
+  5043:             pragma Assert (not Is_Potentially_Invalid (E));
+  5044:
+  5045:             declare
+  5046:                Def : constant W_Term_Id :=
+  5047:                  Compute_Inlined_Expr
+  5048:                    (Function_Entity    => E,
+  5049:                     Logic_Func_Binders => (1 .. 0 => <>),
+  5050:                     W_Return_Type      => Get_Typ (Result_Name),
+  5051:                     Params             => Params);
+  5052:             begin
+  5053:                if Def /= Why_Empty then
+  5054:                   return
+  5055:                     New_Assert
+  5056:                       (Pred        =>
+  5057:                          New_VC_Pred
+  5058:                            (Ada_Node => Find_Inline_Pragma (E),
+  5059:                             Expr     =>
+  5060:                               New_Comparison
+  5061:                                 (Symbol => Why_Eq,
+  5062:                                  Left   =>
+  5063:                                    New_Deref
+  5064:                                      (Right => Result_Name,
+  5065:                                       Typ   => Get_Typ (Result_Name)),
+  5066:                                  Right  => Def),
+  5067:                             Reason   => VC_Inline_Check),
+  5068:                        Assert_Kind => EW_Assert);
+  5069:                else
+  5070:                   return +Void;
+  5071:                end if;
+  5072:             end;
+  5073:          else
+  5074:             return +Void;
+  5075:          end if;
+  5076:       end Check_Inline_Annotation;
+  5077:
+  5078:       ---------------------------------
+  5079:       -- Check_Invariants_Of_Outputs --
+  5080:       ---------------------------------
+  5081:
+  5082:       function Check_Invariants_Of_Outputs
+  5083:         (Exceptional : Boolean := False) return W_Prog_Id
+  5084:       is
+  5085:          Params : constant Transformation_Params := Contract_VC_Params;
+  5086:       begin
+  5087:          return
+  5088:            Check_Type_Invariants_For_Subprogram
+  5089:              (E, E, Params, For_Input => False, Exceptional => Exceptional);
+  5090:       end Check_Invariants_Of_Outputs;
+  5091:
+  5092:       ------------------------------
+  5093:       -- Checking_Of_Refined_Post --
+```
+
+## src/why/gnat2why-subprograms.adb:5096-5422
+
+```ada
+  5096:       function Checking_Of_Refined_Post (Arg : W_Prog_Id) return W_Prog_Id is
+  5097:          Params : constant Transformation_Params := Contract_VC_Params;
+  5098:          Prog   : W_Prog_Id := Arg;
+  5099:       begin
+  5100:          if Has_Contracts (E, Pragma_Refined_Post) then
+  5101:             Append
+  5102:               (Prog,
+  5103:                New_Ignore
+  5104:                  (Prog =>
+  5105:                     +Compute_Spec (Params, E, Pragma_Refined_Post, EW_Prog)));
+  5106:             Prog :=
+  5107:               New_Located_Abstract
+  5108:                 (Ada_Node => Get_Location_For_Aspect (E, Pragma_Refined_Post),
+  5109:                  Expr     => Prog,
+  5110:                  Reason   => VC_Refined_Post,
+  5111:                  Post     =>
+  5112:                    +Compute_Spec (Params, E, Pragma_Refined_Post, EW_Pred));
+  5113:             Append
+  5114:               (Prog,
+  5115:                New_Assume_Statement
+  5116:                  (Pred => Compute_Dynamic_Property_For_Effects (E, Params)));
+  5117:
+  5118:             --  For functions we also need to assume the dynamic invariant of
+  5119:             --  the result.
+  5120:
+  5121:             if Ekind (E) = E_Function then
+  5122:                declare
+  5123:                   pragma Assert (Include_All_Global_Invariants_For_Subp (E));
+  5124:                   Dyn_Prop : W_Pred_Id :=
+  5125:                     Compute_Dynamic_Inv_And_Initialization
+  5126:                       (Expr   =>
+  5127:                          New_Deref
+  5128:                            (Right => Result_Name,
+  5129:                             Typ   => Get_Typ (Result_Name)),
+  5130:                        Ty     => Etype (E),
+  5131:                        Params => Params,
+  5132:                        Valid  => Get_Valid_Id_For_Result (E));
+  5133:
+  5134:                begin
+  5135:                   --  For borrowing traversal functions, add the dynamic
+  5136:                   --  invariant of the result at end and of the borrowed
+  5137:                   --  parameter at end.
+  5138:
+  5139:                   if Is_Borrowing_Traversal_Function (E) then
+  5140:                      declare
+  5141:                         Brower_At_End   : constant W_Identifier_Id :=
+  5142:                           Get_Brower_At_End (E);
+  5143:                         Borrowed_At_End : constant W_Identifier_Id :=
+  5144:                           To_Local (Get_Borrowed_At_End (E));
+  5145:                      begin
+  5146:                         Dyn_Prop :=
+  5147:                           New_And_Pred
+  5148:                             (Conjuncts =>
+  5149:                                (1 => Dyn_Prop,
+  5150:                                 2 =>
+  5151:                                   Compute_Dynamic_Inv_And_Initialization
+  5152:                                     (Expr   =>
+  5153:                                        New_Deref
+  5154:                                          (Right => Brower_At_End,
+  5155:                                           Typ   => Get_Typ (Brower_At_End)),
+  5156:                                      Ty     => Etype (E),
+  5157:                                      Params => Params),
+  5158:                                 3 =>
+  5159:                                   Compute_Dynamic_Inv_And_Initialization
+  5160:                                     (Expr   => +Borrowed_At_End,
+  5161:                                      Ty     => Etype (First_Formal (E)),
+  5162:                                      Params => Params)));
+  5163:                      end;
+  5164:                   end if;
+  5165:
+  5166:                   Append (Prog, New_Assume_Statement (Pred => Dyn_Prop));
+  5167:                end;
+  5168:             end if;
+  5169:          end if;
+  5170:          return Prog;
+  5171:       end Checking_Of_Refined_Post;
+  5172:
+  5173:       ---------------------------
+  5174:       -- Declare_Old_Variables --
+  5175:       ---------------------------
+  5176:
+  5177:       function Declare_Old_Variables (P : W_Prog_Id) return W_Prog_Id is
+  5178:          CC_List  : constant Node_Lists.List :=
+  5179:            Find_Contracts (E, Pragma_Contract_Cases);
+  5180:          Post_Old : Node_Sets.Set;
+  5181:          CC_Old   : Node_Sets.Set;
+  5182:          R        : W_Prog_Id;
+  5183:       begin
+  5184:          --  Add mapping for Old variables coming from the postcondition. Use
+  5185:          --  the EW_Prog domain to generate checks for them.
+  5186:
+  5187:          Collect_Old_For_Subprogram (E, Post_Old, Exclude_CC => True);
+  5188:
+  5189:          if Entity_Body_In_SPARK (E) then
+  5190:             Collect_Old_Parts
+  5191:               (Find_Contracts (E, Pragma_Refined_Post), Post_Old);
+  5192:             Collect_Old_Parts (Post_Prags, Post_Old);
+  5193:          end if;
+  5194:
+  5195:          R :=
+  5196:            +Bind_From_Mapping_In_Expr
+  5197:               (Params => Body_Params,
+  5198:                Map    => Map_For_Old,
+  5199:                Expr   => +P,
+  5200:                Domain => EW_Prog,
+  5201:                Subset => Post_Old);
+  5202:
+  5203:          --  Add mapping for Old variables coming from the contract case if
+  5204:          --  any. Checks are generated separately as they should only be done
+  5205:          --  when in the correct contract case.
+  5206:
+  5207:          for Aggr of CC_List loop
+  5208:             Collect_Old_Parts (Aggr, CC_Old);
+  5209:             R :=
+  5210:               +Bind_From_Mapping_In_Expr
+  5211:                  (Params => Body_Params,
+  5212:                   Map    => Map_For_Old,
+  5213:                   Expr   => +R,
+  5214:                   Domain => EW_Pterm,
+  5215:                   Subset => CC_Old);
+  5216:
+  5217:             --  Generate checks for Old variables inside ignore blocks when the
+  5218:             --  corresponding guard is enabled.
+  5219:
+  5220:             declare
+  5221:                Contract_Case : Node_Id :=
+  5222:                  First (Component_Associations (Aggr));
+  5223:                Case_Guard    : Node_Id;
+  5224:             begin
+  5225:                while Present (Contract_Case) loop
+  5226:                   CC_Old.Clear;
+  5227:                   Collect_Old_Parts (Expression (Contract_Case), CC_Old);
+  5228:                   Case_Guard := First (Choice_List (Contract_Case));
+  5229:                   Prepend
+  5230:                     (New_Conditional
+  5231:                        (Condition =>
+  5232:                           +(if Nkind (Case_Guard) = N_Others_Choice
+  5233:                             then CC_Guard_Map.Element (Aggr)
+  5234:                             else CC_Guard_Map.Element (Case_Guard)),
+  5235:                         Then_Part =>
+  5236:                           +New_Ignore
+  5237:                              (Prog =>
+  5238:                                 +Bind_From_Mapping_In_Expr
+  5239:                                    (Params => Body_Params,
+  5240:                                     Map    => Map_For_Old,
+  5241:                                     Expr   => +Void,
+  5242:                                     Domain => EW_Prog,
+  5243:                                     Subset => CC_Old))),
+  5244:                      R);
+  5245:
+  5246:                   Next (Contract_Case);
+  5247:                end loop;
+  5248:             end;
+  5249:          end loop;
+  5250:          return R;
+  5251:       end Declare_Old_Variables;
+  5252:
+  5253:       -----------------------------------
+  5254:       -- Declare_Termination_Condition --
+  5255:       -----------------------------------
+  5256:
+  5257:       function Declare_Termination_Condition (P : W_Prog_Id) return W_Prog_Id
+  5258:       is
+  5259:          Cond : constant Termination_Condition :=
+  5260:            Get_Termination_Condition (E);
+  5261:       begin
+  5262:          if Cond.Kind = Dynamic then
+  5263:             return
+  5264:               New_Binding
+  5265:                 (Name    => Termination_Condition_Name,
+  5266:                  Def     => Transform_Prog (Cond.Condition, Body_Params),
+  5267:                  Context => P);
+  5268:          else
+  5269:             return P;
+  5270:          end if;
+  5271:       end Declare_Termination_Condition;
+  5272:
+  5273:       --------------------------
+  5274:       -- Get_Pre_Post_Pragmas --
+  5275:       --------------------------
+  5276:
+  5277:       procedure Get_Pre_Post_Pragmas (Decls : List_Id) is
+  5278:          Decl : Node_Id := First (Decls);
+  5279:       begin
+  5280:          while Present (Decl) loop
+  5281:             if Is_Pragma (Decl, Pragma_Precondition)
+  5282:               and then not From_Aspect_Specification (Decl)
+  5283:             then
+  5284:                Pre_Prags.Append (Decl);
+  5285:
+  5286:             elsif Is_Pragma (Decl, Pragma_Postcondition)
+  5287:               and then not From_Aspect_Specification (Decl)
+  5288:             then
+  5289:                Post_Prags.Append (Decl);
+  5290:
+  5291:             --  Stop the search if a new declaration is found
+  5292:
+  5293:             elsif Decl_Starts_Pragma_Annotate_Range (Decl) then
+  5294:                exit;
+  5295:             end if;
+  5296:             Next (Decl);
+  5297:          end loop;
+  5298:       end Get_Pre_Post_Pragmas;
+  5299:
+  5300:       ------------------
+  5301:       -- Post_As_Pred --
+  5302:       ------------------
+  5303:
+  5304:       function Post_As_Pred return W_Pred_Id is
+  5305:          Params      : constant Transformation_Params :=
+  5306:            (Contract_Body_Params with delta Old_Policy => As_Old);
+  5307:          Mark_Params : Transformation_Params := Params;
+  5308:          Post_N      : Node_Id;
+  5309:       begin
+  5310:          Mark_Params.Gen_Marker := GM_Toplevel;
+  5311:
+  5312:          --  There might be no specific postcondition for E. In that case, the
+  5313:          --  classwide or inherited postcondition is checked if present. Locate
+  5314:          --  it on E for the inherited case.
+  5315:
+  5316:          if Has_Contracts (E, Pragma_Postcondition) then
+  5317:             Post_N := Get_Location_For_Aspect (E, Pragma_Postcondition);
+  5318:          elsif Has_Contracts (E, Pragma_Postcondition, Classwide => True) then
+  5319:             Post_N :=
+  5320:               Get_Location_For_Aspect
+  5321:                 (E, Pragma_Postcondition, Classwide => True);
+  5322:          elsif Has_Contracts (E, Pragma_Postcondition, Inherited => True) then
+  5323:             Post_N :=
+  5324:               Get_Location_For_Aspect
+  5325:                 (E, Pragma_Postcondition, Inherited => True);
+  5326:          else
+  5327:             Post_N := Empty;
+  5328:          end if;
+  5329:          if Entity_Body_In_SPARK (E) then
+  5330:
+  5331:             --  Translate contract of E. A No_Return subprogram, from the
+  5332:             --  inside, has postcondition true as non-termination verification
+  5333:             --  is done by the frontend, but the precondition is unchanged.
+  5334:
+  5335:             if (Is_Subprogram (E) and then No_Return (E)) or else No (Post_N)
+  5336:             then
+  5337:                pragma
+  5338:                  Assert
+  5339:                    (if No (Post_N)
+  5340:                     then
+  5341:                       Is_True_Boolean
+  5342:                         (+Get_Static_Call_Contract
+  5343:                             (Mark_Params, E, Pragma_Postcondition)));
+  5344:                return Why_Empty;
+  5345:             else
+  5346:                return
+  5347:                  New_VC_Pred
+  5348:                    (Post_N,
+  5349:                     Get_Static_Call_Contract
+  5350:                       (Mark_Params, E, Pragma_Postcondition),
+  5351:                     VC_Postcondition);
+  5352:             end if;
+  5353:          else
+  5354:             return Why_Empty;
+  5355:          end if;
+  5356:       end Post_As_Pred;
+  5357:
+  5358:       ----------------
+  5359:       -- RTE_Of_Pre --
+  5360:       ----------------
+  5361:
+  5362:       function RTE_Of_Pre return W_Prog_Id is
+  5363:          Params : constant Transformation_Params := Contract_VC_Params;
+  5364:          Pre    : constant W_Prog_Id :=
+  5365:            +Compute_Spec (Params, E, Pragma_Precondition, EW_Prog);
+  5366:       begin
+  5367:          return
+  5368:            Sequence
+  5369:              (New_Comment
+  5370:                 (Comment =>
+  5371:                    NID
+  5372:                      ("Check for RTE in the Pre of the subprogram"
+  5373:                       & (if Sloc (E) > 0
+  5374:                          then " " & Build_Location_String (Sloc (E))
+  5375:                          else ""))),
+  5376:               New_Ignore (Prog => Pre));
+  5377:       end RTE_Of_Pre;
+  5378:
+  5379:       ---------------------------
+  5380:       -- Transform_All_Pragmas --
+  5381:       ---------------------------
+  5382:
+  5383:       function Transform_All_Pragmas
+  5384:         (Prags : Node_Lists.List; Comment : String) return W_Prog_Id
+  5385:       is
+  5386:          Result : W_Prog_Id;
+  5387:       begin
+  5388:          if Prags.Is_Empty then
+  5389:             Result := +Void;
+  5390:          else
+  5391:             Result :=
+  5392:               New_Comment
+  5393:                 (Comment =>
+  5394:                    NID
+  5395:                      (Comment
+  5396:                       & (if Sloc (E) > 0
+  5397:                          then " " & Build_Location_String (Sloc (E))
+  5398:                          else "")));
+  5399:
+  5400:             for Prag of Prags loop
+  5401:                Append
+  5402:                  (Result, Transform_Pragma (Prag, Body_Params, Force => True));
+  5403:             end loop;
+  5404:          end if;
+  5405:
+  5406:          return Result;
+  5407:       end Transform_All_Pragmas;
+  5408:
+  5409:       ---------------
+  5410:       -- Try_Block --
+  5411:       ---------------
+  5412:
+  5413:       function Try_Block (Prog : W_Prog_Id) return W_Prog_Id is
+  5414:       begin
+  5415:          return
+  5416:            New_Try_Block
+  5417:              (Prog    => Prog,
+  5418:               Handler =>
+  5419:                 (1 => New_Handler (Name => M_Main.Return_Exc, Def => +Void)));
+  5420:       end Try_Block;
+  5421:
+  5422:       -------------------------------
+```
+
+## src/why/gnat2why-subprograms.adb:5466-5478
+
+```ada
+  5466:       function Warn_On_Inconsistent_Pre return W_Prog_Id is
+  5467:          Params   : constant Transformation_Params := Contract_VC_Params;
+  5468:          Pre      : W_Pred_Id :=
+  5469:            Get_Static_Call_Contract (Params, E, Pragma_Precondition);
+  5470:          Stmt     : W_Prog_Id;
+  5471:          Pre_Node : constant Node_Id :=
+  5472:            Get_Location_For_Aspect (E, Pragma_Precondition);
+  5473:       begin
+  5474:          if No (Pre_Node) then
+  5475:             return +Void;
+  5476:          end if;
+  5477:
+  5478:          if Is_Entry (E) then
+```
+
+## src/why/gnat2why-subprograms.adb:5580-5623
+
+```ada
+  5580:
+  5581:       Name : constant String := Full_Name (E);
+  5582:
+  5583:       Effects  : constant W_Effects_Id := New_Effects;
+  5584:       CC_Check : W_Prog_Id := +Void; --  Checks for contract cases on entry
+  5585:       EC_Check : W_Prog_Id := +Void; --  Checks for exit cases on entry
+  5586:       Prog     : W_Prog_Id;
+  5587:       Why_Body : W_Prog_Id;
+  5588:
+  5589:       Result_Var : W_Prog_Id;
+  5590:
+  5591:       Precondition_Is_Statically_False  : Boolean := False;
+  5592:       Postcondition_Is_Statically_False : Boolean := False;
+  5593:
+  5594:       --  Start of processing for Generate_VCs_For_Subprogram
+  5595:
+  5596:    begin
+  5597:       --  Reset the toplevel exceptions for exit paths
+  5598:
+  5599:       Clear_Exceptions;
+  5600:
+  5601:       if Is_Function_Or_Function_Type (E) then
+  5602:          Result_Name :=
+  5603:            New_Identifier (Name => Name & "__result", Typ => Type_Of_Node (E));
+  5604:          Result_Is_Mutable := True;
+  5605:
+  5606:          Result_Var :=
+  5607:            New_Deref
+  5608:              (Ada_Node => E, Right => Result_Name, Typ => Type_Of_Node (E));
+  5609:       else
+  5610:          Result_Var := +Void;
+  5611:       end if;
+  5612:
+  5613:       if Within_Protected_Type (E) and then Ekind (E) /= E_Subprogram_Type then
+  5614:          declare
+  5615:             CPT : constant Entity_Id := Containing_Protected_Type (E);
+  5616:          begin
+  5617:             --  The Ada_Node is important here, because that's how we detect
+  5618:             --  occurrences of "self" in a term later.
+  5619:
+  5620:             Self_Name := Concurrent_Self_Ident (CPT);
+  5621:             Self_Is_Mutable := True;
+  5622:          end;
+  5623:       end if;
+```
+
+## src/why/gnat2why-subprograms.adb:5808-5900
+
+```ada
+  5808:
+  5809:       if Is_Expression_Function_Or_Completion (E)
+  5810:         and then Entity_Body_In_SPARK (E)
+  5811:       then
+  5812:          declare
+  5813:             Expr : constant Node_Id :=
+  5814:               Expression (Get_Expression_Function (E));
+  5815:
+  5816:          begin
+  5817:             Why_Body :=
+  5818:               Sequence
+  5819:                 ((1 => Check_Ceiling_Protocol (Body_Params, E),
+  5820:                   2 =>
+  5821:                     Transform_Simple_Return_Expression
+  5822:                       (Expr, E, Type_Of_Node (E), Body_Params)));
+  5823:
+  5824:             Why_Body := Checking_Of_Refined_Post (Why_Body);
+  5825:
+  5826:             --  Check type invariants on subprogram's ouput, absence of runtime
+  5827:             --  errors in Post and RTE + validity of contract and exit cases,
+  5828:             --  and Inline_For_Proof/Logical_Equal annotation.
+  5829:
+  5830:             Why_Body :=
+  5831:               Sequence
+  5832:                 ((1 => Why_Body,
+  5833:                   2 => Check_Invariants_Of_Outputs,
+  5834:                   3 => CC_EC_And_RTE_Post,
+  5835:                   4 => Check_Inline_Annotation));
+  5836:          end;
+  5837:
+  5838:       --  Regular subprogram with body in SPARK
+  5839:
+  5840:       elsif Entity_Body_In_SPARK (E) then
+  5841:          declare
+  5842:             Body_N       : constant Node_Id := Get_Body (E);
+  5843:             Exceptions   : constant Boolean := Has_Exceptional_Contract (E);
+  5844:             Program_Exit : constant Boolean := Has_Program_Exit (E);
+  5845:             Num_Handlers : constant Natural :=
+  5846:               (if Exceptions then 1 else 0) + (if Program_Exit then 1 else 0);
+  5847:             Handlers     : W_Handler_Array (1 .. Num_Handlers);
+  5848:             Curr_Handler : Natural := 0;
+  5849:
+  5850:          begin
+  5851:             Get_Pre_Post_Pragmas (Declarations (Body_N));
+  5852:
+  5853:             Why_Body :=
+  5854:               Sequence
+  5855:                 ((1 =>
+  5856:                     Transform_All_Pragmas
+  5857:                       (Pre_Prags, "checking of pragma precondition"),
+  5858:                   2 => Check_Ceiling_Protocol (Body_Params, E),
+  5859:                   3 =>
+  5860:                     Transform_Declarations
+  5861:                       (Declarations (Body_N), Body_Params),
+  5862:                   4 =>
+  5863:                     Transform_Handled_Statements
+  5864:                       (Handled_Statement_Sequence (Body_N), Body_Params),
+  5865:                   5 =>
+  5866:                     New_Raise
+  5867:                       (Ada_Node => Body_N, Name => M_Main.Return_Exc)));
+  5868:
+  5869:             --  Enclose the subprogram body in a try-block, so that return
+  5870:             --  statements can be translated as raising exceptions.
+  5871:
+  5872:             Why_Body := Try_Block (Why_Body);
+  5873:
+  5874:             --  Check pragmas Precondition and Postcondition in the body of the
+  5875:             --  subprogram as plain assertions.
+  5876:
+  5877:             Why_Body :=
+  5878:               Sequence
+  5879:                 ((1 => Why_Body,
+  5880:                   2 =>
+  5881:                     +Finalization_Actions
+  5882:                        (E,
+  5883:                         Local_CFG.Vertex'
+  5884:                           (Kind => Local_CFG.Body_Exit, Node => E),
+  5885:                         Body_Params),
+  5886:                   3 =>
+  5887:                     Transform_All_Pragmas
+  5888:                       (Post_Prags, "checking of pragma postcondition")));
+  5889:
+  5890:             Why_Body := Checking_Of_Refined_Post (Why_Body);
+  5891:
+  5892:             --  Check type invariants on subprogram's output, absence of
+  5893:             --  runtime errors in Post and RTE + validity of contract and exit
+  5894:             --  cases, and Inline_For_Proof/Logical_Equal annotation.
+  5895:
+  5896:             Why_Body :=
+  5897:               Sequence
+  5898:                 ((1 => Why_Body,
+  5899:                   2 => Check_Init_Of_Out_Params,
+  5900:                   3 => Check_Invariants_Of_Outputs,
+```
+
+## src/why/gnat2why-subprograms.adb:6130-6270
+
+```ada
+  6130:                               New_Raise (Name => M_Main.Program_Exit_Exc)));
+  6131:                end;
+  6132:             end if;
+  6133:
+  6134:             pragma Assert (Curr_Handler = Num_Handlers);
+  6135:
+  6136:             --  Append the result of the subprogram to the body
+  6137:
+  6138:             Why_Body := Sequence ((1 => Why_Body, 2 => Result_Var));
+  6139:
+  6140:             --  If there are handlers, wrap the body in a try block
+  6141:
+  6142:             if Num_Handlers > 0 then
+  6143:                Why_Body :=
+  6144:                  New_Try_Block (Prog => Why_Body, Handler => Handlers);
+  6145:             end if;
+  6146:          end;
+  6147:
+  6148:       --  Body is not in SPARK
+  6149:
+  6150:       else
+  6151:          --  Fill the mapping for uses of 'Old to later check absence of
+  6152:          --  run-time errors in these expressions.
+  6153:
+  6154:          declare
+  6155:             use type Atree.Traverse_Result;
+  6156:
+  6157:             function Search_Old (N : Node_Id) return Atree.Traverse_Result;
+  6158:             --  Search for attribute Old and enter its prefix in the map
+  6159:
+  6160:             ----------------
+  6161:             -- Search_Old --
+  6162:             ----------------
+  6163:
+  6164:             function Search_Old (N : Node_Id) return Atree.Traverse_Result is
+  6165:                Dummy : W_Identifier_Id;
+  6166:             begin
+  6167:                if Nkind (N) = N_Attribute_Reference
+  6168:                  and then Attribute_Name (N) = Name_Old
+  6169:                then
+  6170:                   Dummy := Name_For_Old (Prefix (N));
+  6171:                end if;
+  6172:
+  6173:                return Atree.OK;
+  6174:             end Search_Old;
+  6175:
+  6176:             procedure Search_Olds is new Traverse_More_Proc (Search_Old);
+  6177:
+  6178:          begin
+  6179:             --  Traverse all postconditions and RHS of contract cases
+  6180:
+  6181:             for Post of Get_Postcondition_Expressions (E, Refined => False)
+  6182:             loop
+  6183:                Search_Olds (Post);
+  6184:             end loop;
+  6185:
+  6186:             --  For abstract functions and access-to-functions, generate a
+  6187:             --  feasibility check.
+  6188:
+  6189:             if Is_Function_Type (E)
+  6190:               or else
+  6191:                 (Ekind (E) = E_Function and then Is_Abstract_Subprogram (E))
+  6192:             then
+  6193:                Why_Body := Check_Feasibility;
+  6194:             else
+  6195:                Why_Body := +Void;
+  6196:             end if;
+  6197:          end;
+  6198:       end if;
+  6199:
+  6200:       declare
+  6201:          Warn_Pre : constant W_Prog_Id :=
+  6202:          --  Do not issue a check for inconsistent precondition if switch
+  6203:          --  --proof-warnings is not set
+  6204:            (if not Gnat2Why_Args.Proof_Warnings
+  6205:               --  or if a conjunct in the precondition is statically False
+  6206:               or else Precondition_Is_Statically_False
+  6207:               --  or if warnings are suppressed.
+  6208:               or else Opt.Warning_Mode = Opt.Suppress
+  6209:             then +Void
+  6210:             else Warn_On_Inconsistent_Pre);
+  6211:
+  6212:          Warn_Post : constant W_Prog_Id :=
+  6213:          --  Do not issue a check for inconsistent postcondition if switch
+  6214:          --  --proof-warnings is not set
+  6215:            (if not Gnat2Why_Args.Proof_Warnings
+  6216:               --  or if a conjunct in the postcondition is statically False
+  6217:               or else Postcondition_Is_Statically_False
+  6218:               --  or if the body is in SPARK
+  6219:               or else Entity_Body_In_SPARK (E)
+  6220:               --  or if warnings are suppressed.
+  6221:               or else Opt.Warning_Mode = Opt.Suppress
+  6222:             then +Void
+  6223:             else Warn_On_Inconsistent_Post);
+  6224:
+  6225:       begin
+  6226:          --  Add declarations for 'Old variables
+  6227:
+  6228:          Prog := Sequence ((CC_Check, EC_Check, Warn_Post, Why_Body));
+  6229:          Prog := Declare_Old_Variables (Prog);
+  6230:          Prog := Wrap_Decls_For_CC_Guards (Prog);
+  6231:          Prog := Wrap_Decls_For_EC_Guards (Prog);
+  6232:          Prog := Insert_Bindings_For_Variants (E, Prog, EW_Prog, Body_Params);
+  6233:          Prog := Declare_Termination_Condition (Prog);
+  6234:
+  6235:          Prog :=
+  6236:            Sequence
+  6237:              ((Assume_For_Input,
+  6238:                Assume_For_Output,
+  6239:                RTE_Of_Pre,
+  6240:                Warn_Pre,
+  6241:                Assume_Or_Assert_Of_Pre,
+  6242:                Prog));
+  6243:       end;
+  6244:
+  6245:       --  Assume values of constants
+  6246:
+  6247:       Assume_Value_Of_Constants (Prog, E, Contract_VC_Params);
+  6248:
+  6249:       --  Declare the toplevel exceptions for exit paths
+  6250:
+  6251:       Declare_Exceptions (Th);
+  6252:
+  6253:       Emit
+  6254:         (Th,
+  6255:          Why.Gen.Binders.New_Function_Decl
+  6256:            (Domain   => EW_Prog,
+  6257:             Name     => Prog_Name,
+  6258:             Binders  => (1 => Unit_Param),
+  6259:             Labels   => Symbol_Sets.Empty_Set,
+  6260:             Location => Safe_First_Sloc (E),
+  6261:             Post     => Post_As_Pred,
+  6262:             Effects  => Effects,
+  6263:             Def      => +Prog));
+  6264:
+  6265:       --  cleanup
+  6266:
+  6267:       Self_Name := Why_Empty;
+  6268:       Self_Is_Mutable := False;
+  6269:
+  6270:       if Ekind (E) = E_Function then
+```
+
+## src/why/gnat2why-subprograms.adb:6644-6688
+
+```ada
+  6644:    procedure Generate_Axiom_For_Post
+  6645:      (Th                    : Theory_UC;
+  6646:       Dispatch_Th           : Theory_UC := Empty_Theory;
+  6647:       Refined_Th            : Theory_UC := Empty_Theory;
+  6648:       E                     : Callable_Kind_Id;
+  6649:       Spec_Binders          : Binder_Array := (1 .. 0 => <>);
+  6650:       Spec_Guard            : W_Pred_Id := True_Pred;
+  6651:       Specialization_Module : Symbol := No_Symbol;
+  6652:       More_Reads            : Flow_Id_Sets.Set := Flow_Id_Sets.Empty_Set)
+  6653:    is
+  6654:       Needs_Validity_Wrapper : constant Boolean := Is_Potentially_Invalid (E);
+  6655:       Logic_Func_Binders     : constant Item_Array :=
+  6656:         Compute_Binders (E, EW_Term, More_Reads);
+  6657:       Params                 : Transformation_Params;
+  6658:       Pre                    : W_Pred_Id;
+  6659:       Post                   : W_Pred_Id;
+  6660:       Dispatch_Pre           : W_Pred_Id := Why_Empty;
+  6661:       Dispatch_Post          : W_Pred_Id := Why_Empty;
+  6662:       Refined_Post           : W_Pred_Id := Why_Empty;
+  6663:       Why_Type               : W_Type_Id := Why_Empty;
+  6664:
+  6665:    begin
+  6666:       Params := (Logic_Params with delta Old_Policy => Ignore);
+  6667:
+  6668:       if Is_Function_Or_Function_Type (E) then
+  6669:          if Needs_Validity_Wrapper then
+  6670:             Why_Type := Validity_Wrapper_Type (Etype (E));
+  6671:          else
+  6672:             Why_Type := Type_Of_Node (E);
+  6673:          end if;
+  6674:       end if;
+  6675:
+  6676:       --  Do not generate an axiom for the postcondition of volatile functions,
+  6677:       --  protected subprograms and functions with side effects.
+  6678:
+  6679:       if not Is_Function_Or_Function_Type (E)
+  6680:         or else Is_Function_With_Side_Effects (E)
+  6681:         or else Has_Pragma_Volatile_Function (E)
+  6682:       then
+  6683:          return;
+  6684:       end if;
+  6685:
+  6686:       pragma Assert (Is_Function_Type (E) or else Has_Post_Axiom (E));
+  6687:
+  6688:       --  For recursive functions, we store the axiom in a different module,
+```
+
+## src/why/gnat2why-subprograms.adb:7431-7470
+
+```ada
+  7431:    procedure Generate_Subprogram_Completion (E : Callable_Kind_Id) is
+  7432:       Dispatch_Th      : Theory_UC := Empty_Theory;
+  7433:       Dispatch_Post_Th : Theory_UC := Empty_Theory;
+  7434:       Post_Axiom_Th    : Theory_UC;
+  7435:       Refined_Post_Th  : Theory_UC := Empty_Theory;
+  7436:       Program_Th       : Theory_UC;
+  7437:    begin
+  7438:       Program_Th :=
+  7439:         Open_Theory
+  7440:           (WF_Context,
+  7441:            E_Module (E, Program_Function_Decl),
+  7442:            Comment =>
+  7443:              "Module for declaring a program function for "
+  7444:              & """"
+  7445:              & Get_Name_String (Chars (E))
+  7446:              & """"
+  7447:              & (if Sloc (E) > 0
+  7448:                 then " defined at " & Build_Location_String (Sloc (E))
+  7449:                 else "")
+  7450:              & ", created in "
+  7451:              & GNAT.Source_Info.Enclosing_Entity);
+  7452:       Post_Axiom_Th :=
+  7453:         Open_Theory
+  7454:           (WF_Context,
+  7455:            E_Module (E, Fun_Post_Axiom),
+  7456:            Comment =>
+  7457:              "Module for defining a post axiom for "
+  7458:              & """"
+  7459:              & Get_Name_String (Chars (E))
+  7460:              & """"
+  7461:              & (if Sloc (E) > 0
+  7462:                 then " defined at " & Build_Location_String (Sloc (E))
+  7463:                 else "")
+  7464:              & ", created in "
+  7465:              & GNAT.Source_Info.Enclosing_Entity);
+  7466:
+  7467:       --  If E is a dispatching operation, create a theory for the axioms of
+  7468:       --  its dispatching version.
+  7469:
+  7470:       if Is_Dispatching_Operation (E)
+```
+
+## src/why/gnat2why-subprograms.adb:7534-7610
+
+```ada
+  7534:                then
+  7535:                  New_Temp_Identifier
+  7536:                    (Base_Name => "result", Typ => Type_Of_Node (E))
+  7537:                else New_Result_Ident (Type_Of_Node (E)));
+  7538:             Result_Is_Mutable := False;
+  7539:          end if;
+  7540:
+  7541:          if Within_Protected_Type (E) then
+  7542:             Self_Name := Concurrent_Self_Ident (Containing_Protected_Type (E));
+  7543:             Self_Is_Mutable := Ekind (E) /= E_Function;
+  7544:          end if;
+  7545:
+  7546:          Generate_Subprogram_Program_Fun
+  7547:            (Program_Th,
+  7548:             Dispatch_Th,
+  7549:             E,
+  7550:             To_Why_Id (E, Domain => EW_Prog, Local => True));
+  7551:
+  7552:          Generate_Axiom_For_Post
+  7553:            (Post_Axiom_Th, Dispatch_Post_Th, Refined_Post_Th, E);
+  7554:
+  7555:          if Is_Dispatching_Operation (E)
+  7556:            and then not Is_Hidden_Dispatching_Operation (E)
+  7557:            and then not Is_Predicate_Function (E)
+  7558:          then
+  7559:             Generate_Dispatch_Compatibility_Axioms (Dispatch_Th, E);
+  7560:          end if;
+  7561:
+  7562:          if Within_Protected_Type (E) then
+  7563:             Self_Name := Why_Empty;
+  7564:             Self_Is_Mutable := False;
+  7565:          end if;
+  7566:
+  7567:          if Use_Result_Name then
+  7568:             Result_Name := Why_Empty;
+  7569:             Result_Is_Mutable := False;
+  7570:          end if;
+  7571:       end;
+  7572:
+  7573:       Close_Theory (Post_Axiom_Th, Kind => Axiom_Theory, Defined_Entity => E);
+  7574:
+  7575:       Close_Theory (Program_Th, Kind => Definition_Theory);
+  7576:
+  7577:       --  Close the dispatching axiom module if it is not empty and add an
+  7578:       --  extra dependency to the dispatching definition module.
+  7579:
+  7580:       if Dispatch_Th /= Empty_Theory then
+  7581:
+  7582:          --  Compatibility axioms are always sound, so we do not need a
+  7583:          --  dependency for soundness here.
+  7584:
+  7585:          Close_Theory (Dispatch_Th, Kind => Definition_Theory);
+  7586:          Record_Extra_Dependency
+  7587:            (Defining_Module => E_Module (E, Dispatch),
+  7588:             Axiom_Module    => Dispatch_Th.Module);
+  7589:
+  7590:          Close_Theory (Dispatch_Post_Th, Kind => Definition_Theory);
+  7591:          Record_Extra_Dependency
+  7592:            (Defining_Module => E_Module (E, Dispatch),
+  7593:             Axiom_Module    => Dispatch_Post_Th.Module);
+  7594:       end if;
+  7595:
+  7596:       --  Close the refined post axiom module if it is not empty
+  7597:
+  7598:       if Refined_Post_Th /= Empty_Theory then
+  7599:          Close_Theory (Refined_Post_Th, Kind => Definition_Theory);
+  7600:       end if;
+  7601:
+  7602:       --  If E is a lemma procedure with an Automatic_Instantiation annotation,
+  7603:       --  generate a lemma for the postcondition of E.
+  7604:
+  7605:       if Has_Automatic_Instantiation_Annotation (E) then
+  7606:          Generate_Axiom_For_Lemma (E);
+  7607:       end if;
+  7608:    end Generate_Subprogram_Completion;
+  7609:
+  7610:    -------------------------------------
+```
+
+## src/why/gnat2why-subprograms.adb:7614-7658
+
+```ada
+  7614:    procedure Generate_Subprogram_Program_Fun
+  7615:      (Th                    : Theory_UC;
+  7616:       Dispatch_Th           : Theory_UC := Empty_Theory;
+  7617:       E                     : Callable_Kind_Id;
+  7618:       Prog_Id               : W_Identifier_Id;
+  7619:       Spec_Binders          : Binder_Array := Binder_Array'(1 .. 0 => <>);
+  7620:       Specialization_Module : Symbol := No_Symbol;
+  7621:       More_Reads            : Flow_Id_Sets.Set := Flow_Id_Sets.Empty_Set)
+  7622:    is
+  7623:       Needs_Validity_Wrapper : constant Boolean := Is_Potentially_Invalid (E);
+  7624:       Func_Binders           : constant Item_Array :=
+  7625:         Compute_Binders (E, EW_Prog, More_Reads);
+  7626:       Func_Why_Binders       : constant Binder_Array :=
+  7627:         To_Binder_Array (Func_Binders);
+  7628:       Params                 : Transformation_Params;
+  7629:       Effects                : W_Effects_Id;
+  7630:       Pre                    : W_Pred_Id;
+  7631:       Post                   : W_Pred_Id;
+  7632:       Dispatch_Pre           : W_Pred_Id := Why_Empty;
+  7633:       Dispatch_Post          : W_Pred_Id := Why_Empty;
+  7634:       Refined_Post           : W_Pred_Id := Why_Empty;
+  7635:       Why_Type               : W_Type_Id := Why_Empty;
+  7636:
+  7637:    begin
+  7638:       Params := (Logic_Params with delta Ref_Allowed => True);
+  7639:
+  7640:       --  We fill the map of parameters, so that in the Pre and Post, we use
+  7641:       --  local names of the parameters, instead of the global names.
+  7642:
+  7643:       Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+  7644:
+  7645:       for Binder of Func_Binders loop
+  7646:          declare
+  7647:             A : constant Node_Id := Get_Ada_Node_From_Item (Binder);
+  7648:          begin
+  7649:
+  7650:             --  If the Ada_Node is Empty, it's not an interesting binder (e.g.
+  7651:             --  void_param).
+  7652:
+  7653:             if Present (A) then
+  7654:                Ada_Ent_To_Why.Insert (Symbol_Table, A, Binder);
+  7655:             end if;
+  7656:          end;
+  7657:       end loop;
+  7658:
+```
+
+## src/why/gnat2why-subprograms.adb:7698-7735
+
+```ada
+  7698:       Pre := Get_Static_Call_Contract (Params, E, Pragma_Precondition);
+  7699:
+  7700:       if Is_Dispatching_Operation (E)
+  7701:         and then not Is_Hidden_Dispatching_Operation (E)
+  7702:       then
+  7703:          Dispatch_Pre :=
+  7704:            Get_Dispatching_Call_Contract (Params, E, Pragma_Precondition);
+  7705:       end if;
+  7706:
+  7707:       --  For a procedure annotated with No_Return, the postcondition at call
+  7708:       --  site should be "False", so that it is known in the caller that the
+  7709:       --  call does not return.
+  7710:
+  7711:       if Is_Subprogram (E) and then No_Return (E) then
+  7712:          Post := False_Pred;
+  7713:
+  7714:          if Is_Dispatching_Operation (E)
+  7715:            and then not Is_Hidden_Dispatching_Operation (E)
+  7716:          then
+  7717:             Dispatch_Post := False_Pred;
+  7718:          end if;
+  7719:
+  7720:          if Entity_Body_In_SPARK (E)
+  7721:            and then Has_Contracts (E, Pragma_Refined_Post)
+  7722:          then
+  7723:             Refined_Post := False_Pred;
+  7724:          end if;
+  7725:
+  7726:       --  In other cases, the postcondition is extracted from the subprogram
+  7727:       --  contract.
+  7728:
+  7729:       else
+  7730:          Post :=
+  7731:            +New_And_Expr
+  7732:               (Left   =>
+  7733:                  +Compute_Spec (Params, E, Pragma_Postcondition, EW_Pred),
+  7734:                Right  => +Compute_CC_And_EC_Postcondition (Params, E),
+  7735:                Domain => EW_Pred);
+```
+
+## src/why/gnat2why-subprograms.adb:8113-8157
+
+```ada
+  8113:                              Effects  => Effects))));
+  8114:             end if;
+  8115:          end;
+  8116:
+  8117:       else
+  8118:          pragma
+  8119:            Assert (Ekind (E) in E_Entry | E_Procedure | E_Subprogram_Type);
+  8120:
+  8121:          declare
+  8122:             Dynamic_Prop_Effects : constant W_Pred_Id :=
+  8123:               New_And_Pred
+  8124:                 ((1 => Compute_Dynamic_Property_For_Effects (E, Params),
+  8125:                   2 =>
+  8126:                     Compute_Type_Invariants_For_Subprogram (E, Params, False),
+  8127:                   3 => Preservation_Of_Access_Parameters (E, Params)));
+  8128:             --  Dynamic invariant and type invariant for outputs of the
+  8129:             --  procedure, as well as preservation of discriminants and
+  8130:             --  bounds of access parameters.
+  8131:
+  8132:          begin
+  8133:             Post :=
+  8134:               +New_And_Expr
+  8135:                  (Left   => +Post,
+  8136:                   Right  => +Dynamic_Prop_Effects,
+  8137:                   Domain => EW_Pred);
+  8138:
+  8139:             Emit
+  8140:               (Th,
+  8141:                New_Function_Decl
+  8142:                  (Domain      => EW_Prog,
+  8143:                   Name        => Prog_Id,
+  8144:                   Binders     => Spec_Binders & Func_Why_Binders,
+  8145:                   Labels      => Symbol_Sets.Empty_Set,
+  8146:                   Location    => No_Location,
+  8147:                   Return_Type => EW_Unit_Type,
+  8148:                   Effects     => Effects,
+  8149:                   Pre         => Pre,
+  8150:                   Post        => Post));
+  8151:
+  8152:             if Is_Dispatching_Operation (E)
+  8153:               and then not Is_Hidden_Dispatching_Operation (E)
+  8154:             then
+  8155:
+  8156:                --  For dispatching procedure, declare a new predicate symbol
+  8157:                --  standing for the specific postcondition which applies to the
+```
+
+## src/why/gnat2why-subprograms.adb:8472-8535
+
+```ada
+  8472:    function Insert_Bindings_For_Variants
+  8473:      (E      : Entity_Id;
+  8474:       Prog   : W_Prog_Id;
+  8475:       Domain : EW_Domain;
+  8476:       Params : Transformation_Params) return W_Prog_Id
+  8477:    is
+  8478:       Variants_Ids   : constant W_Expr_Array := Get_Variants_Ids (E);
+  8479:       Variants_Exprs : constant W_Expr_Array (Variants_Ids'Range) :=
+  8480:         Get_Variants_Exprs (E, Domain, Params);
+  8481:       W_Ty           : constant W_Type_Id := Get_Type (+Prog);
+  8482:       T              : W_Prog_Id := Prog;
+  8483:    begin
+  8484:       for Count in Variants_Ids'Range loop
+  8485:          T :=
+  8486:            New_Binding
+  8487:              (Name    => +Variants_Ids (Count),
+  8488:               Def     => +Variants_Exprs (Count),
+  8489:               Context => T,
+  8490:               Typ     => W_Ty);
+  8491:       end loop;
+  8492:       return T;
+  8493:    end Insert_Bindings_For_Variants;
+  8494:
+  8495:    ----------------------
+  8496:    -- Insert_Exception --
+  8497:    ----------------------
+  8498:
+  8499:    procedure Insert_Exception (Exc : W_Name_Id) is
+  8500:    begin
+  8501:       Subprogram_Exceptions.Insert (+Exc);
+  8502:    end Insert_Exception;
+  8503:
+  8504:    ----------------------
+  8505:    -- Need_Self_Binder --
+  8506:    ----------------------
+  8507:
+  8508:    function Need_Self_Binder (E : Callable_Kind_Id) return Boolean
+  8509:    is (Is_Subprogram_Or_Entry (E) and then Within_Protected_Type (E));
+  8510:
+  8511:    ---------------------------------------
+  8512:    -- Preservation_Of_Access_Parameters --
+  8513:    ---------------------------------------
+  8514:
+  8515:    function Preservation_Of_Access_Parameters
+  8516:      (E : Entity_Id; Params : Transformation_Params) return W_Pred_Id
+  8517:    is
+  8518:       Func_Why_Binders : constant Item_Array := Compute_Binders (E, EW_Prog);
+  8519:       Result           : W_Pred_Id := True_Pred;
+  8520:
+  8521:    begin
+  8522:       pragma Assert (Params.Old_Policy = As_Old);
+  8523:
+  8524:       for I in Func_Why_Binders'Range loop
+  8525:          if Item_Is_Mutable (Func_Why_Binders (I)) then
+  8526:             declare
+  8527:                E : constant Entity_Id :=
+  8528:                  Get_Ada_Node_From_Item (Func_Why_Binders (I));
+  8529:
+  8530:             begin
+  8531:
+  8532:                if Ekind (E) = E_In_Parameter
+  8533:                  and then Is_Access_Type (Retysp (Etype (E)))
+  8534:                then
+  8535:
+```
+
+## src/why/gnat2why-subprograms.adb:9049-9134
+
+```ada
+  9049:    procedure Translate_Subprogram_Spec (E : Callable_Kind_Id) is
+  9050:       Th          : Theory_UC;
+  9051:       Dispatch_Th : Theory_UC := Empty_Theory;
+  9052:    begin
+  9053:       Th :=
+  9054:         Open_Theory
+  9055:           (WF_Context,
+  9056:            E_Module (E),
+  9057:            Comment =>
+  9058:              "Module for possibly declaring "
+  9059:              & "a logic function for "
+  9060:              & """"
+  9061:              & Get_Name_String (Chars (E))
+  9062:              & """"
+  9063:              & (if Sloc (E) > 0
+  9064:                 then " defined at " & Build_Location_String (Sloc (E))
+  9065:                 else "")
+  9066:              & ", created in "
+  9067:              & GNAT.Source_Info.Enclosing_Entity);
+  9068:
+  9069:       --  If E is a dispatching operation, create a theory for its dispatching
+  9070:       --  version.
+  9071:
+  9072:       if Is_Dispatching_Operation (E)
+  9073:         and then not Is_Hidden_Dispatching_Operation (E)
+  9074:       then
+  9075:          Dispatch_Th :=
+  9076:            Open_Theory
+  9077:              (WF_Context,
+  9078:               E_Module (E, Dispatch),
+  9079:               Comment =>
+  9080:                 "Module for declaring the dispatching variant of the"
+  9081:                 & " subprogram"
+  9082:                 & """"
+  9083:                 & Get_Name_String (Chars (E))
+  9084:                 & """"
+  9085:                 & (if Sloc (E) > 0
+  9086:                    then " defined at " & Build_Location_String (Sloc (E))
+  9087:                    else "")
+  9088:                 & ", created in "
+  9089:                 & GNAT.Source_Info.Enclosing_Entity);
+  9090:       end if;
+  9091:
+  9092:       --  No logic function is created for volatile functions and functions
+  9093:       --  with side effects. The function's effects are modelled by an effect
+  9094:       --  on the program function.
+  9095:
+  9096:       if Ekind (E) = E_Function
+  9097:         and then not Is_Function_With_Side_Effects (E)
+  9098:         and then not Has_Pragma_Volatile_Function (E)
+  9099:       then
+  9100:          declare
+  9101:             Logic_Module : constant W_Module_Id :=
+  9102:               E_Module (E, Logic_Function_Decl);
+  9103:             Logic_Th     : Theory_UC :=
+  9104:               Open_Theory
+  9105:                 (WF_Context,
+  9106:                  Logic_Module,
+  9107:                  Comment =>
+  9108:                    "Module for initial declaration of the logic function for "
+  9109:                    & """"
+  9110:                    & Get_Name_String (Chars (E))
+  9111:                    & """"
+  9112:                    & (if Sloc (E) > 0
+  9113:                       then " defined at " & Build_Location_String (Sloc (E))
+  9114:                       else "")
+  9115:                    & ", created in "
+  9116:                    & GNAT.Source_Info.Enclosing_Entity);
+  9117:          begin
+  9118:             Declare_Logic_Functions (Logic_Th, Dispatch_Th, E);
+  9119:
+  9120:             Add_With_Clause (Th, Logic_Module, EW_Export);
+  9121:
+  9122:             Close_Theory
+  9123:               (Logic_Th, Kind => Definition_Theory, Defined_Entity => E);
+  9124:          end;
+  9125:       end if;
+  9126:
+  9127:       Close_Theory (Th, Kind => Definition_Theory, Defined_Entity => E);
+  9128:
+  9129:       --  Close the dispatching module if it is not empty
+  9130:
+  9131:       if Dispatch_Th /= Empty_Theory then
+  9132:          Close_Theory (Dispatch_Th, Kind => Definition_Theory);
+  9133:       end if;
+  9134:    end Translate_Subprogram_Spec;
 ```
 
 ## src/why/gnat2why-types.adb:201-575
@@ -11767,6 +15075,125 @@
   1907:    -- Why_Type_Is_BitVector --
   1908:    ---------------------------
   1909:
+```
+
+## src/why/gnat2why-util.adb:644-698
+
+```ada
+   644:    function Compute_Spec
+   645:      (Params : Transformation_Params;
+   646:       Nodes  : Node_Lists.List;
+   647:       Domain : EW_Domain) return W_Expr_Id
+   648:    is
+   649:       use type Ada.Containers.Count_Type;
+   650:       Cur_Spec     : W_Expr_Id;
+   651:       Local_Params : Transformation_Params := Params;
+   652:    begin
+   653:       --  For specs we usually want the pretty-printing markers. This flag is a
+   654:       --  no-op for Domains other than EW_Pred.
+   655:
+   656:       if Nodes.Length > 1 then
+   657:          Local_Params.Gen_Marker := GM_Label;
+   658:       elsif Local_Params.Gen_Marker = GM_None then
+   659:          Local_Params.Gen_Marker := GM_Toplevel;
+   660:       end if;
+   661:
+   662:       if Nodes.Is_Empty then
+   663:          return Bool_True (Domain);
+   664:       end if;
+   665:
+   666:       Cur_Spec := Why_Empty;
+   667:
+   668:       for Node of Nodes loop
+   669:          declare
+   670:             Why_Expr : constant W_Expr_Id :=
+   671:               Transform_Expr (Node, EW_Bool_Type, Domain, Local_Params);
+   672:          begin
+   673:             if Cur_Spec /= Why_Empty then
+   674:                Cur_Spec :=
+   675:                  New_And_Then_Expr
+   676:                    (Left => Why_Expr, Right => Cur_Spec, Domain => Domain);
+   677:             else
+   678:                Cur_Spec := Why_Expr;
+   679:             end if;
+   680:          end;
+   681:       end loop;
+   682:
+   683:       return Cur_Spec;
+   684:    end Compute_Spec;
+   685:
+   686:    function Compute_Spec
+   687:      (Params : Transformation_Params;
+   688:       E      : Callable_Kind_Id;
+   689:       Kind   : Pragma_Id;
+   690:       Domain : EW_Domain) return W_Expr_Id
+   691:    is
+   692:       Nodes : constant Node_Lists.List :=
+   693:         Find_Contracts (E, Kind, Classwide => False, Inherited => False);
+   694:    begin
+   695:       return Compute_Spec (Params, Nodes, Domain);
+   696:    end Compute_Spec;
+   697:
+   698:    -------------------------
+```
+
+## src/why/gnat2why-util.adb:840-856
+
+```ada
+   840:    function Get_LSP_Contract
+   841:      (Params : Transformation_Params; E : Callable_Kind_Id; Kind : Pragma_Id)
+   842:       return W_Pred_Id
+   843:    is
+   844:       Conjuncts_List : Node_Lists.List :=
+   845:         Find_Contracts (E, Kind, Classwide => True);
+   846:    begin
+   847:       if Conjuncts_List.Is_Empty then
+   848:          Conjuncts_List := Find_Contracts (E, Kind, Inherited => True);
+   849:       end if;
+   850:
+   851:       return +Compute_Spec (Params, Conjuncts_List, EW_Pred);
+   852:    end Get_LSP_Contract;
+   853:
+   854:    ------------------------------
+   855:    -- Get_Expr_Quantified_Over --
+   856:    ------------------------------
+```
+
+## src/why/gnat2why-util.adb:1007-1018
+
+```ada
+  1007:    function Get_Static_Call_Contract
+  1008:      (Params : Transformation_Params; E : Callable_Kind_Id; Kind : Pragma_Id)
+  1009:       return W_Pred_Id
+  1010:    is
+  1011:       Conjuncts_List : constant Node_Lists.List := Find_Contracts (E, Kind);
+  1012:    begin
+  1013:       if Conjuncts_List.Is_Empty then
+  1014:          return Get_LSP_Contract (Params, E, Kind);
+  1015:       end if;
+  1016:
+  1017:       return +Compute_Spec (Params, Conjuncts_List, EW_Pred);
+  1018:    end Get_Static_Call_Contract;
+```
+
+## src/why/gnat2why-util.adb:1035-1040
+
+```ada
+  1035:    procedure Init_Why_Sections is
+  1036:    begin
+  1037:       for Kind in W_Section_Id loop
+  1038:          Make_Empty_Why_Section (Section => Why_Sections (Kind));
+  1039:       end loop;
+  1040:    end Init_Why_Sections;
+```
+
+## src/why/gnat2why-util.adb:1265-1268
+
+```ada
+  1265:    procedure Make_Empty_Why_Section (Section : out Why_Section) is
+  1266:    begin
+  1267:       Section := Why_Node_Lists.Empty_List;
+  1268:    end Make_Empty_Why_Section;
 ```
 
 ## src/why/gnat2why-util.ads:570-582
@@ -18176,6 +21603,352 @@
   1640:    end Unit_Param;
 ```
 
+## src/why/why-gen-binders.adb:92-129
+
+```ada
+    92:    procedure Effects_Append_Binder (Eff : W_Effects_Id; Binder : Item_Type) is
+    93:    begin
+    94:       if Binder.Valid.Present and then Item_Is_Mutable (Binder) then
+    95:          Effects_Append (Eff, Binder.Valid.Id);
+    96:       end if;
+    97:
+    98:       case Binder.Kind is
+    99:          when Regular | Concurrent_Self =>
+   100:             if Binder.Main.Mutable then
+   101:                Effects_Append (Eff, Binder.Main.B_Name);
+   102:             end if;
+   103:
+   104:          when UCArray                   =>
+   105:             Effects_Append (Eff, Binder.Content.B_Name);
+   106:
+   107:          when Pointer                   =>
+   108:             if Binder.Mutable then
+   109:                Effects_Append (Eff, Binder.Value.B_Name);
+   110:                Effects_Append (Eff, Binder.Is_Null);
+   111:             elsif Binder.Value.Mutable then
+   112:                Effects_Append (Eff, Binder.Value.B_Name);
+   113:             end if;
+   114:
+   115:          when DRecord                   =>
+   116:             if Binder.Fields.Present then
+   117:                Effects_Append (Eff, Binder.Fields.Binder.B_Name);
+   118:             end if;
+   119:             if Binder.Discrs.Present and then Binder.Discrs.Binder.Mutable then
+   120:                Effects_Append (Eff, Binder.Discrs.Binder.B_Name);
+   121:             end if;
+   122:
+   123:          when Subp                      =>
+   124:             raise Program_Error;
+   125:       end case;
+   126:    end Effects_Append_Binder;
+   127:
+   128:    ----------------------------
+   129:    -- Get_Ada_Node_From_Item --
+```
+
+## src/why/why-gen-binders.adb:281-364
+
+```ada
+   281:    function Get_Binders_From_Variables
+   282:      (Variables : Flow_Id_Sets.Set; Ignore_Self : Boolean := False)
+   283:       return Item_Array
+   284:    is
+   285:       Binders : Item_Array (1 .. Natural (Variables.Length));
+   286:       I       : Positive := 1;
+   287:    begin
+   288:       for F of Variables loop
+   289:          declare
+   290:             V       : constant Entity_Name := To_Name (F);
+   291:             Use_Ent : constant Boolean := F.Kind = Direct_Mapping;
+   292:             Entity  : constant Entity_Id :=
+   293:               (if Use_Ent then Get_Direct_Mapping_Id (F) else Empty);
+   294:
+   295:             C : constant Ada_Ent_To_Why.Cursor :=
+   296:               (if Use_Ent
+   297:                then Ada_Ent_To_Why.Find (Symbol_Table, Entity)
+   298:                else Ada_Ent_To_Why.Find (Symbol_Table, F.Name));
+   299:
+   300:          begin
+   301:             --  For protected types, include a reference to self
+   302:
+   303:             if Use_Ent and then Is_Type (Entity) then
+   304:
+   305:                --  Do nothing if the entity is a reference to a concurrent type
+   306:                --  and they are ignored.
+   307:
+   308:                if Ignore_Self then
+   309:                   null;
+   310:                elsif Is_Protected_Type (Entity) then
+   311:                   declare
+   312:                      Prot_Ty : constant Entity_Id :=
+   313:                        (if Is_Type (Entity)
+   314:                         then Entity
+   315:                         else Enclosing_Concurrent_Type (Entity));
+   316:                   begin
+   317:                      Binders (I) :=
+   318:                        Item_Type'
+   319:                          (Kind     => Concurrent_Self,
+   320:                           Local    => True,
+   321:                           Init     => <>,
+   322:                           Is_Moved => <>,
+   323:                           Valid    => <>,
+   324:                           Main     => Concurrent_Self_Binder (Prot_Ty));
+   325:                      I := I + 1;
+   326:                   end;
+   327:                end if;
+   328:
+   329:             --  If there is an existing binder for this entity use it
+   330:
+   331:             elsif Ada_Ent_To_Why.Has_Element (C) then
+   332:                Binders (I) := Ada_Ent_To_Why.Element (C);
+   333:                I := I + 1;
+   334:
+   335:             --  Otherwise, F is an opaque name of a flow effect. Construct a
+   336:             --  dummy binder with the appropriate name.
+   337:
+   338:             else
+   339:                pragma Assert (not Use_Ent and then Is_Opaque_For_Proof (F));
+   340:
+   341:                Binders (I) :=
+   342:                  (Regular,
+   343:                   Local    => False,
+   344:                   Init     => <>,
+   345:                   Is_Moved => <>,
+   346:                   Valid    => <>,
+   347:                   Main     =>
+   348:                     (Ada_Node => Empty,
+   349:                      B_Name   => To_Why_Id (V, Local => False),
+   350:                      B_Ent    => V,
+   351:                      Mutable  => True,
+   352:                      Labels   => <>));
+   353:                I := I + 1;
+   354:             end if;
+   355:          end;
+   356:       end loop;
+   357:
+   358:       return Binders (1 .. I - 1);
+   359:    end Get_Binders_From_Variables;
+   360:
+   361:    -----------------------------
+   362:    -- Get_Init_Id_From_Object --
+   363:    -----------------------------
+   364:
+```
+
+## src/why/why-gen-binders.adb:613-690
+
+```ada
+   613:    procedure Localize_Binders
+   614:      (Binders        : in out Item_Array;
+   615:       Suffix         : String := "";
+   616:       Only_Variables : Boolean := True)
+   617:    is
+   618:
+   619:       function Local_Name (Name : W_Identifier_Id) return W_Identifier_Id;
+   620:       --  Compute a local name for Name.
+   621:       --  Return Module___Namespace___Symbol___Suffix.
+   622:
+   623:       ----------------
+   624:       -- Local_Name --
+   625:       ----------------
+   626:
+   627:       function Local_Name (Name : W_Identifier_Id) return W_Identifier_Id is
+   628:          Module    : constant W_Module_Id := Get_Module (Get_Name (Name));
+   629:          Namespace : constant Symbol := Get_Namespace (Get_Name (Name));
+   630:          L_Name    : constant String :=
+   631:            (if Module = Why_Empty then "" else Img (Get_Name (Module)) & "___")
+   632:            & (if Namespace = No_Symbol then "" else Img (Namespace) & "___")
+   633:            & Img (Get_Symb (Get_Name (Name)))
+   634:            & "___"
+   635:            & Suffix;
+   636:       begin
+   637:          return
+   638:            New_Identifier
+   639:              (Ada_Node => Get_Ada_Node (+Name),
+   640:               Domain   => Get_Domain (+Name),
+   641:               Name     =>
+   642:                 New_Name
+   643:                   (Ada_Node => Get_Ada_Node (+Get_Name (Name)),
+   644:                    Symb     => NID (L_Name),
+   645:                    Module   => Why_Empty,
+   646:                    Infix    => Get_Infix (Get_Name (Name))),
+   647:               Typ      => Get_Typ (Name),
+   648:               Labels   => Get_Labels (Name));
+   649:       end Local_Name;
+   650:
+   651:       --  Start of processing for Localize_Binders
+   652:
+   653:    begin
+   654:       for B of Binders loop
+   655:
+   656:          --  If the B is already local and no suffix is provided, there is
+   657:          --  nothing to do.
+   658:
+   659:          if Suffix /= "" or else not B.Local then
+   660:
+   661:             --  The Init field is always mutable when present
+   662:
+   663:             if B.Init.Present then
+   664:                B.Init.Id := Local_Name (B.Init.Id);
+   665:             end if;
+   666:
+   667:             --  The Valid field is only mutable if Mutable is True
+   668:
+   669:             if B.Valid.Present
+   670:               and then (Item_Is_Mutable (B) or else not Only_Variables)
+   671:             then
+   672:                B.Valid.Id := Local_Name (B.Valid.Id);
+   673:             end if;
+   674:
+   675:             case B.Kind is
+   676:                when Concurrent_Self =>
+   677:                   --  Concurrent self is already local
+   678:
+   679:                   pragma Assert (Suffix = "");
+   680:                   null;
+   681:
+   682:                when Regular         =>
+   683:                   if B.Main.Mutable or else not Only_Variables then
+   684:                      B.Main.B_Name := Local_Name (B.Main.B_Name);
+   685:                   end if;
+   686:
+   687:                when UCArray         =>
+   688:                   pragma Assert (B.Content.Mutable);
+   689:                   B.Content.B_Name := Local_Name (B.Content.B_Name);
+   690:
+```
+
+## src/why/why-gen-binders.adb:820-886
+
+```ada
+   820:
+   821:       --  For subprograms, store the name for all possible variants. For
+   822:       --  functions, also store the name to be used in logic. If Hide_Info is
+   823:       --  True, use the appropriate symbol in the program domain.
+   824:
+   825:       if Ekind (E) in E_Procedure | E_Entry | E_Function then
+   826:          declare
+   827:             Typ            : constant W_Type_Id :=
+   828:               (if Ekind (E) /= E_Function
+   829:                then Why_Empty
+   830:                elsif Is_Potentially_Invalid (E)
+   831:                then Validity_Wrapper_Type (Etype (E))
+   832:                else Type_Of_Node (E));
+   833:             For_Prog       : W_Identifier_Id;
+   834:             For_Logic      : Opt_Id;
+   835:             Refine_Prog    : Opt_Id;
+   836:             Dispatch_Prog  : Opt_Id;
+   837:             Dispatch_Logic : Opt_Id;
+   838:          begin
+   839:             For_Prog := To_Why_Id (E, Typ => Typ, Hide_Info => Hide_Info);
+   840:
+   841:             if Ekind (E) = E_Function then
+   842:                For_Logic :=
+   843:                  (Present => True,
+   844:                   Id      => To_Why_Id (E, Typ => Typ, Domain => EW_Term));
+   845:             end if;
+   846:
+   847:             if Is_Dispatching_Operation (E)
+   848:               and then not Is_Hidden_Dispatching_Operation (E)
+   849:             then
+   850:                Dispatch_Prog :=
+   851:                  (Present => True,
+   852:                   Id      => To_Why_Id (E, Typ => Typ, Selector => Dispatch));
+   853:
+   854:                if Ekind (E) = E_Function then
+   855:                   Dispatch_Logic :=
+   856:                     (Present => True,
+   857:                      Id      =>
+   858:                        To_Why_Id
+   859:                          (E,
+   860:                           Typ      => Typ,
+   861:                           Domain   => EW_Term,
+   862:                           Selector => Dispatch));
+   863:                end if;
+   864:             end if;
+   865:
+   866:             if Has_Refinement (E) then
+   867:                Refine_Prog :=
+   868:                  (Present => True,
+   869:                   Id      =>
+   870:                     To_Why_Id
+   871:                       (E,
+   872:                        Typ       => Typ,
+   873:                        Selector  => Refine,
+   874:                        Hide_Info => Hide_Info));
+   875:             end if;
+   876:
+   877:             return
+   878:               (Subp,
+   879:                False,
+   880:                Init           => <>,
+   881:                Is_Moved       => <>,
+   882:                Valid          => <>,
+   883:                For_Logic      => For_Logic,
+   884:                For_Prog       => For_Prog,
+   885:                Refine_Prog    => Refine_Prog,
+   886:                Dispatch_Logic => Dispatch_Logic,
+```
+
+## src/why/why-gen-binders.adb:1222-1258
+
+```ada
+  1222:    function New_Binders
+  1223:      (Domain : EW_Domain; Binders : Binder_Array) return W_Binder_Array
+  1224:    is
+  1225:
+  1226:       function New_Arg_Type (Binder : Binder_Type) return W_Type_Id;
+  1227:
+  1228:       ------------------
+  1229:       -- New_Arg_Type --
+  1230:       ------------------
+  1231:
+  1232:       function New_Arg_Type (Binder : Binder_Type) return W_Type_Id is
+  1233:       begin
+  1234:          if Domain = EW_Prog and then Binder.Mutable then
+  1235:             return New_Ref_Type (Ty => Get_Type (+Binder.B_Name));
+  1236:          else
+  1237:             return Get_Type (+Binder.B_Name);
+  1238:          end if;
+  1239:       end New_Arg_Type;
+  1240:
+  1241:       Result : W_Binder_Array (Binders'Range);
+  1242:
+  1243:       --  Start of processing for New_Binders
+  1244:
+  1245:    begin
+  1246:       for B in Binders'Range loop
+  1247:          Result (B) :=
+  1248:            New_Binder
+  1249:              (Ada_Node => Binders (B).Ada_Node,
+  1250:               Domain   => Domain,
+  1251:               Name     => Binders (B).B_Name,
+  1252:               Arg_Type => New_Arg_Type (Binders (B)));
+  1253:       end loop;
+  1254:
+  1255:       return Result;
+  1256:    end New_Binders;
+  1257:
+  1258:    --------------
+```
+
+## src/why/why-gen-binders.adb:1629-1640
+
+```ada
+  1629:    function Unit_Param
+  1630:      (Prefix : String := ""; Ada_Node : Node_Id := Empty) return Binder_Type is
+  1631:    begin
+  1632:       return
+  1633:         (B_Name   =>
+  1634:            New_Identifier
+  1635:              (Name => Prefix & "__void_param", Typ => EW_Unit_Type),
+  1636:          B_Ent    => Null_Entity_Name,
+  1637:          Mutable  => False,
+  1638:          Ada_Node => Ada_Node,
+  1639:          Labels   => <>);
+  1640:    end Unit_Param;
+```
+
 ## src/why/why-gen-decl.adb:90-295
 
 ```ada
@@ -21248,6 +25021,28 @@
   3572:    -- New_And_Then_Expr --
 ```
 
+## src/why/why-gen-expr.adb:3149-3165
+
+```ada
+  3149:    function Is_Void (W : W_Prog_Id) return Boolean is
+  3150:    begin
+  3151:       return
+  3152:         W = +Void
+  3153:         or else
+  3154:           (Get_Kind (+W) = W_Statement_Sequence
+  3155:            and then Is_Void_List (Statement_Sequence_Get_Statements (+W)));
+  3156:    end Is_Void;
+  3157:
+  3158:    ------------------
+  3159:    -- Is_Void_List --
+  3160:    ------------------
+  3161:
+  3162:    function Is_Void_List (L : Why_Node_List) return Boolean is
+  3163:    begin
+  3164:       return (for all Node of Get_List (L) => Is_Void (+Node));
+  3165:    end Is_Void_List;
+```
+
 ## src/why/why-gen-expr.ads:65-78
 
 ```ada
@@ -22287,6 +26082,16 @@
    370: end Why.Gen.Progs;
 ```
 
+## src/why/why-gen-progs.ads:38-42
+
+```ada
+    38:
+    39: package Why.Gen.Progs is
+    40:
+    41:    True_Prog  : constant W_Prog_Id := New_Literal (Value => EW_True);
+    42:    False_Prog : constant W_Prog_Id := New_Literal (Value => EW_False);
+```
+
 ## src/why/why-gen-records.adb:5048-5125
 
 ```ada
@@ -23285,6 +27090,19 @@
   1573:    end Num_Constant;
   1574:
   1575: end Why.Gen.Scalars;
+```
+
+## src/why/why-gen-terms.ads:31-38
+
+```ada
+    31: package Why.Gen.Terms is
+    32:    --  Functions that deal with generation of terms
+    33:
+    34:    True_Term  : constant W_Term_Id := New_Literal (Value => EW_True);
+    35:    False_Term : constant W_Term_Id := New_Literal (Value => EW_False);
+    36:
+    37:    False_Pred : constant W_Pred_Id := New_Literal (Value => EW_False);
+    38:    True_Pred  : constant W_Pred_Id := New_Literal (Value => EW_True);
 ```
 
 ## src/why/why-inter.adb:354-379

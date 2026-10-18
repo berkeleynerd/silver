@@ -18,6 +18,9 @@ REPO = ROOT.parents[2]
 PRIOR = (REPO / "docs/evidence/unbounded-programs/continuation-20261017/"
          "frontend-lifetimes/complete-source-manifest.json")
 RANGES = {
+    "libgnat/system-linux-x86.ads": [(104, 112)],
+    "par-ch5.adb": [(1101, 1127)],
+    "par-labl.adb": [(496, 525)],
     "checks.adb": [(3509, 3561), (10308, 10337)],
     "exp_aggr.adb": [(4339, 4381)],
     "exp_ch3.adb": [(4851, 4862), (4890, 4899), (4918, 4951)],

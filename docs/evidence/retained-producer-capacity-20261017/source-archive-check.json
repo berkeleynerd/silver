@@ -23,12 +23,20 @@
       "sha256": "03618ce33d8ee04912d330ee2b4a946297e3f702e2762c186c0895b03493d6ca"
     },
     {
+      "path": "src/spark/spark_util-subprograms.adb",
+      "sha256": "71997913be88d419f583db2c8b51fdc8f38b0285f9c9234cade9033296ac17d6"
+    },
+    {
       "path": "src/spark/spark_util-types.adb",
       "sha256": "61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9"
     },
     {
       "path": "src/spark/spark_util-types.ads",
       "sha256": "527f96c5888798d023959b5a57254edd520b028017c9835a973a0ef44f5eb240"
+    },
+    {
+      "path": "src/spark/spark_util.adb",
+      "sha256": "8e129c4260aa5b46eb74d8368c024b71a43cb7dc6a511f55c8e4b72db9801800"
     },
     {
       "path": "src/spark/spark_util.ads",
@@ -115,12 +123,20 @@
       "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d"
     },
     {
+      "path": "src/why/why-gen-progs.ads",
+      "sha256": "b57c53d2602d5de66f69ee77b4ec1109b874d6f74df9d3a0a2be7f1cb6060b27"
+    },
+    {
       "path": "src/why/why-gen-records.adb",
       "sha256": "0cf64ab186796df9215a8997d9ed2c11fdac9f256f67d19c1ce47512e7150bc5"
     },
     {
       "path": "src/why/why-gen-scalars.adb",
       "sha256": "8140ebf17a3f1f406c28a9759c768a830c0320da618c25cfe51b7b53325da07d"
+    },
+    {
+      "path": "src/why/why-gen-terms.ads",
+      "sha256": "8c88f1378b6be0ffa3fa6781d4e7ce7a5e9406e35ed589aa9ea15bcace2569ed"
     },
     {
       "path": "src/why/why-inter.adb",

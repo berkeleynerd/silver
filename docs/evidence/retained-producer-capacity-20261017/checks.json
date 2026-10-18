@@ -463,6 +463,132 @@
       188
     ]
   },
+  "ordinary_main_wrapper": {
+    "additional_closes": 4,
+    "core_rows": {
+      "completion_without_fixed_effects": [
+        15,
+        4,
+        2,
+        16
+      ],
+      "four_comments": [
+        4,
+        0,
+        0,
+        4
+      ],
+      "other_empty_contract_literals": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "registration_four_headers_and_vc_module": [
+        7,
+        8,
+        0,
+        4
+      ],
+      "return_raise_and_try_handler": [
+        3,
+        1,
+        1,
+        13
+      ],
+      "twelve_sequences_39_slots": [
+        12,
+        12,
+        39,
+        168
+      ],
+      "two_eager_finalization_sequences": [
+        2,
+        2,
+        3,
+        10
+      ],
+      "two_ignored_empty_contracts": [
+        10,
+        0,
+        0,
+        32
+      ],
+      "vc_effects": [
+        1,
+        3,
+        0,
+        0
+      ],
+      "vc_function_with_unit_binder": [
+        4,
+        1,
+        2,
+        12
+      ]
+    },
+    "core_total": [
+      61,
+      31,
+      47,
+      259
+    ],
+    "fixed_effect_root_bound": 5,
+    "per_fixed_effect_rows": {
+      "input_assumption_and_output_dynamic_property": [
+        68,
+        32,
+        48,
+        144
+      ],
+      "three_discarded_type_invariant_traversals": [
+        57,
+        30,
+        45,
+        0
+      ],
+      "unused_logic_binder_and_effect_references": [
+        11,
+        0,
+        2,
+        12
+      ]
+    },
+    "per_fixed_effect_total": [
+      136,
+      62,
+      95,
+      156
+    ],
+    "sequence_arities": [
+      5,
+      3,
+      5,
+      2,
+      4,
+      3,
+      2,
+      2,
+      2,
+      6,
+      3,
+      2
+    ],
+    "source_declaration_and_body_multiplicity": 1,
+    "still_separate": "fixed external-constant assumptions and input closure, dependencies, imports, memoized modules",
+    "total_excluding_fixed_constant_assumptions": [
+      746,
+      341,
+      522,
+      1039
+    ],
+    "unused_default_priority_read": [
+      5,
+      0,
+      0,
+      0
+    ]
+  },
   "ordinary_range_loop": {
     "fixed_rows": {
       "bind_low_and_high_once": [

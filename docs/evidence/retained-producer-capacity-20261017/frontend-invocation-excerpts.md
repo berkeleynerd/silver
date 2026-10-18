@@ -1169,6 +1169,87 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; full files hash-verified against
   8322       --  When a type is frozen, the first subtype of the type is frozen as
 ```
 
+## libgnat/system-linux-x86.ads:104–112
+
+```ada
+   104
+   105    Max_Priority           : constant Positive := 97;
+   106    Max_Interrupt_Priority : constant Positive := 98;
+   107
+   108    subtype Any_Priority       is Integer      range  0 .. 98;
+   109    subtype Priority           is Any_Priority range  0 .. 97;
+   110    subtype Interrupt_Priority is Any_Priority range 98 .. 98;
+   111
+   112    Default_Priority : constant Priority := 48;
+```
+
+## par-ch5.adb:1101–1127
+
+```ada
+  1101    --  (not an OPERATOR_SYMBOL)
+  1102
+  1103    --  The caller has already checked that the current token is <<
+  1104
+  1105    --  Error recovery: can raise Error_Resync
+  1106
+  1107    function P_Label return Node_Id is
+  1108       Label_Node : Node_Id;
+  1109
+  1110    begin
+  1111       Label_Node := New_Node (N_Label, Token_Ptr);
+  1112       Scan; -- past <<
+  1113       Set_Identifier (Label_Node, P_Identifier (C_Greater_Greater));
+  1114       T_Greater_Greater;
+  1115       Append_Elmt (Label_Node, Label_List);
+  1116       return Label_Node;
+  1117    end P_Label;
+  1118
+  1119    -------------------------------
+  1120    -- 5.1  Statement Identifier --
+  1121    -------------------------------
+  1122
+  1123    --  Statement label is parsed by P_Label (5.1)
+  1124
+  1125    --  Loop label is parsed by P_Loop_Statement (5.5), P_For_Statement (5.5)
+  1126    --   or P_While_Statement (5.5)
+  1127
+```
+
+## par-labl.adb:496–525
+
+```ada
+   496       --  If we didn't find a parent, then the label in question never got
+   497       --  hooked into a reasonable declarative part. This happens only in
+   498       --  error situations, and we simply ignore the entry (we aren't going
+   499       --  to get into the semantics in any case given the error).
+   500
+   501       if Present (Enclosing_Body_Or_Block) then
+   502          Check_Distinct_Labels;
+   503
+   504          --  Now create the implicit label declaration node and its
+   505          --  corresponding defining identifier. Note that the defining
+   506          --  occurrence of a label is the implicit label declaration that
+   507          --  we are creating. The label itself is an applied occurrence.
+   508
+   509          Label_Decl_Node :=
+   510            New_Node (N_Implicit_Label_Declaration, Sloc (Label_Node));
+   511          Defining_Ident_Node :=
+   512            New_Entity (N_Defining_Identifier, Sloc (Identifier (Label_Node)));
+   513          Set_Chars (Defining_Ident_Node, Chars (Identifier (Label_Node)));
+   514          Set_Defining_Identifier (Label_Decl_Node, Defining_Ident_Node);
+   515          Set_Label_Construct (Label_Decl_Node, Label_Node);
+   516
+   517          --  The following makes sure that Comes_From_Source is appropriately
+   518          --  set for the entity, depending on whether the label appeared in
+   519          --  the source explicitly or not.
+   520
+   521          Set_Comes_From_Source
+   522           (Defining_Ident_Node, Comes_From_Source (Identifier (Label_Node)));
+   523
+   524          --  Now attach the implicit label declaration to the appropriate
+   525          --  declarative region, creating a declaration list if none exists
+```
+
 ## sem_ch3.adb:852–895
 
 ```ada
