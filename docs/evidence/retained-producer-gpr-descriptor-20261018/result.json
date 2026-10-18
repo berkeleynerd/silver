@@ -1,0 +1,135 @@
+{
+  "scope": "Candidate production invocation derived offline from selected sources and installed configuration bytes; no installed executable/source attestation.",
+  "compiler_selection": {
+    "name": "GNAT",
+    "version": "16.1",
+    "runtime": "default",
+    "canonical_target": "x86_64-linux"
+  },
+  "all_base_xml_files_parsed": 63,
+  "selected_Ada_Compiler_configurations": [
+    [
+      "db/0_default.xml",
+      0
+    ],
+    [
+      "db/gnat.xml",
+      0
+    ],
+    [
+      "db/gnat.xml",
+      8
+    ],
+    [
+      "db/gnat.xml",
+      11
+    ]
+  ],
+  "generated_naming": {
+    "bytes": 244,
+    "lines": 2,
+    "source_range_charge": 4096,
+    "ALI_dependency_entries": 0,
+    "temporary_basename": "GNAT-TEMP-000000.TMP"
+  },
+  "phase1": {
+    "argv_excluding_executable": [
+      "-c",
+      "-x",
+      "ada",
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatc",
+      "-gnates=<options>",
+      "-gnatis",
+      "-gnatec=<config>",
+      "-gnatem=<map>",
+      "<main>"
+    ],
+    "argc": 13,
+    "A_rows": [
+      "-x",
+      "ada",
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatc",
+      "-gnatis"
+    ],
+    "A": 8,
+    "A_sum": 45,
+    "A_max": 9,
+    "argv_payload_bound": "4P+71"
+  },
+  "phase2": {
+    "argv_excluding_executable": [
+      "-c",
+      "-x",
+      "ada",
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatc",
+      "-gnates=<options>",
+      "-gnatec=<config>",
+      "-gnatem=<map>",
+      "<main>",
+      "-gnateO=<objects>"
+    ],
+    "argc": 13,
+    "A_rows_if_output_were_enabled": [
+      "-x",
+      "ada",
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatc"
+    ],
+    "A": 7,
+    "A_sum": 38,
+    "A_max": 9,
+    "argv_payload_bound": "5P+72",
+    "ALI_output_disabled": true
+  },
+  "data_representation": {
+    "argv_excluding_executable": [
+      "-c",
+      "-x",
+      "ada",
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-S",
+      "-gnatR2js",
+      "-gnatws",
+      "-gnatx",
+      "-gnatis",
+      "-gnatec=<config>",
+      "-gnatem=<map>",
+      "<main>"
+    ],
+    "argc": 15,
+    "separate_native_component_required": true
+  },
+  "generic_ALI_join": {
+    "A": 8,
+    "A_sum": 45,
+    "A_max": 9,
+    "C_dependencies": 0,
+    "ALI_emitted_filename_bound": 10,
+    "max_record_bytes_including_lf": 789,
+    "loose_file_byte_bound": 29622766,
+    "reader_buffer_byte_bound": 29622767,
+    "line_count_bound": 77549,
+    "writer_record_condition": true,
+    "reader_signed32_condition": true
+  },
+  "production_orchestration_capacity_closed": false,
+  "installed_executable_source_identity_established": false
+}

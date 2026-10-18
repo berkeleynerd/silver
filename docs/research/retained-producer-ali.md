@@ -4,7 +4,9 @@
 This continues the [global metadata packet](retained-producer-null-global.md)
 for the complete 15-token null family, including permitted ASCII case and
 trivia. It closes the **conditional generic ALI equations**, with production
-GPR-generated compiler arguments and configuration inputs still explicit.
+GPR-generated compiler arguments and configuration inputs explicit. The
+[subsequent selected descriptor](retained-producer-gpr-descriptor.md) supplies
+the candidate production values and sharpens emitted filenames to basenames.
 It is not a complete null-pipeline capacity result or an admission change.
 The [evidence checker](../evidence/retained-producer-ali-20261018/check.py)
 uses retained sources and offline Python only.
@@ -232,8 +234,10 @@ finding that the actual file overflows and not a new path cap. Tighter Xref
 emission counts or record-specific path lengths could recover that domain.
 Current language membership and its 4096-byte **source** bound are unchanged.
 
-The next work is to derive A/C and the naming configuration from the selected
-GPRbuild sources, connect the fixed startup/project/process objects, and join
-these conditions with frontend, Why, native, report and idle-server capacities.
+The [selected GPR descriptor](retained-producer-gpr-descriptor.md) now derives
+A8, C_dependencies0 and a10-byte emitted-filename bound, satisfying the generic
+writer/reader conditions independently of installation-path length. Remaining
+work connects the fixed startup/project/process objects and joins these
+conditions with frontend, Why, native, report and idle-server capacities.
 Output/integer/branch/loop extensions and an independent whole-rule review
 remain further work. #119 remains open.

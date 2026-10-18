@@ -1,0 +1,617 @@
+{
+  "scope": "Candidate production invocation derived offline from selected sources and installed configuration bytes; no installed executable/source attestation.",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "spark_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "gcc_manifest": {
+    "path": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+    "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+  },
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-gpr-descriptor-20261018/gcc-sources.tar.gz",
+      "sha256": "3319c1d5806c8b2474263e00e4bd8caff58d18cad58804b15044913524c15f5b",
+      "files": [
+        {
+          "name": "gcc/adabkend.adb",
+          "member": "gcc/adabkend.adb",
+          "bytes": 10685,
+          "sha256": "8d7240315b13acfb2d73db2aafd43ad59c57b4ded759b631f3e829e2f5458407"
+        },
+        {
+          "name": "gcc/switch-c.adb",
+          "member": "gcc/switch-c.adb",
+          "bytes": 59201,
+          "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+        },
+        {
+          "name": "gcc/frontend.adb",
+          "member": "gcc/frontend.adb",
+          "bytes": 19745,
+          "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67"
+        },
+        {
+          "name": "gcc/prepcomp.adb",
+          "member": "gcc/prepcomp.adb",
+          "bytes": 26565,
+          "sha256": "e3b4c632c397e7ce6f92c868a0b59cabd6dbbcf912c41aa8d59ada20bd20cafe"
+        },
+        {
+          "name": "gcc/libgnat/s-os_lib.adb",
+          "member": "gcc/libgnat/s-os_lib.adb",
+          "bytes": 90264,
+          "sha256": "9aed35c4ec6eaeacab780262f2c1528c95fb4f263f2f966f8526d0f4e080b201"
+        },
+        {
+          "name": "gcc/osint.adb",
+          "member": "gcc/osint.adb",
+          "bytes": 105542,
+          "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+        },
+        {
+          "name": "gcc/fname-uf.adb",
+          "member": "gcc/fname-uf.adb",
+          "bytes": 21488,
+          "sha256": "22caede84a6269298fc78349d6dee2e10baf3f4841bc65131ed94ad054194101"
+        },
+        {
+          "name": "gcc/lib-xref.adb",
+          "member": "gcc/lib-xref.adb",
+          "bytes": 98832,
+          "sha256": "147491988f39790a213cf02e69c6997adb1809df75758940757cc0ebc7a700c4"
+        },
+        {
+          "name": "gcc/sinput-l.adb",
+          "member": "gcc/sinput-l.adb",
+          "bytes": 30951,
+          "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+      "sha256": "876400a11e27cc1c1c9c7affc568808e3987e867e84afe88a1dcdcc6431b1844",
+      "files": [
+        {
+          "name": "gpr/src/gprbuild-compile.adb",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb",
+          "bytes": 138514,
+          "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+        },
+        {
+          "name": "gpr/src/gprbuild-main.adb",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+          "bytes": 91326,
+          "sha256": "080a437b127db61c26abba5d1b60aad97b228ee31ea8196f88974332df1f95c4"
+        },
+        {
+          "name": "gpr/gpr/src/gpr-env.adb",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+          "bytes": 73199,
+          "sha256": "54e255a868b23fc04ce4f587fab0c2981214a331335a7cbb83e18ad355c730ad"
+        },
+        {
+          "name": "gpr/gpr/src/gpr-tempdir.adb",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tempdir.adb",
+          "bytes": 9084,
+          "sha256": "5583152f80a95f0de5989522c9ccd9debc5c0bd04c412e2a8d0bb0675c363d03"
+        },
+        {
+          "name": "gpr/gpr/src/gpr-util.adb",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+          "bytes": 200047,
+          "sha256": "ea41517db36fa2cb3a09bfcf6f2827d5d7d1fbaf3dbafd9f3ded491196821ca1"
+        },
+        {
+          "name": "gpr/gpr/src/gpr-knowledge.adb",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+          "bytes": 176698,
+          "sha256": "782b985b1206213d273674c67543743db2d7263a8d76779e20305f516cd8c158"
+        },
+        {
+          "name": "gpr/gpr/src/gpr.ads",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.ads",
+          "bytes": 122737,
+          "sha256": "375cae80791bdbea2ee55253de326ab2e25a83acc23b11a74b6c471008286f1b"
+        },
+        {
+          "name": "gpr/gpr/src/gpr-opt.ads",
+          "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-opt.ads",
+          "bytes": 13222,
+          "sha256": "cc1bbe85525f51f0556b0da441342377d77f384540ad09b84d2b955ceb521443"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "files": [
+        {
+          "name": "spark/src/why/back_end.adb",
+          "member": "spark-source/src/why/back_end.adb",
+          "bytes": 7466,
+          "sha256": "a366cc199ce5c10ba35a7ddcfa0faf04d714deb6f53bc18903f087a845bc8775"
+        },
+        {
+          "name": "spark/src/gnatprove/gnatprove.adb",
+          "member": "spark-source/src/gnatprove/gnatprove.adb",
+          "bytes": 46206,
+          "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590"
+        },
+        {
+          "name": "spark/src/gnatprove/configuration.ads",
+          "member": "spark-source/src/gnatprove/configuration.ads",
+          "bytes": 17777,
+          "sha256": "393a63a635809761614c707ee8d08e4e14b43013e5f51ff69fb83af1be349422"
+        },
+        {
+          "name": "spark/src/gnatprove/configuration.adb",
+          "member": "spark-source/src/gnatprove/configuration.adb",
+          "bytes": 118436,
+          "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-gpr-descriptor-20261018/installed-configs.tar.gz",
+      "sha256": "9480af24749a6dfa8da3b16d32de6756cc9f651dd9e327fd6ca6f112ee163ab3",
+      "files": [
+        {
+          "name": "db/0_default.xml",
+          "member": "db/0_default.xml",
+          "bytes": 1642,
+          "sha256": "e7014879c4f08cd2d150f5a9bafbf4b00df14b7de7a7c1829f0ef82942139dfb"
+        },
+        {
+          "name": "db/aamp.xml",
+          "member": "db/aamp.xml",
+          "bytes": 4174,
+          "sha256": "82c9934606d3deddc16d35a80d7aa2d0252d3320f4054b27eda3a951aafb2f18"
+        },
+        {
+          "name": "db/aamp_compilers.xml",
+          "member": "db/aamp_compilers.xml",
+          "bytes": 820,
+          "sha256": "da53b3d960e3182ce2b37cb3e283522f20de9f4cf23a1abde2ebb34e6230d550"
+        },
+        {
+          "name": "db/aarch64-vx7.xml",
+          "member": "db/aarch64-vx7.xml",
+          "bytes": 898,
+          "sha256": "433ecf4e746dd4a621edd6e1dc52db0d1aa8c3dbaf8a6faab2c28f0d58faf4d9"
+        },
+        {
+          "name": "db/aarch64-vx7r2.xml",
+          "member": "db/aarch64-vx7r2.xml",
+          "bytes": 3540,
+          "sha256": "979a6b7c1b4890a7163bd580231e7a0dd516b7511bc2f2ae4f36ce2a6d3e7ce8"
+        },
+        {
+          "name": "db/arm-vx6.xml",
+          "member": "db/arm-vx6.xml",
+          "bytes": 1003,
+          "sha256": "cca412aaf1e2b4025235b20a89f73427d2650c9bc7e86393cc25220bdf814a56"
+        },
+        {
+          "name": "db/arm-vx7.xml",
+          "member": "db/arm-vx7.xml",
+          "bytes": 890,
+          "sha256": "b11daf73d21e31cbfa56e40c69082cba3d632841671822c9724880dbcfc6b896"
+        },
+        {
+          "name": "db/arm-vx7r2.xml",
+          "member": "db/arm-vx7r2.xml",
+          "bytes": 888,
+          "sha256": "d56195d5302a24d777c2348683bfd54733b7b456c4c6b01762b23f0e1802448c"
+        },
+        {
+          "name": "db/asis.xml",
+          "member": "db/asis.xml",
+          "bytes": 810,
+          "sha256": "7dfaf7a251569d22a7e578e9d939e0052d7b03559feb28d87d8c6a0f9b2934e3"
+        },
+        {
+          "name": "db/asm.xml",
+          "member": "db/asm.xml",
+          "bytes": 2680,
+          "sha256": "80540fdfb796c16ef23f32d14fe740a2fa9072bdee288a9125d10574416d60ed"
+        },
+        {
+          "name": "db/baselined.xml",
+          "member": "db/baselined.xml",
+          "bytes": 1707,
+          "sha256": "e76345aa760a3feabe51d83c017117926f6ebc17b331807ee32ab306ea8d4d46"
+        },
+        {
+          "name": "db/bin_img.xml",
+          "member": "db/bin_img.xml",
+          "bytes": 765,
+          "sha256": "44d74e3fbc7cd78da1ef9fa5a6866f03c8b95ba6c9f5f094075e0cd5f26bba13"
+        },
+        {
+          "name": "db/c.xml",
+          "member": "db/c.xml",
+          "bytes": 13282,
+          "sha256": "a78256fcaa0730d546bc926d7f755189f70f460c5e8925128bd39ee7b440a8b0"
+        },
+        {
+          "name": "db/clean.xml",
+          "member": "db/clean.xml",
+          "bytes": 332,
+          "sha256": "e48da651cc4ebab4a6e51b270ae9b5afb1bebac42ade1dea820cf6e8036f4dbb"
+        },
+        {
+          "name": "db/compilers-aarch64-vx7r2-clang.xml",
+          "member": "db/compilers-aarch64-vx7r2-clang.xml",
+          "bytes": 400,
+          "sha256": "c627e5f65ea238d9e89f911ed1a1a1deb631414c93d791eebae36e8865df596b"
+        },
+        {
+          "name": "db/compilers-arm-vx7.xml",
+          "member": "db/compilers-arm-vx7.xml",
+          "bytes": 527,
+          "sha256": "d0a2423b094dcc9c79ac6d3788cad43b3b046cf10719932d4169bf85574aafe0"
+        },
+        {
+          "name": "db/compilers-asis.xml",
+          "member": "db/compilers-asis.xml",
+          "bytes": 517,
+          "sha256": "f4f58bcedf1d8b03a3c8c5aa94877f22329b1949fce4980c6c13ba2f0ea00fb5"
+        },
+        {
+          "name": "db/compilers-baselined.xml",
+          "member": "db/compilers-baselined.xml",
+          "bytes": 1835,
+          "sha256": "e9ec6648e0b0efed6af9d6d0fafef143c847497880e580fdd45252b3b21d76d4"
+        },
+        {
+          "name": "db/compilers-e500v2-vx6.xml",
+          "member": "db/compilers-e500v2-vx6.xml",
+          "bytes": 1292,
+          "sha256": "9f9916f65050a43ac5f1455057035f71d1d307690e8075db81f6d99a60befafb"
+        },
+        {
+          "name": "db/compilers-e500v2-vx653.xml",
+          "member": "db/compilers-e500v2-vx653.xml",
+          "bytes": 1309,
+          "sha256": "04113df1655e5d2953cd4fd743572849167de9932765ce26048f7afbc3191512"
+        },
+        {
+          "name": "db/compilers-e500v2-vx7.xml",
+          "member": "db/compilers-e500v2-vx7.xml",
+          "bytes": 533,
+          "sha256": "27d2f6cd89f615f84ca8cd583fcf008b5852d9786493c9c3717c9c4bbded99dc"
+        },
+        {
+          "name": "db/compilers-e500v2-vx7r2.xml",
+          "member": "db/compilers-e500v2-vx7r2.xml",
+          "bytes": 539,
+          "sha256": "7d041495f9110383bedaae84f55417ee617aa3853af7fbae47481bd8b8214384"
+        },
+        {
+          "name": "db/compilers-ppc-vx653.xml",
+          "member": "db/compilers-ppc-vx653.xml",
+          "bytes": 1303,
+          "sha256": "0a5ab9c7f7203ecb712f8ca9c8f86f782c2f56296c42d21a58150033376848dd"
+        },
+        {
+          "name": "db/compilers-ppc-vx7.xml",
+          "member": "db/compilers-ppc-vx7.xml",
+          "bytes": 531,
+          "sha256": "1f99b16fe3cf0a17ec5c8dfeb0ba9769611b4c4ea94a01b47b4347c264d52a8f"
+        },
+        {
+          "name": "db/compilers-ppc-vx7r2.xml",
+          "member": "db/compilers-ppc-vx7r2.xml",
+          "bytes": 537,
+          "sha256": "35cfa3ca56da337495e421ddb67d6c6bb9b000372c593a0881eb83f2d935c327"
+        },
+        {
+          "name": "db/compilers-ppc64-vx7.xml",
+          "member": "db/compilers-ppc64-vx7.xml",
+          "bytes": 755,
+          "sha256": "138f254fddd24df5b2805b54ea9bb07c6f59f29d848362ddac0cd3101a58d219"
+        },
+        {
+          "name": "db/compilers-ppc64-vx7r2-clang.xml",
+          "member": "db/compilers-ppc64-vx7r2-clang.xml",
+          "bytes": 402,
+          "sha256": "ec74ba3476875f8524ffc48146a505eb21f9e521dee6b31042cb31ddedf77ab2"
+        },
+        {
+          "name": "db/compilers-ppc64-vx7r2.xml",
+          "member": "db/compilers-ppc64-vx7r2.xml",
+          "bytes": 541,
+          "sha256": "4aaeed3ef3c72e4c8fe581f8e8d67771aff343897a0637b45e7ca6a6e0dd0198"
+        },
+        {
+          "name": "db/compilers-vxworks.xml",
+          "member": "db/compilers-vxworks.xml",
+          "bytes": 1783,
+          "sha256": "5166280c95290ce6b93e3fae3b41c57d97ff6fb400afb58e6c99101fb8c32930"
+        },
+        {
+          "name": "db/compilers-x86-vx7.xml",
+          "member": "db/compilers-x86-vx7.xml",
+          "bytes": 532,
+          "sha256": "694db23e3c44197c1bd10c61a7efe6c380ca56d723bde3fb0d52548fb2d76cfe"
+        },
+        {
+          "name": "db/compilers-x86_64-vx7.xml",
+          "member": "db/compilers-x86_64-vx7.xml",
+          "bytes": 537,
+          "sha256": "3bfe87f6733e40824f888905a9d18701d86d75e7c38f5588c3a3b61cb76ae427"
+        },
+        {
+          "name": "db/compilers-x86_64-vx7r2-clang.xml",
+          "member": "db/compilers-x86_64-vx7r2-clang.xml",
+          "bytes": 399,
+          "sha256": "e89e18162fcba06ffab4b703a53353910d56bb3e41e31b198075b889e11bf15e"
+        },
+        {
+          "name": "db/compilers.xml",
+          "member": "db/compilers.xml",
+          "bytes": 21475,
+          "sha256": "a2584791048467473cee3f348638cc8636155d34e631dbdacdf3b9a95b4d27e4"
+        },
+        {
+          "name": "db/cpp.xml",
+          "member": "db/cpp.xml",
+          "bytes": 6477,
+          "sha256": "01ae597f6b764702708ef57891ed9bd84be218f5b198a4b2f69cafd34ff95115"
+        },
+        {
+          "name": "db/cross.xml",
+          "member": "db/cross.xml",
+          "bytes": 10630,
+          "sha256": "0298c3eeebdb9ccb42f490f8be3ed448755aa892c9ca32a721eb7167b24d6f59"
+        },
+        {
+          "name": "db/e500v2-vx6.xml",
+          "member": "db/e500v2-vx6.xml",
+          "bytes": 2045,
+          "sha256": "7fa4253d0f10c4c1aa958cd85a91dce7258e460ed1173e76604f2c6e95c29e78"
+        },
+        {
+          "name": "db/e500v2-vx653.xml",
+          "member": "db/e500v2-vx653.xml",
+          "bytes": 1235,
+          "sha256": "8df581eefd66ba8042dff4002a9f5002a5fe596b78a86119d8ad9e672bcfd1bc"
+        },
+        {
+          "name": "db/e500v2-vx7.xml",
+          "member": "db/e500v2-vx7.xml",
+          "bytes": 899,
+          "sha256": "b91fc8e03d24b437a38fde352d07d858357ad05b1569cc9b962bdd3aa7f6e49b"
+        },
+        {
+          "name": "db/e500v2-vx7r2.xml",
+          "member": "db/e500v2-vx7r2.xml",
+          "bytes": 953,
+          "sha256": "4702e9699131479069b3e8f6f5631761b42db6b1dc16ed8a809840ac499579bc"
+        },
+        {
+          "name": "db/env.ent",
+          "member": "db/env.ent",
+          "bytes": 915,
+          "sha256": "3ae18233c438748001b117c9999ad3f8e438ebdccfb2318a9af6ab4fdadc45f6"
+        },
+        {
+          "name": "db/fallback_targets.xml",
+          "member": "db/fallback_targets.xml",
+          "bytes": 386,
+          "sha256": "806937c3ebfe6a2a576f0b34cd4c72217c68841ceaf0ac8d0f854a50d1276fbc"
+        },
+        {
+          "name": "db/fortran.xml",
+          "member": "db/fortran.xml",
+          "bytes": 2210,
+          "sha256": "e53dd8709cbd295383e42df8dd83a3f9424942cfcac52505e339df328fae8c35"
+        },
+        {
+          "name": "db/gnat.xml",
+          "member": "db/gnat.xml",
+          "bytes": 12862,
+          "sha256": "75860604394acd18884a83321d3644b7f2816906c5dfa7e09b17a1d04c160e30"
+        },
+        {
+          "name": "db/linker.xml",
+          "member": "db/linker.xml",
+          "bytes": 60282,
+          "sha256": "377065414daa87ec934a6a5125c448052903c7ce12e2faf2ebf6f667762482a5"
+        },
+        {
+          "name": "db/morello-vx7r2.xml",
+          "member": "db/morello-vx7r2.xml",
+          "bytes": 2120,
+          "sha256": "e3339a6d6c8d6fdf3dff242b6644a3c438fbfe39b691f725a104bd6154b79f48"
+        },
+        {
+          "name": "db/nocompiler.xml",
+          "member": "db/nocompiler.xml",
+          "bytes": 915,
+          "sha256": "da36d3ba17b6758b288f518b289f4b9ed364d3df0310a7ade4785f4efc7aa356"
+        },
+        {
+          "name": "db/ppc-vx6.xml",
+          "member": "db/ppc-vx6.xml",
+          "bytes": 1175,
+          "sha256": "532b0035d0f09b577d0075a66c773404889c95b8875616a931295024fc47625e"
+        },
+        {
+          "name": "db/ppc-vx653.xml",
+          "member": "db/ppc-vx653.xml",
+          "bytes": 1215,
+          "sha256": "d04dca74908dc9f49f911e5d30bd76decd59e171a38a4d80d9b5ad763d789bb2"
+        },
+        {
+          "name": "db/ppc-vx7.xml",
+          "member": "db/ppc-vx7.xml",
+          "bytes": 894,
+          "sha256": "7765982ab0a83d38af34a08638ada3f82f1bf3a740c0e1f196bc8cb4bc753469"
+        },
+        {
+          "name": "db/ppc-vx7r2.xml",
+          "member": "db/ppc-vx7r2.xml",
+          "bytes": 945,
+          "sha256": "8f743233061dd06974d2dcbf60e362705b2c662694fe48b6b34efb070217a641"
+        },
+        {
+          "name": "db/ppc64-vx7.xml",
+          "member": "db/ppc64-vx7.xml",
+          "bytes": 1123,
+          "sha256": "a2eb3854c269d81c91e895f7c07d634f6bdb874fd0ad556bc5bc1fb8833956d3"
+        },
+        {
+          "name": "db/ppc64-vx7r2.xml",
+          "member": "db/ppc64-vx7r2.xml",
+          "bytes": 1879,
+          "sha256": "0fc0111a4aea25cee8318312bc9939a4df35a533295910843fdb7a363e6355e9"
+        },
+        {
+          "name": "db/shortcuts.ent",
+          "member": "db/shortcuts.ent",
+          "bytes": 2971,
+          "sha256": "df2bcdd65223909a1686db31f5806646e1a99da224b9d68698d32b8c5cd58b01"
+        },
+        {
+          "name": "db/targetset.xml",
+          "member": "db/targetset.xml",
+          "bytes": 20339,
+          "sha256": "6f71b44daf123f2a028d9fff169ae06f189dfba606e683094271ec7737470d8b"
+        },
+        {
+          "name": "db/tricore-compilers.xml",
+          "member": "db/tricore-compilers.xml",
+          "bytes": 256,
+          "sha256": "d435c549ead7ce3b6ed38414d155ca0efbec48c33a96aaf10e2ee61dcda80639"
+        },
+        {
+          "name": "db/tricore-configuration.xml",
+          "member": "db/tricore-configuration.xml",
+          "bytes": 600,
+          "sha256": "98aa8aeaac506d5ff1e0685153fb36997573872a033d206cf8421b76d8461b4b"
+        },
+        {
+          "name": "db/tricore-target.xml",
+          "member": "db/tricore-target.xml",
+          "bytes": 146,
+          "sha256": "ad25eec7c90af72328856d03177698f85adc22b51560d5348aeaa5c6d26edece"
+        },
+        {
+          "name": "db/vx6.ent",
+          "member": "db/vx6.ent",
+          "bytes": 8081,
+          "sha256": "10ce4b218d8523838ec5b625ed3d926c69a814afc19f01e3f379fad58b9dc970"
+        },
+        {
+          "name": "db/vx653.ent",
+          "member": "db/vx653.ent",
+          "bytes": 2072,
+          "sha256": "cfe5d207033a7fa7a3a0a58f2e12fb3b0c18b51645c52a7448e506917b49cedb"
+        },
+        {
+          "name": "db/vx7.ent",
+          "member": "db/vx7.ent",
+          "bytes": 1363,
+          "sha256": "623c0bb1482d9b8b3040eceb2a115401884954361e598ab5286029404e345c11"
+        },
+        {
+          "name": "db/vx7r2.ent",
+          "member": "db/vx7r2.ent",
+          "bytes": 12067,
+          "sha256": "58c456fc124b6f498c9b5d3b7b5e057ba8572f2d602d41203f3d78b06120841b"
+        },
+        {
+          "name": "db/vx7r2_compilers.xml",
+          "member": "db/vx7r2_compilers.xml",
+          "bytes": 1674,
+          "sha256": "0f47131284508d0a4df2a04a599d210f155e5fbd72068586f8d8b65f19ec14c5"
+        },
+        {
+          "name": "db/vxworks.ent",
+          "member": "db/vxworks.ent",
+          "bytes": 17183,
+          "sha256": "ee91d87200e8498ca435308b0942e225211c93262472dc74e478f1f00fcab02d"
+        },
+        {
+          "name": "db/vxworks.xml",
+          "member": "db/vxworks.xml",
+          "bytes": 317,
+          "sha256": "c83a725234ee1987deb3a36fb8d12271c970ff48a7f6400907afebf6ce48adea"
+        },
+        {
+          "name": "db/windres.xml",
+          "member": "db/windres.xml",
+          "bytes": 714,
+          "sha256": "b2524ab2f31be4836a57008ef8f8aa92ecbe54b5f6779ce439e866846c6fec24"
+        },
+        {
+          "name": "db/x86-vx6.xml",
+          "member": "db/x86-vx6.xml",
+          "bytes": 1183,
+          "sha256": "43d9f633e5e34f6cc4ea8a70a61e76701d4c0ffa31211c579f81051a97a0bae8"
+        },
+        {
+          "name": "db/x86-vx7.xml",
+          "member": "db/x86-vx7.xml",
+          "bytes": 889,
+          "sha256": "a238a67fbc519ceeb468ee6b08e919248baf0aae282821933bea014d9d6add17"
+        },
+        {
+          "name": "db/x86-vx7r2.xml",
+          "member": "db/x86-vx7r2.xml",
+          "bytes": 887,
+          "sha256": "59b786fbdab11de611b8900d46429670e0e6dfbe0b44dbf1ad3cb9a3c02b08ac"
+        },
+        {
+          "name": "db/x86_64-vx7.xml",
+          "member": "db/x86_64-vx7.xml",
+          "bytes": 897,
+          "sha256": "47a8746e31584555109f3d0cc29976a300ae334369c8ac3bab26bd520e391900"
+        },
+        {
+          "name": "db/x86_64-vx7r2.xml",
+          "member": "db/x86_64-vx7r2.xml",
+          "bytes": 1596,
+          "sha256": "b73afc9696fc3de864bd7c8e5a18a0486a4173f808524bc4467c091fddba7d88"
+        },
+        {
+          "name": "frames/config.xml",
+          "member": "frames/config.xml",
+          "bytes": 332,
+          "sha256": "d712b6c40252b16652df96533f907c3217d1d3aad47c564d1f460e389c72c57d"
+        },
+        {
+          "name": "gnat2why/config.xml",
+          "member": "gnat2why/config.xml",
+          "bytes": 394,
+          "sha256": "a78737344b583024dab5e120f5a8011a64a2c8bb3b4370d807a953481183ec64"
+        }
+      ]
+    }
+  ],
+  "local_files": [
+    {
+      "path": "src/silver.adb",
+      "bytes": 22230,
+      "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000002.TMP",
+      "bytes": 244,
+      "sha256": "3d84ea27f99f81f20bd402e0c255538ad3d04c82d26e10ee32ea68c9fd4b1574"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-reconciliation.json",
+      "bytes": 40806,
+      "sha256": "4e13dd90e90226cb8f0df9761e68c420884616cb761e7b9a71639821b68ca78d"
+    }
+  ],
+  "installed_database_equivalence": {
+    "producer": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/gprconfig",
+    "native": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig",
+    "xml_and_entity_files": 70,
+    "comparison": "byte-identical for every retained XML/entity file; read only"
+  }
+}
