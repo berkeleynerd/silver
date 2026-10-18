@@ -17,9 +17,16 @@ import tarfile
 RANGES = {
     "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
     "gcc/ada/gcc-interface/trans.cc": [(87, 91), (346, 363), (6705, 6732),
-                                       (11006, 11030)],
+                                       (1201, 1289), (1330, 1369), (4911, 5015),
+                                       (5688, 5691), (6779, 6881), (7086, 7116),
+                                       (7291, 7342), (7415, 7470), (7605, 7616),
+                                       (7756, 7821), (7944, 7974), (8603, 8622),
+                                       (8968, 8996), (9298, 9305), (3301, 3306),
+                                       (9889, 10025), (11006, 11030)],
+    "gcc/ada/gcc-interface/decl.cc": [(400, 445), (697, 718), (754, 766), (1278, 1291),
+                                      (3142, 3177)],
     "gcc/ada/gcc-interface/misc.cc": [(376, 377)],
-    "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450)],
+    "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783)],
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1292, 1327), (1883, 1905)],
     "gcc/ggc.h": [(230, 258)],
@@ -239,6 +246,14 @@ def main():
             "maximum_chunk_callbacks_at_endpoint": (int_max + 1999) // 2000,
             "normal_chunk_size": 2000, "base64_chunk_size": 16384,
             "emission_extra_nul_under_o0_no_override": False,
+            "ordinary_Main_gigi_lowering": {
+                "maximum_visits_per_expanded_literal_identity": 2,
+                "events": "2*N_lit <= 2*A_Main",
+                "payload_bytes": "2*W_lit <= 2*A_Main*L_max",
+                "constructor_bytes": "2*W_lit+42*N_lit",
+                "premises": "current normalized Main grammar; cached entity/lazy initialization; scalar literal subtype bounds; selected no-inlining native invocation",
+                "excluded": "later GCC copies and constant-pool requests; named objects; diagnostic/filename/fixed dependency Strings",
+            },
         },
     }
     args.output.mkdir(parents=True, exist_ok=True)

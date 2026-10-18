@@ -88,6 +88,10 @@
     {
       "path": "gcc/genmodes.cc",
       "sha256": "c194dec8ad700fe45094f1c7247aca2ce44dcb6980f52140e531b3e71034a155"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
     }
   ],
   "line_map": {
@@ -1050,6 +1054,14 @@
     "maximum_chunk_callbacks_at_endpoint": 1073742,
     "normal_chunk_size": 2000,
     "base64_chunk_size": 16384,
-    "emission_extra_nul_under_o0_no_override": false
+    "emission_extra_nul_under_o0_no_override": false,
+    "ordinary_Main_gigi_lowering": {
+      "maximum_visits_per_expanded_literal_identity": 2,
+      "events": "2*N_lit <= 2*A_Main",
+      "payload_bytes": "2*W_lit <= 2*A_Main*L_max",
+      "constructor_bytes": "2*W_lit+42*N_lit",
+      "premises": "current normalized Main grammar; cached entity/lazy initialization; scalar literal subtype bounds; selected no-inlining native invocation",
+      "excluded": "later GCC copies and constant-pool requests; named objects; diagnostic/filename/fixed dependency Strings"
+    }
   }
 }

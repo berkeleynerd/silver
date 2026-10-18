@@ -151,6 +151,81 @@ backend objects are additional. At `L=2^31-1`, the constructor requests
 length still fits int. This local arithmetic does not make that value admissible:
 frontend and producer bounds can bind earlier.
 
+### Ordinary Main literal lowering events
+
+For the current Main grammar, count the ordinary Character String literal
+identities in the **expanded** frontend tree, including copies and folded
+results, as `N_lit`. Let `W_lit` be their length sum. This is not the number
+of lexical literals: the [native expansion transfer](retained-native-expansion.md)
+must supply these counts, or conservatively its total Main node bound `A_Main`
+and maximum ordinary String length `L_max`. Under that normalized-tree
+interface, the gigi materialization contribution is
+
+```text
+literal lowering events <= 2 N_lit <= 2 A_Main
+lowered payload bytes   <= 2 W_lit <= 2 A_Main L_max
+STRING_CST requests     <= 2 W_lit + 42 N_lit.
+```
+
+The last row counts requested bytes, using the `L+21` constructor above.
+No constant-pool sharing credit is used. Two is a traversal bound, not an
+empirical allocation multiplier: one ordinary definition/executable traversal
+and, conservatively, one lazy entity-initializer traversal before association.
+
+Ordinary statement lists visit each member once (`trans.cc:5688–5691,9298–9305`).
+Assignments choose either the function-call path or one RHS traversal
+(`:7756–7821`); calls translate each actual once, then reuse the resulting
+GCC tree for addressability, copies and conversions (`:4911–5015`). String
+comparison translates its two operands once (`:7415–7470`), slices translate
+their prefix once (`:7086–7116`), conversions translate their operand once
+(`:7291–7342`), and conditionals/actions visit each child once
+(`:7605–7616,7944–7974,8603–8622`). Both branch arms count. A runtime loop
+does not repeat this frontend-to-GCC traversal for every iteration.
+
+The two-pass declaration driver visits ordinary object/renaming declarations
+only in its first pass; its second pass selects deferred bodies and nested
+package/freeze lists (`trans.cc:9889–10025`). Loop-body conversion likewise
+occurs once (`:3301–3306`). Object declarations translate the initializer once
+before defining its entity
+(`:6779–6881`). An as-yet-unassociated constant or renaming can additionally
+translate its initializer through `gnat_to_gnu_external`
+(`decl.cc:697–718,754–766`; `trans.cc:8968–8996`). The entity association then
+prevents another lazy visit (`decl.cc:400–445`). The external-expression
+wrapper's `gnat_zaplevel` discards binding blocks without clearing associations
+(`utils.cc:770–783`); the object-association reset at `decl.cc:1278–1291`
+requires an excluded address clause. An ordinary String reference
+calls that cached entity conversion; using a constant value returns its existing
+`DECL_INITIAL`, without revisiting Ada source (`trans.cc:1201–1289,1330–1369`).
+The separate initializer-replay branch requires an **elementary** constant
+with an address clause, excluded for these String objects. Deferred object
+freezing likewise retains the already translated initializer at its declaration
+instead of replaying it (`:6866–6881`). Main has ordered declarations, no
+deferred constants, address clauses, user renamings or frontend inlining;
+generated concat result renamings refer to existing result storage.
+
+Type elaboration does not create another route to an ordinary String payload.
+String-literal subtype lowering reads only its scalar low bound and length
+(`decl.cc:3142–3177`). The native normalization argument makes literal
+First/Last/Length queries scalar constants; normalized Image/input views refer
+to captured objects. Ordinary aliases do not replay their initializer trees.
+Actual cloned expression trees have distinct identities and are charged in
+`N_lit`; multiple uses of a GCC tree after conversion are not new calls of the
+Ada literal constructor. This separates source-language nesting and copies
+from runtime trip counts and later GCC sharing.
+
+This closes the gigi ordinary-Main-payload event count against the expanded
+frontend interface. It does **not** bound subsequent GCC tree copying,
+constant-pool requests, named object storage, generated diagnostic/filename
+Strings, imported/fixed-unit payloads or total emitted code/data. Their separate
+costs cannot be replaced by `N_lit`. The optional `2 A_Main L_max` envelope is
+deliberately coarse; weighted literal/copy accounting can retain more useful
+programs when composing the rule.
+
+Independent source review of this local traversal argument found no correction;
+it checked the cache/reset frontier and each named ordinary child traversal.
+The complete native normalized-tree/source bound and the excluded later phases
+remain separate composition obligations.
+
 ## Selected emission options close the extra-NUL path
 
 The earlier [deferred-storage investigation](frontend-deferred-storage-feasibility.md#gcc-still-materializes-the-final-value)

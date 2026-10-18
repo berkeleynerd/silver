@@ -3,22 +3,25 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies twenty-two complete GCC source files at
+`source-manifest.json` identifies twenty-three complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;
 six constant-pool/header/generator sources are in `pool-sources.tar.gz`.
-Four Ada files reuse the complete frontend inventory, and three generic GCC
+Five Ada files reuse the complete frontend inventory, and three generic GCC
 files reuse the earlier emission archive. These identities describe source
 bytes, not a binary attestation. The ordinary Linux LP64 layout remains an
 explicit premise of the String allocation arithmetic.
 
-`check.py` verifies all twenty-two complete-file hashes, checks reused identities
+`check.py` verifies all twenty-three complete-file hashes, checks reused identities
 against their earlier manifests, extracts LF-numbered source ranges and
 recomputes local integer arithmetic, including ordinary-map growth and the two
 GNAT-node association backbones, constant-label mutation inventory and label
 buffers, constant-pool hash capacity/probe arithmetic, and the 32-bit RTL
-alignment-mask boundary (including its counterexample above that boundary). `checks.json` and `source-excerpts.md`
+alignment-mask boundary (including its counterexample above that boundary).
+It retains the gigi ordinary Main literal traversal sources and the resulting
+event/byte interface; the report supplies that manual caller argument.
+`checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.
 
