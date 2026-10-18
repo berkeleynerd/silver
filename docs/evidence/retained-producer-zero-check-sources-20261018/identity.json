@@ -1,0 +1,88 @@
+{
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "spark_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "spark_files": [
+    {
+      "path": "src/spark/spark_util.ads",
+      "bytes": 77720,
+      "sha256": "e80839ab6bf142e6e8e28529f176745147d9722e17689508eb3262a25fc3c443"
+    },
+    {
+      "path": "src/spark/spark_util-types.adb",
+      "bytes": 106574,
+      "sha256": "61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9"
+    },
+    {
+      "path": "src/spark/spark_util-subprograms.adb",
+      "bytes": 74490,
+      "sha256": "71997913be88d419f583db2c8b51fdc8f38b0285f9c9234cade9033296ac17d6"
+    },
+    {
+      "path": "src/why/gnat2why-driver.adb",
+      "bytes": 60922,
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    },
+    {
+      "path": "src/why/gnat2why-error_messages.adb",
+      "bytes": 52157,
+      "sha256": "838d3b49cf776926bc8c966e6fa9846dfce7cde1da756382b7fdb0d90b3db6d1"
+    },
+    {
+      "path": "src/why/gnat2why-expr.adb",
+      "bytes": 1222932,
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14"
+    },
+    {
+      "path": "src/why/gnat2why-subprograms.adb",
+      "bytes": 350905,
+      "sha256": "d9f5f4ecb398741e747e9167df89464c54f7dd1f6e54516280d998e5c56eb736"
+    },
+    {
+      "path": "src/why/gnat2why-types.adb",
+      "bytes": 77606,
+      "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d"
+    },
+    {
+      "path": "src/why/gnat2why-util.adb",
+      "bytes": 65173,
+      "sha256": "f620de261e498788e54f642cc90605675d29aa3475888c0868afa2d6499fbc8d"
+    },
+    {
+      "path": "src/why/why-gen-expr.adb",
+      "bytes": 208583,
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432"
+    },
+    {
+      "path": "src/why/why-gen-progs.adb",
+      "bytes": 12033,
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d"
+    },
+    {
+      "path": "src/why/why-inter.adb",
+      "bytes": 56576,
+      "sha256": "68844f25581617906e556817a63bfdb8f1ae425f91fb532f844f64eda221fc84"
+    }
+  ],
+  "local_files": [
+    {
+      "path": "src/silver.adb",
+      "bytes": 22230,
+      "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    },
+    {
+      "path": "src/silver_io.ads",
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "path": "src/silver_profile.adb",
+      "bytes": 10450,
+      "sha256": "0a4173d5e37f7561e21c89e1e15f931728c721b4fb6f8fb3b667c5334798cff4"
+    },
+    {
+      "path": "src/silver_profile.ads",
+      "bytes": 3529,
+      "sha256": "15f2b737ff4e29e191583b4ae57ad9f5661fa1322fa6cd113080f201539b79c6"
+    }
+  ]
+}

@@ -186,6 +186,12 @@ registration (`gnat_report.ml:59–86`; `gnat_expl.ml:183–186,650–655`). The
 domain has 65 constructors. Under the existing label-ID correspondence premise,
 the coarse response-result bound is therefore `65 * registered_VCs`, not a
 bound on tree nodes. Splitting can leave several top-level goals in one result.
+The later [combined check-label derivation](retained-producer-response.md#registered-ids-bound-result-records-without-a-kind-domain-product)
+removes this unnecessary kind-domain product: per response,
+`R <= V + 2*V_loop <= 3V`, and ordinary Main has `R <= V`. The
+[concrete null and literal-output Main paths](retained-producer-zero-check-sources.md)
+register no Why3 check and launch no Main backend, so their Main counts are
+exactly `G = R = 0`; fixed output-library responses remain separate.
 `Gnat_report.register` gives every Proved result an empty counterexample list
 (`gnat_report.ml:62–69`), independently of old models in the session; that
 closes the eager counterexample-list domain for the all-proved path. Failure

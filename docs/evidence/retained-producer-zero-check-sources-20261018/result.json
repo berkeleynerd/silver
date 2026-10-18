@@ -1,0 +1,40 @@
+{
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "spark_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "native_or_proof_executions": 0,
+  "fixtures": [
+    {
+      "name": "null",
+      "source_bytes": 64,
+      "source_sha256": "fd38d8850026a2e0c90cc6d5a8e3cc64c4b1e5d12388e95812a31a6834fac4e7",
+      "output_mode": false,
+      "source_audit_main_registered_why3_check_delta": 0,
+      "main_why3_launches": 0,
+      "main_terminal_tasks": 0,
+      "main_response_records": 0,
+      "main_solver_launches": 0,
+      "main_raw_why3_response_bytes": 0,
+      "selected_fixed_library_why3_files": 0,
+      "fixed_library_terminal_task_bound": 0,
+      "native_frontend_and_flow_capacity_required": true,
+      "final_spark_report_capacity_required": true
+    },
+    {
+      "name": "literal_put",
+      "source_bytes": 95,
+      "source_sha256": "9019143e21171a87a909b48f57fe39ac677db248e9a9e1e63a15a44386a44ed7",
+      "output_mode": true,
+      "source_audit_main_registered_why3_check_delta": 0,
+      "main_why3_launches": 0,
+      "main_terminal_tasks": 0,
+      "main_response_records": 0,
+      "main_solver_launches": 0,
+      "main_raw_why3_response_bytes": 0,
+      "selected_fixed_library_why3_files": 5,
+      "fixed_library_terminal_task_bound": null,
+      "native_frontend_and_flow_capacity_required": true,
+      "final_spark_report_capacity_required": true
+    }
+  ],
+  "scope": "Pinned source audit and fixture arithmetic; branch exclusions are argued in the research document, not mechanically proved here; complete retained-tool feasibility remains open"
+}

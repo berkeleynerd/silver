@@ -13,6 +13,13 @@ concat, assignment and loop structures, including a source larger than today's
 byte cap. Its fixed-import and one-file arguments sharpen the general aggregate
 below. Separate process and whole-tool requirements remain explicit there.
 
+The [concrete zero-check source paths](retained-producer-zero-check-sources.md)
+now sharpen the null and literal-output Main cases: their native VC translation
+registers no Why3 check, so the driver does not launch a Main backend at all
+(`G_Main = R_Main = 0`). Null mode selects no Silver library process; output
+mode retains the five fixed library task-producing files. Native/frontend,
+flow/final-report and selected fixed-library capacity remain separate joins.
+
 The inspected source is SPARK revision
 `42554fc241fcd1fdf08d3a2feccb3f86912acbc0`, from the source archive already retained
 by the [frontend representation research](frontend-representation-result.md).
@@ -2237,7 +2244,7 @@ before iterating protected-object locks. No selected Main operation introduces
 such a lock. The pinned Linux `libgnat/system-linux-x86.ads:112` defines this
 constant as the scalar literal 48; the retained GCC inventory now also captures
 that line. The unused read fits the earlier static leaf plus expected-type
-allowance `(5,0,0,0)` (`gnat2why-subprograms.adb:548–590`).
+allowance `(5,0,0,0)` (`gnat2why-subprograms.adb:548–590,741–862`).
 
 Consequently the enclosing contribution is bounded by
 
