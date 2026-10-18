@@ -36,12 +36,16 @@
     "max_array_elements": 2,
     "numbers": 12
   },
-  "pretty_bytes": {
+  "pretty_string_bytes": {
     "constant": 1246,
     "filename_byte_coefficient": 6
   },
-  "pretty_bytes_at_P_222": 2578,
-  "pretty_bytes_at_P_256": 2782,
+  "emitted_file_bytes": {
+    "constant": 1247,
+    "filename_byte_coefficient": 6
+  },
+  "emitted_file_bytes_at_P_222": 2579,
+  "emitted_file_bytes_at_P_256": 2783,
   "entity_to_subp_complete_call_frontier": [
     {
       "file": "src/flow/flow-analysis-assumptions.adb",

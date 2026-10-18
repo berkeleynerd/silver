@@ -146,8 +146,13 @@ the utility's ASCII escapes, invalid-byte replacement and UTF-8 surrogate
 escapes (`gnatcoll-json-utility.adb:87–146`). All other strings are fixed ASCII
 or the four-byte Main spelling.
 
-The resulting envelope is **`B_spark <= 1246 + 6P` bytes**: 2578 bytes at
-`P=222`, or 2782 at `P=256`. The maximal schema has 41 value occurrences,
+The returned String has **`B_string <= 1246 + 6P` bytes**. Closing the Text_IO
+file terminates its last line, adding one LF on Linux
+(`a-textio.adb:168–184,2048–2059`; default page length is zero). Hence the
+actual report has **`B_spark <= 1247 + 6P` bytes**: 2579 bytes at `P=222`, or
+2783 at `P=256`. Text_IO's bulk String Put does not reset its column on
+embedded LF; its column is bounded by `B_string+1`, which also fits these
+descriptor examples. The maximal schema has 41 value occurrences,
 12 objects, 10 arrays, 37 object fields and depth 5; each object has at most
 12 fields and each array at most two elements. The source coordinates account
 for two of the twelve numeric leaves; eight are timings and two are entity
@@ -165,3 +170,9 @@ its backing-growth arithmetic, each individual path/string, each typed counter
 and each container capacity require their own representability conditions.
 The null family is a focused whole-pipeline composition test; closing it alone
 would not close #119 for output, integer, branch or loop programs.
+
+A focused independent source review confirmed the caller/schema and zero-flow
+exclusions and found the closing LF omission in the first byte calculation.
+The String and emitted-file bounds above include that correction. The review
+ran no native tool and did not establish the still-open storage/orchestration
+joins.

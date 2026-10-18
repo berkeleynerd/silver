@@ -137,6 +137,43 @@
           "sha256": "6217658e47a8a2a0bb6e32eaa24928852d311b8aa129b437db5336b7491ac6ae"
         }
       ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-tail-20261018/runtime-sources.tar.gz",
+      "sha256": "f7709011db297a3173b624c93e53f67fe5169c5f2d8f430eb15c7943cddc184d",
+      "files": [
+        {
+          "name": "textio",
+          "member": "installed-runtime/a-textio.adb",
+          "bytes": 61105,
+          "sha256": "4edbb70efef55003ccac05d7e6f75eb7f16b371e0d216fab5fb706c23480c671"
+        },
+        {
+          "name": "textio_spec",
+          "member": "installed-runtime/a-textio.ads",
+          "bytes": 31447,
+          "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267"
+        },
+        {
+          "name": "unbounded",
+          "member": "installed-runtime/a-strunb.adb",
+          "bytes": 61218,
+          "sha256": "119656b840260d852f6e3ab16f96aadb09960d8580c64014410b19f793877001"
+        },
+        {
+          "name": "unbounded_spec",
+          "member": "installed-runtime/a-strunb.ads",
+          "bytes": 56689,
+          "sha256": "0351b5c5fe0f57547f113bb31bbaec40daf1757c3f298aa673a32ab2ac58a941"
+        },
+        {
+          "name": "atomic_spec",
+          "member": "installed-runtime/s-atocou.ads",
+          "bytes": 5210,
+          "sha256": "f0c46920b00ba15afa0ee53a78527515875306e5af0582b6e6d94f6d5de49a23"
+        }
+      ],
+      "premise": "Complete installed GNAT 16.1 runtime source; external runtime source-behavior premise, no historical binary/source attestation."
     }
   ],
   "local_files": [

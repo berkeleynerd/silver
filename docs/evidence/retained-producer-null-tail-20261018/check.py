@@ -64,6 +64,10 @@ def main():
     has('json', 'Append (Ret, (1 .. 2 * Val => \' \'));')
     has('json', "S : constant String := Item.Data.Flt_Value'Img;")
     has('json_utility', 'Append (Ret, "\\u0000");')
+    has('textio', "Terminate_Line (File.all'Access);")
+    has('textio', 'if File.Col /= 1 then New_Line (File);')
+    has('textio', "File.Col := File.Col + Item'Length;")
+    has('textio_spec', 'Page_Length : Count := 0;')
 
     # Retain all native callers, not merely the four selected semantic calls.
     scan_path = HERE.parent / 'retained-producer-strings-20261018/check.py'
@@ -154,14 +158,15 @@ def main():
         'assumption_hashcons_distinct_records': 1,
         'global_timings': global_timings, 'main_timings': ['gnat2why.vc_generation'],
         'schema': dict(stats),
-        'pretty_bytes': {'constant': constant, 'filename_byte_coefficient': coefficient},
-        'pretty_bytes_at_P_222': constant+coefficient*222,
-        'pretty_bytes_at_P_256': constant+coefficient*256,
+        'pretty_string_bytes': {'constant': constant, 'filename_byte_coefficient': coefficient},
+        'emitted_file_bytes': {'constant': constant+1, 'filename_byte_coefficient': coefficient},
+        'emitted_file_bytes_at_P_222': constant+1+coefficient*222,
+        'emitted_file_bytes_at_P_256': constant+1+coefficient*256,
         'entity_to_subp_complete_call_frontier': sorted(frontier, key=lambda r: (r['file'], r['line'])),
         'scope': 'Source specialization and report shape/byte envelope; not whole flow working-storage, JSON refcounts, downstream orchestration or complete tool feasibility.'
     }
     (HERE / 'result.json').write_text(json.dumps(result, indent=2)+'\n')
-    print(json.dumps({k: result[k] for k in ['assumption_pool_find_calls', 'schema', 'pretty_bytes', 'pretty_bytes_at_P_222']}))
+    print(json.dumps({k: result[k] for k in ['assumption_pool_find_calls', 'schema', 'pretty_string_bytes', 'emitted_file_bytes', 'emitted_file_bytes_at_P_222']}))
 
 
 if __name__ == '__main__':
