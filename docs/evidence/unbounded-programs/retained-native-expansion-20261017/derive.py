@@ -791,6 +791,30 @@ def source_for_loop_skeleton(loop_count, largest_scalar_tree):
                 whole_construct_closed=False)
 
 
+def source_integer_stores(declarations, assignments, constraints,
+                          constrained_name_chars, largest_scalar_tree):
+    assert 0 <= constraints <= declarations and assignments >= 0
+    assert constrained_name_chars >= constraints and largest_scalar_tree >= 1
+    a = largest_scalar_tree + 1
+    h = declarations + assignments
+    c = 2 * declarations + assignments
+    q = 2 * c + 2 * declarations + 3 * constraints + 7 * h
+    nodes = 20 * a * q + 7 * constraints + 51 * h + declarations
+    growth = 2 * constraints + 16 * h
+    entities = constraints + h
+    uint = 6 * a * c + (80 * a + 60) * q + 190 * constraints
+    return dict(Integer_declarations=declarations, Integer_assignments=assignments,
+                explicit_constraints=constraints, A=a, possible_checks=h,
+                scalar_check_calls=c, comparison_queries=q,
+                ordinary_nodes=nodes, growth=growth,
+                syntax_lists=2*constraints+3*h+declarations,
+                entities=entities, names=entities,
+                name_characters=constrained_name_chars+3*constraints+13*h,
+                Uint_appends=uint, digits_per_Uint=(130*a+2+14)//15,
+                dynamic_slots=9*(nodes+growth)+61*entities,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -834,6 +858,16 @@ def combined_native_uniform_vector(c, analysis_graph):
 
 
 result = {
+    "Main_source_Integer_declarations_and_assignments": {
+        "examples_not_thresholds": [source_integer_stores(0, 0, 0, 0, 1),
+                                    source_integer_stores(3, 5, 2, 8, 9)],
+        "generated_range_check": {"ordinary_nodes_excluding_queries": 50,
+                                  "growth": 16, "syntax_lists": 2,
+                                  "entities_and_names": 1, "name_characters": 13,
+                                  "comparison_queries": 7},
+        "premises": "ordinary initialized Integer source objects; static nonempty object ranges; successful legality; same Standard Integer base; strict overflow/O0; selected default validity options; original scalar work and fixed dependencies separate",
+        "excluded": "parser identities; original scalar arithmetic/name visits; source-name qualification; common xref/warning/elaboration metadata; backend and physical workspace",
+    },
     "native_fixed_runtime_first_lookup_residue": {
         "all_RE_Id_values_including_ineligible": len(re_ids),
         "additional_element_list_headers": len(re_ids),

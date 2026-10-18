@@ -1,4 +1,56 @@
 {
+  "Main_source_Integer_declarations_and_assignments": {
+    "examples_not_thresholds": [
+      {
+        "Integer_declarations": 0,
+        "Integer_assignments": 0,
+        "explicit_constraints": 0,
+        "A": 2,
+        "possible_checks": 0,
+        "scalar_check_calls": 0,
+        "comparison_queries": 0,
+        "ordinary_nodes": 0,
+        "growth": 0,
+        "syntax_lists": 0,
+        "entities": 0,
+        "names": 0,
+        "name_characters": 0,
+        "Uint_appends": 0,
+        "digits_per_Uint": 18,
+        "dynamic_slots": 0,
+        "whole_construct_closed": false
+      },
+      {
+        "Integer_declarations": 3,
+        "Integer_assignments": 5,
+        "explicit_constraints": 2,
+        "A": 10,
+        "possible_checks": 8,
+        "scalar_check_calls": 11,
+        "comparison_queries": 90,
+        "ordinary_nodes": 18425,
+        "growth": 132,
+        "syntax_lists": 31,
+        "entities": 10,
+        "names": 10,
+        "name_characters": 118,
+        "Uint_appends": 78440,
+        "digits_per_Uint": 87,
+        "dynamic_slots": 167623,
+        "whole_construct_closed": false
+      }
+    ],
+    "generated_range_check": {
+      "ordinary_nodes_excluding_queries": 50,
+      "growth": 16,
+      "syntax_lists": 2,
+      "entities_and_names": 1,
+      "name_characters": 13,
+      "comparison_queries": 7
+    },
+    "premises": "ordinary initialized Integer source objects; static nonempty object ranges; successful legality; same Standard Integer base; strict overflow/O0; selected default validity options; original scalar work and fixed dependencies separate",
+    "excluded": "parser identities; original scalar arithmetic/name visits; source-name qualification; common xref/warning/elaboration metadata; backend and physical workspace"
+  },
   "native_fixed_runtime_first_lookup_residue": {
     "all_RE_Id_values_including_ineligible": 1336,
     "additional_element_list_headers": 1336,

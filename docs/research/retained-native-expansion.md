@@ -3648,6 +3648,103 @@ raw range copies, original scalar work, body work, qualification, diagnostics,
 xrefs/elaboration records, scope-stack backing and backend lowering must still
 be composed separately.
 
+## Ordinary Integer declarations and assignments
+
+This transfer adds the enclosing Integer declaration/assignment work to the
+original scalar-expression subtotal. Let D_i count Integer declarations, J_i
+Integer assignments, R their explicit static object-range constraints, and
+L_R the sum of the constrained objects' identifier lengths. Take the preceding
+scalar query envelope A, including initializers and range endpoints. The
+generated checks below are scalar only; they cannot contain Image/concat or
+source calls, and do not introduce another raw source evaluation.
+
+An explicit Integer subtype has the mode-independent Find_Type_Of_Object
+constructor: two ordinary nodes, one entity and one insertion list
+(`sem_ch3.adb:19119–19198`). Its name is `T<object>S`, so charge `|object|+3`
+characters including NUL, not the internal serial-name bound. Subsequent
+qualification is separate. Its static range creates no failing range-check
+tree; both endpoints fit Standard Integer, and the declaration range is
+nonempty. Allow three Compile_Time_Compare queries, four explicit endpoint
+fold nodes/two growth events and two Set_Discrete_RM_Size calls per constraint.
+The latter cost at most 190 Uint appends; native first freeze preserves the
+same ordinary signed scalar layout as the shared semantic derivation.
+
+Apply_Scalar_Range_Check runs once in semantic object analysis and again
+through the native object's Apply_Constraint_Check; an assignment has one
+semantic call (`sem_ch3.adb:4851`, `exp_ch3.adb:8439–8459`,
+`sem_ch5.adb:1031`, `checks.adb:1318–1334`). Each adds at most one
+Determine_Range and two Compile_Time_Compare roots, and otherwise only sets
+flags on successful legality (`checks.adb:3155–3503`). O0 excludes the saved
+check optimizer. A constant declaration's optional known-valid subtype
+refinement adds at most two further comparisons (`sem_ch3.adb:4826`).
+
+The native object/assignment expander can then call Generate_Range_Check once
+if the flag survives (`exp_ch3.adb:8456`, `exp_ch5.adb:2523–2524`). This must
+be counted even though Silver proves the assignment safe: that does not imply
+GNAT's local range estimate clears its flag. Both source and target have the
+same Standard Integer base, so only the same-base branch at
+`checks.adb:7717–7730` applies. It forces an arithmetic value once, possibly
+creating one whole-scalar constant capture, then inserts the artificial
+conditional raise `value not in target_subtype`, suppressing recursive checks.
+The captured initializer stays analyzed. A plain scalar name needs no strict
+capture and Duplicate_Subexpr copies only that one current leaf.
+
+The generated check has the following finite continuation:
+
+| Stage | Ordinary-node allowance | Growth allowance |
+| --- | ---: | ---: |
+| Whole-scalar capture | 5 | 1 |
+| Raise, Not_In, value copy and type occurrence | 4 | 0 |
+| First Not_In fold or rewrite to Not(In), plus Not fold | 7 | 3 |
+| Subtype mark rewritten to First..Last range | 6 | 1 |
+| Two static bound-attribute folds and two endpoint folds | 8 | 4 |
+| Two possible In semantic folds | 4 | 2 |
+| In-range simplification and generated comparison's local folds/rewrites | 7 | 3 |
+| Conditional-raise simplification reserve | 2 | 1 |
+
+Fifty ordinary nodes and sixteen growth events dominate these direct rows.
+There are at most two syntax lists: the capture insertion and raise insertion.
+The capture adds one entity/name, with at most thirteen name characters.
+The subtype bounds are static, so their attributes fold without copying source
+bound-expression trees. The scalar membership expander adds two comparison
+queries; range resolution adds one; Generate_Range_Check's initial
+In_Subrange_Of adds two; and the possible generated ordinary comparison adds
+two. Thus seven comparison roots cover the numeric continuation. Each retains
+the existing conservative `20A` ordinary-node/`80A+60` Uint query transfer.
+The artificial membership has Comes_From_Source=False, excluding its Valid
+attribute substitution and additional source-warning query pair
+(`exp_ch4.adb:6681–6744,6776–6795,6923–7019,7066–7082,7794–7816`,
+`sem_res.adb:10221–10459`, `sem_eval.adb:3062–3128`). Its conditions are
+Standard Boolean; local-raise handling returns under the selected switches
+(`exp_ch11.adb:1319–1331,1697–1705`).
+
+Ordinary Integer objects have no initializer call, aggregate, special return,
+tagged/control/task, representation, anonymous access or unaligned-copy case.
+Native assignment's validity-copy option defaults off; its local-variable
+case only updates validity flags (`validsw.ads:49`, `exp_ch5.adb:3351–3454`).
+Source scalar types have no predicates. First-freeze reserve one node/list
+per source object, generated range type and possible capture; ordinary scalar
+layout and object freezing add no other syntax or numeric result beyond the
+size calls already charged. Common references, warnings and elaboration
+records remain outside this local constructor transfer.
+
+With `H=D_i+J_i` possible generated checks and `C=2D_i+J_i` scalar-check calls,
+define `Q=2C+2D_i+3R+7H`. A conservative complete local subtotal is
+
+```text
+ordinary nodes <= 20A*Q + 7R + 51H + D_i
+syntax lists   <= 2R + 3H + D_i
+growing events <= 2R + 16H
+entities/names <= R + H
+name characters <= L_R + 3R + 13H
+Uint appends   <= 6A*C + (80A+60)Q + 190R.
+```
+
+The scalar digit envelope applies. Parser identities, source arithmetic/name
+visits, qualified names, metadata and backend costs are additional.
+`source_integer_stores` regenerates this composition without taking credit
+for a successful local range-check elimination.
+
 ## Fixed input and Main secondary-stack scaffold
 
 The initial input construction and Main's secondary-stack cleanup reduce to
