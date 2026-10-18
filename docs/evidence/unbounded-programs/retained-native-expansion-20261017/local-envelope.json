@@ -1772,40 +1772,158 @@
     "skeleton_excludes": "supplied action creation/analysis, Push/Pop scope internals, Freeze_All, block analysis/expansion and name qualification",
     "whole_wrapper_closed": false
   },
+  "Main_raw_copied_bound_semantics": {
+    "prefix_stability": "New_Copy_Tree preserves Analyzed; owned normalized slice types have no Freeze_Node and retain Is_Frozen; copying does not replay prefix resolution or append conditional-arm actions",
+    "per_raw_copy_scalar_class_counts": {
+      "add_or_subtract": 3,
+      "same_Integer_conversion": 2,
+      "First_or_Last": 2,
+      "Eq": 1,
+      "scalar_conditional": 1
+    },
+    "copies": "4*n+4; direct normalized String duplications need no first analysis",
+    "result_storage_bound_captures": 2,
+    "capture_names": "Constrain_Index explicit N_Range calls Process_Range_Expr_In_Decl without Subtyp: internal serial names, not related FIRST/LAST names",
+    "premises": "source-backed normalized input views; selected native options, no diagnostics or pending bound checks; original direct scalar nodes charged earlier; each original/copy analyzed once; initial boundary forcing after scalar children; A covers all queried roots",
+    "examples_not_thresholds": [
+      {
+        "operands": 2,
+        "analysis_graph": 1,
+        "rows_per_copy": {
+          "three_additions_or_subtractions": {
+            "ordinary": 6,
+            "uint": 24,
+            "growth": 3,
+            "lists": 0
+          },
+          "two_same_Integer_conversions": {
+            "ordinary": 4,
+            "uint": 12,
+            "growth": 2,
+            "lists": 0
+          },
+          "two_First_Last_attributes": {
+            "ordinary": 4,
+            "uint": 0,
+            "growth": 2,
+            "lists": 0
+          },
+          "one_Eq": {
+            "ordinary": 45,
+            "uint": 280,
+            "growth": 2,
+            "lists": 1
+          },
+          "one_scalar_conditional": {
+            "ordinary": 2,
+            "uint": 0,
+            "growth": 1,
+            "lists": 0
+          }
+        },
+        "total_per_copy": {
+          "ordinary": 61,
+          "uint": 316,
+          "growth": 10,
+          "lists": 1
+        },
+        "raw_copies": 12,
+        "total": {
+          "ordinary": 742,
+          "uint": 3792,
+          "growth": 120,
+          "lists": 14,
+          "entities_and_names": 2,
+          "name_characters": 26
+        }
+      },
+      {
+        "operands": 64,
+        "analysis_graph": 127,
+        "rows_per_copy": {
+          "three_additions_or_subtractions": {
+            "ordinary": 6,
+            "uint": 2292,
+            "growth": 3,
+            "lists": 0
+          },
+          "two_same_Integer_conversions": {
+            "ordinary": 4,
+            "uint": 1524,
+            "growth": 2,
+            "lists": 0
+          },
+          "two_First_Last_attributes": {
+            "ordinary": 4,
+            "uint": 0,
+            "growth": 2,
+            "lists": 0
+          },
+          "one_Eq": {
+            "ordinary": 5085,
+            "uint": 20440,
+            "growth": 2,
+            "lists": 1
+          },
+          "one_scalar_conditional": {
+            "ordinary": 2,
+            "uint": 0,
+            "growth": 1,
+            "lists": 0
+          }
+        },
+        "total_per_copy": {
+          "ordinary": 5101,
+          "uint": 24256,
+          "growth": 10,
+          "lists": 1
+        },
+        "raw_copies": 260,
+        "total": {
+          "ordinary": 1326270,
+          "uint": 6306560,
+          "growth": 2600,
+          "lists": 262,
+          "entities_and_names": 2,
+          "name_characters": 26
+        }
+      }
+    ],
+    "excluded": "original Image/input construction, output/input wrapper helpers, final runtime call/result-slice analysis, later object/scope freezing and query-root/magnitude closure"
+  },
   "combined_Main_native_emitter_addends": {
-    "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes",
+    "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures",
     "per_invocation": {
-      "ordinary": "(720*n+220)*A+1097*n+920",
-      "Uint": "(2976*n+940)*A+3033*n+769",
-      "lists": "63*n+74",
-      "growth": "93*n+36",
-      "entities_and_names": "26*n+26",
-      "name_characters": "338*n+345",
+      "ordinary": "(880*n+380)*A+1181*n+1014",
+      "Uint": "(3736*n+1700)*A+3537*n+1273",
+      "lists": "67*n+80",
+      "growth": "133*n+76",
+      "entities_and_names": "26*n+28",
+      "name_characters": "338*n+371",
       "Elist_headers": "10*n+11",
       "Elist_elements": "20*n+20",
       "hash_wrappers": "30*n+30"
     },
     "uniform_Main_bound_in_c": {
-      "ordinary": "(1660*A+3114)*c",
-      "Uint": "(6892*A+6835)*c",
-      "lists": "200*c",
-      "growth": "222*c",
-      "entities_and_names": "78*c",
-      "name_characters": "1021*c",
+      "ordinary": "(2140*A+3376)*c",
+      "Uint": "(9172*A+8347)*c",
+      "lists": "214*c",
+      "growth": "342*c",
+      "entities_and_names": "80*c",
+      "name_characters": "1047*c",
       "Elist_headers": "31*c",
       "Elist_elements": "60*c",
       "hash_wrappers": "90*c",
-      "dynamic_slots": "(14940*A+34782)*c"
+      "dynamic_slots": "(19260*A+38342)*c"
     },
     "source_sensitive_composition": "sum per-invocation vectors at source-derived n_i,A_i; uniform maximum A is optional",
     "residual_addends": [
       "source String folding and Image/input constructors",
-      "first raw/copied scalar bound analysis and captures including conditional arm actions",
-      "attribute-prefix/type-state and actual-subtype bridges",
+      "source actual-subtype lookup bridge for remaining call/slice helpers",
       "remaining runtime concat call and final enabled result-slice analysis",
-      "action/transient placement including output-actual wrapper",
+      "action/transient wrapper helpers beyond closed placement/skeleton",
       "later object/whole-scope freezing and name qualification",
-      "source-derived query roots/magnitudes",
+      "source-derived complete query roots/magnitudes",
       "fixed runtime and backend costs"
     ],
     "examples_not_thresholds": [
@@ -1840,18 +1958,26 @@
             "name_characters": 104,
             "ordinary": 1874,
             "uint": 10240
+          },
+          "raw_bound_semantics": {
+            "ordinary": 742,
+            "uint": 3792,
+            "growth": 120,
+            "lists": 14,
+            "entities_and_names": 2,
+            "name_characters": 26
           }
         },
         "total": {
-          "entities_and_names": 78,
-          "growth": 222,
+          "entities_and_names": 80,
+          "growth": 342,
           "hash_wrappers": 90,
-          "lists": 200,
-          "name_characters": 1021,
-          "ordinary": 4774,
+          "lists": 214,
+          "name_characters": 1047,
+          "ordinary": 5516,
           "pending_elist_elements": 60,
           "pending_elist_headers": 31,
-          "uint": 13727
+          "uint": 17519
         }
       },
       {
@@ -1885,18 +2011,26 @@
             "name_characters": 3328,
             "ordinary": 4898368,
             "uint": 20261888
+          },
+          "raw_bound_semantics": {
+            "ordinary": 1326270,
+            "uint": 6306560,
+            "growth": 2600,
+            "lists": 262,
+            "entities_and_names": 2,
+            "name_characters": 26
           }
         },
         "total": {
-          "entities_and_names": 1690,
-          "growth": 5988,
+          "entities_and_names": 1692,
+          "growth": 8588,
           "hash_wrappers": 1950,
-          "lists": 4106,
-          "name_characters": 21977,
-          "ordinary": 5951228,
+          "lists": 4368,
+          "name_characters": 22003,
+          "ordinary": 7277498,
           "pending_elist_elements": 1300,
           "pending_elist_headers": 651,
-          "uint": 24503189
+          "uint": 30809749
         }
       },
       {
@@ -1919,17 +2053,17 @@
         "source_concat_operators": 63,
         "uniform_analysis_graph": 127,
         "total": {
-          "entities_and_names": 4914,
-          "growth": 13986,
+          "entities_and_names": 5040,
+          "growth": 21546,
           "hash_wrappers": 5670,
-          "lists": 12600,
-          "name_characters": 64323,
-          "ordinary": 13477842,
+          "lists": 13482,
+          "name_characters": 65961,
+          "ordinary": 17334828,
           "pending_elist_elements": 3780,
           "pending_elist_headers": 1953,
-          "uint": 55573497
+          "uint": 73911033
         },
-        "dynamic_slots": 121726206
+        "dynamic_slots": 156514806
       }
     ],
     "whole_construct_closed": false

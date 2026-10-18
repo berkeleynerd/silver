@@ -2823,30 +2823,125 @@ multiplicity. This is a closure of the direct copy addend, not of those
 semantic costs. The script checks these additions for representative `n`
 without running a compiler.
 
+### First raw-bound analysis and capture
+
+The Main normalized-view invariant closes the outstanding first scalar passes
+without replaying the resolved String prefix or manufacturing conditional arm
+actions. This refinement is specific to these native generated bounds; it is
+not a statement that arbitrary copied syntax is already analyzed.
+
+An incoming literal/name/Image/concat value has completed child resolution
+before the enclosing emitter runs. A returned slice's final Resolve calls
+Freeze_Expression after Set_Slice_Subtype (`sem_res.adb:3574–3605`). Its
+generated array/index pair has the no-delayed-freeze properties established
+above: Ensure_Defined only inserts an itype reference, and ordinary freezing
+sets Is_Frozen without constructing a Freeze_Node. New_Copy_Tree's node worker
+uses New_Copy and preserves Analyzed; it never clears that flag
+(`sem_util.adb:24637–24721`). Its owned-itype worker clears Is_Frozen **only if
+a Freeze_Node exists**, which this pair lacks (`25279–25305`). Therefore a
+copy of the normalized String view retains both its completed node analysis
+and its frozen ordinary type state. Analyze and Resolve return before
+revisiting such a prefix (`sem.adb:104–116`, `sem_res.adb:2545–2551`).
+
+The new scalar syntax outside those prefixes consists only of known
+literals/constants, First/Last, exact Integer conversions, `+`/`-`, the
+generated Eq/Ne conditions and scalar if expressions. First/Last analysis
+does not allocate an actual subtype, and frozen prefixes cannot introduce
+freeze actions. The artificial-attribute universal-check guard returns.
+Strict Integer arithmetic records any overflow check for the backend; it does
+not insert an action into a dependent branch. Exact-type conversions likewise
+add no range-check syntax. Thus these first scalar child passes leave the
+conditional's Then_Actions/Else_Actions empty. Integer is a definite copy
+type, so its initializer conditional does not enter the non-copy-type object
+declaration optimization (`exp_ch4.adb:5774–5797`). The earlier no-arm-actions
+scalar conditional transfer consequently applies, including in the two
+enabled plain-storage bounds.
+
+Actual scalar capture happens after those passes, at the range boundary.
+Constrain_Index's explicit N_Range path invokes Process_Range_Expr_In_Decl
+without a Subtyp argument (`sem_ch3.adb:15345–15364`); its Force_Evaluation
+therefore uses an internal serial name, not a derived `_FIRST`/`_LAST` name
+(`22588–22600,22706–22718`). Two result-storage bounds need at most the
+existing two scalar-capture transfers: **ten nodes, two entities/names, two
+lists and 26 name characters**. Capturing an already analyzed root moves its
+initializer and does not analyze its children again. A second force returns
+on the new constant name. The assignment-slice transfers already charge their
+own captures; the final result slice remains separate.
+
+Each of the `4*n+4` remaining raw copy trees has, outside its already analyzed
+String prefixes, at most the following scalar operator occurrences:
+
+| Scalar class in one raw copy | Count | Additional nodes | Uint appends | Growth | Lists |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Add/subtract | 3 | 6 | `18*A+6` | 3 | 0 |
+| Exact Integer conversion | 2 | 4 | `12*A` | 2 | 0 |
+| First/Last | 2 | 4 | 0 | 2 | 0 |
+| Equality | 1 | `40*A+5` | `160*A+120` | 2 | 1 |
+| Scalar if | 1 | 2 | 0 | 1 | 0 |
+| **Total** | | **`40*A+21`** | **`190*A+126`** | **10** | **1** |
+
+The worst raw high has two main arithmetic nodes, the optional last-null-
+literal subtraction, the last-bound conversion and two bound attributes, one
+null-selector Eq and one if. The table allows a second conversion too. The
+lower-bound selector spine itself is captured in its original declaration;
+the direct copy sites copy an operand lower bound or the capture name, never
+that entire spine. Known-value copies and already analyzed copies are smaller.
+Copied owned-range fields belong to the frozen prefix types; they are not
+additional first scalar-analysis roots. The `2*n+2` direct value duplications
+also retain Analyzed and need no new value analysis. Literal/name leaves add
+no further syntax or Uint appends under the existing frozen/known-value
+premises.
+
+The node/Uint transfer charges the enabled arithmetic/conversion allowance,
+even at suppressed sites. Generated Eq/Ne retains its earlier comparison
+transfer with enabled checks too: its children have exact Integer types, no
+pending range check and no root Length shape, so comparison resolution and
+strict native expansion add no check route. The one equality list is paid
+even where no equality survives. The input syntax/copy allocation is already
+charged separately. Each original scalar node has the earlier direct first
+pass; every copied unanalysed scalar occurrence gets this additional pass.
+Later scalar captures and check copies preserve Analyzed. No factor depends
+on a source loop's execution count.
+
+An output transient scope does not invalidate these local scalar transfers:
+none of the scalar nodes is its Node_To_Be_Wrapped (the output call is), and
+the relevant types are frozen. Their only possible new actions are the
+separately charged boundary captures, placed through the preceding pending-
+action transfer. Input/output wrapper helpers and later whole-scope freezing
+remain separate. A still must cover every actual query root, and the numeric
+and no-diagnostic premises are unchanged.
+
+`raw_bound_semantics` in derive.py checks these sums and adds the two storage
+captures. This closes first raw/copied scalar-bound analysis and capture in
+the combined stages below. It does not close Image/input construction, final
+call/result-slice processing or the complete source-derived query-root set.
+
 ## Combined Main direct-emitter vector
 
 The closed addends can now be composed without stitching their rows by hand.
 For one n-operand invocation, add:
 
 1. The direct/scalar/storage vector, with **b=28, l=2** for the normalized
-   result-bound pair. Its first raw-bound analysis/capture is still additional.
+   result-bound pair.
 2. The remaining direct copies and duplicators, including their raw-bound
    decorated-copy allowance.
 3. Up to n suppressed slice assignments, using **t=31, l=2** for each
    normalized assignment range. Include both length-check passes, overlap and
-   optional-guard skeleton. First range/RHS analysis is still additional.
+   optional-guard skeleton.
+4. First passes over each raw copied scalar-bound tree and the two possible
+   result-storage captures. Incoming normalized RHS values retain Analyzed.
 
 These charges deliberately overcount mutually exclusive helper-call and slice
 assignment routes. They give the following single vector of closed stages:
 
 | Demand | Per invocation | Whole Main with c source `&` and uniform A |
 | --- | ---: | ---: |
-| Ordinary nodes | `(720*n+220)*A + 1097*n + 920` | `(1660*A+3114)*c` |
-| Uint appends | `(2976*n+940)*A + 3033*n + 769` | `(6892*A+6835)*c` |
-| Syntax-list headers | `63*n+74` | `200*c` |
-| Growing-slot events | `93*n+36` | `222*c` |
-| Entities/internal names | `26*n+26` | `78*c` |
-| Name characters, including NUL | `338*n+345` | `1021*c` |
+| Ordinary nodes | `(880*n+380)*A + 1181*n + 1014` | `(2140*A+3376)*c` |
+| Uint appends | `(3736*n+1700)*A + 3537*n + 1273` | `(9172*A+8347)*c` |
+| Syntax-list headers | `67*n+80` | `214*c` |
+| Growing-slot events | `133*n+76` | `342*c` |
+| Entities/internal names | `26*n+28` | `80*c` |
+| Name characters, including NUL | `338*n+371` | `1047*c` |
 | Elist headers | `10*n+11` | `31*c` |
 | Elist elements | `20*n+20` | `60*c` |
 | Copy-map hash wrappers | `30*n+30` | `90*c` |
@@ -2857,7 +2952,7 @@ with each group's own **n_i and A_i** from the preceding query-weight
 recurrence; using one maximum A is optional. A_i must cover all the group's
 original and generated query roots, not just the direct emitter's initial
 operands. With the pinned slot maxima, the uniform dynamic-slot addend is
-`9*(ordinary+growth)+61*entities = (14940*A+34782)*c`. Node identities/link
+`9*(ordinary+growth)+61*entities = (19260*A+38342)*c`. Node identities/link
 tables, physical bytes and temporary stack/workspace remain separate
 representations. Uint digit demand also needs its numeric-magnitude bound,
 including the already identified cold power-cache extension.
@@ -2866,19 +2961,17 @@ including the already identified cold power-cache extension.
 Its explicit residual addends are:
 
 - Source String folding and initial Image/input construction.
-- First raw/copied scalar-bound analysis and capture, including conditional
-  arm actions; copied raw scalar syntax is not automatically covered by the
-  initial direct scalar-operator counts.
-- The source-to-attribute-prefix/type-state and actual-subtype bridges.
+- The source actual-subtype lookup bridge for remaining call/slice helpers.
 - Runtime concat procedure-call analysis and the final enabled result-slice
   analysis; the n assignment slices above do not stand for this final slice.
-- Action/transient placement, including the output-actual wrapper identified
-  above, later object/whole-scope freezing and name qualification.
+- Transient wrapper helpers beyond the closed placement/direct skeleton,
+  later object/whole-scope freezing and name qualification.
 - Source-derived query roots/magnitudes, fixed runtime processing and backend
   costs.
 
 The previously stated local helper premises remain binding. Normalized b/t
-are phase summaries, not substitutes for the work that produces them.
+are phase summaries; their raw first-pass/capture costs are now separately
+included rather than silently omitted.
 `derive.py` sums the existing helper functions, asserts both columns and the
 slot arithmetic, and emits the residual list with `whole_construct_closed`
 False. No compiler or expensive validation run is needed for this arithmetic
@@ -2906,8 +2999,9 @@ secondary path additionally invokes `Freeze_Itype` and runtime lookup.
 native side-effect removal can generate an access type, reference and object
 declaration for an unconstrained function result (`12984–13121`). GNATprove
 explicitly uses a different path. This general branch is excluded for the
-resolved Image slice above, but further input/alias shape closure is required
-before excluding it for all generated concat operands.
+normalized Main operands above: the input function is confined to its first
+declaration, and subsequent aliases are ordinary names. The input construction
+itself remains an additional component.
 
 General `New_Copy_Tree` can clone associated itypes and entities in expression
 actions, then copy their semantic fields, array indices, scalar ranges, entity
@@ -2928,16 +3022,18 @@ error path are additional entries.
 
 The following missing addends prevent calling the native construct closed:
 
-- Bound incoming String subtype/operand shapes and values. Earlier semantic
-  `Eval_Concatenation`/`Fold_Str` work needs its own String/Uint/node/entity costs.
-- Complete first raw-bound analysis/captures and incoming premises for the
-  slice subtype transfer. The Main grammar now supplies finite decoration
-  summaries for all direct copies and duplicators; the general mutable macro
-  renaming helper is unreachable for its ordinary String objects.
-- Close `2*n` collected declarations, `n+5` individual insertion calls, one
-  explicit `Freeze_Itype`, up to two runtime-availability and two runtime-entity
-  lookups, final analysis, value/comparison helpers and conditional error path.
-  Dependency sharing requires a cache invariant.
+- Bound incoming values and earlier semantic `Eval_Concatenation`/`Fold_Str`
+  work, with its own String/Uint/node/entity costs. Normalized operand/copy
+  shapes, first raw scalar passes and boundary capture are source-supported
+  above; those component closures do not supply value/magnitude bounds.
+- Close the remaining call/result-slice actual-subtype bridge, later object
+  and scope freezing, and input/output wrapper helpers. The ordinary macro
+  renaming helper remains unreachable for Main's String objects.
+- Close up to two runtime-availability and two runtime-entity lookups, final
+  call/slice analysis, the complete query-root set and conditional error path.
+  Dependency sharing requires a cache invariant. Collected scalar declaration
+  skeletons, direct initial scalar passes and first bound captures are in the
+  combined vector; whole-scope work is not.
 - Bound each remaining generated semantic-helper invocation. The direct native
   Main emitter multiplicity is now source-bounded; runtime library processing
   and additional generated-helper work remain separate.

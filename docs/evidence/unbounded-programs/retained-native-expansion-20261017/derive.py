@@ -522,8 +522,35 @@ def native_string_bound_examples():
                 repeated_concat_aliases=repeated)
 
 
+def raw_bound_semantics(n, analysis_graph):
+    """First scalar passes outside copied, already resolved String prefixes."""
+    assert n >= 2 and analysis_graph >= 1
+    a = analysis_graph
+    rows = {
+        "three_additions_or_subtractions": dict(ordinary=6, uint=18*a+6,
+                                                 growth=3, lists=0),
+        "two_same_Integer_conversions": dict(ordinary=4, uint=12*a,
+                                              growth=2, lists=0),
+        "two_First_Last_attributes": dict(ordinary=4, uint=0, growth=2, lists=0),
+        "one_Eq": dict(ordinary=40*a+5, uint=160*a+120, growth=2, lists=1),
+        "one_scalar_conditional": dict(ordinary=2, uint=0, growth=1, lists=0),
+    }
+    per_copy = {key: sum(row[key] for row in rows.values())
+                for key in ("ordinary", "uint", "growth", "lists")}
+    assert per_copy == dict(ordinary=40*a+21, uint=190*a+126,
+                            growth=10, lists=1)
+    total = {key: (4*n+4)*value for key, value in per_copy.items()}
+    # Two first result-storage bound captures; slice captures already belong
+    # to the separately charged slice-resolution transfer.
+    total["ordinary"] += 10
+    total["lists"] += 2
+    total.update(entities_and_names=2, name_characters=26)
+    return dict(operands=n, analysis_graph=a, rows_per_copy=rows,
+                total_per_copy=per_copy, raw_copies=4*n+4, total=total)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
-    """Closed addends only; first raw normalization and final helpers excluded."""
+    """Closed addends through raw-bound normalization; final helpers excluded."""
     a = analysis_graph
     first = direct_scalar_and_storage_concat(n, 28, 2, a)["total"].copy()
     first["pending_elist_headers"] = first.pop("elists")
@@ -531,13 +558,14 @@ def combined_native_emitter_vector(n, analysis_graph):
     assignments = {key: n*value for key, value in
                    suppressed_slice_resolution(31, 2, a)["with_assignment_check_suffix"].items()}
     rows = dict(direct_scalar_storage=first, remaining_copies=copies,
-                up_to_n_suppressed_slice_assignments=assignments)
+                up_to_n_suppressed_slice_assignments=assignments,
+                raw_bound_semantics=raw_bound_semantics(n, a)["total"])
     keys = sorted(set().union(*(row.keys() for row in rows.values())))
     total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
-    assert total == dict(ordinary=(720*n+220)*a+1097*n+920,
-                        uint=(2976*n+940)*a+3033*n+769,
-                        lists=63*n+74, growth=93*n+36,
-                        entities_and_names=26*n+26, name_characters=338*n+345,
+    assert total == dict(ordinary=(880*n+380)*a+1181*n+1014,
+                        uint=(3736*n+1700)*a+3537*n+1273,
+                        lists=67*n+80, growth=133*n+76,
+                        entities_and_names=26*n+28, name_characters=338*n+371,
                         pending_elist_headers=10*n+11,
                         pending_elist_elements=20*n+20, hash_wrappers=30*n+30)
     return dict(operands=n, analysis_graph=a, rows=rows, total=total)
@@ -549,9 +577,9 @@ def combined_native_uniform_vector(c, analysis_graph):
     # For nonnegative p*n+q, sum(n)<=2*c and g<=c give (2*p+q)*c.
     total = {key: c*value for key, value in one.items()}
     a = analysis_graph
-    assert total == dict(ordinary=(1660*a+3114)*c, uint=(6892*a+6835)*c,
-                        lists=200*c, growth=222*c, entities_and_names=78*c,
-                        name_characters=1021*c, pending_elist_headers=31*c,
+    assert total == dict(ordinary=(2140*a+3376)*c, uint=(9172*a+8347)*c,
+                        lists=214*c, growth=342*c, entities_and_names=80*c,
+                        name_characters=1047*c, pending_elist_headers=31*c,
                         pending_elist_elements=60*c, hash_wrappers=90*c)
     return dict(source_concat_operators=c, uniform_analysis_graph=a, total=total,
                 dynamic_slots=9*(total["ordinary"]+total["growth"])
@@ -1037,25 +1065,38 @@ result = {
         "skeleton_excludes": "supplied action creation/analysis, Push/Pop scope internals, Freeze_All, block analysis/expansion and name qualification",
         "whole_wrapper_closed": False,
     },
+    "Main_raw_copied_bound_semantics": {
+        "prefix_stability": "New_Copy_Tree preserves Analyzed; owned normalized slice types have no Freeze_Node and retain Is_Frozen; copying does not replay prefix resolution or append conditional-arm actions",
+        "per_raw_copy_scalar_class_counts": {"add_or_subtract": 3,
+            "same_Integer_conversion": 2, "First_or_Last": 2,
+            "Eq": 1, "scalar_conditional": 1},
+        "copies": "4*n+4; direct normalized String duplications need no first analysis",
+        "result_storage_bound_captures": 2,
+        "capture_names": "Constrain_Index explicit N_Range calls Process_Range_Expr_In_Decl without Subtyp: internal serial names, not related FIRST/LAST names",
+        "premises": "source-backed normalized input views; selected native options, no diagnostics or pending bound checks; original direct scalar nodes charged earlier; each original/copy analyzed once; initial boundary forcing after scalar children; A covers all queried roots",
+        "examples_not_thresholds": [raw_bound_semantics(2, 1),
+                                    raw_bound_semantics(64, 127)],
+        "excluded": "original Image/input construction, output/input wrapper helpers, final runtime call/result-slice analysis, later object/scope freezing and query-root/magnitude closure",
+    },
     "combined_Main_native_emitter_addends": {
-        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes",
+        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures",
         "per_invocation": {
-            "ordinary": "(720*n+220)*A+1097*n+920",
-            "Uint": "(2976*n+940)*A+3033*n+769",
-            "lists": "63*n+74", "growth": "93*n+36",
-            "entities_and_names": "26*n+26", "name_characters": "338*n+345",
+            "ordinary": "(880*n+380)*A+1181*n+1014",
+            "Uint": "(3736*n+1700)*A+3537*n+1273",
+            "lists": "67*n+80", "growth": "133*n+76",
+            "entities_and_names": "26*n+28", "name_characters": "338*n+371",
             "Elist_headers": "10*n+11", "Elist_elements": "20*n+20",
             "hash_wrappers": "30*n+30",
         },
         "uniform_Main_bound_in_c": {
-            "ordinary": "(1660*A+3114)*c", "Uint": "(6892*A+6835)*c",
-            "lists": "200*c", "growth": "222*c", "entities_and_names": "78*c",
-            "name_characters": "1021*c", "Elist_headers": "31*c",
+            "ordinary": "(2140*A+3376)*c", "Uint": "(9172*A+8347)*c",
+            "lists": "214*c", "growth": "342*c", "entities_and_names": "80*c",
+            "name_characters": "1047*c", "Elist_headers": "31*c",
             "Elist_elements": "60*c", "hash_wrappers": "90*c",
-            "dynamic_slots": "(14940*A+34782)*c",
+            "dynamic_slots": "(19260*A+38342)*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at source-derived n_i,A_i; uniform maximum A is optional",
-        "residual_addends": ["source String folding and Image/input constructors", "first raw/copied scalar bound analysis and captures including conditional arm actions", "attribute-prefix/type-state and actual-subtype bridges", "remaining runtime concat call and final enabled result-slice analysis", "action/transient placement including output-actual wrapper", "later object/whole-scope freezing and name qualification", "source-derived query roots/magnitudes", "fixed runtime and backend costs"],
+        "residual_addends": ["source String folding and Image/input constructors", "source actual-subtype lookup bridge for remaining call/slice helpers", "remaining runtime concat call and final enabled result-slice analysis", "action/transient wrapper helpers beyond closed placement/skeleton", "later object/whole-scope freezing and name qualification", "source-derived complete query roots/magnitudes", "fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),
