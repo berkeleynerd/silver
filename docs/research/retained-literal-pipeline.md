@@ -1662,8 +1662,9 @@ Main, at most two external callees, the forced dummy, at most C registered bound
 variables and exactly two cold helpers. The new source argument closes the
 empty elaboration's registration at zero and excludes hidden registration in
 the selected target/declaration/name hooks. The accepted generated-body and
-cold interfaces establish that no other body is analyzed, and that both helpers
-are removed before ordinary lowering/IPA. Their registration does not call
+cold interfaces establish that no other body is analyzed. Both helpers remain
+live during Main's initial lowering, never undergo ordinary lowering themselves,
+and are removed before ordinary IPA. Their registration does not call
 insertion hooks; their removals use noninserting/exists-guarded summary lookups,
 as detailed in the graph section above. They create neither call edges nor
 summary IDs. Consequently the four Main graph generations still bound all
