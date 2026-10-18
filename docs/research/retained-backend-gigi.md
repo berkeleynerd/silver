@@ -1956,12 +1956,15 @@ warnings, local summaries and mandatory lowering (`passes.def:54–122,195–208
   not the entire pass (`ipa-fnsummary.cc:2856–2920,3386–3540`). Summary storage
   belongs to the whole-unit account. SSA-name release only compacts the
   existing vector (`tree-ssanames.cc:983–1013`).
-- Alignment has no local declarations to visit. EH dispatch has no dispatch
-  or RESX statements, and RESX lowering likewise finds none. However
-  `assign_filter_values` unconditionally requests a 16-entry type vector,
-  a 64-entry exception-specification vector and two hashes of requested size
-  31, even with no regions (`except.cc:852–866`). The later EH cleanup gate
-  requires a region tree (`tree-eh.cc:5015–5018`).
+- Alignment has no local declarations to visit. EH dispatch's gate requires
+  a nonnull region tree (`tree-eh.cc:4074–4076`), absent for this null graph.
+  Its execute method therefore does not call `assign_filter_values`
+  (`:4083–4090`); that helper's vector/hash requests (`except.cc:852–866`)
+  contribute zero here. RESX lowering finds no RESX statement. The later
+  EH cleanup gate also requires a region tree (`tree-eh.cc:5015–5018`).
+  This corrects the earlier conservative overcharge identified by the native
+  allocation review: those EH helper allocations were not reached. No joined
+  numerical GGC subtotal had included them.
 - Varargs lowering finds no IFN_VA_ARG; vector lowering finds no assignment or
   vector-conversion call; complex lowering's initial scan returns with no
   complex operation; bitint lowering finds no bitint name or statement and
