@@ -6,6 +6,7 @@ Passing their arithmetic is not a whole-pipeline capacity verdict.
 """
 import argparse
 import contextlib
+from datetime import datetime, timezone
 import hashlib
 import io
 import json
@@ -14,6 +15,7 @@ import re
 import runpy
 import sys
 import tempfile
+import time
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
@@ -101,6 +103,17 @@ class Context:
                     'changed native warning-map input: '+row['path'])
         self.warning = runpy.run_path(str(warning_packet/'derive.py'))
         self.source_files_verified = len(checked)
+        frontend_packet=EVIDENCE/'retained-literal-native-frontend-20261018'
+        self.frontend = runpy.run_path(str(frontend_packet/'compose.py'))
+        self.frontend_model = self.frontend['load_model'](roots['ada'])
+        frontend_identity=read(frontend_packet/'inputs.json')
+        # Report nested validation separately: these sets overlap the direct
+        # source checks above and are not additive unique-file populations.
+        self.frontend_verification = dict(
+            repository_inputs=len(frontend_identity['repository_inputs']),
+            native_selected_files=len(self.frontend_model['hashes']),
+            complete_Ada_macro_inventory_files=self.frontend_model['macro_flag_searched_files'],
+            counts_overlap_direct_source_validation=True)
         # These are retained evidence inputs, not a newly observed prefix.
         self.prefix = read(NATIVE/'native-gcc-prefix-witness.json')
         self.pool_seed = self.prefix['counters']['ggc_bytes']['positive_events']
@@ -704,6 +717,39 @@ def native_unshare_protected_set_storage(ingress):
         complete_gimplifier_lifetime_closed=False)
 
 
+def native_main_frontend_attachment(raw, counts, why_counts, context):
+    """Attach Main logical/source-visit counts without promoting their scope."""
+    frontend=context.frontend['compose'](raw,context.frontend_model)
+    projection=context.frontend['source_projection'](raw,context.frontend_model)
+    main_counts=projection['Main_counts']
+    constructor=context.frontend_model['main_native_construct_vector'](**main_counts)
+    gigi=context.frontend_model['native_to_gigi_source_interface'](
+        dict(Main_constructor=constructor,
+             fixed=dict(node_identities=None,entity_identities=None)),main_counts)
+    status=frontend['attachment_status']
+    require(set(frontend)=={'scope','selected_source','Main_counts','scanner_pools','lexemes',
+                'Main_constructor','gigi_source_interface','local_representation_premises',
+                'attachment_status','native_tool_executions'} and
+            frontend['selected_source']==counts and
+            all(frontend[key]==projection[key] for key in ('Main_counts','scanner_pools','lexemes')) and
+            main_counts['word_tokens']==why_counts['W'] and
+            main_counts['source_literals']==counts['output_calls'] and
+            frontend['Main_constructor']==constructor and
+            frontend['gigi_source_interface']==gigi and
+            status['Main_constructor_inputs_attached'] is True and
+            status['Main_gigi_source_visit_input_attached'] is True and
+            status['complete_native_frontend'] is False and
+            status['complete_gigi_allocation'] is False and
+            status['complete_native_capacity'] is False and
+            status['production_admission_changed'] is False and
+            frontend['local_representation_premises'][
+                'each_literal_length_fits_native_String_Length_and_Integer']==
+                    (counts['maximum_literal_length']<=I32) and
+            frontend['native_tool_executions']==0,
+            'literal native Main frontend interface join')
+    return frontend
+
+
 def evaluate(descriptor_path, context, source_override=None):
     descriptor_path = Path(descriptor_path).resolve()
     descriptor = read(descriptor_path)
@@ -715,6 +761,7 @@ def evaluate(descriptor_path, context, source_override=None):
     source_path = Path(source_override).resolve() if source_override else resolve(descriptor['source'])
     raw = source_path.read_bytes()
     counts, why_counts = shared_counts(raw,context)
+    frontend=native_main_frontend_attachment(raw,counts,why_counts,context)
     shared = descriptor['shared_inputs']
     expected_roles = {'configuration','System','silver_io.ads','silver_io.adb','silver_output_libc.ads'}
     require(set(shared) == expected_roles, 'shared input roles')
@@ -863,6 +910,8 @@ def evaluate(descriptor_path, context, source_override=None):
         Main_line_table=32*line_capacity <= I32,
         Main_expanded_columns=physical['max_expanded_final_column'] <= 32766,
         native_Main_logical_lines=physical['physical_line_entries_bound'] <= 2**24,
+        native_Main_frontend_literal_length=frontend['local_representation_premises'][
+            'each_literal_length_fits_native_String_Length_and_Integer'],
         native_lowering_and_data=all(native['local_representation_checks'].values()),
         native_RTL_shape=all(rtl['local_representation_checks'].values()),
         native_selected_helper_backing=all(backing['local_representation_checks'].values()),
@@ -890,6 +939,9 @@ def evaluate(descriptor_path, context, source_override=None):
         'native_remaining_lifetime_and_collector': {
             'next_consumer':'original frontend/gigi constructors and remaining gimplifier helper lifetimes, then remaining pass, shared-pool and GGC collector composition.',
             'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
+                             Main_frontend_node_identities_upper=frontend['Main_constructor']['total']['node_identities'],
+                             Main_frontend_entity_identities_upper=frontend['Main_constructor']['total']['entity_identities'],
+                             Main_gigi_source_syntax_visits_upper=frontend['gigi_source_interface']['Main_source_syntax_visit_bound'],
                              new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
                              new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
                              ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed'],
@@ -901,7 +953,7 @@ def evaluate(descriptor_path, context, source_override=None):
                              selected_gimplifier_warning_put_calls_upper=warning['selected_initial_gimplifier_warning_put_call_ceiling'],
                              local_original_gigi_warning_suppressions_upper=warning['local_gigi_suppression_call_ceiling'],
                              remaining_original_gigi_warning_put_calls=None),
-            'missing':'Original frontend/gigi construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
+            'missing':'Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Concrete Main constructor and source-syntax visits are attached separately; they are not helper/GGC events or warning R. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -935,6 +987,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_gimplifier_ingress=ingress,
         native_unshare_protected_set_storage=protected_storage,
         native_warning_map_demand=warning,
+        native_Main_frontend_interface=frontend,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,
@@ -946,6 +999,7 @@ def evaluate(descriptor_path, context, source_override=None):
         open_joins=opens,whole_literal_pipeline_capacity_established=False,
         next_repair='native_remaining_lifetime_and_collector',
         fixed_input_count=context.inputs_verified,external_source_files_verified=context.source_files_verified,
+        native_Main_frontend_nested_validation=context.frontend_verification,
         native_tool_executions=0,production_admission_changed=False,aggregate_RAM_gate=False,
         conditional_premises=['Relevant installed behavior matches the reviewed source.',
             'The selected O0, Linux x86-64, no-debug, small-PIC, ordinary PLT descriptor and unchanged Silver library semantics apply.',
@@ -962,6 +1016,8 @@ def arguments(parser):
 
 
 def main():
+    started=datetime.now(timezone.utc).isoformat()
+    timer=time.perf_counter()
     parser=argparse.ArgumentParser(description=__doc__)
     arguments(parser)
     parser.add_argument('--descriptor',type=Path,default=HERE/'fixture.json')
@@ -969,6 +1025,9 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
     result=evaluate(args.descriptor,Context(args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match),args.source)
+    result['offline_run']=dict(started_utc=started,
+        completed_utc=datetime.now(timezone.utc).isoformat(),
+        elapsed_seconds=time.perf_counter()-timer)
     args.output.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({key:result[key] for key in ('evaluated_predicates_pass',
         'whole_literal_pipeline_capacity_established','next_repair','native_tool_executions')}))

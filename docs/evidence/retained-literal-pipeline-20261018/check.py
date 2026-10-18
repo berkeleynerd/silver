@@ -2,15 +2,19 @@
 """Check shared source counters, descriptor binding and the honest open verdict."""
 import argparse
 import copy
+from datetime import datetime, timezone
 import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import time
 
 HERE = Path(__file__).resolve().parent
 
 
 def main():
+    started=datetime.now(timezone.utc).isoformat()
+    timer=time.perf_counter()
     spec=importlib.util.spec_from_file_location('literal_pipeline',HERE/'compose.py')
     module=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -57,6 +61,16 @@ def main():
             assert result['Why_source_counts']['H_chars']==characters
             assert result['Why_core']['V']==2*c
             assert result['RTL_shape']['first_unused_pseudo_number_upper']==99+5*c
+            frontend=result['native_Main_frontend_interface']
+            assert frontend['selected_source']==counts
+            assert frontend['Main_counts']['word_tokens']==result['Why_source_counts']['W']
+            assert frontend['Main_constructor']['total']['node_identities']==41+19*c+4*n
+            assert frontend['gigi_source_interface']['Main_source_syntax_visit_bound']==73+81*c+4*n
+            assert frontend['gigi_source_interface']['separate_fixed_frontend_allowance']==dict(
+                node_identities=None,entity_identities=None)
+            assert not frontend['attachment_status']['complete_native_frontend']
+            assert not frontend['attachment_status']['complete_gigi_allocation']
+            assert not frontend['attachment_status']['complete_native_capacity']
             pools=result['native_pool_lifetime']
             assert pools['source_input'] == dict(
                 bounds_finalize_calls_upper=c,pool_entries_upper=2*c,insertion_capable_pool_lookups_upper=3*c)
@@ -279,6 +293,40 @@ def main():
         finally:
             context.warning['evaluate']=warning_evaluate
 
+        frontend_compose=context.frontend['compose']
+        mutations=[
+            ('fixed_node_zero',('gigi_source_interface','separate_fixed_frontend_allowance','node_identities'),0),
+            ('fixed_entity_zero',('gigi_source_interface','separate_fixed_frontend_allowance','entity_identities'),0),
+            ('constructor_ordinary_subtotal',('Main_constructor','total','node_identities'),
+                lambda r:r['gigi_source_interface']['Main_ordinary_allocation_allowance']),
+            ('source_visit_ordinary_subtotal',('gigi_source_interface','Main_source_syntax_visit_bound'),
+                lambda r:r['gigi_source_interface']['Main_ordinary_allocation_allowance']),
+            ('constructor_completeness',('Main_constructor','whole_native_frontend_closed'),True),
+            ('gigi_completeness',('gigi_source_interface','complete_backend_capacity_result'),True),
+            ('frontend_completeness',('attachment_status','complete_native_frontend'),True),
+            ('allocation_completeness',('attachment_status','complete_gigi_allocation'),True),
+            ('capacity_completeness',('attachment_status','complete_native_capacity'),True),
+            ('source_count_mismatch',('selected_source','output_calls'),
+                lambda r:r['selected_source']['output_calls']+1)]
+        for name,path,value in mutations:
+            def mismatched_frontend(*args,**kwargs):
+                result=frontend_compose(*args,**kwargs)
+                changed=result
+                for key in path[:-1]:
+                    changed=changed[key]
+                changed[path[-1]]=value(result) if callable(value) else value
+                return result
+            context.frontend['compose']=mismatched_frontend
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal native Main frontend interface join'
+                rows.append(dict(case='native_Main_frontend_'+name,rejected=str(error)))
+            else:
+                raise AssertionError('native Main frontend accepted '+name)
+            finally:
+                context.frontend['compose']=frontend_compose
+
         for calls,expected in ((1073741822,True),(1073741823,False),
                                (2147483646,False)):
             ingress=context.ingress['evaluate'](calls,0)
@@ -457,7 +505,10 @@ def main():
             assert cfg['ordinary_requests']['shared_altered_bitmap_fresh_elements_upper']==elements
             rows.append(dict(case='initial_CFG_bitmap_extent_'+str(n),nulls=n,elements=elements))
     result=dict(case_count=len(rows),cases=rows,all_checks_pass=True,
-                native_tool_executions=0,whole_literal_pipeline_capacity_established=False)
+                native_tool_executions=0,whole_literal_pipeline_capacity_established=False,
+                offline_run=dict(started_utc=started,
+                    completed_utc=datetime.now(timezone.utc).isoformat(),
+                    elapsed_seconds=time.perf_counter()-timer))
     args.output.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(dict(cases=len(rows),all_checks_pass=True,native_tool_executions=0)))
 

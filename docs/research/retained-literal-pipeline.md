@@ -90,6 +90,57 @@ observed object. `Main_assembler_and_object` retains the complete production
 invocation/materialization join. Binder/fixed-object/final-link consumers
 remain in their separate aggregate interfaces.
 
+## Native Main frontend source interface
+
+The [literal native frontend leaf](retained-literal-native-frontend.md), frozen
+at `de30957c9e242dd783cda187c71122a2b757f0a1` and independently accepted in
+review `fc61c13a01`, now supplies `native_Main_frontend_interface`. The context
+loads its source-checked model once. Each evaluation passes the same actual
+source bytes used by the existing aggregate, requires exact selected-source
+counts, checks the word count against Why's W counter, and checks the complete
+Main constructor and named gigi visit outputs against their unchanged
+predecessor functions.
+
+Writing `W_words=11+2C+N`, the leaf supplies scanner nodes `2(W_words+C)`,
+parser ordinary allowance `2(W_words+C)+2C+N+8`, one parser entity,
+`9(parser_ordinary+C)+61` parser slots, and `4+C` parser lists. Actual word
+spellings supply Name characters; scanner String descriptors/characters are
+`2C` and twice the decoded payload. The Main constructor totals are
+`41+19C+4N` node identities, `1+2C` entity identities,
+`430+329C+36N` dynamic slots and `15+8C+N` syntax lists. The named
+`Main_source_syntax_visit_bound` is `73+81C+4N`. For the actual hello source,
+these are 60 nodes, three entities, 759 slots, 23 lists and 154 syntax visits.
+The leaf's source argument supplies the mapping; offline cases exercise it.
+
+These are **Main-only** logical and source-visit quantities. They exclude no
+imported helper bodies and do not price imported Standard.String conversion,
+its type graph or possible layout helpers. Accepted fixed frontend constants
+remain available but unattached: both fields in
+`separate_fixed_frontend_allowance` are null, never zero. Actual configuration
+and indexed invocation, physical source/table storage, late frontend heaps,
+annotation roots and per-kind/helper gigi allocations retain their separate
+joins. The literal-length premise contributes its local condition; complete
+frontend, gigi allocation and native capacity remain false.
+
+No source-visit count is substituted for helper allocations, original-gigi
+warning insertion demand R, or global collector events. The warning residual
+and conditional map transfer remain null. The aggregate rejects changed source
+counts, either fixed field becoming zero, constructor or visit subtotals,
+and promotion of frontend/gigi/constructor completeness flags.
+
+Seven new aggregate repository pins raise `fixed_input_count` from 97 to 104.
+Direct external-source validation remains 288 files. Nested leaf validation
+is reported separately as 21 repository inputs, 151 selected Ada files and the
+predecessor's 2,319-file Ada macro inventory. These sets overlap the direct
+checks and are not added into a purported unique-source count. Successful leaf
+checks are reused without rerunning them. The attachment passes 83 aggregate
+offline cases, including ten new interface rejection cases; the default
+composition passes while every complete-capacity flag remains false. Selected
+model/effort for this established attachment was GPT-6.1 Sol / Extra High;
+runtime confirmation and token/cost measurements are unavailable. Timed JSON
+outputs retain each run's start/end and elapsed time. No native tool or full
+proof run occurred. The attachment itself awaits independent review.
+
 ## Bounds-pool and symbol lifetime join
 
 The callable's `native_pool_lifetime(C, context)` now closes the named

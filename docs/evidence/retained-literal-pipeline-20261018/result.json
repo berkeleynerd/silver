@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-literal-native-frontend-attachment/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -89,6 +89,7 @@
     "Main_line_table": true,
     "Main_expanded_columns": true,
     "native_Main_logical_lines": true,
+    "native_Main_frontend_literal_length": true,
     "native_lowering_and_data": true,
     "native_RTL_shape": true,
     "native_selected_helper_backing": true,
@@ -1493,6 +1494,291 @@
     "complete_gimplifier_lifetime_closed": false,
     "complete_collector_lifetime_closed": false,
     "conditional_map_transfer": null
+  },
+  "native_Main_frontend_interface": {
+    "scope": "actual selected literal source: Main constructor and gigi source-visit input",
+    "selected_source": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "Main_counts": {
+      "parser_nodes": 38,
+      "parser_slots": 412,
+      "parser_lists": 5,
+      "parser_entities": 1,
+      "source_ops": 0,
+      "loop_ops": 0,
+      "scalar_names": 0,
+      "loop_names": 0,
+      "raw_loop_nodes": 0,
+      "largest_scalar_tree": 1,
+      "loops": 0,
+      "Integer_declarations": 0,
+      "Integer_assignments": 0,
+      "Integer_constraints": 0,
+      "constrained_name_chars": 0,
+      "String_declarations": 0,
+      "String_assignments": 0,
+      "String_name_chars": 0,
+      "nonconcat_literals": 1,
+      "dynamic_assignment_literals": 0,
+      "comparisons": 0,
+      "short_circuits": 0,
+      "negations": 0,
+      "ifs": 0,
+      "elsifs": 0,
+      "images": 0,
+      "output_calls": 1,
+      "source_calls": 1,
+      "word_tokens": 13,
+      "source_literals": 1,
+      "parser_flattenings": 0,
+      "concat_lengths": [],
+      "String_bound_descriptors": [
+        {
+          "low_D": 1,
+          "high_D": 1
+        }
+      ],
+      "incoming_scope_depth": 1
+    },
+    "scanner_pools": {
+      "Name_entries": 13,
+      "Name_characters": 88,
+      "Uint_entries": 0,
+      "Uint_digits": 0,
+      "String_descriptors": 2,
+      "String_characters": 26
+    },
+    "lexemes": {
+      "word_tokens": 13,
+      "word_characters": 75,
+      "maximum_word_characters": 10,
+      "literal_tokens": 1,
+      "qualified_name_dots": 1,
+      "scanner_node_allowance": 28,
+      "parser_ordinary_node_allowance": 38
+    },
+    "Main_constructor": {
+      "rows": {
+        "original_scalar": {
+          "ordinary": 0,
+          "lists": 0,
+          "growth": 0,
+          "entities_and_names": 0,
+          "uint": 0
+        },
+        "for_skeleton": {
+          "ordinary": 0,
+          "lists": 0,
+          "growth": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0
+        },
+        "Integer_stores": {
+          "ordinary": 0,
+          "lists": 0,
+          "growth": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0
+        },
+        "String_stores": {
+          "ordinary": 0,
+          "growth": 0,
+          "lists": 0,
+          "entities_and_names": 0,
+          "uint": 0,
+          "name_characters": 0,
+          "dynamic_slots": 0
+        },
+        "standalone_String_literals": {
+          "ordinary": 0,
+          "growth": 0,
+          "lists": 0,
+          "entities_and_names": 1,
+          "name_characters": 13,
+          "uint": 6,
+          "dynamic_slots": 61
+        },
+        "predicates_and_control": {
+          "ordinary": 0,
+          "lists": 0,
+          "growth": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0
+        },
+        "Image": {
+          "elists": 0,
+          "entities_and_names": 0,
+          "growth": 0,
+          "lists": 0,
+          "name_characters": 0,
+          "ordinary": 0,
+          "positive_xref_increments": 0,
+          "uint": 0
+        },
+        "output_wrappers": {
+          "ordinary": 5,
+          "growth": 1,
+          "entities_and_names": 1,
+          "name_entries": 3,
+          "name_characters": 57,
+          "lists": 2,
+          "uint": 1,
+          "retained_digit_words": 1,
+          "Name_Qualify_Units_appends": 1,
+          "dynamic_slots": 115
+        },
+        "source_calls_and_leaves": {
+          "ordinary": 15,
+          "lists": 16,
+          "growth": 4,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0
+        },
+        "concat_emission": {
+          "entities_and_names": 0,
+          "growth": 0,
+          "hash_wrappers": 0,
+          "lists": 0,
+          "name_characters": 0,
+          "ordinary": 0,
+          "pending_elist_elements": 0,
+          "pending_elist_headers": 0,
+          "positive_xref_increments": 0,
+          "uint": 0
+        },
+        "concat_folding_literals": {
+          "ordinary": 0,
+          "growth": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0,
+          "string_descriptors": 0,
+          "string_characters": 0,
+          "lists": 0
+        }
+      },
+      "total": {
+        "ordinary": 20,
+        "growth": 5,
+        "lists": 18,
+        "entities_and_names": 2,
+        "name_characters": 70,
+        "uint": 7,
+        "string_descriptors": 0,
+        "string_characters": 0,
+        "pending_elist_headers": 0,
+        "pending_elist_elements": 0,
+        "hash_wrappers": 0,
+        "positive_xref_increments": 0,
+        "Name_Qualify_Units_appends": 1,
+        "generated_name_entries": 4,
+        "node_identities": 60,
+        "entity_identities": 3,
+        "dynamic_slots": 759,
+        "syntax_list_headers": 23,
+        "retained_digit_words": 61
+      },
+      "source_query_envelope": {
+        "source_bound_H": 2,
+        "effective_bound_H": 4,
+        "root_envelopes": {
+          "source_scalar": 2,
+          "String_index_bounds": 4,
+          "String_Length": 9,
+          "converted_String_Length": 10,
+          "optimized_String_Length": 19,
+          "String_same_value": 17,
+          "Image_local": 17
+        },
+        "A": 19,
+        "descriptors_are_source_input": true,
+        "whole_native_frontend_closed": false
+      },
+      "Uint_digit_rows": {
+        "original_scalar": 0,
+        "for_skeleton": 0,
+        "Integer_stores": 0,
+        "String_stores": 0,
+        "standalone_String_literals": 60,
+        "concat_emission": 0,
+        "predicates_and_control": 0,
+        "Image": 0,
+        "output_wrappers": 1,
+        "concat_folding_literals": 0,
+        "source_calls_and_leaves": 0
+      },
+      "Uint_digit_families": {
+        "scalar_A": 2,
+        "scalar": 18,
+        "additive_String": 10,
+        "additive_String_magnitude": 53084049239666400300286438759355840987136,
+        "scope": 1,
+        "Image": 10,
+        "folded_literal": 3
+      },
+      "earlier_uniform_digit_words": 1155,
+      "common_Uint_digit_bound": 18,
+      "scope": "Main source/generated constructor core, before fixed and common-process residuals",
+      "whole_native_frontend_closed": false
+    },
+    "gigi_source_interface": {
+      "Main_ordinary_allocation_allowance": 58,
+      "Main_entity_identities": 3,
+      "Main_Integer_store_events": 0,
+      "Main_type_bound_source_visits": 96,
+      "Main_extra_diagnostic_scalar_visits": 0,
+      "Main_source_syntax_visit_bound": 154,
+      "Main_constant_or_renaming_external_replays": 0,
+      "separate_fixed_frontend_allowance": {
+        "node_identities": null,
+        "entity_identities": null
+      },
+      "separate_fixed_Main_scaffold": {
+        "compilation_units": 1,
+        "zero_formal_procedure_bodies": 2,
+        "bare_procedure_returns_upper_bound": 2
+      },
+      "missing_backend_inputs": [
+        "fixed-input gigi conversion and imported type graph",
+        "per-kind GENERIC construction, helper/folder transfer and occurrence weights",
+        "source-to-annotation-root Q and incoming annotation serial",
+        "gimplification, GCC passes, assembler/object/linker composition"
+      ],
+      "gigi_source_reference": "docs/research/retained-backend-gigi.md#source-visits-compose-without-an-entity-times-syntax-product",
+      "compiler_execution": false,
+      "complete_backend_capacity_result": false
+    },
+    "local_representation_premises": {
+      "each_literal_length_fits_native_String_Length_and_Integer": true,
+      "selected_Integer_Last": 2147483647,
+      "other_scalar_intermediates_table_and_caller_widths": "separate obligations"
+    },
+    "attachment_status": {
+      "Main_constructor_inputs_attached": true,
+      "Main_gigi_source_visit_input_attached": true,
+      "fixed_frontend_terms": "accepted predecessor constants available; not attached here",
+      "configuration_and_indexed_invocation_terms": "not attached here",
+      "complete_native_frontend": false,
+      "complete_gigi_allocation": false,
+      "complete_native_capacity": false,
+      "production_admission_changed": false
+    },
+    "native_tool_executions": 0
   },
   "Main_assembler_object_interface": {
     "counts": {
@@ -3165,6 +3451,9 @@
       "available": {
         "graph_scan_count_upper": 4,
         "call_edge_creation_events_upper": 4,
+        "Main_frontend_node_identities_upper": 60,
+        "Main_frontend_entity_identities_upper": 3,
+        "Main_gigi_source_syntax_visits_upper": 154,
         "new_pool_lifecycle_GGC_events_upper": 10,
         "new_graph_lifecycle_GGC_events_upper": 41,
         "ranger_and_out_of_SSA_backing_closed": true,
@@ -3177,7 +3466,7 @@
         "local_original_gigi_warning_suppressions_upper": 2,
         "remaining_original_gigi_warning_put_calls": null
       },
-      "missing": "Original frontend/gigi construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
+      "missing": "Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, remaining original-gigi warning insertion demand R needed to instantiate the accepted map transfer, and remaining helper lifetimes. Concrete Main constructor and source-syntax visits are attached separately; they are not helper/GGC events or warning R. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -3343,8 +3632,14 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 97,
+  "fixed_input_count": 104,
   "external_source_files_verified": 288,
+  "native_Main_frontend_nested_validation": {
+    "repository_inputs": 21,
+    "native_selected_files": 151,
+    "complete_Ada_macro_inventory_files": 2319,
+    "counts_overlap_direct_source_validation": true
+  },
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,
@@ -3353,5 +3648,10 @@
     "The selected O0, Linux x86-64, no-debug, small-PIC, ordinary PLT descriptor and unchanged Silver library semantics apply.",
     "Native lowering formulas retain their separate whole-unit Main-preservation premise.",
     "Physical resources and ordinary external OS/libc services remain separate."
-  ]
+  ],
+  "offline_run": {
+    "started_utc": "2026-10-18T19:57:15.204540+00:00",
+    "completed_utc": "2026-10-18T19:57:18.886715+00:00",
+    "elapsed_seconds": 3.682163841000147
+  }
 }

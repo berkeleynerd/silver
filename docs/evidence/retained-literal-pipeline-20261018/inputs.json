@@ -483,5 +483,40 @@
     "path": "docs/research/retained-literal-warning-map.md",
     "bytes": 16243,
     "sha256": "ebdf2fe6c8d2298791773afb87b9e449019870c814839ab4d6877f4b25641d32"
+  },
+  {
+    "path": "docs/evidence/retained-literal-native-frontend-20261018/compose.py",
+    "bytes": 7264,
+    "sha256": "8cb1ddd70669bce413a47adf0bbc725a7f11c18b39605ce06b4886e362f794a8"
+  },
+  {
+    "path": "docs/evidence/retained-literal-native-frontend-20261018/check.py",
+    "bytes": 7844,
+    "sha256": "689a1c91e1bd85033666435094feed4d16762a225839e9775a54fb1f13a31295"
+  },
+  {
+    "path": "docs/evidence/retained-literal-native-frontend-20261018/inputs.json",
+    "bytes": 4686,
+    "sha256": "0eecc0576bd37d1bd9c38a95862b891b204c826686a3207f288d939386689e5e"
+  },
+  {
+    "path": "docs/evidence/retained-literal-native-frontend-20261018/result.json",
+    "bytes": 22047,
+    "sha256": "7b16f24497e73aa48d492373743361aeed9c08f1076ef3b1cffd3ae9102c85e7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-native-frontend-20261018/check-results.json",
+    "bytes": 768,
+    "sha256": "7044fd708c4d46efde193c894f399dfe4df1cee203a727d7e5efdca6bde13fbc"
+  },
+  {
+    "path": "docs/evidence/retained-literal-native-frontend-20261018/round.json",
+    "bytes": 1341,
+    "sha256": "5603f068d4646670b1a7a1f0e86f3171d6e272be4b7c44ab550d96282058b1be"
+  },
+  {
+    "path": "docs/research/retained-literal-native-frontend.md",
+    "bytes": 11203,
+    "sha256": "fad49ee07adafe8fd65199e015170bec412abbd960bc3f1250f8cf1c53295801"
   }
 ]
