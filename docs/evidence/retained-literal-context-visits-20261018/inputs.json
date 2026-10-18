@@ -1,0 +1,48 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "original_Main_freeze": "d528110ba9cdde4b1e7f961cab440ee88f790f23",
+  "repository_base": "c608e3873ea74874d795d1be86fa4dca68e03236",
+  "repository_inputs": [
+    {
+      "bytes": 552521,
+      "path": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+    },
+    {
+      "bytes": 27601,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-inputs.json",
+      "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+    },
+    {
+      "bytes": 781411,
+      "path": "docs/research/retained-native-expansion.md",
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "bytes": 11203,
+      "path": "docs/research/retained-literal-native-frontend.md",
+      "sha256": "fad49ee07adafe8fd65199e015170bec412abbd960bc3f1250f8cf1c53295801"
+    },
+    {
+      "bytes": 17982,
+      "path": "docs/research/retained-literal-warning-residual-bound.md",
+      "sha256": "bef8c52601a1cf9ffc3531930cdddfae41140951fffbaad3d21fcec4b70daee7"
+    },
+    {
+      "bytes": 19802,
+      "path": "docs/research/retained-literal-original-main-storage.md",
+      "sha256": "5485d9230dda1ac3960c9d412977f7d7029d712e584389cb26ddc503f56e32d9"
+    },
+    {
+      "bytes": 5558,
+      "path": "docs/evidence/retained-literal-original-main-storage-20261018/derive.py",
+      "sha256": "c76d6d207c1b900f1376e1149cd43724d5bfcf560674eaf35d29c9cc08c87df7"
+    },
+    {
+      "bytes": 2222,
+      "path": "src/silver_io.ads",
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    }
+  ],
+  "source_manifest_origin": "existing complete Ada manifest; no download"
+}

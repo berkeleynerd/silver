@@ -1,0 +1,62 @@
+{
+  "Ada_files_checked": 2319,
+  "I_upper_bound": 114,
+  "arithmetic_cases": 300,
+  "bridge_files_checked": 1,
+  "cost": null,
+  "effort_selected": "Extra High",
+  "elapsed_seconds": 1.5927288940001745,
+  "independent_review": "pending",
+  "model_selected": "GPT-6 Astra",
+  "native_execution": false,
+  "runtime_confirmation": null,
+  "setter_sites": {
+    "rtsfind.adb": [
+      1317
+    ],
+    "sem_ch10.adb": [
+      3046,
+      3683,
+      3908,
+      4477
+    ],
+    "sem_ch12.adb": [
+      11344
+    ],
+    "sem_ch8.adb": [
+      4396,
+      10182
+    ],
+    "sem_elab.adb": [
+      8484,
+      16404
+    ]
+  },
+  "status": "passed",
+  "tokens": null,
+  "with_constructor_sites": {
+    "lib-load.adb": [
+      480
+    ],
+    "par-ch10.adb": [
+      920
+    ],
+    "rtsfind.adb": [
+      1309
+    ],
+    "sem_ch10.adb": [
+      3675,
+      3903,
+      4464,
+      4469
+    ],
+    "sem_ch8.adb": [
+      4377,
+      10170
+    ],
+    "sem_elab.adb": [
+      8482,
+      16400
+    ]
+  }
+}

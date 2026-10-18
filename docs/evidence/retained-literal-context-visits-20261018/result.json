@@ -1,0 +1,275 @@
+{
+  "context_input": {
+    "I_upper_bound": 114,
+    "additional_caller_bytes": 3648,
+    "additional_rounded_slot_bytes": 3648,
+    "additional_statement_list_GGC_requests": 114,
+    "additional_stmt_list_cache_pushes": 114,
+    "complete_frontend_storage_closed": false,
+    "complete_original_gigi_storage_closed": false,
+    "fixed_context_input_closed_under_selected_premises": true,
+    "independent_review_pending": true,
+    "new_elaboration_implicit_with_visits": 39,
+    "old_elaboration_implicit_with_visits": 39,
+    "pool_demands": {
+      "insertions": 0,
+      "lookups": 0,
+      "replacements": 0
+    },
+    "premises": [
+      "accepted literal source family and successful native behavior",
+      "existing selected 36-runtime/39-semantic-unit source closure",
+      "no Main generic/child/subunit/separate-spec context copy",
+      "frozen source/installed-behavior correspondence"
+    ],
+    "production_admission_changed": false,
+    "runtime_implicit_with_visits": 36,
+    "whole_toolchain_capacity_established": false
+  },
+  "original_Main": {
+    "complete_original_gigi_storage_closed": false,
+    "conditional_direct_totals": {
+      "GGC_events": 1061,
+      "caller_bytes": 420346,
+      "rounded_slot_bytes": 426928
+    },
+    "derived": {
+      "A": 6,
+      "G": 158,
+      "H_I_coefficient": 1,
+      "H_constant": 318,
+      "K": 10,
+      "R": 188,
+      "V": 154
+    },
+    "exclusions": [
+      "cold_Standard_String_conversion",
+      "self_referential_size_94",
+      "synthetic_function_and_initial_helper_173",
+      "Main_struct_function",
+      "direct_Main_gimplifier_10C_2N_2",
+      "Main_ingress_33C_9N_3",
+      "materialization_helpers_8C",
+      "pool_10C",
+      "cgraph_symbols_dummy",
+      "warning_map",
+      "source_locations",
+      "shared_backing",
+      "collector"
+    ],
+    "fixed_context_input_supplied": true,
+    "identities": {
+      "DECL_UID": 10,
+      "alias_ID": 1,
+      "annotation_var_count": 0,
+      "function_definition_numbers": 0,
+      "helper_name_fnno": 0,
+      "type_UID": 14
+    },
+    "inputs": {
+      "C": 1,
+      "D": 1,
+      "I": 114,
+      "N": 0,
+      "lengths": [
+        13
+      ]
+    },
+    "ordinary_literal_scratch": {
+      "caller_bytes": 0,
+      "largest_alloca_bytes": 13,
+      "requests": 0
+    },
+    "original_tree_constant_pool_demands": {
+      "excludes_later_Main_gimplification_pool": true,
+      "independent_of_unsupplied_I": true,
+      "independent_review_pending": true,
+      "insertions": 0,
+      "lookups": 0,
+      "replacements": 0
+    },
+    "production_admission_changed": false,
+    "rows": [
+      {
+        "caller_bytes_each": 512,
+        "family": "FUNCTION_DECL",
+        "requests": 3,
+        "rounded_slot_bytes_each": 512
+      },
+      {
+        "caller_bytes_each": 256,
+        "family": "other_declarations",
+        "requests": 7,
+        "rounded_slot_bytes_each": 256
+      },
+      {
+        "caller_bytes_each": 256,
+        "family": "type_nodes_including_optional_profile_copies",
+        "requests": 14,
+        "rounded_slot_bytes_each": 256
+      },
+      {
+        "caller_bytes_each": 16,
+        "family": "language_type_payloads",
+        "requests": 3,
+        "rounded_slot_bytes_each": 16
+      },
+      {
+        "caller_bytes_each": 48,
+        "family": "literal_RM_values",
+        "requests": 1,
+        "rounded_slot_bytes_each": 64
+      },
+      {
+        "caller_bytes_each": 40,
+        "family": "profile_argument_lists",
+        "requests": 2,
+        "rounded_slot_bytes_each": 64
+      },
+      {
+        "caller_bytes_each": 16,
+        "family": "type_hash_records",
+        "requests": 4,
+        "rounded_slot_bytes_each": 16
+      },
+      {
+        "caller_bytes_each": 64,
+        "family": "ordinary_expressions",
+        "requests": 18,
+        "rounded_slot_bytes_each": 64
+      },
+      {
+        "caller_bytes_each": 128,
+        "family": "constructor_vectors_pre_rounded",
+        "requests": 2,
+        "rounded_slot_bytes_each": 128
+      },
+      {
+        "caller_bytes_each": 40,
+        "family": "scalar_constants",
+        "requests": 188,
+        "rounded_slot_bytes_each": 64
+      },
+      {
+        "caller_bytes_each": 2040,
+        "family": "small_constant_vectors",
+        "requests": 188,
+        "rounded_slot_bytes_each": 2048
+      },
+      {
+        "caller_bytes_each": 40,
+        "family": "identifier_nodes",
+        "requests": 10,
+        "rounded_slot_bytes_each": 64
+      },
+      {
+        "caller_bytes_each": 32,
+        "family": "identifier_characters",
+        "requests": 10,
+        "rounded_slot_bytes_each": 32
+      },
+      {
+        "caller_bytes_each": 16,
+        "family": "binding_wrappers",
+        "requests": 4,
+        "rounded_slot_bytes_each": 16
+      },
+      {
+        "caller_bytes_each": 96,
+        "family": "BLOCK",
+        "requests": 4,
+        "rounded_slot_bytes_each": 128
+      },
+      {
+        "caller_bytes_each": 32,
+        "family": "statement_groups",
+        "requests": 158,
+        "rounded_slot_bytes_each": 32
+      },
+      {
+        "caller_bytes_each": 32,
+        "family": "statement_list_headers_excluding_I",
+        "requests": 318,
+        "rounded_slot_bytes_each": 32
+      },
+      {
+        "caller_bytes_each": 24,
+        "family": "statement_list_links",
+        "requests": 6,
+        "rounded_slot_bytes_each": 32
+      },
+      {
+        "caller_bytes_each": 32,
+        "family": "Main_language_function",
+        "requests": 1,
+        "rounded_slot_bytes_each": 32
+      },
+      {
+        "caller_bytes_each": 24,
+        "family": "elab_info",
+        "requests": 1,
+        "rounded_slot_bytes_each": 32
+      },
+      {
+        "caller_bytes_each": 64,
+        "family": "initial_procedure_return_stacks_pre_rounded",
+        "requests": 2,
+        "rounded_slot_bytes_each": 64
+      },
+      {
+        "caller_bytes_each": 128,
+        "family": "namespace_map_control",
+        "requests": 1,
+        "rounded_slot_bytes_each": 128
+      },
+      {
+        "caller_bytes_each": 208,
+        "family": "namespace_initial_table",
+        "requests": 1,
+        "rounded_slot_bytes_each": 256
+      },
+      {
+        "caller_bytes_each": 34,
+        "family": "STRING_CST_0",
+        "requests": 1,
+        "rounded_slot_bytes_each": 64
+      }
+    ],
+    "shared_demands": {
+      "UI_Ints_wrapper_calls": 2,
+      "Udigits_words": 10,
+      "Uint_entries": 2,
+      "alias_sets_pushes": 2,
+      "global_decls_pushes": 4,
+      "identifier_lookups": 10,
+      "integer_hash_lookups": 188,
+      "scalar_finalizer_vector_pushes": 1,
+      "stmt_list_cache_pushes": {
+        "I_coefficient": 1,
+        "constant": 318
+      },
+      "type_hash_lookups": 4
+    },
+    "symbolic_direct_totals": {
+      "GGC_events": {
+        "I_coefficient": 1,
+        "constant": 947
+      },
+      "caller_bytes": {
+        "I_coefficient": 32,
+        "constant": 416698
+      },
+      "rounded_slot_bytes": {
+        "I_coefficient": 32,
+        "constant": 423280
+      }
+    },
+    "whole_toolchain_capacity_established": false,
+    "zero_demands": [
+      "tree_constant_pool",
+      "Rep_Table",
+      "annotation_cache",
+      "deferred_decl_context_entries"
+    ]
+  }
+}

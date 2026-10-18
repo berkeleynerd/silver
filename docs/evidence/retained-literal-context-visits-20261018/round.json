@@ -1,0 +1,24 @@
+{
+  "objective": "Supply the original literal Main ledger's fixed implicit context-visit input I",
+  "authorization": "Bounded parent-assigned source/offline research; new addendum and evidence only; freeze commit",
+  "model_selected": "GPT-6 Astra",
+  "effort_selected": "Extra High",
+  "runtime_confirmation": null,
+  "start_clock_utc": "2026-10-18 21:58:39 UTC",
+  "completion_clock_utc": "2026-10-18 22:03:39 UTC",
+  "elapsed_seconds_between_recorded_clocks": 300,
+  "tokens": null,
+  "cost": null,
+  "achieved": "I<=114 from runtime36 plus new/old elaboration39 each; callable attaches114 to unchanged frozen Main ledger",
+  "source_findings": [
+    "Runtime-chain resets occur before successful population; repeated loaded-unit calls preserve deduplication",
+    "New elaboration keys come from fixed top-level compilation units; old elaboration appends only matching Cunit entity keys",
+    "Explicit parent-renaming constructor in lib-load is another source site, excluded by sole nonchild Silver_IO with",
+    "Main child/generic/subunit context copying and private-with rewrites are excluded by the selected source family"
+  ],
+  "validation": "2319 complete Ada source identities plus trans.cc;10 setter/11 constructor sites;300 arithmetic compositions passed",
+  "independent_review": "pending with combined original storage reviewer",
+  "remaining": "Original Main shared backing, excluded intervals, native counter endpoints and full process joins",
+  "whole_toolchain_capacity_established": false,
+  "production_admission_changed": false
+}
