@@ -730,9 +730,9 @@ digit_words_closed <= k U_query
 
 Their ordinary Uint primitive result costs include discarded temporaries; no
 release/cache credit is required. Scanner integer-token Uints are a separate
-existing component. Other semantic bookkeeping and diagnostic/value-cache
-routes still require a complete numeric caller inventory, so this is explicitly
-**not the complete Main Uint bound**.
+existing component. The caller inventory below closes the remaining Main
+semantic Uint routes under this report's grammar/mode premises. Fixed setup,
+dependency and later producer/backend numeric work remain separate.
 
 ## Semantic syntax-list headers
 
@@ -1354,9 +1354,10 @@ closure, while their fixed storage remains charged:
 In particular, scalar current-value tracking in the assignment and branch
 analyzers stores existing node references in entity fields
 (`sem_ch5.adb:1190–1220`); it does not create an independent value-cache table.
-The inspected Sem_Eval body likewise has no allocating table/map cache.
-Do not add a fictional per-query cache term, or omit actual node/Uint work
-already counted in the query and fold sections. The only Uint arithmetic in
+Sem_Eval and Checks have the **fixed** numeric caches inventoried below;
+neither allocates a new cache record per query. Their cache stores copy existing
+numeric handles. Do not add a per-query cache-record term, omit that fixed
+storage, or omit actual Uint work already counted in query and fold sections. The only Uint arithmetic in
 Sem_Warn is in Warn_On_Suspicious_Index, an array-index warning route absent
 from Main (`sem_warn.adb:4117–4246`); this excludes that particular numeric
 route, not general diagnostic buffer allocation.
@@ -1440,8 +1441,9 @@ separate inputs.
 
 ## Additional semantic numeric caller exclusions
 
-The following source partition removes concrete residual numeric routes; it
-does not yet promote the five-family subtotal to a whole-Main Uint bound.
+The following source partition removes concrete residual numeric routes.
+Together with the completion partition below it closes the Main semantic
+Uint contribution, without covering fixed dependencies or later producer work.
 
 | Route | Main result and source reason |
 | --- | --- |
@@ -1497,19 +1499,146 @@ SPARK_Mode handler changes fields and context and does not invoke that helper
 (`:26430–26530`). This further narrows the element-list inventory without
 claiming that every remaining semantic container has now been closed.
 
+## Fixed numeric caches and remaining Main semantic closure
+
+Two actual caches require fixed backing even though neither grows with query
+count:
+
+- `Sem_Eval.CV_Cache` has **33** records, each a `Node_Id'Base` and a Uint.
+  CV_Bits is 5, but the declared index subtype is `0 .. CV_Cache_Size`, not
+  `0 .. CV_Cache_Size-1` (`sem_eval.adb:112–136`). Queries address only the first
+  32 entries through modulo 32. Compile_Time_Known_Value caches an existing
+  literal handle; Expr_Value caches an existing literal/constant/Boolean value
+  (`:1812–1884,4589–4684`). Initialize fills the whole array (`:5314–5317`).
+- `Checks.Determine_Range_Cache` consists of seven arrays of **1,024** elements:
+  two Node_Id arrays, one Boolean, two Uint and two Ureal
+  (`checks.adb:5049–5069`). Cache writes save the already-computed query result
+  (`:5625–5629`), not copies of its arbitrary-precision digits. The Ureal
+  arrays are still real fixed storage although Main's Integer queries do not
+  use them. Initialization clears the node array (`:8102–8104`).
+
+No cache-hit credit was used in `U_query`, so fixed cache collisions or misses
+do not invalidate that bound. Cache validity, the target layout of each entry
+and source-to-installed-tool correspondence are distinct from this storage
+count. Sem_Util also declares fixed invalid-value arrays: 14 Entity_Ids,
+4 Ureals and 10 Uints (`sem_util.adb:87–100`;
+`snames.ads-tmpl:1222–1245`). Main has no Initialize_Scalars pragma, uninitialized
+objects or native invalid-value generation; those arrays add no Main Uint
+values. Fixed configuration/runtime initialization still belongs to setup.
+
+The final numeric caller partition is as follows. This is based on reached
+branches and their callers, not merely a search for the UI_ prefix: arithmetic
+can use overloaded operators and mixed Int/Uint comparisons.
+
+| Semantic family | Where all Main allocating Uint work is charged; other reached behavior |
+| --- | --- |
+| Sem_Ch3, Sem_Ch5, Sem_Ch8 and ordinary name/scope handling | Explicit/generated ranges, check queries and discrete subtype sizing are in Q_R, Q_C and U_discrete_size; Count_Tasks is excluded above. Scope_Depth remains the direct value 1. Other Uint-valued declaration functions require omitted type declarations, discriminants or renamings. Sem_Ch2's character conversion and Sem_Aux.Corresponding_Unsigned_Type only read existing values (`sem_ch2.adb:55–68`; `sem_aux.adb:147–166`). Sem_Ch4's active checks compare existing values; Sem_Ch6 type conformance reads Intval without constructing it. |
+| Sem_Res and Sem_Eval | Signed arithmetic, comparisons, conversions, String literal/concat bookkeeping and Length are the earlier evaluated families. Expr_Value/Expr_Rep_Value return existing handles on Main's leaves. Eval_Concatenation constructs Stringt data, not Uint values (`sem_eval.adb:2342–2443`); its literal subtype work is U_literal. Boolean evaluation uses direct 0/1; the variable Bits vectors and From_Bits arithmetic require modular operations (`:2948–3028`). Shifts, exponentiation, indexing, slices, membership and unchecked conversions are outside the source/generated-node closure. The multiplication guard's bit count and 500,000 threshold are both within Uint's direct positive region (`:2000–2022,6143–6153`; `uintp.ads:469–487`). |
+| Sem_Attr | The active Image/Length branches and generated literal/static subtype bounds are already charged. Image's enum-only folding branch is excluded for Integer. Fore, Size, Val, Mod, stream, address and other numeric attributes are not additional active Main routes. |
+| Checks | Determine_Range/Compile_Time_Compare and scalar range/overflow callers are charged by U_query; conversions are included in T_check. Saved-check arithmetic is disabled at optimization level zero; selected-length and native overflow tree expansion are excluded above. Address/alignment, discriminant, floating, division, index and minimized-overflow helpers require omitted shapes or native expansion. |
+| Freeze/Layout/Sem_Ch13 | First freeze, ordinary String size and discrete subtype minimum size are the earlier size families. Other numeric work requires representation clauses, packing, access, records, fixed/real/modular or derived type definitions. Check_No_Parts_Violations returns before its hierarchy collector for elementary or generated types (`freeze.adb:3310–3317`). |
+| Sem_Util and Exp_Util support | Addressable/Alignment_In_Bits and ordinary layout are already covered; Get_Index_Subtype only reads the existing dimension (default 1) and existing index entity (`exp_util.adb:7756–7779`). Has_Compatible_Alignment's numeric callers are address-clause analysis/validation, and Indexed_Component_Bit_Offset requires an indexed component (`sem_util.adb:11532–11854,15295–15360`; `checks.adb:641,11477`; `sem_ch13.adb:19042,19158`). Invalid scalar synthesis, task image, stream size, mutable-discriminant and native unaligned helpers are excluded. Atomic-size helper conversions are read-only and its callers require Atomic_Always_Lock_Free or a protected component (`sem_util.adb:29450–29485`; `sem_attr.adb:9340`; `sem_ch9.adb:616`). |
+| Sem_Prag/Dim/Warn/Elab and other semantic construct packages | SPARK_Mode's active handler changes fields/context, with no Uint arithmetic. Dimension and diagnostic numeric work are excluded as above. Modern elaboration tracks existing entities/nodes; its Main contribution is the earlier container transfer. Sem_Aggr, Sem_Case, Sem_Disp, Sem_Dist, Sem_Ch9 and Sem_Ch12 numeric families require constructs or types not introduced by the Main light-mode closure. Fixed dependency analysis is not excluded by this statement. |
+
+Accordingly, with this caller partition and the earlier phase-specific
+constructor/query transfers, the Main semantic contribution is:
+
+```text
+U_sem_Main <= U_query + U_discrete_size + U_eval + U_literal + U_freeze_size.
+digits_sem_Main <= k U_query
+  + 285T_size + 3(U_eval+U_literal+U_freeze_size).
+Main semantic Ureal appends = 0.
+```
+
+This includes discarded intermediates. It excludes scanner numeric literals,
+fixed Standard/library/configuration analysis and later producer, serialized
+image and native phases, each of which requires its own input transfer. In
+particular, a decimal-image limit is a condition on serialized numeric values,
+not an assertion that every scratch query Uint is serialized.
+
+### Completion of the core semantic element-list partition
+
+The eager list constructors also need caller exclusions, not just an empty
+result argument:
+
+- Resolve_Declare_Expression creates Save_Hidden_Map on entry; there is no
+  declare expression in Main or its light transforms
+  (`sem_res.adb:7740–7749`). Constrain_Discriminated_Type likewise creates its
+  list on entry but cannot be called for Integer/String constraints
+  (`sem_ch3.adb:15099–15115`).
+- Is_Fully_Initialized_Variant creates both a syntax list and element list
+  before checking its type. Its caller first requires Is_Record_Type and
+  Has_Defaulted_Discriminants (`sem_util.adb:18383–18396,18498–18519`). Thus
+  neither eager list is a Main charge.
+- Collect_Types_In_Hierarchy always creates a header. Its freeze caller returns
+  for every Main elementary/generated type before entry; its other caller is
+  the extra-formals helper for limited tagged function results
+  (`sem_util.adb:6314–6319`; `freeze.adb:3310–3317`;
+  `sem_ch6.adb:8737–8790`). Main is a parameterless procedure and the ordinary
+  library String result is not limited/tagged.
+- Mask_Unfrozen_Types is called only for an expression-function body
+  (`sem_ch6.adb:3894–3920`). Make_Discriminant_Constraint_Check is a nested
+  record-constraint helper (`checks.adb:3690–3702`). Collect_Generic_Type_Ops
+  requires generalized indexing/generic controlling types
+  (`sem_ch4.adb:10528–10554`), and use-type Used_Operations requires the
+  excluded use-type clause (`sem_ch8.adb:4587–4617`).
+- Copy_Elist_With_Replacement allocates even an empty present list
+  (`sem_util.adb:24443–24471`), but the raw scalar loop-copy shape contains no
+  element-list field, owned type or defining entity. Referenced entities stay
+  shared. Add_Access_Type_To_Process requires an access type; DIC/invariant
+  lists, derived-type chains, dispatch and contract collections require their
+  omitted types/contracts (`sem_util.adb:288–301`;
+  `exp_util.adb:1945–1947,3325–3328,11328–11332`).
+
+Together with the earlier core package/contract exclusions, only the already
+charged compilation-unit boundary lists contribute Main-triggered element
+storage in this semantic pipeline. Retain the process interface
+`K_sem+1` headers and `K_sem(E_X+1)` elements, because even Main's empty scope
+save allocates. This does not erase the fixed dependencies' internal lists,
+frontend driver/runtime loader lists, or later producer containers.
+
+### Remaining named semantic table instances
+
+The remaining inspected semantic table instances have zero Main insertions
+under the established type/mode closure:
+
+| Instance | Reason and actual fixed backing |
+| --- | --- |
+| Exp_Util.Type_Map | Tagged/derived primitive, formal and discriminant mappings, and DIC inheritance. Map_Types returns before insertion when either type is untagged; ordinary Main calls do not call Map_Formals (`exp_util.adb:11159–11183,11748–11775`). Fixed 511 headers (`:106–117`). |
+| Generic_Renamings / Generic_Renamings_HTable | No generic instantiation or inlining of a generic body. Initial 10 records, 100-percent growth, low bound 0; 37 static hash headers (`sem_ch12.adb:999–1042`). |
+| Instance_Envs / Generic_Flags | No Main instantiation or Start_Generic. Initial 32 records each, low bound 0, respective 100/200-percent growth (`sem_ch12.adb:1075–1128`). Fixed library instantiations remain fixed work. |
+| Lock_Free_Subprogram_Table | No protected subprogram/component. Initial 5 records, 5-percent growth (`sem_ch9.ads:71–90`; `sem_ch9.adb:694–703`). |
+| Legacy Elab_Call / Elab_Visited / Delay_Check | The stated modern elaboration mechanism excludes these callers. Initial 50/200/1000 records, each 100-percent growth (`sem_elab.adb:16065–16149`). |
+| Sem_Case local tables/sets and choice links | No Main case statement/expression, variant or aggregate; these instances are local to case analysis and add no Main active storage. Their fixed-library uses remain part of fixed analysis. |
+
+Sem_Elim requires an explicit configuration boundary: no source Eliminate
+pragma is admitted, but configuration pragmas could populate its hash before
+Main. Its fixed storage is 1,024 hash headers and an initial 50-record,
+200-percent-growth Elim_Entities table. With no active Eliminate configuration,
+Check_Eliminated returns before even its lookup (`sem_elim.adb:110–117,202–250`),
+so Main adds no hash nodes, names arrays or eliminated-entity entries. The
+configuration inventory must establish that premise; absence of a source
+pragma alone does not establish it (`:812–820,1000–1016`).
+
+The one remaining dynamic semantic String allocation in the inspected ordinary
+subprogram path is style-order tracking; Style_Check=False bypasses it before
+new String (`sem_ch6.adb:7503–7534`). Fixed enum-indexed Boolean dispatch tables
+and other package data remain part of the process baseline. These closures
+are counts and reachability results. They do not supply byte sizes, backing
+growth proofs, execution stack capacity or fixed dependency contributions.
+
 ## Remaining resource obligations
 
 Remaining whole-frontend obligations are:
 
-1. **Other semantic numeric helpers and mutations.** Close the remaining
-   numeric caller inventory beyond the five named families and the explicit
-   Main diagnostic exclusions. The query envelope does not make other callers
-   free. Keep value caches distinct from node identities. Serialized Uint values
-   must also meet the exact Image_Out decimal-image bound; large scanner
-   scratch powers are a different value population.
-2. **Other semantic auxiliary storage.** Finish element lists, other auxiliary
-   resources and traversal stacks, including semantic packages outside the
-   explicit inventory above. Main frontend diagnostic attempts/text now have
+1. **Numeric process composition.** Add the now source-bounded Main semantic
+   Uint contribution to scanner, fixed setup/dependency and later producer
+   contributions. Serialized Uint values must also meet the exact Image_Out
+   decimal-image bound; large scanner/query scratch values are different value
+   populations.
+2. **Auxiliary process composition.** Connect the completed core semantic
+   element-list and named-table partition to frontend driver/runtime-loader
+   resources and traversal stacks. Main frontend diagnostic attempts/text now have
    a transfer; producer-origin diagnostics, fixed dependency diagnostics and
    output rendering remain distinct consumer/caller work. The named
    overload/warning/xref tables and unit-boundary element lists have separate
@@ -1517,7 +1646,7 @@ Remaining whole-frontend obligations are:
    representation/growth checks.
 3. **Complete table/resource connection.** Add all remaining ordinary/entity
    slot demand, name spelling/qualification, auxiliary table events,
-   remaining Uint work and peak/growth arithmetic to the existing table and
+   fixed/setup Uint work and peak/growth arithmetic to the existing table and
    value components. Fixed dependency work remains outside Main. The producer
    can use this A_Main for the stated frontend-node input, while the separate
    frontend capacities still need every listed resource bound.

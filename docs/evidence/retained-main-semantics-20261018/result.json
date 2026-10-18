@@ -169,6 +169,26 @@
         [
           10304,
           10387
+        ],
+        [
+          5049,
+          5069
+        ],
+        [
+          5625,
+          5629
+        ],
+        [
+          8102,
+          8104
+        ],
+        [
+          3690,
+          3702
+        ],
+        [
+          11468,
+          11488
         ]
       ]
     },
@@ -265,6 +285,34 @@
         [
           7610,
           7631
+        ],
+        [
+          106,
+          117
+        ],
+        [
+          1945,
+          1947
+        ],
+        [
+          3325,
+          3328
+        ],
+        [
+          7756,
+          7779
+        ],
+        [
+          11159,
+          11183
+        ],
+        [
+          11328,
+          11332
+        ],
+        [
+          11748,
+          11775
         ]
       ]
     },
@@ -355,6 +403,10 @@
         [
           10147,
           10165
+        ],
+        [
+          3310,
+          3317
         ]
       ]
     },
@@ -458,6 +510,10 @@
         [
           13600,
           13618
+        ],
+        [
+          9333,
+          9345
         ]
       ]
     },
@@ -529,6 +585,10 @@
         [
           5374,
           5387
+        ],
+        [
+          15099,
+          15115
         ]
       ]
     },
@@ -679,6 +739,10 @@
         [
           1525,
           1533
+        ],
+        [
+          10528,
+          10554
         ]
       ]
     },
@@ -730,6 +794,14 @@
         [
           4745,
           4748
+        ],
+        [
+          3894,
+          3920
+        ],
+        [
+          8737,
+          8790
         ]
       ]
     },
@@ -809,6 +881,10 @@
         [
           7685,
           7771
+        ],
+        [
+          4587,
+          4617
         ]
       ]
     },
@@ -938,6 +1014,30 @@
         [
           7354,
           7496
+        ],
+        [
+          112,
+          136
+        ],
+        [
+          1812,
+          1884
+        ],
+        [
+          2000,
+          2022
+        ],
+        [
+          2948,
+          3028
+        ],
+        [
+          5314,
+          5317
+        ],
+        [
+          6143,
+          6153
         ]
       ]
     },
@@ -1151,6 +1251,10 @@
         [
           725,
           767
+        ],
+        [
+          7740,
+          7749
         ]
       ]
     },
@@ -1266,6 +1370,10 @@
         [
           14969,
           15005
+        ],
+        [
+          16065,
+          16149
         ]
       ]
     },
@@ -1345,6 +1453,42 @@
         [
           29275,
           29362
+        ],
+        [
+          87,
+          100
+        ],
+        [
+          288,
+          301
+        ],
+        [
+          6314,
+          6319
+        ],
+        [
+          11532,
+          11854
+        ],
+        [
+          15295,
+          15360
+        ],
+        [
+          18383,
+          18396
+        ],
+        [
+          18498,
+          18519
+        ],
+        [
+          24443,
+          24471
+        ],
+        [
+          29450,
+          29485
         ]
       ]
     },
@@ -1845,6 +1989,14 @@
         [
           19821,
           19831
+        ],
+        [
+          19035,
+          19049
+        ],
+        [
+          19151,
+          19165
         ]
       ]
     },
@@ -1867,6 +2019,149 @@
         [
           425,
           441
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch2.adb",
+      "bytes": 12716,
+      "sha256": "7a454f2a24e4e16174229efbf17be5f934f78abb188c23f74d8af2490e261e9c",
+      "cited_ranges": [
+        [
+          55,
+          68
+        ]
+      ]
+    },
+    {
+      "path": "sem_aux.adb",
+      "bytes": 51778,
+      "sha256": "a296f7384277d9621774a52de74c2008f8824724603df13abe1065754456af52",
+      "cited_ranges": [
+        [
+          147,
+          166
+        ]
+      ]
+    },
+    {
+      "path": "snames.ads-tmpl",
+      "bytes": 117427,
+      "sha256": "86039b55f96358ca035039f277ded2e0eed9a735ea39922898d4b63348723dea",
+      "cited_ranges": [
+        [
+          1222,
+          1245
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch12.adb",
+      "bytes": 729258,
+      "sha256": "4d67a12cbf80298c1eacfba27b7c7ae42d9757989d0241993c0da6748320fde8",
+      "cited_ranges": [
+        [
+          999,
+          1042
+        ],
+        [
+          1075,
+          1128
+        ],
+        [
+          11220,
+          11234
+        ],
+        [
+          18695,
+          18709
+        ],
+        [
+          18719,
+          18731
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch9.ads",
+      "bytes": 5282,
+      "sha256": "ea6db372adb83c6ea527db291051be00212f632650eadb437ccb33b0d5df58c1",
+      "cited_ranges": [
+        [
+          71,
+          90
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch9.adb",
+      "bytes": 138136,
+      "sha256": "bf64f161f0841ca700299394d703ff1765b0defd3fb992107caf8e5c1dbce019",
+      "cited_ranges": [
+        [
+          608,
+          620
+        ],
+        [
+          694,
+          703
+        ]
+      ]
+    },
+    {
+      "path": "sem_elim.adb",
+      "bytes": 34557,
+      "sha256": "6977031b82062070e830bb300c4ae90a3ae669c6b53742b43696878bb8e2a302",
+      "cited_ranges": [
+        [
+          110,
+          117
+        ],
+        [
+          202,
+          250
+        ],
+        [
+          812,
+          820
+        ],
+        [
+          1000,
+          1016
+        ]
+      ]
+    },
+    {
+      "path": "uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "cited_ranges": [
+        [
+          469,
+          487
+        ]
+      ]
+    },
+    {
+      "path": "sem_case.adb",
+      "bytes": 153221,
+      "sha256": "efd02fba82b3c8dce9644ee6af797f2c1ea571a409bc3caadeacf5493ba44663",
+      "cited_ranges": [
+        [
+          1971,
+          1988
+        ],
+        [
+          2440,
+          2465
+        ],
+        [
+          2601,
+          2622
+        ],
+        [
+          3377,
+          3390
         ]
       ]
     }
@@ -2420,13 +2715,96 @@
       "Needs_Secondary_Stack mutable-discriminant size test",
       "Dimension arithmetic under null-dimension invariant"
     ],
+    "Main_semantic_numeric_transfer": {
+      "Uint_appends": "<= U_query+U_discrete_size+U_eval+U_literal+U_freeze_size",
+      "digit_words": "<= k*U_query+285*T_size+3*(U_eval+U_literal+U_freeze_size)",
+      "Ureal_appends": 0,
+      "scope": "Manual reached-caller partition; excludes scanner, fixed dependencies, producer/native phases"
+    },
+    "fixed_numeric_caches": {
+      "CV_Cache_records": 33,
+      "CV_Cache_record_fields": [
+        "Node_Id'Base",
+        "Uint"
+      ],
+      "Determine_Range_array_entries_each": 1024,
+      "Determine_Range_array_counts": {
+        "Node_Id": 2,
+        "Boolean": 1,
+        "Uint": 2,
+        "Ureal": 2
+      },
+      "Main_per_query_cache_record_allocation": 0,
+      "invalid_scalar_arrays": {
+        "Entity_Id": 14,
+        "Ureal": 4,
+        "Uint": 10
+      },
+      "scope": "Typed fixed storage, not target bytes; no cache-hit credit used"
+    },
+    "core_semantic_elist_completion": {
+      "additional_Main_headers_beyond_unit_boundary": 0,
+      "additional_Main_elements_beyond_unit_boundary": 0,
+      "scope": "Inspected semantic/light pipeline; fixed dependency, driver/loader and producer lists separate"
+    },
+    "last_named_semantic_table_zero_Main": {
+      "Type_Map": {
+        "hash_headers": 511
+      },
+      "Generic_Renamings": {
+        "initial": 10,
+        "growth_percent": 100,
+        "low_bound": 0
+      },
+      "Generic_Renamings_HTable": {
+        "hash_headers": 37
+      },
+      "Instance_Envs": {
+        "initial": 32,
+        "growth_percent": 100,
+        "low_bound": 0
+      },
+      "Generic_Flags": {
+        "initial": 32,
+        "growth_percent": 200,
+        "low_bound": 0
+      },
+      "Lock_Free_Subprogram_Table": {
+        "initial": 5,
+        "growth_percent": 5
+      },
+      "legacy_Elab_Call": {
+        "initial": 50,
+        "growth_percent": 100
+      },
+      "legacy_Elab_Visited": {
+        "initial": 200,
+        "growth_percent": 100
+      },
+      "legacy_Delay_Check": {
+        "initial": 1000,
+        "growth_percent": 100
+      },
+      "local_Sem_Case_tables_sets_links": {
+        "Main_activations": 0
+      },
+      "Elim_Hash_Table": {
+        "hash_headers": 1024,
+        "premise": "no active Eliminate configuration"
+      },
+      "Elim_Entities": {
+        "initial": 50,
+        "growth_percent": 200,
+        "premise": "no active Eliminate configuration"
+      }
+    },
     "query_scope": "Root counts exclude helper-internal recursion already paid by transfer"
   },
   "remaining": [
-    "Other semantic numeric caller inventory beyond named families",
+    "Compose Main semantic numeric transfer with scanner/fixed and later producer/native terms",
     "Producer/fixed dependency diagnostics and output-format consumers",
-    "Other semantic auxiliary storage outside named caller families",
-    "Semantic element-list inventory outside named packages and traversal storage",
+    "Frontend driver/runtime loader auxiliaries outside the core semantic partition",
+    "Fixed dependency internal lists and actual traversal stack storage",
     "Fixed inputs to overload/xref and unit-boundary element-list transfer",
     "Complete table/growth, numeric, name and auxiliary-resource connection",
     "Fixed dependency contributions and source-to-installed-tool relation"

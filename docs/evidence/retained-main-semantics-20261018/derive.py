@@ -172,6 +172,38 @@ RANGES["sem_prag.adb"] += [(142, 148), (282, 288), (509, 515),
                            (29405, 29415), (30467, 30485), (33452, 33780),
                            (34516, 34583), (36002, 36008)]
 
+RANGES.update({
+    "sem_ch2.adb": [(55, 68)],
+    "sem_aux.adb": [(147, 166)],
+    "snames.ads-tmpl": [(1222, 1245)],
+    "sem_ch12.adb": [(999, 1042), (1075, 1128), (11220, 11234),
+                     (18695, 18709), (18719, 18731)],
+    "sem_ch9.ads": [(71, 90)],
+    "sem_ch9.adb": [(608, 620), (694, 703)],
+    "sem_elim.adb": [(110, 117), (202, 250), (812, 820), (1000, 1016)],
+    "uintp.ads": [(469, 487)],
+    "sem_case.adb": [(1971, 1988), (2440, 2465), (2601, 2622), (3377, 3390)],
+})
+RANGES["sem_eval.adb"] += [(112, 136), (1812, 1884), (2000, 2022),
+                           (2948, 3028), (5314, 5317), (6143, 6153)]
+RANGES["checks.adb"] += [(5049, 5069), (5625, 5629), (8102, 8104),
+                         (3690, 3702), (11468, 11488)]
+RANGES["sem_util.adb"] += [(87, 100), (288, 301), (6314, 6319),
+                           (11532, 11854), (15295, 15360), (18383, 18396),
+                           (18498, 18519), (24443, 24471), (29450, 29485)]
+RANGES["exp_util.adb"] += [(106, 117), (1945, 1947), (3325, 3328),
+                           (7756, 7779), (11159, 11183), (11328, 11332),
+                           (11748, 11775)]
+RANGES["sem_ch3.adb"] += [(15099, 15115)]
+RANGES["sem_ch4.adb"] += [(10528, 10554)]
+RANGES["sem_ch6.adb"] += [(3894, 3920), (8737, 8790)]
+RANGES["sem_ch8.adb"] += [(4587, 4617)]
+RANGES["sem_res.adb"] += [(7740, 7749)]
+RANGES["sem_attr.adb"] += [(9333, 9345)]
+RANGES["sem_ch13.adb"] += [(19035, 19049), (19151, 19165)]
+RANGES["sem_elab.adb"] += [(16065, 16149)]
+RANGES["freeze.adb"] += [(3310, 3317)]
+
 SPARK = {
     "src/why/back_end.adb": (
         "a366cc199ce5c10ba35a7ddcfa0faf04d714deb6f53bc18903f087a845bc8775",
@@ -362,6 +394,18 @@ def main():
         "Subprogram_Table": {"hash_headers": 4093},
         "Traversed_Table": {"hash_headers": 4093},
     }
+    sem_eval_source = (args.source / "sem_eval.adb").read_text()
+    assert "CV_Bits : constant := 5;" in sem_eval_source
+    assert "subtype CV_Range is Nat range 0 .. CV_Cache_Size;" in sem_eval_source
+    cv_records = 2**5 + 1
+    assert cv_records == 33
+    assert "Cache_Size : constant := 2 ** 10;" in checks_source
+    assert "type Cache_Index is range 0 .. Cache_Size - 1;" in checks_source
+    query_cache_entries = 2**10
+    assert query_cache_entries == 1024
+    for suffix in ("N", "O", "V", "Lo", "Hi", "Lo_R", "Hi_R"):
+        assert "Determine_Range_Cache_" + suffix in checks_source
+    assert 500_000 <= (32768-1)**2  # OK_Bits threshold is directly represented
     result = {
         "source_commit": PIN,
         "verified_against": str(prior.relative_to(repo)),
@@ -544,13 +588,48 @@ def main():
                 "Needs_Secondary_Stack mutable-discriminant size test",
                 "Dimension arithmetic under null-dimension invariant",
             ],
+            "Main_semantic_numeric_transfer": {
+                "Uint_appends": "<= U_query+U_discrete_size+U_eval+U_literal+U_freeze_size",
+                "digit_words": "<= k*U_query+285*T_size+3*(U_eval+U_literal+U_freeze_size)",
+                "Ureal_appends": 0,
+                "scope": "Manual reached-caller partition; excludes scanner, fixed dependencies, producer/native phases",
+            },
+            "fixed_numeric_caches": {
+                "CV_Cache_records": cv_records,
+                "CV_Cache_record_fields": ["Node_Id'Base", "Uint"],
+                "Determine_Range_array_entries_each": query_cache_entries,
+                "Determine_Range_array_counts": {"Node_Id": 2, "Boolean": 1, "Uint": 2, "Ureal": 2},
+                "Main_per_query_cache_record_allocation": 0,
+                "invalid_scalar_arrays": {"Entity_Id": 14, "Ureal": 4, "Uint": 10},
+                "scope": "Typed fixed storage, not target bytes; no cache-hit credit used",
+            },
+            "core_semantic_elist_completion": {
+                "additional_Main_headers_beyond_unit_boundary": 0,
+                "additional_Main_elements_beyond_unit_boundary": 0,
+                "scope": "Inspected semantic/light pipeline; fixed dependency, driver/loader and producer lists separate",
+            },
+            "last_named_semantic_table_zero_Main": {
+                "Type_Map": {"hash_headers": 511},
+                "Generic_Renamings": {"initial": 10, "growth_percent": 100, "low_bound": 0},
+                "Generic_Renamings_HTable": {"hash_headers": 37},
+                "Instance_Envs": {"initial": 32, "growth_percent": 100, "low_bound": 0},
+                "Generic_Flags": {"initial": 32, "growth_percent": 200, "low_bound": 0},
+                "Lock_Free_Subprogram_Table": {"initial": 5, "growth_percent": 5},
+                "legacy_Elab_Call": {"initial": 50, "growth_percent": 100},
+                "legacy_Elab_Visited": {"initial": 200, "growth_percent": 100},
+                "legacy_Delay_Check": {"initial": 1000, "growth_percent": 100},
+                "local_Sem_Case_tables_sets_links": {"Main_activations": 0},
+                "Elim_Hash_Table": {"hash_headers": 1024, "premise": "no active Eliminate configuration"},
+                "Elim_Entities": {"initial": 50, "growth_percent": 200,
+                                   "premise": "no active Eliminate configuration"},
+            },
             "query_scope": "Root counts exclude helper-internal recursion already paid by transfer",
         },
         "remaining": [
-            "Other semantic numeric caller inventory beyond named families",
+            "Compose Main semantic numeric transfer with scanner/fixed and later producer/native terms",
             "Producer/fixed dependency diagnostics and output-format consumers",
-            "Other semantic auxiliary storage outside named caller families",
-            "Semantic element-list inventory outside named packages and traversal storage",
+            "Frontend driver/runtime loader auxiliaries outside the core semantic partition",
+            "Fixed dependency internal lists and actual traversal stack storage",
             "Fixed inputs to overload/xref and unit-boundary element-list transfer",
             "Complete table/growth, numeric, name and auxiliary-resource connection",
             "Fixed dependency contributions and source-to-installed-tool relation",
