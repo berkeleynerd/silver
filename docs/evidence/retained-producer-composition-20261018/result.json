@@ -157,6 +157,11 @@
       "source": "procedure Main is\npragma SPARK_Mode (On);\nbegin\nnull;\nend Main;\n",
       "counts": {
         "null": 1,
+        "shape_regions": [
+          {
+            "null": 1
+          }
+        ],
         "W": 10,
         "S": 0,
         "N": 0,
@@ -167,8 +172,10 @@
         "A_parse": 28,
         "A_Main": 39,
         "A_shape": 8,
+        "A_shape_total": 8,
         "E_Main": 1,
         "V": 0,
+        "V_Integer": 0,
         "K": 0,
         "K_literal": 0,
         "preimport": [
@@ -245,6 +252,13 @@
         "O": 1,
         "X": 3,
         "H_chars": 4,
+        "shape_regions": [
+          {
+            "dots": 1,
+            "calls_with_actual": 1,
+            "O": 1
+          }
+        ],
         "W": 13,
         "S": 2,
         "N": 0,
@@ -255,8 +269,10 @@
         "A_parse": 41,
         "A_Main": 68,
         "A_shape": 13,
+        "A_shape_total": 13,
         "E_Main": 6,
         "V": 6,
+        "V_Integer": 0,
         "K": 3,
         "K_literal": 5,
         "preimport": [
@@ -330,6 +346,15 @@
         "I_assign": 1,
         "X": 4,
         "X_integer": 4,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "I_assign": 1
+          }
+        ],
         "W": 15,
         "S": 0,
         "N": 4,
@@ -339,20 +364,22 @@
       "bound": {
         "A_parse": 51,
         "A_Main": 74,
-        "A_shape": 17,
+        "A_shape": 16,
+        "A_shape_total": 17,
         "E_Main": 3,
         "V": 8,
+        "V_Integer": 8,
         "K": 0,
         "K_literal": 0,
         "preimport": [
-          17864,
-          4342,
-          6328,
-          33515
+          17072,
+          3934,
+          5720,
+          26251
         ],
         "unpaid_closes": 12,
         "modules": 1571,
-        "coarse_modules": 2958,
+        "coarse_modules": 2166,
         "module_parts": {
           "fixed": 741,
           "wrapper": 746,
@@ -369,14 +396,14 @@
           "rejects": 0,
           "loop_frames": 0
         },
-        "imports": 12489,
+        "imports": 5225,
         "all_module_imports": 37728,
-        "structural_imports": 12489,
+        "structural_imports": 5225,
         "totals": [
-          30353,
-          4342,
-          18817,
-          58493
+          22297,
+          3934,
+          10945,
+          36701
         ],
         "string_lengths": {
           "names": 1702,
@@ -387,20 +414,20 @@
           "module_file": 19,
           "symbol_set_characters": 6606
         },
-        "json_bytes": 271833565,
+        "json_bytes": 145854013,
         "json_parts": {
           "fixed": 77278114,
-          "body": 150544186,
+          "body": 50162970,
           "characters": 0,
-          "imports": 44011236
+          "imports": 18412900
         },
         "auxiliary": {
           "A_total": 12858,
           "E_total": 12787,
           "common_calls": 84657,
-          "why_calls": 238329,
+          "why_calls": 228033,
           "why_symbol_map": 2045920,
-          "undo_peak": 34246924
+          "undo_peak": 34245340
         },
         "producer_core_fits": true
       }
@@ -417,6 +444,17 @@
         "X": 6,
         "X_integer": 6,
         "B_loop": 3,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
         "W": 22,
         "S": 0,
         "N": 5,
@@ -426,20 +464,22 @@
       "bound": {
         "A_parse": 74,
         "A_Main": 169,
-        "A_shape": 80,
+        "A_shape": 72,
+        "A_shape_total": 80,
         "E_Main": 8,
         "V": 16,
+        "V_Integer": 16,
         "K": 0,
         "K_literal": 0,
         "preimport": [
-          20081,
-          5158,
-          7597,
-          43896
+          18497,
+          4342,
+          6381,
+          29368
         ],
         "unpaid_closes": 23,
         "modules": 1711,
-        "coarse_modules": 4795,
+        "coarse_modules": 3211,
         "module_parts": {
           "fixed": 741,
           "wrapper": 746,
@@ -456,38 +496,38 @@
           "rejects": 0,
           "loop_frames": 5
         },
-        "imports": 23032,
+        "imports": 8504,
         "all_module_imports": 78752,
-        "structural_imports": 23032,
+        "structural_imports": 8504,
         "totals": [
-          43113,
-          5158,
-          30629,
-          89960
+          27001,
+          4342,
+          14885,
+          46376
         ],
         "string_lengths": {
           "names": 1702,
           "comments": 2280,
-          "labels": 3529,
+          "labels": 3177,
           "string_attributes": 33,
           "filenames": 256,
           "module_file": 19,
           "symbol_set_characters": 6606
         },
-        "json_bytes": 452442136,
+        "json_bytes": 200483032,
         "json_parts": {
           "fixed": 77278114,
-          "body": 293999225,
+          "body": 93236793,
           "characters": 0,
-          "imports": 81164768
+          "imports": 29968096
         },
         "auxiliary": {
           "A_total": 12953,
           "E_total": 12792,
           "common_calls": 84727,
-          "why_calls": 267150,
+          "why_calls": 246558,
           "why_symbol_map": 2046720,
-          "undo_peak": 34290838
+          "undo_peak": 34287670
         },
         "producer_core_fits": true
       }
@@ -613,6 +653,17 @@
         "X": 6,
         "X_integer": 6,
         "B_loop": 3,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
         "W": 22,
         "S": 0,
         "N": 5,
@@ -620,14 +671,15 @@
         "literal_chars": 0
       },
       "A_Main": 169,
-      "A_shape": 80,
+      "A_shape": 72,
+      "A_shape_total": 80,
       "modules": 1711,
-      "json_bytes": 452442136,
+      "json_bytes": 200483032,
       "json_parts": {
         "fixed": 77278114,
-        "body": 293999225,
+        "body": 93236793,
         "characters": 0,
-        "imports": 81164768
+        "imports": 29968096
       },
       "producer_core_fits": true
     },
@@ -643,6 +695,22 @@
         "X": 9,
         "X_integer": 9,
         "B_loop": 6,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
         "W": 30,
         "S": 0,
         "N": 7,
@@ -650,14 +718,15 @@
         "literal_chars": 0
       },
       "A_Main": 270,
-      "A_shape": 144,
+      "A_shape": 72,
+      "A_shape_total": 144,
       "modules": 1851,
-      "json_bytes": 675436441,
+      "json_bytes": 258129733,
       "json_parts": {
         "fixed": 77278114,
-        "body": 472827238,
+        "body": 138715122,
         "characters": 0,
-        "imports": 125331060
+        "imports": 42136468
       },
       "producer_core_fits": true
     },
@@ -673,6 +742,27 @@
         "X": 12,
         "X_integer": 12,
         "B_loop": 9,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
         "W": 38,
         "S": 0,
         "N": 9,
@@ -680,14 +770,15 @@
         "literal_chars": 0
       },
       "A_Main": 371,
-      "A_shape": 208,
+      "A_shape": 72,
+      "A_shape_total": 208,
       "modules": 1991,
-      "json_bytes": 1152620140,
+      "json_bytes": 315776434,
       "json_parts": {
         "fixed": 77278114,
-        "body": 905844645,
+        "body": 184193451,
         "characters": 0,
-        "imports": 169497352
+        "imports": 54304840
       },
       "producer_core_fits": true
     },
@@ -703,6 +794,32 @@
         "X": 15,
         "X_integer": 15,
         "B_loop": 12,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
         "W": 46,
         "S": 0,
         "N": 11,
@@ -710,14 +827,15 @@
         "literal_chars": 0
       },
       "A_Main": 472,
-      "A_shape": 272,
+      "A_shape": 72,
+      "A_shape_total": 272,
       "modules": 2131,
-      "json_bytes": 1769150783,
+      "json_bytes": 373423135,
       "json_parts": {
         "fixed": 77278114,
-        "body": 1478208996,
+        "body": 229671780,
         "characters": 0,
-        "imports": 213663644
+        "imports": 66473212
       },
       "producer_core_fits": true
     },
@@ -733,6 +851,52 @@
         "X": 27,
         "X_integer": 27,
         "B_loop": 24,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
         "W": 78,
         "S": 0,
         "N": 19,
@@ -740,16 +904,231 @@
         "literal_chars": 0
       },
       "A_Main": 876,
-      "A_shape": 528,
+      "A_shape": 72,
+      "A_shape_total": 528,
       "modules": 2691,
-      "json_bytes": 5628742795,
+      "json_bytes": 604009939,
       "json_parts": {
         "fixed": 77278114,
-        "body": 5161135840,
+        "body": 411585096,
         "characters": 0,
-        "imports": 390328812
+        "imports": 115146700
       },
-      "producer_core_fits": false
+      "producer_core_fits": true
+    },
+    {
+      "loops": 12,
+      "source_bytes": 572,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 12,
+        "I_assign": 12,
+        "X": 39,
+        "X_integer": 39,
+        "B_loop": 36,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
+        "W": 110,
+        "S": 0,
+        "N": 27,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 1280,
+      "A_shape": 72,
+      "A_shape_total": 784,
+      "modules": 3251,
+      "json_bytes": 834596743,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 593498412,
+        "characters": 0,
+        "imports": 163820188
+      },
+      "producer_core_fits": true
+    },
+    {
+      "loops": 16,
+      "source_bytes": 728,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 16,
+        "I_assign": 16,
+        "X": 51,
+        "X_integer": 51,
+        "B_loop": 48,
+        "shape_regions": [
+          {
+            "D": 1,
+            "R": 1
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          },
+          {
+            "F": 1,
+            "I_assign": 1,
+            "B_loop": 3
+          }
+        ],
+        "W": 142,
+        "S": 0,
+        "N": 35,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 1684,
+      "A_shape": 72,
+      "A_shape_total": 1040,
+      "modules": 3811,
+      "json_bytes": 1065183547,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 775411728,
+        "characters": 0,
+        "imports": 212493676
+      },
+      "producer_core_fits": true
     }
   ],
   "scope": "producer core only; source/config inequalities, not admission or native execution"

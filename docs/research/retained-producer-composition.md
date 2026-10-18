@@ -60,6 +60,31 @@ is still safe, but is no longer required by this sharper composition.
 
 ## Modules and Main output files
 
+The ordinary Integer expression visits can use their own already closed
+transfer instead of the larger String concat/conversion maximum. Let
+`V_Integer=2 X_Integer+2G`, where `X_Integer` counts only ordinary Integer
+literal, value-name and arithmetic nodes, **not Length attributes**. The
+[scalar core](retained-producer-capacity.md#normalized-signed-integer-arithmetic-cost)
+is componentwise bounded by `(4,2,3,20)` per visit, including an optional
+overflow wrapper. Add the nonempty static subtype boundary `(4,1,1,15)`
+and the existing expected-type allowance `(3,0,0,0)`. Thus
+
+```text
+B_expression_visits = V_Integer (11,3,4,35)
+                    + (V-V_Integer) (110,54,80,943).
+```
+
+The type-boundary allowance may be charged even at an Integer literal or
+operator whose caller requires no boundary check. Integer operands of a
+predicate comparison are still translated in program/term domain; the
+predicate/pretty-label wrapper belongs to the Boolean parent. Captured bounds
+use the same scalar frontier. The earlier exclusion of dynamic/empty expected
+targets still applies: Main does not assign to loop indexes, and the boundary
+caller uses builtin Integer for their ordinary value reads. The distinct
+literal-definition and per-character terms remain unchanged. This tightens
+all four components, not just emitted bytes; it introduces no new native
+observation or label-occurrence uniqueness premise.
+
 The same non-import/cache reduction transfers the number of fixed module nodes.
 Each retained post-Standard graph has 238 modules. The five final graphs have
 343, 260, 388, 394 and 308 respectively. Their additive envelope is
@@ -232,6 +257,55 @@ requiring a semantic AST measurement. It can remain much larger than actual
 parent depth, especially for sequential siblings. It changes only the shape
 length argument; the full `A_Main` still controls node/map/undo domains.
 
+A sharper source bound separates **top-level source regions**: one complete
+object declaration or one complete statement directly inside Main, including
+all its nested loops, branches and expressions. For a region `r`, apply the
+same shape-node sum using its local counters, omitting the shared `7+N_with`
+shell term. Call that local sum `s(r)`. Then use
+
+```text
+A_shape_region = 7+N_with + max_r s(r)
+A_shape = min(A_shape_total, A_shape_region).
+```
+
+The maximum of no regions is zero. This is a partition of recognized source,
+not a measured parent depth or a bound selected from sample executions. The
+checker verifies that its explicit region counters sum to the complete Main
+counters for every term used by `s`. Without a region partition it retains the
+earlier whole-Main bound. The source attachment argument is:
+
+- `Shape_Of_Node` follows only `Parent` and stops at Main's body/specification
+  (`spark_util.adb:7005–7334`). It never follows name bindings, type pointers,
+  initializer references, `Original_Node` or previous/next statements.
+- A list member's parent is its **list owner**, not its previous sibling;
+  sibling links use distinct tables (`gcc/ada/nlists.adb:43–82`). Therefore a
+  path out of one top-level region reaches Main without entering another.
+- `New_Copy` clears its parent/list link (`atree.adb:1833–1860`). Relocation
+  restores the old enclosing parent before reattachment (`:2109–2132`);
+  Rewrite preserves the destination's enclosing link through Copy_Node and
+  repairs child parents (`:1301–1333,2222–2276`). A copied String constant
+  initializer cannot carry its old declaration's parent into the new region.
+- The complete light-semantic constructor families in the
+  [Main-node derivation](retained-main-semantics.md) either wrap/replace a
+  local expression or insert an action into its own enclosing statement,
+  condition or declaration list. Insert_Actions climbs only the existing
+  ancestor chain; it uses the common owner when inserting before a list
+  member (`exp_util.adb:8030–8417`). Such an action can leave its source region
+  for Main's list, but cannot become an ancestor of another region. Its own
+  nodes are still paid by its generating region's full local allowance.
+- The two raw loop-range copies are attached to the original range's parent
+  (`sem_ch5.adb:3309–3311,3962–3979`); captured bounds are inserted before
+  their loop. No admitted loop-bound expression requires secondary-stack
+  management, so the iterator/secondary-stack loop-wrapping branches at
+  `:3930–4000` are absent. Native expansion is outside this argument.
+
+Generated entities, freeze nodes and call/reference markers still contribute
+no shape text. Fixed imported declarations use the fixed label bound. Thus
+each contributing Main parent path belongs to one region plus the shared
+shell. Nested siblings **within** one region are still added conservatively;
+this refinement does not claim the exact longest path. Source attachment,
+rather than unique serialization of labeled program nodes, justifies it.
+
 Let `w_k` be the family-aware local byte weight of node kind `k`, excluding
 children; the checker derives it from the existing 63-kind/177-field schema.
 Let `F_k` be the additive fixed occurrence vector reconstructed from the raw
@@ -280,12 +354,12 @@ For `P_path=256`, the source fixtures give:
 | --- | ---: | ---: | ---: | ---: |
 | Null | 39 | 20,401 | 32,831 | 124,012,051 |
 | Output of `"a" & "b"` | 68 | 29,617 | 54,930 | 243,835,266 |
-| Ranged Integer declaration and assignment | 74 | 30,353 | 58,493 | 271,833,565 |
-| Ranged Integer plus loop and assignment | 169 | 43,113 | 89,960 | 452,442,136 |
+| Ranged Integer declaration and assignment | 74 | 22,297 | 36,701 | 145,854,013 |
+| Ranged Integer plus loop and assignment | 169 | 27,001 | 46,376 | 200,483,032 |
 
 All listed producer inequalities hold, including auxiliary domains. These byte
 numbers are upper bounds, not measured report sizes. The largest undo bound is
-34,290,838, the largest Why-pool call bound 267,150, and the largest ordinary
+34,287,670, the largest Why-pool call bound 246,558, and the largest ordinary
 Common-pool call bound 84,727 in these four cases.
 
 A single output literal exposes the length sensitivity without increasing its
@@ -313,20 +387,25 @@ Sequential range-loop assignments expose a different conservative loss:
 
 | Loops | Source bytes | JSON bound | Producer inequalities |
 | --- | ---: | ---: | --- |
-| 1 | 143 | 452,442,136 | pass |
-| 2 | 182 | 675,436,441 | pass |
-| 3 | 221 | 1,152,620,140 | pass |
-| 4 | 260 | 1,769,150,783 | pass |
-| 8 | 416 | 5,628,742,795 | fail byte envelope |
+| 1 | 143 | 200,483,032 | pass |
+| 2 | 182 | 258,129,733 | pass |
+| 3 | 221 | 315,776,434 | pass |
+| 4 | 260 | 373,423,135 | pass |
+| 8 | 416 | 604,009,939 | pass |
+| 12 | 572 | 834,596,743 | pass |
+| 16 | 728 | 1,065,183,547 | pass |
 
-The larger bound at eight sibling loops is conservative loss, not an observed
-failure of this currently admitted program. In particular, the all-node
-shape-length envelope grows with siblings which are not on one parent path,
-and its maximum local weight still applies to every ordinary Main occurrence.
-A future refinement can count shape-bearing occurrences and parent depth
-separately. The old aggregate rejected two loops already; preserving occurrence
-counts in imports and keeping field/module classes distinct improves the useful
-region without changing the external tool or selecting a new arbitrary cap.
+The earlier whole-Main shape/ordinary-expression bound was 5,628,742,795 for
+eight sibling loops and failed conservatively for this currently admitted
+program. Region partitioning alone reduces that to 1,958,290,123. Applying
+the closed scalar transfer then gives the table above. Each region's shape
+bound stays at 72 regardless of the number of sibling loops, while the total
+node-domain charge still grows with every loop. This does not establish
+non-regression for every currently admitted source: nested siblings in a single
+region, String conversions and maximum field weights retain conservative
+loss. A future refinement can count shape-bearing occurrences or local parent
+paths separately. These improvements require neither an external-tool change
+nor a new arbitrary cap.
 
 ## Four fixed library producer processes
 

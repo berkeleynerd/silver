@@ -12,6 +12,28 @@ import tarfile
 HERE = Path(__file__).resolve().parent
 EVIDENCE = HERE.parent
 
+# The existing whole-Main shape allowance, with scanner leaves removed.
+# A region is one complete top-level declaration or statement; regions include
+# every nested branch/loop. Only the shell and with-clause charge is shared.
+SHAPE_COEFFICIENTS = dict(O=3,O_lower=1,dots=1,Image=1,Length=11,
+    calls_with_actual=1,named_actuals=1,Reject=1,flatten=6,D=1,R=7,null=1,
+    I_assign=1,S_assign=1,**{'if':1},elsif=1,F=51,B_loop=4,D_s=21,U=7,V0=1,O_loop=4)
+
+
+def shape_bound(counts):
+    c = Counter(counts)
+    local = lambda row: sum(n*row.get(k,0) for k,n in SHAPE_COEFFICIENTS.items())
+    shell = 7+c['context']
+    total = shell+local(c)
+    regions = c.get('shape_regions')
+    if regions is None:
+        return total,total
+    # The research fixtures supply explicit source-region counters. A future
+    # recognizer must compute this partition while traversing its own source.
+    for key in SHAPE_COEFFICIENTS:
+        assert sum(r.get(key,0) for r in regions) == c[key],key
+    return shell+max(map(local,regions),default=0),total
+
 
 def add(*vectors):
     return tuple(map(sum, zip(*vectors)))
@@ -176,18 +198,20 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     main_nodes = (parse+4*c['B_loop']+53*f+6*r+25*ds+d+2*s+6*a
                   +7*c['U']+10*c['Length']+c['V0']+2*c['O']+12*p
                   +4*c['O_loop']+c['C_lib']+c['W']+1)
-    # Shape_Of_Node ignores scanner leaves, entities, freeze/call/reference markers.
-    shape_nodes = (parse-2*(c['W']+s+c['N']+c['N_colon'])+4*c['B_loop']
-                   +44*f+4*r+21*ds+7*c['U']+10*c['Length']+c['V0']
-                   +2*c['O']+2*p+4*c['O_loop'])
-    assert 0 <= shape_nodes <= main_nodes
+    # Parent paths stay within one top-level source region and its shared shell.
+    shape_nodes,shape_total = shape_bound(c)
+    assert 0 <= shape_nodes <= shape_total <= main_nodes
     visits = 2*(c['X']+c['U']+3*p)+2*g
+    assert 0 <= c['X_integer'] <= c['X']
+    numeric_visits = 2*c['X_integer']+2*g
     literals = s+a+3*p+ds
     # D_lit=D_s and D_alias=0 dominates every declaration classification.
     object_part = add(scale(d+f+g, (33,9,6,33)), scale(f,(6,4,2,6)))
     type_part = add(scale(r,(137,53,48,305)), scale(ds,(209,82,78,348)),
                     scale(kl,(37,14,11,57)), scale(f,(97,39,33,205)))
-    expr = add(scale(visits,(110,54,80,943)), scale(literals,(23,13,10,75)),
+    expr = add(scale(numeric_visits,(11,3,4,35)),
+               scale(visits-numeric_visits,(110,54,80,943)),
+               scale(literals,(23,13,10,75)),
                scale(c['H_chars'],(7,3,6,40)))
     skeleton = add(scale(d-ds+g,(13,3,9,55)), scale(ds,(55,24,36,188)),
                    scale(r+ds,(1,0,0,5)), scale(c['I_assign'],(6,0,0,8)),
@@ -205,8 +229,6 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     closes = 2*d+8*f+4*r+6*ds+2*kl+3*f+literals+2+4
     # Character predicates and list/location wrappers allocate no module.
     modules = fixed_modules+variable[0]-7*c['H_chars']-list_part[0]
-    assert 0 <= c['X_integer'] <= c['X']
-    numeric_visits = 2*c['X_integer']+2*g
     module_parts = dict(fixed=fixed_modules,wrapper=746,memoized=27*entities,
         string_objects=2*ds,string_completion=3*ds,string_cache=2*(ds+kl),
         array_attempts_and_miss=ds+kl+3,literal_definitions=literals,
@@ -244,7 +266,8 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     auxiliary = dict(A_total=all_nodes,E_total=all_entities,
                      common_calls=common_calls,why_calls=why_calls,
                      why_symbol_map=160*all_entities,undo_peak=undo)
-    return dict(A_parse=parse,A_Main=main_nodes,A_shape=shape_nodes,E_Main=entities,V=visits,K=literals,
+    return dict(A_parse=parse,A_Main=main_nodes,A_shape=shape_nodes,A_shape_total=shape_total,
+                E_Main=entities,V=visits,V_Integer=numeric_visits,K=literals,
                 K_literal=kl,preimport=preimport,unpaid_closes=closes,modules=modules,
                 coarse_modules=coarse_modules,module_parts=module_parts,
                 imports=imports,all_module_imports=all_module_imports,
@@ -271,14 +294,18 @@ def lexical(source):
 def examples():
     shell = 'with Silver_IO;\nprocedure Main is\npragma SPARK_Mode (On);\n%sbegin\n%send Main;\n'
     cases = [
-        ('null','procedure Main is\npragma SPARK_Mode (On);\nbegin\nnull;\nend Main;\n',dict(null=1)),
+        ('null','procedure Main is\npragma SPARK_Mode (On);\nbegin\nnull;\nend Main;\n',
+         dict(null=1,shape_regions=[dict(null=1)])),
         ('concat',shell%('', 'Silver_IO.Put ("a" & "b");\n'),
-         dict(context=1,dots=1,calls_with_actual=1,C_lib=1,output=1,concat=1,O=1,X=3,H_chars=4)),
+         dict(context=1,dots=1,calls_with_actual=1,C_lib=1,output=1,concat=1,O=1,X=3,H_chars=4,
+              shape_regions=[dict(dots=1,calls_with_actual=1,O=1)])),
         ('assignment',shell%('A : Integer range 0 .. 9 := 0;\n','A := 1;\n'),
-         dict(context=1,D=1,R=1,I_assign=1,X=4,X_integer=4)),
+         dict(context=1,D=1,R=1,I_assign=1,X=4,X_integer=4,
+              shape_regions=[dict(D=1,R=1),dict(I_assign=1)])),
         ('loop',shell%('A : Integer range 0 .. 9 := 0;\n',
                       'for I in 1 .. 9 loop\nA := I;\nend loop;\n'),
-         dict(context=1,D=1,R=1,F=1,I_assign=1,X=6,X_integer=6,B_loop=3)),
+         dict(context=1,D=1,R=1,F=1,I_assign=1,X=6,X_integer=6,B_loop=3,
+              shape_regions=[dict(D=1,R=1),dict(F=1,I_assign=1,B_loop=3)])),
     ]
     for name,source,counts in cases:
         yield name,source,{**counts,**lexical(source)}
@@ -350,23 +377,27 @@ def main():
         source = ('with Silver_IO; procedure Main is pragma SPARK_Mode (On); '
                   'begin Silver_IO.Put ("'+'a'*size+'"); end Main;')
         counts = dict(context=1,dots=1,calls_with_actual=1,C_lib=1,output=1,X=1,
-                      H_chars=size,**lexical(source))
+                      H_chars=size,shape_regions=[dict(dots=1,calls_with_actual=1)],
+                      **lexical(source))
         for path_bytes in (64,256,1024):
             bound = compose(counts,schema,fixed_counts,fixed_modules,path_bytes)
             sensitivity.append(dict(literal_characters=size,source_bytes=len(source),
                 path_bytes=path_bytes,json_bytes=bound['json_bytes'],
                 producer_core_fits=bound['producer_core_fits']))
     loop_sensitivity = []
-    for count in (1,2,3,4,8):
+    for count in (1,2,3,4,8,12,16):
         source = ('with Silver_IO; procedure Main is pragma SPARK_Mode (On); '
                   'A : Integer range 0 .. 9 := 0; begin '
                   +'for I in 1 .. 9 loop A := I; end loop; '*count+'end Main;')
         x = 3+3*count
         counters = dict(context=1,D=1,R=1,F=count,I_assign=count,X=x,X_integer=x,
-                        B_loop=3*count,**lexical(source))
+                        B_loop=3*count,shape_regions=[dict(D=1,R=1)]
+                            +[dict(F=1,I_assign=1,B_loop=3) for _ in range(count)],
+                        **lexical(source))
         bound = compose(counters,schema,fixed_counts,fixed_modules)
         loop_sensitivity.append(dict(loops=count,source_bytes=len(source),counts=counters,
-            A_Main=bound['A_Main'],A_shape=bound['A_shape'],modules=bound['modules'],
+            A_Main=bound['A_Main'],A_shape=bound['A_shape'],A_shape_total=bound['A_shape_total'],
+            modules=bound['modules'],
             json_bytes=bound['json_bytes'],json_parts=bound['json_parts'],
             producer_core_fits=bound['producer_core_fits']))
     inputs = ('retained-producer-dependencies-20261018/graphs.tar.gz',
