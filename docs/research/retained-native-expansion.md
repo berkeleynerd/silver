@@ -716,6 +716,95 @@ subtypes, out-of-scope freeze-node analysis and later backend elaboration.
 This closes the subtype pair's own freezing cost; it does not close the
 construction of an explicit object-derived String subtype declaration.
 
+### Explicit subtype index layout
+
+The explicit constrained String subtype takes a different route from
+`Set_Slice_Subtype`: `Constrain_Index` creates one signed scalar itype,
+shares the existing range, and calls `Set_Discrete_RM_Size`
+(`sem_ch3.adb:15316–15492`). When `Related_Id` is present its name is derived
+from that entity; the earlier thirteen-character internal-name bound therefore
+does **not** apply. The range-analysis and name-production costs are separate
+from the following closed layout transfer.
+
+For an ordinary, unpredicated signed Integer subtype, suppose its finite
+ancestor chain reaches the frozen Standard Integer base, and every bound that
+`Minimum_Size` selects is an existing integer literal or finite constant-name
+chain with value in **-2^31 .. 2^31-1**. There is no biased representation.
+`Set_Discrete_RM_Size` adds at most **95 retained Uint entries and 285 digit
+words**, no ordinary/entity nodes, syntax/Elists, names or String values.
+At most 95 `UI_Ints` cache insertions is a sufficient additional envelope;
+the actual path inserts fewer. These are per-call append bounds, valid without
+assuming a warm cache.
+
+The static-matching shortcut compares existing bounds without arithmetic:
+`Predicates_Match` returns immediately for the unpredicated types;
+`Subtypes_Statically_Match` checks flags and the two `Expr_Value` equalities
+(`sem_eval.adb:6314–6351,6702–6835`). Otherwise `Minimum_Size` follows the
+ancestor chain to existing compile-time-known bounds and uses
+`Expr_Rep_Value`, which follows constant references without allocating
+(`sem_ch13.adb:16076–16209`, `sem_eval.adb:4505–4531`). Its discrete null-range
+case returns zero. The signed case performs at most **32 loop tests**, each
+with at most two negations of B, and requests powers no larger than **2^31**.
+The unsigned case requests the same largest power and performs no negations
+(`sem_ch13.adb:16229–16303`). `UI_Expon(2,S)` with S <= 31 takes the cached
+power-of-two route, extending at most 31 entries by one multiplication each
+(`uintp.adb:1361–1405`). Each multiplication or negation appends at most one
+Uint, hence `31 + 2*32 = 95`. Every result has magnitude at most 2^31 and uses
+at most three base-32768 digits. The returned size lies in 0..32, so its final
+`UI_From_Int` allocates nothing (`layout.adb:900–933`).
+
+The largest local Uint working vector total is **eight digit words**: a
+power-extension multiplication uses at most three left, one right and four
+product words. A negation or `UI_From_Int` conversion uses at most three;
+comparison uses at most six. Cache extensions update `Uints_Min` and
+`Udigits_Min`, potentially retaining an older prefix of the pools. A
+whole-phase bound based on cumulative append counts remains safe; a live-only
+bound cannot assume those older values are released. Ancestor/constant-chain
+traversal depth and cache-wrapper representation need their own stack/byte
+charges. This transfer does not justify its 32-bit bound premise for an
+arbitrary generated expression.
+
+### Range-check trees are constructed before suppression
+
+`Process_Range_Expr_In_Decl` resolves the range, captures both scalar bounds,
+and then calls `Get_Range_Checks` without testing check suppression
+(`sem_ch3.adb:22588–22734`). `Get_Range_Checks` delegates to
+`Selected_Range_Checks`. Only the later `Insert_Range_Checks` tests
+`Checks_On` and returns when checks are suppressed
+(`checks.adb:8044–8054,8118–8141`). **Suppression can discard an allocated
+tree; it does not avoid its allocation.** The secondary-stack concat subtype
+uses this suppressed route. The plain object route deliberately keeps checks
+enabled and additionally analyzes any inserted check.
+
+The dynamic `N_Range` builder has a useful structural transfer. Assume no
+discriminants/access/fixed-lower-bound case, no compile-time range error, and
+already-analyzed side-effect-free scalar bound trees with **b** total ordinary
+nodes, no lists, owned itypes/entities or expression actions. Exclude any
+side-effect-removal capture by the incoming purity premise. The builder adds
+at most **2*b + 28 ordinary nodes**, with no entity, list, name, growing-slot,
+String or Uint allocation of its own:
+
+- It duplicates each bound twice: `2*b` nodes. `Remove_Checks` only walks the
+  copies and clears flags (`checks.adb:9822–9887`).
+- Six `Convert_To` calls each allocate at most a shallow relocation,
+  conversion and type occurrence: eighteen nodes. Unlike the concat emitter's
+  specialized `To_Ityp`, `Convert_To` does not return the original node just
+  because the type already matches (`tbuild.adb:104–121`).
+- Two target-bound attributes each add an attribute and a type occurrence:
+  four nodes. Less-than, greater-than, `or else`, greater-or-equal, `and then`
+  and the conditional raise add six more
+  (`checks.adb:10603–10682,11117–11134,11423–11436`).
+
+This is the check-tree constructor transfer, **not** a bound for the entire
+`Get_Range_Checks` call. Before construction, `Not_Null_Range` can call
+`Compile_Time_Compare`, whose numeric work is additional. Its range analysis
+follows internal constant initializers **before** consulting its cache
+(`checks.adb:5142–5163`); captured names are therefore not a constant-cost
+numeric-analysis boundary. Likewise, prior range resolution/capture,
+compile-time-error handling, enabled-check analysis and placement remain
+separate. For two known in-range literal/constant-chain bounds the selected
+check path performs value comparisons and constructs no tree.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
