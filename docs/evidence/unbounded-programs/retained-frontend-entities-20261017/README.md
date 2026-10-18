@@ -3,10 +3,12 @@
 Companion to [the derivation](../../../research/retained-frontend-entities.md),
 2026-10-17, Linux x86_64. No compiler, GNATprove or Lean execution.
 
-`derive.py` verifies 17 complete frontend files against the retained pinned
+`derive.py` verifies 19 complete frontend files against the retained pinned
 manifest, then emits `source-manifest.json` and LF-numbered `source-excerpts.md`.
 The excerpts support manual caller/guard review. The script does not mechanically
 prove the entity formula or binary/source correspondence.
+The later loop-shape/abstract-state addition retains the ordinary `N_Range`
+route and the generated entity-kind hierarchy used by producer frame accounting.
 
 From the repository root:
 

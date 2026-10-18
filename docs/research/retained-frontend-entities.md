@@ -256,6 +256,31 @@ semantic fold. This bounds the aggregate lengths of the literal occurrences
 above; it does not bound repeated producer translations or repeated JSON
 serialization of a shared theory. Those are separate producer multiplicities.
 
+## Loop shape and abstract-state classification
+
+The current source loop `for I in [reverse] low .. high` remains a range
+node under GNATprove light expansion. `Analyze_Loop_Parameter_Specification`
+preanalyzes a copy and analyzes the original range; its conversion to a
+container iterator requires an excluded function/entity/container form
+(`sem_ch5.adb:3301–3402`). `Make_Index`'s range branch keeps `R := N`, attaches
+the generated signed subtype and sets its type without replacing it by a
+subtype indication (`sem_ch3.adb:20504–20605,20712–20761`). Light loop expansion
+only rewrites an array iterator (`exp_spark.adb:896–913`), absent here. Therefore
+the producer's separate `N_Subtype_Indication` check on the loop specification
+does not add work for these ordinary Main ranges. This does not remove checks
+while translating the endpoints or generated subtype declarations.
+
+For producer modified-root accounting, GNAT's `Is_Object` tests membership of
+`Object_Kind` (`einfo-utils.adb:354–357`). The generated hierarchy puts
+`E_Abstract_State` under `Overloadable_Kind`, separately from `Object_Kind`
+(`gen_il-gen-gen_entities.adb:305–310,1087–1095`). A visible abstract-state entity
+is therefore not an ordinary object. Applied to the selected public
+`Ada.Text_IO.File_System` abstraction, this supports the producer's direct-entity
+filter; its Magic_String alternative is filtered separately by the producer.
+The visible-state/refinement premise still belongs to the producer's
+`Get_Proof_Globals` call and the selected dependency scope. This classification
+does not remove the state's effects, symbols, dependencies or fixed translation.
+
 ## Limits of this component
 
 This is a manual source derivation with reproducible source identity/excerpts,

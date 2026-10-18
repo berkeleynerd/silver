@@ -59,6 +59,15 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
  11508    end Validity_Check_Range;
 ```
 
+## einfo-utils.adb:354–357
+
+```ada
+   354    function Is_Object                           (Id : E) return B is
+   355    begin
+   356       return Ekind (Id) in Object_Kind;
+   357    end Is_Object;
+```
+
 ## exp_ch4.adb:10162–10258
 
 ```ada
@@ -1067,6 +1076,31 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
    516          Check_Validity_Of_Parameters := False;
 ```
 
+## gen_il-gen-gen_entities.adb:305–310
+
+```ada
+   305    Ab (Exception_Or_Object_Kind, Entity_Kind,
+   306        (Sm (Esize, Uint)));
+   307
+   308    Ab (Object_Kind, Exception_Or_Object_Kind,
+   309        (Sm (Current_Value, Node_Id),
+   310         Sm (Renamed_Or_Alias, Node_Id)));
+```
+
+## gen_il-gen-gen_entities.adb:1087–1095
+
+```ada
+  1087    Cc (E_Abstract_State, Overloadable_Kind,
+  1088        --  A state abstraction. Used to designate entities introduced by aspect
+  1089        --  or pragma Abstract_State. The entity carries the various properties
+  1090        --  of the state.
+  1091        (Sm (Body_References, Elist_Id),
+  1092         Sm (Encapsulating_State, Node_Id),
+  1093         Sm (First_Entity, Node_Id),
+  1094         Sm (Has_Partial_Visible_Refinement, Flag),
+  1095         Sm (Has_Visible_Refinement, Flag),
+```
+
 ## inline.adb:1950–1993
 
 ```ada
@@ -1902,6 +1936,113 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
  19214    end Find_Type_Of_Object;
 ```
 
+## sem_ch3.adb:20504–20605
+
+```ada
+ 20504
+ 20505          --  The index is given by a range constraint. The bounds are known
+ 20506          --  to be of a consistent type.
+ 20507
+ 20508          if not Is_Overloaded (N) then
+ 20509             T := Etype (N);
+ 20510
+ 20511             --  For universal bounds, choose the specific predefined type
+ 20512
+ 20513             if T = Universal_Integer then
+ 20514                T := Standard_Integer;
+ 20515
+ 20516             elsif T = Any_Character then
+ 20517                Ambiguous_Character (Low_Bound (N));
+ 20518
+ 20519                T := Standard_Character;
+ 20520             end if;
+ 20521
+ 20522          --  The node may be overloaded because some user-defined operators
+ 20523          --  are available, but if a universal interpretation exists it is
+ 20524          --  also the selected one.
+ 20525
+ 20526          elsif Universal_Interpretation (N) = Universal_Integer then
+ 20527             T := Standard_Integer;
+ 20528
+ 20529          else
+ 20530             T := Any_Type;
+ 20531
+ 20532             declare
+ 20533                Ind : Interp_Index;
+ 20534                It  : Interp;
+ 20535
+ 20536             begin
+ 20537                Get_First_Interp (N, Ind, It);
+ 20538                while Present (It.Typ) loop
+ 20539                   if Is_Discrete_Type (It.Typ) then
+ 20540
+ 20541                      if Found
+ 20542                        and then not Covers (It.Typ, T)
+ 20543                        and then not Covers (T, It.Typ)
+ 20544                      then
+ 20545                         Error_Msg_N ("ambiguous bounds in discrete range", N);
+ 20546                         exit;
+ 20547                      else
+ 20548                         T := It.Typ;
+ 20549                         Found := True;
+ 20550                      end if;
+ 20551                   end if;
+ 20552
+ 20553                   Get_Next_Interp (Ind, It);
+ 20554                end loop;
+ 20555
+ 20556                if T = Any_Type then
+ 20557                   Error_Msg_N ("discrete type required for range", N);
+ 20558                   Set_Etype (N, Any_Type);
+ 20559                   return;
+ 20560
+ 20561                elsif T = Universal_Integer then
+ 20562                   T := Standard_Integer;
+ 20563                end if;
+ 20564             end;
+ 20565          end if;
+ 20566
+ 20567          if not Is_Discrete_Type (T) then
+ 20568             Error_Msg_N ("discrete type required for range", N);
+ 20569             Set_Etype (N, Any_Type);
+ 20570             return;
+ 20571          end if;
+ 20572
+ 20573          --  If the range bounds are "T'First .. T'Last" where T is a name of a
+ 20574          --  discrete type, then use T as the type of the index.
+ 20575
+ 20576          if Nkind (Low_Bound (N)) = N_Attribute_Reference
+ 20577            and then Attribute_Name (Low_Bound (N)) = Name_First
+ 20578            and then Is_Entity_Name (Prefix (Low_Bound (N)))
+ 20579            and then Is_Discrete_Type (Entity (Prefix (Low_Bound (N))))
+ 20580
+ 20581            and then Nkind (High_Bound (N)) = N_Attribute_Reference
+ 20582            and then Attribute_Name (High_Bound (N)) = Name_Last
+ 20583            and then Is_Entity_Name (Prefix (High_Bound (N)))
+ 20584            and then Entity (Prefix (High_Bound (N))) = Def_Id
+ 20585          then
+ 20586             Def_Id := Entity (Prefix (Low_Bound (N)));
+ 20587          end if;
+ 20588
+ 20589          R := N;
+ 20590          Process_Range_Expr_In_Decl (R, T);
+ 20591
+ 20592       elsif Nkind (N) = N_Subtype_Indication then
+ 20593
+ 20594          --  The index is given by a subtype with a range constraint
+ 20595
+ 20596          T := Base_Type (Entity (Subtype_Mark (N)));
+ 20597
+ 20598          if not Is_Discrete_Type (T) then
+ 20599             Error_Msg_N ("discrete type required for range", N);
+ 20600             Set_Etype (N, Any_Type);
+ 20601             return;
+ 20602          end if;
+ 20603
+ 20604          R := Range_Expression (Constraint (N));
+ 20605
+```
+
 ## sem_ch3.adb:20712–20761
 
 ```ada
@@ -2261,7 +2402,7 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
   3265
 ```
 
-## sem_ch5.adb:3295–3315
+## sem_ch5.adb:3295–3402
 
 ```ada
   3295       --  because bounds expressed as function calls with side effects will be
@@ -2285,6 +2426,93 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
   3313          --  Ada 2012: If the domain of iteration is:
   3314
   3315          --  a)  a function call,
+  3316          --  b)  an identifier that is not a type,
+  3317          --  c)  an attribute reference 'Old (within a postcondition),
+  3318          --  d)  an unchecked conversion or a qualified expression with
+  3319          --      the proper iterator type.
+  3320
+  3321          --  then it is an iteration over a container. It was classified as
+  3322          --  a loop specification by the parser, and must be rewritten now
+  3323          --  to activate container iteration. The last case will occur within
+  3324          --  an expanded inlined call, where the expansion wraps an actual in
+  3325          --  an unchecked conversion when needed. The expression of the
+  3326          --  conversion is always an object.
+  3327
+  3328          if Nkind (DS_Copy) = N_Function_Call
+  3329
+  3330            or else (Is_Entity_Name (DS_Copy)
+  3331                      and then not Is_Type (Entity (DS_Copy)))
+  3332
+  3333            or else (Nkind (DS_Copy) = N_Attribute_Reference
+  3334                      and then Attribute_Name (DS_Copy) in
+  3335                                 Name_Loop_Entry | Name_Old)
+  3336
+  3337            or else Has_Aspect (Etype (DS_Copy), Aspect_Iterable)
+  3338
+  3339            or else Nkind (DS_Copy) = N_Unchecked_Type_Conversion
+  3340            or else (Nkind (DS_Copy) = N_Qualified_Expression
+  3341                      and then Is_Iterator (Etype (DS_Copy)))
+  3342          then
+  3343             --  This is an iterator specification. Rewrite it as such and
+  3344             --  analyze it to capture function calls that may require
+  3345             --  finalization actions.
+  3346
+  3347             declare
+  3348                I_Spec : constant Node_Id :=
+  3349                           Make_Iterator_Specification (Sloc (N),
+  3350                             Defining_Identifier => Relocate_Node (Id),
+  3351                             Name                => DS_Copy,
+  3352                             Subtype_Indication  => Empty,
+  3353                             Reverse_Present     => Reverse_Present (N));
+  3354                Scheme : constant Node_Id := Parent (N);
+  3355
+  3356             begin
+  3357                Set_Iterator_Specification (Scheme, I_Spec);
+  3358                Set_Loop_Parameter_Specification (Scheme, Empty);
+  3359                Set_Iterator_Filter (I_Spec,
+  3360                  Relocate_Node (Iterator_Filter (N)));
+  3361
+  3362                Analyze_Iterator_Specification (I_Spec);
+  3363
+  3364                --  In a generic context, analyze the original domain of
+  3365                --  iteration, for name capture.
+  3366
+  3367                if not Expander_Active then
+  3368                   Analyze (DS);
+  3369                end if;
+  3370
+  3371                --  Set kind of loop parameter, which may be used in the
+  3372                --  subsequent analysis of the condition in a quantified
+  3373                --  expression.
+  3374
+  3375                return;
+  3376             end;
+  3377
+  3378          --  Domain of iteration is not a function call, and is side-effect
+  3379          --  free.
+  3380
+  3381          else
+  3382             --  A quantified expression that appears in a pre/post condition
+  3383             --  is preanalyzed several times. If the range is given by an
+  3384             --  attribute reference it is rewritten as a range, and this is
+  3385             --  done even with expansion disabled. If the type is already set
+  3386             --  do not reanalyze, because a range with static bounds may be
+  3387             --  typed Integer by default.
+  3388
+  3389             if Nkind (Parent (N)) = N_Quantified_Expression
+  3390               and then Present (Etype (DS))
+  3391             then
+  3392                null;
+  3393             else
+  3394                Analyze (DS);
+  3395             end if;
+  3396          end if;
+  3397       end if;
+  3398
+  3399       if DS = Error then
+  3400          return;
+  3401       end if;
+  3402
 ```
 
 ## sem_ch5.adb:3434–3438
