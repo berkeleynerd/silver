@@ -1801,6 +1801,247 @@
           "additional_Uint_appends": 0,
           "backend_and_fixed_dependency_diagnostics_included": false,
           "whole_native_frontend_closed": false
+        },
+        "diagnostic_backing": {
+          "tables": {
+            "Non_Instance_Msgs": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 32,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 6432,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Errors": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 320,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 192320,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Locations": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 80,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 48080,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Edits": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Fixes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 3612,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Specific_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 112,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 33712,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "List_Pragmas": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 1208,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Unreferenced_Entities": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 2000,
+              "bytes_with_sentinel": 8004,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "In_Out_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 804,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings_Off_Pragmas": {
+              "demand": 0,
+              "low_bound": 0,
+              "initial": 500,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 1000,
+              "bytes_with_sentinel": 12012,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "record_field_counts": {
+            "NIM_Record": 2,
+            "Labeled_Span_Type": 5,
+            "Edit_Type": 3,
+            "Fix_Type": 3,
+            "Error_Msg_Object": 20,
+            "Warnings_Entry": 3,
+            "Specific_Warning_Entry": 7,
+            "List_Pragma_Record": 2,
+            "Warnings_Off_Entry": 3,
+            "Source_Span": 3
+          },
+          "checks": {
+            "tables": true,
+            "message_and_warning_counters": true,
+            "format_buffer_and_join_indices": true,
+            "single_history_String": true,
+            "single_formatted_or_join_String": true,
+            "static_Warnings_As_Errors_pointer_array": true
+          },
+          "fixed_diagnostic_table_additions": 0,
+          "individual_formatted_String_characters_bound": 133118,
+          "static_Warnings_As_Errors_elements": 10000,
+          "Warnings_As_Errors_live_elements": 0,
+          "all_selected_checks_pass": true,
+          "rendering_backend_and_other_fixed_heaps_included": false,
+          "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
+          "whole_native_frontend_closed": false
         }
       },
       {
@@ -3604,6 +3845,247 @@
           "Warnings_As_Errors_Main_appends": 0,
           "additional_Uint_appends": 0,
           "backend_and_fixed_dependency_diagnostics_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "diagnostic_backing": {
+          "tables": {
+            "Non_Instance_Msgs": {
+              "demand": 1,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 32,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 6432,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Errors": {
+              "demand": 1,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 320,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 192320,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Locations": {
+              "demand": 1,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 80,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 48080,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Edits": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Fixes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 3612,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Specific_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 112,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 33712,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "List_Pragmas": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 1208,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Unreferenced_Entities": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 2000,
+              "bytes_with_sentinel": 8004,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "In_Out_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 804,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings_Off_Pragmas": {
+              "demand": 0,
+              "low_bound": 0,
+              "initial": 500,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 1000,
+              "bytes_with_sentinel": 12012,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "record_field_counts": {
+            "NIM_Record": 2,
+            "Labeled_Span_Type": 5,
+            "Edit_Type": 3,
+            "Fix_Type": 3,
+            "Error_Msg_Object": 20,
+            "Warnings_Entry": 3,
+            "Specific_Warning_Entry": 7,
+            "List_Pragma_Record": 2,
+            "Warnings_Off_Entry": 3,
+            "Source_Span": 3
+          },
+          "checks": {
+            "tables": true,
+            "message_and_warning_counters": true,
+            "format_buffer_and_join_indices": true,
+            "single_history_String": true,
+            "single_formatted_or_join_String": true,
+            "static_Warnings_As_Errors_pointer_array": true
+          },
+          "fixed_diagnostic_table_additions": 0,
+          "individual_formatted_String_characters_bound": 133118,
+          "static_Warnings_As_Errors_elements": 10000,
+          "Warnings_As_Errors_live_elements": 0,
+          "all_selected_checks_pass": true,
+          "rendering_backend_and_other_fixed_heaps_included": false,
+          "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
         }
       },
@@ -5410,6 +5892,247 @@
           "Warnings_As_Errors_Main_appends": 0,
           "additional_Uint_appends": 0,
           "backend_and_fixed_dependency_diagnostics_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "diagnostic_backing": {
+          "tables": {
+            "Non_Instance_Msgs": {
+              "demand": 3,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 32,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 6432,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Errors": {
+              "demand": 3,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 320,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 192320,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Locations": {
+              "demand": 3,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 80,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 48080,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Edits": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Fixes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 3612,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Specific_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 112,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 33712,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "List_Pragmas": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 1208,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Unreferenced_Entities": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 2000,
+              "bytes_with_sentinel": 8004,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "In_Out_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 804,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings_Off_Pragmas": {
+              "demand": 0,
+              "low_bound": 0,
+              "initial": 500,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 1000,
+              "bytes_with_sentinel": 12012,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "record_field_counts": {
+            "NIM_Record": 2,
+            "Labeled_Span_Type": 5,
+            "Edit_Type": 3,
+            "Fix_Type": 3,
+            "Error_Msg_Object": 20,
+            "Warnings_Entry": 3,
+            "Specific_Warning_Entry": 7,
+            "List_Pragma_Record": 2,
+            "Warnings_Off_Entry": 3,
+            "Source_Span": 3
+          },
+          "checks": {
+            "tables": true,
+            "message_and_warning_counters": true,
+            "format_buffer_and_join_indices": true,
+            "single_history_String": true,
+            "single_formatted_or_join_String": true,
+            "static_Warnings_As_Errors_pointer_array": true
+          },
+          "fixed_diagnostic_table_additions": 0,
+          "individual_formatted_String_characters_bound": 133118,
+          "static_Warnings_As_Errors_elements": 10000,
+          "Warnings_As_Errors_live_elements": 0,
+          "all_selected_checks_pass": true,
+          "rendering_backend_and_other_fixed_heaps_included": false,
+          "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
         }
       },
@@ -7273,6 +7996,247 @@
           "additional_Uint_appends": 0,
           "backend_and_fixed_dependency_diagnostics_included": false,
           "whole_native_frontend_closed": false
+        },
+        "diagnostic_backing": {
+          "tables": {
+            "Non_Instance_Msgs": {
+              "demand": 2,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 32,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 6432,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Errors": {
+              "demand": 2,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 320,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 192320,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Locations": {
+              "demand": 2,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 80,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 48080,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Edits": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Fixes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 3612,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Specific_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 112,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 33712,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "List_Pragmas": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 1208,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Unreferenced_Entities": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 2000,
+              "bytes_with_sentinel": 8004,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "In_Out_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 804,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings_Off_Pragmas": {
+              "demand": 0,
+              "low_bound": 0,
+              "initial": 500,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 1000,
+              "bytes_with_sentinel": 12012,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "record_field_counts": {
+            "NIM_Record": 2,
+            "Labeled_Span_Type": 5,
+            "Edit_Type": 3,
+            "Fix_Type": 3,
+            "Error_Msg_Object": 20,
+            "Warnings_Entry": 3,
+            "Specific_Warning_Entry": 7,
+            "List_Pragma_Record": 2,
+            "Warnings_Off_Entry": 3,
+            "Source_Span": 3
+          },
+          "checks": {
+            "tables": true,
+            "message_and_warning_counters": true,
+            "format_buffer_and_join_indices": true,
+            "single_history_String": true,
+            "single_formatted_or_join_String": true,
+            "static_Warnings_As_Errors_pointer_array": true
+          },
+          "fixed_diagnostic_table_additions": 0,
+          "individual_formatted_String_characters_bound": 133118,
+          "static_Warnings_As_Errors_elements": 10000,
+          "Warnings_As_Errors_live_elements": 0,
+          "all_selected_checks_pass": true,
+          "rendering_backend_and_other_fixed_heaps_included": false,
+          "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
+          "whole_native_frontend_closed": false
         }
       },
       {
@@ -9084,6 +10048,247 @@
           "Warnings_As_Errors_Main_appends": 0,
           "additional_Uint_appends": 0,
           "backend_and_fixed_dependency_diagnostics_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "diagnostic_backing": {
+          "tables": {
+            "Non_Instance_Msgs": {
+              "demand": 3,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 32,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 6432,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Errors": {
+              "demand": 3,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 320,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 192320,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Locations": {
+              "demand": 3,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 80,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 48080,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Edits": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Fixes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 200,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 48,
+              "backing_capacity_bound": 600,
+              "bytes_with_sentinel": 28848,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 3612,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Specific_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 112,
+              "backing_capacity_bound": 300,
+              "bytes_with_sentinel": 33712,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "List_Pragmas": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 1208,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Unreferenced_Entities": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 2000,
+              "bytes_with_sentinel": 8004,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "In_Out_Warnings": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 100,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 200,
+              "bytes_with_sentinel": 804,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Warnings_Off_Pragmas": {
+              "demand": 0,
+              "low_bound": 0,
+              "initial": 500,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 1000,
+              "bytes_with_sentinel": 12012,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "record_field_counts": {
+            "NIM_Record": 2,
+            "Labeled_Span_Type": 5,
+            "Edit_Type": 3,
+            "Fix_Type": 3,
+            "Error_Msg_Object": 20,
+            "Warnings_Entry": 3,
+            "Specific_Warning_Entry": 7,
+            "List_Pragma_Record": 2,
+            "Warnings_Off_Entry": 3,
+            "Source_Span": 3
+          },
+          "checks": {
+            "tables": true,
+            "message_and_warning_counters": true,
+            "format_buffer_and_join_indices": true,
+            "single_history_String": true,
+            "single_formatted_or_join_String": true,
+            "static_Warnings_As_Errors_pointer_array": true
+          },
+          "fixed_diagnostic_table_additions": 0,
+          "individual_formatted_String_characters_bound": 133118,
+          "static_Warnings_As_Errors_elements": 10000,
+          "Warnings_As_Errors_live_elements": 0,
+          "all_selected_checks_pass": true,
+          "rendering_backend_and_other_fixed_heaps_included": false,
+          "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
         }
       }
@@ -11564,7 +12769,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 134,
+  "source_files_verified": 136,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -11615,6 +12820,7 @@
     "layout.adb": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057",
     "lib-xref.adb": "147491988f39790a213cf02e69c6997adb1809df75758940757cc0ebc7a700c4",
     "sem_warn.adb": "698effea285660dfe3513e64231d0947e0579b3635cb7b55420e9ebf35dd1e55",
+    "sem_warn.ads": "2784336b9c54a756e7f10a05a3dbe60c2da61057f12141fe41c561c21c77872f",
     "sem_elim.adb": "6977031b82062070e830bb300c4ae90a3ae669c6b53742b43696878bb8e2a302",
     "sem_cat.adb": "26480016f2e432044f23b1a0a4de224bd61a7f274337b9ff290a400f6d879320",
     "einfo-utils.adb": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa",
@@ -11641,6 +12847,7 @@
     "exp_ch11.adb": "253fe8e8936d351afff6dc81696c9f0cae042037a39ac9ff31db3fda3d806361",
     "sem_elab.adb": "f2452a63f2fe2603c660445e51c4c687f96ed5f21784da9d5f88ab9f94cd3b0c",
     "errout.adb": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2",
+    "errout.ads": "89f65433e23cca5eb5ffdcf5490f9be4f4a04abff7022081770848c500683766",
     "ali.adb": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0",
     "ali.ads": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b",
     "lib-writ.adb": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342",

@@ -5327,7 +5327,47 @@ continuation, without depending on allocator reuse (`errout.adb:1377–1525`).
 `native_diagnostic_metadata` computes the bounds. The large fixed message
 maximum is deliberately conservative; no new cap is chosen from it. Rendering,
 backend diagnostics and fixed dependency messages are distinct consumers, and
-physical table/string allocation layouts remain representation terms.
+rendering and backend allocation remain separate terms.
+
+`native_diagnostic_backing` now composes that attempt count with the actual
+table layouts and the fixed capture's zero diagnostic-table additions. The
+regenerator verifies each record's field count, including the grouped three
+Source_Ptr fields of Source_Span. On the selected64-bit target, every field
+of the composite diagnostic records is at most16bytes; the following are
+conservative component sizes, not measurements:
+
+| Table | Main demand | Component bytes | Initial / growth percent |
+| --- | ---: | ---: | ---: |
+| Non_Instance_Msgs | J_diag | 32 | 100 / 100 |
+| Errors | J_diag | 320 | 200 / 200 |
+| Locations | J_diag | 80 | 200 / 200 |
+| Edits, Fixes | 0 each | 48 each | 200 / 200 |
+| Warnings | 0 | 12 | 100 / 200 |
+| Specific_Warnings | 0 | 112 | 100 / 200 |
+| List_Pragmas | 0 | 8 | 50 / 200 |
+| Unreferenced_Entities | 0 | 4 | 1000 / 100 |
+| In_Out_Warnings | 0 | 4 | 100 / 100 |
+| Warnings_Off_Pragmas | 0 | 12 | 500 / 100 |
+
+The warning-off table starts at index0; the others start at1. The shared
+generic-table join retains and checks initial backing even for zero demand.
+Its source declarations are `errout.adb:81–92`, `errout.ads:640–659`,
+`erroutc.ads:187–374,457–504`, `sem_warn.adb:63–87`,
+`sem_warn.ads:40–62` and the associated Alloc constants. Main's SPARK pragma
+and the exact two naming pragmas do not add warning-control or listing
+records. The fixed input warning inventory supplies the unchanged
+fixed-source qualification.
+
+The join also checks J_diag+1 for warning/message counters, M_diag+1 and
+2M_diag+3 for formatting/join indices, and the **individual** raw-history,
+formatted and continuation Strings. The largest selected String bound is
+133118characters plus a16-byte descriptor allowance. The fixed10000-element
+Warnings_As_Errors pointer array is checked as one actual array; its live
+entry count is zero on this route. Neither the sum of all diagnostic strings
+nor the lifetime allocation count becomes an aggregate memory gate.
+All eleven table checks and the separate counter/object checks pass for the
+five current-source examples. This closes their diagnostic storage component;
+rendering, backend messages and other fixed heaps remain separate.
 
 ## Executable native logical-table composition
 

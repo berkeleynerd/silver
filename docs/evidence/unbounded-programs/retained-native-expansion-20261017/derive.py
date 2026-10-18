@@ -30,14 +30,14 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
          "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
          "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch6.adb", "sem_ch8.adb", "checks.adb",
-         "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
+         "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb", "sem_warn.ads",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
          "gen_il-gen-gen_nodes.adb", "gen_il-gen-gen_entities.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
-         "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
+         "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb", "errout.ads",
          "ali.adb", "ali.ads", "lib-writ.adb", "warnsw.ads", "sem_prag.adb",
          "erroutc.adb", "erroutc.ads", "sem_ch10.adb", "sem_ch12.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
@@ -1496,6 +1496,67 @@ def native_parser_auxiliary_backing(logical,table_factor=1):
         physical_recursive_stack_included=False,whole_native_frontend_closed=False)
 
 
+def native_diagnostic_backing(diagnostic,table_factor=1):
+    """Join native warning-attempt counts to backing, individual strings/counters.
+
+    Rendering and backend diagnostics have separate transfer functions. Retain
+    initial backing for zero-demand tables; no lifetime character sum is used
+    as one object's allocation size or as an aggregate memory limit.
+    """
+    i32,i64 = 2**31-1,2**63-1
+    attempts = diagnostic["attempts"]
+    fields = {}
+    def record_fields(file,name,expected_count):
+        body = re.search(r"type "+name+r" is record(.*?)end record;",sources[file],re.S).group(1)
+        body = re.sub(r"--[^\n]*","",body)
+        declarations = re.findall(r"(?:^|;)\s*([A-Za-z_0-9,\s]+)\s*:(?!=)",body,re.M)
+        count = sum(len(names.split(",")) for names in declarations)
+        assert count == expected_count,(name,count)
+        fields[name] = count
+    for file,name,count in [("errout.adb","NIM_Record",2),
+        ("erroutc.ads","Labeled_Span_Type",5),("erroutc.ads","Edit_Type",3),
+        ("erroutc.ads","Fix_Type",3),("erroutc.ads","Error_Msg_Object",20),
+        ("erroutc.ads","Warnings_Entry",3),("erroutc.ads","Specific_Warning_Entry",7),
+        ("errout.ads","List_Pragma_Record",2),("sem_warn.ads","Warnings_Off_Entry",3),
+        ("types.ads","Source_Span",3)]:
+        record_fields(file,name,count)
+    # Every field in the first six composite diagnostic records is <=16 bytes
+    # on the selected target, including a three-Source_Ptr Source_Span.
+    specs = [
+        ("Non_Instance_Msgs","errout__non_instance_msgs__last_valX",attempts,1,100,100,32),
+        ("Errors","erroutc__errors__last_val",attempts,1,200,200,320),
+        ("Locations","erroutc__locations__last_val",attempts,1,200,200,80),
+        ("Edits","erroutc__edits__last_val",0,1,200,200,48),
+        ("Fixes","erroutc__fixes__last_val",0,1,200,200,48),
+        ("Warnings","erroutc__warnings__last_val",0,1,100,200,12),
+        ("Specific_Warnings","erroutc__specific_warnings__last_val",0,1,100,200,112),
+        ("List_Pragmas","errout__list_pragmas__last_val",0,1,50,200,8),
+        ("Unreferenced_Entities","sem_warn__unreferenced_entities__last_valX",0,1,1000,100,4),
+        ("In_Out_Warnings","sem_warn__in_out_warnings__last_valX",0,1,100,100,4),
+        ("Warnings_Off_Pragmas","sem_warn__warnings_off_pragmas__last_val",0,0,500,100,12)]
+    raw_fixed = fixed_native_inputs["fixed_lifetime_table_growth"]
+    rows = {}
+    for name,key,delta,low,initial,increment,size in specs:
+        assert raw_fixed[key] == 0,key
+        rows[name] = native_table_backing_row(delta,low,initial,increment,size,i32,table_factor)
+    max_message = diagnostic["formatted_message_buffer_characters"]
+    max_join = diagnostic["continuation_join_local_characters"]
+    checks = dict(tables=all(x["all_selected_checks_pass"] for x in rows.values()),
+        message_and_warning_counters=attempts+1<=i32,
+        format_buffer_and_join_indices=max_message+1<=i32 and max_join+1<=i32,
+        single_history_String=64+16<=i64,
+        single_formatted_or_join_String=max_join+16<=i64,
+        static_Warnings_As_Errors_pointer_array=10000*16<=i64)
+    return dict(tables=rows,record_field_counts=fields,checks=checks,
+        fixed_diagnostic_table_additions=0,
+        individual_formatted_String_characters_bound=max_join,
+        static_Warnings_As_Errors_elements=10000,Warnings_As_Errors_live_elements=0,
+        all_selected_checks_pass=all(checks.values()),
+        rendering_backend_and_other_fixed_heaps_included=False,
+        aggregate_lifetime_bytes_is_not_an_admission_gate=True,
+        whole_native_frontend_closed=False)
+
+
 def source_shape(raw):
     """Physical-line sufficient rule; FF/VT included for fixed runtime files."""
     lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
@@ -1824,6 +1885,7 @@ def representative_current_programs():
             loop_depth=syntax["loop_depth"],pathname_length=inputs["pathname_length_premise"],
             configuration_storage=retained_configuration_fixture(inputs["pathname_length_premise"]))
         physical = native_core_table_backing(logical)
+        diagnostics = native_diagnostic_metadata(counts["loops"],syntax["with_names"])
         result.append(dict(source=item["source"],sha256=item["sha256"],source_bytes=len(raw),
             token_inventory=dict(words=len(words),word_characters=sum(map(len,words)),
                 decimal_numerals=numerals,String_literals=literals,scanner_nodes=scanner_nodes,
@@ -1832,7 +1894,7 @@ def representative_current_programs():
             logical_join=logical,selected_backing_checks=physical,
             parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
             source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
-            diagnostics=native_diagnostic_metadata(counts["loops"],syntax["with_names"])))
+            diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics)))
     return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],
         scan_multiplicity="two for identifiers/literals/numerals; Name_Find interning is not multiplied",
         compiler_or_prover_execution=False,complete_capacity_result=False,programs=result)
