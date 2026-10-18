@@ -1,13 +1,20 @@
-# Retained inline callback closure: exceptional signal continuation remains open
+# Retained inline callback closure: exception or charging proof remains open
 
 Research [#119](https://github.com/berkeleynerd/silver/issues/119), 2026-10-18,
 Linux x86_64. **Complete continuing-call identifier capacity remains
-unestablished.** The selected SIGINT handler can create identifiers while saving
-the session before an exception escapes; an interrupted `Trans.fold` catches
-`Not_found` and continues. The missing session invariant and exception-ordering
-argument cannot be replaced by calling `save_session; exit` nonreturning.
-This packet identifies a conditional route, not an observed signal, missing
-session task, native counterexample, or overflow.
+unestablished.** The SIGINT handler can create identifiers while saving the
+session. If a relevant exception then escapes into an interrupted catch that
+continues the transform, that work must be accounted for. The packet establishes
+this conditional implication, **not an actual post-registration exception route**.
+The originally proposed stable missing-task witness is withdrawn: the detachment
+guard performs the same lookup and skips a node when its task is absent.
+
+Independent review `64c4bb749bf4f6347853ebe7a8ddf13c024fe127`, finding R1,
+identified the omitted guard in author commit
+`20e801be186ce6e41cb7c53d44d6cd072fa06dda`. This correction preserves that commit
+and its checks as history. It establishes neither a replacement counterexample
+nor complete callback closure; no signal, escaping callback exception or overflow
+was observed.
 
 The accepted [private-counter result](retained-why-inline-identifier-state.md)
 is unchanged: starting ref **60,496** (raw tagged **120,993**), at most **1,145
@@ -44,7 +51,7 @@ symbols. Nearest-symbol labels are location aids, not object ownership proofs.
 External library package source pins were not established by the Why3 build
 scripts; no arbitrary current package was substituted for installed code.
 
-## The concrete remaining signal obligation
+## Surviving signal facts and withdrawn missing-task witness
 
 All source paths below are archived under `why3/` or `ocaml/`.
 
@@ -54,9 +61,13 @@ All source paths below are archived under `why3/` or `ocaml/`.
    **`C.save_session c` is outside that catch and precedes `exit signum`.**
    `src/gnat/gnat_checks.ml:752–753` calls `Session_itp.save_session`.
 2. `src/session/session_itp.ml:2212–2245` clears and recomputes session shapes.
-   For every non-detached `APn g` visited by `fold_all_session`, it first calls
-   `get_task s g`, then computes its explanation and shape. `get_task` at
-   310–311 is the unguarded `Hpn.find s.session_raw_tasks id`.
+   For each `APn g`, it first tests `not (is_detached s any)` and only then
+   calls `get_task s g` and computes its explanation and shape. `get_task`
+   (310–311) uses `Hpn.find s.session_raw_tasks id`, but `goal_is_detached`
+   (369–371) performs that same lookup and catches `Not_found` as `true`.
+   `is_detached` delegates its APn case to that predicate (385). A stable absent
+   raw task therefore fails the guard and is skipped; it is not an escaping
+   `Not_found` witness.
 3. Current shape version SV6 (`src/session/termcode.ml:240`) selects
    `Gshape.t_bound_shape_task` through `Sshape.compute_and_add_shape`
    (`session_itp.ml:174–183`). Gshape calls `Shape.t_shape` on proposition
@@ -65,13 +76,15 @@ All source paths below are archived under `why3/` or `ocaml/`.
    merely because the selected version uses Gshape.
 4. `src/core/term.ml:799–832` opens binders by cloning variable symbols.
    `create_vsymbol` at 36–39 calls `Ident.id_register`; the latter increments
-   the private ref (`src/core/ident.ml:187–192`). A previously visited goal can
-   therefore create identifiers before a later missing raw task raises
-   `Not_found`. No missing task is asserted to exist in the retained session.
+   the private ref (`src/core/ident.ml:187–192`). Applicable visited tasks can
+   therefore cause handler-side registrations. This fact does not establish
+   that any exception subsequently escapes the handler.
 5. `src/core/trans.ml:75–103` implements `current task` as
    `try Some (Wtask.find h task) with Not_found -> None`; `accum` treats `None`
-   as a cache miss and continues. A signal callback's escaping exception is
-   not automatically outside this catch. `runtime/signals.c:201–227` returns
+   as a cache miss and continues. **If** a signal callback's `Not_found`
+   escapes after registrations at this interruption point, the fold can catch
+   it and continue. No such antecedent is established here.
+   `runtime/signals.c:201–227` returns
    the `caml_callback_exn` result; 260–292 propagates asynchronous exceptions
    through pending-action processing, rather than swallowing them.
 
@@ -83,14 +96,26 @@ The installed native code makes the dynamic catch/poll relation concrete:
 | `camlStdlib__Ephemeron__find_730` / `find_rec_721` | find tail-calls find_rec. Poll `0x99ff17–0x99ff1a` precedes the empty-bucket test `0x99ff20`; slow path `0x99ffe8` calls `caml_call_gc`. A cache hit is not required. |
 | `camlGnat_main__save_session_and_exit_3133` | Small signal-setting trap removed at `0x52e6d1`; save_session called at `0x52e6fb`; only then does `0x52e709` jump to Stdlib.exit. |
 
-The exact unresolved obligation is to prove, for the selected session prefix
-and relevant interruption points, that every non-detached node visited by
-`uniformize_shape` has a raw task, **and** that any exception after handler-side
-identifier creation either cannot arise, is charged, or unwinds beyond the
-continuing fold. The prior graph/Hsdecl capture does not establish session
-raw-task membership or this exception-ordering property. Establishing membership
-would remove the named bare-find route, but need not remove every save/shape
-exception route.
+The archived `session_itp.ml` has exactly four `session_raw_tasks` occurrences:
+its non-mutable field declaration at 136, lookup at 311, initialization at 631,
+and `Hpn.add` at 687. There is no explicit table write between the successful
+guard lookup and the following lookup, and no removal or clear through that
+field in this module. Under ordinary sequential table semantics and no
+interfering mutation, the second lookup has the membership established by the
+first. A stronger whole-program alias/mutation theorem is not proved here, but
+no reachable intervening mutator is identified either. The scoped thread and
+custom-destructor inventory below supplies no such mutator. An independently
+arising asynchronous exception would need its own source route; it cannot be
+presented as a missing-task exception. The original membership-witness argument
+is withdrawn, without substituting hypothetical removal between lookups.
+
+The exact unresolved obligation is either to exclude all relevant escaping
+exceptions after handler-side registrations that can be caught by continuing
+transform code, or to establish finite callback multiplicity and charge a
+source-supported bound for the handler work. The catch/poll/binder facts above
+identify where an exception-ordering or charging argument must apply; they do
+not alone demonstrate an escaping handler exception. Stable raw-task membership
+is already checked by this guard and is not a separate missing session invariant.
 
 Nor is reaching Stdlib.exit alone sufficient to skip checking exceptions:
 `stdlib/stdlib.ml:552–570` executes the `at_exit` closure chain before
@@ -181,28 +206,25 @@ non-aliasing.
 
 ## Discriminating next source checks
 
-Prefer the session invariant if it is straightforward: inventory construction,
-attachment/detachment and raw-task mutations in `Session_itp` and
-`Controller_itp`; prove the visited non-detached-node implication at the selected
-source prefix and interruption points. Then compare exceptions from the
-remaining shape/save/exit path with catches in the continuing transform. An
-alternative is to derive and charge a bound on the handler's identifier
-registrations from source-supported session/task bounds. Neither requires a
-fresh runtime queue snapshot, and neither is completed here.
+Prioritize a bounded-charge argument using the handler's existing ignore
+settings, if the source supports a finite invocation count. SIGINT is set to
+ignore before any session save; SIGHUP and SIGTERM are also ignored. Check
+successful setting for the selected Linux signals, preservation until the
+bounded endpoint, and absence of later reinstallation. Also trace OS and OCaml
+pending-signal state: the archived `runtime/signals.c:447–490` calls
+`caml_set_signal_action`, may allocate the old Signal_handle result, and calls
+`caml_process_pending_signals_exn` before returning. Valid signal numbers alone
+do not settle all those paths. If that argument proves one handler invocation
+can create identifiers, charge one source-derived save/shape/at_exit bound even
+when an exception resumes the fold; if a different finite multiplicity is
+proved, charge that multiplicity instead. No one-shot or finite-handler bound
+is established by this packet.
 
-Before considering a launch-mask change, the bounded-charge route can exploit
-the handler's existing ignore settings if a source argument establishes a finite
-invocation count. SIGINT is set to ignore before any session save; SIGHUP and
-SIGTERM are also ignored. Check successful setting for the selected Linux
-signals, preservation until the bounded endpoint, and absence of later
-reinstallation. Also trace OS and OCaml pending-signal state: the archived
-`runtime/signals.c:447–490` calls `caml_set_signal_action`, may allocate the old
-Signal_handle result, and calls `caml_process_pending_signals_exn` before
-returning. Valid signal numbers alone do not settle all those paths. If that
-argument proves one handler invocation can create identifiers, charge one
-source-derived save/shape/at_exit bound even when an exception resumes the fold;
-if a different finite multiplicity is proved, charge that multiplicity instead.
-No one-shot or finite-handler bound is established by this packet.
+Alternatively, inspect the remaining save/shape/exit paths and the continuing
+transform's catches to exclude all relevant post-registration escaping
+exceptions and continuation. That requires actual exception sources and ordering,
+not the withdrawn missing-task story. Neither route requires a fresh runtime
+queue snapshot; neither is completed here.
 
 A selected subprocess SIGINT mask is another **unimplemented configuration
 candidate**, not a discharged premise. The precise checks would be: (1) choose

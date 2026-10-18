@@ -2,7 +2,7 @@
   "issue": "https://github.com/berkeleynerd/silver/issues/119",
   "base": "7573e127ffb020ddfb1214491179c59442e7798b",
   "objective": "Close remaining continuing-call callback registration/reachability and mutable-hook ownership if justified; otherwise freeze precise missing evidence without another native run.",
-  "authorization": "Parent-delegated owner-authorized research #119, new owned note/evidence only. Parent approved freezing complete endpoint false with conditional SIGINT/save-session exception route. Parent owns review, integration, GitHub, memory, harness and publication. No delegation.",
+  "authorization": "Parent-delegated owner-authorized research #119. Current authorization: repair independent review R1 in existing owned note/packet only, preserve original commit, use narrow source/frozen checks without native execution or static extraction regeneration. Parent owns review, integration, GitHub, memory, harness and publication. No delegation.",
   "worker": {
     "agent": "/root/why_inline_operations",
     "selected_model": "GPT-6 Astra",
@@ -13,10 +13,6 @@
     "monetary_cost": null,
     "unavailable_measurements": "Live model/effort confirmation and token/cost were not exposed."
   },
-  "started_utc": "2026-10-18T22:44:21+00:00",
-  "recorded_utc": "2026-10-18T23:12:43.967433+00:00",
-  "elapsed_seconds_through_record": 1702.967433,
-  "elapsed_scope": "Author source/interface investigation, artifact extraction and validation through this record; independent review/integration excluded.",
   "host": "Linux x86_64",
   "new_native_target_runs": 0,
   "debugger_runs": 0,
@@ -24,44 +20,166 @@
   "builds": 0,
   "proof_runs": 0,
   "solver_runs": 0,
-  "checks": [
-    {
-      "command": "python3 -B docs/evidence/retained-why-inline-callback-closure-20261018/check.py --regenerate",
-      "status": "pass",
-      "elapsed_seconds": 10.86187223899833,
-      "scope": "Pinned installed ELF/plugin identities, full numeric extraction reproduction and retained bodies; predecessor/member/source hashes; source/native witness consistency; scoped false claims; BSS and numeric-operand regressions",
-      "new_native_target_runs": 0
+  "bookkeeping": {
+    "github_writes": false,
+    "cli_memory_updated": false,
+    "harness_written": false,
+    "live_child_goal_at_handoff": null,
+    "parent_owns_integration_and_publication": true
+  },
+  "historical_author_round": {
+    "started_utc": "2026-10-18T22:44:21+00:00",
+    "recorded_utc": "2026-10-18T23:12:43.967433+00:00",
+    "elapsed_seconds_through_record": 1702.967433,
+    "elapsed_scope": "Author source/interface investigation, artifact extraction and validation through this record; independent review/integration excluded.",
+    "checks": [
+      {
+        "command": "python3 -B docs/evidence/retained-why-inline-callback-closure-20261018/check.py --regenerate",
+        "status": "pass",
+        "elapsed_seconds": 10.86187223899833,
+        "scope": "Pinned installed ELF/plugin identities, full numeric extraction reproduction and retained bodies; predecessor/member/source hashes; source/native witness consistency; scoped false claims; BSS and numeric-operand regressions",
+        "new_native_target_runs": 0
+      },
+      {
+        "command": "python3 -B docs/evidence/retained-why-inline-callback-closure-20261018/check.py",
+        "status": "pass",
+        "elapsed_seconds": 0.35605957199732075,
+        "scope": "Final frozen input consistency without regenerating extraction or replaying old graph proof",
+        "new_native_target_runs": 0
+      }
+    ],
+    "diagnostics_and_rework": [
+      "Initial numeric-reference helper treated RIP displacements as absolute addresses. Removed displacement operands before absolute matching and added focused regressions; string reading changed to bounded bytes.index slices.",
+      "Preserved predecessor BSS correction: NOBITS has no file bytes/runtime observation; ELF reads reject PT_LOAD zero-fill tails.",
+      "Archived sources were verified against exact retrieval identities or pinned Why3 ZIP members. Excluded an unrelated test plugin fetched by an overbroad earlier path query. Corrected routine source-path and retrieval-metadata key differences.",
+      "SV6 Gshape was traced into Shape.t_shape, which still opens binders and registers identifiers. save_session precedes exit outside the handler catch; Trans.fold catches escaping Not_found. Parent agreed to freeze open rather than broaden investigation.",
+      "Integrated allocator-site check initially counted an internal alloc_custom_gen wrapper call while omitting the public allocator tail call. Checker rejected the claimed exceptional site; extractor now selects public call/tail-call sites, matching 128 sites in 96 functions with the legacy caml_alloc_final route singled out.",
+      "Normalized only the objdump input-path banner for relocated identical inputs. A stale scratch disassembly failed identity verification and was not reused; final pinned extraction was regenerated, archived and independently compared successfully.",
+      "Final static extractor replay was required by changed extraction/serialization inputs. No successful predecessor graph/counter replay or expensive native validation was repeated.",
+      "Parent proposed finite handler charging from the existing pre-save ignore settings. Report records precise setter/pending-signal/reinstallation checks; one-shotness is not assumed."
+    ],
+    "achieved": "Retained reusable inspected Gc/loader/thread/custom-hook ownership arguments and exact conditional signal exception witness. Unchanged accounted endpoint61641; complete continuing capacity and callback closure remain false.",
+    "remaining_obligations": [
+      "Independent review of exact packet",
+      "Prove selected session raw-task membership/preservation and remaining save/shape/exit exception ordering, or charge all handler registrations",
+      "Prioritized bounded-charge option: establish finite handler invocation count from existing ignore settings, including setter success, pending OS/runtime signals and no reinstallation; then charge save/shape/exit registrations.",
+      "If pursuing enforced SIGINT mask, establish OS launch/inheritance and persistent masking plus required cancellation and solver-child semantics before any capacity claim",
+      "Other shared capacities, runtime composition, family/later-call/full-transform and whole-pipeline claims remain open"
+    ],
+    "exact_review_inputs": {
+      "docs/evidence/retained-why-inline-callback-closure-20261018/README.md": {
+        "bytes": 2331,
+        "sha256": "facc66be15dd21add3544e99850a4587180a5553daaaec1462b71667d652e93f"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+        "bytes": 12887,
+        "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/binding.json": {
+        "bytes": 2171,
+        "sha256": "3c6dd16604acd088b2a691f02fcdafbf70814090cdd15cbf5dfebd66d15714a3"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/check.py": {
+        "bytes": 9770,
+        "sha256": "0879086827f01779b4058fda3870593e12679d25c8c9cb1a70f61eb3ee68d787"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/inputs.json": {
+        "bytes": 10193,
+        "sha256": "334ea2da757dccef482c5f38179bc41bb341109bc4dc1ceebea9ee2c229afc67"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/native.tar.gz": {
+        "bytes": 332459,
+        "sha256": "ed2f6226dfc0266cb819b2dacc211844ba2f51dc3ad4720f57721f05db8884fd"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/result.json": {
+        "bytes": 2922,
+        "sha256": "dbd46a2d35c438d604819672561bb15278cb2966f72ebd2a422b49d706cdaf7d"
+      },
+      "docs/evidence/retained-why-inline-callback-closure-20261018/sources.tar.gz": {
+        "bytes": 213370,
+        "sha256": "e59e901cb848afa258750a6c80de876dd0dd9aac3e45491f0dc19b95a136abb6"
+      },
+      "docs/research/retained-why-inline-callback-closure.md": {
+        "bytes": 15366,
+        "sha256": "bf0f3f730840e263eee7521e3e3ac6c2fc595624886ce6afe5c70dd79453fc8d"
+      }
     },
-    {
-      "command": "python3 -B docs/evidence/retained-why-inline-callback-closure-20261018/check.py",
-      "status": "pass",
-      "elapsed_seconds": 0.35605957199732075,
-      "scope": "Final frozen input consistency without regenerating extraction or replaying old graph proof",
-      "new_native_target_runs": 0
-    }
-  ],
-  "diagnostics_and_rework": [
-    "Initial numeric-reference helper treated RIP displacements as absolute addresses. Removed displacement operands before absolute matching and added focused regressions; string reading changed to bounded bytes.index slices.",
-    "Preserved predecessor BSS correction: NOBITS has no file bytes/runtime observation; ELF reads reject PT_LOAD zero-fill tails.",
-    "Archived sources were verified against exact retrieval identities or pinned Why3 ZIP members. Excluded an unrelated test plugin fetched by an overbroad earlier path query. Corrected routine source-path and retrieval-metadata key differences.",
-    "SV6 Gshape was traced into Shape.t_shape, which still opens binders and registers identifiers. save_session precedes exit outside the handler catch; Trans.fold catches escaping Not_found. Parent agreed to freeze open rather than broaden investigation.",
-    "Integrated allocator-site check initially counted an internal alloc_custom_gen wrapper call while omitting the public allocator tail call. Checker rejected the claimed exceptional site; extractor now selects public call/tail-call sites, matching 128 sites in 96 functions with the legacy caml_alloc_final route singled out.",
-    "Normalized only the objdump input-path banner for relocated identical inputs. A stale scratch disassembly failed identity verification and was not reused; final pinned extraction was regenerated, archived and independently compared successfully.",
-    "Final static extractor replay was required by changed extraction/serialization inputs. No successful predecessor graph/counter replay or expensive native validation was repeated.",
-    "Parent proposed finite handler charging from the existing pre-save ignore settings. Report records precise setter/pending-signal/reinstallation checks; one-shotness is not assumed."
-  ],
-  "achieved": "Retained reusable inspected Gc/loader/thread/custom-hook ownership arguments and exact conditional signal exception witness. Unchanged accounted endpoint61641; complete continuing capacity and callback closure remain false.",
+    "commit": "20e801be186ce6e41cb7c53d44d6cd072fa06dda",
+    "status": "Superseded argument: R1 refuted stable missing-task witness. Historical consistency/extraction passes remain evidence of those limited checks; they omitted the detachment guard and did not validate the escape argument. Source/native archives and accounted arithmetic remain unchanged."
+  },
+  "achieved": "Withdrew stable missing-task escape witness after independent review. Added exact detachment-guard/same-lookup and local four-occurrence inventory; no intervening mutator or actual post-registration exception route is established. Retained binder creation, async exception propagation, catch/poll relation and scoped API inventory. Accounted endpoint61641 unchanged; complete capacity/closure false.",
   "remaining_obligations": [
-    "Independent review of exact packet",
-    "Prove selected session raw-task membership/preservation and remaining save/shape/exit exception ordering, or charge all handler registrations",
-    "Prioritized bounded-charge option: establish finite handler invocation count from existing ignore settings, including setter success, pending OS/runtime signals and no reinstallation; then charge save/shape/exit registrations.",
-    "If pursuing enforced SIGINT mask, establish OS launch/inheritance and persistent masking plus required cancellation and solver-child semantics before any capacity claim",
+    "Focused independent rereview of R1 correction",
+    "Either exclude all relevant escaping post-registration exceptions that can be caught by continuing transform code, or establish finite callback multiplicity and charge source-supported handler work",
+    "Prioritize existing ignore settings for finite handler charging, but check setter success, pending OS/runtime signals and reinstallation; one-shotness is unproved",
+    "Any enforced SIGINT-mask option separately requires launch/inheritance, persistent masking and cancellation/solver-child semantics",
     "Other shared capacities, runtime composition, family/later-call/full-transform and whole-pipeline claims remain open"
   ],
+  "review": {
+    "commit": "64c4bb749bf4f6347853ebe7a8ddf13c024fe127",
+    "report": "docs/reviews/review-why-callback-20e801be18.md",
+    "report_identity": {
+      "bytes": 10325,
+      "sha256": "0f5b4bd0c9ecaea7a5a9f15c90b1a568908ce73df202a7c9917f73cd70efc755"
+    },
+    "status": "R1 repair complete; focused parent-coordinated rereview pending",
+    "reviewer_selected_model": "GPT-6 Astra",
+    "reviewer_selected_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "elapsed_seconds": 187,
+    "elapsed_scope": "Reviewer report completion at one-second clock resolution; final commit preparation excluded. Reused from frozen review; not a new review.",
+    "token_usage": null,
+    "monetary_cost": null,
+    "finding": "goal_is_detached uses get_task and catches Not_found; APn guard skips stable missing tasks. No explicit intervening raw-task write and only declaration/find/init/add occurrences in archived module. Withdraw witness without inventing a mutator."
+  },
+  "correction_round": {
+    "started_utc": "2026-10-18T23:17:10+00:00",
+    "recorded_utc": "2026-10-18T23:19:10.276100+00:00",
+    "elapsed_seconds_through_record": 120.2761,
+    "elapsed_scope": "Bounded R1 author correction through this record; rereview and integration excluded.",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null,
+    "new_native_target_runs": 0,
+    "static_extraction_regenerated": false,
+    "changed_inputs": [
+      "research note",
+      "README.md",
+      "check.py",
+      "result.json",
+      "inputs.json",
+      "round.json"
+    ],
+    "unchanged_evidence": [
+      "sources.tar.gz",
+      "native.tar.gz",
+      "audit.py",
+      "binding.json",
+      "predecessor packets"
+    ],
+    "checks": [
+      {
+        "command": "python3 -B docs/evidence/retained-why-inline-callback-closure-20261018/check.py",
+        "status": "pass",
+        "elapsed_seconds": 0.34669861899965326,
+        "scope": "Frozen identities and existing source/native checks plus exact detachment guard/same-lookup snippets, complete local field occurrence inventory and corrected result flags; no static regeneration or prior graph replay."
+      }
+    ],
+    "supplementary_checks": [
+      "Current exact-review-input hashes verified",
+      "Source/native archives, audit.py and binding.json byte-equal to original20e801be18",
+      "Relative report/README links verified",
+      "git diff --check passed"
+    ]
+  },
   "exact_review_inputs": {
     "docs/evidence/retained-why-inline-callback-closure-20261018/README.md": {
-      "bytes": 2331,
-      "sha256": "facc66be15dd21add3544e99850a4587180a5553daaaec1462b71667d652e93f"
+      "bytes": 2636,
+      "sha256": "b7c11713863c4c325ae2b1926b22cda7c01012acfd9865e93f43d2b83a82c0d3"
     },
     "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
       "bytes": 12887,
@@ -72,48 +190,28 @@
       "sha256": "3c6dd16604acd088b2a691f02fcdafbf70814090cdd15cbf5dfebd66d15714a3"
     },
     "docs/evidence/retained-why-inline-callback-closure-20261018/check.py": {
-      "bytes": 9770,
-      "sha256": "0879086827f01779b4058fda3870593e12679d25c8c9cb1a70f61eb3ee68d787"
+      "bytes": 11008,
+      "sha256": "503270b2c500d8463561775cdac8a655a697ef0901515e5d4cac711a806c43d4"
     },
     "docs/evidence/retained-why-inline-callback-closure-20261018/inputs.json": {
-      "bytes": 10193,
-      "sha256": "334ea2da757dccef482c5f38179bc41bb341109bc4dc1ceebea9ee2c229afc67"
+      "bytes": 10194,
+      "sha256": "0e0db56819d1a8eac9b79a1c1523322c91ae6949c06003b7cbfdbd7da6dfd87c"
     },
     "docs/evidence/retained-why-inline-callback-closure-20261018/native.tar.gz": {
       "bytes": 332459,
       "sha256": "ed2f6226dfc0266cb819b2dacc211844ba2f51dc3ad4720f57721f05db8884fd"
     },
     "docs/evidence/retained-why-inline-callback-closure-20261018/result.json": {
-      "bytes": 2922,
-      "sha256": "dbd46a2d35c438d604819672561bb15278cb2966f72ebd2a422b49d706cdaf7d"
+      "bytes": 4101,
+      "sha256": "b5ada8cbc60750b7fe8efbdbabac6864d3e7196f7fd9d3c11707cba7bcb4c8c3"
     },
     "docs/evidence/retained-why-inline-callback-closure-20261018/sources.tar.gz": {
       "bytes": 213370,
       "sha256": "e59e901cb848afa258750a6c80de876dd0dd9aac3e45491f0dc19b95a136abb6"
     },
     "docs/research/retained-why-inline-callback-closure.md": {
-      "bytes": 15366,
-      "sha256": "bf0f3f730840e263eee7521e3e3ac6c2fc595624886ce6afe5c70dd79453fc8d"
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
     }
-  },
-  "review": {
-    "status": "pending parent-coordinated independent review",
-    "reviewer_model": null,
-    "reviewer_effort": null,
-    "elapsed_seconds": null,
-    "requested_focus": [
-      "Conditional escape versus observed counterexample; non-detached raw-task invariant not assumed",
-      "Precise signal catch/poll/binder-registration source-native route including empty-cache poll",
-      "Gc/loader/custom-hook positive findings remain at inspected source/interface level, not arbitrary native non-aliasing theorem",
-      "No BSS runtime bytes, no new target run, exact predecessor binding and unchanged bound",
-      "Mask option remains unimplemented/unproved; required cancellation and child semantics named"
-    ]
-  },
-  "bookkeeping": {
-    "github_writes": false,
-    "cli_memory_updated": false,
-    "harness_written": false,
-    "live_child_goal_at_handoff": null,
-    "parent_owns_integration_and_publication": true
   }
 }

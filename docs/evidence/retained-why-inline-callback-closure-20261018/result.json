@@ -35,11 +35,39 @@
     "No inspected thread-creator capability consumer; preemption yields without Why3 identifier creation",
     "Channel custom-finalizer hook owner and fixed target identified; custom registry/legacy allocator interfaces delimited"
   ],
-  "residual": "SIGINT save_session can register identifiers through SV6 Shape binder openings before a conditional missing session_raw_tasks entry raises Not_found; interrupted Trans.fold catches Not_found and continues. Actual missing membership and signal occurrence are not observed.",
-  "remaining_invariant": "For selected session prefix/interruption points, establish raw-task membership for all non-detached visited nodes and exception ordering/charging for remaining save/shape/exit paths.",
+  "residual": "Handler-side identifier creation, asynchronous exception propagation and a continuing Trans.fold Not_found catch are established separately. No actual relevant post-registration escaping exception route is established; the original stable missing-task witness is withdrawn because goal_is_detached checks the same lookup and skips missing tasks.",
   "next_checks": [
-    "Prove source-prefix session membership and mutation preservation, then compare all escaping exceptions after registrations against continuing-transform catches",
-    "Alternatively charge a source-supported bound on handler-created identifiers",
-    "Assess enforced subprocess SIGINT blocking: launch race/inheritance, runtime mask writers/pending-signal handling, cancellation and solver-child semantics; no configuration implemented"
-  ]
+    "Prioritize finite callback multiplicity from existing ignore settings, including setter success, OS/runtime pending signals and no reinstallation; then charge a source-supported save/shape/at_exit bound. One-shotness is not assumed.",
+    "Alternatively exclude all relevant post-registration escaping exceptions and continuation from remaining save/shape/exit paths using actual exception sources and ordering.",
+    "Assess enforced subprocess SIGINT blocking only as a separate candidate: launch race/inheritance, runtime mask writers/pending-signal handling, cancellation and solver-child semantics; no configuration implemented."
+  ],
+  "stable_missing_task_witness_withdrawn": true,
+  "raw_task_guard_and_local_occurrence_inventory_checked": true,
+  "actual_post_registration_escape_route_established": false,
+  "whole_program_absence_of_interfering_alias_mutation_established": false,
+  "remaining_obligation": "Either exclude all relevant post-registration handler exceptions that escape into continuing transform catches, or establish finite callback multiplicity and charge source-supported handler work.",
+  "guard_and_local_inventory": {
+    "source": "why3/src/session/session_itp.ml",
+    "get_task_lines": [
+      310,
+      311
+    ],
+    "goal_is_detached_lines": [
+      369,
+      370,
+      371
+    ],
+    "APn_delegation_line": 385,
+    "guard_then_lookup_lines": [
+      2222,
+      2223
+    ],
+    "session_raw_tasks_occurrence_lines": [
+      136,
+      311,
+      631,
+      687
+    ],
+    "scope": "Non-mutable field declaration, lookup, initialization, add; no explicit table write between the two lookups and no removal or clear through this field in this module. No global alias theorem or intervening mutator established."
+  }
 }

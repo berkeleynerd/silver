@@ -83,8 +83,12 @@ def main():
               'family_wide_counter_invariance_established',
               'future_or_other_invocations_bounded', 'auxiliary_continuing_capacity_established',
               'complete_transform_capacity_established', 'whole_pipeline_capacity_established',
-              'SIGINT_mask_enforced_or_validated']:
+              'SIGINT_mask_enforced_or_validated',
+              'actual_post_registration_escape_route_established',
+              'whole_program_absence_of_interfering_alias_mutation_established']:
         assert result[k] is False, k
+    assert result['stable_missing_task_witness_withdrawn'] is True
+    assert result['raw_task_guard_and_local_occurrence_inventory_checked'] is True
     assert result['new_native_target_runs'] == result['solver_runs'] == 0
 
     # Source witness assertions protect the named argument from accidental drift.
@@ -99,7 +103,21 @@ def main():
         'let get_task s id =\n  Hpn.find s.session_raw_tasks id',
         '| APn g when not (is_detached s any)', 'let t = get_task s g',
         'Sshape.compute_and_add_shape s ~expl g t',
-        'Gshape.t_bound_shape_task gs ~version ~expl t')
+        'Gshape.t_bound_shape_task gs ~version ~expl t',
+        'let goal_is_detached s pn =\n  try let (_:Task.task) = get_task s pn in false\n  with Not_found -> true',
+        '| APn pn     -> goal_is_detached s pn',
+        '| APn g when not (is_detached s any)  ->\n                let t = get_task s g in')
+    session_lines = sources['why3/src/session/session_itp.ml'].decode().splitlines()
+    occurrences = [(i, line.strip()) for i, line in enumerate(session_lines, 1)
+                   if 'session_raw_tasks' in line]
+    assert occurrences == [
+        (136, 'session_raw_tasks : Task.task Hpn.t;'),
+        (311, 'Hpn.find s.session_raw_tasks id'),
+        (631, 'session_raw_tasks = Hpn.create 97;'),
+        (687, 'Hpn.add s.session_raw_tasks node_id t;')]
+    assert result['guard_and_local_inventory']['session_raw_tasks_occurrence_lines'] == [i for i, _ in occurrences]
+    # This local textual inventory is not a whole-program alias/mutation proof.
+
     src('why3/src/session/termcode.ml', 'Shape.t_shape ~version pr c m f',
         't_open_branch b', 't_open_bound b', 't_open_quant b')
     src('why3/src/core/term.ml', 'create_vsymbol (id_clone v.vs_name) v.vs_ty',
@@ -170,7 +188,7 @@ def main():
                          code_references=len(facts['code_references']),
                          data_references=len(facts['data_references']),
                          accounted_endpoint=61641, complete_endpoint_established=False,
-                         checks='input/member hashes; retained capture binding; source/native witnesses; scoped result flags; BSS and numeric-operand regressions')))
+                         checks='input/member hashes; retained capture binding; source/native witnesses and guard/lookup inventory; scoped result flags; BSS and numeric-operand regressions')))
 
 
 if __name__ == '__main__':

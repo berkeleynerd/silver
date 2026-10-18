@@ -2,10 +2,13 @@
 
 Research #119, Linux x86_64, 2026-10-18. The
 [source argument](../../research/retained-why-inline-callback-closure.md) leaves
-the complete continuing-call endpoint **open**. SIGINT's session save can create
-identifiers before an exception reaches an interrupted fold's `Not_found`
-handler. This conditional route has not been observed in a target run. The
-accepted accounted endpoint remains **60,496 + 1,145 = 61,641**.
+the complete continuing-call endpoint **open**. The signal handler can create
+identifiers; if a relevant exception then escapes into a continuing transform
+catch, that work needs accounting. No actual post-registration escape route is
+established. Review R1 refuted the original stable missing-task witness: the
+existing detachment guard catches that missing lookup and skips the node.
+The corrected packet retains the guard and its scoped local mutation inventory.
+The accepted accounted endpoint remains **60,496 + 1,145 = 61,641**.
 
 ```sh
 python3 -B docs/evidence/retained-why-inline-callback-closure-20261018/check.py
@@ -29,10 +32,12 @@ runs objdump only. Paths can be supplied with `--install` and `--objdump`.
   mapped executable/plugin identities; no new runtime observations.
 - `inputs.json`: archive/member hashes and reused predecessor file identities.
 - `audit.py`: ELF extraction, explicitly not a native non-aliasing theorem.
-- `check.py`: focused offline validation, including BSS rejection and operand
-  decoding regressions; no prior expensive graph replay is repeated.
+- `check.py`: focused offline validation, including the guard/lookup inventory,
+  BSS rejection and operand decoding regressions; no prior expensive graph
+  replay is repeated.
 - `result.json`: unchanged accounted arithmetic and explicitly false complete
-  capacity/reentrancy claims, with the named remaining invariant.
+  capacity/reentrancy claims, with the remaining exception-exclusion or
+  bounded-charge obligation.
 - `round.json`: selected settings, actual available timing, rework and review
   handoff. Runtime model confirmation and token/cost measurements are unavailable.
 
