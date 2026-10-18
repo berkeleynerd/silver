@@ -1,0 +1,70 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "source_files_checked": 33,
+  "scope": "conditional streaming-buffer and CFI consumer transfers; not whole assembler capacity",
+  "input_buffer": {
+    "read_block_bytes": 32768,
+    "cases": [
+      {
+        "longest_line": 0,
+        "capacity": 65536,
+        "request": 65539,
+        "maximum_growths": 0
+      },
+      {
+        "longest_line": 1,
+        "capacity": 65536,
+        "request": 65539,
+        "maximum_growths": 0
+      },
+      {
+        "longest_line": 32767,
+        "capacity": 65536,
+        "request": 65539,
+        "maximum_growths": 0
+      },
+      {
+        "longest_line": 32768,
+        "capacity": 65536,
+        "request": 65539,
+        "maximum_growths": 0
+      },
+      {
+        "longest_line": 32769,
+        "capacity": 131072,
+        "request": 131075,
+        "maximum_growths": 1
+      },
+      {
+        "longest_line": 65536,
+        "capacity": 131072,
+        "request": 131075,
+        "maximum_growths": 1
+      },
+      {
+        "longest_line": 4611686018427355136,
+        "capacity": 4611686018427387904,
+        "request": 4611686018427387907,
+        "maximum_growths": 46
+      }
+    ]
+  },
+  "selected_cfi": {
+    "FDE_objects": 1,
+    "per_frchain_state_objects": 1,
+    "rule_nodes": 7,
+    "advance_nodes": 5,
+    "total_CFI_nodes": 12,
+    "parser_temporary_symbol_requests": 7,
+    "CIE_objects": 1,
+    "CIE_non_rule_bytes": 19,
+    "FDE_non_rule_bytes": 17,
+    "eh_frame_contribution_bytes": 92,
+    "direct_temporary_expression_symbol_requests": 19,
+    "expression_location_record_requests": 5
+  },
+  "compiler_runs": 0,
+  "assembler_runs": 0,
+  "linker_runs": 0,
+  "prover_runs": 0
+}
