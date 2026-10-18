@@ -1561,3 +1561,39 @@ failure and false whole-pipeline verdict remain. The [independent review](../rev
 accepts source target `6f3a5af341` and attachment `2f595d4300` without material
 findings, preserving all their remaining obligations. No native tool or broad
 audit was run for this attachment or review.
+
+### Synthetic storage and collector callback attachment
+
+The [synthetic-function storage interface](retained-literal-synthetic-function-storage.md)
+now joins the source's accepted three non-Main function structures and two
+initial helper gimplifications. The aggregate checks complete equality with
+the frozen interface and the existing generated-body/function-counter inputs.
+Its 167 direct GGC events and eight ordinary requests remain a separate slice:
+they exclude original declaration/body/type construction and the two cgraph
+nodes already charged by the graph transfer. The ten possible identifier
+insertions and two singleton finalizers are exported to shared backing, with
+incoming serials and complete no-wrap conditions still unresolved.
+
+Context-pool and cfun-stack rows describe possible shared extensions. They
+must be deduplicated against any identical allocations in the eventual full
+ledger; this attachment does not sum them with Main's ordinary allocations.
+The local predicate checks individual request sizes, not those outstanding
+shared/counter conditions or a cumulative RAM limit.
+
+The [collector callback extension](retained-literal-collector-callbacks.md)
+uses the identical source counts and both cold/helper frontier inputs. It
+contributes zero GGC callback events and one 104-byte ordinary scratch request
+per value-expression marker call. Exact interface checks reject a borrowed
+null total, erased scratch storage or premature collector completeness.
+The aggregate leaves total events, page/finalizer backing and collector call
+count unspecified; its two new local predicates do not restore the five
+broader unresolved conditions or establish whole-pipeline capacity.
+Both source packets and this attachment are pending independent review.
+
+All 109 focused aggregate cases pass in 4.907963480 seconds; default
+generation takes 3.880576852 seconds. Fourteen new negative cases protect
+the collector and synthetic-storage boundaries. There are 128 repository
+pins, 293 direct external source identities and 45 nested collector inputs;
+overlapping inventories are not added together. No native tool or broad
+proof/build/test ran. The five unknown conditions and the separate 5,000-call
+conservative relocation failure remain.

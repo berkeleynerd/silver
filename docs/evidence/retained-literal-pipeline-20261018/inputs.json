@@ -563,5 +563,80 @@
     "path": "docs/research/retained-literal-warning-residual-bound.md",
     "bytes": 17982,
     "sha256": "bef8c52601a1cf9ffc3531930cdddfae41140951fffbaad3d21fcec4b70daee7"
+  },
+  {
+    "path": "docs/research/retained-literal-collector-callbacks.md",
+    "bytes": 8346,
+    "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+  },
+  {
+    "path": "docs/research/retained-literal-synthetic-function-storage.md",
+    "bytes": 19340,
+    "sha256": "7fdd87684205e74c73ac226086541beead2478dafe131755f5d0e7dfb275e2fa"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/README.md",
+    "bytes": 2107,
+    "sha256": "4aa08bfa9b829013c1125e05e2ed91ff9bde32cc3491016dec13143f0e4aa840"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/check-results.json",
+    "bytes": 1302,
+    "sha256": "20794fbd0077b00764a3c572777fe388f6a3760d2ccb639a95c002dcec3fd55f"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/check.py",
+    "bytes": 3423,
+    "sha256": "2202d927a3bd0793132c53fafd6f1d7b0d9c7e27ba3f655f92fe8efe29b602a9"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/derive.py",
+    "bytes": 5412,
+    "sha256": "cdb236248c22fb14cae4f7418928e320e3c0ca329085710527fcf546945a6ad7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/inputs.json",
+    "bytes": 10752,
+    "sha256": "7bfc17084b3140f01d7f0c5337ebbad65fff19782e1d5fddf731f9175ebc3ef6"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/result.json",
+    "bytes": 1473,
+    "sha256": "488c54d84936648e3af1c4557c9c129b3b192c2db505f6a33adc698ce139d403"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/README.md",
+    "bytes": 2753,
+    "sha256": "ff95da88165e510415dc81133d09a355ca96036d007387f99da4f62fb4089c09"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/check-results.json",
+    "bytes": 2196,
+    "sha256": "b0e86e384389e1c443c15bd0e32b7e4a2ce5fbbf25bbc70c7b59ccbeb6327d24"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/check.py",
+    "bytes": 12852,
+    "sha256": "f1a766665825757d2efc8a3043651497a6a41f7b37d299e2dd13a668e9165702"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/derive.py",
+    "bytes": 4607,
+    "sha256": "0170c79773fe2712b16adae05528f7534cf74a463959e253d14ddca8018e6c25"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/interface.json",
+    "bytes": 6129,
+    "sha256": "0a4ab98fc68bee370e326dff850540efea20dc084f0c3ba25a5873dfba7cd409"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/matcher-flat-patterns.json",
+    "bytes": 14764,
+    "sha256": "fb31c0cf70014790e684ffd8d84c5f293ad52d1798990b2801d2e54a00d66daa"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/source-manifest.json",
+    "bytes": 27831,
+    "sha256": "56af2677740237bebe2e646c818d78ba7720c785b03d5c79d55beddaf7455665"
   }
 ]

@@ -112,6 +112,10 @@ class Context:
             checked.add(str(path))
         self.warning_residual=runpy.run_path(str(residual_packet/'derive.py'))
         self.imported_functions=read(residual_packet/'interface.json')
+        collector_packet=EVIDENCE/'retained-literal-collector-callbacks-20261018'
+        self.collector=runpy.run_path(str(collector_packet/'derive.py'))
+        self.collector_context=self.collector['Context'](
+            roots['gcc'],roots['ada'],roots['plugin'])
         cold_packet=EVIDENCE/'retained-literal-string-layout-20261018'
         self.cold_string=read(cold_packet/'interface.json')
         for row in read(cold_packet/'source-manifest.json')['files']:
@@ -122,6 +126,17 @@ class Context:
                     {key:row[key] for key in ('bytes','sha256')},
                     'changed cold String source: '+str(path))
             checked.add(str(path))
+        synthetic_packet=EVIDENCE/'retained-literal-synthetic-function-storage-20261018'
+        for row in read(synthetic_packet/'source-manifest.json')['files']:
+            path=(roots['ada']/row['path'].removeprefix('gcc/ada/')
+                  if row['root']=='ada' else match_path if row['root']=='matcher'
+                  else roots['gcc']/row['path'])
+            require(identity(path.read_bytes())==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'changed synthetic function source: '+str(path))
+            checked.add(str(path))
+        self.synthetic=runpy.run_path(str(synthetic_packet/'derive.py'))
+        self.synthetic_expected=read(synthetic_packet/'interface.json')
         self.source_files_verified = len(checked)
         frontend_packet=EVIDENCE/'retained-literal-native-frontend-20261018'
         self.frontend = runpy.run_path(str(frontend_packet/'compose.py'))
@@ -901,6 +916,40 @@ def evaluate(descriptor_path, context, source_override=None):
             imported['empty_elaboration']['allocation_request_events'] is None and
             not imported['complete_imported_frontier_capacity_closed'],
             'literal imported function and warning frontier join')
+    require(context.collector_context.frontier==imported and
+            context.collector_context.cold==context.cold_string,
+            'literal collector imported frontier equality')
+    collector=context.collector['evaluate'](raw,context.collector_context)
+    require(collector['source']==identity(raw) and
+            collector['source_counts']==counts and
+            collector['selected_literal_collector_callback_effects_closed'] and
+            collector['value_expression_insertions_upper']==0 and
+            collector['collector_callback_additional_GGC_events']==0 and
+            collector['finalizer_additional_ordinary_allocation_requests']==0 and
+            collector['value_expression_marker']==dict(
+                ordinary_hash_backing_requests_per_callback=1,
+                each_ordinary_hash_backing_bytes=104,hash_insertions=0,
+                recursive_tree_walks=0,dynamic_vector_backing_requests=0) and
+            collector['total_GGC_events'] is None and
+            collector['total_finalizer_registrations'] is None and
+            collector['collector_page_and_finalizer_backing'] is None and
+            not collector['complete_collector_lifetime_closed'],
+            'literal collector callback interface join')
+    synthetic=context.synthetic['evaluate']()
+    require(synthetic==context.synthetic_expected and
+            synthetic['function_structure_calls']==
+                imported['empty_elaboration']['function_structures_allocated']+
+                imported['cold_string_size_helpers']['FUNCTION_DECLs_created'] and
+            synthetic['initial_helper_gimplifications']==context.cold_string['initial_helper_gimplifications'] and
+            synthetic['identity_demands']['function_definition_numbers']==
+                imported['non_Main_function_definition_number_increment'] and
+            synthetic['GGC_events']==sum(row['requests'] for row in synthetic['GGC_groups']) and
+            not synthetic['original_gigi_predecessor_construction_included'] and
+            not synthetic['cgraph_nodes_and_symbol_map_backing_included'] and
+            not synthetic['shared_identifier_backing_included'] and
+            not synthetic['collector_page_and_finalizer_backing_included'] and
+            not synthetic['whole_literal_pipeline_closed'],
+            'literal synthetic function storage interface join')
     require(context.prefix['counters']['ggc_bytes']['largest_increment']==65536 and
             warning['prefix_capacity_ceiling']==4093 and
             max(prime for prime in context.warning['PRIMES'] if 16*prime<=65536)==4093,
@@ -995,6 +1044,10 @@ def evaluate(descriptor_path, context, source_override=None):
             ingress['conditional_whole_body_ingress_closed'] and
             protected_storage['conditional_protected_set_storage_closed']),
         native_initial_warning_map_lifetime=warning_transfer['conditional_map_interface_fits'],
+        native_collector_callback_local_interface=(
+            collector['value_expression_marker']['each_ordinary_hash_backing_bytes']<=I64),
+        native_synthetic_individual_request_sizes=all(
+            0<row['caller_bytes']<=I64 for row in synthetic['GGC_groups']+synthetic['ordinary_groups']),
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
@@ -1022,8 +1075,10 @@ def evaluate(descriptor_path, context, source_override=None):
         additional_emitted_stream_interface=None,
         cold_String_layout=native_cold_string_interface(context),
         selected_generated_function_frontier=imported,
+        synthetic_function_storage=synthetic,
+        synthetic_counter_no_wrap_established=False,
         affected_predicates=list(unit_dependent),
-        missing='The selected generated-body frontier and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Complete synthetic-function and original imported allocation totals, empty-elaboration registration and counter-to-emission joins; absent emission does not erase these costs.',
+        missing='The generated-body frontier, direct synthetic function storage and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Original imported construction, shared identifier/container backing, full counter no-wrap, empty-elaboration registration and counter-to-emission joins remain; absent emission does not erase these costs.',
         finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.
@@ -1046,7 +1101,11 @@ def evaluate(descriptor_path, context, source_override=None):
                              selected_gimplifier_warning_put_calls_upper=warning['selected_initial_gimplifier_warning_put_call_ceiling'],
                              local_original_gigi_warning_suppressions_upper=warning['local_gigi_suppression_call_ceiling'],
                              remaining_original_gigi_warning_put_calls=5,
-                             initial_warning_map_GGC_events_upper=warning_transfer['additive_GGC_event_ceiling']),
+                             initial_warning_map_GGC_events_upper=warning_transfer['additive_GGC_event_ceiling'],
+                             synthetic_function_GGC_events_upper=synthetic['GGC_events'],
+                             synthetic_function_singleton_finalizers_upper=synthetic['shared_container_demands']['singleton_finalizer_registrations'],
+                             collector_callback_additional_GGC_events=collector['collector_callback_additional_GGC_events'],
+                             collector_marker_individual_ordinary_request_bytes=104),
             'missing':'Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, and remaining helper lifetimes. Original-gigi R<=5 and initial Main warning-map requests are joined; later warning consumers remain separate. Concrete Main constructor and source-syntax visits are not helper/GGC events. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
@@ -1086,6 +1145,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_gimplifier_ingress=ingress,
         native_unshare_protected_set_storage=protected_storage,
         native_warning_map_demand=warning,
+        native_collector_callbacks=collector,
+        native_synthetic_function_storage=synthetic,
         native_Main_frontend_interface=frontend,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
@@ -1099,6 +1160,7 @@ def evaluate(descriptor_path, context, source_override=None):
         next_repair='native_remaining_lifetime_and_collector',
         fixed_input_count=context.inputs_verified,external_source_files_verified=context.source_files_verified,
         native_Main_frontend_nested_validation=context.frontend_verification,
+        native_collector_nested_inputs_verified=context.collector_context.inputs_verified,
         native_tool_executions=0,production_admission_changed=False,aggregate_RAM_gate=False,
         conditional_premises=['Relevant installed behavior matches the reviewed source.',
             'The selected O0, Linux x86-64, no-debug, small-PIC, ordinary PLT descriptor and unchanged Silver library semantics apply.',

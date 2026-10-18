@@ -159,3 +159,19 @@ premises, and erased empty-elaboration structures/counters. Whole-pipeline
 capacity and the five broader imported-frontier conditions remain open.
 No extra function is emitted, but the empty elaboration's allocation and
 symbol registration and the persistent counter-to-label joins are separate.
+
+The synthetic-function storage packet and collector callback extension now
+attach to the same generated-body and actual-source interfaces. The former
+adds a separately owned 167-event direct GGC slice for three non-Main function
+structures and two initial helper gimplifications; the two cgraph nodes remain
+in the earlier graph ledger. It exports eight ordinary requests, ten potential
+identifier insertions and two singleton finalizers. Shared context/cfun-stack
+extensions are retained as peak requirements for later deduplication; this
+attachment supplies no complete ordinary or GGC allocation sum.
+
+The collector extension adds zero GGC callback events and retains one ordinary
+104-byte scratch request per value-expression marker invocation. Its null
+predecessor's 40,098-event total and backing capacities are not transferred.
+Both new local predicates concern the stated request interfaces only. Original
+construction, incoming serials and full counter no-wrap, shared backing,
+complete collector lifetime and all five broader conditions remain open.

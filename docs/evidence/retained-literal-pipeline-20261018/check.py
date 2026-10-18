@@ -71,6 +71,24 @@ def main():
             assert not frontend['attachment_status']['complete_native_frontend']
             assert not frontend['attachment_status']['complete_gigi_allocation']
             assert not frontend['attachment_status']['complete_native_capacity']
+            collector=result['native_collector_callbacks']
+            assert collector['source_counts']==counts
+            assert collector['collector_callback_additional_GGC_events']==0
+            assert collector['value_expression_marker']['each_ordinary_hash_backing_bytes']==104
+            assert collector['total_GGC_events'] is None
+            assert collector['collector_page_and_finalizer_backing'] is None
+            assert not collector['complete_collector_lifetime_closed']
+            synthetic=result['native_synthetic_function_storage']
+            assert synthetic['function_structure_calls']==3
+            assert synthetic['initial_helper_gimplifications']==2
+            assert synthetic['GGC_events']==167
+            assert synthetic['GGC_events']==sum(row['requests'] for row in synthetic['GGC_groups'])
+            assert synthetic['ordinary_requests']==8
+            assert synthetic['identity_demands']['function_definition_numbers']==3
+            assert synthetic['shared_container_demands']['singleton_finalizer_registrations']==2
+            assert not result['native_unit_frontier']['synthetic_counter_no_wrap_established']
+            assert not synthetic['original_gigi_predecessor_construction_included']
+            assert not synthetic['cgraph_nodes_and_symbol_map_backing_included']
             pools=result['native_pool_lifetime']
             assert pools['source_input'] == dict(
                 bounds_finalize_calls_upper=c,pool_entries_upper=2*c,insertion_capable_pool_lookups_upper=3*c)
@@ -376,7 +394,61 @@ def main():
             finally:
                 context.cold_string=cold_original
 
+        synthetic_evaluate=context.synthetic['evaluate']
+        for name,path,value in (
+            ('erased_synthetic_function',('function_structure_calls',),2),
+            ('erased_synthetic_gimplification',('initial_helper_gimplifications',),0),
+            ('erased_synthetic_GGC',('GGC_events',),0),
+            ('unproved_original_construction',('original_gigi_predecessor_construction_included',),True),
+            ('duplicate_cgraph_charge',('cgraph_nodes_and_symbol_map_backing_included',),True),
+            ('invented_identifier_backing',('shared_identifier_backing_included',),True),
+            ('lost_synthetic_finalizers',('shared_container_demands','singleton_finalizer_registrations'),0),
+            ('lost_synthetic_funcdef',('identity_demands','function_definition_numbers'),0)):
+            def mismatched_synthetic():
+                result=synthetic_evaluate()
+                changed=result
+                for key in path[:-1]:
+                    changed=changed[key]
+                changed[path[-1]]=value
+                return result
+            context.synthetic['evaluate']=mismatched_synthetic
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal synthetic function storage interface join'
+                rows.append(dict(case=name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered synthetic interface: '+name)
+            finally:
+                context.synthetic['evaluate']=synthetic_evaluate
+
         frontend_compose=context.frontend['compose']
+        collector_evaluate=context.collector['evaluate']
+        for name,path,value in (
+            ('borrowed_null_total',('total_GGC_events',),40098),
+            ('invented_backing',('collector_page_and_finalizer_backing',),{}),
+            ('erased_marker_scratch',('value_expression_marker','each_ordinary_hash_backing_bytes'),0),
+            ('unproved_cache_empty',('value_expression_insertions_upper',),1),
+            ('premature_collector_closure',('complete_collector_lifetime_closed',),True),
+            ('collector_source_mismatch',('source','bytes'),0)):
+            def mismatched_collector(*args,**kwargs):
+                result=collector_evaluate(*args,**kwargs)
+                changed=result
+                for key in path[:-1]:
+                    changed=changed[key]
+                changed[path[-1]]=value
+                return result
+            context.collector['evaluate']=mismatched_collector
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal collector callback interface join'
+                rows.append(dict(case=name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered collector interface: '+name)
+            finally:
+                context.collector['evaluate']=collector_evaluate
+
         mutations=[
             ('fixed_node_zero',('gigi_source_interface','separate_fixed_frontend_allowance','node_identities'),0),
             ('fixed_entity_zero',('gigi_source_interface','separate_fixed_frontend_allowance','entity_identities'),0),

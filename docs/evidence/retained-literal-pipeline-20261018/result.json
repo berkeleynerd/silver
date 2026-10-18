@@ -100,6 +100,8 @@
     "native_initial_CF_CFG_lifetime": true,
     "native_whole_body_copy_local_interface": true,
     "native_initial_warning_map_lifetime": true,
+    "native_collector_callback_local_interface": true,
+    "native_synthetic_individual_request_sizes": true,
     "Main_assembler_object_interface": null,
     "Main_GAS_BFD_storage": null,
     "literal_output_linker_representation": null,
@@ -127,6 +129,8 @@
     "native_initial_CF_CFG_lifetime": true,
     "native_whole_body_copy_local_interface": true,
     "native_initial_warning_map_lifetime": true,
+    "native_collector_callback_local_interface": true,
+    "native_synthetic_individual_request_sizes": true,
     "Main_assembler_object_interface": true,
     "Main_GAS_BFD_storage": true,
     "literal_output_linker_representation": true,
@@ -232,6 +236,255 @@
       "aggregate_conditions_changed": false,
       "whole_literal_pipeline_capacity_established": false
     },
+    "synthetic_function_storage": {
+      "scope": "three struct-function allocations and two initial gimplifications",
+      "function_structure_calls": 3,
+      "initial_helper_gimplifications": 2,
+      "empty_elaboration_gimplifications": 0,
+      "ordinary_lowered_nonMain_functions": 0,
+      "emitted_nonMain_functions": 0,
+      "input_dimensions": {
+        "byte": {
+          "unary": 3,
+          "binary": 4,
+          "ternary": 1,
+          "W": 8,
+          "scalar_materializations": 4
+        },
+        "bit": {
+          "unary": 4,
+          "binary": 5,
+          "ternary": 1,
+          "W": 10,
+          "scalar_materializations": 6
+        }
+      },
+      "GGC_groups": [
+        {
+          "family": "function",
+          "requests": 3,
+          "caller_bytes": 208,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "eh_status",
+          "requests": 3,
+          "caller_bytes": 48,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "machine_function",
+          "requests": 3,
+          "caller_bytes": 320,
+          "rounded_slot_bytes_ceiling": 512
+        },
+        {
+          "family": "EH_pointer_vectors",
+          "requests": 6,
+          "caller_bytes": 64,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "gimple_df",
+          "requests": 2,
+          "caller_bytes": 256,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "default_def_hash_control",
+          "requests": 2,
+          "caller_bytes": 128,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "default_def_hash_backing",
+          "requests": 2,
+          "caller_bytes": 248,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "SSA_name_vector",
+          "requests": 2,
+          "caller_bytes": 512,
+          "rounded_slot_bytes_ceiling": 512
+        },
+        {
+          "family": "whole_body_unshare_unary",
+          "requests": 21,
+          "caller_bytes": 32,
+          "rounded_slot_bytes_ceiling": 32
+        },
+        {
+          "family": "whole_body_unshare_binary",
+          "requests": 27,
+          "caller_bytes": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "whole_body_unshare_ternary",
+          "requests": 6,
+          "caller_bytes": 48,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "materialization_INIT",
+          "requests": 10,
+          "caller_bytes": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "materialization_shallow_unshare",
+          "requests": 10,
+          "caller_bytes": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "conditional_arm_assignment_trees",
+          "requests": 4,
+          "caller_bytes": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "return_VAR_DECL",
+          "requests": 2,
+          "caller_bytes": 312,
+          "rounded_slot_bytes_ceiling": 512
+        },
+        {
+          "family": "scalar_SSA_NAME",
+          "requests": 10,
+          "caller_bytes": 88,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "LABEL_DECL",
+          "requests": 6,
+          "caller_bytes": 256,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "GIMPLE_ASSIGN",
+          "requests": 14,
+          "caller_bytes": 96,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "GIMPLE_COND",
+          "requests": 2,
+          "caller_bytes": 88,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "GIMPLE_LABEL",
+          "requests": 6,
+          "caller_bytes": 64,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "GIMPLE_GOTO",
+          "requests": 2,
+          "caller_bytes": 64,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "GIMPLE_RETURN",
+          "requests": 2,
+          "caller_bytes": 80,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "GIMPLE_BIND",
+          "requests": 2,
+          "caller_bytes": 72,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "temporary_identifier",
+          "requests": 10,
+          "caller_bytes": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "temporary_identifier_characters",
+          "requests": 10,
+          "caller_bytes": 16,
+          "rounded_slot_bytes_ceiling": 16
+        }
+      ],
+      "GGC_events": 167,
+      "GGC_caller_bytes_sum_ceiling": 13336,
+      "GGC_rounded_slots_sum_ceiling": 17216,
+      "ordinary_groups": [
+        {
+          "family": "unshare_hash_control",
+          "requests": 2,
+          "caller_bytes": 64
+        },
+        {
+          "family": "unshare_hash_backing",
+          "requests": 2,
+          "caller_bytes": 104
+        },
+        {
+          "family": "gimplifier_context_pool_extension",
+          "requests": 1,
+          "caller_bytes": 128
+        },
+        {
+          "family": "parameter_pointer_vector",
+          "requests": 2,
+          "caller_bytes": 40
+        },
+        {
+          "family": "cfun_stack_first_capacity",
+          "requests": 1,
+          "caller_bytes": 40
+        }
+      ],
+      "ordinary_requests": 8,
+      "ordinary_caller_bytes_sum_ceiling": 584,
+      "identity_demands": {
+        "function_definition_numbers": 3,
+        "fresh_DECL_UIDs": 8,
+        "fresh_type_UIDs": 0,
+        "SSA_names_total": 10,
+        "SSA_name_vector_length_per_helper": [
+          5,
+          7
+        ],
+        "tmp_var_id_num_increment_ceiling": 10,
+        "tmp_var_id_num_incoming_max": 4294967285,
+        "condition_UID_next_value_per_helper": 2,
+        "CFG_label_UID_assignments": 0,
+        "RTL_label_numbers": 0
+      },
+      "shared_container_demands": {
+        "identifier_insertion_capable_lookups": 10,
+        "identifier_new_entries_ceiling": 10,
+        "singleton_finalizer_registrations": 2,
+        "vector_finalizer_registrations": 0,
+        "cfun_stack_pushes": 2,
+        "cfun_stack_pops": 2,
+        "cfun_stack_peak_length": 1,
+        "gimplifier_context_peak_active": 1,
+        "gimplifier_context_returns_to_pool": 2,
+        "default_def_hashes": 2,
+        "default_def_hash_live_entries": 0,
+        "default_def_hash_capacity_each": 31,
+        "unshare_hash_capacity_each": 13,
+        "unshare_hash_live_entries": 0,
+        "EH_vector_live_entries_each": 1,
+        "parameter_vector_live_entries_each": 2
+      },
+      "original_gigi_predecessor_construction_included": false,
+      "cgraph_nodes_and_symbol_map_backing_included": false,
+      "shared_identifier_backing_included": false,
+      "collector_page_and_finalizer_backing_included": false,
+      "independent_review": "pending",
+      "whole_literal_pipeline_closed": false,
+      "native_runs": 0
+    },
+    "synthetic_counter_no_wrap_established": false,
     "affected_predicates": [
       "native_varpool_and_shared_tree_pool",
       "native_graph_and_summary_lifetime",
@@ -239,7 +492,7 @@
       "Main_GAS_BFD_storage",
       "literal_output_linker_representation"
     ],
-    "missing": "The selected generated-body frontier and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Complete synthetic-function and original imported allocation totals, empty-elaboration registration and counter-to-emission joins; absent emission does not erase these costs.",
+    "missing": "The generated-body frontier, direct synthetic function storage and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Original imported construction, shared identifier/container backing, full counter no-wrap, empty-elaboration registration and counter-to-emission joins remain; absent emission does not erase these costs.",
     "finding": "https://github.com/berkeleynerd/silver/issues/131"
   },
   "native_lowering_data": {
@@ -1692,6 +1945,295 @@
     "independent_review": "pending",
     "complete_imported_frontier_capacity_closed": false,
     "whole_literal_pipeline_capacity_established": false
+  },
+  "native_collector_callbacks": {
+    "scope": "Selected literal-output Main process under reviewed source/configuration premises",
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "selected_literal_collector_callback_effects_closed": true,
+    "value_expression_insertions_upper": 0,
+    "collector_callback_additional_GGC_events": 0,
+    "finalizer_additional_ordinary_allocation_requests": 0,
+    "value_expression_marker": {
+      "ordinary_hash_backing_requests_per_callback": 1,
+      "each_ordinary_hash_backing_bytes": 104,
+      "hash_insertions": 0,
+      "recursive_tree_walks": 0,
+      "dynamic_vector_backing_requests": 0
+    },
+    "actual_collector_call_count": null,
+    "total_GGC_events": null,
+    "total_finalizer_registrations": null,
+    "collector_page_and_finalizer_backing": null,
+    "complete_collector_lifetime_closed": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "aggregate_RAM_admission_gate": false,
+    "source_argument": "docs/research/retained-literal-collector-callbacks.md",
+    "native_tool_executions": 0,
+    "production_admission_changed": false
+  },
+  "native_synthetic_function_storage": {
+    "scope": "three struct-function allocations and two initial gimplifications",
+    "function_structure_calls": 3,
+    "initial_helper_gimplifications": 2,
+    "empty_elaboration_gimplifications": 0,
+    "ordinary_lowered_nonMain_functions": 0,
+    "emitted_nonMain_functions": 0,
+    "input_dimensions": {
+      "byte": {
+        "unary": 3,
+        "binary": 4,
+        "ternary": 1,
+        "W": 8,
+        "scalar_materializations": 4
+      },
+      "bit": {
+        "unary": 4,
+        "binary": 5,
+        "ternary": 1,
+        "W": 10,
+        "scalar_materializations": 6
+      }
+    },
+    "GGC_groups": [
+      {
+        "family": "function",
+        "requests": 3,
+        "caller_bytes": 208,
+        "rounded_slot_bytes_ceiling": 256
+      },
+      {
+        "family": "eh_status",
+        "requests": 3,
+        "caller_bytes": 48,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "machine_function",
+        "requests": 3,
+        "caller_bytes": 320,
+        "rounded_slot_bytes_ceiling": 512
+      },
+      {
+        "family": "EH_pointer_vectors",
+        "requests": 6,
+        "caller_bytes": 64,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "gimple_df",
+        "requests": 2,
+        "caller_bytes": 256,
+        "rounded_slot_bytes_ceiling": 256
+      },
+      {
+        "family": "default_def_hash_control",
+        "requests": 2,
+        "caller_bytes": 128,
+        "rounded_slot_bytes_ceiling": 128
+      },
+      {
+        "family": "default_def_hash_backing",
+        "requests": 2,
+        "caller_bytes": 248,
+        "rounded_slot_bytes_ceiling": 256
+      },
+      {
+        "family": "SSA_name_vector",
+        "requests": 2,
+        "caller_bytes": 512,
+        "rounded_slot_bytes_ceiling": 512
+      },
+      {
+        "family": "whole_body_unshare_unary",
+        "requests": 21,
+        "caller_bytes": 32,
+        "rounded_slot_bytes_ceiling": 32
+      },
+      {
+        "family": "whole_body_unshare_binary",
+        "requests": 27,
+        "caller_bytes": 40,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "whole_body_unshare_ternary",
+        "requests": 6,
+        "caller_bytes": 48,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "materialization_INIT",
+        "requests": 10,
+        "caller_bytes": 40,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "materialization_shallow_unshare",
+        "requests": 10,
+        "caller_bytes": 40,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "conditional_arm_assignment_trees",
+        "requests": 4,
+        "caller_bytes": 40,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "return_VAR_DECL",
+        "requests": 2,
+        "caller_bytes": 312,
+        "rounded_slot_bytes_ceiling": 512
+      },
+      {
+        "family": "scalar_SSA_NAME",
+        "requests": 10,
+        "caller_bytes": 88,
+        "rounded_slot_bytes_ceiling": 128
+      },
+      {
+        "family": "LABEL_DECL",
+        "requests": 6,
+        "caller_bytes": 256,
+        "rounded_slot_bytes_ceiling": 256
+      },
+      {
+        "family": "GIMPLE_ASSIGN",
+        "requests": 14,
+        "caller_bytes": 96,
+        "rounded_slot_bytes_ceiling": 128
+      },
+      {
+        "family": "GIMPLE_COND",
+        "requests": 2,
+        "caller_bytes": 88,
+        "rounded_slot_bytes_ceiling": 128
+      },
+      {
+        "family": "GIMPLE_LABEL",
+        "requests": 6,
+        "caller_bytes": 64,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "GIMPLE_GOTO",
+        "requests": 2,
+        "caller_bytes": 64,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "GIMPLE_RETURN",
+        "requests": 2,
+        "caller_bytes": 80,
+        "rounded_slot_bytes_ceiling": 128
+      },
+      {
+        "family": "GIMPLE_BIND",
+        "requests": 2,
+        "caller_bytes": 72,
+        "rounded_slot_bytes_ceiling": 128
+      },
+      {
+        "family": "temporary_identifier",
+        "requests": 10,
+        "caller_bytes": 40,
+        "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "temporary_identifier_characters",
+        "requests": 10,
+        "caller_bytes": 16,
+        "rounded_slot_bytes_ceiling": 16
+      }
+    ],
+    "GGC_events": 167,
+    "GGC_caller_bytes_sum_ceiling": 13336,
+    "GGC_rounded_slots_sum_ceiling": 17216,
+    "ordinary_groups": [
+      {
+        "family": "unshare_hash_control",
+        "requests": 2,
+        "caller_bytes": 64
+      },
+      {
+        "family": "unshare_hash_backing",
+        "requests": 2,
+        "caller_bytes": 104
+      },
+      {
+        "family": "gimplifier_context_pool_extension",
+        "requests": 1,
+        "caller_bytes": 128
+      },
+      {
+        "family": "parameter_pointer_vector",
+        "requests": 2,
+        "caller_bytes": 40
+      },
+      {
+        "family": "cfun_stack_first_capacity",
+        "requests": 1,
+        "caller_bytes": 40
+      }
+    ],
+    "ordinary_requests": 8,
+    "ordinary_caller_bytes_sum_ceiling": 584,
+    "identity_demands": {
+      "function_definition_numbers": 3,
+      "fresh_DECL_UIDs": 8,
+      "fresh_type_UIDs": 0,
+      "SSA_names_total": 10,
+      "SSA_name_vector_length_per_helper": [
+        5,
+        7
+      ],
+      "tmp_var_id_num_increment_ceiling": 10,
+      "tmp_var_id_num_incoming_max": 4294967285,
+      "condition_UID_next_value_per_helper": 2,
+      "CFG_label_UID_assignments": 0,
+      "RTL_label_numbers": 0
+    },
+    "shared_container_demands": {
+      "identifier_insertion_capable_lookups": 10,
+      "identifier_new_entries_ceiling": 10,
+      "singleton_finalizer_registrations": 2,
+      "vector_finalizer_registrations": 0,
+      "cfun_stack_pushes": 2,
+      "cfun_stack_pops": 2,
+      "cfun_stack_peak_length": 1,
+      "gimplifier_context_peak_active": 1,
+      "gimplifier_context_returns_to_pool": 2,
+      "default_def_hashes": 2,
+      "default_def_hash_live_entries": 0,
+      "default_def_hash_capacity_each": 31,
+      "unshare_hash_capacity_each": 13,
+      "unshare_hash_live_entries": 0,
+      "EH_vector_live_entries_each": 1,
+      "parameter_vector_live_entries_each": 2
+    },
+    "original_gigi_predecessor_construction_included": false,
+    "cgraph_nodes_and_symbol_map_backing_included": false,
+    "shared_identifier_backing_included": false,
+    "collector_page_and_finalizer_backing_included": false,
+    "independent_review": "pending",
+    "whole_literal_pipeline_closed": false,
+    "native_runs": 0
   },
   "native_Main_frontend_interface": {
     "scope": "actual selected literal source: Main constructor and gigi source-visit input",
@@ -3729,6 +4271,255 @@
         "aggregate_conditions_changed": false,
         "whole_literal_pipeline_capacity_established": false
       },
+      "synthetic_function_storage": {
+        "scope": "three struct-function allocations and two initial gimplifications",
+        "function_structure_calls": 3,
+        "initial_helper_gimplifications": 2,
+        "empty_elaboration_gimplifications": 0,
+        "ordinary_lowered_nonMain_functions": 0,
+        "emitted_nonMain_functions": 0,
+        "input_dimensions": {
+          "byte": {
+            "unary": 3,
+            "binary": 4,
+            "ternary": 1,
+            "W": 8,
+            "scalar_materializations": 4
+          },
+          "bit": {
+            "unary": 4,
+            "binary": 5,
+            "ternary": 1,
+            "W": 10,
+            "scalar_materializations": 6
+          }
+        },
+        "GGC_groups": [
+          {
+            "family": "function",
+            "requests": 3,
+            "caller_bytes": 208,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "eh_status",
+            "requests": 3,
+            "caller_bytes": 48,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "machine_function",
+            "requests": 3,
+            "caller_bytes": 320,
+            "rounded_slot_bytes_ceiling": 512
+          },
+          {
+            "family": "EH_pointer_vectors",
+            "requests": 6,
+            "caller_bytes": 64,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "gimple_df",
+            "requests": 2,
+            "caller_bytes": 256,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "default_def_hash_control",
+            "requests": 2,
+            "caller_bytes": 128,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "default_def_hash_backing",
+            "requests": 2,
+            "caller_bytes": 248,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "SSA_name_vector",
+            "requests": 2,
+            "caller_bytes": 512,
+            "rounded_slot_bytes_ceiling": 512
+          },
+          {
+            "family": "whole_body_unshare_unary",
+            "requests": 21,
+            "caller_bytes": 32,
+            "rounded_slot_bytes_ceiling": 32
+          },
+          {
+            "family": "whole_body_unshare_binary",
+            "requests": 27,
+            "caller_bytes": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "whole_body_unshare_ternary",
+            "requests": 6,
+            "caller_bytes": 48,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "materialization_INIT",
+            "requests": 10,
+            "caller_bytes": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "materialization_shallow_unshare",
+            "requests": 10,
+            "caller_bytes": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "conditional_arm_assignment_trees",
+            "requests": 4,
+            "caller_bytes": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "return_VAR_DECL",
+            "requests": 2,
+            "caller_bytes": 312,
+            "rounded_slot_bytes_ceiling": 512
+          },
+          {
+            "family": "scalar_SSA_NAME",
+            "requests": 10,
+            "caller_bytes": 88,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "LABEL_DECL",
+            "requests": 6,
+            "caller_bytes": 256,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "GIMPLE_ASSIGN",
+            "requests": 14,
+            "caller_bytes": 96,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "GIMPLE_COND",
+            "requests": 2,
+            "caller_bytes": 88,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "GIMPLE_LABEL",
+            "requests": 6,
+            "caller_bytes": 64,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "GIMPLE_GOTO",
+            "requests": 2,
+            "caller_bytes": 64,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "GIMPLE_RETURN",
+            "requests": 2,
+            "caller_bytes": 80,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "GIMPLE_BIND",
+            "requests": 2,
+            "caller_bytes": 72,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "temporary_identifier",
+            "requests": 10,
+            "caller_bytes": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "temporary_identifier_characters",
+            "requests": 10,
+            "caller_bytes": 16,
+            "rounded_slot_bytes_ceiling": 16
+          }
+        ],
+        "GGC_events": 167,
+        "GGC_caller_bytes_sum_ceiling": 13336,
+        "GGC_rounded_slots_sum_ceiling": 17216,
+        "ordinary_groups": [
+          {
+            "family": "unshare_hash_control",
+            "requests": 2,
+            "caller_bytes": 64
+          },
+          {
+            "family": "unshare_hash_backing",
+            "requests": 2,
+            "caller_bytes": 104
+          },
+          {
+            "family": "gimplifier_context_pool_extension",
+            "requests": 1,
+            "caller_bytes": 128
+          },
+          {
+            "family": "parameter_pointer_vector",
+            "requests": 2,
+            "caller_bytes": 40
+          },
+          {
+            "family": "cfun_stack_first_capacity",
+            "requests": 1,
+            "caller_bytes": 40
+          }
+        ],
+        "ordinary_requests": 8,
+        "ordinary_caller_bytes_sum_ceiling": 584,
+        "identity_demands": {
+          "function_definition_numbers": 3,
+          "fresh_DECL_UIDs": 8,
+          "fresh_type_UIDs": 0,
+          "SSA_names_total": 10,
+          "SSA_name_vector_length_per_helper": [
+            5,
+            7
+          ],
+          "tmp_var_id_num_increment_ceiling": 10,
+          "tmp_var_id_num_incoming_max": 4294967285,
+          "condition_UID_next_value_per_helper": 2,
+          "CFG_label_UID_assignments": 0,
+          "RTL_label_numbers": 0
+        },
+        "shared_container_demands": {
+          "identifier_insertion_capable_lookups": 10,
+          "identifier_new_entries_ceiling": 10,
+          "singleton_finalizer_registrations": 2,
+          "vector_finalizer_registrations": 0,
+          "cfun_stack_pushes": 2,
+          "cfun_stack_pops": 2,
+          "cfun_stack_peak_length": 1,
+          "gimplifier_context_peak_active": 1,
+          "gimplifier_context_returns_to_pool": 2,
+          "default_def_hashes": 2,
+          "default_def_hash_live_entries": 0,
+          "default_def_hash_capacity_each": 31,
+          "unshare_hash_capacity_each": 13,
+          "unshare_hash_live_entries": 0,
+          "EH_vector_live_entries_each": 1,
+          "parameter_vector_live_entries_each": 2
+        },
+        "original_gigi_predecessor_construction_included": false,
+        "cgraph_nodes_and_symbol_map_backing_included": false,
+        "shared_identifier_backing_included": false,
+        "collector_page_and_finalizer_backing_included": false,
+        "independent_review": "pending",
+        "whole_literal_pipeline_closed": false,
+        "native_runs": 0
+      },
+      "synthetic_counter_no_wrap_established": false,
       "affected_predicates": [
         "native_varpool_and_shared_tree_pool",
         "native_graph_and_summary_lifetime",
@@ -3736,7 +4527,7 @@
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
-      "missing": "The selected generated-body frontier and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Complete synthetic-function and original imported allocation totals, empty-elaboration registration and counter-to-emission joins; absent emission does not erase these costs.",
+      "missing": "The generated-body frontier, direct synthetic function storage and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Original imported construction, shared identifier/container backing, full counter no-wrap, empty-elaboration registration and counter-to-emission joins remain; absent emission does not erase these costs.",
       "finding": "https://github.com/berkeleynerd/silver/issues/131"
     },
     "native_remaining_lifetime_and_collector": {
@@ -3758,7 +4549,11 @@
         "selected_gimplifier_warning_put_calls_upper": 3,
         "local_original_gigi_warning_suppressions_upper": 2,
         "remaining_original_gigi_warning_put_calls": 5,
-        "initial_warning_map_GGC_events_upper": 11
+        "initial_warning_map_GGC_events_upper": 11,
+        "synthetic_function_GGC_events_upper": 167,
+        "synthetic_function_singleton_finalizers_upper": 2,
+        "collector_callback_additional_GGC_events": 0,
+        "collector_marker_individual_ordinary_request_bytes": 104
       },
       "missing": "Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, and remaining helper lifetimes. Original-gigi R<=5 and initial Main warning-map requests are joined; later warning consumers remain separate. Concrete Main constructor and source-syntax visits are not helper/GGC events. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
     },
@@ -3926,14 +4721,15 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 113,
-  "external_source_files_verified": 290,
+  "fixed_input_count": 128,
+  "external_source_files_verified": 293,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
     "complete_Ada_macro_inventory_files": 2319,
     "counts_overlap_direct_source_validation": true
   },
+  "native_collector_nested_inputs_verified": 45,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,
@@ -3944,8 +4740,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T20:34:18.122812+00:00",
-    "completed_utc": "2026-10-18T20:34:21.390056+00:00",
-    "elapsed_seconds": 3.2672319060002337
+    "started_utc": "2026-10-18T20:53:38.702286+00:00",
+    "completed_utc": "2026-10-18T20:53:42.582875+00:00",
+    "elapsed_seconds": 3.880576851999649
   }
 }

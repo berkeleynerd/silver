@@ -1,5 +1,5 @@
 {
-  "case_count": 95,
+  "case_count": 109,
   "cases": [
     {
       "case": "retained",
@@ -244,6 +244,62 @@
     {
       "case": "discard_resets_counter",
       "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "erased_synthetic_function",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "erased_synthetic_gimplification",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "erased_synthetic_GGC",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "unproved_original_construction",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "duplicate_cgraph_charge",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "invented_identifier_backing",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "lost_synthetic_finalizers",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "lost_synthetic_funcdef",
+      "rejected": "literal synthetic function storage interface join"
+    },
+    {
+      "case": "borrowed_null_total",
+      "rejected": "literal collector callback interface join"
+    },
+    {
+      "case": "invented_backing",
+      "rejected": "literal collector callback interface join"
+    },
+    {
+      "case": "erased_marker_scratch",
+      "rejected": "literal collector callback interface join"
+    },
+    {
+      "case": "unproved_cache_empty",
+      "rejected": "literal collector callback interface join"
+    },
+    {
+      "case": "premature_collector_closure",
+      "rejected": "literal collector callback interface join"
+    },
+    {
+      "case": "collector_source_mismatch",
+      "rejected": "literal collector callback interface join"
     },
     {
       "case": "native_Main_frontend_fixed_node_zero",
@@ -601,8 +657,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T20:33:39.049664+00:00",
-    "completed_utc": "2026-10-18T20:33:43.003241+00:00",
-    "elapsed_seconds": 3.9535642259997985
+    "started_utc": "2026-10-18T20:53:38.683575+00:00",
+    "completed_utc": "2026-10-18T20:53:43.591559+00:00",
+    "elapsed_seconds": 4.907963480000035
   }
 }
