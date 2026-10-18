@@ -15,7 +15,7 @@ cmp docs/evidence/unbounded-programs/retained-table-capacity-20261017/arithmetic
 
 The generator verifies the top-level Ada source file set and SHA-256/Git blob
 hashes against the previously retained complete pinned-tree manifest. It rejects
-missing, added or altered inventory inputs. Eighteen directly cited files have
+missing, added or altered inventory inputs. Directly cited files have
 hashes repeated in its output; the other top-level files contribute to the lexical
 `Table.Table` inventory. LF determines source lines, including in files with form
 feeds. This textual inventory includes comments and is not a resolved call graph.
@@ -34,6 +34,12 @@ was included. The review covered allocator arithmetic and local accounting,
 not a whole-program capacity rule. That checkpoint had no compiler, GNATprove,
 Lean, full suite, macOS or CI execution. Successful reproduction does not justify
 expanding admission or complete #119.
+
+The Main parser row composes source-counted constructor, scanner and growing-slot
+events. Its source audit includes implicit loop end identifiers and distinguishes
+entity promotion from a fresh identity. It excludes dependency loading and
+semantic analysis. The emitted formulas retain the manual argument's counters;
+regeneration verifies the source inputs, not that argument's reachability claims.
 
 A subsequent independent review checked the demand-only capacity envelope,
 including release/save/restore, stale `Max` on the first growth iteration and

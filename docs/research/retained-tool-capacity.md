@@ -112,8 +112,8 @@ The current derivation has seven reusable component groups:
 | Component | Established contribution | Still required for whole-source capacity |
 | --- | --- | --- |
 | [Source ranges](retained-source-closure.md), [fixed support](retained-fixed-support.md) | Physical-loader inventory, runtime union, grammar-to-helper seed coverage and conditional virtual-template/binder-source bounds | Effective invocation/search premises and source/tool correspondence; helper AST/value/backend costs are separate |
-| [Values and parsing](retained-value-capacity.md) | Main lexical/static String totals, at most two scans per literal/identifier, scanner nodes including colon-numeral diagnostics, local Uint arithmetic and range-query costs | Ordinary parser constructors, fixed dependency parsing, generated value events and query multiplicities |
-| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, qualification/homonym transfers, exact node layout and slot/list coupling; parenthesis and Main parser auxiliary transfers | Complete generated-scope/name caller coverage, ordinary parser/semantic source-to-demand bounds and remaining auxiliary representations |
+| [Values and parsing](retained-value-capacity.md) | Main lexical/static String totals, at most two scans per literal/identifier, scanner nodes including colon-numeral diagnostics, local Uint arithmetic and range-query costs | Fixed dependency parsing, generated value events and query multiplicities |
+| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, qualification/homonym transfers, exact node layout and slot/list coupling; parenthesis, Main parser auxiliary and ordinary constructor transfers | Complete generated-scope/name caller coverage, semantic source-to-demand bounds and remaining auxiliary representations |
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
 | [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, decorated-copy and pointer/bound captures, plain slice subtype/freezing, Integer index layout, range-check trees and conditional generated arithmetic/comparison/attribute transfers | Grammar-to-copy-shape coverage, generated-child premises and multiplicities, remaining declaration/action/insertion-context closure |
 | [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md) | Assembled ordinary Main expression/entity/statement/list transfer, including literal definitions, loop frames and ignored frontend entries; built-in initialization and ordinary symbol/module caches; serialization/import components | Source-derived frontend node input, enclosing Main wrappers, fixed dependencies and remaining auxiliary limits |
@@ -135,8 +135,16 @@ The [producer/parenthesis review](../reviews/review-retained-producer-5d4fd26cbb
 checks those producer additions through `5d4fd26cbb`. Its low inventory
 finding [L1/#122](https://github.com/berkeleynerd/silver/issues/122) is repaired
 in `b6061a8458` and independently verified: the missed call preserves the old
-parenthesis count, so the capacity formulas are unchanged. Later Main aggregate
-and parser auxiliary additions are outside that review. The
+parenthesis count, so the capacity formulas are unchanged. The later
+[Main aggregate review](../reviews/review-producer-aggregate-febe64076e.md)
+checks producer composition at `febe64076e`; the
+[parser/scanner review](../reviews/review-parser-scanner-b391e324ff.md)
+checks auxiliary and scanner contributions at `b391e324ff`. The ordinary parser
+constructor aggregate is later and outside that review. The
+[native scalar review](../reviews/review-retained-native-cbcd679320.md) and
+[native action review](../reviews/review-native-delta-26b438ab5c.md) cover their
+frozen local transfers through `cbcd679320` and `26b438ab5c`; later allocator
+declaration work remains outside them. The
 [backend review](../reviews/review-retained-backend-2324105a9b.md) checks the
 line-map, Character String and O0 emission transfers at `2324105a9b`.
 These reviews do not

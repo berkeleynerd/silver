@@ -1,5 +1,17 @@
 # Session memory
 
+## 2026-10-18 — Keep capacity work focused
+
+The owner instructed **“Don't get bogged down in red tape.”** Keep tracking
+brief and batch independent reviews around meaningful aggregate checkpoints;
+prioritize the capacity derivation and the already-authorized compiler/proof
+work. This adds no approval step and does not waive required assurance.
+The owner also confirmed that no additional records are available identifying
+the historical SPARK source used for the installed GNATprove archive. Continue
+with the retained evidence and resolve that technical limitation without
+repeating the information request. The [source-identity record](research/retained-tool-source-identity.md)
+distinguishes what is established from what remains unknown.
+
 ## 2026-10-17 — Retained-tool capacity direction adopted
 
 After discussing the tool-imposed representation boundary and requesting a

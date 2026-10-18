@@ -15,7 +15,9 @@ files = ['table.ads', 'table.adb', 'types.ads', 'alloc.ads', 'atree.ads',
          'stringt.adb', 'uintp.adb', 'exp_dbug.adb', 'scng.adb', 'hostparm.ads',
          'tbuild.adb', 'lib.adb', 'sem_ch3.adb', 'par-ch4.adb', 'par.adb',
          'par-ch5.adb', 'par-ch6.adb', 'par-util.adb', 'par-endh.adb',
-         'par-labl.adb', 'elists.adb', 'sem_ch5.adb']
+         'par-labl.adb', 'elists.adb', 'sem_ch5.adb', 'par-ch2.adb',
+         'par-ch3.adb', 'par-ch8.adb', 'par-ch10.adb', 'par-ch11.adb',
+         'par-prag.adb', 'par-tchk.adb', 'sinfo-cn.adb']
 pin = '6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea'
 repository = Path(__file__).resolve().parents[4]
 manifest_path = repository / 'docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json'
@@ -196,6 +198,32 @@ result = {
         'lexical_sites': parser_auxiliary_sites,
         'scope': 'one successful Main parse and Par.Labl, current grammar; '
                  'not ordinary parser nodes/scanner multiplicities or dependency parsing',
+    },
+    'main_parser_constructors': {
+        'ordinary_allocations':
+            'A_scan + O + O_lower + Q + J + H + C + M + Z + 4P '
+            '+ D + 3R + N_null + N_assign + I + E + 7F + 7 + K_context',
+        'fresh_entity_allocations': 'F',
+        'entity_growing_mutations': 'D + F + 1',
+        'ordinary_growing_mutations': 'C_proc + P',
+        'dynamic_slot_charge':
+            '9*(A_ordinary + C_proc + P) + 61*(D + 2F + 1)',
+        'ordinary_list_headers': '4 + F + 3I + E + C + J',
+        'replay_operator_bound': 'O_lower <= O; grouped scalar lower bounds only',
+        'loop_ordinary_nodes': {
+            'iteration_scheme': 1, 'parameter_specification': 1,
+            'range': 1, 'loop_statement': 1, 'opening_identifier': 1,
+            'implicit_label_declaration': 1, 'synthesized_end_identifier': 1,
+        },
+        'shell_ordinary_nodes': {
+            'compilation_unit': 1, 'compilation_unit_aux': 1,
+            'procedure_specification': 1, 'subprogram_body': 1,
+            'handled_sequence': 1, 'spark_mode_pragma': 1,
+            'pragma_argument_association': 1,
+        },
+        'scope': 'successful current-shape Main parse and Par.Labl; no '
+                 'Par.Load, Standard/dependency construction, semantic analysis '
+                 'or expansion; no numerical source/operator cap assumed',
     },
     'parenthesis_counts': {
         'lexical_setter_sites': paren_count_sites,

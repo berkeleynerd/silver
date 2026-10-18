@@ -30,7 +30,15 @@
     "par-endh.adb": "da28478447cbf48a35c7e0c8fc787b9a985bcf1fc0c671f7ecb452249597ee11",
     "par-labl.adb": "cf28682a83d42c49b2a762270acf1ba5026dfaebaed68784c8aef387431bc7c8",
     "elists.adb": "c3808beb8857481e1ef462529410997f43cc5a5a813f08040b4aa27c819669dc",
-    "sem_ch5.adb": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e"
+    "sem_ch5.adb": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e",
+    "par-ch2.adb": "eada2ac62201fc1b152e23d9c7eb35b2fea6d038fd5da421f736d2cc23f27765",
+    "par-ch3.adb": "571a1d2a038c7023960ac3770139e808f2306dac0ef2f0d0d262bed08caf8452",
+    "par-ch8.adb": "3c5e77dd256257244edb37dc6cda487dd1af71696d80eac1f8a7a19257c1ba90",
+    "par-ch10.adb": "4ed233f32ad1a0ba61daadeca145fb7169fa97368341913513b418cf6769c7c6",
+    "par-ch11.adb": "ac0222d5e808825bf5157c09ce699e9a209aa49cdd786bfb4bfddc9fb0368c6c",
+    "par-prag.adb": "75b0624149303b6f119608079f7bb28214867eb7a601949401eb2b27bc2b0724",
+    "par-tchk.adb": "182c629c13d538c4528ec8fdeee5397122dc8d0084700161ca287c343943470e",
+    "sinfo-cn.adb": "c30d71e50dbceb15a9f01725e1907f7e3a7c9bdb9e90729029ee1fc96d4cc4a5"
   },
   "demand_envelope": {
     "kind": "sufficient backing-length bound; no whole-source demand established",
@@ -1859,6 +1867,34 @@
       }
     ],
     "scope": "one successful Main parse and Par.Labl, current grammar; not ordinary parser nodes/scanner multiplicities or dependency parsing"
+  },
+  "main_parser_constructors": {
+    "ordinary_allocations": "A_scan + O + O_lower + Q + J + H + C + M + Z + 4P + D + 3R + N_null + N_assign + I + E + 7F + 7 + K_context",
+    "fresh_entity_allocations": "F",
+    "entity_growing_mutations": "D + F + 1",
+    "ordinary_growing_mutations": "C_proc + P",
+    "dynamic_slot_charge": "9*(A_ordinary + C_proc + P) + 61*(D + 2F + 1)",
+    "ordinary_list_headers": "4 + F + 3I + E + C + J",
+    "replay_operator_bound": "O_lower <= O; grouped scalar lower bounds only",
+    "loop_ordinary_nodes": {
+      "iteration_scheme": 1,
+      "parameter_specification": 1,
+      "range": 1,
+      "loop_statement": 1,
+      "opening_identifier": 1,
+      "implicit_label_declaration": 1,
+      "synthesized_end_identifier": 1
+    },
+    "shell_ordinary_nodes": {
+      "compilation_unit": 1,
+      "compilation_unit_aux": 1,
+      "procedure_specification": 1,
+      "subprogram_body": 1,
+      "handled_sequence": 1,
+      "spark_mode_pragma": 1,
+      "pragma_argument_association": 1
+    },
+    "scope": "successful current-shape Main parse and Par.Labl; no Par.Load, Standard/dependency construction, semantic analysis or expansion; no numerical source/operator cap assumed"
   },
   "parenthesis_counts": {
     "lexical_setter_sites": [

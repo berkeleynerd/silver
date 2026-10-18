@@ -501,6 +501,8 @@ becomes the loop scope already counted in the
 do not add a second semantic scope entity for it. These helper routes therefore
 contribute **`2F` ordinary nodes, `F` entities and `F` ordinary-list links**, in
 addition to the grammar's loop/iteration/bound/index nodes and scanner nodes.
+This narrow helper count also excludes the synthesized end-name identifier
+charged in the complete parser transfer below.
 
 `Goto_List` and `Label_List` allocate two element-list headers at parse entry.
 The former stays empty; the latter receives `F` elements. Despite the absence
@@ -521,6 +523,127 @@ These transfers close the named auxiliary caller routes for Main. Ordinary
 parser/scanner node multiplicities, semantic/generated allocations, selected
 dependency parsing and other auxiliary representations still need their own
 bounds. No compiler, GNATprove or Lean run was used for this derivation.
+
+## Main parser constructor transfer
+
+The successful Main parse and `Par.Labl` now have a source-counted node/list
+transfer. It applies to the current grammar with its numerical source/operator
+caps removed, under the earlier scanner, no-style-check and successful-parse
+premises. It excludes Standard construction, `Par.Load`, selected dependency
+parsing and all semantic/expansion work. In particular, it is an input to the
+missing complete `A_Main` bound, not that complete bound itself.
+
+Use these counts from the authoritative source's recognized syntax:
+
+| Counter | Meaning |
+| --- | --- |
+| `A_scan` | Earlier [scanner-node bound](retained-value-capacity.md#main-scanner-node-allocations-including-identifier-rescans), `2*(W+S+N+N_colon)` |
+| `O` | All expression operators, including comparisons, short-circuit operators and Boolean not; each compound operator counts once |
+| `O_lower` | Operator occurrences reparsed by the grouped scalar lower-bound probe; at most `O` |
+| `Q` | Qualified-name dots; excludes decimal points and the range delimiter |
+| `J,H` | Image and Length attribute occurrences |
+| `C,M` | Argument-bearing library calls and their named actual associations |
+| `Z,C_proc` | Reject calls and all procedure calls (Put, Put_Line, Reject) |
+| `P` | Long plain-literal-chain flattenings, bounded by the earlier String analysis |
+| `D,R` | Object declarations and explicit object-local Integer ranges |
+| `N_null,N_assign` | Null statements and assignments |
+| `I,E,F` | If statements, elsif arms and for loops |
+| `K_context` | Package-name occurrences in with/use clauses, including repetitions |
+
+The ordinary-node allocation bound is
+
+```text
+A_parse = A_scan + O + O_lower + Q + J + H + C + M + Z + 4P
+          + D + 3R + N_null + N_assign + I + E + 7F + 7 + K_context.
+```
+
+Each scalar, String or Boolean operator constructs one `New_Op_Node`
+(`par-ch4.adb:2083,2235,2328,2484–2532,2583,2953,3006–3045`).
+The range probe can parse a grouped lower bound once before restoring its scan
+state and parsing the actual bound (`:2890–2917`). Nested groups use ordinary
+expression parsing, so this is one extra visit per contained operator, not a
+multiplier per parenthesis depth. Those lower bounds contain only scalar
+expressions: attributes, calls and String flattening receive no replay charge.
+Ordinary grouping returns the existing expression, adding no node/list
+(`:1663–1682`). Lexical lookahead is already covered by `A_scan`.
+
+One qualified dot creates one selected-component node (`:278,396,1075`).
+Each Image/Length creates one attribute node; only Image supplies an argument
+list (`:553–578`). An argument-bearing call creates one indexed-component or
+function-call wrapper, one argument list and, when named, one association node
+(`:700–756,826–897,1054–1058,1150–1209`). Procedure-call conversion changes
+the wrapper's kind without another identity. Reject has no such wrapper:
+its name is relocated once before changing the original into a procedure call
+(`sinfo-cn.adb:76–122`), adding the `Z` shallow-copy charge. A parameterless
+validity query remains a name at parse time; its later function-call conversion
+belongs to semantics. A long literal-chain flattening constructs two literals
+and a concat and can save one original during Rewrite, hence `4P` allocations
+(`par-ch4.adb:2613–2657`; `atree.adb:2255–2276`).
+
+An object declaration contributes one node (`par-ch3.adb:1659,1722`), while
+its explicit Integer range adds subtype indication, range constraint and range
+(`:1054,2143,2178`). Null and assignment add one each
+(`par-ch5.adb:1086,1144`); if and elsif add one each (`:1207,1267`).
+Each loop adds iteration scheme, loop parameter specification, range and loop
+statement (`par-ch5.adb:1644,1668,1793`; `par-ch3.adb:3058`), then the two
+ordinary helper nodes already discussed. **The seventh loop node is the
+synthesized closing identifier**: `Check_End` copies the implicit opening name
+when the source has the ordinary unlabeled `end loop;`
+(`par-endh.adb:308–372`). This creates no new spelling or entity. Each loop also
+adds the one fresh defining scope entity already counted in the auxiliary
+transfer; do not add that transfer a second time.
+
+The seven fixed shell nodes are compilation unit and its auxiliary node,
+procedure specification, body, handled sequence, SPARK_Mode pragma and its
+single argument association (`par-ch10.adb:216–220`; `par-ch6.adb:521,981`;
+`par-ch11.adb:62`; `par-ch2.adb:352,634`). Main's closing identifier comes
+from the scanner because the grammar requires it. SPARK_Mode needs no extra
+parser transformation (`par-prag.adb:1573–1635`); On is an ordinary identifier.
+With/use creates one clause node per package-name occurrence, also for grouped
+or repeated clauses (`par-ch10.adb:920`; `par-ch8.adb:130`). Child unit names,
+aspects, nested declarations, source labels/gotos, handlers, aggregates and
+error recovery are outside this Main grammar and do not add parser constructors.
+
+### Slots and syntax lists
+
+The `D+F+1` defining occurrences (objects, loop indexes, Main) promote existing
+scanner identifiers to entities; they allocate no new identity
+(`par-ch3.adb:201–218`; `par-ch6.adb:1305–1310`;
+`sinfo-cn.adb:67–70`; `atree.adb:1555–1577`). Charge a full entity-size growing
+mutation for each. In addition to those promotions, the only reached parser
+node-growing mutations are one procedure-call conversion per `C_proc` and at
+most one Rewrite copy per flattening. Operator-looking String literals remain
+operator-symbol nodes until semantic resolution; parser grouping only updates
+the separate parenthesis-count representation. Under the earlier 9/61 slot
+maxima, the complete parse therefore has these upper charges:
+
+```text
+node identities       A_parse + F
+dynamic slots         9*(A_parse + C_proc + P) + 61*(D + 2F + 1)
+ordinary list headers 4 + F + 3I + E + C + J.
+```
+
+The slot expression counts fresh loop entities and promoted identifiers
+separately, without forgetting the original ordinary slots before promotion.
+The original saved by Rewrite is already in `A_parse`; the additional `P`
+charges its possible growing Copy_Node. Exact layout, table growth, per-node
+link arrays, parenthesis counters and one-past checks retain their earlier
+independent requirements.
+
+For lists, context, declarations and pragma arguments contribute three
+(`par-ch10.adb:823`; `par-ch3.adb:4504`; `par-ch2.adb:400`). Each statement
+sequence contributes one (`par-ch5.adb:155`): Main, each loop, each then/elsif
+arm and each present else. There are at most `1+F+2I+E` such sequences.
+The first elsif adds one list per affected if, at most `I` (`:1204`), and each
+argument-bearing call/Image contributes its earlier list. This gives the
+stated upper bound, including absent else conservatively. The three element
+lists and `2F` elements remain separate. Ordinary syntax membership links are
+already one pair per allocated node identity, not one extra node per append.
+
+This closes the ordinary parser constructor/slot contribution, with source
+hashes and formulas in the existing table evidence. Semantic type creation,
+constant evaluation, freeze/check generation, copies and final phase table
+locking still need to be added before this can bound the producer's `A_Main`.
 
 ## Individual generated names are another representation
 
