@@ -1,0 +1,366 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_scope": "Complete retained files for the new source arguments; aggregate Context verifies all predecessor source joins separately. Installed target headers retain installed identity, not an asserted upstream generated-file identity.",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "bytes": 112284,
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/defaults.h",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-expr.cc",
+      "bytes": 29310,
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-traits.h",
+      "bytes": 11226,
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stringpool.cc",
+      "bytes": 8292,
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/symtab.cc",
+      "bytes": 75509,
+      "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-iterator.cc",
+      "bytes": 9984,
+      "sha256": "812e0464468f94dc5f0aaf62cf4ac5a000c741c0df43c4ba91ea9968512d5d93"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/warning-control.cc",
+      "bytes": 6859,
+      "sha256": "72c84bba997d426c7606cf7c8e3e9a782684438ede9f9c661d7ce97a8c8fe6ea"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/symtab.h",
+      "bytes": 3800,
+      "sha256": "44711b95df747e070c150eab63ca6b5de19121ca39775ac99551df10691a8fe1"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/symtab.cc",
+      "bytes": 9383,
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9"
+    },
+    {
+      "root": "gcc",
+      "path": "libiberty/hashtab.c",
+      "bytes": 29804,
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f"
+    },
+    {
+      "root": "ada",
+      "path": "back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "root": "ada",
+      "path": "lib-load.adb",
+      "bytes": 39122,
+      "sha256": "4f589143677f09575bebbd041abe3d0001c480b6392cccbfd60e699f7fa8f09b"
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-imagei.adb",
+      "bytes": 4898,
+      "sha256": "a3ecb3b79889596b107988c10b47f6a35b9ccd8aeca4d0d482345a7f00c669cf"
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-imagei.ads",
+      "bytes": 3367,
+      "sha256": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126"
+    },
+    {
+      "root": "ada",
+      "path": "sem.adb",
+      "bytes": 83263,
+      "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d"
+    },
+    {
+      "root": "ada",
+      "path": "sem_ch12.adb",
+      "bytes": 729258,
+      "sha256": "4d67a12cbf80298c1eacfba27b7c7ae42d9757989d0241993c0da6748320fde8"
+    },
+    {
+      "root": "ada",
+      "path": "sinput-l.adb",
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+    },
+    {
+      "root": "ada",
+      "path": "sinput.adb",
+      "bytes": 37385,
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
+    },
+    {
+      "root": "plugin",
+      "path": "auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "root": "plugin",
+      "path": "config.h",
+      "bytes": 217,
+      "sha256": "41150681fe15436d17aa3a0b45b57345a65238fb945b14b0ca2bdf857e723e48"
+    },
+    {
+      "root": "plugin",
+      "path": "config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "root": "plugin",
+      "path": "config/glibc-stdint.h",
+      "bytes": 2854,
+      "sha256": "5d17b0d72057dbaafa517ff1df1bb64a5f6dc132ecfbfd0ddc1b64e2ee8a079b"
+    },
+    {
+      "root": "plugin",
+      "path": "config/gnu-user.h",
+      "bytes": 5918,
+      "sha256": "1095b158727a2cddc83cd18832064d2b8824538566b0d23271c57fce92e65be2"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/att.h",
+      "bytes": 3186,
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/biarch64.h",
+      "bytes": 1292,
+      "sha256": "ca82f4e070a97aba7eb7374dc83f290cd10946c428e599c42ce4383987271e36"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/gnu-user-common.h",
+      "bytes": 2629,
+      "sha256": "5f064832c02395865e22f4f79ca4de568ff42cfb50c102013d0417ce8be8d4b3"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/gnu-user64.h",
+      "bytes": 3256,
+      "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/i386-isa.def",
+      "bytes": 2537,
+      "sha256": "98a41f29dd745ad64c9eb2c4659b2e0700ed5ba463f244f794911c3db2a5f4af"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/i386-opts.h",
+      "bytes": 3627,
+      "sha256": "2189dda9514a1308bdcbd2c128797d917a96995f9868e923d0a4275611e3fd7b"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/i386-protos.h",
+      "bytes": 19481,
+      "sha256": "eb81bff19b9092466542648fcec5ced9f0ec2e500f1e4a8a26755009ebed79ac"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/linux-common.h",
+      "bytes": 2346,
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/linux64.h",
+      "bytes": 1669,
+      "sha256": "faf45947315176aa120a1c3ac787a1a56c172437654323f83a9c8c98940c824d"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/stringop.def",
+      "bytes": 1039,
+      "sha256": "5a4d5f64a0eef62ea33e4db9f051020ea1c8297c5a42d2e9678e31abe34a7bcd"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/unix.h",
+      "bytes": 2878,
+      "sha256": "0014a3ae6ab57406e731747c7506525770d0a80cd819e3f550306832fda42cc3"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/x86-64.h",
+      "bytes": 3089,
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c"
+    },
+    {
+      "root": "plugin",
+      "path": "config/i386/x86-tune.def",
+      "bytes": 37691,
+      "sha256": "00de5185a5031ba9f4e8bdb5cb18a29a2d278244969cf907ecc2e6fe1b5afd51"
+    },
+    {
+      "root": "plugin",
+      "path": "config/initfini-array.h",
+      "bytes": 1625,
+      "sha256": "6df83e308ce1244ab481623a3364cc70fc9bba3fd57afc92e46b6e9098e0fd92"
+    },
+    {
+      "root": "plugin",
+      "path": "config/linux-android.h",
+      "bytes": 1947,
+      "sha256": "9137c99e7e1d3eb5316adf3d0aeda41a2f6fbb7b8977c1ba4a256b1d571f3fdb"
+    },
+    {
+      "root": "plugin",
+      "path": "config/linux-protos.h",
+      "bytes": 945,
+      "sha256": "e2257bde8d9c680909a25b3b352a4e61a17e2a54ed792b9ee01183f032aadc77"
+    },
+    {
+      "root": "plugin",
+      "path": "config/linux.h",
+      "bytes": 8737,
+      "sha256": "86809593d0a2ef1ea63972125d27d827310eff3e25b4fbcdc5923dd84f2d742d"
+    },
+    {
+      "root": "plugin",
+      "path": "config/vxworks-dummy.h",
+      "bytes": 1998,
+      "sha256": "16ef579ecc013e002a7eb368bf85e76da644fa15c0972ec5e3a36263f28e98c0"
+    },
+    {
+      "root": "plugin",
+      "path": "defaults.h",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "root": "plugin",
+      "path": "tm.h",
+      "bytes": 1254,
+      "sha256": "f1fa248e3924d90b354187f716399e37ce552fa7346adf158b9769260949eb51"
+    }
+  ]
+}

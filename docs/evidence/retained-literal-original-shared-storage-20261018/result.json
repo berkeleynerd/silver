@@ -1,0 +1,272 @@
+{
+  "additional_shared_GGC_backing_request_events_upper": 768,
+  "aggregate_RAM_gate": false,
+  "alias_sets": {
+    "additional_GGC_backing_requests_upper": 4,
+    "additional_pushes": 4,
+    "allocated_slots_upper": 1048575,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "each_caller_bytes_upper": 8388608,
+    "each_rounded_bytes_upper": 8388608,
+    "fits": true,
+    "incoming_allocated_slots_upper": 414851,
+    "incoming_occupied_upper": 414851,
+    "occupied_upper": 414855
+  },
+  "complete_collector_lifetime_closed": false,
+  "complete_global_counter_lifetime_closed": false,
+  "complete_imported_allocation_bytes": null,
+  "complete_imported_allocation_events": null,
+  "complete_original_gigi_storage_closed": false,
+  "complete_source_files_verified": 60,
+  "conditions": {
+    "alias_sets": true,
+    "filename_ingress": true,
+    "global_decls": true,
+    "identifier_hash": true,
+    "integer_hash": true,
+    "scalar_finalizers": true,
+    "selected_counter_endpoints": true,
+    "stmt_list_cache": true,
+    "type_hash": true
+  },
+  "counter_endpoints": {
+    "alias_ID_upper": 414854,
+    "checks": {
+      "DECL_UID_signed": true,
+      "alias_ID_signed": true,
+      "temporary_name_serial_unsigned": true,
+      "type_UID_unsigned": true
+    },
+    "function_definition_numbers": {
+      "Main": 1,
+      "String_bit_size_helper": 2,
+      "String_byte_size_helper": 3,
+      "empty_elaboration": 0
+    },
+    "helper_name_fnno_next": 2,
+    "incoming_DECL_UID_upper": 5832,
+    "incoming_temporary_name_serial_upper": 40846,
+    "incoming_type_UID_upper": 2278,
+    "next_DECL_UID_upper": 5872,
+    "next_function_definition_number": 4,
+    "next_temporary_name_serial_upper": 40882,
+    "next_type_UID_upper": 2306
+  },
+  "failed_conditions": [],
+  "filename_ingress": {
+    "Main": 1,
+    "Silver_specifications": 2,
+    "actual_invocation_materialization_established": false,
+    "checks": {
+      "identifier_length_unsigned": true,
+      "source_file_count_signed": true,
+      "spelling_short": true,
+      "terminal_NUL_request": true
+    },
+    "configuration": 1,
+    "direct_identifier_and_character_requests_upper": 3178,
+    "direct_requests_not_added_to_shared_backing_events": true,
+    "each_character_request_bytes_upper": 513,
+    "each_character_rounded_bytes_upper": 1024,
+    "each_identifier_node_bytes": 40,
+    "each_identifier_node_rounded_bytes_upper": 64,
+    "identifier_lookups_upper": 1589,
+    "optional_Image_I_physical_body_already_in_union": true,
+    "possible_Image_I_body_virtual_copy": 1,
+    "runtime_physical_union": 1575,
+    "source_file_entries_upper": 1588,
+    "spec_virtual_copies": 8
+  },
+  "global_decls": {
+    "additional_GGC_backing_requests_upper": 9,
+    "additional_pushes": 9,
+    "allocated_slots_upper": 1048575,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "each_caller_bytes_upper": 8388608,
+    "each_rounded_bytes_upper": 8388608,
+    "fits": true,
+    "incoming_allocated_slots_upper": 414851,
+    "incoming_occupied_upper": 414851,
+    "occupied_upper": 414860
+  },
+  "identifier_hash": {
+    "allocated_slots_upper": 65536,
+    "checks": {
+      "doubling_unsigned": true,
+      "historical_insertions_unsigned": true,
+      "individual_request": true,
+      "slot_threshold_unsigned": true
+    },
+    "each_ordinary_backing_bytes_upper": 524288,
+    "fits": true,
+    "historical_insertions_upper": 40882,
+    "incoming_allocated_slots_upper": 65536,
+    "incoming_historical_insertions_upper": 40846,
+    "incoming_occupied_upper": 40846,
+    "occupied_upper": 40882,
+    "post_prefix_backing_requests_upper": 36,
+    "variable_ingress_backing_requests_upper": 1589
+  },
+  "integer_hash": {
+    "additional_GGC_backing_requests_upper": 317,
+    "additional_insertion_capable_lookups": 317,
+    "additional_new_entries_upper": 317,
+    "allocated_slots_upper": 131071,
+    "checks": {
+      "allocator_order_region": true,
+      "empty_threshold_unsigned": true,
+      "load_products": true,
+      "prime_exists": true,
+      "probe_addition": true,
+      "request_and_pointer_span": true
+    },
+    "each_caller_bytes_upper": 1048568,
+    "each_rounded_bytes_upper": 1048576,
+    "fits": true,
+    "incoming_allocated_slots_upper": 131071,
+    "incoming_occupied_upper": 39257,
+    "occupied_upper": 39574,
+    "successful_lookup_can_replace_backing": true
+  },
+  "later_consumers_included": false,
+  "native_tool_executions": 0,
+  "offline_run": {
+    "completed_utc": "2026-10-18T22:36:49.444092+00:00",
+    "elapsed_seconds": 3.8774603359997855,
+    "started_utc": "2026-10-18T22:36:45.566621+00:00"
+  },
+  "path_spelling_bytes_upper": 512,
+  "premises": [
+    "Retained source/installed-behavior and selected native configuration.",
+    "Existing single-name, one-unit, no-preprocessing source-search and fixed virtual-copy closure.",
+    "Complete path spelling descriptor bounds every selected filename; actual invocation materialization remains open.",
+    "Existing fixed-prefix read projection; B only seeds source-independent GGC-backed containers."
+  ],
+  "production_admission_changed": false,
+  "remaining_Ada_integer_storage": {
+    "UI_Ints_wrapper_calls": 2,
+    "Udigits_words": 10,
+    "Uint_entries": 2,
+    "complete_backing_closed": false,
+    "incoming_allocated": null,
+    "incoming_occupied": null
+  },
+  "repository_inputs_verified": 38,
+  "retained_aggregate_failed_conditional_predicates": [],
+  "retained_aggregate_unresolved_predicates": [
+    "Main_assembler_object_interface",
+    "Main_GAS_BFD_storage",
+    "literal_output_linker_representation"
+  ],
+  "scalar_finalizers": {
+    "additional_ordinary_backing_requests_upper": 5,
+    "additional_pushes": 5,
+    "allocated_slots_upper": 58891,
+    "checks": {
+      "capacity_31_bits": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "request_span": true
+    },
+    "each_ordinary_backing_bytes_upper": 942264,
+    "fits": true,
+    "incoming_allocated_slots_upper": 58884,
+    "incoming_occupied_upper": 39257,
+    "occupied_upper": 39262
+  },
+  "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+  "selected_original_shared_container_interface_fits": true,
+  "small_integer_cache": {
+    "direct_vector_requests_already_owned_by_Main": true,
+    "each_existing_or_new_vector_caller_bytes_upper": 2040,
+    "extra_GGC_requests": 0,
+    "max_slots_per_vector": 252
+  },
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_bound_demands": {
+    "alias_sets_pushes": 4,
+    "already_owned_small_integer_cache_vectors": 188,
+    "dummy_DECL_UIDs": 1,
+    "dummy_identifier_entries": 1,
+    "global_decls_pushes": 9,
+    "identifier_lookups": 38,
+    "identifier_new_entries": 36,
+    "integer_hash_entries": 317,
+    "integer_hash_lookups": 317,
+    "scalar_finalizer_pushes": 5,
+    "small_integer_cache_writes": 320,
+    "stmt_list_cache_pushes": 432,
+    "type_hash_entries": 6,
+    "type_hash_lookups": 6,
+    "vector_finalizer_pushes": 0
+  },
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "stmt_list_cache": {
+    "additional_GGC_backing_requests_upper": 432,
+    "additional_pushes": 432,
+    "allocated_slots_upper": 1023,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "each_caller_bytes_upper": 8192,
+    "each_rounded_bytes_upper": 8192,
+    "fits": true,
+    "incoming_allocated_slots_upper": 0,
+    "incoming_occupied_upper": 0,
+    "occupied_upper": 432
+  },
+  "type_hash": {
+    "additional_GGC_backing_requests_upper": 6,
+    "additional_insertion_capable_lookups": 6,
+    "additional_new_entries_upper": 6,
+    "allocated_slots_upper": 131071,
+    "checks": {
+      "allocator_order_region": true,
+      "empty_threshold_unsigned": true,
+      "load_products": true,
+      "prime_exists": true,
+      "probe_addition": true,
+      "request_and_pointer_span": true
+    },
+    "each_caller_bytes_upper": 1048568,
+    "each_rounded_bytes_upper": 1048576,
+    "fits": true,
+    "incoming_allocated_slots_upper": 131071,
+    "incoming_occupied_upper": 39257,
+    "occupied_upper": 39263,
+    "successful_lookup_can_replace_backing": true
+  },
+  "whole_literal_pipeline_capacity_established": false
+}

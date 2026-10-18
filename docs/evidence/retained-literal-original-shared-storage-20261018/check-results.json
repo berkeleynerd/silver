@@ -1,0 +1,976 @@
+{
+  "all_passed": true,
+  "checks": 208,
+  "checks_detail": [
+    {
+      "name": "Hello actual-source demand sum",
+      "passed": true
+    },
+    {
+      "name": "Hello physical/virtual file join",
+      "passed": true
+    },
+    {
+      "name": "Hello incoming identifier high water",
+      "passed": true
+    },
+    {
+      "name": "Hello hash requests count lookups",
+      "passed": true
+    },
+    {
+      "name": "Hello vector occupied and allocated states",
+      "passed": true
+    },
+    {
+      "name": "Hello finalizer high water",
+      "passed": true
+    },
+    {
+      "name": "Hello finite counter endpoints",
+      "passed": true
+    },
+    {
+      "name": "Hello no duplicate direct caches or scalar registrations",
+      "passed": true
+    },
+    {
+      "name": "Hello Ada incoming state remains separate",
+      "passed": true
+    },
+    {
+      "name": "Hello broad claims remain false",
+      "passed": true
+    },
+    {
+      "name": "Hello aggregate unresolved conditions retained",
+      "passed": true
+    },
+    {
+      "name": "Hello selected shared interface fits",
+      "passed": true
+    },
+    {
+      "name": "Hello individual byte ceilings",
+      "passed": true
+    },
+    {
+      "name": "mixed actual-source demand sum",
+      "passed": true
+    },
+    {
+      "name": "mixed physical/virtual file join",
+      "passed": true
+    },
+    {
+      "name": "mixed incoming identifier high water",
+      "passed": true
+    },
+    {
+      "name": "mixed hash requests count lookups",
+      "passed": true
+    },
+    {
+      "name": "mixed vector occupied and allocated states",
+      "passed": true
+    },
+    {
+      "name": "mixed finalizer high water",
+      "passed": true
+    },
+    {
+      "name": "mixed finite counter endpoints",
+      "passed": true
+    },
+    {
+      "name": "mixed no duplicate direct caches or scalar registrations",
+      "passed": true
+    },
+    {
+      "name": "mixed Ada incoming state remains separate",
+      "passed": true
+    },
+    {
+      "name": "mixed broad claims remain false",
+      "passed": true
+    },
+    {
+      "name": "mixed aggregate unresolved conditions retained",
+      "passed": true
+    },
+    {
+      "name": "mixed selected shared interface fits",
+      "passed": true
+    },
+    {
+      "name": "empty_literal actual-source demand sum",
+      "passed": true
+    },
+    {
+      "name": "empty_literal physical/virtual file join",
+      "passed": true
+    },
+    {
+      "name": "empty_literal incoming identifier high water",
+      "passed": true
+    },
+    {
+      "name": "empty_literal hash requests count lookups",
+      "passed": true
+    },
+    {
+      "name": "empty_literal vector occupied and allocated states",
+      "passed": true
+    },
+    {
+      "name": "empty_literal finalizer high water",
+      "passed": true
+    },
+    {
+      "name": "empty_literal finite counter endpoints",
+      "passed": true
+    },
+    {
+      "name": "empty_literal no duplicate direct caches or scalar registrations",
+      "passed": true
+    },
+    {
+      "name": "empty_literal Ada incoming state remains separate",
+      "passed": true
+    },
+    {
+      "name": "empty_literal broad claims remain false",
+      "passed": true
+    },
+    {
+      "name": "empty_literal aggregate unresolved conditions retained",
+      "passed": true
+    },
+    {
+      "name": "empty_literal selected shared interface fits",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF actual-source demand sum",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF physical/virtual file join",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF incoming identifier high water",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF hash requests count lookups",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF vector occupied and allocated states",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF finalizer high water",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF finite counter endpoints",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF no duplicate direct caches or scalar registrations",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF Ada incoming state remains separate",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF broad claims remain false",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF aggregate unresolved conditions retained",
+      "passed": true
+    },
+    {
+      "name": "case_CRLF selected shared interface fits",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes actual-source demand sum",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes physical/virtual file join",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes incoming identifier high water",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes hash requests count lookups",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes vector occupied and allocated states",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes finalizer high water",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes finite counter endpoints",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes no duplicate direct caches or scalar registrations",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes Ada incoming state remains separate",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes broad claims remain false",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes aggregate unresolved conditions retained",
+      "passed": true
+    },
+    {
+      "name": "8192_bytes selected shared interface fits",
+      "passed": true
+    },
+    {
+      "name": "5000_calls actual-source demand sum",
+      "passed": true
+    },
+    {
+      "name": "5000_calls physical/virtual file join",
+      "passed": true
+    },
+    {
+      "name": "5000_calls incoming identifier high water",
+      "passed": true
+    },
+    {
+      "name": "5000_calls hash requests count lookups",
+      "passed": true
+    },
+    {
+      "name": "5000_calls vector occupied and allocated states",
+      "passed": true
+    },
+    {
+      "name": "5000_calls finalizer high water",
+      "passed": true
+    },
+    {
+      "name": "5000_calls finite counter endpoints",
+      "passed": true
+    },
+    {
+      "name": "5000_calls no duplicate direct caches or scalar registrations",
+      "passed": true
+    },
+    {
+      "name": "5000_calls Ada incoming state remains separate",
+      "passed": true
+    },
+    {
+      "name": "5000_calls broad claims remain false",
+      "passed": true
+    },
+    {
+      "name": "5000_calls aggregate unresolved conditions retained",
+      "passed": true
+    },
+    {
+      "name": "5000_calls selected shared interface fits",
+      "passed": true
+    },
+    {
+      "name": "5000-call conservative relocation failure retained",
+      "passed": true
+    },
+    {
+      "name": "Main demands mutation",
+      "passed": true
+    },
+    {
+      "name": "I114 join mutation",
+      "passed": true
+    },
+    {
+      "name": "String entries mutation",
+      "passed": true
+    },
+    {
+      "name": "helper entries mutation",
+      "passed": true
+    },
+    {
+      "name": "synthetic finalizers mutation",
+      "passed": true
+    },
+    {
+      "name": "helper ownership mutation",
+      "passed": true
+    },
+    {
+      "name": "historical null duplication mutation",
+      "passed": true
+    },
+    {
+      "name": "warning finalizer mutation",
+      "passed": true
+    },
+    {
+      "name": "symbol finalizer mutation",
+      "passed": true
+    },
+    {
+      "name": "collector backing effects mutation",
+      "passed": true
+    },
+    {
+      "name": "function numbers mutation",
+      "passed": true
+    },
+    {
+      "name": "prefix seed mutation",
+      "passed": true
+    },
+    {
+      "name": "filename signed-short boundary",
+      "passed": true
+    },
+    {
+      "name": "repository pin mutation",
+      "passed": true
+    },
+    {
+      "name": "complete source mutation",
+      "passed": true
+    },
+    {
+      "name": "unrecognized expression source",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 0/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 4/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 7/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 15/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 16/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 31/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 1023/5000/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/0/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/0/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/1/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/1/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/2/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/2/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/16/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/16/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/433/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/433/True",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/5000/False",
+      "passed": true
+    },
+    {
+      "name": "vector simulation 414851/5000/True",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 12287",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 12288",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 24575",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 24576",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 40846",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 49151",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 49152",
+      "passed": true
+    },
+    {
+      "name": "identifier post-insert threshold 100000",
+      "passed": true
+    },
+    {
+      "name": "identifier strict equality",
+      "passed": true
+    },
+    {
+      "name": "hash hit/delete/retain simulation 7",
+      "passed": true
+    },
+    {
+      "name": "hash hit/delete/retain simulation 1021",
+      "passed": true
+    },
+    {
+      "name": "hash hit/delete/retain simulation 2039",
+      "passed": true
+    },
+    {
+      "name": "successful lookup can expand without insertion",
+      "passed": true
+    },
+    {
+      "name": "deleted retained allocation dominates low live count",
+      "passed": true
+    },
+    {
+      "name": "finite prime last admitted request",
+      "passed": true
+    },
+    {
+      "name": "finite prime unavailable beyond last tier",
+      "passed": true
+    },
+    {
+      "name": "finite hash empty-threshold admitted",
+      "passed": true
+    },
+    {
+      "name": "finite hash empty-threshold rejected",
+      "passed": true
+    },
+    {
+      "name": "finite vector unsigned growth failure",
+      "passed": true
+    },
+    {
+      "name": "finite vector normalized capacity failure",
+      "passed": true
+    },
+    {
+      "name": "identifier arithmetic threshold failure",
+      "passed": true
+    },
+    {
+      "name": "temporary serial suffix is injective across prefixes",
+      "passed": true
+    }
+  ],
+  "completed_utc": "2026-10-18T22:38:28.792171+00:00",
+  "elapsed_seconds": 3.6903770030003216,
+  "native_tool_executions": 0,
+  "runtime_model_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "source_variants": [
+    {
+      "aggregate_failed_conditional_predicates": [],
+      "literal_lengths_compact_json_identity": {
+        "bytes": 4,
+        "sha256": "525ec3b5ad9afc0f09a5f7e0eb865e97f5b4b614a85cf93f3ae644f8e5f874f0"
+      },
+      "literal_lengths_count": 1,
+      "name": "Hello",
+      "selected_shared_interface_fits": true,
+      "shared_backing_events_upper": 768,
+      "source_counts": {
+        "Put": 0,
+        "Put_Line": 1,
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13,
+        "null_statements": 0,
+        "output_calls": 1,
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    {
+      "aggregate_failed_conditional_predicates": [],
+      "literal_lengths_compact_json_identity": {
+        "bytes": 5,
+        "sha256": "2335c54ffe3749ceafac20eea51040b4fa52beab7682f26d5d1bb75d1878478b"
+      },
+      "literal_lengths_count": 2,
+      "name": "mixed",
+      "selected_shared_interface_fits": true,
+      "shared_backing_events_upper": 1130,
+      "source_counts": {
+        "Put": 1,
+        "Put_Line": 1,
+        "decoded_literal_bytes": 4,
+        "maximum_literal_length": 3,
+        "null_statements": 1,
+        "output_calls": 2,
+        "source_bytes": 130,
+        "source_sha256": "feac7fe3c1629f8bdd24306149fcb9adc9991eb8b00ae51c6381af6059c91317"
+      }
+    },
+    {
+      "aggregate_failed_conditional_predicates": [],
+      "literal_lengths_compact_json_identity": {
+        "bytes": 3,
+        "sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97"
+      },
+      "literal_lengths_count": 1,
+      "name": "empty_literal",
+      "selected_shared_interface_fits": true,
+      "shared_backing_events_upper": 768,
+      "source_counts": {
+        "Put": 1,
+        "Put_Line": 0,
+        "decoded_literal_bytes": 0,
+        "maximum_literal_length": 0,
+        "null_statements": 0,
+        "output_calls": 1,
+        "source_bytes": 94,
+        "source_sha256": "0d7db27e019fe7fc51968888ad95def0d84d582e51a419a36fb8c903ad0b7342"
+      }
+    },
+    {
+      "aggregate_failed_conditional_predicates": [],
+      "literal_lengths_compact_json_identity": {
+        "bytes": 4,
+        "sha256": "525ec3b5ad9afc0f09a5f7e0eb865e97f5b4b614a85cf93f3ae644f8e5f874f0"
+      },
+      "literal_lengths_count": 1,
+      "name": "case_CRLF",
+      "selected_shared_interface_fits": true,
+      "shared_backing_events_upper": 768,
+      "source_counts": {
+        "Put": 0,
+        "Put_Line": 1,
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13,
+        "null_statements": 0,
+        "output_calls": 1,
+        "source_bytes": 124,
+        "source_sha256": "95d8f54182deb67f965c07d1cb34cbd11b2da76fb50b05352776441fd679717b"
+      }
+    },
+    {
+      "aggregate_failed_conditional_predicates": [],
+      "literal_lengths_compact_json_identity": {
+        "bytes": 6,
+        "sha256": "e0b3b0118568eb765f5cad01667730b45e6c5522a16ea05f3a688e3f9e0e0166"
+      },
+      "literal_lengths_count": 1,
+      "name": "8192_bytes",
+      "selected_shared_interface_fits": true,
+      "shared_backing_events_upper": 768,
+      "source_counts": {
+        "Put": 1,
+        "Put_Line": 0,
+        "decoded_literal_bytes": 8192,
+        "maximum_literal_length": 8192,
+        "null_statements": 0,
+        "output_calls": 1,
+        "source_bytes": 8286,
+        "source_sha256": "cf15e19ef716d97f4b6fe5f8794ee2786487fdd7cde9a0c627e17b5e5104c3f0"
+      }
+    },
+    {
+      "aggregate_failed_conditional_predicates": [
+        "literal_output_linker_representation"
+      ],
+      "literal_lengths_compact_json_identity": {
+        "bytes": 10001,
+        "sha256": "52f133eb774c3e8196d51c8aa7eb4d7b92cfe6ee2a36e09c565735395b6fca1b"
+      },
+      "literal_lengths_count": 5000,
+      "name": "5000_calls",
+      "selected_shared_interface_fits": true,
+      "shared_backing_events_upper": 1655437,
+      "source_counts": {
+        "Put": 5000,
+        "Put_Line": 0,
+        "decoded_literal_bytes": 5000,
+        "maximum_literal_length": 1,
+        "null_statements": 0,
+        "output_calls": 5000,
+        "source_bytes": 105075,
+        "source_sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+      }
+    }
+  ],
+  "started_utc": "2026-10-18T22:38:25.101797+00:00",
+  "token_cost_measurements": null
+}

@@ -1,0 +1,192 @@
+[
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/derive.py",
+    "bytes": 5412,
+    "sha256": "cdb236248c22fb14cae4f7418928e320e3c0ca329085710527fcf546945a6ad7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/inputs.json",
+    "bytes": 10752,
+    "sha256": "7bfc17084b3140f01d7f0c5337ebbad65fff19782e1d5fddf731f9175ebc3ef6"
+  },
+  {
+    "path": "docs/evidence/retained-literal-collector-callbacks-20261018/result.json",
+    "bytes": 1473,
+    "sha256": "488c54d84936648e3af1c4557c9c129b3b192c2db505f6a33adc698ce139d403"
+  },
+  {
+    "path": "docs/evidence/retained-literal-context-visits-20261018/derive.py",
+    "bytes": 2504,
+    "sha256": "435a5f5090b774fb71bf717af8778f3d5f2eab184d7c18d42e4df89e287a175a"
+  },
+  {
+    "path": "docs/evidence/retained-literal-context-visits-20261018/inputs.json",
+    "bytes": 1875,
+    "sha256": "c1128c98530864f4fc0fe720daea881531c905e6ad36653d926d0134e920309f"
+  },
+  {
+    "path": "docs/evidence/retained-literal-context-visits-20261018/result.json",
+    "bytes": 7265,
+    "sha256": "c1ced529f2d44eb5dcb6855c728de34608dd21e97e0463ed59903c95f2e58c07"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/derive.py",
+    "bytes": 4279,
+    "sha256": "738d614b3a46866754c10b32b70bd057ba74b28967b70d82db9a1cb3b52819cd"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/interface.json",
+    "bytes": 2204,
+    "sha256": "26ee911d66a275c749ce7d9d911c81c437f488241a5947a2a307ac52e5476756"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/result.json",
+    "bytes": 2814,
+    "sha256": "e483a3b6f7e0dcc07182e9191e0eead10e3eb042f5f1d20a2991fdfa52fc2634"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/source-manifest.json",
+    "bytes": 24900,
+    "sha256": "7d906c6693d8bdfaa249974c351df6ee3c4e808b93d01778ac78bcf4eb58e416"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-main-storage-20261018/derive.py",
+    "bytes": 5558,
+    "sha256": "c76d6d207c1b900f1376e1149cd43724d5bfcf560674eaf35d29c9cc08c87df7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-main-storage-20261018/inputs.json",
+    "bytes": 8878,
+    "sha256": "d939628386a23080450c891c767a342da1a9dc69ef9667bd91a9c220fbf01060"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-main-storage-20261018/result.json",
+    "bytes": 5623,
+    "sha256": "b0b498a2b50e851fbeee83d1caa434378e2a734c2981fd233184cb6bc26efa23"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/derive.py",
+    "bytes": 5107,
+    "sha256": "2f836935c13254902c1bebc07cfc996022744e24af536694716a45de527eee9d"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/interface.json",
+    "bytes": 7073,
+    "sha256": "712bc4faab577233742b8203a9a457986f20c19ad5dca53ee0b463fa1d056cbc"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/source-manifest.json",
+    "bytes": 15522,
+    "sha256": "a000e420a89043e286d68f5a6c40a9bc31b98d5095513d44dbf34e8e100abc46"
+  },
+  {
+    "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+    "bytes": 115213,
+    "sha256": "2de84a58d7c18f37a641a322e1d3457229f59af13ed0b039e752c6896db10425"
+  },
+  {
+    "path": "docs/evidence/retained-literal-pipeline-20261018/fixture.json",
+    "bytes": 1187,
+    "sha256": "6f483094818a3789b4257cdc37a91626af0b600a73a7fad967ff4c40d46be0c6"
+  },
+  {
+    "path": "docs/evidence/retained-literal-pipeline-20261018/inputs.json",
+    "bytes": 33646,
+    "sha256": "8ba9aa4fcea108f86503a33cf2f0bb550c551686f2d58c603439ebd9d3804710"
+  },
+  {
+    "path": "docs/evidence/retained-literal-pipeline-20261018/result.json",
+    "bytes": 265151,
+    "sha256": "afd15fc6efc026bb3ddaf75c90b2fad59631b298652d5fbd3231a736f18db478"
+  },
+  {
+    "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
+    "bytes": 35514,
+    "sha256": "23cb0706c7d437c06f839c8fa658bbb6ac67ce182bb9c9c5adc4dc71bb648e0e"
+  },
+  {
+    "path": "docs/evidence/retained-literal-string-layout-storage-20261018/derive.py",
+    "bytes": 5278,
+    "sha256": "065b33b7d1c90a817a79f11c3e2b85ccd1c669d27033d0d5c15420162ca47b91"
+  },
+  {
+    "path": "docs/evidence/retained-literal-string-layout-storage-20261018/interface.json",
+    "bytes": 1829,
+    "sha256": "d672db2069f24f78ea0334f1389e154427ef860821c5f36686b1a80b2f263632"
+  },
+  {
+    "path": "docs/evidence/retained-literal-string-layout-storage-20261018/source-manifest.json",
+    "bytes": 19276,
+    "sha256": "95aeb23bce04df0f1524cf2d4406a3ff0ffbad35d4a3521c0486759e2cd03ca5"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/derive.py",
+    "bytes": 5113,
+    "sha256": "6322a252919adda37c475e22e36cd0b72bb999abdb55bc70365da46dfab7077c"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/interface.json",
+    "bytes": 6644,
+    "sha256": "570b14178574a7d14c9de92b23a465d4e960f4138102f11e1970333cbfae4c08"
+  },
+  {
+    "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/source-manifest.json",
+    "bytes": 30585,
+    "sha256": "8be0ed5ebc5678cc1a0bd0117394a6ac91b763e377a5f78b5f181f7b87093597"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/fixed-gcc-prefix-source-identity.json",
+    "bytes": 2424,
+    "sha256": "82c63e17da8aad077410c8c3b90a7cd3862bba25ed381e91466aabb672a2cd6b"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-inputs.json",
+    "bytes": 27601,
+    "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+    "bytes": 3891,
+    "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.adc",
+    "bytes": 327,
+    "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/source-inventory.json",
+    "bytes": 39158,
+    "sha256": "55abe673a81fde61a72d4552f7ff1d27461ccc9cbea45299a60d2620754e34ee"
+  },
+  {
+    "path": "docs/research/retained-fixed-support.md",
+    "bytes": 27421,
+    "sha256": "26525cd6e9f4c1daed450c211a77a1b2af72e66b2268b3133b62fba6abaefd4f"
+  },
+  {
+    "path": "docs/research/retained-literal-collector-callbacks.md",
+    "bytes": 8346,
+    "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+  },
+  {
+    "path": "docs/research/retained-native-expansion.md",
+    "bytes": 781411,
+    "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+  },
+  {
+    "path": "docs/research/retained-source-closure.md",
+    "bytes": 31837,
+    "sha256": "4328717743802220c351252256f743840f9206102fead5d3a1bed72fe3cdaf76"
+  },
+  {
+    "path": "docs/reviews/review-original-native-attachment-7f7600ec25.md",
+    "bytes": 9914,
+    "sha256": "387528684e9269e6d9bcd336905049bf026c485f6bae65a5613ad08db27c35af"
+  },
+  {
+    "path": "docs/reviews/review-original-native-storage-round9.md",
+    "bytes": 10700,
+    "sha256": "4a9d6d698d15feddf916a7f17680eb74f074c7d7d1b5bd48f89a82968f633e7d"
+  }
+]
