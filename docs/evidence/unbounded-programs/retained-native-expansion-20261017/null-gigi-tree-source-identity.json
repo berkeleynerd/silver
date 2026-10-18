@@ -1,0 +1,50 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "path": "gcc/tree-iterator.cc",
+      "bytes": 9984,
+      "sha256": "812e0464468f94dc5f0aaf62cf4ac5a000c741c0df43c4ba91ea9968512d5d93"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "path": "gcc/machmode.h",
+      "bytes": 36715,
+      "sha256": "1577ffa8abcd3802658fdd44e330760f7a32f6e8ac3e86a22ab719a399d7297c"
+    },
+    {
+      "path": "gcc/target.def",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    }
+  ]
+}

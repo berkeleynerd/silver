@@ -9233,24 +9233,244 @@ symbol/name inventory while allowing bounded payload offsets or local nops,
 but it must prove that input projection. No exact-assembly witness or new
 capture is justified by the debug setting alone, and none was performed here.
 
+### Null gigi structural trees and discarded wrappers
+
+The [structural-tree reconciliation](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-gigi-trees.json)
+joins the already established null body to its direct declaration, block and
+statement-list constructors. Each row counts requests cold, including candidates
+that are immediately discarded. Shared caches and secondary helper constructors
+remain separately payable; this is not a claim that these are all allocations
+made by the listed high-level routines.
+
+| Structural object | Requests, at most | Raw bytes per request, at most |
+| --- | ---: | ---: |
+| Main and elaboration FUNCTION_DECL |2|512|
+| Their void RESULT_DECL |2|256|
+| Unit, Main framework and Main body BLOCK |3|96|
+| Main FUNCTION_TYPE candidate |1|256|
+| Source-null LABEL_DECL |1|256|
+| Expression trees, including body unsharing |20|48|
+| STATEMENT_LIST headers |5|32|
+| Statement-list links |4|24|
+
+Main's body acts as its own spec and converts its one procedure entity once
+(`trans.cc:3979–3988`, `decl.cc:4167–4341`). The no-formals, void-return profile
+reuses void_type_node and void_list_node; it creates one FUNCTION_TYPE candidate
+before canonicalization (`decl.cc:6199–6200,6604–6609,6662–6692`,
+`tree.cc:7736–7788`). The prefix already constructed void_ftype with the same
+profile (`trans.cc:441`), while Main has no CICO/direct-reference/invisible-
+reference, Pure or No_Return flags. Thus the Ada-specific flag test requests
+no copy or qualifier variant. The elaboration declaration directly takes
+void_ftype (`trans.cc:5983–5987`), so it makes no second candidate. Type-hash
+backing and the layout routine's constant-cache accesses remain part of the
+shared-cache join, not implied zero by canonical reuse.
+
+Each create_subprog_decl allocates its FUNCTION_DECL and finish_subprog_decl
+allocates one RESULT_DECL (`utils.cc:3705,3789–3791`). The void results have no
+parameters, dynamic size or preexisting RTL: their layout reads existing void
+type fields, and its field-only, variable-size and RTL-update branches are
+absent (`tree.cc:5567–5586`, `stor-layout.cc:661–846`). The three BLOCK requests
+are distinct from the three binding wrappers already charged above.
+
+There are two easily omitted expression requests. add_decl_expr creates a
+DECL_EXPR **before** checking whether the declaration is global; it then marks
+that expression and discards it rather than linking it into a statement list
+(`trans.cc:9117–9137`). Main and the elaboration procedure therefore add two
+unary expressions beyond the body's DECL_EXPR for its null-statement label.
+At unit completion, set_current_block_context attaches the unit block to the
+statement group, so end_stmt_group additionally builds an empty elaboration
+BIND_EXPR (`utils.cc:722–726`, `trans.cc:6078–6081,9260–9273`). Its absence of
+executable statements prevents compiling a second function; it does not avoid
+allocating the wrapper.
+
+The executed-body account already supplies 17 expression requests and 19 operand
+slots, including the conservative 12-copy whole-body unsharing allowance.
+The two discarded DECL_EXPRs and unit BIND add three expressions/five slots,
+giving **20 expressions and 24 operand slots**, or at most 672 cumulative raw
+bytes from the 24-byte expression prefix plus eight bytes per operand. The
+largest individual expression has three operands and 48 bytes. The fixed unit
+wrapper is never gimplified, so it introduces no additional unsharing pass.
+
+The body's prior three-header allowance is extended by the empty list returned
+from N_Subprogram_Body conversion and a possible empty unit list
+(`trans.cc:8217–8219,9264–9265`). Empty lists fail append_to_statement_list's
+side-effect test; otherwise its list-splicing path reuses the four existing
+links (`tree-iterator.cc:63–98,188–240`). This gives five header requests and
+four links. The shared stmt_list_cache vector used when freeing a header
+(`:52–58`) is deliberately separate from these list-node requests.
+
+The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-gigi-trees.py)
+pins nine source identities and constructor sites. Its declaration byte bounds
+use the selected LP64 base/common layout and conservatively give every named
+bitfield its own four-byte storage unit. tree_decl_common, with-RTL and
+with-visibility are then at most 216, 224 and 312 bytes; the full function layout
+is at most 456 bytes and fits the 512-byte ceiling. RESULT_DECL and LABEL_DECL
+fit 256 bytes. This does not rely on an executed sizeof probe or bitfield packing
+being tighter. The existing type-structure transfer supplies the 256-byte type
+ceiling; BLOCK, list headers and links have the direct pointer/scalar layouts
+in `tree-core.h:1779–1799,2134–2146`.
+
+These rows add **38 structural GGC requests**, with identifiers/payloads,
+global-declaration and statement-cache vectors, warning/context helpers,
+initial GIMPLE/CFG/SSA and cgraph/IPA bookkeeping, variable source metadata and
+whole-unit helpers still explicit. No native compiler, prover or new capture
+was run.
+
+### Null gigi shared-cache and output-order joins
+
+The [name/cache reconciliation](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-gigi-metadata.json)
+supplies the companion storage around those direct trees. It uses the same
+selected null scaffold and source-independent prefix containers. Source maps,
+variable pathname strings, the max_gnat_nodes arrays and Ada callback tables
+remain in E_metadata, outside the fixed-container bounds below.
+
+The three gigi name requests have fixed spellings: `main___elabb`, `main` and
+`_ada_main`. Get_Encoded_Name returns a nontype's existing canonical name;
+Get_External_Name prepends `_ada_` to a library subprogram without a suffix,
+or appends `___elabb` for the elaboration procedure
+(`exp_dbug.adb:613–660,764–908`, `decl.cc:11271–11304`). There is no child,
+homonym, interface-name or Ghost alternative in this null source. The selected
+Linux x86 mangler leaves the unversioned function name alone
+(`i386-features.cc:5511–5533`); its target closure has no subtarget override.
+
+Each missed identifier lookup allocates a 40-byte tree_identifier and a separate
+NUL-terminated character object, here 13, 5 and 10 bytes. Charge all three misses,
+or **six GGC requests** (`stringpool.cc:40–80,100–129`,
+`libcpp/symtab.cc:148–180`, `tree-core.h:1620–1623`). The common identifier
+hash itself has ordinary backing. Its initial 16,384 slots double at 75% occupancy;
+charging every one of the prefix's 39,257 GGC requests as a distinct historical
+identifier insertion, plus these three, still needs at most 65,536 slots or
+524,288 bytes. This also bounds the live-plus-deleted insertion count before
+later phases; later names must join the same shared table rather than receive
+an independent empty table. Search/collision fields are statistics, not lookup
+indices. The gigi-created first_global_object_name is already initialized
+from the compilation unit's encoded name `main` in the prefix
+(`trans.cc:367–370`). Main finalization's notice_global_symbol therefore returns
+immediately (`cgraphunit.cc:467–470`, `varasm.cc:1975–2004`): there is no
+additional name string at that point.
+
+Two global-declaration appends, at most five statement-list frees, one
+FUNCTION_TYPE hash lookup, and at most three conditional warning suppressions
+supply the following additional event envelopes:
+
+| Shared object | Additional GGC requests, at most | Individual raw backing request, at most |
+| --- | ---: | ---: |
+| global_decls vector |2|53,101,376 bytes|
+| stmt_list_cache vector |5|144 bytes|
+| FUNCTION_TYPE canonicalization hash backing |1|19,912,896 bytes|
+| nowarn_map control and entry backing |4|control 128 bytes; entries 716,864,256 bytes|
+
+These deliberately coarse size ceilings avoid inferring unrecorded occupancy
+from a successful fixture. For the source-independent prefix containers only,
+each individual existing backing is at most **B=3,318,816 bytes**, because it
+is one member of the already retained prefix allocation sum. This does not
+bound a variable source-map or pathname object by B. It also does not impose
+an aggregate memory admission limit: it is a conservative seed for the size
+arithmetic of each named retained object.
+
+For a pointer vector, one append grows the old capacity by at most two and
+GGC rounds a positive request by at most two in this size range. Thus the safe
+raw-byte recurrence `b_next <= 4*(b+16)` applied twice gives 53,101,376 bytes.
+Only the two gnat_pushdecl calls for Main and its elaboration procedure append
+to global_decls; their null label is block-local (`utils.cc:967–987`). The
+statement-list cache starts empty before Main and sees at most five header
+frees from this gigi slice. Even charging an allocation per free, a growth
+request has at most eight pointer slots before rounding, giving 144 bytes.
+The cgraph finalization may clear its deletable cache; charging each request
+cold already covers this (`tree-iterator.cc:31–58`, `vec.h:253–260,394–424`,
+`vec.cc:150–167`). Later gimplification cache traffic is a separate slice.
+
+C++ hash expansion can occur before a successful existing-entry lookup. Charge
+one entry-array replacement even though the FUNCTION_TYPE candidate finds
+void_ftype (`tree.cc:6433–6492`, `hash-table.h:1028–1041`). The selected prime
+table gives `next_prime(n) <= 3*n` for `n>=7`; an expansion asks for at most
+next_prime(2*old_slots), so six times old backing is sufficient. Its unchanged
+void result and void-list profile create no new type_hash record. Function
+layout's constants are 8 bits and 1 byte on this target. Prefix construction of
+void_ftype already initialized both per-type constant-cache entries, which
+remain reachable; the default integer-share limit 251 includes both values
+(`i386.h:821`, `stor-layout.cc:2640–2648`, `tree.cc:1771–1797,1850–1909`,
+`params.opt:248–250`). No new constant or cache vector is needed at this lookup.
+
+For warnings, retain the conservative conditional call at each of the three
+gnat_pushdecl sites, without relying on Warnings_Off being clear. The first
+can create the hash-map control and its 61-entry backing; the next two can each
+replace backing. If the map already exists, there are at most three backing
+replacements instead. This is four GGC requests in either case, and three
+sixfold steps from B bound each possible entry-array request by 716,864,256 bytes
+(`utils.cc:955–959`, `warning-control.cc:156–167`,
+`gcc-diagnostic-spec.cc:150–180`, `hash-map.h:155–161`). A key/value entry is
+two unsigned 32 words. The bound fits the size_t request, the corresponding
+slot count fits its size_t fields, and its four-times-occupancy comparison
+stays below 2^32. The native GGC rounding of this bound is at most 2^30 bytes.
+The control's finalizer registration remains a contribution to the separate
+whole-schedule finalizer ledger.
+
+No deferred declaration-context record is introduced: function declarations
+skip that branch, and the source-null node is not a defining identifier so
+get_debug_scope returns Empty (`utils.cc:816–861,915–928`). The already-created
+global context is reused. save_gnu_tree stores Main into its preallocated
+association array, and every gigi statement here returns void before the
+value-conversion tail (`utils.cc:260–270,484–495`, `trans.cc:8816–8820`).
+No dynamic type-size, parameter, attribute, incomplete-type, instantiation or
+secondary-stack route is added. Source/end locations still use the independent
+line-map interface. Main finalization's cgraph registration, collection and
+later GIMPLE lowering are deliberately kept at their own boundary.
+
+These name/cache rows add **18 GGC requests** beyond the 38 structural requests
+and the earlier 11 small gigi helpers. Together they supply Main's direct gigi
+declaration/body/list/name/cache interface; source-location/array metadata,
+cgraph registration and downstream middle-end allocation are still required.
+
+The same packet closes the small **whole-unit output-order container** interface
+under the prior one-Main/one-hard-register-dummy graph. output_in_order excludes
+the dummy and has no asm node. Its ordinary-heap vector can receive at most
+one 24-byte cgraph_order_sort record; initial capacity four requests 104 bytes
+including the prefix (`cgraphunit.cc:2102–2147,2190–2227`). expand_all_functions
+creates two cgraph-count pointer arrays, at most 8 bytes each. Its
+ipa_reverse_postorder additionally creates one 24-byte stack record; no edge,
+alias or reference descends beyond it (`cgraphunit.cc:1990–2002`,
+`ipa-utils.cc:272–362`). These are ordinary allocations and add **zero GGC
+events**. Sorting lengths, stack positions and array indices are at most one.
+This does not price the functions called while processing the ordered node.
+
+The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-gigi-metadata.py)
+checks 30 source identities, the retained prefix/symbol results, selected target
+headers and all arithmetic. It does not execute a compiler or repeat a witness.
+The remaining E_Main_translation account now concerns initial GIMPLE/CFG/SSA,
+warning/range-analysis, cgraph registration and IPA backing. The remaining
+E_unit_emit includes the dummy's construction and other whole-unit callbacks;
+its output-order arrays/vector are supplied here. Shared GGC page/finalizer and
+non-DF pool accounting still requires the completed sum across those phases.
+
+Independent source review accepted the combined structural, name/cache and
+output-order packet after correcting a draft double charge of the prefix's
+first_global_object_name. The reviewer replayed the 30-source metadata check
+and its 13 target headers, inspected the constructor/cache-growth arithmetic,
+and retained the variable metadata and later shared growth as explicit inputs.
+The structural packet's nine-source constructor and conservative layout check
+was reviewed separately. This review establishes only these stated interfaces;
+it does not complete the remaining compiler or collector accounting.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5 + 11
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5 + 11 + 38 + 18
        + E_metadata + E_Main_translation + E_unit_emit
 ```
 
-Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
-target setup above,10 the two gigi struct-function constructors,4 real Main
-RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
-vector events,8 direct elimination-register requests,10 IRA loop-setup
-events,78 chain/pattern/frame events,43 non-chain CFI events and100
-expansion/CFG helper events,1 cold late RTL-info event and5 selected
-final/CFI/section-emission events and11 non-tree gigi helper events (known
-subtotal39,968).
+Here 39,257 is the established fixed pre-Main GCC prefix, 437 the cold first RTL
+target setup above, 10 the two gigi struct-function constructors, 4 real Main
+RTL-preparation events, 2 the selected alias vectors,2 reload-equivalence
+vector events, 8 direct elimination-register requests, 10 IRA loop-setup
+events, 78 chain/pattern/frame events, 43 non-chain CFI events and 100
+expansion/CFG helper events, 1 cold late RTL-info event and 5 selected
+final/CFI/section-emission events, 11 non-tree gigi helper events and 38 direct
+gigi structural-tree/link requests and 18 name/shared-cache events (known
+subtotal 40,024).
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -9258,8 +9478,8 @@ and constructors still require completion:
 | Residual | Source route and required input |
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
-| `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function and eleven non-tree gigi helper events charged above; combine the backend's logical graph with each remaining tree, identifier, vector and helper constructor/allocation route |
-| `E_unit_emit` |remaining whole-unit symbol/output-order/finalization helpers and pending external-declaration handling; the selected final scan, unwind wrappers/directive output and two named sections are supplied above; retain actual source/path/output and shared-cache premises |
+| `E_Main_translation` |initial GIMPLE/CFG/SSA, warning/range-analysis, cgraph registration and IPA backing, excluding the ten struct-function, eleven non-tree helper, 38 structural-tree/link and 18 name/shared-cache events charged above; combine the backend's logical graph with the remaining constructor/allocation routes |
+| `E_unit_emit` |remaining whole-unit symbol/finalization helpers and pending external-declaration handling; output-order arrays/vector are supplied above; the selected final scan, unwind wrappers/directive output and two named sections are supplied above; retain actual source/path/output and shared-cache premises |
 
 For ordinary backing, the remaining concrete joins include
 shared non-DF pool retained-count arithmetic, remaining whole-unit
@@ -9280,11 +9500,11 @@ Capacity obligations must remain distinct from total-work accounting:
 
 | Quantity | Why it matters for the retained-tool capacity rule |
 | --- | --- |
-| DF `ref_order` over the function lifetime | A behavior-relevant unsigned32 ordering counter with signed32 comparison; bounded by1,785,936 above, including full scan reset. |
+| DF `ref_order` over the function lifetime | A behavior-relevant unsigned 32 ordering counter with signed32 comparison; bounded by 1,785,936 above, including full scan reset. |
 | DF reference tables and bitmap addends | The selected family never enables the optional ref table, so its signed32 resize route is excluded. |
-| DF solver visits and local arrays | At most1101 visits per solve; block/register domains bound every indexed local request. |
+| DF solver visits and local arrays | At most 1101 visits per solve; block/register domains bound every indexed local request. |
 | Local IRA/LRA arrays, bitmap dimensions and traversal stacks | The source-derived bounds above discharge their local size/index arithmetic independently of the number of identical invocations. |
-| LRA `last_reg_value` and selected fixed iteration counters | The null shape bounds the former by149 and excludes further pseudo-value updates; selected loop limits are finite local counts. |
+| LRA `last_reg_value` and selected fixed iteration counters | The null shape bounds the former by 149 and excludes further pseudo-value updates; selected loop limits are finite local counts. |
 | Pool live counts and GGC page/finalizer backing | Check the actual retained counts and behavior-relevant arithmetic; an allocation-event envelope is a conservative input where it bounds them. |
 | Ordinary bounded `malloc`/obstack repetitions and pool initializations | Repetition counts describe work and resources. They are not by themselves admission conditions; pool-ID wrap has no active checking consumer here. |
 
@@ -9295,7 +9515,7 @@ representation persists across invocations. No row introduces an aggregate
 RAM or address-space admission gate.
 
 The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-df-backing.py)
-checks76 source hashes, eight retained installed headers,131 installed ELF
+checks 76 source hashes, eight retained installed headers,131 installed ELF
 instruction fragments and the local arithmetic. The
 [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json)
 preserves the source-shape premises and unresolved inputs explicitly. The
@@ -9379,7 +9599,7 @@ above. The native frontend/process is still incomplete at these explicit joins:
   diagnostic and invocation container backing now joins those logical counts,
   including fixed initial storage where constructors are zero. Unrelated
   auxiliary heaps and late consumers remain separate.
-- **Representations and late consumers:** the22 selected backing joins and
+- **Representations and late consumers:** the 22 selected backing joins and
   five source-counted examples now compose actual scanner/parser inputs for
   those examples. A general source counter/descriptor implementation and its
   correspondence remain required. The physical/virtual source, line/column
