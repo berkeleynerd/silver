@@ -16,6 +16,8 @@ REPO=HERE.parents[2]
 PREVIOUS='e12e010fd1da984a45a6955928f3fc979aec4306'
 INTEGRATION='7573e127ffb020ddfb1214491179c59442e7798b'
 REVIEW='bee47bdef117d904931141ab4142a62ba6837058'
+REVIEW_IDENTITY=dict(bytes=11729,
+    sha256='0a93765653b15c3688ee0a4d599b5d48b6394fc39798ed936f4c00045336e745')
 PACKET=HERE.relative_to(REPO)
 AGGREGATE=Path('docs/evidence/retained-literal-pipeline-20261018')
 TARGETS={
@@ -73,7 +75,8 @@ def main():
     for name in ('compose.py','check.py','sources.json','result.json','check-results.json'):
         check('accepted shared file retained '+name,(HERE/name).read_bytes()==historical(PREVIOUS,PACKET/name))
     review_path=Path('docs/reviews/review-literal-original-shared-e12e010fd1.md')
-    check('exact independent review retained',(REPO/review_path).read_bytes()==historical(REVIEW,review_path))
+    check('exact historical independent review retained',
+        m.identity(historical(REVIEW,review_path))==REVIEW_IDENTITY)
     old_functions=functions(historical(PREVIOUS,AGGREGATE/'compose.py'))
     new_functions=functions((REPO/AGGREGATE/'compose.py').read_bytes())
     changed=[name for name,body in old_functions.items() if new_functions.get(name)!=body]

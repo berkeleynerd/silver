@@ -128,3 +128,23 @@ or expensive validation occurred. The only semantic change is which exact
 accepted aggregate bytes the shared packet accepts; its formulas, claims and
 broad residuals are unchanged. The correction touches only the owned shared
 note and packet. Parent handles narrow recheck, integration and publication.
+
+### Acceptance-record provenance correction
+
+The affected independent recheck found that `check-compatibility.py` required
+the current review report to remain byte-equal to `bee47bdef1`. Appending the
+requested compatibility disposition would invalidate that guard despite
+unchanged source/semantic inputs. Root changed this one check to validate
+the exact historical acceptance report against its fixed 11,729-byte,
+SHA-256 identity. The review's later prose can evolve without weakening any
+of the 38 current input checks or the source/ownership checks. The historical
+acceptance still has an explicit immutable identity; it is not silently
+treated as a current-file check.
+
+A narrow parent check verifies the immutable report identity and rejects an
+altered identity, and confirms all 38 current input identities and the script's
+syntax. The recorded 31-case result remains the earlier `c2ec0d195e` run;
+neither it nor the successful 208 cases was repeated for this provenance-only
+correction. The independent report corrects its prose from 15 to 14 distinct
+consumed keys; its 15 grouped review checks are a different count. No capacity
+formula, retained result, native execution or production behavior changes.
