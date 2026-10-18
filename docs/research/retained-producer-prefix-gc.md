@@ -364,6 +364,12 @@ historical allocation-only result explicitly keeps `semantic_free_variable_multi
 `whole_pipeline_capacity_established` **false**. The new component establishes
 only the first of these; full prefix composition remains separate.
 
+The later [complete selected prefix composition](retained-producer-prefix-composition.md)
+joins this component with the semantic-count evidence, excludes `term_size`
+by source reachability and covers the additional reachable arithmetic. Its
+conditional prefix conclusion does not change this allocation-only packet's
+historical flags or extend the endpoint to prover scheduling.
+
 ## Diagnostic history and cost
 
 The successful managed run is `20261018T125544-a11ebc3568d2`: 8.3794 seconds

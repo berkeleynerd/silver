@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-18",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_effort_confirmation_available": false,
+  "objective": "Complete conditional capacity composition for the five fixed Why3 prefixes before Gnat_checks.init body",
+  "result": "Combined exact-input predicate, term-size reachability exclusion and remaining arithmetic partition; independent review pending",
+  "native_executions": 0,
+  "reused_managed_runs": [
+    "20261018T125544-a11ebc3568d2",
+    "20261018T133533-614e2bd1c3dd"
+  ],
+  "validation": {
+    "composition_offline_replay_seconds": 1.9309052679996057,
+    "component_checker_entry_points_replayed": 4,
+    "local_links_checked": 14,
+    "authored_whitespace_check": "git diff --check passed"
+  },
+  "packaging_interval": {
+    "start_utc": "2026-10-18T17:48:43+00:00",
+    "end_utc": "2026-10-18T17:54:34.457911+00:00",
+    "seconds": 351.457911,
+    "scope": "Measured interval from packaging clock checkpoint through final offline replay; excludes initial source review"
+  },
+  "full_turn_elapsed_seconds": null,
+  "token_use": null,
+  "cost": null,
+  "rework": "Self-review excluded generic numeric printing by selected SV6/debug/warning routes instead of substituting managed-node counts for arbitrary exponent or digit totals."
+}

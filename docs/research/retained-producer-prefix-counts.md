@@ -115,3 +115,7 @@ for this selected context. Complete-prefix and whole-pipeline flags remain
 false: the three-site result must still be composed with the complete relevant
 operation inventory and other process components. In particular, this is not
 a claim that every integer operation in Why3 has a fresh-allocation witness.
+
+The subsequent [complete selected prefix composition](retained-producer-prefix-composition.md)
+supplies that operation partition and common-input conjunction. This packet's
+three-site scope and historical completeness flags remain unchanged.
