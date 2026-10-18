@@ -1,0 +1,100 @@
+{
+  "started_utc": "2026-10-18T23:36:41.403942+00:00",
+  "completed_utc": "2026-10-18T23:36:41.499443+00:00",
+  "elapsed_seconds": 0.09553032799885841,
+  "checks": 16,
+  "passed": [
+    "frontend carries exact corrected numeric implementation",
+    "attachment corrected numeric pins equal frozen numeric objects",
+    "historical review explicitly scoped",
+    "Hello numeric projection byte-equivalent as JSON data",
+    "Hello all 48 conditions unchanged",
+    "transition evidence names actual 32766-call source",
+    "transition numeric demands and separate linker failure retained",
+    "Hello callback lifetime replacement and separate Rep table",
+    "permanent/transient and filename populations distinguished",
+    "finding source identity fname-uf.adb",
+    "finding source identity frontend.adb",
+    "finding source identity sinput-l.adb",
+    "four allocations per default initialization",
+    "two selected initialization sites",
+    "frozen frontend exports config-only six as unqualified total",
+    "virtual text sharing has separate descriptor allocation"
+  ],
+  "inputs": {
+    "d7034d952050df0e015958158131b6ccc2e70f64:docs/evidence/retained-literal-frontend-storage-20261018/result.json": {
+      "bytes": 75268,
+      "sha256": "a65cf76f4a5c21e0a02dd1a4deec6df50c6b675368cb849fd7d27c129ce2552c"
+    },
+    "d7034d952050df0e015958158131b6ccc2e70f64:docs/evidence/retained-literal-ada-numeric-20261018/compose.py": {
+      "bytes": 7623,
+      "sha256": "259c65a4c7f4523cefca8b0dbc26678b0e146e0ffdabcf58243a1a48d7062f74"
+    },
+    "64237926eb736cf8d675d5609ff4b4cca8e59efc:docs/evidence/retained-literal-ada-numeric-20261018/compose.py": {
+      "bytes": 7623,
+      "sha256": "259c65a4c7f4523cefca8b0dbc26678b0e146e0ffdabcf58243a1a48d7062f74"
+    },
+    "b9b3ef960e:docs/evidence/retained-literal-pipeline-20261018/selected-route-inputs.json": {
+      "bytes": 5414,
+      "sha256": "44bf947d7d7f35522cd1584302f549862cc95197500c22886f82ff1abf04d4d7"
+    },
+    "64237926eb736cf8d675d5609ff4b4cca8e59efc:docs/evidence/retained-literal-ada-numeric-20261018/check-results.json": {
+      "bytes": 1717,
+      "sha256": "b75b994e0a3b6b1e27ee474b3cbbfd2133381ec418e994cad8606f5e980a72db"
+    },
+    "64237926eb736cf8d675d5609ff4b4cca8e59efc:docs/evidence/retained-literal-ada-numeric-20261018/check.py": {
+      "bytes": 5011,
+      "sha256": "502ae8352e3b9d80ed7ff138f60dfdf6e3dba98312be98a4452f9720ef6d0906"
+    },
+    "64237926eb736cf8d675d5609ff4b4cca8e59efc:docs/evidence/retained-literal-ada-numeric-20261018/inputs.json": {
+      "bytes": 11682,
+      "sha256": "8cbfb0b12c5f32e40e20ae91fcc783f9e81bdf12493d4972c0f98d0b85254c35"
+    },
+    "64237926eb736cf8d675d5609ff4b4cca8e59efc:docs/evidence/retained-literal-ada-numeric-20261018/result.json": {
+      "bytes": 5472,
+      "sha256": "bd2adc9bc0a699927c1b5a7aed39ca00ad6b86944508c2b692642f5d84151f02"
+    },
+    "64237926eb736cf8d675d5609ff4b4cca8e59efc:docs/research/retained-literal-ada-numeric.md": {
+      "bytes": 10353,
+      "sha256": "ba04df646370c3d70faad6f45ef51d9211b1769ab4d368f371d304a3a707be3b"
+    },
+    "64237926eb:docs/evidence/retained-literal-pipeline-20261018/selected-route-result.json": {
+      "bytes": 505048,
+      "sha256": "027fdbda68c4f08175e046fa5064191133e7e87929580b02b61910e938b59b77"
+    },
+    "b9b3ef960e:docs/evidence/retained-literal-pipeline-20261018/selected-route-result.json": {
+      "bytes": 505290,
+      "sha256": "e89fe4f362090bbb483a647e6aff142273774a2782dd570b8eae1bb6397e5408"
+    },
+    "b9b3ef960e:docs/evidence/retained-literal-pipeline-20261018/selected-route-check-results.json": {
+      "bytes": 17943,
+      "sha256": "c02b64ec11a07bad49d43312f4ea52fb3bf6ffe3e29300910e589e5d0cbed32c"
+    },
+    "d7034d952050df0e015958158131b6ccc2e70f64:docs/evidence/retained-literal-frontend-storage-20261018/inputs.json": {
+      "bytes": 8178,
+      "sha256": "a55dcab7fe04f13f2b1f000bc0dfa422484227b89f75a1a1c99cdc8bb9a40d4e"
+    },
+    "ada:fname-uf.adb": {
+      "bytes": 21488,
+      "sha256": "22caede84a6269298fc78349d6dee2e10baf3f4841bc65131ed94ad054194101"
+    },
+    "ada:frontend.adb": {
+      "bytes": 19745,
+      "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67"
+    },
+    "ada:sinput-l.adb": {
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+    }
+  },
+  "native_tool_executions": 0,
+  "retained_suites_repeated": false,
+  "finding": {
+    "id": "F1",
+    "frozen_export": 6,
+    "default_initialization_requests": 8,
+    "configuration_requests": 6,
+    "selected_lifetime_requests": 14
+  },
+  "qualification": "Source anchors plus manual reachability review; green checks are not a soundness proof."
+}
