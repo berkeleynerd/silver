@@ -1304,6 +1304,44 @@ bounds, first prefix analysis, nonfrozen copied slice itypes, insertion
 contexts and compilation-wide reanalysis remain separate charges. This
 attribute result does not silently establish their shape or freezing premises.
 
+### Generated same-type Integer conversions
+
+An artificial ordinary type conversion whose target/context and already
+analyzed/resolved nonoverloaded operand are the **same** frozen Standard
+Integer base adds at most **two ordinary nodes and one growing event**, and
+no Uint, entity, name, list, Elist, String or overload-table allocation. Its
+type occurrence is already bound to that existing type. There are no errors,
+dimensions, predicates, callbacks, transient/spec context or pending checks;
+checks are suppressed. A known value is an existing literal/constant chain
+and fits the target. Input conversion/mark syntax and child costs are separate.
+
+Analyze_Type_Conversion finds the existing type, analyzes the child and
+returns at the artificial-node guard. Numeric Valid_Conversion is a read-only
+success; remote-type checks have no applicable scalar branch
+(`sem_ch4.adb:6419–6455`, `sem_res.adb:14258–14329`,
+`sem_cat.adb:1914–1955`). Resolve returns on the analyzed child, then either
+Eval_Type_Conversion folds the existing integer value via Fold_Uint or leaves
+the conversion unchanged. Same specific Integer type excludes all three
+Simplify_Type_Conversion rewrites; suppression skips both scalar-conversion
+check branches before range analysis
+(`sem_res.adb:12440–12480,12703–12722,13343–13412`,
+`sem_eval.adb:4178–4300`, `checks.adb:3788–3828,3881–3919`).
+
+If semantic folding did not replace the conversion, native expansion reaches
+the identical-type guard before general conversion processing. It rewrites
+to a shallow relocation of the already analyzed child: at most one new copy,
+one saved original and one growing event. Its Done tail has no predicate work
+for Standard Integer (`exp_ch4.adb:12107–12139,12817–12853`). This is mutually
+exclusive with the semantic literal fold, yielding the stated envelope.
+
+The concat emitter's two explicit Convert_To calls around the last operand's
+First/Last can construct conversions before their attributes have types.
+Once those attributes are analyzed to the same Integer base, one initial
+analysis of these two conversions adds at most **four ordinary nodes and two
+growing events**. The emitter's specialized To_Ityp/To_Artyp wrappers remain
+no-ops under Artyp=Ityp. Conversions constructed by range-check selection,
+other type pairs, child reanalysis and caller suppression are separate.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
