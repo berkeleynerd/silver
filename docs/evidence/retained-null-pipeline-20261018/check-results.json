@@ -43,6 +43,12 @@
       ]
     },
     {
+      "case": "socket_directory_mismatch",
+      "failed_obligations": [
+        "idle_why3server"
+      ]
+    },
+    {
       "case": "page_overflow",
       "failed_obligations": [
         "linker"
@@ -68,7 +74,7 @@
       "rejected": "light and native naming configuration differ"
     }
   ],
-  "case_count": 11,
+  "case_count": 12,
   "native_tool_executions": 0,
   "all_checks_pass": true,
   "conditional_null_conjunction_checked": true

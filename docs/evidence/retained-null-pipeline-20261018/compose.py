@@ -340,9 +340,12 @@ def evaluate(descriptor_path, context, source_override=None):
         no_Main_Why3_or_solver_clients=True)
     socket=len(runtime['socket_directory'])+27
     obligations['idle_why3server'] = checks(dict(worker_count=1<=j<=I32//2,
+        socket_directory_matches_writable_TMPDIR=(
+            runtime['socket_directory']==runtime['binder_temporary_root']),
         backlog=0<=2*j<=I32,poll_index=0<=j+2<=I32,
         independent_request=max(800,8*(j+2),socket+1,len(runtime['cwd'])+1)<=I64,
         socket_basename=26+1<=108),workers=j,poll_records=j+2,largest_request=max(800,8*(j+2)),
+        socket_path_bytes=socket,
         source_projection='zero Main client launches; no external clients/logging under selected descriptor')
     assembly=selected_record('retained-assembler-capacity-20261018/event-check-results.json')
     obj=selected_record('retained-assembler-capacity-20261018/object-check-results.json')

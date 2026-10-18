@@ -11,7 +11,7 @@
   "runtime": {
     "workers": 12,
     "host_page_bytes": 4096,
-    "socket_directory": "/tmp",
+    "socket_directory": "/tmp/silver-null-pipeline-20261018/ttttttttttttt",
     "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
     "binder_source_directory": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
     "binder_temporary_root": "/tmp/silver-null-pipeline-20261018/ttttttttttttt"

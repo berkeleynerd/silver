@@ -4,7 +4,7 @@
     "bytes": 69,
     "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-null-pipeline/samples/null.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/null.adb",
   "complete_path_bound": 512,
   "obligations": {
     "shared_inputs": {
@@ -269,6 +269,7 @@
       "status": "closed",
       "conditions": {
         "worker_count": true,
+        "socket_directory_matches_writable_TMPDIR": true,
         "backlog": true,
         "poll_index": true,
         "independent_request": true,
@@ -277,6 +278,7 @@
       "workers": 12,
       "poll_records": 14,
       "largest_request": 800,
+      "socket_path_bytes": 75,
       "source_projection": "zero Main client launches; no external clients/logging under selected descriptor"
     },
     "Main_assembler_object": {

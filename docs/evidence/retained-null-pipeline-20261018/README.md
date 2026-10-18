@@ -25,7 +25,8 @@ linker and binder-option checks once per Context. `check.py` reuses that Context
 across source/interface variations, including trivia above the current byte cap,
 column and worker overflow, wrong path width, syntax and configuration mismatch.
 No successful native execution is repeated. `result.json` is the selected fixture
-substitution; `check-results.json` records the eleven interface checks.
+substitution; `check-results.json` records the twelve interface checks, including
+the socket directory's equality with the selected writable TMPDIR.
 
 The result distinguishes arithmetic failures, open interfaces and conditional
 closure. It retains external source/ABI/service assumptions and parent

@@ -43,7 +43,11 @@ name bound is `48 + 36 = 84`. Its bounded exchange/argument/path interfaces are
 charged by the binder component; configuration-comment changes are checked
 directly above. No project token, installed tool path or source search branch
 changes. The descriptor requires normalized path spellings without quoting
-characters and retains the ordinary accessible-directory premise.
+characters and retains the ordinary accessible-directory premise. GNATprove's
+socket-directory selection uses this writable TMPDIR before its `/tmp` fallback
+(`configuration.adb:436–474,2934–2948`). The aggregate requires the socket role
+to equal the common temporary root and prices its pathname at 48+27 bytes.
+An independently supplied `/tmp` role is rejected on this selected branch.
 
 The binder's source directory and full source names still have exactly 113
 and 127 bytes. Only its temporary assembly-output operand becomes four bytes
@@ -116,10 +120,11 @@ is not that production launcher. Physical heap/stack/disk availability and
 libc/OS internals remain the existing boundary, and no aggregate RAM gate is
 introduced.
 
-Eleven offline checks cover the retained source, uppercase/CRLF, permitted
+Twelve offline checks cover the retained source, uppercase/CRLF, permitted
 comments above 4096 bytes, added physical lines, overflowing columns/workers/page
 scratch, wrong binder path width, forbidden VT, changed syntax and mismatched
-naming content. Source variants reuse successful fixed evidence. No compiler,
+naming content, plus an inconsistent socket directory. Source variants reuse
+successful fixed evidence. No compiler,
 assembler, linker, server, solver or Lean execution ran for this packet.
 
 The next substantive #119 dependency is the **nonnull source-to-pipeline

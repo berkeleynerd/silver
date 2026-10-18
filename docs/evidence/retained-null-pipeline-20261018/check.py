@@ -57,6 +57,7 @@ def main():
                              failed_obligations=result['failed_obligations']))
         for name,field,value,expected_failure in [
             ('worker_overflow','workers',2**30,'idle_why3server'),
+            ('socket_directory_mismatch','socket_directory','/tmp','idle_why3server'),
             ('page_overflow','host_page_bytes',2**62,'linker'),
             ('binder_path_width','binder_source_directory','/tmp/short','binder_generation_and_fixed_compiler')]:
             modified=copy.deepcopy(fixture);modified['runtime'][field]=value
