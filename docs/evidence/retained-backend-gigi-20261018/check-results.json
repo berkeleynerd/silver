@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 36,
+  "source_files_checked": 42,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -166,6 +166,45 @@
     "null_Main_initial_raw_GIMPLE_tuple_count": 4,
     "null_Main_initial_raw_GIMPLE_tuple_bytes_LP64": 280,
     "null_Main_body_symbolic_folder_entries": 0,
+    "null_Main_CF_new_GIMPLE_tuples_and_label_declarations": [
+      2,
+      1
+    ],
+    "null_Main_CF_flat_statement_count": 5,
+    "null_Main_CF_cumulative_raw_GIMPLE_tuple_bytes_LP64": 408,
+    "null_Main_EH_finally_hash_entries": 2,
+    "null_Main_EH_regions_landing_pads_and_rewritten_statements": [
+      0,
+      0,
+      0
+    ],
+    "null_Main_initial_CFG_ordinary_blocks_and_edges": [
+      3,
+      4
+    ],
+    "null_Main_CFG_cleanup_new_labels_and_statements": [
+      0,
+      0
+    ],
+    "null_Main_SSA_entry_block_edge_statement_upper_bounds": [
+      3,
+      4,
+      3
+    ],
+    "null_Main_SSA_new_MEM_declaration_default_name_and_NOP": [
+      1,
+      1,
+      1
+    ],
+    "null_Main_SSA_new_PHIs_and_nondefault_names": [
+      0,
+      0
+    ],
+    "null_Main_SSA_operand_use_entries_and_slab_bytes_LP64": [
+      1,
+      1024
+    ],
+    "null_Main_SSA_name_vector_length": 2,
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

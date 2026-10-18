@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 29 complete files at GCC
+`source-manifest.json` pins 42 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -61,3 +61,12 @@ construction before GIMPLE folder replacements. It preserves separate SSA
 and VAR identity demands and adds Ada RM bounds to the size-position root
 inventory. Calls, conditionals, memory/aggregate adaptation and the final
 folded GIMPLE count are not closed by that restricted transfer.
+
+The concrete null-body extension follows the source fixture through initial
+GIMPLE, CF/EH, CFG cleanup and initial SSA. It pins the O0 null-label and
+return construction, the unchanged EH statement cases, CFG merge guards,
+the mandatory return memory use and its default SSA name. Its arithmetic
+records the five-statement CF graph, three-block/four-edge initial CFG and
+one SSA memory-use entry. The source argument distinguishes live graphs from
+cumulative allocation and preserves fixed pass containers. No pass execution,
+whole native capacity predicate or compiler-success claim is added.

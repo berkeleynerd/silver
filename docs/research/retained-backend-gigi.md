@@ -1820,6 +1820,120 @@ for whole native closure. Together with the producer's zero Main Why3 tasks,
 the fixture now has concrete zeros and small counts at two backend interfaces;
 neither interface substitutes for the intervening or fixed work.
 
+### The same null body through CF, EH, CFG and initial SSA
+
+The initial four-tuple graph above gives a concrete input to the existing
+[CF/EH transfer](retained-backend-capacity.md#o0-cleanup-lowering-no-recursive-body-duplication)
+and [CFG/SSA transfer](retained-backend-cfg.md). This specialization counts
+the executed Main function. Fixed setup, imported declarations, other functions,
+pass objects and later passes still have their own costs.
+
+`lower_gimple_bind` splices its existing body into the outer sequence and
+removes the BIND. Its `record_vars` ignores the sole LABEL_DECL, so it adds no
+entry to `local_decls` (`gimple-low.cc:908–982,1438–1468`). The initial goto
+sets `cannot_fallthru`, but the following label clears it. Thus the implicit
+return is retained and lowered normally (`:695–810`). There is one new return
+label, one new goto and one new GIMPLE_LABEL; the original GIMPLE_RETURN is
+reused after the new label. The return-record vector is created with capacity
+eight and receives one record (`:122–214,1178–1223`). The exact flat output is
+
+```text
+goto L_null
+L_null:
+goto L_return
+L_return:
+return
+```
+
+CF therefore allocates two additional raw tuples and one LABEL_DECL. Its
+cumulative raw-tuple subtotal, including the now detached BIND, is six tuples
+and `280+64+64=408` bytes on the selected LP64 layout. It makes no arithmetic
+expression or symbolic-fold request for these statements.
+
+EH refactoring encounters no TRY node. EH lowering still does **fixed
+analysis work**: it creates the finally hash table with requested size 31,
+inserts the two labels as `finally_tree_node` records, and allocates one
+`eh_region_may_contain_throw_map` bitmap header
+(`tree-eh.cc:200–259,2241–2285,3351–3401`). The entries' parent is null.
+Both gotos and the return immediately leave `maybe_record_in_goto_queue`
+because `state->tf` is null (`:702–715`). The label default case does nothing.
+No EH region, landing pad, cleanup copy, queued goto or replacement statement
+is created. The flat five-statement graph is unchanged.
+
+Initial CFG construction puts these statements into exactly three ordinary
+blocks: the first goto, the first label and second goto, and the final label
+and return (`tree-cfg.cc:488–555`). It allocates four edges, including entry
+and exit; simple-goto edges replace the two goto statements
+(`:810–840,1370–1388`). Together with the fixed entry/exit blocks, this gives
+five block-index slots. The block and label maps retain their existing
+20-entry initial requests, and at most two label UIDs are assigned. The two
+dead-label scans allocate arrays of five `label_record` entries. They may
+remove labels after the gotos have gone; they create no statements
+(`:145–215,1507–1547,1664–1700`). General discriminator accounting specializes
+to at most `S+E=5+4=9` requests and counter increment ceiling
+`S+2B+E=5+6+4=15`.
+
+Do not assume O0 merges this path into one block. The CF pass may mark the
+return label nonartificial to preserve its location, and the CFG merger
+preserves nonartificial labels and certain goto locations at O0
+(`gimple-low.cc:1213–1221`, `tree-cfg.cc:1880–1929`). The sufficient retained
+ceilings are three ordinary blocks, four edges and three statements: at most
+two labels and the one return. The path has one predecessor and one successor
+per ordinary block. Forwarder removal returns before redirection on this
+shape (`tree-cfgcleanup.cc:476–519`); block merging can only shorten the path.
+There is no switch, PHI, forced label or abnormal edge. The merger's possible
+new debug binding for a nonartificial label is excluded by its O0 merge guard.
+Consequently the initial cleanup creates **zero** labels, statements, blocks
+or edges; its general `B*E` fresh-label allowance specializes to zero. Loop
+discovery finds no real loop, while retaining its ordinary root-loop and
+analysis containers. The [CFG component](retained-backend-cfg.md) prices those
+containers with `B=3`, `E=4`, `N=5`.
+
+The first CFG fixup adds nothing on this graph. There is no call/LHS/store,
+EH association or abnormal edge, and every ordinary block has a successor,
+including the return's exit edge. Its unreachable-call insertion guard is
+therefore false. Its dead-code worklist stays empty and its returned TODO
+flags are zero (`tree-cfg.cc:10017–10138`). Profile-field maintenance and the
+empty worklist header remain fixed pass work.
+
+Initial SSA is **not zero work**, even for a bare return. It creates the
+artificial `.MEM` VAR_DECL. Operand scanning explicitly appends a virtual use
+to `GIMPLE_RETURN` before scanning its null value operand
+(`tree-ssa-operands.cc:228–278,951–995`). The labels contribute no use or
+definition. The resulting one use creates one `var_info` and its three
+block-bitmaps; there is no ordinary or virtual definition. The CFG remains a
+straight path, so its dominance frontiers are empty
+(`cfganal.cc:1642–1671`). No PHI is inserted. Renaming the one use requests one
+default memory SSA_NAME and its detached GIMPLE_NOP
+(`tree-into-ssa.cc:648–704,1203–1228,1337–1411`, `tree-dfa.cc:353–365`). The
+returned value is still null; the memory name is analysis metadata.
+
+```text
+SSA-entry ordinary blocks / edges / live statements <= 3 / 4 / 3
+new .MEM declaration / default SSA_NAME / detached NOP = 1 / 1 / 1
+new PHIs / nondefault SSA_NAMEs / executable statements = 0 / 0 / 0
+SSA operand use entries = 1
+SSA-name vector logical length = 2, including reserved slot zero
+```
+
+The return's use entry consumes the first 1,024-byte operand slab, even though
+only one 40-byte entry is live (`tree-ssa-operands.cc:424–485` and the
+[operand-cache transfer](retained-backend-cfg.md#operand-caches-worklists-and-arithmetic)).
+The existing 50-slot SSA-name initial backing does not grow. Other SSA
+containers use `n<=5`, `v=1`, `d=0`, `P=0`, `u=1`; the local-declaration hash
+constructor receives zero because labels are not variables. Its minimum
+hash backing, dominator walkers, bitmap headers, root-loop data and allocator
+rounding are still charged through their existing transfers. SSA's source
+code supplies no symbolic arithmetic folding for this graph. The O0
+unused-local TODO returns without change as established in the CFG component.
+
+This closes the null body's **shape join through initial SSA**, including
+the otherwise easy-to-miss memory use. It does not close the intervening
+whole-unit IPA bookkeeping or subsequent warning/mandatory-lowering passes,
+out-of-SSA, RTL, object emission or linking. The offline checker pins the
+stated source branches and arithmetic; it does not run these passes or infer
+compiler success from this fixture.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

@@ -62,7 +62,8 @@ RANGES = {
     "gcc/tree.def": [(633, 633), (973, 990)],
     "gcc/tree-iterator.cc": [(34, 105), (188, 239)],
     "gcc/passes.def": [(27, 42)],
-    "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
+    "gcc/gimple-low.cc": [(122, 214), (695, 810), (900, 982),
+                           (1178, 1223), (1438, 1468)],
     "gcc/gimplify.cc": [
         (83, 124), (387, 395), (460, 488), (619, 751), (944, 973), (1097, 1101),
         (1270, 1282), (1677, 1891),
@@ -81,7 +82,18 @@ RANGES = {
     "gcc/builtins.cc": [(11051, 11089)],
     "gcc/internal-fn.def": [(520, 522)],
     "gcc/calls.cc": [(590, 630), (807, 824)],
-    "gcc/tree-cfg.cc": [(2185, 2200), (2628, 2652)],
+    "gcc/tree-cfg.cc": [(145, 215), (327, 345), (488, 555), (810, 840),
+                        (1370, 1388), (1507, 1547), (1664, 1700),
+                        (1858, 1932), (2185, 2200), (2628, 2652),
+                        (10017, 10138)],
+    "gcc/tree-eh.cc": [(200, 259), (702, 715), (2056, 2215),
+                       (2241, 2285), (3351, 3401)],
+    "gcc/tree-cfgcleanup.cc": [(476, 519), (871, 898)],
+    "gcc/tree-ssa-operands.cc": [(228, 278), (424, 485), (951, 995)],
+    "gcc/tree-into-ssa.cc": [(648, 704), (1203, 1228), (1337, 1411),
+                            (2411, 2438), (2490, 2581)],
+    "gcc/tree-dfa.cc": [(353, 365)],
+    "gcc/cfganal.cc": [(1642, 1671)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
     "gcc/tree-inline.cc": [(6667, 6720)],
 }
@@ -336,6 +348,30 @@ def check_sources(sources, inventory):
     assert 'DEFGSCODE(GIMPLE_RETURN, "gimple_return", GSS_WITH_MEM_OPS)' in sources["gcc/gimple.def"]
     assert 'DEFGSCODE(GIMPLE_GOTO, "gimple_goto", GSS_WITH_OPS)' in sources["gcc/gimple.def"]
     assert 'DEFGSCODE(GIMPLE_LABEL, "gimple_label", GSS_WITH_OPS)' in sources["gcc/gimple.def"]
+    low = sources["gcc/gimple-low.cc"]
+    assert "data.return_statements.create (8);" in low
+    assert "tmp_rs.label = create_artificial_label (cfun->function_end_locus);" in low
+    assert "gsi_insert_after (&i, t.stmt, GSI_CONTINUE_LINKING);" in low
+    assert "if (!VAR_P (var))\n\tcontinue;" in low
+    eh = sources["gcc/tree-eh.cc"]
+    assert "finally_tree = new hash_table<finally_tree_hasher> (31);" in eh
+    assert "if (!tf)\n    return;" in eh
+    assert "record_in_finally_tree (temp, region);" in eh
+    cfg = sources["gcc/tree-cfg.cc"]
+    assert "static const int initial_cfg_capacity = 20;" in cfg
+    assert "edge e = make_edge (bb, label_bb, EDGE_FALLTHRU);" in cfg
+    assert "if (!DECL_ARTIFICIAL (lab) && (!optimize || FORCED_LABEL (lab)))" in cfg
+    cleanup = sources["gcc/tree-cfgcleanup.cc"]
+    assert "if (single_pred_p (bb)\n      && single_succ_p (single_pred_edge (bb)->src))\n    return false;" in cleanup
+    operands = sources["gcc/tree-ssa-operands.cc"]
+    assert "case GIMPLE_RETURN:\n      append_vuse (gimple_vop (fn));" in operands
+    assert "build_uses.safe_insert (0, gimple_vuse_ptr (stmt));" in operands
+    into = sources["gcc/tree-into-ssa.cc"]
+    assert "init_ssa_operands (fun);" in into
+    assert "compute_dominance_frontiers (dfs);" in into
+    assert "rewrite_blocks (ENTRY_BLOCK_PTR_FOR_FN (fun), REWRITE_ALL);" in into
+    assert "ddef = make_ssa_name_fn (fn, var, gimple_build_nop ());" in sources["gcc/tree-dfa.cc"]
+    assert "if (EDGE_COUNT (b->preds) >= 2)" in sources["gcc/cfganal.cc"]
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -491,6 +527,18 @@ def arithmetic():
         "null_Main_initial_raw_GIMPLE_tuple_count": 4,
         "null_Main_initial_raw_GIMPLE_tuple_bytes_LP64": 64+64+80+72,
         "null_Main_body_symbolic_folder_entries": 0,
+        "null_Main_CF_new_GIMPLE_tuples_and_label_declarations": [2, 1],
+        "null_Main_CF_flat_statement_count": 2+2+1,
+        "null_Main_CF_cumulative_raw_GIMPLE_tuple_bytes_LP64": 280+64+64,
+        "null_Main_EH_finally_hash_entries": 2,
+        "null_Main_EH_regions_landing_pads_and_rewritten_statements": [0, 0, 0],
+        "null_Main_initial_CFG_ordinary_blocks_and_edges": [3, 4],
+        "null_Main_CFG_cleanup_new_labels_and_statements": [0, 0],
+        "null_Main_SSA_entry_block_edge_statement_upper_bounds": [3, 4, 3],
+        "null_Main_SSA_new_MEM_declaration_default_name_and_NOP": [1, 1, 1],
+        "null_Main_SSA_new_PHIs_and_nondefault_names": [0, 0],
+        "null_Main_SSA_operand_use_entries_and_slab_bytes_LP64": [1, 1024],
+        "null_Main_SSA_name_vector_length": 2,
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 
