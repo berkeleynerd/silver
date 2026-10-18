@@ -12,6 +12,11 @@
       "sha256": "590aeb1807f35622c08285e619951c0b7970d48d8b5c2135561956e1b17e7598"
     },
     {
+      "path": "gcc/ada/sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+    },
+    {
       "path": "gcc/ada/gcc-interface/trans.cc",
       "bytes": 406631,
       "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
@@ -30,6 +35,11 @@
       "path": "gcc/ada/gcc-interface/utils2.cc",
       "bytes": 122255,
       "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
     },
     {
       "path": "gcc/passes.def",

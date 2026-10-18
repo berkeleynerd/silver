@@ -272,9 +272,153 @@ frontend node without establishing those events. The bound/condition helpers
 in the table can also allocate after folding: their request counts are not
 their transitive allocation counts.
 
-This closes the structural and cleanup-control interface. The complete bridge
-still requires weighted type/descriptor construction, source scalar/range-check
-helper lowering, call argument/return adaptation, assignment/comparison helpers,
-the common post-conversion wrapper, statement-list links and GCC folding/copy
-costs. These joins must precede a total GENERIC constructor/edge bound; the
-table deliberately supplies no arbitrary per-node multiplier in their place.
+## Scalar helper request interface
+
+These rows count the named gigi requests **before** their callees' transfers.
+The generic GCC folder may build several trees, even for one `fold_buildN`;
+it must not be priced as one allocation by assumption. Children are existing
+GCC operands, unless a row explicitly names another frontend traversal.
+The scalar cases use nonbiased, nonmodular Integer/Boolean types; the separate
+pointer/size and descriptor cases retain their own type frontier.
+
+| Selected helper event | Local requests, excluding child conversion and the named subhelpers' internals |
+| --- | --- |
+| Ordinary non-NULL scalar `build_binary_op` | at most 3 `convert`, 1 `fold_build2`; INIT/MODIFY uses plain `build2` instead |
+| Ordinary signed negate/absolute `build_unary_op` | at most 2 `convert`, 1 `fold_build1` |
+| Boolean not | 1 `invert_truthvalue_loc`, then at O0 1 `fold`; at most 1 final conversion |
+| Scalar `build_cond_expr` | 2 conversions, 1 `fold_build3`, at most 1 plain COMPOUND_EXPR |
+| Scalar `build_compound_expr` | 1 `fold_build2` |
+| Unary checked negate/absolute | 1 protect, 1 unary helper, 1 comparison binary helper, 1 `emit_check` |
+| Binary checked add/subtract with a constant operand | 2 protect, at most 3 binary helpers including the initial result, 1 `emit_check` |
+| Binary checked multiply with a constant operand | 2 protect, at most 6 binary helpers including the initial result, 1 `emit_check` |
+| Binary checked Integer32 operation with two nonconstant operands | 2 protect, 1 initial binary helper, 2 conversions, 1 complex-type helper, 1 internal two-actual call, 1 `save_expr`, 2 plain unary nodes (REALPART and IMAGPART), 1 `fold_build2` comparison, 1 integer-constant request, 1 `emit_check` |
+| `emit_check` with integral result | 1 raise-call helper, 1 integer-constant request, 1 plain COMPOUND_EXPR (2 slots), 1 `fold_build3` conditional |
+
+The plain binary transfer follows `utils2.cc:984–1520`: comparison and
+Boolean/arithmetic branches convert the two inputs; the result can receive
+one final conversion. Integral assignments convert the RHS once and cannot
+need the LHS aggregate-view conversions. NULL_EXPR propagation has its own
+early branch (one NULL_EXPR, or a comparison plus NULL_EXPR) and must not be
+mistaken for the ordinary row. Array, fat-pointer, modular and aggregate
+branches are outside that scalar specialization.
+
+The checked transfers follow `trans.cc:10014–10258`. The initial ordinary
+operation is constructed **before** choosing a check strategy and counts even
+when its result is later replaced. Constant multiply computes two quotient
+bounds, two comparisons and their OR in addition to that initial operation.
+The generic case constructs an internal overflow operation with a shared
+complex-integer result. Therefore the backend's actual type frontier includes
+**complex Integer32 pairs**, despite the source language having no complex
+type. The 64-bit-on-32-bit and 128-bit-on-64-bit multiply library branches are
+not selected by an Integer32 source operation on x86_64. Scalar return/check
+conversions and backend address/size operations remain separately typed.
+
+`emit_check` is at `10270–10280`. A checked conversion with ordinary integral
+input and output (`10286–10494`) supplies at most one protect, three binary
+helpers (two bounds and their OR), two inversions, one `emit_check`, and seven
+ordinary conversions: initial input-base, at most two signedness-normalized
+bound constants, two comparison-bound conversions, and final base/result
+conversions. Input-mode normalization can request one `gnat_type_for_mode`;
+bound normalization can request two signed/unsigned type helpers. The absent
+floating-point and biased/modular branches must not be folded into this row.
+With no overflow check it returns through a single ordinary conversion.
+
+### Protection preserves shared checked operands
+
+`gnat_protect_expr` is not a recursive copy of a scalar expression tree
+(`utils2.cc:3104–3179`). Constants, NULL_EXPR and SAVE_EXPR return unchanged.
+For an eligible no-side-effect simple expression it likewise returns the
+original tree. Otherwise it follows a **single** conversion/reference spine:
+each conversion/dereference wrapper requests one unary node; a selected
+component-reference wrapper requests one ternary node; only operand zero is
+recursed into. A scalar/fat-pointer leaf uses `save_expr`.
+The excluded atomic-load branch is a different helper path.
+
+For spine lengths `h1` (unary) and `h3` (ternary), its local new wrappers are
+at most `h1+h3`, with `h1+3*h3` operand slots, and at most one terminal
+`save_expr` request. No source child is converted again. GCC `save_expr`
+itself returns an invariant/placeholder expression or constructs exactly one
+SAVE_EXPR with one operand (`gcc/tree.cc:4132–4164`). The invariant tests do
+not construct an expression. This justifies shared operands in the checked
+operation rows; later generic unsharing must respect or separately price this
+SAVE_EXPR behavior. It does not justify assigning zero cost to those later
+passes.
+
+## Raise-call filenames and direct call operands
+
+With no local exception handler, the raise helpers use a runtime call,
+not `build_goto_raise` (`utils2.cc:2060–2130`). Each invocation calls
+`expand_sloc` (`2018–2051`), which constructs a new filename STRING_CST even
+when another check already uses that filename. Let `f` be the actual selected
+debug-source-name length, or fallback basename length. One invocation requests:
+
+```text
+1 STRING_CST with f payload bytes (f+21 requested bytes on selected LP64 ABI)
+1 size_int(f), 1 index-type helper, 1 array-type helper
+1 line integer constant, and 1 column integer constant if requested
+1 filename ADDR_EXPR and 1 character-pointer-type helper
+1 call helper with 2, 3 or 6 actuals.
+```
+
+The six-actual range helper adds three conversions to `integer_type_node`.
+The selected String and constant-pool transfers must include these filename
+payloads as well as author String values. Their magnitude comes from retained
+source-name/path inputs; they are not source literal lengths. Suppression
+options can replace the name by the empty string but do not eliminate the
+constructor. Physical/logical line and column representability is the separate
+source-position transfer. The filename's index type has range `0..f`, hence
+`f+1` elements, while its stored payload length is `f` plus the private NUL.
+The later emission transfer must include that terminator; the ordinary author
+String rule that emits exactly the logical length is not interchangeable here.
+
+`build_call_n_expr(n)` constructs one function ADDR_EXPR and requests its
+pointer type, then calls `build_call_valist` (`utils2.cc:1972–1983`). The latter
+requests one CALL_EXPR with **`n+3` operand slots** and one integer-constant
+request for that length (`gcc/tree.cc:11020–11077`). An internal call uses
+the same `n+3` layout with a null function operand (`11194–11224`); its
+varargs wrapper additionally reserves `n` temporary tree-pointer entries.
+The call operand slots include the length, function and static-chain slots.
+This is the direct constructor interface; type internals and generic operand
+processing remain their own transfer. In particular, the two-actual overflow
+intrinsic has five slots, not two.
+
+## String conversion copies are additional payload events
+
+The ordinary literal-lowering transfer remains `2*N_lit`, but it does not
+cover payload copying by conversions. `convert` makes a `copy_node` of a
+STRING_CST when changing its constrained array type, except for the stated
+constant-size-to-dynamic-size condition (`utils.cc:5170–5178`). Fetching a
+constant's already-translated `DECL_INITIAL` can therefore lead to a new copy
+through the common final conversion; no new frontend literal visit is needed.
+Count these actual conversion-copy events separately as `C_string`, with
+lengths `l_j`:
+
+```text
+additional String tree requests = C_string
+additional payload bytes       = sum_j l_j
+additional requested bytes     = sum_j(l_j+21).
+```
+
+This is a complete local transfer for that copy site: `copy_node` uses
+`tree_size` and memcpy (`gcc/tree.cc:1468–1479`), and STRING_CST's size is
+its stored length plus `offsetof(tree_string,str)+1` (`1224–1225`). The
+copied payload has the same length. Generic folder/unsharing copies are
+additional events, not automatically included in `C_string`.
+
+The newly clarified native assignment frontier also includes a generated
+unchecked conversion from a literal subtype to an ordinary constrained String
+subtype when the assignment target's lower bound is dynamic
+(`sem_res.adb:13249–13335`). It is an array-to-array conversion, not an
+array-of-characters aggregate. `unchecked_convert` excludes STRING_CST and
+aggregate-to-aggregate cases from its fixed-size padding branches
+(`utils.cc:6064–6111`); this shape reaches the final view-conversion builder
+(`6192–6204`). Its `fold_build1(VIEW_CONVERT_EXPR)` can require generic folding
+work, which the separate folder transfer must consume. The ordinary gigi
+STRING_CST copy rule above must not be substituted for that different site.
+
+The structural/cleanup and scalar request interfaces are now explicit.
+The complete bridge still needs weighted type/descriptor construction, call
+argument/return adaptation, assignment/comparison helpers, common conversion
+wrappers and statement-list links; the generic GCC folding/copy transfer must
+then price the selected helper requests. These joins precede any total
+GENERIC constructor/edge bound. No arbitrary per-node multiplier replaces them.

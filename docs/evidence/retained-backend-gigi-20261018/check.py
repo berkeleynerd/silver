@@ -16,20 +16,26 @@ PIN = "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
 RANGES = {
     "gcc/ada/exp_ch6.adb": [(6180, 6209), (6224, 6290), (6734, 6745)],
     "gcc/ada/exp_ch7.adb": [(4780, 4821)],
+    "gcc/ada/sem_res.adb": [(13249, 13335)],
     "gcc/ada/gcc-interface/trans.cc": [
         (3026, 3306), (3313, 3400), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4864, 4930), (5077, 5110),
         (5391, 5427), (5670, 5758), (5990, 6003), (6078, 6095),
         (6150, 6318), (7944, 8003), (8118, 8146), (8603, 8622),
         (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
-        (9492, 9582), (9889, 10025)],
+        (9492, 9582), (9889, 10025), (10014, 10494)],
     "gcc/ada/gcc-interface/utils.cc": [
         (682, 783), (894, 1018), (1832, 1859), (3018, 3057),
-        (3137, 3162), (3830, 3875)],
+        (3137, 3162), (3830, 3875), (5160, 5184),
+        (6064, 6111), (6192, 6204)],
     "gcc/ada/gcc-interface/decl.cc": [
         (400, 445), (697, 718), (754, 766), (1177, 1205),
         (1507, 1592), (1629, 1713), (7532, 7688)],
-    "gcc/ada/gcc-interface/utils2.cc": [(1890, 1984)],
+    "gcc/ada/gcc-interface/utils2.cc": [
+        (984, 1520), (1530, 1984), (2018, 2130), (3045, 3179)],
+    "gcc/tree.cc": [
+        (1212, 1230), (1468, 1479), (4132, 4164),
+        (11020, 11077), (11194, 11224)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
     "gcc/gimplify.cc": [(1270, 1282), (1677, 1845)],
@@ -145,6 +151,17 @@ def arithmetic():
         "inner_cleanup_eh_Q_and_D": 0,
         "clobber_upper_bound": "sum of local VAR_DECL entries in retained BINDs",
         "bind_cleanup_statement_upper_bound": "eligible locals + at most one stack_restore",
+        "checked_add_sub_constant_binary_helper_requests": 1+2,
+        "checked_multiply_constant_binary_helper_requests": 1+2+2+1,
+        "checked_integral_conversion_requests": 1+2+2+2,
+        "checked_integral_conversion_binary_helper_requests": 2+1,
+        "protect_spine_new_wrapper_nodes": "h1+h3",
+        "protect_spine_new_wrapper_operand_slots": "h1+3*h3",
+        "protect_spine_terminal_save_expr_requests": 1,
+        "call_expression_operand_slots": "n+3",
+        "two_actual_overflow_call_operand_slots": 2+3,
+        "raise_call_actual_counts": [2, 3, 6],
+        "string_copy_requested_bytes_lp64": "stored payload length + 21",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

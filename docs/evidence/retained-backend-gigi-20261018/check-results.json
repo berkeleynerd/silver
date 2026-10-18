@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 12,
+  "source_files_checked": 14,
   "arithmetic": {
     "binding_push_coefficients": {
       "U": 1,
@@ -30,6 +30,21 @@
     "inner_cleanup_eh_Q_and_D": 0,
     "clobber_upper_bound": "sum of local VAR_DECL entries in retained BINDs",
     "bind_cleanup_statement_upper_bound": "eligible locals + at most one stack_restore",
+    "checked_add_sub_constant_binary_helper_requests": 3,
+    "checked_multiply_constant_binary_helper_requests": 6,
+    "checked_integral_conversion_requests": 7,
+    "checked_integral_conversion_binary_helper_requests": 3,
+    "protect_spine_new_wrapper_nodes": "h1+h3",
+    "protect_spine_new_wrapper_operand_slots": "h1+3*h3",
+    "protect_spine_terminal_save_expr_requests": 1,
+    "call_expression_operand_slots": "n+3",
+    "two_actual_overflow_call_operand_slots": 5,
+    "raise_call_actual_counts": [
+      2,
+      3,
+      6
+    ],
+    "string_copy_requested_bytes_lp64": "stored payload length + 21",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

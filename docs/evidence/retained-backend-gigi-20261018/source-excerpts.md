@@ -173,6 +173,98 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4821:    end Expand_Cleanup_Actions;
 ```
 
+## gcc/ada/sem_res.adb:13249–13335
+
+```text
+13249:             Array_Subtype : Entity_Id;
+13250:             Drange        : Node_Id;
+13251:             High_Bound    : Node_Id;
+13252:             Index         : Node_Id;
+13253:             Index_Subtype : Entity_Id;
+13254:
+13255:          begin
+13256:             if Length = 1 then
+13257:                High_Bound := New_Copy_Tree (Low_Bound);
+13258:
+13259:             elsif Has_Overflow_Operations (Index_Type) then
+13260:                High_Bound :=
+13261:                  Make_Op_Add (Loc,
+13262:                    Left_Opnd  => New_Copy_Tree (Low_Bound),
+13263:                    Right_Opnd => Make_Integer_Literal (Loc, Length - 1));
+13264:
+13265:             else
+13266:                High_Bound :=
+13267:                  Make_Attribute_Reference (Loc,
+13268:                    Attribute_Name => Name_Val,
+13269:                    Prefix         =>
+13270:                      New_Occurrence_Of (Index_Type, Loc),
+13271:                    Expressions    => New_List (
+13272:                      Make_Op_Add (Loc,
+13273:                        Left_Opnd  =>
+13274:                          Make_Attribute_Reference (Loc,
+13275:                            Attribute_Name => Name_Pos,
+13276:                            Prefix         =>
+13277:                              New_Occurrence_Of (Index_Type, Loc),
+13278:                            Expressions    =>
+13279:                              New_List (New_Copy_Tree (Low_Bound))),
+13280:                        Right_Opnd =>
+13281:                          Make_Integer_Literal (Loc, Length - 1))));
+13282:             end if;
+13283:
+13284:             if Is_Integer_Type (Index_Type) then
+13285:                Set_String_Literal_Low_Bound
+13286:                  (Subtype_Id, Make_Integer_Literal (Loc, 1));
+13287:
+13288:             else
+13289:                --  If the index type is an enumeration type, build bounds
+13290:                --  expression with attributes.
+13291:
+13292:                Set_String_Literal_Low_Bound
+13293:                  (Subtype_Id,
+13294:                   Make_Attribute_Reference (Loc,
+13295:                     Attribute_Name => Name_First,
+13296:                     Prefix         =>
+13297:                       New_Occurrence_Of (Base_Type (Index_Type), Loc)));
+13298:             end if;
+13299:
+13300:             Analyze_And_Resolve
+13301:               (String_Literal_Low_Bound (Subtype_Id), Base_Type (Index_Type));
+13302:
+13303:             --  Build bona fide subtype for the string, and wrap it in an
+13304:             --  unchecked conversion, because the back end expects the
+13305:             --  String_Literal_Subtype to have a static lower bound.
+13306:
+13307:             Index_Subtype :=
+13308:               Create_Itype (Subtype_Kind (Ekind (Index_Type)), N);
+13309:             Drange := Make_Range (Loc, New_Copy_Tree (Low_Bound), High_Bound);
+13310:             Set_Scalar_Range (Index_Subtype, Drange);
+13311:             Set_Parent (Drange, N);
+13312:             Analyze_And_Resolve (Drange, Index_Type);
+13313:
+13314:             --  In this context, the Index_Type may already have a constraint,
+13315:             --  so use common base type on string subtype. The base type may
+13316:             --  be used when generating attributes of the string, for example
+13317:             --  in the context of a slice assignment.
+13318:
+13319:             Set_Etype     (Index_Subtype, Base_Type (Index_Type));
+13320:             Set_Size_Info (Index_Subtype, Index_Type);
+13321:             Set_RM_Size   (Index_Subtype, RM_Size (Index_Type));
+13322:
+13323:             Array_Subtype := Create_Itype (E_Array_Subtype, N);
+13324:
+13325:             Index := New_Occurrence_Of (Index_Subtype, Loc);
+13326:             Set_Etype (Index, Index_Subtype);
+13327:             Append (Index, Index_List);
+13328:
+13329:             Set_First_Index    (Array_Subtype, Index);
+13330:             Set_Etype          (Array_Subtype, Base_Type (Typ));
+13331:             Set_Is_Constrained (Array_Subtype, True);
+13332:
+13333:             Rewrite (N, Unchecked_Convert_To (Array_Subtype, N));
+13334:             Set_Etype (N, Array_Subtype);
+13335:          end;
+```
+
 ## gcc/ada/gcc-interface/trans.cc:3026–3306
 
 ```text
@@ -1870,6 +1962,492 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 10025:   if (TYPE_UNSIGNED (gnu_type))
 ```
 
+## gcc/ada/gcc-interface/trans.cc:10014–10494
+
+```text
+10014: build_unary_op_trapv (enum tree_code code, tree gnu_type, tree operand,
+10015:                       Node_Id gnat_node)
+10016: {
+10017:   gcc_assert (code == NEGATE_EXPR || code == ABS_EXPR);
+10018:
+10019:   tree gnu_expr, check;
+10020:
+10021:   operand = gnat_protect_expr (operand);
+10022:
+10023:   gnu_expr = build_unary_op (code, gnu_type, operand);
+10024:
+10025:   if (TYPE_UNSIGNED (gnu_type))
+10026:     {
+10027:       if (code == ABS_EXPR)
+10028:         return gnu_expr;
+10029:       else
+10030:         check = build_binary_op (NE_EXPR, boolean_type_node,
+10031:                                  operand, TYPE_MIN_VALUE (gnu_type));
+10032:     }
+10033:   else
+10034:     check = build_binary_op (EQ_EXPR, boolean_type_node,
+10035:                              operand, TYPE_MIN_VALUE (gnu_type));
+10036:
+10037:   return emit_check (check, gnu_expr, CE_Overflow_Check_Failed, gnat_node);
+10038: }
+10039:
+10040: /* Make a binary operation of kind CODE using build_binary_op, but guard
+10041:    the operation by an overflow check.  CODE can be one of PLUS_EXPR,
+10042:    MINUS_EXPR or MULT_EXPR.  GNU_TYPE is the type desired for the result.
+10043:    Usually the operation is to be performed in that type.  GNAT_NODE is
+10044:    the GNAT node conveying the source location for which the error should
+10045:    be signaled.  */
+10046:
+10047: static tree
+10048: build_binary_op_trapv (enum tree_code code, tree gnu_type, tree left,
+10049:                        tree right, Node_Id gnat_node)
+10050: {
+10051:   const unsigned int precision = TYPE_PRECISION (gnu_type);
+10052:   tree lhs = gnat_protect_expr (left);
+10053:   tree rhs = gnat_protect_expr (right);
+10054:   tree type_max = TYPE_MAX_VALUE (gnu_type);
+10055:   tree type_min = TYPE_MIN_VALUE (gnu_type);
+10056:   tree gnu_expr, check;
+10057:   int sgn;
+10058:
+10059:   /* Assert that the precision is a power of 2.  */
+10060:   gcc_assert ((precision & (precision - 1)) == 0);
+10061:
+10062:   /* Prefer a constant on the RHS to simplify checks.  */
+10063:   if (TREE_CODE (rhs) != INTEGER_CST
+10064:       && TREE_CODE (lhs) == INTEGER_CST
+10065:       && (code == PLUS_EXPR || code == MULT_EXPR))
+10066:     {
+10067:       tree tmp = lhs;
+10068:       lhs = rhs;
+10069:       rhs = tmp;
+10070:     }
+10071:
+10072:   gnu_expr = build_binary_op (code, gnu_type, lhs, rhs);
+10073:
+10074:   /* If we can fold the expression to a constant, just return it.
+10075:      The caller will deal with overflow, no need to generate a check.  */
+10076:   if (TREE_CODE (gnu_expr) == INTEGER_CST)
+10077:     return gnu_expr;
+10078:
+10079:   /* If no operand is a constant, we use the generic implementation.  */
+10080:   if (TREE_CODE (lhs) != INTEGER_CST && TREE_CODE (rhs) != INTEGER_CST)
+10081:     {
+10082:       /* First convert the operands to the result type like build_binary_op.
+10083:          This is where the bias is made explicit for biased types.  */
+10084:       lhs = convert (gnu_type, lhs);
+10085:       rhs = convert (gnu_type, rhs);
+10086:
+10087:       /* Never inline a 64-bit mult for a 32-bit target, it's way too long.  */
+10088:       if (code == MULT_EXPR && precision == 64 && BITS_PER_WORD < 64)
+10089:         {
+10090:           tree int64 = gnat_type_for_size (64, TYPE_UNSIGNED (gnu_type));
+10091:           Check_Restriction_No_Dependence_On_System (Name_Arith_64, gnat_node);
+10092:           return
+10093:             convert (gnu_type, build_call_n_expr (TYPE_UNSIGNED (gnu_type)
+10094:                                                   ? uns_mulv64_decl
+10095:                                                   : mulv64_decl,
+10096:                                                   2,
+10097:                                                   convert (int64, lhs),
+10098:                                                   convert (int64, rhs)));
+10099:         }
+10100:
+10101:       /* Likewise for a 128-bit mult and a 64-bit target.  */
+10102:       else if (code == MULT_EXPR && precision == 128 && BITS_PER_WORD < 128)
+10103:         {
+10104:           tree int128 = gnat_type_for_size (128, TYPE_UNSIGNED (gnu_type));
+10105:           Check_Restriction_No_Dependence_On_System (Name_Arith_128, gnat_node);
+10106:           return
+10107:             convert (gnu_type, build_call_n_expr (TYPE_UNSIGNED (gnu_type)
+10108:                                                   ? uns_mulv128_decl
+10109:                                                   : mulv128_decl,
+10110:                                                   2,
+10111:                                                   convert (int128, lhs),
+10112:                                                   convert (int128, rhs)));
+10113:         }
+10114:
+10115:       enum internal_fn icode;
+10116:
+10117:       switch (code)
+10118:         {
+10119:         case PLUS_EXPR:
+10120:           icode = IFN_ADD_OVERFLOW;
+10121:           break;
+10122:         case MINUS_EXPR:
+10123:           icode = IFN_SUB_OVERFLOW;
+10124:           break;
+10125:         case MULT_EXPR:
+10126:           icode = IFN_MUL_OVERFLOW;
+10127:           break;
+10128:         default:
+10129:           gcc_unreachable ();
+10130:         }
+10131:
+10132:       tree gnu_ctype = build_complex_type (gnu_type);
+10133:       tree call
+10134:         = build_call_expr_internal_loc (UNKNOWN_LOCATION, icode, gnu_ctype, 2,
+10135:                                         lhs, rhs);
+10136:       tree tgt = save_expr (call);
+10137:       gnu_expr = build1 (REALPART_EXPR, gnu_type, tgt);
+10138:       check = fold_build2 (NE_EXPR, boolean_type_node,
+10139:                            build1 (IMAGPART_EXPR, gnu_type, tgt),
+10140:                            build_int_cst (gnu_type, 0));
+10141:       return
+10142:         emit_check (check, gnu_expr, CE_Overflow_Check_Failed, gnat_node);
+10143:    }
+10144:
+10145:   /* If one operand is a constant, we expose the overflow condition to enable
+10146:      a subsequent simplification or even elimination.  */
+10147:   switch (code)
+10148:     {
+10149:     case PLUS_EXPR:
+10150:       sgn = tree_int_cst_sgn (rhs);
+10151:       if (sgn > 0)
+10152:         /* When rhs > 0, overflow when lhs > type_max - rhs.  */
+10153:         check = build_binary_op (GT_EXPR, boolean_type_node, lhs,
+10154:                                  build_binary_op (MINUS_EXPR, gnu_type,
+10155:                                                   type_max, rhs));
+10156:       else if (sgn < 0)
+10157:         /* When rhs < 0, overflow when lhs < type_min - rhs.  */
+10158:         check = build_binary_op (LT_EXPR, boolean_type_node, lhs,
+10159:                                  build_binary_op (MINUS_EXPR, gnu_type,
+10160:                                                   type_min, rhs));
+10161:       else
+10162:         return gnu_expr;
+10163:       break;
+10164:
+10165:     case MINUS_EXPR:
+10166:       if (TREE_CODE (lhs) == INTEGER_CST && TYPE_UNSIGNED (gnu_type))
+10167:         /* In the unsigned case, overflow when rhs > lhs - type_min.  */
+10168:         check = build_binary_op (GT_EXPR, boolean_type_node, rhs,
+10169:                                  build_binary_op (MINUS_EXPR, gnu_type,
+10170:                                                   lhs, type_min));
+10171:       else if (TREE_CODE (lhs) == INTEGER_CST)
+10172:         {
+10173:           sgn = tree_int_cst_sgn (lhs);
+10174:           if (sgn >= 0)
+10175:             /* When lhs >= 0, overflow when rhs < lhs - type_max.  */
+10176:             check = build_binary_op (LT_EXPR, boolean_type_node, rhs,
+10177:                                      build_binary_op (MINUS_EXPR, gnu_type,
+10178:                                                       lhs, type_max));
+10179:           else
+10180:             /* When lhs < 0, overflow when rhs > lhs - type_min.  */
+10181:             check = build_binary_op (GT_EXPR, boolean_type_node, rhs,
+10182:                                      build_binary_op (MINUS_EXPR, gnu_type,
+10183:                                                       lhs, type_min));
+10184:         }
+10185:       else
+10186:         {
+10187:           sgn = tree_int_cst_sgn (rhs);
+10188:           if (sgn > 0)
+10189:             /* When rhs > 0, overflow when lhs < type_min + rhs.  */
+10190:             check = build_binary_op (LT_EXPR, boolean_type_node, lhs,
+10191:                                      build_binary_op (PLUS_EXPR, gnu_type,
+10192:                                                       type_min, rhs));
+10193:           else if (sgn < 0)
+10194:             /* When rhs < 0, overflow when lhs > type_max + rhs.  */
+10195:             check = build_binary_op (GT_EXPR, boolean_type_node, lhs,
+10196:                                      build_binary_op (PLUS_EXPR, gnu_type,
+10197:                                                       type_max, rhs));
+10198:           else
+10199:             return gnu_expr;
+10200:         }
+10201:       break;
+10202:
+10203:     case MULT_EXPR:
+10204:       sgn = tree_int_cst_sgn (rhs);
+10205:       if (sgn > 0)
+10206:         {
+10207:           if (integer_onep (rhs))
+10208:             return gnu_expr;
+10209:
+10210:           tree lb = build_binary_op (TRUNC_DIV_EXPR, gnu_type, type_min, rhs);
+10211:           tree ub = build_binary_op (TRUNC_DIV_EXPR, gnu_type, type_max, rhs);
+10212:
+10213:           /* When rhs > 1, overflow outside [type_min/rhs; type_max/rhs].  */
+10214:           check
+10215:             = build_binary_op (TRUTH_ORIF_EXPR, boolean_type_node,
+10216:                                build_binary_op (LT_EXPR, boolean_type_node,
+10217:                                                 lhs, lb),
+10218:                                build_binary_op (GT_EXPR, boolean_type_node,
+10219:                                                 lhs, ub));
+10220:         }
+10221:       else if (sgn < 0)
+10222:         {
+10223:           tree lb = build_binary_op (TRUNC_DIV_EXPR, gnu_type, type_max, rhs);
+10224:           tree ub = build_binary_op (TRUNC_DIV_EXPR, gnu_type, type_min, rhs);
+10225:
+10226:           if (integer_minus_onep (rhs))
+10227:             /* When rhs == -1, overflow if lhs == type_min.  */
+10228:             check
+10229:               = build_binary_op (EQ_EXPR, boolean_type_node, lhs, type_min);
+10230:           else
+10231:             /* When rhs < -1, overflow outside [type_max/rhs; type_min/rhs].  */
+10232:             check
+10233:               = build_binary_op (TRUTH_ORIF_EXPR, boolean_type_node,
+10234:                                  build_binary_op (LT_EXPR, boolean_type_node,
+10235:                                                   lhs, lb),
+10236:                                  build_binary_op (GT_EXPR, boolean_type_node,
+10237:                                                   lhs, ub));
+10238:         }
+10239:       else
+10240:         return gnu_expr;
+10241:       break;
+10242:
+10243:     default:
+10244:       gcc_unreachable ();
+10245:     }
+10246:
+10247:   return emit_check (check, gnu_expr, CE_Overflow_Check_Failed, gnat_node);
+10248: }
+10249:
+10250: /* GNU_COND contains the condition corresponding to an index, overflow or
+10251:    range check of value GNU_EXPR.  Build a COND_EXPR that returns GNU_EXPR
+10252:    if GNU_COND is false and raises a CONSTRAINT_ERROR if GNU_COND is true.
+10253:    REASON is the code that says why the exception is raised.  GNAT_NODE is
+10254:    the node conveying the source location for which the error should be
+10255:    signaled.
+10256:
+10257:    We used to propagate TREE_SIDE_EFFECTS from GNU_EXPR to the COND_EXPR,
+10258:    overwriting the setting inherited from the call statement, on the ground
+10259:    that the expression need not be evaluated just for the check.  However
+10260:    that's incorrect because, in the GCC type system, its value is presumed
+10261:    to be valid so its comparison against the type bounds always yields true
+10262:    and, therefore, could be done without evaluating it; given that it can
+10263:    be a computation that overflows the bounds, the language may require the
+10264:    check to fail and thus the expression to be evaluated in this case.  */
+10265:
+10266: static tree
+10267: emit_check (tree gnu_cond, tree gnu_expr, int reason, Node_Id gnat_node)
+10268: {
+10269:   tree gnu_call
+10270:     = build_call_raise (reason, gnat_node, N_Raise_Constraint_Error);
+10271:   return
+10272:     fold_build3 (COND_EXPR, TREE_TYPE (gnu_expr), gnu_cond,
+10273:                  build2 (COMPOUND_EXPR, TREE_TYPE (gnu_expr), gnu_call,
+10274:                          SCALAR_FLOAT_TYPE_P (TREE_TYPE (gnu_expr))
+10275:                          ? build_real (TREE_TYPE (gnu_expr), dconst0)
+10276:                          : build_int_cst (TREE_TYPE (gnu_expr), 0)),
+10277:                  gnu_expr);
+10278: }
+10279:
+10280: /* Return an expression that converts GNU_EXPR to GNAT_TYPE, doing overflow
+10281:    checks if OVERFLOW_P is true.  If TRUNCATE_P is true, do a fp-to-integer
+10282:    conversion with truncation, otherwise round.  GNAT_NODE is the GNAT node
+10283:    conveying the source location for which the error should be signaled.  */
+10284:
+10285: static tree
+10286: convert_with_check (Entity_Id gnat_type, tree gnu_expr, bool overflow_p,
+10287:                     bool truncate_p, Node_Id gnat_node)
+10288: {
+10289:   tree gnu_type = get_unpadded_type (gnat_type);
+10290:   tree gnu_base_type = get_base_type (gnu_type);
+10291:   tree gnu_in_type = TREE_TYPE (gnu_expr);
+10292:   tree gnu_in_base_type = get_base_type (gnu_in_type);
+10293:   tree gnu_result = gnu_expr;
+10294:
+10295:   /* If we are not doing any checks, the output is an integral type and the
+10296:      input is not a floating-point type, just do the conversion.  This is
+10297:      required for packed array types and is simpler in all cases anyway.   */
+10298:   if (!overflow_p
+10299:       && INTEGRAL_TYPE_P (gnu_base_type)
+10300:       && !FLOAT_TYPE_P (gnu_in_base_type))
+10301:     return convert (gnu_type, gnu_expr);
+10302:
+10303:   /* If the mode of the input base type is larger, then converting to it below
+10304:      may pessimize the final conversion step, for example generate a libcall
+10305:      instead of a simple instruction, so use a narrower type in this case.  */
+10306:   if (TYPE_MODE (gnu_in_base_type) != TYPE_MODE (gnu_in_type)
+10307:       && !(TREE_CODE (gnu_in_type) == INTEGER_TYPE
+10308:            && TYPE_BIASED_REPRESENTATION_P (gnu_in_type)))
+10309:     gnu_in_base_type = gnat_type_for_mode (TYPE_MODE (gnu_in_type),
+10310:                                            TYPE_UNSIGNED (gnu_in_type));
+10311:
+10312:   /* First convert the expression to the base type.  This will never generate
+10313:      code, but makes the tests below simpler.  But don't do this if converting
+10314:      from an integer type to an unconstrained array type since then we need to
+10315:      get the bounds from the original (unpacked) type.  */
+10316:   if (TREE_CODE (gnu_type) != UNCONSTRAINED_ARRAY_TYPE)
+10317:     gnu_result = convert (gnu_in_base_type, gnu_result);
+10318:
+10319:   /* If overflow checks are requested,  we need to be sure the result will fit
+10320:      in the output base type.  But don't do this if the input is integer and
+10321:      the output floating-point.  */
+10322:   if (overflow_p
+10323:       && !(FLOAT_TYPE_P (gnu_base_type) && INTEGRAL_TYPE_P (gnu_in_base_type)))
+10324:     {
+10325:       /* Ensure GNU_EXPR only gets evaluated once.  */
+10326:       tree gnu_input = gnat_protect_expr (gnu_result);
+10327:       tree gnu_cond = boolean_false_node;
+10328:       tree gnu_in_lb = TYPE_MIN_VALUE (gnu_in_base_type);
+10329:       tree gnu_in_ub = TYPE_MAX_VALUE (gnu_in_base_type);
+10330:       tree gnu_out_lb = TYPE_MIN_VALUE (gnu_base_type);
+10331:       tree gnu_out_ub
+10332:         = (TREE_CODE (gnu_base_type) == INTEGER_TYPE
+10333:            && TYPE_MODULAR_P (gnu_base_type))
+10334:           ? fold_build2 (MINUS_EXPR, gnu_base_type,
+10335:                          TYPE_MODULUS (gnu_base_type),
+10336:                          build_int_cst (gnu_base_type, 1))
+10337:           : TYPE_MAX_VALUE (gnu_base_type);
+10338:
+10339:       /* Convert the lower bounds to signed types, so we're sure we're
+10340:          comparing them properly.  Likewise, convert the upper bounds
+10341:          to unsigned types.  */
+10342:       if (INTEGRAL_TYPE_P (gnu_in_base_type)
+10343:           && TYPE_UNSIGNED (gnu_in_base_type))
+10344:         gnu_in_lb
+10345:           = convert (gnat_signed_type_for (gnu_in_base_type), gnu_in_lb);
+10346:
+10347:       if (INTEGRAL_TYPE_P (gnu_in_base_type)
+10348:           && !TYPE_UNSIGNED (gnu_in_base_type))
+10349:         gnu_in_ub
+10350:           = convert (gnat_unsigned_type_for (gnu_in_base_type), gnu_in_ub);
+10351:
+10352:       if (INTEGRAL_TYPE_P (gnu_base_type) && TYPE_UNSIGNED (gnu_base_type))
+10353:         gnu_out_lb
+10354:           = convert (gnat_signed_type_for (gnu_base_type), gnu_out_lb);
+10355:
+10356:       if (INTEGRAL_TYPE_P (gnu_base_type) && !TYPE_UNSIGNED (gnu_base_type))
+10357:         gnu_out_ub
+10358:           = convert (gnat_unsigned_type_for (gnu_base_type), gnu_out_ub);
+10359:
+10360:       /* Check each bound separately and only if the result bound
+10361:          is tighter than the bound on the input type.  Note that all the
+10362:          types are base types, so the bounds must be constant. Also,
+10363:          the comparison is done in the base type of the input, which
+10364:          always has the proper signedness.  First check for input
+10365:          integer (which means output integer), output float (which means
+10366:          both float), or mixed, in which case we always compare.
+10367:          Note that we have to do the comparison which would *fail* in the
+10368:          case of an error since if it's an FP comparison and one of the
+10369:          values is a NaN or Inf, the comparison will fail.  */
+10370:       if (INTEGRAL_TYPE_P (gnu_in_base_type)
+10371:           ? tree_int_cst_lt (gnu_in_lb, gnu_out_lb)
+10372:           : (FLOAT_TYPE_P (gnu_base_type)
+10373:              ? real_less (&TREE_REAL_CST (gnu_in_lb),
+10374:                           &TREE_REAL_CST (gnu_out_lb))
+10375:              : 1))
+10376:         gnu_cond
+10377:           = invert_truthvalue
+10378:             (build_binary_op (GE_EXPR, boolean_type_node,
+10379:                               gnu_input, convert (gnu_in_base_type,
+10380:                                                   gnu_out_lb)));
+10381:
+10382:       if (INTEGRAL_TYPE_P (gnu_in_base_type)
+10383:           ? tree_int_cst_lt (gnu_out_ub, gnu_in_ub)
+10384:           : (FLOAT_TYPE_P (gnu_base_type)
+10385:              ? real_less (&TREE_REAL_CST (gnu_out_ub),
+10386:                           &TREE_REAL_CST (gnu_in_ub))
+10387:              : 1))
+10388:         gnu_cond
+10389:           = build_binary_op (TRUTH_ORIF_EXPR, boolean_type_node, gnu_cond,
+10390:                              invert_truthvalue
+10391:                              (build_binary_op (LE_EXPR, boolean_type_node,
+10392:                                                gnu_input,
+10393:                                                convert (gnu_in_base_type,
+10394:                                                         gnu_out_ub))));
+10395:
+10396:       if (!integer_zerop (gnu_cond))
+10397:         gnu_result = emit_check (gnu_cond, gnu_input,
+10398:                                  CE_Overflow_Check_Failed, gnat_node);
+10399:     }
+10400:
+10401:   /* Now convert to the result base type.  If this is a non-truncating
+10402:      float-to-integer conversion, round.  */
+10403:   if (INTEGRAL_TYPE_P (gnu_base_type)
+10404:       && FLOAT_TYPE_P (gnu_in_base_type)
+10405:       && !truncate_p)
+10406:     {
+10407:       REAL_VALUE_TYPE half_minus_pred_half, pred_half;
+10408:       tree gnu_conv, gnu_zero, gnu_comp, calc_type;
+10409:       tree gnu_pred_half, gnu_add_pred_half, gnu_subtract_pred_half;
+10410:       const struct real_format *fmt;
+10411:
+10412:       /* The following calculations depend on proper rounding to even
+10413:          of each arithmetic operation.  In order to prevent excess
+10414:          precision from spoiling this property, use the widest hardware
+10415:          floating-point type if FP_ARITH_MAY_WIDEN is true.  */
+10416:       calc_type
+10417:         = fp_arith_may_widen ? longest_float_type_node : gnu_in_base_type;
+10418:
+10419:       /* Compute the exact value calc_type'Pred (0.5) at compile time.  */
+10420:       fmt = REAL_MODE_FORMAT (TYPE_MODE (calc_type));
+10421:       real_2expN (&half_minus_pred_half, -(fmt->p) - 1, TYPE_MODE (calc_type));
+10422:       real_arithmetic (&pred_half, MINUS_EXPR, &dconsthalf,
+10423:                        &half_minus_pred_half);
+10424:       gnu_pred_half = build_real (calc_type, pred_half);
+10425:
+10426:       /* If the input is strictly negative, subtract this value
+10427:          and otherwise add it from the input.  For 0.5, the result
+10428:          is exactly between 1.0 and the machine number preceding 1.0
+10429:          (for calc_type).  Since the last bit of 1.0 is even, this 0.5
+10430:          will round to 1.0, while all other number with an absolute
+10431:          value less than 0.5 round to 0.0.  For larger numbers exactly
+10432:          halfway between integers, rounding will always be correct as
+10433:          the true mathematical result will be closer to the higher
+10434:          integer compared to the lower one.  So, this constant works
+10435:          for all floating-point numbers.
+10436:
+10437:          The reason to use the same constant with subtract/add instead
+10438:          of a positive and negative constant is to allow the comparison
+10439:          to be scheduled in parallel with retrieval of the constant and
+10440:          conversion of the input to the calc_type (if necessary).  */
+10441:
+10442:       gnu_zero = build_real (gnu_in_base_type, dconst0);
+10443:       gnu_result = gnat_protect_expr (gnu_result);
+10444:       gnu_conv = convert (calc_type, gnu_result);
+10445:       gnu_comp
+10446:         = fold_build2 (GE_EXPR, boolean_type_node, gnu_result, gnu_zero);
+10447:       gnu_add_pred_half
+10448:         = fold_build2 (PLUS_EXPR, calc_type, gnu_conv, gnu_pred_half);
+10449:       gnu_subtract_pred_half
+10450:         = fold_build2 (MINUS_EXPR, calc_type, gnu_conv, gnu_pred_half);
+10451:       gnu_result = fold_build3 (COND_EXPR, calc_type, gnu_comp,
+10452:                                 gnu_add_pred_half, gnu_subtract_pred_half);
+10453:     }
+10454:
+10455:   if (TREE_CODE (gnu_base_type) == INTEGER_TYPE
+10456:       && TYPE_HAS_ACTUAL_BOUNDS_P (gnu_base_type)
+10457:       && TREE_CODE (gnu_result) == UNCONSTRAINED_ARRAY_REF)
+10458:     gnu_result = unchecked_convert (gnu_base_type, gnu_result, false);
+10459:   else
+10460:     gnu_result = convert (gnu_base_type, gnu_result);
+10461:
+10462:   /* If this is a conversion between an integer type larger than a word and a
+10463:      floating-point type, then declare the dependence on the libgcc routine.  */
+10464:   if ((INTEGRAL_TYPE_P (gnu_in_base_type)
+10465:        && TYPE_PRECISION (gnu_in_base_type) > BITS_PER_WORD
+10466:        && FLOAT_TYPE_P (gnu_base_type))
+10467:       || (FLOAT_TYPE_P (gnu_in_base_type)
+10468:           && INTEGRAL_TYPE_P (gnu_base_type)
+10469:           && TYPE_PRECISION (gnu_base_type) > BITS_PER_WORD))
+10470:     Check_Restriction_No_Dependence_On_System (Name_Gcc, gnat_node);
+10471:
+10472:   return convert (gnu_type, gnu_result);
+10473: }
+10474:
+10475: /* Return true if GNU_EXPR may be directly addressed.  This is the case
+10476:    unless it is an expression involving computation or if it involves a
+10477:    reference to a bitfield or to an object not sufficiently aligned for
+10478:    its type.  If GNU_TYPE is non-null, return true only if GNU_EXPR can
+10479:    be directly addressed as an object of this type.  COMPG is true when
+10480:    the predicate is invoked for compiler-generated code.
+10481:
+10482:    *** Notes on addressability issues in the Ada compiler ***
+10483:
+10484:    This predicate is necessary in order to bridge the gap between Gigi
+10485:    and the middle-end about addressability of GENERIC trees.  A tree
+10486:    is said to be addressable if it can be directly addressed, i.e. if
+10487:    its address can be taken, is a multiple of the type's alignment on
+10488:    strict-alignment architectures and returns the first storage unit
+10489:    assigned to the object represented by the tree.
+10490:
+10491:    In the C family of languages, everything is in practice addressable
+10492:    at the language level, except for bit-fields.  This means that these
+10493:    compilers will take the address of any tree that doesn't represent
+10494:    a bit-field reference and expect the result to be the first storage
+```
+
 ## gcc/ada/gcc-interface/utils.cc:682–783
 
 ```text
@@ -2265,6 +2843,107 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3873:
 3874: void
 3875: rest_of_subprog_body_compilation (tree subprog_decl)
+```
+
+## gcc/ada/gcc-interface/utils.cc:5160–5184
+
+```text
+5160:
+5161:     case NULL_EXPR:
+5162:       /* Just set its type here.  For TRANSFORM_EXPR, we will do the actual
+5163:          conversion in gnat_expand_expr.  NULL_EXPR does not represent
+5164:          and actual value, so no conversion is needed.  */
+5165:       expr = copy_node (expr);
+5166:       TREE_TYPE (expr) = type;
+5167:       return expr;
+5168:
+5169:     case STRING_CST:
+5170:       /* If we are converting a STRING_CST to another constrained array type,
+5171:          just make a new one in the proper type.  */
+5172:       if (code == ecode
+5173:           && !(TREE_CONSTANT (TYPE_SIZE (etype))
+5174:                && !TREE_CONSTANT (TYPE_SIZE (type))))
+5175:         {
+5176:           expr = copy_node (expr);
+5177:           TREE_TYPE (expr) = type;
+5178:           return expr;
+5179:         }
+5180:       break;
+5181:
+5182:     case VECTOR_CST:
+5183:       /* If we are converting a VECTOR_CST to a mere type variant, just make
+5184:          a new one in the proper type.  */
+```
+
+## gcc/ada/gcc-interface/utils.cc:6064–6111
+
+```text
+6064:
+6065:        type ada__tags__addr_ptr is access system.address;
+6066:        S191s : constant ada__tags__addr_ptr := ada__tags__addr_ptr!(S190s);
+6067:        return p___size__4 (p__object!(S191s.all));
+6068:
+6069:      so we need to skip dereferences.  */
+6070:   else if (!INDIRECT_REF_P (expr)
+6071:            && TREE_CODE (expr) != STRING_CST
+6072:            && !(AGGREGATE_TYPE_P (etype) && AGGREGATE_TYPE_P (type))
+6073:            && ecode != UNCONSTRAINED_ARRAY_TYPE
+6074:            && TREE_CONSTANT (TYPE_SIZE (etype))
+6075:            && TREE_CONSTANT (TYPE_SIZE (type))
+6076:            && (c = tree_int_cst_compare (TYPE_SIZE (etype), TYPE_SIZE (type))))
+6077:     {
+6078:       if (c < 0)
+6079:         {
+6080:           expr = convert (maybe_pad_type (etype, TYPE_SIZE (type), 0, Empty,
+6081:                                           false, false, true),
+6082:                           expr);
+6083:           expr = unchecked_convert (type, expr, notrunc_p);
+6084:         }
+6085:       else
+6086:         {
+6087:           tree rec_type = maybe_pad_type (type, TYPE_SIZE (etype), 0, Empty,
+6088:                                           false, false, true);
+6089:           expr = unchecked_convert (rec_type, expr, notrunc_p);
+6090:           expr = build3 (COMPONENT_REF, type, expr, TYPE_FIELDS (rec_type),
+6091:                          NULL_TREE);
+6092:         }
+6093:     }
+6094:
+6095:   /* Likewise if we are converting from a fixed-size type to a type with self-
+6096:      referential size.  We use the max size to do the padding in this case.  */
+6097:   else if (!INDIRECT_REF_P (expr)
+6098:            && TREE_CODE (expr) != STRING_CST
+6099:            && !(AGGREGATE_TYPE_P (etype) && AGGREGATE_TYPE_P (type))
+6100:            && ecode != UNCONSTRAINED_ARRAY_TYPE
+6101:            && TREE_CONSTANT (TYPE_SIZE (etype))
+6102:            && CONTAINS_PLACEHOLDER_P (TYPE_SIZE (type)))
+6103:     {
+6104:       tree new_size = max_size (TYPE_SIZE (type), true);
+6105:       c = tree_int_cst_compare (TYPE_SIZE (etype), new_size);
+6106:       if (c < 0)
+6107:         {
+6108:           expr = convert (maybe_pad_type (etype, new_size, 0, Empty,
+6109:                                           false, false, true),
+6110:                           expr);
+6111:           expr = unchecked_convert (type, expr, notrunc_p);
+```
+
+## gcc/ada/gcc-interface/utils.cc:6192–6204
+
+```text
+6192:   else
+6193:     {
+6194:       expr = maybe_unconstrained_array (expr);
+6195:       etype = TREE_TYPE (expr);
+6196:       ecode = TREE_CODE (etype);
+6197:       if (can_fold_for_view_convert_p (expr))
+6198:         expr = fold_build1 (VIEW_CONVERT_EXPR, type, expr);
+6199:       else
+6200:         expr = build1 (VIEW_CONVERT_EXPR, type, expr);
+6201:     }
+6202:
+6203:   /* If the result is a non-biased integral type whose precision is not equal
+6204:      to its size, sign- or zero-extend the result.  But we need not do this
 ```
 
 ## gcc/ada/gcc-interface/decl.cc:400–445
@@ -2740,9 +3419,911 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7688:                     unit_align);
 ```
 
-## gcc/ada/gcc-interface/utils2.cc:1890–1984
+## gcc/ada/gcc-interface/utils2.cc:984–1520
 
 ```text
+984: tree
+985: build_binary_op (enum tree_code op_code, tree result_type,
+986:                  tree left_operand, tree right_operand,
+987:                  bool no_fold)
+988: {
+989:   tree left_type = TREE_TYPE (left_operand);
+990:   tree right_type = TREE_TYPE (right_operand);
+991:   tree left_base_type = get_base_type (left_type);
+992:   tree right_base_type = get_base_type (right_type);
+993:   tree operation_type = result_type;
+994:   tree best_type = NULL_TREE;
+995:   tree modulus, result, t1, t2;
+996:   bool has_side_effects = false;
+997:
+998:   if (operation_type
+999:       && TREE_CODE (operation_type) == RECORD_TYPE
+1000:       && TYPE_JUSTIFIED_MODULAR_P (operation_type))
+1001:     operation_type = TREE_TYPE (TYPE_FIELDS (operation_type));
+1002:
+1003:   if (operation_type && TYPE_IS_EXTRA_SUBTYPE_P (operation_type))
+1004:     operation_type = get_base_type (operation_type);
+1005:
+1006:   modulus = (operation_type
+1007:              && TREE_CODE (operation_type) == INTEGER_TYPE
+1008:              && TYPE_MODULAR_P (operation_type)
+1009:              ? TYPE_MODULUS (operation_type) : NULL_TREE);
+1010:
+1011:   switch (op_code)
+1012:     {
+1013:     case INIT_EXPR:
+1014:     case MODIFY_EXPR:
+1015:       gcc_checking_assert (!result_type);
+1016:
+1017:       /* If there were integral or pointer conversions on the LHS, remove
+1018:          them; we'll be putting them back below if needed.  Likewise for
+1019:          conversions between record types, except for justified modular types.
+1020:          But don't do this if the right operand is not BLKmode (for packed
+1021:          arrays) unless we are not changing the mode, or if both ooperands
+1022:          are view conversions to the same type.  */
+1023:       while ((CONVERT_EXPR_P (left_operand)
+1024:               || TREE_CODE (left_operand) == VIEW_CONVERT_EXPR)
+1025:              && (((INTEGRAL_TYPE_P (left_type)
+1026:                    || POINTER_TYPE_P (left_type))
+1027:                   && (INTEGRAL_TYPE_P (operand_type (left_operand))
+1028:                       || POINTER_TYPE_P (operand_type (left_operand))))
+1029:                  || (TREE_CODE (left_type) == RECORD_TYPE
+1030:                      && !TYPE_JUSTIFIED_MODULAR_P (left_type)
+1031:                      && TREE_CODE (operand_type (left_operand)) == RECORD_TYPE
+1032:                      && (TYPE_MODE (right_type) == BLKmode
+1033:                          || TYPE_MODE (left_type)
+1034:                             == TYPE_MODE (operand_type (left_operand)))
+1035:                      && !(TREE_CODE (left_operand) == VIEW_CONVERT_EXPR
+1036:                           && TREE_CODE (right_operand) == VIEW_CONVERT_EXPR
+1037:                           && left_type == right_type))))
+1038:         {
+1039:           left_operand = TREE_OPERAND (left_operand, 0);
+1040:           left_type = TREE_TYPE (left_operand);
+1041:         }
+1042:
+1043:       /* If a class-wide type may be involved, force use of the RHS type.  */
+1044:       if (type_is_tagged_or_cw_equivalent (right_type))
+1045:         operation_type = right_type;
+1046:
+1047:       /* If we are copying between padded objects with compatible types, use
+1048:          the padded view of the objects, this is very likely more efficient.
+1049:          Likewise for a padded object that is assigned a constructor, if we
+1050:          can convert the constructor to the inner type, to avoid putting a
+1051:          VIEW_CONVERT_EXPR on the LHS.  But don't do so if we wouldn't have
+1052:          actually copied anything.  */
+1053:       else if (TYPE_IS_PADDING_P (left_type)
+1054:                && TREE_CONSTANT (TYPE_SIZE (left_type))
+1055:                && ((TREE_CODE (right_operand) == COMPONENT_REF
+1056:                     && TYPE_MAIN_VARIANT (left_type)
+1057:                        == TYPE_MAIN_VARIANT (operand_type (right_operand)))
+1058:                    || (TREE_CODE (right_operand) == CONSTRUCTOR
+1059:                        && !CONTAINS_PLACEHOLDER_P
+1060:                            (DECL_SIZE (TYPE_FIELDS (left_type)))))
+1061:                && !integer_zerop (TYPE_SIZE (right_type)))
+1062:         {
+1063:           /* We make an exception for a BLKmode type padding a non-BLKmode
+1064:              inner type and do the conversion of the LHS right away, since
+1065:              unchecked_convert wouldn't do it properly.  */
+1066:           if (TYPE_MODE (left_type) == BLKmode
+1067:               && TYPE_MODE (right_type) != BLKmode
+1068:               && TREE_CODE (right_operand) != CONSTRUCTOR)
+1069:             {
+1070:               operation_type = right_type;
+1071:               left_operand = convert (operation_type, left_operand);
+1072:               left_type = operation_type;
+1073:             }
+1074:           else
+1075:             operation_type = left_type;
+1076:         }
+1077:
+1078:       /* If we are copying between small padded objects of the same type with
+1079:          self-referential size, and the padded size is the same constant size,
+1080:          use the padded view of the objects, this will be more efficient.  */
+1081:       else if (left_type == right_type
+1082:                && CONTAINS_PLACEHOLDER_P (TYPE_SIZE (left_type))
+1083:                && TREE_CODE (left_operand) == COMPONENT_REF
+1084:                && TREE_CODE (right_operand) == COMPONENT_REF
+1085:                && (t1 = operand_type (left_operand))
+1086:                && (t2 = operand_type (right_operand))
+1087:                && TYPE_IS_PADDING_P (t1)
+1088:                && TYPE_IS_PADDING_P (t2)
+1089:                && TYPE_SIZE_UNIT (t1) == TYPE_SIZE_UNIT (t2)
+1090:                && TREE_CODE (TYPE_SIZE_UNIT (t1)) == INTEGER_CST
+1091:                && compare_tree_int (TYPE_SIZE_UNIT (t1), MOVE_MAX_PIECES) <= 0)
+1092:         {
+1093:           left_operand = convert (t1, left_operand);
+1094:           right_operand = convert (t2, right_operand);
+1095:           operation_type = t1;
+1096:         }
+1097:
+1098:       /* If we have a call to a function that returns with variable size, use
+1099:          the RHS type in case we want to use the return slot optimization.  */
+1100:       else if (TREE_CODE (right_operand) == CALL_EXPR
+1101:                && return_type_with_variable_size_p (right_type))
+1102:         operation_type = right_type;
+1103:
+1104:       /* Find the best type to use for copying between aggregate types.  */
+1105:       else if (((TREE_CODE (left_type) == ARRAY_TYPE
+1106:                  && TREE_CODE (right_type) == ARRAY_TYPE)
+1107:                 || (TREE_CODE (left_type) == RECORD_TYPE
+1108:                     && TREE_CODE (right_type) == RECORD_TYPE))
+1109:                && (best_type = find_common_type (left_type, right_type)))
+1110:         operation_type = best_type;
+1111:
+1112:       /* Otherwise use the LHS type.  */
+1113:       else
+1114:         operation_type = left_type;
+1115:
+1116:       /* Ensure everything on the LHS is valid.  If we have a field reference,
+1117:          strip anything that get_inner_reference can handle.  Then remove any
+1118:          conversions between types having the same code and mode.  And mark
+1119:          VIEW_CONVERT_EXPRs with TREE_ADDRESSABLE.  When done, we must have
+1120:          either an INDIRECT_REF, a NULL_EXPR, a SAVE_EXPR or a DECL node.  */
+1121:       result = left_operand;
+1122:       while (true)
+1123:         {
+1124:           tree restype = TREE_TYPE (result);
+1125:
+1126:           if (TREE_CODE (result) == COMPONENT_REF
+1127:               || TREE_CODE (result) == ARRAY_REF
+1128:               || TREE_CODE (result) == ARRAY_RANGE_REF)
+1129:             while (handled_component_p (result))
+1130:               result = TREE_OPERAND (result, 0);
+1131:
+1132:           else if (TREE_CODE (result) == REALPART_EXPR
+1133:                    || TREE_CODE (result) == IMAGPART_EXPR
+1134:                    || (CONVERT_EXPR_P (result)
+1135:                        && (((TREE_CODE (restype)
+1136:                              == TREE_CODE (operand_type (result))
+1137:                              && TYPE_MODE (restype)
+1138:                                 == TYPE_MODE (operand_type (result))))
+1139:                            || type_is_tagged_or_cw_equivalent (restype))))
+1140:             result = TREE_OPERAND (result, 0);
+1141:
+1142:           else if (TREE_CODE (result) == VIEW_CONVERT_EXPR)
+1143:             {
+1144:               TREE_ADDRESSABLE (result) = 1;
+1145:               result = TREE_OPERAND (result, 0);
+1146:             }
+1147:
+1148:           else
+1149:             break;
+1150:         }
+1151:
+1152:       gcc_assert (INDIRECT_REF_P (result)
+1153:                   || TREE_CODE (result) == NULL_EXPR
+1154:                   || TREE_CODE (result) == SAVE_EXPR
+1155:                   || DECL_P (result));
+1156:
+1157:       /* Convert the right operand to the operation type unless it is
+1158:          either already of the correct type or if the type involves a
+1159:          placeholder, since the RHS may not have the same record type.  */
+1160:       if (operation_type != right_type
+1161:           && !CONTAINS_PLACEHOLDER_P (TYPE_SIZE (operation_type)))
+1162:         {
+1163:           right_operand = convert (operation_type, right_operand);
+1164:           right_type = operation_type;
+1165:         }
+1166:
+1167:       /* If the left operand is not of the same type as the operation
+1168:          type, wrap it up in a VIEW_CONVERT_EXPR.  */
+1169:       if (left_type != operation_type)
+1170:         left_operand = unchecked_convert (operation_type, left_operand, false);
+1171:
+1172:       has_side_effects = true;
+1173:       modulus = NULL_TREE;
+1174:       break;
+1175:
+1176:     case ARRAY_REF:
+1177:       if (!operation_type)
+1178:         operation_type = TREE_TYPE (left_type);
+1179:
+1180:       /* ... fall through ... */
+1181:
+1182:     case ARRAY_RANGE_REF:
+1183:       /* First look through conversion between type variants.  Note that
+1184:          this changes neither the operation type nor the type domain.  */
+1185:       if (TREE_CODE (left_operand) == VIEW_CONVERT_EXPR
+1186:           && TYPE_MAIN_VARIANT (TREE_TYPE (TREE_OPERAND (left_operand, 0)))
+1187:              == TYPE_MAIN_VARIANT (left_type))
+1188:         {
+1189:           left_operand = TREE_OPERAND (left_operand, 0);
+1190:           left_type = TREE_TYPE (left_operand);
+1191:         }
+1192:
+1193:       /* For a range, make sure the element type is consistent.  */
+1194:       if (op_code == ARRAY_RANGE_REF
+1195:           && TREE_TYPE (operation_type) != TREE_TYPE (left_type))
+1196:         {
+1197:           operation_type = copy_type (operation_type);
+1198:           TREE_TYPE (operation_type) = TREE_TYPE (left_type);
+1199:
+1200:           /* Declare it now since it will never be declared otherwise.  This
+1201:              is necessary to ensure that its subtrees are properly marked.  */
+1202:           create_type_decl (TYPE_NAME (operation_type), operation_type, true,
+1203:                             false, Empty);
+1204:         }
+1205:
+1206:       /* Then convert the right operand to its base type.  This will prevent
+1207:          unneeded sign conversions when sizetype is wider than integer.  */
+1208:       right_operand = convert (right_base_type, right_operand);
+1209:       right_operand = convert_to_index_type (right_operand);
+1210:       modulus = NULL_TREE;
+1211:       break;
+1212:
+1213:     case TRUTH_ANDIF_EXPR:
+1214:     case TRUTH_ORIF_EXPR:
+1215:     case TRUTH_AND_EXPR:
+1216:     case TRUTH_OR_EXPR:
+1217:     case TRUTH_XOR_EXPR:
+1218:       gcc_checking_assert
+1219:         (TREE_CODE (get_base_type (result_type)) == BOOLEAN_TYPE);
+1220:       operation_type = left_base_type;
+1221:       left_operand = convert (operation_type, left_operand);
+1222:       right_operand = convert (operation_type, right_operand);
+1223:       break;
+1224:
+1225:     case GE_EXPR:
+1226:     case LE_EXPR:
+1227:     case GT_EXPR:
+1228:     case LT_EXPR:
+1229:     case EQ_EXPR:
+1230:     case NE_EXPR:
+1231:       gcc_checking_assert
+1232:         (TREE_CODE (get_base_type (result_type)) == BOOLEAN_TYPE);
+1233:       /* If either operand is a NULL_EXPR, just return a new one.  */
+1234:       if (TREE_CODE (left_operand) == NULL_EXPR)
+1235:         return build2 (op_code, result_type,
+1236:                        build1 (NULL_EXPR, integer_type_node,
+1237:                                TREE_OPERAND (left_operand, 0)),
+1238:                        integer_zero_node);
+1239:
+1240:       else if (TREE_CODE (right_operand) == NULL_EXPR)
+1241:         return build2 (op_code, result_type,
+1242:                        build1 (NULL_EXPR, integer_type_node,
+1243:                                TREE_OPERAND (right_operand, 0)),
+1244:                        integer_zero_node);
+1245:
+1246:       /* If either object is a justified modular types, get the
+1247:          fields from within.  */
+1248:       if (TREE_CODE (left_type) == RECORD_TYPE
+1249:           && TYPE_JUSTIFIED_MODULAR_P (left_type))
+1250:         {
+1251:           left_operand = convert (TREE_TYPE (TYPE_FIELDS (left_type)),
+1252:                                   left_operand);
+1253:           left_type = TREE_TYPE (left_operand);
+1254:           left_base_type = get_base_type (left_type);
+1255:         }
+1256:
+1257:       if (TREE_CODE (right_type) == RECORD_TYPE
+1258:           && TYPE_JUSTIFIED_MODULAR_P (right_type))
+1259:         {
+1260:           right_operand = convert (TREE_TYPE (TYPE_FIELDS (right_type)),
+1261:                                   right_operand);
+1262:           right_type = TREE_TYPE (right_operand);
+1263:           right_base_type = get_base_type (right_type);
+1264:         }
+1265:
+1266:       /* If both objects are arrays, compare them specially.  */
+1267:       if ((TREE_CODE (left_type) == ARRAY_TYPE
+1268:            || (TREE_CODE (left_type) == INTEGER_TYPE
+1269:                && TYPE_HAS_ACTUAL_BOUNDS_P (left_type)))
+1270:           && (TREE_CODE (right_type) == ARRAY_TYPE
+1271:               || (TREE_CODE (right_type) == INTEGER_TYPE
+1272:                   && TYPE_HAS_ACTUAL_BOUNDS_P (right_type))))
+1273:         {
+1274:           if (op_code == EQ_EXPR || op_code == NE_EXPR)
+1275:             {
+1276:               result
+1277:                 = compare_arrays_for_equality (input_location, result_type,
+1278:                                                left_operand, right_operand);
+1279:               if (op_code == NE_EXPR)
+1280:                 result = invert_truthvalue_loc (input_location, result);
+1281:             }
+1282:
+1283:           else
+1284:             {
+1285:               /* Swap the operands to canonicalize to LT_EXPR or GE_EXPR.  */
+1286:               if (op_code == GT_EXPR || op_code == LE_EXPR)
+1287:                 result
+1288:                   = compare_arrays_for_ordering (input_location, result_type,
+1289:                                                  right_operand, left_operand);
+1290:
+1291:               else
+1292:                 result
+1293:                   = compare_arrays_for_ordering (input_location, result_type,
+1294:                                                  left_operand, right_operand);
+1295:
+1296:               /* GE_EXPR is (not LT_EXPR) for discrete array types.  */
+1297:               if (op_code == GE_EXPR || op_code == LE_EXPR)
+1298:                 result = invert_truthvalue_loc (input_location, result);
+1299:             }
+1300:
+1301:           return result;
+1302:         }
+1303:
+1304:       /* Otherwise, the base types must be the same, unless they are both (fat)
+1305:          pointer types or record types.  In the latter case, use the best type
+1306:          and convert both operands to that type.  */
+1307:       if (left_base_type != right_base_type)
+1308:         {
+1309:           if (TYPE_IS_FAT_POINTER_P (left_base_type)
+1310:               && TYPE_IS_FAT_POINTER_P (right_base_type))
+1311:             {
+1312:               gcc_assert (TYPE_MAIN_VARIANT (left_base_type)
+1313:                           == TYPE_MAIN_VARIANT (right_base_type));
+1314:               best_type = left_base_type;
+1315:             }
+1316:
+1317:           else if (TYPE_IS_EXTENDED_POINTER_P (left_base_type)
+1318:                    && TYPE_IS_EXTENDED_POINTER_P (right_base_type))
+1319:             {
+1320:               gcc_assert (TYPE_MAIN_VARIANT (left_base_type)
+1321:                           == TYPE_MAIN_VARIANT (right_base_type));
+1322:               best_type = left_base_type;
+1323:             }
+1324:
+1325:           else if (POINTER_TYPE_P (left_base_type)
+1326:                    && POINTER_TYPE_P (right_base_type))
+1327:             {
+1328:               tree left_ref_type = TREE_TYPE (left_base_type);
+1329:               tree right_ref_type = TREE_TYPE (right_base_type);
+1330:
+1331:               /* Anonymous access types in Ada 2005 may point to compatible
+1332:                  object subtypes or function types in the language sense.  */
+1333:               gcc_assert (FUNCTION_POINTER_TYPE_P (left_ref_type)
+1334:                           == FUNCTION_POINTER_TYPE_P (right_ref_type));
+1335:               best_type = left_base_type;
+1336:             }
+1337:
+1338:           else if (TREE_CODE (left_base_type) == RECORD_TYPE
+1339:                    && TREE_CODE (right_base_type) == RECORD_TYPE)
+1340:             {
+1341:               /* The only way this is permitted is if both types have the same
+1342:                  name.  In that case, one of them must not be self-referential.
+1343:                  Use it as the best type.  Even better with a fixed size.  */
+1344:               gcc_assert (TYPE_NAME (left_base_type)
+1345:                           && TYPE_NAME (left_base_type)
+1346:                              == TYPE_NAME (right_base_type));
+1347:
+1348:               if (TREE_CONSTANT (TYPE_SIZE (left_base_type)))
+1349:                 best_type = left_base_type;
+1350:               else if (TREE_CONSTANT (TYPE_SIZE (right_base_type)))
+1351:                 best_type = right_base_type;
+1352:               else if (!CONTAINS_PLACEHOLDER_P (TYPE_SIZE (left_base_type)))
+1353:                 best_type = left_base_type;
+1354:               else if (!CONTAINS_PLACEHOLDER_P (TYPE_SIZE (right_base_type)))
+1355:                 best_type = right_base_type;
+1356:               else
+1357:                 gcc_unreachable ();
+1358:             }
+1359:
+1360:           else
+1361:             gcc_unreachable ();
+1362:
+1363:           left_operand = convert (best_type, left_operand);
+1364:           right_operand = convert (best_type, right_operand);
+1365:         }
+1366:       else
+1367:         {
+1368:           left_operand = convert (left_base_type, left_operand);
+1369:           right_operand = convert (right_base_type, right_operand);
+1370:         }
+1371:
+1372:       /* If both objects are fat pointers, compare them specially.  */
+1373:       if (TYPE_IS_FAT_POINTER_P (left_base_type))
+1374:         {
+1375:           result
+1376:             = compare_fat_pointers (input_location,
+1377:                                     result_type, left_operand, right_operand);
+1378:           if (op_code == NE_EXPR)
+1379:             result = invert_truthvalue_loc (EXPR_LOCATION (result), result);
+1380:           else
+1381:             gcc_assert (op_code == EQ_EXPR);
+1382:
+1383:           return result;
+1384:         }
+1385:
+1386:       modulus = NULL_TREE;
+1387:       break;
+1388:
+1389:     case LSHIFT_EXPR:
+1390:     case RSHIFT_EXPR:
+1391:     case LROTATE_EXPR:
+1392:     case RROTATE_EXPR:
+1393:        /* The RHS of a shift can be any type.  Also, ignore any modulus
+1394:          (we used to abort, but this is needed for unchecked conversion
+1395:          to modular types).  Otherwise, processing is the same as normal.  */
+1396:       gcc_assert (operation_type == left_base_type);
+1397:       modulus = NULL_TREE;
+1398:       left_operand = convert (operation_type, left_operand);
+1399:       break;
+1400:
+1401:     case BIT_AND_EXPR:
+1402:     case BIT_IOR_EXPR:
+1403:     case BIT_XOR_EXPR:
+1404:       /* For binary modulus, if the inputs are in range, so are the
+1405:          outputs.  */
+1406:       if (modulus && integer_pow2p (modulus))
+1407:         modulus = NULL_TREE;
+1408:       goto common;
+1409:
+1410:     case COMPLEX_EXPR:
+1411:       gcc_assert (TREE_TYPE (result_type) == left_base_type
+1412:                   && TREE_TYPE (result_type) == right_base_type);
+1413:       left_operand = convert (left_base_type, left_operand);
+1414:       right_operand = convert (right_base_type, right_operand);
+1415:       break;
+1416:
+1417:     case TRUNC_DIV_EXPR:   case TRUNC_MOD_EXPR:
+1418:     case CEIL_DIV_EXPR:    case CEIL_MOD_EXPR:
+1419:     case FLOOR_DIV_EXPR:   case FLOOR_MOD_EXPR:
+1420:     case ROUND_DIV_EXPR:   case ROUND_MOD_EXPR:
+1421:       /* These always produce results lower than either operand.  */
+1422:       modulus = NULL_TREE;
+1423:       goto common;
+1424:
+1425:     case POINTER_PLUS_EXPR:
+1426:       gcc_assert (operation_type == left_base_type
+1427:                   && sizetype == right_base_type);
+1428:       left_operand = convert (operation_type, left_operand);
+1429:       right_operand = convert (sizetype, right_operand);
+1430:       break;
+1431:
+1432:     case PLUS_NOMOD_EXPR:
+1433:     case MINUS_NOMOD_EXPR:
+1434:       if (op_code == PLUS_NOMOD_EXPR)
+1435:         op_code = PLUS_EXPR;
+1436:       else
+1437:         op_code = MINUS_EXPR;
+1438:       modulus = NULL_TREE;
+1439:
+1440:       /* ... fall through ... */
+1441:
+1442:     case PLUS_EXPR:
+1443:     case MINUS_EXPR:
+1444:       /* Avoid doing arithmetics in ENUMERAL_TYPE or BOOLEAN_TYPE like the
+1445:          other compilers.  Contrary to C, Ada doesn't allow arithmetics in
+1446:          these types but can generate addition/subtraction for Succ/Pred.  */
+1447:       if (operation_type
+1448:           && (TREE_CODE (operation_type) == ENUMERAL_TYPE
+1449:               || TREE_CODE (operation_type) == BOOLEAN_TYPE))
+1450:         operation_type = left_base_type = right_base_type
+1451:           = gnat_type_for_mode (TYPE_MODE (operation_type),
+1452:                                 TYPE_UNSIGNED (operation_type));
+1453:
+1454:       /* ... fall through ... */
+1455:
+1456:     default:
+1457:     common:
+1458:       /* The result type should be the same as the base types of the
+1459:          both operands (and they should be the same).  Convert
+1460:          everything to the result type.  */
+1461:
+1462:       gcc_assert (operation_type == left_base_type
+1463:                   && left_base_type == right_base_type);
+1464:       left_operand = convert (operation_type, left_operand);
+1465:       right_operand = convert (operation_type, right_operand);
+1466:     }
+1467:
+1468:   if (modulus && !integer_pow2p (modulus))
+1469:     {
+1470:       result = nonbinary_modular_operation (op_code, operation_type,
+1471:                                             left_operand, right_operand);
+1472:       modulus = NULL_TREE;
+1473:     }
+1474:   /* If either operand is a NULL_EXPR, just return a new one.  */
+1475:   else if (TREE_CODE (left_operand) == NULL_EXPR)
+1476:     return build1 (NULL_EXPR, operation_type, TREE_OPERAND (left_operand, 0));
+1477:   else if (TREE_CODE (right_operand) == NULL_EXPR)
+1478:     return build1 (NULL_EXPR, operation_type, TREE_OPERAND (right_operand, 0));
+1479:   else if (op_code == ARRAY_REF || op_code == ARRAY_RANGE_REF)
+1480:     {
+1481:       result = build4 (op_code, operation_type, left_operand, right_operand,
+1482:                        NULL_TREE, NULL_TREE);
+1483:       if (!no_fold)
+1484:         result = fold (result);
+1485:     }
+1486:   else if (op_code == INIT_EXPR || op_code == MODIFY_EXPR)
+1487:     result = build2 (op_code, void_type_node, left_operand, right_operand);
+1488:   else if (no_fold)
+1489:     result = build2 (op_code, operation_type, left_operand, right_operand);
+1490:   else
+1491:     result
+1492:       = fold_build2 (op_code, operation_type, left_operand, right_operand);
+1493:
+1494:   if (TREE_CONSTANT (result))
+1495:     ;
+1496:   else if (op_code == ARRAY_REF || op_code == ARRAY_RANGE_REF)
+1497:     {
+1498:       if (TYPE_VOLATILE (operation_type))
+1499:         TREE_THIS_VOLATILE (result) = 1;
+1500:     }
+1501:   else if (TREE_CONSTANT (left_operand) && TREE_CONSTANT (right_operand))
+1502:     TREE_CONSTANT (result) = 1;
+1503:
+1504:   if (has_side_effects)
+1505:     TREE_SIDE_EFFECTS (result) = 1;
+1506:
+1507:   /* If we are working with modular types, perform the MOD operation
+1508:      if something above hasn't eliminated the need for it.  */
+1509:   if (modulus)
+1510:     {
+1511:       modulus = convert (operation_type, modulus);
+1512:       if (no_fold)
+1513:         result = build2 (FLOOR_MOD_EXPR, operation_type, result, modulus);
+1514:       else
+1515:         result = fold_build2 (FLOOR_MOD_EXPR, operation_type, result, modulus);
+1516:     }
+1517:
+1518:   if (result_type && result_type != operation_type)
+1519:     result = convert (result_type, result);
+1520:
+```
+
+## gcc/ada/gcc-interface/utils2.cc:1530–1984
+
+```text
+1530:   tree base_type = get_base_type (type);
+1531:   tree operation_type = result_type;
+1532:   tree result;
+1533:
+1534:   if (operation_type
+1535:       && TREE_CODE (operation_type) == RECORD_TYPE
+1536:       && TYPE_JUSTIFIED_MODULAR_P (operation_type))
+1537:     operation_type = TREE_TYPE (TYPE_FIELDS (operation_type));
+1538:
+1539:   if (operation_type
+1540:       && TREE_CODE (operation_type) == INTEGER_TYPE
+1541:       && TYPE_EXTRA_SUBTYPE_P (operation_type))
+1542:     operation_type = get_base_type (operation_type);
+1543:
+1544:   switch (op_code)
+1545:     {
+1546:     case REALPART_EXPR:
+1547:     case IMAGPART_EXPR:
+1548:       if (!operation_type)
+1549:         result_type = operation_type = TREE_TYPE (type);
+1550:       else
+1551:         gcc_assert (result_type == TREE_TYPE (type));
+1552:
+1553:       result = fold_build1 (op_code, operation_type, operand);
+1554:       break;
+1555:
+1556:     case TRUTH_NOT_EXPR:
+1557:       gcc_checking_assert
+1558:         (TREE_CODE (get_base_type (result_type)) == BOOLEAN_TYPE);
+1559:       result = invert_truthvalue_loc (EXPR_LOCATION (operand), operand);
+1560:       /* When not optimizing, fold the result as invert_truthvalue_loc
+1561:          doesn't fold the result of comparisons.  This is intended to undo
+1562:          the trick used for boolean rvalues in gnat_to_gnu.  */
+1563:       if (!optimize)
+1564:         result = fold (result);
+1565:       break;
+1566:
+1567:     case ATTR_ADDR_EXPR:
+1568:     case ADDR_EXPR:
+1569:       switch (TREE_CODE (operand))
+1570:         {
+1571:         case INDIRECT_REF:
+1572:         case UNCONSTRAINED_ARRAY_REF:
+1573:           result = TREE_OPERAND (operand, 0);
+1574:
+1575:           /* Make sure the type here is a pointer, not a reference.
+1576:              GCC wants pointer types for function addresses.  */
+1577:           if (!result_type)
+1578:             result_type = build_pointer_type (type);
+1579:
+1580:           /* If the underlying object can alias everything, propagate the
+1581:              property since we are effectively retrieving the object.  */
+1582:           if (POINTER_TYPE_P (TREE_TYPE (result))
+1583:               && TYPE_REF_CAN_ALIAS_ALL (TREE_TYPE (result)))
+1584:             {
+1585:               if (TREE_CODE (result_type) == POINTER_TYPE
+1586:                   && !TYPE_REF_CAN_ALIAS_ALL (result_type))
+1587:                 result_type
+1588:                   = build_pointer_type_for_mode (TREE_TYPE (result_type),
+1589:                                                  TYPE_MODE (result_type),
+1590:                                                  true);
+1591:               else if (TREE_CODE (result_type) == REFERENCE_TYPE
+1592:                        && !TYPE_REF_CAN_ALIAS_ALL (result_type))
+1593:                 result_type
+1594:                   = build_reference_type_for_mode (TREE_TYPE (result_type),
+1595:                                                    TYPE_MODE (result_type),
+1596:                                                    true);
+1597:             }
+1598:           break;
+1599:
+1600:         case NULL_EXPR:
+1601:           result = operand;
+1602:           TREE_TYPE (result) = type = build_pointer_type (type);
+1603:           break;
+1604:
+1605:         case COMPOUND_EXPR:
+1606:           /* Fold a compound expression if it has unconstrained array type
+1607:              since the middle-end cannot handle it.  But we don't it in the
+1608:              general case because it may introduce aliasing issues if the
+1609:              first operand is an indirect assignment and the second operand
+1610:              the corresponding address, e.g. for an allocator.  However do
+1611:              it for a return value to expose it for later recognition.  */
+1612:           if (TREE_CODE (type) == UNCONSTRAINED_ARRAY_TYPE
+1613:               || (VAR_P (TREE_OPERAND (operand, 1))
+1614:                   && DECL_RETURN_VALUE_P (TREE_OPERAND (operand, 1))))
+1615:             {
+1616:               result = build_unary_op (ADDR_EXPR, result_type,
+1617:                                        TREE_OPERAND (operand, 1));
+1618:               result = build2 (COMPOUND_EXPR, TREE_TYPE (result),
+1619:                                TREE_OPERAND (operand, 0), result);
+1620:               break;
+1621:             }
+1622:           goto common;
+1623:
+1624:         case ARRAY_REF:
+1625:         case ARRAY_RANGE_REF:
+1626:         case COMPONENT_REF:
+1627:         case BIT_FIELD_REF:
+1628:             /* If this is for 'Address, find the address of the prefix and add
+1629:                the offset to the field.  Otherwise, do this the normal way.  */
+1630:           if (op_code == ATTR_ADDR_EXPR)
+1631:             {
+1632:               poly_int64 bitsize;
+1633:               poly_int64 bitpos;
+1634:               tree offset, inner;
+1635:               machine_mode mode;
+1636:               int unsignedp, reversep, volatilep;
+1637:
+1638:               inner = get_inner_reference (operand, &bitsize, &bitpos, &offset,
+1639:                                            &mode, &unsignedp, &reversep,
+1640:                                            &volatilep);
+1641:
+1642:               /* If INNER is a padding type whose field has a self-referential
+1643:                  size, convert to that inner type.  We know the offset is zero
+1644:                  and we need to have that type visible.  */
+1645:               if (type_is_padding_self_referential (TREE_TYPE (inner)))
+1646:                 inner = convert (TREE_TYPE (TYPE_FIELDS (TREE_TYPE (inner))),
+1647:                                  inner);
+1648:
+1649:               /* Compute the offset as a byte offset from INNER.  */
+1650:               if (!offset)
+1651:                 offset = size_zero_node;
+1652:
+1653:               offset
+1654:                 = size_binop (PLUS_EXPR, offset,
+1655:                               size_int (bits_to_bytes_round_down (bitpos)));
+1656:
+1657:               /* Take the address of INNER, formally convert it to a pointer
+1658:                  to the operand type, and finally add the offset.  */
+1659:               inner = build_unary_op (ADDR_EXPR, NULL_TREE, inner);
+1660:               inner
+1661:                 = fold_convert (build_pointer_type (TREE_TYPE (operand)),
+1662:                                 inner);
+1663:               result = build_binary_op (POINTER_PLUS_EXPR, TREE_TYPE (inner),
+1664:                                         inner, offset);
+1665:               break;
+1666:             }
+1667:           goto common;
+1668:
+1669:         case CONSTRUCTOR:
+1670:           /* If this is just a constructor for a padded record, we can
+1671:              just take the address of the single field and convert it to
+1672:              a pointer to our type.  */
+1673:           if (TYPE_IS_PADDING_P (type))
+1674:             {
+1675:               result
+1676:                 = build_unary_op (ADDR_EXPR,
+1677:                                   build_pointer_type (TREE_TYPE (operand)),
+1678:                                   CONSTRUCTOR_ELT (operand, 0)->value);
+1679:               break;
+1680:             }
+1681:           goto common;
+1682:
+1683:         case NOP_EXPR:
+1684:           if (AGGREGATE_TYPE_P (type)
+1685:               && AGGREGATE_TYPE_P (TREE_TYPE (TREE_OPERAND (operand, 0))))
+1686:             return build_unary_op (ADDR_EXPR, result_type,
+1687:                                    TREE_OPERAND (operand, 0));
+1688:
+1689:           /* ... fallthru ... */
+1690:
+1691:         case VIEW_CONVERT_EXPR:
+1692:           /* If this just a variant conversion or if the conversion doesn't
+1693:              change the mode, get the result type from this type and go down.
+1694:              This is needed for conversions of CONST_DECLs, to eventually get
+1695:              to the address of their CORRESPONDING_VARs.  */
+1696:           if ((TYPE_MAIN_VARIANT (type)
+1697:                == TYPE_MAIN_VARIANT (TREE_TYPE (TREE_OPERAND (operand, 0))))
+1698:               || (TYPE_MODE (type) != BLKmode
+1699:                   && (TYPE_MODE (type)
+1700:                       == TYPE_MODE (TREE_TYPE (TREE_OPERAND (operand, 0))))))
+1701:             return build_unary_op (ADDR_EXPR,
+1702:                                    (result_type ? result_type
+1703:                                     : build_pointer_type (type)),
+1704:                                    TREE_OPERAND (operand, 0));
+1705:           goto common;
+1706:
+1707:         case CONST_DECL:
+1708:           operand = DECL_CONST_CORRESPONDING_VAR (operand);
+1709:
+1710:           /* ... fall through ... */
+1711:
+1712:         default:
+1713:         common:
+1714:
+1715:           /* If we are taking the address of a padded record whose field
+1716:              contains a template, take the address of the field.  */
+1717:           if (TYPE_IS_PADDING_P (type)
+1718:               && TREE_CODE (TREE_TYPE (TYPE_FIELDS (type))) == RECORD_TYPE
+1719:               && TYPE_CONTAINS_TEMPLATE_P (TREE_TYPE (TYPE_FIELDS (type))))
+1720:             {
+1721:               type = TREE_TYPE (TYPE_FIELDS (type));
+1722:               operand = convert (type, operand);
+1723:             }
+1724:
+1725:           gnat_mark_addressable (operand);
+1726:           result = build_fold_addr_expr (operand);
+1727:         }
+1728:
+1729:       if (TREE_CONSTANT (operand) || staticp (operand))
+1730:         TREE_CONSTANT (result) = 1;
+1731:
+1732:       break;
+1733:
+1734:     case INDIRECT_REF:
+1735:       {
+1736:         tree t = remove_conversions (operand, false);
+1737:         bool can_never_be_null = DECL_P (t) && DECL_CAN_NEVER_BE_NULL_P (t);
+1738:
+1739:         /* If TYPE is a thin pointer, either first retrieve the base if this
+1740:            is an expression with an offset built for the initialization of an
+1741:            object with an unconstrained nominal subtype, or else convert to
+1742:            the fat pointer.  */
+1743:         if (TYPE_IS_THIN_POINTER_P (type))
+1744:           {
+1745:             tree rec_type = TREE_TYPE (type);
+1746:
+1747:             if (TREE_CODE (operand) == POINTER_PLUS_EXPR
+1748:                 && TREE_OPERAND (operand, 1)
+1749:                    == byte_position (DECL_CHAIN (TYPE_FIELDS (rec_type)))
+1750:                 && TREE_CODE (TREE_OPERAND (operand, 0)) == NOP_EXPR)
+1751:               {
+1752:                 operand = TREE_OPERAND (TREE_OPERAND (operand, 0), 0);
+1753:                 type = TREE_TYPE (operand);
+1754:               }
+1755:             else if (TYPE_UNCONSTRAINED_ARRAY (rec_type))
+1756:               {
+1757:                 operand
+1758:                   = convert (TREE_TYPE (TYPE_UNCONSTRAINED_ARRAY (rec_type)),
+1759:                              operand);
+1760:                 type = TREE_TYPE (operand);
+1761:               }
+1762:           }
+1763:
+1764:         /* If we want to refer to an unconstrained array, use the appropriate
+1765:            expression.  But this will never survive down to the back-end.  */
+1766:         if (TYPE_IS_FAT_POINTER_P (type) || TYPE_IS_EXTENDED_POINTER_P (type))
+1767:           {
+1768:             result = build1 (UNCONSTRAINED_ARRAY_REF,
+1769:                              TYPE_UNCONSTRAINED_ARRAY (type), operand);
+1770:             TREE_READONLY (result)
+1771:               = TYPE_READONLY (TYPE_UNCONSTRAINED_ARRAY (type));
+1772:           }
+1773:
+1774:         /* If we are dereferencing an ADDR_EXPR, return its operand.  */
+1775:         else if (TREE_CODE (operand) == ADDR_EXPR)
+1776:           result = TREE_OPERAND (operand, 0);
+1777:
+1778:         /* Otherwise, build and fold the indirect reference.  */
+1779:         else
+1780:           {
+1781:             result = build_fold_indirect_ref (operand);
+1782:             TREE_READONLY (result) = TYPE_READONLY (TREE_TYPE (type));
+1783:           }
+1784:
+1785:         if (!TYPE_IS_FAT_POINTER_P (type)
+1786:             && !TYPE_IS_EXTENDED_POINTER_P (type)
+1787:             && TYPE_VOLATILE (TREE_TYPE (type)))
+1788:           {
+1789:             TREE_SIDE_EFFECTS (result) = 1;
+1790:             if (INDIRECT_REF_P (result))
+1791:               TREE_THIS_VOLATILE (result) = TYPE_VOLATILE (TREE_TYPE (result));
+1792:           }
+1793:
+1794:         if ((INDIRECT_REF_P (result)
+1795:              || TREE_CODE (result) == UNCONSTRAINED_ARRAY_REF)
+1796:             && can_never_be_null)
+1797:           TREE_THIS_NOTRAP (result) = 1;
+1798:
+1799:         break;
+1800:       }
+1801:
+1802:     case NEGATE_EXPR:
+1803:     case BIT_NOT_EXPR:
+1804:       {
+1805:         tree modulus = ((operation_type
+1806:                          && TREE_CODE (operation_type) == INTEGER_TYPE
+1807:                          && TYPE_MODULAR_P (operation_type))
+1808:                         ? TYPE_MODULUS (operation_type) : NULL_TREE);
+1809:         int mod_pow2 = modulus && integer_pow2p (modulus);
+1810:
+1811:         /* If this is a modular type, there are various possibilities
+1812:            depending on the operation and whether the modulus is a
+1813:            power of two or not.  */
+1814:
+1815:         if (modulus)
+1816:           {
+1817:             gcc_assert (operation_type == base_type);
+1818:             operand = convert (operation_type, operand);
+1819:
+1820:             /* The fastest in the negate case for binary modulus is
+1821:                the straightforward code; the TRUNC_MOD_EXPR below
+1822:                is an AND operation.  */
+1823:             if (op_code == NEGATE_EXPR && mod_pow2)
+1824:               result = fold_build2 (TRUNC_MOD_EXPR, operation_type,
+1825:                                     fold_build1 (NEGATE_EXPR, operation_type,
+1826:                                                  operand),
+1827:                                     modulus);
+1828:
+1829:             /* For nonbinary negate case, return zero for zero operand,
+1830:                else return the modulus minus the operand.  If the modulus
+1831:                is a power of two minus one, we can do the subtraction
+1832:                as an XOR since it is equivalent and faster on most machines. */
+1833:             else if (op_code == NEGATE_EXPR && !mod_pow2)
+1834:               {
+1835:                 if (integer_pow2p (fold_build2 (PLUS_EXPR, operation_type,
+1836:                                                 modulus,
+1837:                                                 build_int_cst (operation_type,
+1838:                                                                1))))
+1839:                   result = fold_build2 (BIT_XOR_EXPR, operation_type,
+1840:                                         operand, modulus);
+1841:                 else
+1842:                   result = fold_build2 (MINUS_EXPR, operation_type,
+1843:                                         modulus, operand);
+1844:
+1845:                 result = fold_build3 (COND_EXPR, operation_type,
+1846:                                       fold_build2 (NE_EXPR,
+1847:                                                    boolean_type_node,
+1848:                                                    operand,
+1849:                                                    build_int_cst
+1850:                                                    (operation_type, 0)),
+1851:                                       result, operand);
+1852:               }
+1853:             else
+1854:               {
+1855:                 /* For the NOT cases, we need a constant equal to
+1856:                    the modulus minus one.  For a binary modulus, we
+1857:                    XOR against the constant and subtract the operand from
+1858:                    that constant for nonbinary modulus.  */
+1859:
+1860:                 tree cnst = fold_build2 (MINUS_EXPR, operation_type, modulus,
+1861:                                          build_int_cst (operation_type, 1));
+1862:
+1863:                 if (mod_pow2)
+1864:                   result = fold_build2 (BIT_XOR_EXPR, operation_type,
+1865:                                         operand, cnst);
+1866:                 else
+1867:                   result = fold_build2 (MINUS_EXPR, operation_type,
+1868:                                         cnst, operand);
+1869:               }
+1870:
+1871:             break;
+1872:           }
+1873:       }
+1874:
+1875:       /* ... fall through ... */
+1876:
+1877:     default:
+1878:       gcc_assert (operation_type == base_type);
+1879:       result = fold_build1 (op_code, operation_type,
+1880:                             convert (operation_type, operand));
+1881:     }
+1882:
+1883:   if (result_type && TREE_TYPE (result) != result_type)
+1884:     result = convert (result_type, result);
+1885:
+1886:   return result;
+1887: }
+1888:
+1889: /* Similar, but for COND_EXPR.  */
 1890:
 1891: tree
 1892: build_cond_expr (tree result_type, tree condition_operand,
@@ -2838,6 +4419,442 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1982: }
 1983:
 1984: /* Build a goto to LABEL for a raise, with an optional call to Local_Raise.
+```
+
+## gcc/ada/gcc-interface/utils2.cc:2018–2130
+
+```text
+2018: expand_sloc (Node_Id gnat_node, tree *filename, tree *line, tree *col)
+2019: {
+2020:   const char *str;
+2021:   int line_number, column_number;
+2022:
+2023:   if (Debug_Flag_NN || Exception_Locations_Suppressed)
+2024:     {
+2025:       str = "";
+2026:       line_number = 0;
+2027:       column_number = 0;
+2028:     }
+2029:   else if (Present (gnat_node) && Sloc (gnat_node) != No_Location)
+2030:     {
+2031:       str = Get_Name_String
+2032:             (Debug_Source_Name (Get_Source_File_Index (Sloc (gnat_node))));
+2033:       line_number = Get_Logical_Line_Number (Sloc (gnat_node));
+2034:       column_number = Get_Column_Number (Sloc (gnat_node));
+2035:     }
+2036:   else
+2037:     {
+2038:       str = lbasename (LOCATION_FILE (input_location));
+2039:       line_number = LOCATION_LINE (input_location);
+2040:       column_number = LOCATION_COLUMN (input_location);
+2041:     }
+2042:
+2043:   const int len = strlen (str);
+2044:   *filename = build_string (len, str);
+2045:   TREE_TYPE (*filename) = build_array_type (char_type_node,
+2046:                                             build_index_type (size_int (len)));
+2047:   *line = build_int_cst (NULL_TREE, line_number);
+2048:   if (col)
+2049:     *col = build_int_cst (NULL_TREE, column_number);
+2050: }
+2051:
+2052: /* Build a call to a function that raises an exception and passes file name
+2053:    and line number, if requested.  MSG says which exception function to call.
+2054:    GNAT_NODE is the node conveying the source location for which the error
+2055:    should be signaled, or Empty in which case the error is signaled for the
+2056:    current location.  KIND says which kind of exception node this is for,
+2057:    among N_Raise_{Constraint,Storage,Program}_Error.  */
+2058:
+2059: tree
+2060: build_call_raise (int msg, Node_Id gnat_node, char kind)
+2061: {
+2062:   Entity_Id gnat_label = get_exception_label (kind);
+2063:   tree fndecl = gnat_raise_decls[msg];
+2064:   tree filename, line;
+2065:
+2066:   /* If this is to be done as a goto, handle that case.  */
+2067:   if (Present (gnat_label))
+2068:     return build_goto_raise (gnat_label, msg);
+2069:
+2070:   expand_sloc (gnat_node, &filename, &line, NULL);
+2071:
+2072:   return
+2073:     build_call_n_expr (fndecl, 2,
+2074:                        build1 (ADDR_EXPR,
+2075:                                build_pointer_type (char_type_node),
+2076:                                filename),
+2077:                        line);
+2078: }
+2079:
+2080: /* Similar to build_call_raise, with extra information about the column
+2081:    where the check failed.  */
+2082:
+2083: tree
+2084: build_call_raise_column (int msg, Node_Id gnat_node, char kind)
+2085: {
+2086:   Entity_Id gnat_label = get_exception_label (kind);
+2087:   tree fndecl = gnat_raise_decls_ext[msg];
+2088:   tree filename, line, col;
+2089:
+2090:   /* If this is to be done as a goto, handle that case.  */
+2091:   if (Present (gnat_label))
+2092:     return build_goto_raise (gnat_label, msg);
+2093:
+2094:   expand_sloc (gnat_node, &filename, &line, &col);
+2095:
+2096:   return
+2097:     build_call_n_expr (fndecl, 3,
+2098:                        build1 (ADDR_EXPR,
+2099:                                build_pointer_type (char_type_node),
+2100:                                filename),
+2101:                        line, col);
+2102: }
+2103:
+2104: /* Similar to build_call_raise_column, for an index or range check exception ,
+2105:    with extra information of the form "INDEX out of range FIRST..LAST".  */
+2106:
+2107: tree
+2108: build_call_raise_range (int msg, Node_Id gnat_node, char kind,
+2109:                         tree index, tree first, tree last)
+2110: {
+2111:   Entity_Id gnat_label = get_exception_label (kind);
+2112:   tree fndecl = gnat_raise_decls_ext[msg];
+2113:   tree filename, line, col;
+2114:
+2115:   /* If this is to be done as a goto, handle that case.  */
+2116:   if (Present (gnat_label))
+2117:     return build_goto_raise (gnat_label, msg);
+2118:
+2119:   expand_sloc (gnat_node, &filename, &line, &col);
+2120:
+2121:   return
+2122:     build_call_n_expr (fndecl, 6,
+2123:                        build1 (ADDR_EXPR,
+2124:                                build_pointer_type (char_type_node),
+2125:                                filename),
+2126:                        line, col,
+2127:                        convert (integer_type_node, index),
+2128:                        convert (integer_type_node, first),
+2129:                        convert (integer_type_node, last));
+2130: }
+```
+
+## gcc/ada/gcc-interface/utils2.cc:3045–3179
+
+```text
+3045:         return DECL_CONST_CORRESPONDING_VAR (t)
+3046:                && gnat_mark_addressable (DECL_CONST_CORRESPONDING_VAR (t));
+3047:
+3048:       default:
+3049:         return true;
+3050:     }
+3051: }
+3052:
+3053: /* Return true if EXP is a stable expression for the purpose of the functions
+3054:    below and, therefore, can be returned unmodified by them.  We accept things
+3055:    that are actual constants or that have already been handled.  */
+3056:
+3057: static bool
+3058: gnat_stable_expr_p (tree exp)
+3059: {
+3060:   enum tree_code code = TREE_CODE (exp);
+3061:   return TREE_CONSTANT (exp) || code == NULL_EXPR || code == SAVE_EXPR;
+3062: }
+3063:
+3064: /* Save EXP for later use or reuse.  This is equivalent to save_expr in tree.cc
+3065:    but we know how to handle our own nodes.  */
+3066:
+3067: tree
+3068: gnat_save_expr (tree exp)
+3069: {
+3070:   tree type = TREE_TYPE (exp);
+3071:   enum tree_code code = TREE_CODE (exp);
+3072:
+3073:   if (gnat_stable_expr_p (exp))
+3074:     return exp;
+3075:
+3076:   if (code == UNCONSTRAINED_ARRAY_REF)
+3077:     {
+3078:       tree t = build1 (code, type, gnat_save_expr (TREE_OPERAND (exp, 0)));
+3079:       TREE_READONLY (t) = TYPE_READONLY (type);
+3080:       return t;
+3081:     }
+3082:
+3083:   /* If this is a COMPONENT_REF of a fat pointer, save the entire fat pointer.
+3084:      This may be more efficient, but will also allow us to more easily find
+3085:      the match for the PLACEHOLDER_EXPR.  */
+3086:   if (code == COMPONENT_REF
+3087:       && (TYPE_IS_FAT_POINTER_P (TREE_TYPE (TREE_OPERAND (exp, 0)))
+3088:           || TYPE_IS_EXTENDED_POINTER_P (TREE_TYPE (TREE_OPERAND (exp, 0)))))
+3089:     return build3 (code, type, gnat_save_expr (TREE_OPERAND (exp, 0)),
+3090:                    TREE_OPERAND (exp, 1), NULL_TREE);
+3091:
+3092:   return save_expr (exp);
+3093: }
+3094:
+3095: /* Protect EXP for immediate reuse.  This is a variant of gnat_save_expr that
+3096:    is optimized under the assumption that EXP's value doesn't change before
+3097:    its subsequent reuse(s) except potentially through its reevaluation.
+3098:
+3099:    gnat_protect_expr guarantees that multiple evaluations of the expression
+3100:    will not generate multiple side effects, whereas gnat_save_expr further
+3101:    guarantees that all evaluations will yield the same result.  */
+3102:
+3103: tree
+3104: gnat_protect_expr (tree exp)
+3105: {
+3106:   tree type = TREE_TYPE (exp);
+3107:   enum tree_code code = TREE_CODE (exp);
+3108:
+3109:   if (gnat_stable_expr_p (exp))
+3110:     return exp;
+3111:
+3112:   /* If EXP has no side effects, we theoretically don't need to do anything.
+3113:      However, we may be recursively passed more and more complex expressions
+3114:      involving checks which will be reused multiple times and eventually be
+3115:      unshared for gimplification; in order to avoid a complexity explosion
+3116:      at that point, we protect any expressions more complex than a simple
+3117:      arithmetic expression.  */
+3118:   if (!TREE_SIDE_EFFECTS (exp))
+3119:     {
+3120:       tree inner = skip_simple_arithmetic (exp);
+3121:       if (!EXPR_P (inner) || REFERENCE_CLASS_P (inner))
+3122:         return exp;
+3123:     }
+3124:
+3125:   /* If this is a conversion, protect what's inside the conversion.  */
+3126:   if (code == NON_LVALUE_EXPR
+3127:       || CONVERT_EXPR_CODE_P (code)
+3128:       || code == VIEW_CONVERT_EXPR)
+3129:     return build1 (code, type, gnat_protect_expr (TREE_OPERAND (exp, 0)));
+3130:
+3131:   /* If we're indirectly referencing something, we only need to protect the
+3132:      address since the data itself can't change in these situations.  */
+3133:   if (code == INDIRECT_REF || code == UNCONSTRAINED_ARRAY_REF)
+3134:     {
+3135:       tree t = build1 (code, type, gnat_protect_expr (TREE_OPERAND (exp, 0)));
+3136:       TREE_READONLY (t) = TYPE_READONLY (type);
+3137:       return t;
+3138:     }
+3139:
+3140:   /* Likewise if we're indirectly referencing part of something.  */
+3141:   if (code == COMPONENT_REF
+3142:       && INDIRECT_REF_P (TREE_OPERAND (exp, 0)))
+3143:     return build3 (code, type, gnat_protect_expr (TREE_OPERAND (exp, 0)),
+3144:                    TREE_OPERAND (exp, 1), NULL_TREE);
+3145:
+3146:   /* An atomic load is an INDIRECT_REF of its first argument, so apply the
+3147:      same transformation as in the INDIRECT_REF case above.  */
+3148:   if (code == CALL_EXPR && call_is_atomic_load (exp))
+3149:     return build_call_expr (TREE_OPERAND (CALL_EXPR_FN (exp), 0), 2,
+3150:                             gnat_protect_expr (CALL_EXPR_ARG (exp, 0)),
+3151:                             CALL_EXPR_ARG (exp, 1));
+3152:
+3153:   /* If this is a COMPONENT_REF of a fat pointer, save the entire fat pointer.
+3154:      This may be more efficient, but will also allow us to more easily find
+3155:      the match for the PLACEHOLDER_EXPR.  */
+3156:   if (code == COMPONENT_REF
+3157:       && (TYPE_IS_FAT_POINTER_P (TREE_TYPE (TREE_OPERAND (exp, 0)))
+3158:           || TYPE_IS_EXTENDED_POINTER_P (TREE_TYPE (TREE_OPERAND (exp, 0)))))
+3159:     return build3 (code, type, gnat_protect_expr (TREE_OPERAND (exp, 0)),
+3160:                    TREE_OPERAND (exp, 1), NULL_TREE);
+3161:
+3162:   /* If this is a fat pointer or a scalar, just make a SAVE_EXPR.  Likewise
+3163:      for a CALL_EXPR as large objects are returned via invisible reference
+3164:      in most ABIs so the temporary will directly be filled by the callee.  */
+3165:   if (TYPE_IS_FAT_POINTER_P (type)
+3166:       || TYPE_IS_EXTENDED_POINTER_P (type)
+3167:       || !AGGREGATE_TYPE_P (type)
+3168:       || code == CALL_EXPR)
+3169:     return save_expr (exp);
+3170:
+3171:   /* Otherwise reference, protect the address and dereference.  */
+3172:   return
+3173:     build_unary_op (INDIRECT_REF, type,
+3174:                     save_expr (build_unary_op (ADDR_EXPR, NULL_TREE, exp)));
+3175: }
+3176:
+3177: /* This is equivalent to stabilize_reference_1 in tree.cc but we take an extra
+3178:    argument to force evaluation of everything.  */
+3179:
+```
+
+## gcc/tree.cc:1212–1230
+
+```text
+1212:     case TREE_BINFO:
+1213:       return (offsetof (struct tree_binfo, base_binfos)
+1214:               + vec<tree, va_gc>
+1215:                   ::embedded_size (BINFO_N_BASE_BINFOS (node)));
+1216:
+1217:     case TREE_VEC:
+1218:       return (sizeof (struct tree_vec)
+1219:               + (TREE_VEC_LENGTH (node) - 1) * sizeof (tree));
+1220:
+1221:     case VECTOR_CST:
+1222:       return (sizeof (struct tree_vector)
+1223:               + (vector_cst_encoded_nelts (node) - 1) * sizeof (tree));
+1224:
+1225:     case STRING_CST:
+1226:       return TREE_STRING_LENGTH (node) + offsetof (struct tree_string, str) + 1;
+1227:
+1228:     case OMP_CLAUSE:
+1229:       return (sizeof (struct tree_omp_clause)
+1230:               + (omp_clause_num_ops[OMP_CLAUSE_CODE (node)] - 1)
+```
+
+## gcc/tree.cc:1468–1479
+
+```text
+1468:
+1469: tree
+1470: copy_node (tree node MEM_STAT_DECL)
+1471: {
+1472:   tree t;
+1473:   enum tree_code code = TREE_CODE (node);
+1474:   size_t length;
+1475:
+1476:   gcc_assert (code != STATEMENT_LIST);
+1477:
+1478:   length = tree_size (node);
+1479:   record_node_allocation_statistics (code, length);
+```
+
+## gcc/tree.cc:4132–4164
+
+```text
+4132:    *at compile time* generate code to use the saved value.
+4133:    This produces correct result provided that *at run time* control
+4134:    always flows through the insns made by the first expand_expr
+4135:    before reaching the other places where the save_expr was evaluated.
+4136:    You, the caller of save_expr, must make sure this is so.
+4137:
+4138:    Constants, and certain read-only nodes, are returned with no
+4139:    SAVE_EXPR because that is safe.  Expressions containing placeholders
+4140:    are not touched; see tree.def for an explanation of what these
+4141:    are used for.  */
+4142:
+4143: tree
+4144: save_expr (tree expr)
+4145: {
+4146:   tree inner;
+4147:
+4148:   /* If the tree evaluates to a constant, then we don't want to hide that
+4149:      fact (i.e. this allows further folding, and direct checks for constants).
+4150:      However, a read-only object that has side effects cannot be bypassed.
+4151:      Since it is no problem to reevaluate literals, we just return the
+4152:      literal node.  */
+4153:   inner = skip_simple_arithmetic (expr);
+4154:   if (TREE_CODE (inner) == ERROR_MARK)
+4155:     return inner;
+4156:
+4157:   if (tree_invariant_p_1 (inner))
+4158:     return expr;
+4159:
+4160:   /* If INNER contains a PLACEHOLDER_EXPR, we must evaluate it each time, since
+4161:      it means that the size or offset of some field of an object depends on
+4162:      the value within another field.
+4163:
+4164:      Note that it must not be the case that EXPR contains both a PLACEHOLDER_EXPR
+```
+
+## gcc/tree.cc:11020–11077
+
+```text
+11020:
+11021:
+11022: /* Build an OMP clause with code CODE.  LOC is the location of the
+11023:    clause.  */
+11024:
+11025: tree
+11026: build_omp_clause (location_t loc, enum omp_clause_code code)
+11027: {
+11028:   tree t;
+11029:   int size, length;
+11030:
+11031:   length = omp_clause_num_ops[code];
+11032:   size = (sizeof (struct tree_omp_clause) + (length - 1) * sizeof (tree));
+11033:
+11034:   record_node_allocation_statistics (OMP_CLAUSE, size);
+11035:
+11036:   t = (tree) ggc_internal_alloc (size);
+11037:   memset (t, 0, size);
+11038:   TREE_SET_CODE (t, OMP_CLAUSE);
+11039:   OMP_CLAUSE_SET_CODE (t, code);
+11040:   OMP_CLAUSE_LOCATION (t) = loc;
+11041:
+11042:   return t;
+11043: }
+11044:
+11045: /* Build a tcc_vl_exp object with code CODE and room for LEN operands.  LEN
+11046:    includes the implicit operand count in TREE_OPERAND 0, and so must be >= 1.
+11047:    Except for the CODE and operand count field, other storage for the
+11048:    object is initialized to zeros.  */
+11049:
+11050: tree
+11051: build_vl_exp (enum tree_code code, int len MEM_STAT_DECL)
+11052: {
+11053:   tree t;
+11054:   int length = (len - 1) * sizeof (tree) + sizeof (struct tree_exp);
+11055:
+11056:   gcc_assert (TREE_CODE_CLASS (code) == tcc_vl_exp);
+11057:   gcc_assert (len >= 1);
+11058:
+11059:   record_node_allocation_statistics (code, length);
+11060:
+11061:   t = ggc_alloc_cleared_tree_node_stat (length PASS_MEM_STAT);
+11062:
+11063:   TREE_SET_CODE (t, code);
+11064:
+11065:   /* Can't use TREE_OPERAND to store the length because if checking is
+11066:      enabled, it will try to check the length before we store it.  :-P  */
+11067:   t->exp.operands[0] = build_int_cst (sizetype, len);
+11068:
+11069:   return t;
+11070: }
+11071:
+11072: /* Helper function for build_call_* functions; build a CALL_EXPR with
+11073:    indicated RETURN_TYPE, FN, and NARGS, but do not initialize any of
+11074:    the argument slots.  */
+11075:
+11076: static tree
+11077: build_call_1 (tree return_type, tree fn, int nargs)
+```
+
+## gcc/tree.cc:11194–11224
+
+```text
+11194:   for (i = 0; i < n; i++)
+11195:     argarray[i] = va_arg (ap, tree);
+11196:   va_end (ap);
+11197:   return build_call_expr_loc_array (loc, fndecl, n, argarray);
+11198: }
+11199:
+11200: /* Like build_call_expr_loc (UNKNOWN_LOCATION, ...).  Duplicated because
+11201:    varargs macros aren't supported by all bootstrap compilers.  */
+11202:
+11203: tree
+11204: build_call_expr (tree fndecl, int n, ...)
+11205: {
+11206:   va_list ap;
+11207:   tree *argarray = XALLOCAVEC (tree, n);
+11208:   int i;
+11209:
+11210:   va_start (ap, n);
+11211:   for (i = 0; i < n; i++)
+11212:     argarray[i] = va_arg (ap, tree);
+11213:   va_end (ap);
+11214:   return build_call_expr_loc_array (UNKNOWN_LOCATION, fndecl, n, argarray);
+11215: }
+11216:
+11217: /* Build an internal call to IFN, with arguments ARGS[0:N-1] and with return
+11218:    type TYPE.  This is just like CALL_EXPR, except its CALL_EXPR_FN is NULL.
+11219:    It will get gimplified later into an ordinary internal function.  */
+11220:
+11221: tree
+11222: build_call_expr_internal_loc_array (location_t loc, internal_fn ifn,
+11223:                                     tree type, int n, const tree *args)
+11224: {
 ```
 
 ## gcc/passes.def:27–42
