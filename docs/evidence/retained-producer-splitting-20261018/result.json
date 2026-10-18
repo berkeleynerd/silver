@@ -1,0 +1,36 @@
+{
+  "source_files": 7,
+  "native_executions": 0,
+  "examples": {
+    "right_conjunction_100": {
+      "structural_bound": 100,
+      "leaves": 100
+    },
+    "left_conjunction_100": {
+      "structural_bound": 100,
+      "leaves": 22
+    },
+    "case_three_right_chains": {
+      "structural_bound": 120,
+      "leaves": 120
+    },
+    "equivalent_right_chains": {
+      "structural_bound": 90,
+      "leaves": 41
+    },
+    "conditional_right_chains": {
+      "structural_bound": 90,
+      "leaves": 51
+    },
+    "boolean_if_equality": {
+      "structural_bound": 100,
+      "leaves": 100
+    },
+    "quantified_implication": {
+      "structural_bound": 100,
+      "leaves": 100
+    }
+  },
+  "scope": "final-split list-count transfer only",
+  "source_to_terminal_goal_bound": "unfinished"
+}

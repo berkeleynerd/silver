@@ -1,0 +1,42 @@
+{
+  "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "repository": "https://github.com/AdaCore/why3",
+  "source_archive_sha256": "0ed7e9e301d96641ffc666618f08f8f6def5ba0e3fd4d624766426ca6c426dbf",
+  "files": [
+    {
+      "path": "src/transform/gnat_split_conj.ml",
+      "bytes": 11171,
+      "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee"
+    },
+    {
+      "path": "src/transform/split_goal.ml",
+      "bytes": 23450,
+      "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+    },
+    {
+      "path": "src/transform/gnat_rewrite.ml",
+      "bytes": 4283,
+      "sha256": "f57a18e137321395bf114b5a6fbd0ddb92e08af56a6f1b8b002592f1a0abbee5"
+    },
+    {
+      "path": "src/core/term.ml",
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    {
+      "path": "src/mlw/vc.ml",
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    {
+      "path": "src/gnat/gnat_checks.ml",
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    {
+      "path": "src/gnat/gnat_main.ml",
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    }
+  ]
+}
