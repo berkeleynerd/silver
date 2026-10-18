@@ -1,0 +1,178 @@
+{
+  "/tmp/silver-native-fixed-counter-20261018/library-src/silver_arguments.ads": {
+    "bytes": 1129,
+    "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+  },
+  "/tmp/silver-native-fixed-counter-20261018/library-src/silver_io.ads": {
+    "bytes": 2222,
+    "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+  },
+  "/tmp/silver-native-fixed-counter-20261018/library-src/silver_arguments.adb": {
+    "bytes": 1339,
+    "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+  },
+  "/tmp/silver-native-fixed-counter-20261018/library-src/silver_io.adb": {
+    "bytes": 3358,
+    "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+  },
+  "/tmp/silver-native-fixed-counter-20261018/library-src/silver_runtime.ads": {
+    "bytes": 1010,
+    "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+  },
+  "/tmp/silver-native-fixed-counter-20261018/library-src/silver_output_libc.ads": {
+    "bytes": 1532,
+    "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads": {
+    "bytes": 7503,
+    "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/ada.ads": {
+    "bytes": 1253,
+    "sha256": "3915ec3edb9ce5eb7686ad4a3d372c12874be219d2b21fcf55bd05af22cd5bbb"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-textio.ads": {
+    "bytes": 31447,
+    "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-ioexce.ads": {
+    "bytes": 1409,
+    "sha256": "7edd41e2d352ed7c7918526b34c00b166ac1b11d6d427e1c1f06a7cf19a84056"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-stream.ads": {
+    "bytes": 4451,
+    "sha256": "1f9af89dab4acb7b5e50704165316a87ab1fb4f14d04f553e39e125234498b33"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-ficobl.ads": {
+    "bytes": 8163,
+    "sha256": "239304566b005778faf56a2e7daac9a33fb020730f78066844be96374d1eec75"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/interfac.ads": {
+    "bytes": 9575,
+    "sha256": "cb0812255c9176e7494a2c3a5c83b1cc3f36924adc8f7e69c54d4e7ccc73c366"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/i-cstrea.ads": {
+    "bytes": 12784,
+    "sha256": "c879a62f21c9bb4f4bde14b9de42d943d6014e0365168bf62324fe2c0f9a94d9"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-crtl.ads": {
+    "bytes": 9186,
+    "sha256": "08986ca6576f77dda5bf33014d533ca2f8fe5b5a69dc288ead6f430eede2c759"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-parame.ads": {
+    "bytes": 8691,
+    "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-wchcon.ads": {
+    "bytes": 11852,
+    "sha256": "9b8ba9e5acda6d9101d5c1213164cabab58ca669c1fd344854b2f772cb7050e2"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-sttebu.ads": {
+    "bytes": 6399,
+    "sha256": "7ea218c66ba5dfc6f5870bb854f4be4ece5eaa4349dce839ea6d14c218b9e052"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-string.ads": {
+    "bytes": 1729,
+    "sha256": "442b67ae5ce5e31702143ec2d7673a66ffa998d7b97afcdd19b552e670d96e02"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-stuten.ads": {
+    "bytes": 7693,
+    "sha256": "e94fcfe456cd618544fcacbc1ea54120caf3e5ebaca1f5d346f46b235b24a865"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-unccon.ads": {
+    "bytes": 1554,
+    "sha256": "576b8b0ecb9ab7a72b6686f06f4c30e74c8e4eff1e1ce93de7f3a32da0599864"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stalib.ads": {
+    "bytes": 12615,
+    "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-exctab.ads": {
+    "bytes": 4141,
+    "sha256": "7b47d706f502d266c30b31377b6dfa7a491be181cea388a4eaecdc51ea796c77"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-tags.ads": {
+    "bytes": 30616,
+    "sha256": "984f3dd3fccc4d7a9d28c7efd8d34ee7cec531b41fd8d5477037a424535cd048"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stoele.ads": {
+    "bytes": 5401,
+    "sha256": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-soflin.ads": {
+    "bytes": 18985,
+    "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-except.ads": {
+    "bytes": 14245,
+    "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-traent.ads": {
+    "bytes": 3759,
+    "sha256": "e55203442b4dbaf3170bfbe04389f371b16f33cc62eb12d9020d0c91a3588f4d"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-secsta.ads": {
+    "bytes": 17306,
+    "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stache.ads": {
+    "bytes": 4445,
+    "sha256": "6691d3001b04e06b221b2c49a0052691a2dd450d084df24295de26b50d8bc98a"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-putima.ads": {
+    "bytes": 6550,
+    "sha256": "f7a8721687fc233cf4b774b6db98ac1deaff3ebe42e0e2f88ddb5e9459db1910"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-unstyp.ads": {
+    "bytes": 11027,
+    "sha256": "b98b23b18685b9a87c19905d33ea34a0dd60adbca6913431ce455ab0d0bf0d3e"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca2.ads": {
+    "bytes": 2911,
+    "sha256": "9cca4fa295483828eb288a2fafdaa1ca1cefc63ee0c2dce67629e6809cda9985"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca3.ads": {
+    "bytes": 2922,
+    "sha256": "a0e3ded6c761b5bf678f01c9330258988dbddffe6d801df16e0342feb88a97fc"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca4.ads": {
+    "bytes": 2930,
+    "sha256": "0661c346df20ee3f12378f0031ab0330eaf4be4ba69d8b88638d4f6124686404"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca5.ads": {
+    "bytes": 2939,
+    "sha256": "3a68b2479d735a2e8c9b49f602f460bd3de887256b16b208c4051ced54bb9576"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca6.ads": {
+    "bytes": 2947,
+    "sha256": "b5956182332d48a44ef4f0316658d50237263dcaefdc8f5ca35b493d3004b84b"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca7.ads": {
+    "bytes": 2994,
+    "sha256": "62c8dbabec4268ab82f8955999ceff5dc3c7665091e6f338dccf148092fa12fd"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca8.ads": {
+    "bytes": 3006,
+    "sha256": "80aa7ac244ffe560a6fc90e4987968306ff60b7955a1c84c441fc86a0b8826b0"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-conca9.ads": {
+    "bytes": 3020,
+    "sha256": "de221b475f840622c0716012177f93d390380bf7c59af4445633f1dba4eb2bd5"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-imgint.ads": {
+    "bytes": 4158,
+    "sha256": "fdd4c20f9e61bd2c1b7f46ad580beb98c590f91cca2302ee3affec81d6402cce"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-imagei.ads": {
+    "bytes": 3367,
+    "sha256": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126"
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1": {
+    "bytes": 52570368,
+    "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e"
+  },
+  "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb": {
+    "bytes": 10894536,
+    "sha256": "e5272927fc1b40345748dfa4133ec2a50caeb5f209a44099dd2c48679911c59c"
+  }
+}
