@@ -1,0 +1,112 @@
+{
+  "scope": "Null per-function warning and whole-unit IPA allocation join",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_sources_verified": 52,
+  "reused_results_verified": 4,
+  "GGC_requests": [
+    {
+      "object": "function_summary_manager",
+      "events": 3,
+      "individual_raw_bytes_at_most": 512
+    },
+    {
+      "object": "function_summary_vector",
+      "events": 3,
+      "individual_raw_bytes_at_most": 128
+    },
+    {
+      "object": "local_Main_function_summary_record",
+      "events": 2,
+      "individual_raw_bytes_at_most": 128
+    },
+    {
+      "object": "IPA_parameter_manager",
+      "events": 1,
+      "individual_raw_bytes_at_most": 512
+    },
+    {
+      "object": "IPA_parameter_map_13_entries",
+      "events": 1,
+      "individual_raw_bytes_at_most": 208
+    },
+    {
+      "object": "IPA_edge_argument_manager",
+      "events": 1,
+      "individual_raw_bytes_at_most": 512
+    },
+    {
+      "object": "IPA_edge_argument_map_13_entries",
+      "events": 1,
+      "individual_raw_bytes_at_most": 208
+    },
+    {
+      "object": "IPA_value_range_hash_control",
+      "events": 1,
+      "individual_raw_bytes_at_most": 128
+    },
+    {
+      "object": "IPA_value_range_hash_backing_61_pointers",
+      "events": 1,
+      "individual_raw_bytes_at_most": 488
+    }
+  ],
+  "new_GGC_events": 14,
+  "updated_selected_known_GGC_subtotal": 40086,
+  "summary_manager_groups_cold_allowance": 3,
+  "function_summary_IDs_ever_needed": 1,
+  "call_summary_IDs_ever_needed": 0,
+  "parameter_edge_argument_and_value_range_map_entries": 0,
+  "summary_constructor_and_inline_hook_requests_at_most": 37,
+  "ordinary_hook_bytes_each": 24,
+  "ordinary_request_bounds": {
+    "summary_manager_each": 512,
+    "summary_pointer_vector": 112,
+    "local_size_summary_record": 16,
+    "size_summary_pool_block": 65536,
+    "local_summary_worklist": 40,
+    "local_summary_order_array": 20,
+    "size_time_entry_at_most": 96,
+    "size_time_vector_growth_requests_per_local": [
+      392,
+      776
+    ],
+    "free_language_data_vectors_each": 808,
+    "empty_pointer_hash_set_backing": 104,
+    "reachability_hash_sets_per_invocation": 3,
+    "ODR_hash_backing": 248,
+    "single_user_map_backing": 208,
+    "COMDAT_map_backing_each": 4016,
+    "inline_order_arrays_each": 8,
+    "reverse_postorder_stack": 24,
+    "reduced_postorder_DFS_record": 32,
+    "reduced_postorder_stack": 8,
+    "splay_tree_control_at_most": 64,
+    "splay_tree_node": 32,
+    "indirect_edge_vector": 72,
+    "queued_inline_transform_vector": 40,
+    "O0_switch_vector": 16,
+    "warning_graph_slots": 5,
+    "coexisting_ET_nodes": 10,
+    "coexisting_ET_occurrences": 20
+  },
+  "EH_dispatch_selected": false,
+  "EH_filter_vectors_or_hashes_created": 0,
+  "previous_ranger_and_out_of_SSA_backing_reused": true,
+  "warnings_add_GGC_object_constructors": false,
+  "existing_ET_pool_envelope_nodes": 12,
+  "existing_ET_pool_envelope_occurrences": 24,
+  "input_requirements": [
+    "Established null one-function/one-dummy symbol graph; no calls, references, loops, aliases or clones",
+    "Previously established selected O0/no-debug/no-profile/no-instrumentation pass dispositions",
+    "Initial SSA graph has at most5 blocks/4 edges/3 live statements/2 SSA slots",
+    "Installed LP64 source/tool, checking/statistics and allocator configuration premises"
+  ],
+  "remaining_terms": [
+    "Whole cgraph analysis/finalization and any helper not covered by these selected pass interfaces",
+    "Source/path/line-map and Ada callback metadata",
+    "Collector pages/finalizers and whole-invocation process/library composition"
+  ],
+  "complete_capacity_result": false,
+  "native_execution": false,
+  "reachability_basis": "Manual selected-route source argument; anchors do not automatically prove reachability"
+}

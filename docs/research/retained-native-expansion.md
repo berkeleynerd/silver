@@ -9837,6 +9837,201 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output /tmp/native-null-initial-gimple.json
 ```
 
+## Null warning and IPA allocation join
+
+This combines the initial SSA interface above, the already priced ranger and
+out-of-SSA constructors, and the [selected whole-unit IPA schedule](retained-backend-ipa.md).
+Inputs remain one Main function, one forced dummy variable, no calls/references,
+no aliases/clones, at most five GIMPLE block slots and two SSA-name slots.
+The selected O0/no-debug/no-instrumentation gates are premises. This section
+prices selected pass requests; cgraph analysis/finalization outside those
+interfaces and source metadata are still explicit.
+
+### Warnings and mandatory lowering
+
+The alloca warning enables its already priced ranger, then rejects each
+LABEL/RETURN before any alloca-specific range or integer construction
+(`gimple-ssa-warn-alloca.cc:258–273`). Both access-warning invocations likewise
+reuse that ranger transfer. Their `check_block` calls `check_stmt` for every
+noncall. Labels fall through and the bare RETURN returns on its null value
+before constructing a diagnostic or querying a pointer (`gimple-ssa-warn-access.cc:4480–4553`).
+The `.MEM` default definition is a GIMPLE_NOP; the dangling-use scan's
+assignment/call branches do not select it (`:4767–4823`). Thus these scans add
+zero GGC object constructors, not zero ordinary analysis work.
+
+The early dangling-store scan constructs one empty 13-pointer/104-byte store
+hash, an inline bitmap header and an eight-slot inline edge-iterator stack.
+The latter's requested capacity is at most six. Its reverse traversal visits
+at most the three ordinary blocks and entry; one 40-byte bitmap element
+suffices, with block indices below five (`:4733–4760`). Each access invocation
+also has an inline `bb_uids_set` header; no relevant call/pointer operation
+populates it. Existing pass-owned pointer/clobber caches acquire no entries.
+Their constructor storage was present in the fixed compiler prefix; this
+argument does not charge it a second time or assume that a pass object has
+no fields. Temporary URLification scope does not create a compiler tree.
+
+Each access invocation computes both dominator directions and DFS backedges,
+then frees both directions (`:4857–4901`). The initial forward forest has
+at most five nodes; a simultaneous backward forest adds at most five. Thus
+this part of GIMPLE has at most **ten ET nodes and twenty ET occurrences**
+coexisting. The [existing RTL pool envelope](#cfg-traversal-loop-roots-and-dominance-widths)
+of twelve nodes and twenty-four occurrences already dominates these counts.
+The warning instances are sequential, and expansion frees the remaining
+GIMPLE dominance state before RTL construction. Pool objects are reused or
+released; there is no accumulation of one whole forest per query. Individual
+forward/postdominator arrays use the existing N=5 transfer; the postdominator
+fake-exit set, if requested, is a five-bit bitmap. These observations close
+the initial packet's cross-direction ET coexistence input without a RAM cap.
+
+EH dispatch is **skipped**, because its pass gate requires a nonnull
+`region_tree` (`tree-eh.cc:4074–4076`). Consequently `assign_filter_values`
+inside that execute method does not allocate its type/specification vectors
+or hash tables for null Main. An earlier shape narrative overcharged these
+objects; the source gate, rather than the helper's unconditional first lines,
+controls the selected path. Initial EH lowering's finally table/empty bitmap
+was already charged above and is unaffected.
+
+The existing per-function shape audit supplies the other selected
+no-transform branches: varargs/vector/complex/bitint lowering, default
+instruction selection, alignment and the false instrumentation/optimization
+gates. O0 switch lowering's empty statement vector still requests **16
+ordinary bytes** for one pointer (`tree-switch-conversion.cc:3045–3061`).
+CFG cleanup and fixup reuse the graph/bitmap interfaces above; the ordinary
+SSA updater returns before allocation with no renaming work. Out-of-SSA and
+all four ranger constructors retain their [complete local backing rows](#out-of-ssa-ranger-and-cfg-helper-backing),
+which contribute zero GGC events. They are not reopened as missing work here.
+
+### Function summaries and IPA propagation infrastructure
+
+There are exactly two selected `pass_local_fn_summary` registrations and one
+whole-unit `pass_ipa_fn_summary` registration (`passes.def:75,119,174`).
+`compute_fn_summary` conditionally creates the three managers, removes and
+recreates Main's function-summary record, and obtains its ordinary size
+record (`ipa-fnsummary.cc:3386–3405`). The second local invocation normally
+reuses the managers. For a simple lifetime allowance, charge **three cold
+manager groups**, one at each possible entry, while charging exactly two
+local function-summary records. Early/late free-summary passes release the
+infrastructure (`:5165–5187,5250–5276`). The global generation guard does not
+analyze Main at O0, and there is no late inserted/cloned function to invoke
+its insertion/duplication callback (`:4698–4716`).
+
+In each group only `ipa_fn_summary_t` is GGC. Its base registers ordinary
+hooks and allocates one GGC 13-pointer vector; size and call summary managers
+use ordinary storage (`ipa-fnsummary.h:223–273,310–317`,
+`symbol-summary.h:27–46,103–109,367–463,564–579,835–846`).
+A summary vector initially has capacity but zero length. The sole Main
+summary ID is assigned once and remains zero across manager destruction;
+`get_create` extends length to one without reallocating that capacity
+(`cgraph.h:2771–2778`, `symbol-summary.h:389–402`). There is no call-summary
+ID. The GGC summary record's constructor zeros pointers/vectors and holds
+fixed scalar/predicate state; it does not allocate a condition or loop vector.
+
+The local scan's optimizing branch is false. In particular it creates no
+node-parameter/body-info vectors, nonconstant-name array, loop optimizer or
+range query (`ipa-fnsummary.cc:2856–2915`). `load_or_store_of_ptr_parameter`
+returns -1 at O0 (`:1329–1333`), and no address operand/call generates a new
+condition. Predicate operations work in nine inline 32-bit clauses
+(`ipa-predicate.h:117,261–262`). The necessary-statement worklist holds at
+most three statements, using one 40-byte ordinary vector; its ten-byte inline
+block cache covers all five slots. Virtual uses are not scanned by its
+`SSA_OP_USE` loop (`ipa-fnsummary.cc:2793–2849`). Each local scan has a
+20-byte order array and an inline preorder traversal stack.
+
+There are at most two seed `account_size_time` calls and two calls per live
+statement, at most eight calls/entries. No call table or address-cost branch
+is selected. A size/time entry has two 36-byte predicates, one int and an
+eight-byte `sreal`, fitting 96 bytes with padding; vector capacities four and
+eight therefore have individual ordinary request ceilings 392 and 776 bytes
+(`ipa-fnsummary.h:75–86`, `ipa-fnsummary.cc:166–246,2921–2933,3175–3241`).
+This conservatively overcounts predicate equality merging. The `.MEM` name
+introduces no ordinary operand cost, scalar expression or additional summary.
+Updating the overall summary only reads those entries and sees empty callee
+lists (`:4620–4646`).
+
+Whole-unit generation also invokes `ipa_register_cgraph_hooks` once. Its
+node-parameter and edge-argument managers each have a GGC control object and
+one empty GGC map backing of thirteen 16-byte entries. Their map control is
+embedded in the manager, not an extra allocation. The edge setup separately
+creates `ipa_vr_hash_table`, with a GGC control and prime-61 pointer backing
+for requested size 37 (`ipa-prop.h:1079–1101,1165–1170`,
+`ipa-prop.cc:4931–4939,5211–5218`, `symbol-summary.h:268–274,679–683`).
+None receives an entry: there are no calls, formal parameters, optimized
+body analysis or generated functions. These empty allocations are payable
+even though no propagation happens.
+
+| New GGC class | Requests, at most | Individual raw request ceiling |
+| --- | ---: | ---: |
+| Function-summary manager / normalized pointer vector | 3 / 3 | 512 / 128 |
+| Local Main function-summary record | 2 | 128 |
+| Parameter manager / map backing | 1 / 1 | 512 / 208 |
+| Edge-argument manager / map backing | 1 / 1 | 512 / 208 |
+| Value-range hash control / backing | 1 / 1 | 128 / 488 |
+
+The subtotal is **14 GGC events**. The field-derived ordinary pool-allocator
+control is at most 136 bytes (twelve machine words, a padded flag and a
+32-byte `mem_location`). The largest summary manager combines that control,
+a vtable word, seven pointer/function-pointer fields, a padded GGC flag and
+an embedded hash control: at most 256 bytes, within the 512-byte allowance
+(`alloc-pool.h:204–247`, `mem-stats.h:112–127`, `symbol-summary.h`). Pool
+construction initializes scalars and allocates no block. The ordinary
+16-byte size-summary records use at most one 65,536-byte pool block per
+cold size manager; no call-summary record is requested. The function-summary
+record fits 128 bytes by its fixed field list (`ipa-fnsummary.h:159–210`).
+
+### Remaining selected IPA ordinary requests
+
+The complete IPA **shape** inventory remains the input; this table supplies
+its principal manager/container backing without turning repeated independent
+ordinary allocations into an aggregate storage condition.
+
+| Selected path | Individual ordinary request/interface |
+| --- | --- |
+| Summary and growth-cache managers | Controls at most 512 bytes each; thirteen-pointer vectors are 112 bytes. Growth-cache function/call managers stay empty (`ipa-inline-analysis.cc:127–146`). |
+| Hooks | Each hook list node is three pointers, 24 bytes (`cgraph.cc:85–110,491–503,545–559,615–628`). Three cold summary groups request at most 24 nodes; global reenable adds one; propagation managers plus extra insertion hook add six; growth caches add five and inline heap removal adds one: at most 37. Disabled hooks are removed, not retained as live duplicates. |
+| Free language data | Two 808-byte hundred-pointer vectors and one empty 13-pointer/104-byte visited-set backing. The non-LTO return excludes all traversal/map entries (`ipa-free-lang-data.cc:53–73,1119–1135`). |
+| Reachability | Three 13-pointer/104-byte hash backings per invocation; only `reachable` receives the two known symbols. No growth. The auxiliary-linked worklist adds no object (`ipa.cc:310–536`). |
+| Type inheritance | Empty ODR hash control and prime-31/248-byte backing for request 23. No virtual class/type enters it; rebuild clears rather than clones state (`ipa-devirt.cc:2352–2408,2852–2861`). |
+| Inline ordering | Two separate one-pointer/8-byte order arrays. Reverse postorder has one 24-byte stack record. Reduced postorder has one 8-byte pointer stack, one 32-byte DFS record, a splay control below 64 bytes and one 32-byte splay node (`ipa-utils.cc:172–220,274–360`, `ipa-utils.h:24–34`, `include/splay-tree.h:91–125`). |
+| Inline heap/worklist | Its new pool-allocator control is at most 136 bytes, but the empty heap requests no pool block/node (`fibonacci_heap.h:151–162`). The indirect-edge vector requests 72 bytes for eight pointers. `updated_nodes` is an inline bitmap header with no elements (`ipa-inline.cc:2094–2162`). |
+| Queued transform | One ordinary 40-byte vector for Main's single inline transform. `ipa_transforms_to_apply` uses `va_heap` (`cgraph.h:1484`). The no-callee transform creates no clone/body/SSA mapping; its fixup and no-work SSA updater use the existing interface. |
+| Single-use and COMDAT | One empty thirteen-entry/208-byte pointer map; two 251-entry pointer maps, 4,016 bytes each. The first COMDAT map receives at most two symbols, the second none; no growth or group propagation (`ipa.cc:1464–1553`, `ipa-comdats.cc:235–297`). |
+| Constructors, coverage, modref and target clones | The existing gates/no-input branches apply. The ctor vectors have twenty inline pointers and remain empty; no module constructor, coverage object, modref summary, clone or additional symbol is created. |
+
+These per-invocation hash sizes bound each map's actual capacity/entry counter;
+repeated reachability calls do not insert into one cumulative map. The only
+new summary ID is zero; GGC vector lengths stay at most one. Heap node count,
+call cache lengths and parameter/range hash element counts remain zero.
+Finalizer registration for GGC vectors/maps and collector page lifetimes
+still belong to the collector join, not an implicit zero here.
+
+The joined known GGC subtotal is now **40,086**. The remaining translation
+term excludes the warning/summary/IPA requests above and the earlier complete
+ranger/out-of-SSA local backing, but still retains cgraph analysis/finalization
+and helpers outside these selected pass interfaces. Source metadata, Ada
+callbacks, whole-invocation process/library and collector composition remain
+open. No compiler, prover, Lean build, debugger capture or repeated successful
+witness was run, and no admission limit or language rule changed.
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-pass-join.py)
+checks 52 complete source identities, four retained inputs, selected schedule
+anchors and the arithmetic; its [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-pass-join.json)
+keeps those remaining terms. Text matching is an identity/reconciliation aid,
+not automatic verification of the handwritten selected-route argument.
+
+Independent narrow review replayed all 52 source and four prior-result
+identities byte-for-byte. It checked the summary constructor/removal/release
+lifecycle, the two local and one global registrations, the O0 global-analysis
+guard, embedded maps, hook counts, summary IDs and size/time-vector growth.
+It also checked the bare RETURN and `.MEM` warning exclusions and simultaneous
+dominator forests. No material finding remained; acceptance is limited to
+this selected pass interface and preserves the stated open joins.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-pass-join.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output /tmp/native-null-pass-join.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

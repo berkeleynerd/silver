@@ -1,0 +1,289 @@
+{
+  "scope": "Null per-function warning and whole-unit IPA allocation join",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_numbering": "Literal LF",
+  "files": [
+    {
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "path": "gcc/tree-eh.cc",
+      "bytes": 147108,
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431"
+    },
+    {
+      "path": "gcc/except.cc",
+      "bytes": 99184,
+      "sha256": "90ef6fe4750300cb1985cb1df0af450cc0d806dad85874f631bfd8e411e0e5f0"
+    },
+    {
+      "path": "gcc/gimple-ssa-warn-alloca.cc",
+      "bytes": 11880,
+      "sha256": "e260cbf58b2c0e9fde3eaf16f717b611ecd1394096d3dd090b975bb0c72cb3d0"
+    },
+    {
+      "path": "gcc/gimple-ssa-warn-access.cc",
+      "bytes": 148420,
+      "sha256": "ddd9a77ea6a7ac598a37ad5345c0faba38ef3ded821550428f4e9b86dfea4d5d"
+    },
+    {
+      "path": "gcc/tree-cfgcleanup.cc",
+      "bytes": 48340,
+      "sha256": "75582d69d7f785c21e49fec38c286ba059ef5dfac8caa1f22a31a2e09497614a"
+    },
+    {
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "bytes": 106038,
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "path": "gcc/tree-switch-conversion.cc",
+      "bytes": 95004,
+      "sha256": "25687a39fd7f1ac7f20b61e9ba41929dd2da3a2d5f150b4c34294a6c6eb61e71"
+    },
+    {
+      "path": "gcc/dominance.cc",
+      "bytes": 48171,
+      "sha256": "83ae712d69a2424e7d401a49024221a7fa950da2a7ce587b75a0b6b59d7ee930"
+    },
+    {
+      "path": "gcc/et-forest.cc",
+      "bytes": 17433,
+      "sha256": "d2a9395270619f63779a5cdb2b1dd3e64fbccfbac8b8951d9028d904bd8d60cd"
+    },
+    {
+      "path": "gcc/et-forest.h",
+      "bytes": 2693,
+      "sha256": "c7f245d7ab7ba523b666724f69a4ea32006462130b90f4d7a104d56c9b00a060"
+    },
+    {
+      "path": "gcc/cfganal.cc",
+      "bytes": 57472,
+      "sha256": "e2c13056e8fde97f6a9008baf73fa9ab6527e376996bd9a537f95c9c2150ad1e"
+    },
+    {
+      "path": "gcc/ipa-fnsummary.cc",
+      "bytes": 161148,
+      "sha256": "977298c2bb09af16adc45786fd8a2bd4e768d44ecd22c0f3e59c3b957b5b4f2c"
+    },
+    {
+      "path": "gcc/ipa-fnsummary.h",
+      "bytes": 16054,
+      "sha256": "6ca5272ad5d106752ca6cd4e24ce8af990c2651a20710602fbcc33f2e5122a57"
+    },
+    {
+      "path": "gcc/ipa-predicate.h",
+      "bytes": 9223,
+      "sha256": "21c0a322a6421b8bf2f0e322de5bf1553ce64b196ed2370210564e97b0a209e5"
+    },
+    {
+      "path": "gcc/ipa-predicate.cc",
+      "bytes": 18546,
+      "sha256": "d448ff07b2d963a5a86f2ffac7ec08b527346282b3dde69e4c2237c942e426ec"
+    },
+    {
+      "path": "gcc/sreal.h",
+      "bytes": 6602,
+      "sha256": "47ee42955be12909d44af4187025a67e8890ec4d181227490f84e6028141a016"
+    },
+    {
+      "path": "gcc/sreal.cc",
+      "bytes": 10678,
+      "sha256": "a6711aa8a7904e62dd06c306b1bcf6624f75356d990023148289579143b92278"
+    },
+    {
+      "path": "gcc/ipa-prop.cc",
+      "bytes": 205107,
+      "sha256": "ef76526046f808127da51d0330694458fcb534ad8a373e6fea82a8e59d18278c"
+    },
+    {
+      "path": "gcc/ipa-prop.h",
+      "bytes": 44289,
+      "sha256": "a7912be259bfea09b22ef8a1a48d68ca9b42110e6ed27a26671d1261285cb72a"
+    },
+    {
+      "path": "gcc/symbol-summary.h",
+      "bytes": 27512,
+      "sha256": "f962ce1611e397217abd47c7abc188ffe70c62521742bfa78f1f8449ab93aed5"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76"
+    },
+    {
+      "path": "gcc/cgraph.h",
+      "bytes": 138341,
+      "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1"
+    },
+    {
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "path": "gcc/ipa-inline.cc",
+      "bytes": 112365,
+      "sha256": "17a339c37db9d130c93300a6f1cdfb7fd585bac69e70ba20e21d3f48c8d61955"
+    },
+    {
+      "path": "gcc/ipa-inline-analysis.cc",
+      "bytes": 16926,
+      "sha256": "a3df9528c57808532a4ade81809d1ca63053b1e956e5822190c1c1055a6afe8f"
+    },
+    {
+      "path": "gcc/ipa-inline-transform.cc",
+      "bytes": 30301,
+      "sha256": "152ccc17a9c38cf8226a0ade7abde662430c58d0e25b0482f2957725441a9fc3"
+    },
+    {
+      "path": "gcc/ipa-free-lang-data.cc",
+      "bytes": 38706,
+      "sha256": "9552e4fef23511063faa4f55df4c37c8e248170364e6f43180bf1d0121eac632"
+    },
+    {
+      "path": "gcc/ipa-devirt.cc",
+      "bytes": 143807,
+      "sha256": "74776c1b6db584b085d4dc08bb007ba4c0a7d7941699427fef485586a6c7a97e"
+    },
+    {
+      "path": "gcc/ipa.cc",
+      "bytes": 48183,
+      "sha256": "834fb2d9a1fa08e14ec6391889ad38292512eef85f52aeeaa7d64e2cef579d4c"
+    },
+    {
+      "path": "gcc/ipa-utils.cc",
+      "bytes": 30897,
+      "sha256": "9a907390fe98d32a7615c9070dec38e3444189effacd4381393940bff0a79bd5"
+    },
+    {
+      "path": "gcc/ipa-utils.h",
+      "bytes": 10279,
+      "sha256": "2fe5e1cfa941411a429a73fa7494020aaa9f9df94854463381fc645424434771"
+    },
+    {
+      "path": "gcc/ipa-comdats.cc",
+      "bytes": 12144,
+      "sha256": "d6bee05c69cd7eda4fd22ea0d1f11dfc8ab96004187b21806978a91193807b2d"
+    },
+    {
+      "path": "gcc/ipa-visibility.cc",
+      "bytes": 32743,
+      "sha256": "972c617632d1af5c723fe0350f9a8df702e5bcfc8eb3e4a4c7a84a7ef9fc1fb0"
+    },
+    {
+      "path": "gcc/ipa-modref.cc",
+      "bytes": 168363,
+      "sha256": "81c0a3156f0284307134f173b1d0b63e42cfe23662423c5123969220d0fd3e8d"
+    },
+    {
+      "path": "gcc/multiple_target.cc",
+      "bytes": 21140,
+      "sha256": "ca9c87d732004f321e4ab17599a69557eacf87052f5ed3b41aa7c60d3a0960e0"
+    },
+    {
+      "path": "gcc/omp-simd-clone.cc",
+      "bytes": 69159,
+      "sha256": "3e2268711d72d3fbc202c1ef6c9029f4461e4983420bcbf1da378b828f782276"
+    },
+    {
+      "path": "gcc/coverage.cc",
+      "bytes": 41421,
+      "sha256": "407c5ce7fc7f9f9fca9c6b596d2314e065909515b530a85453c003b04150f2c2"
+    },
+    {
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "path": "gcc/mem-stats.h",
+      "bytes": 18132,
+      "sha256": "9002b3042aaff192a120ce178d5421986a1dab3c653136ba63ff5e61d2b8f332"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "path": "gcc/hash-set.h",
+      "bytes": 5741,
+      "sha256": "052c2a5efb2455e5616b458b32cf0e728a11a4a8bb6cec5aa82cd744b5d5f946"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "path": "gcc/fibonacci_heap.h",
+      "bytes": 16180,
+      "sha256": "02024745ae250cff2f7c808a3245855ef95105ee1b8db8eb13bc843d0e764f18"
+    },
+    {
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "path": "include/splay-tree.h",
+      "bytes": 6231,
+      "sha256": "9f577a70ea9ffebe60246153ce3546298888dc1a4ed552eb49e1f3334893473f"
+    },
+    {
+      "path": "libiberty/splay-tree.c",
+      "bytes": 15908,
+      "sha256": "a4e1489f8d0e455432d0bf10530d5c1c322ec4497148c086fa47f1c9765ef80a"
+    }
+  ],
+  "reused_results": [
+    {
+      "path": "native-null-symbols.json",
+      "bytes": 1125,
+      "sha256": "80ad2827c7bbd3fd60ff57d5674392c432eb8082899e6a8d8d351bfbbc30b521"
+    },
+    {
+      "path": "native-null-initial-gimple.json",
+      "bytes": 5240,
+      "sha256": "52914e7fa3db2320af81a457afda45dae33d599d76f33f39e84cc268a7c8487c"
+    },
+    {
+      "path": "native-rtl-helpers.json",
+      "bytes": 3931,
+      "sha256": "4f14da90924a8286366af4559f75d1d701f2f0fa659c5b950d7bf628abce000c"
+    },
+    {
+      "path": "native-pass-framework.json",
+      "bytes": 1421,
+      "sha256": "f4f4daaa2392f7febda07ad898e2d728030f8a9f14063213be16c60712873c17"
+    }
+  ]
+}

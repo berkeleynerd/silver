@@ -58,3 +58,11 @@ and the separate ordinary-container interface. `native-null-initial-gimple.json`
 retains the source/location, shared-pool, later-pass and process remainders.
 Independent narrow review replayed and accepted that join; it is not a complete
 ordinary lifetime inventory or a capacity rule. No native tool was executed.
+
+`reconcile-null-pass-join.py` joins selected warning, summary and IPA requests,
+verifying 52 complete sources and four retained results. Its 14 additional
+GGC events bring the known subtotal to 40,086; ordinary containers remain
+individual request bounds. It reuses the already closed ranger/out-of-SSA and
+bitmap interfaces and closes the GIMPLE ET coexistence input. Independent
+source review replayed and accepted this pass interface; metadata, cgraph
+lifecycle, collector and process composition remain separate.
