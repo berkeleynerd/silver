@@ -64,6 +64,25 @@ def verify_counter_sources(manifest, gcc_root, ada_root):
     return checked
 
 
+def verify_original_helper_sources(manifest, gcc_root, ada_root, matcher):
+    """Bind the complete helper-constructor source inventory, including folds."""
+    packet=EVIDENCE/'retained-literal-original-string-storage-20261018'
+    require(manifest==read(packet/'source-manifest.json'),
+            'literal original helper exact source-manifest join')
+    checked=set()
+    for row in manifest['files']:
+        path=(Path(ada_root)/row['path'].removeprefix('gcc/ada/')
+              if row['root']=='ada' else Path(matcher) if row['root']=='matcher'
+              else Path(gcc_root)/row['path'])
+        raw=path.read_bytes()
+        require(identity(raw)=={key:row[key] for key in ('bytes','sha256')} and
+                hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+                ==row['git_blob_sha1'],
+                'literal original helper complete source join: '+row['path'])
+        checked.add(str(path))
+    return checked
+
+
 class Context:
     def __init__(self, gcc_root, ada_root, plugin_include, gcc_match=None):
         pins = read(HERE/'inputs.json')
@@ -166,6 +185,19 @@ class Context:
             counts_overlap_direct_source_validation=True)
         self.counter=runpy.run_path(str(counter_packet/'derive.py'))
         self.counter_expected=read(counter_packet/'interface.json')
+        original_packet=EVIDENCE/'retained-literal-original-string-storage-20261018'
+        self.original_manifest=read(original_packet/'source-manifest.json')
+        original_sources=verify_original_helper_sources(
+            self.original_manifest,roots['gcc'],roots['ada'],match_path)
+        checked.update(original_sources)
+        self.original_source_validation=dict(
+            source_manifest=identity((original_packet/'source-manifest.json').read_bytes()),
+            complete_source_files_verified=len(original_sources),
+            gcc_revision=self.original_manifest['commit'],
+            historical_silver_revision=self.original_manifest['reviewed_silver_revision'],
+            counts_overlap_direct_source_validation=True)
+        self.original_helper=runpy.run_path(str(original_packet/'derive.py'))
+        self.original_helper_expected=read(original_packet/'interface.json')
         self.source_files_verified = len(checked)
         frontend_packet=EVIDENCE/'retained-literal-native-frontend-20261018'
         self.frontend = runpy.run_path(str(frontend_packet/'compose.py'))
@@ -532,6 +564,80 @@ def native_counter_emission(c, n, context, imported, synthetic, pools, graph, as
                 13*assembler['counts']['decoded_bytes']+512*c,
             'literal counter selected emitted-name envelope join')
     return counter
+
+
+def original_helper_name_bound(filename_bytes, global_name_bytes=9):
+    """The local leaf P bounds a cleaned component; paths exclude NUL here."""
+    require(type(filename_bytes) is int and filename_bytes>=0 and
+            type(global_name_bytes) is int and global_name_bytes>=0,
+            'literal original helper name-bound inputs')
+    return max(global_name_bytes,filename_bytes+28)
+
+
+def native_original_helper_storage(native_main, context, cold, counter):
+    """Price both original constructors; export unknown counter/backing joins."""
+    leaf=context.original_helper['evaluate']()
+    require(leaf==context.original_helper_expected and
+            leaf['helper_constructors']==cold['size_functions_created']==2 and
+            leaf['cold_Standard_String_conversions']==1 and
+            leaf['parameters_per_helper']==2 and
+            leaf['top_level_substitute_in_expr_calls']==4 and
+            leaf['substitution_envelope']['GGC_events']==36 and
+            leaf['substitution_envelope']['discarded_candidates_included'] and
+            leaf['GGC_events']==94==sum(row['requests'] for row in leaf['GGC_groups']) and
+            leaf['identity_demands']['helper_name_fnno_increments']==
+                counter['interface']['size_helper_private_name_increment']==2 and
+            leaf['identity_demands']['helper_name_fnno_increments']==
+                cold['persistent_counter_increments']['private_size_function_fnno'] and
+            cold['size_function_parameter_counts']==[leaf['parameters_per_helper']]*2 and
+            leaf['identity_demands']['function_definition_numbers']==0 and
+            leaf['identity_demands']['symbol_registrations']==0 and
+            leaf['shared_container_demands']['identifier_insertion_capable_lookups']==6 and
+            leaf['shared_container_demands']['identifier_new_entries_ceiling']==4 and
+            leaf['shared_container_demands']['type_hash_insertion_capable_lookups']==2 and
+            leaf['shared_container_demands']['type_hash_new_records_ceiling']==2 and
+            not any(leaf[key] for key in (
+                'broader_Standard_String_conversion_included',
+                'original_empty_elaboration_construction_included','original_Main_gigi_included',
+                'synthetic_gimplification_and_struct_function_included',
+                'cgraph_nodes_and_symbol_registration_included','shared_table_backing_included',
+                'collector_pages_and_allocator_metadata_included','whole_literal_pipeline_closed')),
+            'literal original helper storage interface join')
+    # gigi sets the suffix-free Main external name before initialization and
+    # translation (trans.cc:367-370). Get_External_Name supplies _ada_main
+    # (decl.cc:11282-11305; exp_dbug.adb:764-909); notice_global_symbol keeps it.
+    # Keep the generic leaf's fallback F+28 guard even though G is available.
+    f=len(native_main.encode('ascii'))
+    local_p=original_helper_name_bound(f)
+    guards=leaf['finite_arithmetic_guards']
+    name_fits=guards['P_min']<=local_p<=guards['P_max']
+    numeric=(context.original_helper['evaluate_at'](local_p) if name_fits else None)
+    if numeric is not None:
+        require(numeric==dict(P=local_p,GGC_events=94,
+                    GGC_caller_bytes_sum_ceiling=6832+2*local_p,
+                    GGC_rounded_slots_sum_ceiling=7912+2*context.original_helper['rho'](local_p+33)),
+                'literal original helper name arithmetic join')
+    return dict(interface=leaf,
+        name_input=dict(selected_native_Main_filename=native_main,
+            filename_bytes_excluding_NUL=f,first_global_object_name='_ada_main',
+            first_global_object_name_bytes_excluding_NUL=9,
+            local_cleaned_component_bound=local_p,
+            derivation='max(9, filename_bytes_excluding_NUL+28)',
+            selected_launch_to_actual_invocation_premise_required=True),
+        evaluated_requests=numeric,
+        local_name_arithmetic_fits=name_fits,
+        ordinary_requests=leaf['ordinary_requests'],
+        ordinary_caller_bytes_sum_ceiling=leaf['ordinary_caller_bytes_sum_ceiling'],
+        identity_demands=leaf['identity_demands'],
+        shared_container_demands=leaf['shared_container_demands'],
+        incoming_private_name_fnno=0,next_private_name_fnno=2,
+        incoming_next_DECL_UID=None,incoming_next_type_UID=None,
+        required_incoming_counter_maxima={key:value for key,value in guards.items()
+            if key.startswith('incoming_')},
+        shared_container_backing=None,
+        complete_global_counter_lifetime_closed=False,
+        complete_imported_allocation_events=None,complete_imported_allocation_bytes=None,
+        complete_collector_lifetime_closed=False,whole_literal_pipeline_capacity_established=False)
 
 
 def native_ssa_helper_backing(c, n, context):
@@ -1092,6 +1198,8 @@ def evaluate(descriptor_path, context, source_override=None):
             assembler['GAS']['rodata_bytes_upper'] == native['conditional_native_constant_data'][
                 'rodata_payload_including_padding_bytes_upper'], 'literal assembler common-input join')
     counter=native_counter_emission(c,n,context,imported,synthetic,pools,graph,assembler)
+    original_helper=native_original_helper_storage(launch['native_Main'],context,
+        native_cold_string_interface(context),counter)
     # The descriptor bounds path spelling bytes; storage includes the terminal NUL.
     assembler_storage = context.assembler_storage['evaluate'](
         raw,context.assembler_storage_context,path_bytes=p+1)
@@ -1146,6 +1254,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_initial_warning_map_lifetime=warning_transfer['conditional_map_interface_fits'],
         native_collector_callback_local_interface=(
             collector['value_expression_marker']['each_ordinary_hash_backing_bytes']<=I64),
+        native_original_helper_name_arithmetic=original_helper['local_name_arithmetic_fits'],
         native_synthetic_individual_request_sizes=all(
             0<row['caller_bytes']<=I64 for row in synthetic['GGC_groups']+synthetic['ordinary_groups']),
         Main_assembler_object_interface=assembler['local_interface_fits'],
@@ -1191,6 +1300,7 @@ def evaluate(descriptor_path, context, source_override=None):
         additional_emitted_stream_interface=None,
         cold_String_layout=native_cold_string_interface(context),
         selected_generated_function_frontier=imported,
+        original_helper_storage=original_helper,
         synthetic_function_storage=synthetic,
         selected_counter_emission_interface=counter,
         selected_empty_elaboration_symbol_registration_established=True,
@@ -1226,6 +1336,10 @@ def evaluate(descriptor_path, context, source_override=None):
                              local_original_gigi_warning_suppressions_upper=warning['local_gigi_suppression_call_ceiling'],
                              remaining_original_gigi_warning_put_calls=5,
                              initial_warning_map_GGC_events_upper=warning_transfer['additive_GGC_event_ceiling'],
+                             original_helper_GGC_events_upper=original_helper['interface']['GGC_events'],
+                             original_helper_GGC_caller_bytes=original_helper['evaluated_requests'],
+                             original_helper_identity_demands=original_helper['identity_demands'],
+                             original_helper_shared_container_demands=original_helper['shared_container_demands'],
                              synthetic_function_GGC_events_upper=synthetic['GGC_events'],
                              synthetic_function_singleton_finalizers_upper=synthetic['shared_container_demands']['singleton_finalizer_registrations'],
                              collector_callback_additional_GGC_events=collector['collector_callback_additional_GGC_events'],
@@ -1271,6 +1385,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_unshare_protected_set_storage=protected_storage,
         native_warning_map_demand=warning,
         native_collector_callbacks=collector,
+        native_original_helper_storage=original_helper,
         native_synthetic_function_storage=synthetic,
         native_counter_emission_interface=counter,
         native_Main_frontend_interface=frontend,
@@ -1288,6 +1403,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_Main_frontend_nested_validation=context.frontend_verification,
         native_collector_nested_inputs_verified=context.collector_context.inputs_verified,
         native_counter_source_validation=context.counter_source_validation,
+        native_original_helper_source_validation=context.original_source_validation,
         native_tool_executions=0,production_admission_changed=False,aggregate_RAM_gate=False,
         conditional_premises=['Relevant installed behavior matches the reviewed source.',
             'The selected O0, Linux x86-64, no-debug, small-PIC, ordinary PLT descriptor and unchanged Silver library semantics apply.',

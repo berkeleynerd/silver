@@ -14,8 +14,9 @@ separately from arithmetic failure; its evaluated-predicates result is false
 even for Hello. The literal-sized ranger/out-of-SSA backing is
 substituted. Initial SSA infrastructure and renaming also have a separate
 constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
-conditional join. The next native consumer is the remaining frontend/gigi and
-remaining gimplifier helper lifetime, followed by shared collector composition.
+conditional join. The two original String size-helper constructors now have the separate request
+join below. The next native consumer is the remaining frontend/gigi and
+gimplifier helper lifetime, followed by shared collector composition.
 The reviewed whole-body copy and data-address bounds are now attached separately.
 The independently accepted literal linker and Main ALI adapters also join the
 same source interface; binder parser/graph and complete launch work remain open.
@@ -1701,8 +1702,8 @@ identifier/container backing, all later passes or collector pages/finalizers.
 There is no aggregate RAM gate, Oracle amendment, tool/option change or
 production-admission change.
 
-All 147 affected aggregate checks pass in 4.474777033 seconds, and the regenerated
-Hello result takes 3.367727894 seconds. Thirty-eight new cases reject changed
+At the prior counter checkpoint, all 147 affected aggregate checks passed in
+4.474777033 seconds, and Hello generation took 3.367727894 seconds. Thirty-eight new cases reject changed
 counter/function/symbol interfaces, erased persistent helper increments,
 source-count and pool/graph-bound mismatches, changed complete source manifests
 and actual files, altered name/line envelopes and premature whole/global/collector
@@ -1722,3 +1723,95 @@ residuals. Checker timing runs from 21:03:57 to 21:04:02 UTC on Linux x86-64/LP6
 default generation completes at 21:04:23 UTC. Total-round timing was not captured.
 The child harness goal was null. GitHub tracking, publication and CLI memory
 were not changed by this bounded subthread; the parent owns integration/review.
+
+
+## Original String helper-constructor request join
+
+The [original helper-storage leaf](retained-literal-original-string-storage.md),
+frozen at `db777735c45ccf7a070a1d7eeae5a1afdd4dc8fc`, now supplies
+`native_original_helper_storage`. Its exact interface and 27 complete external
+source files are checked, including the matcher and all constructor/fold sources.
+The aggregate pins all seven leaf evidence files and its source argument. The
+leaf's 36 successful offline checks are retained without rerunning them. The
+leaf's independent source review and this integration's review are owned by the
+parent; this attachment does not itself mark either accepted.
+
+This request interval owns both complete `self_referential_size` invocations,
+including the private expression copying and all four parameter substitutions.
+It precedes the disjoint 173-event synthetic function/gimplification interval.
+The original constructors request at most 94 direct GGC objects, with caller-byte
+sum `6832+2P_local` and separately rounded slot sum
+`7912+2*rho(P_local+33)`. They also make two ordinary 40-byte vector requests,
+released within this interval. The new join checks the cold-layout parameter
+counts `[2,2]`, both constructor/name increments and the exact arithmetic leaf.
+It does not add these 94 requests to an invented complete imported-event total,
+repeat either cgraph-node charge or reuse null's 40,098-event lifetime.
+
+`P_local` is the cleaned component bound required by the leaf. Let F be the
+ASCII byte length, excluding NUL, of the descriptor's selected native Main
+filename. The aggregate derives `P_local=max(9,F+28)` from actual naming input,
+independently of `complete_path_bound` and the NUL-inclusive path envelopes
+passed to GAS/BFD and the linker. In the Hello descriptor F=46, so P_local=74,
+the caller-byte sum is 6,980 and the rounded-slot sum is 8,168. An enlarged
+aggregate path envelope does not enlarge this actual-filename quantity.
+
+The fixed nine-byte first-global name comes from the Ada frontend rather than
+an assumed symbol-emission order. Before initialization and compilation-unit
+translation, gigi assigns it using
+`create_concat_name(Defining_Entity(Unit(gnat_root)), NULL)`
+(`ada/gcc-interface/trans.cc:367–370`, before its translation call at `:685`).
+`create_concat_name` calls `Get_External_Name` with no suffix
+(`decl.cc:11282–11305`). For this recognized library Main, with no interface
+name, qualification, generic instance, Ghost entity or added suffix, that writer
+prepends `_ada_` to `main` (`exp_dbug.adb:764–909`). Thus the available name is
+`_ada_main`; `notice_global_symbol` returns immediately when that field is
+already present (`varasm.cc:1975–2009`). `get_file_function_name` copies this
+available name and cleans characters without changing length
+(`tree.cc:9059–9071,9114–9175`). The general leaf's F+28 fallback guard is still
+retained conservatively. The newly direct-checked `exp_dbug.adb` identity equals
+its retained metadata source identity. This source derivation replaces the
+incomplete GCC-only search for assignments; it establishes no new production
+invocation/materialization correspondence. The selected filename still belongs
+to the existing partial launch descriptor and keeps that premise explicit.
+
+The name condition checks `0<=P_local<=INT_MAX-33`; it is a local request-size
+condition. The constructor also exports eight fresh DECL_UID demands, at most
+four fresh type UID demands and two private-name increments. Its private name
+counter starts at zero on the retained cold frontier and next becomes two,
+joining the existing cold/counter interfaces without consuming another function
+number or symbol registration. Incoming DECL_UID/type-UID values remain null;
+the leaf's required incoming maxima are exported, and complete global-counter
+closure stays false. No passing filename calculation supplies those missing
+counter inputs.
+
+Shared demand is likewise preserved as demand: six insertion-capable identifier
+lookups permit at most four new entries, and two insertion-capable type-cache
+lookups permit at most two new records. Scalar-constant lookups and the existing
+small-constant cache demand remain in the exact interface. Their complete shared
+backing is null. Broader String conversion, original Main and empty elaboration
+construction, shared containers and collector backing retain their exclusions.
+The four existing unknown source-family conditions are unchanged; imported
+allocation totals remain null and complete global-counter, collector and whole
+pipeline closure remain false.
+
+All 177 affected aggregate cases pass in 4.927832739998848 seconds; Hello
+generation takes 3.6048516829996515 seconds. Thirty new cases reject altered
+constructor interfaces, omitted private copying or parameter substitutions,
+erased identifier/type/UID demand, premature completeness, changed complete
+source inventories and stale source files. They also check the local name
+formula at both signed endpoints, a different selected filename, independence
+from aggregate path/NUL bounds, and omitted arithmetic substitution. The run
+verifies 145 repository pins and 304 unique direct external files. The leaf's
+27-file inventory overlaps those checks; nested predecessor inventories remain
+separate. The previous 147-case aggregate success is retained as history; this
+single affected rerun was required by the new joins and source inputs. No native
+compiler/prover/build/test workload ran.
+
+Selected attachment model/effort: GPT-6.1 Sol / Extra High, assigned by parent;
+runtime confirmation and token/cost measurements are unavailable. The achieved
+result is the exact original-helper request, parameter, name and shared-demand
+transfer with residuals explicit. The check ran 21:24:53–21:24:58 UTC and Hello
+generation 21:24:53–21:24:57 UTC on Linux x86-64/LP64; these offline processes
+ran concurrently. Total-round timing was not captured. The child harness goal
+was null. Parent-owned integration/review, GitHub, CLI memory and publication
+were not changed by this bounded subthread.

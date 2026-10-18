@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 147 interface checks. It reuses one context's
+arguments and `--output`, and runs 177 interface checks. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -207,8 +207,8 @@ at each function gimplification; declaration and temporary-name sequences retain
 their separate global obligations. The corrected storage leaf and graph-only
 condition restoration await the parent's independent review.
 
-The 147-case check passed in 4.474777033 seconds; Hello generation took
-3.367727894 seconds. Thirty-eight added cases cover altered serials/frontiers,
+The prior counter checkpoint passed 147 cases in 4.474777033 seconds; Hello
+generation took 3.367727894 seconds. Thirty-eight added cases cover altered serials/frontiers,
 count/bound/source joins, emitted-name/line envelopes, unsafe completeness flags
 and both sides of the signed symbol endpoint. The aggregate verifies 137
 repository inputs and 300 unique direct external files, including the 48
@@ -223,3 +223,46 @@ Actual host: Linux x86-64/LP64. The run timestamps and measured checker times
 are retained in the result files; no total-round timing was captured. The live
 child goal was null. GitHub, CLI memory, Oracle, tools and admission are owned
 by the parent or outside this bounded attachment; none was changed here.
+
+
+The [original String helper-storage packet](../retained-literal-original-string-storage-20261018/README.md)
+now supplies `native_original_helper_storage` with exact interface/source joins.
+Its two complete constructor invocations make at most 94 direct GGC requests,
+`6832+2P_local` caller bytes, `7912+2*rho(P_local+33)` rounded slot bytes and
+two ordinary requests totaling 80 caller bytes. This precedes the 173-event
+synthetic slice. The four substitutions and discarded candidates remain charged.
+The leaf's 36 offline successes are reused; independent source/integration
+review is recorded by the parent, not asserted by this attachment.
+
+The selected native filename supplies F bytes excluding NUL; Ada's early
+first-global-name assignment supplies `_ada_main` (G=9). The new fully checked
+`exp_dbug.adb` joins `trans.cc`, `decl.cc`, `varasm.cc` and `tree.cc` to establish
+that spelling and its preservation. The aggregate derives the local cleaned
+component bound as `max(9,F+28)`. It does not substitute the aggregate path
+bound or its NUL-inclusive successor. Hello has F=46 and P_local=74, giving
+6,980 caller bytes and 8,168 rounded slot bytes. The selected launch-to-actual
+invocation correspondence remains an explicit premise.
+
+Eight fresh DECL_UIDs, at most four type UIDs and two private-name increments
+remain counter demands. Private-name fnno starts at zero and next becomes two;
+incoming global DECL/type counters remain null with required maxima exposed.
+Six insertion-capable identifier lookups/four possible entries and two
+insertion-capable type-cache lookups/two possible records remain shared demands;
+complete backing is null. Broader String/Main/elaboration construction,
+imported allocation totals, complete global counters, collector and whole
+capacity retain their open/false/null status. The four unknown conditions and
+null's unused 40,098-event lifetime are preserved.
+
+The affected aggregate passes 177 cases in 4.927832739998848 seconds; Hello
+generation takes 3.6048516829996515 seconds. Thirty new cases cover omitted
+copies/substitutions, altered request/counter/shared demand, premature closure,
+exact manifest and stale-source rejection, both name-arithmetic endpoints,
+filename variation and path/NUL-bound independence. The aggregate verifies
+145 repository inputs and 304 unique direct external source files; the leaf's
+27 complete files overlap this population. Prior successful checks remain
+history. No native compiler/prover/build/test workload ran. Selected settings
+were GPT-6.1 Sol / Extra High, assigned by parent; runtime confirmation and
+token/cost evidence are unavailable. Timed JSON outputs retain this offline
+run's actual Linux x86-64/LP64 inputs and 21:24:53–21:24:58 UTC timestamps.
+Total-round timing was not captured; the live child goal was null. This
+subthread owns no GitHub, publication or CLI-memory updates.

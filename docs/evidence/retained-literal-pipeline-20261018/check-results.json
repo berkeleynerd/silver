@@ -1,5 +1,5 @@
 {
-  "case_count": 147,
+  "case_count": 177,
   "cases": [
     {
       "case": "retained",
@@ -237,6 +237,143 @@
     {
       "case": "discard_resets_counter",
       "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "original_helper_omitted_private_copy",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_omitted_parameter_substitutions",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_omitted_substitution_candidates",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_discarded_candidates_removed",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_events_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_name_bytes_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_ordinary_vector_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_DECL_demand_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_type_demand_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_private_name_increment_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_identifier_lookup_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_identifier_entry_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_type_lookup_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_type_entry_erased",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_broader_String_promoted",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_original_Main_promoted",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_backing_promoted",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_collector_promoted",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_whole_capacity_promoted",
+      "rejected": "literal original helper storage interface join"
+    },
+    {
+      "case": "original_helper_name_substitution",
+      "rejected": "literal original helper name arithmetic join"
+    },
+    {
+      "case": "original_helper_name_bound_0_9",
+      "filename_bytes": 0,
+      "global_name_bytes": 9,
+      "local_P": 28,
+      "fits": true
+    },
+    {
+      "case": "original_helper_name_bound_4_100",
+      "filename_bytes": 4,
+      "global_name_bytes": 100,
+      "local_P": 100,
+      "fits": true
+    },
+    {
+      "case": "original_helper_name_bound_73_9",
+      "filename_bytes": 73,
+      "global_name_bytes": 9,
+      "local_P": 101,
+      "fits": true
+    },
+    {
+      "case": "original_helper_name_bound_2147483586_9",
+      "filename_bytes": 2147483586,
+      "global_name_bytes": 9,
+      "local_P": 2147483614,
+      "fits": true
+    },
+    {
+      "case": "original_helper_name_bound_2147483587_9",
+      "filename_bytes": 2147483587,
+      "global_name_bytes": 9,
+      "local_P": 2147483615,
+      "fits": false
+    },
+    {
+      "case": "original_helper_actual_filename_not_path_envelope",
+      "local_P": 117,
+      "path_envelope": 4096,
+      "path_envelope_including_NUL": 4097
+    },
+    {
+      "case": "original_helper_manifest_missing_file",
+      "rejected": "literal original helper exact source-manifest join"
+    },
+    {
+      "case": "original_helper_manifest_changed_hash",
+      "rejected": "literal original helper exact source-manifest join"
+    },
+    {
+      "case": "original_helper_manifest_changed_revision",
+      "rejected": "literal original helper exact source-manifest join"
+    },
+    {
+      "case": "original_helper_complete_source_mismatch",
+      "rejected": "literal original helper complete source join: gcc/builtins.cc"
     },
     {
       "case": "counter_calls",
@@ -806,8 +943,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T21:03:57.682614+00:00",
-    "completed_utc": "2026-10-18T21:04:02.157397+00:00",
-    "elapsed_seconds": 4.474777032999555
+    "started_utc": "2026-10-18T21:24:53.590007+00:00",
+    "completed_utc": "2026-10-18T21:24:58.517844+00:00",
+    "elapsed_seconds": 4.927832739998848
   }
 }

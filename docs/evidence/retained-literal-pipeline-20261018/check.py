@@ -78,6 +78,39 @@ def main():
             assert collector['total_GGC_events'] is None
             assert collector['collector_page_and_finalizer_backing'] is None
             assert not collector['complete_collector_lifetime_closed']
+            original_helper=result['native_original_helper_storage']
+            original_interface=original_helper['interface']
+            assert original_interface==context.original_helper_expected
+            assert original_interface['GGC_events']==94
+            assert original_interface['top_level_substitute_in_expr_calls']==4
+            assert original_helper['ordinary_requests']==2
+            assert original_helper['ordinary_caller_bytes_sum_ceiling']==80
+            name_input=original_helper['name_input']
+            f=len(fixture['launch']['native_Main'].encode('ascii'))
+            local_p=max(9,f+28)
+            assert name_input['first_global_object_name']=='_ada_main'
+            assert name_input['filename_bytes_excluding_NUL']==f
+            assert name_input['local_cleaned_component_bound']==local_p
+            assert original_helper['evaluated_requests']==dict(P=local_p,GGC_events=94,
+                GGC_caller_bytes_sum_ceiling=6832+2*local_p,
+                GGC_rounded_slots_sum_ceiling=7912+2*context.original_helper['rho'](local_p+33))
+            assert original_helper['identity_demands']['fresh_DECL_UIDs']==8
+            assert original_helper['identity_demands']['fresh_type_UIDs_ceiling']==4
+            assert original_helper['incoming_private_name_fnno']==0
+            assert original_helper['next_private_name_fnno']==2
+            assert original_helper['incoming_next_DECL_UID'] is None
+            assert original_helper['incoming_next_type_UID'] is None
+            assert original_helper['shared_container_demands']['identifier_insertion_capable_lookups']==6
+            assert original_helper['shared_container_demands']['identifier_new_entries_ceiling']==4
+            assert original_helper['shared_container_demands']['type_hash_insertion_capable_lookups']==2
+            assert original_helper['shared_container_demands']['type_hash_new_records_ceiling']==2
+            assert original_helper['shared_container_backing'] is None
+            assert original_helper['complete_imported_allocation_events'] is None
+            assert original_helper['complete_imported_allocation_bytes'] is None
+            assert not original_helper['complete_global_counter_lifetime_closed']
+            assert not original_helper['complete_collector_lifetime_closed']
+            assert not original_helper['whole_literal_pipeline_capacity_established']
+            assert result['native_original_helper_source_validation']['complete_source_files_verified']==27
             synthetic=result['native_synthetic_function_storage']
             assert synthetic['function_structure_calls']==3
             assert synthetic['initial_helper_gimplifications']==2
@@ -429,6 +462,108 @@ def main():
                 raise AssertionError('accepted altered cold helper interface: '+name)
             finally:
                 context.cold_string=cold_original
+
+        original_evaluate=context.original_helper['evaluate']
+        for name,path,value in (
+            ('omitted_private_copy',('GGC_groups',0,'requests'),0),
+            ('omitted_parameter_substitutions',('top_level_substitute_in_expr_calls',),2),
+            ('omitted_substitution_candidates',('substitution_envelope','GGC_events'),0),
+            ('discarded_candidates_removed',('substitution_envelope','discarded_candidates_included'),False),
+            ('events_erased',('GGC_events',),0),
+            ('name_bytes_erased',('GGC_caller_bytes_sum_ceiling','P_coefficient'),0),
+            ('ordinary_vector_erased',('ordinary_requests',),0),
+            ('DECL_demand_erased',('identity_demands','fresh_DECL_UIDs'),0),
+            ('type_demand_erased',('identity_demands','fresh_type_UIDs_ceiling'),0),
+            ('private_name_increment_erased',('identity_demands','helper_name_fnno_increments'),0),
+            ('identifier_lookup_erased',('shared_container_demands','identifier_insertion_capable_lookups'),0),
+            ('identifier_entry_erased',('shared_container_demands','identifier_new_entries_ceiling'),0),
+            ('type_lookup_erased',('shared_container_demands','type_hash_insertion_capable_lookups'),0),
+            ('type_entry_erased',('shared_container_demands','type_hash_new_records_ceiling'),0),
+            ('broader_String_promoted',('broader_Standard_String_conversion_included',),True),
+            ('original_Main_promoted',('original_Main_gigi_included',),True),
+            ('backing_promoted',('shared_table_backing_included',),True),
+            ('collector_promoted',('collector_pages_and_allocator_metadata_included',),True),
+            ('whole_capacity_promoted',('whole_literal_pipeline_closed',),True)):
+            def mismatched_original():
+                result=original_evaluate()
+                changed=result
+                for key in path[:-1]:
+                    changed=changed[key]
+                changed[path[-1]]=value
+                return result
+            context.original_helper['evaluate']=mismatched_original
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal original helper storage interface join'
+                rows.append(dict(case='original_helper_'+name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered original helper interface: '+name)
+            finally:
+                context.original_helper['evaluate']=original_evaluate
+        original_at=context.original_helper['evaluate_at']
+        def mismatched_original_name(p):
+            result=original_at(p)
+            result['GGC_caller_bytes_sum_ceiling']-=2*p
+            return result
+        context.original_helper['evaluate_at']=mismatched_original_name
+        try:
+            evaluate(original)
+        except ValueError as error:
+            assert str(error)=='literal original helper name arithmetic join'
+            rows.append(dict(case='original_helper_name_substitution',rejected=str(error)))
+        else:
+            raise AssertionError('accepted omitted helper name substitution')
+        finally:
+            context.original_helper['evaluate_at']=original_at
+        for f,g,expected in ((0,9,28),(4,100,100),(73,9,101),
+                             (module.I32-61,9,module.I32-33),
+                             (module.I32-60,9,module.I32-32)):
+            local_p=module.original_helper_name_bound(f,g)
+            assert local_p==expected
+            fits=local_p<=context.original_helper_expected['finite_arithmetic_guards']['P_max']
+            assert fits==(f<=module.I32-61)
+            rows.append(dict(case='original_helper_name_bound_'+str(f)+'_'+str(g),
+                filename_bytes=f,global_name_bytes=g,local_P=local_p,fits=fits))
+        changed=copy.deepcopy(fixture)
+        changed['launch']={key:(('/tmp/'+('z'*75)+'/main.adb')
+            if key.endswith('_Main') else value) for key,value in changed['launch'].items()}
+        changed['complete_path_bound']=4096
+        renamed=evaluate(original,changed)['native_original_helper_storage']
+        renamed_p=len(changed['launch']['native_Main'])+28
+        assert renamed['name_input']['local_cleaned_component_bound']==renamed_p
+        assert renamed['evaluated_requests']['GGC_caller_bytes_sum_ceiling']==6832+2*renamed_p
+        assert renamed_p!=4096 and renamed_p!=4097
+        rows.append(dict(case='original_helper_actual_filename_not_path_envelope',local_P=renamed_p,
+            path_envelope=4096,path_envelope_including_NUL=4097))
+        for change in ('missing_file','changed_hash','changed_revision'):
+            manifest=copy.deepcopy(context.original_manifest)
+            if change=='missing_file':
+                manifest['files'].pop()
+            elif change=='changed_hash':
+                manifest['files'][0]['sha256']='0'*64
+            else:
+                manifest['commit']='unreviewed'
+            try:
+                module.verify_original_helper_sources(manifest,args.gcc_root,args.ada_root,args.gcc_match)
+            except ValueError as error:
+                assert str(error)=='literal original helper exact source-manifest join'
+                rows.append(dict(case='original_helper_manifest_'+change,rejected=str(error)))
+            else:
+                raise AssertionError('accepted changed helper source manifest')
+        fake_original_gcc=root/'fake-original-gcc'
+        first_gcc=next(row for row in context.original_manifest['files'] if row['root']=='gcc')
+        bad_source=fake_original_gcc/first_gcc['path']
+        bad_source.parent.mkdir(parents=True)
+        bad_source.write_bytes(b'changed source\n')
+        try:
+            module.verify_original_helper_sources(context.original_manifest,fake_original_gcc,
+                args.ada_root,args.gcc_match)
+        except ValueError as error:
+            assert str(error)=='literal original helper complete source join: '+first_gcc['path']
+            rows.append(dict(case='original_helper_complete_source_mismatch',rejected=str(error)))
+        else:
+            raise AssertionError('accepted stale original helper source')
 
         synthetic_evaluate=context.synthetic['evaluate']
         counter_evaluate=context.counter['evaluate']

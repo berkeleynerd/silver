@@ -26,8 +26,8 @@
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
-    "bytes": 35200,
-    "sha256": "1ef9c27d700ff1956049e276af4458ab24c741197f5dc3a95106b60c4490183b"
+    "bytes": 35514,
+    "sha256": "23cb0706c7d437c06f839c8fa658bbb6ac67ce182bb9c9c5adc4dc71bb648e0e"
   },
   {
     "path": "docs/evidence/retained-output-rtl-20261018/check.py",
@@ -683,5 +683,45 @@
     "path": "docs/reviews/review-literal-counter-emission-bc69773b78.md",
     "bytes": 13612,
     "sha256": "1484d3f542dad4652cf00c855e40870eebfa84bf8f726f9b7e105c9582ed83cc"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/README.md",
+    "bytes": 3263,
+    "sha256": "bddf3bb570304d648c58abfc5913f6b4e314f0f3afc6fce625aab9c12348a071"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/check-results.json",
+    "bytes": 2528,
+    "sha256": "3a756f04e6a2315d8027c0979ad75004b7242252f118d215ad9c809d73780be0"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/check.py",
+    "bytes": 12210,
+    "sha256": "441466f68f4a981919f2e0e369da6827bfe41eb943b38dbd7918c0af168cec23"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/derive.py",
+    "bytes": 5107,
+    "sha256": "2f836935c13254902c1bebc07cfc996022744e24af536694716a45de527eee9d"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/fold-audit.json",
+    "bytes": 4851,
+    "sha256": "07bf70fbbb10b6cb9a89b09aa80137859862416c1ec7bd0433b7467130b733f9"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/interface.json",
+    "bytes": 7073,
+    "sha256": "712bc4faab577233742b8203a9a457986f20c19ad5dca53ee0b463fa1d056cbc"
+  },
+  {
+    "path": "docs/evidence/retained-literal-original-string-storage-20261018/source-manifest.json",
+    "bytes": 15522,
+    "sha256": "a000e420a89043e286d68f5a6c40a9bc31b98d5095513d44dbf34e8e100abc46"
+  },
+  {
+    "path": "docs/research/retained-literal-original-string-storage.md",
+    "bytes": 18406,
+    "sha256": "927ec892bb446e6a65d83b7515ef8436142e281215d7eafb25bf320acd78087c"
   }
 ]

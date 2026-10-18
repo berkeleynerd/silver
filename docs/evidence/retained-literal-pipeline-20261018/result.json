@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-literal-counter-attachment/samples/hello_world.adb",
+  "source_path": "/tmp/silver-original-storage-attachment-20261018/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -102,6 +102,7 @@
     "native_whole_body_copy_local_interface": true,
     "native_initial_warning_map_lifetime": true,
     "native_collector_callback_local_interface": true,
+    "native_original_helper_name_arithmetic": true,
     "native_synthetic_individual_request_sizes": true,
     "Main_assembler_object_interface": null,
     "Main_GAS_BFD_storage": null,
@@ -132,6 +133,7 @@
     "native_whole_body_copy_local_interface": true,
     "native_initial_warning_map_lifetime": true,
     "native_collector_callback_local_interface": true,
+    "native_original_helper_name_arithmetic": true,
     "native_synthetic_individual_request_sizes": true,
     "Main_assembler_object_interface": true,
     "Main_GAS_BFD_storage": true,
@@ -235,6 +237,341 @@
       "complete_gimplifier_lifetime_closed": false,
       "complete_collector_lifetime_closed": false,
       "aggregate_conditions_changed": false,
+      "whole_literal_pipeline_capacity_established": false
+    },
+    "original_helper_storage": {
+      "interface": {
+        "scope": "two complete self_referential_size constructor invocations",
+        "cold_Standard_String_conversions": 1,
+        "helper_constructors": 2,
+        "parameters_per_helper": 2,
+        "top_level_substitute_in_expr_calls": 4,
+        "input_shapes": {
+          "byte": {
+            "unary": 2,
+            "binary": 3,
+            "ternary": 1
+          },
+          "bit": {
+            "unary": 3,
+            "binary": 4,
+            "ternary": 1
+          }
+        },
+        "substitution_envelope": {
+          "all_ancestors_both_passes": {
+            "unary": 10,
+            "binary": 14,
+            "ternary": 4
+          },
+          "extra_outer_association_binary": 4,
+          "extra_conditional_inversion_binary": 4,
+          "GGC_events": 36,
+          "caller_bytes_sum_ceiling": 1392,
+          "fold_created_constants": 0,
+          "fold_created_types": 0,
+          "fold_created_calls": 0,
+          "ordinary_allocations": 0,
+          "discarded_candidates_included": true
+        },
+        "GGC_groups": [
+          {
+            "family": "private_unary",
+            "requests": 5,
+            "caller_bytes_ceiling": 32,
+            "rounded_slot_bytes_ceiling": 32
+          },
+          {
+            "family": "private_binary",
+            "requests": 7,
+            "caller_bytes_ceiling": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "private_ternary",
+            "requests": 2,
+            "caller_bytes_ceiling": 48,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "substitution_unary",
+            "requests": 10,
+            "caller_bytes_ceiling": 32,
+            "rounded_slot_bytes_ceiling": 32
+          },
+          {
+            "family": "substitution_binary",
+            "requests": 22,
+            "caller_bytes_ceiling": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "substitution_ternary",
+            "requests": 4,
+            "caller_bytes_ceiling": 48,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "PARM_DECL",
+            "requests": 4,
+            "caller_bytes_ceiling": 256,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "RESULT_DECL",
+            "requests": 2,
+            "caller_bytes_ceiling": 256,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "FUNCTION_DECL",
+            "requests": 2,
+            "caller_bytes_ceiling": 512,
+            "rounded_slot_bytes_ceiling": 512
+          },
+          {
+            "family": "TREE_LIST",
+            "requests": 6,
+            "caller_bytes_ceiling": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "FUNCTION_TYPE_candidate",
+            "requests": 2,
+            "caller_bytes_ceiling": 256,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "POINTER_TYPE",
+            "requests": 2,
+            "caller_bytes_ceiling": 256,
+            "rounded_slot_bytes_ceiling": 256
+          },
+          {
+            "family": "type_hash_record",
+            "requests": 2,
+            "caller_bytes_ceiling": 16,
+            "rounded_slot_bytes_ceiling": 16
+          },
+          {
+            "family": "BLOCK",
+            "requests": 2,
+            "caller_bytes_ceiling": 96,
+            "rounded_slot_bytes_ceiling": 128
+          },
+          {
+            "family": "MODIFY_EXPR",
+            "requests": 2,
+            "caller_bytes_ceiling": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "RETURN_EXPR",
+            "requests": 2,
+            "caller_bytes_ceiling": 32,
+            "rounded_slot_bytes_ceiling": 32
+          },
+          {
+            "family": "args_vector",
+            "requests": 2,
+            "caller_bytes_ceiling": 64,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "size_functions_vector",
+            "requests": 1,
+            "caller_bytes_ceiling": 64,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "ADDR_EXPR",
+            "requests": 2,
+            "caller_bytes_ceiling": 32,
+            "rounded_slot_bytes_ceiling": 32
+          },
+          {
+            "family": "CALL_EXPR",
+            "requests": 2,
+            "caller_bytes_ceiling": 64,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "identifier_node",
+            "requests": 4,
+            "caller_bytes_ceiling": 40,
+            "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "parameter_characters",
+            "requests": 2,
+            "caller_bytes_ceiling": 3,
+            "rounded_slot_bytes_ceiling": 4
+          },
+          {
+            "family": "small_INTEGER_CST_miss",
+            "requests": 3,
+            "caller_bytes_ceiling": 32,
+            "rounded_slot_bytes_ceiling": 32
+          },
+          {
+            "family": "helper_characters",
+            "requests": 2,
+            "caller_bytes_ceiling": "P+33",
+            "rounded_slot_bytes_ceiling": "rho(P+33)"
+          }
+        ],
+        "GGC_events": 94,
+        "GGC_caller_bytes_sum_ceiling": {
+          "constant": 6832,
+          "P_coefficient": 2
+        },
+        "GGC_rounded_slots_sum_ceiling": {
+          "constant": 7912,
+          "rho(P+33)_coefficient": 2
+        },
+        "ordinary_groups": [
+          {
+            "family": "self_refs_vector",
+            "requests": 2,
+            "caller_bytes_ceiling": 40,
+            "explicit_release": true
+          }
+        ],
+        "ordinary_requests": 2,
+        "ordinary_caller_bytes_sum_ceiling": 80,
+        "identity_demands": {
+          "fresh_DECL_UIDs": 8,
+          "fresh_type_UIDs_ceiling": 4,
+          "helper_name_fnno_increments": 2,
+          "function_definition_numbers": 0,
+          "SSA_names": 0,
+          "RTL_pseudos": 0,
+          "RTL_labels": 0,
+          "symbol_registrations": 0
+        },
+        "shared_container_demands": {
+          "identifier_insertion_capable_lookups": 6,
+          "identifier_new_entries_ceiling": 4,
+          "type_hash_insertion_capable_lookups": 2,
+          "type_hash_new_records_ceiling": 2,
+          "scalar_constant_lookups_ceiling": 10,
+          "existing_small_constant_cache_new_entries_ceiling": 3,
+          "new_small_constant_cache_vectors": 0,
+          "int_constant_hash_insertions": 0,
+          "finalizer_registrations": 0,
+          "constant_pool_entries": 0
+        },
+        "finite_arithmetic_guards": {
+          "P_min": 0,
+          "P_max": 2147483614,
+          "incoming_fnno_max": 18446744073709551613,
+          "incoming_next_decl_uid_max": 2147483639,
+          "incoming_next_type_uid_max": 4294967291
+        },
+        "reference_P_values": [
+          {
+            "P": 0,
+            "GGC_events": 94,
+            "GGC_caller_bytes_sum_ceiling": 6832,
+            "GGC_rounded_slots_sum_ceiling": 8040
+          },
+          {
+            "P": 31,
+            "GGC_events": 94,
+            "GGC_caller_bytes_sum_ceiling": 6894,
+            "GGC_rounded_slots_sum_ceiling": 8040
+          },
+          {
+            "P": 32,
+            "GGC_events": 94,
+            "GGC_caller_bytes_sum_ceiling": 6896,
+            "GGC_rounded_slots_sum_ceiling": 8168
+          },
+          {
+            "P": 255,
+            "GGC_events": 94,
+            "GGC_caller_bytes_sum_ceiling": 7342,
+            "GGC_rounded_slots_sum_ceiling": 8936
+          },
+          {
+            "P": 4096,
+            "GGC_events": 94,
+            "GGC_caller_bytes_sum_ceiling": 15024,
+            "GGC_rounded_slots_sum_ceiling": 24296
+          },
+          {
+            "P": 2147483614,
+            "GGC_events": 94,
+            "GGC_caller_bytes_sum_ceiling": 4294974060,
+            "GGC_rounded_slots_sum_ceiling": 4294975208
+          }
+        ],
+        "broader_Standard_String_conversion_included": false,
+        "original_empty_elaboration_construction_included": false,
+        "original_Main_gigi_included": false,
+        "synthetic_gimplification_and_struct_function_included": false,
+        "cgraph_nodes_and_symbol_registration_included": false,
+        "shared_table_backing_included": false,
+        "collector_pages_and_allocator_metadata_included": false,
+        "stack_and_system_library_internals_included": false,
+        "whole_literal_pipeline_closed": false,
+        "independent_review": "pending",
+        "native_runs": 0
+      },
+      "name_input": {
+        "selected_native_Main_filename": "/tmp/silver-literal-pipeline-20261018/main.adb",
+        "filename_bytes_excluding_NUL": 46,
+        "first_global_object_name": "_ada_main",
+        "first_global_object_name_bytes_excluding_NUL": 9,
+        "local_cleaned_component_bound": 74,
+        "derivation": "max(9, filename_bytes_excluding_NUL+28)",
+        "selected_launch_to_actual_invocation_premise_required": true
+      },
+      "evaluated_requests": {
+        "P": 74,
+        "GGC_events": 94,
+        "GGC_caller_bytes_sum_ceiling": 6980,
+        "GGC_rounded_slots_sum_ceiling": 8168
+      },
+      "local_name_arithmetic_fits": true,
+      "ordinary_requests": 2,
+      "ordinary_caller_bytes_sum_ceiling": 80,
+      "identity_demands": {
+        "fresh_DECL_UIDs": 8,
+        "fresh_type_UIDs_ceiling": 4,
+        "helper_name_fnno_increments": 2,
+        "function_definition_numbers": 0,
+        "SSA_names": 0,
+        "RTL_pseudos": 0,
+        "RTL_labels": 0,
+        "symbol_registrations": 0
+      },
+      "shared_container_demands": {
+        "identifier_insertion_capable_lookups": 6,
+        "identifier_new_entries_ceiling": 4,
+        "type_hash_insertion_capable_lookups": 2,
+        "type_hash_new_records_ceiling": 2,
+        "scalar_constant_lookups_ceiling": 10,
+        "existing_small_constant_cache_new_entries_ceiling": 3,
+        "new_small_constant_cache_vectors": 0,
+        "int_constant_hash_insertions": 0,
+        "finalizer_registrations": 0,
+        "constant_pool_entries": 0
+      },
+      "incoming_private_name_fnno": 0,
+      "next_private_name_fnno": 2,
+      "incoming_next_DECL_UID": null,
+      "incoming_next_type_UID": null,
+      "required_incoming_counter_maxima": {
+        "incoming_fnno_max": 18446744073709551613,
+        "incoming_next_decl_uid_max": 2147483639,
+        "incoming_next_type_uid_max": 4294967291
+      },
+      "shared_container_backing": null,
+      "complete_global_counter_lifetime_closed": false,
+      "complete_imported_allocation_events": null,
+      "complete_imported_allocation_bytes": null,
+      "complete_collector_lifetime_closed": false,
       "whole_literal_pipeline_capacity_established": false
     },
     "synthetic_function_storage": {
@@ -2104,6 +2441,341 @@
     "source_argument": "docs/research/retained-literal-collector-callbacks.md",
     "native_tool_executions": 0,
     "production_admission_changed": false
+  },
+  "native_original_helper_storage": {
+    "interface": {
+      "scope": "two complete self_referential_size constructor invocations",
+      "cold_Standard_String_conversions": 1,
+      "helper_constructors": 2,
+      "parameters_per_helper": 2,
+      "top_level_substitute_in_expr_calls": 4,
+      "input_shapes": {
+        "byte": {
+          "unary": 2,
+          "binary": 3,
+          "ternary": 1
+        },
+        "bit": {
+          "unary": 3,
+          "binary": 4,
+          "ternary": 1
+        }
+      },
+      "substitution_envelope": {
+        "all_ancestors_both_passes": {
+          "unary": 10,
+          "binary": 14,
+          "ternary": 4
+        },
+        "extra_outer_association_binary": 4,
+        "extra_conditional_inversion_binary": 4,
+        "GGC_events": 36,
+        "caller_bytes_sum_ceiling": 1392,
+        "fold_created_constants": 0,
+        "fold_created_types": 0,
+        "fold_created_calls": 0,
+        "ordinary_allocations": 0,
+        "discarded_candidates_included": true
+      },
+      "GGC_groups": [
+        {
+          "family": "private_unary",
+          "requests": 5,
+          "caller_bytes_ceiling": 32,
+          "rounded_slot_bytes_ceiling": 32
+        },
+        {
+          "family": "private_binary",
+          "requests": 7,
+          "caller_bytes_ceiling": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "private_ternary",
+          "requests": 2,
+          "caller_bytes_ceiling": 48,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "substitution_unary",
+          "requests": 10,
+          "caller_bytes_ceiling": 32,
+          "rounded_slot_bytes_ceiling": 32
+        },
+        {
+          "family": "substitution_binary",
+          "requests": 22,
+          "caller_bytes_ceiling": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "substitution_ternary",
+          "requests": 4,
+          "caller_bytes_ceiling": 48,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "PARM_DECL",
+          "requests": 4,
+          "caller_bytes_ceiling": 256,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "RESULT_DECL",
+          "requests": 2,
+          "caller_bytes_ceiling": 256,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "FUNCTION_DECL",
+          "requests": 2,
+          "caller_bytes_ceiling": 512,
+          "rounded_slot_bytes_ceiling": 512
+        },
+        {
+          "family": "TREE_LIST",
+          "requests": 6,
+          "caller_bytes_ceiling": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "FUNCTION_TYPE_candidate",
+          "requests": 2,
+          "caller_bytes_ceiling": 256,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "POINTER_TYPE",
+          "requests": 2,
+          "caller_bytes_ceiling": 256,
+          "rounded_slot_bytes_ceiling": 256
+        },
+        {
+          "family": "type_hash_record",
+          "requests": 2,
+          "caller_bytes_ceiling": 16,
+          "rounded_slot_bytes_ceiling": 16
+        },
+        {
+          "family": "BLOCK",
+          "requests": 2,
+          "caller_bytes_ceiling": 96,
+          "rounded_slot_bytes_ceiling": 128
+        },
+        {
+          "family": "MODIFY_EXPR",
+          "requests": 2,
+          "caller_bytes_ceiling": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "RETURN_EXPR",
+          "requests": 2,
+          "caller_bytes_ceiling": 32,
+          "rounded_slot_bytes_ceiling": 32
+        },
+        {
+          "family": "args_vector",
+          "requests": 2,
+          "caller_bytes_ceiling": 64,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "size_functions_vector",
+          "requests": 1,
+          "caller_bytes_ceiling": 64,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "ADDR_EXPR",
+          "requests": 2,
+          "caller_bytes_ceiling": 32,
+          "rounded_slot_bytes_ceiling": 32
+        },
+        {
+          "family": "CALL_EXPR",
+          "requests": 2,
+          "caller_bytes_ceiling": 64,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "identifier_node",
+          "requests": 4,
+          "caller_bytes_ceiling": 40,
+          "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "parameter_characters",
+          "requests": 2,
+          "caller_bytes_ceiling": 3,
+          "rounded_slot_bytes_ceiling": 4
+        },
+        {
+          "family": "small_INTEGER_CST_miss",
+          "requests": 3,
+          "caller_bytes_ceiling": 32,
+          "rounded_slot_bytes_ceiling": 32
+        },
+        {
+          "family": "helper_characters",
+          "requests": 2,
+          "caller_bytes_ceiling": "P+33",
+          "rounded_slot_bytes_ceiling": "rho(P+33)"
+        }
+      ],
+      "GGC_events": 94,
+      "GGC_caller_bytes_sum_ceiling": {
+        "constant": 6832,
+        "P_coefficient": 2
+      },
+      "GGC_rounded_slots_sum_ceiling": {
+        "constant": 7912,
+        "rho(P+33)_coefficient": 2
+      },
+      "ordinary_groups": [
+        {
+          "family": "self_refs_vector",
+          "requests": 2,
+          "caller_bytes_ceiling": 40,
+          "explicit_release": true
+        }
+      ],
+      "ordinary_requests": 2,
+      "ordinary_caller_bytes_sum_ceiling": 80,
+      "identity_demands": {
+        "fresh_DECL_UIDs": 8,
+        "fresh_type_UIDs_ceiling": 4,
+        "helper_name_fnno_increments": 2,
+        "function_definition_numbers": 0,
+        "SSA_names": 0,
+        "RTL_pseudos": 0,
+        "RTL_labels": 0,
+        "symbol_registrations": 0
+      },
+      "shared_container_demands": {
+        "identifier_insertion_capable_lookups": 6,
+        "identifier_new_entries_ceiling": 4,
+        "type_hash_insertion_capable_lookups": 2,
+        "type_hash_new_records_ceiling": 2,
+        "scalar_constant_lookups_ceiling": 10,
+        "existing_small_constant_cache_new_entries_ceiling": 3,
+        "new_small_constant_cache_vectors": 0,
+        "int_constant_hash_insertions": 0,
+        "finalizer_registrations": 0,
+        "constant_pool_entries": 0
+      },
+      "finite_arithmetic_guards": {
+        "P_min": 0,
+        "P_max": 2147483614,
+        "incoming_fnno_max": 18446744073709551613,
+        "incoming_next_decl_uid_max": 2147483639,
+        "incoming_next_type_uid_max": 4294967291
+      },
+      "reference_P_values": [
+        {
+          "P": 0,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 6832,
+          "GGC_rounded_slots_sum_ceiling": 8040
+        },
+        {
+          "P": 31,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 6894,
+          "GGC_rounded_slots_sum_ceiling": 8040
+        },
+        {
+          "P": 32,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 6896,
+          "GGC_rounded_slots_sum_ceiling": 8168
+        },
+        {
+          "P": 255,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 7342,
+          "GGC_rounded_slots_sum_ceiling": 8936
+        },
+        {
+          "P": 4096,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 15024,
+          "GGC_rounded_slots_sum_ceiling": 24296
+        },
+        {
+          "P": 2147483614,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 4294974060,
+          "GGC_rounded_slots_sum_ceiling": 4294975208
+        }
+      ],
+      "broader_Standard_String_conversion_included": false,
+      "original_empty_elaboration_construction_included": false,
+      "original_Main_gigi_included": false,
+      "synthetic_gimplification_and_struct_function_included": false,
+      "cgraph_nodes_and_symbol_registration_included": false,
+      "shared_table_backing_included": false,
+      "collector_pages_and_allocator_metadata_included": false,
+      "stack_and_system_library_internals_included": false,
+      "whole_literal_pipeline_closed": false,
+      "independent_review": "pending",
+      "native_runs": 0
+    },
+    "name_input": {
+      "selected_native_Main_filename": "/tmp/silver-literal-pipeline-20261018/main.adb",
+      "filename_bytes_excluding_NUL": 46,
+      "first_global_object_name": "_ada_main",
+      "first_global_object_name_bytes_excluding_NUL": 9,
+      "local_cleaned_component_bound": 74,
+      "derivation": "max(9, filename_bytes_excluding_NUL+28)",
+      "selected_launch_to_actual_invocation_premise_required": true
+    },
+    "evaluated_requests": {
+      "P": 74,
+      "GGC_events": 94,
+      "GGC_caller_bytes_sum_ceiling": 6980,
+      "GGC_rounded_slots_sum_ceiling": 8168
+    },
+    "local_name_arithmetic_fits": true,
+    "ordinary_requests": 2,
+    "ordinary_caller_bytes_sum_ceiling": 80,
+    "identity_demands": {
+      "fresh_DECL_UIDs": 8,
+      "fresh_type_UIDs_ceiling": 4,
+      "helper_name_fnno_increments": 2,
+      "function_definition_numbers": 0,
+      "SSA_names": 0,
+      "RTL_pseudos": 0,
+      "RTL_labels": 0,
+      "symbol_registrations": 0
+    },
+    "shared_container_demands": {
+      "identifier_insertion_capable_lookups": 6,
+      "identifier_new_entries_ceiling": 4,
+      "type_hash_insertion_capable_lookups": 2,
+      "type_hash_new_records_ceiling": 2,
+      "scalar_constant_lookups_ceiling": 10,
+      "existing_small_constant_cache_new_entries_ceiling": 3,
+      "new_small_constant_cache_vectors": 0,
+      "int_constant_hash_insertions": 0,
+      "finalizer_registrations": 0,
+      "constant_pool_entries": 0
+    },
+    "incoming_private_name_fnno": 0,
+    "next_private_name_fnno": 2,
+    "incoming_next_DECL_UID": null,
+    "incoming_next_type_UID": null,
+    "required_incoming_counter_maxima": {
+      "incoming_fnno_max": 18446744073709551613,
+      "incoming_next_decl_uid_max": 2147483639,
+      "incoming_next_type_uid_max": 4294967291
+    },
+    "shared_container_backing": null,
+    "complete_global_counter_lifetime_closed": false,
+    "complete_imported_allocation_events": null,
+    "complete_imported_allocation_bytes": null,
+    "complete_collector_lifetime_closed": false,
+    "whole_literal_pipeline_capacity_established": false
   },
   "native_synthetic_function_storage": {
     "scope": "three struct-function allocations and two initial gimplifications",
@@ -4472,6 +5144,341 @@
         "aggregate_conditions_changed": false,
         "whole_literal_pipeline_capacity_established": false
       },
+      "original_helper_storage": {
+        "interface": {
+          "scope": "two complete self_referential_size constructor invocations",
+          "cold_Standard_String_conversions": 1,
+          "helper_constructors": 2,
+          "parameters_per_helper": 2,
+          "top_level_substitute_in_expr_calls": 4,
+          "input_shapes": {
+            "byte": {
+              "unary": 2,
+              "binary": 3,
+              "ternary": 1
+            },
+            "bit": {
+              "unary": 3,
+              "binary": 4,
+              "ternary": 1
+            }
+          },
+          "substitution_envelope": {
+            "all_ancestors_both_passes": {
+              "unary": 10,
+              "binary": 14,
+              "ternary": 4
+            },
+            "extra_outer_association_binary": 4,
+            "extra_conditional_inversion_binary": 4,
+            "GGC_events": 36,
+            "caller_bytes_sum_ceiling": 1392,
+            "fold_created_constants": 0,
+            "fold_created_types": 0,
+            "fold_created_calls": 0,
+            "ordinary_allocations": 0,
+            "discarded_candidates_included": true
+          },
+          "GGC_groups": [
+            {
+              "family": "private_unary",
+              "requests": 5,
+              "caller_bytes_ceiling": 32,
+              "rounded_slot_bytes_ceiling": 32
+            },
+            {
+              "family": "private_binary",
+              "requests": 7,
+              "caller_bytes_ceiling": 40,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "private_ternary",
+              "requests": 2,
+              "caller_bytes_ceiling": 48,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "substitution_unary",
+              "requests": 10,
+              "caller_bytes_ceiling": 32,
+              "rounded_slot_bytes_ceiling": 32
+            },
+            {
+              "family": "substitution_binary",
+              "requests": 22,
+              "caller_bytes_ceiling": 40,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "substitution_ternary",
+              "requests": 4,
+              "caller_bytes_ceiling": 48,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "PARM_DECL",
+              "requests": 4,
+              "caller_bytes_ceiling": 256,
+              "rounded_slot_bytes_ceiling": 256
+            },
+            {
+              "family": "RESULT_DECL",
+              "requests": 2,
+              "caller_bytes_ceiling": 256,
+              "rounded_slot_bytes_ceiling": 256
+            },
+            {
+              "family": "FUNCTION_DECL",
+              "requests": 2,
+              "caller_bytes_ceiling": 512,
+              "rounded_slot_bytes_ceiling": 512
+            },
+            {
+              "family": "TREE_LIST",
+              "requests": 6,
+              "caller_bytes_ceiling": 40,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "FUNCTION_TYPE_candidate",
+              "requests": 2,
+              "caller_bytes_ceiling": 256,
+              "rounded_slot_bytes_ceiling": 256
+            },
+            {
+              "family": "POINTER_TYPE",
+              "requests": 2,
+              "caller_bytes_ceiling": 256,
+              "rounded_slot_bytes_ceiling": 256
+            },
+            {
+              "family": "type_hash_record",
+              "requests": 2,
+              "caller_bytes_ceiling": 16,
+              "rounded_slot_bytes_ceiling": 16
+            },
+            {
+              "family": "BLOCK",
+              "requests": 2,
+              "caller_bytes_ceiling": 96,
+              "rounded_slot_bytes_ceiling": 128
+            },
+            {
+              "family": "MODIFY_EXPR",
+              "requests": 2,
+              "caller_bytes_ceiling": 40,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "RETURN_EXPR",
+              "requests": 2,
+              "caller_bytes_ceiling": 32,
+              "rounded_slot_bytes_ceiling": 32
+            },
+            {
+              "family": "args_vector",
+              "requests": 2,
+              "caller_bytes_ceiling": 64,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "size_functions_vector",
+              "requests": 1,
+              "caller_bytes_ceiling": 64,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "ADDR_EXPR",
+              "requests": 2,
+              "caller_bytes_ceiling": 32,
+              "rounded_slot_bytes_ceiling": 32
+            },
+            {
+              "family": "CALL_EXPR",
+              "requests": 2,
+              "caller_bytes_ceiling": 64,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "identifier_node",
+              "requests": 4,
+              "caller_bytes_ceiling": 40,
+              "rounded_slot_bytes_ceiling": 64
+            },
+            {
+              "family": "parameter_characters",
+              "requests": 2,
+              "caller_bytes_ceiling": 3,
+              "rounded_slot_bytes_ceiling": 4
+            },
+            {
+              "family": "small_INTEGER_CST_miss",
+              "requests": 3,
+              "caller_bytes_ceiling": 32,
+              "rounded_slot_bytes_ceiling": 32
+            },
+            {
+              "family": "helper_characters",
+              "requests": 2,
+              "caller_bytes_ceiling": "P+33",
+              "rounded_slot_bytes_ceiling": "rho(P+33)"
+            }
+          ],
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": {
+            "constant": 6832,
+            "P_coefficient": 2
+          },
+          "GGC_rounded_slots_sum_ceiling": {
+            "constant": 7912,
+            "rho(P+33)_coefficient": 2
+          },
+          "ordinary_groups": [
+            {
+              "family": "self_refs_vector",
+              "requests": 2,
+              "caller_bytes_ceiling": 40,
+              "explicit_release": true
+            }
+          ],
+          "ordinary_requests": 2,
+          "ordinary_caller_bytes_sum_ceiling": 80,
+          "identity_demands": {
+            "fresh_DECL_UIDs": 8,
+            "fresh_type_UIDs_ceiling": 4,
+            "helper_name_fnno_increments": 2,
+            "function_definition_numbers": 0,
+            "SSA_names": 0,
+            "RTL_pseudos": 0,
+            "RTL_labels": 0,
+            "symbol_registrations": 0
+          },
+          "shared_container_demands": {
+            "identifier_insertion_capable_lookups": 6,
+            "identifier_new_entries_ceiling": 4,
+            "type_hash_insertion_capable_lookups": 2,
+            "type_hash_new_records_ceiling": 2,
+            "scalar_constant_lookups_ceiling": 10,
+            "existing_small_constant_cache_new_entries_ceiling": 3,
+            "new_small_constant_cache_vectors": 0,
+            "int_constant_hash_insertions": 0,
+            "finalizer_registrations": 0,
+            "constant_pool_entries": 0
+          },
+          "finite_arithmetic_guards": {
+            "P_min": 0,
+            "P_max": 2147483614,
+            "incoming_fnno_max": 18446744073709551613,
+            "incoming_next_decl_uid_max": 2147483639,
+            "incoming_next_type_uid_max": 4294967291
+          },
+          "reference_P_values": [
+            {
+              "P": 0,
+              "GGC_events": 94,
+              "GGC_caller_bytes_sum_ceiling": 6832,
+              "GGC_rounded_slots_sum_ceiling": 8040
+            },
+            {
+              "P": 31,
+              "GGC_events": 94,
+              "GGC_caller_bytes_sum_ceiling": 6894,
+              "GGC_rounded_slots_sum_ceiling": 8040
+            },
+            {
+              "P": 32,
+              "GGC_events": 94,
+              "GGC_caller_bytes_sum_ceiling": 6896,
+              "GGC_rounded_slots_sum_ceiling": 8168
+            },
+            {
+              "P": 255,
+              "GGC_events": 94,
+              "GGC_caller_bytes_sum_ceiling": 7342,
+              "GGC_rounded_slots_sum_ceiling": 8936
+            },
+            {
+              "P": 4096,
+              "GGC_events": 94,
+              "GGC_caller_bytes_sum_ceiling": 15024,
+              "GGC_rounded_slots_sum_ceiling": 24296
+            },
+            {
+              "P": 2147483614,
+              "GGC_events": 94,
+              "GGC_caller_bytes_sum_ceiling": 4294974060,
+              "GGC_rounded_slots_sum_ceiling": 4294975208
+            }
+          ],
+          "broader_Standard_String_conversion_included": false,
+          "original_empty_elaboration_construction_included": false,
+          "original_Main_gigi_included": false,
+          "synthetic_gimplification_and_struct_function_included": false,
+          "cgraph_nodes_and_symbol_registration_included": false,
+          "shared_table_backing_included": false,
+          "collector_pages_and_allocator_metadata_included": false,
+          "stack_and_system_library_internals_included": false,
+          "whole_literal_pipeline_closed": false,
+          "independent_review": "pending",
+          "native_runs": 0
+        },
+        "name_input": {
+          "selected_native_Main_filename": "/tmp/silver-literal-pipeline-20261018/main.adb",
+          "filename_bytes_excluding_NUL": 46,
+          "first_global_object_name": "_ada_main",
+          "first_global_object_name_bytes_excluding_NUL": 9,
+          "local_cleaned_component_bound": 74,
+          "derivation": "max(9, filename_bytes_excluding_NUL+28)",
+          "selected_launch_to_actual_invocation_premise_required": true
+        },
+        "evaluated_requests": {
+          "P": 74,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 6980,
+          "GGC_rounded_slots_sum_ceiling": 8168
+        },
+        "local_name_arithmetic_fits": true,
+        "ordinary_requests": 2,
+        "ordinary_caller_bytes_sum_ceiling": 80,
+        "identity_demands": {
+          "fresh_DECL_UIDs": 8,
+          "fresh_type_UIDs_ceiling": 4,
+          "helper_name_fnno_increments": 2,
+          "function_definition_numbers": 0,
+          "SSA_names": 0,
+          "RTL_pseudos": 0,
+          "RTL_labels": 0,
+          "symbol_registrations": 0
+        },
+        "shared_container_demands": {
+          "identifier_insertion_capable_lookups": 6,
+          "identifier_new_entries_ceiling": 4,
+          "type_hash_insertion_capable_lookups": 2,
+          "type_hash_new_records_ceiling": 2,
+          "scalar_constant_lookups_ceiling": 10,
+          "existing_small_constant_cache_new_entries_ceiling": 3,
+          "new_small_constant_cache_vectors": 0,
+          "int_constant_hash_insertions": 0,
+          "finalizer_registrations": 0,
+          "constant_pool_entries": 0
+        },
+        "incoming_private_name_fnno": 0,
+        "next_private_name_fnno": 2,
+        "incoming_next_DECL_UID": null,
+        "incoming_next_type_UID": null,
+        "required_incoming_counter_maxima": {
+          "incoming_fnno_max": 18446744073709551613,
+          "incoming_next_decl_uid_max": 2147483639,
+          "incoming_next_type_uid_max": 4294967291
+        },
+        "shared_container_backing": null,
+        "complete_global_counter_lifetime_closed": false,
+        "complete_imported_allocation_events": null,
+        "complete_imported_allocation_bytes": null,
+        "complete_collector_lifetime_closed": false,
+        "whole_literal_pipeline_capacity_established": false
+      },
       "synthetic_function_storage": {
         "scope": "three struct-function allocations and two initial gimplifications",
         "function_structure_calls": 3,
@@ -4867,6 +5874,35 @@
         "local_original_gigi_warning_suppressions_upper": 2,
         "remaining_original_gigi_warning_put_calls": 5,
         "initial_warning_map_GGC_events_upper": 11,
+        "original_helper_GGC_events_upper": 94,
+        "original_helper_GGC_caller_bytes": {
+          "P": 74,
+          "GGC_events": 94,
+          "GGC_caller_bytes_sum_ceiling": 6980,
+          "GGC_rounded_slots_sum_ceiling": 8168
+        },
+        "original_helper_identity_demands": {
+          "fresh_DECL_UIDs": 8,
+          "fresh_type_UIDs_ceiling": 4,
+          "helper_name_fnno_increments": 2,
+          "function_definition_numbers": 0,
+          "SSA_names": 0,
+          "RTL_pseudos": 0,
+          "RTL_labels": 0,
+          "symbol_registrations": 0
+        },
+        "original_helper_shared_container_demands": {
+          "identifier_insertion_capable_lookups": 6,
+          "identifier_new_entries_ceiling": 4,
+          "type_hash_insertion_capable_lookups": 2,
+          "type_hash_new_records_ceiling": 2,
+          "scalar_constant_lookups_ceiling": 10,
+          "existing_small_constant_cache_new_entries_ceiling": 3,
+          "new_small_constant_cache_vectors": 0,
+          "int_constant_hash_insertions": 0,
+          "finalizer_registrations": 0,
+          "constant_pool_entries": 0
+        },
         "synthetic_function_GGC_events_upper": 173,
         "synthetic_function_singleton_finalizers_upper": 2,
         "collector_callback_additional_GGC_events": 0,
@@ -5103,8 +6139,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 137,
-  "external_source_files_verified": 300,
+  "fixed_input_count": 145,
+  "external_source_files_verified": 304,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
@@ -5123,6 +6159,16 @@
     "historical_inputs_frozen_in_manifest": 29,
     "counts_overlap_direct_source_validation": true
   },
+  "native_original_helper_source_validation": {
+    "source_manifest": {
+      "bytes": 15522,
+      "sha256": "a000e420a89043e286d68f5a6c40a9bc31b98d5095513d44dbf34e8e100abc46"
+    },
+    "complete_source_files_verified": 27,
+    "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "historical_silver_revision": "316f40e7b2c0b7ffc57eca81c7aff39784cdd35a",
+    "counts_overlap_direct_source_validation": true
+  },
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,
@@ -5133,8 +6179,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T21:04:20.531236+00:00",
-    "completed_utc": "2026-10-18T21:04:23.898965+00:00",
-    "elapsed_seconds": 3.367727893999472
+    "started_utc": "2026-10-18T21:24:53.595817+00:00",
+    "completed_utc": "2026-10-18T21:24:57.200682+00:00",
+    "elapsed_seconds": 3.6048516829996515
   }
 }

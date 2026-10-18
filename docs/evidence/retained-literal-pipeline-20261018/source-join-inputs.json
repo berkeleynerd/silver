@@ -1200,6 +1200,13 @@
       "path": "gcc/convert.cc",
       "bytes": 39639,
       "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef"
+    },
+    {
+      "root": "ada",
+      "path": "exp_dbug.adb",
+      "bytes": 55041,
+      "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-metadata-source-identity.json"
     }
   ]
 }
