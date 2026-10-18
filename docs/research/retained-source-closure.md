@@ -1,6 +1,7 @@
 # Source ranges for the retained tools
 
 **2026-10-17 — partial derivation for [#119](https://github.com/berkeleynerd/silver/issues/119).**
+Updated 2026-10-18 to integrate the fixed-support grammar/helper inclusion.
 This supplements the [capacity contract](retained-tool-capacity.md). It closes
 the direct allocation-site inventory in the inspected sources and derives
 concrete fixed-input contributions with explicit premises. It does **not** establish the full
@@ -10,9 +11,10 @@ and tool pins remain unchanged.
 
 The subsequent [fixed-support component](retained-fixed-support.md) supplies
 virtual-source and binder-source bounds for an explicit 42-specification
-helper closure, and makes effective-search control a concrete #89 invocation
-requirement. Whole-language helper-dispatch coverage remains an integration
-obligation.
+helper closure, supplies the current grammar-to-helper inclusion under the
+selected invocation, and makes effective-search control a concrete #89
+invocation requirement. Other capacity representations and installed-source
+qualifications remain separate obligations.
 
 No compiler, GNATprove, Lean build or new admission experiment was run. The
 new [collector and inventory](../evidence/unbounded-programs/retained-source-closure-20261017/)
@@ -300,8 +302,9 @@ zero for a Main translation process.
 Likewise, marking a generated equality helper inline is insufficient to show
 that it allocates virtual source. The fallback equality helper is a body
 declaration (`exp_ch4.adb:2035`); actual frontend inlining requires a separate
-subprogram declaration and `Body_To_Inline` (`exp_ch6.adb:5561–5565`). Complete
-generated-helper coverage is still required.
+subprogram declaration and `Body_To_Inline` (`exp_ch6.adb:5561–5565`). The
+fixed-support follow-up integrates this exclusion with the grammar's other
+generated helper families.
 
 Inherited contracts require particular care: `a-sttebu.ads:55–65` contains
 classwide contracts, and `106–150` declares a generic derived-buffer type.
@@ -311,7 +314,8 @@ source overriding primitive (`freeze.adb:1940–1972`). Main provides no tagged
 derivations or overriding declarations. Native contract-body expansion and
 fixed runtime template analysis are reconciled for the explicit selected
 closure in the [fixed-support component](retained-fixed-support.md#the-text-buffer-contract-path).
-Applying that component universally still requires complete helper dispatch.
+Its grammar/helper inclusion is conditional on the recorded invocation and
+source/tool premises.
 
 ### Generated-helper inlining: a narrower dependency
 
@@ -356,14 +360,15 @@ types. Its direct call-resolution inlining route (`sem_res.adb:7384–7387,
 identified. Fixed dependency processing remains separate.
 
 These are source-derived zero virtual-copy transfers for the named helper
-families, not zero AST/backend cost. What remains for source ranges is narrower:
-runtime bodies/templates and any selected external target whose Inline_Always
-unconstrained-return or null-procedure status escapes these exclusions.
+families, not zero AST/backend cost. Runtime bodies/templates and selected
+external targets require separate treatment of Inline_Always unconstrained
+returns and null procedures, supplied below and in the fixed-support component.
 In particular, the absence of an Inline annotation on `Image_I` alone does
 **not** exclude a body copy: `Needs_Body_Instantiated` returns true when
 `Inline_Processing_Required and Back_End_Inlining` (`sem_ch12.adb:4937–4938`).
-Its body contains no further generic instantiation, but the body's demand and
-at-most-once property must be resolved before adding a fixed body contribution.
+Its body contains no further generic instantiation. The at-most-once argument
+above supplies the conservative 8,192-byte native body contribution without
+assuming that demand is absent.
 
 The complete installed-runtime annotation inventory narrows those external
 targets too. Exactly ten specs contain Inline_Always annotations:
@@ -390,15 +395,19 @@ runtime bodies, recorded separately by the collector. Calls generated inside
 those bodies belong to the fixed dependency contribution; they are not evidence
 of a fresh source-range copy for every Main expression.
 
-## Grammar helper coverage already narrowed
+## Grammar helper dispatch facts
+
+These dispatch facts feed the complete conditional helper-family inclusion
+in the [fixed-support follow-up](retained-fixed-support.md#grammar-to-helper-coverage).
+They do not alone bound other frontend representations.
 
 | Family | Established dispatch fact | What it does not establish |
 | --- | --- | --- |
 | String concat | `exp_ch4.adb:3470–3545` selects `System.Concat_2` through `_9` for the applicable retained operand counts at `-O0`; larger concatenations lower to assignments | An unbounded number of helper package families is unnecessary; generated nodes/copies and operand evaluation still need bounds |
 | Integer Image | `exp_imgv.adb:1113–1116,1329` selects `RE_Image_Integer`, mapped to `System.Img_Int` by `rtsfind.ads:2653` | Does not bound source copies in every producer/native phase by the single trace |
-| String equality | `exp_ch4.adb:8594–8671` uses bytewise comparison for the ordinary elementary case, with a generated-function fallback | Target/alignment/validity conditions and all fallback generation must be covered |
+| String equality | `exp_ch4.adb:8594–8671` uses bytewise comparison for the ordinary elementary case, with a generated-function fallback | The follow-up checks the selected target and ordinary String conditions; generated node counts remain separate |
 | Runtime entity lookup | `rtsfind.adb:1102–1111` returns when its unit is already loaded; `1563` loads the selected entity's unit | Unit reuse does not deduplicate semantic bodies or virtual instances |
-| Integer arithmetic/checks | Overflow expansion is routed through `exp_ch4.adb:7918,9935` | Standard exception, elaboration, secondary-stack and default Put_Image/tag helper closure remains to be established |
+| Integer arithmetic/checks | Overflow expansion is routed through `exp_ch4.adb:7918,9935` | The follow-up supplies strict/backend overflow and exception/cleanup helper coverage; backend check costs remain separate |
 
 ## Conditional arithmetic result and exact remaining work
 
@@ -422,8 +431,8 @@ so loading order cannot make the final position larger than this sum. `R` and
 route supplies **`C = 4,096`, `A = 0` under its explicit source/search premises**;
 the fixed-support component supplies **`V <= 40,960` for native Main and
 `V <= 32,768` for gnat2why Main under its explicit helper closure**. The
-installed-driver relation, #89 invocation controls and complete grammar-to-helper
-coverage remain integration obligations. Consequently this formula is not an implemented or
+installed-driver relation, #89 invocation controls and integration with the
+other capacity representations remain obligations. Consequently this formula is not an implemented or
 complete decidable membership test. It also says nothing yet about line-table
 growth, other source-pointer operations, parser/copy nodes or producer data.
 
@@ -435,10 +444,10 @@ The smallest next source-closure steps are specific:
    basename requests; account for any remaining nonruntime search input before
    applying those conditional contributions universally. A new run is warranted
    only if a named source/artifact contradiction requires it.
-2. Finish the generated-helper dispatch for the grammar's scalar, String,
-   branch and loop compositions against the explicit 42-specification closure.
-   Its generic, inline and inherited-contract contribution is now bounded;
-   any newly selected helper must extend that closure explicitly.
+2. Integrate the fixed-support component's grammar/helper inclusion and
+   generic, inline and inherited-contract bounds with the full capacity
+   argument. Newly admitted constructs or changed invocation modes must check
+   their helper selections against that explicit closure.
 3. Integrate the binder source bound from the fixed-support component and
    establish its controlled source/object search. Reconcile the fixed-library
    frontend inputs independently; a
@@ -452,14 +461,14 @@ These are unresolved derivation obligations, not an impossibility result or a
 recommendation to change toolchain ownership. The fixed physical union and
 identified template contribution reduce their scope without bypassing them.
 
-The feasible next derivation is targeted helper dispatch, not reviewing all
-runtime bodies. No direct author construct in this grammar creates a generic,
-derived tagged type or frontend-inlinable subprogram. If the remaining generated
-helpers also exclude the virtual-copy routes, `V` reduces to a fixed runtime
-template closure per phase. If a generated helper does inline, its call count
-must be bounded from the grammar/expansion events and charged per copied
-template extent; the fixed runtime-file union cannot bound that multiplicity.
-No unavoidable user-dependent virtual-copy route has been demonstrated here.
+The fixed-support follow-up closes helper-family selection for the current
+grammar and selected frontend modes. Its generated-helper exclusions and
+runtime-template accounting reduce `V` to the stated fixed contributions
+under the source/tool and invocation premises. This is a source-position
+component: copied-tree multiplicities, line tables, semantic tables, producer
+structures and backend/linker capacities still require their own arguments.
+New constructs or changed invocation modes must recheck the helper closure
+and virtual-copy routes before reusing these contributions.
 
 ## Reproduction
 

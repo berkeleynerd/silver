@@ -1,11 +1,14 @@
 # Fixed support source ranges
 
 **2026-10-17 — source-only component for [#119](https://github.com/berkeleynerd/silver/issues/119).**
+The 2026-10-18 follow-up adds the grammar-to-helper inclusion below.
 This follows the [source-range derivation](retained-source-closure.md).
-It supplies conditional virtual-source and binder-source contributions for
-the selected helper closure. It does not establish the entire language's
-helper-dispatch coverage, other frontend representations, or a new admission
-rule. Current language limits and tool installations are unchanged.
+It supplies conditional virtual-source and binder-source contributions and
+maps the current grammar's compiler-generated helpers into the selected
+runtime closure. It does not bound other frontend representations or define
+a new admission rule. Current language limits and tool installations are
+unchanged. Installed-source identity and controlled invocation remain explicit
+premises.
 
 The [collector and result](../evidence/unbounded-programs/retained-source-closure-20261017/fixed-support-closure.json)
 read installed support specifications, retained ALIs and pinned generator
@@ -36,10 +39,121 @@ remains a valid overapproximation under its naming/search premises.
 
 This closes the dependencies of the named seeds, rather than assuming that
 all 1,575 runtime files can create an arbitrary number of virtual copies.
-The remaining integration obligation is to show that every admitted grammar
-production and its generated helpers selects only these seeds or another
-explicitly accounted family. The fact that a retained ALI has no extra unit
-does not by itself discharge that obligation.
+The grammar-to-helper argument below supplies the source-derived inclusion
+for the current grammar and selected compiler modes. The retained ALI is a
+reconciliation input; absence of another unit from that sample is not the
+argument for inclusion.
+
+## Grammar-to-helper coverage
+
+This is a manual source argument about **which Ada support units the frontend
+can load**, not an allocation-count proof for its AST, semantic tables or
+backend. Its domain is the current Integer/String grammar, the six fixed
+Silver source files, and the invocation recorded above: Ada 2022, `-gnata`,
+`-gnato`, optimization level zero, no additional configuration pragmas,
+representation clauses, debug switches, pools or instrumentation.
+
+The data-type invariant is narrow. Source objects and loop indexes are
+Integer or ordinary String; predicates produce Standard Boolean. Main expansion
+adds scalar/index subtypes, String subtypes, scalar/String temporaries, slices,
+named access types designating String, pointer captures and cleanup procedures.
+String components remain ordinary Character values. These operations introduce
+no controlled component, task, protected object, tagged derivation, private
+completion, storage-model aspect, user-defined operator or explicit generic
+instance. References to runtime types such as `Mark_Id` use declarations in
+the fixed specification closure. In particular, author exclusion of access
+types is **not** used to exclude the generated access declarations.
+
+| Grammar or generated family | Selected helper route and source basis |
+| --- | --- |
+| Context clauses and fixed API calls | Only the two admitted Silver packages can be named. Their declarations use the fixed runtime roots above. Repeated `with`/`use` clauses and calls do not create new units; library loading and analysis are deduplicated. No call is dispatching, protected or through an access-to-subprogram value. |
+| Integer literals, names, signs, `+`, `-`, `*`, comparisons and range constraints | Strict overflow checks, scalar validity/range checks and backend arithmetic; no bignum or frontend arithmetic-helper family, as detailed below. Object-local constraints and loop bounds preserve the signed Integer family. |
+| String literals, earlier-object copies and bound attributes | Ordinary String subtypes and bound captures. `Expand_Subtype_From_Expr`, `exp_util.adb:5900–6002,6103–6105`, selects slice/literal/constrained-subtype or `Make_Subtype_From_Expr`; its array branch captures First/Last bounds (`10933–10986`). Standard String freezing skips an initialization procedure (`exp_ch3.adb:5738–5741`), and there is no controlled component. |
+| Integer Image | The predefined Integer route uses `System.Img_Int.Image_Integer` and a local String slice (`exp_imgv.adb:1113–1116,1265–1437`). `Image_Should_Call_Put_Image` excludes predefined scalars without a Put_Image aspect (`exp_put_image.adb:1247–1286`), so this expression does not select an unbounded text buffer or another Image family. |
+| Generated default Put_Image support | Scalar, String and access profiles/bodies use `System.Put_Images` and `Ada.Strings.Text_Buffers` (`exp_put_image.adb:336–445,457–527,1068–1078`), already in the closure. The separate image-result buffer route (`1309–1354`) is excluded for admitted Integer Image by the preceding row. Generated helper bodies are not author-defined inlineable subprograms. |
+| Concatenation | Two through nine retained operands can select `System.Concat_2` through `_9`; larger groups generate slice assignments (`exp_ch4.adb:3492–3624`). The secondary-stack allocation path remains within `System.Secondary_Stack`, including generated access-type analysis/freezing, as detailed below. |
+| String assignment and generated slice copies | `Expand_N_Assignment_Statement` selects `Expand_Assign_Array` (`exp_ch5.adb:3336`). Ordinary byte-aligned String has no representation change, bit-aligned component, controlled component or atomic/full-access component, so `Loop_Required` stays false (`524–562`); even the overlap path leaves copying to the backend (`865–870`, explicitly permitting memmove). No bitfield-copy or controlled-assignment helper is selected. |
+| String `=` and `/=` | `/=` reduces to Boolean negation of equality (`exp_ch4.adb:10221–10248`). Ordinary Character components permit the backend composite comparison (`8645–8654`). The generic array-equality fallback builds a local body, as the preceding source-range record explains; it has no new runtime generic or virtual-source route. The two byte-ordering helper roots retained above are conservative extras, since String ordering is not admitted. |
+| Boolean `not`, `and then`, `or else`, `if`/`elsif` | Boolean negation returns after condition/result adjustment (`exp_ch4.adb:10305–10313`). Short circuit preserves or wraps operand actions (`13123–13260`); if expansion moves/removes branches and their actions (`exp_ch5.adb:4767–5017`). Their expression actions belong to the same scalar/String families; cleanup is covered below. |
+| Forward/reverse Integer `for` loops | Bound captures are scalar declarations. Predicated and nonstandard-enumeration dispatch is excluded (`exp_ch5.adb:5902–5931`), leaving the ordinary for-loop case (`6046–6050`). The post-pass may wrap statements for cleanup (`6128`), which uses the same secondary-stack family. Loop trip count does not introduce a helper family. |
+| `First_Or_Default` initialization | Its nonlimited String result fails the build-in-place result-type test (`exp_ch6.adb:8865–8878`). Resolution instead establishes a secondary-stack transient scope (`sem_res.adb:7069–7091`). The named String access/capture and bound-subtype machinery stays in the types described above. The called Silver body is a separate fixed-input compilation. |
+| Validity query, output and rejection | These are direct calls to the fixed Silver declarations, with Boolean or ordinary String actuals/results. The selected runtime bodies remain separately compiled fixed inputs; a repeated Main call does not load another body or instantiate a template. |
+| Generated cleanup, checks and fixed assertions | Secondary-stack mark/release uses `Mark_Id`, `SS_Mark` and `SS_Release` (`exp_util.adb:4350–4387`), all mapped to `System.Secondary_Stack` (`rtsfind.ads:3493–3498`). Core exception/abort calls use `Ada.Exceptions`, `System.Soft_Links` and `System.Standard_Library`; assertion failure uses `System.Assertions` (`rtsfind.ads:2222–2231,2450–2451,3504–3505,3660–3666`). These are existing seeds. |
+
+The table is closed under expression and statement composition for helper
+selection: a newly inserted scalar operation, bound capture, String slice/copy,
+named String pointer or cleanup block is in one of its rows. Tree copying
+preserves those types; it does not itself resolve a runtime entity. Native
+decorated-copy accounting additionally follows copied itypes and semantic
+ranges, rather than treating them as plain syntax. That representation-cost
+obligation remains necessary even though copying adds no runtime family.
+
+### Scalar checks and generated error paths
+
+The retained switches use `-gnato` with no digits. The switch parser sets both
+general and assertion overflow modes to Strict (`switch-c.adb:1134–1140`).
+`Minimized_Eliminated_Overflow_Check` therefore returns false
+(`exp_ch4.adb:14355–14366`), excluding the bignum transformation. The selected
+`system.ads:132` sets `Backend_Overflow_Checks = True`, so the strict checker
+returns before its fallback runtime arithmetic calls (`checks.adb:942–950`).
+Unary minus has the corresponding backend guard (`exp_ch4.adb:9722`).
+This conclusion does not assume that every check is statically removed.
+
+Range/length checks can still create conditional raise nodes. For example,
+`Apply_Range_Check` inserts `N_Raise_Constraint_Error` and its scalar condition
+(`checks.adb:3080–3144`). Constraint-error expansion adjusts that condition and
+calls `Possible_Local_Raise` (`exp_ch11.adb:1319–1331`). The latter returns
+without selecting a local-raise helper because neither debug `.g` nor
+`No_Exception_Propagation` is enabled (`1697–1705`). The handler push/pop
+route has the same option guard (`519–526`). Thus checks do not add
+`System.Exceptions_Debug` to the source closure on this invocation.
+Standard error code generation and its backend/runtime costs remain separate
+from the source-range question.
+
+### Generated String pointers and cleanup
+
+Concat installs `RE_SS_Pool`, creates a subtype-identifier allocator and sets
+`No_Initialization` (`exp_ch4.adb:3390–3402`). Allocator expansion selects
+`RE_SS_Allocate` (`4637–4660`); its no-initialization branch does not enter
+the controlled/task/default-initialization routes (`4897–4902`). Both runtime
+entities map to `System.Secondary_Stack` (`rtsfind.ads:3493–3498`). The generated
+named access designates untagged, uncontrolled String and is not a coextension,
+qualified-expression allocator or special return object.
+
+The access declaration is analyzed **before** concat assigns that pool.
+Full-type analysis dispatches to `Access_Type_Declaration`
+(`sem_ch3.adb:3307–3313`) and sets delayed freezing (`3449–3451`);
+full-type expansion builds a task master only for a task-containing or limited
+classwide designated type (`exp_ch3.adb:6844–7056`). String satisfies neither.
+The default-pool source lookup requires a configured `Default_Pool = Standard`
+(`freeze.adb:7758–7761`), absent here. The separate freeze-time pool creation
+requires a Storage_Size clause (`exp_ch3.adb:9919–10001`), also absent; subpool
+checking first requires that runtime unit already be loaded (`10012–10015`).
+Compiler-generated access types without a private declaration skip collection
+creation (`10070–10075`), and String does not need finalization in any case
+(`sem_util.adb:23417–23503`). Consequently neither declaration order nor later
+freezing silently adds Storage_Pools/Subpools or a finalization collection.
+
+Branch/loop cleanup can create blocks even though Main declares no controlled
+object (`exp_util.adb:12274–12343`). Secondary-stack marks are emitted by
+`exp_ch7.adb:4784–4797`, and finalizers release them at `2161–2206`.
+Task/master and controlled-object branches require the corresponding flags;
+the data-type invariant excludes them. The possible core exception/soft-link
+calls are already inside the selected seeds. This argument concerns helper
+families, not the number or size of generated blocks/finalizers.
+
+### GNATprove frontend mode
+
+Normal native expansion is inactive. The light-expansion dispatch is explicit
+in `exp_spark.adb:119–201`; scalar multiplication only has a special path for
+Universal_Fixed, absent from this grammar. Its only direct RTE calls are the
+To_Address rewrite (`782–800`), outside the admitted attributes and already
+within the System/Storage_Elements family. Image retains its source form;
+Length receives universal-integer checks without selecting another helper
+(`813–859`). The external-body and automatic-inlining exclusions below
+remain necessary. This is coverage of the inspected GNAT frontend; applying
+it to the installed producer still requires the recorded source-identity
+premise. It does not bound gnat2why/Why3/solver representations.
 
 ## Virtual ranges inside this closure
 
@@ -143,7 +257,8 @@ The graph has one linker-option record, `-ldl`, and no interrupt-state or
 priority-specific-dispatching records. It contains neither tasking/GNARL nor
 `System.Restrictions`. The author's grammar has no construct that creates
 additional compilation units, linker options or those configuration pragmas.
-Completeness of the helper seeds remains the same explicit premise as above.
+The grammar-to-helper inclusion above supplies the seed-coverage argument
+under the same fixed invocation and source/tool premises.
 
 The source writer inventory and manually reviewed loop placement give:
 
@@ -264,12 +379,15 @@ inventory and the arithmetic inputs. The collector's lexical inventories are
 checked inputs to the manual caller/control-flow argument, not a mechanically
 verified call graph. An independent source-only review confirmed the writer
 coefficients, direct-line operands and binder virtual-source closure; its
-linker-comment-prefix correction is included in the formula above. Remaining
-work is to integrate complete grammar/helper coverage and source/tool premises
-with the other #119 representations. One concrete selector still being traced
-is concat's secondary-stack allocator route (`exp_ch4.adb:3382–3419`): its
-generated access type and allocator must be checked for additional runtime
-families before this selected closure is applied to every concat expression.
-Then
-implement the #89 invocation controls and the authorized dependent increments.
+linker-comment-prefix correction is included in the formula above. The native
+expansion peer also reviewed concat, generated access/allocator and ordinary
+String-copy routes against the grammar/helper table and found no additional
+runtime family. The input-result capture and cleanup derivation above was
+source-checked here, but was not independently retraced in that peer review.
+Remaining work is to integrate the grammar/helper inclusion and source/tool premises
+with the other #119 representations, establish the installed-source relations,
+and implement the #89 invocation controls before applying these conditional
+source bounds in dependent increments. Decorated-copy multiplicities,
+semantic/AST table allocations, producer representations and backend/linker
+capacities are not discharged by helper-family inclusion.
 No change in toolchain ownership is needed by these contributions.

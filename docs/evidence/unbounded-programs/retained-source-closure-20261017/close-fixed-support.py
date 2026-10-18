@@ -134,9 +134,29 @@ def main():
              + (path_bytes + 9) * n + (path_bytes + 11) * directories)
     inputs = ["bindgen.adb", "osint-b.adb", "osint.adb", "gnatvsn.ads", "lib-writ.ads", "lib-load.adb", "sem.adb",
               "sem_ch12.adb", "sem_ch7.adb", "sem_ch6.adb", "inline.adb", "sem_prag.adb", "freeze.adb",
-              "contracts.adb", "exp_ch4.adb", "exp_ch6.adb", "exp_imgv.adb", "rtsfind.ads"]
+              "contracts.adb", "exp_ch4.adb", "exp_ch6.adb", "exp_imgv.adb", "rtsfind.ads",
+              "checks.adb", "switch-c.adb", "exp_attr.adb", "exp_ch3.adb", "exp_ch5.adb", "exp_ch7.adb",
+              "exp_ch11.adb", "exp_spark.adb", "exp_util.adb", "exp_put_image.adb", "sem_ch3.adb",
+              "sem_res.adb", "sem_util.adb"]
+    rte_map = dict(re.findall(r"^[ \t]*(RE_\w+)[ \t]*=>[ \t]*(\w+)",
+                             code_only((args.gcc / "rtsfind.ads").read_bytes()), re.M))
+    helper_names = ["RE_Image_Integer", "RE_SS_Pool", "RE_SS_Allocate", "RE_Mark_Id", "RE_SS_Mark",
+                    "RE_SS_Release", "RE_Assert_Failure", "RE_Raise_Assert_Failure", "RE_Exception_Occurrence",
+                    "RE_Save_Occurrence", "RE_Raise_Exception", "RE_Abort_Undefer_Direct",
+                    "RE_Abort_Defer", "RE_Abort_Undefer", "RE_Get_Current_Excep",
+                    "RE_Integer_Address", "RE_To_Address", "RE_Root_Buffer_Type",
+                    "RE_Put_Image_Integer", "RE_Put_Image_String", "RE_Put_Image_Thin_Pointer",
+                    "RE_Put_Image_Fat_Pointer"]
+    helper_names += [f"RE_Str_Concat_{i}" for i in range(2, 10)]
+    source_inputs = ["language.md", "src/silver_io.ads", "src/silver_io.adb", "src/silver_output_libc.ads",
+                     "src/silver_arguments.ads", "src/silver_arguments.adb", "src/silver_runtime.ads"]
+    system_code = code_only((include / "system.ads").read_bytes())
+    target_properties = dict(re.findall(r"^[ \t]*(Backend_Overflow_Checks|Support_Composite_Assign|"
+                                       r"Support_Composite_Compare|ZCX_By_Default)[ \t]*:[ \t]*constant"
+                                       r"[ \t]+Boolean[ \t]*:=[ \t]*(True|False)", system_code, re.M))
+    assert len(target_properties) == 4, target_properties
     result = {
-        "scope": "Selected source/retained-ALI closure, conditional on caller seed completeness and documented invocation. No compiler or proof run.",
+        "scope": "Selected source/retained-ALI closure; grammar/helper inclusion is a manual argument in the report, conditional on the documented invocation and source/tool premises. No compiler or proof run.",
         "specification_seeds": seeds, "selected_specifications": selected,
         "selected_specification_count": len(selected),
         "selected_specification_aligned_charge": sum(4096 * ((x["bytes"] + 4096) // 4096)
@@ -156,6 +176,9 @@ def main():
                             "combined_raw_source_byte_bound": bound,
                             "combined_aligned_source_bound": bound + 8192},
         "retained_binder_source": raw_binder,
+        "grammar_source_inputs": {p: digest((root / p).read_bytes()) for p in source_inputs},
+        "selected_target_properties": target_properties,
+        "selected_runtime_helper_mapping": {name: rte_map[name] for name in helper_names},
         "gcc_source_inputs": {p: digest((args.gcc / p).read_bytes()) for p in inputs},
         "gpr_source_inputs": {p: digest((args.gpr_source / p).read_bytes()) for p in ["src/gprbind.adb", "src/gprbuild-post_compile.adb"]},
     }

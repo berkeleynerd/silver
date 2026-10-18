@@ -5,6 +5,9 @@ Collected on Linux x86_64, 2026-10-17, for
 and [#119](https://github.com/berkeleynerd/silver/issues/119).
 This is source inspection, byte reconciliation and retained-trace accounting.
 It ran no compiler, GNATprove, Lean build or admission probe.
+The 2026-10-18 follow-up adds source hashes, target properties and runtime-entity
+mappings for the manual grammar/helper inclusion in the fixed-support report;
+it uses the same retained runtime and binder inputs.
 
 `collect.py` writes `source-inventory.json` to stdout. From the repository root:
 
@@ -116,9 +119,13 @@ The [fixed-support report](../../../research/retained-fixed-support.md)
 derives the conditional virtual-source contribution and the binder source
 transfer. The collector records lexical writer sites and evaluates the
 manually reviewed coefficients; it does not infer a verified control-flow
-bound from those sites. Completeness of the helper seed set, controlled
-invocation/search paths and the existing source/tool identity qualifications
-remain explicit integration obligations.
+bound from those sites. The follow-up grammar/helper mapping hashes the
+language and six Silver source files, records selected target properties and
+runtime-entity mappings, and pins the cited scalar, String, control, cleanup
+and GNATprove frontend sources. Reachability and branch exclusions are the
+report's manual argument, not a result of lexical matching. Controlled
+invocation/search paths, the existing source/tool identity qualifications and
+integration with the other capacity representations remain explicit obligations.
 
 ```sh
 python3 docs/evidence/unbounded-programs/retained-source-closure-20261017/close-fixed-support.py \

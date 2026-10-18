@@ -1,11 +1,11 @@
 {
   "README.md": {
-    "bytes": 8130,
-    "sha256": "e0380a7013e5a7e89b0108fb9c52df2099a37f887202a78b087fb52ff1c90c8c"
+    "bytes": 8684,
+    "sha256": "73ced727c86e7de9c40a0ea76ddec28a68f3a45e071008fb2cbbb3a13edd2a6d"
   },
   "close-fixed-support.py": {
-    "bytes": 8885,
-    "sha256": "940399d26469513c00e69dfca886fa3b84d27afec5073b10112e71c95c3f323f"
+    "bytes": 10915,
+    "sha256": "06b85ee070365b94661829570353f54e2c54614ddb72def0a5ebb0d2160ca50a"
   },
   "collect.py": {
     "bytes": 9725,
@@ -160,8 +160,8 @@
     "sha256": "119ada4a6986ea543b1ee838412f10fb5ec9e5feaec987f2b2974d2a39637c4d"
   },
   "fixed-support-closure.json": {
-    "bytes": 95142,
-    "sha256": "469d46fee65b83546fe0bc561a4adca04c37146af52107386e145648943159e5"
+    "bytes": 99602,
+    "sha256": "b0c7d78c7542f75c41554ce7e25aba92cd67d1133603ae3e6597b140d535619e"
   },
   "reconcile-driver.py": {
     "bytes": 7172,
