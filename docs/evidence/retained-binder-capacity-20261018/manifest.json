@@ -1,0 +1,558 @@
+{
+  "archives": {
+    "artifacts.tar.gz": {
+      "archive": {
+        "bytes": 197004,
+        "sha256": "bc7132cecb06942baacf747adda4b0238ca6aa01c5e9fce46ef3355ff76f4d61"
+      },
+      "members": {
+        "cases/indexed-cr/b__main~1.adb": {
+          "bytes": 8014,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/obj/b__main~1.adb",
+          "sha256": "15bc56ca5a6b40c83ae4661c5c64e849d67aeaeaa58638d2b5d1813e850d8a5c"
+        },
+        "cases/indexed-cr/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/obj/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "cases/indexed-cr/b__main~1.ali": {
+          "bytes": 8124,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/obj/b__main~1.ali",
+          "sha256": "5c02bf567f56f3bfc57d104e5784ec3d7f94e08fd8083e76daf07f8103d8bbdb"
+        },
+        "cases/indexed-cr/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/obj/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "cases/indexed-cr/main.adb": {
+          "bytes": 78,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/main.adb",
+          "sha256": "24fe92f8644ea5d48a9f0bb2f262d5649a3aede2ba9cf5c22d0dad3a69cec0a9"
+        },
+        "cases/indexed-cr/main~1.ali": {
+          "bytes": 352,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/obj/main~1.ali",
+          "sha256": "4d6aac458682cd3e55ec54f9a2df709cad8d848fcde37ada4ce69080d290bd25"
+        },
+        "cases/indexed-cr/program.gpr": {
+          "bytes": 411,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/program.gpr",
+          "sha256": "3fea33f3703b0dcf49aadf65bf8a1cf50e68982ab0dfb16f2dafc3b9594b8458"
+        },
+        "cases/indexed-lf/b__main~1.adb": {
+          "bytes": 8014,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/obj/b__main~1.adb",
+          "sha256": "6e7de6911806ce61c533288a7c630929b32f5fd1aab63140c72812b0e93e3c7e"
+        },
+        "cases/indexed-lf/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/obj/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "cases/indexed-lf/b__main~1.ali": {
+          "bytes": 8124,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/obj/b__main~1.ali",
+          "sha256": "43efd336c11e56862da27e384b28fd8a0cd6ccf4afa20ca686bcb0a817bae0f5"
+        },
+        "cases/indexed-lf/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/obj/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "cases/indexed-lf/main.adb": {
+          "bytes": 78,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/main.adb",
+          "sha256": "6c0357311dc2d16a49307ad3f4f790bb7538c0c636a772a43e50b195851ce585"
+        },
+        "cases/indexed-lf/main~1.ali": {
+          "bytes": 352,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/obj/main~1.ali",
+          "sha256": "814242bcf7dee76f53dd82eaab157916f203b8eb16069bd9499e0e5e72d90281"
+        },
+        "cases/indexed-lf/program.gpr": {
+          "bytes": 411,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l/program.gpr",
+          "sha256": "3fea33f3703b0dcf49aadf65bf8a1cf50e68982ab0dfb16f2dafc3b9594b8458"
+        },
+        "cases/indexed-uppercase/b__main~1.adb": {
+          "bytes": 8014,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/obj/b__main~1.adb",
+          "sha256": "44ed22adbe35212e7dd3f92755dbc38c8286d4892f89e3f6fe2971ddcc555765"
+        },
+        "cases/indexed-uppercase/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/obj/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "cases/indexed-uppercase/b__main~1.ali": {
+          "bytes": 8124,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/obj/b__main~1.ali",
+          "sha256": "d2d510de2187bb8a8784c9914da208fb0115fa9b8870f57d5d57ac13511848a4"
+        },
+        "cases/indexed-uppercase/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/obj/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "cases/indexed-uppercase/main.adb": {
+          "bytes": 112,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/main.adb",
+          "sha256": "b42602d3547149dc1adc5ef6b2c541c54a2f15ba29364b9b3cdb15424a67738e"
+        },
+        "cases/indexed-uppercase/main~1.ali": {
+          "bytes": 358,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/obj/main~1.ali",
+          "sha256": "f0a9e67e7f663ef27f116771728bc463ddca920651f92e291c43ce8e5a9ef6ec"
+        },
+        "cases/indexed-uppercase/program.gpr": {
+          "bytes": 411,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl/program.gpr",
+          "sha256": "3fea33f3703b0dcf49aadf65bf8a1cf50e68982ab0dfb16f2dafc3b9594b8458"
+        },
+        "cases/unindexed-proposed/b__main.adb": {
+          "bytes": 7816,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/b__main.adb",
+          "sha256": "9a291fc4d7c7f72825647af1b9165df5e9d40ff5d760c33a48f146c37f55af70"
+        },
+        "cases/unindexed-proposed/b__main.ads": {
+          "bytes": 14556,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/b__main.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "cases/unindexed-proposed/b__main.ali": {
+          "bytes": 8139,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/b__main.ali",
+          "sha256": "1509108c93c5ff5a3fb9edb773ffe906546dd5f184b0fbc4152960b20d345307"
+        },
+        "cases/unindexed-proposed/b__main.o": {
+          "bytes": 13424,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/b__main.o",
+          "sha256": "e3262ab76ba603391cfc0b96f891d901db5553a0c2a95e89b1265d399a308a61"
+        },
+        "cases/unindexed-proposed/main.adb": {
+          "bytes": 70,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/src/main.adb",
+          "sha256": "eeee9454c12c49124881f49a17d743c82d3e730b48933bef7338f036725cfb25"
+        },
+        "cases/unindexed-proposed/main.ali": {
+          "bytes": 344,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/main.ali",
+          "sha256": "722808fae4e074568ed2d70908051a13a0a72f17d7a42e2019c91825ae137640"
+        },
+        "cases/unindexed-proposed/probe.gpr": {
+          "bytes": 369,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/probe.gpr",
+          "sha256": "ec0447b3fc52be6bdaf572a7968cfa4c692afb3a514925120f1278a3f76d774e"
+        },
+        "closure/a-chahan.ali": {
+          "bytes": 19710,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-chahan.ali",
+          "sha256": "e29412c1db9529d1f3d3980bb7c30e47133cca2f45318889d9ff273ea5b347a7"
+        },
+        "closure/a-charac.ali": {
+          "bytes": 456,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-charac.ali",
+          "sha256": "d652385ef571e55ca34771b023c65e91413230d272fff0a077d81613489c2018"
+        },
+        "closure/a-chlat1.ali": {
+          "bytes": 6763,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-chlat1.ali",
+          "sha256": "db4258375bc1116ee27e92f1e56a30e2629aa808069466ae950914aa19ae77ee"
+        },
+        "closure/a-contai.ali": {
+          "bytes": 881,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-contai.ali",
+          "sha256": "242d83561afa3c0fb1d7b537a3a21804970461fd327064b3fc06cffe6a9c06cf"
+        },
+        "closure/a-elchha.ali": {
+          "bytes": 3781,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-elchha.ali",
+          "sha256": "67efd3da2473d7f16b72c8c75e21b303bc394729cf1d56711d4c4655496af244"
+        },
+        "closure/a-except.ali": {
+          "bytes": 58770,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-except.ali",
+          "sha256": "49bce6a452fe7e8db1ed5bd88a1e8f84521434e6a76d1538b7e7c5261caeca98"
+        },
+        "closure/a-exctra.ali": {
+          "bytes": 2157,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-exctra.ali",
+          "sha256": "6ee77c37cfccd6d73b0085b857816fc19045d24acfb0d66de2f46bfcbf79178b"
+        },
+        "closure/a-ioexce.ali": {
+          "bytes": 962,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-ioexce.ali",
+          "sha256": "b002f006ac5fed367061c2e896aec6fe4fbdc57a6d2308c4e33e704d5b13a297"
+        },
+        "closure/a-stmaco.ali": {
+          "bytes": 17053,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-stmaco.ali",
+          "sha256": "a35f1df993ddca07e84cf89d59ae29a37d40d1619f29bdd1f1ea9d3b969cf8e8"
+        },
+        "closure/a-string.ali": {
+          "bytes": 1369,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-string.ali",
+          "sha256": "848eb8970825a58cb803ddda7201812c11507d7ed3281314203235a97aff21dd"
+        },
+        "closure/a-strmap.ali": {
+          "bytes": 19280,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-strmap.ali",
+          "sha256": "4750904e1d676d61a8c64d3fbbdc8739dab5302b41f2ca2bf9442282e76fd6d7"
+        },
+        "closure/ada.ali": {
+          "bytes": 349,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/ada.ali",
+          "sha256": "6fb06682fde39e03233f9a588db5cf1fb28f3d9f72d737cfd4fa82b7d2d02caa"
+        },
+        "closure/i-c.ali": {
+          "bytes": 16434,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/i-c.ali",
+          "sha256": "5de72e1eb6e576e16e1a467b6dd9983a15fb44172398c7f75fdf81b60e51f1cd"
+        },
+        "closure/interfac.ali": {
+          "bytes": 4480,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/interfac.ali",
+          "sha256": "4929710be622c227363b33e502e15498a8c490540f6c641379694beb8b558cfd"
+        },
+        "closure/main~1.ali": {
+          "bytes": 352,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3/obj/main~1.ali",
+          "sha256": "4d6aac458682cd3e55ec54f9a2df709cad8d848fcde37ada4ce69080d290bd25"
+        },
+        "closure/s-addima.ali": {
+          "bytes": 1710,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-addima.ali",
+          "sha256": "0111ed82156abc320ed646dd3e04b43a41f00f429115ae3410afd150826e4cec"
+        },
+        "closure/s-aotase.ali": {
+          "bytes": 2204,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-aotase.ali",
+          "sha256": "eba9e77cce51da51a2b509ca9ddb31f06f5682da7c4a0bb6f242cb4967bc3801"
+        },
+        "closure/s-atoope.ali": {
+          "bytes": 458,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-atoope.ali",
+          "sha256": "7c01adb2cb645721ca8b2508a43b4b946dad7a2aae07e73e445e936263191ffc"
+        },
+        "closure/s-atopri.ali": {
+          "bytes": 6542,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-atopri.ali",
+          "sha256": "e2df637605e446106e6fb5a2ea4012e4946dbb12300e6ed8c10f046936202cda"
+        },
+        "closure/s-bitops.ali": {
+          "bytes": 4527,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-bitops.ali",
+          "sha256": "f910367aee69eb16a448d42a742522a4b0bf1e1212d7374b1cb8bea18fc66243"
+        },
+        "closure/s-boustr.ali": {
+          "bytes": 2558,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-boustr.ali",
+          "sha256": "f0c834a5a1a4d5e8101855627b573b50a1228419df499f31236597fb6eef3b7c"
+        },
+        "closure/s-casuti.ali": {
+          "bytes": 2287,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-casuti.ali",
+          "sha256": "2edb1b2e6b7f642329f58afa036d1928e2addad21c212c7b12ccd7890701a33a"
+        },
+        "closure/s-cautns.ali": {
+          "bytes": 2391,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-cautns.ali",
+          "sha256": "a7bb41a76ab38c57e9865b5762b8a211060973abf353309f4fc035aba5906692"
+        },
+        "closure/s-crtl.ali": {
+          "bytes": 8266,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-crtl.ali",
+          "sha256": "31354d7cebdfcdd958091b609b4f218753cdff42d07339bab0341acf3964dfdf"
+        },
+        "closure/s-dwalin.ali": {
+          "bytes": 39020,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-dwalin.ali",
+          "sha256": "f594e597b21fa6d4ee5b9ae01468f32bcbb3eeb6e0f39aeda03e7d84de3a3656"
+        },
+        "closure/s-excdeb.ali": {
+          "bytes": 1803,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-excdeb.ali",
+          "sha256": "4f830796c110e902bc1ddda62208cc882315bd8fcfd2b6a029f44a2353c62f8e"
+        },
+        "closure/s-except.ali": {
+          "bytes": 871,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-except.ali",
+          "sha256": "e22b0a8a751907b6a4d4655e9b558caebf2e03c3bab1d884d8cd62a91a01bab6"
+        },
+        "closure/s-excmac.ali": {
+          "bytes": 3531,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-excmac.ali",
+          "sha256": "ca0f9461dbd08b85b3a65792a08607cfa8044f17545f5f5c176b98705ccff303"
+        },
+        "closure/s-exctab.ali": {
+          "bytes": 5943,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-exctab.ali",
+          "sha256": "a7089079f7e920c6ed0be96c78e1a2e8811e967575f41b299e70fff634a9c08a"
+        },
+        "closure/s-exctra.ali": {
+          "bytes": 3357,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-exctra.ali",
+          "sha256": "fb0d8bb60ef0cf02d08fafd4a00f7c59342719667898a6860813ceaae5a9cab9"
+        },
+        "closure/s-imad32.ali": {
+          "bytes": 1399,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imad32.ali",
+          "sha256": "fb6c982b40e0ff9f48d5c22b9c4dcfd7e4fa8e9db2c432d875da21142e57f9e1"
+        },
+        "closure/s-imad64.ali": {
+          "bytes": 1399,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imad64.ali",
+          "sha256": "35f3211c591ca0aa842a7827e24c8cb941f2e4e2cfe8d9399edc53927ac880ea"
+        },
+        "closure/s-imgint.ali": {
+          "bytes": 1170,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imgint.ali",
+          "sha256": "838ec1c7f9fdf985f9810dfc7ea705962735ae3e00613dd7a78e3a37ef680d4d"
+        },
+        "closure/s-imguns.ali": {
+          "bytes": 1322,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imguns.ali",
+          "sha256": "3f014f4e44189a93e5d960dd77f96ff788bb6794959c7cfe42f0a2535f208a84"
+        },
+        "closure/s-io.ali": {
+          "bytes": 2078,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-io.ali",
+          "sha256": "ac3a6d0791717c382649483bf4d931688bd8525a2373bce50b083ce4a39e514c"
+        },
+        "closure/s-memory.ali": {
+          "bytes": 3395,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-memory.ali",
+          "sha256": "315b231309d8655ac59dd115605e694abd1ee8f4a95a57e36eb1e383c5724372"
+        },
+        "closure/s-mmap.ali": {
+          "bytes": 11430,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-mmap.ali",
+          "sha256": "2b72fa5cfc63f3254671aa8a62e13ae393f1439e9081af3ea702fd1cf5469354"
+        },
+        "closure/s-mmauni.ali": {
+          "bytes": 2330,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-mmauni.ali",
+          "sha256": "fe15bfb3e88d5bfbae07a9d070d756ed0d69f2b9bd80a400dbab042ba0f93d30"
+        },
+        "closure/s-mmosin.ali": {
+          "bytes": 7094,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-mmosin.ali",
+          "sha256": "189cd64efe8aaabf63bda4872296798d90f3b7d1f128d974be59e60d099fa6c9"
+        },
+        "closure/s-objrea.ali": {
+          "bytes": 50199,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-objrea.ali",
+          "sha256": "58dfd6f4d06b5e062a1d18668a27f966ffe419d8e0d4ede4b67560c17f09d78c"
+        },
+        "closure/s-os_lib.ali": {
+          "bytes": 56724,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-os_lib.ali",
+          "sha256": "2a399283a6daad693c9db2e25581a394639a6e1e8a83f34b64ddedf9ba315aab"
+        },
+        "closure/s-parame.ali": {
+          "bytes": 1733,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-parame.ali",
+          "sha256": "189ebdcec03bd308e8fcc3f7226210eeabacc4859d26dddf8245294ea9d1d0c4"
+        },
+        "closure/s-secsta.ali": {
+          "bytes": 13777,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-secsta.ali",
+          "sha256": "0f6b10eab0442371c3d3e96cfbaceb9e030709f877f6c789ec2e5b869c64faad"
+        },
+        "closure/s-soflin.ali": {
+          "bytes": 9939,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-soflin.ali",
+          "sha256": "e82d2a064649bf2a39daf6bee81cd2948c68db30e6d7484a944afa9b1722fe7d"
+        },
+        "closure/s-soliin.ali": {
+          "bytes": 1824,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-soliin.ali",
+          "sha256": "d297ebc9a6ac621153f7a3f475a802e081004e521155c4999acb3d03df49b599"
+        },
+        "closure/s-stache.ali": {
+          "bytes": 1314,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-stache.ali",
+          "sha256": "a28f3d96be5ebcf45377113eb0e643974d74c37d405c5478d4af1ec967e32684"
+        },
+        "closure/s-stalib.ali": {
+          "bytes": 4164,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-stalib.ali",
+          "sha256": "656219a7f3b559738bfd7b1c7394d362c7fce4e1cb05e88e36d8d3aebecc3300"
+        },
+        "closure/s-stoele.ali": {
+          "bytes": 1860,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-stoele.ali",
+          "sha256": "1f82e1543c61cf2d57b54fc09fae12e628f845162d7d953e81639988c656d8ab"
+        },
+        "closure/s-string.ali": {
+          "bytes": 1550,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-string.ali",
+          "sha256": "6336add90f0f7904bbc8894200f1be2c6bffca7e05b59b47528af70f51418e1a"
+        },
+        "closure/s-traceb.ali": {
+          "bytes": 2539,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-traceb.ali",
+          "sha256": "73fef8d258eef8f3fe3d92e077c747c34eeeae4bebd4e8608104e072f1b4504f"
+        },
+        "closure/s-traent.ali": {
+          "bytes": 1268,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-traent.ali",
+          "sha256": "962e94893ed80f7247f66dc2635cc562b956287d65a214483a8c44b40e6f0a4f"
+        },
+        "closure/s-trasym.ali": {
+          "bytes": 18972,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-trasym.ali",
+          "sha256": "f004a5ddaf683c1507ef6b9e9291a9161cc89fa97435b3688d3811114790d9a7"
+        },
+        "closure/s-unstyp.ali": {
+          "bytes": 6137,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-unstyp.ali",
+          "sha256": "30e867532bc3fb359cd41963523938d9cdbbf9a3d37c95ed6917a1af6174b377"
+        },
+        "closure/s-vallli.ali": {
+          "bytes": 1892,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-vallli.ali",
+          "sha256": "93e1d207f76eae57782335e68952dfe87de4b1d8d035f0ab4dc80d848f76ccba"
+        },
+        "closure/s-valllu.ali": {
+          "bytes": 2408,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-valllu.ali",
+          "sha256": "056327fcdf08411fc4dd635872ba55602d8ec1542fdb1fe8d7083b31b84883c2"
+        },
+        "closure/s-valuti.ali": {
+          "bytes": 4550,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-valuti.ali",
+          "sha256": "89a56dfd3e8c343908dde06ad7a7c55d66d6fa586e83f87ae3b553231292bbd5"
+        },
+        "closure/s-wchcnv.ali": {
+          "bytes": 5073,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchcnv.ali",
+          "sha256": "c1a225729f5bf40bb543827b86553b76849945324ccf5907550f48ee38744aa5"
+        },
+        "closure/s-wchcon.ali": {
+          "bytes": 1966,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchcon.ali",
+          "sha256": "f68cbb1a265056e07958b7b3ec2eaee478333491bf38906cd01ef851450eff34"
+        },
+        "closure/s-wchjis.ali": {
+          "bytes": 2119,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchjis.ali",
+          "sha256": "db00dbaa9ba89ad0a970cd2000dbaa170602f336b558cac84c99c831f40d8e52"
+        },
+        "closure/s-wchstw.ali": {
+          "bytes": 3447,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchstw.ali",
+          "sha256": "2d92e84195e7f63cd6956ebe48debac70c98352a0101c1c0731f9b992ae5c56c"
+        },
+        "closure/system.ali": {
+          "bytes": 2428,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/system.ali",
+          "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1"
+        }
+      }
+    },
+    "sources.tar.gz": {
+      "archive": {
+        "bytes": 326068,
+        "sha256": "542b89fc024f3605f70f51e775652c96341dea6e729feea1c47c3e876e9d4019"
+      },
+      "members": {
+        "gcc/ada/ali-util.adb": {
+          "bytes": 18257,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali-util.adb",
+          "sha256": "eceb00ffc060ba839cf5564d06b2535832a53cd8c1593836f4517c0433662dcb"
+        },
+        "gcc/ada/ali.adb": {
+          "bytes": 105321,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali.adb",
+          "sha256": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0"
+        },
+        "gcc/ada/ali.ads": {
+          "bytes": 56611,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali.ads",
+          "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b"
+        },
+        "gcc/ada/bindgen.adb": {
+          "bytes": 126166,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindgen.adb",
+          "sha256": "fe911dc10dd32c8f06d3a46959c05acf22057912b9d69702306d1da94ca606a6"
+        },
+        "gcc/ada/bindo-builders.adb": {
+          "bytes": 25765,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-builders.adb",
+          "sha256": "d5ff479e913ed1ff5a5cbca4a696abc483cae8d242da347d18185e6fb2738174"
+        },
+        "gcc/ada/bindo-elaborators.adb": {
+          "bytes": 64932,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-elaborators.adb",
+          "sha256": "2a173ab69eacf7753a7162ea9b91a31522b6a8ef38a07c712074cb03018087fd"
+        },
+        "gcc/ada/bindo-graphs.adb": {
+          "bytes": 188535,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-graphs.adb",
+          "sha256": "0baea3916392f4f42115b20592be19315da41b91fadb3096c2e526845400ea0e"
+        },
+        "gcc/ada/bindo-units.adb": {
+          "bytes": 13655,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-units.adb",
+          "sha256": "d89cef887c67dc90f765d86b5af33168e9de52e03dd30d4233499c7361cf52a7"
+        },
+        "gcc/ada/gcc-interface/trans.cc": {
+          "bytes": 406631,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/trans.cc",
+          "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+        },
+        "gcc/ada/gnatbind.adb": {
+          "bytes": 29989,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gnatbind.adb",
+          "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06"
+        },
+        "gcc/ada/lib-load.adb": {
+          "bytes": 39122,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/lib-load.adb",
+          "sha256": "4f589143677f09575bebbd041abe3d0001c480b6392cccbfd60e699f7fa8f09b"
+        },
+        "gcc/ada/lib-writ.adb": {
+          "bytes": 61061,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/lib-writ.adb",
+          "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+        },
+        "gcc/ada/lib.adb": {
+          "bytes": 40494,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/lib.adb",
+          "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+        },
+        "gcc/ada/osint-b.adb": {
+          "bytes": 6731,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint-b.adb",
+          "sha256": "d1f5223b02efdedf0bdf0b8f57e7ea893d81685fba7718edb7b7a4d1ea192b94"
+        },
+        "gcc/ada/scng.adb": {
+          "bytes": 99999,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/scng.adb",
+          "sha256": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3"
+        },
+        "gcc/ada/sem.adb": {
+          "bytes": 83263,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem.adb",
+          "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d"
+        },
+        "gcc/cfgrtl.cc": {
+          "bytes": 154498,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfgrtl.cc",
+          "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+        },
+        "gpr/src/gprbind.adb": {
+          "bytes": 43658,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbind.adb",
+          "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802"
+        }
+      }
+    }
+  },
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "source_identity_scope": "retained source pins, not historical binary build attestation"
+}

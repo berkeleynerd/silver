@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""Copy existing evidence; never run a compiler, binder, assembler or linker."""
+import argparse
+import gzip
+import io
+import json
+from pathlib import Path
+import re
+import tarfile
+
+from check import analyze, digest
+
+
+def archive(output, name, members):
+    stream = io.BytesIO()
+    with tarfile.open(fileobj=stream, mode="w") as tar:
+        for key, (path, raw) in sorted(members.items()):
+            info = tarfile.TarInfo(key)
+            info.size = len(raw)
+            info.mode = 0o644
+            tar.addfile(info, io.BytesIO(raw))
+    packed = gzip.compress(stream.getvalue(), mtime=0)
+    (output/name).write_bytes(packed)
+    return {"archive": digest(packed),
+            "members": {k: {**digest(v), "original_path": str(p)} for k, (p, v) in sorted(members.items())}}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--repair-installation", type=Path, required=True)
+    parser.add_argument("--native-option-probe", type=Path, required=True)
+    parser.add_argument("--gcc-ada", type=Path, required=True)
+    parser.add_argument("--gcc-backend", type=Path, required=True)
+    parser.add_argument("--gpr-source", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    args.output.mkdir(parents=True, exist_ok=True)
+    artifacts, sources = {}, {}
+
+    def add(mapping, key, path):
+        mapping[key] = (path, path.read_bytes())
+
+    cases = {"indexed-cr": "program-RibQE3", "indexed-lf": "program-rzfH0l", "indexed-uppercase": "program-5aNKVl"}
+    install = args.repair_installation
+    for case, directory in cases.items():
+        workspace = install/".silver/linux-x86_64"/directory
+        for file in ("main.adb", "program.gpr"):
+            add(artifacts, f"cases/{case}/{file}", workspace/file)
+        for file in ("main~1.ali", "b__main~1.ads", "b__main~1.adb", "b__main~1.ali", "b__main~1.o"):
+            add(artifacts, f"cases/{case}/{file}", workspace/"obj"/file)
+    old = args.native_option_probe/"null-proposed"
+    add(artifacts, "cases/unindexed-proposed/main.adb", old/"src/main.adb")
+    add(artifacts, "cases/unindexed-proposed/probe.gpr", old/"probe.gpr")
+    for file in ("main.ali", "b__main.ads", "b__main.adb", "b__main.ali", "b__main.o"):
+        add(artifacts, f"cases/unindexed-proposed/{file}", old/"obj"/file)
+    adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+    obj = install/".silver/linux-x86_64/program-RibQE3/obj"
+    todo, seen = ["main~1.ali", "s-stalib.ali"], set()
+    while todo:
+        name = todo.pop()
+        if name in seen:
+            continue
+        seen.add(name)
+        path = obj/name if name == "main~1.ali" else adalib/name
+        add(artifacts, "closure/"+name, path)
+        raw = artifacts["closure/"+name][1]
+        todo += [x.decode() for x in re.findall(rb"^[WYZ] \S+[ \t]+\S+[ \t]+(\S+)", raw, re.M)]
+    ada_files = ["scng.adb", "lib-load.adb", "lib-writ.adb", "lib.adb", "sem.adb", "ali.adb", "ali.ads",
+                 "ali-util.adb", "gnatbind.adb", "bindgen.adb", "osint-b.adb", "bindo-units.adb",
+                 "bindo-builders.adb", "bindo-graphs.adb", "bindo-elaborators.adb", "gcc-interface/trans.cc"]
+    for file in ada_files:
+        add(sources, "gcc/ada/"+file, args.gcc_ada/file)
+    add(sources, "gcc/cfgrtl.cc", args.gcc_backend/"cfgrtl.cc")
+    add(sources, "gpr/src/gprbind.adb", args.gpr_source/"src/gprbind.adb")
+    gcc_manifest = json.loads((args.gcc_ada.parents[1]/"complete-source-manifest.json").read_text())
+    assert gcc_manifest["commit"] == "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+    pins = {f["path"]: f for f in gcc_manifest["files"]}
+    for file in ada_files:
+        assert digest(sources["gcc/ada/"+file][1]) == {k: pins[file][k] for k in ("bytes", "sha256")}
+    result = analyze({k: v for k, (_, v) in artifacts.items()})
+    (args.output/"result.json").write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")
+    manifest = {"gcc_commit": gcc_manifest["commit"], "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+                "source_identity_scope": "retained source pins, not historical binary build attestation",
+                "archives": {"sources.tar.gz": archive(args.output, "sources.tar.gz", sources),
+                             "artifacts.tar.gz": archive(args.output, "artifacts.tar.gz", artifacts)}}
+    (args.output/"manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True)+"\n")
+    print("Copied existing sources/artifacts only; no native tool execution.")
+
+
+if __name__ == "__main__":
+    main()
