@@ -97,6 +97,41 @@
       "git_blob_sha1": "34f3642258d6d9d5b07b303e14c67f6d80a748f7",
       "origin": "new immutable upstream retrieval",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libcpp/line-map.cc"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053",
+      "git_blob_sha1": "682459220a20c2a2119c6f2de519792de6a32936",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/toplev.cc",
+      "archive": "allocator-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2",
+      "git_blob_sha1": "e3cccc9d07996bf7056f0eeaab7d48f63bf41b6b",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ggc-page.cc",
+      "archive": "allocator-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8",
+      "git_blob_sha1": "fe9850e191d5cca1aaf14bfa3300bb09922534db",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ggc.h",
+      "archive": "allocator-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils.cc"
     }
   ]
 }

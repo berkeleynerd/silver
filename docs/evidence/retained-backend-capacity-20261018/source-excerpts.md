@@ -13,6 +13,31 @@ LF line numbering; complete file identities checked.
 130:            Nat (Physical_To_Logical (Last_Source_Line (J), J));
 ```
 
+## gcc/ada/back_end.adb:155–175
+```text
+155:       --  The actual call to the back end
+156:
+157:       gigi
+158:         (gnat_root          => Int (Cunit (Main_Unit)),
+159:          max_gnat_node      => Int (Last_Node_Id - First_Node_Id + 1),
+160:          number_name        => Name_Entries_Count,
+161:          node_offsets_ptr   => Node_Offsets_Address,
+162:          slots_ptr          => Slots_Address,
+163:
+164:          next_node_ptr      => Next_Node_Address,
+165:          prev_node_ptr      => Prev_Node_Address,
+166:          elists_ptr         => Elists_Address,
+167:          elmts_ptr          => Elmts_Address,
+168:
+169:          strings_ptr        => Strings_Address,
+170:          string_chars_ptr   => String_Chars_Address,
+171:          list_headers_ptr   => Lists_Address,
+172:          number_file        => Num_Source_Files,
+173:
+174:          file_info_ptr                 => File_Info_Array'Address,
+175:          gigi_standard_address         => Standard_Address,
+```
+
 ## gcc/ada/gcc-interface/trans.cc:87–91
 ```text
 87: /* We should avoid allocating more than ALLOCA_THRESHOLD bytes via alloca,
@@ -660,6 +685,171 @@ LF line numbering; complete file identities checked.
 324: const location_t LINE_MAP_MAX_LOCATION = location_t (0x70000000) << 31;
 ```
 
+## libcpp/include/line-map.h:425–471
+```text
+425: struct GTY((tag ("1"))) line_map_ordinary : public line_map {
+426:   /* Base class is 8 bytes.  */
+427:
+428:   /* 4 bytes of integers, each 1 byte for easy extraction/insertion.  */
+429:
+430:   /* The reason for creation of this line map.  */
+431:   ENUM_BITFIELD (lc_reason) reason : 8;
+432:
+433:   /* SYSP is one for a system header, two for a C system header file
+434:      that therefore needs to be extern "C" protected in C++, and zero
+435:      otherwise.  This field isn't really needed now that it's in
+436:      cpp_buffer.  */
+437:   unsigned char sysp;
+438:
+439:   /* Number of the low-order location_t bits used for column numbers
+440:      and ranges.  */
+441:   unsigned int m_column_and_range_bits : 8;
+442:
+443:   /* Number of the low-order "column" bits used for storing short ranges
+444:      inline, rather than in the ad-hoc table.
+445:      MSB                                                                 LSB
+446:      31                                                                    0
+447:      +-------------------------+-------------------------------------------+
+448:      |                         |<---map->column_and_range_bits (e.g. 12)-->|
+449:      +-------------------------+-----------------------+-------------------+
+450:      |                         | column_and_range_bits | map->range_bits   |
+451:      |                         |   - range_bits        |                   |
+452:      +-------------------------+-----------------------+-------------------+
+453:      | row bits                | effective column bits | short range bits  |
+454:      |                         |    (e.g. 7)           |   (e.g. 5)        |
+455:      +-------------------------+-----------------------+-------------------+ */
+456:   unsigned int m_range_bits : 8;
+457:
+458:   /* 32-bit int even in 64-bit mode.  */
+459:   linenum_type to_line;
+460:
+461:   /* Location from whence this line map was included.  For regular
+462:      #includes, this location will be the last location of a map.  For
+463:      outermost file, this is 0.  For modules it could be anywhere
+464:      within a map.  */
+465:   location_t included_from;
+466:
+467:   /* Pointer alignment boundary, whether 32-bit or 64-bit mode.  */
+468:   const char *to_file;
+469:
+470:   /* Size is 28 (32) bytes for 32-bit (64-bit) arch.  */
+471: };
+```
+
+## libcpp/include/line-map.h:747–777
+```text
+747:      (e.g. when a new preprocessing unit starts or ends).  */
+748:   line_map_ordinary * GTY ((length ("%h.used"))) maps;
+749:
+750:   /* The total number of allocated maps.  */
+751:   line_map_uint_t allocated;
+752:
+753:   /* The number of elements used in maps. This number is smaller
+754:      or equal to ALLOCATED.  */
+755:   line_map_uint_t used;
+756:
+757:   /* The index of the last ordinary map that was looked up with
+758:      linemap_lookup.  */
+759:   mutable line_map_uint_t m_cache;
+760: };
+761:
+762: struct GTY(()) maps_info_macro {
+763:   /* This array contains the macro line maps.
+764:      A macro line map is created whenever a macro expansion occurs.  */
+765:   line_map_macro * GTY ((length ("%h.used"))) maps;
+766:
+767:   /* The total number of allocated maps.  */
+768:   line_map_uint_t allocated;
+769:
+770:   /* The number of elements used in maps. This number is smaller
+771:      or equal to ALLOCATED.  */
+772:   line_map_uint_t used;
+773:
+774:   /* The index of the last macro map that was looked up with
+775:      linemap_lookup.  */
+776:   mutable line_map_uint_t m_cache;
+777: };
+```
+
+## libcpp/line-map.cc:469–543
+```text
+469: line_map *
+470: line_map_new_raw (line_maps *set, bool macro_p, line_map_uint_t num)
+471: {
+472:   auto num_maps_allocated = LINEMAPS_ALLOCATED (set, macro_p);
+473:   auto num_maps_used = LINEMAPS_USED (set, macro_p);
+474:
+475:   if (num > num_maps_allocated - num_maps_used)
+476:     {
+477:       /* We need more space!  */
+478:       if (!num_maps_allocated)
+479: 	num_maps_allocated = 128;
+480:       if (num_maps_allocated < num_maps_used + num)
+481: 	num_maps_allocated = num_maps_used + num;
+482:       num_maps_allocated *= 2;
+483:
+484:       size_t size_of_a_map;
+485:       void *buffer;
+486:       if (macro_p)
+487: 	{
+488: 	  size_of_a_map = sizeof (line_map_macro);
+489: 	  buffer = set->info_macro.maps;
+490: 	}
+491:       else
+492: 	{
+493: 	  size_of_a_map = sizeof (line_map_ordinary);
+494: 	  buffer = set->info_ordinary.maps;
+495: 	}
+496:
+497:       /* We are going to execute some dance to try to reduce the
+498: 	 overhead of the memory allocator, in case we are using the
+499: 	 ggc-page.cc one.
+500:
+501: 	 The actual size of memory we are going to get back from the
+502: 	 allocator may well be larger than what we ask for.  Use this
+503: 	 hook to find what that size is.  */
+504:       size_t alloc_size
+505: 	= set->m_round_alloc_size (num_maps_allocated * size_of_a_map);
+506:
+507:       /* Now alloc_size contains the exact memory size we would get if
+508: 	 we have asked for the initial alloc_size amount of memory.
+509: 	 Let's get back to the number of map that amounts to.  */
+510:       line_map_uint_t num_maps = alloc_size / size_of_a_map;
+511:       buffer = set->m_reallocator (buffer, num_maps * size_of_a_map);
+512:       memset ((char *)buffer + num_maps_used * size_of_a_map, 0,
+513: 	      (num_maps - num_maps_used) * size_of_a_map);
+514:       if (macro_p)
+515: 	set->info_macro.maps = (line_map_macro *)buffer;
+516:       else
+517: 	set->info_ordinary.maps = (line_map_ordinary *)buffer;
+518:       LINEMAPS_ALLOCATED (set, macro_p) = num_maps;
+519:     }
+520:
+521:   line_map *result = (macro_p ? (line_map *)&set->info_macro.maps[num_maps_used]
+522: 		      : (line_map *)&set->info_ordinary.maps[num_maps_used]);
+523:   LINEMAPS_USED (set, macro_p) += num;
+524:
+525:   return result;
+526: }
+527:
+528: /* Create a new line map in the line map set SET, and return it.
+529:    REASON is the reason of creating the map. It determines the type
+530:    of map created (ordinary or macro map). Note that ordinary maps and
+531:    macro maps are allocated in different memory location.  */
+532:
+533: static struct line_map *
+534: new_linemap (line_maps *set, location_t start_location)
+535: {
+536:   line_map *result = line_map_new_raw (set,
+537: 				       start_location >= LINE_MAP_MAX_LOCATION,
+538: 				       1);
+539:
+540:   result->start_location = start_location;
+541:
+542:   return result;
+543: }
+```
+
 ## libcpp/line-map.cc:570–608
 ```text
 570: linemap_add (line_maps *set, enum lc_reason reason,
@@ -911,4 +1101,180 @@ LF line numbering; complete file identities checked.
 1075:
 1076: /* Encode and return a location_t starting from location LOC and
 1077:    shifting it by COLUMN_OFFSET columns.  This function does not support
+```
+
+## gcc/toplev.cc:761–767
+```text
+761: /* A helper function; used as the reallocator function for cpp's line
+762:    table.  */
+763: static void *
+764: realloc_for_line_map (void *ptr, size_t len)
+765: {
+766:   return ggc_realloc (ptr, len);
+767: }
+```
+
+## gcc/toplev.cc:1141–1150
+```text
+1141:      table.  */
+1142:   init_ggc ();
+1143:   init_stringpool ();
+1144:   input_location = UNKNOWN_LOCATION;
+1145:   line_table = ggc_alloc<line_maps> ();
+1146:   linemap_init (line_table, BUILTINS_LOCATION);
+1147:   line_table->m_reallocator = realloc_for_line_map;
+1148:   line_table->m_round_alloc_size = ggc_round_alloc_size;
+1149:   line_table->default_range_bits = line_map_suggested_range_bits;
+1150:   init_ttree ();
+```
+
+## gcc/ggc-page.cc:1292–1327
+```text
+1292: ggc_round_alloc_size_1 (size_t requested_size,
+1293: 			size_t *size_order,
+1294: 			size_t *alloced_size)
+1295: {
+1296:   size_t order, object_size;
+1297:
+1298:   if (requested_size < NUM_SIZE_LOOKUP)
+1299:     {
+1300:       order = size_lookup[requested_size];
+1301:       object_size = OBJECT_SIZE (order);
+1302:     }
+1303:   else
+1304:     {
+1305:       order = 10;
+1306:       while (requested_size > (object_size = OBJECT_SIZE (order)))
+1307:         order++;
+1308:     }
+1309:
+1310:   if (size_order)
+1311:     *size_order = order;
+1312:   if (alloced_size)
+1313:     *alloced_size = object_size;
+1314: }
+1315:
+1316: /* For a given size of memory requested for allocation, return the
+1317:    actual size that is going to be allocated.  */
+1318:
+1319: size_t
+1320: ggc_round_alloc_size (size_t requested_size)
+1321: {
+1322:   size_t size = 0;
+1323:
+1324:   ggc_round_alloc_size_1 (requested_size, NULL, &size);
+1325:   return size;
+1326: }
+1327:
+```
+
+## gcc/ggc-page.cc:1883–1905
+```text
+1883:
+1884:   /* Initialize the object size table.  */
+1885:   for (order = 0; order < HOST_BITS_PER_PTR; ++order)
+1886:     object_size_table[order] = (size_t) 1 << order;
+1887:   for (order = HOST_BITS_PER_PTR; order < NUM_ORDERS; ++order)
+1888:     {
+1889:       size_t s = extra_order_size_table[order - HOST_BITS_PER_PTR];
+1890:
+1891:       /* If S is not a multiple of the MAX_ALIGNMENT, then round it up
+1892: 	 so that we're sure of getting aligned memory.  */
+1893:       s = ROUND_UP (s, MAX_ALIGNMENT);
+1894:       object_size_table[order] = s;
+1895:     }
+1896:
+1897:   /* Initialize the objects-per-page and inverse tables.  */
+1898:   for (order = 0; order < NUM_ORDERS; ++order)
+1899:     {
+1900:       objects_per_page_table[order] = G.pagesize / OBJECT_SIZE (order);
+1901:       if (objects_per_page_table[order] == 0)
+1902: 	objects_per_page_table[order] = 1;
+1903:       compute_inverse (order);
+1904:     }
+1905:
+```
+
+## gcc/ggc.h:230–258
+```text
+230: inline T *
+231: ggc_vec_alloc (size_t c CXX_MEM_STAT_INFO)
+232: {
+233:   if (need_finalization_p<T> ())
+234:     return static_cast<T *> (ggc_internal_alloc (c * sizeof (T), finalize<T>,
+235: 						 sizeof (T), c PASS_MEM_STAT));
+236:   else
+237:     return static_cast<T *> (ggc_internal_alloc_no_dtor (c * sizeof (T),
+238: 							 NULL, 0, 0
+239: 							 PASS_MEM_STAT));
+240: }
+241:
+242: template<typename T>
+243: inline T *
+244: ggc_cleared_vec_alloc (size_t c CXX_MEM_STAT_INFO)
+245: {
+246:   if (need_finalization_p<T> ())
+247:     return static_cast<T *> (ggc_internal_cleared_alloc (c * sizeof (T),
+248: 							 finalize<T>,
+249: 							 sizeof (T), c
+250: 							 PASS_MEM_STAT));
+251:   else
+252:     return static_cast<T *> (ggc_internal_cleared_alloc_no_dtor (c
+253: 								 * sizeof (T),
+254: 								 NULL, 0, 0
+255: 								 PASS_MEM_STAT));
+256: }
+257:
+258: inline void *
+```
+
+## gcc/ada/gcc-interface/utils.cc:259–280
+```text
+259: /* Associates a GNAT tree node to a GCC tree node. It is used in
+260:    `save_gnu_tree', `get_gnu_tree' and `present_gnu_tree'. See documentation
+261:    of `save_gnu_tree' for more info.  */
+262: static GTY((length ("max_gnat_nodes"))) tree *associate_gnat_to_gnu;
+263:
+264: #define GET_GNU_TREE(GNAT_ENTITY)	\
+265:   associate_gnat_to_gnu[(GNAT_ENTITY) - First_Node_Id]
+266:
+267: #define SET_GNU_TREE(GNAT_ENTITY,VAL)	\
+268:   associate_gnat_to_gnu[(GNAT_ENTITY) - First_Node_Id] = (VAL)
+269:
+270: #define PRESENT_GNU_TREE(GNAT_ENTITY)	\
+271:   (associate_gnat_to_gnu[(GNAT_ENTITY) - First_Node_Id] != NULL_TREE)
+272:
+273: /* Associates a GNAT entity to a GCC tree node used as a dummy, if any.  */
+274: static GTY((length ("max_gnat_nodes"))) tree *dummy_node_table;
+275:
+276: #define GET_DUMMY_NODE(GNAT_ENTITY)	\
+277:   dummy_node_table[(GNAT_ENTITY) - First_Node_Id]
+278:
+279: #define SET_DUMMY_NODE(GNAT_ENTITY,VAL)	\
+280:   dummy_node_table[(GNAT_ENTITY) - First_Node_Id] = (VAL)
+```
+
+## gcc/ada/gcc-interface/utils.cc:430–450
+```text
+430: /* Initialize data structures of the utils.cc module.  */
+431:
+432: void
+433: init_gnat_utils (void)
+434: {
+435:   /* Initialize the association of GNAT nodes to GCC trees.  */
+436:   associate_gnat_to_gnu = ggc_cleared_vec_alloc<tree> (max_gnat_nodes);
+437:
+438:   /* Initialize the association of GNAT nodes to GCC trees as dummies.  */
+439:   dummy_node_table = ggc_cleared_vec_alloc<tree> (max_gnat_nodes);
+440:
+441:   /* Initialize the hash table of packable types.  */
+442:   packable_type_hash_table = hash_table<packable_type_hasher>::create_ggc (512);
+443:
+444:   /* Initialize the hash table of padded types.  */
+445:   pad_type_hash_table = hash_table<pad_type_hasher>::create_ggc (512);
+446:
+447:   /* Initialize the hash table of sized types.  */
+448:   sized_type_hash_table = hash_table<sized_type_hasher>::create_ggc (512);
+449: }
+450:
 ```

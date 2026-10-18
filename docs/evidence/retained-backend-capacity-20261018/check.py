@@ -14,10 +14,14 @@ import tarfile
 
 
 RANGES = {
-    "gcc/ada/back_end.adb": [(123, 130)],
+    "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
     "gcc/ada/gcc-interface/trans.cc": [(87, 91), (346, 363), (6705, 6732),
                                        (11006, 11030)],
     "gcc/ada/gcc-interface/misc.cc": [(376, 377)],
+    "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450)],
+    "gcc/toplev.cc": [(761, 767), (1141, 1150)],
+    "gcc/ggc-page.cc": [(1292, 1327), (1883, 1905)],
+    "gcc/ggc.h": [(230, 258)],
     "gcc/tree.cc": [(2616, 2636)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
@@ -26,8 +30,8 @@ RANGES = {
     "gcc/common.opt": [(2411, 2420)],
     "gcc/config/i386/i386-options.cc": [(2275, 2286)],
     "gcc/common/config/i386/i386-common.cc": [(2033, 2059)],
-    "libcpp/include/line-map.h": [(48, 55), (295, 324)],
-    "libcpp/line-map.cc": [(570, 608), (662, 680), (890, 999), (1009, 1077)],
+    "libcpp/include/line-map.h": [(48, 55), (295, 324), (425, 471), (747, 777)],
+    "libcpp/line-map.cc": [(469, 543), (570, 608), (662, 680), (890, 999), (1009, 1077)],
 }
 
 
@@ -68,7 +72,7 @@ def main():
                             prior_files[name]["file"])
             assert hashlib.sha256(data).hexdigest() == prior_files[name]["sha256"]
         else:
-            data = read_tar(bundle / "new-sources.tar.gz", name)
+            data = read_tar(bundle / row.get("archive", "new-sources.tar.gz"), name)
         assert len(data) == row["bytes"], name
         assert hashlib.sha256(data).hexdigest() == row["sha256"], name
         blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data)
@@ -93,6 +97,15 @@ def main():
     assert not maximum_lines < 1 << (line_bits - column_bits)
     location_charge = 256 * (maximum_lines - 1) + 252
     int_max = (1 << 31) - 1
+    map_cases = []
+    for demand in sorted({0, 1, 255, 256, 257, int_max} |
+                         {2**k+delta for k in range(9,31) for delta in (-1,0,1)}):
+        capacity = 0 if demand == 0 else max(256,1 << (demand-1).bit_length())
+        assert demand <= capacity <= 2**31
+        assert capacity*32 <= 2**36
+        if capacity:
+            assert capacity*32 == 1 << (capacity.bit_length()-1+5)
+        map_cases.append(dict(demand=demand, capacity=capacity, bytes=32*capacity))
     header_offset = 20
     constructor_bytes = int_max + header_offset + 1
     assert constructor_bytes <= (1 << 32) - 1
@@ -107,6 +120,16 @@ def main():
             "preallocation_charge_at_maximum": location_charge,
             "later_column_headroom": 4,
             "normal_region_exclusive_limit": 0x50000000 << 31,
+            "ordinary_map_bytes_lp64": 32,
+            "growth_transitions": map_cases,
+            "maximum_map_vector_bytes_from_nat_file_count": 2**36,
+        },
+        "gnat_node_associations": {
+            "array_count": 2,
+            "maximum_count_from_int_interface": int_max,
+            "maximum_requested_bytes_per_array": 8*int_max,
+            "maximum_rounded_bytes_per_array": 2**34,
+            "scope": "backbone arithmetic; pointed-to GCC trees are separate",
         },
         "string": {
             "lp64_header_offset_premise": header_offset,

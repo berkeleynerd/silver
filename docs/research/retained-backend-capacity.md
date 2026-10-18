@@ -1,7 +1,7 @@
 # Retained native backend: line maps and String emission
 
 2026-10-18, Linux x86_64, [#119](https://github.com/berkeleynerd/silver/issues/119).
-This supplies two local transfers to the unfinished
+This supplies local transfers to the unfinished
 [capacity contract](retained-tool-capacity.md). It is not whole-backend capacity
 assurance, a new membership rule or a native near-limit experiment. GCC source
 is `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; the existing source/tool relation
@@ -68,10 +68,60 @@ The per-file map-reuse guard remains necessary even with 64-bit `location_t`.
 
 This transfer covers location arithmetic and the one-map-per-file invariant.
 It does not establish exact source columns: the pinned mapping intentionally
-masks columns. The map-vector allocator, filename storage, ad-hoc locations,
+masks columns. The map-vector allocator is covered below; filename storage, ad-hoc locations,
 other GCC IDs and generated code still need their own accounting. Reuse the
 complete physical/virtual source inventory; counting only Main misses both
 fixed dependencies and virtual copies.
+
+### Ordinary-map vector growth is covered by the file-count interface
+
+Under the one-map-per-file condition above, let F be the number of supplied
+files. The Ada/C interface passes it as Nat, so `0 <= F <= 2^31-1`;
+gigi's loop variable and its checked map-count conversion fit that same range.
+The map table itself uses 64-bit `line_map_uint_t`, an alias of location_t
+(`libcpp/include/line-map.h:303,747–777`). Each `new_linemap` requests one
+entry. Its first allocation has capacity 256; later exhaustion doubles the
+capacity (`libcpp/line-map.cc:469–543`).
+
+On the Linux LP64 structure layout, an ordinary map is 32 bytes
+(`line-map.h:425–471`). The active allocator/rounding callbacks are
+`ggc_realloc` and `ggc_round_alloc_size` (`gcc/toplev.cc:761–767,1141–1150`).
+For these requests, rounding does not inflate the capacity: the allocation
+size is already a power of two of at least 8192 bytes. GGC's rounding loop
+starts at order ten, then selects the first power-of-two size that fits
+(`ggc-page.cc:1292–1327,1883–1894`). The small-object extra orders do not
+participate in this path.
+
+Thus, for positive F, capacity is the least power of two at least
+`max(256,F)`. It is at most `2^31`; the largest multiplication requests
+`32*2^31 = 2^36` bytes. Every capacity increment/doubling, byte multiplication,
+division back into entries and zero-fill size fits its 64-bit representation.
+The largest executed doubling is `2*2^30`. Zero files request no map vector.
+Each top-level enter/leave pair has include depth at most one. These facts
+close ordinary-map backing arithmetic without a new source-count restriction;
+the existing source-range argument still must supply F and ensure no extra
+line map is introduced. Ad-hoc location maps, filename intern tables and all
+later GCC structures are separate.
+
+## GNAT-node association backbones
+
+The backend receives
+`N = Last_Node_Id - First_Node_Id + 1` through a signed-Int parameter
+(`gcc/ada/back_end.adb:155–175`). `init_gnat_utils` allocates two N-element
+arrays of GCC tree pointers: the ordinary node association and dummy-type
+association (`gcc/ada/gcc-interface/utils.cc:259–280,430–450`). Each real GNAT
+node ID in that supplied interval maps to index `ID-First_Node_Id`, in
+`0 .. N-1`. The backend's pointed-to tree graph is additional storage;
+an N-element association array does not bound how many GCC trees it creates.
+
+`ggc_cleared_vec_alloc` multiplies the size_t element count by the element size
+(`gcc/ggc.h:230–258`). With eight-byte pointers and `N <= 2^31-1`, each array
+requests at most **17,179,869,176 bytes** and GGC rounds it to at most `2^34`
+bytes. Both multiplication and rounding are representable. Charge two such
+backbones; the independent packable/padded/sized type hash maps initialized
+beside them are not covered by that charge. This is allocation and valid-index
+arithmetic under the frontend node inventory, not a global RAM gate or closure
+of every backend lookup caller.
 
 ## Character String materialization
 

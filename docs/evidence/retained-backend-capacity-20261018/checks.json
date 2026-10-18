@@ -48,6 +48,22 @@
     {
       "path": "libcpp/line-map.cc",
       "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
     }
   ],
   "line_map": {
@@ -59,7 +75,378 @@
     "first_line_count_requiring_extra_map": 16777217,
     "preallocation_charge_at_maximum": 4294967292,
     "later_column_headroom": 4,
-    "normal_region_exclusive_limit": 2882303761517117440
+    "normal_region_exclusive_limit": 2882303761517117440,
+    "ordinary_map_bytes_lp64": 32,
+    "growth_transitions": [
+      {
+        "demand": 0,
+        "capacity": 0,
+        "bytes": 0
+      },
+      {
+        "demand": 1,
+        "capacity": 256,
+        "bytes": 8192
+      },
+      {
+        "demand": 255,
+        "capacity": 256,
+        "bytes": 8192
+      },
+      {
+        "demand": 256,
+        "capacity": 256,
+        "bytes": 8192
+      },
+      {
+        "demand": 257,
+        "capacity": 512,
+        "bytes": 16384
+      },
+      {
+        "demand": 511,
+        "capacity": 512,
+        "bytes": 16384
+      },
+      {
+        "demand": 512,
+        "capacity": 512,
+        "bytes": 16384
+      },
+      {
+        "demand": 513,
+        "capacity": 1024,
+        "bytes": 32768
+      },
+      {
+        "demand": 1023,
+        "capacity": 1024,
+        "bytes": 32768
+      },
+      {
+        "demand": 1024,
+        "capacity": 1024,
+        "bytes": 32768
+      },
+      {
+        "demand": 1025,
+        "capacity": 2048,
+        "bytes": 65536
+      },
+      {
+        "demand": 2047,
+        "capacity": 2048,
+        "bytes": 65536
+      },
+      {
+        "demand": 2048,
+        "capacity": 2048,
+        "bytes": 65536
+      },
+      {
+        "demand": 2049,
+        "capacity": 4096,
+        "bytes": 131072
+      },
+      {
+        "demand": 4095,
+        "capacity": 4096,
+        "bytes": 131072
+      },
+      {
+        "demand": 4096,
+        "capacity": 4096,
+        "bytes": 131072
+      },
+      {
+        "demand": 4097,
+        "capacity": 8192,
+        "bytes": 262144
+      },
+      {
+        "demand": 8191,
+        "capacity": 8192,
+        "bytes": 262144
+      },
+      {
+        "demand": 8192,
+        "capacity": 8192,
+        "bytes": 262144
+      },
+      {
+        "demand": 8193,
+        "capacity": 16384,
+        "bytes": 524288
+      },
+      {
+        "demand": 16383,
+        "capacity": 16384,
+        "bytes": 524288
+      },
+      {
+        "demand": 16384,
+        "capacity": 16384,
+        "bytes": 524288
+      },
+      {
+        "demand": 16385,
+        "capacity": 32768,
+        "bytes": 1048576
+      },
+      {
+        "demand": 32767,
+        "capacity": 32768,
+        "bytes": 1048576
+      },
+      {
+        "demand": 32768,
+        "capacity": 32768,
+        "bytes": 1048576
+      },
+      {
+        "demand": 32769,
+        "capacity": 65536,
+        "bytes": 2097152
+      },
+      {
+        "demand": 65535,
+        "capacity": 65536,
+        "bytes": 2097152
+      },
+      {
+        "demand": 65536,
+        "capacity": 65536,
+        "bytes": 2097152
+      },
+      {
+        "demand": 65537,
+        "capacity": 131072,
+        "bytes": 4194304
+      },
+      {
+        "demand": 131071,
+        "capacity": 131072,
+        "bytes": 4194304
+      },
+      {
+        "demand": 131072,
+        "capacity": 131072,
+        "bytes": 4194304
+      },
+      {
+        "demand": 131073,
+        "capacity": 262144,
+        "bytes": 8388608
+      },
+      {
+        "demand": 262143,
+        "capacity": 262144,
+        "bytes": 8388608
+      },
+      {
+        "demand": 262144,
+        "capacity": 262144,
+        "bytes": 8388608
+      },
+      {
+        "demand": 262145,
+        "capacity": 524288,
+        "bytes": 16777216
+      },
+      {
+        "demand": 524287,
+        "capacity": 524288,
+        "bytes": 16777216
+      },
+      {
+        "demand": 524288,
+        "capacity": 524288,
+        "bytes": 16777216
+      },
+      {
+        "demand": 524289,
+        "capacity": 1048576,
+        "bytes": 33554432
+      },
+      {
+        "demand": 1048575,
+        "capacity": 1048576,
+        "bytes": 33554432
+      },
+      {
+        "demand": 1048576,
+        "capacity": 1048576,
+        "bytes": 33554432
+      },
+      {
+        "demand": 1048577,
+        "capacity": 2097152,
+        "bytes": 67108864
+      },
+      {
+        "demand": 2097151,
+        "capacity": 2097152,
+        "bytes": 67108864
+      },
+      {
+        "demand": 2097152,
+        "capacity": 2097152,
+        "bytes": 67108864
+      },
+      {
+        "demand": 2097153,
+        "capacity": 4194304,
+        "bytes": 134217728
+      },
+      {
+        "demand": 4194303,
+        "capacity": 4194304,
+        "bytes": 134217728
+      },
+      {
+        "demand": 4194304,
+        "capacity": 4194304,
+        "bytes": 134217728
+      },
+      {
+        "demand": 4194305,
+        "capacity": 8388608,
+        "bytes": 268435456
+      },
+      {
+        "demand": 8388607,
+        "capacity": 8388608,
+        "bytes": 268435456
+      },
+      {
+        "demand": 8388608,
+        "capacity": 8388608,
+        "bytes": 268435456
+      },
+      {
+        "demand": 8388609,
+        "capacity": 16777216,
+        "bytes": 536870912
+      },
+      {
+        "demand": 16777215,
+        "capacity": 16777216,
+        "bytes": 536870912
+      },
+      {
+        "demand": 16777216,
+        "capacity": 16777216,
+        "bytes": 536870912
+      },
+      {
+        "demand": 16777217,
+        "capacity": 33554432,
+        "bytes": 1073741824
+      },
+      {
+        "demand": 33554431,
+        "capacity": 33554432,
+        "bytes": 1073741824
+      },
+      {
+        "demand": 33554432,
+        "capacity": 33554432,
+        "bytes": 1073741824
+      },
+      {
+        "demand": 33554433,
+        "capacity": 67108864,
+        "bytes": 2147483648
+      },
+      {
+        "demand": 67108863,
+        "capacity": 67108864,
+        "bytes": 2147483648
+      },
+      {
+        "demand": 67108864,
+        "capacity": 67108864,
+        "bytes": 2147483648
+      },
+      {
+        "demand": 67108865,
+        "capacity": 134217728,
+        "bytes": 4294967296
+      },
+      {
+        "demand": 134217727,
+        "capacity": 134217728,
+        "bytes": 4294967296
+      },
+      {
+        "demand": 134217728,
+        "capacity": 134217728,
+        "bytes": 4294967296
+      },
+      {
+        "demand": 134217729,
+        "capacity": 268435456,
+        "bytes": 8589934592
+      },
+      {
+        "demand": 268435455,
+        "capacity": 268435456,
+        "bytes": 8589934592
+      },
+      {
+        "demand": 268435456,
+        "capacity": 268435456,
+        "bytes": 8589934592
+      },
+      {
+        "demand": 268435457,
+        "capacity": 536870912,
+        "bytes": 17179869184
+      },
+      {
+        "demand": 536870911,
+        "capacity": 536870912,
+        "bytes": 17179869184
+      },
+      {
+        "demand": 536870912,
+        "capacity": 536870912,
+        "bytes": 17179869184
+      },
+      {
+        "demand": 536870913,
+        "capacity": 1073741824,
+        "bytes": 34359738368
+      },
+      {
+        "demand": 1073741823,
+        "capacity": 1073741824,
+        "bytes": 34359738368
+      },
+      {
+        "demand": 1073741824,
+        "capacity": 1073741824,
+        "bytes": 34359738368
+      },
+      {
+        "demand": 1073741825,
+        "capacity": 2147483648,
+        "bytes": 68719476736
+      },
+      {
+        "demand": 2147483647,
+        "capacity": 2147483648,
+        "bytes": 68719476736
+      }
+    ],
+    "maximum_map_vector_bytes_from_nat_file_count": 68719476736
+  },
+  "gnat_node_associations": {
+    "array_count": 2,
+    "maximum_count_from_int_interface": 2147483647,
+    "maximum_requested_bytes_per_array": 17179869176,
+    "maximum_rounded_bytes_per_array": 17179869184,
+    "scope": "backbone arithmetic; pointed-to GCC trees are separate"
   },
   "string": {
     "lp64_header_offset_premise": 20,
