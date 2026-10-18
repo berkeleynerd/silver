@@ -682,20 +682,231 @@ It does not cover the following warning passes, nothrow inference, cgraph
 rebuild, later SSA updates or SSA destruction. Those are later backend stages,
 not hidden within the counts for this invocation.
 
+## O0 path after initial SSA and the out-of-SSA component
+
+O0 does not mean that the rest of GIMPLE is skipped. The three optimization
+superpasses require `optimize >= 1` (`passes.cc:519–610`), and `pass_nothrow`
+itself requires `optimize` (`ipa-pure-const.cc:2329–2341`). However, the local
+pass group still runs, there are additional fixup/cgraph passes, and warning,
+EH and mandatory lowering passes precede `pass_expand`
+(`passes.def:72–122,195–207,432–461`). In particular the access warning pass
+runs when `warn_free_nonheap_object` is enabled, whose common default is one.
+It constructs a ranger and both dominator directions, even at O0
+(`common.opt:648–650`, `gimple-ssa-warn-access.cc:2270–2275,4857–4904`). These
+allocations must be supplied by the intermediate-pass composition.
+
+The complex lowering entry is also not dismissed merely because the source
+language has no complex numbers: checked Integer arithmetic uses an internal
+complex result. Its scanner does not mark a complex-result call alone as work,
+and a REALPART/IMAGPART extraction from a defined SSA name does not mark work
+either. Complex assignments or extraction from an undefined name can activate
+the pass (`tree-complex.cc:213–333`). This is a useful shape test for the bridge,
+not a claim that every intermediate invocation is a no-op.
+
+The following transfer starts at `rewrite_out_of_ssa`, called at the start of
+`pass_expand` (`cfgexpand.cc:7023–7036`). Its b/e/n/t/z/p/h are **new local
+inputs at that point**: ordinary blocks, edges, block-index slots, non-PHI
+statements, SSA-name vector length, real PHIs and their argument positions.
+They must not be substituted directly with the initial-SSA counts before the
+intermediate passes are composed. No asm, bitint, debug binds, source register
+variables or optional compiler switches are selected. O0 leaves
+`flag_tree_ter` and `flag_tree_coalesce_vars` false; their enable entries start
+at O1 (`opts.cc:600–618`). The ordinary coalescer still runs. Temporary-expression
+replacement does not (`tree-outof-ssa.cc:1057–1091`).
+
+### Backedge preparation and names
+
+`insert_backedge_copies` visits each existing real PHI argument once. It can
+insert one scalar copy/name for that position, or make one `gimple_build`
+request to adjust an adjacent comparison (`tree-outof-ssa.cc:1153–1332`).
+Those are alternative branches; counting both is conservative. Let A and Z_A
+bound statements and names emitted by these at most h builder requests.
+This exposes the same generated-matcher interface as the earlier switch
+transfer, rather than treating a builder entry as one statement. Then
+
+```text
+ordinary statements after preparation t1 <= t+h+A;
+SSA-name vector length z1 <= z+h+Z_A+a;
+new ordinary copy assignments <= h;
+new detached default-definition NOPs <= a.
+```
+
+Here a counts formal parameters, a nonvoid result and an optional static-chain
+declaration; `for_all_parms` asks for one cached default definition for each
+(`tree-outof-ssa.cc:919–944,1057–1065`). For a parameterless void Main, a is zero.
+`copy_ssa_name` allocates one name with the existing variable/type; unlike
+`duplicate_ssa_name`, it does not copy pointer/range information
+(`tree-ssanames.cc:817–830`). The h copy requests therefore do not conceal
+per-name range copies.
+
+This preparation adds no CFG edge/block or PHI. Subsequent useless-PHI removal
+only deletes PHIs and arguments. Each recursive removal is charged to a PHI
+whose last use was just removed; it clears that use before recursing, so a
+cycle that still has uses cannot trigger repeated recursion. Maximum recursive
+depth is p (`tree-outof-ssa.cc:794–868`). The backedge conflict probe can hold
+pointers to all current uses of one name; its temporary vector is bounded by
+the total expanded operand occurrences plus h after the builder sequences.
+That input needs the generic vector's signed-index limit because one selected
+position is saved in an int. Statement UID renumbering also requires the final
+per-block statement count to fit unsigned32 (`:1095–1113`).
+
+### Coalescing requests and the signed cost accumulator
+
+For this subsection use z1 and t1 after preparation, with h still a ceiling
+because PHIs were only removed. `create_coalesce_list_for_region` considers
+one pair per PHI argument and at most one pair per non-PHI statement.
+`populate_coalesce_list_for_outofssa` adds at most three requests per name:
+a default-def cost-one pair, a result-declaration pair, and a same-variable
+pair (`tree-ssa-coalesce.cc:1023–1333`). Thus
+
+```text
+all pair-record requests <= h+t1+3z1;
+hashed pair records <= h+t1+2z1;
+cost-one list records <= h+z1.
+```
+
+A hashed record is 20 bytes (five ints); a cost-one record is 16 bytes (two
+ints and a pointer). They live in one obstack. The hash additionally has at
+most `min(z1*(z1-1)/2, h+t1+2z1)` distinct unordered pairs, and the sorted
+pointer array has that many elements. Repeated proposals for the same hashed
+pair update its record, while cost-one proposals can allocate duplicate list
+entries. Do not use the distinct-pair count for both paths.
+
+The initial hash request is `max(40,3*z1)`, with multiplication in unsigned32
+(`:262–276`). Require `3*z1 <= UINT_MAX` before applying the generic hash
+transfer. Name/partition IDs, the distinct-pair count and the sorted count are
+also used as ints; retain `z1 <= INT_MAX` and `h+t1+2*z1 <= INT_MAX`.
+The pair hash's unsigned multiplication may wrap by design; that does not
+invalidate equality checking and is not a signed-capacity obligation.
+
+The cost update needs a separate condition. `add_coalesce` only tests the
+**old** cost against `INT_MAX-1`, then can execute signed `cost += value`
+without a sum check (`:358–376`). Ordinary profile frequencies are in
+0..10,000 (`profile-count.cc:296–308`, `basic-block.h:158`), zero becomes one,
+and the largest edge multiplier is five (`tree-ssa-coalesce.cc:149–210`).
+There are at most h+t1+z1 ordinary additions; the later mandatory same-variable
+values `INT_MAX-1`/`INT_MAX` are assigned directly and suppress further additions.
+A convenient sufficient condition is therefore
+
+```text
+50,000 * (h+t1+z1) <= INT_MAX-1.
+```
+
+This deliberately charges all ordinary proposals to one pair. It is a local
+sufficient condition, not a necessary source limit. Once it holds, cost and
+pair-index differences in the sort comparator are representable because both
+operands are nonnegative and at most INT_MAX. Optional conflict-count sorting
+is not enabled at O0; even if accounted conservatively, each count is at most
+z1. The record counts and cost condition are separate from heap composition.
+
+### Partition maps, liveness convergence and conflict storage
+
+`init_var_map` requests one partition of z1 names and a vector of b block
+pointers. `compute_optimized_partition_bases` requests one further temporary
+partition with at most z1 elements. `partition_new` uses a 16-byte element and
+an eight-byte header on LP64, giving `8+16m` bytes for m elements; the m=0
+expression uses defined size_t wrap and evaluates to the eight-byte header
+(`include/partition.h:48–68`, `libiberty/partition.c:44–116`). Union updates
+class membership in place and allocates no node. Class counts stay at most z1.
+
+Each of the two partition views requests at most two z1-element int arrays.
+The base map adds one z1-int array and a z1-unsigned temporary vector.
+Temporary selected/used/copy bitmaps index below z1. The same-variable hash
+starts at request ten and has at most z1 entries. The retained map later owns
+two more partition bitmaps, each with at most z1 bits; `pass_expand` requests
+at most z1 RTL pointers for `partition_to_pseudo`
+(`tree-ssa-live.cc:84–130,195–308`, `tree-ssa-coalesce.cc:1298–1333,1601–1742`,
+`tree-outof-ssa.cc:970–1007`, `cfgexpand.cc:7035`). Apply vector/hash/bitmap
+backing and rounding separately to these requested counts.
+
+Liveness has two arrays of n bitmap headers, one n-int work stack and one
+(n+1)-bit visited bitmap (`tree-ssa-live.cc:1025–1141`). Each live-in set only
+grows during propagation. There are b*z1 possible block/partition bits, so at
+most b*z1 successful growth events can schedule revisits. An already scheduled
+block has its visited bit cleared and cannot be pushed again until popped.
+The stack therefore needs at most b entries, and total block visits are at
+most `b+b*z1`. This is a termination/counting argument, not a fixed iteration
+assumption. Live-out first stores definitions and is then cleared and rebuilt;
+each finished live-in/live-out family contains at most b*z1 set bits.
+The enabled live-on-entry verifier allocates no auxiliary container on its
+successful path (`:1564–1681`).
+
+The interference graph has at most z1 bitmap rows and z1*(z1-1) set bits,
+with symmetric storage (`tree-ssa-coalesce.cc:534–650`). Its live tracker has
+at most z1 base-indexed bitmap headers; partition membership across those
+bitmaps contains at most z1 current bits, plus at most z1 base-live bits.
+These sets are cleared and reused per block. Counting lifetime work rather
+than only peak contents, tracker insertion events are at most `b*z1+u`, where
+u is the real use-operand count after preparation. Conflict construction makes
+at most `2*z1*(t1+p+z1)` directed bit-insertion attempts. Each successful
+coalescence removes one partition, so there are at most z1-1 conflict merges;
+allow another `2*z1*z1` directed insert/copy events for all merges
+(`:726–1000,1339–1470`). These event counts let the bitmap allocator transfer
+charge repeated clearing and rebuilding without assuming peak bits equal
+lifetime bytes. No coalescing step creates new GIMPLE, SSA names or CFG edges.
+
+### PHI elimination supplies bounded RTL requests
+
+`expand_phi_nodes` later traverses each incoming PHI edge using one reusable
+elimination graph (`tree-outof-ssa.cc:1012–1049`). For k real PHIs in that edge's
+destination, it requests at most 2k distinct graph nodes, 2k int edge endpoints,
+k edge locations, k constant destinations, k constant values and k constant
+locations. The DFS stack has at most 2k entries and the visited bitmap is sized
+to the partition count. Initial vector requests are fixed at 30/20/10 elements
+as recorded in the constructor (`:433–438`). Their retained capacity follows
+the largest incoming-edge demand, not the sum of all argument counts; lifetime
+vector growth still consumes the generic vector transfer.
+
+`elim_forward` marks before recursion and pushes each graph node once.
+`elim_backward` also marks before recursion. Every ordinary copy emitted
+inside it, at a new predecessor in `elim_create`, or in the acyclic case can
+be charged to a newly marked graph node. There are at most 2k such copies.
+At most one cycle-saving temporary/copy is requested per outer stack pop,
+hence at most another 2k. Constant copies use a separate group of c PHIs, so
+with r nonconstant edges and c constant positions, at most `4r+c <= 4k` copy
+requests suffice (`:632–784`). Both recursive traversals have depth at most
+2k; this is an explicit stack obligation, not an assertion of constant stack.
+Summing k over the original incoming edges gives h, therefore
+
+```text
+partition/value/temporary copy requests <= 4h;
+cycle-temporary requests <= 2h;
+copy_rtx requests <= 8h;
+value expand_expr/store_expr requests <= h.
+```
+
+The copy_rtx bound allows two per copy; the value requests occur only for
+queued constant/unpartitioned arguments. These are entries to the selected
+RTL move/conversion/expression transfers, not a claim of one machine
+instruction per request (`:252–430`). Their modes, operand trees and stack
+adjustment work must be priced there. No replacement PHI is constructed.
+Requiring `2p <= INT_MAX` is a sufficient guard for the signed graph-size and
+vector iteration indices, besides the existing vector limits.
+
+If an EH edge with queued RTL reaches a block with multiple predecessors,
+`expand_phi_nodes` splits that edge. Each original incoming edge is split at
+most once here: the replacement edge entering the destination is the new
+fallthrough edge, not a new EH edge needing the same split. Thus this local
+step adds at most e blocks and e edges. Landing-pad/label/tree allocations of
+`split_edge`, final edge insertion and ordinary RTL expansion remain their
+own transfers; the h copy bound alone does not bound them.
+
 ## Composition status
 
 The useful outputs are the unchanged B/E CFG ceilings, B*E fresh-label ceiling,
 explicit switch-range matcher inputs, the dominance/loop container cardinalities,
 the b/e/n/t transfer through fixup, initial SSA's PHI/name/operand-cache ceilings,
-and sufficient inequalities for the additional signed counters. None requires
+the separate out-of-SSA/coalescing/PHI-copy transfer, and sufficient inequalities
+for the additional signed counters. None requires
 replacing GCC or adding an externally maintained backend. None yet justifies
 accepting an arbitrarily large source program on the retained toolchain.
 
 Still needed for a closed capacity predicate: reachable matcher sequence/tree
 bounds; all generic vector/hash/bitmap/obstack allocator composition; exact loop
 object layout and any enabled verifier helper allocation not priced above; and
-downstream warning/SSA-update/SSA-destruction passes, RTL, machine code, link
-and overall translation-unit lifetime composition.
+the intermediate O0 warning, IPA, mandatory-lowering and SSA-update input join;
+PHI-copy RTL helpers, EH splitting, remaining RTL, machine code, link and
+overall translation-unit lifetime composition.
 The report does not claim source correspondence or compiler correctness from
 its finite arithmetic checks. No compiler, solver, Lean, full suite, clean build,
 macOS or CI evidence was produced for this documentation increment.

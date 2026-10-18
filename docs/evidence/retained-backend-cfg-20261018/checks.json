@@ -1,8 +1,8 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "source_checks": {
-    "full_file_identities": 35,
-    "structural_guards": 30,
+    "full_file_identities": 47,
+    "structural_guards": 43,
     "meaning": "guards plus manual source analysis, not a semantic proof"
   },
   "arithmetic": {
@@ -87,6 +87,25 @@
         }
       ],
       "meaning": "source-field arithmetic; no compiler or sizeof capture"
+    },
+    "out_of_ssa_arithmetic": {
+      "ordinary_cost_per_event_ceiling": 50000,
+      "aggregate_ordinary_cost_event_limit": 42949,
+      "unsigned_hash_initial_request_local_name_limit": 1431655765,
+      "lp64_record_bytes": {
+        "coalesce_pair": 20,
+        "cost_one_pair": 16,
+        "partition_element": 16,
+        "partition_header": 8
+      },
+      "liveness_iteration_checks": {
+        "all_directed_graphs_1_to_3_blocks_all_def_use_masks": 33032,
+        "maximum_observed_block_visits": 5,
+        "maximum_observed_stack": 2,
+        "general_visit_bound": "b+b*z (manual monotone-bit argument)",
+        "meaning": "finite source-transcription check, not a compiler run"
+      },
+      "meaning": "local sufficient arithmetic; no whole-phase join"
     },
     "pool_layout_arithmetic": [
       {
@@ -442,7 +461,8 @@
       "generic containers and allocation lifetime composition",
       "enabled verifier helper allocation and loop object layout",
       "fixup helper tree/cgraph allocations and operand-tree input X",
-      "downstream warnings, SSA updates/destruction, RTL, machine code and linker composition"
+      "intermediate O0 warnings, IPA and mandatory-lowering input join",
+      "PHI-copy RTL helpers, EH edge splitting and remaining RTL/machine code/linker composition"
     ]
   },
   "validation_kind": "offline source identity and finite arithmetic only"

@@ -1,4 +1,4 @@
-# Pinned CFG cleanup, loop and initial SSA source excerpts
+# Pinned CFG cleanup, loop and SSA source excerpts
 
 Full-file SHA256 identities are in source-manifest.json.
 LF line numbering; tabs expanded and trailing space trimmed.
@@ -1152,6 +1152,47 @@ LF line numbering; tabs expanded and trailing space trimmed.
 10142:
 10143: const pass_data pass_data_fixup_cfg =
 10144: {
+```
+
+## gcc/tree-cfg.cc:2925–2960
+
+```text
+2925: gimple_split_edge (edge edge_in)
+2926: {
+2927:   basic_block new_bb, after_bb, dest;
+2928:   edge new_edge, e;
+2929:
+2930:   /* Abnormal edges cannot be split.  */
+2931:   gcc_assert (!(edge_in->flags & EDGE_ABNORMAL));
+2932:
+2933:   dest = edge_in->dest;
+2934:
+2935:   after_bb = split_edge_bb_loc (edge_in);
+2936:
+2937:   new_bb = create_empty_bb (after_bb);
+2938:   new_bb->count = edge_in->count ();
+2939:
+2940:   /* We want to avoid re-allocating PHIs when we first
+2941:      add the fallthru edge from new_bb to dest but we also
+2942:      want to avoid changing PHI argument order when
+2943:      first redirecting edge_in away from dest.  The former
+2944:      avoids changing PHI argument order by adding them
+2945:      last and then the redirection swapping it back into
+2946:      place by means of unordered remove.
+2947:      So hack around things by temporarily removing all PHIs
+2948:      from the destination during the edge redirection and then
+2949:      making sure the edges stay in order.  */
+2950:   gimple_seq saved_phis = phi_nodes (dest);
+2951:   unsigned old_dest_idx = edge_in->dest_idx;
+2952:   set_phi_nodes (dest, NULL);
+2953:   new_edge = make_single_succ_edge (new_bb, dest, EDGE_FALLTHRU);
+2954:   e = redirect_edge_and_branch (edge_in, new_bb);
+2955:   gcc_assert (e == edge_in && new_edge->dest_idx == old_dest_idx);
+2956:   /* set_phi_nodes sets the BB of the PHI nodes, so do it manually here.  */
+2957:   dest->il.gimple.phi_nodes = saved_phis;
+2958:
+2959:   return new_bb;
+2960: }
 ```
 
 ## gcc/tree-cfgcleanup.cc:85–254
@@ -2370,6 +2411,75 @@ LF line numbering; tabs expanded and trailing space trimmed.
 602:
 ```
 
+## gcc/cfghooks.cc:684–747
+
+```text
+684: split_edge (edge e)
+685: {
+686:   basic_block ret;
+687:   profile_count count = e->count ();
+688:   edge f;
+689:   bool irr = (e->flags & EDGE_IRREDUCIBLE_LOOP) != 0;
+690:   bool back = (e->flags & EDGE_DFS_BACK) != 0;
+691:   class loop *loop;
+692:   basic_block src = e->src, dest = e->dest;
+693:
+694:   if (!cfg_hooks->split_edge)
+695:     internal_error ("%s does not support split_edge", cfg_hooks->name);
+696:
+697:   if (current_loops != NULL)
+698:     rescan_loop_exit (e, false, true);
+699:
+700:   ret = cfg_hooks->split_edge (e);
+701:   ret->count = count;
+702:   single_succ_edge (ret)->probability = profile_probability::always ();
+703:
+704:   if (irr)
+705:     {
+706:       ret->flags |= BB_IRREDUCIBLE_LOOP;
+707:       single_pred_edge (ret)->flags |= EDGE_IRREDUCIBLE_LOOP;
+708:       single_succ_edge (ret)->flags |= EDGE_IRREDUCIBLE_LOOP;
+709:     }
+710:   if (back)
+711:     {
+712:       single_pred_edge (ret)->flags &= ~EDGE_DFS_BACK;
+713:       single_succ_edge (ret)->flags |= EDGE_DFS_BACK;
+714:     }
+715:
+716:   if (dom_info_available_p (CDI_DOMINATORS))
+717:     set_immediate_dominator (CDI_DOMINATORS, ret, single_pred (ret));
+718:
+719:   if (dom_info_state (CDI_DOMINATORS) >= DOM_NO_FAST_QUERY)
+720:     {
+721:       /* There are two cases:
+722:
+723:          If the immediate dominator of e->dest is not e->src, it
+724:          remains unchanged.
+725:
+726:          If immediate dominator of e->dest is e->src, it may become
+727:          ret, provided that all other predecessors of e->dest are
+728:          dominated by e->dest.  */
+729:
+730:       if (get_immediate_dominator (CDI_DOMINATORS, single_succ (ret))
+731:           == single_pred (ret))
+732:         {
+733:           edge_iterator ei;
+734:           FOR_EACH_EDGE (f, ei, single_succ (ret)->preds)
+735:             {
+736:               if (f == single_succ_edge (ret))
+737:                 continue;
+738:
+739:               if (!dominated_by_p (CDI_DOMINATORS, f->src,
+740:                                    single_succ (ret)))
+741:                 break;
+742:             }
+743:
+744:           if (!f)
+745:             set_immediate_dominator (CDI_DOMINATORS, single_succ (ret), ret);
+746:         }
+747:     }
+```
+
 ## gcc/cfghooks.cc:842–1020
 
 ```text
@@ -2666,6 +2776,13 @@ LF line numbering; tabs expanded and trailing space trimmed.
 184:   gimple_stmt_iterator gsi = gsi_last (*seq);
 185:   return gimple_convert (&gsi, false, GSI_CONTINUE_LINKING,
 186:                          UNKNOWN_LOCATION, type, op);
+```
+
+## gcc/basic-block.h:157–158
+
+```text
+157:
+158: #define BB_FREQ_MAX 10000
 ```
 
 ## gcc/basic-block.h:353–365
@@ -7405,6 +7522,25 @@ LF line numbering; tabs expanded and trailing space trimmed.
 731:    store the alignment and the deviation from it into *ALIGNP and *MISALIGNP
 ```
 
+## gcc/tree-ssanames.cc:817–830
+
+```text
+817: copy_ssa_name_fn (struct function *fn, tree name, gimple *stmt)
+818: {
+819:   tree new_name;
+820:
+821:   if (SSA_NAME_VAR (name))
+822:     new_name = make_ssa_name_fn (fn, SSA_NAME_VAR (name), stmt);
+823:   else
+824:     {
+825:       new_name = make_ssa_name_fn (fn, TREE_TYPE (name), stmt);
+826:       SET_SSA_NAME_VAR_OR_IDENTIFIER (new_name, SSA_NAME_IDENTIFIER (name));
+827:     }
+828:
+829:   return new_name;
+830: }
+```
+
 ## gcc/tree-ssa-operands.cc:232–364
 
 ```text
@@ -8469,7 +8605,7 @@ LF line numbering; tabs expanded and trailing space trimmed.
 1747: };
 ```
 
-## gcc/passes.def:57–70
+## gcc/passes.def:57–122
 
 ```text
 57:   PUSH_INSERT_PASSES_WITHIN (pass_build_ssa_passes)
@@ -8486,6 +8622,111 @@ LF line numbering; tabs expanded and trailing space trimmed.
 68:   POP_INSERT_PASSES ()
 69:   NEXT_PASS (pass_target_clone, true);
 70:
+71:   NEXT_PASS (pass_local_optimization_passes);
+72:   PUSH_INSERT_PASSES_WITHIN (pass_local_optimization_passes)
+73:       NEXT_PASS (pass_fixup_cfg);
+74:       NEXT_PASS (pass_rebuild_cgraph_edges);
+75:       NEXT_PASS (pass_local_fn_summary);
+76:       NEXT_PASS (pass_early_inline);
+77:       NEXT_PASS (pass_warn_recursion);
+78:       NEXT_PASS (pass_all_early_optimizations);
+79:       PUSH_INSERT_PASSES_WITHIN (pass_all_early_optimizations)
+80:           NEXT_PASS (pass_remove_cgraph_callee_edges);
+81:           NEXT_PASS (pass_early_object_sizes);
+82:           /* Don't record nonzero bits before IPA to avoid
+83:              using too much memory.  */
+84:           NEXT_PASS (pass_ccp, false /* nonzero_p */);
+85:           /* After CCP we rewrite no longer addressed locals into SSA
+86:              form if possible.  */
+87:           NEXT_PASS (pass_forwprop, /*full_walk=*/true);
+88:           NEXT_PASS (pass_early_thread_jumps, /*first=*/true);
+89:           NEXT_PASS (pass_sra_early);
+90:           /* pass_build_ealias is a dummy pass that ensures that we
+91:              execute TODO_rebuild_alias at this point.  */
+92:           NEXT_PASS (pass_build_ealias);
+93:           /* Do phiprop before FRE so we optimize std::min and std::max well.  */
+94:           NEXT_PASS (pass_phiprop);
+95:           NEXT_PASS (pass_fre, true /* may_iterate */);
+96:           NEXT_PASS (pass_early_vrp);
+97:           NEXT_PASS (pass_merge_phi);
+98:           NEXT_PASS (pass_dse);
+99:           NEXT_PASS (pass_cd_dce, false /* update_address_taken_p */, true /* remove_unused_locals */);
+100:           NEXT_PASS (pass_phiopt, true /* early_p */);
+101:           /* Cleanup eh is done before tail recusision to remove empty (only clobbers)
+102:              finally blocks which would block tail recursion.  */
+103:           NEXT_PASS (pass_cleanup_eh);
+104:           NEXT_PASS (pass_tail_recursion);
+105:           NEXT_PASS (pass_if_to_switch);
+106:           NEXT_PASS (pass_convert_switch);
+107:           NEXT_PASS (pass_sccopy);
+108:           NEXT_PASS (pass_profile);
+109:           NEXT_PASS (pass_local_pure_const);
+110:           NEXT_PASS (pass_modref);
+111:           /* Split functions creates parts that are not run through
+112:              early optimizations again.  It is thus good idea to do this
+113:               late.  */
+114:           NEXT_PASS (pass_split_functions);
+115:           NEXT_PASS (pass_strip_predict_hints, true /* early_p */);
+116:       POP_INSERT_PASSES ()
+117:       NEXT_PASS (pass_release_ssa_names);
+118:       NEXT_PASS (pass_rebuild_cgraph_edges);
+119:       NEXT_PASS (pass_local_fn_summary);
+120:   POP_INSERT_PASSES ()
+121:
+122:   NEXT_PASS (pass_ipa_remove_symbols);
+```
+
+## gcc/passes.def:195–207
+
+```text
+195:   TERMINATE_PASS_LIST (all_late_ipa_passes)
+196:
+197:   /* These passes are run after IPA passes on every function that is being
+198:      output to the assembler file.  */
+199:   INSERT_PASSES_AFTER (all_passes)
+200:   NEXT_PASS (pass_fixup_cfg);
+201:   NEXT_PASS (pass_lower_eh_dispatch);
+202:   NEXT_PASS (pass_oacc_loop_designation);
+203:   NEXT_PASS (pass_omp_oacc_neuter_broadcast);
+204:   NEXT_PASS (pass_oacc_device_lower);
+205:   NEXT_PASS (pass_omp_device_lower);
+206:   NEXT_PASS (pass_omp_target_link);
+207:   NEXT_PASS (pass_adjust_alignment);
+```
+
+## gcc/passes.def:432–461
+
+```text
+432:   NEXT_PASS (pass_tm_init);
+433:   PUSH_INSERT_PASSES_WITHIN (pass_tm_init)
+434:       NEXT_PASS (pass_tm_mark);
+435:       NEXT_PASS (pass_tm_memopt);
+436:       NEXT_PASS (pass_tm_edges);
+437:   POP_INSERT_PASSES ()
+438:   NEXT_PASS (pass_simduid_cleanup);
+439:   NEXT_PASS (pass_vtable_verify);
+440:   NEXT_PASS (pass_lower_vaarg);
+441:   NEXT_PASS (pass_lower_vector);
+442:   NEXT_PASS (pass_lower_complex_O0);
+443:   NEXT_PASS (pass_lower_bitint_O0);
+444:   NEXT_PASS (pass_sancov_O0);
+445:   NEXT_PASS (pass_lower_switch_O0);
+446:   NEXT_PASS (pass_asan_O0);
+447:   NEXT_PASS (pass_tsan_O0);
+448:   NEXT_PASS (pass_musttail);
+449:   NEXT_PASS (pass_sanopt);
+450:   NEXT_PASS (pass_cleanup_eh);
+451:   NEXT_PASS (pass_lower_resx);
+452:   NEXT_PASS (pass_nrv);
+453:   NEXT_PASS (pass_gimple_isel);
+454:   NEXT_PASS (pass_harden_conditional_branches);
+455:   NEXT_PASS (pass_harden_compares);
+456:   NEXT_PASS (pass_warn_access, /*early=*/false, /*check_dangling=*/false);
+457:   NEXT_PASS (pass_cleanup_cfg_post_optimizing);
+458:   NEXT_PASS (pass_warn_function_noreturn);
+459:
+460:   NEXT_PASS (pass_expand);
+461:
 ```
 
 ## gcc/passes.cc:405–424
@@ -8511,6 +8752,103 @@ LF line numbering; tabs expanded and trailing space trimmed.
 422:       return execute_build_ssa_passes ();
 423:     }
 424:
+```
+
+## gcc/passes.cc:519–610
+
+```text
+519:
+520: class pass_all_early_optimizations : public gimple_opt_pass
+521: {
+522: public:
+523:   pass_all_early_optimizations (gcc::context *ctxt)
+524:     : gimple_opt_pass (pass_data_all_early_optimizations, ctxt)
+525:   {}
+526:
+527:   /* opt_pass methods: */
+528:   bool gate (function *) final override
+529:     {
+530:       return (optimize >= 1
+531:               /* Don't bother doing anything if the program has errors.  */
+532:               && !seen_error ());
+533:     }
+534:
+535: }; // class pass_all_early_optimizations
+536:
+537: } // anon namespace
+538:
+539: static gimple_opt_pass *
+540: make_pass_all_early_optimizations (gcc::context *ctxt)
+541: {
+542:   return new pass_all_early_optimizations (ctxt);
+543: }
+544:
+545: namespace {
+546:
+547: const pass_data pass_data_all_optimizations =
+548: {
+549:   GIMPLE_PASS, /* type */
+550:   "*all_optimizations", /* name */
+551:   OPTGROUP_NONE, /* optinfo_flags */
+552:   TV_OPTIMIZE, /* tv_id */
+553:   0, /* properties_required */
+554:   0, /* properties_provided */
+555:   0, /* properties_destroyed */
+556:   0, /* todo_flags_start */
+557:   0, /* todo_flags_finish */
+558: };
+559:
+560: class pass_all_optimizations : public gimple_opt_pass
+561: {
+562: public:
+563:   pass_all_optimizations (gcc::context *ctxt)
+564:     : gimple_opt_pass (pass_data_all_optimizations, ctxt)
+565:   {}
+566:
+567:   /* opt_pass methods: */
+568:   bool gate (function *) final override
+569:   {
+570:     return optimize >= 1 && !optimize_debug;
+571:   }
+572:
+573: }; // class pass_all_optimizations
+574:
+575: } // anon namespace
+576:
+577: static gimple_opt_pass *
+578: make_pass_all_optimizations (gcc::context *ctxt)
+579: {
+580:   return new pass_all_optimizations (ctxt);
+581: }
+582:
+583: namespace {
+584:
+585: const pass_data pass_data_all_optimizations_g =
+586: {
+587:   GIMPLE_PASS, /* type */
+588:   "*all_optimizations_g", /* name */
+589:   OPTGROUP_NONE, /* optinfo_flags */
+590:   TV_OPTIMIZE, /* tv_id */
+591:   0, /* properties_required */
+592:   0, /* properties_provided */
+593:   0, /* properties_destroyed */
+594:   0, /* todo_flags_start */
+595:   0, /* todo_flags_finish */
+596: };
+597:
+598: class pass_all_optimizations_g : public gimple_opt_pass
+599: {
+600: public:
+601:   pass_all_optimizations_g (gcc::context *ctxt)
+602:     : gimple_opt_pass (pass_data_all_optimizations_g, ctxt)
+603:   {}
+604:
+605:   /* opt_pass methods: */
+606:   bool gate (function *) final override
+607:   {
+608:     return optimize >= 1 && optimize_debug;
+609:   }
+610:
 ```
 
 ## gcc/passes.cc:2056–2110
@@ -8573,6 +8911,177 @@ LF line numbering; tabs expanded and trailing space trimmed.
 2110:              not trip on that.  */
 ```
 
+## gcc/tree-ssa-live.cc:84–130
+
+```text
+84: init_var_map (int size, class loop *loop, bitmap bitint)
+85: {
+86:   var_map map;
+87:
+88:   map = (var_map) xmalloc (sizeof (struct _var_map));
+89:   map->var_partition = partition_new (size);
+90:
+91:   map->partition_to_view = NULL;
+92:   map->view_to_partition = NULL;
+93:   map->num_partitions = size;
+94:   map->partition_size = size;
+95:   map->num_basevars = 0;
+96:   map->partition_to_base_index = NULL;
+97:   map->vec_bbs = vNULL;
+98:   if (loop)
+99:     {
+100:       map->bmp_bbs = BITMAP_ALLOC (NULL);
+101:       map->outofssa_p = false;
+102:       basic_block *bbs = get_loop_body_in_dom_order (loop);
+103:       for (unsigned i = 0; i < loop->num_nodes; ++i)
+104:         {
+105:           bitmap_set_bit (map->bmp_bbs, bbs[i]->index);
+106:           map->vec_bbs.safe_push (bbs[i]);
+107:         }
+108:       free (bbs);
+109:     }
+110:   else
+111:     {
+112:       map->bmp_bbs = NULL;
+113:       map->outofssa_p = bitint == NULL;
+114:       map->bitint = bitint;
+115:       basic_block bb;
+116:       map->vec_bbs.reserve_exact (n_basic_blocks_for_fn (cfun)
+117:                                   - NUM_FIXED_BLOCKS);
+118:       FOR_EACH_BB_FN (bb, cfun)
+119:         map->vec_bbs.quick_push (bb);
+120:     }
+121:   return map;
+122: }
+123:
+124:
+125: /* Free memory associated with MAP.  */
+126:
+127: void
+128: delete_var_map (var_map map)
+129: {
+130:   var_map_base_fini (map);
+```
+
+## gcc/tree-ssa-live.cc:195–308
+
+```text
+195:    varmap.  */
+196:
+197: static bitmap
+198: partition_view_init (var_map map)
+199: {
+200:   bitmap used;
+201:   int tmp;
+202:   unsigned int x;
+203:
+204:   used = BITMAP_ALLOC (NULL);
+205:
+206:   /* Already in a view? Abandon the old one.  */
+207:   if (map->partition_to_view)
+208:     {
+209:       free (map->partition_to_view);
+210:       map->partition_to_view = NULL;
+211:     }
+212:   if (map->view_to_partition)
+213:     {
+214:       free (map->view_to_partition);
+215:       map->view_to_partition = NULL;
+216:     }
+217:
+218:   /* Find out which partitions are actually referenced.  */
+219:   for (x = 0; x < map->partition_size; x++)
+220:     {
+221:       tmp = partition_find (map->var_partition, x);
+222:       if (ssa_name (tmp) != NULL_TREE && !virtual_operand_p (ssa_name (tmp))
+223:           && (!has_zero_uses (ssa_name (tmp))
+224:               || !SSA_NAME_IS_DEFAULT_DEF (ssa_name (tmp))
+225:               || (SSA_NAME_VAR (ssa_name (tmp))
+226:                   && !VAR_P (SSA_NAME_VAR (ssa_name (tmp))))))
+227:         bitmap_set_bit (used, tmp);
+228:     }
+229:
+230:   map->num_partitions = map->partition_size;
+231:   return used;
+232: }
+233:
+234:
+235: /* This routine will finalize the view data for MAP based on the partitions
+236:    set in SELECTED.  This is either the same bitmap returned from
+237:    partition_view_init, or a trimmed down version if some of those partitions
+238:    were not desired in this view.  SELECTED is freed before returning.  */
+239:
+240: static void
+241: partition_view_fini (var_map map, bitmap selected)
+242: {
+243:   bitmap_iterator bi;
+244:   unsigned count, i, x, limit;
+245:
+246:   gcc_assert (selected);
+247:
+248:   count = bitmap_count_bits (selected);
+249:   limit = map->partition_size;
+250:
+251:   /* If its a one-to-one ratio, we don't need any view compaction.  */
+252:   if (count < limit)
+253:     {
+254:       map->partition_to_view = (int *)xmalloc (limit * sizeof (int));
+255:       memset (map->partition_to_view, 0xff, (limit * sizeof (int)));
+256:       map->view_to_partition = (int *)xmalloc (count * sizeof (int));
+257:
+258:       i = 0;
+259:       /* Give each selected partition an index.  */
+260:       EXECUTE_IF_SET_IN_BITMAP (selected, 0, x, bi)
+261:         {
+262:           map->partition_to_view[x] = i;
+263:           map->view_to_partition[i] = x;
+264:           i++;
+265:         }
+266:       gcc_assert (i == count);
+267:       map->num_partitions = i;
+268:     }
+269:
+270:   BITMAP_FREE (selected);
+271: }
+272:
+273:
+274: /* Create a partition view which includes all the used partitions in MAP.  */
+275:
+276: void
+277: partition_view_normal (var_map map)
+278: {
+279:   bitmap used;
+280:
+281:   used = partition_view_init (map);
+282:   partition_view_fini (map, used);
+283:
+284:   var_map_base_fini (map);
+285: }
+286:
+287:
+288: /* Create a partition view in MAP which includes just partitions which occur in
+289:    the bitmap ONLY. If WANT_BASES is true, create the base variable map
+290:    as well.  */
+291:
+292: void
+293: partition_view_bitmap (var_map map, bitmap only)
+294: {
+295:   bitmap used;
+296:   bitmap new_partitions = BITMAP_ALLOC (NULL);
+297:   unsigned x, p;
+298:   bitmap_iterator bi;
+299:
+300:   used = partition_view_init (map);
+301:   EXECUTE_IF_SET_IN_BITMAP (only, 0, x, bi)
+302:     {
+303:       p = partition_find (map->var_partition, x);
+304:       gcc_assert (bitmap_bit_p (used, p));
+305:       bitmap_set_bit (new_partitions, p);
+306:     }
+307:   partition_view_fini (map, new_partitions);
+308:
+```
+
 ## gcc/tree-ssa-live.cc:783–795
 
 ```text
@@ -8589,6 +9098,431 @@ LF line numbering; tabs expanded and trailing space trimmed.
 793:   if (!optimize)
 794:     return;
 795:
+```
+
+## gcc/tree-ssa-live.cc:1025–1297
+
+```text
+1025: new_tree_live_info (var_map map)
+1026: {
+1027:   tree_live_info_p live;
+1028:   basic_block bb;
+1029:
+1030:   live = XNEW (struct tree_live_info_d);
+1031:   live->map = map;
+1032:   live->num_blocks = last_basic_block_for_fn (cfun);
+1033:
+1034:   bitmap_obstack_initialize (&live->livein_obstack);
+1035:   bitmap_obstack_initialize (&live->liveout_obstack);
+1036:
+1037:   live->livein = XCNEWVEC (bitmap_head, last_basic_block_for_fn (cfun));
+1038:   live->liveout = XCNEWVEC (bitmap_head, last_basic_block_for_fn (cfun));
+1039:   for (unsigned i = 0; map->vec_bbs.iterate (i, &bb); ++i)
+1040:     {
+1041:       bitmap_initialize (&live->livein[bb->index], &live->livein_obstack);
+1042:       bitmap_initialize (&live->liveout[bb->index], &live->liveout_obstack);
+1043:     }
+1044:
+1045:   live->work_stack = XNEWVEC (int, last_basic_block_for_fn (cfun));
+1046:   live->stack_top = live->work_stack;
+1047:
+1048:   return live;
+1049: }
+1050:
+1051:
+1052: /* Free storage for live range info object LIVE.  */
+1053:
+1054: void
+1055: delete_tree_live_info (tree_live_info_p live)
+1056: {
+1057:   if (live->livein)
+1058:     {
+1059:       bitmap_obstack_release (&live->livein_obstack);
+1060:       free (live->livein);
+1061:     }
+1062:   if (live->liveout)
+1063:     {
+1064:       bitmap_obstack_release (&live->liveout_obstack);
+1065:       free (live->liveout);
+1066:     }
+1067:   free (live->work_stack);
+1068:   free (live);
+1069: }
+1070:
+1071:
+1072: /* Visit basic block BB and propagate any required live on entry bits from
+1073:    LIVE into the predecessors.  VISITED is the bitmap of visited blocks.
+1074:    TMP is a temporary work bitmap which is passed in to avoid reallocating
+1075:    it each time.  */
+1076:
+1077: static void
+1078: loe_visit_block (tree_live_info_p live, basic_block bb, sbitmap visited)
+1079: {
+1080:   edge e;
+1081:   bool change;
+1082:   edge_iterator ei;
+1083:   basic_block pred_bb;
+1084:   bitmap loe;
+1085:
+1086:   gcc_checking_assert (!bitmap_bit_p (visited, bb->index));
+1087:   bitmap_set_bit (visited, bb->index);
+1088:
+1089:   loe = live_on_entry (live, bb);
+1090:
+1091:   FOR_EACH_EDGE (e, ei, bb->preds)
+1092:     {
+1093:       pred_bb = e->src;
+1094:       if (!region_contains_p (live->map, pred_bb))
+1095:         continue;
+1096:       /* Variables live-on-entry from BB that aren't defined in the
+1097:          predecessor block.  This should be the live on entry vars to pred.
+1098:          Note that liveout is the DEFs in a block while live on entry is
+1099:          being calculated.
+1100:          Add these bits to live-on-entry for the pred. if there are any
+1101:          changes, and pred_bb has been visited already, add it to the
+1102:          revisit stack.  */
+1103:       change = bitmap_ior_and_compl_into (live_on_entry (live, pred_bb),
+1104:                                           loe, &live->liveout[pred_bb->index]);
+1105:       if (change
+1106:           && bitmap_bit_p (visited, pred_bb->index))
+1107:         {
+1108:           bitmap_clear_bit (visited, pred_bb->index);
+1109:           *(live->stack_top)++ = pred_bb->index;
+1110:         }
+1111:     }
+1112: }
+1113:
+1114:
+1115: /* Using LIVE, fill in all the live-on-entry blocks between the defs and uses
+1116:    of all the variables.  */
+1117:
+1118: static void
+1119: live_worklist (tree_live_info_p live)
+1120: {
+1121:   unsigned b;
+1122:   basic_block bb;
+1123:   auto_sbitmap visited (last_basic_block_for_fn (cfun) + 1);
+1124:
+1125:   bitmap_clear (visited);
+1126:
+1127:   /* Visit region's blocks in reverse order and propagate live on entry values
+1128:      into the predecessors blocks.  */
+1129:   for (unsigned i = live->map->vec_bbs.length () - 1;
+1130:        live->map->vec_bbs.iterate (i, &bb); --i)
+1131:     loe_visit_block (live, bb, visited);
+1132:
+1133:   /* Process any blocks which require further iteration.  */
+1134:   while (live->stack_top != live->work_stack)
+1135:     {
+1136:       b = *--(live->stack_top);
+1137:       loe_visit_block (live, BASIC_BLOCK_FOR_FN (cfun, b), visited);
+1138:     }
+1139: }
+1140:
+1141:
+1142: /* Calculate the initial live on entry vector for SSA_NAME using immediate_use
+1143:    links.  Set the live on entry fields in LIVE.  Def's are marked temporarily
+1144:    in the liveout vector.  */
+1145:
+1146: static void
+1147: set_var_live_on_entry (tree ssa_name, tree_live_info_p live)
+1148: {
+1149:   int p;
+1150:   gimple *stmt;
+1151:   use_operand_p use;
+1152:   basic_block def_bb = NULL;
+1153:   imm_use_iterator imm_iter;
+1154:
+1155:   p = var_to_partition (live->map, ssa_name);
+1156:   if (p == NO_PARTITION)
+1157:     return;
+1158:
+1159:   stmt = SSA_NAME_DEF_STMT (ssa_name);
+1160:   if (stmt)
+1161:     {
+1162:       def_bb = gimple_bb (stmt);
+1163:       /* Mark defs in liveout bitmap temporarily.  */
+1164:       if (def_bb && region_contains_p (live->map, def_bb))
+1165:         bitmap_set_bit (&live->liveout[def_bb->index], p);
+1166:     }
+1167:   else
+1168:     def_bb = ENTRY_BLOCK_PTR_FOR_FN (cfun);
+1169:
+1170:   /* An undefined local variable does not need to be very alive.  */
+1171:   if (ssa_undefined_value_p (ssa_name, false))
+1172:     return;
+1173:
+1174:   /* Visit each use of SSA_NAME and if it isn't in the same block as the def,
+1175:      add it to the list of live on entry blocks.  */
+1176:   FOR_EACH_IMM_USE_FAST (use, imm_iter, ssa_name)
+1177:     {
+1178:       gimple *use_stmt = USE_STMT (use);
+1179:       basic_block add_block = NULL;
+1180:
+1181:       if (gimple_code (use_stmt) == GIMPLE_PHI)
+1182:         {
+1183:           /* Uses in PHI's are considered to be live at exit of the SRC block
+1184:              as this is where a copy would be inserted.  Check to see if it is
+1185:              defined in that block, or whether its live on entry.  */
+1186:           int index = PHI_ARG_INDEX_FROM_USE (use);
+1187:           edge e = gimple_phi_arg_edge (as_a <gphi *> (use_stmt), index);
+1188:           if (e->src != def_bb && region_contains_p (live->map, e->src))
+1189:             add_block = e->src;
+1190:         }
+1191:       else if (is_gimple_debug (use_stmt))
+1192:         continue;
+1193:       else
+1194:         {
+1195:           /* If its not defined in this block, its live on entry.  */
+1196:           basic_block use_bb = gimple_bb (use_stmt);
+1197:           if (use_bb != def_bb && region_contains_p (live->map, use_bb))
+1198:             add_block = use_bb;
+1199:         }
+1200:
+1201:       /* If there was a live on entry use, set the bit.  */
+1202:       if (add_block)
+1203:         bitmap_set_bit (&live->livein[add_block->index], p);
+1204:     }
+1205: }
+1206:
+1207:
+1208: /* Calculate the live on exit vectors based on the entry info in LIVEINFO.  */
+1209:
+1210: static void
+1211: calculate_live_on_exit (tree_live_info_p liveinfo)
+1212: {
+1213:   basic_block bb;
+1214:   edge e;
+1215:   edge_iterator ei;
+1216:
+1217:   /* live on entry calculations used liveout vectors for defs, clear them.  */
+1218:   for (unsigned i = 0; liveinfo->map->vec_bbs.iterate (i, &bb); ++i)
+1219:     bitmap_clear (&liveinfo->liveout[bb->index]);
+1220:
+1221:   /* Set all the live-on-exit bits for uses in PHIs.  */
+1222:   FOR_EACH_BB_FN (bb, cfun)
+1223:     {
+1224:       gphi_iterator gsi;
+1225:       size_t i;
+1226:
+1227:       /* Mark the PHI arguments which are live on exit to the pred block.  */
+1228:       for (gsi = gsi_start_phis (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+1229:         {
+1230:           gphi *phi = gsi.phi ();
+1231:           if (virtual_operand_p (gimple_phi_result (phi)))
+1232:             continue;
+1233:           for (i = 0; i < gimple_phi_num_args (phi); i++)
+1234:             {
+1235:               tree t = PHI_ARG_DEF (phi, i);
+1236:               int p;
+1237:
+1238:               if (TREE_CODE (t) != SSA_NAME)
+1239:                 continue;
+1240:
+1241:               p = var_to_partition (liveinfo->map, t);
+1242:               if (p == NO_PARTITION)
+1243:                 continue;
+1244:               e = gimple_phi_arg_edge (phi, i);
+1245:               if (region_contains_p (liveinfo->map, e->src))
+1246:                 bitmap_set_bit (&liveinfo->liveout[e->src->index], p);
+1247:             }
+1248:         }
+1249:
+1250:       if (!region_contains_p (liveinfo->map, bb))
+1251:         continue;
+1252:
+1253:       /* Add each successors live on entry to this bock live on exit.  */
+1254:       FOR_EACH_EDGE (e, ei, bb->succs)
+1255:         if (region_contains_p (liveinfo->map, e->dest))
+1256:           bitmap_ior_into (&liveinfo->liveout[bb->index],
+1257:                            live_on_entry (liveinfo, e->dest));
+1258:     }
+1259: }
+1260:
+1261:
+1262: /* Given partition map MAP, calculate all the live on entry bitmaps for
+1263:    each partition.  Return a new live info object.  */
+1264:
+1265: tree_live_info_p
+1266: calculate_live_ranges (var_map map, bool want_livein)
+1267: {
+1268:   tree var;
+1269:   unsigned i;
+1270:   tree_live_info_p live;
+1271:
+1272:   live = new_tree_live_info (map);
+1273:   for (i = 0; i < num_var_partitions (map); i++)
+1274:     {
+1275:       var = partition_to_var (map, i);
+1276:       if (var != NULL_TREE)
+1277:         set_var_live_on_entry (var, live);
+1278:     }
+1279:
+1280:   live_worklist (live);
+1281:
+1282:   if (flag_checking)
+1283:     verify_live_on_entry (live);
+1284:
+1285:   calculate_live_on_exit (live);
+1286:
+1287:   if (!want_livein)
+1288:     {
+1289:       bitmap_obstack_release (&live->livein_obstack);
+1290:       free (live->livein);
+1291:       live->livein = NULL;
+1292:     }
+1293:
+1294:   return live;
+1295: }
+1296:
+1297:
+```
+
+## gcc/tree-ssa-live.cc:1564–1681
+
+```text
+1564:
+1565: static void
+1566: verify_live_on_entry (tree_live_info_p live)
+1567: {
+1568:   unsigned i;
+1569:   tree var;
+1570:   gimple *stmt;
+1571:   basic_block bb;
+1572:   edge e;
+1573:   int num;
+1574:   edge_iterator ei;
+1575:   var_map map = live->map;
+1576:
+1577:    /* Check for live on entry partitions and report those with a DEF in
+1578:       the program. This will typically mean an optimization has done
+1579:       something wrong.  */
+1580:   bb = ENTRY_BLOCK_PTR_FOR_FN (cfun);
+1581:   num = 0;
+1582:   FOR_EACH_EDGE (e, ei, bb->succs)
+1583:     {
+1584:       int entry_block = e->dest->index;
+1585:       if (!region_contains_p (live->map, e->dest))
+1586:         continue;
+1587:       for (i = 0; i < (unsigned)num_var_partitions (map); i++)
+1588:         {
+1589:           basic_block tmp;
+1590:           tree d = NULL_TREE;
+1591:           bitmap loe;
+1592:           var = partition_to_var (map, i);
+1593:           stmt = SSA_NAME_DEF_STMT (var);
+1594:           tmp = gimple_bb (stmt);
+1595:           if (SSA_NAME_VAR (var))
+1596:             d = ssa_default_def (cfun, SSA_NAME_VAR (var));
+1597:
+1598:           loe = live_on_entry (live, e->dest);
+1599:           if (loe && bitmap_bit_p (loe, i))
+1600:             {
+1601:               if (!gimple_nop_p (stmt))
+1602:                 {
+1603:                   num++;
+1604:                   print_generic_expr (stderr, var, TDF_SLIM);
+1605:                   fprintf (stderr, " is defined ");
+1606:                   if (tmp)
+1607:                     fprintf (stderr, " in BB%d, ", tmp->index);
+1608:                   fprintf (stderr, "by:\n");
+1609:                   print_gimple_stmt (stderr, stmt, 0, TDF_SLIM);
+1610:                   fprintf (stderr, "\nIt is also live-on-entry to entry BB %d",
+1611:                            entry_block);
+1612:                   fprintf (stderr, " So it appears to have multiple defs.\n");
+1613:                 }
+1614:               else
+1615:                 {
+1616:                   if (d != var)
+1617:                     {
+1618:                       num++;
+1619:                       print_generic_expr (stderr, var, TDF_SLIM);
+1620:                       fprintf (stderr, " is live-on-entry to BB%d ",
+1621:                                entry_block);
+1622:                       if (d)
+1623:                         {
+1624:                           fprintf (stderr, " but is not the default def of ");
+1625:                           print_generic_expr (stderr, d, TDF_SLIM);
+1626:                           fprintf (stderr, "\n");
+1627:                         }
+1628:                       else
+1629:                         fprintf (stderr, " and there is no default def.\n");
+1630:                     }
+1631:                 }
+1632:             }
+1633:           else
+1634:             if (d == var)
+1635:               {
+1636:                 /* An undefined local variable does not need to be very
+1637:                    alive.  */
+1638:                 if (ssa_undefined_value_p (var, false))
+1639:                   continue;
+1640:
+1641:                 /* The only way this var shouldn't be marked live on entry is
+1642:                    if it occurs in a PHI argument of the block.  */
+1643:                 size_t z;
+1644:                 bool ok = false;
+1645:                 gphi_iterator gsi;
+1646:                 for (gsi = gsi_start_phis (e->dest);
+1647:                      !gsi_end_p (gsi) && !ok;
+1648:                      gsi_next (&gsi))
+1649:                   {
+1650:                     gphi *phi = gsi.phi ();
+1651:                     if (virtual_operand_p (gimple_phi_result (phi)))
+1652:                       continue;
+1653:                     for (z = 0; z < gimple_phi_num_args (phi); z++)
+1654:                       if (var == gimple_phi_arg_def (phi, z))
+1655:                         {
+1656:                           ok = true;
+1657:                           break;
+1658:                         }
+1659:                   }
+1660:                 if (ok)
+1661:                   continue;
+1662:                 /* Expand adds unused default defs for PARM_DECLs and
+1663:                    RESULT_DECLs.  They're ok.  */
+1664:                 if (has_zero_uses (var)
+1665:                     && SSA_NAME_VAR (var)
+1666:                     && !VAR_P (SSA_NAME_VAR (var)))
+1667:                   continue;
+1668:                 num++;
+1669:                 print_generic_expr (stderr, var, TDF_SLIM);
+1670:                 fprintf (stderr, " is not marked live-on-entry to entry BB%d ",
+1671:                          entry_block);
+1672:                 fprintf (stderr, "but it is a default def so it should be.\n");
+1673:               }
+1674:         }
+1675:     }
+1676:   gcc_assert (num <= 0);
+1677: }
+1678:
+1679:
+1680: /* Virtual operand liveness analysis data init.  */
+1681:
+```
+
+## gcc/opts.cc:600–618
+
+```text
+600:     { OPT_LEVELS_1_PLUS, OPT_fipa_reference_addressable, NULL, 1 },
+601:     { OPT_LEVELS_1_PLUS, OPT_fjump_tables, NULL, 1 },
+602:     { OPT_LEVELS_1_PLUS, OPT_fmerge_constants, NULL, 1 },
+603:     { OPT_LEVELS_1_PLUS, OPT_fomit_frame_pointer, NULL, 1 },
+604:     { OPT_LEVELS_1_PLUS, OPT_freorder_blocks, NULL, 1 },
+605:     { OPT_LEVELS_1_PLUS, OPT_fshrink_wrap, NULL, 1 },
+606:     { OPT_LEVELS_1_PLUS, OPT_fsplit_wide_types, NULL, 1 },
+607:     { OPT_LEVELS_1_PLUS, OPT_fthread_jumps, NULL, 1 },
+608:     { OPT_LEVELS_1_PLUS, OPT_ftree_builtin_call_dce, NULL, 1 },
+609:     { OPT_LEVELS_1_PLUS, OPT_ftree_ccp, NULL, 1 },
+610:     { OPT_LEVELS_1_PLUS, OPT_ftree_ch, NULL, 1 },
+611:     { OPT_LEVELS_1_PLUS, OPT_ftree_coalesce_vars, NULL, 1 },
+612:     { OPT_LEVELS_1_PLUS, OPT_ftree_copy_prop, NULL, 1 },
+613:     { OPT_LEVELS_1_PLUS, OPT_ftree_dce, NULL, 1 },
+614:     { OPT_LEVELS_1_PLUS, OPT_ftree_dominator_opts, NULL, 1 },
+615:     { OPT_LEVELS_1_PLUS, OPT_ftree_fre, NULL, 1 },
+616:     { OPT_LEVELS_1_PLUS, OPT_ftree_sink, NULL, 1 },
+617:     { OPT_LEVELS_1_PLUS, OPT_ftree_slsr, NULL, 1 },
+618:     { OPT_LEVELS_1_PLUS, OPT_ftree_ter, NULL, 1 },
 ```
 
 ## gcc/opts.cc:1472–1511
@@ -8652,4 +9586,3226 @@ LF line numbering; tabs expanded and trailing space trimmed.
 1343: /* In a LOOP_EXPR node.  */
 1344: #define LOOP_EXPR_BODY(NODE) TREE_OPERAND_CHECK_CODE (NODE, LOOP_EXPR, 0)
 1345:
+```
+
+## gcc/tree-outof-ssa.cc:137–180
+
+```text
+137: class elim_graph
+138: {
+139: public:
+140:   elim_graph (var_map map);
+141:
+142:   /* Size of the elimination vectors.  */
+143:   int size;
+144:
+145:   /* List of nodes in the elimination graph.  */
+146:   auto_vec<int> nodes;
+147:
+148:   /*  The predecessor and successor edge list.  */
+149:   auto_vec<int> edge_list;
+150:
+151:   /* Source locus on each edge */
+152:   auto_vec<location_t> edge_locus;
+153:
+154:   /* Visited vector.  */
+155:   auto_sbitmap visited;
+156:
+157:   /* Stack for visited nodes.  */
+158:   auto_vec<int> stack;
+159:
+160:   /* The variable partition map.  */
+161:   var_map map;
+162:
+163:   /* Edge being eliminated by this graph.  */
+164:   edge e;
+165:
+166:   /* List of constant copies to emit.  These are pushed on in pairs.  */
+167:   auto_vec<int> const_dests;
+168:   auto_vec<tree> const_copies;
+169:
+170:   /* Source locations for any constant copies.  */
+171:   auto_vec<location_t> copy_locus;
+172: };
+173:
+174:
+175: /* For an edge E find out a good source location to associate with
+176:    instructions inserted on edge E.  If E has an implicit goto set,
+177:    use its location.  Otherwise search instructions in predecessors
+178:    of E for a location, and use that one.  That makes sense because
+179:    we insert on edges for PHI nodes, and effects of PHIs happen on
+180:    the end of the predecessor conceptually.  An exception is made
+```
+
+## gcc/tree-outof-ssa.cc:252–868
+
+```text
+252: emit_partition_copy (rtx dest, rtx src, int unsignedsrcp, tree sizeexp)
+253: {
+254:   start_sequence ();
+255:
+256:   if (GET_MODE (src) != VOIDmode && GET_MODE (src) != GET_MODE (dest))
+257:     src = convert_to_mode (GET_MODE (dest), src, unsignedsrcp);
+258:   if (GET_MODE (src) == BLKmode)
+259:     {
+260:       gcc_assert (GET_MODE (dest) == BLKmode);
+261:       emit_block_move (dest, src, expr_size (sizeexp), BLOCK_OP_NORMAL);
+262:     }
+263:   else
+264:     emit_move_insn (dest, src);
+265:   do_pending_stack_adjust ();
+266:
+267:   return end_sequence ();
+268: }
+269:
+270: /* Insert a copy instruction from partition SRC to DEST onto edge E.  */
+271:
+272: static void
+273: insert_partition_copy_on_edge (edge e, int dest, int src, location_t locus)
+274: {
+275:   tree var;
+276:   if (dump_file && (dump_flags & TDF_DETAILS))
+277:     {
+278:       fprintf (dump_file,
+279:                "Inserting a partition copy on edge BB%d->BB%d : "
+280:                "PART.%d = PART.%d",
+281:                e->src->index,
+282:                e->dest->index, dest, src);
+283:       fprintf (dump_file, "\n");
+284:     }
+285:
+286:   gcc_assert (SA.partition_to_pseudo[dest]);
+287:   gcc_assert (SA.partition_to_pseudo[src]);
+288:
+289:   set_location_for_edge (e);
+290:   /* If a locus is provided, override the default.  */
+291:   if (locus)
+292:     set_curr_insn_location (locus);
+293:
+294:   var = partition_to_var (SA.map, src);
+295:   rtx_insn *seq = emit_partition_copy (copy_rtx (SA.partition_to_pseudo[dest]),
+296:                                        copy_rtx (SA.partition_to_pseudo[src]),
+297:                                        TYPE_UNSIGNED (TREE_TYPE (var)),
+298:                                        var);
+299:
+300:   insert_insn_on_edge (seq, e);
+301: }
+302:
+303: /* Insert a copy instruction from expression SRC to partition DEST
+304:    onto edge E.  */
+305:
+306: static void
+307: insert_value_copy_on_edge (edge e, int dest, tree src, location_t locus)
+308: {
+309:   rtx dest_rtx, seq, x;
+310:   machine_mode dest_mode, src_mode;
+311:   int unsignedp;
+312:
+313:   if (dump_file && (dump_flags & TDF_DETAILS))
+314:     {
+315:       fprintf (dump_file,
+316:                "Inserting a value copy on edge BB%d->BB%d : PART.%d = ",
+317:                e->src->index,
+318:                e->dest->index, dest);
+319:       print_generic_expr (dump_file, src, TDF_SLIM);
+320:       fprintf (dump_file, "\n");
+321:     }
+322:
+323:   dest_rtx = copy_rtx (SA.partition_to_pseudo[dest]);
+324:   gcc_assert (dest_rtx);
+325:
+326:   set_location_for_edge (e);
+327:   /* If a locus is provided, override the default.  */
+328:   if (locus)
+329:     set_curr_insn_location (locus);
+330:
+331:   start_sequence ();
+332:
+333:   tree name = partition_to_var (SA.map, dest);
+334:   src_mode = TYPE_MODE (TREE_TYPE (src));
+335:   dest_mode = GET_MODE (dest_rtx);
+336:   gcc_assert (src_mode == TYPE_MODE (TREE_TYPE (name)));
+337:   gcc_assert (!REG_P (dest_rtx)
+338:               || dest_mode == promote_ssa_mode (name, &unsignedp));
+339:
+340:   if (src_mode != dest_mode)
+341:     {
+342:       x = expand_expr (src, NULL, src_mode, EXPAND_NORMAL);
+343:       x = convert_modes (dest_mode, src_mode, x, unsignedp);
+344:     }
+345:   else if (src_mode == BLKmode)
+346:     {
+347:       x = dest_rtx;
+348:       store_expr (src, x, 0, false, false);
+349:     }
+350:   else
+351:     x = expand_expr (src, dest_rtx, dest_mode, EXPAND_NORMAL);
+352:
+353:   if (x != dest_rtx)
+354:     emit_move_insn (dest_rtx, x);
+355:   do_pending_stack_adjust ();
+356:
+357:   seq = end_sequence ();
+358:
+359:   insert_insn_on_edge (seq, e);
+360: }
+361:
+362: /* Insert a copy instruction from RTL expression SRC to partition DEST
+363:    onto edge E.  */
+364:
+365: static void
+366: insert_rtx_to_part_on_edge (edge e, int dest, rtx src, int unsignedsrcp,
+367:                             location_t locus)
+368: {
+369:   if (dump_file && (dump_flags & TDF_DETAILS))
+370:     {
+371:       fprintf (dump_file,
+372:                "Inserting a temp copy on edge BB%d->BB%d : PART.%d = ",
+373:                e->src->index,
+374:                e->dest->index, dest);
+375:       print_simple_rtl (dump_file, src);
+376:       fprintf (dump_file, "\n");
+377:     }
+378:
+379:   gcc_assert (SA.partition_to_pseudo[dest]);
+380:
+381:   set_location_for_edge (e);
+382:   /* If a locus is provided, override the default.  */
+383:   if (locus)
+384:     set_curr_insn_location (locus);
+385:
+386:   /* We give the destination as sizeexp in case src/dest are BLKmode
+387:      mems.  Usually we give the source.  As we result from SSA names
+388:      the left and right size should be the same (and no WITH_SIZE_EXPR
+389:      involved), so it doesn't matter.  */
+390:   rtx_insn *seq = emit_partition_copy (copy_rtx (SA.partition_to_pseudo[dest]),
+391:                                        src, unsignedsrcp,
+392:                                        partition_to_var (SA.map, dest));
+393:
+394:   insert_insn_on_edge (seq, e);
+395: }
+396:
+397: /* Insert a copy instruction from partition SRC to RTL lvalue DEST
+398:    onto edge E.  */
+399:
+400: static void
+401: insert_part_to_rtx_on_edge (edge e, rtx dest, int src, location_t locus)
+402: {
+403:   tree var;
+404:   if (dump_file && (dump_flags & TDF_DETAILS))
+405:     {
+406:       fprintf (dump_file,
+407:                "Inserting a temp copy on edge BB%d->BB%d : ",
+408:                e->src->index,
+409:                e->dest->index);
+410:       print_simple_rtl (dump_file, dest);
+411:       fprintf (dump_file, "= PART.%d\n", src);
+412:     }
+413:
+414:   gcc_assert (SA.partition_to_pseudo[src]);
+415:
+416:   set_location_for_edge (e);
+417:   /* If a locus is provided, override the default.  */
+418:   if (locus)
+419:     set_curr_insn_location (locus);
+420:
+421:   var = partition_to_var (SA.map, src);
+422:   rtx_insn *seq = emit_partition_copy (dest,
+423:                                        copy_rtx (SA.partition_to_pseudo[src]),
+424:                                        TYPE_UNSIGNED (TREE_TYPE (var)),
+425:                                        var);
+426:
+427:   insert_insn_on_edge (seq, e);
+428: }
+429:
+430:
+431: /* Create an elimination graph for map.  */
+432:
+433: elim_graph::elim_graph (var_map map) :
+434:   nodes (30), edge_list (20), edge_locus (10), visited (map->num_partitions),
+435:   stack (30), map (map), const_dests (20), const_copies (20), copy_locus (10)
+436: {
+437: }
+438:
+439:
+440: /* Empty elimination graph G.  */
+441:
+442: static inline void
+443: clear_elim_graph (elim_graph *g)
+444: {
+445:   g->nodes.truncate (0);
+446:   g->edge_list.truncate (0);
+447:   g->edge_locus.truncate (0);
+448: }
+449:
+450:
+451: /* Return the number of nodes in graph G.  */
+452:
+453: static inline int
+454: elim_graph_size (elim_graph *g)
+455: {
+456:   return g->nodes.length ();
+457: }
+458:
+459:
+460: /* Add NODE to graph G, if it doesn't exist already.  */
+461:
+462: static inline void
+463: elim_graph_add_node (elim_graph *g, int node)
+464: {
+465:   int x;
+466:   int t;
+467:
+468:   FOR_EACH_VEC_ELT (g->nodes, x, t)
+469:     if (t == node)
+470:       return;
+471:   g->nodes.safe_push (node);
+472: }
+473:
+474:
+475: /* Add the edge PRED->SUCC to graph G.  */
+476:
+477: static inline void
+478: elim_graph_add_edge (elim_graph *g, int pred, int succ, location_t locus)
+479: {
+480:   g->edge_list.safe_push (pred);
+481:   g->edge_list.safe_push (succ);
+482:   g->edge_locus.safe_push (locus);
+483: }
+484:
+485:
+486: /* Remove an edge from graph G for which NODE is the predecessor, and
+487:    return the successor node.  -1 is returned if there is no such edge.  */
+488:
+489: static inline int
+490: elim_graph_remove_succ_edge (elim_graph *g, int node, location_t *locus)
+491: {
+492:   int y;
+493:   unsigned x;
+494:   for (x = 0; x < g->edge_list.length (); x += 2)
+495:     if (g->edge_list[x] == node)
+496:       {
+497:         g->edge_list[x] = -1;
+498:         y = g->edge_list[x + 1];
+499:         g->edge_list[x + 1] = -1;
+500:         *locus = g->edge_locus[x / 2];
+501:         g->edge_locus[x / 2] = UNKNOWN_LOCATION;
+502:         return y;
+503:       }
+504:   *locus = UNKNOWN_LOCATION;
+505:   return -1;
+506: }
+507:
+508:
+509: /* Find all the nodes in GRAPH which are successors to NODE in the
+510:    edge list.  VAR will hold the partition number found.  CODE is the
+511:    code fragment executed for every node found.  */
+512:
+513: #define FOR_EACH_ELIM_GRAPH_SUCC(GRAPH, NODE, VAR, LOCUS, CODE)         \
+514: do {                                                                    \
+515:   unsigned x_;                                                          \
+516:   int y_;                                                               \
+517:   for (x_ = 0; x_ < (GRAPH)->edge_list.length (); x_ += 2)      \
+518:     {                                                                   \
+519:       y_ = (GRAPH)->edge_list[x_];                                      \
+520:       if (y_ != (NODE))                                                 \
+521:         continue;                                                       \
+522:       (void) ((VAR) = (GRAPH)->edge_list[x_ + 1]);                      \
+523:       (void) ((LOCUS) = (GRAPH)->edge_locus[x_ / 2]);                   \
+524:       CODE;                                                             \
+525:     }                                                                   \
+526: } while (0)
+527:
+528:
+529: /* Find all the nodes which are predecessors of NODE in the edge list for
+530:    GRAPH.  VAR will hold the partition number found.  CODE is the
+531:    code fragment executed for every node found.  */
+532:
+533: #define FOR_EACH_ELIM_GRAPH_PRED(GRAPH, NODE, VAR, LOCUS, CODE)         \
+534: do {                                                                    \
+535:   unsigned x_;                                                          \
+536:   int y_;                                                               \
+537:   for (x_ = 0; x_ < (GRAPH)->edge_list.length (); x_ += 2)      \
+538:     {                                                                   \
+539:       y_ = (GRAPH)->edge_list[x_ + 1];                                  \
+540:       if (y_ != (NODE))                                                 \
+541:         continue;                                                       \
+542:       (void) ((VAR) = (GRAPH)->edge_list[x_]);                          \
+543:       (void) ((LOCUS) = (GRAPH)->edge_locus[x_ / 2]);                   \
+544:       CODE;                                                             \
+545:     }                                                                   \
+546: } while (0)
+547:
+548:
+549: /* Add T to elimination graph G.  */
+550:
+551: static inline void
+552: eliminate_name (elim_graph *g, int T)
+553: {
+554:   elim_graph_add_node (g, T);
+555: }
+556:
+557: /* Return true if this phi argument T should have a copy queued when using
+558:    var_map MAP.  PHI nodes should contain only ssa_names and invariants.  A
+559:    test for ssa_name is definitely simpler, but don't let invalid contents
+560:    slip through in the meantime.  */
+561:
+562: static inline bool
+563: queue_phi_copy_p (var_map map, tree t)
+564: {
+565:   if (TREE_CODE (t) == SSA_NAME)
+566:     {
+567:       if (var_to_partition (map, t) == NO_PARTITION)
+568:         return true;
+569:       return false;
+570:     }
+571:   gcc_checking_assert (is_gimple_min_invariant (t));
+572:   return true;
+573: }
+574:
+575: /* Build elimination graph G for basic block BB on incoming PHI edge
+576:    G->e.  */
+577:
+578: static void
+579: eliminate_build (elim_graph *g)
+580: {
+581:   tree Ti;
+582:   int p0, pi;
+583:   gphi_iterator gsi;
+584:
+585:   clear_elim_graph (g);
+586:
+587:   for (gsi = gsi_start_phis (g->e->dest); !gsi_end_p (gsi); gsi_next (&gsi))
+588:     {
+589:       gphi *phi = gsi.phi ();
+590:       location_t locus;
+591:
+592:       p0 = var_to_partition (g->map, gimple_phi_result (phi));
+593:       /* Ignore results which are not in partitions.  */
+594:       if (p0 == NO_PARTITION)
+595:         continue;
+596:
+597:       Ti = PHI_ARG_DEF (phi, g->e->dest_idx);
+598:       /* See set_location_for_edge for the rationale.  */
+599:       if (g->e->flags & EDGE_EH)
+600:         locus = UNKNOWN_LOCATION;
+601:       else
+602:         locus = gimple_phi_arg_location_from_edge (phi, g->e);
+603:
+604:       /* If this argument is a constant, or a SSA_NAME which is being
+605:          left in SSA form, just queue a copy to be emitted on this
+606:          edge.  */
+607:       if (queue_phi_copy_p (g->map, Ti))
+608:         {
+609:           /* Save constant copies until all other copies have been emitted
+610:              on this edge.  */
+611:           g->const_dests.safe_push (p0);
+612:           g->const_copies.safe_push (Ti);
+613:           g->copy_locus.safe_push (locus);
+614:         }
+615:       else
+616:         {
+617:           pi = var_to_partition (g->map, Ti);
+618:           if (p0 != pi)
+619:             {
+620:               eliminate_name (g, p0);
+621:               eliminate_name (g, pi);
+622:               elim_graph_add_edge (g, p0, pi, locus);
+623:             }
+624:         }
+625:     }
+626: }
+627:
+628:
+629: /* Push successors of T onto the elimination stack for G.  */
+630:
+631: static void
+632: elim_forward (elim_graph *g, int T)
+633: {
+634:   int S;
+635:   location_t locus;
+636:
+637:   bitmap_set_bit (g->visited, T);
+638:   FOR_EACH_ELIM_GRAPH_SUCC (g, T, S, locus,
+639:     {
+640:       if (!bitmap_bit_p (g->visited, S))
+641:         elim_forward (g, S);
+642:     });
+643:   g->stack.safe_push (T);
+644: }
+645:
+646:
+647: /* Return 1 if there unvisited predecessors of T in graph G.  */
+648:
+649: static int
+650: elim_unvisited_predecessor (elim_graph *g, int T)
+651: {
+652:   int P;
+653:   location_t locus;
+654:
+655:   FOR_EACH_ELIM_GRAPH_PRED (g, T, P, locus,
+656:     {
+657:       if (!bitmap_bit_p (g->visited, P))
+658:         return 1;
+659:     });
+660:   return 0;
+661: }
+662:
+663: /* Process predecessors first, and insert a copy.  */
+664:
+665: static void
+666: elim_backward (elim_graph *g, int T)
+667: {
+668:   int P;
+669:   location_t locus;
+670:
+671:   bitmap_set_bit (g->visited, T);
+672:   FOR_EACH_ELIM_GRAPH_PRED (g, T, P, locus,
+673:     {
+674:       if (!bitmap_bit_p (g->visited, P))
+675:         {
+676:           elim_backward (g, P);
+677:           insert_partition_copy_on_edge (g->e, P, T, locus);
+678:         }
+679:     });
+680: }
+681:
+682: /* Allocate a new pseudo register usable for storing values sitting
+683:    in NAME (a decl or SSA name), i.e. with matching mode and attributes.  */
+684:
+685: static rtx
+686: get_temp_reg (tree name)
+687: {
+688:   tree type = TREE_TYPE (name);
+689:   int unsignedp;
+690:   machine_mode reg_mode = promote_ssa_mode (name, &unsignedp);
+691:   if (reg_mode == BLKmode)
+692:     return assign_temp (type, 0, 0);
+693:   rtx x = gen_reg_rtx (reg_mode);
+694:   if (POINTER_TYPE_P (type))
+695:     mark_reg_pointer (x, TYPE_ALIGN (TREE_TYPE (type)));
+696:   return x;
+697: }
+698:
+699: /* Insert required copies for T in graph G.  Check for a strongly connected
+700:    region, and create a temporary to break the cycle if one is found.  */
+701:
+702: static void
+703: elim_create (elim_graph *g, int T)
+704: {
+705:   int P, S;
+706:   location_t locus;
+707:
+708:   if (elim_unvisited_predecessor (g, T))
+709:     {
+710:       tree var = partition_to_var (g->map, T);
+711:       rtx U = get_temp_reg (var);
+712:       int unsignedsrcp = TYPE_UNSIGNED (TREE_TYPE (var));
+713:
+714:       insert_part_to_rtx_on_edge (g->e, U, T, UNKNOWN_LOCATION);
+715:       FOR_EACH_ELIM_GRAPH_PRED (g, T, P, locus,
+716:         {
+717:           if (!bitmap_bit_p (g->visited, P))
+718:             {
+719:               elim_backward (g, P);
+720:               insert_rtx_to_part_on_edge (g->e, P, U, unsignedsrcp, locus);
+721:             }
+722:         });
+723:     }
+724:   else
+725:     {
+726:       S = elim_graph_remove_succ_edge (g, T, &locus);
+727:       if (S != -1)
+728:         {
+729:           bitmap_set_bit (g->visited, T);
+730:           insert_partition_copy_on_edge (g->e, T, S, locus);
+731:         }
+732:     }
+733: }
+734:
+735:
+736: /* Eliminate all the phi nodes on edge E in graph G.  */
+737:
+738: static void
+739: eliminate_phi (edge e, elim_graph *g)
+740: {
+741:   int x;
+742:
+743:   gcc_assert (g->const_copies.length () == 0);
+744:   gcc_assert (g->copy_locus.length () == 0);
+745:
+746:   /* Abnormal edges already have everything coalesced.  */
+747:   if (e->flags & EDGE_ABNORMAL)
+748:     return;
+749:
+750:   g->e = e;
+751:
+752:   eliminate_build (g);
+753:
+754:   if (elim_graph_size (g) != 0)
+755:     {
+756:       int part;
+757:
+758:       bitmap_clear (g->visited);
+759:       g->stack.truncate (0);
+760:
+761:       FOR_EACH_VEC_ELT (g->nodes, x, part)
+762:         {
+763:           if (!bitmap_bit_p (g->visited, part))
+764:             elim_forward (g, part);
+765:         }
+766:
+767:       bitmap_clear (g->visited);
+768:       while (g->stack.length () > 0)
+769:         {
+770:           x = g->stack.pop ();
+771:           if (!bitmap_bit_p (g->visited, x))
+772:             elim_create (g, x);
+773:         }
+774:     }
+775:
+776:   /* If there are any pending constant copies, issue them now.  */
+777:   while (g->const_copies.length () > 0)
+778:     {
+779:       int dest;
+780:       tree src;
+781:       location_t locus;
+782:
+783:       src = g->const_copies.pop ();
+784:       dest = g->const_dests.pop ();
+785:       locus = g->copy_locus.pop ();
+786:       insert_value_copy_on_edge (e, dest, src, locus);
+787:     }
+788: }
+789:
+790:
+791: /* Remove each argument from PHI.  If an arg was the last use of an SSA_NAME,
+792:    check to see if this allows another PHI node to be removed.  */
+793:
+794: static void
+795: remove_gimple_phi_args (gphi *phi)
+796: {
+797:   use_operand_p arg_p;
+798:   ssa_op_iter iter;
+799:
+800:   if (dump_file && (dump_flags & TDF_DETAILS))
+801:     {
+802:       fprintf (dump_file, "Removing Dead PHI definition: ");
+803:       print_gimple_stmt (dump_file, phi, 0, TDF_SLIM);
+804:     }
+805:
+806:   FOR_EACH_PHI_ARG (arg_p, phi, iter, SSA_OP_USE)
+807:     {
+808:       tree arg = USE_FROM_PTR (arg_p);
+809:       if (TREE_CODE (arg) == SSA_NAME)
+810:         {
+811:           /* Remove the reference to the existing argument.  */
+812:           SET_USE (arg_p, NULL_TREE);
+813:           if (has_zero_uses (arg))
+814:             {
+815:               gimple *stmt;
+816:               gimple_stmt_iterator gsi;
+817:
+818:               stmt = SSA_NAME_DEF_STMT (arg);
+819:
+820:               /* Also remove the def if it is a PHI node.  */
+821:               if (gimple_code (stmt) == GIMPLE_PHI)
+822:                 {
+823:                   remove_gimple_phi_args (as_a <gphi *> (stmt));
+824:                   gsi = gsi_for_stmt (stmt);
+825:                   remove_phi_node (&gsi, true);
+826:                 }
+827:
+828:             }
+829:         }
+830:     }
+831: }
+832:
+833: /* Remove any PHI node which is a virtual PHI, or a PHI with no uses.  */
+834:
+835: static void
+836: eliminate_useless_phis (void)
+837: {
+838:   basic_block bb;
+839:   gphi_iterator gsi;
+840:   tree result;
+841:
+842:   FOR_EACH_BB_FN (bb, cfun)
+843:     {
+844:       for (gsi = gsi_start_phis (bb); !gsi_end_p (gsi); )
+845:         {
+846:           gphi *phi = gsi.phi ();
+847:           result = gimple_phi_result (phi);
+848:           if (virtual_operand_p (result))
+849:             remove_phi_node (&gsi, true);
+850:           else
+851:             {
+852:               /* Also remove real PHIs with no uses.  */
+853:               if (has_zero_uses (result))
+854:                 {
+855:                   remove_gimple_phi_args (phi);
+856:                   remove_phi_node (&gsi, true);
+857:                 }
+858:               else
+859:                 gsi_next (&gsi);
+860:             }
+861:         }
+862:     }
+863: }
+864:
+865:
+866: /* This function will rewrite the current program using the variable mapping
+867:    found in MAP.  If the replacement vector VALUES is provided, any
+868:    occurrences of partitions with non-null entries in the vector will be
+```
+
+## gcc/tree-outof-ssa.cc:919–1113
+
+```text
+919:   tree ssa = get_or_create_ssa_default_def (cfun, var);
+920:   gcc_assert (ssa);
+921: }
+922:
+923: /* Call CALLBACK for all PARM_DECLs and RESULT_DECLs for which
+924:    assign_parms may ask for a default partition.  */
+925:
+926: static void
+927: for_all_parms (void (*callback)(tree var, void *arg), void *arg)
+928: {
+929:   for (tree var = DECL_ARGUMENTS (current_function_decl); var;
+930:        var = DECL_CHAIN (var))
+931:     callback (var, arg);
+932:   if (!VOID_TYPE_P (TREE_TYPE (DECL_RESULT (current_function_decl))))
+933:     callback (DECL_RESULT (current_function_decl), arg);
+934:   if (cfun->static_chain_decl)
+935:     callback (cfun->static_chain_decl, arg);
+936: }
+937:
+938: /* We need to pass two arguments to set_parm_default_def_partition,
+939:    but for_all_parms only supports one.  Use a pair.  */
+940:
+941: typedef std::pair<var_map, bitmap> parm_default_def_partition_arg;
+942:
+943: /* Set in ARG's PARTS bitmap the bit corresponding to the partition in
+944:    ARG's MAP containing VAR's default def.  */
+945:
+946: static void
+947: set_parm_default_def_partition (tree var, void *arg_)
+948: {
+949:   parm_default_def_partition_arg *arg = (parm_default_def_partition_arg *)arg_;
+950:   var_map map = arg->first;
+951:   bitmap parts = arg->second;
+952:
+953:   if (!is_gimple_reg (var))
+954:     return;
+955:
+956:   tree ssa = ssa_default_def (cfun, var);
+957:   gcc_assert (ssa);
+958:
+959:   int version = var_to_partition (map, ssa);
+960:   gcc_assert (version != NO_PARTITION);
+961:
+962:   bool changed = bitmap_set_bit (parts, version);
+963:   gcc_assert (changed);
+964: }
+965:
+966: /* Allocate and return a bitmap that has a bit set for each partition
+967:    that contains a default def for a parameter.  */
+968:
+969: static bitmap
+970: get_parm_default_def_partitions (var_map map)
+971: {
+972:   bitmap parm_default_def_parts = BITMAP_ALLOC (NULL);
+973:
+974:   parm_default_def_partition_arg
+975:     arg = std::make_pair (map, parm_default_def_parts);
+976:
+977:   for_all_parms (set_parm_default_def_partition, &arg);
+978:
+979:   return parm_default_def_parts;
+980: }
+981:
+982: /* Allocate and return a bitmap that has a bit set for each partition
+983:    that contains an undefined value.  */
+984:
+985: static bitmap
+986: get_undefined_value_partitions (var_map map)
+987: {
+988:   bitmap undefined_value_parts = BITMAP_ALLOC (NULL);
+989:
+990:   for (unsigned int i = 1; i < num_ssa_names; i++)
+991:     {
+992:       tree var = ssa_name (i);
+993:       if (var
+994:           && !virtual_operand_p (var)
+995:           && !has_zero_uses (var)
+996:           && ssa_undefined_value_p (var))
+997:         {
+998:           const int p = var_to_partition (map, var);
+999:           if (p != NO_PARTITION)
+1000:             bitmap_set_bit (undefined_value_parts, p);
+1001:         }
+1002:     }
+1003:
+1004:   return undefined_value_parts;
+1005: }
+1006:
+1007: /* Given the out-of-ssa info object SA (with prepared partitions)
+1008:    eliminate all phi nodes in all basic blocks.  Afterwards there
+1009:    are possibly some RTL instructions inserted on edges.  */
+1010:
+1011: void
+1012: expand_phi_nodes (struct ssaexpand *sa)
+1013: {
+1014:   basic_block bb;
+1015:   elim_graph g (sa->map);
+1016:
+1017:   FOR_BB_BETWEEN (bb, ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb,
+1018:                   EXIT_BLOCK_PTR_FOR_FN (cfun), next_bb)
+1019:     if (!gimple_seq_empty_p (phi_nodes (bb)))
+1020:       {
+1021:         edge e;
+1022:         edge_iterator ei;
+1023:         FOR_EACH_EDGE (e, ei, bb->preds)
+1024:           eliminate_phi (e, &g);
+1025:         /* We can't redirect EH edges in RTL land, so we need to do this
+1026:            here.  Redirection happens only when splitting is necessary,
+1027:            which it is only for critical edges, normally.  For EH edges
+1028:            it might also be necessary when the successor has more than
+1029:            one predecessor.  In that case the edge is either required to
+1030:            be fallthru (which EH edges aren't), or the predecessor needs
+1031:            to end with a jump (which again, isn't the case with EH edges).
+1032:            Hence, split all EH edges on which we inserted instructions
+1033:            and whose successor has multiple predecessors.  */
+1034:         for (ei = ei_start (bb->preds); (e = ei_safe_edge (ei)); )
+1035:           {
+1036:             if (e->insns.r && (e->flags & EDGE_EH)
+1037:                 && !single_pred_p (e->dest))
+1038:               {
+1039:                 rtx_insn *insns = e->insns.r;
+1040:                 basic_block bb;
+1041:                 e->insns.r = NULL;
+1042:                 bb = split_edge (e);
+1043:                 single_pred_edge (bb)->insns.r = insns;
+1044:               }
+1045:             else
+1046:               ei_next (&ei);
+1047:           }
+1048:       }
+1049: }
+1050:
+1051:
+1052: /* Remove the ssa-names in the current function and translate them into normal
+1053:    compiler variables.  PERFORM_TER is true if Temporary Expression Replacement
+1054:    should also be used.  */
+1055:
+1056: static void
+1057: remove_ssa_form (bool perform_ter, struct ssaexpand *sa)
+1058: {
+1059:   bitmap values = NULL;
+1060:   var_map map;
+1061:
+1062:   for_all_parms (create_default_def, NULL);
+1063:   map = init_var_map (num_ssa_names);
+1064:   coalesce_ssa_name (map);
+1065:
+1066:   /* Return to viewing the variable list as just all reference variables after
+1067:      coalescing has been performed.  */
+1068:   partition_view_normal (map);
+1069:
+1070:   if (dump_file && (dump_flags & TDF_DETAILS))
+1071:     {
+1072:       fprintf (dump_file, "After Coalescing:\n");
+1073:       dump_var_map (dump_file, map);
+1074:     }
+1075:
+1076:   if (perform_ter)
+1077:     {
+1078:       values = find_replaceable_exprs (map);
+1079:       if (values && dump_file && (dump_flags & TDF_DETAILS))
+1080:         dump_replaceable_exprs (dump_file, values);
+1081:     }
+1082:
+1083:   rewrite_trees (map);
+1084:
+1085:   sa->map = map;
+1086:   sa->values = values;
+1087:   sa->partitions_for_parm_default_defs = get_parm_default_def_partitions (map);
+1088:   sa->partitions_for_undefined_values = get_undefined_value_partitions (map);
+1089: }
+1090:
+1091:
+1092: /* If not already done so for basic block BB, assign increasing uids
+1093:    to each of its instructions.  */
+1094:
+1095: static void
+1096: maybe_renumber_stmts_bb (basic_block bb)
+1097: {
+1098:   unsigned i = 0;
+1099:   gimple_stmt_iterator gsi;
+1100:
+1101:   if (!bb->aux)
+1102:     return;
+1103:   bb->aux = NULL;
+1104:   for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+1105:     {
+1106:       gimple *stmt = gsi_stmt (gsi);
+1107:       gimple_set_uid (stmt, i);
+1108:       i++;
+1109:     }
+1110: }
+1111:
+1112:
+1113: /* Return true if we can determine that the SSA_NAMEs RESULT (a result
+```
+
+## gcc/tree-outof-ssa.cc:1153–1405
+
+```text
+1153:
+1154:
+1155: /* Search every PHI node for arguments associated with backedges which
+1156:    we can trivially determine will need a copy (the argument is either
+1157:    not an SSA_NAME or the argument has a different underlying variable
+1158:    than the PHI result).
+1159:
+1160:    Insert a copy from the PHI argument to a new destination at the
+1161:    end of the block with the backedge to the top of the loop.  Update
+1162:    the PHI argument to reference this new destination.  */
+1163:
+1164: static void
+1165: insert_backedge_copies (void)
+1166: {
+1167:   basic_block bb;
+1168:   gphi_iterator gsi;
+1169:
+1170:   mark_dfs_back_edges ();
+1171:
+1172:   FOR_EACH_BB_FN (bb, cfun)
+1173:     {
+1174:       /* Mark block as possibly needing calculation of UIDs.  */
+1175:       bb->aux = &bb->aux;
+1176:
+1177:       for (gsi = gsi_start_phis (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+1178:         {
+1179:           gphi *phi = gsi.phi ();
+1180:           tree result = gimple_phi_result (phi);
+1181:           size_t i;
+1182:
+1183:           if (virtual_operand_p (result))
+1184:             continue;
+1185:
+1186:           for (i = 0; i < gimple_phi_num_args (phi); i++)
+1187:             {
+1188:               tree arg = gimple_phi_arg_def (phi, i);
+1189:               edge e = gimple_phi_arg_edge (phi, i);
+1190:               /* We are only interested in copies emitted on critical
+1191:                  backedges.  */
+1192:               if (!(e->flags & EDGE_DFS_BACK)
+1193:                   || !EDGE_CRITICAL_P (e))
+1194:                 continue;
+1195:
+1196:               /* If the argument is not an SSA_NAME, then we will need a
+1197:                  constant initialization.  If the argument is an SSA_NAME then
+1198:                  a copy statement may be needed.  First handle the case
+1199:                  where we cannot insert before the argument definition.  */
+1200:               if (TREE_CODE (arg) != SSA_NAME
+1201:                   || (gimple_code (SSA_NAME_DEF_STMT (arg)) == GIMPLE_PHI
+1202:                       && trivially_conflicts_p (bb, result, arg)))
+1203:                 {
+1204:                   tree name;
+1205:                   gassign *stmt;
+1206:                   gimple *last = NULL;
+1207:                   gimple_stmt_iterator gsi2;
+1208:
+1209:                   gsi2 = gsi_last_bb (gimple_phi_arg_edge (phi, i)->src);
+1210:                   if (!gsi_end_p (gsi2))
+1211:                     last = gsi_stmt (gsi2);
+1212:
+1213:                   /* In theory the only way we ought to get back to the
+1214:                      start of a loop should be with a COND_EXPR or GOTO_EXPR.
+1215:                      However, better safe than sorry.
+1216:                      If the block ends with a control statement or
+1217:                      something that might throw, then we have to
+1218:                      insert this assignment before the last
+1219:                      statement.  Else insert it after the last statement.  */
+1220:                   if (last && stmt_ends_bb_p (last))
+1221:                     {
+1222:                       /* If the last statement in the block is the definition
+1223:                          site of the PHI argument, then we can't insert
+1224:                          anything after it.  */
+1225:                       if (TREE_CODE (arg) == SSA_NAME
+1226:                           && SSA_NAME_DEF_STMT (arg) == last)
+1227:                         continue;
+1228:                     }
+1229:
+1230:                   /* Create a new instance of the underlying variable of the
+1231:                      PHI result.  */
+1232:                   name = copy_ssa_name (result);
+1233:                   stmt = gimple_build_assign (name,
+1234:                                               gimple_phi_arg_def (phi, i));
+1235:
+1236:                   /* copy location if present.  */
+1237:                   if (gimple_phi_arg_has_location (phi, i))
+1238:                     gimple_set_location (stmt,
+1239:                                          gimple_phi_arg_location (phi, i));
+1240:
+1241:                   /* Insert the new statement into the block and update
+1242:                      the PHI node.  */
+1243:                   if (last && stmt_ends_bb_p (last))
+1244:                     gsi_insert_before (&gsi2, stmt, GSI_NEW_STMT);
+1245:                   else
+1246:                     gsi_insert_after (&gsi2, stmt, GSI_NEW_STMT);
+1247:                   SET_PHI_ARG_DEF (phi, i, name);
+1248:                 }
+1249:               /* Insert a copy before the definition of the backedge value
+1250:                  and adjust all conflicting uses.  */
+1251:               else if (trivially_conflicts_p (bb, result, arg))
+1252:                 {
+1253:                   gimple *def = SSA_NAME_DEF_STMT (arg);
+1254:                   if (gimple_nop_p (def)
+1255:                       || gimple_code (def) == GIMPLE_PHI)
+1256:                     continue;
+1257:                   imm_use_iterator imm_iter;
+1258:                   gimple *use_stmt;
+1259:                   auto_vec<use_operand_p, 8> uses;
+1260:                   int idx = -1;
+1261:                   /* The following matches trivially_conflicts_p.  */
+1262:                   FOR_EACH_IMM_USE_STMT (use_stmt, imm_iter, result)
+1263:                     {
+1264:                       if (gimple_bb (use_stmt) != bb
+1265:                           || (gimple_code (use_stmt) != GIMPLE_PHI
+1266:                               && (maybe_renumber_stmts_bb (bb), true)
+1267:                               && gimple_uid (use_stmt) > gimple_uid (def)))
+1268:                         {
+1269:                           use_operand_p use;
+1270:                           FOR_EACH_IMM_USE_ON_STMT (use, imm_iter)
+1271:                             {
+1272:                               uses.safe_push (use);
+1273:                               if (!is_gimple_debug (use_stmt))
+1274:                                 {
+1275:                                   if (idx == -1)
+1276:                                     idx = uses.length () - 1;
+1277:                                   else
+1278:                                     idx = -2;
+1279:                                 }
+1280:                             }
+1281:                         }
+1282:                     }
+1283:                   /* When there is just a conflicting statement try to
+1284:                      adjust that to refer to the new definition.
+1285:                      In particular for now handle a conflict with the
+1286:                      use in a (exit) condition with a NE compare,
+1287:                      replacing a pre-IV-increment compare with a
+1288:                      post-IV-increment one.  */
+1289:                   if (idx >= 0
+1290:                       && is_a <gcond *> (USE_STMT (uses[idx]))
+1291:                       && (gimple_cond_code (USE_STMT (uses[idx])) == NE_EXPR
+1292:                           || gimple_cond_code (USE_STMT (uses[idx])) == EQ_EXPR)
+1293:                       && is_gimple_assign (def)
+1294:                       && gimple_assign_rhs1 (def) == result
+1295:                       && (gimple_assign_rhs_code (def) == PLUS_EXPR
+1296:                           || gimple_assign_rhs_code (def) == MINUS_EXPR
+1297:                           || gimple_assign_rhs_code (def) == POINTER_PLUS_EXPR)
+1298:                       && TREE_CODE (gimple_assign_rhs2 (def)) == INTEGER_CST)
+1299:                     {
+1300:                       gcond *cond = as_a <gcond *> (USE_STMT (uses[idx]));
+1301:                       tree *adj;
+1302:                       if (gimple_cond_lhs (cond) == result)
+1303:                         adj = gimple_cond_rhs_ptr (cond);
+1304:                       else
+1305:                         adj = gimple_cond_lhs_ptr (cond);
+1306:                       gimple_stmt_iterator gsi = gsi_for_stmt (cond);
+1307:                       tree newval
+1308:                         = gimple_build (&gsi, true, GSI_SAME_STMT,
+1309:                                         UNKNOWN_LOCATION,
+1310:                                         gimple_assign_rhs_code (def),
+1311:                                         TREE_TYPE (*adj),
+1312:                                         *adj, gimple_assign_rhs2 (def));
+1313:                       *adj = newval;
+1314:                       SET_USE (uses[idx], arg);
+1315:                       update_stmt (cond);
+1316:                     }
+1317:                   else
+1318:                     {
+1319:                       tree name = copy_ssa_name (result);
+1320:                       gimple *stmt = gimple_build_assign (name, result);
+1321:                       gimple_stmt_iterator gsi = gsi_for_stmt (def);
+1322:                       gsi_insert_before (&gsi, stmt, GSI_SAME_STMT);
+1323:                       for (auto use : uses)
+1324:                         SET_USE (use, name);
+1325:                     }
+1326:                 }
+1327:             }
+1328:         }
+1329:
+1330:       /* Unmark this block again.  */
+1331:       bb->aux = NULL;
+1332:     }
+1333: }
+1334:
+1335: /* Remove indirect clobbers.  */
+1336:
+1337: static void
+1338: remove_indirect_clobbers (void)
+1339: {
+1340:   basic_block bb;
+1341:
+1342:   FOR_EACH_BB_FN (bb, cfun)
+1343:     for (auto gsi = gsi_start_bb (bb); !gsi_end_p (gsi);)
+1344:       {
+1345:         gimple *stmt = gsi_stmt (gsi);
+1346:         if (gimple_clobber_p (stmt))
+1347:           {
+1348:             tree lhs = gimple_assign_lhs (stmt);
+1349:             if (TREE_CODE (lhs) == MEM_REF
+1350:                 && TREE_CODE (TREE_OPERAND (lhs, 0)) == SSA_NAME)
+1351:               {
+1352:                 unlink_stmt_vdef (stmt);
+1353:                 gsi_remove (&gsi, true);
+1354:                 release_defs (stmt);
+1355:                 continue;
+1356:               }
+1357:           }
+1358:         gsi_next (&gsi);
+1359:       }
+1360: }
+1361:
+1362: /* Free all memory associated with going out of SSA form.  SA is
+1363:    the outof-SSA info object.  */
+1364:
+1365: void
+1366: finish_out_of_ssa (struct ssaexpand *sa)
+1367: {
+1368:   free (sa->partition_to_pseudo);
+1369:   if (sa->values)
+1370:     BITMAP_FREE (sa->values);
+1371:   delete_var_map (sa->map);
+1372:   BITMAP_FREE (sa->partitions_for_parm_default_defs);
+1373:   BITMAP_FREE (sa->partitions_for_undefined_values);
+1374:   memset (sa, 0, sizeof *sa);
+1375: }
+1376:
+1377: /* Take the current function out of SSA form, translating PHIs as described in
+1378:    R. Morgan, ``Building an Optimizing Compiler'',
+1379:    Butterworth-Heinemann, Boston, MA, 1998. pp 176-186.  */
+1380:
+1381: unsigned int
+1382: rewrite_out_of_ssa (struct ssaexpand *sa)
+1383: {
+1384:   /* Remove remaining indirect clobbers as we do not need those anymore.
+1385:      Those might extend SSA lifetime and restrict coalescing.  */
+1386:   remove_indirect_clobbers ();
+1387:
+1388:   /* If elimination of a PHI requires inserting a copy on a backedge,
+1389:      then we will have to split the backedge which has numerous
+1390:      undesirable performance effects.
+1391:
+1392:      A significant number of such cases can be handled here by inserting
+1393:      copies into the loop itself.  */
+1394:   insert_backedge_copies ();
+1395:
+1396:   /* Eliminate PHIs which are of no use, such as virtual or dead phis.  */
+1397:   eliminate_useless_phis ();
+1398:
+1399:   if (dump_file && (dump_flags & TDF_DETAILS))
+1400:     gimple_dump_cfg (dump_file, dump_flags & ~TDF_DETAILS);
+1401:
+1402:   remove_ssa_form (flag_tree_ter, sa);
+1403:
+1404:   return 0;
+1405: }
+```
+
+## gcc/tree-ssa-coalesce.cc:52–140
+
+```text
+52: {
+53:   int first_element;
+54:   int second_element;
+55:   int cost;
+56:
+57:   /* A count of the number of unique partitions this pair would conflict
+58:      with if coalescing was successful.  This is the secondary sort key,
+59:      given two pairs with equal costs, we will prefer the pair with a smaller
+60:      conflict set.
+61:
+62:      This is lazily initialized when we discover two coalescing pairs have
+63:      the same primary cost.
+64:
+65:      Note this is not updated and propagated as pairs are coalesced.  */
+66:   int conflict_count;
+67:
+68:   /* The order in which coalescing pairs are discovered is recorded in this
+69:      field, which is used as the final tie breaker when sorting coalesce
+70:      pairs.  */
+71:   int index;
+72: };
+73:
+74: /* This represents a conflict graph.  Implemented as an array of bitmaps.
+75:    A full matrix is used for conflicts rather than just upper triangular form.
+76:    this makes it much simpler and faster to perform conflict merges.  */
+77:
+78: struct ssa_conflicts
+79: {
+80:   bitmap_obstack obstack;       /* A place to allocate our bitmaps.  */
+81:   vec<bitmap> conflicts;
+82: };
+83:
+84: /* The narrow API of the qsort comparison function doesn't allow easy
+85:    access to additional arguments.  So we have two globals (ick) to hold
+86:    the data we need.  They're initialized before the call to qsort and
+87:    wiped immediately after.  */
+88: static ssa_conflicts *conflicts_;
+89: static var_map map_;
+90:
+91: /* Coalesce pair hashtable helpers.  */
+92:
+93: struct coalesce_pair_hasher : nofree_ptr_hash <coalesce_pair>
+94: {
+95:   static inline hashval_t hash (const coalesce_pair *);
+96:   static inline bool equal (const coalesce_pair *, const coalesce_pair *);
+97: };
+98:
+99: /* Hash function for coalesce list.  Calculate hash for PAIR.   */
+100:
+101: inline hashval_t
+102: coalesce_pair_hasher::hash (const coalesce_pair *pair)
+103: {
+104:   hashval_t a = (hashval_t)(pair->first_element);
+105:   hashval_t b = (hashval_t)(pair->second_element);
+106:
+107:   return b * (b - 1) / 2 + a;
+108: }
+109:
+110: /* Equality function for coalesce list hash table.  Compare PAIR1 and PAIR2,
+111:    returning TRUE if the two pairs are equivalent.  */
+112:
+113: inline bool
+114: coalesce_pair_hasher::equal (const coalesce_pair *p1, const coalesce_pair *p2)
+115: {
+116:   return (p1->first_element == p2->first_element
+117:           && p1->second_element == p2->second_element);
+118: }
+119:
+120: typedef hash_table<coalesce_pair_hasher> coalesce_table_type;
+121: typedef coalesce_table_type::iterator coalesce_iterator_type;
+122:
+123:
+124: struct cost_one_pair
+125: {
+126:   int first_element;
+127:   int second_element;
+128:   cost_one_pair *next;
+129: };
+130:
+131: /* This structure maintains the list of coalesce pairs.  */
+132:
+133: struct coalesce_list
+134: {
+135:   coalesce_table_type *list;    /* Hash table.  */
+136:   coalesce_pair **sorted;       /* List when sorted.  */
+137:   int num_sorted;               /* Number in the sorted list.  */
+138:   cost_one_pair *cost_one_list;/* Single use coalesces with cost 1.  */
+139:   obstack ob;
+140: };
+```
+
+## gcc/tree-ssa-coalesce.cc:149–482
+
+```text
+149: coalesce_cost (int frequency, bool optimize_for_size)
+150: {
+151:   /* Base costs on BB frequencies bounded by 1.  */
+152:   int cost = frequency;
+153:
+154:   if (!cost)
+155:     cost = 1;
+156:
+157:   if (optimize_for_size)
+158:     cost = 1;
+159:
+160:   return cost;
+161: }
+162:
+163:
+164: /* Return the cost of executing a copy instruction in basic block BB.  */
+165:
+166: static inline int
+167: coalesce_cost_bb (basic_block bb)
+168: {
+169:   return coalesce_cost (bb->count.to_frequency (cfun),
+170:                         optimize_bb_for_size_p (bb));
+171: }
+172:
+173:
+174: /* Return the cost of executing a copy instruction on edge E.  */
+175:
+176: static inline int
+177: coalesce_cost_edge (edge e)
+178: {
+179:   int mult = 1;
+180:
+181:   /* Inserting copy on critical edge costs more than inserting it elsewhere.  */
+182:   if (EDGE_CRITICAL_P (e))
+183:     mult = 2;
+184:   if (e->flags & EDGE_ABNORMAL)
+185:     return MUST_COALESCE_COST;
+186:   if (e->flags & EDGE_EH)
+187:     {
+188:       edge e2;
+189:       edge_iterator ei;
+190:       FOR_EACH_EDGE (e2, ei, e->dest->preds)
+191:         if (e2 != e)
+192:           {
+193:             /* Putting code on EH edge that leads to BB
+194:                with multiple predecestors imply splitting of
+195:                edge too.  */
+196:             if (mult < 2)
+197:               mult = 2;
+198:             /* If there are multiple EH predecestors, we
+199:                also copy EH regions and produce separate
+200:                landing pad.  This is expensive.  */
+201:             if (e2->flags & EDGE_EH)
+202:               {
+203:                 mult = 5;
+204:                 break;
+205:               }
+206:           }
+207:     }
+208:
+209:   return coalesce_cost (EDGE_FREQUENCY (e),
+210:                         optimize_edge_for_size_p (e)) * mult;
+211: }
+212:
+213:
+214: /* Retrieve a pair to coalesce from the cost_one_list in CL.  Returns the
+215:    2 elements via P1 and P2.  1 is returned by the function if there is a pair,
+216:    NO_BEST_COALESCE is returned if there aren't any.  */
+217:
+218: static inline int
+219: pop_cost_one_pair (coalesce_list *cl, int *p1, int *p2)
+220: {
+221:   cost_one_pair *ptr;
+222:
+223:   ptr = cl->cost_one_list;
+224:   if (!ptr)
+225:     return NO_BEST_COALESCE;
+226:
+227:   *p1 = ptr->first_element;
+228:   *p2 = ptr->second_element;
+229:   cl->cost_one_list = ptr->next;
+230:
+231:   return 1;
+232: }
+233:
+234: /* Retrieve the most expensive remaining pair to coalesce from CL.  Returns the
+235:    2 elements via P1 and P2.  Their calculated cost is returned by the function.
+236:    NO_BEST_COALESCE is returned if the coalesce list is empty.  */
+237:
+238: static inline int
+239: pop_best_coalesce (coalesce_list *cl, int *p1, int *p2)
+240: {
+241:   coalesce_pair *node;
+242:   int ret;
+243:
+244:   if (cl->sorted == NULL)
+245:     return pop_cost_one_pair (cl, p1, p2);
+246:
+247:   if (cl->num_sorted == 0)
+248:     return pop_cost_one_pair (cl, p1, p2);
+249:
+250:   node = cl->sorted[--(cl->num_sorted)];
+251:   *p1 = node->first_element;
+252:   *p2 = node->second_element;
+253:   ret = node->cost;
+254:
+255:   return ret;
+256: }
+257:
+258:
+259: /* Create a new empty coalesce list object and return it.  */
+260:
+261: static inline coalesce_list *
+262: create_coalesce_list (void)
+263: {
+264:   coalesce_list *list;
+265:   unsigned size = num_ssa_names * 3;
+266:
+267:   if (size < 40)
+268:     size = 40;
+269:
+270:   list = (coalesce_list *) xmalloc (sizeof (struct coalesce_list));
+271:   list->list = new coalesce_table_type (size);
+272:   list->sorted = NULL;
+273:   list->num_sorted = 0;
+274:   list->cost_one_list = NULL;
+275:   gcc_obstack_init (&list->ob);
+276:   return list;
+277: }
+278:
+279:
+280: /* Delete coalesce list CL.  */
+281:
+282: static inline void
+283: delete_coalesce_list (coalesce_list *cl)
+284: {
+285:   gcc_assert (cl->cost_one_list == NULL);
+286:   delete cl->list;
+287:   cl->list = NULL;
+288:   free (cl->sorted);
+289:   gcc_assert (cl->num_sorted == 0);
+290:   obstack_free (&cl->ob, NULL);
+291:   free (cl);
+292: }
+293:
+294: /* Return the number of unique coalesce pairs in CL.  */
+295:
+296: static inline int
+297: num_coalesce_pairs (coalesce_list *cl)
+298: {
+299:   return cl->list->elements ();
+300: }
+301:
+302: /* Find a matching coalesce pair object in CL for the pair P1 and P2.  If
+303:    one isn't found, return NULL if CREATE is false, otherwise create a new
+304:    coalesce pair object and return it.  */
+305:
+306: static coalesce_pair *
+307: find_coalesce_pair (coalesce_list *cl, int p1, int p2, bool create)
+308: {
+309:   struct coalesce_pair p;
+310:   coalesce_pair **slot;
+311:   unsigned int hash;
+312:
+313:   /* Normalize so that p1 is the smaller value.  */
+314:   if (p2 < p1)
+315:     {
+316:       p.first_element = p2;
+317:       p.second_element = p1;
+318:     }
+319:   else
+320:     {
+321:       p.first_element = p1;
+322:       p.second_element = p2;
+323:     }
+324:
+325:   hash = coalesce_pair_hasher::hash (&p);
+326:   slot = cl->list->find_slot_with_hash (&p, hash, create ? INSERT : NO_INSERT);
+327:   if (!slot)
+328:     return NULL;
+329:
+330:   if (!*slot)
+331:     {
+332:       struct coalesce_pair * pair = XOBNEW (&cl->ob, struct coalesce_pair);
+333:       gcc_assert (cl->sorted == NULL);
+334:       pair->first_element = p.first_element;
+335:       pair->second_element = p.second_element;
+336:       pair->cost = 0;
+337:       pair->index = num_coalesce_pairs (cl);
+338:       pair->conflict_count = 0;
+339:       *slot = pair;
+340:     }
+341:
+342:   return (struct coalesce_pair *) *slot;
+343: }
+344:
+345: static inline void
+346: add_cost_one_coalesce (coalesce_list *cl, int p1, int p2)
+347: {
+348:   cost_one_pair *pair;
+349:
+350:   pair = XOBNEW (&cl->ob, cost_one_pair);
+351:   pair->first_element = p1;
+352:   pair->second_element = p2;
+353:   pair->next = cl->cost_one_list;
+354:   cl->cost_one_list = pair;
+355: }
+356:
+357:
+358: /* Add a coalesce between P1 and P2 in list CL with a cost of VALUE.  */
+359:
+360: static inline void
+361: add_coalesce (coalesce_list *cl, int p1, int p2, int value)
+362: {
+363:   coalesce_pair *node;
+364:
+365:   gcc_assert (cl->sorted == NULL);
+366:   if (p1 == p2)
+367:     return;
+368:
+369:   node = find_coalesce_pair (cl, p1, p2, true);
+370:
+371:   /* Once the value is at least MUST_COALESCE_COST - 1, leave it that way.  */
+372:   if (node->cost < MUST_COALESCE_COST - 1)
+373:     {
+374:       if (value < MUST_COALESCE_COST - 1)
+375:         node->cost += value;
+376:       else
+377:         node->cost = value;
+378:     }
+379: }
+380:
+381: /* Compute and record how many unique conflicts would exist for the
+382:    representative partition for each coalesce pair in CL.
+383:
+384:    CONFLICTS is the conflict graph and MAP is the current partition view.  */
+385:
+386: static void
+387: initialize_conflict_count (coalesce_pair *p,
+388:                            ssa_conflicts *conflicts,
+389:                            var_map map)
+390: {
+391:   int p1 = var_to_partition (map, ssa_name (p->first_element));
+392:   int p2 = var_to_partition (map, ssa_name (p->second_element));
+393:
+394:   /* 4 cases.  If both P1 and P2 have conflicts, then build their
+395:      union and count the members.  Else handle the degenerate cases
+396:      in the obvious ways.  */
+397:   if (conflicts->conflicts[p1] && conflicts->conflicts[p2])
+398:     p->conflict_count = bitmap_count_unique_bits (conflicts->conflicts[p1],
+399:                                                   conflicts->conflicts[p2]);
+400:   else if (conflicts->conflicts[p1])
+401:     p->conflict_count = bitmap_count_bits (conflicts->conflicts[p1]);
+402:   else if (conflicts->conflicts[p2])
+403:     p->conflict_count = bitmap_count_bits (conflicts->conflicts[p2]);
+404:   else
+405:     p->conflict_count = 0;
+406: }
+407:
+408:
+409: /* Comparison function to allow qsort to sort P1 and P2 in Ascending order.  */
+410:
+411: static int
+412: compare_pairs (const void *p1, const void *p2)
+413: {
+414:   coalesce_pair *const *const pp1 = (coalesce_pair *const *) p1;
+415:   coalesce_pair *const *const pp2 = (coalesce_pair *const *) p2;
+416:   int result;
+417:
+418:   result = (* pp1)->cost - (* pp2)->cost;
+419:   /* We use the size of the resulting conflict set as the secondary sort key.
+420:      Given two equal costing coalesce pairs, we want to prefer the pair that
+421:      has the smaller conflict set.  */
+422:   if (result == 0)
+423:     {
+424:       if (flag_expensive_optimizations)
+425:         {
+426:           /* Lazily initialize the conflict counts as it's fairly expensive
+427:              to compute.  */
+428:           if ((*pp2)->conflict_count == 0)
+429:             initialize_conflict_count (*pp2, conflicts_, map_);
+430:           if ((*pp1)->conflict_count == 0)
+431:             initialize_conflict_count (*pp1, conflicts_, map_);
+432:
+433:           result = (*pp2)->conflict_count - (*pp1)->conflict_count;
+434:         }
+435:
+436:       /* And if everything else is equal, then sort based on which
+437:          coalesce pair was found first.  */
+438:       if (result == 0)
+439:         result = (*pp2)->index - (*pp1)->index;
+440:     }
+441:
+442:   return result;
+443: }
+444:
+445: /* Iterate over CL using ITER, returning values in PAIR.  */
+446:
+447: #define FOR_EACH_PARTITION_PAIR(PAIR, ITER, CL)         \
+448:   FOR_EACH_HASH_TABLE_ELEMENT (*(CL)->list, (PAIR), coalesce_pair_p, (ITER))
+449:
+450:
+451: /* Prepare CL for removal of preferred pairs.  When finished they are sorted
+452:    in order from most important coalesce to least important.  */
+453:
+454: static void
+455: sort_coalesce_list (coalesce_list *cl, ssa_conflicts *conflicts, var_map map)
+456: {
+457:   unsigned x, num;
+458:   coalesce_pair *p;
+459:   coalesce_iterator_type ppi;
+460:
+461:   gcc_assert (cl->sorted == NULL);
+462:
+463:   num = num_coalesce_pairs (cl);
+464:   cl->num_sorted = num;
+465:   if (num == 0)
+466:     return;
+467:
+468:   /* Allocate a vector for the pair pointers.  */
+469:   cl->sorted = XNEWVEC (coalesce_pair *, num);
+470:
+471:   /* Populate the vector with pointers to the pairs.  */
+472:   x = 0;
+473:   FOR_EACH_PARTITION_PAIR (p, ppi, cl)
+474:     cl->sorted[x++] = p;
+475:   gcc_assert (x == num);
+476:
+477:   /* Already sorted.  */
+478:   if (num == 1)
+479:     return;
+480:
+481:   /* We don't want to depend on qsort_r, so we have to stuff away
+482:      additional data into globals so it can be referenced in
+```
+
+## gcc/tree-ssa-coalesce.cc:534–1000
+
+```text
+534:
+535: /* Return an empty new conflict graph for SIZE elements.  */
+536:
+537: static inline ssa_conflicts *
+538: ssa_conflicts_new (unsigned size)
+539: {
+540:   ssa_conflicts *ptr;
+541:
+542:   ptr = XNEW (ssa_conflicts);
+543:   bitmap_obstack_initialize (&ptr->obstack);
+544:   ptr->conflicts.create (size);
+545:   ptr->conflicts.safe_grow_cleared (size, true);
+546:   return ptr;
+547: }
+548:
+549:
+550: /* Free storage for conflict graph PTR.  */
+551:
+552: static inline void
+553: ssa_conflicts_delete (ssa_conflicts *ptr)
+554: {
+555:   bitmap_obstack_release (&ptr->obstack);
+556:   ptr->conflicts.release ();
+557:   free (ptr);
+558: }
+559:
+560:
+561: /* Test if elements X and Y conflict in graph PTR.  */
+562:
+563: static inline bool
+564: ssa_conflicts_test_p (ssa_conflicts *ptr, unsigned x, unsigned y)
+565: {
+566:   bitmap bx = ptr->conflicts[x];
+567:   bitmap by = ptr->conflicts[y];
+568:
+569:   gcc_checking_assert (x != y);
+570:
+571:   if (bx)
+572:     /* Avoid the lookup if Y has no conflicts.  */
+573:     return by ? bitmap_bit_p (bx, y) : false;
+574:   else
+575:     return false;
+576: }
+577:
+578:
+579: /* Add a conflict with Y to the bitmap for X in graph PTR.  */
+580:
+581: static inline void
+582: ssa_conflicts_add_one (ssa_conflicts *ptr, unsigned x, unsigned y)
+583: {
+584:   bitmap bx = ptr->conflicts[x];
+585:   /* If there are no conflicts yet, allocate the bitmap and set bit.  */
+586:   if (! bx)
+587:     bx = ptr->conflicts[x] = BITMAP_ALLOC (&ptr->obstack);
+588:   bitmap_set_bit (bx, y);
+589: }
+590:
+591:
+592: /* Add conflicts between X and Y in graph PTR.  */
+593:
+594: static inline void
+595: ssa_conflicts_add (ssa_conflicts *ptr, unsigned x, unsigned y)
+596: {
+597:   gcc_checking_assert (x != y);
+598:   ssa_conflicts_add_one (ptr, x, y);
+599:   ssa_conflicts_add_one (ptr, y, x);
+600: }
+601:
+602:
+603: /* Merge all Y's conflict into X in graph PTR.  */
+604:
+605: static inline void
+606: ssa_conflicts_merge (ssa_conflicts *ptr, unsigned x, unsigned y)
+607: {
+608:   unsigned z;
+609:   bitmap_iterator bi;
+610:   bitmap bx = ptr->conflicts[x];
+611:   bitmap by = ptr->conflicts[y];
+612:
+613:   gcc_checking_assert (x != y);
+614:   if (! by)
+615:     return;
+616:
+617:   /* Add a conflict between X and every one Y has.  If the bitmap doesn't
+618:      exist, then it has already been coalesced, and we don't need to add a
+619:      conflict.  */
+620:   EXECUTE_IF_SET_IN_BITMAP (by, 0, z, bi)
+621:     {
+622:       bitmap bz = ptr->conflicts[z];
+623:       if (bz)
+624:         {
+625:           bool was_there = bitmap_clear_bit (bz, y);
+626:           gcc_checking_assert (was_there);
+627:           bitmap_set_bit (bz, x);
+628:         }
+629:     }
+630:
+631:   if (bx)
+632:     {
+633:       /* If X has conflicts, add Y's to X.  */
+634:       bitmap_ior_into (bx, by);
+635:       BITMAP_FREE (by);
+636:       ptr->conflicts[y] = NULL;
+637:     }
+638:   else
+639:     {
+640:       /* If X has no conflicts, simply use Y's.  */
+641:       ptr->conflicts[x] = by;
+642:       ptr->conflicts[y] = NULL;
+643:     }
+644: }
+645:
+646:
+647: /* Dump a conflicts graph.  */
+648:
+649: static void
+650: ssa_conflicts_dump (FILE *file, ssa_conflicts *ptr)
+651: {
+652:   unsigned x;
+653:   bitmap b;
+654:
+655:   fprintf (file, "\nConflict graph:\n");
+656:
+657:   FOR_EACH_VEC_ELT (ptr->conflicts, x, b)
+658:     if (b)
+659:       {
+660:         fprintf (file, "%d: ", x);
+661:         dump_bitmap (file, b);
+662:       }
+663: }
+664:
+665:
+666: /* This structure is used to efficiently record the current status of live
+667:    SSA_NAMES when building a conflict graph.
+668:    LIVE_BASE_VAR has a bit set for each base variable which has at least one
+669:    ssa version live.
+670:    LIVE_BASE_PARTITIONS is an array of bitmaps using the basevar table as an
+671:    index, and is used to track what partitions of each base variable are
+672:    live.  This makes it easy to add conflicts between just live partitions
+673:    with the same base variable.
+674:    The values in LIVE_BASE_PARTITIONS are only valid if the base variable is
+675:    marked as being live.  This delays clearing of these bitmaps until
+676:    they are actually needed again.  */
+677:
+678: class live_track
+679: {
+680: public:
+681:   bitmap_obstack obstack;       /* A place to allocate our bitmaps.  */
+682:   bitmap_head live_base_var;            /* Indicates if a basevar is live.  */
+683:   bitmap_head *live_base_partitions;    /* Live partitions for each basevar.  */
+684:   var_map map;                  /* Var_map being used for partition mapping.  */
+685: };
+686:
+687:
+688: /* This routine will create a new live track structure based on the partitions
+689:    in MAP.  */
+690:
+691: static live_track *
+692: new_live_track (var_map map)
+693: {
+694:   live_track *ptr;
+695:   int lim, x;
+696:
+697:   /* Make sure there is a partition view in place.  */
+698:   gcc_assert (map->partition_to_base_index != NULL);
+699:
+700:   ptr = XNEW (live_track);
+701:   ptr->map = map;
+702:   lim = num_basevars (map);
+703:   bitmap_obstack_initialize (&ptr->obstack);
+704:   ptr->live_base_partitions = XNEWVEC (bitmap_head, lim);
+705:   bitmap_initialize (&ptr->live_base_var, &ptr->obstack);
+706:   for (x = 0; x < lim; x++)
+707:     bitmap_initialize (&ptr->live_base_partitions[x], &ptr->obstack);
+708:   return ptr;
+709: }
+710:
+711:
+712: /* This routine will free the memory associated with PTR.  */
+713:
+714: static void
+715: delete_live_track (live_track *ptr)
+716: {
+717:   bitmap_obstack_release (&ptr->obstack);
+718:   XDELETEVEC (ptr->live_base_partitions);
+719:   XDELETE (ptr);
+720: }
+721:
+722:
+723: /* This function will remove PARTITION from the live list in PTR.  */
+724:
+725: static inline void
+726: live_track_remove_partition (live_track *ptr, int partition)
+727: {
+728:   int root;
+729:
+730:   root = basevar_index (ptr->map, partition);
+731:   bitmap_clear_bit (&ptr->live_base_partitions[root], partition);
+732:   /* If the element list is empty, make the base variable not live either.  */
+733:   if (bitmap_empty_p (&ptr->live_base_partitions[root]))
+734:     bitmap_clear_bit (&ptr->live_base_var, root);
+735: }
+736:
+737:
+738: /* This function will adds PARTITION to the live list in PTR.  */
+739:
+740: static inline void
+741: live_track_add_partition (live_track *ptr, int partition)
+742: {
+743:   int root;
+744:
+745:   root = basevar_index (ptr->map, partition);
+746:   /* If this base var wasn't live before, it is now.  Clear the element list
+747:      since it was delayed until needed.  */
+748:   if (bitmap_set_bit (&ptr->live_base_var, root))
+749:     bitmap_clear (&ptr->live_base_partitions[root]);
+750:   bitmap_set_bit (&ptr->live_base_partitions[root], partition);
+751:
+752: }
+753:
+754:
+755: /* Clear the live bit for VAR in PTR.  */
+756:
+757: static inline void
+758: live_track_clear_var (live_track *ptr, tree var)
+759: {
+760:   int p;
+761:
+762:   p = var_to_partition (ptr->map, var);
+763:   if (p != NO_PARTITION)
+764:     live_track_remove_partition (ptr, p);
+765: }
+766:
+767:
+768: /* Return TRUE if VAR is live in PTR.  */
+769:
+770: static inline bool
+771: live_track_live_p (live_track *ptr, tree var)
+772: {
+773:   int p, root;
+774:
+775:   p = var_to_partition (ptr->map, var);
+776:   if (p != NO_PARTITION)
+777:     {
+778:       root = basevar_index (ptr->map, p);
+779:       if (bitmap_bit_p (&ptr->live_base_var, root))
+780:         return bitmap_bit_p (&ptr->live_base_partitions[root], p);
+781:     }
+782:   return false;
+783: }
+784:
+785:
+786: /* This routine will add USE to PTR.  USE will be marked as live in both the
+787:    ssa live map and the live bitmap for the root of USE.  */
+788:
+789: static inline void
+790: live_track_process_use (live_track *ptr, tree use)
+791: {
+792:   int p;
+793:
+794:   p = var_to_partition (ptr->map, use);
+795:   if (p == NO_PARTITION)
+796:     return;
+797:
+798:   /* Mark as live in the appropriate live list.  */
+799:   live_track_add_partition (ptr, p);
+800: }
+801:
+802:
+803: /* This routine will process a DEF in PTR.  DEF will be removed from the live
+804:    lists, and if there are any other live partitions with the same base
+805:    variable, conflicts will be added to GRAPH.  */
+806:
+807: static inline void
+808: live_track_process_def (live_track *ptr, tree def, ssa_conflicts *graph)
+809: {
+810:   int p, root;
+811:   bitmap b;
+812:   unsigned x;
+813:   bitmap_iterator bi;
+814:
+815:   p = var_to_partition (ptr->map, def);
+816:   if (p == NO_PARTITION)
+817:     return;
+818:
+819:   /* Clear the liveness bit.  */
+820:   live_track_remove_partition (ptr, p);
+821:
+822:   /* If the bitmap isn't empty now, conflicts need to be added.  */
+823:   root = basevar_index (ptr->map, p);
+824:   if (bitmap_bit_p (&ptr->live_base_var, root))
+825:     {
+826:       b = &ptr->live_base_partitions[root];
+827:       EXECUTE_IF_SET_IN_BITMAP (b, 0, x, bi)
+828:         ssa_conflicts_add (graph, p, x);
+829:     }
+830: }
+831:
+832:
+833: /* Initialize PTR with the partitions set in INIT.  */
+834:
+835: static inline void
+836: live_track_init (live_track *ptr, bitmap init)
+837: {
+838:   unsigned p;
+839:   bitmap_iterator bi;
+840:
+841:   /* Mark all live on exit partitions.  */
+842:   EXECUTE_IF_SET_IN_BITMAP (init, 0, p, bi)
+843:     live_track_add_partition (ptr, p);
+844: }
+845:
+846:
+847: /* This routine will clear all live partitions in PTR.   */
+848:
+849: static inline void
+850: live_track_clear_base_vars (live_track *ptr)
+851: {
+852:   /* Simply clear the live base list.  Anything marked as live in the element
+853:      lists will be cleared later if/when the base variable ever comes alive
+854:      again.  */
+855:   bitmap_clear (&ptr->live_base_var);
+856: }
+857:
+858:
+859: /* Build a conflict graph based on LIVEINFO.  Any partitions which are in the
+860:    partition view of the var_map liveinfo is based on get entries in the
+861:    conflict graph.  Only conflicts between ssa_name partitions with the same
+862:    base variable are added.  */
+863:
+864: static ssa_conflicts *
+865: build_ssa_conflict_graph (tree_live_info_p liveinfo)
+866: {
+867:   ssa_conflicts *graph;
+868:   var_map map;
+869:   basic_block bb;
+870:   ssa_op_iter iter;
+871:   live_track *live;
+872:   basic_block entry;
+873:
+874:   /* If inter-variable coalescing is enabled, we may attempt to
+875:      coalesce variables from different base variables, including
+876:      different parameters, so we have to make sure default defs live
+877:      at the entry block conflict with each other.  */
+878:   if (flag_tree_coalesce_vars)
+879:     entry = single_succ (ENTRY_BLOCK_PTR_FOR_FN (cfun));
+880:   else
+881:     entry = NULL;
+882:
+883:   map = live_var_map (liveinfo);
+884:   graph = ssa_conflicts_new (num_var_partitions (map));
+885:
+886:   live = new_live_track (map);
+887:
+888:   for (unsigned i = 0; liveinfo->map->vec_bbs.iterate (i, &bb); ++i)
+889:     {
+890:       /* Start with live on exit temporaries.  */
+891:       live_track_init (live, live_on_exit (liveinfo, bb));
+892:
+893:       for (gimple_stmt_iterator gsi = gsi_last_bb (bb); !gsi_end_p (gsi);
+894:            gsi_prev (&gsi))
+895:         {
+896:           tree var;
+897:           gimple *stmt = gsi_stmt (gsi);
+898:
+899:           if (is_gimple_debug (stmt))
+900:             continue;
+901:
+902:           if (map->bitint)
+903:             {
+904:               build_bitint_stmt_ssa_conflicts (stmt, live, graph, map->bitint,
+905:                                                live_track_process_def,
+906:                                                live_track_process_use,
+907:                                                live_track_clear_var);
+908:               continue;
+909:             }
+910:
+911:           /* A copy between 2 partitions does not introduce an interference
+912:              by itself.  If they did, you would never be able to coalesce
+913:              two things which are copied.  If the two variables really do
+914:              conflict, they will conflict elsewhere in the program.
+915:
+916:              This is handled by simply removing the SRC of the copy from the
+917:              live list, and processing the stmt normally.  */
+918:           if (is_gimple_assign (stmt))
+919:             {
+920:               tree lhs = gimple_assign_lhs (stmt);
+921:               tree rhs1 = gimple_assign_rhs1 (stmt);
+922:               if (gimple_assign_copy_p (stmt)
+923:                   && TREE_CODE (lhs) == SSA_NAME
+924:                   && TREE_CODE (rhs1) == SSA_NAME)
+925:                 live_track_clear_var (live, rhs1);
+926:             }
+927:
+928:           /* For stmts with more than one SSA_NAME definition pretend all the
+929:              SSA_NAME outputs but the first one are live at this point, so
+930:              that conflicts are added in between all those even when they are
+931:              actually not really live after the asm, because expansion might
+932:              copy those into pseudos after the asm and if multiple outputs
+933:              share the same partition, it might overwrite those that should
+934:              be live.  E.g.
+935:              asm volatile (".." : "=r" (a) : "=r" (b) : "0" (a), "1" (a));
+936:              return a;
+937:              See PR70593.  */
+938:           bool first = true;
+939:           FOR_EACH_SSA_TREE_OPERAND (var, stmt, iter, SSA_OP_DEF)
+940:             if (first)
+941:               first = false;
+942:             else
+943:               live_track_process_use (live, var);
+944:
+945:           FOR_EACH_SSA_TREE_OPERAND (var, stmt, iter, SSA_OP_DEF)
+946:             live_track_process_def (live, var, graph);
+947:
+948:           FOR_EACH_SSA_TREE_OPERAND (var, stmt, iter, SSA_OP_USE)
+949:             live_track_process_use (live, var);
+950:         }
+951:
+952:       /* If result of a PHI is unused, looping over the statements will not
+953:          record any conflicts since the def was never live.  Since the PHI node
+954:          is going to be translated out of SSA form, it will insert a copy.
+955:          There must be a conflict recorded between the result of the PHI and
+956:          any variables that are live.  Otherwise the out-of-ssa translation
+957:          may create incorrect code.  */
+958:       for (gphi_iterator gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+959:            gsi_next (&gsi))
+960:         {
+961:           gphi *phi = gsi.phi ();
+962:           tree result = PHI_RESULT (phi);
+963:           if (virtual_operand_p (result))
+964:             continue;
+965:           if (live_track_live_p (live, result))
+966:             live_track_process_def (live, result, graph);
+967:         }
+968:
+969:       /* Pretend there are defs for params' default defs at the start
+970:          of the (post-)entry block.  This will prevent PARM_DECLs from
+971:          coalescing into the same partition.  Although RESULT_DECLs'
+972:          default defs don't have a useful initial value, we have to
+973:          prevent them from coalescing with PARM_DECLs' default defs
+974:          too, otherwise assign_parms would attempt to assign different
+975:          RTL to the same partition.  */
+976:       if (bb == entry)
+977:         {
+978:           unsigned i;
+979:           tree var;
+980:
+981:           FOR_EACH_SSA_NAME (i, var, cfun)
+982:             {
+983:               if (!SSA_NAME_IS_DEFAULT_DEF (var)
+984:                   || !SSA_NAME_VAR (var)
+985:                   || VAR_P (SSA_NAME_VAR (var)))
+986:                 continue;
+987:
+988:               live_track_process_def (live, var, graph);
+989:               /* Process a use too, so that it remains live and
+990:                  conflicts with other parms' default defs, even unused
+991:                  ones.  */
+992:               live_track_process_use (live, var);
+993:             }
+994:         }
+995:
+996:      live_track_clear_base_vars (live);
+997:     }
+998:
+999:   delete_live_track (live);
+1000:   return graph;
+```
+
+## gcc/tree-ssa-coalesce.cc:1023–1333
+
+```text
+1023: coalesce_with_default (tree var, coalesce_list *cl, bitmap used_in_copy)
+1024: {
+1025:   if (SSA_NAME_IS_DEFAULT_DEF (var)
+1026:       || !SSA_NAME_VAR (var)
+1027:       || VAR_P (SSA_NAME_VAR (var)))
+1028:     return;
+1029:
+1030:   tree ssa = ssa_default_def (cfun, SSA_NAME_VAR (var));
+1031:   if (!has_zero_uses (ssa))
+1032:     return;
+1033:
+1034:   add_cost_one_coalesce (cl, SSA_NAME_VERSION (ssa), SSA_NAME_VERSION (var));
+1035:   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (var));
+1036:   /* Default defs will have their used_in_copy bits set at the beginning of
+1037:      populate_coalesce_list_for_outofssa.  */
+1038: }
+1039:
+1040:
+1041: /* Given var_map MAP for a region, this function creates and returns a coalesce
+1042:    list as well as recording related ssa names in USED_IN_COPIES for use later
+1043:    in the out-of-ssa or live range computation process.  */
+1044:
+1045: static coalesce_list *
+1046: create_coalesce_list_for_region (var_map map, bitmap used_in_copy)
+1047: {
+1048:   gimple_stmt_iterator gsi;
+1049:   basic_block bb;
+1050:   coalesce_list *cl = create_coalesce_list ();
+1051:   gimple *stmt;
+1052:   int v1, v2, cost;
+1053:
+1054:   for (unsigned j = 0; map->vec_bbs.iterate (j, &bb); ++j)
+1055:     {
+1056:       tree arg;
+1057:
+1058:       for (gphi_iterator gpi = gsi_start_phis (bb);
+1059:            !gsi_end_p (gpi);
+1060:            gsi_next (&gpi))
+1061:         {
+1062:           gphi *phi = gpi.phi ();
+1063:           size_t i;
+1064:           int ver;
+1065:           tree res;
+1066:           bool saw_copy = false;
+1067:
+1068:           res = gimple_phi_result (phi);
+1069:           if (virtual_operand_p (res))
+1070:             continue;
+1071:           ver = SSA_NAME_VERSION (res);
+1072:           if (map->bitint && !bitmap_bit_p (map->bitint, ver))
+1073:             continue;
+1074:
+1075:           /* Register ssa_names and coalesces between the args and the result
+1076:              of all PHI.  */
+1077:           for (i = 0; i < gimple_phi_num_args (phi); i++)
+1078:             {
+1079:               edge e = gimple_phi_arg_edge (phi, i);
+1080:               arg = PHI_ARG_DEF (phi, i);
+1081:               if (TREE_CODE (arg) != SSA_NAME)
+1082:                 continue;
+1083:
+1084:               if (gimple_can_coalesce_p (arg, res)
+1085:                   || (e->flags & EDGE_ABNORMAL))
+1086:                 {
+1087:                   saw_copy = true;
+1088:                   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (arg));
+1089:                   if ((e->flags & EDGE_ABNORMAL) == 0)
+1090:                     {
+1091:                       int cost = coalesce_cost_edge (e);
+1092:                       if (cost == 1 && has_single_use (arg))
+1093:                         add_cost_one_coalesce (cl, ver, SSA_NAME_VERSION (arg));
+1094:                       else
+1095:                         add_coalesce (cl, ver, SSA_NAME_VERSION (arg), cost);
+1096:                     }
+1097:                 }
+1098:             }
+1099:           if (saw_copy)
+1100:             bitmap_set_bit (used_in_copy, ver);
+1101:         }
+1102:
+1103:       for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+1104:         {
+1105:           stmt = gsi_stmt (gsi);
+1106:
+1107:           if (is_gimple_debug (stmt))
+1108:             continue;
+1109:
+1110:           /* Check for copy coalesces.  */
+1111:           switch (gimple_code (stmt))
+1112:             {
+1113:             case GIMPLE_ASSIGN:
+1114:               {
+1115:                 tree lhs = gimple_assign_lhs (stmt);
+1116:                 tree rhs1 = gimple_assign_rhs1 (stmt);
+1117:                 if (gimple_assign_ssa_name_copy_p (stmt)
+1118:                     && gimple_can_coalesce_p (lhs, rhs1))
+1119:                   {
+1120:                     v1 = SSA_NAME_VERSION (lhs);
+1121:                     v2 = SSA_NAME_VERSION (rhs1);
+1122:                     if (map->bitint && !bitmap_bit_p (map->bitint, v1))
+1123:                       break;
+1124:                     cost = coalesce_cost_bb (bb);
+1125:                     add_coalesce (cl, v1, v2, cost);
+1126:                     bitmap_set_bit (used_in_copy, v1);
+1127:                     bitmap_set_bit (used_in_copy, v2);
+1128:                   }
+1129:               }
+1130:               break;
+1131:
+1132:             case GIMPLE_RETURN:
+1133:               {
+1134:                 tree res = DECL_RESULT (current_function_decl);
+1135:                 if (VOID_TYPE_P (TREE_TYPE (res))
+1136:                     || !is_gimple_reg (res))
+1137:                   break;
+1138:                 tree rhs1 = gimple_return_retval (as_a <greturn *> (stmt));
+1139:                 if (!rhs1)
+1140:                   break;
+1141:                 tree lhs = ssa_default_def (cfun, res);
+1142:                 if (map->bitint && !lhs)
+1143:                   break;
+1144:                 gcc_assert (lhs);
+1145:                 if (TREE_CODE (rhs1) == SSA_NAME
+1146:                     && gimple_can_coalesce_p (lhs, rhs1))
+1147:                   {
+1148:                     v1 = SSA_NAME_VERSION (lhs);
+1149:                     v2 = SSA_NAME_VERSION (rhs1);
+1150:                     if (map->bitint && !bitmap_bit_p (map->bitint, v1))
+1151:                       break;
+1152:                     cost = coalesce_cost_bb (bb);
+1153:                     add_coalesce (cl, v1, v2, cost);
+1154:                     bitmap_set_bit (used_in_copy, v1);
+1155:                     bitmap_set_bit (used_in_copy, v2);
+1156:                   }
+1157:                 break;
+1158:               }
+1159:
+1160:             case GIMPLE_ASM:
+1161:               {
+1162:                 gasm *asm_stmt = as_a <gasm *> (stmt);
+1163:                 unsigned long noutputs, i;
+1164:                 unsigned long ninputs;
+1165:                 tree *outputs, link;
+1166:                 noutputs = gimple_asm_noutputs (asm_stmt);
+1167:                 ninputs = gimple_asm_ninputs (asm_stmt);
+1168:                 outputs = (tree *) alloca (noutputs * sizeof (tree));
+1169:                 for (i = 0; i < noutputs; ++i)
+1170:                   {
+1171:                     link = gimple_asm_output_op (asm_stmt, i);
+1172:                     outputs[i] = TREE_VALUE (link);
+1173:                   }
+1174:
+1175:                 for (i = 0; i < ninputs; ++i)
+1176:                   {
+1177:                     const char *constraint;
+1178:                     tree input;
+1179:                     char *end;
+1180:                     unsigned long match;
+1181:
+1182:                     link = gimple_asm_input_op (asm_stmt, i);
+1183:                     constraint
+1184:                       = TREE_STRING_POINTER (TREE_VALUE (TREE_PURPOSE (link)));
+1185:                     input = TREE_VALUE (link);
+1186:
+1187:                     if (TREE_CODE (input) != SSA_NAME)
+1188:                       continue;
+1189:
+1190:                     match = strtoul (constraint, &end, 10);
+1191:                     if (match >= noutputs || end == constraint)
+1192:                       continue;
+1193:
+1194:                     if (TREE_CODE (outputs[match]) != SSA_NAME)
+1195:                       continue;
+1196:
+1197:                     v1 = SSA_NAME_VERSION (outputs[match]);
+1198:                     v2 = SSA_NAME_VERSION (input);
+1199:                     if (map->bitint && !bitmap_bit_p (map->bitint, v1))
+1200:                       continue;
+1201:
+1202:                     if (gimple_can_coalesce_p (outputs[match], input))
+1203:                       {
+1204:                         cost = coalesce_cost (REG_BR_PROB_BASE,
+1205:                                               optimize_bb_for_size_p (bb));
+1206:                         add_coalesce (cl, v1, v2, cost);
+1207:                         bitmap_set_bit (used_in_copy, v1);
+1208:                         bitmap_set_bit (used_in_copy, v2);
+1209:                       }
+1210:                   }
+1211:                 break;
+1212:               }
+1213:
+1214:             default:
+1215:               break;
+1216:             }
+1217:         }
+1218:     }
+1219:
+1220:   return cl;
+1221: }
+1222:
+1223:
+1224: /* Hashtable support for storing SSA names hashed by their SSA_NAME_VAR.  */
+1225:
+1226: struct ssa_name_var_hash : nofree_ptr_hash <tree_node>
+1227: {
+1228:   static inline hashval_t hash (const tree_node *);
+1229:   static inline int equal (const tree_node *, const tree_node *);
+1230: };
+1231:
+1232: inline hashval_t
+1233: ssa_name_var_hash::hash (const_tree n)
+1234: {
+1235:   return DECL_UID (SSA_NAME_VAR (n));
+1236: }
+1237:
+1238: inline int
+1239: ssa_name_var_hash::equal (const tree_node *n1, const tree_node *n2)
+1240: {
+1241:   return SSA_NAME_VAR (n1) == SSA_NAME_VAR (n2);
+1242: }
+1243:
+1244:
+1245: /* This function populates coalesce list CL as well as recording related ssa
+1246:    names in USED_IN_COPIES for use later in the out-of-ssa process.  */
+1247:
+1248: static void
+1249: populate_coalesce_list_for_outofssa (coalesce_list *cl, bitmap used_in_copy)
+1250: {
+1251:   tree var;
+1252:   tree first;
+1253:   int v1, v2, cost;
+1254:   unsigned i;
+1255:
+1256:   /* Process result decls and live on entry variables for entry into the
+1257:      coalesce list.  */
+1258:   first = NULL_TREE;
+1259:   FOR_EACH_SSA_NAME (i, var, cfun)
+1260:     {
+1261:       if (!virtual_operand_p (var))
+1262:         {
+1263:           coalesce_with_default (var, cl, used_in_copy);
+1264:
+1265:           /* Add coalesces between all the result decls.  */
+1266:           if (SSA_NAME_VAR (var)
+1267:               && TREE_CODE (SSA_NAME_VAR (var)) == RESULT_DECL)
+1268:             {
+1269:               bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (var));
+1270:               if (first == NULL_TREE)
+1271:                 first = var;
+1272:               else
+1273:                 {
+1274:                   gcc_assert (gimple_can_coalesce_p (var, first));
+1275:                   v1 = SSA_NAME_VERSION (first);
+1276:                   v2 = SSA_NAME_VERSION (var);
+1277:                   cost = coalesce_cost_bb (EXIT_BLOCK_PTR_FOR_FN (cfun));
+1278:                   add_coalesce (cl, v1, v2, cost);
+1279:                 }
+1280:             }
+1281:           /* Mark any default_def variables as being in the coalesce list
+1282:              since they will have to be coalesced with the base variable.  If
+1283:              not marked as present, they won't be in the coalesce view. */
+1284:           if (SSA_NAME_IS_DEFAULT_DEF (var)
+1285:               && (!has_zero_uses (var)
+1286:                   || (SSA_NAME_VAR (var)
+1287:                       && !VAR_P (SSA_NAME_VAR (var)))))
+1288:             bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (var));
+1289:         }
+1290:     }
+1291:
+1292:   /* If this optimization is disabled, we need to coalesce all the
+1293:      names originating from the same SSA_NAME_VAR so debug info
+1294:      remains undisturbed.  */
+1295:   if (!flag_tree_coalesce_vars)
+1296:     {
+1297:       tree a;
+1298:       hash_table<ssa_name_var_hash> ssa_name_hash (10);
+1299:
+1300:       FOR_EACH_SSA_NAME (i, a, cfun)
+1301:         {
+1302:           if (SSA_NAME_VAR (a)
+1303:               && !DECL_IGNORED_P (SSA_NAME_VAR (a))
+1304:               && (!has_zero_uses (a) || !SSA_NAME_IS_DEFAULT_DEF (a)
+1305:                   || !VAR_P (SSA_NAME_VAR (a))))
+1306:             {
+1307:               tree *slot = ssa_name_hash.find_slot (a, INSERT);
+1308:
+1309:               if (!*slot)
+1310:                 *slot = a;
+1311:               else
+1312:                 {
+1313:                   /* If the variable is a PARM_DECL or a RESULT_DECL, we
+1314:                      _require_ that all the names originating from it be
+1315:                      coalesced, because there must be a single partition
+1316:                      containing all the names so that it can be assigned
+1317:                      the canonical RTL location of the DECL safely.
+1318:                      If in_lto_p, a function could have been compiled
+1319:                      originally with optimizations and only the link
+1320:                      performed at -O0, so we can't actually require it.  */
+1321:                   const int cost
+1322:                     = (VAR_P (SSA_NAME_VAR (a)) || in_lto_p)
+1323:                       ? MUST_COALESCE_COST - 1 : MUST_COALESCE_COST;
+1324:                   add_coalesce (cl, SSA_NAME_VERSION (a),
+1325:                                 SSA_NAME_VERSION (*slot), cost);
+1326:                   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (a));
+1327:                   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (*slot));
+1328:                 }
+1329:             }
+1330:         }
+1331:     }
+1332: }
+1333:
+```
+
+## gcc/tree-ssa-coalesce.cc:1339–1470
+
+```text
+1339: static inline bool
+1340: attempt_coalesce (var_map map, ssa_conflicts *graph, int x, int y,
+1341:                   FILE *debug)
+1342: {
+1343:   int z;
+1344:   tree var1, var2;
+1345:   int p1, p2;
+1346:
+1347:   p1 = var_to_partition (map, ssa_name (x));
+1348:   p2 = var_to_partition (map, ssa_name (y));
+1349:
+1350:   if (debug)
+1351:     {
+1352:       fprintf (debug, "(%d)", x);
+1353:       print_generic_expr (debug, partition_to_var (map, p1), TDF_SLIM);
+1354:       fprintf (debug, " & (%d)", y);
+1355:       print_generic_expr (debug, partition_to_var (map, p2), TDF_SLIM);
+1356:     }
+1357:
+1358:   if (p1 == p2)
+1359:     {
+1360:       if (debug)
+1361:         fprintf (debug, ": Already Coalesced.\n");
+1362:       return true;
+1363:     }
+1364:
+1365:   if (debug)
+1366:     fprintf (debug, " [map: %d, %d] ", p1, p2);
+1367:
+1368:
+1369:   if (!ssa_conflicts_test_p (graph, p1, p2))
+1370:     {
+1371:       var1 = partition_to_var (map, p1);
+1372:       var2 = partition_to_var (map, p2);
+1373:
+1374:       z = var_union (map, var1, var2);
+1375:       if (z == NO_PARTITION)
+1376:         {
+1377:           if (debug)
+1378:             fprintf (debug, ": Unable to perform partition union.\n");
+1379:           return false;
+1380:         }
+1381:
+1382:       /* z is the new combined partition.  Remove the other partition from
+1383:          the list, and merge the conflicts.  */
+1384:       if (z == p1)
+1385:         ssa_conflicts_merge (graph, p1, p2);
+1386:       else
+1387:         ssa_conflicts_merge (graph, p2, p1);
+1388:
+1389:       if (debug)
+1390:         fprintf (debug, ": Success -> %d\n", z);
+1391:
+1392:       return true;
+1393:     }
+1394:
+1395:   if (debug)
+1396:     fprintf (debug, ": Fail due to conflict\n");
+1397:
+1398:   return false;
+1399: }
+1400:
+1401:
+1402: /* Attempt to Coalesce partitions in MAP which occur in the list CL using
+1403:    GRAPH.  Debug output is sent to DEBUG if it is non-NULL.  */
+1404:
+1405: static void
+1406: coalesce_partitions (var_map map, ssa_conflicts *graph, coalesce_list *cl,
+1407:                      FILE *debug)
+1408: {
+1409:   int x = 0, y = 0;
+1410:   tree var1, var2;
+1411:   int cost;
+1412:   basic_block bb;
+1413:   edge e;
+1414:   edge_iterator ei;
+1415:
+1416:   /* First, coalesce all the copies across abnormal edges.  These are not placed
+1417:      in the coalesce list because they do not need to be sorted, and simply
+1418:      consume extra memory/compilation time in large programs.  */
+1419:
+1420:   FOR_EACH_BB_FN (bb, cfun)
+1421:     {
+1422:       FOR_EACH_EDGE (e, ei, bb->preds)
+1423:         if (e->flags & EDGE_ABNORMAL)
+1424:           {
+1425:             gphi_iterator gsi;
+1426:             for (gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+1427:                  gsi_next (&gsi))
+1428:               {
+1429:                 gphi *phi = gsi.phi ();
+1430:                 tree res = PHI_RESULT (phi);
+1431:                 if (virtual_operand_p (res))
+1432:                   continue;
+1433:                 tree arg = PHI_ARG_DEF (phi, e->dest_idx);
+1434:                 if (SSA_NAME_IS_DEFAULT_DEF (arg)
+1435:                     && (!SSA_NAME_VAR (arg)
+1436:                         || TREE_CODE (SSA_NAME_VAR (arg)) != PARM_DECL))
+1437:                   continue;
+1438:
+1439:                 int v1 = SSA_NAME_VERSION (res);
+1440:                 int v2 = SSA_NAME_VERSION (arg);
+1441:
+1442:                 if (debug)
+1443:                   fprintf (debug, "Abnormal coalesce: ");
+1444:
+1445:                 if (!attempt_coalesce (map, graph, v1, v2, debug))
+1446:                   fail_abnormal_edge_coalesce (v1, v2);
+1447:               }
+1448:           }
+1449:     }
+1450:
+1451:   /* Now process the items in the coalesce list.  */
+1452:
+1453:   while ((cost = pop_best_coalesce (cl, &x, &y)) != NO_BEST_COALESCE)
+1454:     {
+1455:       var1 = ssa_name (x);
+1456:       var2 = ssa_name (y);
+1457:
+1458:       /* Assert the coalesces have the same base variable.  */
+1459:       gcc_assert (gimple_can_coalesce_p (var1, var2));
+1460:
+1461:       if (debug)
+1462:         fprintf (debug, "Coalesce list: ");
+1463:       attempt_coalesce (map, graph, x, y, debug);
+1464:     }
+1465: }
+1466:
+1467:
+1468: /* Output partition map MAP with coalescing plan PART to file F.  */
+1469:
+1470: void
+```
+
+## gcc/tree-ssa-coalesce.cc:1601–1742
+
+```text
+1601: compute_optimized_partition_bases (var_map map, bitmap used_in_copies,
+1602:                                    coalesce_list *cl)
+1603: {
+1604:   int parts = num_var_partitions (map);
+1605:   partition tentative = partition_new (parts);
+1606:
+1607:   /* Partition the SSA versions so that, for each coalescible
+1608:      pair, both of its members are in the same partition in
+1609:      TENTATIVE.  */
+1610:   gcc_assert (!cl->sorted);
+1611:   coalesce_pair *node;
+1612:   coalesce_iterator_type ppi;
+1613:   FOR_EACH_PARTITION_PAIR (node, ppi, cl)
+1614:     {
+1615:       tree v1 = ssa_name (node->first_element);
+1616:       int p1 = partition_find (tentative, var_to_partition (map, v1));
+1617:       tree v2 = ssa_name (node->second_element);
+1618:       int p2 = partition_find (tentative, var_to_partition (map, v2));
+1619:
+1620:       if (p1 == p2)
+1621:         continue;
+1622:
+1623:       partition_union (tentative, p1, p2);
+1624:     }
+1625:
+1626:   /* We have to deal with cost one pairs too.  */
+1627:   for (cost_one_pair *co = cl->cost_one_list; co; co = co->next)
+1628:     {
+1629:       tree v1 = ssa_name (co->first_element);
+1630:       int p1 = partition_find (tentative, var_to_partition (map, v1));
+1631:       tree v2 = ssa_name (co->second_element);
+1632:       int p2 = partition_find (tentative, var_to_partition (map, v2));
+1633:
+1634:       if (p1 == p2)
+1635:         continue;
+1636:
+1637:       partition_union (tentative, p1, p2);
+1638:     }
+1639:
+1640:   /* And also with abnormal edges.  */
+1641:   basic_block bb;
+1642:   edge e;
+1643:   unsigned i;
+1644:   edge_iterator ei;
+1645:   for (i = 0; map->vec_bbs.iterate (i, &bb); ++i)
+1646:     {
+1647:       FOR_EACH_EDGE (e, ei, bb->preds)
+1648:         if (e->flags & EDGE_ABNORMAL)
+1649:           {
+1650:             gphi_iterator gsi;
+1651:             for (gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+1652:                  gsi_next (&gsi))
+1653:               {
+1654:                 gphi *phi = gsi.phi ();
+1655:                 tree res = PHI_RESULT (phi);
+1656:                 if (virtual_operand_p (res))
+1657:                   continue;
+1658:                 tree arg = PHI_ARG_DEF (phi, e->dest_idx);
+1659:                 if (SSA_NAME_IS_DEFAULT_DEF (arg)
+1660:                     && (!SSA_NAME_VAR (arg)
+1661:                         || TREE_CODE (SSA_NAME_VAR (arg)) != PARM_DECL))
+1662:                   continue;
+1663:
+1664:                 int p1 = partition_find (tentative, var_to_partition (map, res));
+1665:                 int p2 = partition_find (tentative, var_to_partition (map, arg));
+1666:
+1667:                 if (p1 == p2)
+1668:                   continue;
+1669:
+1670:                 partition_union (tentative, p1, p2);
+1671:               }
+1672:           }
+1673:     }
+1674:
+1675:   if (map->bitint
+1676:       && flag_tree_coalesce_vars
+1677:       && (optimize > 1 || parts < 500))
+1678:     for (i = 0; i < (unsigned) parts; ++i)
+1679:       {
+1680:         tree s1 = partition_to_var (map, i);
+1681:         int p1 = partition_find (tentative, i);
+1682:         for (unsigned j = i + 1; j < (unsigned) parts; ++j)
+1683:           {
+1684:             tree s2 = partition_to_var (map, j);
+1685:             if (s1 == s2)
+1686:               continue;
+1687:             if (tree_int_cst_equal (TYPE_SIZE (TREE_TYPE (s1)),
+1688:                                     TYPE_SIZE (TREE_TYPE (s2))))
+1689:               {
+1690:                 int p2 = partition_find (tentative, j);
+1691:
+1692:                 if (p1 == p2)
+1693:                   continue;
+1694:
+1695:                 partition_union (tentative, p1, p2);
+1696:                 if (partition_find (tentative, i) != p1)
+1697:                   break;
+1698:               }
+1699:           }
+1700:       }
+1701:
+1702:   map->partition_to_base_index = XCNEWVEC (int, parts);
+1703:   auto_vec<unsigned int> index_map (parts);
+1704:   if (parts)
+1705:     index_map.quick_grow (parts);
+1706:
+1707:   const unsigned no_part = -1;
+1708:   unsigned count = parts;
+1709:   while (count)
+1710:     index_map[--count] = no_part;
+1711:
+1712:   /* Initialize MAP's mapping from partition to base index, using
+1713:      as base indices an enumeration of the TENTATIVE partitions in
+1714:      which each SSA version ended up, so that we compute conflicts
+1715:      between all SSA versions that ended up in the same potential
+1716:      coalesce partition.  */
+1717:   bitmap_iterator bi;
+1718:   EXECUTE_IF_SET_IN_BITMAP (used_in_copies, 0, i, bi)
+1719:     {
+1720:       int pidx = var_to_partition (map, ssa_name (i));
+1721:       int base = partition_find (tentative, pidx);
+1722:       if (index_map[base] != no_part)
+1723:         continue;
+1724:       index_map[base] = count++;
+1725:     }
+1726:
+1727:   map->num_basevars = count;
+1728:
+1729:   EXECUTE_IF_SET_IN_BITMAP (used_in_copies, 0, i, bi)
+1730:     {
+1731:       int pidx = var_to_partition (map, ssa_name (i));
+1732:       int base = partition_find (tentative, pidx);
+1733:       gcc_assert (index_map[base] < count);
+1734:       map->partition_to_base_index[pidx] = index_map[base];
+1735:     }
+1736:
+1737:   if (dump_file && (dump_flags & TDF_DETAILS))
+1738:     dump_part_var_map (dump_file, tentative, map);
+1739:
+1740:   partition_delete (tentative);
+1741: }
+1742:
+```
+
+## gcc/tree-ssa-coalesce.cc:1841–1909
+
+```text
+1841:
+1842: extern void
+1843: coalesce_ssa_name (var_map map)
+1844: {
+1845:   tree_live_info_p liveinfo;
+1846:   ssa_conflicts *graph;
+1847:   coalesce_list *cl;
+1848:   auto_bitmap used_in_copies;
+1849:
+1850:   bitmap_tree_view (used_in_copies);
+1851:   cl = create_coalesce_list_for_region (map, used_in_copies);
+1852:   if (map->outofssa_p)
+1853:     populate_coalesce_list_for_outofssa (cl, used_in_copies);
+1854:   bitmap_list_view (used_in_copies);
+1855:   if (map->bitint)
+1856:     bitmap_ior_into (used_in_copies, map->bitint);
+1857:
+1858:   if (dump_file && (dump_flags & TDF_DETAILS))
+1859:     dump_var_map (dump_file, map);
+1860:
+1861:   partition_view_bitmap (map, used_in_copies);
+1862:
+1863:   compute_optimized_partition_bases (map, used_in_copies, cl);
+1864:
+1865:   if (num_var_partitions (map) < 1)
+1866:     {
+1867:       delete_coalesce_list (cl);
+1868:       return;
+1869:     }
+1870:
+1871:   if (dump_file && (dump_flags & TDF_DETAILS))
+1872:     dump_var_map (dump_file, map);
+1873:
+1874:   liveinfo = calculate_live_ranges (map, false);
+1875:
+1876:   if (dump_file && (dump_flags & TDF_DETAILS))
+1877:     dump_live_info (dump_file, liveinfo, LIVEDUMP_ENTRY);
+1878:
+1879:   /* Build a conflict graph.  */
+1880:   graph = build_ssa_conflict_graph (liveinfo);
+1881:   delete_tree_live_info (liveinfo);
+1882:   if (dump_file && (dump_flags & TDF_DETAILS))
+1883:     ssa_conflicts_dump (dump_file, graph);
+1884:
+1885:   sort_coalesce_list (cl, graph, map);
+1886:
+1887:   if (dump_file && (dump_flags & TDF_DETAILS))
+1888:     {
+1889:       fprintf (dump_file, "\nAfter sorting:\n");
+1890:       dump_coalesce_list (dump_file, cl);
+1891:     }
+1892:
+1893:   /* First, coalesce all live on entry variables to their base variable.
+1894:      This will ensure the first use is coming from the correct location.  */
+1895:
+1896:   if (dump_file && (dump_flags & TDF_DETAILS))
+1897:     dump_var_map (dump_file, map);
+1898:
+1899:   /* Now coalesce everything in the list.  */
+1900:   coalesce_partitions (map, graph, cl,
+1901:                        ((dump_flags & TDF_DETAILS) ? dump_file : NULL));
+1902:
+1903:   delete_coalesce_list (cl);
+1904:
+1905:   if (map->bitint && flag_tree_coalesce_vars)
+1906:     coalesce_bitint (map, graph);
+1907:
+1908:   ssa_conflicts_delete (graph);
+1909: }
+```
+
+## gcc/tree-ssa-live.h:44–88
+
+```text
+44:
+45: typedef struct _var_map
+46: {
+47:   /* The partition manager of all variables.  */
+48:   partition var_partition;
+49:
+50:   /* Vector for managing partitions views.  */
+51:   int *partition_to_view;
+52:   int *view_to_partition;
+53:
+54:   /* Current number of partitions in var_map based on the current view.  */
+55:   unsigned int num_partitions;
+56:
+57:   /* Original full partition size.  */
+58:   unsigned int partition_size;
+59:
+60:   /* Number of base variables in the base var list.  */
+61:   int num_basevars;
+62:
+63:   /* Map of partitions numbers to base variable table indexes.  */
+64:   int *partition_to_base_index;
+65:
+66:   /* Bitmap of basic block.  It describes the region within which the analysis
+67:      is done.  Using pointer avoids allocating memory in out-of-ssa case.  */
+68:   bitmap bmp_bbs;
+69:
+70:   /* Vector of basic block in the region.  */
+71:   vec<basic_block> vec_bbs;
+72:
+73:   /* If non-NULL, only coalesce SSA_NAMEs from this bitmap, and try harder
+74:      for those (for bitint lowering pass).  */
+75:   bitmap bitint;
+76:
+77:   /* True if this map is for out-of-ssa, otherwise for live range
+78:      computation.  When for out-of-ssa, it also means the var map is computed
+79:      for whole current function.  */
+80:   bool outofssa_p;
+81: } *var_map;
+82:
+83:
+84: /* Value used to represent no partition number.  */
+85: #define NO_PARTITION            -1
+86:
+87: extern var_map init_var_map (int, class loop * = NULL, bitmap = NULL);
+88: extern void delete_var_map (var_map);
+```
+
+## gcc/profile-count.cc:291–308
+
+```text
+291:
+292: /* Return count as frequency within FUN scaled in range 0 to REG_FREQ_MAX
+293:    Used for legacy code and should not be used anymore.  */
+294:
+295: int
+296: profile_count::to_frequency (struct function *fun) const
+297: {
+298:   if (!initialized_p ())
+299:     return BB_FREQ_MAX;
+300:   if (*this == zero ())
+301:     return 0;
+302:   STATIC_ASSERT (REG_BR_PROB_BASE == BB_FREQ_MAX);
+303:   gcc_assert (fun->cfg->count_max.initialized_p ());
+304:   profile_probability prob = probability_in (fun->cfg->count_max);
+305:   if (!prob.initialized_p ())
+306:     return REG_BR_PROB_BASE;
+307:   return prob.to_reg_br_prob_base ();
+308: }
+```
+
+## gcc/profile-count.h:145–161
+
+```text
+145:    these conversions will probably go away because they are lossy.
+146: */
+147:
+148: class GTY((user)) profile_probability
+149: {
+150:   static const int n_bits = 29;
+151:   /* We can technically use ((uint32_t) 1 << (n_bits - 1)) - 2 but that
+152:      will lead to harder multiplication sequences.  */
+153:   static const uint32_t max_probability = (uint32_t) 1 << (n_bits - 2);
+154:   static const uint32_t uninitialized_probability
+155:                  = ((uint32_t) 1 << (n_bits - 1)) - 1;
+156:   /* For probibilityes quality is either UNINITIALIZED (0)
+157:      or greated then GUESSED.  To save bits we store it in
+158:      adjusted form which skips the invalid values.  */
+159:   static const int min_quality = GUESSED;
+160:
+161:   uint32_t m_val : 29;
+```
+
+## gcc/profile-count.h:274–300
+
+```text
+274:   /* Conversion from and to REG_BR_PROB_BASE integer fixpoint arithmetics.
+275:      this is mostly to support legacy code and should go away.  */
+276:   static profile_probability from_reg_br_prob_base (int v)
+277:     {
+278:       profile_probability ret;
+279:       gcc_checking_assert (v >= 0 && v <= REG_BR_PROB_BASE);
+280:       ret.m_val = RDIV (v * (uint64_t) max_probability, REG_BR_PROB_BASE);
+281:       ret.set_quality (GUESSED);
+282:       return ret;
+283:     }
+284:
+285:   /* Return THIS with quality set to ADJUSTED.  */
+286:   profile_probability adjusted () const
+287:     {
+288:       profile_probability ret = *this;
+289:       if (!initialized_p ())
+290:         return *this;
+291:       ret.set_quality (ADJUSTED);
+292:       return ret;
+293:     }
+294:
+295:   int to_reg_br_prob_base () const
+296:     {
+297:       gcc_checking_assert (initialized_p ());
+298:       return RDIV (m_val * (uint64_t) REG_BR_PROB_BASE, max_probability);
+299:     }
+300:
+```
+
+## include/partition.h:48–68
+
+```text
+48:   /* The next element in this class.  Elements in each class form a
+49:      circular list.  */
+50:   struct partition_elem* next;
+51:   /* The canonical element that represents the class containing this
+52:      element.  */
+53:   int class_element;
+54:   /* The number of elements in this class.  Valid only if this is the
+55:      canonical element for its class.  */
+56:   unsigned class_count;
+57: };
+58:
+59: typedef struct partition_def
+60: {
+61:   /* The number of elements in this partition.  */
+62:   int num_elements;
+63:   /* The elements in the partition.  */
+64:   struct partition_elem elements[1];
+65: } *partition;
+66:
+67: extern partition partition_new (int);
+68: extern void partition_delete (partition);
+```
+
+## libiberty/partition.c:44–116
+
+```text
+44: {
+45:   int e;
+46:
+47:   partition part = (partition)
+48:     xmalloc (sizeof (struct partition_def) +
+49:              (num_elements - 1) * sizeof (struct partition_elem));
+50:   part->num_elements = num_elements;
+51:   for (e = 0; e < num_elements; ++e)
+52:     {
+53:       part->elements[e].class_element = e;
+54:       part->elements[e].next = &(part->elements[e]);
+55:       part->elements[e].class_count = 1;
+56:     }
+57:
+58:   return part;
+59: }
+60:
+61: /* Freeds a partition.  */
+62:
+63: void
+64: partition_delete (partition part)
+65: {
+66:   free (part);
+67: }
+68:
+69: /* Unites the classes containing ELEM1 and ELEM2 into a single class
+70:    of partition PART.  If ELEM1 and ELEM2 are already in the same
+71:    class, does nothing.  Returns the canonical element of the
+72:    resulting union class.  */
+73:
+74: int
+75: partition_union (partition part, int elem1, int elem2)
+76: {
+77:   struct partition_elem *elements = part->elements;
+78:   struct partition_elem *e1;
+79:   struct partition_elem *e2;
+80:   struct partition_elem *p;
+81:   struct partition_elem *old_next;
+82:   /* The canonical element of the resulting union class.  */
+83:   int class_element = elements[elem1].class_element;
+84:
+85:   /* If they're already in the same class, do nothing.  */
+86:   if (class_element == elements[elem2].class_element)
+87:     return class_element;
+88:
+89:   /* Make sure ELEM1 is in the larger class of the two.  If not, swap
+90:      them.  This way we always scan the shorter list.  */
+91:   if (elements[elem1].class_count < elements[elem2].class_count)
+92:     {
+93:       int temp = elem1;
+94:       elem1 = elem2;
+95:       elem2 = temp;
+96:       class_element = elements[elem1].class_element;
+97:     }
+98:
+99:   e1 = &(elements[elem1]);
+100:   e2 = &(elements[elem2]);
+101:
+102:   /* Keep a count of the number of elements in the list.  */
+103:   elements[class_element].class_count
+104:     += elements[e2->class_element].class_count;
+105:
+106:   /* Update the class fields in elem2's class list.  */
+107:   e2->class_element = class_element;
+108:   for (p = e2->next; p != e2; p = p->next)
+109:     p->class_element = class_element;
+110:
+111:   /* Splice ELEM2's class list into ELEM1's.  These are circular
+112:      lists.  */
+113:   old_next = e1->next;
+114:   e1->next = e2->next;
+115:   e2->next = old_next;
+116:
+```
+
+## gcc/cfgexpand.cc:7023–7036
+
+```text
+7023:
+7024: unsigned int
+7025: pass_expand::execute (function *fun)
+7026: {
+7027:   basic_block bb, init_block;
+7028:   edge_iterator ei;
+7029:   edge e;
+7030:   rtx_insn *var_seq, *var_ret_seq;
+7031:   unsigned i;
+7032:
+7033:   timevar_push (TV_OUT_OF_SSA);
+7034:   rewrite_out_of_ssa (&SA);
+7035:   timevar_pop (TV_OUT_OF_SSA);
+7036:   SA.partition_to_pseudo = XCNEWVEC (rtx, SA.map->num_partitions);
+```
+
+## gcc/cfgexpand.cc:7229–7255
+
+```text
+7229:     stack_protect_prologue ();
+7230:
+7231:   expand_phi_nodes (&SA);
+7232:
+7233:   /* Release any stale SSA redirection data.  */
+7234:   redirect_edge_var_map_empty ();
+7235:
+7236:   /* Register rtl specific functions for cfg.  */
+7237:   rtl_register_cfg_hooks ();
+7238:
+7239:   init_block = construct_init_block ();
+7240:
+7241:   /* Clear EDGE_EXECUTABLE on the entry edge(s).  It is cleaned from the
+7242:      remaining edges later.  */
+7243:   FOR_EACH_EDGE (e, ei, ENTRY_BLOCK_PTR_FOR_FN (fun)->succs)
+7244:     e->flags &= ~EDGE_EXECUTABLE;
+7245:
+7246:   /* If the function has too many markers, drop them while expanding.  */
+7247:   if (cfun->debug_marker_count
+7248:       >= param_max_debug_marker_count)
+7249:     cfun->debug_nonbind_markers = false;
+7250:
+7251:   enable_ranger (fun);
+7252:   lab_rtx_for_bb = new hash_map<basic_block, rtx_code_label *>;
+7253:   head_end_for_bb.create (last_basic_block_for_fn (fun));
+7254:   FOR_BB_BETWEEN (bb, init_block->next_bb, EXIT_BLOCK_PTR_FOR_FN (fun),
+7255:                   next_bb)
+```
+
+## gcc/tree-complex.cc:213–333
+
+```text
+213:
+214: static bool
+215: init_dont_simulate_again (void)
+216: {
+217:   basic_block bb;
+218:   bool saw_a_complex_op = false;
+219:
+220:   FOR_EACH_BB_FN (bb, cfun)
+221:     {
+222:       for (gphi_iterator gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+223:            gsi_next (&gsi))
+224:         {
+225:           gphi *phi = gsi.phi ();
+226:           prop_set_simulate_again (phi,
+227:                                    is_complex_reg (gimple_phi_result (phi)));
+228:         }
+229:
+230:       for (gimple_stmt_iterator gsi = gsi_start_bb (bb); !gsi_end_p (gsi);
+231:            gsi_next (&gsi))
+232:         {
+233:           gimple *stmt;
+234:           tree op0, op1;
+235:           bool sim_again_p;
+236:
+237:           stmt = gsi_stmt (gsi);
+238:           op0 = op1 = NULL_TREE;
+239:
+240:           /* Most control-altering statements must be initially
+241:              simulated, else we won't cover the entire cfg.  */
+242:           sim_again_p = stmt_ends_bb_p (stmt);
+243:
+244:           switch (gimple_code (stmt))
+245:             {
+246:             case GIMPLE_CALL:
+247:               if (gimple_call_lhs (stmt))
+248:                 {
+249:                   sim_again_p = is_complex_reg (gimple_call_lhs (stmt));
+250:                   switch (gimple_call_combined_fn (stmt))
+251:                     {
+252:                     CASE_CFN_CABS:
+253:                       /* Expand cabs only if unsafe math and optimizing. */
+254:                       if (optimize && flag_unsafe_math_optimizations)
+255:                         saw_a_complex_op = true;
+256:                       break;
+257:                     default:;
+258:                     }
+259:                 }
+260:               break;
+261:
+262:             case GIMPLE_ASSIGN:
+263:               sim_again_p = is_complex_reg (gimple_assign_lhs (stmt));
+264:               if (gimple_assign_rhs_code (stmt) == REALPART_EXPR
+265:                   || gimple_assign_rhs_code (stmt) == IMAGPART_EXPR)
+266:                 op0 = TREE_OPERAND (gimple_assign_rhs1 (stmt), 0);
+267:               else
+268:                 op0 = gimple_assign_rhs1 (stmt);
+269:               if (gimple_num_ops (stmt) > 2)
+270:                 op1 = gimple_assign_rhs2 (stmt);
+271:               break;
+272:
+273:             case GIMPLE_COND:
+274:               op0 = gimple_cond_lhs (stmt);
+275:               op1 = gimple_cond_rhs (stmt);
+276:               break;
+277:
+278:             default:
+279:               break;
+280:             }
+281:
+282:           if (op0 || op1)
+283:             switch (gimple_expr_code (stmt))
+284:               {
+285:               case EQ_EXPR:
+286:               case NE_EXPR:
+287:               case PLUS_EXPR:
+288:               case MINUS_EXPR:
+289:               case MULT_EXPR:
+290:               case TRUNC_DIV_EXPR:
+291:               case CEIL_DIV_EXPR:
+292:               case FLOOR_DIV_EXPR:
+293:               case ROUND_DIV_EXPR:
+294:               case RDIV_EXPR:
+295:                 if (TREE_CODE (TREE_TYPE (op0)) == COMPLEX_TYPE
+296:                     || TREE_CODE (TREE_TYPE (op1)) == COMPLEX_TYPE)
+297:                   saw_a_complex_op = true;
+298:                 break;
+299:
+300:               case NEGATE_EXPR:
+301:               case CONJ_EXPR:
+302:               case PAREN_EXPR:
+303:                 if (TREE_CODE (TREE_TYPE (op0)) == COMPLEX_TYPE)
+304:                   saw_a_complex_op = true;
+305:                 break;
+306:
+307:               case REALPART_EXPR:
+308:               case IMAGPART_EXPR:
+309:                 /* The total store transformation performed during
+310:                   gimplification creates such uninitialized loads
+311:                   and we need to lower the statement to be able
+312:                   to fix things up.  */
+313:                 if (TREE_CODE (op0) == SSA_NAME
+314:                     && ssa_undefined_value_p (op0))
+315:                   saw_a_complex_op = true;
+316:                 break;
+317:
+318:               default:
+319:                 /* When expand_complex_move would trigger make sure we
+320:                    perform lowering even when there is no actual complex
+321:                    operation.  This helps consistency and vectorization.  */
+322:                 if (TREE_CODE (TREE_TYPE (gimple_op (stmt, 0))) == COMPLEX_TYPE)
+323:                   saw_a_complex_op = true;
+324:                 break;
+325:               }
+326:
+327:           prop_set_simulate_again (stmt, sim_again_p);
+328:         }
+329:     }
+330:
+331:   return saw_a_complex_op;
+332: }
+333:
+```
+
+## gcc/ipa-pure-const.cc:2329–2341
+
+```text
+2329:
+2330: class pass_nothrow : public gimple_opt_pass
+2331: {
+2332: public:
+2333:   pass_nothrow (gcc::context *ctxt)
+2334:     : gimple_opt_pass (pass_data_nothrow, ctxt)
+2335:   {}
+2336:
+2337:   /* opt_pass methods: */
+2338:   opt_pass * clone () final override { return new pass_nothrow (m_ctxt); }
+2339:   bool gate (function *) final override { return optimize; }
+2340:   unsigned int execute (function *) final override;
+2341:
+```
+
+## gcc/gimple-ssa-warn-access.cc:2270–2275
+
+```text
+2270: pass_waccess::gate (function *)
+2271: {
+2272:   return (warn_free_nonheap_object
+2273:           || warn_mismatched_alloc
+2274:           || warn_mismatched_new_delete);
+2275: }
+```
+
+## gcc/gimple-ssa-warn-access.cc:4857–4904
+
+```text
+4857: pass_waccess::execute (function *fun)
+4858: {
+4859:   auto_urlify_attributes sentinel;
+4860:
+4861:   calculate_dominance_info (CDI_DOMINATORS);
+4862:   calculate_dominance_info (CDI_POST_DOMINATORS);
+4863:
+4864:   /* Set or clear EDGE_DFS_BACK bits on back edges.  */
+4865:   mark_dfs_back_edges (fun);
+4866:
+4867:   /* Create a new ranger instance and associate it with FUN.  */
+4868:   m_ptr_qry.rvals = enable_ranger (fun);
+4869:   m_func = fun;
+4870:
+4871:   auto_bitmap bb_uids_set (&bitmap_default_obstack);
+4872:   m_bb_uids_set = bb_uids_set;
+4873:
+4874:   set_gimple_stmt_max_uid (m_func, 0);
+4875:
+4876:   basic_block bb;
+4877:   FOR_EACH_BB_FN (bb, fun)
+4878:     check_block (bb);
+4879:
+4880:   if (m_check_dangling_p)
+4881:     {
+4882:       check_dangling_uses ();
+4883:       check_dangling_stores ();
+4884:     }
+4885:
+4886:   if (dump_file)
+4887:     m_ptr_qry.dump (dump_file, (dump_flags & TDF_DETAILS) != 0);
+4888:
+4889:   m_ptr_qry.flush_cache ();
+4890:
+4891:   /* Release the ranger instance and replace it with a global ranger.
+4892:      Also reset the pointer since calling disable_ranger() deletes it.  */
+4893:   disable_ranger (fun);
+4894:   m_ptr_qry.rvals = NULL;
+4895:
+4896:   m_clobbers.empty ();
+4897:   m_bb_uids_set = NULL;
+4898:
+4899:   free_dominance_info (CDI_POST_DOMINATORS);
+4900:   free_dominance_info (CDI_DOMINATORS);
+4901:   return 0;
+4902: }
+4903:
+4904: }   // namespace
+```
+
+## gcc/common.opt:648–650
+
+```text
+648: Wfree-nonheap-object
+649: Common Var(warn_free_nonheap_object) Init(1) Warning
+650: Warn when attempting to free a non-heap object.
+```
+
+## gcc/common.opt:3241–3243
+
+```text
+3241: ftree-coalesce-vars
+3242: Common Var(flag_tree_coalesce_vars) Optimization
+3243: Enable SSA coalescing of user variables.
+```
+
+## gcc/common.opt:3374–3376
+
+```text
+3374: ftree-ter
+3375: Common Var(flag_tree_ter) Optimization
+3376: Replace temporary expressions in the SSA->normal pass.
 ```

@@ -33,7 +33,7 @@ these initial text artifacts; it refuses to overwrite existing artifacts.
 change; it does not run a compiler. It was used to extend the retained excerpts
 and arithmetic when closing the signed-counter obligations and extending the
 analysis through the O0 fixup bridge and initial SSA construction. The package
-now pins 35 source files. No successful compiler/proof capture was repeated for
+now pins 47 source files. No successful compiler/proof capture was repeated for
 these increments.
 
 The small tree enumeration checks the ancestor-slot arithmetic on 5,913 tiny
@@ -53,5 +53,15 @@ allocator's signed-shift boundary and rounded-capacity inequalities at small
 degrees and power-of-two boundaries, and checks operand-slab capacities at
 their allocation transitions. These are integer and source-layout checks, not
 compiler `sizeof` captures. The report supplies the per-variable/per-block
-counting argument and explicitly leaves later SSA updates and destruction,
-generic allocator/lifetime composition, and downstream backend stages open.
+counting argument and explicitly leaves intermediate-pass composition, generic
+allocator/lifetime composition, and downstream backend stages open.
+
+The out-of-SSA extension adds coalescing-record/partition layouts and the
+signed cost accumulator's sufficient condition. A finite transcription of its
+liveness worklist is checked on every directed graph with one through three
+blocks and every one-partition definition/use mask: 33,032 cases, including
+self edges. Results are compared with a separate synchronous set-equation
+solver. This supports the worklist transcription; the report's monotone-bit
+argument supplies the general visit bound. PHI-elimination copy requests are
+bounded by a manual visited-node argument. RTL helper allocations and the
+intermediate O0 pass input join remain explicit work.

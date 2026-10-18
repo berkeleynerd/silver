@@ -15,15 +15,15 @@ RANGES = {
     "gcc/tree-cfg.cc": [(326,347), (1230,1323), (1710,1852),
                         (1853,1935), (2017,2160), (6057,6081),
                         (6083,6278), (6293,6349), (8983,9123),
-                        (9636,9653), (9972,10144)],
+                        (9636,9653), (9972,10144), (2925,2960)],
     "gcc/tree-cfgcleanup.cc": [(85,254), (292,387), (476,780),
                                (788,896), (994,1103), (1118,1267)],
     "gcc/tree-cfgcleanup.h": [(20,28)],
     "gcc/tree-ssa.cc": [(45,168), (243,270)],
-    "gcc/cfghooks.cc": [(502,520), (562,602), (842,1020)],
+    "gcc/cfghooks.cc": [(502,520), (562,602), (684,747), (842,1020)],
     "gcc/gimple-fold.cc": [(11005,11058), (11287,11296)],
     "gcc/gimple-fold.h": [(85,103), (176,186)],
-    "gcc/basic-block.h": [(353,365)],
+    "gcc/basic-block.h": [(157,158), (353,365)],
     "gcc/dominance.cc": [(48,55), (148,219), (302,391), (516,545),
                          (637,686), (720,765), (873,892), (947,984),
                          (1165,1200), (1232,1558)],
@@ -44,7 +44,7 @@ RANGES = {
                              (1337,1544), (2285,2301), (2370,2440),
                              (2460,2584), (3146,3151), (3369,3385)],
     "gcc/tree-phinodes.cc": [(60,215)],
-    "gcc/tree-ssanames.cc": [(143,165), (351,420), (665,731)],
+    "gcc/tree-ssanames.cc": [(143,165), (351,420), (665,731), (817,830)],
     "gcc/tree-ssa-operands.cc": [(232,364), (425,485), (764,999), (1140,1154)],
     "gcc/tree-ssa-operands.h": [(37,64)],
     "gcc/tree-dfa.cc": [(293,366)],
@@ -52,11 +52,27 @@ RANGES = {
     "gcc/domwalk.cc": [(273,364)],
     "gcc/gimple.h": [(220,288), (472,486)],
     "gcc/tree-core.h": [(1138,1253), (1565,1574), (1704,1747)],
-    "gcc/passes.def": [(57,70)],
-    "gcc/passes.cc": [(405,424), (2056,2110)],
-    "gcc/tree-ssa-live.cc": [(783,795)],
-    "gcc/opts.cc": [(1472,1511)],
+    "gcc/passes.def": [(57,122), (195,207), (432,461)],
+    "gcc/passes.cc": [(405,424), (519,610), (2056,2110)],
+    "gcc/tree-ssa-live.cc": [(84,130), (195,308), (783,795),
+                             (1025,1297), (1564,1681)],
+    "gcc/opts.cc": [(600,618), (1472,1511)],
     "gcc/tree.h": [(1333,1345)],
+    "gcc/tree-outof-ssa.cc": [(137,180), (252,868), (919,1113),
+                              (1153,1405)],
+    "gcc/tree-ssa-coalesce.cc": [(52,140), (149,482), (534,1000),
+                                (1023,1333), (1339,1470), (1601,1742),
+                                (1841,1909)],
+    "gcc/tree-ssa-live.h": [(44,88)],
+    "gcc/profile-count.cc": [(291,308)],
+    "gcc/profile-count.h": [(145,161), (274,300)],
+    "include/partition.h": [(48,68)],
+    "libiberty/partition.c": [(44,116)],
+    "gcc/cfgexpand.cc": [(7023,7036), (7229,7255)],
+    "gcc/tree-complex.cc": [(213,333)],
+    "gcc/ipa-pure-const.cc": [(2329,2341)],
+    "gcc/gimple-ssa-warn-access.cc": [(2270,2275), (4857,4904)],
+    "gcc/common.opt": [(648,650), (3241,3243), (3374,3376)],
 }
 
 
@@ -65,7 +81,7 @@ def collect(root):
     assert upstream["commit"] == PIN
     upstream_files = {row["path"]: row for row in upstream["files"]}
     manifest, sources = [], {}
-    excerpts = ["# Pinned CFG cleanup, loop and initial SSA source excerpts\n\n",
+    excerpts = ["# Pinned CFG cleanup, loop and SSA source excerpts\n\n",
                 "Full-file SHA256 identities are in source-manifest.json.\n",
                 "LF line numbering; tabs expanded and trailing space trimmed.\n"]
     for name, ranges in RANGES.items():
@@ -132,7 +148,23 @@ def source_checks(s):
     assert "opts->x_flag_var_tracking_assignments = 0;" in s["gcc/opts.cc"]
     assert "#define MAY_HAVE_DEBUG_BIND_STMTS flag_var_tracking_assignments" in s[
         "gcc/tree.h"]
-    return {"full_file_identities": len(s), "structural_guards": 30,
+    coalesce = s["gcc/tree-ssa-coalesce.cc"]
+    assert "unsigned size = num_ssa_names * 3;" in coalesce
+    assert "node->cost += value;" in coalesce
+    assert "if (node->cost < MUST_COALESCE_COST - 1)" in coalesce
+    assert "cost = frequency;" in coalesce
+    assert "mult = 5;" in coalesce
+    assert "#define BB_FREQ_MAX 10000" in s["gcc/basic-block.h"]
+    assert "if (perform_ter)" in s["gcc/tree-outof-ssa.cc"]
+    assert "remove_ssa_form (flag_tree_ter, sa);" in s["gcc/tree-outof-ssa.cc"]
+    assert "{ OPT_LEVELS_1_PLUS, OPT_ftree_ter, NULL, 1 }" in s["gcc/opts.cc"]
+    assert "{ OPT_LEVELS_1_PLUS, OPT_ftree_coalesce_vars, NULL, 1 }" in s[
+        "gcc/opts.cc"]
+    assert "if (e->insns.r && (e->flags & EDGE_EH)" in s["gcc/tree-outof-ssa.cc"]
+    assert "make_single_succ_edge (new_bb, dest, EDGE_FALLTHRU)" in cfg
+    assert "Common Var(warn_free_nonheap_object) Init(1) Warning" in s[
+        "gcc/common.opt"]
+    return {"full_file_identities": len(s), "structural_guards": 43,
             "meaning": "guards plus manual source analysis, not a semantic proof"}
 
 
@@ -337,6 +369,93 @@ def ssa_arithmetic():
             "meaning": "source-field arithmetic; no compiler or sizeof capture"}
 
 
+def liveness_iteration_checks():
+    """All tiny one-partition liveness problems; manual proof covers general z."""
+    cases, maximum_visits, maximum_stack = 0, 0, 0
+    for n in range(1, 4):
+        edges = [(source, dest) for source in range(n) for dest in range(n)]
+        for mask in range(1 << len(edges)):
+            predecessors = [[] for _ in range(n)]
+            successors = [[] for _ in range(n)]
+            for i, (source, dest) in enumerate(edges):
+                if mask >> i & 1:
+                    predecessors[dest].append(source)
+                    successors[source].append(dest)
+            for definitions in range(1 << n):
+                for uses in range(1 << n):
+                    livein = [bool(uses >> i & 1) for i in range(n)]
+                    visited, stack = [False]*n, []
+                    visits = 0
+
+                    def visit(block):
+                        nonlocal visits, maximum_stack
+                        assert not visited[block]
+                        visited[block] = True
+                        visits += 1
+                        for pred in predecessors[block]:
+                            changed = (livein[block] and not livein[pred]
+                                       and not (definitions >> pred & 1))
+                            if changed:
+                                livein[pred] = True
+                                if visited[pred]:
+                                    visited[pred] = False
+                                    stack.append(pred)
+                        assert len(stack) == len(set(stack)) <= n
+                        maximum_stack = max(maximum_stack, len(stack))
+
+                    for block in reversed(range(n)):
+                        visit(block)
+                    while stack:
+                        visit(stack.pop())
+                    assert visits <= 2*n
+                    # Independent synchronous set-equation fixed point.
+                    reference = [bool(uses >> i & 1) for i in range(n)]
+                    while True:
+                        newer = [reference[i] or
+                                 (not (definitions >> i & 1)
+                                  and any(reference[j] for j in successors[i]))
+                                 for i in range(n)]
+                        if newer == reference:
+                            break
+                        reference = newer
+                    assert livein == reference
+                    cases += 1
+                    maximum_visits = max(maximum_visits, visits)
+    assert cases == 33032
+    return {"all_directed_graphs_1_to_3_blocks_all_def_use_masks": cases,
+            "maximum_observed_block_visits": maximum_visits,
+            "maximum_observed_stack": maximum_stack,
+            "general_visit_bound": "b+b*z (manual monotone-bit argument)",
+            "meaning": "finite source-transcription check, not a compiler run"}
+
+
+def out_of_ssa_arithmetic():
+    imax, umax = 2**31-1, 2**32-1
+    ordinary_cost_events = (imax-1)//50000
+    assert ordinary_cost_events == 42949
+    assert 50000*ordinary_cost_events <= imax-1
+    assert 50000*(ordinary_cost_events+1) > imax-1
+    hash_names = umax//3
+    assert 3*hash_names <= umax < 3*(hash_names+1)
+    # These exact LP64 field layouts are separate from obstack/heap rounding.
+    hashed_pair, cost_one_pair = 5*4, 2*4+8
+    partition_element, partition_header = 8+4+4, 8
+    assert (hashed_pair, cost_one_pair, partition_element, partition_header) == (
+        20, 16, 16, 8)
+    for n in [0, 1, 2, 100, imax]:
+        source_expression = (24+(n-1)*partition_element) % (2**64)
+        assert source_expression == partition_header+partition_element*n
+    return {"ordinary_cost_per_event_ceiling": 50000,
+            "aggregate_ordinary_cost_event_limit": ordinary_cost_events,
+            "unsigned_hash_initial_request_local_name_limit": hash_names,
+            "lp64_record_bytes": {"coalesce_pair": hashed_pair,
+                                    "cost_one_pair": cost_one_pair,
+                                    "partition_element": partition_element,
+                                    "partition_header": partition_header},
+            "liveness_iteration_checks": liveness_iteration_checks(),
+            "meaning": "local sufficient arithmetic; no whole-phase join"}
+
+
 def arithmetic():
     imax = 2**31 - 1
     bmax = imax // 2 - 2
@@ -406,6 +525,7 @@ def arithmetic():
             "repair_marker_worst_edge_local_B_limit": repair_bmax,
             "graph_iteration_checks": graph_iteration_checks(),
             "initial_ssa_arithmetic": ssa_arithmetic(),
+            "out_of_ssa_arithmetic": out_of_ssa_arithmetic(),
             "pool_layout_arithmetic": pools,
             "tiny_loop_trees_checked": trees_checked,
             "representative_arithmetic": payloads,
@@ -414,7 +534,8 @@ def arithmetic():
                 "generic containers and allocation lifetime composition",
                 "enabled verifier helper allocation and loop object layout",
                 "fixup helper tree/cgraph allocations and operand-tree input X",
-                "downstream warnings, SSA updates/destruction, RTL, machine code and linker composition"]}
+                "intermediate O0 warnings, IPA and mandatory-lowering input join",
+                "PHI-copy RTL helpers, EH edge splitting and remaining RTL/machine code/linker composition"]}
 
 
 def main():
