@@ -25,9 +25,9 @@ CFI nodes, 26 bytes of selected instruction encodings, a 92-byte local
 optional 48-byte x86 property note, and selected symbol-request counts.
 The initial fragment join bounds those paths by 540 fragment allocations.
 The unit-emission extension then includes compiler property notes, the
-identifier, optional 36-byte build note, eleven subsection starts and final
+identifier, optional 36-byte build note, thirteen subsection starts and eleven final
 alignment/sentinel events. At the selected 29-byte identifier it bounds payload
-by 420 bytes and fragment allocations by 922, with individual 4064-byte
+by 420 bytes and fragment allocations by 924, with individual 4064-byte
 obstack requests and at most ten per-section region increments. The generated
 line-length bound fits the initial scrub buffer. These are not ELF file size,
 whole assembler capacity, complete allocator storage or final relocation reach.

@@ -194,6 +194,21 @@ Literal LF line numbering.
 113: bool flag_generate_build_notes = DEFAULT_GENERATE_BUILD_NOTES;
 ```
 
+## gas/as.c:1352–1361
+
+```text
+1352: /* Tack on format specific section data and create a proper section
+1353:    symbol for one of the standard bfd sections.  */
+1354:
+1355: static void
+1356: bfd_std_section_init (const char *name)
+1357: {
+1358:   asection *sec = bfd_make_section_old_way (stdoutput, name);
+1359:   gas_assert (BFD_SEND (stdoutput, _new_section_hook, (stdoutput, sec)));
+1360:   subseg_new (name, 0);
+1361: }
+```
+
 ## gas/as.c:1425–1447
 
 ```text
@@ -5230,6 +5245,30 @@ Literal LF line numbering.
 319:   return bfd_elf_allocate_object (abfd, sizeof (struct elf_obj_tdata));
 320: }
 321:
+```
+
+## bfd/section.c:1114–1132
+
+```text
+1114: bfd_make_section_old_way (bfd *abfd, const char *name)
+1115: {
+1116:   asection *newsect;
+1117:
+1118:   if (abfd->output_has_begun)
+1119:     {
+1120:       bfd_set_error (bfd_error_invalid_operation);
+1121:       return NULL;
+1122:     }
+1123:
+1124:   if (strcmp (name, BFD_ABS_SECTION_NAME) == 0)
+1125:     newsect = bfd_abs_section_ptr;
+1126:   else if (strcmp (name, BFD_COM_SECTION_NAME) == 0)
+1127:     newsect = bfd_com_section_ptr;
+1128:   else if (strcmp (name, BFD_UND_SECTION_NAME) == 0)
+1129:     newsect = bfd_und_section_ptr;
+1130:   else if (strcmp (name, BFD_IND_SECTION_NAME) == 0)
+1131:     newsect = bfd_ind_section_ptr;
+1132:   else
 ```
 
 ## bfd/elfxx-x86.c:40–44

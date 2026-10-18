@@ -356,14 +356,22 @@ its ELF metadata is:
 | `.comment` | 0 | `I+2` |
 | `.gnu.build.attributes`, when enabled | 0 | 36 |
 | Internal register/expression sections | 0 each | 0 |
+| Static absolute/undefined sections | 0 each | 0 |
 
-There are at most **nine ordinary sections plus two internal sections**.
+There are at most **nine ordinary sections plus two internal sections** in
+the BFD output list, plus the **two static absolute/undefined sections**.
 The assembler initializes `.text`, `.data`, `.bss` and its two internal
 sections (`gas/as.c:1425–1447`); the selected remaining constructors reuse
 their named section and subsection zero. Both the direct CFI section route
 and its linkonce helper select subsection zero, including for `.sframe`
 (`gas/dw2gencfi.c:284–345,1399–1438,2608–2624`). Each distinct pair creates one
-fragment chain and initial fragment (`gas/subsegs.c:131–153`). Internal
+fragment chain and initial fragment (`gas/subsegs.c:131–153`). The two calls
+to `bfd_std_section_init` also call `subseg_new`, creating two more chains
+and initial fragments (`gas/as.c:1352–1361,1443–1444`). These use static BFD
+sections returned by `bfd_make_section_old_way`, outside the output section
+list (`bfd/section.c:1114–1132`). Thus there are thirteen initial chains.
+They add no final-alignment event because `subsegs_finish` visits only the
+output section list. Internal
 sections are removed before output (`gas/write.c:2131–2146`). File/type/size
 directives and labels add symbol metadata, not another payload section.
 
@@ -395,13 +403,13 @@ remains 48, so the one-iteration/4064-byte fragment-chunk transfer still applies
 Charging up to two fragment allocations per positive byte (append plus a
 preliminary expression room check), the earlier twelve preallocation calls,
 the earlier fourteen variant closes plus nine property, one function and
-eleven final alignment closes, and eleven initial fragments gives
+eleven final alignment closes, and thirteen initial fragments gives
 
 ```text
-2*(403+I) + 12 + (14+9+1+11) + 11 = 864+2*I.
+2*(403+I) + 12 + (14+9+1+11) + 13 = 866+2*I.
 ```
 
-At I=29 this is **922 fragment allocations**. The global unsigned counter
+At I=29 this is **924 fragment allocations**. The global unsigned counter
 starts at zero (`gas/frags.c:28–41`); fixed zero/predefined/dummy fragments
 are static objects, not additional `frag_alloc` calls. Each initial subsection
 also initializes one 4064-byte fragment obstack; its initial chunk is counted
@@ -413,6 +421,11 @@ alignments plus that section's final alignment. `.text` has at most two,
 `.eh_frame` at most three and every other selected section at most one.
 There is no `.org`. These counts fit the actual 16-bit region field; they
 are not inferred from the global fragment count. No assembler was run.
+
+The first unit-emission record counted eleven initial chains and omitted
+the absolute/undefined startup calls. The corrected count is thirteen;
+payload and final-alignment counts are unchanged. This is a correction to
+source accounting, not a new execution result.
 
 ## Remaining composition
 
