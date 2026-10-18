@@ -7934,20 +7934,98 @@ allows cold register caches. These calls are independent of the later empty
 instruction bitmaps. Target frame-layout helpers still have their own route
 join; this direct-call charge does not claim to price arbitrary target hooks.
 
+### CFG traversal, loop roots and dominance widths
+
+The same fixed graph domain closes the CFG helper representation checks.
+This is a family of linear graphs with at most B=12 block-index slots and
+11 edges; source locations can change the number of preserved nops/blocks,
+so the argument does not substitute one byte-identical sampled body.
+
+`post_order_compute`, `inverted_rev_post_order_compute` and
+`pre_and_rev_post_order_compute` mark each newly visited block before pushing
+its outgoing/incoming iterator. Their stacks hold at most B+1 iterators,
+their output counters stay between -1 and B, and the inverse traversal has
+no unreachable/infinite-loop repair on this entry-to-exit chain
+(`cfganal.cc:655–735,824–965,979–1071`). All three use
+`auto_vec<edge_iterator,20>`: B+1<=13 fits the inline20 slots and never
+requests heap backing. An iterator is16 bytes (`basic-block.h:361–364`);
+their visited simple bitmaps need16 bytes. The preorder helper's temporary
+block flag is also bounded: the fixed flags occupy bits0 through14, and
+this helper's single RAII allocation has no nested flag-allocating call.
+It uses bit15 and releases it (`cfg-flags.def`, `cfg.cc:82–83`,
+`cfg.h:140–190`). No lifetime count of invocations exhausts this reusable bit.
+
+The selected IRA schedule invokes `loop_optimizer_init` once for equivalence
+analysis and at most once more for optional region setup. It finalizes and
+frees the first dominance structure before the second setup, and destroys
+the latter before LRA (`ira.cc:5827–5845,5891–5892,6065–6069`). Conflict-only
+and movable-pseudo routes are absent. `AVOID_CFG_MODIFICATIONS` is exactly
+`LOOPS_MAY_HAVE_MULTIPLE_LATCHES`, so it does not request preheaders, latch
+splits or irreducible-region marking (`cfgloop.h:307–321`,
+`loop-init.cc:40–129`). No predecessor on a linear chain is dominated by its
+successor, hence `bb_loop_header_p` finds no natural loop. Each fresh setup
+has only the root loop, with `num=0`, `num_nodes<=B`, no parent/child loop,
+and one exit-list sentinel (`cfgloop.cc:340–378,383–524`). The reverse-order
+array is at most48 bytes; its empty loop-candidate vector reserves one
+pointer slot. Loop iterators reserve one integer slot and visit at most
+the root (`cfgloop.h:803–847`).
+
+Each setup makes four GGC requests: the32-byte loops object, root loop,
+32-byte exit sentinel and16-byte one-pointer loop vector. The root loop is
+a fixed object below1024 bytes: its three bound integers each use nine
+64-bit inline limbs plus a length field,80 bytes each, and its remaining
+scalar/pointer fields fit the remaining allowance (`cfgloop.h:47–48,123–280`,
+`wide-int.h:236–248,1352–1358`, installed `MAX_BITSIZE_MODE_ANY_INT=512`).
+Assignments of zero to those fixed integers do not allocate limb arrays.
+The second setup's optional exit-recording adds a48-byte GGC hash wrapper
+and a seven-pointer/56-byte backing; no edge exits the sole root, so no
+exit entry or growth follows (`cfgloop.cc:1072–1150`, `hash-table.h:394–399`).
+Thus this selected IRA loop setup contributes at most **ten GGC events**,
+distinct from prior GIMPLE loop work and other RTL constructors.
+
+Forward dominance builds nine B-element unsigned arrays (at most48 bytes
+each), one (B+1)-element order array (52 bytes), one B-pointer map (96 bytes),
+and a (B+1)-iterator DFS stack (208 bytes). The constructor starts its DFS
+number at one; it assigns each non-exit block once and skips the exit, so
+every used index is below B. Set sizes are bounded by the number of tree
+nodes, and the doubling/addition comparisons are bounded by2B
+(`dominance.cc:161–218,302–401,516–545`). Fast-query numbering assigns two
+numbers per node, at most2B=24 (`:640–688`). No region/postdominator or
+incremental-repair construction is selected here.
+
+The associated Euler-tour forest contains at most B64-byte nodes and
+2B48-byte occurrences: one occurrence per node and one per parent link
+(`et-forest.h:56–68`, `et-forest.cc:443–477,517–523`). Its relative `depth`
+and `min` fields represent differences between actual depths in a tree of
+at most B nodes. Each difference has magnitude at most B; the selected
+splay/relink expressions use a fixed number of these differences, bounded
+conservatively by8B=96 even while a rotation is being updated
+(`et-forest.cc:61–83,302–421,517–545`). This prevents signed arithmetic
+growth across repeated queries; an invocation count is not their bound.
+Each typed pool needs one64-KiB block from empty and has no GGC allocation.
+Teardown frees the nodes directly, releases empty pools, and resets the
+per-function node count (`dominance.cc:802–819`). Existing incoming shared
+pool backing from other phases remains separate from this local statement.
+
+These checks close the selected CFG traversal and IRA loop/dominance helper
+widths. Repeated bounded local setup is resource accounting; the ten actual
+GGC events join the persistent collector counters below.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 2 + 2 + 8
+E_GGC <= 39257 + 437 + 2 + 2 + 8 + 10
        + E_metadata + E_Main_translation + E_real_function_start
        + E_RTL_passes + E_regnotes + E_CFI + E_unit_emit
 ```
 
 Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
 target setup above,2 the selected alias vectors,2 reload-equivalence vector
-events and8 direct elimination-register requests. The residuals are
+events,8 direct elimination-register requests and10 IRA loop-setup events.
+The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
 
@@ -7956,13 +8034,13 @@ and constructors still require completion:
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation; combine the backend's logical graph with each constructor/allocation route |
 | `E_real_function_start` |real `allocate_struct_function`/`prepare_function_start`/`init_emit`, distinct from the dummy setup; include EH/machine/function objects, RTL vectors and shared constant/temp hash state |
-| `E_RTL_passes` |expansion and selected O0 RTL helpers; include underlying pattern/vector copies and pseudo/target frame-layout objects, beyond the52 chain nodes already bounded and excluding the equivalence/elimination events charged separately |
+| `E_RTL_passes` |expansion and selected O0 RTL helpers; include underlying pattern/vector copies and pseudo/target frame-layout objects, beyond the52 chain nodes already bounded and excluding the equivalence/elimination/IRA-loop events charged separately |
 | `E_regnotes` |late target/frame register-note construction; DF NOTE constructs none on the selected operand-free instructions |
 | `E_CFI` |dwarf2cfi scan/trace and frame descriptions; needs selected instruction operands, unwind state and emitted row/vector counts |
 | `E_unit_emit` |final/varasm/debug/cgraph unit finalization; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
-For ordinary backing, the remaining concrete joins are CFG loop/dominance
-helper local sizes, target frame-layout helpers within LRA elimination, and
+For ordinary backing, the remaining concrete joins are target frame-layout
+helpers within LRA elimination and
 shared non-DF bitmap/pool retained-count arithmetic. Exact selected IRA
 traversal multiplicities matter only where they affect persistent non-DF
 state; the selected DF lifetime and solver joins are now closed above.
@@ -7992,7 +8070,7 @@ representation persists across invocations. No row introduces an aggregate
 RAM or address-space admission gate.
 
 The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-df-backing.py)
-checks64 source hashes, eight retained installed headers,131 installed ELF
+checks76 source hashes, eight retained installed headers,131 installed ELF
 instruction fragments and the local arithmetic. The
 [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json)
 preserves the source-shape premises and unresolved inputs explicitly. The

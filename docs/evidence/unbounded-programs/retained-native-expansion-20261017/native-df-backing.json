@@ -1,6 +1,6 @@
 {
   "scope": "Local null DF/alias/IRA/LRA backing and explicit residual counter inputs; not complete capacity",
-  "source_files_verified": 64,
+  "source_files_verified": 76,
   "installed_headers_verified": 8,
   "instruction_fragments_verified": 131,
   "backend_interface_premises": {
@@ -293,8 +293,48 @@
     "LRA_equivalence_RTL_copy_requests": 0,
     "whole_IRA_DF_schedule_closed": false
   },
+  "CFG_and_IRA_loop_dominance_helpers": {
+    "selected_loop_initializations_bound": 2,
+    "natural_loops": 0,
+    "root_loops_per_initialization": 1,
+    "root_num_nodes_bound": 12,
+    "CFG_iterator_stack_slots_bound": 13,
+    "CFG_iterator_stack_inline_slots": 20,
+    "CFG_iterator_stack_heap_requests": 0,
+    "CFG_traversal_temporary_flag_bit": 15,
+    "fixed_bound_integer_inline_limbs": 9,
+    "fixed_bound_integer_object_bytes": 80,
+    "root_loop_object_bytes_upper": 1024,
+    "loop_GGC_events_bound": 10,
+    "root_loop_GGC_pointer_vector_bytes": 16,
+    "optional_empty_exit_hash": {
+      "wrapper_bytes": 48,
+      "slots": 7,
+      "backbone_bytes": 56
+    },
+    "dominance_unsigned_arrays": {
+      "count": 9,
+      "each_bytes_bound": 48
+    },
+    "dominance_order_array_bytes_bound": 52,
+    "dominance_pointer_map_bytes_bound": 96,
+    "dominance_DFS_stack_bytes_bound": 208,
+    "dominance_fast_query_counter_bound": 24,
+    "ET_nodes": {
+      "count_bound": 12,
+      "each_bytes": 64
+    },
+    "ET_occurrences": {
+      "count_bound": 24,
+      "each_bytes": 48
+    },
+    "ET_signed_relative_depth_intermediate_magnitude_bound": 96,
+    "ET_each_pool_blocks_from_empty": 1,
+    "selected_local_width_checks_closed": true,
+    "earlier_GIMPLE_loop_and_shared_pool_state_included": false
+  },
   "unresolved_whole_function_inputs": [
-    "CFG loop/dominance helper local sizes and shared obstack/pool retained-count arithmetic",
+    "shared non-DF obstack/pool retained-count arithmetic",
     "selected IRA traversal multiplicities only where they affect persistent non-DF GGC state",
     "target frame-layout helper route within LRA elimination",
     "real-function startup and later RTL/regnote/CFI/unit-emission GGC events"

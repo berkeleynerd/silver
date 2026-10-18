@@ -95,6 +95,12 @@ assert 'if (nelem == 0 || elsize == 0)\n    nelem = elsize = 1;' in sources['lib
 assert '\n#define IRA_NO_OBSTACK\n' in sources['gcc/ira.cc']
 assert 'vec_safe_reserve (reg_equivs, max_regno);' in sources['gcc/reload1.cc']
 assert 'if (! loops_p)\n    return;' in sources['gcc/ira-emit.cc']
+assert '#define AVOID_CFG_MODIFICATIONS (LOOPS_MAY_HAVE_MULTIPLE_LATCHES)' in sources['gcc/cfgloop.h']
+assert '#undef DEBUG_ET' in sources['gcc/et-forest.cc']
+assert '#define MAX_BITSIZE_MODE_ANY_INT (64*BITS_PER_UNIT)' in headers['insn-modes.h']
+block_flag_positions = [int(s) for s in re.findall(
+    r'DEF_BASIC_BLOCK_FLAG\([^,]+,\s*(\d+)\)', sources['gcc/cfg-flags.def'])]
+assert max(block_flag_positions) == 14
 
 R, U, B, H, LRA_U = 99, 53, 12, 92, 27
 df_artificial_collections = 2 * B + 2 * H + 3
@@ -124,6 +130,7 @@ invariant_prime = min(p for p in primes if p >= 100)
 assert invariant_prime == 127
 cost_prime = min(p for p in primes if p >= 200)
 assert cost_prime == 251
+assert min(p for p in primes if p >= 2) == 7
 # Reproduce the selected unsigned32 sparse-set request at n=0. Both unsigned
 # arithmetic stages are intentional: a natural-number substitution is wrong.
 sparse_zero = (40 + ((((0 - 1) % 2**32) * 2) % 2**32) * 4) % 2**32
@@ -301,8 +308,36 @@ result = {
         'LRA_equivalence_RTL_copy_requests': 0,
         'whole_IRA_DF_schedule_closed': False,
     },
+    'CFG_and_IRA_loop_dominance_helpers': {
+        'selected_loop_initializations_bound': 2,
+        'natural_loops': 0,
+        'root_loops_per_initialization': 1,
+        'root_num_nodes_bound': B,
+        'CFG_iterator_stack_slots_bound': B + 1,
+        'CFG_iterator_stack_inline_slots': 20,
+        'CFG_iterator_stack_heap_requests': 0,
+        'CFG_traversal_temporary_flag_bit': max(block_flag_positions) + 1,
+        'fixed_bound_integer_inline_limbs': (512 + 64) // 64,
+        'fixed_bound_integer_object_bytes': 80,
+        'root_loop_object_bytes_upper': 1024,
+        'loop_GGC_events_bound': 2 * 4 + 2,
+        'root_loop_GGC_pointer_vector_bytes': 16,
+        'optional_empty_exit_hash': {'wrapper_bytes': 48, 'slots': 7,
+                                     'backbone_bytes': 56},
+        'dominance_unsigned_arrays': {'count': 9, 'each_bytes_bound': B * 4},
+        'dominance_order_array_bytes_bound': (B + 1) * 4,
+        'dominance_pointer_map_bytes_bound': B * 8,
+        'dominance_DFS_stack_bytes_bound': (B + 1) * 16,
+        'dominance_fast_query_counter_bound': 2 * B,
+        'ET_nodes': {'count_bound': B, 'each_bytes': 64},
+        'ET_occurrences': {'count_bound': 2 * B, 'each_bytes': 48},
+        'ET_signed_relative_depth_intermediate_magnitude_bound': 8 * B,
+        'ET_each_pool_blocks_from_empty': 1,
+        'selected_local_width_checks_closed': True,
+        'earlier_GIMPLE_loop_and_shared_pool_state_included': False,
+    },
     'unresolved_whole_function_inputs': [
-        'CFG loop/dominance helper local sizes and shared obstack/pool retained-count arithmetic',
+        'shared non-DF obstack/pool retained-count arithmetic',
         'selected IRA traversal multiplicities only where they affect persistent non-DF GGC state',
         'target frame-layout helper route within LRA elimination',
         'real-function startup and later RTL/regnote/CFI/unit-emission GGC events',
