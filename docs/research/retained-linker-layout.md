@@ -931,6 +931,124 @@ condition for the selected family. It does not establish input symbol/relocation
 legality or bound all auxiliary heap requests. The broader earlier `T` bound
 remains a valid conservative input to the retained address/file formulas.
 
+## Auxiliary layout, merge/EH and final-link requests
+
+The [auxiliary checker](../evidence/retained-linker-layout-20261018/check-auxiliary.py)
+replays a scoped allocation argument over the accepted joined counts. Its
+immutable projection records the aggregate identity at capture and compares
+every consumed field with the current aggregate, so adding unrelated aggregate
+results does not change the prerequisite. It retains five more complete source
+files for the BFD allocator and object/hash allocators, bringing this replay to
+32 sources. This is not a complete allocation-site census of ld/BFD.
+
+On the selected LP64 ABI, `bfd_malloc` and `bfd_realloc` reject requests above
+`SSIZE_MAX`, and `bfd_alloc` rejects a negative signed-long conversion
+(`bfd/libbfd.c:278–295,322–345,434–458`). These interfaces have a signed 64-bit
+request domain; none introduces a signed 32-bit byte-count limit. `bfd_zalloc`
+delegates to `bfd_alloc` (`474–481`). `objalloc` aligns to eight, has a 16-byte
+chunk header, and allocates either a 4,064-byte small chunk or the aligned
+individual request plus that header (`include/objalloc.h:44–98`,
+`libiberty/objalloc.c:58–170`). Therefore a request bounded by `n` has backing
+request at most `max(4064,max(1,n)+23)`. Its unsigned-int `current_space` is
+only the remaining portion of a small chunk; large requests do not narrow
+into that field. Resource availability remains the existing allocator-interface
+assumption; the sum of these requests is not an admission rule.
+
+The selected default does not enable non-contiguous-region remapping.
+`wont_add_section_p` therefore rejects a section already assigned to an
+output, and `lang_add_section` returns before making another statement
+(`ld/ldlang.c:2733–2736,2775–2788`). The link-order scan can consequently
+record at most `I=48,872` input statements. It allocates even though there are
+no actual ordered sections: capacity starts at 64 and doubles to at most
+65,536, using `16+16*capacity` bytes under the selected declaration layout
+(`ld/ldelfgen.c:39–81`). The sorting copies at lines 237–238 are unreachable
+because `ordered=0` prevents `fixup_link_order` from being called.
+
+The mapper's section-pointer array uses `8*S`, and an individual segment map
+uses at most `80+8*S` bytes (`bfd/elf.c:4989–4991,5139–5140,5487–5489,5520–5522`).
+The record is at most 80 bytes including its first pointer and padding
+(`include/elf/internal.h:262–305`); retaining all `S` further pointer slots is
+conservative. Its loops/counts are bounded by `S=48,965`. The final combined
+program-header/sort-pointer buffer uses at most `12*(64+8)=864` bytes
+(`elf.c:5958–5960`, `internal.h:86–98`). The section-header pointer table uses
+`8*N=391,760` bytes and its null internal header uses 80
+(`elf.c:4233–4241`, `internal.h:102–125`). All products using `sizeof` have
+the selected `size_t` width; the associated section/segment indices fit both
+signed and unsigned 32-bit representations.
+
+The existing fixed merge census has 116,433 entries and 3,147,288 entry bytes.
+Charging every generated `.comment` byte as a separate entry adds at most 62
+to each, giving **116,495 entries and 3,147,350 bytes** across at most 4,897
+section occurrences. This deliberately includes fixed shared-object merge
+sections even though ld does not merge their payload. The merge hash starts
+at 8,192 buckets and doubles until the two-thirds test is satisfied; at these
+counts its capacity is at most 262,144, well below its `mapofs_type` growth
+guard (`bfd/merge.c:158–227,438–466`). Each key/value bucket array is at most
+2,097,152 bytes. A hash entry uses 32 bytes plus its blob
+(`merge.c:58–78,233–247`).
+
+The input-copy request adds one `entsize` to a string section. Nonempty
+accepted merge candidates require nonzero `entsize` dividing their size, so
+`entsize<=size`; twice the entry-byte bound is sufficient even for this
+temporary copy (`merge.c:625–633,736–742`). Offset and pointer maps grow in
+2,048-entry blocks and include a sentinel; `entries+2048` covers both the
+largest growth and the final shrink (`477–495,779–797`). Fast lookup uses
+`4*(bytes/32+1)`; suffix sorting uses eight bytes per entry; the padding
+buffer is at most the selected 64-byte alignment (`503–552,887–889`). The
+32-bit offsets/entry counts, `noffsetmap+2048`, doubling and string-length
+comparisons all remain in range. This closes the dynamic-size allocations
+in `merge.c`; its fixed control records are smaller than the covered arrays.
+
+For DWARF EH, the accepted source/input join supplies at most 16,332 records,
+552,020 original bytes and 14,957 FDEs including binder and synthetic PLTs.
+The parser returns for an empty section before its `num_entries-1`
+allocation; a successfully parsed nonempty section has at least one record
+(`bfd/elf-eh-frame.c:601–614,634–669`). A 64-byte bound for `eh_cie_fde`,
+16-byte prefix and 256-byte bound for each full `cie` cover the pinned
+declarations, including padding (`bfd/elf-bfd.h:345–459`,
+`elf-eh-frame.c:30–56`). The per-section record block is therefore at most
+1,045,264 bytes and its local CIE array at most 4,180,992 bytes. The CIE lookup marks an original CIE kept before insertion, and its kept/merged
+early returns prevent a second insertion for that CIE (`1221–1233`). The hash
+therefore has no more entries than original CIE records; its initial/growth
+requests choose at most the first
+prime at or above twice 16,332, namely 32,749, or 261,992 backing bytes
+(`elf-eh-frame.c:1302–1326`, `libiberty/hashtab.c:134–169,517–555`).
+The `set_loc` vector charges four bytes per possible original instruction
+byte plus a sentinel (`elf-eh-frame.c:1005–1028`). The EH-header search array
+uses `24*14957=358,968` bytes (`1975–1980`). Compact-EH entry arrays are not
+part of the selected DWARF section family. These are storage/count claims,
+not an additional proof of DWARF relocation or CFA semantics.
+
+Final-link scratch derives maxima from original/current input-section sizes,
+original relocation counts and original local symbol counts
+(`bfd/elflink.c:12755–12892`). At most seven bytes of EH alignment are added
+to a content maximum. With host page size `G`, mmap-enabled initialization
+also reserves `4*G`; the content bound is `max(4*G,B+7)` and external-relocation
+bound `max(4*G,24*Trel)`. At the selected 4,096-byte Linux page interface these
+are **462,778,644** and **13,121,760 bytes**. The formulas remain explicit
+instead of treating the linker's 4,096-byte ELF page constant as evidence
+about the host's mmap page size (`bfd/libbfd.c:1523–1538`).
+
+The remaining final-link scratch arrays use 24 bytes per relocation, 24/32
+bytes per external/internal symbol, eight per index/section pointer and four
+per extended symbol index (`elflink.c:13088–13140`). `R=49,358` bounds each
+original symbol count; the forced minimum of 20 is retained. The ordinary
+output-symbol cache begins at that count and doubles before inserting a new
+entry, so its capacity is at most `max(R,20,2*Z)`, with 40 bytes per record
+(`elflink.c:10439–10451,13011–13015`; `elf-bfd.h:598–602`). Its largest request
+is 61,045,760 bytes. External output symbols and indices use `24*Z` and `4*Z`
+respectively (`elflink.c:10480–10491`), already covered by the earlier count
+representability argument.
+
+Every request in this scoped packet is below signed 32-bit maximum, although
+the allocator domain is wider. The largest is 462,778,644 bytes; adding the
+object-allocator envelope yields at most 462,778,667 bytes. These are separate
+individual-request bounds, not estimates of peak or total memory. General
+ELF input/archive loading, global/local hash entries and rollback snapshots,
+other dynamic-table scratch, ld parsing/orphan data structures and process
+setup still need allocation-site coverage before claiming a complete linker
+capacity result.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:

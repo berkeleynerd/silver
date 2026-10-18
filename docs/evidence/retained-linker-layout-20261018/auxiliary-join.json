@@ -1,0 +1,58 @@
+{
+  "source_result_at_capture": {
+    "path": "docs/evidence/retained-linker-join-20261018/result.json",
+    "bytes": 3151,
+    "sha256": "44432b1161da1437a0689c5c06fcebda3e05ac86903653185407e7b2df4a14d1"
+  },
+  "counts": {
+    "R": 49358,
+    "Q": 36471,
+    "P": 1483,
+    "Qrel": 7917,
+    "Trel": 546740,
+    "H": 221088,
+    "I": 48872,
+    "S": 48965,
+    "N": 48970,
+    "T": 146908,
+    "D": 3243678,
+    "Z": 763072
+  },
+  "payload_union_bytes": 462778637,
+  "binder_EH_entries": [
+    {
+      "offset": 0,
+      "length": 20,
+      "CIE_pointer": 0
+    },
+    {
+      "offset": 24,
+      "length": 36,
+      "CIE_pointer": 28
+    },
+    {
+      "offset": 64,
+      "length": 28,
+      "CIE_pointer": 68
+    },
+    {
+      "offset": 96,
+      "length": 28,
+      "CIE_pointer": 100
+    },
+    {
+      "offset": 128,
+      "length": 28,
+      "CIE_pointer": 132
+    },
+    {
+      "offset": 160,
+      "length": 28,
+      "CIE_pointer": 164
+    }
+  ],
+  "payload_components": {
+    "EH_header": 119668,
+    "full_generated_merge_output": 62
+  }
+}

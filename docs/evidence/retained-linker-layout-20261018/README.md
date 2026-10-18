@@ -209,3 +209,32 @@ split predicates, empty large outputs, RELRO 0/24-byte offset/alignment cases,
 nonempty loaded dynamic/RELRO content and stable optional-header presence.
 It accepted the alignment and two-iteration convergence transfer under the
 stated emission/default/nonwrapping premises. The review ran no native tools.
+
+
+`check-auxiliary.py` consumes an immutable count/payload projection in
+`auxiliary-join.json`, the accepted shape/fixed-payload/EH records, and 32
+complete sources including five additional allocator files. It compares every
+consumed projection field to the current aggregate while preserving the
+aggregate's original capture identity. Unrelated later aggregate fields do not
+force a pin change.
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-auxiliary.py --output /tmp/retained-linker-auxiliary-replay.json
+```
+
+`--prior-repo` can select the integration worktree. The result covers allocator
+interface/backing conversion, link-order/mapper/header arrays, merge dynamic
+buffers, DWARF EH records/CIE hash/set_loc/search arrays, and final-link scratch
+and output-symbol cache. The largest individual covered request is
+462,778,644 bytes; objalloc backing is at most462,778,667. Host-page-dependent
+scratch formulas retain G explicitly, with the concrete numbers conditional on
+the selected4096-byte host page interface. These are neither a memory-total
+admission rule nor a complete allocation census of ld/BFD. No native tool ran.
+
+
+Independent narrow review replayed this result byte-equal and checked original
+merge-byte versus unique-output accounting, block/sentinel growth, hash
+capacities, once-per-original CIE insertion, record-size allowances, final
+scratch/cache growth, host-page distinction and object-allocator backing.
+It accepted this scoped request/count transfer; complete linker capacity
+remains outside the claim. The review ran no native tool.

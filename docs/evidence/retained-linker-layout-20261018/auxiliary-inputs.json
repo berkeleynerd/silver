@@ -1,0 +1,27 @@
+[
+  {
+    "key": "join",
+    "local": true,
+    "path": "auxiliary-join.json",
+    "bytes": 1055,
+    "sha256": "53ee9767d455cad8cc1bdaa22d2b9c4a654a598f3a997aacb4f53bb969c8dc0c"
+  },
+  {
+    "key": "shape",
+    "path": "docs/evidence/retained-linker-layout-20261018/layout-shape-results.json",
+    "bytes": 13139,
+    "sha256": "61daa5c984b5232b2e0f59d233e5577c4c09a2d8e67177dd28c7c66d5d310c55"
+  },
+  {
+    "key": "fixed",
+    "path": "docs/evidence/retained-linker-layout-20261018/fixed-payload-results.json",
+    "bytes": 20310,
+    "sha256": "c0b09d6839e9da2a4c71ee25ff96eb24fd2827eea1c4daac918baff4c3d0e6c3"
+  },
+  {
+    "key": "unwind",
+    "path": "docs/evidence/retained-linker-layout-20261018/unwind-join-results.json",
+    "bytes": 1560,
+    "sha256": "81c4212c210947c7d2456b583164e29f4ce6778279fa6979b108e26ef8dab93f"
+  }
+]
