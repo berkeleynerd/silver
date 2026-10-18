@@ -1,0 +1,156 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gprbuild_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "archive": {
+    "file": "sources.tar.gz",
+    "bytes": 668087,
+    "sha256": "3dcc2087f39617446a83c83ac694c451e4869cac7e4ac034ca8ad6519726e3f3"
+  },
+  "files": [
+    {
+      "path": "gcc/ada/back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "path": "gcc/ada/backend_utils.adb",
+      "bytes": 4772,
+      "sha256": "b79d30483b0da1f91ecf5db28d0d9fcf263a97b3dcc12d86c0443c44b8acdc58"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/lang-specs.h",
+      "bytes": 3476,
+      "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "path": "gcc/ada/lib-writ.adb",
+      "bytes": 61061,
+      "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+    },
+    {
+      "path": "gcc/ada/lib.adb",
+      "bytes": 40494,
+      "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+    },
+    {
+      "path": "gcc/ada/lib.ads",
+      "bytes": 51050,
+      "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4"
+    },
+    {
+      "path": "gcc/ada/switch.adb",
+      "bytes": 8519,
+      "sha256": "b1273db8d4e14b78906d33b1aff6f1a07d19f17584bdeacfee461eff847367ec"
+    },
+    {
+      "path": "gcc/common.opt",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "path": "gcc/common/config/avr/avr-common.cc",
+      "bytes": 5576,
+      "sha256": "496f70713b4ed2a86f53833c1324135695228a4f8372630bbaa4374fd035d5c9"
+    },
+    {
+      "path": "gcc/common/config/i386/i386-common.cc",
+      "bytes": 85914,
+      "sha256": "009711c76cc24369f035130487e1e94e2570e065018ee70544b52e1b3ef02c59"
+    },
+    {
+      "path": "gcc/common/config/rs6000/rs6000-common.cc",
+      "bytes": 8089,
+      "sha256": "95d0f8fca2e6fd144e91d1964f5be5216d6aafe434d6f0a84e38ed439a242f83"
+    },
+    {
+      "path": "gcc/common/config/xtensa/xtensa-common.cc",
+      "bytes": 1847,
+      "sha256": "bbdbc3d5050c45e6cbb692785f95174193d0a5b7405741da6fd45a7cbfd11068"
+    },
+    {
+      "path": "gcc/config/avr/avr.md",
+      "bytes": 378998,
+      "sha256": "c09943eb111f75e40183844effb25549403aa071e15ecb9d051fa890181e5247"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "path": "gcc/config/mn10300/mn10300.cc",
+      "bytes": 92340,
+      "sha256": "22395c4ecb1a4a387f5f7b0838a90f40dd128f61f22bbb239a7c7838a3689534"
+    },
+    {
+      "path": "gcc/config/rl78/rl78.cc",
+      "bytes": 127631,
+      "sha256": "51fb64906a9074b84b139ea7d280a1983a3948ec489c151976cc588617955e55"
+    },
+    {
+      "path": "gcc/gcc.cc",
+      "bytes": 331859,
+      "sha256": "59ac02bc5147a8a4d79473edc41b8d1af8bd75628e00bfafab0c80eb36614346"
+    },
+    {
+      "path": "gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "path": "gcc/opts-common.cc",
+      "bytes": 64082,
+      "sha256": "9b08d0eab835c3720cb37120282ed10b270f881d37acd40733a8d12c6abb448a"
+    },
+    {
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "path": "gcc/opts.h",
+      "bytes": 20665,
+      "sha256": "ec66640207dd0a237d42e6743c8d2416095f862f9b252535e780c03d5f2d75f0"
+    },
+    {
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "path": "gprbuild/src/gprbind.adb",
+      "bytes": 43658,
+      "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802"
+    },
+    {
+      "path": "gprbuild/gpr/src/gpr-ali.adb",
+      "bytes": 45361,
+      "sha256": "9d2c334d8b72a3d9aa64e0ad62ebe6d5026c31367aaee4b90bb5e87125059dde"
+    }
+  ]
+}

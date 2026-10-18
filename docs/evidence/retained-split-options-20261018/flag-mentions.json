@@ -1,0 +1,72 @@
+[
+  {
+    "path": "gcc/common.opt",
+    "line": 3025,
+    "text": "fsplit-wide-types"
+  },
+  {
+    "path": "gcc/common.opt",
+    "line": 3026,
+    "text": "Common Var(flag_split_wide_types) Optimization"
+  },
+  {
+    "path": "gcc/common.opt",
+    "line": 3029,
+    "text": "fsplit-wide-types-early"
+  },
+  {
+    "path": "gcc/common.opt",
+    "line": 3030,
+    "text": "Common Var(flag_split_wide_types_early) Optimization"
+  },
+  {
+    "path": "gcc/common/config/avr/avr-common.cc",
+    "line": 54,
+    "text": "{ OPT_LEVELS_1_PLUS, OPT_fsplit_wide_types_early, NULL, 1 },"
+  },
+  {
+    "path": "gcc/common/config/rs6000/rs6000-common.cc",
+    "line": 34,
+    "text": "{ OPT_LEVELS_ALL, OPT_fsplit_wide_types_early, NULL, 1 },"
+  },
+  {
+    "path": "gcc/common/config/xtensa/xtensa-common.cc",
+    "line": 38,
+    "text": "{ OPT_LEVELS_ALL, OPT_fsplit_wide_types_early, NULL, 1 },"
+  },
+  {
+    "path": "gcc/config/avr/avr.md",
+    "line": 9815,
+    "text": ";; in particular when subreg lowering (-fsplit-wide-types) is turned on."
+  },
+  {
+    "path": "gcc/config/mn10300/mn10300.cc",
+    "line": 93,
+    "text": "flag_split_wide_types = 1;"
+  },
+  {
+    "path": "gcc/config/rl78/rl78.cc",
+    "line": 353,
+    "text": "flag_split_wide_types = 0;"
+  },
+  {
+    "path": "gcc/lower-subreg.cc",
+    "line": 1801,
+    "text": "bool gate (function *) final override { return flag_split_wide_types != 0; }"
+  },
+  {
+    "path": "gcc/lower-subreg.cc",
+    "line": 1845,
+    "text": "return flag_split_wide_types && flag_split_wide_types_early;"
+  },
+  {
+    "path": "gcc/lower-subreg.cc",
+    "line": 1888,
+    "text": "bool gate (function *) final override { return flag_split_wide_types; }"
+  },
+  {
+    "path": "gcc/opts.cc",
+    "line": 606,
+    "text": "{ OPT_LEVELS_1_PLUS, OPT_fsplit_wide_types, NULL, 1 },"
+  }
+]
