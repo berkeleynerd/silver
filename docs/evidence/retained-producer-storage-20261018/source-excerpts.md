@@ -1057,3 +1057,521 @@ LF line numbering.
 58: end Ada.Containers.Prime_Numbers;
 59:
 ```
+
+## libgnat/a-textio.ads:80–84
+
+```text
+80:    type Count is range 0 .. Natural'Last;
+81:    --  The value of Count'Last must be large enough so that the assumption that
+82:    --  the Line, Column and Page counts can never exceed this value is valid.
+83:
+84:    subtype Positive_Count is Count range 1 .. Count'Last;
+```
+
+## libgnat/a-textio.ads:675–690
+
+```text
+675:    package FCB renames System.File_Control_Block;
+676:
+677:    type Text_AFCB;
+678:    type File_Type is access all Text_AFCB;
+679:
+680:    type Text_AFCB is new FCB.AFCB with record
+681:       Page        : Count := 1;
+682:       Line        : Count := 1;
+683:       Col         : Count := 1;
+684:       Line_Length : Count := 0;
+685:       Page_Length : Count := 0;
+686:
+687:       Self : aliased File_Type;
+688:       --  Set to point to the containing Text_AFCB block. This is used to
+689:       --  implement the Current_{Error,Input,Output} functions which return
+690:       --  a File_Access, the file access value returned is a pointer to
+```
+
+## libgnat/a-textio.adb:170–207
+
+```text
+170:       --  If the file being closed is one of the current files, then close
+171:       --  the corresponding current file. It is not clear that this action
+172:       --  is required (RM A.10.3(23)) but it seems reasonable, and besides
+173:       --  ACVC test CE3208A expects this behavior.
+174:
+175:       if File = Current_In then
+176:          Current_In := null;
+177:       elsif File = Current_Out then
+178:          Current_Out := null;
+179:       elsif File = Current_Err then
+180:          Current_Err := null;
+181:       end if;
+182:
+183:       Terminate_Line (File.all'Access);
+184:    end AFCB_Close;
+185:
+186:    ---------------
+187:    -- AFCB_Free --
+188:    ---------------
+189:
+190:    procedure AFCB_Free (File : not null access Text_AFCB) is
+191:       FT : File_Type := File.all'Access;
+192:
+193:       procedure Free is new Ada.Unchecked_Deallocation (Text_AFCB, File_Type);
+194:
+195:    begin
+196:       Free (FT);
+197:    end AFCB_Free;
+198:
+199:    -----------
+200:    -- Close --
+201:    -----------
+202:
+203:    procedure Close (File : in out File_Type) is
+204:    begin
+205:       FIO.Close (AP (File)'Unrestricted_Access);
+206:    end Close;
+207:
+```
+
+## libgnat/a-textio.adb:1109–1143
+
+```text
+1109:    procedure New_Line
+1110:      (File    : File_Type;
+1111:       Spacing : Positive_Count := 1)
+1112:    is
+1113:    begin
+1114:       --  Raise Constraint_Error if out of range value. The reason for this
+1115:       --  explicit test is that we don't want junk values around, even if
+1116:       --  checks are off in the caller.
+1117:
+1118:       if not Spacing'Valid then
+1119:          raise Constraint_Error;
+1120:       end if;
+1121:
+1122:       FIO.Check_Write_Status (AP (File));
+1123:
+1124:       for K in 1 .. Spacing loop
+1125:          Putc (LM, File);
+1126:          File.Line := File.Line + 1;
+1127:
+1128:          if File.Page_Length /= 0
+1129:            and then File.Line > File.Page_Length
+1130:          then
+1131:             Putc (PM, File);
+1132:             File.Line := 1;
+1133:             File.Page := File.Page + 1;
+1134:          end if;
+1135:       end loop;
+1136:
+1137:       File.Col := 1;
+1138:    end New_Line;
+1139:
+1140:    procedure New_Line (Spacing : Positive_Count := 1) is
+1141:    begin
+1142:       New_Line (Current_Out, Spacing);
+1143:    end New_Line;
+```
+
+## libgnat/a-textio.adb:1255–1330
+
+```text
+1255:    ---------
+1256:    -- Put --
+1257:    ---------
+1258:
+1259:    procedure Put
+1260:      (File : File_Type;
+1261:       Item : Character)
+1262:    is
+1263:    begin
+1264:       FIO.Check_Write_Status (AP (File));
+1265:
+1266:       if File.Line_Length /= 0 and then File.Col > File.Line_Length then
+1267:          New_Line (File);
+1268:       end if;
+1269:
+1270:       --  If lower half character, or brackets encoding, output directly
+1271:
+1272:       if Character'Pos (Item) < 16#80#
+1273:         or else File.WC_Method = WCEM_Brackets
+1274:       then
+1275:          if fputc (Character'Pos (Item), File.Stream) = EOF then
+1276:             raise Device_Error;
+1277:          end if;
+1278:
+1279:       --  Case of upper half character with non-brackets encoding
+1280:
+1281:       else
+1282:          Put_Encoded (File, Item);
+1283:       end if;
+1284:
+1285:       File.Col := File.Col + 1;
+1286:    end Put;
+1287:
+1288:    procedure Put (Item : Character) is
+1289:    begin
+1290:       Put (Current_Out, Item);
+1291:    end Put;
+1292:
+1293:    ---------
+1294:    -- Put --
+1295:    ---------
+1296:
+1297:    procedure Put
+1298:      (File : File_Type;
+1299:       Item : String)
+1300:    is
+1301:    begin
+1302:       FIO.Check_Write_Status (AP (File));
+1303:
+1304:       --  Only have something to do if string is non-null
+1305:
+1306:       if Item'Length > 0 then
+1307:
+1308:          --  If we have bounded lines, or if the file encoding is other than
+1309:          --  Brackets and the string has at least one upper half character,
+1310:          --  then output the string character by character.
+1311:
+1312:          if File.Line_Length /= 0
+1313:            or else (File.WC_Method /= WCEM_Brackets
+1314:                       and then Has_Upper_Half_Character (Item))
+1315:          then
+1316:             for J in Item'Range loop
+1317:                Put (File, Item (J));
+1318:             end loop;
+1319:
+1320:          --  Otherwise we can output the entire string at once. Note that if
+1321:          --  there are LF or FF characters in the string, we do not bother to
+1322:          --  count them as line or page terminators.
+1323:
+1324:          else
+1325:             FIO.Write_Buf (AP (File), Item'Address, Item'Length);
+1326:             File.Col := File.Col + Item'Length;
+1327:          end if;
+1328:       end if;
+1329:    end Put;
+1330:
+```
+
+## libgnat/a-textio.adb:2048–2078
+
+```text
+2048:    procedure Terminate_Line (File : File_Type) is
+2049:    begin
+2050:       FIO.Check_File_Open (AP (File));
+2051:
+2052:       --  For file other than In_File, test for needing to terminate last line
+2053:
+2054:       if Mode (File) /= In_File then
+2055:
+2056:          --  If not at start of line definition need new line
+2057:
+2058:          if File.Col /= 1 then
+2059:             New_Line (File);
+2060:
+2061:          --  For files other than standard error and standard output, we
+2062:          --  make sure that an empty file has a single line feed, so that
+2063:          --  it is properly formatted. We avoid this for the standard files
+2064:          --  because it is too much of a nuisance to have these odd line
+2065:          --  feeds when nothing has been written to the file.
+2066:
+2067:          --  We also avoid this for files opened in append mode, in
+2068:          --  accordance with (RM A.8.2(10))
+2069:
+2070:          elsif (File /= Standard_Err and then File /= Standard_Out)
+2071:            and then (File.Line = 1 and then File.Page = 1)
+2072:            and then Mode (File) = Out_File
+2073:          then
+2074:             New_Line (File);
+2075:          end if;
+2076:       end if;
+2077:    end Terminate_Line;
+2078:
+```
+
+## spark/src/utils/outputs.adb:47–59
+
+```text
+47:
+48:    procedure I (O : Output_Id) is
+49:    begin
+50:       if Output_States (O).New_Line then
+51:          Put
+52:            (Output_Handles (O), String'(1 .. Output_States (O).Indent => ' '));
+53:          Output_States (O).New_Line := False;
+54:       end if;
+55:    end I;
+56:
+57:    --------
+58:    -- NL --
+59:    --------
+```
+
+## spark/src/utils/outputs.adb:73–119
+
+```text
+73:       pragma Assert (not Is_Open (Output_Handles (Current_File)));
+74:       pragma Assert (Output_States (Current_File).Indent = 0);
+75:       pragma Assert (Output_States (Current_File).New_Line = False);
+76:       Create (Output_Handles (Current_File), Out_File, Filename);
+77:    end Open_Current_File;
+78:
+79:    -------
+80:    -- P --
+81:    -------
+82:
+83:    procedure P (O : Output_Id; C : Character) is
+84:    begin
+85:       Put (Output_Handles (O), C);
+86:    end P;
+87:
+88:    procedure P (O : Output_Id; S : String; As_String : Boolean := False) is
+89:    begin
+90:       I (O);
+91:       if As_String then
+92:
+93:          --  Prepare buffer for escaping each quote with a backslash and
+94:          --  enclosing the resulting string in quotes.
+95:
+96:          declare
+97:             Buffer : String (1 .. S'Length * 2 + 2);
+98:             Cursor : Positive := 1;
+99:          begin
+100:             Buffer (Cursor) := '"';
+101:             Cursor := Cursor + 1;
+102:
+103:             for C of S loop
+104:                if C = '"' then
+105:                   Buffer (Cursor) := '\';
+106:                   Cursor := Cursor + 1;
+107:                end if;
+108:                Buffer (Cursor) := C;
+109:                Cursor := Cursor + 1;
+110:             end loop;
+111:
+112:             Buffer (Cursor) := '"';
+113:             --  No need to advance cursor for the last character
+114:
+115:             Put (Output_Handles (O), Buffer (1 .. Cursor));
+116:          end;
+117:       else
+118:          Put (Output_Handles (O), S);
+119:       end if;
+```
+
+## spark/src/utils/outputs.ads:31–68
+
+```text
+31:    type Output_Id is (Stderr, Stdout, Current_File);
+32:    --  Handle on an output. An indentation level is associated to each
+33:    --  output; this package offers ways to modify this level and to write
+34:    --  into the corresponding stream.
+35:
+36:    procedure Open_Current_File (Filename : String)
+37:    with Post => Indent_Level (Current_File) = 0;
+38:    --  Open Filename and set current file's output to the corresponding file
+39:    --  descriptor.
+40:
+41:    procedure Close_Current_File;
+42:    --  Close current file
+43:
+44:    function Indent_Level (O : Output_Id) return Natural
+45:    with Ghost;
+46:    --  Returns the current indentation level of O
+47:
+48:    procedure Absolute_Indent (O : Output_Id; Level : Natural)
+49:    with Post => Indent_Level (O) = Level;
+50:    --  Set the indentation level of O to Level
+51:
+52:    procedure Relative_Indent (O : Output_Id; Diff : Integer)
+53:    with Post => Indent_Level (O) = Indent_Level (O)'Old + Diff;
+54:    --  Increase the indentation level of O by Level (or decrease it
+55:    --  if Level is lesser than zero).
+56:
+57:    procedure P (O : Output_Id; C : Character)
+58:    with Pre => Indent_Level (O) = 0;
+59:    --  Put C to output O, but can only be used when indentation level is 0
+60:
+61:    procedure P (O : Output_Id; S : String; As_String : Boolean := False);
+62:    --  Put S to output O, indenting it if need be. If As_String is true, the
+63:    --  argument string is interpreted as a string literal.
+64:
+65:    procedure PL (O : Output_Id; S : String);
+66:    --  Put_Line S to output O, indenting it if need be
+67:
+68:    procedure NL (O : Output_Id);
+```
+
+## spark/src/why/gnat2why-driver.adb:1204–1215
+
+```text
+1204:
+1205:    procedure Print_GNAT_Json_File (Filename : String) is
+1206:       Modules : constant Why_Node_Lists.List := Build_Printing_Plan;
+1207:    begin
+1208:       Open_Current_File (Filename);
+1209:       P (Current_File, "{ ""theory_declarations"" : ");
+1210:       Why_Node_Lists_List_To_Json (Current_File, Modules);
+1211:       P (Current_File, "}");
+1212:       Close_Current_File;
+1213:    end Print_GNAT_Json_File;
+1214:
+1215:    ------------------
+```
+
+## spark/src/why/xgen/why-atree-to_json.adb-tmpl:56–90
+
+```text
+56:          end loop;
+57:       P (O, ']');
+58:    end String_Sets_Set_To_Json;
+59:
+60:    ------------------
+61:    --  Gnat types  --
+62:    ------------------
+63:
+64:    procedure Source_Ptr_To_Json (O : Output_Id; X : Source_Ptr);
+65:    procedure Symbol_To_Json (O : Output_Id; S : Symbols.Symbol);
+66:    procedure Symbol_Set_To_Json (O : Output_Id; S : Symbol_Set);
+67:
+68:    procedure Source_Ptr_To_Json (O : Output_Id; X : Source_Ptr) is
+69:       File : constant String               := SPARK_Util.File_Name (X);
+70:       Line : constant Physical_Line_Number := Get_Physical_Line_Number (X);
+71:    begin
+72:       if X = No_Location then
+73:          P (O, "null");
+74:          return;
+75:       end if;
+76:       P (O, '[');
+77:       P (O, File, As_String => True);
+78:       P (O, ',');
+79:       P (O, Physical_Line_Number'Image (Line));
+80:       P (O, ']');
+81:    end Source_Ptr_To_Json;
+82:
+83:    procedure Symbol_To_Json (O : Output_Id; S : Symbols.Symbol) is
+84:       X : constant GNATCOLL.Utils.Cst_String_Access := Symbols.Get (S);
+85:    begin
+86:       P (O, X.all, As_String => True);
+87:    end Symbol_To_Json;
+88:
+89:    procedure Symbol_Set_To_Json (O : Output_Id; S : Symbol_Set) is
+90:       First : Boolean := True;
+```
+
+## spark/src/why/xgen/why-atree-to_json.adb-tmpl:113–157
+
+```text
+113:    procedure Why_Node_Id_To_Json (O : Output_Id; Id : Why_Node_Id) is
+114:    begin
+115:       Why_Node_To_Json (O, Node_Table (Id));
+116:    end Why_Node_Id_To_Json;
+117:
+118:    procedure Why_Node_OId_To_Json (O : Output_Id; Id : Why_Node_Id) is
+119:    begin
+120:       if Id = Why_Empty then
+121:          P (O, "null");
+122:       else
+123:          Why_Node_Id_To_Json (O, Id);
+124:       end if;
+125:    end Why_Node_OId_To_Json;
+126:
+127:    procedure Why_Node_OList_To_Json (O : Output_Id; Id : Why_Node_List) is
+128:    begin
+129:       if Is_Empty (Id) then
+130:          P (O, "null");
+131:       else
+132:          Why_Node_List_To_Json (O, Id);
+133:       end if;
+134:    end Why_Node_OList_To_Json;
+135:
+136:    procedure Why_Node_List_To_Json (O : Output_Id; Id : Why_Node_List) is
+137:    begin
+138:       Why_Node_Lists_List_To_Json (O, List_Table (Id).Content);
+139:    end Why_Node_List_To_Json;
+140:
+141:    procedure Why_Node_Lists_List_To_Json
+142:      (O : Output_Id; L : Why_Node_Lists.List)
+143:    is
+144:       First : Boolean := True;
+145:    begin
+146:       P (O, '[');
+147:       for El of L loop
+148:          if First then
+149:             First := False;
+150:          else
+151:             P (O, ',');
+152:          end if;
+153:          Why_Node_Id_To_Json (O, El);
+154:       end loop;
+155:       P (O, ']');
+156:    end Why_Node_Lists_List_To_Json;
+157:
+```
+
+## spark/src/why/xgen/xtree_why_ast.adb:169–230
+
+```text
+169:    procedure Print_Ada_Why_Node_To_Json (O : in out Output_Record) is
+170:    begin
+171:       PL (O, "Why_Node_Counter : Natural := 0;");
+172:       NL (O);
+173:       PL (O, "procedure Why_Node_To_Json (O : Output_Id; Node : Why_Node) is");
+174:       PL (O, "begin");
+175:       begin
+176:          Relative_Indent (O, 3);
+177:          PL (O, "P (O, '[');");
+178:          PL (O, "Why_Node_Counter := Why_Node_Counter + 1;");
+179:          PL (O, "P (O, '""' & Why_Node_Kind'Image (Node.Kind) & '""');");
+180:          PL (O, "P (O, ',');");
+181:          PL (O, "P (O, Integer'Image (Why_Node_Counter));");
+182:          for FI of Common_Fields.Fields loop
+183:             declare
+184:                FN : constant String := Field_Name (FI);
+185:             begin
+186:                if FN not in "Checked" | "Ada_Node" then
+187:                   declare
+188:                      Typ_Name : constant String :=
+189:                        Clean_Identifier (Type_Name (FI, Opaque));
+190:                   begin
+191:                      PL (O, "P (O, ',');");
+192:                      PL (O,
+193:                          Typ_Name & "_To_Json (O, Node." & FN & ");");
+194:                   end;
+195:                end if;
+196:             end;
+197:          end loop;
+198:          PL (O, "case Node.Kind is");
+199:          begin
+200:             Relative_Indent (O, 3);
+201:             for Kind in Why_Tree_Info'Range loop
+202:                PL (O, "when " & Mixed_Case_Name (Kind) & " =>");
+203:                Relative_Indent (O, 3);
+204:                if Why_Tree_Info (Kind).Fields.Is_Empty then
+205:                   PL (O, "null;");
+206:                else
+207:                   for FI of Why_Tree_Info (Kind).Fields loop
+208:                      declare
+209:                         Field_Type : constant String :=
+210:                           Clean_Identifier (Type_Name (FI, Opaque));
+211:                      begin
+212:                         PL (O, "P (O, ',');");
+213:                         PL (O, Field_Type & "_To_Json");
+214:                         Relative_Indent (O, 2);
+215:                         PL (O, "(O,");
+216:                         Relative_Indent (O, 1);
+217:                         PL (O, "Node." & Field_Name (FI) & ");");
+218:                         Relative_Indent (O, -3);
+219:                      end;
+220:                   end loop;
+221:                end if;
+222:                Relative_Indent (O, -3);
+223:             end loop;
+224:             Relative_Indent (O, -3);
+225:          end;
+226:          PL (O, "end case;");
+227:          PL (O, "P (O, ']');");
+228:          Relative_Indent (O, -3);
+229:       end;
+230:       PL (O, "end Why_Node_To_Json;");
+```

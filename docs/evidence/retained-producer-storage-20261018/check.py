@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import re
+import tarfile
 from pathlib import Path
 
 RANGES = {
@@ -18,6 +19,16 @@ RANGES = {
     'libgnat/a-chtgop.adb': [(49, 132), (613, 623), (677, 836)],
     'libgnat/a-coprnu.ads': [(30, 51)],
     'libgnat/a-coprnu.adb': [(32, 59)],
+    'libgnat/a-textio.ads': [(80, 84), (675, 690)],
+    'libgnat/a-textio.adb': [(170, 207), (1109, 1143), (1255, 1330), (2048, 2078)],
+}
+
+SPARK = {
+    'src/utils/outputs.adb': ('6a729fa922f882458ef3bd33fb8000407f22f58bd79ab1a71d2d0ea8d427bbb2', [(47, 59), (73, 119)]),
+    'src/utils/outputs.ads': ('3f88827c01180e657de92414ed804027e5b6db74dd3088997fb91ec16e4cc912', [(31, 68)]),
+    'src/why/gnat2why-driver.adb': ('b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304', [(1204, 1215)]),
+    'src/why/xgen/why-atree-to_json.adb-tmpl': ('634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e', [(56, 90), (113, 157)]),
+    'src/why/xgen/xtree_why_ast.adb': ('65277b8c3d31fbd9eac3da32ae562a660cf9f174878bf2a9e3f10c7be2d63af7', [(169, 230)]),
 }
 
 
@@ -62,6 +73,19 @@ def main():
             excerpts.append(f'\n## {name}:{start}–{end}\n\n```text\n')
             excerpts.extend(f'{i}: {lines[i-1]}'.rstrip()+'\n' for i in range(start, end+1))
             excerpts.append('```\n')
+    spark_records = []
+    source_archive = root / 'docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz'
+    with tarfile.open(source_archive) as archive:
+        for name, (digest, ranges) in SPARK.items():
+            data = archive.extractfile('spark-source/' + name).read()
+            assert hashlib.sha256(data).hexdigest() == digest
+            spark_records.append(dict(path=name, bytes=len(data), sha256=digest))
+            lines = data.decode().split('\n')
+            for start, end in ranges:
+                assert 1 <= start <= end <= len(lines)
+                excerpts.append(f'\n## spark/{name}:{start}–{end}\n\n```text\n')
+                excerpts.extend(f'{i}: {lines[i-1]}'.rstrip()+'\n' for i in range(start, end+1))
+                excerpts.append('```\n')
     cases = sorted({1,2,3,2**30} | {2**k+delta for k in range(1,30) for delta in (-1,0,1)})
     rows = [transition(first,d) for first in (0,2**30) for d in cases]
     prime_text = (args.ada/'libgnat/a-coprnu.ads').read_text()
@@ -79,12 +103,21 @@ def main():
                   standard_hash_maximum_safe_request=safe_prime,
                   standard_hash_next_rounded_capacity=3221225473,
                   standard_hash_bucket_bytes_at_safe_capacity=8*safe_prime,
+                  spark_candidate_commit='42554fc241fcd1fdf08d3a2feccb3f86912acbc0',
+                  spark_sources=spark_records,
+                  maximum_json_quoted_actual_length=(2**31-3)//2,
+                  maximum_json_body_characters_per_file=2**31-2,
                   scope='local append/growth arithmetic, not caller coverage or whole-tool capacity')
+    quoted = result['maximum_json_quoted_actual_length']
+    assert quoted == 1073741822
+    assert 2*quoted+2 <= 2**31-1 < 2*(quoted+1)+2
+    body = result['maximum_json_body_characters_per_file']
+    assert 1+body == 2**31-1 and 1+(body+1) > 2**31-1
     assert result['retained_link_bytes_at_count_limit'] < 2**63
     args.output.mkdir(parents=True,exist_ok=True)
     (args.output/'checks.json').write_text(json.dumps(result,indent=2)+'\n')
     (args.output/'source-excerpts.md').write_text(''.join(excerpts))
-    print(f'Verified {len(records)} pinned files and {len(rows)} boundary transitions')
+    print(f'Verified {len(records)} GCC and {len(spark_records)} SPARK files, {len(rows)} boundary transitions and output arithmetic')
 
 
 if __name__ == '__main__':

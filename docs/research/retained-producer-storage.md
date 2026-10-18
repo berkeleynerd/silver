@@ -133,6 +133,59 @@ cardinality and reserve requests still need a source-derived bound. Nor does
 this claim coverage of ordered, indefinite or GNATCOLL containers merely
 because they are called maps.
 
+## JSON string construction and output position
+
+The proof input serializer has two additional representation conditions beyond
+node occurrence IDs. `Outputs.P(As_String => True)` first allocates
+`String (1 .. S'Length*2+2)`, regardless of how many quotes S actually contains
+(`src/utils/outputs.adb:88–119`). Its cursor starts at one, advances past the
+opening quote, then once per character and again for each quote. It writes the
+closing quote without advancing afterwards. Thus a sufficient condition for
+every quoted actual and its multiplication/addition/cursor arithmetic is
+
+```text
+S'Length <= 1,073,741,822 = floor((Integer'Last-2)/2).
+```
+
+This applies to symbol strings, label-set members and filenames serialized
+with As_String, not directly to every source String value. The latter is
+represented by character predicates in the producer. The name/label length
+transfer must establish the condition for the actual emitted fields. Sparse
+quotes do not avoid the full temporary buffer request; physical stack/memory
+availability remains a separate premise.
+
+`Print_GNAT_Json_File` emits its header, theory list and closing brace using P,
+then closes the file (`gnat2why-driver.adb:1204–1215`). The node/list serializer
+also uses P and never NL. Output indentation begins at zero, and no generated
+JSON call changes it. This output therefore accumulates in one Text_IO column
+count; even an LF embedded in a string passed to Put does not reset that count.
+`Text_AFCB.Col` starts at one and has Ada.Text_IO.Count type, whose upper bound
+is Natural'Last (`libgnat/a-textio.ads:80–84,675–685`). Character Put adds one;
+String Put adds its length (`a-textio.adb:1255–1327`).
+
+Let `T_file` bound every character passed to these output calls for one JSON
+file, including punctuation, kind names, decimal IDs, labels, filenames and
+all repetitions of shared subtrees. A local sufficient condition is
+
+```text
+T_file <= 2,147,483,646 = Count'Last-1.
+```
+
+Then every intermediate column update is representable. Closing the file
+terminates its line and resets the column (`a-textio.adb:183,1109–1138,2048–2078`); that LF
+is not another ordinary P increment. This is a separate condition for each
+file; the producer's emitted-node counter remains process-global. The claim
+concerns arithmetic in the reviewed path, not an observed failure at that
+file size or a newly selected source cap. It makes no assumption that a runtime
+built with checks suppressed would diagnose an overflow safely.
+
+The existing occurrence recurrence counts nodes, not emitted characters, so
+it does not alone establish T_file. Extend it with serialized primitive-field
+lengths, collection delimiters and repeated labels to obtain that weight from
+source. The fixed probes retain actual emitted files for their finite cases;
+variable Main's complete byte transfer remains required. These proof-input
+output constraints cannot be dismissed as optional report formatting.
+
 ## Scope and reproduction
 
 The [evidence checker](../evidence/retained-producer-storage-20261018/README.md)
@@ -143,9 +196,9 @@ executing a compiler. The source is GCC
 SPARK candidate. Their relevant correspondence to the installed producer is
 still the explicit [source-identity premise](retained-tool-source-identity.md).
 
-This covers the two Why storage vectors, retained Why list lengths and the
-stated standard hashed-map capacity arithmetic. Symbol
+This covers the two Why storage vectors, retained Why list lengths, standard
+hashed-map arithmetic and the stated JSON output conditions. Symbol
 storage, other auxiliary maps/sets/vectors, temporary container multiplicities,
-tampering counters, serialization, recursion and other phases are not proved
-safe merely by these three inequalities. They remain in the whole-process
+tampering counters, complete serialization bytes, recursion and other phases
+are not proved safe merely by these local conditions. They remain in the whole-process
 capacity inventory. No production admission or tool pin changes here.

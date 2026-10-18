@@ -50,6 +50,16 @@
       "path": "libgnat/a-coprnu.adb",
       "bytes": 2839,
       "sha256": "1d3bc1ccfe806f300aa6ce37c4e7e269bd9d35d20ed1aa103130caa26a5edfc7"
+    },
+    {
+      "path": "libgnat/a-textio.ads",
+      "bytes": 31447,
+      "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267"
+    },
+    {
+      "path": "libgnat/a-textio.adb",
+      "bytes": 61105,
+      "sha256": "4edbb70efef55003ccac05d7e6f75eb7f16b371e0d216fab5fb706c23480c671"
     }
   ],
   "transitions": [
@@ -1627,5 +1637,35 @@
   "standard_hash_maximum_safe_request": 1610612741,
   "standard_hash_next_rounded_capacity": 3221225473,
   "standard_hash_bucket_bytes_at_safe_capacity": 12884901928,
+  "spark_candidate_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "spark_sources": [
+    {
+      "path": "src/utils/outputs.adb",
+      "bytes": 5093,
+      "sha256": "6a729fa922f882458ef3bd33fb8000407f22f58bd79ab1a71d2d0ea8d427bbb2"
+    },
+    {
+      "path": "src/utils/outputs.ads",
+      "bytes": 4286,
+      "sha256": "3f88827c01180e657de92414ed804027e5b6db74dd3088997fb91ec16e4cc912"
+    },
+    {
+      "path": "src/why/gnat2why-driver.adb",
+      "bytes": 60922,
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    },
+    {
+      "path": "src/why/xgen/why-atree-to_json.adb-tmpl",
+      "bytes": 4655,
+      "sha256": "634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e"
+    },
+    {
+      "path": "src/why/xgen/xtree_why_ast.adb",
+      "bytes": 37203,
+      "sha256": "65277b8c3d31fbd9eac3da32ae562a660cf9f174878bf2a9e3f10c7be2d63af7"
+    }
+  ],
+  "maximum_json_quoted_actual_length": 1073741822,
+  "maximum_json_body_characters_per_file": 2147483646,
   "scope": "local append/growth arithmetic, not caller coverage or whole-tool capacity"
 }
