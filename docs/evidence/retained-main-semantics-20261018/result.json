@@ -4,10 +4,29 @@
   "scope": "Pinned-source identity and node/query/list-equation arithmetic only",
   "files": [
     {
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+      "cited_ranges": [
+        [
+          118,
+          119
+        ]
+      ]
+    },
+    {
       "path": "atree.adb",
       "bytes": 103427,
       "sha256": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
       "cited_ranges": [
+        [
+          1131,
+          1151
+        ],
+        [
+          1199,
+          1238
+        ],
         [
           1301,
           1333
@@ -309,6 +328,17 @@
       ]
     },
     {
+      "path": "sem.ads",
+      "bytes": 39576,
+      "sha256": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f",
+      "cited_ranges": [
+        [
+          499,
+          596
+        ]
+      ]
+    },
+    {
       "path": "sem_attr.adb",
       "bytes": 481322,
       "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
@@ -412,8 +442,27 @@
           4595
         ],
         [
+          4169,
+          4171
+        ],
+        [
+          4315,
+          4317
+        ],
+        [
           4868,
           4886
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch4.adb",
+      "bytes": 412458,
+      "sha256": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+      "cited_ranges": [
+        [
+          2720,
+          2780
         ]
       ]
     },
@@ -427,8 +476,16 @@
           3764
         ],
         [
+          4217,
+          4219
+        ],
+        [
           5440,
           5623
+        ],
+        [
+          7503,
+          7540
         ],
         [
           8934,
@@ -450,11 +507,15 @@
           7130
         ],
         [
+          7656,
+          7668
+        ],
+        [
           7781,
           7805
         ],
         [
-          9890,
+          9863,
           9962
         ]
       ]
@@ -612,6 +673,10 @@
           6448
         ],
         [
+          7121,
+          7135
+        ],
+        [
           7337,
           7345
         ],
@@ -651,6 +716,22 @@
       "sha256": "f2452a63f2fe2603c660445e51c4c687f96ed5f21784da9d5f88ab9f94cd3b0c",
       "cited_ranges": [
         [
+          1032,
+          1038
+        ],
+        [
+          2654,
+          2672
+        ],
+        [
+          3035,
+          3039
+        ],
+        [
+          3069,
+          3073
+        ],
+        [
           3563,
           3776
         ],
@@ -659,16 +740,88 @@
           3851
         ],
         [
+          3913,
+          3982
+        ],
+        [
           4084,
           4102
+        ],
+        [
+          5350,
+          5460
+        ],
+        [
+          7651,
+          7654
+        ],
+        [
+          7811,
+          8061
+        ],
+        [
+          8586,
+          8589
+        ],
+        [
+          8943,
+          9112
+        ],
+        [
+          9307,
+          9360
+        ],
+        [
+          9499,
+          9616
         ],
         [
           10196,
           10208
         ],
         [
-          12226,
+          10248,
+          10390
+        ],
+        [
+          10607,
+          10639
+        ],
+        [
+          10874,
+          10949
+        ],
+        [
+          11216,
+          11220
+        ],
+        [
+          11295,
+          11324
+        ],
+        [
+          11427,
+          11465
+        ],
+        [
+          12217,
           12248
+        ],
+        [
+          13901,
+          14126
+        ],
+        [
+          14185,
+          14225
+        ],
+        [
+          14320,
+          14358
+        ],
+        [
+          14969,
+          15005
         ]
       ]
     },
@@ -703,6 +856,17 @@
         [
           3548,
           3650
+        ]
+      ]
+    },
+    {
+      "path": "sinfo-cn.adb",
+      "bytes": 6546,
+      "sha256": "c30d71e50dbceb15a9f01725e1907f7e3a7c9bdb9e90729029ee1fc96d4cc4a5",
+      "cited_ranges": [
+        [
+          140,
+          155
         ]
       ]
     },
@@ -940,12 +1104,78 @@
       "R": 2,
       "one": 1
     },
+    "G_sem_coefficients": {
+      "C_lib": 2,
+      "D_alias": 1,
+      "D_copy": 1,
+      "D_lit": 4,
+      "F": 3,
+      "G": 1,
+      "H_len": 4,
+      "O": 1,
+      "O_loop": 2,
+      "P": 3,
+      "R": 1,
+      "S": 1,
+      "U": 3,
+      "V0": 1
+    },
+    "G_sem_syntactic_coefficients": {
+      "C_lib": 2,
+      "D_s": 5,
+      "F": 5,
+      "H_len": 4,
+      "O": 1,
+      "O_loop": 2,
+      "P": 3,
+      "R": 1,
+      "S": 1,
+      "U": 3,
+      "V0": 1
+    },
+    "dynamic_slots_Main": "<= 9*(A_Main+C_lib+P+G_sem)+61*E_Main",
+    "dynamic_slots_scope": "Lifetime dynamic slot demand; backing growth/header arrays separate",
+    "semantic_scope_peak": "<= incoming_live_entries+2+d_loop",
+    "semantic_scope_backing": {
+      "low_bound": 0,
+      "initial": 10,
+      "increment_percent": 200
+    },
+    "elaboration_Main_additions": {
+      "Scenario_Reps": "<= C_lib",
+      "Node_To_Scenario_Map": "<= C_lib",
+      "Target_Reps": "<= 5",
+      "Entity_To_Target_Map": "<= 5",
+      "Active_Scenario_Stack_extra_peak": 1,
+      "Declaration_Scenarios": "<= C_lib",
+      "other_scenario_sets": 0,
+      "body_nested_scenario_map_lists": 0,
+      "early_call_region_map": 0,
+      "invocation_saved_constructs_relations": 0,
+      "unit_attributes_map_table": 0
+    },
+    "elaboration_container_Create_arguments": {
+      "Nested_Scenarios_Map": 250,
+      "Traversed_Bodies_Set": 250,
+      "Early_Call_Regions_Map": 100,
+      "Unit_To_Attributes_Map": 250,
+      "Entity_To_Target_Map": 500,
+      "Node_To_Scenario_Map": 500,
+      "Saved_Constructs_Set": 100,
+      "Saved_Relations_Set": 200,
+      "Declaration_Scenarios": 1000,
+      "Dynamic_ABE_Check_Scenarios": 500,
+      "Library_Body_Scenarios": 1000,
+      "Library_Spec_Scenarios": 1000,
+      "SPARK_Scenarios": 100
+    },
+    "elaboration_scope": "Main caller/entry counts; exact hash/set backing and target layouts separate",
     "query_scope": "Root counts exclude helper-internal recursion already paid by transfer"
   },
   "remaining": [
     "Other semantic numeric caller inventory including diagnostic/value-cache routes",
-    "Growing mutations, overload tables and auxiliary allocation",
-    "Elaboration/scope and element-list auxiliary storage",
+    "Overload tables and other auxiliary allocation",
+    "Other semantic element-list, warning/xref and traversal auxiliary storage",
     "Complete table/growth, numeric, name and auxiliary-resource connection",
     "Fixed dependency contributions and source-to-installed-tool relation"
   ],

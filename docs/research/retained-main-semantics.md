@@ -763,6 +763,189 @@ A_Main; they are not one extra allocation per append or splice
 different resources and do not follow from L_sem. Main-triggered first freezing
 of fixed external entities belongs to the separate dependency contribution.
 
+## Dynamic node slots, including growing mutations
+
+The [generated slot-layout result](retained-table-capacity.md#exact-slot-sizes-from-the-pinned-generator)
+gives at most nine dynamic slots per ordinary allocation and 61 per entity.
+The parser transfer already charges defining-name promotion, fresh loop-scope
+entities, procedure-call conversion and parser-flattening Rewrite growth.
+Semantic entity creation uses defining-entity constructors. Later Mutate_Ekind
+does not allocate more slots because every entity already reserves the maximum
+entity size (`atree.adb:1131–1151`). Thus there is no additional semantic entity
+promotion allowance.
+
+Ordinary growing mutations need their own event count. Let
+
+```text
+G_sem = T_fold + D_lit+D_alias+D_copy+G + U+H_len+V0
+        + 2C_lib + S+2P.
+```
+
+The first terms charge each previously counted Rewrite: an ordinary fold;
+the static String subtype-indication/alias replacement; late initializer
+literal propagation; captured scalar replacement; String inequality; and
+Length conversion. Each calls Copy_Node once, which can allocate a full
+new ordinary slot segment even when the identity already exists
+(`atree.adb:1301–1333,2222–2276`). Its saved-original copy was already charged
+as a node allocation and must not substitute for this growing event.
+
+The remaining in-place kind conversions are:
+
+| Route | Event allowance | Source |
+| --- | ---: | --- |
+| Parameterless validity name to call | `V0` | `sem_res.adb:1462–1478` |
+| Positional function's indexed-component form to call | `C_lib` | `sem_ch4.adb:2720–2780` |
+| Qualified library name to expanded name | `C_lib` | `sem_ch8.adb:7656–7668`; `sinfo-cn.adb:151–155` |
+| Operator-looking literal to ordinary String literal | `S+2P` | `sem_res.adb:1483–1491`; `sinfo-cn.adb:140–145` |
+
+Each conversion changes the kind away from its input case and is not repeated
+by ordinary analyzed-node replay. Qualified names occur only in admitted
+library calls; Main/context package names are simple names. The literal count
+includes both parser-generated literals, although those ordinarily already
+have String_Literal kind. String constant propagation produces an analyzed
+literal and does not re-enter this conversion. Calls to an enumeration literal
+would also use Copy_Node at `sem_res.adb:7127`, but no such call is admitted.
+Source type conversions, private/incomplete views and class-wide entity copies
+are excluded. Range-check construction makes fresh unanalysed syntax and has
+no additional in-place mutation; its discarded check tree is never expanded.
+The previous query, freeze and shell argument excludes other reached syntax
+rewrites under these phase/type premises.
+
+Define `A_sem_o = A_struct + E_Main + C_lib + N_ref`, the semantic ordinary
+allocation allowance. Combining parser and semantic allocation events gives
+
+```text
+slots_Main <= 9*(A_parse+C_proc+P+A_sem_o+G_sem)
+              + 61*(D+2F+1+E_generated).
+```
+
+Every term counts slots ever appended, including abandoned old slot segments.
+It assumes no reclamation or in-place-at-end optimization. Since
+`D+2F+1+E_generated <= E_Main`, `C_proc <= C_lib`, and A_Main also includes
+the fresh entities, a simpler conservative source form is
+
+```text
+G_sem <= O+3P+2O_loop+5F+R+5D_s+3U+4H_len+V0+2C_lib+S.
+slots_Main <= 9*(A_Main+C_lib+P+G_sem) + 61E_Main.
+```
+
+This deliberately pays an ordinary allocation allowance for some entities as
+well as their full entity allowance. The expression supplies **dynamic slot
+demand**, not backing-array capacity or total bytes. Node headers, original-node
+and list-link tables, parenthesis entries, table-growth rounding and sentinel
+indices retain their separate bounds. The parenthesis map receives at most
+A_Main distinct Main keys; repeated Rewrite/Change_Node assignments do not
+create new keys for the same identity.
+
+## Main semantic scope-stack contribution
+
+Let `d_loop` be the largest number of simultaneously enclosing source loops;
+`d_loop <= F` is a simpler alternative. If `s` entries are live immediately
+before Main's procedure scope is pushed, ordinary Main analysis needs at most
+
+```text
+semantic_scope_peak <= s + 2 + d_loop.
+```
+
+Main has no formals/result, so analyzing its specification does not push a
+scope. Its body pushes Main once and each loop pushes once around its iteration
+scheme and body (`sem_ch6.adb:4217–4219,5477–5481,5555–5567`;
+`sem_ch5.adb:4169–4171,4315–4317`). Conditions and branches do not introduce
+semantic scopes. The raw bound preanalyses change analysis mode but push no
+scope (`sem_ch5.adb:4868–4886`). There are no nested packages, user subprograms,
+records, access-type designated scopes or transient native-expansion scopes.
+
+The extra one pays a temporary scope push while analyzing a Main freeze node.
+Expand_SPARK_N_Freeze_Entity may install an outer/currently closed scope and
+pops it on return (`exp_spark.adb:601–766`). For the admitted ordinary types,
+SPARK_Freeze_Type creates no actions and the freeze node's Actions list is
+empty, so these local freeze pushes do not nest. Frozen fixed dependencies and
+their actions must be accounted in the dependency phase contribution, including
+any ambient Main depth if that work is deferred into Main.
+
+Push_Scope initializes list fields to No_List/No_Elist, increments the table
+top and copies saved policy values. Pop_Scope decreases the top
+(`sem_ch8.adb:9863–9874,9932–9962`). With the selected no-style-check premise,
+the Last_Subprogram_Name heap allocation is absent (`sem_ch6.adb:7503–7540`).
+Use the generic backing-table envelope at low bound zero, initial length 10
+and 200-percent growth, with the target layout of Scope_Stack_Entry supplied
+separately (`sem.ads:499–596`; `alloc.ads:118–119`). This is a table bound, not
+the compiler's recursive call-stack bound or every operation performed on scope
+exit.
+
+## Elaboration recording and processing auxiliaries
+
+This contribution assumes the selected modern elaboration mechanism
+(`Legacy_Elaboration_Checks=False`), in addition to GNATprove light mode. It
+counts Main's additions, not the constant initialization of the package's
+containers or a separate dependency compilation.
+
+Each Main call marker immediately runs Record_Elaboration_Scenario, including
+calls in the statement body. Process_Guaranteed_ABE pushes the marker, obtains
+its Scenario_Reps record, obtains the target's Target_Reps record, performs
+the direct check and pops; this ordinary-call path does not traverse the target
+body (`sem_elab.adb:9307–9360,9499–9616`). The constructors fill records with
+existing nodes/entities; their optional task list stays Nil. The NTS/ETT maps
+cache by marker/entity, so repeated reads or target-record refreshes do not
+append again (`:10607–10639,10874–10949,11295–11324,11427–11465`). Therefore:
+
+| Resource | Main additions / peak |
+| --- | ---: |
+| Scenario_Reps entries and Node_To_Scenario_Map bindings | at most `C_lib` each |
+| Target_Reps entries and Entity_To_Target_Map bindings | at most five each: the five admitted library operations |
+| Active_Scenario_Stack extra live entries | at most one |
+| Declaration_Scenarios set members/inserts | at most `C_lib`; in the current grammar only the input initializer can contribute |
+| Dynamic_ABE_Check, Library_Body, Library_Spec and SPARK scenario-set additions | zero |
+
+Find_Enclosing_Level returns Declaration_Level for Main's declarative part,
+No_Level for its statement part, and never either library-package level
+(`:8943–9112`). Variable markers and assignments are only inserted into the
+library-body/spec sets, so Main adds none through those routes. Calls can enter
+Declaration_Scenarios; Add_Dynamic_ABE_Check_Scenario returns through
+Check_Or_Failure_Generation_OK in GNATprove mode (`:13901–14126,14208–14225`;
+`:4084–4102`). There are no source instantiations, derived types or refined-state
+pragmas to enter SPARK_Scenarios. Markers are not rewritten by Main's light
+transforms; updating some other rewritten source node therefore cannot create
+new set members via Replace_Scenario (`:14320–14358`).
+
+The end-of-unit processing does not expand this Main contribution.
+Check_Elaboration_Scenarios iterates the declaration set, while all the other
+Main sets are empty (`:3913–3982`). For a declaration-level call, the target
+is in an external Silver library unit. Is_Up_Level_Target returns True, causing
+Process_Conditional_ABE_Call to return before diagnostics, requirement
+generation or traversal of its body (`:5350–5460,14969–15005`). The same guard
+also applies to that call's earlier guaranteed-ABE check. The conditional
+processor only rereads the cached record/target and uses one stack entry.
+Reset_Traversed_Bodies resets an empty set; no body is traversed, so there are
+no nested-scenario map/list additions or early-call-region map additions.
+Invocation-graph recording returns in GNATprove mode (`:12226–12248`), leaving
+its saved-construct and saved-relation sets empty. Collect_Elaborated_Units
+examines only elaboration pragmas in Main's context; ordinary with/use clauses
+do not add entries, and no such pragmas are admitted (`:7811–8061`). Thus Main
+also adds zero Unit_To_Attributes_Map/Elaboration_Attributes entries here.
+
+Do not discard initialization cost merely because an entry count is zero.
+The source creates these container headers and their initial bucket arrays:
+
+| Container | Create argument |
+| --- | ---: |
+| Nested_Scenarios_Map, Traversed_Bodies_Set | 250 each |
+| Early_Call_Regions_Map | 100 |
+| Unit_To_Attributes_Map | 250 |
+| Entity_To_Target_Map, Node_To_Scenario_Map | 500 each |
+| Saved_Constructs_Set, Saved_Relations_Set | 100, 200 |
+| Declaration, Dynamic_ABE_Check, Library_Body, Library_Spec, SPARK sets | 1000, 500, 1000, 1000, 100 |
+
+The initialization sites are `:3035–3039,7651–7654,8586–8589,11216–11220,`
+`:12217–12221,14185–14192`. These are requested sizes, **not rounded backing
+bucket counts**. Apply the pinned hash/set implementation's constructor and
+growth rules, together with actual target component layouts. Scenario_Reps
+and Target_Reps have initial length 1000 and 200-percent growth; active-scenario
+stack has initial length 50 and 200-percent growth (`:1032–1038,10374–10390`).
+Their IDs/counters, array rounding and one-past arithmetic still need the
+general representation checks. This closes these elaboration caller counts;
+it does not claim that all semantic auxiliary containers have been covered.
+
 ## Remaining resource obligations
 
 Remaining whole-frontend obligations are:
@@ -770,15 +953,14 @@ Remaining whole-frontend obligations are:
 1. **Other semantic numeric helpers and mutations.** Close the remaining
    numeric caller inventory beyond the five named families, including any
    diagnostic/value-cache routes. The query envelope does not make them free.
-   Keep overload tables, value caches and per-kind growing mutations distinct
-   from node identities. One identity bound is not a slot-event bound.
-2. **Freeze/marker auxiliary storage.** Charge scope-stack
-   operations, elaboration maps/sets and traversal stacks. Their ordinary syntax
+   Keep overload tables and value caches distinct from node identities.
+2. **Other semantic auxiliary storage.** Charge element lists, overload/value
+   caches, warning/xref tables and traversal stacks. Their ordinary syntax
    nodes are covered above; it would be incorrect to infer their complete
    storage cost from that node-identity count.
 3. **Complete table/resource connection.** Add all remaining ordinary/entity
-   slot mutations, name spelling/qualification, auxiliary table events,
-   Uint layout/query work and peak/growth arithmetic to the existing table and
+   slot demand, name spelling/qualification, auxiliary table events,
+   remaining Uint work and peak/growth arithmetic to the existing table and
    value components. Fixed dependency work remains outside Main. The producer
    can use this A_Main for the stated frontend-node input, while the separate
    frontend capacities still need every listed resource bound.

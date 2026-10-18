@@ -13,7 +13,8 @@ from pathlib import Path
 
 PIN = "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
 RANGES = {
-    "atree.adb": [(1301, 1333), (2109, 2138), (2222, 2276)],
+    "alloc.ads": [(118, 119)],
+    "atree.adb": [(1131, 1151), (1199, 1238), (1301, 1333), (2109, 2138), (2222, 2276)],
     "checks.adb": [(2234, 2286), (3044, 3080), (3155, 3503), (3509, 3534),
                    (3810, 3920), (3978, 4048), (4620, 4913), (5071, 5654),
                    (6112, 6127), (6283, 6455), (6595, 6620),
@@ -34,15 +35,17 @@ RANGES = {
     "layout.adb": [(72, 82), (225, 664), (900, 1050)],
     "nlists.adb": [(125, 132), (189, 275), (777, 864)],
     "sem.adb": [(107, 116), (634, 640)],
+    "sem.ads": [(499, 596)],
     "sem_attr.adb": [(8308, 8405), (9717, 9751), (9898, 9970), (13600, 13618)],
     "sem_ch3.adb": [(4820, 4855), (5138, 5184), (5436, 5453), (6340, 6390),
                     (14339, 14484), (15317, 15500), (15790, 15807), (19121, 19198),
                     (20478, 20761), (22588, 22734), (23676, 23707)],
     "sem_ch5.adb": [(1020, 1035), (3295, 3311), (3430, 3625),
                     (3962, 3979), (4050, 4117), (4523, 4595),
-                    (4868, 4886)],
-    "sem_ch6.adb": [(3738, 3764), (5440, 5623), (8934, 8946)],
-    "sem_ch8.adb": [(4362, 4400), (7107, 7130), (7781, 7805), (9890, 9962)],
+                    (4169, 4171), (4315, 4317), (4868, 4886)],
+    "sem_ch4.adb": [(2720, 2780)],
+    "sem_ch6.adb": [(3738, 3764), (4217, 4219), (5440, 5623), (7503, 7540), (8934, 8946)],
+    "sem_ch8.adb": [(4362, 4400), (7107, 7130), (7656, 7668), (7781, 7805), (9863, 9962)],
     "sem_ch10.adb": [(989, 1042)],
     "sem_ch11.adb": [(388, 465)],
     "sem_eval.adb": [(660, 700), (995, 1769), (1971, 2110), (2342, 2443), (2454, 2532),
@@ -53,14 +56,21 @@ RANGES = {
     "sem_mech.adb": [(107, 128)],
     "sem_prag.adb": [(26242, 26325), (26500, 26512)],
     "sem_res.adb": [(1462, 1498), (2545, 2551), (4247, 4276), (4861, 4911),
-                    (6285, 6448), (7337, 7345),
+                    (6285, 6448), (7121, 7135), (7337, 7345),
                     (11200, 11214),
                     (11260, 11291), (11668, 11698), (12039, 12322), (12337, 12476),
                     (12729, 12934), (13205, 13337)],
-    "sem_elab.adb": [(3563, 3776), (3782, 3851), (4084, 4102),
-                     (10196, 10208), (12226, 12248)],
+    "sem_elab.adb": [(1032, 1038), (2654, 2672), (3035, 3039), (3069, 3073),
+                     (3563, 3776), (3782, 3851), (3913, 3982), (4084, 4102),
+                     (5350, 5460), (7651, 7654), (7811, 8061), (8586, 8589),
+                     (8943, 9112), (9307, 9360), (9499, 9616),
+                     (10196, 10208), (10248, 10390), (10607, 10639),
+                     (10874, 10949), (11216, 11220), (11295, 11324),
+                     (11427, 11465), (12217, 12248), (13901, 14126),
+                     (14185, 14225), (14320, 14358), (14969, 15005)],
     "sem_util.adb": [(8450, 8510), (10821, 10915), (23907, 24033), (29103, 29119)],
     "sem_warn.adb": [(3548, 3650)],
+    "sinfo-cn.adb": [(140, 155)],
     "uintp.adb": [(1683, 1696)],
 }
 
@@ -155,6 +165,20 @@ def main():
     semantic_lists_simple.pop("D_alias")
     assert semantic_lists_simple == Counter(one=1, D=1, R=2, D_s=4, F=7,
                                              K_literal=1, C_lib=1, N_ref=1)
+    semantic_growth = folds.copy()
+    semantic_growth.update(D_lit=1, D_alias=1, D_copy=1, G=1, U=1,
+                           H_len=1, V0=1, C_lib=2, S=1, P=2)
+    growth_simple = semantic_growth.copy()
+    growth_simple["F"] += 2*growth_simple.pop("G")
+    assert growth_simple["D_lit"] >= growth_simple["D_alias"]
+    growth_simple["D_s"] = growth_simple.pop("D_lit") + growth_simple.pop("D_copy")
+    growth_simple.pop("D_alias")
+    assert growth_simple == Counter(O=1, P=3, O_loop=2, F=5, R=1, D_s=5,
+                                    U=3, H_len=4, V0=1, C_lib=2, S=1)
+    # The entity demand pays both scanner-name promotions and fresh entities.
+    entity_slot_events = generated_entities.copy()
+    entity_slot_events.update(D=1, F=2, one=1)
+    assert entity_slot_events == main_entities
     result = {
         "source_commit": PIN,
         "verified_against": str(prior.relative_to(repo)),
@@ -203,12 +227,41 @@ def main():
             "closed_Uint_subtotal": "U_query+U_discrete_size+U_eval+U_literal+U_freeze_size",
             "L_sem_coefficients": dict(sorted(semantic_lists.items())),
             "L_sem_syntactic_coefficients": dict(sorted(semantic_lists_simple.items())),
+            "G_sem_coefficients": dict(sorted(semantic_growth.items())),
+            "G_sem_syntactic_coefficients": dict(sorted(growth_simple.items())),
+            "dynamic_slots_Main": "<= 9*(A_Main+C_lib+P+G_sem)+61*E_Main",
+            "dynamic_slots_scope": "Lifetime dynamic slot demand; backing growth/header arrays separate",
+            "semantic_scope_peak": "<= incoming_live_entries+2+d_loop",
+            "semantic_scope_backing": {"low_bound": 0, "initial": 10, "increment_percent": 200},
+            "elaboration_Main_additions": {
+                "Scenario_Reps": "<= C_lib",
+                "Node_To_Scenario_Map": "<= C_lib",
+                "Target_Reps": "<= 5",
+                "Entity_To_Target_Map": "<= 5",
+                "Active_Scenario_Stack_extra_peak": 1,
+                "Declaration_Scenarios": "<= C_lib",
+                "other_scenario_sets": 0,
+                "body_nested_scenario_map_lists": 0,
+                "early_call_region_map": 0,
+                "invocation_saved_constructs_relations": 0,
+                "unit_attributes_map_table": 0,
+            },
+            "elaboration_container_Create_arguments": {
+                "Nested_Scenarios_Map": 250, "Traversed_Bodies_Set": 250,
+                "Early_Call_Regions_Map": 100, "Unit_To_Attributes_Map": 250,
+                "Entity_To_Target_Map": 500, "Node_To_Scenario_Map": 500,
+                "Saved_Constructs_Set": 100, "Saved_Relations_Set": 200,
+                "Declaration_Scenarios": 1000, "Dynamic_ABE_Check_Scenarios": 500,
+                "Library_Body_Scenarios": 1000, "Library_Spec_Scenarios": 1000,
+                "SPARK_Scenarios": 100,
+            },
+            "elaboration_scope": "Main caller/entry counts; exact hash/set backing and target layouts separate",
             "query_scope": "Root counts exclude helper-internal recursion already paid by transfer",
         },
         "remaining": [
             "Other semantic numeric caller inventory including diagnostic/value-cache routes",
-            "Growing mutations, overload tables and auxiliary allocation",
-            "Elaboration/scope and element-list auxiliary storage",
+            "Overload tables and other auxiliary allocation",
+            "Other semantic element-list, warning/xref and traversal auxiliary storage",
             "Complete table/growth, numeric, name and auxiliary-resource connection",
             "Fixed dependency contributions and source-to-installed-tool relation",
         ],
