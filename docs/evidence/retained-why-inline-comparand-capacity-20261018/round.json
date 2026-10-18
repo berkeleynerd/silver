@@ -1,0 +1,112 @@
+{
+  "issue": "https://github.com/berkeleynerd/silver/issues/119",
+  "base": "0e07ab375aba4064bc323a2bd601d043e3e83195",
+  "accepted_representative_review": "25db3691734130818bbb613a5b059e8e07e42e96",
+  "objective": "Close source-operation/representation transfer for unsuccessful Hsdecl comparands at retained first Input_Is_Valid/cvc5 inline_trivial entry and attach it to the accepted local transfer.",
+  "authorization": "Parent-delegated owner-authorized research #119. New owned note and evidence packet only. Retained state/sources only; no new native capture/build/proof/solver. Parent owns independent review, integration, publication and issue/memory updates; no delegation.",
+  "worker": {
+    "agent": "/root/why_inline_operations",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null,
+    "unavailable_measurements": "Runtime confirmation and token/monetary data were not exposed."
+  },
+  "started_utc": "2026-10-18T21:52:43+00:00",
+  "recorded_utc": "2026-10-18T22:09:27.228261+00:00",
+  "elapsed_seconds_through_record": 1004.228261,
+  "elapsed_scope": "Direct worker elapsed through final evidence-record preparation; later independent review/integration excluded.",
+  "host": "Linux x86_64",
+  "new_native_capture_runs": 0,
+  "debugger_runs": 0,
+  "compiler_runs": 0,
+  "builds": 0,
+  "proof_runs": 0,
+  "solver_runs": 0,
+  "native_target_executions": 0,
+  "exact_review_inputs": {
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/README.md": {
+      "bytes": 2404,
+      "sha256": "c0f1d4f822f5d221c4845dabd27bb0b561c5603631a403bf8b9cb688cf1598e3"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/capacity.py": {
+      "bytes": 5350,
+      "sha256": "49135eaf96d21b0b4a85cdc9c6697d31d742750ff8eeeced009cbb9b0b606eb1"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/check.py": {
+      "bytes": 6821,
+      "sha256": "625bff586ada0d5b0bb25e27a9519e89553c84acc2b105be7759a900fc717588"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/compose.py": {
+      "bytes": 9290,
+      "sha256": "0f57f789bb02fe7cc220aaa6ff45ce7b36e09fc4f0a7b97d3fbccbf5165956e7"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/details.json": {
+      "bytes": 810437,
+      "sha256": "99afdaf7e8035a4c6de4aeae1614713dab27fd9f736079a1263eacf42926f49d"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/inputs.json": {
+      "bytes": 6980,
+      "sha256": "29411f4725221ec90886258c62f69f652a066f7c3a0943833466ad88739f8370"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/profile.py": {
+      "bytes": 14261,
+      "sha256": "f087d4083d65ff2ea0cf7afc2010f5ee501854d4890ead53761fe3dd2c196d37"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/result.json": {
+      "bytes": 13011,
+      "sha256": "99b749953318b1483f74c91d01497a57677e977995f25f8bdaa38611ce2dd2f5"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/sources.tar.gz": {
+      "bytes": 123993,
+      "sha256": "713d4dc872959ec056de0799b56c41690aded2cebe2ff838e0278ef63d7fbb0a"
+    },
+    "docs/research/retained-why-inline-comparand-capacity.md": {
+      "bytes": 16236,
+      "sha256": "400be92e60e44576741b75fbcc6e36512057286e71967f09fc1fa29bcce11b36"
+    }
+  },
+  "checks": [
+    {
+      "command": "python3 -B docs/evidence/retained-why-inline-comparand-capacity-20261018/check.py",
+      "status": "pass",
+      "elapsed_seconds": 1.465575,
+      "new_native_runs": 0,
+      "scope": "Pinned source/state identities, complete graph/table validation, all 6704-object prefix-sensitive classification, complete stored/opened profiles, callable joined arithmetic, seven focused regression/boundary checks."
+    }
+  ],
+  "diagnostics_and_rework": [
+    "Initial raw profile incorrectly required a present location option block to have exactly one payload word; actual retained option-shaped values sometimes have additional payload. Source option comparison accesses field zero; profile now validates that accessed three-immediate location payload without claiming an exact allocation shape. No native retry.",
+    "Added logic-definition axiom wrappers to body bounds and separately charged trigger groups, bound-map construction, shallow similarity and strict candidate hashing."
+  ],
+  "achieved": "Classified all 6704 initial objects; 145 may enter strict formula comparison, including all three unsuccessful old propositions. Attached 2032 table term-pair entries plus 418 definition-close entries, 1911 strict-hash entries, source map/attribute/list/location/constant vectors, and no-first-resize table dimensions (outer 5003, bucket <=226, <=11005 equality callbacks). All compared stored constants are immediate integers; no additional comparator-state capture is needed.",
+  "remaining_obligations": [
+    "Independent source/transfer review",
+    "Other shared tables/counters and process-lifetime callers",
+    "Runtime primitive lowering, closures/native stack, allocation and collector composition",
+    "Other fixed entries and later transformations/printing",
+    "Complete transformation and whole-pipeline capacity"
+  ],
+  "review": {
+    "status": "pending parent-coordinated independent review",
+    "requested_focus": [
+      "Prefix-before-length coverage and zero later same-key insertions",
+      "Per-formula stored/opened profile, delayed-frame consumption and metadata/constant closure",
+      "Logic axiom wrapper and trigger-group candidate bounds",
+      "Strict/hash/map/attribute/list transfer coefficients and shallow-copy count attachment",
+      "No-first-resize induction and total callback count",
+      "Explicit runtime/other-state boundaries and larger option-shaped payload access"
+    ],
+    "reviewer_model": null,
+    "reviewer_effort": null,
+    "review_elapsed_seconds": null
+  },
+  "bookkeeping": {
+    "github_writes": false,
+    "cli_memory_updated": false,
+    "harness_written": false,
+    "parent_owns_integration_and_publication": true
+  }
+}
