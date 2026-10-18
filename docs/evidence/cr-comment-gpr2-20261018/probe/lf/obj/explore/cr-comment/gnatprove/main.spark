@@ -1,0 +1,55 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Main",
+      "sloc": [
+        {
+          "column": 1,
+          "file": "main.adb",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 4.63000003946945E-04
+    },
+    "global": {
+      "flow analysis": 3.03000007988885E-04,
+      "globals (advanced)": 2.81999993603677E-04,
+      "globals (basic)": 4.41000011051074E-04,
+      "init_why_sections": 1.20699999388307E-03,
+      "marking": 1.76000001374632E-04,
+      "properties (advanced)": 5.09999990754295E-05,
+      "translation of standard": 2.78099998831749E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

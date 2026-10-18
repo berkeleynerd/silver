@@ -1,0 +1,2 @@
+main.adb: warning: unit name "SPARK_MODE" does not match source name. The source will be ignored.
+Stopping analysis due incorrectly named source files
