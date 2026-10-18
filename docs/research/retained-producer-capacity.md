@@ -1376,6 +1376,145 @@ Unconstrained Standard.String and predefined/dependency type bodies remain
 in the fixed dependency term; dynamic **non-itype** scalar/array types from
 library sources are not covered by the loop-itype row.
 
+### Ordinary range-loop framing and modified roots
+
+Under the earlier loop shape, the fixed producer cost is at most
+**69 nodes, 23 lists, 43 elements and 267 occurrences**. Add the body and
+its final statement-list wrapper once, each of the two frontend endpoints
+once in each program/term domain, and the per-root costs below. The bound
+includes the loop-local `Mk_Item_Of_Entity` visit; separate entity-pass setup
+and loop exception theories remain in the object component. This is a
+per-producer-visit formula, not a bound based on the numeric iteration count.
+
+| Fixed loop part | Nodes | Lists | Elements | Occurrences excluding supplied children |
+| --- | ---: | ---: | ---: | ---: |
+| Index binder and two bound temporaries | 9 | 0 | 0 | 0 |
+| Empty initial statement sequence | 1 | 1 | 1 | 0 |
+| Eager index and unused iterator dereferences | 2 | 0 | 0 | 0 |
+| Index range invariant | 4 | 3 | 4 | 33 |
+| Entry condition | 3 | 3 | 6 | 48 |
+| Index update and location label | 4 | 1 | 2 | 26 |
+| Exit condition | 1 | 1 | 2 | 20 |
+| Combine index and frame invariants | 1 | 1 | 2 | 8 |
+| Initialize index and prepend | 2 | 1 | 2 | 13 |
+| Bind low and high once | 2 | 0 | 0 | 14 |
+| `Wrap_Loop`, including two possible dead-code warnings | 40 | 12 | 24 | 105 |
+| **Total** | **69** | **23** | **43** | **267** |
+
+Allocation-only rows have their references charged at every use in the later
+occurrence rows. In particular, an index identifier has at most five
+occurrences and a dereference eight; each bound temporary has four. The
+program-domain range conjunction and combined invariant call `Andb`, whose
+overhead is eight occurrences and two argument-list elements, rather than
+the predicate-domain conjunction's one occurrence and empty extra-operand
+list (`src/why/why-gen-expr.adb:3485–3504`). The second iterator dereference
+is eagerly allocated even for an ordinary range and is then unused.
+
+`Wrap_Loop`'s allocation rows are respectively two exception names,
+before-sequence/comment `2/1/4`, after-sequence/three comments/assumption/
+try/handler/conditional/raise `9/3/8`, loop and location `2/2/0`,
+outer body sequence/comment `2/1/2`, outer try/handler `2/1/1`,
+two warnings `18/2/6`, and final sequence/comment/conditional `3/2/3`.
+Its 105-occurrence allowance is `15+17+2+2+8+58+3`; this conservatively
+includes the empty initial sequence and Void arguments even where sequence
+filtering removes them. The body, implicit invariant, entry/exit conditions,
+update and snapshot-bound context each occur once
+(`src/why/gnat2why-expr-loops.adb:690–813,970–1050,1292–1505,1763–1984,
+2194–2334`; `src/why/why-gen-progs.adb:329–370`). Empty source variant and
+invariant sets introduce no hidden assertion translations. The explicit
+`--no-loop-unrolling` guard excludes the repeating branch even if static
+unrolling candidacy is computed.
+
+The admitted `low .. high` syntax remains `N_Range` under light expansion.
+`Make_Index` attaches the generated index type to that range without changing
+it to `N_Subtype_Indication`; the light-expansion loop rewrite applies to array
+iterators, which are absent here. Thus the extra subtype-indication check at
+`gnat2why-expr-loops.adb:1976–1984` does not occur. The frontend source loci are
+`gcc/ada/sem_ch5.adb:3301–3400`, `sem_ch3.adb:20504–20605,20712–20761`, and
+`exp_spark.adb:896–913` at the revision used by the
+[frontend entity derivation](retained-frontend-entities.md). Captured bound
+declarations and their own costs remain separate from this syntactic fact.
+
+For each non-discarded modified root, the frame code reads the current value,
+computes a dynamic invariant or preservation equality, creates a loop-entry
+snapshot even when the equality simplifies to True, and binds that snapshot
+once around the loop. The following maxima cover the two possible statuses
+for whole-object writes:
+
+| Root family/status | Nodes | Lists | Elements | Occurrences |
+| --- | ---: | ---: | ---: | ---: |
+| Static signed Integer, `Entire_Object` | 16 | 5 | 6 | 57 |
+| Static signed Integer, `Not_Written` | 9 | 2 | 2 | 42 |
+| Ordinary String, `Entire_Object` | 49 | 19 | 27 | 126 |
+| Ordinary String, `Not_Written` | 25 | 8 | 12 | 118 |
+
+The Integer entire-object row is current read `2/0/0`, invariant
+`8/4/6`, snapshot identifier/name `2/0/0`, snapshot read/binding `3/0/0`,
+and accumulated conjunction `1/1/0`. Its emitted invariant is at most 38
+occurrences including the eleven-occurrence current read. The named invariant
+alternative is smaller; the expanded static property and discarded guard
+are covered by the preceding type-helper derivation. Snapshot binding is
+at most eighteen occurrences. Its conversion has the identical scalar type
+and returns unchanged. `Not_Written` replaces the invariant by one equality,
+at most 23 occurrences including current value and snapshot references.
+
+The String entire-object row is current read `6/3/5`, invariant `25/12/17`,
+snapshot setup `4/0/0`, snapshot read/conversion/binding `13/3/5`, and
+conjunction `1/1/0`. Its invariant has the earlier 69-occurrence bound
+including the current read. `Why_Type_Of_Entity` may construct a two-node
+abstract type for a split String binder before creating the snapshot
+identifier/name. On the later read, the conversion to that same array type
+returns its argument, but first may eagerly construct both split map types:
+six discarded nodes. The binding adds eight occurrences to the read's
+forty-eight, giving 56. `Not_Written` instead uses a single equality with
+at most 61 occurrences. These are direct identifier reads, not repeated
+initializer/source-expression translations.
+
+The relevant paths are `src/why/gnat2why-expr-loops-inv.adb:327–343,775–807,
+1079–1398`, `src/why/gnat2why-util.adb:1347–1454,1889–1907`,
+`src/why/gnat2why-expr.adb:946–954,2707–2805,2864–2894`,
+`src/why/why-gen-binders.adb:448–476`, and
+`src/why/why-gen-expr.adb:1136–1160,2399–2438`.
+The String row creates at most five direct map modules, and both rows use
+one snapshot temporary plus the temporary names already present in their
+bounded helper calls. Init/validity flags and borrower state are absent for
+these initialized ordinary objects. Each frame conjunction has at most two
+non-True operands because `Entire_Object` and `Not_Written` select mutually
+exclusive invariant/preservation branches, so it allocates no extra operand
+elements. Nested indexes are discarded as previously established.
+
+The concrete Silver_IO globals also fit these rows: `Written_Bytes` is a
+static Character String, `Written_Count` a static Natural subtype, and
+`Flushed`/`Succeeded` Standard.Boolean. Boolean is smaller than the Integer
+row: it skips the named invariant and scalar property and only constructs
+the discarded default-predicate guard. Thus these four globals contribute
+at most one String and three scalar rows per loop that can write them.
+`Ada.Text_IO.File_System` contributes no frame row: `Process_Call` ignores
+`Magic_String`; for `Direct_Mapping` it inserts only `Is_Object` entities
+(`gnat2why-expr-loops-inv.adb:1641–1689`). An `E_Abstract_State` is not in
+`Object_Kind` (`gcc/ada/einfo-utils.adb:354–357`,
+`gen_il-gen-gen_entities.adb:308,1087`). This exclusion is only for the loop
+frame helper; File_System's call effects, symbols and dependency setup still
+require their separate charges.
+
+For `q_i` concrete scalar roots and `q_s` String roots in a loop's
+non-discarded write set, including the applicable four globals, the closed
+loop contribution is therefore
+
+```text
+LoopCost = (69,23,43,267) + q_i*(16,5,6,57) + q_s*(49,19,27,126)
+           + BodyAndList + Prog(low) + Prog(high) + Term(low) + Term(high).
+```
+
+For the Main-visible unrefined contract roots just enumerated, the coarse
+root bound is `sum(q_i+q_s) <= F_loops*(D+4)`; the source-derived descendant
+write sets are sharper. The call/dependency analysis must justify that
+`Get_Proof_Globals` at Main's scope retains that opaque File_System state
+rather than introducing visible constituents; the `Is_Object` exclusion
+alone does not prove its refinement policy. Neither numeric trip
+count nor the number of repeated assignments to one root multiplies this
+producer cost.
+
 ## Aggregate formula and finite remaining helper families
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
@@ -1434,6 +1573,7 @@ again as standalone conversions.
 | Ordinary rank-one Character representation key miss | `(148,44,76,711)`; imports separate |
 | Main type translation/completion | Five classified rows in the preceding table; representation attempts and symbol caches separate |
 | Ordinary object/loop symbol and outer theory setup | [Object component](retained-producer-objects.md): per-visit regular/split `Mk_Item`, constant/mutable definitions, constant axioms and loop exception theory pair |
+| Ordinary range loop, excluding supplied body/endpoints | `(69,23,43,267) + q_i*(16,5,6,57) + q_s*(49,19,27,126)`; outer entity theories separate |
 
 Thus write the single pre-import sum as
 
@@ -1454,7 +1594,6 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | Generated/library object setup and visit counts | The [object component](retained-producer-objects.md) closes ordinary regular/split binder visits and source object/loop theory contents. Map actual setup visits to source/generated declarations, and price richer fixed-library shapes separately. |
 | `K_generated_decl` | Executable checks/wrappers for generated static object subtypes, static String index/alias subtypes, loop-index subtypes and at most two loop bound-capture declarations. Attribute/bound-expression translations must be charged here or to the closed expression rows, once consistently. |
 | Generated actions and declaration-list wrappers | The [control component](retained-producer-control.md) closes source Length, if skeletons and ordinary source statement lists. It keeps frontend Actions/generated statements without source locations and the distinct `Transform_Declarations` list helper separate; add those actual callers here. |
-| `K_loop`, `H_int`, `H_string`, `H_global` | Per-loop fixed framing plus snapshots/preservation for each modified root. The existing `sum(|Q_loop|) <= F_loops(D+G)` bound applies; the finite actual fixed-library write-global set must determine `G` and its helper shapes. |
 | `K_call[j]` | One wrapper family for each admitted library operation: Put, Put_Line, First_Or_Default, Input_Is_Valid and Reject. Count source call sites and any immutable initializer replay; price actual binding, conversions, checks, contracts/effects and globals. The frontend report excludes body inlining into Main, but fixed package source size alone is not a per-call bound. |
 | Invocation map and counters | Close `n_q(P)` and `n_h(P)` from the source grammar and frontend-generated counts, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Generated captures, type helpers and fixed call wrappers still require their own counts. Bound `M`, `C`, `F <= E_list` and the temporary-name counter from the same accounting. |
 

@@ -50,6 +50,13 @@ RANGES = {
 RANGES["src/why/why-gen-arrays.adb"].append([2526, 2810])
 RANGES["src/why/why-gen-expr.adb"].extend([[280, 305], [4337, 4418]])
 RANGES["src/why/gnat2why-expr.adb"].extend([[5465, 5592], [5726, 6011], [6820, 7085]])
+RANGES["src/why/gnat2why-expr.adb"].extend([[946, 954], [2707, 2894]])
+RANGES["src/why/gnat2why-expr-loops.adb"].extend([[619, 651], [690, 787], [970, 1050], [1292, 1416], [1763, 1989]])
+RANGES["src/why/gnat2why-expr-loops-inv.adb"].append([327, 343])
+RANGES["src/why/gnat2why-expr-loops-inv.adb"].extend([[1404, 1460], [1641, 1689]])
+RANGES["src/why/why-gen-expr.adb"].append([3485, 3572])
+RANGES["src/why/why-gen-progs.adb"].extend([[52, 102], [329, 370]])
+RANGES["src/why/xgen/xtree_sinfo.adb"].extend([[488, 511], [558, 576]])
 
 
 def sha(data):
@@ -200,6 +207,28 @@ def main():
             "excludes": "17 eager nodes per attempt, Close_Theory imports, cached Standard/Integer/Character symbol initialization",
         },
         "memoized_entity_module_kinds": 27,
+        "ordinary_range_loop": {
+            "fixed_rows": {
+                "index_binder_and_bound_temporaries": [5 + 4, 0, 0, 0],
+                "empty_initial_statement_sequence": [1, 1, 1, 0],
+                "eager_index_and_unused_iterator_dereferences": [2, 0, 0, 0],
+                "index_invariant_excluding_endpoint_children": [1 + 3, 3, 4, 1 + 2 * (8 + 8)],
+                "entry_condition": [3, 3, 6, 8 + 2 * 8 + 2 * 4 + 2 * 8],
+                "index_update_and_location": [4, 1, 2, 1 + 1 + 5 + 2 + 1 + 5 + 2 + 8 + 1],
+                "exit_condition": [1, 1, 2, 1 + 5 + 2 + 8 + 4],
+                "combine_index_and_frame_invariants": [1, 1, 2, 8],
+                "initialize_index_and_prepend": [2, 1, 2, 1 + 5 + 4 + 2 + 1],
+                "bind_low_and_high_once": [2, 0, 0, 2 * (1 + 4 + 2)],
+                "wrap_loop": [2 + 2 + 9 + 2 + 2 + 2 + 18 + 3, 1 + 3 + 2 + 1 + 1 + 2 + 2,
+                              4 + 8 + 2 + 1 + 6 + 3, 15 + 17 + 2 + 2 + 8 + 58 + 3],
+            },
+            "fixed_total": [69, 23, 43, 267],
+            "integer_frame_entire_object": [2 + 8 + 2 + 3 + 1, 4 + 1, 6, 38 + 18 + 1],
+            "integer_frame_not_written": [2 + 2 + 1 + 3 + 1, 1 + 1, 2, 23 + 18 + 1],
+            "string_frame_entire_object": [6 + 25 + 4 + 13 + 1, 3 + 12 + 3 + 1, 5 + 17 + 5, 69 + 56 + 1],
+            "string_frame_not_written": [6 + 4 + 1 + 13 + 1, 3 + 1 + 3 + 1, 5 + 2 + 5, 61 + 56 + 1],
+            "scope": "no unrolling, explicit range bounds, no source invariant/variant/filter/body declaration; supplied body and endpoint translations separate; G4 uses Main-visible unrefined contract roots",
+        },
         "ordinary_type_translation_completion": {
             "convention": "componentwise conservative bounds; raw function builders are allowed the binder helper's empty effects/True pre/post even where absent",
             "static_string_declaration": [1 + 5 + 12 + 14 + 2 + 1, 1 + 8 + 1, 1 + 2 + 8, 6 + 22 + 27],
@@ -328,6 +357,10 @@ def main():
         "retained_modules": result,
         "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
     }
+    loop = arithmetic["ordinary_range_loop"]
+    assert loop["fixed_total"] == [
+        sum(row[i] for row in loop["fixed_rows"].values()) for i in range(4)
+    ]
     dump(ROOT / "checks.json", arithmetic)
     print(json.dumps({"retained_modules_checked": len(result),
                       "checks": str(ROOT / "checks.json")}))

@@ -177,6 +177,107 @@
     "eager_move_temporary_nodes": 2,
     "excludes": "RHS/init translation and boundary, binder/symbol setup, outer theories, enclosing sequence"
   },
+  "ordinary_range_loop": {
+    "fixed_rows": {
+      "bind_low_and_high_once": [
+        2,
+        0,
+        0,
+        14
+      ],
+      "combine_index_and_frame_invariants": [
+        1,
+        1,
+        2,
+        8
+      ],
+      "eager_index_and_unused_iterator_dereferences": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "empty_initial_statement_sequence": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "entry_condition": [
+        3,
+        3,
+        6,
+        48
+      ],
+      "exit_condition": [
+        1,
+        1,
+        2,
+        20
+      ],
+      "index_binder_and_bound_temporaries": [
+        9,
+        0,
+        0,
+        0
+      ],
+      "index_invariant_excluding_endpoint_children": [
+        4,
+        3,
+        4,
+        33
+      ],
+      "index_update_and_location": [
+        4,
+        1,
+        2,
+        26
+      ],
+      "initialize_index_and_prepend": [
+        2,
+        1,
+        2,
+        13
+      ],
+      "wrap_loop": [
+        40,
+        12,
+        24,
+        105
+      ]
+    },
+    "fixed_total": [
+      69,
+      23,
+      43,
+      267
+    ],
+    "integer_frame_entire_object": [
+      16,
+      5,
+      6,
+      57
+    ],
+    "integer_frame_not_written": [
+      9,
+      2,
+      2,
+      42
+    ],
+    "scope": "no unrolling, explicit range bounds, no source invariant/variant/filter/body declaration; supplied body and endpoint translations separate; G4 uses Main-visible unrefined contract roots",
+    "string_frame_entire_object": [
+      49,
+      19,
+      27,
+      126
+    ],
+    "string_frame_not_written": [
+      25,
+      8,
+      12,
+      118
+    ]
+  },
   "ordinary_type_translation_completion": {
     "convention": "componentwise conservative bounds; raw function builders are allowed the binder helper's empty effects/True pre/post even where absent",
     "excludes": "array representation attempts/misses, cached symbols/modules, Close_Theory imports, executable generated declaration checks, fixed predefined/dependency types",

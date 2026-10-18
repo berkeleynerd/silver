@@ -2037,6 +2037,144 @@
   2408:
 ```
 
+## src/why/gnat2why-expr-loops-inv.adb:327-343
+
+```ada
+   327:    function Equality_Of_Preserved_Components
+   328:      (Loop_Idx  : Opt_E_Loop_Parameter_Id;
+   329:       Low_Id    : W_Expr_Id;
+   330:       High_Id   : W_Expr_Id;
+   331:       Is_Rev    : Boolean;
+   332:       Loop_Vars : Flow_Id_Sets.Set;
+   333:       Expr      : W_Expr_Id;
+   334:       At_Entry  : W_Expr_Id;
+   335:       Expr_Ty   : Type_Kind_Id;
+   336:       Status    : Write_Status_Access;
+   337:       Only_Vars : Boolean := True;
+   338:       For_Valid : Boolean := False) return W_Pred_Id
+   339:    is
+   340:       Preserved_Components : W_Pred_Id := True_Pred;
+   341:
+   342:       function Build_Array_Constraints
+   343:         (Updates : Array_Constraints_Maps.Map; Indices : W_Expr_Array)
+```
+
+## src/why/gnat2why-expr-loops-inv.adb:1404-1460
+
+```ada
+  1404:    procedure Get_Loop_Writes
+  1405:      (Loop_Stmt       : N_Loop_Statement_Id;
+  1406:       Loop_Writes     : out Write_Status_Maps.Map;
+  1407:       Invalid_Objects : out Node_Sets.Set)
+  1408:    is
+  1409:       Stmts     : constant List_Id := Statements (Loop_Stmt);
+  1410:       Scheme    : constant Opt_N_Iteration_Scheme_Id :=
+  1411:         Iteration_Scheme (Loop_Stmt);
+  1412:       After_Inv : Boolean := True;
+  1413:       --  Only try to keep variables declared inside the loop as completely
+  1414:       --  written instead of discarded if there is a loop invariant (and this
+  1415:       --  will only impact variables declared before the loop invariant).
+  1416:       --  Otherwise, there is no meaningful use for these variables in the
+  1417:       --  frame condition.
+  1418:
+  1419:       Flat_Body : constant Node_Lists.List :=
+  1420:         Get_Flat_Statement_And_Declaration_List (Stmts);
+  1421:       --  Flattened loop body.
+  1422:
+  1423:       Relevant_Vertices : Local_CFG.Vertex_Sets.Set;
+  1424:       --  To store vertices of loop's local CFG that can lead back to
+  1425:       --  invariant. This let us detect which writes can actually happen
+  1426:       --  before the invariant is reached (again). Other writes are
+  1427:       --  not actually relevant modifications of variables
+  1428:       --  for computing the frame condition.
+  1429:
+  1430:    begin
+  1431:       --  The loop index is completely written
+  1432:
+  1433:       if Present (Scheme) and then No (Condition (Scheme)) then
+  1434:          declare
+  1435:             Loop_Param_Ent : E_Loop_Parameter_Id;
+  1436:          begin
+  1437:             if Present (Loop_Parameter_Specification (Scheme)) then
+  1438:                Loop_Param_Ent :=
+  1439:                  Defining_Identifier (Loop_Parameter_Specification (Scheme));
+  1440:             else
+  1441:                pragma Assert (Present (Iterator_Specification (Scheme)));
+  1442:                Loop_Param_Ent :=
+  1443:                  Defining_Identifier (Iterator_Specification (Scheme));
+  1444:             end if;
+  1445:
+  1446:             --  For the loop index of the top-level loop, consider the variable
+  1447:             --  as completely written instead of discarded, as this allows
+  1448:             --  stating the dynamic property of the loop index in the frame
+  1449:             --  condition.
+  1450:
+  1451:             Write_Entity
+  1452:               (New_Write      => Loop_Param_Ent,
+  1453:                Loop_Writes    => Loop_Writes,
+  1454:                Discard_Writes => After_Inv,
+  1455:                Relevant_Path  => True);
+  1456:
+  1457:          end;
+  1458:       end if;
+  1459:
+  1460:       --  Find relevant vertices.
+```
+
+## src/why/gnat2why-expr-loops-inv.adb:1641-1689
+
+```ada
+  1641:       declare
+  1642:          Read_Ids  : Flow_Types.Flow_Id_Sets.Set;
+  1643:          Write_Ids : Flow_Types.Flow_Id_Sets.Set;
+  1644:
+  1645:       begin
+  1646:          Flow_Utility.Get_Proof_Globals
+  1647:            (Subprogram      => Subp,
+  1648:             Reads           => Read_Ids,
+  1649:             Writes          => Write_Ids,
+  1650:             Erase_Constants => True,
+  1651:             Scop            => Get_Flow_Scope (Call));
+  1652:
+  1653:          for F of Write_Ids loop
+  1654:             pragma Assert (F.Kind in Direct_Mapping | Magic_String);
+  1655:
+  1656:             --  Magic_String are global state with no attached entities. As
+  1657:             --  such state is translated as private in Why3, we do not need
+  1658:             --  to assume any invariant for it.
+  1659:
+  1660:             if F.Kind = Direct_Mapping then
+  1661:                declare
+  1662:                   Entity : constant Entity_Id := Get_Direct_Mapping_Id (F);
+  1663:
+  1664:                begin
+  1665:                   if Is_Object (Entity) and then Is_Mutable_In_Why (Entity)
+  1666:                   then
+  1667:                      Write_Entity
+  1668:                        (Entity,
+  1669:                         Loop_Writes,
+  1670:                         Discard_Writes => False,
+  1671:                         Relevant_Path  => Relevant_Path);
+  1672:
+  1673:                      --  If Entity has a validity flag, add it to
+  1674:                      --  Invalid_Objects.
+  1675:
+  1676:                      if Object_Has_Valid_Id (Entity) then
+  1677:                         Invalid_Objects.Include (Unique_Entity (Entity));
+  1678:                      end if;
+  1679:                   end if;
+  1680:                end;
+  1681:             end if;
+  1682:          end loop;
+  1683:       end;
+  1684:
+  1685:       --  Record write to the protected object for protected procedure or entry
+  1686:
+  1687:       if Is_Protected_Operation (Subp) and then Is_External_Call (Call) then
+  1688:          Write_Expr
+  1689:            (New_Write     => SPARK_Atree.Name (Call),
+```
+
 ## src/why/gnat2why-expr-loops.adb:500-575
 
 ```ada
@@ -2604,6 +2742,595 @@
   2332:                 (Condition => +Enter_Condition, Then_Part => +Loop_Try),
   2333:             3 => Warn_Dead_Code));
   2334:    end Wrap_Loop;
+```
+
+## src/why/gnat2why-expr-loops.adb:619-651
+
+```ada
+   619:       function Check_Loop_Variants (List : Node_Lists.List) return W_Prog_Id is
+   620:          Stmts   : W_Prog_Array (1 .. Natural (List.Length));
+   621:          Counter : Positive := 1;
+   622:       begin
+   623:          if List.Is_Empty then
+   624:             return +Void;
+   625:          end if;
+   626:
+   627:          for Variant of List loop
+   628:             Stmts (Counter) := Check_Loop_Variant (Variant, Params);
+   629:             Counter := Counter + 1;
+   630:          end loop;
+   631:
+   632:          return Sequence (Stmts);
+   633:       end Check_Loop_Variants;
+   634:
+   635:       -----------------------------
+   636:       -- Transform_Loop_Variants --
+   637:       -----------------------------
+   638:
+   639:       function Transform_Loop_Variants
+   640:         (List : Node_Lists.List) return W_Variants_Array
+   641:       is
+   642:          Variants_Ar : W_Variants_Array (1 .. Natural (List.Length));
+   643:          Count       : Natural := 0;
+   644:       begin
+   645:          for Loop_Variant of List loop
+   646:
+   647:             --  Structural variants are checked statically
+   648:
+   649:             if Chars (First (Pragma_Argument_Associations (Loop_Variant)))
+   650:               = Name_Structural
+   651:             then
+```
+
+## src/why/gnat2why-expr-loops.adb:690-787
+
+```ada
+   690:
+   691:       Loop_Body : constant List_Id := Statements (Stmt);
+   692:       Scheme    : constant Opt_N_Iteration_Scheme_Id :=
+   693:         Iteration_Scheme (Stmt);
+   694:       Loop_Id   : constant E_Loop_Id := Entity (Identifier (Stmt));
+   695:       Next_Stmt : constant Node_Id := Next (Stmt);
+   696:
+   697:       Loop_Stmts      : Node_Lists.List;
+   698:       Initial_Stmts   : Node_Lists.List;
+   699:       Final_Stmts     : Node_Lists.List;
+   700:       Loop_Invariants : Node_Lists.List;
+   701:       Loop_Variants   : Node_Lists.List;
+   702:       Frame_Constants : Entity_Sets.Set;
+   703:       Other_Constants : Entity_Sets.Set;
+   704:
+   705:       Initial_Prog : W_Prog_Id;
+   706:       Final_Prog   : W_Prog_Id;
+   707:
+   708:       --  Variables for the selected loop invariants, default initialized to
+   709:       --  the proper values when the loop does not have an invariant.
+   710:
+   711:       Inv_Check : W_Prog_Id := +Void;
+   712:
+   713:       --  Variable for the implicit invariant for dynamic properties of
+   714:       --  modified objects.
+   715:
+   716:       Dyn_Types_Inv : W_Pred_Id := True_Pred;
+   717:
+   718:       Loop_Param_Ent  : Opt_E_Loop_Parameter_Id := Empty;
+   719:       Loop_Index      : W_Identifier_Id := Why_Empty;
+   720:       Loop_Index_Type : W_Type_Id := EW_Int_Type;
+   721:       --  These three variables hold the loop parameter in Ada and Why, if any
+   722:
+   723:       --  Constants specific to range quantification
+   724:
+   725:       Low_Id  : W_Identifier_Id := Why_Empty;
+   726:       High_Id : W_Identifier_Id := Why_Empty;
+   727:
+   728:       --  Start of processing for Transform_Loop_Statement
+   729:
+   730:    begin
+   731:       --  Add the loop index to the entity table
+   732:
+   733:       if Present (Scheme) and then No (Condition (Scheme)) then
+   734:          if Present (Loop_Parameter_Specification (Scheme)) then
+   735:             Loop_Param_Ent :=
+   736:               Defining_Identifier (Loop_Parameter_Specification (Scheme));
+   737:
+   738:             Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+   739:
+   740:             declare
+   741:                Index_Item : constant Item_Type :=
+   742:                  Mk_Item_Of_Entity (Loop_Param_Ent);
+   743:             begin
+   744:                pragma Assert (Index_Item.Kind = Regular);
+   745:
+   746:                Loop_Index := Index_Item.Main.B_Name;
+   747:                Loop_Index_Type := Base_Why_Type (Get_Typ (Loop_Index));
+   748:                Insert_Item (Loop_Param_Ent, Index_Item);
+   749:             end;
+   750:          else
+   751:             pragma Assert (Present (Iterator_Specification (Scheme)));
+   752:             Loop_Param_Ent :=
+   753:               Defining_Identifier (Iterator_Specification (Scheme));
+   754:
+   755:             Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+   756:
+   757:             declare
+   758:                Index_Item : constant Item_Type :=
+   759:                  Mk_Item_Of_Entity (Loop_Param_Ent);
+   760:             begin
+   761:                pragma Assert (Index_Item.Kind = Regular);
+   762:
+   763:                Loop_Index := Index_Item.Main.B_Name;
+   764:                Loop_Index_Type := Get_Typ (Loop_Index);
+   765:                Insert_Item (Loop_Param_Ent, Index_Item);
+   766:             end;
+   767:          end if;
+   768:
+   769:          Low_Id := New_Temp_Identifier (Typ => Loop_Index_Type);
+   770:          High_Id := New_Temp_Identifier (Typ => Loop_Index_Type);
+   771:       end if;
+   772:
+   773:       --  Retrieve the different parts of the loop
+   774:
+   775:       Loop_Stmts := Get_Flat_Statement_And_Declaration_List (Loop_Body);
+   776:       Get_Loop_Invariant
+   777:         (Loop_Stmts          => Loop_Stmts,
+   778:          Initial_Stmts       => Initial_Stmts,
+   779:          Loop_Invariants     => Loop_Invariants,
+   780:          Loop_Variants       => Loop_Variants,
+   781:          Final_Stmts         => Final_Stmts,
+   782:          Frame_Constants     => Frame_Constants,
+   783:          Imprecise_Constants => Other_Constants);
+   784:
+   785:       declare
+   786:          Why_Invariants       :
+   787:            W_Pred_Array (1 .. Integer (Loop_Invariants.Length));
+```
+
+## src/why/gnat2why-expr-loops.adb:970-1050
+
+```ada
+   970:             pragma Assert (Present (Loop_Index));
+   971:
+   972:             For_Loop : declare
+   973:                Over_Range : constant Boolean :=
+   974:                  Present (Loop_Parameter_Specification (Scheme));
+   975:                --  For loops my iterate either on a range or on an iterator.
+   976:
+   977:                LParam_Spec : constant Node_Id :=
+   978:                  (if Over_Range
+   979:                   then Loop_Parameter_Specification (Scheme)
+   980:                   else Iterator_Specification (Scheme));
+   981:                Over_Node   : constant Node_Id :=
+   982:                  (if Over_Range
+   983:                   then Discrete_Subtype_Definition (LParam_Spec)
+   984:                   else Get_Container_In_Iterator_Specification (LParam_Spec));
+   985:                Index_Deref : constant W_Prog_Id :=
+   986:                  New_Deref
+   987:                    (Ada_Node => Stmt,
+   988:                     Right    => +Loop_Index,
+   989:                     Typ      => Loop_Index_Type);
+   990:
+   991:                --  Constants specific to iterator specification
+   992:
+   993:                Typ_For_Cont  : constant W_Type_Id :=
+   994:                  (if Over_Range
+   995:                   then EW_Int_Type
+   996:                   else
+   997:                     Type_Of_Node
+   998:                       (Etype
+   999:                          (First_Formal
+  1000:                             (Get_Iterable_Type_Primitive
+  1001:                                (Etype (Over_Node), Name_First)))));
+  1002:                W_Container   : constant W_Expr_Id :=
+  1003:                  (if Over_Range
+  1004:                   then Why_Empty
+  1005:                   else
+  1006:                     New_Temp_For_Expr
+  1007:                       (Insert_Simple_Conversion
+  1008:                          (Domain => EW_Prog,
+  1009:                           Expr   =>
+  1010:                             Transform_Expr (Over_Node, EW_Prog, Params),
+  1011:                           To     => Typ_For_Cont),
+  1012:                        Need_Temp => not SPARK_Atree.Is_Variable (Over_Node)));
+  1013:                --  Introduce a temporary variable for the container expression
+  1014:                --  except if it is a variable.
+  1015:                W_Container_T : constant W_Expr_Id :=
+  1016:                  (if Over_Range
+  1017:                   then Why_Empty
+  1018:                   elsif SPARK_Atree.Is_Variable (Over_Node)
+  1019:                   then
+  1020:                     Insert_Simple_Conversion
+  1021:                       (Domain => EW_Term,
+  1022:                        Expr   => Transform_Expr (Over_Node, EW_Term, Params),
+  1023:                        To     => Typ_For_Cont)
+  1024:                   else W_Container);
+  1025:                --  Container expression in the term domain
+  1026:
+  1027:                --  For for of loops, we need an identifier for the additional
+  1028:                --  variable holding the iterator.
+  1029:
+  1030:                Need_Iter    : constant Boolean :=
+  1031:                  not Over_Range and then Of_Present (LParam_Spec);
+  1032:                Typ_For_Iter : constant W_Type_Id :=
+  1033:                  (if Need_Iter
+  1034:                   then
+  1035:                     Type_Of_Node
+  1036:                       (Get_Iterable_Type_Primitive
+  1037:                          (Typ => Etype (Over_Node), Nam => Name_First))
+  1038:                   else Loop_Index_Type);
+  1039:                Nam_For_Iter : constant W_Identifier_Id :=
+  1040:                  (if not Need_Iter
+  1041:                   then Loop_Index
+  1042:                   else
+  1043:                     New_Temp_Identifier
+  1044:                       (Ada_Node => Empty, Typ => Typ_For_Iter));
+  1045:                Iter_Deref   : constant W_Prog_Id :=
+  1046:                  New_Deref
+  1047:                    (Ada_Node => Stmt,
+  1048:                     Right    => +Nam_For_Iter,
+  1049:                     Typ      => Typ_For_Iter);
+  1050:
+```
+
+## src/why/gnat2why-expr-loops.adb:1292-1416
+
+```ada
+  1292:                function Construct_Cond return W_Prog_Id is
+  1293:                begin
+  1294:                   if Over_Range then
+  1295:
+  1296:                      --  Low_Id <= Index_Deref <= High_Id
+  1297:
+  1298:                      return
+  1299:                        +New_Range_Expr
+  1300:                           (Domain => EW_Prog,
+  1301:                            Low    => +Low_Id,
+  1302:                            High   => +High_Id,
+  1303:                            Expr   => +Index_Deref);
+  1304:                   else
+  1305:
+  1306:                      --  Has_Element (W_Container, Iter_Deref)
+  1307:
+  1308:                      return +Constraint_For_Iterable (EW_Prog);
+  1309:                   end if;
+  1310:                end Construct_Cond;
+  1311:
+  1312:                -------------------------
+  1313:                -- Construct_Exit_Cond --
+  1314:                -------------------------
+  1315:
+  1316:                function Construct_Exit_Cond return W_Prog_Id is
+  1317:                begin
+  1318:                   if Over_Range then
+  1319:
+  1320:                      --  Index_Deref = Low_Id if Is_Reverse
+  1321:                      --  Index_Deref = High_Id otherwise
+  1322:
+  1323:                      declare
+  1324:                         Is_Reverse : constant Boolean :=
+  1325:                           Reverse_Present (LParam_Spec);
+  1326:                         Exit_Index : constant W_Expr_Id :=
+  1327:                           (if Is_Reverse then +Low_Id else +High_Id);
+  1328:                         Eq_Symb    : constant W_Identifier_Id :=
+  1329:                           (if Why_Type_Is_BitVector (Loop_Index_Type)
+  1330:                            then MF_BVs (Loop_Index_Type).Prog_Eq
+  1331:                            else Why_Eq);
+  1332:                         Exit_Cond  : constant W_Expr_Id :=
+  1333:                           New_Call
+  1334:                             (Domain => EW_Prog,
+  1335:                              Name   => Eq_Symb,
+  1336:                              Typ    => EW_Bool_Type,
+  1337:                              Args   => (+Index_Deref, +Exit_Index));
+  1338:                      begin
+  1339:                         return +Exit_Cond;
+  1340:                      end;
+  1341:                   else
+  1342:
+  1343:                      --  not (Has_Element (W_Container, Next (Iter_Deref)));
+  1344:
+  1345:                      return +Exit_Condition_For_Iterable;
+  1346:                   end if;
+  1347:                end Construct_Exit_Cond;
+  1348:
+  1349:                -------------------------
+  1350:                -- Construct_Init_Prog --
+  1351:                -------------------------
+  1352:
+  1353:                function Construct_Init_Prog return W_Prog_Id is
+  1354:                begin
+  1355:                   if Over_Range then
+  1356:
+  1357:                      --  Loop_Index := High_Id if Is_Reverse
+  1358:                      --  Loop_Index := Low_Id otherwise
+  1359:
+  1360:                      declare
+  1361:                         Is_Reverse : constant Boolean :=
+  1362:                           Reverse_Present (LParam_Spec);
+  1363:                         Init_Index : constant W_Expr_Id :=
+  1364:                           (if Is_Reverse then +High_Id else +Low_Id);
+  1365:                      begin
+  1366:                         return
+  1367:                           New_Assignment
+  1368:                             (Name   => Loop_Index,
+  1369:                              Value  => +Init_Index,
+  1370:                              Labels => Symbol_Sets.Empty_Set,
+  1371:                              Typ    => Loop_Index_Type);
+  1372:                      end;
+  1373:                   else
+  1374:                      if Need_Iter then
+  1375:
+  1376:                         --  if Has_Element (W_Container, Iter_Deref) then
+  1377:                         --    Loop_Index := Element (W_Container, Iter_Deref)
+  1378:
+  1379:                         return Update_Index;
+  1380:                      else
+  1381:
+  1382:                         --  Loop_Index := First (W_Container)
+  1383:
+  1384:                         return
+  1385:                           New_Assignment
+  1386:                             (Name   => Nam_For_Iter,
+  1387:                              Value  => Init_Iter,
+  1388:                              Labels => Symbol_Sets.Empty_Set,
+  1389:                              Typ    => Typ_For_Iter);
+  1390:                      end if;
+  1391:                   end if;
+  1392:                end Construct_Init_Prog;
+  1393:
+  1394:                -----------------------------
+  1395:                -- Construct_Inv_For_Index --
+  1396:                -----------------------------
+  1397:
+  1398:                function Construct_Inv_For_Index return W_Pred_Id is
+  1399:                begin
+  1400:                   if Over_Range then
+  1401:
+  1402:                      --  In the range expression of the invariant, explicitly
+  1403:                      --  set T_Type to handle the special case of
+  1404:                      --  Standard.Boolean, where bounds and index are of
+  1405:                      --  different base types (bool for bounds, int for index).
+  1406:
+  1407:                      return
+  1408:                        +Range_Expr
+  1409:                           (Over_Node,
+  1410:                            New_Deref
+  1411:                              (Right => Loop_Index, Typ => Loop_Index_Type),
+  1412:                            EW_Pred,
+  1413:                            Params => Params,
+  1414:                            T_Type => Loop_Index_Type);
+  1415:
+  1416:                   else
+```
+
+## src/why/gnat2why-expr-loops.adb:1763-1989
+
+```ada
+  1763:                                                   New_Or_Pred
+  1764:                                                     (Left  => Exit_Cond,
+  1765:                                                      Right => Last_Filter))),
+  1766:                                         Return_Type => EW_Unit_Type,
+  1767:                                         Labels      => Symbol_Sets.Empty_Set),
+  1768:                                    2 => Check_Filter,
+  1769:                                    3 => Exit_Stmt))));
+  1770:                end Skip_Empty_Iterations;
+  1771:
+  1772:                ---------------------
+  1773:                -- Local Variables --
+  1774:                ---------------------
+  1775:
+  1776:                Index_Inv   : constant W_Pred_Id := Construct_Inv_For_Index;
+  1777:                Cond_Prog   : constant W_Prog_Id := Construct_Cond;
+  1778:                Update_Stmt : constant W_Prog_Id :=
+  1779:                  +Insert_Cnt_Loc_Label (Stmt, +Construct_Update_Stmt);
+  1780:                Exit_Cond   : constant W_Prog_Id := Construct_Exit_Cond;
+  1781:                Impl_Inv    : W_Pred_Id :=
+  1782:                  +New_And_Expr
+  1783:                     (Left   => +Dyn_Types_Inv,
+  1784:                      Right  => +Index_Inv,
+  1785:                      Domain => EW_Prog);
+  1786:
+  1787:                Entire_Loop : W_Prog_Id;
+  1788:
+  1789:                --  Variables used in loop unrolling
+  1790:                Low_Val  : Uint;
+  1791:                High_Val : Uint;
+  1792:                Unroll   : Unrolling_Type;
+  1793:
+  1794:                --  Start of processing for For_Loop
+  1795:
+  1796:             begin
+  1797:                Ada_Ent_To_Why.Pop_Scope (Symbol_Table);
+  1798:
+  1799:                --  Special case of a FOR loop without loop (in)variant on a
+  1800:                --  static range, which can be unrolled for every value of the
+  1801:                --  loop index.
+  1802:
+  1803:                Candidate_For_Loop_Unrolling
+  1804:                  (Loop_Stmt   => Stmt,
+  1805:                   Output_Info =>
+  1806:                     Warning_Status (Warn_Info_Unrolling_Inlining) = WS_Enabled
+  1807:                     and then not Gnat2Why_Args.No_Loop_Unrolling,
+  1808:                   Result      => Unroll,
+  1809:                   Low_Val     => Low_Val,
+  1810:                   High_Val    => High_Val);
+  1811:
+  1812:                if not Gnat2Why_Args.No_Loop_Unrolling
+  1813:                  and then Unroll /= No_Unrolling
+  1814:                then
+  1815:                   --  If the loop has an iterator filter, we need to add
+  1816:                   --  the filtering expression as a guard for each loop
+  1817:                   --  unrolling.
+  1818:
+  1819:                   if Present (Iterator_Filter (LParam_Spec)) then
+  1820:                      Final_Prog :=
+  1821:                        New_Conditional
+  1822:                          (Condition =>
+  1823:                             Transform_Prog
+  1824:                               (Expr          => Iterator_Filter (LParam_Spec),
+  1825:                                Expected_Type => EW_Bool_Type,
+  1826:                                Params        => Params),
+  1827:                           Then_Part => Final_Prog);
+  1828:                   end if;
+  1829:
+  1830:                   declare
+  1831:                      Inlined_Body : constant W_Prog_Id :=
+  1832:                        (if Unroll = Unrolling_With_Condition
+  1833:                         then
+  1834:                           New_Conditional
+  1835:                             (Condition => +Cond_Prog, Then_Part => +Final_Prog)
+  1836:                         else Final_Prog);
+  1837:                   begin
+  1838:                      Entire_Loop :=
+  1839:                        Unroll_Loop
+  1840:                          (Loop_Id         => Loop_Id,
+  1841:                           Loop_Index      => Loop_Index,
+  1842:                           Loop_Index_Type => Loop_Index_Type,
+  1843:                           Low_Val         => Low_Val,
+  1844:                           High_Val        => High_Val,
+  1845:                           Reversed        => Reverse_Present (LParam_Spec),
+  1846:                           Body_Prog       => Inlined_Body,
+  1847:                           Params          => Params);
+  1848:                   end;
+  1849:
+  1850:                --  Regular case of a FOR loop with a loop (in)variant, or no
+  1851:                --  static bounds, requiring a proof by induction.
+  1852:
+  1853:                else
+  1854:                   --  If the loop has an iterator filter, add a statement at
+  1855:                   --  the begining of the loop to skip iterations which are
+  1856:                   --  filtered out. We cannot simply wrap the loop body inside
+  1857:                   --  a conditionnal like for unrolled loops because the loop
+  1858:                   --  invariant is only supposed to hold on enabled iterations.
+  1859:
+  1860:                   if Present (Iterator_Filter (LParam_Spec)) then
+  1861:
+  1862:                      --  If the Loop_Assertion pragma comes first in the loop
+  1863:                      --  body (possibly inside nested block statements), then
+  1864:                      --  we can use the filter expression as an implicit
+  1865:                      --  invariant of the generated Why loop. In other cases,
+  1866:                      --  we cannot, as this would not be always correct.
+  1867:
+  1868:                      if Is_Essentially_Void (Initial_Prog) then
+  1869:                         Impl_Inv :=
+  1870:                           +New_And_Expr
+  1871:                              (Left   => +Impl_Inv,
+  1872:                               Right  =>
+  1873:                                 +Transform_Expr
+  1874:                                    (Expr   => Iterator_Filter (LParam_Spec),
+  1875:                                     Domain => EW_Pred,
+  1876:                                     Params => Params),
+  1877:                               Domain => EW_Prog);
+  1878:                      end if;
+  1879:
+  1880:                      Prepend (Skip_Empty_Iterations, Initial_Prog);
+  1881:                   end if;
+  1882:
+  1883:                   Entire_Loop :=
+  1884:                     Wrap_Loop
+  1885:                       (Loop_Id            => Loop_Id,
+  1886:                        Loop_Start         => Initial_Prog,
+  1887:                        Loop_End           => Final_Prog,
+  1888:                        Enter_Condition    => Cond_Prog,
+  1889:                        Exit_Condition     => Exit_Cond,
+  1890:                        Implicit_Invariant => Impl_Inv,
+  1891:                        User_Invariants    => Why_Invariants,
+  1892:                        Invariant_Check    => Inv_Check,
+  1893:                        Variants           =>
+  1894:                          Transform_Loop_Variants (Loop_Variants),
+  1895:                        Variant_Check      =>
+  1896:                          Check_Loop_Variants (Loop_Variants),
+  1897:                        Update_Stmt        => Update_Stmt,
+  1898:                        First_Stmt         => Loop_Stmts.First_Element,
+  1899:                        Next_Stmt          => Next_Stmt,
+  1900:                        Last_Inv           =>
+  1901:                          (if Loop_Invariants.Is_Empty
+  1902:                           then Empty
+  1903:                           else Loop_Invariants.Last_Element),
+  1904:                        Params             => Params);
+  1905:
+  1906:                   Prepend (Construct_Init_Prog, Entire_Loop);
+  1907:                end if;
+  1908:
+  1909:                --  Create new variable for iterator if needed
+  1910:
+  1911:                if Need_Iter then
+  1912:                   Entire_Loop :=
+  1913:                     New_Binding_Ref
+  1914:                       (Name    => Nam_For_Iter,
+  1915:                        Def     => Init_Iter,
+  1916:                        Context => Entire_Loop,
+  1917:                        Typ     => EW_Unit_Type);
+  1918:                end if;
+  1919:
+  1920:                --  Bind the temporary variable used for the container
+  1921:                --  expression if any.
+  1922:
+  1923:                if W_Container /= Why_Empty then
+  1924:                   Entire_Loop :=
+  1925:                     +Binding_For_Temp
+  1926:                        (Ada_Node => Loop_Id,
+  1927:                         Domain   => EW_Prog,
+  1928:                         Tmp      => W_Container,
+  1929:                         Context  => +Entire_Loop);
+  1930:                end if;
+  1931:
+  1932:                --  Add let bindings for bounds
+  1933:
+  1934:                if Over_Range then
+  1935:                   declare
+  1936:                      Actual_Range : constant Node_Id := Get_Range (Over_Node);
+  1937:                      High_Expr    : constant W_Prog_Id :=
+  1938:                        Transform_Prog
+  1939:                          (High_Bound (Actual_Range),
+  1940:                           Loop_Index_Type,
+  1941:                           Params => Params);
+  1942:                      Low_Expr     : constant W_Prog_Id :=
+  1943:                        Transform_Prog
+  1944:                          (Low_Bound (Actual_Range),
+  1945:                           Loop_Index_Type,
+  1946:                           Params => Params);
+  1947:                   begin
+  1948:                      --  Insert assignment to high bound first, so that
+  1949:                      --  assignment to low bound is done prior to assignment to
+  1950:                      --  high bound in generated Why3 code. This ensures that a
+  1951:                      --  common error is detected on low bound rather than high
+  1952:                      --  bound, which is more intuitive.
+  1953:
+  1954:                      Entire_Loop :=
+  1955:                        New_Typed_Binding
+  1956:                          (Stmt, High_Id, High_Expr, Entire_Loop);
+  1957:                      Entire_Loop :=
+  1958:                        New_Typed_Binding (Stmt, Low_Id, Low_Expr, Entire_Loop);
+  1959:                   end;
+  1960:                end if;
+  1961:
+  1962:                --  For loop_parameter_specification whose
+  1963:                --  discrete_subtype_definition is a subtype_indication,
+  1964:                --  we generate a check that the range_constraint of the
+  1965:                --  subtype_indication is compatible with the given subtype.
+  1966:
+  1967:                if Nkind (Over_Node) = N_Subtype_Indication then
+  1968:                   Prepend
+  1969:                     (Check_Subtype_Indication
+  1970:                        (Params   => Params,
+  1971:                         N        => Over_Node,
+  1972:                         Sub_Type => Etype (Defining_Identifier (LParam_Spec))),
+  1973:                      Entire_Loop);
+  1974:                end if;
+  1975:
+  1976:                return Entire_Loop;
+  1977:             end For_Loop;
+  1978:          end if;
+  1979:       end;
+  1980:    end Transform_Loop_Statement;
+  1981:
+  1982:    ----------------------------
+  1983:    -- Transform_Loop_Variant --
+  1984:    ----------------------------
+  1985:
+  1986:    function Transform_Loop_Variant
+  1987:      (Stmt : N_Pragma_Id; Params : Transformation_Params) return W_Variants_Id
+  1988:    is
+  1989:       Variant       : Opt_N_Pragma_Argument_Association_Id;
 ```
 
 ## src/why/gnat2why-expr.adb:1384-1460
@@ -8096,6 +8823,213 @@
   7083:       --  be included. Otherwise, assume the predicate of the first ancestor
   7084:       --  only.
   7085:       --  Do not assume the predicate on composite initialization wrappers.
+```
+
+## src/why/gnat2why-expr.adb:946-954
+
+```ada
+   946:    function Transform_Expr_Or_Identifier
+   947:      (N      : Node_Or_Entity_Id;
+   948:       Domain : EW_Domain;
+   949:       Params : Transformation_Params) return W_Expr_Id
+   950:    is (if Nkind (N) = N_Defining_Identifier
+   951:        then Transform_Identifier (Params, N, N, Domain)
+   952:        else Transform_Expr (N, Domain, Params));
+   953:    --  N may be an expression or an identifier. Call the appropriate
+   954:    --  translation function.
+```
+
+## src/why/gnat2why-expr.adb:2707-2894
+
+```ada
+  2707:    -------------------------------
+  2708:
+  2709:    function Bind_From_Mapping_In_Expr
+  2710:      (Params : Transformation_Params;
+  2711:       Expr   : W_Expr_Id;
+  2712:       N      : Node_Id;
+  2713:       Name   : W_Identifier_Id;
+  2714:       Domain : EW_Domain;
+  2715:       As_Old : Boolean := False) return W_Expr_Id
+  2716:    is
+  2717:       Res : W_Expr_Id := Expr;
+  2718:    begin
+  2719:
+  2720:       --  For potentially invalid expressions, also declare a binding for the
+  2721:       --  validity flag.
+  2722:
+  2723:       if Nkind (N) = N_Defining_Identifier and then Object_Has_Valid_Id (N)
+  2724:       then
+  2725:          Res :=
+  2726:            New_Typed_Binding
+  2727:              (Name    => Name,
+  2728:               Domain  => Domain,
+  2729:               Def     =>
+  2730:                 Insert_Simple_Conversion
+  2731:                   (Domain => Prog_Or_Term_Domain (Domain),
+  2732:                    Expr   =>
+  2733:                      (if As_Old
+  2734:                       then Transform_Attribute_Old (N, Domain, Params)
+  2735:                       else
+  2736:                         Transform_Identifier
+  2737:                           (Params, N, N, Prog_Or_Term_Domain (Domain))),
+  2738:                    To     => Get_Typ (Name)),
+  2739:               Context => Res);
+  2740:
+  2741:          Res :=
+  2742:            New_Typed_Binding
+  2743:              (Name    => Get_Valid_Flag_For_Id (Name, Etype (N)),
+  2744:               Domain  => Domain,
+  2745:               Def     => +Get_Valid_Id_From_Object (N, Params.Ref_Allowed),
+  2746:               Context => Res);
+  2747:
+  2748:       elsif Is_Potentially_Invalid_Expr (N)
+  2749:         and then not Has_Scalar_Type (Etype (N))
+  2750:       then
+  2751:          declare
+  2752:             Def        : W_Expr_Id;
+  2753:             Valid_Flag : W_Expr_Id;
+  2754:             Context    : Ref_Context;
+  2755:          begin
+  2756:             Transform_Potentially_Invalid_Expr
+  2757:               (Expr       => N,
+  2758:                Domain     => Prog_Or_Term_Domain (Domain),
+  2759:                Params     => Params,
+  2760:                Context    => Context,
+  2761:                W_Expr     => Def,
+  2762:                Valid_Flag => Valid_Flag,
+  2763:                As_Old     => As_Old);
+  2764:
+  2765:             Res :=
+  2766:               New_Typed_Binding
+  2767:                 (Name    => Name,
+  2768:                  Domain  => Domain,
+  2769:                  Def     =>
+  2770:                    Insert_Simple_Conversion
+  2771:                      (Domain => Prog_Or_Term_Domain (Domain),
+  2772:                       Expr   => Def,
+  2773:                       To     => Get_Typ (Name)),
+  2774:                  Context => Res);
+  2775:
+  2776:             Res :=
+  2777:               New_Typed_Binding
+  2778:                 (Name    => Get_Valid_Flag_For_Id (Name, Etype (N)),
+  2779:                  Domain  => Domain,
+  2780:                  Def     => +Valid_Flag,
+  2781:                  Context => Res);
+  2782:
+  2783:             Res :=
+  2784:               Bindings_For_Ref_Context
+  2785:                 (Expr => Res, Context => Context, Domain => Domain);
+  2786:          end;
+  2787:       else
+  2788:          Res :=
+  2789:            New_Typed_Binding
+  2790:              (Name    => Name,
+  2791:               Domain  => Domain,
+  2792:               Def     =>
+  2793:                 Insert_Simple_Conversion
+  2794:                   (Domain => Prog_Or_Term_Domain (Domain),
+  2795:                    Expr   =>
+  2796:                      (if As_Old
+  2797:                       then Transform_Attribute_Old (N, Domain, Params)
+  2798:                       else
+  2799:                         Transform_Expr_Or_Identifier
+  2800:                           (N, Prog_Or_Term_Domain (Domain), Params)),
+  2801:                    To     => Get_Typ (Name)),
+  2802:               Context => Res);
+  2803:       end if;
+  2804:
+  2805:       return Res;
+  2806:    end Bind_From_Mapping_In_Expr;
+  2807:
+  2808:    function Bind_From_Mapping_In_Expr
+  2809:      (Params : Transformation_Params;
+  2810:       Map    : Ada_To_Why_Ident.Map;
+  2811:       Expr   : W_Expr_Id;
+  2812:       Domain : EW_Domain;
+  2813:       Subset : Node_Sets.Set;
+  2814:       As_Old : Boolean := False) return W_Expr_Id
+  2815:    is
+  2816:       Result : W_Expr_Id := Expr;
+  2817:       Cu     : Ada_To_Why_Ident.Cursor;
+  2818:
+  2819:    begin
+  2820:       for N of Subset loop
+  2821:          Cu := Map.Find (N);
+  2822:
+  2823:          if Ada_To_Why_Ident.Has_Element (Cu) then
+  2824:             Result :=
+  2825:               Bind_From_Mapping_In_Expr
+  2826:                 (Params => Params,
+  2827:                  Expr   => Result,
+  2828:                  N      => N,
+  2829:                  Name   => Ada_To_Why_Ident.Element (Cu),
+  2830:                  Domain => Domain,
+  2831:                  As_Old => As_Old);
+  2832:          end if;
+  2833:       end loop;
+  2834:
+  2835:       return Result;
+  2836:    end Bind_From_Mapping_In_Expr;
+  2837:
+  2838:    -------------------------------
+  2839:    -- Bind_From_Mapping_In_Prog --
+  2840:    -------------------------------
+  2841:
+  2842:    function Bind_From_Mapping_In_Prog
+  2843:      (Params : Transformation_Params;
+  2844:       Map    : Ada_To_Why_Ident.Map;
+  2845:       Expr   : W_Prog_Id) return W_Prog_Id
+  2846:    is
+  2847:       Result : W_Prog_Id := Expr;
+  2848:
+  2849:    begin
+  2850:       for C in Map.Iterate loop
+  2851:          Result :=
+  2852:            +Bind_From_Mapping_In_Expr
+  2853:               (Params => Params,
+  2854:                Expr   => +Result,
+  2855:                N      => Ada_To_Why_Ident.Key (C),
+  2856:                Name   => Ada_To_Why_Ident.Element (C),
+  2857:                Domain => EW_Prog,
+  2858:                As_Old => False);
+  2859:       end loop;
+  2860:
+  2861:       return Result;
+  2862:    end Bind_From_Mapping_In_Prog;
+  2863:
+  2864:    function Bind_From_Mapping_In_Prog
+  2865:      (Params : Transformation_Params;
+  2866:       Map    : Loop_Entry_Values;
+  2867:       Expr   : W_Prog_Id) return W_Prog_Id
+  2868:    is
+  2869:       Result : W_Prog_Id := Expr;
+  2870:
+  2871:    begin
+  2872:       for C in Map.No_Checks.Iterate loop
+  2873:          Result :=
+  2874:            +Bind_From_Mapping_In_Expr
+  2875:               (Params => Params,
+  2876:                Expr   => +Result,
+  2877:                N      => Ada_To_Why_Ident.Key (C),
+  2878:                Name   => Ada_To_Why_Ident.Element (C),
+  2879:                Domain => EW_Pterm,
+  2880:                As_Old => False);
+  2881:       end loop;
+  2882:
+  2883:       for C in Map.Regular.Iterate loop
+  2884:          Result :=
+  2885:            +Bind_From_Mapping_In_Expr
+  2886:               (Params => Params,
+  2887:                Expr   => +Result,
+  2888:                N      => Ada_To_Why_Ident.Key (C),
+  2889:                Name   => Ada_To_Why_Ident.Element (C),
+  2890:                Domain => EW_Prog,
+  2891:                As_Old => False);
+  2892:       end loop;
+  2893:
+  2894:       return Result;
 ```
 
 ## src/why/gnat2why-subprograms.adb:4455-4483
@@ -15588,6 +16522,99 @@
   4418:       Typ    : W_Type_Id := Why_Empty) return W_Expr_Id
 ```
 
+## src/why/why-gen-expr.adb:3485-3572
+
+```ada
+  3485:    function New_And_Expr
+  3486:      (Left, Right : W_Expr_Id; Domain : EW_Domain) return W_Expr_Id is
+  3487:    begin
+  3488:       if Is_True_Boolean (+Left) then
+  3489:          return Right;
+  3490:       elsif Is_True_Boolean (+Right) then
+  3491:          return Left;
+  3492:       elsif Domain = EW_Pred then
+  3493:          return
+  3494:            New_Connection
+  3495:              (Domain => Domain, Op => EW_And, Left => +Left, Right => +Right);
+  3496:       else
+  3497:          return
+  3498:            New_Call
+  3499:              (Domain => Domain,
+  3500:               Name   => M_Boolean.Andb,
+  3501:               Args   => (1 => +Left, 2 => +Right),
+  3502:               Typ    => EW_Bool_Type);
+  3503:       end if;
+  3504:    end New_And_Expr;
+  3505:
+  3506:    function New_And_Expr
+  3507:      (Left, Right : W_Expr_Id; Domain : EW_Domain; Base : W_Type_Id)
+  3508:       return W_Expr_Id is
+  3509:    begin
+  3510:       if Base = EW_BitVector_8_Type
+  3511:         or else Base = EW_BitVector_16_Type
+  3512:         or else Base = EW_BitVector_32_Type
+  3513:         or else Base = EW_BitVector_64_Type
+  3514:         or else Base = EW_BitVector_128_Type
+  3515:       then
+  3516:          return
+  3517:            New_Call
+  3518:              (Domain => Domain,
+  3519:               Name   => MF_BVs (Base).BW_And,
+  3520:               Args   => (1 => +Left, 2 => +Right),
+  3521:               Typ    => Base);
+  3522:       elsif Base = EW_Bool_Type then
+  3523:          return New_And_Expr (Left, Right, Domain);
+  3524:       else
+  3525:          raise Program_Error;
+  3526:       end if;
+  3527:    end New_And_Expr;
+  3528:
+  3529:    ------------------
+  3530:    -- New_And_Pred --
+  3531:    ------------------
+  3532:
+  3533:    function New_And_Pred (Conjuncts : W_Pred_Array) return W_Pred_Id is
+  3534:       Filtered : W_Pred_Array (1 .. Conjuncts'Length);
+  3535:       Count    : Natural := 0;
+  3536:    begin
+  3537:       for Conjunct of Conjuncts loop
+  3538:          if Is_True_Boolean (+Conjunct) then
+  3539:             null;
+  3540:          elsif Is_False_Boolean (+Conjunct) then
+  3541:             return False_Pred;
+  3542:          else
+  3543:             Count := Count + 1;
+  3544:             Filtered (Count) := Conjunct;
+  3545:          end if;
+  3546:       end loop;
+  3547:
+  3548:       if Count = 0 then
+  3549:          return True_Pred;
+  3550:
+  3551:       elsif Count = 1 then
+  3552:          return Filtered (1);
+  3553:
+  3554:       else
+  3555:          --  We use the array form with "More_Right" here for these reasons:
+  3556:          --  - It avoids a deeply nested tree. Such deep nesting could lead
+  3557:          --    to a stack overflow in code that traverses the whole tree;
+  3558:          --  - The array form receives special handling in why3, creating a
+  3559:          --    balanced tree of binary conjunctions, again to avoid deeply
+  3560:          --    nested trees.
+  3561:
+  3562:          return
+  3563:            New_Connection
+  3564:              (Op         => EW_And,
+  3565:               Left       => Filtered (1),
+  3566:               Right      => Filtered (2),
+  3567:               More_Right => Filtered (3 .. Count));
+  3568:       end if;
+  3569:    end New_And_Pred;
+  3570:
+  3571:    -----------------------
+  3572:    -- New_And_Then_Expr --
+```
+
 ## src/why/why-gen-expr.ads:65-78
 
 ```ada
@@ -16492,6 +17519,109 @@
    362:    -------------------
    363:    -- Void_Sequence --
    364:    -------------------
+```
+
+## src/why/why-gen-progs.adb:52-102
+
+```ada
+    52:    procedure Append (Left : in out W_Expr_Id; Right : W_Prog_Id) is
+    53:    begin
+    54:       Left := +Sequence (+Left, Right);
+    55:    end Append;
+    56:
+    57:    procedure Append (Left : in out W_Expr_Id; Right1, Right2 : W_Prog_Id) is
+    58:    begin
+    59:       Left := +Sequence ((1 => +Left, 2 => Right1, 3 => Right2));
+    60:    end Append;
+    61:
+    62:    procedure Append
+    63:      (Left : in out W_Statement_Sequence_Id; Right : W_Statement_Sequence_Id)
+    64:    is
+    65:       pragma Annotate (GNATSAS, Skip_Analysis);  --  for unmodified Left
+    66:       pragma Unmodified (Left);
+    67:
+    68:       Stats : constant Why_Node_Lists.List :=
+    69:         Get_List (+Get_Statements (Right));
+    70:    begin
+    71:       for Stat of Stats loop
+    72:          Statement_Sequence_Append_To_Statements (Left, +Stat);
+    73:       end loop;
+    74:    end Append;
+    75:
+    76:    procedure Append (Left : in out W_Statement_Sequence_Id; Right : W_Prog_Id)
+    77:    is
+    78:    begin
+    79:       if Is_Void (Right) then
+    80:          null;
+    81:
+    82:       elsif Get_Kind (+Right) = W_Statement_Sequence then
+    83:          Append (Left, W_Statement_Sequence_Id'(+Right));
+    84:
+    85:       else
+    86:          Statement_Sequence_Append_To_Statements (Left, Right);
+    87:       end if;
+    88:    end Append;
+    89:
+    90:    ----------------------------------
+    91:    -- Emit_Always_True_Range_Check --
+    92:    ----------------------------------
+    93:
+    94:    procedure Emit_Always_True_Range_Check
+    95:      (Ada_Node : Node_Id; Check_Kind : Scalar_Check_Kind) is
+    96:    begin
+    97:       Emit_Static_Proof_Result
+    98:         (Ada_Node, To_VC_Kind (Check_Kind), True, Current_Subp);
+    99:    end Emit_Always_True_Range_Check;
+   100:
+   101:    ----------------------
+   102:    -- Is_Void_Sequence --
+```
+
+## src/why/why-gen-progs.adb:329-370
+
+```ada
+   329:    function Sequence
+   330:      (Ada_Node : Node_Id; Left, Right : W_Prog_Id) return W_Prog_Id is
+   331:    begin
+   332:       if Is_Void (Left) then
+   333:          return Right;
+   334:       elsif Is_Void (Right) then
+   335:          return Left;
+   336:       else
+   337:          return
+   338:            New_Statement_Sequence
+   339:              (Ada_Node => Ada_Node, Statements => (1 => Left, 2 => Right));
+   340:       end if;
+   341:    end Sequence;
+   342:
+   343:    function Sequence (Progs : W_Prog_Array) return W_Prog_Id is
+   344:       Non_Void_Progs : W_Prog_Array := Progs;
+   345:       J              : Integer := Non_Void_Progs'First;
+   346:    begin
+   347:       for E of Progs loop
+   348:          if not Is_Void (E) then
+   349:             Non_Void_Progs (J) := E;
+   350:             J := J + 1;
+   351:          end if;
+   352:       end loop;
+   353:       if J <= Non_Void_Progs'First then
+   354:          return +Void;
+   355:       else
+   356:          return
+   357:            New_Statement_Sequence
+   358:              (Statements => (Non_Void_Progs (Non_Void_Progs'First .. J - 1)));
+   359:       end if;
+   360:    end Sequence;
+   361:
+   362:    -------------------
+   363:    -- Void_Sequence --
+   364:    -------------------
+   365:
+   366:    function Void_Sequence return W_Statement_Sequence_Id
+   367:    is (New_Statement_Sequence
+   368:          (Ada_Node => Empty, Statements => (1 .. 1 => +Void)));
+   369:
+   370: end Why.Gen.Progs;
 ```
 
 ## src/why/why-gen-records.adb:5048-5125
@@ -18955,6 +20085,59 @@
    736:
    737:    end Build_AST;
    738:
+```
+
+## src/why/xgen/xtree_sinfo.adb:488-511
+
+```ada
+   488:
+   489:       New_Field (W_Binding_Ref,
+   490:                  "Name", "W_Identifier", Id_One);
+   491:       New_Field (W_Binding_Ref,
+   492:                  "Def", "W_Prog", Id_One);
+   493:       New_Field (W_Binding_Ref,
+   494:                  "Context", "W_Prog", Id_One);
+   495:       New_Field (W_Binding_Ref,
+   496:                  "Typ", "W_Type", Id_One);
+   497:
+   498:       ------------
+   499:       -- W_Loop --
+   500:       ------------
+   501:
+   502:       New_Field (W_Loop,
+   503:                  "Code_Before", "W_Prog", Id_One);
+   504:       New_Field (W_Loop,
+   505:                  "Invariants", "W_Pred", Id_Set);
+   506:       New_Field (W_Loop,
+   507:                  "Variants", "W_Variants", Id_Set);
+   508:       New_Field (W_Loop,
+   509:                  "Code_After", "W_Prog", Id_One);
+   510:
+   511:       ---------------
+```
+
+## src/why/xgen/xtree_sinfo.adb:558-576
+
+```ada
+   558:       -------------
+   559:
+   560:       New_Field (W_Raise,
+   561:                  "Name", "W_Name", Id_One);
+   562:       New_Field (W_Raise,
+   563:                  "Arg", "W_Expr", Id_Lone);
+   564:       New_Field (W_Raise,
+   565:                  "Typ", "W_Type", Id_Lone);
+   566:
+   567:       -----------------
+   568:       -- W_Try_Block --
+   569:       -----------------
+   570:
+   571:       New_Field (W_Try_Block,
+   572:                  "Prog", "W_Prog", Id_One);
+   573:       New_Field (W_Try_Block,
+   574:                  "Handler", "W_Handler", Id_Some);
+   575:       New_Field (W_Try_Block,
+   576:                  "Typ", "W_Type", Id_Lone);
 ```
 
 ## src/why/xgen/xtree_why_ast.adb:160-245
