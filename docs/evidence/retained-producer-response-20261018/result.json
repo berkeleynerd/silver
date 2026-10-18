@@ -1,0 +1,46 @@
+{
+  "source_files": 24,
+  "source_archive_sha256": "41a3d14bb653b4c6cb725f941120465f7384d2978a96d0c80dbddc34482660f7",
+  "spark_source_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "selected_ordinary_commands": {
+    "altergo": [
+      "--max-split",
+      "5",
+      "--disable-weaks",
+      "%f"
+    ],
+    "cvc5": [
+      "--prenex-quant=none",
+      "--stats-internal",
+      "%f"
+    ],
+    "z3": [
+      "-smt2",
+      "-st",
+      "smt.arith.solver=6",
+      "%f"
+    ]
+  },
+  "statistics_boundaries": {
+    "altergo": {
+      "first_raw_above_natural": 2147483647,
+      "previous_normalized": 2147483647,
+      "normalized": 2147483648
+    },
+    "cvc5": {
+      "first_raw_above_natural": 75161942645,
+      "previous_normalized": 2147483647,
+      "normalized": 2147483648
+    },
+    "z3": {
+      "first_raw_above_natural": 1717987367600,
+      "previous_normalized": 2147483647,
+      "normalized": 2147483648
+    }
+  },
+  "check_kind_domain": 65,
+  "summary_percentage_last_safe_part": 21474836,
+  "proposed_statistics_projection": "not implemented or verified",
+  "native_executions": 0,
+  "scope": "source identities and arithmetic; whole response capacity remains conditional"
+}

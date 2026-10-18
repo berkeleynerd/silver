@@ -43,6 +43,32 @@ changing that option requires revisiting the sequencing statement. No
 claim that arbitrary GNATprove configurations serialize everything first is
 needed. The current small file counts also bound every PID-map growth.
 
+## Reporting phase separation
+
+Response parsing remains in the required chain. `Collect_One_Result` waits for
+one child and parses its response before waiting for the next; it is not an
+all-children barrier. Per-unit `.spark` output follows collection for that unit,
+but other units can still be running. After GPRbuild returns, GNATprove kills
+the proof-server process tree (`gnatprove.adb:625–676`). Consequently neither
+an in-process parse failure nor a per-unit write failure is automatically an
+observation-only event under [#88](https://github.com/berkeleynerd/silver/issues/88).
+Generation-before-collection alone does not establish independence of discharge.
+
+The separate `spark_report` executable is later: all phase2 work has returned
+and server cleanup has occurred before it starts. Its percentage calculation
+`100 * Part` in Integer (`spark_report.adb:315–317`) is summary-only; the first
+part exceeding the reviewed 32-bit multiplication domain is 21,474,837. This
+is a source-derived boundary, not an observed failure or an admission cap.
+However, the reporter runs on both the normal and recoverable-failure paths
+(`gnatprove.adb:1314–1330`). Its control file's `has_errors` field is normally
+deleted, its summary log also appears on failures, and its per-file exception
+handler prints a generic skipped-file message (`spark_report.adb:743–764`).
+No completed reliable detector for that boundary is established here. #88
+must identify the exact failed operation and preserve earlier/independent
+defects; a generic reporter failure remains status 3. There is no reason to
+turn this late formatting arithmetic into a source restriction merely because
+it uses Integer.
+
 ## Registered VC count is source-bounded
 
 The complete source frontier has exactly two calls to `Register_VC`:
@@ -96,7 +122,8 @@ now reports these cardinalities explicitly.
 
 This does not prove that the response contains exactly one JSON record per
 registered ID. Backend splitting/merging and warning results must supply that
-separate multiplicity. A registration bound is not a response-byte bound.
+separate multiplicity. The response-source record below supplies a finite key
+domain; a registration bound remains distinct from a response-byte bound.
 
 ## Assumptions have their own symbol pool and container domains
 
@@ -144,6 +171,93 @@ existing `160 E_total` condition. It does not treat the quadratic serialized
 token bound as an already useful complete report envelope.
 
 ## Response, diagnostic and final-report obligations
+
+The [response-source evidence](../evidence/retained-producer-response-20261018/identity.json)
+adds the SPARK candidate's Why3 gitlink
+`9390baf120ef260547dfa14f08e11c890b203d9c`, selected installed command/driver
+bytes, and source at the retained solver versions. These are explicit source
+behavior premises, not historical installed-binary/source attestations. Its
+[offline checker](../evidence/retained-producer-response-20261018/check.py)
+checks source identities and the scalar arithmetic below without executing a
+native tool.
+
+`Gnat_report.msg_set` is keyed by `(id, check_kind)` and rejects duplicate
+registration (`gnat_report.ml:59–86`; `gnat_expl.ml:183–186,650–655`). The kind
+domain has 65 constructors. Under the existing label-ID correspondence premise,
+the coarse response-result bound is therefore `65 * registered_VCs`, not a
+bound on tree nodes. Splitting can leave several top-level goals in one result.
+`Gnat_report.register` gives every Proved result an empty counterexample list
+(`gnat_report.ml:62–69`), independently of old models in the session; that
+closes the eager counterexample-list domain for the all-proved path. Failure
+paths still need the selected counterexample/session premise.
+
+### A narrow proposed statistics adapter
+
+There is a scalar narrowing before `.spark` output: `Prover_Stat.Count` and
+`Max_Steps` are Natural and are read directly from JSON
+(`vc_kinds.ads:1290–1294`, `.adb:1203–1210`). Selected commands retain statistics
+with `--steps=0`: CVC5 uses `--stats-internal`, Z3 uses `-st`, and the selected
+Alt-Ergo driver reads the steps on its ordinary Valid result. Why3 parses those
+decimal counts using OCaml `int_of_string` and back-converts with
+`max(0, raw-add)/mult + 1` (`call_provers.ml:120–127`,
+`gnat_config.ml:577–625`). There is no saturation at Ada Natural'Last.
+
+| Prover | First raw count whose normalized value is 2,147,483,648 | Source domain |
+| --- | ---: | --- |
+| Alt-Ergo | 2,147,483,647 | OCaml int counters in 2.6.1 `steps.ml:42–43,87–129,185–186`. |
+| CVC5 | 75,161,942,645 | `resourceUnitsUsed` references a uint64_t in 1.3.2 `resource_manager.cpp:104–113,165`; cumulative count is uint64_t. |
+| Z3 | 1,717,987,367,600 | 4.15.4 `reslimit.m_count` is uint64_t, even though its configured limit argument is unsigned32. Large statistics convert to double and print fixed decimal notation; the selected regexp reads the integer prefix (`statistics.cpp:97–137,225–245`). |
+
+Each value fits the Why3 signed63 domain on this host; each Z3 value here is
+also exactly representable as double. Thus selected output types/configuration
+alone do not exclude this narrowing. This is not evidence that an admitted
+program actually consumes that much solver work. No finite timeout or step cap
+is proposed to make the statistics fit.
+
+The protocol has a finite repair using verified Silver-owned code, without
+changing external tools. `Parse_Why3_Prove_Result` explicitly accepts missing
+`stats` and supplies an empty map (`gnat2why-error_messages.adb:1255–1258`).
+Proof bookkeeping uses Id, Kind, Proved and entity independently of Stats
+(`:338–390`); the map only flows to diagnostic/report construction. Under
+`--report=all`, `Stat_Message` does not print it
+(`flow_error_messages.adb:782–799`). Empty statistics are omitted from `.spark`
+(`errout_wrapper.adb:185–187`), and `spark_report` still counts the proof result
+while conditionally skipping statistics processing (`spark_report.adb:690–714`).
+Current native and Python success policies do not require the optional stats
+field. No pinned gnatwhy3 option to omit its successful-result statistics was
+found; the reviewed producer emits them unconditionally.
+
+The proposed #88 increment is a **statistics-only output projection** at the
+existing gnatwhy3 adapter boundary:
+
+- Capture the unchanged native child's complete response and status, retain
+  the raw response, and replace only a structurally validated immediate
+  `results[*].stats` value with `{}` before gnat2why consumes it. Never clamp
+  a number or invent a proof result.
+- Preserve every other field and value, especially result/id/kind/entity,
+  `check_tree`, `unproved_status`, errors, warnings, counterexamples and proof
+  coverage. Retain raw statistics for diagnostics; successful confirmation
+  still uses the complete required audit and unsuccessful classification
+  still uses original leaf evidence.
+- Fail closed on malformed input, ambiguous/duplicate fields, unsupported
+  schema or native failure. Capturing merged stderr must not turn an invalid
+  native stream into a valid success response. Propagate native completion,
+  interruption and errors through the explicit #88 process/status interface.
+- Verify a bounded-storage streaming implementation in SPARK, prove that the
+  projection changes only the permitted optional field, connect that proof to
+  actual source, and independently review the interface and malformed-input
+  policy. Allocation/read/write failures remain operational outcomes; the
+  adapter must not interrupt the native solver because of its own fixed
+  buffer limit.
+
+This is a proposed design, **not an implemented or verified adapter**. It
+prevents the coupled Natural narrowing; it does not excuse that narrowing as
+an observation-only failure. It preserves prover commands, required work and
+all proof outcomes. Native response construction before projection, check
+trees, timings, warnings, final `.spark` output and all other producer domains
+still need their bounds. Statistics magnitude is consequently a scoped
+implementation dependency, not a demonstrated impossibility of the capacity
+direction.
 
 The exact response path is `gnat2why-error_messages.adb:543–1336`, through
 `common/call.adb:132–142` into GNATCOLL.JSON. `Handle_Result` constructs its

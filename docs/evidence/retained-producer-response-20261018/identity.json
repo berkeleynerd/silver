@@ -1,0 +1,172 @@
+{
+  "source_archive_sha256": "41a3d14bb653b4c6cb725f941120465f7384d2978a96d0c80dbddc34482660f7",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "why3_gitlink": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "premise": "Candidate source behavior and current installed config/driver bytes; no historical binary-source identity claim.",
+  "files": [
+    {
+      "path": "why3/src/gnat/gnat_report.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01",
+      "bytes": 7557
+    },
+    {
+      "path": "why3/src/gnat/gnat_checks.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+      "bytes": 48146
+    },
+    {
+      "path": "why3/src/gnat/gnat_config.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+      "bytes": 25991
+    },
+    {
+      "path": "why3/src/gnat/gnat_main.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80",
+      "bytes": 14829
+    },
+    {
+      "path": "why3/src/gnat/gnat_expl.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225",
+      "bytes": 26556
+    },
+    {
+      "path": "why3/src/driver/call_provers.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+      "bytes": 23019
+    },
+    {
+      "path": "why3/src/util/json_base.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970",
+      "bytes": 4113
+    },
+    {
+      "path": "solvers/Z3Prover-z3/src/util/rlimit.h",
+      "repository": "Z3Prover/z3",
+      "revision": "745087e237e669d709ae35694728a0c479e572b3",
+      "sha256": "9b28972862897d48e0fcea1b3e71764f98e44b27106fa2bf893324644dfa62cb",
+      "bytes": 2987
+    },
+    {
+      "path": "solvers/Z3Prover-z3/src/util/rlimit.cpp",
+      "repository": "Z3Prover/z3",
+      "revision": "745087e237e669d709ae35694728a0c479e572b3",
+      "sha256": "3257c0d37c1c09682555fcf9788a90fa6620302de7d1ea16233c41101fc38937",
+      "bytes": 3299
+    },
+    {
+      "path": "solvers/cvc5-cvc5/src/util/resource_manager.h",
+      "repository": "cvc5/cvc5",
+      "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+      "sha256": "c975c765fea9edd004a2ff707393f873d48da1ca07e1c7f32be5aa3437c1dcd1",
+      "bytes": 6486
+    },
+    {
+      "path": "solvers/cvc5-cvc5/src/util/resource_manager.cpp",
+      "repository": "cvc5/cvc5",
+      "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+      "sha256": "7066af7e1cc324707d10f484a84b4d63bdd9fb751f338ea5b45786f26678cf91",
+      "bytes": 9547
+    },
+    {
+      "path": "solvers/cvc5-cvc5/src/util/statistics_stats.h",
+      "repository": "cvc5/cvc5",
+      "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+      "sha256": "2cbc7934036564bca1b76c492d90e6902d41077bcc4af37dbbf454be86154364",
+      "bytes": 10486
+    },
+    {
+      "path": "solvers/Z3Prover-z3/src/api/api_solver.cpp",
+      "repository": "Z3Prover/z3",
+      "revision": "745087e237e669d709ae35694728a0c479e572b3",
+      "sha256": "9e1277080e90373ea988d73b6119a6b80a1f393c6d46a2c063a5a3e991cb71d2",
+      "bytes": 45448
+    },
+    {
+      "path": "solvers/Z3Prover-z3/src/util/statistics.cpp",
+      "repository": "Z3Prover/z3",
+      "revision": "745087e237e669d709ae35694728a0c479e572b3",
+      "sha256": "c92da81cc54f23551659440bc16958e2ff43d557c347dafbbf90e8f544308ec3",
+      "bytes": 7152
+    },
+    {
+      "path": "solvers/Z3Prover-z3/src/util/statistics.h",
+      "repository": "Z3Prover/z3",
+      "revision": "745087e237e669d709ae35694728a0c479e572b3",
+      "sha256": "17707756eb647b170a2a9141f9b7fcd106155803e38beb01ec4be3e35c0cd340",
+      "bytes": 1225
+    },
+    {
+      "path": "solvers/cvc5-cvc5/src/util/statistics_public.h",
+      "repository": "cvc5/cvc5",
+      "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+      "sha256": "ed0a053fd6a68db6864b886ce406e663c69677a7e08506421858f8f97eae8205",
+      "bytes": 920
+    },
+    {
+      "path": "solvers/cvc5-cvc5/src/util/statistics_registry.cpp",
+      "repository": "cvc5/cvc5",
+      "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+      "sha256": "76f2ec27b36f0b4fca68735b11eacb72468bd5af6e839d1fb21c77c7d30d144f",
+      "bytes": 4535
+    },
+    {
+      "path": "solvers/OCamlPro-alt-ergo/src/lib/util/steps.ml",
+      "repository": "OCamlPro/alt-ergo",
+      "revision": "80cf48b3b878b416dea7500a060132c024bf69c4",
+      "sha256": "cb8eefcffb4e0802d60174ed52f5157730b2e5a13e190f4fb7d1b49bf6d9d6c7",
+      "bytes": 6357
+    },
+    {
+      "path": "solvers/OCamlPro-alt-ergo/src/lib/frontend/frontend.ml",
+      "repository": "OCamlPro/alt-ergo",
+      "revision": "80cf48b3b878b416dea7500a060132c024bf69c4",
+      "sha256": "3da048c5c17ebcfe659332621058a89ebde26cbd5bcc15f192fe395bed720450",
+      "bytes": 16819
+    },
+    {
+      "path": "solvers/OCamlPro-alt-ergo/src/lib/reasoners/satml_frontend.ml",
+      "repository": "OCamlPro/alt-ergo",
+      "revision": "80cf48b3b878b416dea7500a060132c024bf69c4",
+      "sha256": "4bcec8e3bb89e0e496f68db97ed03eba5c2cfc3023237965c17608e073ffd6d5",
+      "bytes": 49223
+    },
+    {
+      "path": "installed/share/spark/config/gnatprove.conf",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnatprove.conf",
+      "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf",
+      "bytes": 3023
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove.drv",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc5_gnatprove.drv",
+      "sha256": "0bf262eb3e62831c1145776d245695cd9e46dac034c5b199aeada43873deded9",
+      "bytes": 2226
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/z3_gnatprove.drv",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/z3_gnatprove.drv",
+      "sha256": "2c3462df08f10856a63b8661798947bdc7000e32a88c2ab88eb8ae8d206f8e31",
+      "bytes": 2130
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/alt_ergo_gnatprove_smt2.drv",
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/alt_ergo_gnatprove_smt2.drv",
+      "sha256": "62f3d0fb08ded760271baa510c288724f4c1b28a813d1342bf24458f4d155581",
+      "bytes": 2635
+    }
+  ]
+}
