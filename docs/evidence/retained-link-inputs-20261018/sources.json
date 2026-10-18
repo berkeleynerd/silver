@@ -1,0 +1,83 @@
+[
+  {
+    "project": "binutils",
+    "path": "bfd/archive.c",
+    "archive_path": "binutils/bfd/archive.c",
+    "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "bytes": 81265,
+    "sha256": "ead1553215f77bcc2a10a25a9c00a4ef2ab5877a0495f7f28733f3c0d0bf9689",
+    "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/archive.c"
+  },
+  {
+    "project": "binutils",
+    "path": "ld/ldfile.c",
+    "archive_path": "binutils/ld/ldfile.c",
+    "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "bytes": 26295,
+    "sha256": "f903439a8ec660ccaee5168a68aaa70279f87c6931a5bee73abf2f79dfb38056",
+    "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldfile.c"
+  },
+  {
+    "project": "binutils",
+    "path": "ld/ldelf.c",
+    "archive_path": "binutils/ld/ldelf.c",
+    "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "bytes": 69930,
+    "sha256": "803752534caf5b0a360bdb6bbeafe018e1161e6842455caab345a9b3b93e0ba2",
+    "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldelf.c"
+  },
+  {
+    "project": "binutils",
+    "path": "ld/ldlang.c",
+    "archive_path": "binutils/ld/ldlang.c",
+    "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "bytes": 312082,
+    "sha256": "51346229cbadc7415e3040cab429747edb810358fc4782fe65c47756bfd77b43",
+    "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldlang.c"
+  },
+  {
+    "project": "binutils",
+    "path": "ld/ldmain.c",
+    "archive_path": "binutils/ld/ldmain.c",
+    "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "bytes": 59325,
+    "sha256": "44beec50113fef013ed52b0f4755cdf90704d15819b4d76304dec4067b5ddec8",
+    "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldmain.c"
+  },
+  {
+    "project": "binutils",
+    "path": "bfd/elflink.c",
+    "archive_path": "binutils/bfd/elflink.c",
+    "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "bytes": 465443,
+    "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1",
+    "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elflink.c"
+  },
+  {
+    "project": "gcc",
+    "path": "lto-plugin/lto-plugin.c",
+    "archive_path": "gcc/lto-plugin/lto-plugin.c",
+    "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "bytes": 44491,
+    "sha256": "f9230b2a4a6d4597b58b029c4e6374eeb7abbefbc75bada43cc822882f74c212",
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/lto-plugin/lto-plugin.c"
+  },
+  {
+    "project": "gcc",
+    "path": "gcc/gcc.cc",
+    "archive_path": "gcc/gcc/gcc.cc",
+    "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "bytes": 331859,
+    "sha256": "59ac02bc5147a8a4d79473edc41b8d1af8bd75628e00bfafab0c80eb36614346",
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gcc.cc"
+  },
+  {
+    "project": "gcc",
+    "path": "gcc/collect2.cc",
+    "archive_path": "gcc/gcc/collect2.cc",
+    "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "bytes": 87225,
+    "sha256": "a3872d49de464dfcaffef6b68f28b298fb5f460676032b583f7a6e49779c44d9",
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/collect2.cc"
+  }
+]

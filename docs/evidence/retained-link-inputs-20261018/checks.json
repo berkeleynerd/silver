@@ -1,0 +1,61 @@
+{
+  "verified_source_files": 9,
+  "collect2_argv_positions": 54,
+  "default_script_extra_search_dirs": 10,
+  "archive_maps": [
+    {
+      "name": "libgcc.a",
+      "argument_occurrences": 2,
+      "members": 298,
+      "map_symbols": 699,
+      "raw_offset_bytes": 2796,
+      "canonical_map_allocation": 23479,
+      "included_allocation": 699,
+      "symbol_candidate_visits_bound": 418002
+    },
+    {
+      "name": "libgcc_eh.a",
+      "argument_occurrences": 2,
+      "members": 6,
+      "map_symbols": 36,
+      "raw_offset_bytes": 144,
+      "canonical_map_allocation": 1381,
+      "included_allocation": 36,
+      "symbol_candidate_visits_bound": 504
+    },
+    {
+      "name": "libc_nonshared.a",
+      "argument_occurrences": 1,
+      "members": 4,
+      "map_symbols": 5,
+      "raw_offset_bytes": 20,
+      "canonical_map_allocation": 157,
+      "included_allocation": 5,
+      "symbol_candidate_visits_bound": 175
+    },
+    {
+      "name": "libgnat.a",
+      "argument_occurrences": 1,
+      "members": 853,
+      "map_symbols": 17201,
+      "raw_offset_bytes": 68804,
+      "canonical_map_allocation": 936621,
+      "included_allocation": 17201,
+      "symbol_candidate_visits_bound": 14689654
+    }
+  ],
+  "archive_symbol_candidate_visits_bound": 15108335,
+  "maximum_archive_map_allocation": 936621,
+  "fixed_input_pass_bounds_with_loader_revisits": {
+    "sections": 36433,
+    "symbol_records": 49081,
+    "relocation_records": 546364,
+    "alloc_section_bytes": 13443320,
+    "alloc_alignment_padding_bound": 67371,
+    "input_name_occurrences": 72019,
+    "unshared_input_name_bytes": 1568528,
+    "string_table_bytes": 1449652
+  },
+  "scope": "fixed input selection, archive maps and input visits; not generated names, string references or final layout",
+  "whole_capacity_established": false
+}

@@ -1,0 +1,143 @@
+{
+  "method": "GCC driver-only -### and -print-file-name queries; no frontend/as/ld",
+  "source_build_log": "/tmp/silver-native-option-probe-20261018/null-proposed/build.stdout",
+  "source_build_log_sha256": "aa39e52a2492a2fdc985eec444a869718b80e02cf2afa9dc2f34cce83e396d2c",
+  "source_link_argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "main.o",
+    "b__main.o",
+    "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+    "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+    "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+    "-static-libgcc",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+    "-ldl",
+    "-Wl,-rpath-link,/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+    "-Wl,-z,origin,-rpath,$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "-o",
+    "/tmp/silver-native-option-probe-20261018/null-proposed/bin//main"
+  ],
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-native-link-inputs-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "commands": [
+    {
+      "label": "link-expansion",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-###",
+        "main.o",
+        "b__main.o",
+        "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+        "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+        "-static-libgcc",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+        "-ldl",
+        "-Wl,-rpath-link,/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+        "-Wl,-z,origin,-rpath,$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+        "-o",
+        "/tmp/silver-native-option-probe-20261018/null-proposed/bin//main"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "Scrt1.o",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=Scrt1.o"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "crti.o",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=crti.o"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "crtbeginS.o",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=crtbeginS.o"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "crtendS.o",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=crtendS.o"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "crtn.o",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=crtn.o"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "libgcc.a",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=libgcc.a"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "libgcc_eh.a",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=libgcc_eh.a"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "libatomic.so",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=libatomic.so"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "libdl.a",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=libdl.a"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    },
+    {
+      "label": "libc.so",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=libc.so"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0
+    }
+  ],
+  "duration_seconds": 0.03760228100873064
+}
