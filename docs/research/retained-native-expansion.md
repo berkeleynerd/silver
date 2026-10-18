@@ -4930,6 +4930,100 @@ The [13-file source identity record](../evidence/unbounded-programs/retained-nat
 pins the boundary and counter implementations at the selected GCC commit; it
 contains no native measurement.
 
+### Fixed floating bounds still allocate Ada numeric metadata
+
+The Standard roots have a concrete callback cost even for null Main. Cstand's
+`Set_Float_Bounds` constructs the two extremal finite values from radix,
+mantissa and maximum exponent (`cstand.adb:2125–2156`). Its
+`Make_Float_Literal` uses base16 for binary significands other than one and
+does **not** set Is_Machine_Number (`tbuild.adb:194–224`). Gigi's floating-type
+completion translates both bounds; the N_Real_Literal path calls Ada `Machine`
+when that flag is unset (`decl.cc:5036–5068`, `trans.cc:6654–6704`). The lack
+of source floating-point syntax therefore does not remove this callback.
+
+For the fixed IEEE target descriptions, let p be the machine mantissa and e
+the maximum exponent. Einfo supplies exactly the pairs (24,128), (53,1024),
+(64,16384) and (113,16384), depending on the selected predefined type
+(`einfo-utils.adb:1857–1912`). This finite envelope avoids assuming which
+long-double representation the installation selected. With
+`r = (e-p) mod 4`, Cstand's stored numerator is `(2^p-1)*2^r`, base16 and
+denominator `-(e-p-r)/4`. Thus 0 <= r <= 3 and p+r <= 116.
+
+The selected `Decompose_Int` route converts base16 to binary exponent e-p-r
+and denominator 1. Its first scaling loop is empty. The denominator-doubling
+loop runs p+r times, ending at `2^(p+r)` and exponent e. The binary fraction
+loop has p quotient subtractions and p shifts, producing exactly `2^p-1`
+with remainder zero. Rounding changes neither fraction nor exponent, and
+e exceeds the underflow threshold 3-e. No general-base normalization,
+denormalization or diagnostic branch is taken
+(`eval_fat.adb:127–415,479–585,700–715`). The final Ureal represents the same
+finite endpoint using base2 and denominator p-e. The negative endpoint uses
+the same positive arithmetic followed by the Ureal sign flag.
+
+This path yields the following sufficient **additional** lifetime-constructor
+allowance for both bound conversions together:
+
+| Representation | Additional allowance |
+| --- | ---: |
+| Uint entries | 4,096 |
+| Uint digit words | 32,768 |
+| Ureal entries | 7 |
+| UI_From_Int cache insertions | 4,096 |
+| Largest individual local numeric vector | 9 four-byte words |
+| Repinfo nodes from these floating conversions | 0 |
+
+Here is the conservative operation accounting. Per endpoint, a cold power-of-2
+cache costs at most p appends. Denominator scaling costs at most 2(p+r);
+fraction construction at most 5p, charging subtraction as a negation plus
+addition. Another 32 covers the remaining scalar arithmetic and the five
+selected Release_And_Save calls, each of which can reappend two results.
+This total `8p+2r+32` is bounded by `9p+8r+64`; twice the latter is at most
+2,210 over p<=113 and r<=3, below 4,096. This intentionally pays even direct
+results, cache hits and released temporaries. UI_From_Int can insert at most
+one cache element per charged Uint append. Its individual cache objects use
+the existing backing transfer; the initial 1023 buckets are already paid.
+No maximum-live-table subtraction is inferred from Release_And_Save
+(`uintp.adb:693–753,801–969,1350–1425,1466–1506,2020–2076,
+2153–2182,2232–2239,2361–2424`).
+
+All magnitudes are below `2^(p+r+1)` and hence use at most eight base32768
+digits. Addition and multiplication by 2 reserve at most nine words in each
+local result vector; comparisons, sign conversion and release copies need
+no larger vector. Small exponent operations fit the direct Uint interval
+and Int. UR_Abs **always** appends, even for a positive operand; each bound
+also appends the fraction and the final scaled result, and the negative
+bound appends one negated fraction. That gives exactly seven Ureal appends
+on the unset-Is_Machine_Number route, with no Ureal normalization-cache
+dependency (`urealp.adb:496–509,523–534,895–908,1252–1262`). An already
+machine-normalized endpoint can only omit this route. The stored Uint/Ureal
+IDs and cache-hit history may differ; their canonical numeric contents and
+the resulting GCC conversion shapes do not.
+
+This callback adds demand to the **incoming** Uint/Udigit/Ureal tables and
+UI_Ints cache. Compose it with their current positions and growth arithmetic;
+do not treat the constants as fresh empty tables. The pre-backend lock list
+omits Urealp as well as Uintp/Repinfo (`gnat1drv.adb:1518–1535`), and Ureals
+is its own growable table (`urealp.adb:35–57`). The seven new 16-byte Ureal
+records therefore require the existing Ureal backing check too. The GCC
+objects created while converting these values belong to the fixed GCC
+witness, not to the Ada constructor transfer above. No full-prefix numeric
+GCC constant, native run or complete capacity predicate follows from it.
+
+The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-fixed-float.py)
+verifies 17 source identities and reconciles the four exact integer cases
+with the source-derived loop and digit bounds. Its
+[output](../evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-float-callbacks.json)
+retains the component transfer and explicitly leaves GCC capacity incomplete.
+It checks finite arithmetic and source identity; the path argument above is
+still required.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-fixed-float.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-float-callbacks.json
+```
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined

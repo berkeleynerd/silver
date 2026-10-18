@@ -1,0 +1,94 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "url": "https://codeload.github.com/gcc-mirror/gcc/tar.gz/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "scope": "Fixed Standard-root and floating-bound callback source arithmetic; no compiler capture",
+  "compiler_capture_performed": false,
+  "numeric_GCC_setup_bound_established": false,
+  "files": [
+    {
+      "path": "gcc/ada/cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737"
+    },
+    {
+      "path": "gcc/ada/tbuild.adb",
+      "bytes": 30177,
+      "sha256": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c"
+    },
+    {
+      "path": "gcc/ada/eval_fat.adb",
+      "bytes": 24241,
+      "sha256": "9feb304558d8957fec1f9889aff3edfb4c3ece4769e3b72bbb99a4b29c9ab33e"
+    },
+    {
+      "path": "gcc/ada/einfo-utils.adb",
+      "bytes": 97564,
+      "sha256": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa"
+    },
+    {
+      "path": "gcc/ada/urealp.adb",
+      "bytes": 51830,
+      "sha256": "ccf63a43371eb80d78200cb8e79f9d7cd150798037a6ba2c733610e0522aa743"
+    },
+    {
+      "path": "gcc/ada/uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
+    },
+    {
+      "path": "gcc/ada/uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1"
+    },
+    {
+      "path": "gcc/ada/freeze.adb",
+      "bytes": 439830,
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d"
+    },
+    {
+      "path": "gcc/ada/sem_util.adb",
+      "bytes": 1074489,
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+    },
+    {
+      "path": "gcc/ada/layout.adb",
+      "bytes": 43148,
+      "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057"
+    },
+    {
+      "path": "gcc/ada/gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    }
+  ]
+}

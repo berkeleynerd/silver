@@ -1,0 +1,73 @@
+{
+  "arithmetic_cases": [
+    {
+      "base16_shift": 0,
+      "denominator_loop_iterations": 24,
+      "emax": 128,
+      "fraction_loop_iterations": 25,
+      "fraction_shifts": 24,
+      "fraction_subtractions": 24,
+      "mantissa_bits": 24,
+      "output_denominator": -104,
+      "output_numerator_decimal": "16777215",
+      "uint_append_envelope_per_bound": 280,
+      "uint_digit_words": 2
+    },
+    {
+      "base16_shift": 3,
+      "denominator_loop_iterations": 56,
+      "emax": 1024,
+      "fraction_loop_iterations": 54,
+      "fraction_shifts": 53,
+      "fraction_subtractions": 53,
+      "mantissa_bits": 53,
+      "output_denominator": -971,
+      "output_numerator_decimal": "9007199254740991",
+      "uint_append_envelope_per_bound": 565,
+      "uint_digit_words": 4
+    },
+    {
+      "base16_shift": 0,
+      "denominator_loop_iterations": 64,
+      "emax": 16384,
+      "fraction_loop_iterations": 65,
+      "fraction_shifts": 64,
+      "fraction_subtractions": 64,
+      "mantissa_bits": 64,
+      "output_denominator": -16320,
+      "output_numerator_decimal": "18446744073709551615",
+      "uint_append_envelope_per_bound": 640,
+      "uint_digit_words": 5
+    },
+    {
+      "base16_shift": 3,
+      "denominator_loop_iterations": 116,
+      "emax": 16384,
+      "fraction_loop_iterations": 114,
+      "fraction_shifts": 113,
+      "fraction_subtractions": 113,
+      "mantissa_bits": 113,
+      "output_denominator": -16271,
+      "output_numerator_decimal": "10384593717069655257060992658440191",
+      "uint_append_envelope_per_bound": 1105,
+      "uint_digit_words": 8
+    }
+  ],
+  "cache_and_release_reuse_not_subtracted": true,
+  "compiler_or_prover_execution": false,
+  "complete_GCC_capacity_established": false,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "handwritten_source_path_argument_required": true,
+  "incoming_table_positions_and_backing_checks_required": true,
+  "numeric_GCC_setup_bound_established": false,
+  "scope": "Two fixed Standard_Long_Long_Float bounds in the selected native gigi prefix",
+  "sufficient_callback_transfer": {
+    "Repinfo_nodes_from_float_conversion": 0,
+    "UI_Ints_cache_insertions": 4096,
+    "Udigit_word_appends": 32768,
+    "Uint_appends": 4096,
+    "Ureal_appends": 7,
+    "largest_local_numeric_vector_words": 9
+  },
+  "verified_source_files": 17
+}
