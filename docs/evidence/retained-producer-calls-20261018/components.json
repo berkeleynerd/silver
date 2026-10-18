@@ -1,0 +1,308 @@
+{
+  "revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "retained_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "source_files_verified": 13,
+  "sources": [
+    {
+      "path": "src/why/gnat2why-expr.adb",
+      "bytes": 1222932,
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14",
+      "reviewed_lf_ranges": [
+        [
+          4334,
+          4919
+        ],
+        [
+          8654,
+          8741
+        ],
+        [
+          10757,
+          10788
+        ],
+        [
+          12090,
+          12217
+        ],
+        [
+          21035,
+          21399
+        ],
+        [
+          26365,
+          26689
+        ],
+        [
+          26847,
+          26909
+        ]
+      ]
+    },
+    {
+      "path": "src/why/gnat2why-subprograms.adb",
+      "bytes": 350905,
+      "sha256": "d9f5f4ecb398741e747e9167df89464c54f7dd1f6e54516280d998e5c56eb736",
+      "reviewed_lf_ranges": [
+        [
+          2000,
+          2012
+        ],
+        [
+          2050,
+          2154
+        ]
+      ]
+    },
+    {
+      "path": "src/why/gnat2why-util.adb",
+      "bytes": 65173,
+      "sha256": "f620de261e498788e54f642cc90605675d29aa3475888c0868afa2d6499fbc8d",
+      "reviewed_lf_ranges": [
+        [
+          1126,
+          1221
+        ],
+        [
+          1843,
+          1872
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-binders.adb",
+      "bytes": 56392,
+      "sha256": "187a67de331b0fb1fdc91c8a345b750541cd73d52bcf0b02645803b3b94af06a",
+      "reviewed_lf_ranges": [
+        [
+          448,
+          455
+        ],
+        [
+          613,
+          739
+        ],
+        [
+          745,
+          1121
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-expr.adb",
+      "bytes": 208583,
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "reviewed_lf_ranges": [
+        [
+          311,
+          379
+        ],
+        [
+          3485,
+          3504
+        ],
+        [
+          4289,
+          4331
+        ],
+        [
+          4962,
+          5178
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-names.adb",
+      "bytes": 47274,
+      "sha256": "e003c128b2e3f0e4f20d606798e0e5cd5b099b94ce27847dc5b9e9c4805a7a39",
+      "reviewed_lf_ranges": [
+        [
+          540,
+          557
+        ],
+        [
+          714,
+          806
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-progs.adb",
+      "bytes": 12033,
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d",
+      "reviewed_lf_ranges": [
+        [
+          42,
+          85
+        ],
+        [
+          275,
+          371
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-inter.adb",
+      "bytes": 56576,
+      "sha256": "68844f25581617906e556817a63bfdb8f1ae425f91fb532f844f64eda221fc84",
+      "reviewed_lf_ranges": [
+        [
+          1639,
+          1655
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-atree-modules.adb",
+      "bytes": 168813,
+      "sha256": "73ccd31d5e1ac2935f02492beef285411cbd0d3627aaf81e65f4e37a4f4f17b3",
+      "reviewed_lf_ranges": [
+        [
+          529,
+          550
+        ],
+        [
+          3117,
+          3125
+        ]
+      ]
+    },
+    {
+      "path": "src/why/xgen/xtree_sinfo.adb",
+      "bytes": 22859,
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b",
+      "reviewed_lf_ranges": [
+        [
+          110,
+          122
+        ],
+        [
+          243,
+          273
+        ],
+        [
+          301,
+          324
+        ],
+        [
+          330,
+          349
+        ],
+        [
+          528,
+          534
+        ]
+      ]
+    },
+    {
+      "path": "src/spark/spark_util.adb",
+      "bytes": 273220,
+      "sha256": "8e129c4260aa5b46eb74d8368c024b71a43cb7dc6a511f55c8e4b72db9801800",
+      "reviewed_lf_ranges": [
+        [
+          2450,
+          2540
+        ],
+        [
+          3092,
+          3153
+        ]
+      ]
+    },
+    {
+      "path": "src/spark/spark_util-subprograms.adb",
+      "bytes": 74490,
+      "sha256": "71997913be88d419f583db2c8b51fdc8f38b0285f9c9234cade9033296ac17d6",
+      "reviewed_lf_ranges": [
+        [
+          95,
+          144
+        ],
+        [
+          786,
+          859
+        ],
+        [
+          2044,
+          2107
+        ]
+      ]
+    },
+    {
+      "path": "src/spark/spark_util-types.adb",
+      "bytes": 106574,
+      "sha256": "61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9",
+      "reviewed_lf_ranges": [
+        [
+          1521,
+          1552
+        ]
+      ]
+    }
+  ],
+  "selected_library_inputs": [
+    {
+      "path": "src/silver_io.ads",
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "path": "src/silver_io.adb",
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    {
+      "path": "src/silver_arguments.ads",
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    {
+      "path": "src/silver_arguments.adb",
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    {
+      "path": "src/silver_runtime.ads",
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    }
+  ],
+  "arithmetic": {
+    "ordinary_guarded_function_body": [
+      10,
+      4,
+      7,
+      74
+    ],
+    "first_or_default_wrapper": [
+      18,
+      9,
+      9,
+      74
+    ],
+    "input_is_valid_wrapper": [
+      18,
+      9,
+      9,
+      78
+    ],
+    "put_or_put_line_wrapper": [
+      9,
+      6,
+      4,
+      9
+    ],
+    "reject_wrapper": [
+      4,
+      6,
+      4,
+      13
+    ],
+    "source_argument_multiplicity": 1,
+    "function_temporary_names_at_most": 2,
+    "function_argument_temp_map_entries_at_most": 1,
+    "per_call_theories_and_direct_modules": 0,
+    "scope": "local schema arithmetic; fixed dependencies and caller coverage separate"
+  },
+  "not_established": [
+    "installed producer source identity",
+    "caller multiplicities",
+    "whole-process capacity",
+    "auxiliary-container bounds"
+  ],
+  "validation": "source/archive identity and local mathematical checks only"
+}
