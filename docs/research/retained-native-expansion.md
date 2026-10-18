@@ -5449,14 +5449,20 @@ This does not use successful legality to discard legal warnings. In particular
 null/possibly reversed source-loop warnings remain reachable even inside
 statically unreachable contexts.
 
-Only the two already bounded families remain: at most two attempts per source
-for loop (`sem_ch5.adb:3480–3571`) and one context-license attempt per explicit
-with-name (`sem_ch10.adb:3980–4117`). Main's context is installed once, and the
-license branch excludes implicit runtime with clauses. With F source loops and
-N_with explicit source with-names, define
+The context-license family is also excluded on this selected route. Source-file
+records initialize License to Unknown (`sinput-l.adb:510–535`). The only
+semantic setter is `pragma License` (`sem_prag.adb:21179–21227`), which neither
+Main nor the naming-only configuration contains; `-gnatA` excludes ambient
+configuration. License_Check takes its non-warning Unknown branch regardless
+of the imported package's license (`sem_ch10.adb:4092–4117`). Comments do not
+change the license. This removes the earlier conservative one-attempt-per-with
+term; an unused-with warning is independently disabled by Check_Withs=False.
+
+At most two attempts per source for loop remain (`sem_ch5.adb:3480–3571`). With
+F source loops, define
 
 ```text
-J_diag = 2F+N_with
+J_diag = 2F
 M_diag = 1024+2*32767 = 66558.
 ```
 
@@ -5526,8 +5532,93 @@ Warnings_As_Errors pointer array is checked as one actual array; its live
 entry count is zero on this route. Neither the sum of all diagnostic strings
 nor the lifetime allocation count becomes an aggregate memory gate.
 All eleven table checks and the separate counter/object checks pass for the
-five current-source examples. This closes their diagnostic storage component;
-rendering, backend messages and other fixed heaps remain separate.
+five current-source examples. This closes their diagnostic storage component.
+The next section closes the selected frontend rendering route; backend messages
+and other fixed heaps remain separate.
+
+### Selected warning rendering and the zero-message route
+
+`native_diagnostic_rendering` prices the selected warning output objects and
+checks the actual output-buffer arithmetic. It does not assume that the generic
+message capacity bounds rendered lines: rendering adds a source location and
+prefixes, while Write_Eol has a different check from Write_Char.
+
+The five reachable loop templates contain only lowercase letters, blanks and
+commas after the `??` warning and optional `\` continuation markers. Each raw
+template is shorter than 64 characters. Set_Msg_Text removes those markers and
+copies the ordinary characters; no arbitrary source name, value, type, location
+or upper-case reserved word is inserted (`errout.adb:4003–4212`). The default
+Error_Msg_Line_Length=0 excludes the continuation joining branch
+(`opt.ads:535`, `errout.adb:1377–1450`). Retain a deliberately conservative
+130-character text allowance, covering even two 64-character parts and a
+separator. Finalize's duplicate processing only redirects to an existing
+shorter text (`erroutc.adb:123–237`); it cannot enlarge this allowance.
+
+Output_Msg_Text declares a Bounded_String(Max_Msg_Length). Its selected warning
+adds at most 11 SGR-color characters, 9 for `warning: `, 6 for reset, and 21 for the
+space plus `[enabled by default]` tag (`erroutc.ads:550–586`,
+`erroutc.adb:343–397,968–1023`). Thus rendered text is at most 177 characters.
+Individual return/concatenation strings are bounded by that length, with the
+fixed Bounded_String itself checked at 66558 characters plus 16 bytes for
+length/discriminant/alignment. Output_Text_Within receives Nat'Last as its
+line length and takes its simple final-text branch for this short input
+(`erroutc.adb:853–936`); it creates no second growing String.
+
+Output_Msg_Location uses an existing reference name of at most P characters,
+at most 10 decimal line digits and 5 column digits, punctuation/padding and
+at most 14 locus/reset SGR characters (`erroutc.adb:939–962`). Its bound is
+P+33; Write_Int has at most 10 scalar recursive digit frames and no vector
+(`output.adb:481–507`). Namet.Write_Name creates one Bounded_String of exactly
+the stored name length and does not call Name_Find
+(`namet.adb:1548–1554`, `namet.ads:144–150`). Price that individual name object
+at P+16 bytes. There is no new interned-name demand from this rendering path.
+
+Output.Buffer has 32767 characters; Next_Col ranges from 1 through 32768
+(`output.ads:166`, `output.adb:25–39`, `hostparm.ads:43–48`). Write_Char
+flushes before an append past the end, but Write_Eol directly writes
+Buffer(Next_Col) (`output.adb:423–454`). Therefore the sufficient rule is
+
+```text
+J_diag = 0 or P+210 <=32766.
+```
+
+This reserves the final LF slot in the actual buffer; chunked Write_Char alone
+would not justify the final newline. After that LF the temporary counter is
+at most 32768 before Flush_Buffer resets it. No cumulative emitted-byte bound
+is imposed. Optional indentation forms an individual String only when its
+length is at most Buffer_Max, and selected ordinary diagnostics use zero
+indentation (`output.adb:117–170`). At the default 9999-message threshold,
+Write_Max_Errors may add two fixed warning-summary lines, each at most 33
+characters (`errout.adb:2889–2900`); these fit the same buffer independently.
+The error-summary alternative requires errors and belongs to any separately
+admitted backend diagnostic route.
+
+The null shell and declaration-free one-literal Put specialization have F=0,
+hence **zero frontend diagnostic attempts and no rendered warning lines**.
+This eliminates their variable name/message objects and the line-bound test,
+but not unconditional driver work. Errout.Output_Messages declares
+`Get_First_Main_File_Name & ".gnat.sarif"` and a SARIF_Printer before it tests
+output mode (`errout.adb:2912–2932`). The returned filename is at most P
+characters, the concatenation P+11; both individual objects and their Nat
+indices are checked. Get_First_Main_File_Name returns the existing first
+File_Names entry, without Name_Find (`osint.adb:1477–1481`). SARIF_Printer has
+two access-valued list fields and an enum, conservatively 24 bytes on LP64
+(`erroutc-sarif_emitter.ads:59–71`, `libgnat/g-lists.ads:226–238`). Its access
+fields default to null; list allocation does not occur outside the disabled
+SARIF branches. JSON, pretty, full and verbose output are also disabled.
+Emit_Error_Msgs merely changes output descriptors when the message chain is
+empty (`errout.adb:2840–2858,2960–3035`).
+
+Finalize's empty loops allocate no message objects and its final specific-
+warning validation returns under the default Warn_On_Warnings_Off=False
+(`errout.adb:1910–2014,2272–2310`). Repinfo.List_Rep_Info has only a scalar
+Col before its guard; List_Representation_Info=0 and mechanisms=False exclude
+all of its constructors/output (`repinfo.adb:1910–1980`,
+`opt.ads:961–984`). Existing initial table backing remains in the preceding
+component. These functions run **after** Call_Back_End
+(`gnat1drv.adb:1537–1567`), so backend-produced diagnostics must be excluded or
+composed independently before the zero-message specialization can close a
+whole native route. This component makes no such backend claim.
 
 ## Executable native logical-table composition
 
@@ -6155,13 +6246,13 @@ conditional formula and missing inputs explicitly.
 
 Each example now also carries one `selected_native_predicate`: the conjunction
 of the core tables, parser auxiliaries, source/line/name checks, supplied
-configuration-file storage, diagnostic storage, invocation containers,
-selected command-line objects, ALI writer and numeric/concat local objects. All nine
+configuration-file storage, diagnostic storage and frontend rendering, invocation
+containers, selected command-line objects, ALI writer and numeric/concat local objects. All ten
 component groups pass for all five examples. This is the composed
 **selected-component** result; its `complete_native_capacity_predicate` stays
 false. The output lists the remaining obligations in dependency order:
 complete argv/effective-search/late-path descriptor; remaining local vectors,
-caller arithmetic, copies and full ALI/debug/diagnostic rendering; backend
+caller arithmetic, copies and full ALI/debug/backend diagnostic rendering; backend
 Uint/Repinfo callbacks and phase unlock plus GCC/object/linker; other fixed
 process classes and the independent proof producer. General verified source
 counters and model/source correspondence are required for production use.
@@ -6172,7 +6263,7 @@ counters and model/source correspondence are required for production use.
 vector. Its [source inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/native-ali-inputs.json)
 reconciles the pinned serializer and 38 selected specifications without running
 the compiler. This closes the **writer's** record/buffer/local-object checks;
-ALI readers, binder behavior, diagnostic rendering and other backend/driver
+ALI readers, binder behavior, backend diagnostic rendering and other backend/driver
 objects remain separate.
 
 The actual constants are `Hostparm.Max_Name_Length = 1024`

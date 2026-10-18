@@ -41,7 +41,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb", "errout.ads",
          "ali.adb", "ali.ads", "lib-writ.adb", "warnsw.ads", "sem_prag.adb",
-         "erroutc.adb", "erroutc.ads", "sem_ch10.adb", "sem_ch12.adb",
+         "erroutc.adb", "erroutc.ads", "erroutc-sarif_emitter.ads", "output.adb", "output.ads", "sem_ch10.adb", "sem_ch12.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
          "exp_ch7.adb", "exp_ch6.adb", "exp_ch9.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
          "scng.adb", "scn.adb", "scans.adb", "scans.ads", "par-ch2.adb", "par-ch3.adb",
@@ -1356,12 +1356,16 @@ def native_stack_peaks(*, main_nodes, main_lists, loop_depth, short_circuits,
 def native_diagnostic_metadata(source_loops, source_with_names):
     """Frontend warning attempts under default native warning flags."""
     assert min(source_loops, source_with_names) >= 0
-    attempts = 2*source_loops+source_with_names
+    # Main starts with License=Unknown; its one permitted SPARK_Mode pragma
+    # and the selected naming-only configuration cannot change that value.
+    # License_Check therefore takes the Unknown branch, even for source withs.
+    attempts = 2*source_loops
     # Column_Number'Last is the pinned Types value, not a source line limit.
     assert "type Column_Number is range 0 .. 32767;" in sources["types.ads"]
     column_last = 2**15-1
     message_length = 1024+2*column_last
-    return dict(attempts=attempts,
+    return dict(attempts=attempts, source_with_names=source_with_names,
+        context_license_attempts=0,
         Non_Instance_Msgs_Main_appends=attempts,
         Errors_Main_appends=attempts, Locations_Main_appends=attempts,
         raw_history_characters=64*attempts,
@@ -1374,6 +1378,66 @@ def native_diagnostic_metadata(source_loops, source_with_names):
         Warnings_Main_appends=0, Specific_Warnings_Main_appends=0,
         Warnings_As_Errors_Main_appends=0, additional_Uint_appends=0,
         backend_and_fixed_dependency_diagnostics_included=False,
+        whole_native_frontend_closed=False)
+
+
+def native_diagnostic_rendering(diagnostic, pathname_length):
+    """Selected frontend warning rendering and mandatory no-message locals.
+
+    This uses the literal loop-warning templates, not an arbitrary error-text
+    maximum. Backend messages still require their independent route closure.
+    """
+    i32, i64 = 2**31-1, 2**63-1
+    p, attempts = pathname_length, diagnostic["attempts"]
+    assert min(p, attempts) >= 0
+    assert "Error_Msg_Line_Length : Nat := 0;" in sources["opt.ads"]
+    assert "Buffer_Max : constant := Hostparm.Max_Line_Length;" in sources["output.ads"]
+    assert "Types.Column_Number'Pred (Types.Column_Number'Last)" in sources["hostparm.ads"]
+    # Set_Msg_Text removes ?? and the optional continuation marker. All other
+    # template characters are plain lowercase letters, blanks and comma.
+    templates = re.findall(r'"(\\?\?\?[^"\n]*)"',
+        "\n".join(sources["sem_ch5.adb"].split("\n")[3479:3571]))
+    assert len(templates) == 5 and all(len(x) <= 64 for x in templates)
+    assert all(re.fullmatch(r"\\?\?\?[a-z ,]+", x) for x in templates)
+    text = 130  # Conservative two-part allowance; joining is disabled at zero.
+    rendered_text = text+11+9+6+1+20
+    location = p+8+1+10+1+5+2+6
+    line = location+rendered_text
+    buffer_max = 32766
+    # No heap list header is initialized for the two default-null access fields
+    # of SARIF_Printer. Its record is still an unconditional local object.
+    objects = dict(
+        Output_Buffer=buffer_max+1,
+        SARIF_Printer=24,
+        first_main_filename_return=p+16,
+        Sarif_File_Name=p+11+16,
+        Output_Msg_Text_Bounded_String=(diagnostic["formatted_message_buffer_characters"]+16 if attempts else 0),
+        diagnostic_name_Bounded_String=(p+16 if attempts else 0),
+        rendered_text_return=(rendered_text+16 if attempts else 0),
+        warning_tag=(20+16 if attempts else 0),
+        warning_prefix_and_color=(11+9+6+16 if attempts else 0),
+        optional_indented_output_String=(buffer_max+16 if attempts else 0))
+    checks = dict(
+        individual_objects=all(size <= i64 for size in objects.values()),
+        mandatory_filename_index=p+11+1 <= i32,
+        diagnostic_name_index=not attempts or p+1 <= i32,
+        rendered_text_fits_format_buffer=rendered_text <= diagnostic["formatted_message_buffer_characters"],
+        direct_Write_Eol_has_buffer_slot=not attempts or line <= buffer_max,
+        output_Next_Col=buffer_max+3 <= i32,
+        output_text_simple_branch=not attempts or rendered_text < i32-location-1)
+    return dict(objects=objects, checks=checks,
+        warning_templates=templates, selected_text_characters_bound=text,
+        selected_rendered_text_characters_bound=rendered_text,
+        selected_location_characters_bound=location,
+        selected_line_before_LF_characters_bound=(line if attempts else 0),
+        message_lines=attempts,
+        warning_count_summary_lines=(2 if attempts >= 9999 else 0),
+        warning_count_summary_max_line_characters=33,
+        additional_Name_Find_requests=0, SARIF_list_allocation_requests=0,
+        List_Rep_Info_allocation_requests=0,
+        all_selected_checks_pass=all(checks.values()),
+        backend_messages_and_other_late_paths_included=False,
+        aggregate_lifetime_bytes_is_not_an_admission_gate=True,
         whole_native_frontend_closed=False)
 
 
@@ -1435,7 +1499,7 @@ def native_frontend_logical_join(*, counts, scanner_pools,
         selected_configuration_storage=configuration_storage,
         scanner_pool_inputs=scanner_pools,
         diagnostics="native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        remaining="complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+        remaining="complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug and backend diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         whole_native_frontend_closed=False)
 
 
@@ -2089,7 +2153,7 @@ def native_ali_backing(logical, max_identifier_length):
         late_variable_Uint_appends=0,late_variable_name_interning=0,
         checks=checks,all_selected_checks_pass=all(checks.values()),
         complete_native_capacity_result=False,
-        remaining="ALI consumers/binder, diagnostic rendering and other late heap/callback representations")
+        remaining="ALI consumers/binder, backend diagnostic rendering and other late heap/callback representations")
 
 
 def native_to_gigi_source_interface(logical, counts):
@@ -2234,6 +2298,7 @@ def representative_current_programs():
             parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
             source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
             diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics),
+            diagnostic_rendering=native_diagnostic_rendering(diagnostics,inputs["pathname_length_premise"]),
             invocation_backing=native_invocation_backing(logical),
             command_line_backing=native_command_line_backing(inputs["pathname_length_premise"]),
             ali_backing=native_ali_backing(logical,max(map(len,words))),
@@ -2241,14 +2306,14 @@ def representative_current_programs():
         selected = result[-1]
         component_checks = {name:selected[name]["all_selected_checks_pass"] for name in
             ("selected_backing_checks","parser_auxiliary_backing","source_and_frontend_name_backing",
-             "diagnostic_backing","invocation_backing","command_line_backing","ali_backing","local_numeric_and_concat_backing")}
+             "diagnostic_backing","diagnostic_rendering","invocation_backing","command_line_backing","ali_backing","local_numeric_and_concat_backing")}
         component_checks["selected_configuration_storage"] = logical["selected_configuration_storage"]["all_selected_checks_pass"]
         selected["selected_native_predicate"] = dict(components=component_checks,
             all_selected_component_checks_pass=all(component_checks.values()),
             complete_native_capacity_predicate=False,
             remaining_in_dependency_order=[
                 "complete argv/effective search/late path descriptor and pre-launch realization",
-                "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/diagnostic rendering",
+                "remaining selected local vectors, caller arithmetic, copies and ALI consumers/debug/backend diagnostic rendering",
                 "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
                 "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"])
     return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],
