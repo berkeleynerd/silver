@@ -195,7 +195,7 @@ optional parameters; the earlier default `derive.py` result remains unchanged.
 
 ### Direct literal-output initial lowering
 
-`literal-output-source-inputs.json` pins 50 complete GCC/Ada/API sources,
+`literal-output-source-inputs.json` pins 68 complete GCC/Ada/API sources,
 including 22 for the initial native/gigi/GIMPLE projection.
 `derive-literal-output.py` scans a canonical direct-literal Put/Put_Line/null
 sequence completely and composes the manual native/gigi/initial-GIMPLE source
@@ -234,3 +234,14 @@ still has up to 3C+2 entries, and the C descriptors/stores/calls require real
 expression/call RTL expansion next. Whole-unit IPA preservation/allocation is
 an explicit premise; no final frame, pseudo count or Main object bound is
 claimed by this projection.
+
+The literal-output projection now also bounds selected `pass_expand` output.
+For C calls and N nulls it supplies up to 3C pseudos, 6C DI moves, C direct
+calls, N+4 ordinary blocks, and 7C+3N+12 cumulative instruction-chain
+requests. Its live RTL occurrence interface includes operands, notes and call
+usage, separately from lifetime allocation requests. A focused arithmetic
+check covers the signed instruction-UID boundary. All 68 pinned sources are
+verified offline; no compiler, prover or debugger executes. Initial descriptor
+storage is in registers, but possible later descriptor spills remain open.
+The selected whole-unit IPA premise, allocation, final frame and Main object
+bounds are still unfinished.

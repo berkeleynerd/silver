@@ -1,5 +1,5 @@
 {
-  "scope": "Direct literal output through conditional O0/out-of-SSA entry projection",
+  "scope": "Direct literal output through conditional pass_expand output projection",
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "files": [
     {
@@ -301,6 +301,114 @@
       "path": "gcc/ipa-pure-const.cc",
       "bytes": 69529,
       "sha256": "2dc1fd1890b08744f0b7d830fa6fae31f649adc5a7955de32256278f851fe0f6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/expmed.cc",
+      "bytes": 212451,
+      "sha256": "2acdfff77f692abe44fc09e377a531026dfad4f72d20242776c0eb4166b96c9b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/explow.cc",
+      "bytes": 74040,
+      "sha256": "769aeb0b48c48ea64c963f8bbaf4cac04c243cc8e3e1208fb81d05197e54df9a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/calls.cc",
+      "bytes": 178248,
+      "sha256": "f1354772f2dd9465c3eacebfcff2c53f7a0a5036eadc0ba2cf2f014c7a7e42ba"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386-expand.cc",
+      "bytes": 790498,
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.opt",
+      "bytes": 39868,
+      "sha256": "6c0a677cb6a12dd201304a4afbf23a29da634150ad4bae4aeb8343b1d4757dc7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/predicates.md",
+      "bytes": 71950,
+      "sha256": "5075f3aae42a16baab5e7e9c9fdab376b7cfcfea81f0f9ca53d55e1db9ecbf87"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgbuild.cc",
+      "bytes": 24326,
+      "sha256": "9509fe1d1ed2db58755e04b6074000d031e79bfba6dffd552b3f4ca7951620e6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgcleanup.cc",
+      "bytes": 96782,
+      "sha256": "bc8a425854ca62c0db4cfba05249d44bbd85d54624d483cfb5f9ac19ccd69eb4"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgrtl.cc",
+      "bytes": 154498,
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stmt.cc",
+      "bytes": 44121,
+      "sha256": "5aaddfdfdfd786efd5e510bd2909ccfc75a65cb2399a77d6f5039dcaaec7dd2d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.h",
+      "bytes": 162393,
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtlanal.cc",
+      "bytes": 201232,
+      "sha256": "b0bcb6db46eee054e11a10b79caad72180f704d7c368b4494cb4c0ce42170333"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-scan.cc",
+      "bytes": 121906,
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
     }
   ]
 }

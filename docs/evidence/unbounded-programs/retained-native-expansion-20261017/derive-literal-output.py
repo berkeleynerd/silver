@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline direct literal output interface through conditional RTL entry.
+"""Offline direct literal output interface through conditional pass_expand output.
 
 The source argument in retained-native-expansion.md supplies reachability and
 helper behavior. This checker verifies inputs, scans a restricted source class
@@ -62,6 +62,8 @@ def composition(counts):
     c = counts['output_calls']; n = counts['null_statements']
     w = counts['decoded_literal_bytes']; length = counts['maximum_literal_length']
     uses = 3*c+1
+    chain = 7*c+3*n+12
+    operand_occurrences = 64*c+n+16
     return dict(
         native_Main=dict(procedure_bodies=1, implicit_bare_returns=1,
             String_literal_subtypes=c, call_markers=c, transient_blocks=0,
@@ -118,8 +120,33 @@ def composition(counts):
             ordinary_block_pointer_vector_length_upper=n+2,
             real_partitions=0, SSA_lowering_fresh_statements=0,
             SSA_lowering_fresh_real_pseudos=0, RTL_PHI_copies=0,
-            expression_and_call_RTL_pseudo_bound_established=False,
+            expression_and_call_RTL_pseudo_bound_established=True,
             whole_unit_IPA_allocation_and_counter_join_established=False),
+        conditional_native_pass_expand=dict(
+            requires_selected_options_and_whole_unit_Main_preservation=True,
+            boundary='after pass_expand execute; before virtual register instantiation',
+            descriptor_TI_pseudos_upper=c, extraction_DI_pseudos_upper=2*c,
+            fresh_dynamic_pseudos_upper=3*c, first_unused_pseudo_number_upper=98+3*c,
+            descriptor_subreg_byte_offsets=[0,8], descriptor_subreg_mode='DI',
+            DI_move_instructions_upper=6*c, direct_void_calls=c,
+            ordinary_blocks_upper=n+4, edges_upper=n+5,
+            block_index_slots_upper=n+6,
+            CODE_LABEL_lifetime_requests_upper=n+2,
+            NOTE_lifetime_requests_upper=n+6,
+            ordinary_INSN_lifetime_requests_upper=6*c+n+4,
+            CALL_INSN_lifetime_requests_upper=c,
+            instruction_chain_lifetime_requests_upper=chain,
+            first_unused_instruction_UID_upper=chain+1,
+            live_nonchain_RTL_occurrences_upper=operand_occurrences,
+            live_RTL_occurrences_including_chain_upper=chain+operand_occurrences,
+            maximum_one_instruction_operand_note_usage_occurrences=16,
+            maximum_operand_tree_depth=4,
+            initial_local_stack_payload_bytes=0, outgoing_argument_stack_bytes=0,
+            descriptor_nominal_payload_bytes=16*c,
+            jump_instructions=0, local_EH_edges=0, dynamic_stack_operations=0,
+            descriptor_cross_call_liveness_excluded=False,
+            allocation_or_frame_bound_established=False,
+            all_RTX_rtvec_lifetime_requests_bound_established=False),
         local_representation_checks=dict(
             literal_length_fits_String_Length_and_Integer=length<=I32,
             String_constructor_unsigned_size=length+21<=2**32-1,
@@ -127,6 +154,9 @@ def composition(counts):
             CFG_SSA_dominator_signed_intermediates=4*(n+4)<=I32,
             initial_SSA_name_versions_fit_unsigned32=3*c+2<=2**32-1,
             out_of_SSA_partition_extent_fits_signed_int=3*c+2<=I32,
+            pass_expand_pseudo_number_fits_signed_int=98+3*c<=I32,
+            pass_expand_instruction_UID_fits_signed_int=chain+1<=I32,
+            pass_expand_block_index_fits_signed_int=n+6<=I32,
             descriptor_objects_have_fixed_size=True),
         semantic_library_admissibility='separate parameter; current 4096-byte rule is not promoted into this backend bound',
         later_GIMPLE_IPA_RTL_allocation_and_counter_composition_established=False,
@@ -145,6 +175,16 @@ def focused_checks():
     assert composition(c)['CF_EH_CFG']['flat_CF_statements_upper'] == 11
     assert composition(c)['CF_EH_CFG']['ordinary_blocks_upper'] == 3
     assert composition(c)['initial_SSA']['fresh_SSA_names_upper'] == 7
+    rtl = composition(c)['conditional_native_pass_expand']
+    assert (rtl['fresh_dynamic_pseudos_upper'],
+            rtl['instruction_chain_lifetime_requests_upper'],
+            rtl['live_nonchain_RTL_occurrences_upper']) == (6,29,145)
+    assert rtl['ordinary_blocks_upper'] == 5 and rtl['edges_upper'] == 6
+    limit = (I32-13)//7
+    at_limit = dict(c, output_calls=limit, null_statements=0)
+    above = dict(at_limit, output_calls=limit+1)
+    assert composition(at_limit)['local_representation_checks']['pass_expand_instruction_UID_fits_signed_int']
+    assert not composition(above)['local_representation_checks']['pass_expand_instruction_UID_fits_signed_int']
     for uses, expected in [(25,1024),(28,5120),(127,5120),(130,21504)]:
         artificial = dict(c,output_calls=(uses-1)//3)
         assert composition(artificial)['initial_SSA']['operand_slab_requested_bytes_upper'] == expected
@@ -166,7 +206,8 @@ def focused_checks():
     return ['complete restricted source scan', 'decoded quotes and empty literal',
             'unsupported constructs rejected', 'comment terminators and EOF',
             '5000 calls compose without a new source cap',
-            'CF CFG SSA source count composition', 'SSA operand slab transitions']
+            'CF CFG SSA source count composition', 'SSA operand slab transitions',
+            'pass_expand shape and signed instruction UID boundary']
 
 
 def main():
@@ -182,7 +223,7 @@ def main():
         raw = (roots[row['root']]/row['path']).read_bytes()
         require(len(raw)==row['bytes'] and sha(raw)==row['sha256'], 'changed source: '+row['path'])
     counts = source_counts(a.source.read_bytes())
-    result = dict(scope='direct literal output: source through conditional O0/out-of-SSA entry and data operands',
+    result = dict(scope='direct literal output: source through conditional pass_expand output and data operands',
         source_files_verified=len(identity['files']), source_counts=counts,
         components=composition(counts), focused_checks=focused_checks(),
         native_tool_executions=0,

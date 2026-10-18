@@ -11248,10 +11248,10 @@ unchanged until its authorized implementation/proof work is completed.
 This is an evidence stream toward the complete #119 language objective, not a
 new language fragment, milestone or source cap. The
 [offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
-scans this restricted source class completely and checks 50 complete source
+scans this restricted source class completely and checks 68 complete source
 identities. Its equations cover initial lowering, CF/CFG/SSA, conditional O0
-and out-of-SSA shape preservation, and data operands. Whole-unit IPA, RTL,
-allocation counters and final assembly/object composition
+and out-of-SSA shape preservation, pass_expand RTL output, and data operands.
+Whole-unit IPA, later RTL, allocation counters and final assembly/object composition
 remain required; neither the checker nor its arithmetic proves those stages.
 
 ### Native expansion composes without a transient scope
@@ -11576,6 +11576,181 @@ expansion. Actual storage choice, call argument moves, symbol references,
 register allocation, frame/spill layout and final emission remain required.
 Likewise the later expansion ranger's storage cannot use the null fixture's
 two-slot SSA ceiling; its input is now z<=3C+2.
+
+### Literal output through `pass_expand`
+
+The next conditional shape interface ends **after `pass_expand::execute` and
+before virtual-register instantiation**. It uses the preceding O0/whole-unit
+preservation premise and the selected native Linux x86_64 configuration:
+ordinary SysV ABI, CM_SMALL_PIC, default PLT calls and push-argument policy,
+no debug, sanitizer, stack protector, stack checking, instrumentation, target
+attributes or forced stack realignment. The independent producer compiler is
+not covered by this native interface. Enabling the stock later wide-register
+split pass would not change this entry shape; its effect needs a separate join.
+
+**Descriptor storage.** The fat pointer is a record of two ordinary 64-bit
+pointers at byte offsets 0 and 8. `finish_fat_pointer_type` deliberately makes
+it register-compatible (`gcc-interface/utils.cc:2158–2175`). Record layout
+selects TImode for its 128-bit size, with no BLKmode field or strict-alignment
+obstacle (`stor-layout.cc:1872–1960`, `i386.h:952`). Its generated temporary is
+artificial, ignored, writable and nonstatic (`gimple-expr.cc:439–466`), and
+none of the two field stores or by-value call takes its address. Thus
+`use_register_for_decl` selects a register even at O0
+(`function.cc:2155–2272`). `expand_one_register_var` gives each descriptor one
+TImode pseudo and emits no initializing CLOBBER (`cfgexpand.cc:1917–1948`).
+There is no declared automatic stack object on this route. This is an initial
+storage choice, not a conclusion about later register spills.
+
+**Two pointer stores.** `expand_assignment` recovers the fixed 64-bit field
+and its offset, expands the descriptor to that pseudo, and selects
+`store_field` (`expr.cc:5988–6120,8225–8475`). The literal and bounds addresses
+expand to local pool SYMBOL_REFs: constant/constructor address expansion
+returns the pool address, and `force_operand` leaves that simple symbol
+unchanged (`expr.cc:8734–8895,9221–9250,9295–9330`). The selected
+`store_bit_field_1` full-word path writes a DImode SUBREG at byte 0 or 8 of the
+TImode pseudo (`expmed.cc:754–837`). No extraction, masking, shift, bulk copy
+or helper call is required. `emit_move_insn` reaches the ordinary DI move
+expander (`expr.cc:4572–4770`, `i386.md:2419–2430`). Local constant symbols
+are legitimate small-PIC displacements, so `legitimize_pic_address` returns
+the original symbol (`i386.cc:11840–11925,12396–12425`). The special TImode insertion
+expansion is disabled at O0 for a nonnaked function
+(`i386-expand.cc:553–599`). Each store therefore emits one
+`SET (SUBREG:DI (REG:TI) offset) (SYMBOL_REF)`, with no new pseudo.
+
+**Two argument extractions and two register moves.** The reconstructed call
+has one actual and void result (`cfgexpand.cc:3102–3225`). Neither generic
+pass-by-reference nor the SysV hook introduces an invisible pointer or copy
+for this fixed 16-byte ordinary record (`calls.cc:936–960`,
+`i386.cc:3629–3665`). The two aligned pointer fields classify as two INTEGER
+words (`i386.cc:2254–2380,2513–2565`). Argument setup starts with six integer
+registers available and no varargs, hidden result or static chain. Its first
+registers are DI_REG and SI_REG, which are not numerically consecutive
+(`i386.cc:328–331,1874–1960`; `i386.md:423–424`). Consequently
+`construct_container` returns a two-element PARALLEL of DI hard registers
+at offsets 0 and 8, rather than the special single TImode hard-register
+container (`i386.cc:2792–3040,3450–3500`).
+
+`precompute_register_parameters` expands the already existing descriptor
+register and calls `emit_group_load_into_temps` (`calls.cc:1007–1090`).
+Each full-word extraction is a DImode SUBREG of that TImode register
+(`expr.cc:2969–3129`; `expmed.cc:1640–1651,1852–1872`). `force_reg` makes
+one new DI pseudo and one move for each extracted SUBREG
+(`explow.cc:672–727`; `expr.cc:3161–3190`). `load_register_parameters` then
+uses `emit_group_move`, emitting one DI pseudo-to-hard-register move for
+each of the two fields (`calls.cc:2148–2212`; `expr.cc:3194–3205`). These
+moves do not trigger the x86 complex-hard-register fallback: their source
+is a REG, while the extraction destinations are pseudos
+(`i386.cc:21251–21265`). There is no partial argument, stack argument,
+return-slot copy, variable size, conversion or extra evaluation.
+
+**One direct call.** The register-only argument contributes zero to
+`args_size` and both unadjusted and rounded outgoing stack size are zero
+(`calls.cc:1587–1702`). Default push policy makes preallocation unnecessary
+when outgoing arguments are not accumulated. If the selected target instead
+accumulates them, the zero-size preallocation uses the existing virtual
+outgoing-argument register without an instruction; it does not enter the
+nonaccumulating `copy_to_reg` branch (`calls.cc:1773–1823,3262–3437`;
+`i386.cc:4538–4545`). Both routes retain zero stack delta. No source actual
+contains a call, and sibling-call optimization is disabled at O0, so there
+is one normal call-generation pass (`calls.cc:1712–1765,3075–3090`).
+
+`prepare_call_address` preserves the direct function symbol at O0 and
+`emit_call_1` selects the ordinary no-result call with no popping
+(`calls.cc:222–336,375–590`). The selected `ix86_expand_call` has no TLS,
+large-PIC, no-PLT, x32, MS-ABI, interrupt or indirect-call path. Its nonvararg
+`callarg2` is -1, so it emits no AL setup. With no result or pop, it emits one
+CALL_INSN containing `CALL (MEM:QI SYMBOL_REF) (CONST_INT 0)` and no parallel
+clobber or target-generated move (`i386.cc:3453–3460`;
+`i386.md:20473–20485`; `i386-expand.cc:11076–11365`). Two USE entries record
+the argument hard registers (`calls.cc:2326–2333`, `expr.cc:3757–3816`), and
+one REG_CALL_DECL note records the function symbol (`calls.cc:3780–3794`).
+No returned value, argument restoration, alloca, noreturn barrier or deferred
+stack adjustment follows this void call (`calls.cc:3816–4100`).
+
+The calls can throw externally. They have no local landing pad or nonlocal
+goto target; that is sufficient for the shape argument and does not assert
+nothrow. `make_reg_eh_region_note` adds no note for an ordinary potentially
+throwing call outside an EH region (`except.cc:1698–1733`), and the generic
+statement wrapper has no local EH annotation to copy
+(`cfgexpand.cc:4375–4414`). Accordingly they do not trigger RTL block
+subdivision (`cfgbuild.cc:73–119`; `except.cc:1818–1896,1973–1985`).
+
+**Function and CFG framework.** The selected no-argument/void Main entry,
+return label, zero-length non-call-exception blockage, default PIC handling,
+no DRAP and no realignment follow the previously derived
+[null-function framework](retained-backend-gigi.md#selected-x86-function-framework-and-the-end-of-pass_expand).
+Descriptor alignment is at most 16 bytes and all calls have zero stack
+arguments, so neither changes its alignment premises. There is no stack
+slot or variable-initialization instruction at expansion. The final bare
+GIMPLE return is removed before expansion, as its block falls through to EXIT
+(`cfgexpand.cc:6190–6206`). No implicit goto or dummy move is emitted: all
+successors are next in the path and the last body instruction is never a
+jump (`:6510–6566`).
+
+The initial N+2 ordinary blocks and N+3 edges gain at most one initialization
+block and one exit block, each splitting one edge. Body labels number at
+most N+1, with one additional function return label. One BASIC_BLOCK note per
+ordinary block plus initial DELETED and FUNCTION_BEG notes gives at most N+6
+notes. O0 cleanup can add one location-preserving nop per successful merge,
+and each merge removes one of these N+4 ordinary blocks. Thus at most N+3
+nops can be added; calling cleanup more than once does not multiply that
+budget (`cfgcleanup.cc:725–762,3110–3196`; `cfgrtl.cc:783–965`). No enabled
+cleanup branch introduces a jump, pseudo, new block or dataflow register note
+on this path. Final RTL unsharing preserves shape and register numbers
+(`emit-rtl.cc:2928–2991,3189–3355`). Its allocation requests remain separately
+payable; shared-node count is not a lifetime allocation count.
+
+The resulting interface is:
+
+```text
+dynamic pseudos P                 <= 3C: C TI descriptors, 2C DI extractions
+first unused pseudo number        <= 98 + 3C
+DI moves / direct CALL_INSNs       <= 6C / C
+ordinary blocks B / edges E       <= N+4 / N+5
+block-index slots                 <= N+6
+lifetime CODE_LABEL / NOTE        <= N+2 / N+6
+lifetime ordinary INSN            <= 6C + N+4
+lifetime chain objects I          <= 7C + 3N+12
+first unused instruction UID      <= I+1
+initial stack / outgoing arg bytes = 0 / 0
+nominal descriptor payload        <= 16C (not a spill or frame bound)
+```
+
+Here I counts requested chain objects, including labels, notes and objects
+subsequently deleted; live chain length is at most I. The dynamic pseudo base
+is 92 hard-register identifiers plus six virtual registers
+(`i386.md:511`, `rtl.h:4091–4146`). The local arithmetic checks require
+`98+3C`, `I+1` and `N+6` to fit signed int. They are selected local checks,
+not the complete GCC counter or allocation predicate.
+
+For subsequent scanning/copying bounds, count reachable nonchain RTL
+**occurrences**, counting a shared node once per reference. Two pointer
+stores cost at most 8 occurrences, two extraction moves 8, and two
+hard-register moves 6. A call contributes 4 pattern occurrences, 6 function
+usage occurrences and 2 REG_CALL_DECL occurrences: at most 34 per call in
+total. Conservatively use `R0=64C+N+16`, allowing the N+3 nop constants and
+the blockage's node/constant as well. At most 16 nonchain occurrences belong
+to one instruction including its notes and function usage, and their tree
+depth is at most four. If the consumer counts chain nodes too, use `R=I+R0`.
+These are live RTL traversal bounds; they do not include trees reached via
+MEM attributes or SYMBOL_REF_DECL, nor infer all lifetime RTX/rtvec requests,
+constant-pool storage or global GGC events from the live chain.
+
+**Do not infer call-local descriptor liveness.** Each TI descriptor is
+initialized by partial DI writes without an initial CLOBBER. GCC dataflow
+can treat such a write as reading the whole TI register
+(`rtlanal.cc:1400–1414`, `df-scan.cc:2695–2705,2909–2915`). Descriptors for
+later calls may therefore be conservatively live across earlier calls.
+The interface permits that behavior. A later pass must either justify
+splitting these words independently or bound possible descriptor spills;
+zero initial stack storage does not establish zero final frame size.
+
+The replay now verifies 68 complete source files and records this interface,
+including a focused signed-UID boundary check. For C=1,N=0 it yields P=3,
+I=19, B=4, E=5 and R0=80. These are source-derived ceilings, not measured
+RTL output. No compiler, prover or debugger was executed. Whole-unit IPA,
+ordinary/GGC allocation, later RTL, final assembly and object composition
+remain explicit unfinished joins.
 
 ## Exact remaining obligations
 
