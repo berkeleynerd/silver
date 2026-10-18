@@ -107,6 +107,28 @@ def inventory(source_root):
     return rows
 
 
+def localization_calls(source_root):
+    result = {}
+    for name, expected in (("Localize_Binders", 14),
+                           ("Get_Localized_Binders_From_Variables", 4)):
+        rows = []
+        for path in sorted((source_root / "src").rglob("*")):
+            if path.suffix not in (".adb", ".ads"):
+                continue
+            source = path.read_text()
+            code = clean(source)
+            for match in re.finditer(r"\b" + name + r"\s*\(", code):
+                if re.search(r"\b(?:function|procedure)\s*$",
+                             code[max(0, match.start()-40):match.start()]):
+                    continue
+                rows.append({"file": str(path.relative_to(source_root)),
+                             "line": source.count("\n", 0, match.start())+1})
+        assert len(rows) == expected
+        result[name] = rows
+    assert 2+9+24+3+3 == 41
+    return result
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, required=True)
@@ -123,6 +145,9 @@ if __name__ == "__main__":
         "main_location_bound": "P_ref + 11",
         "instantiation_location_bound": "D_loc (P_ref + 28)",
         "to_local_changes_symbol_length": False,
+        "localization_calls": localization_calls(args.source_root),
+        "main_effective_localization_lineage_depth": 1,
+        "main_localized_binder_symbol_bound": "H + Q_Main + 41",
         "comment_inventory": rows,
         "scope": "Checks source identities, inventory and arithmetic. Manual "
                  "source argument covers the forwarded Comment and Object_Name "

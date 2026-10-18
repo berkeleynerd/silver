@@ -3044,6 +3044,73 @@ bounds are ready for the serializer's per-string parameter, but are not by
 themselves an exhaustive maximum for generated identifiers, localized binders,
 projection names or theory comments.
 
+### Main binder localization has no unbounded suffix chain
+
+The source-dependent binder frontier has a sharper result than charging every
+localization call along one growing name. For a binder belonging to a Main
+object, loop index or generated scalar capture, **at most one effective
+`Local_Name` extension occurs along a derived name's lineage**. Repeated
+translations may construct separate localized copies; they do not append
+another suffix to one another.
+
+The complete handwritten frontier has fourteen `Localize_Binders` calls and
+four calls of its `Get_Localized_Binders_From_Variables` wrapper, retained by
+the string-length checker. Their source-dependent paths preserve this invariant:
+
+- Registration and loop-index setup construct canonical items with
+  `Mk_Item_Of_Entity`; ordinary local declarations can instead request
+  `Local=True` (`gnat2why-driver.adb:1381–1405`,
+  `gnat2why-expr-loops.adb:737–759`, `gnat2why-expr.adb:15449,15547`).
+  The canonical item uses `To_Why_Id` and a fresh fixed-shape set of fields,
+  not a previously localized symbol.
+- Bound/type completion localizes with `Only_Variables=False`
+  (`gnat2why-types.adb:229,290,388,579`; `why-gen-scalars.adb:1250,1266`).
+  The wrapper forwards that argument. `Localize_Binders` then sets
+  `B.Local=True`; its entry guard skips every later empty-suffix invocation
+  on the resulting item (`why-gen-binders.adb:658,737`). A scoped insertion
+  and a later `Get_Binders_From_Variables` preserve this flag along with the
+  identifier (`:293–330`). Nested translation therefore does not restart
+  name growth. The only other wrapper caller is array-aggregate translation,
+  outside Main (`gnat2why-expr.adb:16015`).
+- The `New_Function_Decl(Items)` wrapper localizes a private copy and turns
+  it into AST binders. It neither returns its Item_Array nor writes the
+  modified items back to the symbol table (`why-gen-binders.adb:1319–1339`).
+  Already-local items are skipped; an effective extension of a canonical
+  item cannot feed another Item_Array localization through this wrapper.
+- Call-pattern and logic-effect localization concerns the fixed callee's
+  formal/global binders, not names of the actual argument's Main objects.
+  `Compute_Raw_Binders` constructs formals with `Local=True`, while
+  `Compute_Binders_For_Effects` reads the selected callee's fixed global set
+  (`gnat2why-subprograms.adb:2070–2159`; `gnat2why-expr.adb:4340–4373`).
+  Main has no formals or local objects that become globals of those callees.
+  Fixed dependency names retain their separate allowance.
+- The remaining direct sites require aggregate annotations, access-to-subprogram
+  values, lemma procedures or dispatching contracts. Main admits none of
+  these. The explicit `old` suffix is used only on procedure logic/dispatch
+  binder copies, not on Main-owned objects. All four wrapper callers use the
+  empty default suffix.
+
+For Main, let `H` bound raw `Chars` and `Q_Main` bound `Full_Name` as above.
+The canonical symbol has length at most `H+2`. Rank-one array-bound fields
+add at most nine characters (the actual first/last suffix is shorter, and
+`Append_Num` adds nothing when its count is one). Main needs no validity,
+initialization, record, pointer or move-tree field suffix. Its module has
+length at most `Q_Main+24`, and its namespace is absent: Main objects use the
+ordinary `To_Why_Id` selector with no hidden/refined contract
+(`why-inter.adb:1397–1513`; `why-gen-binders.adb:900–954,1080–1130`).
+One localization adds the module and two three-character separators.
+Consequently the localized Main binder-symbol bound is
+
+```text
+u_local_Main <= H + Q_Main + 41.
+```
+
+This is independent of loop nesting or the number of later references once
+those source-derived `H` and `Q_Main` inputs are supplied. It covers the
+intermediate concatenations too. It closes this name family, not every other
+identifier constructor or fixed-contract localization. Copying a symbol with
+`To_Local` still has zero length growth, as established separately.
+
 ### Complete comment-length family
 
 The archived producer has **107** named `Comment` actuals: 106 direct
