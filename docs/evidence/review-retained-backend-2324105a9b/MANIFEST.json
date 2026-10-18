@@ -1,0 +1,27 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 1484,
+    "sha256": "bb65cc133e8a3d857bf7456f145a73c960fa3a3772ea6f1c8301aa5488ed138e"
+  },
+  {
+    "path": "config-source-manifest.json",
+    "bytes": 8060,
+    "sha256": "baa105ad805707a99523672af1a94ab38ae49971e7084d6d1b6ba12f872d8540"
+  },
+  {
+    "path": "config-sources.tar.gz",
+    "bytes": 116971,
+    "sha256": "ec844c8736e0b74de1c0f857d977b5a82bf862a5b23c60f18f94350867e213d4"
+  },
+  {
+    "path": "review-checks.json",
+    "bytes": 3251,
+    "sha256": "f8d4dac7893f4e787ebfe6b007fac4dddf605177b4dbe41710be749cb6f7235d"
+  },
+  {
+    "path": "verify.py",
+    "bytes": 4974,
+    "sha256": "16cb19d32bb983c5fcd50b5c44e09cb66fd75b3ae511dc459c13f54f1680986e"
+  }
+]

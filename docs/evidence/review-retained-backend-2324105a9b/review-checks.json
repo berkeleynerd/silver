@@ -1,0 +1,144 @@
+{
+  "scope": "Frozen backend component source review; no compiler, prover or allocation stress run",
+  "review_target": "2324105a9b",
+  "reproduced_outputs": [
+    {
+      "file": "checks.json",
+      "sha256": "31653f3fc17cf2581bebf41563914ada97fb66afd735d5978ecc1dc88c11e127"
+    },
+    {
+      "file": "source-excerpts.md",
+      "sha256": "20eb6409f6e00d2e00c0ee18e21a1cd9a27fa339e3e49a45f1acba812f67f81f"
+    }
+  ],
+  "additional_configuration_sources_verified": [
+    "gcc/common/config/i386/i386-cpuinfo.h",
+    "gcc/config/elfos.h",
+    "gcc/config/glibc-stdint.h",
+    "gcc/config/gnu-user.h",
+    "gcc/config/i386/att.h",
+    "gcc/config/i386/biarch64.h",
+    "gcc/config/i386/gnu-user-common.h",
+    "gcc/config/i386/gnu-user64.h",
+    "gcc/config/i386/i386-isa.def",
+    "gcc/config/i386/i386-opts.h",
+    "gcc/config/i386/i386.h",
+    "gcc/config/i386/linux-common.h",
+    "gcc/config/i386/linux64.h",
+    "gcc/config/i386/unix.h",
+    "gcc/config/i386/x86-64.h",
+    "gcc/config/i386/x86-tune.def",
+    "gcc/config/linux-android.h",
+    "gcc/config/linux.h",
+    "gcc/config/vxworks-dummy.h",
+    "gcc/config.gcc",
+    "gcc/defaults.h",
+    "gcc/wide-int-bitmask.h"
+  ],
+  "additional_configuration_override_terms_absent": [
+    "SUBTARGET_OPTIMIZATION_OPTIONS",
+    "flag_merge_constants",
+    "OPT_fmerge_constants"
+  ],
+  "line_map_boundary_cases": [
+    {
+      "lines": 1,
+      "map_reusable": true
+    },
+    {
+      "lines": 2,
+      "map_reusable": true
+    },
+    {
+      "lines": 11,
+      "map_reusable": true
+    },
+    {
+      "lines": 1000,
+      "map_reusable": true
+    },
+    {
+      "lines": 16777215,
+      "map_reusable": true
+    },
+    {
+      "lines": 16777216,
+      "map_reusable": true
+    },
+    {
+      "lines": 16777217,
+      "map_reusable": false
+    }
+  ],
+  "cumulative_location_cases": [
+    {
+      "files": 1,
+      "preallocated_maximum": 253,
+      "later_masked_column_maximum": 257
+    },
+    {
+      "files": 1,
+      "preallocated_maximum": 4294967293,
+      "later_masked_column_maximum": 4294967297
+    },
+    {
+      "files": 3,
+      "preallocated_maximum": 4294971893,
+      "later_masked_column_maximum": 4294971897
+    },
+    {
+      "files": 100,
+      "preallocated_maximum": 429496729201,
+      "later_masked_column_maximum": 429496729205
+    }
+  ],
+  "lp64_string_header_premise": 20,
+  "string_arithmetic_cases": [
+    {
+      "length": 0,
+      "node_request": 21,
+      "temporary_plus_node": 21,
+      "chunk_callback_bounds": [
+        0,
+        0
+      ]
+    },
+    {
+      "length": 1,
+      "node_request": 22,
+      "temporary_plus_node": 23,
+      "chunk_callback_bounds": [
+        1,
+        1
+      ]
+    },
+    {
+      "length": 999,
+      "node_request": 1020,
+      "temporary_plus_node": 2019,
+      "chunk_callback_bounds": [
+        1,
+        1
+      ]
+    },
+    {
+      "length": 1000,
+      "node_request": 1021,
+      "temporary_plus_node": 2021,
+      "chunk_callback_bounds": [
+        1,
+        1
+      ]
+    },
+    {
+      "length": 2147483647,
+      "node_request": 2147483668,
+      "temporary_plus_node": 4294967315,
+      "chunk_callback_bounds": [
+        1073742,
+        131072
+      ]
+    }
+  ],
+  "whole_backend_assurance_established": false
+}
