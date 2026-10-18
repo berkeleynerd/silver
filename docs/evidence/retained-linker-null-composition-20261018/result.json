@@ -1,0 +1,85 @@
+{
+  "scope": "Selected null-Main ld/BFD representation composition under retained descriptor and source premises",
+  "native_tool_executions": 0,
+  "source_files_verified": 38,
+  "prior_inputs_verified": 20,
+  "fixed_input_census": {
+    "fixed_files": 15,
+    "archive_members": 1161,
+    "fixed_ELF_inputs": 1169,
+    "COMMON_symbols": 0,
+    "scripts_with_slash_star_prefix": 2
+  },
+  "maximum_archive_member_section_headers": 55,
+  "configured_target_projection": {
+    "linker_sha256": "5fedbb6086b0234eb990800507c0670cb572b48ad864a4d8e8f961ddddef09a0",
+    "targets": [
+      "elf64-x86-64",
+      "elf32-i386",
+      "elf32-iamcu",
+      "elf32-x86-64",
+      "pei-i386",
+      "pe-x86-64",
+      "pei-x86-64",
+      "elf64-little",
+      "elf64-big",
+      "elf32-little",
+      "elf32-big",
+      "srec",
+      "symbolsrec",
+      "verilog",
+      "tekhex",
+      "binary",
+      "ihex",
+      "plugin"
+    ],
+    "vector_entries_including_null": 19,
+    "initial_ids": {
+      "_bfd_section_id": 16,
+      "bfd_id_counter": 0
+    }
+  },
+  "additional_bounds": {
+    "BFD_object_ID_events": 3288,
+    "BFD_section_ID_peak": 268632,
+    "start_stop_entries": 195674,
+    "start_stop_capacity": 327670,
+    "start_stop_pointer_bytes": 2621360,
+    "lang_statement_iterations": 16,
+    "lang_sizing_iterations": 9,
+    "section_address_check_array_bytes": 783440,
+    "empty_explicit_PHDR_pointer_array_bytes": 80,
+    "output_statement_hash_keys": 48966,
+    "Main_ELF_reader": {
+      "Main_section_headers": 22,
+      "Main_header_array": 1760,
+      "Main_header_pointer_array": 176,
+      "Main_header_creation_flags": 22,
+      "external_symbol_bytes": 1184592,
+      "internal_symbol_bytes": 1579456,
+      "local_section_indices": 197432,
+      "external_symbol_hash_pointers": 394864,
+      "original_relocation_bytes": 13121760
+    },
+    "input_mmap_span_formula": "n+2*(G-1), n<=B",
+    "input_mmap_span_at_4096": 462786829
+  },
+  "payload_union_bytes": 462778637,
+  "retained_address_endpoint": 871701307,
+  "file_position_endpoint": 42687993785710,
+  "common_signed_relocation_bound": 1745421669,
+  "capacity_composition_requires_manual_source_argument": true,
+  "source_transfer_conditions": [
+    "selected no-LTO ELF64 x86-64 PIE options and fixed lookup outcomes",
+    "retained source describes selected installed linker behavior",
+    "source-derived null Main object and stable external interface",
+    "accepted indexed binder shape and historical interface bridge",
+    "prior counts, payload, symbols, relocation, EH and layout transfers",
+    "selected LP64 and existing host-page/path/resource premises",
+    "manual supplemental reader, ID, LD array and iteration argument"
+  ],
+  "independent_ID_review_accepted": true,
+  "selected_null_link_representation_closed": true,
+  "broader_grammar_or_tool_pipeline_closed": false,
+  "physical_resource_guarantee": false
+}

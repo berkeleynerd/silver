@@ -1,0 +1,122 @@
+[
+  {
+    "key": "inventory",
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "key": "linker",
+    "path": "docs/evidence/retained-link-no-lto-20261018/ld-resolution/result.json",
+    "bytes": 6728,
+    "sha256": "2191990bb148a5ef87d32f88bf25472247dd1bfbdfd48b6fe866b6307f32e26d"
+  },
+  {
+    "key": "join",
+    "path": "docs/evidence/retained-linker-join-20261018/result.json",
+    "bytes": 3474,
+    "sha256": "740d92666f469837acaefd8d06fd300e956bc7f463b86840a549619ad2fe5a7f"
+  },
+  {
+    "key": "interface",
+    "path": "docs/evidence/retained-linker-interface-20261018/result.json",
+    "bytes": 1739,
+    "sha256": "f7c5317d1fa45a262c19bd8a551f66476a7f71ba37ebde43ba8fb56780f39862"
+  },
+  {
+    "key": "relocations",
+    "path": "docs/evidence/retained-linker-relocations-20261018/result.json",
+    "bytes": 4585,
+    "sha256": "1a944ee938713b7cea7dd6b32cab91e729aad73398eef93256ea495376bf2ab0"
+  },
+  {
+    "key": "unwind",
+    "path": "docs/evidence/retained-linker-relocations-20261018/unwind-result.json",
+    "bytes": 1452,
+    "sha256": "795c314e1f7440797cb6db97fac56d55a4cb91c1c27bf696ac0f8479340cdddc"
+  },
+  {
+    "key": "main_object",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/object-check-results.json",
+    "bytes": 1785,
+    "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+  },
+  {
+    "key": "auxiliary",
+    "path": "docs/evidence/retained-linker-layout-20261018/auxiliary-results.json",
+    "bytes": 2503,
+    "sha256": "bcee57745202b9f98faed57d7c4bf44a17d761d1c81825e7f06c4bf732cb63f2"
+  },
+  {
+    "key": "layout_shape",
+    "path": "docs/evidence/retained-linker-layout-20261018/layout-shape-results.json",
+    "bytes": 13139,
+    "sha256": "61daa5c984b5232b2e0f59d233e5577c4c09a2d8e67177dd28c7c66d5d310c55"
+  },
+  {
+    "key": "dynamic",
+    "path": "docs/evidence/retained-linker-dynamic-sections-20261018/join-results.json",
+    "bytes": 3124,
+    "sha256": "343800db633b1c38898d5dc25bad3f2355288f7aac85ffc78bc51b4345f9503b"
+  },
+  {
+    "key": "symbols",
+    "path": "docs/evidence/retained-linker-symbols-20261018/check-results.json",
+    "bytes": 6952,
+    "sha256": "8022dcde96256d78cdfde5a171d0faeba2f34711ce6e64deb9c68a0a1bd6e80e"
+  },
+  {
+    "key": "hash_storage",
+    "path": "docs/evidence/retained-linker-symbols-20261018/hash-storage-results.json",
+    "bytes": 1083,
+    "sha256": "890d8c44a232d23926cb5fc596d9cb29119d35cbf55b3709c9198aafec12cb29"
+  },
+  {
+    "key": "dynamic_strings",
+    "path": "docs/evidence/retained-linker-symbols-20261018/dynamic-string-results.json",
+    "bytes": 2793,
+    "sha256": "aa463b21e020892bb5ba9f7ee18f47472b00dee75c57c1d0445ddf83c2e60aa9"
+  },
+  {
+    "key": "global_names",
+    "path": "docs/evidence/retained-linker-symbols-20261018/global-name-results.json",
+    "bytes": 1622,
+    "sha256": "261137e98fbe243f67287b81ae193cb739d27443b8258255c5de2e462dd6e1be"
+  },
+  {
+    "key": "registrations",
+    "path": "docs/evidence/retained-linker-symbols-20261018/registration-results.json",
+    "bytes": 1233,
+    "sha256": "41e3c8e6a3696218746b5014514b952889bef8045df997921bda86da0f5cedff"
+  },
+  {
+    "key": "local_ifunc",
+    "path": "docs/evidence/retained-linker-symbols-20261018/local-ifunc-results.json",
+    "bytes": 744,
+    "sha256": "984d46c5f6787218d25e4ee0a7e2934d677d8a068892f606fd42b94168cfbf77"
+  },
+  {
+    "key": "symtab",
+    "path": "docs/evidence/retained-linker-symbols-20261018/symtab-results.json",
+    "bytes": 1235,
+    "sha256": "04d6d13656b7e809b59c1a9c174eec745719858dfa06f07dfb566e1bcb6d93ff"
+  },
+  {
+    "key": "shstrtab",
+    "path": "docs/evidence/retained-linker-symbols-20261018/shstrtab-results.json",
+    "bytes": 1003,
+    "sha256": "bc77c650e633ad63ca714d61deb69469ba0df2eb5cf6b161375024fb3d14b53b"
+  },
+  {
+    "key": "cache",
+    "path": "docs/evidence/retained-linker-capacity-20261018/cache-statistics-results.json",
+    "bytes": 4768,
+    "sha256": "897a99b1aaaf189c93521f8928ac8e2af25579fd6aae9ab3c06366f5c6dd97a8"
+  },
+  {
+    "key": "optional",
+    "path": "docs/evidence/retained-linker-layout-20261018/copy-optional-results.json",
+    "bytes": 1432,
+    "sha256": "a907aee181764b280d0c0f25d3c4502146cb1acd8bd9f6e74702912db19c9b65"
+  }
+]

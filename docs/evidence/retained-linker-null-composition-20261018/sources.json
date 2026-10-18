@@ -1,0 +1,196 @@
+{
+  "binutils_commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "29e3bd88421f6bcacd0646f9df4c96f6fc1bc259764135643ce8218aa6635cec",
+  "files": [
+    {
+      "path": "bfd/archive.c",
+      "bytes": 81265,
+      "sha256": "ead1553215f77bcc2a10a25a9c00a4ef2ab5877a0495f7f28733f3c0d0bf9689"
+    },
+    {
+      "path": "bfd/bfdio.c",
+      "bytes": 24654,
+      "sha256": "e31bbf4895d8019e254a4517beb606ac0edb54d6fb51fe04ccf78ac760ac4f38"
+    },
+    {
+      "path": "bfd/cache.c",
+      "bytes": 20861,
+      "sha256": "ce14e8fb4623af3ed5e4c476f483446c9888fe8065e1fb7a412b111fc668488b"
+    },
+    {
+      "path": "bfd/coff-i386.c",
+      "bytes": 24647,
+      "sha256": "d5d671b1bf487652f3f6c17ae01f204a78277ce047c40f254cfca8d36b933dde"
+    },
+    {
+      "path": "bfd/coff-x86_64.c",
+      "bytes": 29953,
+      "sha256": "e25e343eb1f6a432fa3b6220f3a820d3eb7c52ed8a529a4bfd4272be09820d25"
+    },
+    {
+      "path": "bfd/coffcode.h",
+      "bytes": 182626,
+      "sha256": "87d676f17d8903c8686879385f2f3c010330752bdbb57b1e64d3f76af9ced330"
+    },
+    {
+      "path": "bfd/coffgen.c",
+      "bytes": 94544,
+      "sha256": "7c7fe088f92e1ccda72d56fe0a0f58ec699d85635921c164c3c7e1025645e6f1"
+    },
+    {
+      "path": "bfd/coffswap.h",
+      "bytes": 26600,
+      "sha256": "051c1160bbe02e04bce103e29b9e7a9cf2fee2cf23eeb23cfed81cb0c9eecf04"
+    },
+    {
+      "path": "bfd/elf.c",
+      "bytes": 412710,
+      "sha256": "00c2489050785f51b73ddee8dfb90f7731fc80562da90c67364b3506a237bc15"
+    },
+    {
+      "path": "bfd/elfcode.h",
+      "bytes": 64263,
+      "sha256": "82004c332fdf99dfb7cc18ca076fa3cd1ef461d465de1ca8f00b548e29bb3e3f"
+    },
+    {
+      "path": "bfd/elflink.c",
+      "bytes": 465443,
+      "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1"
+    },
+    {
+      "path": "bfd/format.c",
+      "bytes": 27207,
+      "sha256": "f28bc6ec9b46facb1f4d34930e56f99dba7d3227f428d9548aad5af4e41dc02e"
+    },
+    {
+      "path": "bfd/hash.c",
+      "bytes": 30478,
+      "sha256": "2d68dfa9aa93136c368705886964ea69ad5a8c22a7500ec0a8a0c941c6a93aef"
+    },
+    {
+      "path": "bfd/ihex.c",
+      "bytes": 24279,
+      "sha256": "26cd987e91ea8fe0b9e64ee24fc1b2615ae3ad552e7e8aaf53c98c6341883527"
+    },
+    {
+      "path": "bfd/libbfd.c",
+      "bytes": 37065,
+      "sha256": "1c33c40a969b0294ea5ce2dbfb2b0f22ca0b0cb8e06b4838fdf025b555ed9d35"
+    },
+    {
+      "path": "bfd/opncls.c",
+      "bytes": 55534,
+      "sha256": "c942b64281c6e68f346cd48954bc15b611d23b652db7538aa29a588c17444dbd"
+    },
+    {
+      "path": "bfd/pe-i386.c",
+      "bytes": 2025,
+      "sha256": "df1736695f1185f1606b76ca6548da5c1f6a6bbf9578ef9c40b75afbe73ee8d5"
+    },
+    {
+      "path": "bfd/pe-x86_64.c",
+      "bytes": 3979,
+      "sha256": "1d8a38d60bc5b5900048fdbff46ad95912627eac768fdfe7b0fbc2e5bbd8a568"
+    },
+    {
+      "path": "bfd/pei-i386.c",
+      "bytes": 1918,
+      "sha256": "79ece057dbe5a2b8448c47e55f829c03e49c292ba16652a1a60ece8579b21380"
+    },
+    {
+      "path": "bfd/pei-x86_64.c",
+      "bytes": 24604,
+      "sha256": "2803ad231d4146d1aa7a147fdda511fa3b9acfa686e4e0247b3d9d9a7d724984"
+    },
+    {
+      "path": "bfd/peicode.h",
+      "bytes": 47751,
+      "sha256": "1f07e60a82ded19f91580c9941daed1a99b839818cbbaf6a179cb7bdecc4534a"
+    },
+    {
+      "path": "bfd/section.c",
+      "bytes": 53125,
+      "sha256": "7637e3efbaad1dccb7e092174c0c8a8ab8d0dcb15ed21a0e640fde64823a2d61"
+    },
+    {
+      "path": "bfd/srec.c",
+      "bytes": 32868,
+      "sha256": "2399f230e9faa362bad841c6e7f2eea74c14d974e21837a68794cdd851d5e6e1"
+    },
+    {
+      "path": "bfd/targets.c",
+      "bytes": 54491,
+      "sha256": "c402cec1270adbecbccbf4e1faf740798a650d217dffd3da5ee02659bcc67d10"
+    },
+    {
+      "path": "bfd/tekhex.c",
+      "bytes": 27072,
+      "sha256": "89054a60029bcc38a94d7065df32f8f17bc92bca4323caeebee7023637ffd960"
+    },
+    {
+      "path": "bfd/verilog.c",
+      "bytes": 11099,
+      "sha256": "84aac22bb88db8c50d6e012a71a108015afe414b719c95ae73e3f9615942de3c"
+    },
+    {
+      "path": "include/coff/i386.h",
+      "bytes": 2647,
+      "sha256": "49f9a195113050242e049f871b57785680d35f03b89aae3763e6c2cd6211c727"
+    },
+    {
+      "path": "include/coff/pe.h",
+      "bytes": 21218,
+      "sha256": "3259460b9cf043cb492ab1f09f2152ba10641d6f3d0640bb44013091957a784f"
+    },
+    {
+      "path": "include/coff/x86.h",
+      "bytes": 2038,
+      "sha256": "02745dd4a70c813a6666fb45e3a73b50fd7a1a5bf3061c04a91b6a57ecf37e4f"
+    },
+    {
+      "path": "include/coff/x86_64.h",
+      "bytes": 3653,
+      "sha256": "9085872e860cbcaf2c9e6421fc21510be86360759ccb39546539a715b998c7bf"
+    },
+    {
+      "path": "include/obstack.h",
+      "bytes": 22405,
+      "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632"
+    },
+    {
+      "path": "ld/emultempl/elf.em",
+      "bytes": 39397,
+      "sha256": "6788f41572efeb56e9c39f7b07a793952824e13b7f82f5ed03e351a43f77df8f"
+    },
+    {
+      "path": "ld/ldelf.c",
+      "bytes": 69930,
+      "sha256": "803752534caf5b0a360bdb6bbeafe018e1161e6842455caab345a9b3b93e0ba2"
+    },
+    {
+      "path": "ld/ldelfgen.c",
+      "bytes": 13601,
+      "sha256": "b805443418072b69d82f30653f9a0f47fd32514831a77766b525a7bd025e966b"
+    },
+    {
+      "path": "ld/ldemul.c",
+      "bytes": 10142,
+      "sha256": "673c4b4e62542b864548c3fa7f098ec0a41332bb0d0120fb683105d13c7bc8b4"
+    },
+    {
+      "path": "ld/ldfile.c",
+      "bytes": 26295,
+      "sha256": "f903439a8ec660ccaee5168a68aaa70279f87c6931a5bee73abf2f79dfb38056"
+    },
+    {
+      "path": "ld/ldlang.c",
+      "bytes": 312082,
+      "sha256": "51346229cbadc7415e3040cab429747edb810358fc4782fe65c47756bfd77b43"
+    },
+    {
+      "path": "libiberty/obstack.c",
+      "bytes": 13005,
+      "sha256": "bd202f89c53690fce0d8ba7430f10d5ff6b8b71700de1499644147bb022eb658"
+    }
+  ]
+}
