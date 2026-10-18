@@ -1,0 +1,1603 @@
+{
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "sources": [
+    {
+      "path": "libgnat/a-contai.ads",
+      "bytes": 1478,
+      "sha256": "f6ec0b0e161fdb1bde8a02b2e16b76d32fee4030087be79ecbebb05fb5a190f4"
+    },
+    {
+      "path": "libgnat/a-coinve.ads",
+      "bytes": 17893,
+      "sha256": "b3456d7f29d01ba13e5b83cf9c9ceffbb8f4d570e6947788a019c193cee29edb"
+    },
+    {
+      "path": "libgnat/a-coinve.adb",
+      "bytes": 128046,
+      "sha256": "e40edc72e3c80e5672e9c0a67bbe5e81aa0497fb6676d4895e80573d2f4b7bce"
+    },
+    {
+      "path": "libgnat/a-cdlili.ads",
+      "bytes": 13137,
+      "sha256": "84e03ae36de194febfec1c3dcdd1493c72a9659bf8e137986a9315a61958d658"
+    },
+    {
+      "path": "libgnat/a-cdlili.adb",
+      "bytes": 60440,
+      "sha256": "e70f3d8ec52c18c52749e2d4b0de470b2756ddad5148d1d04ed1ef1cced608ec"
+    }
+  ],
+  "transitions": [
+    {
+      "first": 0,
+      "demand": 1,
+      "capacity": 1,
+      "last": 0,
+      "allocated_last": 0,
+      "backbone_bytes": 16,
+      "conservative_two_backbone_bytes": 32
+    },
+    {
+      "first": 0,
+      "demand": 2,
+      "capacity": 2,
+      "last": 1,
+      "allocated_last": 1,
+      "backbone_bytes": 24,
+      "conservative_two_backbone_bytes": 48
+    },
+    {
+      "first": 0,
+      "demand": 3,
+      "capacity": 4,
+      "last": 2,
+      "allocated_last": 3,
+      "backbone_bytes": 40,
+      "conservative_two_backbone_bytes": 80
+    },
+    {
+      "first": 0,
+      "demand": 4,
+      "capacity": 4,
+      "last": 3,
+      "allocated_last": 3,
+      "backbone_bytes": 40,
+      "conservative_two_backbone_bytes": 80
+    },
+    {
+      "first": 0,
+      "demand": 5,
+      "capacity": 8,
+      "last": 4,
+      "allocated_last": 7,
+      "backbone_bytes": 72,
+      "conservative_two_backbone_bytes": 144
+    },
+    {
+      "first": 0,
+      "demand": 7,
+      "capacity": 8,
+      "last": 6,
+      "allocated_last": 7,
+      "backbone_bytes": 72,
+      "conservative_two_backbone_bytes": 144
+    },
+    {
+      "first": 0,
+      "demand": 8,
+      "capacity": 8,
+      "last": 7,
+      "allocated_last": 7,
+      "backbone_bytes": 72,
+      "conservative_two_backbone_bytes": 144
+    },
+    {
+      "first": 0,
+      "demand": 9,
+      "capacity": 16,
+      "last": 8,
+      "allocated_last": 15,
+      "backbone_bytes": 136,
+      "conservative_two_backbone_bytes": 272
+    },
+    {
+      "first": 0,
+      "demand": 15,
+      "capacity": 16,
+      "last": 14,
+      "allocated_last": 15,
+      "backbone_bytes": 136,
+      "conservative_two_backbone_bytes": 272
+    },
+    {
+      "first": 0,
+      "demand": 16,
+      "capacity": 16,
+      "last": 15,
+      "allocated_last": 15,
+      "backbone_bytes": 136,
+      "conservative_two_backbone_bytes": 272
+    },
+    {
+      "first": 0,
+      "demand": 17,
+      "capacity": 32,
+      "last": 16,
+      "allocated_last": 31,
+      "backbone_bytes": 264,
+      "conservative_two_backbone_bytes": 528
+    },
+    {
+      "first": 0,
+      "demand": 31,
+      "capacity": 32,
+      "last": 30,
+      "allocated_last": 31,
+      "backbone_bytes": 264,
+      "conservative_two_backbone_bytes": 528
+    },
+    {
+      "first": 0,
+      "demand": 32,
+      "capacity": 32,
+      "last": 31,
+      "allocated_last": 31,
+      "backbone_bytes": 264,
+      "conservative_two_backbone_bytes": 528
+    },
+    {
+      "first": 0,
+      "demand": 33,
+      "capacity": 64,
+      "last": 32,
+      "allocated_last": 63,
+      "backbone_bytes": 520,
+      "conservative_two_backbone_bytes": 1040
+    },
+    {
+      "first": 0,
+      "demand": 63,
+      "capacity": 64,
+      "last": 62,
+      "allocated_last": 63,
+      "backbone_bytes": 520,
+      "conservative_two_backbone_bytes": 1040
+    },
+    {
+      "first": 0,
+      "demand": 64,
+      "capacity": 64,
+      "last": 63,
+      "allocated_last": 63,
+      "backbone_bytes": 520,
+      "conservative_two_backbone_bytes": 1040
+    },
+    {
+      "first": 0,
+      "demand": 65,
+      "capacity": 128,
+      "last": 64,
+      "allocated_last": 127,
+      "backbone_bytes": 1032,
+      "conservative_two_backbone_bytes": 2064
+    },
+    {
+      "first": 0,
+      "demand": 127,
+      "capacity": 128,
+      "last": 126,
+      "allocated_last": 127,
+      "backbone_bytes": 1032,
+      "conservative_two_backbone_bytes": 2064
+    },
+    {
+      "first": 0,
+      "demand": 128,
+      "capacity": 128,
+      "last": 127,
+      "allocated_last": 127,
+      "backbone_bytes": 1032,
+      "conservative_two_backbone_bytes": 2064
+    },
+    {
+      "first": 0,
+      "demand": 129,
+      "capacity": 256,
+      "last": 128,
+      "allocated_last": 255,
+      "backbone_bytes": 2056,
+      "conservative_two_backbone_bytes": 4112
+    },
+    {
+      "first": 0,
+      "demand": 255,
+      "capacity": 256,
+      "last": 254,
+      "allocated_last": 255,
+      "backbone_bytes": 2056,
+      "conservative_two_backbone_bytes": 4112
+    },
+    {
+      "first": 0,
+      "demand": 256,
+      "capacity": 256,
+      "last": 255,
+      "allocated_last": 255,
+      "backbone_bytes": 2056,
+      "conservative_two_backbone_bytes": 4112
+    },
+    {
+      "first": 0,
+      "demand": 257,
+      "capacity": 512,
+      "last": 256,
+      "allocated_last": 511,
+      "backbone_bytes": 4104,
+      "conservative_two_backbone_bytes": 8208
+    },
+    {
+      "first": 0,
+      "demand": 511,
+      "capacity": 512,
+      "last": 510,
+      "allocated_last": 511,
+      "backbone_bytes": 4104,
+      "conservative_two_backbone_bytes": 8208
+    },
+    {
+      "first": 0,
+      "demand": 512,
+      "capacity": 512,
+      "last": 511,
+      "allocated_last": 511,
+      "backbone_bytes": 4104,
+      "conservative_two_backbone_bytes": 8208
+    },
+    {
+      "first": 0,
+      "demand": 513,
+      "capacity": 1024,
+      "last": 512,
+      "allocated_last": 1023,
+      "backbone_bytes": 8200,
+      "conservative_two_backbone_bytes": 16400
+    },
+    {
+      "first": 0,
+      "demand": 1023,
+      "capacity": 1024,
+      "last": 1022,
+      "allocated_last": 1023,
+      "backbone_bytes": 8200,
+      "conservative_two_backbone_bytes": 16400
+    },
+    {
+      "first": 0,
+      "demand": 1024,
+      "capacity": 1024,
+      "last": 1023,
+      "allocated_last": 1023,
+      "backbone_bytes": 8200,
+      "conservative_two_backbone_bytes": 16400
+    },
+    {
+      "first": 0,
+      "demand": 1025,
+      "capacity": 2048,
+      "last": 1024,
+      "allocated_last": 2047,
+      "backbone_bytes": 16392,
+      "conservative_two_backbone_bytes": 32784
+    },
+    {
+      "first": 0,
+      "demand": 2047,
+      "capacity": 2048,
+      "last": 2046,
+      "allocated_last": 2047,
+      "backbone_bytes": 16392,
+      "conservative_two_backbone_bytes": 32784
+    },
+    {
+      "first": 0,
+      "demand": 2048,
+      "capacity": 2048,
+      "last": 2047,
+      "allocated_last": 2047,
+      "backbone_bytes": 16392,
+      "conservative_two_backbone_bytes": 32784
+    },
+    {
+      "first": 0,
+      "demand": 2049,
+      "capacity": 4096,
+      "last": 2048,
+      "allocated_last": 4095,
+      "backbone_bytes": 32776,
+      "conservative_two_backbone_bytes": 65552
+    },
+    {
+      "first": 0,
+      "demand": 4095,
+      "capacity": 4096,
+      "last": 4094,
+      "allocated_last": 4095,
+      "backbone_bytes": 32776,
+      "conservative_two_backbone_bytes": 65552
+    },
+    {
+      "first": 0,
+      "demand": 4096,
+      "capacity": 4096,
+      "last": 4095,
+      "allocated_last": 4095,
+      "backbone_bytes": 32776,
+      "conservative_two_backbone_bytes": 65552
+    },
+    {
+      "first": 0,
+      "demand": 4097,
+      "capacity": 8192,
+      "last": 4096,
+      "allocated_last": 8191,
+      "backbone_bytes": 65544,
+      "conservative_two_backbone_bytes": 131088
+    },
+    {
+      "first": 0,
+      "demand": 8191,
+      "capacity": 8192,
+      "last": 8190,
+      "allocated_last": 8191,
+      "backbone_bytes": 65544,
+      "conservative_two_backbone_bytes": 131088
+    },
+    {
+      "first": 0,
+      "demand": 8192,
+      "capacity": 8192,
+      "last": 8191,
+      "allocated_last": 8191,
+      "backbone_bytes": 65544,
+      "conservative_two_backbone_bytes": 131088
+    },
+    {
+      "first": 0,
+      "demand": 8193,
+      "capacity": 16384,
+      "last": 8192,
+      "allocated_last": 16383,
+      "backbone_bytes": 131080,
+      "conservative_two_backbone_bytes": 262160
+    },
+    {
+      "first": 0,
+      "demand": 16383,
+      "capacity": 16384,
+      "last": 16382,
+      "allocated_last": 16383,
+      "backbone_bytes": 131080,
+      "conservative_two_backbone_bytes": 262160
+    },
+    {
+      "first": 0,
+      "demand": 16384,
+      "capacity": 16384,
+      "last": 16383,
+      "allocated_last": 16383,
+      "backbone_bytes": 131080,
+      "conservative_two_backbone_bytes": 262160
+    },
+    {
+      "first": 0,
+      "demand": 16385,
+      "capacity": 32768,
+      "last": 16384,
+      "allocated_last": 32767,
+      "backbone_bytes": 262152,
+      "conservative_two_backbone_bytes": 524304
+    },
+    {
+      "first": 0,
+      "demand": 32767,
+      "capacity": 32768,
+      "last": 32766,
+      "allocated_last": 32767,
+      "backbone_bytes": 262152,
+      "conservative_two_backbone_bytes": 524304
+    },
+    {
+      "first": 0,
+      "demand": 32768,
+      "capacity": 32768,
+      "last": 32767,
+      "allocated_last": 32767,
+      "backbone_bytes": 262152,
+      "conservative_two_backbone_bytes": 524304
+    },
+    {
+      "first": 0,
+      "demand": 32769,
+      "capacity": 65536,
+      "last": 32768,
+      "allocated_last": 65535,
+      "backbone_bytes": 524296,
+      "conservative_two_backbone_bytes": 1048592
+    },
+    {
+      "first": 0,
+      "demand": 65535,
+      "capacity": 65536,
+      "last": 65534,
+      "allocated_last": 65535,
+      "backbone_bytes": 524296,
+      "conservative_two_backbone_bytes": 1048592
+    },
+    {
+      "first": 0,
+      "demand": 65536,
+      "capacity": 65536,
+      "last": 65535,
+      "allocated_last": 65535,
+      "backbone_bytes": 524296,
+      "conservative_two_backbone_bytes": 1048592
+    },
+    {
+      "first": 0,
+      "demand": 65537,
+      "capacity": 131072,
+      "last": 65536,
+      "allocated_last": 131071,
+      "backbone_bytes": 1048584,
+      "conservative_two_backbone_bytes": 2097168
+    },
+    {
+      "first": 0,
+      "demand": 131071,
+      "capacity": 131072,
+      "last": 131070,
+      "allocated_last": 131071,
+      "backbone_bytes": 1048584,
+      "conservative_two_backbone_bytes": 2097168
+    },
+    {
+      "first": 0,
+      "demand": 131072,
+      "capacity": 131072,
+      "last": 131071,
+      "allocated_last": 131071,
+      "backbone_bytes": 1048584,
+      "conservative_two_backbone_bytes": 2097168
+    },
+    {
+      "first": 0,
+      "demand": 131073,
+      "capacity": 262144,
+      "last": 131072,
+      "allocated_last": 262143,
+      "backbone_bytes": 2097160,
+      "conservative_two_backbone_bytes": 4194320
+    },
+    {
+      "first": 0,
+      "demand": 262143,
+      "capacity": 262144,
+      "last": 262142,
+      "allocated_last": 262143,
+      "backbone_bytes": 2097160,
+      "conservative_two_backbone_bytes": 4194320
+    },
+    {
+      "first": 0,
+      "demand": 262144,
+      "capacity": 262144,
+      "last": 262143,
+      "allocated_last": 262143,
+      "backbone_bytes": 2097160,
+      "conservative_two_backbone_bytes": 4194320
+    },
+    {
+      "first": 0,
+      "demand": 262145,
+      "capacity": 524288,
+      "last": 262144,
+      "allocated_last": 524287,
+      "backbone_bytes": 4194312,
+      "conservative_two_backbone_bytes": 8388624
+    },
+    {
+      "first": 0,
+      "demand": 524287,
+      "capacity": 524288,
+      "last": 524286,
+      "allocated_last": 524287,
+      "backbone_bytes": 4194312,
+      "conservative_two_backbone_bytes": 8388624
+    },
+    {
+      "first": 0,
+      "demand": 524288,
+      "capacity": 524288,
+      "last": 524287,
+      "allocated_last": 524287,
+      "backbone_bytes": 4194312,
+      "conservative_two_backbone_bytes": 8388624
+    },
+    {
+      "first": 0,
+      "demand": 524289,
+      "capacity": 1048576,
+      "last": 524288,
+      "allocated_last": 1048575,
+      "backbone_bytes": 8388616,
+      "conservative_two_backbone_bytes": 16777232
+    },
+    {
+      "first": 0,
+      "demand": 1048575,
+      "capacity": 1048576,
+      "last": 1048574,
+      "allocated_last": 1048575,
+      "backbone_bytes": 8388616,
+      "conservative_two_backbone_bytes": 16777232
+    },
+    {
+      "first": 0,
+      "demand": 1048576,
+      "capacity": 1048576,
+      "last": 1048575,
+      "allocated_last": 1048575,
+      "backbone_bytes": 8388616,
+      "conservative_two_backbone_bytes": 16777232
+    },
+    {
+      "first": 0,
+      "demand": 1048577,
+      "capacity": 2097152,
+      "last": 1048576,
+      "allocated_last": 2097151,
+      "backbone_bytes": 16777224,
+      "conservative_two_backbone_bytes": 33554448
+    },
+    {
+      "first": 0,
+      "demand": 2097151,
+      "capacity": 2097152,
+      "last": 2097150,
+      "allocated_last": 2097151,
+      "backbone_bytes": 16777224,
+      "conservative_two_backbone_bytes": 33554448
+    },
+    {
+      "first": 0,
+      "demand": 2097152,
+      "capacity": 2097152,
+      "last": 2097151,
+      "allocated_last": 2097151,
+      "backbone_bytes": 16777224,
+      "conservative_two_backbone_bytes": 33554448
+    },
+    {
+      "first": 0,
+      "demand": 2097153,
+      "capacity": 4194304,
+      "last": 2097152,
+      "allocated_last": 4194303,
+      "backbone_bytes": 33554440,
+      "conservative_two_backbone_bytes": 67108880
+    },
+    {
+      "first": 0,
+      "demand": 4194303,
+      "capacity": 4194304,
+      "last": 4194302,
+      "allocated_last": 4194303,
+      "backbone_bytes": 33554440,
+      "conservative_two_backbone_bytes": 67108880
+    },
+    {
+      "first": 0,
+      "demand": 4194304,
+      "capacity": 4194304,
+      "last": 4194303,
+      "allocated_last": 4194303,
+      "backbone_bytes": 33554440,
+      "conservative_two_backbone_bytes": 67108880
+    },
+    {
+      "first": 0,
+      "demand": 4194305,
+      "capacity": 8388608,
+      "last": 4194304,
+      "allocated_last": 8388607,
+      "backbone_bytes": 67108872,
+      "conservative_two_backbone_bytes": 134217744
+    },
+    {
+      "first": 0,
+      "demand": 8388607,
+      "capacity": 8388608,
+      "last": 8388606,
+      "allocated_last": 8388607,
+      "backbone_bytes": 67108872,
+      "conservative_two_backbone_bytes": 134217744
+    },
+    {
+      "first": 0,
+      "demand": 8388608,
+      "capacity": 8388608,
+      "last": 8388607,
+      "allocated_last": 8388607,
+      "backbone_bytes": 67108872,
+      "conservative_two_backbone_bytes": 134217744
+    },
+    {
+      "first": 0,
+      "demand": 8388609,
+      "capacity": 16777216,
+      "last": 8388608,
+      "allocated_last": 16777215,
+      "backbone_bytes": 134217736,
+      "conservative_two_backbone_bytes": 268435472
+    },
+    {
+      "first": 0,
+      "demand": 16777215,
+      "capacity": 16777216,
+      "last": 16777214,
+      "allocated_last": 16777215,
+      "backbone_bytes": 134217736,
+      "conservative_two_backbone_bytes": 268435472
+    },
+    {
+      "first": 0,
+      "demand": 16777216,
+      "capacity": 16777216,
+      "last": 16777215,
+      "allocated_last": 16777215,
+      "backbone_bytes": 134217736,
+      "conservative_two_backbone_bytes": 268435472
+    },
+    {
+      "first": 0,
+      "demand": 16777217,
+      "capacity": 33554432,
+      "last": 16777216,
+      "allocated_last": 33554431,
+      "backbone_bytes": 268435464,
+      "conservative_two_backbone_bytes": 536870928
+    },
+    {
+      "first": 0,
+      "demand": 33554431,
+      "capacity": 33554432,
+      "last": 33554430,
+      "allocated_last": 33554431,
+      "backbone_bytes": 268435464,
+      "conservative_two_backbone_bytes": 536870928
+    },
+    {
+      "first": 0,
+      "demand": 33554432,
+      "capacity": 33554432,
+      "last": 33554431,
+      "allocated_last": 33554431,
+      "backbone_bytes": 268435464,
+      "conservative_two_backbone_bytes": 536870928
+    },
+    {
+      "first": 0,
+      "demand": 33554433,
+      "capacity": 67108864,
+      "last": 33554432,
+      "allocated_last": 67108863,
+      "backbone_bytes": 536870920,
+      "conservative_two_backbone_bytes": 1073741840
+    },
+    {
+      "first": 0,
+      "demand": 67108863,
+      "capacity": 67108864,
+      "last": 67108862,
+      "allocated_last": 67108863,
+      "backbone_bytes": 536870920,
+      "conservative_two_backbone_bytes": 1073741840
+    },
+    {
+      "first": 0,
+      "demand": 67108864,
+      "capacity": 67108864,
+      "last": 67108863,
+      "allocated_last": 67108863,
+      "backbone_bytes": 536870920,
+      "conservative_two_backbone_bytes": 1073741840
+    },
+    {
+      "first": 0,
+      "demand": 67108865,
+      "capacity": 134217728,
+      "last": 67108864,
+      "allocated_last": 134217727,
+      "backbone_bytes": 1073741832,
+      "conservative_two_backbone_bytes": 2147483664
+    },
+    {
+      "first": 0,
+      "demand": 134217727,
+      "capacity": 134217728,
+      "last": 134217726,
+      "allocated_last": 134217727,
+      "backbone_bytes": 1073741832,
+      "conservative_two_backbone_bytes": 2147483664
+    },
+    {
+      "first": 0,
+      "demand": 134217728,
+      "capacity": 134217728,
+      "last": 134217727,
+      "allocated_last": 134217727,
+      "backbone_bytes": 1073741832,
+      "conservative_two_backbone_bytes": 2147483664
+    },
+    {
+      "first": 0,
+      "demand": 134217729,
+      "capacity": 268435456,
+      "last": 134217728,
+      "allocated_last": 268435455,
+      "backbone_bytes": 2147483656,
+      "conservative_two_backbone_bytes": 4294967312
+    },
+    {
+      "first": 0,
+      "demand": 268435455,
+      "capacity": 268435456,
+      "last": 268435454,
+      "allocated_last": 268435455,
+      "backbone_bytes": 2147483656,
+      "conservative_two_backbone_bytes": 4294967312
+    },
+    {
+      "first": 0,
+      "demand": 268435456,
+      "capacity": 268435456,
+      "last": 268435455,
+      "allocated_last": 268435455,
+      "backbone_bytes": 2147483656,
+      "conservative_two_backbone_bytes": 4294967312
+    },
+    {
+      "first": 0,
+      "demand": 268435457,
+      "capacity": 536870912,
+      "last": 268435456,
+      "allocated_last": 536870911,
+      "backbone_bytes": 4294967304,
+      "conservative_two_backbone_bytes": 8589934608
+    },
+    {
+      "first": 0,
+      "demand": 536870911,
+      "capacity": 536870912,
+      "last": 536870910,
+      "allocated_last": 536870911,
+      "backbone_bytes": 4294967304,
+      "conservative_two_backbone_bytes": 8589934608
+    },
+    {
+      "first": 0,
+      "demand": 536870912,
+      "capacity": 536870912,
+      "last": 536870911,
+      "allocated_last": 536870911,
+      "backbone_bytes": 4294967304,
+      "conservative_two_backbone_bytes": 8589934608
+    },
+    {
+      "first": 0,
+      "demand": 536870913,
+      "capacity": 1073741824,
+      "last": 536870912,
+      "allocated_last": 1073741823,
+      "backbone_bytes": 8589934600,
+      "conservative_two_backbone_bytes": 17179869200
+    },
+    {
+      "first": 0,
+      "demand": 1073741824,
+      "capacity": 1073741824,
+      "last": 1073741823,
+      "allocated_last": 1073741823,
+      "backbone_bytes": 8589934600,
+      "conservative_two_backbone_bytes": 17179869200
+    },
+    {
+      "first": 1073741824,
+      "demand": 1,
+      "capacity": 1,
+      "last": 1073741824,
+      "allocated_last": 1073741824,
+      "backbone_bytes": 16,
+      "conservative_two_backbone_bytes": 32
+    },
+    {
+      "first": 1073741824,
+      "demand": 2,
+      "capacity": 2,
+      "last": 1073741825,
+      "allocated_last": 1073741825,
+      "backbone_bytes": 24,
+      "conservative_two_backbone_bytes": 48
+    },
+    {
+      "first": 1073741824,
+      "demand": 3,
+      "capacity": 4,
+      "last": 1073741826,
+      "allocated_last": 1073741827,
+      "backbone_bytes": 40,
+      "conservative_two_backbone_bytes": 80
+    },
+    {
+      "first": 1073741824,
+      "demand": 4,
+      "capacity": 4,
+      "last": 1073741827,
+      "allocated_last": 1073741827,
+      "backbone_bytes": 40,
+      "conservative_two_backbone_bytes": 80
+    },
+    {
+      "first": 1073741824,
+      "demand": 5,
+      "capacity": 8,
+      "last": 1073741828,
+      "allocated_last": 1073741831,
+      "backbone_bytes": 72,
+      "conservative_two_backbone_bytes": 144
+    },
+    {
+      "first": 1073741824,
+      "demand": 7,
+      "capacity": 8,
+      "last": 1073741830,
+      "allocated_last": 1073741831,
+      "backbone_bytes": 72,
+      "conservative_two_backbone_bytes": 144
+    },
+    {
+      "first": 1073741824,
+      "demand": 8,
+      "capacity": 8,
+      "last": 1073741831,
+      "allocated_last": 1073741831,
+      "backbone_bytes": 72,
+      "conservative_two_backbone_bytes": 144
+    },
+    {
+      "first": 1073741824,
+      "demand": 9,
+      "capacity": 16,
+      "last": 1073741832,
+      "allocated_last": 1073741839,
+      "backbone_bytes": 136,
+      "conservative_two_backbone_bytes": 272
+    },
+    {
+      "first": 1073741824,
+      "demand": 15,
+      "capacity": 16,
+      "last": 1073741838,
+      "allocated_last": 1073741839,
+      "backbone_bytes": 136,
+      "conservative_two_backbone_bytes": 272
+    },
+    {
+      "first": 1073741824,
+      "demand": 16,
+      "capacity": 16,
+      "last": 1073741839,
+      "allocated_last": 1073741839,
+      "backbone_bytes": 136,
+      "conservative_two_backbone_bytes": 272
+    },
+    {
+      "first": 1073741824,
+      "demand": 17,
+      "capacity": 32,
+      "last": 1073741840,
+      "allocated_last": 1073741855,
+      "backbone_bytes": 264,
+      "conservative_two_backbone_bytes": 528
+    },
+    {
+      "first": 1073741824,
+      "demand": 31,
+      "capacity": 32,
+      "last": 1073741854,
+      "allocated_last": 1073741855,
+      "backbone_bytes": 264,
+      "conservative_two_backbone_bytes": 528
+    },
+    {
+      "first": 1073741824,
+      "demand": 32,
+      "capacity": 32,
+      "last": 1073741855,
+      "allocated_last": 1073741855,
+      "backbone_bytes": 264,
+      "conservative_two_backbone_bytes": 528
+    },
+    {
+      "first": 1073741824,
+      "demand": 33,
+      "capacity": 64,
+      "last": 1073741856,
+      "allocated_last": 1073741887,
+      "backbone_bytes": 520,
+      "conservative_two_backbone_bytes": 1040
+    },
+    {
+      "first": 1073741824,
+      "demand": 63,
+      "capacity": 64,
+      "last": 1073741886,
+      "allocated_last": 1073741887,
+      "backbone_bytes": 520,
+      "conservative_two_backbone_bytes": 1040
+    },
+    {
+      "first": 1073741824,
+      "demand": 64,
+      "capacity": 64,
+      "last": 1073741887,
+      "allocated_last": 1073741887,
+      "backbone_bytes": 520,
+      "conservative_two_backbone_bytes": 1040
+    },
+    {
+      "first": 1073741824,
+      "demand": 65,
+      "capacity": 128,
+      "last": 1073741888,
+      "allocated_last": 1073741951,
+      "backbone_bytes": 1032,
+      "conservative_two_backbone_bytes": 2064
+    },
+    {
+      "first": 1073741824,
+      "demand": 127,
+      "capacity": 128,
+      "last": 1073741950,
+      "allocated_last": 1073741951,
+      "backbone_bytes": 1032,
+      "conservative_two_backbone_bytes": 2064
+    },
+    {
+      "first": 1073741824,
+      "demand": 128,
+      "capacity": 128,
+      "last": 1073741951,
+      "allocated_last": 1073741951,
+      "backbone_bytes": 1032,
+      "conservative_two_backbone_bytes": 2064
+    },
+    {
+      "first": 1073741824,
+      "demand": 129,
+      "capacity": 256,
+      "last": 1073741952,
+      "allocated_last": 1073742079,
+      "backbone_bytes": 2056,
+      "conservative_two_backbone_bytes": 4112
+    },
+    {
+      "first": 1073741824,
+      "demand": 255,
+      "capacity": 256,
+      "last": 1073742078,
+      "allocated_last": 1073742079,
+      "backbone_bytes": 2056,
+      "conservative_two_backbone_bytes": 4112
+    },
+    {
+      "first": 1073741824,
+      "demand": 256,
+      "capacity": 256,
+      "last": 1073742079,
+      "allocated_last": 1073742079,
+      "backbone_bytes": 2056,
+      "conservative_two_backbone_bytes": 4112
+    },
+    {
+      "first": 1073741824,
+      "demand": 257,
+      "capacity": 512,
+      "last": 1073742080,
+      "allocated_last": 1073742335,
+      "backbone_bytes": 4104,
+      "conservative_two_backbone_bytes": 8208
+    },
+    {
+      "first": 1073741824,
+      "demand": 511,
+      "capacity": 512,
+      "last": 1073742334,
+      "allocated_last": 1073742335,
+      "backbone_bytes": 4104,
+      "conservative_two_backbone_bytes": 8208
+    },
+    {
+      "first": 1073741824,
+      "demand": 512,
+      "capacity": 512,
+      "last": 1073742335,
+      "allocated_last": 1073742335,
+      "backbone_bytes": 4104,
+      "conservative_two_backbone_bytes": 8208
+    },
+    {
+      "first": 1073741824,
+      "demand": 513,
+      "capacity": 1024,
+      "last": 1073742336,
+      "allocated_last": 1073742847,
+      "backbone_bytes": 8200,
+      "conservative_two_backbone_bytes": 16400
+    },
+    {
+      "first": 1073741824,
+      "demand": 1023,
+      "capacity": 1024,
+      "last": 1073742846,
+      "allocated_last": 1073742847,
+      "backbone_bytes": 8200,
+      "conservative_two_backbone_bytes": 16400
+    },
+    {
+      "first": 1073741824,
+      "demand": 1024,
+      "capacity": 1024,
+      "last": 1073742847,
+      "allocated_last": 1073742847,
+      "backbone_bytes": 8200,
+      "conservative_two_backbone_bytes": 16400
+    },
+    {
+      "first": 1073741824,
+      "demand": 1025,
+      "capacity": 2048,
+      "last": 1073742848,
+      "allocated_last": 1073743871,
+      "backbone_bytes": 16392,
+      "conservative_two_backbone_bytes": 32784
+    },
+    {
+      "first": 1073741824,
+      "demand": 2047,
+      "capacity": 2048,
+      "last": 1073743870,
+      "allocated_last": 1073743871,
+      "backbone_bytes": 16392,
+      "conservative_two_backbone_bytes": 32784
+    },
+    {
+      "first": 1073741824,
+      "demand": 2048,
+      "capacity": 2048,
+      "last": 1073743871,
+      "allocated_last": 1073743871,
+      "backbone_bytes": 16392,
+      "conservative_two_backbone_bytes": 32784
+    },
+    {
+      "first": 1073741824,
+      "demand": 2049,
+      "capacity": 4096,
+      "last": 1073743872,
+      "allocated_last": 1073745919,
+      "backbone_bytes": 32776,
+      "conservative_two_backbone_bytes": 65552
+    },
+    {
+      "first": 1073741824,
+      "demand": 4095,
+      "capacity": 4096,
+      "last": 1073745918,
+      "allocated_last": 1073745919,
+      "backbone_bytes": 32776,
+      "conservative_two_backbone_bytes": 65552
+    },
+    {
+      "first": 1073741824,
+      "demand": 4096,
+      "capacity": 4096,
+      "last": 1073745919,
+      "allocated_last": 1073745919,
+      "backbone_bytes": 32776,
+      "conservative_two_backbone_bytes": 65552
+    },
+    {
+      "first": 1073741824,
+      "demand": 4097,
+      "capacity": 8192,
+      "last": 1073745920,
+      "allocated_last": 1073750015,
+      "backbone_bytes": 65544,
+      "conservative_two_backbone_bytes": 131088
+    },
+    {
+      "first": 1073741824,
+      "demand": 8191,
+      "capacity": 8192,
+      "last": 1073750014,
+      "allocated_last": 1073750015,
+      "backbone_bytes": 65544,
+      "conservative_two_backbone_bytes": 131088
+    },
+    {
+      "first": 1073741824,
+      "demand": 8192,
+      "capacity": 8192,
+      "last": 1073750015,
+      "allocated_last": 1073750015,
+      "backbone_bytes": 65544,
+      "conservative_two_backbone_bytes": 131088
+    },
+    {
+      "first": 1073741824,
+      "demand": 8193,
+      "capacity": 16384,
+      "last": 1073750016,
+      "allocated_last": 1073758207,
+      "backbone_bytes": 131080,
+      "conservative_two_backbone_bytes": 262160
+    },
+    {
+      "first": 1073741824,
+      "demand": 16383,
+      "capacity": 16384,
+      "last": 1073758206,
+      "allocated_last": 1073758207,
+      "backbone_bytes": 131080,
+      "conservative_two_backbone_bytes": 262160
+    },
+    {
+      "first": 1073741824,
+      "demand": 16384,
+      "capacity": 16384,
+      "last": 1073758207,
+      "allocated_last": 1073758207,
+      "backbone_bytes": 131080,
+      "conservative_two_backbone_bytes": 262160
+    },
+    {
+      "first": 1073741824,
+      "demand": 16385,
+      "capacity": 32768,
+      "last": 1073758208,
+      "allocated_last": 1073774591,
+      "backbone_bytes": 262152,
+      "conservative_two_backbone_bytes": 524304
+    },
+    {
+      "first": 1073741824,
+      "demand": 32767,
+      "capacity": 32768,
+      "last": 1073774590,
+      "allocated_last": 1073774591,
+      "backbone_bytes": 262152,
+      "conservative_two_backbone_bytes": 524304
+    },
+    {
+      "first": 1073741824,
+      "demand": 32768,
+      "capacity": 32768,
+      "last": 1073774591,
+      "allocated_last": 1073774591,
+      "backbone_bytes": 262152,
+      "conservative_two_backbone_bytes": 524304
+    },
+    {
+      "first": 1073741824,
+      "demand": 32769,
+      "capacity": 65536,
+      "last": 1073774592,
+      "allocated_last": 1073807359,
+      "backbone_bytes": 524296,
+      "conservative_two_backbone_bytes": 1048592
+    },
+    {
+      "first": 1073741824,
+      "demand": 65535,
+      "capacity": 65536,
+      "last": 1073807358,
+      "allocated_last": 1073807359,
+      "backbone_bytes": 524296,
+      "conservative_two_backbone_bytes": 1048592
+    },
+    {
+      "first": 1073741824,
+      "demand": 65536,
+      "capacity": 65536,
+      "last": 1073807359,
+      "allocated_last": 1073807359,
+      "backbone_bytes": 524296,
+      "conservative_two_backbone_bytes": 1048592
+    },
+    {
+      "first": 1073741824,
+      "demand": 65537,
+      "capacity": 131072,
+      "last": 1073807360,
+      "allocated_last": 1073872895,
+      "backbone_bytes": 1048584,
+      "conservative_two_backbone_bytes": 2097168
+    },
+    {
+      "first": 1073741824,
+      "demand": 131071,
+      "capacity": 131072,
+      "last": 1073872894,
+      "allocated_last": 1073872895,
+      "backbone_bytes": 1048584,
+      "conservative_two_backbone_bytes": 2097168
+    },
+    {
+      "first": 1073741824,
+      "demand": 131072,
+      "capacity": 131072,
+      "last": 1073872895,
+      "allocated_last": 1073872895,
+      "backbone_bytes": 1048584,
+      "conservative_two_backbone_bytes": 2097168
+    },
+    {
+      "first": 1073741824,
+      "demand": 131073,
+      "capacity": 262144,
+      "last": 1073872896,
+      "allocated_last": 1074003967,
+      "backbone_bytes": 2097160,
+      "conservative_two_backbone_bytes": 4194320
+    },
+    {
+      "first": 1073741824,
+      "demand": 262143,
+      "capacity": 262144,
+      "last": 1074003966,
+      "allocated_last": 1074003967,
+      "backbone_bytes": 2097160,
+      "conservative_two_backbone_bytes": 4194320
+    },
+    {
+      "first": 1073741824,
+      "demand": 262144,
+      "capacity": 262144,
+      "last": 1074003967,
+      "allocated_last": 1074003967,
+      "backbone_bytes": 2097160,
+      "conservative_two_backbone_bytes": 4194320
+    },
+    {
+      "first": 1073741824,
+      "demand": 262145,
+      "capacity": 524288,
+      "last": 1074003968,
+      "allocated_last": 1074266111,
+      "backbone_bytes": 4194312,
+      "conservative_two_backbone_bytes": 8388624
+    },
+    {
+      "first": 1073741824,
+      "demand": 524287,
+      "capacity": 524288,
+      "last": 1074266110,
+      "allocated_last": 1074266111,
+      "backbone_bytes": 4194312,
+      "conservative_two_backbone_bytes": 8388624
+    },
+    {
+      "first": 1073741824,
+      "demand": 524288,
+      "capacity": 524288,
+      "last": 1074266111,
+      "allocated_last": 1074266111,
+      "backbone_bytes": 4194312,
+      "conservative_two_backbone_bytes": 8388624
+    },
+    {
+      "first": 1073741824,
+      "demand": 524289,
+      "capacity": 1048576,
+      "last": 1074266112,
+      "allocated_last": 1074790399,
+      "backbone_bytes": 8388616,
+      "conservative_two_backbone_bytes": 16777232
+    },
+    {
+      "first": 1073741824,
+      "demand": 1048575,
+      "capacity": 1048576,
+      "last": 1074790398,
+      "allocated_last": 1074790399,
+      "backbone_bytes": 8388616,
+      "conservative_two_backbone_bytes": 16777232
+    },
+    {
+      "first": 1073741824,
+      "demand": 1048576,
+      "capacity": 1048576,
+      "last": 1074790399,
+      "allocated_last": 1074790399,
+      "backbone_bytes": 8388616,
+      "conservative_two_backbone_bytes": 16777232
+    },
+    {
+      "first": 1073741824,
+      "demand": 1048577,
+      "capacity": 2097152,
+      "last": 1074790400,
+      "allocated_last": 1075838975,
+      "backbone_bytes": 16777224,
+      "conservative_two_backbone_bytes": 33554448
+    },
+    {
+      "first": 1073741824,
+      "demand": 2097151,
+      "capacity": 2097152,
+      "last": 1075838974,
+      "allocated_last": 1075838975,
+      "backbone_bytes": 16777224,
+      "conservative_two_backbone_bytes": 33554448
+    },
+    {
+      "first": 1073741824,
+      "demand": 2097152,
+      "capacity": 2097152,
+      "last": 1075838975,
+      "allocated_last": 1075838975,
+      "backbone_bytes": 16777224,
+      "conservative_two_backbone_bytes": 33554448
+    },
+    {
+      "first": 1073741824,
+      "demand": 2097153,
+      "capacity": 4194304,
+      "last": 1075838976,
+      "allocated_last": 1077936127,
+      "backbone_bytes": 33554440,
+      "conservative_two_backbone_bytes": 67108880
+    },
+    {
+      "first": 1073741824,
+      "demand": 4194303,
+      "capacity": 4194304,
+      "last": 1077936126,
+      "allocated_last": 1077936127,
+      "backbone_bytes": 33554440,
+      "conservative_two_backbone_bytes": 67108880
+    },
+    {
+      "first": 1073741824,
+      "demand": 4194304,
+      "capacity": 4194304,
+      "last": 1077936127,
+      "allocated_last": 1077936127,
+      "backbone_bytes": 33554440,
+      "conservative_two_backbone_bytes": 67108880
+    },
+    {
+      "first": 1073741824,
+      "demand": 4194305,
+      "capacity": 8388608,
+      "last": 1077936128,
+      "allocated_last": 1082130431,
+      "backbone_bytes": 67108872,
+      "conservative_two_backbone_bytes": 134217744
+    },
+    {
+      "first": 1073741824,
+      "demand": 8388607,
+      "capacity": 8388608,
+      "last": 1082130430,
+      "allocated_last": 1082130431,
+      "backbone_bytes": 67108872,
+      "conservative_two_backbone_bytes": 134217744
+    },
+    {
+      "first": 1073741824,
+      "demand": 8388608,
+      "capacity": 8388608,
+      "last": 1082130431,
+      "allocated_last": 1082130431,
+      "backbone_bytes": 67108872,
+      "conservative_two_backbone_bytes": 134217744
+    },
+    {
+      "first": 1073741824,
+      "demand": 8388609,
+      "capacity": 16777216,
+      "last": 1082130432,
+      "allocated_last": 1090519039,
+      "backbone_bytes": 134217736,
+      "conservative_two_backbone_bytes": 268435472
+    },
+    {
+      "first": 1073741824,
+      "demand": 16777215,
+      "capacity": 16777216,
+      "last": 1090519038,
+      "allocated_last": 1090519039,
+      "backbone_bytes": 134217736,
+      "conservative_two_backbone_bytes": 268435472
+    },
+    {
+      "first": 1073741824,
+      "demand": 16777216,
+      "capacity": 16777216,
+      "last": 1090519039,
+      "allocated_last": 1090519039,
+      "backbone_bytes": 134217736,
+      "conservative_two_backbone_bytes": 268435472
+    },
+    {
+      "first": 1073741824,
+      "demand": 16777217,
+      "capacity": 33554432,
+      "last": 1090519040,
+      "allocated_last": 1107296255,
+      "backbone_bytes": 268435464,
+      "conservative_two_backbone_bytes": 536870928
+    },
+    {
+      "first": 1073741824,
+      "demand": 33554431,
+      "capacity": 33554432,
+      "last": 1107296254,
+      "allocated_last": 1107296255,
+      "backbone_bytes": 268435464,
+      "conservative_two_backbone_bytes": 536870928
+    },
+    {
+      "first": 1073741824,
+      "demand": 33554432,
+      "capacity": 33554432,
+      "last": 1107296255,
+      "allocated_last": 1107296255,
+      "backbone_bytes": 268435464,
+      "conservative_two_backbone_bytes": 536870928
+    },
+    {
+      "first": 1073741824,
+      "demand": 33554433,
+      "capacity": 67108864,
+      "last": 1107296256,
+      "allocated_last": 1140850687,
+      "backbone_bytes": 536870920,
+      "conservative_two_backbone_bytes": 1073741840
+    },
+    {
+      "first": 1073741824,
+      "demand": 67108863,
+      "capacity": 67108864,
+      "last": 1140850686,
+      "allocated_last": 1140850687,
+      "backbone_bytes": 536870920,
+      "conservative_two_backbone_bytes": 1073741840
+    },
+    {
+      "first": 1073741824,
+      "demand": 67108864,
+      "capacity": 67108864,
+      "last": 1140850687,
+      "allocated_last": 1140850687,
+      "backbone_bytes": 536870920,
+      "conservative_two_backbone_bytes": 1073741840
+    },
+    {
+      "first": 1073741824,
+      "demand": 67108865,
+      "capacity": 134217728,
+      "last": 1140850688,
+      "allocated_last": 1207959551,
+      "backbone_bytes": 1073741832,
+      "conservative_two_backbone_bytes": 2147483664
+    },
+    {
+      "first": 1073741824,
+      "demand": 134217727,
+      "capacity": 134217728,
+      "last": 1207959550,
+      "allocated_last": 1207959551,
+      "backbone_bytes": 1073741832,
+      "conservative_two_backbone_bytes": 2147483664
+    },
+    {
+      "first": 1073741824,
+      "demand": 134217728,
+      "capacity": 134217728,
+      "last": 1207959551,
+      "allocated_last": 1207959551,
+      "backbone_bytes": 1073741832,
+      "conservative_two_backbone_bytes": 2147483664
+    },
+    {
+      "first": 1073741824,
+      "demand": 134217729,
+      "capacity": 268435456,
+      "last": 1207959552,
+      "allocated_last": 1342177279,
+      "backbone_bytes": 2147483656,
+      "conservative_two_backbone_bytes": 4294967312
+    },
+    {
+      "first": 1073741824,
+      "demand": 268435455,
+      "capacity": 268435456,
+      "last": 1342177278,
+      "allocated_last": 1342177279,
+      "backbone_bytes": 2147483656,
+      "conservative_two_backbone_bytes": 4294967312
+    },
+    {
+      "first": 1073741824,
+      "demand": 268435456,
+      "capacity": 268435456,
+      "last": 1342177279,
+      "allocated_last": 1342177279,
+      "backbone_bytes": 2147483656,
+      "conservative_two_backbone_bytes": 4294967312
+    },
+    {
+      "first": 1073741824,
+      "demand": 268435457,
+      "capacity": 536870912,
+      "last": 1342177280,
+      "allocated_last": 1610612735,
+      "backbone_bytes": 4294967304,
+      "conservative_two_backbone_bytes": 8589934608
+    },
+    {
+      "first": 1073741824,
+      "demand": 536870911,
+      "capacity": 536870912,
+      "last": 1610612734,
+      "allocated_last": 1610612735,
+      "backbone_bytes": 4294967304,
+      "conservative_two_backbone_bytes": 8589934608
+    },
+    {
+      "first": 1073741824,
+      "demand": 536870912,
+      "capacity": 536870912,
+      "last": 1610612735,
+      "allocated_last": 1610612735,
+      "backbone_bytes": 4294967304,
+      "conservative_two_backbone_bytes": 8589934608
+    },
+    {
+      "first": 1073741824,
+      "demand": 536870913,
+      "capacity": 1073741824,
+      "last": 1610612736,
+      "allocated_last": 2147483647,
+      "backbone_bytes": 8589934600,
+      "conservative_two_backbone_bytes": 17179869200
+    },
+    {
+      "first": 1073741824,
+      "demand": 1073741824,
+      "capacity": 1073741824,
+      "last": 2147483647,
+      "allocated_last": 2147483647,
+      "backbone_bytes": 8589934600,
+      "conservative_two_backbone_bytes": 17179869200
+    }
+  ],
+  "maximum_usable_nodes": 1073741823,
+  "maximum_lists": 1073741824,
+  "sufficient_total_retained_elements": 2147483647,
+  "retained_link_bytes_at_count_limit": 51539607528,
+  "scope": "local append/growth arithmetic, not caller coverage or whole-tool capacity"
+}
