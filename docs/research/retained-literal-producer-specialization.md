@@ -19,10 +19,13 @@ Unsupported syntax cannot select the zero-check branch through a caller-supplied
 Boolean. All producer counters are derived from the same source bytes.
 
 For each literal of decoded length L, its lower bound is 1 and last index is L;
-0 <= L <= Integer'Last includes the null String case. The literal translator's
-static-bound arm leaves Checks true: the known-high-bound assertion checks
-1+(L-1) <= Positive'Last. The nonstatic range-check constructor is not selected
-(`gnat2why-expr.adb:30604–30623,30650–30661`). The earlier source argument covers
+0 <= L <= Integer'Last includes the null String case. For L > 0 the literal
+translator's static-bound arm leaves Checks true: the known-high-bound
+assertion checks 1+(L-1) <= Positive'Last
+(`gnat2why-expr.adb:30604–30623`). For L = 0 its separate static null-array
+arm asserts Low /= Integer'First; Low is 1, so that arm also leaves Checks
+true (`:30552–30576`). Neither selects a nonstatic range-check constructor,
+and the registration guard at lines 30650–30661 remains false. The earlier source argument covers
 the unconstrained parent String conversion, no-precondition Put/Put_Line call,
 generated literal type and enclosing Main wrapper. A sequence sums zero new
 registered Why3 checks; its global-effect roots remain the same fixed set.
