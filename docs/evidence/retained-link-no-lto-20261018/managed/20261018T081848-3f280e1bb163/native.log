@@ -1,0 +1,6 @@
+{
+  "seconds": 0.03670729500299785,
+  "selected_linker": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/ld",
+  "resolved_linker": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/x86_64-pc-linux-gnu/bin/ld",
+  "selected_linker_sha256": "5fedbb6086b0234eb990800507c0670cb572b48ad864a4d8e8f961ddddef09a0"
+}

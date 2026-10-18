@@ -1,0 +1,82 @@
+{
+  "method": "One driver-only query and one link of retained null objects; no frontend, assembler, prover or program execution",
+  "source_capture": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-link-inputs-20261018/capture/result.json",
+  "source_capture_sha256": "339d9a85cc8e6d8a2cdb5165f66e9268ba7e3bdfb6e0fc0fb8f18bec27cfa87c",
+  "objects": [
+    {
+      "path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/main.o",
+      "bytes": 1224,
+      "sha256": "16ef610e9d611c17a21c37af7bdab21e2950a5b3a466a4c7a5bf91776544e097"
+    },
+    {
+      "path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/b__main.o",
+      "bytes": 13424,
+      "sha256": "e3262ab76ba603391cfc0b96f891d901db5553a0c2a95e89b1265d399a308a61"
+    }
+  ],
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-link-no-lto-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "commands": [
+    {
+      "name": "driver-only",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-###",
+        "-fno-lto",
+        "-fno-use-linker-plugin",
+        "main.o",
+        "b__main.o",
+        "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+        "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+        "-static-libgcc",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+        "-ldl",
+        "-Wl,-rpath-link,/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+        "-Wl,-z,origin,-rpath,$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+        "-o",
+        "/tmp/silver-link-no-lto-20261018/capture/null-explicit-no-lto"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0,
+      "seconds": 0.0032062799873529
+    },
+    {
+      "name": "link",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-v",
+        "-fno-lto",
+        "-fno-use-linker-plugin",
+        "main.o",
+        "b__main.o",
+        "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+        "-L/tmp/silver-native-option-probe-20261018/null-proposed/obj/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+        "-static-libgcc",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+        "-ldl",
+        "-Wl,-rpath-link,/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+        "-Wl,-z,origin,-rpath,$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+        "-o",
+        "/tmp/silver-link-no-lto-20261018/capture/null-explicit-no-lto"
+      ],
+      "cwd": "/tmp/silver-native-option-probe-20261018/null-proposed/obj",
+      "returncode": 0,
+      "seconds": 0.044033240992575884
+    }
+  ],
+  "output": {
+    "path": "/tmp/silver-link-no-lto-20261018/capture/null-explicit-no-lto",
+    "bytes": 1049768,
+    "sha256": "fb13b46cc3a31f5888cea131356da70d687c687b8ca46f9af37899d23a944d59"
+  },
+  "seconds": 0.04962918000819627
+}

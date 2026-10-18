@@ -25,7 +25,7 @@ no frontend, assembler or linker. The eleven queries took 0.037602 seconds;
 their managed run took 2.032823 seconds. This link descriptor is separate
 from the Main compile descriptor; production launch changes remain pending.
 
-The expansion has 54 collect2 argv positions: ELF64 x86-64 PIE, the installed
+The original expansion has 54 collect2 argv positions: ELF64 x86-64 PIE, the installed
 LTO plugin, `--eh-frame-hdr`, interpreter `/lib64/ld-linux-x86-64.so.2`,
 fourteen `-L` directories, two generated objects, five startup/end objects,
 explicit libgnat.a, and `-ldl -lgcc -lgcc_eh -latomic_asneeded -lc -lgcc -lgcc_eh`.
@@ -34,6 +34,28 @@ inverts GCC's own display quoting (`gcc/gcc.cc:3351–3380`): the backslash
 before `$` in `-###` output is an escape, not an argument byte. Ordinary Python
 `shlex` retains it inside double quotes. The retained corrected argv therefore
 starts its rpath value with `$ORIGIN/`.
+
+The current research descriptor adds **`-fno-lto -fno-use-linker-plugin`**
+to that GCC link command. This excludes unused plugin work while retaining
+the same tools and non-LTO object semantics. GCC suppresses the plugin spec
+and its discovery (`gcc.cc:1102–1125,9291–9307`), and explicitly passes
+`-fno-lto` to collect2 (`:1191`). The resulting collect2 command has **45
+positions**: ten plugin fields disappear and one no-LTO field is added.
+The [new evidence](../evidence/retained-link-no-lto-20261018/README.md) compares
+every remaining target argument and its order, normalizing only the output
+filename. All fourteen search directories and all target-input/library flags
+are unchanged, so the fixed inventory and input-script derivation below apply.
+The old capture remains historical evidence; production flags are unchanged.
+
+Managed run `20261018T081727-b7ffb03aced1` made one driver-only query and
+one link of the retained null objects in 0.003206 and 0.044033 seconds.
+Because GCC verbosity did not expose the actual child, the documented
+diagnostic follow-up `20261018T081848-3f280e1bb163` repeated only the link
+with collect2 verbosity (0.036707 seconds). The selected default linker
+hash-equals the expected installed `ld`; changing plugin selection does not
+silently switch tools. No frontend, assembler, prover or resulting program
+ran. The sample's successful link corroborates configuration, not universal
+generated-object capacity or source semantics.
 
 Managed run `20261018T074453-3dae2df9fffa` queried the internal default script
 with `--verbose` and the script-selecting options, but **no input files**.
@@ -79,15 +101,15 @@ All inspected members and generated sample objects lack `.gnu.lto_*`,
 `.gnu.offload_lto_*`, `.gnu_object_only`, `.zdebug*` and SHF_COMPRESSED sections.
 The fixed property is checked from every section header. The generated-object
 transfer must establish the same property from the selected compile settings
-before applying this specialization universally. The LTO plugin claims only
-through its LTO-symbol/offload paths; otherwise it frees its temporary filename
-and returns unclaimed (`lto-plugin/lto-plugin.c:1089–1137,1192–1400`). With no
-claimed/offload files its final hook returns before launching LTO or adding
-files (`:771–781`). LD therefore has no plugin-added statements to rescan
-(`ld/ldlang.c:8436–8518`). Plugin scans and counters still need accounting.
+before applying this specialization universally. The explicit no-plugin
+descriptor above has no plugin initialization, input claiming or plugin-added
+statements to rescan (`ld/ldlang.c:8436–8518`). Its source argument replaces
+the older conditional unclaimed-input argument, whose plugin scans had not
+been priced. Absence of LTO sections from generated objects still belongs to
+the compiler-emission/configuration join; this change does not supply it.
 
 This is target-link input closure. Runtime libraries used to execute the
-linker/plugin belong to the selected external-tool configuration; they are
+linker belong to the selected external-tool configuration; they are
 not target sections to add to this inventory.
 
 ## Collect2 argument and launch storage
@@ -100,11 +122,13 @@ configure choice. In this route `do_collecting=0`; the AIX export-list and
 Darwin post-link hooks are absent (`collect2.cc:146–160,2984–3086`).
 The existing relevant-source-behavior premise includes those target choices.
 
-None of the 54 retained argv positions begins with `@`, so `expandargv`
+None of the 45 selected argv positions begins with `@`, so `expandargv`
 does not expand a response file. The Linux `process_args` hook is empty.
-The `-plugin` option sets `use_plugin`, which sets the collector's own
-`lto_mode` to NONE (`collect2.cc:954–960,1036–1037`). This does not disable
-the linker's plugin: its unclaimed-input path still needs its own accounting.
+Both the direct `-fno-lto` argument and its COLLECT_GCC_OPTIONS field set
+`lto_mode` to NONE (`collect2.cc:953–954,1019–1020`). No `-plugin` or
+`-fuse-ld` argument changes the default linker selection. Collect2 strips
+`-fno-lto` before invoking ld (`:1305–1309`), leaving **44 linker argv
+positions**. The retained diagnostic adds `-v` only for observation.
 The collector's early-exit condition is true, so it performs exactly one
 linker launch and returns before nm scanning, constructor/destructor-list
 creation, generated C compilation or relinking (`:1626–1655`). It does not
@@ -115,19 +139,21 @@ The four argument backbones are allocated before that early exit:
 
 | Array | Pointer slots | Bytes on LP64 |
 | --- | ---: | ---: |
-| First linker command | 54+4=58 | 464 |
-| Second, unused linker command | 54+11=65 | 520 |
-| Input-object list | 54 | 432 |
-| Unused C command | 54+9+8+2=73 | 584 |
+| First linker command | 45+4=49 | 392 |
+| Second, unused linker command | 45+11=56 | 448 |
+| Input-object list | 45 | 360 |
+| Unused C command | 45+9+8+4=66 | 528 |
 
-The selected COLLECT_GCC_OPTIONS has ten quoted fields. Only
-`-mtune=generic` and `-march=x86-64` increment `num_c_args` and are copied
+The selected COLLECT_GCC_OPTIONS has twelve quoted fields. The four fields
+`-fno-lto`, `-fno-use-linker-plugin`, `-mtune=generic` and `-march=x86-64`
+increment `num_c_args` and are copied
 into the unused C command; there is no `-B`, endian or save-temps option
 (`collect2.cc:1011–1047,1208–1251`). The actual C-command write demand is
-18 slots including its terminator. The first linker command copies 53
-arguments plus its executable and terminator, at most 55 slots. The second
-adds one unused constructor-object filename, at most 56. The input list
-cannot contain more than those 53 arguments plus its terminator. All fit
+20 slots including its terminator. Even before stripping `-fno-lto`,
+the first linker command needs at most 44 arguments plus its executable
+and terminator, 46 slots. The second adds one unused constructor-object
+filename, at most 47. The input list cannot contain more than those
+44 arguments plus its terminator. All fit
 their separate arrays. No signed argc/count operation approaches its limit.
 
 Environment parsing builds three COMPILER_PATH and three PATH prefix-list
@@ -143,7 +169,7 @@ must fit the existing object/path domain (`file-find.cc:34–105,112–140,
 Both option parses finish one obstack string per field and free back to
 the initial mark between passes. A field's output has no more bytes than
 its quoted input plus NUL; the [individual obstack transfer](retained-backend-obstacks.md)
-applies to the largest unfinished field. The two copied `-m` fields and
+applies to the largest unfinished field. The four copied `-f`/`-m` fields and
 dump-prefix string have the same bounded lengths. Collect2 creates two
 unused temporary filenames even on this early-exit route. With selected
 temporary-directory length T, `ccXXXXXX.cdtor.c`/`.cdtor.o` require at most
@@ -159,7 +185,7 @@ object therefore has one child and one status, standard descriptors and no
 file actions, as in the [common/Unix process transfer](retained-native-driver.md#selected-unix-canonicalization-and-launch).
 The resolved linker executable and stable search results are configuration
 premises. Filesystem/process/libc internals retain the existing trusted
-boundary. Shared GCC diagnostic initialization and the plugin/linker bodies
+boundary. Shared GCC diagnostic initialization and the linker body
 remain separate joins; this is not a whole collect2/link capacity result.
 
 ## Inventory and archive backing

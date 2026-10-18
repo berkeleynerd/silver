@@ -3,6 +3,11 @@
 Supports [the derivation](../../research/retained-link-inputs.md) for #119.
 Native host: Linux x86_64, 2026-10-18.
 
+This preserves the original plugin-enabled query and inventory. The
+[explicit no-LTO descriptor](../retained-link-no-lto-20261018/README.md)
+now supplies the selected link configuration and its smaller collect2 arrays;
+its exact argument comparison preserves this fixed-input inventory.
+
 `capture/` retains eleven driver-only queries, argv, environment and raw
 output. `source-build.stdout` identifies the earlier successful null-proposed
 build whose link command was reconstructed. `capture-driver.py` is the exact

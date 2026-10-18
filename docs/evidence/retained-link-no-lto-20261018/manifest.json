@@ -1,0 +1,75 @@
+{
+  "scope": "Raw no-LTO link experiment and managed records; executables remain at recorded scratch paths",
+  "files": [
+    {
+      "path": "capture/driver-only.stderr",
+      "bytes": 6427,
+      "sha256": "0750c576ae23423da4e5283cb1cefeff6a49c580494aa18e3012afb1d9edb432"
+    },
+    {
+      "path": "capture/driver-only.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/link.stderr",
+      "bytes": 6434,
+      "sha256": "487e181b011efa9cc825e8d60c90b41677e075cc01fedfa2d4343be76d49f916"
+    },
+    {
+      "path": "capture/link.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/result.json",
+      "bytes": 4593,
+      "sha256": "5a9d78fc608e5db40b615d2ebac74a4016679394ef0d0d3308c0486b5d7e5b9e"
+    },
+    {
+      "path": "check-ld.py",
+      "bytes": 2785,
+      "sha256": "a730eb24ccea55bd2a799aa685f7a40c21f2fe5a34718b0ba8f7feb1e77b1abe"
+    },
+    {
+      "path": "ld-resolution/result.json",
+      "bytes": 6728,
+      "sha256": "2191990bb148a5ef87d32f88bf25472247dd1bfbdfd48b6fe866b6307f32e26d"
+    },
+    {
+      "path": "ld-resolution/stderr",
+      "bytes": 2578,
+      "sha256": "e6e6ffd72bdc3c33379db470525946a3dc7ec9e1bedfc7bd6419b6b002a9ca4a"
+    },
+    {
+      "path": "ld-resolution/stdout",
+      "bytes": 29,
+      "sha256": "8bbc15c59675bae001ca5e01f954089ff607b23a7965fe883cc040c20706e762"
+    },
+    {
+      "path": "managed/20261018T081727-b7ffb03aced1/events.jsonl",
+      "bytes": 11737,
+      "sha256": "2fe5b24571e972f407189eac2275d6953ae422634c5b35af7a2dd40b303b2263"
+    },
+    {
+      "path": "managed/20261018T081727-b7ffb03aced1/native.log",
+      "bytes": 4593,
+      "sha256": "5a9d78fc608e5db40b615d2ebac74a4016679394ef0d0d3308c0486b5d7e5b9e"
+    },
+    {
+      "path": "managed/20261018T081848-3f280e1bb163/events.jsonl",
+      "bytes": 11790,
+      "sha256": "148ed1cb069a9e1f4fb0ea61ad3ea5054839e4ac9760ac5dd6657c282f8b4ffc"
+    },
+    {
+      "path": "managed/20261018T081848-3f280e1bb163/native.log",
+      "bytes": 513,
+      "sha256": "ead4aa5a2999ba6351a87a6e73a3f98ad2fc6fbc409c7b16cd0791155ab11538"
+    },
+    {
+      "path": "run.py",
+      "bytes": 2182,
+      "sha256": "6e3d8a8fe332fad1b435f9e9349221e811dd0e3b51f3f80e27535873e6010353"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Selected explicit no-LTO link descriptor; not whole linker capacity",
+  "collect2_argv_positions": 45,
+  "ld_argv_positions_without_diagnostic_v": 44,
+  "array_pointer_slots": {
+    "ld1": 49,
+    "ld2": 56,
+    "objects": 45,
+    "unused_C_command": 66
+  },
+  "array_bytes_LP64": {
+    "ld1": 392,
+    "ld2": 448,
+    "objects": 360,
+    "unused_C_command": 528
+  },
+  "unused_C_command_write_slots_including_NUL": 20,
+  "quoted_environment_fields": 12,
+  "copied_f_or_m_fields": 4,
+  "prefix_nodes": 6,
+  "fixed_target_inputs_and_order_unchanged": true,
+  "plugin_arguments_or_LTO_worker_launches": 0,
+  "linker_launches_per_invocation": 1,
+  "driver_query_seconds": 0.0032062799873529,
+  "first_link_seconds": 0.044033240992575884,
+  "diagnostic_link_seconds": 0.03670729500299785,
+  "installed_hashes_rechecked": true,
+  "whole_linker_capacity_established": false
+}
