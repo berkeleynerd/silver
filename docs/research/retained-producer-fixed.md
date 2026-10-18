@@ -72,11 +72,68 @@ emitted-file multiplicity; this graph reading did not run the serializer or
 measure its lifetime ID counter. Imported theory references do not recursively
 embed the imported theory in an include node.
 
+## Selected imported dependencies
+
+Five isolated current-library witnesses have now been measured with the same
+installed binary, raw-memory reader and phase boundaries. Their
+[retained evidence](../evidence/retained-producer-dependencies-20261018/README.md)
+includes all 15 graphs, current source/ALI inputs, exact options and managed
+logs. The offline checker recomputes the values below and matches the six
+copied library sources to the delivered tree and recorded run inputs.
+
+| API root | Post-Standard nodes | Lists | Retained elements | All-root occurrences | Additional retained theory roots |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Put | 2,601 | 544 | 866 | 3,628 | 63 |
+| Put_Line | 2,634 | 549 | 875 | 3,692 | 63 |
+| First_Or_Default | 1,939 | 476 | 678 | 2,980 | 41 |
+| Input_Is_Valid | 762 | 229 | 268 | 1,284 | 23 |
+| Reject | 932 | 219 | 328 | 1,475 | 29 |
+| Sum | **8,868** | **2,017** | **3,015** | **13,059** | **219** |
+
+Every witness's Standard state is identical to the retained baseline, and its
+Standard nodes/lists remain unchanged in the final graph. These observations
+corroborate the source argument; they do not replace it. Each row retains the
+entire witness Main contribution. First_Or_Default also reaches Input_Is_Valid
+through its contract, and all shared dependencies remain deliberately counted
+more than once. No maximum over samples is being extrapolated.
+
+Under the [isolated-root source reduction](retained-producer-capacity.md#additive-isolated-root-envelope),
+use all five rows even for zero-API Main. Their sum bounds the selected imported
+non-import work, including richer fixed entity/symbol fills. Adding the paid
+Standard state gives the fixed starting vector
+
+```text
+(nodes, lists, elements, all-root occurrences) = (15349, 3310, 4729, 22621).
+```
+
+Add the ordinary Main transfer separately. Import allocations already present
+in these measured rows are intentional overcount: the aggregate still charges
+all post-Standard close-time imports using its general `C`/`M` allowance.
+The fixed part of `C` can conservatively use 219. On a completed source path,
+each Close_Theory inserts its unchanged name/id into Symbol_To_Theory_Map;
+closing the same theory twice cannot complete the insertion
+(`why-inter.adb:743–749`). Open_Theory creates a fresh retained theory node,
+and the exposed theory mutators append contents without renaming it. Thus the
+additional retained theory roots bound completed post-Standard closes; unused
+roots and the five witness Main closures are retained as overcount. This is
+a source reduction applied to measured roots, not an independent measurement
+of call counts or a claim about failing/aborted producer paths.
+
+All five probe subprocesses completed in 4.659 seconds total, plus the recorded
+phase-one prerequisites and managed-run overhead. No solver ran. The isolated
+Input_Is_Valid/Reject witnesses are valid Ada/SPARK probes but need not meet
+Silver's full shell membership rules. They measure fixed dependencies only.
+
+The fixed reduction covers these four allocation/occurrence components. It
+does not transfer observed temporary-name counts to a universal bound, price
+name bytes/container peaks, or cover separate library-body producer processes.
+
 ## Remaining limits
 
 This applies to the recorded installed Linux producer and the finite fixed
-Standard case. Selected dependency subsets, ordering and cache effects still
-need complete coverage. The ordinary Main source-to-allocation transfer,
+Standard case and the selected imported-dependency envelope under the linked
+source/cache argument. Separate fixed library-body processes, the complete
+ordinary Main source-to-allocation transfer,
 producer auxiliary representations, native expansion/backend bounds and their
 whole-rule composition remain independent requirements.
 

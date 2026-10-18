@@ -1,0 +1,157 @@
+{
+  "scope": "Fixed imported specifications in Main; complete isolated witness Main work retained, imports separately charged",
+  "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+  "cases": [
+    {
+      "case": "put",
+      "after_standard": {
+        "nodes": 6481,
+        "lists": 1293,
+        "retained_elements": 1714,
+        "all_theory_occurrences": 9562
+      },
+      "final": {
+        "nodes": 9082,
+        "lists": 1837,
+        "retained_elements": 2580,
+        "all_theory_occurrences": 13190
+      },
+      "post_standard": {
+        "nodes": 2601,
+        "lists": 544,
+        "retained_elements": 866,
+        "all_theory_occurrences": 3628
+      },
+      "additional_theory_roots": 63,
+      "temporary_name_delta": 52,
+      "producer_subprocess_seconds": 1.004494941997109,
+      "phase1_run": "20261018T012440-d920c45d6298",
+      "probe_run": "20261018T012443-988afc0e2f1c"
+    },
+    {
+      "case": "put_line",
+      "after_standard": {
+        "nodes": 6481,
+        "lists": 1293,
+        "retained_elements": 1714,
+        "all_theory_occurrences": 9562
+      },
+      "final": {
+        "nodes": 9115,
+        "lists": 1842,
+        "retained_elements": 2589,
+        "all_theory_occurrences": 13254
+      },
+      "post_standard": {
+        "nodes": 2634,
+        "lists": 549,
+        "retained_elements": 875,
+        "all_theory_occurrences": 3692
+      },
+      "additional_theory_roots": 63,
+      "temporary_name_delta": 52,
+      "producer_subprocess_seconds": 0.9236134200036759,
+      "phase1_run": "20261018T012533-551874cfeb1f",
+      "probe_run": "20261018T012535-65cbd126aca0"
+    },
+    {
+      "case": "first_or_default",
+      "after_standard": {
+        "nodes": 6481,
+        "lists": 1293,
+        "retained_elements": 1714,
+        "all_theory_occurrences": 9562
+      },
+      "final": {
+        "nodes": 8420,
+        "lists": 1769,
+        "retained_elements": 2392,
+        "all_theory_occurrences": 12542
+      },
+      "post_standard": {
+        "nodes": 1939,
+        "lists": 476,
+        "retained_elements": 678,
+        "all_theory_occurrences": 2980
+      },
+      "additional_theory_roots": 41,
+      "temporary_name_delta": 49,
+      "producer_subprocess_seconds": 0.9098282219929388,
+      "phase1_run": "20261018T012539-521fbb4e0a5b",
+      "probe_run": "20261018T012541-007c03c2a299"
+    },
+    {
+      "case": "input_is_valid",
+      "after_standard": {
+        "nodes": 6481,
+        "lists": 1293,
+        "retained_elements": 1714,
+        "all_theory_occurrences": 9562
+      },
+      "final": {
+        "nodes": 7243,
+        "lists": 1522,
+        "retained_elements": 1982,
+        "all_theory_occurrences": 10846
+      },
+      "post_standard": {
+        "nodes": 762,
+        "lists": 229,
+        "retained_elements": 268,
+        "all_theory_occurrences": 1284
+      },
+      "additional_theory_roots": 23,
+      "temporary_name_delta": 22,
+      "producer_subprocess_seconds": 0.8790739590040175,
+      "phase1_run": "20261018T012545-1324cfad71ef",
+      "probe_run": "20261018T012548-ab994efe7121"
+    },
+    {
+      "case": "reject",
+      "after_standard": {
+        "nodes": 6481,
+        "lists": 1293,
+        "retained_elements": 1714,
+        "all_theory_occurrences": 9562
+      },
+      "final": {
+        "nodes": 7413,
+        "lists": 1512,
+        "retained_elements": 2042,
+        "all_theory_occurrences": 11037
+      },
+      "post_standard": {
+        "nodes": 932,
+        "lists": 219,
+        "retained_elements": 328,
+        "all_theory_occurrences": 1475
+      },
+      "additional_theory_roots": 29,
+      "temporary_name_delta": 21,
+      "producer_subprocess_seconds": 0.9417037509992952,
+      "phase1_run": "20261018T012551-a423f5cd1a10",
+      "probe_run": "20261018T012553-2c11d8db3b97"
+    }
+  ],
+  "post_standard_sum": {
+    "nodes": 8868,
+    "lists": 2017,
+    "retained_elements": 3015,
+    "all_theory_occurrences": 13059
+  },
+  "additional_theory_root_sum": 219,
+  "subprocess_seconds": 4.658714293997036,
+  "managed_runs": {
+    "library_phase1": "20261018T012423-0d02ba788b55",
+    "put_phase1": "20261018T012440-d920c45d6298",
+    "put_probe": "20261018T012443-988afc0e2f1c",
+    "put_line_phase1": "20261018T012533-551874cfeb1f",
+    "put_line_probe": "20261018T012535-65cbd126aca0",
+    "first_or_default_phase1": "20261018T012539-521fbb4e0a5b",
+    "first_or_default_probe": "20261018T012541-007c03c2a299",
+    "input_is_valid_phase1": "20261018T012545-1324cfad71ef",
+    "input_is_valid_probe": "20261018T012548-ab994efe7121",
+    "reject_phase1": "20261018T012551-a423f5cd1a10",
+    "reject_probe": "20261018T012553-2c11d8db3b97"
+  }
+}
