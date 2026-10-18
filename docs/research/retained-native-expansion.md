@@ -805,6 +805,112 @@ compile-time-error handling, enabled-check analysis and placement remain
 separate. For two known in-range literal/constant-chain bounds the selected
 check path performs value comparisons and constructs no tree.
 
+### Scalar range-analysis and comparison transfer
+
+The numeric callback can be closed for a specified finite scalar graph. This
+is a semantic input-shape transfer, not yet the missing derivation of that
+graph from an arbitrary admitted source program. Its expressions have signed
+Integer-family types, literals/names, unary plus/minus, binary `+`, `-`, `*`,
+discrete conversions, scalar conditional expressions, and ordinary String
+`First`, `Last` and `Length` attributes. There are no modular, real, generic,
+discriminant, representation, descriptor, Interfaces-array or expression-action
+cases. Every compile-time-known expression, including a queried scalar-type
+bound, reduces to an existing literal or finite constant-name chain. Unknown subtype bounds
+have the usual existing Standard Integer fallback. Current-value conditions
+are well-typed scalar comparisons, so the Boolean-variable special case in
+`Get_Current_Value_Condition` cannot apply to the Integer entity queried here.
+
+Expand the following edges into trees, counting shared targets each time:
+ordinary scalar operand edges; an internal constant's initializer (or full
+view initializer); the index low/high bounds reached by String `Length`;
+and the bound substituted for a constrained array `First`/`Last`. For a
+String-literal `Last`, count the existing low-bound/length inputs and the
+virtual literal that `Compare_Fixup` constructs. Require this graph to be
+acyclic. Include the original comparison operands and all four scalar-type
+bounds used by its recursive comparisons as roots. Let **A >= 1** bound the
+node count of each fully unfolded rooted tree. This definition deliberately
+counts initializer sharing repeatedly; the helper's fixed cache need not hit.
+
+One `Determine_Range` query adds at most **6*A Uint entries**, no ordinary
+nodes, entities, lists, names or String values. A sharper additive recurrence
+charges only the following local weights plus the recursively reached child
+weights (`checks.adb:4620–4913,5071–5654,6112–6127`):
+
+| Node processed after the cache/known-value checks | Local Uint append bound |
+| --- | ---: |
+| Unary plus, discrete conversion, internal-constant forwarding | 0 |
+| Unary minus | 2 |
+| Binary addition | 2 |
+| Binary subtraction | 4 |
+| Binary multiplication | 6 |
+| Ordinary String Length | 6 |
+| Literal, ordinary name, conditional, First/Last, other unrefined leaf | 0 |
+
+Multiplication needs **six**, not four: after four endpoint products,
+`Release_And_Save(M,Lo,Hi)` may append both selected values again
+(`uintp.adb:719–760`). Those two saved digit vectors have total length at most
+2*k when k bounds the product digits. Length computes at most two
+`High-Low+1` expressions; its minimum/maximum selections share existing
+Uints. The selected String types avoid `Half_Address_Space`. A conditional
+expression is not recursively range-refined by this implementation; it uses
+the type bounds. Traversal before the cache, static value queries and cache
+updates allocate no syntax or numeric values under the stated shape.
+
+One complete `Compile_Time_Compare` query then has the sufficient envelope
+
+```text
+ordinary nodes <= 20*A
+Uint appends   <= 80*A + 60
+Uint digits   <= k*(80*A + 60).
+```
+
+Its explicit recursive comparison depth is at most two: the initial call
+makes at most four calls with `Rec => True`, and those do not recurse again
+(`sem_eval.adb:1585–1642`). Across those five calls there are at most ten
+`Determine_Range` queries, contributing `60*A`. Each comparison calls
+`Is_Same_Value` at most twice. Each such recursive pair walk has at most A
+visits and calls `Compare_Fixup` for both inputs; each fixup adds at most one
+ordinary literal and one Uint addition for a String-literal `Last`
+(`sem_eval.adb:995–1067,1078–1218`). This contributes `20*A` to both counts.
+All other numeric operations contribute at most twelve per comparison call:
+two decomposition negations, up to two entries each for a known-value
+difference, offset difference and singleton-range difference, and up to four
+for adjusting/comparing a current-value condition. Mutually exclusive return
+paths are intentionally overcounted (`1321–1759`). No entity, syntax/Elists,
+name, String or growing-slot event is introduced. The auxiliary generic,
+constraint-error and current-condition searches only read the specified trees
+(`sem_util.adb:2409–2542,27826–27864`, `exp_util.adb:7317–7750`).
+
+The numeric magnitude must cover intermediate range estimates, not only
+valid runtime results. It can be propagated over the same unfolded trees:
+start with **H >= 2** covering all existing literal/type-bound/length and
+current-condition magnitudes; use `max(H,B1+B2)` for add/subtract,
+`max(H,B1*B2)` for multiplication, `max(H,B)` for unary/conversion,
+`max(H,2*max(B1,B2)+1)` for Length, and `2*H` for a literal-Last fixup.
+Unrefined nodes use H. Internal constants use their initializer's bound.
+Let B bound every resulting node value and intermediate; **2*B+1** also
+covers the comparison's differences and unit adjustments. The corresponding
+base-32768 digit count supplies k above. This is conservative even where
+range refinement returns an estimate disjoint from the base type rather than
+clipping it back to Integer (`checks.adb:5582–5605`).
+
+The maximum local arithmetic-vector demand is at most **5*k+3 digit words**:
+addition's earlier bound covers the multiplication peak of 4*k and the
+saved-product peak of 2*k. Recursive expression traversal has its own stack
+depth. At most one `UI_Ints` cache insertion per charged Uint append is a
+sufficient cache-wrapper envelope. Neither cache reuse nor Uint release is
+needed for these cumulative-append bounds. No compiler query is proposed as
+the membership predicate: a whole-source derivation must still establish A,
+the magnitude summary, acyclicity and the number of comparison invocations.
+
+For the preceding `Get_Range_Checks` shape, `Not_Null_Range` invokes this
+comparison at most once. Its other value and conditional-branch tests only
+compare existing values. Thus the complete no-static-error selection adds at
+most **2*b+28+20*A ordinary nodes and 80*A+60 Uint appends**, with the earlier
+purity/no-owned-decoration premises and zero lists. If both bounds are known,
+the direct value-comparison route still allocates nothing. Enabled insertion
+and analysis of the resulting check remain separate from selection.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
