@@ -140,9 +140,12 @@ Ada-size arithmetic is not installed for TYPE_CONTAINS_TEMPLATE. If the
 XVE debug branch executes, it assigns constant record sizes directly,
 does not invoke the record finisher, and copies each old field size with
 an explicit gap position (`utils.cc:2497–2685`). The variable field uses
-the old bit-size call; deriving its byte size adds only constant division
-and conversion. Thus XVE adds zero size functions even if encodings ALL
-is selected. The final UNCONSTRAINED_ARRAY_TYPE has no TYPE_SIZE, so the
+the old bit-size call as the supplied size argument, but its replacement
+type is a pointer. `create_field_decl` installs that argument in DECL_SIZE
+only inside its INTEGER_CST bit-field guard (`utils.cc:3224–3345`), which
+the nonconstant call fails. `layout_decl` therefore takes the pointer's
+constant 64-bit/8-byte sizes. Thus XVE adds zero size functions even if
+encodings ALL is selected. The final UNCONSTRAINED_ARRAY_TYPE has no TYPE_SIZE, so the
 common variable-size/global-size-variable branches are not entered
 (`decl.cc:4660–4788`).
 
