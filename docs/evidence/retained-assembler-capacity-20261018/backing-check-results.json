@@ -1,6 +1,6 @@
 {
   "scope": "Selected GAS common backing and frame requests; fixed startup/BFD inventory remains open",
-  "source_files_verified": 54,
+  "source_files_verified": 56,
   "selected_LP64_raw_request_ceilings": {
     "frchain": {
       "count_upper": 13,
@@ -56,7 +56,7 @@
     "output_path_bytes_including_NUL": 7
   },
   "descriptor_example_notes_Q": "max(2248,H)",
-  "remaining_hash_request_input_H_bounded": false,
+  "hash_request_input_H_bounded_by_this_checker": false,
   "production_phase_argument_path_join_complete": false,
   "native_execution": false
 }

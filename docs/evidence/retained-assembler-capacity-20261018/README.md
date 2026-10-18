@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Supports the
 [source derivation](../../research/retained-assembler-capacity.md).
 
-`sources.tar.gz` retains 54 complete files from Binutils release commit
+`sources.tar.gz` retains 56 complete files from Binutils release commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`. `source-manifest.json` records
 their byte counts, SHA256 identities and immutable retrieval URLs. The checker
 also matches the commit against the previously retained linker release-tag
@@ -69,9 +69,24 @@ and remaining hash-table request inputs. Shared string hashes use
 `notes_calloc`; their pointer arrays are not covered by 2248. The descriptor
 example `as --64 -o main.o TEMP.s` gives `Q=max(2248,H)`; no numerical
 whole-notes chunk bound is claimed. The production phase join must supply
-its actual argument/path inputs and the remaining table inventory must bound H.
+its actual argument/path inputs and a separate table inventory must bound H.
 This bounds individual requests, not aggregate RAM or the remaining fixed
 parser/opcode/hash and BFD initialization inventory.
+
+The subsequent [hash inventory](../../research/retained-assembler-hashes.md)
+supplies H=65528 from the pinned generated opcode/register tables, all
+conditional pseudo-op rows and libiberty's actual prime/growth rules:
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-hashes.py \
+  --output /tmp/retained-assembler-hash-check.json
+```
+
+It charges 2613 opcode entries, 352 register rows and 263 pseudo-op insertions,
+plus the empty macro table and 88 symbol objects. The largest shared-hash
+pointer request is 65528 bytes; the descriptor example's joined notes chunk
+bound is 65769. The actual production argument/path join, non-hash startup,
+expression/parser subsidiary storage and BFD backing remain separate.
 
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic

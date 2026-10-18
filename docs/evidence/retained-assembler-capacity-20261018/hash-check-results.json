@@ -1,0 +1,60 @@
+{
+  "scope": "Selected GAS hash-table requests; other startup and BFD storage remain separate",
+  "source_files_verified": 56,
+  "opcode_offsets_including_sentinel": 2614,
+  "maximum_opcode_offset": 4550,
+  "register_rows_charged": 352,
+  "pseudo_rows_including_all_conditional_branches": {
+    "potable": 165,
+    "md_pseudo_table": 33,
+    "elf_pseudo_table": 36,
+    "cfi_pseudo_table": 29
+  },
+  "tables": {
+    "opcode": {
+      "initial_requested_slots": 16,
+      "insert_calls_or_live_entries_upper": 2613,
+      "pointer_slots_upper": 8191,
+      "pointer_array_bytes_upper": 65528,
+      "allocator": "notes"
+    },
+    "register": {
+      "initial_requested_slots": 16,
+      "insert_calls_or_live_entries_upper": 352,
+      "pointer_slots_upper": 1021,
+      "pointer_array_bytes_upper": 8168,
+      "allocator": "notes"
+    },
+    "pseudo_op": {
+      "initial_requested_slots": 16,
+      "insert_calls_or_live_entries_upper": 263,
+      "pointer_slots_upper": 1021,
+      "pointer_array_bytes_upper": 8168,
+      "allocator": "notes"
+    },
+    "macro": {
+      "initial_requested_slots": 16,
+      "insert_calls_or_live_entries_upper": 0,
+      "pointer_slots_upper": 31,
+      "pointer_array_bytes_upper": 248,
+      "allocator": "notes"
+    },
+    "symbol": {
+      "initial_requested_slots": 1024,
+      "insert_calls_or_live_entries_upper": 88,
+      "pointer_slots_upper": 2039,
+      "pointer_array_bytes_upper": 16312,
+      "allocator": "heap"
+    }
+  },
+  "LP64_hash_control_bytes": 112,
+  "conservative_hash_control_request_upper": 128,
+  "string_tuple_request_bytes": 16,
+  "string_tuple_requests_upper": 3228,
+  "H_bytes_upper": 65528,
+  "joined_notes_raw_request_contract": "Q=max(65528,8*(A+1),P)",
+  "joined_notes_chunk_contract": "max(4064,Q+241)<=PTRDIFF_MAX; 0<=A<INT_MAX",
+  "descriptor_example_notes_chunk_bytes_upper": 65769,
+  "production_phase_argument_path_join_complete": false,
+  "native_execution": false
+}

@@ -147,7 +147,7 @@ result = {
     'notes_chunk_contract': 'max(4064,Q+241)<=PTRDIFF_MAX; 0<=A<INT_MAX',
     'descriptor_example_inputs': {'argc': argc, 'output_path_bytes_including_NUL': output_path_bytes},
     'descriptor_example_notes_Q': 'max(2248,H)',
-    'remaining_hash_request_input_H_bounded': False,
+    'hash_request_input_H_bounded_by_this_checker': False,
     'production_phase_argument_path_join_complete': False,
     'native_execution': False,
 }

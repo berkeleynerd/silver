@@ -1,6 +1,6 @@
 {
   "scope": "Selected null Main ELF object writer; not whole assembler or final link capacity",
-  "source_files_verified": 54,
+  "source_files_verified": 56,
   "external_ELF64_record_bytes": {
     "Ehdr": 64,
     "Shdr": 64,

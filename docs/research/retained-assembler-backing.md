@@ -120,10 +120,12 @@ symbol versioning, general `.reloc`, `.eqv`, CFI escape/personality,
 remember-state or multiple-frame-section path in this selected stream.
 Their additional `notes` users do not enter this transfer. Shared string
 hashes use `notes_calloc` for their control objects, pointer arrays and
-16-byte key/value tuples (`gas/hash.h:25–32,56–64,96–117`). These are
+16-byte key/value tuples (`gas/hash.h:24–28,52–58,96–117`). These are
 completed-object requests, but their maximum sizes require the remaining
 table inventory. H explicitly carries that missing input; the 2248-byte
-symbol/relocation array bound does not cover them.
+symbol/relocation array bound does not cover them. The subsequent
+[hash inventory](retained-assembler-hashes.md) supplies H=65528 for this
+selected stream; the conditional argument here keeps H explicit.
 
 Consequently, at entry to any selected growth/append request, the existing
 unfinished prefix has at most **112 bytes**. Every append/request to `notes`
@@ -150,7 +152,8 @@ each append (`include/obstack.h:314–358`,
 
 For the descriptor example `as --64 -o main.o TEMP.s`, A=5 and P=7, giving
 Q=`max(2248,H)`. No numerical whole-notes chunk bound is claimed until H
-is supplied. The temporary
+is supplied; the subsequent hash inventory gives 65769 bytes for this example.
+The temporary
 input pathname is retained through an argument pointer rather than copied
 by these `notes` sites. The symbolic contract above remains the appropriate
 transfer if the caller changes the output spelling; production GPRbuild may

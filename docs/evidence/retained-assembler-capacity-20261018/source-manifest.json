@@ -324,6 +324,18 @@
       "bytes": 3354,
       "sha256": "8c084eed40493c822d317ec7a42486f2924c95cfba3b87877e3eb3788f464ce8",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/output-file.c"
+    },
+    {
+      "path": "gas/macro.c",
+      "bytes": 31695,
+      "sha256": "b16a110d4a46d82482bab3442fb5ce6c0adbbc1c1e62ea7ff35f6383b1dde2fd",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/macro.c"
+    },
+    {
+      "path": "opcodes/i386-tbl.h",
+      "bytes": 2485008,
+      "sha256": "40a9504eebd56d76a348631fce7df76267ea6c500c317943e9c2bc5657c3a6d7",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/opcodes/i386-tbl.h"
     }
   ]
 }
