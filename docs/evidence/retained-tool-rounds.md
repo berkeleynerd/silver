@@ -123,3 +123,52 @@ with no remaining finding. The reviewer reported approximately eight minutes,
 including integration waits, and replayed all 13 cases. Its
 [retained review](retained-null-pipeline-20261018/review.md) records the exact
 targets and repaired findings.
+
+## Round 3 — literal consumers and one Why3 configuration
+
+Date: 2026-10-18. The lead setting was not changed. The native-lifetime,
+Why3-prefix and independent-review subthreads were selected as GPT-6 Astra,
+Extra High; runtime confirmation and token/monetary totals are unavailable.
+These bounded tasks address source/counter soundness and cross-component
+configuration, rather than routine extraction. Reviews ran sequentially on one
+reviewer until two independent frozen increments justified parallel review.
+
+| Intended result | Integrated result | Review and rework |
+| --- | --- | --- |
+| Remove the fictitious Main JSON bottleneck for literal output | Source-selected zero-check specialization retains ten other producer-core conditions and all fixed library jobs; 8,192-byte literals and 5,000 calls pass the available aggregate predicates | Accepted after correcting the empty-String source branch; 39 focused offline checks. Review window 107 seconds, excluding report authoring |
+| Close shared native pool/symbol lifetimes | Incoming fixed-prefix population and variable pool/symbol requests joined to the literal aggregate | Accepted after clarifying the intervals where references are cleared/rebuilt; arithmetic unchanged. Review window 247 seconds |
+| Complete the fixed Why3 prefix argument | Allocation and semantic-arithmetic partitions composed through entry to Gnat_checks.init | Original progressive configuration accepted without material finding; review window 281 seconds |
+| Connect that prefix to the actual downstream configuration | Fresh per-check captures and uniquely resolved private driver imports join the five exact inputs to existing task/response counts | First capture exposed an ambiguous private cvc5.gen import. Unique private basename repaired it; five new prefixes passed. Review corrected the description of the local base configuration, already pinned in the evidence; review window 144 seconds |
+| Connect final RTL/data to GAS and ELF | Source-derived assembly/event, fragment, region, symbol, relocation and object envelope attached using the same source/counts | Accepted without material finding; ten offline cases and 90 source identities; review window 121 seconds |
+| Close graph, IPA and SSA-helper lifetimes | Source-derived graph generations, summary events, ranger and out-of-SSA backing attached | Accepted after correcting the coalescer's eager variable hash allocation; 38 aggregate checks. Review window 548 seconds, including correction wait and drafting |
+| Close variable GAS/BFD storage | Reuses the accepted assembler interface and bounds symbol tables, fragment chains, parser scratch, notes and BFD arenas | Accepted without review findings; nine focused storage cases. Final aggregate attachment replay passed all 38 cases |
+
+The two new managed runs were `20261018T180105-748c5015ab5c` (configuration
+failure, 2.562282516 seconds) and `20261018T180438-23287dc5b0a3` (five successful
+prefixes, 30.690766144 seconds). Total new managed execution was 33.253048660
+seconds, including 28.324821638 debugger seconds for the successful cases.
+No solver-tail run, complete native audit, Lean build or full suite was started.
+The retry answered the observed import-resolution failure with changed inputs;
+successful historical captures were retained. Offline replay times are separate
+from these native measurements and total engineering/model time.
+
+The aggregate now carries graph/IPA and ranger/out-of-SSA extensions as well.
+Their independent review found that the coalescer allocates a variable-sized
+hash before returning for zero partitions; the null case's 488-byte backing
+cannot be reused unchanged. The correction is integrated and independently
+accepted, as is the assembler's variable GAS/BFD storage composition.
+The parent replayed the final storage attachment at `e7e5aafbea`; all 38
+aggregate cases pass, with no native execution. Frontend/gigi
+constructor lifetimes, complete native collector composition, remaining producer
+consumers, launch/binder/link joins and the broader grammar remain unfinished.
+The repaired coalescer undercount is tracked as
+[#128](https://github.com/berkeleynerd/silver/issues/128); the private-import and
+base-configuration corrections are tracked as
+[#129](https://github.com/berkeleynerd/silver/issues/129). Both await delivery in
+draft PR #121; their scoped independent reviews are complete.
+
+The round closes concrete interfaces and catches composition errors before
+production changes. It does not show that the full useful-language rule is near
+completion or establish a causal model-quality comparison. The next work must
+continue narrowing the aggregate's named open joins; producing more component
+inventories without integration would not meet that criterion.
