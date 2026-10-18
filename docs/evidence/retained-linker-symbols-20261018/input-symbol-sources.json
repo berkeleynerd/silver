@@ -1,0 +1,18 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "files": [
+    {
+      "path": "bfd/linker.c",
+      "bytes": 107143,
+      "sha256": "cff2af95ba4ba79e69d629c8a5eb8e8af962276d7ee8083d668f4fd4784577ab",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/linker.c"
+    },
+    {
+      "path": "bfd/elfxx-target.h",
+      "bytes": 38796,
+      "sha256": "0c56b33f35720830300654624f69d06d15ec39cc8632abac24f52e47fdf1684e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-target.h"
+    }
+  ],
+  "archive_sha256": "1729ee2335bd27ede422c1d0697a83c381fc8132cb6d707a80ab3c3600a1084d"
+}

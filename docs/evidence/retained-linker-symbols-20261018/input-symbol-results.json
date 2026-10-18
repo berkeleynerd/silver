@@ -1,0 +1,14 @@
+{
+  "scope": "Selected ELF add-object-symbols and warning constructor contribution",
+  "source_files_verified": 10,
+  "fixed_symbol_record_passes": 49081,
+  "fixed_section_record_passes": 36433,
+  "fixed_global_entry_constructor_contribution_upper": 220109,
+  "general_bound": "3*R+2*Q; Q bounds .gnu.warning sections across input passes",
+  "generated_input_contribution": "3*R_generated+2*Q_generated",
+  "script_and_synthetic_and_output_version_contributions_included": false,
+  "rollback_snapshots_and_name_copy_requests_included": false,
+  "dynamic_symbol_registration_lifetime_included": false,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

@@ -245,3 +245,73 @@ The generated/synthetic-name inventory must still supply W. The present packet
 does not set it to zero, establish a full symbol registration lifetime count,
 or close the whole link. It removes the need to settle every alias's eventual
 definition flags merely to obtain a useful version-index bound.
+
+## Input symbol construction and lifetime contribution
+
+The next join bounds global-link-hash constructors reached while adding ordinary
+ELF inputs, including the names produced by default-version aliases. Let R count
+all input symbol records across the selected add-symbol passes, and Q count
+the `.gnu.warning.<symbol>` sections visited by those passes. Counting every
+input section instead of only warning sections is conservative. The selected
+case excludes plugins, wrapped symbols, non-ELF inputs and custom target hooks;
+the x86 ELF hook leaves the symbol name unchanged
+(`elf64-x86-64.c:6019–6049`). These are the existing selected-input premises,
+not claims about arbitrary linker options.
+
+Each ordinary record can cause at most three distinct global entry constructors:
+
+| Name | Constructor route |
+| --- | --- |
+| Original or version-decorated name | The main loop calls `_bfd_elf_merge_symbol`, which performs one create-enabled lookup (`elflink.c:1175–1179,4995–4997,5326–5331`). |
+| Undecorated default alias | `_bfd_elf_add_default_symbol` constructs the short name and performs one more merge lookup (`:2011–2030`). |
+| Nondefault alias with one `@` | The same helper constructs this name and performs its second merge lookup (`:2173–2189`). |
+
+The ordinary and alias calls to `_bfd_generic_link_add_one_symbol` receive the
+entries already looked up (`:2074–2083,2225–2235,5369–5373`). The indirect-symbol
+target lookup uses the already-created original name. Following an existing
+alias does not construct another global entry (`bfd/linker.c:520–541,1438–1450,
+1478–1490`). The per-record loop invokes the default helper once. Its two merge
+calls are not recursive. ELF's default `elf_backend_collect` is false and the
+selected x86 backend does not override it, excluding the generic constructor-name
+callback from this route (`bfd/elfxx-target.h:406–408`,
+`bfd/linker.c:1561–1604`).
+
+Each warning section calls the generic insertion once (`elflink.c:4500–4554`).
+That can construct one previously absent underlying name and one warning wrapper.
+The wrapper copies the existing entry and replaces its table link; it does not
+create a third name (`bfd/linker.c:1838–1869`). Charging two constructor events
+per warning therefore covers either existing or absent names. Warning text
+storage is a separate allocation and is not priced by this count.
+
+The resulting contribution is
+
+```text
+global entry constructors from input passes <= 3R + 2Q.
+```
+
+This counts actual construction events across input passes, including entries
+that are later discarded. The as-needed path saves/restores table state and
+releases newly added arena blocks (`elflink.c:4884–4973,5812–5898`). A restored
+snapshot does not allocate another global identity. Reprocessing an input is
+charged again in R and Q. The snapshot's copied records, allocation bytes and
+name-copy requests remain separate resources; this bound does not silently
+equate the live hash table with all memory retained by that operation.
+
+The reviewed fixed input-pass inventory gives R=49,081. Using all 36,433 section
+visits for Q yields a fixed contribution of **220,109 constructor events**.
+The deliberately broad warning allowance avoids relying on a new absence claim
+about fixed section names, and still lies far below the hash-table transfer's
+805,306,341-entry sufficient boundary. Generated input records add
+`3*R_generated + 2*Q_generated`; the known Main object transfer can supply its
+counts, while the binder object inventory is still a witness pending its family
+argument. No archive-candidate or common-probe work count is substituted for R.
+
+Linker-script symbols, linker-created linkage/header/constructor symbols, output
+version symbols and target-local IFUNC entries require their own additions or
+separate table domains. This is not yet a total global-symbol or dynamic-symbol
+bound. In particular, a symbol can be made local and registered dynamically
+again: its `dynindx` transitions and the shared `dynsymcount` high-water mark
+need an event argument beyond this constructor count. The
+[offline check](../evidence/retained-linker-symbols-20261018/input-symbol-results.json)
+reconciles ten source identities, the prior pass inventory and this arithmetic;
+it executes no native tool.

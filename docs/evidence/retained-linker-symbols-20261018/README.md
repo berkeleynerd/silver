@@ -47,3 +47,17 @@ The installed capture and offline replay both found 51 fixed version names and
 no literal `@` in any input symbol name. This supports the conservative
 `V <= 51+W` join, where the additional generated/synthetic suffix budget W
 remains open; it does not claim that output version definitions are absent.
+
+`input-symbol-sources.json` and its archive add the generic symbol insertion
+and ELF target-default code at the same Binutils commit. Together with the
+existing source bundle, `check-input-symbols.py` checks the source anchors and
+the fixed pass inventory for the `3R+2Q` global-entry constructor contribution:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-input-symbols.py --output /tmp/input-symbol-check.json
+```
+
+The 220,109 fixed-input contribution includes a conservative charge for every
+input section as a possible warning. Script/generated/synthetic additions,
+rollback snapshot storage and dynamic-symbol registration events remain
+separate, as stated in the research record.
