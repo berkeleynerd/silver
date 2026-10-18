@@ -325,17 +325,63 @@ condition to `max(V+K+15,V+16)<=INT32_MAX`, with K=2,019,040. All 39 other
 linker checks and the assembly/storage joins remain. The 5,000-call example
 passes this refined local conjunction; 30,653/30,654 one-byte calls are its
 adjacent sufficient-rule boundary. These are offline arithmetic results, not
-native cutoffs or admission changes. The aggregate still retains the old
-conservative failure until a separate explicit refinement attachment.
+native cutoffs or admission changes.
+
+The [shared-storage and refined-linker attachment](../reviews/review-literal-shared-linker-attachment-99b7247d18.md),
+frozen at `99b7247d18`, now integrates both accepted components. It validates
+the shared packet through its pure derivation, with three aggregate predecessor
+files checked historically and 35 other repository inputs checked currently;
+the 60 source identities and eleven source/capacity projections are retained.
+There is no recursive aggregate Context or cyclic manifest. Hello's partial
+original/Main/String/helper/synthetic/shared GGC subtotal is 2,312 events,
+including the 768 shared backing requests once. Complete native totals remain
+unknown. The aggregate's 5,000-call conditional arithmetic now passes the
+refined linker guard. The entire old linker result remains separately named
+historical conservative evidence, and all 39 other guards remain unchanged.
+Forty-five focused checks and fourteen independent identity/AST audit groups
+pass. Three invocation-dependent actual predicates remain unknown in this
+attachment.
+
+The [selected native invocation graph](retained-literal-invocation-join.md),
+frozen at `f3bc1d023b` and
+[independently accepted](../reviews/review-literal-invocation-f3bc1d023b.md),
+supplies the separate source/configuration argument for those three routes.
+It selects Main compilation, direct gnatbind, binder compilation and no-plugin
+linking, with fixed Silver object/ALI inputs and no fixed-child regeneration.
+It binds the fixed source timestamps to the selected closure ALIs; indexed
+and closure ALIs have different timestamp bytes and are not identified.
+Generated binder checksums range over all uint32 values under the accepted
+binder-family bound. The graph retains actual compiler/GAS/link paths, stable
+fixed-input identities and four common Main source bindings. Its 135 focused
+checks and narrow independent probe pass without native executions. Aggregate
+attachment must use the same source and the graph's selected path roles; the
+older short-path fixture does not establish that equality. Parent storage,
+fixed-library proof, the producer graph and production adoption remain separate.
+
+The [literal Ada numeric composition](retained-literal-ada-numeric.md), frozen
+at `3a7d590389` and
+[independently accepted](../reviews/review-literal-ada-numeric-3a7d590389.md),
+joins the retained fixed incoming allowance, actual Main constructor and
+original constant-size callbacks. The selected demands are `28420+9C` Uint
+entries, `107726+71C` digit words, 67 Ureals and 504 Rep_Table records.
+The complete fixed witness and separate floating callback allowance are kept
+even where they overlap; no cache/release credit is subtracted. The cold String
+path introduces no additional numeric annotation. Existing backing, nominal
+ID, pointer/sentinel and individual numeric-workspace checks remain unchanged.
+Fifty-three focused checks pass. Review checks the frozen source interfaces,
+61 packet identity records, 21 frontend repository pins and nine additional
+source identities without repeating the successful model/suite runs. This is
+the missing selected incoming-state/backing component, not full original-gigi
+or native capacity. Aggregate attachment remains the next integration step.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
 condition and keeps the ten other general producer-core conditions, all fixed
 library jobs and final reports. At that checkpoint, the 8,192-byte literal
-and 5,000-call examples pass the attached predicates. The later linker result
-above retains a failing sufficient bound for 5,000 calls; neither example has
-a complete whole-pipeline capacity verdict.
+and 5,000-call examples pass the attached predicates. The old conservative
+linker failure is superseded locally by the refinement above; neither example
+has a complete whole-pipeline capacity verdict.
 
 The [producer-parent join](retained-producer-parent.md) identifies the separate
 bundled GCC binary and supplies its own guarded fixed-prefix witness: 47,707

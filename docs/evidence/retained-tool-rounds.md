@@ -890,3 +890,60 @@ The next investigations are the selected literal invocation/fixed-input graph
 and the remaining Why3 callback reachability argument. Aggregate attachment
 of the accepted shared-storage and refined-linker results remains a separate
 concrete integration step.
+
+## Round 12 — reviewed shared attachment, invocation graph and Ada numeric join
+
+Date: 2026-10-18; continues from published `e67e2a9a26`. The preceding owner
+status question produced an estimate, not technical completion. This round
+integrates accepted components toward the unchanged full #119 objective.
+
+| Work | Selected setting | Frozen result and review |
+| --- | --- | --- |
+| Shared-storage and refined-linker aggregate attachment | GPT-6 Astra / Extra High | `99b7247d18`, accepted by `b04b32a184`; shared demands charged once and only the selected signed-reach guard replaced |
+| Selected native invocation/fixed-input graph | GPT-6 Astra / Extra High | `f3bc1d023b`, accepted by `a9b1436f3b`; explicit four-job graph with pinned Silver bundle and variable-checksum binder |
+| Literal Main Ada numeric join | Lead live setting unavailable; no switch claimed | `3a7d590389`, accepted by `9fd3629370`; incoming fixed/Main/floating/constant-size demands composed |
+
+All three independent reviews selected GPT-6 Astra / Extra High and found no
+material defect requiring candidate rework. Runtime settings and per-round
+token/cost measurements are unavailable. These are observations about reviewed
+integration, not a causal model-quality comparison. CLI memory is unavailable.
+
+The shared attachment uses pure derivation with three historical aggregate
+inputs, 35 current repository inputs and 60 source identities. Eleven capacity
+projections remain distinct from three inherited diagnostic projections. Hello
+has 768 new shared backing requests and a partial 2,312-event ledger; complete
+native totals stay unknown. The 5,000-call refined local conjunction passes;
+the complete old linker result remains separately historical, with all 39 other
+guards retained. Forty-five affected checks took 5.695187s, generation 4.194964s,
+and fourteen independent identity/AST groups 0.187549s. Review source inspection
+and audit took 111s, excluding report preparation.
+
+The invocation graph binds Main compile, direct gnatbind, binder compile and
+no-plugin link, with no fixed-child rebuild fallback. Its source timestamp
+contract repairs the discovered difference between closure and indexed ALIs.
+It preserves the binder's uint32 checksum family rather than fixture equality.
+Its 135 focused checks took 0.781134s; independent path/inventory reconciliation
+took 0.737653s, within a 145s review interval excluding report preparation.
+Actual source/path attachment to the aggregate remains a separate next step.
+
+The numeric join yields `28420+9C` Uints, `107726+71C` digit words, 67 Ureals and
+504 Rep_Table entries, preserving every existing table/local-object guard.
+It keeps the full fixed witness and separate floating allowance, without cache
+or release subtraction. Fifty-three focused checks took 0.455881s. Independent
+source assessment and identity/interface auditing took 133s; its narrow script
+took 0.090352s. No successful model or component suite was repeated in review.
+
+Integration checks 32 changed packet/review files byte-equal to accepted frozen
+targets, 205 current aggregate input identities, 15 JSON and nine Python files,
+and 79 local links across eight Markdown files. No native compiler/prover,
+debugger/capture, solver, full-suite or broad proof run occurred in this round.
+
+The next aggregate attachment uses an explicit selected-route descriptor with
+the invocation graph's 109-byte root and 48-byte temporary directory, preserving
+the old fixture and its pins. It must join the same source and add the numeric
+checks while keeping parent/proof/whole-capacity obligations explicit. The
+continuing Why3 callback analysis and remaining native lifetime assessment
+remain active investigations; no complete counter claim is inferred from them.
+Current grammar composition, complete-rule comparison and independent final
+review still remain. #119 stays active; Oracle, tools/pins and admission are
+unchanged, and production #88–#94 remains unstarted.
