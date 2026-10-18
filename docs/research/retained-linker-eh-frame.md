@@ -140,8 +140,46 @@ that address-plus-range arithmetic does not wrap, and that kept function
 ranges do not overlap. The header's own encoded pointer and other unwind
 relocations also need their target encoding/reach arguments.
 
+## Fixed-input field and entry join
+
+The [fixed-byte check](../evidence/retained-linker-eh-frame-20261018/fixed-input-check-results.json)
+re-extracted all nonempty `.eh_frame` sections from every fixed ET_REL input
+in the retained link inventory, verifying complete file/member identities.
+It charges both explicit libgcc/libgcc_eh occurrences and every archive member.
+DSO sections are excluded because they are not mapped into the output. Earlier
+archive rescans cannot create another mapped instance of an already loaded
+member. Generated Main/binder inputs and linker-created sections remain separate.
+
+The retained888 distinct sections give these weighted upper inputs:
+
+| Quantity | Fixed contribution |
+| --- | ---: |
+| Nonempty section occurrences |1175|
+| Original bytes |551,576|
+| Entries including terminator |16,297|
+| CIEs |1348|
+| FDEs before discarding |14,948|
+| Zero terminators |1|
+| Largest individual section |17,776 bytes|
+| Largest input alignment |8 bytes|
+
+Parsing the retained CIE/FDE headers establishes maximum augmentation-string
+length5, augmentation-data length11, personality offset11, initial CIE
+instruction length11 and LSDA offset9. Thus those fixed inputs fit the narrow
+fields identified above; the check does not merely compare total byte sizes.
+It does not interpret the CFA instruction stream, verify relocation targets or
+establish nonoverlapping final function ranges.
+
+If generated/linker contributions keep the output alignment at8, the fixed
+edited payload is bounded by `551576+11*16297+10*1175 = 742593` bytes. This
+is a contribution to one output section. For a different output alignment A,
+use `551576+11*16297+(A+2)*1175` instead. The kept-FDE contribution is at most
+14,948 regardless of CIE/FDE removal; the final header/array must also include
+generated and linker-created FDEs. These are immutable-input bounds, not an
+observed whole-link result or a new language cap.
+
 Remaining joins are generated Main/binder and linker-created unwind inputs,
-fixed emitted-field validity, relocation-cookie/symbol storage, shared BFD
+remaining emitted-DWARF/relocation validity, relocation-cookie/symbol storage, shared BFD
 allocation backing and the final image layout. These are required before
 this transfer contributes a whole-source acceptance verdict. The broader
 [capacity design](retained-tool-capacity.md) remains unfinished.
@@ -150,3 +188,4 @@ Independent source review checked the layouts, counting/editing arithmetic,
 hash growth and header-array lifecycle, finding no defect in these conditional
 claims. It corrected the two source citations above. That review does not
 establish the remaining emitter or final-layout obligations.
+The fixed-byte join was added afterward and has its own retained checker scope.

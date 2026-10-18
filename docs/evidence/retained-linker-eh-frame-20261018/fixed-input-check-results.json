@@ -1,0 +1,25 @@
+{
+  "scope": "Fixed ET_REL EH input bytes, excludes generated Main/binder and linker-created sections",
+  "retained_sections": 888,
+  "totals_with_explicit_archive_occurrences": {
+    "sections": 1175,
+    "bytes": 551576,
+    "entries": 16297,
+    "CIEs": 1348,
+    "FDEs": 14948,
+    "terminators": 1
+  },
+  "maxima": {
+    "bytes": 17776,
+    "alignment": 8,
+    "max_augmentation_string_bytes": 5,
+    "max_augmentation_data_bytes": 11,
+    "max_personality_offset": 11,
+    "max_CIE_initial_instruction_bytes": 11,
+    "max_LSDA_offset": 9
+  },
+  "fixed_payload_after_editing_if_output_alignment_8": 742593,
+  "installed_inputs_reextracted": true,
+  "CFA_semantics_relocations_or_whole_link_established": false,
+  "native_tool_executions": 0
+}
