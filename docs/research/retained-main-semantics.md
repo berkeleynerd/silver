@@ -1826,6 +1826,20 @@ prevent a fixed witness's short paths, names or body from becoming a universal
 capacity claim. String-pool characters and serialized fixed literal payloads
 are different domains and cannot replace one another.
 
+### Separate fixed library frontend domains
+
+The [four library captures](../evidence/retained-main-semantics-20261018/library-capture/README.md)
+supply the distinct fixed `A_total` inputs for separate light producer processes:
+19,837 for the Silver_IO body, 19,921 for the Silver_Arguments body, 18,575 for
+Silver_Output_Libc and 1,510 for Silver_Runtime. Each also conservatively bounds
+`E_total`, includes both sentinels and retains all node allocation through
+`before_symbol_free`; no Node_Offsets decrease occurs. These fixed complete
+processes cannot name arbitrary Main, so no cache-pattern generalization is
+needed. The same audited decrease-store coverage applies, with caches unmodified.
+Their inputs, four managed runs and exact vectors are retained separately. Do
+not add these domains into Main's vector or substitute the earlier Why-node
+counts for frontend Node_Ids.
+
 ### Exact accounting at release points
 
 For the five scalar pool positions

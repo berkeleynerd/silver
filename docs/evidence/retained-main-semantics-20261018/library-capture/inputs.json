@@ -1,0 +1,66 @@
+{
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-src/silver_arguments.adb": {
+    "bytes": 1339,
+    "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-src/silver_arguments.ads": {
+    "bytes": 1129,
+    "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-src/silver_io.adb": {
+    "bytes": 3358,
+    "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-src/silver_io.ads": {
+    "bytes": 2222,
+    "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-src/silver_output_libc.ads": {
+    "bytes": 1532,
+    "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-src/silver_runtime.ads": {
+    "bytes": 1010,
+    "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/phase1-result.json": {
+    "bytes": 3934,
+    "sha256": "6d9e97092b3834c2f77fc39576539e8e3e5697a26423f7e07d012acd3f636f84"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_arguments.adb.phase1.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_arguments.ali": {
+    "bytes": 37615,
+    "sha256": "9fd262ff22bbe1f5f23f396b62c5a8ab044e317b6f1a489a605e8d9903bd66da"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_io.adb.phase1.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_io.ali": {
+    "bytes": 37097,
+    "sha256": "801f183d83be563f8961c2345da70d0b34234a1e9df7fdfacfb66d63fec14c39"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_output_libc.ads.phase1.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_output_libc.ali": {
+    "bytes": 34685,
+    "sha256": "b427658eb134bd2b871cae66f1287ca535a3a468725c45287b30d0c4bf3923e9"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_runtime.ads.phase1.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/library-obj/silver_runtime.ali": {
+    "bytes": 3952,
+    "sha256": "515ae0350bf11b65da1d4cd2885b8fc644eac55c0a0e2a34029561ee31b399ca"
+  },
+  "/tmp/silver-producer-fixed-deps-plan-20261018/naming.adc": {
+    "bytes": 212,
+    "sha256": "49d099ba81d77a2320ab5bbd0b5327948d4915c7d158f72016dd2bc1f18987e8"
+  }
+}
