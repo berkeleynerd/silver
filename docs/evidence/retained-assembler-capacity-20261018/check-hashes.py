@@ -100,7 +100,7 @@ tables = {}
 for name, initial, entries in [('opcode', 16, len(offsets)-1),
                                ('register', 16, len(register_rows)),
                                ('pseudo_op', 16, sum(pseudo.values())),
-                               ('macro', 16, 0), ('symbol', 1024, 88)]:
+                               ('macro', 16, 0), ('symbol', 1024, 90)]:
     capacity = prime_ge(max(initial, 2*entries))
     tables[name] = {'initial_requested_slots': initial,
                     'insert_calls_or_live_entries_upper': entries,
@@ -110,7 +110,7 @@ for name, initial, entries in [('opcode', 16, len(offsets)-1),
     assert capacity*3 < 2**64 and entries*4 < 2**64
     assert 2*capacity-3 < 2**32 and 8*capacity < 2**63
 assert [tables[n]['pointer_slots_upper'] for n in tables] == [8191, 1021, 1021, 31, 2039]
-assert 88*4 < 2039*3
+assert 90*4 < 2039*3
 control_size = 9*8+3*8+3*4+4
 assert control_size == 112 <= 128
 h = max(128, 16, *(r['pointer_array_bytes_upper'] for r in tables.values()))

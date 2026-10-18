@@ -420,6 +420,108 @@
       "bytes": 11290,
       "sha256": "5340ce044a159f7a41d6bf6e406ac39fd76ac50763604fb081ae7c098cd1f8f8",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-strtab.c"
+    },
+    {
+      "path": "gas/Makefile.am",
+      "bytes": 18796,
+      "sha256": "24de02162e4c075b4cecd5685e4e99fc83c80b67aa0dd1bdc4aacbb2378237ef",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/Makefile.am"
+    },
+    {
+      "path": "gas/listing.c",
+      "bytes": 39121,
+      "sha256": "bb99825eaac538d5e2fa06deb66db8ac5fe36c8cd34dd62e04e360c2ed15f9b7",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/listing.c"
+    },
+    {
+      "path": "gas/messages.c",
+      "bytes": 13026,
+      "sha256": "75c3c399bb8eb3ae6ca07bba7051b9b74abddad5372371b4ee786c32b067321e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/messages.c"
+    },
+    {
+      "path": "gas/codeview.c",
+      "bytes": 13491,
+      "sha256": "cedd6761f8bc6dc936446e291b6a3ed91664ba8dd7647934b379e7bec758e8e3",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/codeview.c"
+    },
+    {
+      "path": "gas/remap.c",
+      "bytes": 2478,
+      "sha256": "f5cb418ceb7079accc744d3773f06e2dd8b559b7fae6c71e54a46a54c289b134",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/remap.c"
+    },
+    {
+      "path": "gas/app.c",
+      "bytes": 41841,
+      "sha256": "b995b59219b2f8113cb76532784965c4a50944a39e14c9453c0dc7214f6547aa",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/app.c"
+    },
+    {
+      "path": "gas/cond.c",
+      "bytes": 14413,
+      "sha256": "d7629602bbaea0302f2674edcad68b099ed857b9af7ec390ac0e24c9b9f67b3b",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/cond.c"
+    },
+    {
+      "path": "gas/sb.c",
+      "bytes": 5630,
+      "sha256": "a6b1a6c71f6b7fa69e3f658618dd58d2f39c5bbb3826bb9480fcf7f9cab1a069",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/sb.c"
+    },
+    {
+      "path": "libiberty/xasprintf.c",
+      "bytes": 1475,
+      "sha256": "34067354886d7ea2f4f024676b83f085c4e4a97603e124cabfe05bf74dc034d6",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/xasprintf.c"
+    },
+    {
+      "path": "libiberty/xvasprintf.c",
+      "bytes": 1873,
+      "sha256": "7c17b1ad427c4aca7598ce0986129be9aba3b0affc64a326c23546c8d2d45cf7",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/xvasprintf.c"
+    },
+    {
+      "path": "libiberty/vprintf-support.c",
+      "bytes": 3734,
+      "sha256": "9b36cfe2348b45bda163d467184d8f41507f58614a181e36598d3d8d9814a2f1",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/vprintf-support.c"
+    },
+    {
+      "path": "libiberty/vprintf-support.h",
+      "bytes": 1011,
+      "sha256": "69e2ab1e337dc4de6d8f0071429f0c1f9cec09193b704741589268dd8dab30ac",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/vprintf-support.h"
+    },
+    {
+      "path": "libiberty/argv.c",
+      "bytes": 13675,
+      "sha256": "322fdd3c6f0fab3fc93d949dcac3d7cf91d3e04a5e90982b5b39fbb174b087b1",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/argv.c"
+    },
+    {
+      "path": "libiberty/getruntime.c",
+      "bytes": 3098,
+      "sha256": "b2368e6977774f14e1d8199fb6d49aabe4f18a09c32ab855b020e2237a004c61",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/getruntime.c"
+    },
+    {
+      "path": "bfd/cache.c",
+      "bytes": 20861,
+      "sha256": "ce14e8fb4623af3ed5e4c476f483446c9888fe8065e1fb7a412b111fc668488b",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/cache.c"
+    },
+    {
+      "path": "bfd/bfd.c",
+      "bytes": 75097,
+      "sha256": "b6e11ab6b4b8d4437d4d34690be93fe04c39602044dc34d7bc1f14c9dea39eab",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/bfd.c"
+    },
+    {
+      "path": "bfd/targets.c",
+      "bytes": 54491,
+      "sha256": "c402cec1270adbecbccbf4e1faf740798a650d217dffd3da5ee02659bcc67d10",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/targets.c"
     }
   ]
 }

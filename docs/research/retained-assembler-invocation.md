@@ -72,7 +72,7 @@ notes chunk <= max(4064,Q+241) = 65769 bytes.
 ```
 
 The [output BFD lifetime](retained-assembler-startup.md#selected-output-bfd-lifetime-counter-join)
-specializes to `P+31800 = 31809` cumulative requested bytes. Its separate
+specializes to `P+32056 = 32065` cumulative requested bytes. Its separate
 largest raw main-arena request remains 6,744 bytes. Neither the notes bound
 nor BFD's counter includes the independent ELF string-table hash arenas.
 This does not add a language total-RAM limit.

@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Supports the
 [source derivation](../../research/retained-assembler-capacity.md).
 
-`sources.tar.gz` retains 70 complete files from Binutils release commit
+`sources.tar.gz` retains 87 complete files from Binutils release commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`. `source-manifest.json` records
 their byte counts, SHA256 identities and immutable retrieval URLs. The checker
 also matches the commit against the previously retained linker release-tag
@@ -34,8 +34,8 @@ whole assembler capacity, complete allocator storage or final relocation reach.
 Configuration can independently enable SFrame/property/build-note output;
 all three branches are charged.
 
-The symbol/fixup extension bounds GAS symbol objects by 88, BFD symbols
-allocated through GAS by 102, fixup objects by 279, and optional build-note
+The symbol/fixup extension bounds GAS symbol objects by 90, including two non-output predefinitions,
+and BFD symbols allocated through GAS by 104, fixup objects by 279, and optional build-note
 relocations by two. Its selected LP64 raw request ceilings are separate from
 shared-obstack chunk storage. The largest relocation pointer array is 2248
 bytes and the GAS output symbol pointer array is 704 bytes. This excludes
@@ -83,7 +83,7 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-hashes.py \
 ```
 
 It charges 2613 opcode entries, 352 register rows and 263 pseudo-op insertions,
-plus the empty macro table and 88 symbol objects. The largest shared-hash
+plus the empty macro table and 90 symbol objects. The largest shared-hash
 pointer request is 65528 bytes; the descriptor example's joined notes chunk
 bound is 65769. The actual production argument/path join, non-hash startup,
 expression/parser subsidiary storage and BFD backing remain separate.
@@ -116,8 +116,8 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-startup.py \
 ```
 
 It also joins the selected output BFD's cumulative `alloc_size` requirement:
-startup contributes `P+8448`, selected later requests at most 23,352, giving
-`P+31800`. This fits the counter under the individual main-arena request
+startup contributes `P+8448`, selected later requests at most 23,608, giving
+`P+32056`. This fits the counter under the individual main-arena request
 condition `max(P,6744)+23<=PTRDIFF_MAX`. Actual production arguments/paths,
 parser subsidiary storage, the other BFD allocator contexts and host-library
 behavior remain separate. This packet does not
@@ -144,7 +144,7 @@ The [indexed invocation and subsidiary transfer](../../research/retained-assembl
 adds a separate six-file GCC source capsule and an exact copy of the reviewed
 indexed native descriptor. This source-derived projection supplies the selected
 GAS vector `AS_PATH --64 -o main~1.o ASSEMBLY_TEMP_PATH`, A=5 and output P=9.
-It gives a 65,769-byte notes-chunk bound, a 31,809-byte cumulative output-BFD
+It gives a 65,769-byte notes-chunk bound, a 32,065-byte cumulative output-BFD
 counter bound, direct parser scratch requests at most 67 bytes, and the selected
 relaxation fixed point. It is not a new captured argv or complete GAS call audit.
 
@@ -156,3 +156,22 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-invocation.py \
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic
 checks were the only new execution.
+
+The [predefinition correction and adjoining lifecycle inventory](../../research/retained-assembler-startup.md#predefined-symbol-accounting-correction)
+fixes [#125](https://github.com/berkeleynerd/silver/issues/125). It adds 17
+complete helper sources while preserving all prior member bytes. GAS's own
+`GAS(version)` and optional `GAS(date)` were missing from allocation totals;
+they do not enter the selected output symbol chain. Corrected allocated counts
+are 90 GAS / 104 BFD, while output-chain 88 and ELF/object bounds are unchanged.
+The temporary formatting requests are 45 and 42 bytes. The earlier allocated
+88/102, R=23,352, P+31,800 and indexed 31,809 totals are explicitly superseded
+in the record and replay result.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-lifecycle.py \
+  --output /tmp/retained-assembler-lifecycle-check.json
+```
+
+The adjoining review follows successful initialization, predefinitions, input
+setup, optional finish paths and exit cleanup. It does not claim complete
+inner parser/writer call coverage or a total emitted-line/event bound.

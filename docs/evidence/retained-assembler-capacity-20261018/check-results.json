@@ -1,6 +1,6 @@
 {
   "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
-  "source_files_checked": 70,
+  "source_files_checked": 87,
   "scope": "conditional streaming-buffer, instruction and frame consumer transfers; not whole assembler capacity",
   "input_buffer": {
     "read_block_bytes": 32768,
@@ -129,12 +129,15 @@
       "GAS_section_symbols": 13,
       "file_symbol": 1,
       "size_current_location": 1,
-      "gasversion_startup": 1
+      "gasversion_startup": 1,
+      "predefined_GAS_version_and_optional_date": 2
     },
-    "GAS_symbol_objects": 88,
+    "GAS_symbol_objects": 90,
+    "GAS_output_chain_symbols_upper": 88,
+    "non_output_predefined_full_symbols_upper": 2,
     "maximum_name_copy_bytes_including_NUL": 26,
     "local_conversions_per_symbol_at_most": 1,
-    "BFD_symbol_allocations_through_GAS": 102,
+    "BFD_symbol_allocations_through_GAS": 104,
     "expression_location_records": 26,
     "size_expression_objects": 1,
     "selected_LP64_raw_request_upper_bytes": {

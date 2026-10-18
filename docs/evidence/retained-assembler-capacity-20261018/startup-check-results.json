@@ -1,6 +1,6 @@
 {
   "scope": "Selected GAS fixed options and output-BFD startup metadata",
-  "source_files_verified": 70,
+  "source_files_verified": 87,
   "long_option_counts": {
     "standard_named": 56,
     "x86_named": 36,
@@ -70,7 +70,7 @@
   "BFD_main_arena_startup_raw_bytes_upper": "P+8448",
   "BFD_lifetime_alloc_size_contract": "P+8448+R<=2^64-1; R includes all other successful raw requests, even later released",
   "selected_later_main_arena_raw_bytes_upper_by_class": {
-    "BFD_symbols": 13056,
+    "BFD_symbols": 13312,
     "relocation_headers": 720,
     "relocation_names": 288,
     "section_header_pointers": 176,
@@ -80,8 +80,8 @@
     "serialized_relocations_combined": 6744,
     "serialized_section_headers": 1408
   },
-  "selected_later_main_arena_R_upper": 23352,
-  "selected_BFD_lifetime_alloc_size_upper": "P+31800",
+  "selected_later_main_arena_R_upper": 23608,
+  "selected_BFD_lifetime_alloc_size_upper": "P+32056",
   "selected_lifetime_main_arena_request_contract": "max(P,6744)+23<=PTRDIFF_MAX; 1<=P",
   "selected_output_BFD_alloc_size_counter_join_complete": true,
   "whole_BFD_request_inventory_complete": false,

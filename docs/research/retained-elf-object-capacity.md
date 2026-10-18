@@ -19,7 +19,7 @@ behavior and Linux LP64 premises remain those of the earlier transfer.
 
 GAS opens a new BFD object and closes it once through `bfd_close`
 (`gas/output-file.c:34–54,70–107`). It supplies nine ordinary output sections,
-at most 88 symbols and at most 281 relocations, including optional build-note
+at most 88 **output-chain** symbols and at most 281 relocations, including optional build-note
 relocations. Internal register/expression sections were removed from the
 output list; ABS/UND are static sections outside that list. The selected
 output is relocatable: no executable/shared-library flags or input-copy state,
@@ -67,7 +67,7 @@ fits that bound independently of string-table storage.
 `elf_map_symbols` filters and reorders the incoming symbols. For each ordinary
 section it may additionally include that section's **existing** BFD symbol;
 it creates no new BFD symbol object (`bfd/elf.c:4527–4659`). Thus the outgoing
-count is at most `88+9=97`, plus the mandatory null symbol. The earlier 102
+count is at most `88+9=97`, plus the mandatory null symbol. The corrected 104
 BFD symbol allocation bound is unchanged by this mapping step.
 
 The map first allocates an array indexed by original BFD section indices.

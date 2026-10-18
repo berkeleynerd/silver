@@ -237,6 +237,48 @@ Literal LF line numbering.
 1447: }
 ```
 
+## gas/as.c:1203–1220
+
+```text
+1203: /* Pre-define a symbol with its name derived from TMPL (wrapping in
+1204:    GAS(...)), to value VAL.  */
+1205:
+1206: void
+1207: predefine_symbol (const char *tmpl, valueT val)
+1208: {
+1209:   char *name = xasprintf ("GAS(%s)", tmpl);
+1210:   symbolS *s;
+1211:
+1212:   /* Also put the symbol in the symbol table, if requested.  */
+1213:   if (flag_strip_local_absolute < 0)
+1214:     s = symbol_new (name, absolute_section, &zero_address_frag, val);
+1215:   else
+1216:     s = symbol_create (name, absolute_section, &zero_address_frag, val);
+1217:   S_CLEAR_EXTERNAL (s);
+1218:   symbol_table_insert (s);
+1219:
+1220:   xfree (name);
+```
+
+## gas/as.c:1254–1267
+
+```text
+1254: static void
+1255: perform_an_assembly_pass (int argc, char ** argv)
+1256: {
+1257:   int saw_a_file = 0;
+1258:
+1259:   need_pass_2 = 0;
+1260:
+1261: #ifndef OBJ_MACH_O
+1262:   subseg_set (text_section, 0);
+1263: #endif
+1264:
+1265:   predefine_symbol ("version", BFD_VERSION);
+1266:   if (strstr (BFD_VERSION_STRING, "." XSTRING (BFD_VERSION_DATE)) != NULL)
+1267:     predefine_symbol ("date", BFD_VERSION_DATE);
+```
+
 ## gas/as.c:1368–1388
 
 ```text
@@ -2826,6 +2868,17 @@ Literal LF line numbering.
 683:     }
 ```
 
+## gas/symbols.c:714–719
+
+```text
+714: symbol_table_insert (symbolS *symbolP)
+715: {
+716:   know (symbolP);
+717:
+718:   htab_insert (sy_hash, symbolP, 1);
+719: }
+```
+
 ## gas/symbols.c:730–761
 
 ```text
@@ -2925,6 +2978,30 @@ Literal LF line numbering.
 895:       symbolP->x->value.X_op_symbol = op_symbol;
 896:       symbolP->flags.forward_resolved = 1;
 897:     }
+```
+
+## gas/symbols.c:1805–1823
+
+```text
+1805: /* A static function passed to hash_traverse.  */
+1806:
+1807: static int
+1808: resolve_local_symbol (void **slot, void *arg ATTRIBUTE_UNUSED)
+1809: {
+1810:   symbol_entry_t *entry = *((symbol_entry_t **) slot);
+1811:   if (entry->sy.flags.local_symbol)
+1812:     resolve_symbol_value (&entry->sy);
+1813:
+1814:   return 1;
+1815: }
+1816:
+1817: /* Resolve all local symbols.  */
+1818:
+1819: void
+1820: resolve_local_symbol_values (void)
+1821: {
+1822:   htab_traverse_noresize (sy_hash, resolve_local_symbol, NULL);
+1823: }
 ```
 
 ## gas/symbols.c:2037–2165

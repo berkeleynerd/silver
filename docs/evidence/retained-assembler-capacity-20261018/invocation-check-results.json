@@ -1,6 +1,6 @@
 {
   "scope": "Indexed native Main assembler projection, named scratch sites and selected relaxation arithmetic",
-  "Binutils_complete_sources_verified": 70,
+  "Binutils_complete_sources_verified": 87,
   "GCC_complete_sources_verified": 6,
   "indexed_descriptor_sha256": "9ffaf5d6a5248958d9d6f2ba107096321939f462cd572f92cf0e373d44376047",
   "derived_assembler_argv": [
@@ -15,7 +15,7 @@
   "notes_argument_pointer_request_bytes": 48,
   "notes_raw_request_upper": 65528,
   "notes_chunk_request_upper": 65769,
-  "selected_output_BFD_alloc_size_upper": 31809,
+  "selected_output_BFD_alloc_size_upper": 32065,
   "named_parser_heap_request_bytes_upper": {
     "unquoted_symbol_name_copy": 26,
     "instruction_retry_copy": 65,

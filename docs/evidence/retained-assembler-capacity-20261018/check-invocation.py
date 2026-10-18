@@ -119,7 +119,7 @@ assert (a, p) == (5, 9)
 q = max(65528, 8*(a+1), p)
 chunk = max(4064, q+241)
 assert q == 65528 and chunk == 65769
-assert p+31800 == 31809
+assert p+32056 == 32065
 requests = {
     'unquoted_symbol_name_copy': 26,
     'instruction_retry_copy': 64+1,
@@ -136,7 +136,7 @@ assert 391+29 == 420
 fragment_count = 924
 max_iterations = fragment_count**2
 assert max_iterations == 853776 < 2**64
-assert max(chunk, p+31800, max(requests.values())) < 2**63
+assert max(chunk, p+32056, max(requests.values())) < 2**63
 
 result = {
     'scope': 'Indexed native Main assembler projection, named scratch sites and selected relaxation arithmetic',
@@ -149,7 +149,7 @@ result = {
     'notes_argument_pointer_request_bytes': 8*(a+1),
     'notes_raw_request_upper': q,
     'notes_chunk_request_upper': chunk,
-    'selected_output_BFD_alloc_size_upper': p+31800,
+    'selected_output_BFD_alloc_size_upper': p+32056,
     'named_parser_heap_request_bytes_upper': requests,
     'selected_fragment_count_upper': fragment_count,
     'relaxation_iteration_safety_product_upper': max_iterations,

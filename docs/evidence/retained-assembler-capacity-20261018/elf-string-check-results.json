@@ -1,6 +1,6 @@
 {
   "scope": "Two selected null Main ELF string-table allocator contexts",
-  "source_files_verified": 70,
+  "source_files_verified": 87,
   "selected_LP64_layout_bytes": {
     "hash_entry": 24,
     "string_entry": 40,

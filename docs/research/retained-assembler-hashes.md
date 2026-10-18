@@ -27,7 +27,7 @@ or macro expansion adds another table
 | Register | 16 | 352 | 1021 | 8168 |
 | Pseudo-op | 16 | 263 | 1021 | 8168 |
 | Macro | 16 | 0 | 31 | 248 |
-| Symbol, direct heap | 1024 | 88 | 2039 | 16312 |
+| Symbol, direct heap | 1024 | 90 | 2039 | 16312 |
 
 The generated opcode-set array contains 2614 offsets, the final one being
 the end sentinel. The initializer inserts once for each preceding offset.
@@ -51,7 +51,8 @@ paths are excluded by the selected configuration
 
 The macro hash stays empty. The selected stream has no macro definitions,
 iterations or purges. The prior symbol transfer bounds all created GAS
-symbol objects by 88, so the symbol hash cannot have more than 88 distinct
+symbol objects by 90, including the two non-output predefinitions, so the
+symbol hash cannot have more than 90 distinct
 entries; conversions and replacement insertions do not add a second live
 key. Its initial 2039-slot backing already exceeds the growth threshold
 needed for this count.

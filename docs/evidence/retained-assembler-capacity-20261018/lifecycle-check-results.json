@@ -1,0 +1,40 @@
+{
+  "scope": "Selected GAS predefinitions and adjacent entry/exit allocation routes",
+  "complete_sources_verified": 87,
+  "predefined_template_strings": [
+    "version",
+    "date"
+  ],
+  "predefined_temporary_format_requests_bytes": {
+    "version": 45,
+    "date": 42
+  },
+  "predefined_retained_name_requests_bytes": {
+    "version": 13,
+    "date": 10
+  },
+  "predefined_GAS_full_objects_upper": 2,
+  "predefined_BFD_objects_upper": 2,
+  "predefined_output_chain_objects_selected": 0,
+  "corrected_allocated_GAS_symbol_objects_upper": 90,
+  "corrected_allocated_BFD_symbol_objects_upper": 104,
+  "unchanged_output_chain_symbols_upper": 88,
+  "unchanged_serialized_ELF_symbols_upper": 98,
+  "unchanged_object_bytes_upper": 14352,
+  "corrected_later_BFD_main_arena_raw_bytes_upper": 23608,
+  "corrected_BFD_lifetime_raw_bytes_upper": "P+32056",
+  "corrected_indexed_BFD_lifetime_raw_bytes_upper": 32065,
+  "supersedes_finding_125": {
+    "allocated_GAS": 88,
+    "allocated_BFD": 102,
+    "later_BFD_main_arena_raw_bytes": 23352,
+    "BFD_lifetime_raw_bytes": "P+31800",
+    "indexed_BFD_lifetime_raw_bytes": 31809
+  },
+  "reachability_basis": "Manual selected-argv/stream and target argument in the research record; source checks are not a C semantic proof",
+  "complete_inner_parser_and_writer_call_inventory": false,
+  "complete_emitted_line_or_event_count": false,
+  "libc_locale_stdio_allocator_internals_expanded": false,
+  "whole_assembler_or_retained_tool_capacity_complete": false,
+  "native_execution": false
+}

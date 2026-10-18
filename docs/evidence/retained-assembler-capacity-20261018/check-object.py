@@ -80,12 +80,13 @@ gas = json.loads((root / 'check-results.json').read_text())
 unit = gas['selected_unit_emission']
 symbols = gas['selected_GAS_symbols_and_fixups']
 assert unit['ordinary_GAS_sections'] == 9
-assert symbols['GAS_symbol_objects'] == 88
+assert symbols['GAS_symbol_objects'] == 90
+assert symbols['GAS_output_chain_symbols_upper'] == 88
 assert symbols['maximum_relocation_pointer_slots'] == 281
 ordinary = 9
 relocation_sections = ordinary
 section_headers = 1+ordinary+relocation_sections+3
-symbol_entries = 88+ordinary+1
+symbol_entries = symbols['GAS_output_chain_symbols_upper']+ordinary+1
 relocations = 281
 symbol_strings = 1+(symbol_entries-1)*26
 section_strings = 1+(section_headers-1)*32

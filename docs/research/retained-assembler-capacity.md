@@ -448,7 +448,23 @@ also reuse the named symbol (`gas/symbols.c:659–683,730–761`).
 | `.file "main.adb"` | 1 |
 | Current location in `.size _ada_main, .-_ada_main` | 1 |
 | Startup `.gasversion.` local symbol | 1 |
-| **Total** | **88** |
+| Predefined `GAS(version)` and optional `GAS(date)` full symbols | 2 |
+| **Allocated total** | **90** |
+| **Output-chain upper bound, excluding the two predefinitions** | **88** |
+
+The two predefinitions run after opening the output BFD
+(`gas/as.c:1203–1220,1254–1267`). With the selected default
+`flag_strip_local_absolute=0` and no `--emit-local-absolute` option, they call `symbol_create`,
+which allocates a full GAS object, preserved name and BFD symbol but clears
+its list pointers. Only `symbol_new` additionally appends to the output
+chain (`gas/symbols.c:330–424`). `symbol_table_insert` inserts into the hash
+only (`:714–719`); the hash's later local-symbol resolver skips these full
+objects (`:1805–1823`). The generated stream never refers to their reserved
+names. Thus they contribute to allocation/hash totals but not the selected
+output-chain bound of 88 or its 704-byte pointer array. Their fixed name
+copies fit the existing 26-byte bound. The
+[startup correction](retained-assembler-startup.md#predefined-symbol-accounting-correction)
+records the larger temporary formatting requests and the superseded totals.
 
 The startup local is created before the output BFD opens
 (`gas/as.c:1368–1388`). Section symbols are cached in `seginfo->sym`; a
@@ -481,10 +497,10 @@ request, then one BFD symbol. A local symbol first allocates its smaller
 object and copied name; conversion allocates one `xsymbol` and one BFD
 symbol, resets `local_symbol` and reuses the original object/name
 (`gas/symbols.c:330–424,439–487`). Hence conversion is charged at most once,
-including when a local is first used in a relocation. The 88 GAS objects
-cause at most 88 BFD symbol allocations. BFD section construction adds at
+including when a local is first used in a relocation. The 90 GAS objects
+cause at most 90 BFD symbol allocations. BFD section construction adds at
 most thirteen, including the two standard-section hooks, and initializing
-the static dot symbol adds one. The bound is therefore **102 BFD symbol
+the static dot symbol adds one. The bound is therefore **104 BFD symbol
 allocations through GAS**, including section-symbol allocations that are
 subsequently replaced by an existing section symbol
 (`bfd/section.c:817–855`, `gas/as.c:1352–1361`,

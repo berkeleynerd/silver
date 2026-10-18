@@ -66,9 +66,9 @@ UNIT_RANGES = {
 for _name, _ranges in UNIT_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 SYMBOL_RANGES = {
-    "gas/as.c": [(1368, 1388)],
+    "gas/as.c": [(1203, 1220), (1254, 1267), (1368, 1388)],
     "gas/symbols.c": [(35, 172), (330, 424), (439, 487), (659, 683),
-                      (730, 761), (839, 897), (2037, 2165), (3131, 3167)],
+                      (714, 719), (730, 761), (839, 897), (1805, 1823), (2037, 2165), (3131, 3167)],
     "gas/expr.c": [(38, 100), (729, 750), (2108, 2143)],
     "gas/expr.h": [(116, 158)],
     "gas/config/obj-elf.c": [(203, 234), (2086, 2098), (2183, 2231),
@@ -255,15 +255,20 @@ def main():
         "SFrame_direct_temporary_expression_requests": 27,
         "GAS_section_symbols": 9+2+2,
         "file_symbol": 1, "size_current_location": 1, "gasversion_startup": 1,
+        "predefined_GAS_version_and_optional_date": 2,
     }
     gas_symbols = sum(gas_symbol_rows.values())
-    assert gas_symbols == 88
+    assert gas_symbols == 90
+    # Selected flag_strip_local_absolute=0: predefine_symbol uses symbol_create,
+    # not symbol_new. Hash insertion does not append to the output chain.
+    output_chain_symbols = gas_symbols-2
+    assert output_chain_symbols == 88
     bfd_symbols = gas_symbols+13+1
-    assert bfd_symbols == 102
+    assert bfd_symbols == 104
     fixups = eh_frame+sframe_bytes+3*32
     assert fixups == 279 and fixups+2 == 281
     assert gas_symbols < 2**31 and bfd_symbols < 2**32 and fixups < 2**32
-    assert (fixups+2)*8 == 2248 and gas_symbols*8 == 704
+    assert (fixups+2)*8 == 2248 and output_chain_symbols*8 == 704
     result = {
         "commit": PIN,
         "source_files_checked": len(sources),
@@ -338,6 +343,8 @@ def main():
         "selected_GAS_symbols_and_fixups": {
             "GAS_symbol_creation_rows": gas_symbol_rows,
             "GAS_symbol_objects": gas_symbols,
+            "GAS_output_chain_symbols_upper": output_chain_symbols,
+            "non_output_predefined_full_symbols_upper": 2,
             "maximum_name_copy_bytes_including_NUL": 26,
             "local_conversions_per_symbol_at_most": 1,
             "BFD_symbol_allocations_through_GAS": bfd_symbols,
@@ -355,7 +362,7 @@ def main():
             "extra_build_note_reloc_list_objects": 2,
             "maximum_relocation_pointer_slots": fixups+2,
             "maximum_relocation_pointer_array_bytes": (fixups+2)*8,
-            "maximum_symbol_pointer_array_bytes": gas_symbols*8,
+            "maximum_symbol_pointer_array_bytes": output_chain_symbols*8,
             "numeric_property_label_numbers": list(range(5)),
             "maximum_numeric_label_instances_each": 3,
             "numeric_label_sparse_array_allocations": 0,

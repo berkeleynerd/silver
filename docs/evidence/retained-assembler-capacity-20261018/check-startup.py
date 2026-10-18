@@ -164,9 +164,9 @@ gas_result = json.loads((root / 'check-results.json').read_text())
 assert object_result['section_headers_including_null'] == 22
 assert object_result['relocations_upper'] == 281
 assert object_result['outgoing_symbol_entries_including_null'] == 98
-assert gas_result['selected_GAS_symbols_and_fixups']['BFD_symbol_allocations_through_GAS'] == 102
+assert gas_result['selected_GAS_symbols_and_fixups']['BFD_symbol_allocations_through_GAS'] == 104
 later_main_arena = {
-    'BFD_symbols': 102*128,
+    'BFD_symbols': 104*128,
     'relocation_headers': 9*80,
     'relocation_names': 9*32,
     'section_header_pointers': 22*8,
@@ -176,9 +176,9 @@ later_main_arena = {
     'serialized_relocations_combined': 281*24,
     'serialized_section_headers': 22*64,
 }
-assert sum(later_main_arena.values()) == 23352
+assert sum(later_main_arena.values()) == 23608
 lifetime_counter_fixed = startup_counter_fixed+sum(later_main_arena.values())
-assert lifetime_counter_fixed == 31800
+assert lifetime_counter_fixed == 32056
 largest_P = (1 << 63)-1-23
 assert largest_P+lifetime_counter_fixed < (1 << 64)
 fixed_requests = {
@@ -212,7 +212,7 @@ result = {
     'BFD_lifetime_alloc_size_contract': 'P+8448+R<=2^64-1; R includes all other successful raw requests, even later released',
     'selected_later_main_arena_raw_bytes_upper_by_class': later_main_arena,
     'selected_later_main_arena_R_upper': sum(later_main_arena.values()),
-    'selected_BFD_lifetime_alloc_size_upper': 'P+31800',
+    'selected_BFD_lifetime_alloc_size_upper': 'P+32056',
     'selected_lifetime_main_arena_request_contract': 'max(P,6744)+23<=PTRDIFF_MAX; 1<=P',
     'selected_output_BFD_alloc_size_counter_join_complete': True,
     'whole_BFD_request_inventory_complete': False,
