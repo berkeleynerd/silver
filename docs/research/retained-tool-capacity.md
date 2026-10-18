@@ -120,6 +120,46 @@ conditions are explicit; the [attachment review](../reviews/review-native-ingres
 accepts these joins and all 67 aggregate checks pass. Original frontend/gigi,
 remaining helper/warning-map lifetimes and shared collector accounting stay open.
 
+The [protected-set storage review](../reviews/review-protected-unshare-storage-789e7ddf4c.md)
+accepts the later ordinary control/backing closure: one <=64-byte control,
+C+2 backings, explicit growth/probe products, and zero added GGC events. The
+[warning-map transfer](retained-literal-warning-map.md), independently
+[accepted](../reviews/review-literal-warning-map-dcfd30d999.md), adds the separate
+C location-setter calls to the direct C+1 warning copies. Its fixed-prefix
+capacity ceiling is 4093 entries; local original-gigi suppressions are at most
+2C+N. Remaining original-gigi insertion demand R is still uninstantiated.
+The aggregate's 73 checks include rejection of a silent zero substitution;
+no map allocation subtotal or fit claim assumes that missing count.
+
+The [literal Main frontend adapter](retained-literal-native-frontend.md),
+[independently accepted](../reviews/review-literal-native-frontend-de30957c9e.md),
+maps actual selected source bytes to the established native constructor model:
+Main nodes <=41+19C+4N, entities <=1+2C, slots <=430+329C+36N, lists
+<=15+8C+N and named gigi syntax visits <=73+81C+4N. Fixed frontend and
+configuration allowances remain unattached; syntax visits are not a bound on
+imported/synthetic gigi declarations or allocations.
+The aggregate attaches these exact Main fields from the same source bytes;
+the affected offline suite now passes 83 interface checks.
+
+[Finding #131](https://github.com/berkeleynerd/silver/issues/131) identifies a
+missing premise in earlier whole-unit pool/graph and emitted-stream joins.
+Main's constant literal extents do not exclude size-function helpers from
+the separately imported Standard.String template/object layout. The absence
+or bounded contribution of those helpers remains unestablished. Main-only
+constructor/ingress interfaces survive; numerical whole-unit pool, graph and
+complete assembler/GAS/link transfers require that additional premise. Earlier
+scoped reviews and successful arithmetic checks do not discharge it. This is
+a research assurance gap, not observed helper emission or a production failure.
+Repair `20fb4c6ad2` exposes the five dependent conditions as unknown, separately
+from failed conditional arithmetic; no source-family aggregate fit is reported.
+The [source-frontier packet](retained-literal-gigi-warning-residual.md) retains
+the exact imported-layout chain and historical claim dependencies. Its next
+question is the first cold XUA size fold and XUT object-record continuation,
+including canonical/repeated layout and eventual helper emission or discard.
+The [batch review](../reviews/review-literal-frontend-and-imported-frontier-20fb4c6ad2.md)
+accepts the Main attachment, finding and repair without new material findings.
+It preserves the actual imported-frontier derivation as unfinished #119 work.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
@@ -182,6 +222,15 @@ shows that this one discarded counter value can wrap with defined OCaml
 semantics without affecting behavior. Real tags, event/traversal counts,
 weak-table/cache backing, later driver transformations, task-printing,
 solver and report consumers remain separate obligations.
+
+The [conditional preparation transfer](retained-why-preparation-bound.md),
+[accepted on independent review](../reviews/review-why-preparation-5a731deb4a.md),
+now bounds `inline_trivial` opened-term output, selected recursive entries,
+kernel fresh-variable identifiers, declaration-tag events and task-chain length.
+It preserves each selected driver's exact preparation order. This transfer
+still requires actual term/context dimensions after `update_task` and preceding
+transforms; registration counts do not supply them. Hidden substitution work,
+non-kernel validators, other tags and shared backing remain separate obligations.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

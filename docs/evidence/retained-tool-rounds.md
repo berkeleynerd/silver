@@ -347,3 +347,105 @@ Sol High packaging interval: 19:20:21–19:23:37 UTC (196 seconds),
 from worktree/branch creation through draft preparation and record completion,
 excluding final whitespace/link inspection, commit and parent review. Only this
 round record was changed in the repository; PR/issue drafts remain local in `/tmp`.
+
+## Round 6 — close named storage and preparation interfaces
+
+Date: 2026-10-18. Published starting point: `3867149311` (Round 5).
+Selections below are requested agent settings, not independently confirmed
+runtime settings. Lead settings, token usage and monetary costs are unavailable.
+
+| Work | Selected model / effort | Result |
+| --- | --- | --- |
+| Protected unshare-set ordinary storage | Lead; runtime setting unavailable | One control object, bounded backing requests and arithmetic joined in `789e7ddf4c` |
+| Warning-map source transfer | GPT-6 Astra / Extra High | Conditional map transfer integrated as `fb0dc48291`; attachment `6803ee54ca` preserves missing original-gigi demand R |
+| Why3 inlining preparation | GPT-6 Astra / Extra High | Conditional term/kernel/declaration transfer integrated as `7e5a1d828d`; actual entry dimensions remain separate |
+| Independent reviews of these interfaces | GPT-6 Astra / Extra High | Scoped acceptance without material findings; reports integrated as `a142d77f29`, `42bbb971e4`, `d58cd29dd7` and `ff6f7bc107` |
+| Main frontend source mapping and aggregate attachment | GPT-6.1 Sol / Extra High | Leaf `439c2dfeea` and attachment `604b66778a` supply concrete Main counts; fixed/imported contributions remain open |
+| Independent frontend source review | GPT-6 Astra / Extra High | `4d23da3d38` accepts the leaf without findings |
+| Original-gigi R follow-up | GPT-6 Astra / Extra High | `6b6e6bea3e` isolates the imported String layout frontier and finds #131; R remains unresolved |
+| #131 claim/interface repair | Lead; runtime setting unavailable | `20fb4c6ad2` separates conditional arithmetic from five unresolved source-family joins |
+| Independent attachment/finding/repair review | GPT-6 Astra / Extra High | `5e068e0af6` accepts `20fb4c6ad2` and finding packet `696e470685` without new material findings |
+
+The [protected-set review](../reviews/review-protected-unshare-storage-789e7ddf4c.md)
+accepts one ordinary control request of at most 64 bytes, at most C+2 backing
+requests, explicit prime/probe/growth products and zero additional GGC events.
+The selected external allocator boundary remains unchanged. Parent aggregate
+and default checks took 3.387878811 and 3.014706657 seconds; independent replay
+passed all 72 cases in 3.266292539 seconds. Review elapsed: 143 seconds.
+
+The [warning-map review](../reviews/review-literal-warning-map-dcfd30d999.md)
+accepts the 4093-entry fixed-prefix ceiling, local suppression demand 2C+N,
+and selected initial-gimplifier insertion demand 2C+1. The latter includes C
+location-setter copies in addition to C+1 direct copies. The formula still
+requires every other original-gigi insertion, R. Its aggregate attachment
+exports demand without assuming R=0, adding a negative check for that invalid
+substitution. Parent checks passed all 73 cases in 3.343617804 seconds; default
+generation took 2.869469845 seconds. The component review's 0.152758193-second
+replay checked 28 sources, four retained inputs and 60,000 hash states with
+111 expansions before existing-key hits. The attachment review reused the
+successful aggregate evidence. Worker/source-review/attachment-review elapsed
+times were 549/295/29 seconds. Self-review corrected two draft branch
+descriptions before freeze; independent review requested no material repair.
+
+The [Why3 preparation review](../reviews/review-why-preparation-5a731deb4a.md)
+accepts the opened-term recurrence, selected recursive-entry and kernel
+fresh-variable counts, declaration-tag events and nonincreasing task-chain
+length. It independently checks relocation's removal of delayed substitutions
+and all fourteen archived source identities. Six hundred synthetic expansion
+checks and the focused negative/CLI checks pass; independent replay took
+0.518 seconds. Worker elapsed was 624 seconds and review elapsed 194 seconds.
+Self-review separated kernel identifiers from validator identifiers, closed
+the relocation precondition and preserved independent environment maxima.
+Actual dimensions after `update_task` and preceding transforms, hidden
+substitution work, other tags, caches and complete preparation remain open.
+
+The [Main frontend review](../reviews/review-literal-native-frontend-de30957c9e.md)
+accepts the actual-byte mapping to the unchanged constructor formulas. Its
+seven check groups include 84 call/null combinations, 23 negatives and 5,000
+calls; 151 selected Ada identities and the 2,319-file macro inventory match.
+Worker elapsed was 549 seconds; independent review took 209 seconds, including
+a 0.756529962-second replay. The worker corrected a fixture-dictionary lookup
+before freeze. Sol then completed the aggregate attachment in 254 seconds
+through commit. Its 83 checks/default took 4.417314490/3.682163841 seconds;
+an initial wrong source-root preflight stopped before evaluation and was
+corrected without formula changes. Both fixed fields remain null; Main syntax
+visits are never substituted for synthetic gigi events or R.
+
+The [R follow-up](../research/retained-literal-gigi-warning-residual.md)
+did not close R. In 660 seconds it identified
+[medium finding #131](https://github.com/berkeleynerd/silver/issues/131):
+constant Main literal extents had been used to exclude helper bodies from
+the separate imported Standard.String layout. Its 23 source/scope checks
+verify fourteen source files and fourteen historical inputs in 0.0984 seconds.
+No actual helper creation/absence or production failure was observed. The
+parent repair keeps pool/graph and complete assembly/GAS/link arithmetic
+conditional, makes the five source-family conditions unknown, and separates
+unknown conditions from arithmetic failures. All 83 aggregate checks pass in
+4.002640986 seconds; default generation took 3.106937277 seconds. Hello and
+the 8,192-byte literal now explicitly have no established aggregate fit; the
+5,000-call conditional relocation failure remains diagnostic.
+The [batch review](../reviews/review-literal-frontend-and-imported-frontier-20fb4c6ad2.md)
+accepted the attachment, finding and repair in 248 seconds, reusing successful
+checks and independently auditing source identities, seven frontend pins,
+unchanged leaf bytes, exact Main-interface equality, ten negative rows and
+the unknown/failure distinction. No additional aggregate replay was needed.
+
+These intervals overlap and cover different activities; they are not additive
+team runtime or model-inference costs. **New native executions: zero.** There
+was no solver run, broad build/proof/test, clean rebuild or full audit. Retained
+successful evidence was reused where inputs and assumptions were unchanged.
+
+Round outcome at this checkpoint: specific storage, Main source and conditional
+transform interfaces are integrated. Source analysis exposed an additional
+warning-copy route before freeze and a material inherited scope gap, requiring
+retraction of five source-family fit claims. It did not yet close total warning
+demand or instantiate the Why3 transfer. This is evidence of bounded progress, not
+evidence that the whole capacity rule is nearly complete or that one model
+caused a better outcome. The next bounded source task traces the cold imported
+String XUA/XUT layout and any generated helper contribution; it uses Astra
+Extra High and is separate from this checkpoint's completed evidence.
+Shared-lifetime, launch and producer obligations, broader grammar and
+useful-domain comparison remain required.
+#119 stays open; #88–#94 remain authorized and unstarted. Oracle, installed
+tools, production admission and the completed For loops harness goal are
+unchanged. CLI memory is unavailable and was not updated.
