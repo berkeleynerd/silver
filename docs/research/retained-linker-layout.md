@@ -784,6 +784,153 @@ writer. The input search returns a candidate with no attributes
 (`elf-attrs.c:2153–2183`). Object-attribute output payload is zero. Empty-list
 bookkeeping remains outside this zero-payload claim.
 
+## Selected effective alignment and allocated shape
+
+The [layout-shape checker](../evidence/retained-linker-layout-20261018/check-layout-shape.py)
+joins the accepted optional-section/default records to a fresh read/hash census
+of the fixed ELF inputs. It retains complete source files for the selected
+emulation generator and all fourteen `source_sh` dependencies. It does not run
+the linker or substitute an observed executable for the source argument.
+
+The selected non-page section alignment is at most 64. Fixed inputs attain
+64; Main is at most eight and the accepted binder at most 32. Generic ELF64
+dynamic tables and relocations use `log_file_align=3`, while the version-index
+alignment power is one (`bfd/elfcode.h:129–136`, `bfd/elflink.c:229–573`). The selected PLT
+alignment is at most 16: the target's default power is four, and later x86
+setup uses the selected eight/16-byte entry sizes
+(`bfd/elf64-x86-64.c:6353`, `bfd/elfxx-x86.c:4705–4785`). Property rewrites and
+PLT unwind inputs use eight; copy storage takes at most its original defining
+section's 64-byte alignment. TLS alignment only takes the maximum of existing
+TLS inputs (`elflink.c:3625–3649`). Merge grouping/placement preserves input
+alignment. COMMON, SFrame and object-attribute additions are excluded by the
+preceding joins, and the selected compression exclusion prevents an unseen
+uncompressed-section alignment from entering later.
+
+The script has no `SUBALIGN` or explicit output alignment declaration.
+Its two `ALIGN(MAXPAGESIZE)+offset` expressions are section addresses, not
+alignment overrides. Output construction and placement take the maximum of
+member alignments (`ld/ldlang.c:2915–2916,5618–5627`); a property conversion
+can reset its own output to eight (`bfd/elf-properties.c:993–999`). There are
+no fixed or generated `SHF_GNU_MBIND` inputs. Even the excluded mbind page
+promotion would be at most the selected 4,096-byte common page size
+(`bfd/elf.c:4908–4935`). The target maximum/common page size is also 4,096
+and no selected option overrides it. Thus **`A=4096`** satisfies the earlier
+virtual/file placement premises.
+
+For EH specifically, the fixed input maximum is eight, as are Main, binder
+and all three synthetic PLT inputs. They map to the ordinary `.eh_frame`
+output, whose member-maximum alignment has no overriding script clause.
+Therefore **`Aeh=8`**, closing that input of the editing transfer.
+
+There are no fixed or generated `SHF_LINK_ORDER` sections. BFD only creates
+the linked-to relation from that flag (`bfd/elf.c:802–840`), and the selected
+link-order scan excludes linker-created sections
+(`ld/ldelfgen.c:82–86`). No reordering request reaches
+`fixup_link_order`. With the separately established `enable_dt_relr=false`,
+the x86 relaxation hook sets `again=false` and returns without editing
+(`bfd/elfxx-x86.c:1089–1097`). The segment mapper's relative-relocation sizing
+hook is gated by the same false option (`bfd/elf.c:5104–5110`).
+
+The census has only 45 distinct allocated ET_REL input names, mapped by the
+selected script to fifteen ordinary output/orphan families. All allocation
+flags, section types and alignments are retained in the result. The only
+unmatched allocated name is `.tm_clone_table`, which has zero payload and
+is placed with writable data by the orphan rule (`ld/ldelf.c:2356–2357`).
+The other names are `.text*`, `.rodata*`, `.data*`, `.bss`, `.eh_frame`,
+`.gcc_except_table`, `.init`, `.fini`, `.init_array*`, `.fini_array*`, `.tbss`
+and the two property/ABI notes. No large-data or mbind input flags occur.
+Shared-object payloads are symbol providers; they do not introduce additional
+mapped ET_REL sections into this shape. Main and binder add only the same
+ordinary families. Synthetic sections were enumerated in the earlier source
+census and have the corresponding code, readonly, writable or relocation
+placement class.
+
+The installed help record and its configuration-macro branch establish
+`link_info.separate_code=false`. The independent `config.separate_code`
+uses the selected emulation's `SEPARATE_CODE` variable (`elf.em:86`); the
+selected parameter file, its complete dependencies and script generator do
+not enable it. The script uses one default memory region and no `AT`,
+`MEMORY` or `PHDRS` override. These facts also exclude the extra segment
+splits in `ldlang_override_segment_assignment`
+(`ldlang.c:6569–6590`).
+
+The ten-attempt loop in `ldelf_map_segments` is a bound on work, not by itself
+a no-error convergence argument: exhaustion reports `looping in map_segments`
+(`ldelfgen.c:261–329`). With ordering and RELR excluded, its remaining retry
+trigger is changed program-header size. For this selected input family that
+size reaches a fixed point in at most two map iterations, as follows.
+
+The script places the allocated readonly/code families in one contiguous
+region and the writable families in a second. Synthetic readonly relocations
+that lack an explicit script wildcard use the relocation orphan class before
+the writable region (`ldelf.c:2358–2385`). Writable copy/GOT/dynamic sections
+are in the second region. Member/output alignment gaps are at most 63 bytes.
+The retained default enables RELRO; `DATA_SEGMENT_ALIGN` starts the writable
+region at `round_up(readonly_end,4096)` (`ld/ldexp.c:463–489`). RELRO adjustment
+can add less than one page to that base, since its desired endpoint rounds
+the prior endpoint up by at most 4,095 and the backwards walk only rounds
+section starts down (`ldlang.c:6633–6664`). Its fallback reverts to the original
+base (`ldlang.c:6680–6686`). The backwards walk includes the first allocated
+family and rounds its desired start to that family's alignment; forward
+placement therefore does not add another alignment bump to this base.
+
+The explicit RELRO-end adjustment also inserts less than one page
+(`ldexp.c:519–527`). The script couples its offset to the following section:
+it is 24 only when `.got.plt` has at least 24 bytes, and zero otherwise.
+The preceding `.dynamic`/`.got` end and selected GOT/PLT alignment are
+multiples of eight. The adjusted endpoint, either page-aligned or 24 bytes
+before that boundary, therefore already meets the following GOT alignment.
+In the 24-byte case `.got.plt` occupies the rest of that page; in the zero
+case a later ordinary alignment cannot skip past that page boundary.
+No internal gap therefore skips a complete additional page beyond
+`round_up(previous_end,4096)`.
+
+The only ordinary NOBITS family outside TLS is the final `.bss`. TLS `.tbss`
+has effective size zero for ordinary layout/segment grouping
+(`ldlang.c:6773–6776`, `bfd/elf.c:5405–5406,5431–5432`); its following loaded
+data does not trigger a nonloaded-to-loaded split. The empty large-region
+declarations do not add allocated payload: no selected input maps to `.lbss`,
+`.lrodata` or `.ldata`; assignment-only output initialization has flags zero
+(`ldlang.c:2571–2581,4447–4449`), and `.ldata`'s eight-byte alignment assignment
+does not move its already eight-aligned starting address. The dot-padding path
+only adds `SEC_ALLOC` when dot actually changes (`ldlang.c:6444–6463`).
+
+Under the earlier nonwrapping address bound, every BFD split predicate now
+has a determined outcome (`bfd/elf.c:5312–5386`): LMAs and VMAs coincide;
+successive sections do not overlap; no internal full-page gap exists; no
+loaded section follows final BSS; both separate-code controls are false; and
+all sections use the same memory region. The readonly-to-writable boundary
+is on a later page and causes one split. `.interp` and `.dynamic` ensure both
+regions are nonempty. Thus exactly **two `PT_LOAD` segments** occur, independent
+of the exact header-prefix length and payload sizes within these families.
+The header-only extra LOAD path requires separate-code and is absent
+(`elf.c:5248–5299`).
+
+The remaining header counts are independent of these address shifts. The
+only allocated notes are `.note.gnu.property` (alignment eight) and
+`.note.ABI-tag` (alignment four); their distinct alignments prevent
+address-dependent note coalescing. An optional GAS build-attribute note is
+nonallocated (`gas/write.c:2005–2010`). Interpreter/PHDR, dynamic, EH-header,
+stack, property and TLS headers depend on stable section/flag presence after
+discard. The `.dynamic` constructor supplies loadable contents and its sizing
+always appends at least one `DT_NULL`, so it is nonempty and also supplies
+loaded RELRO content (`elfxx-target.h:399–405`, `elflink.c:398–402,8204–8206`).
+The selected backend has no segment-map modification hook
+(`elfxx-target.h:518–520`; no selected x86 override), and its extra large-region
+header hook adds none for the empty declarations
+(`elf64-x86-64.c:6180–6198`). SFrame and mbind were excluded above.
+
+Consequently the map contains at most twelve program headers: two LOAD,
+two interpreter/PHDR, two NOTE and one each for dynamic, EH-header, stack,
+RELRO, property and TLS. Its ELF/program-header prefix is at most
+`64+12*56=736` bytes, below one page. The initial estimator also counts at most
+this many (`elf.c:4816–4950`). The first map can correct an earlier estimate
+or discarded-header presence; repeating layout with that count leaves the same
+map count, so the second iteration exits. This closes the ten-try exhaustion
+condition for the selected family. It does not establish input symbol/relocation
+legality or bound all auxiliary heap requests. The broader earlier `T` bound
+remains a valid conservative input to the retained address/file formulas.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:

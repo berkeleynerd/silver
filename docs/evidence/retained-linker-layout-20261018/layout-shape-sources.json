@@ -1,0 +1,86 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "6044b1a1f424d094823874e94b8930e5b6beeef203e9678428916d83be76b014",
+  "files": [
+    {
+      "path": "gas/write.c",
+      "bytes": 89643,
+      "sha256": "077c6f5a3ae7087ac95151075b91ef09fb7af8514569d791b13eae37c35cc232"
+    },
+    {
+      "path": "ld/emulparams/call_nop.sh",
+      "bytes": 1363,
+      "sha256": "94191ca2e62c7ad9ce416e8c33c4862dafab46fd56f9481dc28dea6b41442646"
+    },
+    {
+      "path": "ld/emulparams/cet.sh",
+      "bytes": 1403,
+      "sha256": "4697ec0b2cfa0fba642d5ac2e015762630b0070fc9fb561b815cc3c7c96a174a"
+    },
+    {
+      "path": "ld/emulparams/dt-relr.sh",
+      "bytes": 698,
+      "sha256": "76100ef84c4bb79ead6386fe31beb2428140c22e6edfabe513722d5a39d7ea88"
+    },
+    {
+      "path": "ld/emulparams/dynamic_undefined_weak.sh",
+      "bytes": 693,
+      "sha256": "2750921edee03b78cf2ff0e13ed292ce9f0caea5d2823503a5e16cf0a04a32e7"
+    },
+    {
+      "path": "ld/emulparams/extern_protected_data.sh",
+      "bytes": 1024,
+      "sha256": "7611dae157240b1e33fce580aaa5822fce23504b6d72cb696cb6699ae6e32634"
+    },
+    {
+      "path": "ld/emulparams/plt_unwind.sh",
+      "bytes": 474,
+      "sha256": "3055c6bc6b6600ae204e88e372acbce47cdebf7935f6a40353217379fe279ead"
+    },
+    {
+      "path": "ld/emulparams/reloc_overflow.sh",
+      "bytes": 466,
+      "sha256": "2c0322c51d079c3417ea23595492c1814bea3788216e8944c7ba30d6e95d2de2"
+    },
+    {
+      "path": "ld/emulparams/sframe-info.sh",
+      "bytes": 414,
+      "sha256": "b48eb6401b0189da4576d87b4dd882106975ed83e94a1a2cdd350d23a11c7450"
+    },
+    {
+      "path": "ld/emulparams/static.sh",
+      "bytes": 352,
+      "sha256": "02ca50812bceba80c5c3b6b7685680bc8c1dafdad717cb8154f3989a9f0cc07e"
+    },
+    {
+      "path": "ld/emulparams/x86-64-lam.sh",
+      "bytes": 2567,
+      "sha256": "437079952ed579bf00044bc3884b755b456f97597ba8ce0b0e8aac8190cd9496"
+    },
+    {
+      "path": "ld/emulparams/x86-64-level-report.sh",
+      "bytes": 1048,
+      "sha256": "34d6d716affbd739c2e732facb13582574964d6029b002e2c84419335692c2b3"
+    },
+    {
+      "path": "ld/emulparams/x86-64-level.sh",
+      "bytes": 724,
+      "sha256": "3e38e27c66d8f8c3a02ab478bd7704c2d6eca900c362d2ab0fbf4694588a9689"
+    },
+    {
+      "path": "ld/emulparams/x86-64-plt.sh",
+      "bytes": 774,
+      "sha256": "f3dea13812004d62033dbd7142dfd1705cfa10af423990a21061e59caf968e83"
+    },
+    {
+      "path": "ld/emulparams/x86-report-relative.sh",
+      "bytes": 480,
+      "sha256": "ff124d0cb6ca7332f5f2e2a63892f947716f5b91a2ddd57e13da287629ce0a51"
+    },
+    {
+      "path": "ld/genscripts.sh",
+      "bytes": 26966,
+      "sha256": "ae8148f865b4e14d084c6d5a98e30e59447a21bc7667c0a7764d109c90d250ee"
+    }
+  ]
+}

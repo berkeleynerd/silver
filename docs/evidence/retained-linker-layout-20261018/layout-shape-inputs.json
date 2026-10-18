@@ -1,0 +1,32 @@
+[
+  {
+    "key": "defaults",
+    "path": "docs/evidence/retained-linker-defaults-20261018/result.json",
+    "bytes": 991,
+    "sha256": "340ce76194469a18645ae71be74f1b0323b87e0d7480b821abde6dfd42d39654"
+  },
+  {
+    "key": "copy",
+    "path": "docs/evidence/retained-linker-layout-20261018/copy-optional-results.json",
+    "bytes": 1432,
+    "sha256": "a907aee181764b280d0c0f25d3c4502146cb1acd8bd9f6e74702912db19c9b65"
+  },
+  {
+    "key": "inventory",
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "key": "script",
+    "path": "docs/evidence/retained-link-inputs-20261018/link-script/installed-elf_x86_64.xdc",
+    "bytes": 10896,
+    "sha256": "ae316744bbc3cdc9e040eb4ffed36689b873a12c796d39f220ca1697f897bd3f"
+  },
+  {
+    "key": "binder",
+    "path": "docs/evidence/retained-linker-join-20261018/binder-object.json",
+    "bytes": 50410,
+    "sha256": "f1abbb0e5795ef2eb9277c5536d2bad7bfc325f0d9ab435629c6028945288b97"
+  }
+]

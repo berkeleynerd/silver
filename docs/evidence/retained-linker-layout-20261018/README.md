@@ -174,3 +174,38 @@ adjustment/alignment arguments, and replayed the copy arithmetic byte-equal.
 A second source review confirmed the CTF/attribute early-return paths. Neither
 review claims complete linker capacity or relocation legality. No native
 compiler, assembler, linker, prover or Lean execution was added by this packet.
+
+
+`check-layout-shape.py` joins the selected defaults, optional-section record,
+source-derived generated-object families and a fresh installed fixed-input
+census. `layout-shape-inputs.json` pins those inputs, including the immutable
+binder-object projection. `layout-shape-sources.tar.gz` retains the complete
+script generator, fourteen selected emulation dependencies and GAS note writer,
+in addition to the original retained linker sources (43 distinct files total).
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-layout-shape.py --output /tmp/retained-layout-shape-replay.json
+```
+
+During integration `--prior-repo` may point to the accepted prerequisite
+worktree. The offline census hashes 15 fixed input spellings and 1,161 archive
+members, retains all 45 allocated ET_REL name/type/flag/alignment rows and
+reconciles their fifteen script/orphan families. It verifies absent link-order,
+mbind and large-section flags. The source argument establishes selected ordinary
+alignment at most 64, general layout alignment 4,096 and EH alignment eight.
+
+The accompanying source split-predicate and header-count argument establishes
+two LOAD segments, at most twelve program headers and a fixed program-header
+count within two mapping iterations. This is conditional on the accepted
+generated-emission/fixed-input family, selected script/options and nonwrapping
+address arithmetic. The source anchors reconcile that handwritten argument;
+they do not automatically prove C control flow. The result does not establish
+relocation legality or complete linker auxiliary storage. No native tool ran.
+
+
+Independent narrow review replayed this result byte-equal, inspected all 45
+allocated-name/type/flag rows and fifteen script groups, and checked the
+split predicates, empty large outputs, RELRO 0/24-byte offset/alignment cases,
+nonempty loaded dynamic/RELRO content and stable optional-header presence.
+It accepted the alignment and two-iteration convergence transfer under the
+stated emission/default/nonwrapping premises. The review ran no native tools.
