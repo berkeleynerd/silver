@@ -34,7 +34,7 @@ particular, the small fields in `eh_cie_fde` require CIE augmentation-string
 length including NUL at most7, augmentation-data length at most31, and
 personality/LSDA offsets at most255 (`elf-bfd.h:345–445`). The CIE initial
 instruction length stored in an unsigned byte must fit255 before trimming
-padding (`elf-eh-frame.c:31–58,905–918,1009–1015`). LEB values and supported
+padding (`elf-eh-frame.c:31–58,893–897,1009–1018`). LEB values and supported
 encodings must have their documented meanings. These are emitter/fixed-byte
 obligations; this packet does not infer them from a small total section size
 or claim that arbitrary valid DWARF satisfies the internal bitfields.
@@ -94,7 +94,7 @@ the single output `.eh_frame` payload. It is not a total-allocation gate.
 ## CIE merging and header storage
 
 Only a kept FDE calls `find_merged_cie`; it first increments the shared FDE
-count (`:1576–1581`). A CIE already kept or merged immediately returns.
+count (`:1582–1585`). A CIE already kept or merged immediately returns.
 Otherwise one hash lookup can insert one136-byte copy (`:1210–1337`). Thus
 the total number of CIE copies and the hash's distinct live entries are at
 most F, even when the raw input contains unused CIEs. The initial request1
@@ -145,3 +145,8 @@ fixed emitted-field validity, relocation-cookie/symbol storage, shared BFD
 allocation backing and the final image layout. These are required before
 this transfer contributes a whole-source acceptance verdict. The broader
 [capacity design](retained-tool-capacity.md) remains unfinished.
+
+Independent source review checked the layouts, counting/editing arithmetic,
+hash growth and header-array lifecycle, finding no defect in these conditional
+claims. It corrected the two source citations above. That review does not
+establish the remaining emitter or final-layout obligations.
