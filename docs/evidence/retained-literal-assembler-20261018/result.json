@@ -1,0 +1,533 @@
+{
+  "all_checks_pass": true,
+  "case_count": 10,
+  "cases": [
+    {
+      "case": "hello",
+      "result": {
+        "counts": {
+          "calls": 1,
+          "nulls": 0,
+          "decoded_bytes": 13,
+          "maximum_literal_length": 13
+        },
+        "final_chain": 52,
+        "text_bytes_upper": 53,
+        "assembly": {
+          "lines_upper": 187,
+          "bytes_upper": 11471,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 35,
+          "reservation_bytes_upper": 483,
+          "fragment_allocations_upper": 1030,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 10,
+          "symbol_allocations_upper": 147,
+          "output_symbols_upper": 145,
+          "BFD_symbol_allocations_upper": 162,
+          "fixups_upper": 282,
+          "relocations_upper": 284,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 156,
+          "symbol_string_names_upper": 155,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 155,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 482,
+            "symbols": 3744,
+            "relocations": 6816,
+            "symbol_strings": 4031,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 17592
+        },
+        "local_checks": {
+          "literal_length": true,
+          "backend_chain": true,
+          "text_and_CFI": true,
+          "physical_lines": true,
+          "fragment_counter": true,
+          "region": true,
+          "symbol_indices": true,
+          "fixup_and_relocation_counts": true,
+          "symbol_string_offsets": true,
+          "section_string_offsets": true,
+          "object_offsets": true,
+          "symbol_record_requests": true,
+          "relocation_record_requests": true,
+          "string_sort_pointer_requests": true
+        },
+        "local_interface_fits": true,
+        "open_joins": [
+          "GAS_subsidiary_lifetimes_and_hash_growth",
+          "BFD_arena_and_string_table_growth",
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "source_identity": {
+          "bytes": 112,
+          "sha256": "1cd6c5aa99c3acc1ea8fb1a453580a40f04c6f6cf96305d2b77ac1521e91945a"
+        }
+      }
+    },
+    {
+      "case": "empty_and_quote",
+      "result": {
+        "counts": {
+          "calls": 2,
+          "nulls": 1,
+          "decoded_bytes": 3,
+          "maximum_literal_length": 3
+        },
+        "final_chain": 66,
+        "text_bytes_upper": 88,
+        "assembly": {
+          "lines_upper": 199,
+          "bytes_upper": 12763,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 47,
+          "reservation_bytes_upper": 518,
+          "fragment_allocations_upper": 1102,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 10,
+          "symbol_allocations_upper": 163,
+          "output_symbols_upper": 161,
+          "BFD_symbol_allocations_upper": 178,
+          "fixups_upper": 285,
+          "relocations_upper": 287,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 172,
+          "symbol_string_names_upper": 171,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 171,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 529,
+            "symbols": 4128,
+            "relocations": 6888,
+            "symbol_strings": 4447,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 18511
+        },
+        "local_checks": {
+          "literal_length": true,
+          "backend_chain": true,
+          "text_and_CFI": true,
+          "physical_lines": true,
+          "fragment_counter": true,
+          "region": true,
+          "symbol_indices": true,
+          "fixup_and_relocation_counts": true,
+          "symbol_string_offsets": true,
+          "section_string_offsets": true,
+          "object_offsets": true,
+          "symbol_record_requests": true,
+          "relocation_record_requests": true,
+          "string_sort_pointer_requests": true
+        },
+        "local_interface_fits": true,
+        "open_joins": [
+          "GAS_subsidiary_lifetimes_and_hash_growth",
+          "BFD_arena_and_string_table_growth",
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "source_identity": {
+          "bytes": 129,
+          "sha256": "66afdd84490387df0a8ee8c05bb54fece97a8b633966eabfb777f204fae2f074"
+        }
+      }
+    },
+    {
+      "case": "large_literal",
+      "result": {
+        "counts": {
+          "calls": 1,
+          "nulls": 0,
+          "decoded_bytes": 8192,
+          "maximum_literal_length": 8192
+        },
+        "final_chain": 52,
+        "text_bytes_upper": 53,
+        "assembly": {
+          "lines_upper": 8366,
+          "bytes_upper": 117798,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 8214,
+          "reservation_bytes_upper": 8662,
+          "fragment_allocations_upper": 17388,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 10,
+          "symbol_allocations_upper": 147,
+          "output_symbols_upper": 145,
+          "BFD_symbol_allocations_upper": 162,
+          "fixups_upper": 282,
+          "relocations_upper": 284,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 156,
+          "symbol_string_names_upper": 155,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 155,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 8661,
+            "symbols": 3744,
+            "relocations": 6816,
+            "symbol_strings": 4031,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 25771
+        },
+        "local_checks": {
+          "literal_length": true,
+          "backend_chain": true,
+          "text_and_CFI": true,
+          "physical_lines": true,
+          "fragment_counter": true,
+          "region": true,
+          "symbol_indices": true,
+          "fixup_and_relocation_counts": true,
+          "symbol_string_offsets": true,
+          "section_string_offsets": true,
+          "object_offsets": true,
+          "symbol_record_requests": true,
+          "relocation_record_requests": true,
+          "string_sort_pointer_requests": true
+        },
+        "local_interface_fits": true,
+        "open_joins": [
+          "GAS_subsidiary_lifetimes_and_hash_growth",
+          "BFD_arena_and_string_table_growth",
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "source_identity": {
+          "bytes": 8286,
+          "sha256": "cf15e19ef716d97f4b6fe5f8794ee2786487fdd7cde9a0c627e17b5e5104c3f0"
+        }
+      }
+    },
+    {
+      "case": "5000_calls",
+      "result": {
+        "counts": {
+          "calls": 5000,
+          "nulls": 0,
+          "decoded_bytes": 5000,
+          "maximum_literal_length": 1
+        },
+        "final_chain": 35045,
+        "text_bytes_upper": 155022,
+        "assembly": {
+          "lines_upper": 80159,
+          "bytes_upper": 4910335,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 115000,
+          "reservation_bytes_upper": 210429,
+          "fragment_allocations_upper": 430920,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 10001,
+          "symbol_allocations_upper": 45138,
+          "output_symbols_upper": 45136,
+          "BFD_symbol_allocations_upper": 45153,
+          "fixups_upper": 15279,
+          "relocations_upper": 15281,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 45147,
+          "symbol_string_names_upper": 45146,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 45146,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 270416,
+            "symbols": 1083528,
+            "relocations": 366744,
+            "symbol_strings": 1173797,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 2897004
+        },
+        "local_checks": {
+          "literal_length": true,
+          "backend_chain": true,
+          "text_and_CFI": true,
+          "physical_lines": true,
+          "fragment_counter": true,
+          "region": true,
+          "symbol_indices": true,
+          "fixup_and_relocation_counts": true,
+          "symbol_string_offsets": true,
+          "section_string_offsets": true,
+          "object_offsets": true,
+          "symbol_record_requests": true,
+          "relocation_record_requests": true,
+          "string_sort_pointer_requests": true
+        },
+        "local_interface_fits": true,
+        "open_joins": [
+          "GAS_subsidiary_lifetimes_and_hash_growth",
+          "BFD_arena_and_string_table_growth",
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "source_identity": {
+          "bytes": 105075,
+          "sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+        }
+      }
+    },
+    {
+      "case": "last_sufficient_region",
+      "result": {
+        "counts": {
+          "calls": 32767,
+          "nulls": 0,
+          "decoded_bytes": 0,
+          "maximum_literal_length": 0
+        },
+        "final_chain": 229414,
+        "text_bytes_upper": 1015799,
+        "assembly": {
+          "lines_upper": 491664,
+          "bytes_upper": 31696024,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 720874,
+          "reservation_bytes_upper": 1343876,
+          "fragment_allocations_upper": 2753348,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 65535,
+          "symbol_allocations_upper": 295041,
+          "output_symbols_upper": 295039,
+          "BFD_symbol_allocations_upper": 295056,
+          "fixups_upper": 98580,
+          "relocations_upper": 98582,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 295050,
+          "symbol_string_names_upper": 295049,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 295049,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 1737067,
+            "symbols": 7081200,
+            "relocations": 2365968,
+            "symbol_strings": 7671275,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 18858029
+        },
+        "local_checks": {
+          "literal_length": true,
+          "backend_chain": true,
+          "text_and_CFI": true,
+          "physical_lines": true,
+          "fragment_counter": true,
+          "region": true,
+          "symbol_indices": true,
+          "fixup_and_relocation_counts": true,
+          "symbol_string_offsets": true,
+          "section_string_offsets": true,
+          "object_offsets": true,
+          "symbol_record_requests": true,
+          "relocation_record_requests": true,
+          "string_sort_pointer_requests": true
+        },
+        "local_interface_fits": true,
+        "open_joins": [
+          "GAS_subsidiary_lifetimes_and_hash_growth",
+          "BFD_arena_and_string_table_growth",
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "source_identity": {
+          "bytes": 655415,
+          "sha256": "8045d39f7b5112488de11b3c3fc31fa0b75f3da049f29ea785fd36019634767a"
+        }
+      }
+    },
+    {
+      "case": "region_exceeded",
+      "result": {
+        "counts": {
+          "calls": 32768,
+          "nulls": 0,
+          "decoded_bytes": 0,
+          "maximum_literal_length": 0
+        },
+        "final_chain": 229421,
+        "text_bytes_upper": 1015830,
+        "assembly": {
+          "lines_upper": 491679,
+          "bytes_upper": 31696991,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 720896,
+          "reservation_bytes_upper": 1343917,
+          "fragment_allocations_upper": 2753432,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 65537,
+          "symbol_allocations_upper": 295050,
+          "output_symbols_upper": 295048,
+          "BFD_symbol_allocations_upper": 295065,
+          "fixups_upper": 98583,
+          "relocations_upper": 98585,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 295059,
+          "symbol_string_names_upper": 295058,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 295058,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 1737120,
+            "symbols": 7081416,
+            "relocations": 2366040,
+            "symbol_strings": 7671509,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 18858604
+        },
+        "local_checks": {
+          "literal_length": true,
+          "backend_chain": true,
+          "text_and_CFI": true,
+          "physical_lines": true,
+          "fragment_counter": true,
+          "region": false,
+          "symbol_indices": true,
+          "fixup_and_relocation_counts": true,
+          "symbol_string_offsets": true,
+          "section_string_offsets": true,
+          "object_offsets": true,
+          "symbol_record_requests": true,
+          "relocation_record_requests": true,
+          "string_sort_pointer_requests": true
+        },
+        "local_interface_fits": false,
+        "open_joins": [
+          "GAS_subsidiary_lifetimes_and_hash_growth",
+          "BFD_arena_and_string_table_growth",
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "source_identity": {
+          "bytes": 655435,
+          "sha256": "2e9044129a0916b6b0d3bc4623b5bef2a8f42a647d9fbef81c59f6d95dbd0dc7"
+        }
+      }
+    },
+    {
+      "case": "outside_family_rejected"
+    },
+    {
+      "case": "outside_family_rejected"
+    },
+    {
+      "case": "outside_family_rejected"
+    },
+    {
+      "case": "signed_text_boundary",
+      "last_nulls": 536870898
+    }
+  ],
+  "verified_inputs": 9,
+  "verified_sources": 90,
+  "native_tool_executions": 0,
+  "whole_literal_pipeline_capacity_established": false
+}
