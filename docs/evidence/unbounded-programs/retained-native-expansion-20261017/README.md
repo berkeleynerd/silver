@@ -80,3 +80,12 @@ sources and five prior results, adding12GGC events for a known subtotal40,098.
 The result retains the actual line/name/node requirements and the delivered
 indexed configuration; it does not complete Ada callbacks, collector/process
 composition or capacity assurance. No native tool ran.
+
+`reconcile-null-callback-collector.py` applies the fixed float and direct-layout
+callback transfers to the actual Ada table backing rules and substitutes40,098
+known GGC events into the page/finalizer transfer. It also charges the 104-byte
+ordinary scratch backing constructed by the initialized empty value-expression
+cache marker. It checks54 complete sources
+and eight earlier inputs without rerunning their scripts or native witnesses.
+Its result closes the null Ada numeric callback join, while complete generated
+root/custom collector callback and process composition remain open.

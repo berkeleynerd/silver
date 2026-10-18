@@ -1,0 +1,186 @@
+{
+  "scope": "Null Ada callback phase and GGC collector backing composition",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_sources_verified": 54,
+  "retained_inputs_verified": 8,
+  "Ada_callbacks": {
+    "fixed_layout_direct_Uint_maximum": 3584,
+    "new_fixed_layout_Uint_Repinfo_or_annotation_cache_entries": 0,
+    "new_postprefix_null_Uint_Repinfo_or_annotation_cache_entries": 0,
+    "fixed_float_transfer": {
+      "Repinfo_nodes_from_float_conversion": 0,
+      "UI_Ints_cache_insertions": 4096,
+      "Udigit_word_appends": 32768,
+      "Uint_appends": 4096,
+      "Ureal_appends": 7,
+      "largest_local_numeric_vector_words": 9
+    },
+    "fixed_capture_plus_float_deliberately_overcounts": true,
+    "outgoing_table_demands": {
+      "Uints": 28420,
+      "Udigits": 107726,
+      "Ureals": 67,
+      "Rep_Table": 504
+    },
+    "table_backing_checks": {
+      "Uints": {
+        "demand": 28420,
+        "low_bound": -699999999,
+        "initial": 5000,
+        "increment_percent": 100,
+        "component_bytes_upper_bound": 8,
+        "backing_capacity_bound": 56840,
+        "bytes_with_sentinel": 454728,
+        "checks": {
+          "initial_product": true,
+          "growth_product": true,
+          "backing_length_and_plus_one": true,
+          "empty_index": true,
+          "backing_index_and_sentinel": true,
+          "logical_nominal_index": true,
+          "allocation_and_pointer_difference": true
+        },
+        "all_selected_checks_pass": true
+      },
+      "Udigits": {
+        "demand": 107726,
+        "low_bound": 0,
+        "initial": 10000,
+        "increment_percent": 100,
+        "component_bytes_upper_bound": 4,
+        "backing_capacity_bound": 215452,
+        "bytes_with_sentinel": 861812,
+        "checks": {
+          "initial_product": true,
+          "growth_product": true,
+          "backing_length_and_plus_one": true,
+          "empty_index": true,
+          "backing_index_and_sentinel": true,
+          "logical_nominal_index": true,
+          "allocation_and_pointer_difference": true
+        },
+        "all_selected_checks_pass": true
+      },
+      "Ureals": {
+        "demand": 67,
+        "low_bound": -599999998,
+        "initial": 200,
+        "increment_percent": 100,
+        "component_bytes_upper_bound": 16,
+        "backing_capacity_bound": 400,
+        "bytes_with_sentinel": 6416,
+        "checks": {
+          "initial_product": true,
+          "growth_product": true,
+          "backing_length_and_plus_one": true,
+          "empty_index": true,
+          "backing_index_and_sentinel": true,
+          "logical_nominal_index": true,
+          "allocation_and_pointer_difference": true
+        },
+        "all_selected_checks_pass": true
+      },
+      "Rep_Table": {
+        "demand": 504,
+        "low_bound": 1,
+        "initial": 1000,
+        "increment_percent": 200,
+        "component_bytes_upper_bound": 32,
+        "backing_capacity_bound": 3000,
+        "bytes_with_sentinel": 96032,
+        "checks": {
+          "initial_product": true,
+          "growth_product": true,
+          "backing_length_and_plus_one": true,
+          "empty_index": true,
+          "backing_index_and_sentinel": true,
+          "logical_nominal_index": true,
+          "allocation_and_pointer_difference": true
+        },
+        "all_selected_checks_pass": true
+      }
+    },
+    "tables_remain_unlocked_through_gigi": true,
+    "UI_Ints_new_wrapper_requests_at_most": 4096,
+    "UI_Ints_wrapper_bytes": 16,
+    "UI_Ints_static_bucket_bytes": 8184,
+    "maximum_UI_Vector_words_at_all_joined_phases": 149916,
+    "maximum_individual_UI_Vector_bytes_including_descriptor": 599680,
+    "new_GGC_events": 0
+  },
+  "known_GGC_events_through_null_metadata": 40098,
+  "null_value_expression_cache_marker": {
+    "table_initialized_even_when_empty": true,
+    "selected_null_value_expression_insertions": 0,
+    "ordinary_hash_backing_requests_per_callback": 1,
+    "ordinary_hash_slots": 13,
+    "individual_ordinary_hash_backing_bytes": 104,
+    "inline_vector_elements": 16,
+    "selected_null_pushes": 0,
+    "dynamic_vector_backing_requests": 0,
+    "new_GGC_events": 0,
+    "collector_call_count_not_used_as_capacity_condition": true
+  },
+  "offline_static_collector_inventory": {
+    "gnat1_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+    "roots": {
+      "gt_ggc_rtab": {
+        "table_count": 56,
+        "root_record_count": 347,
+        "root_elements": 10426,
+        "maximum_nelt": 3669,
+        "maximum_stride": 16,
+        "maximum_nelt_times_stride": 32256,
+        "table_data_sha256": "8aa8802698c290a682b481e36dda3760d59e9b0fa33cc7ea3430dfde3b9b3e19",
+        "distinct_callbacks": 115,
+        "callbacks_not_exported_in_dynsym": [
+          "0x9725b0",
+          "0x972620",
+          "0x104c290"
+        ]
+      },
+      "gt_ggc_deletable_rtab": {
+        "table_count": 10,
+        "root_record_count": 12,
+        "root_elements": 12,
+        "maximum_nelt": 1,
+        "maximum_stride": 91264,
+        "maximum_nelt_times_stride": 91264,
+        "table_data_sha256": "98e889dde09db043dc22a34826e2c464f6afae51bdfb2a3372bd4e852034a0e0",
+        "distinct_callbacks": 0,
+        "callbacks_not_exported_in_dynsym": []
+      }
+    },
+    "exported_typed_finalizer_candidates": 85,
+    "finalizer_symbol_name_inventory_sha256": "4b041d7ba9f49f8c6b06b15e978586bd5fa3429c48aba824fb615edf4afa2dbe",
+    "actual_selected_finalizer_registrations_inferred": false,
+    "binary_executed": false
+  },
+  "collector_backing_substitution": {
+    "active_pages_at_most": 40098,
+    "page_vector_capacity_at_most": 65536,
+    "each_page_pointer_vector_bytes_at_most": 524288,
+    "finalizer_registrations_at_most": 40098,
+    "each_finalizer_vector_capacity_at_most": 60145,
+    "scalar_finalizer_backing_bytes_at_most": 962328,
+    "array_finalizer_backing_bytes_at_most": 1924648,
+    "context_depth": 0,
+    "old_context_bitmap_backup_requests": 0,
+    "individual_page_entry_bytes_at_most": 128,
+    "page_quire_bytes": 2097152,
+    "page_lookup_chain_bytes": 2064,
+    "secondary_page_lookup_bytes": 32768,
+    "depth_vector_bytes": 40,
+    "each_outer_finalizer_vector_bytes": 40
+  },
+  "collector_callback_closure": "Selected generic/template routes inspected; complete generated-root/user-marker/finalizer census still required",
+  "whole_collector_allocation_closure": false,
+  "whole_process_capacity_established": false,
+  "remaining_terms": [
+    "Generated-root and all selected custom marker/finalizer closure",
+    "Whole-invocation process/library setup and teardown",
+    "Separate assembler/binder/linker/proof-producer composition"
+  ],
+  "native_execution": false,
+  "aggregate_RAM_admission_gate": false
+}

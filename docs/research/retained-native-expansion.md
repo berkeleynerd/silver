@@ -10296,6 +10296,135 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output /tmp/native-null-source-locations.json
 ```
 
+## Null Ada callbacks and collector phase composition
+
+The fixed-root read projection above already closes the integer layout
+callbacks: fixed scalar sizes/alignments and the seven-field exception record
+have nonnegative layout values at most 3584 bits. They take the direct Uint
+branch and add no Uint, Repinfo or annotation-cache entry. The declaration-free
+null body adds no later annotation root. Main takes the procedure branch of
+`gnat_to_gnu_entity`; the common size/alignment block requires `is_type`
+(`decl.cc:4533–4743`). The post-body parameter annotation loop is empty
+(`trans.cc:4252–4266`). The previously established null graph has no object,
+scalar type, variant record or value expression. Its empty elaboration helper
+and fixed external runtime declarations are constructed as GCC functions,
+without new Ada scalar declarations. Thus the post-prefix null numeric and
+Repinfo additions are zero; this specialization is not applied to the other
+four source examples or to the future general-language callback recurrence.
+
+The two fixed Standard floating endpoints retain the earlier nonzero transfer:
+4096 Uint appends, 32768 digit words, 7 Ureal appends, at most 4096 UI_Ints
+cache insertions and a largest nine-word local numeric vector. Add that full
+transfer to the existing coarse fixed frontend allowances. The fixed witness
+already retained its own backend increments, so adding it again deliberately
+overcounts; no observed entry or presumed cache hit is subtracted. Null has
+no source numeral or String scalar contribution, and the indexed configuration's
+literal 1 is a direct Uint.
+
+| Table | Demand after adding callbacks | Backing capacity bound | Individual bytes including sentinel |
+| --- | ---: | ---: | ---: |
+| Uints | 28,420 | 56,840 | 454,728 |
+| Udigits | 107,726 | 215,452 | 861,812 |
+| Ureals | 67 | 400 | 6,416 |
+| Rep_Table | 504 | 3,000 | 96,032 |
+
+These are applications of the same reviewed `native_table_backing_row`
+function, including lock reserve, growth arithmetic, signed nominal/physical
+indices and per-object pointer-difference checks. They are upper bounds, not
+measurements of native capacity. Uintp, Urealp and Repinfo are omitted from
+the pre-gigi lock sequence (`gnat1drv.adb:1518–1535`); their table pointer
+cells remain live across growth. C's Uint readers use those exported cells
+(`uintp.h:104–108`, `cuintp.cc:93–120`). The Uint cache retains its 1023-pointer
+array/8184 bytes and individual 16-byte wrappers; the callback adds at most 4096
+wrapper requests. Its total heap bytes are not a language condition.
+
+The existing coarse fixed operand bound 74958 digits dominates both the scalar
+conversion's five-word local vector and the float callback's nine-word vector.
+The previous selected numeric-workspace function therefore still gives at
+most 149916 words, 599680 bytes including its descriptor, for each local UI_Vector.
+The inherited dimension/index/decimal-bit checks remain satisfied. Nothing
+here bounds a sum of recursive frames or changes the distinction between
+representation arithmetic and physical resource exhaustion.
+
+This callback join adds **zero GGC events**: the GCC-side fixed conversion
+is already in the prefix allowance and null's later annotation contribution
+is zero. Substitute the known 40,098 events into the earlier GGC storage
+transfer. At most 40,098 active pages need 65536 slots, so `by_depth` and
+`save_in_use` each request at most 524288 bytes. Charging a finalizer registration
+for every event gives capacity 60145; singleton and vector finalizer backings
+request at most 962328 and 1924648 bytes respectively. These two vectors are
+independent objects. The depth vector remains 40 bytes, and each outer finalizer
+vector 40 bytes. Individual page entries, small-page quires and page-lookup
+objects retain their 128, 2097152, 2064 and 32768 byte bounds.
+
+The no-PCH context depth is zero throughout. The only marking-time bitmap
+backup allocation requires `p->context_depth < G.context_depth`, impossible
+for the selected pages (`ggc-page.cc:1996–2000`). `release_pages`, ordinary
+pool trimming and page sweeping reuse/free existing objects. Generic marking
+uses existing object fields and mark bits; hash/vector templates walk retained
+backings. Weak-cache clearing removes entries without rebuilding the hash
+(`hash-table.h:1240–1258,1302–1320`), and identifier purging writes deleted
+markers (`libcpp/symtab.cc:242–256`). This does not yet replace the required
+complete generated-root and custom marker/finalizer census.
+
+One custom weak-cache marker does allocate ordinary scratch storage even for
+null. `init_ttree` unconditionally creates `value_expr_for_decl`
+(`tree.cc:777–779`), so `gt_value_expr_mark` constructs its local
+`hash_set<tree>` and `auto_vec<tree,16>` (`tree.cc:218–271`). The non-lazy
+hash set requests 13 pointer slots, **104 bytes**, on every marker call
+(`hash-set.h:40–41`, `hash-table.h:646–680,754–777`, `hash-table.cc:43–45`).
+The vector starts with 16 inline slots (`vec.h:1665–1710`). This corrects
+any inference from an empty value-expression graph to no scratch allocation.
+
+The selected null graph leaves this cache empty. Its only setter is
+`decl_value_expr_insert` via `SET_DECL_VALUE_EXPR` (`tree.h:3109–3110`). The
+three Ada writers require a debug renaming, a debug Out parameter, or a named
+return value; none is in the fixed-root/null graph (`decl.cc:771–783,1647–1657`,
+`trans.cc:3567–3585`). The selected common writers require a variable-length
+object/OpenMP allocation (`gimplify.cc:1475–1509,1968–1995`), a nonvoid
+by-reference result (`function.cc:3774–3791`), or an already set value expression
+being copied (`tree.cc:1496–1500`, `tree-inline.cc:780–796`,
+`tree-cfg.cc:7596–7613`). Remaining writers belong to absent nested-function,
+TLS, named-return, OpenMP, sanitizer or LTO transformations. Their complete
+source files are pinned alongside the selected graph inputs. Thus the empty
+traversal makes zero recursive walks, hash insertions or vector pushes; the
+ordinary 104-byte backing is freed on callback return. There is no new GGC
+event or dynamic vector request. No bound on the number of collector calls
+is needed for this individual request-size check, and no sum of their
+allocations becomes an admission condition.
+
+Reading the existing installed `gnat1` ELF data, without executing it, makes
+the generated-root input concrete. Its pinned normal root vector selects
+56 tables with 347 records and 10426 elements, using 115 distinct callbacks.
+The largest `nelt*stride` product is 32256 bytes. The deletable vector selects
+10 tables with 12 records/elements; its largest zeroed object is 91264 bytes.
+Every root-vector terminator and root-record sentinel is checked, and the
+complete table bytes are hashed in traversal order. The three callbacks without
+exported symbol names are at `0x9725b0`, `0x972620` and `0x104c290`:
+their interpretation is not used by this census or its arithmetic checks.
+The executable also exports 85 typed-finalizer
+instantiations. That is a candidate inventory, not evidence that all are
+registered for null or that unexported code cannot exist. These static counts
+bound the outer root-array arithmetic; selected object graphs, custom callbacks
+and finalizer effects still need the source reachability join.
+
+The [offline phase reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-callback-collector.py)
+checks 54 complete sources and eight prior inputs. It extracts the previously
+reviewed pure arithmetic functions without rerunning their scripts or the
+native witnesses. Its
+[result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-callback-collector.json)
+separates the closed Ada numeric join and concrete collector backing
+substitution from the still-open custom-callback and whole-process closure.
+It runs no compiler, prover, debugger or application.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-callback-collector.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gnat1 /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1 \
+  --output /tmp/native-null-callback-collector.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

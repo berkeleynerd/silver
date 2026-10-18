@@ -1,0 +1,373 @@
+{
+  "scope": "Null Ada callback phase and GGC collector backing composition",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_numbering": "Literal LF",
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ggc-common.cc",
+      "bytes": 40096,
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gengtype.cc",
+      "bytes": 152680,
+      "sha256": "04de02cf6679e24da13baa85e77d762fabd645182401e5edbfa1c4ea8fc6f120",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/hash-set.h",
+      "bytes": 5741,
+      "sha256": "052c2a5efb2455e5616b458b32cf0e728a11a4a8bb6cec5aa82cd744b5d5f946",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/hash-traits.h",
+      "bytes": 11226,
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/stringpool.cc",
+      "bytes": 8292,
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1",
+      "root": "gcc"
+    },
+    {
+      "path": "libcpp/symtab.cc",
+      "bytes": 9383,
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ipa-prop.cc",
+      "bytes": 205107,
+      "sha256": "ef76526046f808127da51d0330694458fcb534ad8a373e6fea82a8e59d18278c",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ipa-prop.h",
+      "bytes": 44289,
+      "sha256": "a7912be259bfea09b22ef8a1a48d68ca9b42110e6ed27a26671d1261285cb72a",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/symbol-summary.h",
+      "bytes": 27512,
+      "sha256": "f962ce1611e397217abd47c7abc188ffe70c62521742bfa78f1f8449ab93aed5",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ipa-fnsummary.h",
+      "bytes": 16054,
+      "sha256": "6ca5272ad5d106752ca6cd4e24ce8af990c2651a20710602fbcc33f2e5122a57",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ipa-fnsummary.cc",
+      "bytes": 161148,
+      "sha256": "977298c2bb09af16adc45786fd8a2bd4e768d44ecd22c0f3e59c3b957b5b4f2c",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/cgraph.h",
+      "bytes": 138341,
+      "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/cfgloop.h",
+      "bytes": 28358,
+      "sha256": "c3d43490b4a32e3ab1534fcc9da1fcdead1007db5ae54305315019e38a6e4b17",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/function.h",
+      "bytes": 27144,
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/alloc-pool.cc",
+      "bytes": 1184,
+      "sha256": "c331dbdc02f7b4e0e6e7c931dbc32be21905d2db8cbbd9c11fbf060c65708d16",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/plugin.h",
+      "bytes": 6574,
+      "sha256": "d091c6815e24d2de4d91624ebcb6fb30dba02e33a53705dec7f407cbba230c1c",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/timevar.cc",
+      "bytes": 22521,
+      "sha256": "1af8a90ba4c7f606e1337f9e3b732336beefb453998e15f0d3305698239801b2",
+      "root": "gcc"
+    },
+    {
+      "path": "gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173",
+      "root": "ada"
+    },
+    {
+      "path": "uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "root": "ada"
+    },
+    {
+      "path": "uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "root": "ada"
+    },
+    {
+      "path": "uintp.h",
+      "bytes": 4715,
+      "sha256": "7296a9cd870a9c4b4c3d380b9ab19d0db7afc844a5dbda4b21015f61e590ee73",
+      "root": "ada"
+    },
+    {
+      "path": "urealp.adb",
+      "bytes": 51830,
+      "sha256": "ccf63a43371eb80d78200cb8e79f9d7cd150798037a6ba2c733610e0522aa743",
+      "root": "ada"
+    },
+    {
+      "path": "urealp.ads",
+      "bytes": 14918,
+      "sha256": "0cb3c3f2e64e8bcfb300bc4f09a8c45386026430b367d116b043439e9dbbc9d4",
+      "root": "ada"
+    },
+    {
+      "path": "repinfo.adb",
+      "bytes": 84581,
+      "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085",
+      "root": "ada"
+    },
+    {
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+      "root": "ada"
+    },
+    {
+      "path": "table.adb",
+      "bytes": 13959,
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+      "root": "ada"
+    },
+    {
+      "path": "table.ads",
+      "bytes": 12010,
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db",
+      "root": "ada"
+    },
+    {
+      "path": "cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "root": "ada"
+    },
+    {
+      "path": "gcc/hash-table.cc",
+      "bytes": 4564,
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-inline.cc",
+      "bytes": 214934,
+      "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-emutls.cc",
+      "bytes": 24736,
+      "sha256": "e24f9692f3b461ef49b5c5f282d6e194ee282d857eec2de749a076d8f83e70f8",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-nested.cc",
+      "bytes": 118724,
+      "sha256": "d2910d8448c5f42c819d86075894eb435a7054fe29d08f47e580bb88e2981043",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-nrv.cc",
+      "bytes": 11593,
+      "sha256": "156388b90e05281cd048c8674ca8c43a61ece452b8d392de165cfc718faf252b",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-streamer-in.cc",
+      "bytes": 39585,
+      "sha256": "89c58ec2149c306fed86b90cf06db7b64e00a8c6bab8fd56e51f3d06292b71eb",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/omp-low.cc",
+      "bytes": 501094,
+      "sha256": "5902f5c23cc5d1a354d871a56e94f9b149b77a9c37b1bfe6f741c8881b13b6e7",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/omp-offload.cc",
+      "bytes": 90136,
+      "sha256": "28452d29cf92c7dc5a75f5a456dc3abadf03a2a491f9ff2e10cbb3dea8a99ed3",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/sanopt.cc",
+      "bytes": 39452,
+      "sha256": "11d6a55e1cf274bbdc3d4fb77aca34ac90dd6f4ca972640a3f817314177e4eca",
+      "root": "gcc"
+    }
+  ],
+  "reused_results": [
+    {
+      "path": "native-null-source-locations.json",
+      "bytes": 2717,
+      "sha256": "92de9ec47ecc88ab0db231743f9e35efa7d8dbed0be76907e9b4062084c44902"
+    },
+    {
+      "path": "native-fixed-float-callbacks.json",
+      "bytes": 2350,
+      "sha256": "4c61209c5ac9be401116e2b910e14ada5bea408ac89f6c11bd6a1f3ad0682d73"
+    },
+    {
+      "path": "native-ggc-storage.json",
+      "bytes": 1970,
+      "sha256": "c2dc0988c57bb2cd3ee3f7ef8da937e9bf938584c43dc6e9de39e32b58ed6a62"
+    },
+    {
+      "path": "native-fixed-inputs.json",
+      "bytes": 27601,
+      "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+    },
+    {
+      "path": "local-envelope.json",
+      "bytes": 762445,
+      "sha256": "026a7d2f4ed5d677319306865830f2285f129908ba9052ead6591b0465e37879"
+    },
+    {
+      "path": "derive.py",
+      "bytes": 208130,
+      "sha256": "27636b54a8e0c3d28bb4c861c53dde98100a3f74e650964655c90f2dfd08979a"
+    },
+    {
+      "path": "reconcile-ggc-storage.py",
+      "bytes": 7645,
+      "sha256": "4c8c99c4b950570e0423393962536eafa95d644a6e7f40c964e306b94143e5cb"
+    },
+    {
+      "path": "native-null-gigi-inputs.json",
+      "bytes": 6725,
+      "sha256": "c65e452a6386cfca32986638b830d8867f6b0dbb21d4fab0a2ca4753ec8625d7"
+    }
+  ]
+}
