@@ -19629,6 +19629,50 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2779:   return true;
 ```
 
+## gcc/except.cc:3243–3248
+
+```text
+3243: output_function_exception_table (int section)
+3244: {
+3245:   /* Not all functions need anything.  */
+3246:   if (!crtl->uses_eh_lsda
+3247:       || targetm_common.except_unwind_info (&global_options) == UI_NONE)
+3248:     return;
+```
+
+## gcc/except.cc:3291–3318
+
+```text
+3291: function_needs_eh_personality (struct function *fn)
+3292: {
+3293:   enum eh_personality_kind kind = eh_personality_none;
+3294:   eh_region i;
+3295:
+3296:   FOR_ALL_EH_REGION_FN (i, fn)
+3297:     {
+3298:       switch (i->type)
+3299:         {
+3300:         case ERT_CLEANUP:
+3301:           /* Can do with any personality including the generic C one.  */
+3302:           kind = eh_personality_any;
+3303:           break;
+3304:
+3305:         case ERT_TRY:
+3306:         case ERT_ALLOWED_EXCEPTIONS:
+3307:           /* Always needs a EH personality function.  The generic C
+3308:              personality doesn't handle these even for empty type lists.  */
+3309:           return eh_personality_lang;
+3310:
+3311:         case ERT_MUST_NOT_THROW:
+3312:           /* Always needs a EH personality function.  The language may specify
+3313:              what abort routine that must be used, e.g. std::terminate.  */
+3314:           return eh_personality_lang;
+3315:         }
+3316:     }
+3317:
+3318:   return kind;
+```
+
 ## gcc/tree-stdarg.cc:995–1104
 
 ```text
@@ -27052,6 +27096,381 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 24761:     }
 ```
 
+## gcc/config/i386/i386.cc:10750–10817
+
+```text
+10750: ix86_output_function_epilogue (FILE *file ATTRIBUTE_UNUSED)
+10751: {
+10752:   if (pic_offset_table_rtx
+10753:       && !ix86_use_pseudo_pic_reg ())
+10754:     SET_REGNO (pic_offset_table_rtx, REAL_PIC_OFFSET_TABLE_REGNUM);
+10755:
+10756:   if (TARGET_MACHO)
+10757:     {
+10758:       rtx_insn *insn = get_last_insn ();
+10759:       rtx_insn *deleted_debug_label = NULL;
+10760:
+10761:       /* Mach-O doesn't support labels at the end of objects, so if
+10762:          it looks like we might want one, take special action.
+10763:         First, collect any sequence of deleted debug labels.  */
+10764:       while (insn
+10765:              && NOTE_P (insn)
+10766:              && NOTE_KIND (insn) != NOTE_INSN_DELETED_LABEL)
+10767:         {
+10768:           /* Don't insert a nop for NOTE_INSN_DELETED_DEBUG_LABEL
+10769:              notes only, instead set their CODE_LABEL_NUMBER to -1,
+10770:              otherwise there would be code generation differences
+10771:              in between -g and -g0.  */
+10772:           if (NOTE_P (insn) && NOTE_KIND (insn)
+10773:               == NOTE_INSN_DELETED_DEBUG_LABEL)
+10774:             deleted_debug_label = insn;
+10775:           insn = PREV_INSN (insn);
+10776:         }
+10777:
+10778:       /* If we have:
+10779:          label:
+10780:             barrier
+10781:           then this needs to be detected, so skip past the barrier.  */
+10782:
+10783:       if (insn && BARRIER_P (insn))
+10784:         insn = PREV_INSN (insn);
+10785:
+10786:       /* Up to now we've only seen notes or barriers.  */
+10787:       if (insn)
+10788:         {
+10789:           if (LABEL_P (insn)
+10790:               || (NOTE_P (insn)
+10791:                   && NOTE_KIND (insn) == NOTE_INSN_DELETED_LABEL))
+10792:             /* Trailing label.  */
+10793:             fputs ("\tnop\n", file);
+10794:           else if (cfun && ! cfun->is_thunk)
+10795:             {
+10796:               /* See if we have a completely empty function body, skipping
+10797:                  the special case of the picbase thunk emitted as asm.  */
+10798:               while (insn && ! INSN_P (insn))
+10799:                 insn = PREV_INSN (insn);
+10800:               /* If we don't find any insns, we've got an empty function body;
+10801:                  I.e. completely empty - without a return or branch.  This is
+10802:                  taken as the case where a function body has been removed
+10803:                  because it contains an inline __builtin_unreachable().  GCC
+10804:                  declares that reaching __builtin_unreachable() means UB so
+10805:                  we're not obliged to do anything special; however, we want
+10806:                  non-zero-sized function bodies.  To meet this, and help the
+10807:                  user out, let's trap the case.  */
+10808:               if (insn == NULL)
+10809:                 fputs ("\tud2\n", file);
+10810:             }
+10811:         }
+10812:       else if (deleted_debug_label)
+10813:         for (insn = deleted_debug_label; insn; insn = NEXT_INSN (insn))
+10814:           if (NOTE_KIND (insn) == NOTE_INSN_DELETED_DEBUG_LABEL)
+10815:             CODE_LABEL_NUMBER (insn) = -1;
+10816:     }
+10817: }
+```
+
+## gcc/config/i386/i386.cc:16543–16558
+
+```text
+16543: ix86_use_lea_for_mov (rtx_insn *insn, rtx operands[])
+16544: {
+16545:   unsigned int regno0, regno1;
+16546:
+16547:   /* Check if we need to optimize.  */
+16548:   if (!TARGET_OPT_AGU || optimize_function_for_size_p (cfun))
+16549:     return false;
+16550:
+16551:   /* Use lea for reg to reg moves only.  */
+16552:   if (!REG_P (operands[0]) || !REG_P (operands[1]))
+16553:     return false;
+16554:
+16555:   regno0 = true_regnum (operands[0]);
+16556:   regno1 = true_regnum (operands[1]);
+16557:
+16558:   return ix86_lea_outperforms (insn, regno0, regno1, INVALID_REGNUM, 0, false);
+```
+
+## gcc/config/i386/i386.cc:17605–17668
+
+```text
+17605: output_return_instrumentation (void)
+17606: {
+17607:   if (ix86_instrument_return != instrument_return_none
+17608:       && flag_fentry
+17609:       && !DECL_NO_INSTRUMENT_FUNCTION_ENTRY_EXIT (cfun->decl))
+17610:     {
+17611:       if (ix86_flag_record_return)
+17612:         fprintf (asm_out_file, "1:\n");
+17613:       switch (ix86_instrument_return)
+17614:         {
+17615:         case instrument_return_call:
+17616:           fprintf (asm_out_file, "\tcall\t__return__\n");
+17617:           break;
+17618:         case instrument_return_nop5:
+17619:           /* 5 byte nop: nopl 0(%[re]ax,%[re]ax,1)  */
+17620:           fprintf (asm_out_file, ASM_BYTE "0x0f, 0x1f, 0x44, 0x00, 0x00\n");
+17621:           break;
+17622:         case instrument_return_none:
+17623:           break;
+17624:         }
+17625:
+17626:       if (ix86_flag_record_return)
+17627:         {
+17628:           fprintf (asm_out_file, "\t.section __return_loc, \"a\",@progbits\n");
+17629:           fprintf (asm_out_file, "\t.%s 1b\n", TARGET_64BIT ? "quad" : "long");
+17630:           fprintf (asm_out_file, "\t.previous\n");
+17631:         }
+17632:     }
+17633: }
+17634:
+17635: /* Output function return.  CALL_OP is the jump target.  Add a REP
+17636:    prefix to RET if LONG_P is true and function return is kept.  */
+17637:
+17638: const char *
+17639: ix86_output_function_return (bool long_p)
+17640: {
+17641:   output_return_instrumentation ();
+17642:
+17643:   if (cfun->machine->function_return_type != indirect_branch_keep)
+17644:     {
+17645:       char thunk_name[32];
+17646:       enum indirect_thunk_prefix need_prefix
+17647:         = indirect_thunk_need_prefix (current_output_insn);
+17648:
+17649:       if (cfun->machine->function_return_type
+17650:           != indirect_branch_thunk_inline)
+17651:         {
+17652:           bool need_thunk = (cfun->machine->function_return_type
+17653:                              == indirect_branch_thunk);
+17654:           indirect_thunk_name (thunk_name, INVALID_REGNUM, need_prefix,
+17655:                                true);
+17656:           indirect_return_needed |= need_thunk;
+17657:           fprintf (asm_out_file, "\tjmp\t");
+17658:           assemble_name (asm_out_file, thunk_name);
+17659:           putc ('\n', asm_out_file);
+17660:         }
+17661:       else
+17662:         output_indirect_thunk (INVALID_REGNUM);
+17663:
+17664:       return "";
+17665:     }
+17666:
+17667:   output_asm_insn (long_p ? "rep%; ret" : "ret", nullptr);
+17668:   return (ix86_harden_sls & harden_sls_return) ? "int3" : "";
+```
+
+## gcc/config/i386/i386.cc:17943–18149
+
+```text
+17943: memory_address_length (rtx addr, bool lea)
+17944: {
+17945:   struct ix86_address parts;
+17946:   rtx base, index, disp;
+17947:   int len;
+17948:   int ok;
+17949:
+17950:   if (GET_CODE (addr) == PRE_DEC
+17951:       || GET_CODE (addr) == POST_INC
+17952:       || GET_CODE (addr) == PRE_MODIFY
+17953:       || GET_CODE (addr) == POST_MODIFY)
+17954:     return 0;
+17955:
+17956:   ok = ix86_decompose_address (addr, &parts);
+17957:   gcc_assert (ok);
+17958:
+17959:   len = (parts.seg == ADDR_SPACE_GENERIC) ? 0 : 1;
+17960:
+17961:   /*  If this is not LEA instruction, add the length of addr32 prefix.  */
+17962:   if (TARGET_64BIT && !lea
+17963:       && (SImode_address_operand (addr, VOIDmode)
+17964:           || (parts.base && GET_MODE (parts.base) == SImode)
+17965:           || (parts.index && GET_MODE (parts.index) == SImode)))
+17966:     len++;
+17967:
+17968:   base = parts.base;
+17969:   index = parts.index;
+17970:   disp = parts.disp;
+17971:
+17972:   if (base && SUBREG_P (base))
+17973:     base = SUBREG_REG (base);
+17974:   if (index && SUBREG_P (index))
+17975:     index = SUBREG_REG (index);
+17976:
+17977:   gcc_assert (base == NULL_RTX || REG_P (base));
+17978:   gcc_assert (index == NULL_RTX || REG_P (index));
+17979:
+17980:   /* Rule of thumb:
+17981:        - esp as the base always wants an index,
+17982:        - ebp as the base always wants a displacement,
+17983:        - r12 as the base always wants an index,
+17984:        - r13 as the base always wants a displacement.  */
+17985:
+17986:   /* Register Indirect.  */
+17987:   if (base && !index && !disp)
+17988:     {
+17989:       /* esp (for its index) and ebp (for its displacement) need
+17990:          the two-byte modrm form.  Similarly for r12 and r13 in 64-bit
+17991:          code.  */
+17992:       if (base == arg_pointer_rtx
+17993:           || base == frame_pointer_rtx
+17994:           || REGNO (base) == SP_REG
+17995:           || REGNO (base) == BP_REG
+17996:           || REGNO (base) == R12_REG
+17997:           || REGNO (base) == R13_REG)
+17998:         len++;
+17999:     }
+18000:
+18001:   /* Direct Addressing.  In 64-bit mode mod 00 r/m 5
+18002:      is not disp32, but disp32(%rip), so for disp32
+18003:      SIB byte is needed, unless print_operand_address
+18004:      optimizes it into disp32(%rip) or (%rip) is implied
+18005:      by UNSPEC.  */
+18006:   else if (disp && !base && !index)
+18007:     {
+18008:       len += 4;
+18009:       if (!ix86_rip_relative_addr_p (&parts))
+18010:         len++;
+18011:     }
+18012:   else
+18013:     {
+18014:       /* Find the length of the displacement constant.  */
+18015:       if (disp)
+18016:         {
+18017:           if (base && satisfies_constraint_K (disp))
+18018:             len += 1;
+18019:           else
+18020:             len += 4;
+18021:         }
+18022:       /* ebp always wants a displacement.  Similarly r13.  */
+18023:       else if (base && (REGNO (base) == BP_REG || REGNO (base) == R13_REG))
+18024:         len++;
+18025:
+18026:       /* An index requires the two-byte modrm form....  */
+18027:       if (index
+18028:           /* ...like esp (or r12), which always wants an index.  */
+18029:           || base == arg_pointer_rtx
+18030:           || base == frame_pointer_rtx
+18031:           || (base && (REGNO (base) == SP_REG || REGNO (base) == R12_REG)))
+18032:         len++;
+18033:     }
+18034:
+18035:   return len;
+18036: }
+18037:
+18038: /* Compute default value for "length_immediate" attribute.  When SHORTFORM
+18039:    is set, expect that insn have 8bit immediate alternative.  */
+18040: int
+18041: ix86_attr_length_immediate_default (rtx_insn *insn, bool shortform)
+18042: {
+18043:   int len = 0;
+18044:   int i;
+18045:   extract_insn_cached (insn);
+18046:   for (i = recog_data.n_operands - 1; i >= 0; --i)
+18047:     if (CONSTANT_P (recog_data.operand[i]))
+18048:       {
+18049:         enum attr_mode mode = get_attr_mode (insn);
+18050:
+18051:         gcc_assert (!len);
+18052:         if (shortform && CONST_INT_P (recog_data.operand[i]))
+18053:           {
+18054:             HOST_WIDE_INT ival = INTVAL (recog_data.operand[i]);
+18055:             switch (mode)
+18056:               {
+18057:               case MODE_QI:
+18058:                 len = 1;
+18059:                 continue;
+18060:               case MODE_HI:
+18061:                 ival = trunc_int_for_mode (ival, HImode);
+18062:                 break;
+18063:               case MODE_SI:
+18064:                 ival = trunc_int_for_mode (ival, SImode);
+18065:                 break;
+18066:               default:
+18067:                 break;
+18068:               }
+18069:             if (IN_RANGE (ival, -128, 127))
+18070:               {
+18071:                 len = 1;
+18072:                 continue;
+18073:               }
+18074:           }
+18075:         switch (mode)
+18076:           {
+18077:           case MODE_QI:
+18078:             len = 1;
+18079:             break;
+18080:           case MODE_HI:
+18081:             len = 2;
+18082:             break;
+18083:           case MODE_SI:
+18084:             len = 4;
+18085:             break;
+18086:           /* Immediates for DImode instructions are encoded
+18087:              as 32bit sign extended values.  */
+18088:           case MODE_DI:
+18089:             len = 4;
+18090:             break;
+18091:           default:
+18092:             fatal_insn ("unknown insn mode", insn);
+18093:         }
+18094:       }
+18095:   return len;
+18096: }
+18097:
+18098: /* Compute default value for "length_address" attribute.  */
+18099: int
+18100: ix86_attr_length_address_default (rtx_insn *insn)
+18101: {
+18102:   int i;
+18103:
+18104:   if (get_attr_type (insn) == TYPE_LEA)
+18105:     {
+18106:       rtx set = PATTERN (insn), addr;
+18107:
+18108:       if (GET_CODE (set) == PARALLEL)
+18109:         set = XVECEXP (set, 0, 0);
+18110:
+18111:       gcc_assert (GET_CODE (set) == SET);
+18112:
+18113:       addr = SET_SRC (set);
+18114:
+18115:       return memory_address_length (addr, true);
+18116:     }
+18117:
+18118:   extract_insn_cached (insn);
+18119:   for (i = recog_data.n_operands - 1; i >= 0; --i)
+18120:     {
+18121:       rtx op = recog_data.operand[i];
+18122:       if (MEM_P (op))
+18123:         {
+18124:           constrain_operands_cached (insn, reload_completed);
+18125:           if (which_alternative != -1)
+18126:             {
+18127:               const char *constraints = recog_data.constraints[i];
+18128:               int alt = which_alternative;
+18129:
+18130:               while (*constraints == '=' || *constraints == '+')
+18131:                 constraints++;
+18132:               while (alt-- > 0)
+18133:                 while (*constraints++ != ',')
+18134:                   ;
+18135:               /* Skip ignored operands.  */
+18136:               if (*constraints == 'X')
+18137:                 continue;
+18138:             }
+18139:
+18140:           int len = memory_address_length (XEXP (op, 0), false);
+18141:
+18142:           /* Account for segment prefix for non-default addr spaces.  */
+18143:           if (!ADDR_SPACE_GENERIC_P (MEM_ADDR_SPACE (op)))
+18144:             len++;
+18145:
+18146:           return len;
+18147:         }
+18148:     }
+18149:   return 0;
+```
+
 ## gcc/config/i386/i386.h:778–801
 
 ```text
@@ -27396,6 +27815,420 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2789:   "ix86_split_long_move (operands); DONE;")
 ```
 
+## gcc/config/i386/i386.md:592–802
+
+```text
+592: (define_attr "length_immediate" ""
+593:   (cond [(eq_attr "type" "incdec,setcc,icmov,str,lea,other,multi,idiv,leave,
+594:                           bitmanip,imulx,msklog,mskmov")
+595:            (const_int 0)
+596:          (ior (eq_attr "type" "sse4arg")
+597:               (eq_attr "isa" "fma4"))
+598:            (const_int 1)
+599:          (eq_attr "unit" "i387,sse,mmx")
+600:            (const_int 0)
+601:          (eq_attr "type" "alu,alu1,negnot,imovx,ishift,ishiftx,ishift1,
+602:                           rotate,rotatex,rotate1,imul,icmp,push,pop")
+603:            (symbol_ref "ix86_attr_length_immediate_default (insn, true)")
+604:          (eq_attr "type" "imov,test")
+605:            (symbol_ref "ix86_attr_length_immediate_default (insn, false)")
+606:          (eq_attr "type" "call")
+607:            (if_then_else (match_operand 0 "constant_call_address_operand")
+608:              (const_int 4)
+609:              (const_int 0))
+610:          (eq_attr "type" "callv")
+611:            (if_then_else (match_operand 1 "constant_call_address_operand")
+612:              (const_int 4)
+613:              (const_int 0))
+614:          ;; We don't know the size before shorten_branches.  Expect
+615:          ;; the instruction to fit for better scheduling.
+616:          (eq_attr "type" "ibr")
+617:            (const_int 1)
+618:          ]
+619:          (symbol_ref "/* Update immediate_length and other attributes! */
+620:                       gcc_unreachable (),1")))
+621:
+622: ;; The (bounding maximum) length of an instruction address.
+623: (define_attr "length_address" ""
+624:   (cond [(eq_attr "type" "str,other,multi,fxch")
+625:            (const_int 0)
+626:          (and (eq_attr "type" "call")
+627:               (match_operand 0 "constant_call_address_operand"))
+628:              (const_int 0)
+629:          (and (eq_attr "type" "callv")
+630:               (match_operand 1 "constant_call_address_operand"))
+631:              (const_int 0)
+632:          ]
+633:          (symbol_ref "ix86_attr_length_address_default (insn)")))
+634:
+635: ;; Set when length prefix is used.
+636: (define_attr "prefix_data16" ""
+637:   (cond [(eq_attr "type" "ssemuladd,sse4arg,sseiadd1,ssecvt1")
+638:            (const_int 0)
+639:          (eq_attr "mode" "HI")
+640:            (const_int 1)
+641:          (and (eq_attr "unit" "sse") (eq_attr "mode" "V2DF,TI"))
+642:            (const_int 1)
+643:         ]
+644:         (const_int 0)))
+645:
+646: ;; Set when string REP prefix is used.
+647: (define_attr "prefix_rep" ""
+648:   (cond [(eq_attr "type" "ssemuladd,sse4arg,sseiadd1,ssecvt1")
+649:            (const_int 0)
+650:          (and (eq_attr "unit" "sse") (eq_attr "mode" "SF,DF"))
+651:            (const_int 1)
+652:         ]
+653:         (const_int 0)))
+654:
+655: ;; Set when 0f opcode prefix is used.
+656: (define_attr "prefix_0f" ""
+657:   (if_then_else
+658:     (ior (eq_attr "type" "imovx,setcc,icmov,bitmanip,msklog,mskmov")
+659:          (eq_attr "unit" "sse,mmx"))
+660:     (const_int 1)
+661:     (const_int 0)))
+662:
+663: ;; Set when REX opcode prefix is used.
+664: (define_attr "prefix_rex" ""
+665:   (cond [(not (match_test "TARGET_64BIT"))
+666:            (const_int 0)
+667:          (and (eq_attr "mode" "DI")
+668:               (and (eq_attr "type" "!push,pop,call,callv,leave,ibr")
+669:                    (eq_attr "unit" "!mmx")))
+670:            (const_int 1)
+671:          (and (eq_attr "mode" "QI")
+672:               (match_test "x86_extended_QIreg_mentioned_p (insn)"))
+673:            (const_int 1)
+674:          (match_test "x86_extended_reg_mentioned_p (insn)")
+675:            (const_int 1)
+676:          (and (eq_attr "type" "imovx")
+677:               (match_operand:QI 1 "ext_QIreg_operand"))
+678:            (const_int 1)
+679:         ]
+680:         (const_int 0)))
+681:
+682: ;; There are also additional prefixes in 3DNOW, SSSE3.
+683: ;; 3DNOW has 0f0f prefix, SSSE3 and SSE4_{1,2} 0f38/0f3a.
+684: ;; While generally inapplicable to VEX/XOP/EVEX encodings, "length_vex" uses
+685: ;; the attribute evaluating to zero to know that VEX2 encoding may be usable.
+686: (define_attr "prefix_extra" ""
+687:   (cond [(eq_attr "type" "ssemuladd,sse4arg,sseiadd1,ssecvt1")
+688:            (const_int 1)
+689:         ]
+690:         (const_int 0)))
+691:
+692: ;; Prefix used: original, VEX or maybe VEX.
+693: (define_attr "prefix" "orig,vex,maybe_vex,evex,maybe_evex"
+694:   (cond [(eq_attr "mode" "OI,V8SF,V4DF")
+695:            (const_string "vex")
+696:          (eq_attr "mode" "XI,V16SF,V8DF")
+697:            (const_string "evex")
+698:          (eq_attr "type" "ssemuladd")
+699:            (if_then_else (eq_attr "isa" "fma4")
+700:              (const_string "vex")
+701:              (const_string "maybe_evex"))
+702:          (eq_attr "type" "sse4arg")
+703:            (const_string "vex")
+704:         ]
+705:         (const_string "orig")))
+706:
+707: ;; VEX W bit is used.
+708: (define_attr "prefix_vex_w" "" (const_int 0))
+709:
+710: ;; The length of VEX prefix
+711: ;; Only instructions with 0f prefix can have 2 byte VEX prefix,
+712: ;; 0f38/0f3a prefixes can't.  In i386.md 0f3[8a] is
+713: ;; still prefix_0f 1, with prefix_extra 1.
+714: (define_attr "length_vex" ""
+715:   (if_then_else (and (eq_attr "prefix_0f" "1")
+716:                      (eq_attr "prefix_extra" "0"))
+717:     (if_then_else (eq_attr "prefix_vex_w" "1")
+718:       (symbol_ref "ix86_attr_length_vex_default (insn, true, true)")
+719:       (symbol_ref "ix86_attr_length_vex_default (insn, true, false)"))
+720:     (if_then_else (eq_attr "prefix_vex_w" "1")
+721:       (symbol_ref "ix86_attr_length_vex_default (insn, false, true)")
+722:       (symbol_ref "ix86_attr_length_vex_default (insn, false, false)"))))
+723:
+724: ;; 4-bytes evex prefix and 1 byte opcode.
+725: (define_attr "length_evex" "" (const_int 5))
+726:
+727: ;; Set when modrm byte is used.
+728: (define_attr "modrm" ""
+729:   (cond [(eq_attr "type" "str,leave")
+730:            (const_int 0)
+731:          (eq_attr "unit" "i387")
+732:            (const_int 0)
+733:          (and (eq_attr "type" "incdec")
+734:               (and (not (match_test "TARGET_64BIT"))
+735:                    (ior (match_operand:SI 1 "register_operand")
+736:                         (match_operand:HI 1 "register_operand"))))
+737:            (const_int 0)
+738:          (and (eq_attr "type" "push")
+739:               (not (match_operand 1 "memory_operand")))
+740:            (const_int 0)
+741:          (and (eq_attr "type" "pop")
+742:               (not (match_operand 0 "memory_operand")))
+743:            (const_int 0)
+744:          (and (eq_attr "type" "imov")
+745:               (and (not (eq_attr "mode" "DI"))
+746:                    (ior (and (match_operand 0 "register_operand")
+747:                              (match_operand 1 "immediate_operand"))
+748:                         (ior (and (match_operand 0 "ax_reg_operand")
+749:                                   (match_operand 1 "memory_displacement_only_operand"))
+750:                              (and (match_operand 0 "memory_displacement_only_operand")
+751:                                   (match_operand 1 "ax_reg_operand"))))))
+752:            (const_int 0)
+753:          (and (eq_attr "type" "call")
+754:               (match_operand 0 "constant_call_address_operand"))
+755:              (const_int 0)
+756:          (and (eq_attr "type" "callv")
+757:               (match_operand 1 "constant_call_address_operand"))
+758:              (const_int 0)
+759:          (and (eq_attr "type" "alu,alu1,icmp,test")
+760:               (match_operand 0 "ax_reg_operand"))
+761:              (symbol_ref "(get_attr_length_immediate (insn) <= (get_attr_mode (insn) != MODE_QI))")
+762:          ]
+763:          (const_int 1)))
+764:
+765: ;; The (bounding maximum) length of an instruction in bytes.
+766: ;; ??? fistp and frndint are in fact fldcw/{fistp,frndint}/fldcw sequences.
+767: ;; Later we may want to split them and compute proper length as for
+768: ;; other insns.
+769: (define_attr "length" ""
+770:   (cond [(eq_attr "type" "other,multi,fistp,frndint")
+771:            (const_int 16)
+772:          (eq_attr "type" "fcmp")
+773:            (const_int 4)
+774:          (eq_attr "unit" "i387")
+775:            (plus (const_int 2)
+776:                  (plus (attr "prefix_data16")
+777:                        (attr "length_address")))
+778:          (ior (eq_attr "prefix" "evex")
+779:               (and (ior (eq_attr "prefix" "maybe_evex")
+780:                         (eq_attr "prefix" "maybe_vex"))
+781:                    (match_test "TARGET_AVX512F")))
+782:            (plus (attr "length_evex")
+783:                  (plus (attr "length_immediate")
+784:                        (plus (attr "modrm")
+785:                              (attr "length_address"))))
+786:          (ior (eq_attr "prefix" "vex")
+787:               (and (ior (eq_attr "prefix" "maybe_vex")
+788:                         (eq_attr "prefix" "maybe_evex"))
+789:                    (match_test "TARGET_AVX")))
+790:            (plus (attr "length_vex")
+791:                  (plus (attr "length_immediate")
+792:                        (plus (attr "modrm")
+793:                              (attr "length_address"))))]
+794:          (plus (plus (attr "modrm")
+795:                      (plus (attr "prefix_0f")
+796:                            (plus (attr "prefix_rex")
+797:                                  (plus (attr "prefix_extra")
+798:                                        (const_int 1)))))
+799:                (plus (attr "prefix_rep")
+800:                      (plus (attr "prefix_data16")
+801:                            (plus (attr "length_immediate")
+802:                                  (attr "length_address")))))))
+```
+
+## gcc/config/i386/i386.md:2307–2322
+
+```text
+2307: (define_insn "*pop<mode>1"
+2308:   [(set (match_operand:W 0 "nonimmediate_operand" "=r*m")
+2309:         (match_operand:W 1 "pop_operand" ">"))]
+2310:   ""
+2311:   "pop{<imodesuffix>}\t%0"
+2312:   [(set_attr "type" "pop")
+2313:    (set_attr "mode" "<MODE>")])
+2314:
+2315: (define_insn "*pop<mode>1_epilogue"
+2316:   [(set (match_operand:W 0 "nonimmediate_operand" "=r*m")
+2317:         (match_operand:W 1 "pop_operand" ">"))
+2318:    (clobber (mem:BLK (scratch)))]
+2319:   ""
+2320:   "pop{<imodesuffix>}\t%0"
+2321:   [(set_attr "type" "pop")
+2322:    (set_attr "mode" "<MODE>")])
+```
+
+## gcc/config/i386/i386.md:2594–2765
+
+```text
+2594: (define_insn "*movdi_internal"
+2595:   [(set (match_operand:DI 0 "nonimmediate_operand"
+2596:     "=r  ,o  ,r,r  ,r,m ,*y,*y,?*y,?m,?r,?*y,?Yv,?v,?v,m ,m,?jc,?*Yd,?r,?v,?*y,?*x,*k,*k  ,*r,*m,*k")
+2597:         (match_operand:DI 1 "general_operand"
+2598:     "riFo,riF,Z,rem,i,re,C ,*y,Bk ,*y,*y,r  ,C  ,?v,Bk,?v,v,*Yd,jc  ,?v,r ,*x ,*y ,*r,*kBk,*k,*k,CBC"))]
+2599:   "!(MEM_P (operands[0]) && MEM_P (operands[1]))
+2600:    && ix86_hardreg_mov_ok (operands[0], operands[1])"
+2601: {
+2602:   switch (get_attr_type (insn))
+2603:     {
+2604:     case TYPE_MSKMOV:
+2605:       return "kmovq\t{%1, %0|%0, %1}";
+2606:
+2607:     case TYPE_MSKLOG:
+2608:       if (operands[1] == const0_rtx)
+2609:         return "kxorq\t%0, %0, %0";
+2610:       else if (operands[1] == constm1_rtx)
+2611:         return "kxnorq\t%0, %0, %0";
+2612:       gcc_unreachable ();
+2613:
+2614:     case TYPE_MULTI:
+2615:       return "#";
+2616:
+2617:     case TYPE_MMX:
+2618:       return "pxor\t%0, %0";
+2619:
+2620:     case TYPE_MMXMOV:
+2621:       /* Handle broken assemblers that require movd instead of movq.  */
+2622:       if (!HAVE_AS_IX86_INTERUNIT_MOVQ
+2623:           && (GENERAL_REG_P (operands[0]) || GENERAL_REG_P (operands[1])))
+2624:         return "movd\t{%1, %0|%0, %1}";
+2625:       return "movq\t{%1, %0|%0, %1}";
+2626:
+2627:     case TYPE_SSELOG1:
+2628:       return standard_sse_constant_opcode (insn, operands);
+2629:
+2630:     case TYPE_SSEMOV:
+2631:       return ix86_output_ssemov (insn, operands);
+2632:
+2633:     case TYPE_SSECVT:
+2634:       if (SSE_REG_P (operands[0]))
+2635:         return "movq2dq\t{%1, %0|%0, %1}";
+2636:       else
+2637:         return "movdq2q\t{%1, %0|%0, %1}";
+2638:
+2639:     case TYPE_LEA:
+2640:       return "lea{q}\t{%E1, %0|%0, %E1}";
+2641:
+2642:     case TYPE_IMOV:
+2643:       gcc_assert (!flag_pic || LEGITIMATE_PIC_OPERAND_P (operands[1]));
+2644:       if (get_attr_mode (insn) == MODE_SI)
+2645:         return "mov{l}\t{%k1, %k0|%k0, %k1}";
+2646:       else if (which_alternative == 4)
+2647:         return "movabs{q}\t{%1, %0|%0, %1}";
+2648:       else if (ix86_use_lea_for_mov (insn, operands))
+2649:         return "lea{q}\t{%E1, %0|%0, %E1}";
+2650:       else
+2651:         return "mov{q}\t{%1, %0|%0, %1}";
+2652:
+2653:     default:
+2654:       gcc_unreachable ();
+2655:     }
+2656: }
+2657:   [(set (attr "isa")
+2658:      (cond [(eq_attr "alternative" "0,1,17,18")
+2659:               (const_string "nox64")
+2660:             (eq_attr "alternative" "2,3,4,5,10,11")
+2661:               (const_string "x64")
+2662:             (eq_attr "alternative" "19,20")
+2663:               (const_string "x64_sse2")
+2664:             (eq_attr "alternative" "21,22")
+2665:               (const_string "sse2")
+2666:             (eq_attr "alternative" "23,25")
+2667:               (const_string "x64_avx512bw")
+2668:             (eq_attr "alternative" "24,26,27")
+2669:               (const_string "avx512bw")
+2670:            ]
+2671:            (const_string "*")))
+2672:    (set (attr "type")
+2673:      (cond [(eq_attr "alternative" "0,1,17,18")
+2674:               (const_string "multi")
+2675:             (eq_attr "alternative" "6")
+2676:               (const_string "mmx")
+2677:             (eq_attr "alternative" "7,8,9,10,11")
+2678:               (const_string "mmxmov")
+2679:             (eq_attr "alternative" "12")
+2680:               (const_string "sselog1")
+2681:             (eq_attr "alternative" "13,14,15,16,19,20")
+2682:               (const_string "ssemov")
+2683:             (eq_attr "alternative" "21,22")
+2684:               (const_string "ssecvt")
+2685:             (eq_attr "alternative" "23,24,25,26")
+2686:               (const_string "mskmov")
+2687:             (eq_attr "alternative" "27")
+2688:               (const_string "msklog")
+2689:             (and (match_operand 0 "register_operand")
+2690:                  (match_operand 1 "pic_32bit_operand"))
+2691:               (const_string "lea")
+2692:            ]
+2693:            (const_string "imov")))
+2694:    (set (attr "modrm")
+2695:      (if_then_else
+2696:        (and (eq_attr "alternative" "4") (eq_attr "type" "imov"))
+2697:        (const_string "0")
+2698:        (const_string "*")))
+2699:    (set (attr "length_immediate")
+2700:      (if_then_else
+2701:        (and (eq_attr "alternative" "4") (eq_attr "type" "imov"))
+2702:        (const_string "8")
+2703:        (const_string "*")))
+2704:    (set (attr "prefix_rex")
+2705:      (if_then_else
+2706:        (eq_attr "alternative" "10,11,19,20")
+2707:        (const_string "1")
+2708:        (const_string "*")))
+2709:    (set (attr "prefix")
+2710:      (if_then_else (eq_attr "type" "sselog1,ssemov")
+2711:        (const_string "maybe_vex")
+2712:        (const_string "orig")))
+2713:    (set (attr "prefix_data16")
+2714:      (if_then_else (and (eq_attr "type" "ssemov") (eq_attr "mode" "DI"))
+2715:        (const_string "1")
+2716:        (const_string "*")))
+2717:    (set (attr "mode")
+2718:      (cond [(eq_attr "alternative" "2")
+2719:               (const_string "SI")
+2720:             (eq_attr "alternative" "12")
+2721:               (cond [(match_test "TARGET_AVX")
+2722:                        (const_string "TI")
+2723:                      (ior (not (match_test "TARGET_SSE2"))
+2724:                           (match_test "optimize_function_for_size_p (cfun)"))
+2725:                        (const_string "V4SF")
+2726:                     ]
+2727:                     (const_string "TI"))
+2728:             (eq_attr "alternative" "13")
+2729:               (cond [(match_test "TARGET_AVX512VL")
+2730:                        (const_string "TI")
+2731:                      (match_test "TARGET_AVX512F")
+2732:                        (const_string "DF")
+2733:                      (match_test "TARGET_AVX")
+2734:                        (const_string "TI")
+2735:                      (ior (not (match_test "TARGET_SSE2"))
+2736:                           (match_test "optimize_function_for_size_p (cfun)"))
+2737:                        (const_string "V4SF")
+2738:                     ]
+2739:                     (const_string "TI"))
+2740:
+2741:             (and (eq_attr "alternative" "14,15,16")
+2742:                  (not (match_test "TARGET_SSE2")))
+2743:               (const_string "V2SF")
+2744:            ]
+2745:            (const_string "DI")))
+2746:    (set (attr "preferred_for_speed")
+2747:      (cond [(eq_attr "alternative" "10,17,19")
+2748:               (symbol_ref "TARGET_INTER_UNIT_MOVES_FROM_VEC")
+2749:             (eq_attr "alternative" "11,18,20")
+2750:               (symbol_ref "TARGET_INTER_UNIT_MOVES_TO_VEC")
+2751:            ]
+2752:            (symbol_ref "true")))
+2753:    (set (attr "enabled")
+2754:      (cond [(eq_attr "alternative" "15")
+2755:               (if_then_else
+2756:                 (match_test "TARGET_STV && TARGET_SSE2")
+2757:                 (symbol_ref "false")
+2758:                 (const_string "*"))
+2759:             (eq_attr "alternative" "16")
+2760:               (if_then_else
+2761:                 (match_test "TARGET_STV && TARGET_SSE2")
+2762:                 (symbol_ref "true")
+2763:                 (symbol_ref "false"))
+2764:            ]
+2765:            (const_string "*")))])
+```
+
 ## gcc/config/i386/i386-options.cc:2273–2286
 
 ```text
@@ -27561,6 +28394,159 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3334:           if (write_symbols != NO_DEBUG && write_symbols != DWARF2_DEBUG)
 ```
 
+## gcc/config/i386/i386-options.cc:108–189
+
+```text
+108: #define m_PPRO (HOST_WIDE_INT_1U<<PROCESSOR_PENTIUMPRO)
+109: #define m_PENT4 (HOST_WIDE_INT_1U<<PROCESSOR_PENTIUM4)
+110: #define m_NOCONA (HOST_WIDE_INT_1U<<PROCESSOR_NOCONA)
+111: #define m_P4_NOCONA (m_PENT4 | m_NOCONA)
+112: #define m_CORE2 (HOST_WIDE_INT_1U<<PROCESSOR_CORE2)
+113: #define m_NEHALEM (HOST_WIDE_INT_1U<<PROCESSOR_NEHALEM)
+114: #define m_SANDYBRIDGE (HOST_WIDE_INT_1U<<PROCESSOR_SANDYBRIDGE)
+115: #define m_HASWELL (HOST_WIDE_INT_1U<<PROCESSOR_HASWELL)
+116: #define m_BONNELL (HOST_WIDE_INT_1U<<PROCESSOR_BONNELL)
+117: #define m_SILVERMONT (HOST_WIDE_INT_1U<<PROCESSOR_SILVERMONT)
+118: #define m_SKYLAKE (HOST_WIDE_INT_1U<<PROCESSOR_SKYLAKE)
+119: #define m_SKYLAKE_AVX512 (HOST_WIDE_INT_1U<<PROCESSOR_SKYLAKE_AVX512)
+120: #define m_CANNONLAKE (HOST_WIDE_INT_1U<<PROCESSOR_CANNONLAKE)
+121: #define m_ICELAKE_CLIENT (HOST_WIDE_INT_1U<<PROCESSOR_ICELAKE_CLIENT)
+122: #define m_ICELAKE_SERVER (HOST_WIDE_INT_1U<<PROCESSOR_ICELAKE_SERVER)
+123: #define m_CASCADELAKE (HOST_WIDE_INT_1U<<PROCESSOR_CASCADELAKE)
+124: #define m_TIGERLAKE (HOST_WIDE_INT_1U<<PROCESSOR_TIGERLAKE)
+125: #define m_COOPERLAKE (HOST_WIDE_INT_1U<<PROCESSOR_COOPERLAKE)
+126: #define m_SAPPHIRERAPIDS (HOST_WIDE_INT_1U<<PROCESSOR_SAPPHIRERAPIDS)
+127: #define m_ALDERLAKE (HOST_WIDE_INT_1U<<PROCESSOR_ALDERLAKE)
+128: #define m_ROCKETLAKE (HOST_WIDE_INT_1U<<PROCESSOR_ROCKETLAKE)
+129: #define m_GRANITERAPIDS (HOST_WIDE_INT_1U<<PROCESSOR_GRANITERAPIDS)
+130: #define m_GRANITERAPIDS_D (HOST_WIDE_INT_1U<<PROCESSOR_GRANITERAPIDS_D)
+131: #define m_ARROWLAKE (HOST_WIDE_INT_1U<<PROCESSOR_ARROWLAKE)
+132: #define m_ARROWLAKE_S (HOST_WIDE_INT_1U<<PROCESSOR_ARROWLAKE_S)
+133: #define m_PANTHERLAKE (HOST_WIDE_INT_1U<<PROCESSOR_PANTHERLAKE)
+134: #define m_DIAMONDRAPIDS (HOST_WIDE_INT_1U<<PROCESSOR_DIAMONDRAPIDS)
+135: #define m_NOVALAKE (HOST_WIDE_INT_1U<<PROCESSOR_NOVALAKE)
+136: #define m_CORE_AVX512 (m_SKYLAKE_AVX512 | m_CANNONLAKE \
+137:                        | m_ICELAKE_CLIENT | m_ICELAKE_SERVER | m_CASCADELAKE \
+138:                        | m_TIGERLAKE | m_COOPERLAKE | m_SAPPHIRERAPIDS \
+139:                        | m_ROCKETLAKE | m_GRANITERAPIDS | m_GRANITERAPIDS_D \
+140:                        | m_DIAMONDRAPIDS)
+141: #define m_CORE_AVX2 (m_HASWELL | m_SKYLAKE | m_CORE_AVX512)
+142: #define m_CORE_ALL (m_CORE2 | m_NEHALEM  | m_SANDYBRIDGE | m_CORE_AVX2)
+143: #define m_CORE_HYBRID (m_ALDERLAKE | m_ARROWLAKE | m_ARROWLAKE_S \
+144:                        | m_PANTHERLAKE | m_NOVALAKE)
+145: #define m_GOLDMONT (HOST_WIDE_INT_1U<<PROCESSOR_GOLDMONT)
+146: #define m_GOLDMONT_PLUS (HOST_WIDE_INT_1U<<PROCESSOR_GOLDMONT_PLUS)
+147: #define m_TREMONT (HOST_WIDE_INT_1U<<PROCESSOR_TREMONT)
+148: #define m_SIERRAFOREST (HOST_WIDE_INT_1U<<PROCESSOR_SIERRAFOREST)
+149: #define m_GRANDRIDGE (HOST_WIDE_INT_1U<<PROCESSOR_GRANDRIDGE)
+150: #define m_CLEARWATERFOREST (HOST_WIDE_INT_1U<<PROCESSOR_CLEARWATERFOREST)
+151: #define m_CORE_ATOM (m_SIERRAFOREST | m_GRANDRIDGE | m_CLEARWATERFOREST)
+152: #define m_INTEL (HOST_WIDE_INT_1U<<PROCESSOR_INTEL)
+153: /* Gather Data Sampling / CVE-2022-40982 / INTEL-SA-00828.
+154:    Software mitigation.  */
+155: #define m_GDS (m_SKYLAKE | m_SKYLAKE_AVX512 | m_CANNONLAKE \
+156:                | m_ICELAKE_CLIENT | m_ICELAKE_SERVER | m_CASCADELAKE \
+157:                | m_TIGERLAKE | m_COOPERLAKE | m_ROCKETLAKE)
+158:
+159: #define m_LUJIAZUI (HOST_WIDE_INT_1U<<PROCESSOR_LUJIAZUI)
+160: #define m_YONGFENG (HOST_WIDE_INT_1U<<PROCESSOR_YONGFENG)
+161: #define m_SHIJIDADAO (HOST_WIDE_INT_1U<<PROCESSOR_SHIJIDADAO)
+162: #define m_ZHAOXIN  (m_LUJIAZUI | m_YONGFENG | m_SHIJIDADAO)
+163:
+164: #define m_GEODE (HOST_WIDE_INT_1U<<PROCESSOR_GEODE)
+165: #define m_K6 (HOST_WIDE_INT_1U<<PROCESSOR_K6)
+166: #define m_K6_GEODE (m_K6 | m_GEODE)
+167: #define m_K8 (HOST_WIDE_INT_1U<<PROCESSOR_K8)
+168: #define m_ATHLON (HOST_WIDE_INT_1U<<PROCESSOR_ATHLON)
+169: #define m_ATHLON_K8 (m_K8 | m_ATHLON)
+170: #define m_AMDFAM10 (HOST_WIDE_INT_1U<<PROCESSOR_AMDFAM10)
+171: #define m_BDVER1 (HOST_WIDE_INT_1U<<PROCESSOR_BDVER1)
+172: #define m_BDVER2 (HOST_WIDE_INT_1U<<PROCESSOR_BDVER2)
+173: #define m_BDVER3 (HOST_WIDE_INT_1U<<PROCESSOR_BDVER3)
+174: #define m_BDVER4 (HOST_WIDE_INT_1U<<PROCESSOR_BDVER4)
+175: #define m_ZNVER1 (HOST_WIDE_INT_1U<<PROCESSOR_ZNVER1)
+176: #define m_ZNVER2 (HOST_WIDE_INT_1U<<PROCESSOR_ZNVER2)
+177: #define m_ZNVER3 (HOST_WIDE_INT_1U<<PROCESSOR_ZNVER3)
+178: #define m_ZNVER4 (HOST_WIDE_INT_1U<<PROCESSOR_ZNVER4)
+179: #define m_ZNVER5 (HOST_WIDE_INT_1U<<PROCESSOR_ZNVER5)
+180: #define m_ZNVER6 (HOST_WIDE_INT_1U<<PROCESSOR_ZNVER6)
+181: #define m_BTVER1 (HOST_WIDE_INT_1U<<PROCESSOR_BTVER1)
+182: #define m_BTVER2 (HOST_WIDE_INT_1U<<PROCESSOR_BTVER2)
+183: #define m_BDVER (m_BDVER1 | m_BDVER2 | m_BDVER3 | m_BDVER4)
+184: #define m_BTVER (m_BTVER1 | m_BTVER2)
+185: #define m_ZNVER (m_ZNVER1 | m_ZNVER2 | m_ZNVER3 | m_ZNVER4 | m_ZNVER5 | m_ZNVER6)
+186: #define m_AMD_MULTIPLE (m_ATHLON_K8 | m_AMDFAM10 | m_BDVER | m_BTVER \
+187:                         | m_ZNVER)
+188:
+189: #define m_GENERIC (HOST_WIDE_INT_1U<<PROCESSOR_GENERIC)
+```
+
+## gcc/config/i386/i386-options.cc:1819–1832
+
+```text
+1819: static void
+1820: set_ix86_tune_features (struct gcc_options *opts,
+1821:                         enum processor_type ix86_tune, bool dump)
+1822: {
+1823:   unsigned HOST_WIDE_INT ix86_tune_mask = HOST_WIDE_INT_1U << ix86_tune;
+1824:   int i;
+1825:
+1826:   for (i = 0; i < X86_TUNE_LAST; ++i)
+1827:     {
+1828:       if (ix86_tune_no_default)
+1829:         ix86_tune_features[i] = 0;
+1830:       else
+1831:         ix86_tune_features[i]
+1832:           = !!(initial_ix86_tune_features[i] & ix86_tune_mask);
+```
+
+## gcc/config/i386/i386-options.cc:1862–1875
+
+```text
+1862: /* Default align_* from the processor table.  */
+1863:
+1864: static void
+1865: ix86_default_align (struct gcc_options *opts)
+1866: {
+1867:   /* -falign-foo without argument: supply one.  */
+1868:   if (opts->x_flag_align_loops && !opts->x_str_align_loops)
+1869:     opts->x_str_align_loops = processor_cost_table[ix86_tune]->align_loop;
+1870:   if (opts->x_flag_align_jumps && !opts->x_str_align_jumps)
+1871:     opts->x_str_align_jumps = processor_cost_table[ix86_tune]->align_jump;
+1872:   if (opts->x_flag_align_labels && !opts->x_str_align_labels)
+1873:     opts->x_str_align_labels = processor_cost_table[ix86_tune]->align_label;
+1874:   if (opts->x_flag_align_functions && !opts->x_str_align_functions)
+1875:     opts->x_str_align_functions = processor_cost_table[ix86_tune]->align_func;
+```
+
+## gcc/config/i386/i386-options.cc:3402–3424
+
+```text
+3402:   if (cfun->machine->function_return_type == indirect_branch_unset)
+3403:     {
+3404:       tree attr = lookup_attribute ("function_return",
+3405:                                     DECL_ATTRIBUTES (fndecl));
+3406:       if (attr != NULL)
+3407:         {
+3408:           tree args = TREE_VALUE (attr);
+3409:           if (args == NULL)
+3410:             gcc_unreachable ();
+3411:           tree cst = TREE_VALUE (args);
+3412:           if (strcmp (TREE_STRING_POINTER (cst), "keep") == 0)
+3413:             cfun->machine->function_return_type = indirect_branch_keep;
+3414:           else if (strcmp (TREE_STRING_POINTER (cst), "thunk") == 0)
+3415:             cfun->machine->function_return_type = indirect_branch_thunk;
+3416:           else if (strcmp (TREE_STRING_POINTER (cst), "thunk-inline") == 0)
+3417:             cfun->machine->function_return_type = indirect_branch_thunk_inline;
+3418:           else if (strcmp (TREE_STRING_POINTER (cst), "thunk-extern") == 0)
+3419:             cfun->machine->function_return_type = indirect_branch_thunk_extern;
+3420:           else
+3421:             gcc_unreachable ();
+3422:         }
+3423:       else
+3424:         cfun->machine->function_return_type = ix86_function_return;
+```
+
 ## gcc/config/elfos.h:212–220
 
 ```text
@@ -27573,6 +28559,22 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 218: #define FINI_SECTION_ASM_OP     "\t.section\t.fini"
 219:
 220: /* Output assembly directive to move to the beginning of current section.  */
+```
+
+## gcc/config/elfos.h:121–131
+
+```text
+121: #undef  ASM_GENERATE_INTERNAL_LABEL
+122: #define ASM_GENERATE_INTERNAL_LABEL(LABEL, PREFIX, NUM)         \
+123:   do                                                            \
+124:     {                                                           \
+125:       char *__p;                                                \
+126:       (LABEL)[0] = '*';                                         \
+127:       (LABEL)[1] = '.';                                         \
+128:       __p = stpcpy (&(LABEL)[2], PREFIX);                       \
+129:       sprint_ul (__p, (unsigned long) (NUM));                   \
+130:     }                                                           \
+131:   while (0)
 ```
 
 ## gcc/rtl.h:3019–3024
@@ -28008,6 +29010,28 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4759:   return last_insn;
 4760: }
 4761:
+```
+
+## gcc/expr.cc:14347–14363
+
+```text
+14347: get_personality_function (tree decl)
+14348: {
+14349:   tree personality = DECL_FUNCTION_PERSONALITY (decl);
+14350:   enum eh_personality_kind pk;
+14351:
+14352:   pk = function_needs_eh_personality (DECL_STRUCT_FUNCTION (decl));
+14353:   if (pk == eh_personality_none)
+14354:     return NULL;
+14355:
+14356:   if (!personality
+14357:       && pk == eh_personality_any)
+14358:     personality = lang_hooks.eh_personality ();
+14359:
+14360:   if (pk == eh_personality_lang)
+14361:     gcc_assert (personality != NULL_TREE);
+14362:
+14363:   return XEXP (DECL_RTL (personality), 0);
 ```
 
 ## gcc/genemit.cc:175–179
@@ -31571,6 +32595,15 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1521:       && (opts->x_flag_selective_scheduling
 ```
 
+## gcc/opts.cc:684–687
+
+```text
+684:     { OPT_LEVELS_2_PLUS_SPEED_ONLY, OPT_falign_functions, NULL, 1 },
+685:     { OPT_LEVELS_2_PLUS_SPEED_ONLY, OPT_falign_jumps, NULL, 1 },
+686:     { OPT_LEVELS_2_PLUS_SPEED_ONLY, OPT_falign_labels, NULL, 1 },
+687:     { OPT_LEVELS_2_PLUS_SPEED_ONLY, OPT_falign_loops, NULL, 1 },
+```
+
 ## gcc/common.opt:1293–1295
 
 ```text
@@ -31834,6 +32867,86 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1885:       this_target_rtl->target_specific_initialized = true;
 1886:     }
 1887: }
+```
+
+## gcc/toplev.cc:157–159
+
+```text
+157: class target_flag_state default_target_flag_state;
+158: #if SWITCHABLE_TARGET
+159: class target_flag_state *this_target_flag_state = &default_target_flag_state;
+```
+
+## gcc/toplev.cc:1215–1281
+
+```text
+1215: parse_N_M (const char *flag, align_flags &a)
+1216: {
+1217:   if (flag)
+1218:     {
+1219:       static hash_map <nofree_string_hash, align_flags> cache;
+1220:       align_flags *entry = cache.get (flag);
+1221:       if (entry)
+1222:         {
+1223:           a = *entry;
+1224:           return;
+1225:         }
+1226:
+1227:       auto_vec<unsigned> result_values;
+1228:       bool r = parse_and_check_align_values (flag, NULL, result_values, false,
+1229:                                              UNKNOWN_LOCATION);
+1230:       if (!r)
+1231:         return;
+1232:
+1233:       /* Reverse values for easier manipulation.  */
+1234:       result_values.reverse ();
+1235:
+1236:       read_log_maxskip (result_values, &a.levels[0]);
+1237:       if (!result_values.is_empty ())
+1238:         read_log_maxskip (result_values, &a.levels[1]);
+1239: #ifdef SUBALIGN_LOG
+1240:       else
+1241:         {
+1242:           /* N2[:M2] is not specified.  This arch has a default for N2.
+1243:              Before -falign-foo=N:M:N2:M2 was introduced, x86 had a tweak.
+1244:              -falign-functions=N with N > 8 was adding secondary alignment.
+1245:              -falign-functions=10 was emitting this before every function:
+1246:                         .p2align 4,,9
+1247:                         .p2align 3
+1248:              Now this behavior (and more) can be explicitly requested:
+1249:              -falign-functions=16:10:8
+1250:              Retain old behavior if N2 is missing: */
+1251:
+1252:           int align = 1 << a.levels[0].log;
+1253:           int subalign = 1 << SUBALIGN_LOG;
+1254:
+1255:           if (a.levels[0].log > SUBALIGN_LOG
+1256:               && a.levels[0].maxskip >= subalign - 1)
+1257:             {
+1258:               /* Set N2 unless subalign can never have any effect.  */
+1259:               if (align > a.levels[0].maxskip + 1)
+1260:                 {
+1261:                   a.levels[1].log = SUBALIGN_LOG;
+1262:                   a.levels[1].normalize ();
+1263:                 }
+1264:             }
+1265:         }
+1266: #endif
+1267:
+1268:       /* Cache seen value.  */
+1269:       cache.put (flag, a);
+1270:     }
+1271: }
+1272:
+1273: /* Process -falign-foo=N[:M[:N2[:M2]]] options.  */
+1274:
+1275: void
+1276: parse_alignment_opts (void)
+1277: {
+1278:   parse_N_M (str_align_loops, align_loops);
+1279:   parse_N_M (str_align_jumps, align_jumps);
+1280:   parse_N_M (str_align_labels, align_labels);
+1281:   parse_N_M (str_align_functions, align_functions);
 ```
 
 ## gcc/ira.cc:1654–1661
@@ -35521,6 +36634,638 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2282:           break;
 ```
 
+## gcc/final.cc:162–162
+
+```text
+162: static int insn_counter = 0;
+```
+
+## gcc/final.cc:225–227
+
+```text
+225: default_function_pro_epilogue (FILE *)
+226: {
+227: }
+```
+
+## gcc/final.cc:455–465
+
+```text
+455: #ifndef LABEL_ALIGN
+456: #define LABEL_ALIGN(LABEL) align_labels
+457: #endif
+458:
+459: #ifndef LOOP_ALIGN
+460: #define LOOP_ALIGN(LABEL) align_loops
+461: #endif
+462:
+463: #ifndef LABEL_ALIGN_AFTER_BARRIER
+464: #define LABEL_ALIGN_AFTER_BARRIER(LABEL) 0
+465: #endif
+```
+
+## gcc/final.cc:1007–1104
+
+```text
+1007:   /* Compute initial lengths, addresses, and varying flags for each insn.  */
+1008:   int (*length_fun) (rtx_insn *) = increasing ? insn_min_length : insn_default_length;
+1009:
+1010:   for (insn_current_address = 0, insn = first;
+1011:        insn != 0;
+1012:        insn_current_address += insn_lengths[uid], insn = NEXT_INSN (insn))
+1013:     {
+1014:       uid = INSN_UID (insn);
+1015:
+1016:       insn_lengths[uid] = 0;
+1017:
+1018:       if (LABEL_P (insn))
+1019:         {
+1020:           int log = LABEL_TO_ALIGNMENT (insn).levels[0].log;
+1021:           if (log)
+1022:             {
+1023:               int align = 1 << log;
+1024:               int new_address = (insn_current_address + align - 1) & -align;
+1025:               insn_lengths[uid] = new_address - insn_current_address;
+1026:             }
+1027:         }
+1028:
+1029:       INSN_ADDRESSES (uid) = insn_current_address + insn_lengths[uid];
+1030:
+1031:       if (NOTE_P (insn) || BARRIER_P (insn)
+1032:           || LABEL_P (insn) || DEBUG_INSN_P (insn))
+1033:         continue;
+1034:       if (insn->deleted ())
+1035:         continue;
+1036:
+1037:       body = PATTERN (insn);
+1038:       if (rtx_jump_table_data *table = dyn_cast <rtx_jump_table_data *> (insn))
+1039:         {
+1040:           /* This only takes room if read-only data goes into the text
+1041:              section.  */
+1042:           if (JUMP_TABLES_IN_TEXT_SECTION
+1043:               || readonly_data_section == text_section)
+1044:             insn_lengths[uid] = (XVECLEN (body,
+1045:                                           GET_CODE (body) == ADDR_DIFF_VEC)
+1046:                                  * GET_MODE_SIZE (table->get_data_mode ()));
+1047:           /* Alignment is handled by ADDR_VEC_ALIGN.  */
+1048:         }
+1049:       else if (GET_CODE (body) == ASM_INPUT || asm_noperands (body) >= 0)
+1050:         insn_lengths[uid] = asm_insn_count (body) * insn_default_length (insn);
+1051:       else if (rtx_sequence *body_seq = dyn_cast <rtx_sequence *> (body))
+1052:         {
+1053:           int i;
+1054:           int const_delay_slots;
+1055:           if (DELAY_SLOTS)
+1056:             const_delay_slots = const_num_delay_slots (body_seq->insn (0));
+1057:           else
+1058:             const_delay_slots = 0;
+1059:
+1060:           int (*inner_length_fun) (rtx_insn *)
+1061:             = const_delay_slots ? length_fun : insn_default_length;
+1062:           /* Inside a delay slot sequence, we do not do any branch shortening
+1063:              if the shortening could change the number of delay slots
+1064:              of the branch.  */
+1065:           for (i = 0; i < body_seq->len (); i++)
+1066:             {
+1067:               rtx_insn *inner_insn = body_seq->insn (i);
+1068:               int inner_uid = INSN_UID (inner_insn);
+1069:               int inner_length;
+1070:
+1071:               if (GET_CODE (PATTERN (inner_insn)) == ASM_INPUT
+1072:                   || asm_noperands (PATTERN (inner_insn)) >= 0)
+1073:                 inner_length = (asm_insn_count (PATTERN (inner_insn))
+1074:                                 * insn_default_length (inner_insn));
+1075:               else
+1076:                 inner_length = inner_length_fun (inner_insn);
+1077:
+1078:               insn_lengths[inner_uid] = inner_length;
+1079:               if (const_delay_slots)
+1080:                 {
+1081:                   if ((varying_length[inner_uid]
+1082:                        = insn_variable_length_p (inner_insn)) != 0)
+1083:                     varying_length[uid] = 1;
+1084:                   INSN_ADDRESSES (inner_uid) = (insn_current_address
+1085:                                                 + insn_lengths[uid]);
+1086:                 }
+1087:               else
+1088:                 varying_length[inner_uid] = 0;
+1089:               insn_lengths[uid] += inner_length;
+1090:             }
+1091:         }
+1092:       else if (GET_CODE (body) != USE && GET_CODE (body) != CLOBBER)
+1093:         {
+1094:           insn_lengths[uid] = length_fun (insn);
+1095:           varying_length[uid] = insn_variable_length_p (insn);
+1096:         }
+1097:
+1098:       /* If needed, do any adjustment.  */
+1099: #ifdef ADJUST_INSN_LENGTH
+1100:       ADJUST_INSN_LENGTH (insn, insn_lengths[uid]);
+1101:       if (insn_lengths[uid] < 0)
+1102:         fatal_insn ("negative insn length", insn);
+1103: #endif
+1104:     }
+```
+
+## gcc/final.cc:1110–1170
+
+```text
+1110:   while (something_changed)
+1111:     {
+1112:       something_changed = false;
+1113:       insn_current_align = MAX_CODE_ALIGN - 1;
+1114:       for (insn_current_address = 0, insn = first;
+1115:            insn != 0;
+1116:            insn = NEXT_INSN (insn))
+1117:         {
+1118:           int new_length;
+1119: #ifdef ADJUST_INSN_LENGTH
+1120:           int tmp_length;
+1121: #endif
+1122:           int length_align;
+1123:
+1124:           uid = INSN_UID (insn);
+1125:
+1126:           if (rtx_code_label *label = dyn_cast <rtx_code_label *> (insn))
+1127:             {
+1128:               int log = LABEL_TO_ALIGNMENT (label).levels[0].log;
+1129:
+1130: #ifdef CASE_VECTOR_SHORTEN_MODE
+1131:               /* If the mode of a following jump table was changed, we
+1132:                  may need to update the alignment of this label.  */
+1133:
+1134:               if (JUMP_TABLES_IN_TEXT_SECTION
+1135:                   || readonly_data_section == text_section)
+1136:                 {
+1137:                   rtx_jump_table_data *table = jump_table_for_label (label);
+1138:                   if (table)
+1139:                     {
+1140:                       int newlog = ADDR_VEC_ALIGN (table);
+1141:                       if (newlog != log)
+1142:                         {
+1143:                           log = newlog;
+1144:                           LABEL_TO_ALIGNMENT (insn) = log;
+1145:                           something_changed = true;
+1146:                         }
+1147:                     }
+1148:                 }
+1149: #endif
+1150:
+1151:               if (log > insn_current_align)
+1152:                 {
+1153:                   int align = 1 << log;
+1154:                   int new_address= (insn_current_address + align - 1) & -align;
+1155:                   insn_lengths[uid] = new_address - insn_current_address;
+1156:                   insn_current_align = log;
+1157:                   insn_current_address = new_address;
+1158:                 }
+1159:               else
+1160:                 insn_lengths[uid] = 0;
+1161:               INSN_ADDRESSES (uid) = insn_current_address;
+1162:               continue;
+1163:             }
+1164:
+1165:           length_align = INSN_LENGTH_ALIGNMENT (insn);
+1166:           if (length_align < insn_current_align)
+1167:             insn_current_align = length_align;
+1168:
+1169:           insn_last_address = INSN_ADDRESSES (uid);
+1170:           INSN_ADDRESSES (uid) = insn_current_address;
+```
+
+## gcc/final.cc:1290–1311
+
+```text
+1290:           if (! (varying_length[uid]))
+1291:             {
+1292:               if (NONJUMP_INSN_P (insn)
+1293:                   && GET_CODE (PATTERN (insn)) == SEQUENCE)
+1294:                 {
+1295:                   int i;
+1296:
+1297:                   body = PATTERN (insn);
+1298:                   for (i = 0; i < XVECLEN (body, 0); i++)
+1299:                     {
+1300:                       rtx inner_insn = XVECEXP (body, 0, i);
+1301:                       int inner_uid = INSN_UID (inner_insn);
+1302:
+1303:                       INSN_ADDRESSES (inner_uid) = insn_current_address;
+1304:
+1305:                       insn_current_address += insn_lengths[inner_uid];
+1306:                     }
+1307:                 }
+1308:               else
+1309:                 insn_current_address += insn_lengths[uid];
+1310:
+1311:               continue;
+```
+
+## gcc/final.cc:1679–1786
+
+```text
+1679: final_start_function_1 (rtx_insn **firstp, FILE *file, int *seen,
+1680:                         int optimize_p ATTRIBUTE_UNUSED)
+1681: {
+1682:   block_depth = 0;
+1683:
+1684:   this_is_asm_operands = 0;
+1685:
+1686:   need_profile_function = false;
+1687:
+1688:   last_filename = LOCATION_FILE (prologue_location);
+1689:   last_linenum = LOCATION_LINE (prologue_location);
+1690:   last_columnnum = LOCATION_COLUMN (prologue_location);
+1691:   last_discriminator = 0;
+1692:   force_source_line = false;
+1693:
+1694:   high_block_linenum = high_function_linenum = last_linenum;
+1695:
+1696:   rtx_insn *first = *firstp;
+1697:   if (in_initial_view_p (first))
+1698:     {
+1699:       do
+1700:         {
+1701:           final_scan_insn (first, file, 0, 0, seen);
+1702:           first = NEXT_INSN (first);
+1703:         }
+1704:       while (in_initial_view_p (first));
+1705:       *firstp = first;
+1706:     }
+1707:
+1708:   if (!DECL_IGNORED_P (current_function_decl))
+1709:     debug_hooks->begin_prologue (last_linenum, last_columnnum,
+1710:                                  last_filename);
+1711:
+1712:   if (!dwarf2_debug_info_emitted_p (current_function_decl))
+1713:     dwarf2out_begin_prologue (0, 0, NULL);
+1714:
+1715:   if (DECL_IGNORED_P (current_function_decl) && last_linenum && last_filename)
+1716:     debug_hooks->set_ignored_loc (last_linenum, last_columnnum, last_filename);
+1717:
+1718: #ifdef LEAF_REG_REMAP
+1719:   if (crtl->uses_only_leaf_regs)
+1720:     leaf_renumber_regs (first);
+1721: #endif
+1722:
+1723:   /* The Sun386i and perhaps other machines don't work right
+1724:      if the profiling code comes after the prologue.  */
+1725:   if (targetm.profile_before_prologue () && crtl->profile)
+1726:     {
+1727:       if (targetm.asm_out.function_prologue == default_function_pro_epilogue
+1728:           && targetm.have_prologue ())
+1729:         {
+1730:           rtx_insn *insn;
+1731:           for (insn = first; insn; insn = NEXT_INSN (insn))
+1732:             if (!NOTE_P (insn))
+1733:               {
+1734:                 insn = NULL;
+1735:                 break;
+1736:               }
+1737:             else if (NOTE_KIND (insn) == NOTE_INSN_BASIC_BLOCK
+1738:                      || NOTE_KIND (insn) == NOTE_INSN_FUNCTION_BEG)
+1739:               break;
+1740:             else if (NOTE_KIND (insn) == NOTE_INSN_DELETED
+1741:                      || NOTE_KIND (insn) == NOTE_INSN_VAR_LOCATION)
+1742:               continue;
+1743:             else
+1744:               {
+1745:                 insn = NULL;
+1746:                 break;
+1747:               }
+1748:
+1749:           if (insn)
+1750:             need_profile_function = true;
+1751:           else
+1752:             profile_function (file);
+1753:         }
+1754:       else
+1755:         profile_function (file);
+1756:     }
+1757:
+1758:   /* If debugging, assign block numbers to all of the blocks in this
+1759:      function.  */
+1760:   if (write_symbols)
+1761:     {
+1762:       reemit_insn_block_notes ();
+1763:       number_blocks (current_function_decl);
+1764:       /* We never actually put out begin/end notes for the top-level
+1765:          block in the function.  But, conceptually, that block is
+1766:          always needed.  */
+1767:       TREE_ASM_WRITTEN (DECL_INITIAL (current_function_decl)) = 1;
+1768:     }
+1769:
+1770:   unsigned HOST_WIDE_INT min_frame_size
+1771:     = constant_lower_bound (get_frame_size ());
+1772:   if (min_frame_size > (unsigned HOST_WIDE_INT) warn_frame_larger_than_size)
+1773:     {
+1774:       /* Issue a warning */
+1775:       warning (OPT_Wframe_larger_than_,
+1776:                "the frame size of %wu bytes is larger than %wu bytes",
+1777:                min_frame_size, warn_frame_larger_than_size);
+1778:     }
+1779:
+1780:   /* First output the function prologue: code to set up the stack frame.  */
+1781:   targetm.asm_out.function_prologue (file);
+1782:
+1783:   /* If the machine represents the prologue as RTL, the profiling code must
+1784:      be emitted when NOTE_INSN_PROLOGUE_END is scanned.  */
+1785:   if (! targetm.have_prologue ())
+1786:     profile_after_prologue (file);
+```
+
+## gcc/final.cc:1856–1873
+
+```text
+1856: final_end_function (void)
+1857: {
+1858:   app_disable ();
+1859:
+1860:   if (!DECL_IGNORED_P (current_function_decl))
+1861:     debug_hooks->end_function (high_function_linenum);
+1862:
+1863:   /* Finally, output the function epilogue:
+1864:      code to restore the stack frame and return to the caller.  */
+1865:   targetm.asm_out.function_epilogue (asm_out_file);
+1866:
+1867:   /* And debug output.  */
+1868:   if (!DECL_IGNORED_P (current_function_decl))
+1869:     debug_hooks->end_epilogue (last_linenum, last_filename);
+1870:
+1871:   if (!dwarf2_debug_info_emitted_p (current_function_decl)
+1872:       && dwarf2out_do_frame ())
+1873:     dwarf2out_end_epilogue (last_linenum, last_filename);
+```
+
+## gcc/final.cc:1930–2003
+
+```text
+1930: final_1 (rtx_insn *first, FILE *file, int seen, int optimize_p)
+1931: {
+1932:   rtx_insn *insn, *next;
+1933:
+1934:   /* Used for -dA dump.  */
+1935:   basic_block *start_to_bb = NULL;
+1936:   basic_block *end_to_bb = NULL;
+1937:   int bb_map_size = 0;
+1938:   int bb_seqn = 0;
+1939:
+1940:   last_ignored_compare = 0;
+1941:
+1942:   init_recog ();
+1943:
+1944:   CC_STATUS_INIT;
+1945:
+1946:   if (flag_debug_asm)
+1947:     {
+1948:       basic_block bb;
+1949:
+1950:       bb_map_size = get_max_uid () + 1;
+1951:       start_to_bb = XCNEWVEC (basic_block, bb_map_size);
+1952:       end_to_bb = XCNEWVEC (basic_block, bb_map_size);
+1953:
+1954:       /* There is no cfg for a thunk.  */
+1955:       if (!cfun->is_thunk)
+1956:         FOR_EACH_BB_REVERSE_FN (bb, cfun)
+1957:           {
+1958:             start_to_bb[INSN_UID (BB_HEAD (bb))] = bb;
+1959:             end_to_bb[INSN_UID (BB_END (bb))] = bb;
+1960:           }
+1961:     }
+1962:
+1963:   /* Output the insns.  */
+1964:   for (insn = first; insn;)
+1965:     {
+1966:       if (HAVE_ATTR_length)
+1967:         {
+1968:           if ((unsigned) INSN_UID (insn) >= INSN_ADDRESSES_SIZE ())
+1969:             {
+1970:               /* This can be triggered by bugs elsewhere in the compiler if
+1971:                  new insns are created after init_insn_lengths is called.  */
+1972:               gcc_assert (NOTE_P (insn));
+1973:               insn_current_address = -1;
+1974:             }
+1975:           else
+1976:             insn_current_address = INSN_ADDRESSES (INSN_UID (insn));
+1977:           /* final can be seen as an iteration of shorten_branches that
+1978:              does nothing (since a fixed point has already been reached).  */
+1979:           insn_last_address = insn_current_address;
+1980:         }
+1981:
+1982:       dump_basic_block_info (file, insn, start_to_bb, end_to_bb,
+1983:                              bb_map_size, &bb_seqn);
+1984:       insn = final_scan_insn (insn, file, optimize_p, 0, &seen);
+1985:     }
+1986:
+1987:   maybe_output_next_view (&seen);
+1988:
+1989:   if (flag_debug_asm)
+1990:     {
+1991:       free (start_to_bb);
+1992:       free (end_to_bb);
+1993:     }
+1994:
+1995:   /* Remove CFI notes, to avoid compare-debug failures.  */
+1996:   for (insn = first; insn; insn = next)
+1997:     {
+1998:       next = NEXT_INSN (insn);
+1999:       if (NOTE_P (insn)
+2000:           && (NOTE_KIND (insn) == NOTE_INSN_CFI
+2001:               || NOTE_KIND (insn) == NOTE_INSN_CFI_LABEL))
+2002:         delete_insn (insn);
+2003:     }
+```
+
+## gcc/final.cc:2159–2170
+
+```text
+2159: final_scan_insn_1 (rtx_insn *insn, FILE *file, int optimize_p ATTRIBUTE_UNUSED,
+2160:                    int nopeepholes ATTRIBUTE_UNUSED, int *seen)
+2161: {
+2162:   rtx_insn *next;
+2163:   rtx_jump_table_data *table;
+2164:
+2165:   insn_counter++;
+2166:
+2167:   /* Ignore deleted insns.  These can occur when we split insns (due to a
+2168:      template of "#") while not optimizing.  */
+2169:   if (insn->deleted ())
+2170:     return NEXT_INSN (insn);
+```
+
+## gcc/final.cc:2751–2878
+
+```text
+2751:         /* Try to recognize the instruction.
+2752:            If successful, verify that the operands satisfy the
+2753:            constraints for the instruction.  Crash if they don't,
+2754:            since `reload' should have changed them so that they do.  */
+2755:
+2756:         insn_code_number = recog_memoized (insn);
+2757:         cleanup_subreg_operands (insn);
+2758:
+2759:         /* Dump the insn in the assembly for debugging (-dAP).
+2760:            If the final dump is requested as slim RTL, dump slim
+2761:            RTL to the assembly file also.  */
+2762:         if (flag_dump_rtl_in_asm)
+2763:           {
+2764:             print_rtx_head = ASM_COMMENT_START;
+2765:             if (! (dump_flags & TDF_SLIM))
+2766:               print_rtl_single (asm_out_file, insn);
+2767:             else
+2768:               dump_insn_slim (asm_out_file, insn);
+2769:             print_rtx_head = "";
+2770:           }
+2771:
+2772:         if (! constrain_operands_cached (insn, 1))
+2773:           fatal_insn_not_found (insn);
+2774:
+2775:         /* Some target machines need to prescan each insn before
+2776:            it is output.  */
+2777:
+2778: #ifdef FINAL_PRESCAN_INSN
+2779:         FINAL_PRESCAN_INSN (insn, recog_data.operand, recog_data.n_operands);
+2780: #endif
+2781:
+2782:         if (targetm.have_conditional_execution ()
+2783:             && GET_CODE (PATTERN (insn)) == COND_EXEC)
+2784:           current_insn_predicate = COND_EXEC_TEST (PATTERN (insn));
+2785:
+2786:         current_output_insn = debug_insn = insn;
+2787:
+2788:         /* Find the proper template for this insn.  */
+2789:         templ = get_insn_template (insn_code_number, insn);
+2790:
+2791:         /* If the C code returns 0, it means that it is a jump insn
+2792:            which follows a deleted test insn, and that test insn
+2793:            needs to be reinserted.  */
+2794:         if (templ == 0)
+2795:           {
+2796:             rtx_insn *prev;
+2797:
+2798:             gcc_assert (prev_nonnote_insn (insn) == last_ignored_compare);
+2799:
+2800:             /* We have already processed the notes between the setter and
+2801:                the user.  Make sure we don't process them again, this is
+2802:                particularly important if one of the notes is a block
+2803:                scope note or an EH note.  */
+2804:             for (prev = insn;
+2805:                  prev != last_ignored_compare;
+2806:                  prev = PREV_INSN (prev))
+2807:               {
+2808:                 if (NOTE_P (prev))
+2809:                   delete_insn (prev);   /* Use delete_note.  */
+2810:               }
+2811:
+2812:             return prev;
+2813:           }
+2814:
+2815:         /* If the template is the string "#", it means that this insn must
+2816:            be split.  */
+2817:         if (templ[0] == '#' && templ[1] == '\0')
+2818:           {
+2819:             rtx_insn *new_rtx = try_split (body, insn, 0);
+2820:
+2821:             /* If we didn't split the insn, go away.  */
+2822:             if (new_rtx == insn && PATTERN (new_rtx) == body)
+2823:               fatal_insn ("could not split insn", insn);
+2824:
+2825:             /* If we have a length attribute, this instruction should have
+2826:                been split in shorten_branches, to ensure that we would have
+2827:                valid length info for the splitees.  */
+2828:             gcc_assert (!HAVE_ATTR_length);
+2829:
+2830:             return new_rtx;
+2831:           }
+2832:
+2833:         /* ??? This will put the directives in the wrong place if
+2834:            get_insn_template outputs assembly directly.  However calling it
+2835:            before get_insn_template breaks if the insns is split.  */
+2836:         if (targetm.asm_out.unwind_emit_before_insn
+2837:             && targetm.asm_out.unwind_emit)
+2838:           targetm.asm_out.unwind_emit (asm_out_file, insn);
+2839:
+2840:         rtx_call_insn *call_insn = dyn_cast <rtx_call_insn *> (insn);
+2841:         if (call_insn != NULL)
+2842:           {
+2843:             rtx x = call_from_call_insn (call_insn);
+2844:             x = XEXP (x, 0);
+2845:             if (x && MEM_P (x) && GET_CODE (XEXP (x, 0)) == SYMBOL_REF)
+2846:               {
+2847:                 tree t;
+2848:                 x = XEXP (x, 0);
+2849:                 t = SYMBOL_REF_DECL (x);
+2850:                 if (t)
+2851:                   assemble_external (t);
+2852:               }
+2853:           }
+2854:
+2855:         /* Output assembler code from the template.  */
+2856:         output_asm_insn (templ, recog_data.operand);
+2857:
+2858:         /* Some target machines need to postscan each insn after
+2859:            it is output.  */
+2860:         if (targetm.asm_out.final_postscan_insn)
+2861:           targetm.asm_out.final_postscan_insn (file, insn, recog_data.operand,
+2862:                                                recog_data.n_operands);
+2863:
+2864:         if (!targetm.asm_out.unwind_emit_before_insn
+2865:             && targetm.asm_out.unwind_emit)
+2866:           targetm.asm_out.unwind_emit (asm_out_file, insn);
+2867:
+2868:         /* Let the debug info back-end know about this call.  We do this only
+2869:            after the instruction has been emitted because labels that may be
+2870:            created to reference the call instruction must appear after it.  */
+2871:         if ((debug_variable_location_views || call_insn != NULL)
+2872:             && !DECL_IGNORED_P (current_function_decl))
+2873:           debug_hooks->var_location (insn);
+2874:
+2875:         current_output_insn = debug_insn = 0;
+2876:       }
+2877:     }
+2878:   return NEXT_INSN (insn);
+```
+
+## gcc/final.cc:4259–4294
+
+```text
+4259: rest_of_handle_final (void)
+4260: {
+4261:   const char *fnname = get_fnname_from_decl (current_function_decl);
+4262:
+4263:   /* Turn debug markers into notes if the var-tracking pass has not
+4264:      been invoked.  */
+4265:   if (!flag_var_tracking && MAY_HAVE_DEBUG_MARKER_INSNS)
+4266:     delete_vta_debug_insns (false);
+4267:
+4268:   assemble_start_function (current_function_decl, fnname);
+4269:   rtx_insn *first = get_insns ();
+4270:   int seen = 0;
+4271:   final_start_function_1 (&first, asm_out_file, &seen, optimize);
+4272:   final_1 (first, asm_out_file, seen, optimize);
+4273:   if (flag_ipa_ra
+4274:       && !lookup_attribute ("noipa", DECL_ATTRIBUTES (current_function_decl))
+4275:       /* Functions with naked attributes are supported only with basic asm
+4276:          statements in the body, thus for supported use cases the information
+4277:          on clobbered registers is not available.  */
+4278:       && !lookup_attribute ("naked", DECL_ATTRIBUTES (current_function_decl)))
+4279:     collect_fn_hard_reg_usage ();
+4280:   final_end_function ();
+4281:
+4282:   /* The IA-64 ".handlerdata" directive must be issued before the ".endp"
+4283:      directive that closes the procedure descriptor.  Similarly, for x64 SEH.
+4284:      Otherwise it's not strictly necessary, but it doesn't hurt either.  */
+4285:   output_function_exception_table (crtl->has_bb_partition ? 1 : 0);
+4286:
+4287:   assemble_end_function (current_function_decl, fnname);
+4288:
+4289:   /* Free up reg info memory.  */
+4290:   free_reg_info ();
+4291:
+4292:   if (! quiet_flag)
+4293:     fflush (asm_out_file);
+4294:
+```
+
 ## gcc/insn-addr.h:27–61
 
 ```text
@@ -37002,6 +38747,346 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1061:   cfun->fde = fde;
 1062:   vec_safe_push (fde_vec, fde);
 1063:
+```
+
+## gcc/dwarf2out.cc:180–180
+
+```text
+180: #define MAX_ARTIFICIAL_LABEL_BYTES      40
+```
+
+## gcc/dwarf2out.cc:307–316
+
+```text
+307: #ifndef FUNC_BEGIN_LABEL
+308: #define FUNC_BEGIN_LABEL        "LFB"
+309: #endif
+310:
+311: #ifndef FUNC_SECOND_SECT_LABEL
+312: #define FUNC_SECOND_SECT_LABEL  "LFSB"
+313: #endif
+314:
+315: #ifndef FUNC_END_LABEL
+316: #define FUNC_END_LABEL          "LFE"
+```
+
+## gcc/dwarf2out.cc:1071–1119
+
+```text
+1071: dwarf2out_begin_prologue (unsigned int line ATTRIBUTE_UNUSED,
+1072:                           unsigned int column ATTRIBUTE_UNUSED,
+1073:                           const char *file ATTRIBUTE_UNUSED)
+1074: {
+1075:   char label[MAX_ARTIFICIAL_LABEL_BYTES];
+1076:   char * dup_label;
+1077:   dw_fde_ref fde;
+1078:   section *fnsec;
+1079:   bool do_frame;
+1080:
+1081:   current_function_func_begin_label = NULL;
+1082:
+1083:   do_frame = dwarf2out_do_frame ();
+1084:
+1085:   /* ??? current_function_func_begin_label is also used by except.cc for
+1086:      call-site information.  We must emit this label if it might be used.  */
+1087:   if (!do_frame
+1088:       && (!flag_exceptions
+1089:           || targetm_common.except_unwind_info (&global_options) == UI_SJLJ))
+1090:     return;
+1091:
+1092:   fnsec = function_section (current_function_decl);
+1093:   switch_to_section (fnsec);
+1094:   ASM_GENERATE_INTERNAL_LABEL (label, FUNC_BEGIN_LABEL,
+1095:                                current_function_funcdef_no);
+1096:   ASM_OUTPUT_DEBUG_LABEL (asm_out_file, FUNC_BEGIN_LABEL,
+1097:                           current_function_funcdef_no);
+1098:   dup_label = xstrdup (label);
+1099:   current_function_func_begin_label = dup_label;
+1100:
+1101:   /* We can elide FDE allocation if we're not emitting frame unwind info.  */
+1102:   if (!do_frame)
+1103:     return;
+1104:
+1105:   /* Unlike the debug version, the EH version of frame unwind info is a per-
+1106:      function setting so we need to record whether we need it for the unit.  */
+1107:   do_eh_frame |= dwarf2out_do_eh_frame ();
+1108:
+1109:   /* Cater to the various TARGET_ASM_OUTPUT_MI_THUNK implementations that
+1110:      emit insns as rtx but bypass the bulk of rest_of_compilation, which
+1111:      would include pass_dwarf2_frame.  If we've not created the FDE yet,
+1112:      do so now.  */
+1113:   fde = cfun->fde;
+1114:   if (fde == NULL)
+1115:     fde = dwarf2out_alloc_current_fde ();
+1116:
+1117:   /* Initialize the bits of CURRENT_FDE that were not available earlier.  */
+1118:   fde->dw_fde_begin = dup_label;
+1119:   fde->dw_fde_current_label = dup_label;
+```
+
+## gcc/dwarf2out.cc:1249–1276
+
+```text
+1249: dwarf2out_end_epilogue (unsigned int line ATTRIBUTE_UNUSED,
+1250:                         const char *file ATTRIBUTE_UNUSED)
+1251: {
+1252:   dw_fde_ref fde;
+1253:   char label[MAX_ARTIFICIAL_LABEL_BYTES];
+1254:
+1255:   last_var_location_insn = NULL;
+1256:   cached_next_real_insn = NULL;
+1257:
+1258:   if (dwarf2out_do_cfi_asm ())
+1259:     fprintf (asm_out_file, "\t.cfi_endproc\n");
+1260:
+1261: #ifdef CODEVIEW_DEBUGGING_INFO
+1262:   if (codeview_debuginfo_p ())
+1263:     codeview_end_epilogue ();
+1264: #endif
+1265:
+1266:   /* Output a label to mark the endpoint of the code generated for this
+1267:      function.  */
+1268:   ASM_GENERATE_INTERNAL_LABEL (label, FUNC_END_LABEL,
+1269:                                current_function_funcdef_no);
+1270:   ASM_OUTPUT_LABEL (asm_out_file, label);
+1271:   fde = cfun->fde;
+1272:   gcc_assert (fde != NULL);
+1273:   if (fde->dw_fde_second_begin == NULL)
+1274:     fde->dw_fde_end = xstrdup (label);
+1275:
+1276:   mark_ignored_debug_section (fde, fde->dw_fde_second_begin != NULL);
+```
+
+## gcc/align.h:48–82
+
+```text
+48: class align_flags
+49: {
+50: public:
+51:   /* Default constructor.  */
+52:   align_flags (int log0 = 0, int maxskip0 = 0, int log1 = 0, int maxskip1 = 0)
+53:   {
+54:     levels[0].log = log0;
+55:     levels[0].maxskip = maxskip0;
+56:     levels[1].log = log1;
+57:     levels[1].maxskip = maxskip1;
+58:     normalize ();
+59:   }
+60:
+61:   /* Normalize both components of align_flags.  */
+62:   void normalize ()
+63:   {
+64:     for (unsigned i = 0; i < 2; i++)
+65:       levels[i].normalize ();
+66:   }
+67:
+68:   /* Get alignment that is common bigger alignment of alignments F0 and F1.  */
+69:   static align_flags max (const align_flags f0, const align_flags f1)
+70:     {
+71:       int log0 = MAX (f0.levels[0].log, f1.levels[0].log);
+72:       int maxskip0 = MAX (f0.levels[0].maxskip, f1.levels[0].maxskip);
+73:       int log1 = MAX (f0.levels[1].log, f1.levels[1].log);
+74:       int maxskip1 = MAX (f0.levels[1].maxskip, f1.levels[1].maxskip);
+75:       return align_flags (log0, maxskip0, log1, maxskip1);
+76:     }
+77:
+78:   align_flags_tuple levels[2];
+79: };
+80:
+81: /* Define maximum supported code alignment.  */
+82: #define MAX_CODE_ALIGN 16
+```
+
+## gcc/flags.h:87–103
+
+```text
+87: class target_flag_state
+88: {
+89: public:
+90:   /* Each falign-foo can generate up to two levels of alignment:
+91:      -falign-foo=N:M[:N2:M2] */
+92:   align_flags x_align_loops;
+93:   align_flags x_align_jumps;
+94:   align_flags x_align_labels;
+95:   align_flags x_align_functions;
+96: };
+97:
+98: extern class target_flag_state default_target_flag_state;
+99: #if SWITCHABLE_TARGET
+100: extern class target_flag_state *this_target_flag_state;
+101: #else
+102: #define this_target_flag_state (&default_target_flag_state)
+103: #endif
+```
+
+## gcc/config/i386/x86-tune.def:297–300
+
+```text
+297: /* X86_TUNE_OPT_AGU: Optimize for Address Generation Unit. This flag
+298:    will impact LEA instruction selection. */
+299: DEF_TUNE (X86_TUNE_OPT_AGU, "opt_agu", m_BONNELL | m_SILVERMONT | m_GOLDMONT
+300:           | m_GOLDMONT_PLUS | m_INTEL | m_ZHAOXIN)
+```
+
+## gcc/config/i386/i386.opt:1070–1072
+
+```text
+1070: Target RejectNegative Joined Enum(indirect_branch) Var(ix86_function_return) Init(indirect_branch_keep)
+1071: Convert function return to call and return thunk.
+1072:
+```
+
+## gcc/config/i386/i386.opt:1113–1116
+
+```text
+1113: minstrument-return=
+1114: Target RejectNegative Joined Enum(instrument_return) Var(ix86_instrument_return) Init(instrument_return_none)
+1115: Instrument function exit in instrumented functions with __fentry__.
+1116:
+```
+
+## gcc/config/i386/i386.opt:1134–1136
+
+```text
+1134: mharden-sls=
+1135: Target RejectNegative Joined Enum(harden_sls) Var(ix86_harden_sls) Init(harden_sls_none)
+1136: Generate code to mitigate against straight line speculation.
+```
+
+## gcc/genattrtab.cc:1405–1535
+
+```text
+1405: /* Given an expression EXP, see if it is a COND or IF_THEN_ELSE that has a
+1406:    test that checks relative positions of insns (uses MATCH_DUP or PC).
+1407:    If so, replace it with what is obtained by passing the expression to
+1408:    ADDRESS_FN.  If not but it is a COND or IF_THEN_ELSE, call this routine
+1409:    recursively on each value (including the default value).  Otherwise,
+1410:    return the value returned by NO_ADDRESS_FN applied to EXP.  */
+1411:
+1412: static rtx
+1413: substitute_address (rtx exp, rtx (*no_address_fn) (rtx),
+1414:                     rtx (*address_fn) (rtx))
+1415: {
+1416:   int i;
+1417:   rtx newexp;
+1418:
+1419:   if (GET_CODE (exp) == COND)
+1420:     {
+1421:       /* See if any tests use addresses.  */
+1422:       address_used = 0;
+1423:       for (i = 0; i < XVECLEN (exp, 0); i += 2)
+1424:         walk_attr_value (XVECEXP (exp, 0, i));
+1425:
+1426:       if (address_used)
+1427:         return (*address_fn) (exp);
+1428:
+1429:       /* Make a new copy of this COND, replacing each element.  */
+1430:       newexp = rtx_alloc (COND);
+1431:       XVEC (newexp, 0) = rtvec_alloc (XVECLEN (exp, 0));
+1432:       for (i = 0; i < XVECLEN (exp, 0); i += 2)
+1433:         {
+1434:           XVECEXP (newexp, 0, i) = XVECEXP (exp, 0, i);
+1435:           XVECEXP (newexp, 0, i + 1)
+1436:             = substitute_address (XVECEXP (exp, 0, i + 1),
+1437:                                   no_address_fn, address_fn);
+1438:         }
+1439:
+1440:       XEXP (newexp, 1) = substitute_address (XEXP (exp, 1),
+1441:                                              no_address_fn, address_fn);
+1442:
+1443:       return newexp;
+1444:     }
+1445:
+1446:   else if (GET_CODE (exp) == IF_THEN_ELSE)
+1447:     {
+1448:       address_used = 0;
+1449:       walk_attr_value (XEXP (exp, 0));
+1450:       if (address_used)
+1451:         return (*address_fn) (exp);
+1452:
+1453:       return attr_rtx (IF_THEN_ELSE,
+1454:                        substitute_address (XEXP (exp, 0),
+1455:                                            no_address_fn, address_fn),
+1456:                        substitute_address (XEXP (exp, 1),
+1457:                                            no_address_fn, address_fn),
+1458:                        substitute_address (XEXP (exp, 2),
+1459:                                            no_address_fn, address_fn));
+1460:     }
+1461:
+1462:   return (*no_address_fn) (exp);
+1463: }
+1464:
+1465: /* Make new attributes from the `length' attribute.  The following are made,
+1466:    each corresponding to a function called from `shorten_branches' or
+1467:    `get_attr_length':
+1468:
+1469:    *insn_default_length         This is the length of the insn to be returned
+1470:                                 by `get_attr_length' before `shorten_branches'
+1471:                                 has been called.  In each case where the length
+1472:                                 depends on relative addresses, the largest
+1473:                                 possible is used.  This routine is also used
+1474:                                 to compute the initial size of the insn.
+1475:
+1476:    *insn_variable_length_p      This returns 1 if the insn's length depends
+1477:                                 on relative addresses, zero otherwise.
+1478:
+1479:    *insn_current_length         This is only called when it is known that the
+1480:                                 insn has a variable length and returns the
+1481:                                 current length, based on relative addresses.
+1482:   */
+1483:
+1484: static void
+1485: make_length_attrs (void)
+1486: {
+1487:   static const char *new_names[] =
+1488:     {
+1489:       "*insn_default_length",
+1490:       "*insn_min_length",
+1491:       "*insn_variable_length_p",
+1492:       "*insn_current_length"
+1493:     };
+1494:   static rtx (*const no_address_fn[]) (rtx)
+1495:     = {identity_fn,identity_fn, zero_fn, zero_fn};
+1496:   static rtx (*const address_fn[]) (rtx)
+1497:     = {max_fn, min_fn, one_fn, identity_fn};
+1498:   size_t i;
+1499:   class attr_desc *length_attr, *new_attr;
+1500:   struct attr_value *av, *new_av;
+1501:   struct insn_ent *ie, *new_ie;
+1502:
+1503:   /* See if length attribute is defined.  If so, it must be numeric.  Make
+1504:      it special so we don't output anything for it.  */
+1505:   length_attr = find_attr (&length_str, 0);
+1506:   if (length_attr == 0)
+1507:     return;
+1508:
+1509:   if (! length_attr->is_numeric)
+1510:     fatal_at (length_attr->loc, "length attribute must be numeric");
+1511:
+1512:   length_attr->is_const = 0;
+1513:   length_attr->is_special = 1;
+1514:
+1515:   /* Make each new attribute, in turn.  */
+1516:   for (i = 0; i < ARRAY_SIZE (new_names); i++)
+1517:     {
+1518:       make_internal_attr (new_names[i],
+1519:                           substitute_address (length_attr->default_val->value,
+1520:                                               no_address_fn[i], address_fn[i]),
+1521:                           ATTR_NONE);
+1522:       new_attr = find_attr (&new_names[i], 0);
+1523:       for (av = length_attr->first_value; av; av = av->next)
+1524:         for (ie = av->first_insn; ie; ie = ie->next)
+1525:           {
+1526:             new_av = get_attr_value (ie->def->loc,
+1527:                                      substitute_address (av->value,
+1528:                                                          no_address_fn[i],
+1529:                                                          address_fn[i]),
+1530:                                      new_attr, ie->def->insn_code);
+1531:             new_ie = oballoc (struct insn_ent);
+1532:             new_ie->def = ie->def;
+1533:             insert_insn_ent (new_av, new_ie);
+1534:           }
+1535:     }
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

@@ -282,6 +282,28 @@ CFI_RANGES = {
                         (3302, 3331), (3696, 3733), (3805, 3817)],
     "gcc/dwarf2out.cc": [(1046, 1063)],
 }
+FINAL_RANGES = {
+    "gcc/align.h": [(48, 82)],
+    "gcc/flags.h": [(87, 103)],
+    "gcc/toplev.cc": [(157, 159), (1215, 1281)],
+    "gcc/opts.cc": [(684, 687)],
+    "gcc/config/i386/i386-options.cc": [(108, 189), (1819, 1832),
+                                       (1862, 1875), (3402, 3424)],
+    "gcc/config/i386/i386.md": [(592, 802), (2307, 2322), (2594, 2765)],
+    "gcc/config/i386/i386.cc": [(10750, 10817), (16543, 16558),
+                               (17605, 17668), (17943, 18149)],
+    "gcc/config/i386/x86-tune.def": [(297, 300)],
+    "gcc/config/i386/i386.opt": [(1070, 1072), (1113, 1116), (1134, 1136)],
+    "gcc/genattrtab.cc": [(1405, 1535)],
+    "gcc/final.cc": [(162, 162), (225, 227), (455, 465), (1007, 1104),
+                     (1110, 1170), (1290, 1311), (1679, 1786),
+                     (1856, 1873), (1930, 2003), (2159, 2170),
+                     (2751, 2878), (4259, 4294)],
+    "gcc/dwarf2out.cc": [(180, 180), (307, 316), (1071, 1119), (1249, 1276)],
+    "gcc/config/elfos.h": [(121, 131)],
+    "gcc/except.cc": [(3243, 3248), (3291, 3318)],
+    "gcc/expr.cc": [(14347, 14363)],
+}
 GATE_FILES = (
     "fwprop.cc", "cprop.cc", "gcse.cc", "store-motion.cc", "ifcvt.cc",
     "loop-init.cc", "web.cc", "dse.cc", "auto-inc-dec.cc", "init-regs.cc",
@@ -302,6 +324,8 @@ for _name, _ranges in RELOAD_RANGES.items():
 for _name, _ranges in FRAME_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name, _ranges in CFI_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
+for _name, _ranges in FINAL_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name in GATE_FILES:
     RANGES.setdefault("gcc/" + _name, [])
@@ -721,6 +745,17 @@ def check_sources(sources, inventory):
     assert "if (!increasing)\n\tbreak;" in final
     assert "if (i > LAST_STACK_REG)\n    return false;" in sources["gcc/reg-stack.cc"]
     assert "if (cfun->eh->region_tree == NULL)\n    return false;" in sources["gcc/except.cc"]
+    assert "{ OPT_LEVELS_2_PLUS_SPEED_ONLY, OPT_falign_labels, NULL, 1 }" in sources["gcc/opts.cc"]
+    assert "if (write_symbols)\n    {\n      reemit_insn_block_notes ();" in final
+    assert "static int insn_counter = 0;" in final
+    assert "insn_counter++;" in final
+    assert '"*insn_variable_length_p"' in sources["gcc/genattrtab.cc"]
+    assert "= {identity_fn,identity_fn, zero_fn, zero_fn};" in sources["gcc/genattrtab.cc"]
+    assert "|| GET_CODE (addr) == POST_MODIFY)\n    return 0;" in x86
+    assert "Var(ix86_function_return) Init(indirect_branch_keep)" in sources["gcc/config/i386/i386.opt"]
+    assert "Var(ix86_instrument_return) Init(instrument_return_none)" in sources["gcc/config/i386/i386.opt"]
+    assert "Var(ix86_harden_sls) Init(harden_sls_none)" in sources["gcc/config/i386/i386.opt"]
+    assert "fde->dw_fde_end = xstrdup (label);" in sources["gcc/dwarf2out.cc"]
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -817,6 +852,14 @@ def arithmetic():
         "null_post_CFI_first_unused_chain_uid_ceiling": 1+42+5+5,
         "null_post_CFI_instruction_address_vector_length_ceiling": 43,
         "null_CFI_new_machine_instructions_dynamic_pseudos_local_slots": [0, 0, 0],
+        "null_final_location_nop_ceiling": 4+5+9,
+        "null_final_blockage_nop_push_move_pop_return_length_ceilings": [0, 1, 2, 3, 2, 1],
+        "null_final_shortening_address_ceiling": 18+2+3+2+1,
+        "null_final_instruction_scan_visits_and_global_counter_increment_ceiling": 52,
+        "null_final_new_instruction_chain_nodes": 0,
+        "null_final_FDE_begin_end_label_string_requests": 2,
+        "null_final_FDE_label_string_request_bytes_LP64": 2+3+20+1,
+        "null_CFI_label_string_request_bytes_nonnegative_int32_counter": 2+4+10+1,
         "ira_init_once_selected_dynamic_allocation_requests": 0,
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],

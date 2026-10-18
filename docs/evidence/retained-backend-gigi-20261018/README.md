@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 186 complete files at GCC
+`source-manifest.json` pins 191 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -142,3 +142,14 @@ optional location advances. The checker now verifies 186 GCC/Ada source files
 and two Silver API specifications; all 164 non-Ada identities match the retained
 full-source manifest. Generated instruction lengths, final output and complete
 allocator/GC costs remain separate obligations. No native/prover run was made.
+
+The final-instruction extension derives zero internal label padding and a
+26-byte shortening-address ceiling from selected MD length attributes. Final
+emission adds no chain nodes, leaving the cumulative 52/53 node/UID ceilings;
+it charges at most 52 increments to the independent global instruction counter.
+The begin/end FDE wrappers request two label copies, each at most 26 bytes on
+LP64. CFI-label strings fit their smaller buffer under the separately stated
+counter entry condition. Section/symbol output, unit-level unwind serialization,
+FILE/allocator storage and assembler/linker costs are still open. The checker
+verifies 191 GCC/Ada files and two Silver APIs; all 169 non-Ada identities match
+the retained full-source manifest. No native/prover run was made.

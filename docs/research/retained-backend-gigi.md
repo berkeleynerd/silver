@@ -2639,6 +2639,95 @@ attribute tables and allocator/GC rounding remain separate obligations.
 No compiler, assembler, solver or Lean run established this source-derived
 shape packet, and final assembly/object capacity is not yet closed.
 
+#### Shortening arithmetic and the final instruction scan
+
+For the same selected O0 configuration, ordinary label alignment is zero.
+The alignment flags default to zero; their enabling optimization defaults
+require O2, and `ix86_default_align` supplies processor strings only for an
+enabled flag. `parse_N_M` leaves a null string unchanged. The O0 alignment pass
+therefore clears the label entries and returns; neither a jump table nor a
+nonzero after-barrier alignment is present (`align.h:48–82`, `flags.h:87–103`,
+`toplev.cc:157–159,1215–1281`, `opts.cc:684–687`,
+`i386-options.cc:1862–1875`, `final.cc:455–465,613–626,855–900`).
+This concerns labels inside the function, not alignment before the function
+entry in the object file.
+
+The selected MD shapes have these length-attribute ceilings:
+
+| Shape | Count ceiling | Length ceiling |
+| --- | ---: | ---: |
+| Blockage | 1 | 0 |
+| Location-preserving nop | 18 | 1 |
+| DI push RBP | 1 | 2 |
+| DI move RSP to RBP | 1 | 3 |
+| DI pop RBP | 1 | 2 |
+| Simple return | 1 | 1 |
+
+The eighteen nops are the earlier four merge nops, five CFG-layout edge nops
+and nine later merge nops. Push/pop have no immediate, address-displacement or
+ModRM contribution: their stack MEM uses PRE_DEC/POST_INC, for which the address
+helper returns zero. Charging an optional REX byte gives the conservative
+two-byte ceiling without needing to sharpen that prefix for RBP. The DI
+register move uses the enabled general-register alternative 3 of
+`*movdi_internal`, whose type is `imov`, with opcode, ModRM and REX bytes and
+no address/immediate contribution. Nop, blockage and return specify their
+lengths directly (`i386.md:592–802,2208–2217,2307–2322,2594–2765,
+20923–20927,20994–21001,21055–21061`,
+`i386.cc:17943–17954,18041–18149`).
+
+None of these length expressions depends on an instruction address.
+`genattrtab` constructs the variable-length predicate as false for that case
+(`genattrtab.cc:1405–1535`). With no target length adjustment, jump table,
+inline assembly or delay-slot sequence, the first shortening scan sums the
+listed constants and the sole O0 update scan uses the non-varying branch.
+Consequently each nonnegative shortening address and the final
+`crtl->max_insn_address` are at most
+`18 + 2 + 3 + 2 + 1 = 26`; no alignment-shift expression is entered for an
+ordinary label (`final.cc:1007–1104,1110–1170,1290–1311,1372–1376`).
+This discharges that local signed-int arithmetic on the stated shape. It is
+not an assembler/object-file byte bound or a proof of generated-code provenance.
+
+Final emission does not split these instructions. The push/pop/nop templates
+are literal, blockage emits an empty template, and the selected register move
+has the ordinary move template rather than `#`. Its optional LEA output is
+disabled for the selected generic tune: `X86_TUNE_OPT_AGU` does not include
+`m_GENERIC` (`i386.cc:16543–16558`, `i386-options.cc:108–189,1819–1832`,
+`x86-tune.def:297–300`). The return's output routine emits `ret`; function-return
+thunks, return instrumentation and SLS `int3` are absent under their default
+options (`i386.opt:1070,1114,1135`, `i386.cc:17605–17668`). Thus the template
+null/reinsert and `#`/split cases are not taken (`final.cc:2751–2878`).
+
+No-debug function start skips block-note regeneration. The default prologue
+output hook is empty, and the x86 epilogue output hook adds instructions only
+on its Mach-O branch, absent on this Linux ELF target
+(`final.cc:225–227,1679–1786,1856–1873`, `i386.cc:10750–10817`). The selected
+final scan visits at most 52 existing chain nodes once and creates no chain
+nodes; its cleanup only deletes CFI notes (`final.cc:1930–2003,2159–2170`).
+The cumulative chain/UID ceilings remain 52/53. Debug-assembly block-map
+arrays are skipped. The **global** signed `insn_counter` is incremented for
+each scan; its independent initial-state obligation is
+`0 <= initial_insn_counter <= INT_MAX - 52`, not merely a per-function UID
+check (`final.cc:162,2165`).
+
+The per-function FDE output wrappers reuse the existing FDE and add one begin
+and one end label string. Each uses the ELF `*.` prefix, a three-character
+label class and an unsigned-long decimal number, so each string request is
+at most `2+3+20+1 = 26` bytes on LP64 and fits the 40-byte local array
+(`dwarf2out.cc:180,307–316,1071–1119,1249–1276`, `elfos.h:121–131`). The
+already charged CFI-label helper has a smaller 20-byte array; its `LCFI`
+label fits in 17 bytes when its signed counter remains nonnegative and at
+most `INT_MAX`, with at most five increments charged to this function
+(`dwarf2cfi.cc:475–482,2508–2521`). Its sufficient entry condition is therefore
+`0 <= initial_cfi_label_counter <= INT_MAX - 5`. These are selected string requests, not a
+complete output allocation subtotal. The absence of EH regions makes the
+personality null; no LSDA table is emitted (`except.cc:3243–3248,3291–3318`,
+`expr.cc:14347–14363`).
+
+Global counter initial states, section/symbol output, unit-level unwind
+serialization, FILE buffering, allocator/GC rounding, the assembler and
+linker remain outside this local completion of the final instruction scan.
+The evidence is source-derived; no native/prover execution was added.
+
 #### Late RTL initialization and retained fixed witnesses
 
 The native initialization witness immediately before
