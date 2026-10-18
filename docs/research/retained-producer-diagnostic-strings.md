@@ -143,6 +143,8 @@ and internal representations, and complete native reports remain separate
 requirements. #119 is not complete.
 
 The checker passed, including source hashes and both affine substitutions.
-The parser/scheduling argument is a manual source derivation; a separate
-review was requested and remains pending. No compiler/proof execution or
-validation claim is inferred from this offline check.
+Integration source review independently checked the parser's disjoint matches,
+merge/discard recurrence, fixed formatting and selected scheduling paths; it
+found no material issue under the stated premises. This remains a manual
+source derivation. No compiler/proof execution or whole-capacity claim follows
+from that review or the offline check.

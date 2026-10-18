@@ -106,6 +106,13 @@ def main():
     assert "if (node->callees && (opt_for_fn (node->decl, optimize) || has_inline))" in source["ipa-inline-transform.cc"]
     assert "if (!need_ssa_update_p (cfun))\n    return;" in source["tree-into-ssa.cc"]
 
+    symbol_path = bundle.parent / "unbounded-programs/retained-native-expansion-20261017/native-null-symbols.json"
+    symbol_join = json.loads(symbol_path.read_text())
+    assert symbol_join["gcc_commit"] == manifest["commit"]
+    for name, expected in {"function_nodes": 1, "variable_nodes": 1,
+                           "call_edges": 0, "symbol_references": 0,
+                           "variable_initializers": 0}.items():
+        assert symbol_join["incoming_IPA_join"][name] == expected
     result = {
         "verified_files": verified,
         "top_level_ipa_schedule": schedule(source["passes.def"]),
@@ -129,7 +136,9 @@ def main():
             "pending_function_transform_entries": 1,
         },
         "complete_setup_capacity_established": False,
-        "complete_incoming_gigi_unit_established": False,
+        "complete_incoming_gigi_unit_established": True,
+        "incoming_symbol_join_sha256": hashlib.sha256(symbol_path.read_bytes()).hexdigest(),
+        "incoming_unit_configuration_and_body_premises_required": True,
         "compiler_or_proof_executed": False,
     }
     args.output.write_text(json.dumps(result, indent=2) + "\n")

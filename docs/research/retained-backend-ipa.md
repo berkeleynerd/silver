@@ -16,10 +16,12 @@ path with at most two labels and a void return; its sole SSA use is the
 default virtual memory name. It also includes the dummy global described
 below. No other function body or variable initializer is pending.
 
-Establishing that **complete incoming unit**, including imported declarations,
-fixed initialization and any generated size functions, remains part of the
-gigi closure. The body's F=1 result alone does not establish it. This transfer
-must not be applied to literal output, which has a call, or to general Main.
+The [null gigi symbol join](retained-native-expansion.md#null-mains-incoming-ipa-symbol-graph)
+now establishes that complete incoming unit, including builtin/runtime
+declaration registration, discarded empty elaboration, generated-size-function
+exclusion and the two symbol-analysis sweeps. Its separately reviewed
+configuration and null-body premises remain required. This transfer must not
+be applied to literal output, which has a call, or to general Main.
 
 Use the recorded native O0, non-LTO, no-plugin configuration, without
 profiling, coverage, OpenMP/OpenACC, transactions, analyzer, strub, SIMD-clone
@@ -49,7 +51,8 @@ dummy is not Main's `.MEM` declaration and is not a source variable. Its
 force_output flag makes `all_refs_explicit_p` false (`cgraph.h:3526–3533`),
 so single-use propagation places it at BOTTOM without a map insertion.
 Its name/DECL_UID and the global-declaration tables remain gigi/setup costs.
-This section does not establish the absence of every other imported global.
+The referenced gigi symbol join excludes every other symbol ingress for this
+null configuration; the body's emptiness alone would not establish that fact.
 
 ## Complete top-level schedule partition
 
@@ -193,9 +196,9 @@ null function's shape for the later per-function lowering argument. The
 source-derived dummy variable remains separately charged. Neither native
 diagnostics suppression proposal is needed for this IPA result.
 
-This is not full backend capacity. It leaves the incoming fixed/imported
-gigi graph, complete manager/setup/container lifetimes, cgraph front-end
-analysis outside this pass interval, generic verification/GC bookkeeping,
+This is not full backend capacity. The incoming symbol graph is joined, while
+fixed/imported declaration and type allocation, complete manager/setup/container
+lifetimes, generic verification/GC bookkeeping,
 RTL and linker closure explicit. No compiler/prover/Lean execution is used
 for this derivation. The offline check verifies source identity, schedule
 coverage and the stated small cardinalities; it is not a compiler simulation
@@ -205,5 +208,8 @@ Independent source review found no further material shape issue after
 identifying the queued-inline-transform correction above. It checked the
 active visibility/reachability, inline execution, summary gates, dummy-global
 single-use, COMDAT and no-clone branches under the stated premises. It did
-not establish the incoming gigi graph or complete allocation lifetimes. The
-offline check covers 43 complete source files and 39 IPA registrations.
+not establish complete allocation lifetimes. The later incoming-unit integration
+also checked declaration-versus-symbol registration, external-variable guards,
+empty elaboration and no-call/EH dependency paths against the pinned sources.
+The offline check covers 43 complete source files and 39 IPA registrations,
+and binds its input cardinalities to the separate 39-file symbol-join result.

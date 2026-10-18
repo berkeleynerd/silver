@@ -396,6 +396,8 @@
     "pending_function_transform_entries": 1
   },
   "complete_setup_capacity_established": false,
-  "complete_incoming_gigi_unit_established": false,
+  "complete_incoming_gigi_unit_established": true,
+  "incoming_symbol_join_sha256": "80ad2827c7bbd3fd60ff57d5674392c432eb8082899e6a8d8d351bfbbc30b521",
+  "incoming_unit_configuration_and_body_premises_required": true,
   "compiler_or_proof_executed": false
 }

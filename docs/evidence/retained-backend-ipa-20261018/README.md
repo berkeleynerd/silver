@@ -20,7 +20,8 @@ references use literal LF numbering; form-feed separators are not newlines.
 The checker verifies full-file identity, inventories all 39 top-level IPA
 registrations, and reconciles selected constructor/early-return sites. The
 report supplies the configuration, reachability and shape-preservation argument;
-recording its transfer in JSON does not mechanize that argument. In particular,
-the complete incoming fixed gigi graph and all setup allocation lifetimes remain
-open. No compiler, solver, Lean or complete validation job was run for this
+recording its transfer in JSON does not mechanize that argument. Its cardinalities
+now bind to the separate null gigi symbol-join result. Fixed declaration/type
+allocations and all setup allocation lifetimes remain open. No compiler, solver,
+Lean or complete validation job was run for this
 derivation. The separate native-option experiment is not this evidence.
