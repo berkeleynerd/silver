@@ -3190,6 +3190,94 @@ wrapper/scope helpers, diagnostics, backend call lowering or physical stack
 storage. `native_runtime_concat_call` records the separate table dimensions
 and is now included in the combined vector.
 
+## Numeric magnitudes in the closed concat stages
+
+The query-root bridge can also supply the missing digit bound for the combined
+native emitter stages. This result uses the selected Linux target's 32-bit
+Integer/Nat and signed Standard/Universal widths no greater than 128. The
+target-width/source-correspondence premise is explicit; it is not a deduction
+from the checkout path. Require `2<=n` and `n+1<=Nat'Last`, as the emitter's
+own arrays and final loop increment already require.
+
+Use the fixed scalar seed **M=2^127**. It covers every signed Standard endpoint,
+including Universal_Integer's endpoints. Cstand constructs signed ranges from
+their widths and builds Universal_Integer with the largest signed runtime
+width (`cstand.adb:237–257,1322–1350,1395–1407`, `ttypes.ads:100–117`). Length
+narrowing explicitly selects Integer_Type_For with `Uns=>False`, so the
+unsigned 128-bit endpoints do not enter this graph
+(`exp_ch4.adb:14488–14501`, `exp_util.adb:8852–8890`).
+
+All incoming String index values fit Integer; take their magnitude as at most
+2^31. The earlier direct-emitter formula, including unknown-length sentinel
+256, therefore yields
+
+```text
+direct metadata magnitude <= n*(2^32+1)+2^31+1 < 2^63 <= M.
+```
+
+This covers every literal manufactured for incoming bounds, fixed lengths,
+aggregate lengths and the known maximum. The normalized source String-bound
+graph contains addition/subtraction, Length, regular conversions, ordinary
+signed leaves and internal-constant forwarding. It contains **no source
+multiplication**: Integer Image's scalar argument is a separate computation,
+and its result-bound descriptor refers to the generated buffer length. Alias
+reuse and generated bound captures do not add other arithmetic operators.
+Current-condition constants accessible on these generated bound entities are
+zero/one or already covered generated lengths; source code cannot name them.
+
+Induct on the Determine_Range visit recurrence D, counting shared dependencies
+again at every use. A literal, unrefined leaf or scalar type-bound value has
+magnitude at most M. Addition/subtraction endpoints and their intermediate
+negations are bounded by the sum of the two child envelopes. Ordinary Length
+forms `high-low+1`: the low/high child visits pay for the first two terms and
+the current visit pays for 1, since M>=1. Unary operations and conversions
+cannot require a larger sum; internal constants follow their initializer.
+Static folds produce values already covered by the same arithmetic. It follows
+that **M*D(root)** bounds every retained value and arithmetic intermediate in
+one range query, hence **M*A** for the closed query roots. This does not assume
+clipping to the scalar base range: Determine_Range can return disjoint computed
+ranges, which still satisfy this induction (`checks.adb:5155–5167,
+5230–5310,5400–5465,5557–5606`).
+
+The other numeric consumers in these stages are bounded as follows:
+
+| Consumer | Magnitude envelope |
+| --- | ---: |
+| Literal-Last Compare_Fixup | `2^31+(2^31-1) < M` |
+| Comparison offsets, differences and unit adjustments | `2*M*A+1` |
+| First compile-time size, including multiplication by 8 | `8*(2*M*A+1)` |
+| Cold size-selection power cache | `2^126` |
+| Explicit Integer index layout | `2^31` |
+
+Compare_Fixup uses the stored low plus length (without assuming Ada's usual
+minus-one formula); the bound covers its actual arithmetic
+(`sem_eval.adb:1019–1028`). The comparison difference/current-condition
+operations are the ones already inventoried at `1321–1759`. First-size
+arithmetic uses at most the low/high difference, unit addition and factor 8
+from the earlier subtype/storage transfers. Get_Size_For_Range's largest
+requested cached power is 2^126 (`exp_ch4.adb:13566–13608`). No unrestricted
+power or source scalar multiply has been silently priced as an addition.
+
+A convenient uniform magnitude for **all combined emitter stages** is
+
+```text
+V = (16*A+8)*2^127
+k = number of base-32768 digits of V.
+```
+
+It dominates each row above. Thus the per-group retained Uint digit charge is
+`k*((3736*n+2296)*A+3537*n+1697)`; a whole-Main uniform A gives
+`k*(9768*A+8771)*c`. The previously derived local arithmetic-vector peak becomes
+**5*k+3 digit words**, separate from recursive stack and table-growth storage.
+The per-group k can be used instead of a uniform maximum. Uint-entry counts
+are unchanged; no warm-cache assumption is introduced.
+
+`native_concat_numeric_magnitude` checks these arithmetic envelopes, including
+the maximal permitted n. Its examples are not language thresholds. This closes
+numeric magnitudes **only for the combined vector's already closed stages**.
+Original source scalar/Image/input analysis, standalone String operations,
+whole-scope and runtime-dependency numeric work still need their own bounds.
+
 ## Source concat folding and its literal suffix
 
 The native emitter is preceded by semantic String folding. This is a separate
@@ -3360,8 +3448,9 @@ remaining callees still need their own root inventories. With the pinned slot
 maxima, the uniform dynamic-slot addend is
 `9*(ordinary+growth)+61*entities = (20520*A+40467)*c`. Node identities/link
 tables, physical bytes and temporary stack/workspace remain separate
-representations. Uint digit demand also needs its numeric-magnitude bound,
-including the already identified cold power-cache extension.
+representations. For these stages the numeric-magnitude closure above supplies
+`k=digits_32768((16*A+8)*2^127)`, including cold power-cache extension. Multiply
+the Uint row by k to bound retained digit words.
 
 **This is not the whole native construct or a usable admission predicate.**
 Its explicit residual addends are:

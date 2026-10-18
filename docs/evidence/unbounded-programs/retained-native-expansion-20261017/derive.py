@@ -23,6 +23,7 @@ assert manifest["commit"] == pin
 expected = {entry["path"]: entry for entry in manifest["files"]}
 files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads", "stringt.adb",
+         "cstand.adb", "ttypes.ads",
          "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
@@ -631,6 +632,34 @@ def source_concat_folding(concat_length_bounds):
                 whole_construct_closed=False)
 
 
+def native_concat_numeric_magnitude(n, analysis_graph):
+    """Numeric closure for combined native stages, not source scalar analysis."""
+    assert 2 <= n <= 2**31-2 and analysis_graph >= 1
+    a = analysis_graph
+    incoming_index_magnitude = 2**31
+    direct = n*max(2*incoming_index_magnitude+1, 256)+incoming_index_magnitude+1
+    scalar_seed = 2**127
+    assert direct < 2**63 <= scalar_seed
+    range_magnitude = scalar_seed*a
+    comparison_magnitude = 2*range_magnitude+1
+    first_size_magnitude = 8*(2*range_magnitude+1)
+    magnitude = (16*a+8)*scalar_seed
+    assert max(direct, range_magnitude, comparison_magnitude,
+               first_size_magnitude, 2**126) <= magnitude
+    k = uint_digits(magnitude)
+    uint_appends = combined_native_emitter_vector(n, a)["total"]["uint"]
+    return dict(operands=n, A=a, scalar_seed_magnitude=scalar_seed,
+                direct_arithmetic_magnitude=direct,
+                Determine_Range_magnitude=range_magnitude,
+                comparison_magnitude=comparison_magnitude,
+                first_size_magnitude=first_size_magnitude,
+                all_closed_stage_magnitude=magnitude,
+                base_32768_digits=k, Uint_appends=uint_appends,
+                retained_digit_words=k*uint_appends,
+                max_local_arithmetic_digit_vectors=5*k+3,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1230,6 +1259,23 @@ result = {
                                     source_concat_folding([2, 3, 4]),
                                     source_concat_folding([2, 4, 8, 16])],
         "excluded": "parser/scanner strings and parser folding; source name/Image/input constructors; standalone literal resolution in a possibly dynamic target subtype; outer concat name resolution/xrefs; wrapper/scope/backend; full predicate",
+    },
+    "Main_combined_concat_numeric_magnitude_closure": {
+        "scope": "same closed stages as combined_Main_native_emitter_addends, including scalar queries, cold powers and first-size arithmetic",
+        "premises": "selected Linux target Integer32/Nat32, largest relevant signed Standard/Universal width128; n+1 fits Nat; incoming String index values fit Integer; no static-error path; original String-bound graph/query-root bridge; no source scalar-argument evaluation in this bound graph",
+        "seed_M": "2^127",
+        "direct_numeric_bound": "n*(2^32+1)+2^31+1 < 2^63 for 2<=n<=2^31-2",
+        "range_query_bound": "M*D(root), hence M*A; additive-only dependency graph with Length's +1 paid by its own visit",
+        "comparison_bound": "2*M*A+1",
+        "first_size_bound": "8*(2*M*A+1)",
+        "uniform_magnitude": "(16*A+8)*M",
+        "digits_per_Uint": "base32768 digit count of ((16*A+8)*2^127)",
+        "retained_digits": "k*((3736*n+2296)*A+3537*n+1697) per group; uniform Main k*(9768*A+8771)*c",
+        "max_local_arithmetic_vectors": "5*k+3 digit words, separate from recursive call stack",
+        "examples_not_thresholds": [native_concat_numeric_magnitude(2, 61),
+                                    native_concat_numeric_magnitude(64, 1000000),
+                                    native_concat_numeric_magnitude(2**31-2, 2**31-1)],
+        "excluded": "initial source scalar/Image/input/standalone String operations, whole-scope and fixed runtime numeric work, source correspondence, complete table headroom and physical memory",
     },
     "combined_Main_native_emitter_addends": {
         "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",

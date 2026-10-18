@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 82,
+  "source_files_verified": 84,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -12,6 +12,8 @@
     "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
     "validsw.ads": "79ecf115cfadb66ec6cba6d56980167b3f49c0bd594a342efc25ed7c209db2ee",
     "stringt.adb": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
+    "cstand.adb": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+    "ttypes.ads": "d46505afefa232f873eff0ba9fc6ecc06ad03ca30a65207e27d7a53a37f3efcb",
     "atree.adb": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
     "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
     "uintp.ads": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
@@ -2179,6 +2181,67 @@
       }
     ],
     "excluded": "parser/scanner strings and parser folding; source name/Image/input constructors; standalone literal resolution in a possibly dynamic target subtype; outer concat name resolution/xrefs; wrapper/scope/backend; full predicate"
+  },
+  "Main_combined_concat_numeric_magnitude_closure": {
+    "scope": "same closed stages as combined_Main_native_emitter_addends, including scalar queries, cold powers and first-size arithmetic",
+    "premises": "selected Linux target Integer32/Nat32, largest relevant signed Standard/Universal width128; n+1 fits Nat; incoming String index values fit Integer; no static-error path; original String-bound graph/query-root bridge; no source scalar-argument evaluation in this bound graph",
+    "seed_M": "2^127",
+    "direct_numeric_bound": "n*(2^32+1)+2^31+1 < 2^63 for 2<=n<=2^31-2",
+    "range_query_bound": "M*D(root), hence M*A; additive-only dependency graph with Length's +1 paid by its own visit",
+    "comparison_bound": "2*M*A+1",
+    "first_size_bound": "8*(2*M*A+1)",
+    "uniform_magnitude": "(16*A+8)*M",
+    "digits_per_Uint": "base32768 digit count of ((16*A+8)*2^127)",
+    "retained_digits": "k*((3736*n+2296)*A+3537*n+1697) per group; uniform Main k*(9768*A+8771)*c",
+    "max_local_arithmetic_vectors": "5*k+3 digit words, separate from recursive call stack",
+    "examples_not_thresholds": [
+      {
+        "operands": 2,
+        "A": 61,
+        "scalar_seed_magnitude": 170141183460469231731687303715884105728,
+        "direct_arithmetic_magnitude": 10737418243,
+        "Determine_Range_magnitude": 10378612191088623135632925526668930449408,
+        "comparison_magnitude": 20757224382177246271265851053337860898817,
+        "first_size_magnitude": 166057795057417970170126808426702887190536,
+        "all_closed_stage_magnitude": 167418924525101724023980306856429960036352,
+        "base_32768_digits": 10,
+        "Uint_appends": 604619,
+        "retained_digit_words": 6046190,
+        "max_local_arithmetic_digit_vectors": 53,
+        "whole_construct_closed": false
+      },
+      {
+        "operands": 64,
+        "A": 1000000,
+        "scalar_seed_magnitude": 170141183460469231731687303715884105728,
+        "direct_arithmetic_magnitude": 277025390657,
+        "Determine_Range_magnitude": 170141183460469231731687303715884105728000000,
+        "comparison_magnitude": 340282366920938463463374607431768211456000001,
+        "first_size_magnitude": 2722258935367507707706996859454145691648000008,
+        "all_closed_stage_magnitude": 2722260296496975391460850712952575418720845824,
+        "base_32768_digits": 11,
+        "Uint_appends": 241400228065,
+        "retained_digit_words": 2655402508715,
+        "max_local_arithmetic_digit_vectors": 58,
+        "whole_construct_closed": false
+      },
+      {
+        "operands": 2147483646,
+        "A": 2147483647,
+        "scalar_seed_magnitude": 170141183460469231731687303715884105728,
+        "direct_arithmetic_magnitude": 9223372032559808511,
+        "Determine_Range_magnitude": 365375409162584546090451976447383451198099030016,
+        "comparison_magnitude": 730750818325169092180903952894766902396198060033,
+        "first_size_magnitude": 5846006546601352737447231623158135219169584480264,
+        "all_closed_stage_magnitude": 5846006547962482205130985477011633648896657326080,
+        "base_32768_digits": 11,
+        "Uint_appends": 17229258953301996601143,
+        "retained_digit_words": 189521848486321962612573,
+        "max_local_arithmetic_digit_vectors": 58,
+        "whole_construct_closed": false
+      }
+    ],
+    "excluded": "initial source scalar/Image/input/standalone String operations, whole-scope and fixed runtime numeric work, source correspondence, complete table headroom and physical memory"
   },
   "combined_Main_native_emitter_addends": {
     "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",
