@@ -1,4 +1,28 @@
 {
+  "native_common_metadata_join": {
+    "examples_not_thresholds": [
+      {
+        "All_Interp_Main_entries": 159,
+        "Interp_Map_Main_bindings": 103,
+        "qualification_Name_entries": 240,
+        "qualification_Name_characters": 22560,
+        "max_unqualified_name": 17,
+        "max_qualified_name": 93,
+        "qualification_scope_path_members": 7,
+        "Name_Qualify_Units_Main_appends": 4,
+        "Xrefs_backing_demand": 1604,
+        "Xref_sort_vector_Nat_words": 1605,
+        "Drefs_Main_appends": 0,
+        "unit_boundary_Elist_headers": 11,
+        "unit_boundary_Elist_elements": 3410,
+        "fixed_input_name_character_correction": "4*(input_identifier_length-1), when present; separate from this variable-entity qualification addend",
+        "whole_native_frontend_closed": false
+      }
+    ],
+    "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
+    "remaining_common_metadata": "native invocation/elaboration containers, warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
+    "whole_native_frontend_closed": false
+  },
   "composed_Main_native_constructor_core": {
     "examples_not_thresholds": [
       {

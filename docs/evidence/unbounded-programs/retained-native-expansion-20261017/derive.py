@@ -1004,6 +1004,45 @@ def main_native_construct_vector(*, parser_nodes, parser_slots, parser_lists,
                 whole_native_frontend_closed=False)
 
 
+def native_common_metadata(*, concats, words, short_circuits, images,
+        output_calls, loop_depth, max_identifier_length, main_entities,
+        fixed_entities, fixed_xrefs, newly_analyzed_units):
+    """Native overload/xref/qualification/unit-boundary metadata join.
+
+    All counts are source or previously derived component inputs; none is an
+    observed program threshold. Fixed dependency entities/xrefs and unit closure
+    remain integration inputs. This does not include invocation/diagnostics.
+    """
+    assert min(concats, words, short_circuits, images, output_calls, loop_depth,
+               max_identifier_length, main_entities, fixed_entities,
+               fixed_xrefs, newly_analyzed_units) >= 0
+    entities = main_entities+fixed_entities
+    # Permanent variable scopes: source loops, at most two EWA scopes per
+    # source short circuit and one output wrapper along a scope path. Include
+    # the one fixed Main finalizer as an extra conservative path member.
+    scopes = loop_depth+2*short_circuits+bool(output_calls)+1
+    unqualified = max(12, max_identifier_length+5)
+    qualified = 6+14*scopes+unqualified
+    explicit_xrefs = 2*concats+3*images
+    xrefs = fixed_xrefs+16*(words+1)+2*entities+explicit_xrefs+1
+    return dict(
+        All_Interp_Main_entries=4*concats+3*words+short_circuits,
+        Interp_Map_Main_bindings=concats+2*words+short_circuits,
+        qualification_Name_entries=main_entities,
+        qualification_Name_characters=main_entities*(qualified+1),
+        max_unqualified_name=unqualified,
+        max_qualified_name=qualified,
+        qualification_scope_path_members=scopes+2,
+        Name_Qualify_Units_Main_appends=output_calls+2,
+        Xrefs_backing_demand=xrefs,
+        Xref_sort_vector_Nat_words=xrefs+1,
+        Drefs_Main_appends=0,
+        unit_boundary_Elist_headers=newly_analyzed_units+1,
+        unit_boundary_Elist_elements=newly_analyzed_units*(entities+1),
+        fixed_input_name_character_correction="4*(input_identifier_length-1), when present; separate from this variable-entity qualification addend",
+        whole_native_frontend_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1073,6 +1112,16 @@ mixed_example_counts = dict(main_example_counts, parser_nodes=100,
         native_string_bound_descriptor("image")))])
 
 result = {
+    "native_common_metadata_join": {
+        "examples_not_thresholds": [native_common_metadata(concats=2, words=50,
+            short_circuits=1, images=1, output_calls=2, loop_depth=1,
+            max_identifier_length=12,
+            main_entities=main_native_construct_vector(**mixed_example_counts)["total"]["entity_identities"],
+            fixed_entities=100, fixed_xrefs=100, newly_analyzed_units=10)],
+        "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
+        "remaining_common_metadata": "native invocation/elaboration containers, warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
+        "whole_native_frontend_closed": False,
+    },
     "composed_Main_native_constructor_core": {
         "examples_not_thresholds": [main_native_construct_vector(**main_example_counts),
                                     main_native_construct_vector(**mixed_example_counts)],

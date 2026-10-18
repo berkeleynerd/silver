@@ -4728,6 +4728,152 @@ precise per-row digit bounds remain valid and can reduce overcount.
 constructor accounting join; it does not silently include the common-table,
 fixed-process, backend or physical-workspace terms below.
 
+## Native common metadata join
+
+The following native transfers reuse mode-independent primitives from
+[retained-main-semantics.md](retained-main-semantics.md), with their native
+caller differences checked explicitly. Let W be source word tokens, c source
+concat operators, B source short circuits, M source Image occurrences, o output
+calls, d the maximum enclosing source-loop depth and L the maximum source
+identifier length. Let E_Main be the constructor sum's entity identities;
+E_fixed, X_fixed and K_sem are the source-reduced fixed entity/xref and
+newly-analyzed-unit bounds supplied by integration. Fixed witness Main work may
+overlap E_Main. Define E_X=E_fixed+E_Main.
+
+### Overload tables
+
+The source overload domain is unchanged: at most three Standard String-family
+interpretations plus one sentinel per source concat, and at most one direct
+operation interpretation plus a sentinel per word-token allowance. Scalar
+objects/types and generated bound/capture references are not overloadable.
+Source concat children are resolved before native expansion; their copies
+retain that resolved state. Generated scalar operators and explicit pointer
+dereferences have a single known type. The native copies therefore do not
+reconstruct the source concat's alternatives.
+
+Save_Interps allocates one sentinel and one new map key, even though it then
+points that key at the old list (`sem_type.adb:3324–3346`). The parameterless-call
+allowance is already one per W. Native Resolve_Short_Circuit also calls
+Save_Interps when relocating its left child (`sem_res.adb:11684`); add one
+sentinel/key per B without relying on that child's usual nonoverloaded Boolean
+status. Artificial check short circuits have the already established
+nonoverloaded scalar comparisons. Insert_Explicit_Dereference sees the
+nonoverloaded generated access name (`sem_util.adb:15830–15865`); other
+Save_Interps routes need the excluded operator-call, implicit access-to-function,
+mixed Boolean-array or generic forms. Consequently
+
+```text
+All_Interp Main entries <= 4c+3W+B
+Interp_Map Main bindings <= c+2W+B.
+```
+
+These are lifetime append/binding bounds. The fixed dependency interpretations,
+initial All_Interp backing and the 3079 Interp_Map hash headers remain separate.
+
+### Full-name qualification and queue
+
+The earlier path-sensitive Q(e) transfer can now use an explicit whole-Main
+envelope. A permanent source/generated scope path contains Main, source loops,
+at most two EWA scopes per source short circuit, and at most one output
+transient block. Output calls are statements and cannot be nested in another
+output actual. The generated scalar selectors and artificial check wrappers
+have the earlier no-new-scope transfers; concat and Image add no permanent
+scope of their own. Include the one fixed Main finalizer as an extra scope
+allowance. Temporary freeze-time pushes do not change an entity's Scope chain.
+
+All those internal loop/block names have at most 12 characters under the
+serial-counter bound. Generated type names are either such internal names or
+the source-object-derived subtype/index forms; the largest source-derived
+suffix is five characters (`TT<D>SP1`, documented above). Thus
+
+```text
+m = d+2B+[o>0]+1
+u = max(12,L+5)
+Q_max = 6+14m+u
+additional qualification Name entries <= E_Main
+additional qualification Name characters <= E_Main*(Q_max+1).
+```
+
+The six characters are `main__`; each intermediate scope adds at most 12
+characters and `__`; the final entity contributes u. Qualifying all E_Main
+entities overcounts ordinary local objects that return without a Name_Enter.
+It also includes the Main name, whose actual length is four. This is an
+explicit count/length transfer, not an assumption that source identifier
+length bounds generated names. Require Q_max to fit the existing Name_Buffer
+and corresponding index/length arithmetic. The previous per-entity Q(e) sum
+is a sound sharper alternative.
+
+The fixed input's two type names and two qualified names stay in the fixed
+capture, with their separate `4*(|D|-1)` correction; they do not disappear
+because E_Main excludes fixed scaffold constructors. Internal serial names in
+that capture likewise keep their documented normalization correction. Neither
+correction creates another entity or name entry.
+
+Qualify_Entity_Names is called once per output block and once for Main and its
+possible fixed finalizer (`exp_ch5.adb:3469`, `exp_ch6.adb:6815`). Its ordinary
+for-loop caller is inside the **iterator** branch, excluded here
+(`exp_ch5.adb:6099–6115`). Analyze/Expand_Expression_With_Actions has no
+qualification enqueue. Therefore `Name_Qualify_Units` has at most o+2 Main
+appends, independently of how many entities each queue entry eventually walks.
+Main/finalizer queue work may already be in the retained capture; paying it
+again is conservative. Fixed package/unit queue entries remain fixed terms.
+
+### Native xrefs and unit-boundary Elists
+
+Generate_Reference's source/Force and entity gates remain active in native
+mode. Native additionally records **both enclosing-scope fields as Empty**
+and uses Original_Location(Sloc), rather than the light mode's two reference
+scope alternatives (`lib-xref.adb:1144–1168`). Main creates no instantiation or
+virtual source region. The ordinary source binding pairs remain unique through
+scalar range copies, normalization and relocation. The native-only named-actual
+branch references the formal at the selector token's own location
+(`sem_res.adb:5197–5222`); that token is included in W. Native does not follow
+String renamings to the generated underlying pointer: Get_Through_Renamings
+is in the GNATprove-only branch (`lib-xref.adb:1069–1087`).
+
+The forced ordinary caller family is Main's body/end references. Its closing
+label can temporarily advance one location past `Main`, already allowed by
+W+1 (`sem_ch6.adb:4198–4202`, `sem_util.adb:27377,27518`). Child-parent labels,
+subprogram renamings/completions, derived/record/dispatch references and private
+package end references are absent in variable Main work. Its ordinary kinds
+are r, m, s, w, b, l, t, with e allowed conservatively. The earlier 16(W+1)
+bound remains safe despite native needing only one scope choice. Keep the
+already charged explicit concat/Image positive increments as additional
+allowances rather than assuming every generated reference is free.
+
+Add_Entry still increments tentatively before duplicate detection and rolls
+back duplicate Last values. Hence the **backing demand**, including a tentative
+slot, is
+
+```text
+X_native = X_fixed+16(W+1)+2E_X+2c+3M+1
+ALI xref sorting vector <= X_native+1 Nat words.
+```
+
+The two per-entity terms cover definition and orphan keys; fixed and explicit
+terms may overlap. This is a bound on live distinct keys plus the tentative
+slot, not on all lifetime increment calls. Output_References' sorting vector
+and physical table/hash layouts remain representation terms. The native Drefs
+addend is zero even with generated pointers: the explicit-dereference and
+write callers, and the through-renaming reference route, are guarded by
+GNATprove_Mode (`sem_ch4.adb:2225–2230`, `sem_util.adb:26142–26148`,
+`lib-xref.adb:1069–1087`). Its initial table storage remains.
+
+Finally the unit-boundary save transfer is mode independent. Each Semantics
+entry creates a Save_Scope_Stack Elist even when empty; each currently visible
+entity is appended at most once because the append clears its visibility.
+Newly analyzed compilation units append once to Comp_Unit_List
+(`sem_ch8.adb:10270–10324`, `sem.adb:1431–1491,1650–1673`). Therefore add
+K_sem+1 Elist headers and K_sem*(E_X+1) element records. Native pending-copy
+lists and first-runtime-lookup lists already have separate positive rows;
+this boundary term does not replace them or fixed dependencies' internal lists.
+
+`native_common_metadata` computes all these aggregate terms and uses the
+actual constructor sum for its example E_Main input. K_sem and fixed counts
+still need source-reduced integration values. Native invocation/elaboration
+containers, warning attempts/history/text, stack peaks and table/byte
+representations are not silently included in this join.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -4782,10 +4928,10 @@ above. The native frontend/process is still incomplete at these explicit joins:
   literal accounting and first-runtime-lookup Elist/implicit-with corrections.
   Source reduction and first-load/cache invariants, not a sample's observed
   unit count, must justify any fixed dependency bound.
-- **Native common metadata:** instantiate deferred full-name qualification
-  and its scope paths/enqueues; unit-scope save Elists; overload tables/maps;
-  xrefs; elaboration scenario/target/DFS structures and invocation/ALI tables;
-  native warning attempts/history and text. Native expansion enables
+- **Native common metadata:** supply source-reduced fixed inputs to the now
+  explicit qualification/queue, unit-scope save, overload and xref aggregate.
+  Complete elaboration scenario/target/DFS structures and invocation/ALI
+  tables, plus native warning attempts/history and text. Native expansion enables
   invocation-graph construction, so the light frontend's disabled-graph result
   cannot transfer. Warning options likewise require the selected native
   configuration, not GNATprove's mask. Scope/check/expander stacks and common
