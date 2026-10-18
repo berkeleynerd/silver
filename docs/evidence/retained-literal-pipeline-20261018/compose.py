@@ -102,6 +102,16 @@ class Context:
                     {key:row[key] for key in ('bytes','sha256')},
                     'changed native warning-map input: '+row['path'])
         self.warning = runpy.run_path(str(warning_packet/'derive.py'))
+        cold_packet=EVIDENCE/'retained-literal-string-layout-20261018'
+        self.cold_string=read(cold_packet/'interface.json')
+        for row in read(cold_packet/'source-manifest.json')['files']:
+            path=(roots['ada']/row['path'].removeprefix('gcc/ada/')
+                  if row['root']=='ada' else match_path if row['root']=='match'
+                  else roots['gcc']/row['path'])
+            require(identity(path.read_bytes()) ==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'changed cold String source: '+str(path))
+            checked.add(str(path))
         self.source_files_verified = len(checked)
         frontend_packet=EVIDENCE/'retained-literal-native-frontend-20261018'
         self.frontend = runpy.run_path(str(frontend_packet/'compose.py'))
@@ -177,6 +187,27 @@ def shared_counts(raw, context):
     return native, why
 
 
+def native_cold_string_interface(context):
+    """Join the reviewed fixed helper contribution, preserving open costs."""
+    cold=context.cold_string
+    require(cold['size_functions_created']==2 and
+            cold['initial_helper_gimplifications']==2 and
+            cold['additional_live_function_nodes_during_initial_Main_lowering']==2 and
+            cold['helper_ordinary_lowering_executions']==0 and
+            cold['helper_IPA_body_executions']==0 and
+            cold['helper_RTL_expansions']==0 and
+            cold['helper_emitted_functions']==0 and
+            cold['live_helper_nodes_after_initial_removal']==0 and
+            cold['persistent_counter_increments']==dict(symbol_next_uid=2,
+                symbol_order=2,function_definition_number=2,private_size_function_fnno=2) and
+            cold['R'] is None and cold['helper_allocation_request_events'] is None and
+            cold['helper_allocation_bytes'] is None and
+            not cold['complete_imported_frontier_closed'] and
+            not cold['whole_literal_pipeline_capacity_established'],
+            'literal cold String helper interface join')
+    return cold
+
+
 def native_pool_lifetime(c, context):
     """Conditional symbol/pool arithmetic; imported constructors remain open.
 
@@ -184,9 +215,12 @@ def native_pool_lifetime(c, context):
     The fixed prefix is an incoming population ceiling, not null's lifetime.
     """
     require(type(c) is int and c >= 1, 'positive literal call count')
+    helpers=native_cold_string_interface(context)['size_functions_created']
     d_in = context.pool_seed
     tree_live = d_in + 2*c
-    asm_live = c + 3  # Main, at most two imported callees, bounds; no dummy.
+    # Conservatively include both helpers even if the table is initialized
+    # after their removal. The hard-register dummy is still excluded.
+    asm_live = c + 3 + helpers
 
     def prime(request):
         return next((p for p in context.primes if p >= request), None)
@@ -220,7 +254,7 @@ def native_pool_lifetime(c, context):
     checks = dict(
         tree_pool_live_and_probe=tree_live <= 1073741823,
         assembler_name_live_and_probe=asm_live <= 1073741823,
-        symbol_uid_and_order=c+5 <= I32,
+        symbol_uid_and_order=c+5+helpers <= I32,
         reference_vector_capacity=ref_capacity <= I32,
         reference_vector_growth_intermediate=3*c <= 2**32-1,
         reference_vector_signed_traversal=c <= I32,
@@ -241,8 +275,9 @@ def native_pool_lifetime(c, context):
         symbols=dict(fixed_prefix_registered_nodes=0,
                      pre_gimplification_Main_and_dummy=2,
                      external_callee_nodes_upper=2,
-                     bounds_nodes_upper=c,registered_nodes_upper=c+4,
-                     next_uid_upper=c+5,order_upper=c+4,
+                     cold_String_helper_nodes=helpers,
+                     bounds_nodes_upper=c,registered_nodes_upper=c+4+helpers,
+                     next_uid_upper=c+5+helpers,order_upper=c+4+helpers,
                      assembler_name_live_upper=asm_live,
                      assembler_name_capacity_upper=asm_slots),
         bounds_lifecycle=dict(finalize_calls_upper=c,fresh_nodes_upper=c,
@@ -267,21 +302,22 @@ def native_pool_lifetime(c, context):
         local_representation_checks=checks,
         conditional_arithmetic_fits=all(checks.values()),
         imported_constructor_frontier_established=False,
-        required_premise='No extra post-prefix imported pool/symbol contribution, or a separately composed bound (#131).',
+        required_premise='No other post-prefix imported pool/symbol contribution beyond the two joined String helper nodes, or a separately composed bound (#131). Helper allocation totals remain separate.',
         named_consumer_closed=False,
         whole_native_pipeline_capacity_established=False,
         source_argument='docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join')
 
 
 def native_graph_lifetime(c, n, context):
-    """Conditional one-body graph arithmetic, without null lifetime totals."""
+    """Conditional Main graph arithmetic with two discarded helper nodes."""
     require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
             'literal graph counters')
+    helpers=native_cold_string_interface(context)['size_functions_created']
     prime = lambda request: next((p for p in context.primes if p >= request),None)
     edge_slots = prime(max(120,2*c))
-    symbol_slots = prime(max(13,2*(c+4)))
+    symbol_slots = prime(max(13,2*(c+4+helpers)))
     single_user_slots = prime(max(13,2*c))
-    comdat_slots = prime(max(251,2*(c+4)))
+    comdat_slots = prime(max(251,2*(c+4+helpers)))
     # The initial 13-slot ordinary call-summary vector has no GC rounding.
     summary_capacity = max(13,2*c)
     recycled_capacity = max(4,2*c)
@@ -299,6 +335,7 @@ def native_graph_lifetime(c, n, context):
         dict(object='call-site hash terminal-empty backing',requests_upper=4,
              raw_bytes_upper=None if edge_slots is None else 8*edge_slots),
         dict(object='fixed Main and imported callee cgraph nodes',requests_upper=3,raw_bytes_upper=512),
+        dict(object='cold String helper cgraph nodes',requests_upper=helpers,raw_bytes_upper=512),
         dict(object='fixed dummy varpool node',requests_upper=1,raw_bytes_upper=256),
         dict(object='fixed dummy VAR_DECL',requests_upper=1,raw_bytes_upper=312),
         dict(object='fixed dummy identifier',requests_upper=1,raw_bytes_upper=40),
@@ -329,7 +366,7 @@ def native_graph_lifetime(c, n, context):
         pointer_reachability_hash_per_invocation_bytes_upper=None if symbol_slots is None else 8*symbol_slots,
         single_user_map_bytes_upper=None if single_user_slots is None else 16*single_user_slots,
         COMDAT_map_bytes_each_upper=None if comdat_slots is None else 16*comdat_slots,
-        COMDAT_map_live_upper=c+4,
+        COMDAT_map_live_upper=c+4+helpers,
         inline_order_array_bytes_each=24,reverse_postorder_stack_bytes=72,
         reduced_postorder_stack_bytes=24,reduced_DFS_record_bytes=32,
         reduced_splay_node_bytes=32,splay_control_bytes_upper=64,
@@ -339,7 +376,7 @@ def native_graph_lifetime(c, n, context):
     checks = dict(
         cgraph_edge_UID=1+4*c <= I32,
         call_site_hash_live_and_probe=c <= 1073741823,
-        symbol_reachability_hash_live_and_probe=c+4 <= 1073741823,
+        symbol_reachability_hash_live_and_probe=c+4+helpers <= 1073741823,
         call_summary_ID=c <= I32,
         call_summary_vector_capacity=summary_capacity <= I32,
         recycled_summary_vector_capacity=recycled_capacity <= I32,
@@ -359,7 +396,9 @@ def native_graph_lifetime(c, n, context):
         call_summary_ID_high_water_upper=c,call_summary_creation_events_upper=2*c,
         function_summary_ID_high_water_upper=1,
         parameter_edge_argument_and_value_range_entries=0,
-        optimized_or_inlined_body_copies=0,additional_registered_symbols=0,
+        optimized_or_inlined_body_copies=0,additional_registered_symbols=helpers,
+        cold_helper_ordinary_lowering_executions=0,
+        cold_helper_summary_ID_assignments=0,
         summary_scaled_size_upper=26*c+6,summary_rounding_numerator_upper=26*c+7,
         summary_positive_time_exponent_upper=5*c+400,
         individual_GGC_request_groups=ggc,ordinary_requests=ordinary,
@@ -367,7 +406,7 @@ def native_graph_lifetime(c, n, context):
         additional_singleton_finalizer_registrations_upper=5,
         conditional_arithmetic_fits=all(checks.values()),
         imported_constructor_frontier_established=False,
-        required_premise='Main is the sole defined body, or additional imported helpers are separately composed (#131).',
+        required_premise='Main is the sole body reaching ordinary lowering/IPA; the two joined String helpers are initially gimplified and discarded without graph analysis. Other imported constructor and helper allocation costs remain separate (#131).',
         conditional_graph_and_summary_lifetime_closed=False,
         local_representation_checks=checks,whole_native_pipeline_capacity_established=False,
         source_argument='docs/research/retained-literal-pipeline.md#direct-call-graph-and-ipa-summary-lifetime')
@@ -954,8 +993,9 @@ def evaluate(descriptor_path, context, source_override=None):
         additional_imported_pool_symbol_events_upper=None,
         additional_imported_defined_bodies_upper=None,
         additional_emitted_stream_interface=None,
+        cold_String_layout=native_cold_string_interface(context),
         affected_predicates=list(unit_dependent),
-        missing='Exclude or bound Standard.String template/array/object layout and its possible size-function helpers; Main preservation alone is insufficient.',
+        missing='Two cold String helpers and their graph/symbol increments are joined. Complete their allocations/initial gimplification, the other imported declarations and remaining counter-to-emission joins; discard alone does not close these costs.',
         finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.

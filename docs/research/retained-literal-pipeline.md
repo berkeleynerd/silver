@@ -203,9 +203,12 @@ and object-record layout. Its placeholder-derived sizes can reach
 `variable_size`, `self_referential_size` and `finalize_size_functions`
 (`decl.cc:2433–2545,7265–7390`; `stor-layout.cc:67–85,155–291`). Constant
 extents of Main's literal subtypes do not prove that this imported route
-simplifies away. No helper creation or emission is asserted as an observation;
-its absence or bounded contribution is unresolved. Therefore the calculations
-below assume no additional imported pool/symbol/body contribution. The
+simplifies away. The [reviewed cold-layout argument](retained-literal-string-layout.md)
+now supplies exactly two initially gimplified size helpers, both discarded
+after initial Main lowering and before helper ordinary lowering/IPA/emission.
+The calculations below include their two registered cgraph nodes, persistent
+symbol increments and conservative hash-presence allowance. They still assume
+no other imported pool/symbol/body contribution. The
 callables retain that premise explicitly, return false closure flags, and
 expose their numerical checks as `conditional_arithmetic_fits`. The aggregate
 does not turn those values into established source-family fit. This native
@@ -219,9 +222,10 @@ The symbol table starts with `cgraph_max_uid=1`, `order=0`, no nodes and no
 assembler-name hash (`cgraph.h:2558–2575`). Main finalization and the forced
 hard-register dummy add two nodes before gimplification. At most two distinct
 external callees are added during graph building, and at most C bounds nodes
-are added by Main gimplification. Under the unestablished imported-frontier
-premise, cumulative registrations are at most `C+4`,
-next UID at most `C+5` and order at most `C+4`. This transfers no null-body
+are added by Main gimplification. The two cold helpers add two registrations;
+discard does not rewind the counters. Under the remaining imported-frontier
+premise, cumulative registrations are at most `C+6`,
+next UID at most `C+7` and order at most `C+6`. This transfers no null-body
 edge count, null IPA allocation bound or null whole-lifetime constant.
 
 ### Bounds declaration analysis, references and release
@@ -335,19 +339,23 @@ entries; tombstones are included in occupied state and pre-hit growth is paid.
 The assembler-name table is initialized at most once, at or before the end
 of the first analysis (`cgraphunit.cc:1447–1454`; `symtab.cc:260–268`). Charge
 its 128-byte control and initial backing cold. The hard-register dummy is
-excluded; at most `C+3` Main/callee/bounds symbols can be inserted, once each,
+excluded; at most `C+5` Main/callee/bounds/helper symbols can be inserted, once each,
 whether they precede table initialization or arrive after it. There are no
 clones, aliases, renames or name reordering calls in this selected path.
-Consequently the hash has at most `C+3` entries and at most `C+3` growth-triggering
-lookups. Charge `C+4` initial-or-replacement requests, each at most
-`8*prime(max(10,2*(C+3)))` bytes. This is deliberately conservative for small C.
+Consequently the hash has at most `C+5` entries and at most `C+5` growth-triggering
+lookups. Charge `C+6` initial-or-replacement requests, each at most
+`8*prime(max(10,2*(C+5)))` bytes. This conservatively includes both helpers even
+if table initialization happens only after their removal. Their removal uses
+`unlink_from_assembler_name_hash`, which performs a noninserting lookup and
+clears its slot (`symtab.cc:203–244`); no helper rename or reinsertion occurs.
+This is deliberately conservative for small C.
 The same hash lemma applies. One nontrivial hash-control destructor adds at
 most one singleton-finalizer registration; it allocates no object when run.
 Its shared registration-vector backing belongs in the subsequent collector
 join (`ggc.h:193–201`; `ggc-page.cc:1331–1346`).
 
-The newly joined requests therefore contribute at most **5C+5 GGC events**:
-C bounds nodes, 3C tree-hash backings, one assembler-hash control and C+4
+The newly joined requests therefore contribute at most **5C+7 GGC events**:
+C bounds nodes, 3C tree-hash backings, one assembler-hash control and C+6
 assembler-hash backings. Fixed Main/callee/dummy nodes, the forced dummy's tree
 and identifier, the direct 10C pool objects, all other helpers and shared
 collector backing stay in their own lifetime terms. No 40,098-event null
@@ -358,9 +366,12 @@ and physical resource availability remain external assumptions.
 
 `native_graph_lifetime(C, N, context)` replaces the null-only graph inputs
 in the established [39-registration IPA partition](retained-backend-ipa.md)
-with Main, at most two external callees, at most C bounds variables and the
-forced dummy. This transfer assumes Main is the only defined function body;
-the imported-frontier argument above has not established that assumption.
+with Main, at most two external callees, at most C bounds variables, the
+forced dummy and the two cold String helpers. This conditional transfer
+requires Main to be the only body reaching ordinary lowering/IPA. The two
+known helpers are initially gimplified but never graph-analyzed, and disappear
+before ordinary IPA. Their earlier function/tree/GIMPLE allocations remain
+outside this graph subtotal; the complete imported frontier is still open.
 Main's calls are direct,
 nonrecursive and have no callback, always-inline, clone, thunk or target
 attribute. The variables have no outgoing initializer reference. The selected
@@ -409,6 +420,18 @@ pointer vector starts with capacity 13; `max(13,2C)` bounds its later ordinary
 capacity. The released-ID vector has capacity at most `max(4,2C)`. Check both
 31-bit vector capacities and the `3C` unsigned growth intermediate. Function
 summary ID zero belongs only to Main and survives manager replacement.
+
+The two helper cgraph nodes each add one request of at most 512 bytes.
+`cgraph_node::create` registers the node without calling insertion hooks
+(`cgraph.cc:658–681`); their `finalize_function` route does not use
+`add_new_function`. Main's later local-summary pass therefore does not create
+helper records retroactively. At helper removal, ordinary function-summary
+hooks use a noninserting lookup, while fast-summary hooks test `exists`
+before removal (`symbol-summary.h:214–226,298–304,408–429,488–496`). The
+summary-ID getter does not assign an ID; assignment belongs to `get_create`.
+Thus neither helper receives a summary ID or released-ID-vector entry, and
+the two removals do not allocate a summary record. Call-site hashes and
+edge counts are unchanged because neither helper is graph-analyzed.
 
 ### Local summaries and fixed infrastructure
 
@@ -501,12 +524,12 @@ integer time-accumulator allowance is hidden in the GGC delta.
 ### Whole-unit shape and returned delta
 
 The established IPA schedule's disabled gates remain disabled. Active
-visibility/reachability sees at most `C+4` symbols; only its reachable set
+visibility/reachability conservatively sees at most `C+6` symbols; only its reachable set
 grows. Bounds initializers have no outgoing references, and call edges lead
 only to the two external callees. The single-user pass visits each bounds
 node once and inserts at most C map entries: only Main refers to it and there
 is no alias or variable-reference cycle (`ipa.cc:1464–1553`). Both COMDAT maps
-are ordinary; charge `16*prime(max(251,2*(C+4)))` bytes each even though the
+are ordinary; charge `16*prime(max(251,2*(C+6)))` bytes each even though the
 second remains empty. No COMDAT group is present, so execution returns before
 propagation (`ipa-comdats.cc:235–297`). This conservative request ceiling
 avoids depending on whether an individual bounds symbol is already classified
@@ -531,10 +554,11 @@ dummy varpool node, a 312-byte dummy VAR_DECL, a 40-byte identifier and a
 symbol recipe, with two extra external callee nodes. Their assembler-name
 backing remains charged in the pool join, so it is not added here.
 
-The returned graph/summary delta is **8C+33 GGC events**: 4C fresh edges,
+The returned graph/summary delta is **8C+35 GGC events**: 4C fresh edges,
 four call-site controls, `4+4C` initial/insertion backings, four terminal-empty
 backings, seven fixed symbol constructors and fourteen summary infrastructure
-events. At most five singleton finalizers are registered: four call-site hash
+events, plus the two cold helper cgraph nodes. At most five singleton finalizers
+are registered: four call-site hash
 controls and the value-range control. Summary managers explicitly use
 `ggc_alloc_no_dtor`, function records use raw `ggc_internal_alloc`, embedded
 map controls share manager storage, and pointer backings have trivial
@@ -741,7 +765,7 @@ payload, independently of how many linked slabs are needed.
 The returned GGC event delta is therefore **6C+10+L**: three infrastructure
 objects, z vector backings, three `.MEM` declaration/identifier requests,
 u names, one NOP and L slabs. This deliberately overbounds actual vector
-growth. It is separate from the bounds-pool `5C+5` and graph `8C+33` deltas,
+growth. It is separate from the bounds-pool `5C+7` and graph `8C+35` deltas,
 and from the unclosed initial-GIMPLE/CF/CFG event families.
 
 ### Renamer backing and traversals
@@ -1292,7 +1316,7 @@ pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
 ordinary requests; initial CF/EH/CFG/root-loop constructors now provide their
 separate event sum and shared metadata/bitmap/ET demand. The established warning
 gates are retained. The separate
-`5C+5`, `8C+33` and initial-SSA `6C+10+L` deltas are usable inputs, not the complete sum; no
+`5C+7`, `8C+35` and initial-SSA `6C+10+L` deltas are usable inputs, not the complete sum; no
 40,098-event null allowance is reused.
 
 Main assembler/ELF production materialization, producer frontends/consumers,
@@ -1480,3 +1504,23 @@ in 2.869469845 seconds. Existing source variants check the direct and
 location-copy coefficients and retain the null original-gigi residual. The
 new negative case rejects a hidden zero substitution for that residual. These
 are offline checks; no native tools ran and no whole-capacity flag changed.
+
+### Cold helper graph and symbol attachment
+
+The accepted cold-layout interface is joined by exact exported values and
+21 source identities. Two additional cgraph-node requests, persistent
+registration/UID/order increments and conservative symbol/hash populations
+are carried into the conditional pool and graph transfers above. Their event
+deltas become `5C+7` and `8C+35`; helper function/tree/GIMPLE allocation totals
+are still separate. No removed helper is treated as never constructed.
+
+All 89 aggregate offline cases pass in 3.860516321 seconds; default generation
+takes 2.996767486 seconds. Six new negative cases reject erased helpers,
+gimplifications or counter increments, added emission, zero substitution for
+an unknown allocation total, and premature imported-frontier closure.
+The aggregate checks 108 repository inputs and 290 direct external source
+files, with overlapping nested inventories still reported separately.
+All five source-family conditions remain unknown and whole-pipeline capacity
+remains false. This attachment is pending independent review. No native run
+or broad proof/test was performed; lead runtime settings and token/cost data
+are unavailable.

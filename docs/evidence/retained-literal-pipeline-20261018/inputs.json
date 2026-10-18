@@ -518,5 +518,25 @@
     "path": "docs/research/retained-literal-native-frontend.md",
     "bytes": 11203,
     "sha256": "fad49ee07adafe8fd65199e015170bec412abbd960bc3f1250f8cf1c53295801"
+  },
+  {
+    "path": "docs/evidence/retained-literal-string-layout-20261018/interface.json",
+    "bytes": 1186,
+    "sha256": "c163292c7972dfa9893ed84dcb817629be6b962b95d220d3b689c452b59b32d7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-string-layout-20261018/source-manifest.json",
+    "bytes": 12151,
+    "sha256": "e24f319eb01adb3420f189bc8237e3d73051cd5eceef6528242de81684fa798d"
+  },
+  {
+    "path": "docs/research/retained-literal-string-layout.md",
+    "bytes": 14873,
+    "sha256": "0f7a4ef3a0abf228e6c5e204e518e3386603d93eba35e6bb591e1158ddb13392"
+  },
+  {
+    "path": "docs/reviews/review-literal-string-layout-bd15740afc.md",
+    "bytes": 11146,
+    "sha256": "87736a14a5dba393dca57fb0c1c7cf042d83ebf6f7ef53328475f9bb48b371f4"
   }
 ]

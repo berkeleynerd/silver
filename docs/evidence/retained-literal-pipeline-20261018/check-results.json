@@ -1,5 +1,5 @@
 {
-  "case_count": 83,
+  "case_count": 89,
   "cases": [
     {
       "case": "retained",
@@ -196,6 +196,30 @@
     {
       "case": "unjustified_zero_warning_residual",
       "rejected": "literal native warning-map conditional interface join"
+    },
+    {
+      "case": "silently_erased_helpers",
+      "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "erased_initial_gimplifications",
+      "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "helper_emission",
+      "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "unproved_helper_allocation_zero",
+      "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "premature_imported_closure",
+      "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "discard_resets_counter",
+      "rejected": "literal cold String helper interface join"
     },
     {
       "case": "native_Main_frontend_fixed_node_zero",
@@ -553,8 +577,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T20:00:03.308000+00:00",
-    "completed_utc": "2026-10-18T20:00:07.163517+00:00",
-    "elapsed_seconds": 3.8555128569987573
+    "started_utc": "2026-10-18T20:29:33.860147+00:00",
+    "completed_utc": "2026-10-18T20:29:37.720664+00:00",
+    "elapsed_seconds": 3.8605163210013416
   }
 }

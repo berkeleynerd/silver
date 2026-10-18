@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 83 interface checks. It reuses one context's
+arguments and `--output`, and runs 89 interface checks. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -43,7 +43,7 @@ closure; null composition is retained as a scope reference, not executed on
 literal source. No compiler/prover/native validation was run for this packet.
 
 `native_pool_lifetime` returns bounded incoming tree state, symbol counters,
-initializer/reference lifetimes, individual request groups and a `5C+5` GGC
+initializer/reference lifetimes, individual request groups and a `5C+7` GGC
 event delta, plus one possible singleton-finalizer registration. The fixed
 prefix bounds incoming pool entries by 39,257 and capacity by 131,071; those
 are conservative transfer bounds, not observed occupancies. This does not reuse
@@ -62,10 +62,19 @@ arithmetic remains in `conditional_conditions`; `evaluated_predicates_pass`
 is false while any condition is unresolved. Main-only interfaces survive;
 complete emitted-stream correspondence requires its own additional premise.
 
+The reviewed cold String packet now contributes two registered helper nodes,
+even though both are discarded before ordinary lowering/IPA/emission. Symbol
+UID/order bounds become `C+7`/`C+6`; conservative assembler-name backing also
+includes both helpers. Their two cgraph-node requests are charged below.
+Source identities and the exact fixed interface are joined; six new rejection
+cases prevent silent removal of these costs or promotion of unknown allocation
+totals to zero. All five unresolved conditions remain unknown until their
+remaining premises are established.
+
 `native_graph_lifetime` adds the direct-call edge/summary lifecycle, ordinary
 IPA backing, signed-size and edge-ID checks, seven fixed symbol constructor
 events and the structurally transferred fourteen summary-constructor events.
-Its separate GGC delta is `8C+33`, including four possible terminal-empty
+Its separate GGC delta is `8C+35`, including the two cold helper nodes and four possible terminal-empty
 call-site hash backings, with five possible singleton-finalizer registrations.
 These events still require composition with the complete native constructor
 and collector lifetime. No null whole-lifetime allowance is reused.

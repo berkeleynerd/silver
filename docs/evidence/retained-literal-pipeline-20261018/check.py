@@ -78,9 +78,12 @@ def main():
             assert pools['incoming_tree_pool']['capacity_upper']==131071
             assert pools['tree_pool']['live_upper']==39257+2*c
             assert pools['tree_pool']['replacement_requests_upper']==3*c
-            assert pools['symbols']['next_uid_upper']==c+5
+            assert pools['symbols']['cold_String_helper_nodes']==2
+            assert pools['symbols']['registered_nodes_upper']==c+6
+            assert pools['symbols']['next_uid_upper']==c+7
+            assert pools['symbols']['order_upper']==c+6
             assert pools['bounds_lifecycle']['initializer_outgoing_references']==0
-            assert pools['additional_GGC_request_events_upper']==5*c+5
+            assert pools['additional_GGC_request_events_upper']==5*c+7
             assert pools['conditional_arithmetic_fits']
             assert not pools['named_consumer_closed']
             assert not pools['imported_constructor_frontier_established']
@@ -89,7 +92,9 @@ def main():
             assert graph['edge_creation_events_upper']==4*c
             assert graph['edge_uid_endpoint_upper']==4*c+1
             assert graph['call_summary_ID_high_water_upper']==c
-            assert graph['additional_GGC_request_events_upper']==8*c+33
+            assert graph['additional_GGC_request_events_upper']==8*c+35
+            assert graph['additional_registered_symbols']==2
+            assert graph['cold_helper_summary_ID_assignments']==0
             cleanup=[row for row in graph['individual_GGC_request_groups']
                      if row['object']=='call-site hash terminal-empty backing']
             assert len(cleanup)==1 and cleanup[0]['requests_upper']==4
@@ -223,6 +228,9 @@ def main():
             assert frontier['additional_imported_pool_symbol_events_upper'] is None
             assert frontier['additional_imported_defined_bodies_upper'] is None
             assert frontier['additional_emitted_stream_interface'] is None
+            assert frontier['cold_String_layout']==context.cold_string
+            assert frontier['cold_String_layout']['helper_emitted_functions']==0
+            assert frontier['cold_String_layout']['helper_allocation_bytes'] is None
             assert linker['link']['failed_sufficient_checks']==(
                 ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
             if name=='5000_calls':
@@ -313,6 +321,28 @@ def main():
             raise AssertionError('unproved original-gigi residual accepted')
         finally:
             context.warning['evaluate']=warning_evaluate
+
+        cold_original=context.cold_string
+        for name,field,value in (
+            ('silently_erased_helpers','size_functions_created',0),
+            ('erased_initial_gimplifications','initial_helper_gimplifications',0),
+            ('helper_emission','helper_emitted_functions',1),
+            ('unproved_helper_allocation_zero','helper_allocation_request_events',0),
+            ('premature_imported_closure','complete_imported_frontier_closed',True),
+            ('discard_resets_counter','persistent_counter_increments',dict(
+                symbol_next_uid=0,symbol_order=2,function_definition_number=2,
+                private_size_function_fnno=2))):
+            context.cold_string=copy.deepcopy(cold_original)
+            context.cold_string[field]=value
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal cold String helper interface join'
+                rows.append(dict(case=name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered cold helper interface: '+name)
+            finally:
+                context.cold_string=cold_original
 
         frontend_compose=context.frontend['compose']
         mutations=[

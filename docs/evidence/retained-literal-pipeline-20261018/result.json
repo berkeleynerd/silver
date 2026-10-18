@@ -152,6 +152,42 @@
     "additional_imported_pool_symbol_events_upper": null,
     "additional_imported_defined_bodies_upper": null,
     "additional_emitted_stream_interface": null,
+    "cold_String_layout": {
+      "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
+      "size_functions_created": 2,
+      "size_function_parameter_counts": [
+        2,
+        2
+      ],
+      "size_function_parameter_precision_bits": 32,
+      "size_function_return_precision_bits": [
+        128,
+        64
+      ],
+      "canonical_array_recursions": 0,
+      "XUT_additional_size_functions": 0,
+      "XVE_additional_size_functions": 0,
+      "initial_helper_gimplifications": 2,
+      "additional_live_function_nodes_during_initial_Main_lowering": 2,
+      "helper_ordinary_lowering_executions": 0,
+      "helper_IPA_body_executions": 0,
+      "helper_RTL_expansions": 0,
+      "helper_emitted_functions": 0,
+      "live_helper_nodes_after_initial_removal": 0,
+      "persistent_counter_increments": {
+        "symbol_next_uid": 2,
+        "symbol_order": 2,
+        "function_definition_number": 2,
+        "private_size_function_fnno": 2
+      },
+      "helper_initial_warning_map_puts": null,
+      "R": null,
+      "helper_allocation_request_events": null,
+      "helper_allocation_bytes": null,
+      "complete_imported_frontier_closed": false,
+      "aggregate_conditions_changed": false,
+      "whole_literal_pipeline_capacity_established": false
+    },
     "affected_predicates": [
       "native_varpool_and_shared_tree_pool",
       "native_graph_and_summary_lifetime",
@@ -159,7 +195,7 @@
       "Main_GAS_BFD_storage",
       "literal_output_linker_representation"
     ],
-    "missing": "Exclude or bound Standard.String template/array/object layout and its possible size-function helpers; Main preservation alone is insufficient.",
+    "missing": "Two cold String helpers and their graph/symbol increments are joined. Complete their allocations/initial gimplification, the other imported declarations and remaining counter-to-emission joins; discard alone does not close these costs.",
     "finding": "https://github.com/berkeleynerd/silver/issues/131"
   },
   "native_lowering_data": {
@@ -627,11 +663,12 @@
       "fixed_prefix_registered_nodes": 0,
       "pre_gimplification_Main_and_dummy": 2,
       "external_callee_nodes_upper": 2,
+      "cold_String_helper_nodes": 2,
       "bounds_nodes_upper": 1,
-      "registered_nodes_upper": 5,
-      "next_uid_upper": 6,
-      "order_upper": 5,
-      "assembler_name_live_upper": 4,
+      "registered_nodes_upper": 7,
+      "next_uid_upper": 8,
+      "order_upper": 7,
+      "assembler_name_live_upper": 6,
       "assembler_name_capacity_upper": 13
     },
     "bounds_lifecycle": {
@@ -670,7 +707,7 @@
       },
       {
         "object": "assembler-name initial or replacement backing",
-        "requests_upper": 5,
+        "requests_upper": 7,
         "raw_bytes_upper": 104,
         "storage": "GGC"
       },
@@ -693,7 +730,7 @@
         "storage": "ordinary"
       }
     ],
-    "additional_GGC_request_events_upper": 10,
+    "additional_GGC_request_events_upper": 12,
     "additional_singleton_finalizer_registrations_upper": 1,
     "finalizer_dispatch_allocation_requests": 0,
     "excluded_already_charged_direct_pool_GGC_events": 10,
@@ -710,7 +747,7 @@
     },
     "conditional_arithmetic_fits": true,
     "imported_constructor_frontier_established": false,
-    "required_premise": "No extra post-prefix imported pool/symbol contribution, or a separately composed bound (#131).",
+    "required_premise": "No other post-prefix imported pool/symbol contribution beyond the two joined String helper nodes, or a separately composed bound (#131). Helper allocation totals remain separate.",
     "named_consumer_closed": false,
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join"
@@ -735,7 +772,9 @@
     "function_summary_ID_high_water_upper": 1,
     "parameter_edge_argument_and_value_range_entries": 0,
     "optimized_or_inlined_body_copies": 0,
-    "additional_registered_symbols": 0,
+    "additional_registered_symbols": 2,
+    "cold_helper_ordinary_lowering_executions": 0,
+    "cold_helper_summary_ID_assignments": 0,
     "summary_scaled_size_upper": 32,
     "summary_rounding_numerator_upper": 33,
     "summary_positive_time_exponent_upper": 405,
@@ -763,6 +802,11 @@
       {
         "object": "fixed Main and imported callee cgraph nodes",
         "requests_upper": 3,
+        "raw_bytes_upper": 512
+      },
+      {
+        "object": "cold String helper cgraph nodes",
+        "requests_upper": 2,
         "raw_bytes_upper": 512
       },
       {
@@ -840,10 +884,10 @@
       "summary_block_order_bytes_upper": 16,
       "summary_CFG_preorder_stack_bytes_upper": 328,
       "size_time_table_request_bytes_upper": 2312,
-      "pointer_reachability_hash_per_invocation_bytes_upper": 104,
+      "pointer_reachability_hash_per_invocation_bytes_upper": 248,
       "single_user_map_bytes_upper": 208,
       "COMDAT_map_bytes_each_upper": 4016,
-      "COMDAT_map_live_upper": 5,
+      "COMDAT_map_live_upper": 7,
       "inline_order_array_bytes_each": 24,
       "reverse_postorder_stack_bytes": 72,
       "reduced_postorder_stack_bytes": 24,
@@ -856,11 +900,11 @@
       "hook_node_bytes": 24,
       "cold_hook_nodes_upper": 37
     },
-    "additional_GGC_request_events_upper": 41,
+    "additional_GGC_request_events_upper": 43,
     "additional_singleton_finalizer_registrations_upper": 5,
     "conditional_arithmetic_fits": true,
     "imported_constructor_frontier_established": false,
-    "required_premise": "Main is the sole defined body, or additional imported helpers are separately composed (#131).",
+    "required_premise": "Main is the sole body reaching ordinary lowering/IPA; the two joined String helpers are initially gimplified and discarded without graph analysis. Other imported constructor and helper allocation costs remain separate (#131).",
     "conditional_graph_and_summary_lifetime_closed": false,
     "local_representation_checks": {
       "cgraph_edge_UID": true,
@@ -3511,6 +3555,42 @@
       "additional_imported_pool_symbol_events_upper": null,
       "additional_imported_defined_bodies_upper": null,
       "additional_emitted_stream_interface": null,
+      "cold_String_layout": {
+        "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
+        "size_functions_created": 2,
+        "size_function_parameter_counts": [
+          2,
+          2
+        ],
+        "size_function_parameter_precision_bits": 32,
+        "size_function_return_precision_bits": [
+          128,
+          64
+        ],
+        "canonical_array_recursions": 0,
+        "XUT_additional_size_functions": 0,
+        "XVE_additional_size_functions": 0,
+        "initial_helper_gimplifications": 2,
+        "additional_live_function_nodes_during_initial_Main_lowering": 2,
+        "helper_ordinary_lowering_executions": 0,
+        "helper_IPA_body_executions": 0,
+        "helper_RTL_expansions": 0,
+        "helper_emitted_functions": 0,
+        "live_helper_nodes_after_initial_removal": 0,
+        "persistent_counter_increments": {
+          "symbol_next_uid": 2,
+          "symbol_order": 2,
+          "function_definition_number": 2,
+          "private_size_function_fnno": 2
+        },
+        "helper_initial_warning_map_puts": null,
+        "R": null,
+        "helper_allocation_request_events": null,
+        "helper_allocation_bytes": null,
+        "complete_imported_frontier_closed": false,
+        "aggregate_conditions_changed": false,
+        "whole_literal_pipeline_capacity_established": false
+      },
       "affected_predicates": [
         "native_varpool_and_shared_tree_pool",
         "native_graph_and_summary_lifetime",
@@ -3518,7 +3598,7 @@
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
-      "missing": "Exclude or bound Standard.String template/array/object layout and its possible size-function helpers; Main preservation alone is insufficient.",
+      "missing": "Two cold String helpers and their graph/symbol increments are joined. Complete their allocations/initial gimplification, the other imported declarations and remaining counter-to-emission joins; discard alone does not close these costs.",
       "finding": "https://github.com/berkeleynerd/silver/issues/131"
     },
     "native_remaining_lifetime_and_collector": {
@@ -3529,8 +3609,8 @@
         "Main_frontend_node_identities_upper": 60,
         "Main_frontend_entity_identities_upper": 3,
         "Main_gigi_source_syntax_visits_upper": 154,
-        "conditional_pool_lifecycle_GGC_events_upper": 10,
-        "conditional_graph_lifecycle_GGC_events_upper": 41,
+        "conditional_pool_lifecycle_GGC_events_upper": 12,
+        "conditional_graph_lifecycle_GGC_events_upper": 43,
         "ranger_and_out_of_SSA_backing_closed": true,
         "initial_SSA_GGC_events_upper": 17,
         "initial_CF_CFG_GGC_events_upper": 24,
@@ -3707,8 +3787,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 104,
-  "external_source_files_verified": 288,
+  "fixed_input_count": 108,
+  "external_source_files_verified": 290,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
@@ -3725,8 +3805,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T20:00:07.310686+00:00",
-    "completed_utc": "2026-10-18T20:00:10.259829+00:00",
-    "elapsed_seconds": 2.9491423399995256
+    "started_utc": "2026-10-18T20:29:45.631864+00:00",
+    "completed_utc": "2026-10-18T20:29:48.628643+00:00",
+    "elapsed_seconds": 2.9967674859999534
   }
 }
