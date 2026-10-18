@@ -2,8 +2,12 @@
 
 2026-10-18, research [#119](https://github.com/berkeleynerd/silver/issues/119).
 Reviewed commit `20e801be186ce6e41cb7c53d44d6cd072fa06dda`.
-**Correction required before accepting the packet's named signal-escape
-argument.** The proposed stable missing-task witness is refuted by the exact
+**R1 correction accepted at `f5475afb3513443a5a05bdfd1e6e7a8ab3a27269`.**
+The focused correction disposition below supersedes the original acceptance
+status; the original findings and evidence are retained as history.
+
+Original disposition: **correction required before accepting the packet's named
+signal-escape argument.** The proposed stable missing-task witness is refuted by the exact
 membership guard already present in the archived source. The binder-opening
 and signal/catch observations, scoped interface inventory, and unchanged
 accounted endpoint remain useful. Complete callback capacity remains open;
@@ -176,3 +180,50 @@ and effort, token usage and monetary cost were unavailable. Review began at
 final commit preparation. This branch owns
 only this report and its narrow evidence. No GitHub, CLI-memory or harness
 writes were made; parent integration, author repair and publication are separate.
+
+## Focused R1 correction disposition
+
+**Accepted within the corrected packet's limited research scope.** The exact
+correction target is `f5475afb3513443a5a05bdfd1e6e7a8ab3a27269`; the original
+review is frozen at `64c4bb749bf4f6347853ebe7a8ddf13c024fe127`. The six-file
+correction changes the note, packet README, checker, input manifest, result and
+round record. R1 is resolved without changing source/native archives or the
+inspected interface claims.
+
+The note and README now explicitly withdraw the stable missing-task witness.
+They explain that the detachment guard performs and catches the same lookup,
+so a missing task is skipped. The numbered source route, result residual,
+remaining obligation and next checks no longer demand the misplaced independent
+membership invariant. The checker retains the exact guard/delegation/lookup
+snippets and all four local field occurrences. The local no-write conclusion
+is conditional on ordinary sequential table semantics and no interference;
+no reachable mutator, global alias theorem or replacement exception witness
+is asserted. `round.json` clearly labels the old argument as superseded while
+preserving its original checks and exact-input record as history.
+
+The repaired packet distinguishes established binder creation, callback
+exception propagation and the continuing catch from the unestablished existence
+of an actual post-registration escape. Remaining options are an exception and
+continuation exclusion argument, finite callback multiplicity with charged
+handler work, or the separately unimplemented mask configuration. Setter
+allocation, pending signals, reinstallation, launch inheritance and cancellation
+remain explicit obligations where applicable; one-shotness is not assumed.
+
+The new [correction check](../evidence/review-why-callback-20e801be18/check-correction.py)
+passed in **0.119747 seconds**. Its [result](../evidence/review-why-callback-20e801be18/correction-result.json)
+records exact repaired input identities, unchanged archive/extractor/binding
+bytes, preserved historical identities and checks, and the exact archived
+guard/occurrence witnesses. Every original false result flag remains false;
+the two new actual-escape/global-mutation claims are also false. Registration
+arithmetic is byte-for-byte equivalent as structured data, with endpoint
+**61,641**. The author correction's frozen-check pass (**0.346699 seconds**)
+and original successful extraction were reused. No native, extraction,
+debugger, compiler, solver, build, proof or broad-suite rerun occurred.
+
+This rereview selected **GPT-6 Astra / Extra High**. Runtime model/effort
+confirmation and token/cost measurements remain unavailable. It ran from
+**2026-10-18 23:19:55 UTC** through verification at **23:20:30 UTC**,
+**35 seconds** at one-second resolution, excluding report and commit
+preparation. The correction diff passes `git diff --check`. Only this review
+and its narrow evidence were changed; GitHub, CLI memory and harness were not
+written. Acceptance resolves R1, not the complete capacity goal.

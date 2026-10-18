@@ -1,0 +1,70 @@
+{
+  "status": "pass",
+  "reviewed_correction": "f5475afb3513443a5a05bdfd1e6e7a8ab3a27269",
+  "original_commit": "20e801be186ce6e41cb7c53d44d6cd072fa06dda",
+  "preserved_false_flags": [
+    "SIGINT_mask_enforced_or_validated",
+    "actual_signal_or_missing_task_observed",
+    "auxiliary_continuing_capacity_established",
+    "complete_OCaml_callback_registration_reachability_established",
+    "complete_continuing_call_counter_capacity_established",
+    "complete_transform_capacity_established",
+    "family_wide_counter_invariance_established",
+    "future_or_other_invocations_bounded",
+    "live_finalizer_registry_observed",
+    "prior_freshness_established",
+    "prior_history_no_overflow_established",
+    "runtime_identifier_reentrancy_closure_established",
+    "source_argument_machine_checked",
+    "whole_pipeline_capacity_established"
+  ],
+  "accounted_endpoint": 61641,
+  "unchanged_evidence": [
+    "sources.tar.gz",
+    "native.tar.gz",
+    "audit.py",
+    "binding.json"
+  ],
+  "exact_review_inputs": {
+    "docs/evidence/retained-why-inline-callback-closure-20261018/README.md": {
+      "bytes": 2636,
+      "sha256": "b7c11713863c4c325ae2b1926b22cda7c01012acfd9865e93f43d2b83a82c0d3"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/binding.json": {
+      "bytes": 2171,
+      "sha256": "3c6dd16604acd088b2a691f02fcdafbf70814090cdd15cbf5dfebd66d15714a3"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/check.py": {
+      "bytes": 11008,
+      "sha256": "503270b2c500d8463561775cdac8a655a697ef0901515e5d4cac711a806c43d4"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/inputs.json": {
+      "bytes": 10194,
+      "sha256": "0e0db56819d1a8eac9b79a1c1523322c91ae6949c06003b7cbfdbd7da6dfd87c"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/native.tar.gz": {
+      "bytes": 332459,
+      "sha256": "ed2f6226dfc0266cb819b2dacc211844ba2f51dc3ad4720f57721f05db8884fd"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/result.json": {
+      "bytes": 4101,
+      "sha256": "b5ada8cbc60750b7fe8efbdbabac6864d3e7196f7fd9d3c11707cba7bcb4c8c3"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/sources.tar.gz": {
+      "bytes": 213370,
+      "sha256": "e59e901cb848afa258750a6c80de876dd0dd9aac3e45491f0dc19b95a136abb6"
+    },
+    "docs/research/retained-why-inline-callback-closure.md": {
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    }
+  },
+  "scope": "Correction identities, preserved flags/arithmetic/history, unchanged extraction evidence, exact archived guard and local occurrences; prose reviewed separately",
+  "new_native_target_runs": 0,
+  "static_extraction_regenerated": false,
+  "elapsed_seconds": 0.11974683700100286
+}
