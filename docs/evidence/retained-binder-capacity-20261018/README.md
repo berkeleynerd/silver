@@ -2,7 +2,8 @@
 
 Supports [the binder component](../../research/retained-binder-capacity.md) for
 #119. Collected on Linux x86_64, 2026-10-18. The extension includes one
-controlled binder-only run; retained installation inputs were read-only.
+controlled binder-only run and one Gprconfig selection with metadata queries;
+retained installation inputs were read-only.
 No compiler build, assembler/linker run, complete audit, Lean check, test suite,
 macOS validation or hosted CI is claimed.
 
@@ -18,8 +19,8 @@ complete child environment, exact arguments, temporary inputs, input identities,
 generated sources, empty stdout/stderr and managed-run log/events. Its input
 manifest is preserved separately from the extended packet's later manifest.
 
-`sources.tar.gz` contains one hundred and seven complete inspected source files:
-sixty-eight GCC Ada files, twenty-nine GCC backend files, one libcpp file, seven
+`sources.tar.gz` contains one hundred and sixteen complete inspected source files:
+seventy-three GCC Ada files, twenty-nine GCC backend files, one libcpp file, eleven
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -47,9 +48,10 @@ independently. The six-argument indexed invocation template has at most 233
 bytes at the retained installation with `/tmp`, below the Linux driver's
 8,192-byte response threshold. The retained unindexed `build.stdout` confirms
 the historical command's shape without becoming an indexed command capture.
-The 1,000-character Gprbind exchange-row interface and its still-open fixed
-configuration/producer join are stated explicitly; final `.bexch` output is
-not represented as an original input capture.
+The 1,000-character Gprbind exchange-row interface is joined to the selected
+configuration and complete producer inventory: at most 26 rows, each bounded
+by `max(146,T_root+36)`. Final `.bexch` output is not represented as an
+original input capture.
 
 The selected search-directory extension retains the installed `gnat.xml` and
 records the absence of the two optional default-search files at collection.
@@ -72,6 +74,20 @@ reconciles the capture against the preserved input manifest and managed pins;
 it does not rerun the binder. The archived `run.py` is the historical capture
 script, with its original paths, rather than a portable replay entry point.
 
+Managed run `20261018T110052-6e9404864987` separately captures the selected
+native/default GPR configuration. Gprconfig exited zero in 0.123 seconds,
+producing 7,011 bytes; its 71 knowledge-base files and three selected binaries
+stayed hash-equal. The packet retains those 71 files, configuration, command,
+environment, metadata-query log and managed records. The 407-byte stderr
+contains five missing VxWorks/PikeOS environment warnings from unrelated
+compiler descriptions. No project was compiled. This is a new selected
+configuration, not recovered historical configuration. The source join bounds
+the binder/compiler/project vector backing at 8/16/1 slots, and records
+14 baseline or 15 proposed compiler arguments separately. Whole GPR process
+allocation and generated-object transfer remain open. Explicit object layout
+metrics are still witness quantities, including the nonallocated mergeable
+`.comment` section; the packet does not claim all merge sections are absent.
+
 Replay without access to the original installations:
 
 ```sh
@@ -87,6 +103,8 @@ python3 docs/evidence/retained-binder-capacity-20261018/collect.py \
   --native-option-probe /tmp/silver-native-option-probe-20261018 \
   --binder-capture /tmp/silver-binder-fixed-20261018 \
   --binder-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T104855-09a597637815 \
+  --gprconfig-capture /tmp/silver-gprconfig-fixed-20261018 \
+  --gprconfig-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T110052-6e9404864987 \
   --gcc-ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
   --gcc-backend /tmp/silver-backend-compose-20261018/full-source/gcc \
   --gpr-source /tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263 \

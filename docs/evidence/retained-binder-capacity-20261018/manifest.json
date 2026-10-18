@@ -2,8 +2,8 @@
   "archives": {
     "artifacts.tar.gz": {
       "archive": {
-        "bytes": 236030,
-        "sha256": "a33a2a7c8cc8780c9123e5c04b2c8383cf0b5ea62c4a38d2242e021084c30258"
+        "bytes": 282961,
+        "sha256": "b6ce5ddea1dafc0307034b9e732f6d4249968beef2e49a79b48fdb8f802993ab"
       },
       "members": {
         "cases/indexed-cr/b__main~1.adb": {
@@ -476,10 +476,400 @@
           "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
           "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
         },
+        "configuration-capture/invocation.json": {
+          "bytes": 22339,
+          "original_path": "/tmp/silver-gprconfig-fixed-20261018/invocation.json",
+          "sha256": "24a8bd9f952000bfde7475ef1cb924bbefc84dee0ef1256204f9e44571e89a91"
+        },
+        "configuration-capture/managed/events.jsonl": {
+          "bytes": 29261,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T110052-6e9404864987/events.jsonl",
+          "sha256": "5a8c7d7d6f5dbd806beadc5e8ae2e9bccfa24ba9dea12e1ce70e3b457edb3bb4"
+        },
+        "configuration-capture/managed/native.log": {
+          "bytes": 602,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T110052-6e9404864987/native.log",
+          "sha256": "7da475b7821d91bbf670eb032c17f0a9e95e4900e909224074901cc72484be26"
+        },
+        "configuration-capture/result.json": {
+          "bytes": 658,
+          "original_path": "/tmp/silver-gprconfig-fixed-20261018/result.json",
+          "sha256": "300bf71283ff286c0407ad4b313ffc40f1d7a7635f4af2a639fa8ce3f6fc469e"
+        },
+        "configuration-capture/run.py": {
+          "bytes": 2597,
+          "original_path": "/tmp/silver-gprconfig-fixed-20261018/run.py",
+          "sha256": "6cb884278401d3c73378820bc15e84e9e0f0dcff419e1f3dab2c20ca66183ad0"
+        },
+        "configuration-capture/selected.cgpr": {
+          "bytes": 7011,
+          "original_path": "/tmp/silver-gprconfig-fixed-20261018/selected.cgpr",
+          "sha256": "86e9f6f479671623d192a3ffcedf85c2a564ad544dafee8d31d8dc09fa9894c6"
+        },
+        "configuration-capture/stderr": {
+          "bytes": 407,
+          "original_path": "/tmp/silver-gprconfig-fixed-20261018/stderr",
+          "sha256": "2de51c8602dc6a4408b74feb4a4d8ca25921fc09d1f04e8ef7cc8f21cc183e12"
+        },
+        "configuration-capture/stdout": {
+          "bytes": 44947,
+          "original_path": "/tmp/silver-gprconfig-fixed-20261018/stdout",
+          "sha256": "302e6531ea01a1f258e93f5aa9e078135bb48adfeaba04da526a1ea53d039d4b"
+        },
+        "configuration/0_default.xml": {
+          "bytes": 1642,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/0_default.xml",
+          "sha256": "e7014879c4f08cd2d150f5a9bafbf4b00df14b7de7a7c1829f0ef82942139dfb"
+        },
+        "configuration/aamp.xml": {
+          "bytes": 4174,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/aamp.xml",
+          "sha256": "82c9934606d3deddc16d35a80d7aa2d0252d3320f4054b27eda3a951aafb2f18"
+        },
+        "configuration/aamp_compilers.xml": {
+          "bytes": 820,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/aamp_compilers.xml",
+          "sha256": "da53b3d960e3182ce2b37cb3e283522f20de9f4cf23a1abde2ebb34e6230d550"
+        },
+        "configuration/aarch64-vx7.xml": {
+          "bytes": 898,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/aarch64-vx7.xml",
+          "sha256": "433ecf4e746dd4a621edd6e1dc52db0d1aa8c3dbaf8a6faab2c28f0d58faf4d9"
+        },
+        "configuration/aarch64-vx7r2.xml": {
+          "bytes": 3540,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/aarch64-vx7r2.xml",
+          "sha256": "979a6b7c1b4890a7163bd580231e7a0dd516b7511bc2f2ae4f36ce2a6d3e7ce8"
+        },
+        "configuration/arm-vx6.xml": {
+          "bytes": 1003,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/arm-vx6.xml",
+          "sha256": "cca412aaf1e2b4025235b20a89f73427d2650c9bc7e86393cc25220bdf814a56"
+        },
+        "configuration/arm-vx7.xml": {
+          "bytes": 890,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/arm-vx7.xml",
+          "sha256": "b11daf73d21e31cbfa56e40c69082cba3d632841671822c9724880dbcfc6b896"
+        },
+        "configuration/arm-vx7r2.xml": {
+          "bytes": 888,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/arm-vx7r2.xml",
+          "sha256": "d56195d5302a24d777c2348683bfd54733b7b456c4c6b01762b23f0e1802448c"
+        },
+        "configuration/asis.xml": {
+          "bytes": 810,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/asis.xml",
+          "sha256": "7dfaf7a251569d22a7e578e9d939e0052d7b03559feb28d87d8c6a0f9b2934e3"
+        },
+        "configuration/asm.xml": {
+          "bytes": 2680,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/asm.xml",
+          "sha256": "80540fdfb796c16ef23f32d14fe740a2fa9072bdee288a9125d10574416d60ed"
+        },
+        "configuration/baselined.xml": {
+          "bytes": 1707,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/baselined.xml",
+          "sha256": "e76345aa760a3feabe51d83c017117926f6ebc17b331807ee32ab306ea8d4d46"
+        },
+        "configuration/bin_img.xml": {
+          "bytes": 765,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/bin_img.xml",
+          "sha256": "44d74e3fbc7cd78da1ef9fa5a6866f03c8b95ba6c9f5f094075e0cd5f26bba13"
+        },
+        "configuration/c.xml": {
+          "bytes": 13282,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/c.xml",
+          "sha256": "a78256fcaa0730d546bc926d7f755189f70f460c5e8925128bd39ee7b440a8b0"
+        },
+        "configuration/clean.xml": {
+          "bytes": 332,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/clean.xml",
+          "sha256": "e48da651cc4ebab4a6e51b270ae9b5afb1bebac42ade1dea820cf6e8036f4dbb"
+        },
+        "configuration/compilers-aarch64-vx7r2-clang.xml": {
+          "bytes": 400,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-aarch64-vx7r2-clang.xml",
+          "sha256": "c627e5f65ea238d9e89f911ed1a1a1deb631414c93d791eebae36e8865df596b"
+        },
+        "configuration/compilers-arm-vx7.xml": {
+          "bytes": 527,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-arm-vx7.xml",
+          "sha256": "d0a2423b094dcc9c79ac6d3788cad43b3b046cf10719932d4169bf85574aafe0"
+        },
+        "configuration/compilers-asis.xml": {
+          "bytes": 517,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-asis.xml",
+          "sha256": "f4f58bcedf1d8b03a3c8c5aa94877f22329b1949fce4980c6c13ba2f0ea00fb5"
+        },
+        "configuration/compilers-baselined.xml": {
+          "bytes": 1835,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-baselined.xml",
+          "sha256": "e9ec6648e0b0efed6af9d6d0fafef143c847497880e580fdd45252b3b21d76d4"
+        },
+        "configuration/compilers-e500v2-vx6.xml": {
+          "bytes": 1292,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-e500v2-vx6.xml",
+          "sha256": "9f9916f65050a43ac5f1455057035f71d1d307690e8075db81f6d99a60befafb"
+        },
+        "configuration/compilers-e500v2-vx653.xml": {
+          "bytes": 1309,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-e500v2-vx653.xml",
+          "sha256": "04113df1655e5d2953cd4fd743572849167de9932765ce26048f7afbc3191512"
+        },
+        "configuration/compilers-e500v2-vx7.xml": {
+          "bytes": 533,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-e500v2-vx7.xml",
+          "sha256": "27d2f6cd89f615f84ca8cd583fcf008b5852d9786493c9c3717c9c4bbded99dc"
+        },
+        "configuration/compilers-e500v2-vx7r2.xml": {
+          "bytes": 539,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-e500v2-vx7r2.xml",
+          "sha256": "7d041495f9110383bedaae84f55417ee617aa3853af7fbae47481bd8b8214384"
+        },
+        "configuration/compilers-ppc-vx653.xml": {
+          "bytes": 1303,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-ppc-vx653.xml",
+          "sha256": "0a5ab9c7f7203ecb712f8ca9c8f86f782c2f56296c42d21a58150033376848dd"
+        },
+        "configuration/compilers-ppc-vx7.xml": {
+          "bytes": 531,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-ppc-vx7.xml",
+          "sha256": "1f99b16fe3cf0a17ec5c8dfeb0ba9769611b4c4ea94a01b47b4347c264d52a8f"
+        },
+        "configuration/compilers-ppc-vx7r2.xml": {
+          "bytes": 537,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-ppc-vx7r2.xml",
+          "sha256": "35cfa3ca56da337495e421ddb67d6c6bb9b000372c593a0881eb83f2d935c327"
+        },
+        "configuration/compilers-ppc64-vx7.xml": {
+          "bytes": 755,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-ppc64-vx7.xml",
+          "sha256": "138f254fddd24df5b2805b54ea9bb07c6f59f29d848362ddac0cd3101a58d219"
+        },
+        "configuration/compilers-ppc64-vx7r2-clang.xml": {
+          "bytes": 402,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-ppc64-vx7r2-clang.xml",
+          "sha256": "ec74ba3476875f8524ffc48146a505eb21f9e521dee6b31042cb31ddedf77ab2"
+        },
+        "configuration/compilers-ppc64-vx7r2.xml": {
+          "bytes": 541,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-ppc64-vx7r2.xml",
+          "sha256": "4aaeed3ef3c72e4c8fe581f8e8d67771aff343897a0637b45e7ca6a6e0dd0198"
+        },
+        "configuration/compilers-vxworks.xml": {
+          "bytes": 1783,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-vxworks.xml",
+          "sha256": "5166280c95290ce6b93e3fae3b41c57d97ff6fb400afb58e6c99101fb8c32930"
+        },
+        "configuration/compilers-x86-vx7.xml": {
+          "bytes": 532,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-x86-vx7.xml",
+          "sha256": "694db23e3c44197c1bd10c61a7efe6c380ca56d723bde3fb0d52548fb2d76cfe"
+        },
+        "configuration/compilers-x86_64-vx7.xml": {
+          "bytes": 537,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-x86_64-vx7.xml",
+          "sha256": "3bfe87f6733e40824f888905a9d18701d86d75e7c38f5588c3a3b61cb76ae427"
+        },
+        "configuration/compilers-x86_64-vx7r2-clang.xml": {
+          "bytes": 399,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers-x86_64-vx7r2-clang.xml",
+          "sha256": "e89e18162fcba06ffab4b703a53353910d56bb3e41e31b198075b889e11bf15e"
+        },
+        "configuration/compilers.xml": {
+          "bytes": 21475,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/compilers.xml",
+          "sha256": "a2584791048467473cee3f348638cc8636155d34e631dbdacdf3b9a95b4d27e4"
+        },
+        "configuration/cpp.xml": {
+          "bytes": 6477,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/cpp.xml",
+          "sha256": "01ae597f6b764702708ef57891ed9bd84be218f5b198a4b2f69cafd34ff95115"
+        },
+        "configuration/cross.xml": {
+          "bytes": 10630,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/cross.xml",
+          "sha256": "0298c3eeebdb9ccb42f490f8be3ed448755aa892c9ca32a721eb7167b24d6f59"
+        },
+        "configuration/e500v2-vx6.xml": {
+          "bytes": 2045,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/e500v2-vx6.xml",
+          "sha256": "7fa4253d0f10c4c1aa958cd85a91dce7258e460ed1173e76604f2c6e95c29e78"
+        },
+        "configuration/e500v2-vx653.xml": {
+          "bytes": 1235,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/e500v2-vx653.xml",
+          "sha256": "8df581eefd66ba8042dff4002a9f5002a5fe596b78a86119d8ad9e672bcfd1bc"
+        },
+        "configuration/e500v2-vx7.xml": {
+          "bytes": 899,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/e500v2-vx7.xml",
+          "sha256": "b91fc8e03d24b437a38fde352d07d858357ad05b1569cc9b962bdd3aa7f6e49b"
+        },
+        "configuration/e500v2-vx7r2.xml": {
+          "bytes": 953,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/e500v2-vx7r2.xml",
+          "sha256": "4702e9699131479069b3e8f6f5631761b42db6b1dc16ed8a809840ac499579bc"
+        },
+        "configuration/env.ent": {
+          "bytes": 915,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/env.ent",
+          "sha256": "3ae18233c438748001b117c9999ad3f8e438ebdccfb2318a9af6ab4fdadc45f6"
+        },
+        "configuration/fallback_targets.xml": {
+          "bytes": 386,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/fallback_targets.xml",
+          "sha256": "806937c3ebfe6a2a576f0b34cd4c72217c68841ceaf0ac8d0f854a50d1276fbc"
+        },
+        "configuration/fortran.xml": {
+          "bytes": 2210,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/fortran.xml",
+          "sha256": "e53dd8709cbd295383e42df8dd83a3f9424942cfcac52505e339df328fae8c35"
+        },
         "configuration/gnat.xml": {
           "bytes": 12862,
           "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/gnat.xml",
           "sha256": "75860604394acd18884a83321d3644b7f2816906c5dfa7e09b17a1d04c160e30"
+        },
+        "configuration/gprconfig.xsd": {
+          "bytes": 6964,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/gprconfig.xsd",
+          "sha256": "546bf452e04e687a0d51ff7728f52574e9c5e0a0efe241239a2a812ba826507a"
+        },
+        "configuration/linker.xml": {
+          "bytes": 60282,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/linker.xml",
+          "sha256": "377065414daa87ec934a6a5125c448052903c7ce12e2faf2ebf6f667762482a5"
+        },
+        "configuration/morello-vx7r2.xml": {
+          "bytes": 2120,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/morello-vx7r2.xml",
+          "sha256": "e3339a6d6c8d6fdf3dff242b6644a3c438fbfe39b691f725a104bd6154b79f48"
+        },
+        "configuration/nocompiler.xml": {
+          "bytes": 915,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/nocompiler.xml",
+          "sha256": "da36d3ba17b6758b288f518b289f4b9ed364d3df0310a7ade4785f4efc7aa356"
+        },
+        "configuration/ppc-vx6.xml": {
+          "bytes": 1175,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/ppc-vx6.xml",
+          "sha256": "532b0035d0f09b577d0075a66c773404889c95b8875616a931295024fc47625e"
+        },
+        "configuration/ppc-vx653.xml": {
+          "bytes": 1215,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/ppc-vx653.xml",
+          "sha256": "d04dca74908dc9f49f911e5d30bd76decd59e171a38a4d80d9b5ad763d789bb2"
+        },
+        "configuration/ppc-vx7.xml": {
+          "bytes": 894,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/ppc-vx7.xml",
+          "sha256": "7765982ab0a83d38af34a08638ada3f82f1bf3a740c0e1f196bc8cb4bc753469"
+        },
+        "configuration/ppc-vx7r2.xml": {
+          "bytes": 945,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/ppc-vx7r2.xml",
+          "sha256": "8f743233061dd06974d2dcbf60e362705b2c662694fe48b6b34efb070217a641"
+        },
+        "configuration/ppc64-vx7.xml": {
+          "bytes": 1123,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/ppc64-vx7.xml",
+          "sha256": "a2eb3854c269d81c91e895f7c07d634f6bdb874fd0ad556bc5bc1fb8833956d3"
+        },
+        "configuration/ppc64-vx7r2.xml": {
+          "bytes": 1879,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/ppc64-vx7r2.xml",
+          "sha256": "0fc0111a4aea25cee8318312bc9939a4df35a533295910843fdb7a363e6355e9"
+        },
+        "configuration/shortcuts.ent": {
+          "bytes": 2971,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/shortcuts.ent",
+          "sha256": "df2bcdd65223909a1686db31f5806646e1a99da224b9d68698d32b8c5cd58b01"
+        },
+        "configuration/targetset.xml": {
+          "bytes": 20339,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/targetset.xml",
+          "sha256": "6f71b44daf123f2a028d9fff169ae06f189dfba606e683094271ec7737470d8b"
+        },
+        "configuration/tricore-compilers.xml": {
+          "bytes": 256,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/tricore-compilers.xml",
+          "sha256": "d435c549ead7ce3b6ed38414d155ca0efbec48c33a96aaf10e2ee61dcda80639"
+        },
+        "configuration/tricore-configuration.xml": {
+          "bytes": 600,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/tricore-configuration.xml",
+          "sha256": "98aa8aeaac506d5ff1e0685153fb36997573872a033d206cf8421b76d8461b4b"
+        },
+        "configuration/tricore-target.xml": {
+          "bytes": 146,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/tricore-target.xml",
+          "sha256": "ad25eec7c90af72328856d03177698f85adc22b51560d5348aeaa5c6d26edece"
+        },
+        "configuration/vx6.ent": {
+          "bytes": 8081,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vx6.ent",
+          "sha256": "10ce4b218d8523838ec5b625ed3d926c69a814afc19f01e3f379fad58b9dc970"
+        },
+        "configuration/vx653.ent": {
+          "bytes": 2072,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vx653.ent",
+          "sha256": "cfe5d207033a7fa7a3a0a58f2e12fb3b0c18b51645c52a7448e506917b49cedb"
+        },
+        "configuration/vx7.ent": {
+          "bytes": 1363,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vx7.ent",
+          "sha256": "623c0bb1482d9b8b3040eceb2a115401884954361e598ab5286029404e345c11"
+        },
+        "configuration/vx7r2.ent": {
+          "bytes": 12067,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vx7r2.ent",
+          "sha256": "58c456fc124b6f498c9b5d3b7b5e057ba8572f2d602d41203f3d78b06120841b"
+        },
+        "configuration/vx7r2_compilers.xml": {
+          "bytes": 1674,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vx7r2_compilers.xml",
+          "sha256": "0f47131284508d0a4df2a04a599d210f155e5fbd72068586f8d8b65f19ec14c5"
+        },
+        "configuration/vxworks.ent": {
+          "bytes": 17183,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vxworks.ent",
+          "sha256": "ee91d87200e8498ca435308b0942e225211c93262472dc74e478f1f00fcab02d"
+        },
+        "configuration/vxworks.xml": {
+          "bytes": 317,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/vxworks.xml",
+          "sha256": "c83a725234ee1987deb3a36fb8d12271c970ff48a7f6400907afebf6ce48adea"
+        },
+        "configuration/windres.xml": {
+          "bytes": 714,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/windres.xml",
+          "sha256": "b2524ab2f31be4836a57008ef8f8aa92ecbe54b5f6779ce439e866846c6fec24"
+        },
+        "configuration/x86-vx6.xml": {
+          "bytes": 1183,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/x86-vx6.xml",
+          "sha256": "43d9f633e5e34f6cc4ea8a70a61e76701d4c0ffa31211c579f81051a97a0bae8"
+        },
+        "configuration/x86-vx7.xml": {
+          "bytes": 889,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/x86-vx7.xml",
+          "sha256": "a238a67fbc519ceeb468ee6b08e919248baf0aae282821933bea014d9d6add17"
+        },
+        "configuration/x86-vx7r2.xml": {
+          "bytes": 887,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/x86-vx7r2.xml",
+          "sha256": "59b786fbdab11de611b8900d46429670e0e6dfbe0b44dbf1ad3cb9a3c02b08ac"
+        },
+        "configuration/x86_64-vx7.xml": {
+          "bytes": 897,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/x86_64-vx7.xml",
+          "sha256": "47a8746e31584555109f3d0cc29976a300ae334369c8ac3bab26bd520e391900"
+        },
+        "configuration/x86_64-vx7r2.xml": {
+          "bytes": 1596,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/x86_64-vx7r2.xml",
+          "sha256": "b73afc9696fc3de864bd7c8e5a18a0486a4173f808524bc4467c091fddba7d88"
         },
         "controlled-capture/input-manifest.json": {
           "bytes": 63098,
@@ -550,8 +940,8 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 1972553,
-        "sha256": "47e8421f392b863ca3e45218924748d9ac711a3387cb1a015f137d8df7fceed8"
+        "bytes": 2062727,
+        "sha256": "ee6a35ef3b3cc73dcaab7cd81c394dd266ab356c24313d56c07c583221911cab"
       },
       "members": {
         "gcc/ada/Make-generated.in": {
@@ -744,6 +1134,16 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/lib.adb",
           "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
         },
+        "gcc/ada/libgnat/a-coinve.adb": {
+          "bytes": 128046,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/a-coinve.adb",
+          "sha256": "e40edc72e3c80e5672e9c0a67bbe5e81aa0497fb6676d4895e80573d2f4b7bce"
+        },
+        "gcc/ada/libgnat/a-coinve.ads": {
+          "bytes": 17893,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/a-coinve.ads",
+          "sha256": "b3456d7f29d01ba13e5b83cf9c9ceffbb8f4d570e6947788a019c193cee29edb"
+        },
         "gcc/ada/libgnat/g-dynhta.adb": {
           "bytes": 37669,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dynhta.adb",
@@ -753,6 +1153,21 @@
           "bytes": 21934,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dynhta.ads",
           "sha256": "f5974932d644929f906716abf69a51a42eca74a2f57378338abd52b3fb7a8b3a"
+        },
+        "gcc/ada/libgnat/g-md5.ads": {
+          "bytes": 3064,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-md5.ads",
+          "sha256": "3b9b46880653a2210a2bf00de6badf3b22b3334e1e67a0b7292aabe340a960ce"
+        },
+        "gcc/ada/libgnat/g-sechas.ads": {
+          "bytes": 10303,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-sechas.ads",
+          "sha256": "ec46845ae900e3e627e757257ea4286ea5d41362adb3e2ebb9baa0f1363ec26b"
+        },
+        "gcc/ada/libgnat/g-sehamd.ads": {
+          "bytes": 3739,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-sehamd.ads",
+          "sha256": "8b1d6c0c94f32b59c416862933082c45a35abdd7f97335483275791fb72f6021"
         },
         "gcc/ada/libgnat/gnat.ads": {
           "bytes": 3510,
@@ -1049,10 +1464,20 @@
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tempdir.adb",
           "sha256": "5583152f80a95f0de5989522c9ccd9debc5c0bd04c412e2a8d0bb0675c363d03"
         },
+        "gpr/gpr/src/gpr-util.adb": {
+          "bytes": 200047,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+          "sha256": "ea41517db36fa2cb3a09bfcf6f2827d5d7d1fbaf3dbafd9f3ded491196821ca1"
+        },
         "gpr/gpr/src/gpr-util.ads": {
           "bytes": 40562,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.ads",
           "sha256": "6b0960e8cb073ed5046084655c2c3bdb4f0f5249feb147ae4ed98a05cd1dbd88"
+        },
+        "gpr/gpr/src/gpr.ads": {
+          "bytes": 122737,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.ads",
+          "sha256": "375cae80791bdbea2ee55253de326ab2e25a83acc23b11a74b6c471008286f1b"
         },
         "gpr/gpr/src/gpr_build_util.adb": {
           "bytes": 97750,
@@ -1073,6 +1498,16 @@
           "bytes": 185437,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
           "sha256": "1d3c92430ce32dca0dc88feb7be644342707dc644b9c46002ed218a07c976d02"
+        },
+        "gpr/src/gprexch.adb": {
+          "bytes": 4173,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprexch.adb",
+          "sha256": "0c25b4f398aab6766680c8861a5aef0e1d7fa28d6c96bd9edfe030aaae841d66"
+        },
+        "gpr/src/gprexch.ads": {
+          "bytes": 4500,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprexch.ads",
+          "sha256": "8f2fb3b60ac5f4da3621237f2ebbbd349739ff5cb85a32d4ca3633d58cdbb13b"
         },
         "libcpp/symtab.cc": {
           "bytes": 9383,

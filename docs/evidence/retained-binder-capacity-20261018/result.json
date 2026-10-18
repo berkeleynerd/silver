@@ -342,6 +342,10 @@
       "main_version": "73b77761",
       "object": {
         "allocated_bytes": 12023,
+        "allocated_merge_section_count": 0,
+        "common_symbol_count": 0,
+        "eh_frame_bytes": 192,
+        "eh_frame_section_count": 1,
         "external_names": [
           "__gl_default_stack_size",
           "__gl_detect_blocking",
@@ -517,6 +521,10 @@
           "bytes": 13432,
           "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
         },
+        "maximum_section_alignment": 32,
+        "merge_sections": [
+          ".comment"
+        ],
         "relocation_count": 95,
         "relocations": [
           {
@@ -663,6 +671,8 @@
             "type": 3
           }
         ],
+        "sframe_bytes": 0,
+        "sframe_section_count": 0,
         "symbol_count": 179,
         "symbols": [
           {
@@ -2662,6 +2672,10 @@
       "main_version": "73b77761",
       "object": {
         "allocated_bytes": 12023,
+        "allocated_merge_section_count": 0,
+        "common_symbol_count": 0,
+        "eh_frame_bytes": 192,
+        "eh_frame_section_count": 1,
         "external_names": [
           "__gl_default_stack_size",
           "__gl_detect_blocking",
@@ -2837,6 +2851,10 @@
           "bytes": 13432,
           "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
         },
+        "maximum_section_alignment": 32,
+        "merge_sections": [
+          ".comment"
+        ],
         "relocation_count": 95,
         "relocations": [
           {
@@ -2983,6 +3001,8 @@
             "type": 3
           }
         ],
+        "sframe_bytes": 0,
+        "sframe_section_count": 0,
         "symbol_count": 179,
         "symbols": [
           {
@@ -4984,6 +5004,10 @@
       "main_version": "73b77761",
       "object": {
         "allocated_bytes": 12023,
+        "allocated_merge_section_count": 0,
+        "common_symbol_count": 0,
+        "eh_frame_bytes": 192,
+        "eh_frame_section_count": 1,
         "external_names": [
           "__gl_default_stack_size",
           "__gl_detect_blocking",
@@ -5159,6 +5183,10 @@
           "bytes": 13432,
           "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
         },
+        "maximum_section_alignment": 32,
+        "merge_sections": [
+          ".comment"
+        ],
         "relocation_count": 95,
         "relocations": [
           {
@@ -5305,6 +5333,8 @@
             "type": 3
           }
         ],
+        "sframe_bytes": 0,
+        "sframe_section_count": 0,
         "symbol_count": 179,
         "symbols": [
           {
@@ -7304,6 +7334,10 @@
       "main_version": "73b77761",
       "object": {
         "allocated_bytes": 12023,
+        "allocated_merge_section_count": 0,
+        "common_symbol_count": 0,
+        "eh_frame_bytes": 192,
+        "eh_frame_section_count": 1,
         "external_names": [
           "__gl_default_stack_size",
           "__gl_detect_blocking",
@@ -7479,6 +7513,10 @@
           "bytes": 13424,
           "sha256": "e3262ab76ba603391cfc0b96f891d901db5553a0c2a95e89b1265d399a308a61"
         },
+        "maximum_section_alignment": 32,
+        "merge_sections": [
+          ".comment"
+        ],
         "relocation_count": 95,
         "relocations": [
           {
@@ -7625,6 +7663,8 @@
             "type": 3
           }
         ],
+        "sframe_bytes": 0,
+        "sframe_section_count": 0,
         "symbol_count": 179,
         "symbols": [
           {
@@ -10137,6 +10177,59 @@
     "size_including_argument_terminators_at_tmp_root": 233,
     "temp_path_bound_at_tmp_root": 40,
     "tmp_root_example_bytes": 4
+  },
+  "selected_gpr_driver_inputs": {
+    "additional_ali_vector_entries": 0,
+    "additional_dependency_ali_rows": 0,
+    "binder_vector_backing_capacity": 8,
+    "binder_vector_entries": 6,
+    "binding_options_vector_entries": 0,
+    "compiler_argument_projection": {
+      "indexed-cr": {
+        "argument_bytes_with_terminators": 109,
+        "argument_count": 14,
+        "argument_payload_bytes": 95,
+        "backend_options": [
+          "-mtune=generic",
+          "-march=x86-64"
+        ],
+        "display_line_bytes": 255
+      },
+      "unindexed-proposed": {
+        "argument_bytes_with_terminators": 134,
+        "argument_count": 15,
+        "argument_payload_bytes": 119,
+        "backend_options": [
+          "-Wno-free-nonheap-object",
+          "-mtune=generic",
+          "-march=x86-64"
+        ],
+        "display_line_bytes": 280
+      }
+    },
+    "compiler_vector_backing_capacity_bound": 16,
+    "configuration_capture_run": "20261018T110052-6e9404864987",
+    "configuration_duration_seconds": 0.12259111099410802,
+    "configuration_stderr_bytes": 407,
+    "configured_consumed_binder_switch": "gnatbind_prefix=",
+    "configured_leading_compiler_switches": [
+      "-c",
+      "-x",
+      "ada",
+      "-gnatA"
+    ],
+    "configured_trailing_compiler_switch_count": 0,
+    "initial_exchange_fixed_row_bytes_bound": 146,
+    "initial_exchange_row_count_bound": 26,
+    "initial_exchange_variable_row_bytes_bound": "T_root + 36",
+    "knowledge_file_count": 71,
+    "managed_duration_seconds": 2.362900292,
+    "metadata_query_count": 24,
+    "project_checkline_bytes": 47,
+    "project_record_count": 1,
+    "project_vector_entries_and_capacity": 1,
+    "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation and compiler/object transfer remain separate",
+    "trailing_options_vector_entries": 0
   },
   "selected_search_directories": {
     "each_table_initial_capacity": 10,

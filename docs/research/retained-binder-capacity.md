@@ -10,7 +10,7 @@ the observed object inventory below is **not yet a universal object bound**.
 The [portable evidence](../evidence/retained-binder-capacity-20261018/README.md)
 contains complete reviewed source files, the selected ALI closure and existing
 generated sources/objects. The extension includes one controlled binder-only
-capture, described below. No compiler build, assembler/linker execution, prover
+capture and one configuration-only capture, described below. No compiler build, assembler/linker execution, prover
 run or Lean check was performed for this component. Existing successful
 executions are reused only with their original identities and scope.
 
@@ -620,8 +620,8 @@ the null project contributes no imported project or additional source row.
 At the retained installation, Main ALI and project rows are 124 and 121
 characters, and the compiler path is 146. The complete original input
 exchange file was not retained: the surviving `.bexch` is Gprbind's rewritten
-output. The fixed configuration fields and complete producer inventory must
-still be joined before calling this a fully instantiated exchange-file bound.
+output. The selected configuration capture and producer join below fill that
+premise for the controlled descriptor, without recovering the historical input.
 The 1,000-character condition is an identified tool interface requirement,
 not an adopted Silver source-size cap.
 
@@ -642,6 +642,91 @@ pointer is overwritten. This inventory closes the selected scanner's retained
 argument/file payloads and arrays. Default-path/environment reads,
 search-directory normalization and tables, OS spawn storage and GPR vectors
 remain separate allocations; none is assigned zero by this calculation.
+
+### Selected GPR exchange and argument vectors
+
+Managed run `20261018T110052-6e9404864987` generated one fresh configuration
+for the selected `GNAT 16.1`, default runtime and `x86_64-pc-linux-gnu` target.
+It ran Gprconfig and metadata queries, with no project build. Selection took
+0.123 seconds and produced the retained 7,011-byte `selected.cgpr`. All 71
+knowledge-base files and the three selected tool executables were hash-equal
+before and after. The complete child environment, command, log, output and
+managed records are retained. Five warnings report absent VxWorks/PikeOS
+environment variables while reading unrelated compiler descriptions; selection
+still exits zero. The verbose log's discovery commands are version/target
+queries only. This is the selected proposed configuration, not a claim about
+the missing historical configuration file.
+
+The generated configuration supplies four leading compiler switches
+`-c -x ada -gnatA`, no trailing compiler switches and one binder switch
+`gnatbind_prefix=`. Required-switch lists start empty
+(`gpr.ads:812–816,964`). Gprbind consumes the empty prefix without changing
+the default executable or appending an option (`gprbind.adb:360–393`), so
+the six-argument binder descriptor above is unchanged. The generated Silver
+project has no Binder package, command-line binder arguments, imported or
+extended project, build script, CodePeer mode or stand-alone library.
+
+The complete initial exchange inventory under those controls has at most
+**26 logical rows**:
+
+| Section | Rows, including its label |
+| --- | ---: |
+| Optional quiet/verbosity | 1 |
+| Mapping file | 2 |
+| Toolchain language/version | 3 |
+| Optional object suffix language/value | 3 |
+| Main basename | 2 |
+| Compiler path | 2 |
+| Four leading compiler switches | 5 |
+| Main ALI | 2 |
+| Additional dependency files | 1 (label only) |
+| Consumed binder prefix | 2 |
+| Project path/checkline | 3 |
+
+`Add_Dependency_Files` has `Roots=null` and a unit-based Main, so it adds no
+dependency-file payload (`gprbuild-post_compile.adb:3737–3830`); this is not
+the 61-file runtime ALI closure traversed later by Gnatbind. Project emission
+writes the one Main project and has no imported-project iteration
+(`:4764–4797`). Its checkline is 14 timestamp characters, a space and a
+32-character MD5 digest (`gpr.ads:206`, `gprbuild-post_compile.adb:3841–3842,3891–3905`;
+`g-md5.ads:39–49`, `g-sehamd.ads:45–49`, `g-sechas.ads:160–178`).
+Section labels are fixed enumeration images with underscores replaced by
+spaces (`gprexch.adb:110–130`). Every fixed row is at most the **146-byte
+compiler path**; the only variable-length row is the mapping path, bounded
+by `T_root+36`. Thus `max(146,T_root+36) <= 1000` discharges the reader
+interface. This derives the limit from the tool; it adds no Silver source cap.
+
+Gprbind's three empty vectors are `ALI_Files_Table`,
+`Binding_Options_Table` and `Compiler_Trailing_Options`.
+`Project_Paths` receives one record; `Gnatbind_Options` receives six Strings.
+The compiler vector receives the four configured switches, five fixed
+Gprbind switches, Main's filtered backend options and three source/output
+arguments (`gprbind.adb:865–943`). The retained baseline has two backend
+options, `-mtune=generic` and `-march=x86-64`, for **14 entries**. The proposed
+`-Wno-free-nonheap-object` adds one, for **15 entries**; the proposed frontend
+`-gnatx` is filtered. The checker records these two cases separately and uses
+the indexed output names when computing the proposed projection.
+
+Both vector instantiations use positive indices and indefinite elements
+(`gpr-util.ads:39–40`, `gprbind.adb:173–181`). Under the pinned runtime's
+relevant-behavior premise, append allocates one element and doubles only the
+backing pointer array when full (`a-coinve.adb:214–246,1349–1354,1498–1531`;
+`a-coinve.ads:411–419`). Capacities therefore stay at **8 binder slots,
+16 compiler slots and 1 project slot**. Empty-vector appends return without
+allocation (`a-coinve.adb:183–191`). Growth copies element pointers; it does
+not duplicate all payloads. During growth, old and new arrays have at most
+12 binder or 24 compiler slots combined. `To_Argument_List` separately
+allocates one String copy per entry and an array of exactly the vector length
+(`gpr-util.adb:3751–3761`); those are additional to vector storage.
+All these counts are small source-derived demands, independent of author
+trivia and source size. The display buffer's initial 1,000 characters suffice
+for both commands at the retained `/tmp` descriptor, including executable
+paths (`gprbind.adb:143–148,197–221`).
+
+This closes the selected exchange-row and argument-vector representations.
+It does not bound the entire GPR process: its Main-ALI read/scan, name tables,
+filesystem and Text_IO internals, path search/spawn and allocation totals
+remain separate, as do the generated-source compiler and assembler.
 
 ### Selected search-directory and default-relocation projection
 
@@ -743,8 +828,8 @@ use **303 bytes** including terminators. The earlier 233-byte `/tmp` bound is
 not claimed for this scratch root.
 
 This supplies the fixed successful execution used by the default-relocation
-read projection. It adds no compiler/object witness and does not close the
-initial GPR exchange or GPR project/vector storage. The offline checker
+read projection. It adds no compiler/object witness; the initial exchange and
+argument vectors are addressed separately above. The offline checker
 reconciles the captured bytes and managed input pins without running the
 binder again.
 
@@ -899,6 +984,11 @@ are byte-identical. The following are **observed fixed-witness quantities**:
 | Executable-section bytes | 1,000 |
 | Allocated section bytes, including NOBITS | 12,023 |
 | `.eh_frame` bytes | 192 |
+| Maximum section alignment | 32 |
+| COMMON symbol records | 0 |
+| Merge sections | `.comment`: 31 bytes, nonallocated, alignment 1 |
+| Allocated merge sections | 0 |
+| `.sframe` sections/bytes | 0 / 0 |
 
 All object section headers lack LTO/offload/object-only/compressed data. These
 facts are relevant to the linker transfer but remain witness observations
@@ -912,10 +1002,11 @@ and options are not normalized into the indexed witness.
    fixed source/object search, printable single-line generated paths and
    matching artifacts. Bounds on variable Main ALI input length remain
    upstream; the Xref ignore rule does not remove reading that buffer.
-2. Complete the non-`Namet` argument/search-directory and driver storage,
-   diagnostic strings, response/options files and generation buffers. The
-   selected binder name tables and graph core are bounded above; those
-   results do not cover the separate GPR/driver or compiler processes.
+2. Complete the remaining driver/process storage, including Gprbind's own
+   Main-ALI parser/name tables and filesystem/Text_IO/spawn internals. Selected
+   binder arguments/search directories, exchange rows, argument vectors,
+   generation buffers, name tables and graph core are bounded above; those
+   results do not cover every allocation in the GPR/driver or compiler process.
 3. Complete the compiler/assembler read projection from this fixed code and
    location interface to object shape and transient representations. Account
    for source buffers, target/runtime dependencies, all generated code and

@@ -60,6 +60,14 @@ def elf(raw):
             "section_count": len(sections), "symbol_count": len(symbols),
             "relocation_count": sum(r["count"] for r in relocations),
             "external_names": sorted(s["name"] for s in symbols if s["binding"]),
+            "maximum_section_alignment": max(s["alignment"] for s in sections),
+            "common_symbol_count": sum(s["section"] == 0xfff2 for s in symbols),
+            "merge_sections": [s["name"] for s in sections if s["flags"] & 16],
+            "allocated_merge_section_count": sum(bool(s["flags"] & 16 and s["flags"] & 2) for s in sections),
+            "eh_frame_section_count": sum(s["name"] == ".eh_frame" for s in sections),
+            "eh_frame_bytes": sum(s["size"] for s in sections if s["name"] == ".eh_frame"),
+            "sframe_section_count": sum(s["name"] == ".sframe" for s in sections),
+            "sframe_bytes": sum(s["size"] for s in sections if s["name"] == ".sframe"),
             "allocated_bytes": sum(s["size"] for s in sections if s["flags"] & 2),
             "text_bytes": sum(s["size"] for s in sections if s["flags"] & 4)}
 
@@ -390,6 +398,92 @@ def analyze(artifacts, sources):
         "temporary_root_bytes": 43,
         "source_argument_bound_for_this_root": main_ali_path+argv_constant+2*(43+36),
         "scope": "one controlled binder process; no historical GPR environment reconstruction or compiler/object claim",
+    }
+    # The fresh selected configuration fills the configuration premise; it is
+    # distinct from the unrecovered historical GPR configuration/exchange.
+    config_prefix = "configuration-capture/"
+    config_invocation = json.loads(artifacts[config_prefix+"invocation.json"])
+    config_result = json.loads(artifacts[config_prefix+"result.json"])
+    config = artifacts[config_prefix+"selected.cgpr"]
+    assert digest(config) == config_result["configuration"]
+    assert config_result["returncode"] == 0 and config_result["retained_inputs_unchanged"] is True
+    for name in ("stdout", "stderr"):
+        assert digest(artifacts[config_prefix+name]) == config_result[name]
+    knowledge_inputs = {p: row for p,row in config_invocation["input_identities"].items()
+                        if "/share/gprconfig/" in p}
+    assert len(knowledge_inputs) == config_result["knowledge_files"] == 71
+    for path, row in knowledge_inputs.items():
+        assert digest(artifacts["configuration/"+path.split("/share/gprconfig/")[1]]) == row
+    assert set(config_invocation["environment"]) == {"PATH", "LC_ALL", "TMPDIR"}
+    assert config_invocation["environment"]["LC_ALL"] == "C"
+    assert "--target=x86_64-pc-linux-gnu" in config_invocation["argv"]
+    assert any(a.startswith("--config=Ada,16.1,default,") and a.endswith(",GNAT")
+               for a in config_invocation["argv"])
+    config_events = [json.loads(line) for line in artifacts[config_prefix+"managed/events.jsonl"].splitlines()]
+    config_prepared, = [e for e in config_events if e["event"] == "prepared"]
+    config_finished, = [e for e in config_events if e["event"] == "finished"]
+    assert config_finished["outcome"] == "success"
+    config_native, = [e for e in config_events if e["event"] == "phase-end" and e["phase"] == "native-tool"]
+    assert config_native["returncode"] == 0
+    config_pins = config_prepared["inputs"]["inputs_sha256"]
+    script_pin, = [v for p,v in config_pins.items() if p.endswith("/silver-gprconfig-fixed-20261018/run.py")]
+    assert script_pin == digest(artifacts[config_prefix+"run.py"])["sha256"]
+    for path, row in config_invocation["input_identities"].items():
+        assert config_pins[path] == row["sha256"]
+    commands = re.findall(rb'executing "([^"]+)" output=', artifacts[config_prefix+"stdout"])
+    assert commands and all(c in (b"gcc -dumpmachine", b"gcc -v", b"gcc --version",
+                                 b"gcc -mno-cygwin -dumpmachine", b"g++ -dumpmachine",
+                                 b"g++ -v", b"c++ -dumpmachine", b"gnatls -v --version") for c in commands)
+    compiler_config = re.search(rb"package Compiler is(.*?)end Compiler;", config, re.S)[1]
+    binder_config = re.search(rb"package Binder is(.*?)end Binder;", config, re.S)[1]
+    leading, = re.findall(rb'for Leading_Required_Switches\s*\("Ada"\) use(.*?);', compiler_config, re.S)
+    assert re.findall(rb'"([^"]*)"', leading) == [b"-c", b"-x", b"ada", b"-gnatA", b"Ada"]
+    assert b"Trailing_Required_Switches" not in compiler_config
+    required, = re.findall(rb'for Required_Switches\s*\("Ada"\) use(.*?);', binder_config, re.S)
+    assert re.findall(rb'"([^"]*)"', required) == [b"Ada", b"gnatbind_prefix="]
+    compiler_path, = re.findall(rb'for Driver\s*\("Ada"\) use "([^"]+)";', compiler_config)
+    assert compiler_path.decode() == str(Path(argv[0]).with_name("gcc"))
+    assert len(compiler_path) == 146
+    assert b'for Toolchain_Version ("Ada") use "GNAT 16.1";' in config
+    assert b"Compiler_Leading_Required_Switches : Name_List_Index := No_Name_List;" in sources["gpr/gpr/src/gpr.ads"]
+    assert b"Compiler_Trailing_Required_Switches : Name_List_Index := No_Name_List;" in sources["gpr/gpr/src/gpr.ads"]
+    # The ALI filter in gprbind preserves exactly these backend options.
+    selected_compile = {}
+    for case in ("indexed-cr", "unindexed-proposed"):
+        stem = "main~1" if case == "indexed-cr" else "main"
+        ali_options = re.findall(rb"^A (.*)$", artifacts[f"cases/{case}/{stem}.ali"], re.M)
+        backend = [a for a in ali_options if not a.startswith((b"-I", b"-gnat", b"--RTS="))]
+        compiler_args = [b"-c", b"-x", b"ada", b"-gnatA",
+                         b"-c", b"-gnatA", b"-gnatWb", b"-gnatiw", b"-gnatws"]+backend+[
+                         b"b__main~1.adb", b"-o", b"b__main~1.o"]
+        selected_compile[case] = {"backend_options": [a.decode() for a in backend],
+                                  "argument_count": len(compiler_args),
+                                  "argument_payload_bytes": sum(map(len, compiler_args)),
+                                  "argument_bytes_with_terminators": sum(len(a)+1 for a in compiler_args),
+                                  "display_line_bytes": len(compiler_path)+sum(len(a)+1 for a in compiler_args)}
+    assert selected_compile["indexed-cr"]["argument_count"] == 14
+    assert selected_compile["unindexed-proposed"]["argument_count"] == 15
+    result["selected_gpr_driver_inputs"] = {
+        "configuration_capture_run": config_finished["run_id"],
+        "configuration_duration_seconds": config_result["duration_seconds"],
+        "managed_duration_seconds": config_finished["duration_seconds"],
+        "knowledge_file_count": 71, "metadata_query_count": len(commands),
+        "configuration_stderr_bytes": config_result["stderr"]["bytes"],
+        "configured_leading_compiler_switches": ["-c", "-x", "ada", "-gnatA"],
+        "configured_trailing_compiler_switch_count": 0,
+        "configured_consumed_binder_switch": "gnatbind_prefix=",
+        "initial_exchange_row_count_bound": 26,
+        "initial_exchange_fixed_row_bytes_bound": len(compiler_path),
+        "initial_exchange_variable_row_bytes_bound": "T_root + 36",
+        "additional_dependency_ali_rows": 0, "project_record_count": 1,
+        "project_checkline_bytes": 47,
+        "binder_vector_entries": 6, "binder_vector_backing_capacity": 8,
+        "compiler_vector_backing_capacity_bound": 16,
+        "project_vector_entries_and_capacity": 1,
+        "binding_options_vector_entries": 0, "trailing_options_vector_entries": 0,
+        "additional_ali_vector_entries": 0,
+        "compiler_argument_projection": selected_compile,
+        "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation and compiler/object transfer remain separate",
     }
     compiler_support = {k.removeprefix("compiler-support/"): digest(v)
                         for k,v in artifacts.items() if k.startswith("compiler-support/")}
