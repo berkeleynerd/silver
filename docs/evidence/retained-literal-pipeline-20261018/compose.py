@@ -93,6 +93,8 @@ class Context:
         self.specialization_context = self.specialization['Context']()
         self.assembler = runpy.run_path(str(EVIDENCE/'retained-literal-assembler-20261018/compose.py'))
         self.assembler_context = self.assembler['Context']()
+        self.assembler_storage = runpy.run_path(str(EVIDENCE/'retained-literal-assembler-20261018/storage.py'))
+        self.assembler_storage_context = self.assembler_storage['Context']()
         self.system = read(NATIVE/'native-indexed-source-buffers.json')['additional_System_input']
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
@@ -449,6 +451,10 @@ def evaluate(descriptor_path, context, source_override=None):
             assembler['text_bytes_upper'] == rtl['shortening_text_bytes_upper'] and
             assembler['GAS']['rodata_bytes_upper'] == native['conditional_native_constant_data'][
                 'rodata_payload_including_padding_bytes_upper'], 'literal assembler common-input join')
+    # The descriptor bounds path spelling bytes; storage includes the terminal NUL.
+    assembler_storage = context.assembler_storage['evaluate'](
+        raw,context.assembler_storage_context,path_bytes=p+1)
+    require(assembler_storage['interface'] == assembler, 'literal assembler storage interface join')
     physical = context.physical(raw)
     line_capacity = 500
     while line_capacity < physical['physical_line_entries_bound']:
@@ -467,6 +473,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
         native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
         Main_assembler_object_interface=assembler['local_interface_fits'],
+        Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
@@ -484,8 +491,9 @@ def evaluate(descriptor_path, context, source_override=None):
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
+                             GAS_BFD_storage=assembler_storage['storage'],
                              local_interface_fits=assembler['local_interface_fits']),
-            'missing':'Complete GAS subsidiary allocation lifetimes/hash growth, BFD arena/string-table growth and the production invocation; the reviewed stream/region/symbol/relocation/ELF envelope is joined.'},
+            'missing':'Complete production-invocation/materialization join; selected stream/region/symbol/relocation/ELF and GAS/BFD storage interfaces are conditionally joined.'},
         'producer_frontends_and_consumers': {
             'missing':'Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output.'},
         'binder_and_linker_composition': {
@@ -502,6 +510,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
         native_pool_lifetime=pools,native_graph_lifetime=graph,native_SSA_helper_backing=ssa_helpers,
         Main_assembler_object_interface=assembler,
+        Main_GAS_BFD_storage=assembler_storage['storage'],
         Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,

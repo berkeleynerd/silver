@@ -70,5 +70,7 @@ constructors and shared collector composition open.
 The independently reviewed literal assembler callable now consumes the same
 source bytes. Its counters, final chain, text bytes and rodata bytes must
 agree with the existing native/RTL results. The selected assembly/ELF envelope
-contributes `local_interface_fits`; remaining GAS/BFD allocation growth and
-production-invocation joins remain open.
+contributes `local_interface_fits`. The accepted GAS/BFD storage callable is
+also attached with exact interface equality and its separate storage predicate.
+It receives the descriptor's path spelling bound plus one terminal-NUL byte.
+The complete production-invocation/materialization join remains open.

@@ -273,5 +273,30 @@
     "path": "docs/evidence/retained-literal-assembler-20261018/review.md",
     "bytes": 5224,
     "sha256": "85f6d5b33ff95ccce55c840ec9126b07f6a7a679fb09024e39149de9c908b5da"
+  },
+  {
+    "path": "docs/research/retained-literal-assembler-storage.md",
+    "bytes": 10069,
+    "sha256": "87a5d3b9435c453a5e7514a6c94c88d5d7fc73a7515a397954c6c8517d73ba6b"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/storage.py",
+    "bytes": 5266,
+    "sha256": "6a051800b5c90b237b221b3d18fb6946cc1fcb0234e927d492d81845a338689b"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/storage-inputs.json",
+    "bytes": 2375,
+    "sha256": "547bc6f9ed5df52cc9307369bb090ec90ecbd537ff73ed210e1aff4b1fbf47f8"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/storage-result.json",
+    "bytes": 27303,
+    "sha256": "84eb5000956758b27f8f4b4551297b48679dc4557b64b5bc77d01707a8eac3a1"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/review-storage.md",
+    "bytes": 5836,
+    "sha256": "ca3931085ce86e3e2b1034f52301305460d8b6c017d3422f75a5cc826bbdceeb"
   }
 ]

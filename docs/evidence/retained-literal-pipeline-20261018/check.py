@@ -86,6 +86,10 @@ def main():
             assert helpers['out_of_SSA']['real_partitions']==0
             assembler=result['Main_assembler_object_interface']
             assert assembler['local_interface_fits']
+            storage=result['Main_GAS_BFD_storage']
+            assert storage['selected_GAS_BFD_storage_fits']
+            assert storage['path_bytes']==fixture['complete_path_bound']+1
+            assert result['conditions']['Main_GAS_BFD_storage']
             assert assembler['source_identity']==module.identity(raw)
             assert assembler['text_bytes_upper']==result['RTL_shape']['shortening_text_bytes_upper']
             expected=True

@@ -73,11 +73,16 @@ is also attached to this aggregate. It scans exactly the same source bytes;
 the join checks C/N/W/maximum-length, final RTL chain, text-byte and rodata-byte
 equalities. Its `local_interface_fits` predicate contributes the complete
 selected assembly-stream, alignment-region, symbol/relocation and ELF-object
-envelopes. These are source-derived capacity bounds, not an observed object
-or a complete assembler lifetime. `Main_assembler_and_object` now retains
-only the remaining GAS subsidiary/hash, BFD arena/string-table growth and
-production-invocation joins. Binder/fixed-object/final-link consumers remain
-in their separate aggregate interfaces.
+envelopes. The accepted [GAS/BFD storage join](retained-literal-assembler-storage.md)
+now contributes its separate `selected_GAS_BFD_storage_fits` conjunct, with
+exact equality against the attached assembler interface. The descriptor's
+P bounds path spelling bytes, so this storage interface receives P+1 for
+the terminal NUL. Its complete selected GAS dynamic-request and output-BFD
+storage closure remains conditional on the reviewed source/configuration
+and invocation premises. These are source-derived capacity bounds, not an
+observed object. `Main_assembler_and_object` retains the complete production
+invocation/materialization join. Binder/fixed-object/final-link consumers
+remain in their separate aggregate interfaces.
 
 ## Bounds-pool and symbol lifetime join
 
@@ -688,3 +693,11 @@ and unsigned-multiplication boundaries. The earlier 32-check result records
 the historical checkpoint; it did not cover this omission. No native tool
 ran, and whole-pipeline capacity remains false. The correction is sent for
 the reviewer's focused replay; no acceptance is claimed by this paragraph.
+
+The next aggregate-only change attaches accepted GAS/BFD storage implementation
+`f84c97a973` and independent review `ec6ceb4294` without altering their formulas.
+The shared interface and path-bound translation pass the same 38 aggregate
+checks, including the 5000-call case; the accepted nine-case storage replay
+is reused. No native tool ran. Selected model/effort remains GPT-6 Astra /
+Extra High, with runtime confirmation, elapsed-time and token/cost evidence
+unavailable. Whole-pipeline capacity remains false.

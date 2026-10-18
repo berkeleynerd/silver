@@ -96,6 +96,7 @@
     "native_graph_and_summary_lifetime": true,
     "native_SSA_helper_backing": true,
     "Main_assembler_object_interface": true,
+    "Main_GAS_BFD_storage": true,
     "Why_core": true,
     "output_binder_checksum_no_collection": true
   },
@@ -995,6 +996,102 @@
       "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
     }
   },
+  "Main_GAS_BFD_storage": {
+    "path_bytes": 513,
+    "assembler_argv_count": 5,
+    "symbol_hash_capacity_upper": 2039,
+    "symbol_hash_array_bytes_upper": 16312,
+    "notes_request_bytes_upper": 65528,
+    "notes_unfinished_prefix_upper": 120,
+    "notes_chunk_bytes_upper": 65778,
+    "parser_scratch_bytes_upper": 67,
+    "frchain_objects_upper": 14,
+    "frchains_initial_chunks": 1,
+    "BFD_main_arena_parts": {
+      "path": 513,
+      "object_data": 4096,
+      "output_data": 192,
+      "section_data": 4480,
+      "symbols": 20736,
+      "relocation_headers": 800,
+      "relocation_names": 320,
+      "header_pointers": 192,
+      "null_header": 80,
+      "section_symbol_map": 112,
+      "reordered_symbol_pointers": 1240,
+      "relocation_buffers": 6816,
+      "serialized_section_headers": 1536
+    },
+    "BFD_main_arena_raw_lifetime_bytes_upper": 41113,
+    "BFD_largest_main_arena_request_upper": 6816,
+    "BFD_section_hash_capacities": [
+      13,
+      31
+    ],
+    "ELF_string_tables": [
+      {
+        "role": "symbols",
+        "distinct_names_upper": 155,
+        "bytes_per_name_including_NUL_upper": 26,
+        "positive_reference_events_upper": 155,
+        "hash_capacities": [
+          4051
+        ],
+        "each_hash_entry_bytes_upper": 64,
+        "hash_name_copies": 0,
+        "pointer_array_capacity_upper": 256,
+        "sorting_array_bytes_upper": 1248,
+        "checks": {
+          "distinct_names": true,
+          "unshared_name_bytes": true,
+          "positive_references": true,
+          "growth_no_wrap": true,
+          "array_slots": true,
+          "individual_requests": true
+        }
+      },
+      {
+        "role": "sections",
+        "distinct_names_upper": 23,
+        "bytes_per_name_including_NUL_upper": 32,
+        "positive_reference_events_upper": 46,
+        "hash_capacities": [
+          4051
+        ],
+        "each_hash_entry_bytes_upper": 64,
+        "hash_name_copies": 0,
+        "pointer_array_capacity_upper": 64,
+        "sorting_array_bytes_upper": 192,
+        "checks": {
+          "distinct_names": true,
+          "unshared_name_bytes": true,
+          "positive_references": true,
+          "growth_no_wrap": true,
+          "array_slots": true,
+          "individual_requests": true
+        }
+      }
+    ],
+    "local_checks": {
+      "local_interface": true,
+      "symbol_hash_prime_and_probe": true,
+      "symbol_hash_array": true,
+      "notes_growth": true,
+      "frchains_single_chunk": true,
+      "BFD_individual_requests": true,
+      "BFD_lifetime_counter": true,
+      "ELF_string_tables": true
+    },
+    "selected_GAS_BFD_storage_fits": true,
+    "whole_literal_pipeline_capacity_established": false,
+    "aggregate_RAM_gate": false,
+    "open_joins": [
+      "production_invocation",
+      "fixed_objects_and_binder",
+      "final_link_reach"
+    ],
+    "native_tool_executions": 0
+  },
   "Why_core": {
     "A_parse": 38,
     "A_Main": 55,
@@ -1317,9 +1414,105 @@
           },
           "object_bytes_upper": 17592
         },
+        "GAS_BFD_storage": {
+          "path_bytes": 513,
+          "assembler_argv_count": 5,
+          "symbol_hash_capacity_upper": 2039,
+          "symbol_hash_array_bytes_upper": 16312,
+          "notes_request_bytes_upper": 65528,
+          "notes_unfinished_prefix_upper": 120,
+          "notes_chunk_bytes_upper": 65778,
+          "parser_scratch_bytes_upper": 67,
+          "frchain_objects_upper": 14,
+          "frchains_initial_chunks": 1,
+          "BFD_main_arena_parts": {
+            "path": 513,
+            "object_data": 4096,
+            "output_data": 192,
+            "section_data": 4480,
+            "symbols": 20736,
+            "relocation_headers": 800,
+            "relocation_names": 320,
+            "header_pointers": 192,
+            "null_header": 80,
+            "section_symbol_map": 112,
+            "reordered_symbol_pointers": 1240,
+            "relocation_buffers": 6816,
+            "serialized_section_headers": 1536
+          },
+          "BFD_main_arena_raw_lifetime_bytes_upper": 41113,
+          "BFD_largest_main_arena_request_upper": 6816,
+          "BFD_section_hash_capacities": [
+            13,
+            31
+          ],
+          "ELF_string_tables": [
+            {
+              "role": "symbols",
+              "distinct_names_upper": 155,
+              "bytes_per_name_including_NUL_upper": 26,
+              "positive_reference_events_upper": 155,
+              "hash_capacities": [
+                4051
+              ],
+              "each_hash_entry_bytes_upper": 64,
+              "hash_name_copies": 0,
+              "pointer_array_capacity_upper": 256,
+              "sorting_array_bytes_upper": 1248,
+              "checks": {
+                "distinct_names": true,
+                "unshared_name_bytes": true,
+                "positive_references": true,
+                "growth_no_wrap": true,
+                "array_slots": true,
+                "individual_requests": true
+              }
+            },
+            {
+              "role": "sections",
+              "distinct_names_upper": 23,
+              "bytes_per_name_including_NUL_upper": 32,
+              "positive_reference_events_upper": 46,
+              "hash_capacities": [
+                4051
+              ],
+              "each_hash_entry_bytes_upper": 64,
+              "hash_name_copies": 0,
+              "pointer_array_capacity_upper": 64,
+              "sorting_array_bytes_upper": 192,
+              "checks": {
+                "distinct_names": true,
+                "unshared_name_bytes": true,
+                "positive_references": true,
+                "growth_no_wrap": true,
+                "array_slots": true,
+                "individual_requests": true
+              }
+            }
+          ],
+          "local_checks": {
+            "local_interface": true,
+            "symbol_hash_prime_and_probe": true,
+            "symbol_hash_array": true,
+            "notes_growth": true,
+            "frchains_single_chunk": true,
+            "BFD_individual_requests": true,
+            "BFD_lifetime_counter": true,
+            "ELF_string_tables": true
+          },
+          "selected_GAS_BFD_storage_fits": true,
+          "whole_literal_pipeline_capacity_established": false,
+          "aggregate_RAM_gate": false,
+          "open_joins": [
+            "production_invocation",
+            "fixed_objects_and_binder",
+            "final_link_reach"
+          ],
+          "native_tool_executions": 0
+        },
         "local_interface_fits": true
       },
-      "missing": "Complete GAS subsidiary allocation lifetimes/hash growth, BFD arena/string-table growth and the production invocation; the reviewed stream/region/symbol/relocation/ELF envelope is joined."
+      "missing": "Complete production-invocation/materialization join; selected stream/region/symbol/relocation/ELF and GAS/BFD storage interfaces are conditionally joined."
     },
     "producer_frontends_and_consumers": {
       "missing": "Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output."
@@ -1333,7 +1526,7 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 55,
+  "fixed_input_count": 60,
   "external_source_files_verified": 253,
   "native_tool_executions": 0,
   "production_admission_changed": false,
