@@ -70,3 +70,10 @@ records the five-statement CF graph, three-block/four-edge initial CFG and
 one SSA memory-use entry. The source argument distinguishes live graphs from
 cumulative allocation and preserves fixed pass containers. No pass execution,
 whole native capacity predicate or compiler-success claim is added.
+
+The excerpt reader uses literal LF boundaries. An earlier reader used Python
+`str.splitlines()`, which also counted GCC form-feed section separators and
+shifted some displayed line numbers. The corrected excerpts retain the same
+full-file identities; the null specialization's references were reconciled
+against LF lines. This correction changes evidence presentation, not compiler
+inputs or any claimed pass result.

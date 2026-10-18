@@ -1903,7 +1903,7 @@ to `GIMPLE_RETURN` before scanning its null value operand
 definition. The resulting one use creates one `var_info` and its three
 block-bitmaps; there is no ordinary or virtual definition. The CFG remains a
 straight path, so its dominance frontiers are empty
-(`cfganal.cc:1642–1671`). No PHI is inserted. Renaming the one use requests one
+(`cfganal.cc:1639–1668`). No PHI is inserted. Renaming the one use requests one
 default memory SSA_NAME and its detached GIMPLE_NOP
 (`tree-into-ssa.cc:648–704,1203–1228,1337–1411`, `tree-dfa.cc:353–365`). The
 returned value is still null; the memory name is analysis metadata.

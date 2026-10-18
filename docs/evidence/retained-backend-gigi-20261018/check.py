@@ -93,7 +93,7 @@ RANGES = {
     "gcc/tree-into-ssa.cc": [(648, 704), (1203, 1228), (1337, 1411),
                             (2411, 2438), (2490, 2581)],
     "gcc/tree-dfa.cc": [(353, 365)],
-    "gcc/cfganal.cc": [(1642, 1671)],
+    "gcc/cfganal.cc": [(1639, 1668)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
     "gcc/tree-inline.cc": [(6667, 6720)],
 }
@@ -114,7 +114,10 @@ def collect(ada, gcc_root):
                          "sha256": hashlib.sha256(data).hexdigest()})
         source = data.decode()
         sources[name] = source
-        lines = source.splitlines()
+        # GCC uses form-feed characters as section separators.  splitlines()
+        # would disagree with compiler/rg LF line numbers even though the
+        # full-file identity stayed correct.
+        lines = source.split("\n")
         for low, high in ranges:
             assert 1 <= low <= high <= len(lines)
             excerpts.append(f"\n## {name}:{low}–{high}\n\n```text\n")
