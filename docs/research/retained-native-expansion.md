@@ -1342,6 +1342,61 @@ growing events**. The emitter's specialized To_Ityp/To_Artyp wrappers remain
 no-ops under Artyp=Ityp. Conversions constructed by range-check selection,
 other type pairs, child reanalysis and caller suppression are separate.
 
+### Collected scalar constant declaration skeleton
+
+The emitter collects at most **2*n** scalar constant declarations: n dynamic
+lengths, n-1 aggregate lengths and one lower-bound selector
+(`exp_ch4.adb:3015–3045,3078–3102,3219–3228`). The direct emitter already
+charges their defining entities, names, declaration/type-occurrence syntax
+and collection list. Their initializer expression transfers are separate.
+
+For a fresh artificial local non-Ghost constant of the frozen Standard
+Integer base, its declaration analysis/expansion adds **zero further nodes,
+entities, lists, names, Uint or String values** once its initializer analysis
+and resolution are charged. Here the object definition is an occurrence of
+that existing type; the initializer is a well-typed scalar literal, ordinary
+name, arithmetic, bound attribute, conversion or scalar conditional in the
+preceding classes, with no pending range check, error, unset diagnostic,
+allocators, function call, renaming/OK_To_Rename reference or expression
+actions. An initializer root that is an entity name has the same declared
+type as the new constant. Its known value, if any, fits Integer. The scope is
+an ordinary local procedure/block, with no transient wrapper, deferred
+completion, special return, address/representation/aspect, foreign/static
+allocation or delayed-freeze property. All checks are suppressed. The
+initializer has not become a renaming or declaration through expansion.
+
+The pointer/scalar-capture declaration trace above supplies the common
+type/name-entry, scalar/no-length-check, explicit-initialization and ordinary
+object-freezing paths. One distinction must be checked explicitly: these
+direct concat declarations do **not** rely on `Assignment_OK`.
+Check_Initialization only handles limited initialization and the
+`not Expander_Active` scalar check. Native Standard Integer satisfies neither,
+so it allocates nothing (`sem_ch3.adb:4800–4802,13042–13124`). This argument
+does not apply to GNATprove's light expansion.
+
+Analyze and Resolve process the initializer at `sem_ch3.adb:4704–4750`.
+After its own charged transfer, the remaining semantic path only sets the
+completion/validity/type fields. Constants do not get Current_Value from the
+variable-only branch. If a known-valid entity initializer is considered,
+In_Subrange_Of returns at its identical-type guard; any inherited
+Actual_Subtype is that same existing type. Suppressed Apply_Scalar_Range_Check
+returns before analysis with a clear pending-check flag; scalar
+Apply_Static_Length_Check has no array/access path
+(`sem_ch3.adb:4805–4852`, `sem_eval.adb:5336–5337`,
+`checks.adb:3238–3274,10251–10272`). Definite Integer cannot enter the
+unconstrained array/discriminant subtype-generation cases.
+
+The native explicit-initialization path suppresses constraint/range checks.
+Scalar Integer has no tag, copy alignment/array validity, controlled/task,
+accessibility, predicate/DIC or return-object transformation; the stated
+initializer shapes exclude capture and renaming transformations
+(`exp_ch3.adb:8395–8715,8750–8817,9485–9487`). Freezing the fresh ordinary
+constant reuses the frozen type, runs the no-op Layout_Object, and requests
+no delayed freeze node, as in the capture transfer. This closes the
+declaration **skeleton** only: child analysis and copying, the collection's
+Insert_Actions placement, context-dependent declaration movement and
+compilation-wide multiplicity remain additional.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
