@@ -29,7 +29,9 @@ The existing source manifests and `source-join-inputs.json` check complete
 source/header files against their hashes; the RTL and checksum checkers retain
 their own archive verification. `result.json` records the Hello World
 substitution, and `check-results.json` records successful checks, including the
-two deliberate Why-envelope failures at P=512. Source paths in regenerated
+two source-selected producer passes whose hypothetical general JSON envelopes
+fail at P=512. The accepted specialization removes only that absent Main
+serializer consumer and preserves the other general core conjuncts. Source paths in regenerated
 results identify the actual workspace; compare conditions and identities
 rather than expecting those attribution paths to match across worktrees.
 

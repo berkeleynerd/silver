@@ -9,7 +9,8 @@
       "decoded_characters": 13,
       "evaluated_predicates_pass": true,
       "failed_predicates": [],
-      "Why_JSON_byte_bound": 189744712,
+      "hypothetical_general_Why_JSON_byte_bound": 189744712,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {
@@ -20,7 +21,8 @@
       "decoded_characters": 13,
       "evaluated_predicates_pass": true,
       "failed_predicates": [],
-      "Why_JSON_byte_bound": 189744712,
+      "hypothetical_general_Why_JSON_byte_bound": 189744712,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {
@@ -31,7 +33,8 @@
       "decoded_characters": 2,
       "evaluated_predicates_pass": true,
       "failed_predicates": [],
-      "Why_JSON_byte_bound": 234228269,
+      "hypothetical_general_Why_JSON_byte_bound": 234228269,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {
@@ -42,7 +45,8 @@
       "decoded_characters": 3,
       "evaluated_predicates_pass": true,
       "failed_predicates": [],
-      "Why_JSON_byte_bound": 233303941,
+      "hypothetical_general_Why_JSON_byte_bound": 233303941,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {
@@ -53,7 +57,8 @@
       "decoded_characters": 13,
       "evaluated_predicates_pass": true,
       "failed_predicates": [],
-      "Why_JSON_byte_bound": 189744712,
+      "hypothetical_general_Why_JSON_byte_bound": 189744712,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {
@@ -62,11 +67,10 @@
       "calls": 1,
       "nulls": 0,
       "decoded_characters": 8192,
-      "evaluated_predicates_pass": false,
-      "failed_predicates": [
-        "Why_core"
-      ],
-      "Why_JSON_byte_bound": 2519295400,
+      "evaluated_predicates_pass": true,
+      "failed_predicates": [],
+      "hypothetical_general_Why_JSON_byte_bound": 2519295400,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {
@@ -75,11 +79,10 @@
       "calls": 5000,
       "nulls": 0,
       "decoded_characters": 5000,
-      "evaluated_predicates_pass": false,
-      "failed_predicates": [
-        "Why_core"
-      ],
-      "Why_JSON_byte_bound": 240757785483,
+      "evaluated_predicates_pass": true,
+      "failed_predicates": [],
+      "hypothetical_general_Why_JSON_byte_bound": 240757785483,
+      "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
     {

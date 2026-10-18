@@ -47,7 +47,14 @@ The completed null graph is not relabeled as an output graph.
 
 For Hello World, C=1, N=0 and W=13 give a final pseudo extent of 104,
 first-unused UID 53, 53 text bytes, 35 data bytes including alignment and a
-189,744,712-byte conservative Why JSON bound at P=512. The body/data formulas
+189,744,712-byte hypothetical general Why JSON bound at P=512. The reviewed
+[literal producer specialization](retained-literal-producer-specialization.md)
+establishes that Main emits no `.gnat-json` because it registers no Why3
+checks. The aggregate uses that specialization, preserving every construction,
+intern-pool, undo and String condition and checking exact source/native/Why
+counter equality and equality of the general envelope. Its hypothetical JSON
+bound remains diagnostic; fixed-library Why inputs and final reports still
+need their capacity joins. The body/data formulas
 remain conditional on their existing whole-unit Main-preservation and selected
 source/option premises. Neither the text-byte bound nor the instruction count
 is an ELF-object contract.
@@ -302,3 +309,11 @@ including the prime-region boundary and pre-hit expansion. Source and retained
 prefix evidence were reused; `native_tool_executions=0`. This subthread did not
 record a separate elapsed-time timer. No independent review is claimed here;
 the parent will retain its report against the frozen implementation commit.
+
+The separately reviewed literal-producer specialization was then integrated
+without changing its formulas. The same 21 aggregate checks pass. The
+8,192-character and 5,000-call cases now pass the selected core arithmetic,
+while their hypothetical general JSON envelopes remain false: Main emits no
+JSON file on this source-selected path. This removes an inapplicable consumer
+constraint, rather than weakening a bound on an emitted object. Whole-pipeline
+capacity remains false, including the fixed-library and report consumers.

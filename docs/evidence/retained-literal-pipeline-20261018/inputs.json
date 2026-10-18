@@ -203,5 +203,25 @@
     "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-symbols-source-identity.json",
     "bytes": 6901,
     "sha256": "da914814955ae47f6d3c66bf0c22e45ebedb875431e5c4b337571de75a0c1eeb"
+  },
+  {
+    "path": "docs/evidence/retained-literal-producer-specialization-20261018/compose.py",
+    "bytes": 7910,
+    "sha256": "739dc12f0880c4aa1fa0857fd3e7e93b28a2761c910e5fb73c9d5c8f919f17ea"
+  },
+  {
+    "path": "docs/evidence/retained-literal-producer-specialization-20261018/inputs.json",
+    "bytes": 2562,
+    "sha256": "bec09ea4b9b0b64228b2aa818e880d0adde7f81bc6ccbe783eb6814ab09d7c6c"
+  },
+  {
+    "path": "docs/evidence/retained-literal-producer-specialization-20261018/result.json",
+    "bytes": 8187,
+    "sha256": "114d828ad2610016ae8266c7846264c28f5f82931b06dca121ec6c78ffd58757"
+  },
+  {
+    "path": "docs/evidence/retained-literal-producer-specialization-20261018/review.md",
+    "bytes": 3650,
+    "sha256": "9ab10ebb6468793b2d2540cd09707f6dc1ca9f3a0e9143570d6c7a61f165a56b"
   }
 ]

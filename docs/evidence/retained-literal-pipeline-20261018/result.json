@@ -722,6 +722,152 @@
     },
     "producer_core_fits": true
   },
+  "selected_Why_core": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "Why_source_counts": {
+      "W": 13,
+      "I": 10,
+      "S": 1,
+      "N": 0,
+      "context": 1,
+      "dots": 1,
+      "calls_with_actual": 1,
+      "C_lib": 1,
+      "output": 1,
+      "X": 1,
+      "H_chars": 13,
+      "null": 0,
+      "shape_regions": [
+        {
+          "dots": 1,
+          "calls_with_actual": 1
+        }
+      ]
+    },
+    "path_bytes": 512,
+    "general_core": {
+      "A_parse": 38,
+      "A_Main": 55,
+      "A_shape": 10,
+      "A_shape_total": 10,
+      "E_Main": 2,
+      "V": 2,
+      "V_Integer": 0,
+      "K": 1,
+      "K_literal": 1,
+      "preimport": [
+        17032,
+        3987,
+        5812,
+        27808
+      ],
+      "unpaid_closes": 9,
+      "modules": 1777,
+      "coarse_modules": 2111,
+      "module_parts": {
+        "fixed": 741,
+        "wrapper": 746,
+        "memoized": 54,
+        "string_objects": 0,
+        "string_completion": 0,
+        "string_cache": 2,
+        "array_attempts_and_miss": 4,
+        "literal_definitions": 1,
+        "other_expressions": 220,
+        "string_declarations": 0,
+        "string_assignments": 0,
+        "outputs": 9,
+        "rejects": 0,
+        "loop_frames": 0
+      },
+      "imports": 6982,
+      "all_module_imports": 32004,
+      "structural_imports": 6982,
+      "totals": [
+        24014,
+        3987,
+        12794,
+        41772
+      ],
+      "string_lengths": {
+        "names": 1702,
+        "comments": 2792,
+        "labels": 2714,
+        "string_attributes": 33,
+        "filenames": 512,
+        "module_file": 19,
+        "symbol_set_characters": 8142
+      },
+      "json_bytes": 189744712,
+      "json_parts": {
+        "fixed": 80357794,
+        "body": 81219801,
+        "characters": 3562520,
+        "imports": 24604568
+      },
+      "auxiliary": {
+        "A_total": 12839,
+        "E_total": 12786,
+        "common_calls": 84643,
+        "why_calls": 227513,
+        "why_symbol_map": 2045760,
+        "undo_peak": 34237364,
+        "registered_vcs": 17032,
+        "vc_entity_map": 12786,
+        "claim_domain": 63930,
+        "subprocess_map": 1
+      },
+      "producer_core_fits": true
+    },
+    "conditions": {
+      "Why_nodes": true,
+      "Why_lists": true,
+      "Why_list_elements": true,
+      "retained_occurrence_envelope": true,
+      "Why_intern_pool": true,
+      "retained_string_length_envelope": true,
+      "common_intern_pool": true,
+      "Why_symbol_map": true,
+      "source_node_domain": true,
+      "scoped_undo_peak": true
+    },
+    "literal_Main_core_fits": true,
+    "failed_predicates": [],
+    "source_selected_Main_registered_Why3_checks": 0,
+    "Main_gnat_json_files": 0,
+    "Main_gnat_json_bytes": 0,
+    "Main_Why3_launches": 0,
+    "Main_solver_launches": 0,
+    "hypothetical_general_JSON_bytes": 189744712,
+    "fixed_library_Why3_inputs": 5,
+    "fixed_library_capacity_still_required": true,
+    "native_frontend_and_flow_capacity_still_required": true,
+    "final_spark_report_capacity_still_required": true,
+    "whole_literal_pipeline_capacity_established": false,
+    "production_admission_changed": false,
+    "native_tool_executions": 0,
+    "premises": [
+      "Relevant installed producer behavior matches the reviewed source.",
+      "The selected ordinary Standard.String literal and unchanged output contracts apply.",
+      "Other native/producer representations and fixed-library processes retain their own bounds."
+    ]
+  },
   "accepted_output_binder_checksum": {
     "status": "Source derivation supplied for independent review; no new compiler execution",
     "model_effort": "GPT-6 Astra Max (named hash-lifetime escalation)",
@@ -798,7 +944,7 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 41,
+  "fixed_input_count": 45,
   "external_source_files_verified": 176,
   "native_tool_executions": 0,
   "production_admission_changed": false,

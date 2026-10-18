@@ -87,6 +87,9 @@ class Context:
                     'changed Why input: '+path)
         self.fixed_counts, self.fixed_modules = self.why['fixed_envelope']()
         self.schema = read(EVIDENCE/'retained-producer-storage-20261018/serialization.json')['schema']
+        self.specialization = runpy.run_path(str(EVIDENCE/
+            'retained-literal-producer-specialization-20261018/compose.py'))
+        self.specialization_context = self.specialization['Context']()
         self.system = read(NATIVE/'native-indexed-source-buffers.json')['additional_System_input']
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
@@ -253,6 +256,10 @@ def evaluate(descriptor_path, context, source_override=None):
     backing = context.backing['backing'](c,n)
     pools = native_pool_lifetime(c,context)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
+    selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
+    require(selected_why['source_counts'] == counts and
+            selected_why['Why_source_counts'] == why_counts and
+            selected_why['general_core'] == why, 'literal producer specialization join')
     require(why['K'] == c and why['K_literal'] == c, 'literal identity multiplicity join')
     require(native['conditional_native_pass_expand']['first_unused_pseudo_number_upper'] ==
             backing['interface']['pre_split_register_extent'], 'pre-split pseudo join')
@@ -274,7 +281,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_RTL_shape=all(rtl['local_representation_checks'].values()),
         native_selected_helper_backing=all(backing['local_representation_checks'].values()),
         native_varpool_and_shared_tree_pool=pools['named_consumer_closed'],
-        Why_core=why['producer_core_fits'],
+        Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
             < context.checksum['first_collection_threshold'])
@@ -305,7 +312,7 @@ def evaluate(descriptor_path, context, source_override=None):
         evaluated_predicates_pass=all(conditions.values()),
         failed_predicates=[key for key,value in conditions.items() if not value],
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
-        native_pool_lifetime=pools,Why_core=why,
+        native_pool_lifetime=pools,Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,
         next_repair='native_remaining_lifetime_and_collector',

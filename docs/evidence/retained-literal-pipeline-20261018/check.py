@@ -69,14 +69,17 @@ def main():
             assert pools['additional_GGC_request_events_upper']==5*c+5
             assert pools['named_consumer_closed']
             assert 'native_varpool_and_shared_tree_pool' not in result['open_joins']
-            expected=name not in ('literal_above_old_cap','5000_calls')
+            expected=True
             assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
-            if not expected:
-                assert result['failed_predicates']==['Why_core']
+            if name in ('literal_above_old_cap','5000_calls'):
+                assert not result['Why_core']['producer_core_fits']
+                assert result['selected_Why_core']['literal_Main_core_fits']
+                assert result['selected_Why_core']['Main_gnat_json_bytes']==0
             rows.append(dict(case=name,source_bytes=len(raw),calls=c,nulls=n,decoded_characters=characters,
                              evaluated_predicates_pass=expected,
                              failed_predicates=result['failed_predicates'],
-                             Why_JSON_byte_bound=result['Why_core']['json_bytes'],
+                             hypothetical_general_Why_JSON_byte_bound=result['Why_core']['json_bytes'],
+                             source_selected_Main_JSON_bytes=0,
                              whole_pipeline_closed=False))
         result=evaluate(b'--'+b'x'*32764+b'\n'+original)
         assert 'Main_expanded_columns' in result['failed_predicates']
