@@ -12,7 +12,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records ninety inspected files hash-checked against the complete source
+records ninety-three inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -4874,6 +4874,120 @@ still need source-reduced integration values. Native invocation/elaboration
 containers, warning attempts/history/text, stack peaks and table/byte
 representations are not silently included in this join.
 
+## Native invocation and elaboration metadata
+
+This transfer assumes the selected modern static elaboration mode:
+Legacy_Elaboration_Checks=False, Dynamic_Elaboration_Checks=False and
+Relaxed_Elaboration_Checks=False (`opt.ads:488,923,1341`), with invocation-path
+debug printing disabled. Native Invocation_Graph_Recording_OK does **not**
+return at the GNATprove guard, so its graph and ALI data must be counted
+(`sem_elab.adb:12226–12248`). No capture is needed to establish this distinction.
+
+The only variable source callees are the five admitted operations. The
+constructor closure additionally identifies Main, its one fixed finalizer,
+Image_Integer, the eight Str_Concat_2 through Str_Concat_9 helpers, and
+SS_Allocate/SS_Mark/SS_Release. This is a conservative **19-entity target
+frontier**, independent of source call count. Most generated runtime calls
+do not actually get a marker: Build_Call_Marker requires a source call or an
+Ada/bridge/SPARK semantic target (`sem_elab.adb:3671–3707,14399–14469`).
+Ordinary runtime helpers fail those generated-target predicates. Keeping them
+in the 19-entity frontier avoids taking credit for their absence in the table
+bound. The finalizer does pass the bridge predicate; it must not be omitted.
+
+Let A_fixed be the source-reduced fixed native AST bound supplied by the
+existing fixed capture and reduction. Every fixed-scaffold marker and the
+invocation graph's dummy Main marker is a node in that bound. This deliberately
+uses the entire fixed node count rather than making a new measurement or
+subtracting witness work. Let C be source library calls, c source concats,
+M source Images, and W source word tokens. Use
+
+```text
+S_call = C+c+M+A_fixed.
+```
+
+The c and M allowances permit one marker per concat/Image helper even where
+the filter excludes it. Source original calls occur once; the fixed input's
+relocation belongs to A_fixed. There is no body inlining or variable family
+of user subprograms. Scenario_Reps and Node_To_Scenario_Map cache by marker;
+Target_Reps and Entity_To_Target_Map cache by target, refreshing a record
+without appending it (`sem_elab.adb:11300–11324,11429–11472`). Thus their Main
+entry bounds are S_call and 19 respectively.
+
+Record_Elaboration_Scenario classifies Main declarations as Declaration_Level
+and its statements as No_Level. Calls may enter Declaration_Scenarios; local
+variable markers never enter the library-level sets, and a suitable variable
+assignment requires assignment to an entity in a package spec from its package
+body (`sem_elab.adb:13900–14126,14855–14936`). Main has neither. Dynamic checks
+return because Dynamic_Elaboration_Checks is False (`14212–14225`). Source has
+no instantiation, derived-type declaration or Refined_State pragma. Therefore
+Declaration_Scenarios has at most S_call members; Dynamic_ABE_Check,
+Library_Body, Library_Spec and SPARK sets have zero Main members.
+
+Guaranteed-ABE processing does not traverse bodies. The earlier external
+up-level target guard still excludes declaration-call ABE diagnostics and
+conditional body traversal (`sem_elab.adb:5350–5460,9499–9616`). The fixed
+finalizer is already defined before its cleanup call. At invocation processing,
+Process_Main_Unit makes the one dummy Main call. Process_Invocation_Call
+traverses a target body only inside the extended Main unit; external Silver
+operations record an edge and stop, while internal runtime units return
+(`12472–12548,12672–12730,12802–12847`). Consequently only Main and its one
+finalizer can be traversed, and an active scenario chain has at most three
+entries even allowing a leaf runtime call.
+
+Traverse_Body caches one scenario list per body and skips nested encapsulators.
+Its full scan collects calls and variable markers as well as the predicate's
+selected scenarios. Subsequent visits reuse the list
+(`sem_elab.adb:3102–3400`). Therefore allow two Nested_Scenarios_Map bindings,
+two list headers and **2*(S_call+W)** list elements; the factor two safely
+pays either body's traversal without relying on their disjoint membership.
+The traversed-body set peaks at two. Even allowing each of the two bodies as
+a separate DFS root gives at most four lifetime insertions. Declaration-level
+external calls do not add body traversals. Early_Call_Regions_Map and
+Unit_To_Attributes_Map add no Main entries: their derived-type/elaboration-
+pragma routes remain absent.
+
+The invocation graph deduplicates constructs by entity and relations by
+(invoker,target) **before** appending ALI records
+(`sem_elab.adb:12165–12193,13190–13241`). With T=19, allow T Saved_Constructs
+members/ALI construct records and T² Saved_Relations members/ALI relation
+records. This remains valid for the default endpoint encoding or full-path
+encoding: repeated calls do not create new entity pairs. Invocation signatures
+deduplicate their complete name/scope/line/column/location tuple
+(`ali.adb:735–767`). During this one graph pass those attributes are stable,
+so at most T signature records/map bindings are needed.
+
+Signature_Of does not format source-dependent arbitrary object identifiers.
+Its targets have the fixed spellings listed in `native_invocation_metadata`;
+their longest fully qualified spelling is 36 characters. Qualified_Scope calls
+Get_Qualified_Name (`sem_elab.adb:13309–13399`, `sem_util.adb:11155–11216`).
+Allow an already qualified child-package spelling to receive its parent
+prefix again: `system__system__secondary_stack` is 31 characters and dominates
+the scope spellings here. Repeated identical Name_Find calls reuse names, so
+T extra Name entries and 32T characters suffice, with a 31-character name
+buffer peak. Main and these selected library declarations are not instance
+copies; the 2052-character local instantiation-location buffer is still
+reserved, but creates no location Name entry. Line and column are passed as
+Nat, with no Uint allocation. The fixed source locations do not bound Main's
+line number: all legal Nat values, up to ten decimal digits, are allowed.
+
+Write_Invocation_Signature emits name, scope, line, column and `none` between
+brackets (`lib-writ.adb:1770–1807`). Its length is at most
+36+31+20+4+6=97 characters. Each graph construct/relation record is bounded by
+two such signatures plus 48 characters for its prefix, tags, separators,
+optional extra name and newline; an extra-name allowance of 36 already
+dominates the parameterless finalizer's empty/ordinary type-name case.
+Allow 20 bytes for graph attributes. The invocation-only ALI addend is thus
+`20+(T+T²)*(2*97+48)` bytes. Other ALI records and output-buffer backing remain
+separate; this does not claim a complete ALI file bound.
+
+`native_invocation_metadata` computes these terms. The three ALI tables each
+have initial capacity 2500 and 200-percent growth, and their signature map
+starts with a Create(500) request (`ali.adb:129–174`). Existing elaboration
+container initial sizes from the shared primitive inventory still apply even
+when Main adds zero members. Table/hash/list target layouts and growth peaks
+must be joined separately. No extra source constructor, Uint or dependency
+body work is hidden in these metadata rows.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -4930,10 +5044,10 @@ above. The native frontend/process is still incomplete at these explicit joins:
   unit count, must justify any fixed dependency bound.
 - **Native common metadata:** supply source-reduced fixed inputs to the now
   explicit qualification/queue, unit-scope save, overload and xref aggregate.
-  Complete elaboration scenario/target/DFS structures and invocation/ALI
-  tables, plus native warning attempts/history and text. Native expansion enables
-  invocation-graph construction, so the light frontend's disabled-graph result
-  cannot transfer. Warning options likewise require the selected native
+  The separate native invocation/elaboration join supplies its scenario,
+  target, DFS, graph/signature and invocation-ALI terms; its fixed AST input
+  still needs the fixed source reduction. Complete native warning
+  attempts/history and text. Warning options require the selected native
   configuration, not GNATprove's mask. Scope/check/expander stacks and common
   auxiliary containers need their own counts even where constructors are zero.
 - **Representations and late consumers:** join source scanner names/Uint/String

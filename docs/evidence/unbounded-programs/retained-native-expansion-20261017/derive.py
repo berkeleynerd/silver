@@ -37,6 +37,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
+         "ali.adb", "ali.ads", "lib-writ.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
          "exp_ch7.adb", "exp_ch6.adb", "exp_ch9.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
@@ -1043,6 +1044,68 @@ def native_common_metadata(*, concats, words, short_circuits, images,
         whole_native_frontend_closed=False)
 
 
+def native_invocation_metadata(source_calls, words, concats, images,
+                               fixed_AST_bound):
+    """Main-only invocation/elaboration join for the pinned target frontier.
+
+    fixed_AST_bound is the source-reduced fixed native node bound, not a new
+    measurement. It overcounts every fixed-scaffold marker and the dummy root.
+    """
+    assert min(source_calls, words, concats, images, fixed_AST_bound) >= 0
+    source_names = ("silver_io__put", "silver_io__put_line",
+                    "silver_arguments__input_is_valid",
+                    "silver_arguments__first_or_default",
+                    "silver_arguments__reject")
+    native_names = ("main", "main___finalizer", "system__img_int__image_integer",
+                    "system__secondary_stack__ss_allocate",
+                    "system__secondary_stack__ss_mark",
+                    "system__secondary_stack__ss_release")
+    names = source_names+native_names+tuple(
+        f"system__concat_{n}__str_concat_{n}" for n in range(2, 10))
+    target_count = len(names)
+    assert target_count == 19 and max(map(len, names)) == 36
+    # Get_Qualified_Name(scope) may see an already qualified child-package
+    # spelling and prefix its parent again; pay that extra System prefix.
+    scopes = ("standard", "main", "silver_io", "silver_arguments",
+              "system__system__img_int", "system__system__secondary_stack")
+    max_scope = max(map(len, scopes))
+    assert max_scope == 31
+    marker_bound = source_calls+concats+images+fixed_AST_bound
+    sig_chars = 36+max_scope+2*10+4+6  # names, Nat line/column, none, delimiters
+    relations = target_count**2
+    return dict(target_frontier=names,
+        Scenario_Reps_Main_entries=marker_bound,
+        Node_To_Scenario_Main_bindings=marker_bound,
+        Target_Reps_Main_entries=target_count,
+        Entity_To_Target_Main_bindings=target_count,
+        Declaration_Scenarios_Main_members=marker_bound,
+        Dynamic_ABE_Check_Main_members=0,
+        Library_Body_Main_members=0, Library_Spec_Main_members=0,
+        SPARK_Main_members=0, Early_Call_Regions_Main_bindings=0,
+        Unit_To_Attributes_Main_bindings=0,
+        Active_Scenario_Stack_Main_peak=3,
+        Nested_Scenarios_Main_bindings=2,
+        Nested_Scenario_list_headers=2,
+        Nested_Scenario_list_elements=2*(marker_bound+words),
+        Traversed_Bodies_Main_peak=2,
+        Traversed_Bodies_Main_lifetime_insertions=4,
+        Saved_Constructs_Main_members=target_count,
+        Saved_Relations_Main_members=relations,
+        ALI_Invocation_Constructs=target_count,
+        ALI_Invocation_Relations=relations,
+        ALI_Invocation_Signatures=target_count,
+        ALI_Signature_Map_bindings=target_count,
+        signature_scope_Name_entries=target_count,
+        signature_scope_Name_characters=target_count*(max_scope+1),
+        signature_scope_Name_buffer_peak=max_scope,
+        instantiation_location_names=0,
+        max_serialized_signature_characters=sig_chars,
+        invocation_ALI_characters=20+(target_count+relations)*(2*sig_chars+48),
+        signature_location_local_buffer=2052,
+        additional_Uint_appends=0,
+        whole_native_frontend_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1112,6 +1175,12 @@ mixed_example_counts = dict(main_example_counts, parser_nodes=100,
         native_string_bound_descriptor("image")))])
 
 result = {
+    "native_invocation_metadata_join": {
+        "examples_not_thresholds": [native_invocation_metadata(4, 50, 2, 1, 100)],
+        "fixed_input": "source-reduced fixed native AST bound; all fixed nodes conservatively dominate fixed-scaffold call markers/dummy root",
+        "modes": "modern static elaboration, no invocation-path debug trace, native Main with selected unchanged interfaces/runtime signatures",
+        "whole_native_frontend_closed": False,
+    },
     "native_common_metadata_join": {
         "examples_not_thresholds": [native_common_metadata(concats=2, words=50,
             short_circuits=1, images=1, output_calls=2, loop_depth=1,
@@ -1119,7 +1188,7 @@ result = {
             main_entities=main_native_construct_vector(**mixed_example_counts)["total"]["entity_identities"],
             fixed_entities=100, fixed_xrefs=100, newly_analyzed_units=10)],
         "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
-        "remaining_common_metadata": "native invocation/elaboration containers, warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
+        "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
         "whole_native_frontend_closed": False,
     },
     "composed_Main_native_constructor_core": {

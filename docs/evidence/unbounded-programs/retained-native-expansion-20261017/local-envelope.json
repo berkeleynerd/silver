@@ -1,4 +1,66 @@
 {
+  "native_invocation_metadata_join": {
+    "examples_not_thresholds": [
+      {
+        "target_frontier": [
+          "silver_io__put",
+          "silver_io__put_line",
+          "silver_arguments__input_is_valid",
+          "silver_arguments__first_or_default",
+          "silver_arguments__reject",
+          "main",
+          "main___finalizer",
+          "system__img_int__image_integer",
+          "system__secondary_stack__ss_allocate",
+          "system__secondary_stack__ss_mark",
+          "system__secondary_stack__ss_release",
+          "system__concat_2__str_concat_2",
+          "system__concat_3__str_concat_3",
+          "system__concat_4__str_concat_4",
+          "system__concat_5__str_concat_5",
+          "system__concat_6__str_concat_6",
+          "system__concat_7__str_concat_7",
+          "system__concat_8__str_concat_8",
+          "system__concat_9__str_concat_9"
+        ],
+        "Scenario_Reps_Main_entries": 107,
+        "Node_To_Scenario_Main_bindings": 107,
+        "Target_Reps_Main_entries": 19,
+        "Entity_To_Target_Main_bindings": 19,
+        "Declaration_Scenarios_Main_members": 107,
+        "Dynamic_ABE_Check_Main_members": 0,
+        "Library_Body_Main_members": 0,
+        "Library_Spec_Main_members": 0,
+        "SPARK_Main_members": 0,
+        "Early_Call_Regions_Main_bindings": 0,
+        "Unit_To_Attributes_Main_bindings": 0,
+        "Active_Scenario_Stack_Main_peak": 3,
+        "Nested_Scenarios_Main_bindings": 2,
+        "Nested_Scenario_list_headers": 2,
+        "Nested_Scenario_list_elements": 314,
+        "Traversed_Bodies_Main_peak": 2,
+        "Traversed_Bodies_Main_lifetime_insertions": 4,
+        "Saved_Constructs_Main_members": 19,
+        "Saved_Relations_Main_members": 361,
+        "ALI_Invocation_Constructs": 19,
+        "ALI_Invocation_Relations": 361,
+        "ALI_Invocation_Signatures": 19,
+        "ALI_Signature_Map_bindings": 19,
+        "signature_scope_Name_entries": 19,
+        "signature_scope_Name_characters": 608,
+        "signature_scope_Name_buffer_peak": 31,
+        "instantiation_location_names": 0,
+        "max_serialized_signature_characters": 97,
+        "invocation_ALI_characters": 91980,
+        "signature_location_local_buffer": 2052,
+        "additional_Uint_appends": 0,
+        "whole_native_frontend_closed": false
+      }
+    ],
+    "fixed_input": "source-reduced fixed native AST bound; all fixed nodes conservatively dominate fixed-scaffold call markers/dummy root",
+    "modes": "modern static elaboration, no invocation-path debug trace, native Main with selected unchanged interfaces/runtime signatures",
+    "whole_native_frontend_closed": false
+  },
   "native_common_metadata_join": {
     "examples_not_thresholds": [
       {
@@ -20,7 +82,7 @@
       }
     ],
     "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
-    "remaining_common_metadata": "native invocation/elaboration containers, warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
+    "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
     "whole_native_frontend_closed": false
   },
   "composed_Main_native_constructor_core": {
@@ -627,7 +689,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 90,
+  "source_files_verified": 93,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -696,6 +758,9 @@
     "exp_ch11.adb": "253fe8e8936d351afff6dc81696c9f0cae042037a39ac9ff31db3fda3d806361",
     "sem_elab.adb": "f2452a63f2fe2603c660445e51c4c687f96ed5f21784da9d5f88ab9f94cd3b0c",
     "errout.adb": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2",
+    "ali.adb": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0",
+    "ali.ads": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b",
+    "lib-writ.adb": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342",
     "targparm.adb": "a4a4720e4859263138a9138587521b9d2df7ba6da88f45a81ea86570b3438596",
     "targparm.ads": "46778f4a0d8f838a87c19163d3ee159e8573475d29c9209021c5c0f167d95d21",
     "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
