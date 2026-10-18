@@ -1,4 +1,4 @@
-# Initial CFG cleanup and loop-discovery evidence
+# Initial CFG cleanup, loop-discovery and SSA evidence
 
 Source pin: GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 Date: 2026-10-18. Native analysis host: Linux x86-64.
@@ -31,8 +31,10 @@ and this package's full-file identities. `--capture` was used only to create
 these initial text artifacts; it refuses to overwrite existing artifacts.
 `--refresh` regenerates the derived text after an intentional source-analysis
 change; it does not run a compiler. It was used to extend the retained excerpts
-and arithmetic when closing the two signed-counter obligations. No successful
-compiler/proof capture was repeated for this increment.
+and arithmetic when closing the signed-counter obligations and extending the
+analysis through the O0 fixup bridge and initial SSA construction. The package
+now pins 35 source files. No successful compiler/proof capture was repeated for
+these increments.
 
 The small tree enumeration checks the ancestor-slot arithmetic on 5,913 tiny
 rooted trees; it does not validate GCC loop discovery or replace the general
@@ -45,3 +47,11 @@ two through four vertices under the stated edge frontier, plus 256 seeded
 larger graphs. Final candidates are compared with an independent set solver.
 These finite checks support the transcription; they do not establish the
 universal bound or replace its manual invariant argument.
+
+The SSA arithmetic derives LP64 layouts from source fields, checks the PHI
+allocator's signed-shift boundary and rounded-capacity inequalities at small
+degrees and power-of-two boundaries, and checks operand-slab capacities at
+their allocation transitions. These are integer and source-layout checks, not
+compiler `sizeof` captures. The report supplies the per-variable/per-block
+counting argument and explicitly leaves later SSA updates and destruction,
+generic allocator/lifetime composition, and downstream backend stages open.

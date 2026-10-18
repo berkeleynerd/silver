@@ -1,4 +1,4 @@
-# Pinned CFG cleanup and loop source excerpts
+# Pinned CFG cleanup, loop and initial SSA source excerpts
 
 Full-file SHA256 identities are in source-manifest.json.
 LF line numbering; tabs expanded and trailing space trimmed.
@@ -745,6 +745,68 @@ LF line numbering; tabs expanded and trailing space trimmed.
 6278:
 ```
 
+## gcc/tree-cfg.cc:6293–6349
+
+```text
+6293: static basic_block
+6294: gimple_redirect_edge_and_branch_force (edge e, basic_block dest)
+6295: {
+6296:   e = gimple_redirect_edge_and_branch (e, dest);
+6297:   gcc_assert (e);
+6298:
+6299:   return NULL;
+6300: }
+6301:
+6302:
+6303: /* Splits basic block BB after statement STMT (but at least after the
+6304:    labels).  If STMT is NULL, BB is split just after the labels.  */
+6305:
+6306: static basic_block
+6307: gimple_split_block (basic_block bb, void *stmt)
+6308: {
+6309:   gimple_stmt_iterator gsi;
+6310:   gimple_stmt_iterator gsi_tgt;
+6311:   gimple_seq list;
+6312:   basic_block new_bb;
+6313:   edge e;
+6314:   edge_iterator ei;
+6315:
+6316:   new_bb = create_empty_bb (bb);
+6317:
+6318:   /* Redirect the outgoing edges.  */
+6319:   new_bb->succs = bb->succs;
+6320:   bb->succs = NULL;
+6321:   FOR_EACH_EDGE (e, ei, new_bb->succs)
+6322:     e->src = new_bb;
+6323:
+6324:   /* Get a stmt iterator pointing to the first stmt to move.  */
+6325:   if (!stmt || gimple_code ((gimple *) stmt) == GIMPLE_LABEL)
+6326:     gsi = gsi_after_labels (bb);
+6327:   else
+6328:     {
+6329:       gsi = gsi_for_stmt ((gimple *) stmt);
+6330:       gsi_next (&gsi);
+6331:     }
+6332:
+6333:   /* Move everything from GSI to the new basic block.  */
+6334:   if (gsi_end_p (gsi))
+6335:     return new_bb;
+6336:
+6337:   /* Split the statement list - avoid re-creating new containers as this
+6338:      brings ugly quadratic memory consumption in the inliner.
+6339:      (We are still quadratic since we need to update stmt BB pointers,
+6340:      sadly.)  */
+6341:   gsi_split_seq_before (&gsi, &list);
+6342:   set_bb_seq (new_bb, list);
+6343:   for (gsi_tgt = gsi_start (list);
+6344:        !gsi_end_p (gsi_tgt); gsi_next (&gsi_tgt))
+6345:     gimple_set_bb (gsi_stmt (gsi_tgt), new_bb);
+6346:
+6347:   return new_bb;
+6348: }
+6349:
+```
+
 ## gcc/tree-cfg.cc:8983–9123
 
 ```text
@@ -912,6 +974,184 @@ LF line numbering; tabs expanded and trailing space trimmed.
 9651:   gimple_stmt_iterator gsi = gsi_last_bb (bb);
 9652:   gsi_insert_seq_before (&gsi, seq, GSI_SAME_STMT);
 9653: }
+```
+
+## gcc/tree-cfg.cc:9972–10144
+
+```text
+9972: static bool
+9973: maybe_remove_writeonly_store (gimple_stmt_iterator &gsi, gimple *stmt,
+9974:                               bitmap dce_ssa_names)
+9975: {
+9976:   /* Keep access when store has side effect, i.e. in case when source
+9977:      is volatile.  */
+9978:   if (!gimple_store_p (stmt)
+9979:       || gimple_has_side_effects (stmt)
+9980:       || optimize_debug)
+9981:     return false;
+9982:
+9983:   tree lhs = get_base_address (gimple_get_lhs (stmt));
+9984:
+9985:   if (!VAR_P (lhs)
+9986:       || (!TREE_STATIC (lhs) && !DECL_EXTERNAL (lhs))
+9987:       || !varpool_node::get (lhs)->writeonly)
+9988:     return false;
+9989:
+9990:   if (dump_file && (dump_flags & TDF_DETAILS))
+9991:     {
+9992:       fprintf (dump_file, "Removing statement, writes"
+9993:                " to write only var:\n");
+9994:       print_gimple_stmt (dump_file, stmt, 0,
+9995:                          TDF_VOPS|TDF_MEMSYMS);
+9996:     }
+9997:
+9998:   /* Mark ssa name defining to be checked for simple dce. */
+9999:   if (gimple_assign_single_p (stmt))
+10000:     {
+10001:       tree rhs = gimple_assign_rhs1 (stmt);
+10002:       if (TREE_CODE (rhs) == SSA_NAME
+10003:           && !SSA_NAME_IS_DEFAULT_DEF (rhs))
+10004:         bitmap_set_bit (dce_ssa_names, SSA_NAME_VERSION (rhs));
+10005:     }
+10006:   unlink_stmt_vdef (stmt);
+10007:   gsi_remove (&gsi, true);
+10008:   release_defs (stmt);
+10009:   return true;
+10010: }
+10011:
+10012: /* IPA passes, compilation of earlier functions or inlining
+10013:    might have changed some properties, such as marked functions nothrow,
+10014:    pure, const or noreturn.
+10015:    Remove redundant edges and basic blocks, and create new ones if necessary. */
+10016:
+10017: unsigned int
+10018: execute_fixup_cfg (void)
+10019: {
+10020:   basic_block bb;
+10021:   gimple_stmt_iterator gsi;
+10022:   int todo = 0;
+10023:   cgraph_node *node = cgraph_node::get (current_function_decl);
+10024:   /* Same scaling is also done by ipa_merge_profiles.  */
+10025:   profile_count num = node->count;
+10026:   profile_count den = ENTRY_BLOCK_PTR_FOR_FN (cfun)->count;
+10027:   bool scale = num.initialized_p () && !(num == den);
+10028:   auto_bitmap dce_ssa_names;
+10029:
+10030:   if (scale)
+10031:     {
+10032:       profile_count::adjust_for_ipa_scaling (&num, &den);
+10033:       ENTRY_BLOCK_PTR_FOR_FN (cfun)->count = node->count;
+10034:       EXIT_BLOCK_PTR_FOR_FN (cfun)->count
+10035:         = EXIT_BLOCK_PTR_FOR_FN (cfun)->count.apply_scale (num, den);
+10036:     }
+10037:
+10038:   FOR_EACH_BB_FN (bb, cfun)
+10039:     {
+10040:       if (scale)
+10041:         bb->count = bb->count.apply_scale (num, den);
+10042:       for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi);)
+10043:         {
+10044:           gimple *stmt = gsi_stmt (gsi);
+10045:           tree decl = is_gimple_call (stmt)
+10046:                       ? gimple_call_fndecl (stmt)
+10047:                       : NULL;
+10048:           if (decl)
+10049:             {
+10050:               int flags = gimple_call_flags (stmt);
+10051:               if (flags & (ECF_CONST | ECF_PURE | ECF_LOOPING_CONST_OR_PURE))
+10052:                 {
+10053:                   if (gimple_in_ssa_p (cfun))
+10054:                     {
+10055:                       todo |= TODO_update_ssa | TODO_cleanup_cfg;
+10056:                       update_stmt (stmt);
+10057:                     }
+10058:                 }
+10059:               if (flags & ECF_NORETURN
+10060:                   && fixup_noreturn_call (stmt))
+10061:                 todo |= TODO_cleanup_cfg;
+10062:              }
+10063:
+10064:           /* Remove stores to variables we marked write-only. */
+10065:           if (maybe_remove_writeonly_store (gsi, stmt, dce_ssa_names))
+10066:             {
+10067:               todo |= TODO_update_ssa | TODO_cleanup_cfg;
+10068:               continue;
+10069:             }
+10070:
+10071:           /* For calls we can simply remove LHS when it is known
+10072:              to be write-only.  */
+10073:           if (is_gimple_call (stmt)
+10074:               && gimple_get_lhs (stmt))
+10075:             {
+10076:               tree lhs = get_base_address (gimple_get_lhs (stmt));
+10077:
+10078:               if (VAR_P (lhs)
+10079:                   && (TREE_STATIC (lhs) || DECL_EXTERNAL (lhs))
+10080:                   && varpool_node::get (lhs)->writeonly)
+10081:                 {
+10082:                   gimple_call_set_lhs (stmt, NULL);
+10083:                   update_stmt (stmt);
+10084:                   todo |= TODO_update_ssa | TODO_cleanup_cfg;
+10085:                 }
+10086:             }
+10087:
+10088:           gsi_next (&gsi);
+10089:         }
+10090:       if (gimple *last = *gsi_last_bb (bb))
+10091:         {
+10092:           if (maybe_clean_eh_stmt (last)
+10093:               && gimple_purge_dead_eh_edges (bb))
+10094:             todo |= TODO_cleanup_cfg;
+10095:           if (gimple_purge_dead_abnormal_call_edges (bb))
+10096:             todo |= TODO_cleanup_cfg;
+10097:         }
+10098:
+10099:       /* If we have a basic block with no successors that does not
+10100:          end with a control statement or a noreturn call end it with
+10101:          a call to __builtin_unreachable.  This situation can occur
+10102:          when inlining a noreturn call that does in fact return.  */
+10103:       if (EDGE_COUNT (bb->succs) == 0)
+10104:         {
+10105:           gimple *stmt = last_nondebug_stmt (bb);
+10106:           if (!stmt
+10107:               || (!is_ctrl_stmt (stmt)
+10108:                   && (!is_gimple_call (stmt)
+10109:                       || !gimple_call_noreturn_p (stmt))))
+10110:             {
+10111:               if (stmt && is_gimple_call (stmt))
+10112:                 gimple_call_set_ctrl_altering (stmt, false);
+10113:               stmt = gimple_build_builtin_unreachable (UNKNOWN_LOCATION);
+10114:               gimple_stmt_iterator gsi = gsi_last_bb (bb);
+10115:               gsi_insert_after (&gsi, stmt, GSI_NEW_STMT);
+10116:               if (!cfun->after_inlining)
+10117:                 if (tree fndecl = gimple_call_fndecl (stmt))
+10118:                   {
+10119:                     gcall *call_stmt = dyn_cast <gcall *> (stmt);
+10120:                     node->create_edge (cgraph_node::get_create (fndecl),
+10121:                                        call_stmt, bb->count);
+10122:                   }
+10123:             }
+10124:         }
+10125:     }
+10126:   if (scale)
+10127:     {
+10128:       update_max_bb_count ();
+10129:       compute_function_frequency ();
+10130:     }
+10131:
+10132:   if (current_loops
+10133:       && (todo & TODO_cleanup_cfg))
+10134:     loops_state_set (LOOPS_NEED_FIXUP);
+10135:
+10136:   simple_dce_from_worklist (dce_ssa_names);
+10137:
+10138:   return todo;
+10139: }
+10140:
+10141: namespace {
+10142:
+10143: const pass_data pass_data_fixup_cfg =
+10144: {
 ```
 
 ## gcc/tree-cfgcleanup.cc:85–254
@@ -1500,9 +1740,71 @@ LF line numbering; tabs expanded and trailing space trimmed.
 780:
 ```
 
-## gcc/tree-cfgcleanup.cc:850–896
+## gcc/tree-cfgcleanup.cc:788–896
 
 ```text
+788: bool
+789: fixup_noreturn_call (gimple *stmt)
+790: {
+791:   basic_block bb = gimple_bb (stmt);
+792:   bool changed = false;
+793:
+794:   if (gimple_call_builtin_p (stmt, BUILT_IN_RETURN))
+795:     return false;
+796:
+797:   /* First split basic block if stmt is not last.  */
+798:   if (stmt != gsi_stmt (gsi_last_bb (bb)))
+799:     {
+800:       if (stmt == gsi_stmt (gsi_last_nondebug_bb (bb)))
+801:         {
+802:           /* Don't split if there are only debug stmts
+803:              after stmt, that can result in -fcompare-debug
+804:              failures.  Remove the debug stmts instead,
+805:              they should be all unreachable anyway.  */
+806:           gimple_stmt_iterator gsi = gsi_for_stmt (stmt);
+807:           for (gsi_next (&gsi); !gsi_end_p (gsi); )
+808:             gsi_remove (&gsi, true);
+809:         }
+810:       else
+811:         {
+812:           split_block (bb, stmt);
+813:           changed = true;
+814:         }
+815:     }
+816:
+817:   /* If there is an LHS, remove it, but only if its type has fixed size.
+818:      The LHS will need to be recreated during RTL expansion and creating
+819:      temporaries of variable-sized types is not supported.  Also don't
+820:      do this with TREE_ADDRESSABLE types, as assign_temp will abort.
+821:      Drop LHS regardless of TREE_ADDRESSABLE, if the function call
+822:      has been changed into a call that does not return a value, like
+823:      __builtin_unreachable or __cxa_pure_virtual.  */
+824:   tree lhs = gimple_call_lhs (stmt);
+825:   if (lhs
+826:       && (should_remove_lhs_p (lhs)
+827:           || VOID_TYPE_P (TREE_TYPE (gimple_call_fntype (stmt)))))
+828:     {
+829:       gimple_call_set_lhs (stmt, NULL_TREE);
+830:
+831:       /* We need to fix up the SSA name to avoid checking errors.  */
+832:       if (TREE_CODE (lhs) == SSA_NAME)
+833:         {
+834:           tree new_var = create_tmp_reg (TREE_TYPE (lhs));
+835:           SET_SSA_NAME_VAR_OR_IDENTIFIER (lhs, new_var);
+836:           SSA_NAME_DEF_STMT (lhs) = gimple_build_nop ();
+837:           set_ssa_default_def (cfun, new_var, lhs);
+838:         }
+839:
+840:       update_stmt (stmt);
+841:     }
+842:
+843:   /* Mark the call as altering control flow.  */
+844:   if (!gimple_call_ctrl_altering_p (stmt))
+845:     {
+846:       gimple_call_set_ctrl_altering (stmt, true);
+847:       changed = true;
+848:     }
+849:
 850:   return changed;
 851: }
 852:
@@ -1965,6 +2267,39 @@ LF line numbering; tabs expanded and trailing space trimmed.
 168:   return e;
 ```
 
+## gcc/tree-ssa.cc:243–270
+
+```text
+243: target_for_debug_bind (tree var)
+244: {
+245:   if (!MAY_HAVE_DEBUG_BIND_STMTS)
+246:     return NULL_TREE;
+247:
+248:   if (TREE_CODE (var) == SSA_NAME)
+249:     {
+250:       var = SSA_NAME_VAR (var);
+251:       if (var == NULL_TREE)
+252:         return NULL_TREE;
+253:     }
+254:
+255:   if ((!VAR_P (var) || VAR_DECL_IS_VIRTUAL_OPERAND (var))
+256:       && TREE_CODE (var) != PARM_DECL)
+257:     return NULL_TREE;
+258:
+259:   if (DECL_HAS_VALUE_EXPR_P (var))
+260:     return target_for_debug_bind (DECL_VALUE_EXPR (var));
+261:
+262:   if (DECL_IGNORED_P (var))
+263:     return NULL_TREE;
+264:
+265:   /* var-tracking only tracks registers.  */
+266:   if (!is_gimple_reg_type (TREE_TYPE (var)))
+267:     return NULL_TREE;
+268:
+269:   return var;
+270: }
+```
+
 ## gcc/cfghooks.cc:502–520
 
 ```text
@@ -1989,7 +2324,53 @@ LF line numbering; tabs expanded and trailing space trimmed.
 520: }
 ```
 
-## gcc/cfghooks.cc:842–937
+## gcc/cfghooks.cc:562–602
+
+```text
+562:
+563: static edge
+564: split_block_1 (basic_block bb, void *i)
+565: {
+566:   basic_block new_bb;
+567:   edge res;
+568:
+569:   if (!cfg_hooks->split_block)
+570:     internal_error ("%s does not support split_block", cfg_hooks->name);
+571:
+572:   new_bb = cfg_hooks->split_block (bb, i);
+573:   if (!new_bb)
+574:     return NULL;
+575:
+576:   new_bb->count = bb->count;
+577:
+578:   if (dom_info_available_p (CDI_DOMINATORS))
+579:     {
+580:       redirect_immediate_dominators (CDI_DOMINATORS, bb, new_bb);
+581:       set_immediate_dominator (CDI_DOMINATORS, new_bb, bb);
+582:     }
+583:
+584:   if (current_loops != NULL)
+585:     {
+586:       edge_iterator ei;
+587:       edge e;
+588:       add_bb_to_loop (new_bb, bb->loop_father);
+589:       /* Identify all loops bb may have been the latch of and adjust them.  */
+590:       FOR_EACH_EDGE (e, ei, new_bb->succs)
+591:         if (e->dest->loop_father->latch == bb)
+592:           e->dest->loop_father->latch = new_bb;
+593:     }
+594:
+595:   res = make_single_succ_edge (bb, new_bb, EDGE_FALLTHRU);
+596:
+597:   if (bb->flags & BB_IRREDUCIBLE_LOOP)
+598:     {
+599:       new_bb->flags |= BB_IRREDUCIBLE_LOOP;
+600:       res->flags |= EDGE_IRREDUCIBLE_LOOP;
+601:     }
+602:
+```
+
+## gcc/cfghooks.cc:842–1020
 
 ```text
 842: merge_blocks (basic_block a, basic_block b)
@@ -2088,6 +2469,89 @@ LF line numbering; tabs expanded and trailing space trimmed.
 935:   class loop *loop, *ploop, *cloop;
 936:
 937:   if (!cfg_hooks->make_forwarder_block)
+938:     internal_error ("%s does not support make_forwarder_block",
+939:                     cfg_hooks->name);
+940:
+941:   fallthru = split_block_after_labels (bb);
+942:   dummy = fallthru->src;
+943:   dummy->count = profile_count::zero ();
+944:   bb = fallthru->dest;
+945:
+946:   /* Redirect back edges we want to keep.  */
+947:   for (ei = ei_start (dummy->preds); (e = ei_safe_edge (ei)); )
+948:     {
+949:       basic_block e_src;
+950:
+951:       if (redirect_edge_p (e))
+952:         {
+953:           dummy->count += e->count ();
+954:           ei_next (&ei);
+955:           continue;
+956:         }
+957:
+958:       e_src = e->src;
+959:       jump = redirect_edge_and_branch_force (e, bb);
+960:       if (jump != NULL)
+961:         {
+962:           /* If we redirected the loop latch edge, the JUMP block now acts like
+963:              the new latch of the loop.  */
+964:           if (current_loops != NULL
+965:               && dummy->loop_father != NULL
+966:               && dummy->loop_father->header == dummy
+967:               && dummy->loop_father->latch == e_src)
+968:             dummy->loop_father->latch = jump;
+969:
+970:           if (new_bb_cbk != NULL)
+971:             new_bb_cbk (jump);
+972:         }
+973:     }
+974:
+975:   if (dom_info_available_p (CDI_DOMINATORS))
+976:     {
+977:       vec<basic_block> doms_to_fix;
+978:       doms_to_fix.create (2);
+979:       doms_to_fix.quick_push (dummy);
+980:       doms_to_fix.quick_push (bb);
+981:       iterate_fix_dominators (CDI_DOMINATORS, doms_to_fix, false);
+982:       doms_to_fix.release ();
+983:     }
+984:
+985:   if (current_loops != NULL)
+986:     {
+987:       /* If we do not split a loop header, then both blocks belong to the
+988:          same loop.  In case we split loop header and do not redirect the
+989:          latch edge to DUMMY, then DUMMY belongs to the outer loop, and
+990:          BB becomes the new header.  If latch is not recorded for the loop,
+991:          we leave this updating on the caller (this may only happen during
+992:          loop analysis).  */
+993:       loop = dummy->loop_father;
+994:       if (loop->header == dummy
+995:           && loop->latch != NULL
+996:           && find_edge (loop->latch, dummy) == NULL)
+997:         {
+998:           remove_bb_from_loops (dummy);
+999:           loop->header = bb;
+1000:
+1001:           cloop = loop;
+1002:           FOR_EACH_EDGE (e, ei, dummy->preds)
+1003:             {
+1004:               cloop = find_common_loop (cloop, e->src->loop_father);
+1005:             }
+1006:           add_bb_to_loop (dummy, cloop);
+1007:         }
+1008:
+1009:       /* In case we split loop latch, update it.  */
+1010:       for (ploop = loop; ploop; ploop = loop_outer (ploop))
+1011:         if (ploop->latch == dummy)
+1012:           ploop->latch = bb;
+1013:     }
+1014:
+1015:   cfg_hooks->make_forwarder_block (fallthru);
+1016:
+1017:   return fallthru;
+1018: }
+1019:
+1020: /* Try to make the edge fallthru.  */
 ```
 
 ## gcc/gimple-fold.cc:11005–11058
@@ -5131,6 +5595,151 @@ LF line numbering; tabs expanded and trailing space trimmed.
 134: }
 ```
 
+## gcc/loop-init.cc:200–339
+
+```text
+200: unsigned
+201: fix_loop_structure (bitmap changed_bbs)
+202: {
+203:   basic_block bb;
+204:   int record_exits = 0;
+205:   unsigned old_nloops, i;
+206:
+207:   timevar_push (TV_LOOP_INIT);
+208:
+209:   if (dump_file && (dump_flags & TDF_DETAILS))
+210:     fprintf (dump_file, "fix_loop_structure: fixing up loops for function\n");
+211:
+212:   /* We need exact and fast dominance info to be available.  */
+213:   gcc_assert (dom_info_state (CDI_DOMINATORS) == DOM_OK);
+214:
+215:   if (loops_state_satisfies_p (LOOPS_HAVE_RECORDED_EXITS))
+216:     {
+217:       release_recorded_exits (cfun);
+218:       record_exits = LOOPS_HAVE_RECORDED_EXITS;
+219:     }
+220:
+221:   /* Remember the depth of the blocks in the loop hierarchy, so that we can
+222:      recognize blocks whose loop nesting relationship has changed.  */
+223:   if (changed_bbs)
+224:     FOR_EACH_BB_FN (bb, cfun)
+225:       bb->aux = (void *) (size_t) loop_depth (bb->loop_father);
+226:
+227:   /* Remove the dead loops from structures.  We start from the innermost
+228:      loops, so that when we remove the loops, we know that the loops inside
+229:      are preserved, and do not waste time relinking loops that will be
+230:      removed later.  */
+231:   for (auto loop : loops_list (cfun, LI_FROM_INNERMOST))
+232:     {
+233:       /* Detect the case that the loop is no longer present even though
+234:          it wasn't marked for removal.
+235:          ???  If we do that we can get away with not marking loops for
+236:          removal at all.  And possibly avoid some spurious removals.  */
+237:       if (loop->header
+238:           && bb_loop_header_p (loop->header))
+239:         continue;
+240:
+241:       if (dump_file && (dump_flags & TDF_DETAILS))
+242:         fprintf (dump_file, "fix_loop_structure: removing loop %d\n",
+243:                  loop->num);
+244:
+245:       while (loop->inner)
+246:         {
+247:           class loop *ploop = loop->inner;
+248:           flow_loop_tree_node_remove (ploop);
+249:           flow_loop_tree_node_add (loop_outer (loop), ploop);
+250:         }
+251:
+252:       /* Remove the loop.  */
+253:       if (loop->header)
+254:         loop->former_header = loop->header;
+255:       else
+256:         gcc_assert (loop->former_header != NULL);
+257:       loop->header = NULL;
+258:       flow_loop_tree_node_remove (loop);
+259:     }
+260:
+261:   /* Remember the number of loops so we can return how many new loops
+262:      flow_loops_find discovered.  */
+263:   old_nloops = number_of_loops (cfun);
+264:
+265:   /* Re-compute loop structure in-place.  */
+266:   flow_loops_find (current_loops);
+267:
+268:   /* Mark the blocks whose loop has changed.  */
+269:   if (changed_bbs)
+270:     {
+271:       FOR_EACH_BB_FN (bb, cfun)
+272:         {
+273:           if ((void *) (size_t) loop_depth (bb->loop_father) != bb->aux)
+274:             bitmap_set_bit (changed_bbs, bb->index);
+275:
+276:           bb->aux = NULL;
+277:         }
+278:     }
+279:
+280:   /* Finally free deleted loops.  */
+281:   unsigned n_deleted = 0;
+282:   class loop *loop;
+283:   FOR_EACH_VEC_ELT (*get_loops (cfun), i, loop)
+284:     if (loop && loop->header == NULL)
+285:       {
+286:         if (dump_file
+287:             && ((unsigned) loop->former_header->index
+288:                 < basic_block_info_for_fn (cfun)->length ()))
+289:           {
+290:             basic_block former_header
+291:               = BASIC_BLOCK_FOR_FN (cfun, loop->former_header->index);
+292:             /* If the old header still exists we want to check if the
+293:                original loop is re-discovered or the old header is now
+294:                part of a newly discovered loop.
+295:                In both cases we should have avoided removing the loop.  */
+296:             if (former_header == loop->former_header)
+297:               {
+298:                 if (former_header->loop_father->header == former_header)
+299:                   fprintf (dump_file, "fix_loop_structure: rediscovered "
+300:                            "removed loop %d as loop %d with old header %d\n",
+301:                            loop->num, former_header->loop_father->num,
+302:                            former_header->index);
+303:                 else if ((unsigned) former_header->loop_father->num
+304:                          >= old_nloops)
+305:                   fprintf (dump_file, "fix_loop_structure: header %d of "
+306:                            "removed loop %d is part of the newly "
+307:                            "discovered loop %d with header %d\n",
+308:                            former_header->index, loop->num,
+309:                            former_header->loop_father->num,
+310:                            former_header->loop_father->header->index);
+311:               }
+312:           }
+313:         (*get_loops (cfun))[i] = NULL;
+314:         flow_loop_free (loop);
+315:         n_deleted++;
+316:       }
+317:
+318:   /* If we deleted loops then the cached scalar evolutions referring to
+319:      those loops become invalid.  */
+320:   if (n_deleted > 0 && scev_initialized_p ())
+321:     scev_reset_htab ();
+322:
+323:   loops_state_clear (LOOPS_NEED_FIXUP);
+324:
+325:   /* Apply flags to loops.  */
+326:   apply_loop_flags (current_loops->state | record_exits);
+327:
+328:   checking_verify_loop_structure ();
+329:
+330:   timevar_pop (TV_LOOP_INIT);
+331:
+332:   return number_of_loops (cfun) - old_nloops + n_deleted;
+333: }
+334:
+335:
+336: /* The RTL loop superpass.  The actual passes are subpasses.  See passes.cc for
+337:    more on that.  */
+338:
+339: namespace {
+```
+
 ## gcc/cfganal.cc:979–1088
 
 ```text
@@ -5244,4 +5853,2803 @@ LF line numbering; tabs expanded and trailing space trimmed.
 1086:     /* The number of nodes visited should be the number of blocks.  */
 1087:     gcc_assert (pre_order_num == n_basic_blocks_for_fn (cfun));
 1088:   else
+```
+
+## gcc/cfganal.cc:1639–1731
+
+```text
+1639:    of the dominance frontiers, no more, no less.
+1640: */
+1641:
+1642: void
+1643: compute_dominance_frontiers (bitmap_head *frontiers)
+1644: {
+1645:   timevar_push (TV_DOM_FRONTIERS);
+1646:
+1647:   edge p;
+1648:   edge_iterator ei;
+1649:   basic_block b;
+1650:   FOR_EACH_BB_FN (b, cfun)
+1651:     {
+1652:       if (EDGE_COUNT (b->preds) >= 2)
+1653:         {
+1654:           basic_block domsb = get_immediate_dominator (CDI_DOMINATORS, b);
+1655:           FOR_EACH_EDGE (p, ei, b->preds)
+1656:             {
+1657:               basic_block runner = p->src;
+1658:               if (runner == ENTRY_BLOCK_PTR_FOR_FN (cfun))
+1659:                 continue;
+1660:
+1661:               while (runner != domsb)
+1662:                 {
+1663:                   if (!bitmap_set_bit (&frontiers[runner->index], b->index))
+1664:                     break;
+1665:                   runner = get_immediate_dominator (CDI_DOMINATORS, runner);
+1666:                 }
+1667:             }
+1668:         }
+1669:     }
+1670:
+1671:   timevar_pop (TV_DOM_FRONTIERS);
+1672: }
+1673:
+1674: /* Given a set of blocks with variable definitions (DEF_BLOCKS),
+1675:    return a bitmap with all the blocks in the iterated dominance
+1676:    frontier of the blocks in DEF_BLOCKS.  DFS contains dominance
+1677:    frontier information as returned by compute_dominance_frontiers.
+1678:
+1679:    The resulting set of blocks are the potential sites where PHI nodes
+1680:    are needed.  The caller is responsible for freeing the memory
+1681:    allocated for the return value.  */
+1682:
+1683: bitmap
+1684: compute_idf (bitmap def_blocks, bitmap_head *dfs)
+1685: {
+1686:   bitmap_iterator bi, bi2;
+1687:   unsigned bb_index, i;
+1688:   bitmap phi_insertion_points;
+1689:
+1690:   phi_insertion_points = BITMAP_ALLOC (NULL);
+1691:
+1692:   /* The initial workset is the DEF_BLOCKs, process that first,
+1693:      seeding phi_insertion_points as the start of the worklist
+1694:      for the iteration which then also serves as a visited set.  */
+1695:   EXECUTE_IF_SET_IN_BITMAP (def_blocks, 0, bb_index, bi2)
+1696:     {
+1697:       /* Since the registration of NEW -> OLD name mappings is done
+1698:          separately from the call to update_ssa, when updating the SSA
+1699:          form, the basic blocks where new and/or old names are defined
+1700:          may have disappeared by CFG cleanup calls.  In this case,
+1701:          we may pull a non-existing block from the work stack.  */
+1702:       gcc_checking_assert (bb_index
+1703:                            < (unsigned) last_basic_block_for_fn (cfun));
+1704:
+1705:       /* The population counts of the dominance frontiers is low
+1706:          compared to that of phi_insertion_points which approaches
+1707:          the IDF and of work_set which is at most that of the IDF
+1708:          as well.  That makes iterating over the DFS bitmap preferential
+1709:          to whole bitmap operations involving also phi_insertion_points.  */
+1710:       EXECUTE_IF_SET_IN_BITMAP (&dfs[bb_index], 0, i, bi)
+1711:         bitmap_set_bit (phi_insertion_points, i);
+1712:     }
+1713:
+1714:   /* Seed the work set with the initial phi_insertion_points.  */
+1715:   auto_vec<int, 64> work_set (n_basic_blocks_for_fn (cfun));
+1716:   EXECUTE_IF_SET_IN_BITMAP (phi_insertion_points, 0, i, bi)
+1717:     work_set.quick_push (i);
+1718:
+1719:   /* Pop a block off the workset, add every block that appears in
+1720:      the original block's DF that we have not already processed to
+1721:      the workset.  Iterate until the workset is empty.   Blocks
+1722:      which are added to the workset are potential sites for
+1723:      PHI nodes.  */
+1724:   while (!work_set.is_empty ())
+1725:     {
+1726:       bb_index = work_set.pop ();
+1727:       gcc_checking_assert (bb_index
+1728:                            < (unsigned) last_basic_block_for_fn (cfun));
+1729:       EXECUTE_IF_SET_IN_BITMAP (&dfs[bb_index], 0, i, bi)
+1730:         if (bitmap_set_bit (phi_insertion_points, i))
+1731:           work_set.quick_push (i);
+```
+
+## gcc/tree-into-ssa.cc:56–69
+
+```text
+56: struct def_blocks
+57: {
+58:   /* Blocks that contain definitions of VAR.  Bit I will be set if the
+59:      Ith block contains a definition of VAR.  */
+60:   bitmap def_blocks;
+61:
+62:   /* Blocks that contain a PHI node for VAR.  */
+63:   bitmap phi_blocks;
+64:
+65:   /* Blocks where VAR is live-on-entry.  Similar semantics as
+66:      DEF_BLOCKS.  */
+67:   bitmap livein_blocks;
+68: };
+69:
+```
+
+## gcc/tree-into-ssa.cc:152–174
+
+```text
+152: struct common_info
+153: {
+154:   /* This field indicates whether or not the variable may need PHI nodes.
+155:      See the enum's definition for more detailed information about the
+156:      states.  */
+157:   ENUM_BITFIELD (need_phi_state) need_phi_state : 2;
+158:
+159:   /* The current reaching definition replacing this var.  */
+160:   tree current_def;
+161:
+162:   /* Definitions for this var.  */
+163:   struct def_blocks def_blocks;
+164: };
+165:
+166: /* Information stored for decls.  */
+167: struct var_info
+168: {
+169:   /* The variable.  */
+170:   tree var;
+171:
+172:   /* Information stored for both SSA names and decls.  */
+173:   common_info info;
+174: };
+```
+
+## gcc/tree-into-ssa.cc:354–375
+
+```text
+354:   var_info vi;
+355:   var_info **slot;
+356:   vi.var = decl;
+357:   slot = var_infos->find_slot_with_hash (&vi, DECL_UID (decl), INSERT);
+358:   if (*slot == NULL)
+359:     {
+360:       var_info *v = XCNEW (var_info);
+361:       v->var = decl;
+362:       *slot = v;
+363:       return v;
+364:     }
+365:   return *slot;
+366: }
+367:
+368:
+369: /* Clears info for SSA names.  */
+370:
+371: static void
+372: clear_ssa_name_info (void)
+373: {
+374:   current_info_for_ssa_name_age++;
+375:
+```
+
+## gcc/tree-into-ssa.cc:450–466
+
+```text
+450:
+451: /* Return the set of blocks where variable VAR is defined and the blocks
+452:    where VAR is live on entry (livein).  If no entry is found in
+453:    DEF_BLOCKS, a new one is created and returned.  */
+454:
+455: static inline def_blocks *
+456: get_def_blocks_for (common_info *info)
+457: {
+458:   def_blocks *db_p = &info->def_blocks;
+459:   if (!db_p->def_blocks)
+460:     {
+461:       db_p->def_blocks = BITMAP_ALLOC (&update_ssa_obstack);
+462:       db_p->phi_blocks = BITMAP_ALLOC (&update_ssa_obstack);
+463:       db_p->livein_blocks = BITMAP_ALLOC (&update_ssa_obstack);
+464:     }
+465:
+466:   return db_p;
+```
+
+## gcc/tree-into-ssa.cc:629–921
+
+```text
+629:   bitmap_set_bit (new_ssa_names, SSA_NAME_VERSION (new_tree));
+630: }
+631:
+632:
+633: /* Call back for walk_dominator_tree used to collect definition sites
+634:    for every variable in the function.  For every statement S in block
+635:    BB:
+636:
+637:    1- Variables defined by S in the DEFS of S are marked in the bitmap
+638:       KILLS.
+639:
+640:    2- If S uses a variable VAR and there is no preceding kill of VAR,
+641:       then it is marked in the LIVEIN_BLOCKS bitmap associated with VAR.
+642:
+643:    This information is used to determine which variables are live
+644:    across block boundaries to reduce the number of PHI nodes
+645:    we create.  */
+646:
+647: static void
+648: mark_def_sites (basic_block bb, gimple *stmt, bitmap kills)
+649: {
+650:   tree def;
+651:   use_operand_p use_p;
+652:   ssa_op_iter iter;
+653:
+654:   /* Since this is the first time that we rewrite the program into SSA
+655:      form, force an operand scan on every statement.  */
+656:   update_stmt (stmt);
+657:
+658:   gcc_checking_assert (blocks_to_update == NULL);
+659:   set_register_defs (stmt, false);
+660:   set_rewrite_uses (stmt, false);
+661:
+662:   if (is_gimple_debug (stmt))
+663:     {
+664:       FOR_EACH_SSA_USE_OPERAND (use_p, stmt, iter, SSA_OP_USE)
+665:         {
+666:           tree sym = USE_FROM_PTR (use_p);
+667:           gcc_checking_assert (DECL_P (sym));
+668:           set_rewrite_uses (stmt, true);
+669:         }
+670:       if (rewrite_uses_p (stmt))
+671:         bitmap_set_bit (interesting_blocks, bb->index);
+672:       return;
+673:     }
+674:
+675:   /* If a variable is used before being set, then the variable is live
+676:      across a block boundary, so mark it live-on-entry to BB.  */
+677:   FOR_EACH_SSA_USE_OPERAND (use_p, stmt, iter, SSA_OP_ALL_USES)
+678:     {
+679:       tree sym = USE_FROM_PTR (use_p);
+680:       if (TREE_CODE (sym) == SSA_NAME)
+681:         continue;
+682:       gcc_checking_assert (DECL_P (sym));
+683:       if (!bitmap_bit_p (kills, DECL_UID (sym)))
+684:         set_livein_block (sym, bb);
+685:       set_rewrite_uses (stmt, true);
+686:     }
+687:
+688:   /* Now process the defs.  Mark BB as the definition block and add
+689:      each def to the set of killed symbols.  */
+690:   FOR_EACH_SSA_TREE_OPERAND (def, stmt, iter, SSA_OP_ALL_DEFS)
+691:     {
+692:       if (TREE_CODE (def) == SSA_NAME)
+693:         continue;
+694:       gcc_checking_assert (DECL_P (def));
+695:       set_def_block (def, bb, false);
+696:       bitmap_set_bit (kills, DECL_UID (def));
+697:       set_register_defs (stmt, true);
+698:     }
+699:
+700:   /* If we found the statement interesting then also mark the block BB
+701:      as interesting.  */
+702:   if (rewrite_uses_p (stmt) || register_defs_p (stmt))
+703:     bitmap_set_bit (interesting_blocks, bb->index);
+704: }
+705:
+706: /* Structure used by prune_unused_phi_nodes to record bounds of the intervals
+707:    in the dfs numbering of the dominance tree.  */
+708:
+709: struct dom_dfsnum
+710: {
+711:   /* Basic block whose index this entry corresponds to.  */
+712:   unsigned bb_index;
+713:
+714:   /* The dfs number of this node.  */
+715:   unsigned dfs_num;
+716: };
+717:
+718: /* Compares two entries of type struct dom_dfsnum by dfs_num field.  Callback
+719:    for qsort.  */
+720:
+721: static int
+722: cmp_dfsnum (const void *a, const void *b)
+723: {
+724:   const struct dom_dfsnum *const da = (const struct dom_dfsnum *) a;
+725:   const struct dom_dfsnum *const db = (const struct dom_dfsnum *) b;
+726:
+727:   return (int) da->dfs_num - (int) db->dfs_num;
+728: }
+729:
+730: /* Among the intervals starting at the N points specified in DEFS, find
+731:    the one that contains S, and return its bb_index.  */
+732:
+733: static unsigned
+734: find_dfsnum_interval (struct dom_dfsnum *defs, unsigned n, unsigned s)
+735: {
+736:   unsigned f = 0, t = n, m;
+737:
+738:   while (t > f + 1)
+739:     {
+740:       m = (f + t) / 2;
+741:       if (defs[m].dfs_num <= s)
+742:         f = m;
+743:       else
+744:         t = m;
+745:     }
+746:
+747:   return defs[f].bb_index;
+748: }
+749:
+750: /* Clean bits from PHIS for phi nodes whose value cannot be used in USES.
+751:    KILLS is a bitmap of blocks where the value is defined before any use.  */
+752:
+753: static void
+754: prune_unused_phi_nodes (bitmap phis, bitmap kills, bitmap uses)
+755: {
+756:   bitmap_iterator bi;
+757:   unsigned i, b, p, u, top;
+758:   bitmap live_phis;
+759:   basic_block def_bb, use_bb;
+760:   edge e;
+761:   edge_iterator ei;
+762:   bitmap to_remove;
+763:   struct dom_dfsnum *defs;
+764:   unsigned n_defs, adef;
+765:
+766:   if (bitmap_empty_p (uses))
+767:     {
+768:       bitmap_clear (phis);
+769:       return;
+770:     }
+771:
+772:   /* The phi must dominate a use, or an argument of a live phi.  Also, we
+773:      do not create any phi nodes in def blocks, unless they are also livein.  */
+774:   to_remove = BITMAP_ALLOC (NULL);
+775:   bitmap_and_compl (to_remove, kills, uses);
+776:   bitmap_and_compl_into (phis, to_remove);
+777:   if (bitmap_empty_p (phis))
+778:     {
+779:       BITMAP_FREE (to_remove);
+780:       return;
+781:     }
+782:
+783:   /* We want to remove the unnecessary phi nodes, but we do not want to compute
+784:      liveness information, as that may be linear in the size of CFG, and if
+785:      there are lot of different variables to rewrite, this may lead to quadratic
+786:      behavior.
+787:
+788:      Instead, we basically emulate standard dce.  We put all uses to worklist,
+789:      then for each of them find the nearest def that dominates them.  If this
+790:      def is a phi node, we mark it live, and if it was not live before, we
+791:      add the predecessors of its basic block to the worklist.
+792:
+793:      To quickly locate the nearest def that dominates use, we use dfs numbering
+794:      of the dominance tree (that is already available in order to speed up
+795:      queries).  For each def, we have the interval given by the dfs number on
+796:      entry to and on exit from the corresponding subtree in the dominance tree.
+797:      The nearest dominator for a given use is the smallest of these intervals
+798:      that contains entry and exit dfs numbers for the basic block with the use.
+799:      If we store the bounds for all the uses to an array and sort it, we can
+800:      locate the nearest dominating def in logarithmic time by binary search.*/
+801:   bitmap_ior (to_remove, kills, phis);
+802:   n_defs = bitmap_count_bits (to_remove);
+803:   adef = 2 * n_defs + 1;
+804:   defs = XNEWVEC (struct dom_dfsnum, adef);
+805:   defs[0].bb_index = 1;
+806:   defs[0].dfs_num = 0;
+807:   struct dom_dfsnum *head = defs + 1, *tail = defs + adef;
+808:   EXECUTE_IF_SET_IN_BITMAP (to_remove, 0, i, bi)
+809:     {
+810:       def_bb = BASIC_BLOCK_FOR_FN (cfun, i);
+811:       head->bb_index = i;
+812:       head->dfs_num = bb_dom_dfs_in (CDI_DOMINATORS, def_bb);
+813:       head++, tail--;
+814:       tail->bb_index = i;
+815:       tail->dfs_num = bb_dom_dfs_out (CDI_DOMINATORS, def_bb);
+816:     }
+817:   gcc_checking_assert (head == tail);
+818:   BITMAP_FREE (to_remove);
+819:   qsort (defs, adef, sizeof (struct dom_dfsnum), cmp_dfsnum);
+820:   gcc_assert (defs[0].bb_index == 1);
+821:
+822:   /* Now each DEFS entry contains the number of the basic block to that the
+823:      dfs number corresponds.  Change them to the number of basic block that
+824:      corresponds to the interval following the dfs number.  Also, for the
+825:      dfs_out numbers, increase the dfs number by one (so that it corresponds
+826:      to the start of the following interval, not to the end of the current
+827:      one).  We use WORKLIST as a stack.  */
+828:   auto_vec<int> worklist (n_defs + 1);
+829:   worklist.quick_push (1);
+830:   top = 1;
+831:   n_defs = 1;
+832:   for (i = 1; i < adef; i++)
+833:     {
+834:       b = defs[i].bb_index;
+835:       if (b == top)
+836:         {
+837:           /* This is a closing element.  Interval corresponding to the top
+838:              of the stack after removing it follows.  */
+839:           worklist.pop ();
+840:           top = worklist[worklist.length () - 1];
+841:           defs[n_defs].bb_index = top;
+842:           defs[n_defs].dfs_num = defs[i].dfs_num + 1;
+843:         }
+844:       else
+845:         {
+846:           /* Opening element.  Nothing to do, just push it to the stack and move
+847:              it to the correct position.  */
+848:           defs[n_defs].bb_index = defs[i].bb_index;
+849:           defs[n_defs].dfs_num = defs[i].dfs_num;
+850:           worklist.quick_push (b);
+851:           top = b;
+852:         }
+853:
+854:       /* If this interval starts at the same point as the previous one, cancel
+855:          the previous one.  */
+856:       if (defs[n_defs].dfs_num == defs[n_defs - 1].dfs_num)
+857:         defs[n_defs - 1].bb_index = defs[n_defs].bb_index;
+858:       else
+859:         n_defs++;
+860:     }
+861:   worklist.pop ();
+862:   gcc_assert (worklist.is_empty ());
+863:
+864:   /* Now process the uses.  */
+865:   live_phis = BITMAP_ALLOC (NULL);
+866:   EXECUTE_IF_SET_IN_BITMAP (uses, 0, i, bi)
+867:     {
+868:       worklist.safe_push (i);
+869:     }
+870:
+871:   while (!worklist.is_empty ())
+872:     {
+873:       b = worklist.pop ();
+874:       if (b == ENTRY_BLOCK)
+875:         continue;
+876:
+877:       /* If there is a phi node in USE_BB, it is made live.  Otherwise,
+878:          find the def that dominates the immediate dominator of USE_BB
+879:          (the kill in USE_BB does not dominate the use).  */
+880:       if (bitmap_bit_p (phis, b))
+881:         p = b;
+882:       else
+883:         {
+884:           use_bb = get_immediate_dominator (CDI_DOMINATORS,
+885:                                             BASIC_BLOCK_FOR_FN (cfun, b));
+886:           p = find_dfsnum_interval (defs, n_defs,
+887:                                     bb_dom_dfs_in (CDI_DOMINATORS, use_bb));
+888:           if (!bitmap_bit_p (phis, p))
+889:             continue;
+890:         }
+891:
+892:       /* If the phi node is already live, there is nothing to do.  */
+893:       if (!bitmap_set_bit (live_phis, p))
+894:         continue;
+895:
+896:       /* Add the new uses to the worklist.  */
+897:       def_bb = BASIC_BLOCK_FOR_FN (cfun, p);
+898:       FOR_EACH_EDGE (e, ei, def_bb->preds)
+899:         {
+900:           u = e->src->index;
+901:           if (bitmap_bit_p (uses, u))
+902:             continue;
+903:
+904:           /* In case there is a kill directly in the use block, do not record
+905:              the use (this is also necessary for correctness, as we assume that
+906:              uses dominated by a def directly in their block have been filtered
+907:              out before).  */
+908:           if (bitmap_bit_p (kills, u))
+909:             continue;
+910:
+911:           bitmap_set_bit (uses, u);
+912:           worklist.safe_push (u);
+913:         }
+914:     }
+915:
+916:   bitmap_copy (phis, live_phis);
+917:   BITMAP_FREE (live_phis);
+918:   free (defs);
+919: }
+920:
+921: /* Return the set of blocks where variable VAR is defined and the blocks
+```
+
+## gcc/tree-into-ssa.cc:962–1176
+
+```text
+962: insert_phi_nodes_for (tree var, bitmap phi_insertion_points, bool update_p)
+963: {
+964:   unsigned bb_index;
+965:   edge e;
+966:   gphi *phi;
+967:   basic_block bb;
+968:   bitmap_iterator bi;
+969:   def_blocks *def_map = find_def_blocks_for (var);
+970:
+971:   /* Remove the blocks where we already have PHI nodes for VAR.  */
+972:   bitmap_and_compl_into (phi_insertion_points, def_map->phi_blocks);
+973:
+974:   /* Remove obviously useless phi nodes.  */
+975:   prune_unused_phi_nodes (phi_insertion_points, def_map->def_blocks,
+976:                           def_map->livein_blocks);
+977:
+978:   /* And insert the PHI nodes.  */
+979:   EXECUTE_IF_SET_IN_BITMAP (phi_insertion_points, 0, bb_index, bi)
+980:     {
+981:       bb = BASIC_BLOCK_FOR_FN (cfun, bb_index);
+982:       if (update_p)
+983:         mark_block_for_update (bb);
+984:
+985:       if (dump_file && (dump_flags & TDF_DETAILS))
+986:         {
+987:           fprintf (dump_file, "creating PHI node in block #%d for ", bb_index);
+988:           print_generic_expr (dump_file, var, TDF_SLIM);
+989:           fprintf (dump_file, "\n");
+990:         }
+991:       phi = NULL;
+992:
+993:       if (TREE_CODE (var) == SSA_NAME)
+994:         {
+995:           /* If we are rewriting SSA names, create the LHS of the PHI
+996:              node by duplicating VAR.  This is useful in the case of
+997:              pointers, to also duplicate pointer attributes (alias
+998:              information, in particular).  */
+999:           edge_iterator ei;
+1000:           tree new_lhs;
+1001:
+1002:           gcc_checking_assert (update_p);
+1003:           new_lhs = duplicate_ssa_name (var, NULL);
+1004:           phi = create_phi_node (new_lhs, bb);
+1005:           add_new_name_mapping (new_lhs, var);
+1006:
+1007:           /* Add VAR to every argument slot of PHI.  We need VAR in
+1008:              every argument so that rewrite_update_phi_arguments knows
+1009:              which name is this PHI node replacing.  If VAR is a
+1010:              symbol marked for renaming, this is not necessary, the
+1011:              renamer will use the symbol on the LHS to get its
+1012:              reaching definition.  */
+1013:           FOR_EACH_EDGE (e, ei, bb->preds)
+1014:             add_phi_arg (phi, var, e, UNKNOWN_LOCATION);
+1015:         }
+1016:       else
+1017:         {
+1018:           tree tracked_var;
+1019:
+1020:           gcc_checking_assert (DECL_P (var));
+1021:           phi = create_phi_node (var, bb);
+1022:
+1023:           tracked_var = target_for_debug_bind (var);
+1024:           if (tracked_var)
+1025:             {
+1026:               gimple *note = gimple_build_debug_bind (tracked_var,
+1027:                                                       PHI_RESULT (phi),
+1028:                                                      phi);
+1029:               gimple_stmt_iterator si = gsi_after_labels (bb);
+1030:               gsi_insert_before (&si, note, GSI_SAME_STMT);
+1031:             }
+1032:         }
+1033:
+1034:       /* Mark this PHI node as interesting for update_ssa.  */
+1035:       set_register_defs (phi, true);
+1036:       mark_phi_for_rewrite (bb, phi);
+1037:     }
+1038: }
+1039:
+1040: /* Sort var_infos after DECL_UID of their var.  */
+1041:
+1042: static int
+1043: insert_phi_nodes_compare_var_infos (const void *a, const void *b)
+1044: {
+1045:   const var_info *defa = *(var_info * const *)a;
+1046:   const var_info *defb = *(var_info * const *)b;
+1047:   if (DECL_UID (defa->var) < DECL_UID (defb->var))
+1048:     return -1;
+1049:   else
+1050:     return 1;
+1051: }
+1052:
+1053: /* Insert PHI nodes at the dominance frontier of blocks with variable
+1054:    definitions.  DFS contains the dominance frontier information for
+1055:    the flowgraph.  */
+1056:
+1057: static void
+1058: insert_phi_nodes (bitmap_head *dfs)
+1059: {
+1060:   hash_table<var_info_hasher>::iterator hi;
+1061:   unsigned i;
+1062:   var_info *info;
+1063:
+1064:   /* When the gimplifier introduces SSA names it cannot easily avoid
+1065:      situations where abnormal edges added by CFG construction break
+1066:      the use-def dominance requirement.  For this case rewrite SSA
+1067:      names with broken use-def dominance out-of-SSA and register them
+1068:      for PHI insertion.  We only need to do this if abnormal edges
+1069:      can appear in the function.  */
+1070:   tree name;
+1071:   if (cfun->calls_setjmp
+1072:       || cfun->has_nonlocal_label)
+1073:     FOR_EACH_SSA_NAME (i, name, cfun)
+1074:       {
+1075:         gimple *def_stmt = SSA_NAME_DEF_STMT (name);
+1076:         if (SSA_NAME_IS_DEFAULT_DEF (name))
+1077:           continue;
+1078:
+1079:         basic_block def_bb = gimple_bb (def_stmt);
+1080:         imm_use_iterator it;
+1081:         gimple *use_stmt;
+1082:         bool need_phis = false;
+1083:         FOR_EACH_IMM_USE_STMT (use_stmt, it, name)
+1084:           {
+1085:             basic_block use_bb = gimple_bb (use_stmt);
+1086:             if (use_bb != def_bb
+1087:                 && ! dominated_by_p (CDI_DOMINATORS, use_bb, def_bb))
+1088:               need_phis = true;
+1089:           }
+1090:         if (need_phis)
+1091:           {
+1092:             tree var = create_tmp_reg (TREE_TYPE (name));
+1093:             use_operand_p use_p;
+1094:             FOR_EACH_IMM_USE_STMT (use_stmt, it, name)
+1095:               {
+1096:                 basic_block use_bb = gimple_bb (use_stmt);
+1097:                 FOR_EACH_IMM_USE_ON_STMT (use_p, it)
+1098:                     SET_USE (use_p, var);
+1099:                 update_stmt (use_stmt);
+1100:                 set_livein_block (var, use_bb);
+1101:                 set_rewrite_uses (use_stmt, true);
+1102:                 bitmap_set_bit (interesting_blocks, use_bb->index);
+1103:               }
+1104:             def_operand_p def_p;
+1105:             ssa_op_iter dit;
+1106:             FOR_EACH_SSA_DEF_OPERAND (def_p, def_stmt, dit, SSA_OP_DEF)
+1107:               if (DEF_FROM_PTR (def_p) == name)
+1108:                 SET_DEF (def_p, var);
+1109:             update_stmt (def_stmt);
+1110:             set_def_block (var, def_bb, false);
+1111:             set_register_defs (def_stmt, true);
+1112:             bitmap_set_bit (interesting_blocks, def_bb->index);
+1113:             release_ssa_name (name);
+1114:           }
+1115:       }
+1116:
+1117:   auto_vec<var_info *> vars (var_infos->elements ());
+1118:   FOR_EACH_HASH_TABLE_ELEMENT (*var_infos, info, var_info_p, hi)
+1119:     if (info->info.need_phi_state != NEED_PHI_STATE_NO)
+1120:       vars.quick_push (info);
+1121:
+1122:   /* Do two stages to avoid code generation differences for UID
+1123:      differences but no UID ordering differences.  */
+1124:   vars.qsort (insert_phi_nodes_compare_var_infos);
+1125:
+1126:   FOR_EACH_VEC_ELT (vars, i, info)
+1127:     {
+1128:       bitmap idf = compute_idf (info->info.def_blocks.def_blocks, dfs);
+1129:       insert_phi_nodes_for (info->var, idf, false);
+1130:       BITMAP_FREE (idf);
+1131:     }
+1132: }
+1133:
+1134:
+1135: /* Push SYM's current reaching definition into BLOCK_DEFS_STACK and
+1136:    register DEF (an SSA_NAME) to be a new definition for SYM.  */
+1137:
+1138: static void
+1139: register_new_def (tree def, tree sym)
+1140: {
+1141:   common_info *info = get_common_info (sym);
+1142:   tree currdef;
+1143:
+1144:   /* If this variable is set in a single basic block and all uses are
+1145:      dominated by the set(s) in that single basic block, then there is
+1146:      no reason to record anything for this variable in the block local
+1147:      definition stacks.  Doing so just wastes time and memory.
+1148:
+1149:      This is the same test to prune the set of variables which may
+1150:      need PHI nodes.  So we just use that information since it's already
+1151:      computed and available for us to use.  */
+1152:   if (info->need_phi_state == NEED_PHI_STATE_NO)
+1153:     {
+1154:       info->current_def = def;
+1155:       return;
+1156:     }
+1157:
+1158:   currdef = info->current_def;
+1159:
+1160:   /* If SYM is not a GIMPLE register, then CURRDEF may be a name whose
+1161:      SSA_NAME_VAR is not necessarily SYM.  In this case, also push SYM
+1162:      in the stack so that we know which symbol is being defined by
+1163:      this SSA name when we unwind the stack.  */
+1164:   if (currdef && !is_gimple_reg (sym))
+1165:     block_defs_stack.safe_push (sym);
+1166:
+1167:   /* Push the current reaching definition into BLOCK_DEFS_STACK.  This
+1168:      stack is later used by the dominator tree callbacks to restore
+1169:      the reaching definitions for all the variables defined in the
+1170:      block after a recursive visit to all its immediately dominated
+1171:      blocks.  If there is no current reaching definition, then just
+1172:      record the underlying _DECL node.  */
+1173:   block_defs_stack.safe_push (currdef ? currdef : sym);
+1174:
+1175:   /* Set the current reaching definition for SYM to be DEF.  */
+1176:   info->current_def = def;
+```
+
+## gcc/tree-into-ssa.cc:1208–1230
+
+```text
+1208: {
+1209:   common_info *info = get_common_info (var);
+1210:   tree currdef;
+1211:
+1212:   /* Lookup the current reaching definition for VAR.  */
+1213:   currdef = info->current_def;
+1214:
+1215:   /* If there is no reaching definition for VAR, create and register a
+1216:      default definition for it (if needed).  */
+1217:   if (currdef == NULL_TREE)
+1218:     {
+1219:       tree sym = DECL_P (var) ? var : SSA_NAME_VAR (var);
+1220:       if (! sym)
+1221:         sym = create_tmp_reg (TREE_TYPE (var));
+1222:       currdef = get_or_create_ssa_default_def (cfun, sym);
+1223:     }
+1224:
+1225:   /* Return the current reaching definition for VAR, or the default
+1226:      definition, if we had to create one.  */
+1227:   return currdef;
+1228: }
+1229:
+1230:
+```
+
+## gcc/tree-into-ssa.cc:1337–1544
+
+```text
+1337: rewrite_stmt (gimple_stmt_iterator *si)
+1338: {
+1339:   use_operand_p use_p;
+1340:   def_operand_p def_p;
+1341:   ssa_op_iter iter;
+1342:   gimple *stmt = gsi_stmt (*si);
+1343:
+1344:   /* If mark_def_sites decided that we don't need to rewrite this
+1345:      statement, ignore it.  */
+1346:   gcc_assert (blocks_to_update == NULL);
+1347:   if (!rewrite_uses_p (stmt) && !register_defs_p (stmt))
+1348:     return;
+1349:
+1350:   if (dump_file && (dump_flags & TDF_DETAILS))
+1351:     {
+1352:       fprintf (dump_file, "Renaming statement ");
+1353:       print_gimple_stmt (dump_file, stmt, 0, TDF_SLIM);
+1354:       fprintf (dump_file, "\n");
+1355:     }
+1356:
+1357:   /* Step 1.  Rewrite USES in the statement.  */
+1358:   if (rewrite_uses_p (stmt))
+1359:     {
+1360:       if (is_gimple_debug (stmt))
+1361:         rewrite_debug_stmt_uses (stmt);
+1362:       else
+1363:         FOR_EACH_SSA_USE_OPERAND (use_p, stmt, iter, SSA_OP_ALL_USES)
+1364:           {
+1365:             tree var = USE_FROM_PTR (use_p);
+1366:             if (TREE_CODE (var) == SSA_NAME)
+1367:               continue;
+1368:             gcc_checking_assert (DECL_P (var));
+1369:             SET_USE (use_p, get_reaching_def (var));
+1370:           }
+1371:     }
+1372:
+1373:   /* Step 2.  Register the statement's DEF operands.  */
+1374:   if (register_defs_p (stmt))
+1375:     FOR_EACH_SSA_DEF_OPERAND (def_p, stmt, iter, SSA_OP_ALL_DEFS)
+1376:       {
+1377:         tree var = DEF_FROM_PTR (def_p);
+1378:         tree name;
+1379:         tree tracked_var;
+1380:
+1381:         if (TREE_CODE (var) == SSA_NAME)
+1382:           continue;
+1383:         gcc_checking_assert (DECL_P (var));
+1384:
+1385:         if (gimple_clobber_p (stmt)
+1386:             && is_gimple_reg (var))
+1387:           {
+1388:             /* If we rewrite a DECL into SSA form then drop its
+1389:                clobber stmts and replace uses with a new default def.  */
+1390:             gcc_checking_assert (VAR_P (var) && !gimple_vdef (stmt));
+1391:             gsi_replace (si, gimple_build_nop (), true);
+1392:             register_new_def (get_or_create_ssa_default_def (cfun, var), var);
+1393:             break;
+1394:           }
+1395:
+1396:         name = make_ssa_name (var, stmt);
+1397:         SET_DEF (def_p, name);
+1398:         register_new_def (DEF_FROM_PTR (def_p), var);
+1399:
+1400:         /* Do not insert debug stmts if the stmt ends the BB.  */
+1401:         if (stmt_ends_bb_p (stmt))
+1402:           continue;
+1403:
+1404:         tracked_var = target_for_debug_bind (var);
+1405:         if (tracked_var)
+1406:           {
+1407:             gimple *note = gimple_build_debug_bind (tracked_var, name, stmt);
+1408:             gsi_insert_after (si, note, GSI_SAME_STMT);
+1409:           }
+1410:       }
+1411: }
+1412:
+1413:
+1414: /* SSA Rewriting Step 3.  Visit all the successor blocks of BB looking for
+1415:    PHI nodes.  For every PHI node found, add a new argument containing the
+1416:    current reaching definition for the variable and the edge through which
+1417:    that definition is reaching the PHI node.  */
+1418:
+1419: static void
+1420: rewrite_add_phi_arguments (basic_block bb)
+1421: {
+1422:   edge e;
+1423:   edge_iterator ei;
+1424:
+1425:   FOR_EACH_EDGE (e, ei, bb->succs)
+1426:     {
+1427:       gphi *phi;
+1428:       gphi_iterator gsi;
+1429:
+1430:       for (gsi = gsi_start_phis (e->dest); !gsi_end_p (gsi);
+1431:            gsi_next (&gsi))
+1432:         {
+1433:           tree currdef, res;
+1434:           location_t loc;
+1435:
+1436:           phi = gsi.phi ();
+1437:           res = gimple_phi_result (phi);
+1438:           currdef = get_reaching_def (SSA_NAME_VAR (res));
+1439:           /* Virtual operand PHI args do not need a location.  */
+1440:           if (virtual_operand_p (res))
+1441:             loc = UNKNOWN_LOCATION;
+1442:           else
+1443:             loc = gimple_location (SSA_NAME_DEF_STMT (currdef));
+1444:           add_phi_arg (phi, currdef, e, loc);
+1445:         }
+1446:     }
+1447: }
+1448:
+1449: class rewrite_dom_walker : public dom_walker
+1450: {
+1451: public:
+1452:   rewrite_dom_walker (cdi_direction direction)
+1453:     : dom_walker (direction, ALL_BLOCKS, NULL) {}
+1454:
+1455:   edge before_dom_children (basic_block) final override;
+1456:   void after_dom_children (basic_block) final override;
+1457: };
+1458:
+1459: /* SSA Rewriting Step 1.  Initialization, create a block local stack
+1460:    of reaching definitions for new SSA names produced in this block
+1461:    (BLOCK_DEFS).  Register new definitions for every PHI node in the
+1462:    block.  */
+1463:
+1464: edge
+1465: rewrite_dom_walker::before_dom_children (basic_block bb)
+1466: {
+1467:   if (dump_file && (dump_flags & TDF_DETAILS))
+1468:     fprintf (dump_file, "\n\nRenaming block #%d\n\n", bb->index);
+1469:
+1470:   /* Mark the unwind point for this block.  */
+1471:   block_defs_stack.safe_push (NULL_TREE);
+1472:
+1473:   /* Step 1.  Register new definitions for every PHI node in the block.
+1474:      Conceptually, all the PHI nodes are executed in parallel and each PHI
+1475:      node introduces a new version for the associated variable.  */
+1476:   for (gphi_iterator gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+1477:        gsi_next (&gsi))
+1478:     {
+1479:       tree result = gimple_phi_result (gsi_stmt (gsi));
+1480:       register_new_def (result, SSA_NAME_VAR (result));
+1481:     }
+1482:
+1483:   /* Step 2.  Rewrite every variable used in each statement in the block
+1484:      with its immediate reaching definitions.  Update the current definition
+1485:      of a variable when a new real or virtual definition is found.  */
+1486:   if (bitmap_bit_p (interesting_blocks, bb->index))
+1487:     for (gimple_stmt_iterator gsi = gsi_start_bb (bb); !gsi_end_p (gsi);
+1488:          gsi_next (&gsi))
+1489:       rewrite_stmt (&gsi);
+1490:
+1491:   /* Step 3.  Visit all the successor blocks of BB looking for PHI nodes.
+1492:      For every PHI node found, add a new argument containing the current
+1493:      reaching definition for the variable and the edge through which that
+1494:      definition is reaching the PHI node.  */
+1495:   rewrite_add_phi_arguments (bb);
+1496:
+1497:   return NULL;
+1498: }
+1499:
+1500:
+1501:
+1502: /* Called after visiting all the statements in basic block BB and all
+1503:    of its dominator children.  Restore CURRDEFS to its original value.  */
+1504:
+1505: void
+1506: rewrite_dom_walker::after_dom_children (basic_block bb ATTRIBUTE_UNUSED)
+1507: {
+1508:   /* Restore CURRDEFS to its original state.  */
+1509:   while (block_defs_stack.length () > 0)
+1510:     {
+1511:       tree tmp = block_defs_stack.pop ();
+1512:       tree saved_def, var;
+1513:
+1514:       if (tmp == NULL_TREE)
+1515:         break;
+1516:
+1517:       if (TREE_CODE (tmp) == SSA_NAME)
+1518:         {
+1519:           /* If we recorded an SSA_NAME, then make the SSA_NAME the
+1520:              current definition of its underlying variable.  Note that
+1521:              if the SSA_NAME is not for a GIMPLE register, the symbol
+1522:              being defined is stored in the next slot in the stack.
+1523:              This mechanism is needed because an SSA name for a
+1524:              non-register symbol may be the definition for more than
+1525:              one symbol (e.g., SFTs, aliased variables, etc).  */
+1526:           saved_def = tmp;
+1527:           var = SSA_NAME_VAR (saved_def);
+1528:           if (!is_gimple_reg (var))
+1529:             var = block_defs_stack.pop ();
+1530:         }
+1531:       else
+1532:         {
+1533:           /* If we recorded anything else, it must have been a _DECL
+1534:              node and its current reaching definition must have been
+1535:              NULL.  */
+1536:           saved_def = NULL;
+1537:           var = tmp;
+1538:         }
+1539:
+1540:       get_common_info (var)->current_def = saved_def;
+1541:     }
+1542: }
+1543:
+1544:
+```
+
+## gcc/tree-into-ssa.cc:2285–2301
+
+```text
+2285: rewrite_blocks (basic_block entry, enum rewrite_mode what)
+2286: {
+2287:   block_defs_stack.create (10);
+2288:
+2289:   /* Recursively walk the dominator tree rewriting each statement in
+2290:      each basic block.  */
+2291:   if (what == REWRITE_ALL)
+2292:     rewrite_dom_walker (CDI_DOMINATORS).walk (entry);
+2293:   else if (what == REWRITE_UPDATE)
+2294:     rewrite_update_dom_walker (CDI_DOMINATORS).walk (entry);
+2295:   else if (what == REWRITE_UPDATE_REGION)
+2296:     {
+2297:       /* First mark all blocks in the SEME region dominated by
+2298:          entry and exited by blocks not backwards reachable from
+2299:          blocks_to_update.  Optimize for dense blocks_to_update
+2300:          so instead of seeding the worklist with a copy of
+2301:          blocks_to_update treat those blocks explicit.  */
+```
+
+## gcc/tree-into-ssa.cc:2370–2440
+
+```text
+2370: class mark_def_dom_walker : public dom_walker
+2371: {
+2372: public:
+2373:   mark_def_dom_walker (cdi_direction direction);
+2374:   ~mark_def_dom_walker ();
+2375:
+2376:   edge before_dom_children (basic_block) final override;
+2377:
+2378: private:
+2379:   /* Notice that this bitmap is indexed using variable UIDs, so it must be
+2380:      large enough to accommodate all the variables referenced in the
+2381:      function, not just the ones we are renaming.  */
+2382:   bitmap m_kills;
+2383: };
+2384:
+2385: mark_def_dom_walker::mark_def_dom_walker (cdi_direction direction)
+2386:   : dom_walker (direction, ALL_BLOCKS, NULL), m_kills (BITMAP_ALLOC (NULL))
+2387: {
+2388: }
+2389:
+2390: mark_def_dom_walker::~mark_def_dom_walker ()
+2391: {
+2392:   BITMAP_FREE (m_kills);
+2393: }
+2394:
+2395: /* Block processing routine for mark_def_sites.  Clear the KILLS bitmap
+2396:    at the start of each block, and call mark_def_sites for each statement.  */
+2397:
+2398: edge
+2399: mark_def_dom_walker::before_dom_children (basic_block bb)
+2400: {
+2401:   gimple_stmt_iterator gsi;
+2402:
+2403:   bitmap_clear (m_kills);
+2404:   for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+2405:     mark_def_sites (bb, gsi_stmt (gsi), m_kills);
+2406:   return NULL;
+2407: }
+2408:
+2409: /* Initialize internal data needed during renaming.  */
+2410:
+2411: static void
+2412: init_ssa_renamer (void)
+2413: {
+2414:   cfun->gimple_df->in_ssa_p = false;
+2415:
+2416:   /* Allocate memory for the DEF_BLOCKS hash table.  */
+2417:   gcc_assert (!var_infos);
+2418:   var_infos = new hash_table<var_info_hasher>
+2419:     (vec_safe_length (cfun->local_decls));
+2420:
+2421:   bitmap_obstack_initialize (&update_ssa_obstack);
+2422: }
+2423:
+2424:
+2425: /* Deallocate internal data structures used by the renamer.  */
+2426:
+2427: static void
+2428: fini_ssa_renamer (void)
+2429: {
+2430:   delete var_infos;
+2431:     var_infos = NULL;
+2432:
+2433:   bitmap_obstack_release (&update_ssa_obstack);
+2434:
+2435:   cfun->gimple_df->ssa_renaming_needed = 0;
+2436:   cfun->gimple_df->rename_vops = 0;
+2437:   cfun->gimple_df->in_ssa_p = true;
+2438: }
+2439:
+2440: /* Main entry point into the SSA builder.  The renaming process
+```
+
+## gcc/tree-into-ssa.cc:2460–2584
+
+```text
+2460:   GIMPLE_PASS, /* type */
+2461:   "ssa", /* name */
+2462:   OPTGROUP_NONE, /* optinfo_flags */
+2463:   TV_TREE_INTO_SSA, /* tv_id */
+2464:   PROP_cfg, /* properties_required */
+2465:   PROP_ssa, /* properties_provided */
+2466:   0, /* properties_destroyed */
+2467:   0, /* todo_flags_start */
+2468:   TODO_remove_unused_locals, /* todo_flags_finish */
+2469: };
+2470:
+2471: class pass_build_ssa : public gimple_opt_pass
+2472: {
+2473: public:
+2474:   pass_build_ssa (gcc::context *ctxt)
+2475:     : gimple_opt_pass (pass_data_build_ssa, ctxt)
+2476:   {}
+2477:
+2478:   /* opt_pass methods: */
+2479:   bool gate (function *fun) final override
+2480:     {
+2481:       /* Do nothing for functions that were produced already in SSA form.  */
+2482:       return !(fun->curr_properties & PROP_ssa);
+2483:     }
+2484:
+2485:   unsigned int execute (function *) final override;
+2486:
+2487: }; // class pass_build_ssa
+2488:
+2489: unsigned int
+2490: pass_build_ssa::execute (function *fun)
+2491: {
+2492:   bitmap_head *dfs;
+2493:   basic_block bb;
+2494:
+2495:   /* Increase the set of variables we can rewrite into SSA form
+2496:      by clearing TREE_ADDRESSABLE and transform the IL to support this.  */
+2497:   if (optimize)
+2498:     execute_update_addresses_taken ();
+2499:
+2500:   /* Initialize operand data structures.  */
+2501:   init_ssa_operands (fun);
+2502:
+2503:   /* Initialize internal data needed by the renamer.  */
+2504:   init_ssa_renamer ();
+2505:
+2506:   /* Initialize the set of interesting blocks.  The callback
+2507:      mark_def_sites will add to this set those blocks that the renamer
+2508:      should process.  */
+2509:   interesting_blocks = sbitmap_alloc (last_basic_block_for_fn (fun));
+2510:   bitmap_clear (interesting_blocks);
+2511:
+2512:   /* Initialize dominance frontier.  */
+2513:   dfs = XNEWVEC (bitmap_head, last_basic_block_for_fn (fun));
+2514:   FOR_EACH_BB_FN (bb, fun)
+2515:     bitmap_initialize (&dfs[bb->index], &bitmap_default_obstack);
+2516:
+2517:   /* 1- Compute dominance frontiers.  */
+2518:   calculate_dominance_info (CDI_DOMINATORS);
+2519:   compute_dominance_frontiers (dfs);
+2520:
+2521:   /* 2- Find and mark definition sites.  */
+2522:   mark_def_dom_walker (CDI_DOMINATORS).walk (fun->cfg->x_entry_block_ptr);
+2523:
+2524:   /* 3- Insert PHI nodes at dominance frontiers of definition blocks.  */
+2525:   insert_phi_nodes (dfs);
+2526:
+2527:   /* 4- Rename all the blocks.  */
+2528:   rewrite_blocks (ENTRY_BLOCK_PTR_FOR_FN (fun), REWRITE_ALL);
+2529:
+2530:   /* Free allocated memory.  */
+2531:   FOR_EACH_BB_FN (bb, fun)
+2532:     bitmap_clear (&dfs[bb->index]);
+2533:   free (dfs);
+2534:
+2535:   sbitmap_free (interesting_blocks);
+2536:   interesting_blocks = NULL;
+2537:
+2538:   fini_ssa_renamer ();
+2539:
+2540:   /* Try to get rid of all gimplifier generated temporaries by making
+2541:      its SSA names anonymous.  This way we can garbage collect them
+2542:      all after removing unused locals which we do in our TODO.  */
+2543:   unsigned i;
+2544:   tree name;
+2545:
+2546:   FOR_EACH_SSA_NAME (i, name, cfun)
+2547:     {
+2548:       if (SSA_NAME_IS_DEFAULT_DEF (name))
+2549:         continue;
+2550:       tree decl = SSA_NAME_VAR (name);
+2551:       if (decl
+2552:           && VAR_P (decl)
+2553:           && !VAR_DECL_IS_VIRTUAL_OPERAND (decl)
+2554:           && DECL_IGNORED_P (decl))
+2555:         SET_SSA_NAME_VAR_OR_IDENTIFIER (name, DECL_NAME (decl));
+2556:     }
+2557:
+2558:   /* Initialize SSA_NAME_POINTS_TO_READONLY_MEMORY.  */
+2559:   tree fnspec_tree
+2560:          = lookup_attribute ("fn spec",
+2561:                              TYPE_ATTRIBUTES (TREE_TYPE (fun->decl)));
+2562:   if (fnspec_tree)
+2563:     {
+2564:       attr_fnspec fnspec (TREE_VALUE (TREE_VALUE (fnspec_tree)));
+2565:       unsigned i = 0;
+2566:       for (tree arg = DECL_ARGUMENTS (cfun->decl);
+2567:            arg; arg = DECL_CHAIN (arg), ++i)
+2568:         {
+2569:           if (!fnspec.arg_specified_p (i))
+2570:            break;
+2571:           if (fnspec.arg_readonly_p (i))
+2572:             {
+2573:               tree name = ssa_default_def (fun, arg);
+2574:               if (name)
+2575:                 SSA_NAME_POINTS_TO_READONLY_MEMORY (name) = 1;
+2576:             }
+2577:         }
+2578:     }
+2579:
+2580:   return 0;
+2581: }
+2582:
+2583: } // anon namespace
+2584:
+```
+
+## gcc/tree-into-ssa.cc:3146–3151
+
+```text
+3146: need_ssa_update_p (struct function *fn)
+3147: {
+3148:   gcc_assert (fn != NULL);
+3149:   return (update_ssa_initialized_fn == fn
+3150:           || (fn->gimple_df && fn->gimple_df->ssa_renaming_needed));
+3151: }
+```
+
+## gcc/tree-into-ssa.cc:3369–3385
+
+```text
+3369: update_ssa (unsigned update_flags)
+3370: {
+3371:   basic_block bb, start_bb;
+3372:   bitmap_iterator bi;
+3373:   unsigned i = 0;
+3374:   bool insert_phi_p;
+3375:   sbitmap_iterator sbi;
+3376:   tree sym;
+3377:
+3378:   /* Only one update flag should be set.  */
+3379:   gcc_assert (update_flags == TODO_update_ssa
+3380:               || update_flags == TODO_update_ssa_no_phi
+3381:               || update_flags == TODO_update_ssa_full_phi
+3382:               || update_flags == TODO_update_ssa_only_virtuals);
+3383:
+3384:   if (!need_ssa_update_p (cfun))
+3385:     return;
+```
+
+## gcc/tree-phinodes.cc:60–215
+
+```text
+60:    might allow us to pick up a few reusable PHI nodes, it could potentially
+61:    be very expensive if the program has released a bunch of large PHI nodes,
+62:    but keeps asking for even larger PHI nodes.  Experiments have shown that
+63:    walking the elements of the last array entry would result in finding less
+64:    than .1% additional reusable PHI nodes.
+65:
+66:    Note that we can never have less than two PHI argument slots.  Thus,
+67:    the -2 on all the calculations below.  */
+68:
+69: #define NUM_BUCKETS 10
+70: static GTY ((deletable (""))) vec<gimple *, va_gc> *free_phinodes[NUM_BUCKETS - 2];
+71: static unsigned long free_phinode_count;
+72:
+73: static int ideal_phi_node_len (int);
+74:
+75: unsigned int phi_nodes_reused;
+76: unsigned int phi_nodes_created;
+77:
+78: /* Dump some simple statistics regarding the re-use of PHI nodes.  */
+79:
+80: void
+81: phinodes_print_statistics (void)
+82: {
+83:   fprintf (stderr, "%-32s" PRsa (11) "\n", "PHI nodes allocated:",
+84:            SIZE_AMOUNT (phi_nodes_created));
+85:   fprintf (stderr, "%-32s" PRsa (11) "\n", "PHI nodes reused:",
+86:            SIZE_AMOUNT (phi_nodes_reused));
+87: }
+88:
+89: /* Allocate a PHI node with at least LEN arguments.  If the free list
+90:    happens to contain a PHI node with LEN arguments or more, return
+91:    that one.  */
+92:
+93: static inline gphi *
+94: allocate_phi_node (size_t len)
+95: {
+96:   gphi *phi;
+97:   size_t bucket = NUM_BUCKETS - 2;
+98:   size_t size = sizeof (struct gphi)
+99:                 + (len - 1) * sizeof (struct phi_arg_d);
+100:
+101:   if (free_phinode_count)
+102:     for (bucket = len - 2; bucket < NUM_BUCKETS - 2; bucket++)
+103:       if (free_phinodes[bucket])
+104:         break;
+105:
+106:   /* If our free list has an element, then use it.  */
+107:   if (bucket < NUM_BUCKETS - 2
+108:       && gimple_phi_capacity ((*free_phinodes[bucket])[0]) >= len)
+109:     {
+110:       free_phinode_count--;
+111:       phi = as_a <gphi *> (free_phinodes[bucket]->pop ());
+112:       if (free_phinodes[bucket]->is_empty ())
+113:         vec_free (free_phinodes[bucket]);
+114:       if (GATHER_STATISTICS)
+115:         phi_nodes_reused++;
+116:     }
+117:   else
+118:     {
+119:       phi = static_cast <gphi *> (ggc_internal_alloc (size));
+120:       if (GATHER_STATISTICS)
+121:         {
+122:           enum gimple_alloc_kind kind = gimple_alloc_kind (GIMPLE_PHI);
+123:           phi_nodes_created++;
+124:           gimple_alloc_counts[(int) kind]++;
+125:           gimple_alloc_sizes[(int) kind] += size;
+126:         }
+127:     }
+128:
+129:   return phi;
+130: }
+131:
+132: /* Given LEN, the original number of requested PHI arguments, return
+133:    a new, "ideal" length for the PHI node.  The "ideal" length rounds
+134:    the total size of the PHI node up to the next power of two bytes.
+135:
+136:    Rounding up will not result in wasting any memory since the size request
+137:    will be rounded up by the GC system anyway.  [ Note this is not entirely
+138:    true since the original length might have fit on one of the special
+139:    GC pages. ]  By rounding up, we may avoid the need to reallocate the
+140:    PHI node later if we increase the number of arguments for the PHI.  */
+141:
+142: static int
+143: ideal_phi_node_len (int len)
+144: {
+145:   size_t size, new_size;
+146:   int log2, new_len;
+147:
+148:   /* We do not support allocations of less than two PHI argument slots.  */
+149:   if (len < 2)
+150:     len = 2;
+151:
+152:   /* Compute the number of bytes of the original request.  */
+153:   size = sizeof (struct gphi)
+154:          + (len - 1) * sizeof (struct phi_arg_d);
+155:
+156:   /* Round it up to the next power of two.  */
+157:   log2 = ceil_log2 (size);
+158:   new_size = 1 << log2;
+159:
+160:   /* Now compute and return the number of PHI argument slots given an
+161:      ideal size allocation.  */
+162:   new_len = len + (new_size - size) / sizeof (struct phi_arg_d);
+163:   return new_len;
+164: }
+165:
+166: /* Return a PHI node with LEN argument slots for variable VAR.  */
+167:
+168: static gphi *
+169: make_phi_node (tree var, int len)
+170: {
+171:   gphi *phi;
+172:   int capacity, i;
+173:
+174:   capacity = ideal_phi_node_len (len);
+175:
+176:   phi = allocate_phi_node (capacity);
+177:
+178:   /* We need to clear the entire PHI node, including the argument
+179:      portion, because we represent a "missing PHI argument" by placing
+180:      NULL_TREE in PHI_ARG_DEF.  */
+181:   memset (phi, 0, (sizeof (struct gphi)
+182:                    - sizeof (struct phi_arg_d)
+183:                    + sizeof (struct phi_arg_d) * len));
+184:   phi->code = GIMPLE_PHI;
+185:   gimple_init_singleton (phi);
+186:   phi->nargs = len;
+187:   phi->capacity = capacity;
+188:   if (!var)
+189:     ;
+190:   else if (TREE_CODE (var) == SSA_NAME)
+191:     gimple_phi_set_result (phi, var);
+192:   else
+193:     gimple_phi_set_result (phi, make_ssa_name (var, phi));
+194:
+195:   for (i = 0; i < len; i++)
+196:     {
+197:       use_operand_p  imm;
+198:
+199:       gimple_phi_arg_set_location (phi, i, UNKNOWN_LOCATION);
+200:       imm = gimple_phi_arg_imm_use_ptr (phi, i);
+201:       imm->use = gimple_phi_arg_def_ptr (phi, i);
+202:       imm->prev = NULL;
+203:       imm->next = NULL;
+204:       imm->loc.stmt = phi;
+205:     }
+206:
+207:   return phi;
+208: }
+209:
+210: /* We no longer need PHI, release it so that it may be reused.  */
+211:
+212: static void
+213: release_phi_node (gimple *phi)
+214: {
+215:   size_t bucket;
+```
+
+## gcc/tree-ssanames.cc:143–165
+
+```text
+143:    zero use default.  */
+144:
+145: void
+146: init_ssanames (struct function *fn, int size)
+147: {
+148:   if (!size)
+149:     vec_alloc (SSANAMES (fn), 50);
+150:   else
+151:     vec_safe_reserve (SSANAMES (fn), size, true);
+152:
+153:   /* Version 0 is special, so reserve the first slot in the table.  Though
+154:      currently unused, we may use version 0 in alias analysis as part of
+155:      the heuristics used to group aliases when the alias sets are too
+156:      large.
+157:
+158:      We use vec::quick_push here because we know that SSA_NAMES has at
+159:      least 50 elements reserved in it.  */
+160:   SSANAMES (fn)->quick_push (NULL_TREE);
+161:   FREE_SSANAMES (fn) = NULL;
+162:   FREE_SSANAMES_QUEUE (fn) = NULL;
+163:
+164:   fn->gimple_df->ssa_renaming_needed = 0;
+165:   fn->gimple_df->rename_vops = 0;
+```
+
+## gcc/tree-ssanames.cc:351–420
+
+```text
+351: make_ssa_name_fn (struct function *fn, tree var, gimple *stmt,
+352:                   unsigned int version)
+353: {
+354:   tree t;
+355:   gcc_assert (VAR_P (var)
+356:               || TREE_CODE (var) == PARM_DECL
+357:               || TREE_CODE (var) == RESULT_DECL
+358:               || (TYPE_P (var) && is_gimple_reg_type (var)));
+359:
+360:   /* Get the specified SSA name version.  */
+361:   if (version != 0)
+362:     {
+363:       t = make_node (SSA_NAME);
+364:       SSA_NAME_VERSION (t) = version;
+365:       if (version >= SSANAMES (fn)->length ())
+366:         vec_safe_grow_cleared (SSANAMES (fn), version + 1, true);
+367:       gcc_assert ((*SSANAMES (fn))[version] == NULL);
+368:       (*SSANAMES (fn))[version] = t;
+369:       ssa_name_nodes_created++;
+370:     }
+371:   /* If our free list has an element, then use it.  */
+372:   else if (!vec_safe_is_empty (FREE_SSANAMES (fn)))
+373:     {
+374:       t = FREE_SSANAMES (fn)->pop ();
+375:       ssa_name_nodes_reused++;
+376:
+377:       /* The node was cleared out when we put it on the free list, so
+378:          there is no need to do so again here.  */
+379:       gcc_assert ((*SSANAMES (fn))[SSA_NAME_VERSION (t)] == NULL);
+380:       (*SSANAMES (fn))[SSA_NAME_VERSION (t)] = t;
+381:     }
+382:   else
+383:     {
+384:       t = make_node (SSA_NAME);
+385:       SSA_NAME_VERSION (t) = SSANAMES (fn)->length ();
+386:       vec_safe_push (SSANAMES (fn), t);
+387:       ssa_name_nodes_created++;
+388:     }
+389:
+390:   if (TYPE_P (var))
+391:     {
+392:       TREE_TYPE (t) = TYPE_MAIN_VARIANT (var);
+393:       SET_SSA_NAME_VAR_OR_IDENTIFIER (t, NULL_TREE);
+394:     }
+395:   else
+396:     {
+397:       TREE_TYPE (t) = TREE_TYPE (var);
+398:       SET_SSA_NAME_VAR_OR_IDENTIFIER (t, var);
+399:     }
+400:   SSA_NAME_DEF_STMT (t) = stmt;
+401:   if (POINTER_TYPE_P (TREE_TYPE (t)))
+402:     SSA_NAME_PTR_INFO (t) = NULL;
+403:   else
+404:     SSA_NAME_RANGE_INFO (t) = NULL;
+405:
+406:   SSA_NAME_IN_FREE_LIST (t) = 0;
+407:   SSA_NAME_IS_DEFAULT_DEF (t) = 0;
+408:   init_ssa_name_imm_use (t);
+409: #if defined ENABLE_GIMPLE_CHECKING
+410:   t->ssa_name.active_iterated_stmt = NULL;
+411:   t->ssa_name.fast_iteration_depth = 0;
+412: #endif
+413:
+414:   return t;
+415: }
+416:
+417: /* Update the range information for NAME, intersecting into an existing
+418:    range if applicable.  Return TRUE if the range was updated.  */
+419:
+420: bool
+```
+
+## gcc/tree-ssanames.cc:665–731
+
+```text
+665: release_ssa_name_fn (struct function *fn, tree var)
+666: {
+667:   if (!var)
+668:     return;
+669:
+670:   /* Never release the default definition for a symbol.  It's a
+671:      special SSA name that should always exist once it's created.  */
+672:   if (SSA_NAME_IS_DEFAULT_DEF (var))
+673:     return;
+674:
+675:   /* If VAR has been registered for SSA updating, don't remove it.
+676:      After update_ssa has run, the name will be released.  */
+677:   if (name_registered_for_update_p (var))
+678:     {
+679:       release_ssa_name_after_update_ssa (var);
+680:       return;
+681:     }
+682:
+683:   /* release_ssa_name can be called multiple times on a single SSA_NAME.
+684:      However, it should only end up on our free list one time.   We
+685:      keep a status bit in the SSA_NAME node itself to indicate it has
+686:      been put on the free list.
+687:
+688:      Note that once on the freelist you cannot reference the SSA_NAME's
+689:      defining statement.  */
+690:   if (! SSA_NAME_IN_FREE_LIST (var))
+691:     {
+692:       int saved_ssa_name_version = SSA_NAME_VERSION (var);
+693:       use_operand_p imm = &(SSA_NAME_IMM_USE_NODE (var));
+694:
+695:       if (MAY_HAVE_DEBUG_BIND_STMTS)
+696:         insert_debug_temp_for_var_def (NULL, var);
+697:
+698:       if (flag_checking)
+699:         verify_imm_links (stderr, var);
+700:       while (imm->next != imm)
+701:         delink_imm_use (imm->next);
+702:
+703:       (*SSANAMES (fn))[SSA_NAME_VERSION (var)] = NULL_TREE;
+704:       memset (var, 0, tree_size (var));
+705:
+706:       imm->prev = imm;
+707:       imm->next = imm;
+708:       imm->loc.ssa_name = var;
+709:
+710:       /* First put back the right tree node so that the tree checking
+711:          macros do not complain.  */
+712:       TREE_SET_CODE (var, SSA_NAME);
+713:
+714:       /* Restore the version number.  */
+715:       SSA_NAME_VERSION (var) = saved_ssa_name_version;
+716:
+717:       /* Note this SSA_NAME is now in the first list.  */
+718:       SSA_NAME_IN_FREE_LIST (var) = 1;
+719:
+720:       /* Put in a non-NULL TREE_TYPE so dumping code will not ICE
+721:          if it happens to come along a released SSA name and tries
+722:          to inspect its type.  */
+723:       TREE_TYPE (var) = error_mark_node;
+724:
+725:       /* And finally queue it so that it will be put on the free list.  */
+726:       vec_safe_push (FREE_SSANAMES_QUEUE (fn), var);
+727:     }
+728: }
+729:
+730: /* If the alignment of the pointer described by PI is known, return true and
+731:    store the alignment and the deviation from it into *ALIGNP and *MISALIGNP
+```
+
+## gcc/tree-ssa-operands.cc:232–364
+
+```text
+232: create_vop_var (struct function *fn)
+233: {
+234:   tree global_var;
+235:
+236:   gcc_assert (fn->gimple_df->vop == NULL_TREE);
+237:
+238:   global_var = build_decl (BUILTINS_LOCATION, VAR_DECL,
+239:                            get_identifier (".MEM"),
+240:                            void_type_node);
+241:   DECL_ARTIFICIAL (global_var) = 1;
+242:   DECL_IGNORED_P (global_var) = 1;
+243:   TREE_READONLY (global_var) = 0;
+244:   DECL_EXTERNAL (global_var) = 1;
+245:   TREE_STATIC (global_var) = 1;
+246:   TREE_USED (global_var) = 1;
+247:   DECL_CONTEXT (global_var) = NULL_TREE;
+248:   TREE_THIS_VOLATILE (global_var) = 0;
+249:   TREE_ADDRESSABLE (global_var) = 0;
+250:   VAR_DECL_IS_VIRTUAL_OPERAND (global_var) = 1;
+251:
+252:   fn->gimple_df->vop = global_var;
+253: }
+254:
+255: /* These are the sizes of the operand memory buffer in bytes which gets
+256:    allocated each time more operands space is required.  The final value is
+257:    the amount that is allocated every time after that.
+258:    In 1k we can fit 25 use operands (or 63 def operands) on a host with
+259:    8 byte pointers, that would be 10 statements each with 1 def and 2
+260:    uses.  */
+261:
+262: #define OP_SIZE_INIT    0
+263: #define OP_SIZE_1       (1024 - sizeof (void *))
+264: #define OP_SIZE_2       (1024 * 4 - sizeof (void *))
+265: #define OP_SIZE_3       (1024 * 16 - sizeof (void *))
+266:
+267: /* Initialize the operand cache routines.  */
+268:
+269: void
+270: init_ssa_operands (struct function *fn)
+271: {
+272:   gcc_assert (gimple_ssa_operands (fn)->operand_memory == NULL);
+273:   gimple_ssa_operands (fn)->operand_memory_index
+274:      = gimple_ssa_operands (fn)->ssa_operand_mem_size;
+275:   gimple_ssa_operands (fn)->ops_active = true;
+276:   gimple_ssa_operands (fn)->ssa_operand_mem_size = OP_SIZE_INIT;
+277:   create_vop_var (fn);
+278: }
+279:
+280:
+281: /* Dispose of anything required by the operand routines.  */
+282:
+283: void
+284: fini_ssa_operands (struct function *fn)
+285: {
+286:   struct ssa_operand_memory_d *ptr;
+287:
+288:   gimple_ssa_operands (fn)->free_uses = NULL;
+289:
+290:   while ((ptr = gimple_ssa_operands (fn)->operand_memory) != NULL)
+291:     {
+292:       gimple_ssa_operands (fn)->operand_memory
+293:         = gimple_ssa_operands (fn)->operand_memory->next;
+294:       ggc_free (ptr);
+295:     }
+296:
+297:   gimple_ssa_operands (fn)->ops_active = false;
+298:
+299:   fn->gimple_df->vop = NULL_TREE;
+300: }
+301:
+302:
+303: /* Return memory for an operand of size SIZE.  */
+304:
+305: static inline void *
+306: ssa_operand_alloc (struct function *fn, unsigned size)
+307: {
+308:   char *ptr;
+309:
+310:   gcc_assert (size == sizeof (struct use_optype_d));
+311:
+312:   if (gimple_ssa_operands (fn)->operand_memory_index + size
+313:       >= gimple_ssa_operands (fn)->ssa_operand_mem_size)
+314:     {
+315:       struct ssa_operand_memory_d *ptr;
+316:
+317:       switch (gimple_ssa_operands (fn)->ssa_operand_mem_size)
+318:         {
+319:         case OP_SIZE_INIT:
+320:           gimple_ssa_operands (fn)->ssa_operand_mem_size = OP_SIZE_1;
+321:           break;
+322:         case OP_SIZE_1:
+323:           gimple_ssa_operands (fn)->ssa_operand_mem_size = OP_SIZE_2;
+324:           break;
+325:         case OP_SIZE_2:
+326:         case OP_SIZE_3:
+327:           gimple_ssa_operands (fn)->ssa_operand_mem_size = OP_SIZE_3;
+328:           break;
+329:         default:
+330:           gcc_unreachable ();
+331:         }
+332:
+333:
+334:       ptr = (ssa_operand_memory_d *) ggc_internal_alloc
+335:         (sizeof (void *) + gimple_ssa_operands (fn)->ssa_operand_mem_size);
+336:
+337:       ptr->next = gimple_ssa_operands (fn)->operand_memory;
+338:       gimple_ssa_operands (fn)->operand_memory = ptr;
+339:       gimple_ssa_operands (fn)->operand_memory_index = 0;
+340:     }
+341:
+342:   ptr = &(gimple_ssa_operands (fn)->operand_memory
+343:           ->mem[gimple_ssa_operands (fn)->operand_memory_index]);
+344:   gimple_ssa_operands (fn)->operand_memory_index += size;
+345:   return ptr;
+346: }
+347:
+348:
+349: /* Allocate a USE operand.  */
+350:
+351: static inline struct use_optype_d *
+352: alloc_use (struct function *fn)
+353: {
+354:   struct use_optype_d *ret;
+355:   if (gimple_ssa_operands (fn)->free_uses)
+356:     {
+357:       ret = gimple_ssa_operands (fn)->free_uses;
+358:       gimple_ssa_operands (fn)->free_uses
+359:         = gimple_ssa_operands (fn)->free_uses->next;
+360:     }
+361:   else
+362:     ret = (struct use_optype_d *)
+363:           ssa_operand_alloc (fn, sizeof (struct use_optype_d));
+364:   return ret;
+```
+
+## gcc/tree-ssa-operands.cc:425–485
+
+```text
+425:
+426: inline void
+427: operands_scanner::finalize_ssa_uses ()
+428: {
+429:   unsigned new_i;
+430:   struct use_optype_d new_list;
+431:   use_optype_p old_ops, ptr, last;
+432:
+433:   /* Pre-pend the VUSE we may have built.  */
+434:   if (build_vuse != NULL_TREE)
+435:     {
+436:       tree oldvuse = gimple_vuse (stmt);
+437:       if (oldvuse
+438:           && TREE_CODE (oldvuse) == SSA_NAME)
+439:         oldvuse = SSA_NAME_VAR (oldvuse);
+440:       if (oldvuse != (build_vuse != NULL_TREE
+441:                       ? build_vuse : build_vdef))
+442:         gimple_set_vuse (stmt, NULL_TREE);
+443:       build_uses.safe_insert (0, gimple_vuse_ptr (stmt));
+444:     }
+445:
+446:   new_list.next = NULL;
+447:   last = &new_list;
+448:
+449:   old_ops = gimple_use_ops (stmt);
+450:
+451:   /* Clear a no longer necessary VUSE.  */
+452:   if (build_vuse == NULL_TREE
+453:       && gimple_vuse (stmt) != NULL_TREE)
+454:     gimple_set_vuse (stmt, NULL_TREE);
+455:
+456:   /* If there is anything in the old list, free it.  */
+457:   if (old_ops)
+458:     {
+459:       for (ptr = old_ops; ptr->next; ptr = ptr->next)
+460:         delink_imm_use (USE_OP_PTR (ptr));
+461:       delink_imm_use (USE_OP_PTR (ptr));
+462:       ptr->next = gimple_ssa_operands (fn)->free_uses;
+463:       gimple_ssa_operands (fn)->free_uses = old_ops;
+464:     }
+465:
+466:   /* If we added a VUSE, make sure to set the operand if it is not already
+467:      present and mark it for renaming.  */
+468:   if (build_vuse != NULL_TREE
+469:       && gimple_vuse (stmt) == NULL_TREE)
+470:     {
+471:       gimple_set_vuse (stmt, gimple_vop (fn));
+472:       fn->gimple_df->rename_vops = 1;
+473:       fn->gimple_df->ssa_renaming_needed = 1;
+474:     }
+475:
+476:   /* Now create nodes for all the new nodes.  */
+477:   for (new_i = 0; new_i < build_uses.length (); new_i++)
+478:     {
+479:       tree *op = build_uses[new_i];
+480:       last = add_use_op (fn, stmt, op, last);
+481:     }
+482:
+483:   /* Now set the stmt's operands.  */
+484:   gimple_set_use_ops (stmt, new_list.next);
+485: }
+```
+
+## gcc/tree-ssa-operands.cc:764–999
+
+```text
+764: operands_scanner::get_expr_operands (tree *expr_p, int flags)
+765: {
+766:   enum tree_code code;
+767:   enum tree_code_class codeclass;
+768:   tree expr = *expr_p;
+769:   int uflags = opf_use;
+770:
+771:   if (expr == NULL)
+772:     return;
+773:
+774:   if (is_gimple_debug (stmt))
+775:     uflags |= (flags & opf_no_vops);
+776:
+777:   code = TREE_CODE (expr);
+778:   codeclass = TREE_CODE_CLASS (code);
+779:
+780:   switch (code)
+781:     {
+782:     case ADDR_EXPR:
+783:       /* Taking the address of a variable does not represent a
+784:          reference to it, but the fact that the statement takes its
+785:          address will be of interest to some passes (e.g. alias
+786:          resolution).  */
+787:       if ((!(flags & opf_non_addressable)
+788:            || (flags & opf_not_non_addressable))
+789:           && !is_gimple_debug (stmt))
+790:         mark_address_taken (TREE_OPERAND (expr, 0));
+791:
+792:       /* Otherwise, there may be variables referenced inside but there
+793:          should be no VUSEs created, since the referenced objects are
+794:          not really accessed.  The only operands that we should find
+795:          here are ARRAY_REF indices which will always be real operands
+796:          (GIMPLE does not allow non-registers as array indices).  */
+797:       flags |= opf_no_vops;
+798:       get_expr_operands (&TREE_OPERAND (expr, 0),
+799:                          flags | opf_not_non_addressable | opf_address_taken);
+800:       return;
+801:
+802:     case SSA_NAME:
+803:     case VAR_DECL:
+804:     case PARM_DECL:
+805:     case RESULT_DECL:
+806:     case STRING_CST:
+807:     case CONST_DECL:
+808:       if (!(flags & opf_address_taken))
+809:         add_stmt_operand (expr_p, flags);
+810:       return;
+811:
+812:     case OMP_NEXT_VARIANT:
+813:     case OMP_TARGET_DEVICE_MATCHES:
+814:       return;
+815:
+816:     case DEBUG_EXPR_DECL:
+817:       gcc_assert (gimple_debug_bind_p (stmt));
+818:       return;
+819:
+820:     case MEM_REF:
+821:       get_mem_ref_operands (expr, flags);
+822:       return;
+823:
+824:     case TARGET_MEM_REF:
+825:       get_tmr_operands (expr, flags);
+826:       return;
+827:
+828:     case ARRAY_REF:
+829:     case ARRAY_RANGE_REF:
+830:     case COMPONENT_REF:
+831:     case REALPART_EXPR:
+832:     case IMAGPART_EXPR:
+833:       {
+834:         if (!(flags & opf_no_vops)
+835:             && TREE_THIS_VOLATILE (expr))
+836:           gimple_set_has_volatile_ops (stmt, true);
+837:
+838:         get_expr_operands (&TREE_OPERAND (expr, 0), flags);
+839:
+840:         if (code == COMPONENT_REF)
+841:           get_expr_operands (&TREE_OPERAND (expr, 2), uflags);
+842:         else if (code == ARRAY_REF || code == ARRAY_RANGE_REF)
+843:           {
+844:             get_expr_operands (&TREE_OPERAND (expr, 1), uflags);
+845:             get_expr_operands (&TREE_OPERAND (expr, 2), uflags);
+846:             get_expr_operands (&TREE_OPERAND (expr, 3), uflags);
+847:           }
+848:
+849:         return;
+850:       }
+851:
+852:     case WITH_SIZE_EXPR:
+853:       /* WITH_SIZE_EXPR is a pass-through reference to its first argument,
+854:          and an rvalue reference to its second argument.  */
+855:       get_expr_operands (&TREE_OPERAND (expr, 1), uflags);
+856:       get_expr_operands (&TREE_OPERAND (expr, 0), flags);
+857:       return;
+858:
+859:     case COND_EXPR:
+860:     case VEC_COND_EXPR:
+861:     case VEC_PERM_EXPR:
+862:       get_expr_operands (&TREE_OPERAND (expr, 0), uflags);
+863:       get_expr_operands (&TREE_OPERAND (expr, 1), uflags);
+864:       get_expr_operands (&TREE_OPERAND (expr, 2), uflags);
+865:       return;
+866:
+867:     case CONSTRUCTOR:
+868:       {
+869:         /* General aggregate CONSTRUCTORs have been decomposed, but they
+870:            are still in use as the COMPLEX_EXPR equivalent for vectors.  */
+871:         constructor_elt *ce;
+872:         unsigned HOST_WIDE_INT idx;
+873:
+874:         /* A volatile constructor is actually TREE_CLOBBER_P, transfer
+875:            the volatility to the statement, don't use TREE_CLOBBER_P for
+876:            mirroring the other uses of THIS_VOLATILE in this file.  */
+877:         if (!(flags & opf_no_vops)
+878:             && TREE_THIS_VOLATILE (expr))
+879:           gimple_set_has_volatile_ops (stmt, true);
+880:
+881:         for (idx = 0;
+882:              vec_safe_iterate (CONSTRUCTOR_ELTS (expr), idx, &ce);
+883:              idx++)
+884:           get_expr_operands (&ce->value, uflags);
+885:
+886:         return;
+887:       }
+888:
+889:     case BIT_FIELD_REF:
+890:       if (!(flags & opf_no_vops)
+891:           && TREE_THIS_VOLATILE (expr))
+892:         gimple_set_has_volatile_ops (stmt, true);
+893:       /* FALLTHRU */
+894:
+895:     case VIEW_CONVERT_EXPR:
+896:     do_unary:
+897:       get_expr_operands (&TREE_OPERAND (expr, 0), flags);
+898:       return;
+899:
+900:     case BIT_INSERT_EXPR:
+901:     case COMPOUND_EXPR:
+902:     case OBJ_TYPE_REF:
+903:     do_binary:
+904:       {
+905:         get_expr_operands (&TREE_OPERAND (expr, 0), flags);
+906:         get_expr_operands (&TREE_OPERAND (expr, 1), flags);
+907:         return;
+908:       }
+909:
+910:     case DOT_PROD_EXPR:
+911:     case SAD_EXPR:
+912:     case REALIGN_LOAD_EXPR:
+913:     case WIDEN_MULT_PLUS_EXPR:
+914:     case WIDEN_MULT_MINUS_EXPR:
+915:       {
+916:         get_expr_operands (&TREE_OPERAND (expr, 0), flags);
+917:         get_expr_operands (&TREE_OPERAND (expr, 1), flags);
+918:         get_expr_operands (&TREE_OPERAND (expr, 2), flags);
+919:         return;
+920:       }
+921:
+922:     case FUNCTION_DECL:
+923:     case LABEL_DECL:
+924:     case CASE_LABEL_EXPR:
+925:       /* Expressions that make no memory references.  */
+926:       return;
+927:
+928:     default:
+929:       if (codeclass == tcc_unary)
+930:         goto do_unary;
+931:       if (codeclass == tcc_binary || codeclass == tcc_comparison)
+932:         goto do_binary;
+933:       if (codeclass == tcc_constant || codeclass == tcc_type)
+934:         return;
+935:     }
+936:
+937:   /* If we get here, something has gone wrong.  */
+938:   if (flag_checking)
+939:     {
+940:       fprintf (stderr, "unhandled expression in get_expr_operands():\n");
+941:       debug_tree (expr);
+942:       fputs ("\n", stderr);
+943:       gcc_unreachable ();
+944:     }
+945: }
+946:
+947:
+948: /* Parse STMT looking for operands.  When finished, the various
+949:    build_* operand vectors will have potential operands in them.  */
+950:
+951: void
+952: operands_scanner::parse_ssa_operands ()
+953: {
+954:   enum gimple_code code = gimple_code (stmt);
+955:   size_t i, n, start = 0;
+956:
+957:   switch (code)
+958:     {
+959:     case GIMPLE_ASM:
+960:       get_asm_stmt_operands (as_a <gasm *> (stmt));
+961:       break;
+962:
+963:     case GIMPLE_TRANSACTION:
+964:       /* The start of a transaction is a memory barrier.  */
+965:       add_virtual_operand (opf_def | opf_use);
+966:       break;
+967:
+968:     case GIMPLE_DEBUG:
+969:       if (gimple_debug_bind_p (stmt)
+970:           && gimple_debug_bind_has_value_p (stmt))
+971:         get_expr_operands (gimple_debug_bind_get_value_ptr (stmt),
+972:                            opf_use | opf_no_vops);
+973:       break;
+974:
+975:     case GIMPLE_RETURN:
+976:       append_vuse (gimple_vop (fn));
+977:       goto do_default;
+978:
+979:     case GIMPLE_CALL:
+980:       /* Add call-clobbered operands, if needed.  */
+981:       maybe_add_call_vops (as_a <gcall *> (stmt));
+982:       /* FALLTHRU */
+983:
+984:     case GIMPLE_ASSIGN:
+985:       get_expr_operands (gimple_op_ptr (stmt, 0), opf_def);
+986:       start = 1;
+987:       /* FALLTHRU */
+988:
+989:     default:
+990:     do_default:
+991:       n = gimple_num_ops (stmt);
+992:       for (i = start; i < n; i++)
+993:         get_expr_operands (gimple_op_ptr (stmt, i), opf_use);
+994:       break;
+995:     }
+996: }
+997:
+998:
+999: /* Create an operands cache for STMT.  */
+```
+
+## gcc/tree-ssa-operands.cc:1140–1154
+
+```text
+1140: update_stmt_operands (struct function *fn, gimple *stmt)
+1141: {
+1142:   /* If update_stmt_operands is called before SSA is initialized, do
+1143:      nothing.  */
+1144:   if (!ssa_operands_active (fn))
+1145:     return;
+1146:
+1147:   timevar_push (TV_TREE_OPS);
+1148:
+1149:   gcc_assert (gimple_modified_p (stmt));
+1150:   operands_scanner (fn, stmt).build_ssa_operands ();
+1151:   gimple_set_modified (stmt, false);
+1152:
+1153:   timevar_pop (TV_TREE_OPS);
+1154: }
+```
+
+## gcc/tree-ssa-operands.h:37–64
+
+```text
+37: struct use_optype_d
+38: {
+39:   struct use_optype_d *next;
+40:   struct ssa_use_operand_t use_ptr;
+41: };
+42: typedef struct use_optype_d *use_optype_p;
+43:
+44: /* This structure represents a variable sized buffer which is allocated by the
+45:    operand memory manager.  Operands are suballocated out of this block.  The
+46:    MEM array varies in size.  */
+47:
+48: struct GTY((chain_next("%h.next"))) ssa_operand_memory_d {
+49:   struct ssa_operand_memory_d *next;
+50:   char mem[1];
+51: };
+52:
+53: /* Per-function operand caches.  */
+54: struct GTY(()) ssa_operands {
+55:    struct ssa_operand_memory_d *operand_memory;
+56:    unsigned operand_memory_index;
+57:    /* Current size of the operand memory buffer.  */
+58:    unsigned int ssa_operand_mem_size;
+59:
+60:    bool ops_active;
+61:
+62:    struct use_optype_d * GTY ((skip (""))) free_uses;
+63: };
+64:
+```
+
+## gcc/tree-dfa.cc:293–366
+
+```text
+293: /* Lookup VAR UID in the default_defs hashtable and return the associated
+294:    variable.  */
+295:
+296: tree
+297: ssa_default_def (struct function *fn, tree var)
+298: {
+299:   struct tree_decl_minimal ind;
+300:   struct tree_ssa_name in;
+301:   gcc_assert (VAR_P (var)
+302:               || TREE_CODE (var) == PARM_DECL
+303:               || TREE_CODE (var) == RESULT_DECL);
+304:
+305:   /* Always NULL_TREE for rtl function dumps.  */
+306:   if (!fn->gimple_df)
+307:     return NULL_TREE;
+308:
+309:   in.var = (tree)&ind;
+310:   ind.uid = DECL_UID (var);
+311:   return DEFAULT_DEFS (fn)->find_with_hash ((tree)&in, DECL_UID (var));
+312: }
+313:
+314: /* Insert the pair VAR's UID, DEF into the default_defs hashtable
+315:    of function FN.  */
+316:
+317: void
+318: set_ssa_default_def (struct function *fn, tree var, tree def)
+319: {
+320:   struct tree_decl_minimal ind;
+321:   struct tree_ssa_name in;
+322:
+323:   gcc_assert (VAR_P (var)
+324:               || TREE_CODE (var) == PARM_DECL
+325:               || TREE_CODE (var) == RESULT_DECL);
+326:   in.var = (tree)&ind;
+327:   ind.uid = DECL_UID (var);
+328:   if (!def)
+329:     {
+330:       tree *loc = DEFAULT_DEFS (fn)->find_slot_with_hash ((tree)&in,
+331:                                                           DECL_UID (var),
+332:                                                           NO_INSERT);
+333:       if (loc)
+334:         {
+335:           SSA_NAME_IS_DEFAULT_DEF (*(tree *)loc) = false;
+336:           DEFAULT_DEFS (fn)->clear_slot (loc);
+337:         }
+338:       return;
+339:     }
+340:   gcc_assert (TREE_CODE (def) == SSA_NAME && SSA_NAME_VAR (def) == var);
+341:   tree *loc = DEFAULT_DEFS (fn)->find_slot_with_hash ((tree)&in,
+342:                                                       DECL_UID (var), INSERT);
+343:
+344:   /* Default definition might be changed by tail call optimization.  */
+345:   if (*loc)
+346:     SSA_NAME_IS_DEFAULT_DEF (*loc) = false;
+347:
+348:    /* Mark DEF as the default definition for VAR.  */
+349:   *loc = def;
+350:   SSA_NAME_IS_DEFAULT_DEF (def) = true;
+351: }
+352:
+353: /* Retrieve or create a default definition for VAR.  */
+354:
+355: tree
+356: get_or_create_ssa_default_def (struct function *fn, tree var)
+357: {
+358:   tree ddef = ssa_default_def (fn, var);
+359:   if (ddef == NULL_TREE)
+360:     {
+361:       ddef = make_ssa_name_fn (fn, var, gimple_build_nop ());
+362:       set_ssa_default_def (fn, var, ddef);
+363:     }
+364:   return ddef;
+365: }
+366:
+```
+
+## gcc/tree-ssa-dce.cc:2152–2257
+
+```text
+2152: simple_dce_from_worklist (bitmap worklist, bitmap need_eh_cleanup)
+2153: {
+2154:   int phiremoved = 0;
+2155:   int stmtremoved = 0;
+2156:   while (! bitmap_empty_p (worklist))
+2157:     {
+2158:       /* Pop item.  */
+2159:       unsigned i = bitmap_clear_first_set_bit (worklist);
+2160:
+2161:       tree def = ssa_name (i);
+2162:       /* Removed by somebody else or still in use.
+2163:          Note use in itself for a phi node is not counted as still in use.  */
+2164:       if (!def)
+2165:         continue;
+2166:       if (!has_zero_uses (def))
+2167:         {
+2168:           gimple *def_stmt = SSA_NAME_DEF_STMT (def);
+2169:
+2170:           if (gimple_code (def_stmt) != GIMPLE_PHI)
+2171:             continue;
+2172:
+2173:           imm_use_iterator use_iter;
+2174:           use_operand_p use_p;
+2175:           bool canremove = true;
+2176:
+2177:           FOR_EACH_IMM_USE_FAST (use_p, use_iter, def)
+2178:             {
+2179:               gimple *use_stmt = USE_STMT (use_p);
+2180:               /* Ignore debug statements. */
+2181:               if (is_gimple_debug (use_stmt))
+2182:                 continue;
+2183:               if (use_stmt != def_stmt)
+2184:                 {
+2185:                   canremove = false;
+2186:                   break;
+2187:                 }
+2188:             }
+2189:           if (!canremove)
+2190:             continue;
+2191:         }
+2192:
+2193:       gimple *t = SSA_NAME_DEF_STMT (def);
+2194:       if (gimple_has_side_effects (t))
+2195:         {
+2196:           if (gcall *call = dyn_cast <gcall *> (t))
+2197:             {
+2198:               gimple_call_set_lhs (call, NULL_TREE);
+2199:               update_stmt (call);
+2200:               release_ssa_name (def);
+2201:             }
+2202:           continue;
+2203:         }
+2204:
+2205:       /* The defining statement needs to be defining only this name.
+2206:          ASM is the only statement that can define more than one
+2207:          name. */
+2208:       if (is_a<gasm *>(t)
+2209:           && !single_ssa_def_operand (t, SSA_OP_ALL_DEFS))
+2210:         continue;
+2211:
+2212:       /* Don't remove statements that are needed for non-call
+2213:          eh to work.  */
+2214:       if (stmt_unremovable_because_of_non_call_eh_p (cfun, t))
+2215:         continue;
+2216:
+2217:       /* Tell the caller that we removed a statement that might
+2218:          throw so it could cleanup the cfg for that block. */
+2219:       if (need_eh_cleanup && stmt_could_throw_p (cfun, t))
+2220:         bitmap_set_bit (need_eh_cleanup, gimple_bb (t)->index);
+2221:
+2222:       /* Add uses to the worklist.  */
+2223:       ssa_op_iter iter;
+2224:       use_operand_p use_p;
+2225:       FOR_EACH_PHI_OR_STMT_USE (use_p, t, iter, SSA_OP_USE)
+2226:         {
+2227:           tree use = USE_FROM_PTR (use_p);
+2228:           if (TREE_CODE (use) == SSA_NAME
+2229:               && ! SSA_NAME_IS_DEFAULT_DEF (use))
+2230:             bitmap_set_bit (worklist, SSA_NAME_VERSION (use));
+2231:         }
+2232:
+2233:       /* Remove stmt.  */
+2234:       if (dump_file && (dump_flags & TDF_DETAILS))
+2235:         {
+2236:           fprintf (dump_file, "Removing dead stmt:");
+2237:           print_gimple_stmt (dump_file, t, 0);
+2238:         }
+2239:       gimple_stmt_iterator gsi = gsi_for_stmt (t);
+2240:       if (gimple_code (t) == GIMPLE_PHI)
+2241:         {
+2242:           remove_phi_node (&gsi, true);
+2243:           phiremoved++;
+2244:         }
+2245:       else
+2246:         {
+2247:           unlink_stmt_vdef (t);
+2248:           gsi_remove (&gsi, true);
+2249:           release_defs (t);
+2250:           stmtremoved++;
+2251:         }
+2252:     }
+2253:   statistics_counter_event (cfun, "PHIs removed",
+2254:                             phiremoved);
+2255:   statistics_counter_event (cfun, "Statements removed",
+2256:                             stmtremoved);
+2257: }
+```
+
+## gcc/domwalk.cc:273–364
+
+```text
+273: dom_walker::walk (basic_block bb)
+274: {
+275:   /* Compute the basic-block index to RPO mapping lazily.  */
+276:   if (!m_user_bb_to_rpo
+277:       && !m_bb_to_rpo
+278:       && m_dom_direction == CDI_DOMINATORS)
+279:     {
+280:       int *postorder = XNEWVEC (int, n_basic_blocks_for_fn (cfun));
+281:       int postorder_num = pre_and_rev_post_order_compute (NULL, postorder,
+282:                                                           true);
+283:       m_bb_to_rpo = XNEWVEC (int, last_basic_block_for_fn (cfun));
+284:       for (int i = 0; i < postorder_num; ++i)
+285:         m_bb_to_rpo[postorder[i]] = i;
+286:       free (postorder);
+287:     }
+288:
+289:   /* Set up edge flags if need be.  */
+290:   if (m_reachability == REACHABLE_BLOCKS)
+291:     set_all_edges_as_executable (cfun);
+292:
+293:   basic_block dest;
+294:   basic_block *worklist = XNEWVEC (basic_block,
+295:                                    n_basic_blocks_for_fn (cfun) * 2);
+296:   int sp = 0;
+297:
+298:   while (true)
+299:     {
+300:       /* Don't worry about unreachable blocks.  */
+301:       if (EDGE_COUNT (bb->preds) > 0
+302:           || bb == ENTRY_BLOCK_PTR_FOR_FN (cfun)
+303:           || bb == EXIT_BLOCK_PTR_FOR_FN (cfun))
+304:         {
+305:           edge taken_edge = NULL;
+306:
+307:           /* Callback for subclasses to do custom things before we have walked
+308:              the dominator children, but before we walk statements.  */
+309:           if (this->bb_reachable (cfun, bb))
+310:             {
+311:               taken_edge = before_dom_children (bb);
+312:               if (taken_edge && taken_edge != STOP)
+313:                 {
+314:                   edge_iterator ei;
+315:                   edge e;
+316:                   FOR_EACH_EDGE (e, ei, bb->succs)
+317:                     if (e != taken_edge)
+318:                       e->flags &= ~EDGE_EXECUTABLE;
+319:                 }
+320:             }
+321:           else
+322:             propagate_unreachable_to_edges (bb, dump_file, dump_flags);
+323:
+324:           /* Mark the current BB to be popped out of the recursion stack
+325:              once children are processed.  */
+326:           worklist[sp++] = bb;
+327:           worklist[sp++] = NULL;
+328:
+329:           /* If the callback returned NONE then we are supposed to
+330:              stop and not even propagate EDGE_EXECUTABLE further.  */
+331:           if (taken_edge != STOP)
+332:             {
+333:               int saved_sp = sp;
+334:               for (dest = first_dom_son (m_dom_direction, bb);
+335:                    dest; dest = next_dom_son (m_dom_direction, dest))
+336:                 worklist[sp++] = dest;
+337:               /* Sort worklist after RPO order if requested.  */
+338:               if (sp - saved_sp > 1
+339:                   && m_dom_direction == CDI_DOMINATORS
+340:                   && m_bb_to_rpo)
+341:                 sort_bbs_postorder (&worklist[saved_sp], sp - saved_sp,
+342:                                     m_bb_to_rpo);
+343:             }
+344:         }
+345:       /* NULL is used to mark pop operations in the recursion stack.  */
+346:       while (sp > 0 && !worklist[sp - 1])
+347:         {
+348:           --sp;
+349:           bb = worklist[--sp];
+350:
+351:           /* Callback allowing subclasses to do custom things after we have
+352:              walked dominator children, but before we walk statements.  */
+353:           if (bb_reachable (cfun, bb))
+354:             after_dom_children (bb);
+355:           else if (m_unreachable_dom == bb)
+356:             m_unreachable_dom = NULL;
+357:         }
+358:       if (sp)
+359:         bb = worklist[--sp];
+360:       else
+361:         break;
+362:     }
+363:   free (worklist);
+364: }
+```
+
+## gcc/gimple.h:220–288
+
+```text
+220: struct GTY((desc ("gimple_statement_structure (&%h)"), tag ("GSS_BASE"),
+221:             chain_next ("%h.next"), variable_size))
+222:   gimple
+223: {
+224:   /* [ WORD 1 ]
+225:      Main identifying code for a tuple.  */
+226:   ENUM_BITFIELD(gimple_code) code : 8;
+227:
+228:   /* Nonzero if a warning should not be emitted on this tuple.  */
+229:   unsigned int no_warning       : 1;
+230:
+231:   /* Nonzero if this tuple has been visited.  Passes are responsible
+232:      for clearing this bit before using it.  */
+233:   unsigned int visited          : 1;
+234:
+235:   /* Nonzero if this tuple represents a non-temporal move; currently
+236:      only stores are supported.  */
+237:   unsigned int nontemporal_move : 1;
+238:
+239:   /* Pass local flags.  These flags are free for any pass to use as
+240:      they see fit.  Passes should not assume that these flags contain
+241:      any useful value when the pass starts.  Any initial state that
+242:      the pass requires should be set on entry to the pass.  See
+243:      gimple_set_plf and gimple_plf for usage.  */
+244:   unsigned int plf              : 2;
+245:
+246:   /* Nonzero if this statement has been modified and needs to have its
+247:      operands rescanned.  */
+248:   unsigned modified             : 1;
+249:
+250:   /* Nonzero if this statement contains volatile operands.  */
+251:   unsigned has_volatile_ops     : 1;
+252:
+253:   /* Infrastructure local flag.  Always clear.  */
+254:   unsigned ilf                  : 1;
+255:
+256:   /* The SUBCODE field can be used for tuple-specific flags for tuples
+257:      that do not require subcodes.  Note that SUBCODE should be at
+258:      least as wide as tree codes, as several tuples store tree codes
+259:      in there.  */
+260:   unsigned int subcode          : 16;
+261:
+262:   /* UID of this statement.  This is used by passes that want to assign IDs
+263:      to statements.  It must be assigned and used by each pass.  By default
+264:      it should be assumed to contain garbage.  */
+265:   unsigned uid;
+266:
+267:   /* [ WORD 2 ]
+268:      Number of operands in this tuple.  */
+269:   unsigned num_ops;
+270:
+271:   /* Unused 32 bits padding on 64-bit hosts.  */
+272:
+273:   /* [ WORD 3 ]
+274:      Locus information for debug info.  */
+275:   location_t location;
+276:
+277:   /* [ WORD 4 ]
+278:      Basic block holding this statement.  */
+279:   basic_block bb;
+280:
+281:   /* [ WORD 5-6 ]
+282:      Linked lists of gimple statements.  The next pointers form
+283:      a NULL terminated list, the prev pointers are a cyclic list.
+284:      A gimple statement is hence also a double-ended list of
+285:      statements, with the pointer itself being the first element,
+286:      and the prev pointer being the last.  */
+287:   gimple *next;
+288:   gimple *GTY((skip)) prev;
+```
+
+## gcc/gimple.h:472–486
+
+```text
+472:
+473: struct GTY((tag("GSS_PHI")))
+474:   gphi : public gimple
+475: {
+476:   /* [ WORD 1-6 ] : base class */
+477:
+478:   /* [ WORD 7 ]  */
+479:   unsigned capacity;
+480:   unsigned nargs;
+481:
+482:   /* [ WORD 8 ]  */
+483:   tree result;
+484:
+485:   /* [ WORD 9-14 ]  */
+486:   struct phi_arg_d GTY ((length ("%h.nargs"))) args[1];
+```
+
+## gcc/tree-core.h:1138–1253
+
+```text
+1138: struct GTY(()) tree_base {
+1139:   ENUM_BITFIELD(tree_code) code : 16;
+1140:
+1141:   unsigned side_effects_flag : 1;
+1142:   unsigned constant_flag : 1;
+1143:   unsigned addressable_flag : 1;
+1144:   unsigned volatile_flag : 1;
+1145:   unsigned readonly_flag : 1;
+1146:   unsigned asm_written_flag: 1;
+1147:   unsigned nowarning_flag : 1;
+1148:   unsigned visited : 1;
+1149:
+1150:   unsigned used_flag : 1;
+1151:   unsigned nothrow_flag : 1;
+1152:   unsigned static_flag : 1;
+1153:   unsigned public_flag : 1;
+1154:   unsigned private_flag : 1;
+1155:   unsigned protected_flag : 1;
+1156:   unsigned deprecated_flag : 1;
+1157:   unsigned default_def_flag : 1;
+1158:
+1159:   union {
+1160:     /* The bits in the following structure should only be used with
+1161:        accessor macros that constrain inputs with tree checking.  */
+1162:     struct {
+1163:       unsigned lang_flag_0 : 1;
+1164:       unsigned lang_flag_1 : 1;
+1165:       unsigned lang_flag_2 : 1;
+1166:       unsigned lang_flag_3 : 1;
+1167:       unsigned lang_flag_4 : 1;
+1168:       unsigned lang_flag_5 : 1;
+1169:       unsigned lang_flag_6 : 1;
+1170:       unsigned saturating_flag : 1;
+1171:
+1172:       unsigned unsigned_flag : 1;
+1173:       unsigned packed_flag : 1;
+1174:       unsigned user_align : 1;
+1175:       unsigned nameless_flag : 1;
+1176:       unsigned atomic_flag : 1;
+1177:       unsigned unavailable_flag : 1;
+1178:       unsigned spare0 : 2;
+1179:
+1180:       unsigned spare1 : 8;
+1181:
+1182:       /* For _TYPE nodes, this is TYPE_ADDR_SPACE; the reason it is
+1183:          present in tree_base instead of tree_type is to save space.  The size
+1184:          of the field must be large enough to hold addr_space_t values.
+1185:          For CONSTRUCTOR nodes this holds the clobber_kind enum.
+1186:          The C++ front-end uses this in IDENTIFIER_NODE, REFLECT_EXPR, and
+1187:          NAMESPACE_DECL.  */
+1188:       unsigned address_space : 8;
+1189:     } bits;
+1190:
+1191:     /* The following fields are present in tree_base to save space.  The
+1192:        nodes using them do not require any of the flags above and so can
+1193:        make better use of the 4-byte sized word.  */
+1194:
+1195:     /* The number of HOST_WIDE_INTs in an INTEGER_CST.  */
+1196:     struct {
+1197:       /* The number of HOST_WIDE_INTs if the INTEGER_CST is accessed in
+1198:          its native precision.  */
+1199:       unsigned short unextended;
+1200:
+1201:       /* The number of HOST_WIDE_INTs if the INTEGER_CST is extended to
+1202:          wider precisions based on its TYPE_SIGN.  */
+1203:       unsigned short extended;
+1204:     } int_length;
+1205:
+1206:     /* VEC length.  This field is only used with TREE_VEC.  */
+1207:     int length;
+1208:
+1209:     /* This field is only used with VECTOR_CST.  */
+1210:     struct {
+1211:       /* The value of VECTOR_CST_LOG2_NPATTERNS.  */
+1212:       unsigned int log2_npatterns : 8;
+1213:
+1214:       /* The value of VECTOR_CST_NELTS_PER_PATTERN.  */
+1215:       unsigned int nelts_per_pattern : 8;
+1216:
+1217:       /* For future expansion.  */
+1218:       unsigned int unused : 16;
+1219:     } vector_cst;
+1220:
+1221:     /* SSA version number.  This field is only used with SSA_NAME.  */
+1222:     unsigned int version;
+1223:
+1224:     /* CHREC_VARIABLE.  This field is only used with POLYNOMIAL_CHREC.  */
+1225:     unsigned int chrec_var;
+1226:
+1227:     /* Internal function code.  */
+1228:     enum internal_fn ifn;
+1229:
+1230:     /* OMP_ATOMIC* memory order.  */
+1231:     enum omp_memory_order omp_atomic_memory_order;
+1232:
+1233:     /* The following two fields are used for MEM_REF and TARGET_MEM_REF
+1234:        expression trees and specify known data non-dependences.  For
+1235:        two memory references in a function they are known to not
+1236:        alias if dependence_info.clique are equal and dependence_info.base
+1237:        are distinct.  Clique number zero means there is no information,
+1238:        clique number one is populated from function global information
+1239:        and thus needs no remapping on transforms like loop unrolling.  */
+1240:     struct {
+1241:       unsigned short clique;
+1242:       unsigned short base;
+1243:     } dependence_info;
+1244:   } GTY((skip(""))) u;
+1245: };
+1246:
+1247: /* The following table lists the uses of each of the above flags and
+1248:    for which types of nodes they are defined.
+1249:
+1250:    addressable_flag:
+1251:
+1252:        TREE_ADDRESSABLE in
+1253:            VAR_DECL, PARM_DECL, RESULT_DECL, FUNCTION_DECL, LABEL_DECL
+```
+
+## gcc/tree-core.h:1565–1574
+
+```text
+1565: struct GTY(()) tree_typed {
+1566:   struct tree_base base;
+1567:   tree type;
+1568: };
+1569:
+1570: struct GTY(()) tree_common {
+1571:   struct tree_typed typed;
+1572:   tree chain;
+1573: };
+1574:
+```
+
+## gcc/tree-core.h:1704–1747
+
+```text
+1704: struct GTY(()) ssa_use_operand_t {
+1705:   struct ssa_use_operand_t* GTY((skip(""))) prev;
+1706:   struct ssa_use_operand_t* GTY((skip(""))) next;
+1707:   /* Immediate uses for a given SSA name are maintained as a cyclic
+1708:      list.  To recognize the root of this list, the location field
+1709:      needs to point to the original SSA name.  Since statements and
+1710:      SSA names are of different data types, we need this union.  See
+1711:      the explanation in struct imm_use_iterator.  */
+1712:   union { gimple *stmt; tree ssa_name; } GTY((skip(""))) loc;
+1713:   tree *GTY((skip(""))) use;
+1714: };
+1715:
+1716: struct GTY(()) tree_ssa_name {
+1717:   struct tree_typed typed;
+1718:
+1719:   /* _DECL wrapped by this SSA name.  */
+1720:   tree var;
+1721:
+1722:   /* Statement that defines this SSA name.  */
+1723:   gimple *def_stmt;
+1724:
+1725:   /* Value range information.  */
+1726:   union ssa_name_info_type {
+1727:     /* Range and aliasing info for pointers.  */
+1728:     struct GTY ((tag ("0"))) ptr_info_def *ptr_info;
+1729:     /* Range info for everything else.  */
+1730:     struct GTY ((tag ("1"))) vrange_storage * range_info;
+1731:   } GTY ((desc ("%1.typed.type ?" \
+1732:                 "!POINTER_TYPE_P (TREE_TYPE ((tree)&%1)) : 2"))) info;
+1733:   /* Immediate uses list for this SSA_NAME.  */
+1734:   struct ssa_use_operand_t imm_uses;
+1735: #if defined ENABLE_GIMPLE_CHECKING
+1736:   gimple *GTY((skip(""))) active_iterated_stmt;
+1737:   unsigned fast_iteration_depth;
+1738: #endif
+1739: };
+1740:
+1741: struct GTY(()) phi_arg_d {
+1742:   /* imm_use MUST be the first element in struct because we do some
+1743:      pointer arithmetic with it.  See phi_arg_index_from_use.  */
+1744:   struct ssa_use_operand_t imm_use;
+1745:   tree def;
+1746:   location_t locus;
+1747: };
+```
+
+## gcc/passes.def:57–70
+
+```text
+57:   PUSH_INSERT_PASSES_WITHIN (pass_build_ssa_passes)
+58:       NEXT_PASS (pass_fixup_cfg);
+59:       NEXT_PASS (pass_build_ssa);
+60:       NEXT_PASS (pass_walloca, /*strict_mode_p=*/true);
+61:       NEXT_PASS (pass_warn_printf);
+62:       NEXT_PASS (pass_warn_nonnull_compare);
+63:       NEXT_PASS (pass_early_warn_uninitialized);
+64:       NEXT_PASS (pass_warn_access, /*early=*/true, /*check_dangling=*/true);
+65:       NEXT_PASS (pass_ubsan);
+66:       NEXT_PASS (pass_nothrow);
+67:       NEXT_PASS (pass_rebuild_cgraph_edges);
+68:   POP_INSERT_PASSES ()
+69:   NEXT_PASS (pass_target_clone, true);
+70:
+```
+
+## gcc/passes.cc:405–424
+
+```text
+405:
+406: class pass_build_ssa_passes : public simple_ipa_opt_pass
+407: {
+408: public:
+409:   pass_build_ssa_passes (gcc::context *ctxt)
+410:     : simple_ipa_opt_pass (pass_data_build_ssa_passes, ctxt)
+411:   {}
+412:
+413:   /* opt_pass methods: */
+414:   bool gate (function *) final override
+415:     {
+416:       /* Don't bother doing anything if the program has errors.  */
+417:       return (!seen_error () && !in_lto_p);
+418:     }
+419:
+420:   unsigned int execute (function *) final override
+421:     {
+422:       return execute_build_ssa_passes ();
+423:     }
+424:
+```
+
+## gcc/passes.cc:2056–2110
+
+```text
+2056: /* Perform all TODO actions that ought to be done on each function.  */
+2057:
+2058: static void
+2059: execute_function_todo (function *fn, void *data)
+2060: {
+2061:   bool from_ipa_pass = (cfun == NULL);
+2062:   unsigned int flags = (size_t)data;
+2063:   if (!flags)
+2064:     return;
+2065:
+2066:   push_cfun (fn);
+2067:
+2068:   /* If we need to cleanup the CFG let it perform a needed SSA update.  */
+2069:   if (flags & TODO_cleanup_cfg)
+2070:     cleanup_tree_cfg (flags & TODO_update_ssa_any);
+2071:   else if (flags & TODO_update_ssa_any)
+2072:     update_ssa (flags & TODO_update_ssa_any);
+2073:   gcc_assert (!need_ssa_update_p (fn));
+2074:
+2075:   if (flag_tree_pta && (flags & TODO_rebuild_alias))
+2076:     compute_may_aliases ();
+2077:
+2078:   if (optimize && (flags & TODO_update_address_taken))
+2079:     execute_update_addresses_taken ();
+2080:
+2081:   if (flags & TODO_remove_unused_locals)
+2082:     remove_unused_locals ();
+2083:
+2084:   if (flags & TODO_rebuild_cgraph_edges)
+2085:     cgraph_edge::rebuild_edges ();
+2086:
+2087:   gcc_assert (dom_info_state (fn, CDI_POST_DOMINATORS) == DOM_NONE);
+2088:   /* If we've seen errors do not bother running any verifiers.  */
+2089:   if (flag_checking && !seen_error ())
+2090:     {
+2091:       dom_state pre_verify_state = dom_info_state (fn, CDI_DOMINATORS);
+2092:       dom_state pre_verify_pstate = dom_info_state (fn, CDI_POST_DOMINATORS);
+2093:
+2094:       if (flags & TODO_verify_il)
+2095:         {
+2096:           if (cfun->curr_properties & PROP_gimple)
+2097:             {
+2098:               if (cfun->curr_properties & PROP_cfg)
+2099:                 /* IPA passes leave stmts to be fixed up, so make sure to
+2100:                    not verify stmts really throw.  */
+2101:                 verify_gimple_in_cfg (cfun, !from_ipa_pass);
+2102:               else
+2103:                 verify_gimple_in_seq (gimple_body (cfun->decl));
+2104:             }
+2105:           if (cfun->curr_properties & PROP_ssa)
+2106:             /* IPA passes leave stmts to be fixed up, so make sure to
+2107:                not verify SSA operands whose verifier will choke on that.  */
+2108:             verify_ssa (true, !from_ipa_pass);
+2109:           /* IPA passes leave basic-blocks unsplit, so make sure to
+2110:              not trip on that.  */
+```
+
+## gcc/tree-ssa-live.cc:783–795
+
+```text
+783: remove_unused_locals (void)
+784: {
+785:   basic_block bb;
+786:   tree var;
+787:   unsigned srcidx, dstidx, num;
+788:   bool have_local_clobbers = false;
+789:
+790:   /* Removing declarations from lexical blocks when not optimizing is
+791:      not only a waste of time, it actually causes differences in stack
+792:      layout.  */
+793:   if (!optimize)
+794:     return;
+795:
+```
+
+## gcc/opts.cc:1472–1511
+
+```text
+1472:               || opts->x_flag_selective_scheduling2));
+1473:
+1474:   /* We know which debug output will be used so we can set flag_var_tracking
+1475:      and flag_var_tracking_uninit if the user has not specified them.  */
+1476:   if (opts->x_debug_info_level < DINFO_LEVEL_NORMAL
+1477:       || (!dwarf_debuginfo_p (opts) && !codeview_debuginfo_p ())
+1478:       /* We have not yet initialized debug hooks so match that to check
+1479:          whether we're only doing DWARF2_LINENO_DEBUGGING_INFO.  */
+1480: #ifndef DWARF2_DEBUGGING_INFO
+1481:       || true
+1482: #endif
+1483:      )
+1484:     {
+1485:       if ((opts_set->x_flag_var_tracking && opts->x_flag_var_tracking == 1)
+1486:           || (opts_set->x_flag_var_tracking_uninit
+1487:               && opts->x_flag_var_tracking_uninit == 1))
+1488:         {
+1489:           if (opts->x_debug_info_level < DINFO_LEVEL_NORMAL)
+1490:             warning_at (UNKNOWN_LOCATION, 0,
+1491:                         "variable tracking requested, but useless unless "
+1492:                         "producing debug info");
+1493:           else
+1494:             warning_at (UNKNOWN_LOCATION, 0,
+1495:                         "variable tracking requested, but not supported "
+1496:                         "by this debug format");
+1497:         }
+1498:       opts->x_flag_var_tracking = 0;
+1499:       opts->x_flag_var_tracking_uninit = 0;
+1500:       opts->x_flag_var_tracking_assignments = 0;
+1501:     }
+1502:
+1503:   /* One could use EnabledBy, but it would lead to a circular dependency.  */
+1504:   if (!opts_set->x_flag_var_tracking_uninit)
+1505:     opts->x_flag_var_tracking_uninit = opts->x_flag_var_tracking;
+1506:
+1507:   if (!opts_set->x_flag_var_tracking_assignments)
+1508:     opts->x_flag_var_tracking_assignments
+1509:       = (opts->x_flag_var_tracking
+1510:          && !(opts->x_flag_selective_scheduling
+1511:               || opts->x_flag_selective_scheduling2));
+```
+
+## gcc/tree.h:1333–1345
+
+```text
+1333:
+1334: /* Nonzero if gimple_debug_nonbind_marker_p() may possibly hold.  */
+1335: #define MAY_HAVE_DEBUG_MARKER_STMTS debug_nonbind_markers_p
+1336: /* Nonzero if gimple_debug_bind_p() (and thus
+1337:    gimple_debug_source_bind_p()) may possibly hold.  */
+1338: #define MAY_HAVE_DEBUG_BIND_STMTS flag_var_tracking_assignments
+1339: /* Nonzero if is_gimple_debug() may possibly hold.  */
+1340: #define MAY_HAVE_DEBUG_STMTS                                    \
+1341:   (MAY_HAVE_DEBUG_MARKER_STMTS || MAY_HAVE_DEBUG_BIND_STMTS)
+1342:
+1343: /* In a LOOP_EXPR node.  */
+1344: #define LOOP_EXPR_BODY(NODE) TREE_OPERAND_CHECK_CODE (NODE, LOOP_EXPR, 0)
+1345:
 ```

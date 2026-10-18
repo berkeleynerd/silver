@@ -1,8 +1,8 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "source_checks": {
-    "full_file_identities": 20,
-    "structural_guards": 16,
+    "full_file_identities": 35,
+    "structural_guards": 30,
     "meaning": "guards plus manual source analysis, not a semantic proof"
   },
   "arithmetic": {
@@ -17,6 +17,76 @@
       "maximum_observed_final_marker": 174,
       "general_sweep_bound": "V+1 (manual source/path argument)",
       "meaning": "finite transcription and invariant checks only"
+    },
+    "initial_ssa_arithmetic": {
+      "lp64_field_layout_bytes": {
+        "tree_base": 8,
+        "tree_typed": 16,
+        "ssa_use_operand_t": 32,
+        "phi_arg_d": 48,
+        "gimple": 40,
+        "gphi": 104,
+        "tree_ssa_name": 72,
+        "tree_ssa_name_gimple_checking": 88,
+        "use_optype_d": 40,
+        "var_info": 48,
+        "dom_dfsnum": 8
+      },
+      "phi_signed_shift_indegree_limit": 22369620,
+      "phi_degree_arithmetic_checks": 4133,
+      "operand_slab_capacities": [
+        25,
+        102,
+        409
+      ],
+      "operand_slab_boundary_samples": [
+        {
+          "uses": 0,
+          "requested_bytes": 0,
+          "entry_slots": 0
+        },
+        {
+          "uses": 1,
+          "requested_bytes": 1024,
+          "entry_slots": 25
+        },
+        {
+          "uses": 25,
+          "requested_bytes": 1024,
+          "entry_slots": 25
+        },
+        {
+          "uses": 26,
+          "requested_bytes": 5120,
+          "entry_slots": 127
+        },
+        {
+          "uses": 127,
+          "requested_bytes": 5120,
+          "entry_slots": 127
+        },
+        {
+          "uses": 128,
+          "requested_bytes": 21504,
+          "entry_slots": 536
+        },
+        {
+          "uses": 536,
+          "requested_bytes": 21504,
+          "entry_slots": 536
+        },
+        {
+          "uses": 537,
+          "requested_bytes": 37888,
+          "entry_slots": 945
+        },
+        {
+          "uses": 1000000,
+          "requested_bytes": 40064000,
+          "entry_slots": 1000132
+        }
+      ],
+      "meaning": "source-field arithmetic; no compiler or sizeof capture"
     },
     "pool_layout_arithmetic": [
       {
@@ -371,7 +441,8 @@
       "range matcher sequences, SSA_NAME and tree allocations",
       "generic containers and allocation lifetime composition",
       "enabled verifier helper allocation and loop object layout",
-      "downstream SSA, RTL, machine code and linker composition"
+      "fixup helper tree/cgraph allocations and operand-tree input X",
+      "downstream warnings, SSA updates/destruction, RTL, machine code and linker composition"
     ]
   },
   "validation_kind": "offline source identity and finite arithmetic only"

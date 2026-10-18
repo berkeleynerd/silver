@@ -14,12 +14,13 @@ PIN = "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
 RANGES = {
     "gcc/tree-cfg.cc": [(326,347), (1230,1323), (1710,1852),
                         (1853,1935), (2017,2160), (6057,6081),
-                        (6083,6278), (8983,9123), (9636,9653)],
+                        (6083,6278), (6293,6349), (8983,9123),
+                        (9636,9653), (9972,10144)],
     "gcc/tree-cfgcleanup.cc": [(85,254), (292,387), (476,780),
-                               (850,896), (994,1103), (1118,1267)],
+                               (788,896), (994,1103), (1118,1267)],
     "gcc/tree-cfgcleanup.h": [(20,28)],
-    "gcc/tree-ssa.cc": [(45,168)],
-    "gcc/cfghooks.cc": [(502,520), (842,937)],
+    "gcc/tree-ssa.cc": [(45,168), (243,270)],
+    "gcc/cfghooks.cc": [(502,520), (562,602), (842,1020)],
     "gcc/gimple-fold.cc": [(11005,11058), (11287,11296)],
     "gcc/gimple-fold.h": [(85,103), (176,186)],
     "gcc/basic-block.h": [(353,365)],
@@ -36,8 +37,26 @@ RANGES = {
     "gcc/cfgloop.cc": [(225,313), (338,379), (416,529),
                        (1392,1565), (1630,1747), (2129,2186)],
     "gcc/cfgloop.h": [(306,323), (639,656), (685,843)],
-    "gcc/loop-init.cc": [(42,134)],
-    "gcc/cfganal.cc": [(979,1088)],
+    "gcc/loop-init.cc": [(42,134), (200,339)],
+    "gcc/cfganal.cc": [(979,1088), (1639,1731)],
+    "gcc/tree-into-ssa.cc": [(56,69), (152,174), (354,375), (450,466),
+                             (629,921), (962,1176), (1208,1230),
+                             (1337,1544), (2285,2301), (2370,2440),
+                             (2460,2584), (3146,3151), (3369,3385)],
+    "gcc/tree-phinodes.cc": [(60,215)],
+    "gcc/tree-ssanames.cc": [(143,165), (351,420), (665,731)],
+    "gcc/tree-ssa-operands.cc": [(232,364), (425,485), (764,999), (1140,1154)],
+    "gcc/tree-ssa-operands.h": [(37,64)],
+    "gcc/tree-dfa.cc": [(293,366)],
+    "gcc/tree-ssa-dce.cc": [(2152,2257)],
+    "gcc/domwalk.cc": [(273,364)],
+    "gcc/gimple.h": [(220,288), (472,486)],
+    "gcc/tree-core.h": [(1138,1253), (1565,1574), (1704,1747)],
+    "gcc/passes.def": [(57,70)],
+    "gcc/passes.cc": [(405,424), (2056,2110)],
+    "gcc/tree-ssa-live.cc": [(783,795)],
+    "gcc/opts.cc": [(1472,1511)],
+    "gcc/tree.h": [(1333,1345)],
 }
 
 
@@ -46,7 +65,7 @@ def collect(root):
     assert upstream["commit"] == PIN
     upstream_files = {row["path"]: row for row in upstream["files"]}
     manifest, sources = [], {}
-    excerpts = ["# Pinned CFG cleanup and loop source excerpts\n\n",
+    excerpts = ["# Pinned CFG cleanup, loop and initial SSA source excerpts\n\n",
                 "Full-file SHA256 identities are in source-manifest.json.\n",
                 "LF line numbering; tabs expanded and trailing space trimmed.\n"]
     for name, ranges in RANGES.items():
@@ -92,7 +111,28 @@ def source_checks(s):
         "gcc/alloc-pool.h"]
     assert "unsigned depth = loop_depth (father) + 1;" in s["gcc/cfgloop.cc"]
     assert "vec_alloc (loop->superloops, depth);" in s["gcc/cfgloop.cc"]
-    return {"full_file_identities": len(s), "structural_guards": 16,
+    ssa = s["gcc/tree-into-ssa.cc"]
+    assert "return !(fun->curr_properties & PROP_ssa);" in ssa
+    assert "rewrite_blocks (ENTRY_BLOCK_PTR_FOR_FN (fun), REWRITE_ALL);" in ssa
+    assert "if (!need_ssa_update_p (cfun))\n    return;" in ssa
+    assert "block_defs_stack.create (10);" in ssa
+    assert "adef = 2 * n_defs + 1;" in ssa
+    assert "new_size = 1 << log2;" in s["gcc/tree-phinodes.cc"]
+    assert "if (!ssa_operands_active (fn))\n    return;" in s[
+        "gcc/tree-ssa-operands.cc"]
+    assert "#define OP_SIZE_3\t(1024 * 16 - sizeof (void *))" in s[
+        "gcc/tree-ssa-operands.cc"]
+    assert "global_var = build_decl (BUILTINS_LOCATION, VAR_DECL," in s[
+        "gcc/tree-ssa-operands.cc"]
+    assert "int saved_ssa_name_version = SSA_NAME_VERSION (var);" in s[
+        "gcc/tree-ssanames.cc"]
+    assert "ddef = make_ssa_name_fn (fn, var, gimple_build_nop ());" in s[
+        "gcc/tree-dfa.cc"]
+    assert "if (!optimize)\n    return;" in s["gcc/tree-ssa-live.cc"]
+    assert "opts->x_flag_var_tracking_assignments = 0;" in s["gcc/opts.cc"]
+    assert "#define MAY_HAVE_DEBUG_BIND_STMTS flag_var_tracking_assignments" in s[
+        "gcc/tree.h"]
+    return {"full_file_identities": len(s), "structural_guards": 30,
             "meaning": "guards plus manual source analysis, not a semantic proof"}
 
 
@@ -223,6 +263,80 @@ def graph_iteration_checks():
             "meaning": "finite transcription and invariant checks only"}
 
 
+def ssa_arithmetic():
+    """LP64 source-field and integer-boundary arithmetic, not sizeof probes."""
+    def layout(fields):
+        offset, alignment = 0, 1
+        for size, align in fields:
+            offset = (offset + align - 1) // align * align + size
+            alignment = max(alignment, align)
+        return (offset + alignment - 1) // alignment * alignment
+
+    pointer, uint = (8, 8), (4, 4)
+    tree_base = layout([uint, uint])
+    tree_typed = layout([(tree_base, 4), pointer])
+    imm_use = layout([pointer] * 4)
+    phi_arg = layout([(imm_use, 8), pointer, uint])
+    gimple = layout([uint] * 4 + [pointer] * 3)
+    gphi = layout([(gimple, 8), uint, uint, pointer, (phi_arg, 8)])
+    ssa = [(tree_typed, 8)] + [pointer] * 3 + [(imm_use, 8)]
+    layouts = {"tree_base": tree_base, "tree_typed": tree_typed,
+               "ssa_use_operand_t": imm_use, "phi_arg_d": phi_arg,
+               "gimple": gimple, "gphi": gphi,
+               "tree_ssa_name": layout(ssa),
+               "tree_ssa_name_gimple_checking": layout(ssa+[pointer, uint]),
+               "use_optype_d": layout([pointer, (imm_use, 8)]),
+               "var_info": layout([pointer, uint, pointer]+[pointer]*3),
+               "dom_dfsnum": layout([uint, uint])}
+    assert layouts == {"tree_base": 8, "tree_typed": 16,
+                       "ssa_use_operand_t": 32, "phi_arg_d": 48,
+                       "gimple": 40, "gphi": 104,
+                       "tree_ssa_name": 72,
+                       "tree_ssa_name_gimple_checking": 88,
+                       "use_optype_d": 40, "var_info": 48,
+                       "dom_dfsnum": 8}
+    overhead = gphi-phi_arg
+    phi_limit = (2**30-overhead)//phi_arg
+    assert phi_limit == 22369620
+    assert overhead+phi_arg*phi_limit <= 2**30
+    assert overhead+phi_arg*(phi_limit+1) > 2**30
+    degrees = set(range(2, 4097)) | {phi_limit, phi_limit-1}
+    for power in range(8, 31):
+        boundary = (2**power-overhead)//phi_arg
+        degrees.update(r for r in [boundary-1, boundary, boundary+1]
+                       if 2 <= r <= phi_limit)
+    for degree in degrees:
+        requested = overhead+phi_arg*degree
+        rounded = 1 << (requested-1).bit_length()
+        capacity = (rounded-overhead)//phi_arg
+        assert degree <= capacity <= 2*degree+1
+        assert overhead+phi_arg*capacity < 2*requested
+        assert rounded <= 2**30
+
+    slab_bytes = [1024, 4096, 16384]
+    capacities = [(size-8-1)//40 for size in slab_bytes]
+    assert capacities == [25, 102, 409]
+    for size, capacity in zip(slab_bytes, capacities):
+        assert capacity*40 < size-8 <= (capacity+1)*40
+    slab_samples = []
+    for uses in [0, 1, 25, 26, 127, 128, 536, 537, 1000000]:
+        later = (max(0, uses-127)+408)//409
+        allocated = (1024+(4096 if uses > 25 else 0)+16384*later
+                     if uses else 0)
+        slots = (25+(102 if uses > 25 else 0)+409*later if uses else 0)
+        assert slots >= uses
+        slab_samples.append({"uses": uses, "requested_bytes": allocated,
+                             "entry_slots": slots})
+    assert [x["requested_bytes"] for x in slab_samples[:8]] == [
+        0, 1024, 1024, 5120, 5120, 21504, 21504, 37888]
+    return {"lp64_field_layout_bytes": layouts,
+            "phi_signed_shift_indegree_limit": phi_limit,
+            "phi_degree_arithmetic_checks": len(degrees),
+            "operand_slab_capacities": capacities,
+            "operand_slab_boundary_samples": slab_samples,
+            "meaning": "source-field arithmetic; no compiler or sizeof capture"}
+
+
 def arithmetic():
     imax = 2**31 - 1
     bmax = imax // 2 - 2
@@ -291,6 +405,7 @@ def arithmetic():
             "et_lazy_depth_local_B_limit": et_bmax,
             "repair_marker_worst_edge_local_B_limit": repair_bmax,
             "graph_iteration_checks": graph_iteration_checks(),
+            "initial_ssa_arithmetic": ssa_arithmetic(),
             "pool_layout_arithmetic": pools,
             "tiny_loop_trees_checked": trees_checked,
             "representative_arithmetic": payloads,
@@ -298,7 +413,8 @@ def arithmetic():
                 "range matcher sequences, SSA_NAME and tree allocations",
                 "generic containers and allocation lifetime composition",
                 "enabled verifier helper allocation and loop object layout",
-                "downstream SSA, RTL, machine code and linker composition"]}
+                "fixup helper tree/cgraph allocations and operand-tree input X",
+                "downstream warnings, SSA updates/destruction, RTL, machine code and linker composition"]}
 
 
 def main():
