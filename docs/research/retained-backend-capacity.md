@@ -1923,8 +1923,9 @@ enable them (`gcc-interface/misc.cc:193–204`).
 For the proposed controlled native launch, add
 **`-Wno-free-nonheap-object`** and retain zero for the two C-family fields.
 Once that effective vector is established, both early and late access-warning
-pass entries are absent, so their ranger, dominance and diagnostic costs need
-no capacity allowance. Plain `-w` does not establish this: `inhibit_warnings`
+executions are skipped, so their ranger, dominance and diagnostic execution
+costs need no capacity allowance. Fixed pass construction and registration
+remain manager overhead. Plain `-w` does not establish this: `inhibit_warnings`
 is not part of the pass gate. There is no reason to pass C/C++-only warning
 options to the Ada frontend.
 
