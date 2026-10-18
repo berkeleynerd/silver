@@ -1,0 +1,98 @@
+[
+  {
+    "archive": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "member": "gcc/gcc.cc",
+    "bytes": 331859,
+    "sha256": "59ac02bc5147a8a4d79473edc41b8d1af8bd75628e00bfafab0c80eb36614346"
+  },
+  {
+    "archive": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "member": "gcc/common.opt",
+    "bytes": 122400,
+    "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+  },
+  {
+    "archive": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "member": "gcc/config.gcc",
+    "bytes": 184546,
+    "sha256": "40e891d89ae0cc4b3d013e2f25593233c580ad15da4c6b93674712a921b73caf"
+  },
+  {
+    "archive": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "member": "gcc/config/i386/gnu-user64.h",
+    "bytes": 3256,
+    "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9"
+  },
+  {
+    "archive": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "member": "gcc/ada/gcc-interface/lang-specs.h",
+    "bytes": 3476,
+    "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+  },
+  {
+    "archive": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "member": "gcc/ada/gcc-interface/lang.opt",
+    "bytes": 2437,
+    "sha256": "40c10a4f73836eae3799297449a07a0d2e4bd30a57f75e1b0f0b204ce0158063"
+  },
+  {
+    "archive": "docs/evidence/retained-split-options-20261018/sources.tar.gz",
+    "member": "gcc/ada/back_end.adb",
+    "bytes": 14372,
+    "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+  },
+  {
+    "archive": "docs/evidence/retained-split-options-20261018/sources.tar.gz",
+    "member": "gcc/ada/lib-writ.adb",
+    "bytes": 61061,
+    "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+  },
+  {
+    "archive": "docs/evidence/retained-split-options-20261018/sources.tar.gz",
+    "member": "gprbuild/src/gprbind.adb",
+    "bytes": 43658,
+    "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/fmap.adb",
+    "bytes": 15474,
+    "sha256": "831a3334022631e111510e14d27b9ac35f9667490e3c2a5688303c01ee53ac17"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/fmap.ads",
+    "bytes": 3870,
+    "sha256": "3b6cfc70a7cdd27ebb20fec4515b7fa8abfb43e6a185afecf0ef2b0caac47a3c"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/gnatbind.adb",
+    "bytes": 29989,
+    "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/osint.adb",
+    "bytes": 105542,
+    "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/bindgen.adb",
+    "bytes": 126166,
+    "sha256": "fe911dc10dd32c8f06d3a46959c05acf22057912b9d69702306d1da94ca606a6"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/bcheck.adb",
+    "bytes": 59616,
+    "sha256": "891effb9c72b133a0acf5a187210c9af7b10b9d3c3ecaf97a042bf461f21f1b1"
+  },
+  {
+    "archive": "docs/evidence/retained-link-inputs-20261018/sources.tar.gz",
+    "member": "gcc/gcc/collect2.cc",
+    "bytes": 87225,
+    "sha256": "a3872d49de464dfcaffef6b68f28b298fb5f460676032b583f7a6e49779c44d9"
+  }
+]

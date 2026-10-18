@@ -1,0 +1,187 @@
+[
+  {
+    "path": "docs/research/retained-null-pipeline.md",
+    "bytes": 11827,
+    "sha256": "8050accd43c665ec95c85697508462c42af37359170dfe4d97af5320b5c47256"
+  },
+  {
+    "path": "docs/research/retained-assembler-invocation.md",
+    "bytes": 10048,
+    "sha256": "f0ef824e18c5d42d36b78381f4a975c652d9aa18d2abdbfe5d3a8c5f299e5933"
+  },
+  {
+    "path": "docs/research/retained-split-options.md",
+    "bytes": 10287,
+    "sha256": "47f9640e525df66e26d699283ec019017a6a1e692a63e3bf6b8301a3b0d5afb7"
+  },
+  {
+    "path": "docs/research/retained-link-inputs.md",
+    "bytes": 16614,
+    "sha256": "e166967fe59af04fd2697c8578b06ee0662a718b67ff0555c3f15de55e7c5046"
+  },
+  {
+    "path": "docs/research/retained-linker-output-delta.md",
+    "bytes": 9784,
+    "sha256": "dfa220dde69d436e846cb925b6cb8a5bd8961b1c507191ca022044ee41a3d500"
+  },
+  {
+    "path": "docs/research/retained-literal-linker.md",
+    "bytes": 17972,
+    "sha256": "38d756be0e1fbd04d062509fe0a691fb5bed804751d8a921ed15e6ac678decd9"
+  },
+  {
+    "path": "docs/research/retained-binder-options.md",
+    "bytes": 12134,
+    "sha256": "8bd995ac84cbb1445647d743806430d430ba85412c0b529f8e25c33c28cac9fe"
+  },
+  {
+    "path": "docs/research/retained-binder-checksum-closure.md",
+    "bytes": 20058,
+    "sha256": "39fd8393ab07433b846441af38f9881047e7c28b8ab02b7609babbd7142b9fa0"
+  },
+  {
+    "path": "docs/research/retained-literal-binder-ali.md",
+    "bytes": 14611,
+    "sha256": "5d096e6e175d967f72410d94fd7644da4d36f4da4abeb77cc2d6e4426504b329"
+  },
+  {
+    "path": "docs/research/retained-literal-gpr-parent.md",
+    "bytes": 15320,
+    "sha256": "decc4d580a81c006660a08ee5fc3effe5a922ad06bcb9a5fe5dbb7253e7f791d"
+  },
+  {
+    "path": "docs/evidence/retained-null-pipeline-20261018/compose.py",
+    "bytes": 32755,
+    "sha256": "80818263aab01dfd9c8f9383e2680e01b3013eda214bc488dfaf022be149a9e0"
+  },
+  {
+    "path": "docs/evidence/retained-null-pipeline-20261018/fixture.json",
+    "bytes": 1135,
+    "sha256": "f7c0b412f0431ca80326ee1d019708800297b7216a5f9d9459a77312fc7e9c35"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/derive.py",
+    "bytes": 6353,
+    "sha256": "dcf2892d3efd3f6ffbab83e7fddef044973b6be2128185e65ab5f48763f6c344"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/source-manifest.json",
+    "bytes": 23083,
+    "sha256": "d22095ad8fec192bf1ddbeb6268ace65c23ff74ffefeab865531914c3e908fdd"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+    "bytes": 21593,
+    "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.adc",
+    "bytes": 327,
+    "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.json",
+    "bytes": 2182,
+    "sha256": "d9c0d22c4b3ed7bf9bc3221803bc42eaa48cd5b07919287166533cd3cd3043a4"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/compose.py",
+    "bytes": 20053,
+    "sha256": "239441a8cd55d783dd22c1509a5eff6ac5f9ecedd003eff959a065aa601bcf4a"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/inputs.json",
+    "bytes": 4977,
+    "sha256": "db203a274e4a0e30e08e02e019d2b11f081ca66fe3282780f0faa97e591109a5"
+  },
+  {
+    "path": "docs/evidence/retained-linker-output-delta-20261018/manifest.json",
+    "bytes": 52328,
+    "sha256": "8195c73bf3dba18357d2231f1046c806726fd8dc489b94a800e7c109068756a3"
+  },
+  {
+    "path": "docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz",
+    "bytes": 271904,
+    "sha256": "a34bc5cf5fdb94fb0aa1c38a1743c2bf3198b2f1e6b7c9def9b2fe421e2e3347"
+  },
+  {
+    "path": "docs/evidence/retained-linker-output-delta-20261018/check.py",
+    "bytes": 15310,
+    "sha256": "e5e633ed42b322e3398676a74617efc4406ab8e1a6e37df8bbec26686cfd1aeb"
+  },
+  {
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "path": "docs/evidence/retained-link-no-lto-20261018/capture/result.json",
+    "bytes": 4593,
+    "sha256": "5a9d78fc608e5db40b615d2ebac74a4016679394ef0d0d3308c0486b5d7e5b9e"
+  },
+  {
+    "path": "docs/evidence/retained-link-no-lto-20261018/ld-resolution/result.json",
+    "bytes": 6728,
+    "sha256": "2191990bb148a5ef87d32f88bf25472247dd1bfbdfd48b6fe866b6307f32e26d"
+  },
+  {
+    "path": "docs/evidence/retained-binder-options-20261018/result.json",
+    "bytes": 20675,
+    "sha256": "3666473d1e6e5c5c8708e5876763027993fd23e62a549ee0f30865b2954ba108"
+  },
+  {
+    "path": "docs/evidence/retained-binder-options-20261018/artifacts.tar.gz",
+    "bytes": 1463725,
+    "sha256": "85123c5efa4b115ab431db206c66b1cc02f7d5984564e41bdde37c07dc70b2df"
+  },
+  {
+    "path": "docs/evidence/retained-binder-checksum-closure-20261018/result.json",
+    "bytes": 1479,
+    "sha256": "9390d644e4423182c5ecd339ad1c7ac1503e5173ebd4e375543f7ceb7965e2b3"
+  },
+  {
+    "path": "docs/evidence/retained-binder-checksum-closure-20261018/review.md",
+    "bytes": 6045,
+    "sha256": "eee681f302207fad0540ca995ef16a560b4d632cba188c3836ae8bc145afa859"
+  },
+  {
+    "path": "docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz",
+    "bytes": 750174,
+    "sha256": "4b05db51a84ec0432db5b270d6ff46f477abd9c6df866ce0297baa3f8868b52f"
+  },
+  {
+    "path": "src/silver_io.ads",
+    "bytes": 2222,
+    "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+  },
+  {
+    "path": "src/silver_io.adb",
+    "bytes": 3358,
+    "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+  },
+  {
+    "path": "src/silver_output_libc.ads",
+    "bytes": 1532,
+    "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-sources.tar.gz",
+    "bytes": 163808,
+    "sha256": "72df5380ff5530bd13b13b6e1b7fc8914e1cf98e02bd19f3c382ca83d50eb6cd"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/sources.tar.gz",
+    "bytes": 668087,
+    "sha256": "3dcc2087f39617446a83c83ac694c451e4869cac7e4ac034ca8ad6519726e3f3"
+  },
+  {
+    "path": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "bytes": 2405544,
+    "sha256": "d6d41649ad0151edb2a3ac1972045f6ab97d0a903922351ce29aace97893e20a"
+  },
+  {
+    "path": "docs/evidence/retained-link-inputs-20261018/sources.tar.gz",
+    "bytes": 385287,
+    "sha256": "fc30c6d6c27d45f3610a937a2edc0f2179300032993d85b4b5eaa503c5d30109"
+  }
+]

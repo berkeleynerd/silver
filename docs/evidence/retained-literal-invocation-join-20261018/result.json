@@ -1,0 +1,2495 @@
+{
+  "scope": "selected native literal invocation and pinned fixed-library configuration",
+  "source_identity": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "path_bytes": 512,
+  "host_page_bytes": 4096,
+  "graph": {
+    "project_root": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "Main": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "native": {
+      "Main": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+      "configuration": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000002.TMP",
+      "mapping": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+      "assembly": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/cc000000.s"
+    },
+    "datarep": {
+      "Main": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation",
+      "configuration": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000002.TMP",
+      "mapping": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP",
+      "assembly": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation/main~1.o",
+      "representation_json": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation/main.adb.json"
+    },
+    "light": [],
+    "parent_configurations": {
+      "native": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000001.TMP",
+      "datarep": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000001.TMP",
+      "phase1": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000003/GNAT-TEMP-000001.TMP",
+      "phase2": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000004/GNAT-TEMP-000001.TMP"
+    },
+    "process_ID_decimal_width_upper": 10,
+    "native_Main_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+    "native_Main_object": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o",
+    "binder_source_directory": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+    "binder_body": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+    "phase1_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/phase1/main~1.ali",
+    "phase2_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/main~1.ali",
+    "copied_ALI_edge": {
+      "source": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/phase1/main~1.ali",
+      "destination": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/main~1.ali"
+    },
+    "datarep_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation/main~1.ali",
+    "report": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/main~1.spark"
+  },
+  "materialization": [
+    {
+      "role": "Main",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "kind": "supplied_source",
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    {
+      "role": "naming",
+      "path": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000002.TMP",
+      "kind": "generated_text",
+      "text": "pragma Source_File_Name_Project   (Spec_File_Name  => \"*.ads\",   Casing          => lowercase,   Dot_Replacement => \"-\");\npragma Source_File_Name_Project   (Body_File_Name  => \"*.adb\",   Casing          => lowercase,   Dot_Replacement => \"-\");\npragma Source_File_Name_Project (main, Body_File_Name => \"main.adb\", Index =>  1);\n",
+      "identity": {
+        "bytes": 327,
+        "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+      }
+    },
+    {
+      "role": "silver_io.ads",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_io.ads",
+      "kind": "fixed_source_copy",
+      "member": "indexed/silver_io.ads",
+      "identity": {
+        "bytes": 2222,
+        "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+      },
+      "timestamp": "20261018061955"
+    },
+    {
+      "role": "silver_io.adb",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_io.adb",
+      "kind": "fixed_source_copy",
+      "member": "indexed/silver_io.adb",
+      "identity": {
+        "bytes": 3358,
+        "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+      },
+      "timestamp": "20261018061955"
+    },
+    {
+      "role": "silver_output_libc.ads",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_output_libc.ads",
+      "kind": "fixed_source_copy",
+      "member": "indexed/silver_output_libc.ads",
+      "identity": {
+        "bytes": 1532,
+        "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+      },
+      "timestamp": "20261018061955"
+    },
+    {
+      "role": "source_mapping",
+      "path": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+      "kind": "generated_text",
+      "text": "main%b\nmain.adb\n/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb\nsilver_io%s\nsilver_io.ads\n/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_io.ads\nsilver_io%b\nsilver_io.adb\n/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_io.adb\nsilver_output_libc%s\nsilver_output_libc.ads\n/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_output_libc.ads\n",
+      "identity": {
+        "bytes": 612,
+        "sha256": "9f4b274a703a5ce405b26ba512f1170a46df55668fbea4967ee1b7fb9a93d0cf"
+      }
+    },
+    {
+      "role": "silver_io.ali",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.ali",
+      "kind": "fixed_ALI_copy",
+      "member": "closure/silver_io.ali",
+      "identity": {
+        "bytes": 4443,
+        "sha256": "b044271f7b146c59ff78f53b2b254c91c2f15038b50757a9623b785da1b2fd9a"
+      }
+    },
+    {
+      "role": "silver_output_libc.ali",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.ali",
+      "kind": "fixed_ALI_copy",
+      "member": "closure/silver_output_libc.ali",
+      "identity": {
+        "bytes": 2933,
+        "sha256": "6115c1a8ae101d7f2662f9696b1ec673e6282e62060305edda15f1f7041b3681"
+      }
+    },
+    {
+      "role": "silver_io.o",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.o",
+      "kind": "fixed_object_copy",
+      "member": "indexed/obj/silver_io.o",
+      "identity": {
+        "bytes": 2456,
+        "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de"
+      }
+    },
+    {
+      "role": "silver_output_libc.o",
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.o",
+      "kind": "fixed_object_copy",
+      "member": "indexed/obj/silver_output_libc.o",
+      "identity": {
+        "bytes": 1000,
+        "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d"
+      }
+    },
+    {
+      "role": "binder_mapping",
+      "path": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000001.TMP",
+      "kind": "generated_text",
+      "text": "",
+      "identity": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "role": "binder_object_path",
+      "path": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000002.TMP",
+      "kind": "generated_text",
+      "text": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/\n",
+      "identity": {
+        "bytes": 115,
+        "sha256": "100adb6888a258006f11c477bd5a88f6a31d2e12398004b2cda73cdacef0177b"
+      }
+    }
+  ],
+  "processes": [
+    {
+      "role": "Main_compile",
+      "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-c",
+        "-x",
+        "ada",
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatx",
+        "-Wno-free-nonheap-object",
+        "-fsplit-wide-types",
+        "-gnatec=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000002.TMP",
+        "-gnatem=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+        "-o",
+        "main~1.o",
+        "-gnateI1"
+      ],
+      "environment": {
+        "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+        "LC_ALL": "C",
+        "LANG": "C",
+        "TERM": "dumb",
+        "TMPDIR": "/tmp/silver-null-pipeline-20261018/ttttttttttttt",
+        "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+        "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+      },
+      "child_frontend": {
+        "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+        "argv_positions_upper": 25,
+        "split_option_forwarded": true,
+        "output_role": "Main_assembly"
+      },
+      "assembler_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/as",
+        "--64",
+        "-o",
+        "main~1.o",
+        "/tmp/silver-null-pipeline-20261018/ttttttttttttt/cc000000.s"
+      ],
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o"
+      ]
+    },
+    {
+      "role": "binder_generate",
+      "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatbind",
+        "-o",
+        "b__main~1.adb",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+        "-x",
+        "-F=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000001.TMP",
+        "-O=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP"
+      ],
+      "environment": {
+        "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/tmp/silver-null-pipeline-20261018/ttttttttttttt",
+        "ADA_PRJ_OBJECTS_FILE": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000002.TMP"
+      },
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ads",
+        "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP"
+      ]
+    },
+    {
+      "role": "binder_compile",
+      "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-c",
+        "-x",
+        "ada",
+        "-gnatA",
+        "-c",
+        "-gnatA",
+        "-gnatWb",
+        "-gnatiw",
+        "-gnatws",
+        "-Wno-free-nonheap-object",
+        "-mtune=generic",
+        "-march=x86-64",
+        "-fsplit-wide-types",
+        "b__main~1.adb",
+        "-o",
+        "b__main~1.o"
+      ],
+      "environment": {
+        "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/tmp/silver-null-pipeline-20261018/ttttttttttttt"
+      },
+      "assembler_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/as",
+        "--64",
+        "-o",
+        "b__main~1.o",
+        "/tmp/silver-null-pipeline-20261018/ttttttttttttt/cc000001.s"
+      ],
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ali"
+      ]
+    },
+    {
+      "role": "link",
+      "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-fno-lto",
+        "-fno-use-linker-plugin",
+        "main~1.o",
+        "b__main~1.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.o",
+        "-L/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/",
+        "-L/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+        "-static-libgcc",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+        "-ldl",
+        "-Wl,-rpath-link,/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+        "-Wl,-z,origin,-rpath,$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+        "-o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main"
+      ],
+      "environment": {
+        "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+        "LC_ALL": "C",
+        "LANG": "C",
+        "TERM": "dumb",
+        "TMPDIR": "/tmp/silver-null-pipeline-20261018/ttttttttttttt",
+        "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+        "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+      },
+      "collect2_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/collect2",
+        "-fno-lto",
+        "--eh-frame-hdr",
+        "-m",
+        "elf_x86_64",
+        "-dynamic-linker",
+        "/lib64/ld-linux-x86-64.so.2",
+        "-pie",
+        "-o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main",
+        "/lib/x86_64-linux-gnu/Scrt1.o",
+        "/lib/x86_64-linux-gnu/crti.o",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtbeginS.o",
+        "-L/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/",
+        "-L/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64",
+        "-L/lib/x86_64-linux-gnu",
+        "-L/lib/../lib64",
+        "-L/usr/lib/x86_64-linux-gnu",
+        "-L/usr/lib/../lib64",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../..",
+        "-L/lib",
+        "-L/usr/lib",
+        "main~1.o",
+        "b__main~1.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.o",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+        "-ldl",
+        "-rpath-link",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+        "-z",
+        "origin",
+        "-rpath",
+        "$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+        "-lgcc",
+        "-lgcc_eh",
+        "-latomic_asneeded",
+        "-lc",
+        "-lgcc",
+        "-lgcc_eh",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtendS.o",
+        "/lib/x86_64-linux-gnu/crtn.o"
+      ],
+      "ld_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/ld",
+        "--eh-frame-hdr",
+        "-m",
+        "elf_x86_64",
+        "-dynamic-linker",
+        "/lib64/ld-linux-x86-64.so.2",
+        "-pie",
+        "-o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main",
+        "/lib/x86_64-linux-gnu/Scrt1.o",
+        "/lib/x86_64-linux-gnu/crti.o",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtbeginS.o",
+        "-L/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/",
+        "-L/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64",
+        "-L/lib/x86_64-linux-gnu",
+        "-L/lib/../lib64",
+        "-L/usr/lib/x86_64-linux-gnu",
+        "-L/usr/lib/../lib64",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib",
+        "-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../..",
+        "-L/lib",
+        "-L/usr/lib",
+        "main~1.o",
+        "b__main~1.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.o",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+        "-ldl",
+        "-rpath-link",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0//adalib",
+        "-z",
+        "origin",
+        "-rpath",
+        "$ORIGIN/..//obj:/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+        "-lgcc",
+        "-lgcc_eh",
+        "-latomic_asneeded",
+        "-lc",
+        "-lgcc",
+        "-lgcc_eh",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtendS.o",
+        "/lib/x86_64-linux-gnu/crtn.o"
+      ],
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main"
+      ]
+    }
+  ],
+  "execution_order": [
+    "materialize_fixed_inputs",
+    "Main_compile",
+    "binder_generate",
+    "binder_compile",
+    "link"
+  ],
+  "directory_policy": "fresh owned root and TMPDIR; create root/obj and root/bin; only listed initial files; no rebuild or fallback jobs",
+  "compiler_input_policy": "one Main source operand; binder body source and companion spec only; imported sources are read, never compiled as jobs",
+  "common_Main_bindings": {
+    "native": {
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    "datarep": {
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    "phase1": {
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    "phase2": {
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    }
+  },
+  "shared_System": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "identity": {
+      "bytes": 7503,
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    }
+  },
+  "fixed_ALI_inputs": [
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-chahan.ali",
+      "identity": {
+        "bytes": 19710,
+        "sha256": "e29412c1db9529d1f3d3980bb7c30e47133cca2f45318889d9ff273ea5b347a7"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-charac.ali",
+      "identity": {
+        "bytes": 456,
+        "sha256": "d652385ef571e55ca34771b023c65e91413230d272fff0a077d81613489c2018"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-chlat1.ali",
+      "identity": {
+        "bytes": 6763,
+        "sha256": "db4258375bc1116ee27e92f1e56a30e2629aa808069466ae950914aa19ae77ee"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-contai.ali",
+      "identity": {
+        "bytes": 881,
+        "sha256": "242d83561afa3c0fb1d7b537a3a21804970461fd327064b3fc06cffe6a9c06cf"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-elchha.ali",
+      "identity": {
+        "bytes": 3781,
+        "sha256": "67efd3da2473d7f16b72c8c75e21b303bc394729cf1d56711d4c4655496af244"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-except.ali",
+      "identity": {
+        "bytes": 58770,
+        "sha256": "49bce6a452fe7e8db1ed5bd88a1e8f84521434e6a76d1538b7e7c5261caeca98"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-exctra.ali",
+      "identity": {
+        "bytes": 2157,
+        "sha256": "6ee77c37cfccd6d73b0085b857816fc19045d24acfb0d66de2f46bfcbf79178b"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-finali.ali",
+      "identity": {
+        "bytes": 3706,
+        "sha256": "074cf1c709371c1d9f1604daba8a5501f7e05c772990f4488e8e9b4a77129929"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-ioexce.ali",
+      "identity": {
+        "bytes": 962,
+        "sha256": "b002f006ac5fed367061c2e896aec6fe4fbdc57a6d2308c4e33e704d5b13a297"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-stbuut.ali",
+      "identity": {
+        "bytes": 4670,
+        "sha256": "b2dcf75c70b00286214c12a56d93867073be7d3b721b800ee53e53b5919fa626"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-stmaco.ali",
+      "identity": {
+        "bytes": 17053,
+        "sha256": "a35f1df993ddca07e84cf89d59ae29a37d40d1619f29bdd1f1ea9d3b969cf8e8"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-stream.ali",
+      "identity": {
+        "bytes": 3366,
+        "sha256": "f5a44e8e92136fc3012b3890a9b8f9e3967dd7c5a07194c65fbf876c46839482"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-string.ali",
+      "identity": {
+        "bytes": 1369,
+        "sha256": "848eb8970825a58cb803ddda7201812c11507d7ed3281314203235a97aff21dd"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-strmap.ali",
+      "identity": {
+        "bytes": 19280,
+        "sha256": "4750904e1d676d61a8c64d3fbbdc8739dab5302b41f2ca2bf9442282e76fd6d7"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-sttebu.ali",
+      "identity": {
+        "bytes": 6855,
+        "sha256": "3dde942a3754013921fcc84f7cc395f38ee71f969fdd152c57c9b28a6e6db0fc"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-stuten.ali",
+      "identity": {
+        "bytes": 5198,
+        "sha256": "dadd22e35269afe6c4d2bd0e0c4e6f36eac7d6de7eaf7695aa505f560da27794"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-suenst.ali",
+      "identity": {
+        "bytes": 4937,
+        "sha256": "d48d0fec4b2bf02a1a2cdb475c0ae2a89e1f809674d3c7c779fb241c5f0ac888"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-suewst.ali",
+      "identity": {
+        "bytes": 5157,
+        "sha256": "cf0a62541e59797b27176a6cbfd5612be8d5ca6e282244c5a9ff3f9c43e8273e"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-suezst.ali",
+      "identity": {
+        "bytes": 5792,
+        "sha256": "8105dfd5ef40b1ad6cec2755881abde808e432bede41aa5def2f425beddad575"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-tags.ali",
+      "identity": {
+        "bytes": 25393,
+        "sha256": "db67896ffe1771a28c7da6fe3684bac65823fd7e043aa05bfe6e25bb529ae793"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/a-textio.ali",
+      "identity": {
+        "bytes": 42381,
+        "sha256": "e93773962ad0d406da4b5802ef3919b33abab268d3c00aa09bf110910d217438"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/ada.ali",
+      "identity": {
+        "bytes": 349,
+        "sha256": "6fb06682fde39e03233f9a588db5cf1fb28f3d9f72d737cfd4fa82b7d2d02caa"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/i-c.ali",
+      "identity": {
+        "bytes": 16434,
+        "sha256": "5de72e1eb6e576e16e1a467b6dd9983a15fb44172398c7f75fdf81b60e51f1cd"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/i-cstrea.ali",
+      "identity": {
+        "bytes": 9495,
+        "sha256": "c3d6b0b2e7926d575e10328f9c3b35cb4054feba50ce0d8c80f6e000a484cac5"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/interfac.ali",
+      "identity": {
+        "bytes": 4480,
+        "sha256": "4929710be622c227363b33e502e15498a8c490540f6c641379694beb8b558cfd"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-addima.ali",
+      "identity": {
+        "bytes": 1710,
+        "sha256": "0111ed82156abc320ed646dd3e04b43a41f00f429115ae3410afd150826e4cec"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-aotase.ali",
+      "identity": {
+        "bytes": 2204,
+        "sha256": "eba9e77cce51da51a2b509ca9ddb31f06f5682da7c4a0bb6f242cb4967bc3801"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-atoope.ali",
+      "identity": {
+        "bytes": 458,
+        "sha256": "7c01adb2cb645721ca8b2508a43b4b946dad7a2aae07e73e445e936263191ffc"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-atopri.ali",
+      "identity": {
+        "bytes": 6542,
+        "sha256": "e2df637605e446106e6fb5a2ea4012e4946dbb12300e6ed8c10f046936202cda"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-bitops.ali",
+      "identity": {
+        "bytes": 4527,
+        "sha256": "f910367aee69eb16a448d42a742522a4b0bf1e1212d7374b1cb8bea18fc66243"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-boustr.ali",
+      "identity": {
+        "bytes": 2558,
+        "sha256": "f0c834a5a1a4d5e8101855627b573b50a1228419df499f31236597fb6eef3b7c"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-casuti.ali",
+      "identity": {
+        "bytes": 2287,
+        "sha256": "2edb1b2e6b7f642329f58afa036d1928e2addad21c212c7b12ccd7890701a33a"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-cautns.ali",
+      "identity": {
+        "bytes": 2391,
+        "sha256": "a7bb41a76ab38c57e9865b5762b8a211060973abf353309f4fc035aba5906692"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-crtl.ali",
+      "identity": {
+        "bytes": 8266,
+        "sha256": "31354d7cebdfcdd958091b609b4f218753cdff42d07339bab0341acf3964dfdf"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-dwalin.ali",
+      "identity": {
+        "bytes": 39020,
+        "sha256": "f594e597b21fa6d4ee5b9ae01468f32bcbb3eeb6e0f39aeda03e7d84de3a3656"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-excdeb.ali",
+      "identity": {
+        "bytes": 1803,
+        "sha256": "4f830796c110e902bc1ddda62208cc882315bd8fcfd2b6a029f44a2353c62f8e"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-except.ali",
+      "identity": {
+        "bytes": 871,
+        "sha256": "e22b0a8a751907b6a4d4655e9b558caebf2e03c3bab1d884d8cd62a91a01bab6"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-excmac.ali",
+      "identity": {
+        "bytes": 3531,
+        "sha256": "ca0f9461dbd08b85b3a65792a08607cfa8044f17545f5f5c176b98705ccff303"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-exctab.ali",
+      "identity": {
+        "bytes": 5943,
+        "sha256": "a7089079f7e920c6ed0be96c78e1a2e8811e967575f41b299e70fff634a9c08a"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-exctra.ali",
+      "identity": {
+        "bytes": 3357,
+        "sha256": "fb0d8bb60ef0cf02d08fafd4a00f7c59342719667898a6860813ceaae5a9cab9"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-ficobl.ali",
+      "identity": {
+        "bytes": 3762,
+        "sha256": "51c5b74915e664e33d11995cca8f2ef3cbb26e84366e717d55290ee515ef9995"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-fileio.ali",
+      "identity": {
+        "bytes": 21426,
+        "sha256": "278160e76f8f3138ee4e7ab48d133240d5ce500727dc4ec4def86e34a94a9e7e"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-finpri.ali",
+      "identity": {
+        "bytes": 9730,
+        "sha256": "70d3247a024360b56e8966a40553bc134a6d10ef80732027b7acd2d7d4e84328"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-finroo.ali",
+      "identity": {
+        "bytes": 3333,
+        "sha256": "c695e6da17b34ef30031f83a0730e1330a5402df210169576900e1242575ad2e"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-htable.ali",
+      "identity": {
+        "bytes": 6462,
+        "sha256": "785fc3ed11f5c9bcc7588341c4b1f449aed019beba9cc8acd1221f06abd11aea"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imad32.ali",
+      "identity": {
+        "bytes": 1399,
+        "sha256": "fb6c982b40e0ff9f48d5c22b9c4dcfd7e4fa8e9db2c432d875da21142e57f9e1"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imad64.ali",
+      "identity": {
+        "bytes": 1399,
+        "sha256": "35f3211c591ca0aa842a7827e24c8cb941f2e4e2cfe8d9399edc53927ac880ea"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imgint.ali",
+      "identity": {
+        "bytes": 1170,
+        "sha256": "838ec1c7f9fdf985f9810dfc7ea705962735ae3e00613dd7a78e3a37ef680d4d"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-imguns.ali",
+      "identity": {
+        "bytes": 1322,
+        "sha256": "3f014f4e44189a93e5d960dd77f96ff788bb6794959c7cfe42f0a2535f208a84"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-io.ali",
+      "identity": {
+        "bytes": 2078,
+        "sha256": "ac3a6d0791717c382649483bf4d931688bd8525a2373bce50b083ce4a39e514c"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-memory.ali",
+      "identity": {
+        "bytes": 3395,
+        "sha256": "315b231309d8655ac59dd115605e694abd1ee8f4a95a57e36eb1e383c5724372"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-mmap.ali",
+      "identity": {
+        "bytes": 11430,
+        "sha256": "2b72fa5cfc63f3254671aa8a62e13ae393f1439e9081af3ea702fd1cf5469354"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-mmauni.ali",
+      "identity": {
+        "bytes": 2330,
+        "sha256": "fe15bfb3e88d5bfbae07a9d070d756ed0d69f2b9bd80a400dbab042ba0f93d30"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-mmosin.ali",
+      "identity": {
+        "bytes": 7094,
+        "sha256": "189cd64efe8aaabf63bda4872296798d90f3b7d1f128d974be59e60d099fa6c9"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-objrea.ali",
+      "identity": {
+        "bytes": 50199,
+        "sha256": "58dfd6f4d06b5e062a1d18668a27f966ffe419d8e0d4ede4b67560c17f09d78c"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-os_lib.ali",
+      "identity": {
+        "bytes": 56724,
+        "sha256": "2a399283a6daad693c9db2e25581a394639a6e1e8a83f34b64ddedf9ba315aab"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-oscons.ali",
+      "identity": {
+        "bytes": 6316,
+        "sha256": "8460bdcf6954b4d44d3c27cc70863965937ec7e52c07141ce9468357c8337e63"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-oslock.ali",
+      "identity": {
+        "bytes": 1531,
+        "sha256": "39d3df3e67d0cbd1a35614b536671c31132f97959e9924e254f9b6115669302e"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-parame.ali",
+      "identity": {
+        "bytes": 1733,
+        "sha256": "189ebdcec03bd308e8fcc3f7226210eeabacc4859d26dddf8245294ea9d1d0c4"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-putima.ali",
+      "identity": {
+        "bytes": 12073,
+        "sha256": "25161d032503eaaeda1f451ea429a0a929ccc001d869a67e786c9c7d741771e4"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-secsta.ali",
+      "identity": {
+        "bytes": 13777,
+        "sha256": "0f6b10eab0442371c3d3e96cfbaceb9e030709f877f6c789ec2e5b869c64faad"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-soflin.ali",
+      "identity": {
+        "bytes": 9939,
+        "sha256": "e82d2a064649bf2a39daf6bee81cd2948c68db30e6d7484a944afa9b1722fe7d"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-soliin.ali",
+      "identity": {
+        "bytes": 1824,
+        "sha256": "d297ebc9a6ac621153f7a3f475a802e081004e521155c4999acb3d03df49b599"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-stache.ali",
+      "identity": {
+        "bytes": 1314,
+        "sha256": "a28f3d96be5ebcf45377113eb0e643974d74c37d405c5478d4af1ec967e32684"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-stalib.ali",
+      "identity": {
+        "bytes": 4164,
+        "sha256": "656219a7f3b559738bfd7b1c7394d362c7fce4e1cb05e88e36d8d3aebecc3300"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-stoele.ali",
+      "identity": {
+        "bytes": 1860,
+        "sha256": "1f82e1543c61cf2d57b54fc09fae12e628f845162d7d953e81639988c656d8ab"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-strhas.ali",
+      "identity": {
+        "bytes": 1095,
+        "sha256": "34e3c37bfbbe09a3272c5a2a7c888759bc2df4eccf76a4626bfe711c200c3b2b"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-string.ali",
+      "identity": {
+        "bytes": 1550,
+        "sha256": "6336add90f0f7904bbc8894200f1be2c6bffca7e05b59b47528af70f51418e1a"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-traceb.ali",
+      "identity": {
+        "bytes": 2539,
+        "sha256": "73fef8d258eef8f3fe3d92e077c747c34eeeae4bebd4e8608104e072f1b4504f"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-traent.ali",
+      "identity": {
+        "bytes": 1268,
+        "sha256": "962e94893ed80f7247f66dc2635cc562b956287d65a214483a8c44b40e6f0a4f"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-trasym.ali",
+      "identity": {
+        "bytes": 18972,
+        "sha256": "f004a5ddaf683c1507ef6b9e9291a9161cc89fa97435b3688d3811114790d9a7"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-unstyp.ali",
+      "identity": {
+        "bytes": 6137,
+        "sha256": "30e867532bc3fb359cd41963523938d9cdbbf9a3d37c95ed6917a1af6174b377"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-vallli.ali",
+      "identity": {
+        "bytes": 1892,
+        "sha256": "93e1d207f76eae57782335e68952dfe87de4b1d8d035f0ab4dc80d848f76ccba"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-valllu.ali",
+      "identity": {
+        "bytes": 2408,
+        "sha256": "056327fcdf08411fc4dd635872ba55602d8ec1542fdb1fe8d7083b31b84883c2"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-valuti.ali",
+      "identity": {
+        "bytes": 4550,
+        "sha256": "89a56dfd3e8c343908dde06ad7a7c55d66d6fa586e83f87ae3b553231292bbd5"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchcnv.ali",
+      "identity": {
+        "bytes": 5073,
+        "sha256": "c1a225729f5bf40bb543827b86553b76849945324ccf5907550f48ee38744aa5"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchcon.ali",
+      "identity": {
+        "bytes": 1966,
+        "sha256": "f68cbb1a265056e07958b7b3ec2eaee478333491bf38906cd01ef851450eff34"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchjis.ali",
+      "identity": {
+        "bytes": 2119,
+        "sha256": "db00dbaa9ba89ad0a970cd2000dbaa170602f336b558cac84c99c831f40d8e52"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/s-wchstw.ali",
+      "identity": {
+        "bytes": 3447,
+        "sha256": "2d92e84195e7f63cd6956ebe48debac70c98352a0101c1c0731f9b992ae5c56c"
+      }
+    },
+    {
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.ali",
+      "identity": {
+        "bytes": 4443,
+        "sha256": "b044271f7b146c59ff78f53b2b254c91c2f15038b50757a9623b785da1b2fd9a"
+      }
+    },
+    {
+      "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.ali",
+      "identity": {
+        "bytes": 2933,
+        "sha256": "6115c1a8ae101d7f2662f9696b1ec673e6282e62060305edda15f1f7041b3681"
+      }
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/system.ali",
+      "identity": {
+        "bytes": 2428,
+        "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1"
+      }
+    }
+  ],
+  "fixed_link_inputs": [
+    {
+      "path": "/lib/x86_64-linux-gnu/libdl.a",
+      "resolved": "/usr/lib/x86_64-linux-gnu/libdl.a",
+      "role": "library:dl",
+      "bytes": 8,
+      "sha256": "f0a17a43c74d2fe5474fa2fd29c8f14799e777d7d75a2cc4d11c20a6e7b161c5"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.a",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.a",
+      "role": "library:gcc",
+      "bytes": 8478412,
+      "sha256": "3deff77e0486431cfc4a5e7b84358eb708f03b85483774a7f4316460178ede31"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.a",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.a",
+      "role": "library:gcc_eh",
+      "bytes": 459162,
+      "sha256": "01d90394eea2190877f84cce2f4c8559bc28cc1b1f4dd0acdd4b48d6392e27d0"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic_asneeded.so",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib64/libatomic_asneeded.so",
+      "role": "library:atomic_asneeded",
+      "bytes": 106,
+      "sha256": "7006f9f3ea0a199cca99d3646c3a7ebd5aa0fea2d45894c205cdb6eab4b4a7de"
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/libc.so",
+      "resolved": "/usr/lib/x86_64-linux-gnu/libc.so",
+      "role": "library:c",
+      "bytes": 287,
+      "sha256": "649e1aa91af2551216685f45effca270fcc09ef39e28acd4b22745f0ae77e7f2"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic.so",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib64/libatomic.so.1.2.0",
+      "role": "library:atomic",
+      "bytes": 34976,
+      "sha256": "13f75932b2f692a857ebc50af1a8da6c00083760d3778902c1963c6ce5e1c9b8"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "resolved": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "role": "libc-script-member",
+      "bytes": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc_nonshared.a",
+      "resolved": "/usr/lib/x86_64-linux-gnu/libc_nonshared.a",
+      "role": "libc-script-member",
+      "bytes": 5594,
+      "sha256": "8fc3f78f6a5cac0cbe80a4fd96a00dcf5269425941fa33a0f2b7d25b96941662"
+    },
+    {
+      "path": "/lib64/ld-linux-x86-64.so.2",
+      "resolved": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "role": "libc-script-member",
+      "bytes": 254864,
+      "sha256": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14"
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/Scrt1.o",
+      "resolved": "/usr/lib/x86_64-linux-gnu/Scrt1.o",
+      "role": "explicit-fixed-input",
+      "bytes": 1656,
+      "sha256": "75c40260f996747732aeaac415985947403f7992916bc5d35465e1f9e6c93082"
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/crti.o",
+      "resolved": "/usr/lib/x86_64-linux-gnu/crti.o",
+      "role": "explicit-fixed-input",
+      "bytes": 1192,
+      "sha256": "077ccb6c68db1794da3ee262c4a16a3c6f8e902845dd0829110ad4b7065e5aa3"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtbeginS.o",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtbeginS.o",
+      "role": "explicit-fixed-input",
+      "bytes": 2784,
+      "sha256": "28b332f3235b68e9319ecf1c870639149671019bf2a9523dcb60d72ef5db217c"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+      "role": "explicit-fixed-input",
+      "bytes": 27038044,
+      "sha256": "0ad4faf3482b659765f96e1cc6fc3dcb13c7206b6f366d565a5d3d04a78a756d"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtendS.o",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtendS.o",
+      "role": "explicit-fixed-input",
+      "bytes": 1200,
+      "sha256": "9c47755bfde71bb190dc76e50c84eeb97b3ac0eda545e436eecbd8245f6e6bdd"
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/crtn.o",
+      "resolved": "/usr/lib/x86_64-linux-gnu/crtn.o",
+      "role": "explicit-fixed-input",
+      "bytes": 760,
+      "sha256": "a2266079f95b84ccc2162ebbf279bcd78858a748aa1882e0bdb912316c76a58f"
+    }
+  ],
+  "ordered_library_resolution": [
+    {
+      "library": "dl",
+      "ordered_probes": [
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libdl.a",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libdl.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libdl.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libdl.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libdl.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libdl.a",
+          "exists": false
+        },
+        {
+          "path": "/lib/x86_64-linux-gnu/libdl.so",
+          "exists": false
+        },
+        {
+          "path": "/lib/x86_64-linux-gnu/libdl.a",
+          "exists": true
+        }
+      ],
+      "selected": "/lib/x86_64-linux-gnu/libdl.a",
+      "resolved": "/usr/lib/x86_64-linux-gnu/libdl.a"
+    },
+    {
+      "library": "gcc",
+      "ordered_probes": [
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc.a",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgcc.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgcc.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.a",
+          "exists": true
+        }
+      ],
+      "selected": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.a",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.a"
+    },
+    {
+      "library": "gcc_eh",
+      "ordered_probes": [
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc_eh.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc_eh.a",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc_eh.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libgcc_eh.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgcc_eh.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgcc_eh.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.a",
+          "exists": true
+        }
+      ],
+      "selected": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.a",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.a"
+    },
+    {
+      "library": "atomic_asneeded",
+      "ordered_probes": [
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic_asneeded.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic_asneeded.a",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic_asneeded.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic_asneeded.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libatomic_asneeded.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libatomic_asneeded.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libatomic_asneeded.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libatomic_asneeded.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libatomic_asneeded.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libatomic_asneeded.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic_asneeded.so",
+          "exists": true
+        }
+      ],
+      "selected": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic_asneeded.so",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib64/libatomic_asneeded.so"
+    },
+    {
+      "library": "c",
+      "ordered_probes": [
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libc.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libc.a",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libc.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libc.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libc.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libc.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libc.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libc.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libc.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libc.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libc.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libc.a",
+          "exists": false
+        },
+        {
+          "path": "/lib/x86_64-linux-gnu/libc.so",
+          "exists": true
+        }
+      ],
+      "selected": "/lib/x86_64-linux-gnu/libc.so",
+      "resolved": "/usr/lib/x86_64-linux-gnu/libc.so"
+    },
+    {
+      "library": "atomic",
+      "ordered_probes": [
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic.a",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic.so",
+          "exists": false
+        },
+        {
+          "path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/libatomic.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libatomic.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libatomic.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libatomic.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libatomic.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libatomic.so",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/libatomic.a",
+          "exists": false
+        },
+        {
+          "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic.so",
+          "exists": true
+        }
+      ],
+      "selected": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic.so",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib64/libatomic.so.1.2.0"
+    }
+  ],
+  "fixed_dependency_metadata": {
+    "ada.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "76789da1"
+    },
+    "a-charac.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "2d3ec45b"
+    },
+    "a-chahan.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "bf752ff6"
+    },
+    "a-chahan.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "96cadc18"
+    },
+    "a-chlat1.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "e0d72e76"
+    },
+    "a-string.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "90ac6797"
+    },
+    "a-strmap.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "f7e6ca10"
+    },
+    "a-stmaco.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "4b1f2a0b"
+    },
+    "a-unccon.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "0e9b276f"
+    },
+    "system.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "e2b7c99d"
+    },
+    "s-exctab.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "91bef6ef"
+    },
+    "s-parame.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "a1aeab5c"
+    },
+    "s-secsta.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "578279f5"
+    },
+    "s-stalib.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "1c9580f6"
+    },
+    "s-stoele.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "ccded4e8"
+    },
+    "s-unstyp.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "fa2a7f59"
+    },
+    "a-contai.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "61e5e089"
+    },
+    "a-except.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "8699d7ff"
+    },
+    "a-elchha.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "47bffbf4"
+    },
+    "a-elchha.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "831da31f"
+    },
+    "s-soflin.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "5d88fdea"
+    },
+    "s-stache.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "0b81c1fe"
+    },
+    "s-traent.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "c81cbf8c"
+    },
+    "a-except.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "72544f16"
+    },
+    "a-excach.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "8d177d55"
+    },
+    "a-exexda.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "53e3aa5e"
+    },
+    "a-exexpr.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "47908497"
+    },
+    "a-exextr.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "de7b2b4f"
+    },
+    "a-exstat.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "0850dfd2"
+    },
+    "a-uncdea.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "c3a8ac65"
+    },
+    "s-except.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "32a5bf32"
+    },
+    "s-excmac.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "37ba06ce"
+    },
+    "s-excdeb.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "2c9bd8a5"
+    },
+    "s-imagei.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "11a376a2"
+    },
+    "s-imgint.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "86836590"
+    },
+    "s-traceb.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "4e864b31"
+    },
+    "s-trasym.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "f6318ecd"
+    },
+    "s-wchcon.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "d9032363"
+    },
+    "s-wchstw.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "2d112c01"
+    },
+    "a-exctra.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "0966bad0"
+    },
+    "a-exctra.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "79792758"
+    },
+    "a-finali.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "099c16e4"
+    },
+    "a-stream.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "cb01a8f8"
+    },
+    "a-sttebu.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "f1ad67a2"
+    },
+    "a-stuten.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "c6ced0ae"
+    },
+    "a-tags.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "2dbf449c"
+    },
+    "interfac.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "9111f9c1"
+    },
+    "s-finroo.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "0a7c3ed4"
+    },
+    "s-memory.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "18949c1a"
+    },
+    "s-putima.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "1b989439"
+    },
+    "s-stalib.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "eb464a47"
+    },
+    "a-ioexce.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "40018c65"
+    },
+    "a-stbuut.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "69caae97"
+    },
+    "a-stbuut.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "4b734508"
+    },
+    "a-suezst.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "1161e3f6"
+    },
+    "a-stream.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "e56e1bc6"
+    },
+    "a-strmap.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "6d6c2725"
+    },
+    "s-bitops.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "cdf3ac3c"
+    },
+    "a-sttebu.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "acea8fa8"
+    },
+    "a-suenst.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "7e912418"
+    },
+    "a-suewst.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "90b69721"
+    },
+    "a-stuten.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "4db8d46a"
+    },
+    "a-suenst.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "c5e92b5d"
+    },
+    "a-suewst.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "41677a2a"
+    },
+    "a-suezst.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "d3d86a95"
+    },
+    "a-tags.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "cd76beda"
+    },
+    "s-htable.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "81d958eb"
+    },
+    "s-htable.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "51a5f568"
+    },
+    "s-strhas.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "269cd894"
+    },
+    "s-strhas.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "398666ac"
+    },
+    "s-valllu.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "6c4ea24d"
+    },
+    "s-valueu.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "099f68d2"
+    },
+    "a-textio.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "34ef47de"
+    },
+    "a-textio.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "5b4ab73e"
+    },
+    "a-tigeli.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "491360e4"
+    },
+    "i-cstrea.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "ffd01b9d"
+    },
+    "s-crtl.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "823b6536"
+    },
+    "s-ficobl.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "dc5161d4"
+    },
+    "s-fileio.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "45ce2f0f"
+    },
+    "s-wchcnv.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "06c0ca70"
+    },
+    "s-wchcnv.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "5870a60e"
+    },
+    "s-wchjis.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "6a748b39"
+    },
+    "i-c.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "dbdd3be7"
+    },
+    "i-c.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "62709dbd"
+    },
+    "i-cstrea.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "ede7ccf4"
+    },
+    "s-addima.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "a1ec9d3a"
+    },
+    "s-addima.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "755d3674"
+    },
+    "s-imagea.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "c875d703"
+    },
+    "s-imad32.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "6cdac467"
+    },
+    "s-imad64.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "41fa65e5"
+    },
+    "s-atoope.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "c7637a25"
+    },
+    "s-aotase.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "90cf94ab"
+    },
+    "s-aotase.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "e581b407"
+    },
+    "s-atopri.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "e19c1d89"
+    },
+    "s-atopri.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "b4a64c17"
+    },
+    "s-bitops.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "6a845c4b"
+    },
+    "s-boustr.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "77fd2119"
+    },
+    "s-boustr.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "b25b8d9c"
+    },
+    "s-casuti.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "bb976540"
+    },
+    "s-casuti.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "af6c4d2b"
+    },
+    "s-cautns.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "656f842a"
+    },
+    "s-cautns.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "eefae70e"
+    },
+    "s-crtl.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "a08a9eaf"
+    },
+    "a-cgarso.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "9129bfa8"
+    },
+    "a-cgarso.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "59f5315a"
+    },
+    "a-cgcaso.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "9f1e835c"
+    },
+    "a-cgcaso.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "21f0752d"
+    },
+    "s-dwalin.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "fe15cdf0"
+    },
+    "s-dwalin.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "ea3fbb4d"
+    },
+    "s-imageu.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "95851461"
+    },
+    "s-imguns.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "34f2a7d6"
+    },
+    "s-io.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "9e42f74f"
+    },
+    "s-mmap.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "3c5bc490"
+    },
+    "s-objrea.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "a1dea848"
+    },
+    "s-string.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "582aac7d"
+    },
+    "s-excdeb.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "03e73026"
+    },
+    "s-excmac.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "f4ddacea"
+    },
+    "s-exctab.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "89d79d5b"
+    },
+    "s-exctra.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "2484d6ea"
+    },
+    "s-exctra.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "532c7d7e"
+    },
+    "s-fileio.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "9bbe5b2b"
+    },
+    "s-finpri.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "5970d55a"
+    },
+    "s-oscons.ads": {
+      "timestamp": "20260626180101",
+      "checksum": "d0718993"
+    },
+    "s-os_lib.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "66ffd2a3"
+    },
+    "s-oslock.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "13fa6b78"
+    },
+    "s-finpri.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "02c85f69"
+    },
+    "s-finroo.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "da730d48"
+    },
+    "s-imagea.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "a6581b75"
+    },
+    "s-imagei.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "e81b26f1"
+    },
+    "s-imageu.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "2d0619dc"
+    },
+    "s-io.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "beae8dec"
+    },
+    "s-memory.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "c3e3df60"
+    },
+    "s-mmap.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "a1ff4f3c"
+    },
+    "s-mmosin.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "a9e083d6"
+    },
+    "s-mmauni.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "fc7ef464"
+    },
+    "s-mmosin.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "6a5b44af"
+    },
+    "s-objrea.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "7bd64fe2"
+    },
+    "s-vallli.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "b00d83a1"
+    },
+    "s-valuei.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "75953b98"
+    },
+    "s-os_lib.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "92290ab8"
+    },
+    "s-parame.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "91a902b3"
+    },
+    "s-putima.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "fa7b8bb5"
+    },
+    "s-secsta.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "99da2af7"
+    },
+    "s-soflin.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "d38e2ecb"
+    },
+    "s-soliin.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "f1a676b9"
+    },
+    "s-soliin.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "a4a2c1d3"
+    },
+    "s-stache.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "8e187385"
+    },
+    "s-string.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "7d471798"
+    },
+    "s-traceb.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "12fbd711"
+    },
+    "s-traent.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "9777db0a"
+    },
+    "s-atacco.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "5868e3ba"
+    },
+    "s-trasym.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "cac06be6"
+    },
+    "s-tsmona.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "1dc86774"
+    },
+    "s-valuti.ads": {
+      "timestamp": "20260430083320",
+      "checksum": "ecabe223"
+    },
+    "s-valuei.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "0fa81cfa"
+    },
+    "s-valueu.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "71ee8db2"
+    },
+    "s-valuti.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "84dd62b0"
+    },
+    "s-wchcon.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "2416a954"
+    },
+    "s-wchjis.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "8f4c557a"
+    },
+    "s-wchstw.adb": {
+      "timestamp": "20260430083320",
+      "checksum": "aefa5c60"
+    },
+    "silver_io.ads": {
+      "timestamp": "20261018061955",
+      "checksum": "daeb09a6"
+    },
+    "silver_io.adb": {
+      "timestamp": "20261018061955",
+      "checksum": "8325db53"
+    },
+    "silver_output_libc.ads": {
+      "timestamp": "20261018061955",
+      "checksum": "0639e720"
+    }
+  },
+  "compile_jobs": [
+    "Main",
+    "binder"
+  ],
+  "fixed_Silver_compile_jobs": 0,
+  "GPR_or_Gprbind_jobs": 0,
+  "regenerate_fixed_children_selected": false,
+  "binder_object_family": {
+    "interface": {
+      "section_count": 16,
+      "symbol_count": 243,
+      "relocation_count": 134,
+      "maximum_section_alignment": 32,
+      "eh_frame_bytes": 224,
+      "text_bytes": 1278,
+      "allocated_bytes": 12493,
+      "file_bytes_upper": 17952
+    },
+    "identity_is_variable": true,
+    "equals_captured_fixture": false,
+    "checksum_source": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali: U main%b version",
+    "checksum_domain": [
+      0,
+      4294967295
+    ],
+    "GGC_rounded_bytes_upper": 5167732,
+    "GGC_events_upper": 56378,
+    "GGC_largest_rounded_request": 262144
+  },
+  "emission_interface": {
+    "counts": {
+      "calls": 1,
+      "nulls": 0,
+      "decoded_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "source_family_emission_routes_closed_under_selected_descriptor": true,
+    "counter_bounds": {
+      "fixed_prefix_positive_GGC_events_upper": 39257,
+      "ordinary_label_initial_value": 1,
+      "ordinary_label_next_at_prefix_exit_upper": 39258,
+      "target_cost_setup_ordinary_label_increments": 0,
+      "imported_and_non_Main_ordinary_label_increments": 0,
+      "Main_ordinary_label_increments_upper": 52,
+      "ordinary_label_next_at_exit_upper": 39310,
+      "Main_label_alignment_span_upper": 53,
+      "constant_label_initial_value": 0,
+      "constant_label_next_at_prefix_exit_upper": 39257,
+      "target_cost_setup_constant_label_increments": 0,
+      "additional_imported_constant_label_increments": 0,
+      "Main_tree_constant_label_increments_upper": 2,
+      "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+      "constant_label_next_at_exit_upper": 39259,
+      "final_scan_counter_initial_value": 0,
+      "final_scan_counter_at_exit_upper": 52,
+      "CFI_label_counter_initial_value": 0,
+      "CFI_label_counter_at_exit_upper": 5,
+      "CFI_label_signed_temporary_maximum": 4,
+      "Main_function_definition_number": 1,
+      "next_function_definition_number": 4
+    },
+    "counter_and_emission_guards": {
+      "literal_length_signed_int": true,
+      "ordinary_label_next_signed_int": true,
+      "constant_label_next_signed_int": true,
+      "Main_instruction_UID_and_label_span_signed_int": true,
+      "final_scan_counter_signed_int": true,
+      "text_and_CFI_location_signed_int": true,
+      "CFI_label_temporary_and_next_signed_int": true,
+      "function_definition_next_signed_int": true
+    },
+    "counter_and_emission_guards_fit": true,
+    "final_chain": 52,
+    "text_bytes_upper": 53,
+    "assembly": {
+      "lines_upper": 187,
+      "bytes_upper": 11471,
+      "longest_line_excluding_LF_upper": 512,
+      "scrub_buffer_bytes_upper": 65539
+    },
+    "emission": {
+      "emitted_function_bodies": 1,
+      "Main_boundary_labels": [
+        ".LFB1",
+        ".LFE1"
+      ],
+      "additional_non_Main_emitted_lines": 0,
+      "selected_pending_external_directive_lines": 0,
+      "external_pending_declarations_upper": 1,
+      "constant_label_definitions_upper": 2,
+      "additional_data_sections_upper": 1,
+      "additional_data_section": ".rodata",
+      "rodata_bytes_upper": 35,
+      "constant_data_relocations": 0,
+      "local_label_bytes_excluding_NUL_upper": 25,
+      "symbol_name_bytes_including_NUL_upper": 26,
+      "instruction_line_bytes_excluding_LF_upper": 64
+    },
+    "complete_selected_stream_source_correspondence_conditional": true,
+    "production_invocation_and_materialization_established": false,
+    "installed_relevant_behavior_correspondence_is_external_premise": true,
+    "complete_non_label_global_counter_lifetime_closed": false,
+    "complete_shared_backing_and_collector_capacity_closed": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "native_tool_executions": 0,
+    "production_admission_changed": false,
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    }
+  },
+  "link_interface": {
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "counts": {
+      "calls": 1,
+      "nulls": 0,
+      "decoded_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "assembler_interface_fits": true,
+    "assembler_storage_fits": true,
+    "link": {
+      "counts": {
+        "R": 49493,
+        "Q": 36497,
+        "P": 1485,
+        "Qrel": 7920,
+        "Trel": 546796,
+        "H": 221545,
+        "I": 48907,
+        "S": 49000,
+        "N": 49005,
+        "T": 147013,
+        "J": 3028836,
+        "D": 3250382,
+        "Z": 764615
+      },
+      "Main_original_section_bytes": 15810,
+      "Main_external_size_sum_upper": 53,
+      "Main_instruction_relocations": {
+        "PC32": 2,
+        "PLT32": 1
+      },
+      "generated_names": {
+        "occurrences": 463,
+        "NUL_bytes": 10786
+      },
+      "payload_components": {
+        "original_sections": 46251188,
+        "full_fixed_merge_output": 3168199,
+        "full_generated_merge_output": 124,
+        "full_EH_edited_output_including_PLT_templates": 743654,
+        "EH_header": 119692,
+        "full_property_rewrite": 440,
+        "copy_storage": 49411299,
+        "interpreter": 28,
+        "dynsym": 78009168,
+        "versym": 6500764,
+        "SysV_hash": 13132620,
+        "GNU_hash": 1279424,
+        "ordinary_symtab": 18350760,
+        "optional_symtab_indices": 3058460,
+        "ordinary_strtab": 150629156,
+        "shstrtab": 26901733,
+        "GOT_PLT_and_dynamic_relocations_including_copy_relocations": 64351840,
+        "dynamic_tags": 1232,
+        "dynstr": 1580505,
+        "version_definitions": 1456,
+        "version_requirements": 2048
+      },
+      "payload_union_bytes": 463493790,
+      "layout": {
+        "alignment": 4096,
+        "padding": 400982408,
+        "headers": 8232792,
+        "retained_endpoint": 872708990,
+        "trial_endpoint": 1745417980,
+        "file_endpoint": 42767885394910
+      },
+      "relocation_bounds": {
+        "common_signed32": 1747437035,
+        "Main_PC32_PLT32": 872708994,
+        "unsigned32": 873002922,
+        "EH_relative": 874728030
+      },
+      "EH": {
+        "entries": 16336,
+        "original_bytes": 552148,
+        "FDEs": 14960,
+        "edited_bytes": 743654
+      },
+      "administrative": {
+        "BFD_object_ID_events": 3292,
+        "BFD_section_ID_highwater": 268824,
+        "start_stop_capacity": 327670,
+        "statement_iterations": 16,
+        "sizing_iterations": 9,
+        "mapping_iterations": 2,
+        "output_statement_hash_keys": 49001
+      },
+      "host_page_bytes": 4096,
+      "individual_request_upper_bytes": {
+        "link_order": 1048592,
+        "mapper": 392000,
+        "segment_map": 392080,
+        "final_PHDRs": 864,
+        "header_pointers": 392040,
+        "internal_header": 80,
+        "merge_bucket": 2097152,
+        "merge_entry": 3147444,
+        "merge_copy": 6294824,
+        "merge_offset_map": 474420,
+        "merge_entry_map": 948840,
+        "merge_fast_lookup": 393428,
+        "merge_sort": 932456,
+        "merge_padding": 64,
+        "EH_entry_info": 1045520,
+        "EH_local_CIE": 4182016,
+        "EH_CIE": 256,
+        "EH_hash_control": 128,
+        "EH_hash_backing": 261992,
+        "EH_set_loc": 2208596,
+        "EH_search": 359040,
+        "final_content_scratch": 463493797,
+        "external_relocations": 13123104,
+        "internal_relocations": 13123104,
+        "external_symbols": 1187832,
+        "internal_symbols": 1583776,
+        "symbol_indices_or_pointers": 395944,
+        "local_extended_indices": 197972,
+        "output_symbol_cache": 61169200,
+        "output_symbols": 18350760,
+        "output_extended_indices": 3058460,
+        "Main_header_array": 1920,
+        "Main_header_pointers": 192,
+        "Main_creation_flags": 24,
+        "input_mmap_span": 463501982,
+        "start_stop_pointers": 2621360,
+        "section_check_array": 784000,
+        "explicit_PHDR_pointer_array": 80,
+        "global_hash_entry": 512,
+        "global_hash_name": 197,
+        "global_hash_backing": 4194296,
+        "global_hash_snapshot": 234601096,
+        "dynstr_string_hash": 1048568,
+        "dynstr_string_array": 1048576,
+        "dynstr_string_sort": 580512,
+        "ordinary_string_hash": 8388584,
+        "ordinary_string_array": 8388608,
+        "ordinary_string_sort": 6116928,
+        "sections_string_hash": 2097112,
+        "sections_string_array": 2097152,
+        "sections_string_sort": 1176040
+      },
+      "string_tables": {
+        "dynstr": {
+          "distinct_names": 72563,
+          "hash_capacity": 131071,
+          "array_slots": 131072
+        },
+        "ordinary": {
+          "distinct_names": 764615,
+          "hash_capacity": 1048573,
+          "array_slots": 1048576
+        },
+        "sections": {
+          "distinct_names": 147004,
+          "hash_capacity": 262139,
+          "array_slots": 262144
+        }
+      },
+      "checks": {
+        "assembler_interface": true,
+        "dynamic_section_index": true,
+        "external_section_header_product": true,
+        "external_program_header_product": true,
+        "dynamic_symbol_count": true,
+        "global_hash_domain": true,
+        "GNU_hash_signed_shift": true,
+        "ordinary_symbol_uint32_product": true,
+        "ordinary_string_bytes": true,
+        "dynstr_bytes": true,
+        "dynstr_names": true,
+        "dynstr_positive_references": true,
+        "section_string_bytes": true,
+        "section_string_references": true,
+        "section_string_table_product": true,
+        "version_index": true,
+        "PLT_jump_count": true,
+        "property_writer_size": true,
+        "EH_edit_size": true,
+        "EH_FDE_count": true,
+        "EH_function_range": true,
+        "trial_address_arithmetic": true,
+        "file_offset_arithmetic": true,
+        "fixed_signed_relocation_reach": true,
+        "fixed_unsigned_relocation_reach": true,
+        "Main_PC32_PLT32_reach": true,
+        "EH_signed_fields": true,
+        "PLT_relocation_index": true,
+        "PLT_range_fields": true,
+        "dynstr_string_growth": true,
+        "ordinary_string_growth": true,
+        "sections_string_growth": true,
+        "BFD_object_ID": true,
+        "BFD_section_ID": true,
+        "merge_offset_and_capacity": true,
+        "shared_counts": true,
+        "global_hash_capacity": true,
+        "individual_requests": true,
+        "host_page_arithmetic": true,
+        "Main_file_reader": true
+      },
+      "failed_sufficient_checks": [],
+      "selected_output_link_representation_fits": true
+    },
+    "selected_literal_assembler_and_linker_representation_fits": true,
+    "source_argument_required": true,
+    "independent_review_accepted": false,
+    "selected_no_LTO_no_plugin_descriptor": true,
+    "historical_output_witness_was_exact_descriptor": false,
+    "source_no_plugin_compatibility_transfer": true,
+    "conditions_of_claim": [
+      "retained sources describe the selected installed tools relevant behavior",
+      "selected ELF64 x86-64 LP64 no-LTO/no-plugin descriptor and fixed lookup outcomes",
+      "accepted literal Main emission/object/storage and fixed library/binder projections",
+      "retained null generic linker contracts with the substitutions documented here",
+      "manual no-plugin, external-resolution, relocation and EH source arguments",
+      "separate filesystem, path, host-page, allocation, stack and I/O resource premises"
+    ],
+    "production_admission_rule": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "aggregate_RAM_gate": false,
+    "physical_resource_guarantee": false,
+    "open_joins": [
+      "production_invocation_and_materialization",
+      "other_producer_compiler_and_binder_phases",
+      "whole_pipeline_composition"
+    ],
+    "native_tool_executions": 0
+  },
+  "selected_native_launch_graph_computable": true,
+  "selected_main_emission_to_GAS_object_route_bound": true,
+  "selected_fixed_link_input_materialization_computable": true,
+  "production_launcher_adopted": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "complete_parent_storage_or_fixed_child_regeneration_closed": false,
+  "proof_library_verification_waived": false,
+  "native_tool_executions": 0,
+  "runtime_placeholders": {
+    "PID": "positive signed-32-bit value; ten decimal positions dominate",
+    "assembly_nonce": "six driver-generated characters; same output/input role, distinct live files"
+  },
+  "installed_configuration_inputs_checked": 109,
+  "pinned_repository_inputs_checked": 37,
+  "complete_retained_source_files_checked": 16,
+  "remaining": [
+    "Aggregate integration must bind its actual source and common launch paths to this result.",
+    "All other native/producer storage, counter and proof obligations remain separate.",
+    "Production adoption and a regenerating fixed-child route are separate configurations."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "issue": 119,
+  "scope": "selected native literal invocation/source/configuration join",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selection_authority": "parent-assigned bounded source/configuration research",
+  "runtime_model_confirmation_available": false,
+  "token_measurement_available": false,
+  "cost_measurement_available": false,
+  "base_commit": "3f166cb29e2ea6185ea8e62bbef82808749cef03",
+  "started_UTC": "2026-10-18T22:47:42Z",
+  "finished_UTC": "2026-10-18T22:57:54.350573+00:00",
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "intended_outcome": "Separate computable native graph from production adoption; bind argv/object routing and fixed inputs without generated-object fixture equality",
+  "achieved": "Callable fixed-bundle native graph with actual-source emission/link evaluation and variable-checksum binder transfer; production adoption and other capacity joins remain separate",
+  "verification": {
+    "status": "passed",
+    "focused_checks": 135,
+    "started_UTC": "2026-10-18T22:57:52.834475+00:00",
+    "finished_UTC": "2026-10-18T22:57:53.615623+00:00",
+    "elapsed_seconds": 0.7811341409978922,
+    "repository_inputs": 37,
+    "complete_retained_sources": 16,
+    "installed_configuration_inputs": 109,
+    "native_tool_executions": 0,
+    "production_admission_changed": false,
+    "whole_literal_pipeline_capacity_established": false
+  },
+  "rework": [
+    "Initial fixed-ALI equality check correctly found indexed/literal D timestamps differ. Selected the literal closure ALIs and their coherent source timestamp roles.",
+    "Corrected one malformed-path test that accidentally used a valid 109-byte root.",
+    "Self-review preserved the raw relocated assembler path instead of the shorter PATH alias."
+  ],
+  "independent_review": "pending parent-assigned review of frozen implementation",
+  "native_tool_executions": 0,
+  "proof_or_solver_executions": 0,
+  "production_changes": false,
+  "expensive_repeated_validation": false,
+  "remaining": [
+    "Independent review and aggregate attachment",
+    "Other native/producer counter/storage/proof obligations",
+    "Production adoption or separately justified fixed-child regeneration"
+  ]
+}
