@@ -35,6 +35,13 @@
   "prover_name_bytes_max": 7,
   "json_container_depth_max": 7,
   "parser_stack_with_sentinel_max": 8,
+  "registered_record_bound": "R <= V + 2*V_loop <= 3*V per response; ordinary Main has V_loop=0",
+  "spark_source_files": 279,
+  "image_label_preservation_inputs": {
+    "src/silver_image_files.adb": "c40a07f04e9e154c9a9ea8f4caa81c010e4e3f872d978a83ce3844c25a516166",
+    "src/silver_image_model.adb": "e27b5209f1ef197ebbb989ddd5a5012e5a60c04e1bb17a36af0314ee0abb1283",
+    "src/silver_image_model_templates.adb": "c17ac93034127b56efdf69654753296d132c729b5aaca4f013e6be86dce8a47b"
+  },
   "raw_byte_bound": "15245 + 3732*R + 2145*G + 3*W + 6*(L_A + L_W)",
   "proposed_projected_byte_bound": "212 + 3732*R + 2601*G + 3*W + 6*L_W",
   "native_executions": 0,

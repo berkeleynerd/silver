@@ -38,6 +38,36 @@ def main():
         sources = {m.name: t.extractfile(m).read() for m in t if m.isfile()}
     for f in identity['files']:
         assert hashlib.sha256(sources[f['path']]).hexdigest() == f['sha256']
+    spark_archive = HERE.parent/'unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz'
+    assert hashlib.sha256(spark_archive.read_bytes()).hexdigest() == 'f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952'
+    with tarfile.open(spark_archive) as tar:
+        spark = {m.name: tar.extractfile(m).read().decode()
+                 for m in tar if m.isfile() and m.name.startswith('spark-source/src/')
+                 and m.name.endswith(('.adb', '.ads'))}
+    assert len(spark) == 279
+    assert sorted(name for name, text in spark.items() if 'GP_Check_Marker' in text) == [
+        'spark-source/src/common/vc_kinds.ads',
+        'spark-source/src/why/why-gen-expr.adb']
+    emitter = spark['spark-source/src/why/why-gen-expr.adb']
+    registry = spark['spark-source/src/why/gnat2why-error_messages.adb']
+    assert 'Register_VC (N, Reason, Current_Subp, Check_Info)' in emitter
+    assert 'New_Check_Label (Sloc, Reason, Id)' in emitter
+    assert "VC_Table.Append (VC_Info'(N, Reason, Check_Info));" in registry
+    expl = sources['why3/src/gnat/gnat_expl.ml'].decode()
+    assert 'b.check_kind <- Some kind;\n            b.check_id <- Some id;' in expl
+    assert 'b.check_kind <- Some VC_Loop_Invariant_Init' in expl
+    assert 'b.check_kind <- Some VC_Loop_Invariant_Preserv' in expl
+    project = HERE.parents[2]
+    image_paths = ['src/silver_image_files.adb', 'src/silver_image_model.adb',
+                   'src/silver_image_model_templates.adb']
+    image_hashes = {name: hashlib.sha256((project/name).read_bytes()).hexdigest()
+                    for name in image_paths}
+    image_templates = (project/image_paths[-1]).read_text()
+    strings = re.findall(r'"(?:[^"]|"")*"', image_templates)
+    joined = ''.join(s[1:-1].replace('""', '"') for s in strings)
+    assert 'GP_Check' not in joined
+    assert '\\u' not in joined  # No Unicode escape can encode a hidden label.
+    assert "Put_Byte (Output, Character'Val (Item), Success);" in (project/image_paths[0]).read_text()
     callsites = json.loads((HERE / 'timing-callsites.json').read_text())
     for item in callsites:
         source = sources['why3/' + item['path']]
@@ -118,6 +148,8 @@ def main():
         timing_fields_max=27, timing_key_bytes_max=1061, timing_key_length_max=59,
         timing_keys=sorted(keys), kind_bytes_max=35, prover_name_bytes_max=7,
         json_container_depth_max=7, parser_stack_with_sentinel_max=8,
+        registered_record_bound='R <= V + 2*V_loop <= 3*V per response; ordinary Main has V_loop=0',
+        spark_source_files=279, image_label_preservation_inputs=image_hashes,
         raw_byte_bound='15245 + 3732*R + 2145*G + 3*W + 6*(L_A + L_W)',
         proposed_projected_byte_bound='212 + 3732*R + 2601*G + 3*W + 6*L_W',
         native_executions=0,

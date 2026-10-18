@@ -76,7 +76,7 @@ s(quantifier variables, triggers, b) = 1+s(b).
 
 In particular, an application's term arguments, a let's definition and
 quantifier trigger terms do not enter `s`. The ordinary right splitter does
-not recurse into those positions (`split_goal.ml:214–220,350–355,423–436`).
+not recurse into those positions (`split_goal.ml:217,333–338,417–431`).
 Stop handling can only suppress recursion. Its by/so special forms recurse
 into subformulas already counted by the displayed connective clauses.
 
@@ -138,3 +138,8 @@ and instantiated contracts must determine the generated formula structure,
 its logical skeleton, and each atom's marked-definition profile. The existing
 source fixtures are not yet certified through this entire join. This record
 does not claim that a complete new capacity predicate admits those fixtures.
+
+An independent source review found no material issue in the additive retained
+equality bound, formula-skeleton induction or restricted `2*k` interface.
+It also checked the stated declaration-termination invariant for aliases.
+The review corrected the splitter line anchors above; it ran no Why3 process.

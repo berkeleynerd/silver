@@ -36,8 +36,10 @@ in all their reported check trees. `G` must come from the source/VC/split
 transfer. It is **not** the number of registered VC IDs: the splitter may
 produce multiple leaves per ID. In particular, its local list-length test is
 not a global fixed leaf bound. Distinct result keys are `(id, kind)` and
-duplicate insertion is forbidden; the 65-kind domain gives only
-`R <= 65 * registered_VCs` after label/ID correspondence is established. The
+duplicate insertion is forbidden. The combined-label correspondence below
+gives `R<=V+2*V_loop<=3V` per response, and `R<=V` for ordinary Main, where
+V bounds native registered IDs. The earlier `65V` kind-domain envelope is
+unnecessary. The
 [final-split transfer](retained-producer-splitting.md) proves
 `G <= sum L(h_j) <= sum term_occurrences(h_j)` for goals after the first split,
 marked unfolding and conversion rewrite. Its preceding source-to-`h_j` join
@@ -54,6 +56,58 @@ zero extra-info positions and the Unknown unproved-status record
 (`gnat_report.ml:59–81`). This follows from the Proved constructor, not from an
 assumption about whether an old failed attempt had models. Failed-result and
 manual/counterexample paths require their own extension.
+
+## Registered IDs bound result records without a kind-domain product
+
+`Register_VC` appends `(node, Reason, Check_Info)` to `VC_Table` and returns
+its fresh last index (`gnat2why-error_messages.adb:1342–1364`).
+`New_VC_Labels` passes that index and the **same** Reason to
+`New_Check_Label`, which encodes them together in one string:
+`GP_Check:<id>:<kind>:<location>`
+(`why-gen-expr.adb:4272–4283,5328–5372`). The older nearby comment describing
+separate reason/location labels is not the actual emitted format. The retained
+complete SPARK source has one `GP_Check_Marker` use outside its declaration,
+in that encoder.
+
+Why3 parses that one string into `Gp_Check(id,kind,sloc)` and assigns all
+three fields together (`gnat_expl.ml:424–443,495–508`). When several source
+labels occur along the search traversal, a later label replaces the whole
+triple; it cannot combine one label's id with another's kind. The selected
+transformations retain/copy these attributes. Their new explanation, inline,
+trace and splitting attributes do not synthesize new `GP_Check` values.
+The native ID-to-kind map is therefore preserved except for one explicit
+case: `VC_Loop_Invariant` can be changed to `VC_Loop_Invariant_Init` or
+`VC_Loop_Invariant_Preserv` by the explanation-label rectification
+(`:523–531`). Conservatively allow the original kind as well.
+
+The current Image adapter preserves every input byte and inserts only its
+two fixed fragments (`Silver_Image_Files.Refine`, `:118–180`). Its inserted
+templates contain no `GP_Check` string. It therefore preserves this
+correspondence too; this is a property of the present source/templates, not
+permission for future adapters to rewrite check IDs.
+
+Let V bound the registered IDs in the producing native process, and let
+`V_loop` bound those registered as `VC_Loop_Invariant`. Because check equality
+uses only `(id,kind)` (`gnat_expl.ml:178–186`), each ordinary ID has one
+possible result key and each invariant ID at most three:
+
+```text
+R <= V + 2*V_loop <= 3*V.
+```
+
+This is a **per-response** bound. If several independent Why3 responses are
+combined by addition, retain the corresponding per-file multiplicity; do not
+assume a result-key map is shared across subprocesses. Existing native bounds
+on all registered IDs safely include IDs for checks not printed to Why3.
+
+Ordinary Main has no source invariant pragmas. Its only applicable
+`VC_Loop_Invariant` emitter is inside the traversal of user invariants
+(`gnat2why-expr-loops.adb:817–869`), whose list is empty under the
+[loop transfer](retained-producer-kode.md#source-loops-do-not-double-their-nested-bodies).
+Implicit frame/index assumptions do not enter that list. Thus `V_loop=0`
+and `R_Main<=V_Main`. Fixed library bodies have their own source invariants
+and retain the general bound unless counted individually. This does not
+bound G: one registered ID may still acquire many terminal goals.
 
 ## Exact schema accounting
 
