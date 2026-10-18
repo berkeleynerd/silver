@@ -189,8 +189,11 @@ search-buffer and temporary-name requests are bounded without adding an
 aggregate allocation gate. The [selected driver transfer](retained-native-driver.md)
 now bounds eleven retained switches, nineteen frontend/five assembler arguments,
 their backing growth, selected spec dispatch, relocation arithmetic, multilib
-arrays and common process storage. Canonicalization, platform launch and other
-remaining driver objects still need composition.
+arrays, the fixed-buffer canonicalization wrapper and common/Unix process
+storage. The selected launch has zero file actions and passes argv/environment
+pointers directly; libc/OS internals retain the existing interface premises.
+Shared diagnostic initialization and other remaining driver objects still
+need composition.
 The reusable [individual-obstack transfer](retained-backend-obstacks.md) joins
 the already-bounded native environment strings to chunk requests without
 imposing an aggregate memory or address-span gate.
@@ -198,9 +201,20 @@ imposing an aggregate memory or address-span gate.
 The [fixed linker inputs](retained-link-inputs.md) now close target-input file
 selection for the selected null link, including both library scripts, the
 default script and transitive DSO dependencies. Every fixed archive member is
-inventoried; repeated group/loader passes are separately bounded. The source
-transfer includes archive-map backing, while generated Main/binder objects,
+inventoried; repeated group/loader passes and inner common-symbol scans are
+separately bounded. Their work totals are not shared counter or memory gates.
+The selected collect2 argument/search/launch transfer excludes nm, generated C,
+collector-owned LTO and a second link. The source transfer includes archive-map
+backing, while plugin/diagnostic storage, generated Main/binder objects,
 linker-created names/reference events and final relocation/layout remain open.
+
+The selected null DF/IRA/LRA join bounds the persistent reference-order counter
+by 1,785,936, below the **signed** comparison limit, and each iterative
+dataflow solve by 1,101 visits. It excludes the optional reference tables and
+pre-frame register-note construction; local helper arrays have fixed block,
+instruction and register domains. Ordinary allocation repetitions are work
+accounting, not additional capacity predicates. Remaining GGC lifetime events
+and non-DF phase joins remain explicit in the native expansion record.
 
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
 selected prover answers and consecutive-answer warnings to raw solver-output
@@ -219,11 +233,23 @@ the third symbol pool and final report: at most eight Find requests, two strings
 one entity, and `1247+6P` emitted Linux `.spark` bytes including Text_IO's closing
 LF. Its [local storage join](retained-producer-null-storage.md) bounds JSON
 aliases/backing and 89 local flow vertices. The [global/report join](retained-producer-null-global.md)
-adds four visibility vertices, five generated-global ALI rows, configuration
-and ordinary report consumers. The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
+adds 17 visibility vertices and eleven generated-global ALI rows, including
+the implicitly analyzed System package and its five comparison declarations.
+This corrects the earlier native-only System exclusion; the retained fixed
+frontend/Why witnesses already included those roots. Configuration and ordinary
+report consumers remain bounded separately. The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
 prices 167 fixed rules and streaming output despite the empty result vector.
-Non-GG ALI, data-representation generation and remaining orchestration/startup
-joins are still separate; null closure would not complete the broader design.
+The native data-representation writer emits exactly four bytes for null, with
+an empty table in its consumer; the gigi level-0/level-2 comparison introduces
+no branch delta for an identical expanded tree. Its native frontend/backend
+invocation still needs its own composition. The [option/configuration join](retained-producer-options.md)
+prices two source-option rows, 26 phase-2 arguments and the fixed why3.conf
+writer. GNATprove starts the [idle C why3server](retained-idle-why3server-capacity.md)
+unconditionally even though null starts no gnatwhy3 or solver client. Its
+worker/socket representation conditions and fixed container requests are now
+explicit; libc/kernel services retain the existing trusted boundary. Non-GG
+ALI and remaining orchestration joins are still separate; null closure would
+not complete the broader design.
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
