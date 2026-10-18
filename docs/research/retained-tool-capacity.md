@@ -269,8 +269,10 @@ spec/body sizes and isolates four variable paths in trailing comments. Its
 accounting. Parser tables/signature maps and the selected binder name pools
 are now composed: at most8,282 name-entry events and `792737+2T_root`
 character slots on the retained installation. The temporary root remains a
-configuration parameter. Separate driver storage and the compiler/object join
-remain open; the observed binder object size is not yet a universal bound.
+configuration parameter. Selected search-directory storage and default
+relocation now have a source projection and one controlled binder-only
+witness. GPR exchange/vector storage and the compiler/object join remain
+open; the observed binder object size is not yet a universal bound.
 
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
@@ -289,8 +291,11 @@ as-needed rollback snapshots. Its objalloc has no cumulative byte counter;
 the separate BFD cache statistics are now shown unobserved under the
 selected configuration. Other allocation requests remain open. The
 [section/header join](retained-linker-layout.md) supplies input/output walk
-bounds and actual/reserved ELF header counts; final payload, file/virtual
-layout and relocation reach remain open.
+bounds and actual/reserved ELF header counts. Conditional virtual/file
+placement includes reverted RELRO trials; payload/alignment inputs, mapping
+convergence and relocation reach remain open. Fixed symbols plus generated
+Main/binder type projection establish an empty local-IFUNC table, leaving
+only its fixed startup allocations; regular global IFUNC paths remain.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative

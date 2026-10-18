@@ -743,3 +743,59 @@ and common snapshot cases, count/size restoration, length/NUL arithmetic and
 objalloc paths. It accepted this transfer and the preceding W=0 composition;
 the objalloc field citation was corrected after review. Generated count/length
 and whole-link closure remain outside that acceptance.
+
+
+## Selected local-IFUNC table is empty
+
+The retained fixed-symbol capsule contains44,222 symbol records across
+1,169 distinct fixed ELF objects/members. Reading each symbol table's
+`sh_info` local boundary and symbol type finds82 GNU_IFUNC records, all
+nonlocal and all in two shared objects. It finds **zero local IFUNC symbols**.
+Repeated archive/group/loader processing cannot introduce a new type into
+these fixed bytes. This is an exhaustive read of the selected fixed inputs,
+not a sample of generated objects.
+
+The generated Main and binder require a separate source premise. Null Main
+has one ordinary function, no aliases or attribute-bearing declarations,
+as established by the native lifecycle/emission transfers. The binder's
+source projection similarly excludes `Machine_Attribute`, inline assembly
+and the multiversion/alias routes. The
+[binder type-producer argument](retained-binder-capacity.md#names-calls-and-retained-object-inventory)
+connects that absence to GCC's `ifunc_resolver` flag and IFUNC type directive;
+it does not infer it from the observed binder object. With that premise,
+the complete selected input union contains zero local IFUNC records.
+
+The x86-64 backend has exactly two calls to the local-symbol hash helper.
+Relocation checking creates an entry only for a local symbol whose type is
+`STT_GNU_IFUNC` (`elf64-x86-64.c:2583–2603`). Final relocation uses the same
+guard and passes `create=false` (`:3259–3273`). Neither is reached for this
+input union. Only the create helper sets `has_loc_hash_table`
+(`elfxx-x86.c:581–619`), so the later local allocation/finish traversals
+remain empty (`:2423–2426`, `elf64-x86-64.c:5781–5784`). This excludes no
+regular global IFUNC path; those remain covered by the dynamic-section
+transfer.
+
+Startup still constructs both storage objects unconditionally
+(`elfxx-x86.c:785–795`). `htab_try_create(1024,...)` rounds to prime2039,
+allocating a16,312-byte pointer backbone and one control object bounded
+by128 bytes on LP64 (`libiberty/hashtab.c:134–173,347–375,402–405`,
+`include/hashtab.h:94–137`). The independent objalloc requests a24-byte
+control object and one4,064-byte initial chunk. There are no local entry
+records, later hash resizes or additional chunks for this instance.
+Destruction frees the existing objects (`elfxx-x86.c:685–699`). Each
+individual fixed request fits its size representation; their sum is not
+an additional memory predicate.
+
+The [offline checker](../evidence/retained-linker-symbols-20261018/check-local-ifunc.py)
+verifies39 complete Binutils source identities, all retained fixed ELF
+regions and their correspondence to the existing fixed-input inventory.
+Its [result](../evidence/retained-linker-symbols-20261018/local-ifunc-results.json)
+retains the generated-source absence as an explicit composition premise.
+No native tool or new generated-object witness ran. This closes only the
+local-IFUNC table; general linker allocations, payload and final layout
+remain separate.
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-local-ifunc.py \
+  --output /tmp/linker-local-ifunc.json
+```

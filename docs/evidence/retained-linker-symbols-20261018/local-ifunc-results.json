@@ -1,0 +1,19 @@
+{
+  "scope": "Fixed ELF local-IFUNC absence plus empty-table transfer, conditional on generated-name/type projection",
+  "complete_source_files_verified": 39,
+  "fixed_elf_objects": 1169,
+  "fixed_symbol_records": 44222,
+  "fixed_ifunc_symbols": 82,
+  "fixed_local_ifunc_symbols": 0,
+  "generated_local_ifunc_absence_source_premise_required": true,
+  "selected_local_entries_under_premise": 0,
+  "initial_pointer_capacity": 2039,
+  "initial_pointer_bytes": 16312,
+  "htab_control_bytes_upper": 128,
+  "objalloc_control_bytes": 24,
+  "initial_objalloc_chunk_bytes": 4064,
+  "later_local_entry_allocations_under_premise": 0,
+  "regular_global_ifunc_path_excluded": false,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}
