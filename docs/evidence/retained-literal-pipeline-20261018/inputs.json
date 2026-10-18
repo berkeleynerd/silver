@@ -26,8 +26,8 @@
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
-    "bytes": 12621,
-    "sha256": "3e3db24bd90256c476cef7fb859122143905dcce944934e966cdb0829b333959"
+    "bytes": 22958,
+    "sha256": "aeceaab32e1859491dd74af88def1e463ebadc6bdd7a133352f965178ae8f05f"
   },
   {
     "path": "docs/evidence/retained-output-rtl-20261018/check.py",
@@ -223,5 +223,20 @@
     "path": "docs/evidence/retained-literal-producer-specialization-20261018/review.md",
     "bytes": 3650,
     "sha256": "9ab10ebb6468793b2d2540cd09707f6dc1ca9f3a0e9143570d6c7a61f165a56b"
+  },
+  {
+    "path": "docs/research/retained-backend-ipa.md",
+    "bytes": 14197,
+    "sha256": "30e606027faa78c1f70f51bcd43c7565fb0cccf773854f7915c798c7ef3d3870"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-null-pass-join.json",
+    "bytes": 3822,
+    "sha256": "eb620c69c7751af43236713b0cc27043993fd7ad6d901beab944789440d6abd4"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-pass-join-source-identity.json",
+    "bytes": 8838,
+    "sha256": "2aaec5db0638f8ae3dd88a735863efeb5b2d7925934d63f9973c7f94a640bac8"
   }
 ]

@@ -7,8 +7,9 @@ actual source byte string and a checked common configuration/System/library
 descriptor. The available arithmetic passes for `samples/hello_world.adb`.
 **Whole literal-pipeline capacity remains unestablished.** The bounds-pool
 declaration lifecycle and shared tree/assembler-name backing now have a
-source-derived join. The next native consumer is the call-edge and IPA-summary
-lifetime, followed by the complete collector composition.
+source-derived join. The direct-call graph and IPA-summary lifetime now also
+have a conditional join. The next native consumer is literal-sized ranger and
+out-of-SSA backing, followed by complete constructor/collector composition.
 No production rule or option changed; #119 remains incomplete.
 
 ## One source counter interface
@@ -193,7 +194,7 @@ selected schedule has one initial graph build and three rebuilding passes
 pass; strub/split transformations and cloning are absent for this body and its
 external callees. No inlining body is available. Hence at most 4C reference
 creation operations and at most 4C call-edge creation operations occur. The
-latter remain the next allocation/summary consumer.
+latter feed the direct-call graph/summary join below.
 
 `create_reference` grows Main's value vector and a bounds node's incoming
 pointer vector, then repairs pointers if the first moves (`symtab.cc:621–665`).
@@ -268,17 +269,203 @@ collector backing stay in their own lifetime terms. No 40,098-event null
 allowance is reused. Each request is checked separately; simultaneous memory
 and physical resource availability remain external assumptions.
 
+## Direct-call graph and IPA-summary lifetime
+
+`native_graph_lifetime(C, N, context)` replaces the null-only graph inputs
+in the established [39-registration IPA partition](retained-backend-ipa.md)
+with Main, at most two external callees, at most C bounds variables and the
+forced dummy. Main remains the only defined function body. Calls are direct,
+nonrecursive and have no callback, always-inline, clone, thunk or target
+attribute. The variables have no outgoing initializer reference. The selected
+O0/non-LTO options and prior per-function shape argument still apply.
+
+### Edges, lookup tables and IDs
+
+The initial graph construction and three scheduled rebuilds create at most
+4C edges. `symbol_table::create_edge` always allocates a fresh GGC edge; the
+comment about a free list at `free_edge` does not establish object reuse
+(`cgraph.cc:1067–1140,1238–1246`). Each rebuild removes old callees first,
+so at most C edges are live. The UID starts at one and preincrements, giving
+endpoint `1+4C <= INT_MAX` (`cgraph.h:2560`; `cgraph.cc:1090–1092`). The edge
+has a 16-byte profile count, nine pointers, two scalar words, ten bitfields
+conservatively charged as separate four-byte units, and two integer IDs:
+at most 144 raw bytes after LP64 alignment (`cgraph.h:2120–2222`).
+No indirect-info object is allocated for these edges.
+
+A lookup may construct Main's call-site hash after more than 100 linear
+probes (`cgraph.cc:906–951`). Charge one 128-byte control and initial
+prime-127 backing per graph generation even when no hash is needed. Once
+created, that generation inserts each of its at most C edges once. Neither
+selected local nor whole-unit work changes a call statement or creates an
+additional edge. Insertion may expand before a hit, so charge C replacements
+per generation and use `8*prime(max(120,2C))` bytes per backing. The existing
+hash/probe lemma applies under `C <= 1073741823`.
+
+**Terminal emptying is a separate allocation opportunity.** Both
+`remove_callees` and node removal call `call_site_hash->empty()` and then set
+the pointer to null (`cgraph.cc:2144–2147,2359–2363`). `release_body` delegates
+to `remove_callees` (`:2229–2259`), so overlapping cleanup paths cannot empty
+the same lifetime twice. `empty_slow` can allocate a replacement backing
+(`hash-table.h:909–951`). Charge four such requests, in addition to the
+`4+4C` initial/insertion backings. Its large-table branch requests 128 slots,
+rounded to 251, only when the prior pointer table exceeds 131,072 slots;
+otherwise it requests at most twice the old population. Both fit the same
+per-request ceiling. The tests exercise both sides of this branch. Discarding
+the control afterward does not erase the allocation event.
+
+Call-summary IDs are distinct from edge UIDs. Freeing an edge pushes any
+assigned summary ID onto an ordinary released-ID vector. Assignment reuses
+that vector before increasing its high-water counter
+(`cgraph.h:2782–2790`; `cgraph.cc:1238–1246`). All old edges are freed before
+the next generation, so the high water is at most C, not 4C. The call-summary
+pointer vector starts with capacity 13; `max(13,2C)` bounds its later ordinary
+capacity. The released-ID vector has capacity at most `max(4,2C)`. Check both
+31-bit vector capacities and the `3C` unsigned growth intermediate. Function
+summary ID zero belongs only to Main and survives manager replacement.
+
+### Local summaries and fixed infrastructure
+
+There are two local summary scans and one global manager-generation entry
+(`passes.def:75,119,174`). Each local scan creates at most C ordinary
+32-byte call-summary records and one GGC Main function-summary record
+(`ipa-fnsummary.cc:3386–3405,3042–3137`;
+`ipa-fnsummary.h:276–307`). Each record's predicate pointer remains null:
+`edge_set_predicate` receives true. The parameter manager is absent at both
+local scans, so the presence of one call argument does not allocate the
+per-argument summary vector. O0 also excludes the optimizing body-info,
+nonconstant-name, condition, loop and target-info paths. Global generation
+then allocates propagation infrastructure but skips Main's analysis; the two
+external callees have no body (`ipa-fnsummary.cc:2856–2943,4698–4716`;
+`ipa-prop.cc:5211–5218`). No insertion/duplication callback runs afterward.
+Thus the parameter, edge-argument and value-range maps all remain empty.
+
+The source-derived fixed constructor rows of the earlier
+[summary infrastructure join](retained-native-expansion.md#function-summaries-and-ipa-propagation-infrastructure)
+transfer structurally, without its null lifetime subtotal. Charge three cold
+manager groups and two local function records: three 512-byte GGC function
+managers, three 128-byte GGC vectors, two 128-byte function records, two
+512-byte propagation managers, two 208-byte empty embedded-map backings, one
+128-byte value-range hash control and one 488-byte empty backing. These are
+**14 GGC events**. Ordinary size/call managers and growth caches fit 512 bytes;
+their initial pointer vectors fit 112 bytes. The ordinary pool block request
+is 65,536 bytes, with at most 2C call-record allocations and three cold
+size-record blocks. The reused 37-hook allowance has 24 bytes per hook.
+No edge-growth or context-cache record is created by the O0 candidate loops.
+
+For each local scan put `S=3C+N+2` and `B=N+4`, conservative post-CFG statement and
+block-slot ceilings from the existing literal GIMPLE interface. The necessary
+statement worklist adds each statement at most once; virtual operands do not
+enter its `SSA_OP_USE` loop. Its capacity is at most `max(4,2S)`, and the block
+cache capacity is at most `max(10,2B)`
+(`ipa-fnsummary.cc:2770–2849`). There is no GIMPLE_COND, so the unreachable-guard
+walk is not entered. The block order request is at most `4B` bytes. Its CFG
+preorder helper reserves `B+1` 16-byte edge iterators, with twenty inline
+slots and no separate visited bitmap (`cfganal.cc:979–1070`;
+`basic-block.h:361–364`; `vec.h:1681–1693`). The callable conservatively
+returns `8+16*max(20,B+1)` even when storage is inline.
+
+The size/time table receives two seed requests and at most two requests per
+statement. GCC itself merges overflow into the first entry after 256 entries;
+this is an internal algorithm bound, not a Silver admission cap
+(`ipa-fnsummary.cc:167–246`; `ipa-fnsummary.h:218–220`). Thus capacity
+`max(4,2*min(256,2+2S))` and a 96-byte entry ceiling cover its ordinary vector.
+The separate call-size/time table is not constructed: the local scan has no
+parameter manager and global O0 generation does not analyze Main
+(`ipa-fnsummary.cc:3756–3762`).
+
+The summary's signed size accumulators need their own check. An 8-byte
+pointer store and a 16-byte fat-pointer argument each have move cost at most
+four on the selected x86 target. ADDR_EXPR adds no operator cost; a direct
+one-argument void call has size at most five. Return contributes one and the
+default prologue contributes two; nulls, labels and gotos contribute zero
+(`tree-inline.cc:4275–4300,4430–4434,4464–4610,4718–4742`;
+`config/i386/i386.h:1917–1956`; `defaults.h:984–986`;
+`params.opt:1230–1236`). No ARRAY_REF with an SSA index adds address cost.
+Consequently unscaled size is at most `13C+3`; size-scale two and the final
+`RDIV` rounding numerator require **`26C+7 <= INT_MAX`**
+(`ipa-fnsummary.cc:3155–3241,3621–3635,4620–4646`). This covers each partial
+nonnegative sum, both size/min-size accumulators and their local products.
+
+Time costs are stored in `sreal`, not a signed integer running total. Per-call
+time is at most fourteen, per-store four and return two. It is unnecessary to
+assume a sampled or exact block frequency: `profile_count` stores at most
+60 value bits, and `to_sreal_scale` returns zero, one, a ratio of such counts,
+or four times the numerator when the denominator is zero
+(`profile-count.h:771–786`; `profile-count.cc:333–363`;
+`cgraph.cc:4764–4769`). This multiplication fits signed 64-bit before conversion,
+and every positive ratio is between 2^-61 and 2^63 after rounding.
+Initial weighted terms are below 2^68. For a deliberately loose exponent
+check independent of rounding order, allow one exponent increase per positive
+addition: rounding cannot exceed the next representable power of two. The
+main time sum sees at most `3C+1` cost-bearing statements. Calls have separate
+edge summaries; the noncall table receives at most `4C+2` cost-bearing
+accounts, followed by at most 256 table reads and C edge additions. Thus
+`5C+400` is a conservative exponent ceiling for either accumulation path;
+the default zero prologue, multiplication by a probability at most two and
+division by two are covered by its constant allowance. The stronger
+signed-size check implies `5C+400 < INT_MAX/4`, below `SREAL_MAX_EXP`.
+Positive terms stay above 2^-64; zero uses sreal's explicit zero encoding.
+Normalized significands use at most 30 magnitude bits: addition,
+multiplication and division's 31-bit shift fit signed 64-bit intermediates.
+Exponent additions/subtractions and normalization shifts fit signed int
+(`sreal.h:23–29,201–279`; `sreal.cc:154–277`). No growing time vector or
+integer time-accumulator allowance is hidden in the GGC delta.
+
+### Whole-unit shape and returned delta
+
+The established IPA schedule's disabled gates remain disabled. Active
+visibility/reachability sees at most `C+4` symbols; only its reachable set
+grows. Bounds initializers have no outgoing references, and call edges lead
+only to the two external callees. The single-user pass visits each bounds
+node once and inserts at most C map entries: only Main refers to it and there
+is no alias or variable-reference cycle (`ipa.cc:1464–1553`). Both COMDAT maps
+are ordinary; charge `16*prime(max(251,2*(C+4)))` bytes each even though the
+second remains empty. No COMDAT group is present, so execution returns before
+propagation (`ipa-comdats.cc:235–297`). This conservative request ceiling
+avoids depending on whether an individual bounds symbol is already classified
+as a fixed-section symbol. The ODR map has zero entries and retains its
+ordinary 128-byte control/248-byte initial backing.
+
+Inline ordering has at most three function pointers, with two 24-byte order
+arrays and a 72-byte reverse-postorder stack. Reduced postorder allocates
+three pointer slots, one 32-byte DFS record and one splay node, because only
+Main is defined (`ipa-utils.cc:172–220,286–360`). At O0 the candidate heap,
+growth caches and called-once sweeps remain empty. Imported callees receive
+`CIF_BODY_NOT_AVAILABLE` (`ipa-inline-analysis.cc:104–125`). The early inliner
+and queued transform have the reference-clearing intervals already recorded
+above; neither copies a body, creates an edge or constructs a symbol. The
+existing fixed language-data vectors, empty hashes, indirect-edge vector and
+queued-transform vector remain ordinary requests and are returned explicitly.
+
+Fixed symbol constructors previously excluded from the bounds-pool delta
+now contribute seven GGC events: three 512-byte function nodes, a 256-byte
+dummy varpool node, a 312-byte dummy VAR_DECL, a 40-byte identifier and a
+31-byte identifier string. This transfers the previously sourced forced
+symbol recipe, with two extra external callee nodes. Their assembler-name
+backing remains charged in the pool join, so it is not added here.
+
+The returned graph/summary delta is **8C+33 GGC events**: 4C fresh edges,
+four call-site controls, `4+4C` initial/insertion backings, four terminal-empty
+backings, seven fixed symbol constructors and fourteen summary infrastructure
+events. At most five singleton finalizers are registered: four call-site hash
+controls and the value-range control. Summary managers explicitly use
+`ggc_alloc_no_dtor`, function records use raw `ggc_internal_alloc`, embedded
+map controls share manager storage, and pointer backings have trivial
+destructors (`ipa-fnsummary.h:231–239`; `ipa-prop.h:1165–1170`;
+`ipa-prop.cc:4931–4939`; `symbol-summary.h:103–109`; `ggc.h:193–201`).
+Finalizer-vector backing and collector work remain a later shared join.
+
 ## Exact next native consumer
 
-The callable now exposes `native_remaining_lifetime_and_collector` as its
-next repair. It supplies at most **4C call-edge creations** to
-`cgraph_node::create_edge`/`symbol_table::create_edge` in `cgraph.cc`.
-That consumer needs the edge allocation/reuse, UID and summary lifetimes,
-and the variable Main/callee/bounds graph must replace null's one-function,
-zero-edge IPA premises. Join those terms to existing GIMPLE/RTL/DF/helper
-ceilings, fixed symbol constructors, identifier/CONST_INT/reg-attribute shared
-backing, Ada callbacks and complete GGC pages/finalizers/counters. The new
-`5C+5` delta is usable input, not that entire sum.
+The callable keeps `native_remaining_lifetime_and_collector` as its next
+repair. The remaining local backing substitution uses the literal SSA-slot
+ceiling `z=3C+2` for ranger and out-of-SSA constructors. The existing selected
+warning gates and no-transform argument are retained; a new warning inventory
+is not required. The next constructor join must then cover source/frontend,
+gigi and initial GIMPLE lifetimes, existing RTL/DF/helper ceilings, shared
+identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
+pages/finalizers/counters. The separate `5C+5` and `8C+33` deltas are usable
+inputs, not the complete sum; no 40,098-event null allowance is reused.
 
 Main assembler/ELF, producer frontends/consumers, binder/link and complete
 output-launch joins also remain explicit. The descriptor still does not bind
@@ -327,3 +514,16 @@ while their hypothetical general JSON envelopes remain false: Main emits no
 JSON file on this source-selected path. This removes an inapplicable consumer
 constraint, rather than weakening a bound on an emitted object. Whole-pipeline
 capacity remains false, including the fixed-library and report consumers.
+
+The direct-call/summary extension retains the selected GPT-6 Astra / Extra
+High setting; the serving runtime is not independently reported. Its intended
+outcome is the next closed native lifetime interface, with a separate reviewed
+increment before full collector composition. Source inspection corrected a
+draft omission: terminal call-site hash emptying can allocate backing, adding
+four events. It also retained the already established warning gates and
+charged COMDAT backing conservatively by the actual symbol ceiling. The
+packet passes 28 offline cases, including terminal-empty prime regions and
+signed-summary/edge-UID boundaries. No compiler, native tool or solver ran;
+`native_tool_executions=0`. No reliable start timer or token/cost measurement
+is available for this resumed round. Independent review is pending against
+the frozen implementation commit; this paragraph does not claim acceptance.

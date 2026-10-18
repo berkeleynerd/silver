@@ -6,7 +6,8 @@ checked common naming/System/library bytes and selected launch roles. The
 accepted output-binder checksum checker is replayed once per context.
 
 The [source argument](../../research/retained-literal-pipeline.md) identifies
-the closed bounds-pool/shared-symbol join and the next call-edge/IPA lifetime consumer. Passing the instantiated
+the closed bounds-pool/shared-symbol and direct-call/IPA-summary joins,
+and the next literal-sized ranger/out-of-SSA and constructor-lifetime consumers. Passing the instantiated
 conditions does not establish whole-pipeline capacity: the result always
 preserves its named open joins and changes no production admission.
 
@@ -21,7 +22,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 21 interface checks. It reuses one context's
+arguments and `--output`, and runs 28 interface checks. It reuses one context's
 successful retained checks across source variations.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
@@ -47,3 +48,11 @@ are conservative transfer bounds, not observed occupancies. This does not reuse
 null's 40,098-event lifetime. The remaining collector and pipeline joins stay
 open. The source manifest includes all files used by the transferred fixed
 prefix/symbol ingress and the new lifecycle argument.
+
+`native_graph_lifetime` adds the direct-call edge/summary lifecycle, ordinary
+IPA backing, signed-size and edge-ID checks, seven fixed symbol constructor
+events and the structurally transferred fourteen summary-constructor events.
+Its separate GGC delta is `8C+33`, including four possible terminal-empty
+call-site hash backings, with five possible singleton-finalizer registrations.
+These events still require composition with the complete native constructor
+and collector lifetime. No null whole-lifetime allowance is reused.

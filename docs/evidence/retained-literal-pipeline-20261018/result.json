@@ -93,6 +93,7 @@
     "native_RTL_shape": true,
     "native_selected_helper_backing": true,
     "native_varpool_and_shared_tree_pool": true,
+    "native_graph_and_summary_lifetime": true,
     "Why_core": true,
     "output_binder_checksum_no_collection": true
   },
@@ -648,6 +649,169 @@
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join"
   },
+  "native_graph_lifetime": {
+    "source_input": {
+      "calls": 1,
+      "nulls": 0,
+      "graph_scans_upper": 4,
+      "post_CFG_statements_upper": 5,
+      "block_slots_upper": 4
+    },
+    "edge_creation_events_upper": 4,
+    "live_edges_upper": 1,
+    "edge_uid_endpoint_upper": 5,
+    "call_site_hash_lifetimes_upper": 4,
+    "call_site_hash_live_upper": 1,
+    "call_site_hash_slots_upper": 127,
+    "call_site_hash_terminal_empty_events_upper": 4,
+    "call_summary_ID_high_water_upper": 1,
+    "call_summary_creation_events_upper": 2,
+    "function_summary_ID_high_water_upper": 1,
+    "parameter_edge_argument_and_value_range_entries": 0,
+    "optimized_or_inlined_body_copies": 0,
+    "additional_registered_symbols": 0,
+    "summary_scaled_size_upper": 32,
+    "summary_rounding_numerator_upper": 33,
+    "summary_positive_time_exponent_upper": 405,
+    "individual_GGC_request_groups": [
+      {
+        "object": "fresh direct cgraph edge",
+        "requests_upper": 4,
+        "raw_bytes_upper": 144
+      },
+      {
+        "object": "call-site hash control",
+        "requests_upper": 4,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "call-site hash initial/insertion backing",
+        "requests_upper": 8,
+        "raw_bytes_upper": 1016
+      },
+      {
+        "object": "call-site hash terminal-empty backing",
+        "requests_upper": 4,
+        "raw_bytes_upper": 1016
+      },
+      {
+        "object": "fixed Main and imported callee cgraph nodes",
+        "requests_upper": 3,
+        "raw_bytes_upper": 512
+      },
+      {
+        "object": "fixed dummy varpool node",
+        "requests_upper": 1,
+        "raw_bytes_upper": 256
+      },
+      {
+        "object": "fixed dummy VAR_DECL",
+        "requests_upper": 1,
+        "raw_bytes_upper": 312
+      },
+      {
+        "object": "fixed dummy identifier",
+        "requests_upper": 1,
+        "raw_bytes_upper": 40
+      },
+      {
+        "object": "fixed dummy identifier bytes",
+        "requests_upper": 1,
+        "raw_bytes_upper": 31
+      },
+      {
+        "object": "function-summary manager",
+        "requests_upper": 3,
+        "raw_bytes_upper": 512
+      },
+      {
+        "object": "function-summary GGC pointer vector",
+        "requests_upper": 3,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "local Main function-summary record",
+        "requests_upper": 2,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "IPA parameter/edge-argument manager",
+        "requests_upper": 2,
+        "raw_bytes_upper": 512
+      },
+      {
+        "object": "IPA parameter/edge-argument empty map",
+        "requests_upper": 2,
+        "raw_bytes_upper": 208
+      },
+      {
+        "object": "IPA value-range hash control",
+        "requests_upper": 1,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "IPA value-range empty backing",
+        "requests_upper": 1,
+        "raw_bytes_upper": 488
+      }
+    ],
+    "ordinary_requests": {
+      "call_summary_records_upper": 2,
+      "call_summary_record_bytes_upper": 32,
+      "summary_pool_block_bytes": 65536,
+      "size_summary_record_bytes": 16,
+      "size_summary_pool_blocks_upper": 3,
+      "fixed_summary_and_growth_cache_vector_bytes": 112,
+      "free_language_data_vector_bytes_each": 808,
+      "empty_pointer_hash_backing_bytes": 104,
+      "ODR_hash_control_bytes_upper": 128,
+      "ODR_hash_backing_bytes": 248,
+      "call_summary_vector_capacity_upper": 13,
+      "call_summary_vector_request_bytes_upper": 112,
+      "recycled_summary_ID_vector_request_bytes_upper": 24,
+      "necessary_statement_worklist_bytes_upper": 88,
+      "necessary_statement_block_cache_bytes_upper": 18,
+      "summary_block_order_bytes_upper": 16,
+      "summary_CFG_preorder_stack_bytes_upper": 328,
+      "size_time_table_request_bytes_upper": 2312,
+      "pointer_reachability_hash_per_invocation_bytes_upper": 104,
+      "single_user_map_bytes_upper": 208,
+      "COMDAT_map_bytes_each_upper": 4016,
+      "COMDAT_map_live_upper": 5,
+      "inline_order_array_bytes_each": 24,
+      "reverse_postorder_stack_bytes": 72,
+      "reduced_postorder_stack_bytes": 24,
+      "reduced_DFS_record_bytes": 32,
+      "reduced_splay_node_bytes": 32,
+      "splay_control_bytes_upper": 64,
+      "indirect_edge_vector_bytes": 72,
+      "pending_transform_vector_bytes": 40,
+      "summary_manager_bytes_upper": 512,
+      "hook_node_bytes": 24,
+      "cold_hook_nodes_upper": 37
+    },
+    "additional_GGC_request_events_upper": 41,
+    "additional_singleton_finalizer_registrations_upper": 5,
+    "conditional_graph_and_summary_lifetime_closed": true,
+    "local_representation_checks": {
+      "cgraph_edge_UID": true,
+      "call_site_hash_live_and_probe": true,
+      "symbol_reachability_hash_live_and_probe": true,
+      "call_summary_ID": true,
+      "call_summary_vector_capacity": true,
+      "recycled_summary_vector_capacity": true,
+      "vector_growth_intermediate": true,
+      "statement_worklist_capacity": true,
+      "block_cache_capacity": true,
+      "summary_CFG_preorder_capacity": true,
+      "summary_signed_size_and_rounding": true,
+      "summary_sreal_exponent": true,
+      "summary_worklist_size_product": true,
+      "summary_record_pool_counts": true
+    },
+    "whole_native_pipeline_capacity_established": false,
+    "source_argument": "docs/research/retained-literal-pipeline.md#direct-call-graph-and-ipa-summary-lifetime"
+  },
   "Why_core": {
     "A_parse": 38,
     "A_Main": 55,
@@ -916,13 +1080,14 @@
   },
   "open_joins": {
     "native_remaining_lifetime_and_collector": {
-      "next_consumer": "cgraph_node::create_edge -> symbol_table::create_edge (cgraph.cc); up to 4C creations across the selected graph scans, plus live call summaries and IPA hooks.",
+      "next_consumer": "z-sized ranger/out-of-SSA backing and complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.",
       "available": {
         "graph_scan_count_upper": 4,
         "call_edge_creation_events_upper": 4,
-        "new_pool_lifecycle_GGC_events_upper": 10
+        "new_pool_lifecycle_GGC_events_upper": 10,
+        "new_graph_lifecycle_GGC_events_upper": 41
       },
-      "missing": "Join call-edge allocation/reuse/UIDs and variable IPA summaries with fixed symbol constructors, existing GIMPLE/RTL/DF ceilings, identifier/CONST_INT/reg-attribute shared backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
+      "missing": "Substitute the literal z-sized ranger/out-of-SSA requests and complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -944,8 +1109,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 45,
-  "external_source_files_verified": 176,
+  "fixed_input_count": 48,
+  "external_source_files_verified": 220,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

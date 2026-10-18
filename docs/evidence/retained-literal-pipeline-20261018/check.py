@@ -69,6 +69,16 @@ def main():
             assert pools['additional_GGC_request_events_upper']==5*c+5
             assert pools['named_consumer_closed']
             assert 'native_varpool_and_shared_tree_pool' not in result['open_joins']
+            graph=result['native_graph_lifetime']
+            assert graph['edge_creation_events_upper']==4*c
+            assert graph['edge_uid_endpoint_upper']==4*c+1
+            assert graph['call_summary_ID_high_water_upper']==c
+            assert graph['additional_GGC_request_events_upper']==8*c+33
+            cleanup=[row for row in graph['individual_GGC_request_groups']
+                     if row['object']=='call-site hash terminal-empty backing']
+            assert len(cleanup)==1 and cleanup[0]['requests_upper']==4
+            assert cleanup[0]['raw_bytes_upper']==8*graph['call_site_hash_slots_upper']
+            assert graph['conditional_graph_and_summary_lifetime_closed']
             expected=True
             assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
             if name in ('literal_above_old_cap','5000_calls'):
@@ -124,6 +134,32 @@ def main():
         assert replacement==31 and occupied==10
         rows.append(dict(case='pre_hit_expansion',before_slots=size,
                          after_slots=replacement,fresh_entries=0))
+        # empty_slow's megabyte branch requests 128 slots, rounded to 251.
+        # It is selected only from a table larger than 131072 pointer slots.
+        for c in (101,65535,65536):
+            graph=module.native_graph_lifetime(c,0,context)
+            slots=graph['call_site_hash_slots_upper']
+            cleanup_request=128 if slots>131072 else 2*c
+            cleanup_slots=next(p for p in context.primes if p>=cleanup_request)
+            assert cleanup_slots<=slots
+            assert graph['call_site_hash_terminal_empty_events_upper']==4
+            rows.append(dict(case='call_site_terminal_empty_'+str(c),calls=c,
+                             slots_upper=slots,cleanup_slots_upper=cleanup_slots,
+                             events_upper=4))
+        size_boundary=(module.I32-7)//26
+        for c,expected in ((size_boundary,True),(size_boundary+1,False)):
+            graph=module.native_graph_lifetime(c,0,context)
+            assert graph['conditional_graph_and_summary_lifetime_closed']==expected
+            assert graph['local_representation_checks']['summary_signed_size_and_rounding']==expected
+            rows.append(dict(case='summary_signed_size_'+str(c),calls=c,
+                             rounding_numerator=graph['summary_rounding_numerator_upper'],
+                             named_consumer_closed=expected))
+        edge_boundary=(module.I32-1)//4
+        for c,expected in ((edge_boundary,True),(edge_boundary+1,False)):
+            graph=module.native_graph_lifetime(c,0,context)
+            assert graph['local_representation_checks']['cgraph_edge_UID']==expected
+            rows.append(dict(case='cgraph_edge_UID_'+str(c),calls=c,
+                             endpoint=graph['edge_uid_endpoint_upper'],fits=expected))
     result=dict(case_count=len(rows),cases=rows,all_checks_pass=True,
                 native_tool_executions=0,whole_literal_pipeline_capacity_established=False)
     args.output.write_text(json.dumps(result,indent=2)+'\n')

@@ -210,6 +210,103 @@ def native_pool_lifetime(c, context):
         source_argument='docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join')
 
 
+def native_graph_lifetime(c, n, context):
+    """Selected direct-call graph and summary lifetimes, without null totals."""
+    require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
+            'literal graph counters')
+    prime = lambda request: next((p for p in context.primes if p >= request),None)
+    edge_slots = prime(max(120,2*c))
+    symbol_slots = prime(max(13,2*(c+4)))
+    single_user_slots = prime(max(13,2*c))
+    comdat_slots = prime(max(251,2*(c+4)))
+    # The initial 13-slot ordinary call-summary vector has no GC rounding.
+    summary_capacity = max(13,2*c)
+    recycled_capacity = max(4,2*c)
+    statements = 3*c+n+2
+    work_capacity = max(4,2*statements)
+    blocks = n+4
+    block_capacity = max(10,2*blocks)
+    # Source cap inside account_size_time is 256 entries, not a Silver cap.
+    table_capacity = max(4,2*min(256,2+2*statements))
+    ggc = [
+        dict(object='fresh direct cgraph edge', requests_upper=4*c,raw_bytes_upper=144),
+        dict(object='call-site hash control', requests_upper=4,raw_bytes_upper=128),
+        dict(object='call-site hash initial/insertion backing',requests_upper=4+4*c,
+             raw_bytes_upper=None if edge_slots is None else 8*edge_slots),
+        dict(object='call-site hash terminal-empty backing',requests_upper=4,
+             raw_bytes_upper=None if edge_slots is None else 8*edge_slots),
+        dict(object='fixed Main and imported callee cgraph nodes',requests_upper=3,raw_bytes_upper=512),
+        dict(object='fixed dummy varpool node',requests_upper=1,raw_bytes_upper=256),
+        dict(object='fixed dummy VAR_DECL',requests_upper=1,raw_bytes_upper=312),
+        dict(object='fixed dummy identifier',requests_upper=1,raw_bytes_upper=40),
+        dict(object='fixed dummy identifier bytes',requests_upper=1,raw_bytes_upper=31),
+        dict(object='function-summary manager',requests_upper=3,raw_bytes_upper=512),
+        dict(object='function-summary GGC pointer vector',requests_upper=3,raw_bytes_upper=128),
+        dict(object='local Main function-summary record',requests_upper=2,raw_bytes_upper=128),
+        dict(object='IPA parameter/edge-argument manager',requests_upper=2,raw_bytes_upper=512),
+        dict(object='IPA parameter/edge-argument empty map',requests_upper=2,raw_bytes_upper=208),
+        dict(object='IPA value-range hash control',requests_upper=1,raw_bytes_upper=128),
+        dict(object='IPA value-range empty backing',requests_upper=1,raw_bytes_upper=488)]
+    ordinary = dict(
+        call_summary_records_upper=2*c,call_summary_record_bytes_upper=32,
+        summary_pool_block_bytes=65536,
+        size_summary_record_bytes=16,size_summary_pool_blocks_upper=3,
+        fixed_summary_and_growth_cache_vector_bytes=112,
+        free_language_data_vector_bytes_each=808,
+        empty_pointer_hash_backing_bytes=104,
+        ODR_hash_control_bytes_upper=128,ODR_hash_backing_bytes=248,
+        call_summary_vector_capacity_upper=summary_capacity,
+        call_summary_vector_request_bytes_upper=8+8*summary_capacity,
+        recycled_summary_ID_vector_request_bytes_upper=8+4*recycled_capacity,
+        necessary_statement_worklist_bytes_upper=8+8*work_capacity,
+        necessary_statement_block_cache_bytes_upper=8+block_capacity,
+        summary_block_order_bytes_upper=4*blocks,
+        summary_CFG_preorder_stack_bytes_upper=8+16*max(20,blocks+1),
+        size_time_table_request_bytes_upper=8+96*table_capacity,
+        pointer_reachability_hash_per_invocation_bytes_upper=None if symbol_slots is None else 8*symbol_slots,
+        single_user_map_bytes_upper=None if single_user_slots is None else 16*single_user_slots,
+        COMDAT_map_bytes_each_upper=None if comdat_slots is None else 16*comdat_slots,
+        COMDAT_map_live_upper=c+4,
+        inline_order_array_bytes_each=24,reverse_postorder_stack_bytes=72,
+        reduced_postorder_stack_bytes=24,reduced_DFS_record_bytes=32,
+        reduced_splay_node_bytes=32,splay_control_bytes_upper=64,
+        indirect_edge_vector_bytes=72,pending_transform_vector_bytes=40,
+        summary_manager_bytes_upper=512,hook_node_bytes=24,
+        cold_hook_nodes_upper=3*8+1+6+5+1)
+    checks = dict(
+        cgraph_edge_UID=1+4*c <= I32,
+        call_site_hash_live_and_probe=c <= 1073741823,
+        symbol_reachability_hash_live_and_probe=c+4 <= 1073741823,
+        call_summary_ID=c <= I32,
+        call_summary_vector_capacity=summary_capacity <= I32,
+        recycled_summary_vector_capacity=recycled_capacity <= I32,
+        vector_growth_intermediate=3*max(c,statements,blocks) <= 2**32-1,
+        statement_worklist_capacity=work_capacity <= I32,
+        block_cache_capacity=block_capacity <= I32,
+        summary_CFG_preorder_capacity=blocks+1 <= I32,
+        summary_signed_size_and_rounding=26*c+7 <= I32,
+        summary_sreal_exponent=5*c+400 < I32//4,
+        summary_worklist_size_product=8+8*work_capacity <= I64,
+        summary_record_pool_counts=2*c*65536 <= 2**64-1)
+    return dict(source_input=dict(calls=c,nulls=n,graph_scans_upper=4,
+                                  post_CFG_statements_upper=statements,block_slots_upper=blocks),
+        edge_creation_events_upper=4*c,live_edges_upper=c,edge_uid_endpoint_upper=1+4*c,
+        call_site_hash_lifetimes_upper=4,call_site_hash_live_upper=c,
+        call_site_hash_slots_upper=edge_slots,call_site_hash_terminal_empty_events_upper=4,
+        call_summary_ID_high_water_upper=c,call_summary_creation_events_upper=2*c,
+        function_summary_ID_high_water_upper=1,
+        parameter_edge_argument_and_value_range_entries=0,
+        optimized_or_inlined_body_copies=0,additional_registered_symbols=0,
+        summary_scaled_size_upper=26*c+6,summary_rounding_numerator_upper=26*c+7,
+        summary_positive_time_exponent_upper=5*c+400,
+        individual_GGC_request_groups=ggc,ordinary_requests=ordinary,
+        additional_GGC_request_events_upper=sum(row['requests_upper'] for row in ggc),
+        additional_singleton_finalizer_registrations_upper=5,
+        conditional_graph_and_summary_lifetime_closed=all(checks.values()),
+        local_representation_checks=checks,whole_native_pipeline_capacity_established=False,
+        source_argument='docs/research/retained-literal-pipeline.md#direct-call-graph-and-ipa-summary-lifetime')
+
+
 def evaluate(descriptor_path, context, source_override=None):
     descriptor_path = Path(descriptor_path).resolve()
     descriptor = read(descriptor_path)
@@ -255,6 +352,7 @@ def evaluate(descriptor_path, context, source_override=None):
     rtl = context.rtl['shape'](c,n)
     backing = context.backing['backing'](c,n)
     pools = native_pool_lifetime(c,context)
+    graph = native_graph_lifetime(c,n,context)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -281,6 +379,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_RTL_shape=all(rtl['local_representation_checks'].values()),
         native_selected_helper_backing=all(backing['local_representation_checks'].values()),
         native_varpool_and_shared_tree_pool=pools['named_consumer_closed'],
+        native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
         Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
@@ -289,10 +388,11 @@ def evaluate(descriptor_path, context, source_override=None):
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'cgraph_node::create_edge -> symbol_table::create_edge (cgraph.cc); up to 4C creations across the selected graph scans, plus live call summaries and IPA hooks.',
+            'next_consumer':'z-sized ranger/out-of-SSA backing and complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.',
             'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
-                             new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper']),
-            'missing':'Join call-edge allocation/reuse/UIDs and variable IPA summaries with fixed symbol constructors, existing GIMPLE/RTL/DF ceilings, identifier/CONST_INT/reg-attribute shared backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
+                             new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
+                             new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper']),
+            'missing':'Substitute the literal z-sized ranger/out-of-SSA requests and complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(instruction_lines=rtl['instruction_text_lines_upper'],
                              text_bytes=rtl['shortening_text_bytes_upper'],
@@ -312,7 +412,8 @@ def evaluate(descriptor_path, context, source_override=None):
         evaluated_predicates_pass=all(conditions.values()),
         failed_predicates=[key for key,value in conditions.items() if not value],
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
-        native_pool_lifetime=pools,Why_core=why,selected_Why_core=selected_why,
+        native_pool_lifetime=pools,native_graph_lifetime=graph,
+        Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,
         next_repair='native_remaining_lifetime_and_collector',
