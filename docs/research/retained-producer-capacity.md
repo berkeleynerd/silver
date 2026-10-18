@@ -25,14 +25,22 @@ retain numbered LF-based source ranges. References below are paths relative to
 that pinned source tree. Every complete file in the current manifest
 hash-match their copies in the previously retained source archive, checked by
 [`source-archive-check.json`](../evidence/retained-producer-capacity-20261017/source-archive-check.json).
-No compiler invocation, proof invocation, installation,
-or expensive validation was performed for this research.
+This derivation lane performed source and retained-evidence analysis, with
+read-only debugger metadata inspection. The separately coordinated
+[fixed-producer measurement](retained-producer-fixed.md) records its actual
+producer invocations and their narrower scope; no proof run or toolchain
+modification was performed by this lane.
 
 ## The producer has two different counting problems
 
 `src/why/why-types.ads:35–43` defines signed 32-bit `Why_Int` and
-`Why_Node_Id = 0 .. 2^30 - 1`; zero is reserved. Lists occupy the other part of
-the ID range. The node and list vectors are defined in
+`Why_Node_Id = 0 .. 2^30 - 1`; zero is reserved. Lists occupy
+`2^30 .. 2^31 - 1`, with `2^30 - 1` the empty-vector last-index sentinel.
+Thus a list vector's length is `Last_Index - 2^30 + 1`, not its last index.
+Optional lists still designate allocated lists; their empty case is list
+length zero, unlike optional nodes' zero sentinel
+(`src/why/xgen/why-atree-to_json.adb-tmpl:121–139`).
+The node and list vectors are defined in
 `src/why/xgen/why-atree.ads-tmpl:101–116`.
 `New_Why_Node_Id` and `New_List` append to those vectors
 (`src/why/why-atree.adb:74–89`). Generated builders append one node, including
@@ -1908,10 +1916,15 @@ them and may attach its outer location label.
 
 Let `A_Main` be a **source-derived frontend node-allocation upper bound**
 covering every Main node, including generated, ignored and discarded ones.
-The whole-program rule already needs that input for frontend table capacity;
-this section does not substitute a measured node count or provide the missing
-frontend allocation derivation. Using it avoids a second, independently
-maintained source formula just for ignored producer list entries.
+The [Main semantic-node aggregate](retained-main-semantics.md#node-identity-aggregate-and-remaining-resource-obligations)
+now supplies this expression, including parser nodes, semantic actions,
+generated entities, freeze entries and call markers. Its `C_lib` input counts
+source library-call occurrences, and its `N_ref` term counts source
+references; both are source counts. It bounds Main node identities and excludes
+fixed dependencies; physical frontend slots and auxiliary
+tables are separate capacity domains. Using that source expression here avoids
+a second, independently maintained formula just for ignored producer list
+entries; a measured AST count is not substituted.
 
 Each ordinary Main declaration/statement list is translated once, and each
 entry has one containing list. The no-unrolling loop path translates the body
@@ -2291,8 +2304,127 @@ clears both lifetime tables after translation (`why-atree.adb:38–54`,
 `gnat2why-driver.adb:1452–1457`). A complete fixed-case method would need either
 actual table/element counters at those phase boundaries or source bounds for
 the omitted work, together with an argument covering all reached fixed cases.
-No such enumeration or measurement is claimed here, and no fixed constant is
-inferred from one observed JSON file.
+The Standard phase is now covered by the following fixed-state argument and
+separate measurement. The imported dependency frontier remains distinct; no
+complete dependency constant is inferred from one observed JSON file.
+
+### Fixed Standard phase and allocation measurement
+
+For a pinned target, runtime and producer configuration, Standard translation
+starts from a fixed producer state:
+
+- `Mark_Standard_Package` installs a fixed 20-entry membership table before
+  Main marking. Only its Short_Float and Long_Long_Float decisions inspect
+  target floating-point representation. It also installs the universal and
+  explicit integer entities (`spark_definition.adb:13771–13843`). Subsequent
+  `Mark_Entity` calls return for these already-marked entities (`:11852–11857`).
+- Main's admitted declarations and expressions cannot change a predefined
+  type's shape, representation aspects, predicates, initialization policy or
+  component/index types. Main has no type, representation or aspect declaration.
+  Different node identities and source locations do not change these fixed
+  allocation shapes.
+- The driver initializes the Why names/modules and output sections immediately
+  before Standard translation, and enters `Translate_CUnit` afterward
+  (`gnat2why-driver.adb:998–1013`). Main's symbol registration and entity
+  translations happen inside that later procedure (`:1415–1444`). They cannot
+  prepopulate the Standard producer caches.
+- `Translate_Standard_Package` visits the fixed `S_Types` order, then the five
+  explicit integer types. Each visit stores information, translates the type
+  and completes its declaration (`:1644–1687`). There is no traversal of Main
+  expressions at this boundary. Standard scalar/array information storage
+  returns directly (`gnat2why-tables.adb:785–810`).
+
+This gives one fixed Standard case for that target/configuration, rather than
+an extrapolation from a representative Main. The
+[measurement record](retained-producer-fixed.md) and
+[raw evidence](../evidence/retained-producer-fixed-20261018/README.md) retain the
+bootstrap and post-Standard table snapshots, installed-binary identity and
+debugger reader. The source-to-installed-binary correspondence limitation
+stated above remains; debugging metadata does not establish a source rebuild.
+
+The snapshot's node/list counts include discarded allocations. Its retained
+list-element sum also equals lifetime list appends/prepends up to that point:
+`List_Table` is private; its content is mutated only by `Append` and `Prepend`
+in `why-atree.adb:10–32`, newly allocated lists start empty (`:74–80`), and
+`Free` is the only table clear (`:38–54`). `Get_List` returns a controlled
+container value, not a writable reference into the table. The complete source
+inventory has no deletion or replacement of table-list contents; generated
+traversal/serialization only reads them. Transient container copies do not
+allocate additional Why list IDs and are not included in this counter.
+
+Expanded occurrences across retained theory roots are a per-file upper bound,
+not a measured serializer count. `Build_Printing_Plan` keeps a fresh `Seen`
+symbol set and appends each visited theory at most once (`gnat2why-util.adb:
+503–540`); serialization then visits that list (`gnat2why-driver.adb:1204–1215`).
+An include serializes its module node, while printing-plan traversal handles
+the imported theory separately. The aggregate still multiplies the all-root
+occurrence bound by the number of printed files. Fixed Standard imports are
+already present in the measured state; a combined calculation can start there
+and charge `C` only for subsequent, unpaid closes, or conservatively charge
+those imports a second time. This does not establish the remaining imported
+library contribution.
+
+### Imported dependency frontier
+
+The possible direct API roots are `Silver_IO.Put`, `Put_Line`, and
+`Silver_Arguments.First_Or_Default`, `Input_Is_Valid`, `Reject`. Their selected
+specifications are fixed and use only ordinary scalar/String objects and
+contracts, plus the opaque `Ada.Text_IO.File_System` state. Main supplies no
+generic actuals, derived types, access values, user predicates, record fields,
+dispatch overrides or expression-function definitions that could specialize
+those specifications.
+
+The source gives a finite **marking** frontier:
+
+1. Imported `with` clauses mark their package's initial-condition expressions,
+   not every declaration (`spark_definition.adb:4289–4307`). Neither selected
+   Silver specification has an initial condition. Repetition and reordering of
+   context clauses therefore do not add imported marking roots.
+2. A normal call marks its callee and then its actuals (`:6497–6498`);
+   `In_SPARK` also delegates to `Mark_Entity` (`:2414–2428`). Actual expressions
+   introduce only Main entities, already-marked Standard types, and the same
+   five API roots. Integer Image analysis has Standard.String result and no
+   runtime-API load in this frontend mode (`gcc/ada/sem_attr.adb:1541–1618`);
+   its producer translation is the already-priced Image path.
+3. `Mark_Entity` returns immediately for an already-marked entity
+   (`spark_definition.adb:11852–11857`). Each ordinary newly marked entity is
+   appended once (`:12186–12248`). An imported ordinary subprogram body is not
+   recursively marked; the body exception covers expression/predicate
+   functions, followed by marking contracts (`:9540–9625`). None of the five
+   public operations is an expression function. `First_Or_Default`'s fixed
+   postcondition itself refers to `Input_Is_Valid`, so the closures overlap.
+4. Project an arbitrary Main's marking trace to the first encounters of the
+   five distinct API roots. It is an ordered subset of five elements, hence
+   belongs to the finite superset of
+   `1 + 5 + 20 + 60 + 120 + 120 = 326` words. Some words cannot occur in the
+   admitted grammar or collapse to the same closure; keeping them is
+   conservative. A set of 32 subsets alone would discard translation order.
+
+This proves a finite API-root/marking frontier, **not yet an exhaustive producer
+measurement frontier**. Interleaved Main translation must also be eliminated
+from the fixed-state calculation. The relevant state boundaries identified so
+far are:
+
+| Shared state | Source relation and consequence |
+| --- | --- |
+| Entity translation sequence | `Translate_CUnit` performs separate all-entity registration, translation, hidden-global and completion passes (`gnat2why-driver.adb:1415–1444`). Main expression evaluation does not execute imported bodies. |
+| Entity symbols and modules | The symbol key is `(Retysp(E), Why_Name_Enum)` and the module key is `(E, Module_Kind)` (`why-atree-modules.adb:85–126,297–324,465–504`). A Main-local entity does not alias a fixed library entity. Earlier lookup may pay a fixed cache fill sooner; its cached value is not specialized to the caller's actual expression. |
+| Symbol-table bindings | Bindings are keyed by entity or fully qualified opaque entity name. Local contract bindings use push/pop scopes (`gnat2why-util.ads:58–158`; `gnat2why-subprograms.adb:7643–7658,8446`). Main's local spelling does not rebind a fixed library formal. |
+| Array representations | The key depends on rank, index representation, component root type and relaxed initialization (`why-gen-arrays.adb:2990–3036`). Main reaches only the ordinary one-dimensional Character key, populated by Standard.String before Main. The seventeen eager nodes are still charged per call before the cache test (`:1075–1093`). |
+| Other representation families | Fixed-point, access-subprogram, higher-order specialization, lemma specialization and unchecked-conversion maps are distinct (`why-atree-modules.ads:622–652,712–803`). Main has no constructs that populate them. |
+| Literal/aggregate modules | Their entity-module key is the actual fixed expression node, not Main's actual-argument value; the shared-literal distinction discussed above remains necessary. |
+| Hidden global declarations | `Translated_Object_Names` inserts each opaque effect name once before emitting its module (`gnat2why-driver.adb:1596–1638`). Main's possible external name is the same fixed File_System state. Repeated calls cannot add new hidden states. |
+| Current subprogram/result names | Entity translation sets `Current_Subp` to that entity and clears it afterward (`gnat2why-driver.adb:1495–1502,1589`). Fixed function completion establishes and clears its result name (`gnat2why-subprograms.adb:7521–7570`). |
+| Module dependency graph and imports | Closing a theory traverses its own Why tree and dependency sets (`why-inter.adb:165–326,562–749`). The existing global `M`/`C` allowance bounds import growth without assuming one witnessed order is maximal. |
+
+These are source-derived candidates for reducing the remaining calculation.
+A complete producer frontier still needs the fixed contract/entity closure and
+the above cache/read-dependency argument reconciled with the actual measurement
+boundaries, including any fixed external-constant assumptions performed while
+building Main. Neither a single all-operations witness nor the maximum from
+unjustified samples supplies that missing step. Separate compiler/prover
+processes for library bodies are fixed-input cases of their own; they are not
+covered by measuring Main's imported specifications.
 
 ## Aggregate formula and finite remaining helper families
 
@@ -2392,15 +2524,17 @@ coverage obligation, not a claim that the whole producer is already bounded.
 
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
-| `K_fixed` | The built-in symbol/module initializer is priced above. Remaining: predefined and selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
+| `K_fixed` | Bootstrap/Standard is now a fixed measured phase with the source-independence argument above. Remaining: selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
-| Frontend node input | The ordinary Main syntax/entity sum, symbol/module caches and enclosing core/effect wrapper are assembled above. Supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. Main's external-constant assumptions remain explicitly in `K_fixed`. |
+| Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. Main's external-constant assumptions remain explicitly in `K_fixed`. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
 type and literal multiplicities, including generated literal lengths; they are
-no longer an undifferentiated missing frontend inventory. Standard and selected
-dependencies still contribute separately to `E_list` and the fixed terms.
+no longer an undifferentiated missing frontend inventory. The linked semantic
+aggregate closes the ordinary Main node-identity input. Standard is paid by its
+fixed phase; selected dependencies still contribute separately to `E_list` and
+the remaining fixed terms.
 Known caller bounds include twenty-seven memoized module kinds per entity,
 two object/loop outer closes, the type/completion close table, and one close
 per distinct literal theory. Remaining direct modules and helper closes must
