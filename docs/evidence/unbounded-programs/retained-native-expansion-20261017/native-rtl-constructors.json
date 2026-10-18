@@ -1,0 +1,122 @@
+{
+  "LRA_unused_pseudo": {
+    "individual_raw_bytes": 24,
+    "number": 98,
+    "register_array_capacity": 198,
+    "register_array_growth_events": 0
+  },
+  "RTL_raw_object_sizes": {
+    "BARRIER": 64,
+    "CODE_LABEL": 64,
+    "EXPR_LIST": 24,
+    "INSN": 64,
+    "JUMP_INSN": 72,
+    "MEM": 24,
+    "NOTE": 56,
+    "PLUS": 24,
+    "POST_INC": 16,
+    "PRE_DEC": 16,
+    "REG": 24,
+    "SET": 24,
+    "UNSPEC_VOLATILE": 24
+  },
+  "additional_disjoint_GGC_event_bounds": {
+    "LRA_unused_pseudo": 1,
+    "all_phase_chain": 52,
+    "blockage_pattern_and_rtvec": 6,
+    "cold_frame_sequence_stacks": 5,
+    "frame_hash_wrappers_and_backbones": 4,
+    "frame_patterns": 7,
+    "frame_regnotes_and_data": 3
+  },
+  "additional_disjoint_GGC_events_total": 78,
+  "blockage": {
+    "UNSPEC_VOLATILE_nodes": 3,
+    "includes_two_unsharing_copies": true,
+    "individual_rtvec_bytes": 16,
+    "one_element_rtvecs": 3
+  },
+  "frame_MEM_attribute_objects": 0,
+  "frame_instruction_hashes": {
+    "backbone_bytes_each": 248,
+    "backbone_slots_each": 31,
+    "entries_each": 2,
+    "growth_events": 0,
+    "tables": 2,
+    "wrapper_bytes_each": 48
+  },
+  "frame_patterns": {
+    "MEM": 2,
+    "POST_INC": 1,
+    "PRE_DEC": 1,
+    "SET": 3
+  },
+  "frame_regnotes_and_data_upper": {
+    "EXPR_LIST": 2,
+    "PLUS": 1
+  },
+  "frame_sequence_stacks": {
+    "calls": 5,
+    "cold_GGC_events_bound": 5,
+    "individual_raw_bytes": 24,
+    "maximum_nesting": 3
+  },
+  "generic_RTL_helpers_CFI_objects_and_unit_emission_remain_separate": true,
+  "installed_rtx_size_entries_verified": 13,
+  "instruction_chain": {
+    "GGC_events_bound": 52,
+    "cumulative_counts": {
+      "BARRIER": 1,
+      "CODE_LABEL": 3,
+      "INSN": 22,
+      "JUMP_INSN": 1,
+      "NOTE": 25
+    },
+    "includes_CFI_and_CFI_label_NOTEs": 10,
+    "location_strings_and_nonchain_CFI_objects_included": false,
+    "maximum_individual_raw_bytes": 72
+  },
+  "new_CONST_INT_or_SIMPLE_RETURN_objects": 0,
+  "premises": {
+    "backend_final_chain_bound": 52,
+    "construction_of_frame_sequences_repeated": false,
+    "local_stack_slots": 0,
+    "machine_shape": [
+      "push RBP",
+      "move RSP to RBP",
+      "pop RBP",
+      "simple_return"
+    ],
+    "new_dynamic_pseudos": 1,
+    "other_patterns": [
+      "cached const0 nops",
+      "operand-free blockage"
+    ],
+    "separate_shrink_wrap_split_stack_or_profile": false
+  },
+  "scope": "Selected null RTL chain, operand patterns, frame hooks and frame sequence/hash storage; no CFI objects or generic helper inventory",
+  "selected_target_frame_layout": {
+    "elimination_offsets": [
+      16,
+      0,
+      16,
+      0
+    ],
+    "expensive_function_query_reached": false,
+    "frame_offsets_before_prologue": [
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "frame_size_or_offset_dynamic_heap_requests": 0,
+    "initial_elimination_hook_allocations": 0,
+    "local_allocation_bytes": 0,
+    "return_address_bytes": 8,
+    "saved_frame_pointer_bytes": 8,
+    "xlogue_and_realign_helpers_reached": false
+  },
+  "source_files_verified": 21,
+  "whole_native_capacity_established": false
+}

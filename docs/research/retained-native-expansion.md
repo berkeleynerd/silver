@@ -8145,22 +8145,150 @@ These checks close the selected CFG traversal and IRA loop/dominance helper
 widths. Repeated bounded local setup is resource accounting; the ten actual
 GGC events join the persistent collector counters below.
 
+### Selected frame layout and RTL constructor storage
+
+The backend's [null shape transfer](retained-backend-gigi.md) establishes
+52 lifetime chain nodes through CFI insertion, at most three blockage patterns
+including the two unsharing opportunities, and the four selected frame
+instructions. This continuation prices those constructors and the selected
+frame helpers; it does not turn a final instruction count into a bound on
+all intermediate compiler work. The
+[source/installed-size identity](../evidence/unbounded-programs/retained-native-expansion-20261017/rtl-constructors-source-identity.json)
+and [offline result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-constructors.json)
+retain the arithmetic and remaining scope.
+
+`ix86_compute_frame_layout` uses the existing `cfun->machine->frame`, not a
+new frame object (`i386.cc:7020–7377`). The selected frame size is0, ordinary
+saved-register count0, SSE save count0, return address8 and saved frame
+pointer8. `ix86_nsaved_regs` runs a92-register scalar loop and the SSE
+counter returns immediately for ordinary SysV
+(`:6868–6894`). The no-MS-call premise excludes both `xlogue_layout` routes;
+there is no realignment, DRAP, varargs, outgoing argument area, alloca, TLS
+call, SEH or red-zone allocation. The five relevant offsets are16; local and
+outgoing allocation and red-zone size are0. Stack alignments128 bits convert
+to16 bytes, so the selected division/modulo inputs are positive. The saved
+register cost `count` is0, matching the cleared frame's `expensive_count`;
+its sole writer is the guarded assignment in this routine. Consequently
+`expensive_function_p` is not called (`:7139–7150`). Repeated layout queries
+change existing scalar fields and allocate neither ordinary nor GGC storage.
+`ix86_initial_elimination_offset` returns only16 or0 from these fields
+(`:6919–6937`). This closes the target-frame-helper gap left by the LRA
+elimination packet, including its actual finite-width arithmetic.
+
+For RTL, LP64 `rtx_def` has an8-byte header; each `rtunion` occupies8 bytes.
+The ordinary code-size formula is header plus format length times union size;
+REG instead has its16-byte `reg_info` (`rtl.h:223–233,314–455`,
+`rtl.cc:123–134`). The selected installed ELF's154-byte `rtx_code_size` table
+at `0x2cdf1e0` independently confirms the13 selected sizes. Reading that
+immutable table is not a compiler execution or a new lifetime capture.
+The resulting individual raw requests are:
+
+| RTL class | Lifetime count bound | Raw bytes each |
+| --- | ---: | ---: |
+| CODE_LABEL |3|64|
+| NOTE, including5 CFI and5 CFI-label notes |25|56|
+| INSN |22|64|
+| JUMP_INSN |1|72|
+| BARRIER |1|64|
+| Blockage UNSPEC_VOLATILE and one-element rtvec |3 each|24 and16|
+| LRA's unused REG98 |1|24|
+| Frame PRE_DEC / POST_INC |1 each|16|
+| Frame MEM |2|24|
+| Frame SET |3|24|
+| CFA PLUS / EXPR_LIST notes |1 / at most2|24|
+
+Each chain constructor makes one RTL allocation. Appending an already formed
+chain only links its objects, so the generated prologue/epilogue wrapper does
+not allocate those entries a second time (`emit-rtl.cc:4146–4158,5199–5239`).
+The52 includes the later ten CFI-related NOTE allocations; it excludes the
+separate CFI objects, rows, labels' strings and vectors. There are three
+blockage node/vector pairs in total: construction plus expansion-end and
+LRA-end unsharing. `rtvec_alloc(1)` has a16-byte request, with length1 fitting
+its signed length field (`rtl.cc:163–179`, `ggc.h:317–319`). LRA's one
+Pmode pseudo uses `gen_raw_REG`, with REG_ATTRS initialized to NULL. Its index98
+is below the existing capacity198, so the array-capacity guard returns before
+any resize (`emit-rtl.cc:488–493,1188–1232,1239–1259`). The separate eight
+LRA elimination REG requests remain in their earlier row.
+
+The frame push creates PRE_DEC, MEM and SET; the pop creates POST_INC, MEM and
+SET; the middle move creates one SET (`i386.cc:6629–6643,6667–6676,9456–9471`).
+Both operands already have word mode, so neither push nor pop creates a REG.
+`gen_rtx_MEM` sets its attribute pointer to NULL and creates no mem-attribute
+object (`emit-rtl.cc:858–866`). The simple return reuses
+`simple_return_rtx` in the runtime pattern constructor
+(`:6975–6979`); nop/blockage const0 is also already saved. This gives seven
+new frame pattern nodes, separate from their four chain nodes.
+
+On the selected pop, CFA is initially RBP, so the alternate SP-based
+`REG_CFA_ADJUST_CFA` branch is absent. The RBP branch creates one `SP+8` PLUS
+and one `REG_CFA_DEF_CFA` list node; an optional restore list node adds at
+most one (`i386.cc:7796–7809,9854–9907`). `plus_constant` on REG+8 takes the
+single PLUS route and obtains8 from the saved small-integer constants
+(`explow.cc:95–208`, `emit-rtl.cc:525–553`). `alloc_reg_note` uses EXPR_LIST
+for both kinds, whose cold path is one24-byte object
+(`rtlanal.cc:2706–2736`, `lists.cc:127–143`). Charging both cold notes makes
+this independent of the deletable free-list cache. There are no prologue
+regnotes on the selected push/move: frame-related flags carry their meaning.
+The total frame-note/data allowance is three GGC events, closing the earlier
+`E_regnotes` residual.
+
+There are five frame sequence scopes: generic prologue plus generated
+prologue plus the generated DI move, then generic epilogue plus generated
+epilogue (`function.cc:5867–5894,6017–6039`,
+`i386.md:2419–2423,21104–21108,21181–21184`, `genemit.cc:495–540`).
+The generated prologue/epilogue end with DONE, which avoids emitting their
+dummy const0 pattern; the simple-return define-insn does not open a sequence.
+Maximum nesting is3. A completely cold sequence cache therefore requires at
+most five separate24-byte GGC objects (`emit-rtl.cc:5661–5680`), regardless of
+later reuse. Split-stack returns before opening its scope and O0 disables both
+shrink-wrap routes, so sequence construction is not repeated.
+
+`record_insns` creates two GGC hashes, each with request17 rounded to prime31,
+and stores the two machine entries in each (`function.cc:5734–5747,
+5882–5883,6023–6029`). The PROLOGUE_END and EPILOGUE_BEG notes are outside
+the recorded subchains. The initial NULL pointers are restored by dummy
+teardown (`:208–211,5324–5326`), with no earlier frame generation. Two entries
+cannot meet the3/4 growth threshold, so each table costs one48-byte wrapper
+and one248-byte backbone, with no entry object or resize. This is four GGC
+events. Later splitters do not match the selected patterns, and the selected
+ordinary cleanup does not duplicate either frame sequence.
+
+The disjoint addition is therefore
+
+```text
+52 chain + 6 blockage node/vector + 1 unused LRA REG
++ 7 frame pattern + 3 frame-note/data + 5 cold sequence + 4 frame hash = 78.
+```
+
+These are allocation events for persistent collector-width accounting.
+Individual requests remain independent; their sum is not an aggregate memory
+admission gate. The
+[reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-rtl-constructors.py)
+verifies21 source files, the13 selected installed object sizes and this
+arithmetic. Source guards accompany the prose path argument, not a general
+C++ proof. The first offline attempt exposed an omitted macro-form
+`CONST_DOUBLE_FORMAT` in the evidence parser; correcting that parser makes
+the full154-code enumeration match the installed table. No compiler, native
+audit, prover, Lean build or new debugger capture was run. Generic RTL/CFG
+helper storage, non-chain CFI and final unit emission still require their own
+joins.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78
        + E_metadata + E_Main_translation
-       + E_RTL_passes + E_regnotes + E_CFI + E_unit_emit
+       + E_RTL_helpers + E_CFI + E_unit_emit
 ```
 
 Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
 target setup above,10 the two gigi struct-function constructors,4 real Main
 RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
-vector events,8 direct elimination-register requests and10 IRA loop-setup
-events.
+vector events,8 direct elimination-register requests,10 IRA loop-setup
+events and78 chain/pattern/frame events just established.
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -8169,14 +8297,13 @@ and constructors still require completion:
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
-| `E_RTL_passes` |expansion and selected O0 RTL helpers; include underlying pattern/vector copies and pseudo/target frame-layout objects, beyond the52 chain nodes already bounded and excluding the equivalence/elimination/IRA-loop events charged separately |
-| `E_regnotes` |late target/frame register-note construction; DF NOTE constructs none on the selected operand-free instructions |
-| `E_CFI` |dwarf2cfi scan/trace and frame descriptions; needs selected instruction operands, unwind state and emitted row/vector counts |
+| `E_RTL_helpers` |remaining expansion/CFG/pass-manager/helper storage, excluding the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes charged separately |
+| `E_CFI` |dwarf2cfi scan/trace and frame descriptions, excluding its ten chain NOTE allocations already charged; needs CFI objects, row/vector, trace/hash and label-string requests |
 | `E_unit_emit` |final/varasm/debug/cgraph unit finalization; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
-For ordinary backing, the remaining concrete joins are target frame-layout
-helpers within LRA elimination and
-shared non-DF bitmap/pool retained-count arithmetic. Exact selected IRA
+For ordinary backing, the remaining concrete joins include
+shared non-DF bitmap/pool retained-count arithmetic and remaining CFG/helper
+containers; the selected target frame-layout helpers add no allocations. Exact selected IRA
 traversal multiplicities matter only where they affect persistent non-DF
 state; the selected DF lifetime and solver joins are now closed above.
 The known no-allocno/no-live-pseudo
