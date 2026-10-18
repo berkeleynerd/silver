@@ -59,5 +59,7 @@ python3 docs/evidence/retained-linker-symbols-20261018/check-input-symbols.py --
 
 The 220,109 fixed-input contribution includes a conservative charge for every
 input section as a possible warning. Script/generated/synthetic additions,
-rollback snapshot storage and dynamic-symbol registration events remain
-separate, as stated in the research record.
+rollback snapshot storage and other dynamic-symbol registration events remain
+separate. The input-pass registration contribution is bounded by `8R`, or
+392,648 for the fixed passes, retaining increments lost to as-needed rollback.
+These are additive terms, not whole-link counts.

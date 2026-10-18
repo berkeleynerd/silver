@@ -156,8 +156,8 @@ instruction encodings to that 26-byte bound, charges optional SFrame and GNU
 property output, and composes the complete unit directives, optional build
 note and final fragments. At the selected 29-byte compiler identifier, payload
 is at most 420 bytes and fragment allocations at most 924, including the two
-static ABS/UND startup chains. The symbol/fixup transfer bounds88 GAS symbol
-objects,102 BFD symbol allocations and281 relocation-pointer slots. The
+static ABS/UND startup chains. The symbol/fixup transfer, including the two startup predefinitions, bounds 90 GAS symbol
+objects and 104 BFD symbol allocations and 281 relocation-pointer slots. The
 [ELF object transfer](retained-elf-object-capacity.md) then bounds22 section
 headers,98 serialized symbol entries and14,352 complete object-file bytes.
 Remaining assembler backing, binder objects and final link layout are separate.
@@ -169,7 +169,7 @@ exclude SFrame for the selected null assembler invocation; the earlier
 optional-output union remains valid, and fixed/binder link inputs still need
 their independent SFrame accounting.
 The [assembler startup and lifetime join](retained-assembler-startup.md) bounds
-the output BFD's actual cumulative `alloc_size` counter by `P+31800`, retaining
+the output BFD's actual cumulative `alloc_size` counter by `P+32056`, retaining
 the separate individual-request condition. The two ELF string-table arenas
 have independent 4,051-bucket backbones and bounded entry/sort vectors.
 Their allocations are distinct from that counter and the shared notes arena;
@@ -228,6 +228,12 @@ The reusable [individual-obstack transfer](retained-backend-obstacks.md) joins
 the already-bounded native environment strings to chunk requests without
 imposing an aggregate memory or address-span gate.
 
+The selected ELF input-symbol transfer contributes at most `3R+2Q` global
+constructors and `8R` dynamic-registration increments, including as-needed
+rollback. The fixed input pass bounds give 220,109 and 392,648 respectively.
+Generated inputs and script/backend/version/local contributions remain separate;
+these are not the whole-link table or dynamic-symbol lifetime counts.
+
 The [fixed linker inputs](retained-link-inputs.md) now close target-input file
 selection for the selected null link, including both library scripts, the
 default script and transitive DSO dependencies. Every fixed archive member is
@@ -244,6 +250,11 @@ adds a conditional GOT/PLT sizing equation and identifies the unsigned32
 jump-count multiplication before its 64-bit destination. Its source-to-event
 join, shared diagnostics, generated Main/binder objects, linker-created
 names/reference events and final relocation/layout remain open.
+The [binder projection](retained-binder-capacity.md) derives the generated null
+spec/body sizes and isolates four variable paths in trailing comments. Its
+61-ALI/101-unit closure and fixed token locations support later source-to-object
+accounting; the observed binder object size is not yet a universal bound.
+
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
 bloom-filter shifts and the fifteen-bit version domain. Its configuration
@@ -268,7 +279,7 @@ uses ordinary storage and its Boolean ranges remain inline. The complete
 98-pass generic RTL schedule and eight target insertions add one late
 RTL-info allocation; selected final/CFI/section emission adds five further
 GGC requests. Null gigi helper objects and vectors add11 more, making the
-known subtotal39,968, with metadata/Main translation,
+known subtotal 40,024 after the structural and shared-cache joins, with variable metadata,
 remaining whole-unit output helpers and shared collector composition still
 explicit in the native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
@@ -315,9 +326,10 @@ report consumers remain bounded separately. The [generic ALI transfer](retained-
 prices Main/System writer and reader records, source xrefs, parser tables and
 recursive Text_IO line objects. The [GPR descriptor](retained-producer-gpr-descriptor.md)
 joins the current production project's switches and temporary naming input:
-789-byte records and29,622,766 ALI bytes bound this selected writer route.
-The indexed naming repair for #123 requires an updated producer descriptor before
-those numbers can apply to the repair.
+The indexed descriptor includes the explicit output/index arguments, nine
+phase1 stored switches and the 327-byte generated naming configuration.
+It bounds records by 789 bytes and the loose complete ALI file by 29,622,777
+bytes; all producer orchestration and frontend table totals still need composition.
 The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
 prices 167 fixed rules and streaming output despite the empty result vector.
 The native data-representation writer emits exactly four bytes for null, with

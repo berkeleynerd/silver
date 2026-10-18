@@ -340,3 +340,9 @@ table users remain separate. It supplies an additive term for the counter
 high-water argument, not a final D: local registration, script and global
 traversals, backend requests, version symbols and renumbering must still be
 joined with their own counts.
+
+Independent combined review of `a7644c9e45` and `327cab366c` accepted the
+input-constructor and registration contributions. It replayed the ten-source
+check and examined warning wrappers, all three merge routes, the weak-list
+target domain and the rollback counter behavior. No material finding remained
+in that input-only scope; the whole-link joins above remain outstanding.

@@ -34,6 +34,14 @@ installed GNATprove archive; public release/build records did not close it.
 Continue from the live #119 checkpoint and managed run summary, preserving
 successful evidence rather than repeating component checks without a new reason.
 
+The current-language CR-comment discovery blocker #123 is repaired and merged
+through [PR #124](https://github.com/berkeleynerd/silver/pull/124), at `0a98153803`.
+Its [evidence](docs/indexed-main-discovery.md) covers the complete native and
+cached Lean audits, full suite and separate Lean-dependent rechecks. Root was
+rebuilt after merge. Reuse this evidence; do not repeat it for capacity research.
+The research incorporates the repair and separates historical unindexed
+descriptors from the corrected native and producer invocations.
+
 Account separately for ordinary compilation and proof-essential producer
 representations. Overflow on admitted source is a defect; physical resource
 exhaustion is distinct. Optional confirmation cannot waive required discharge.
