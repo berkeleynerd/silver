@@ -1,0 +1,71 @@
+{
+  "target": "26b438ab5c",
+  "previous_review_target": "cbcd679320",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_sha256": {
+    "sem_attr.adb": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+    "exp_attr.adb": "0d89c4982b0c5ae4430dae91539301c0adde232f1cc1f8ab4b8a32dfe9621f4b",
+    "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+    "sem_ch4.adb": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+    "sem_ch8.adb": "e876e072ced17418b2507f15ec39cfaf3bf5aa68806876f8519ae4fe38508d99",
+    "sem_res.adb": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+    "sem_eval.adb": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+    "sem_util.adb": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+    "exp_ch3.adb": "559f0f1fae1c1f0783b4169c707c131d4e0420e988254617b57954b01d475f6e",
+    "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+    "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+    "checks.adb": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+    "sem.ads": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f",
+    "nlists.adb": "add9468f104be6152a61a52473fd869fd16f64f1a9456b47eccc60af9854c763",
+    "sem.adb": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d",
+    "atree.adb": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f"
+  },
+  "direct_attribute_lexical_sites": [
+    [
+      2864,
+      "First"
+    ],
+    [
+      2989,
+      "First"
+    ],
+    [
+      3000,
+      "First"
+    ],
+    [
+      3007,
+      "Last"
+    ],
+    [
+      3045,
+      "Length"
+    ],
+    [
+      3141,
+      "First"
+    ]
+  ],
+  "excluded_direct_attribute_sites": [
+    2864,
+    3141
+  ],
+  "Length_Uint_appends": "80*A+64",
+  "initial_attribute_ordinary_nodes": "20*n*A+6*n+4",
+  "initial_attribute_growing_events": "3*n+2",
+  "range_check_copy_lists": "2*l",
+  "same_Integer_conversion": {
+    "ordinary_nodes": 2,
+    "growing_events": 1
+  },
+  "Boolean_EWA": {
+    "ordinary_nodes": 8,
+    "entities_names": 2,
+    "growing_events": 2,
+    "Uint_appends": 1,
+    "live_scope_entries": 1,
+    "extra_lists": 0
+  },
+  "submitted_output_sha256": "32397ecddd44e2d6e7d0a73194dbddc520bf6e873aebf8baaaec3758b72f629b",
+  "limitation": "Manual shape-conditioned local transfers; no compiler/prover run, source-to-event derivation or exact installed-tool identity"
+}
