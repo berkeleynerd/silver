@@ -46,6 +46,12 @@ Image adapter's Integer/String templates reproduce these same range,
 two-field String and one-field reference shapes; its own theory declares
 only opaque `image` and `text` types, substituted by the checked clone.
 
+The converter's `Binding_ref` constructs the named monomorphic record with
+its `__content` field (`gnat_ast_to_ptree.ml:767–784`). It does not lower
+these bindings through Why3's polymorphic builtin `ref` constructor. This
+matters because the latter's generic argument flags would require the
+weaker instantiated-type argument instead of the all-solid shortcut.
+
 External objects use `EW_Private_Type`, not an inspectable file descriptor
 record (`Translate_External_Object`, `gnat2why-decls.adb:430–452`;
 `To_Why_Id(Entity_Name)`, `why-inter.adb:1515–1541`). The public output calls
