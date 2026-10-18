@@ -174,8 +174,14 @@ with the remaining obligations below unchanged.
 
 The effective-alignment and mapping-convergence source result is now an input
 to the checker. Its sharper twelve-program-header bound does not require
-replacing the valid conservative T used above. Relocation/addend legality and
-complete auxiliary BFD/LD storage remain open. Finishing the selected null
+replacing the valid conservative T used above. The reviewed
+[operand census and reach transfer](retained-linker-relocations.md) now supplies
+original and rewritten address domains, including merge cancellation and TLS;
+its common signed32 envelope is1,745,421,669. Symbol/instruction compatibility
+and edited EH fields remain separate. The
+[auxiliary storage transfer](retained-linker-layout.md) covers layout, merge/EH
+and final-link scratch requests; complete BFD/LD closure remains open.
+Finishing the selected null
 linker is itself only one part of
 #119; broader grammar, native/producer phase composition and useful-domain
 comparison remain necessary before production changes #88–#94.

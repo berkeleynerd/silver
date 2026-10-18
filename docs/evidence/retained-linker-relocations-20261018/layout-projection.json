@@ -1,0 +1,26 @@
+{
+  "counts": {
+    "R": 49358,
+    "Q": 36471,
+    "P": 1483,
+    "Qrel": 7917,
+    "Trel": 546740,
+    "H": 221088,
+    "I": 48872,
+    "S": 48965,
+    "N": 48970,
+    "T": 146908,
+    "D": 3243678,
+    "Z": 763072
+  },
+  "payload_union_bytes": 462778637,
+  "conditional_layout": {
+    "alignment_premise": 4096,
+    "padding": 400695758,
+    "headers": 8226912,
+    "retained_endpoint": 871701307,
+    "trial_endpoint": 1743402614,
+    "file_payload_with_padding": 863474395,
+    "file_endpoint": 42687993785710
+  }
+}

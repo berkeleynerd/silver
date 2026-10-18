@@ -311,7 +311,12 @@ guard and the component arithmetic conditions pass. The reviewed layout
 transfer establishes effective alignment4096, EH alignment8 and mapping
 convergence in at most two iterations. Retained/trial address endpoints are
 871,701,307/1,743,402,614; this does not establish relocation reach.
-Operand/addend domains and remaining auxiliary requests still need composition.
+The [relocation transfer](retained-linker-relocations.md) now checks462,574
+fixed and95 binder relocations, supplies Main's source-derived operand forms,
+and establishes the conditional signed32 envelope1,745,421,669 with merged
+addends and TLS treated explicitly. Symbol/instruction compatibility and edited
+EH fields remain separate. Selected layout, merge/EH and final-link auxiliary
+requests are bounded; complete linker/process closure still needs composition.
 The [selected defaults](retained-linker-defaults.md)
 exclude compression, RELR packing, STABS rewriting and additional script data.
 Fixed symbols plus generated

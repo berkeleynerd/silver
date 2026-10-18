@@ -1,0 +1,198 @@
+{
+  "counts": {
+    "fixed_files_verified": 15,
+    "archive_members_verified": 1161,
+    "fixed_ET_REL_files": 1166,
+    "fixed_symbol_records": 40885,
+    "fixed_merge_section_symbol_relocations": 113432,
+    "fixed_TLS_section_alignment_maximum": 8,
+    "DSOs_excluded_from_relocation_scan": 3,
+    "binder_ET_REL_files": 1,
+    "binder_symbol_records": 179
+  },
+  "rows": [
+    {
+      "family": "binder",
+      "type": 1,
+      "name": "R_X86_64_64",
+      "count": 1,
+      "addend_min": 0,
+      "addend_max": 0,
+      "symbol_kinds": {
+        "section": 1
+      },
+      "symbol_value_max": 416
+    },
+    {
+      "family": "binder",
+      "type": 2,
+      "name": "R_X86_64_PC32",
+      "count": 68,
+      "addend_min": -8,
+      "addend_max": 962,
+      "symbol_kinds": {
+        "section": 15,
+        "UNDEF": 53
+      },
+      "symbol_value_max": 440
+    },
+    {
+      "family": "binder",
+      "type": 4,
+      "name": "R_X86_64_PLT32",
+      "count": 26,
+      "addend_min": -4,
+      "addend_max": -4,
+      "symbol_kinds": {
+        "UNDEF": 22,
+        "section": 4
+      },
+      "symbol_value_max": 962
+    },
+    {
+      "family": "fixed",
+      "type": 1,
+      "name": "R_X86_64_64",
+      "count": 117805,
+      "addend_min": -8,
+      "addend_max": 2019040,
+      "symbol_kinds": {
+        "section": 117093,
+        "UNDEF": 712
+      },
+      "symbol_value_max": 69504
+    },
+    {
+      "family": "fixed",
+      "type": 2,
+      "name": "R_X86_64_PC32",
+      "count": 54614,
+      "addend_min": -20,
+      "addend_max": 2019036,
+      "symbol_kinds": {
+        "section": 49098,
+        "UNDEF": 5516
+      },
+      "symbol_value_max": 64512
+    },
+    {
+      "family": "fixed",
+      "type": 4,
+      "name": "R_X86_64_PLT32",
+      "count": 29776,
+      "addend_min": -4,
+      "addend_max": -4,
+      "symbol_kinds": {
+        "UNDEF": 27193,
+        "section": 2583
+      },
+      "symbol_value_max": 100016
+    },
+    {
+      "family": "fixed",
+      "type": 9,
+      "name": "R_X86_64_GOTPCREL",
+      "count": 7,
+      "addend_min": -5,
+      "addend_max": -5,
+      "symbol_kinds": {
+        "UNDEF": 7
+      },
+      "symbol_value_max": 0
+    },
+    {
+      "family": "fixed",
+      "type": 10,
+      "name": "R_X86_64_32",
+      "count": 258168,
+      "addend_min": 0,
+      "addend_max": 293932,
+      "symbol_kinds": {
+        "section": 258168
+      },
+      "symbol_value_max": 0
+    },
+    {
+      "family": "fixed",
+      "type": 19,
+      "name": "R_X86_64_TLSGD",
+      "count": 243,
+      "addend_min": -4,
+      "addend_max": -4,
+      "symbol_kinds": {
+        "section": 27,
+        "UNDEF": 216
+      },
+      "symbol_value_max": 192
+    },
+    {
+      "family": "fixed",
+      "type": 20,
+      "name": "R_X86_64_TLSLD",
+      "count": 2,
+      "addend_min": -4,
+      "addend_max": -4,
+      "symbol_kinds": {
+        "section": 2
+      },
+      "symbol_value_max": 0
+    },
+    {
+      "family": "fixed",
+      "type": 21,
+      "name": "R_X86_64_DTPOFF32",
+      "count": 23,
+      "addend_min": 0,
+      "addend_max": 0,
+      "symbol_kinds": {
+        "section": 23
+      },
+      "symbol_value_max": 192
+    },
+    {
+      "family": "fixed",
+      "type": 41,
+      "name": "R_X86_64_GOTPCRELX",
+      "count": 1,
+      "addend_min": -4,
+      "addend_max": -4,
+      "symbol_kinds": {
+        "UNDEF": 1
+      },
+      "symbol_value_max": 0
+    },
+    {
+      "family": "fixed",
+      "type": 42,
+      "name": "R_X86_64_REX_GOTPCRELX",
+      "count": 1935,
+      "addend_min": -4,
+      "addend_max": -4,
+      "symbol_kinds": {
+        "UNDEF": 1935
+      },
+      "symbol_value_max": 0
+    }
+  ],
+  "merge_source_offset_violations": [],
+  "scope": "Selected relocation input census and conditional operand reach; symbol resolution and instruction compatibility are separate",
+  "source_files_verified": 12,
+  "input_records_verified": 4,
+  "bounds": {
+    "original_addend_absolute": 2019040,
+    "Main_text_endpoint": 26,
+    "ordinary_PC_relative": 873720347,
+    "TLS_thread_offset": 871701322,
+    "rewritten_PC_relative_with_instruction_bias": 871701323,
+    "conservative_common_signed32": 1745421669,
+    "original_unsigned32": 871995239,
+    "PLT_index": 270446
+  },
+  "no_nonzero_ABS_or_COMMON_input_symbols": true,
+  "original_relocation_writes_within_target_sections": true,
+  "merged_section_symbol_offsets_within_original_sections": true,
+  "arithmetic_conditions_pass": true,
+  "complete_relocation_legality_established": false,
+  "whole_link_capacity_established": false,
+  "native_tool_executions": 0
+}

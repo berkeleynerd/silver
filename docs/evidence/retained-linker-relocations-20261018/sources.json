@@ -1,0 +1,65 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "files": [
+    {
+      "path": "bfd/elf.c",
+      "bytes": 412710,
+      "sha256": "00c2489050785f51b73ddee8dfb90f7731fc80562da90c67364b3506a237bc15"
+    },
+    {
+      "path": "bfd/elflink.c",
+      "bytes": 465443,
+      "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1"
+    },
+    {
+      "path": "bfd/elf-bfd.h",
+      "bytes": 131475,
+      "sha256": "18db387647db3b40525fc6f3b11aead9d7f5ca02b15df3168d29456dc16ab000"
+    },
+    {
+      "path": "bfd/elf64-x86-64.c",
+      "bytes": 195139,
+      "sha256": "81668a45629ad4d77f250173a250bfda6561dd810d9e7ab02d8a988de496ee6b"
+    },
+    {
+      "path": "bfd/elfxx-x86.c",
+      "bytes": 143875,
+      "sha256": "d3b089435efad4528b6cb4565819d997f50480ec35fbcbb0d90b06d20b57d517"
+    },
+    {
+      "path": "bfd/merge.c",
+      "bytes": 34456,
+      "sha256": "9ec821534dc08bda1f59b9f97efc2ce025dc91992edc48001c54bc2cc25bb4fc"
+    },
+    {
+      "path": "bfd/reloc.c",
+      "bytes": 195271,
+      "sha256": "cab5a4894f4301eda7b12d7d011fb3cce26e14f03995093e9018278e2fbae249"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "bytes": 67842,
+      "sha256": "4bbb29e6088accaf891155e620ed2741a4c8ef55b239ee598c6e325f006206f5"
+    },
+    {
+      "path": "gas/write.c",
+      "bytes": 89643,
+      "sha256": "077c6f5a3ae7087ac95151075b91ef09fb7af8514569d791b13eae37c35cc232"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "bytes": 531249,
+      "sha256": "21208487316fecdf6b53723bb26dfc43bd1b1b84af1c542926ac1f662b694767"
+    },
+    {
+      "path": "gas/config/tc-i386.h",
+      "bytes": 15990,
+      "sha256": "4fdf6e50c3428246f728721da465b841ccb47e9d3e412b2c88654c5f2f9ecc69"
+    },
+    {
+      "path": "bfd/elfxx-target.h",
+      "bytes": 38796,
+      "sha256": "0c56b33f35720830300654624f69d06d15ec39cc8632abac24f52e47fdf1684e"
+    }
+  ]
+}

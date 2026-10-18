@@ -1,0 +1,22 @@
+[
+  {
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "path": "docs/evidence/retained-linker-join-20261018/binder-object.elf",
+    "bytes": 13432,
+    "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/check-results.json",
+    "bytes": 5622,
+    "sha256": "a0cf4524ceb9a7549f8a0b429dc5126411536453bdc8c159a12422055e330008"
+  },
+  {
+    "path": "docs/evidence/retained-linker-layout-20261018/layout-shape-results.json",
+    "bytes": 13139,
+    "sha256": "61daa5c984b5232b2e0f59d233e5577c4c09a2d8e67177dd28c7c66d5d310c55"
+  }
+]
