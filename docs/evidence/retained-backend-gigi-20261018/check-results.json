@@ -84,6 +84,12 @@
     "variable_Main_source_syntax_visits": "O_Main+32*E_Main+3*(D_i+J_i)",
     "variable_Main_source_syntax_visits_cumulative_upper_bound": "A_Main+32*E_Main+3*(D_i+J_i)",
     "unchanged_protected_arithmetic_frontier": "branching arithmetic over recursively invariant leaves; not only a spine",
+    "scalar_gimplification_materializations": "N+S+M",
+    "scalar_gimplification_INIT_and_raw_assign_requests": "each <= N+S+M",
+    "scalar_gimplification_ordinary_copy_nodes": "<= N+S+M",
+    "scalar_gimplification_raw_assignment_operand_positions": "<= 3*(N+S+M)",
+    "scalar_gimplification_SSA_and_VAR_identities": "each <= N+S+M, counted separately",
+    "gimplification_size_position_root_requests": "2*T+2*Ts+3*F+2*Dv+2*Ds",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

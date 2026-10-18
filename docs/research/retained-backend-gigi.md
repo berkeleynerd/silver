@@ -1064,6 +1064,114 @@ premises, the declaration's oversized-object `malloc` branch is excluded.
 This does not establish a physical-memory guarantee or bound backend frame
 allocation, and does not exempt either from the overall contract.
 
+## Gimplification consumes scalar regions and additional metadata roots
+
+The ordinary arithmetic regions that protection leaves unwrapped need not be
+linear spines. Their incoming-edge occurrence weight still gives a useful
+gimplification interface. Consider a region of ordinary scalar unary/binary
+operations handled by the generic class dispatch, with integral constants,
+SSA_NAMEs, nonvolatile scalar VAR_DECL/PARM_DECL leaves without a VALUE_EXPR,
+and SAVE boundaries. Its types are completed integral register types. This
+row excludes special conditional/short-circuit,
+comparison boolification, call, memory-reference, aggregate and pointer
+adaptation cases; their outputs may enter the region as GIMPLE-value leaves.
+It includes arbitrary branching within the stated arithmetic region.
+
+Let N count its ordinary unary/binary occurrences, S its distinct unresolved
+value SAVE identities, and M extra requests to materialize a scalar value
+from the surrounding caller. Count each SAVE child region once. Then:
+
+```text
+scalar temporary-materialization requests T <= N + S + M
+plain INIT_EXPR requests                    <= T
+ordinary unshare-copy nodes                 <= T
+raw GIMPLE_ASSIGN requests                  <= T
+raw GIMPLE assignment operand positions     <= 3 T
+maybe_fold_stmt entries                     <= T
+fresh SSA_NAME requests                     <= T
+fresh VAR_DECL requests                     <= T.
+```
+
+The two identity rows are separate upper bounds, not a claim that each
+request creates both. The assignment and copy rows count the materialization
+helper's work; an enclosing source/descriptor store and a caller's separate
+unshare request retain their own charges. This is a transfer for raw
+construction before the
+GIMPLE folder's replacement sequence; that sequence has its own cost and
+output shape. The ordinary INIT/copy nodes have at most `4*T` operand slots
+in total. Declaration/type/name metadata remains separate too.
+
+The generic dispatch visits each unary/binary operand before asking whether
+the result needs a temporary (`gimplify.cc:21295–21348,21502–21558`). If needed,
+`internal_get_tmp_var` first gimplifies to a register RHS, constructs one INIT
+around `unshare_expr(val)`, and gimplifies that initialization
+(`:680–721`). The second traversal sees a **shallow** scalar operator whose
+operands are already GIMPLE values. Its unshare copies at most that operator;
+it does not recursively expand the original arithmetic tree. Both initial
+and final assignment predicates select the register-RHS case for the fresh
+scalar destination (`:6288–6307`). The ordinary assignment path constructs
+one GIMPLE_ASSIGN and calls `maybe_fold_stmt` (`:7604–7615`). There is no
+variable-size wrapper or pointer conversion in this scalar specialization.
+
+`gimplify_save_expr` evaluates its operand only while
+`SAVE_EXPR_RESOLVED_P` is false, then replaces that operand by the resulting
+temporary and sets the flag (`:7758–7799`). Later references return it without
+replaying the child. Void SAVEs, including the EWA action group, gimplify their
+statements once and need no value temporary. `gimplify_compound_expr` likewise
+consumes its left statements and final value without copying them
+(`:7723–7746`).
+
+Initial `gimplify_body` uses `push_gimplify_context(true)` even at O0
+(`:21760`). Formal arithmetic temporaries therefore normally use SSA_NAMEs;
+SAVE materialization explicitly passes `gimple_in_ssa_p(cfun)`, which is false
+at initial lowering, and uses a VAR_DECL. The O0 branch in `lookup_tmp_var`
+disables its expression cache only when that helper is selected
+(`:639–654`). The conservative identity rows also allow the helper's
+undefined-SSA fallback to request a VAR_DECL (`:718–719`); they do not assume
+that this fallback is a successful lowering path. The initial-SSA component
+must receive the already created SSA_NAME count as an input.
+
+### Size-position roots include Ada's RM endpoints
+
+The whole-body unsharing forest is not the entire later gimplification input.
+`gimplify_type_sizes` marks a type's **main variant** before recursion, so each
+such variant is processed at most once. It visits scalar MIN/MAX, record field
+OFFSET/SIZE/SIZE_UNIT, and each type's SIZE/SIZE_UNIT. Arrays recurse into their
+element/domain types; pointer and reference types do not recursively open
+their designated type (`gimplify.cc:21600–21705`). A TYPE_DECL's original
+type is an additional entry to the same cached traversal
+(`:2145–2155`). Include it in the reached type inventory.
+
+The Ada language hook has two additional roots: TYPE_RM_MIN_VALUE and
+TYPE_RM_MAX_VALUE for a scalar declaration whose type sizes are not yet
+gimplified (`trans.cc:9378–9406`). Those custom fields are not visited by the
+generic tree walker used in whole-body unsharing. Dynamic local object
+declarations independently supply DECL_SIZE and DECL_SIZE_UNIT to
+`gimplify_vla_decl` (`gimplify.cc:1971–1978`).
+
+Let T count reached main type variants, Ts their scalar variants, F their
+record fields, Dv the VLA-declaration entries and Ds scalar DECL_EXPR visits
+eligible for the Ada hook. Main and its finalizer return void; generated size
+functions return scalars. No dynamically sized aggregate return adds another
+pair in this frontier. A sufficient count is therefore
+
+```text
+gimplify_one_sizepos requests <= 2*T + 2*Ts + 3*F + 2*Dv + 2*Ds.
+```
+
+These are actual metadata/visit counts, not source type identities. Reusing
+the same bound through two metadata fields may consume two incoming-root
+weights. A one-size-position request returns immediately for null, GIMPLE
+constant, VAR_DECL or placeholder-containing input. Otherwise it calls
+`unshare_expr` once and then gimplifies the copied root
+(`gimplify.cc:21712–21739`). The ordinary unshare transfer applies to that
+root. Its non-SSA/constant-result normalization adds at most one extra scalar
+materialization request; charge that in M above when the result belongs to the
+scalar region. Preserved SAVE identities still share their one-time child
+evaluation across these roots. This closes the root-count interface, while
+the actual bound/size expressions and non-scalar gimplifier branches remain
+required inputs.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

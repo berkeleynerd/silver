@@ -38,7 +38,7 @@ RANGES = {
         (6118, 6144), (6150, 6318), (6826, 6917), (7086, 7097),
         (7291, 7655), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8622),
         (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
-        (9492, 9582), (9846, 9856), (9889, 10025), (10014, 10494)],
+        (9378, 9406), (9492, 9582), (9846, 9856), (9889, 10025), (10014, 10494)],
     "gcc/ada/gcc-interface/utils.cc": [
         (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
         (2861, 2894), (2918, 3133), (3137, 3162), (3830, 3875),
@@ -57,7 +57,11 @@ RANGES = {
         (11020, 11077), (11194, 11224)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
-    "gcc/gimplify.cc": [(1270, 1282), (1677, 1845)],
+    "gcc/gimplify.cc": [
+        (387, 395), (619, 721), (1270, 1282), (1677, 1845),
+        (1971, 2008), (2124, 2157), (2198, 2225), (6288, 6307),
+        (7430, 7470), (7599, 7625), (7723, 7799),
+        (21295, 21348), (21502, 21558), (21584, 21761)],
     "gcc/calls.cc": [(590, 630), (807, 824)],
     "gcc/tree-cfg.cc": [(2185, 2200), (2628, 2652)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
@@ -192,6 +196,21 @@ def check_sources(sources, inventory):
     tree = sources["gcc/tree.cc"]
     assert "else if (tree_invariant_p (TREE_OPERAND (expr, 1)))" in tree
     assert "else if (tree_invariant_p (TREE_OPERAND (expr, 0)))" in tree
+    gimplify = sources["gcc/gimplify.cc"]
+    assert "push_gimplify_context (true);" in gimplify
+    assert "if (!SAVE_EXPR_RESOLVED_P (*expr_p))" in gimplify
+    assert "SAVE_EXPR_RESOLVED_P (*expr_p) = 1;" in gimplify
+    assert "t = make_ssa_name (TYPE_MAIN_VARIANT (TREE_TYPE (val)));" in gimplify
+    assert "mod = build2 (INIT_EXPR, TREE_TYPE (t), t, unshare_expr (val));" in gimplify
+    assert "assign = gimple_build_assign (*to_p, *from_p);" in gimplify
+    start = gimplify.index("\ngimplify_type_sizes (tree type,")
+    end = gimplify.index("\n}\n", start)
+    types = gimplify[start:end]
+    assert types.index("TYPE_SIZES_GIMPLIFIED (type) = 1;") < types.index("switch (TREE_CODE (type))")
+    assert types.count("gimplify_one_sizepos (") == 7
+    start = trans.index("\ngnat_gimplify_expr (")
+    end = trans.index("\n}\n", start)
+    assert trans[start:end].count("gimplify_one_sizepos (") == 2
 
 
 def arithmetic():
@@ -277,6 +296,12 @@ def arithmetic():
         "variable_Main_source_syntax_visits": "O_Main+32*E_Main+3*(D_i+J_i)",
         "variable_Main_source_syntax_visits_cumulative_upper_bound": "A_Main+32*E_Main+3*(D_i+J_i)",
         "unchanged_protected_arithmetic_frontier": "branching arithmetic over recursively invariant leaves; not only a spine",
+        "scalar_gimplification_materializations": "N+S+M",
+        "scalar_gimplification_INIT_and_raw_assign_requests": "each <= N+S+M",
+        "scalar_gimplification_ordinary_copy_nodes": "<= N+S+M",
+        "scalar_gimplification_raw_assignment_operand_positions": "<= 3*(N+S+M)",
+        "scalar_gimplification_SSA_and_VAR_identities": "each <= N+S+M, counted separately",
+        "gimplification_size_position_root_requests": "2*T+2*Ts+3*F+2*Dv+2*Ds",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

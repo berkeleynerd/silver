@@ -53,3 +53,11 @@ These checks do not establish a bound on the resulting GCC expression graph.
 The protection extension retains the actual recursively invariant arithmetic
 frontier: unchanged expressions may branch, even though newly reconstructed
 conversion/reference wrappers follow one spine.
+
+The scalar-gimplification extension pins the shallow temporary replay, SAVE
+resolution, raw assignment/folder entry, initial SSA context and separate
+generic/Ada metadata-root sites. Its scalar-region transfer counts raw
+construction before GIMPLE folder replacements. It preserves separate SSA
+and VAR identity demands and adds Ada RM bounds to the size-position root
+inventory. Calls, conditionals, memory/aggregate adaptation and the final
+folded GIMPLE count are not closed by that restricted transfer.
