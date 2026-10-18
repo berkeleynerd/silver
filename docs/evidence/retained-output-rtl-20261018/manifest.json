@@ -1,0 +1,424 @@
+{
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archive": {
+    "file": "sources.tar.gz",
+    "bytes": 2128214,
+    "sha256": "b8dd66c020a8ca05844833e6a323c1bb4c9cf92fa129f5119a29dc3ea94d1815"
+  },
+  "files": [
+    {
+      "path": "gcc/cfg.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "path": "gcc/cfgcleanup.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfgcleanup.cc",
+      "bytes": 96782,
+      "sha256": "bc8a425854ca62c0db4cfba05249d44bbd85d54624d483cfb5f9ac19ccd69eb4"
+    },
+    {
+      "path": "gcc/cfgrtl.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfgrtl.cc",
+      "bytes": 154498,
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+    },
+    {
+      "path": "gcc/common.opt",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/common.opt",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "path": "gcc/config/i386/athlon.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/athlon.md",
+      "bytes": 51799,
+      "sha256": "bb4c6e0d3449e41ff6f56880c8fbdc9bf448860bac0b198ed54593321b9d30b0"
+    },
+    {
+      "path": "gcc/config/i386/atom.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/atom.md",
+      "bytes": 28256,
+      "sha256": "f78870916a314dd33d295accc67370bc2b6060e671719dc8559b207659041991"
+    },
+    {
+      "path": "gcc/config/i386/bdver1.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/bdver1.md",
+      "bytes": 35642,
+      "sha256": "53725cbe312aa11697a669ce05a7fa6d915f2957fe217726c40b4839cc960f63"
+    },
+    {
+      "path": "gcc/config/i386/bdver3.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/bdver3.md",
+      "bytes": 33665,
+      "sha256": "d22aa408c8f086d87ab7a432050b560d0b97f2fa54c8729562a29fd65f111699"
+    },
+    {
+      "path": "gcc/config/i386/btver2.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/btver2.md",
+      "bytes": 49822,
+      "sha256": "0ce51b319cdf1632ac7cd8902eae28c22324670118028ac9c8d0efe304b8179c"
+    },
+    {
+      "path": "gcc/config/i386/constraints.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/constraints.md",
+      "bytes": 18453,
+      "sha256": "dddc5eb7a550e5db9fc4350024877d9917728985697e17ed1f8059ef17dbebed"
+    },
+    {
+      "path": "gcc/config/i386/core2.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/core2.md",
+      "bytes": 25222,
+      "sha256": "5505e50eb296f96bd14f846ed9f256bdb5b96a18b33a8373274ee96d4f4d9cfb"
+    },
+    {
+      "path": "gcc/config/i386/geode.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/geode.md",
+      "bytes": 4634,
+      "sha256": "6633784fd9f7f58fc5e0334ff21f13fcc0724a556dec63d6e9ee71e29980d4fc"
+    },
+    {
+      "path": "gcc/config/i386/glm.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/glm.md",
+      "bytes": 22332,
+      "sha256": "368bdc7fb2826a436b34152c1bf8b47c7f98dd56728fc23c0bf653e4c6b6718a"
+    },
+    {
+      "path": "gcc/config/i386/haswell.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/haswell.md",
+      "bytes": 22034,
+      "sha256": "caa5a6e9c5dd29e2da976d5cbd2b9bb278b3f941e48b7a1e81339025d77de3f9"
+    },
+    {
+      "path": "gcc/config/i386/i386-expand.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-expand.cc",
+      "bytes": 790498,
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "path": "gcc/config/i386/i386-features.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-features.cc",
+      "bytes": 154425,
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "path": "gcc/config/i386/i386-passes.def",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-passes.def",
+      "bytes": 1723,
+      "sha256": "c762beb64ffdb3a2bbd11ac8950a20eea6a7feb37e33580adc1e880a6f31e9a1"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/config/i386/i386.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "path": "gcc/config/i386/i386.opt",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.opt",
+      "bytes": 39868,
+      "sha256": "6c0a677cb6a12dd201304a4afbf23a29da634150ad4bae4aeb8343b1d4757dc7"
+    },
+    {
+      "path": "gcc/config/i386/k6.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/k6.md",
+      "bytes": 10000,
+      "sha256": "e7f77a101ab0b88a1d8b8f6672af9d5b4872f4afc8e3842189378eff03c9de35"
+    },
+    {
+      "path": "gcc/config/i386/lujiazui.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/lujiazui.md",
+      "bytes": 28071,
+      "sha256": "acd432a415d22de937bd0cb6b5c0bda0bc90e63ce7286928e08604fd8667e5da"
+    },
+    {
+      "path": "gcc/config/i386/mmx.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/mmx.md",
+      "bytes": 226884,
+      "sha256": "34f2f6ff61792b6bc7c2b0a58f6ef07427c6a90873bbbc65e8ad8bc81b022562"
+    },
+    {
+      "path": "gcc/config/i386/pentium.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/pentium.md",
+      "bytes": 11001,
+      "sha256": "3d86ef21af08beb9802472b8c9bb681cd3b65ee4bc2b8a0cb3890dcd599c7029"
+    },
+    {
+      "path": "gcc/config/i386/ppro.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/ppro.md",
+      "bytes": 27441,
+      "sha256": "499c2e0849aa72a25a3c7c242e8e85cbe369425504351896511b5a6befc4f7e1"
+    },
+    {
+      "path": "gcc/config/i386/predicates.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/predicates.md",
+      "bytes": 71950,
+      "sha256": "5075f3aae42a16baab5e7e9c9fdab376b7cfcfea81f0f9ca53d55e1db9ecbf87"
+    },
+    {
+      "path": "gcc/config/i386/slm.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/slm.md",
+      "bytes": 25849,
+      "sha256": "704585ff5db111ebed6aa3e27378dddf09a5da93d72bc511022bd94a6479c0d3"
+    },
+    {
+      "path": "gcc/config/i386/sse.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/sse.md",
+      "bytes": 1170312,
+      "sha256": "a5afc2af3435e4d510595f974d326f1449d0835043b35053c39760d7f7139fca"
+    },
+    {
+      "path": "gcc/config/i386/subst.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/subst.md",
+      "bytes": 20122,
+      "sha256": "57109d346ec72f87c926980e9f33a58eacf2e6f2e58fcbc3bc44a022eea18c61"
+    },
+    {
+      "path": "gcc/config/i386/sync.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/sync.md",
+      "bytes": 40614,
+      "sha256": "d228fdb6e9b63bb0c9f927be33bee61c4159580eca2ce825daa1b5ff0d988bfd"
+    },
+    {
+      "path": "gcc/config/i386/x86-tune-costs.h",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/x86-tune-costs.h",
+      "bytes": 200039,
+      "sha256": "ecc203626dfb80631fb7651f62000fd30eb2293734d520cfbaffed3df844944a"
+    },
+    {
+      "path": "gcc/config/i386/x86-tune.def",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/x86-tune.def",
+      "bytes": 37691,
+      "sha256": "00de5185a5031ba9f4e8bdb5cb18a29a2d278244969cf907ecc2e6fe1b5afd51"
+    },
+    {
+      "path": "gcc/config/i386/yongfeng.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/yongfeng.md",
+      "bytes": 31074,
+      "sha256": "bad46d093abc2c819df405e79d05d01e529187820c887ef5889c3c3edfcdf68f"
+    },
+    {
+      "path": "gcc/config/i386/zn4zn5.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/zn4zn5.md",
+      "bytes": 68237,
+      "sha256": "562b5b4ec75b6d950e2d22e54ab576c30de5faed8a2adf4f99dc0f2d5baea28f"
+    },
+    {
+      "path": "gcc/config/i386/znver.md",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/znver.md",
+      "bytes": 50401,
+      "sha256": "0acfd3754c883e1ef792f4ba058cf1e9f8bee7329bfbab6a21ccc89fb4cc2576"
+    },
+    {
+      "path": "gcc/df-core.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/df-core.cc",
+      "bytes": 73101,
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "path": "gcc/df-scan.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/df-scan.cc",
+      "bytes": 121906,
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "path": "gcc/dwarf2cfi.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/dwarf2cfi.cc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "path": "gcc/dwarf2out.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/dwarf2out.cc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
+      "path": "gcc/emit-rtl.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "path": "gcc/final.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "path": "gcc/function.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "path": "gcc/init-regs.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/init-regs.cc",
+      "bytes": 4759,
+      "sha256": "e070c07ac8cdd87e4dbb76183ea1b7c96ec772144dbf68f43b7b4a19bc9e5fe1"
+    },
+    {
+      "path": "gcc/ira-build.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-build.cc",
+      "bytes": 106712,
+      "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+    },
+    {
+      "path": "gcc/ira-color.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-color.cc",
+      "bytes": 177541,
+      "sha256": "bbc68e6f86d1b5d2b5fd87b5b99901b87194c0dbcf360e9c3a01c0c24f81c3c8"
+    },
+    {
+      "path": "gcc/ira-conflicts.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-conflicts.cc",
+      "bytes": 29767,
+      "sha256": "a3f7cdd4cc820f0699fc735b6248b0ed69f4380f78aba12e771ec255b53f098c"
+    },
+    {
+      "path": "gcc/ira-costs.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-costs.cc",
+      "bytes": 88610,
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "path": "gcc/ira-emit.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-emit.cc",
+      "bytes": 41804,
+      "sha256": "66b08bc37fb42cafc7df53eb99b794bfbbce07c58fb108fa6dd44b7a5c6a1163"
+    },
+    {
+      "path": "gcc/ira-int.h",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-int.h",
+      "bytes": 63045,
+      "sha256": "afbfec872426e7e0fbc2d352ac3ade7232cc72d886bcafb66d3def4532a88f48"
+    },
+    {
+      "path": "gcc/ira-lives.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira-lives.cc",
+      "bytes": 56331,
+      "sha256": "427b2f4c5219e2c05a406972848daa02484a3cc87657c305aad13440b9244edf"
+    },
+    {
+      "path": "gcc/ira.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "path": "gcc/lower-subreg.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "path": "gcc/lra-assigns.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "path": "gcc/lra-constraints.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "path": "gcc/lra-eliminations.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra-eliminations.cc",
+      "bytes": 51361,
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "path": "gcc/lra-int.h",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra-int.h",
+      "bytes": 20763,
+      "sha256": "fd73c4bb99ec40e9ac957268ac5f5f3ccea6692d2655572412c7191b5f5e14a0"
+    },
+    {
+      "path": "gcc/lra-lives.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "path": "gcc/lra-spills.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra-spills.cc",
+      "bytes": 29811,
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
+      "path": "gcc/lra.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "path": "gcc/opts.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "path": "gcc/passes.def",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "path": "gcc/recog.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "path": "gcc/regs.h",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/regs.h",
+      "bytes": 12632,
+      "sha256": "21a9e28558966cf4b1b31b7aa8c9d7b357e83865a7eb72376fc50fec64e46826"
+    },
+    {
+      "path": "gcc/rtl.h",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/rtl.h",
+      "bytes": 162393,
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+    },
+    {
+      "path": "gcc/rtlanal.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/rtlanal.cc",
+      "bytes": 201232,
+      "sha256": "b0bcb6db46eee054e11a10b79caad72180f704d7c368b4494cb4c0ce42170333"
+    },
+    {
+      "path": "gcc/simplify-rtx.cc",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/simplify-rtx.cc",
+      "bytes": 311396,
+      "sha256": "918de336822964fa3c4ad1f5b241a8ca4ae7039cb3cd921e3b691c80e85bd8f5"
+    },
+    {
+      "path": "gcc/target.def",
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/target.def",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    }
+  ]
+}

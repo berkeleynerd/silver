@@ -1,0 +1,16 @@
+[
+  {
+    "file": "native-entry.json",
+    "commit": "e0cffc2baa72a439cf7e33b706aa30d50e99cd5d",
+    "original_path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-literal-output-initial.json",
+    "bytes": 6888,
+    "sha256": "6b027c4411d2e7b9a3dbb0a39434839c1541b8fb02b3e3339ad4da543dc0eaaa"
+  },
+  {
+    "file": "native-source-inputs.json",
+    "commit": "e0cffc2baa72a439cf7e33b706aa30d50e99cd5d",
+    "original_path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/literal-output-source-inputs.json",
+    "bytes": 12144,
+    "sha256": "dde0bc51859cf36c189fe2a7b5be4c3f278cbaecbb2210648fda3c70f680be7f"
+  }
+]

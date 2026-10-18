@@ -1,0 +1,88 @@
+{
+  "scope": "Conditional split-wide literal-output native RTL through final text",
+  "selected_added_option": "-fsplit-wide-types",
+  "complete_source_files_verified": 69,
+  "source_files_hash_equal_predecessor": 16,
+  "predecessor": "direct literal output: source through conditional pass_expand output and data operands",
+  "literal_predecessor_arithmetic": {
+    "calls": 1,
+    "nulls": 0,
+    "pass_expand_chain": 19,
+    "split_added_REG_requests": 2,
+    "split_added_two_element_rtvec_requests": 1,
+    "split_added_reg_attrs_requests_upper": 2,
+    "split_referenced_pseudos_upper": 4,
+    "lifetime_dynamic_pseudo_requests_upper": 6,
+    "first_unused_pseudo_number_upper": 104,
+    "register_array_capacity_upper": 198,
+    "IRA_entry_chain": 27,
+    "postreload_chain": 28,
+    "postframe_chain": 42,
+    "final_chain": 52,
+    "first_unused_UID_upper": 53,
+    "ordinary_blocks_upper": 8,
+    "edges_upper": 9,
+    "block_slots_upper": 10,
+    "nops_upper": 14,
+    "CFI_traces_upper": 5,
+    "CFI_rows_upper": 10,
+    "CFI_objects_upper": 12,
+    "FDE_objects": 1,
+    "instruction_text_lines_upper": 25,
+    "shortening_text_bytes_upper": 53,
+    "local_symbol_instruction_references_upper": 2,
+    "external_call_instruction_references_upper": 1,
+    "local_representation_checks": {
+      "first_unused_UID_signed_int": true,
+      "pseudo_number_signed_int": true,
+      "register_array_signed_doubling": true,
+      "block_index_signed_int": true,
+      "shortening_address_signed_int": true
+    }
+  },
+  "source_selected_split_profitability": {
+    "TI_cost": 8,
+    "DI_cost": 4,
+    "TI_words": 2
+  },
+  "call_group_liveness_arithmetic": {
+    "maximum_live_pseudos": 2,
+    "pseudo_live_at_call_or_group_boundary": false
+  },
+  "allocator_availability_arithmetic": {
+    "SysV_caller_GPRs": 9,
+    "other_pseudos_upper": 3,
+    "explicit_argument_hard_regs_upper": 2,
+    "free_caller_GPRs_lower": 4,
+    "order_and_conflict_cases": 96
+  },
+  "source_selected_LRA_passes": {
+    "constraints": 2,
+    "live_range_construction": 1,
+    "assignment": 1,
+    "inheritance_upper": 1,
+    "undo_upper": 1
+  },
+  "frame": {
+    "saved_RBP_bytes": 8,
+    "compiler_local_or_spill_bytes": 0,
+    "outgoing_argument_bytes": 0
+  },
+  "focused_arithmetic_checks": [
+    "predecessor interface",
+    "whole-DI local liveness",
+    "all four-pseudo orders and hard-arg subsets",
+    "null-interface consistency",
+    "5000-call/null composition",
+    "signed text and UID boundaries"
+  ],
+  "native_tool_executions": 0,
+  "requires_companion_manual_source_argument": true,
+  "all_lifetime_RTX_GGC_and_helper_storage_accounted": false,
+  "updated_parent_and_child_option_storage_joined": false,
+  "exact_selected_option_native_witness_run": false,
+  "assembled_object_and_relocation_capacity_established": false,
+  "whole_native_pipeline_capacity_established": false,
+  "GNATprove_producer_capacity_established": false,
+  "production_admission_changed": false
+}
