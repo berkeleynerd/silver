@@ -2,6 +2,7 @@
 """Compose source-counted producer bounds; no native tools or membership test."""
 from collections import Counter
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -90,7 +91,8 @@ def weights(schema, lengths, h=3, d=40):
             elif typ.startswith('EW_'):
                 primitive = 2
             elif typ == 'Symbol':
-                family = ('comments' if name == 'Comment' else
+                family = ('module_file' if kind == 'W_MODULE' and name == 'File' else
+                          'comments' if name == 'Comment' else
                           'labels' if name == 'Marker' else 'names')
                 primitive = 2*lengths[family]+2
             elif typ in ('Symbol_Set', 'String_Sets.Set'):
@@ -112,14 +114,49 @@ def string_bounds(identifier, loops, main_nodes, path_bytes):
     q = h+26*loops+30
     main = dict(names=h+q+41, comments=2*max(q, 760)+2*path_bytes+248,
                 labels=max(9+main_nodes*(2*h+8), path_bytes+78, h+5, 44),
-                string_attributes=33, filenames=path_bytes)
+                string_attributes=33, filenames=path_bytes,module_file=19)
     small_label = max(path_bytes+78,h+5,44)
     main['symbol_set_characters'] = max(3*small_label,
         9+main_nodes*(2*h+8)+path_bytes+78+44)
     fixed = dict(names=1702, comments=1690+2*path_bytes,
                  labels=1690+2*path_bytes, string_attributes=33, filenames=path_bytes,
-                 symbol_set_characters=3*(1690+2*path_bytes))
+                 symbol_set_characters=3*(1690+2*path_bytes),module_file=19)
     return {k: max(main[k], fixed[k]) for k in main}, fixed
+
+
+def check_module_files():
+    path = EVIDENCE/'retained-producer-strings-20261018/check.py'
+    spec = importlib.util.spec_from_file_location('producer_string_inventory',path)
+    strings = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(strings)
+    counts, positional = Counter(), []
+    source_path = EVIDENCE/'unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz'
+    with tarfile.open(source_path) as archive:
+        files = {m.name: archive.extractfile(m).read().decode()
+                 for m in archive.getmembers()
+                 if m.isfile() and m.name.startswith('spark-source/src/')
+                 and m.name.endswith(('.adb','.ads'))}
+    assert len(files) == 279
+    for name,source in files.items():
+        for _,_,expression in strings.scan_calls(source,('New_Module',)):
+            masked = strings.clean(expression)
+            match = re.search(r'\bFile\s*=>',masked,re.I)
+            if match:
+                value = strings.actual(expression+')',masked+')',match.end())
+                counts[' '.join(value.split())] += 1
+            else:
+                positional.append((name,' '.join(expression.split())))
+    assert counts == dict(Gnatprove_Standard_File=57,Ada_Model_File=55,
+                         No_Symbol=37,Int_File=1,Real_File=1,Ref_File=1,
+                         **{'GNATCOLL.Symbols.No_Symbol':2})
+    assert positional == [('spark-source/src/why/why-gen-names.adb','Ada_Node, File, S')]
+    initializer = files['spark-source/src/why/why-atree-modules.adb']
+    values = dict(re.findall(r'\b(\w+_File)\s*:=\s*NID\s*\("([^"]*)"\)',initializer))
+    assert values == dict(Int_File='int',Real_File='real',Ref_File='ref',
+                         Gnatprove_Standard_File='_gnatprove_standard',Ada_Model_File='ada__model')
+    assert max(map(len,values.values())) == 19
+    return dict(source_files=len(files),named_calls=dict(counts),
+                positional_forwarders=len(positional),file_symbols=values,maximum=19)
 
 
 def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
@@ -136,6 +173,11 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     main_nodes = (parse+4*c['B_loop']+53*f+6*r+25*ds+d+2*s+6*a
                   +7*c['U']+10*c['Length']+c['V0']+2*c['O']+12*p
                   +4*c['O_loop']+c['C_lib']+c['W']+1)
+    # Shape_Of_Node ignores scanner leaves, entities, freeze/call/reference markers.
+    shape_nodes = (parse-2*(c['W']+s+c['N']+c['N_colon'])+4*c['B_loop']
+                   +44*f+4*r+21*ds+7*c['U']+10*c['Length']+c['V0']
+                   +2*c['O']+2*p+4*c['O_loop'])
+    assert 0 <= shape_nodes <= main_nodes
     visits = 2*(c['X']+c['U']+3*p)+2*g
     literals = s+a+3*p+ds
     # D_lit=D_s and D_alias=0 dominates every declaration classification.
@@ -160,9 +202,23 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     closes = 2*d+8*f+4*r+6*ds+2*kl+3*f+literals+2+4
     # Character predicates and list/location wrappers allocate no module.
     modules = fixed_modules+variable[0]-7*c['H_chars']-list_part[0]
-    imports = closes*(2+2*modules)
+    assert 0 <= c['X_integer'] <= c['X']
+    numeric_visits = 2*c['X_integer']+2*g
+    module_parts = dict(fixed=fixed_modules,wrapper=746,memoized=27*entities,
+        string_objects=2*ds,string_completion=3*ds,string_cache=2*(ds+kl),
+        array_attempts_and_miss=ds+kl+3,literal_definitions=literals,
+        other_expressions=110*(visits-numeric_visits),string_declarations=55*ds,
+        string_assignments=148*c['S_assign'],outputs=9*c['output'],rejects=4*c['Reject'],
+        loop_frames=5*f*(ds+1))
+    coarse_modules = modules
+    modules = min(modules,sum(module_parts.values()))
+    all_module_imports = closes*(2+2*modules)
+    # Each theory's own module-set insertions are occurrence-charged. Only
+    # Main's single VC close additionally walks the global module closure.
+    structural_imports = 2*closes+variable[3]+modules
+    imports = min(all_module_imports,structural_imports)
     totals = add(preimport,(imports,0,imports,2*imports))
-    lengths, fixed_lengths = string_bounds(c['I'],f,main_nodes,path_bytes)
+    lengths, fixed_lengths = string_bounds(c['I'],f,shape_nodes,path_bytes)
     weight = weights(schema,lengths)
     fixed_weight = weights(schema,fixed_lengths)
     # Character expansion has only these kinds; it contains no labels/comments.
@@ -185,9 +241,11 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     auxiliary = dict(A_total=all_nodes,E_total=all_entities,
                      common_calls=common_calls,why_calls=why_calls,
                      why_symbol_map=160*all_entities,undo_peak=undo)
-    return dict(A_parse=parse,A_Main=main_nodes,E_Main=entities,V=visits,K=literals,
+    return dict(A_parse=parse,A_Main=main_nodes,A_shape=shape_nodes,E_Main=entities,V=visits,K=literals,
                 K_literal=kl,preimport=preimport,unpaid_closes=closes,modules=modules,
-                imports=imports,totals=totals,string_lengths=lengths,
+                coarse_modules=coarse_modules,module_parts=module_parts,
+                imports=imports,all_module_imports=all_module_imports,
+                structural_imports=structural_imports,totals=totals,string_lengths=lengths,
                 json_bytes=json_bytes,json_parts=dict(fixed=fixed_bytes,body=body_bytes,
                     characters=char_bytes,imports=import_bytes),auxiliary=auxiliary,
                 producer_core_fits=(totals[0]<=2**30-1 and totals[1]<=2**30
@@ -214,10 +272,10 @@ def examples():
         ('concat',shell%('', 'Silver_IO.Put ("a" & "b");\n'),
          dict(context=1,dots=1,calls_with_actual=1,C_lib=1,output=1,concat=1,O=1,X=3,H_chars=4)),
         ('assignment',shell%('A : Integer range 0 .. 9 := 0;\n','A := 1;\n'),
-         dict(context=1,D=1,R=1,I_assign=1,X=4)),
+         dict(context=1,D=1,R=1,I_assign=1,X=4,X_integer=4)),
         ('loop',shell%('A : Integer range 0 .. 9 := 0;\n',
                       'for I in 1 .. 9 loop\nA := I;\nend loop;\n'),
-         dict(context=1,D=1,R=1,F=1,I_assign=1,X=6,B_loop=3)),
+         dict(context=1,D=1,R=1,F=1,I_assign=1,X=6,X_integer=6,B_loop=3)),
     ]
     for name,source,counts in cases:
         yield name,source,{**counts,**lexical(source)}
@@ -226,6 +284,7 @@ def examples():
 def main():
     schema = json.loads((EVIDENCE/'retained-producer-storage-20261018/serialization.json').read_text())['schema']
     fixed_counts,fixed_modules = fixed_envelope()
+    module_files = check_module_files()
     cases = []
     for name,source,counts in examples():
         cases.append(dict(name=name,source=source,counts=counts,
@@ -241,12 +300,27 @@ def main():
             sensitivity.append(dict(literal_characters=size,source_bytes=len(source),
                 path_bytes=path_bytes,json_bytes=bound['json_bytes'],
                 producer_core_fits=bound['producer_core_fits']))
+    loop_sensitivity = []
+    for count in (1,2,3,4,8):
+        source = ('with Silver_IO; procedure Main is pragma SPARK_Mode (On); '
+                  'A : Integer range 0 .. 9 := 0; begin '
+                  +'for I in 1 .. 9 loop A := I; end loop; '*count+'end Main;')
+        x = 3+3*count
+        counters = dict(context=1,D=1,R=1,F=count,I_assign=count,X=x,X_integer=x,
+                        B_loop=3*count,**lexical(source))
+        bound = compose(counters,schema,fixed_counts,fixed_modules)
+        loop_sensitivity.append(dict(loops=count,source_bytes=len(source),counts=counters,
+            A_Main=bound['A_Main'],A_shape=bound['A_shape'],modules=bound['modules'],
+            json_bytes=bound['json_bytes'],json_parts=bound['json_parts'],
+            producer_core_fits=bound['producer_core_fits']))
     inputs = ('retained-producer-dependencies-20261018/graphs.tar.gz',
               'retained-producer-storage-20261018/serialization.json')
     input_hashes = {name: hashlib.sha256((EVIDENCE/name).read_bytes()).hexdigest() for name in inputs}
     result = dict(input_sha256=input_hashes,
+                  module_file_inventory=module_files,
                   fixed_modules=fixed_modules,fixed_kind_occurrences=dict(sorted(fixed_counts.items())),
                   path_bytes=256,cases=cases,sensitivity=sensitivity,
+                  loop_sensitivity=loop_sensitivity,
                   scope='producer core only; source/config inequalities, not admission or native execution')
     (HERE/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     for case in cases:

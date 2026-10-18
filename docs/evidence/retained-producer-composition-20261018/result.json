@@ -3,6 +3,27 @@
     "retained-producer-dependencies-20261018/graphs.tar.gz": "1cd8b9986aaa4673204fd2599b5ca85d20ff5d1c0cf79468fc334cc2f6e6a983",
     "retained-producer-storage-20261018/serialization.json": "aa96e05309bfa259237637f6dbfeb1d1463a8fde75b91ced4a28353d0970f4cc"
   },
+  "module_file_inventory": {
+    "source_files": 279,
+    "named_calls": {
+      "GNATCOLL.Symbols.No_Symbol": 2,
+      "No_Symbol": 37,
+      "Int_File": 1,
+      "Real_File": 1,
+      "Ref_File": 1,
+      "Ada_Model_File": 55,
+      "Gnatprove_Standard_File": 57
+    },
+    "positional_forwarders": 1,
+    "file_symbols": {
+      "Int_File": "int",
+      "Real_File": "real",
+      "Ref_File": "ref",
+      "Gnatprove_Standard_File": "_gnatprove_standard",
+      "Ada_Model_File": "ada__model"
+    },
+    "maximum": 19
+  },
   "fixed_modules": 741,
   "fixed_kind_occurrences": {
     "W_ABSTRACT_EXPR": 10,
@@ -66,6 +87,7 @@
       "bound": {
         "A_parse": 28,
         "A_Main": 39,
+        "A_shape": 8,
         "E_Main": 1,
         "V": 0,
         "K": 0,
@@ -77,13 +99,32 @@
           25005
         ],
         "unpaid_closes": 6,
-        "modules": 1722,
-        "imports": 20676,
+        "modules": 1517,
+        "coarse_modules": 1722,
+        "module_parts": {
+          "fixed": 741,
+          "wrapper": 746,
+          "memoized": 27,
+          "string_objects": 0,
+          "string_completion": 0,
+          "string_cache": 0,
+          "array_attempts_and_miss": 3,
+          "literal_definitions": 0,
+          "other_expressions": 0,
+          "string_declarations": 0,
+          "string_assignments": 0,
+          "outputs": 0,
+          "rejects": 0,
+          "loop_frames": 0
+        },
+        "imports": 3913,
+        "all_module_imports": 18216,
+        "structural_imports": 3913,
         "totals": [
-          37164,
+          20401,
           3775,
-          26161,
-          66357
+          9398,
+          32831
         ],
         "string_lengths": {
           "names": 1702,
@@ -91,14 +132,15 @@
           "labels": 2202,
           "string_attributes": 33,
           "filenames": 256,
+          "module_file": 19,
           "symbol_set_characters": 6606
         },
-        "json_bytes": 262303673,
+        "json_bytes": 124012051,
         "json_parts": {
-          "fixed": 86901508,
+          "fixed": 77278114,
           "body": 32944496,
           "characters": 0,
-          "imports": 142457640
+          "imports": 13789412
         },
         "auxiliary": {
           "A_total": 12823,
@@ -133,6 +175,7 @@
       "bound": {
         "A_parse": 41,
         "A_Main": 68,
+        "A_shape": 13,
         "E_Main": 6,
         "V": 6,
         "K": 3,
@@ -144,28 +187,48 @@
           31806
         ],
         "unpaid_closes": 19,
-        "modules": 3145,
-        "imports": 119548,
+        "modules": 2339,
+        "coarse_modules": 3145,
+        "module_parts": {
+          "fixed": 741,
+          "wrapper": 746,
+          "memoized": 162,
+          "string_objects": 0,
+          "string_completion": 0,
+          "string_cache": 10,
+          "array_attempts_and_miss": 8,
+          "literal_definitions": 3,
+          "other_expressions": 660,
+          "string_declarations": 0,
+          "string_assignments": 0,
+          "outputs": 9,
+          "rejects": 0,
+          "loop_frames": 0
+        },
+        "imports": 11562,
+        "all_module_imports": 88920,
+        "structural_imports": 11562,
         "totals": [
-          137603,
+          29617,
           4284,
-          125742,
-          270902
+          17756,
+          54930
         ],
         "string_lengths": {
           "names": 1702,
           "comments": 2280,
-          "labels": 3001,
+          "labels": 2202,
           "string_attributes": 33,
           "filenames": 256,
+          "module_file": 19,
           "symbol_set_characters": 6606
         },
-        "json_bytes": 1036399892,
+        "json_bytes": 243835266,
         "json_parts": {
-          "fixed": 86901508,
+          "fixed": 77278114,
           "body": 124716475,
           "characters": 1096160,
-          "imports": 823685720
+          "imports": 40744488
         },
         "auxiliary": {
           "A_total": 12852,
@@ -187,6 +250,7 @@
         "R": 1,
         "I_assign": 1,
         "X": 4,
+        "X_integer": 4,
         "W": 15,
         "S": 0,
         "N": 4,
@@ -196,6 +260,7 @@
       "bound": {
         "A_parse": 51,
         "A_Main": 74,
+        "A_shape": 17,
         "E_Main": 3,
         "V": 8,
         "K": 0,
@@ -207,28 +272,48 @@
           33515
         ],
         "unpaid_closes": 12,
-        "modules": 2958,
-        "imports": 71016,
+        "modules": 1571,
+        "coarse_modules": 2958,
+        "module_parts": {
+          "fixed": 741,
+          "wrapper": 746,
+          "memoized": 81,
+          "string_objects": 0,
+          "string_completion": 0,
+          "string_cache": 0,
+          "array_attempts_and_miss": 3,
+          "literal_definitions": 0,
+          "other_expressions": 0,
+          "string_declarations": 0,
+          "string_assignments": 0,
+          "outputs": 0,
+          "rejects": 0,
+          "loop_frames": 0
+        },
+        "imports": 12489,
+        "all_module_imports": 37728,
+        "structural_imports": 12489,
         "totals": [
-          88880,
+          30353,
           4342,
-          77344,
-          175547
+          18817,
+          58493
         ],
         "string_lengths": {
           "names": 1702,
           "comments": 2280,
-          "labels": 3265,
+          "labels": 2202,
           "string_attributes": 33,
           "filenames": 256,
+          "module_file": 19,
           "symbol_set_characters": 6606
         },
-        "json_bytes": 726745963,
+        "json_bytes": 271833565,
         "json_parts": {
-          "fixed": 86901508,
+          "fixed": 77278114,
           "body": 150544186,
           "characters": 0,
-          "imports": 489300240
+          "imports": 44011236
         },
         "auxiliary": {
           "A_total": 12858,
@@ -251,6 +336,7 @@
         "F": 1,
         "I_assign": 1,
         "X": 6,
+        "X_integer": 6,
         "B_loop": 3,
         "W": 22,
         "S": 0,
@@ -261,6 +347,7 @@
       "bound": {
         "A_parse": 74,
         "A_Main": 169,
+        "A_shape": 80,
         "E_Main": 8,
         "V": 16,
         "K": 0,
@@ -272,28 +359,48 @@
           43896
         ],
         "unpaid_closes": 23,
-        "modules": 4795,
-        "imports": 220616,
+        "modules": 1711,
+        "coarse_modules": 4795,
+        "module_parts": {
+          "fixed": 741,
+          "wrapper": 746,
+          "memoized": 216,
+          "string_objects": 0,
+          "string_completion": 0,
+          "string_cache": 0,
+          "array_attempts_and_miss": 3,
+          "literal_definitions": 0,
+          "other_expressions": 0,
+          "string_declarations": 0,
+          "string_assignments": 0,
+          "outputs": 0,
+          "rejects": 0,
+          "loop_frames": 5
+        },
+        "imports": 23032,
+        "all_module_imports": 78752,
+        "structural_imports": 23032,
         "totals": [
-          240697,
+          43113,
           5158,
-          228213,
-          485128
+          30629,
+          89960
         ],
         "string_lengths": {
           "names": 1702,
           "comments": 2280,
-          "labels": 7445,
+          "labels": 3529,
           "string_attributes": 33,
           "filenames": 256,
-          "symbol_set_characters": 7823
+          "module_file": 19,
+          "symbol_set_characters": 6606
         },
-        "json_bytes": 1952728352,
+        "json_bytes": 452442136,
         "json_parts": {
-          "fixed": 86901508,
-          "body": 345782575,
+          "fixed": 77278114,
+          "body": 293999225,
           "characters": 0,
-          "imports": 1520044240
+          "imports": 81164768
         },
         "auxiliary": {
           "A_total": 12953,
@@ -312,105 +419,257 @@
       "literal_characters": 1,
       "source_bytes": 94,
       "path_bytes": 64,
-      "json_bytes": 398744434,
+      "json_bytes": 150103848,
       "producer_core_fits": true
     },
     {
       "literal_characters": 1,
       "source_bytes": 94,
       "path_bytes": 256,
-      "json_bytes": 413599090,
+      "json_bytes": 164958504,
       "producer_core_fits": true
     },
     {
       "literal_characters": 1,
       "source_bytes": 94,
       "path_bytes": 1024,
-      "json_bytes": 473017714,
+      "json_bytes": 224377128,
       "producer_core_fits": true
     },
     {
       "literal_characters": 64,
       "source_bytes": 157,
       "path_bytes": 64,
-      "json_bytes": 416008954,
+      "json_bytes": 176248848,
       "producer_core_fits": true
     },
     {
       "literal_characters": 64,
       "source_bytes": 157,
       "path_bytes": 256,
-      "json_bytes": 430863610,
+      "json_bytes": 191103504,
       "producer_core_fits": true
     },
     {
       "literal_characters": 64,
       "source_bytes": 157,
       "path_bytes": 1024,
-      "json_bytes": 490282234,
+      "json_bytes": 250522128,
       "producer_core_fits": true
     },
     {
       "literal_characters": 1024,
       "source_bytes": 1117,
       "path_bytes": 64,
-      "json_bytes": 679087354,
+      "json_bytes": 520315816,
       "producer_core_fits": true
     },
     {
       "literal_characters": 1024,
       "source_bytes": 1117,
       "path_bytes": 256,
-      "json_bytes": 693942010,
+      "json_bytes": 535170472,
       "producer_core_fits": true
     },
     {
       "literal_characters": 1024,
       "source_bytes": 1117,
       "path_bytes": 1024,
-      "json_bytes": 753360634,
+      "json_bytes": 594589096,
       "producer_core_fits": true
     },
     {
       "literal_characters": 4096,
       "source_bytes": 4189,
       "path_bytes": 64,
-      "json_bytes": 1520938234,
+      "json_bytes": 1362166696,
       "producer_core_fits": true
     },
     {
       "literal_characters": 4096,
       "source_bytes": 4189,
       "path_bytes": 256,
-      "json_bytes": 1535792890,
+      "json_bytes": 1377021352,
       "producer_core_fits": true
     },
     {
       "literal_characters": 4096,
       "source_bytes": 4189,
       "path_bytes": 1024,
-      "json_bytes": 1595211514,
+      "json_bytes": 1436439976,
       "producer_core_fits": true
     },
     {
       "literal_characters": 8192,
       "source_bytes": 8285,
       "path_bytes": 64,
-      "json_bytes": 2643406074,
+      "json_bytes": 2484634536,
       "producer_core_fits": false
     },
     {
       "literal_characters": 8192,
       "source_bytes": 8285,
       "path_bytes": 256,
-      "json_bytes": 2658260730,
+      "json_bytes": 2499489192,
       "producer_core_fits": false
     },
     {
       "literal_characters": 8192,
       "source_bytes": 8285,
       "path_bytes": 1024,
-      "json_bytes": 2717679354,
+      "json_bytes": 2558907816,
+      "producer_core_fits": false
+    }
+  ],
+  "loop_sensitivity": [
+    {
+      "loops": 1,
+      "source_bytes": 143,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 1,
+        "I_assign": 1,
+        "X": 6,
+        "X_integer": 6,
+        "B_loop": 3,
+        "W": 22,
+        "S": 0,
+        "N": 5,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 169,
+      "A_shape": 80,
+      "modules": 1711,
+      "json_bytes": 452442136,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 293999225,
+        "characters": 0,
+        "imports": 81164768
+      },
+      "producer_core_fits": true
+    },
+    {
+      "loops": 2,
+      "source_bytes": 182,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 2,
+        "I_assign": 2,
+        "X": 9,
+        "X_integer": 9,
+        "B_loop": 6,
+        "W": 30,
+        "S": 0,
+        "N": 7,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 270,
+      "A_shape": 144,
+      "modules": 1851,
+      "json_bytes": 675436441,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 472827238,
+        "characters": 0,
+        "imports": 125331060
+      },
+      "producer_core_fits": true
+    },
+    {
+      "loops": 3,
+      "source_bytes": 221,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 3,
+        "I_assign": 3,
+        "X": 12,
+        "X_integer": 12,
+        "B_loop": 9,
+        "W": 38,
+        "S": 0,
+        "N": 9,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 371,
+      "A_shape": 208,
+      "modules": 1991,
+      "json_bytes": 1152620140,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 905844645,
+        "characters": 0,
+        "imports": 169497352
+      },
+      "producer_core_fits": true
+    },
+    {
+      "loops": 4,
+      "source_bytes": 260,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 4,
+        "I_assign": 4,
+        "X": 15,
+        "X_integer": 15,
+        "B_loop": 12,
+        "W": 46,
+        "S": 0,
+        "N": 11,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 472,
+      "A_shape": 272,
+      "modules": 2131,
+      "json_bytes": 1769150783,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 1478208996,
+        "characters": 0,
+        "imports": 213663644
+      },
+      "producer_core_fits": true
+    },
+    {
+      "loops": 8,
+      "source_bytes": 416,
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 8,
+        "I_assign": 8,
+        "X": 27,
+        "X_integer": 27,
+        "B_loop": 24,
+        "W": 78,
+        "S": 0,
+        "N": 19,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "A_Main": 876,
+      "A_shape": 528,
+      "modules": 2691,
+      "json_bytes": 5628742795,
+      "json_parts": {
+        "fixed": 77278114,
+        "body": 5161135840,
+        "characters": 0,
+        "imports": 390328812
+      },
       "producer_core_fits": false
     }
   ],
