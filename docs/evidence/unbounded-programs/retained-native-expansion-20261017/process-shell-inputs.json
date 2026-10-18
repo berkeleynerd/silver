@@ -1,0 +1,376 @@
+{
+  "scope": "Selected native process-shell buffers and explicit successful cleanup; remaining fixed startup/global host cleanup separate",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/main.cc",
+      "bytes": 1325,
+      "sha256": "e6fcc896627d056b93a9522d077d45d521cd4e57771afeeaae8aa722092ffb6a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/context.cc",
+      "bytes": 66477,
+      "sha256": "32264b018798a6f64361c69da5af84ed5422ef38349ff68ba4683c58beefebd9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/context.h",
+      "bytes": 25372,
+      "sha256": "9a1aa3b09a4dc85420769d8c44bf55cd7ceec43541501dec74642b0299fdfde9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/buffering.cc",
+      "bytes": 6055,
+      "sha256": "1a6e141b3dba7f03e2059b45ce3c62135bc48a86b336c5b6eec3240fbab0db4b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/file-cache.cc",
+      "bytes": 30797,
+      "sha256": "1b1cfb21b384558ed0240534cb1e4c8d3fbf5f41c05424db676817ea15811652"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/file-cache.h",
+      "bytes": 3514,
+      "sha256": "4d1c187bf94093f4820b9ff13e9ae117ae55a40b1ddd97b24ac2c6d29329e2e8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/option-classifier.cc",
+      "bytes": 6125,
+      "sha256": "22ea17e8493d987670ee942db0ab4311787a9cfd1c0c2ffd6b6734e084ed6b59"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/text-sink.cc",
+      "bytes": 20314,
+      "sha256": "8acaaee4ad8951f48a8d5b5f98cb768a2dd647560557e605b240f623063cbf38"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/text-sink.h",
+      "bytes": 6022,
+      "sha256": "0d6c50bf49702b799db050e954f6e66ac249bbc7b876ddca35b8787b36aa1050"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/sink.h",
+      "bytes": 4469,
+      "sha256": "23c48df4a2449b9910c6573fdf0232a8564d6a02a9341d2f6d0967fa9d44c40f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/sarif-sink.cc",
+      "bytes": 168464,
+      "sha256": "53f6c1c046231d1aab852a4cd320fb60955d13f23f18dd58b4bc97904127bee8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/client-data-hooks.h",
+      "bytes": 5467,
+      "sha256": "eb5c68894a47de46c4e2d1b601f5a9646d9c5ae11f9c23a234085767a40a5841"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/logical-locations.h",
+      "bytes": 5033,
+      "sha256": "a9e886d9a8a9ffed0b0be4558c238e484077758f56625237ed5a6d0882e0484b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/pretty-print.cc",
+      "bytes": 119676,
+      "sha256": "26273a9eddce52b0a15b9f368129dd1730b98e17146f47711dd8d5a45d000586"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/pretty-print.h",
+      "bytes": 21656,
+      "sha256": "8303639240cac1be18dae2dcc792c844cc7c578fdf6afdc55d45ef3318ee6213"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/text-art/theme.h",
+      "bytes": 4296,
+      "sha256": "796fd2b7c624142c099d20b6afd0e14715229579619ee16ebedb0e3c12545c01"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-diagnostic.cc",
+      "bytes": 5760,
+      "sha256": "af7024550706f97f54d76e3049ea0458948806b4b60711811da49092d94a2ff3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-diagnostic-client-data-hooks.cc",
+      "bytes": 4910,
+      "sha256": "1507fd512d4e07c5c0d06655d8884daee54e7ab391e9262250b598bbe29b964a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-logical-location.h",
+      "bytes": 1949,
+      "sha256": "2c4f714ef4ecd588b75b2a764a51f5eb7a3c58edd4a74bcdacf36117aae2dbe0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts-diagnostic.h",
+      "bytes": 2607,
+      "sha256": "2e1ffd34c9195426a203db306873afdf74cad47ddf477063bc1c44e195cf62b4"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts-diagnostic.cc",
+      "bytes": 5306,
+      "sha256": "c8188e56134fdbf105ce99737e682f6a7a29fd46367c0a7749ae445bde843a8e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gcc-urlifier.cc",
+      "bytes": 8033,
+      "sha256": "d09793a66dc3561842c10bc1353a32636d9d10f4eb02e5aafcc7f0b8c2f17a25"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/pretty-print-urlifier.h",
+      "bytes": 1091,
+      "sha256": "8629f8720aabecbdfa0a91e468e77815571fa996c95f7946df3c056073db5325"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/statistics.cc",
+      "bytes": 10439,
+      "sha256": "75f8ca33ae93ad7c58c671c852780837ecd8e5b67e9d80fc3342827a3fdd91cb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/plugin.cc",
+      "bytes": 30505,
+      "sha256": "d94490ae9988cae041498c183b4aa1dc7598535f52a457b89d1460014f2894d1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/plugin.h",
+      "bytes": 6574,
+      "sha256": "d091c6815e24d2de4d91624ebcb6fb30dba02e33a53705dec7f407cbba230c1c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/langhooks-def.h",
+      "bytes": 18024,
+      "sha256": "118e301f1c983dcb7c4f1b7a7b30820861cd53420779e29b0dc8c2a3c489c187"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/langhooks.cc",
+      "bytes": 26690,
+      "sha256": "f014ada9499002acd773d82d7d9ceb0c5046a20e2de8798c8605640969b78c66"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts.h",
+      "bytes": 20665,
+      "sha256": "ec66640207dd0a237d42e6743c8d2416095f862f9b252535e780c03d5f2d75f0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts-common.cc",
+      "bytes": 64082,
+      "sha256": "9b08d0eab835c3720cb37120282ed10b270f881d37acd40733a8d12c6abb448a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts-global.cc",
+      "bytes": 14406,
+      "sha256": "bb010618455532f3644abfc5809859d265fd9f1c686327653478d3424ea55c50"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/params.opt",
+      "bytes": 67891,
+      "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "libiberty/argv.c",
+      "bytes": 13675,
+      "sha256": "322fdd3c6f0fab3fc93d949dcac3d7cf91d3e04a5e90982b5b39fbb174b087b1"
+    },
+    {
+      "root": "gcc",
+      "path": "libiberty/obstack.c",
+      "bytes": 13005,
+      "sha256": "bd202f89c53690fce0d8ba7430f10d5ff6b8b71700de1499644147bb022eb658"
+    },
+    {
+      "root": "gcc",
+      "path": "include/obstack.h",
+      "bytes": 22405,
+      "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632"
+    },
+    {
+      "root": "ada",
+      "path": "gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    {
+      "root": "ada",
+      "path": "exp_cg.adb",
+      "bytes": 23194,
+      "sha256": "0b89d4ceb0cbe9e0391312c1b337241b6f69c6cba22cd5d78aa59c7d2b88fd87"
+    },
+    {
+      "root": "ada",
+      "path": "expander.adb",
+      "bytes": 20912,
+      "sha256": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461"
+    },
+    {
+      "root": "ada",
+      "path": "errout.adb",
+      "bytes": 147124,
+      "sha256": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2"
+    },
+    {
+      "root": "ada",
+      "path": "erroutc-sarif_emitter.ads",
+      "bytes": 3854,
+      "sha256": "5f7287123a043808e774ef1cb8c316a93b46c3e050082e527cd50fa3c414ed7f"
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-lists.ads",
+      "bytes": 10255,
+      "sha256": "193c022fc50a2c231ace140d620307bb5b5e105058ae8d98a35109c5f5513485"
+    },
+    {
+      "root": "ada",
+      "path": "repinfo.adb",
+      "bytes": 84581,
+      "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085"
+    },
+    {
+      "root": "ada",
+      "path": "inline.adb",
+      "bytes": 187259,
+      "sha256": "e0c1b483ba6454870ee552f7dbfcf87012ce02ab109d06913caf66fdd40bb841"
+    },
+    {
+      "root": "ada",
+      "path": "treepr.adb",
+      "bytes": 68058,
+      "sha256": "d538a02d3f2dcb37ba0eabc3bd3cf2eee14577521eec075e413779c9a19220d4"
+    },
+    {
+      "root": "ada",
+      "path": "namet.adb",
+      "bytes": 48624,
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc"
+    },
+    {
+      "root": "ada",
+      "path": "sem_prag.adb",
+      "bytes": 1304902,
+      "sha256": "492afe76210ea5539460fd417bbc03cad3bde8fd86889d56144522d71c931093"
+    },
+    {
+      "root": "ada",
+      "path": "osint.adb",
+      "bytes": 105542,
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+    },
+    {
+      "root": "ada",
+      "path": "back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "root": "ada",
+      "path": "gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    }
+  ],
+  "prior_results": [
+    {
+      "path": "native-collector-closure.json",
+      "bytes": 72173,
+      "sha256": "10f84f314ca3c63cae1b1ca565343ff69255c5f4514e0c687238b93adc79f650"
+    },
+    {
+      "path": "native-indexed-invocation.json",
+      "bytes": 4807,
+      "sha256": "9ffaf5d6a5248958d9d6f2ba107096321939f462cd572f92cf0e373d44376047"
+    },
+    {
+      "path": "native-no-xref-proposal.json",
+      "bytes": 11839,
+      "sha256": "a6043ffecd38bb8823c5e937873a8868e1c7ddb60f7a43575e812d9e249c20fc"
+    },
+    {
+      "path": "native-null-cgraph-lifecycle.json",
+      "bytes": 1575,
+      "sha256": "e11e7a9ff861dfcd5aafc700fd7a11d5ccec8ab3a50ec74c0f705d8523d1b33e"
+    },
+    {
+      "path": "local-envelope.json",
+      "bytes": 762445,
+      "sha256": "026a7d2f4ed5d677319306865830f2285f129908ba9052ead6591b0465e37879"
+    },
+    {
+      "path": "fixed-gcc-prefix-witness/frontend-exec.json",
+      "bytes": 2170,
+      "sha256": "68f2213db6baad8c51aa498132db15358fade388f7c80ec444d44a726735da96"
+    },
+    {
+      "path": "collector-closure-inputs.json",
+      "bytes": 907,
+      "sha256": "72ef9634f9ed4cc830f50a068114b363f97e29d26fd67d6f286005c43453b38b"
+    }
+  ],
+  "options_header": {
+    "bytes": 587028,
+    "sha256": "07b582033a21cd48bdbf07fed6f9e72c2633be43e430933daf88d1563f1419d7"
+  }
+}

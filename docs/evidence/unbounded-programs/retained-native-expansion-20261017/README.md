@@ -97,3 +97,24 @@ the selected member/destructor and generated/custom-marker arguments. The
 selected null collector adds no GGC events and retains the existing 104-byte
 ordinary cache-marker scratch; the known subtotal remains 40,098. Whole-process
 setup, ordinary library storage and teardown remain open. No native tool ran.
+
+### Process-shell buffers and explicit cleanup
+
+`process-shell-inputs.json`, `reconcile-process-shell.py` and
+`native-process-shell.json` pin/replay55 GCC/Ada sources, seven earlier records
+and the installed generated options header. They join the current indexed
+argument count with the two proposed native options, correct the historical
+config/map option-prefix bound from P+7 to P+8, price selected argument and
+diagnostic startup buffers, and close the explicit successful cleanup path at
+zero GGC events/ordinary requests. Static process finalization, host-library
+buffers and remaining fixed startup managers stay separate. The research
+section supplies the selected source paths and layout argument; anchors alone
+do not prove reachability. Replay without compiler/prover execution:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-process-shell.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --options-header /path/to/pinned/plugin/include/options.h \
+  --output /tmp/native-process-shell.json
+```

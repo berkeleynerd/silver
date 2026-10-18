@@ -10583,6 +10583,178 @@ and accepted the registration/type, destructor and custom-marker joins. The
 review corrected only the timevar citation above. It did not execute a native
 tool or extend this result to whole-process closure.
 
+## Native process-shell buffers and explicit cleanup
+
+The [process-shell reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-process-shell.py)
+joins the indexed Main descriptor, the two proposed native-only switches and
+55 pinned GCC/Ada sources. Its
+[result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-process-shell.json)
+closes the selected argument/diagnostic buffers and the explicit successful
+compiler cleanup path. It does not replace the remaining fixed startup-manager,
+C/C++ static-finalization or host-library-buffer joins.
+
+### Current command and initial diagnostic buffers
+
+The indexed allowance is22 gnat1 arguments; `-gnatx` and
+`-Wno-free-nonheap-object` add two, giving24. This is a source-derived
+composition, not a captured indexed invocation. The existing config/map,
+controlled-environment and all-path premises remain required. Response files,
+plugins, diagnostic-output overrides, parameter overrides and additional input
+files are absent. Main path strings do not select option names because their
+positions and absolute pathname forms are fixed by the descriptor.
+
+The older command-line prose and `native_command_line_backing` use `P+7` for
+the largest config/map argument. **That expression omitted the equals sign**:
+`-gnatec=` and `-gnatem=` each contain8 characters. For this current join use
+`A=max(24,P+8)`. The old arithmetic examples remain historical component
+records; they are not current command-capacity evidence. This correction does
+not change source admission or the selected tools/options.
+
+| Individual ordinary request | Upper bytes |
+| --- | ---: |
+| Original argv pointer copy, including sentinel |200|
+| Initial decoded options, pruned decoded options, each |2304|
+| Saved explicit optimization-option vector backing |4616|
+| Reconstructed GNAT C argv, including sentinel |392|
+| GNAT runtime argv and single-input filename vector, each |8|
+| Diagnostic option-classification array |10224|
+| Initial16 diagnostic file-cache slots, including array cookie |4104|
+| Each slot's256-entry recent-line vector |6152|
+| Each selected diagnostic control object |512|
+| Initial ordinary obstack chunk, each |4096|
+| Diagnostic sink/owned-urlifier vector backing |40 /72|
+
+`dupargv` allocates `(argc+1)*8` and separately copies each argument
+(`libiberty/argv.c:72–88`). Decoding and pruning use the already derived
+96-byte record; neither selected option expansion nor pruning increases the
+24-entry allowance (`opts-common.cc:1030–1127,1153–1282`). The saved explicit
+optimization vector receives at most24 pushes, and the established GCC
+vector-growth rule is below48 entries; its eight-byte header plus48*96 pays
+one backing request (`toplev.cc:2335–2340`). `gnat_init_options` uses
+`2*decoded+1` pointers (`gcc-interface/misc.cc:210–248`). These are independent
+objects, not a summed memory condition.
+
+The installed generated option enum ends at2555, so `N_OPTS=2556`; each
+classifier element is a four-byte enum (`diagnostics/option-classifier.cc:30–37`).
+The default file cache constructs16 slots. Each slot starts with a zero-length
+line-record vector and a256-entry recent-line vector. A line-info record has
+three size_t fields, hence24 bytes (`diagnostics/file-cache.cc:50–198,459–470,
+509–539`). At most16 eight-byte field/alignment slots fit the slot record;
+using256 bytes per slot and an eight-byte array cookie is conservative. The
+unchanged parameter defaults are16 files and0 line-index entries, so tuning
+does not replace this backing (`params.opt:153–159`,
+`diagnostics/file-cache.cc:202–211`). The selected zero-message route never
+reads a source into this diagnostic cache; it cannot accumulate source-sized
+cached contents.
+
+The512-byte control bound covers each pretty-printer/output-buffer, file-cache
+control, text sink, option manager, compiler client-data hooks, URLifier and
+ASCII theme. It follows their actual fields rather than a sampled heap total.
+For example output_buffer has two ordinary obstacks (each at most128 bytes),
+a128-byte digit array and fewer than eight scalar/pointer slots; the resulting
+bound is512. The other selected records contain fewer than32 sixteen-byte
+field/base slots. Plain vectors and unique pointers are control objects, with
+any pointed-to backing charged separately (`pretty-print.h:83–128,327–395`,
+`diagnostics/file-cache.h:94–120`, `diagnostics/sink.h:131–141`,
+`diagnostics/text-sink.h:145–186`, `opts-diagnostic.h:42–64`,
+`tree-diagnostic-client-data-hooks.cc:119–169`, `tree-logical-location.h:30–54`,
+`gcc-urlifier.cc:46–63`, `text-art/theme.h:93–126`). The option manager and
+compiler client-data hooks **are present**, even with zero diagnostics.
+
+Each pretty printer initializes two ordinary obstacks. Their initial chunk
+request is at most4096 bytes (`pretty-print.cc:873–885`,
+`libiberty/obstack.c:111–147`). The selected sink extension vector remains
+empty: the extra CFG sink extension requires an unselected diagnostic-output
+option (`opts-diagnostic.cc:103–109`). No diagnostic logger, SARIF socket,
+extra-output override or GCC color environment enters the controlled ten-key
+frontend environment retained by the prefix witness. `LANG=LC_ALL=C` and
+`TERM=dumb` remain descriptor premises; they are not inferred from the current
+agent shell.
+
+For path-varying requests, copied C strings use at most `A+1` bytes. Let
+
+```text
+W = 4*(A+67), where A=max(24,P+8).
+```
+
+W conservatively covers the four possible canonical argument elements and
+separators, the generated option spelling (maximum63 characters in the pinned
+header), inserted `no-`, and any fixed signed-wide decimal spelling. The
+selected options consume at most two original argv items, but this bound pays
+all four available canonical positions (`opts-common.cc:382–425,562–617,
+914–983,993–1017,1355–1383`). Each options-obstack operation allocates/finishes
+one whole object; it does not leave a partial growing object between those
+calls. Therefore an individual new chunk is at most
+`max(4096,W+116)`: the prior partial-object size is0, the alignment is at most16,
+and `_obstack_newchunk` adds100 (`libiberty/obstack.c:188–215`). The auxiliary
+basename copy is at most `P+1` (`toplev.cc:1316–1332`). Require `W+116 <= INT_MAX`
+for the selected path/option arithmetic and check every individual pointer
+difference against PTRDIFF_MAX. No sum of chunks is used as an admission gate.
+The P=200 and P=737 substitutions in the JSON are arithmetic examples, not
+complete program-capacity results.
+
+### Explicit successful cleanup
+
+`main.cc:35–44` calls the large `toplev::finalize` reset only when runtime
+`flag_checking` is nonzero. The established installed CHECKING_P=0/default
+option transfer excludes that call. It is distinct from the normal static
+`finalize()` that `do_compile` calls after compilation.
+
+The selected normal static tail closes the existing assembly stream, skips
+auxiliary/stack-usage/callgraph and error-cleanup routes, and performs these
+bounded releases (`toplev.cc:2064–2128`): statistics_fini returns at its null
+file; both debuginfo dump files are null; finish_optimization_passes traverses
+the already created fixed dump descriptors but has no graph output to finish;
+lra_finish_once only frees existing insn-code entries. Memory/profile/debug-
+counter reporting is absent. Ada has no LANG_HOOKS_FINISH override, so its
+language finish is the default empty hook (`statistics.cc:259–276`,
+`cgraphunit.cc:2519–2524`, `passes.cc:353–371`, `lra.cc:692–702,2706–2709`,
+`langhooks-def.h:113`, `gcc-interface/misc.cc`).
+
+The caller skips ignored-option printing, fixit diff generation and plugin
+callbacks on the established zero-diagnostic/no-plugin route. Diagnostic
+finish has no logger, pending group, buffering change or sink extension to
+execute. It deletes the default text sink (werror count0), empty source-cache
+slots, classifier arrays, printer buffers, fixed compiler-data/option-manager
+objects, ASCII theme, URLifier and original argv. Their selected destructors
+only release already allocated storage; plain compiler-version/logical-location
+objects introduce no hidden destructor work. Pretty-printer postprocessors are
+null. `set_diagnostic_buffer(nullptr)` returns at its unchanged-pointer guard,
+and no diagnostic cache slot owns an opened file (`diagnostics/context.cc:
+353–422,555–588`, `diagnostics/buffering.cc:40–45`,
+`diagnostics/text-sink.cc:133–157`, `pretty-print.cc:2623–2628`,
+`diagnostics/file-cache.cc:523–539`). finalize_plugins returns immediately;
+the toplev destructor has no timer to stop/print (`plugin.cc:801–804`,
+`toplev.cc:2400–2424,2249–2257`). This explicit GCC tail contributes **zero
+GGC events and zero ordinary allocation requests**. Host `fclose`/allocator
+internals and process static finalization are separate interfaces, not covered
+by that zero.
+
+The Ada driver's post-backend tail already has the following paid interfaces:
+Namet.Unlock's releases use the core table-backing envelope;
+Post_Compilation_Validation_Checks temporarily pushes one Expander_Flags entry
+even when its warning table is empty; the existing `520+A_Main+1` peak pays
+that entry. Errout.Output_Messages unconditionally constructs the returned
+filename and P+11 SARIF concatenation and a24-byte printer whose two access
+fields default to null. Finalize's specific-warning check returns under its
+default flag; callgraph, representation, inline and tree-dump routes have
+unselected guards; Gen_Or_Update_Object_File is a null body; Namet.Finalize
+returns under its debug guard. ALI serialization remains its separately priced
+component (`gnat1drv.adb:1535–1608`, `expander.adb:567–607`,
+`sem_prag.adb:36078–36118`, `errout.adb:2272–2310,2912–2932`,
+`libgnat/g-lists.ads:226–238`, `treepr.adb:1824–1873`). The C frontend wrapper
+does not call adafinal. None of these observations permits ignoring dynamic
+C/C++ finalization or the host's stream/secondary-stack allocation internals.
+
+The known GGC subtotal remains40,098. Fixed startup-manager/target ordinary
+requests, host-library buffering and process static cleanup remain open; this
+packet does **not** establish a whole-invocation count or whole-process capacity.
+No native compiler, prover, Lean, debugger or previous successful witness was
+rerun. Reconciliation checks source/record identities and integer arithmetic.
+Independent narrow review reproduced the55-source result byte-for-byte and
+accepted the argc/path correction, diagnostic record sizes, whole-object
+obstack transfer and selected explicit-tail exclusions with no finding.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
