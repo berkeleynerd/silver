@@ -41,6 +41,33 @@ def main():
     assert '--stats-internal' in selected['cvc5']['args']
     assert '-st' in selected['z3']['args']
     assert selected['altergo']['driver'] == 'alt_ergo_gnatprove_smt2'
+    projection = json.loads((HERE / 'driver-projection.json').read_text())
+    prefix = 'installed/libexec/spark/share/why3/drivers/'
+    removed = []
+    for name in projection['import_closure']:
+        original = text(prefix + name)
+        lines = original.splitlines(keepends=True)
+        dropped = [(i, line.rstrip('\n')) for i, line in enumerate(lines, 1)
+                   if re.match(r'^steps\s', line)]
+        projected = ''.join(line for line in lines
+                            if not re.match(r'^steps\s', line))
+        if dropped:
+            assert (HERE / 'proposed-driver-overlay' / name).read_text() == projected
+            removed.extend(dict(file=name, line=i, text=line) for i, line in dropped)
+        else:
+            assert projected == original
+        assert not re.search(r'^steps\s', projected, re.M)
+        assert all(imported in projection['import_closure'] for imported in
+                   re.findall(r'^import "([^"]+)"', original, re.M))
+    assert sorted(removed, key=str) == sorted(projection['removed'], key=str)
+    assert len(removed) == 6
+    assert (HERE / 'proposed-driver-overlay/why3.conf').read_text() == '[main]\nmagic = 14\n'
+    has('why3/src/gnat/gnat_util.ml',
+        'let fn = Filename.concat dir fn in if Sys.file_exists fn then fn else raise Exit')
+    has('why3/src/driver/driver_lexer.mll', '[ current_dirname ; drivers_path ]')
+    has('why3/src/driver/call_provers.ml',
+        'let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps)')
+    has('why3/src/driver/call_provers.ml', 'if stepslimit > 0 && steps >= stepslimit then')
     has('why3/src/gnat/gnat_config.ml',
         '(max 0 (c - conv.add)) / conv.mult + 1')
     has('why3/src/driver/call_provers.ml', 'Some(int_of_string v)')
@@ -62,6 +89,7 @@ def main():
         assert convert(raw - 1) == natural_last
         assert convert(raw) == natural_last + 1
         assert raw < 2**53 and raw < 2**62
+        assert convert(-1) == 1
         cases[name] = dict(first_raw_above_natural=raw,
                            previous_normalized=convert(raw - 1),
                            normalized=convert(raw))
@@ -96,7 +124,11 @@ def main():
         statistics_boundaries=cases,
         check_kind_domain=len(kinds),
         summary_percentage_last_safe_part=natural_last // 100,
-        proposed_statistics_projection='not implemented or verified',
+        driver_projection=dict(removed_step_regexps=len(removed),
+            import_files=len(projection['import_closure']),
+            unknown_raw_steps=-1, normalized_solver_steps=1,
+            status='proposed private configuration; not installed or executed'),
+        proposed_statistics_projection='fallback only; not implemented or verified',
         native_executions=0,
         scope='source identities and arithmetic; whole response capacity remains conditional')
     (HERE / 'result.json').write_text(json.dumps(result, indent=2) + '\n')

@@ -191,7 +191,7 @@ bound on tree nodes. Splitting can leave several top-level goals in one result.
 closes the eager counterexample-list domain for the all-proved path. Failure
 paths still need the selected counterexample/session premise.
 
-### A narrow proposed statistics adapter
+### Statistics narrowing and preferred configuration repair
 
 There is a scalar narrowing before `.spark` output: `Prover_Stat.Count` and
 `Max_Steps` are Natural and are read directly from JSON
@@ -214,6 +214,53 @@ alone do not exclude this narrowing. This is not evidence that an admitted
 program actually consumes that much solver work. No finite timeout or step cap
 is proposed to make the statistics fit.
 
+**Prefer a private driver configuration that omits step-count parsing.** This
+supersedes the output adapter below as the first proposed #88 repair. The
+retained [candidate configuration](../evidence/retained-producer-response-20261018/proposed-driver-overlay/why3.conf)
+has no prover overrides. Alongside it, four private driver snapshots differ
+from the installed files only by deleting six `steps` directives: one in
+`cvc5_gnatprove.drv`, two in its imported `cvc5.gen`, one in `z3_gnatprove.drv`
+and two in `alt_ergo_gnatprove_smt2.drv`. The offline checker verifies the exact
+deletions and the complete 14-file import closure. They are research fixtures,
+not installed or executed configuration.
+
+GNATprove passes `--why3-conf` through (`configuration.adb:3249–3253`). Although
+gnatwhy3 rejects attempts to redefine built-in prover records
+(`gnat_config.ml:283–290`), it resolves each built-in driver beside the extra
+configuration before its installed fallback (`gnat_util.ml:63–106`, called
+from `gnat_config.ml:354–355`). Imported files prefer their importing file's
+directory before the installed driver directory (`driver_lexer.mll:126–133`).
+Thus a private copy of `cvc5.gen` is selected with its private parent. The
+effective working directory must contain no competing same-named drivers;
+the selected files and imported dependency bytes belong in configuration
+identity. External executables and installed files remain unchanged.
+
+With no `StepRegexp` in any selected driver/import, `grep_steps` returns None
+without parsing a numeric substring. Why3 stores `pr_steps = -1`
+(`call_provers.ml:120–127,358`); the existing back-conversion turns that into
+`1` for the three real solvers. **That `1` means unavailable step statistics,
+not one measured step.** Synthetic Trivial/Checker records retain their own
+existing conventions. Preserve the `--steps=0` configuration: the only use of
+the parsed count in result classification is guarded by `stepslimit > 0`
+(`:361–370`). All result/error/resource regexps, exit mappings, task
+transformations, solver commands and resource settings are byte-preserved.
+Counts of goals and measured times remain available. No new timeout, step cap,
+proof suppression or alternative obligation set is introduced.
+
+The switch requires a **new private confirmation session namespace** at
+adoption, preserving old workspaces as evidence. Why3 can otherwise reuse a
+nonobsolete attempt's old `pr_steps`: the same prover identity and unchanged
+task do not mark an attempt obsolete solely because its statistics regexp
+changed (`gnat_main.ml:134–145`, `gnat_checks.ml:381–453,769–801`). Subsequent
+reuse is limited to sessions created under the selected configuration; do not
+import old sessions into that namespace. This is ordinary proof-workspace
+isolation, not language-version compatibility machinery. #88 must implement
+the configuration selection/identity, retain the unavailable-statistic meaning,
+and validate actual driver resolution and old-session separation before relying
+on it. The source argument and offline diff do not replace that validation.
+
+### Fallback: a narrow verified output adapter
+
 The protocol has a finite repair using verified Silver-owned code, without
 changing external tools. `Parse_Why3_Prove_Result` explicitly accepts missing
 `stats` and supplies an empty map (`gnat2why-error_messages.adb:1255–1258`).
@@ -227,8 +274,8 @@ Current native and Python success policies do not require the optional stats
 field. No pinned gnatwhy3 option to omit its successful-result statistics was
 found; the reviewed producer emits them unconditionally.
 
-The proposed #88 increment is a **statistics-only output projection** at the
-existing gnatwhy3 adapter boundary:
+If the configuration route cannot be validated, the fallback is a
+**statistics-only output projection** at the existing gnatwhy3 adapter boundary:
 
 - Capture the unchanged native child's complete response and status, retain
   the raw response, and replace only a structurally validated immediate
@@ -250,7 +297,7 @@ existing gnatwhy3 adapter boundary:
   adapter must not interrupt the native solver because of its own fixed
   buffer limit.
 
-This is a proposed design, **not an implemented or verified adapter**. It
+This fallback is a proposed design, **not an implemented or verified adapter**. It
 prevents the coupled Natural narrowing; it does not excuse that narrowing as
 an observation-only failure. It preserves prover commands, required work and
 all proof outcomes. Native response construction before projection, check

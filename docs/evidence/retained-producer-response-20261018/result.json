@@ -1,6 +1,6 @@
 {
-  "source_files": 24,
-  "source_archive_sha256": "41a3d14bb653b4c6cb725f941120465f7384d2978a96d0c80dbddc34482660f7",
+  "source_files": 38,
+  "source_archive_sha256": "538cd41af7c6a83172f2cddd41d8c0d4cb548955a0ceb4b2a9c64175b0416795",
   "spark_source_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
   "selected_ordinary_commands": {
     "altergo": [
@@ -40,7 +40,14 @@
   },
   "check_kind_domain": 65,
   "summary_percentage_last_safe_part": 21474836,
-  "proposed_statistics_projection": "not implemented or verified",
+  "driver_projection": {
+    "removed_step_regexps": 6,
+    "import_files": 14,
+    "unknown_raw_steps": -1,
+    "normalized_solver_steps": 1,
+    "status": "proposed private configuration; not installed or executed"
+  },
+  "proposed_statistics_projection": "fallback only; not implemented or verified",
   "native_executions": 0,
   "scope": "source identities and arithmetic; whole response capacity remains conditional"
 }
