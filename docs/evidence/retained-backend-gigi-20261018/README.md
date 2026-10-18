@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 191 complete files at GCC
+`source-manifest.json` pins 197 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -153,3 +153,11 @@ counter entry condition. Section/symbol output, unit-level unwind serialization,
 FILE/allocator storage and assembler/linker costs are still open. The checker
 verifies 191 GCC/Ada files and two Silver APIs; all 169 non-Ada identities match
 the retained full-source manifest. No native/prover run was made.
+
+The producer data-representation extension pins the `-gnatR2js` switch and
+full-operation mode sites and inventories all seven gigi implementation
+files. The sole representation-level use tests `>=3`, so levels 0 and 2
+select the same gigi branch for the same expanded tree. This does not price
+Ada-side expansion or representation-output changes. The checker verifies
+197 complete GCC/Ada source files plus the two Silver APIs; no native/prover
+run was made.

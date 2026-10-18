@@ -5056,6 +5056,38 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 10752:   tree gnu_new = gnat_to_gnu_entity (gnat_entity, NULL_TREE, true);
 ```
 
+## gcc/ada/gcc-interface/trans.cc:314–340
+
+```text
+314:       Entity_Id standard_character,
+315:       Entity_Id standard_exception_type,
+316:       Entity_Id standard_integer,
+317:       Entity_Id standard_long_long_float,
+318:       Int gigi_operating_mode)
+319: {
+320:   Node_Id gnat_iter;
+321:   Entity_Id gnat_literal;
+322:   tree t, ftype;
+323:   struct elab_info *info;
+324:   int i;
+325:
+326:   max_gnat_nodes = max_gnat_node;
+327:
+328:   Node_Offsets_Ptr = node_offsets_ptr;
+329:   Slots_Ptr = slots_ptr;
+330:   Next_Node_Ptr = next_node_ptr;
+331:   Prev_Node_Ptr = prev_node_ptr;
+332:   Elists_Ptr = elists_ptr;
+333:   Elmts_Ptr = elmts_ptr;
+334:   Strings_Ptr = strings_ptr;
+335:   String_Chars_Ptr = string_chars_ptr;
+336:   List_Headers_Ptr = list_headers_ptr;
+337:
+338:   type_annotate_only = (gigi_operating_mode == 1);
+339:
+340:   if (Generate_SCO_Instance_Table != 0)
+```
+
 ## gcc/ada/gcc-interface/utils.cc:521–568
 
 ```text
@@ -9761,6 +9793,24 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7686:                                             gnat_entity, s, definition,
 7687:                                             need_for_debug),
 7688:                     unit_align);
+```
+
+## gcc/ada/gcc-interface/decl.cc:9477–9489
+
+```text
+9477:     case CALL_EXPR:
+9478:       /* In regular mode, inline back only if symbolic annotation is requested
+9479:          in order to avoid memory explosion on big discriminated record types.
+9480:          But not in ASIS mode, as symbolic annotation is required for DDA.  */
+9481:       if (List_Representation_Info >= 3 || type_annotate_only)
+9482:         {
+9483:           tree t = maybe_inline_call_in_expr (gnu_size);
+9484:           return t ? annotate_value (t) : No_Uint;
+9485:         }
+9486:       else
+9487:         return Uint_Minus_1;
+9488:
+9489:     default:
 ```
 
 ## gcc/ada/gcc-interface/utils2.cc:216–456
@@ -39087,6 +39137,209 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1533:             insert_insn_ent (new_av, new_ie);
 1534:           }
 1535:     }
+```
+
+## gcc/ada/switch-c.adb:1236–1296
+
+```text
+1236:             when 'R' =>
+1237:
+1238:                --  Not allowed if previous -gnatD given. See more extensive
+1239:                --  comments in the 'D' section for the inverse test.
+1240:
+1241:                if Debug_Generated_Code then
+1242:                   Osint.Fail
+1243:                     ("-gnatR not permitted since -gnatD given previously");
+1244:                end if;
+1245:
+1246:                --  Set to annotate rep info, and set default -gnatR mode
+1247:
+1248:                Back_Annotate_Rep_Info := True;
+1249:                List_Representation_Info := 1;
+1250:
+1251:                --  Scan possible parameter
+1252:
+1253:                Ptr := Ptr + 1;
+1254:                while Ptr <= Max loop
+1255:                   C := Switch_Chars (Ptr);
+1256:
+1257:                   case C is
+1258:
+1259:                   when '0' .. '4' =>
+1260:                      List_Representation_Info :=
+1261:                        Character'Pos (C) - Character'Pos ('0');
+1262:
+1263:                   when 'e' =>
+1264:                      List_Representation_Info_Extended := True;
+1265:
+1266:                   when 'h' =>
+1267:                      List_Representation_Info_Holes := True;
+1268:
+1269:                   when 'm' =>
+1270:                      List_Representation_Info_Mechanisms := True;
+1271:
+1272:                   when 'j' =>
+1273:                      List_Representation_Info_To_JSON := True;
+1274:
+1275:                   when 's' =>
+1276:                      List_Representation_Info_To_File := True;
+1277:
+1278:                   when others =>
+1279:                      Bad_Switch ("-gnatR" & Switch_Chars (Ptr .. Max));
+1280:                   end case;
+1281:
+1282:                   Ptr := Ptr + 1;
+1283:                end loop;
+1284:
+1285:                if List_Representation_Info_To_JSON
+1286:                  and then List_Representation_Info_Extended
+1287:                then
+1288:                   Osint.Fail ("-gnatRe is incompatible with -gnatRj");
+1289:                end if;
+1290:
+1291:                if List_Representation_Info_To_JSON
+1292:                  and then List_Representation_Info_Holes
+1293:                then
+1294:                   Osint.Fail ("-gnatRh is incompatible with -gnatRj");
+1295:                end if;
+1296:
+```
+
+## gcc/ada/back_end.ads:35–50
+
+```text
+35:       --  Full back end operation with object file generation
+36:
+37:       Declarations_Only,
+38:       --  Partial back end operation with no object file generation. In this
+39:       --  mode the only useful action performed by gigi is to process all
+40:       --  declarations issuing any error messages (in particular those to
+41:       --  do with rep clauses), and to back annotate representation info.
+42:
+43:       Skip);
+44:       --  Back end call is skipped (syntax only, or errors found)
+45:
+46:    pragma Convention (C, Back_End_Mode_Type);
+47:    for Back_End_Mode_Type use (0, 1, 2);
+48:
+49:    procedure Call_Back_End (Mode : Back_End_Mode_Type);
+50:    --  Call back end, i.e. make call to driver traversing the tree and
+```
+
+## gcc/ada/back_end.adb:134–154
+
+```text
+134:       --  debugging CodePeer mode in GNAT.
+135:
+136:       if Generate_SCIL then
+137:          Error_Msg_N ("'S'C'I'L generation not available", Cunit (Main_Unit));
+138:
+139:          if CodePeer_Mode
+140:            or else (Mode /= Generate_Object
+141:                      and then not Back_Annotate_Rep_Info)
+142:          then
+143:             return;
+144:          end if;
+145:       end if;
+146:
+147:       --  We should be here in GNATprove mode only when debugging GNAT. Do not
+148:       --  call gigi in that case, as it is not prepared to handle the special
+149:       --  form of the tree obtained in GNATprove mode.
+150:
+151:       if GNATprove_Mode then
+152:          return;
+153:       end if;
+154:
+```
+
+## gcc/ada/back_end.adb:174–181
+
+```text
+174:          file_info_ptr                 => File_Info_Array'Address,
+175:          gigi_standard_address         => Standard_Address,
+176:          gigi_standard_boolean         => Standard_Boolean,
+177:          gigi_standard_character       => Standard_Character,
+178:          gigi_standard_exception_type  => Standard_Exception_Type,
+179:          gigi_standard_integer         => Standard_Integer,
+180:          gigi_standard_long_long_float => Standard_Long_Long_Float,
+181:          gigi_operating_mode           => Mode);
+```
+
+## gcc/ada/gnat1drv.adb:1220–1252
+
+```text
+1220:          Treepr.Tree_Dump;
+1221:          Errout.Finalize (Last_Call => True);
+1222:          Errout.Output_Messages (Ecode);
+1223:          Namet.Finalize;
+1224:          Check_Rep_Info;
+1225:
+1226:          --  Use a goto instead of calling Exit_Program so that finalization
+1227:          --  occurs normally.
+1228:
+1229:          goto End_Of_Program;
+1230:
+1231:       elsif Original_Operating_Mode = Check_Semantics then
+1232:          Back_End_Mode := Declarations_Only;
+1233:
+1234:       --  All remaining cases are cases in which the user requested that code
+1235:       --  be generated (i.e. no -gnatc or -gnats switch was used). Check if we
+1236:       --  can in fact satisfy this request.
+1237:
+1238:       --  Cannot generate code if someone has turned off code generation for
+1239:       --  any reason at all. We will try to figure out a reason below.
+1240:
+1241:       elsif Operating_Mode /= Generate_Code then
+1242:          Back_End_Mode := Skip;
+1243:
+1244:       --  We can generate code for a subprogram body unless there were missing
+1245:       --  subunits. Note that we always generate code for all generic units (a
+1246:       --  change from some previous versions of GNAT).
+1247:
+1248:       elsif Main_Unit_Kind = N_Subprogram_Body
+1249:         and then not Subunits_Missing
+1250:       then
+1251:          Back_End_Mode := Generate_Object;
+1252:
+```
+
+## gcc/ada/gnat1drv.adb:1456–1476
+
+```text
+1456:
+1457:       --  In -gnatc mode we only do annotation if -gnatR is also set, or if
+1458:       --  -gnatwz is enabled (default setting) and there is an unchecked
+1459:       --  conversion that involves a type whose size is not statically known,
+1460:       --  as indicated by Back_Annotate_Rep_Info being set to True.
+1461:
+1462:       --  We don't call for annotations on a subunit, because to process those
+1463:       --  the back end requires that the parent(s) be properly compiled.
+1464:
+1465:       --  Annotation is suppressed for targets where front-end layout is
+1466:       --  enabled, because the front end determines representations.
+1467:
+1468:       --  A special back end is always called in CodePeer and GNATprove modes,
+1469:       --  unless this is a subunit.
+1470:
+1471:       if Back_End_Mode = Declarations_Only
+1472:         and then
+1473:           (not (Back_Annotate_Rep_Info or Generate_SCIL or GNATprove_Mode)
+1474:             or else Main_Unit_Kind = N_Subunit)
+1475:       then
+1476:          Post_Compilation_Validation_Checks;
+```
+
+## gcc/ada/gnat1drv.adb:1528–1535
+
+```text
+1528:       Sem.Lock;
+1529:       Sinput.Lock;
+1530:       Stringt.Lock;
+1531:
+1532:       --  Here we call the back end to generate the output code
+1533:
+1534:       Generating_Code := True;
+1535:       Back_End.Call_Back_End (Back_End_Mode);
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

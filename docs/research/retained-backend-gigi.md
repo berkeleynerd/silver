@@ -2771,6 +2771,39 @@ fixed-space bound, and a post-Main process-memory snapshot would also include
 source-dependent trees and metadata. No witness has been executed or assigned
 a numerical whole-initialization capacity by this lane.
 
+## Gigi delta for the producer's data-representation compilation
+
+The producer also performs a native `-S -gnatR2js` compilation before its
+proof phases. This paragraph compares that route with ordinary native
+compilation **for the same post-expansion Ada tree and other backend options**;
+it does not claim that the Ada frontend or report writer has no extra work.
+
+`-gnatR2js` sets `Back_Annotate_Rep_Info`, representation level 2, and JSON/file
+output; it does not select the `m` mechanisms option
+(`switch-c.adb:1236–1296`). A subprogram body in code-generation mode selects
+`Generate_Object`, whose C representation is zero (`gnat1drv.adb:1220–1252`,
+`back_end.ads:35–50`). Here `-S` stops the driver after assembly output; it
+does not request the Ada semantic-check-only mode. Gigi therefore receives
+mode zero and sets `type_annotate_only` false
+(`back_end.adb:174–181`, `gcc-interface/trans.cc:314–340`). The
+`Back_Annotate_Rep_Info` guards in `back_end.adb:134–154` and
+`gnat1drv.adb:1456–1476` only change SCIL or declaration-only routes, absent
+from this selected native compilation.
+
+The complete seven gigi implementation files (`cuintp`, `decl`, `misc`,
+`targtyps`, `trans`, `utils`, `utils2`) have no `Back_Annotate_Rep_Info` read
+and exactly one `List_Representation_Info` read. It permits symbolic
+inlining of an annotation `CALL_EXPR` at levels at least 3 or in
+annotation-only mode (`gcc-interface/decl.cc:9477–9489`). Both ordinary level
+0 and report level 2 take its existing non-inline branch. Thus these report
+options add **zero gigi branch/constructor demand for an identical expanded
+tree**. Existing unconditional annotation work remains charged to both
+routes. The source checker retains the complete option-use scope and mode
+sites. Ada-side expansion effects, representation tables, JSON serialization,
+the compilation-unit inventory and the different invocation's remaining
+options must still be joined by the producer/native transfer. No native or
+proof execution was added.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

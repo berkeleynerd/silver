@@ -955,6 +955,36 @@
       "path": "gcc/config/i386/subst.md",
       "bytes": 20122,
       "sha256": "57109d346ec72f87c926980e9f33a58eacf2e6f2e58fcbc3bc44a022eea18c61"
+    },
+    {
+      "path": "gcc/ada/switch-c.adb",
+      "bytes": 59201,
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+    },
+    {
+      "path": "gcc/ada/back_end.ads",
+      "bytes": 4565,
+      "sha256": "b00265b89d00c5ae54cbbea5026c8ba3ebe949d9f7f11856f3f55fd31bf980ac"
+    },
+    {
+      "path": "gcc/ada/back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "path": "gcc/ada/gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/targtyps.cc",
+      "bytes": 6209,
+      "sha256": "c1e3a6c527e331cf56203616ac1bf32058e13c586bf833d5a4a9cb4d1d805b3d"
     }
   ],
   "silver_main_api_files": [

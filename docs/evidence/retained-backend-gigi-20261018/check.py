@@ -331,6 +331,22 @@ for _name in GATE_FILES:
     RANGES.setdefault("gcc/" + _name, [])
 for _name in MD_FILES:
     RANGES.setdefault("gcc/config/i386/" + _name, [])
+# The producer's -S -gnatR2js invocation uses the same full gigi operation
+# on a given post-expansion tree.  Keep all seven implementation files for
+# the option-use inventory, including the two not used by earlier excerpts.
+REPINFO_RANGES = {
+    "gcc/ada/switch-c.adb": [(1236, 1296)],
+    "gcc/ada/back_end.ads": [(35, 50)],
+    "gcc/ada/back_end.adb": [(134, 154), (174, 181)],
+    "gcc/ada/gnat1drv.adb": [(1220, 1252), (1456, 1476), (1528, 1535)],
+    "gcc/ada/gcc-interface/trans.cc": [(314, 340)],
+    "gcc/ada/gcc-interface/decl.cc": [(9477, 9489)],
+    "gcc/ada/gcc-interface/cuintp.cc": [],
+    "gcc/ada/gcc-interface/targtyps.cc": [],
+}
+for _name, _ranges in REPINFO_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
+ALL_INTERFACE = ("cuintp", "decl", "misc", "targtyps", "trans", "utils", "utils2")
 INTERFACE = ("trans", "utils", "utils2", "decl")
 MAIN_APIS = ("src/silver_arguments.ads", "src/silver_io.ads")
 
@@ -390,6 +406,20 @@ def collect(ada, gcc_root):
 
 def check_sources(sources, inventory):
     trans = sources["gcc/ada/gcc-interface/trans.cc"]
+    # This inventory is deliberately scoped to gigi implementations.  Ada
+    # expansion/repinfo output is a separate transfer, not a negative-scan claim.
+    rep_uses = []
+    for stem in ALL_INTERFACE:
+        source = sources[f"gcc/ada/gcc-interface/{stem}.cc"]
+        assert "Back_Annotate_Rep_Info" not in source, stem
+        for match in re.finditer(r"\bList_Representation_Info\b", source):
+            rep_uses.append((stem, source.count("\n", 0, match.start()) + 1))
+    assert rep_uses == [("decl", 9481)], rep_uses
+    assert "if (List_Representation_Info >= 3 || type_annotate_only)" in sources[
+        "gcc/ada/gcc-interface/decl.cc"]
+    assert "type_annotate_only = (gigi_operating_mode == 1);" in trans
+    assert "for Back_End_Mode_Type use (0, 1, 2);" in sources["gcc/ada/back_end.ads"]
+    assert "gigi_operating_mode           => Mode);" in sources["gcc/ada/back_end.adb"]
     exp6 = sources["gcc/ada/exp_ch6.adb"]
     exp7 = sources["gcc/ada/exp_ch7.adb"]
     passes = sources["gcc/passes.def"]
