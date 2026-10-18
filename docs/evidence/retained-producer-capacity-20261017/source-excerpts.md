@@ -1809,6 +1809,127 @@
   1590:    end Translate_Entity;
 ```
 
+## src/why/gnat2why-driver.adb:1381-1445
+
+```ada
+  1381:       procedure Register_Symbol (E : Entity_Id) is
+  1382:       begin
+  1383:          case Ekind (E) is
+  1384:             when E_Entry | E_Function | E_Procedure =>
+  1385:                if Is_Translated_Subprogram (E) then
+  1386:                   Ada_Ent_To_Why.Insert
+  1387:                     (Symbol_Table,
+  1388:                      E,
+  1389:                      Mk_Item_Of_Entity
+  1390:                        (E, Hide_Info => Expr_Fun_Hidden_By_Default (E)));
+  1391:                end if;
+  1392:
+  1393:             when Object_Kind                        =>
+  1394:
+  1395:                if Is_Discriminal (E)
+  1396:                  or else Is_Protected_Component_Or_Discr_Or_Part_Of (E)
+  1397:                  or else
+  1398:                    (Ekind (E) = E_Constant
+  1399:                     and then Is_Partial_View (E)
+  1400:                     and then Entity_In_SPARK (Full_View (E)))
+  1401:                then
+  1402:                   return;
+  1403:                end if;
+  1404:
+  1405:                Insert_Item (E, Mk_Item_Of_Entity (E));
+  1406:
+  1407:             when others                             =>
+  1408:                null;
+  1409:          end case;
+  1410:       end Register_Symbol;
+  1411:
+  1412:       --  Start of processing for Translate_CUnit
+  1413:
+  1414:    begin
+  1415:       --  Translation of the __HEAP is hardcoded into the
+  1416:       --  _gnatprove_standard.Main module.
+  1417:       Translated_Object_Names.Insert
+  1418:         (To_Entity_Name (SPARK_Xrefs.Name_Of_Heap_Variable));
+  1419:
+  1420:       --  Store information for entities
+  1421:
+  1422:       For_All_Entities (Store_Information_For_Entity'Access);
+  1423:
+  1424:       For_All_Entities (Register_Symbol'Access);
+  1425:
+  1426:       --  Declare distinct constants for all Ada exceptions
+  1427:
+  1428:       Translate_Exceptions;
+  1429:
+  1430:       --  Translate Ada entities into Why3
+  1431:
+  1432:       For_All_Entities (Translate_Entity'Access);
+  1433:
+  1434:       --  For all objects whose declaration is not visible (has not been
+  1435:       --  translated to Why), we generate a dummy declaration. This must
+  1436:       --  be done after translating above entities.
+  1437:
+  1438:       For_All_Entities (Translate_Hidden_Globals'Access);
+  1439:
+  1440:       For_All_Entities (Complete_Declaration'Access);
+  1441:
+  1442:       --  Generate VCs for entities of unit. This must follow the generation of
+  1443:       --  modules for entities, so that all completions for deferred constants
+  1444:       --  and expression functions are defined.
+  1445:
+```
+
+## src/why/gnat2why-driver.adb:1593-1638
+
+```ada
+  1593:    -- Translate_Hidden_Globals --
+  1594:    ------------------------------
+  1595:
+  1596:    procedure Translate_Hidden_Globals (E : Entity_Id) is
+  1597:    begin
+  1598:       --  For packages we don't translate objects from the RHS of their
+  1599:       --  (generated) Initializes contract, because such objects are either
+  1600:       --  visible (and thus translated anyway) or are pulled by subprograms
+  1601:       --  called from the Initial_Condition (and thus already translated).
+  1602:       if (case Ekind (E) is
+  1603:             when Entry_Kind | E_Task_Type => True,
+  1604:             when E_Function | E_Procedure => Is_Translated_Subprogram (E),
+  1605:             when others                   => False)
+  1606:       then
+  1607:          declare
+  1608:             Reads       : Flow_Types.Flow_Id_Sets.Set;
+  1609:             Writes      : Flow_Types.Flow_Id_Sets.Set;
+  1610:             Unused_Name : Name_Sets.Cursor;
+  1611:             Inserted    : Boolean;
+  1612:          begin
+  1613:             --  Collect global variables potentially read and written
+  1614:             Flow_Utility.Get_Proof_Globals
+  1615:               (Subprogram      => E,
+  1616:                Reads           => Reads,
+  1617:                Writes          => Writes,
+  1618:                Erase_Constants => True);
+  1619:
+  1620:             Reads.Union (Writes);
+  1621:
+  1622:             for G of Reads loop
+  1623:                if G.Kind = Magic_String then
+  1624:                   pragma Assert (Is_Opaque_For_Proof (G));
+  1625:
+  1626:                   Translated_Object_Names.Insert
+  1627:                     (New_Item => G.Name,
+  1628:                      Position => Unused_Name,
+  1629:                      Inserted => Inserted);
+  1630:
+  1631:                   if Inserted then
+  1632:                      Translate_External_Object (G.Name);
+  1633:                   end if;
+  1634:                end if;
+  1635:             end loop;
+  1636:          end;
+  1637:       end if;
+  1638:    end Translate_Hidden_Globals;
+```
+
 ## src/why/gnat2why-expr-loops-inv.adb:175-198
 
 ```ada

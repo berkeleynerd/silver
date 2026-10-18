@@ -1611,6 +1611,122 @@ copied. This is disjoint from the declaration's own final location label.
 No labels, goto or Assert_And_Cut are admitted, so those list-restructuring
 branches do not apply (`src/why/gnat2why-expr.adb:30068–30155`).
 
+### Main entity and representation invocation counts
+
+The frontend counts now close the ordinary **entity-pass** portion of the
+producer independently of the still-open associated-expression replay question.
+Use the [frontend report's](retained-frontend-entities.md) `D`, `R`, `D_s`,
+`D_lit`, `D_alias`, `F` and `K_literal`. Let `G <= 2F` count actual captured
+loop bounds. These are identities, so including an entity that marking omits
+only enlarges the following allowances.
+
+There are at most `D + F + G` ordinary object entities: source objects, loop
+indexes and bound-capture constants. Each receives at most one global
+registration and one object-definition/axiom pair. The mutable definition's
+second `Mk_Item` is already in the [object component](retained-producer-objects.md).
+Taking componentwise maxima over its regular/constant/split cases gives
+
+```text
+B_object_pass <= (D + F + G) * (33,9,6,33)
+                 + F * (6,4,2,6)
+C_object_pass <= 2D + 4F + 2G <= 2D + 8F.
+```
+
+The first vector includes the largest eleven-node registration and the
+largest theory costs `(22,9,6,33)`; summing these independent maxima is
+deliberately conservative. The second row is the loop-scope exception/empty
+theory pair. The local loop-index setup is already charged in the executable
+loop row and must remain there. Executable object-declaration wrappers and
+initializers are likewise separate. `Register_Symbol`, `Translate_Entity` and
+`Complete_Declaration` are single entity-list passes; none of the ordinary
+objects has a partial/full view (`src/why/gnat2why-driver.adb:1381–1445,
+1462–1590`). The hidden-global pass does not create another Main-local object
+definition: it acts on subprograms and translates previously unseen opaque
+global names, which belong to the selected fixed dependencies (`:1596–1638`).
+
+For the five Main type families, use the larger static Integer-itype row
+also for a dynamic/empty loop-index subtype; it dominates that row in every
+component. Then
+
+```text
+B_type_pass <= R * (137,53,48,305)
+             + D_lit * (209,82,78,348)
+             + (D_alias + K_literal) * (37,14,11,57)
+             + F * (97,39,33,205)
+C_type_pass <= 4R + 6D_lit + 2D_alias + 2K_literal + 3F.
+```
+
+Each literal-initialized String declaration contributes its non-itype String
+and its signed Integer index itype, hence the sum `(209,82,78,348)` and six
+closes. A static-name String alias adds only the String itype. The frontend
+bound is `D_lit + D_alias <= D_s`; nonstatic String declarations reuse
+Standard.String and add no Main String subtype. Fixed predefined/library
+types, cached symbols and executable declarations remain outside these rows.
+
+The representation-cache **attempt count is also closed**. A complete source
+search finds only one external caller of `Create_Rep_Array_Theory_If_Needed`:
+`Translate_Type` calls it once on each translated array type
+(`src/why/gnat2why-types.adb:1623–1634`). Its public overload calls the ordinary
+representation once; its additional call and conversion theories require
+`Has_Init_Wrapper`, excluded for these Main types
+(`src/why/why-gen-arrays.adb:1144–1161`). Array expression helpers only look up
+the populated maps; constructing a direct map module does not retry this
+cache. Consequently
+
+```text
+T_array_attempts_Main <= D_lit + D_alias + K_literal
+                       <= D_s + K_literal
+B_array_attempts_Main <= T_array_attempts_Main * (17,0,0,0).
+```
+
+All these types share one ordinary rank-one Character key. Add at most one
+miss row `(148,44,76,711)` and two closes, even if the earlier fixed
+Standard.String translation already paid that miss. No per-expression or
+per-String-read attempt multiplier is needed. The allowance intentionally
+counts dead frontend type identities as though they reached the producer.
+
+### Bound-capture placement and source expression replay
+
+For an ordinary scalar loop bound, the frontend relocates the complete
+expression into its capture constant and calls `Insert_Action`. The upward
+walk reaches the loop statement and inserts the declaration immediately
+before that loop in its containing statement list. The iteration-scheme
+condition-action branch requires a while condition, absent for an explicit
+for range. The `N_Expression_With_Actions` branch requires the already
+analyzed right operand of a short-circuit expression, also absent on this
+parent path. Source: pinned GCC `exp_util.adb:12765–12824,8159–8182,
+8289–8314,8431–8474`, retained by the native-expansion lane. Nested loops and
+loops in if arms retain the same list placement. Thus these captures do not
+cause an action initializer to be replayed separately by both endpoint-domain
+transformations.
+
+This gives the following source-expression caller accounting for the ordinary
+execution path:
+
+| Source expression context | Translation invocations |
+| --- | --- |
+| Mutable object initializer | One program translation |
+| Immutable object initializer | At most one program plus one term translation |
+| Assignment RHS, call actual, if/elsif condition | One enclosing translation |
+| Uncaptured loop endpoint | One program plus one term translation |
+| Captured loop endpoint | At most one program plus one term translation of its relocated initializer, plus two reads of its generated constant |
+
+Each translated arithmetic, comparison, concat, Image or Boolean connective
+visits its supplied source children once; ordinary names do not replay their
+initializers. Length's eager prefix read is already in its closed wrapper.
+The at-most-two replay factor therefore applies to each ordinary source
+expression tree in these contexts. Bound captures add at most `2G <= 4F`
+generated leaf visits and `G` ordinary Integer declaration wrappers; their
+global object pass is already above. No runtime iteration count multiplies
+these costs. Generated static subtype declarations add no expression replay.
+
+This is **not yet the unrestricted Main invocation map**: a generated
+`N_Itype_Reference` can independently replay its associated expression, as
+priced above. Complete exclusion of its remaining frontend creation sites,
+or a source-derived bound on their replay, is still required before using
+the two-pass statement as a whole-Main bound. The placement result also does
+not count native expansion, where different generated actions exist.
+
 ## Aggregate formula and finite remaining helper families
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
@@ -1637,6 +1753,18 @@ therefore multiplying the sum of all created theory skeletons by `F` is safe,
 including when many are never selected. It deliberately overcounts a source
 expression that also appears in a discarded theory. This does not assume the
 process-global counter resets, or that Main always has exactly one output file.
+
+A separate count of direct module constructions is useful for a tighter result,
+but is not necessary to close this import bound. A module is itself an allocated
+`W_Module` node (`src/why/xgen/xtree_sinfo.adb:293–298`), and the excluded
+close-time imports allocate `W_Include_Declaration` nodes, not modules.
+Therefore **`M(P) <= B_N(P)`**, provided `B_N` includes all fixed setup and
+memoized entity-module creation, including cache misses reached from
+`Close_Theory`. Replacing `M` by `B_N` above is conservative and noncircular:
+`B_N` excludes only the import/include allocation, not those module allocations.
+This avoids leaving every expression helper's direct-module count as a
+separate aggregate gap. A sharper `M` may still substantially improve the
+eventual admission envelope.
 
 For clarity, the **closed numerical part** of `B` can already be assembled from
 these rows. Counts here are producer invocations, with caller multiplicities
@@ -1693,9 +1821,9 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
 | `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
-| Generated/library object setup and visit counts | The [object component](retained-producer-objects.md) closes ordinary regular/split binder visits and source object/loop theory contents. Map actual setup visits to source/generated declarations, and price richer fixed-library shapes separately. |
-| Generated declaration/action invocation map | The preceding rows price static subtype declarations, dynamic scalar range checks with static base, ordinary bound-capture declaration wrappers, scalar actions and both list wrappers. Establish exact generated shapes/counts and any Itype-reference associated-expression replay; apply bound/capture rewrites and term/program multiplicities consistently. |
-| Invocation map and counters | Close `n_q(P)` and `n_h(P)` from the source grammar and frontend-generated counts, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Generated captures, type helpers and fixed call wrappers still require their own counts. Bound `M`, `C`, `F <= E_list` and the temporary-name counter from the same accounting. |
+| Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
+| Generated declaration/action invocation map | Bound captures are at most two preceding declarations per loop, with the source initializer relocated rather than replayed at reads. Complete the remaining Itype-reference creation-site exclusion or associated-expression replay bound; connect all static subtype declarations and list entries to the frontend counts. |
+| Expression invocation map and counters | Finish the source-expression forest accounting, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Main type and representation-attempt counts are now closed above. Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
 type and literal multiplicities, including generated literal lengths; they are

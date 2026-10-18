@@ -150,6 +150,32 @@
       "predicate_occurrences": 85899345881
     }
   ],
+  "main_entity_invocation_composition": {
+    "literal_string_and_index_type_closes": 6,
+    "literal_string_and_index_types": [
+      209,
+      82,
+      78,
+      348
+    ],
+    "loop_entity_pair": [
+      6,
+      4,
+      2,
+      6
+    ],
+    "module_bound": "M <= all_nonimport_nodes",
+    "object_entities": "D + F + G, with G <= 2F",
+    "object_loop_closes": "2D + 4F + 2G <= 2D + 8F",
+    "ordinary_array_attempts": "D_lit + D_alias + K_literal <= D_s + K_literal",
+    "ordinary_object_pass_per_entity": [
+      33,
+      9,
+      6,
+      33
+    ],
+    "remaining_expression_replay_gap": "Complete Main N_Itype_Reference exclusion or bound its associated-expression replay"
+  },
   "memoized_entity_module_kinds": 27,
   "normalized_integer_core": {
     "binary_call_occurrence_overhead": 8,

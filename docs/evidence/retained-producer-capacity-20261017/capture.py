@@ -60,6 +60,7 @@ RANGES["src/why/why-gen-expr.adb"].append([3485, 3572])
 RANGES["src/why/why-gen-progs.adb"].extend([[52, 102], [126, 150], [329, 370]])
 RANGES["src/why/xgen/xtree_sinfo.adb"].extend([[488, 511], [558, 576]])
 RANGES["src/why/gnat2why-expr.adb"].extend([[3707, 3834], [3910, 3927], [15420, 15569], [22840, 23012], [23117, 23232], [30068, 30088]])
+RANGES["src/why/gnat2why-driver.adb"].extend([[1381, 1445], [1593, 1638]])
 
 
 def sha(data):
@@ -210,6 +211,17 @@ def main():
             "excludes": "17 eager nodes per attempt, Close_Theory imports, cached Standard/Integer/Character symbol initialization",
         },
         "memoized_entity_module_kinds": 27,
+        "main_entity_invocation_composition": {
+            "ordinary_object_pass_per_entity": [11 + 22, 9, 6, 33],
+            "loop_entity_pair": [6, 4, 2, 6],
+            "literal_string_and_index_types": [112 + 97, 43 + 39, 45 + 33, 143 + 205],
+            "literal_string_and_index_type_closes": 3 + 3,
+            "object_entities": "D + F + G, with G <= 2F",
+            "object_loop_closes": "2D + 4F + 2G <= 2D + 8F",
+            "ordinary_array_attempts": "D_lit + D_alias + K_literal <= D_s + K_literal",
+            "module_bound": "M <= all_nonimport_nodes",
+            "remaining_expression_replay_gap": "Complete Main N_Itype_Reference exclusion or bound its associated-expression replay",
+        },
         "ordinary_range_loop": {
             "fixed_rows": {
                 "index_binder_and_bound_temporaries": [5 + 4, 0, 0, 0],
