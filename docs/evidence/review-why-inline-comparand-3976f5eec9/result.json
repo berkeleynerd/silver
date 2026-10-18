@@ -1,0 +1,39 @@
+{
+  "status": "pass",
+  "reviewed_commit": "3976f5eec984914ac3e04594fd4d1de3d522a8b1",
+  "elapsed_seconds": 0.646525,
+  "native_runs": 0,
+  "review_input_identities_checked": 10,
+  "unchanged_predecessor_source_members": 26,
+  "imports_packet_python_modules": false,
+  "initial_objects": 6704,
+  "initial_kind_counts": {
+    "0": 296,
+    "5": 2799,
+    "2": 2336,
+    "3": 1203,
+    "1": 59,
+    "4": 11
+  },
+  "logic_lengths": {
+    "1": 1203
+  },
+  "strict_comparands": 145,
+  "unsuccessful_proposition_indexes": [
+    143,
+    152,
+    242
+  ],
+  "table_term_pairs": 2032,
+  "close_term_pairs": 418,
+  "hash_terms": 1911,
+  "table_map_lookups": 130454,
+  "table_map_tree_entries": 4641324,
+  "stored_term_objects": 2034,
+  "integer_constant_objects": 38,
+  "location_records": 1426,
+  "outer_length": 5003,
+  "bucket_length_upper": 226,
+  "callback_upper": 11005,
+  "shallow_similarity_calls_upper": 88985261
+}
