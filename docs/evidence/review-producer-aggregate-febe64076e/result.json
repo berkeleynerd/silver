@@ -1,0 +1,45 @@
+{
+  "target": "febe64076e",
+  "technical_commit": "1eeeb5a581",
+  "byte_identical_outputs": [
+    {
+      "path": "source-manifest.json",
+      "bytes": 19965,
+      "sha256": "7e6680a0577ed539c4d234ecf14e556a11ddae98d874abca8b2d095844da272f"
+    },
+    {
+      "path": "source-excerpts.md",
+      "bytes": 927515,
+      "sha256": "1c54bbe619d7d0f19c8ddd2ea3bc89deafc3a6c00cd7adb0b8cb9204a65df2dc"
+    },
+    {
+      "path": "source-archive-check.json",
+      "bytes": 5484,
+      "sha256": "9c182ae60041d490c6f3165bf69d5b9d0c87d73ebf51b9d0f6b865ae195e8a3e"
+    },
+    {
+      "path": "checks.json",
+      "bytes": 17867,
+      "sha256": "f5e6d01685c99f96962cde4f5eabb9ed0157f605fa9b7c9d089e40cb8b08689e"
+    }
+  ],
+  "uniform_expression_vector": [
+    110,
+    54,
+    80,
+    943
+  ],
+  "list_A_Main_coefficient": [
+    4,
+    2,
+    4,
+    16
+  ],
+  "list_constant": [
+    2,
+    2,
+    2,
+    10
+  ],
+  "limitation": "Component arithmetic/source evidence; no frontend A_Main derivation, complete producer closure, compiler/prover run or installed source identity"
+}
