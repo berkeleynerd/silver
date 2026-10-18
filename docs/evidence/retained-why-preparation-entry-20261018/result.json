@@ -1,0 +1,96 @@
+{
+  "scope": "Input_Is_Valid, first actual cvc5 inline_trivial entry only",
+  "input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+  "original_graft_child_index": 2,
+  "input_task_nodes": 434,
+  "entry_task_nodes": 512,
+  "declaration_kinds": {
+    "clone": 42,
+    "data": 16,
+    "logic": 81,
+    "meta": 192,
+    "param": 68,
+    "prop": 62,
+    "type": 17,
+    "use": 34
+  },
+  "mapped_roots": 143,
+  "root_dimension_sums": {
+    "n": 1613,
+    "b": 168,
+    "p": 12,
+    "a": 594,
+    "m": 1793
+  },
+  "root_coordinate_maxima": {
+    "n": 91,
+    "b": 8,
+    "p": 2,
+    "a": 36,
+    "m": 99
+  },
+  "maximum_logic_arity": 6,
+  "goal_dimensions": [
+    {
+      "n": 68,
+      "b": 5,
+      "p": 0,
+      "a": 36,
+      "m": 73
+    }
+  ],
+  "unique_stored_terms": 1933,
+  "bind_infos": 157,
+  "validated_binder_payloads": 157,
+  "stored_substitution_entries": 8,
+  "nonempty_stored_substitution_maps": 3,
+  "maximum_stored_substitution_map": 6,
+  "all_graph_blocks": 14477,
+  "all_graph_payload_bytes": 401208,
+  "graph_identity": {
+    "bytes": 1490344,
+    "sha256": "d7f49ce0181875434292f228c3d599c8c8157b3d1f0ac6793f0d12c2558184be"
+  },
+  "first_conservative_excess": {
+    "task_node_index": 60,
+    "logical_declaration_index": 37,
+    "environment_before": {
+      "nodes": 1310666765893632,
+      "binders": 1310666765893631,
+      "mass": 1310666765893632,
+      "freevars": 2
+    },
+    "input_batch": {
+      "kind": "logic",
+      "terms": [
+        {
+          "nodes": 7,
+          "binders": 0,
+          "mass": 7,
+          "applications": 2,
+          "arity": 2
+        }
+      ]
+    },
+    "kernel_result": {
+      "output_opened_mass_upper": 12024931598526509256156767059968,
+      "replace_recursive_entries_upper": 7,
+      "unfold_entries_upper": 2,
+      "environment_hits_upper": 2,
+      "relocate_recursive_entries_upper": 2621333531787264,
+      "type_map_term_entries_upper": 2621333531787264,
+      "post_type_substitution_recursive_entries_upper": 2621333531787264,
+      "fresh_variable_identifiers_upper": 5242667063574528,
+      "all_substitution_work_bounded": false,
+      "type_hashcons_or_semantic_count_capacity_established": false
+    },
+    "ocaml_int_max": 4611686018427387903,
+    "meaning": "conservative upper bound exceeds machine range; no observed overflow or actual growth claim"
+  },
+  "one_pair_opened_dimensions_observed": true,
+  "all_fixed_pair_dimensions_established": false,
+  "all_preparation_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "source_argument_machine_checked": false,
+  "new_native_runs_for_replay": 0
+}
