@@ -1,0 +1,185 @@
+{
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "null_statements": 0
+  },
+  "scope": "selected frontend and original gigi Ada numeric table/backing projection",
+  "demand_rows": {
+    "fixed_all_roots_lifetime_allowance": {
+      "Uints": 24324,
+      "Udigits": 74958,
+      "Ureals": 60,
+      "Rep_Table": 504
+    },
+    "selected_scanner": {
+      "Uints": 0,
+      "Udigits": 0,
+      "Ureals": 0,
+      "Rep_Table": 0
+    },
+    "Main_constructor": {
+      "Uints": 7,
+      "Udigits": 61,
+      "Ureals": 0,
+      "Rep_Table": 0
+    },
+    "fixed_Standard_float_callbacks": {
+      "Uints": 4096,
+      "Udigits": 32768,
+      "Ureals": 7,
+      "Rep_Table": 0
+    },
+    "original_Main_constant_size_callbacks": {
+      "Uints": 2,
+      "Udigits": 10,
+      "Ureals": 0,
+      "Rep_Table": 0
+    }
+  },
+  "demands": {
+    "Uints": 28429,
+    "Udigits": 107797,
+    "Ureals": 67,
+    "Rep_Table": 504
+  },
+  "tables": {
+    "Uints": {
+      "demand": 28429,
+      "low_bound": -699999999,
+      "initial": 5000,
+      "increment_percent": 100,
+      "component_bytes_upper_bound": 8,
+      "backing_capacity_bound": 56858,
+      "bytes_with_sentinel": 454872,
+      "checks": {
+        "initial_product": true,
+        "growth_product": true,
+        "backing_length_and_plus_one": true,
+        "empty_index": true,
+        "backing_index_and_sentinel": true,
+        "logical_nominal_index": true,
+        "allocation_and_pointer_difference": true
+      },
+      "all_selected_checks_pass": true
+    },
+    "Udigits": {
+      "demand": 107797,
+      "low_bound": 0,
+      "initial": 10000,
+      "increment_percent": 100,
+      "component_bytes_upper_bound": 4,
+      "backing_capacity_bound": 215594,
+      "bytes_with_sentinel": 862380,
+      "checks": {
+        "initial_product": true,
+        "growth_product": true,
+        "backing_length_and_plus_one": true,
+        "empty_index": true,
+        "backing_index_and_sentinel": true,
+        "logical_nominal_index": true,
+        "allocation_and_pointer_difference": true
+      },
+      "all_selected_checks_pass": true
+    },
+    "Ureals": {
+      "demand": 67,
+      "low_bound": -599999998,
+      "initial": 200,
+      "increment_percent": 100,
+      "component_bytes_upper_bound": 16,
+      "backing_capacity_bound": 400,
+      "bytes_with_sentinel": 6416,
+      "checks": {
+        "initial_product": true,
+        "growth_product": true,
+        "backing_length_and_plus_one": true,
+        "empty_index": true,
+        "backing_index_and_sentinel": true,
+        "logical_nominal_index": true,
+        "allocation_and_pointer_difference": true
+      },
+      "all_selected_checks_pass": true
+    },
+    "Rep_Table": {
+      "demand": 504,
+      "low_bound": 1,
+      "initial": 1000,
+      "increment_percent": 200,
+      "component_bytes_upper_bound": 32,
+      "backing_capacity_bound": 3000,
+      "bytes_with_sentinel": 96032,
+      "checks": {
+        "initial_product": true,
+        "growth_product": true,
+        "backing_length_and_plus_one": true,
+        "empty_index": true,
+        "backing_index_and_sentinel": true,
+        "logical_nominal_index": true,
+        "allocation_and_pointer_difference": true
+      },
+      "all_selected_checks_pass": true
+    }
+  },
+  "local_numeric_predecessor": {
+    "Uint_operand_digit_bound": 74958,
+    "maximum_UI_Vector_elements": 149916,
+    "UI_From_Int_hash_wrapper_bytes": 16,
+    "UI_From_Int_static_bucket_array_bytes": 8184,
+    "maximum_concat_operands": 0,
+    "concat_individual_array_bytes": {
+      "Is_Fixed_Length": 0,
+      "Operands": 0,
+      "Fixed_Length": 0,
+      "Max_Length": 0,
+      "Opnd_Low_Bound": 0,
+      "Var_Length": 0,
+      "Aggr_Length": 4
+    },
+    "checks": {
+      "Uint_vector_dimension_and_index_additions": true,
+      "Num_Bits": true,
+      "Decimal_Digits_High": true,
+      "Decimal_Digits_Low": true,
+      "single_UI_Vector": true,
+      "UI_From_Int_hash_single_wrapper": true,
+      "UI_From_Int_static_bucket_array": true,
+      "concat_N_and_terminal_successor": true,
+      "concat_single_arrays": true
+    },
+    "all_selected_checks_pass": true,
+    "retained_digit_growth_recounted": false,
+    "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+    "backend_callback_numeric_arguments_included": false,
+    "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+    "whole_native_frontend_closed": false
+  },
+  "selected_callback_arguments_joined": true,
+  "UI_Ints": {
+    "static_bucket_array_bytes": 8184,
+    "individual_wrapper_bytes": 16,
+    "original_Main_wrapper_calls": 2,
+    "fixed_float_wrapper_calls": 4096,
+    "aggregate_heap_gate": false
+  },
+  "checks": {
+    "numeric_tables": true,
+    "selected_local_numeric_objects": true,
+    "float_callback_vector": true,
+    "original_constant_callback_digits": true,
+    "Rep_Table_index_negation": true
+  },
+  "all_selected_checks_pass": true,
+  "premises": [
+    "accepted fixed-root/freezing and all-miss source reduction",
+    "selected literal shell, native phase and indexed naming configuration",
+    "accepted source/installed-tool correspondence",
+    "selected cold String and original Main source paths"
+  ],
+  "complete_native_frontend": false,
+  "complete_original_gigi": false,
+  "complete_native_capacity": false,
+  "production_admission_changed": false,
+  "native_tool_executions": 0
+}
