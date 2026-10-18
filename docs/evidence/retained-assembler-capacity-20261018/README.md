@@ -105,6 +105,22 @@ the full pinned executable is also hashed and each region is re-extracted.
 Neither mode executes the assembler. The new execution is limited to
 reading bytes, hashing, source guards and arithmetic.
 
+The [fixed startup transfer](../../research/retained-assembler-startup.md)
+bounds GAS option/include storage and the output BFD's control, x86 object
+data, section metadata and section hash. The bundle now retains 69 complete
+source files; previous member bytes are unchanged.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-startup.py \
+  --output /tmp/retained-assembler-startup-check.json
+```
+
+It also exposes the output BFD's cumulative `alloc_size` requirement:
+`P+8448+R<=2^64-1`, where R still requires the complete later-request join.
+Actual production arguments/paths, parser subsidiary storage, the remaining
+BFD requests and host-library behavior remain separate. This packet does not
+claim whole-assembler closure or add a total-RAM limit.
+
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic
 checks were the only new execution.

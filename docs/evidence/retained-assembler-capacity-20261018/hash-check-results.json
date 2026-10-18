@@ -1,6 +1,6 @@
 {
   "scope": "Selected GAS hash-table requests; other startup and BFD storage remain separate",
-  "source_files_verified": 56,
+  "source_files_verified": 69,
   "opcode_offsets_including_sentinel": 2614,
   "maximum_opcode_offset": 4550,
   "register_rows_charged": 352,

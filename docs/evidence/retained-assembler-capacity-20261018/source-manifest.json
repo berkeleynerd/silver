@@ -336,6 +336,84 @@
       "bytes": 2485008,
       "sha256": "40a9504eebd56d76a348631fce7df76267ea6c500c317943e9c2bc5657c3a6d7",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/opcodes/i386-tbl.h"
+    },
+    {
+      "path": "gas/depend.c",
+      "bytes": 4686,
+      "sha256": "6d45330b1eedbaa56acc8c4158a7675dc7815e117ca5e1c35c19cc08104bc1e1",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/depend.c"
+    },
+    {
+      "path": "gas/stabs.c",
+      "bytes": 17342,
+      "sha256": "3cd3dcdaeb510700fc849e76fb2110b204c58b65a6f21accee02dd44afaefbcf",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/stabs.c"
+    },
+    {
+      "path": "libiberty/xatexit.c",
+      "bytes": 2135,
+      "sha256": "cf6dac2e49e5514ed5716f1c108f637a94a2bdb5d524e3cdf7cfe3c9be8ab89e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/xatexit.c"
+    },
+    {
+      "path": "libiberty/concat.c",
+      "bytes": 4992,
+      "sha256": "5c6c578a18cee2dc672a86ecea00d954185724f506a82a43d6e079c0e303c009",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/concat.c"
+    },
+    {
+      "path": "include/getopt.h",
+      "bytes": 5003,
+      "sha256": "ee620d8e0e14592590bd3260b9c8a3bc0e82571f280aaf0d68d8eb002e58487e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/getopt.h"
+    },
+    {
+      "path": "bfd/opncls.c",
+      "bytes": 55534,
+      "sha256": "c942b64281c6e68f346cd48954bc15b611d23b652db7538aa29a588c17444dbd",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/opncls.c"
+    },
+    {
+      "path": "bfd/bfd-in2.h",
+      "bytes": 256114,
+      "sha256": "8861aeedb977382f055af6ee6565ac3ef39a32e50e5298736c52fcc97b74df9f",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/bfd-in2.h"
+    },
+    {
+      "path": "bfd/libbfd.h",
+      "bytes": 120173,
+      "sha256": "16de14f9987fb55f4b8ae7d400059d5c8c7ea49ec7b63bce6386f8ee07676962",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/libbfd.h"
+    },
+    {
+      "path": "bfd/elfxx-x86.h",
+      "bytes": 35916,
+      "sha256": "3d03a65f74e14eb2807567c0ba3bba8769ffba4faf05c38febae4e8e8f3faff2",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-x86.h"
+    },
+    {
+      "path": "bfd/hash.c",
+      "bytes": 30478,
+      "sha256": "2d68dfa9aa93136c368705886964ea69ad5a8c22a7500ec0a8a0c941c6a93aef",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/hash.c"
+    },
+    {
+      "path": "bfd/libbfd.c",
+      "bytes": 37065,
+      "sha256": "1c33c40a969b0294ea5ce2dbfb2b0f22ca0b0cb8e06b4838fdf025b555ed9d35",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/libbfd.c"
+    },
+    {
+      "path": "include/objalloc.h",
+      "bytes": 3976,
+      "sha256": "6764dfe028b3813405f19dbc41030d25b293b2387461a84701fc6de0d816dec0",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/objalloc.h"
+    },
+    {
+      "path": "libiberty/objalloc.c",
+      "bytes": 7439,
+      "sha256": "700b5e689397ac932fe3323c0f16bad61524fac59b248c91bc6f6eb24fd68cb8",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/objalloc.c"
     }
   ]
 }

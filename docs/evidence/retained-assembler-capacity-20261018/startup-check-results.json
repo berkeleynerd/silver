@@ -1,0 +1,75 @@
+{
+  "scope": "Selected GAS fixed options and output-BFD startup metadata",
+  "source_files_verified": 69,
+  "long_option_counts": {
+    "standard_named": 56,
+    "x86_named": 36,
+    "x86_null_sentinel": 1,
+    "extra_null_sentinel": 1
+  },
+  "conservative_LP64_layout_bytes": {
+    "bfd": 784,
+    "asection": 464,
+    "ELF_section_data": 304,
+    "output_ELF_data": 176,
+    "generic_ELF_data": 3792,
+    "x86_ELF_data": 3816,
+    "section_hash_entry": 488
+  },
+  "fixed_raw_requests_upper": {
+    "GAS_short_options": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 36
+    },
+    "GAS_long_options": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 3008
+    },
+    "GAS_include_dirs": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 8
+    },
+    "BFD_control": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 1024
+    },
+    "x86_ELF_object_data": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 4096
+    },
+    "output_ELF_object_data": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 192
+    },
+    "ELF_section_data": {
+      "count_upper": 13,
+      "bytes_per_request_upper": 320
+    },
+    "section_hash_entry": {
+      "count_upper": 13,
+      "bytes_per_request_upper": 576
+    },
+    "section_hash_buckets": {
+      "count_upper": 2,
+      "bytes_per_request_upper": 248
+    },
+    "objalloc_control_for_two_arenas": {
+      "count_upper": 2,
+      "bytes_per_request_upper": 24
+    },
+    "initial_objalloc_chunks_for_two_arenas": {
+      "count_upper": 2,
+      "bytes_per_request_upper": 4064
+    }
+  },
+  "section_hash_bucket_capacities": [
+    13,
+    31
+  ],
+  "objalloc_request_contract": "max(P,4096)+23<=PTRDIFF_MAX; 1<=P",
+  "BFD_main_arena_startup_raw_bytes_upper": "P+8448",
+  "BFD_lifetime_alloc_size_contract": "P+8448+R<=2^64-1; R includes all other successful raw requests, even later released",
+  "whole_BFD_request_inventory_complete": false,
+  "production_phase_argument_path_join_complete": false,
+  "native_execution": false
+}
