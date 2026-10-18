@@ -1,6 +1,6 @@
 {
   "status": "pass",
-  "checks": 36,
+  "checks": 42,
   "checked": [
     "historical_inputs_match_frozen_base",
     "source_bytes_and_blob_ids_match_manifest",
@@ -15,6 +15,11 @@
     "default_target_change_guards",
     "SSA_initial_hash_and_name_reservation",
     "parameter_vector_released_and_callee_copy_guarded",
+    "three_return_ABI_query_routes_per_helper",
+    "void_ABI_query_exits_before_hard_value",
+    "SysV64_DI_TI_single_REG_fast_paths",
+    "ordinary_hard_register_cache_disabled",
+    "REG_direct_GGC_constructor_and_size_rule",
     "unshare_hash_allocated_and_deleted",
     "SSA_materialization_and_INIT_free",
     "conditional_distribution_reuses_destination",
@@ -32,6 +37,7 @@
     "whole_body_copy_projection",
     "interface_matches_callable",
     "event_and_individual_size_sums",
+    "six_REG_correction_and_unchanged_nonREG_subtotal",
     "GIMPLE_tuple_projection",
     "rounding_each_object_not_the_subtotal",
     "fixed_vectors_and_counter_room",
@@ -39,8 +45,8 @@
     "flat_pattern_inventory_matches_retained_audit",
     "direct_pattern_landmarks_in_inventory"
   ],
-  "source_files": 44,
-  "historical_inputs": 26,
+  "source_files": 49,
+  "historical_inputs": 27,
   "flat_matcher_patterns": 138,
   "native_runs": 0,
   "host": {
@@ -53,7 +59,7 @@
   "runtime_model_effort_confirmation": null,
   "tokens": null,
   "cost": null,
-  "elapsed_seconds": 0.214,
-  "completed_utc": "2026-10-18T20:49:29.561499+00:00",
+  "elapsed_seconds": 0.213,
+  "completed_utc": "2026-10-18T21:02:21.345449+00:00",
   "scope": "offline identity/landmark/arithmetic checks; handwritten source argument required"
 }

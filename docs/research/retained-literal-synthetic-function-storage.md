@@ -3,10 +3,10 @@
 2026-10-18, Linux x86-64/LP64, research
 [#119](https://github.com/berkeleynerd/silver/issues/119).
 The three non-Main synthetic function structures and the two String helpers'
-initial gimplifications contribute at most **167 direct GGC allocation events**
+initial gimplifications contribute at most **173 direct GGC allocation events**
 and **8 ordinary allocation requests**. The individual caller-size ceilings
-sum to 13,336 GGC bytes and 584 ordinary bytes; rounding each GGC row to a
-power of two gives 17,216 slot bytes. These are lifetime request envelopes,
+sum to 13,480 GGC bytes and 584 ordinary bytes; rounding each GGC row to a
+power of two gives 17,408 slot bytes. These are lifetime request envelopes,
 not peak memory, an allocator/page total or a global capacity gate.
 The [callable interface and offline evidence](../evidence/retained-literal-synthetic-function-storage-20261018/README.md)
 also export identities and shared-container demands. Independent review is
@@ -110,12 +110,61 @@ SSA freelist growth. `init_tree_ssa` only resets both points-to solutions
 (`tree-ssa.cc:1214–1220`).
 
 `gimplify_parameters` builds one ordinary vector for its two parameters,
-then releases it (`function.cc:3886–3984`). SysV scalar classification and
-argument advancement use fixed automatic state and no RTL construction;
+then releases it (`function.cc:3886–3984`). SysV parameter classification and
+argument advancement use fixed automatic state, but the separate return-ABI
+query in parameter-list setup constructs RTL, as counted below;
 the signed-32 parameters are passed by value. This excludes the hidden
 result parameter, complex splitting, callee-copy, alloca and cleanup paths.
 Their type/size positions are constant, so size gimplification adds no
 expression or statement.
+
+### Return-ABI scratch RTL correction
+
+The earlier 167-event subtotal omitted six 24-byte hard-register RTX objects,
+tracked as [#132](https://github.com/berkeleynerd/silver/issues/132).
+The [previous review](../reviews/review-literal-storage-5706684775.md) accepted
+that subtotal; its numerical acceptance is superseded by this correction.
+Independent review of the correction is pending. No-emission and no-RTL-
+expansion facts do not imply zero RTL construction during ABI queries.
+
+Each helper executes `aggregate_value_p` exactly three times in this slice:
+once in `allocate_struct_function` (`function.cc:4890`), once in
+`gimplify_parameters -> assign_parms_augmented_arg_list`
+(`gimplify.cc:21782,21995`; `function.cc:2396,3895`), and once in its unique
+`gimplify_return_expr` (`gimplify.cc:1924`). The empty elaboration's one
+allocation query returns at the void-type guard before asking for a value
+register (`function.cc:2086`); it is never gimplified. The other query in
+`gimplify_modify_expr_rhs` requires a CALL_EXPR, absent from these saved
+bodies (`gimplify.cc:7053–7057`). The `use_register_for_decl` query is used
+by later parameter RTL assignment and SSA coalescing, neither entered here;
+the selected gimplifier has no call to it. No transparent-aggregate recursion,
+hidden result argument, call expression or extra return exists.
+
+For both scalar results, `targetm.calls.return_in_memory` returns false.
+The following `hard_function_value` invokes `ix86_function_value` and the
+SysV64 `function_value_64 -> construct_container` route
+(`function.cc:2122–2127`; `explow.cc:2332–2359`;
+`i386.cc:4268–4319,4380–4408,4451–4480`). DImode has one INTEGER class;
+TImode has two (`i386.cc:2524–2564`). The integer return sequence begins
+AX_REG, DX_REG (`i386.cc:346–349`), whose numbers are 0,1
+(`i386.md:419–420`). The contiguous-register TImode fast path therefore
+returns one REG, just as the DImode simple case does
+(`i386.cc:2877–2885,2936–2955`). Neither constructs EXPR_LIST, PARALLEL,
+rtvec, constants or a fallback register.
+
+AX is not a special reusable frame/argument/stack/PIC pointer register.
+The ordinary hard-register cache is inside `#if 0`, so each query calls
+`gen_raw_REG -> rtx_alloc(REG) -> ggc_alloc_rtx_def_stat`
+(`emit-rtl.cc:463–494,791–854`; `rtl.cc:220–246`). On the retained LP64
+layout the request is `RTX_HDR_SIZE + sizeof(reg_info) = 8+16 = 24`
+(`rtl.h:223–233,314–455,703`; `rtl.cc:123–134`), using the already retained
+[raw RTL size derivation](retained-native-expansion.md#selected-frame-layout-and-rtl-constructor-storage).
+Initialization writes mode, hard-register number and null attributes; it
+creates no reg-attribute record, pseudo register, instruction or identifier.
+The temporary result is inspected then discarded, with no reclamation timing
+assumed. Thus add **6 events, 144 caller bytes and 192 rounded slot bytes**,
+zero ordinary requests, zero finalizers and zero identity-counter demand.
+The collector receives these six events even though the helpers emit no code.
 
 ## Unsharing, scalar lowering and folding closure
 
@@ -272,7 +321,7 @@ gives two singleton finalizer registrations, for the two GGC hash controls,
 and zero vector registrations. Other charged typed objects are trivial;
 raw trees, tuples, strings and pointer vectors have no finalizers. Hash
 destruction and the selected release operations allocate nothing. Export
-the two registrations plus all 167 events to the shared collector/page/
+the two registrations plus all 173 events to the shared collector/page/
 finalizer transfer. That backing and ordinary allocator metadata remain
 integration obligations, as do imported original-gigi construction and
 complete all-phase counter/container bounds.
@@ -296,3 +345,12 @@ SSA-definition matches while still checking direct predicates and in-place
 canonicalization. No native build, capture, compiler run or expensive
 validation rerun was performed. No production, aggregate, GitHub or CLI
 memory state is changed by this bounded packet.
+
+The #132 correction round used the same selected GPT-6 Astra / Extra High
+settings, with runtime confirmation and token/cost evidence unavailable.
+It began within the original-constructor round started 20:58:57 UTC and
+completed its 42 offline checks at 21:02:21 UTC (0.213 seconds of checker
+runtime). The achieved correction is the six-register delta above; native
+runs remain zero. Its exact new source inputs are the five additional
+manifest entries for `explow.cc`, `emit-rtl.cc`, `rtl.cc`, `rtl.h` and
+`i386.md`, verified against the frozen retained RTL-constructor manifest.

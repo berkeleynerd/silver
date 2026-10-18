@@ -138,6 +138,36 @@ def main():
           and 'vec_alloc (SSANAMES (fn), 50);' in sources['gcc/tree-ssanames.cc'])
     check('parameter_vector_released_and_callee_copy_guarded',
           'fnargs.release ();' in f and 'if (data.arg.pass_by_reference)' in f)
+    check('three_return_ABI_query_routes_per_helper', all(s in f for s in [
+        'if (!abstract_p && aggregate_value_p (result, fndecl))',
+        'if (aggregate_value_p (DECL_RESULT (fndecl), fndecl)',
+        'fnargs = assign_parms_augmented_arg_list (&all);'])
+        and 'else if (aggregate_value_p (result_decl, TREE_TYPE (current_function_decl)))' in g
+        and 'bind = gimplify_body (fndecl, true);' in g)
+    aggregate = f.split('\naggregate_value_p (', 1)[1].split('\n/* Return true if we should assign', 1)[0]
+    check('void_ABI_query_exits_before_hard_value',
+          aggregate.index('if (VOID_TYPE_P (type))') < aggregate.index('reg = hard_function_value'))
+    i386 = sources['gcc/config/i386/i386.cc']
+    md = sources['gcc/config/i386/i386.md']
+    check('SysV64_DI_TI_single_REG_fast_paths',
+          'AX_REG, DX_REG, DI_REG, SI_REG' in i386
+          and re.search(r'\(AX_REG\s+0\)', md)
+          and re.search(r'\(DX_REG\s+1\)', md)
+          and '&& intreg[0] + 1 == intreg[1])' in i386
+          and 'return gen_rtx_REG (mode, intreg[0]);' in i386
+          and 'return function_value_64 (orig_mode, mode, valtype);' in i386)
+    emit = sources['gcc/emit-rtl.cc']
+    reg = emit.split('\ngen_rtx_REG (', 1)[1].split('\nrtx\ngen_rtx_MEM', 1)[0]
+    check('ordinary_hard_register_cache_disabled',
+          '#if 0' in reg
+          and reg.index('#if 0') < reg.index('return regno_reg_rtx[regno];') < reg.index('#endif', reg.index('#if 0'))
+          and 'return gen_raw_REG (mode, regno);' in reg)
+    check('REG_direct_GGC_constructor_and_size_rule',
+          'rtx x = rtx_alloc (REG MEM_STAT_INFO);' in emit
+          and 'ggc_alloc_rtx_def_stat (RTX_CODE_SIZE (code) + extra' in sources['gcc/rtl.cc']
+          and '? RTX_HDR_SIZE + sizeof (reg_info)' in sources['gcc/rtl.cc']
+          and 'reg_attrs *attrs;' in sources['gcc/rtl.h']
+          and 'val = targetm.calls.function_value (valtype, func ? func : fntype, outgoing);' in sources['gcc/explow.cc'])
     check('unshare_hash_allocated_and_deleted',
           'lang_hooks.deep_unsharing ? new hash_set<tree> : NULL;' in g
           and 'delete visited;' in g)
@@ -198,9 +228,17 @@ def main():
     result = evaluate()
     check('interface_matches_callable', result == json.loads((HERE/'interface.json').read_bytes()))
     check('event_and_individual_size_sums',
-          result['GGC_events'] == 167 and result['GGC_caller_bytes_sum_ceiling'] == 13336
-          and result['GGC_rounded_slots_sum_ceiling'] == 17216
+          result['GGC_events'] == 173 and result['GGC_caller_bytes_sum_ceiling'] == 13480
+          and result['GGC_rounded_slots_sum_ceiling'] == 17408
           and result['ordinary_requests'] == 8 and result['ordinary_caller_bytes_sum_ceiling'] == 584)
+    queries = result['return_ABI_queries']
+    check('six_REG_correction_and_unchanged_nonREG_subtotal',
+          2*sum(queries[k] for k in ('allocate_struct_function_per_helper',
+                                    'gimplify_parameters_per_helper',
+                                    'gimplify_return_expr_per_helper')) == queries['hard_function_value_calls'] == 6
+          and ('return_ABI_hard_REG', 6, 24) in GGC_ROWS
+          and sum(n for k,n,_ in GGC_ROWS if k != 'return_ABI_hard_REG') == 167
+          and queries['PARALLEL_objects'] == queries['rtvec_objects'] == queries['pseudo_register_numbers'] == 0)
     check('GIMPLE_tuple_projection',
           sum(n for k,n,_ in GGC_ROWS if k.startswith('GIMPLE_')) == 28)
     check('rounding_each_object_not_the_subtotal',

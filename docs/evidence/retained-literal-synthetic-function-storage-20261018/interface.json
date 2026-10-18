@@ -5,6 +5,18 @@
   "empty_elaboration_gimplifications": 0,
   "ordinary_lowered_nonMain_functions": 0,
   "emitted_nonMain_functions": 0,
+  "return_ABI_queries": {
+    "allocate_struct_function_per_helper": 1,
+    "gimplify_parameters_per_helper": 1,
+    "gimplify_return_expr_per_helper": 1,
+    "hard_function_value_calls": 6,
+    "DImode_AX_REG_objects": 3,
+    "TImode_AX_REG_objects": 3,
+    "REG_caller_bytes_each": 24,
+    "PARALLEL_objects": 0,
+    "rtvec_objects": 0,
+    "pseudo_register_numbers": 0
+  },
   "input_dimensions": {
     "byte": {
       "unary": 3,
@@ -45,6 +57,12 @@
       "requests": 6,
       "caller_bytes": 64,
       "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "return_ABI_hard_REG",
+      "requests": 6,
+      "caller_bytes": 24,
+      "rounded_slot_bytes_ceiling": 32
     },
     {
       "family": "gimple_df",
@@ -173,9 +191,9 @@
       "rounded_slot_bytes_ceiling": 16
     }
   ],
-  "GGC_events": 167,
-  "GGC_caller_bytes_sum_ceiling": 13336,
-  "GGC_rounded_slots_sum_ceiling": 17216,
+  "GGC_events": 173,
+  "GGC_caller_bytes_sum_ceiling": 13480,
+  "GGC_rounded_slots_sum_ceiling": 17408,
   "ordinary_groups": [
     {
       "family": "unshare_hash_control",
