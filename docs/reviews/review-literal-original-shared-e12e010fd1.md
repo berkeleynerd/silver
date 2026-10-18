@@ -6,6 +6,8 @@ conditional interval and individual-request/counter interfaces.** No material
 defect was found in that freeze. Integrating the concurrent emission attachment
 requires the explicit compatibility step below; this review does not accept a
 combined checkout merely because both component reviews pass.
+The affected recheck below accepts the completed compatibility adaptation and
+its historical-review provenance repair.
 
 Selected reviewer: **GPT-6 Astra / Extra High**, selected by the lead.
 Independent serving-runtime confirmation and token/cost measurements are
@@ -160,7 +162,7 @@ rejected with:
 changed shared-storage input: docs/evidence/retained-literal-pipeline-20261018/compose.py
 ```
 
-All 15 consumed top-level projections in the old and emission retained
+All 14 consumed top-level projections in the old and emission retained
 aggregate results compare equal: source, source_counts, complete_path_bound,
 original Main/String/helper storage, synthetic storage, warning-map demand,
 pool lifetime, collector callbacks, counter-emission interface, unresolved
@@ -188,3 +190,62 @@ direct/metadata families, later shared consumers, full global-counter and
 collector lifetime, complete imported totals, production invocation and
 whole-pipeline capacity remain open. The accepted result changes no Oracle,
 admission rule, native tool, proof pin or production behavior.
+
+## Affected compatibility recheck
+
+The affected review input is compatibility correction
+`c2ec0d195eea30e5ed4c1fd553ae5f8c04056bb2`, atop integrated base
+`7573e127ffb020ddfb1214491179c59442e7798b`, together with the historical-review
+provenance repair identified below. This is a narrow continuation of the
+original review, with the same selected GPT-6 Astra / Extra High settings and
+unavailable independent runtime/token/cost measurements. The first recorded
+checkpoint is 22:48:02 UTC on the same Linux x86_64 host.
+
+Independent inspection and a small offline audit confirm all 38 current input
+identities. Exactly the three specified aggregate rows changed; all other
+rows are retained. Shared `compose.py`, `check.py`, `sources.json`,
+`result.json` and `check-results.json` remain byte-identical to the original
+accepted freeze. The new compatibility script inventories the shared
+derivation's direct aggregate reads from its AST and checks their equality to
+its explicit projection list. There are **14 distinct keys**. This corrects
+the earlier report's prose count of 15; its separate **15 grouped independent
+review checks** count is unchanged.
+
+The recorded 31 compatibility checks passed in 7.149088 seconds. They validate
+the old and integrated Contexts, including both recorded historical source
+inputs; compare retained projections and fresh Hello; compare old/current
+same-source mixed empty/8192-byte calls and 5000 calls; and reject affected
+ownership, collector, function, warning, source and input-identity mutations.
+The original source builders are unchanged, and diff inspection confirms
+that the emission join does not mutate the shared derivation's consumed
+interfaces. The 5000-call relocation failure and the broad negative verdicts
+remain. These successes and the earlier 208-check success were reused; neither
+suite was rerun for this recheck.
+
+One reproducibility issue was found in the new compatibility checker: it
+required the current review report to equal the original acceptance report
+byte-for-byte. The requested count correction and appended disposition would
+therefore invalidate that check. The independent audit confirmed this with
+the single count correction. The appropriate provenance is the exact report
+at `bee47bdef117d904931141ab4142a62ba6837058`, whose retained identity is
+11,729 bytes and SHA-256
+`0a93765653b15c3688ee0a4d599b5d48b6394fc39798ed936f4c00045336e745`.
+The current report can then evolve while that acceptance evidence remains
+fixed in Git. The shared Context does not itself pin this review report.
+
+Repair `20db3fc952adffdeb58ecbff163aef80a51f804b` makes precisely that change:
+the checker validates the historical report against its fixed byte count and
+SHA-256, without comparing the evolving current report. Independent inspection
+of that exact commit and a focused check confirm the historical identity,
+altered-byte rejection, and success of the repaired guard while the current
+report contains this amendment. The 38 current input guards and all semantic
+joins are untouched. The original 31-case log remains historical evidence for
+the pre-repair run; it is not relabeled as a fresh repaired-script run.
+
+**Accepted:** compatibility correction `c2ec0d195e` together with provenance
+repair `20db3fc952`. This discharges the original integration follow-up for
+the exact accepted emission aggregate. No arbitrary future pin update is
+accepted. The affected source inspection and checks completed at 22:50:13 UTC,
+131 seconds after the recorded checkpoint, including coordination/wait time
+and excluding final report authoring. No native execution or broad rerun
+occurred, and all capacity residuals from the original review remain open.
