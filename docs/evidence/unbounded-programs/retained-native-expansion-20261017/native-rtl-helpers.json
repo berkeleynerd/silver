@@ -1,0 +1,129 @@
+{
+  "CFG": {
+    "GGC_vector_rounded_bytes_upper": 256,
+    "RTL_info_bytes": 24,
+    "basic_block_bytes": 96,
+    "block_map_raw_growth_request_upper": 184,
+    "edge_bytes": 48,
+    "edge_vector_growth_events_per_lineage_upper": 3,
+    "edge_vector_lineages_upper": 22,
+    "edge_vector_raw_growth_request_upper": 168,
+    "lifetime_block_objects_upper": 12
+  },
+  "additional_GGC_event_bounds": {
+    "RTL_block_info": 12,
+    "basic_block_map_growth_upper": 7,
+    "basic_block_objects": 7,
+    "edge_objects": 7,
+    "edge_vector_allocations_upper": 66,
+    "variable_expansion_cold_sequence": 1
+  },
+  "additional_GGC_events_total": 100,
+  "other_ordinary_storage": {
+    "CFG_copy_maps": {
+      "backbone_bytes_each": 104,
+      "count": 3,
+      "wrapper_bytes_each": 48
+    },
+    "head_end_vector_raw_bytes_upper": 104,
+    "jump_register_use_array_raw_bytes": 392,
+    "label_to_RTL_hash": {
+      "backbone_bytes": 208,
+      "wrapper_bytes": 48
+    },
+    "stack_partition_hash": {
+      "backbone_bytes": 208,
+      "wrapper_bytes": 48
+    },
+    "stack_variable_bitmap_initial_chunk_bytes": 65536
+  },
+  "out_of_SSA": {
+    "coalesce_hash_slots": 61,
+    "coalesce_obstack_chunk_bytes": 65536,
+    "coalesce_record_bytes": 120,
+    "elimination_vector_raw_bytes": [
+      128,
+      88,
+      48,
+      128,
+      88,
+      168,
+      48
+    ],
+    "partition_raw_bytes_by_count": {
+      "0": 8,
+      "2": 40
+    },
+    "same_variable_hash_slots": 13,
+    "shared_default_bitmap_fresh_elements": 0,
+    "shared_default_bitmap_fresh_headers_upper": 5,
+    "variable_map_bytes": 80,
+    "zero_partition_simple_bitmap_raw_bytes": 8,
+    "zero_xmalloc_or_xcalloc_actual_bytes": 1
+  },
+  "phase_boundary_overallowance": "All22 edge-vector lineages charged cold; some backing predates expansion.",
+  "premises": {
+    "SSA_slots": 2,
+    "block_index_slots_upper": 12,
+    "incoming_GIMPLE_ordinary_blocks_upper": 3,
+    "lifetime_edges_upper": 11,
+    "linear_CFG_except_transient_edge_redirection": true,
+    "no_gimple_phi": true,
+    "ranger_instances_upper": 4,
+    "real_partitions": 0,
+    "scalar_range_queries": 0
+  },
+  "ranger_per_instance": {
+    "Boolean_range_heap_growth": false,
+    "Boolean_wide_int_precision": 1,
+    "GGC_events": 0,
+    "bitmap_elements": 0,
+    "bitmap_headers_upper": 20,
+    "bitmap_obstack_chunk_bytes": 65536,
+    "bitmap_obstack_initial_chunks_upper": 5,
+    "default_obstack_chunk_bytes": 4064,
+    "default_obstack_initial_chunks_upper": 5,
+    "definition_chain_depth_final": 0,
+    "ordinary_object_bytes_upper": {
+      "GORI_compute": 1208,
+      "GORI_map": 144,
+      "gimple_ranger": 456,
+      "infer_manager": 240,
+      "optional_dom_oracle": 280,
+      "temporal_cache": 16,
+      "update_list": 128,
+      "vrange_allocator": 8,
+      "vrange_obstack_allocator": 96
+    },
+    "ordinary_vectors_raw_bytes_upper": {
+      "GORI_definition_chain": 104,
+      "GORI_incoming": 56,
+      "GORI_outgoing": 56,
+      "block_range_cache": 40,
+      "infer_exit": 176,
+      "infer_nonzero": 40,
+      "optional_equivalence": 64,
+      "optional_partial_equivalence": 104,
+      "optional_relations": 176,
+      "optional_self_equivalence": 40,
+      "propagation_update": 288,
+      "statement_list": 40,
+      "timestamps": 24
+    },
+    "range_clones": 0,
+    "temporal_time_final": 1,
+    "temporary_edge_flag_bit": 18,
+    "vrange_allocator_pairs": 3
+  },
+  "retained_installed_headers_verified": 24,
+  "scope": "Selected null out-of-SSA, expansion and CFG helper storage; ranger constructor backing also covers three earlier null warning instances",
+  "source_files_verified": 51,
+  "unclosed_inputs": [
+    "Remaining pass-manager and non-DF shared helper state",
+    "Main translation/GIMPLE/IPA outside these ranger instances",
+    "Metadata",
+    "Unit emission",
+    "Shared GGC page/finalizer composition"
+  ],
+  "whole_native_capacity_established": false
+}

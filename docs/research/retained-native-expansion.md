@@ -8385,13 +8385,236 @@ prover. This closes construction/storage through `execute_dwarf2_frame`;
 final unwind assembly emission belongs to `E_unit_emit`, and the whole native
 capacity result remains incomplete.
 
+### Out-of-SSA, ranger and CFG helper backing
+
+This batch prices the mandatory setup left behind by the null body. It uses
+the backend's three incoming ordinary GIMPLE blocks, four edges, two SSA
+slots, zero real partitions and zero scalar range requests. Its CFG boundary
+extends from `pass_expand` through the already established final RTL graph:
+at most ten ordinary blocks, eleven edges and twelve block-index slots.
+The [source inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/rtl-helpers-source-identity.json)
+and [arithmetic result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-helpers.json)
+retain these premises separately from remaining pass-manager/shared state.
+
+#### Empty partitions still have backing
+
+`rewrite_out_of_ssa` calls the already priced DFS-backedge helper, then
+`remove_ssa_form` constructs the variable map even with no real partition
+(`tree-outof-ssa.cc:1057–1088,1165–1171,1382–1405`). Its ordinary `_var_map`
+is80 bytes; its initial two-element partition requests40 bytes, and its
+block-pointer vector requests at most`8+3*8=32` bytes. Both partition views
+allocate an8-byte two-int mapping and a zero-length reverse mapping. The
+optimized-base map and `partition_to_pseudo` also have zero logical length.
+The corresponding `xmalloc`/`xcalloc` paths actually request one byte, not no
+storage (`tree-ssa-live.cc:84–117,240–313`,
+`tree-ssa-coalesce.cc:1601–1742`, `libiberty/xmalloc.c:144–169`). The zero-size
+`auto_vec` index map does not allocate.
+
+The tentative partition has a separate subtlety. On this LP64 layout,
+`sizeof(partition_def)=24` and `sizeof(partition_elem)=16`. For n=0,
+`partition_new` computes `24+(n-1)*16` in `size_t`: signed n-1 is -1 and
+the subsequent unsigned multiplication/addition wrap with defined behavior
+to **8 bytes**. That is the complete header, and the element-initialization
+loop is empty (`include/partition.h:46–65`, `libiberty/partition.c:49–66`).
+This selected behavior is explicitly evaluated; no requirement to forbid
+all unsigned wrap, or assumption that zero means an omitted constructor,
+is substituted for the actual caller arithmetic.
+
+The coalescer requests a120-byte record, a48-byte hash wrapper and61 pointer
+slots (requested40,488 bytes), plus its initial65,536-byte obstack chunk.
+The same-variable hash has a stack wrapper and13 pointer slots (requested10,
+104 bytes). It acquires no entry: the sole virtual `.MEM` variable is ignored.
+No coalesce pair, sorted-pair vector, liveness/conflict graph or obstack
+object is created before the zero-partition early return
+(`tree-ssa-coalesce.cc:133–144,262–276,1294–1336,1843–1871`).
+
+At most five fresh32-byte bitmap headers are requested from the shared
+default bitmap obstack: the two initial view-selection headers, the normal
+view header, parameter-default header and undefined-value header. They have
+no elements. This includes the initial `used` header which
+`partition_view_bitmap` does not explicitly free. The automatic
+`used_in_copies` bitmap is inline, not another allocated header. Default
+obstack initialization and other users remain in the shared backing join.
+
+`expand_phi_nodes` still constructs its elimination graph, even though it
+emits no copy. Seven ordinary vector requests are respectively
+**128,88,48,128,88,168,48 bytes** (696 total), for the fixed capacities
+30,20,10,30,20,20,10 and element sizes4,4,4,4,4,8,4. The zero-bit visited
+simple bitmap requests8 bytes (`tree-outof-ssa.cc:137–174,433–438,1012–1049`,
+`sbitmap.cc:42–54`). All these are ordinary allocations. No GGC event follows
+from out-of-SSA on this body.
+
+#### Ranger construction is ordinary storage, including Boolean ranges
+
+The backend identifies at most four ranger instances: three warning passes
+and expansion. They are sequential; each uses at most six block-index slots
+and two SSA slots. This join permits the optional dominance oracle even
+though expansion itself has just freed dominance information. It therefore
+covers the warning constructors without relying on their exact optional
+oracle selection (`value-query.cc:241–253`). It does not charge an optional
+oracle as an established executed event.
+
+The constructor vectors have the following individual ordinary requests,
+including the minimum capacity4 of non-exact initial growth:
+
+| Vector | Raw bytes at the stated upper input |
+| --- | ---: |
+| Temporary statement list; block-range cache |40 each|
+| Temporal timestamps |24|
+| GORI definition-chain records |104|
+| GORI incoming; outgoing bitmap pointers |56 each|
+| Inferred exit records; cached nonzero ranges |176;40|
+| Propagation-update list |288|
+| Optional equivalence; self-equivalence vectors |64;40|
+| Optional partial-equivalence; relation records |104;176|
+
+The definition-chain, exit, partial and relation records are24 bytes. Each
+vector allocates once and does not grow again, because the body makes no
+scalar query and creates no SSA name while the ranger is active. The global
+SSA-cache vector, workback vector and outgoing-switch cache stay unallocated
+(`gimple-range.cc:40–66`, `gimple-range-cache.cc:366–373,540–545,828–835,
+940–948,998–1022`, `gimple-range-gori.cc:96–103,359–366,479–523`,
+`gimple-range-infer.cc:331–351`, `value-relation.cc:312–330,1064–1073`).
+
+The selected layouts give these conservative ordinary object-size bounds:
+gimple ranger456, GORI map144, GORI compute1208, infer manager240, optional
+dominator oracle280, temporal cache16 and update list128 bytes. These sums
+allow base-class trailing padding instead of depending on its reuse. The
+range allocator is8 bytes and its ordinary obstack implementation96 bytes;
+there are three pairs per ranger (`value-range-storage.h:27–45`,
+`value-range-storage.cc:35–88`). The supporting layout inputs are an88-byte
+obstack,104-byte bitmap obstack,48-byte range-query base and120-byte range
+tracer. The classes' pinned declarations supply each field, including the
+oracle's base-class bitmap pointer.
+
+In particular, the two Boolean ranges in `gori_compute` **do not allocate
+range storage**. They are embedded `int_range<2>` members. The installed
+mode header sets `MAX_BITSIZE_MODE_ANY_INT=512`; `wide_int` therefore has
+nine inline64-bit limbs and two unsigned fields,80 bytes. An
+`int_range<2>` is at most520 bytes, including its two bitmask values and four
+endpoint values. `range_true`/`range_false` create ordinary automatic
+`int_range<1>` temporaries at Boolean precision1, well within the576-bit
+inline precision. Their destination is non-resizable and has room for its
+one interval (`gimple-range-gori.h:205–208`, `range.h:29–43`,
+`value-range.h:149–177,355–404,723–746`, `wide-int.h:236–248,1125–1142`).
+No range clone, wide-integer heap limb or GGC integer is requested.
+
+Per ranger, at most five bitmap obstacks start with65,536-byte chunks
+(block cache, GORI definition chains, infer, propagation and optional
+equivalence). They hold at most20 headers: thirteen GORI, one infer, one
+propagation and five optional oracle headers. Every bitmap remains empty,
+so no element is allocated. These small completed objects fit in their
+initial chunks. The three range allocators, infer-list obstack and optional
+equivalence-chain obstack add at most five ordinary default4064-byte chunks;
+none receives an object. This is a local backing statement, not a summed
+RAM admission gate. Across all four instances, there are at most80 fresh
+private bitmap headers, with the instances' chunks released between uses.
+
+The temporal counter stays1; GORI definition depth stays0; infer/relation
+counts and propagation heads acquire no entries. The temporary ranger edge
+flag uses bit18: permanent edge flags occupy bits0–17, the selected ranger
+instances do not overlap, and destruction returns its bit. Thus the signed
+int mask remains positive (`cfg-flags.def:99–183`, `cfg.h:140–182`). Tracing
+is disabled, so its cumulative debug counter is not a behavior input.
+This whole ranger constructor family adds **zero GGC events**.
+
+#### CFG allocation counts include temporary states
+
+The source shape bounds cumulative creations, not just live size. Expansion
+adds the init and exit blocks and edges; leaving CFG layout adds at most five
+location blocks and edges. No other selected pass adds a block. Thus the
+RTL phase adds at most **seven block objects and seven edge objects**, while
+the lifetime graph contains at most twelve block objects and eleven edge
+objects. `init_rtl_bb_info` runs once per incoming or new block, including
+entry/exit, adding at most **twelve**24-byte GGC records. Block objects are96
+bytes and edges48 bytes (`basic-block.h:26–149`, `cfg.cc:139–144,278–293`,
+`cfgrtl.cc:295–390,1854–1963,5304–5308`,
+`cfgexpand.cc:6574–6614,6633–6701`). Incoming GIMPLE block/edge objects are
+owned by their earlier phase and are not charged again here.
+
+Do not infer vector growth from final in/out-degree1. `rtl_split_edge` makes
+the new outgoing edge before redirecting the incoming one, and a forwarder
+deletion redirects before deleting its old edge. A destination can temporarily
+have two predecessors. For a simpler conservative bound, use the entire
+lifetime edge population11 as the degree bound, including such intermediate
+states.
+
+There are at most22 edge-vector allocation histories: predecessor/successor
+for each ordinary lifetime block, entry successors and exit predecessors.
+An empty vector retains its backing. A merge transfers `b->succs` to `a`
+and deletes b; it does not copy that backing or start an additional history
+(`cfg.cc:215–272`, `cfghooks.cc:842–911`, `cfgcleanup.cc:2752–2812`). No
+selected operation releases and reinitializes a retained block's vector
+from NULL. Capacity is monotone along each transferred history. Minimum
+capacities4,8,16 suffice for eleven edges, so **three allocations per
+history**, **66 events**, is conservative even without crediting GGC rounding.
+This deliberately gives cold credit to already allocated incoming vectors;
+it is an upper bound on *additional RTL-phase events*, not a claim that all66
+execute after the boundary.
+
+Any growing edge vector has old capacity at most10, so its doubled request
+is at most20 pointer slots, raw168/rounded256 bytes. The basic-block map can
+grow once per newly created block, at most **seven events**. Its maximum
+new length is12; a growing old capacity is at most11, giving at most22 slots,
+raw184/rounded256 bytes (`cfgrtl.cc:373–382`, `vec.h:250–262,754–778`,
+`vec.cc:149–167`). No input-sized arithmetic approaches unsigned32 or signed32
+limits. This remains true if the incoming map's spare capacity avoids growth.
+
+#### Other direct expansion helpers
+
+`pass_expand` opens one additional sequence around `expand_used_vars`
+(`cfgexpand.cc:7091–7099`). Charge a cold24-byte sequence object even if the
+existing freelist satisfies it. This is separate from the five frame scopes
+charged above. Variable expansion creates an empty ordinary declaration-to-
+partition hash (48-byte wrapper, thirteen16-byte slots) and an initial
+65,536-byte bitmap chunk; no variable, partition or stack-conflict element
+is added (`:2371–2399,2466–2500`). Its optional PIC register was excluded by
+the selected target premise in the framework derivation.
+
+Expansion's ordinary block-to-RTL-label hash has the same48/208-byte storage
+and at most six entries, below the13-slot growth threshold. The paired
+head/end vector is exact-created for at most six blocks:104 bytes
+(`:7249–7255`). CFG-layout entry creates three ordinary copy maps, each a
+48-byte wrapper and thirteen8-byte entries,104-byte backing; there is no
+block or loop duplication to populate them (`cfg.cc:1057–1073`,
+`cfgrtl.cc:4555–4583`). The initial jump pass's98-int register-use array is392
+bytes (`cse.cc:7073–7120`). Its pseudo-use counts remain zero on the null
+pre-frame body.
+
+Instruction-location initialization/finalization only assigns globals
+(`emit-rtl.cc:6692–6712`). The generated scheduler-attribute initializer only
+selects two function pointers; generator-time allocations are not runtime
+requests (`genattrtab.cc:5031–5037,5102–5122`). Empty parameter processing
+does not grow its argument vector or create synthetic declarations; the void
+result uses NULL RTL and the zero argument offset uses cached const0
+(`function.cc:2381–2425,3641–3659,3740–3842,5104–5220`). Unsharing has no
+helper container, and its possible blockage copies are already charged in
+the RTL constructor packet (`emit-rtl.cc:2928–2992`). CFG traversal/loop and
+DF/IRA/LRA helper backing remain the separate previously established joins.
+
+The additional GGC envelope from this batch is therefore
+
+```text
+7 blocks +7 edges +12 RTL-info +66 edge-vector events
+ +7 block-map growths +1 variable-expansion sequence = 100 events.
+```
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-rtl-helpers.py)
+verifies51 source files,24 retained installed headers, source anchors,
+zero-partition arithmetic, ordinary vector/layout bounds and the100-event
+composition. It runs no compiler, debugger, solver or Lean process. It does
+not certify the source-route argument merely by matching text, and it does
+not close generic pass-manager/global non-DF helper state, Main translation,
+metadata, final output or shared GGC page/finalizer arithmetic. Those remain
+required inputs to the full capacity rule.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100
        + E_metadata + E_Main_translation
        + E_RTL_helpers + E_unit_emit
 ```
@@ -8400,8 +8623,8 @@ Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
 target setup above,10 the two gigi struct-function constructors,4 real Main
 RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
 vector events,8 direct elimination-register requests,10 IRA loop-setup
-events,78 chain/pattern/frame events and43 non-chain CFI events just
-established.
+events,78 chain/pattern/frame events,43 non-chain CFI events and100
+expansion/CFG helper events just established (known subtotal39,951).
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -8410,12 +8633,13 @@ and constructors still require completion:
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
-| `E_RTL_helpers` |remaining expansion/CFG/pass-manager/helper storage, excluding the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes charged separately |
+| `E_RTL_helpers` |remaining pass-manager/global non-DF helper state; the expansion/CFG constructor envelope100 and ranger ordinary backing above are now supplied, in addition to the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes already charged separately |
 | `E_unit_emit` |final/varasm/debug/cgraph unit finalization and final unwind assembly emission; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
 For ordinary backing, the remaining concrete joins include
-shared non-DF bitmap/pool retained-count arithmetic and remaining CFG/helper
-containers; the selected target frame-layout helpers add no allocations. Exact selected IRA
+shared non-DF bitmap/pool retained-count arithmetic and any remaining
+pass-manager/global helper containers; the selected target frame-layout
+helpers add no allocations. Exact selected IRA
 traversal multiplicities matter only where they affect persistent non-DF
 state; the selected DF lifetime and solver joins are now closed above.
 The known no-allocno/no-live-pseudo
