@@ -300,7 +300,7 @@
     }
   },
   "cleanup_lowering": {
-    "scope": "O0 cleanup GIMPLE allocations; operand trees and later passes separate",
+    "scope": "O0 cleanup GIMPLE and selected simple operand copies; helper/container closure and later passes separate",
     "cf_precedes_eh": true,
     "implicit_return_cf_new_gimple": 2,
     "implicit_return_cf_new_label_declarations": 1,
@@ -319,6 +319,8 @@
     },
     "copy_bounds": {
       "cloned_statements": "(D+2)*C",
+      "ordinary_operand_tree_nodes": "(D+2)*C",
+      "operand_tree_slots": "(D+2)*C",
       "other_statements": "2*Q+D+4",
       "artificial_labels": "D+2"
     },
@@ -341,6 +343,20 @@
       "switch_cases": 3,
       "switch_integer_requests": 6,
       "goto_queue_capacity": 32
+    },
+    "simple_operand_copy": {
+      "selected_shapes": [
+        "VAR_DECL := CONSTRUCTOR(empty)",
+        "stack_restore(pointer_VAR_DECL)"
+      ],
+      "ordinary_tree_nodes_per_copy": 1,
+      "ordinary_tree_operand_slots_per_copy": 1,
+      "String_payload_bytes": 0,
+      "types": 0,
+      "declarations": 0,
+      "constructor_elements": 0,
+      "maximum_cleanup_tuple_operands": 4,
+      "excludes": "full-body unsharing, debug-value expressions, remapping/traversal container costs"
     },
     "enumerated_arithmetic_cases": [
       {

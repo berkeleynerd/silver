@@ -36,6 +36,9 @@ The cleanup check verifies the CF/EH pass order, O0 copy gate and default Ada
 hook, then enumerates the continuation flags to check the manually derived
 constructor sums. It includes the implicit return's preceding conversion to a
 goto; it does not infer absence of generated transfers from source syntax.
+The selected clobber/stack-restore copy continuation checks the exact empty
+constructor and walker stop rules; its one-node operand-copy bound relies on
+the source argument's two cleanup shapes, not arbitrary GIMPLE operands.
 The initial-CFG continuation checks the ordinary block/edge/vector and location
 discriminator formulas against the explicit no-abnormal-goto frontier. Later
 CFG cleanup and loop discovery are separate stages.

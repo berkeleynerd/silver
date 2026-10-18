@@ -23,11 +23,11 @@ RANGES = {
     "gcc/input.cc": [(1045, 1059)],
     "gcc/passes.def": [(25, 47)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
-    "gcc/gimplify.cc": [(1270, 1282), (1699, 1830)],
+    "gcc/gimplify.cc": [(944, 973), (1096, 1101), (1270, 1282), (1699, 1830)],
     "gcc/tree-eh.cc": [(618, 655), (710, 877), (940, 1095),
                        (1107, 1283), (1289, 1800), (2333, 2356), (3318, 3349)],
-    "gcc/gimple.cc": [(1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
-    "gcc/tree-inline.cc": [(5861, 5940), (6008, 6060)],
+    "gcc/gimple.cc": [(251, 263), (1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
+    "gcc/tree-inline.cc": [(5735, 5795), (5861, 6060)],
     "gcc/langhooks-def.h": [(145, 158)],
     "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
     "gcc/ada/gcc-interface/trans.cc": [(87, 91), (346, 363), (6705, 6732),
@@ -44,7 +44,7 @@ RANGES = {
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
     "gcc/ggc.h": [(230, 258)],
-    "gcc/tree.cc": [(2616, 2636)],
+    "gcc/tree.cc": [(1468, 1547), (2482, 2488), (2616, 2636)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
                        (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
@@ -52,7 +52,7 @@ RANGES = {
                        (4001, 4038), (4150, 4168), (4184, 4253), (4476, 4523)],
     "gcc/function.h": [(34, 70), (162, 169)],
     "gcc/function.cc": [(203, 218), (5133, 5144)],
-    "gcc/vec.h": [(220, 260), (302, 325), (393, 425), (599, 660), (1394, 1415)],
+    "gcc/vec.h": [(220, 260), (302, 325), (393, 425), (599, 660), (863, 868), (1394, 1415)],
     "gcc/vec.cc": [(150, 169)],
     "gcc/expr.cc": [(1096, 1176), (1506, 1590), (2024, 2169),
                      (2237, 2329), (2540, 2579)],
@@ -117,6 +117,19 @@ def check_cleanup_transfers(all_bytes):
     assert body.count("gimple_build_goto (") == 1
     assert body.count("create_artificial_label (") == 1
     assert "gimple_build_return (" not in body
+    gimplify = all_bytes["gcc/gimplify.cc"].decode()
+    start = gimplify.index("\nmostly_copy_tree_r (")
+    copier = gimplify[start:gimplify.index("\n}\n", start)]
+    for token in ("tcc_type", "tcc_declaration", "tcc_constant",
+                  "SAVE_EXPR", "TARGET_EXPR", "BIND_EXPR"):
+        assert token in copier
+    assert "walk_tree (&expr, mostly_copy_tree_r, NULL, NULL);" in gimplify
+    assert "tree clobber = build_constructor (type, NULL);" in all_bytes[
+        "gcc/tree.cc"].decode()
+    assert "return src ? src->copy (ALONE_PASS_MEM_STAT) : NULL;" in all_bytes[
+        "gcc/vec.h"].decode()
+    assert "gimple_set_op (copy, i, unshare_expr (gimple_op (stmt, i)));" in all_bytes[
+        "gcc/gimple.cc"].decode()
 
     # Each tuple names independently inspected source allocations. Enumerate
     # flags and Q/D pairs only to check the symbolic sums and stated maxima.
@@ -154,13 +167,15 @@ def check_cleanup_transfers(all_bytes):
     assert max(c["copy_control_statements"] for c in main_cases) == 7
     assert max(c["switch_control_statements"] for c in main_cases) == 15
     return {
-        "scope": "O0 cleanup GIMPLE allocations; operand trees and later passes separate",
+        "scope": "O0 cleanup GIMPLE and selected simple operand copies; helper/container closure and later passes separate",
         "cf_precedes_eh": True,
         "implicit_return_cf_new_gimple": 2,
         "implicit_return_cf_new_label_declarations": 1,
         "simple_cleanup_copy_control_rows": copy_rows,
         "switch_cleanup_control_rows": switch_rows,
         "copy_bounds": {"cloned_statements": "(D+2)*C",
+                        "ordinary_operand_tree_nodes": "(D+2)*C",
+                        "operand_tree_slots": "(D+2)*C",
                         "other_statements": "2*Q+D+4",
                         "artificial_labels": "D+2"},
         "switch_bounds": {"new_statements": "11+3*Q+D",
@@ -175,6 +190,15 @@ def check_cleanup_transfers(all_bytes):
             "switch_statements": 15, "switch_temporaries": 1,
             "switch_labels": 6, "switch_cases": 3,
             "switch_integer_requests": 6, "goto_queue_capacity": 32},
+        "simple_operand_copy": {
+            "selected_shapes": ["VAR_DECL := CONSTRUCTOR(empty)",
+                                "stack_restore(pointer_VAR_DECL)"],
+            "ordinary_tree_nodes_per_copy": 1,
+            "ordinary_tree_operand_slots_per_copy": 1,
+            "String_payload_bytes": 0, "types": 0, "declarations": 0,
+            "constructor_elements": 0,
+            "maximum_cleanup_tuple_operands": 4,
+            "excludes": "full-body unsharing, debug-value expressions, remapping/traversal container costs"},
         "enumerated_arithmetic_cases": cases,
         "source_frontier_requires_manual_argument": True,
     }

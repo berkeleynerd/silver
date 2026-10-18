@@ -720,8 +720,49 @@ The checker enumerates the Boolean continuation cases and checks these sums
 against the separately stated formulas. It checks the pass order, copy gate,
 null Ada hook, and complete source identities. The manual source argument
 supplies the reachable frontier; enumeration is not a proof of GCC. Remaining
-tree operands, EH maps, CFG construction, RTL expansion and instruction/data
-sizes remain explicit composition work.
+EH maps, CFG construction, RTL expansion and instruction/data sizes remain
+explicit composition work. The simple cleanup operand copies close as follows.
+
+### Simple cleanup operand copies
+
+The selected BIND cleanup contains only `VAR_DECL := CONSTRUCTOR(empty)`
+clobbers and at most one `stack_restore(saved_pointer)` call. The clobber
+constructor has a null element vector (`tree.cc:2482–2488`); its LHS is the
+existing variable itself (`gimplify.cc:1738–1754`). The restore's one actual
+is the pointer temporary created by `build_stack_save_restore`
+(`gimplify.cc:1270–1282`). Its function operand is an ADDR_EXPR around the
+builtin FUNCTION_DECL (`gimple.cc:251–263`). No source expression tree is
+embedded in either shape. This statement concerns the selected cleanup bodies;
+it does not generalize to arbitrary GIMPLE operands or debug-value statements.
+
+`gimple_copy` calls `unshare_expr` on each operand (`gimple.cc:2307–2309`).
+That walker stops at declarations, types and constants; with null walker data
+it also stops at SAVE_EXPR, TARGET_EXPR and BIND_EXPR
+(`gimplify.cc:944–973,1096–1101`). The clobber thus copies exactly one empty
+CONSTRUCTOR and its null vector requires no allocation. The restore copies
+at most one ADDR_EXPR, stopping at the builtin declaration and reusing its
+actual pointer variable. `copy_tree_r` and `vec_safe_copy` implement these two
+cases (`tree-inline.cc:5735–5795`, `vec.h:863–868`). Each selected copy adds
+**at most one ordinary tree node and one expression-operand slot**, with no
+String payload, type, declaration or constructor-element allocation. `copy_node`
+does not add secondary allocations for either node kind (`tree.cc:1468–1547`).
+
+The subsequent local-declaration remapping creates no additional tree: these
+bodies have no labels, BINDs, SSA names or OpenMP clauses, and the variable
+lookup returns the original declaration (`tree-inline.cc:5861–6060`). The
+empty remapping map and traversal sets still use their ordinary container
+transfers; no cost is inferred to be zero merely because the map is empty.
+For the earlier cleanup bound, add at most **`(D+2)C` ordinary tree nodes**,
+hence at most **`3C`** for Main's outer scopes or **`2C`** for inner scopes.
+This is additive across scopes and preserves the earlier absence of recursive
+protected-body duplication.
+
+The selected cleanup tuple maximum is four operands: the one-actual restore
+uses `1+3`, a switch uses at most three destinations plus its index, a clobber
+uses two, and a label or goto uses one. GIMPLE tuple allocation, the switch
+temporary's declaration/layout helpers and traversal-container capacity remain
+separate transfers. The operand-copy result does not close generic folding or
+unsharing of the full Main body.
 
 ## EH output to initial control-flow graph
 

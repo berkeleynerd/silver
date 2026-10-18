@@ -989,6 +989,101 @@ LF line numbering; complete file identities checked.
 377:   line_table->default_range_bits = 0;
 ```
 
+## gcc/tree.cc:1468–1547
+```text
+1468: copy_node (tree node MEM_STAT_DECL)
+1469: {
+1470:   tree t;
+1471:   enum tree_code code = TREE_CODE (node);
+1472:   size_t length;
+1473:
+1474:   gcc_assert (code != STATEMENT_LIST);
+1475:
+1476:   length = tree_size (node);
+1477:   record_node_allocation_statistics (code, length);
+1478:   t = ggc_alloc_tree_node_stat (length PASS_MEM_STAT);
+1479:   memcpy (t, node, length);
+1480:
+1481:   if (CODE_CONTAINS_STRUCT (code, TS_COMMON))
+1482:     TREE_CHAIN (t) = 0;
+1483:   TREE_ASM_WRITTEN (t) = 0;
+1484:   TREE_VISITED (t) = 0;
+1485:
+1486:   if (TREE_CODE_CLASS (code) == tcc_declaration)
+1487:     {
+1488:       if (code == DEBUG_EXPR_DECL)
+1489: 	DECL_UID (t) = --next_debug_decl_uid;
+1490:       else
+1491: 	{
+1492: 	  DECL_UID (t) = allocate_decl_uid ();
+1493: 	  if (DECL_PT_UID_SET_P (node))
+1494: 	    SET_DECL_PT_UID (t, DECL_PT_UID (node));
+1495: 	}
+1496:       if ((TREE_CODE (node) == PARM_DECL || VAR_P (node))
+1497: 	  && DECL_HAS_VALUE_EXPR_P (node))
+1498: 	{
+1499: 	  SET_DECL_VALUE_EXPR (t, DECL_VALUE_EXPR (node));
+1500: 	  DECL_HAS_VALUE_EXPR_P (t) = 1;
+1501: 	}
+1502:       /* DECL_DEBUG_EXPR is copied explicitly by callers.  */
+1503:       if (VAR_P (node))
+1504: 	{
+1505: 	  DECL_HAS_DEBUG_EXPR_P (t) = 0;
+1506: 	  t->decl_with_vis.symtab_node = NULL;
+1507: 	}
+1508:       if (VAR_P (node) && DECL_HAS_INIT_PRIORITY_P (node))
+1509: 	{
+1510: 	  SET_DECL_INIT_PRIORITY (t, DECL_INIT_PRIORITY (node));
+1511: 	  DECL_HAS_INIT_PRIORITY_P (t) = 1;
+1512: 	}
+1513:       if (TREE_CODE (node) == FUNCTION_DECL)
+1514: 	{
+1515: 	  DECL_STRUCT_FUNCTION (t) = NULL;
+1516: 	  t->decl_with_vis.symtab_node = NULL;
+1517: 	}
+1518:     }
+1519:   else if (TREE_CODE_CLASS (code) == tcc_type)
+1520:     {
+1521:       TYPE_UID (t) = next_type_uid++;
+1522:       /* The following is so that the debug code for
+1523: 	 the copy is different from the original type.
+1524: 	 The two statements usually duplicate each other
+1525: 	 (because they clear fields of the same union),
+1526: 	 but the optimizer should catch that.  */
+1527:       TYPE_SYMTAB_ADDRESS (t) = 0;
+1528:       TYPE_SYMTAB_DIE (t) = 0;
+1529:
+1530:       /* Do not copy the values cache.  */
+1531:       if (TYPE_CACHED_VALUES_P (t))
+1532: 	{
+1533: 	  TYPE_CACHED_VALUES_P (t) = 0;
+1534: 	  TYPE_CACHED_VALUES (t) = NULL_TREE;
+1535: 	}
+1536:     }
+1537:     else if (code == TARGET_OPTION_NODE)
+1538:       {
+1539: 	TREE_TARGET_OPTION (t) = ggc_alloc<struct cl_target_option>();
+1540: 	memcpy (TREE_TARGET_OPTION (t), TREE_TARGET_OPTION (node),
+1541: 		sizeof (struct cl_target_option));
+1542:       }
+1543:     else if (code == OPTIMIZATION_NODE)
+1544:       {
+1545: 	TREE_OPTIMIZATION (t) = ggc_alloc<struct cl_optimization>();
+1546: 	memcpy (TREE_OPTIMIZATION (t), TREE_OPTIMIZATION (node),
+1547: 		sizeof (struct cl_optimization));
+```
+
+## gcc/tree.cc:2482–2488
+```text
+2482: build_clobber (tree type, enum clobber_kind kind)
+2483: {
+2484:   tree clobber = build_constructor (type, NULL);
+2485:   TREE_THIS_VOLATILE (clobber) = true;
+2486:   CLOBBER_KIND (clobber) = kind;
+2487:   return clobber;
+2488: }
+```
+
 ## gcc/tree.cc:2616–2636
 ```text
 2616: build_string (unsigned len, const char *str /*= NULL */)
@@ -3475,6 +3570,16 @@ LF line numbering; complete file identities checked.
 660: /* Convenience wrapper functions to use when dealing with pointers to
 ```
 
+## gcc/vec.h:863–868
+```text
+863: template<typename T, typename A>
+864: inline vec<T, A, vl_embed> *
+865: vec_safe_copy (vec<T, A, vl_embed> *src CXX_MEM_STAT_INFO)
+866: {
+867:   return src ? src->copy (ALONE_PASS_MEM_STAT) : NULL;
+868: }
+```
+
 ## gcc/vec.h:1394–1415
 ```text
 1394: vec<T, A, vl_embed>::embedded_size (unsigned alloc)
@@ -5733,6 +5838,50 @@ LF line numbering; complete file identities checked.
 1223:
 ```
 
+## gcc/gimplify.cc:944–973
+```text
+944: mostly_copy_tree_r (tree *tp, int *walk_subtrees, void *data)
+945: {
+946:   tree t = *tp;
+947:   enum tree_code code = TREE_CODE (t);
+948:
+949:   /* Do not copy SAVE_EXPR, TARGET_EXPR or BIND_EXPR nodes themselves, but
+950:      copy their subtrees if we can make sure to do it only once.  */
+951:   if (code == SAVE_EXPR || code == TARGET_EXPR || code == BIND_EXPR)
+952:     {
+953:       if (data && !((hash_set<tree> *)data)->add (t))
+954: 	;
+955:       else
+956: 	*walk_subtrees = 0;
+957:     }
+958:
+959:   /* Stop at types, decls, constants like copy_tree_r.  */
+960:   else if (TREE_CODE_CLASS (code) == tcc_type
+961: 	   || TREE_CODE_CLASS (code) == tcc_declaration
+962: 	   || TREE_CODE_CLASS (code) == tcc_constant)
+963:     *walk_subtrees = 0;
+964:
+965:   /* Cope with the statement expression extension.  */
+966:   else if (code == STATEMENT_LIST)
+967:     ;
+968:
+969:   /* Leave the bulk of the work to copy_tree_r itself.  */
+970:   else
+971:     copy_tree_r (tp, walk_subtrees, NULL);
+972:
+973:   return NULL_TREE;
+```
+
+## gcc/gimplify.cc:1096–1101
+```text
+1096: tree
+1097: unshare_expr (tree expr)
+1098: {
+1099:   walk_tree (&expr, mostly_copy_tree_r, NULL, NULL);
+1100:   return expr;
+1101: }
+```
+
 ## gcc/gimplify.cc:1270–1282
 ```text
 1270: build_stack_save_restore (gcall **save, gcall **restore)
@@ -7021,6 +7170,23 @@ LF line numbering; complete file identities checked.
 3349: }
 ```
 
+## gcc/gimple.cc:251–263
+```text
+251: gimple_build_call_1 (tree fn, unsigned nargs)
+252: {
+253:   gcall *s
+254:     = as_a <gcall *> (gimple_build_with_ops (GIMPLE_CALL, ERROR_MARK,
+255: 					     nargs + 3));
+256:   if (TREE_CODE (fn) == FUNCTION_DECL)
+257:     fn = build_fold_addr_expr (fn);
+258:   gimple_set_op (s, 1, fn);
+259:   gimple_call_set_fntype (s, TREE_TYPE (TREE_TYPE (fn)));
+260:   gimple_call_reset_alias_info (s);
+261:   return s;
+262: }
+263:
+```
+
 ## gcc/gimple.cc:1563–1577
 ```text
 1563: gimple_seq_copy (gimple_seq src)
@@ -7171,7 +7337,72 @@ LF line numbering; complete file identities checked.
 2333: /* Move OLD_STMT's vuse and vdef operands to NEW_STMT, on the assumption
 ```
 
-## gcc/tree-inline.cc:5861–5940
+## gcc/tree-inline.cc:5735–5795
+```text
+5735: copy_tree_r (tree *tp, int *walk_subtrees, void *data ATTRIBUTE_UNUSED)
+5736: {
+5737:   enum tree_code code = TREE_CODE (*tp);
+5738:   enum tree_code_class cl = TREE_CODE_CLASS (code);
+5739:
+5740:   /* We make copies of most nodes.  */
+5741:   if (IS_EXPR_CODE_CLASS (cl)
+5742:       || code == TREE_LIST
+5743:       || code == TREE_VEC
+5744:       || code == TYPE_DECL
+5745:       || code == OMP_CLAUSE)
+5746:     {
+5747:       /* Because the chain gets clobbered when we make a copy, we save it
+5748: 	 here.  */
+5749:       tree chain = NULL_TREE, new_tree;
+5750:
+5751:       if (CODE_CONTAINS_STRUCT (code, TS_COMMON))
+5752: 	chain = TREE_CHAIN (*tp);
+5753:
+5754:       /* Copy the node.  */
+5755:       new_tree = copy_node (*tp);
+5756:
+5757:       *tp = new_tree;
+5758:
+5759:       /* Now, restore the chain, if appropriate.  That will cause
+5760: 	 walk_tree to walk into the chain as well.  */
+5761:       if (code == PARM_DECL
+5762: 	  || code == TREE_LIST
+5763: 	  || code == OMP_CLAUSE)
+5764: 	TREE_CHAIN (*tp) = chain;
+5765:
+5766:       /* For now, we don't update BLOCKs when we make copies.  So, we
+5767: 	 have to nullify all BIND_EXPRs.  */
+5768:       if (TREE_CODE (*tp) == BIND_EXPR)
+5769: 	BIND_EXPR_BLOCK (*tp) = NULL_TREE;
+5770:     }
+5771:   else if (code == CONSTRUCTOR)
+5772:     {
+5773:       /* CONSTRUCTOR nodes need special handling because
+5774:          we need to duplicate the vector of elements.  */
+5775:       tree new_tree;
+5776:
+5777:       new_tree = copy_node (*tp);
+5778:       CONSTRUCTOR_ELTS (new_tree) = vec_safe_copy (CONSTRUCTOR_ELTS (*tp));
+5779:       *tp = new_tree;
+5780:     }
+5781:   else if (code == STATEMENT_LIST)
+5782:     /* We used to just abort on STATEMENT_LIST, but we can run into them
+5783:        with statement-expressions (c++/40975).  */
+5784:     copy_statement_list (tp);
+5785:   else if (TREE_CODE_CLASS (code) == tcc_type)
+5786:     *walk_subtrees = 0;
+5787:   else if (TREE_CODE_CLASS (code) == tcc_declaration)
+5788:     *walk_subtrees = 0;
+5789:   else if (TREE_CODE_CLASS (code) == tcc_constant)
+5790:     *walk_subtrees = 0;
+5791:   return NULL_TREE;
+5792: }
+5793:
+5794: /* The SAVE_EXPR pointed to by TP is being copied.  If ST contains
+5795:    information indicating to what new SAVE_EXPR this one should be mapped,
+```
+
+## gcc/tree-inline.cc:5861–6060
 ```text
 5861: replace_locals_op (tree *tp, int *walk_subtrees, void *data)
 5862: {
@@ -7253,10 +7484,73 @@ LF line numbering; complete file identities checked.
 5938:   /* Keep iterating.  */
 5939:   return NULL_TREE;
 5940: }
-```
-
-## gcc/tree-inline.cc:6008–6060
-```text
+5941:
+5942:
+5943: /* Called via walk_gimple_seq by copy_gimple_seq_and_replace_local.
+5944:    Using the splay_tree pointed to by ST (which is really a `splay_tree'),
+5945:    remaps all local declarations to appropriate replacements in gimple
+5946:    statements. */
+5947:
+5948: static tree
+5949: replace_locals_stmt (gimple_stmt_iterator *gsip,
+5950: 		     bool *handled_ops_p ATTRIBUTE_UNUSED,
+5951: 		     struct walk_stmt_info *wi)
+5952: {
+5953:   copy_body_data *id = (copy_body_data *) wi->info;
+5954:   gimple *gs = gsi_stmt (*gsip);
+5955:
+5956:   if (gbind *stmt = dyn_cast <gbind *> (gs))
+5957:     {
+5958:       tree block = gimple_bind_block (stmt);
+5959:
+5960:       if (block)
+5961: 	{
+5962: 	  remap_block (&block, id);
+5963: 	  gimple_bind_set_block (stmt, block);
+5964: 	}
+5965:
+5966:       /* This will remap a lot of the same decls again, but this should be
+5967: 	 harmless.  */
+5968:       if (gimple_bind_vars (stmt))
+5969: 	{
+5970: 	  tree old_var, decls = gimple_bind_vars (stmt);
+5971:
+5972: 	  for (old_var = decls; old_var; old_var = DECL_CHAIN (old_var))
+5973: 	    if (!can_be_nonlocal (old_var, id)
+5974: 		&& ! variably_modified_type_p (TREE_TYPE (old_var), id->src_fn))
+5975: 	      remap_decl (old_var, id);
+5976:
+5977: 	  gcc_checking_assert (!id->prevent_decl_creation_for_types);
+5978: 	  id->prevent_decl_creation_for_types = true;
+5979: 	  gimple_bind_set_vars (stmt, remap_decls (decls, NULL, id));
+5980: 	  id->prevent_decl_creation_for_types = false;
+5981: 	}
+5982:     }
+5983:
+5984:   /* Keep iterating.  */
+5985:   return NULL_TREE;
+5986: }
+5987:
+5988: /* Create a copy of SEQ and remap all decls in it.  */
+5989:
+5990: static gimple_seq
+5991: duplicate_remap_omp_clause_seq (gimple_seq seq, struct walk_stmt_info *wi)
+5992: {
+5993:   if (!seq)
+5994:     return NULL;
+5995:
+5996:   /* If there are any labels in OMP sequences, they can be only referred to in
+5997:      the sequence itself and therefore we can do both here.  */
+5998:   walk_gimple_seq (seq, mark_local_labels_stmt, NULL, wi);
+5999:   gimple_seq copy = gimple_seq_copy (seq);
+6000:   walk_gimple_seq (copy, replace_locals_stmt, replace_locals_op, wi);
+6001:   return copy;
+6002: }
+6003:
+6004: /* Copies everything in SEQ and replaces variables and labels local to
+6005:    current_function_decl.  */
+6006:
+6007: gimple_seq
 6008: copy_gimple_seq_and_replace_locals (gimple_seq seq)
 6009: {
 6010:   copy_body_data id;
