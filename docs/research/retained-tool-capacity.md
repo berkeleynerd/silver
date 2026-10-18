@@ -181,10 +181,51 @@ layout and both helpers. The initial warning-map condition is now joined to
 the aggregate; all 95 focused offline cases pass. The same source argument
 establishes one empty elaboration function and two helpers, with three
 non-Main function-definition increments and no additional emitted function.
-Synthetic-function storage, original imported construction, empty-elaboration
-registration and counter-to-emission joins remain open. The five broader
-source-family conditions remain unknown and whole literal capacity remains
-false. These are reviewed component closures, not a complete useful rule.
+At that warning checkpoint, synthetic-function storage, original imported
+construction, empty-elaboration registration and counter-to-emission joins
+remained open, with five unknown source-family conditions. The subsequent
+storage/counter attachment below closes part of that scope; whole literal
+capacity remains false.
+
+The [synthetic-storage/collector attachment review](../reviews/review-literal-storage-5706684775.md)
+accepts the collector extension and its scoped integration. Collector callbacks
+add zero GGC events and at most one 104-byte ordinary scratch request per
+value-expression marker call; actual collection counts and total backing remain
+unclosed. Integration with the
+[counter/emission review](../reviews/review-literal-counter-emission-bc69773b78.md)
+then exposed [#132](https://github.com/berkeleynerd/silver/issues/132): the
+synthetic-storage slice omitted six return-register RTX requests, despite the
+helpers never reaching RTL expansion. Correction `316f40e7b2` raises its subtotal
+from 167 to **173 GGC events**, with 13,480 caller bytes and 17,408 rounded-slot
+bytes; eight ordinary requests remain unchanged. The earlier numerical
+acceptance is historical and superseded by this correction.
+
+The [counter/emission argument](retained-literal-counter-emission.md) establishes
+zero empty-elaboration symbol registrations, function numbers 0/1/2/3 with
+Main retaining `.LFB1`/`.LFE1`, and cumulative symbol registrations <=C+6.
+Attachment `466f515fe8` joins those exact source/count/frontier interfaces and
+the corrected storage leaf. It restores the **local graph/summary condition**;
+four separate pool/whole-stream/GAS/link conditions remain unknown. All 147
+focused aggregate checks pass. The
+[independent repair/attachment review](../reviews/review-literal-counter-attachment-466f515fe8.md)
+accepts both frozen targets; timing clarification `739e23259e` preserves the
+helpers' presence during Main's initial lowering and removal before ordinary IPA.
+No complete global-counter, collector, imported-allocation or whole-pipeline
+claim follows. The [original helper-construction packet](retained-literal-original-string-storage.md),
+frozen at `db777735c4` and
+[independently accepted](../reviews/review-literal-original-string-storage-db777735c4.md),
+includes all four substitution traversals and discarded folding candidates:
+94 direct GGC events and two ordinary requests. Attachment `08b3656268`
+derives its local name bound from the selected Main filename and the
+Ada-initialized `_ada_main` global name; it passes 177 aggregate checks. The
+[attachment review](../reviews/review-literal-original-attachment-08b3656268.md)
+accepts the source/capacity joins. Its reporting finding
+[#134](https://github.com/berkeleynerd/silver/issues/134) is corrected: 304
+directly checked files comprise 301 external sources/headers and three
+repository inputs; the renamed result field preserves that mixed population.
+Broader original Standard.String,
+Main/elaboration, global counters and shared backing remain open; no complete
+imported allocation total follows from the two attached slices.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -277,9 +318,36 @@ now resolves that semantic recurrence's excessive bound for this retained pair.
 It covers every metadata exclusion set, with 45 uniformly eligible definitions
 and 85 possible symbol-matched hits. Output root coordinates do not exceed the
 inputs: maximum root mass 99, goal mass 73 and at most 235 kernel fresh
-identifiers. These are upper bounds, not observed native hit counts. Hidden
+identifiers. These are bounds for the captured refinement model, not observed
+native hit counts. Its attachment to returned shared-table representations
+requires the correspondence below. Hidden
 substitution/type/validator work, other tags and shared counters/caches, other
 input/driver pairs, later transforms and printing remain required joins.
+
+The [operational inlining packet](retained-why-inline-operations.md), frozen
+at `b68756eea4`, supplies captured-input inventories and conditional table
+transfers for that pair. Its
+[independent review](../reviews/review-why-inline-operations-b68756eea4.md)
+requires correction under [#133](https://github.com/berkeleynerd/silver/issues/133):
+hashcons can return an older representation that downstream validation then
+traverses. Strict semantic equality does not bound its stored substitution maps.
+The claimed 36-key, 21,483-occurrence and 88,982,586-hidden-entry bounds therefore
+need a selectable-representative premise, beyond the acknowledged collision
+comparand input. This witness does not refute the 1,145 identifier arithmetic.
+Correction `e150a8483f` makes every representation-dependent full-transform
+number, including 1,145 identifier registrations and 669 type requests,
+conditional on a source-checkable representative contract. Actual coverage
+and envelope remain null; the local established flag remains false. Numeric
+hypotheses cannot certify coverage. The
+[focused correction review](../reviews/review-why-inline-representatives-e150a8483f.md)
+accepts this interface repair without a material finding.
+The captured graph contains 244 task-declaration roots, without the shared
+declaration table. The next missing input is its complete selectable live
+representative state, joined to weak-table decoding, local insertion closure
+and actual opened-body/eligibility correspondence. Initial counters/backing,
+runtime allocation/collector composition, other entries and downstream
+consumers remain open. Focused offline correction checks pass; no native
+capture was repeated.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

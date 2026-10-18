@@ -525,3 +525,105 @@ construction, shared lifetimes/counters, producer preparation/consumers,
 parent/launch composition, full grammar and complete-rule comparison/review
 remain. Oracle, installed tools and production admission are unchanged.
 CLI memory is unavailable and was not updated.
+
+## Round 8 — synthetic storage, graph closure and hidden Why3 operations
+
+Date: 2026-10-18. Published starting checkpoint: `28697404fa`.
+#119 remains the active goal. The owner reaffirmed continuing it after
+considering deferral until a broader language surface exists; its scope remains
+the current Silver constructs under proposed capacity relaxation. Model/effort
+entries below are selected settings; runtime confirmation and token/monetary
+costs are unavailable. No lead-model switch is claimed.
+
+| Work | Selected model / effort | Result |
+| --- | --- | --- |
+| Synthetic-function storage | GPT-6 Astra / Extra High | Initial `5706684775`, corrected by `316f40e7b2`: 173 direct GGC events and eight ordinary requests |
+| Collector callback extension and first attachment | Lead; runtime unavailable | `15f41d0d1a` / `51e289378c`: zero additional GGC callback events, 104 ordinary bytes per marker invocation, explicit unknown total lifetime |
+| Storage/callback/first-attachment review | GPT-6 Astra / Extra High | `11fc58de6e` accepts the frozen scopes; its 167-event numerical acceptance is superseded by the later #132 correction |
+| Counter/emission source and review | GPT-6 Astra / Extra High | `bc69773b78`, accepted by `0e83b82f98`; source-note clarification `733c3f7000` |
+| Counter attachment and corrected storage integration | GPT-6.1 Sol / Extra High | `466f515fe8`: exact joins, one restored graph condition, four remaining unknowns; Astra Extra High review `5e94fb2525` accepts it and the #132 correction |
+| Hidden Why3 operational transfer and correction | GPT-6 Astra / Extra High | `b68756eea4`, review `78db8ca58e`, correction `e150a8483f`, accepted by `c8f17d51f5`; actual representative coverage remains uninstantiated |
+| Original helper construction and source review | GPT-6 Astra / Extra High | `db777735c4`: full two-helper constructor interval, including four substitution traversals; accepted by `ec95df9574` |
+| Original helper aggregate attachment | GPT-6.1 Sol / Extra High | `08b3656268`: exact source/interface and generated-name join; 177 checks pass; Astra Extra High review `ca9e2cbd4c` accepts the joins and identifies reporting-only #134; `f1fdff5567` confirms corrections `62471752d9` / `69a691dc99` |
+
+Integration exposed [#132](https://github.com/berkeleynerd/silver/issues/132).
+The counter reviewer distinguished no RTL expansion from return-register RTX
+construction; the lead checked this against the accepted storage slice, and
+a separate Astra worker confirmed three allocating ABI queries per helper.
+Six 24-byte REG requests were missing. The corrected slice has 173 events,
+13,480 caller bytes and 17,408 rounded-slot bytes. Ordinary requests,
+identifier demands and finalizers are unchanged. Historical review results
+are retained with the explicit corrective disposition. This is measured
+review/integration rework, not evidence of production failure or a weaker rule.
+
+The counter join establishes zero empty-elaboration registrations, Main's saved
+function number 1 and `.LFB1`/`.LFE1`, and cumulative registrations <=C+6 with
+next UID <=C+7. The Sol attachment assesses each formerly unknown condition
+separately. The body/registration frontier now supplies the local graph/summary
+slice; pool lifetime, complete stream, GAS and link input premises remain open.
+Whole imported allocation, global counters, collector lifetime and complete
+literal capacity remain unestablished. The conservative 5,000-call relocation
+failure is retained. The accepted original-helper slice now includes all four
+substitution traversals and discarded folder candidates: 94 direct GGC events,
+6,832+2P caller bytes and two ordinary requests/80 bytes. Its source review
+confirms the complete local interval, separately from broader original
+Standard.String/Main/elaboration construction. The Sol attachment derives the
+local cleaned-component P from the selected filename and actual Ada-assigned
+global name, distinct from the aggregate path envelope. This required checking
+Ada's writer as well as GCC's later name updates. All four unknown aggregate
+conditions and complete imported allocation/counter/collector residuals remain.
+
+The Why3 packet attempted to extend the retained Input_Is_Valid/cvc5 pair beyond
+semantic inlining. Its reviewer found [#133](https://github.com/berkeleynerd/silver/issues/133):
+hashcons can return older stored representations that enter later traversal,
+not merely collision comparison. A source-level 37-key delayed-map witness
+preserves small opened semantics while exceeding the claimed 36-key envelope.
+Thus its 21,483 stored-occurrence and 88,982,586 hidden-entry bounds need an
+additional representative premise. The witness does not itself refute the
+1,145 identifier arithmetic. Correction `e150a8483f` makes that and the other
+representation-dependent numbers conditional on an explicit, uninstantiated
+contract. It requires stored map/type/attribute invariants and actual
+post-opening eligibility/body correspondence; numeric hypotheses cannot turn
+on coverage or the local established flag. Its 37/128-key negative cases
+select the old representation and traverse 38/129 saved values after opening.
+The existing capture has no shared declaration-table root. Complete selectable
+state plus local insertion closure is the next missing projection. Pure
+table/counter transfers remain useful; initial shared state,
+allocation/collector composition, other entries and later consumers remain
+required. No complete preparation capacity is established.
+
+Validation is focused offline evidence: collector 17 cases in 0.022742063s;
+initial storage 36 cases, corrected storage 42 cases in 0.213s; counter 134 cases
+in 0.190464949s; first attachment 109 cases in 4.907963480s; corrected counter
+attachment 147 cases in 4.474777033s, with default generation in 3.367727894s;
+Why3 initial replay 0.261118s and corrective checks 0.354466s; original helper
+36 checks in 0.108s; final helper attachment 177 checks in 4.927832740s and
+default generation in 3.604851683s. Successful earlier results were reused; affected aggregate
+checks were repeated only after changed source/interfaces. The latest aggregate
+checks 145 repository inputs and 304 directly checked files (301 external
+source/header files and three repository inputs);
+overlapping nested inventories are not additive. Finding #134 corrected the
+former external-only label for this mixed population, including the earlier
+300-file wording (297 external plus the same three repository inputs). A
+3.192697962s result regeneration verified that only the count key and run/
+workspace attribution changed; the 177-case suite was not repeated.
+**New native executions in these Round 8 packets: zero.**
+No solver, broad proof/build/test, clean rebuild or capture was run.
+
+Reported worker/review intervals: original synthetic storage 1,100s; first
+storage/callback source-and-attachment assessment 225s before report preparation;
+counter worker 451.227522s and review 256s; counter/correction attachment review
+259s; Why3 derivation through packet
+preparation 1,029.154808s, initial review 635s, corrective worker 591.146473s and
+repair review 144s; original-helper source/attachment reviews 304s/182s, plus
+31s for the count-label correction confirmation. The original-constructor
+worker began at 20:58:57 UTC, including the separately committed native
+return-register correction, and completed its focused checks at 21:18:46 UTC.
+The native register-allocation corrective worker interval was within
+20:58:57–21:02:21 UTC; the attachment's full interval was not captured.
+These intervals overlap, include different activities and are not additive
+team runtime or model-inference cost. The mixed-model round closes a graph
+condition and catches both an allocation omission and a shared-state scope gap;
+it does not establish a causal
+model-quality comparison or near-completion of #119. CLI memory is unavailable
+and was not updated.

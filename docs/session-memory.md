@@ -21,6 +21,13 @@ records the existing closure order: null conjunction established, literal/full
 grammar conjunction unfinished, then complete-rule comparison and review.
 Status and continuation remain on #119; CLI memory is unavailable.
 
+After considering whether to defer capacity work until a broader language
+surface exists, the owner reaffirmed **“I agree. Continue with 119.”** Its
+grammar scope is the currently supported Silver constructs and their permitted
+combinations under the proposed capacity relaxation, not all SPARK or future
+user-defined procedures and general arrays. The existing capacity-rule
+completion criteria and later production dependency remain unchanged.
+
 ## 2026-10-18 — Portable model policy and host settings
 
 After reviewing the proposed model/delegation policy, the owner instructed:
