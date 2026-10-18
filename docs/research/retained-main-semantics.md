@@ -6,8 +6,9 @@ GNATprove semantic/light-expansion work. It supplies a source-counted bound on
 Main's allocated node identities, including entities and discarded syntax,
 for the producer's `A_Main` input. **It does not supply a complete frontend
 table/byte bound, whole-process bound or admission predicate.**
-The subsequent aggregate also closes Main's scalar range/comparison query
-invocations and their Uint/digit contribution under the stated source shapes.
+The subsequent aggregates also close Main's scalar range/comparison query
+invocations, literal/subtype and ordinary freeze-layout Uint contributions,
+and semantic syntax-list headers under the stated source shapes.
 Native expansion is a separate process contribution; no production, proof,
 language, Oracle or tool-pin file changes here.
 
@@ -294,9 +295,9 @@ The bound is `A_freeze <= E_Main`, with `E_Main` supplied by the entity
 component. It deliberately includes object and scope entities that may never
 need a freeze node. It does not include dependency entities; their allocations
 belong to the fixed contribution. `Add_To_Result` uses `Append_New_To`
-(`freeze.adb:2974–2977`), so list headers/links and recursive concatenation of
-freeze-result lists need their own table charge, not a claim of one list per
-entity inferred from the node count.
+(`freeze.adb:2974–2977`). The independent list-constructor argument below
+charges headers and recursive concatenation; the node count alone would not
+justify their bound.
 
 ### Call and variable-reference markers are live in light mode
 
@@ -637,25 +638,141 @@ U_eval <= 2T_ar + 6(O+U) + 4H_len.
 digit_words_eval <= 3U_eval.
 ```
 
-These three disjoint families can be added:
-`U_query + U_discrete_size + U_eval`. Their ordinary Uint primitive result
-costs include discarded temporaries; no release/cache credit is required.
-Literal-subtype bookkeeping and remaining freeze size/alignment operations
-still need complete numeric caller/resource coverage. Scanner integer-token
-Uints are a separate existing component. The subtotal is therefore still
-explicitly **not the complete Main Uint bound**.
+### Literal/subtype bookkeeping and ordinary freeze layout
+
+Let `L_res <= S+A+3P` be the literal-resolution allowance established by the
+[entity derivation](retained-frontend-entities.md#literal-allocation-and-re-entry).
+Each Set_String_Literal_Subtype converts its Nat length once with UI_From_Int;
+its lower bound is the already static Standard.String value 1, so its dynamic
+lower-bound branch is absent (`sem_res.adb:13205–13337`). There are at most
+`K_literal <= S+3A+5P` such calls, including direct concat-operand setters.
+
+Resolve_String_Literal invokes Eval_String_Literal at most once per resolution
+(`sem_res.adb:12039–12322`). Eval_String_Literal calls String_Type_Len on its
+**base** type, Standard.String, which computes `High-Low+1`: at most three
+Uint appends. Its subsequent `Len > String_Type_Len(Bas)` is a mixed Int/Uint
+comparison; UI_Gt converts Len with UI_From_Int and may allocate one more entry
+(`sem_eval.adb:4052–4167,6571–6584`; `uintp.adb:1683–1696`). Treating every
+numeric comparison as allocation-free would miss this cost. Character checks
+either return for Standard.Character's complete range or convert printable
+ASCII codes, which fit Uint's direct representation. Late initializer copies
+retain the analyzed literal and subtype and do not re-enter these helpers.
+Consequently
+
+```text
+U_literal <= K_literal + 4L_res <= 5S+7A+17P.
+digit_words_literal <= 3U_literal.
+```
+
+The magnitude allowance is three base-32768 digits: literal lengths and the
+Standard.String index computation fit the signed-Int/Integer domain under the
+separate String representation conditions. Check_String_Literal_Length's
+other call site requires a qualified expression, excluded here
+(`sem_eval.adb:688–700,3374`).
+
+On first freeze, Check_Compile_Time_Size performs at most one multiplication
+for a literal subtype and at most `high-low+1` plus one multiplication for a
+one-dimensional static ordinary String subtype. Its elementary-type and
+unconstrained-array branches return without numeric allocation; recursive
+component visits reach Standard.Character. Its alternate pre-freeze caller
+requires generic scope (`freeze.adb:750–912,7064,8143`). Thus
+
+```text
+U_freeze_size <= 4(D_lit+D_alias)+K_literal <= 4D_s+K_literal.
+digit_words_freeze_size <= 3U_freeze_size.
+```
+
+The bit-size product is at most `8*Integer'Last`, still below 2^35 and hence
+within three digits. The mixed comparison with System_Max_Integer_Size converts
+only that small fixed target size, not the potentially large product.
+
+The rest of the ordinary Main layout paths add no table-backed Uint values
+on the selected byte-storage targets (`System_Storage_Unit=8`):
+
+- Scalar subtypes inherit Integer's 32-bit Esize; their RM_Size is at most 32.
+  Layout_Type's size/alignment values, divisions and conversions are therefore
+  small direct Uints. The separate Set_Discrete_RM_Size cost remains charged
+  above (`layout.adb:358–445,601–664,939–1050`).
+- Standard.String starts with unknown Esize, component size 8 and alignment 1
+  (`cstand.adb:916–937`). Constrain_Array and Copy_Array_Subtype_Attributes copy
+  that Esize; Set_Size_Info copies Esize and alignment, not a newly computed
+  size (`sem_ch3.adb:14440–14484,15790–15807`; `sem_util.adb:29103–29119`).
+  Check_Compile_Time_Size may set RM_Size, never Esize. No packing, full-access
+  or representation clause enters Main, so ordinary String subtype layout
+  leaves Esize unknown. Adjust_Esize_Alignment consequently returns before its
+  allocating mod/division arithmetic (`layout.adb:72–82,445–664`;
+  `freeze.adb:4090–4103`). Literal-subtype Layout_Type clears size and returns.
+- Layout_Object is null. Check_Unsigned_Type reads existing static bounds or
+  their ancestor/base bounds and compares with the small direct value zero;
+  Freeze_Static_Object traverses existing bounds/types and sets flags
+  (`layout.adb:225–231`; `freeze.adb:2418–2491,10223–10390`).
+
+Scope_Depth is also a Uint, but nested E_Loop scopes copy the enclosing depth;
+they do not add one. Main's ordinary library-procedure depth is 1, and all
+admitted nested loops inherit it (`sem_ch8.adb:9890–9930`). This removes a
+potential numeric contribution, **not the scope-stack entry demand**.
+
+The five disjoint numeric families can be added:
+
+```text
+U_closed = U_query + U_discrete_size + U_eval + U_literal + U_freeze_size.
+digit_words_closed <= k U_query
+  + 285T_size + 3(U_eval+U_literal+U_freeze_size).
+```
+
+Their ordinary Uint primitive result costs include discarded temporaries; no
+release/cache credit is required. Scanner integer-token Uints are a separate
+existing component. Other semantic bookkeeping and diagnostic/value-cache
+routes still require a complete numeric caller inventory, so this is explicitly
+**not the complete Main Uint bound**.
+
+## Semantic syntax-list headers
+
+Freeze_Entity initializes Result to No_List. On Main's ordinary entities, the
+only reached Add_To_Result call appends its own freeze node; the other sites
+require record/access components, a class-wide type, or an imported subprogram
+wrapper (`freeze.adb:2893,2974–2977,5202,6496,7389,8285`). The first successful
+freeze marks the entity frozen before recursively freezing dependencies. Each
+Main entity can therefore cause at most one lazy result-header allocation.
+Already-frozen calls return No_List, except a subtype's forwarding to its still
+unfrozen base, whose allocation is charged to that base's first visit.
+
+Freeze_And_Append adopts a nonempty child's header when its result is empty,
+otherwise Append_List relinks existing nodes and empties the child's header;
+neither operation creates another header (`freeze.adb:2803–2825`;
+`nlists.adb:189–275`). Freeze_Before/Freeze_All insert those lists directly,
+without creating singleton wrappers. Insert_Actions likewise adopts or splices
+the supplied list on the reached declaration, statement, short-circuit and
+elsif routes (`exp_util.adb:8000–8450`). Its singleton Insert_Action entry does
+allocate one list, already counted for structural actions and each marker.
+The generic-entity empty-list constructor and generic wrappers are excluded.
+
+Hence the additional Main semantic syntax-list header count is
+
+```text
+L_sem <= L_struct + E_Main + C_lib + N_ref
+      <= R+2D_lit+D_alias+G + E_Main + C_lib+N_ref
+      <= 1+D+2R+4D_s+7F+K_literal+C_lib+N_ref.
+```
+
+This counts abandoned headers after splicing as well as live headers. Add the
+parser's syntax-list allocation count separately. Nlists' Next_Node/Prev_Node
+arrays have one entry per allocated node identity, already connected through
+A_Main; they are not one extra allocation per append or splice
+(`nlists.adb:125–132`). Element lists, scope stacks and elaboration maps are
+different resources and do not follow from L_sem. Main-triggered first freezing
+of fixed external entities belongs to the separate dependency contribution.
 
 ## Remaining resource obligations
 
 Remaining whole-frontend obligations are:
 
-1. **Direct numeric helpers and mutations.** Connect literal/subtype and
-   remaining layout Uint work outside the closed query, discrete-size and
-   evaluator contributions above. These operations are not made free by the
-   query envelope.
+1. **Other semantic numeric helpers and mutations.** Close the remaining
+   numeric caller inventory beyond the five named families, including any
+   diagnostic/value-cache routes. The query envelope does not make them free.
    Keep overload tables, value caches and per-kind growing mutations distinct
    from node identities. One identity bound is not a slot-event bound.
-2. **Freeze/marker auxiliary storage.** Charge freeze-result lists, scope-stack
+2. **Freeze/marker auxiliary storage.** Charge scope-stack
    operations, elaboration maps/sets and traversal stacks. Their ordinary syntax
    nodes are covered above; it would be incorrect to infer their complete
    storage cost from that node-identity count.

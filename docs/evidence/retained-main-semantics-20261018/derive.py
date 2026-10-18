@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check pinned source and reproduce Main node/query equations.
+"""Check pinned source and reproduce Main node/query/list equations.
 
 No compiler/prover invocation. This does not prove semantic caller coverage,
 the equations' soundness, or source-to-installed-tool correspondence.
@@ -18,31 +18,35 @@ RANGES = {
                    (3810, 3920), (3978, 4048), (4620, 4913), (5071, 5654),
                    (6112, 6127), (6283, 6455), (6595, 6620),
                    (8044, 8054), (8118, 8165), (10930, 11190)],
-    "cstand.adb": [(1396, 1407)],
+    "cstand.adb": [(916, 937), (1396, 1407)],
     "exp_ch4.adb": [(10217, 10256)],
     "exp_spark.adb": [(120, 204), (601, 766), (772, 881), (896, 946), (1008, 1023),
                       (1138, 1254)],
-    "exp_util.adb": [(5873, 6012), (7984, 7997), (8143, 8191), (8290, 8417),
+    "exp_util.adb": [(5873, 6012), (7984, 8450),
                      (10664, 10711), (12619, 12723),
                      (12761, 12824), (13102, 13111)],
     "expander.adb": [(105, 127)],
-    "freeze.adb": [(750, 912), (2974, 2977), (3641, 4276), (4282, 4605),
-                   (4748, 5094), (6536, 6550), (6803, 6810), (8265, 8283),
+    "freeze.adb": [(750, 912), (2418, 2491), (2803, 2893), (2974, 2977),
+                   (3641, 4276), (4282, 4605), (4748, 5094), (5178, 5204),
+                   (6445, 6550), (6803, 6810), (7054, 7067), (7360, 7400),
+                   (8143, 8146), (8265, 8285),
                    (10223, 10390), (10402, 10771)],
-    "layout.adb": [(225, 664), (900, 933)],
+    "layout.adb": [(72, 82), (225, 664), (900, 1050)],
+    "nlists.adb": [(125, 132), (189, 275), (777, 864)],
     "sem.adb": [(107, 116), (634, 640)],
     "sem_attr.adb": [(8308, 8405), (9717, 9751), (9898, 9970), (13600, 13618)],
     "sem_ch3.adb": [(4820, 4855), (5138, 5184), (5436, 5453), (6340, 6390),
-                    (14339, 14484), (15317, 15500), (19121, 19198),
+                    (14339, 14484), (15317, 15500), (15790, 15807), (19121, 19198),
                     (20478, 20761), (22588, 22734), (23676, 23707)],
     "sem_ch5.adb": [(1020, 1035), (3295, 3311), (3430, 3625),
                     (3962, 3979), (4050, 4117), (4523, 4595),
                     (4868, 4886)],
     "sem_ch6.adb": [(3738, 3764), (5440, 5623), (8934, 8946)],
-    "sem_ch8.adb": [(4362, 4400), (7107, 7130), (7781, 7805)],
+    "sem_ch8.adb": [(4362, 4400), (7107, 7130), (7781, 7805), (9890, 9962)],
     "sem_ch10.adb": [(989, 1042)],
     "sem_ch11.adb": [(388, 465)],
-    "sem_eval.adb": [(660, 682), (995, 1769), (1971, 2110), (2342, 2443), (2454, 2532),
+    "sem_eval.adb": [(660, 700), (995, 1769), (1971, 2110), (2342, 2443), (2454, 2532),
+                     (3365, 3380), (4052, 4167), (6571, 6584),
                      (3425, 3840), (3914, 3998), (4178, 4343), (4351, 4451),
                      (4589, 4684), (5118, 5222), (5323, 5479), (6090, 6136),
                      (7085, 7158), (7354, 7496)],
@@ -51,12 +55,13 @@ RANGES = {
     "sem_res.adb": [(1462, 1498), (2545, 2551), (4247, 4276), (4861, 4911),
                     (6285, 6448), (7337, 7345),
                     (11200, 11214),
-                    (11260, 11291), (11668, 11698), (12337, 12476),
-                    (12729, 12934)],
+                    (11260, 11291), (11668, 11698), (12039, 12322), (12337, 12476),
+                    (12729, 12934), (13205, 13337)],
     "sem_elab.adb": [(3563, 3776), (3782, 3851), (4084, 4102),
                      (10196, 10208), (12226, 12248)],
-    "sem_util.adb": [(8450, 8510), (10821, 10915), (23907, 24033)],
+    "sem_util.adb": [(8450, 8510), (10821, 10915), (23907, 24033), (29103, 29119)],
     "sem_warn.adb": [(3548, 3650)],
+    "uintp.adb": [(1683, 1696)],
 }
 
 
@@ -136,10 +141,24 @@ def main():
         O=2, U=2, F=14, R=3, D_s=3, D=4, N_assign=2, H_len=5).items()))
     evaluator = Counter({key: 2*value for key, value in arithmetic.items()})
     evaluator.update(O=6, U=6, H_len=4)
+    literal_resolutions = Counter(S=1, A=1, P=3)
+    literal_subtypes = Counter(S=1, A=3, P=5)
+    literal_uint = Counter({key: 4*value for key, value in literal_resolutions.items()})
+    literal_uint.update(literal_subtypes)
+    assert literal_uint == Counter(S=5, A=7, P=17)
+    semantic_lists = main_entities.copy()
+    semantic_lists.update(R=1, D_lit=2, D_alias=1, G=1, C_lib=1, N_ref=1)
+    semantic_lists_simple = semantic_lists.copy()
+    semantic_lists_simple["F"] += 2*semantic_lists_simple.pop("G")
+    assert semantic_lists_simple["D_lit"] >= semantic_lists_simple["D_alias"]
+    semantic_lists_simple["D_s"] += semantic_lists_simple.pop("D_lit")
+    semantic_lists_simple.pop("D_alias")
+    assert semantic_lists_simple == Counter(one=1, D=1, R=2, D_s=4, F=7,
+                                             K_literal=1, C_lib=1, N_ref=1)
     result = {
         "source_commit": PIN,
         "verified_against": str(prior.relative_to(repo)),
-        "scope": "Pinned-source identity and node/query-equation arithmetic only",
+        "scope": "Pinned-source identity and node/query/list-equation arithmetic only",
         "files": records,
         "equations": {
             "T_fold_coefficients": dict(sorted(folds.items())),
@@ -173,12 +192,23 @@ def main():
             "discrete_size_Uint_appends": "<= 95*(2*R+2*D_lit+F)",
             "U_eval_coefficients": dict(sorted(evaluator.items())),
             "evaluator_digit_words": "<= 3*U_eval",
+            "literal_resolution_coefficients": dict(sorted(literal_resolutions.items())),
+            "literal_Uint_coefficients": dict(sorted(literal_uint.items())),
+            "literal_digit_words": "<= 3*U_literal",
+            "freeze_size_Uint_appends": "<= 4*(D_lit+D_alias)+K_literal <= 4*D_s+K_literal",
+            "freeze_size_digit_words": "<= 3*U_freeze_size",
+            "other_ordinary_layout_table_backed_Uint_appends": 0,
+            "ordinary_layout_zero_scope": "Main shapes, successful legality, byte storage target; size helper separate",
+            "Main_loop_scope_depth": 1,
+            "closed_Uint_subtotal": "U_query+U_discrete_size+U_eval+U_literal+U_freeze_size",
+            "L_sem_coefficients": dict(sorted(semantic_lists.items())),
+            "L_sem_syntactic_coefficients": dict(sorted(semantic_lists_simple.items())),
             "query_scope": "Root counts exclude helper-internal recursion already paid by transfer",
         },
         "remaining": [
-            "Literal/subtype and layout helpers beyond closed query, discrete-size and evaluator contributions",
+            "Other semantic numeric caller inventory including diagnostic/value-cache routes",
             "Growing mutations, overload tables and auxiliary allocation",
-            "Freeze-result lists and elaboration/scope auxiliary storage",
+            "Elaboration/scope and element-list auxiliary storage",
             "Complete table/growth, numeric, name and auxiliary-resource connection",
             "Fixed dependency contributions and source-to-installed-tool relation",
         ],
@@ -187,7 +217,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     target = args.output / "result.json"
     target.write_text(json.dumps(result, indent=2) + "\n")
-    print(f"Verified {len(records)} pinned files and Main node/query equation expansion")
+    print(f"Verified {len(records)} pinned files and Main node/query/list equation expansion")
     print(f"result.json sha256 {hashlib.sha256(target.read_bytes()).hexdigest()}")
 
 

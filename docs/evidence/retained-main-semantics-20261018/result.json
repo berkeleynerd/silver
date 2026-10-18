@@ -1,7 +1,7 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "verified_against": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
-  "scope": "Pinned-source identity and node/query-equation arithmetic only",
+  "scope": "Pinned-source identity and node/query/list-equation arithmetic only",
   "files": [
     {
       "path": "atree.adb",
@@ -91,6 +91,10 @@
       "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
       "cited_ranges": [
         [
+          916,
+          937
+        ],
+        [
           1396,
           1407
         ]
@@ -149,15 +153,7 @@
         ],
         [
           7984,
-          7997
-        ],
-        [
-          8143,
-          8191
-        ],
-        [
-          8290,
-          8417
+          8450
         ],
         [
           10664,
@@ -198,6 +194,14 @@
           912
         ],
         [
+          2418,
+          2491
+        ],
+        [
+          2803,
+          2893
+        ],
+        [
           2974,
           2977
         ],
@@ -214,7 +218,11 @@
           5094
         ],
         [
-          6536,
+          5178,
+          5204
+        ],
+        [
+          6445,
           6550
         ],
         [
@@ -222,8 +230,20 @@
           6810
         ],
         [
+          7054,
+          7067
+        ],
+        [
+          7360,
+          7400
+        ],
+        [
+          8143,
+          8146
+        ],
+        [
           8265,
-          8283
+          8285
         ],
         [
           10223,
@@ -241,12 +261,35 @@
       "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057",
       "cited_ranges": [
         [
+          72,
+          82
+        ],
+        [
           225,
           664
         ],
         [
           900,
-          933
+          1050
+        ]
+      ]
+    },
+    {
+      "path": "nlists.adb",
+      "bytes": 37043,
+      "sha256": "add9468f104be6152a61a52473fd869fd16f64f1a9456b47eccc60af9854c763",
+      "cited_ranges": [
+        [
+          125,
+          132
+        ],
+        [
+          189,
+          275
+        ],
+        [
+          777,
+          864
         ]
       ]
     },
@@ -316,6 +359,10 @@
         [
           15317,
           15500
+        ],
+        [
+          15790,
+          15807
         ],
         [
           19121,
@@ -405,6 +452,10 @@
         [
           7781,
           7805
+        ],
+        [
+          9890,
+          9962
         ]
       ]
     },
@@ -437,7 +488,7 @@
       "cited_ranges": [
         [
           660,
-          682
+          700
         ],
         [
           995,
@@ -454,6 +505,18 @@
         [
           2454,
           2532
+        ],
+        [
+          3365,
+          3380
+        ],
+        [
+          4052,
+          4167
+        ],
+        [
+          6571,
+          6584
         ],
         [
           3425,
@@ -565,12 +628,20 @@
           11698
         ],
         [
+          12039,
+          12322
+        ],
+        [
           12337,
           12476
         ],
         [
           12729,
           12934
+        ],
+        [
+          13205,
+          13337
         ]
       ]
     },
@@ -617,6 +688,10 @@
         [
           23907,
           24033
+        ],
+        [
+          29103,
+          29119
         ]
       ]
     },
@@ -628,6 +703,17 @@
         [
           3548,
           3650
+        ]
+      ]
+    },
+    {
+      "path": "uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "cited_ranges": [
+        [
+          1683,
+          1696
         ]
       ]
     }
@@ -814,12 +900,52 @@
       "U": 6
     },
     "evaluator_digit_words": "<= 3*U_eval",
+    "literal_resolution_coefficients": {
+      "A": 1,
+      "P": 3,
+      "S": 1
+    },
+    "literal_Uint_coefficients": {
+      "A": 7,
+      "P": 17,
+      "S": 5
+    },
+    "literal_digit_words": "<= 3*U_literal",
+    "freeze_size_Uint_appends": "<= 4*(D_lit+D_alias)+K_literal <= 4*D_s+K_literal",
+    "freeze_size_digit_words": "<= 3*U_freeze_size",
+    "other_ordinary_layout_table_backed_Uint_appends": 0,
+    "ordinary_layout_zero_scope": "Main shapes, successful legality, byte storage target; size helper separate",
+    "Main_loop_scope_depth": 1,
+    "closed_Uint_subtotal": "U_query+U_discrete_size+U_eval+U_literal+U_freeze_size",
+    "L_sem_coefficients": {
+      "C_lib": 1,
+      "D": 1,
+      "D_alias": 1,
+      "D_lit": 2,
+      "D_s": 2,
+      "F": 5,
+      "G": 1,
+      "K_literal": 1,
+      "N_ref": 1,
+      "R": 2,
+      "one": 1
+    },
+    "L_sem_syntactic_coefficients": {
+      "C_lib": 1,
+      "D": 1,
+      "D_s": 4,
+      "F": 7,
+      "K_literal": 1,
+      "N_ref": 1,
+      "R": 2,
+      "one": 1
+    },
     "query_scope": "Root counts exclude helper-internal recursion already paid by transfer"
   },
   "remaining": [
-    "Literal/subtype and layout helpers beyond closed query, discrete-size and evaluator contributions",
+    "Other semantic numeric caller inventory including diagnostic/value-cache routes",
     "Growing mutations, overload tables and auxiliary allocation",
-    "Freeze-result lists and elaboration/scope auxiliary storage",
+    "Elaboration/scope and element-list auxiliary storage",
     "Complete table/growth, numeric, name and auxiliary-resource connection",
     "Fixed dependency contributions and source-to-installed-tool relation"
   ],
