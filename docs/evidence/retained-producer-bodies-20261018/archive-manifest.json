@@ -1,0 +1,394 @@
+{
+  "files": [
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "managed.py",
+      "bytes": 1007,
+      "sha256": "7932999374ba072cfd93e63e6d086c0210803b9a151260adc8e7a418a21effdb"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "plan.json",
+      "bytes": 676,
+      "sha256": "3da87ff679a40b098fb945dc164446f639a60ac1964506cc6d87f8190c97a92b"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "raw_snapshot_v2.py",
+      "bytes": 7484,
+      "sha256": "cda1dca37d4fb09c3248c7ab833802bba5f52eabe41a0e1629b7d20295960349"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/invocation.json",
+      "bytes": 1482,
+      "sha256": "f729a1f6a43440b64fa683fd6795d25dc02dde3934f1f1075a2ff466fa90a529"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/managed.log",
+      "bytes": 2831,
+      "sha256": "d1b7717548a390e30e938a9daee14ee7e933c2d1b7814d8828f0903f69d1b52d"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/obj/GNAT-TEMP-000001.TMP",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/obj/GNAT-TEMP-000002.TMP",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/obj/GNAT-TEMP-000003.TMP",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/obj/silver_arguments__first_or_default.gnat-json",
+      "bytes": 286340,
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/obj/silver_arguments__is_message.gnat-json",
+      "bytes": 85809,
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/object-paths.txt",
+      "bytes": 350,
+      "sha256": "e1ac193bc974e1dbdbce639edffa149ca0703102282809e6ec914be0cfa46038"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/options.json",
+      "bytes": 21603,
+      "sha256": "813d77809ae277ae7fa9e18e3b46ae692e3b8cac26f85898e104cab6cbc9dd6e"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/probe.gdb",
+      "bytes": 1842,
+      "sha256": "15a63bf6ebfa837dea9010189bbbde7093adb3d1b87172905164d497a3ec37c5"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/probe.log",
+      "bytes": 1970,
+      "sha256": "7711620aa805f68f4b73ddd8eda05051c0e89ade3c157d5c868cf63e5e08b7f3"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/probe.py",
+      "bytes": 2377,
+      "sha256": "dd9f19adfb4d1af9b6399139c7e5a02040adf65a470de5c28b77af0c1df1fd58"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_arguments/result.json",
+      "bytes": 2087,
+      "sha256": "22a3daa0c523182d056ad51ff5739d37379b27590e8012141cb819dcb0e59b1b"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/invocation.json",
+      "bytes": 1454,
+      "sha256": "c5b4773bfbf3fc942944cc7a9adf1e228a67d97384ed421b8f688632ea57cc57"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/managed.log",
+      "bytes": 2761,
+      "sha256": "bdc1c911f13e029e0727c0b8a5239587b826d8c693caa8853db4c2e2a0e6465b"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/obj/GNAT-TEMP-000001.TMP",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/obj/GNAT-TEMP-000002.TMP",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/obj/silver_io__put.gnat-json",
+      "bytes": 274756,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/obj/silver_io__put_line.gnat-json",
+      "bytes": 288617,
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/object-paths.txt",
+      "bytes": 343,
+      "sha256": "2f58956f8d91366c6a55333c738c18d865278fe0b84d2b18b69f2e9fe0b8e2a3"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/options.json",
+      "bytes": 21596,
+      "sha256": "5e4d793e5a5a9e5df3d58281ef8dd84719a69b1fe1e52fd4d9e05b224d20c1eb"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/probe.gdb",
+      "bytes": 1835,
+      "sha256": "2c9b1bc2e4a81b00ca6956834740483f741139eb390558d40d8ba83143f5aa30"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/probe.log",
+      "bytes": 1900,
+      "sha256": "792a7d30624c3bdbb9dd8b9143274e5d959227f763c5e71716b3048b301fadcf"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/probe.py",
+      "bytes": 2377,
+      "sha256": "dd9f19adfb4d1af9b6399139c7e5a02040adf65a470de5c28b77af0c1df1fd58"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_io/result.json",
+      "bytes": 2052,
+      "sha256": "404de26918223b79d4be1f6619b11ae97668932063ebd8b5ebb2ac0aff2d85ba"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/invocation.json",
+      "bytes": 1490,
+      "sha256": "f9952fe5241c2c1c4999950eb49c6b231cb10897f7c54672ea7c1cafb3dc5095"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/managed.log",
+      "bytes": 2616,
+      "sha256": "faef22f232ac88cd370b27b4d1c2ce495d8600846ee49f0bf9cc0721ad0ada7f"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/object-paths.txt",
+      "bytes": 352,
+      "sha256": "6fa4a99378d17c7384b65459b1bc532772abb8d8419aa7dcd6d998f057ef49e7"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/options.json",
+      "bytes": 21605,
+      "sha256": "524b37e7c96d56d3fd6d5475d9c72e093bef6820f1f7c9e19b3d5d9c2c1f5cb4"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/probe.gdb",
+      "bytes": 1844,
+      "sha256": "7dfbf64d19a1bbd74bb84107a42d03ec5b91f67a143bcd23b5bac8c9ad0d32d3"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/probe.log",
+      "bytes": 1758,
+      "sha256": "9da46131920f4adef57fbc53e7d26aad785d930a8bd7daadffe67d48418cf027"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/probe.py",
+      "bytes": 2377,
+      "sha256": "dd9f19adfb4d1af9b6399139c7e5a02040adf65a470de5c28b77af0c1df1fd58"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_output_libc/result.json",
+      "bytes": 2094,
+      "sha256": "4f5d206d99608ee096eaa64ff98c50a7d85478f151f819d64c03dee6800fbfe3"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/invocation.json",
+      "bytes": 1474,
+      "sha256": "08697207bc1092b60938628720976f6515fa782a45625e93811c3ab2fd2b2921"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/managed.log",
+      "bytes": 2618,
+      "sha256": "4eb960ab43a27ae4cb260da45a907e25fbff4c42ab95076226b9b789b91e61d2"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/object-paths.txt",
+      "bytes": 348,
+      "sha256": "6be094a90a21dd8a839441863ccd1872b87a9f56bc9964039c8abbacfea683db"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/options.json",
+      "bytes": 21601,
+      "sha256": "8c950100b2b5320c05a89b72541901e78585c727beae021ab8f45a9d908ac27f"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/probe.gdb",
+      "bytes": 1840,
+      "sha256": "43b2380ca887f52e900bb87817cfe5a5f0354b644a1a8c260072e575573ba36c"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/probe.log",
+      "bytes": 1758,
+      "sha256": "fe4cd0f271e882a215a9b87d24bb11b76712ad7b907657cba3a7cf8567ea8322"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/probe.py",
+      "bytes": 2377,
+      "sha256": "dd9f19adfb4d1af9b6399139c7e5a02040adf65a470de5c28b77af0c1df1fd58"
+    },
+    {
+      "archive": "inputs-and-outputs.tar.gz",
+      "path": "silver_runtime/result.json",
+      "bytes": 2076,
+      "sha256": "d52fa3110bd5fa73f2af8dc6d68c99e730633717ecb36f79ebce3e205cef42cc"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_arguments/graph-after_standard.json",
+      "bytes": 896062,
+      "sha256": "9251b12d98da32bf8d75874002b7065792021536dc327ffd1e729c743d9d31fa"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_arguments/graph-before_free.json",
+      "bytes": 1775889,
+      "sha256": "262d85288a8fe22ee621efe405041898b0115e82645b10fdcf2fefcddef4e427"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_arguments/graph-before_standard.json",
+      "bytes": 172993,
+      "sha256": "6a264759e0098b4994449f40cc1910101dc87ea2edeb4fbe1e7f84efdea3e551"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_io/graph-after_standard.json",
+      "bytes": 896062,
+      "sha256": "9251b12d98da32bf8d75874002b7065792021536dc327ffd1e729c743d9d31fa"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_io/graph-before_free.json",
+      "bytes": 2215180,
+      "sha256": "90d05e8c3343a2037e6a6fd6c79754f94fa7c0ec1ace5e805c5bf2b4e9ddf304"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_io/graph-before_standard.json",
+      "bytes": 172993,
+      "sha256": "6a264759e0098b4994449f40cc1910101dc87ea2edeb4fbe1e7f84efdea3e551"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_output_libc/graph-after_standard.json",
+      "bytes": 896062,
+      "sha256": "9251b12d98da32bf8d75874002b7065792021536dc327ffd1e729c743d9d31fa"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_output_libc/graph-before_free.json",
+      "bytes": 1186702,
+      "sha256": "7275450e4157f23a2459705e42d856dc2d2456b26d9370e8ed6fae2032e3511a"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_output_libc/graph-before_standard.json",
+      "bytes": 172993,
+      "sha256": "6a264759e0098b4994449f40cc1910101dc87ea2edeb4fbe1e7f84efdea3e551"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_runtime/graph-after_standard.json",
+      "bytes": 896062,
+      "sha256": "9251b12d98da32bf8d75874002b7065792021536dc327ffd1e729c743d9d31fa"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_runtime/graph-before_free.json",
+      "bytes": 1024286,
+      "sha256": "ef871a60a4a487d6c36f4d5e89127e14edebb8ace8e2611a08e4e42384f0a00e"
+    },
+    {
+      "archive": "graphs.tar.gz",
+      "path": "silver_runtime/graph-before_standard.json",
+      "bytes": 172993,
+      "sha256": "6a264759e0098b4994449f40cc1910101dc87ea2edeb4fbe1e7f84efdea3e551"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013245-fcc8a911dbdb/events.jsonl",
+      "bytes": 14605,
+      "sha256": "68c9b52ae99e17f6379173fb5273de4b99cd6c6680eca0887d01382da67487c6"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013245-fcc8a911dbdb/native.log",
+      "bytes": 2589,
+      "sha256": "4606fce7788772f67d2f557e98fee23da3fb0c60fabab03d6283501c3bed030b"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013302-0b566b551c93/events.jsonl",
+      "bytes": 14675,
+      "sha256": "d76f56dd5e4bb62150fc752d9d1e7d86f6c7387e011018edc9e8c95db82582aa"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013302-0b566b551c93/native.log",
+      "bytes": 2659,
+      "sha256": "3d23d8a9ce59206813af3726e58e8d32ae818072339c974808117df899d6218d"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013306-af652e8c87d9/events.jsonl",
+      "bytes": 14695,
+      "sha256": "ad722e786b01a0ef597acffa2f3b5612e802d2a8762c4978db9789871adbabe8"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013306-af652e8c87d9/native.log",
+      "bytes": 2444,
+      "sha256": "a7f6004bd4374648246138cc7d1b9f951c7461c6d6cd855641eea1705a81cccb"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013310-c774de652199/events.jsonl",
+      "bytes": 14655,
+      "sha256": "5839420e88197e2bc5d7f3aca9c28f06e985171d5bf2c26d7eef1e981287b62e"
+    },
+    {
+      "archive": "managed-runs.tar.gz",
+      "path": "20261018T013310-c774de652199/native.log",
+      "bytes": 2446,
+      "sha256": "29b4a7398bfaf9bc63d9b18f81df13fbb13c17a88afbcffefd02d94f5d79ece1"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "scope": "Four separate fixed library producer processes, no solver results collected; final before-Free counts, not sums across processes",
+  "cases": [
+    {
+      "case": "silver_arguments",
+      "run_id": "20261018T013302-0b566b551c93",
+      "final": {
+        "nodes": 13070,
+        "lists": 2796,
+        "retained_elements": 4111,
+        "temporary_names": 293,
+        "all_theory_occurrences": 20733
+      },
+      "theory_roots": 200,
+      "false_backend_calls": 3,
+      "probe_seconds": 1.2037633169966284,
+      "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    {
+      "case": "silver_io",
+      "run_id": "20261018T013245-fcc8a911dbdb",
+      "final": {
+        "nodes": 16547,
+        "lists": 3222,
+        "retained_elements": 5108,
+        "temporary_names": 363,
+        "all_theory_occurrences": 26501
+      },
+      "theory_roots": 251,
+      "false_backend_calls": 2,
+      "probe_seconds": 1.0775837629917078,
+      "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    {
+      "case": "silver_output_libc",
+      "run_id": "20261018T013306-af652e8c87d9",
+      "final": {
+        "nodes": 8714,
+        "lists": 1683,
+        "retained_elements": 2476,
+        "temporary_names": 191,
+        "all_theory_occurrences": 13189
+      },
+      "theory_roots": 151,
+      "false_backend_calls": 0,
+      "probe_seconds": 0.96733156699338,
+      "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    {
+      "case": "silver_runtime",
+      "run_id": "20261018T013310-c774de652199",
+      "final": {
+        "nodes": 7376,
+        "lists": 1574,
+        "retained_elements": 2120,
+        "temporary_names": 184,
+        "all_theory_occurrences": 11156
+      },
+      "theory_roots": 126,
+      "false_backend_calls": 0,
+      "probe_seconds": 0.9026608999993186,
+      "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    }
+  ]
+}

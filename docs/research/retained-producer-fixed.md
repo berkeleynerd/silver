@@ -128,12 +128,53 @@ The fixed reduction covers these four allocation/occurrence components. It
 does not transfer observed temporary-name counts to a universal bound, price
 name bytes/container peaks, or cover separate library-body producer processes.
 
+## Separate fixed library processes
+
+The four selected library compilation units also have isolated producer
+measurements, using the exact current sources and already retained phase-one
+ALIs. They are separate processes: their tables are not added to Main's budget.
+The [bundle and offline checker](../evidence/retained-producer-bodies-20261018/README.md)
+retain all 12 graphs, the five emitted JSON files and four managed run records.
+
+| Unit | Final nodes | Lists | Retained elements | All-root occurrences | Emitted files |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Silver_IO body | 16,547 | 3,222 | 5,108 | 26,501 | 2 |
+| Silver_Arguments body | 13,070 | 2,796 | 4,111 | 20,733 | 3 |
+| Silver_Output_Libc specification | 8,714 | 1,683 | 2,476 | 13,189 | 0 |
+| Silver_Runtime specification | 7,376 | 1,574 | 2,120 | 11,156 | 0 |
+
+These counts include Standard and all completed theory imports. The bodies
+can generate several VC files before Free, so these probes permit asynchronous
+launches of `/usr/bin/false` and stop before any result collection or a 63rd
+launch. Every process reached Free first. No solver ran and no proof outcome
+was accepted. The source order generates every entity's VCs before Free
+(`gnat2why-driver.adb:1445–1455`), then collects results after Translate_CUnit
+returns (`:1013–1015`). Result collection during translation is possible at
+the subprocess limit or in serial mode (`:1235–1244`); the recorded configuration
+and guards excluded both here. Backend results therefore did not influence the
+measured prefix. The four probe subprocesses took 4.151 seconds in total.
+
+Each invocation's compilation unit, dependencies, options and source bytes are
+fixed, with no Main source in its inputs. Runtime argument values are symbolic
+within those fixed bodies. Thus these finite cases supply their producer
+node/list/occurrence capacities under the recorded invocation and source
+premises; this is not extrapolation from example Main programs. Monotone Why
+storage makes the final retained counts sufficient for that component.
+Frontend arithmetic, transient container peaks, report handling after Free,
+and actual obligation discharge are separate. The production pipeline's
+existing validation remains authoritative for proof outcomes.
+
+These measurements use today's library bytes, including today's Max_Length.
+The authorized runtime-capacity changes must refresh these fixed cases and
+their dependencies before delivery, as #93 already requires. They do not
+establish the cost of a future changed library or an Image-tool process.
+
 ## Remaining limits
 
 This applies to the recorded installed Linux producer and the finite fixed
 Standard case and the selected imported-dependency envelope under the linked
-source/cache argument. Separate fixed library-body processes, the complete
-ordinary Main source-to-allocation transfer,
+source/cache argument, plus the four recorded library producer processes.
+The complete ordinary Main source-to-allocation transfer,
 producer auxiliary representations, native expansion/backend bounds and their
 whole-rule composition remain independent requirements.
 
