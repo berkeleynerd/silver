@@ -160,6 +160,56 @@ every path through the code. Sum these occurrences over the actual traversal
 to bound its increments; include the initial counter value at the process
 boundary rather than assuming every nested function starts at zero.
 
+## Source loops do not double their nested bodies
+
+The GNAT-JSON converter has a potentially duplicating generic Loop case, but
+the ordinary Silver grammar does not reach its arbitrary `code_before` case.
+There are no source loop invariant/variant pragmas, iterator filters or loop-body
+declarations, and loop unrolling is disabled. At the pinned SPARK source:
+
+1. `Get_Loop_Invariant` moves all source statements to `Final_Stmts`, leaving
+   `Initial_Stmts` empty (`gnat2why-expr-loops.adb:510–517`).
+2. `Transform_Loop_Body_Statements` on that empty list returns the initial
+   `Void_Sequence`. The entire body, including nested loops, is translated
+   into `Final_Prog` once (`:559–573,796–803`).
+3. `Inv_Check` remains Void, `Why_Invariants` has no entries, and the empty
+   variant list supplies an empty array plus a Void check
+   (`:619–687,711,786–787,817–865`). The only range-loop addition to
+   `Initial_Prog` is guarded by a present iterator filter (`:1856–1880`),
+   excluded by this grammar.
+4. `Wrap_Loop` puts `Final_Prog` in one try block in `code_after`.
+   `code_before` contains the Void sequence, one fixed comment and the
+   two Void checks (`:2194–2273`). Implicit frame/index invariants are an
+   assumption in `code_after`, distinct from the empty user invariant list.
+
+`Sequence` drops Void arguments; the converter flattens nested statement
+sequences and `mk_seqs` drops bare unit tuples. Thus converted `code_before`
+has at most two Ptree expression nodes: the comment attribute around unit.
+This is a shape bound, independent of the comment text length.
+
+Let `A` be the Ptree expression-node count of the already converted
+`code_after`. Count expression attributes as nodes, and charge names/types
+and their strings separately. For this Loop case, `gnat_ast_to_ptree.ml:786–881`
+then gives
+
+```text
+P(converted Loop) <= A + 14.
+```
+
+The loop body contains `code_after`, `code_before` and an empty variant-check
+unit, each under one comment attribute, joined by at most two sequences:
+`A+B+6`. The True test, while node and outer sequence, with the second
+`code_before`, give `A+2*B+9`. The possible current-location attribute adds
+one, and `B<=2` gives fourteen. Invariants and variant binders are empty.
+Discarded false/empty intermediates still belong to relevant finite creation
+counters; they are not retained expression nodes.
+
+The source body coefficient is therefore **one**, including at nested loops.
+There is no `2^depth` factor in this conversion. Other loop wrapper children
+(bounds, updates, implicit assumptions, handlers and warnings) retain their
+source-derived local charges. This reduction is for ordinary Main; the fixed
+library bodies with actual invariant pragmas need their own composition.
+
 ## Attached terms and the next join
 
 An occurrence counter must carry the actual attached terms and not replace
@@ -198,11 +248,12 @@ The resulting structured kode and attached terms can feed the SP/WP recurrence,
 then the matcher and first-split transfers. `reflow` adds no extra term factor.
 To complete the source join, the GNAT JSON conversion and typing passes must
 account for the typed occurrences, contract instantiations, result/proxy/old
-variables and outcome keys used above. The converter specifically duplicates
-`code_before` in a Loop, evaluates each variant expression twice, and creates
-a zero-argument function for Abstract_expr (`gnat_ast_to_ptree.ml:786–905`).
-Those are concrete source-shape obligations; a universal claim of one
-converted occurrence per JSON occurrence would be false.
+variables and outcome keys used above. The source-loop argument above closes
+the ordinary Main `code_before` multiplicity; the generic converter still
+duplicates arbitrary `code_before` and evaluates each variant expression
+twice. Abstract_expr creates a zero-argument function
+(`gnat_ast_to_ptree.ml:889–905`). A universal one-converted-occurrence claim
+for arbitrary JSON input would therefore still be false.
 
 There is no requirement to turn the sum of independent linked allocations
 into an aggregate RAM admission bound. Remaining representation joins concern

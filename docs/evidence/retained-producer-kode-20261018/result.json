@@ -1,8 +1,11 @@
 {
   "source_archive_sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+  "spark_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
   "source_sha256": {
     "why3/src/mlw/vc.ml": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
-    "why3/plugins/gnat_json/gnat_ast_to_ptree.ml": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    "why3/plugins/gnat_json/gnat_ast_to_ptree.ml": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+    "spark-source/src/why/gnat2why-expr-loops.adb": "5ff0a390fc6ec746c065d21a2438238612b2cfa3ea3a0c3b9ed2021c8a771707",
+    "spark-source/src/why/why-gen-progs.adb": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d"
   },
   "arithmetic_examples": [
     {
@@ -27,6 +30,11 @@
       "coarse": 101
     }
   ],
+  "ordinary_main_loop": {
+    "code_before_max": 2,
+    "retained_overhead": 14,
+    "source_body_coefficient": 1
+  },
   "native_executions": 0,
   "scope": "Pinned source and arithmetic only; no executable reflow model, typed-source extraction, full producer predicate or useful-domain claim"
 }
