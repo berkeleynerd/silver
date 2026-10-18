@@ -1015,3 +1015,94 @@ producer/consumer and fixed-library coverage, current-grammar composition,
 useful-domain comparison and final independent review remain outstanding.
 Oracle, installed tools/pins and production admission are unchanged;
 production #88–#94 remains authorized and unstarted.
+
+## Round 14 — reviewed lifetime/frontend joins and scope-width repair
+
+Date: 2026-10-18; continues from published `44a8d1cc04`. The goal remains the
+complete #119 capacity rule. This round integrates concrete source bounds and
+repairs two discovered research interfaces without changing production behavior.
+
+| Work | Selected setting | Frozen result and review |
+| --- | --- | --- |
+| Native location/later-warning lifetime and indexed filename correction | GPT-6 Astra / Extra High | `11057399b9`, accepted by `ab12d9119a` |
+| Finite SIGINT save-entry multiplicity | GPT-6 Astra / Extra High | `188d05026b`, accepted by `699e6c8ba3` |
+| Frontend logical/physical storage | GPT-6.1 Sol / Extra High | `d7034d9520`, corrected by `24e91ed814`; initial review `b6669b3ff7`, narrow acceptance `0f4ef0ab6f` |
+| Numeric scope-width repair and selected-route attachment | Lead live setting unavailable; no switch claimed | `64237926eb` and `b9b3ef960e`, independently accepted in `b6669b3ff7` |
+
+The native packet bounds combined-location attempts by `8C+4N+7` and later
+warning puts by `8C+3N+4`. Its Hello delta is 13 GGC requests with zero new
+finalizers. The ordinary hash allowance includes relocation traversals; the
+signed discriminator conversion has its own guard. #137's corrected ingress
+uses 1,590 filename lookups and 3,180 direct requests. The source-bound shared
+projection changes Hello history to 40,847/40,883 with capacity 65,536 and no
+change to the 768-event shared subtotal. It does not evaluate an aggregate or
+substitute Hello state for another source. The 140 checks took 3.019065s;
+191 narrow independent checks took 2.223660s within a 254s review interval.
+Review found one omitted multiline inventory call, already excluded by the
+source's O0/unavailable-callee argument. No bound changed. Aggregate attachment
+and #137 completion remain pending.
+
+The Why3 packet establishes at most two save-entering SIGINT callbacks under
+explicit successful-POSIX, single-worker, no-reinstallation and no-unmask
+premises. Its 29-state abstraction covers one stale runtime pending bit and
+arbitrary external signals; seven retained native function bodies supply
+scoped source/runtime witnesses. The existing 0.515002s check was reused.
+Independent review completed the symbol/body scope and accepted the conditional
+argument; its recorded interval was 260s. A transient Astra-capacity error
+interrupted that review; retrying the same selected setting succeeded, with
+no tier substitution or repeated successful check. The accounted endpoint
+remains 61,641. Current session/raw-task graph, fully opened binder occurrences
+and remaining helper/exit work still prevent a complete callback charge.
+The launch-mask alternative remains unimplemented and is not adopted here.
+
+Frontend composition independently found #138: `61C` Main digit words held
+only while `uint_digits(C+2)=1`. An actual 32,766-call source reproduced the
+old assertion failure. The repair retains `(60+k)C` and lifetime
+`107726+(70+k)C`, with no new call-count restriction. The 57 affected numeric
+checks passed in 1.412007s; 106 affected selected-route checks passed in
+10.256185s. That large source now returns all 48 predicates: numeric checks
+pass and the separate linker predicate fails. Hello's numeric result stays
+byte-identical. Independent review accepted both changes and reused these runs.
+
+The frontend join composes physical/source tables, actual logical demands and
+numeric replacement. Its 1,580 physical buffers plus nine virtual copies give
+1,589 permanent records, while backing includes a transient failed-load slot.
+Hello exports 41,294 nodes and two 330,352-byte raw association requests. The
+43 initial checks took 4.611920s. Independent review found #139: six pattern
+Strings were a configuration delta, not the lifetime total. Correction
+`24e91ed814` charges eight defaults plus six configuration objects, each at
+most 21 bytes, and explicitly retains nine unpriced virtual Dope_Rec objects.
+Its 52 affected checks took 0.067179s, reusing the verified runtime census;
+all other physical projections and historical 43-check evidence are unchanged.
+The combined review's 16-check audit took 0.095530s within an initial 229s
+review interval, followed by narrow source/diff acceptance of the correction.
+No numeric/component suite or runtime corpus was repeated in review.
+
+Integration confirms 51 accepted files byte-equal to the relevant freezes or
+accepted corrections, 25 JSON and 14 Python syntax checks, and 97 local links.
+Current repository-pin comparisons are 205 core, 21 selected-route, 14 numeric,
+33 location and 22 frontend records; these overlapping sets are not a count
+of distinct inputs. Whitespace and checkpoint links are checked separately.
+No native tool, debugger/capture, solver, build, broad proof or full suite ran.
+
+The first review checkout exhausted the small `/tmp` overlay. Recovery removed
+only the reviewer's failed partial checkout and placed a sparse worktree on the
+repository filesystem, which had 368 GiB available. Existing source trees,
+native artifacts and other agents' work were preserved. Subsequent worktrees
+use that filesystem. This is workspace coordination, not a capacity-rule RAM
+or disk admission gate.
+
+The mixed-model round completed a reviewed frontend component, exposed a
+pre-existing numeric specialization error and required one scoped count repair.
+These are outcomes and rework observations, not causal model-quality evidence.
+All independent reviewers selected Astra Extra High. Runtime settings and
+per-round token/cost measurements remain unavailable; overlapping intervals
+are not additive elapsed time. CLI memory remains unavailable.
+
+Next work attaches the accepted frontend/location predicates and #137 state
+correction to the selected route, closes later native shared-container/counter
+demands and binds the Why3 session-save charge. Complete native/collector,
+required producer/consumer/fixed-library/parent coverage, current-grammar
+composition, useful-domain comparison and final review remain required.
+#119 stays active. Oracle, tools/pins and admission remain unchanged;
+production #88–#94 remains authorized and unstarted.

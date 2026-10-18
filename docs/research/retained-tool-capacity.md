@@ -362,8 +362,16 @@ The [literal Ada numeric composition](retained-literal-ada-numeric.md), frozen
 at `3a7d590389` and
 [independently accepted](../reviews/review-literal-ada-numeric-3a7d590389.md),
 joins the retained fixed incoming allowance, actual Main constructor and
-original constant-size callbacks. The selected demands are `28420+9C` Uint
-entries, `107726+71C` digit words, 67 Ureals and 504 Rep_Table records.
+original constant-size callbacks. The current demands are `28420+9C` Uint
+entries, `107726+(70+k)C` digit words, 67 Ureals and 504 Rep_Table records,
+where `k=uint_digits(C+2)` is the positive base-32768 digit width. Correction
+`64237926eb` and selected-route update `b9b3ef960e` repair
+[#138](https://github.com/berkeleynerd/silver/issues/138): the original 71C
+simplification stopped applying at 32,766 calls. The unchanged general
+constructor already supplied the wider bound. No new source restriction is
+introduced; 57 numeric and 106 attachment checks pass, and the
+[combined review](../reviews/review-literal-frontend-numeric-d7034d9520.md)
+accepts both repairs within scope.
 The complete fixed witness and separate floating callback allowance are kept
 even where they overlap; no cache/release credit is subtracted. The cold String
 path introduces no additional numeric annotation. Existing backing, nominal
@@ -393,9 +401,43 @@ Subsequent source-count reconciliation found
 [#137](https://github.com/berkeleynerd/silver/issues/137): the shared filename
 interface must also allow the indexed startup System duplicate. Its conservative
 bounds become 1,589 permanent source entries and 1,590 filename lookups;
-dependent identifier/backing/serial arithmetic and aggregate attachment are
-being corrected. The retained 48-predicate result predates this correction
+the [location/lifetime packet](retained-literal-location-lifetime.md) now
+supplies corrected identifier/backing/serial arithmetic, with aggregate
+attachment still pending. The retained 48-predicate result predates that attachment
 and remains scoped local evidence, not a complete native verdict.
+
+The location/lifetime packet, frozen at `11057399b9` and
+[independently accepted](../reviews/review-literal-location-11057399b9.md),
+bounds combined-location attempts by `8C+4N+7` and later warning puts by
+`8C+3N+4`. Hello adds 13 GGC requests with no new finalizers; these are separate
+from the original shared 768 requests and 3,180 direct filename requests.
+The ordinary ad-hoc hash allowance includes lookup-triggered growth and
+post-initial relocation traversals. Its source-bound filename correction
+changes incoming/endpoint identifier history to 40,847/40,883 for Hello,
+retaining capacity 65,536 and the unchanged shared subtotal. It checks the
+signed discriminator interface separately. The 140 author checks and 191
+narrow review checks pass. Review found one multiline call omitted by the
+inventory scanner; its unavailable-callee/O0 inline route is already excluded
+by the source argument, so no bound changed. Complete native totals remain null.
+
+The [frontend logical/physical storage join](retained-literal-frontend-storage.md),
+frozen at `d7034d9520` with correction `24e91ed814`, is
+[independently accepted](../reviews/review-literal-frontend-numeric-d7034d9520.md).
+It joins actual scanner/Main counts, fixed semantic allowances, indexed naming
+and the selected source/configuration graph. Its physical union has 1,580
+buffers; nine virtual copies give 1,589 permanent entries, and one failed-load
+transient gives Source_File backing demand 1,590. The numeric lifetime demands
+replace their three earlier table projections once; Rep_Table stays separate.
+Hello yields 41,294 nodes, two 330,352-byte raw association-array requests,
+encoded frontend name bound 737 and source extent 20,561,920. Review corrected
+[#139](https://github.com/berkeleynerd/silver/issues/139): the pattern String
+allowance is 14 lifetime requests (eight defaults plus six configuration),
+each at most 21 bytes. The 43 initial checks and 52 focused correction checks
+are retained with their different inputs; no full corpus or model rerun was
+needed for the correction. Nine virtual-source Dope_Rec objects and other late
+metadata remain explicit residuals. Aggregate attachment of these frontend
+and location predicates is the next integration step; no complete native bound
+is inferred from the passing component checks.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -582,6 +624,21 @@ finite callback multiplicity with charged work, or an enforced launch
 configuration with explicit cancellation and child-process semantics.
 The independent correction check took 0.119747 seconds and reused successful
 extraction and author checks; no native target was executed.
+
+The follow-on [finite signal-multiplicity argument](retained-why-callback-launch.md),
+frozen at `188d05026b` and [independently accepted](../reviews/review-why-callback-launch-188d05026b.md),
+bounds SIGINT save-entering callbacks by two under its explicit successful
+POSIX-operation, single-worker and no-reinstallation/no-unmask premises.
+The second entry conservatively covers one stale runtime pending bit after
+ignore installation; arbitrary external signals do not create an unbounded
+queue under those premises. This yields a conditional charge
+`61641 + 2*(B_binders(S)+R)`, including explanation and shape binder openings.
+The current session graph, its fully opened occurrence bound and remaining
+helper/exit work are still missing inputs. A historical five-goal session seed
+is retained without identifying it as the current in-memory graph. The launch
+mask alternative remains unimplemented, with cancellation, solver-child and
+new-prefix-counter joins explicit. The 29-state abstraction and seven retained
+native function bodies support the scoped argument; no new target ran.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
