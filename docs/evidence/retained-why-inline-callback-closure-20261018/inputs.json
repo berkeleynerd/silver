@@ -1,0 +1,260 @@
+{
+  "base": "7573e127ffb020ddfb1214491179c59442e7798b",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "accepted_predecessor_commits": {
+    "author": "c8bc383e111b5b5d5460d5bb568bf37417cbe6eb",
+    "metadata_repair": "554839c115df02bb18208e92871651f72ac5472a",
+    "review": "83f3d905a69e3bffbe73fc4e85743fc7a36bf4be"
+  },
+  "predecessor_files": {
+    "docs/evidence/retained-why-inline-identifier-state-20261018/capture.tar.gz": {
+      "bytes": 10999776,
+      "sha256": "ea87227e886cee89222e7e1eed8ccd60964fa61de99720e5f1ea11067b73f816"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/inputs.json": {
+      "bytes": 32859,
+      "sha256": "2bcb7638ed58dede4b1703753b7bba117519ae45e09bfd512777c6c5483cf9eb"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/result.json": {
+      "bytes": 5781,
+      "sha256": "d9fe8d884c8d890df0b4b7718106f78774bdc4f265f420c28ef15af2cfd49a0d"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/callback-inventory.json": {
+      "bytes": 51827,
+      "sha256": "2c1861853f9778f61d877b38ed38cbb5679e501894b436e853ff713a83b4278f"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/runtime-sources.tar.gz": {
+      "bytes": 40574,
+      "sha256": "4c8f3f3ab68a3ec0fa60c48b8f0eb22181916beff3c462854c65dc3cb2ea0fa2"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/round.json": {
+      "bytes": 9683,
+      "sha256": "feda1f64546bd691fb1bbc596b3b4af5e7543f7cfbfcfbfd0b75e95b6945a933"
+    }
+  },
+  "why3_zip": {
+    "bytes": 9976591,
+    "sha256": "8d4a8dcdcdf965ce3cc6935bdd60c1378a5ec47b4a0bdedae6651ee50ed03f8c"
+  },
+  "archives": {
+    "sources.tar.gz": {
+      "identity": {
+        "bytes": 213370,
+        "sha256": "e59e901cb848afa258750a6c80de876dd0dd9aac3e45491f0dc19b95a136abb6"
+      },
+      "members": {
+        "ocaml/asmcomp/amd64/emit.mlp": {
+          "bytes": 33979,
+          "sha256": "33132b0550765369cc5fe034407220fcb971fe6e6b420b5bd145fb1d401d1e89"
+        },
+        "ocaml/asmcomp/asmgen.ml": {
+          "bytes": 11908,
+          "sha256": "e3edebac0e9c3d3799df560e44dc90d0725a2f8de0b7fcef39b5656308b36d72"
+        },
+        "ocaml/asmcomp/cmm_helpers.ml": {
+          "bytes": 101079,
+          "sha256": "11f055ec0da9ff2bf21b7dbe34038a077f800fceae65780496671c3a8ea4094f"
+        },
+        "ocaml/asmcomp/emitaux.ml": {
+          "bytes": 12703,
+          "sha256": "9173887cdb54cc6dbd394517ef64fba9006f5a9bf7fa8f2bde0929bca90d34e1"
+        },
+        "ocaml/bytecomp/dll.ml": {
+          "bytes": 6382,
+          "sha256": "1a1812dfacae01fe56f8eb0298f6ad8b8dec3d3b4485904a3ff2febc8c6510ce"
+        },
+        "ocaml/bytecomp/meta.ml": {
+          "bytes": 1788,
+          "sha256": "9580ba5065bf6183ad5ef5824196944fe48f422adc49d4e49385f3805f55e96b"
+        },
+        "ocaml/bytecomp/symtable.ml": {
+          "bytes": 12819,
+          "sha256": "0279e9d8eccebdefd8a14f8a6b82b7cd0dd5fdecbb12ecf0ea4fdd54545949a4"
+        },
+        "ocaml/otherlibs/dynlink/dynlink_common.ml": {
+          "bytes": 12076,
+          "sha256": "e44fc49221fc7342021c45bfc3d7185772ca7c72795eaff0cf1b175106615bce"
+        },
+        "ocaml/otherlibs/dynlink/native/dynlink.ml": {
+          "bytes": 4523,
+          "sha256": "56bbc3a1b6adf37888e33a087fe26904767df40cbd3ba4c6fca503ec225b3732"
+        },
+        "ocaml/otherlibs/systhreads/st_posix.h": {
+          "bytes": 11852,
+          "sha256": "75c5a63ddb3f8d3e2e772032734d36d6c25c2175ee3627198c566992a8399811"
+        },
+        "ocaml/otherlibs/systhreads/st_stubs.c": {
+          "bytes": 31017,
+          "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+        },
+        "ocaml/otherlibs/systhreads/thread.ml": {
+          "bytes": 4299,
+          "sha256": "ccbfe9d1a2f8b31d1374a0cf1b24a5be91686d3d9e307a76047ba4734ba2c9cb"
+        },
+        "ocaml/otherlibs/unix/mmap.c": {
+          "bytes": 6838,
+          "sha256": "6696150ca63169bfecb3369ed79db4b8019a97731254f928f3054f1e512d993a"
+        },
+        "ocaml/otherlibs/unix/mmap_ba.c": {
+          "bytes": 2972,
+          "sha256": "22b00b41b7fc5cde68f22b3d67cbc91441e7d0c81742b218e30f4e6f42561382"
+        },
+        "ocaml/runtime/amd64.S": {
+          "bytes": 23497,
+          "sha256": "df4d43cb872791c03999ef89afd088a089298d0b559ce98c249e3eeb8148004a"
+        },
+        "ocaml/runtime/bigarray.c": {
+          "bytes": 37639,
+          "sha256": "0b8536a773ff156bf214571eaa4bbb4323816d18d52aa67e00c61304b768d97b"
+        },
+        "ocaml/runtime/custom.c": {
+          "bytes": 6545,
+          "sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b"
+        },
+        "ocaml/runtime/dynlink.c": {
+          "bytes": 9262,
+          "sha256": "f30e85f6f09e98e1c41366014730510127d2203f8180321cff903534fbf51076"
+        },
+        "ocaml/runtime/dynlink_nat.c": {
+          "bytes": 5014,
+          "sha256": "b92408575c901c0ee86fdef83582ff0de378905d491f671b0dfa50d3047f1a26"
+        },
+        "ocaml/runtime/finalise.c": {
+          "bytes": 13648,
+          "sha256": "d71f3790da1764a173793a63c468abe2de89903a1c8fec47034bca90342bd736"
+        },
+        "ocaml/runtime/gc_ctrl.c": {
+          "bytes": 25460,
+          "sha256": "8ce4d2a967642354d6c55811d33465558a2ca1c18cd10671254420784be1ef91"
+        },
+        "ocaml/runtime/intern.c": {
+          "bytes": 31693,
+          "sha256": "e575fd49bf8011128aabe051af6e1f7009d803941f8766bccd3abf7957a86c71"
+        },
+        "ocaml/runtime/io.c": {
+          "bytes": 25046,
+          "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+        },
+        "ocaml/runtime/obj.c": {
+          "bytes": 9136,
+          "sha256": "09dcee5092e08c18fc0f6ed8eff69e301bf4c64913dcea9cd0b32f3dcd3fc4ac"
+        },
+        "ocaml/runtime/roots_nat.c": {
+          "bytes": 15164,
+          "sha256": "4e6d01431de0ca6877d992ef43d41a69d36b7ea43a1da3ec1928447c025de8c1"
+        },
+        "ocaml/runtime/signals.c": {
+          "bytes": 13251,
+          "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+        },
+        "ocaml/runtime/startup_nat.c": {
+          "bytes": 6259,
+          "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+        },
+        "ocaml/stdlib/ephemeron.ml": {
+          "bytes": 28831,
+          "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+        },
+        "ocaml/stdlib/gc.ml": {
+          "bytes": 5794,
+          "sha256": "6b50140431666557e6b3f2717360db849c22a1411a1032ba730db4b0632f6952"
+        },
+        "ocaml/stdlib/hashtbl.ml": {
+          "bytes": 18750,
+          "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+        },
+        "ocaml/stdlib/stdlib.ml": {
+          "bytes": 21993,
+          "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+        },
+        "ocaml/stdlib/sys.ml.in": {
+          "bytes": 5435,
+          "sha256": "b449e284aafa6f7e0b857d06b84d307ab25acccf63536fe45ce339c4521cd8a5"
+        },
+        "ocaml/stdlib/weak.ml": {
+          "bytes": 10954,
+          "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76"
+        },
+        "source-index.json": {
+          "bytes": 13472,
+          "sha256": "39581f9775aaa9c99d926e5e7d3a25ccf9b1f58b399d3a8a90f92997bee07859"
+        },
+        "why3/src/core/ident.ml": {
+          "bytes": 17596,
+          "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+        },
+        "why3/src/core/term.ml": {
+          "bytes": 61841,
+          "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+        },
+        "why3/src/core/trans.ml": {
+          "bytes": 17424,
+          "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+        },
+        "why3/src/driver/driver.ml": {
+          "bytes": 18796,
+          "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+        },
+        "why3/src/driver/whyconf.ml": {
+          "bytes": 42944,
+          "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+        },
+        "why3/src/gnat/gnat_checks.ml": {
+          "bytes": 48146,
+          "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+        },
+        "why3/src/gnat/gnat_main.ml": {
+          "bytes": 14829,
+          "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+        },
+        "why3/src/session/session_itp.ml": {
+          "bytes": 81245,
+          "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+        },
+        "why3/src/session/termcode.ml": {
+          "bytes": 36025,
+          "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+        },
+        "why3/src/util/plugin.ml": {
+          "bytes": 2202,
+          "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+        }
+      }
+    },
+    "native.tar.gz": {
+      "identity": {
+        "bytes": 332459,
+        "sha256": "ed2f6226dfc0266cb819b2dacc211844ba2f51dc3ad4720f57721f05db8884fd"
+      },
+      "members": {
+        "native-audit.json": {
+          "bytes": 755019,
+          "sha256": "dd1dbb3a519ea3b65b233693e60c72522282fcd67fb234852e817c62ce95d709"
+        },
+        "native-bodies.txt": {
+          "bytes": 1684536,
+          "sha256": "e4cd5254b513b43c934667d1114a0554fd3101364f718761eb702c96be79bad9"
+        }
+      }
+    }
+  },
+  "local_inputs": {
+    "binding.json": {
+      "bytes": 2171,
+      "sha256": "3c6dd16604acd088b2a691f02fcdafbf70814090cdd15cbf5dfebd66d15714a3"
+    },
+    "audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "check.py": {
+      "bytes": 9770,
+      "sha256": "0879086827f01779b4058fda3870593e12679d25c8c9cb1a70f61eb3ee68d787"
+    },
+    "result.json": {
+      "bytes": 2922,
+      "sha256": "dbd46a2d35c438d604819672561bb15278cb2966f72ebd2a422b49d706cdaf7d"
+    }
+  }
+}

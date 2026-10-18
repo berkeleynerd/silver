@@ -1,0 +1,45 @@
+{
+  "scope": "retained first Input_Is_Valid/cvc5 inline entry; unchanged accounted-source bound, open complete continuing-call callback capacity",
+  "registration_transfer": {
+    "initial": 60496,
+    "registrations_upper": 1145,
+    "first_tag_if_called": 60497,
+    "last_tag_upper": 61641,
+    "counter_after_call_upper": 61641,
+    "value_bits": 63,
+    "signed_maximum": 4611686018427387903,
+    "remaining_headroom": 4611686018427326262,
+    "no_overflow_during_bounded_call": true
+  },
+  "private_counter_plus_accounted_source_increment_fit": true,
+  "complete_continuing_call_counter_capacity_established": false,
+  "runtime_identifier_reentrancy_closure_established": false,
+  "complete_OCaml_callback_registration_reachability_established": false,
+  "live_finalizer_registry_observed": false,
+  "source_argument_machine_checked": false,
+  "actual_signal_or_missing_task_observed": false,
+  "prior_history_no_overflow_established": false,
+  "prior_freshness_established": false,
+  "family_wide_counter_invariance_established": false,
+  "future_or_other_invocations_bounded": false,
+  "auxiliary_continuing_capacity_established": false,
+  "complete_transform_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "SIGINT_mask_enforced_or_validated": false,
+  "new_native_target_runs": 0,
+  "solver_runs": 0,
+  "assurance_level": "Reviewed source/interface arguments and exact native witnesses; no arbitrary native alias/control-flow theorem",
+  "reusable_inspected_interface_findings": [
+    "Gc registration capability consumers and non-executable primitive-reference table identified",
+    "Native/latent bytecode reflection interfaces distinguished from exercised loader fields",
+    "No inspected thread-creator capability consumer; preemption yields without Why3 identifier creation",
+    "Channel custom-finalizer hook owner and fixed target identified; custom registry/legacy allocator interfaces delimited"
+  ],
+  "residual": "SIGINT save_session can register identifiers through SV6 Shape binder openings before a conditional missing session_raw_tasks entry raises Not_found; interrupted Trans.fold catches Not_found and continues. Actual missing membership and signal occurrence are not observed.",
+  "remaining_invariant": "For selected session prefix/interruption points, establish raw-task membership for all non-detached visited nodes and exception ordering/charging for remaining save/shape/exit paths.",
+  "next_checks": [
+    "Prove source-prefix session membership and mutation preservation, then compare all escaping exceptions after registrations against continuing-transform catches",
+    "Alternatively charge a source-supported bound on handler-created identifiers",
+    "Assess enforced subprocess SIGINT blocking: launch race/inheritance, runtime mask writers/pending-signal handling, cancellation and solver-child semantics; no configuration implemented"
+  ]
+}
