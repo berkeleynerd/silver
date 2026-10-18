@@ -31,7 +31,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
-         "sem_aux.adb", "ghost.adb"]
+         "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
+         "local_restrict.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -282,6 +283,29 @@ result = {
         "maximum_local_transient_Uint_digit_words": "5*k+3",
         "no_static_error_Get_Range_Checks_ordinary_nodes": "2*b + 28 + 20*A",
         "not_included": "source derivation of unfolded shape/acyclicity/magnitude/count, recursive walk stack bytes, numeric cache wrapper bytes, enabled check insertion/analysis",
+    },
+    "suppressed_explicit_String_subtype_resolved_pure_bounds": {
+        "premises": "fresh artificial local ordinary subtype; existing defining entity/input syntax charged; one N_Range with already-analyzed nonoverloaded pure scalar bounds; combined finite analysis graph and 32-bit layout premises; all checks suppressed; standard and referenced scalar types frozen; no aspects/predicates/representation/generic/spec-expression/error/transient wrap",
+        "ordinary_nodes": "2*b + 32 + 20*A",
+        "extra_entities": 1, "extra_name_entries": 1,
+        "name_characters_including_NUL": "L+4, L subtype identifier length",
+        "Uint_appends": "80*A + 155", "growing_slot_events": 2,
+        "syntax_elist_String_allocations": 0,
+        "dynamic_slot_envelope": "9*(2*b+34+20*A)+61",
+        "secondary_concat_index_max_name_characters_including_NUL": 16,
+        "plain_object_Find_Type_Of_Object_before_subtype_analysis": {
+            "ordinary_nodes": 2, "entities": 1, "syntax_list_wrappers": 1,
+            "name_characters_including_NUL": "O+3, O object name length",
+            "subtype_plus_index_max_name_characters_for_O_at_most_12": 33,
+        },
+        "not_included": "initial analysis of generated scalar arithmetic/conditionals, capture, enabled-check analysis, insertion placement/transient contexts, freezing/backend",
+    },
+    "ordinary_for_range_capture_placement": {
+        "premises": "ordinary scalar for-range parent chain; no spec expression or transient scope",
+        "placement": "containing statement list immediately before loop",
+        "Expression_With_Actions_created_by_this_route": False,
+        "source_routes": ["exp_util.adb:12765-12824", "exp_util.adb:8289-8314", "exp_util.adb:8318-8462"],
+        "not_included": "proof-domain replay multiplicity and proof-mode exclusion of transient scopes/Itype_Reference replay",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

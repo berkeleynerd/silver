@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 44,
+  "source_files_verified": 47,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -45,7 +45,10 @@
     "itypes.adb": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a",
     "expander.adb": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461",
     "sem_aux.adb": "a296f7384277d9621774a52de74c2008f8824724603df13abe1065754456af52",
-    "ghost.adb": "efc913c943b84328d081ff3996c85cd6eeb0f718c215784df8ecf9980dcd5f13"
+    "ghost.adb": "efc913c943b84328d081ff3996c85cd6eeb0f718c215784df8ecf9980dcd5f13",
+    "sem_type.adb": "d278251cf4a39214e2a2f9b2fdf97f15520f6078e55a55a3cdd773016e3a810d",
+    "restrict.adb": "644e05288291aece0b74bafc2719f1c03ba59464c350447c4a08298cc5c5cebf",
+    "local_restrict.adb": "38405d3a674b2632427c3a2f130328c6749de5bffc238e85946e4afadd173db3"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -538,6 +541,37 @@
     "maximum_local_transient_Uint_digit_words": "5*k+3",
     "no_static_error_Get_Range_Checks_ordinary_nodes": "2*b + 28 + 20*A",
     "not_included": "source derivation of unfolded shape/acyclicity/magnitude/count, recursive walk stack bytes, numeric cache wrapper bytes, enabled check insertion/analysis"
+  },
+  "suppressed_explicit_String_subtype_resolved_pure_bounds": {
+    "premises": "fresh artificial local ordinary subtype; existing defining entity/input syntax charged; one N_Range with already-analyzed nonoverloaded pure scalar bounds; combined finite analysis graph and 32-bit layout premises; all checks suppressed; standard and referenced scalar types frozen; no aspects/predicates/representation/generic/spec-expression/error/transient wrap",
+    "ordinary_nodes": "2*b + 32 + 20*A",
+    "extra_entities": 1,
+    "extra_name_entries": 1,
+    "name_characters_including_NUL": "L+4, L subtype identifier length",
+    "Uint_appends": "80*A + 155",
+    "growing_slot_events": 2,
+    "syntax_elist_String_allocations": 0,
+    "dynamic_slot_envelope": "9*(2*b+34+20*A)+61",
+    "secondary_concat_index_max_name_characters_including_NUL": 16,
+    "plain_object_Find_Type_Of_Object_before_subtype_analysis": {
+      "ordinary_nodes": 2,
+      "entities": 1,
+      "syntax_list_wrappers": 1,
+      "name_characters_including_NUL": "O+3, O object name length",
+      "subtype_plus_index_max_name_characters_for_O_at_most_12": 33
+    },
+    "not_included": "initial analysis of generated scalar arithmetic/conditionals, capture, enabled-check analysis, insertion placement/transient contexts, freezing/backend"
+  },
+  "ordinary_for_range_capture_placement": {
+    "premises": "ordinary scalar for-range parent chain; no spec expression or transient scope",
+    "placement": "containing statement list immediately before loop",
+    "Expression_With_Actions_created_by_this_route": false,
+    "source_routes": [
+      "exp_util.adb:12765-12824",
+      "exp_util.adb:8289-8314",
+      "exp_util.adb:8318-8462"
+    ],
+    "not_included": "proof-domain replay multiplicity and proof-mode exclusion of transient scopes/Itype_Reference replay"
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {

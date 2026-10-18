@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records forty-four inspected files hash-checked against the complete source
+records forty-seven inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -910,6 +910,117 @@ most **2*b+28+20*A ordinary nodes and 80*A+60 Uint appends**, with the earlier
 purity/no-owned-decoration premises and zero lists. If both bounds are known,
 the direct value-comparison route still allocates nothing. Enabled insertion
 and analysis of the resulting check remain separate from selection.
+
+### Constrained subtype declaration with resolved pure bounds
+
+There is now a closed declaration transfer for the native suppressed-check
+case with **already-analyzed**, nonoverloaded scalar bounds satisfying the
+preceding pure-tree, finite-analysis-graph and 32-bit index-layout premises.
+The declaration is a fresh artificial local subtype of Standard String with
+one explicit range, no aspects/predicates/representation flags, no enclosing
+generic or spec expression, and no diagnostic. Standard String/Integer and
+all scalar types referenced by the bounds are frozen. It is not the root of
+a transient wrap. Checks are suppressed for the
+whole analysis. Its existing defining identifier and input syntax have
+already been charged.
+
+With b the total ordinary bound-tree nodes, A the analysis-graph bound, and
+L the subtype identifier's character length, semantic analysis/expansion adds
+at most:
+
+```text
+ordinary nodes       2*b + 32 + 20*A
+entities             1
+new name entries     1
+name characters      L + 4, including NUL
+Uint appends         80*A + 155
+growing-slot events  2
+syntax/Elists        0
+String values        0.
+```
+
+The counts combine the closed check selection, the 95-entry index layout,
+and at most two static-bound folds. They overcount paths that do not coexist.
+Use the scalar-analysis digit bound enlarged to at least three digits for
+the index-layout addend. The direct dynamic-slot charge is therefore at most
+`9*(2*b+34+20*A) + 61`, before table-link and original-node costs.
+
+`Process_Subtype` reuses the explicit defining identifier, dispatches to
+`Constrain_Array`, and creates only the one scalar index itype
+(`sem_ch3.adb:23010–23020,23117–23118,14339–14484,15316–15492`). The existing
+constraint list becomes `First_Index`; the scalar range is shared rather
+than copied. The index's `Create_Itype` calls `New_External_Entity` with
+prefix `T`, suffix `P`, index 1, producing the subtype name plus three
+characters. `Name_Find` adds at most one entry and its characters plus NUL
+(`itypes.adb:38–89`, `sem_util.adb:25630–25655`,
+`tbuild.adb:632–666`, `namet.adb:1185–1274`). No unit serial is incremented by
+this derived-name operation.
+
+`Analyze_Range` first sets `Any_Type`; its two nonoverloaded operands give
+one `Add_One_Interp`, which stores the type directly without an overload-table
+entry (`sem_ch4.adb:4818–4932`, `sem_type.adb:441–458`). Writable-actual
+analysis returns for the artificial range. `Resolve_Range` returns immediately
+from each already-analyzed bound's `Resolve`, then performs only existing-value
+base-range checks and at most two `Fold_Uint` calls. A signed-Integer fold
+allocates one literal plus at most one saved old-node copy, with at most one
+growing-slot event. Its literal analysis and resolution only set fields or
+compare existing bounds; no new Uint is evaluated
+(`sem_res.adb:2547–2551,11161–11302`, `sem_eval.adb:478–658,2772–2834,
+5150–5222,7354–7504`, `sem_ch2.adb:111–132`). Generated ranges bypass the
+source-only null-range-warning comparison. The retained validity setting
+disables `Validity_Check_Range` (`checks.adb:11491–11508`), and purity under
+`Variable_Ref => True` makes both `Force_Evaluation` calls no-ops.
+
+The remainder of `Analyze_Subtype_Declaration` copies standard attributes,
+shares the primitive-operation list, and performs no further range check:
+its array-index check requires an identifier or subtype-indication index,
+whereas this index remains `N_Range` (`sem_ch3.adb:6190–6440`).
+`Conditional_Delay` only updates a flag and the standard base is already
+frozen (`sem_util.adb:6326–6331`). No aspects or dimensions are present.
+The dynamic-size restriction check only updates fixed restriction records;
+the registered local-restriction hook returns for this restriction
+(`restrict.adb:380–565`, `local_restrict.adb:127–148`). Native subtype
+expansion selects the no-op case, with transient wrapping excluded by premise
+(`expander.adb:519–557`).
+
+For the secondary-stack concat subtype, L <= 12 gives at most **16 name
+characters** for its additional index itype. The plain result object's
+`Find_Type_Of_Object` first constructs an explicit subtype from its inline
+indication: **two ordinary nodes, one entity, one insertion-wrapper list and
+one derived name** (`sem_ch3.adb:19080–19198`). If the object name has length
+O, that subtype's name has O+2 characters; its name-pool charge is O+3.
+Its index name later adds O+6 including NUL. With O <= 12 these two derived
+names need at most **33 characters**. Find_Type's placement callback and
+subtype analysis are additional; the frozen Standard String base adds no
+freezing syntax. The plain path enables range checks, so the suppressed
+declaration transfer cannot cover its subsequent check analysis.
+
+Actual concat-generated high-bound arithmetic and conditional expressions
+may enter this declaration **unanalyzed**. Their earlier Analyze/Resolve,
+capturing, conditional expansion and any transient context must still be
+closed before this transfer can stand for the actual full declaration. It
+does not silently price arbitrary scalar-expression analysis as zero.
+
+### Placement of ordinary for-range captures
+
+The scalar capture's declaration is placed before its ordinary for loop,
+including a loop nested in another loop or an if body. This statement is
+conditional on the ordinary scalar range parent chain, no spec expression,
+and no transient scope. The capture uses `Expression => Relocate_Node(Exp)`
+and `Insert_Action(Exp,E)` (`exp_util.adb:12765–12824`). `Insert_Actions`
+climbs from the bound through the range and loop parameter specification.
+The iteration-scheme special case requires `Present(Condition(P))` and
+`N = Condition(P)`; an ordinary for range does not meet it
+(`8289–8314`). The loop is a statement-list member, so the helper reaches
+`Insert_List_Before_And_Analyze(P,Ins_Actions)` (`8318–8462`).
+
+An `Expression_With_Actions` wrapper is created by the distinct already-
+analyzed short-circuit-right-operand branch (`8159–8182`), which is absent
+from this parent path. The loop's enclosing if statement is not traversed:
+the search stops at the loop. The declaration initializer therefore occupies
+one executable list location. Proof-domain translation multiplicity and the
+proof-mode exclusion of transient scopes/itype-reference replay remain the
+producer component's separate obligations.
 
 ## Required transitive closure
 
