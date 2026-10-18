@@ -1,0 +1,552 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "reviewed_silver_revision": "28697404fa1971ed310d19a7ab434e593ca2b075",
+  "selected_target_headers": [
+    "gcc/config/i386/i386.h",
+    "gcc/config/i386/unix.h",
+    "gcc/config/i386/att.h",
+    "gcc/config/elfos.h",
+    "gcc/config/gnu-user.h",
+    "gcc/config/glibc-stdint.h",
+    "gcc/config/i386/x86-64.h",
+    "gcc/config/i386/gnu-user-common.h",
+    "gcc/config/i386/gnu-user64.h",
+    "gcc/config/linux.h",
+    "gcc/config/linux-android.h",
+    "gcc/config/i386/linux-common.h",
+    "gcc/config/i386/linux64.h"
+  ],
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "ada",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-tree-source-identity.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "root": "ada",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "retained_identity_origin": "docs/evidence/retained-producer-parent-20261018/fixed-gcc-prefix-source-identity.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "ada",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-helper-source-identity.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "ada",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-helper-source-identity.json"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "root": "gcc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76",
+      "git_blob_sha1": "353e8b498aa6d172b3702291964b3c045cd35d3c",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-unit-symbols-source-identity.json"
+    },
+    {
+      "path": "gcc/cgraph.h",
+      "root": "gcc",
+      "bytes": 138341,
+      "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1",
+      "git_blob_sha1": "938292cb21aa78fe7073fe49ec8c0ae012d51e1e",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-unit-symbols-source-identity.json"
+    },
+    {
+      "path": "gcc/cgraphbuild.cc",
+      "root": "gcc",
+      "bytes": 15087,
+      "sha256": "1bc891a8d26c101a0d515394ec34382ac622fd40bd8c6d0e79695c029542f6ea",
+      "git_blob_sha1": "e33a414310bc77dcda71176ccda6a6009caef392",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-cgraph-lifecycle-source-identity.json"
+    },
+    {
+      "path": "gcc/cgraphunit.cc",
+      "root": "gcc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc",
+      "git_blob_sha1": "67aaebf108b0ecdb7b6a17fabc1a664687fda23f",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "root": "gcc",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70",
+      "git_blob_sha1": "354826c95a46ec1d4133b19a46e8abb1573bedd0",
+      "retained_identity_origin": "docs/evidence/retained-linker-interface-20261018/sources.json"
+    },
+    {
+      "path": "gcc/config/glibc-stdint.h",
+      "root": "gcc",
+      "bytes": 2854,
+      "sha256": "5d17b0d72057dbaafa517ff1df1bb64a5f6dc132ecfbfd0ddc1b64e2ee8a079b",
+      "git_blob_sha1": "e7aa498b3906b7345dc4a473843e9308f24fddbb",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/gnu-user.h",
+      "root": "gcc",
+      "bytes": 5918,
+      "sha256": "1095b158727a2cddc83cd18832064d2b8824538566b0d23271c57fce92e65be2",
+      "git_blob_sha1": "a03651e072ca75c5eef6c6350ceb7d99bc4fd8e9",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/att.h",
+      "root": "gcc",
+      "bytes": 3186,
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39",
+      "git_blob_sha1": "32d30bbc8ab85b9a22e974ed1aaf1ac7905c62ce",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/gnu-property.cc",
+      "root": "gcc",
+      "bytes": 3559,
+      "sha256": "cca3445a442cecb9eb578e57a2ef0bed0cd0c7bba590b3bd3fb7c3768da5d1b4",
+      "git_blob_sha1": "9499862fe264c6f3c1071cb5650fe10f871a076f",
+      "retained_identity_origin": "docs/evidence/retained-linker-interface-20261018/sources.json"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user-common.h",
+      "root": "gcc",
+      "bytes": 2629,
+      "sha256": "5f064832c02395865e22f4f79ca4de568ff42cfb50c102013d0417ce8be8d4b3",
+      "git_blob_sha1": "eec3de15a5eae6f4ed973a7ea2451b55d9fdcd69",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user64.h",
+      "root": "gcc",
+      "bytes": 3256,
+      "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9",
+      "git_blob_sha1": "c5267f0829b9017ed38bd656ae890db51a795320",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/i386-features.cc",
+      "root": "gcc",
+      "bytes": 154425,
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f",
+      "git_blob_sha1": "c0706c8935c61e6c7916581642a943a25a9f2363",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "root": "gcc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6",
+      "git_blob_sha1": "7459cde4ba8b662cf2535fc3e84cd7e1cbd918b7",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "root": "gcc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973",
+      "git_blob_sha1": "4249c55ce6e926329f68532c70bda10aaf30c9f2",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "root": "gcc",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380",
+      "git_blob_sha1": "888edfed88f00db6322f84cc2a353e986aebfad9",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json"
+    },
+    {
+      "path": "gcc/config/i386/linux-common.h",
+      "root": "gcc",
+      "bytes": 2346,
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0",
+      "git_blob_sha1": "ab45eda17abae7b72c8021485b754a078486faf7",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/linux64.h",
+      "root": "gcc",
+      "bytes": 1669,
+      "sha256": "faf45947315176aa120a1c3ac787a1a56c172437654323f83a9c8c98940c824d",
+      "git_blob_sha1": "a74c4e94906af9ab1a68fcbcf7cbbb9f0d5006a5",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/unix.h",
+      "root": "gcc",
+      "bytes": 2878,
+      "sha256": "0014a3ae6ab57406e731747c7506525770d0a80cd819e3f550306832fda42cc3",
+      "git_blob_sha1": "e023d5d3ecea0f5365092347836074a8e18ad845",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/i386/x86-64.h",
+      "root": "gcc",
+      "bytes": 3089,
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c",
+      "git_blob_sha1": "64c0d31a1566e92b1e2527f496febb643c293f03",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/linux-android.h",
+      "root": "gcc",
+      "bytes": 1947,
+      "sha256": "9137c99e7e1d3eb5316adf3d0aeda41a2f6fbb7b8977c1ba4a256b1d571f3fdb",
+      "git_blob_sha1": "f68acecb8d14a7e121be0d65df5db2e625bbebe1",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/config/linux.h",
+      "root": "gcc",
+      "bytes": 8737,
+      "sha256": "86809593d0a2ef1ea63972125d27d827310eff3e25b4fbcdc5923dd84f2d742d",
+      "git_blob_sha1": "36f06c17215d3608f277ad88504b8abe3ab14053",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/defaults.h",
+      "root": "gcc",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a",
+      "git_blob_sha1": "6364216d9681b4c8560af455f3758ce035314c1c",
+      "retained_identity_origin": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json"
+    },
+    {
+      "path": "gcc/dwarf2cfi.cc",
+      "root": "gcc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a",
+      "git_blob_sha1": "f2ffaa8ad3830725b88ba5924cd4b8af8e72fe8e",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json"
+    },
+    {
+      "path": "gcc/dwarf2out.cc",
+      "root": "gcc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20",
+      "git_blob_sha1": "bf342e468bf90af93d054d70389f22473d9ead90",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json"
+    },
+    {
+      "path": "gcc/emit-rtl.cc",
+      "root": "gcc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90",
+      "git_blob_sha1": "e41ec2283b8fa3cf97ed04c270308131701dc003",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json"
+    },
+    {
+      "path": "gcc/except.cc",
+      "root": "gcc",
+      "bytes": 99184,
+      "sha256": "90ef6fe4750300cb1985cb1df0af450cc0d806dad85874f631bfd8e411e0e5f0",
+      "git_blob_sha1": "98876833ee1e8fc9f309005548f58131c101e1f7",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json"
+    },
+    {
+      "path": "gcc/final.cc",
+      "root": "gcc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b",
+      "git_blob_sha1": "b5e8c6e2efde01417370e7dea5456ba108b866ed",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json"
+    },
+    {
+      "path": "gcc/function.cc",
+      "root": "gcc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68",
+      "git_blob_sha1": "109821c16fc96e4cd77d0721babca21dcdf82419",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json"
+    },
+    {
+      "path": "gcc/function.h",
+      "root": "gcc",
+      "bytes": 27144,
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e",
+      "git_blob_sha1": "765c71309facd881984ef723cab3612d9e07f0ab",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json"
+    },
+    {
+      "path": "gcc/gimple-expr.cc",
+      "root": "gcc",
+      "bytes": 29310,
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f",
+      "git_blob_sha1": "96f9fc720afba771e6593dc60083afe70b4743c6",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "root": "gcc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "git_blob_sha1": "8bfc71315f9fd3501bb68f4b23a81c69b781fcec",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-initial-gimple-source-identity.json"
+    },
+    {
+      "path": "gcc/hooks.cc",
+      "root": "gcc",
+      "bytes": 11088,
+      "sha256": "d24d95d8ceefa76252b0e1341a0194d106318e95fe53f32e694baa6c8fbb53a9",
+      "git_blob_sha1": "2b47fd3e50f8e5f484f5fbdc08139dfa5f747159",
+      "retained_identity_origin": "docs/evidence/retained-backend-gigi-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/langhooks-def.h",
+      "root": "gcc",
+      "bytes": 18024,
+      "sha256": "118e301f1c983dcb7c4f1b7a7b30820861cd53420779e29b0dc8c2a3c489c187",
+      "git_blob_sha1": "fc409ec08b96781064d5bf18a339335c7834f4ff",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-cgraph-lifecycle-source-identity.json"
+    },
+    {
+      "path": "gcc/langhooks.cc",
+      "root": "gcc",
+      "bytes": 26690,
+      "sha256": "f014ada9499002acd773d82d7d9ceb0c5046a20e2de8798c8605640969b78c66",
+      "git_blob_sha1": "e2c7735596e08ccbc95e0ae9b0a56f6ec35027be",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-cgraph-lifecycle-source-identity.json"
+    },
+    {
+      "path": "gcc/opts.cc",
+      "root": "gcc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770",
+      "git_blob_sha1": "6658b6acd378d6ac03a28acf15a2e7bbe1eac2c7",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json"
+    },
+    {
+      "path": "gcc/passes.cc",
+      "root": "gcc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc",
+      "git_blob_sha1": "9ec37eeb2a98b348ffe3be9bc639885772dcd8f4",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json"
+    },
+    {
+      "path": "gcc/reginfo.cc",
+      "root": "gcc",
+      "bytes": 39713,
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec",
+      "git_blob_sha1": "9b515870d55aa172afdc215dd57902d00ee457df",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "root": "gcc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "git_blob_sha1": "796fc8199213a5e6d954143c8318a92faf2e1a32",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-tree-source-identity.json"
+    },
+    {
+      "path": "gcc/symtab.cc",
+      "root": "gcc",
+      "bytes": 75509,
+      "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc",
+      "git_blob_sha1": "c8c67c0ee151e26f03d450128ee24c24621a7329",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json"
+    },
+    {
+      "path": "gcc/target.def",
+      "root": "gcc",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763",
+      "git_blob_sha1": "a9fcce7850fba9999d5961bf298ee4a7c93b411b",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-tree-source-identity.json"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "root": "gcc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053",
+      "git_blob_sha1": "682459220a20c2a2119c6f2de519792de6a32936",
+      "retained_identity_origin": "docs/evidence/retained-producer-parent-20261018/fixed-gcc-prefix-source-identity.json"
+    },
+    {
+      "path": "gcc/tree-nested.cc",
+      "root": "gcc",
+      "bytes": 118724,
+      "sha256": "d2910d8448c5f42c819d86075894eb435a7054fe29d08f47e580bb88e2981043",
+      "git_blob_sha1": "cdccc51d33e139806a4ab9a71cd869ab665a3844",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-unit-symbols-source-identity.json"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "root": "gcc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "git_blob_sha1": "5999f1e5420c440e0ebb09ce43da58b13a5850b5",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/frontend-deferred-20261017/gcc-emission-source-manifest.json"
+    },
+    {
+      "path": "gcc/varpool.cc",
+      "root": "gcc",
+      "bytes": 24150,
+      "sha256": "d450a01353495f850293c2266900abfe6e915ee5be50ff068eccd1fd1cddbdf8",
+      "git_blob_sha1": "1025535ec5aa7bdeca15e61dbe3f371f42843135",
+      "retained_identity_origin": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-unit-symbols-source-identity.json"
+    }
+  ],
+  "historical_silver_inputs": [
+    {
+      "path": "docs/evidence/retained-assembler-capacity-20261018/event-gcc-source-manifest.json",
+      "bytes": 4699,
+      "sha256": "c86e507a8bb224c2806ea9c03a7858faa5ffc2bb2fb7285c3b9effbeccd5eb35"
+    },
+    {
+      "path": "docs/evidence/retained-assembler-capacity-20261018/gcc-invocation-source-manifest.json",
+      "bytes": 1794,
+      "sha256": "7c82d91b0597fbe8eb3bdf64f99e64422b927ec5929a61cd6d2e767ca89f133c"
+    },
+    {
+      "path": "docs/evidence/retained-backend-gigi-20261018/source-manifest.json",
+      "bytes": 32026,
+      "sha256": "79170efba70a9491d9b5fcf1a29000fd1b63f22e935aa2967b50ded57f00e44f"
+    },
+    {
+      "path": "docs/evidence/retained-linker-interface-20261018/sources.json",
+      "bytes": 2210,
+      "sha256": "8bbbbdba32d90754bf2bf27993aae9bf8dcefd3e3811ede093d75008398fe161"
+    },
+    {
+      "path": "docs/evidence/retained-literal-assembler-20261018/compose.py",
+      "bytes": 6698,
+      "sha256": "310b893cd75b5bb5eb799be2bb43550208dff34a86acdad68f222fea7872d021"
+    },
+    {
+      "path": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json",
+      "bytes": 9834,
+      "sha256": "11f170d0b9fbd0f7f89a9686e2472abd26d5da55d903f8fb9b987c1dab25726c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "bytes": 74129,
+      "sha256": "a81687550f7fe1e355edfc18d6a05de2296e0a82c071770bef1a17e3ae485412"
+    },
+    {
+      "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
+      "bytes": 35200,
+      "sha256": "1ef9c27d700ff1956049e276af4458ab24c741197f5dc3a95106b60c4490183b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-string-layout-20261018/interface.json",
+      "bytes": 1186,
+      "sha256": "c163292c7972dfa9893ed84dcb817629be6b962b95d220d3b689c452b59b32d7"
+    },
+    {
+      "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/interface.json",
+      "bytes": 1663,
+      "sha256": "637125013a161379bf7c4e455eeb340f6549148b7a98b96c1d48694c1792e9fa"
+    },
+    {
+      "path": "docs/evidence/retained-producer-parent-20261018/fixed-gcc-prefix-source-identity.json",
+      "bytes": 2424,
+      "sha256": "82c63e17da8aad077410c8c3b90a7cd3862bba25ed381e91466aabb672a2cd6b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-parent-20261018/fixed-gcc-prefix-witness/frontend-exec.json",
+      "bytes": 2233,
+      "sha256": "0612510528e472e618757ec030570c4d2a73429b434ec6cb6fbca3febf01357c"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-deferred-20261017/gcc-emission-source-manifest.json",
+      "bytes": 1541,
+      "sha256": "f28c55f16a631d899edb6785bead32abe9513a2be6c5e5b4e636e2547a6e30e2"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json",
+      "bytes": 2265,
+      "sha256": "0ec7c6bb2b29becbd11751b15ad73d294356f4f332f3c7ff157a6c7bb5a32e83"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-cgraph-lifecycle-source-identity.json",
+      "bytes": 6100,
+      "sha256": "6f6f20e481452d37af36a14a39eb6f874aafc2427f194daa101d566e8628c430"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-helper-source-identity.json",
+      "bytes": 1015,
+      "sha256": "7f0c70b6d8bc1a1361af037320532e83007cde1f8707099b287327ec0ecd504d"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-gigi-tree-source-identity.json",
+      "bytes": 1490,
+      "sha256": "f18e83ccbab32e79bbfcf4e4243c5cc66d0e14d318c310af1805d4a65bade3ed"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-initial-gimple-source-identity.json",
+      "bytes": 7133,
+      "sha256": "215575fecbbc97347c6527eae038562ea094bc23ef636c6ec99a7c2f7bea877d"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-symbols-source-identity.json",
+      "bytes": 6901,
+      "sha256": "da914814955ae47f6d3c66bf0c22e45ebedb875431e5c4b337571de75a0c1eeb"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-unit-symbols-source-identity.json",
+      "bytes": 5517,
+      "sha256": "dd601a87c9b7f410c8d6960eb8fc652fee06f5b74c294f4f50319fe42a9ff977"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json",
+      "bytes": 4228,
+      "sha256": "c0934b0a8a6392a91db77c25130fa4e96978958e32027234879ebe5fbb43fc7c"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json",
+      "bytes": 3988,
+      "sha256": "c095ce9d162ee3957f61020b3012e34a4886bf3c821afdaa9a63094291d42e2e"
+    },
+    {
+      "path": "docs/research/retained-literal-assembler.md",
+      "bytes": 9308,
+      "sha256": "0ec3b783c448d930cdc7c062198808f1d5c6ca3b2e0f806080425dca68ebb2d4"
+    },
+    {
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 100357,
+      "sha256": "85be3a0d7fc05e85a775ac77f27b145bf8f0e740957d182c46da5621778a25ea"
+    },
+    {
+      "path": "docs/research/retained-literal-string-layout.md",
+      "bytes": 14873,
+      "sha256": "0f7a4ef3a0abf228e6c5e204e518e3386603d93eba35e6bb591e1158ddb13392"
+    },
+    {
+      "path": "docs/research/retained-literal-warning-residual-bound.md",
+      "bytes": 17982,
+      "sha256": "bef8c52601a1cf9ffc3531930cdddfae41140951fffbaad3d21fcec4b70daee7"
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "path": "docs/research/retained-output-rtl.md",
+      "bytes": 21155,
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "path": "docs/reviews/review-literal-warning-residual-6f3a5af341.md",
+      "bytes": 15772,
+      "sha256": "454f98d97f00eabbf394302766886523a28d91b49df52cbab77e9c16c8adcdc3"
+    }
+  ]
+}
