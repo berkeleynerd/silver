@@ -114,10 +114,10 @@ The current derivation has seven reusable component groups:
 | [Source ranges](retained-source-closure.md), [fixed support](retained-fixed-support.md) | Physical-loader inventory, runtime union, grammar-to-helper seed coverage and conditional virtual-template/binder-source bounds | Effective invocation/search premises and source/tool correspondence; helper AST/value/backend costs are separate |
 | [Values and parsing](retained-value-capacity.md) | Main lexical/static String totals, at most two scans per literal/identifier, scanner nodes including colon-numeral diagnostics, local Uint arithmetic and range-query costs | Fixed dependency parsing, generated value events and query multiplicities |
 | [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, qualification/homonym transfers, exact node layout and slot/list coupling; complete ordinary parser constructor transfer and source-sensitive/uniform comparison | Complete generated-scope/name caller coverage, semantic slot/list/value demands and remaining auxiliary representations |
-| [Main entities](retained-frontend-entities.md), [Main semantics](retained-main-semantics.md) | Source-sensitive generated entity/type/literal multiplicities and conditional light-mode Main node-identity bound; scalar-query counts, unfolded-graph/magnitude and Uint contributions; discrete-size/evaluator subtotals | Fixed dependency entities, native expansion, remaining literal/layout numeric work, growing mutations and auxiliary storage |
-| [Native expansion](retained-native-expansion.md) | Composed direct scalar/concat and result-storage costs; enabled and suppressed slice checks; source concat grouping, helper-cache seeds, decorated-copy and pointer/bound captures | Grammar-to-copy-shape coverage, generated-child premises and replay multiplicities, remaining slice/call/declaration/action/insertion-context closure |
-| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md), [fixed setup](retained-producer-fixed.md), [storage](retained-producer-storage.md) | Ordinary Main transfer and enclosing wrapper; copied-literal correction; symbol/module and temporary-name bounds; measured Standard and five-root fixed-dependency envelope with source/cache reduction; four separate fixed library processes; vector/list and standard hashed-map arithmetic | Remaining auxiliary representations and lifetime counters; general source-to-installed-tool relation; whole-rule composition |
-| [Native backend](retained-backend-capacity.md) | Whole-file line-map condition and location recurrence, Character String lowering and O0 emission transfers | Actual lowering counts, other GCC representations, code/data/frame bounds, assembler and relocation/linker closure |
+| [Main entities](retained-frontend-entities.md), [Main semantics](retained-main-semantics.md) | Source-sensitive entity/type/literal and conditional node-identity bounds; query, evaluator, literal and layout Uint contributions; slots/lists/scopes, elaboration auxiliaries, overload/warning/xref and unit-boundary element-list counts | Fixed dependency inputs, remaining numeric callers, diagnostic text/fixes, traversal and other semantic auxiliary representations |
+| [Native expansion](retained-native-expansion.md) | Direct scalar/concat and result-storage costs; slice checks; normalized view and raw-bound copy envelopes; exclusion of ordinary String macro replay; source-bounded direct-emitter multiplicity | First raw-bound analysis/captures, remaining generated semantic-helper counts, call/assignment/freezing costs and transient output-actual placement |
+| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md), [fixed setup](retained-producer-fixed.md), [storage](retained-producer-storage.md) | Ordinary Main transfer and wrapper; measured fixed dependencies/processes; source-charged array-name lookups, label cardinality and length transfers; vector/list/hash arithmetic; complete serializer-schema byte weights | Remaining lifetime/fixed counters and undo peaks, complete generated-string/numeric parameters, actual configuration/behavior premises and whole-rule composition |
+| [Native backend](retained-backend-capacity.md) | Whole-file line maps and backing growth, GNAT-node association arrays, Character String lowering and O0 emission transfers | Actual lowering counts, other GCC representations, code/data/frame bounds, assembler and relocation/linker closure |
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
@@ -284,8 +284,11 @@ phases of the single #119 deliverable, not independently completed work packages
 
 This checkpoint does **not** complete steps 1–3, #91, #93 or milestone 5.
 Current caps remain until their replacement assurance is established. Validation
-so far is source inspection, arithmetic/document checks and one isolated build
-and execution of the pinned standalone node-layout generator. No Silver or GNAT
-compiler build, GNATprove/Lean run, full suite, macOS run or CI result is claimed.
-Independent review is recorded separately. Retained source facts keep their
-original evidence scope.
+comprises source inspection and arithmetic/document checks, the isolated
+standalone node-layout generator, and the explicitly scoped installed-producer
+measurements in the [fixed-component record](retained-producer-fixed.md).
+The latter use disabled/false solver backends and supply allocation/serialization
+observations, not proof success. No Silver build, GNAT compiler rebuild,
+GNATprove obligation audit, Lean build, full suite, macOS run or CI result is
+claimed for this design. Independent reviews retain the frozen targets and
+exclusions listed above; later additions are not silently covered by them.
