@@ -1,0 +1,138 @@
+{
+  "scope": "Source-to-initial-GIMPLE direct literal output projection",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-expr.cc",
+      "bytes": 29310,
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-expr.h",
+      "bytes": 5126,
+      "sha256": "aaab5f9b12e5445c3309c2b16c0428df60aa72238abff67cd6c7283e7642e1ed"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/expr.cc",
+      "bytes": 472318,
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/targhooks.cc",
+      "bytes": 75641,
+      "sha256": "18278aab3517619d6e10b397d5a6869b78965dd59db4b286e699ff0512ad05c0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "root": "ada",
+      "path": "sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+    },
+    {
+      "root": "ada",
+      "path": "exp_ch6.adb",
+      "bytes": 408010,
+      "sha256": "b0c37423b5a93f3d7ccc678eb2391d9a462674cbef6d2c37503cdeaa0f6728cb"
+    },
+    {
+      "root": "ada",
+      "path": "exp_ch7.adb",
+      "bytes": 349081,
+      "sha256": "590aeb1807f35622c08285e619951c0b7970d48d8b5c2135561956e1b17e7598"
+    },
+    {
+      "root": "ada",
+      "path": "exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1"
+    },
+    {
+      "root": "ada",
+      "path": "sem_elab.adb",
+      "bytes": 698569,
+      "sha256": "f2452a63f2fe2603c660445e51c4c687f96ed5f21784da9d5f88ab9f94cd3b0c"
+    },
+    {
+      "root": "silver",
+      "path": "src/silver_io.ads",
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    }
+  ]
+}

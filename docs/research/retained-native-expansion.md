@@ -11233,6 +11233,157 @@ correspondence remain separate joins. The output therefore keeps
 `whole_toolchain_capacity_established: false` and
 `production_admission_changed: false`. This packet does not complete #119.
 
+## Direct literal output: source to initial GIMPLE and data operands
+
+This next family has one `with Silver_IO;`, the ordinary Main/SPARK pragma
+shell, no declarations, and a nonempty straight-line sequence of qualified
+`Silver_IO.Put (L);`, `Silver_IO.Put_Line (L);` and `null;` statements. Each L
+is a direct ordinary Character String literal. Let C be the number of output
+calls, N the number of null statements, and let the decoded literal lengths be
+`L_1 ... L_C`, with `W = sum L_i`. Require C >= 1 for this selected family.
+The lengths remain symbolic. Library semantic admissibility is a separate
+parameter; today's 4096-byte rule is not a backend capacity theorem and stays
+unchanged until its authorized implementation/proof work is completed.
+
+This is an evidence stream toward the complete #119 language objective, not a
+new language fragment, milestone or source cap. The
+[offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
+scans this restricted source class completely and checks 22 complete source
+identities. Its equations cover initial lowering and data operands. Later
+GIMPLE/IPA, RTL, allocation counters and final assembly/object composition
+remain required; neither the checker nor its arithmetic proves those stages.
+
+### Native expansion composes without a transient scope
+
+The earlier one-literal Put reduction extends by induction over the statement
+list. The selected transient trigger requires a nonstatic concat actual;
+none of these actuals has that form (`sem_res.adb:4480–4498`). Each standalone
+literal receives one `E_String_Literal_Subtype` with the existing static
+Positive lower bound 1 (`:12039–12117,13224–13236`). Increasing the length
+changes its stored length and upper bound, not the constructor family. The
+unconstrained IN String formal creates no actual range conversion/check,
+copy-out, predicate, invariant or dispatching path. Both API declarations
+have this profile and neither has a precondition.
+
+No statement sets `Uses_Sec_Stack` or introduces an owned object, allocator,
+task, controlled value or unconstrained function result. The cleanup scan's
+false result therefore composes across the list (`exp_util.adb:13501–13787`),
+and `Expand_Cleanup_Actions` returns before constructing cleanup
+(`exp_ch7.adb:4632–4699`). Main has one procedure body, no finalizer, no
+transient/replacement block, no secondary-stack mark/release and no native
+temporary object. Its expander appends one bare return. Each output call
+does introduce its nonexecuting call marker (`sem_elab.adb:3674–3776`), which
+gigi converts to an empty statement-list request rather than an instruction.
+These metadata events must still be priced in lifetime allocation accounting.
+
+### Literal materialization and the String argument ABI
+
+Each call actual is translated once, with no lazy object-initializer edge.
+The Character literal path makes one STRING_CST from its L bytes
+(`trans.cc:6705–6731`). Its initial request is `L + 21` bytes on the selected
+LP64 layout and its temporary character buffer has L bytes, using the existing
+String constructor transfer. Thus **initial literal materializations are C**
+and their requested bytes sum to `W + 21C`. This does not count later pool,
+copy or collector requests as if they were free.
+
+The literal subtype's index has static bounds `1 .. L`, or `1 .. 0` for the
+empty literal (`decl.cc:3142–3193`). For `0 <= L <= Integer'Last`, all its
+bound arithmetic is constant and representable; ordinary Character array
+layout has L bytes and `8L` bits. The existing constant-only scalar/type
+transfers apply. There is no symbolic bound expression or variable-size
+temporary hidden in this family.
+
+`must_pass_by_ref` selects the unconstrained String formal
+(`misc.cc:1125–1135`; `decl.cc:5844–5876`). Its reference representation is the
+two-pointer fat record, not a pointer to a copy of the String bytes. The
+unconstrained-array type installs that fat record as both pointer and reference
+type (`utils.cc:573–615`). The selected LP64 fields are P_ARRAY and P_BOUNDS,
+giving 16 bytes. The one-dimensional bounds template contains the two signed
+32-bit index bounds and has 8 bytes.
+
+The actual is a directly addressable STRING_CST, so `Call_to_gnu` creates no
+misalignment/copy temporary (`trans.cc:4974–5015,10571–10575`). Conversion back
+to its own literal type is identity. Conversion to unconstrained String takes
+its address, constructs the bounds/fat records and creates the special
+unconstrained-array reference (`utils.cc:4794–4905,5591–5627`). Taking the
+address required by the formal immediately removes that reference and returns
+the fat record (`utils2.cc:1570–1601`). It does not take the address of a
+16-byte descriptor as an additional argument.
+
+Each call therefore contributes one two-element bounds CONSTRUCTOR and one
+two-element fat CONSTRUCTOR, with four total element positions. The fat fields
+are the literal address and bounds-record address; neither expression copies
+the literal bytes. The bounds are constants. `gnat_build_constructor` marks
+these constant constructors readonly/static (`utils2.cc:2166–2220`). Fixed
+Standard.String types, both imported procedure declarations and their profiles
+remain a separate fixed-input/type projection, not new complete type graphs
+per call.
+
+### Initial GIMPLE has two pointer stores and one call per output
+
+The callee is a direct, nonbuiltin, void procedure. It has no static chain,
+result temporary, returns-twice flag, variadic pack or copy-out list. The
+standalone call is visited once and emits one GIMPLE_CALL
+(`gimplify.cc:4886–5013`). Its sole aggregate actual selects the lvalue/either
+argument path (`:3859–3912`). A nonempty CONSTRUCTOR is not already a GIMPLE
+lvalue/addressable object, so the fallback materializes one 16-byte VAR_DECL
+and initializes it (`:21498–21558,683–721`; `gimple-expr.h:120–125`). That
+declaration starts writable (`gimple-expr.cc:439–466`); the readonly-static
+promotion branch for its initializer is consequently inapplicable.
+
+The fat constructor has precisely two nonzero pointer fields, no padding
+field, missing initializer, array range or side effect. Its initialization
+needs no clear, recursive range loop or pre-evaluation capture. The small
+block-copy branch is also excluded: 16 bytes at 64-bit alignment requires at
+most two selected move pieces, below the O0 ratio 3
+(`gimplify.cc:6450–6650`; `expr.cc:1100–1183`; `targhooks.cc:2157–2215`;
+`i386.h:1917–1956`, `i386.cc:11583–11594`). The element loop therefore makes
+exactly two pointer-field assignments (`gimplify.cc:6157–6284`). Their RHS
+addresses are GIMPLE invariants and need no scalar SSA temporary. The Ada hook
+places the addressed constant bounds constructor in the static tree pool
+(`trans.cc:9339–9354`), at most once per call before any sharing credit. The
+literal address remains an address of constant data.
+
+These gimplifier temporaries do **not** create source BIND cleanup regions.
+All GENERIC BIND variable lists in this family contain no local VAR_DECL;
+literal type declarations are not variables. `gimple_add_tmp_var` puts its
+new descriptor in `gimplify_ctxp->temps` (`gimplify.cc:839–858`), whereas the
+cleanup loop scans the original `BIND_EXPR_VARS` (`:1708–1748`). The temps
+are attached to the outer GIMPLE bind only when the context is popped after
+body gimplification (`:404–415,21865`). There is no variable-size stack save,
+source finalizer, local exception handler or constructed TRY_FINALLY region.
+The output calls may propagate an exception externally; this argument does
+not mark them nothrow or erase that behavior.
+
+Every source null contributes at most one GIMPLE goto and one label through
+its O0 gigi pair. The final bare return adds at most one GIMPLE_RETURN and no
+conditional early-return predictor. Consequently the initial executable
+sequence, ignoring nonexecuting BIND/type metadata, satisfies:
+
+```text
+direct GIMPLE calls                  = C
+pointer-field GIMPLE stores          <= 2C
+null goto/label statements           <= 2N
+bare returns                        <= 1
+flat executable statements          <= 3C + 2N + 1
+raw statement operand positions     <= 8C + 2N + 1
+generated descriptor VAR_DECLs       <= C, each 16 bytes
+initial bounds-pool requests        <= C, each 8 payload bytes
+local cleanup/EH regions             = 0.
+```
+
+The operand row charges two positions for each store, four for each one-actual
+call, one per goto/label, and one for return. It is not a GGC allocation total.
+Likewise `W + 8C` is the literal/bounds **data operand** total before alignment,
+pool copies, late helpers and output serialization; it is not yet a final ELF
+data-section bound. Descriptor temporaries must still join frame/spill layout.
+
+The retained hello-world fixture has C = 1, N = 0, W = 13 and an initial
+four-statement bound. Focused offline scanner checks include doubled quotes,
+an empty literal, rejected concat/name/loop forms, all selected comment
+terminators and 5000 calls above the current source cap. They exercise the
+equations without changing admission or launching any native tool.
+
 ## Exact remaining obligations
 
 The constructor sum supplies a common A and all source construct rows listed

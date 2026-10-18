@@ -1,0 +1,79 @@
+{
+  "scope": "direct literal output: source to initial GIMPLE and data operands",
+  "source_files_verified": 22,
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "components": {
+    "native_Main": {
+      "procedure_bodies": 1,
+      "implicit_bare_returns": 1,
+      "String_literal_subtypes": 1,
+      "call_markers": 1,
+      "transient_blocks": 0,
+      "secondary_stack_marks_or_releases": 0,
+      "finalizer_bodies": 0,
+      "generated_native_temporary_objects": 0
+    },
+    "gigi_payload_and_descriptors": {
+      "String_lowering_events": 1,
+      "String_node_requested_bytes": 34,
+      "each_literal_scratch_bytes": 13,
+      "bounds_CONSTRUCTOR_requests": 1,
+      "fat_pointer_CONSTRUCTOR_requests": 1,
+      "descriptor_constructor_element_positions": 4,
+      "each_bounds_record_bytes": 8,
+      "each_fat_descriptor_bytes": 16,
+      "literal_payload_bytes": 13,
+      "bounds_payload_bytes": 8,
+      "final_emitted_pool_bytes_claimed": false
+    },
+    "initial_GIMPLE": {
+      "direct_calls": 1,
+      "pointer_field_stores_upper": 2,
+      "null_gotos_upper": 0,
+      "null_labels_upper": 0,
+      "bare_returns_upper": 1,
+      "flat_executable_statements_upper": 4,
+      "raw_statement_operand_positions_upper": 9,
+      "descriptor_temporary_VAR_DECLs_upper": 1,
+      "each_descriptor_bytes": 16,
+      "source_BIND_cleanup_regions": 0,
+      "local_EH_regions": 0,
+      "variable_size_temporaries": 0,
+      "implicit_bulk_memory_calls": 0,
+      "static_bounds_pool_requests_upper": 1,
+      "initial_scalar_SSA_names_from_actuals": 0
+    },
+    "local_representation_checks": {
+      "literal_length_fits_String_Length_and_Integer": true,
+      "String_constructor_unsigned_size": true,
+      "Character_array_bit_size_fits_signed64": true,
+      "descriptor_objects_have_fixed_size": true
+    },
+    "semantic_library_admissibility": "separate parameter; current 4096-byte rule is not promoted into this backend bound",
+    "later_GIMPLE_IPA_RTL_allocation_and_counter_composition_established": false,
+    "final_assembly_and_ELF_object_envelope_established": false,
+    "whole_native_backend_capacity_established": false,
+    "production_admission_changed": false
+  },
+  "focused_checks": [
+    "complete restricted source scan",
+    "decoded quotes and empty literal",
+    "unsupported constructs rejected",
+    "comment terminators and EOF",
+    "5000 calls compose without a new source cap"
+  ],
+  "native_tool_executions": 0,
+  "arithmetic_requires_companion_manual_source_argument": true
+}

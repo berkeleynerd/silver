@@ -192,3 +192,27 @@ corrected. All 38 hash-verified fixed sources have no FF/VT, and the default
 formula result remains byte-equal; no retained numerical record changed.
 Both commands are offline and launch no native tool. The formula changes use
 optional parameters; the earlier default `derive.py` result remains unchanged.
+
+### Direct literal-output initial lowering
+
+`literal-output-source-inputs.json` pins 22 complete GCC/Ada/API sources.
+`derive-literal-output.py` scans a canonical direct-literal Put/Put_Line/null
+sequence completely and composes the manual native/gigi/initial-GIMPLE source
+argument in the research record. `native-literal-output-initial.json` retains
+the hello-world instance and focused offline scanner checks. Literal lengths
+remain symbolic; semantic library admissibility is a separate parameter.
+
+For C calls and N null statements, the initial executable GIMPLE bound is
+`3C + 2N + 1`, with C generated 16-byte descriptors and at most C bounds-pool
+requests of 8 payload bytes each. Literal materialization contributes its
+decoded bytes plus 21 bytes per initial STRING_CST. Later pass allocation,
+RTL/frame layout and final assembly/ELF output remain open; the corresponding
+result flags are false. No native compiler/prover/debugger runs are performed.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py \
+  --source samples/hello_world.adb \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --output /tmp/native-literal-output-initial.json
+```
