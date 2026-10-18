@@ -1622,6 +1622,241 @@
       }
     ]
   },
+  "native_query_weighted_recurrence": {
+    "D": "1 plus recursively queried initializer/arithmetic/conversion/Length-bound D weights; conditional/EWA/First/Last are leaves",
+    "U": "sum of recursive U plus local Uint weight: minus2,add2,subtract4,multiply6,Length6,others0",
+    "S": "1 plus unary/binary operand S after exactly one Compare_Fixup at this visit; no constant-initializer, conditional-arm or conversion recursion",
+    "F": "one for a String-literal Last fixup at this visit, plus recursively visited S-child F weights",
+    "root_set": "both comparison operands, decomposition roots and scalar-type bounds of the initial and four Rec=True comparison calls",
+    "comparison_ordinary_nodes": "20*max(F)",
+    "comparison_Uint": "10*max(U)+20*max(F)+60",
+    "reuse_existing_A_formulas": "A=max(1,max(D),max(S)) over same root set; U<=6*D,F<=S",
+    "examples_not_admission_thresholds": {
+      "leaf": {
+        "D": 1,
+        "U": 0,
+        "S": 1,
+        "F": 0
+      },
+      "first": {
+        "D": 1,
+        "U": 0,
+        "S": 1,
+        "F": 0
+      },
+      "literal_last": {
+        "D": 1,
+        "U": 0,
+        "S": 1,
+        "F": 1
+      },
+      "length": {
+        "D": 3,
+        "U": 6,
+        "S": 1,
+        "F": 0
+      },
+      "saved_length": {
+        "D": 4,
+        "U": 6,
+        "S": 1,
+        "F": 0
+      },
+      "repeated_saved_length_sum": {
+        "D": 9,
+        "U": 14,
+        "S": 3,
+        "F": 0
+      },
+      "conditional": {
+        "D": 1,
+        "U": 0,
+        "S": 1,
+        "F": 0
+      },
+      "captured_conditional": {
+        "D": 2,
+        "U": 0,
+        "S": 1,
+        "F": 0
+      },
+      "captured_ewa": {
+        "D": 2,
+        "U": 0,
+        "S": 1,
+        "F": 0
+      },
+      "last_fixed_to_arithmetic": {
+        "D": 1,
+        "U": 0,
+        "S": 3,
+        "F": 0
+      }
+    },
+    "excluded": "source-to-bound-graph derivation, full helper invocation count and numeric magnitudes; not a compiler simulator or membership check"
+  },
+  "combined_Main_native_emitter_addends": {
+    "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes",
+    "per_invocation": {
+      "ordinary": "(720*n+220)*A+1097*n+920",
+      "Uint": "(2976*n+940)*A+3033*n+769",
+      "lists": "63*n+74",
+      "growth": "93*n+36",
+      "entities_and_names": "26*n+26",
+      "name_characters": "338*n+345",
+      "Elist_headers": "10*n+11",
+      "Elist_elements": "20*n+20",
+      "hash_wrappers": "30*n+30"
+    },
+    "uniform_Main_bound_in_c": {
+      "ordinary": "(1660*A+3114)*c",
+      "Uint": "(6892*A+6835)*c",
+      "lists": "200*c",
+      "growth": "222*c",
+      "entities_and_names": "78*c",
+      "name_characters": "1021*c",
+      "Elist_headers": "31*c",
+      "Elist_elements": "60*c",
+      "hash_wrappers": "90*c",
+      "dynamic_slots": "(14940*A+34782)*c"
+    },
+    "source_sensitive_composition": "sum per-invocation vectors at source-derived n_i,A_i; uniform maximum A is optional",
+    "residual_addends": [
+      "source String folding and Image/input constructors",
+      "first raw/copied scalar bound analysis and captures including conditional arm actions",
+      "attribute-prefix/type-state and actual-subtype bridges",
+      "remaining runtime concat call and final enabled result-slice analysis",
+      "action/transient placement including output-actual wrapper",
+      "later object/whole-scope freezing and name qualification",
+      "source-derived query roots/magnitudes",
+      "fixed runtime and backend costs"
+    ],
+    "examples_not_thresholds": [
+      {
+        "operands": 2,
+        "analysis_graph": 1,
+        "rows": {
+          "direct_scalar_storage": {
+            "entities_and_names": 10,
+            "growth": 60,
+            "lists": 26,
+            "name_characters": 137,
+            "ordinary": 776,
+            "uint": 3487,
+            "pending_elist_headers": 1
+          },
+          "remaining_copies": {
+            "ordinary": 2124,
+            "entities_and_names": 60,
+            "lists": 162,
+            "pending_elist_headers": 30,
+            "pending_elist_elements": 60,
+            "hash_wrappers": 90,
+            "name_characters": 780,
+            "growth": 0,
+            "uint": 0
+          },
+          "up_to_n_suppressed_slice_assignments": {
+            "entities_and_names": 8,
+            "growth": 162,
+            "lists": 12,
+            "name_characters": 104,
+            "ordinary": 1874,
+            "uint": 10240
+          }
+        },
+        "total": {
+          "entities_and_names": 78,
+          "growth": 222,
+          "hash_wrappers": 90,
+          "lists": 200,
+          "name_characters": 1021,
+          "ordinary": 4774,
+          "pending_elist_elements": 60,
+          "pending_elist_headers": 31,
+          "uint": 13727
+        }
+      },
+      {
+        "operands": 64,
+        "analysis_graph": 127,
+        "rows": {
+          "direct_scalar_storage": {
+            "entities_and_names": 134,
+            "growth": 804,
+            "lists": 212,
+            "name_characters": 1749,
+            "ordinary": 1006840,
+            "uint": 4241301,
+            "pending_elist_headers": 1
+          },
+          "remaining_copies": {
+            "ordinary": 46020,
+            "entities_and_names": 1300,
+            "lists": 3510,
+            "pending_elist_headers": 650,
+            "pending_elist_elements": 1300,
+            "hash_wrappers": 1950,
+            "name_characters": 16900,
+            "growth": 0,
+            "uint": 0
+          },
+          "up_to_n_suppressed_slice_assignments": {
+            "entities_and_names": 256,
+            "growth": 5184,
+            "lists": 384,
+            "name_characters": 3328,
+            "ordinary": 4898368,
+            "uint": 20261888
+          }
+        },
+        "total": {
+          "entities_and_names": 1690,
+          "growth": 5988,
+          "hash_wrappers": 1950,
+          "lists": 4106,
+          "name_characters": 21977,
+          "ordinary": 5951228,
+          "pending_elist_elements": 1300,
+          "pending_elist_headers": 651,
+          "uint": 24503189
+        }
+      },
+      {
+        "source_concat_operators": 0,
+        "uniform_analysis_graph": 1,
+        "total": {
+          "entities_and_names": 0,
+          "growth": 0,
+          "hash_wrappers": 0,
+          "lists": 0,
+          "name_characters": 0,
+          "ordinary": 0,
+          "pending_elist_elements": 0,
+          "pending_elist_headers": 0,
+          "uint": 0
+        },
+        "dynamic_slots": 0
+      },
+      {
+        "source_concat_operators": 63,
+        "uniform_analysis_graph": 127,
+        "total": {
+          "entities_and_names": 4914,
+          "growth": 13986,
+          "hash_wrappers": 5670,
+          "lists": 12600,
+          "name_characters": 64323,
+          "ordinary": 13477842,
+          "pending_elist_elements": 3780,
+          "pending_elist_headers": 1953,
+          "uint": 55573497
+        },
+        "dynamic_slots": 121726206
+      }
+    ],
+    "whole_construct_closed": false
+  },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
       "line": 2829,

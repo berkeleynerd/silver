@@ -1088,6 +1088,76 @@ needed for these cumulative-append bounds. No compiler query is proposed as
 the membership predicate: a whole-source derivation must still establish A,
 the magnitude summary, acyclicity and the number of comparison invocations.
 
+#### Query-specific weighted recurrence
+
+The complete-syntax unfolding definition of A above is sufficient but can
+grossly overcharge this native compiler. A sharper compositional recurrence
+counts the work its two recursive workers actually perform. It operates on
+the **original generated scalar-bound graph**, with initializer and index-bound
+links derived from source and the native emitter. Check trees and temporary
+literals manufactured by the query itself are outputs, not new inputs to that
+graph. This separation is needed to avoid a circular capacity formula.
+
+Define four natural-number summaries for each available scalar node, using
+only previously established summaries of its dependencies. Sharing a summary
+does not make its later use free: each traversed edge adds its weight again.
+
+| Summary | Recurrence |
+| --- | --- |
+| D, range-query visits | One plus D of an internal constant's initializer; or of arithmetic/conversion operands; or of Length's two index bounds. All other relevant nodes contribute one. |
+| U, range-query Uint appends | Sum of those same dependency U values, plus local weight 2 for unary minus/addition, 4 for subtraction, 6 for multiplication/Length, and 0 otherwise. |
+| S, same-value visits | Apply Compare_Fixup **once** at this visit. Add one plus S of the resulting node's unary/binary operands; otherwise add only one. |
+| F, same-value allocating fixups | Add one if this visit fixes a String-literal Last, plus the F values of the same recursively visited children used by S. |
+
+Internal constants are followed before the range cache test, so D/U include
+their initializer even when it is itself a known literal. Ordinary source
+constant-name value lookup is read-only under the existing known-value
+premise. First/Last, scalar if and EWA have no range-recursion arm.
+In particular, an internal constant initialized by an arbitrarily large
+scalar if has **D=2, U=0**. Neither its branches nor its condition are queried
+by Determine_Range (`checks.adb:5142–5163,5304–5559`). A generated Length
+does follow both index bounds, and an aggregate-length constant does follow
+its addition initializer; those dependencies cannot be dropped.
+
+Compare_Fixup is similarly not a transitive expansion. If it returns another
+attribute, constant name, conditional or conversion, that result is a leaf
+of Is_Same_Value. Only the unary/binary cases recurse into their operands.
+For example, fixing Last to `Low + Captured_Length` visits the two scalar
+operands, but does not unfold Captured_Length's initializer. Conversely a
+range query of that internal name does follow its initializer. The two
+walks therefore require distinct summaries
+(`sem_eval.adb:995–1067,1078–1218`).
+
+Take maxima over both comparison operands, their possible one-step
+Compare_Decompose results, and the scalar-type-bound roots used by the
+initial call and its at-most-four Rec=True calls. If Umax/Fmax bound those
+summaries, the sharper complete comparison transfer is
+
+```text
+ordinary nodes <= 20*Fmax
+Uint appends   <= 10*Umax + 20*Fmax + 60.
+```
+
+There are at most ten Determine_Range calls and ten Is_Same_Value pair
+walks; each pair walk fixes both roots. The remaining arithmetic is the
+existing twelve-entry allowance for each of five comparison calls.
+Compare_Decompose examines only its root and at most one child
+(`sem_eval.adb:940–978`), so no extra recursive allocation term is hidden
+there. Independently, U<=6*D and F<=S. Taking
+`A=max(1,Dmax,Smax)` therefore preserves every earlier A-based envelope while
+avoiding the unrelated conditional/action/constant-initializer expansion
+in the same-value walk.
+
+`derive.py` encodes these recurrences on supplied compositional summaries and
+checks their arithmetic. A repeated use of a captured length contributes
+twice; capturing a conditional terminates the range walk. These examples
+neither execute GNAT nor derive a full admitted source's bound graph. The
+remaining bridge must build the summaries in source/elaboration order,
+cover all generated helper-query roots and propagate numeric magnitudes.
+Checked arithmetic may saturate at an established capacity cutoff, since
+all these demand recurrences are monotone; that implementation choice does
+not supply the missing source-correspondence argument.
+
 For the preceding `Get_Range_Checks` shape, `Not_Null_Range` invokes this
 comparison at most once. Its other value and conditional-branch tests only
 compare existing values. Thus the complete no-static-error selection adds at
@@ -2609,6 +2679,67 @@ call/assignment analysis, later freezing, placement and whole-source
 multiplicity. This is a closure of the direct copy addend, not of those
 semantic costs. The script checks these additions for representative `n`
 without running a compiler.
+
+## Combined Main direct-emitter vector
+
+The closed addends can now be composed without stitching their rows by hand.
+For one n-operand invocation, add:
+
+1. The direct/scalar/storage vector, with **b=28, l=2** for the normalized
+   result-bound pair. Its first raw-bound analysis/capture is still additional.
+2. The remaining direct copies and duplicators, including their raw-bound
+   decorated-copy allowance.
+3. Up to n suppressed slice assignments, using **t=31, l=2** for each
+   normalized assignment range. Include both length-check passes, overlap and
+   optional-guard skeleton. First range/RHS analysis is still additional.
+
+These charges deliberately overcount mutually exclusive helper-call and slice
+assignment routes. They give the following single vector of closed stages:
+
+| Demand | Per invocation | Whole Main with c source `&` and uniform A |
+| --- | ---: | ---: |
+| Ordinary nodes | `(720*n+220)*A + 1097*n + 920` | `(1660*A+3114)*c` |
+| Uint appends | `(2976*n+940)*A + 3033*n + 769` | `(6892*A+6835)*c` |
+| Syntax-list headers | `63*n+74` | `200*c` |
+| Growing-slot events | `93*n+36` | `222*c` |
+| Entities/internal names | `26*n+26` | `78*c` |
+| Name characters, including NUL | `338*n+345` | `1021*c` |
+| Elist headers | `10*n+11` | `31*c` |
+| Elist elements | `20*n+20` | `60*c` |
+| Copy-map hash wrappers | `30*n+30` | `90*c` |
+
+The whole-Main column uses `sum n_i <= 2*c` and `g <= c`, and vanishes for
+c=0. A better source-sensitive calculation sums the per-invocation vector
+with each group's own **n_i and A_i** from the preceding query-weight
+recurrence; using one maximum A is optional. A_i must cover all the group's
+original and generated query roots, not just the direct emitter's initial
+operands. With the pinned slot maxima, the uniform dynamic-slot addend is
+`9*(ordinary+growth)+61*entities = (14940*A+34782)*c`. Node identities/link
+tables, physical bytes and temporary stack/workspace remain separate
+representations. Uint digit demand also needs its numeric-magnitude bound,
+including the already identified cold power-cache extension.
+
+**This is not the whole native construct or a usable admission predicate.**
+Its explicit residual addends are:
+
+- Source String folding and initial Image/input construction.
+- First raw/copied scalar-bound analysis and capture, including conditional
+  arm actions; copied raw scalar syntax is not automatically covered by the
+  initial direct scalar-operator counts.
+- The source-to-attribute-prefix/type-state and actual-subtype bridges.
+- Runtime concat procedure-call analysis and the final enabled result-slice
+  analysis; the n assignment slices above do not stand for this final slice.
+- Action/transient placement, including the output-actual wrapper identified
+  above, later object/whole-scope freezing and name qualification.
+- Source-derived query roots/magnitudes, fixed runtime processing and backend
+  costs.
+
+The previously stated local helper premises remain binding. Normalized b/t
+are phase summaries, not substitutes for the work that produces them.
+`derive.py` sums the existing helper functions, asserts both columns and the
+slot arithmetic, and emits the residual list with `whole_construct_closed`
+False. No compiler or expensive validation run is needed for this arithmetic
+reconciliation.
 
 ## Required transitive closure
 

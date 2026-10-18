@@ -401,6 +401,101 @@ def direct_native_copy_costs(n):
                 total=total)
 
 
+def native_query_weight(kind, children=(), initializer=None, bounds=None,
+                        fixed=None, literal_last=False):
+    """Weights of specified scalar input shape, never a GNAT invocation.
+
+    Children/initializers/bounds are previously derived summaries. Reusing a
+    summary does not suppress its weight: sums count every incoming edge.
+    `fixed` is one Compare_Fixup result, not a transitive fixup closure.
+    """
+    local = {"plus": 0, "minus": 2, "add": 2, "subtract": 4,
+             "multiply": 6, "conversion": 0}
+    if kind == "internal_constant":
+        assert initializer is not None
+        demand = (initializer,)
+        local_uint = 0
+    elif kind in local:
+        demand = children
+        local_uint = local[kind]
+    elif kind == "length":
+        assert bounds is not None and len(bounds) == 2
+        demand = bounds
+        local_uint = 6
+    else:
+        demand = ()
+        local_uint = 0
+    d = 1+sum(child["D"] for child in demand)
+    u = local_uint+sum(child["U"] for child in demand)
+    fixed_kind = kind if fixed is None else fixed["kind"]
+    fixed_children = children if fixed is None else fixed["children"]
+    same_children = (fixed_children if fixed_kind in
+                     ("plus", "minus", "add", "subtract", "multiply") else ())
+    s = 1+sum(child["S"] for child in same_children)
+    f = int(literal_last)+sum(child["F"] for child in same_children)
+    assert u <= 6*d and f <= s
+    return dict(kind=kind, children=tuple(children), D=d, U=u, S=s, F=f)
+
+
+def native_query_weight_examples():
+    leaf = native_query_weight("literal")
+    first = native_query_weight("first", fixed=leaf)
+    last = native_query_weight("last", fixed=leaf, literal_last=True)
+    length = native_query_weight("length", bounds=(leaf, leaf))
+    saved_length = native_query_weight("internal_constant", initializer=length)
+    sum_expr = native_query_weight("add", children=(saved_length, saved_length))
+    selected = native_query_weight("conditional", children=(leaf, sum_expr, sum_expr))
+    captured = native_query_weight("internal_constant", initializer=selected)
+    saved_ewa = native_query_weight("internal_constant",
+                                    initializer=native_query_weight("ewa"))
+    fixed_sum = native_query_weight("last", fixed=sum_expr)
+    cases = dict(leaf=leaf, first=first, literal_last=last, length=length,
+                 saved_length=saved_length, repeated_saved_length_sum=sum_expr,
+                 conditional=selected, captured_conditional=captured,
+                 captured_ewa=saved_ewa, last_fixed_to_arithmetic=fixed_sum)
+    assert (sum_expr["D"], sum_expr["U"], sum_expr["S"], sum_expr["F"]) == (9, 14, 3, 0)
+    assert (captured["D"], captured["U"], captured["S"], captured["F"]) == (2, 0, 1, 0)
+    assert (fixed_sum["D"], fixed_sum["S"]) == (1, 3)
+    return {name: {key: value[key] for key in ("D", "U", "S", "F")}
+            for name, value in cases.items()}
+
+
+def combined_native_emitter_vector(n, analysis_graph):
+    """Closed addends only; first raw normalization and final helpers excluded."""
+    a = analysis_graph
+    first = direct_scalar_and_storage_concat(n, 28, 2, a)["total"].copy()
+    first["pending_elist_headers"] = first.pop("elists")
+    copies = direct_native_copy_costs(n)["total"]
+    assignments = {key: n*value for key, value in
+                   suppressed_slice_resolution(31, 2, a)["with_assignment_check_suffix"].items()}
+    rows = dict(direct_scalar_storage=first, remaining_copies=copies,
+                up_to_n_suppressed_slice_assignments=assignments)
+    keys = sorted(set().union(*(row.keys() for row in rows.values())))
+    total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
+    assert total == dict(ordinary=(720*n+220)*a+1097*n+920,
+                        uint=(2976*n+940)*a+3033*n+769,
+                        lists=63*n+74, growth=93*n+36,
+                        entities_and_names=26*n+26, name_characters=338*n+345,
+                        pending_elist_headers=10*n+11,
+                        pending_elist_elements=20*n+20, hash_wrappers=30*n+30)
+    return dict(operands=n, analysis_graph=a, rows=rows, total=total)
+
+
+def combined_native_uniform_vector(c, analysis_graph):
+    assert c >= 0 and analysis_graph >= 1
+    one = combined_native_emitter_vector(2, analysis_graph)["total"]
+    # For nonnegative p*n+q, sum(n)<=2*c and g<=c give (2*p+q)*c.
+    total = {key: c*value for key, value in one.items()}
+    a = analysis_graph
+    assert total == dict(ordinary=(1660*a+3114)*c, uint=(6892*a+6835)*c,
+                        lists=200*c, growth=222*c, entities_and_names=78*c,
+                        name_characters=1021*c, pending_elist_headers=31*c,
+                        pending_elist_elements=60*c, hash_wrappers=90*c)
+    return dict(source_concat_operators=c, uniform_analysis_graph=a, total=total,
+                dynamic_slots=9*(total["ordinary"]+total["growth"])
+                                +61*total["entities_and_names"])
+
+
 result = {
     "source_commit": pin,
     "source_files_verified": len(files),
@@ -842,6 +937,43 @@ result = {
         "excluded": "first raw bound analysis/captures; semantic helpers; generated subtype/call/assignment analysis; later freezing; placement; numeric queries; source-to-invocation count; backend/runtime closure",
         "composition_examples_not_thresholds": [direct_native_copy_costs(2),
                                                  direct_native_copy_costs(64)],
+    },
+    "native_query_weighted_recurrence": {
+        "D": "1 plus recursively queried initializer/arithmetic/conversion/Length-bound D weights; conditional/EWA/First/Last are leaves",
+        "U": "sum of recursive U plus local Uint weight: minus2,add2,subtract4,multiply6,Length6,others0",
+        "S": "1 plus unary/binary operand S after exactly one Compare_Fixup at this visit; no constant-initializer, conditional-arm or conversion recursion",
+        "F": "one for a String-literal Last fixup at this visit, plus recursively visited S-child F weights",
+        "root_set": "both comparison operands, decomposition roots and scalar-type bounds of the initial and four Rec=True comparison calls",
+        "comparison_ordinary_nodes": "20*max(F)",
+        "comparison_Uint": "10*max(U)+20*max(F)+60",
+        "reuse_existing_A_formulas": "A=max(1,max(D),max(S)) over same root set; U<=6*D,F<=S",
+        "examples_not_admission_thresholds": native_query_weight_examples(),
+        "excluded": "source-to-bound-graph derivation, full helper invocation count and numeric magnitudes; not a compiler simulator or membership check",
+    },
+    "combined_Main_native_emitter_addends": {
+        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes",
+        "per_invocation": {
+            "ordinary": "(720*n+220)*A+1097*n+920",
+            "Uint": "(2976*n+940)*A+3033*n+769",
+            "lists": "63*n+74", "growth": "93*n+36",
+            "entities_and_names": "26*n+26", "name_characters": "338*n+345",
+            "Elist_headers": "10*n+11", "Elist_elements": "20*n+20",
+            "hash_wrappers": "30*n+30",
+        },
+        "uniform_Main_bound_in_c": {
+            "ordinary": "(1660*A+3114)*c", "Uint": "(6892*A+6835)*c",
+            "lists": "200*c", "growth": "222*c", "entities_and_names": "78*c",
+            "name_characters": "1021*c", "Elist_headers": "31*c",
+            "Elist_elements": "60*c", "hash_wrappers": "90*c",
+            "dynamic_slots": "(14940*A+34782)*c",
+        },
+        "source_sensitive_composition": "sum per-invocation vectors at source-derived n_i,A_i; uniform maximum A is optional",
+        "residual_addends": ["source String folding and Image/input constructors", "first raw/copied scalar bound analysis and captures including conditional arm actions", "attribute-prefix/type-state and actual-subtype bridges", "remaining runtime concat call and final enabled result-slice analysis", "action/transient placement including output-actual wrapper", "later object/whole-scope freezing and name qualification", "source-derived query roots/magnitudes", "fixed runtime and backend costs"],
+        "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
+                                    combined_native_emitter_vector(64, 127),
+                                    combined_native_uniform_vector(0, 1),
+                                    combined_native_uniform_vector(63, 127)],
+        "whole_construct_closed": False,
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",
