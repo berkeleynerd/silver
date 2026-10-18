@@ -2,14 +2,12 @@
   "status": "PASS",
   "checked_utc": "2026-10-18T21:57:36.241251+00:00",
   "elapsed_seconds": 0.15,
-  "round_started_utc": "2026-10-18T21:31:43+00:00",
-  "round_elapsed_seconds": 1553.241,
   "host": {
     "system": "Linux",
     "machine": "x86_64"
   },
-  "selected_model": "GPT-6 Astra",
-  "selected_effort": "Extra High",
+  "selected_model": null,
+  "selected_effort": null,
   "runtime_settings_confirmed": false,
   "token_cost_data_available": false,
   "native_runs": 0,
@@ -68,5 +66,6 @@
     "helper94_synthetic173_Main_null11_and_shared_backing_remain_disjoint"
   ],
   "independent_review": "pending",
-  "limitation": "Source landmarks and finite fixtures corroborate, but do not prove, the handwritten source/fold closure."
+  "limitation": "Source landmarks and finite fixtures corroborate, but do not prove, the handwritten source/fold closure.",
+  "settings_note": "Correction check run by lead; model/effort runtime settings unavailable. Original worker settings and interval remain in check-results.json. Result attribution corrected without rerunning the unchanged 45 assertions."
 }

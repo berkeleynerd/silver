@@ -297,10 +297,9 @@ def main():
     now = datetime.now(timezone.utc)
     result = dict(status='PASS', checked_utc=now.isoformat(),
                   elapsed_seconds=round(time.monotonic() - started, 3),
-                  round_started_utc='2026-10-18T21:31:43+00:00',
-                  round_elapsed_seconds=round((now - datetime(2026, 10, 18, 21, 31, 43, tzinfo=timezone.utc)).total_seconds(), 3),
                   host=dict(system=platform.system(), machine=platform.machine()),
-                  selected_model='GPT-6 Astra', selected_effort='Extra High',
+                  selected_model=None, selected_effort=None,
+                  settings_note='The checker cannot observe the invoking agent settings; the original worker record remains in check-results.json.',
                   runtime_settings_confirmed=False, token_cost_data_available=False,
                   native_runs=0, network_requests_this_check=0,
                   source_files=len(sources), historical_inputs=len(history),
