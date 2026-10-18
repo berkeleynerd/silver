@@ -7,7 +7,9 @@ actual source byte string and a checked common configuration/System/library
 descriptor. The conditional arithmetic passes for `samples/hello_world.adb`.
 **Whole literal-pipeline capacity remains unestablished.** Following
 [finding #131](https://github.com/berkeleynerd/silver/issues/131), the
-complete emitted-stream joins retain unproved correspondence premises. The
+reviewed emission attachment now closes the complete selected compiler-stream
+and global label sources, with explicit next-value guards. Actual production
+argv, invocation/materialization and fixed link inputs remain unestablished. The
 counter/emission attachment closes the graph's selected registration/pass
 frontier; the reviewed original String/Main/context attachment now supplies
 the local tree-pool premise. The aggregate reports three conditions as unknown,
@@ -1648,8 +1650,9 @@ data and descriptor premises. The aggregate checks the inherited 25-byte local
 label / 26-byte NUL-inclusive symbol envelope, 64-byte instruction-line and
 512-byte complete-line envelopes, plus both unchanged assembly formulas:
 `114+(7C+7N+45)+W+8C` lines and
-`7410+65(7C+7N+45)+13W+512C` bytes. That preservation result does not discharge
-the separate global RTL/constant-label endpoints or whole-stream correspondence.
+`7410+65(7C+7N+45)+13W+512C` bytes. That counter-only preservation result did
+not discharge global RTL/constant-label endpoints or whole-stream correspondence;
+the reviewed complete emission attachment below now supplies those source joins.
 
 Each formerly unknown condition has its own decision in
 `native_unit_frontier.source_family_condition_assessments`:
@@ -1658,9 +1661,9 @@ Each formerly unknown condition has its own decision in
 | --- | --- | --- |
 | `native_varpool_and_shared_tree_pool` | Evaluate the local arithmetic | None for this slice after the original-storage join below: Main/context/profiles, String216/helper94 and synthetic173 add zero imported pool demand independently of I. Existing prefix, 2C entries, 3C lookups, replacements and local counter/probe checks remain charged. |
 | `native_graph_and_summary_lifetime` | Evaluate the local arithmetic | None for this graph/summary slice: the full selected registration inventory and sole Main graph-analysis/ordinary-lowering/IPA frontier are joined. Original tree/helper allocation, identifiers and collector composition remain outside this slice. |
-| `Main_assembler_object_interface` | Unknown | Complete final-RTL/data-to-whole-stream correspondence, remaining global RTL/constant-label endpoints and complete production invocation/materialization. |
-| `Main_GAS_BFD_storage` | Unknown | Complete incoming assembly-stream correspondence and production GAS/BFD invocation/materialization, including the remaining stream/label premises. |
-| `literal_output_linker_representation` | Unknown | Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. |
+| `Main_assembler_object_interface` | Unknown | Actual production compiler/assembler argv, selected option propagation, source/object routing and invocation/materialization. The complete selected stream and label source argument is attached with explicit endpoint guards. |
+| `Main_GAS_BFD_storage` | Unknown | Actual production GAS/BFD argv, target/options and compiler-output-to-assembler-input routing/materialization. The complete selected incoming stream and exact nested object interface are joined. |
+| `literal_output_linker_representation` | Unknown | Actual production compiler/assembler/linker invocation and object routing, fixed dependency/binder object materialization and complete fixed link-input graph. The selected Main stream/text/ELF/storage substitution is joined. |
 
 The graph decision is distinct from the pool decision. Its constructor set is
 Main, at most two external callees, the forced dummy, at most C registered bounds
@@ -1899,10 +1902,12 @@ pool component now names this narrower established frontier while its broader
 imported-constructor flag stays false. Absence of helper emission is not the
 reason for the zero-demand result.
 
-Only three source-family conditions remain unknown: whole assembly/object,
-GAS/BFD storage and linker representation. Their whole-stream, global-label and
-invocation/materialization premises remain distinct from the local pool
-argument. Complete global-counter, imported-allocation, shared-backing,
+At this original-storage checkpoint three conditions remained unknown:
+whole assembly/object, GAS/BFD storage and linker representation. The local
+pool argument did not supply their whole-stream or global-label premises;
+the following emission attachment closes those selected source joins while
+retaining actual invocation/materialization as unknown. Complete global-counter,
+imported-allocation, shared-backing,
 collector and literal-pipeline capacity remain false or null. Hello and the
 8,192-byte literal retain their conditional arithmetic success; 5,000 calls
 retain the conservative signed-relocation sufficient-bound failure. There is
@@ -1958,5 +1963,93 @@ at the fixed-prefix cut, combine the exported Main, String and helper demands
 with their later consumers exactly once, and price table/vector growth plus
 counter no-wrap under the selected source configuration. The Main namespace
 finalizer, scalar cache vectors and statement-list cache pushes must remain in
-that composition. It is distinct from later collector pages and whole-stream
-correspondence, and is not implemented by this attachment.
+that composition. It is distinct from later collector pages and actual production
+invocation/materialization, and is not implemented by this attachment.
+
+## Reviewed complete emission attachment
+
+The aggregate now binds [selected literal emission closure](retained-literal-emission-closure.md)
+at freeze `a937eaede5b01b438b2b2fb4dccc49cb3a8469d5`, accepted by the
+[independent review](../reviews/review-literal-emission-a937eaede5.md)
+at `ec96aac40c816d5f3cce036ef4d3394a6d5bacce`. This attachment starts from
+integration `6c0f2ebd8f33b91497a13d953123cd157558bd37` and changes no leaf.
+The source note, all seven evidence files and all three review files are
+current aggregate input pins. The accepted review's exact frozen bytes,
+disposition, source freeze and limited scope are checked explicitly.
+
+`native_complete_emission_interface` comes from the reviewed
+`derive.evaluate_source(raw)`, using the same actual bytes as every other
+source-counted component. The attachment checks the complete recognized result,
+including C, N, W, every decoded literal length and Lmax, as well as the byte
+length/hash. The leaf's stream equals the existing assembler stream exactly;
+its final chain and text match final RTL, its data extent/labels match the native
+constant-data interface, and its function/name facts match the existing
+counter packet. The unchanged assembler-to-GAS/BFD-storage equality and
+linker's complete Main text/ELF substitution then connect that stream to the
+existing selected object interface. Equal byte totals alone are insufficient:
+the focused checks reject a changed ELF object interface as well.
+
+For I=7C+7N+45, the new evaluated conditions are
+`native_global_RTL_label_endpoint` (`39258+I <= INT_MAX`) and
+`native_global_constant_label_endpoint` (`39257+2C <= INT_MAX`). The constant
+guard must equal the existing pool counter guard. Every exposed endpoint is
+reconstructed from the actual counts and retained prefix, including the
+per-Main alignment span, final-scan counter, CFI signed temporary/next value
+and saved function number. The full emission guard set also contributes to
+the three conditional assembler/storage/linker formulas. The actual three
+conditions remain `null`; no successful source argument supplies an actual
+production invocation.
+
+The complete writer inventory is checked exactly, including one emitted body,
+zero additional non-Main lines, default-visible external declarations with no
+extra directive, `.LFB1`/`.LFE1`, `.rodata`, constant-data relocations and the
+existing name/line ceilings. Hello's selected next-label bounds are 39,310
+ordinary and 39,259 constant, with unchanged 187-line/11,471-byte stream bounds.
+The broader imported-allocation, non-label global-counter, shared backing,
+collector and whole-capacity flags remain false or null. Their zeros are not
+inferred from the emission zeros.
+
+The three assessment records separately mark their selected emission source
+premises closed and actual production materialization false. Their remaining
+inputs are now precisely the production graph: compiler and assembler argv
+and option propagation, source-to-object and compiler-output-to-GAS routing,
+actual GAS/BFD target/options, linker argv and object routing, and the complete
+fixed dependency/binder object and link-input frontier. The partial common-input
+descriptor does not establish those edges. In particular no production
+`-fsplit-wide-types` option was installed. The required source/installed-behavior
+and exact selected configuration premises remain explicit.
+
+Source validation preserves every current check that still applies. The emission
+manifest contains 44 complete GCC/Ada files and 33 predecessor repository inputs
+at `13daeca1e97eef2d0894f6f5175789677df54ce9`. Thirty-two predecessors still
+match current files and are checked as current. The single old aggregate
+`compose.py` is verified by `git show` at that exact immutable base, because
+the present attachment replaces it. Its historical count is reported separately;
+it is not silently dropped or counted as current. Full-file hashes/Git-blob
+identities, existing source-origin rows and the retained supplemental generator
+are verified without replaying the successful emission/review suites.
+
+The affected aggregate suite passed **301 cases in 5.739840 seconds** on Linux
+x86-64, 22:34:07–22:34:13 UTC. Its 48 new cases challenge source/count/stream,
+counter/writer and object mismatches, premature production/global/collector
+closure, immutable/current predecessor checks, review/evidence pins and the
+last passing/first failing ordinary/constant endpoints. The existing 5,000-call
+case still fails only the linker's conservative signed-relocation sufficient
+check; its three production-dependent predicates remain unknown, as do Hello's.
+The default result was generated in **3.099163 seconds**, 22:34:20–22:34:23 UTC.
+It verifies **186 current repository pins and 2,657 distinct current files**.
+The emission validation's 44 external plus 32 current repository files overlap
+those totals; its one historical predecessor is excluded from the current count.
+The existing Main leaf's 45-current/one-historical attribution is unchanged.
+
+Selected settings: GPT-6 Astra / Extra High, assigned by the parent under the
+reported Sol capacity limitation. Runtime confirmation and token/cost evidence
+are unavailable; no comparison of model quality follows. The round began at
+22:29:30 UTC and reached the default-result checkpoint after 293.633617 seconds;
+final documentation and commit follow that checkpoint. The affected aggregate
+suite ran once successfully. The accepted emission's 302-check result and its
+independent focused review were reused, not rerun. Existing nested aggregate
+validation was preserved. Compiler, debugger/capture, build, proof/prover,
+solver and unrelated full-suite runs were zero. No GitHub, memory, harness,
+Oracle, production toolchain pin/option or admission state was changed. The parent owns
+independent integration review and the next production-graph/shared-capacity work.

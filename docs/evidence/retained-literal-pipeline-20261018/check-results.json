@@ -1,5 +1,5 @@
 {
-  "case_count": 253,
+  "case_count": 301,
   "cases": [
     {
       "case": "retained",
@@ -703,6 +703,214 @@
       "rejected": "changed aggregate input: docs/evidence/retained-literal-context-visits-20261018/result.json"
     },
     {
+      "case": "emission_source_identity",
+      "rejected": "literal emission actual source-count join"
+    },
+    {
+      "case": "emission_recognized_C",
+      "rejected": "literal emission actual source-count join"
+    },
+    {
+      "case": "emission_decoded_W",
+      "rejected": "literal emission actual source-count join"
+    },
+    {
+      "case": "emission_maximum_length",
+      "rejected": "literal emission actual source-count join"
+    },
+    {
+      "case": "emission_final_chain",
+      "rejected": "literal emission complete stream and final-RTL join"
+    },
+    {
+      "case": "emission_text",
+      "rejected": "literal emission complete stream and final-RTL join"
+    },
+    {
+      "case": "emission_lines",
+      "rejected": "literal emission complete stream and final-RTL join"
+    },
+    {
+      "case": "emission_bytes",
+      "rejected": "literal emission complete stream and final-RTL join"
+    },
+    {
+      "case": "emission_line_width",
+      "rejected": "literal emission complete stream and final-RTL join"
+    },
+    {
+      "case": "emission_prefix",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_ordinary_next",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_constant_next",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_CFI_temporary",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_ordinary_guard",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_constant_guard",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_guard_summary",
+      "rejected": "literal emission counter endpoint and existing pool join"
+    },
+    {
+      "case": "emission_extra_body",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_extra_line",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_external_directive",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_function_label",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_pool_definitions",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_data_extent",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_symbol_width",
+      "rejected": "literal emission complete writer and name inventory join"
+    },
+    {
+      "case": "emission_route_removed",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_conditional_result_removed",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_production_promoted",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_source_premise_erased",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_global_counters_promoted",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_collector_promoted",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_whole_capacity_promoted",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_admission_changed",
+      "rejected": "literal emission reviewed scope and open-boundary join"
+    },
+    {
+      "case": "emission_assembler_object_input_mismatch",
+      "rejected": "literal assembler storage interface join"
+    },
+    {
+      "case": "emission_manifest_missing_file",
+      "rejected": "literal emission exact source-manifest join"
+    },
+    {
+      "case": "emission_manifest_changed_hash",
+      "rejected": "literal emission exact source-manifest join"
+    },
+    {
+      "case": "emission_manifest_changed_revision",
+      "rejected": "literal emission exact source-manifest join"
+    },
+    {
+      "case": "emission_complete_source_mismatch",
+      "rejected": "literal emission complete source join: gcc/cfgloopanal.cc"
+    },
+    {
+      "case": "emission_historical_aggregate_mismatch",
+      "rejected": "literal emission predecessor input join: docs/evidence/retained-literal-pipeline-20261018/compose.py"
+    },
+    {
+      "case": "emission_current_predecessor_mismatch",
+      "rejected": "literal emission predecessor input join: docs/evidence/retained-backend-capacity-20261018/source-manifest.json"
+    },
+    {
+      "case": "emission_repository_pin_docs/research/retained-literal-emission-closure.md",
+      "rejected": "changed aggregate input: docs/research/retained-literal-emission-closure.md"
+    },
+    {
+      "case": "emission_repository_pin_docs/evidence/retained-literal-emission-closure-20261018/derive.py",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-emission-closure-20261018/derive.py"
+    },
+    {
+      "case": "emission_repository_pin_docs/evidence/retained-literal-emission-closure-20261018/source-manifest.json",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-emission-closure-20261018/source-manifest.json"
+    },
+    {
+      "case": "emission_repository_pin_docs/reviews/review-literal-emission-a937eaede5.md",
+      "rejected": "changed aggregate input: docs/reviews/review-literal-emission-a937eaede5.md"
+    },
+    {
+      "case": "emission_repository_pin_docs/reviews/check-literal-emission-a937eaede5.json",
+      "rejected": "changed aggregate input: docs/reviews/check-literal-emission-a937eaede5.json"
+    },
+    {
+      "case": "emission_review_scope_mismatch",
+      "rejected": "literal emission accepted review scope join"
+    },
+    {
+      "case": "emission_endpoint_ordinary_last",
+      "calls": 1,
+      "nulls": 306777762,
+      "guard": "ordinary_label_next_signed_int",
+      "fits": true,
+      "scope": "mathematical endpoint interface only"
+    },
+    {
+      "case": "emission_endpoint_ordinary_next",
+      "calls": 1,
+      "nulls": 306777763,
+      "guard": "ordinary_label_next_signed_int",
+      "fits": false,
+      "scope": "mathematical endpoint interface only"
+    },
+    {
+      "case": "emission_endpoint_constant_last",
+      "calls": 1073722195,
+      "nulls": 0,
+      "guard": "constant_label_next_signed_int",
+      "fits": true,
+      "scope": "mathematical endpoint interface only"
+    },
+    {
+      "case": "emission_endpoint_constant_next",
+      "calls": 1073722196,
+      "nulls": 0,
+      "guard": "constant_label_next_signed_int",
+      "fits": false,
+      "scope": "mathematical endpoint interface only"
+    },
+    {
       "case": "counter_calls",
       "rejected": "literal counter exact interface and source-count join"
     },
@@ -1270,8 +1478,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T22:13:29.191876+00:00",
-    "completed_utc": "2026-10-18T22:13:34.131137+00:00",
-    "elapsed_seconds": 4.939248997001414
+    "started_utc": "2026-10-18T22:34:07.359755+00:00",
+    "completed_utc": "2026-10-18T22:34:13.099609+00:00",
+    "elapsed_seconds": 5.739839987996675
   }
 }

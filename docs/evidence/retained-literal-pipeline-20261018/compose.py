@@ -7,6 +7,7 @@ Passing their arithmetic is not a whole-pipeline capacity verdict.
 import argparse
 import contextlib
 from datetime import datetime, timezone
+import gzip
 import hashlib
 import io
 import json
@@ -82,6 +83,57 @@ def verify_original_helper_sources(manifest, gcc_root, ada_root, matcher):
                 'literal original helper complete source join: '+row['path'])
         checked.add(str(path))
     return checked
+
+
+def verify_emission_sources(manifest, gcc_root, ada_root):
+    """Keep current source checks and the one evolving predecessor distinct."""
+    packet=EVIDENCE/'retained-literal-emission-closure-20261018'
+    require(manifest==read(packet/'source-manifest.json'),
+            'literal emission exact source-manifest join')
+    checked, historical, inputs = set(), [], {}
+    for row in manifest['historical_silver_inputs']:
+        prior_aggregate=(row['path']=='docs/evidence/retained-literal-pipeline-20261018/compose.py')
+        path=REPO/row['path']
+        raw=(read_historical_repository_file(manifest['reviewed_silver_revision'],row['path'])
+             if prior_aggregate else path.read_bytes())
+        require(identity(raw)=={key:row[key] for key in ('bytes','sha256')},
+                'literal emission predecessor input join: '+row['path'])
+        inputs[row['path']]=raw
+        if prior_aggregate:
+            historical.append(row['path'])
+        else:
+            checked.add(str(path))
+    current_repository_files=len(checked)
+    for row in manifest['files']:
+        path=(Path(ada_root)/row['path'].removeprefix('gcc/ada/')
+              if row['root']=='ada' else Path(gcc_root)/row['path'])
+        raw=path.read_bytes()
+        require(identity(raw)=={key:row[key] for key in ('bytes','sha256')} and
+                hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+                    ==row['git_blob_sha1'],
+                'literal emission complete source join: '+row['path'])
+        origin=row['retained_identity_origin']
+        if origin:
+            origin_rows=json.loads(inputs[origin])['files']
+            require(any((item['path'] if item['path'].startswith('gcc/') else 'gcc/'+item['path'])
+                        ==row['path'] and {key:item[key] for key in ('bytes','sha256')}==identity(raw)
+                        for item in origin_rows),
+                    'literal emission retained source-origin join: '+row['path'])
+        else:
+            require(gzip.decompress((packet/row['retained_copy']).read_bytes())==raw and
+                    row['upstream_origin']['manifest_entry']==dict(path=row['path'],**identity(raw)) and
+                    manifest['gcc_revision'] in row['upstream_origin']['url'],
+                    'literal emission supplemental source join: '+row['path'])
+        checked.add(str(path))
+    return checked, dict(
+        source_manifest=identity((packet/'source-manifest.json').read_bytes()),
+        complete_source_files_verified=len(manifest['files']),
+        current_predecessor_repository_files_verified=current_repository_files,
+        historical_predecessor_repository_files_verified=len(historical),
+        historical_predecessor_paths=historical,
+        historical_repository_revision=manifest['reviewed_silver_revision'],
+        direct_files_verified=len(checked),gcc_revision=manifest['gcc_revision'],
+        counts_overlap_direct_source_validation=True)
 
 
 def verify_original_storage_sources(manifest, packet, gcc_root, ada_root, matcher):
@@ -244,6 +296,33 @@ class Context:
             counts_overlap_direct_source_validation=True)
         self.counter=runpy.run_path(str(counter_packet/'derive.py'))
         self.counter_expected=read(counter_packet/'interface.json')
+        emission_packet=EVIDENCE/'retained-literal-emission-closure-20261018'
+        self.emission_manifest=read(emission_packet/'source-manifest.json')
+        emission_sources,self.emission_source_validation=verify_emission_sources(
+            self.emission_manifest,roots['gcc'],roots['ada'])
+        checked.update(emission_sources)
+        self.emission=runpy.run_path(str(emission_packet/'derive.py'))
+        self.emission_review=dict(
+            source_freeze='a937eaede5b01b438b2b2fb4dccc49cb3a8469d5',
+            review_commit='ec96aac40c816d5f3cce036ef4d3394a6d5bacce',
+            review_path='docs/reviews/review-literal-emission-a937eaede5.md',
+            disposition='accepted under exact selected descriptor and inherited premises',
+            closes_selected_label_sources_and_complete_compiler_stream=True,
+            establishes_production_invocation_or_complete_capacity=False)
+        review_path=REPO/self.emission_review['review_path']
+        review=review_path.read_bytes()
+        require(review==read_historical_repository_file(self.emission_review['review_commit'],
+                    self.emission_review['review_path']) and
+                ('Accepted at **`'+self.emission_review['source_freeze']+'`**').encode() in review and
+                b'The production option/argv/object routing and fixed link-input materialization' in review,
+                'literal emission accepted review scope join')
+        review_check=read(REPO/'docs/reviews/check-literal-emission-a937eaede5.json')
+        require(review_check['status']=='passed' and
+                review_check['freeze']==self.emission_review['source_freeze'] and
+                review_check['supplemental_generator_origin_matches_retained_fetch'] and
+                not review_check['broad_302_check_success_replayed'] and
+                not review_check['native_execution'],
+                'literal emission independent review evidence join')
         original_packet=EVIDENCE/'retained-literal-original-string-storage-20261018'
         self.original_manifest=read(original_packet/'source-manifest.json')
         original_sources=verify_original_helper_sources(
@@ -666,6 +745,88 @@ def original_helper_name_bound(filename_bytes, global_name_bytes=9):
             type(global_name_bytes) is int and global_name_bytes>=0,
             'literal original helper name-bound inputs')
     return max(global_name_bytes,filename_bytes+28)
+
+
+def emission_counter_endpoint_checks(counters, longest, text_bytes):
+    """Mathematical guards on the separately reconstructed endpoint interface."""
+    return dict(
+        literal_length_signed_int=longest<=I32,
+        ordinary_label_next_signed_int=counters['ordinary_label_next_at_exit_upper']<=I32,
+        constant_label_next_signed_int=counters['constant_label_next_at_exit_upper']<=I32,
+        Main_instruction_UID_and_label_span_signed_int=counters['Main_label_alignment_span_upper']<=I32,
+        final_scan_counter_signed_int=counters['final_scan_counter_at_exit_upper']<=I32,
+        text_and_CFI_location_signed_int=text_bytes<=I32,
+        CFI_label_temporary_and_next_signed_int=counters['CFI_label_counter_at_exit_upper']<=I32,
+        function_definition_next_signed_int=counters['next_function_definition_number']<=I32)
+
+
+def native_emission_closure(raw, counts, context, rtl, native, counter, pools, assembler):
+    """Bind the reviewed full selected stream, retaining production unknowns."""
+    emission=context.emission['evaluate_source'](raw)
+    c,n=counts['output_calls'],counts['null_statements']
+    w,longest=counts['decoded_literal_bytes'],counts['maximum_literal_length']
+    require(emission['source_identity']==identity(raw) and emission['source_counts']==counts and
+            emission['counts']==assembler['counts']==dict(calls=c,nulls=n,decoded_bytes=w,
+                maximum_literal_length=longest), 'literal emission actual source-count join')
+    chain=rtl['final_chain']
+    require(emission['final_chain']==assembler['final_chain']==chain==7*c+7*n+45 and
+            emission['text_bytes_upper']==assembler['text_bytes_upper']==
+                rtl['shortening_text_bytes_upper']==31*c+4*n+22 and
+            emission['assembly']==assembler['assembly'],
+            'literal emission complete stream and final-RTL join')
+    counters=dict(
+        fixed_prefix_positive_GGC_events_upper=context.pool_seed,
+        ordinary_label_initial_value=1,
+        ordinary_label_next_at_prefix_exit_upper=1+context.pool_seed,
+        target_cost_setup_ordinary_label_increments=0,
+        imported_and_non_Main_ordinary_label_increments=0,
+        Main_ordinary_label_increments_upper=chain,
+        ordinary_label_next_at_exit_upper=1+context.pool_seed+chain,
+        Main_label_alignment_span_upper=chain+1,
+        constant_label_initial_value=0,
+        constant_label_next_at_prefix_exit_upper=context.pool_seed,
+        target_cost_setup_constant_label_increments=0,
+        additional_imported_constant_label_increments=0,
+        Main_tree_constant_label_increments_upper=2*c,
+        post_prefix_RTL_pool_static_space_partition_label_increments=0,
+        constant_label_next_at_exit_upper=context.pool_seed+2*c,
+        final_scan_counter_initial_value=0,final_scan_counter_at_exit_upper=chain,
+        CFI_label_counter_initial_value=0,CFI_label_counter_at_exit_upper=5,
+        CFI_label_signed_temporary_maximum=4,
+        Main_function_definition_number=counter['interface']['function_definition_numbers']['Main'],
+        next_function_definition_number=counter['interface']['next_function_definition_number'])
+    guards=emission_counter_endpoint_checks(counters,longest,emission['text_bytes_upper'])
+    require(emission['counter_bounds']==counters and emission['counter_and_emission_guards']==guards and
+            emission['counter_and_emission_guards_fit']==all(guards.values()) and
+            guards['constant_label_next_signed_int']==pools['local_representation_checks'][
+                'tree_constant_label_counter'] and
+            counters['Main_tree_constant_label_increments_upper']==
+                native['conditional_native_constant_data']['constant_label_increments_upper'],
+            'literal emission counter endpoint and existing pool join')
+    require(emission['emission']==dict(
+        emitted_function_bodies=counter['interface']['emitted_functions'],
+        Main_boundary_labels=counter['interface']['main_function_boundary_labels'],
+        additional_non_Main_emitted_lines=counter['interface']['additional_emitted_lines_from_non_Main_frontier'],
+        selected_pending_external_directive_lines=0,external_pending_declarations_upper=min(2,c),
+        constant_label_definitions_upper=native['conditional_native_constant_data']['LC_label_definitions_upper'],
+        additional_data_sections_upper=1,additional_data_section='.rodata',
+        rodata_bytes_upper=assembler['GAS']['rodata_bytes_upper'],constant_data_relocations=0,
+        local_label_bytes_excluding_NUL_upper=counter['interface']['inherited_local_label_bytes_excluding_NUL'],
+        symbol_name_bytes_including_NUL_upper=assembler['GAS']['symbol_name_bytes_including_NUL_upper'],
+        instruction_line_bytes_excluding_LF_upper=counter['interface']['inherited_instruction_line_bytes_excluding_LF']),
+        'literal emission complete writer and name inventory join')
+    compared={'counts','counter_bounds','counter_and_emission_guards','counter_and_emission_guards_fit',
+              'final_chain','text_bytes_upper','assembly','emission','source_counts','source_identity'}
+    require({key:value for key,value in emission.items() if key not in compared}==dict(
+        source_family_emission_routes_closed_under_selected_descriptor=True,
+        complete_selected_stream_source_correspondence_conditional=all(guards.values()),
+        production_invocation_and_materialization_established=False,
+        installed_relevant_behavior_correspondence_is_external_premise=True,
+        complete_non_label_global_counter_lifetime_closed=False,
+        complete_shared_backing_and_collector_capacity_closed=False,
+        whole_literal_pipeline_capacity_established=False,native_tool_executions=0,
+        production_admission_changed=False), 'literal emission reviewed scope and open-boundary join')
+    return emission
 
 
 def native_original_helper_storage(native_main, context, cold, counter):
@@ -1463,6 +1624,7 @@ def evaluate(descriptor_path, context, source_override=None):
     original_string=native_original_string_storage(context,original_helper)
     original_main=native_original_main_storage(counts,frontend,context)
     attach_original_tree_pool_frontier(pools,original_string,original_main,original_helper,synthetic)
+    emission=native_emission_closure(raw,counts,context,rtl,native,counter,pools,assembler)
     # The descriptor bounds path spelling bytes; storage includes the terminal NUL.
     assembler_storage = context.assembler_storage['evaluate'](
         raw,context.assembler_storage_context,path_bytes=p+1)
@@ -1508,6 +1670,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
         native_function_and_symbol_counter_endpoints=(counter['symbol_next_values_fit_signed_32'] and
             counter['function_definition_next_value_fits_signed_32']),
+        native_global_RTL_label_endpoint=emission['counter_and_emission_guards']['ordinary_label_next_signed_int'],
+        native_global_constant_label_endpoint=emission['counter_and_emission_guards']['constant_label_next_signed_int'],
         native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
         native_initial_SSA_lifetime=initial_ssa['conditional_initial_SSA_lifetime_closed'],
         native_initial_CF_CFG_lifetime=initial_cf_cfg['conditional_initial_CF_CFG_lifetime_closed'],
@@ -1520,9 +1684,12 @@ def evaluate(descriptor_path, context, source_override=None):
         native_original_helper_name_arithmetic=original_helper['local_name_arithmetic_fits'],
         native_synthetic_individual_request_sizes=all(
             0<row['caller_bytes']<=I64 for row in synthetic['GGC_groups']+synthetic['ordinary_groups']),
-        Main_assembler_object_interface=assembler['local_interface_fits'],
-        Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
-        literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
+        Main_assembler_object_interface=(assembler['local_interface_fits'] and
+            emission['counter_and_emission_guards_fit']),
+        Main_GAS_BFD_storage=(assembler_storage['storage']['selected_GAS_BFD_storage_fits'] and
+            emission['counter_and_emission_guards_fit']),
+        literal_output_linker_representation=(linker['selected_literal_assembler_and_linker_representation_fits'] and
+            emission['counter_and_emission_guards_fit']),
         Main_ALI_interface=ali['selected_Main_ALI_interface_fits'],
         ALI_consumer_local_interfaces=ali_consumers['selected_ALI_consumer_local_interfaces_fit'],
         GPR_parent_DW_local_interface=gpr_parent['selected_parent_DW_reader_local_interface_fits'],
@@ -1532,26 +1699,30 @@ def evaluate(descriptor_path, context, source_override=None):
             < context.checksum['first_collection_threshold'])
     # Assess each former #131 condition independently. Counter/name closure
     # supplies the graph's population/pass premises. Reviewed original storage
-    # now supplies the tree-pool premise; whole-stream/launch premises differ.
+    # supplies the tree-pool premise. Reviewed emission closes the selected
+    # whole stream and label sources; actual production launch stays unknown.
     conditional_conditions=conditions.copy()
     assessments={
         'native_varpool_and_shared_tree_pool':dict(source_family_premises_closed=True,
             closed='C+6 cumulative symbol registrations and the exact joined original Main/context/profile, String216/helper94 and synthetic173 source intervals establish zero additional imported tree-pool demand, independently of I. Accepted 2C entries, 3C insertion-capable lookups, pre-hit replacements, retained prefix D_in=39257 and local counter/probe checks remain charged.',
             residual=None,
-            scope='Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, whole-stream/invocation and collector composition remain open.'),
+            scope='Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, production invocation and collector composition remain open.'),
         'native_graph_and_summary_lifetime':dict(source_family_premises_closed=True,
             closed='Complete selected registration inventory bounds cumulative graph symbols by C+6. Main alone reaches graph analysis/ordinary lowering/IPA; both helpers are removed without edges or summary IDs. These discharge the graph slice constructor/pass premises.',
             residual=None,
             scope='Only this graph/summary delta and its individual requests/ID arithmetic. Original tree/pool/helper allocation, identifier backing, global counter and collector totals remain separate.'),
         'Main_assembler_object_interface':dict(source_family_premises_closed=False,
-            closed='Main emits .LFB1/.LFE1; synthetic function/symbol serial changes preserve the inherited name/line envelopes and add zero emitted bodies or lines.',
-            residual='Complete selected final-RTL/data-to-whole-stream correspondence, global RTL/constant-label endpoints and complete production invocation/materialization.'),
+            selected_emission_source_premises_closed=True,production_invocation_materialized=False,
+            closed='The independently reviewed complete selected Main/data/unit-writer stream and ordinary/constant label sources are joined to the same actual source, C/N/W/Lmax, final RTL and exact assembler interface. Next-value guards are evaluated separately; Main emits .LFB1/.LFE1.',
+            residual='Complete actual production compiler/assembler argv, option propagation, source/object routing and invocation/materialization under the selected descriptor.'),
         'Main_GAS_BFD_storage':dict(source_family_premises_closed=False,
-            closed='The joined synthetic counter changes preserve the existing name, line and selected object envelopes; exact nested assembler interface equality remains checked.',
-            residual='The complete incoming assembly stream and actual production GAS/BFD invocation/materialization, including the unresolved whole-stream and label-counter premises.'),
+            selected_emission_source_premises_closed=True,production_invocation_materialized=False,
+            closed='Complete selected incoming compiler stream and global label endpoints are attached; the unchanged assembly/ELF interface equals the nested GAS/BFD storage input exactly.',
+            residual='Actual production GAS/BFD argv, target/options and compiler-output-to-assembler-input routing and materialization under the selected descriptor.'),
         'literal_output_linker_representation':dict(source_family_premises_closed=False,
-            closed='The selected Main text/ELF/storage substitutions and synthetic name-envelope preservation are joined.',
-            residual='Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. This local formula does not establish that complete link input frontier.')}
+            selected_emission_source_premises_closed=True,production_invocation_materialized=False,
+            closed='The complete selected Main stream/label source argument joins the unchanged text/ELF/storage substitutions and exact linker interface.',
+            residual='Actual production compiler/assembler/linker invocation and object routing, fixed dependency/binder object materialization and the complete fixed link-input graph under the selected descriptor.')}
     unit_dependent=tuple(key for key,row in assessments.items()
                          if not row['source_family_premises_closed'])
     for key in unit_dependent:
@@ -1561,7 +1732,9 @@ def evaluate(descriptor_path, context, source_override=None):
         Main_is_only_emitted_body_established=True,
         additional_imported_pool_symbol_events_upper=None,
         additional_imported_defined_bodies_upper=counter['interface']['finalized_function_definitions']-1,
-        additional_emitted_stream_interface=None,
+        additional_emitted_stream_interface=dict(
+            emitted_non_Main_functions=counter['interface']['additional_emitted_functions_from_non_Main_frontier'],
+            additional_non_Main_emitted_lines=emission['emission']['additional_non_Main_emitted_lines']),
         cold_String_layout=native_cold_string_interface(context),
         selected_generated_function_frontier=imported,
         original_helper_storage=original_helper,
@@ -1570,6 +1743,10 @@ def evaluate(descriptor_path, context, source_override=None):
         selected_imported_tree_pool_frontier_established=True,
         synthetic_function_storage=synthetic,
         selected_counter_emission_interface=counter,
+        selected_complete_emission_interface=emission,
+        selected_complete_emission_review=context.emission_review,
+        selected_whole_stream_and_label_sources_closed=True,
+        production_invocation_and_materialization_established=False,
         selected_empty_elaboration_symbol_registration_established=True,
         selected_function_and_symbol_counter_to_name_join_established=True,
         synthetic_counter_no_wrap_established=False,
@@ -1579,7 +1756,7 @@ def evaluate(descriptor_path, context, source_override=None):
         complete_imported_allocation_bytes=None,
         source_family_condition_assessments=assessments,
         affected_predicates=list(unit_dependent),
-        missing='The selected registration/counter-to-name joins and exact original constructor zero-pool interfaces restore the local graph/summary and varpool/tree-pool conditions. Fixed Main context I<=114 supplies the original Main direct-request input. Shared identifier/container backing, incoming global counter no-wrap, remaining allocation, whole-stream/invocation correspondence and collector composition remain open.',
+        missing='Selected registration and original zero-pool joins restore the local graph/summary and varpool/tree-pool conditions; fixed Main context I<=114 supplies the original direct-request input. The complete selected stream and label sources are now attached with explicit endpoint guards. Actual production argv/invocation/materialization and fixed link inputs, shared identifier/container backing, incoming non-label global counters, remaining allocation and collector composition remain open.',
         finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.
@@ -1624,9 +1801,11 @@ def evaluate(descriptor_path, context, source_override=None):
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
                              selected_counter_emission_interface=counter,
+                             selected_complete_emission_interface=emission,
+                             selected_complete_emission_review=context.emission_review,
                              GAS_BFD_storage=assembler_storage['storage'],
                              local_interface_fits=assembler['local_interface_fits']),
-            'missing':'Selected synthetic function/symbol-counter-to-name preservation is closed. Complete final-RTL/data-to-whole-stream correspondence, remaining global RTL/constant-label endpoints and production-invocation/materialization remain (#131).'},
+            'missing':'The complete selected compiler stream and ordinary/constant label-source correspondence are joined with their guards. Actual production compiler/assembler argv, option propagation, file/object routing and invocation/materialization under that descriptor remain unestablished.'},
         'producer_frontends_and_consumers': {
             'missing':'Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output.'},
         'binder_and_linker_composition': {
@@ -1665,6 +1844,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_original_Main_storage=original_main,
         native_synthetic_function_storage=synthetic,
         native_counter_emission_interface=counter,
+        native_complete_emission_interface=emission,
         native_Main_frontend_interface=frontend,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
@@ -1680,6 +1860,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_Main_frontend_nested_validation=context.frontend_verification,
         native_collector_nested_inputs_verified=context.collector_context.inputs_verified,
         native_counter_source_validation=context.counter_source_validation,
+        native_emission_source_validation=context.emission_source_validation,
+        native_emission_review=context.emission_review,
         native_original_helper_source_validation=context.original_source_validation,
         native_original_storage_source_validation=context.original_storage_source_validation,
         native_tool_executions=0,production_admission_changed=False,aggregate_RAM_gate=False,

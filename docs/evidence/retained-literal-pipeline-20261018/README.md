@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 253 interface checks, recorded in
+arguments and `--output`, and runs 301 interface checks, recorded in
 `check-results.json`. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
@@ -61,8 +61,9 @@ frontier and restores its local condition. Complete assembly, GAS storage
 and link conditions remain `null`, each with its exact residual below. They
 appear in `unresolved_predicates`, never as failed capacity checks. Raw
 arithmetic remains in `conditional_conditions`; `evaluated_predicates_pass`
-is false while any condition is unresolved. Complete emitted-stream
-correspondence retains its separate premises.
+is false while any condition is unresolved. The accepted emission attachment
+below closes selected complete-stream and label sources with explicit guards;
+actual production argv/invocation/materialization remains unknown.
 
 The reviewed cold String packet now contributes two registered helper nodes,
 even though both are discarded before ordinary lowering/IPA/emission. Symbol
@@ -194,9 +195,10 @@ against the existing assembler callable.
 decisions. The graph/summary slice's missing symbol inventory and ordinary
 lowering/IPA frontier are established, so its arithmetic is evaluated. The
 pool condition also evaluates after the original-storage attachment below
-joins the reviewed zero-demand interfaces. Assembly/object still needs complete final-RTL/data-to-whole-stream,
-global label endpoints and production materialization; GAS/BFD and linker
-inherit the complete stream/object and invocation gaps. Zero helper emission
+joins the reviewed zero-demand interfaces. The complete emission attachment
+below now joins the selected whole-stream and global label sources.
+Assembly/object, GAS/BFD and linker still require actual production argv,
+invocation/materialization and the fixed link-input frontier. Zero helper emission
 never supplies zero pool allocation. Original allocation totals remain null;
 full global-counter, collector and pipeline closure remain false. No RAM gate
 or production admission change is introduced.
@@ -328,3 +330,60 @@ service failure or the source-join repair. The successful affected check ran
 was not captured. Compiler, prover, debugger, solver, build and full-suite
 executions are zero. Independent review of this aggregate attachment remains
 the parent's next step.
+
+The [complete emission packet](../retained-literal-emission-closure-20261018/README.md)
+at `a937eaede5b01b438b2b2fb4dccc49cb3a8469d5` is now attached under the exact
+[acceptance review](../../reviews/review-literal-emission-a937eaede5.md)
+at `ec96aac40c816d5f3cce036ef4d3394a6d5bacce`. The new
+`native_complete_emission_interface` calls its accepted `evaluate_source(raw)`
+on the same actual bytes. Complete source identity/counts, C/N/W/Lmax, final
+RTL, every counter/guard, writer inventory and assembly interface must agree
+with the existing aggregate. Exact nested assembler/storage/ELF/linker joins
+remain required; matching line or byte totals alone cannot substitute for them.
+
+Two new local conditions check the next values:
+`native_global_RTL_label_endpoint` requires `39258+(7C+7N+45) <= INT_MAX`, and
+`native_global_constant_label_endpoint` requires `39257+2C <= INT_MAX`.
+The latter must equal the existing pool check. All emission guards also feed
+the conditional assembler/storage/linker formulas, while their actual predicates
+remain `null`. Their assessments now mark the selected emission source premise
+closed and production materialization false. The remaining production graph
+needs actual compiler/assembler/linker argv and option propagation, source/output/
+object routing, GAS/BFD target/options, and fixed dependency/binder object and
+link-input materialization. No stock option was installed by this attachment.
+
+The leaf's complete stream, default-visible external tail and bounded names
+preserve the old formulas. Hello retains 187 lines / 11,471 bytes, ordinary
+next label <=39,310 and constant next <=39,259. Broad imported-allocation,
+non-label global counters, shared backing/collector and whole capacity remain
+false or null. The three unresolved predicates remain exactly assembly/object,
+GAS/BFD storage and linker representation. The 5,000-call case retains only
+its previous conditional signed-relocation failure, without an observed native
+failure or an adopted cap.
+
+All seven leaf evidence files, the source note and the three review files are
+current input pins. Complete external files are checked against the frozen
+manifest and their prior origin records, including the supplemental generator.
+Of its 33 predecessor repository inputs, 32 unchanged files still receive
+current-byte checks; the one earlier aggregate `compose.py` is read at the
+recorded immutable `13daeca1e9` base. Both kinds are checked and separately
+reported. This preserves the earlier Main leaf's 45-current/one-historical
+handling and does not weaken unchanged current-file checks.
+
+The affected suite passed **301 cases in 5.739840 seconds**, with 48 new
+mismatch, immutable/current input, review-scope and endpoint-boundary cases.
+It ran 22:34:07–22:34:13 UTC; default generation ran 22:34:20–22:34:23 UTC
+in **3.099163 seconds**. The result verifies **186 current repository pins
+and 2,657 distinct current files**. The new leaf's 44 external/32 current
+repository files overlap this total; its historical aggregate is excluded.
+No successful emission/review suite was repeated. Existing nested aggregate
+validation was retained; the affected aggregate suite itself ran once.
+
+Selected attachment settings: GPT-6 Astra / Extra High, assigned by parent
+under the reported Sol capacity limitation. Runtime confirmation and token/cost
+measurements are unavailable; no model-quality claim is made. Round start was
+22:29:30 UTC; the result checkpoint followed 293.633617 seconds later. Final
+documentation/commit handoff follows it. Native compiler/capture/build/proof/
+solver runs were zero. Oracle, production toolchain pins/options, admission,
+GitHub, memory and harness state were unchanged. Parent owns integration review
+and subsequent production graph/shared-capacity work.

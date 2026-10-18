@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/tmp/silver-original-native-storage-attachment-round9-20261018/samples/hello_world.adb",
+  "source_path": "/tmp/silver-literal-emission-attachment-20261018/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -96,6 +96,8 @@
     "native_varpool_and_shared_tree_pool": true,
     "native_graph_and_summary_lifetime": true,
     "native_function_and_symbol_counter_endpoints": true,
+    "native_global_RTL_label_endpoint": true,
+    "native_global_constant_label_endpoint": true,
     "native_SSA_helper_backing": true,
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
@@ -127,6 +129,8 @@
     "native_varpool_and_shared_tree_pool": true,
     "native_graph_and_summary_lifetime": true,
     "native_function_and_symbol_counter_endpoints": true,
+    "native_global_RTL_label_endpoint": true,
+    "native_global_constant_label_endpoint": true,
     "native_SSA_helper_backing": true,
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
@@ -159,7 +163,10 @@
     "Main_is_only_emitted_body_established": true,
     "additional_imported_pool_symbol_events_upper": null,
     "additional_imported_defined_bodies_upper": 2,
-    "additional_emitted_stream_interface": null,
+    "additional_emitted_stream_interface": {
+      "emitted_non_Main_functions": 0,
+      "additional_non_Main_emitted_lines": 0
+    },
     "cold_String_layout": {
       "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
       "size_functions_created": 2,
@@ -1309,6 +1316,111 @@
       "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
       "whole_literal_pipeline_capacity_established": false
     },
+    "selected_complete_emission_interface": {
+      "counts": {
+        "calls": 1,
+        "nulls": 0,
+        "decoded_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "source_family_emission_routes_closed_under_selected_descriptor": true,
+      "counter_bounds": {
+        "fixed_prefix_positive_GGC_events_upper": 39257,
+        "ordinary_label_initial_value": 1,
+        "ordinary_label_next_at_prefix_exit_upper": 39258,
+        "target_cost_setup_ordinary_label_increments": 0,
+        "imported_and_non_Main_ordinary_label_increments": 0,
+        "Main_ordinary_label_increments_upper": 52,
+        "ordinary_label_next_at_exit_upper": 39310,
+        "Main_label_alignment_span_upper": 53,
+        "constant_label_initial_value": 0,
+        "constant_label_next_at_prefix_exit_upper": 39257,
+        "target_cost_setup_constant_label_increments": 0,
+        "additional_imported_constant_label_increments": 0,
+        "Main_tree_constant_label_increments_upper": 2,
+        "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+        "constant_label_next_at_exit_upper": 39259,
+        "final_scan_counter_initial_value": 0,
+        "final_scan_counter_at_exit_upper": 52,
+        "CFI_label_counter_initial_value": 0,
+        "CFI_label_counter_at_exit_upper": 5,
+        "CFI_label_signed_temporary_maximum": 4,
+        "Main_function_definition_number": 1,
+        "next_function_definition_number": 4
+      },
+      "counter_and_emission_guards": {
+        "literal_length_signed_int": true,
+        "ordinary_label_next_signed_int": true,
+        "constant_label_next_signed_int": true,
+        "Main_instruction_UID_and_label_span_signed_int": true,
+        "final_scan_counter_signed_int": true,
+        "text_and_CFI_location_signed_int": true,
+        "CFI_label_temporary_and_next_signed_int": true,
+        "function_definition_next_signed_int": true
+      },
+      "counter_and_emission_guards_fit": true,
+      "final_chain": 52,
+      "text_bytes_upper": 53,
+      "assembly": {
+        "lines_upper": 187,
+        "bytes_upper": 11471,
+        "longest_line_excluding_LF_upper": 512,
+        "scrub_buffer_bytes_upper": 65539
+      },
+      "emission": {
+        "emitted_function_bodies": 1,
+        "Main_boundary_labels": [
+          ".LFB1",
+          ".LFE1"
+        ],
+        "additional_non_Main_emitted_lines": 0,
+        "selected_pending_external_directive_lines": 0,
+        "external_pending_declarations_upper": 1,
+        "constant_label_definitions_upper": 2,
+        "additional_data_sections_upper": 1,
+        "additional_data_section": ".rodata",
+        "rodata_bytes_upper": 35,
+        "constant_data_relocations": 0,
+        "local_label_bytes_excluding_NUL_upper": 25,
+        "symbol_name_bytes_including_NUL_upper": 26,
+        "instruction_line_bytes_excluding_LF_upper": 64
+      },
+      "complete_selected_stream_source_correspondence_conditional": true,
+      "production_invocation_and_materialization_established": false,
+      "installed_relevant_behavior_correspondence_is_external_premise": true,
+      "complete_non_label_global_counter_lifetime_closed": false,
+      "complete_shared_backing_and_collector_capacity_closed": false,
+      "whole_literal_pipeline_capacity_established": false,
+      "native_tool_executions": 0,
+      "production_admission_changed": false,
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "source_identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    "selected_complete_emission_review": {
+      "source_freeze": "a937eaede5b01b438b2b2fb4dccc49cb3a8469d5",
+      "review_commit": "ec96aac40c816d5f3cce036ef4d3394a6d5bacce",
+      "review_path": "docs/reviews/review-literal-emission-a937eaede5.md",
+      "disposition": "accepted under exact selected descriptor and inherited premises",
+      "closes_selected_label_sources_and_complete_compiler_stream": true,
+      "establishes_production_invocation_or_complete_capacity": false
+    },
+    "selected_whole_stream_and_label_sources_closed": true,
+    "production_invocation_and_materialization_established": false,
     "selected_empty_elaboration_symbol_registration_established": true,
     "selected_function_and_symbol_counter_to_name_join_established": true,
     "synthetic_counter_no_wrap_established": false,
@@ -1321,7 +1433,7 @@
         "source_family_premises_closed": true,
         "closed": "C+6 cumulative symbol registrations and the exact joined original Main/context/profile, String216/helper94 and synthetic173 source intervals establish zero additional imported tree-pool demand, independently of I. Accepted 2C entries, 3C insertion-capable lookups, pre-hit replacements, retained prefix D_in=39257 and local counter/probe checks remain charged.",
         "residual": null,
-        "scope": "Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, whole-stream/invocation and collector composition remain open."
+        "scope": "Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, production invocation and collector composition remain open."
       },
       "native_graph_and_summary_lifetime": {
         "source_family_premises_closed": true,
@@ -1331,18 +1443,24 @@
       },
       "Main_assembler_object_interface": {
         "source_family_premises_closed": false,
-        "closed": "Main emits .LFB1/.LFE1; synthetic function/symbol serial changes preserve the inherited name/line envelopes and add zero emitted bodies or lines.",
-        "residual": "Complete selected final-RTL/data-to-whole-stream correspondence, global RTL/constant-label endpoints and complete production invocation/materialization."
+        "selected_emission_source_premises_closed": true,
+        "production_invocation_materialized": false,
+        "closed": "The independently reviewed complete selected Main/data/unit-writer stream and ordinary/constant label sources are joined to the same actual source, C/N/W/Lmax, final RTL and exact assembler interface. Next-value guards are evaluated separately; Main emits .LFB1/.LFE1.",
+        "residual": "Complete actual production compiler/assembler argv, option propagation, source/object routing and invocation/materialization under the selected descriptor."
       },
       "Main_GAS_BFD_storage": {
         "source_family_premises_closed": false,
-        "closed": "The joined synthetic counter changes preserve the existing name, line and selected object envelopes; exact nested assembler interface equality remains checked.",
-        "residual": "The complete incoming assembly stream and actual production GAS/BFD invocation/materialization, including the unresolved whole-stream and label-counter premises."
+        "selected_emission_source_premises_closed": true,
+        "production_invocation_materialized": false,
+        "closed": "Complete selected incoming compiler stream and global label endpoints are attached; the unchanged assembly/ELF interface equals the nested GAS/BFD storage input exactly.",
+        "residual": "Actual production GAS/BFD argv, target/options and compiler-output-to-assembler-input routing and materialization under the selected descriptor."
       },
       "literal_output_linker_representation": {
         "source_family_premises_closed": false,
-        "closed": "The selected Main text/ELF/storage substitutions and synthetic name-envelope preservation are joined.",
-        "residual": "Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. This local formula does not establish that complete link input frontier."
+        "selected_emission_source_premises_closed": true,
+        "production_invocation_materialized": false,
+        "closed": "The complete selected Main stream/label source argument joins the unchanged text/ELF/storage substitutions and exact linker interface.",
+        "residual": "Actual production compiler/assembler/linker invocation and object routing, fixed dependency/binder object materialization and the complete fixed link-input graph under the selected descriptor."
       }
     },
     "affected_predicates": [
@@ -1350,7 +1468,7 @@
       "Main_GAS_BFD_storage",
       "literal_output_linker_representation"
     ],
-    "missing": "The selected registration/counter-to-name joins and exact original constructor zero-pool interfaces restore the local graph/summary and varpool/tree-pool conditions. Fixed Main context I<=114 supplies the original Main direct-request input. Shared identifier/container backing, incoming global counter no-wrap, remaining allocation, whole-stream/invocation correspondence and collector composition remain open.",
+    "missing": "Selected registration and original zero-pool joins restore the local graph/summary and varpool/tree-pool conditions; fixed Main context I<=114 supplies the original direct-request input. The complete selected stream and label sources are now attached with explicit endpoint guards. Actual production argv/invocation/materialization and fixed link inputs, shared identifier/container backing, incoming non-label global counters, remaining allocation and collector composition remain open.",
     "finding": "https://github.com/berkeleynerd/silver/issues/131"
   },
   "native_lowering_data": {
@@ -3925,6 +4043,101 @@
     "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
     "whole_literal_pipeline_capacity_established": false
   },
+  "native_complete_emission_interface": {
+    "counts": {
+      "calls": 1,
+      "nulls": 0,
+      "decoded_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "source_family_emission_routes_closed_under_selected_descriptor": true,
+    "counter_bounds": {
+      "fixed_prefix_positive_GGC_events_upper": 39257,
+      "ordinary_label_initial_value": 1,
+      "ordinary_label_next_at_prefix_exit_upper": 39258,
+      "target_cost_setup_ordinary_label_increments": 0,
+      "imported_and_non_Main_ordinary_label_increments": 0,
+      "Main_ordinary_label_increments_upper": 52,
+      "ordinary_label_next_at_exit_upper": 39310,
+      "Main_label_alignment_span_upper": 53,
+      "constant_label_initial_value": 0,
+      "constant_label_next_at_prefix_exit_upper": 39257,
+      "target_cost_setup_constant_label_increments": 0,
+      "additional_imported_constant_label_increments": 0,
+      "Main_tree_constant_label_increments_upper": 2,
+      "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+      "constant_label_next_at_exit_upper": 39259,
+      "final_scan_counter_initial_value": 0,
+      "final_scan_counter_at_exit_upper": 52,
+      "CFI_label_counter_initial_value": 0,
+      "CFI_label_counter_at_exit_upper": 5,
+      "CFI_label_signed_temporary_maximum": 4,
+      "Main_function_definition_number": 1,
+      "next_function_definition_number": 4
+    },
+    "counter_and_emission_guards": {
+      "literal_length_signed_int": true,
+      "ordinary_label_next_signed_int": true,
+      "constant_label_next_signed_int": true,
+      "Main_instruction_UID_and_label_span_signed_int": true,
+      "final_scan_counter_signed_int": true,
+      "text_and_CFI_location_signed_int": true,
+      "CFI_label_temporary_and_next_signed_int": true,
+      "function_definition_next_signed_int": true
+    },
+    "counter_and_emission_guards_fit": true,
+    "final_chain": 52,
+    "text_bytes_upper": 53,
+    "assembly": {
+      "lines_upper": 187,
+      "bytes_upper": 11471,
+      "longest_line_excluding_LF_upper": 512,
+      "scrub_buffer_bytes_upper": 65539
+    },
+    "emission": {
+      "emitted_function_bodies": 1,
+      "Main_boundary_labels": [
+        ".LFB1",
+        ".LFE1"
+      ],
+      "additional_non_Main_emitted_lines": 0,
+      "selected_pending_external_directive_lines": 0,
+      "external_pending_declarations_upper": 1,
+      "constant_label_definitions_upper": 2,
+      "additional_data_sections_upper": 1,
+      "additional_data_section": ".rodata",
+      "rodata_bytes_upper": 35,
+      "constant_data_relocations": 0,
+      "local_label_bytes_excluding_NUL_upper": 25,
+      "symbol_name_bytes_including_NUL_upper": 26,
+      "instruction_line_bytes_excluding_LF_upper": 64
+    },
+    "complete_selected_stream_source_correspondence_conditional": true,
+    "production_invocation_and_materialization_established": false,
+    "installed_relevant_behavior_correspondence_is_external_premise": true,
+    "complete_non_label_global_counter_lifetime_closed": false,
+    "complete_shared_backing_and_collector_capacity_closed": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "native_tool_executions": 0,
+    "production_admission_changed": false,
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    }
+  },
   "native_Main_frontend_interface": {
     "scope": "actual selected literal source: Main constructor and gigi source-visit input",
     "selected_source": {
@@ -5882,7 +6095,10 @@
       "Main_is_only_emitted_body_established": true,
       "additional_imported_pool_symbol_events_upper": null,
       "additional_imported_defined_bodies_upper": 2,
-      "additional_emitted_stream_interface": null,
+      "additional_emitted_stream_interface": {
+        "emitted_non_Main_functions": 0,
+        "additional_non_Main_emitted_lines": 0
+      },
       "cold_String_layout": {
         "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
         "size_functions_created": 2,
@@ -7032,6 +7248,111 @@
         "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
         "whole_literal_pipeline_capacity_established": false
       },
+      "selected_complete_emission_interface": {
+        "counts": {
+          "calls": 1,
+          "nulls": 0,
+          "decoded_bytes": 13,
+          "maximum_literal_length": 13
+        },
+        "source_family_emission_routes_closed_under_selected_descriptor": true,
+        "counter_bounds": {
+          "fixed_prefix_positive_GGC_events_upper": 39257,
+          "ordinary_label_initial_value": 1,
+          "ordinary_label_next_at_prefix_exit_upper": 39258,
+          "target_cost_setup_ordinary_label_increments": 0,
+          "imported_and_non_Main_ordinary_label_increments": 0,
+          "Main_ordinary_label_increments_upper": 52,
+          "ordinary_label_next_at_exit_upper": 39310,
+          "Main_label_alignment_span_upper": 53,
+          "constant_label_initial_value": 0,
+          "constant_label_next_at_prefix_exit_upper": 39257,
+          "target_cost_setup_constant_label_increments": 0,
+          "additional_imported_constant_label_increments": 0,
+          "Main_tree_constant_label_increments_upper": 2,
+          "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+          "constant_label_next_at_exit_upper": 39259,
+          "final_scan_counter_initial_value": 0,
+          "final_scan_counter_at_exit_upper": 52,
+          "CFI_label_counter_initial_value": 0,
+          "CFI_label_counter_at_exit_upper": 5,
+          "CFI_label_signed_temporary_maximum": 4,
+          "Main_function_definition_number": 1,
+          "next_function_definition_number": 4
+        },
+        "counter_and_emission_guards": {
+          "literal_length_signed_int": true,
+          "ordinary_label_next_signed_int": true,
+          "constant_label_next_signed_int": true,
+          "Main_instruction_UID_and_label_span_signed_int": true,
+          "final_scan_counter_signed_int": true,
+          "text_and_CFI_location_signed_int": true,
+          "CFI_label_temporary_and_next_signed_int": true,
+          "function_definition_next_signed_int": true
+        },
+        "counter_and_emission_guards_fit": true,
+        "final_chain": 52,
+        "text_bytes_upper": 53,
+        "assembly": {
+          "lines_upper": 187,
+          "bytes_upper": 11471,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "emission": {
+          "emitted_function_bodies": 1,
+          "Main_boundary_labels": [
+            ".LFB1",
+            ".LFE1"
+          ],
+          "additional_non_Main_emitted_lines": 0,
+          "selected_pending_external_directive_lines": 0,
+          "external_pending_declarations_upper": 1,
+          "constant_label_definitions_upper": 2,
+          "additional_data_sections_upper": 1,
+          "additional_data_section": ".rodata",
+          "rodata_bytes_upper": 35,
+          "constant_data_relocations": 0,
+          "local_label_bytes_excluding_NUL_upper": 25,
+          "symbol_name_bytes_including_NUL_upper": 26,
+          "instruction_line_bytes_excluding_LF_upper": 64
+        },
+        "complete_selected_stream_source_correspondence_conditional": true,
+        "production_invocation_and_materialization_established": false,
+        "installed_relevant_behavior_correspondence_is_external_premise": true,
+        "complete_non_label_global_counter_lifetime_closed": false,
+        "complete_shared_backing_and_collector_capacity_closed": false,
+        "whole_literal_pipeline_capacity_established": false,
+        "native_tool_executions": 0,
+        "production_admission_changed": false,
+        "source_counts": {
+          "source_bytes": 118,
+          "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+          "output_calls": 1,
+          "Put": 0,
+          "Put_Line": 1,
+          "null_statements": 0,
+          "decoded_literal_lengths": [
+            13
+          ],
+          "decoded_literal_bytes": 13,
+          "maximum_literal_length": 13
+        },
+        "source_identity": {
+          "bytes": 118,
+          "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+        }
+      },
+      "selected_complete_emission_review": {
+        "source_freeze": "a937eaede5b01b438b2b2fb4dccc49cb3a8469d5",
+        "review_commit": "ec96aac40c816d5f3cce036ef4d3394a6d5bacce",
+        "review_path": "docs/reviews/review-literal-emission-a937eaede5.md",
+        "disposition": "accepted under exact selected descriptor and inherited premises",
+        "closes_selected_label_sources_and_complete_compiler_stream": true,
+        "establishes_production_invocation_or_complete_capacity": false
+      },
+      "selected_whole_stream_and_label_sources_closed": true,
+      "production_invocation_and_materialization_established": false,
       "selected_empty_elaboration_symbol_registration_established": true,
       "selected_function_and_symbol_counter_to_name_join_established": true,
       "synthetic_counter_no_wrap_established": false,
@@ -7044,7 +7365,7 @@
           "source_family_premises_closed": true,
           "closed": "C+6 cumulative symbol registrations and the exact joined original Main/context/profile, String216/helper94 and synthetic173 source intervals establish zero additional imported tree-pool demand, independently of I. Accepted 2C entries, 3C insertion-capable lookups, pre-hit replacements, retained prefix D_in=39257 and local counter/probe checks remain charged.",
           "residual": null,
-          "scope": "Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, whole-stream/invocation and collector composition remain open."
+          "scope": "Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, production invocation and collector composition remain open."
         },
         "native_graph_and_summary_lifetime": {
           "source_family_premises_closed": true,
@@ -7054,18 +7375,24 @@
         },
         "Main_assembler_object_interface": {
           "source_family_premises_closed": false,
-          "closed": "Main emits .LFB1/.LFE1; synthetic function/symbol serial changes preserve the inherited name/line envelopes and add zero emitted bodies or lines.",
-          "residual": "Complete selected final-RTL/data-to-whole-stream correspondence, global RTL/constant-label endpoints and complete production invocation/materialization."
+          "selected_emission_source_premises_closed": true,
+          "production_invocation_materialized": false,
+          "closed": "The independently reviewed complete selected Main/data/unit-writer stream and ordinary/constant label sources are joined to the same actual source, C/N/W/Lmax, final RTL and exact assembler interface. Next-value guards are evaluated separately; Main emits .LFB1/.LFE1.",
+          "residual": "Complete actual production compiler/assembler argv, option propagation, source/object routing and invocation/materialization under the selected descriptor."
         },
         "Main_GAS_BFD_storage": {
           "source_family_premises_closed": false,
-          "closed": "The joined synthetic counter changes preserve the existing name, line and selected object envelopes; exact nested assembler interface equality remains checked.",
-          "residual": "The complete incoming assembly stream and actual production GAS/BFD invocation/materialization, including the unresolved whole-stream and label-counter premises."
+          "selected_emission_source_premises_closed": true,
+          "production_invocation_materialized": false,
+          "closed": "Complete selected incoming compiler stream and global label endpoints are attached; the unchanged assembly/ELF interface equals the nested GAS/BFD storage input exactly.",
+          "residual": "Actual production GAS/BFD argv, target/options and compiler-output-to-assembler-input routing and materialization under the selected descriptor."
         },
         "literal_output_linker_representation": {
           "source_family_premises_closed": false,
-          "closed": "The selected Main text/ELF/storage substitutions and synthetic name-envelope preservation are joined.",
-          "residual": "Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. This local formula does not establish that complete link input frontier."
+          "selected_emission_source_premises_closed": true,
+          "production_invocation_materialized": false,
+          "closed": "The complete selected Main stream/label source argument joins the unchanged text/ELF/storage substitutions and exact linker interface.",
+          "residual": "Actual production compiler/assembler/linker invocation and object routing, fixed dependency/binder object materialization and the complete fixed link-input graph under the selected descriptor."
         }
       },
       "affected_predicates": [
@@ -7073,7 +7400,7 @@
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
-      "missing": "The selected registration/counter-to-name joins and exact original constructor zero-pool interfaces restore the local graph/summary and varpool/tree-pool conditions. Fixed Main context I<=114 supplies the original Main direct-request input. Shared identifier/container backing, incoming global counter no-wrap, remaining allocation, whole-stream/invocation correspondence and collector composition remain open.",
+      "missing": "Selected registration and original zero-pool joins restore the local graph/summary and varpool/tree-pool conditions; fixed Main context I<=114 supplies the original direct-request input. The complete selected stream and label sources are now attached with explicit endpoint guards. Actual production argv/invocation/materialization and fixed link inputs, shared identifier/container backing, incoming non-label global counters, remaining allocation and collector composition remain open.",
       "finding": "https://github.com/berkeleynerd/silver/issues/131"
     },
     "native_remaining_lifetime_and_collector": {
@@ -7305,6 +7632,109 @@
           "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
           "whole_literal_pipeline_capacity_established": false
         },
+        "selected_complete_emission_interface": {
+          "counts": {
+            "calls": 1,
+            "nulls": 0,
+            "decoded_bytes": 13,
+            "maximum_literal_length": 13
+          },
+          "source_family_emission_routes_closed_under_selected_descriptor": true,
+          "counter_bounds": {
+            "fixed_prefix_positive_GGC_events_upper": 39257,
+            "ordinary_label_initial_value": 1,
+            "ordinary_label_next_at_prefix_exit_upper": 39258,
+            "target_cost_setup_ordinary_label_increments": 0,
+            "imported_and_non_Main_ordinary_label_increments": 0,
+            "Main_ordinary_label_increments_upper": 52,
+            "ordinary_label_next_at_exit_upper": 39310,
+            "Main_label_alignment_span_upper": 53,
+            "constant_label_initial_value": 0,
+            "constant_label_next_at_prefix_exit_upper": 39257,
+            "target_cost_setup_constant_label_increments": 0,
+            "additional_imported_constant_label_increments": 0,
+            "Main_tree_constant_label_increments_upper": 2,
+            "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+            "constant_label_next_at_exit_upper": 39259,
+            "final_scan_counter_initial_value": 0,
+            "final_scan_counter_at_exit_upper": 52,
+            "CFI_label_counter_initial_value": 0,
+            "CFI_label_counter_at_exit_upper": 5,
+            "CFI_label_signed_temporary_maximum": 4,
+            "Main_function_definition_number": 1,
+            "next_function_definition_number": 4
+          },
+          "counter_and_emission_guards": {
+            "literal_length_signed_int": true,
+            "ordinary_label_next_signed_int": true,
+            "constant_label_next_signed_int": true,
+            "Main_instruction_UID_and_label_span_signed_int": true,
+            "final_scan_counter_signed_int": true,
+            "text_and_CFI_location_signed_int": true,
+            "CFI_label_temporary_and_next_signed_int": true,
+            "function_definition_next_signed_int": true
+          },
+          "counter_and_emission_guards_fit": true,
+          "final_chain": 52,
+          "text_bytes_upper": 53,
+          "assembly": {
+            "lines_upper": 187,
+            "bytes_upper": 11471,
+            "longest_line_excluding_LF_upper": 512,
+            "scrub_buffer_bytes_upper": 65539
+          },
+          "emission": {
+            "emitted_function_bodies": 1,
+            "Main_boundary_labels": [
+              ".LFB1",
+              ".LFE1"
+            ],
+            "additional_non_Main_emitted_lines": 0,
+            "selected_pending_external_directive_lines": 0,
+            "external_pending_declarations_upper": 1,
+            "constant_label_definitions_upper": 2,
+            "additional_data_sections_upper": 1,
+            "additional_data_section": ".rodata",
+            "rodata_bytes_upper": 35,
+            "constant_data_relocations": 0,
+            "local_label_bytes_excluding_NUL_upper": 25,
+            "symbol_name_bytes_including_NUL_upper": 26,
+            "instruction_line_bytes_excluding_LF_upper": 64
+          },
+          "complete_selected_stream_source_correspondence_conditional": true,
+          "production_invocation_and_materialization_established": false,
+          "installed_relevant_behavior_correspondence_is_external_premise": true,
+          "complete_non_label_global_counter_lifetime_closed": false,
+          "complete_shared_backing_and_collector_capacity_closed": false,
+          "whole_literal_pipeline_capacity_established": false,
+          "native_tool_executions": 0,
+          "production_admission_changed": false,
+          "source_counts": {
+            "source_bytes": 118,
+            "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+            "output_calls": 1,
+            "Put": 0,
+            "Put_Line": 1,
+            "null_statements": 0,
+            "decoded_literal_lengths": [
+              13
+            ],
+            "decoded_literal_bytes": 13,
+            "maximum_literal_length": 13
+          },
+          "source_identity": {
+            "bytes": 118,
+            "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+          }
+        },
+        "selected_complete_emission_review": {
+          "source_freeze": "a937eaede5b01b438b2b2fb4dccc49cb3a8469d5",
+          "review_commit": "ec96aac40c816d5f3cce036ef4d3394a6d5bacce",
+          "review_path": "docs/reviews/review-literal-emission-a937eaede5.md",
+          "disposition": "accepted under exact selected descriptor and inherited premises",
+          "closes_selected_label_sources_and_complete_compiler_stream": true,
+          "establishes_production_invocation_or_complete_capacity": false
+        },
         "GAS_BFD_storage": {
           "path_bytes": 513,
           "assembler_argv_count": 5,
@@ -7403,7 +7833,7 @@
         },
         "local_interface_fits": true
       },
-      "missing": "Selected synthetic function/symbol-counter-to-name preservation is closed. Complete final-RTL/data-to-whole-stream correspondence, remaining global RTL/constant-label endpoints and production-invocation/materialization remain (#131)."
+      "missing": "The complete selected compiler stream and ordinary/constant label-source correspondence are joined with their guards. Actual production compiler/assembler argv, option propagation, file/object routing and invocation/materialization under that descriptor remain unestablished."
     },
     "producer_frontends_and_consumers": {
       "missing": "Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output."
@@ -7425,8 +7855,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 175,
-  "direct_files_verified": 2627,
+  "fixed_input_count": 186,
+  "direct_files_verified": 2657,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
@@ -7444,6 +7874,30 @@
     "historical_silver_revision": "28697404fa1971ed310d19a7ab434e593ca2b075",
     "historical_inputs_frozen_in_manifest": 29,
     "counts_overlap_direct_source_validation": true
+  },
+  "native_emission_source_validation": {
+    "source_manifest": {
+      "bytes": 23083,
+      "sha256": "d22095ad8fec192bf1ddbeb6268ace65c23ff74ffefeab865531914c3e908fdd"
+    },
+    "complete_source_files_verified": 44,
+    "current_predecessor_repository_files_verified": 32,
+    "historical_predecessor_repository_files_verified": 1,
+    "historical_predecessor_paths": [
+      "docs/evidence/retained-literal-pipeline-20261018/compose.py"
+    ],
+    "historical_repository_revision": "13daeca1e97eef2d0894f6f5175789677df54ce9",
+    "direct_files_verified": 76,
+    "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "counts_overlap_direct_source_validation": true
+  },
+  "native_emission_review": {
+    "source_freeze": "a937eaede5b01b438b2b2fb4dccc49cb3a8469d5",
+    "review_commit": "ec96aac40c816d5f3cce036ef4d3394a6d5bacce",
+    "review_path": "docs/reviews/review-literal-emission-a937eaede5.md",
+    "disposition": "accepted under exact selected descriptor and inherited premises",
+    "closes_selected_label_sources_and_complete_compiler_stream": true,
+    "establishes_production_invocation_or_complete_capacity": false
   },
   "native_original_helper_source_validation": {
     "source_manifest": {
@@ -7502,8 +7956,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T22:13:41.938872+00:00",
-    "completed_utc": "2026-10-18T22:13:45.052474+00:00",
-    "elapsed_seconds": 3.113588610998704
+    "started_utc": "2026-10-18T22:34:20.534441+00:00",
+    "completed_utc": "2026-10-18T22:34:23.633617+00:00",
+    "elapsed_seconds": 3.0991632739969646
   }
 }

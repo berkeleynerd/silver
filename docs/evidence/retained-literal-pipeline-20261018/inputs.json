@@ -873,5 +873,60 @@
     "path": "docs/reviews/review-literal-context-visits-684ec8ab64.md",
     "bytes": 9125,
     "sha256": "048f7c47e3caf264e877230a33a5a8befa61ea53aae0354da931837095c84138"
+  },
+  {
+    "path": "docs/research/retained-literal-emission-closure.md",
+    "bytes": 20564,
+    "sha256": "a44e3f48c500cba8f41fc1445c29b4d7cfdecf298b560c52ea5e4c0efb30cbbc"
+  },
+  {
+    "path": "docs/reviews/review-literal-emission-a937eaede5.md",
+    "bytes": 11436,
+    "sha256": "e00c90a57b221cc2e1a40464a7fdcf7799dc8351b6ba2c4d06dfaa28e1c5b370"
+  },
+  {
+    "path": "docs/reviews/check-literal-emission-a937eaede5.py",
+    "bytes": 7371,
+    "sha256": "72dd033e55e44666f333a35de7a8b51d468a708152163e2e49a3e4d78c47974b"
+  },
+  {
+    "path": "docs/reviews/check-literal-emission-a937eaede5.json",
+    "bytes": 431,
+    "sha256": "e57b0b1a1a14f5e2f1fb5f4a0f182f2eb3ceed9e9b954cea7b571bdaaa0e0203"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/README.md",
+    "bytes": 4728,
+    "sha256": "aa0e28afedbe1ac0234784485667e21dba1692da12f5843b08e1ec34f5c409a1"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/check-results.json",
+    "bytes": 15377,
+    "sha256": "bf060b50779995f1d262edc90cf83c7dc9fd9b67205d23be20ca795ac204cb82"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/check.py",
+    "bytes": 13722,
+    "sha256": "d9e6d997befb9b5db43f259668bb0efab372c9b86de54f4e8915501ea71abd21"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/derive.py",
+    "bytes": 6353,
+    "sha256": "dcf2892d3efd3f6ffbab83e7fddef044973b6be2128185e65ab5f48763f6c344"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/result.json",
+    "bytes": 3480,
+    "sha256": "1bb5620c53c94059ab4973bd7d4ec250c810fbc5bc18b2101579074755bf6755"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/source-manifest.json",
+    "bytes": 23083,
+    "sha256": "d22095ad8fec192bf1ddbeb6268ace65c23ff74ffefeab865531914c3e908fdd"
+  },
+  {
+    "path": "docs/evidence/retained-literal-emission-closure-20261018/supplemental-gengenrtl.cc.gz",
+    "bytes": 2813,
+    "sha256": "e2a947a29e47748c4d6c36a6e48780a7824ad3b10b5ca69a9d1a11f8f607c38a"
   }
 ]

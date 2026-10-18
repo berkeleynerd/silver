@@ -321,6 +321,32 @@ def main():
             assert ingress['complete_gimplifier_GGC_request_events_upper'] is None
             assembler=result['Main_assembler_object_interface']
             assert assembler['local_interface_fits']
+            emission=result['native_complete_emission_interface']
+            assert emission['source_identity']==module.identity(raw)
+            assert emission['source_counts']==counts
+            assert emission['counts']==assembler['counts']
+            assert emission['assembly']==assembler['assembly']
+            assert emission['final_chain']==result['RTL_shape']['final_chain']
+            assert emission['counter_bounds']['ordinary_label_next_at_exit_upper']==39258+7*c+7*n+45
+            assert emission['counter_bounds']['constant_label_next_at_exit_upper']==39257+2*c
+            assert emission['counter_and_emission_guards_fit']
+            assert result['conditions']['native_global_RTL_label_endpoint']
+            assert result['conditions']['native_global_constant_label_endpoint']
+            assert emission['complete_selected_stream_source_correspondence_conditional']
+            assert not emission['production_invocation_and_materialization_established']
+            assert not emission['complete_non_label_global_counter_lifetime_closed']
+            assert not emission['complete_shared_backing_and_collector_capacity_closed']
+            verification=result['native_emission_source_validation']
+            assert verification['complete_source_files_verified']==44
+            assert verification['current_predecessor_repository_files_verified']==32
+            assert verification['historical_predecessor_repository_files_verified']==1
+            assert verification['direct_files_verified']==76
+            assert verification['historical_predecessor_paths']==[
+                'docs/evidence/retained-literal-pipeline-20261018/compose.py']
+            assert verification['historical_repository_revision']=='13daeca1e97eef2d0894f6f5175789677df54ce9'
+            assert result['native_emission_review']==context.emission_review
+            assert result['native_emission_review']['closes_selected_label_sources_and_complete_compiler_stream']
+            assert not result['native_emission_review']['establishes_production_invocation_or_complete_capacity']
             storage=result['Main_GAS_BFD_storage']
             assert storage['selected_GAS_BFD_storage_fits']
             assert storage['path_bytes']==fixture['complete_path_bound']+1
@@ -371,7 +397,8 @@ def main():
             assert frontier['Main_is_only_emitted_body_established']
             assert frontier['additional_imported_pool_symbol_events_upper'] is None
             assert frontier['additional_imported_defined_bodies_upper']==2
-            assert frontier['additional_emitted_stream_interface'] is None
+            assert frontier['additional_emitted_stream_interface']==dict(
+                emitted_non_Main_functions=0,additional_non_Main_emitted_lines=0)
             assert frontier['cold_String_layout']==context.cold_string
             assert frontier['cold_String_layout']['helper_emitted_functions']==0
             assert frontier['cold_String_layout']['helper_allocation_bytes'] is None
@@ -379,6 +406,10 @@ def main():
             assert frontier['selected_generated_function_frontier']['empty_elaboration']['allocation_request_events'] is None
             assert frontier['selected_generated_function_frontier']['empty_elaboration']['symbol_registration_count'] is None
             assert frontier['selected_counter_emission_interface']==counter
+            assert frontier['selected_complete_emission_interface']==emission
+            assert frontier['selected_complete_emission_review']==context.emission_review
+            assert frontier['selected_whole_stream_and_label_sources_closed']
+            assert not frontier['production_invocation_and_materialization_established']
             assert frontier['selected_empty_elaboration_symbol_registration_established']
             assert frontier['selected_function_and_symbol_counter_to_name_join_established']
             assert not frontier['complete_global_counter_lifetime_closed']
@@ -392,6 +423,10 @@ def main():
             assert assessments['native_varpool_and_shared_tree_pool']['residual'] is None
             assert assessments['native_graph_and_summary_lifetime']['residual'] is None
             assert all(assessments[key]['residual'] for key in result['unresolved_predicates'])
+            for key in result['unresolved_predicates']:
+                assert assessments[key]['selected_emission_source_premises_closed']
+                assert not assessments[key]['production_invocation_materialized']
+                assert 'production' in assessments[key]['residual']
             assert linker['link']['failed_sufficient_checks']==(
                 ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
             if name=='5000_calls':
@@ -787,6 +822,145 @@ def main():
                     'changed aggregate input: '+pin_path)
             finally:
                 module.read=original_read
+
+        # The new leaf is accepted; challenge only this attachment and guards.
+        emission_evaluate=context.emission['evaluate_source']
+        for name,path,value,message in (
+            ('source_identity',('source_identity','sha256'),'0'*64,'actual source-count'),
+            ('recognized_C',('source_counts','output_calls'),2,'actual source-count'),
+            ('decoded_W',('counts','decoded_bytes'),0,'actual source-count'),
+            ('maximum_length',('counts','maximum_literal_length'),0,'actual source-count'),
+            ('final_chain',('final_chain',),0,'complete stream and final-RTL'),
+            ('text',('text_bytes_upper',),0,'complete stream and final-RTL'),
+            ('lines',('assembly','lines_upper'),0,'complete stream and final-RTL'),
+            ('bytes',('assembly','bytes_upper'),0,'complete stream and final-RTL'),
+            ('line_width',('assembly','longest_line_excluding_LF_upper'),513,'complete stream and final-RTL'),
+            ('prefix',('counter_bounds','fixed_prefix_positive_GGC_events_upper'),0,'counter endpoint and existing pool'),
+            ('ordinary_next',('counter_bounds','ordinary_label_next_at_exit_upper'),39309,'counter endpoint and existing pool'),
+            ('constant_next',('counter_bounds','constant_label_next_at_exit_upper'),39258,'counter endpoint and existing pool'),
+            ('CFI_temporary',('counter_bounds','CFI_label_signed_temporary_maximum'),5,'counter endpoint and existing pool'),
+            ('ordinary_guard',('counter_and_emission_guards','ordinary_label_next_signed_int'),False,'counter endpoint and existing pool'),
+            ('constant_guard',('counter_and_emission_guards','constant_label_next_signed_int'),False,'counter endpoint and existing pool'),
+            ('guard_summary',('counter_and_emission_guards_fit',),False,'counter endpoint and existing pool'),
+            ('extra_body',('emission','emitted_function_bodies'),2,'complete writer and name inventory'),
+            ('extra_line',('emission','additional_non_Main_emitted_lines'),1,'complete writer and name inventory'),
+            ('external_directive',('emission','selected_pending_external_directive_lines'),1,'complete writer and name inventory'),
+            ('function_label',('emission','Main_boundary_labels'),['.LFB0','.LFE0'],'complete writer and name inventory'),
+            ('pool_definitions',('emission','constant_label_definitions_upper'),1,'complete writer and name inventory'),
+            ('data_extent',('emission','rodata_bytes_upper'),0,'complete writer and name inventory'),
+            ('symbol_width',('emission','symbol_name_bytes_including_NUL_upper'),27,'complete writer and name inventory'),
+            ('route_removed',('source_family_emission_routes_closed_under_selected_descriptor',),False,'reviewed scope and open-boundary'),
+            ('conditional_result_removed',('complete_selected_stream_source_correspondence_conditional',),False,'reviewed scope and open-boundary'),
+            ('production_promoted',('production_invocation_and_materialization_established',),True,'reviewed scope and open-boundary'),
+            ('source_premise_erased',('installed_relevant_behavior_correspondence_is_external_premise',),False,'reviewed scope and open-boundary'),
+            ('global_counters_promoted',('complete_non_label_global_counter_lifetime_closed',),True,'reviewed scope and open-boundary'),
+            ('collector_promoted',('complete_shared_backing_and_collector_capacity_closed',),True,'reviewed scope and open-boundary'),
+            ('whole_capacity_promoted',('whole_literal_pipeline_capacity_established',),True,'reviewed scope and open-boundary'),
+            ('admission_changed',('production_admission_changed',),True,'reviewed scope and open-boundary')):
+            def changed_emission(raw):
+                return altered(emission_evaluate(raw),path,value)
+            context.emission['evaluate_source']=changed_emission
+            try:
+                rejects('emission_'+name,lambda:evaluate(original),'literal emission '+message+' join')
+            finally:
+                context.emission['evaluate_source']=emission_evaluate
+
+        # Check the exact downstream object input, not just equal stream sizes.
+        assemble=context.assembler['evaluate']
+        def changed_object(raw,ctx):
+            result=assemble(raw,ctx)
+            result['ELF']['object_bytes_upper']+=1
+            return result
+        context.assembler['evaluate']=changed_object
+        try:
+            rejects('emission_assembler_object_input_mismatch',lambda:evaluate(original),
+                    'literal assembler storage interface join')
+        finally:
+            context.assembler['evaluate']=assemble
+
+        for change in ('missing_file','changed_hash','changed_revision'):
+            manifest=copy.deepcopy(context.emission_manifest)
+            if change=='missing_file': manifest['files'].pop()
+            elif change=='changed_hash': manifest['files'][0]['sha256']='0'*64
+            else: manifest['reviewed_silver_revision']='0'*40
+            rejects('emission_manifest_'+change,
+                lambda:module.verify_emission_sources(manifest,args.gcc_root,args.ada_root),
+                'literal emission exact source-manifest join')
+        first=next(row for row in context.emission_manifest['files'] if row['root']=='gcc')
+        fake_gcc=root/'fake-emission-gcc'
+        bad_source=fake_gcc/first['path']
+        bad_source.parent.mkdir(parents=True)
+        bad_source.write_bytes(b'changed source\n')
+        rejects('emission_complete_source_mismatch',
+            lambda:module.verify_emission_sources(context.emission_manifest,fake_gcc,args.ada_root),
+            'literal emission complete source join: '+first['path'])
+        historical_read=module.read_historical_repository_file
+        module.read_historical_repository_file=lambda revision,path:b'changed historical aggregate\n'
+        try:
+            rejects('emission_historical_aggregate_mismatch',
+                lambda:module.verify_emission_sources(context.emission_manifest,args.gcc_root,args.ada_root),
+                'literal emission predecessor input join: docs/evidence/retained-literal-pipeline-20261018/compose.py')
+        finally:
+            module.read_historical_repository_file=historical_read
+        # The 32 unchanged predecessor files still use current-byte checks.
+        first=context.emission_manifest['historical_silver_inputs'][0]['path']
+        fake_repo=root/'fake-emission-repo'
+        changed_current=fake_repo/first
+        changed_current.parent.mkdir(parents=True)
+        changed_current.write_bytes(b'changed current predecessor\n')
+        repository=module.REPO
+        module.REPO=fake_repo
+        try:
+            rejects('emission_current_predecessor_mismatch',
+                lambda:module.verify_emission_sources(context.emission_manifest,args.gcc_root,args.ada_root),
+                'literal emission predecessor input join: '+first)
+        finally:
+            module.REPO=repository
+
+        for pin_path in (
+                'docs/research/retained-literal-emission-closure.md',
+                'docs/evidence/retained-literal-emission-closure-20261018/derive.py',
+                'docs/evidence/retained-literal-emission-closure-20261018/source-manifest.json',
+                'docs/reviews/review-literal-emission-a937eaede5.md',
+                'docs/reviews/check-literal-emission-a937eaede5.json'):
+            def changed_pin(path):
+                result=original_read(path)
+                if path==HERE/'inputs.json':
+                    next(row for row in result if row['path']==pin_path)['sha256']='0'*64
+                return result
+            module.read=changed_pin
+            try:
+                rejects('emission_repository_pin_'+pin_path,
+                    lambda:module.Context(args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match),
+                    'changed aggregate input: '+pin_path)
+            finally:
+                module.read=original_read
+        def wrong_review(revision,path):
+            if path==context.emission_review['review_path']:
+                return b'unaccepted review\n'
+            return historical_read(revision,path)
+        module.read_historical_repository_file=wrong_review
+        try:
+            rejects('emission_review_scope_mismatch',
+                lambda:module.Context(args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match),
+                'literal emission accepted review scope join')
+        finally:
+            module.read_historical_repository_file=historical_read
+
+        # Pure mathematical endpoints; no billion-statement source is fabricated.
+        ordinary_last=(module.I32-39258-45-7)//7
+        constant_last=(module.I32-39257)//2
+        for name,c,n,field,expected in (
+                ('ordinary_last',1,ordinary_last,'ordinary_label_next_signed_int',True),
+                ('ordinary_next',1,ordinary_last+1,'ordinary_label_next_signed_int',False),
+                ('constant_last',constant_last,0,'constant_label_next_signed_int',True),
+                ('constant_next',constant_last+1,0,'constant_label_next_signed_int',False)):
+            interface=context.emission['evaluate'](c,n,0,0)
+            guards=module.emission_counter_endpoint_checks(interface['counter_bounds'],0,
+                interface['text_bytes_upper'])
+            assert guards==interface['counter_and_emission_guards'] and guards[field] is expected
+            rows.append(dict(case='emission_endpoint_'+name,calls=c,nulls=n,
+                             guard=field,fits=expected,scope='mathematical endpoint interface only'))
 
         synthetic_evaluate=context.synthetic['evaluate']
         counter_evaluate=context.counter['evaluate']
