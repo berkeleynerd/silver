@@ -1,0 +1,57 @@
+{
+  "kernel": {
+    "term": {
+      "nodes": 7,
+      "binders": 2,
+      "mass": 10,
+      "applications": 2
+    },
+    "environment": {
+      "nodes": 5,
+      "binders": 3,
+      "mass": 9,
+      "freevars": 1
+    }
+  },
+  "context": [
+    {
+      "kind": "logic",
+      "terms": [
+        {
+          "nodes": 3,
+          "binders": 0,
+          "mass": 3,
+          "applications": 1,
+          "arity": 1
+        }
+      ]
+    },
+    {
+      "kind": "logic",
+      "terms": [
+        {
+          "nodes": 3,
+          "binders": 0,
+          "mass": 3,
+          "applications": 2,
+          "arity": 1
+        }
+      ]
+    },
+    {
+      "kind": "prop",
+      "terms": [
+        {
+          "nodes": 2,
+          "binders": 0,
+          "mass": 2,
+          "applications": 1
+        }
+      ]
+    },
+    {
+      "kind": "meta",
+      "terms": []
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "independent_tree_expansions": 600,
+  "bad_dimension_rejections": 4,
+  "archive_tamper_rejected": true,
+  "standalone_cli_replayed": true,
+  "native_runs": 0,
+  "verification_seconds": 0.47556231599992316
+}

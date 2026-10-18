@@ -1,0 +1,31 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_settings_independently_confirmed": false,
+  "tokens": null,
+  "cost": null,
+  "started_utc": "2026-10-18 19:33:20 UTC",
+  "finished_utc": "2026-10-18 19:43:44 UTC",
+  "elapsed_seconds": 624,
+  "timing_scope": "Source analysis, implementation and final principal check; excludes parent review/integration and subsequent commit packaging.",
+  "intended_outcome": "Close the smallest source-derived preparation transfer under the unchanged selected tools.",
+  "achieved_result": "Conditional inline term-size, recursive-entry and kernel meaningful-variable-ID transfer, plus declaration-tag and task-chain event bounds; actual fixed post-prefix dimensions and other lifetimes remain unresolved.",
+  "material_self_review_rework": [
+    "Separated kernel identifier creation from declaration-validator binders and other shared tag families.",
+    "Proved relocation closes hidden substitutions before bounding the type-map/final-substitution passes; explicitly excluded earlier hidden binder-opening work.",
+    "Kept environment coordinate maxima independent rather than summing their sizes into an unjustified exact body profile."
+  ],
+  "verification": {
+    "command": "python3 -B docs/evidence/retained-why-preparation-bound-20261018/check.py",
+    "returncode": 0,
+    "elapsed_seconds": 0.47556231599992316,
+    "stderr_bytes": 0,
+    "tree_expansions": 600
+  },
+  "native_runs": 0,
+  "proof_runs": 0,
+  "full_suite_runs": 0,
+  "network_fetches": 0,
+  "github_writes": 0,
+  "cli_memory_updated": false
+}

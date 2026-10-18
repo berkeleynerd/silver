@@ -1,0 +1,219 @@
+{
+  "schema": 1,
+  "platform": "linux-x86_64",
+  "base": "ee3ea76e280735657404d82a96273d1dd998b7c1",
+  "selected_transform_sequence": {
+    "cvc5": [
+      "counterexamples_dependent_intros",
+      "inline_trivial",
+      "eliminate_builtin",
+      "remove_unused",
+      "detect_polymorphism",
+      "eliminate_definition_conditionally",
+      "eliminate_inductive",
+      "eliminate_gnatprove_guard_epsilon",
+      "eliminate_epsilon",
+      "eliminate_literal",
+      "simplify_formula",
+      "eliminate_projections_sums",
+      "discriminate_if_poly",
+      "eliminate_algebraic_if_poly",
+      "encoding_smt_if_poly"
+    ],
+    "z3": [
+      "inline_trivial",
+      "eliminate_builtin",
+      "remove_unused",
+      "detect_polymorphism",
+      "eliminate_inductive",
+      "eliminate_algebraic_if_poly",
+      "eliminate_literal",
+      "eliminate_gnatprove_guard_epsilon",
+      "eliminate_epsilon",
+      "introduce_premises",
+      "simplify_formula",
+      "discriminate_if_poly",
+      "encoding_smt_if_poly"
+    ],
+    "altergo": [
+      "counterexamples_dependent_intros",
+      "monomorphise_goal",
+      "inline_trivial",
+      "eliminate_builtin",
+      "remove_unused",
+      "eliminate_recursion",
+      "eliminate_inductive",
+      "eliminate_epsilon",
+      "eliminate_algebraic",
+      "eliminate_literal",
+      "split_premise_right",
+      "simplify_formula"
+    ]
+  },
+  "registered_task_upper": 153,
+  "inline_directive_entries_upper": 459,
+  "outer_transform_directives_upper": 6120,
+  "fixed_input_dispatch_domain": [
+    {
+      "name": "put_line",
+      "input_sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+      "registered_task_upper": 64,
+      "distinct_task_driver_pair_upper": 192
+    },
+    {
+      "name": "put",
+      "input_sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+      "registered_task_upper": 53,
+      "distinct_task_driver_pair_upper": 159
+    },
+    {
+      "name": "first_or_default",
+      "input_sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+      "registered_task_upper": 32,
+      "distinct_task_driver_pair_upper": 96
+    },
+    {
+      "name": "input_is_valid",
+      "input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+      "registered_task_upper": 1,
+      "distinct_task_driver_pair_upper": 3
+    },
+    {
+      "name": "is_message",
+      "input_sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+      "registered_task_upper": 3,
+      "distinct_task_driver_pair_upper": 9
+    }
+  ],
+  "synthetic_kernel": {
+    "output_opened_mass_upper": 810,
+    "replace_recursive_entries_upper": 7,
+    "unfold_entries_upper": 2,
+    "environment_hits_upper": 2,
+    "relocate_recursive_entries_upper": 10,
+    "type_map_term_entries_upper": 10,
+    "post_type_substitution_recursive_entries_upper": 10,
+    "fresh_variable_identifiers_upper": 16,
+    "all_substitution_work_bounded": false,
+    "type_hashcons_or_semantic_count_capacity_established": false
+  },
+  "synthetic_context": {
+    "rows": [
+      {
+        "kind": "logic",
+        "environment_before": {
+          "nodes": 0,
+          "binders": 0,
+          "mass": 1,
+          "freevars": 0
+        },
+        "terms": [
+          {
+            "output_opened_mass_upper": 3,
+            "replace_recursive_entries_upper": 3,
+            "unfold_entries_upper": 1,
+            "environment_hits_upper": 0,
+            "relocate_recursive_entries_upper": 0,
+            "type_map_term_entries_upper": 0,
+            "post_type_substitution_recursive_entries_upper": 0,
+            "fresh_variable_identifiers_upper": 0,
+            "all_substitution_work_bounded": false,
+            "type_hashcons_or_semantic_count_capacity_established": false
+          }
+        ],
+        "stored_formula_mass_upper": [
+          8
+        ]
+      },
+      {
+        "kind": "logic",
+        "environment_before": {
+          "nodes": 3,
+          "binders": 2,
+          "mass": 3,
+          "freevars": 1
+        },
+        "terms": [
+          {
+            "output_opened_mass_upper": 27,
+            "replace_recursive_entries_upper": 3,
+            "unfold_entries_upper": 2,
+            "environment_hits_upper": 2,
+            "relocate_recursive_entries_upper": 6,
+            "type_map_term_entries_upper": 6,
+            "post_type_substitution_recursive_entries_upper": 6,
+            "fresh_variable_identifiers_upper": 10,
+            "all_substitution_work_bounded": false,
+            "type_hashcons_or_semantic_count_capacity_established": false
+          }
+        ],
+        "stored_formula_mass_upper": [
+          32
+        ]
+      },
+      {
+        "kind": "prop",
+        "environment_before": {
+          "nodes": 27,
+          "binders": 26,
+          "mass": 27,
+          "freevars": 1
+        },
+        "terms": [
+          {
+            "output_opened_mass_upper": 54,
+            "replace_recursive_entries_upper": 2,
+            "unfold_entries_upper": 1,
+            "environment_hits_upper": 1,
+            "relocate_recursive_entries_upper": 27,
+            "type_map_term_entries_upper": 27,
+            "post_type_substitution_recursive_entries_upper": 27,
+            "fresh_variable_identifiers_upper": 53,
+            "all_substitution_work_bounded": false,
+            "type_hashcons_or_semantic_count_capacity_established": false
+          }
+        ],
+        "stored_formula_mass_upper": [
+          54
+        ]
+      },
+      {
+        "kind": "meta",
+        "environment_before": {
+          "nodes": 27,
+          "binders": 26,
+          "mass": 27,
+          "freevars": 1
+        },
+        "terms": [],
+        "stored_formula_mass_upper": []
+      }
+    ],
+    "kernel_totals": {
+      "replace_recursive_entries_upper": 8,
+      "unfold_entries_upper": 4,
+      "environment_hits_upper": 3,
+      "relocate_recursive_entries_upper": 33,
+      "type_map_term_entries_upper": 33,
+      "post_type_substitution_recursive_entries_upper": 33,
+      "fresh_variable_identifiers_upper": 63
+    },
+    "input_task_nodes": 4,
+    "output_task_nodes_upper": 4,
+    "decl_hashcons_counter_increments_upper": 3,
+    "fold_callback_entries_upper": 4,
+    "fold_cache_find_entries_upper": 4,
+    "fold_cache_set_entries_upper": 4,
+    "all_fresh_identifiers_bounded": false,
+    "cache_backing_capacity_established": false
+  },
+  "source_conditional_inline_transfer_established": true,
+  "source_argument_machine_checked": false,
+  "fixed_input_prepared_dimensions_instantiated": false,
+  "all_preparation_recursive_work_bounded": false,
+  "all_preparation_fresh_identifiers_bounded": false,
+  "shared_cache_backing_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "production_configuration_adopted": false,
+  "new_native_runs": 0
+}

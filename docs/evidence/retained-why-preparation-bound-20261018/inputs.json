@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "base": "ee3ea76e280735657404d82a96273d1dd998b7c1",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_behavior_premise": "Unchanged retained relevant-source/runtime premise; no installed binary attestation.",
+  "dependencies": {
+    "docs/evidence/retained-producer-driver-envelope-20261018/compose.py": {
+      "bytes": 7117,
+      "sha256": "b0ea9b9f86c185f2398998d3e1c09c2ac94bcb0d1d6cac241921633faff37609"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/inputs.json": {
+      "bytes": 7094,
+      "sha256": "7cf91642571924ea1cc81c02a983605f4fe3e3be538440f9a42bcc9d6712beac"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/sources.tar.gz": {
+      "bytes": 104488,
+      "sha256": "cde4b3e2e77cc0c714f706c87507c02116d78a35b70789a92aca31dbe5a3bd89"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz": {
+      "bytes": 1150445,
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a"
+    },
+    "docs/evidence/retained-producer-response-20261018/identity.json": {
+      "bytes": 15399,
+      "sha256": "d270de406db0b641dee37c84ff2ef458f9c5c53bcd5538df033715eebc0eb94a"
+    },
+    "docs/evidence/retained-why-introduction-counter-20261018/identity.json": {
+      "bytes": 6205,
+      "sha256": "192c84d9127d9f13ea2dfa470cb793cb170bb0327e52dfd5f5cc7f9a8cf94b58"
+    },
+    "docs/evidence/retained-why-preparation-bound-20261018/fixtures.json": {
+      "bytes": 868,
+      "sha256": "c185c7ccfe49785682deec7f611c394a1e1dac16178c4ae3fe94a1059512ca01"
+    }
+  },
+  "archive_identity": {
+    "bytes": 67799,
+    "sha256": "6d8fb77f750d0628353f55fcdef7bf6001de7dffdf01582df42a7fc445239423"
+  },
+  "members": {
+    "LICENSE": {
+      "bytes": 27899,
+      "sha256": "4b9eb976aecd9de79a0aff3a3bfea7134e8f4874d36b0783110c13ba837a8858"
+    },
+    "src/core/decl.ml": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "src/core/ident.ml": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "src/core/task.ml": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "src/core/term.ml": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "src/core/theory.ml": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "src/core/trans.ml": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "src/core/ty.ml": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "src/driver/driver.ml": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "src/transform/inlining.ml": {
+      "bytes": 5891,
+      "sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9"
+    },
+    "src/transform/introduction.ml": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    },
+    "src/transform/prepare_for_counterexmp.ml": {
+      "bytes": 1613,
+      "sha256": "3a86fae0c94a4525f36378508b78906637794090f3f253eff9bc9d4f409694f3"
+    },
+    "src/util/hashcons.ml": {
+      "bytes": 1865,
+      "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+    },
+    "src/util/weakhtbl.ml": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    }
+  },
+  "accepted_source_joins": {
+    "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz": [
+      "LICENSE",
+      "src/driver/driver.ml",
+      "src/transform/inlining.ml",
+      "src/transform/introduction.ml",
+      "src/transform/prepare_for_counterexmp.ml",
+      "src/core/trans.ml",
+      "src/core/task.ml",
+      "src/core/theory.ml",
+      "src/core/term.ml",
+      "src/core/decl.ml",
+      "src/core/ident.ml",
+      "src/core/ty.ml",
+      "src/util/weakhtbl.ml",
+      "src/util/hashcons.ml"
+    ],
+    "docs/evidence/retained-producer-driver-envelope-20261018/sources.tar.gz": [
+      "src/driver/driver.ml",
+      "src/transform/introduction.ml",
+      "src/core/trans.ml",
+      "src/core/task.ml",
+      "src/util/hashcons.ml"
+    ]
+  },
+  "acquisition": {
+    "archive_identity": {
+      "bytes": 9976591,
+      "sha256": "8d4a8dcdcdf965ce3cc6935bdd60c1378a5ec47b4a0bdedae6651ee50ed03f8c"
+    },
+    "source_url": "https://codeload.github.com/AdaCore/why3/zip/9390baf120ef260547dfa14f08e11c890b203d9c",
+    "already_downloaded_archive_reused": true,
+    "every_member_joined_to_full_archive": true,
+    "network_fetches": 0
+  }
+}
