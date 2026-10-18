@@ -1,0 +1,205 @@
+{
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-native-environment-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "commands": [
+    {
+      "label": "driver-expansion",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-###",
+        "-c",
+        "-x",
+        "ada",
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatx",
+        "-Wno-free-nonheap-object",
+        "-gnatec=/tmp/silver-native-environment-20261018/capture/config.adc",
+        "-gnatem=/tmp/silver-native-environment-20261018/capture/mapping",
+        "/tmp/silver-native-environment-20261018/capture/main.adb"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "search-dirs",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-search-dirs"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "specs",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-file-name=specs"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "selected-gnat1",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-prog-name=gnat1"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "selected-as",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+        "-print-prog-name=as"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "sdefault-search_dir_prefix",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=sdefault__search_dir_prefix",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "sdefault-include_dir_default_name",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=sdefault__include_dir_default_name",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    },
+    {
+      "label": "sdefault-object_dir_default_name",
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=sdefault__object_dir_default_name",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1"
+      ],
+      "cwd": "/tmp/silver-native-environment-20261018/capture/obj",
+      "returncode": 0
+    }
+  ],
+  "native_arguments_excluding_driver": [
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatx",
+    "-Wno-free-nonheap-object",
+    "-gnatec=/tmp/silver-native-environment-20261018/capture/config.adc",
+    "-gnatem=/tmp/silver-native-environment-20261018/capture/mapping",
+    "/tmp/silver-native-environment-20261018/capture/main.adb"
+  ],
+  "installed_defaults": {
+    "search_dir_prefix": {
+      "compiled_prefix": {
+        "data_address": 46538784,
+        "bounds_address": 46538344,
+        "bounds": [
+          1,
+          79
+        ],
+        "text": "/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install/"
+      },
+      "compiled_path": {
+        "data_address": 46538368,
+        "bounds_address": 46538360,
+        "bounds": [
+          1,
+          114
+        ],
+        "text": "/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install/lib/gcc/x86_64-pc-linux-gnu/16.1.0/"
+      },
+      "relocated": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/"
+    },
+    "include_dir_default_name": {
+      "compiled_prefix": {
+        "data_address": 46538784,
+        "bounds_address": 46538344,
+        "bounds": [
+          1,
+          79
+        ],
+        "text": "/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install/"
+      },
+      "compiled_path": {
+        "data_address": 46538656,
+        "bounds_address": 46538336,
+        "bounds": [
+          1,
+          125
+        ],
+        "text": "/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/"
+      },
+      "relocated": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/"
+    },
+    "object_dir_default_name": {
+      "compiled_prefix": {
+        "data_address": 46538784,
+        "bounds_address": 46538344,
+        "bounds": [
+          1,
+          79
+        ],
+        "text": "/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install/"
+      },
+      "compiled_path": {
+        "data_address": 46538528,
+        "bounds_address": 46538352,
+        "bounds": [
+          1,
+          121
+        ],
+        "text": "/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/"
+      },
+      "relocated": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/"
+    }
+  },
+  "default_search_file_exists": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_source_path": false,
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_object_path": false
+  },
+  "identities": [
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "bytes": 2455824,
+      "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "bytes": 52570368,
+      "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "bytes": 11286064,
+      "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+    }
+  ],
+  "compiler_frontend_or_assembler_executed": false,
+  "source_derived_relocation_argument_required": true
+}

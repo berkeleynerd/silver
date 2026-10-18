@@ -1,0 +1,121 @@
+{
+  "run_id": "20261018T063601-938bdebc01d5",
+  "files": [
+    {
+      "path": "capture/capture/config.adc",
+      "bytes": 234,
+      "sha256": "2f774b0da257136905757be927f3a698c4cba8e57ba93af640e206e57cea260b"
+    },
+    {
+      "path": "capture/capture/driver-expansion.stderr",
+      "bytes": 4267,
+      "sha256": "7795c907e03240b54997cc81ab198edfbc753cdc711f3c26c7be02c027e103b0"
+    },
+    {
+      "path": "capture/capture/driver-expansion.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/main.adb",
+      "bytes": 70,
+      "sha256": "eeee9454c12c49124881f49a17d743c82d3e730b48933bef7338f036725cfb25"
+    },
+    {
+      "path": "capture/capture/mapping",
+      "bytes": 73,
+      "sha256": "d31b11ad4aa63c34c415b4f78401ccf7462d0e2fba265d7845558e901b8c3e13"
+    },
+    {
+      "path": "capture/capture/result.json",
+      "bytes": 8396,
+      "sha256": "de616cdcc133998bb07cf0b9cbd0b6b63db9885f91582813aa561341635d3fc0"
+    },
+    {
+      "path": "capture/capture/sdefault-include_dir_default_name.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/sdefault-include_dir_default_name.stdout",
+      "bytes": 703,
+      "sha256": "a55ea731fb4b1621853f9ab6a096115e997f8d4fd0f4a2c6360c348894fa7d04"
+    },
+    {
+      "path": "capture/capture/sdefault-object_dir_default_name.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/sdefault-object_dir_default_name.stdout",
+      "bytes": 702,
+      "sha256": "5d2a6cecd9e4e37d135e9ea4dd3a03b4f77813b03045337dbeab104ccdbe2736"
+    },
+    {
+      "path": "capture/capture/sdefault-search_dir_prefix.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/sdefault-search_dir_prefix.stdout",
+      "bytes": 696,
+      "sha256": "0275a4f2d86faf897dd4fe7447a6253f96a1091c0274b1322aa76d1b4e277e11"
+    },
+    {
+      "path": "capture/capture/search-dirs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/search-dirs.stdout",
+      "bytes": 3368,
+      "sha256": "b0d70c171217a677759d57b2d1cfbdcb65b8ab1e6ef268487a7bc36bfc607691"
+    },
+    {
+      "path": "capture/capture/selected-as.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/selected-as.stdout",
+      "bytes": 193,
+      "sha256": "111ca16970d940a288ce72ae7c944a0d1756bb0dce95be9e7ef9afa23ed0a7b7"
+    },
+    {
+      "path": "capture/capture/selected-gnat1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/selected-gnat1.stdout",
+      "bytes": 164,
+      "sha256": "3835388399c968e24d4fae8b2048f8bd17e034ac8f6a64ada2cff4c8493be513"
+    },
+    {
+      "path": "capture/capture/specs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "capture/capture/specs.stdout",
+      "bytes": 6,
+      "sha256": "c2c98a985597dfa156638df217e466858d7020f97937c190e401f3bf8b058328"
+    },
+    {
+      "path": "capture/run.py",
+      "bytes": 5033,
+      "sha256": "37497ca3627d0c5526c2c64395f48a7e305d38befcdc7d8c935c1e27a4e0b353"
+    },
+    {
+      "path": "managed/events.jsonl",
+      "bytes": 11765,
+      "sha256": "6c28724a721ab6da476baa2f5810ef4357ae7c7a2b94729e97bc8133f5b7d83b"
+    },
+    {
+      "path": "managed/native.log",
+      "bytes": 456,
+      "sha256": "08c6a141861e9231a35ae02a526a630cccd0a4e537f3388d2dd584c34951e12f"
+    }
+  ],
+  "archive_sha256": "ab866e2f07018c13bbfea7e43228f0b1a916f94c9f7b5c11d062010263587e02"
+}

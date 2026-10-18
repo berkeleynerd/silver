@@ -1,0 +1,23 @@
+{
+  "run_id": "20261018T063601-938bdebc01d5",
+  "retained_files": 23,
+  "pinned_sources": 10,
+  "environment_entries": 7,
+  "initial_environment_bytes_including_NULs": 567,
+  "gnat1_argv_positions": 19,
+  "as_argv_positions": 5,
+  "search_candidate_counts": {
+    "programs": 6,
+    "libraries": 19
+  },
+  "captured_candidate_raw_path_max": 222,
+  "observed_generated_environment_value_lengths": {
+    "COMPILER_PATH": 481,
+    "LIBRARY_PATH": 910,
+    "COLLECT_GCC_OPTIONS": 247
+  },
+  "collect_options_individual_object_bound": 20221,
+  "source_argument_required": true,
+  "production_launcher_implemented": false,
+  "complete_capacity_established": false
+}
