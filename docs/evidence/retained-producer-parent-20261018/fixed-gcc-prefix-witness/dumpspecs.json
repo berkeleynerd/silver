@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gcc",
+    "-dumpspecs"
+  ],
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-producer-gcc-prefix-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "cwd": "/tmp/silver-producer-gcc-prefix-20261018/capture",
+  "returncode": 0,
+  "elapsed_seconds": 0.0029770010005449876
+}

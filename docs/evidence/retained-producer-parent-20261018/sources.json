@@ -1,0 +1,290 @@
+{
+  "archive": {
+    "bytes": 1372562,
+    "sha256": "69d3148002058b2a7bf50aadd72e77a15f6ccbba664da3633de48b3890a0592b"
+  },
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gpr2_commit": "96e4283834e3c56d51f986c059770be48efaf22a",
+  "installed": {
+    "native/bin/gcc": {
+      "bytes": 2455824,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de"
+    },
+    "native/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads": {
+      "bytes": 7503,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    },
+    "native/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1": {
+      "bytes": 52570368,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e"
+    },
+    "producer/bin/gcc": {
+      "bytes": 2455824,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gcc",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc",
+      "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de"
+    },
+    "producer/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads": {
+      "bytes": 7503,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    },
+    "producer/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1": {
+      "bytes": 52349200,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "resolved_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "sha256": "5e93a62546d5538c3744c04c1b5989dc248f4a90ff47f6ea2f2d0bf3e2e2e1f6"
+    }
+  },
+  "scope": "offline source packaging and identity reads",
+  "sources": {
+    "gcc/ada/adabkend.adb": {
+      "bytes": 10685,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/adabkend.adb",
+      "sha256": "8d7240315b13acfb2d73db2aafd43ad59c57b4ded759b631f3e829e2f5458407"
+    },
+    "gcc/ada/back_end.adb": {
+      "bytes": 14372,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/back_end.adb",
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    "gcc/ada/backend_utils.adb": {
+      "bytes": 4772,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/backend_utils.adb",
+      "sha256": "b79d30483b0da1f91ecf5db28d0d9fcf263a97b3dcc12d86c0443c44b8acdc58"
+    },
+    "gcc/ada/cstand.adb": {
+      "bytes": 85030,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/cstand.adb",
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737"
+    },
+    "gcc/ada/einfo-utils.adb": {
+      "bytes": 97564,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/einfo-utils.adb",
+      "sha256": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa"
+    },
+    "gcc/ada/eval_fat.adb": {
+      "bytes": 24241,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/eval_fat.adb",
+      "sha256": "9feb304558d8957fec1f9889aff3edfb4c3ece4769e3b72bbb99a4b29c9ab33e"
+    },
+    "gcc/ada/freeze.adb": {
+      "bytes": 439830,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/freeze.adb",
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d"
+    },
+    "gcc/ada/gcc-interface/ada-builtin-types.def": {
+      "bytes": 1014,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ada/gcc-interface/ada-builtin-types.def",
+      "sha256": "062079f55ac0dfa5cc949401776b297552df9eb6a48bdc7a7c956c04c19ef871"
+    },
+    "gcc/ada/gcc-interface/cuintp.cc": {
+      "bytes": 8340,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ada/gcc-interface/cuintp.cc",
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9"
+    },
+    "gcc/ada/gcc-interface/decl.cc": {
+      "bytes": 414991,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ada/gcc-interface/decl.cc",
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    "gcc/ada/gcc-interface/misc.cc": {
+      "bytes": 47742,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ada/gcc-interface/misc.cc",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    "gcc/ada/gcc-interface/trans.cc": {
+      "bytes": 406631,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ada/gcc-interface/trans.cc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    "gcc/ada/gcc-interface/utils.cc": {
+      "bytes": 266602,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ada/gcc-interface/utils.cc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    "gcc/ada/gnat1drv.adb": {
+      "bytes": 60186,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gnat1drv.adb",
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    "gcc/ada/layout.adb": {
+      "bytes": 43148,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/layout.adb",
+      "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057"
+    },
+    "gcc/ada/opt.ads": {
+      "bytes": 93026,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/opt.ads",
+      "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+    },
+    "gcc/ada/osint-c.adb": {
+      "bytes": 15980,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint-c.adb",
+      "sha256": "4be1e193fe80bbfc0cc0d70a025311087b751af69189b39832cb4455c286766e"
+    },
+    "gcc/ada/repinfo.adb": {
+      "bytes": 84581,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/repinfo.adb",
+      "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085"
+    },
+    "gcc/ada/sem_ch13.adb": {
+      "bytes": 743731,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem_ch13.adb",
+      "sha256": "570d8a1cc74520fd95a12a9921bfe0893da7857517b4a2910da2bf65c880fd96"
+    },
+    "gcc/ada/sem_util.adb": {
+      "bytes": 1074489,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem_util.adb",
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+    },
+    "gcc/ada/switch-c.adb": {
+      "bytes": 59201,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/switch-c.adb",
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+    },
+    "gcc/ada/tbuild.adb": {
+      "bytes": 30177,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/tbuild.adb",
+      "sha256": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c"
+    },
+    "gcc/ada/uintp.adb": {
+      "bytes": 69576,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.adb",
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
+    },
+    "gcc/ada/uintp.ads": {
+      "bytes": 26744,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.ads",
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1"
+    },
+    "gcc/ada/urealp.adb": {
+      "bytes": 51830,
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/urealp.adb",
+      "sha256": "ccf63a43371eb80d78200cb8e79f9d7cd150798037a6ba2c733610e0522aa743"
+    },
+    "gcc/config/i386/i386.h": {
+      "bytes": 122286,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.h",
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    "gcc/ggc-page.cc": {
+      "bytes": 78408,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc-page.cc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    "gcc/gimple-ssa-pta-constraints.cc": {
+      "bytes": 121117,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/gimple-ssa-pta-constraints.cc",
+      "sha256": "706a5aedfdab786806f90dd459acfeb11cb2beaac681286e03d85d7100791978"
+    },
+    "gcc/stor-layout.cc": {
+      "bytes": 109787,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/stor-layout.cc",
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    "gcc/timevar.cc": {
+      "bytes": 22521,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/timevar.cc",
+      "sha256": "1af8a90ba4c7f606e1337f9e3b732336beefb453998e15f0d3305698239801b2"
+    },
+    "gcc/timevar.h": {
+      "bytes": 7730,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/timevar.h",
+      "sha256": "937428e182ed3d0c94be134df9f947f650066f7723c48d9ff610b37a121f8c82"
+    },
+    "gcc/toplev.cc": {
+      "bytes": 72691,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/toplev.cc",
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    "gcc/tree-ssa-structalias.cc": {
+      "bytes": 62157,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree-ssa-structalias.cc",
+      "sha256": "2e963652523dce34998f856dfd81c1cdf843c945b49acf028da864f141ceb1be"
+    },
+    "gcc/tree.cc": {
+      "bytes": 484431,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree.cc",
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    "gcc/tree.h": {
+      "bytes": 281689,
+      "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree.h",
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c"
+    },
+    "gpr2/src/build/gpr2-build-compilation_unit.adb": {
+      "bytes": 13608,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/build/gpr2-build-compilation_unit.adb",
+      "sha256": "27b03f41931c6fb473b0fdac5d2863c7c0e655d1175e0a25246d3ffa92c0c829"
+    },
+    "gpr2/src/build/gpr2-build-source_base.adb": {
+      "bytes": 2442,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/build/gpr2-build-source_base.adb",
+      "sha256": "945baab5ff04c3862ba917b61da37967c1cbb11087db2b019830c849c115bd9b"
+    },
+    "gpr2/src/build/gpr2-build-tree_db.adb": {
+      "bytes": 36727,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/build/gpr2-build-tree_db.adb",
+      "sha256": "b814dc8c6ba1be5558e2499bfb4c8d0b57d0c6854fc59b86c2812a823c1a34d0"
+    },
+    "gpr2/src/lib/gpr2-project-tree.adb": {
+      "bytes": 42802,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-project-tree.adb",
+      "sha256": "8340fb5a2d18cc8ec27d5113da57d73dfa4be5fac81d930979edbcceac52be1e"
+    },
+    "gpr2/src/lib/gpr2-project-tree.ads": {
+      "bytes": 25751,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-project-tree.ads",
+      "sha256": "8a5197d251e9568508617898e5c41083e5836be52e6c3713942f1c1fa82e2ddf"
+    },
+    "gpr2/src/lib/gpr2-project-view.adb": {
+      "bytes": 108756,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-project-view.adb",
+      "sha256": "25f2890dec7ded31710d4436f942df0469259fbdbafe2ae5bdb269f013570daa"
+    },
+    "gpr2/src/private/gpr2-build-view_tables-update_sources_list.adb": {
+      "bytes": 51336,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/private/gpr2-build-view_tables-update_sources_list.adb",
+      "sha256": "30ed84f97ea2793579854d8fb43a661902eb0281052e19e1a8bb2ceb196be8cd"
+    },
+    "gpr2/src/private/gpr2-build-view_tables.adb": {
+      "bytes": 57953,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/private/gpr2-build-view_tables.adb",
+      "sha256": "9433df4fb04cb5a103152d72633d2aaf3b03377edf120da5ff8f276f05fd0b99"
+    },
+    "gpr2/src/private/gpr2-tree_internal.adb": {
+      "bytes": 140350,
+      "original_path": "/tmp/silver-retained-gpr2-source-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/private/gpr2-tree_internal.adb",
+      "sha256": "af1c7d86e74c261c89850faeeaefac08953238c292496ae588229962b2a0970f"
+    },
+    "spark/src/gnatprove/configuration.adb": {
+      "bytes": 118436,
+      "original_path": "/tmp/silver-frontend-representation-20261017/availability/spark-source/src/gnatprove/configuration.adb",
+      "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697"
+    },
+    "spark/src/gnatprove/configuration.ads": {
+      "bytes": 17777,
+      "original_path": "/tmp/silver-frontend-representation-20261017/availability/spark-source/src/gnatprove/configuration.ads",
+      "sha256": "393a63a635809761614c707ee8d08e4e14b43013e5f51ff69fb83af1be349422"
+    },
+    "spark/src/gnatprove/gnatprove.adb": {
+      "bytes": 46206,
+      "original_path": "/tmp/silver-frontend-representation-20261017/availability/spark-source/src/gnatprove/gnatprove.adb",
+      "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590"
+    },
+    "spark/src/why/gnat2why-driver.adb": {
+      "bytes": 60922,
+      "original_path": "/tmp/silver-frontend-representation-20261017/availability/spark-source/src/why/gnat2why-driver.adb",
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    }
+  },
+  "spark_source_identity": "inspected source under retained relevant-behavior premise"
+}

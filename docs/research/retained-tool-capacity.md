@@ -34,6 +34,15 @@ the complete null compiler/producer/parent conjunction is not yet established.
 Literal-output native and linker deltas, broader grammar composition and the
 useful-domain comparison remain required before #119 completes.
 
+The [producer-parent join](retained-producer-parent.md) identifies the separate
+bundled GCC binary and supplies its own guarded fixed-prefix witness: 47,707
+counter events replayed, with no collection before Main translation. It also
+excludes Main text/ALI parsing from GPR2's indexed source-discovery route.
+The proposed GCC warning option is accepted without semantic effect by
+gnat2why; its added argument, ALI and parent JSON dimensions are charged.
+Independent source review and offline replay passed. The alternate compiler's
+complete phase conjunction remains separate from this fixed-prefix result.
+
 The [fixed Why3 context](retained-producer-fixed-context.md) now has a retained
 managed successful witness for all five exact JSON inputs and all six selected
 library sources. Its ordinary typing/VC requests transfer under the stated

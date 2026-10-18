@@ -1,0 +1,149 @@
+{
+  "files": [
+    {
+      "path": "_Z11ggc_collect11ggc_collect.asm",
+      "bytes": 19928,
+      "sha256": "1cb0a1839892a5468c5bd71a90212d7fedaa05c2f1b15cc57597ab54dabf4b13"
+    },
+    {
+      "path": "_Z15type_hash_canonjP9tree_node.asm",
+      "bytes": 13828,
+      "sha256": "6cc4286ce70da41d75b3cf03676a6090e3a0ed44893a82a80eb02fadb0db79a5"
+    },
+    {
+      "path": "_Z18ggc_internal_allocmPFvPvEmm.asm",
+      "bytes": 34871,
+      "sha256": "64f15efa7b763b00d0f72ebac60438d3983346e5fdff382b625cbf01eccdb5c5"
+    },
+    {
+      "path": "_Z21gnat_install_builtinsv.asm",
+      "bytes": 99267,
+      "sha256": "ae70f5f7cdf96e9f73908a98d68533c5429c7e46e1360bcb65f22fc4b3f175fa"
+    },
+    {
+      "path": "_Z9copy_nodeP9tree_node.asm",
+      "bytes": 10940,
+      "sha256": "8c0876ab648d10a432bad41aca9539c798ad6224e8e5491e35093e9f072b1b88"
+    },
+    {
+      "path": "_Z9make_node9tree_code.asm",
+      "bytes": 10191,
+      "sha256": "b079b40a5beb7ff7b608df62b22c74f7fee5a3905cec7432b8c327a74e7365a3"
+    },
+    {
+      "path": "capture-identity.json",
+      "bytes": 427,
+      "sha256": "4abd0c6383de24d07a7c9f4e32e58c7a443eeef5c2c4be12fdc9c2b5d7a76ca1"
+    },
+    {
+      "path": "config.adc",
+      "bytes": 327,
+      "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+    },
+    {
+      "path": "counter-events.jsonl.gz",
+      "bytes": 310242,
+      "sha256": "dc7ee6d8d3994bcab53d341036ac8c479ff9f3b591dc1529015591e4ab1238da"
+    },
+    {
+      "path": "counter-summary.json",
+      "bytes": 3500,
+      "sha256": "be018b61d9950e10a9191f1d3cafe4a35b71cdd4e732b85cffe3e2eee04879b8"
+    },
+    {
+      "path": "counters.py",
+      "bytes": 6468,
+      "sha256": "f7258b87acc5b2425b00d1da609de7ac2d483c8bcb142863658da5f6e4141674"
+    },
+    {
+      "path": "dumpspecs.json",
+      "bytes": 877,
+      "sha256": "cb9fa8f3e999dc55c8c30f989493ded986d8239a4613ae6c15290d15d7b3b5a9"
+    },
+    {
+      "path": "dumpspecs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "dumpspecs.stdout",
+      "bytes": 10038,
+      "sha256": "909d9a626720a93f48e213788b1d0d412f654fb36d3ddc940b1aea391e86cad3"
+    },
+    {
+      "path": "executable-map.json",
+      "bytes": 2300,
+      "sha256": "db4f218a9dda5931facb7c647f3035a921884dea7a01dc7e3f15d1f6c17b39ab"
+    },
+    {
+      "path": "frontend-exec.json",
+      "bytes": 2233,
+      "sha256": "0612510528e472e618757ec030570c4d2a73429b434ec6cb6fbca3febf01357c"
+    },
+    {
+      "path": "gigi.asm",
+      "bytes": 82853,
+      "sha256": "7a79d61c0a6dbf8e62583ac97fa173c014c096b503e3870f6b6fbf91c5de0aba"
+    },
+    {
+      "path": "invocation.json",
+      "bytes": 1769,
+      "sha256": "b6203d2f94fd11e8a35f54754ccfb1e41f61fb3507b6d35918c1b70f94555419"
+    },
+    {
+      "path": "main.adb",
+      "bytes": 69,
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+    },
+    {
+      "path": "main~1.o",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "managed-events.jsonl",
+      "bytes": 12050,
+      "sha256": "01e97731bce78e68b689bb321c73d1e1ec93589af5e8c63b665a4c05a8d9ba83"
+    },
+    {
+      "path": "managed-native.log",
+      "bytes": 3327,
+      "sha256": "98537b75b1d7295c0556ee4f35e593ed62742d27788bc7abb7ade52132a231c3"
+    },
+    {
+      "path": "mapping",
+      "bytes": 74,
+      "sha256": "8b12cbf915b6b2c19c3282e9790d138b613f5fcafb0fc9f54d100b2079cace26"
+    },
+    {
+      "path": "probe.gdb",
+      "bytes": 614,
+      "sha256": "f94e629efb1858f6d6aceb2f3de7ea65db67327a3ee69edf3bf3d21019473e5f"
+    },
+    {
+      "path": "probe.log",
+      "bytes": 3745,
+      "sha256": "d8349268973f844a4529fa06cdda16a91e35ff106f6c784aa472c45fbdae9430"
+    },
+    {
+      "path": "raw-compressed-files.json",
+      "bytes": 312,
+      "sha256": "a63c0cd1e361c49dfb5b71daaf71f9661f51a2f6b66b9f5f7170aa832c856da2"
+    },
+    {
+      "path": "result.json",
+      "bytes": 1389,
+      "sha256": "ae0c8178c7c2d33d59e62f99de5fb30f3293d2e7351cb780ca58225c21eac1f2"
+    },
+    {
+      "path": "run.py",
+      "bytes": 3360,
+      "sha256": "86e3f0f0583e5e68c397ba07d32124f442e7b5f99009affd0d03299f3078c4fd"
+    },
+    {
+      "path": "watchpoints.txt.gz",
+      "bytes": 302,
+      "sha256": "acf881fbf9ab5c9826527febe326d727e73f8e065ddd762cc69f0839f41d1a62"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gcc",
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-S",
+    "-gnatR2js",
+    "-gnatws",
+    "-gnatx",
+    "-gnatis",
+    "-Wno-free-nonheap-object",
+    "-gnatec=/tmp/silver-producer-gcc-prefix-20261018/capture/config.adc",
+    "-gnatem=/tmp/silver-producer-gcc-prefix-20261018/capture/mapping",
+    "/tmp/silver-producer-gcc-prefix-20261018/capture/main.adb",
+    "-o",
+    "main~1.o",
+    "-gnateI1"
+  ],
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-producer-gcc-prefix-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "cwd": "/tmp/silver-producer-gcc-prefix-20261018/capture",
+  "gnat1": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+  "gnat1_sha256": "5e93a62546d5538c3744c04c1b5989dc248f4a90ff47f6ea2f2d0bf3e2e2e1f6",
+  "configuration_origin": "327-byte indexed naming fixture; source reconstructed, not captured GPR file",
+  "main_source_origin": "exact samples/null.adb",
+  "scope": "proposed data-representation invocation; added GCC warning gate; fixed prefix only"
+}

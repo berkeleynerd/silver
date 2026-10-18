@@ -1,0 +1,12 @@
+[
+  {
+    "path": "counter-events.jsonl.gz",
+    "raw_bytes": 4120205,
+    "raw_sha256": "f7fb2fc5bb2cf05c92f8bdf455262eaaf87d5121f82789b42cdd1c6a833095a5"
+  },
+  {
+    "path": "watchpoints.txt.gz",
+    "raw_bytes": 664,
+    "raw_sha256": "ee0cb19a20a8a8d8fe9cb87049edf044a58788f6945558ae01f925a6cd3c3ca6"
+  }
+]

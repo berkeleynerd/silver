@@ -1,0 +1,43 @@
+{
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-producer-gcc-prefix-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "GCC_EXEC_PREFIX": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/../lib/gcc/",
+    "COLLECT_GCC": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gcc",
+    "COLLECT_GCC_OPTIONS": "'-c' '-gnatA' '-gnat2022' '-gnata' '-gnato' '-S' '-gnatR2js' '-gnatws' '-gnatx' '-gnatis' '-Wno-free-nonheap-object' '-gnatec=/tmp/silver-producer-gcc-prefix-20261018/capture/config.adc' '-gnatem=/tmp/silver-producer-gcc-prefix-20261018/capture/mapping' '-o' 'main~1.o' '-gnateI1' '-mtune=generic' '-march=x86-64'"
+  },
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+    "-quiet",
+    "-Wno-free-nonheap-object",
+    "-dumpbase",
+    "main~1.adb",
+    "-dumpbase-ext",
+    ".adb",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatR2js",
+    "-gnatws",
+    "-gnatx",
+    "-gnatis",
+    "-gnatec=/tmp/silver-producer-gcc-prefix-20261018/capture/config.adc",
+    "-gnatem=/tmp/silver-producer-gcc-prefix-20261018/capture/mapping",
+    "-gnateI1",
+    "-mtune=generic",
+    "-march=x86-64",
+    "/tmp/silver-producer-gcc-prefix-20261018/capture/main.adb",
+    "-o",
+    "main~1.o"
+  ],
+  "pc": "0x7f40638e7340",
+  "threads": 1,
+  "pid": 428199
+}

@@ -1,0 +1,216 @@
+{
+  "collection_or_new_thread_observed": false,
+  "counter_wrap_or_reset": false,
+  "counters": {
+    "debug_decl_uid": {
+      "current": 0,
+      "events": 0,
+      "initial": 0,
+      "largest_increment": 0,
+      "minimum": 0,
+      "negative_events": 0,
+      "negative_sum": 0,
+      "peak": 0,
+      "positive_events": 0,
+      "positive_sum": 0
+    },
+    "decl_uid": {
+      "current": 5832,
+      "events": 5832,
+      "initial": 0,
+      "largest_increment": 1,
+      "minimum": 0,
+      "negative_events": 0,
+      "negative_sum": 0,
+      "peak": 5832,
+      "positive_events": 5832,
+      "positive_sum": 5832
+    },
+    "ggc_bytes": {
+      "current": 3318768,
+      "events": 39257,
+      "initial": 0,
+      "largest_increment": 65536,
+      "minimum": 0,
+      "negative_events": 0,
+      "negative_sum": 0,
+      "peak": 3318768,
+      "positive_events": 39257,
+      "positive_sum": 3318768
+    },
+    "type_uid": {
+      "current": 1937,
+      "events": 2618,
+      "initial": 1,
+      "largest_increment": 1,
+      "minimum": 1,
+      "negative_events": 341,
+      "negative_sum": 341,
+      "peak": 1938,
+      "positive_events": 2277,
+      "positive_sum": 2277
+    }
+  },
+  "event_records_replayed": 47707,
+  "executed_compiler_or_prover_during_replay": false,
+  "frontend_environment_entries": 10,
+  "gnat1_sha256": "5e93a62546d5538c3744c04c1b5989dc248f4a90ff47f6ea2f2d0bf3e2e2e1f6",
+  "hardware_write_watchpoints": 4,
+  "managed_run_id": "20261018T125235-75f8d948d55b",
+  "phase_snapshots_verified": 5,
+  "rounded_GGC_allocation_histogram": [
+    {
+      "bytes": 8,
+      "events": 560
+    },
+    {
+      "bytes": 16,
+      "events": 2747
+    },
+    {
+      "bytes": 24,
+      "events": 2001
+    },
+    {
+      "bytes": 32,
+      "events": 7724
+    },
+    {
+      "bytes": 40,
+      "events": 17814
+    },
+    {
+      "bytes": 48,
+      "events": 132
+    },
+    {
+      "bytes": 56,
+      "events": 9
+    },
+    {
+      "bytes": 64,
+      "events": 5
+    },
+    {
+      "bytes": 72,
+      "events": 28
+    },
+    {
+      "bytes": 104,
+      "events": 6
+    },
+    {
+      "bytes": 120,
+      "events": 5
+    },
+    {
+      "bytes": 128,
+      "events": 95
+    },
+    {
+      "bytes": 136,
+      "events": 26
+    },
+    {
+      "bytes": 152,
+      "events": 4
+    },
+    {
+      "bytes": 160,
+      "events": 40
+    },
+    {
+      "bytes": 168,
+      "events": 2277
+    },
+    {
+      "bytes": 208,
+      "events": 3
+    },
+    {
+      "bytes": 256,
+      "events": 5692
+    },
+    {
+      "bytes": 272,
+      "events": 15
+    },
+    {
+      "bytes": 400,
+      "events": 4
+    },
+    {
+      "bytes": 512,
+      "events": 7
+    },
+    {
+      "bytes": 1024,
+      "events": 15
+    },
+    {
+      "bytes": 2048,
+      "events": 28
+    },
+    {
+      "bytes": 4096,
+      "events": 1
+    },
+    {
+      "bytes": 8192,
+      "events": 11
+    },
+    {
+      "bytes": 16384,
+      "events": 5
+    },
+    {
+      "bytes": 32768,
+      "events": 2
+    },
+    {
+      "bytes": 65536,
+      "events": 1
+    }
+  ],
+  "scope": "bundled producer GCC fixed prefix only; indexed null naming; proposed warning option; not a full compilation",
+  "source_files_verified": 27,
+  "source_operation_site_counts": [
+    {
+      "counter": "decl_uid",
+      "events": 142,
+      "pc": "0x1693717"
+    },
+    {
+      "counter": "decl_uid",
+      "events": 5688,
+      "pc": "0x1693812"
+    },
+    {
+      "counter": "decl_uid",
+      "events": 2,
+      "pc": "0x16a2f27"
+    },
+    {
+      "counter": "ggc_bytes",
+      "events": 39257,
+      "pc": "0xda476b"
+    },
+    {
+      "counter": "type_uid",
+      "events": 1946,
+      "pc": "0x169367e"
+    },
+    {
+      "counter": "type_uid",
+      "events": 331,
+      "pc": "0x16a2ede"
+    },
+    {
+      "counter": "type_uid",
+      "events": 341,
+      "pc": "0x16a84d1"
+    }
+  ],
+  "universal_sample_only_claim": false,
+  "whole_capacity_established": false
+}

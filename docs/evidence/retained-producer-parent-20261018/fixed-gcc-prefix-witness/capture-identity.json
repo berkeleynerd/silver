@@ -1,0 +1,8 @@
+{
+  "scope": "bundled producer GCC fixed prefix only; indexed null naming; proposed warning option; not a full compilation",
+  "managed_run_id": "20261018T125235-75f8d948d55b",
+  "raw_event_bytes": 4120205,
+  "raw_event_sha256": "f7fb2fc5bb2cf05c92f8bdf455262eaaf87d5121f82789b42cdd1c6a833095a5",
+  "raw_event_records": 47707,
+  "intentional_driver_killed_message": "gcc: fatal error: Killed signal terminated program gnat1"
+}
