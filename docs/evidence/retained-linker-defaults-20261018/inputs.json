@@ -1,0 +1,56 @@
+[
+  {
+    "key": "inventory",
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "key": "script",
+    "path": "docs/evidence/retained-link-inputs-20261018/link-script/installed-elf_x86_64.xdc",
+    "bytes": 10896,
+    "sha256": "ae316744bbc3cdc9e040eb4ffed36689b873a12c796d39f220ca1697f897bd3f"
+  },
+  {
+    "key": "binder",
+    "path": "docs/evidence/retained-binder-capacity-20261018/result.json",
+    "bytes": 277437,
+    "sha256": "fa22e21ffa975702d7913365a5c96d7cecb494e83d090d7afd42acdbd62b088b"
+  },
+  {
+    "key": "Main",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/check-results.json",
+    "bytes": 5622,
+    "sha256": "a0cf4524ceb9a7549f8a0b429dc5126411536453bdc8c159a12422055e330008"
+  },
+  {
+    "key": "no_lto",
+    "path": "docs/evidence/retained-link-no-lto-20261018/check-results.json",
+    "bytes": 884,
+    "sha256": "5b0f1ddd514e90bc96e6b985be57d8f1bad719db51f026feae02bb8abd32ac0a"
+  },
+  {
+    "key": "capture/query.py",
+    "path": "docs/evidence/retained-linker-defaults-20261018/capture/query.py",
+    "bytes": 1144,
+    "sha256": "5c84449dfac2368f97c7af6ef22d19d5feea64c259b7169f45bd2345650bb8d5"
+  },
+  {
+    "key": "capture/result.json",
+    "path": "docs/evidence/retained-linker-defaults-20261018/capture/result.json",
+    "bytes": 1110,
+    "sha256": "7a8bd724474f2ae945c266b549cf713b3e074824ffd20429c6d268823ee4c1db"
+  },
+  {
+    "key": "capture/stderr",
+    "path": "docs/evidence/retained-linker-defaults-20261018/capture/stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "key": "capture/stdout",
+    "path": "docs/evidence/retained-linker-defaults-20261018/capture/stdout",
+    "bytes": 25840,
+    "sha256": "f7bc914decf55582f8593de5308a8b68058549072a1cf36aedfa1720fdd02ca5"
+  }
+]

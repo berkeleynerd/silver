@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/ld",
+    "--help"
+  ],
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+    "LC_ALL": "C"
+  },
+  "cwd": "/tmp/silver-link-defaults-20261018",
+  "returncode": 0,
+  "duration_seconds": 0.003235515992855653,
+  "executable_sha256": "5fedbb6086b0234eb990800507c0670cb572b48ad864a4d8e8f961ddddef09a0",
+  "executable_unchanged": true,
+  "relevant_help_lines": [
+    "  --compress-debug-sections=[none|zlib|zlib-gnu|zlib-gabi|zstd]",
+    "  -z pack-relative-relocs     Pack relative relocations",
+    "  -z nopack-relative-relocs   Do not pack relative relocations (default)",
+    "  -z pack-relative-relocs     Pack relative relocations",
+    "  -z nopack-relative-relocs   Do not pack relative relocations (default)",
+    "  -z pack-relative-relocs     Pack relative relocations",
+    "  -z nopack-relative-relocs   Do not pack relative relocations (default)"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "scope": "Selected linker payload exclusions, conditional on accepted Main/binder emission transfers",
+  "source_files_verified": 12,
+  "installed_fixed_files_verified": 15,
+  "installed_archive_members_verified": 1161,
+  "unweighted_fixed_ELF_objects": 1169,
+  "unweighted_fixed_headers": 29004,
+  "compression_default": "none",
+  "selected_compression": false,
+  "selected_packed_relative_relocations": false,
+  "fixed_STABS_or_compressed_sections": 0,
+  "generated_STABS_or_compressed_sections": 0,
+  "script_explicit_data_constructors": 0,
+  "LINKER_VERSION_emitted_bytes": 0,
+  "legacy_constructor_set_emitted_bytes": 0,
+  "source_identity_premise": "Retained release sources describe selected executable behavior; no historical build attestation",
+  "capture_managed_run": "20261018T112705-2e2b04d26400",
+  "capture_native_seconds": 0.003235515992855653,
+  "replay_native_execution": false,
+  "whole_link_capacity_established": false
+}
