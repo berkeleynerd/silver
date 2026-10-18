@@ -1,0 +1,62 @@
+{
+  "target": "0cd5b74cc77326df06284d57066dd16db145f43b",
+  "reproduced_outputs": [
+    {
+      "path": "docs/evidence/retained-producer-capacity-20261017/source-manifest.json",
+      "sha256": "f2c2515a7fd3aec9966367236e3eb5e63aee47b66d664f0462fb394465ebf804"
+    },
+    {
+      "path": "docs/evidence/retained-producer-capacity-20261017/source-excerpts.md",
+      "sha256": "ff4a57c3ce3f35a789befdc6288b0e56d23395d2f94c937192adb289edf1882a"
+    },
+    {
+      "path": "docs/evidence/retained-producer-capacity-20261017/source-archive-check.json",
+      "sha256": "bed574bdf695c1a562e4153fb1ff8f53ff2249b17e0f3bb36459f10ffed438c0"
+    },
+    {
+      "path": "docs/evidence/retained-producer-capacity-20261017/checks.json",
+      "sha256": "9aa2a46f2ea43b6a74fbcdd94952716bfcc0742dd696139fd904d25322e30abd"
+    },
+    {
+      "path": "docs/evidence/retained-producer-control-20261017/components.json",
+      "sha256": "e5c4836ac27cbda30f22cec116f667e62375c65aea3a97c581ffbaf5d03cadaa"
+    },
+    {
+      "path": "docs/evidence/retained-producer-objects-20261017/components.json",
+      "sha256": "5a5a820b4aea4f78d128016e6431acb78240c7de25e0211f8d5f036ac339abe7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-calls-20261018/components.json",
+      "sha256": "ad1290d859f6392bd87e547b336ff35f2d109f51cb071a69b86399176f5d17b4"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/fixed-support-closure.json",
+      "sha256": "b0c7d78c7542f75c41554ce7e25aba92cd67d1133603ae3e6597b140d535619e"
+    }
+  ],
+  "complete_spark_files_equal_to_retained_archive": 37,
+  "complete_gcc_files_equal_to_retained_manifest": 38,
+  "source_hash_scope": "Identity checks are broader than the directly inspected source paths; they do not establish installed binary correspondence.",
+  "independent_arithmetic": {
+    "array_equality_intermediate_occurrences": [
+      28,
+      33,
+      92,
+      17,
+      41,
+      82,
+      126,
+      219,
+      273,
+      44,
+      315
+    ],
+    "array_equality_function_and_reverse_axiom": 588,
+    "branch_observation_overhead": 23,
+    "binder_raw_bytes": 4270635,
+    "binder_source_charge": 24779307,
+    "support_specification_charge": 409600,
+    "homonym_transfer_cases": 781
+  },
+  "validation": "Source, retained-evidence and local arithmetic checks only. No compiler/prover execution; no whole-predicate verdict."
+}
