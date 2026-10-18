@@ -10755,6 +10755,156 @@ Independent narrow review reproduced the55-source result byte-for-byte and
 accepted the argc/path correction, diagnostic record sizes, whole-object
 obstack transfer and selected explicit-tail exclusions with no finding.
 
+## Fixed GCC startup registry and coverage path buffers
+
+The next source-only component is recorded in
+[`native-startup-registry.json`](../evidence/unbounded-programs/retained-native-expansion-20261017/native-startup-registry.json)
+and replayed by
+[`reconcile-startup-registry.py`](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-startup-registry.py).
+It verifies192 complete input files, including the installed pass-instance and
+configuration headers, the selected standard-container layout headers, every
+selected pass factory/class source, and two retained process-shell inputs. It
+runs no compiler, prover or debugger. The fixed setup registry and coverage
+filename requests are closed below; this is not the entire GCC startup or
+static-exit inventory and does not add a GGC event to the known40,098 subtotal.
+
+The generated `pass-instances.def` contains394 entries using304 distinct
+factories. `pass_manager::pass_manager` invokes the factory once per pass name,
+then invokes its `clone` for subsequent numbered instances and sets the Boolean
+pass parameters (`passes.cc:1577–1658`). The packet records every factory, class,
+constructor, top-level field declaration, clone and parameter-setter body; line
+numbers count literal LF bytes. Every factory and selected clone returns one
+new pass object. Every selected constructor body is empty. The common bases
+copy metadata/scalars/pointers only (`passes.cc:112–119`, `tree-pass.h:40–204`);
+`ch_base` adds no fields and `pass_dce_base` adds two Boolean fields
+(`tree-ssa-loop-ch.cc:703–715`, `tree-ssa-dce.cc:2051–2079`). The setters assign
+Boolean fields and assert fixed parameter indices. Assertions and the default
+unimplemented clone/setter error paths do not add allocations on this fixed
+valid registry construction.
+
+Most pass members are scalars, pointers or references. The nontrivial members
+are completely enumerated: `pass_store_merging::m_stores`,
+`pass_waccess::m_clobbers`, and `pointer_query` in `pass_waccess` and
+`pass_wrestrict`. Each of the first two is a default ordinary `hash_map`, so
+construction allocates13 two-pointer entries, **208 bytes per request**
+(`hash-map.h:35,138–145`, `hash-table.h:258–278,644–680,751–774`). There is one
+store-merging instance and three access-warning instances. No inserted entry
+is needed for this charge; the default map eagerly allocates its backing.
+`pointer_query` initializes its scalar counters and two empty `auto_vec`
+members; their zero-capacity constructors request no backing
+(`pointer-query.h:161–207`, `pointer-query.cc:1454–1459`, `vec.h:1716–1721`).
+The four out-of-line pass constructors are also covered; none has a nonempty
+body. This is construction only: later execution remains the separately
+reviewed selected-pass path. Gate-disabled passes still incur their ordinary
+construction requests.
+
+The layout bounds below use the selected64-bit ABI. Each member of `pass_data`
+and `opt_pass` fits one8-byte slot, including its virtual-table pointer and
+padding; the common pass base fits24 such slots (192 bytes, deliberately
+rounded upward). The largest subclass has a pointer-query record (at most64
+bytes), one hash-map control (at most96 bytes), two pointers and two Booleans;
+512 bytes therefore bounds every pass allocation. The other subclasses have
+at most six scalar/pointer members. Static `pass_data` members add no instance
+storage. The manager has394 generated pointers plus its five root pointers,
+ID-array pointer/count, five list pointers, context and map pointer;410 slots
+cover it including alignment (`pass_manager.h:89–137`).
+
+The context contains a Boolean and three pointers. Its dump manager contains
+seven scalar/pointer fields. Its channels contain two default empty lists,
+with no subscriptions in the selected option path (`context.cc:33–39`,
+`context.h:32–73`, `channels.h:37–41`, `pub-sub.h:26–64`). The pinned
+libstdc++ list interface stores two links and, for the newer ABI, one size,
+with an empty allocator; construction only initializes those fields
+(`bits/stl_list.h:94–170,745–795,869–873`, `bits/allocator.h`,
+`bits/new_allocator.h`). Two32-byte allowances cover both list-control layouts.
+No claim about allocator internals is needed at this interface.
+
+The pass-name map starts at requested capacity256, rounded to509 by the fixed
+prime table. With at most394 insertions and no deletion, its three-quarters
+load test can grow it once to1021 entries. Each entry is two pointers. The
+packet replays that growth from the source prime table, rather than rounding
+an aggregate allocation total. GCC memory statistics and checking are compiled
+out in the installed configuration (`auto-host.h`, `hash-table.h:592–680,
+830–858,1039`, `hash-table.cc:43–51`). A separate hash control allocation is
+bounded at96 bytes.
+
+Dump registration traverses the pass tree irrespective of pass gates. The
+Ada register-dumps hook is the empty default. At most394 pass registrations,
+one statistics registration and two debug registrations give397 dynamic
+entries; the dump manager's initial512-slot backing never grows. Its
+16 scalar/pointer fields each fit an8-byte slot, so128 bytes per descriptor is
+a safe upper bound (`dumpfile.h:295–331`, `dumpfile.cc:216–251`,
+`statistics.cc:282–288`, `cgraphunit.cc:2488–2501`, `langhooks.cc:340–342`).
+`TDI_end=13` gives a largest ID-plus-one of410. The fixed dump number starts
+at6, pays three built-in numbers, then at most397 registrations; all ID/count
+arithmetic fits signed32 bits. The302 pass-data definitions in selected files
+have maximum name length27, including companion/template cases. Five prefix
+characters, that name, ten decimal digits and one NUL give43 bytes for each
+constructed name. This also covers the duplicated map key; these are distinct
+requests, not one growing string (`passes.cc:833–924`). Dump-pass table/output
+and plugin insertion are unselected.
+
+| Individual ordinary request | Upper bytes |
+| --- | ---: |
+| Each of394 pass records |512|
+| Pass manager |3280|
+| Context |32|
+| Dump-manager control |64|
+| Compiler-channel control |64|
+| Pass-name-map control |96|
+| Each default pass-member map backing (four instances) |208|
+| Largest pass-name-map backing |16336|
+|512 dump descriptors |65536|
+| Pass-ID array |3280|
+| Each constructed pass name, including NUL |43|
+
+These requests all fit the existing individual allocator, pointer-difference
+and index representations. Their sum is not an admission condition. No pass
+record or registry allocation uses GGC; the collector subtotal is unchanged.
+The optional context destructor is not run merely because `g` is global: `g`
+is a raw pointer. Its deletion belongs to `toplev::finalize`, already excluded
+by the selected `flag_checking=0` tail. This observation does not dispose of
+unrelated GCC-owned static destructors.
+
+There is also an unconditional path-sensitive allocation in `coverage_init`,
+even when all profiling options are disabled (`coverage.cc:1282–1363`). Under
+the selected options, a relative auxiliary filename obtains the working
+directory as its prefix. The explicit profile-prefix mangling route, reading
+profile counters and creating a coverage-notes filename are disabled. Let P
+bound each actual auxiliary filename and resolved working directory in bytes.
+`len` and `prefix_len` are signed `int`, and the always-created `.gcda` filename
+requests at most **2P+7 bytes**, including separator/NUL slack. Require
+`2P+7 <= INT_MAX`; this covers the length conversions, prefix increment and
+signed filename-index sum as well as the allocation size.
+
+The selected environment has no PWD. Libiberty's `getpwd` starts at the fixed
+platform `GUESSPATHLEN=G`, repeatedly allocates its own buffer and doubles only
+on `getcwd`/ERANGE (`libiberty/getpwd.c:54–105`). On the selected Linux pathname
+interface, `MAXPATHLEN=4096` gives G4097; the source fallback without that macro
+is100. A complete resolved cwd of length at most P succeeds once the buffer
+has P+1 bytes, so **max(G,2(P+1))** bounds each request and the preceding
+doubling. This is a bound on the GCC/libiberty caller-owned buffer, under the
+existing successful OS-interface assumption. It is not a claim that all
+unresolvable or unsupported paths succeed. The signed condition above also
+keeps these requests below `PTRDIFF_MAX` and keeps the doubling in `size_t`.
+At P127 the filename is at most261 bytes and the cwd buffer4097; at P4096 they
+are8199 and8194 bytes respectively. Existing native invocations used retained
+paths; no long-path execution was performed here.
+
+This packet corrects the earlier remaining-work phrasing about host-library
+internals. Capacity accounting stops at the established allocation, standard
+library and OS interfaces unless a concrete defect crosses them. GCC-owned
+startup/target helpers and actual static finalization still need their own
+source joins; recursively auditing libc buffering or allocator implementation
+is not an additional prerequisite. The process-shell result remains historical
+with its original narrow scope. Neither it nor this registry component closes
+#119 or authorizes admitting a program before the complete capacity rule.
+
+Independent narrow review replayed the192-source result byte-for-byte and
+accepted the constructor/member census, registry growth/layout bounds and
+coverage/cwd arithmetic under the stated pathname and OS-interface premises.
+No finding was raised. No native tool ran for that review.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

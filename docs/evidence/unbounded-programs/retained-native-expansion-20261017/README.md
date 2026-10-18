@@ -118,3 +118,24 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --options-header /path/to/pinned/plugin/include/options.h \
   --output /tmp/native-process-shell.json
 ```
+
+### Fixed startup registry and coverage buffers
+
+`startup-registry-inputs.json`, `reconcile-startup-registry.py` and
+`native-startup-registry.json` pin192 sources and two earlier records. The
+replay inventories394 generated pass instances/304 factories, their constructors,
+clones, fields and parameter setters; derives registry/map/ID/name requests;
+and prices unconditional coverage/getpwd caller-owned buffers. The research
+section supplies the selected-branch and layout argument. Largest fixed
+ordinary request is65,536 bytes; no GGC event is added. This component does not
+close the remaining GCC-owned startup/static-exit join. Standard-library and
+OS implementation internals are the existing boundary, not a new prerequisite.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-startup-registry.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --plugin-include /path/to/pinned/plugin/include \
+  --cxx-include /path/to/pinned/include/c++/16.1.0 \
+  --output /tmp/native-startup-registry.json
+```
