@@ -693,3 +693,81 @@ Runtime-confirmed model settings and per-round token/monetary costs are
 unavailable. These observations record integration progress and review rework;
 they do not establish a causal model-quality comparison. CLI memory remains
 unavailable and was not updated.
+
+## Round 10 — attach original storage and bound Why3 comparison work
+
+Date: 2026-10-18. This round continues #119 from published `bebb5994e7`.
+It integrates completed source results before extending the remaining
+counter/storage and emission arguments. Oracle, tools/pins and production
+admission remain unchanged; #88–#94 remain authorized and unstarted.
+
+| Work | Selected model / effort | Frozen input and result |
+| --- | --- | --- |
+| Fixed Main context visits | GPT-6 Astra / Extra High | `684ec8ab64`: I<=114, supplying the original Main ledger's previously symbolic input |
+| Independent context review | GPT-6 Astra / Extra High | `5ca8b79de9`: accepted; citation-only follow-up `13daeca1e9` records the excluded generic-body transfer |
+| Original native storage attachment | Initially GPT-6.1 Sol / Extra High; completed by GPT-6 Astra / Extra High | `7f7600ec25`: actual source joins, I114 and disjoint String216/helper94/Main/synthetic173 demands; local pool condition restored |
+| Independent attachment review | GPT-6 Astra / Extra High | `05ec743053`: accepted, including historical-note handling and preservation of unresolved capacity flags |
+| Why3 comparand transfer | GPT-6 Astra / Extra High | `3976f5eec9`: prefix-sensitive coverage and strict/shallow/hash source-work bounds for the retained entry |
+| Independent comparand review | GPT-6 Astra / Extra High | `e600522131`: accepted; independent raw traversal and arithmetic reproduce the exported bounds |
+
+The context argument gives 36 runtime, 39 new-elaboration and 39
+old-elaboration implicit-with visits. Stable unit-key guards and excluded
+copy/transfer routes bound the total by 114, adding at most 114 list requests,
+3,648 caller/rounded bytes and 114 cache pushes with zero pool demand.
+The worker checked 2,319 complete Ada files plus trans.cc, ten setter and
+eleven constructor sites, and 300 arithmetic compositions; its recorded
+interval was 300s. The independent review used a multiline-aware census,
+eight repository/fifteen source identities and three mixed compositions;
+its 294s interval excludes final polish. It identified one nonmaterial
+missing citation, repaired without changing arithmetic or rerunning broad checks.
+
+The attachment binds individual decoded lengths, C/N/D and frontend V from
+the complete recognizer, supplies I=114, adds String216 and helper94 once,
+and retains synthetic173 separately. Hello's original Main interval has
+1,061 direct requests, 420,346 caller bytes and 426,928 rounded bytes; its
+String/helper interval has 310 requests, 20,129 caller bytes, 25,280 rounded
+bytes and five ordinary requests/272 bytes. These are separate construction
+intervals, not a complete process sum. The accepted pool zero-demand argument
+restores one local condition; three assembly/object, GAS/BFD and linker
+conditions remain unknown. Broad shared/counter/collector flags remain false,
+and the 5,000-call conservative relocation failure remains visible.
+
+Sol reported **Selected model is at capacity** with partial implementation
+preserved. Astra took over that work and completed integration. Its first
+affected check stopped on a historical-note/current-file mismatch: the frozen
+Main inventory names an older aggregate note that this attachment evolves.
+The repair verifies that one immutable Git object at `ac18b35314`, preserves
+all current-file checks and distinguishes 45 current plus one historical input
+from the 46-entry leaf inventory. The following 253-case run passed in
+4.939248997s; default generation passed in 3.113588611s. It checked 175
+repository pins and 2,627 distinct current files. Independent review assessed
+semantic applicability and ran four source-adapter cases and six targeted
+rejections in 0.109182271s, retaining the broad 253-case success. Its source/check
+interval was 175s. Total attachment-round elapsed time was not instrumented.
+The service-capacity interruption and integration defect are separate facts;
+neither establishes comparative model quality.
+
+The Why3 packet classifies every one of the 6,704 old declarations using the
+comparator's first-symbol behavior, including formula work before a later
+logic-list length mismatch. All 145 possible formula comparands remain charged.
+Strict table comparison has 2,032 term-pair entries; definition closing adds
+418; strict candidate hashing has 1,911 term entries. Immediate stored integer
+constants avoid an additional comparator-state capture. No first outer-table
+resize can occur: 5,003 buckets, each at most 226 slots, and at most 11,005
+equality callbacks. The existing 1,145 identifier increment is unchanged.
+The focused worker check took 1.465575s; its recorded interval was 1,004.23s.
+Review replay took 1.414992s and the independent raw/arithmetic audit 0.646525s;
+the measured review interval was 284s, excluding setup and final polish.
+These overlapping intervals are not additive team elapsed time.
+
+This round adds **zero native target, capture, debugger, build, proof, solver
+or full-suite runs**. It reuses retained source and successful evidence, with
+focused offline checks for changed joins and independent critical probes.
+The next bounded work is native shared-container/counter accounting,
+assembly/label closure and the private Why3 identifier-counter starting state.
+Complete runtime/collector composition, other required consumers/entries,
+parent/launch joins, current grammar coverage and complete-rule comparison
+remain required. #119 stays active; no research stop is selected.
+
+Runtime-confirmed settings, lead live settings and per-round token/monetary
+costs are unavailable. CLI memory remains unavailable and was not updated.

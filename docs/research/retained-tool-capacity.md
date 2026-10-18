@@ -247,6 +247,40 @@ synthetic173, independently of I. The aggregate attachment must bind these
 interfaces before restoring the local pool condition. Complete constructor,
 shared-counter, collector and whole-pipeline capacity remain unestablished.
 
+The [fixed Main context-visit bound](retained-literal-context-visit-bound.md),
+frozen at `684ec8ab64` and
+[independently accepted](../reviews/review-literal-context-visits-684ec8ab64.md),
+now supplies I<=114: 36 runtime withs plus 39 new-elaboration and 39
+old-elaboration visits. Stable unit-key deduplication and the excluded generic
+context-transfer routes justify this source bound. It adds at most 114 list
+requests, 3,648 caller/rounded bytes and 114 cache pushes, with zero pool demand.
+This closes the previously symbolic context input, without closing shared
+backing, global counters or collector lifetime. Citation follow-up `13daeca1e9`
+records the independently checked package-body/generic-instance transfer guard;
+it changes no arithmetic.
+
+The [original-storage aggregate attachment](retained-literal-pipeline.md),
+frozen at `7f7600ec25` and
+[independently accepted](../reviews/review-original-native-attachment-7f7600ec25.md),
+now binds actual decoded literal lengths, C/N and the distinct called-procedure
+count to the original Main ledger, with exact frontend V equality and I=114.
+String216 plus helper94 is charged once as 310 direct requests; synthetic173
+stays separate. All shared demands, including Main's namespace finalizer and
+Uint interfaces, remain exported. The reviewed zero-unowned-pool-demand joins
+restore the **local tree-pool condition**, retaining Main's 2C entries and 3C
+insertion-capable lookups. The aggregate passes 253 focused cases. Three
+assembly/object, GAS/BFD and linker conditions remain unknown; global counters,
+shared backing, collector and whole-pipeline capacity remain unestablished.
+The 5,000-call conservative relocation failure is preserved.
+
+This attachment also distinguishes the original Main packet's 45 current-file
+checks from its one historical aggregate-note identity at `ac18b35314`.
+Independent review confirms both the immutable Git object and the continued
+semantic applicability of its source interval. The earlier note is not counted
+among the 2,627 distinct current files checked by the aggregate. This repairs
+an integration-check failure without rewriting the frozen leaf or treating a
+historical note as current source.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
@@ -378,10 +412,27 @@ source/runtime, well-formedness and freshness premises. The
 [independent review](../reviews/review-why-inline-representative-state-25f6e96a12.md)
 accepts that scope without a material finding and independently reproduces
 the full slot count and opened coordinates. The earlier frozen
-conditional packet remains unchanged. Complete comparator costs, other shared
-states and counters, runtime allocation/collector composition, other entries
-and downstream consumers remain open. This is one retained entry, not a
+conditional packet remains unchanged. At that checkpoint, comparator source
+work, other shared states and counters, runtime allocation/collector composition,
+other entries and downstream consumers remained open. This is one retained entry, not a
 universal state-membership or complete transformation capacity result.
+
+The subsequent [comparand-capacity packet](retained-why-inline-comparand-capacity.md),
+frozen at `3976f5eec9` and
+[independently accepted](../reviews/review-why-inline-comparand-3976f5eec9.md),
+closes the selected comparison/hash source-work gap. Prefix-sensitive filtering
+classifies all 6,704 initial declarations and includes all 145 possible strict
+comparands, including the three unsuccessful propositions. Table comparisons
+have at most 2,032 term-pair entries; definition closing adds 418, and candidate
+hashing has at most 1,911 term entries. Stored constants are immediate integers,
+so no additional comparator-state capture is needed. The no-first-resize
+argument keeps 5,003 buckets, with bucket length <=226 and at most 11,005
+equality callbacks. Independent raw traversal and arithmetic reproduce these
+bounds. The 1,145 identifier increment is unchanged; its private starting
+counter and continuing-call scope still need a join. Runtime primitive,
+allocation/collector, other shared states, other entries and downstream
+capacity remain open; source-event counts are not native execution or RAM
+measurements.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
