@@ -8552,6 +8552,14 @@ This deliberately gives cold credit to already allocated incoming vectors;
 it is an upper bound on *additional RTL-phase events*, not a claim that all66
 execute after the boundary.
 
+The generic `rtl_split_block` does transfer a successor vector and set the
+surviving source's pointer to NULL (`cfgrtl.cc:764–773`). That route is
+excluded here: null-body subdivision encounters no interior label/control
+transfer, and location preservation uses `rtl_split_edge`. It is not an
+unmentioned exception to the selected-path history argument. Independent
+review checked these transfer/free sites and accepted only this CFG-history
+bound, not the separate ranger/layout derivations.
+
 Any growing edge vector has old capacity at most10, so its doubled request
 is at most20 pointer slots, raw168/rounded256 bytes. The basic-block map can
 grow once per newly created block, at most **seven events**. Its maximum
@@ -8608,6 +8616,95 @@ not close generic pass-manager/global non-DF helper state, Main translation,
 metadata, final output or shared GGC page/finalizer arithmetic. Those remain
 required inputs to the full capacity rule.
 
+### Pass framework and shared bitmap counter boundary
+
+The [framework source inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json)
+continues the selected RTL schedule through its wrapper. The fixed pass tree
+already exists before Main; `execute_pass_list_1` follows its `next`/`sub`
+pointers and has no per-program pass-insertion counter (`passes.cc:2760–2787`).
+Normal source compilation does not select `pass_startwith`, forced pass gates,
+plugin callbacks, profile reporting, pass dumps, CFG diagnostic capture or
+function discarding. Those are configuration premises, not deductions from
+the null body.
+
+With pass dumping disabled, `get_dump_file_name` returns NULL before its
+pathname/string allocation (`dumpfile.cc:330–341`). Statistics events return
+before requesting a counter, and `statistics_fini_pass` performs only a
+nonallocating lookup (`statistics.cc:90–109,203–228,330–390`). The no-plugin
+wrapper returns without invoking a callback (`plugin.h:188–198`). The sole
+internal pass-event subscriber is the CFG diagnostic-capture extension;
+its `cfgs` key defaults false and no such sink was requested
+(`opts-diagnostic.cc:48–72,102–109`, `tree-diagnostic-cfg.cc:347–355`,
+`pub-sub.h:35–43`). Thus before/after-pass notification allocates no
+diagnostic graph or subscription node on this configuration.
+
+During RTL, the TODO wrapper performs property updates, the previously
+accounted DF finishing and disabled checking; it does not rerun tree alias,
+SSA, local-declaration or cgraph construction. Expansion returns0 and creates
+no new SSA names; its labels and bare return release no SSA definitions.
+After the incoming GIMPLE TODO boundary has flushed any earlier release
+queue, no RTL pass repopulates it. Therefore the repeated
+`flush_ssaname_freelist` calls do not grow a free-name vector or reset an SCEV
+cache (`passes.cc:2058–2181,2698–2702`, `tree-ssanames.cc:322–330`). Final
+clean-state destroys the SSA structures rather than replenishing that queue
+(`final.cc:4515–4516`, `tree-ssa.cc:1226–1249`). Earlier GIMPLE queue handling
+remains owned by the Main translation join.
+
+`execute_function_todo` pushes the current function and then pops it. These
+calls reuse the same function and do not call its target-switch hook again
+(`function.cc:4717–4749,4767–4795`). The saved-function stack is an ordinary
+`vec<function *>`, not GGC. On this nonnested emission route,
+`cgraph_node::expand` supplies one outer push and each TODO callback at most
+one additional push; the required logical depth is2. A cold initial
+capacity4 requests40 bytes. This bound is on the selected emission route;
+the earlier first-target-setup packet still names its incoming-depth
+premise separately. Repetition of balanced callbacks does not grow the
+vector (`cgraphunit.cc:1858–1882,1930–1938`, `passes.cc:1696–1710,2065,2127`).
+
+Timevar wrappers either see a NULL timer or use ordinary16-byte linked
+contexts; popped contexts are recycled. They are not GGC objects. The selected
+invocation enables neither detailed timing child maps nor JIT named timers
+(`timevar.h:157–170,205–217`, `timevar.cc:270–309,338–361,497–505`). Timing's
+elapsed wall/memory sums are unsigned observational statistics; they do not
+determine admission or select a code-generation route. They do not justify
+an aggregate elapsed-time or RAM limit. Pass completion's `ggc_collect`
+calls remain visible and payable by the shared collector proof; this local
+zero-*object-constructor* result does not exempt page/finalizer state
+(`passes.cc:2740–2748`).
+
+Shared sparse bitmaps also require a distinction between a real counter and
+an allocation total. With statistics disabled, `bitmap_obstack` has two
+freelist pointers and an obstack; a bitmap has fixed32-byte headers and
+fixed40-byte elements. Chunk chains are linked and have no retained-element
+or chunk-number integer (`bitmap.h:294–351`, `bitmap.cc:102–145,779–808`).
+The selected obstack transfer bounds each completed object/chunk request;
+an independent cumulative count of these ordinary allocations is not a new
+admission obligation. No selected GCC caller queries `_obstack_memory_used`.
+This does not remove either per-bitmap bit/index bounds or the already
+identified pool allocators' own retained-count obligations.
+
+The default bitmap allocator *does* have a signed initialization-depth
+counter. Count nesting, not lifetime initializations. On this selected unit,
+the relevant call-site set has eight `cgraphunit.cc` initializers and the
+one `symtab.cc` IFUNC-check initializer. A conservative depth bound is9:
+there is no newly generated function, thunk, recursive expansion, LTO,
+strub, callgraph-info output or optimized x86 feature pass to enter another
+site or reenter one already active. The nested local function-pass calls
+use the existing default obstack; private ranger/stack/DF/IRA bitmap
+obstacks pass an explicit pointer and do not change this depth. Each selected
+scope is balanced, so the depth remains0..9, safely inside signed32
+(`bitmap.cc:733–770`, `cgraphunit.cc:316,582,607,700,1191,1844,2238,2396`,
+`symtab.cc:1454–1476`). This supplies the actual finite-width default-bitmap
+counter condition without turning all shared bitmap storage into a RAM gate.
+
+The [offline check](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-pass-framework.py)
+verifies the pinned sources, the fixed call-site inventory, layouts and
+source anchors; it does not execute GCC or prove the route exclusions by
+text matching. The framework adds no new GGC object-constructor allowance.
+Residual pass-specific/global constructor coverage and shared GGC
+page/finalizer composition still require their separate completion; this
+section is not a whole-native certificate.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
@@ -8633,12 +8730,14 @@ and constructors still require completion:
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
-| `E_RTL_helpers` |remaining pass-manager/global non-DF helper state; the expansion/CFG constructor envelope100 and ranger ordinary backing above are now supplied, in addition to the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes already charged separately |
+| `E_RTL_helpers` |remaining pass-specific/global non-DF constructor coverage; the framework wrapper above adds no objects, and expansion/CFG envelope100 plus ranger ordinary backing are supplied, in addition to the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes already charged separately |
 | `E_unit_emit` |final/varasm/debug/cgraph unit finalization and final unwind assembly emission; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
 For ordinary backing, the remaining concrete joins include
-shared non-DF bitmap/pool retained-count arithmetic and any remaining
-pass-manager/global helper containers; the selected target frame-layout
+shared non-DF pool retained-count arithmetic and any remaining
+pass-specific/global helper containers. Shared bitmap initialization depth
+is now bounded above; its ordinary chunk chain has no retained-count field.
+The selected target frame-layout
 helpers add no allocations. Exact selected IRA
 traversal multiplicities matter only where they affect persistent non-DF
 state; the selected DF lifetime and solver joins are now closed above.

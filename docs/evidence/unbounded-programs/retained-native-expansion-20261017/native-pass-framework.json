@@ -1,0 +1,45 @@
+{
+  "additional_GGC_object_constructors": 0,
+  "bitmap_retained_object_or_chunk_number_field": false,
+  "cold_saved_function_stack_capacity": 4,
+  "cold_saved_function_stack_raw_bytes": 40,
+  "default_bitmap_initialization_depth_upper": 9,
+  "default_bitmap_initialization_sites": {
+    "gcc/cgraphunit.cc": [
+      316,
+      582,
+      607,
+      700,
+      1191,
+      1844,
+      2238,
+      2396
+    ],
+    "gcc/symtab.cc": [
+      1454
+    ]
+  },
+  "generic_rtl_split_block_not_selected": true,
+  "normal_RTL_saved_function_stack_logical_depth": 2,
+  "ordinary_timevar_context_bytes": 16,
+  "premises": [
+    "fixed installed pass tree",
+    "one nonnested emitted function",
+    "no new functions or thunks",
+    "no GGC plugin",
+    "no pass dumps or forced gates",
+    "no CFG diagnostics sink",
+    "no profile reporting or detailed timing",
+    "no SSA releases after incoming GIMPLE TODO flush",
+    "no LTO, strub, callgraph-info or optimized x86 feature passes"
+  ],
+  "required_remaining_inputs": [
+    "pass-specific/global constructor coverage",
+    "shared GGC page/finalizer composition",
+    "non-DF pool retained counts",
+    "metadata/Main translation/unit emission"
+  ],
+  "scope": "Selected null RTL pass-framework constructors and shared default-bitmap initialization counter; not pass-specific or collector closure",
+  "source_files_verified": 26,
+  "whole_native_capacity_established": false
+}
