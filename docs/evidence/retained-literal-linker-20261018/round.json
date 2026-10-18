@@ -1,0 +1,42 @@
+{
+  "task": "Literal output-linker callable composition, Refs #119",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selected_settings_source": "parent task assignment",
+  "runtime_model_confirmation_available": false,
+  "runtime_model_or_effort_changed_here": false,
+  "start_UTC": "2026-10-18T18:17:18+00:00",
+  "end_UTC": "2026-10-18T18:31:09.619009+00:00",
+  "elapsed_seconds": 831.619,
+  "actual_host": {
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "intended_outcome": "Compose accepted literal Main/GAS/ELF and fixed output delta with selected generic linker contracts",
+  "achieved_result": "Callable source-derived conditional assembler/output-link representation predicate; Hello and 8192-byte example pass; 5000 calls fails only inherited sufficient signed-relocation envelope",
+  "significant_findings": [
+    "Literal instruction relocation absence cannot be inherited from null Main; 2C PC32 and C PLT32 use mapped-target reach",
+    "Historical output witnesses used plugins; source no-claim and external-resolution bridge retained explicitly",
+    "Additional fixed FDE byte inspection gives two Silver_IO and six binder disjoint code ranges without set_loc",
+    "Main copy-size charge follows external symbol reader, avoiding multiplication by local labels",
+    "4821/4822 boundary applies only to inherited sufficient envelope, not actual linkability"
+  ],
+  "checks": [
+    "offline replay and byte-equal result comparison",
+    "complete source recognition rejection and mixed literal/null coverage",
+    "host-page arithmetic and adjacent sufficient-envelope boundary",
+    "git diff --check"
+  ],
+  "final_offline_replay_wall_seconds": 0.472818022,
+  "native_compiler_assembler_linker_prover_solver_Lean_executions": 0,
+  "independent_review": "pending; no self-acceptance",
+  "token_usage_available": false,
+  "cost_measurement_available": false,
+  "remaining_obligations": [
+    "independent review of this packet",
+    "production invocation/materialization",
+    "other producer/compiler/binder phases and whole-pipeline composition"
+  ],
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_gate": false
+}

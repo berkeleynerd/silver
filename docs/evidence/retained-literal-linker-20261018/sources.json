@@ -1,0 +1,55 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "binutils_commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "97c8111b808db029d95a04813780273cec3b6c7d3e842b34d2f192d65672842e",
+  "files": [
+    {
+      "path": "bfd/elflink.c",
+      "bytes": 465443,
+      "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1",
+      "origin": "retained-linker-layout-20261018/sources.tar.gz:bfd/elflink.c"
+    },
+    {
+      "path": "bfd/linker.c",
+      "bytes": 107143,
+      "sha256": "cff2af95ba4ba79e69d629c8a5eb8e8af962276d7ee8083d668f4fd4784577ab",
+      "origin": "retained-linker-capacity-20261018/cache-source-inventory.json:bfd/linker.c"
+    },
+    {
+      "path": "ld/ldelf.c",
+      "bytes": 69930,
+      "sha256": "803752534caf5b0a360bdb6bbeafe018e1161e6842455caab345a9b3b93e0ba2",
+      "origin": "retained-linker-capacity-20261018/cache-source-inventory.json:ld/ldelf.c"
+    },
+    {
+      "path": "ld/ldfile.c",
+      "bytes": 26295,
+      "sha256": "f903439a8ec660ccaee5168a68aaa70279f87c6931a5bee73abf2f79dfb38056",
+      "origin": "retained-linker-capacity-20261018/cache-source-inventory.json:ld/ldfile.c"
+    },
+    {
+      "path": "ld/ldlang.c",
+      "bytes": 312082,
+      "sha256": "51346229cbadc7415e3040cab429747edb810358fc4782fe65c47756bfd77b43",
+      "origin": "retained-linker-layout-20261018/sources.tar.gz:ld/ldlang.c"
+    },
+    {
+      "path": "ld/ldmain.c",
+      "bytes": 59325,
+      "sha256": "44beec50113fef013ed52b0f4755cdf90704d15819b4d76304dec4067b5ddec8",
+      "origin": "retained-linker-capacity-20261018/cache-source-inventory.json:ld/ldmain.c"
+    },
+    {
+      "path": "ld/plugin.c",
+      "bytes": 42342,
+      "sha256": "5bef7c10b39e661534269a5e799989db05b3333a4ac7fdffe565c7b351736362",
+      "origin": "retained-linker-capacity-20261018/cache-source-inventory.json:ld/plugin.c"
+    },
+    {
+      "path": "lto-plugin/lto-plugin.c",
+      "bytes": 44491,
+      "sha256": "f9230b2a4a6d4597b58b029c4e6374eeb7abbefbc75bada43cc822882f74c212",
+      "origin": "retained-link-inputs-20261018/sources.tar.gz:gcc/lto-plugin/lto-plugin.c"
+    }
+  ]
+}

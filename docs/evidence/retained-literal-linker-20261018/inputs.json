@@ -1,0 +1,140 @@
+[
+  {
+    "key": "delta",
+    "path": "docs/evidence/retained-linker-output-delta-20261018/result.json",
+    "bytes": 5946,
+    "sha256": "9144c966f8a7ad6cd8c74ff38542df3a794503d627e5c3ad6b74bcc0219c1d4c"
+  },
+  {
+    "key": "delta_manifest",
+    "path": "docs/evidence/retained-linker-output-delta-20261018/manifest.json",
+    "bytes": 52328,
+    "sha256": "8195c73bf3dba18357d2231f1046c806726fd8dc489b94a800e7c109068756a3"
+  },
+  {
+    "key": "delta_checker",
+    "path": "docs/evidence/retained-linker-output-delta-20261018/check.py",
+    "bytes": 15310,
+    "sha256": "e5e633ed42b322e3398676a74617efc4406ab8e1a6e37df8bbec26686cfd1aeb"
+  },
+  {
+    "key": "unwind_checker",
+    "path": "docs/evidence/retained-linker-relocations-20261018/check-unwind.py",
+    "bytes": 13256,
+    "sha256": "279cccc522f194ac1733446a42ffb51ea90feda072931d6259a27dc32a8b0e37"
+  },
+  {
+    "key": "unwind",
+    "path": "docs/evidence/retained-linker-relocations-20261018/unwind-result.json",
+    "bytes": 1452,
+    "sha256": "795c314e1f7440797cb6db97fac56d55a4cb91c1c27bf696ac0f8479340cdddc"
+  },
+  {
+    "key": "null",
+    "path": "docs/evidence/retained-linker-null-composition-20261018/result.json",
+    "bytes": 2899,
+    "sha256": "530f60b3aa0dbf1ee3b4ed71f7c10735969f15931fa8c2ffcf05c0e8ef0c0a75"
+  },
+  {
+    "key": "null_inputs",
+    "path": "docs/evidence/retained-linker-null-composition-20261018/inputs.json",
+    "bytes": 4356,
+    "sha256": "3e7a5a0e1cd26a98b8a1ea55115b82383ec8a53332c6db32e4d7513a07784d4c"
+  },
+  {
+    "key": "join_checker",
+    "path": "docs/evidence/retained-linker-join-20261018/check.py",
+    "bytes": 10562,
+    "sha256": "7051c9588b17da99c0300fd727808b0afa00442d666fec7261ae38aa22b6e7a0"
+  },
+  {
+    "key": "join_inputs",
+    "path": "docs/evidence/retained-linker-join-20261018/inputs.json",
+    "bytes": 4089,
+    "sha256": "23bd9963a4a2ee0d11275a9f1cdc1f33d463157c448525b92fce81c1d36bf399"
+  },
+  {
+    "key": "auxiliary_checker",
+    "path": "docs/evidence/retained-linker-layout-20261018/check-auxiliary.py",
+    "bytes": 8983,
+    "sha256": "a9baf636861dda17f29e098f044697945b25be938dc0383b3fa0499a2d62074b"
+  },
+  {
+    "key": "fixed",
+    "path": "docs/evidence/retained-linker-layout-20261018/fixed-payload-results.json",
+    "bytes": 20310,
+    "sha256": "c0b09d6839e9da2a4c71ee25ff96eb24fd2827eea1c4daac918baff4c3d0e6c3"
+  },
+  {
+    "key": "copy",
+    "path": "docs/evidence/retained-linker-layout-20261018/copy-optional-results.json",
+    "bytes": 1432,
+    "sha256": "a907aee181764b280d0c0f25d3c4502146cb1acd8bd9f6e74702912db19c9b65"
+  },
+  {
+    "key": "dynamic",
+    "path": "docs/evidence/retained-linker-dynamic-sections-20261018/join-results.json",
+    "bytes": 3124,
+    "sha256": "343800db633b1c38898d5dc25bad3f2355288f7aac85ffc78bc51b4345f9503b"
+  },
+  {
+    "key": "versions",
+    "path": "docs/evidence/retained-linker-symbols-20261018/version-name-results.json",
+    "bytes": 3618,
+    "sha256": "bae6a092723fbe1405369b7629c3af5233a5065910b998f511bf5458f63fa1b9"
+  },
+  {
+    "key": "global",
+    "path": "docs/evidence/retained-linker-symbols-20261018/global-name-results.json",
+    "bytes": 1622,
+    "sha256": "261137e98fbe243f67287b81ae193cb739d27443b8258255c5de2e462dd6e1be"
+  },
+  {
+    "key": "symtab",
+    "path": "docs/evidence/retained-linker-symbols-20261018/symtab-results.json",
+    "bytes": 1235,
+    "sha256": "04d6d13656b7e809b59c1a9c174eec745719858dfa06f07dfb566e1bcb6d93ff"
+  },
+  {
+    "key": "layout_shape",
+    "path": "docs/evidence/retained-linker-layout-20261018/layout-shape-results.json",
+    "bytes": 13139,
+    "sha256": "61daa5c984b5232b2e0f59d233e5577c4c09a2d8e67177dd28c7c66d5d310c55"
+  },
+  {
+    "key": "assembler",
+    "path": "docs/evidence/retained-literal-assembler-20261018/compose.py",
+    "bytes": 6698,
+    "sha256": "310b893cd75b5bb5eb799be2bb43550208dff34a86acdad68f222fea7872d021"
+  },
+  {
+    "key": "assembler_storage",
+    "path": "docs/evidence/retained-literal-assembler-20261018/storage.py",
+    "bytes": 5266,
+    "sha256": "6a051800b5c90b237b221b3d18fb6946cc1fcb0234e927d492d81845a338689b"
+  },
+  {
+    "key": "interface",
+    "path": "docs/evidence/retained-linker-interface-20261018/result.json",
+    "bytes": 1739,
+    "sha256": "f7c5317d1fa45a262c19bd8a551f66476a7f71ba37ebde43ba8fb56780f39862"
+  },
+  {
+    "key": "source_input_manifest",
+    "path": "docs/evidence/retained-link-inputs-20261018/sources.json",
+    "bytes": 4767,
+    "sha256": "ce384269fad20c98b67908b340ced43a3f32f05ea476aa8e5e584f6e9297363d"
+  },
+  {
+    "key": "source_cache_manifest",
+    "path": "docs/evidence/retained-linker-capacity-20261018/cache-source-inventory.json",
+    "bytes": 236083,
+    "sha256": "16ca77151e6e7775314dd7ef256818b56faf8a63d0e3cf560d541f8e7163b412"
+  },
+  {
+    "key": "no_plugin",
+    "path": "docs/evidence/retained-link-no-lto-20261018/ld-resolution/result.json",
+    "bytes": 6728,
+    "sha256": "2191990bb148a5ef87d32f88bf25472247dd1bfbdfd48b6fe866b6307f32e26d"
+  }
+]
