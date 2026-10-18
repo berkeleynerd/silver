@@ -1,0 +1,95 @@
+{
+  "counts": {
+    "calls": 1,
+    "nulls": 0,
+    "decoded_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "source_family_emission_routes_closed_under_selected_descriptor": true,
+  "counter_bounds": {
+    "fixed_prefix_positive_GGC_events_upper": 39257,
+    "ordinary_label_initial_value": 1,
+    "ordinary_label_next_at_prefix_exit_upper": 39258,
+    "target_cost_setup_ordinary_label_increments": 0,
+    "imported_and_non_Main_ordinary_label_increments": 0,
+    "Main_ordinary_label_increments_upper": 52,
+    "ordinary_label_next_at_exit_upper": 39310,
+    "Main_label_alignment_span_upper": 53,
+    "constant_label_initial_value": 0,
+    "constant_label_next_at_prefix_exit_upper": 39257,
+    "target_cost_setup_constant_label_increments": 0,
+    "additional_imported_constant_label_increments": 0,
+    "Main_tree_constant_label_increments_upper": 2,
+    "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+    "constant_label_next_at_exit_upper": 39259,
+    "final_scan_counter_initial_value": 0,
+    "final_scan_counter_at_exit_upper": 52,
+    "CFI_label_counter_initial_value": 0,
+    "CFI_label_counter_at_exit_upper": 5,
+    "CFI_label_signed_temporary_maximum": 4,
+    "Main_function_definition_number": 1,
+    "next_function_definition_number": 4
+  },
+  "counter_and_emission_guards": {
+    "literal_length_signed_int": true,
+    "ordinary_label_next_signed_int": true,
+    "constant_label_next_signed_int": true,
+    "Main_instruction_UID_and_label_span_signed_int": true,
+    "final_scan_counter_signed_int": true,
+    "text_and_CFI_location_signed_int": true,
+    "CFI_label_temporary_and_next_signed_int": true,
+    "function_definition_next_signed_int": true
+  },
+  "counter_and_emission_guards_fit": true,
+  "final_chain": 52,
+  "text_bytes_upper": 53,
+  "assembly": {
+    "lines_upper": 187,
+    "bytes_upper": 11471,
+    "longest_line_excluding_LF_upper": 512,
+    "scrub_buffer_bytes_upper": 65539
+  },
+  "emission": {
+    "emitted_function_bodies": 1,
+    "Main_boundary_labels": [
+      ".LFB1",
+      ".LFE1"
+    ],
+    "additional_non_Main_emitted_lines": 0,
+    "selected_pending_external_directive_lines": 0,
+    "external_pending_declarations_upper": 1,
+    "constant_label_definitions_upper": 2,
+    "additional_data_sections_upper": 1,
+    "additional_data_section": ".rodata",
+    "rodata_bytes_upper": 35,
+    "constant_data_relocations": 0,
+    "local_label_bytes_excluding_NUL_upper": 25,
+    "symbol_name_bytes_including_NUL_upper": 26,
+    "instruction_line_bytes_excluding_LF_upper": 64
+  },
+  "complete_selected_stream_source_correspondence_conditional": true,
+  "production_invocation_and_materialization_established": false,
+  "installed_relevant_behavior_correspondence_is_external_premise": true,
+  "complete_non_label_global_counter_lifetime_closed": false,
+  "complete_shared_backing_and_collector_capacity_closed": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "native_tool_executions": 0,
+  "production_admission_changed": false,
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "source_identity": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  }
+}
