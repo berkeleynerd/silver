@@ -1,0 +1,774 @@
+{
+  "scope": "Selected native null GCC static lifecycle and fixed ordinary prefix transfer",
+  "verified_source_files": 46,
+  "verified_prior_records_and_disassembly": 7,
+  "gnat1_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+  "retained_complete_instructions_verified": 3611,
+  "ELF_init_entries": 59,
+  "GCC_owned_init_entries": 57,
+  "ELF_fini_entries": 2,
+  "GCC_static_cxa_registrations": 94,
+  "distinct_GCC_static_destructor_targets": 69,
+  "direct_text_cxa_sites": 96,
+  "other_direct_sites": [
+    {
+      "address": 20285589,
+      "route": "fixed alignment cache, conservatively charged"
+    },
+    {
+      "address": 40169137,
+      "route": "hash statistics function static, GATHER_STATISTICS=0"
+    }
+  ],
+  "destructor_groups": {
+    "empty_statistics_maps": {
+      "targets": 4,
+      "registrations": 4
+    },
+    "pool_release": {
+      "targets": 45,
+      "registrations": 48
+    },
+    "empty_dump_context": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "ira_arrays": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "bitmap_release": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "default_range_oracles": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "gc_allocator_control": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "standard_map_interface": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "empty_switch_range_table": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "owned_hash_map": {
+      "targets": 3,
+      "registrations": 4
+    },
+    "scalar_hash_map": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "default_target_globals": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "borrowed_json_key": {
+      "targets": 6,
+      "registrations": 27
+    },
+    "diagnostics_implicit_members": {
+      "targets": 1,
+      "registrations": 1
+    },
+    "embedded_vector_release": {
+      "targets": 1,
+      "registrations": 1
+    }
+  },
+  "initializer_calls_other_than_cxa_registration": [
+    {
+      "site": 9610825,
+      "root": 9610816,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9610860,
+      "root": 9610816,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9610888,
+      "root": 9610816,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9610915,
+      "root": 9610816,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9610950,
+      "root": 9610816,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9610978,
+      "root": 9610816,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9611005,
+      "root": 9610816,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9611040,
+      "root": 9610816,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9611068,
+      "root": 9610816,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9612073,
+      "root": 9612064,
+      "asm": "call   f820e0 <mem_alloc_description<ggc_usage>::mem_alloc_description()@@Base>"
+    },
+    {
+      "site": 9614284,
+      "root": 9614032,
+      "asm": "call   12a9790 <range_op_table::initialize_pointer_ops()@@Base>"
+    },
+    {
+      "site": 9614294,
+      "root": 9614032,
+      "asm": "call   129e280 <range_op_table::initialize_float_ops()@@Base>"
+    },
+    {
+      "site": 9624119,
+      "root": 9624080,
+      "asm": "call   23eea30 <gimple_outgoing_range::gimple_outgoing_range(int)@@Base>"
+    },
+    {
+      "site": 9624249,
+      "root": 9624240,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625101,
+      "root": 9625088,
+      "asm": "call   1866ab0 <xlogue_layout::xlogue_layout(long, bool)@@Base>"
+    },
+    {
+      "site": 9625118,
+      "root": 9625088,
+      "asm": "call   1866ab0 <xlogue_layout::xlogue_layout(long, bool)@@Base>"
+    },
+    {
+      "site": 9625135,
+      "root": 9625088,
+      "asm": "call   1866ab0 <xlogue_layout::xlogue_layout(long, bool)@@Base>"
+    },
+    {
+      "site": 9625159,
+      "root": 9625088,
+      "asm": "jmp    1866ab0 <xlogue_layout::xlogue_layout(long, bool)@@Base>"
+    },
+    {
+      "site": 9625177,
+      "root": 9625168,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625212,
+      "root": 9625168,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625240,
+      "root": 9625168,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9625267,
+      "root": 9625168,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625302,
+      "root": 9625168,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625330,
+      "root": 9625168,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9625357,
+      "root": 9625168,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625392,
+      "root": 9625168,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9625420,
+      "root": 9625168,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9627165,
+      "root": 9627120,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627192,
+      "root": 9627120,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9627433,
+      "root": 9627424,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627468,
+      "root": 9627424,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627496,
+      "root": 9627424,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9627523,
+      "root": 9627424,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627558,
+      "root": 9627424,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627586,
+      "root": 9627424,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9627613,
+      "root": 9627424,
+      "asm": "call   29fc6c0 <operator new(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627648,
+      "root": 9627424,
+      "asm": "call   264edc0 <hash_table_higher_prime_index(unsigned long)@@Base>"
+    },
+    {
+      "site": 9627676,
+      "root": 9627424,
+      "asm": "call   273c790 <xcalloc@@Base>"
+    },
+    {
+      "site": 9628761,
+      "root": 9628752,
+      "asm": "call   265c3d0 <diagnostics::counters::counters()@@Base>"
+    }
+  ],
+  "registrations": [
+    {
+      "site": 9611109,
+      "root": 9610816,
+      "destructor": 14366912
+    },
+    {
+      "site": 9611371,
+      "root": 9611248,
+      "destructor": 14973504
+    },
+    {
+      "site": 9611488,
+      "root": 9611248,
+      "destructor": 14973440
+    },
+    {
+      "site": 9611605,
+      "root": 9611248,
+      "destructor": 14973376
+    },
+    {
+      "site": 9611733,
+      "root": 9611248,
+      "destructor": 14973312
+    },
+    {
+      "site": 9611779,
+      "root": 9611744,
+      "destructor": 15112448
+    },
+    {
+      "site": 9611931,
+      "root": 9611808,
+      "destructor": 15608160
+    },
+    {
+      "site": 9612049,
+      "root": 9611808,
+      "destructor": 15608096
+    },
+    {
+      "site": 9612097,
+      "root": 9612064,
+      "destructor": 16261024
+    },
+    {
+      "site": 9612506,
+      "root": 9612384,
+      "destructor": 17440928
+    },
+    {
+      "site": 9612634,
+      "root": 9612512,
+      "destructor": 17660000
+    },
+    {
+      "site": 9612762,
+      "root": 9612640,
+      "destructor": 17759232
+    },
+    {
+      "site": 9612783,
+      "root": 9612768,
+      "destructor": 17937504
+    },
+    {
+      "site": 9612923,
+      "root": 9612800,
+      "destructor": 17999904
+    },
+    {
+      "site": 9613040,
+      "root": 9612800,
+      "destructor": 17999840
+    },
+    {
+      "site": 9613157,
+      "root": 9612800,
+      "destructor": 17999776
+    },
+    {
+      "site": 9613274,
+      "root": 9612800,
+      "destructor": 17999712
+    },
+    {
+      "site": 9613392,
+      "root": 9612800,
+      "destructor": 17999648
+    },
+    {
+      "site": 9613530,
+      "root": 9613408,
+      "destructor": 18089920
+    },
+    {
+      "site": 9613659,
+      "root": 9613536,
+      "destructor": 18236128
+    },
+    {
+      "site": 9613776,
+      "root": 9613536,
+      "destructor": 18236064
+    },
+    {
+      "site": 9613894,
+      "root": 9613536,
+      "destructor": 18236000
+    },
+    {
+      "site": 9614026,
+      "root": 9613904,
+      "destructor": 18368384
+    },
+    {
+      "site": 9614826,
+      "root": 9614704,
+      "destructor": 19678112
+    },
+    {
+      "site": 9614958,
+      "root": 9614832,
+      "destructor": 19982432
+    },
+    {
+      "site": 9622826,
+      "root": 9622704,
+      "destructor": 20405664
+    },
+    {
+      "site": 9622971,
+      "root": 9622848,
+      "destructor": 21322208
+    },
+    {
+      "site": 9623089,
+      "root": 9622848,
+      "destructor": 21322144
+    },
+    {
+      "site": 9623307,
+      "root": 9623184,
+      "destructor": 22267936
+    },
+    {
+      "site": 9623425,
+      "root": 9623184,
+      "destructor": 22267872
+    },
+    {
+      "site": 9623566,
+      "root": 9623440,
+      "destructor": 22381184
+    },
+    {
+      "site": 9623623,
+      "root": 9623440,
+      "destructor": 22381152
+    },
+    {
+      "site": 9623754,
+      "root": 9623632,
+      "destructor": 22605760
+    },
+    {
+      "site": 9623882,
+      "root": 9623760,
+      "destructor": 22624896
+    },
+    {
+      "site": 9624010,
+      "root": 9623888,
+      "destructor": 22720448
+    },
+    {
+      "site": 9624139,
+      "root": 9624080,
+      "destructor": 37675712
+    },
+    {
+      "site": 9624225,
+      "root": 9624080,
+      "destructor": 23826048
+    },
+    {
+      "site": 9624287,
+      "root": 9624240,
+      "destructor": 23911040
+    },
+    {
+      "site": 9624427,
+      "root": 9624304,
+      "destructor": 24057184
+    },
+    {
+      "site": 9624544,
+      "root": 9624304,
+      "destructor": 14973312
+    },
+    {
+      "site": 9624661,
+      "root": 9624304,
+      "destructor": 14973312
+    },
+    {
+      "site": 9624778,
+      "root": 9624304,
+      "destructor": 24057120
+    },
+    {
+      "site": 9624895,
+      "root": 9624304,
+      "destructor": 24057056
+    },
+    {
+      "site": 9625013,
+      "root": 9624304,
+      "destructor": 24056992
+    },
+    {
+      "site": 9625461,
+      "root": 9625168,
+      "destructor": 36886720
+    },
+    {
+      "site": 9625537,
+      "root": 9625472,
+      "destructor": 36976896
+    },
+    {
+      "site": 9625675,
+      "root": 9625552,
+      "destructor": 37353600
+    },
+    {
+      "site": 9625792,
+      "root": 9625552,
+      "destructor": 37353600
+    },
+    {
+      "site": 9625909,
+      "root": 9625552,
+      "destructor": 37353536
+    },
+    {
+      "site": 9626026,
+      "root": 9625552,
+      "destructor": 37353472
+    },
+    {
+      "site": 9626143,
+      "root": 9625552,
+      "destructor": 37353408
+    },
+    {
+      "site": 9626260,
+      "root": 9625552,
+      "destructor": 37353344
+    },
+    {
+      "site": 9626378,
+      "root": 9625552,
+      "destructor": 37353280
+    },
+    {
+      "site": 9626419,
+      "root": 9626400,
+      "destructor": 38133376
+    },
+    {
+      "site": 9626439,
+      "root": 9626400,
+      "destructor": 38133376
+    },
+    {
+      "site": 9626459,
+      "root": 9626400,
+      "destructor": 38133536
+    },
+    {
+      "site": 9626586,
+      "root": 9626400,
+      "destructor": 38133312
+    },
+    {
+      "site": 9626610,
+      "root": 9626400,
+      "destructor": 38133456
+    },
+    {
+      "site": 9626747,
+      "root": 9626624,
+      "destructor": 38251648
+    },
+    {
+      "site": 9626864,
+      "root": 9626624,
+      "destructor": 38251584
+    },
+    {
+      "site": 9626981,
+      "root": 9626624,
+      "destructor": 38251520
+    },
+    {
+      "site": 9627099,
+      "root": 9626624,
+      "destructor": 38251456
+    },
+    {
+      "site": 9627238,
+      "root": 9627120,
+      "destructor": 38432400
+    },
+    {
+      "site": 9627311,
+      "root": 9627296,
+      "destructor": 38908272
+    },
+    {
+      "site": 9627717,
+      "root": 9627424,
+      "destructor": 40162304
+    },
+    {
+      "site": 9627765,
+      "root": 9627728,
+      "destructor": 40183792
+    },
+    {
+      "site": 9627803,
+      "root": 9627728,
+      "destructor": 40183760
+    },
+    {
+      "site": 9627841,
+      "root": 9627728,
+      "destructor": 40183792
+    },
+    {
+      "site": 9627879,
+      "root": 9627728,
+      "destructor": 40183760
+    },
+    {
+      "site": 9627917,
+      "root": 9627728,
+      "destructor": 40183760
+    },
+    {
+      "site": 9627955,
+      "root": 9627728,
+      "destructor": 40183792
+    },
+    {
+      "site": 9627993,
+      "root": 9627728,
+      "destructor": 40183760
+    },
+    {
+      "site": 9628031,
+      "root": 9627728,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628069,
+      "root": 9627728,
+      "destructor": 40183728
+    },
+    {
+      "site": 9628107,
+      "root": 9627728,
+      "destructor": 40183728
+    },
+    {
+      "site": 9628145,
+      "root": 9627728,
+      "destructor": 40183728
+    },
+    {
+      "site": 9628183,
+      "root": 9627728,
+      "destructor": 40183728
+    },
+    {
+      "site": 9628225,
+      "root": 9627728,
+      "destructor": 40183760
+    },
+    {
+      "site": 9628277,
+      "root": 9628240,
+      "destructor": 40184112
+    },
+    {
+      "site": 9628315,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628353,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628391,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628429,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628467,
+      "root": 9628240,
+      "destructor": 40184080
+    },
+    {
+      "site": 9628505,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628543,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628581,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628619,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628657,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628695,
+      "root": 9628240,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628737,
+      "root": 9628240,
+      "destructor": 40184048
+    },
+    {
+      "site": 9628806,
+      "root": 9628752,
+      "destructor": 40200832
+    },
+    {
+      "site": 9628865,
+      "root": 9628832,
+      "destructor": 40183792
+    },
+    {
+      "site": 9628932,
+      "root": 9628880,
+      "destructor": 40777696
+    }
+  ],
+  "additional_fixed_ordinary_individual_request_bounds": {
+    "each_statistics_map_control": 96,
+    "each_statistics_key_pointer_map_backing": 208,
+    "each_statistics_key_pair_map_backing": 312,
+    "ICF_static_type_map_backing": 208,
+    "GC_vrange_allocator_control": 8,
+    "alignment_cache_backing": 312,
+    "alignment_parse_vector": 24
+  },
+  "statistics_descriptor_instances": 4,
+  "statistics_maps_per_descriptor": 3,
+  "fixed_ordinary_prefix_capacity_basis": "successful retained prefix plus source read projection, not GGC byte total",
+  "new_static_exit_ordinary_requests": 0,
+  "new_static_exit_GGC_events": 0,
+  "GCC_static_exit_and_fixed_startup_closed_under_stated_projection": true,
+  "known_GGC_subtotal_unchanged": 40098,
+  "variable_ingress_requires_separate_source_descriptor_joins": true,
+  "whole_native_null_capacity_established": false,
+  "aggregate_RAM_or_address_space_admission_gate": false,
+  "compiler_prover_debugger_executions": 0
+}

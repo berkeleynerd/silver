@@ -1,0 +1,1072 @@
+{
+  "scope": "Selected native null GCC static lifecycle and fixed ordinary prefix transfer",
+  "gnat1_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+  "init_array": [
+    9629776,
+    9610752,
+    9610784,
+    9610816,
+    9611120,
+    9611248,
+    9611744,
+    9611792,
+    9611808,
+    9612064,
+    9612112,
+    9612128,
+    9612384,
+    9612512,
+    9612640,
+    9612768,
+    9612800,
+    9613408,
+    9613536,
+    9613904,
+    9614032,
+    9614704,
+    9614832,
+    9615008,
+    9622704,
+    9622848,
+    9623104,
+    9623184,
+    9623440,
+    9623632,
+    9623760,
+    9623888,
+    9624016,
+    9624080,
+    9624240,
+    9624304,
+    9625024,
+    9625056,
+    9625088,
+    9625168,
+    9625472,
+    9625552,
+    9626384,
+    9626400,
+    9626624,
+    9627104,
+    9627120,
+    9627248,
+    9627264,
+    9627296,
+    9627424,
+    9627728,
+    9628240,
+    9628752,
+    9628816,
+    9628832,
+    9628880,
+    9628944,
+    9628992
+  ],
+  "fini_array": [
+    9629728,
+    9610704
+  ],
+  "cxa_atexit_plt": 9277680,
+  "cxa_atexit_GOT": 56669376,
+  "compiler_init_roots": [
+    9610752,
+    9610784,
+    9610816,
+    9611120,
+    9611248,
+    9611744,
+    9611792,
+    9611808,
+    9612064,
+    9612112,
+    9612128,
+    9612384,
+    9612512,
+    9612640,
+    9612768,
+    9612800,
+    9613408,
+    9613536,
+    9613904,
+    9614032,
+    9614704,
+    9614832,
+    9615008,
+    9622704,
+    9622848,
+    9623104,
+    9623184,
+    9623440,
+    9623632,
+    9623760,
+    9623888,
+    9624016,
+    9624080,
+    9624240,
+    9624304,
+    9625024,
+    9625056,
+    9625088,
+    9625168,
+    9625472,
+    9625552,
+    9626384,
+    9626400,
+    9626624,
+    9627104,
+    9627120,
+    9627248,
+    9627264,
+    9627296,
+    9627424,
+    9627728,
+    9628240,
+    9628752,
+    9628816,
+    9628832,
+    9628880,
+    9628944
+  ],
+  "CRT_init_root": 9629776,
+  "linked_Cxx_library_init_root": 9628992,
+  "CRT_fini_root": 9629728,
+  "linked_runtime_fini_root": 9610704,
+  "destructors": [
+    {
+      "address": 14366912,
+      "name": "mem_alloc_description<bitmap_usage>::~mem_alloc_description()",
+      "symbols": [
+        "_ZN21mem_alloc_descriptionI12bitmap_usageED1Ev",
+        "_ZN21mem_alloc_descriptionI12bitmap_usageED2Ev"
+      ],
+      "disposition": "empty_statistics_maps"
+    },
+    {
+      "address": 14973312,
+      "name": "base_pool_allocator<memory_block_pool>::~base_pool_allocator()",
+      "symbols": [
+        "_ZN19base_pool_allocatorI17memory_block_poolED1Ev",
+        "_ZN19base_pool_allocatorI17memory_block_poolED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 14973376,
+      "name": "object_allocator<cselib_val>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10cselib_valED1Ev",
+        "_ZN16object_allocatorI10cselib_valED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 14973440,
+      "name": "object_allocator<elt_loc_list>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI12elt_loc_listED1Ev",
+        "_ZN16object_allocatorI12elt_loc_listED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 14973504,
+      "name": "object_allocator<elt_list>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI8elt_listED1Ev",
+        "_ZN16object_allocatorI8elt_listED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 15112448,
+      "name": "dump_context::~dump_context()",
+      "symbols": [
+        "_ZN12dump_contextD1Ev",
+        "_ZN12dump_contextD2Ev"
+      ],
+      "disposition": "empty_dump_context"
+    },
+    {
+      "address": 15608096,
+      "name": "object_allocator<et_occ>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI6et_occED1Ev",
+        "_ZN16object_allocatorI6et_occED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 15608160,
+      "name": "object_allocator<et_node>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI7et_nodeED1Ev",
+        "_ZN16object_allocatorI7et_nodeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 16261024,
+      "name": "mem_alloc_description<ggc_usage>::~mem_alloc_description()",
+      "symbols": [
+        "_ZN21mem_alloc_descriptionI9ggc_usageED1Ev",
+        "_ZN21mem_alloc_descriptionI9ggc_usageED2Ev"
+      ],
+      "disposition": "empty_statistics_maps"
+    },
+    {
+      "address": 17440928,
+      "name": "object_allocator<ipa_predicate>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI13ipa_predicateED1Ev",
+        "_ZN16object_allocatorI13ipa_predicateED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17660000,
+      "name": "object_allocator<histogram_entry>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI15histogram_entryED1Ev",
+        "_ZN16object_allocatorI15histogram_entryED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17759232,
+      "name": "object_allocator<ipa_cst_ref_desc>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI16ipa_cst_ref_descED1Ev",
+        "_ZN16object_allocatorI16ipa_cst_ref_descED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17937504,
+      "name": "target_ira_int::~target_ira_int()",
+      "symbols": [
+        "_ZN14target_ira_intD1Ev",
+        "_ZN14target_ira_intD2Ev"
+      ],
+      "disposition": "ira_arrays"
+    },
+    {
+      "address": 17999648,
+      "name": "object_allocator<ira_allocno_copy>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI16ira_allocno_copyED1Ev",
+        "_ZN16object_allocatorI16ira_allocno_copyED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17999712,
+      "name": "object_allocator<ira_allocno_pref>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI16ira_allocno_prefED1Ev",
+        "_ZN16object_allocatorI16ira_allocno_prefED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17999776,
+      "name": "object_allocator<ira_object>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10ira_objectED1Ev",
+        "_ZN16object_allocatorI10ira_objectED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17999840,
+      "name": "object_allocator<ira_allocno>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI11ira_allocnoED1Ev",
+        "_ZN16object_allocatorI11ira_allocnoED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 17999904,
+      "name": "object_allocator<live_range>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10live_rangeED1Ev",
+        "_ZN16object_allocatorI10live_rangeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 18089920,
+      "name": "object_allocator<update_cost_record>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI18update_cost_recordED1Ev",
+        "_ZN16object_allocatorI18update_cost_recordED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 18236000,
+      "name": "object_allocator<lra_copy>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI8lra_copyED1Ev",
+        "_ZN16object_allocatorI8lra_copyED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 18236064,
+      "name": "object_allocator<lra_insn_recog_data>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI19lra_insn_recog_dataED1Ev",
+        "_ZN16object_allocatorI19lra_insn_recog_dataED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 18236128,
+      "name": "object_allocator<lra_insn_reg>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI12lra_insn_regED1Ev",
+        "_ZN16object_allocatorI12lra_insn_regED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 18368384,
+      "name": "object_allocator<lra_live_range>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI14lra_live_rangeED1Ev",
+        "_ZN16object_allocatorI14lra_live_rangeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 19678112,
+      "name": "object_allocator<queued_debug_insn_change>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI24queued_debug_insn_changeED1Ev",
+        "_ZN16object_allocatorI24queued_debug_insn_changeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 19982432,
+      "name": "object_allocator<_list_node>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10_list_nodeED1Ev",
+        "_ZN16object_allocatorI10_list_nodeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 20405664,
+      "name": "object_allocator<asan_mem_ref>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI12asan_mem_refED1Ev",
+        "_ZN16object_allocatorI12asan_mem_refED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 21322144,
+      "name": "object_allocator<assign_link>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI11assign_linkED1Ev",
+        "_ZN16object_allocatorI11assign_linkED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 21322208,
+      "name": "object_allocator<access>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI6accessED1Ev",
+        "_ZN16object_allocatorI6accessED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 22267872,
+      "name": "object_allocator<bitmap_set>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10bitmap_setED1Ev",
+        "_ZN16object_allocatorI10bitmap_setED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 22267936,
+      "name": "object_allocator<pre_expr_d>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10pre_expr_dED1Ev",
+        "_ZN16object_allocatorI10pre_expr_dED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 22381152,
+      "name": "auto_bitmap::~auto_bitmap()",
+      "symbols": [
+        "_ZN11auto_bitmapD1Ev",
+        "_ZN11auto_bitmapD2Ev"
+      ],
+      "disposition": "bitmap_release"
+    },
+    {
+      "address": 22381184,
+      "name": "object_allocator<operand_entry>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI13operand_entryED1Ev",
+        "_ZN16object_allocatorI13operand_entryED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 22605760,
+      "name": "object_allocator<strinfo>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI7strinfoED1Ev",
+        "_ZN16object_allocatorI7strinfoED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 22624896,
+      "name": "object_allocator<pointer_analysis::variable_info>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorIN16pointer_analysis13variable_infoEED1Ev",
+        "_ZN16object_allocatorIN16pointer_analysis13variable_infoEED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 22720448,
+      "name": "object_allocator<pointer_analysis::constraint>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorIN16pointer_analysis10constraintEED1Ev",
+        "_ZN16object_allocatorIN16pointer_analysis10constraintEED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 23826048,
+      "name": "global_range_query::~global_range_query()",
+      "symbols": [
+        "_ZN18global_range_queryD1Ev",
+        "_ZN18global_range_queryD2Ev"
+      ],
+      "disposition": "default_range_oracles"
+    },
+    {
+      "address": 23911040,
+      "name": "vrange_allocator::~vrange_allocator()",
+      "symbols": [
+        "_ZN16vrange_allocatorD1Ev",
+        "_ZN16vrange_allocatorD2Ev"
+      ],
+      "disposition": "gc_allocator_control"
+    },
+    {
+      "address": 24056992,
+      "name": "object_allocator<loc_exp_dep>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI11loc_exp_depED1Ev",
+        "_ZN16object_allocatorI11loc_exp_depED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 24057056,
+      "name": "object_allocator<shared_hash>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI11shared_hashED1Ev",
+        "_ZN16object_allocatorI11shared_hashED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 24057120,
+      "name": "object_allocator<location_chain>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI14location_chainED1Ev",
+        "_ZN16object_allocatorI14location_chainED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 24057184,
+      "name": "object_allocator<attrs>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI5attrsED1Ev",
+        "_ZN16object_allocatorI5attrsED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 36886720,
+      "name": "mem_alloc_description<pool_usage>::~mem_alloc_description()",
+      "symbols": [
+        "_ZN21mem_alloc_descriptionI10pool_usageED1Ev",
+        "_ZN21mem_alloc_descriptionI10pool_usageED2Ev"
+      ],
+      "disposition": "empty_statistics_maps"
+    },
+    {
+      "address": 36976896,
+      "name": "std::map<long, int, std::less<long>, std::allocator<std::pair<long const, int> > >::~map()",
+      "symbols": [
+        "_ZNSt3mapIliSt4lessIlESaISt4pairIKliEEED1Ev",
+        "_ZNSt3mapIliSt4lessIlESaISt4pairIKliEEED2Ev"
+      ],
+      "disposition": "standard_map_interface"
+    },
+    {
+      "address": 37353280,
+      "name": "object_allocator<deferred_change>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI15deferred_changeED1Ev",
+        "_ZN16object_allocatorI15deferred_changeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 37353344,
+      "name": "object_allocator<group_info>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10group_infoED1Ev",
+        "_ZN16object_allocatorI10group_infoED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 37353408,
+      "name": "object_allocator<dse_bb_info_type>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI16dse_bb_info_typeED1Ev",
+        "_ZN16object_allocatorI16dse_bb_info_typeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 37353472,
+      "name": "object_allocator<insn_info_type>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI14insn_info_typeED1Ev",
+        "_ZN16object_allocatorI14insn_info_typeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 37353536,
+      "name": "object_allocator<read_info_type>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI14read_info_typeED1Ev",
+        "_ZN16object_allocatorI14read_info_typeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 37353600,
+      "name": "object_allocator<store_info>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10store_infoED1Ev",
+        "_ZN16object_allocatorI10store_infoED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 37675712,
+      "name": "gimple_outgoing_range::~gimple_outgoing_range()",
+      "symbols": [
+        "_ZN21gimple_outgoing_rangeD1Ev",
+        "_ZN21gimple_outgoing_rangeD2Ev"
+      ],
+      "disposition": "empty_switch_range_table"
+    },
+    {
+      "address": 38133312,
+      "name": "object_allocator<locality_info>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI13locality_infoED1Ev",
+        "_ZN16object_allocatorI13locality_infoED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 38133376,
+      "name": "std::unique_ptr<hash_map<int_hash<int, 0, -1>, cgraph_node*, simple_hashmap_traits<default_hash_traits<int_hash<int, 0, -1> >, cgraph_node*> >, std::default_delete<hash_map<int_hash<int, 0, -1>, cgraph_node*, simple_hashmap_traits<default_hash_traits<int_hash<int, 0, -1> >, cgraph_node*> > > >::~unique_ptr()",
+      "symbols": [
+        "_ZNSt10unique_ptrI8hash_mapI8int_hashIiLi0ELin1EEP11cgraph_node21simple_hashmap_traitsI19default_hash_traitsIS2_ES4_EESt14default_deleteIS9_EED1Ev",
+        "_ZNSt10unique_ptrI8hash_mapI8int_hashIiLi0ELin1EEP11cgraph_node21simple_hashmap_traitsI19default_hash_traitsIS2_ES4_EESt14default_deleteIS9_EED2Ev"
+      ],
+      "disposition": "owned_hash_map"
+    },
+    {
+      "address": 38133456,
+      "name": "std::unique_ptr<hash_map<int_hash<int, 0, -1>, locality_info*, simple_hashmap_traits<default_hash_traits<int_hash<int, 0, -1> >, locality_info*> >, std::default_delete<hash_map<int_hash<int, 0, -1>, locality_info*, simple_hashmap_traits<default_hash_traits<int_hash<int, 0, -1> >, locality_info*> > > >::~unique_ptr()",
+      "symbols": [
+        "_ZNSt10unique_ptrI8hash_mapI8int_hashIiLi0ELin1EEP13locality_info21simple_hashmap_traitsI19default_hash_traitsIS2_ES4_EESt14default_deleteIS9_EED1Ev",
+        "_ZNSt10unique_ptrI8hash_mapI8int_hashIiLi0ELin1EEP13locality_info21simple_hashmap_traitsI19default_hash_traitsIS2_ES4_EESt14default_deleteIS9_EED2Ev"
+      ],
+      "disposition": "owned_hash_map"
+    },
+    {
+      "address": 38133536,
+      "name": "std::unique_ptr<hash_map<int_hash<unsigned int, 0u, 0u>, templ_info, simple_hashmap_traits<default_hash_traits<int_hash<unsigned int, 0u, 0u> >, templ_info> >, std::default_delete<hash_map<int_hash<unsigned int, 0u, 0u>, templ_info, simple_hashmap_traits<default_hash_traits<int_hash<unsigned int, 0u, 0u> >, templ_info> > > >::~unique_ptr()",
+      "symbols": [
+        "_ZNSt10unique_ptrI8hash_mapI8int_hashIjLj0ELj0EE10templ_info21simple_hashmap_traitsI19default_hash_traitsIS2_ES3_EESt14default_deleteIS8_EED1Ev",
+        "_ZNSt10unique_ptrI8hash_mapI8int_hashIjLj0ELj0EE10templ_info21simple_hashmap_traitsI19default_hash_traitsIS2_ES3_EESt14default_deleteIS8_EED2Ev"
+      ],
+      "disposition": "owned_hash_map"
+    },
+    {
+      "address": 38251456,
+      "name": "object_allocator<ipcp_agg_lattice>::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI16ipcp_agg_latticeED1Ev",
+        "_ZN16object_allocatorI16ipcp_agg_latticeED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 38251520,
+      "name": "object_allocator<ipcp_value_source<tree_node*> >::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI17ipcp_value_sourceIP9tree_nodeEED1Ev",
+        "_ZN16object_allocatorI17ipcp_value_sourceIP9tree_nodeEED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 38251584,
+      "name": "object_allocator<ipcp_value<ipa_polymorphic_call_context> >::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10ipcp_valueI28ipa_polymorphic_call_contextEED1Ev",
+        "_ZN16object_allocatorI10ipcp_valueI28ipa_polymorphic_call_contextEED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 38251648,
+      "name": "object_allocator<ipcp_value<tree_node*> >::~object_allocator()",
+      "symbols": [
+        "_ZN16object_allocatorI10ipcp_valueIP9tree_nodeEED1Ev",
+        "_ZN16object_allocatorI10ipcp_valueIP9tree_nodeEED2Ev"
+      ],
+      "disposition": "pool_release"
+    },
+    {
+      "address": 38432400,
+      "name": "hash_map<tree_node const*, unsigned int, simple_hashmap_traits<default_hash_traits<tree_node const*>, unsigned int> >::~hash_map()",
+      "symbols": [
+        "_ZN8hash_mapIPK9tree_nodej21simple_hashmap_traitsI19default_hash_traitsIS2_EjEED1Ev",
+        "_ZN8hash_mapIPK9tree_nodej21simple_hashmap_traitsI19default_hash_traitsIS2_EjEED2Ev"
+      ],
+      "disposition": "scalar_hash_map"
+    },
+    {
+      "address": 38908272,
+      "name": "target_globals::~target_globals()",
+      "symbols": [
+        "_ZN14target_globalsD1Ev",
+        "_ZN14target_globalsD2Ev"
+      ],
+      "disposition": "default_target_globals"
+    },
+    {
+      "address": 40162304,
+      "name": "mem_alloc_description<vec_usage>::~mem_alloc_description()",
+      "symbols": [
+        "_ZN21mem_alloc_descriptionI9vec_usageED1Ev",
+        "_ZN21mem_alloc_descriptionI9vec_usageED2Ev"
+      ],
+      "disposition": "empty_statistics_maps"
+    },
+    {
+      "address": 40183728,
+      "name": "json::property<json::array>::~property()",
+      "symbols": [
+        "_ZN4json8propertyINS_5arrayEED1Ev",
+        "_ZN4json8propertyINS_5arrayEED2Ev"
+      ],
+      "disposition": "borrowed_json_key"
+    },
+    {
+      "address": 40183760,
+      "name": "json::property<json::integer_number>::~property()",
+      "symbols": [
+        "_ZN4json8propertyINS_14integer_numberEED1Ev",
+        "_ZN4json8propertyINS_14integer_numberEED2Ev"
+      ],
+      "disposition": "borrowed_json_key"
+    },
+    {
+      "address": 40183792,
+      "name": "json::property<json::string>::~property()",
+      "symbols": [
+        "_ZN4json8propertyINS_6stringEED1Ev",
+        "_ZN4json8propertyINS_6stringEED2Ev"
+      ],
+      "disposition": "borrowed_json_key"
+    },
+    {
+      "address": 40184048,
+      "name": "json::property<json::enum_traits<custom_sarif_properties::state_graphs::node::dynalloc_state_t> >::~property()",
+      "symbols": [
+        "_ZN4json8propertyINS_11enum_traitsIN23custom_sarif_properties12state_graphs4node16dynalloc_state_tEEEED1Ev",
+        "_ZN4json8propertyINS_11enum_traitsIN23custom_sarif_properties12state_graphs4node16dynalloc_state_tEEEED2Ev"
+      ],
+      "disposition": "borrowed_json_key"
+    },
+    {
+      "address": 40184080,
+      "name": "json::property<json::value>::~property()",
+      "symbols": [
+        "_ZN4json8propertyINS_5valueEED1Ev",
+        "_ZN4json8propertyINS_5valueEED2Ev"
+      ],
+      "disposition": "borrowed_json_key"
+    },
+    {
+      "address": 40184112,
+      "name": "json::property<json::enum_traits<custom_sarif_properties::state_graphs::node::kind_t> >::~property()",
+      "symbols": [
+        "_ZN4json8propertyINS_11enum_traitsIN23custom_sarif_properties12state_graphs4node6kind_tEEEED1Ev",
+        "_ZN4json8propertyINS_11enum_traitsIN23custom_sarif_properties12state_graphs4node6kind_tEEEED2Ev"
+      ],
+      "disposition": "borrowed_json_key"
+    },
+    {
+      "address": 40200832,
+      "name": "diagnostics::context::~context()",
+      "symbols": [
+        "_ZN11diagnostics7contextD1Ev",
+        "_ZN11diagnostics7contextD2Ev"
+      ],
+      "disposition": "diagnostics_implicit_members"
+    },
+    {
+      "address": 40777696,
+      "name": "semi_embedded_vec<bidi::context, 16>::~semi_embedded_vec()",
+      "symbols": [
+        "_ZN17semi_embedded_vecIN4bidi7contextELi16EED1Ev",
+        "_ZN17semi_embedded_vecIN4bidi7contextELi16EED2Ev"
+      ],
+      "disposition": "embedded_vector_release"
+    }
+  ],
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/align.h",
+      "bytes": 2507,
+      "sha256": "401aed2d031b0b84d2c97fc69a79adef63e54d0e4fe0ff07ee3373d8bad0b7b6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/mem-stats.h",
+      "bytes": 18132,
+      "sha256": "9002b3042aaff192a120ce178d5421986a1dab3c653136ba63ff5e61d2b8f332"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-traits.h",
+      "bytes": 11226,
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.cc",
+      "bytes": 4564,
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/memory-block.h",
+      "bytes": 2500,
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-costs.cc",
+      "bytes": 88610,
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/target-globals.cc",
+      "bytes": 4507,
+      "sha256": "ddfb9048405451b50f4e97329e1aa26016298c391385858609eb71e92491101d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dumpfile.cc",
+      "bytes": 81299,
+      "sha256": "1054e1cfd054fbfcbfe36f11963dce31bc439e28cbaf07523b80a456aa933eea"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/optinfo.cc",
+      "bytes": 3721,
+      "sha256": "775d023ce79c1cda78456459292512cf4a164a4146c9b448d23159d71a17d498"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-range-edge.cc",
+      "bytes": 6985,
+      "sha256": "0e86dbb6e7b9e1b0b751aa57c577bb9411e021f48cb96cb80a18c6b264f97883"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/value-query.cc",
+      "bytes": 14366,
+      "sha256": "e97a7138bc7049beaa03eba13080a5ad243e50a7380b5e66783c5cb83086a921"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/value-range-storage.cc",
+      "bytes": 17488,
+      "sha256": "b8845463227db35962dfde38f3becfc7c570f496af07a94906e7b8136a4a3857"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/value-range-storage.h",
+      "bytes": 5166,
+      "sha256": "25fe030876a97b61ebdabd4a1a3c48d2c108d7d4b02271a7bc1da804f13836da"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/json.h",
+      "bytes": 13639,
+      "sha256": "8a67c9af3bd33a51b0d94240dd35617965ba24d69a85fdab3ecfb7e67cb45a42"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/label-text.h",
+      "bytes": 2526,
+      "sha256": "f2040fbb6b93d192a2172cec11ca1dfb8d35b17f41d700d1cba24ec9a0c2f75d"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/rich-location.h",
+      "bytes": 21572,
+      "sha256": "de7ab46d3fd7abe956b9ad37d48618b3cadbc4ab72cada97bad447bb533a37ee"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/context.h",
+      "bytes": 25372,
+      "sha256": "9a1aa3b09a4dc85420769d8c44bf55cd7ceec43541501dec74642b0299fdfde9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/option-classifier.h",
+      "bytes": 3486,
+      "sha256": "1ff0dacff54fbcc777c19050ff85480824c1e85c603fc5c4828479eb73142ec1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/counters.h",
+      "bytes": 1448,
+      "sha256": "c4bbb22171c89540a9d0363746217a8a14f9dcf7db426e3c7215f00395eadbf7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/context.cc",
+      "bytes": 66477,
+      "sha256": "32264b018798a6f64361c69da5af84ed5422ef38349ff68ba4683c58beefebd9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/source-printing-options.h",
+      "bytes": 2854,
+      "sha256": "feef9948237e0baafeaf5b7bce61763b332ee4cb67e49ba109dad75083732a86"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/column-options.h",
+      "bytes": 1371,
+      "sha256": "f4fb5d09c269512ba635945e90d6809e4f5641007c1b4f837f22afc5e5489d72"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/range-op.cc",
+      "bytes": 151029,
+      "sha256": "bda4e36f69d37a032f661a8b9ce2c125fef85819d59fa885ffc3d7896bed32c0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/range-op-ptr.cc",
+      "bytes": 35747,
+      "sha256": "29b2bc683e8bb5959f7939889e02635fd8c5ffb73fa89c5b08c2870ef5b6ef67"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/range-op-float.cc",
+      "bytes": 89151,
+      "sha256": "0ff817c112f2ea23a3a42a50b5b06acef98f0b01bb6e6dad77913a2ae70c6337"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386-features.cc",
+      "bytes": 154425,
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-icf.cc",
+      "bytes": 108874,
+      "sha256": "4bde0b8022c4539d2a102780bfba265d875d0b6c41a15143b68953cc514514ac"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-cp.cc",
+      "bytes": 212823,
+      "sha256": "2064bf1b42c43a3ffbadaea5320a6bcc8070258ee31805d9238a3511f7d9dd10"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-strub.cc",
+      "bytes": 113798,
+      "sha256": "77ebaf56774b4159366e3fe8ce0745babf68de6c9824bf0e4b17515fdce70a0e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-inline-transform.cc",
+      "bytes": 30301,
+      "sha256": "152ccc17a9c38cf8226a0ade7abde662430c58d0e25b0482f2957725441a9fc3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-modref.cc",
+      "bytes": 168363,
+      "sha256": "81c0a3156f0284307134f173b1d0b63e42cfe23662423c5123969220d0fd3e8d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reginfo.cc",
+      "bytes": 39713,
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "root": "plugin",
+      "path": "auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "root": "cxx",
+      "path": "bits/stl_map.h",
+      "bytes": 63144,
+      "sha256": "02199ac40de6e5fa5801bba6c64277ca421f3ee96af293db8d1c50050d00d782"
+    },
+    {
+      "root": "cxx",
+      "path": "bits/stl_tree.h",
+      "bytes": 97353,
+      "sha256": "a7de5dc876d6f29d8983b0e3cb8c4107848a6cd41c4b4b0e15062c7e8323585b"
+    },
+    {
+      "root": "cxx",
+      "path": "bits/unique_ptr.h",
+      "bytes": 37311,
+      "sha256": "6aae904949de001113d26ec6e064a208e093541856377ca08e9c8a121f15662a"
+    }
+  ],
+  "prior_results": [
+    {
+      "path": "native-gcc-prefix-witness.json",
+      "bytes": 3891,
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "path": "native-fixed-prefix-collection.json",
+      "bytes": 7299,
+      "sha256": "a2bd041564ff43a9542c638b8a69be394b060f75466823f3b226e71de0e4ba79"
+    },
+    {
+      "path": "fixed-gcc-prefix-source-identity.json",
+      "bytes": 2424,
+      "sha256": "82c63e17da8aad077410c8c3b90a7cd3862bba25ed381e91466aabb672a2cd6b"
+    },
+    {
+      "path": "native-process-shell.json",
+      "bytes": 2955,
+      "sha256": "374cbe5484b6c16304b8468d032902ec35f48712ef6039d4f32a3ece4369528c"
+    },
+    {
+      "path": "native-startup-registry.json",
+      "bytes": 316637,
+      "sha256": "2bc3346517330a87893635858491cdd5e003fbffb8d43e83b2c25d2c28112f08"
+    },
+    {
+      "path": "native-null-gigi-metadata.json",
+      "bytes": 2544,
+      "sha256": "3eda86898f726a203d6a56c86f6a2cb01e380d687ad7081a40e0171440063e5a"
+    },
+    {
+      "path": "static-lifecycle-disassembly.txt",
+      "bytes": 241702,
+      "sha256": "ed37aae359aa05e813fe4be268ca13d40943eae802931244e113f182b5281607"
+    }
+  ]
+}

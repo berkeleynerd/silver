@@ -139,3 +139,20 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --cxx-include /path/to/pinned/include/c++/16.1.0 \
   --output /tmp/native-startup-registry.json
 ```
+# Static lifecycle and fixed ordinary prefix transfer
+
+`static-lifecycle-inputs.json` pins46 source/generated/header files, the
+installed gnat1 ELF and prior component records. Its complete69-target
+destructor disposition table joins the actual57 GCC-owned initializer roots
+and94 registration sites. `static-lifecycle-disassembly.txt` retains complete
+instruction bytes; `reconcile-static-lifecycle.py` checks them against the ELF,
+reconciles the roots/registrations and replays small fixed allocation formulas.
+The result is `native-static-lifecycle.json`.
+
+The companion research section explains the successful-prefix transfer for
+fixed ordinary startup requests and the explicit variable metadata exclusions.
+No ordinary heap total is inferred from GGC bytes. Selected GCC static exit
+adds no allocation; the known40,098 GGC subtotal stays unchanged. The packet
+does not close the source/invocation descriptor integration or alter admission.
+No compiler, prover or debugger was executed. The initial read-only objdump
+capture used `-d -C --insn-width=16`; replay invokes no disassembler.

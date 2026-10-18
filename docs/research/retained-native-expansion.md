@@ -10905,6 +10905,184 @@ accepted the constructor/member census, registry growth/layout bounds and
 coverage/cwd arithmetic under the stated pathname and OS-interface premises.
 No finding was raised. No native tool ran for that review.
 
+## Fixed ordinary prefix transfer and actual static lifecycle
+
+The [lifecycle replay](../evidence/unbounded-programs/retained-native-expansion-20261017/native-static-lifecycle.json)
+closes the remaining fixed GCC startup/target and static-exit component for
+the selected null source class. It combines the already retained prefix read
+projection with an offline census of the installed executable's actual
+initializer and destructor registration sites. It adds no native execution.
+It does not replace the source/path/table predicates needed for a complete
+native-null rule.
+
+### Fixed ordinary startup requests
+
+The earlier prefix capture reached the stop immediately before
+`Compilation_Unit_to_gnu` without a capacity failure. Thus every ordinary
+request on that executed prefix was representable and accepted. For the
+**fixed** portion of that prefix, the same executable, options, environment,
+target, fixed Standard roots and helper read projection transfer that fact
+to the selected null source family. This is a fixed-request acceptance
+argument. The GGC byte counter did not measure ordinary allocations, and its
+3,318,816-byte sum is not an ordinary-heap bound. No aggregate memory total
+is introduced or inferred.
+
+The covered fixed calls include `general_init`, backend/target initialization,
+machine-mode setup, `init_emit_once`, `init_rtlanal`, `init_inline_once`,
+`init_varasm_once`, register initialization, fixed builtin installation and
+fixed pass/dump-manager construction (`toplev.cc:1045–1170,1830–1849,
+2147–2237`). Their selected source/option read projection is unchanged. MPFR,
+allocation, C/C++ library and OS calls stop at their existing interfaces.
+The registry packet above supplies explicit ordinary request bounds as well.
+An independent enumeration of every transitive fixed builtin helper is not
+needed once its fixed read projection and successful prefix are joined.
+
+The transfer expressly excludes these variable ingress routes:
+
+| Variable input/read | Required separate join |
+| --- | --- |
+| Original/decoded arguments, environment-controlled options and target modes | The process-shell packet's fixed selected invocation/environment, argc24, actual pathname bound and option-obstack arithmetic; changed options require a new projection. |
+| Main/config/map/path-file contents and resolved paths | Existing scanner/table, invocation descriptor and filename bounds; coverage's `2P+7` signed check and `getpwd` caller-buffer bound are additional unconditional requests. |
+| Physical/virtual source files, lines, columns and source locations | Source-map and line/column backing/counter predicates, including the location corrections retained outside the prefix allowance. |
+| `max_gnat_nodes` and Ada callback tables | The two gigi association arrays and physical Ada table/backing predicates, plus separately charged Uint/Repinfo callback events. |
+| Translation-unit filename identifier and shared identifier/hash occupancy | Actual name bytes, additional insertion counts and common table growth; filename bytes never receive the fixed-prefix byte ceiling. |
+| Main's lowered graph and later code generation | The null gigi, GIMPLE/CFG/SSA, RTL/pass, output and explicit-cleanup packets; these are after the prefix stop. |
+
+Within the fixed prefix, differing metadata addresses, identifier collision
+probes or numeric source/table IDs do not change the Standard-root semantic
+read projection. Shared backing is still charged through its full variable
+metadata predicates. The retained capture was deliberately killed at its
+stop; this transfer claims successful execution of the prefix, not a successful
+full compile from that capture. It also does not make a different source
+construct's read projection automatic.
+
+### Actual executable initializer census
+
+The [46-source identity and disposition record](../evidence/unbounded-programs/retained-native-expansion-20261017/static-lifecycle-inputs.json)
+pins GCC sources, installed generated configuration/C++ headers, the prior
+prefix/registry/process records, and installed gnat1 SHA-256
+`5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e`.
+The [retained disassembly](../evidence/unbounded-programs/retained-native-expansion-20261017/static-lifecycle-disassembly.txt)
+has all instruction bytes, including instructions longer than objdump's usual
+seven-byte display line. Replay compares all3,611 retained instructions with
+the ELF bytes; no compiler, debugger or disassembler is invoked by replay.
+
+The ELF has59 `.init_array` entries:57 GCC-owned initializer roots, one CRT
+root and one linked C++ runtime root. The latter initializes the exception
+emergency pool and reads `GLIBCXX_TUNABLES`; that variable is absent in the
+controlled retained environment. The CRT/library startup interfaces retain
+their existing boundary. The ELF also has two `.fini_array` roots, the CRT
+tail and a linked runtime cleanup root, and no `.preinit_array`. Their bytes,
+as well as `.init` and `.fini`, are retained rather than silently omitted.
+This does not promote the internals of those established library interfaces
+into a new prerequisite.
+
+All57 GCC initializer roots are straight-line store/call sequences with no
+conditional or indirect call. Replay follows their actual instruction sizes
+until return/tailcall and tracks each constant destructor argument, including
+the one RIP-relative address. They contain94 `__cxa_atexit` registrations,
+covering69 distinct exported destructor targets. The identity record includes
+every address, mangled export, readable name and source disposition; this is
+an inventory of the installed executable, not an inference from whichever
+destructors happened to be mentioned in a selected source file.
+
+A conservative byte search over all `.text` finds96 direct relative calls or
+tails to the single imported `__cxa_atexit` PLT entry. Every hit is checked
+against retained complete instruction bytes. The two sites outside the
+initializer roots are the alignment cache in `parse_N_M` and the
+function-static statistics descriptor in `hash_table_usage`. The dynamic
+relocations have exactly one registration import/GOT slot and no `atexit` or
+`on_exit` alternative. This binary census corroborates the source/generated
+lifecycle argument; it is not a general proof about arbitrary indirect
+machine-code data flow.
+
+Static startup does allocate ordinary backing even though
+`GATHER_STATISTICS=0`. Each of the four global memory-usage descriptors
+constructs three13-slot maps (`mem-stats.h:557–561`). Their per-map controls
+fit96 bytes. A key/pointer entry is16 bytes and a key/two-word-value entry
+24 bytes, giving208 or312 bytes per backing request. The constructors pass
+`gather_mem_stats=false`; the selected statistics-disabled uses do not populate
+these maps. The static ICF type map also constructs13 pointer/scalar entries,
+208 bytes (`ipa-icf.cc:234`). The global `vrange_allocator(true)` allocates
+one8-byte virtual allocator control; the selected GC allocator constructor
+allocates no GGC object (`value-range-storage.cc:36–93,687`).
+
+Pool constructors initialize their existing control fields without allocating
+blocks. The fixed range-operation initialization writes existing dispatch-table
+pointers (`range-op.cc:82–86`, `range-op-ptr.cc:1429–1433`,
+`range-op-float.cc:3197–3208`). Four fixed `xlogue_layout` constructors fill
+existing target-register arrays (`i386-features.cc:215–240`). The remaining
+GCC initializer calls are the already priced map allocation interfaces,
+the empty outgoing-range constructor and scalar diagnostic-counter setup.
+All of this startup was before the retained prefix stop; it does not add
+events to the39,257-event prefix allowance.
+
+Conservatively charge `parse_N_M`'s optional static alignment cache even when
+its fixed option strings do not select it. There are at most four input strings
+and thus four entries in the initial13-slot table. Each entry consists of an
+8-byte key and16-byte `align_flags`, so its backing is312 bytes. Each parse has
+at most four unsigned values, giving24 bytes including its vector prefix
+(`toplev.cc:1215–1281`, `opts.cc:2491–2532`, `align.h:22–75`). This cache's
+destructor only releases its scalar-entry backing. The other function-static
+site, `hash_table_usage`, is used under `GATHER_STATISTICS` and is unselected;
+even if called, its descriptor has the same already covered constructor and
+release-only destructor shape.
+
+### Selected static exit
+
+The actual registered GCC destructor groups are as follows. Counts distinguish
+distinct code targets from registrations of separate static objects.
+
+| Source disposition | Targets / registrations | Selected exit effect |
+| --- | ---: | --- |
+| `object_allocator<T>` / `base_pool_allocator<memory_block_pool>` |45 /48|Traverse existing pool blocks and return them to an intrusive free list; placement `new` writes the returned block and requests no memory (`alloc-pool.h:302–343`, `memory-block.h:69–78`). |
+| Four `mem_alloc_description<T>` types |4 /4|Delete existing descriptor keys/values and the three maps; selected statistics maps are empty (`mem-stats.h:568–579`). |
+| `target_ira_int` |1 /1|Free existing cost arrays and mode matrices; duplicate matrix pointers are checked before freeing (`ira.cc:1665–1695`, `ira-costs.cc:2544–2557`). |
+| `target_globals` |1 /1|The registered default instance returns without deleting target storage (`target-globals.cc:125–148`). |
+| `dump_context` |1 /1|Delete `m_pending`; it is null under the selected no-dump options (`dumpfile.cc:529–532`). |
+| `global_range_query` |1 /1|Retain default relation/inference/outgoing-range oracles and the null map; null's selected path creates no replacement global oracle (`value-query.cc:193–294`). |
+| `gimple_outgoing_range` |1 /1|Its edge table and allocator start null and the null body has no switch to populate them (`gimple-range-edge.cc:69–85`). |
+| `vrange_allocator` |1 /1|Delete the GC allocator control; its virtual destructor is empty (`value-range-storage.cc:36–93`). |
+| `auto_bitmap` |1 /1|Clear/return existing elements; no new bitmap backing is requested. |
+| Owned hash maps and static scalar hash map |4 /5|Release existing backing; selected key/value traits are scalar, pointer or ordinary records. Default unique pointers are null until their separately covered phase uses. |
+| `std::map<long,int>` |1 /1|Release existing nodes through the standard-library map interface. |
+| JSON property templates |6 /27|Their one-string initializers borrow static keys; `label_text` only conditionally frees an owned key (`json.h:125–137`, `libcpp/include/label-text.h:31–46`). |
+| `diagnostics::context` |1 /1|Implicit member destruction, not a second `finish()`: all members are scalar/raw pointers or ordinary records except the sink `auto_vec`, which releases its existing backing (`diagnostics/context.h:640–861`). Classifier vectors are plain `vec`, and counters contain a fixed integer array. Explicit sink/client cleanup was already covered by the process-shell packet. |
+| `semi_embedded_vec<bidi::context,16>` |1 /1|Free the existing extra array (`libcpp/include/rich-location.h:137–140`). |
+
+These94 registrations therefore contribute **zero new ordinary requests and
+zero GGC events at selected static exit**, as does the separately charged
+alignment-cache destructor. The `target_hard_regs::finalize` method is not a
+static destructor; its source expressly disallows invoking it on exit
+(`reginfo.cc:1350–1356`). The optional `toplev::finalize` remains excluded by
+the selected checking option. The compiler's raw global context pointer is
+not an owning C++ object whose destructor would run automatically.
+
+The known GGC subtotal remains **40,098**. This packet closes fixed GCC
+startup/target ordinary requests and actual GCC static cleanup under the stated
+read projection. The remaining native-null integration is to evaluate the
+existing variable source/path/table predicates and shared metadata corrections
+against one actual source/invocation descriptor, preserving the later-phase
+joins. There is no new fixed-helper audit or aggregate host-memory condition
+at that frontier. Production admission remains unchanged.
+
+Replay uses only retained evidence, source files and the installed executable:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-static-lifecycle.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --plugin-include <toolchain>/lib/gcc/x86_64-pc-linux-gnu/16.1.0/plugin/include \
+  --cxx-include <toolchain>/include/c++/16.1.0 \
+  --gnat1 <toolchain>/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1 \
+  --output /tmp/native-static-lifecycle.json
+```
+
+Independent narrow review replayed all46 source identities and3,611 instruction
+bytes, checked the ELF root/registration partition and the selected destructor
+groups, and accepted the fixed-prefix transfer with its explicit metadata
+exclusions. Its one minor replay suggestion, asserting the exact CRT/library
+root partition, is included. No additional native execution was needed.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
