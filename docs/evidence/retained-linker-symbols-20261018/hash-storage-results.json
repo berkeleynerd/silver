@@ -1,0 +1,28 @@
+{
+  "scope": "Selected global link-hash record/backbone/snapshot capacity",
+  "source_files_verified": 37,
+  "bitfield_counts": {
+    "bfd_link_hash_entry": 8,
+    "elf_link_hash_entry": 27,
+    "elf_x86_link_hash_entry": 10
+  },
+  "base_record_layout_bound": 80,
+  "elf_record_extension_bound": 192,
+  "x86_record_extension_bound": 72,
+  "combined_record_layout_bound": 344,
+  "charged_entry_bytes": 512,
+  "common_record_bytes": 16,
+  "hash_entry_sufficient_limit": 805306341,
+  "pointer_capacity_limit": 1073741789,
+  "snapshot_request_bound": "8*C + 1040*H",
+  "snapshot_bytes_at_sufficient_limits": 846108528952,
+  "global_name_payload_sufficient_limit": 4294967294,
+  "global_name_bound": "max(171,L_generated)+2+L_version",
+  "actual_hash_count_restored_on_rollback": true,
+  "objalloc_has_cumulative_allocation_counter": false,
+  "lifetime_constructor_gate_required_for_this_arena": false,
+  "actual_BFD_alloc_size_counter_included": false,
+  "source_to_generated_counts_and_lengths_complete": false,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

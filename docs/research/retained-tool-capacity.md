@@ -275,10 +275,13 @@ bound imported dependencies by117 and their groups by11. A separate exact
 version-name inventory supplies51 possible fixed suffixes even through default
 aliases, giving `V <= 51+W` and maximum version index `169+W` for an additional
 generated/synthetic suffix budget W. It does not assume V=0. Main and binder
-symbol naming now have no-`@` transfers; the generated warning-section join
-remains explicit. The `.dynstr` lifetime transfer supplies distinct-name,
+symbol naming and generated warning-section coverage now supply W=0 for the
+selected null link: V<=51 and maximum version index169. The `.dynstr` lifetime transfer supplies distinct-name,
 unshared-byte and positive-reference bounds, including rollback losses; its
-generated count/length and section-visit inputs remain open.
+generated count/length and section-visit inputs remain open. The global
+hash join now bounds actual count high water, record/backbone requests and
+as-needed rollback snapshots. Its objalloc has no cumulative byte counter;
+the separate BFD `alloc_size` and other arenas remain open.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative
@@ -296,9 +299,10 @@ uses ordinary storage and its Boolean ranges remain inline. The complete
 RTL-info allocation; selected final/CFI/section emission adds five further
 GGC requests. Null gigi helper objects and vectors add11 more, making the
 known subtotal 40,086 after the structural, shared-cache, unit-symbol,
-initial GIMPLE/CFG/SSA and warning/IPA joins, with variable metadata,
-remaining cgraph lifecycle and shared collector composition still
-explicit in the native expansion record. The
+initial GIMPLE/CFG/SSA and warning/IPA joins. The cgraph lifecycle adds
+zero GGC events and establishes one lowering and expansion of Main; variable
+metadata and shared collector/process composition remain explicit in the
+native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;
 emitted-field validity and final relocation reach remain separate obligations.

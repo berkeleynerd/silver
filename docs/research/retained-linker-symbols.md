@@ -525,8 +525,9 @@ The last line substitutes the first two into the previous lifetime
 registration transfer; it retains all `8R` registration losses. As-needed
 rollback may cause the same spelling to be constructed again, but does not
 increase the live name domain. **This H bound is not a lifetime constructor
-or cumulative arena-allocation bound.** Those distinct storage obligations
-must still account for discarded allocations.
+or cumulative arena-allocation bound.** Storage with an actual cumulative
+counter must account for discarded allocations; the global hash arena
+analysis below does not invent such a counter for objalloc.
 
 If generated Main/binder symbol and section names also have no `@`, the
 selected linker introduces no additional version suffix: the only decorator
@@ -634,3 +635,101 @@ existing-name guards, version dependencies, SONAME/audit inputs and
 DT_NEEDED's pre-deduplication increment. It accepted the displayed bounds
 without a material finding, retaining the generated-input and lifetime-arena
 obligations and the generated warning-section premise.
+
+The generated-name premise is now supplied for the selected null link.
+Main's source-derived assembler transfer preserves its symbol spellings;
+the [binder naming transfer](retained-binder-capacity.md#names-calls-and-retained-object-inventory)
+and its warning-section extension (`0f738ce13a`, `284c5c9463`) independently
+trace builtins, libcalls, generated elaboration/init names and the selected
+ELF section producers. Binder nonlocal names contain no `@`, and it has no
+`.gnu.warning.<name>` producer. Other section names cannot introduce a new
+global spelling through the create-disabled start/stop lookups. Thus the
+selected Main/binder/fixed/script/synthetic union supplies **W=0**, V<=51
+and maximum version index169. The earlier checkers deliberately retain their
+conditional transfer interfaces; this composition supplies the naming
+premise, not the still-open generated counts, lengths or whole-link capacity.
+
+
+## Global hash storage and rollback snapshots
+
+The selected x86 global link hash stores one
+`elf_x86_link_hash_entry` per ordinary entry. Its constructor allocates the
+complete derived record once and passes that existing record to its
+superclasses (`elfxx-x86.c:625–657,725–727`). On the retained LP64 ABI,
+a conservative field-layout calculation charges every bitfield its own
+four-byte unit, rather than relying on the tighter compiler packing:
+
+| Record portion | Bound in bytes | Fields |
+| --- | ---: | --- |
+| BFD link entry | 80 | 24-byte base hash, eight bitfields and a 24-byte union |
+| ELF extension | 192 | ten eight-byte fields/unions and 27 bitfields rounded to eight-byte alignment |
+| X86 extension | 72 | one byte rounded to eight, ten bitfields, three eight-byte fields/unions |
+
+The sum is344, so **512 bytes per complete entry** is sufficient.
+The separate common-entry record is16 bytes: an unsigned alignment power
+and one pointer (`include/bfdlink.h:92–205`, `bfd/elf-bfd.h:128–280`,
+`bfd/elfxx-x86.h:326–387`). These are derived upper bounds, not measurements
+of the installed binary's `sizeof` values.
+
+Let H be the uniform live/traversal entry bound above and C the table's
+pointer capacity. The as-needed snapshot loops over actual table entries,
+copying one entry, at most one warning target and at most one common record
+per entry (`elflink.c:4884–4973`). Its `size_t` request is therefore at most
+
+```text
+8C + (2*512+16)H = 8C + 1040H.
+```
+
+Restoring an unneeded input restores both `table.count` and `table.size`
+from their saved values (`:4936–4938,5842–5844`). Thus H bounds the actual
+global hash count, including its high water during each input trial; repeated
+construction after rollback is not a cumulative `count` increment across
+those trials. This differs from the dynamic String table, whose dead entries
+remain in its hash. Applying the existing sufficient hash-growth conditions
+`H<=805306341` and `C<=1073741789` also bounds the snapshot request by
+846108528952 bytes, below signed64/size_t. That very loose representability
+bound is not an assertion of available physical storage or a required
+allocation for an ordinary null link.
+
+Name copies use two interfaces. `bfd_hash_hash` narrows the name length to
+unsigned32, and `bfd_hash_lookup` adds the NUL in that type before requesting
+objalloc storage (`hash.c:509–532,552–584`). `bfd_hash_allocate` separately
+accepts an unsigned32 size (`:740–760`). A sufficient payload condition is
+therefore **L<=2^32-2**, covering both length-plus-NUL routes. The selected
+global names satisfy `L<=max(171,L_generated)+2+L_version`: input, script and
+synthetic spellings have the preceding name domain, and version normalization
+adds at most two `@` bytes plus one retained version suffix. Substring aliases
+and warning targets do not lengthen their originating names. The generated
+length remains a caller input; the no-new-version result supplies the fixed
+suffix domain.
+
+The global table owns an independent objalloc, not an output-BFD arena.
+Objalloc stores a current pointer, unsigned32 remaining space in a small
+chunk and a linked list of chunks. It has **no cumulative byte counter**
+(`include/objalloc.h:51–56`). Each small chunk is4064 bytes; large requests
+add a16-byte header after eight-byte alignment
+(`libiberty/objalloc.c:62–175`). A request taken from the current small chunk
+is guarded by its remaining space. Individual names, fixed-size records and
+the previously bounded pointer backbones fit these operations. Multiple
+old backbones or repeated names may remain allocated, but their aggregate
+RAM is not another representation predicate. Allocation failure remains an
+external resource outcome under the proposed capacity contract.
+
+This closes the selected global hash count, per-request arithmetic and
+rollback-snapshot storage interface. It does **not** close BFD's separate
+actual cumulative `alloc_size` counter, the local-IFUNC table, other link
+arenas, ordinary symbol/section String tables, generated input counts or
+final layout. Those remain separate joins.
+
+The [offline checker](../evidence/retained-linker-symbols-20261018/check-hash-storage.py)
+verifies37 complete source identities, the reviewed bitfield inventory and
+the displayed arithmetic. Its
+[result](../evidence/retained-linker-symbols-20261018/hash-storage-results.json)
+retains the scope exclusions. Anchors and hashes reconcile the written
+source argument; they do not automatically prove C reachability. No native
+compiler, assembler, linker or prover was executed for this result.
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-hash-storage.py \
+  --output /tmp/linker-hash-storage.json
+```

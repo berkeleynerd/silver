@@ -1,0 +1,12 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "8a478f95b2ac597544f049be49a1aeb78c80b724a869dc1a596937abfc3ad381",
+  "files": [
+    {
+      "path": "include/bfdlink.h",
+      "bytes": 41136,
+      "sha256": "18f817485e34a2acb27d92dfd25fbc34d218c6b2518c404060141410dcf2533d",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/bfdlink.h"
+    }
+  ]
+}
