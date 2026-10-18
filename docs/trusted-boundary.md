@@ -59,6 +59,14 @@ observed capacity. Native boundary tests compile 4096-byte single-line programs
 and their maximal admitted literals and identifiers. This is a frontend premise,
 not a claim of portability to every conforming Ada compiler.
 
+The generated project explicitly names the first and only admitted Main with
+`for Body ("Main") use "main.adb" at 1;`. This bypasses GPR2's heuristic source
+discovery, whose LF-only comment reader mishandles Silver's admitted CR comment
+terminator. Native compilation still reads the byte-identical author source.
+The [indexed Main repair](indexed-main-discovery.md) records the relevant source
+route, installed observations and exact artifact mapping. No external tool was
+modified and no comment form was removed from the language.
+
 GNAT always recognizes bracket wide-character encodings, including under other
 character-encoding switches. A literal ending in `[` immediately before a
 closing quote and an ASCII identifier character can therefore fail code generation.

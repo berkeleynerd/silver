@@ -182,7 +182,7 @@ class MutableIntegerTests(unittest.TestCase):
         self.assertEqual((workspace / 'main.adb').read_bytes(), source)
         (workspace / 'mutable-integers-test.log').write_text(result.stdout)
         (workspace / 'mutable-integers-image-workspaces.json').write_text(json.dumps(retained_images, indent=2) + '\n')
-        report = json.loads((workspace / 'obj/gnatprove/main.spark').read_text())
+        report = json.loads((workspace / 'obj/gnatprove/main~1.spark').read_text())
         return executable, report
 
     def test_native_declaration_snapshots_and_mutable_image(self) -> None:

@@ -1,0 +1,10 @@
+# Retained native ALI records end with a producer-written blank line.
+# Preserve those evidence bytes while checking other whitespace normally.
+docs/evidence/indexed-main-20261018/programs/*/obj/main~1.ali whitespace=-blank-at-eof
+docs/evidence/cr-comment-gpr2-20261018/probe/lf/obj/explore/cr-comment/gnatprove/data_representation/main.ali whitespace=-blank-at-eof
+docs/evidence/cr-comment-gpr2-20261018/probe/naming-body-indexed/obj/b__main~1.ali whitespace=-blank-at-eof
+docs/evidence/cr-comment-gpr2-20261018/probe/naming-body-indexed/obj/explore/cr-comment/gnatprove/data_representation/main~1.ali whitespace=-blank-at-eof
+docs/evidence/cr-comment-gpr2-20261018/probe/naming-body-indexed/obj/main~1.ali whitespace=-blank-at-eof
+docs/evidence/cr-comment-gpr2-20261018/probe/naming-body/obj/explore/cr-comment/gnatprove/data_representation/main.ali whitespace=-blank-at-eof
+# Preserve the retrieved upstream recipe's trailing spaces as evidence.
+docs/evidence/cr-comment-gpr2-20261018/libgpr2.anod whitespace=-blank-at-eol

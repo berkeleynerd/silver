@@ -167,9 +167,9 @@ class ComposedResultsTests(unittest.TestCase):
         reports = workspace / 'obj/gnatprove'
         audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                 'silver_arguments', 'silver_runtime'},
-                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind)
+                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind, indexed_main=True)
         self.assertEqual(self.source.read_bytes(), contents)
-        return executable, json.loads((reports / 'main.spark').read_text())
+        return executable, json.loads((reports / 'main~1.spark').read_text())
 
     def assert_run(self, executable: Path, arguments: list[bytes], expected: bytes | None) -> None:
         result = subprocess.run([bytes(executable), *arguments], capture_output=True, timeout=10)

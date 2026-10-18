@@ -91,6 +91,30 @@ class ProofEvidenceTests(unittest.TestCase):
         with self.assertRaises(EvidenceError):
             self.audit()
 
+    def test_indexed_main_requires_exact_artifact_and_logical_unit_identity(self) -> None:
+        self.audit()
+        ordinary = self.path / "main.spark"
+        indexed = self.path / "main~1.spark"
+        with self.assertRaisesRegex(EvidenceError, "missing report"):
+            audit_reports(self.path, {"main"}, indexed_main=True)
+        ordinary.rename(indexed)
+        summary = self.path / "gnatprove.out"
+        with self.assertRaisesRegex(EvidenceError, "coverage summary"):
+            audit_reports(self.path, {"main"}, indexed_main=True)
+        summary.write_text(summary.read_text().replace("in unit main,", "in unit main~1,"))
+        self.assertEqual(audit_reports(self.path, {"main"}, indexed_main=True)["units"], 1)
+        with self.assertRaisesRegex(EvidenceError, "missing report"):
+            audit_reports(self.path, {"main"})
+        ordinary.write_bytes(indexed.read_bytes())
+        with self.assertRaisesRegex(EvidenceError, "unexpected compilation-unit report"):
+            audit_reports(self.path, {"main"}, indexed_main=True)
+        ordinary.unlink()
+        with self.assertRaisesRegex(EvidenceError, "requires Main"):
+            audit_reports(self.path, {"main~1"}, indexed_main=True)
+        summary.write_text(summary.read_text().replace("in unit main~1,", "in unit main~2,"))
+        with self.assertRaisesRegex(EvidenceError, "coverage summary"):
+            audit_reports(self.path, {"main"}, indexed_main=True)
+
     def prepare_assignment(self, **advisory_changes: object) -> None:
         self.report["assumptions"] = []
         self.report["flow"] = [{"severity": "warning", "how_proved": "flow", "entity": 1,

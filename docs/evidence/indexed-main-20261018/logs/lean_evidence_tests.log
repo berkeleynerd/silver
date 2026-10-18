@@ -1,0 +1,9 @@
+test_actual_audit_accepts_foundations_and_rejects_other_assumptions (test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions) ... ok
+test_changed_resource_settings_apply_without_discarding_cached_objects (test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects) ... ok
+test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects (test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects) ... ok
+test_removed_dependency_fails_closed_without_discarding_unrelated_objects (test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 173.087s
+
+OK

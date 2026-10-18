@@ -1,0 +1,23 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -gnateI1
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U main%b		main.adb		73b77761 NE OO SU IU KU
+
+D main.adb		20261018085526 73b77761 main%b
+D system.ads		20260430083320 e2b7c99d system%s
+G a e
+G c Z b b [main standard 3 1 none]
+X 1 main.adb
+3U1*MAIN 3b1 8l5 8t9
+

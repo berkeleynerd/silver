@@ -287,12 +287,19 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
                   application_kind: str | None = None,
+                  indexed_main: bool = False,
                   proof_instance: tuple[int, int, int] | None = None,
                   proof_instances: dict[str, tuple[int, int, int]] | None = None,
                   signed_conversion_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
-    require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
+    require(not indexed_main or "main" in expected_units,
+            "indexed Main audit requires Main")
+    # Indexed project naming changes Main's artifact and coverage-summary name,
+    # not the entity identity used in diagnostics, dependencies or source locations.
+    report_names = {unit: ("main~1.spark" if indexed_main and unit == "main"
+                           else f"{unit}.spark") for unit in expected_units}
+    require({path.name for path in report_dir.glob("*.spark")} == set(report_names.values()),
             "missing report or unexpected compilation-unit report")
     trusted_import_units = trusted_import_units or set()
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
@@ -318,7 +325,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
         stats["image_advisories"] = 0
-    reports = {unit: read_json(report_dir / f"{unit}.spark") for unit in expected_units}
+    reports = {unit: read_json(report_dir / name) for unit, name in report_names.items()}
     owned_names: set[str] = set()
     owned_locations: dict[str, set[str]] = {}
     diagnostics: Counter = Counter()
@@ -326,9 +333,12 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     math_diagnostics: Counter = Counter()
     image_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
-    summaries = {name: (int(analyzed), int(total)) for name, analyzed, total in
-                 re.findall(r"in unit (\w+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
-    require(set(summaries) == expected_units, "coverage summary has missing or unexpected units")
+    summaries_by_report = {name: (int(analyzed), int(total)) for name, analyzed, total in
+                          re.findall(r"in unit ([^,\s]+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
+    summary_units = {Path(name).stem: unit for unit, name in report_names.items()}
+    require(summaries_by_report.keys() == summary_units.keys(),
+            "coverage summary has missing or unexpected units")
+    summaries = {summary_units[name]: counts for name, counts in summaries_by_report.items()}
     for unit, report in reports.items():
         for key, entity in report.get("entities", {}).items():
             if any(Path(location["file"]).stem == unit for location in entity.get("sloc", [])):
