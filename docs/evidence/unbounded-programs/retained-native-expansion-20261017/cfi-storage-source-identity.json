@@ -1,0 +1,72 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "bytes": 107474,
+      "path": "gcc/dwarf2cfi.cc",
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "bytes": 1049405,
+      "path": "gcc/dwarf2out.cc",
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
+      "bytes": 19501,
+      "path": "gcc/dwarf2out.h",
+      "sha256": "091f3611f0bb63502ad0388662111572d17b76f79d7610aecf7e1221e762eb54"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 22283,
+      "path": "gcc/vec.cc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "bytes": 78408,
+      "path": "gcc/ggc-page.cc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 4564,
+      "path": "gcc/hash-table.cc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "bytes": 122286,
+      "path": "gcc/config/i386/i386.h",
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "bytes": 832808,
+      "path": "gcc/config/i386/i386.cc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "bytes": 18059,
+      "path": "gcc/config/elfos.h",
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "bytes": 193419,
+      "path": "gcc/emit-rtl.cc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    }
+  ],
+  "reused_identity": {
+    "bytes": 12725,
+    "path": "rtl-setup-source-identity.json",
+    "sha256": "ec73bd4f5a2b0ad13491daef35019d2c0ef821edf09bebcc112d39da94415134"
+  },
+  "scope": "Selected single-null-function CFI construction/storage, excluding final assembly emission and previously charged chain notes",
+  "whole_native_capacity_established": false
+}

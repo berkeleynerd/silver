@@ -1,0 +1,100 @@
+{
+  "CFI_chain_notes_already_charged_in_RTL_packet": 10,
+  "GGC_vector_bounds": {
+    "CIE": {
+      "allocations_upper": 1,
+      "initial_raw_bytes": 40,
+      "length_upper": 2,
+      "rounded_bytes_upper": 64
+    },
+    "FDE_CFI": {
+      "allocations_upper": 3,
+      "each_raw_request_upper": 152,
+      "length_upper": 10,
+      "rounded_bytes_upper": 256
+    },
+    "global_FDE": {
+      "allocations_upper": 1,
+      "initial_raw_bytes": 40,
+      "length": 1,
+      "rounded_bytes_upper": 64
+    },
+    "row_save": {
+      "count": 12,
+      "later_growth_events": 0,
+      "length": 17,
+      "raw_bytes": 144,
+      "rounded_bytes_upper": 256
+    }
+  },
+  "additional_disjoint_GGC_event_bounds": {
+    "CFI_objects": 12,
+    "CIE_vector": 1,
+    "FDE_CFI_vector_allocations_upper": 3,
+    "FDE_object": 1,
+    "global_FDE_vector": 1,
+    "incoming_return_address_MEM": 1,
+    "row_objects": 12,
+    "row_save_vectors": 12
+  },
+  "additional_disjoint_GGC_events_total": 43,
+  "excluded_GGC_constructors": [
+    "location-expression nodes",
+    "copy_cfa objects",
+    "cie_return_save record"
+  ],
+  "final_unwind_emission_and_unit_helpers_included": false,
+  "individual_raw_object_bytes": {
+    "CFA_location": 32,
+    "CFI": 24,
+    "CFI_row": 56,
+    "FDE": 112,
+    "trace": 144
+  },
+  "ordinary_storage": {
+    "CFI_labels": {
+      "bytes_each_including_NUL": 8,
+      "count_upper": 5,
+      "stack_buffer_bytes": 20
+    },
+    "queued_reg_saves": {
+      "capacity": 4,
+      "maximum_length": 1,
+      "raw_bytes": 104
+    },
+    "regs_saved_in_regs_backing_requests": 0,
+    "trace_hash": {
+      "backbone_bytes": 56,
+      "backbone_slots": 7,
+      "growth_events": 0,
+      "wrapper_bytes": 48
+    },
+    "trace_vector": {
+      "capacity": 16,
+      "raw_bytes": 2312
+    },
+    "trace_worklist": {
+      "capacity": 4,
+      "maximum_length": 1,
+      "raw_bytes": 40
+    }
+  },
+  "premises": {
+    "CFI_objects_upper": 12,
+    "CFI_rows_upper": 12,
+    "emitted_functions": 1,
+    "linear_fallthrough_traces_scanned_once": true,
+    "no_location_expressions": true,
+    "reg_save_length": 17,
+    "register_columns": [
+      6,
+      7,
+      16
+    ],
+    "trace_count_upper": 6
+  },
+  "retained_installed_headers_verified": 24,
+  "scope": "Selected single-null-function CFI construction/storage, excluding final assembly emission and previously charged chain notes",
+  "source_files_verified": 12,
+  "whole_native_capacity_established": false
+}

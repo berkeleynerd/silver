@@ -8273,22 +8273,135 @@ audit, prover, Lean build or new debugger capture was run. Generic RTL/CFG
 helper storage, non-chain CFI and final unit emission still require their own
 joins.
 
+### Non-chain CFI objects and helper storage
+
+The selected CFI shape supplies at most12 CFI objects,12 rows,6 linear
+traces,17 register-save columns and10 entries in the FDE's CFI vector.
+This continuation joins their allocation/storage routes in
+`dwarf2cfi.cc:3302–3331` and `dwarf2out.cc:1046–1064`, ending before final
+unwind assembly emission. The
+[source identity](../evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json)
+and [offline result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-cfi-storage.json)
+retain those boundaries. The ten possible CFI/CFI-label chain NOTEs were
+already charged in the52-chain allowance and are not charged again here.
+
+On selected LP64 with `NUM_POLY_INT_COEFFS=1`, the concrete layouts are:
+CFI node24 bytes, CFA location32, CFI row56, FDE112 and trace144
+(`dwarf2out.h:49–64,77–118,127–166`, `dwarf2cfi.cc:70–94,114–170`).
+A CFA location consists of two8-byte polynomial scalars, an8-byte register
+record and flag bits with padding; a row adds two pointers and its flags.
+The FDE has nine pointers, its signed switch index, one aligned host-wide
+scalar, four unsigned identifiers and bit flags. The trace embeds four
+polynomial scalars and two CFA locations in addition to its pointers,
+ordinary vector pointer and flags. These are independent fixed-size requests;
+there is no dynamic frame object behind their scalar fields.
+
+`new_cfi` allocates one object each; initial and copied rows also allocate
+one object each. Every copied row additionally copies its reg-save vector
+(`dwarf2cfi.cc:427–459`). The initial CIE row grows once to column16 and
+length17. Subsequent state changes touch only column6; they do not shrink
+or extend that length (`:535–539,1513–1523`). Thus at most12 separate
+row-save vector allocations suffice, each raw `8+17*8=144` bytes and at
+most256 after GGC rounding. `vec::copy` initializes the copy's recorded
+capacity to its logical length after allocation, but17 still suffices for
+all later accesses (`vec.h:1003–1011`). No hidden second reg-save copy arises
+from the annulled-delay-slot branch: this target's selected chain has no
+SEQUENCE or annulled branch (`dwarf2cfi.cc:2800–2842`).
+
+The two-entry CIE vector and one-entry global FDE vector each need at most
+one initial allocation, raw40 and rounded at most64. The FDE itself is one
+object. Its CFI vector has at most10 pushes. GCC doubles capacities below16,
+so even without beneficial rounding the capacities4,8,16 cover all pushes
+in at most three allocations (`vec.cc:150–168`). Any allocation that grows
+this vector starts with capacity at most9, doubles to at most18 and requests
+at most152 raw bytes, rounded at most256. Rounding never reduces capacity
+(`vec.h:395–423`). The single-FDE premise is the previously established
+whole-unit inventory: the empty elaboration procedure is not finalized.
+Later `dwarf2out_begin_prologue` reuses `cfun->fde` and allocates only if that
+pointer is null (`dwarf2out.cc:1110–1115`), so it does not duplicate this FDE.
+
+There is **one additional RTL constructor in CIE setup**. The x86 macro
+`INCOMING_RETURN_ADDR_RTX` expands to
+`gen_rtx_MEM(Pmode, stack_pointer_rtx)` (`i386.h:2150–2151`), evaluated by
+`create_cie_data` (`dwarf2cfi.cc:3265–3268`). Charge one24-byte MEM allocation
+here, distinct from the two push/pop MEMs. It uses an existing SP register
+and no mem-attribute object. `initial_return_save` takes its MEM/REG path,
+records the return address in memory at CFA-8 and creates no
+`cie_return_save` register record (`:3181–3237,3278–3289`).
+
+All selected CFA rules are a single register plus a constant offset. The
+simple branches of `def_cfa_0` and `reg_save` therefore create no DWARF
+location-expression lists or `copy_cfa` object
+(`dwarf2cfi.cc:880–955,986–1044`). The push saves RBP to memory; the move
+RSP→RBP changes the CFA rule without saving a register in another register
+(`:1830–1848`). Flushing the queued memory save supplies a NULL destination
+to `record_reg_saved_in_reg`, which returns without insertion
+(`:1193–1212,1240–1263`). Hence the per-trace `regs_saved_in_regs` vectors
+and CIE's corresponding record stay empty, including across trace copies.
+
+The ordinary helper requests are also fixed:
+
+| Helper | Maximum logical demand | Individual request |
+| --- | ---: | ---: |
+| trace vector |6 traces, initial capacity16|8+16×144 =2,312 bytes|
+| trace hash |6 pointers, initial prime7|48-byte wrapper;56-byte backbone|
+| pending trace work vector |1 pointer, first capacity4|40 bytes|
+| queued register-save vector |1 24-byte record, first capacity4|104 bytes|
+| internal CFI label strings |at most5|8 bytes each including NUL|
+
+The trace hash is ordinary `new`, not `create_ggc`
+(`dwarf2cfi.cc:3115–3173`). Before inserting its sixth entry, five exist and
+`7*3 > 5*4`, so no expansion is triggered. The trace vector's16 slots cover
+all6 traces. The existing linear-trace argument gives at most one pending
+work entry and one queued save; their vectors retain capacity while being
+popped/truncated and are released after the scan (`:2931–2949`). Trace
+vectors/hash are released at function end (`:3320–3331`). This cleanup is
+not used to subtract any prior GGC event.
+
+`dwarf2out_cfi_label_num` is a zero-initialized unsigned long used only by
+this single function's at most five label groups. Values0..4 narrow safely
+to the local signed `int`, and the final counter is at most5
+(`dwarf2cfi.cc:208,475–482,2510–2521`). The installed `tm.h` includes ELF
+label syntax after the AT&T header, with no later override: the string is
+`*.LCFI` plus one decimal digit and NUL, eight bytes
+(`elfos.h:122–130`). It fits the local20-byte buffer and each `xstrdup`
+request. Register column identifiers6,7,16, trace indices below6, vector
+lengths at most17 and the offsets-16,-8,8,16 all fit their actual scalar
+types; `INVALID_REGNUM` remains an explicit sentinel, not a dimension.
+
+The disjoint CFI event envelope is
+
+```text
+12 CFI + 12 rows + 12 row-save vectors + 1 CIE vector
++ 1 FDE + 1 global FDE vector + 3 FDE-CFI growths + 1 incoming MEM = 43.
+```
+
+It covers the cold case even if the CFI pass is skipped or some optional
+restore/location-label events are absent. The
+[offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-cfi-storage.py)
+verifies12 source files,24 reused installed headers, the field arithmetic,
+hash threshold and vector growth bounds. It executes no native tool or
+prover. This closes construction/storage through `execute_dwarf2_frame`;
+final unwind assembly emission belongs to `E_unit_emit`, and the whole native
+capacity result remains incomplete.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43
        + E_metadata + E_Main_translation
-       + E_RTL_helpers + E_CFI + E_unit_emit
+       + E_RTL_helpers + E_unit_emit
 ```
 
 Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
 target setup above,10 the two gigi struct-function constructors,4 real Main
 RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
 vector events,8 direct elimination-register requests,10 IRA loop-setup
-events and78 chain/pattern/frame events just established.
+events,78 chain/pattern/frame events and43 non-chain CFI events just
+established.
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -8298,8 +8411,7 @@ and constructors still require completion:
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
 | `E_RTL_helpers` |remaining expansion/CFG/pass-manager/helper storage, excluding the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes charged separately |
-| `E_CFI` |dwarf2cfi scan/trace and frame descriptions, excluding its ten chain NOTE allocations already charged; needs CFI objects, row/vector, trace/hash and label-string requests |
-| `E_unit_emit` |final/varasm/debug/cgraph unit finalization; needs the selected unit's symbol/string/output and shared-cache growth terms |
+| `E_unit_emit` |final/varasm/debug/cgraph unit finalization and final unwind assembly emission; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
 For ordinary backing, the remaining concrete joins include
 shared non-DF bitmap/pool retained-count arithmetic and remaining CFG/helper
