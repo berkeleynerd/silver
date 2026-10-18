@@ -110,6 +110,33 @@ RANGES["sem_prag.adb"] += [(11945, 12000), (12060, 12101)]
 RANGES["sem_warn.adb"] += [(63, 88), (1179, 1201), (1241, 1271),
                            (1450, 1492), (1807, 1860)]
 RANGES["sem_warn.adb"] += [(4117, 4246)]
+RANGES.update({
+    "gnat1drv.adb": [(517, 529)],
+    "errout.adb": [(80, 93), (312, 334), (381, 397), (455, 506),
+                   (550, 697), (1377, 1525), (1665, 1698)],
+    "erroutc.ads": [(125, 135), (184, 377)],
+    "erroutc.adb": [(1359, 1367), (1919, 1939), (1982, 2020),
+                    (2134, 2156)],
+    "scng.adb": [(333, 356)],
+    "scn.adb": [(111, 198)],
+    "par-load.adb": [(169, 202)],
+})
+RANGES["sem_ch5.adb"] += [(1066, 1096), (2083, 2092), (2113, 2152),
+                          (3480, 3571), (3582, 3645), (4172, 4228),
+                          (4318, 4335), (4604, 4820)]
+RANGES["sem_ch10.adb"] += [(1108, 1116), (2615, 2635), (2794, 2806),
+                           (3249, 3254), (3980, 4117), (4148, 4157)]
+RANGES["sem_prag.adb"] += [(28630, 28647), (28781, 28801)]
+RANGES["sem_warn.adb"] += [(620, 661), (1272, 1331), (1333, 1376),
+                           (1383, 1410), (1570, 1670), (3596, 3647),
+                           (3789, 3815), (4436, 4464)]
+RANGES["sem_ch8.adb"] += [(10490, 10513), (6992, 7073), (7685, 7771)]
+RANGES["sem_res.adb"] += [(9190, 9227), (10980, 11001), (12800, 12934),
+                          (4240, 4327), (5197, 5222), (7209, 7224)]
+RANGES["sem_util.adb"] += [(4657, 4680), (26235, 26306), (27492, 27525)]
+RANGES["lib-xref.adb"] += [(275, 316), (684, 690), (849, 938), (976, 1132)]
+RANGES["sem_ch4.adb"] += [(1525, 1533)]
+RANGES["sem_ch6.adb"] += [(4198, 4202), (4745, 4748)]
 
 SPARK = {
     "src/why/back_end.adb": (
@@ -248,6 +275,33 @@ def main():
     entity_slot_events = generated_entities.copy()
     entity_slot_events.update(D=1, F=2, one=1)
     assert entity_slot_events == main_entities
+    diagnostic_templates = {
+        "sem_ch5.adb": [
+            "??loop range is null, loop will not execute",
+            "??loop range may be null, loop may not execute",
+            "??can only execute if invalid values are present",
+            "??loop range may be null",
+            "\\??bounds may be wrong way round",
+        ],
+        "sem_ch10.adb": ["license of withed unit & may be inconsistent??"],
+    }
+    for name, templates in diagnostic_templates.items():
+        source = (args.source / name).read_text()
+        for template in templates:
+            assert '"' + template + '"' in source, (name, template)
+            assert len(template) <= 64, (name, template)
+    xref_kinds = "rmswblte"
+    assert len(set(xref_kinds)) == 8
+    assert 2 * len(xref_kinds) == 16
+    xref_illustration = {
+        "n": 4096, "N_word": 1024, "E_X": 5000,
+        "old_ordinary_entries": 512*(4096+1)*5000,
+        "refined_ordinary_entries": 16*(1024+1),
+        "definition_orphan_entries": 2*5000,
+        "scope": "Illustrative parameters, not a measured program or threshold",
+    }
+    assert xref_illustration["old_ordinary_entries"] == 10_488_320_000
+    assert xref_illustration["refined_ordinary_entries"] == 16_400
     result = {
         "source_commit": PIN,
         "verified_against": str(prior.relative_to(repo)),
@@ -346,8 +400,40 @@ def main():
             "producer_xref_modes": {"native_data_representation": "disabled",
                                      "gnat2why_ALI": "enabled, output enabled",
                                      "gnat2why_translation": "enabled, output disabled"},
+            "GNATprove_warning_flags": {
+                "enabled": ["Elab_Warnings", "Warn_On_Suspicious_Contract"],
+                "preserved": ["Warning_Doc_Switch"],
+                "others": False,
+                "pragma_string_switch_changes": "ignored in GNATprove mode",
+            },
+            "Main_frontend_diagnostics": {
+                "attempts": "J_diag <= 2*F+N_with",
+                "Non_Instance_Msgs_appends": "<= J_diag",
+                "Errors_appends": "<= J_diag",
+                "Locations_appends": "<= J_diag",
+                "Edits_Fixes_labels": 0,
+                "raw_history_characters": "<= 64*J_diag",
+                "M_diag": "1024+2*Int(Column_Number'Last)",
+                "formatted_text_lifetime_characters": "<= (2*M_diag+2)*J_diag",
+                "diagnostic_string_requests": "<= 2*J_diag",
+                "continuation_local_vector_characters": "<= 2*M_diag+2",
+                "Warnings_Specific_Warnings_Warnings_As_Errors_additions": 0,
+                "Uint_work_beyond_counted_loop_comparisons": 0,
+                "raw_templates": diagnostic_templates,
+                "scope": "Frontend attempts/storage; producer diagnostics and output consumers separate",
+            },
+            "diagnostic_backing": {
+                "Non_Instance_Msgs_initial": 100,
+                "Non_Instance_Msgs_increment_percent": 100,
+                "Errors_Locations_Edits_Fixes_each_initial": 200,
+                "Errors_Locations_Edits_Fixes_increment_percent": 200,
+            },
             "Xrefs_demand_interface": "<= X_fixed + 512*(n+1)*E_X + 2*E_X + 1",
             "Xrefs_demand_scope": "E_X=E_fixed+E_Main; fixed caller closure still required",
+            "Xrefs_Main_source_binding_pairs": "<= N_word+1",
+            "Xrefs_Main_reference_kinds": list(xref_kinds),
+            "Xrefs_refined_demand_interface": "<= X_fixed+16*(N_word+1)+2*E_X+1",
+            "Xrefs_refinement_illustration": xref_illustration,
             "Xrefs_backing": {"initial": 5000, "increment_percent": 300,
                                "fixed_hash_headers": 65536},
             "Drefs_Main_additions": 0,
@@ -365,8 +451,9 @@ def main():
             "query_scope": "Root counts exclude helper-internal recursion already paid by transfer",
         },
         "remaining": [
-            "Other semantic numeric caller inventory including diagnostic/value-cache routes",
-            "Other auxiliary value caches and diagnostic text/fix allocation",
+            "Other semantic numeric caller inventory beyond named families",
+            "Producer/fixed dependency diagnostics and output-format consumers",
+            "Other semantic auxiliary storage outside named caller families",
             "Semantic element-list inventory outside named packages and traversal storage",
             "Fixed inputs to overload/xref and unit-boundary element-list transfer",
             "Complete table/growth, numeric, name and auxiliary-resource connection",

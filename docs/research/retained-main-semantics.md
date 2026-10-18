@@ -9,9 +9,10 @@ table/byte bound, whole-process bound or admission predicate.**
 The subsequent aggregates also close Main's scalar range/comparison query
 invocations, literal/subtype and ordinary freeze-layout Uint contributions,
 and semantic syntax-list headers under the stated source shapes.
-The auxiliary sections also bound overload storage, the two deferred-warning
-tables, and cross-reference keys, and identify element-list costs at the
-compilation-unit boundary. Warning suppression differs between producer phases.
+The auxiliary sections also bound overload storage, deferred-warning tables,
+frontend diagnostic attempts and cross-reference keys, and identify element-list
+costs at the compilation-unit boundary. Warning suppression differs between
+producer phases and does not eliminate diagnostic-history allocation.
 Native expansion is a separate process contribution; no production, proof,
 language, Oracle or tool-pin file changes here.
 
@@ -50,6 +51,7 @@ and `D_s`, `D_lit`, `D_alias`, `K_literal` from
 | `D_copy <= D_s` | String declarations whose constant-name initializer is replaced by a literal copy; `D_s` is the conservative syntactic bound |
 | `N_assign` | Source assignments of either type; counting String assignments too conservatively covers every scalar assignment |
 | `N_word` | All source identifier/keyword tokens, including context clauses and closing names; used as a conservative name-analysis allowance |
+| `N_with` | Package-name occurrences in source `with` clauses; comma-separated names and repetitions each count |
 
 `B_loop` is computed from recognized source, not a measured decorated tree.
 The static declaration classes can conservatively use `D_lit + D_alias <= D_s`.
@@ -1073,6 +1075,96 @@ these tables, not permission to omit their package initialization. This closes
 these two deferred tables only: diagnostic text, fix edits and other warning
 routes still need the separate diagnostic argument.
 
+### Frontend diagnostic attempts and stored text
+
+The driver does more than select Warning_Mode. In GNATprove mode it calls
+Reset_Style_Check_Options, then Restore_Warnings with only Elab_Warnings and
+Warn_On_Suspicious_Contract enabled; it preserves the documentation-display
+switch and sets every other warning flag False (`gnat1drv.adb:517–529`).
+Pragma Warnings with a string of compiler warning switches explicitly does
+nothing in GNATprove mode (`sem_prag.adb:28781–28801`). Thus a dependency's
+such pragma does not undo this mask. Main has no warning/style pragma. Warning
+flags and Warning_Mode are different state: the unconditional warnings below
+remain reachable even with this mask.
+
+Count attempts to call Error_Msg, not just messages eventually shown. The
+non-instance path appends `(new String'(Msg), Flag_Location)` to
+Non_Instance_Msgs **before** it asks Warnings_Suppressed or checks an enclosing
+null loop (`errout.adb:550–697`). Warnings_Suppressed consults Warning_Mode
+only after the warning-location table (`erroutc.adb:2134–2156`). Consequently
+the ALI pass's Suppress mode does not make this history free. Maximum_Messages
+can suppress later display; it does not bound these earlier appends.
+
+Under the established Main syntax/type closure and successful legality,
+the remaining frontend warning attempts are:
+
+| Caller family | Main attempt bound / exclusion |
+| --- | --- |
+| Analyze_Loop_Parameter_Specification, null or possibly reversed range | At most two per source loop, in mutually exclusive branches (`sem_ch5.adb:3480–3571`) |
+| Context-license check | At most one per source with-name, hence `N_with` (`sem_ch10.adb:3980–4117`) |
+| Known-condition, redundant assignment/if/comparison/use/with, hiding, unreferenced, could-be-constant and suspicious-parenthesis warnings | Caller warning flags are False; the caller returns or skips the branch before constructing a message or fix (`sem_warn.adb:1333–1376,1570–1590,3596–3647,3789–3815`; `sem_ch5.adb:1066–1096,2113–2152`; `sem_ch8.adb:10490–10513`; `sem_res.adb:9190–9227,10980–11001`) |
+| Uninitialized-reference warnings outside that mask | Main has no access objects or formals, and every source object has an initializer (`sem_warn.adb:1272–1331,1383–1410,1570–1670`) |
+| Infinite/unreachable loops or unconditional transfers | For-loop warning helper returns on Loop_Parameter_Specification; Main has no while/plain loop, exit, goto, return, raise or No_Return callee (`sem_warn.adb:620–661`; `sem_ch5.adb:2083–2092,4318–4335,4604–4820`) |
+| Null subtype range | Source Integer object ranges are nonempty; generated empty String ranges are not Comes_From_Source (`sem_res.adb:11275–11289`) |
+| Loop subtype, multidimensional Range, unary-product diagnostics | Main uses explicit N_Range loops, no Range attribute, and parenthesizes compound unary operands (`sem_ch5.adb:3582–3645,4172–4228`; `sem_res.adb:12800–12934`) |
+| Constraint/range/divisor/predicate warnings | The earlier no-static-Constraint_Error argument covers Integer/String check callers; no division, user predicates, access, modular/fixed/real or user-defined type is admitted. Successful legality is not being used to discard permissible warnings. |
+| Elaboration and suspicious-contract warnings | The elaboration section's up-level target guard returns before diagnostics; Main has no contract, quantified expression, Update attribute or post-state expression (`sem_util.adb:4657–4680`; `sem_warn.adb:4436–4464`) |
+| Referenced Unused/Unreferenced entities, representation/foreign/dispatching and other type-specific warnings | No such Main aspect/pragma/type is admitted; the five library operations and two packages have no Unused/Unreferenced annotation (`lib-xref.adb:849–938`; retained Silver interface inputs) |
+| Scanner/parser warnings | ASCII excludes bidirectional wide characters; ordinary delimiters exclude obsolete literal spellings; Ada 2022 excludes future-keyword warnings; style flags are reset; the snapshot is `main.adb` and the unit is Main. Valid grammar excludes recovery/no-unit diagnostics (`scng.adb:333–356`; `scn.adb:111–198`; `par-load.adb:169–202`; `src/silver.adb:93–110`) |
+
+Main's context is installed once at Analyze_Compilation_Unit
+(`sem_ch10.adb:1108–1116`). The other Install_Context callers reinstall
+subunits, child/parent contexts or generic instances; Main has none, and its
+body acts as its own spec (`:2615–2635,2794–2806,4148–4157`). The context-license
+allowance deliberately does not depend on the current Silver packages'
+Unknown license classification. Comments may affect a source's classification;
+counting the attempt is simpler than adding a license premise.
+
+Define `J_diag = 2F + N_with` and
+`M_diag = 1024 + 2*Int(Column_Number'Last)`, the pinned Max_Msg_Length.
+The admitted messages have raw templates of at most 64 characters, no
+diagnostic code, no extra spans, no label and no fixes. Each message chain has
+at most two parts. Main introduces no generic/inlining location, so Error_Msg
+calls Error_Msg_Internal once without instantiation-message expansion.
+Set_Msg_Char caps Msglen at M_diag (`erroutc.adb:1359–1367`), and its static
+Msg_Buffer has that size (`erroutc.ads:125–135`). The resulting transfer is:
+
+```text
+Non_Instance_Msgs Main appends <= J_diag.
+Errors Main appends <= J_diag.
+Locations Main appends <= J_diag.
+Edits / Fixes / nonempty-label allocations from Main = 0.
+Main raw-history string characters <= 64 J_diag.
+Main formatted-text lifetime string characters <= (2 M_diag + 2) J_diag.
+Main diagnostic string allocation requests <= 2 J_diag.
+One continuation-join local vector <= 2 M_diag + 2 characters.
+```
+
+The formatted-text expression covers both separate messages and a continuation
+joined to the preceding text: the old heap text is freed, a local vector of
+`old_length+2+Msglen` is used, and one new heap string is allocated
+(`errout.adb:1377–1453`). Counting lifetime requested characters is a safe
+upper bound for the retained strings, without relying on allocator reuse.
+Ordinary appends create one primary location and one formatted-text string;
+there are no supplied labels, extra spans or fixes (`:1470–1525`). The only
+Change_Error_Text callers require parser recovery or unresolved-name errors,
+so they do not add Main replacement strings in this legal fragment.
+
+Non_Instance_Msgs starts at 100 entries with 100-percent growth. Errors,
+Locations, Edits and Fixes each start at 200 with 200-percent growth
+(`errout.adb:80–93`; `erroutc.ads:184–377`). Empty tables retain these initial
+capacities. Apply actual record layouts, table rounding, allocation headers and
+index/one-past checks when composing bytes. Main also creates no Warnings,
+Specific_Warnings or Warnings_As_Errors entries: their constructors require
+excluded warning pragmas (`erroutc.adb:1919–1939,1982–2020`;
+`sem_prag.adb:28630–28647`).
+
+This closes **Main frontend diagnostic attempts and their storage transfer**,
+not the producer's later diagnostics, output rendering/SARIF containers or
+fixed dependency diagnostics. Those share consumers but have different
+callers. The active Main messages have no Uint insertion; this diagnostic
+family adds no Uint arithmetic beyond the loop comparisons already charged.
+
 ### Cross-reference table and deduplication
 
 `lib-xref.adb:67–158` defines an Xref_Key containing entity, source location,
@@ -1127,6 +1219,73 @@ does not allocate that sorting vector; its collected Xrefs table remains live.
 The bound is intentionally loose and may be tightened before selecting a
 useful capacity predicate. Its fixed-entity term must be supplied by the
 complete dependency component, never silently set to zero.
+
+### Main source-binding refinement
+
+The Cartesian bound above is not a useful final admission rule: it combines
+every source byte with thousands of fixed dependency entities, although Main
+can name only its objects/indexes and the two packages/five operations. A
+caller/source-binding argument removes that product.
+
+Generate_Reference returns for a non-source reference node unless Force is
+set (`lib-xref.adb:684–690`), maps an expanded name to its selector, and
+requires a source entity (with named exceptions for formals, derived aliases,
+child units and discriminants that Main does not create). Standard locations
+are rejected in GNATprove mode (`:976–1132`). Thus generated String/Integer
+subtypes, scalar captures and folded Standard constants do not introduce
+additional Main-to-runtime entity pairs. Standard operator references merely
+mark a type's Referenced flag; they do not append xrefs (`:275–316`).
+
+The remaining ordinary caller families preserve a unique source binding:
+
+| Source site | Bound entity and caller |
+| --- | --- |
+| Ordinary object/index/package/name use | Its unique visible entity, including assignment `m` and read `r` kinds (`sem_ch8.adb:6992–7073,7685–7771`) |
+| Qualified call | Its package prefix and unique operation selector, at their separate source tokens; call resolution can add `s` for the same operation (`sem_ch4.adb:1525–1533`; `sem_res.adb:7209–7224`) |
+| Actual expression name | The actual's existing entity, not each library formal (`sem_res.adb:4240–4327`). The named-association formal-reference branch is disabled in GNATprove mode (`:5197–5222`). |
+| Main declaration and closing name | Main itself, for the `b`, `l` and `t` structural references (`sem_ch6.adb:4198–4202,4745–4748`; `sem_util.adb:27492–27525`) |
+| Source with-name | The named Silver package (`sem_ch10.adb:3249–3254`) |
+| Modification bookkeeping | The same target object at the target's source site (`sem_util.adb:26235–26306`); renaming/container paths are excluded |
+
+Raw loop-range copies preserve their source locations and lexical bindings;
+the lower-bound root replay cannot change an admitted binding. The loop
+visibility rule excludes the newly introduced index from its own bounds.
+Other light transforms relocate existing children or create references to
+generated/Standard entities already excluded above. Forced end references
+do require one additional location: Process_End_Label temporarily advances
+Main's closing-name Sloc past the name before emitting `t`, then restores it.
+Unnamed source loops have no closing identifier, and their generated loop
+entities cannot add source-entity references through this route.
+
+Consequently the number of `(entity, source-location)` pairs for ordinary
+Main references is at most `N_word+1`. This counts keywords and declaration
+names too, conservatively. Entity/source units and entity scope are determined
+by the pair; permit both Main and Empty reference scopes to cover temporary
+parenting during replay. Without narrowing reference kinds this already gives
+`512(N_word+1)`, independently of E_fixed. The Main caller partition above
+admits only `r,m,s,w,b,l,t` (allow `e` conservatively for the common end helper);
+the `p` to `P` transformation requires tagged primitive operations, and the
+other formal, generic, dispatching, completion and representation-reference
+families are excluded. Hence the tighter transfer is:
+
+```text
+ordinary Main reference keys <= 16 (N_word+1).
+Xref backing demand <= X_fixed + 16 (N_word+1) + 2 E_X + 1.
+```
+
+The two definition/orphan kinds and single tentative insertion retain their
+previous allowances; fixed dependency keys remain in X_fixed. This refinement
+does not claim that every generated occurrence is free: its source/Force/entity
+gates and the listed transformations establish why it cannot introduce another
+pair here. It is specific to Main in GNATprove light mode, not native expansion
+or arbitrary source-defined entities.
+
+For scale only, with `n=4096`, `N_word=1024` and `E_X=5000`, the old ordinary
+term is 10,488,320,000 entries; this term is 16,400, plus 10,000 definition/orphan
+entries, the tentative slot and X_fixed. These are illustrative parameter
+values, not a measured program or a selected capacity threshold. Useful-domain
+selection still needs the actual source counters, fixed contribution, target
+record size and table-growth rule.
 
 ## Semantic element-list boundary
 
@@ -1207,17 +1366,19 @@ route, not general diagnostic buffer allocation.
 Remaining whole-frontend obligations are:
 
 1. **Other semantic numeric helpers and mutations.** Close the remaining
-   numeric caller inventory beyond the five named families, including any
-   diagnostic/value-cache routes. The query envelope does not make them free.
-   Keep value caches distinct from node identities. Serialized Uint values
+   numeric caller inventory beyond the five named families and the explicit
+   Main diagnostic exclusions. The query envelope does not make other callers
+   free. Keep value caches distinct from node identities. Serialized Uint values
    must also meet the exact Image_Out decimal-image bound; large scanner
    scratch powers are a different value population.
-2. **Other semantic auxiliary storage.** Charge element lists, overload/value
-   caches, diagnostic text/fixes and traversal stacks, and finish checking
-   semantic packages outside the explicit element-list inventory above.
-   The named overload/warning/xref tables and unit-boundary element lists
-   now have separate counts; they still require fixed-process inputs and
-   actual representation/growth checks.
+2. **Other semantic auxiliary storage.** Finish element lists, other auxiliary
+   resources and traversal stacks, including semantic packages outside the
+   explicit inventory above. Main frontend diagnostic attempts/text now have
+   a transfer; producer-origin diagnostics, fixed dependency diagnostics and
+   output rendering remain distinct consumer/caller work. The named
+   overload/warning/xref tables and unit-boundary element lists have separate
+   counts; they still require fixed-process inputs and actual
+   representation/growth checks.
 3. **Complete table/resource connection.** Add all remaining ordinary/entity
    slot demand, name spelling/qualification, auxiliary table events,
    remaining Uint work and peak/growth arithmetic to the existing table and
