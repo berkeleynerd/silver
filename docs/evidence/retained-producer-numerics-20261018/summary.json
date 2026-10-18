@@ -1,0 +1,249 @@
+{
+  "date": "2026-10-18",
+  "host": "linux-x86_64",
+  "producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+  "cases": [
+    {
+      "case": "null",
+      "run_id": "20261018T023704-2bde260ba75b",
+      "subprocess_seconds": 0.514185947002261,
+      "managed_seconds": 2.918722519,
+      "snapshots": [
+        {
+          "maximum_decimal_image_length": 0,
+          "maximum_digit_length": 0,
+          "nodes": 1445,
+          "numeric_fields": 0,
+          "phase": "before_standard",
+          "uints": 0,
+          "ureals": 0
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 6481,
+          "numeric_fields": 80,
+          "phase": "after_standard",
+          "uints": 32,
+          "ureals": 8
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 7136,
+          "numeric_fields": 94,
+          "phase": "before_symbol_free",
+          "uints": 35,
+          "ureals": 8
+        }
+      ]
+    },
+    {
+      "case": "put",
+      "run_id": "20261018T023712-e4d8e663163f",
+      "subprocess_seconds": 0.5617247429909185,
+      "managed_seconds": 2.820594981,
+      "snapshots": [
+        {
+          "maximum_decimal_image_length": 0,
+          "maximum_digit_length": 0,
+          "nodes": 1445,
+          "numeric_fields": 0,
+          "phase": "before_standard",
+          "uints": 0,
+          "ureals": 0
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 6481,
+          "numeric_fields": 80,
+          "phase": "after_standard",
+          "uints": 33,
+          "ureals": 8
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 9082,
+          "numeric_fields": 122,
+          "phase": "before_symbol_free",
+          "uints": 39,
+          "ureals": 8
+        }
+      ]
+    },
+    {
+      "case": "put_line",
+      "run_id": "20261018T023716-014de4e09744",
+      "subprocess_seconds": 0.5446545070008142,
+      "managed_seconds": 2.795582257,
+      "snapshots": [
+        {
+          "maximum_decimal_image_length": 0,
+          "maximum_digit_length": 0,
+          "nodes": 1445,
+          "numeric_fields": 0,
+          "phase": "before_standard",
+          "uints": 0,
+          "ureals": 0
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 6481,
+          "numeric_fields": 80,
+          "phase": "after_standard",
+          "uints": 33,
+          "ureals": 8
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 9115,
+          "numeric_fields": 124,
+          "phase": "before_symbol_free",
+          "uints": 40,
+          "ureals": 8
+        }
+      ]
+    },
+    {
+      "case": "first_or_default",
+      "run_id": "20261018T023719-63220f010c29",
+      "subprocess_seconds": 0.5148315190017456,
+      "managed_seconds": 2.638017221,
+      "snapshots": [
+        {
+          "maximum_decimal_image_length": 0,
+          "maximum_digit_length": 0,
+          "nodes": 1445,
+          "numeric_fields": 0,
+          "phase": "before_standard",
+          "uints": 0,
+          "ureals": 0
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 6481,
+          "numeric_fields": 80,
+          "phase": "after_standard",
+          "uints": 33,
+          "ureals": 8
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 8420,
+          "numeric_fields": 123,
+          "phase": "before_symbol_free",
+          "uints": 40,
+          "ureals": 8
+        }
+      ]
+    },
+    {
+      "case": "input_is_valid",
+      "run_id": "20261018T023722-347c8c51c7e6",
+      "subprocess_seconds": 0.5400434780021897,
+      "managed_seconds": 2.779971597,
+      "snapshots": [
+        {
+          "maximum_decimal_image_length": 0,
+          "maximum_digit_length": 0,
+          "nodes": 1445,
+          "numeric_fields": 0,
+          "phase": "before_standard",
+          "uints": 0,
+          "ureals": 0
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 6481,
+          "numeric_fields": 80,
+          "phase": "after_standard",
+          "uints": 33,
+          "ureals": 8
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 7243,
+          "numeric_fields": 94,
+          "phase": "before_symbol_free",
+          "uints": 36,
+          "ureals": 8
+        }
+      ]
+    },
+    {
+      "case": "reject",
+      "run_id": "20261018T023726-3d1f0f2471c6",
+      "subprocess_seconds": 0.5047006930108182,
+      "managed_seconds": 2.609132789,
+      "snapshots": [
+        {
+          "maximum_decimal_image_length": 0,
+          "maximum_digit_length": 0,
+          "nodes": 1445,
+          "numeric_fields": 0,
+          "phase": "before_standard",
+          "uints": 0,
+          "ureals": 0
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 6481,
+          "numeric_fields": 80,
+          "phase": "after_standard",
+          "uints": 33,
+          "ureals": 8
+        },
+        {
+          "maximum_decimal_image_length": 40,
+          "maximum_digit_length": 9,
+          "nodes": 7413,
+          "numeric_fields": 94,
+          "phase": "before_symbol_free",
+          "uints": 36,
+          "ureals": 8
+        }
+      ]
+    }
+  ],
+  "maximum_decimal_image_length": 40,
+  "maximum_indirect_digit_length": 9,
+  "maximum_value_witness": "-170141183460469231731687303715884105728",
+  "subprocess_seconds": 3.180140887008747,
+  "managed_seconds": 16.562021364,
+  "source_readings": {
+    "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/types.ads": {
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "relative_path": "types.ads"
+    },
+    "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.ads": {
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "relative_path": "uintp.ads"
+    },
+    "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/uintp.adb": {
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "relative_path": "uintp.adb"
+    },
+    "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/urealp.adb": {
+      "sha256": "ccf63a43371eb80d78200cb8e79f9d7cd150798037a6ba2c733610e0522aa743",
+      "relative_path": "urealp.adb"
+    },
+    "/tmp/silver-frontend-representation-20261017/availability/spark-source/src/why/xgen/why-atree-to_json.adb-tmpl": {
+      "sha256": "634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e",
+      "relative_path": "src/why/xgen/why-atree-to_json.adb-tmpl"
+    }
+  },
+  "native_subprocesses": 6,
+  "proof_runs": 0,
+  "backend_calls": 0,
+  "worker_reservations_after": 0,
+  "limitation": "Fixed closure d=40 is conditional on source-reviewed fixed dependencies; measurements alone do not bound arbitrary Main numerics."
+}
