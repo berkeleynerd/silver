@@ -1520,7 +1520,9 @@ type and no pending check; it is an existing name/literal, comparison,
 short-circuit, Boolean `not`, ordinary Boolean function call, or another
 already analyzed Boolean EWA. A known value reaches an existing Boolean
 literal through constant names. There are no anonymous access, renaming or
-OK_To_Rename expressions. No action opens a scope or adds pending freeze/use
+OK_To_Rename expressions. The enclosing short-circuit's result type is also
+Standard Boolean, so its post-wrapper Adjust_Result_Type returns without a
+conversion. No action opens a scope or adds pending freeze/use
 actions during this replay: its Analyze call returns on the Analyzed guard.
 Input action syntax and the original expression have been charged earlier.
 
