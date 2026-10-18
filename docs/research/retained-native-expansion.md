@@ -5425,6 +5425,58 @@ serialization/ALI, and the independent proof producer. The selected arithmetic
 checker reports this incomplete scope even when every check in its subtotal
 passes.
 
+## Real-source composition checks
+
+The [representative inputs](../evidence/unbounded-programs/retained-native-expansion-20261017/representative-inputs.json)
+freeze five current sample files by SHA-256 and record manually reviewed syntax
+counters. The regenerator reads those exact source bytes, verifies every token
+with a deliberately restricted fixture lexer, recomputes lexical counts and
+checks the arithmetic/operator/declaration inventories against the manual
+counters. This is an evidence harness for these sources, not a second Silver
+recognizer. It does not establish a language membership or whole-tool claim.
+
+Unlike the earlier zero-scanner arithmetic fixtures, these inputs include real
+scanner and parser contributions. Every identifier/literal/numeral receives
+the established two-visit scanner allowance. Source-word names contribute
+W entries and B_w+W characters without multiplying interning by rescans. All
+numerals here are ordinary decimals no larger than4088, with no exponent or
+based-literal route; every prefix operation remains a direct Uint, so their
+scanner Uint/digit contribution is zero. String scanning contributes2S
+descriptors and2L characters. No sample has1000 plain-literal concatenations,
+so there is no parser-flattening suffix. The source-sensitive parser equations
+then supply nodes, entity promotions, slots and lists.
+
+| Current source | Bytes | Parser nodes / slots / lists | Common A | Complete joined Uint digits | Selected22-table checks |
+| --- | ---: | ---: | ---: | ---: | --- |
+| `samples/null.adb` | 69 | 28 / 313 / 4 | 19 | 74,958 | Pass |
+| `samples/hello_world.adb` | 118 | 38 / 412 / 5 | 19 | 75,019 | Pass |
+| `samples/for_loop_step.adb` | 202 | 79 / 955 / 7 | 19 | 441,119 | Pass |
+| `samples/command_line_greeting.adb` | 355 | 99 / 1,031 / 9 | 145 | 33,954,969 | Pass |
+| `samples/find_square_difference.adb` | 330 | 127 / 1,387 / 10 | 19 | 11,450,651 | Pass |
+
+“Joined” includes the preserved fixed process vector, source scanner pools and
+Main/common/invocation components in the executable join. The selected checks
+retain Table_Factor=1 and the **conditional complete-path bound P=200** with
+the fixed invocation/search shape. The fixtures do not establish that every
+installation satisfies P; integration must supply/enforce its actual bound or
+tighten the fixed-name producer bound. No arbitrary source threshold follows.
+
+The guarded greeting exercises input, a short circuit, Length comparison and
+two concatenations. Its source guard bounds the intermediate output length by
+4095 and the final result by4096. Its low/high descriptor graph yields A=145,
+whereas its scalar source-tree maximum remains1. Applying the old common
+multiplicative digit bound to all work would produce3,984,705,879 digit words,
+failing Udigits backing arithmetic; the constructor-family split produces the
+33,954,969 above. This demonstrates a concrete composition benefit without
+claiming that either number measures actual compiler memory. The mutable
+Integer sample separately exercises a constrained object, assignment, a loop,
+two comparisons, Image and a scalar tree with five operators/six leaves.
+
+The output records every source hash, manual counter explanation, derived
+scanner/parser input, logical join and selected backing check. Validation was
+source/hash inspection and arithmetic regeneration only. No compiler,
+GNATprove, Lean, full test suite or application execution was performed.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -5489,19 +5541,27 @@ above. The native frontend/process is still incomplete at these explicit joins:
   pragma inventory. The native stack join bounds scope/check/expander peaks;
   common auxiliary containers and physical layouts still need their own
   counts even where constructors are zero.
-- **Representations and late consumers:** join source scanner names/Uint/String
-  pools; physical backing capacities, growth peaks and byte products for all
-  node/slot/list/entity/name/numeric/common tables; temporary numeric vectors,
-  serialization (including ALI), and relevant fixed buffers. The backend's
-  callbacks into Ada Uint/Repinfo allocation are additional to this
-  before-gigi constructor sum, even if the AST identity count stays unchanged.
+- **Representations and late consumers:** the22 selected backing joins and
+  five source-counted examples now compose actual scanner/parser inputs for
+  those examples. A general source counter/descriptor implementation and its
+  correspondence remain required. Compose the existing physical/virtual
+  source, line/column and name-buffer components; finish backing/layout and
+  individual allocation/caller checks for the unjoined parser auxiliaries,
+  copy maps, diagnostic tables/strings, invocation graph/hash/DFS containers
+  and fixed non-table heaps. Temporary numeric vectors, serialization
+  (including full ALI), and relevant fixed buffers remain separate. The
+  backend's callbacks into Ada Uint/Repinfo allocation are additional to this
+  before-gigi constructor sum, even if the AST identity count stays unchanged;
+  their phase-unlock/growth state must join the same physical table checks.
 - **Caller arithmetic and recursion:** require all table indices and loops to
   fit their actual scalar types. In particular concat's `List_Length`, `NN`
   and terminal `J := J+1` require n+1 to fit Nat; its seven local arrays have
   `1..n` or `0..n` bounds (`exp_ch4.adb:2598–2621`). Bound their byte products,
   lower-bound recursion depth (at most n), semantic/copy/deferred-name stacks
-  and native expander stack. Distinguish these physical workspace requirements
-  from fixed representation indices.
+  and native expander stack. Check actual per-object sizes, local indices and
+  counted recursion/depth representations; do not turn the sum of independent
+  allocations or recursive-frame bytes into an aggregate RAM/address-space
+  admission ceiling. Physical resource exhaustion remains a separate condition.
 - **Backend and process composition:** close gigi/GCC/object/linker terms and
   phase lifetimes, then compose the independent GNATprove producer. None is
   implied by the native constructor frontier. Every proposed source capacity

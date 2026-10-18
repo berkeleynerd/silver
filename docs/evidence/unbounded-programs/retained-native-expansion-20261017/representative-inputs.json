@@ -1,0 +1,46 @@
+{
+  "scope": "Manually reviewed syntax counters for five current sample sources; lexical, parser and scanner transfers are recomputed by derive.py. These are selected-component results, not complete native or proof-producer admission checks.",
+  "pathname_length_premise": 200,
+  "programs": [
+    {
+      "source": "samples/null.adb",
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+      "syntax": {"null_statements": 1},
+      "semantic": {},
+      "String_bound_graphs": [],
+      "counter_note": "One null statement, no declaration, expression, context or call."
+    },
+    {
+      "source": "samples/hello_world.adb",
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "syntax": {"with_names": 1},
+      "semantic": {"nonconcat_literals": 1, "output_calls": 1},
+      "String_bound_graphs": ["literal"],
+      "counter_note": "One qualified Put_Line with one standalone literal; one context package."
+    },
+    {
+      "source": "samples/for_loop_step.adb",
+      "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+      "syntax": {"with_names": 1, "loop_depth": 1},
+      "semantic": {"source_ops": 1, "scalar_names": 2, "raw_loop_nodes": 2, "largest_scalar_tree": 3, "loops": 1, "Integer_declarations": 1, "images": 1, "output_calls": 1},
+      "String_bound_graphs": ["image"],
+      "counter_note": "Step's initializer and both loop endpoints are scalar leaves. I*Step has one operator, two scalar names and three nodes. The single loop has two raw bound nodes; Image's argument is counted once as original scalar work."
+    },
+    {
+      "source": "samples/command_line_greeting.adb",
+      "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27",
+      "syntax": {"with_names": 2, "first_input": 1, "input_identifier_length": 4, "validity_queries": 1, "reject_calls": 1},
+      "semantic": {"nonconcat_literals": 1, "comparisons": 1, "short_circuits": 1, "ifs": 1, "output_calls": 1, "concat_lengths": [4095, 4096]},
+      "String_bound_graphs": ["literal", "input", ["concat", "literal", "input"], ["concat", ["concat", "literal", "input"], "literal"]],
+      "counter_note": "The first input scaffold is fixed, so it is not a later String declaration. Its default is the sole nonconcat literal. The guard Name'Length<=4088 bounds the left-associative seven-character prefix concat by4095 and the final one-character suffix by4096. Input_Is_Valid and Reject are parameterless; the input initializer and Put_Line each have one actual."
+    },
+    {
+      "source": "samples/find_square_difference.adb",
+      "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c",
+      "syntax": {"with_names": 1, "loop_depth": 1},
+      "semantic": {"source_ops": 5, "scalar_names": 7, "raw_loop_nodes": 2, "largest_scalar_tree": 11, "loops": 1, "Integer_declarations": 1, "Integer_assignments": 1, "Integer_constraints": 1, "constrained_name_chars": 6, "comparisons": 2, "short_circuits": 1, "ifs": 1, "images": 1, "output_calls": 1},
+      "String_bound_graphs": ["image"],
+      "counter_note": "The largest scalar tree (N*N)-((N-1)*(N-1)) has five operators and six leaves, four of them N. Three other scalar names occur in Answer=0, Answer:=N and Image(Answer), giving seven. The single constrained object is Answer (six characters); its declaration and one assignment are separate stores. Both raw loop bounds are leaves."
+    }
+  ]
+}

@@ -42,6 +42,9 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "erroutc.adb", "erroutc.ads", "sem_ch10.adb", "sem_ch12.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
          "exp_ch7.adb", "exp_ch6.adb", "exp_ch9.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
+         "scng.adb", "scn.adb", "scans.adb", "scans.ads", "par-ch2.adb", "par-ch3.adb",
+         "par-ch4.adb", "par-ch5.adb", "par-ch6.adb", "par-ch8.adb", "par-ch10.adb",
+         "par-ch11.adb", "par-util.adb", "par-endh.adb", "par-prag.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
          "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads"
          ] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
@@ -1448,7 +1451,117 @@ mixed_example_counts = dict(main_example_counts, parser_nodes=100,
 empty_scanner_pools = dict(Name_entries=0, Name_characters=0, Uint_entries=0,
     Uint_digits=0, String_descriptors=0, String_characters=0)
 
+
+def representative_current_programs():
+    """Selected current sample inputs, not a general recognizer or admission rule.
+
+    Hashes freeze the manually reviewed structural counters. The restricted
+    lexer accepts just the forms used by these sources, checks every byte and
+    supplies real token counts to the established scanner/parser transfers.
+    No compiler, native allocation trace or proof result is inferred here.
+    """
+    evidence = Path(__file__).resolve().parent
+    inputs = json.loads((evidence / "representative-inputs.json").read_text())
+    result = []
+    token_re = re.compile(r'\s+|"(?:""|[^"\r\n])*"|[A-Za-z][A-Za-z_0-9]*|'
+                          r'[0-9]+|:=|=>|<=|>=|/=|\.\.|[();:,\.\x27+*\-/=&<>]')
+    for item in inputs["programs"]:
+        raw = (repository / item["source"]).read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == item["sha256"], item["source"]
+        source = raw.decode("ascii")
+        assert "--" not in source  # The selected samples contain no comments.
+        matches = list(token_re.finditer(source))
+        assert "".join(m.group() for m in matches) == source
+        tokens = [m.group() for m in matches if not m.group().isspace()]
+        words = [t for t in tokens if re.fullmatch(r"[A-Za-z][A-Za-z_0-9]*",t)]
+        numerals = [t for t in tokens if t.isdecimal()]
+        literals = [t[1:-1].replace('""','"') for t in tokens if t.startswith('"')]
+        # Decimal-only tokens here have no exponent or based-literal path;
+        # their mantissa-prefix multiply/add results are all direct Uints.
+        assert all(int(t) <= 4088 for t in numerals)
+        assert not any(t.lower() in ("+","-","*","/","&","=","<",">",
+                                    "<=",">=","/=","and","or","xor","not",
+                                    "abs","mod","rem","**") for t in literals)
+        syntax = dict(null_statements=0, with_names=0, loop_depth=0,
+            first_input=0, input_identifier_length=1, validity_queries=0,
+            reject_calls=0, lower_probe_ops=0, parser_flattenings=0)
+        syntax.update(item["syntax"])
+        counts = dict(main_example_counts)
+        counts.update(item["semantic"])
+        counts["word_tokens"] = len(words)
+        counts["source_literals"] = len(literals)
+        counts["parser_flattenings"] = syntax["parser_flattenings"]
+        counts["source_calls"] = (counts["output_calls"]+syntax["first_input"]
+            +syntax["validity_queries"]+syntax["reject_calls"])
+        counts["incoming_scope_depth"] = 1+syntax["loop_depth"]
+        descriptors = []
+        def describe(graph):
+            if isinstance(graph,str):
+                descriptor = native_string_bound_descriptor(graph)
+            else:
+                assert graph[0] == "concat" and len(graph) == 3
+                descriptor = native_string_bound_descriptor("concat",
+                    tuple(describe(child) for child in graph[1:]))
+            descriptors.append(descriptor)
+            return descriptor
+        for graph in item["String_bound_graphs"]:
+            describe(graph)
+        counts["String_bound_descriptors"] = descriptors
+        concat_count = len(counts["concat_lengths"])
+        assert tokens.count("&") == concat_count
+        assert sum(t in ("+","-","*") for t in tokens) == counts["source_ops"]
+        assert sum(t in ("=","/=","<","<=",">",">=") for t in tokens) == counts["comparisons"]
+        lowered = [t.lower() for t in tokens]
+        assert sum(lowered[i:i+2] in (["and","then"],["or","else"])
+                   for i in range(len(lowered)-1)) == counts["short_circuits"]
+        assert lowered.count("not") == counts["negations"]
+        assert lowered.count("image") == counts["images"]
+        assert lowered.count("for") == counts["loops"]
+        assert lowered.count("null") == syntax["null_statements"]
+        assert syntax["parser_flattenings"] == 0 and concat_count < 1000
+        declarations = (counts["Integer_declarations"]+counts["String_declarations"]
+                        +syntax["first_input"])
+        assignments = counts["Integer_assignments"]+counts["String_assignments"]
+        assert tokens.count(":=") == declarations+assignments
+        operator_count = (counts["source_ops"]+counts["comparisons"]
+            +counts["short_circuits"]+counts["negations"]+concat_count)
+        argument_calls = counts["output_calls"]+syntax["first_input"]
+        procedure_calls = counts["output_calls"]+syntax["reject_calls"]
+        scanner_nodes = 2*(len(words)+len(literals)+len(numerals))
+        ordinary = (scanner_nodes+operator_count+syntax["lower_probe_ops"]
+            +tokens.count(".")+counts["images"]+lowered.count("length")
+            +argument_calls+tokens.count("=>")+syntax["reject_calls"]
+            +4*syntax["parser_flattenings"]+declarations
+            +3*counts["Integer_constraints"]+syntax["null_statements"]+assignments
+            +counts["ifs"]+counts["elsifs"]+7*counts["loops"]+7+syntax["with_names"])
+        counts["parser_nodes"] = ordinary+counts["loops"]
+        counts["parser_entities"] = declarations+2*counts["loops"]+1
+        counts["parser_slots"] = (9*(ordinary+procedure_calls+syntax["parser_flattenings"])
+                                  +61*counts["parser_entities"])
+        counts["parser_lists"] = (4+counts["loops"]+3*counts["ifs"]+counts["elsifs"]
+                                  +argument_calls+counts["images"])
+        pools = dict(Name_entries=len(words),Name_characters=sum(map(len,words))+len(words),
+            Uint_entries=0,Uint_digits=0,String_descriptors=2*len(literals),
+            String_characters=2*sum(map(len,literals)))
+        logical = native_frontend_logical_join(counts=counts,scanner_pools=pools,
+            max_identifier_length=max(map(len,words)),
+            input_identifier_length=syntax["input_identifier_length"],
+            loop_depth=syntax["loop_depth"],pathname_length=inputs["pathname_length_premise"])
+        physical = native_core_table_backing(logical)
+        result.append(dict(source=item["source"],sha256=item["sha256"],source_bytes=len(raw),
+            token_inventory=dict(words=len(words),word_characters=sum(map(len,words)),
+                decimal_numerals=numerals,String_literals=literals,scanner_nodes=scanner_nodes,
+                parser_ordinary_nodes=ordinary),
+            counter_note=item["counter_note"],source_counts=counts,scanner_pools=pools,
+            logical_join=logical,selected_backing_checks=physical,
+            diagnostics=native_diagnostic_metadata(counts["loops"],syntax["with_names"])))
+    return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],
+        scan_multiplicity="two for identifiers/literals/numerals; Name_Find interning is not multiplied",
+        compiler_or_prover_execution=False,complete_capacity_result=False,programs=result)
+
+
 result = {
+    "representative_current_programs": representative_current_programs(),
     "native_core_table_backing_join": {
         "arithmetic_fixtures_not_programs_or_thresholds": [native_core_table_backing(
             native_frontend_logical_join(counts=counts,scanner_pools=empty_scanner_pools,
