@@ -7,8 +7,9 @@ actual source byte string and a checked common configuration/System/library
 descriptor. The conditional arithmetic passes for `samples/hello_world.adb`.
 **Whole literal-pipeline capacity remains unestablished.** Following
 [finding #131](https://github.com/berkeleynerd/silver/issues/131), the shared
-pool/symbol, graph and complete emitted-stream joins retain an unproved imported
-constructor premise. The aggregate reports those five conditions as unknown,
+pool and complete emitted-stream joins retain unproved lifetime/correspondence
+premises. The counter/emission attachment below closes the graph's selected
+registration/pass frontier. The aggregate reports four conditions as unknown,
 separately from arithmetic failure; its evaluated-predicates result is false
 even for Hello. The literal-sized ranger/out-of-SSA backing is
 substituted. Initial SSA infrastructure and renaming also have a separate
@@ -1249,11 +1250,12 @@ The same source interface supplies the complete selected generated-body
 frontier and zero extra emitted functions under the reviewed helper-discard
 premise. It also exposes one empty-elaboration function structure and +1
 function-definition increment, giving +3 non-Main definition increments
-with the helpers. Its symbol registration and allocation totals remain null.
-`Main_is_only_emitted_body_established` is now true, but the five broader
-pool/graph/emitted-stream/storage/link conditions remain unknown: the missing
-allocator and counter-to-label joins are not discharged by a body count.
-Source review and aggregate attachment review for this increment are pending.
+with the helpers. This frozen leaf's symbol registration and allocation totals
+remain null as historical fields. The later counter/emission interface below
+establishes zero symbol registrations separately, leaving allocation totals
+unresolved. `Main_is_only_emitted_body_established` is true; complete pool and
+stream/storage/link conditions retain their own residual premises. The accepted
+warning source/attachment review is recorded below.
 
 ## Accepted linker and Main ALI interfaces
 
@@ -1568,7 +1570,7 @@ The [synthetic-function storage interface](retained-literal-synthetic-function-s
 now joins the source's accepted three non-Main function structures and two
 initial helper gimplifications. The aggregate checks complete equality with
 the frozen interface and the existing generated-body/function-counter inputs.
-Its 167 direct GGC events and eight ordinary requests remain a separate slice:
+Its corrected 173 direct GGC events and eight ordinary requests remain a separate slice:
 they exclude original declaration/body/type construction and the two cgraph
 nodes already charged by the graph transfer. The ten possible identifier
 insertions and two singleton finalizers are exported to shared backing, with
@@ -1586,9 +1588,9 @@ contributes zero GGC callback events and one 104-byte ordinary scratch request
 per value-expression marker call. Exact interface checks reject a borrowed
 null total, erased scratch storage or premature collector completeness.
 The aggregate leaves total events, page/finalizer backing and collector call
-count unspecified; its two new local predicates do not restore the five
-broader unresolved conditions or establish whole-pipeline capacity.
-Both source packets and this attachment are pending independent review.
+count unspecified; its two new local predicates do not establish whole-pipeline
+capacity. The original storage/collector review remains history; its 167-event
+numerical acceptance is superseded by correction `316f40e7b2`, discussed below.
 
 All 109 focused aggregate cases pass in 4.907963480 seconds; default
 generation takes 3.880576852 seconds. Fourteen new negative cases protect
@@ -1597,3 +1599,125 @@ pins, 293 direct external source identities and 45 nested collector inputs;
 overlapping inventories are not added together. No native tool or broad
 proof/build/test ran. The five unknown conditions and the separate 5,000-call
 conservative relocation failure remain.
+
+### Selected counter/emission attachment and individual gate assessment
+
+The [source-derived counter/emission packet](retained-literal-counter-emission.md),
+frozen at `bc69773b786a6fbc47050a084ff3f5aa72807075`, is accepted by the
+[independent review](../reviews/review-literal-counter-emission-bc69773b78.md).
+Source-note clarification `733c3f7000` records that condition UIDs reset per
+function and that no RTL expansion/emission does not exclude return-register
+RTX allocation. Its numerical interface is unchanged. The aggregate pins the
+complete packet, clarified argument and review. It checks exact equality of the
+exported/callable interface, the entire frozen source manifest and all 48 actual
+complete GCC/Ada source identities, including Git blob hashes. The packet's 29
+historical Silver inputs remain frozen at `28697404fa1971ed310d19a7ab434e593ca2b075`;
+they are not compared to the evolving aggregate's current bytes. Their successful
+historical correspondence check is reused, not represented as a new native run.
+
+Actual source C/N instantiate the callable. The result must reproduce the
+complete returned field set and arithmetic and agree with the accepted cold,
+generated-body, synthetic-storage, pool and graph interfaces. Empty elaboration
+allocates first, Main second and the two helpers last: stored function numbers
+are 0/1/2/3, next 4. There are four nonnull function allocations, three finalized
+definitions and three initial gimplifications, with one body reaching ordinary
+lowering and emission. The frozen warning-frontier leaf keeps
+`empty_elaboration.symbol_registration_count = null`; the new interface closes
+that projection at zero without rewriting history or its allocation totals.
+
+Main + both discarded helpers + D callees + one dummy + B bounds declarations
+give B+D+4 cumulative registrations, where B<=C and D<=2. Thus cumulative
+symbols and next order are <=C+6, and next UID is <=C+7. Both equal the existing
+conservative pool/graph formulas. The existing two helper-node charges remain
+in `8C+35`; neither this attachment nor the storage correction adds them again.
+The graph's conservative arrays include both holes after helper removal. The
+separate C+7<=INT_MAX condition protects assigned and next symbol values; it
+does not establish the full declaration/temporary/RTL/collector counter lifetime.
+
+Main retains its stored number 1 after the helpers consume 2 and 3. Its selected
+function-boundary spellings are exactly `.LFB1` and `.LFE1`, five bytes each
+excluding NUL. Function/symbol counters are not substituted into ordinary RTL,
+constant or CFI label sequences. The packet establishes zero additional emitted
+bodies/lines from the three non-Main functions under the original final-RTL,
+data and descriptor premises. The aggregate checks the inherited 25-byte local
+label / 26-byte NUL-inclusive symbol envelope, 64-byte instruction-line and
+512-byte complete-line envelopes, plus both unchanged assembly formulas:
+`114+(7C+7N+45)+W+8C` lines and
+`7410+65(7C+7N+45)+13W+512C` bytes. That preservation result does not discharge
+the separate global RTL/constant-label endpoints or whole-stream correspondence.
+
+Each formerly unknown condition has its own decision in
+`native_unit_frontier.source_family_condition_assessments`:
+
+| Condition | Current evaluation | Remaining source-family premise |
+| --- | --- | --- |
+| `native_varpool_and_shared_tree_pool` | Unknown | Complete imported tree-pool entries, insertion-capable lookups and replacement lifetime, including constant-label endpoint composition. A symbol inventory or absence of emitted helper data does not bound every pool allocation. |
+| `native_graph_and_summary_lifetime` | Evaluate the local arithmetic | None for this graph/summary slice: the full selected registration inventory and sole Main graph-analysis/ordinary-lowering/IPA frontier are joined. Original tree/helper allocation, identifiers and collector composition remain outside this slice. |
+| `Main_assembler_object_interface` | Unknown | Complete final-RTL/data-to-whole-stream correspondence, remaining global RTL/constant-label endpoints and complete production invocation/materialization. |
+| `Main_GAS_BFD_storage` | Unknown | Complete incoming assembly-stream correspondence and production GAS/BFD invocation/materialization, including the remaining stream/label premises. |
+| `literal_output_linker_representation` | Unknown | Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. |
+
+The graph decision is distinct from the pool decision. Its constructor set is
+Main, at most two external callees, the forced dummy, at most C registered bounds
+variables and exactly two cold helpers. The new source argument closes the
+empty elaboration's registration at zero and excludes hidden registration in
+the selected target/declaration/name hooks. The accepted generated-body and
+cold interfaces establish that no other body is analyzed, and that both helpers
+are removed before ordinary lowering/IPA. Their registration does not call
+insertion hooks; their removals use noninserting/exists-guarded summary lookups,
+as detailed in the graph section above. They create neither call edges nor
+summary IDs. Consequently the four Main graph generations still bound all
+edges by 4C and live edges by C, and the established summary constructor and
+ordinary backing bounds remain applicable. Cumulative C+6 also bounds every
+graph/order-indexed array despite the helper holes. These premises cover the
+named graph/summary consumers without assuming any imported tree-pool allocation
+total. Return-register RTX allocation has no graph/symbol constructor or edge.
+
+Accordingly `selected_graph_constructor_frontier_established` is true and
+`conditional_graph_and_summary_lifetime_closed` equals that slice's checked
+arithmetic. The broader `imported_constructor_frontier_established` remains
+false. This restores only the graph condition; it does not use completed graph
+arithmetic as an imported-construction or global allocation bound. The four
+remaining unknowns still make `evaluated_predicates_pass` false even for Hello.
+The 5,000-call case retains its separate failed conditional signed-relocation
+sufficient check, rather than becoming an observed native failure or adopted cap.
+
+The attachment also updates its synthetic-storage pins to the separately frozen
+[#132 correction](https://github.com/berkeleynerd/silver/issues/132),
+`316f40e7b2c0b7ffc57eca81c7aff39784cdd35a`. Each helper queries the scalar
+return ABI during `allocate_struct_function`, `gimplify_parameters` and
+`gimplify_return_expr`. The six 24-byte hard-register REG RTX raise the direct
+slice from 167 to 173 GGC events; all eight ordinary requests, ten possible
+identifier insertions and two singleton finalizers retain their scopes. No
+RTL expansion, pseudo/label serial increment, function or symbol arises from
+those six requests. The storage leaf and graph-only restoration await the
+parent's independent review; the earlier 167-event review is historical evidence.
+
+Original imported allocation events/bytes stay null; complete global counter,
+collector and pipeline closure stay false. The new interface does not price
+original type/declaration/body construction, complete gimplifier work, shared
+identifier/container backing, all later passes or collector pages/finalizers.
+There is no aggregate RAM gate, Oracle amendment, tool/option change or
+production-admission change.
+
+All 147 affected aggregate checks pass in 4.474777033 seconds, and the regenerated
+Hello result takes 3.367727894 seconds. Thirty-eight new cases reject changed
+counter/function/symbol interfaces, erased persistent helper increments,
+source-count and pool/graph-bound mismatches, changed complete source manifests
+and actual files, altered name/line envelopes and premature whole/global/collector
+closure; they also check the last passing/first failing signed symbol endpoint.
+The aggregate now checks 137 repository pins and 300 unique direct external
+source files; its 48 counter files overlap that population and nested inventories
+remain separately reported. The earlier successful 109-case aggregate and
+134-case counter checks are reused as historical evidence. The affected
+aggregate check was rerun because the attachment code and corrected leaf changed.
+No native compiler/prover/build/test workload or expensive successful repeat ran.
+
+Selected attachment settings: GPT-6.1 Sol / Extra High, assigned by the parent;
+runtime model/effort confirmation and token/cost evidence are unavailable.
+Achieved result: attached exact serial/name/source joins, integrated the six-REG
+storage correction, and separated the one closed graph gate from four precise
+residuals. Checker timing runs from 21:03:57 to 21:04:02 UTC on Linux x86-64/LP64;
+default generation completes at 21:04:23 UTC. Total-round timing was not captured.
+The child harness goal was null. GitHub tracking, publication and CLI memory
+were not changed by this bounded subthread; the parent owns integration/review.

@@ -81,8 +81,11 @@ def main():
             synthetic=result['native_synthetic_function_storage']
             assert synthetic['function_structure_calls']==3
             assert synthetic['initial_helper_gimplifications']==2
-            assert synthetic['GGC_events']==167
+            assert synthetic['GGC_events']==173
             assert synthetic['GGC_events']==sum(row['requests'] for row in synthetic['GGC_groups'])
+            registers=[row for row in synthetic['GGC_groups'] if row['family']=='return_ABI_hard_REG']
+            assert len(registers)==1 and registers[0]['requests']==6
+            assert registers[0]['caller_bytes']==24
             assert synthetic['ordinary_requests']==8
             assert synthetic['identity_demands']['function_definition_numbers']==3
             assert synthetic['shared_container_demands']['singleton_finalizer_registrations']==2
@@ -118,8 +121,27 @@ def main():
             assert len(cleanup)==1 and cleanup[0]['requests_upper']==4
             assert cleanup[0]['raw_bytes_upper']==8*graph['call_site_hash_slots_upper']
             assert graph['conditional_arithmetic_fits']
-            assert not graph['conditional_graph_and_summary_lifetime_closed']
+            assert graph['conditional_graph_and_summary_lifetime_closed']
+            assert graph['selected_graph_constructor_frontier_established']
+            assert result['conditions']['native_graph_and_summary_lifetime']
             assert not graph['imported_constructor_frontier_established']
+            counter=result['native_counter_emission_interface']
+            assert counter['calls']==c and counter['null_statements']==n
+            assert counter['interface']==context.counter_expected==context.counter['interface']()
+            assert counter['symbol_registrations_upper']==pools['symbols']['registered_nodes_upper']==c+6
+            assert counter['next_symbol_UID_upper']==c+7
+            assert counter['next_symbol_order_upper']==c+6
+            assert counter['interface']['function_definition_numbers']==dict(
+                empty_elaboration=0,Main=1,String_bit_size_helper=2,String_byte_size_helper=3)
+            assert counter['interface']['next_function_definition_number']==4
+            assert counter['interface']['main_function_boundary_labels']==['.LFB1','.LFE1']
+            assert counter['interface']['empty_elaboration_symbol_registrations']==0
+            assert not counter['interface']['complete_global_counter_lifetime_closed']
+            assert not counter['interface']['complete_collector_lifetime_closed']
+            assert counter['interface']['complete_imported_allocation_events'] is None
+            assert counter['interface']['complete_imported_allocation_bytes'] is None
+            assert result['conditions']['native_function_and_symbol_counter_endpoints']
+            assert result['native_counter_source_validation']['complete_source_files_verified']==48
             helpers=result['native_SSA_helper_backing']
             assert helpers['source_input']['SSA_slots_upper']==3*c+2
             assert helpers['conditional_SSA_helper_backing_closed']
@@ -240,7 +262,7 @@ def main():
             assert not result['evaluated_predicates_pass']
             assert result['failed_predicates']==[]
             assert set(result['unresolved_predicates'])=={
-                'native_varpool_and_shared_tree_pool','native_graph_and_summary_lifetime',
+                'native_varpool_and_shared_tree_pool',
                 'Main_assembler_object_interface','Main_GAS_BFD_storage',
                 'literal_output_linker_representation'}
             frontier=result['native_unit_frontier']
@@ -248,13 +270,27 @@ def main():
             assert not frontier['Main_is_only_defined_body_established']
             assert frontier['Main_is_only_emitted_body_established']
             assert frontier['additional_imported_pool_symbol_events_upper'] is None
-            assert frontier['additional_imported_defined_bodies_upper'] is None
+            assert frontier['additional_imported_defined_bodies_upper']==2
             assert frontier['additional_emitted_stream_interface'] is None
             assert frontier['cold_String_layout']==context.cold_string
             assert frontier['cold_String_layout']['helper_emitted_functions']==0
             assert frontier['cold_String_layout']['helper_allocation_bytes'] is None
             assert frontier['selected_generated_function_frontier']['non_Main_function_definition_number_increment']==3
             assert frontier['selected_generated_function_frontier']['empty_elaboration']['allocation_request_events'] is None
+            assert frontier['selected_generated_function_frontier']['empty_elaboration']['symbol_registration_count'] is None
+            assert frontier['selected_counter_emission_interface']==counter
+            assert frontier['selected_empty_elaboration_symbol_registration_established']
+            assert frontier['selected_function_and_symbol_counter_to_name_join_established']
+            assert not frontier['complete_global_counter_lifetime_closed']
+            assert not frontier['complete_collector_lifetime_closed']
+            assert frontier['complete_imported_allocation_events'] is None
+            assert frontier['complete_imported_allocation_bytes'] is None
+            assessments=frontier['source_family_condition_assessments']
+            assert len(assessments)==5
+            assert {key for key,row in assessments.items() if row['source_family_premises_closed']}=={
+                'native_graph_and_summary_lifetime'}
+            assert assessments['native_graph_and_summary_lifetime']['residual'] is None
+            assert all(assessments[key]['residual'] for key in result['unresolved_predicates'])
             assert linker['link']['failed_sufficient_checks']==(
                 ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
             if name=='5000_calls':
@@ -395,6 +431,130 @@ def main():
                 context.cold_string=cold_original
 
         synthetic_evaluate=context.synthetic['evaluate']
+        counter_evaluate=context.counter['evaluate']
+        for name,path,value in (
+            ('calls',('calls',),2),
+            ('nulls',('null_statements',),1),
+            ('registration_bound',('symbol_registrations_upper',),5),
+            ('next_UID_bound',('next_symbol_UID_upper',),7),
+            ('next_order_bound',('next_symbol_order_upper',),6),
+            ('rewound_helper_holes',('live_symbols_after_both_helper_removals_upper',),3),
+            ('Main_funcdef',('interface','function_definition_numbers','Main'),0),
+            ('next_funcdef',('interface','next_function_definition_number'),3),
+            ('empty_symbol_registration',('interface','empty_elaboration_symbol_registrations'),1),
+            ('erased_helper_symbols',('interface','size_helper_symbol_registrations'),0),
+            ('extra_target_function',('interface','target_hook_additional_function_definitions'),1),
+            ('erased_function_allocation',('interface','nonnull_function_allocations'),3),
+            ('extra_emitted_function',('interface','emitted_functions'),2),
+            ('wrong_Main_labels',('interface','main_function_boundary_labels'),['.LFB4','.LFE4']),
+            ('invented_original_events',('interface','complete_imported_allocation_events'),0),
+            ('invented_original_bytes',('interface','complete_imported_allocation_bytes'),0),
+            ('premature_global_counter_closure',('interface','complete_global_counter_lifetime_closed'),True),
+            ('premature_collector_closure',('interface','complete_collector_lifetime_closed'),True),
+            ('premature_whole_capacity',('whole_literal_pipeline_capacity_established',),True),
+            ('premature_interface_capacity',('interface','whole_literal_pipeline_capacity_established'),True)):
+            def mismatched_counter(c,n):
+                result=counter_evaluate(c,n)
+                changed=result
+                for key in path[:-1]:
+                    changed=changed[key]
+                changed[path[-1]]=value
+                return result
+            context.counter['evaluate']=mismatched_counter
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal counter exact interface and source-count join'
+                rows.append(dict(case='counter_'+name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered counter interface: '+name)
+            finally:
+                context.counter['evaluate']=counter_evaluate
+
+        for function_name,path,value in (
+            ('native_pool_lifetime',('symbols','registered_nodes_upper'),5),
+            ('native_pool_lifetime',('symbols','next_uid_upper'),7),
+            ('native_pool_lifetime',('symbols','order_upper'),6),
+            ('native_graph_lifetime',('ordinary_requests','COMDAT_map_live_upper'),5),
+            ('native_graph_lifetime',('additional_registered_symbols',),0),
+            ('native_graph_lifetime',('source_input','calls'),2),
+            ('native_graph_lifetime',('selected_graph_constructor_frontier_established',),False),
+            ('native_graph_lifetime',('conditional_graph_and_summary_lifetime_closed',),False)):
+            original_function=getattr(module,function_name)
+            def mismatched_bounds(*args,**kwargs):
+                result=original_function(*args,**kwargs)
+                changed=result
+                for key in path[:-1]:
+                    changed=changed[key]
+                changed[path[-1]]=value
+                return result
+            setattr(module,function_name,mismatched_bounds)
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal counter pool and graph bound join'
+                rows.append(dict(case='counter_'+function_name+'_'+path[-1],rejected=str(error)))
+            else:
+                raise AssertionError('accepted mismatched counter bound: '+str(path))
+            finally:
+                setattr(module,function_name,original_function)
+
+        assembler_evaluate=context.assembler['evaluate']
+        for path in (('assembly','lines_upper'),('assembly','bytes_upper'),
+                     ('assembly','longest_line_excluding_LF_upper'),
+                     ('GAS','symbol_name_bytes_including_NUL_upper')):
+            def mismatched_envelope(*args,**kwargs):
+                result=assembler_evaluate(*args,**kwargs)
+                result[path[0]][path[1]]+=1
+                return result
+            context.assembler['evaluate']=mismatched_envelope
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal counter selected emitted-name envelope join'
+                rows.append(dict(case='counter_emission_'+path[-1],rejected=str(error)))
+            else:
+                raise AssertionError('accepted mismatched emission envelope: '+str(path))
+            finally:
+                context.assembler['evaluate']=assembler_evaluate
+
+        for change in ('missing_file','changed_hash','changed_revision'):
+            manifest=copy.deepcopy(context.counter_manifest)
+            if change=='missing_file':
+                manifest['files'].pop()
+            elif change=='changed_hash':
+                manifest['files'][0]['sha256']='0'*64
+            else:
+                manifest['gcc_revision']='unreviewed'
+            try:
+                module.verify_counter_sources(manifest,args.gcc_root,args.ada_root)
+            except ValueError as error:
+                assert str(error)=='literal counter exact source-manifest join'
+                rows.append(dict(case='counter_manifest_'+change,rejected=str(error)))
+            else:
+                raise AssertionError('accepted changed counter source manifest: '+change)
+        fake_gcc=root/'fake-gcc'
+        first_gcc=next(row for row in context.counter_manifest['files'] if row['root']=='gcc')
+        bad_source=fake_gcc/first_gcc['path']
+        bad_source.parent.mkdir(parents=True)
+        bad_source.write_bytes(b'changed source\n')
+        try:
+            module.verify_counter_sources(context.counter_manifest,fake_gcc,args.ada_root)
+        except ValueError as error:
+            assert str(error)=='literal counter complete source join: '+first_gcc['path']
+            rows.append(dict(case='counter_complete_source_mismatch',rejected=str(error)))
+        else:
+            raise AssertionError('accepted changed counter source')
+
+        # Check the endpoint without constructing a source with billions of calls.
+        for c,expected in ((module.I32-7,True),(module.I32-6,False)):
+            counter=module.native_counter_emission(c,0,context,context.imported_functions,
+                synthetic_evaluate(),module.native_pool_lifetime(c,context),
+                module.native_graph_lifetime(c,0,context),context.assembler['interface'](c,0,c,1))
+            assert counter['symbol_next_values_fit_signed_32']==expected
+            rows.append(dict(case='counter_symbol_endpoint_'+str(c),calls=c,
+                             next_symbol_UID_upper=c+7,fits=expected))
+
         for name,path,value in (
             ('erased_synthetic_function',('function_structure_calls',),2),
             ('erased_synthetic_gimplification',('initial_helper_gimplifications',),0),
@@ -551,11 +711,12 @@ def main():
         for c,expected in ((size_boundary,True),(size_boundary+1,False)):
             graph=module.native_graph_lifetime(c,0,context)
             assert graph['conditional_arithmetic_fits']==expected
-            assert not graph['conditional_graph_and_summary_lifetime_closed']
+            assert graph['conditional_graph_and_summary_lifetime_closed']==expected
             assert graph['local_representation_checks']['summary_signed_size_and_rounding']==expected
             rows.append(dict(case='summary_signed_size_'+str(c),calls=c,
                              rounding_numerator=graph['summary_rounding_numerator_upper'],
-                             conditional_arithmetic_fits=expected,named_consumer_closed=False))
+                             conditional_arithmetic_fits=expected,
+                             selected_graph_constructor_frontier_established=True))
         edge_boundary=(module.I32-1)//4
         for c,expected in ((edge_boundary,True),(edge_boundary+1,False)):
             graph=module.native_graph_lifetime(c,0,context)

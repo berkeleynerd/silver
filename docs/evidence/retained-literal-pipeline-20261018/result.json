@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-literal-counter-attachment/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -94,7 +94,8 @@
     "native_RTL_shape": true,
     "native_selected_helper_backing": true,
     "native_varpool_and_shared_tree_pool": null,
-    "native_graph_and_summary_lifetime": null,
+    "native_graph_and_summary_lifetime": true,
+    "native_function_and_symbol_counter_endpoints": true,
     "native_SSA_helper_backing": true,
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
@@ -124,6 +125,7 @@
     "native_selected_helper_backing": true,
     "native_varpool_and_shared_tree_pool": true,
     "native_graph_and_summary_lifetime": true,
+    "native_function_and_symbol_counter_endpoints": true,
     "native_SSA_helper_backing": true,
     "native_initial_SSA_lifetime": true,
     "native_initial_CF_CFG_lifetime": true,
@@ -146,7 +148,6 @@
   "failed_predicates": [],
   "unresolved_predicates": [
     "native_varpool_and_shared_tree_pool",
-    "native_graph_and_summary_lifetime",
     "Main_assembler_object_interface",
     "Main_GAS_BFD_storage",
     "literal_output_linker_representation"
@@ -156,7 +157,7 @@
     "Main_is_only_defined_body_established": false,
     "Main_is_only_emitted_body_established": true,
     "additional_imported_pool_symbol_events_upper": null,
-    "additional_imported_defined_bodies_upper": null,
+    "additional_imported_defined_bodies_upper": 2,
     "additional_emitted_stream_interface": null,
     "cold_String_layout": {
       "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
@@ -243,6 +244,18 @@
       "empty_elaboration_gimplifications": 0,
       "ordinary_lowered_nonMain_functions": 0,
       "emitted_nonMain_functions": 0,
+      "return_ABI_queries": {
+        "allocate_struct_function_per_helper": 1,
+        "gimplify_parameters_per_helper": 1,
+        "gimplify_return_expr_per_helper": 1,
+        "hard_function_value_calls": 6,
+        "DImode_AX_REG_objects": 3,
+        "TImode_AX_REG_objects": 3,
+        "REG_caller_bytes_each": 24,
+        "PARALLEL_objects": 0,
+        "rtvec_objects": 0,
+        "pseudo_register_numbers": 0
+      },
       "input_dimensions": {
         "byte": {
           "unary": 3,
@@ -283,6 +296,12 @@
           "requests": 6,
           "caller_bytes": 64,
           "rounded_slot_bytes_ceiling": 64
+        },
+        {
+          "family": "return_ABI_hard_REG",
+          "requests": 6,
+          "caller_bytes": 24,
+          "rounded_slot_bytes_ceiling": 32
         },
         {
           "family": "gimple_df",
@@ -411,9 +430,9 @@
           "rounded_slot_bytes_ceiling": 16
         }
       ],
-      "GGC_events": 167,
-      "GGC_caller_bytes_sum_ceiling": 13336,
-      "GGC_rounded_slots_sum_ceiling": 17216,
+      "GGC_events": 173,
+      "GGC_caller_bytes_sum_ceiling": 13480,
+      "GGC_rounded_slots_sum_ceiling": 17408,
       "ordinary_groups": [
         {
           "family": "unshare_hash_control",
@@ -484,15 +503,113 @@
       "whole_literal_pipeline_closed": false,
       "native_runs": 0
     },
+    "selected_counter_emission_interface": {
+      "calls": 1,
+      "null_statements": 0,
+      "interface": {
+        "scope": "Selected literal family, unchanged retained GCC/configuration premises",
+        "selected_empty_elaboration_symbol_registration_closed": true,
+        "empty_elaboration_symbol_registrations": 0,
+        "empty_elaboration_function_definition_increment": 1,
+        "size_helper_symbol_registrations": 2,
+        "size_helper_function_definition_increment": 2,
+        "size_helper_private_name_increment": 2,
+        "target_hook_additional_function_definitions": 0,
+        "target_hook_additional_symbol_registrations": 0,
+        "function_definition_number_prefix": 0,
+        "function_definition_numbers": {
+          "empty_elaboration": 0,
+          "Main": 1,
+          "String_bit_size_helper": 2,
+          "String_byte_size_helper": 3
+        },
+        "next_function_definition_number": 4,
+        "nonnull_function_allocations": 4,
+        "finalized_function_definitions": 3,
+        "initial_function_gimplifications": 3,
+        "ordinary_lowered_functions": 1,
+        "emitted_functions": 1,
+        "non_Main_function_definition_increment": 3,
+        "additional_emitted_functions_from_non_Main_frontier": 0,
+        "symbol_registration_formula": "B+D+4",
+        "next_symbol_UID_formula": "B+D+5",
+        "next_symbol_order_formula": "B+D+4",
+        "B_definition": "distinct registered Main bounds-pool declarations, B<=C",
+        "D_definition": "distinct called output procedures, 1<=D<=min(2,C)",
+        "main_function_boundary_labels": [
+          ".LFB1",
+          ".LFE1"
+        ],
+        "main_function_boundary_label_bytes_excluding_NUL": 5,
+        "non_Main_counter_effect_on_selected_emission_closed": true,
+        "additional_emitted_lines_from_non_Main_frontier": 0,
+        "inherited_local_label_bytes_excluding_NUL": 25,
+        "inherited_symbol_name_bytes_including_NUL": 26,
+        "inherited_instruction_line_bytes_excluding_LF": 64,
+        "inherited_complete_line_bytes_excluding_LF": 512,
+        "inherited_final_RTL_data_and_invocation_premises_required": true,
+        "inherited_RTL_label_counter_condition_required": true,
+        "inherited_constant_label_counter_condition_required": true,
+        "complete_imported_allocation_events": null,
+        "complete_imported_allocation_bytes": null,
+        "complete_global_counter_lifetime_closed": false,
+        "complete_collector_lifetime_closed": false,
+        "whole_literal_pipeline_capacity_established": false,
+        "independent_review": "pending"
+      },
+      "symbol_registrations_upper": 7,
+      "next_symbol_UID_upper": 8,
+      "next_symbol_order_upper": 7,
+      "live_symbols_after_both_helper_removals_upper": 5,
+      "assigned_symbol_UID_upper": 7,
+      "assigned_symbol_order_upper": 6,
+      "symbol_next_values_fit_signed_32": true,
+      "function_definition_next_value_fits_signed_32": true,
+      "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
+      "whole_literal_pipeline_capacity_established": false
+    },
+    "selected_empty_elaboration_symbol_registration_established": true,
+    "selected_function_and_symbol_counter_to_name_join_established": true,
     "synthetic_counter_no_wrap_established": false,
+    "complete_global_counter_lifetime_closed": false,
+    "complete_collector_lifetime_closed": false,
+    "complete_imported_allocation_events": null,
+    "complete_imported_allocation_bytes": null,
+    "source_family_condition_assessments": {
+      "native_varpool_and_shared_tree_pool": {
+        "source_family_premises_closed": false,
+        "closed": "C+6 cumulative symbol registrations, next UID C+7 and next order C+6, including both discarded helper holes; empty elaboration registers zero.",
+        "residual": "Complete imported tree-pool entries, insertion-capable lookups and replacement lifetime, including constant-label endpoint composition. No-emission does not establish no pool allocation."
+      },
+      "native_graph_and_summary_lifetime": {
+        "source_family_premises_closed": true,
+        "closed": "Complete selected registration inventory bounds cumulative graph symbols by C+6. Main alone reaches graph analysis/ordinary lowering/IPA; both helpers are removed without edges or summary IDs. These discharge the graph slice constructor/pass premises.",
+        "residual": null,
+        "scope": "Only this graph/summary delta and its individual requests/ID arithmetic. Original tree/pool/helper allocation, identifier backing, global counter and collector totals remain separate."
+      },
+      "Main_assembler_object_interface": {
+        "source_family_premises_closed": false,
+        "closed": "Main emits .LFB1/.LFE1; synthetic function/symbol serial changes preserve the inherited name/line envelopes and add zero emitted bodies or lines.",
+        "residual": "Complete selected final-RTL/data-to-whole-stream correspondence, global RTL/constant-label endpoints and complete production invocation/materialization."
+      },
+      "Main_GAS_BFD_storage": {
+        "source_family_premises_closed": false,
+        "closed": "The joined synthetic counter changes preserve the existing name, line and selected object envelopes; exact nested assembler interface equality remains checked.",
+        "residual": "The complete incoming assembly stream and actual production GAS/BFD invocation/materialization, including the unresolved whole-stream and label-counter premises."
+      },
+      "literal_output_linker_representation": {
+        "source_family_premises_closed": false,
+        "closed": "The selected Main text/ELF/storage substitutions and synthetic name-envelope preservation are joined.",
+        "residual": "Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. This local formula does not establish that complete link input frontier."
+      }
+    },
     "affected_predicates": [
       "native_varpool_and_shared_tree_pool",
-      "native_graph_and_summary_lifetime",
       "Main_assembler_object_interface",
       "Main_GAS_BFD_storage",
       "literal_output_linker_representation"
     ],
-    "missing": "The generated-body frontier, direct synthetic function storage and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Original imported construction, shared identifier/container backing, full counter no-wrap, empty-elaboration registration and counter-to-emission joins remain; absent emission does not erase these costs.",
+    "missing": "The generated-body, selected registration inventory and function/symbol-counter-to-name joins are established, restoring the local graph/summary condition. Complete imported tree-pool lifetime, original imported construction, shared identifier/container backing, global counter no-wrap, whole-stream/invocation correspondence and collector composition remain; absent emission does not erase allocation.",
     "finding": "https://github.com/berkeleynerd/silver/issues/131"
   },
   "native_lowering_data": {
@@ -1044,7 +1161,7 @@
     },
     "conditional_arithmetic_fits": true,
     "imported_constructor_frontier_established": false,
-    "required_premise": "No other post-prefix imported pool/symbol contribution beyond the two joined String helper nodes, or a separately composed bound (#131). Helper allocation totals remain separate.",
+    "required_premise": "The selected symbol-registration inventory is joined separately. The complete imported tree-pool entry/lookup/replacement lifetime remains unbounded here; zero emitted helper data does not establish zero pool allocation (#131).",
     "named_consumer_closed": false,
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join"
@@ -1201,8 +1318,9 @@
     "additional_singleton_finalizer_registrations_upper": 5,
     "conditional_arithmetic_fits": true,
     "imported_constructor_frontier_established": false,
-    "required_premise": "Main is the sole body reaching ordinary lowering/IPA; the two joined String helpers are initially gimplified and discarded without graph analysis. Other imported constructor and helper allocation costs remain separate (#131).",
-    "conditional_graph_and_summary_lifetime_closed": false,
+    "required_premise": "The joined generated-body and counter interfaces establish Main alone at ordinary lowering/IPA, exactly two discarded helper nodes and at most C+6 cumulative symbols. This graph/summary slice excludes original tree/pool construction, helper allocation, shared identifier backing and collector lifetime (#131).",
+    "selected_graph_constructor_frontier_established": true,
+    "conditional_graph_and_summary_lifetime_closed": true,
     "local_representation_checks": {
       "cgraph_edge_UID": true,
       "call_site_hash_live_and_probe": true,
@@ -1994,6 +2112,18 @@
     "empty_elaboration_gimplifications": 0,
     "ordinary_lowered_nonMain_functions": 0,
     "emitted_nonMain_functions": 0,
+    "return_ABI_queries": {
+      "allocate_struct_function_per_helper": 1,
+      "gimplify_parameters_per_helper": 1,
+      "gimplify_return_expr_per_helper": 1,
+      "hard_function_value_calls": 6,
+      "DImode_AX_REG_objects": 3,
+      "TImode_AX_REG_objects": 3,
+      "REG_caller_bytes_each": 24,
+      "PARALLEL_objects": 0,
+      "rtvec_objects": 0,
+      "pseudo_register_numbers": 0
+    },
     "input_dimensions": {
       "byte": {
         "unary": 3,
@@ -2034,6 +2164,12 @@
         "requests": 6,
         "caller_bytes": 64,
         "rounded_slot_bytes_ceiling": 64
+      },
+      {
+        "family": "return_ABI_hard_REG",
+        "requests": 6,
+        "caller_bytes": 24,
+        "rounded_slot_bytes_ceiling": 32
       },
       {
         "family": "gimple_df",
@@ -2162,9 +2298,9 @@
         "rounded_slot_bytes_ceiling": 16
       }
     ],
-    "GGC_events": 167,
-    "GGC_caller_bytes_sum_ceiling": 13336,
-    "GGC_rounded_slots_sum_ceiling": 17216,
+    "GGC_events": 173,
+    "GGC_caller_bytes_sum_ceiling": 13480,
+    "GGC_rounded_slots_sum_ceiling": 17408,
     "ordinary_groups": [
       {
         "family": "unshare_hash_control",
@@ -2234,6 +2370,71 @@
     "independent_review": "pending",
     "whole_literal_pipeline_closed": false,
     "native_runs": 0
+  },
+  "native_counter_emission_interface": {
+    "calls": 1,
+    "null_statements": 0,
+    "interface": {
+      "scope": "Selected literal family, unchanged retained GCC/configuration premises",
+      "selected_empty_elaboration_symbol_registration_closed": true,
+      "empty_elaboration_symbol_registrations": 0,
+      "empty_elaboration_function_definition_increment": 1,
+      "size_helper_symbol_registrations": 2,
+      "size_helper_function_definition_increment": 2,
+      "size_helper_private_name_increment": 2,
+      "target_hook_additional_function_definitions": 0,
+      "target_hook_additional_symbol_registrations": 0,
+      "function_definition_number_prefix": 0,
+      "function_definition_numbers": {
+        "empty_elaboration": 0,
+        "Main": 1,
+        "String_bit_size_helper": 2,
+        "String_byte_size_helper": 3
+      },
+      "next_function_definition_number": 4,
+      "nonnull_function_allocations": 4,
+      "finalized_function_definitions": 3,
+      "initial_function_gimplifications": 3,
+      "ordinary_lowered_functions": 1,
+      "emitted_functions": 1,
+      "non_Main_function_definition_increment": 3,
+      "additional_emitted_functions_from_non_Main_frontier": 0,
+      "symbol_registration_formula": "B+D+4",
+      "next_symbol_UID_formula": "B+D+5",
+      "next_symbol_order_formula": "B+D+4",
+      "B_definition": "distinct registered Main bounds-pool declarations, B<=C",
+      "D_definition": "distinct called output procedures, 1<=D<=min(2,C)",
+      "main_function_boundary_labels": [
+        ".LFB1",
+        ".LFE1"
+      ],
+      "main_function_boundary_label_bytes_excluding_NUL": 5,
+      "non_Main_counter_effect_on_selected_emission_closed": true,
+      "additional_emitted_lines_from_non_Main_frontier": 0,
+      "inherited_local_label_bytes_excluding_NUL": 25,
+      "inherited_symbol_name_bytes_including_NUL": 26,
+      "inherited_instruction_line_bytes_excluding_LF": 64,
+      "inherited_complete_line_bytes_excluding_LF": 512,
+      "inherited_final_RTL_data_and_invocation_premises_required": true,
+      "inherited_RTL_label_counter_condition_required": true,
+      "inherited_constant_label_counter_condition_required": true,
+      "complete_imported_allocation_events": null,
+      "complete_imported_allocation_bytes": null,
+      "complete_global_counter_lifetime_closed": false,
+      "complete_collector_lifetime_closed": false,
+      "whole_literal_pipeline_capacity_established": false,
+      "independent_review": "pending"
+    },
+    "symbol_registrations_upper": 7,
+    "next_symbol_UID_upper": 8,
+    "next_symbol_order_upper": 7,
+    "live_symbols_after_both_helper_removals_upper": 5,
+    "assigned_symbol_UID_upper": 7,
+    "assigned_symbol_order_upper": 6,
+    "symbol_next_values_fit_signed_32": true,
+    "function_definition_next_value_fits_signed_32": true,
+    "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
+    "whole_literal_pipeline_capacity_established": false
   },
   "native_Main_frontend_interface": {
     "scope": "actual selected literal source: Main constructor and gigi source-visit input",
@@ -4191,7 +4392,7 @@
       "Main_is_only_defined_body_established": false,
       "Main_is_only_emitted_body_established": true,
       "additional_imported_pool_symbol_events_upper": null,
-      "additional_imported_defined_bodies_upper": null,
+      "additional_imported_defined_bodies_upper": 2,
       "additional_emitted_stream_interface": null,
       "cold_String_layout": {
         "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
@@ -4278,6 +4479,18 @@
         "empty_elaboration_gimplifications": 0,
         "ordinary_lowered_nonMain_functions": 0,
         "emitted_nonMain_functions": 0,
+        "return_ABI_queries": {
+          "allocate_struct_function_per_helper": 1,
+          "gimplify_parameters_per_helper": 1,
+          "gimplify_return_expr_per_helper": 1,
+          "hard_function_value_calls": 6,
+          "DImode_AX_REG_objects": 3,
+          "TImode_AX_REG_objects": 3,
+          "REG_caller_bytes_each": 24,
+          "PARALLEL_objects": 0,
+          "rtvec_objects": 0,
+          "pseudo_register_numbers": 0
+        },
         "input_dimensions": {
           "byte": {
             "unary": 3,
@@ -4318,6 +4531,12 @@
             "requests": 6,
             "caller_bytes": 64,
             "rounded_slot_bytes_ceiling": 64
+          },
+          {
+            "family": "return_ABI_hard_REG",
+            "requests": 6,
+            "caller_bytes": 24,
+            "rounded_slot_bytes_ceiling": 32
           },
           {
             "family": "gimple_df",
@@ -4446,9 +4665,9 @@
             "rounded_slot_bytes_ceiling": 16
           }
         ],
-        "GGC_events": 167,
-        "GGC_caller_bytes_sum_ceiling": 13336,
-        "GGC_rounded_slots_sum_ceiling": 17216,
+        "GGC_events": 173,
+        "GGC_caller_bytes_sum_ceiling": 13480,
+        "GGC_rounded_slots_sum_ceiling": 17408,
         "ordinary_groups": [
           {
             "family": "unshare_hash_control",
@@ -4519,15 +4738,113 @@
         "whole_literal_pipeline_closed": false,
         "native_runs": 0
       },
+      "selected_counter_emission_interface": {
+        "calls": 1,
+        "null_statements": 0,
+        "interface": {
+          "scope": "Selected literal family, unchanged retained GCC/configuration premises",
+          "selected_empty_elaboration_symbol_registration_closed": true,
+          "empty_elaboration_symbol_registrations": 0,
+          "empty_elaboration_function_definition_increment": 1,
+          "size_helper_symbol_registrations": 2,
+          "size_helper_function_definition_increment": 2,
+          "size_helper_private_name_increment": 2,
+          "target_hook_additional_function_definitions": 0,
+          "target_hook_additional_symbol_registrations": 0,
+          "function_definition_number_prefix": 0,
+          "function_definition_numbers": {
+            "empty_elaboration": 0,
+            "Main": 1,
+            "String_bit_size_helper": 2,
+            "String_byte_size_helper": 3
+          },
+          "next_function_definition_number": 4,
+          "nonnull_function_allocations": 4,
+          "finalized_function_definitions": 3,
+          "initial_function_gimplifications": 3,
+          "ordinary_lowered_functions": 1,
+          "emitted_functions": 1,
+          "non_Main_function_definition_increment": 3,
+          "additional_emitted_functions_from_non_Main_frontier": 0,
+          "symbol_registration_formula": "B+D+4",
+          "next_symbol_UID_formula": "B+D+5",
+          "next_symbol_order_formula": "B+D+4",
+          "B_definition": "distinct registered Main bounds-pool declarations, B<=C",
+          "D_definition": "distinct called output procedures, 1<=D<=min(2,C)",
+          "main_function_boundary_labels": [
+            ".LFB1",
+            ".LFE1"
+          ],
+          "main_function_boundary_label_bytes_excluding_NUL": 5,
+          "non_Main_counter_effect_on_selected_emission_closed": true,
+          "additional_emitted_lines_from_non_Main_frontier": 0,
+          "inherited_local_label_bytes_excluding_NUL": 25,
+          "inherited_symbol_name_bytes_including_NUL": 26,
+          "inherited_instruction_line_bytes_excluding_LF": 64,
+          "inherited_complete_line_bytes_excluding_LF": 512,
+          "inherited_final_RTL_data_and_invocation_premises_required": true,
+          "inherited_RTL_label_counter_condition_required": true,
+          "inherited_constant_label_counter_condition_required": true,
+          "complete_imported_allocation_events": null,
+          "complete_imported_allocation_bytes": null,
+          "complete_global_counter_lifetime_closed": false,
+          "complete_collector_lifetime_closed": false,
+          "whole_literal_pipeline_capacity_established": false,
+          "independent_review": "pending"
+        },
+        "symbol_registrations_upper": 7,
+        "next_symbol_UID_upper": 8,
+        "next_symbol_order_upper": 7,
+        "live_symbols_after_both_helper_removals_upper": 5,
+        "assigned_symbol_UID_upper": 7,
+        "assigned_symbol_order_upper": 6,
+        "symbol_next_values_fit_signed_32": true,
+        "function_definition_next_value_fits_signed_32": true,
+        "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
+        "whole_literal_pipeline_capacity_established": false
+      },
+      "selected_empty_elaboration_symbol_registration_established": true,
+      "selected_function_and_symbol_counter_to_name_join_established": true,
       "synthetic_counter_no_wrap_established": false,
+      "complete_global_counter_lifetime_closed": false,
+      "complete_collector_lifetime_closed": false,
+      "complete_imported_allocation_events": null,
+      "complete_imported_allocation_bytes": null,
+      "source_family_condition_assessments": {
+        "native_varpool_and_shared_tree_pool": {
+          "source_family_premises_closed": false,
+          "closed": "C+6 cumulative symbol registrations, next UID C+7 and next order C+6, including both discarded helper holes; empty elaboration registers zero.",
+          "residual": "Complete imported tree-pool entries, insertion-capable lookups and replacement lifetime, including constant-label endpoint composition. No-emission does not establish no pool allocation."
+        },
+        "native_graph_and_summary_lifetime": {
+          "source_family_premises_closed": true,
+          "closed": "Complete selected registration inventory bounds cumulative graph symbols by C+6. Main alone reaches graph analysis/ordinary lowering/IPA; both helpers are removed without edges or summary IDs. These discharge the graph slice constructor/pass premises.",
+          "residual": null,
+          "scope": "Only this graph/summary delta and its individual requests/ID arithmetic. Original tree/pool/helper allocation, identifier backing, global counter and collector totals remain separate."
+        },
+        "Main_assembler_object_interface": {
+          "source_family_premises_closed": false,
+          "closed": "Main emits .LFB1/.LFE1; synthetic function/symbol serial changes preserve the inherited name/line envelopes and add zero emitted bodies or lines.",
+          "residual": "Complete selected final-RTL/data-to-whole-stream correspondence, global RTL/constant-label endpoints and complete production invocation/materialization."
+        },
+        "Main_GAS_BFD_storage": {
+          "source_family_premises_closed": false,
+          "closed": "The joined synthetic counter changes preserve the existing name, line and selected object envelopes; exact nested assembler interface equality remains checked.",
+          "residual": "The complete incoming assembly stream and actual production GAS/BFD invocation/materialization, including the unresolved whole-stream and label-counter premises."
+        },
+        "literal_output_linker_representation": {
+          "source_family_premises_closed": false,
+          "closed": "The selected Main text/ELF/storage substitutions and synthetic name-envelope preservation are joined.",
+          "residual": "Complete Main object/whole-stream correspondence and production/fixed-object invocation materialization. This local formula does not establish that complete link input frontier."
+        }
+      },
       "affected_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
-      "missing": "The generated-body frontier, direct synthetic function storage and zero extra emitted functions are established, with two cold String helper graph/symbol increments joined. Original imported construction, shared identifier/container backing, full counter no-wrap, empty-elaboration registration and counter-to-emission joins remain; absent emission does not erase these costs.",
+      "missing": "The generated-body, selected registration inventory and function/symbol-counter-to-name joins are established, restoring the local graph/summary condition. Complete imported tree-pool lifetime, original imported construction, shared identifier/container backing, global counter no-wrap, whole-stream/invocation correspondence and collector composition remain; absent emission does not erase allocation.",
       "finding": "https://github.com/berkeleynerd/silver/issues/131"
     },
     "native_remaining_lifetime_and_collector": {
@@ -4550,7 +4867,7 @@
         "local_original_gigi_warning_suppressions_upper": 2,
         "remaining_original_gigi_warning_put_calls": 5,
         "initial_warning_map_GGC_events_upper": 11,
-        "synthetic_function_GGC_events_upper": 167,
+        "synthetic_function_GGC_events_upper": 173,
         "synthetic_function_singleton_finalizers_upper": 2,
         "collector_callback_additional_GGC_events": 0,
         "collector_marker_individual_ordinary_request_bytes": 104
@@ -4600,6 +4917,71 @@
             "section_headers": 1536
           },
           "object_bytes_upper": 17592
+        },
+        "selected_counter_emission_interface": {
+          "calls": 1,
+          "null_statements": 0,
+          "interface": {
+            "scope": "Selected literal family, unchanged retained GCC/configuration premises",
+            "selected_empty_elaboration_symbol_registration_closed": true,
+            "empty_elaboration_symbol_registrations": 0,
+            "empty_elaboration_function_definition_increment": 1,
+            "size_helper_symbol_registrations": 2,
+            "size_helper_function_definition_increment": 2,
+            "size_helper_private_name_increment": 2,
+            "target_hook_additional_function_definitions": 0,
+            "target_hook_additional_symbol_registrations": 0,
+            "function_definition_number_prefix": 0,
+            "function_definition_numbers": {
+              "empty_elaboration": 0,
+              "Main": 1,
+              "String_bit_size_helper": 2,
+              "String_byte_size_helper": 3
+            },
+            "next_function_definition_number": 4,
+            "nonnull_function_allocations": 4,
+            "finalized_function_definitions": 3,
+            "initial_function_gimplifications": 3,
+            "ordinary_lowered_functions": 1,
+            "emitted_functions": 1,
+            "non_Main_function_definition_increment": 3,
+            "additional_emitted_functions_from_non_Main_frontier": 0,
+            "symbol_registration_formula": "B+D+4",
+            "next_symbol_UID_formula": "B+D+5",
+            "next_symbol_order_formula": "B+D+4",
+            "B_definition": "distinct registered Main bounds-pool declarations, B<=C",
+            "D_definition": "distinct called output procedures, 1<=D<=min(2,C)",
+            "main_function_boundary_labels": [
+              ".LFB1",
+              ".LFE1"
+            ],
+            "main_function_boundary_label_bytes_excluding_NUL": 5,
+            "non_Main_counter_effect_on_selected_emission_closed": true,
+            "additional_emitted_lines_from_non_Main_frontier": 0,
+            "inherited_local_label_bytes_excluding_NUL": 25,
+            "inherited_symbol_name_bytes_including_NUL": 26,
+            "inherited_instruction_line_bytes_excluding_LF": 64,
+            "inherited_complete_line_bytes_excluding_LF": 512,
+            "inherited_final_RTL_data_and_invocation_premises_required": true,
+            "inherited_RTL_label_counter_condition_required": true,
+            "inherited_constant_label_counter_condition_required": true,
+            "complete_imported_allocation_events": null,
+            "complete_imported_allocation_bytes": null,
+            "complete_global_counter_lifetime_closed": false,
+            "complete_collector_lifetime_closed": false,
+            "whole_literal_pipeline_capacity_established": false,
+            "independent_review": "pending"
+          },
+          "symbol_registrations_upper": 7,
+          "next_symbol_UID_upper": 8,
+          "next_symbol_order_upper": 7,
+          "live_symbols_after_both_helper_removals_upper": 5,
+          "assigned_symbol_UID_upper": 7,
+          "assigned_symbol_order_upper": 6,
+          "symbol_next_values_fit_signed_32": true,
+          "function_definition_next_value_fits_signed_32": true,
+          "synthetic_counter_changes_preserve_inherited_emission_envelopes": true,
+          "whole_literal_pipeline_capacity_established": false
         },
         "GAS_BFD_storage": {
           "path_bytes": 513,
@@ -4699,7 +5081,7 @@
         },
         "local_interface_fits": true
       },
-      "missing": "Complete production-invocation/materialization and counter-to-emitted-stream joins (#131). No additional imported function is emitted, but surviving counters must still be joined to label spelling and complete stream arithmetic."
+      "missing": "Selected synthetic function/symbol-counter-to-name preservation is closed. Complete final-RTL/data-to-whole-stream correspondence, remaining global RTL/constant-label endpoints and production-invocation/materialization remain (#131)."
     },
     "producer_frontends_and_consumers": {
       "missing": "Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output."
@@ -4721,8 +5103,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 128,
-  "external_source_files_verified": 293,
+  "fixed_input_count": 137,
+  "external_source_files_verified": 300,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
@@ -4730,6 +5112,17 @@
     "counts_overlap_direct_source_validation": true
   },
   "native_collector_nested_inputs_verified": 45,
+  "native_counter_source_validation": {
+    "source_manifest": {
+      "bytes": 24900,
+      "sha256": "7d906c6693d8bdfaa249974c351df6ee3c4e808b93d01778ac78bcf4eb58e416"
+    },
+    "complete_source_files_verified": 48,
+    "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "historical_silver_revision": "28697404fa1971ed310d19a7ab434e593ca2b075",
+    "historical_inputs_frozen_in_manifest": 29,
+    "counts_overlap_direct_source_validation": true
+  },
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,
@@ -4740,8 +5133,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T20:53:38.702286+00:00",
-    "completed_utc": "2026-10-18T20:53:42.582875+00:00",
-    "elapsed_seconds": 3.880576851999649
+    "started_utc": "2026-10-18T21:04:20.531236+00:00",
+    "completed_utc": "2026-10-18T21:04:23.898965+00:00",
+    "elapsed_seconds": 3.367727893999472
   }
 }

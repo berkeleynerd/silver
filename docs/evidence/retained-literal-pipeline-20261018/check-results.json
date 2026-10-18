@@ -1,5 +1,5 @@
 {
-  "case_count": 109,
+  "case_count": 147,
   "cases": [
     {
       "case": "retained",
@@ -11,7 +11,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -32,7 +31,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -53,7 +51,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -74,7 +71,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -95,7 +91,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -116,7 +111,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -137,7 +131,6 @@
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
         "native_varpool_and_shared_tree_pool",
-        "native_graph_and_summary_lifetime",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -244,6 +237,162 @@
     {
       "case": "discard_resets_counter",
       "rejected": "literal cold String helper interface join"
+    },
+    {
+      "case": "counter_calls",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_nulls",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_registration_bound",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_next_UID_bound",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_next_order_bound",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_rewound_helper_holes",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_Main_funcdef",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_next_funcdef",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_empty_symbol_registration",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_erased_helper_symbols",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_extra_target_function",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_erased_function_allocation",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_extra_emitted_function",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_wrong_Main_labels",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_invented_original_events",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_invented_original_bytes",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_premature_global_counter_closure",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_premature_collector_closure",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_premature_whole_capacity",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_premature_interface_capacity",
+      "rejected": "literal counter exact interface and source-count join"
+    },
+    {
+      "case": "counter_native_pool_lifetime_registered_nodes_upper",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_pool_lifetime_next_uid_upper",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_pool_lifetime_order_upper",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_graph_lifetime_COMDAT_map_live_upper",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_graph_lifetime_additional_registered_symbols",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_graph_lifetime_calls",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_graph_lifetime_selected_graph_constructor_frontier_established",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_native_graph_lifetime_conditional_graph_and_summary_lifetime_closed",
+      "rejected": "literal counter pool and graph bound join"
+    },
+    {
+      "case": "counter_emission_lines_upper",
+      "rejected": "literal counter selected emitted-name envelope join"
+    },
+    {
+      "case": "counter_emission_bytes_upper",
+      "rejected": "literal counter selected emitted-name envelope join"
+    },
+    {
+      "case": "counter_emission_longest_line_excluding_LF_upper",
+      "rejected": "literal counter selected emitted-name envelope join"
+    },
+    {
+      "case": "counter_emission_symbol_name_bytes_including_NUL_upper",
+      "rejected": "literal counter selected emitted-name envelope join"
+    },
+    {
+      "case": "counter_manifest_missing_file",
+      "rejected": "literal counter exact source-manifest join"
+    },
+    {
+      "case": "counter_manifest_changed_hash",
+      "rejected": "literal counter exact source-manifest join"
+    },
+    {
+      "case": "counter_manifest_changed_revision",
+      "rejected": "literal counter exact source-manifest join"
+    },
+    {
+      "case": "counter_complete_source_mismatch",
+      "rejected": "literal counter complete source join: gcc/cgraph.cc"
+    },
+    {
+      "case": "counter_symbol_endpoint_2147483640",
+      "calls": 2147483640,
+      "next_symbol_UID_upper": 2147483647,
+      "fits": true
+    },
+    {
+      "case": "counter_symbol_endpoint_2147483641",
+      "calls": 2147483641,
+      "next_symbol_UID_upper": 2147483648,
+      "fits": false
     },
     {
       "case": "erased_synthetic_function",
@@ -443,14 +592,14 @@
       "calls": 82595524,
       "rounding_numerator": 2147483631,
       "conditional_arithmetic_fits": true,
-      "named_consumer_closed": false
+      "selected_graph_constructor_frontier_established": true
     },
     {
       "case": "summary_signed_size_82595525",
       "calls": 82595525,
       "rounding_numerator": 2147483657,
       "conditional_arithmetic_fits": false,
-      "named_consumer_closed": false
+      "selected_graph_constructor_frontier_established": true
     },
     {
       "case": "cgraph_edge_UID_536870911",
@@ -657,8 +806,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T20:53:38.683575+00:00",
-    "completed_utc": "2026-10-18T20:53:43.591559+00:00",
-    "elapsed_seconds": 4.907963480000035
+    "started_utc": "2026-10-18T21:03:57.682614+00:00",
+    "completed_utc": "2026-10-18T21:04:02.157397+00:00",
+    "elapsed_seconds": 4.474777032999555
   }
 }

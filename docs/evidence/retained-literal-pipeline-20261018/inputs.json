@@ -571,8 +571,8 @@
   },
   {
     "path": "docs/research/retained-literal-synthetic-function-storage.md",
-    "bytes": 19340,
-    "sha256": "7fdd87684205e74c73ac226086541beead2478dafe131755f5d0e7dfb275e2fa"
+    "bytes": 23056,
+    "sha256": "b8a664861e2fe87b6b4c870dc1d0904b83f89d9005c8a29bc9aaf29947ad5f2e"
   },
   {
     "path": "docs/evidence/retained-literal-collector-callbacks-20261018/README.md",
@@ -606,28 +606,28 @@
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/README.md",
-    "bytes": 2753,
-    "sha256": "ff95da88165e510415dc81133d09a355ca96036d007387f99da4f62fb4089c09"
+    "bytes": 3670,
+    "sha256": "043937f4f709dd9838c5ab5e0b066599aa709543f17907a5bbcbe9106144814c"
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/check-results.json",
-    "bytes": 2196,
-    "sha256": "b0e86e384389e1c443c15bd0e32b7e4a2ce5fbbf25bbc70c7b59ccbeb6327d24"
+    "bytes": 2481,
+    "sha256": "87d9810b658589e8bdaee1abe56f2e20e10cd31fc37a9ddfc1fc198ab6b9fada"
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/check.py",
-    "bytes": 12852,
-    "sha256": "f1a766665825757d2efc8a3043651497a6a41f7b37d299e2dd13a668e9165702"
+    "bytes": 15464,
+    "sha256": "6a20e44991e4ec0ddf985636dd32fc13702f0eb40af5c3f708704823ee372aed"
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/derive.py",
-    "bytes": 4607,
-    "sha256": "0170c79773fe2712b16adae05528f7534cf74a463959e253d14ddca8018e6c25"
+    "bytes": 5113,
+    "sha256": "6322a252919adda37c475e22e36cd0b72bb999abdb55bc70365da46dfab7077c"
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/interface.json",
-    "bytes": 6129,
-    "sha256": "0a4ab98fc68bee370e326dff850540efea20dc084f0c3ba25a5873dfba7cd409"
+    "bytes": 6644,
+    "sha256": "570b14178574a7d14c9de92b23a465d4e960f4138102f11e1970333cbfae4c08"
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/matcher-flat-patterns.json",
@@ -636,7 +636,52 @@
   },
   {
     "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/source-manifest.json",
-    "bytes": 27831,
-    "sha256": "56af2677740237bebe2e646c818d78ba7720c785b03d5c79d55beddaf7455665"
+    "bytes": 30585,
+    "sha256": "8be0ed5ebc5678cc1a0bd0117394a6ac91b763e377a5f78b5f181f7b87093597"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/README.md",
+    "bytes": 3792,
+    "sha256": "361ff65e0c11efc45fc40833b4bbffb19ea3dd97cb366277157bd5a0186b29e5"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/check-results.json",
+    "bytes": 9349,
+    "sha256": "38328cc4e422a878c9742484b6b61bb3f7712de5a80f326a569beb77607e1e77"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/check.py",
+    "bytes": 15370,
+    "sha256": "fd80206edc2bee8f82b92e52c5d2b8b0c6c33bdd9b8b0584800f6966db880acc"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/derive.py",
+    "bytes": 4279,
+    "sha256": "738d614b3a46866754c10b32b70bd057ba74b28967b70d82db9a1cb3b52819cd"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/interface.json",
+    "bytes": 2204,
+    "sha256": "26ee911d66a275c749ce7d9d911c81c437f488241a5947a2a307ac52e5476756"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/result.json",
+    "bytes": 2814,
+    "sha256": "e483a3b6f7e0dcc07182e9191e0eead10e3eb042f5f1d20a2991fdfa52fc2634"
+  },
+  {
+    "path": "docs/evidence/retained-literal-counter-emission-20261018/source-manifest.json",
+    "bytes": 24900,
+    "sha256": "7d906c6693d8bdfaa249974c351df6ee3c4e808b93d01778ac78bcf4eb58e416"
+  },
+  {
+    "path": "docs/research/retained-literal-counter-emission.md",
+    "bytes": 19399,
+    "sha256": "5f2fb948169cd1fab59f63019c65afa37aa0151d68bebeb3cc8fbc5792cefa3c"
+  },
+  {
+    "path": "docs/reviews/review-literal-counter-emission-bc69773b78.md",
+    "bytes": 13612,
+    "sha256": "1484d3f542dad4652cf00c855e40870eebfa84bf8f726f9b7e105c9582ed83cc"
   }
 ]
