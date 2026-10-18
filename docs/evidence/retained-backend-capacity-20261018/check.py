@@ -15,6 +15,20 @@ import tarfile
 
 
 RANGES = {
+    "gcc/tree-cfg.cc": [(72, 79), (145, 214), (488, 555), (631, 666),
+                        (810, 1024), (1085, 1220), (1325, 1405),
+                        (1507, 1698), (1710, 1852), (2633, 2666)],
+    "gcc/cfg.cc": [(65, 83), (214, 231), (278, 342)],
+    "gcc/cfg.h": [(38, 70)],
+    "gcc/input.cc": [(1045, 1059)],
+    "gcc/passes.def": [(25, 47)],
+    "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
+    "gcc/gimplify.cc": [(1270, 1282), (1699, 1830)],
+    "gcc/tree-eh.cc": [(618, 655), (710, 877), (940, 1095),
+                       (1107, 1283), (1289, 1800), (2333, 2356), (3318, 3349)],
+    "gcc/gimple.cc": [(1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
+    "gcc/tree-inline.cc": [(5861, 5940), (6008, 6060)],
+    "gcc/langhooks-def.h": [(145, 158)],
     "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
     "gcc/ada/gcc-interface/trans.cc": [(87, 91), (346, 363), (6705, 6732),
                                        (1201, 1289), (1330, 1369), (4911, 5015),
@@ -74,6 +88,130 @@ def read_tar(archive, name):
     with tarfile.open(archive) as src:
         with src.extractfile(name) as member:
             return member.read()
+
+
+def check_cleanup_transfers(all_bytes):
+    """Arithmetic on the report's manually established cleanup frontier.
+
+    Counts are constructor calls, not final live instructions. Source checks
+    corroborate the branch selection; they do not establish reachability.
+    """
+    passes = all_bytes["gcc/passes.def"].decode()
+    assert passes.index("NEXT_PASS (pass_lower_cf)") < passes.index(
+        "NEXT_PASS (pass_lower_eh)")
+    assert re.search(r"#define\s+LANG_HOOKS_EH_PROTECT_CLEANUP_ACTIONS\s+NULL\b",
+                     all_bytes["gcc/langhooks-def.h"].decode())
+    assert "LANG_HOOKS_EH_PROTECT_CLEANUP_ACTIONS" not in all_bytes[
+        "gcc/ada/gcc-interface/misc.cc"].decode()
+    eh = all_bytes["gcc/tree-eh.cc"].decode()
+    start = eh.index("\ndecide_copy_try_finally (")
+    body = eh[start:eh.index("\n}\n", start)]
+    gate = body[body.index("if (!optimize)"):body.index(
+        "/* Finally estimate N times")]
+    for expression in ("is_gimple_debug (stmt)", "gimple_clobber_p (stmt)",
+                       "gimple_call_builtin_p (stmt, BUILT_IN_STACK_RESTORE)"):
+        assert expression in gate
+    low = all_bytes["gcc/gimple-low.cc"].decode()
+    start = low.index("\nlower_gimple_return (")
+    body = low[start:low.index("\n}\n", start)]
+    assert body.count("gimple_build_goto (") == 1
+    assert body.count("create_artificial_label (") == 1
+    assert "gimple_build_return (" not in body
+
+    # Each tuple names independently inspected source allocations. Enumerate
+    # flags and Q/D pairs only to check the symbolic sums and stated maxima.
+    copy_rows = {
+        "fallthrough_branch_and_end_label": 2,
+        "exception_landing_label_and_resx": 2,
+        "queued_goto_continuation_and_redirection": 2,
+        "distinct_destination_label": 1,
+    }
+    switch_rows = {
+        "common_finally_label_and_switch": 2,
+        "fallthrough_assignment_case_branch_end_label": 4,
+        "exception_landing_assignment_branch_case_resx": 5,
+        "queued_goto_assignment_continuation_redirection": 3,
+        "distinct_destination_label": 1,
+    }
+    cases = []
+    for q, d in ((0, 0), (1, 1), (2, 1), (2, 2), (7, 1), (7, 7)):
+        for f in (0, 1):
+            for e in (0, 1):
+                copy_controls = 2*f+2*e+2*q+d
+                switch_controls = 2+4*f+5*e+3*q+d
+                assert copy_controls <= 2*q+d+4
+                assert switch_controls <= 11+3*q+d
+                assert d+f+e <= d+2
+                assert 1+2*f+2*e+d <= 5+d
+                assert 2*f+2*e+q+d <= 4+q+d
+                cases.append(dict(queued_gotos=q, destinations=d,
+                                  fallthrough=f, exception=e,
+                                  cleanup_copies=d+f+e,
+                                  copy_control_statements=copy_controls,
+                                  switch_control_statements=switch_controls))
+    main_cases = [c for c in cases if c["queued_gotos"] <= 1]
+    assert max(c["cleanup_copies"] for c in main_cases) == 3
+    assert max(c["copy_control_statements"] for c in main_cases) == 7
+    assert max(c["switch_control_statements"] for c in main_cases) == 15
+    return {
+        "scope": "O0 cleanup GIMPLE allocations; operand trees and later passes separate",
+        "cf_precedes_eh": True,
+        "implicit_return_cf_new_gimple": 2,
+        "implicit_return_cf_new_label_declarations": 1,
+        "simple_cleanup_copy_control_rows": copy_rows,
+        "switch_cleanup_control_rows": switch_rows,
+        "copy_bounds": {"cloned_statements": "(D+2)*C",
+                        "other_statements": "2*Q+D+4",
+                        "artificial_labels": "D+2"},
+        "switch_bounds": {"new_statements": "11+3*Q+D",
+                          "temporary_requests": 1,
+                          "artificial_labels": "5+D",
+                          "case_labels_and_entries": "2+D",
+                          "integer_constant_requests": "4+Q+D",
+                          "continuation_map_entries": "D"},
+        "Main_Q_D_at_most_one": {
+            "copy_statements": "3*C+7", "copy_labels": 3,
+            "inner_copy_statements": "2*C+4", "inner_copy_labels": 2,
+            "switch_statements": 15, "switch_temporaries": 1,
+            "switch_labels": 6, "switch_cases": 3,
+            "switch_integer_requests": 6, "goto_queue_capacity": 32},
+        "enumerated_arithmetic_cases": cases,
+        "source_frontier_requires_manual_argument": True,
+    }
+
+
+def check_initial_cfg(all_bytes):
+    source = all_bytes["gcc/tree-cfg.cc"].decode()
+    assert "static const int initial_cfg_capacity = 20;" in source
+    start = source.index("\ncall_can_make_abnormal_goto (")
+    body = source[start:source.index("\n}\n", start)]
+    assert re.search(r"if \(!cfun->has_nonlocal_label\s*&& !cfun->calls_setjmp\)"
+                     r"\s*return false;", body)
+    rows = []
+    # Direct per-terminal edge requests. Ordinary selected switches come only
+    # from cleanup lowering, with at most three destinations.
+    terminal_requests = dict(cond=2, call=2, throwing_assign=2, ordinary=1,
+                             direct_goto=1, resx=1, return_stmt=1, switch=3)
+    assert max(terminal_requests.values()) == 3
+    for s in (0, 1, 20, 100, 1000000):
+        b = max(1, s)
+        for switches in (0, min(1, s), s):
+            k = 3*switches
+            edges = min(1+2*b+k, 1+3*b)
+            assert edges <= 1+3*b
+            rows.append(dict(statements=s, switch_labels=k, blocks=b+2,
+                             edges=edges, pointer_vector_demand=max(20,b+2,s,edges),
+                             discriminator_requests=s+edges,
+                             discriminator_block_ids=s+2*b+edges))
+    return dict(scope="build_gimple_cfg before CFG cleanup and loop discovery",
+                blocks="max(1,S)+2", edge_requests="min(1+2*max(1,S)+K,1+3*max(1,S))",
+                label_map_entries="S", vector_initial_demand=20,
+                pointer_vector_demand_bound=1431655765,
+                discriminator_requests="S+E_graph",
+                discriminator_block_ids="S+2*max(1,S)+E_graph",
+                new_adhoc_location_requests="S+E_graph",
+                terminal_edge_requests=terminal_requests, cases=rows,
+                excludes="CFG cleanup/loop discovery, ad-hoc-location allocator, SSA, RTL")
 
 
 def check_block_transfers(all_bytes, bundle):
@@ -354,6 +492,8 @@ def main():
         "scope": "local source-derived arithmetic; no native compiler/prover run",
         "verified_sources": verified,
         "block_operations": check_block_transfers(all_bytes, bundle),
+        "cleanup_lowering": check_cleanup_transfers(all_bytes),
+        "initial_cfg": check_initial_cfg(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

@@ -322,6 +322,105 @@
       "git_blob_sha1": "6364216d9681b4c8560af455f3758ce035314c1c",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/defaults.h",
       "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736",
+      "git_blob_sha1": "cdddb87302f647b4709b246b84cb5766230c6a97",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/passes.def",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/gimple-low.cc",
+      "bytes": 45880,
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb",
+      "git_blob_sha1": "d8e14a597b42786525660f5de492bfb4f15fd30b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-low.cc",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "git_blob_sha1": "8bfc71315f9fd3501bb68f4b23a81c69b781fcec",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimplify.cc",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/tree-eh.cc",
+      "bytes": 147108,
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431",
+      "git_blob_sha1": "512dca807a71aa53e8e695cb9d8fb1cd21c488e8",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-eh.cc",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803",
+      "git_blob_sha1": "c791e04124314bab166a9f9d9eb77950b474e7c1",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.cc",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/tree-inline.cc",
+      "bytes": 214934,
+      "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903",
+      "git_blob_sha1": "df5597ef30dde050638add281f89c67ec8d3759f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-inline.cc",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/langhooks-def.h",
+      "bytes": 18024,
+      "sha256": "118e301f1c983dcb7c4f1b7a7b30820861cd53420779e29b0dc8c2a3c489c187",
+      "git_blob_sha1": "fc409ec08b96781064d5bf18a339335c7834f4ff",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/langhooks-def.h",
+      "archive": "cleanup-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44",
+      "git_blob_sha1": "3b95e0a68f139f0b35d576d6717aaf9e6c9f708a",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-cfg.cc",
+      "archive": "cfg-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b",
+      "git_blob_sha1": "6b9d5b24a552424577f50b93341f205dedeefa6e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cfg.cc",
+      "archive": "cfg-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/cfg.h",
+      "bytes": 6695,
+      "sha256": "2d6d9e1878b701a4e3410fb07ac65c293802cb35561f60b414c3e3ee085972be",
+      "git_blob_sha1": "258b7554451435ebfa911be9eea04009a4b52197",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cfg.h",
+      "archive": "cfg-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/input.cc",
+      "bytes": 117157,
+      "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7",
+      "git_blob_sha1": "1ef3c5fdb5b73790ad96ac756104866e8bf4825a",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/input.cc",
+      "archive": "cfg-sources.tar.gz",
+      "origin": "previously retained complete pinned GCC non-tests source"
     }
   ]
 }

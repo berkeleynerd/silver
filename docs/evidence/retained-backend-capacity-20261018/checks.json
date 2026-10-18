@@ -156,6 +156,50 @@
     {
       "path": "gcc/defaults.h",
       "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "path": "gcc/passes.def",
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "path": "gcc/gimple-low.cc",
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "path": "gcc/tree-eh.cc",
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "path": "gcc/tree-inline.cc",
+      "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903"
+    },
+    {
+      "path": "gcc/langhooks-def.h",
+      "sha256": "118e301f1c983dcb7c4f1b7a7b30820861cd53420779e29b0dc8c2a3c489c187"
+    },
+    {
+      "path": "gcc/tree-cfg.cc",
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "path": "gcc/cfg.cc",
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "path": "gcc/cfg.h",
+      "sha256": "2d6d9e1878b701a4e3410fb07ac65c293802cb35561f60b414c3e3ee085972be"
+    },
+    {
+      "path": "gcc/input.cc",
+      "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7"
     }
   ],
   "block_operations": {
@@ -254,6 +298,428 @@
       "ix86_copy_addr_to_reg": 2,
       "adjust_address": 2
     }
+  },
+  "cleanup_lowering": {
+    "scope": "O0 cleanup GIMPLE allocations; operand trees and later passes separate",
+    "cf_precedes_eh": true,
+    "implicit_return_cf_new_gimple": 2,
+    "implicit_return_cf_new_label_declarations": 1,
+    "simple_cleanup_copy_control_rows": {
+      "fallthrough_branch_and_end_label": 2,
+      "exception_landing_label_and_resx": 2,
+      "queued_goto_continuation_and_redirection": 2,
+      "distinct_destination_label": 1
+    },
+    "switch_cleanup_control_rows": {
+      "common_finally_label_and_switch": 2,
+      "fallthrough_assignment_case_branch_end_label": 4,
+      "exception_landing_assignment_branch_case_resx": 5,
+      "queued_goto_assignment_continuation_redirection": 3,
+      "distinct_destination_label": 1
+    },
+    "copy_bounds": {
+      "cloned_statements": "(D+2)*C",
+      "other_statements": "2*Q+D+4",
+      "artificial_labels": "D+2"
+    },
+    "switch_bounds": {
+      "new_statements": "11+3*Q+D",
+      "temporary_requests": 1,
+      "artificial_labels": "5+D",
+      "case_labels_and_entries": "2+D",
+      "integer_constant_requests": "4+Q+D",
+      "continuation_map_entries": "D"
+    },
+    "Main_Q_D_at_most_one": {
+      "copy_statements": "3*C+7",
+      "copy_labels": 3,
+      "inner_copy_statements": "2*C+4",
+      "inner_copy_labels": 2,
+      "switch_statements": 15,
+      "switch_temporaries": 1,
+      "switch_labels": 6,
+      "switch_cases": 3,
+      "switch_integer_requests": 6,
+      "goto_queue_capacity": 32
+    },
+    "enumerated_arithmetic_cases": [
+      {
+        "queued_gotos": 0,
+        "destinations": 0,
+        "fallthrough": 0,
+        "exception": 0,
+        "cleanup_copies": 0,
+        "copy_control_statements": 0,
+        "switch_control_statements": 2
+      },
+      {
+        "queued_gotos": 0,
+        "destinations": 0,
+        "fallthrough": 0,
+        "exception": 1,
+        "cleanup_copies": 1,
+        "copy_control_statements": 2,
+        "switch_control_statements": 7
+      },
+      {
+        "queued_gotos": 0,
+        "destinations": 0,
+        "fallthrough": 1,
+        "exception": 0,
+        "cleanup_copies": 1,
+        "copy_control_statements": 2,
+        "switch_control_statements": 6
+      },
+      {
+        "queued_gotos": 0,
+        "destinations": 0,
+        "fallthrough": 1,
+        "exception": 1,
+        "cleanup_copies": 2,
+        "copy_control_statements": 4,
+        "switch_control_statements": 11
+      },
+      {
+        "queued_gotos": 1,
+        "destinations": 1,
+        "fallthrough": 0,
+        "exception": 0,
+        "cleanup_copies": 1,
+        "copy_control_statements": 3,
+        "switch_control_statements": 6
+      },
+      {
+        "queued_gotos": 1,
+        "destinations": 1,
+        "fallthrough": 0,
+        "exception": 1,
+        "cleanup_copies": 2,
+        "copy_control_statements": 5,
+        "switch_control_statements": 11
+      },
+      {
+        "queued_gotos": 1,
+        "destinations": 1,
+        "fallthrough": 1,
+        "exception": 0,
+        "cleanup_copies": 2,
+        "copy_control_statements": 5,
+        "switch_control_statements": 10
+      },
+      {
+        "queued_gotos": 1,
+        "destinations": 1,
+        "fallthrough": 1,
+        "exception": 1,
+        "cleanup_copies": 3,
+        "copy_control_statements": 7,
+        "switch_control_statements": 15
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 1,
+        "fallthrough": 0,
+        "exception": 0,
+        "cleanup_copies": 1,
+        "copy_control_statements": 5,
+        "switch_control_statements": 9
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 1,
+        "fallthrough": 0,
+        "exception": 1,
+        "cleanup_copies": 2,
+        "copy_control_statements": 7,
+        "switch_control_statements": 14
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 1,
+        "fallthrough": 1,
+        "exception": 0,
+        "cleanup_copies": 2,
+        "copy_control_statements": 7,
+        "switch_control_statements": 13
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 1,
+        "fallthrough": 1,
+        "exception": 1,
+        "cleanup_copies": 3,
+        "copy_control_statements": 9,
+        "switch_control_statements": 18
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 2,
+        "fallthrough": 0,
+        "exception": 0,
+        "cleanup_copies": 2,
+        "copy_control_statements": 6,
+        "switch_control_statements": 10
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 2,
+        "fallthrough": 0,
+        "exception": 1,
+        "cleanup_copies": 3,
+        "copy_control_statements": 8,
+        "switch_control_statements": 15
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 2,
+        "fallthrough": 1,
+        "exception": 0,
+        "cleanup_copies": 3,
+        "copy_control_statements": 8,
+        "switch_control_statements": 14
+      },
+      {
+        "queued_gotos": 2,
+        "destinations": 2,
+        "fallthrough": 1,
+        "exception": 1,
+        "cleanup_copies": 4,
+        "copy_control_statements": 10,
+        "switch_control_statements": 19
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 1,
+        "fallthrough": 0,
+        "exception": 0,
+        "cleanup_copies": 1,
+        "copy_control_statements": 15,
+        "switch_control_statements": 24
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 1,
+        "fallthrough": 0,
+        "exception": 1,
+        "cleanup_copies": 2,
+        "copy_control_statements": 17,
+        "switch_control_statements": 29
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 1,
+        "fallthrough": 1,
+        "exception": 0,
+        "cleanup_copies": 2,
+        "copy_control_statements": 17,
+        "switch_control_statements": 28
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 1,
+        "fallthrough": 1,
+        "exception": 1,
+        "cleanup_copies": 3,
+        "copy_control_statements": 19,
+        "switch_control_statements": 33
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 7,
+        "fallthrough": 0,
+        "exception": 0,
+        "cleanup_copies": 7,
+        "copy_control_statements": 21,
+        "switch_control_statements": 30
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 7,
+        "fallthrough": 0,
+        "exception": 1,
+        "cleanup_copies": 8,
+        "copy_control_statements": 23,
+        "switch_control_statements": 35
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 7,
+        "fallthrough": 1,
+        "exception": 0,
+        "cleanup_copies": 8,
+        "copy_control_statements": 23,
+        "switch_control_statements": 34
+      },
+      {
+        "queued_gotos": 7,
+        "destinations": 7,
+        "fallthrough": 1,
+        "exception": 1,
+        "cleanup_copies": 9,
+        "copy_control_statements": 25,
+        "switch_control_statements": 39
+      }
+    ],
+    "source_frontier_requires_manual_argument": true
+  },
+  "initial_cfg": {
+    "scope": "build_gimple_cfg before CFG cleanup and loop discovery",
+    "blocks": "max(1,S)+2",
+    "edge_requests": "min(1+2*max(1,S)+K,1+3*max(1,S))",
+    "label_map_entries": "S",
+    "vector_initial_demand": 20,
+    "pointer_vector_demand_bound": 1431655765,
+    "discriminator_requests": "S+E_graph",
+    "discriminator_block_ids": "S+2*max(1,S)+E_graph",
+    "new_adhoc_location_requests": "S+E_graph",
+    "terminal_edge_requests": {
+      "cond": 2,
+      "call": 2,
+      "throwing_assign": 2,
+      "ordinary": 1,
+      "direct_goto": 1,
+      "resx": 1,
+      "return_stmt": 1,
+      "switch": 3
+    },
+    "cases": [
+      {
+        "statements": 0,
+        "switch_labels": 0,
+        "blocks": 3,
+        "edges": 3,
+        "pointer_vector_demand": 20,
+        "discriminator_requests": 3,
+        "discriminator_block_ids": 5
+      },
+      {
+        "statements": 0,
+        "switch_labels": 0,
+        "blocks": 3,
+        "edges": 3,
+        "pointer_vector_demand": 20,
+        "discriminator_requests": 3,
+        "discriminator_block_ids": 5
+      },
+      {
+        "statements": 0,
+        "switch_labels": 0,
+        "blocks": 3,
+        "edges": 3,
+        "pointer_vector_demand": 20,
+        "discriminator_requests": 3,
+        "discriminator_block_ids": 5
+      },
+      {
+        "statements": 1,
+        "switch_labels": 0,
+        "blocks": 3,
+        "edges": 3,
+        "pointer_vector_demand": 20,
+        "discriminator_requests": 4,
+        "discriminator_block_ids": 6
+      },
+      {
+        "statements": 1,
+        "switch_labels": 3,
+        "blocks": 3,
+        "edges": 4,
+        "pointer_vector_demand": 20,
+        "discriminator_requests": 5,
+        "discriminator_block_ids": 7
+      },
+      {
+        "statements": 1,
+        "switch_labels": 3,
+        "blocks": 3,
+        "edges": 4,
+        "pointer_vector_demand": 20,
+        "discriminator_requests": 5,
+        "discriminator_block_ids": 7
+      },
+      {
+        "statements": 20,
+        "switch_labels": 0,
+        "blocks": 22,
+        "edges": 41,
+        "pointer_vector_demand": 41,
+        "discriminator_requests": 61,
+        "discriminator_block_ids": 101
+      },
+      {
+        "statements": 20,
+        "switch_labels": 3,
+        "blocks": 22,
+        "edges": 44,
+        "pointer_vector_demand": 44,
+        "discriminator_requests": 64,
+        "discriminator_block_ids": 104
+      },
+      {
+        "statements": 20,
+        "switch_labels": 60,
+        "blocks": 22,
+        "edges": 61,
+        "pointer_vector_demand": 61,
+        "discriminator_requests": 81,
+        "discriminator_block_ids": 121
+      },
+      {
+        "statements": 100,
+        "switch_labels": 0,
+        "blocks": 102,
+        "edges": 201,
+        "pointer_vector_demand": 201,
+        "discriminator_requests": 301,
+        "discriminator_block_ids": 501
+      },
+      {
+        "statements": 100,
+        "switch_labels": 3,
+        "blocks": 102,
+        "edges": 204,
+        "pointer_vector_demand": 204,
+        "discriminator_requests": 304,
+        "discriminator_block_ids": 504
+      },
+      {
+        "statements": 100,
+        "switch_labels": 300,
+        "blocks": 102,
+        "edges": 301,
+        "pointer_vector_demand": 301,
+        "discriminator_requests": 401,
+        "discriminator_block_ids": 601
+      },
+      {
+        "statements": 1000000,
+        "switch_labels": 0,
+        "blocks": 1000002,
+        "edges": 2000001,
+        "pointer_vector_demand": 2000001,
+        "discriminator_requests": 3000001,
+        "discriminator_block_ids": 5000001
+      },
+      {
+        "statements": 1000000,
+        "switch_labels": 3,
+        "blocks": 1000002,
+        "edges": 2000004,
+        "pointer_vector_demand": 2000004,
+        "discriminator_requests": 3000004,
+        "discriminator_block_ids": 5000004
+      },
+      {
+        "statements": 1000000,
+        "switch_labels": 3000000,
+        "blocks": 1000002,
+        "edges": 3000001,
+        "pointer_vector_demand": 3000001,
+        "discriminator_requests": 4000001,
+        "discriminator_block_ids": 6000001
+      }
+    ],
+    "excludes": "CFG cleanup/loop discovery, ad-hoc-location allocator, SSA, RTL"
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

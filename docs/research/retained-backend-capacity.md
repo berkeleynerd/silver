@@ -602,6 +602,203 @@ interface by actual invocations, including failed speculative attempts. This
 closes a length-dependent expansion concern without substituting an observed
 instruction count or an unexplained whole-backend multiplier.
 
+## O0 cleanup lowering: no recursive body duplication
+
+The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main
+work from its binding scopes and cleanup actions. The selected Linux invocation
+has no OpenMP/OpenACC, sanitizer, transactional-memory or C++ cleanup hooks.
+Gigi contributes at most one Main finalizer-call cleanup. Gimplification can
+also add one cleanup per retained BIND, containing one clobber for each eligible
+memory variable and at most one stack_restore. Fixed-size memory locals can
+therefore create cleanups too; dynamic String storage is not the only source
+(`gimplify.cc:1699–1830`). A stack-save/restore pair adds two GIMPLE calls and
+one pointer temporary (`:1270–1282`). These are constructor transfers; the
+number of eligible variables and BINDs comes from the bridge.
+
+Cleanup **bodies** in this frontier contain no nested try, label, BIND, return,
+or outgoing goto. This does not bound the nesting depth of protected bodies.
+At O0, `decide_copy_try_finally` permits duplication only of debug statements,
+clobbers and stack_restore; an ordinary finalizer call selects the switch route
+when there is more than one destination (`tree-eh.cc:1633–1675`). Ada retains
+the null `eh_protect_cleanup_actions` language hook (`langhooks-def.h:152`),
+so that hook adds no extra cleanup copies. The earlier double-finally
+refactoring needs a TRY_CATCH inside a cleanup and cannot apply to this frontier
+(`tree-eh.cc:3318–3349`). Thus nested scopes do **not** recursively multiply the
+protected source body at this phase.
+
+### Include the generated procedure return
+
+Absence of a source return is insufficient to set all outgoing-edge counts to
+zero. GNAT appends an implicit return to Main's statement list. It lies inside
+Main's finalizer cleanup and can also lie inside the outer function-BIND
+cleanup. The bridge records its frontend placement. Before EH lowering,
+`pass_lower_cf` replaces it by a goto to a shared return label emitted after
+the complete function body (`passes.def:35–41`,
+`gimple-low.cc:122–214,1178–1223`). The original return is reused after that
+label. This costs one goto, one GIMPLE label and one label declaration; it
+does not create another return. The same rule applies independently in the
+generated finalizer function.
+
+Consequently, at the input of EH lowering, a cleanup enclosing Main's implicit
+return can have **one queued goto and one distinct outward destination**.
+The GIMPLE_RETURN itself is outside those cleanups, so `may_return` is false
+there. Inner expression/loop scopes do not contain the appended return.
+Generated loop tests and their exits remain within their containing scopes;
+the source has no return/exit/goto/handler. The bridge supplies this control
+frontier. The formulas below keep queued occurrences and destinations explicit,
+so the arithmetic does not depend on mistaking a source restriction for the
+absence of compiler-generated transfers.
+
+### Local allocation counts
+
+For one cleanup, let C count its simple cleanup statements, Q its queued
+outward goto occurrences, D their distinct destinations, F its possible
+fallthrough (0 or 1), and E its possible exception continuation (0 or 1).
+There is no EH_ELSE or return inside this phase's protected region. Then
+`ndests=D+F+E`. Q counts occurrences, not distinct labels.
+
+On the **copy route**, each destination gets one copy of the simple cleanup.
+The original C statements remain part of lifetime allocation accounting, even
+when detached. `gimple_seq_copy` allocates one GIMPLE statement per original
+simple statement, and these have no GIMPLE substatements
+(`gimple.cc:1563–1577,2045–2333`). The copy wrapper finds no local label or BIND;
+its variable remapping reuses existing declarations rather than generating a
+new variable per operand (`tree-inline.cc:5861–5940,6008–6060`). Operand-tree
+unsharing is still charged separately.
+
+Counting both feasible continuation flags conservatively gives
+
+```text
+cloned cleanup statements <= (D+2)C
+other new GIMPLE statements <= 2Q+D+4
+new artificial labels <= D+2.
+```
+
+The exact control count is `2Q+D+2F+2E`: each queued goto creates its
+continuation goto and redirection goto; each distinct destination creates a
+label; fallthrough adds a branch and final label; exception continuation adds
+a landing-pad label and RESX. Reusing the continuation goto in its destination
+block does not allocate it again (`tree-eh.cc:830–877,1289–1409,1780–1788`).
+Cases with zero or one destination use simpler paths and fit these same
+allowances, without requiring a copy of the original cleanup.
+
+On the **switch route**, the cleanup body is retained once, without cloning.
+The construction at `tree-eh.cc:1419–1623` has these upper bounds:
+
+| New item | Bound |
+| --- | ---: |
+| GIMPLE statements | `11+3Q+D` |
+| Integer temporary | 1 |
+| Artificial labels | `5+D` |
+| CASE_LABEL nodes / case-vector entries | `2+D` |
+| Integer-constant construction requests | `4+Q+D` |
+| Continuation-map entries | `D` |
+
+The exact statement count is `2+4F+5E+3Q+D`: the common finally label/switch;
+fallthrough assignment, case label, branch and final label; exception landing
+label, assignment, branch, case label and RESX; three allocations per queued
+goto (assignment and two gotos); and one label per distinct destination.
+Constant construction requests are counted even if GCC interns the result.
+The new temporary's ordinary declaration/helper allocations are separate.
+Single-destination and unreachable-cleanup paths fit the same conservative
+allowance. The Main finalizer call is not declared noreturn; even if a future
+analysis recognizes a nonfallthrough cleanup, its simpler branch redirection
+also fits the control allowance.
+
+For the bridge's `Q,D<=1`, a simple BIND cleanup therefore contributes at most
+**3C+7** new GIMPLE statements and three labels; a finalizer-call cleanup at
+most **15** new statements, one temporary, six labels, three case nodes and
+six constant requests. For inner scopes with `Q=D=0`, use the sharper
+**2C+4** and two labels. Each goto queue with at most one entry allocates its
+initial capacity of 32 records and never doubles (`tree-eh.cc:618–655`).
+These local fixed-size queues are not an aggregate memory gate. Each cleanup
+creates at most one EH region and one landing pad. Multiple scopes are summed,
+including both scopes around Main's return; they are not limited to a fixed
+nesting depth.
+
+The checker enumerates the Boolean continuation cases and checks these sums
+against the separately stated formulas. It checks the pass order, copy gate,
+null Ada hook, and complete source identities. The manual source argument
+supplies the reachable frontier; enumeration is not a proof of GCC. Remaining
+tree operands, EH maps, CFG construction, RTL expansion and instruction/data
+sizes remain explicit composition work.
+
+## EH output to initial control-flow graph
+
+Let S count the flat GIMPLE statements after the preceding CF/EH transfers,
+including labels and all retained cleanup copies. Let K be the sum of switch
+label-vector lengths, including default labels. These are phase-output counts,
+not source statement counts. For Main and its finalizer the bridge excludes
+computed/nonlocal gotos and setjmp-like calls; their `has_nonlocal_label` and
+`calls_setjmp` flags remain false. Consequently
+`call_can_make_abnormal_goto` returns false (`tree-cfg.cc:2633–2666`). This
+excludes the extra dispatcher blocks and abnormal-call assignment inserted by
+`make_blocks_1` and `make_edges`; exception edges are still included.
+
+`make_blocks_1` creates at most one block per visited statement and creates no
+new statement in this frontier (`tree-cfg.cc:488–555`). The empty sequence
+gets one empty block. With `B=max(1,S)` the initial construction therefore has
+
+```text
+ordinary blocks <= B
+all blocks including entry/exit <= B+2
+edge allocation requests <= 1+2B+K
+label-map entries <= S.
+```
+
+Entry adds one edge. A condition adds two; a call or control-altering assignment
+adds at most one EH edge and one fallthrough; a return, direct goto or RESX
+adds at most one; and a switch adds one request per label. `make_eh_edge`
+targets the single nearest landing pad (`tree-eh.cc:2333–2356`). The K term
+deliberately adds switch destinations on top of the generic two-per-block
+allowance. Duplicate source/destination requests reuse an existing edge
+(`cfg.cc:278–342`). At most three labels per cleanup switch gives the alternate
+bound `1+3B`; use the smaller of the two. The direct-goto statement removed
+while connecting an edge remains counted in S for lifetime allocation.
+
+Block/edge counts, block indices and label UIDs are signed int (`cfg.h:38–57`).
+Block and label backbones begin with 20 entries; each edge also appends one
+pointer to its source-successor and destination-predecessor GC vectors
+(`tree-cfg.cc:145–164,631–666`, `cfg.cc:214–231`). The existing e=8 GC-vector
+transfer applies. Requiring
+
+```text
+max(20, B+2, S, min(1+2B+K,1+3B)) <= 1,431,655,765
+```
+
+suffices for these initial integer counters, increments and pointer-vector
+growth. The label map increments its UID only for a previously unnumbered
+label (`gimple.cc:1901–1931`). This is a local sufficient inequality, not the
+final source predicate: later block splitting, SSA/RTL transformations and
+their lifetime allocations need subsequent transfers.
+
+Initial dead-label cleanup selects and removes existing labels; it allocates
+one temporary `label_record` array of B+2 entries, frees it, and is called twice
+(`tree-cfg.cc:1507–1698`). Its loops do not add GIMPLE statements or blocks.
+Case grouping edits/removes existing case nodes and cannot increase K
+(`:1710–1852`). Label-record byte size and ordinary allocator behavior are
+separate from this cardinality argument.
+
+The same routine then assigns location discriminators. This is performed even
+at O0. There are no PHIs yet, so it makes at most `S+E_graph` discriminator
+requests, where `E_graph` is the edge bound above. Its unsigned `bb_id` is
+incremented at most once per call, twice per block, and once per outgoing edge;
+`S+2B+E_graph <= 2^32-1` suffices for that counter. Each line's discriminator
+is incremented at most once per request; `S+E_graph <= Integer'Last` also
+keeps the subsequent signed-int parameter conversion representable
+(`tree-cfg.cc:1085–1187`, `input.cc:1048–1059`). The line-keyed hash map has at
+most S+E_graph entries and uses the preceding ordinary GCC hash transfer.
+Each nonzero discriminator can request one ad-hoc location. Add this to all
+earlier gigi/GIMPLE location requests: it does not replace the ordinary source
+line-map charge. Complete ad-hoc-location backing/hash growth remains part of
+the remaining location composition.
+
+This reaches the end of `build_gimple_cfg`, before `execute_build_cfg` invokes
+CFG cleanup and loop discovery. It does not claim the whole CFG pass, later
+SSA construction, machine expansion, instruction encoding or linker layout.
+The formulas carry the EH output forward without multiplying cleanup nesting
+or mistaking runtime iterations for repeated compiler traversal.
+
 ## Remaining backend closure
 
 The [ELF linker transfer](retained-linker-capacity.md) supplies the separate

@@ -5558,3 +5558,2967 @@ LF line numbering; complete file identities checked.
 994: #define STORE_MAX_PIECES  MIN (MOVE_MAX_PIECES, 2 * sizeof (HOST_WIDE_INT))
 995: #endif
 ```
+
+## gcc/passes.def:25–47
+```text
+25:
+26:  /* All passes needed to lower the function into shape optimizers can
+27:     operate on.  These passes are always run first on the function, but
+28:     backend might produce already lowered functions that are not processed
+29:     by these passes.  */
+30:   INSERT_PASSES_AFTER (all_lowering_passes)
+31:   NEXT_PASS (pass_warn_unused_result);
+32:   NEXT_PASS (pass_diagnose_omp_blocks);
+33:   NEXT_PASS (pass_diagnose_tm_blocks);
+34:   NEXT_PASS (pass_omp_oacc_kernels_decompose);
+35:   NEXT_PASS (pass_lower_omp);
+36:   NEXT_PASS (pass_lower_cf);
+37:   NEXT_PASS (pass_lower_tm);
+38:   NEXT_PASS (pass_refactor_eh);
+39:   NEXT_PASS (pass_lower_eh);
+40:   NEXT_PASS (pass_coroutine_lower_builtins);
+41:   NEXT_PASS (pass_build_cfg);
+42:   NEXT_PASS (pass_warn_function_return);
+43:   NEXT_PASS (pass_coroutine_early_expand_ifns);
+44:   NEXT_PASS (pass_expand_omp);
+45:   NEXT_PASS (pass_build_cgraph_edges);
+46:   TERMINATE_PASS_LIST (all_lowering_passes)
+47:
+```
+
+## gcc/gimple-low.cc:122–214
+```text
+122: lower_function_body (void)
+123: {
+124:   struct lower_data data;
+125:   gimple_seq body = gimple_body (current_function_decl);
+126:   gimple_seq lowered_body;
+127:   gimple_stmt_iterator i;
+128:   gimple *bind;
+129:   gimple *x;
+130:
+131:   /* The gimplifier should've left a body of exactly one statement,
+132:      namely a GIMPLE_BIND.  */
+133:   gcc_assert (gimple_seq_first (body) == gimple_seq_last (body)
+134: 	      && gimple_code (gimple_seq_first_stmt (body)) == GIMPLE_BIND);
+135:
+136:   memset (&data, 0, sizeof (data));
+137:   data.block = DECL_INITIAL (current_function_decl);
+138:   BLOCK_SUBBLOCKS (data.block) = NULL_TREE;
+139:   BLOCK_CHAIN (data.block) = NULL_TREE;
+140:   TREE_ASM_WRITTEN (data.block) = 1;
+141:   data.return_statements.create (8);
+142:
+143:   bind = gimple_seq_first_stmt (body);
+144:   lowered_body = NULL;
+145:   gimple_seq_add_stmt (&lowered_body, bind);
+146:   i = gsi_start (lowered_body);
+147:   lower_gimple_bind (&i, &data);
+148:
+149:   i = gsi_last (lowered_body);
+150:
+151:   /* If we had begin stmt markers from e.g. PCH, but this compilation
+152:      doesn't want them, lower_stmt will have cleaned them up; we can
+153:      now clear the flag that indicates we had them.  */
+154:   if (!MAY_HAVE_DEBUG_MARKER_STMTS && cfun->debug_nonbind_markers)
+155:     {
+156:       /* This counter needs not be exact, but before lowering it will
+157: 	 most certainly be.  */
+158:       gcc_assert (cfun->debug_marker_count == 0);
+159:       cfun->debug_nonbind_markers = false;
+160:     }
+161:
+162:   /* If the function falls off the end, we need a null return statement.
+163:      If we've already got one in the return_statements vector, we don't
+164:      need to do anything special.  Otherwise build one by hand.  */
+165:   bool may_fallthru = gimple_seq_may_fallthru (lowered_body);
+166:   if (may_fallthru
+167:       && (data.return_statements.is_empty ()
+168: 	  || (gimple_return_retval (data.return_statements.last().stmt)
+169: 	      != NULL)))
+170:     {
+171:       x = gimple_build_return (NULL);
+172:       gimple_set_location (x, cfun->function_end_locus);
+173:       gimple_set_block (x, DECL_INITIAL (current_function_decl));
+174:       gsi_insert_after (&i, x, GSI_CONTINUE_LINKING);
+175:       may_fallthru = false;
+176:     }
+177:
+178:   /* If we lowered any return statements, emit the representative
+179:      at the end of the function.  */
+180:   while (!data.return_statements.is_empty ())
+181:     {
+182:       return_statements_t t = data.return_statements.pop ();
+183:       x = gimple_build_label (t.label);
+184:       gsi_insert_after (&i, x, GSI_CONTINUE_LINKING);
+185:       gsi_insert_after (&i, t.stmt, GSI_CONTINUE_LINKING);
+186:       if (may_fallthru)
+187: 	{
+188: 	  /* Remove the line number from the representative return statement.
+189: 	     It now fills in for the fallthru too.  Failure to remove this
+190: 	     will result in incorrect results for coverage analysis.  */
+191: 	  gimple_set_location (t.stmt, UNKNOWN_LOCATION);
+192: 	  may_fallthru = false;
+193: 	}
+194:     }
+195:
+196:   /* Once the old body has been lowered, replace it with the new
+197:      lowered sequence.  */
+198:   gimple_set_body (current_function_decl, lowered_body);
+199:
+200:   if (assume_labels)
+201:     {
+202:       struct walk_stmt_info wi;
+203:
+204:       memset (&wi, 0, sizeof (wi));
+205:       walk_gimple_seq (lowered_body, NULL, diagnose_assume_labels, &wi);
+206:       BITMAP_FREE (assume_labels);
+207:     }
+208:
+209:   gcc_assert (data.block == DECL_INITIAL (current_function_decl));
+210:   BLOCK_SUBBLOCKS (data.block)
+211:     = blocks_nreverse (BLOCK_SUBBLOCKS (data.block));
+212:
+213:   clear_block_marks (data.block);
+214:   data.return_statements.release ();
+```
+
+## gcc/gimple-low.cc:1178–1223
+```text
+1178: /* Lower a GIMPLE_RETURN GSI.  DATA is passed through the recursion.  */
+1179:
+1180: static void
+1181: lower_gimple_return (gimple_stmt_iterator *gsi, struct lower_data *data)
+1182: {
+1183:   greturn *stmt = as_a <greturn *> (gsi_stmt (*gsi));
+1184:   gimple *t;
+1185:   int i;
+1186:   return_statements_t tmp_rs;
+1187:
+1188:   /* Match this up with an existing return statement that's been created.  */
+1189:   for (i = data->return_statements.length () - 1;
+1190:        i >= 0; i--)
+1191:     {
+1192:       tmp_rs = data->return_statements[i];
+1193:
+1194:       if (gimple_return_retval (stmt) == gimple_return_retval (tmp_rs.stmt))
+1195: 	{
+1196: 	  /* Remove the line number from the representative return statement.
+1197: 	     It now fills in for many such returns.  Failure to remove this
+1198: 	     will result in incorrect results for coverage analysis.  */
+1199: 	  gimple_set_location (tmp_rs.stmt, UNKNOWN_LOCATION);
+1200:
+1201: 	  goto found;
+1202: 	}
+1203:     }
+1204:
+1205:   /* Not found.  Create a new label and record the return statement.  */
+1206:   tmp_rs.label = create_artificial_label (cfun->function_end_locus);
+1207:   tmp_rs.stmt = stmt;
+1208:   data->return_statements.safe_push (tmp_rs);
+1209:
+1210:   /* Generate a goto statement and remove the return statement.  */
+1211:  found:
+1212:   /* When not optimizing, make sure user returns are preserved.  */
+1213:   if (!optimize && gimple_has_location (stmt))
+1214:     DECL_ARTIFICIAL (tmp_rs.label) = 0;
+1215:   t = gimple_build_goto (tmp_rs.label);
+1216:   /* location includes block.  */
+1217:   gimple_set_location (t, gimple_location (stmt));
+1218:   gsi_insert_before (gsi, t, GSI_SAME_STMT);
+1219:   gsi_remove (gsi, false);
+1220: }
+1221:
+1222: /* Lower a __builtin_setjmp GSI.
+1223:
+```
+
+## gcc/gimplify.cc:1270–1282
+```text
+1270: build_stack_save_restore (gcall **save, gcall **restore)
+1271: {
+1272:   tree tmp_var;
+1273:
+1274:   *save = gimple_build_call (builtin_decl_implicit (BUILT_IN_STACK_SAVE), 0);
+1275:   tmp_var = create_tmp_var (ptr_type_node, "saved_stack");
+1276:   gimple_call_set_lhs (*save, tmp_var);
+1277:
+1278:   *restore
+1279:     = gimple_build_call (builtin_decl_implicit (BUILT_IN_STACK_RESTORE),
+1280: 			 1, tmp_var);
+1281: }
+1282:
+```
+
+## gcc/gimplify.cc:1699–1830
+```text
+1699:       end_locus = BLOCK_SOURCE_END_LOCATION (BIND_EXPR_BLOCK (bind_expr));
+1700:       start_locus = BLOCK_SOURCE_LOCATION (BIND_EXPR_BLOCK (bind_expr));
+1701:     }
+1702:   if (start_locus == 0)
+1703:     start_locus = EXPR_LOCATION (bind_expr);
+1704:
+1705:   cleanup = NULL;
+1706:   stack_save = NULL;
+1707:
+1708:   /* Add clobbers for all variables that go out of scope.  */
+1709:   for (t = BIND_EXPR_VARS (bind_expr); t ; t = DECL_CHAIN (t))
+1710:     {
+1711:       if (VAR_P (t)
+1712: 	  && !is_global_var (t)
+1713: 	  && DECL_CONTEXT (t) == current_function_decl)
+1714: 	{
+1715: 	  if (flag_openmp
+1716: 	      && DECL_HAS_VALUE_EXPR_P (t)
+1717: 	      && TREE_USED (t)
+1718: 	      && lookup_attribute ("omp allocate", DECL_ATTRIBUTES (t)))
+1719: 	    {
+1720: 	      /* For Fortran, TREE_CHAIN (TREE_VALUE (attr)) is set, which
+1721: 		 causes that the GOMP_free call is already added above;
+1722: 		 and "omp allocate" is removed from DECL_ATTRIBUTES.  */
+1723: 	      tree v = TREE_OPERAND (DECL_VALUE_EXPR (t), 0);
+1724: 	      tree tmp = builtin_decl_explicit (BUILT_IN_GOMP_FREE);
+1725: 	      tmp = build_call_expr_loc (end_locus, tmp, 2, v,
+1726: 					 build_zero_cst (ptr_type_node));
+1727: 	      gimplify_and_add (tmp, &cleanup);
+1728: 	      gimple *clobber_stmt;
+1729: 	      tmp = build_clobber (TREE_TYPE (v), CLOBBER_STORAGE_END);
+1730: 	      clobber_stmt = gimple_build_assign (v, tmp);
+1731: 	      gimple_set_location (clobber_stmt, end_locus);
+1732: 	      gimplify_seq_add_stmt (&cleanup, clobber_stmt);
+1733: 	    }
+1734: 	  if (!DECL_HARD_REGISTER (t)
+1735: 	      && !TREE_THIS_VOLATILE (t)
+1736: 	      && !DECL_HAS_VALUE_EXPR_P (t)
+1737: 	      /* Only care for variables that have to be in memory.  Others
+1738: 		 will be rewritten into SSA names, hence moved to the
+1739: 		 top-level.  */
+1740: 	      && !is_gimple_reg (t)
+1741: 	      && flag_stack_reuse != SR_NONE)
+1742: 	    {
+1743: 	      tree clobber = build_clobber (TREE_TYPE (t), CLOBBER_STORAGE_END);
+1744: 	      gimple *clobber_stmt;
+1745: 	      clobber_stmt = gimple_build_assign (t, clobber);
+1746: 	      gimple_set_location (clobber_stmt, end_locus);
+1747: 	      gimplify_seq_add_stmt (&cleanup, clobber_stmt);
+1748: 	    }
+1749:
+1750: 	  if (flag_openacc && oacc_declare_returns != NULL)
+1751: 	    {
+1752: 	      tree key = t;
+1753: 	      if (DECL_HAS_VALUE_EXPR_P (key))
+1754: 		{
+1755: 		  key = DECL_VALUE_EXPR (key);
+1756: 		  if (INDIRECT_REF_P (key))
+1757: 		    key = TREE_OPERAND (key, 0);
+1758: 		}
+1759: 	      tree *c = oacc_declare_returns->get (key);
+1760: 	      if (c != NULL)
+1761: 		{
+1762: 		  if (ret_clauses)
+1763: 		    OMP_CLAUSE_CHAIN (*c) = ret_clauses;
+1764:
+1765: 		  ret_clauses = unshare_expr (*c);
+1766:
+1767: 		  oacc_declare_returns->remove (key);
+1768:
+1769: 		  if (oacc_declare_returns->is_empty ())
+1770: 		    {
+1771: 		      delete oacc_declare_returns;
+1772: 		      oacc_declare_returns = NULL;
+1773: 		    }
+1774: 		}
+1775: 	    }
+1776: 	}
+1777:
+1778:       if (asan_poisoned_variables != NULL
+1779: 	  && asan_poisoned_variables->contains (t))
+1780: 	{
+1781: 	  asan_poisoned_variables->remove (t);
+1782: 	  asan_poison_variable (t, true, &cleanup);
+1783: 	}
+1784:
+1785:       if (gimplify_ctxp->live_switch_vars != NULL
+1786: 	  && gimplify_ctxp->live_switch_vars->contains (t))
+1787: 	gimplify_ctxp->live_switch_vars->remove (t);
+1788:     }
+1789:
+1790:   /* If the code both contains VLAs and calls alloca, then we cannot reclaim
+1791:      the stack space allocated to the VLAs.  */
+1792:   if (gimplify_ctxp->save_stack && !gimplify_ctxp->keep_stack)
+1793:     {
+1794:       gcall *stack_restore;
+1795:
+1796:       /* Save stack on entry and restore it on exit.  Add a try_finally
+1797: 	 block to achieve this.  */
+1798:       build_stack_save_restore (&stack_save, &stack_restore);
+1799:
+1800:       gimple_set_location (stack_save, start_locus);
+1801:       gimple_set_location (stack_restore, end_locus);
+1802:
+1803:       gimplify_seq_add_stmt (&cleanup, stack_restore);
+1804:     }
+1805:
+1806:   if (ret_clauses)
+1807:     {
+1808:       gomp_target *stmt;
+1809:       gimple_stmt_iterator si = gsi_start (cleanup);
+1810:
+1811:       stmt = gimple_build_omp_target (NULL, GF_OMP_TARGET_KIND_OACC_DECLARE,
+1812: 				      ret_clauses);
+1813:       gsi_insert_seq_before_without_update (&si, stmt, GSI_NEW_STMT);
+1814:     }
+1815:
+1816:   if (cleanup)
+1817:     {
+1818:       gtry *gs;
+1819:       gimple_seq new_body;
+1820:
+1821:       new_body = NULL;
+1822:       gs = gimple_build_try (gimple_bind_body (bind_stmt), cleanup,
+1823: 	  		     GIMPLE_TRY_FINALLY);
+1824:
+1825:       if (stack_save)
+1826: 	gimplify_seq_add_stmt (&new_body, stack_save);
+1827:       gimplify_seq_add_stmt (&new_body, gs);
+1828:       gimple_bind_set_body (bind_stmt, new_body);
+1829:     }
+1830:
+```
+
+## gcc/tree-eh.cc:618–655
+```text
+618:
+619: /* Add a new record to the goto queue contained in TF. NEW_STMT is the
+620:    data to be added, IS_LABEL indicates whether NEW_STMT is a label or
+621:    a gimple return. */
+622:
+623: static void
+624: record_in_goto_queue (struct leh_tf_state *tf,
+625:                       treemple new_stmt,
+626:                       int index,
+627:                       bool is_label,
+628: 		      location_t location)
+629: {
+630:   size_t active, size;
+631:   struct goto_queue_node *q;
+632:
+633:   gcc_assert (!tf->goto_queue_map);
+634:
+635:   active = tf->goto_queue_active;
+636:   size = tf->goto_queue_size;
+637:   if (active >= size)
+638:     {
+639:       size = (size ? size * 2 : 32);
+640:       tf->goto_queue_size = size;
+641:       tf->goto_queue
+642:          = XRESIZEVEC (struct goto_queue_node, tf->goto_queue, size);
+643:     }
+644:
+645:   q = &tf->goto_queue[active];
+646:   tf->goto_queue_active = active + 1;
+647:
+648:   memset (q, 0, sizeof (*q));
+649:   q->stmt = new_stmt;
+650:   q->index = index;
+651:   q->location = location;
+652:   q->is_label = is_label;
+653: }
+654:
+655: /* Record the LABEL label in the goto queue contained in TF.
+```
+
+## gcc/tree-eh.cc:710–877
+```text
+710:   treemple new_stmt;
+711:
+712:   if (!tf)
+713:     return;
+714:
+715:   switch (gimple_code (stmt))
+716:     {
+717:     case GIMPLE_COND:
+718:       {
+719: 	gcond *cond_stmt = as_a <gcond *> (stmt);
+720: 	new_stmt.tp = gimple_op_ptr (cond_stmt, 2);
+721: 	record_in_goto_queue_label (tf, new_stmt,
+722: 				    gimple_cond_true_label (cond_stmt),
+723: 				    EXPR_LOCATION (*new_stmt.tp));
+724: 	new_stmt.tp = gimple_op_ptr (cond_stmt, 3);
+725: 	record_in_goto_queue_label (tf, new_stmt,
+726: 				    gimple_cond_false_label (cond_stmt),
+727: 				    EXPR_LOCATION (*new_stmt.tp));
+728:       }
+729:       break;
+730:
+731:     case GIMPLE_GOTO:
+732:       new_stmt.g = stmt;
+733:       record_in_goto_queue_label (tf, new_stmt, gimple_goto_dest (stmt),
+734: 				  gimple_location (stmt));
+735:       break;
+736:
+737:     case GIMPLE_ASM:
+738:       if (int n = gimple_asm_nlabels (as_a <gasm *> (stmt)))
+739: 	{
+740: 	  new_stmt.g = stmt;
+741: 	  gasm *asm_stmt = as_a <gasm *> (stmt);
+742: 	  for (int i = 0; i < n; ++i)
+743: 	    {
+744: 	      tree elt = gimple_asm_label_op (asm_stmt, i);
+745: 	      new_stmt.tp = &TREE_VALUE (elt);
+746: 	      record_in_goto_queue_label (tf, new_stmt, TREE_VALUE (elt),
+747: 					  gimple_location (stmt));
+748: 	    }
+749: 	}
+750:       break;
+751:
+752:     case GIMPLE_RETURN:
+753:       tf->may_return = true;
+754:       new_stmt.g = stmt;
+755:       record_in_goto_queue (tf, new_stmt, -1, false, gimple_location (stmt));
+756:       break;
+757:
+758:     default:
+759:       gcc_unreachable ();
+760:     }
+761: }
+762:
+763:
+764: #if CHECKING_P
+765: /* We do not process GIMPLE_SWITCHes for now.  As long as the original source
+766:    was in fact structured, and we've not yet done jump threading, then none
+767:    of the labels will leave outer GIMPLE_TRY_FINALLY nodes. Verify this.  */
+768:
+769: static void
+770: verify_norecord_switch_expr (struct leh_state *state,
+771: 			     gswitch *switch_expr)
+772: {
+773:   struct leh_tf_state *tf = state->tf;
+774:   size_t i, n;
+775:
+776:   if (!tf)
+777:     return;
+778:
+779:   n = gimple_switch_num_labels (switch_expr);
+780:
+781:   for (i = 0; i < n; ++i)
+782:     {
+783:       treemple temp;
+784:       tree lab = CASE_LABEL (gimple_switch_label (switch_expr, i));
+785:       temp.t = lab;
+786:       gcc_assert (!outside_finally_tree (temp, tf->try_finally_expr));
+787:     }
+788: }
+789: #else
+790: #define verify_norecord_switch_expr(state, switch_expr)
+791: #endif
+792:
+793: /* Redirect a RETURN_EXPR pointed to by Q to FINLAB.  If MOD is
+794:    non-null, insert it before the new branch.  */
+795:
+796: static void
+797: do_return_redirection (struct goto_queue_node *q, tree finlab, gimple_seq mod)
+798: {
+799:   gimple *x;
+800:
+801:   /* In the case of a return, the queue node must be a gimple statement.  */
+802:   gcc_assert (!q->is_label);
+803:
+804:   /* Note that the return value may have already been computed, e.g.,
+805:
+806: 	int x;
+807: 	int foo (void)
+808: 	{
+809: 	  x = 0;
+810: 	  try {
+811: 	    return x;
+812: 	  } finally {
+813: 	    x++;
+814: 	  }
+815: 	}
+816:
+817:      should return 0, not 1.  We don't have to do anything to make
+818:      this happens because the return value has been placed in the
+819:      RESULT_DECL already.  */
+820:
+821:   q->cont_stmt = q->stmt.g;
+822:
+823:   if (mod)
+824:     gimple_seq_add_seq (&q->repl_stmt, mod);
+825:
+826:   x = gimple_build_goto (finlab);
+827:   gimple_set_location (x, q->location);
+828:   gimple_seq_add_stmt (&q->repl_stmt, x);
+829: }
+830:
+831: /* Similar, but easier, for GIMPLE_GOTO.  */
+832:
+833: static void
+834: do_goto_redirection (struct goto_queue_node *q, tree finlab, gimple_seq mod,
+835: 		     struct leh_tf_state *tf)
+836: {
+837:   ggoto *x;
+838:
+839:   gcc_assert (q->is_label);
+840:
+841:   q->cont_stmt = gimple_build_goto (tf->dest_array[q->index]);
+842:
+843:   if (mod)
+844:     gimple_seq_add_seq (&q->repl_stmt, mod);
+845:
+846:   x = gimple_build_goto (finlab);
+847:   gimple_set_location (x, q->location);
+848:   gimple_seq_add_stmt (&q->repl_stmt, x);
+849: }
+850:
+851: /* Emit a standard landing pad sequence into SEQ for REGION.  */
+852:
+853: static void
+854: emit_post_landing_pad (gimple_seq *seq, eh_region region)
+855: {
+856:   eh_landing_pad lp = region->landing_pads;
+857:   glabel *x;
+858:
+859:   if (lp == NULL)
+860:     lp = gen_eh_landing_pad (region);
+861:
+862:   lp->post_landing_pad = create_artificial_label (UNKNOWN_LOCATION);
+863:   EH_LANDING_PAD_NR (lp->post_landing_pad) = lp->index;
+864:
+865:   x = gimple_build_label (lp->post_landing_pad);
+866:   gimple_seq_add_stmt (seq, x);
+867: }
+868:
+869: /* Emit a RESX statement into SEQ for REGION.  */
+870:
+871: static void
+872: emit_resx (gimple_seq *seq, eh_region region)
+873: {
+874:   gresx *x = gimple_build_resx (region->index);
+875:   gimple_seq_add_stmt (seq, x);
+876:   if (region->outer)
+877:     record_stmt_eh_region (region->outer, x);
+```
+
+## gcc/tree-eh.cc:940–1095
+```text
+940:     }
+941:   gimple_seq_add_seq (&eh_seq, cleanup);
+942:
+943:   if (over)
+944:     {
+945:       x = gimple_build_label (over);
+946:       gimple_seq_add_stmt (&result, x);
+947:     }
+948:   return result;
+949: }
+950:
+951: /* A subroutine of lower_try_finally.  Duplicate the tree rooted at T.
+952:    Make sure to record all new labels found.  */
+953:
+954: static gimple_seq
+955: lower_try_finally_dup_block (gimple_seq seq, struct leh_state *outer_state,
+956: 			     location_t loc)
+957: {
+958:   gtry *region = NULL;
+959:   gimple_seq new_seq;
+960:   gimple_stmt_iterator gsi;
+961:
+962:   new_seq = copy_gimple_seq_and_replace_locals (seq);
+963:
+964:   for (gsi = gsi_start (new_seq); !gsi_end_p (gsi); gsi_next (&gsi))
+965:     {
+966:       gimple *stmt = gsi_stmt (gsi);
+967:       if (LOCATION_LOCUS (gimple_location (stmt)) == UNKNOWN_LOCATION)
+968: 	{
+969: 	  tree block = gimple_block (stmt);
+970: 	  gimple_set_location (stmt, loc);
+971: 	  gimple_set_block (stmt, block);
+972: 	}
+973:     }
+974:
+975:   if (outer_state->tf)
+976:     region = outer_state->tf->try_finally_expr;
+977:   collect_finally_tree_1 (new_seq, region);
+978:
+979:   return new_seq;
+980: }
+981:
+982: /* A subroutine of lower_try_finally.  Create a fallthru label for
+983:    the given try_finally state.  The only tricky bit here is that
+984:    we have to make sure to record the label in our outer context.  */
+985:
+986: static tree
+987: lower_try_finally_fallthru_label (struct leh_tf_state *tf)
+988: {
+989:   tree label = tf->fallthru_label;
+990:   treemple temp;
+991:
+992:   if (!label)
+993:     {
+994:       label = create_artificial_label (gimple_location (tf->try_finally_expr));
+995:       tf->fallthru_label = label;
+996:       if (tf->outer->tf)
+997:         {
+998:           temp.t = label;
+999:           record_in_finally_tree (temp, tf->outer->tf->try_finally_expr);
+1000:         }
+1001:     }
+1002:   return label;
+1003: }
+1004:
+1005: /* A subroutine of lower_try_finally.  If FINALLY consits of a
+1006:    GIMPLE_EH_ELSE node, return it.  */
+1007:
+1008: static inline geh_else *
+1009: get_eh_else (gimple_seq finally)
+1010: {
+1011:   gimple *x = gimple_seq_first_stmt (finally);
+1012:   if (x && gimple_code (x) == GIMPLE_EH_ELSE)
+1013:     {
+1014:       gcc_assert (gimple_seq_singleton_p (finally));
+1015:       return as_a <geh_else *> (x);
+1016:     }
+1017:   return NULL;
+1018: }
+1019:
+1020: /* A subroutine of lower_try_finally.  If the eh_protect_cleanup_actions
+1021:    langhook returns non-null, then the language requires that the exception
+1022:    path out of a try_finally be treated specially.  To wit: the code within
+1023:    the finally block may not itself throw an exception.  We have two choices
+1024:    here. First we can duplicate the finally block and wrap it in a
+1025:    must_not_throw region.  Second, we can generate code like
+1026:
+1027: 	try {
+1028: 	  finally_block;
+1029: 	} catch {
+1030: 	  if (fintmp == eh_edge)
+1031: 	    protect_cleanup_actions;
+1032: 	}
+1033:
+1034:    where "fintmp" is the temporary used in the switch statement generation
+1035:    alternative considered below.  For the nonce, we always choose the first
+1036:    option.
+1037:
+1038:    THIS_STATE may be null if this is a try-cleanup, not a try-finally.  */
+1039:
+1040: static void
+1041: honor_protect_cleanup_actions (struct leh_state *outer_state,
+1042: 			       struct leh_state *this_state,
+1043: 			       struct leh_tf_state *tf)
+1044: {
+1045:   gimple_seq finally = gimple_try_cleanup (tf->top_p);
+1046:
+1047:   /* EH_ELSE doesn't come from user code; only compiler generated stuff.
+1048:      It does need to be handled here, so as to separate the (different)
+1049:      EH path from the normal path.  But we should not attempt to wrap
+1050:      it with a must-not-throw node (which indeed gets in the way).  */
+1051:   if (geh_else *eh_else = get_eh_else (finally))
+1052:     {
+1053:       gimple_try_set_cleanup (tf->top_p, gimple_eh_else_n_body (eh_else));
+1054:       finally = gimple_eh_else_e_body (eh_else);
+1055:
+1056:       /* Let the ELSE see the exception that's being processed, but
+1057: 	 since the cleanup is outside the try block, process it with
+1058: 	 outer_state, otherwise it may be used as a cleanup for
+1059: 	 itself, and Bad Things (TM) ensue.  */
+1060:       eh_region save_ehp = outer_state->ehp_region;
+1061:       outer_state->ehp_region = this_state->cur_region;
+1062:       lower_eh_constructs_1 (outer_state, &finally);
+1063:       outer_state->ehp_region = save_ehp;
+1064:     }
+1065:   else
+1066:     {
+1067:       /* First check for nothing to do.  */
+1068:       if (lang_hooks.eh_protect_cleanup_actions == NULL)
+1069: 	return;
+1070:       tree actions = lang_hooks.eh_protect_cleanup_actions ();
+1071:       if (actions == NULL)
+1072: 	return;
+1073:
+1074:       if (this_state)
+1075: 	finally = lower_try_finally_dup_block (finally, outer_state,
+1076: 	  gimple_location (tf->try_finally_expr));
+1077:
+1078:       /* If this cleanup consists of a TRY_CATCH_EXPR with TRY_CATCH_IS_CLEANUP
+1079: 	 set, the handler of the TRY_CATCH_EXPR is another cleanup which ought
+1080: 	 to be in an enclosing scope, but needs to be implemented at this level
+1081: 	 to avoid a nesting violation (see wrap_temporary_cleanups in
+1082: 	 cp/decl.cc).  Since it's logically at an outer level, we should call
+1083: 	 terminate before we get to it, so strip it away before adding the
+1084: 	 MUST_NOT_THROW filter.  */
+1085:       gimple_stmt_iterator gsi = gsi_start (finally);
+1086:       gimple *x = !gsi_end_p (gsi) ? gsi_stmt (gsi) : NULL;
+1087:       if (x
+1088: 	  && gimple_code (x) == GIMPLE_TRY
+1089: 	  && gimple_try_kind (x) == GIMPLE_TRY_CATCH
+1090: 	  && gimple_try_catch_is_cleanup (x))
+1091: 	{
+1092: 	  gsi_insert_seq_before (&gsi, gimple_try_eval (x), GSI_SAME_STMT);
+1093: 	  gsi_remove (&gsi, false);
+1094: 	}
+1095:
+```
+
+## gcc/tree-eh.cc:1107–1283
+```text
+1107:   if (gimple_seq_may_fallthru (finally))
+1108:     emit_resx (&eh_seq, tf->region);
+1109:
+1110:   /* Having now been handled, EH isn't to be considered with
+1111:      the rest of the outgoing edges.  */
+1112:   tf->may_throw = false;
+1113: }
+1114:
+1115: /* A subroutine of lower_try_finally.  We have determined that there is
+1116:    no fallthru edge out of the finally block.  This means that there is
+1117:    no outgoing edge corresponding to any incoming edge.  Restructure the
+1118:    try_finally node for this special case.  */
+1119:
+1120: static void
+1121: lower_try_finally_nofallthru (struct leh_state *state,
+1122: 			      struct leh_tf_state *tf)
+1123: {
+1124:   tree lab;
+1125:   gimple *x;
+1126:   geh_else *eh_else;
+1127:   gimple_seq finally;
+1128:   struct goto_queue_node *q, *qe;
+1129:
+1130:   lab = create_artificial_label (gimple_location (tf->try_finally_expr));
+1131:
+1132:   /* We expect that tf->top_p is a GIMPLE_TRY. */
+1133:   finally = gimple_try_cleanup (tf->top_p);
+1134:   tf->top_p_seq = gimple_try_eval (tf->top_p);
+1135:
+1136:   x = gimple_build_label (lab);
+1137:   gimple_seq_add_stmt (&tf->top_p_seq, x);
+1138:
+1139:   q = tf->goto_queue;
+1140:   qe = q + tf->goto_queue_active;
+1141:   for (; q < qe; ++q)
+1142:     if (q->index < 0)
+1143:       do_return_redirection (q, lab, NULL);
+1144:     else
+1145:       do_goto_redirection (q, lab, NULL, tf);
+1146:
+1147:   replace_goto_queue (tf);
+1148:
+1149:   /* Emit the finally block into the stream.  Lower EH_ELSE at this time.  */
+1150:   eh_else = get_eh_else (finally);
+1151:   if (eh_else)
+1152:     {
+1153:       finally = gimple_eh_else_n_body (eh_else);
+1154:       lower_eh_constructs_1 (state, &finally);
+1155:       gimple_seq_add_seq (&tf->top_p_seq, finally);
+1156:
+1157:       if (tf->may_throw)
+1158: 	{
+1159: 	  finally = gimple_eh_else_e_body (eh_else);
+1160: 	  lower_eh_constructs_1 (state, &finally);
+1161:
+1162: 	  emit_post_landing_pad (&eh_seq, tf->region);
+1163: 	  gimple_seq_add_seq (&eh_seq, finally);
+1164: 	}
+1165:     }
+1166:   else
+1167:     {
+1168:       lower_eh_constructs_1 (state, &finally);
+1169:       gimple_seq_add_seq (&tf->top_p_seq, finally);
+1170:
+1171:       if (tf->may_throw)
+1172: 	{
+1173: 	  emit_post_landing_pad (&eh_seq, tf->region);
+1174:
+1175: 	  x = gimple_build_goto (lab);
+1176: 	  gimple_set_location (x, gimple_location (tf->try_finally_expr));
+1177: 	  gimple_seq_add_stmt (&eh_seq, x);
+1178: 	}
+1179:     }
+1180: }
+1181:
+1182: /* A subroutine of lower_try_finally.  We have determined that there is
+1183:    exactly one destination of the finally block.  Restructure the
+1184:    try_finally node for this special case.  */
+1185:
+1186: static void
+1187: lower_try_finally_onedest (struct leh_state *state, struct leh_tf_state *tf)
+1188: {
+1189:   struct goto_queue_node *q, *qe;
+1190:   geh_else *eh_else;
+1191:   glabel *label_stmt;
+1192:   gimple *x;
+1193:   gimple_seq finally;
+1194:   gimple_stmt_iterator gsi;
+1195:   tree finally_label;
+1196:   location_t loc = gimple_location (tf->try_finally_expr);
+1197:
+1198:   finally = gimple_try_cleanup (tf->top_p);
+1199:   tf->top_p_seq = gimple_try_eval (tf->top_p);
+1200:
+1201:   /* Since there's only one destination, and the destination edge can only
+1202:      either be EH or non-EH, that implies that all of our incoming edges
+1203:      are of the same type.  Therefore we can lower EH_ELSE immediately.  */
+1204:   eh_else = get_eh_else (finally);
+1205:   if (eh_else)
+1206:     {
+1207:       if (tf->may_throw)
+1208: 	finally = gimple_eh_else_e_body (eh_else);
+1209:       else
+1210: 	finally = gimple_eh_else_n_body (eh_else);
+1211:     }
+1212:
+1213:   lower_eh_constructs_1 (state, &finally);
+1214:
+1215:   for (gsi = gsi_start (finally); !gsi_end_p (gsi); gsi_next (&gsi))
+1216:     {
+1217:       gimple *stmt = gsi_stmt (gsi);
+1218:       if (LOCATION_LOCUS (gimple_location (stmt)) == UNKNOWN_LOCATION)
+1219: 	{
+1220: 	  tree block = gimple_block (stmt);
+1221: 	  gimple_set_location (stmt, gimple_location (tf->try_finally_expr));
+1222: 	  gimple_set_block (stmt, block);
+1223: 	}
+1224:     }
+1225:
+1226:   if (tf->may_throw)
+1227:     {
+1228:       /* Only reachable via the exception edge.  Add the given label to
+1229:          the head of the FINALLY block.  Append a RESX at the end.  */
+1230:       emit_post_landing_pad (&eh_seq, tf->region);
+1231:       gimple_seq_add_seq (&eh_seq, finally);
+1232:       emit_resx (&eh_seq, tf->region);
+1233:       return;
+1234:     }
+1235:
+1236:   if (tf->may_fallthru)
+1237:     {
+1238:       /* Only reachable via the fallthru edge.  Do nothing but let
+1239: 	 the two blocks run together; we'll fall out the bottom.  */
+1240:       gimple_seq_add_seq (&tf->top_p_seq, finally);
+1241:       return;
+1242:     }
+1243:
+1244:   finally_label = create_artificial_label (loc);
+1245:   label_stmt = gimple_build_label (finally_label);
+1246:   gimple_seq_add_stmt (&tf->top_p_seq, label_stmt);
+1247:
+1248:   gimple_seq_add_seq (&tf->top_p_seq, finally);
+1249:
+1250:   q = tf->goto_queue;
+1251:   qe = q + tf->goto_queue_active;
+1252:
+1253:   if (tf->may_return)
+1254:     {
+1255:       /* Reachable by return expressions only.  Redirect them.  */
+1256:       for (; q < qe; ++q)
+1257: 	do_return_redirection (q, finally_label, NULL);
+1258:       replace_goto_queue (tf);
+1259:     }
+1260:   else
+1261:     {
+1262:       /* Reachable by goto expressions only.  Redirect them.  */
+1263:       for (; q < qe; ++q)
+1264: 	do_goto_redirection (q, finally_label, NULL, tf);
+1265:       replace_goto_queue (tf);
+1266:
+1267:       if (tf->dest_array[0] == tf->fallthru_label)
+1268: 	{
+1269: 	  /* Reachable by goto to fallthru label only.  Redirect it
+1270: 	     to the new label (already created, sadly), and do not
+1271: 	     emit the final branch out, or the fallthru label.  */
+1272: 	  tf->fallthru_label = NULL;
+1273: 	  return;
+1274: 	}
+1275:     }
+1276:
+1277:   /* Place the original return/goto to the original destination
+1278:      immediately after the finally block. */
+1279:   x = tf->goto_queue[0].cont_stmt;
+1280:   gimple_seq_add_stmt (&tf->top_p_seq, x);
+1281:   maybe_record_in_goto_queue (state, x);
+1282: }
+1283:
+```
+
+## gcc/tree-eh.cc:1289–1800
+```text
+1289: lower_try_finally_copy (struct leh_state *state, struct leh_tf_state *tf)
+1290: {
+1291:   gimple_seq finally;
+1292:   gimple_seq new_stmt;
+1293:   gimple_seq seq;
+1294:   gimple *x;
+1295:   geh_else *eh_else;
+1296:   tree tmp;
+1297:   location_t tf_loc = gimple_location (tf->try_finally_expr);
+1298:
+1299:   finally = gimple_try_cleanup (tf->top_p);
+1300:
+1301:   /* Notice EH_ELSE, and simplify some of the remaining code
+1302:      by considering FINALLY to be the normal return path only.  */
+1303:   eh_else = get_eh_else (finally);
+1304:   if (eh_else)
+1305:     finally = gimple_eh_else_n_body (eh_else);
+1306:
+1307:   tf->top_p_seq = gimple_try_eval (tf->top_p);
+1308:   new_stmt = NULL;
+1309:
+1310:   if (tf->may_fallthru)
+1311:     {
+1312:       seq = lower_try_finally_dup_block (finally, state, tf_loc);
+1313:       lower_eh_constructs_1 (state, &seq);
+1314:       gimple_seq_add_seq (&new_stmt, seq);
+1315:
+1316:       tmp = lower_try_finally_fallthru_label (tf);
+1317:       x = gimple_build_goto (tmp);
+1318:       gimple_set_location (x, tf_loc);
+1319:       gimple_seq_add_stmt (&new_stmt, x);
+1320:     }
+1321:
+1322:   if (tf->may_throw)
+1323:     {
+1324:       /* We don't need to copy the EH path of EH_ELSE,
+1325: 	 since it is only emitted once.  */
+1326:       if (eh_else)
+1327: 	seq = gimple_eh_else_e_body (eh_else);
+1328:       else
+1329: 	seq = lower_try_finally_dup_block (finally, state, tf_loc);
+1330:       lower_eh_constructs_1 (state, &seq);
+1331:
+1332:       emit_post_landing_pad (&eh_seq, tf->region);
+1333:       gimple_seq_add_seq (&eh_seq, seq);
+1334:       emit_resx (&eh_seq, tf->region);
+1335:     }
+1336:
+1337:   if (tf->goto_queue)
+1338:     {
+1339:       struct goto_queue_node *q, *qe;
+1340:       int return_index, index;
+1341:       struct labels_s
+1342:       {
+1343: 	struct goto_queue_node *q;
+1344: 	tree label;
+1345:       } *labels;
+1346:
+1347:       return_index = tf->dest_array.length ();
+1348:       labels = XCNEWVEC (struct labels_s, return_index + 1);
+1349:
+1350:       q = tf->goto_queue;
+1351:       qe = q + tf->goto_queue_active;
+1352:       for (; q < qe; q++)
+1353: 	{
+1354: 	  index = q->index < 0 ? return_index : q->index;
+1355:
+1356: 	  if (!labels[index].q)
+1357: 	    labels[index].q = q;
+1358: 	}
+1359:
+1360:       for (index = 0; index < return_index + 1; index++)
+1361: 	{
+1362: 	  tree lab;
+1363:
+1364: 	  q = labels[index].q;
+1365: 	  if (! q)
+1366: 	    continue;
+1367:
+1368: 	  lab = labels[index].label
+1369: 	    = create_artificial_label (tf_loc);
+1370:
+1371: 	  if (index == return_index)
+1372: 	    do_return_redirection (q, lab, NULL);
+1373: 	  else
+1374: 	    do_goto_redirection (q, lab, NULL, tf);
+1375:
+1376: 	  x = gimple_build_label (lab);
+1377:           gimple_seq_add_stmt (&new_stmt, x);
+1378:
+1379: 	  seq = lower_try_finally_dup_block (finally, state, q->location);
+1380: 	  lower_eh_constructs_1 (state, &seq);
+1381:           gimple_seq_add_seq (&new_stmt, seq);
+1382:
+1383:           gimple_seq_add_stmt (&new_stmt, q->cont_stmt);
+1384: 	  maybe_record_in_goto_queue (state, q->cont_stmt);
+1385: 	}
+1386:
+1387:       for (q = tf->goto_queue; q < qe; q++)
+1388: 	{
+1389: 	  tree lab;
+1390:
+1391: 	  index = q->index < 0 ? return_index : q->index;
+1392:
+1393: 	  if (labels[index].q == q)
+1394: 	    continue;
+1395:
+1396: 	  lab = labels[index].label;
+1397:
+1398: 	  if (index == return_index)
+1399: 	    do_return_redirection (q, lab, NULL);
+1400: 	  else
+1401: 	    do_goto_redirection (q, lab, NULL, tf);
+1402: 	}
+1403:
+1404:       replace_goto_queue (tf);
+1405:       free (labels);
+1406:     }
+1407:
+1408:   /* Need to link new stmts after running replace_goto_queue due
+1409:      to not wanting to process the same goto stmts twice.  */
+1410:   gimple_seq_add_seq (&tf->top_p_seq, new_stmt);
+1411: }
+1412:
+1413: /* A subroutine of lower_try_finally.  There are multiple edges incoming
+1414:    and outgoing from the finally block.  Implement this by instrumenting
+1415:    each incoming edge and creating a switch statement at the end of the
+1416:    finally block that branches to the appropriate destination.  */
+1417:
+1418: static void
+1419: lower_try_finally_switch (struct leh_state *state, struct leh_tf_state *tf)
+1420: {
+1421:   struct goto_queue_node *q, *qe;
+1422:   tree finally_tmp, finally_label;
+1423:   int return_index, eh_index, fallthru_index;
+1424:   int nlabels, ndests, j, last_case_index;
+1425:   tree last_case;
+1426:   auto_vec<tree> case_label_vec;
+1427:   gimple_seq switch_body = NULL;
+1428:   gimple *x;
+1429:   geh_else *eh_else;
+1430:   tree tmp;
+1431:   gimple *switch_stmt;
+1432:   gimple_seq finally;
+1433:   hash_map<tree, gimple *> *cont_map = NULL;
+1434:   /* The location of the TRY_FINALLY stmt.  */
+1435:   location_t tf_loc = gimple_location (tf->try_finally_expr);
+1436:   /* The location of the finally block.  */
+1437:   location_t finally_loc;
+1438:
+1439:   finally = gimple_try_cleanup (tf->top_p);
+1440:   eh_else = get_eh_else (finally);
+1441:
+1442:   /* Mash the TRY block to the head of the chain.  */
+1443:   tf->top_p_seq = gimple_try_eval (tf->top_p);
+1444:
+1445:   /* The location of the finally is either the last stmt in the finally
+1446:      block or the location of the TRY_FINALLY itself.  */
+1447:   x = gimple_seq_last_stmt (finally);
+1448:   finally_loc = x ? gimple_location (x) : tf_loc;
+1449:
+1450:   /* Prepare for switch statement generation.  */
+1451:   nlabels = tf->dest_array.length ();
+1452:   return_index = nlabels;
+1453:   eh_index = return_index + tf->may_return;
+1454:   fallthru_index = eh_index + (tf->may_throw && !eh_else);
+1455:   ndests = fallthru_index + tf->may_fallthru;
+1456:
+1457:   finally_tmp = create_tmp_var (integer_type_node, "finally_tmp");
+1458:   finally_label = create_artificial_label (finally_loc);
+1459:
+1460:   /* We use vec::quick_push on case_label_vec throughout this function,
+1461:      since we know the size in advance and allocate precisely as muce
+1462:      space as needed.  */
+1463:   case_label_vec.create (ndests);
+1464:   last_case = NULL;
+1465:   last_case_index = 0;
+1466:
+1467:   /* Begin inserting code for getting to the finally block.  Things
+1468:      are done in this order to correspond to the sequence the code is
+1469:      laid out.  */
+1470:
+1471:   if (tf->may_fallthru)
+1472:     {
+1473:       x = gimple_build_assign (finally_tmp,
+1474: 			       build_int_cst (integer_type_node,
+1475: 					      fallthru_index));
+1476:       gimple_set_location (x, finally_loc);
+1477:       gimple_seq_add_stmt (&tf->top_p_seq, x);
+1478:
+1479:       tmp = build_int_cst (integer_type_node, fallthru_index);
+1480:       last_case = build_case_label (tmp, NULL,
+1481: 				    create_artificial_label (finally_loc));
+1482:       case_label_vec.quick_push (last_case);
+1483:       last_case_index++;
+1484:
+1485:       x = gimple_build_label (CASE_LABEL (last_case));
+1486:       gimple_seq_add_stmt (&switch_body, x);
+1487:
+1488:       tmp = lower_try_finally_fallthru_label (tf);
+1489:       x = gimple_build_goto (tmp);
+1490:       gimple_set_location (x, finally_loc);
+1491:       gimple_seq_add_stmt (&switch_body, x);
+1492:     }
+1493:
+1494:   /* For EH_ELSE, emit the exception path (plus resx) now, then
+1495:      subsequently we only need consider the normal path.  */
+1496:   if (eh_else)
+1497:     {
+1498:       if (tf->may_throw)
+1499: 	{
+1500: 	  finally = gimple_eh_else_e_body (eh_else);
+1501: 	  lower_eh_constructs_1 (state, &finally);
+1502:
+1503: 	  emit_post_landing_pad (&eh_seq, tf->region);
+1504: 	  gimple_seq_add_seq (&eh_seq, finally);
+1505: 	  emit_resx (&eh_seq, tf->region);
+1506: 	}
+1507:
+1508:       finally = gimple_eh_else_n_body (eh_else);
+1509:     }
+1510:   else if (tf->may_throw)
+1511:     {
+1512:       emit_post_landing_pad (&eh_seq, tf->region);
+1513:
+1514:       x = gimple_build_assign (finally_tmp,
+1515: 			       build_int_cst (integer_type_node, eh_index));
+1516:       gimple_seq_add_stmt (&eh_seq, x);
+1517:
+1518:       x = gimple_build_goto (finally_label);
+1519:       gimple_set_location (x, tf_loc);
+1520:       gimple_seq_add_stmt (&eh_seq, x);
+1521:
+1522:       tmp = build_int_cst (integer_type_node, eh_index);
+1523:       last_case = build_case_label (tmp, NULL,
+1524: 				    create_artificial_label (tf_loc));
+1525:       case_label_vec.quick_push (last_case);
+1526:       last_case_index++;
+1527:
+1528:       x = gimple_build_label (CASE_LABEL (last_case));
+1529:       gimple_seq_add_stmt (&eh_seq, x);
+1530:       emit_resx (&eh_seq, tf->region);
+1531:     }
+1532:
+1533:   x = gimple_build_label (finally_label);
+1534:   gimple_seq_add_stmt (&tf->top_p_seq, x);
+1535:
+1536:   lower_eh_constructs_1 (state, &finally);
+1537:   gimple_seq_add_seq (&tf->top_p_seq, finally);
+1538:
+1539:   /* Redirect each incoming goto edge.  */
+1540:   q = tf->goto_queue;
+1541:   qe = q + tf->goto_queue_active;
+1542:   j = last_case_index + tf->may_return;
+1543:   /* Prepare the assignments to finally_tmp that are executed upon the
+1544:      entrance through a particular edge. */
+1545:   for (; q < qe; ++q)
+1546:     {
+1547:       gimple_seq mod = NULL;
+1548:       int switch_id;
+1549:       unsigned int case_index;
+1550:
+1551:       if (q->index < 0)
+1552: 	{
+1553: 	  x = gimple_build_assign (finally_tmp,
+1554: 				   build_int_cst (integer_type_node,
+1555: 						  return_index));
+1556: 	  gimple_seq_add_stmt (&mod, x);
+1557: 	  do_return_redirection (q, finally_label, mod);
+1558: 	  switch_id = return_index;
+1559: 	}
+1560:       else
+1561: 	{
+1562: 	  x = gimple_build_assign (finally_tmp,
+1563: 				   build_int_cst (integer_type_node, q->index));
+1564: 	  gimple_seq_add_stmt (&mod, x);
+1565: 	  do_goto_redirection (q, finally_label, mod, tf);
+1566: 	  switch_id = q->index;
+1567: 	}
+1568:
+1569:       case_index = j + q->index;
+1570:       if (case_label_vec.length () <= case_index || !case_label_vec[case_index])
+1571:         {
+1572:           tree case_lab;
+1573: 	  tmp = build_int_cst (integer_type_node, switch_id);
+1574:           case_lab = build_case_label (tmp, NULL,
+1575: 				       create_artificial_label (tf_loc));
+1576:           /* We store the cont_stmt in the pointer map, so that we can recover
+1577:              it in the loop below.  */
+1578:           if (!cont_map)
+1579: 	    cont_map = new hash_map<tree, gimple *>;
+1580:           cont_map->put (case_lab, q->cont_stmt);
+1581:           case_label_vec.quick_push (case_lab);
+1582:         }
+1583:     }
+1584:   for (j = last_case_index; j < last_case_index + nlabels; j++)
+1585:     {
+1586:       gimple *cont_stmt;
+1587:
+1588:       last_case = case_label_vec[j];
+1589:
+1590:       gcc_assert (last_case);
+1591:       gcc_assert (cont_map);
+1592:
+1593:       cont_stmt = *cont_map->get (last_case);
+1594:
+1595:       x = gimple_build_label (CASE_LABEL (last_case));
+1596:       gimple_seq_add_stmt (&switch_body, x);
+1597:       gimple_seq_add_stmt (&switch_body, cont_stmt);
+1598:       maybe_record_in_goto_queue (state, cont_stmt);
+1599:     }
+1600:   if (cont_map)
+1601:     delete cont_map;
+1602:
+1603:   replace_goto_queue (tf);
+1604:
+1605:   /* Make sure that the last case is the default label, as one is required.
+1606:      Then sort the labels, which is also required in GIMPLE.  */
+1607:   CASE_LOW (last_case) = NULL;
+1608:   tree tem = case_label_vec.pop ();
+1609:   gcc_assert (tem == last_case);
+1610:   sort_case_labels (case_label_vec);
+1611:
+1612:   /* Build the switch statement, setting last_case to be the default
+1613:      label.  */
+1614:   switch_stmt = gimple_build_switch (finally_tmp, last_case,
+1615: 				     case_label_vec);
+1616:   gimple_set_location (switch_stmt, finally_loc);
+1617:
+1618:   /* Need to link SWITCH_STMT after running replace_goto_queue
+1619:      due to not wanting to process the same goto stmts twice.  */
+1620:   gimple_seq_add_stmt (&tf->top_p_seq, switch_stmt);
+1621:   gimple_seq_add_seq (&tf->top_p_seq, switch_body);
+1622: }
+1623:
+1624: /* Decide whether or not we are going to duplicate the finally block.
+1625:    There are several considerations.
+1626:
+1627:    Second, we'd like to prevent egregious code growth.  One way to
+1628:    do this is to estimate the size of the finally block, multiply
+1629:    that by the number of copies we'd need to make, and compare against
+1630:    the estimate of the size of the switch machinery we'd have to add.  */
+1631:
+1632: static bool
+1633: decide_copy_try_finally (int ndests, bool may_throw, gimple_seq finally)
+1634: {
+1635:   int f_estimate, sw_estimate;
+1636:   geh_else *eh_else;
+1637:
+1638:   /* If there's an EH_ELSE involved, the exception path is separate
+1639:      and really doesn't come into play for this computation.  */
+1640:   eh_else = get_eh_else (finally);
+1641:   if (eh_else)
+1642:     {
+1643:       ndests -= may_throw;
+1644:       finally = gimple_eh_else_n_body (eh_else);
+1645:     }
+1646:
+1647:   if (!optimize)
+1648:     {
+1649:       gimple_stmt_iterator gsi;
+1650:
+1651:       if (ndests == 1)
+1652:         return true;
+1653:
+1654:       for (gsi = gsi_start (finally); !gsi_end_p (gsi); gsi_next (&gsi))
+1655: 	{
+1656: 	  /* Duplicate __builtin_stack_restore in the hope of eliminating it
+1657: 	     on the EH paths and, consequently, useless cleanups.  */
+1658: 	  gimple *stmt = gsi_stmt (gsi);
+1659: 	  if (!is_gimple_debug (stmt)
+1660: 	      && !gimple_clobber_p (stmt)
+1661: 	      && !gimple_call_builtin_p (stmt, BUILT_IN_STACK_RESTORE))
+1662: 	    return false;
+1663: 	}
+1664:       return true;
+1665:     }
+1666:
+1667:   /* Finally estimate N times, plus N gotos.  */
+1668:   f_estimate = estimate_num_insns_seq (finally, &eni_size_weights);
+1669:   f_estimate = (f_estimate + 1) * ndests;
+1670:
+1671:   /* Switch statement (cost 10), N variable assignments, N gotos.  */
+1672:   sw_estimate = 10 + 2 * ndests;
+1673:
+1674:   /* Optimize for size clearly wants our best guess.  */
+1675:   if (optimize_function_for_size_p (cfun))
+1676:     return f_estimate < sw_estimate;
+1677:
+1678:   /* ??? These numbers are completely made up so far.  */
+1679:   if (optimize > 1)
+1680:     return f_estimate < 100 || f_estimate < sw_estimate * 2;
+1681:   else
+1682:     return f_estimate < 40 || f_estimate * 2 < sw_estimate * 3;
+1683: }
+1684:
+1685: /* REG is current region of a LEH state.
+1686:    is the enclosing region for a possible cleanup region, or the region
+1687:    itself.  Returns TRUE if such a region would be unreachable.
+1688:
+1689:    Cleanup regions within a must-not-throw region aren't actually reachable
+1690:    even if there are throwing stmts within them, because the personality
+1691:    routine will call terminate before unwinding.  */
+1692:
+1693: static bool
+1694: cleanup_is_dead_in (leh_state *state)
+1695: {
+1696:   if (flag_checking)
+1697:     {
+1698:       eh_region reg = state->cur_region;
+1699:       while (reg && reg->type == ERT_CLEANUP)
+1700: 	reg = reg->outer;
+1701:
+1702:       gcc_assert (reg == state->outer_non_cleanup);
+1703:     }
+1704:
+1705:   eh_region reg = state->outer_non_cleanup;
+1706:   return (reg && reg->type == ERT_MUST_NOT_THROW);
+1707: }
+1708:
+1709: /* A subroutine of lower_eh_constructs_1.  Lower a GIMPLE_TRY_FINALLY nodes
+1710:    to a sequence of labels and blocks, plus the exception region trees
+1711:    that record all the magic.  This is complicated by the need to
+1712:    arrange for the FINALLY block to be executed on all exits.  */
+1713:
+1714: static gimple_seq
+1715: lower_try_finally (struct leh_state *state, gtry *tp)
+1716: {
+1717:   struct leh_tf_state this_tf;
+1718:   struct leh_state this_state;
+1719:   int ndests;
+1720:   gimple_seq old_eh_seq;
+1721:
+1722:   /* Process the try block.  */
+1723:
+1724:   memset (&this_tf, 0, sizeof (this_tf));
+1725:   this_tf.try_finally_expr = tp;
+1726:   this_tf.top_p = tp;
+1727:   this_tf.outer = state;
+1728:   if (using_eh_for_cleanups_p () && !cleanup_is_dead_in (state))
+1729:     {
+1730:       this_tf.region = gen_eh_region_cleanup (state->cur_region);
+1731:       this_state.cur_region = this_tf.region;
+1732:     }
+1733:   else
+1734:     {
+1735:       this_tf.region = NULL;
+1736:       this_state.cur_region = state->cur_region;
+1737:     }
+1738:
+1739:   this_state.outer_non_cleanup = state->outer_non_cleanup;
+1740:   this_state.ehp_region = state->ehp_region;
+1741:   this_state.tf = &this_tf;
+1742:
+1743:   old_eh_seq = eh_seq;
+1744:   eh_seq = NULL;
+1745:
+1746:   lower_eh_constructs_1 (&this_state, gimple_try_eval_ptr (tp));
+1747:
+1748:   /* Determine if the try block is escaped through the bottom.  */
+1749:   this_tf.may_fallthru = gimple_seq_may_fallthru (gimple_try_eval (tp));
+1750:
+1751:   /* Determine if any exceptions are possible within the try block.  */
+1752:   if (this_tf.region)
+1753:     this_tf.may_throw = eh_region_may_contain_throw (this_tf.region);
+1754:   if (this_tf.may_throw)
+1755:     honor_protect_cleanup_actions (state, &this_state, &this_tf);
+1756:
+1757:   /* Determine how many edges (still) reach the finally block.  Or rather,
+1758:      how many destinations are reached by the finally block.  Use this to
+1759:      determine how we process the finally block itself.  */
+1760:
+1761:   ndests = this_tf.dest_array.length ();
+1762:   ndests += this_tf.may_fallthru;
+1763:   ndests += this_tf.may_return;
+1764:   ndests += this_tf.may_throw;
+1765:
+1766:   /* If the FINALLY block is not reachable, dike it out.  */
+1767:   if (ndests == 0)
+1768:     {
+1769:       gimple_seq_add_seq (&this_tf.top_p_seq, gimple_try_eval (tp));
+1770:       gimple_try_set_cleanup (tp, NULL);
+1771:     }
+1772:   /* If the finally block doesn't fall through, then any destination
+1773:      we might try to impose there isn't reached either.  There may be
+1774:      some minor amount of cleanup and redirection still needed.  */
+1775:   else if (!gimple_seq_may_fallthru (gimple_try_cleanup (tp)))
+1776:     lower_try_finally_nofallthru (state, &this_tf);
+1777:
+1778:   /* We can easily special-case redirection to a single destination.  */
+1779:   else if (ndests == 1)
+1780:     lower_try_finally_onedest (state, &this_tf);
+1781:   else if (decide_copy_try_finally (ndests, this_tf.may_throw,
+1782: 				    gimple_try_cleanup (tp)))
+1783:     lower_try_finally_copy (state, &this_tf);
+1784:   else
+1785:     lower_try_finally_switch (state, &this_tf);
+1786:
+1787:   /* If someone requested we add a label at the end of the transformed
+1788:      block, do so.  */
+1789:   if (this_tf.fallthru_label)
+1790:     {
+1791:       /* This must be reached only if ndests == 0. */
+1792:       gimple *x = gimple_build_label (this_tf.fallthru_label);
+1793:       gimple_seq_add_stmt (&this_tf.top_p_seq, x);
+1794:     }
+1795:
+1796:   this_tf.dest_array.release ();
+1797:   free (this_tf.goto_queue);
+1798:   if (this_tf.goto_queue_map)
+1799:     delete this_tf.goto_queue_map;
+1800:
+```
+
+## gcc/tree-eh.cc:2333–2356
+```text
+2333: }
+2334:
+2335: /* Create the single EH edge from STMT to its nearest landing pad,
+2336:    if there is such a landing pad within the current function.  */
+2337:
+2338: edge
+2339: make_eh_edge (gimple *stmt)
+2340: {
+2341:   basic_block src, dst;
+2342:   eh_landing_pad lp;
+2343:   int lp_nr;
+2344:
+2345:   lp_nr = lookup_stmt_eh_lp (stmt);
+2346:   if (lp_nr <= 0)
+2347:     return NULL;
+2348:
+2349:   lp = get_eh_landing_pad_from_number (lp_nr);
+2350:   gcc_assert (lp != NULL);
+2351:
+2352:   src = gimple_bb (stmt);
+2353:   dst = label_to_block (cfun, lp->post_landing_pad);
+2354:   return make_edge (src, dst, EDGE_EH);
+2355: }
+2356:
+```
+
+## gcc/tree-eh.cc:3318–3349
+```text
+3318:
+3319:    This occurs frequently in C++, where A is a local variable and B is a
+3320:    temporary used in the initializer for A.  */
+3321:
+3322: static void
+3323: optimize_double_finally (gtry *one, gtry *two)
+3324: {
+3325:   gimple *oneh;
+3326:   gimple_stmt_iterator gsi;
+3327:   gimple_seq cleanup;
+3328:
+3329:   cleanup = gimple_try_cleanup (one);
+3330:   gsi = gsi_start (cleanup);
+3331:   if (!gsi_one_before_end_p (gsi))
+3332:     return;
+3333:
+3334:   oneh = gsi_stmt (gsi);
+3335:   if (gimple_code (oneh) != GIMPLE_TRY
+3336:       || gimple_try_kind (oneh) != GIMPLE_TRY_CATCH)
+3337:     return;
+3338:
+3339:   if (same_handler_p (gimple_try_cleanup (oneh), gimple_try_cleanup (two)))
+3340:     {
+3341:       gimple_seq seq = gimple_try_eval (oneh);
+3342:
+3343:       gimple_try_set_cleanup (one, seq);
+3344:       gimple_try_set_kind (one, GIMPLE_TRY_CATCH);
+3345:       seq = copy_gimple_seq_and_replace_locals (seq);
+3346:       gimple_seq_add_seq (&seq, gimple_try_eval (two));
+3347:       gimple_try_set_eval (two, seq);
+3348:     }
+3349: }
+```
+
+## gcc/gimple.cc:1563–1577
+```text
+1563: gimple_seq_copy (gimple_seq src)
+1564: {
+1565:   gimple_stmt_iterator gsi;
+1566:   gimple_seq new_seq = NULL;
+1567:   gimple *stmt;
+1568:
+1569:   for (gsi = gsi_start (src); !gsi_end_p (gsi); gsi_next (&gsi))
+1570:     {
+1571:       stmt = gimple_copy (gsi_stmt (gsi));
+1572:       gimple_seq_add_stmt (&new_seq, stmt);
+1573:     }
+1574:
+1575:   return new_seq;
+1576: }
+1577:
+```
+
+## gcc/gimple.cc:1901–1931
+```text
+1901: /* Set BB to be the basic block holding G.  */
+1902:
+1903: void
+1904: gimple_set_bb (gimple *stmt, basic_block bb)
+1905: {
+1906:   stmt->bb = bb;
+1907:
+1908:   if (gimple_code (stmt) != GIMPLE_LABEL)
+1909:     return;
+1910:
+1911:   /* If the statement is a label, add the label to block-to-labels map
+1912:      so that we can speed up edge creation for GIMPLE_GOTOs.  */
+1913:   if (cfun->cfg)
+1914:     {
+1915:       tree t;
+1916:       int uid;
+1917:
+1918:       t = gimple_label_label (as_a <glabel *> (stmt));
+1919:       uid = LABEL_DECL_UID (t);
+1920:       if (uid == -1)
+1921: 	{
+1922: 	  unsigned old_len =
+1923: 	    vec_safe_length (label_to_block_map_for_fn (cfun));
+1924: 	  LABEL_DECL_UID (t) = uid = cfun->cfg->last_label_uid++;
+1925: 	  if (old_len <= (unsigned) uid)
+1926: 	    vec_safe_grow_cleared (label_to_block_map_for_fn (cfun), uid + 1);
+1927: 	}
+1928:
+1929:       (*label_to_block_map_for_fn (cfun))[uid] = bb;
+1930:     }
+1931: }
+```
+
+## gcc/gimple.cc:2045–2095
+```text
+2045: gimple_copy (gimple *stmt)
+2046: {
+2047:   enum gimple_code code = gimple_code (stmt);
+2048:   unsigned num_ops = gimple_num_ops (stmt);
+2049:   gimple *copy = gimple_alloc (code, num_ops);
+2050:   unsigned i;
+2051:
+2052:   /* Shallow copy all the fields from STMT.  */
+2053:   memcpy (copy, stmt, gimple_size (code));
+2054:   gimple_init_singleton (copy);
+2055:
+2056:   /* If STMT has sub-statements, deep-copy them as well.  */
+2057:   if (gimple_has_substatements (stmt))
+2058:     {
+2059:       gimple_seq new_seq;
+2060:       tree t;
+2061:
+2062:       switch (gimple_code (stmt))
+2063: 	{
+2064: 	case GIMPLE_BIND:
+2065: 	  {
+2066: 	    gbind *bind_stmt = as_a <gbind *> (stmt);
+2067: 	    gbind *bind_copy = as_a <gbind *> (copy);
+2068: 	    new_seq = gimple_seq_copy (gimple_bind_body (bind_stmt));
+2069: 	    gimple_bind_set_body (bind_copy, new_seq);
+2070: 	    gimple_bind_set_vars (bind_copy,
+2071: 				  unshare_expr (gimple_bind_vars (bind_stmt)));
+2072: 	    gimple_bind_set_block (bind_copy, gimple_bind_block (bind_stmt));
+2073: 	  }
+2074: 	  break;
+2075:
+2076: 	case GIMPLE_CATCH:
+2077: 	  {
+2078: 	    gcatch *catch_stmt = as_a <gcatch *> (stmt);
+2079: 	    gcatch *catch_copy = as_a <gcatch *> (copy);
+2080: 	    new_seq = gimple_seq_copy (gimple_catch_handler (catch_stmt));
+2081: 	    gimple_catch_set_handler (catch_copy, new_seq);
+2082: 	    t = unshare_expr (gimple_catch_types (catch_stmt));
+2083: 	    gimple_catch_set_types (catch_copy, t);
+2084: 	  }
+2085: 	  break;
+2086:
+2087: 	case GIMPLE_EH_FILTER:
+2088: 	  {
+2089: 	    geh_filter *eh_filter_stmt = as_a <geh_filter *> (stmt);
+2090: 	    geh_filter *eh_filter_copy = as_a <geh_filter *> (copy);
+2091: 	    new_seq
+2092: 	      = gimple_seq_copy (gimple_eh_filter_failure (eh_filter_stmt));
+2093: 	    gimple_eh_filter_set_failure (eh_filter_copy, new_seq);
+2094: 	    t = unshare_expr (gimple_eh_filter_types (eh_filter_stmt));
+2095: 	    gimple_eh_filter_set_types (eh_filter_copy, t);
+```
+
+## gcc/gimple.cc:2297–2333
+```text
+2297:     case GIMPLE_OMP_ATOMIC_STORE:
+2298:       {
+2299: 	gomp_atomic_store *g = as_a <gomp_atomic_store *> (copy);
+2300: 	gimple_omp_atomic_store_set_val (g,
+2301: 	  unshare_expr (gimple_omp_atomic_store_val (g)));
+2302: 	break;
+2303:       }
+2304:     default:
+2305:       break;
+2306:     }
+2307:
+2308:   /* Make copy of operands.  */
+2309:   for (i = 0; i < num_ops; i++)
+2310:     gimple_set_op (copy, i, unshare_expr (gimple_op (stmt, i)));
+2311:
+2312:   if (gimple_has_mem_ops (stmt))
+2313:     {
+2314:       gimple_set_vdef (copy, gimple_vdef (stmt));
+2315:       gimple_set_vuse (copy, gimple_vuse (stmt));
+2316:     }
+2317:
+2318:   /* Clear out SSA operand vectors on COPY.  */
+2319:   if (gimple_has_ops (stmt))
+2320:     {
+2321:       gimple_set_use_ops (copy, NULL);
+2322:
+2323:       /* SSA operands need to be updated.  */
+2324:       gimple_set_modified (copy, true);
+2325:     }
+2326:
+2327:   if (gimple_debug_nonbind_marker_p (stmt))
+2328:     cfun->debug_marker_count++;
+2329:
+2330:   return copy;
+2331: }
+2332:
+2333: /* Move OLD_STMT's vuse and vdef operands to NEW_STMT, on the assumption
+```
+
+## gcc/tree-inline.cc:5861–5940
+```text
+5861: replace_locals_op (tree *tp, int *walk_subtrees, void *data)
+5862: {
+5863:   struct walk_stmt_info *wi = (struct walk_stmt_info*) data;
+5864:   copy_body_data *id = (copy_body_data *) wi->info;
+5865:   hash_map<tree, tree> *st = id->decl_map;
+5866:   tree *n;
+5867:   tree expr = *tp;
+5868:
+5869:   /* For recursive invocations this is no longer the LHS itself.  */
+5870:   bool is_lhs = wi->is_lhs;
+5871:   wi->is_lhs = false;
+5872:
+5873:   if (TREE_CODE (expr) == SSA_NAME)
+5874:     {
+5875:       *tp = remap_ssa_name (*tp, id);
+5876:       *walk_subtrees = 0;
+5877:       if (is_lhs)
+5878: 	SSA_NAME_DEF_STMT (*tp) = gsi_stmt (wi->gsi);
+5879:     }
+5880:   /* Only a local declaration (variable or label).  */
+5881:   else if ((VAR_P (expr) && !TREE_STATIC (expr))
+5882: 	   || TREE_CODE (expr) == LABEL_DECL)
+5883:     {
+5884:       /* Lookup the declaration.  */
+5885:       n = st->get (expr);
+5886:
+5887:       /* If it's there, remap it.  */
+5888:       if (n)
+5889: 	*tp = *n;
+5890:       *walk_subtrees = 0;
+5891:     }
+5892:   else if (TREE_CODE (expr) == STATEMENT_LIST
+5893: 	   || TREE_CODE (expr) == BIND_EXPR
+5894: 	   || TREE_CODE (expr) == SAVE_EXPR)
+5895:     gcc_unreachable ();
+5896:   else if (TREE_CODE (expr) == TARGET_EXPR)
+5897:     {
+5898:       /* Don't mess with a TARGET_EXPR that hasn't been expanded.
+5899:          It's OK for this to happen if it was part of a subtree that
+5900:          isn't immediately expanded, such as operand 2 of another
+5901:          TARGET_EXPR.  */
+5902:       if (!TREE_OPERAND (expr, 1))
+5903: 	{
+5904: 	  TREE_OPERAND (expr, 1) = TREE_OPERAND (expr, 3);
+5905: 	  TREE_OPERAND (expr, 3) = NULL_TREE;
+5906: 	}
+5907:     }
+5908:   else if (TREE_CODE (expr) == OMP_CLAUSE)
+5909:     {
+5910:       /* Before the omplower pass completes, some OMP clauses can contain
+5911: 	 sequences that are neither copied by gimple_seq_copy nor walked by
+5912: 	 walk_gimple_seq.  To make copy_gimple_seq_and_replace_locals work even
+5913: 	 in those situations, we have to copy and process them explicitly.  */
+5914:
+5915:       if (OMP_CLAUSE_CODE (expr) == OMP_CLAUSE_LASTPRIVATE)
+5916: 	{
+5917: 	  gimple_seq seq = OMP_CLAUSE_LASTPRIVATE_GIMPLE_SEQ (expr);
+5918: 	  seq = duplicate_remap_omp_clause_seq (seq, wi);
+5919: 	  OMP_CLAUSE_LASTPRIVATE_GIMPLE_SEQ (expr) = seq;
+5920: 	}
+5921:       else if (OMP_CLAUSE_CODE (expr) == OMP_CLAUSE_LINEAR)
+5922: 	{
+5923: 	  gimple_seq seq = OMP_CLAUSE_LINEAR_GIMPLE_SEQ (expr);
+5924: 	  seq = duplicate_remap_omp_clause_seq (seq, wi);
+5925: 	  OMP_CLAUSE_LINEAR_GIMPLE_SEQ (expr) = seq;
+5926: 	}
+5927:       else if (OMP_CLAUSE_CODE (expr) == OMP_CLAUSE_REDUCTION)
+5928: 	{
+5929: 	  gimple_seq seq = OMP_CLAUSE_REDUCTION_GIMPLE_INIT (expr);
+5930: 	  seq = duplicate_remap_omp_clause_seq (seq, wi);
+5931: 	  OMP_CLAUSE_REDUCTION_GIMPLE_INIT (expr) = seq;
+5932: 	  seq = OMP_CLAUSE_REDUCTION_GIMPLE_MERGE (expr);
+5933: 	  seq = duplicate_remap_omp_clause_seq (seq, wi);
+5934: 	  OMP_CLAUSE_REDUCTION_GIMPLE_MERGE (expr) = seq;
+5935: 	}
+5936:     }
+5937:
+5938:   /* Keep iterating.  */
+5939:   return NULL_TREE;
+5940: }
+```
+
+## gcc/tree-inline.cc:6008–6060
+```text
+6008: copy_gimple_seq_and_replace_locals (gimple_seq seq)
+6009: {
+6010:   copy_body_data id;
+6011:   struct walk_stmt_info wi;
+6012:   gimple_seq copy;
+6013:
+6014:   /* There's nothing to do for NULL_TREE.  */
+6015:   if (seq == NULL)
+6016:     return seq;
+6017:
+6018:   /* Set up ID.  */
+6019:   memset (&id, 0, sizeof (id));
+6020:   id.src_fn = current_function_decl;
+6021:   id.dst_fn = current_function_decl;
+6022:   id.src_cfun = cfun;
+6023:   id.decl_map = new hash_map<tree, tree>;
+6024:   id.debug_map = NULL;
+6025:
+6026:   id.copy_decl = copy_decl_no_change;
+6027:   id.transform_call_graph_edges = CB_CGE_DUPLICATE;
+6028:   id.transform_new_cfg = false;
+6029:   id.transform_return_to_modify = false;
+6030:   id.transform_parameter = false;
+6031:
+6032:   /* Walk the tree once to find local labels.  */
+6033:   memset (&wi, 0, sizeof (wi));
+6034:   hash_set<tree> visited;
+6035:   wi.info = &id;
+6036:   wi.pset = &visited;
+6037:   walk_gimple_seq (seq, mark_local_labels_stmt, NULL, &wi);
+6038:
+6039:   copy = gimple_seq_copy (seq);
+6040:
+6041:   /* Walk the copy, remapping decls.  */
+6042:   memset (&wi, 0, sizeof (wi));
+6043:   wi.info = &id;
+6044:   walk_gimple_seq (copy, replace_locals_stmt, replace_locals_op, &wi);
+6045:
+6046:   /* Clean up.  */
+6047:   delete id.decl_map;
+6048:   if (id.debug_map)
+6049:     delete id.debug_map;
+6050:   if (id.dependence_map)
+6051:     {
+6052:       delete id.dependence_map;
+6053:       id.dependence_map = NULL;
+6054:     }
+6055:
+6056:   return copy;
+6057: }
+6058:
+6059:
+6060: /* Declare the variables created by the inliner.  Add all the variables in
+```
+
+## gcc/langhooks-def.h:145–158
+```text
+145: #define LANG_HOOKS_BUILTIN_FUNCTION_EXT_SCOPE	LANG_HOOKS_BUILTIN_FUNCTION
+146: #define LANG_HOOKS_SIMULATE_BUILTIN_FUNCTION_DECL LANG_HOOKS_BUILTIN_FUNCTION
+147: #define LANG_HOOKS_EXPR_TO_DECL		lhd_expr_to_decl
+148: #define LANG_HOOKS_TO_TARGET_CHARSET	lhd_to_target_charset
+149: #define LANG_HOOKS_INIT_TS		lhd_do_nothing
+150: #define LANG_HOOKS_EH_PERSONALITY	lhd_gcc_personality
+151: #define LANG_HOOKS_EH_RUNTIME_TYPE	lhd_pass_through_t
+152: #define LANG_HOOKS_EH_PROTECT_CLEANUP_ACTIONS	NULL
+153: #define LANG_HOOKS_BLOCK_MAY_FALLTHRU	hook_bool_const_tree_true
+154: #define LANG_HOOKS_EH_USE_CXA_END_CLEANUP	false
+155: #define LANG_HOOKS_DEEP_UNSHARING	false
+156: #define LANG_HOOKS_CUSTOM_FUNCTION_DESCRIPTORS	false
+157: #define LANG_HOOKS_EMITS_BEGIN_STMT	false
+158: #define LANG_HOOKS_RUN_LANG_SELFTESTS   lhd_do_nothing
+```
+
+## gcc/tree-cfg.cc:72–79
+```text
+72:
+73: /* Local declarations.  */
+74:
+75: /* Initial capacity for the basic block array.  */
+76: static const int initial_cfg_capacity = 20;
+77:
+78: /* This hash table allows us to efficiently lookup all CASE_LABEL_EXPRs
+79:    which use a particular edge.  The CASE_LABEL_EXPRs are chained together
+```
+
+## gcc/tree-cfg.cc:145–214
+```text
+145: init_empty_tree_cfg_for_function (struct function *fn)
+146: {
+147:   /* Initialize the basic block array.  */
+148:   init_flow (fn);
+149:   profile_status_for_fn (fn) = PROFILE_ABSENT;
+150:   n_basic_blocks_for_fn (fn) = NUM_FIXED_BLOCKS;
+151:   last_basic_block_for_fn (fn) = NUM_FIXED_BLOCKS;
+152:   vec_safe_grow_cleared (basic_block_info_for_fn (fn),
+153: 			 initial_cfg_capacity, true);
+154:
+155:   /* Build a mapping of labels to their associated blocks.  */
+156:   vec_safe_grow_cleared (label_to_block_map_for_fn (fn),
+157: 			 initial_cfg_capacity, true);
+158:
+159:   SET_BASIC_BLOCK_FOR_FN (fn, ENTRY_BLOCK, ENTRY_BLOCK_PTR_FOR_FN (fn));
+160:   SET_BASIC_BLOCK_FOR_FN (fn, EXIT_BLOCK, EXIT_BLOCK_PTR_FOR_FN (fn));
+161:
+162:   ENTRY_BLOCK_PTR_FOR_FN (fn)->next_bb
+163:     = EXIT_BLOCK_PTR_FOR_FN (fn);
+164:   EXIT_BLOCK_PTR_FOR_FN (fn)->prev_bb
+165:     = ENTRY_BLOCK_PTR_FOR_FN (fn);
+166: }
+167:
+168: void
+169: init_empty_tree_cfg (void)
+170: {
+171:   init_empty_tree_cfg_for_function (cfun);
+172: }
+173:
+174: /*---------------------------------------------------------------------------
+175: 			      Create basic blocks
+176: ---------------------------------------------------------------------------*/
+177:
+178: /* Entry point to the CFG builder for trees.  SEQ is the sequence of
+179:    statements to be added to the flowgraph.  */
+180:
+181: static void
+182: build_gimple_cfg (gimple_seq seq)
+183: {
+184:   /* Register specific gimple functions.  */
+185:   gimple_register_cfg_hooks ();
+186:
+187:   memset ((void *) &cfg_stats, 0, sizeof (cfg_stats));
+188:
+189:   init_empty_tree_cfg ();
+190:
+191:   make_blocks (seq);
+192:
+193:   /* Make sure there is always at least one block, even if it's empty.  */
+194:   if (n_basic_blocks_for_fn (cfun) == NUM_FIXED_BLOCKS)
+195:     create_empty_bb (ENTRY_BLOCK_PTR_FOR_FN (cfun));
+196:
+197:   /* Adjust the size of the array.  */
+198:   if (basic_block_info_for_fn (cfun)->length ()
+199:       < (size_t) n_basic_blocks_for_fn (cfun))
+200:     vec_safe_grow_cleared (basic_block_info_for_fn (cfun),
+201: 			   n_basic_blocks_for_fn (cfun));
+202:
+203:   /* To speed up statement iterator walks, we first purge dead labels.  */
+204:   cleanup_dead_labels ();
+205:
+206:   /* Group case nodes to reduce the number of edges.
+207:      We do this after cleaning up dead labels because otherwise we miss
+208:      a lot of obvious case merging opportunities.  */
+209:   group_case_labels ();
+210:
+211:   /* Create the edges of the flowgraph.  */
+212:   make_edges ();
+213:   assign_discriminators ();
+214:   cleanup_dead_labels ();
+```
+
+## gcc/tree-cfg.cc:488–555
+```text
+488: make_blocks_1 (gimple_seq seq, basic_block bb)
+489: {
+490:   gimple_stmt_iterator i = gsi_start (seq);
+491:   gimple *stmt = NULL;
+492:   gimple *prev_stmt = NULL;
+493:   bool start_new_block = true;
+494:   bool first_stmt_of_seq = true;
+495:
+496:   while (!gsi_end_p (i))
+497:     {
+498:       /* PREV_STMT should only be set to a debug stmt if the debug
+499: 	 stmt is before nondebug stmts.  Once stmt reaches a nondebug
+500: 	 nonlabel, prev_stmt will be set to it, so that
+501: 	 stmt_starts_bb_p will know to start a new block if a label is
+502: 	 found.  However, if stmt was a label after debug stmts only,
+503: 	 keep the label in prev_stmt even if we find further debug
+504: 	 stmts, for there may be other labels after them, and they
+505: 	 should land in the same block.  */
+506:       if (!prev_stmt || !stmt || !is_gimple_debug (stmt))
+507: 	prev_stmt = stmt;
+508:       stmt = gsi_stmt (i);
+509:
+510:       if (stmt && is_gimple_call (stmt))
+511: 	gimple_call_initialize_ctrl_altering (stmt);
+512:
+513:       /* If the statement starts a new basic block or if we have determined
+514: 	 in a previous pass that we need to create a new block for STMT, do
+515: 	 so now.  */
+516:       if (start_new_block || stmt_starts_bb_p (stmt, prev_stmt))
+517: 	{
+518: 	  if (!first_stmt_of_seq)
+519: 	    gsi_split_seq_before (&i, &seq);
+520: 	  bb = create_basic_block (seq, bb);
+521: 	  start_new_block = false;
+522: 	  prev_stmt = NULL;
+523: 	}
+524:
+525:       /* Now add STMT to BB and create the subgraphs for special statement
+526: 	 codes.  */
+527:       gimple_set_bb (stmt, bb);
+528:
+529:       /* If STMT is a basic block terminator, set START_NEW_BLOCK for the
+530: 	 next iteration.  */
+531:       if (stmt_ends_bb_p (stmt))
+532: 	{
+533: 	  /* If the stmt can make abnormal goto use a new temporary
+534: 	     for the assignment to the LHS.  This makes sure the old value
+535: 	     of the LHS is available on the abnormal edge.  Otherwise
+536: 	     we will end up with overlapping life-ranges for abnormal
+537: 	     SSA names.  */
+538: 	  if (gimple_has_lhs (stmt)
+539: 	      && stmt_can_make_abnormal_goto (stmt)
+540: 	      && is_gimple_reg_type (TREE_TYPE (gimple_get_lhs (stmt))))
+541: 	    {
+542: 	      tree lhs = gimple_get_lhs (stmt);
+543: 	      tree tmp = create_tmp_var (TREE_TYPE (lhs));
+544: 	      gimple *s = gimple_build_assign (lhs, tmp);
+545: 	      gimple_set_location (s, gimple_location (stmt));
+546: 	      gimple_set_block (s, gimple_block (stmt));
+547: 	      gimple_set_lhs (stmt, tmp);
+548: 	      gsi_insert_after (&i, s, GSI_SAME_STMT);
+549: 	    }
+550: 	  start_new_block = true;
+551: 	}
+552:
+553:       gsi_next (&i);
+554:       first_stmt_of_seq = false;
+555:     }
+```
+
+## gcc/tree-cfg.cc:631–666
+```text
+631: create_bb (void *h, void *e, basic_block after)
+632: {
+633:   basic_block bb;
+634:
+635:   gcc_assert (!e);
+636:
+637:   /* Create and initialize a new basic block.  Since alloc_block uses
+638:      GC allocation that clears memory to allocate a basic block, we do
+639:      not have to clear the newly allocated basic block here.  */
+640:   bb = alloc_block ();
+641:
+642:   bb->index = last_basic_block_for_fn (cfun);
+643:   bb->flags = BB_NEW;
+644:   set_bb_seq (bb, h ? (gimple_seq) h : NULL);
+645:
+646:   /* Add the new block to the linked list of blocks.  */
+647:   link_block (bb, after);
+648:
+649:   /* Grow the basic block array if needed.  */
+650:   if ((size_t) last_basic_block_for_fn (cfun)
+651:       == basic_block_info_for_fn (cfun)->length ())
+652:     vec_safe_grow_cleared (basic_block_info_for_fn (cfun),
+653: 			   last_basic_block_for_fn (cfun) + 1);
+654:
+655:   /* Add the newly created block to the array.  */
+656:   SET_BASIC_BLOCK_FOR_FN (cfun, last_basic_block_for_fn (cfun), bb);
+657:
+658:   n_basic_blocks_for_fn (cfun)++;
+659:   last_basic_block_for_fn (cfun)++;
+660:
+661:   return bb;
+662: }
+663:
+664:
+665: /*---------------------------------------------------------------------------
+666: 				 Edge creation
+```
+
+## gcc/tree-cfg.cc:810–1024
+```text
+810: make_edges_bb (basic_block bb, struct omp_region **pcur_region, int *pomp_index)
+811: {
+812:   gimple *last = *gsi_last_bb (bb);
+813:   bool fallthru = false;
+814:   int ret = 0;
+815:
+816:   if (!last)
+817:     return ret;
+818:
+819:   switch (gimple_code (last))
+820:     {
+821:     case GIMPLE_GOTO:
+822:       if (make_goto_expr_edges (bb))
+823: 	ret = 1;
+824:       fallthru = false;
+825:       break;
+826:     case GIMPLE_RETURN:
+827:       {
+828: 	edge e = make_edge (bb, EXIT_BLOCK_PTR_FOR_FN (cfun), 0);
+829: 	e->goto_locus = gimple_location (last);
+830: 	fallthru = false;
+831:       }
+832:       break;
+833:     case GIMPLE_COND:
+834:       make_cond_expr_edges (bb);
+835:       fallthru = false;
+836:       break;
+837:     case GIMPLE_SWITCH:
+838:       make_gimple_switch_edges (as_a <gswitch *> (last), bb);
+839:       fallthru = false;
+840:       break;
+841:     case GIMPLE_RESX:
+842:       make_eh_edge (last);
+843:       fallthru = false;
+844:       break;
+845:     case GIMPLE_EH_DISPATCH:
+846:       fallthru = make_eh_dispatch_edges (as_a <geh_dispatch *> (last));
+847:       break;
+848:
+849:     case GIMPLE_CALL:
+850:       /* If this function receives a nonlocal goto, then we need to
+851: 	 make edges from this call site to all the nonlocal goto
+852: 	 handlers.  */
+853:       if (stmt_can_make_abnormal_goto (last))
+854: 	ret = 2;
+855:
+856:       /* If this statement has reachable exception handlers, then
+857: 	 create abnormal edges to them.  */
+858:       make_eh_edge (last);
+859:
+860:       /* BUILTIN_RETURN is really a return statement.  */
+861:       if (gimple_call_builtin_p (last, BUILT_IN_RETURN))
+862: 	{
+863: 	  make_edge (bb, EXIT_BLOCK_PTR_FOR_FN (cfun), 0);
+864: 	  fallthru = false;
+865: 	}
+866:       /* Some calls are known not to return.  */
+867:       else
+868: 	fallthru = !gimple_call_noreturn_p (last);
+869:       break;
+870:
+871:     case GIMPLE_ASSIGN:
+872:       /* A GIMPLE_ASSIGN may throw internally and thus be considered
+873: 	 control-altering.  */
+874:       if (is_ctrl_altering_stmt (last))
+875: 	make_eh_edge (last);
+876:       fallthru = true;
+877:       break;
+878:
+879:     case GIMPLE_ASM:
+880:       make_gimple_asm_edges (bb);
+881:       fallthru = true;
+882:       break;
+883:
+884:     CASE_GIMPLE_OMP:
+885:       fallthru = omp_make_gimple_edges (bb, pcur_region, pomp_index);
+886:       break;
+887:
+888:     case GIMPLE_TRANSACTION:
+889:       {
+890:         gtransaction *txn = as_a <gtransaction *> (last);
+891: 	tree label1 = gimple_transaction_label_norm (txn);
+892: 	tree label2 = gimple_transaction_label_uninst (txn);
+893:
+894: 	if (label1)
+895: 	  make_edge (bb, label_to_block (cfun, label1), EDGE_FALLTHRU);
+896: 	if (label2)
+897: 	  make_edge (bb, label_to_block (cfun, label2),
+898: 		     EDGE_TM_UNINSTRUMENTED | (label1 ? 0 : EDGE_FALLTHRU));
+899:
+900: 	tree label3 = gimple_transaction_label_over (txn);
+901: 	if (gimple_transaction_subcode (txn)
+902: 	    & (GTMA_HAVE_ABORT | GTMA_IS_OUTER))
+903: 	  make_edge (bb, label_to_block (cfun, label3), EDGE_TM_ABORT);
+904:
+905: 	fallthru = false;
+906:       }
+907:       break;
+908:
+909:     default:
+910:       gcc_assert (!stmt_ends_bb_p (last));
+911:       fallthru = true;
+912:       break;
+913:     }
+914:
+915:   if (fallthru)
+916:     make_edge (bb, bb->next_bb, EDGE_FALLTHRU);
+917:
+918:   return ret;
+919: }
+920:
+921: /* Join all the blocks in the flowgraph.  */
+922:
+923: static void
+924: make_edges (void)
+925: {
+926:   basic_block bb;
+927:   struct omp_region *cur_region = NULL;
+928:   auto_vec<basic_block> ab_edge_goto;
+929:   auto_vec<basic_block> ab_edge_call;
+930:   int cur_omp_region_idx = 0;
+931:
+932:   /* Create an edge from entry to the first block with executable
+933:      statements in it.  */
+934:   make_edge (ENTRY_BLOCK_PTR_FOR_FN (cfun),
+935: 	     BASIC_BLOCK_FOR_FN (cfun, NUM_FIXED_BLOCKS),
+936: 	     EDGE_FALLTHRU);
+937:
+938:   /* Traverse the basic block array placing edges.  */
+939:   FOR_EACH_BB_FN (bb, cfun)
+940:     {
+941:       int mer;
+942:
+943:       if (!bb_to_omp_idx.is_empty ())
+944: 	bb_to_omp_idx[bb->index] = cur_omp_region_idx;
+945:
+946:       mer = make_edges_bb (bb, &cur_region, &cur_omp_region_idx);
+947:       if (mer == 1)
+948: 	ab_edge_goto.safe_push (bb);
+949:       else if (mer == 2)
+950: 	ab_edge_call.safe_push (bb);
+951:
+952:       if (cur_region && bb_to_omp_idx.is_empty ())
+953: 	bb_to_omp_idx.safe_grow_cleared (n_basic_blocks_for_fn (cfun), true);
+954:     }
+955:
+956:   /* Computed gotos are hell to deal with, especially if there are
+957:      lots of them with a large number of destinations.  So we factor
+958:      them to a common computed goto location before we build the
+959:      edge list.  After we convert back to normal form, we will un-factor
+960:      the computed gotos since factoring introduces an unwanted jump.
+961:      For non-local gotos and abnormal edges from calls to calls that return
+962:      twice or forced labels, factor the abnormal edges too, by having all
+963:      abnormal edges from the calls go to a common artificial basic block
+964:      with ABNORMAL_DISPATCHER internal call and abnormal edges from that
+965:      basic block to all forced labels and calls returning twice.
+966:      We do this per-OpenMP structured block, because those regions
+967:      are guaranteed to be single entry single exit by the standard,
+968:      so it is not allowed to enter or exit such regions abnormally this way,
+969:      thus all computed gotos, non-local gotos and setjmp/longjmp calls
+970:      must not transfer control across SESE region boundaries.  */
+971:   if (!ab_edge_goto.is_empty () || !ab_edge_call.is_empty ())
+972:     {
+973:       gimple_stmt_iterator gsi;
+974:       basic_block dispatcher_bb_array[2] = { NULL, NULL };
+975:       basic_block *dispatcher_bbs = dispatcher_bb_array;
+976:       int count = n_basic_blocks_for_fn (cfun);
+977:
+978:       if (!bb_to_omp_idx.is_empty ())
+979: 	dispatcher_bbs = XCNEWVEC (basic_block, 2 * count);
+980:
+981:       FOR_EACH_BB_FN (bb, cfun)
+982: 	{
+983: 	  for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+984: 	    {
+985: 	      glabel *label_stmt = dyn_cast <glabel *> (gsi_stmt (gsi));
+986: 	      tree target;
+987:
+988: 	      if (!label_stmt)
+989: 		break;
+990:
+991: 	      target = gimple_label_label (label_stmt);
+992:
+993: 	      /* Make an edge to every label block that has been marked as a
+994: 		 potential target for a computed goto or a non-local goto.  */
+995: 	      if (FORCED_LABEL (target))
+996: 		handle_abnormal_edges (dispatcher_bbs, bb, &ab_edge_goto,
+997: 				       true);
+998: 	      if (DECL_NONLOCAL (target))
+999: 		{
+1000: 		  handle_abnormal_edges (dispatcher_bbs, bb, &ab_edge_call,
+1001: 					 false);
+1002: 		  break;
+1003: 		}
+1004: 	    }
+1005:
+1006: 	  if (!gsi_end_p (gsi) && is_gimple_debug (gsi_stmt (gsi)))
+1007: 	    gsi_next_nondebug (&gsi);
+1008: 	  if (!gsi_end_p (gsi))
+1009: 	    {
+1010: 	      /* Make an edge to every setjmp-like call.  */
+1011: 	      gimple *call_stmt = gsi_stmt (gsi);
+1012: 	      if (is_gimple_call (call_stmt)
+1013: 		  && ((gimple_call_flags (call_stmt) & ECF_RETURNS_TWICE)
+1014: 		      || gimple_call_builtin_p (call_stmt,
+1015: 						BUILT_IN_SETJMP_RECEIVER)))
+1016: 		handle_abnormal_edges (dispatcher_bbs, bb, &ab_edge_call,
+1017: 				       false);
+1018: 	    }
+1019: 	}
+1020:
+1021:       if (!bb_to_omp_idx.is_empty ())
+1022: 	XDELETE (dispatcher_bbs);
+1023:     }
+1024:
+```
+
+## gcc/tree-cfg.cc:1085–1220
+```text
+1085: struct discrim_entry
+1086: {
+1087:   /* ID of basic block we saw line number last time.  */
+1088:   unsigned int bb_id;
+1089:   /* Discriminator we used.  */
+1090:   unsigned int discrim;
+1091: };
+1092:
+1093: /* Return updated LOC with discriminator for use in basic block BB_ID.
+1094:    MAP keeps track of current values.  */
+1095:
+1096: location_t
+1097: assign_discriminator (location_t loc, unsigned int bb_id,
+1098: 		      hash_map<int_hash <unsigned, -1U, -2U>,
+1099: 			       discrim_entry> &map)
+1100: {
+1101:   bool existed;
+1102:   if ((unsigned) LOCATION_LINE (loc) >= -2U)
+1103:     return loc;
+1104:   discrim_entry &e
+1105:     = map.get_or_insert ((unsigned) LOCATION_LINE (loc), &existed);
+1106:   gcc_checking_assert (!has_discriminator (loc));
+1107:   if (!existed)
+1108:     {
+1109:       e.bb_id = bb_id;
+1110:       e.discrim = 0;
+1111:       return loc;
+1112:     }
+1113:   if (e.bb_id != bb_id)
+1114:     {
+1115:       e.bb_id = bb_id;
+1116:       e.discrim++;
+1117:     }
+1118:   if (e.discrim)
+1119:     return location_with_discriminator (loc, e.discrim);
+1120:   return loc;
+1121: }
+1122:
+1123: /* Assign discriminators to statement locations.  */
+1124:
+1125: static void
+1126: assign_discriminators (void)
+1127: {
+1128:   hash_map<int_hash <unsigned, -1U, -2U>, discrim_entry> map (13);
+1129:   unsigned int bb_id = 0;
+1130:   basic_block bb;
+1131:   FOR_EACH_BB_FN (bb, cfun)
+1132:     {
+1133:       location_t prev_loc = UNKNOWN_LOCATION, prev_replacement = UNKNOWN_LOCATION;
+1134:       /* Traverse the basic block, if two function calls within a basic block
+1135: 	 are mapped to the same line, assign a new discriminator because a call
+1136: 	 stmt could be a split point of a basic block.  */
+1137:       for (gimple_stmt_iterator gsi = gsi_start_bb (bb);
+1138: 	   !gsi_end_p (gsi); gsi_next (&gsi))
+1139: 	{
+1140: 	  gimple *stmt = gsi_stmt (gsi);
+1141: 	  location_t loc = gimple_location (stmt);
+1142: 	  if (loc == UNKNOWN_LOCATION)
+1143: 	    continue;
+1144: 	  if (loc == prev_loc)
+1145: 	    gimple_set_location (stmt, prev_replacement);
+1146: 	  else
+1147: 	    {
+1148: 	      prev_loc = loc;
+1149: 	      prev_replacement = assign_discriminator (loc, bb_id, map);
+1150: 	      gimple_set_location (stmt, prev_replacement);
+1151: 	    }
+1152: 	  /* Break basic blocks after each call.  This is required so each
+1153: 	     call site has unique discriminator.
+1154: 	     More correctly, we can break after each statement that can possibly
+1155: 	     terinate execution of the basic block, but for auto-profile this
+1156: 	     precision is probably not useful.  */
+1157: 	  if (gimple_code (stmt) == GIMPLE_CALL)
+1158: 	    {
+1159: 	      prev_loc = UNKNOWN_LOCATION;
+1160: 	      bb_id++;
+1161: 	    }
+1162: 	}
+1163:       /* If basic block has multiple sucessors, consdier every edge as a
+1164: 	 separate block.  */
+1165:       if (!single_succ_p (bb))
+1166: 	bb_id++;
+1167:       for (edge e : bb->succs)
+1168: 	{
+1169: 	  if (e->goto_locus != UNKNOWN_LOCATION)
+1170: 	    e->goto_locus = assign_discriminator (e->goto_locus, bb_id, map);
+1171: 	  for (gphi_iterator gpi = gsi_start_phis (bb);
+1172: 	       !gsi_end_p (gpi); gsi_next (&gpi))
+1173: 	    {
+1174: 	      gphi *phi = gpi.phi ();
+1175: 	      location_t phi_loc
+1176: 		= gimple_phi_arg_location_from_edge (phi, e);
+1177: 	      if (phi_loc == UNKNOWN_LOCATION)
+1178: 		continue;
+1179: 	      gimple_phi_arg_set_location
+1180: 		(phi, e->dest_idx, assign_discriminator (phi_loc, bb_id, map));
+1181: 	    }
+1182: 	   bb_id++;
+1183: 	}
+1184:       bb_id++;
+1185:     }
+1186:
+1187: }
+1188:
+1189: /* Create the edges for a GIMPLE_COND starting at block BB.  */
+1190:
+1191: static void
+1192: make_cond_expr_edges (basic_block bb)
+1193: {
+1194:   gcond *entry = as_a <gcond *> (*gsi_last_bb (bb));
+1195:   gimple *then_stmt, *else_stmt;
+1196:   basic_block then_bb, else_bb;
+1197:   tree then_label, else_label;
+1198:   edge e;
+1199:
+1200:   gcc_assert (entry);
+1201:
+1202:   /* Entry basic blocks for each component.  */
+1203:   then_label = gimple_cond_true_label (entry);
+1204:   else_label = gimple_cond_false_label (entry);
+1205:   then_bb = label_to_block (cfun, then_label);
+1206:   else_bb = label_to_block (cfun, else_label);
+1207:   then_stmt = first_stmt (then_bb);
+1208:   else_stmt = first_stmt (else_bb);
+1209:
+1210:   e = make_edge (bb, then_bb, EDGE_TRUE_VALUE);
+1211:   e->goto_locus = gimple_location (then_stmt);
+1212:   e = make_edge (bb, else_bb, EDGE_FALSE_VALUE);
+1213:   if (e)
+1214:     e->goto_locus = gimple_location (else_stmt);
+1215:
+1216:   /* We do not need the labels anymore.  */
+1217:   gimple_cond_set_true_label (entry, NULL_TREE);
+1218:   gimple_cond_set_false_label (entry, NULL_TREE);
+1219: }
+1220:
+```
+
+## gcc/tree-cfg.cc:1325–1405
+```text
+1325: /* Create the edges for a GIMPLE_SWITCH starting at block BB.  */
+1326:
+1327: static void
+1328: make_gimple_switch_edges (gswitch *entry, basic_block bb)
+1329: {
+1330:   size_t i, n;
+1331:
+1332:   n = gimple_switch_num_labels (entry);
+1333:
+1334:   for (i = 0; i < n; ++i)
+1335:     {
+1336:       basic_block label_bb = gimple_switch_label_bb (cfun, entry, i);
+1337:       make_edge (bb, label_bb, 0);
+1338:     }
+1339: }
+1340:
+1341:
+1342: /* Return the basic block holding label DEST.  */
+1343:
+1344: basic_block
+1345: label_to_block (struct function *ifun, tree dest)
+1346: {
+1347:   int uid = LABEL_DECL_UID (dest);
+1348:
+1349:   /* We would die hard when faced by an undefined label.  Emit a label to
+1350:      the very first basic block.  This will hopefully make even the dataflow
+1351:      and undefined variable warnings quite right.  */
+1352:   if (seen_error () && uid < 0)
+1353:     {
+1354:       gimple_stmt_iterator gsi =
+1355: 	gsi_start_bb (BASIC_BLOCK_FOR_FN (cfun, NUM_FIXED_BLOCKS));
+1356:       gimple *stmt;
+1357:
+1358:       stmt = gimple_build_label (dest);
+1359:       gsi_insert_before (&gsi, stmt, GSI_NEW_STMT);
+1360:       uid = LABEL_DECL_UID (dest);
+1361:     }
+1362:   if (vec_safe_length (ifun->cfg->x_label_to_block_map) <= (unsigned int) uid)
+1363:     return NULL;
+1364:   return (*ifun->cfg->x_label_to_block_map)[uid];
+1365: }
+1366:
+1367: /* Create edges for a goto statement at block BB.  Returns true
+1368:    if abnormal edges should be created.  */
+1369:
+1370: static bool
+1371: make_goto_expr_edges (basic_block bb)
+1372: {
+1373:   gimple_stmt_iterator last = gsi_last_bb (bb);
+1374:   gimple *goto_t = gsi_stmt (last);
+1375:
+1376:   /* A simple GOTO creates normal edges.  */
+1377:   if (simple_goto_p (goto_t))
+1378:     {
+1379:       tree dest = gimple_goto_dest (goto_t);
+1380:       basic_block label_bb = label_to_block (cfun, dest);
+1381:       edge e = make_edge (bb, label_bb, EDGE_FALLTHRU);
+1382:       e->goto_locus = gimple_location (goto_t);
+1383:       gsi_remove (&last, true);
+1384:       return false;
+1385:     }
+1386:
+1387:   /* A computed GOTO creates abnormal edges.  */
+1388:   return true;
+1389: }
+1390:
+1391: /* Create edges for an asm statement with labels at block BB.  */
+1392:
+1393: static void
+1394: make_gimple_asm_edges (basic_block bb)
+1395: {
+1396:   gasm *stmt = as_a <gasm *> (*gsi_last_bb (bb));
+1397:   int i, n = gimple_asm_nlabels (stmt);
+1398:
+1399:   for (i = 0; i < n; ++i)
+1400:     {
+1401:       tree label = TREE_VALUE (gimple_asm_label_op (stmt, i));
+1402:       basic_block label_bb = label_to_block (cfun, label);
+1403:       make_edge (bb, label_bb, 0);
+1404:     }
+1405: }
+```
+
+## gcc/tree-cfg.cc:1507–1698
+```text
+1507: cleanup_dead_labels (void)
+1508: {
+1509:   basic_block bb;
+1510:   label_record *label_for_bb = XCNEWVEC (struct label_record,
+1511: 					 last_basic_block_for_fn (cfun));
+1512:
+1513:   /* Find a suitable label for each block.  We use the first user-defined
+1514:      label if there is one, or otherwise just the first label we see.  */
+1515:   FOR_EACH_BB_FN (bb, cfun)
+1516:     {
+1517:       gimple_stmt_iterator i;
+1518:
+1519:       for (i = gsi_start_bb (bb); !gsi_end_p (i); gsi_next (&i))
+1520: 	{
+1521: 	  tree label;
+1522: 	  glabel *label_stmt = dyn_cast <glabel *> (gsi_stmt (i));
+1523:
+1524: 	  if (!label_stmt)
+1525: 	    break;
+1526:
+1527: 	  label = gimple_label_label (label_stmt);
+1528:
+1529: 	  /* If we have not yet seen a label for the current block,
+1530: 	     remember this one and see if there are more labels.  */
+1531: 	  if (!label_for_bb[bb->index].label)
+1532: 	    {
+1533: 	      label_for_bb[bb->index].label = label;
+1534: 	      continue;
+1535: 	    }
+1536:
+1537: 	  /* If we did see a label for the current block already, but it
+1538: 	     is an artificially created label, replace it if the current
+1539: 	     label is a user defined label.  */
+1540: 	  if (!DECL_ARTIFICIAL (label)
+1541: 	      && DECL_ARTIFICIAL (label_for_bb[bb->index].label))
+1542: 	    {
+1543: 	      label_for_bb[bb->index].label = label;
+1544: 	      break;
+1545: 	    }
+1546: 	}
+1547:     }
+1548:
+1549:   /* Now redirect all jumps/branches to the selected label.
+1550:      First do so for each block ending in a control statement.  */
+1551:   FOR_EACH_BB_FN (bb, cfun)
+1552:     {
+1553:       gimple *stmt = *gsi_last_bb (bb);
+1554:       tree label, new_label;
+1555:
+1556:       if (!stmt)
+1557: 	continue;
+1558:
+1559:       switch (gimple_code (stmt))
+1560: 	{
+1561: 	case GIMPLE_COND:
+1562: 	  {
+1563: 	    gcond *cond_stmt = as_a <gcond *> (stmt);
+1564: 	    label = gimple_cond_true_label (cond_stmt);
+1565: 	    if (label)
+1566: 	      {
+1567: 		new_label = main_block_label (label, label_for_bb);
+1568: 		if (new_label != label)
+1569: 		  gimple_cond_set_true_label (cond_stmt, new_label);
+1570: 	      }
+1571:
+1572: 	    label = gimple_cond_false_label (cond_stmt);
+1573: 	    if (label)
+1574: 	      {
+1575: 		new_label = main_block_label (label, label_for_bb);
+1576: 		if (new_label != label)
+1577: 		  gimple_cond_set_false_label (cond_stmt, new_label);
+1578: 	      }
+1579: 	  }
+1580: 	  break;
+1581:
+1582: 	case GIMPLE_SWITCH:
+1583: 	  {
+1584: 	    gswitch *switch_stmt = as_a <gswitch *> (stmt);
+1585: 	    size_t i, n = gimple_switch_num_labels (switch_stmt);
+1586:
+1587: 	    /* Replace all destination labels.  */
+1588: 	    for (i = 0; i < n; ++i)
+1589: 	      {
+1590: 		tree case_label = gimple_switch_label (switch_stmt, i);
+1591: 		label = CASE_LABEL (case_label);
+1592: 		new_label = main_block_label (label, label_for_bb);
+1593: 		if (new_label != label)
+1594: 		  CASE_LABEL (case_label) = new_label;
+1595: 	      }
+1596: 	    break;
+1597: 	  }
+1598:
+1599: 	case GIMPLE_ASM:
+1600: 	  {
+1601: 	    gasm *asm_stmt = as_a <gasm *> (stmt);
+1602: 	    int i, n = gimple_asm_nlabels (asm_stmt);
+1603:
+1604: 	    for (i = 0; i < n; ++i)
+1605: 	      {
+1606: 		tree cons = gimple_asm_label_op (asm_stmt, i);
+1607: 		tree label = main_block_label (TREE_VALUE (cons), label_for_bb);
+1608: 		TREE_VALUE (cons) = label;
+1609: 	      }
+1610: 	    break;
+1611: 	  }
+1612:
+1613: 	/* We have to handle gotos until they're removed, and we don't
+1614: 	   remove them until after we've created the CFG edges.  */
+1615: 	case GIMPLE_GOTO:
+1616: 	  if (!computed_goto_p (stmt))
+1617: 	    {
+1618: 	      ggoto *goto_stmt = as_a <ggoto *> (stmt);
+1619: 	      label = gimple_goto_dest (goto_stmt);
+1620: 	      new_label = main_block_label (label, label_for_bb);
+1621: 	      if (new_label != label)
+1622: 		gimple_goto_set_dest (goto_stmt, new_label);
+1623: 	    }
+1624: 	  break;
+1625:
+1626: 	case GIMPLE_TRANSACTION:
+1627: 	  {
+1628: 	    gtransaction *txn = as_a <gtransaction *> (stmt);
+1629:
+1630: 	    label = gimple_transaction_label_norm (txn);
+1631: 	    if (label)
+1632: 	      {
+1633: 		new_label = main_block_label (label, label_for_bb);
+1634: 		if (new_label != label)
+1635: 		  gimple_transaction_set_label_norm (txn, new_label);
+1636: 	      }
+1637:
+1638: 	    label = gimple_transaction_label_uninst (txn);
+1639: 	    if (label)
+1640: 	      {
+1641: 		new_label = main_block_label (label, label_for_bb);
+1642: 		if (new_label != label)
+1643: 		  gimple_transaction_set_label_uninst (txn, new_label);
+1644: 	      }
+1645:
+1646: 	    label = gimple_transaction_label_over (txn);
+1647: 	    if (label)
+1648: 	      {
+1649: 		new_label = main_block_label (label, label_for_bb);
+1650: 		if (new_label != label)
+1651: 		  gimple_transaction_set_label_over (txn, new_label);
+1652: 	      }
+1653: 	  }
+1654: 	  break;
+1655:
+1656: 	default:
+1657: 	  break;
+1658:       }
+1659:     }
+1660:
+1661:   /* Do the same for the exception region tree labels.  */
+1662:   cleanup_dead_labels_eh (label_for_bb);
+1663:
+1664:   /* Finally, purge dead labels.  All user-defined labels and labels that
+1665:      can be the target of non-local gotos and labels which have their
+1666:      address taken are preserved.  */
+1667:   FOR_EACH_BB_FN (bb, cfun)
+1668:     {
+1669:       gimple_stmt_iterator i;
+1670:       tree label_for_this_bb = label_for_bb[bb->index].label;
+1671:
+1672:       if (!label_for_this_bb)
+1673: 	continue;
+1674:
+1675:       /* If the main label of the block is unused, we may still remove it.  */
+1676:       if (!label_for_bb[bb->index].used)
+1677: 	label_for_this_bb = NULL;
+1678:
+1679:       for (i = gsi_start_bb (bb); !gsi_end_p (i); )
+1680: 	{
+1681: 	  tree label;
+1682: 	  glabel *label_stmt = dyn_cast <glabel *> (gsi_stmt (i));
+1683:
+1684: 	  if (!label_stmt)
+1685: 	    break;
+1686:
+1687: 	  label = gimple_label_label (label_stmt);
+1688:
+1689: 	  if (label == label_for_this_bb
+1690: 	      || !DECL_ARTIFICIAL (label)
+1691: 	      || DECL_NONLOCAL (label)
+1692: 	      || FORCED_LABEL (label))
+1693: 	    gsi_next (&i);
+1694: 	  else
+1695: 	    {
+1696: 	      gcc_checking_assert (EH_LANDING_PAD_NR (label) == 0);
+1697: 	      gsi_remove (&i, true);
+1698: 	    }
+```
+
+## gcc/tree-cfg.cc:1710–1852
+```text
+1710: group_case_labels_stmt (gswitch *stmt)
+1711: {
+1712:   int old_size = gimple_switch_num_labels (stmt);
+1713:   int i, next_index, new_size;
+1714:   basic_block default_bb = NULL;
+1715:   hash_set<tree> *removed_labels = NULL;
+1716:
+1717:   default_bb = gimple_switch_default_bb (cfun, stmt);
+1718:
+1719:   /* Look for possible opportunities to merge cases.  */
+1720:   new_size = i = 1;
+1721:   while (i < old_size)
+1722:     {
+1723:       tree base_case, base_high;
+1724:       basic_block base_bb;
+1725:
+1726:       base_case = gimple_switch_label (stmt, i);
+1727:
+1728:       gcc_assert (base_case);
+1729:       base_bb = label_to_block (cfun, CASE_LABEL (base_case));
+1730:
+1731:       /* Discard cases that have the same destination as the default case or
+1732: 	 whose destination blocks have already been removed as unreachable.  */
+1733:       if (base_bb == NULL
+1734: 	  || base_bb == default_bb
+1735: 	  || (removed_labels
+1736: 	      && removed_labels->contains (CASE_LABEL (base_case))))
+1737: 	{
+1738: 	  i++;
+1739: 	  continue;
+1740: 	}
+1741:
+1742:       base_high = CASE_HIGH (base_case)
+1743: 	  ? CASE_HIGH (base_case)
+1744: 	  : CASE_LOW (base_case);
+1745:       next_index = i + 1;
+1746:
+1747:       /* Try to merge case labels.  Break out when we reach the end
+1748: 	 of the label vector or when we cannot merge the next case
+1749: 	 label with the current one.  */
+1750:       while (next_index < old_size)
+1751: 	{
+1752: 	  tree merge_case = gimple_switch_label (stmt, next_index);
+1753: 	  basic_block merge_bb = label_to_block (cfun, CASE_LABEL (merge_case));
+1754: 	  wide_int bhp1 = wi::to_wide (base_high) + 1;
+1755:
+1756: 	  /* Merge the cases if they jump to the same place,
+1757: 	     and their ranges are consecutive.  */
+1758: 	  if (merge_bb == base_bb
+1759: 	      && (removed_labels == NULL
+1760: 		  || !removed_labels->contains (CASE_LABEL (merge_case)))
+1761: 	      && wi::to_wide (CASE_LOW (merge_case)) == bhp1)
+1762: 	    {
+1763: 	      base_high
+1764: 		= (CASE_HIGH (merge_case)
+1765: 		   ? CASE_HIGH (merge_case) : CASE_LOW (merge_case));
+1766: 	      CASE_HIGH (base_case) = base_high;
+1767: 	      next_index++;
+1768: 	    }
+1769: 	  else
+1770: 	    break;
+1771: 	}
+1772:
+1773:       /* Discard cases that have an unreachable destination block.  */
+1774:       if (EDGE_COUNT (base_bb->succs) == 0
+1775: 	  && gimple_seq_unreachable_p (bb_seq (base_bb))
+1776: 	  /* Don't optimize this if __builtin_unreachable () is the
+1777: 	     implicitly added one by the C++ FE too early, before
+1778: 	     -Wreturn-type can be diagnosed.  We'll optimize it later
+1779: 	     during switchconv pass or any other cfg cleanup.  */
+1780: 	  && (gimple_in_ssa_p (cfun)
+1781: 	      || (LOCATION_LOCUS (gimple_location (last_nondebug_stmt (base_bb)))
+1782: 		  != BUILTINS_LOCATION)))
+1783: 	{
+1784: 	  edge base_edge = find_edge (gimple_bb (stmt), base_bb);
+1785: 	  if (base_edge != NULL)
+1786: 	    {
+1787: 	      for (gimple_stmt_iterator gsi = gsi_start_bb (base_bb);
+1788: 		   !gsi_end_p (gsi); gsi_next (&gsi))
+1789: 		if (glabel *stmt = dyn_cast <glabel *> (gsi_stmt (gsi)))
+1790: 		  {
+1791: 		    if (FORCED_LABEL (gimple_label_label (stmt))
+1792: 			|| DECL_NONLOCAL (gimple_label_label (stmt)))
+1793: 		      {
+1794: 			/* Forced/non-local labels aren't going to be removed,
+1795: 			   but they will be moved to some neighbouring basic
+1796: 			   block. If some later case label refers to one of
+1797: 			   those labels, we should throw that case away rather
+1798: 			   than keeping it around and referring to some random
+1799: 			   other basic block without an edge to it.  */
+1800: 			if (removed_labels == NULL)
+1801: 			  removed_labels = new hash_set<tree>;
+1802: 			removed_labels->add (gimple_label_label (stmt));
+1803: 		      }
+1804: 		  }
+1805: 		else
+1806: 		  break;
+1807: 	      remove_edge_and_dominated_blocks (base_edge);
+1808: 	    }
+1809: 	  i = next_index;
+1810: 	  continue;
+1811: 	}
+1812:
+1813:       if (new_size < i)
+1814: 	gimple_switch_set_label (stmt, new_size,
+1815: 				 gimple_switch_label (stmt, i));
+1816:       i = next_index;
+1817:       new_size++;
+1818:     }
+1819:
+1820:   gcc_assert (new_size <= old_size);
+1821:
+1822:   if (new_size < old_size)
+1823:     gimple_switch_set_num_labels (stmt, new_size);
+1824:
+1825:   delete removed_labels;
+1826:   return new_size < old_size;
+1827: }
+1828:
+1829: /* Look for blocks ending in a multiway branch (a GIMPLE_SWITCH),
+1830:    and scan the sorted vector of cases.  Combine the ones jumping to the
+1831:    same label.  */
+1832:
+1833: bool
+1834: group_case_labels (void)
+1835: {
+1836:   basic_block bb;
+1837:   bool changed = false;
+1838:
+1839:   FOR_EACH_BB_FN (bb, cfun)
+1840:     {
+1841:       if (gswitch *stmt = safe_dyn_cast <gswitch *> (*gsi_last_bb (bb)))
+1842: 	changed |= group_case_labels_stmt (stmt);
+1843:     }
+1844:
+1845:   return changed;
+1846: }
+1847:
+1848: /* Checks whether we can merge block B into block A.  */
+1849:
+1850: static bool
+1851: gimple_can_merge_blocks_p (basic_block a, basic_block b)
+1852: {
+```
+
+## gcc/tree-cfg.cc:2633–2666
+```text
+2633: call_can_make_abnormal_goto (gimple *t)
+2634: {
+2635:   /* If the function has no non-local labels, then a call cannot make an
+2636:      abnormal transfer of control.  */
+2637:   if (!cfun->has_nonlocal_label
+2638:       && !cfun->calls_setjmp)
+2639:    return false;
+2640:
+2641:   /* Likewise if the call has no side effects.  */
+2642:   if (!gimple_has_side_effects (t))
+2643:     return false;
+2644:
+2645:   /* Likewise if the called function is leaf.  */
+2646:   if (gimple_call_flags (t) & ECF_LEAF)
+2647:     return false;
+2648:
+2649:   return true;
+2650: }
+2651:
+2652:
+2653: /* Return true if T can make an abnormal transfer of control flow.
+2654:    Transfers of control flow associated with EH are excluded.  */
+2655:
+2656: bool
+2657: stmt_can_make_abnormal_goto (gimple *t)
+2658: {
+2659:   if (computed_goto_p (t))
+2660:     return true;
+2661:   if (is_gimple_call (t))
+2662:     return call_can_make_abnormal_goto (t);
+2663:   return false;
+2664: }
+2665:
+2666:
+```
+
+## gcc/cfg.cc:65–83
+```text
+65: void
+66: init_flow (struct function *the_fun)
+67: {
+68:   if (!the_fun->cfg)
+69:     the_fun->cfg = ggc_cleared_alloc<control_flow_graph> ();
+70:   n_edges_for_fn (the_fun) = 0;
+71:   the_fun->cfg->count_max = profile_count::uninitialized ();
+72:   ENTRY_BLOCK_PTR_FOR_FN (the_fun)
+73:     = alloc_block ();
+74:   ENTRY_BLOCK_PTR_FOR_FN (the_fun)->index = ENTRY_BLOCK;
+75:   EXIT_BLOCK_PTR_FOR_FN (the_fun)
+76:     = alloc_block ();
+77:   EXIT_BLOCK_PTR_FOR_FN (the_fun)->index = EXIT_BLOCK;
+78:   ENTRY_BLOCK_PTR_FOR_FN (the_fun)->next_bb
+79:     = EXIT_BLOCK_PTR_FOR_FN (the_fun);
+80:   EXIT_BLOCK_PTR_FOR_FN (the_fun)->prev_bb
+81:     = ENTRY_BLOCK_PTR_FOR_FN (the_fun);
+82:   the_fun->cfg->edge_flags_allocated = EDGE_ALL_FLAGS;
+83:   the_fun->cfg->bb_flags_allocated = BB_ALL_FLAGS;
+```
+
+## gcc/cfg.cc:214–231
+```text
+214: static inline void
+215: connect_src (edge e)
+216: {
+217:   vec_safe_push (e->src->succs, e);
+218:   df_mark_solutions_dirty ();
+219: }
+220:
+221: /* Connect E to E->dest.  */
+222:
+223: static inline void
+224: connect_dest (edge e)
+225: {
+226:   basic_block dest = e->dest;
+227:   vec_safe_push (dest->preds, e);
+228:   e->dest_idx = EDGE_COUNT (dest->preds) - 1;
+229:   df_mark_solutions_dirty ();
+230: }
+231:
+```
+
+## gcc/cfg.cc:278–342
+```text
+278: unchecked_make_edge (basic_block src, basic_block dst, int flags)
+279: {
+280:   edge e;
+281:   e = ggc_cleared_alloc<edge_def> ();
+282:   n_edges_for_fn (cfun)++;
+283:
+284:   e->probability = profile_probability::uninitialized ();
+285:   e->src = src;
+286:   e->dest = dst;
+287:   e->flags = flags;
+288:
+289:   connect_src (e);
+290:   connect_dest (e);
+291:
+292:   execute_on_growing_pred (e);
+293:   return e;
+294: }
+295:
+296: /* Create an edge connecting SRC and DST with FLAGS optionally using
+297:    edge cache CACHE.  Return the new edge, NULL if already exist.  */
+298:
+299: edge
+300: cached_make_edge (sbitmap edge_cache, basic_block src, basic_block dst, int flags)
+301: {
+302:   if (edge_cache == NULL
+303:       || src == ENTRY_BLOCK_PTR_FOR_FN (cfun)
+304:       || dst == EXIT_BLOCK_PTR_FOR_FN (cfun))
+305:     return make_edge (src, dst, flags);
+306:
+307:   /* Does the requested edge already exist?  */
+308:   if (! bitmap_bit_p (edge_cache, dst->index))
+309:     {
+310:       /* The edge does not exist.  Create one and update the
+311: 	 cache.  */
+312:       bitmap_set_bit (edge_cache, dst->index);
+313:       return unchecked_make_edge (src, dst, flags);
+314:     }
+315:
+316:   /* At this point, we know that the requested edge exists.  Adjust
+317:      flags if necessary.  */
+318:   if (flags)
+319:     {
+320:       edge e = find_edge (src, dst);
+321:       e->flags |= flags;
+322:     }
+323:
+324:   return NULL;
+325: }
+326:
+327: /* Create an edge connecting SRC and DEST with flags FLAGS.  Return newly
+328:    created edge or NULL if already exist.  */
+329:
+330: edge
+331: make_edge (basic_block src, basic_block dest, int flags)
+332: {
+333:   edge e = find_edge (src, dest);
+334:
+335:   /* Make sure we don't add duplicate edges.  */
+336:   if (e)
+337:     {
+338:       e->flags |= flags;
+339:       return NULL;
+340:     }
+341:
+342:   return unchecked_make_edge (src, dest, flags);
+```
+
+## gcc/cfg.h:38–70
+```text
+38: struct GTY(()) control_flow_graph {
+39:   /* Block pointers for the exit and entry of a function.
+40:      These are always the head and tail of the basic block list.  */
+41:   basic_block x_entry_block_ptr;
+42:   basic_block x_exit_block_ptr;
+43:
+44:   /* Index by basic block number, get basic block struct info.  */
+45:   vec<basic_block, va_gc> *x_basic_block_info;
+46:
+47:   /* Number of basic blocks in this flow graph.  */
+48:   int x_n_basic_blocks;
+49:
+50:   /* Number of edges in this flow graph.  */
+51:   int x_n_edges;
+52:
+53:   /* The first free basic block number.  */
+54:   int x_last_basic_block;
+55:
+56:   /* UIDs for LABEL_DECLs.  */
+57:   int last_label_uid;
+58:
+59:   /* Mapping of labels to their associated blocks.  At present
+60:      only used for the gimple CFG.  */
+61:   vec<basic_block, va_gc> *x_label_to_block_map;
+62:
+63:   enum profile_status_d x_profile_status;
+64:
+65:   /* Whether the dominators and the postdominators are available.  */
+66:   enum dom_state x_dom_computed[2];
+67:
+68:   /* Number of basic blocks in the dominance tree.  */
+69:   unsigned x_n_bbs_in_dom_tree[2];
+70:
+```
+
+## gcc/input.cc:1045–1059
+```text
+1045: /* Associate the DISCRIMINATOR with LOCUS, and return a new locus. */
+1046:
+1047: location_t
+1048: location_with_discriminator (location_t locus, int discriminator)
+1049: {
+1050:   tree block = LOCATION_BLOCK (locus);
+1051:   source_range src_range = get_range_from_loc (line_table, locus);
+1052:   locus = get_pure_location (locus);
+1053:
+1054:   if (locus == UNKNOWN_LOCATION)
+1055:     return locus;
+1056:
+1057:   return line_table->get_or_create_combined_loc (locus, src_range, block,
+1058: 						 discriminator);
+1059: }
+```
