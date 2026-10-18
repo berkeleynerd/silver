@@ -1,5 +1,5 @@
 {
-  "scope": "Source-to-initial-GIMPLE direct literal output projection",
+  "scope": "Source-to-initial-SSA direct literal output projection",
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "files": [
     {
@@ -133,6 +133,78 @@
       "path": "src/silver_io.ads",
       "bytes": 2222,
       "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-low.cc",
+      "bytes": 45880,
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-eh.cc",
+      "bytes": 147108,
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-cfgcleanup.cc",
+      "bytes": 48340,
+      "sha256": "75582d69d7f785c21e49fec38c286ba059ef5dfac8caa1f22a31a2e09497614a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa-operands.cc",
+      "bytes": 38594,
+      "sha256": "61c73f75dbe24d2c87ba0f176d9f7085fc86811099abf000d98746c8c54514bf"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-into-ssa.cc",
+      "bytes": 106038,
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-dfa.cc",
+      "bytes": 29688,
+      "sha256": "667e7dac0ad096613e3f30a81f827c9bdf83baae877cf75f4fd9a698b2961ae2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfganal.cc",
+      "bytes": 57472,
+      "sha256": "e2c13056e8fde97f6a9008baf73fa9ab6527e376996bd9a537f95c9c2150ad1e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssanames.cc",
+      "bytes": 32186,
+      "sha256": "912f01856cb72bd68199c99d6c57d91384f857cf281a4a02bf294ff37089ed86"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa-live.cc",
+      "bytes": 49687,
+      "sha256": "52edc87c7b0d3a45f92c72322cb18a20b0fbd481e8a8eb17f9d1d936c6cf3872"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa.cc",
+      "bytes": 66992,
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
     }
   ]
 }

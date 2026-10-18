@@ -1,6 +1,6 @@
 {
-  "scope": "direct literal output: source to initial GIMPLE and data operands",
-  "source_files_verified": 22,
+  "scope": "direct literal output: source to initial SSA and data operands",
+  "source_files_verified": 34,
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -55,10 +55,50 @@
       "static_bounds_pool_requests_upper": 1,
       "initial_scalar_SSA_names_from_actuals": 0
     },
+    "CF_EH_CFG": {
+      "flat_CF_statements_upper": 6,
+      "CF_new_gotos": 1,
+      "CF_new_labels": 1,
+      "CF_new_LABEL_DECLs": 1,
+      "local_declarations_upper": 1,
+      "finally_tree_label_entries_upper": 1,
+      "local_EH_regions": 0,
+      "EH_temporary_assignments": 0,
+      "call_control_flow_splits": 0,
+      "abnormal_edges": 0,
+      "ordinary_blocks_upper": 2,
+      "edges_upper": 3,
+      "block_index_slots_upper": 4,
+      "label_UID_requests_upper": 1,
+      "live_CFG_statements_upper": 5,
+      "initial_CFG_cleanup_fresh_statements": 0,
+      "first_fixup_fresh_statements": 0,
+      "real_loops": 0
+    },
+    "initial_SSA": {
+      "memory_declarations": 1,
+      "renamed_variables": 1,
+      "memory_definitions_upper": 3,
+      "memory_uses_upper": 4,
+      "real_definitions": 0,
+      "real_uses": 0,
+      "PHIs": 0,
+      "default_memory_names": 1,
+      "default_definition_detached_NOPs": 1,
+      "nondefault_memory_names_upper": 3,
+      "fresh_SSA_names_upper": 4,
+      "SSA_name_vector_length_upper": 5,
+      "new_executable_statements": 0,
+      "local_declaration_hash_initial_request_upper": 1,
+      "reaching_definition_stack_pushes_upper": 10,
+      "operand_slab_requested_bytes_upper": 1024
+    },
     "local_representation_checks": {
       "literal_length_fits_String_Length_and_Integer": true,
       "String_constructor_unsigned_size": true,
       "Character_array_bit_size_fits_signed64": true,
+      "CFG_SSA_dominator_signed_intermediates": true,
+      "initial_SSA_name_versions_fit_unsigned32": true,
       "descriptor_objects_have_fixed_size": true
     },
     "semantic_library_admissibility": "separate parameter; current 4096-byte rule is not promoted into this backend bound",
@@ -72,7 +112,9 @@
     "decoded quotes and empty literal",
     "unsupported constructs rejected",
     "comment terminators and EOF",
-    "5000 calls compose without a new source cap"
+    "5000 calls compose without a new source cap",
+    "CF CFG SSA source count composition",
+    "SSA operand slab transitions"
   ],
   "native_tool_executions": 0,
   "arithmetic_requires_companion_manual_source_argument": true

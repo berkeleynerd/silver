@@ -195,7 +195,8 @@ optional parameters; the earlier default `derive.py` result remains unchanged.
 
 ### Direct literal-output initial lowering
 
-`literal-output-source-inputs.json` pins 22 complete GCC/Ada/API sources.
+`literal-output-source-inputs.json` pins 34 complete GCC/Ada/API sources,
+including 22 for the initial native/gigi/GIMPLE projection.
 `derive-literal-output.py` scans a canonical direct-literal Put/Put_Line/null
 sequence completely and composes the manual native/gigi/initial-GIMPLE source
 argument in the research record. `native-literal-output-initial.json` retains
@@ -216,3 +217,11 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/deri
   --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
   --output /tmp/native-literal-output-initial.json
 ```
+
+The same literal-output replay now continues through CF, EH, the initial CFG
+and SSA. For C calls and N nulls it derives at most N+2 ordinary blocks, N+3
+edges, 3C memory definitions and 3C+1 uses, with no PHI or scalar SSA name.
+It pins 34 complete sources and checks the operand-slab transitions. The
+hello-world fixture has two ordinary blocks and four fresh memory SSA names;
+its four uses need one 1024-byte operand slab. Later mandatory GIMPLE passes,
+IPA, RTL and final object bytes remain separate unfinished joins.

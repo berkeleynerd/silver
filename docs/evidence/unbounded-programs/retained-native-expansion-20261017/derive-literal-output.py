@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline source-to-initial-GIMPLE interface for direct literal output.
+"""Offline source-to-initial-SSA interface for direct literal output.
 
 The source argument in retained-native-expansion.md supplies reachability and
 helper behavior. This checker verifies inputs, scans a restricted source class
@@ -61,6 +61,7 @@ def source_counts(raw):
 def composition(counts):
     c = counts['output_calls']; n = counts['null_statements']
     w = counts['decoded_literal_bytes']; length = counts['maximum_literal_length']
+    uses = 3*c+1
     return dict(
         native_Main=dict(procedure_bodies=1, implicit_bare_returns=1,
             String_literal_subtypes=c, call_markers=c, transient_blocks=0,
@@ -82,10 +83,35 @@ def composition(counts):
             variable_size_temporaries=0, implicit_bulk_memory_calls=0,
             static_bounds_pool_requests_upper=c,
             initial_scalar_SSA_names_from_actuals=0),
+        CF_EH_CFG=dict(
+            flat_CF_statements_upper=3*c+2*n+3,
+            CF_new_gotos=1, CF_new_labels=1, CF_new_LABEL_DECLs=1,
+            local_declarations_upper=c, finally_tree_label_entries_upper=n+1,
+            local_EH_regions=0, EH_temporary_assignments=0,
+            call_control_flow_splits=0, abnormal_edges=0,
+            ordinary_blocks_upper=n+2, edges_upper=n+3,
+            block_index_slots_upper=n+4, label_UID_requests_upper=n+1,
+            live_CFG_statements_upper=3*c+n+2,
+            initial_CFG_cleanup_fresh_statements=0,
+            first_fixup_fresh_statements=0, real_loops=0),
+        initial_SSA=dict(
+            memory_declarations=1, renamed_variables=1,
+            memory_definitions_upper=3*c, memory_uses_upper=uses,
+            real_definitions=0, real_uses=0, PHIs=0,
+            default_memory_names=1, default_definition_detached_NOPs=1,
+            nondefault_memory_names_upper=3*c,
+            fresh_SSA_names_upper=3*c+1, SSA_name_vector_length_upper=3*c+2,
+            new_executable_statements=0,
+            local_declaration_hash_initial_request_upper=c,
+            reaching_definition_stack_pushes_upper=n+4+6*c,
+            operand_slab_requested_bytes_upper=(1024+(4096 if uses>25 else 0)
+                +16384*((max(0,uses-127)+408)//409))),
         local_representation_checks=dict(
             literal_length_fits_String_Length_and_Integer=length<=I32,
             String_constructor_unsigned_size=length+21<=2**32-1,
             Character_array_bit_size_fits_signed64=8*length<=2**63-1,
+            CFG_SSA_dominator_signed_intermediates=4*(n+4)<=I32,
+            initial_SSA_name_versions_fit_unsigned32=3*c+2<=2**32-1,
             descriptor_objects_have_fixed_size=True),
         semantic_library_admissibility='separate parameter; current 4096-byte rule is not promoted into this backend bound',
         later_GIMPLE_IPA_RTL_allocation_and_counter_composition_established=False,
@@ -101,6 +127,12 @@ def focused_checks():
     c = source_counts(raw)
     assert (c['output_calls'],c['null_statements'],c['decoded_literal_lengths']) == (2,1,[3,0])
     assert composition(c)['initial_GIMPLE']['flat_executable_statements_upper'] == 9
+    assert composition(c)['CF_EH_CFG']['flat_CF_statements_upper'] == 11
+    assert composition(c)['CF_EH_CFG']['ordinary_blocks_upper'] == 3
+    assert composition(c)['initial_SSA']['fresh_SSA_names_upper'] == 7
+    for uses, expected in [(25,1024),(28,5120),(127,5120),(130,21504)]:
+        artificial = dict(c,output_calls=(uses-1)//3)
+        assert composition(artificial)['initial_SSA']['operand_slab_requested_bytes_upper'] == expected
     for statement in [b'Silver_IO.Put ("a" & "b");',b'Silver_IO.Put (X);',
                       b'for I in 1..2 loop null; end loop;', b'null;']:
         try:
@@ -118,7 +150,8 @@ def focused_checks():
     assert composition(many)['initial_GIMPLE']['flat_executable_statements_upper'] == 15001
     return ['complete restricted source scan', 'decoded quotes and empty literal',
             'unsupported constructs rejected', 'comment terminators and EOF',
-            '5000 calls compose without a new source cap']
+            '5000 calls compose without a new source cap',
+            'CF CFG SSA source count composition', 'SSA operand slab transitions']
 
 
 def main():
@@ -134,7 +167,7 @@ def main():
         raw = (roots[row['root']]/row['path']).read_bytes()
         require(len(raw)==row['bytes'] and sha(raw)==row['sha256'], 'changed source: '+row['path'])
     counts = source_counts(a.source.read_bytes())
-    result = dict(scope='direct literal output: source to initial GIMPLE and data operands',
+    result = dict(scope='direct literal output: source to initial SSA and data operands',
         source_files_verified=len(identity['files']), source_counts=counts,
         components=composition(counts), focused_checks=focused_checks(),
         native_tool_executions=0,

@@ -11248,9 +11248,9 @@ unchanged until its authorized implementation/proof work is completed.
 This is an evidence stream toward the complete #119 language objective, not a
 new language fragment, milestone or source cap. The
 [offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
-scans this restricted source class completely and checks 22 complete source
-identities. Its equations cover initial lowering and data operands. Later
-GIMPLE/IPA, RTL, allocation counters and final assembly/object composition
+scans this restricted source class completely and checks 34 complete source
+identities. Its equations cover initial lowering, CF/CFG/SSA and data operands.
+Later GIMPLE/IPA, RTL, allocation counters and final assembly/object composition
 remain required; neither the checker nor its arithmetic proves those stages.
 
 ### Native expansion composes without a transient scope
@@ -11383,6 +11383,118 @@ four-statement bound. Focused offline scanner checks include doubled quotes,
 an empty literal, rejected concat/name/loop forms, all selected comment
 terminators and 5000 calls above the current source cap. They exercise the
 equations without changing admission or launching any native tool.
+
+### The literal-call path through CF, EH, CFG and initial SSA
+
+Continue from the initial sequence above, under the selected O0/no-debug
+native options. CF splices the existing BIND bodies and records at most C
+local descriptor declarations (`gimple-low.cc:908–982,1438–1468`). Ordinary
+calls and pointer stores preserve fallthrough; null gotos are followed by their
+labels, which restore it. The final bare return is retained. Return lowering
+makes one new LABEL_DECL, GIMPLE_GOTO and GIMPLE_LABEL and reuses the original
+GIMPLE_RETURN (`:122–214,695–907,1178–1223`). It therefore gives at most
+`3C + 2N + 3` flat statements, N+1 labels and N+1 gotos. The return-record
+vector still requests eight slots for its one record.
+
+EH lowering adds no executable statement. The stores cannot trap: their LHS
+is a COMPONENT_REF of an ordinary local descriptor, and their RHS is a
+constant address. `tree_could_trap_p` follows the component to its nonweak
+local VAR_DECL and returns false; addresses of constant data introduce no
+memory access (`tree-eh.cc:2760–2914,2995–3042`). This conclusion does not
+require disabling Ada's non-call exceptions. A void output call has no LHS,
+so the EH temporary-assignment branch cannot apply even though the call can
+propagate an exception (`:2064–2141`). There is no current local region in
+which to register it. The finally-tree scan records at most N+1 label nodes
+and retains its fixed hash/bitmap setup, but creates no handler, cleanup,
+landing pad or queued goto (`:200–259,702–715,2241–2285,3351–3401`).
+
+The external output calls do not split the CFG. They are ordinary nonbuiltin
+calls without noreturn or returns-twice attributes, Main has no nonlocal label
+or setjmp, and no transaction/internal-call case applies
+(`tree-cfg.cc:460–483,2630–2673,2742–2810`). Consequently their per-call
+control-altering flag is false. `stmt_can_throw_internal` also returns false:
+there is no positive local landing-pad number (`tree-eh.cc:3147–3158`). This
+last fact concerns local edges and does not assert that the calls are nothrow.
+
+The N null goto/label pairs and the final return goto/label delimit a straight
+path with at most N+2 ordinary blocks. Each block has one predecessor and one
+successor, counting the entry/exit edges. Simple-goto edges consume the gotos
+(`tree-cfg.cc:488–555,810–840,1370–1388`). Thus:
+
+```text
+ordinary blocks / edges / block-index slots <= N+2 / N+3 / N+4
+label UID requests                         <= N+1
+live statements after goto removal         <= 3C+N+2.
+```
+
+Dead-label scans only remove labels. Initial cleanup cannot create a forwarder
+redirection: its single-predecessor/single-successor guard returns first
+(`tree-cfgcleanup.cc:476–519`). Merging can only shorten the path and remove
+artificial labels; O0 refuses the nonartificial-label case that would need a
+debug binding (`tree-cfg.cc:1850–1935`). There are no conditional/switch
+simplifications or abnormal edges. The first CFG fixup cannot remove these
+local descriptor stores as global write-only stores, and finds no noreturn
+call, pure/const output call, call LHS, EH edge, or successorless ordinary block
+(`:9972–10138`). It therefore adds no statement or edge. Loop discovery finds
+only its root loop. The existing [CFG container transfer](retained-backend-cfg.md)
+uses these B/E/index ceilings; O0 is not assumed to merge the path into one
+block.
+
+SSA must account for memory even though there are no scalar computations.
+Each descriptor is an aggregate, so its two component stores are memory
+definitions. The descriptor actual is a memory use; a call's clobber and its
+actual use share the single per-statement virtual operand. `append_vdef`
+sets both a virtual definition and a virtual use. Taking a literal/bounds
+address sets `opf_no_vops`, so those constants contribute no extra memory or
+real scalar operands (`tree-ssa-operands.cc:531–553,560–610,682–701,764–856`).
+The bare return explicitly takes one virtual memory use (`:951–995`).
+Accordingly initial scanning yields at most 3C memory definitions, 3C+1 memory
+uses and no real definitions/uses.
+
+All these operands refer to the single artificial `.MEM` declaration created
+by `init_ssa_operands` (`:232–277`). No ordinary block has multiple predecessors,
+so the dominance-frontier scan has no insertion site and no PHI is created
+(`cfganal.cc:1639–1668`). Renaming asks for one default memory name with its
+detached NOP, then at most one name per definition
+(`tree-into-ssa.cc:1203–1228,1337–1411`; `tree-dfa.cc:353–365`). Virtual names
+are excluded from debug binding generation (`tree-ssa.cc:244–273`). No
+executable statement is added. The specialized initial-SSA inputs are:
+
+```text
+renamed variables v = 1; definitions d <= 3C; uses u <= 3C+1
+PHIs / real SSA names = 0 / 0
+fresh memory SSA names <= 3C+1; vector length <= 3C+2 (including slot zero)
+default-definition detached NOPs = 1
+local-declaration hash initial request <= C
+reaching-definition stack pushes <= (N+4)+6C.
+```
+
+The local declaration count remains distinct from v. The `.MEM` variable-info
+record, its block bitmaps, dominator arrays, root-loop objects and index maps
+still consume the general container transfers. A use entry occupies 40 bytes
+on the selected LP64 layout; all 3C+1 possible uses must enter the slab bound
+rather than reusing the null body's one-use subtotal. With `u=3C+1`, requested
+operand-slab bytes are bounded by
+
+```text
+1024 + (4096 if u>25 else 0) + 16384*ceil(max(0,u-127)/409).
+```
+
+The source's strict room test gives capacities 25,102,409, respectively
+(`tree-ssa-operands.cc:256–364,424–485`). Declaration/SSA IDs, collector requests
+and later rescans remain translation-unit/lifetime obligations; these per-pass
+counts do not discharge them. The local `4*(N+4)<=INT_MAX` and unsigned SSA
+version checks in the offline replay protect selected intermediates only.
+They are not a complete CFG or backend capacity predicate.
+
+The checker now pins 34 full source files and records the CF/CFG/SSA equations.
+For the retained C=1,N=0 hello-world fixture the ceilings are seven CF
+statements, two ordinary blocks, three edges, five post-CFG statements, four
+fresh memory SSA names and a five-slot SSA-name vector. Four memory uses fit
+in the first 1024-byte operand slab. Focused arithmetic checks cover its first
+two slab transitions. Remaining O0/IPA passes, out-of-SSA, RTL/frame layout,
+final assembly/object emission and lifetime allocation accounting still need
+their own joins; the whole-backend flag remains false.
 
 ## Exact remaining obligations
 
