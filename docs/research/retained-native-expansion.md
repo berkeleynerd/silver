@@ -4810,21 +4810,44 @@ full qualification and backend names remain separate.
 The sum also retains Uint appends, folded String descriptors/characters,
 pending-copy Elist headers/elements, copy-map wrappers, positive xref increments
 and output qualification-queue appends as distinct columns. No byte total is
-inferred from node or slot counts. With A from the common query envelope, a
-deliberately coarse common Uint digit-word bound is
+inferred from node or slot counts. Retained Uint digits use distinct query
+families. Let G=largest_scalar_tree+1 and A be the common query envelope:
 
 ```text
-k = max(3, ceil((130A+2)/15),
-        digits_32768(incoming_depth+2*short_circuits+output_calls+1))
-retained digit words = k * constructor Uint appends.
+k_scalar = ceil((130G+2)/15)
+k_String = digits_32768((16A+8)*2^127)
+k_scope  = digits_32768(incoming_depth+2*short_circuits+output_calls+1).
 ```
 
-This covers the previous scalar multiplicative-query bound, smaller additive
-String queries, fixed Image width/size arithmetic, three-word folded-literal
-values and wrapper scope depths. The incoming-depth parameter must bound the
-actual enclosing Main/source scope depth; separate scope-stack backing and
-temporary arithmetic vectors still need their representation joins. More
-precise per-row digit bounds remain valid and can reduce overcount.
+| Constructor Uint population | Digits per append |
+| --- | ---: |
+| Original scalar analysis, for skeleton, Integer stores | k_scalar |
+| String stores, standalone String-literal suffix, native concat emitter | k_String |
+| Predicate comparisons and generated query work | max(k_scalar,k_String) |
+| Predicate EWA scope-depth work and output wrappers | k_scope |
+| Image-local work | 10 |
+| Concat folding/literal suffix | 3 |
+
+Multiply each population's already-derived Uint count by its row's digit
+bound, then add. The source scalar grammar is the only family with general
+multiplication. It has the earlier G bound, including captured loop-bound
+initializers. Every String-bound/store query uses the additive descriptor
+graphs proved above: bound captures, addition/subtraction and Length; its
+only size multiplication is the already-priced factor eight. Image's source
+argument is charged in original scalar analysis and does not enter the result
+bound descriptor. The returned buffer has the fixed low/high D seed (1,2).
+Predicates compare either scalar expressions or String/Length operands; Length
+is not admitted inside scalar arithmetic, so a comparison never multiplies
+the two query families. Using their maximum covers either branch. The Image
+and literal-only suffixes retain their existing local magnitude proofs.
+
+This split avoids applying the multiplicative scalar envelope to potentially
+much larger additive String graphs. The mixed arithmetic fixture's complete
+logical Uint-digit demand falls from roughly1.96 billion to48,952,135 and
+passes the selected Udigits backing checks. Its inputs are still an arithmetic
+fixture, not a real program or an admission result. The incoming-depth
+parameter must bound the actual enclosing Main/source scope depth; separate
+scope-stack backing and temporary arithmetic vectors retain their own joins.
 
 `whole_native_frontend_closed` stays False. This executable sum closes the
 constructor accounting join; it does not silently include the common-table,
@@ -5356,9 +5379,11 @@ conservative bound does not establish that GNAT would fail at that input.
 
 The 22-table byte subtotal is `2*sum((C+1)*component_bytes)`. This pays old/new
 storage during a relocating realloc for every table simultaneously, and thus
-overcounts any single growth event. It is an addressable allocation-demand
-bound under the trusted allocator model, not a guarantee of available memory
-or successful physical allocation. Hash containers, local temporaries and
+overcounts any single growth event. This subtotal is descriptive only: it
+is not compared with an aggregate RAM/address-space ceiling and contributes
+no admission condition. Per-object allocation-size and pointer-difference
+checks remain. It does not guarantee available memory or successful physical
+allocation. Hash containers, local temporaries and
 unlisted tables are not hidden in this subtotal.
 
 Two auxiliary table demands now close without a new construct inventory:

@@ -996,13 +996,36 @@ def main_native_construct_vector(*, parser_nodes, parser_slots, parser_lists,
     total["dynamic_slots"] = (parser_slots+9*(total["ordinary"]+total["growth"])
                               +61*generated)
     total["syntax_list_headers"] = parser_lists+total["lists"]
-    # This common digit bound deliberately covers multiplicative source scalar
-    # queries as well as the smaller additive String-bound and scope values.
-    k = max(3, (130*analysis_graph+2+14)//15,
-            uint_digits(incoming_scope_depth+2*short_circuits+output_calls+1))
-    total["retained_digit_words"] = k*total["uint"]
+    # Scalar multiplication is confined to the source scalar grammar. String
+    # bound graphs and generated String checks have only additive transfers;
+    # source Image arguments are paid in original_scalar and do not enter them.
+    scalar_A = largest_scalar_tree+1
+    scalar_k = (130*scalar_A+2+14)//15
+    string_magnitude = (16*analysis_graph+8)*2**127
+    string_k = uint_digits(string_magnitude)
+    scope_k = uint_digits(incoming_scope_depth+2*short_circuits+output_calls+1)
+    digit_rows = {}
+    for name in ("original_scalar","for_skeleton","Integer_stores"):
+        digit_rows[name] = rows[name].get("uint",0)*scalar_k
+    for name in ("String_stores","standalone_String_literals","concat_emission"):
+        digit_rows[name] = rows[name].get("uint",0)*string_k
+    digit_rows["predicates_and_control"] = (predicate["query_Uint_appends"]*max(scalar_k,string_k)
+                                           +predicate["scope_Uint_appends"]*scope_k)
+    digit_rows["Image"] = rows["Image"].get("uint",0)*10
+    digit_rows["output_wrappers"] = rows["output_wrappers"].get("uint",0)*scope_k
+    digit_rows["concat_folding_literals"] = rows["concat_folding_literals"].get("uint",0)*3
+    digit_rows["source_calls_and_leaves"] = 0
+    assert set(digit_rows) == set(rows)
+    total["retained_digit_words"] = sum(digit_rows.values())
+    old_k = max(3,(130*analysis_graph+2+14)//15,scope_k)
+    assert total["retained_digit_words"] <= old_k*total["uint"]
     return dict(rows=rows, total=total, source_query_envelope=query,
-                common_Uint_digit_bound=k,
+                Uint_digit_rows=digit_rows,
+                Uint_digit_families=dict(scalar_A=scalar_A,scalar=scalar_k,
+                    additive_String=string_k,additive_String_magnitude=string_magnitude,
+                    scope=scope_k,Image=10,folded_literal=3),
+                earlier_uniform_digit_words=old_k*total["uint"],
+                common_Uint_digit_bound=max(scalar_k,string_k,scope_k,10),
                 scope="Main source/generated constructor core, before fixed and common-process residuals",
                 whole_native_frontend_closed=False)
 
@@ -1337,11 +1360,15 @@ def native_core_table_backing(logical, *, table_factor=1):
         interned_name_Short_length=name_length<=32767,
         name_buffer=name_length<=4*32766,
         saved_check_counter=stacks["Saved_Checks_TOS_peak"]<=i32,
-        auxiliary_byte_products=max(auxiliary.values())<=i64)
+        # Each wrapper is its own allocation. Its lifetime byte subtotal is
+        # descriptive and must not become an aggregate address-space gate.
+        auxiliary_single_objects=max(16, *(value for name,value in auxiliary.items()
+                                           if name != "Interp_Map_wrapper_bytes"))<=i64)
     # Two copies of each bounded allocation pay a relocating realloc's old/new
     # overlap. Summing that for every table overcounts simultaneous growth.
+    # This subtotal is descriptive; only actual single-object representation
+    # and pointer/index operations above constrain the selected check result.
     bytes_peak = 2*sum(row["bytes_with_sentinel"] for row in rows.values())+sum(auxiliary.values())
-    checks["selected_aggregate_address_span"] = bytes_peak<=i64
     return dict(tables=rows,auxiliary_bytes=auxiliary,
         selected_tables_reallocation_peak_bytes=bytes_peak,
         interned_name_length_bound=name_length,checks=checks,

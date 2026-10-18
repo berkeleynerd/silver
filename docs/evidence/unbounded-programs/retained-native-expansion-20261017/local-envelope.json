@@ -437,8 +437,7 @@
           "interned_name_Short_length": true,
           "name_buffer": true,
           "saved_check_counter": true,
-          "auxiliary_byte_products": true,
-          "selected_aggregate_address_span": true
+          "auxiliary_single_objects": true
         },
         "all_selected_checks_pass": true,
         "allocation_success_claimed": false,
@@ -618,23 +617,23 @@
             "all_selected_checks_pass": true
           },
           "Udigits": {
-            "demand": 1956091773,
+            "demand": 48952135,
             "low_bound": 0,
             "initial": 10000,
             "increment_percent": 100,
             "component_bytes_upper_bound": 4,
-            "backing_capacity_bound": 3912183546,
-            "bytes_with_sentinel": 15648734188,
+            "backing_capacity_bound": 97904270,
+            "bytes_with_sentinel": 391617084,
             "checks": {
               "initial_product": true,
               "growth_product": true,
-              "backing_length_and_plus_one": false,
+              "backing_length_and_plus_one": true,
               "empty_index": true,
-              "backing_index_and_sentinel": false,
+              "backing_index_and_sentinel": true,
               "logical_nominal_index": true,
               "allocation_and_pointer_difference": true
             },
-            "all_selected_checks_pass": false
+            "all_selected_checks_pass": true
           },
           "Ureals": {
             "demand": 60,
@@ -873,17 +872,16 @@
           "Saved_Checks": 4000,
           "Saved_Checks_stack": 400
         },
-        "selected_tables_reallocation_peak_bytes": 31711090768,
+        "selected_tables_reallocation_peak_bytes": 1196856560,
         "interned_name_length_bound": 5117,
         "checks": {
-          "all_selected_tables": false,
+          "all_selected_tables": true,
           "interned_name_Short_length": true,
           "name_buffer": true,
           "saved_check_counter": true,
-          "auxiliary_byte_products": true,
-          "selected_aggregate_address_span": true
+          "auxiliary_single_objects": true
         },
-        "all_selected_checks_pass": false,
+        "all_selected_checks_pass": true,
         "allocation_success_claimed": false,
         "whole_process_memory_or_capacity_closed": false
       }
@@ -1108,7 +1106,30 @@
             "descriptors_are_source_input": true,
             "whole_native_frontend_closed": false
           },
-          "common_Uint_digit_bound": 165,
+          "Uint_digit_rows": {
+            "original_scalar": 0,
+            "for_skeleton": 0,
+            "Integer_stores": 0,
+            "String_stores": 0,
+            "standalone_String_literals": 0,
+            "concat_emission": 0,
+            "predicates_and_control": 0,
+            "Image": 0,
+            "output_wrappers": 0,
+            "concat_folding_literals": 0,
+            "source_calls_and_leaves": 0
+          },
+          "Uint_digit_families": {
+            "scalar_A": 2,
+            "scalar": 18,
+            "additive_String": 10,
+            "additive_String_magnitude": 53084049239666400300286438759355840987136,
+            "scope": 1,
+            "Image": 10,
+            "folded_literal": 3
+          },
+          "earlier_uniform_digit_words": 0,
+          "common_Uint_digit_bound": 18,
           "scope": "Main source/generated constructor core, before fixed and common-process residuals",
           "whole_native_frontend_closed": false
         },
@@ -1218,7 +1239,7 @@
           "Elist_headers": 2415,
           "Elist_elements": 1606247,
           "Uint_entries": 2879823,
-          "Uint_digits": 1956091773,
+          "Uint_digits": 48952135,
           "Ureal_entries": 60,
           "String_descriptors": 205,
           "String_characters": 7275,
@@ -1377,7 +1398,7 @@
             "entity_identities": 240,
             "dynamic_slots": 6055312,
             "syntax_list_headers": 726,
-            "retained_digit_words": 1956016815
+            "retained_digit_words": 48877177
           },
           "source_query_envelope": {
             "source_bound_H": 22,
@@ -1395,7 +1416,30 @@
             "descriptors_are_source_input": true,
             "whole_native_frontend_closed": false
           },
-          "common_Uint_digit_bound": 685,
+          "Uint_digit_rows": {
+            "original_scalar": 23850,
+            "for_skeleton": 176755,
+            "Integer_stores": 1107170,
+            "String_stores": 7843750,
+            "standalone_String_literals": 9900,
+            "concat_emission": 15868020,
+            "predicates_and_control": 23740928,
+            "Image": 106670,
+            "output_wrappers": 2,
+            "concat_folding_literals": 132,
+            "source_calls_and_leaves": 0
+          },
+          "Uint_digit_families": {
+            "scalar_A": 6,
+            "scalar": 53,
+            "additive_String": 10,
+            "additive_String_magnitude": 216419585361716862762706250326604582486016,
+            "scope": 1,
+            "Image": 10,
+            "folded_literal": 3
+          },
+          "earlier_uniform_digit_words": 1956016815,
+          "common_Uint_digit_bound": 53,
           "scope": "Main source/generated constructor core, before fixed and common-process residuals",
           "whole_native_frontend_closed": false
         },
@@ -1816,7 +1860,30 @@
           "descriptors_are_source_input": true,
           "whole_native_frontend_closed": false
         },
-        "common_Uint_digit_bound": 165,
+        "Uint_digit_rows": {
+          "original_scalar": 0,
+          "for_skeleton": 0,
+          "Integer_stores": 0,
+          "String_stores": 0,
+          "standalone_String_literals": 0,
+          "concat_emission": 0,
+          "predicates_and_control": 0,
+          "Image": 0,
+          "output_wrappers": 0,
+          "concat_folding_literals": 0,
+          "source_calls_and_leaves": 0
+        },
+        "Uint_digit_families": {
+          "scalar_A": 2,
+          "scalar": 18,
+          "additive_String": 10,
+          "additive_String_magnitude": 53084049239666400300286438759355840987136,
+          "scope": 1,
+          "Image": 10,
+          "folded_literal": 3
+        },
+        "earlier_uniform_digit_words": 0,
+        "common_Uint_digit_bound": 18,
         "scope": "Main source/generated constructor core, before fixed and common-process residuals",
         "whole_native_frontend_closed": false
       },
@@ -1943,7 +2010,7 @@
           "entity_identities": 240,
           "dynamic_slots": 6055312,
           "syntax_list_headers": 726,
-          "retained_digit_words": 1956016815
+          "retained_digit_words": 48877177
         },
         "source_query_envelope": {
           "source_bound_H": 22,
@@ -1961,7 +2028,30 @@
           "descriptors_are_source_input": true,
           "whole_native_frontend_closed": false
         },
-        "common_Uint_digit_bound": 685,
+        "Uint_digit_rows": {
+          "original_scalar": 23850,
+          "for_skeleton": 176755,
+          "Integer_stores": 1107170,
+          "String_stores": 7843750,
+          "standalone_String_literals": 9900,
+          "concat_emission": 15868020,
+          "predicates_and_control": 23740928,
+          "Image": 106670,
+          "output_wrappers": 2,
+          "concat_folding_literals": 132,
+          "source_calls_and_leaves": 0
+        },
+        "Uint_digit_families": {
+          "scalar_A": 6,
+          "scalar": 53,
+          "additive_String": 10,
+          "additive_String_magnitude": 216419585361716862762706250326604582486016,
+          "scope": 1,
+          "Image": 10,
+          "folded_literal": 3
+        },
+        "earlier_uniform_digit_words": 1956016815,
+        "common_Uint_digit_bound": 53,
         "scope": "Main source/generated constructor core, before fixed and common-process residuals",
         "whole_native_frontend_closed": false
       }
