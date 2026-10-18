@@ -1,0 +1,242 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "reviewed_silver_revision": "6b6e6bea3edc819434893bf496242dd2728830b9",
+  "files": [
+    {
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "git_blob_sha1": "2868cb0867dd805fa267a4edc890ded63ab17909",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "root": "gcc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "git_blob_sha1": "796fc8199213a5e6d954143c8318a92faf2e1a32",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/stor-layout.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/cgraphunit.cc",
+      "root": "gcc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc",
+      "git_blob_sha1": "67aaebf108b0ecdb7b6a17fabc1a664687fda23f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cgraphunit.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "root": "gcc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "git_blob_sha1": "8bfc71315f9fd3501bb68f4b23a81c69b781fcec",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimplify.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimple-expr.cc",
+      "root": "gcc",
+      "bytes": 29310,
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f",
+      "git_blob_sha1": "96f9fc720afba771e6593dc60083afe70b4743c6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-expr.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimple.h",
+      "root": "gcc",
+      "bytes": 166069,
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3",
+      "git_blob_sha1": "2484a33f47651a440b5b87cba9027b5443ec9a3e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.h",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "root": "gcc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803",
+      "git_blob_sha1": "c791e04124314bab166a9f9d9eb77950b474e7c1",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "root": "gcc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "git_blob_sha1": "56503e570bc440b65366b0c83a958a14dd3d5712",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/fold-const.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/warning-control.cc",
+      "root": "gcc",
+      "bytes": 6859,
+      "sha256": "72c84bba997d426c7606cf7c8e3e9a782684438ede9f9c661d7ce97a8c8fe6ea",
+      "git_blob_sha1": "fe1dd990d229a59ec740c178d3eaf125d3d16329",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/warning-control.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "root": "ada",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "git_blob_sha1": "68007f35587992eaa8e181fb2939bdc7ccbab48f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/cstand.adb",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "ada",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "ada",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "ada",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/trans.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "root": "gcc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76",
+      "git_blob_sha1": "353e8b498aa6d172b3702291964b3c045cd35d3c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cgraph.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/cgraph.h",
+      "root": "gcc",
+      "bytes": 138341,
+      "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1",
+      "git_blob_sha1": "938292cb21aa78fe7073fe49ec8c0ae012d51e1e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cgraph.h",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/cgraphbuild.cc",
+      "root": "gcc",
+      "bytes": 15087,
+      "sha256": "1bc891a8d26c101a0d515394ec34382ac622fd40bd8c6d0e79695c029542f6ea",
+      "git_blob_sha1": "e33a414310bc77dcda71176ccda6a6009caef392",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cgraphbuild.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/function.cc",
+      "root": "gcc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68",
+      "git_blob_sha1": "109821c16fc96e4cd77d0721babca21dcdf82419",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/function.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/common.opt",
+      "root": "gcc",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f",
+      "git_blob_sha1": "5d0e255a40d99c52bb936158e6e0e4e826c0acd3",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/common.opt",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/match.pd",
+      "root": "match",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "git_blob_sha1": "7b652afb43de4bc10c729a48cc32ae6766dd247e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/match.pd",
+      "retained_identity_origin": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/atree.adb",
+      "root": "ada",
+      "bytes": 103427,
+      "sha256": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
+      "git_blob_sha1": "3be9f2f77e1a0ce206e3df67777165f1c5359250",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/atree.adb",
+      "retained_identity_origin": "docs/evidence/retained-literal-native-frontend-20261018/result.json"
+    },
+    {
+      "path": "gcc/ada/gen_il-gen-gen_entities.adb",
+      "root": "ada",
+      "bytes": 62220,
+      "sha256": "bcc305bbe1c12038f456465578c31e326f2e430044879d786d85abda7b26722f",
+      "git_blob_sha1": "94a1f04a613acff8f6b5dd01fc49bba655bad36b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gen_il-gen-gen_entities.adb",
+      "retained_identity_origin": "docs/evidence/retained-literal-native-frontend-20261018/result.json"
+    }
+  ],
+  "historical_silver_inputs": [
+    {
+      "path": "docs/evidence/retained-literal-gigi-warning-residual-20261018/source-manifest.json",
+      "bytes": 9834,
+      "sha256": "11f170d0b9fbd0f7f89a9686e2472abd26d5da55d903f8fb9b987c1dab25726c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-frontend-20261018/result.json",
+      "bytes": 22047,
+      "sha256": "7b16f24497e73aa48d492373743361aeed9c08f1076ef3b1cffd3ae9102c85e7"
+    },
+    {
+      "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
+      "bytes": 35200,
+      "sha256": "1ef9c27d700ff1956049e276af4458ab24c741197f5dc3a95106b60c4490183b"
+    },
+    {
+      "path": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "bytes": 10880,
+      "sha256": "2346c508d0a94161667b9f7850705c17ed58ed80414c0b05cd96eb3dacf4d5b5"
+    },
+    {
+      "path": "docs/evidence/retained-producer-parent-20261018/fixed-gcc-prefix-witness/frontend-exec.json",
+      "bytes": 2233,
+      "sha256": "0612510528e472e618757ec030570c4d2a73429b434ec6cb6fbca3febf01357c"
+    },
+    {
+      "path": "docs/research/retained-literal-gigi-warning-residual.md",
+      "bytes": 13806,
+      "sha256": "d6f3d3c0bef8d841a1ee7b22168137166731c6705f705f26f0ee4254f3a38f5e"
+    },
+    {
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 95063,
+      "sha256": "bcffba4c36861a119e3e2c7b1b48558794dd9d2f377be2eab1d2cce0a5857d02"
+    },
+    {
+      "path": "docs/research/retained-literal-warning-map.md",
+      "bytes": 16243,
+      "sha256": "ebdf2fe6c8d2298791773afb87b9e449019870c814839ab4d6877f4b25641d32"
+    },
+    {
+      "path": "docs/research/retained-native-ingress-bound.md",
+      "bytes": 23155,
+      "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+    }
+  ]
+}

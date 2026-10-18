@@ -1,0 +1,36 @@
+{
+  "scope": "One first ordinary complete Standard.String conversion for the selected literal family; source argument, review pending",
+  "size_functions_created": 2,
+  "size_function_parameter_counts": [
+    2,
+    2
+  ],
+  "size_function_parameter_precision_bits": 32,
+  "size_function_return_precision_bits": [
+    128,
+    64
+  ],
+  "canonical_array_recursions": 0,
+  "XUT_additional_size_functions": 0,
+  "XVE_additional_size_functions": 0,
+  "initial_helper_gimplifications": 2,
+  "additional_live_function_nodes_during_initial_Main_lowering": 2,
+  "helper_ordinary_lowering_executions": 0,
+  "helper_IPA_body_executions": 0,
+  "helper_RTL_expansions": 0,
+  "helper_emitted_functions": 0,
+  "live_helper_nodes_after_initial_removal": 0,
+  "persistent_counter_increments": {
+    "symbol_next_uid": 2,
+    "symbol_order": 2,
+    "function_definition_number": 2,
+    "private_size_function_fnno": 2
+  },
+  "helper_initial_warning_map_puts": null,
+  "R": null,
+  "helper_allocation_request_events": null,
+  "helper_allocation_bytes": null,
+  "complete_imported_frontier_closed": false,
+  "aggregate_conditions_changed": false,
+  "whole_literal_pipeline_capacity_established": false
+}
