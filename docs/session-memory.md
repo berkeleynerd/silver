@@ -28,6 +28,9 @@ dependent #88–#94 retain their existing authorization and unfinished status;
 this workflow change alters no Oracle guarantee, language admission, proof
 requirement or tool pin. The completed For loops and integers harness goal
 remains complete. Routine publication is authorized; CLI memory is unavailable.
+The [implementation and validation record](evidence/agent-policy-20261018.md)
+distinguishes the updated host files, effective defaults, profile-load checks,
+independent review and the unchanged live lead setting.
 
 ## 2026-10-17 — Retained-tool capacity direction adopted
 
