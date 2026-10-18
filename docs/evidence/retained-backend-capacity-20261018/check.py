@@ -28,8 +28,9 @@ RANGES = {
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
                        (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
                        (2976, 2987), (3537, 3553), (3720, 3753), (3804, 3893),
-                       (4150, 4168), (4212, 4253), (4476, 4523)],
+                       (4001, 4038), (4150, 4168), (4184, 4253), (4476, 4523)],
     "gcc/function.h": [(162, 169)],
+    "gcc/genmodes.cc": [(828, 845), (1012, 1023)],
     "gcc/config/elfos.h": [(114, 132)],
     "gcc/hash-table.h": [(295, 355), (599, 617), (656, 679), (755, 778),
                          (788, 821), (833, 895), (1026, 1093)],
@@ -152,6 +153,30 @@ def main():
                      for prefix in ("LF", "LC", "LHOTB", "LCOLDB", "LHOTE", "LCOLDE")}
     assert label_lengths["LF"] <= 17
     assert max(label_lengths.values()) <= 100
+    # The alignment mask is unsigned int before conversion to HOST_WIDE_INT.
+    # genmodes emits BITS_PER_UNIT as a plain decimal int literal.
+    mode_generator = all_bytes["gcc/genmodes.cc"].decode()
+    assert '#define BITS_PER_UNIT (%d)' in mode_generator
+    varasm_text = all_bytes["gcc/varasm.cc"].decode()
+    assert varasm_text.count("pool->offset &= ~ ((align / BITS_PER_UNIT) - 1);") == 2
+    uint_max = 2**32-1
+    byte_alignment = 8
+    before = 2**32
+    unsigned_mask = (~(byte_alignment-1)) & uint_max
+    narrowed = (before+byte_alignment-1) & unsigned_mask
+    mathematical = (before+byte_alignment-1) & ~(byte_alignment-1)
+    assert narrowed == 0 and mathematical == 2**32
+    assert before+byte_alignment-1+8 <= 2**63-1
+    # Below the 32-bit mask ceiling, zero-extension changes no significant bit.
+    mask_cases = []
+    for alignment in (1, 2, 4, 8, 16, 32, 64):
+        mask = (~(alignment-1)) & uint_max
+        for unaligned in sorted({0, alignment-1, alignment, uint_max-1, uint_max}):
+            actual = unaligned & mask
+            expected = unaligned & ~(alignment-1)
+            assert actual == expected and 0 <= actual <= unaligned
+            mask_cases.append({"alignment_bytes": alignment,
+                               "pre_mask_offset": unaligned, "aligned_offset": actual})
     results = {
         "scope": "local source-derived arithmetic; no native compiler/prover run",
         "verified_sources": verified,
@@ -188,6 +213,21 @@ def main():
             "maximum_hash_capacity": int_max,
             "maximum_pointer_backbone_bytes": 8*int_max,
             "hash_capacity_cases": hash_cases,
+            "RTL_pool_offsets": {
+                "offset_bits": 64, "offset_signed": True,
+                "align_and_mask_bits": 32, "mask_unsigned": True,
+                "sufficient_per_pool_charge": "sum(a_i-1+s_i) <= 2^32-1",
+                "maximum_charge": uint_max,
+                "witness_above_mask_width": {
+                    "incoming_offset": before, "alignment_bytes": byte_alignment,
+                    "unsigned_mask": unsigned_mask,
+                    "actual_aligned_offset": narrowed,
+                    "mathematical_aligned_offset": mathematical,
+                    "fits_old_signed64_sum_bound": True,
+                },
+                "mask_boundary_cases": mask_cases,
+                "scope": "local arithmetic; actual source-to-descriptor/mode counts remain open",
+            },
             "scope": "local event-to-representation transfers; source event counts remain required",
         },
         "string": {

@@ -663,6 +663,48 @@ LF line numbering; complete file identities checked.
 3893: }
 ```
 
+## gcc/varasm.cc:4001–4038
+```text
+4001:   rtx sym;
+4002:   rtx constant;
+4003:   HOST_WIDE_INT offset;
+4004:   hashval_t hash;
+4005:   fixed_size_mode mode;
+4006:   unsigned int align;
+4007:   int labelno;
+4008:   int mark;
+4009: };
+4010:
+4011: struct const_rtx_desc_hasher : ggc_ptr_hash<constant_descriptor_rtx>
+4012: {
+4013:   static hashval_t hash (constant_descriptor_rtx *);
+4014:   static bool equal (constant_descriptor_rtx *, constant_descriptor_rtx *);
+4015: };
+4016:
+4017: /* Used in the hash tables to avoid outputting the same constant
+4018:    twice.  Unlike 'struct constant_descriptor_tree', RTX constants
+4019:    are output once per function, not once per file.  */
+4020: /* ??? Only a few targets need per-function constant pools.  Most
+4021:    can use one per-file pool.  Should add a targetm bit to tell the
+4022:    difference.  */
+4023:
+4024: struct GTY(()) rtx_constant_pool {
+4025:   /* Pointers to first and last constant in pool, as ordered by offset.  */
+4026:   class constant_descriptor_rtx *first;
+4027:   class constant_descriptor_rtx *last;
+4028:
+4029:   /* Hash facility for making memory-constants from constant rtl-expressions.
+4030:      It is used on RISC machines where immediate integer arguments and
+4031:      constant addresses are restricted so that such constants must be stored
+4032:      in memory.  */
+4033:   hash_table<const_rtx_desc_hasher> *const_rtx_htab;
+4034:
+4035:   /* Current offset in constant pool (does not include any
+4036:      machine-specific header).  */
+4037:   HOST_WIDE_INT offset;
+4038: };
+```
+
 ## gcc/varasm.cc:4150–4168
 ```text
 4150: {
@@ -686,8 +728,36 @@ LF line numbering; complete file identities checked.
 4168: }
 ```
 
-## gcc/varasm.cc:4212–4253
+## gcc/varasm.cc:4184–4253
 ```text
+4184: rtx
+4185: force_const_mem (machine_mode in_mode, rtx x)
+4186: {
+4187:   class constant_descriptor_rtx *desc, tmp;
+4188:   struct rtx_constant_pool *pool;
+4189:   char label[256];
+4190:   rtx def, symbol;
+4191:   hashval_t hash;
+4192:   unsigned int align;
+4193:   constant_descriptor_rtx **slot;
+4194:   fixed_size_mode mode;
+4195:
+4196:   /* We can't force variable-sized objects to memory.  */
+4197:   if (!is_a <fixed_size_mode> (in_mode, &mode))
+4198:     return NULL_RTX;
+4199:
+4200:   /* If we're not allowed to drop X into the constant pool, don't.  */
+4201:   if (targetm.cannot_force_const_mem (mode, x))
+4202:     return NULL_RTX;
+4203:
+4204:   /* Record that this function has used a constant pool entry.  */
+4205:   crtl->uses_const_pool = 1;
+4206:
+4207:   /* Decide which pool to use.  */
+4208:   pool = (targetm.use_blocks_for_constant_p (mode, x)
+4209: 	  ? shared_constant_pool
+4210: 	  : crtl->varasm.pool);
+4211:
 4212:   /* Lookup the value in the hashtable.  */
 4213:   tmp.constant = x;
 4214:   tmp.mode = mode;
@@ -2045,4 +2115,42 @@ LF line numbering; complete file identities checked.
 44: /* Callback function pointer types.  */
 45:
 46: /* Calculate hash of a table entry.  */
+```
+
+## gcc/genmodes.cc:828–845
+```text
+828: static int bits_per_unit;
+829: static int max_bitsize_mode_any_int;
+830: static int max_bitsize_mode_any_mode;
+831:
+832: static void
+833: create_modes (void)
+834: {
+835: #include "machmode.def"
+836:
+837:   /* So put the default value unless the target needs a non standard
+838:      value. */
+839: #ifdef BITS_PER_UNIT
+840:   bits_per_unit = BITS_PER_UNIT;
+841: #else
+842:   bits_per_unit = 8;
+843: #endif
+844:
+845: #ifdef MAX_BITSIZE_MODE_ANY_INT
+```
+
+## gcc/genmodes.cc:1012–1023
+```text
+1012: static void
+1013: emit_max_int (void)
+1014: {
+1015:   unsigned int max, mmax;
+1016:   struct mode_data *i;
+1017:   int j;
+1018:
+1019:   puts ("");
+1020:
+1021:   printf ("#define BITS_PER_UNIT (%d)\n", bits_per_unit);
+1022:
+1023:   if (max_bitsize_mode_any_int == 0)
 ```

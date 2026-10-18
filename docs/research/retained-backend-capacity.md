@@ -296,17 +296,36 @@ family require their own request bound; this does not cover every GCC map.
 
 For each fresh RTL descriptor i, let `a_i` be its positive power-of-two
 alignment in bytes and `s_i` its fixed mode size in bytes. `force_const_mem`
-adds `a_i-1`, masks down to that alignment, then adds `s_i`
-(`varasm.cc:4224–4248`). Its HOST_WIDE_INT offset is signed 64-bit here.
-The sufficient arithmetic condition per pool is
+adds `a_i-1`, applies an alignment mask, then adds `s_i`
+(`varasm.cc:4184–4248`). Its HOST_WIDE_INT offset is signed 64-bit here
+(`:4001–4038`), but **the mask is only 32 bits**. The local `align` is
+unsigned int, and genmodes emits BITS_PER_UNIT as a plain decimal int literal
+(`genmodes.cc:828–845,1021`). Consequently the division, subtraction and
+bitwise complement in `~ ((align / BITS_PER_UNIT) - 1)` are unsigned-int
+operations. When combined with the signed 64-bit offset, that mask is
+zero-extended, so it also clears any offset bits above bit 31.
+
+A signed-64-bit sum condition alone is therefore insufficient to preserve the
+intended offsets. For example, an incoming offset of `2^32` with an 8-byte
+alignment produces zero after the mask, although mathematical alignment
+produces `2^32`; both the incoming value and subsequent 8-byte size addition
+fit signed 64-bit arithmetic. This is a local arithmetic counterexample,
+not a claim that an admitted current program reaches that offset.
+
+A sufficient condition per pool is
 
 ```text
-sum_i (a_i - 1 + s_i) <= 2^63 - 1.
+sum_i (a_i - 1 + s_i) <= 2^32 - 1.
 ```
 
-It covers the addition **before** alignment as well as the final offset.
-Recomputing offsets for the marked subset repeats the same operations from
-zero (`:4476–4490`), so the same positive sum bounds that pass. Duplicate
+Starting at zero, the positive sum bounds each addition **before** masking
+and each final offset. Every pre-mask value therefore has no significant bit
+above bit 31, so the zero-extended unsigned mask computes the intended
+power-of-two alignment; it can only decrease that intermediate value. All
+these values also fit the signed 64-bit offset. Recomputing offsets for the
+marked subset repeats the same operations from zero (`:4476–4490`), so its
+smaller positive sum has the same property. This is a sufficient simple
+region; it does not claim that every larger pool fails. Duplicate
 lookups return a copied RTL reference before this allocation/offset path;
 they are not fresh descriptors. Actual allowed modes, alignments, descriptor
 counts and RTL-copy multiplicities must still come from source lowering and

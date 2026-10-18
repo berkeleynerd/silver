@@ -84,6 +84,10 @@
     {
       "path": "include/hashtab.h",
       "sha256": "f8df4e157b05833188c1580dff3462e4faef56919fa865d4584faba6f5cb8c18"
+    },
+    {
+      "path": "gcc/genmodes.cc",
+      "sha256": "c194dec8ad700fe45094f1c7247aca2ce44dcb6980f52140e531b3e71034a155"
     }
   ],
   "line_map": {
@@ -846,6 +850,195 @@
         "capacity": 2147483647
       }
     ],
+    "RTL_pool_offsets": {
+      "offset_bits": 64,
+      "offset_signed": true,
+      "align_and_mask_bits": 32,
+      "mask_unsigned": true,
+      "sufficient_per_pool_charge": "sum(a_i-1+s_i) <= 2^32-1",
+      "maximum_charge": 4294967295,
+      "witness_above_mask_width": {
+        "incoming_offset": 4294967296,
+        "alignment_bytes": 8,
+        "unsigned_mask": 4294967288,
+        "actual_aligned_offset": 0,
+        "mathematical_aligned_offset": 4294967296,
+        "fits_old_signed64_sum_bound": true
+      },
+      "mask_boundary_cases": [
+        {
+          "alignment_bytes": 1,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 1,
+          "pre_mask_offset": 1,
+          "aligned_offset": 1
+        },
+        {
+          "alignment_bytes": 1,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967294
+        },
+        {
+          "alignment_bytes": 1,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967295
+        },
+        {
+          "alignment_bytes": 2,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 2,
+          "pre_mask_offset": 1,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 2,
+          "pre_mask_offset": 2,
+          "aligned_offset": 2
+        },
+        {
+          "alignment_bytes": 2,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967294
+        },
+        {
+          "alignment_bytes": 2,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967294
+        },
+        {
+          "alignment_bytes": 4,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 4,
+          "pre_mask_offset": 3,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 4,
+          "pre_mask_offset": 4,
+          "aligned_offset": 4
+        },
+        {
+          "alignment_bytes": 4,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967292
+        },
+        {
+          "alignment_bytes": 4,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967292
+        },
+        {
+          "alignment_bytes": 8,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 8,
+          "pre_mask_offset": 7,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 8,
+          "pre_mask_offset": 8,
+          "aligned_offset": 8
+        },
+        {
+          "alignment_bytes": 8,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967288
+        },
+        {
+          "alignment_bytes": 8,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967288
+        },
+        {
+          "alignment_bytes": 16,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 16,
+          "pre_mask_offset": 15,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 16,
+          "pre_mask_offset": 16,
+          "aligned_offset": 16
+        },
+        {
+          "alignment_bytes": 16,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967280
+        },
+        {
+          "alignment_bytes": 16,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967280
+        },
+        {
+          "alignment_bytes": 32,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 32,
+          "pre_mask_offset": 31,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 32,
+          "pre_mask_offset": 32,
+          "aligned_offset": 32
+        },
+        {
+          "alignment_bytes": 32,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967264
+        },
+        {
+          "alignment_bytes": 32,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967264
+        },
+        {
+          "alignment_bytes": 64,
+          "pre_mask_offset": 0,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 64,
+          "pre_mask_offset": 63,
+          "aligned_offset": 0
+        },
+        {
+          "alignment_bytes": 64,
+          "pre_mask_offset": 64,
+          "aligned_offset": 64
+        },
+        {
+          "alignment_bytes": 64,
+          "pre_mask_offset": 4294967294,
+          "aligned_offset": 4294967232
+        },
+        {
+          "alignment_bytes": 64,
+          "pre_mask_offset": 4294967295,
+          "aligned_offset": 4294967232
+        }
+      ],
+      "scope": "local arithmetic; actual source-to-descriptor/mode counts remain open"
+    },
     "scope": "local event-to-representation transfers; source event counts remain required"
   },
   "string": {
