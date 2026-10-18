@@ -1,0 +1,235 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "recorded_utc": "2026-10-18",
+  "source_root_defaults": {
+    "gcc": "/tmp/silver-backend-compose-20261018/full-source",
+    "ada": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada",
+    "match": "/tmp/silver-backend-compose-20261018/folding-sources/match.pd"
+  },
+  "files": [
+    {
+      "path": "gcc/convert.cc",
+      "source_root": "gcc",
+      "bytes": 39639,
+      "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef",
+      "git_blob_sha1": "881797194f8cbda23212fab837669f35c9995035",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/convert.cc"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "source_root": "gcc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "git_blob_sha1": "56503e570bc440b65366b0c83a958a14dd3d5712",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/fold-const.cc"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "source_root": "gcc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "git_blob_sha1": "633ff9e1db2192b7bc0fda1879767b12cb43ab82",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/genmatch.cc"
+    },
+    {
+      "path": "gcc/gencfn-macros.cc",
+      "source_root": "gcc",
+      "bytes": 8237,
+      "sha256": "84144b223ce079a8faa81061bc454e0f365e61b26b505e5d93caea6f9ebf50ed",
+      "git_blob_sha1": "6aeb11bf94f13518504b1016dc21bf86c89b22a3",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gencfn-macros.cc"
+    },
+    {
+      "path": "gcc/generic-match-head.cc",
+      "source_root": "gcc",
+      "bytes": 5882,
+      "sha256": "3201bf86a0f175ee730854c6388bbefefec2b1d3c55cb6c115cbf6822833b5fb",
+      "git_blob_sha1": "9e7097a038d17ecc0abf407561dd9a58e2d31401",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/generic-match-head.cc"
+    },
+    {
+      "path": "gcc/gimple-low.cc",
+      "source_root": "gcc",
+      "bytes": 45880,
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb",
+      "git_blob_sha1": "d8e14a597b42786525660f5de492bfb4f15fd30b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-low.cc"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "source_root": "gcc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803",
+      "git_blob_sha1": "c791e04124314bab166a9f9d9eb77950b474e7c1",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.cc"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "source_root": "gcc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "git_blob_sha1": "8bfc71315f9fd3501bb68f4b23a81c69b781fcec",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimplify.cc"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "source_root": "gcc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "git_blob_sha1": "2868cb0867dd805fa267a4edc890ded63ab17909",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.cc"
+    },
+    {
+      "path": "gcc/tree.h",
+      "source_root": "gcc",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "git_blob_sha1": "f8b2d718b7ee13eea791ffe5471ffc4fec98c9c6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.h"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "source_root": "gcc",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "git_blob_sha1": "07e9318f5e8b88cc3a03bdf5a9cab3a372b55856",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-core.h"
+    },
+    {
+      "path": "gcc/tree-inline.cc",
+      "source_root": "gcc",
+      "bytes": 214934,
+      "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903",
+      "git_blob_sha1": "df5597ef30dde050638add281f89c67ec8d3759f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-inline.cc"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "source_root": "gcc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "git_blob_sha1": "796fc8199213a5e6d954143c8318a92faf2e1a32",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/stor-layout.cc"
+    },
+    {
+      "path": "gcc/vec.h",
+      "source_root": "gcc",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "git_blob_sha1": "0d4cffd0c3a61b10843951fdeb09209485d0a6b2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/vec.h"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "source_root": "gcc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "git_blob_sha1": "0740e49584803a18455d604614a2aac0a79760cd",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/vec.cc"
+    },
+    {
+      "path": "gcc/hash-set.h",
+      "source_root": "gcc",
+      "bytes": 5741,
+      "sha256": "052c2a5efb2455e5616b458b32cf0e728a11a4a8bb6cec5aa82cd744b5d5f946",
+      "git_blob_sha1": "c7cc9bde279febb54e1bd539074e2ad1832db41d",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-set.h"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "source_root": "gcc",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc",
+      "git_blob_sha1": "0bee2850b8cce57bb53b2424c839a5f9fa3a4de4",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-table.h"
+    },
+    {
+      "path": "gcc/hash-table.cc",
+      "source_root": "gcc",
+      "bytes": 4564,
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457",
+      "git_blob_sha1": "22a08b2735bc9cede8e62e7f98a4c04e25305acc",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-table.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "source_root": "gcc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/trans.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "source_root": "gcc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "source_root": "gcc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "source_root": "gcc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "git_blob_sha1": "3604d4df761cb702c326366f3ba6349fb37f4fc6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils2.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "source_root": "gcc",
+      "bytes": 28538,
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835",
+      "git_blob_sha1": "89d89e22e58b08c94ebb340124750d9684253a34",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/ada-tree.h"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "source_root": "gcc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/misc.cc"
+    },
+    {
+      "path": "gcc/ada/sem_res.adb",
+      "source_root": "ada",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "git_blob_sha1": "270affe5ccb002851ae1f81755e4386e289b7f3e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_res.adb"
+    },
+    {
+      "path": "gcc/ada/freeze.adb",
+      "source_root": "ada",
+      "bytes": 439830,
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d",
+      "git_blob_sha1": "19f365117c2eb7d4a1b5c7572d315c5dc74ff174",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/freeze.adb"
+    },
+    {
+      "path": "gcc/ada/itypes.adb",
+      "source_root": "ada",
+      "bytes": 4958,
+      "sha256": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a",
+      "git_blob_sha1": "5111233006559c549f0717320fdcdc1f99fa7e02",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/itypes.adb"
+    },
+    {
+      "path": "gcc/match.pd",
+      "source_root": "match",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "git_blob_sha1": "7b652afb43de4bc10c729a48cc32ae6766dd247e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/match.pd"
+    }
+  ]
+}

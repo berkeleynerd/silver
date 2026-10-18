@@ -1,0 +1,386 @@
+{
+  "arithmetic_boundary_cases": 8,
+  "binding_stack_allocations": [
+    [
+      8,
+      72
+    ],
+    [
+      16,
+      136
+    ]
+  ],
+  "complete_gimplifier_lifetime_closed": false,
+  "elapsed_seconds": 0.08071406799990655,
+  "example_C1_N0": {
+    "CF_local_declarations_vector_elements_upper": 1,
+    "GENERIC_and_GIMPLE_bind_count_upper": 2,
+    "bind_stack": {
+      "allocation_domain": "ordinary",
+      "capacities_upper": [
+        8,
+        16
+      ],
+      "cumulative_request_bytes_upper": 208,
+      "maximum_request_bytes_upper": 136,
+      "request_bytes_upper": [
+        72,
+        136
+      ],
+      "requests_upper": 2
+    },
+    "complete_gimplifier_GGC_request_events_upper": null,
+    "complete_gimplifier_lifetime_closed": false,
+    "conditional_whole_body_ingress_closed": true,
+    "corrected_CF_gimple_set_block_calls_upper": 6,
+    "corrected_direct_gimplifier_GGC_events_upper": 12,
+    "direct_copy_warning_calls_upper": 2,
+    "direct_subtotal_bind_correction_GGC_events_upper": 1,
+    "local_decl_expr_metadata_nonconstant_unshare_or_materialization_calls": 0,
+    "materialization_data_address_delta": {
+      "fresh_string_type_decl_and_vector_requests": 0,
+      "raw_and_rounded_bytes_each": 32,
+      "rounded_request_bytes_sum_upper": 64,
+      "tree_requests_upper": 2
+    },
+    "ordinary_occurrence_rows": [
+      {
+        "object": "DECL_EXPR, ADDR_EXPR, optional NOP_EXPR",
+        "occurrences": 6,
+        "raw_bytes": 32,
+        "rounded_bytes": 32
+      },
+      {
+        "object": "one-actual CALL_EXPR",
+        "occurrences": 1,
+        "raw_bytes": 56,
+        "rounded_bytes": 64
+      },
+      {
+        "object": "fat and bounds CONSTRUCTOR",
+        "occurrences": 2,
+        "raw_bytes": 24,
+        "rounded_bytes": 32
+      },
+      {
+        "object": "null DECL_EXPR, GOTO_EXPR, LABEL_EXPR",
+        "occurrences": 0,
+        "raw_bytes": 32,
+        "rounded_bytes": 32
+      },
+      {
+        "object": "bare RETURN_EXPR",
+        "occurrences": 1,
+        "raw_bytes": 32,
+        "rounded_bytes": 32
+      }
+    ],
+    "pointer_type_walker_duplicate_set_requests": 0,
+    "production_admission_changed": false,
+    "protected_set": {
+      "allocation_domain": "ordinary; separate from GGC deltas",
+      "backing_requests_upper": 3,
+      "deletions": 0,
+      "distinct_entries_upper": 2,
+      "initial_slots": 13,
+      "maximum_backing_request_bytes_upper": 104,
+      "maximum_backing_slots_upper": 13,
+      "object_requests_upper": 1,
+      "object_size_and_allocator_bookkeeping_joined": false,
+      "selected_prime_table_condition": true,
+      "slot_bytes": 8
+    },
+    "selected_helper_subtotal_GGC_events_upper": 8,
+    "selected_helper_subtotal_includes_accepted_6C": true,
+    "simultaneous_GENERIC_bind_depth_upper": 2,
+    "source_input": {
+      "calls": 1,
+      "each_literal_length_max": 2147483647,
+      "each_literal_length_min": 0,
+      "nulls": 0
+    },
+    "whole_body_GGC_request_events_upper": 36,
+    "whole_body_constructor_vector_requests_upper": 6,
+    "whole_body_copy_weight_upper": 10,
+    "whole_body_fresh_STRING_CST_TYPE_DECL_and_scalar_constant_requests": 0,
+    "whole_body_individual_GGC_request_groups": [
+      {
+        "object": "DECL_EXPR, ADDR_EXPR, optional NOP_EXPR",
+        "raw_bytes_upper": 32,
+        "requests_upper": 18,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "one-actual CALL_EXPR",
+        "raw_bytes_upper": 56,
+        "requests_upper": 3,
+        "rounded_bytes_upper": 64
+      },
+      {
+        "object": "fat and bounds CONSTRUCTOR",
+        "raw_bytes_upper": 24,
+        "requests_upper": 6,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "null DECL_EXPR, GOTO_EXPR, LABEL_EXPR",
+        "raw_bytes_upper": 32,
+        "requests_upper": 0,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "bare RETURN_EXPR",
+        "raw_bytes_upper": 32,
+        "requests_upper": 3,
+        "rounded_bytes_upper": 32
+      },
+      {
+        "object": "copied two-element constructor vector",
+        "raw_bytes_upper": 72,
+        "requests_upper": 6,
+        "rounded_bytes_upper": 128
+      }
+    ],
+    "whole_body_ordinary_tree_requests_upper": 30,
+    "whole_body_raw_request_bytes_sum_upper": 1416,
+    "whole_body_rounded_request_bytes_sum_upper": 1824,
+    "whole_pipeline_capacity_established": false
+  },
+  "invalid_counter_cases": 6,
+  "matcher": {
+    "conversion_root_forms": 19,
+    "conversion_root_patterns": [
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 1156,
+        "pattern": "(convert (negate:s@1 (convert:s @0)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n (convert (negate:s@1 (convert:s @0)))\n (if (INTEGRAL_TYPE_P (type)\n      && tree_nop_conversion_p (type, TREE_TYPE (@1))\n      && (TYPE_PRECISION (type) > TYPE_PRECISION (TREE_TYPE (@0))\n\t  || TYPE_UNSIGNED (type))\n      && TREE_CODE (type) != BOOLEAN_TYPE)\n    (negate (convert @0))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 2308,
+        "pattern": "(convert (bitop:cs@2 (nop_convert:s @0) @1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (bitop:cs@2 (nop_convert:s @0) @1))\n  (if (GIMPLE\n       && TREE_CODE (@1) != INTEGER_CST\n       && tree_nop_conversion_p (type, TREE_TYPE (@2))\n       && types_match (type, @0)\n       && !POINTER_TYPE_P (TREE_TYPE (@0))\n       && TREE_CODE (TREE_TYPE (@0)) != OFFSET_TYPE)\n   (bitop @0 (convert @1))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 2318,
+        "pattern": "(convert (bitop:cs@2 (convert:s @0) @1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (bitop:cs@2 (convert:s @0) @1))\n   (if (GIMPLE\n\t&& INTEGRAL_TYPE_P (type)\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t&& TREE_CODE (@1) != INTEGER_CST\n\t&& tree_nop_conversion_p (type, TREE_TYPE (@2))\n\t&& TYPE_PRECISION (TREE_TYPE (@0)) > TYPE_PRECISION (type))\n   (bitop:type (convert @0) (convert @1))\n   /* Similar as above, but the outer and inner most types match\n       and it was widening cast; replacing 2 casts with only one.  */\n   (if (GIMPLE\n        && INTEGRAL_TYPE_P (type)\n        && types_match (type, TREE_TYPE (@0))\n        && TYPE_PRECISION (TREE_TYPE (@2)) > TYPE_PRECISION (type))\n    (bitop:type @0 (convert @1)))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 2590,
+        "pattern": "(convert (mult@0 zero_one_valued_p@1 INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n (convert (mult@0 zero_one_valued_p@1 INTEGER_CST@2))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n      && TYPE_PRECISION (type) < TYPE_PRECISION (TREE_TYPE (@0))\n      && (TYPE_UNSIGNED (type) || TYPE_PRECISION (type) > 1))\n  (mult (convert @1) (convert @2))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 3260,
+        "pattern": "(convert (pointer_diff @0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n (convert (pointer_diff @0 INTEGER_CST@1))\n (if (POINTER_TYPE_P (type))\n  { build_fold_addr_expr_with_type\n      (build2 (MEM_REF, char_type_node, @0,\n\t       wide_int_to_tree (ptr_type_node, wi::neg (wi::to_wide (@1)))),\n\t       type); }))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 4253,
+        "pattern": "(convert (eqne zero_one_valued_p@0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (eqne zero_one_valued_p@0 INTEGER_CST@1))\n  (if ((integer_zerop (@1) || integer_onep (@1)))\n   (if ((eqne == EQ_EXPR) ^ integer_zerop (@1))\n    (convert @0)\n    /* Only do this if the types match as (type)(a == 0) is\n       canonical form normally, while `a ^ 1` is canonical when\n       there is no type change. */\n    (if (types_match (type, TREE_TYPE (@0)))\n     (bit_xor @0 { build_one_cst (type); } )))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 5025,
+        "pattern": "(convert (minmax@0 (convert @1) INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (minmax@0 (convert @1) INTEGER_CST@2))\n  (if (INTEGRAL_TYPE_P (type)\n       && types_match (@1, type) && int_fits_type_p (@2, type)\n       && TYPE_SIGN (TREE_TYPE (@0)) == TYPE_SIGN (type)\n       && TYPE_PRECISION (TREE_TYPE (@0)) > TYPE_PRECISION (type))\n   (minmax @1 (convert @2))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 5705,
+        "pattern": "(convert (lshift:s@0 @1 INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n (convert (lshift:s@0 @1 INTEGER_CST@2))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n      && !integer_zerop (@2)\n      && TYPE_PRECISION (type) <= TYPE_PRECISION (TREE_TYPE (@0)))\n  (if (TYPE_PRECISION (type) == TYPE_PRECISION (TREE_TYPE (@0))\n       || wi::ltu_p (wi::to_wide (@2), TYPE_PRECISION (type)))\n   (lshift (convert @1) @2)\n   (if (wi::ltu_p (wi::to_wide (@2), TYPE_PRECISION (TREE_TYPE (@0))))\n    { build_zero_cst (type); }))))"
+      },
+      {
+        "enclosing_conversion_aliases": {
+          "cvt": [
+            "convert",
+            "fix_trunc",
+            "float",
+            "view_convert"
+          ]
+        },
+        "line": 5721,
+        "pattern": "(cvt @0)",
+        "resolved_possible_root_operators": [
+          "convert",
+          "fix_trunc",
+          "float",
+          "view_convert"
+        ],
+        "source": "(simplify\n  (cvt @0)\n  (if ((GIMPLE && useless_type_conversion_p (type, TREE_TYPE (@0)))\n       || (GENERIC && type == TREE_TYPE (@0)))\n   @0))"
+      },
+      {
+        "enclosing_conversion_aliases": {
+          "icvt": [
+            "convert",
+            "float"
+          ],
+          "ocvt": [
+            "convert",
+            "fix_trunc",
+            "float"
+          ]
+        },
+        "line": 5806,
+        "pattern": "(ocvt (icvt@1 @0))",
+        "resolved_possible_root_operators": [
+          "convert",
+          "fix_trunc",
+          "float"
+        ],
+        "source": "(simplify\n   (ocvt (icvt@1 @0))\n   (with\n    {\n      tree inside_type = TREE_TYPE (@0);\n      tree inter_type = TREE_TYPE (@1);\n      int inside_int = INTEGRAL_TYPE_P (inside_type);\n      int inside_ptr = POINTER_TYPE_P (inside_type);\n      int inside_float = FLOAT_TYPE_P (inside_type);\n      int inside_vec = VECTOR_TYPE_P (inside_type);\n      unsigned int inside_prec = element_precision (inside_type);\n      int inside_unsignedp = TYPE_UNSIGNED (inside_type);\n      int inter_int = INTEGRAL_TYPE_P (inter_type);\n      int inter_ptr = POINTER_TYPE_P (inter_type);\n      int inter_float = FLOAT_TYPE_P (inter_type);\n      int inter_vec = VECTOR_TYPE_P (inter_type);\n      unsigned int inter_prec = element_precision (inter_type);\n      int inter_unsignedp = TYPE_UNSIGNED (inter_type);\n      int final_int = INTEGRAL_TYPE_P (type);\n      int final_ptr = POINTER_TYPE_P (type);\n      int final_float = FLOAT_TYPE_P (type);\n      int final_vec = VECTOR_TYPE_P (type);\n      unsigned int final_prec = element_precision (type);\n      int final_unsignedp = TYPE_UNSIGNED (type);\n    }\n   (switch\n    /* In addition to the cases of two conversions in a row\n       handled below, if we are converting something to its own\n       type via an object of identical or wider precision, neither\n       conversion is needed.  */\n    (if (((GIMPLE && useless_type_conversion_p (type, inside_type))\n\t  || (GENERIC\n\t      && TYPE_MAIN_VARIANT (type) == TYPE_MAIN_VARIANT (inside_type)))\n\t && (((inter_int || inter_ptr) && final_int)\n\t     || (inter_float && final_float))\n\t && inter_prec >= final_prec)\n     (ocvt @0))\n\n    /* Likewise, if the intermediate and initial types are either both\n       float or both integer, we don't need the middle conversion if the\n       former is wider than the latter and doesn't change the signedness\n       (for integers).  Avoid this if the final type is a pointer since\n       then we sometimes need the middle conversion.  */\n    (if (((inter_int && inside_int) || (inter_float && inside_float))\n\t && (final_int || final_float)\n\t && inter_prec >= inside_prec\n\t && (inter_float || inter_unsignedp == inside_unsignedp))\n     (ocvt @0))\n\n    /* If we have a sign-extension of a zero-extended value, we can\n       replace that by a single zero-extension.  Likewise if the\n       final conversion does not change precision we can drop the\n       intermediate conversion.  Similarly truncation of a sign-extension\n       can be replaced by a single sign-extension.  */\n    (if (inside_int && inter_int && final_int\n\t && ((inside_prec < inter_prec && inter_prec < final_prec\n\t      && inside_unsignedp && !inter_unsignedp)\n\t     || final_prec == inter_prec\n\t     || (inside_prec < inter_prec && inter_prec > final_prec\n\t\t && !inside_unsignedp && inter_unsignedp)))\n     (ocvt @0))\n\n    /* Two conversions in a row are not needed unless:\n\t- some conversion is floating-point (overstrict for now), or\n\t- some conversion is a vector (overstrict for now), or\n\t- the intermediate type is narrower than both initial and\n\t  final, or\n\t- the intermediate type and innermost type differ in signedness,\n\t  and the outermost type is wider than the intermediate, or\n\t- the initial type is a pointer type and the precisions of the\n\t  intermediate and final types differ, or\n\t- the final type is a pointer type and the precisions of the\n\t  initial and intermediate types differ.  */\n    (if (! inside_float && ! inter_float && ! final_float\n\t && ! inside_vec && ! inter_vec && ! final_vec\n\t && (inter_prec >= inside_prec || inter_prec >= final_prec)\n\t && ! (inside_int && inter_int\n\t       && inter_unsignedp != inside_unsignedp\n\t       && inter_prec < final_prec)\n\t && ((inter_unsignedp && inter_prec > inside_prec)\n\t     == (final_unsignedp && final_prec > inter_prec))\n\t && ! (inside_ptr && inter_prec != final_prec)\n\t && ! (final_ptr && inside_prec != inter_prec))\n     (ocvt @0))\n\n   /* `(outer:M)(inter:N) a:O`\n      can be converted to `(outer:M) a`\n      if M <= O && N >= O. No matter what signedness of the casts,\n      as the final is either a truncation from the original or just\n      a sign change of the type. */\n   (if (inside_int && inter_int && final_int\n        && final_prec <= inside_prec\n\t&& inter_prec >= inside_prec)\n    (convert @0))\n\n    /* A truncation to an unsigned type (a zero-extension) should be\n       canonicalized as bitwise and of a mask.  */\n    (if (GIMPLE /* PR70366: doing this in GENERIC breaks -Wconversion.  */\n\t && final_int && inter_int && inside_int\n\t && final_prec >= inside_prec\n\t && inside_prec > inter_prec\n\t && inter_unsignedp)\n     (convert (bit_and @0 { wide_int_to_tree\n\t                      (inside_type,\n\t\t\t       wi::mask (inter_prec, false,\n\t\t\t\t\t TYPE_PRECISION (inside_type))); })))\n\n    /* If we are converting an integer to a floating-point that can\n       represent it exactly and back to an integer, we can skip the\n       floating-point conversion.  */\n    (if (GIMPLE /* PR66211 */\n\t && inside_int && inter_float && final_int &&\n\t (unsigned) significand_size (TYPE_MODE (inter_type))\n\t >= inside_prec - !inside_unsignedp)\n     (convert @0)))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 5939,
+        "pattern": "(convert (bit_and @0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (bit_and @0 INTEGER_CST@1))\n  (if (INTEGRAL_TYPE_P (type)\n       && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && TYPE_PRECISION (type) <= TYPE_PRECISION (TREE_TYPE (@0))\n       && operand_equal_p (@1, build_low_bits_mask (TREE_TYPE (@1),\n\t\t\t\t\t\t    TYPE_PRECISION (type)), 0))\n   (convert @0)))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 6253,
+        "pattern": "(convert (vec_cond:s @0 @1 @2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n (convert (vec_cond:s @0 @1 @2))\n (if (VECTOR_TYPE_P (type)\n      && types_match (TREE_TYPE (@0), truth_type_for (type))\n      && (expand_vec_cond_expr_p (type, TREE_TYPE (@0))\n\t  || !expand_vec_cond_expr_p (TREE_TYPE (@1), TREE_TYPE (@0))))\n  (vec_cond @0 (convert! @1) (convert! @2))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 6682,
+        "pattern": "(convert (cond@0 @1 INTEGER_CST@2 INTEGER_CST@3))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n (convert (cond@0 @1 INTEGER_CST@2 INTEGER_CST@3))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0)))\n  (cond @1 (convert @2) (convert @3))))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 9500,
+        "pattern": "(convert (froms (convert float16_value_p@0)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n   (convert (froms (convert float16_value_p@0)))\n     (if (optimize\n\t  && types_match (type, TREE_TYPE (@0))\n\t  && direct_internal_fn_supported_p (as_internal_fn (tos),\n\t\t\t\t\t     type, OPTIMIZE_FOR_BOTH))\n       (tos @0)))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 9511,
+        "pattern": "(convert (copysigns (convert@2 @0) (convert @1)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (copysigns (convert@2 @0) (convert @1)))\n   (if (optimize\n       && !HONOR_SNANS (@2)\n       && types_match (type, TREE_TYPE (@0))\n       && types_match (type, TREE_TYPE (@1))\n       && TYPE_PRECISION (type) < TYPE_PRECISION (TREE_TYPE (@2))\n       && direct_internal_fn_supported_p (IFN_COPYSIGN,\n\t\t\t\t\t  type, OPTIMIZE_FOR_BOTH))\n    (IFN_COPYSIGN @0 @1)))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 9524,
+        "pattern": "(convert (froms (convert@3 @0) (convert @1) (convert @2)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (froms (convert@3 @0) (convert @1) (convert @2)))\n   (if (flag_unsafe_math_optimizations\n       && optimize\n       && FLOAT_TYPE_P (type)\n       && FLOAT_TYPE_P (TREE_TYPE (@3))\n       && types_match (type, TREE_TYPE (@0))\n       && types_match (type, TREE_TYPE (@1))\n       && types_match (type, TREE_TYPE (@2))\n       && TYPE_PRECISION (type) < TYPE_PRECISION (TREE_TYPE (@3))\n       && direct_internal_fn_supported_p (as_internal_fn (tos),\n\t\t\t\t\t  type, OPTIMIZE_FOR_BOTH))\n    (tos @0 @1 @2)))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 9539,
+        "pattern": "(convert (maxmin (convert@2 @0) (convert @1)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n  (convert (maxmin (convert@2 @0) (convert @1)))\n   (if (optimize\n       && FLOAT_TYPE_P (type)\n       && FLOAT_TYPE_P (TREE_TYPE (@2))\n       && types_match (type, TREE_TYPE (@0))\n       && types_match (type, TREE_TYPE (@1))\n       && element_precision (type) < element_precision (TREE_TYPE (@2)))\n    (maxmin @0 @1)))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 9687,
+        "pattern": "(convert (op:s@0 (convert1?@3 @1) (convert2?@4 @2)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "source": "(simplify\n   (convert (op:s@0 (convert1?@3 @1) (convert2?@4 @2)))\n   /* If we have a narrowing conversion of an arithmetic operation where\n      both operands are widening conversions from the same type as the outer\n      narrowing conversion.  Then convert the innermost operands to a\n      suitable unsigned type (to avoid introducing undefined behavior),\n      perform the operation and convert the result to the desired type.  */\n   (if (INTEGRAL_TYPE_P (type)\n\t&& op != MULT_EXPR\n\t&& op != RDIV_EXPR\n\t/* We check for type compatibility between @0 and @1 below,\n\t   so there's no need to check that @2/@4 are integral types.  */\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@1))\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@3))\n\t/* The precision of the type of each operand must match the\n\t   precision of the mode of each operand, similarly for the\n\t   result.  */\n\t&& type_has_mode_precision_p (TREE_TYPE (@1))\n\t&& type_has_mode_precision_p (TREE_TYPE (@2))\n\t&& type_has_mode_precision_p (type)\n\t/* The inner conversion must be a widening conversion.  */\n\t&& TYPE_PRECISION (TREE_TYPE (@3)) > TYPE_PRECISION (TREE_TYPE (@1))\n\t&& types_match (@1, type)\n\t&& (types_match (@1, @2)\n\t    /* Or the second operand is const integer or converted const\n\t       integer from valueize.  */\n\t    || poly_int_tree_p (@4)))\n     (if (TYPE_OVERFLOW_WRAPS (TREE_TYPE (@1)))\n       (op @1 (convert @2))\n       (with { tree utype = unsigned_type_for (TREE_TYPE (@1)); }\n\t(convert (op (convert:utype @1)\n\t\t     (convert:utype @2)))))\n     (if (FLOAT_TYPE_P (type)\n\t  && DECIMAL_FLOAT_TYPE_P (TREE_TYPE (@0))\n\t       == DECIMAL_FLOAT_TYPE_P (type))\n      (with { tree arg0 = strip_float_extensions (@1);\n\t      tree arg1 = strip_float_extensions (@2);\n\t      tree itype = TREE_TYPE (@0);\n\t      tree ty1 = TREE_TYPE (arg0);\n\t      tree ty2 = TREE_TYPE (arg1);\n\t      enum tree_code code = TREE_CODE (itype); }\n\t(if (FLOAT_TYPE_P (ty1)\n\t     && FLOAT_TYPE_P (ty2))\n\t (with { tree newtype = type;\n\t\t if (TYPE_MODE (ty1) == SDmode\n\t\t     || TYPE_MODE (ty2) == SDmode\n\t\t     || TYPE_MODE (type) == SDmode)\n\t\t   newtype = dfloat32_type_node;\n\t\t if (TYPE_MODE (ty1) == DDmode\n\t\t     || TYPE_MODE (ty2) == DDmode\n\t\t     || TYPE_MODE (type) == DDmode)\n\t\t   newtype = dfloat64_type_node;\n\t\t if (TYPE_MODE (ty1) == TDmode\n\t\t     || TYPE_MODE (ty2) == TDmode\n\t\t     || TYPE_MODE (type) == TDmode)\n\t\t   newtype = dfloat128_type_node; }\n\t  (if ((newtype == dfloat32_type_node\n\t\t|| newtype == dfloat64_type_node\n\t\t|| newtype == dfloat128_type_node)\n\t      && newtype == type\n\t      && types_match (newtype, type))\n\t    (op (convert:newtype @1) (convert:newtype @2))\n\t    (with { if (element_precision (ty1) > element_precision (newtype))\n\t\t      newtype = ty1;\n\t\t    if (element_precision (ty2) > element_precision (newtype))\n\t\t      newtype = ty2; }\n\t       /* Sometimes this transformation is safe (cannot\n\t\t  change results through affecting double rounding\n\t\t  cases) and sometimes it is not.  If NEWTYPE is\n\t\t  wider than TYPE, e.g. (float)((long double)double\n\t\t  + (long double)double) converted to\n\t\t  (float)(double + double), the transformation is\n\t\t  unsafe regardless of the details of the types\n\t\t  involved; double rounding can arise if the result\n\t\t  of NEWTYPE arithmetic is a NEWTYPE value half way\n\t\t  between two representable TYPE values but the\n\t\t  exact value is sufficiently different (in the\n\t\t  right direction) for this difference to be\n\t\t  visible in ITYPE arithmetic.  If NEWTYPE is the\n\t\t  same as TYPE, however, the transformation may be\n\t\t  safe depending on the types involved: it is safe\n\t\t  if the ITYPE has strictly more than twice as many\n\t\t  mantissa bits as TYPE, can represent infinities\n\t\t  and NaNs if the TYPE can, and has sufficient\n\t\t  exponent range for the product or ratio of two\n\t\t  values representable in the TYPE to be within the\n\t\t  range of normal values of ITYPE.  */\n\t      (if (element_precision (newtype) < element_precision (itype)\n\t\t   && (!VECTOR_MODE_P (TYPE_MODE (newtype))\n\t\t       || target_supports_op_p (newtype, op, optab_default))\n\t\t   && (flag_unsafe_math_optimizations\n\t\t       || (element_precision (newtype) == element_precision (type)\n\t\t\t   && real_can_shorten_arithmetic (element_mode (itype),\n\t\t\t\t\t\t\t   element_mode (type))\n\t\t\t   && !excess_precision_type (newtype)))\n\t\t   && !types_match (itype, newtype))\n\t\t (convert:type (op (convert:newtype @1)\n\t\t\t\t   (convert:newtype @2)))\n\t )))) )\n   ))\n))"
+      },
+      {
+        "enclosing_conversion_aliases": {},
+        "line": 12089,
+        "pattern": "(convert? (negate @0))",
+        "resolved_possible_root_operators": [
+          "convert",
+          "negate"
+        ],
+        "source": "(simplify\n (convert? (negate @0))\n (if (INTEGRAL_TYPE_P (type)\n      && TYPE_PRECISION (type) == 1\n      && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@0)))\n  (convert @0)))"
+      }
+    ],
+    "only_wildcard_operand_candidate_line": 5721,
+    "simplify_forms_in_both_preprocessor_branches": 882
+  },
+  "native_compiler_prover_debugger_executions": 0,
+  "no_delete_hash_population_cases": 257,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "source_files_checked": [
+    "gcc/convert.cc",
+    "gcc/fold-const.cc",
+    "gcc/genmatch.cc",
+    "gcc/gencfn-macros.cc",
+    "gcc/generic-match-head.cc",
+    "gcc/gimple-low.cc",
+    "gcc/gimple.cc",
+    "gcc/gimplify.cc",
+    "gcc/tree.cc",
+    "gcc/tree.h",
+    "gcc/tree-core.h",
+    "gcc/tree-inline.cc",
+    "gcc/stor-layout.cc",
+    "gcc/vec.h",
+    "gcc/vec.cc",
+    "gcc/hash-set.h",
+    "gcc/hash-table.h",
+    "gcc/hash-table.cc",
+    "gcc/ada/gcc-interface/trans.cc",
+    "gcc/ada/gcc-interface/decl.cc",
+    "gcc/ada/gcc-interface/utils.cc",
+    "gcc/ada/gcc-interface/utils2.cc",
+    "gcc/ada/gcc-interface/ada-tree.h",
+    "gcc/ada/gcc-interface/misc.cc",
+    "gcc/ada/sem_res.adb",
+    "gcc/ada/freeze.adb",
+    "gcc/ada/itypes.adb",
+    "gcc/match.pd"
+  ],
+  "status": "passed",
+  "whole_pipeline_capacity_established": false
+}
