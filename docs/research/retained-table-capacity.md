@@ -434,6 +434,94 @@ whole-phase node event count and selected source inventory are supplied. It
 does not establish parser recursion-stack capacity or the other auxiliary
 tables.
 
+## Main parser auxiliary transfers
+
+For one successful parse of the current Main grammar, let `F` be its number
+of `for` statements and `d` the maximum number of simultaneously enclosing
+`if`/`for` statements. An `elsif` arm does not add a scope. Relaxing the
+source/operator/value limits does not change this grammar argument. The
+selected semantic-checking/compilation modes execute `Par.Labl` after the
+parse; syntax-check-only mode is not the production premise.
+
+### Scope stack and suspicious labels
+
+The parser initializes `Scope` with one dummy entry, then pushes once for
+Main's subprogram body (`par.adb:1683–1685`, `par-ch6.adb:286`). Each nested
+`if` or `for` pushes once and its successful end matching pops once
+(`par-ch5.adb:1269–1349,1636–1685`, `par-util.adb:739–773`). The other push
+sites belong to constructs outside the Main grammar. Thus **`2+d` entries**
+bound this table's peak demand, rather than the total number of statements.
+The main-body parser reads the just-popped entry at `Scope.Last+1`
+(`par-ch5.adb:2329`); that entry was already allocated at the prior peak.
+Use the generic table envelope with low bound zero, initial length 50 and
+100-percent growth. The target layout of `Scope_Table_Entry` remains the
+component-byte input to that checker. This table bound is not a bound on the
+native call stack used by recursive parsing.
+
+`Suspicious_Labels` can grow on **valid source**. The fast bare procedure-call
+path appends an entry when its following token is `for`, among other tokens
+outside Silver's statement grammar (`par-ch5.adb:529–549`). For example,
+an admitted unqualified `Reject;` immediately followed by a `for` statement
+takes this path even though neither construct has a syntax error. The later
+end-name recovery scan does not undo the append.
+
+Let `Q` count these source-token adjacencies. Main contributes exactly `Q`
+appends, with `Q <= F`; no other admitted bare procedure call can take this
+path. In particular, Put/Put_Line have arguments, and qualified Reject uses
+the general name path. Statement parsing is not repeated by the expression
+and scanner lookahead paths documented in the
+[value component](retained-value-capacity.md#main-parser-multiplicity).
+This is the only append site in the complete parser inventory. The table is
+not reset at Main's entry: its incoming demand from earlier selected units
+must be added. Each entry has three signed 32-bit fields (12 bytes), low
+bound one, initial length 50 and 100-percent growth (`par.adb:587–602`).
+Ignoring this table because its purpose is error recovery is unsound.
+
+### Generated loop names, implicit declarations and element lists
+
+Each unlabelled source loop invokes `Set_Loop_Block_Name` once. It increments
+the package-level Nat `Loop_Block_Count`, and interns `L_` followed by that
+counter's decimal spelling (`par-ch5.adb:1667–1676,2344–2352`). Other helper
+callers are bare/while loops and blocks outside the Main grammar. There is
+no per-unit reset. With incoming counter `c`, require `c+F <= Int'Last`;
+the initial package value is zero. Each invocation contributes at most one
+name entry and **13 name characters including NUL**, since the largest
+spelling has two prefix characters and ten digits. Interning can only reduce
+that demand. Name qualification and later transformations remain separate.
+
+The loop parser also allocates one ordinary identifier node and appends its
+loop node once to `Label_List` (`par-ch5.adb:1671–1685`). After parsing,
+`Par.Labl` walks each source loop once and allocates one ordinary
+`N_Implicit_Label_Declaration` and one defining-identifier entity, appending
+the declaration to Main's existing declaration list
+(`par-labl.adb:483–540`). That list already contains the mandatory SPARK_Mode
+pragma, so this route does not allocate another ordinary list. The entity
+becomes the loop scope already counted in the
+[frontend entity component](retained-frontend-entities.md#loops-three-entities-plus-at-most-two-captures);
+do not add a second semantic scope entity for it. These helper routes therefore
+contribute **`2F` ordinary nodes, `F` entities and `F` ordinary-list links**, in
+addition to the grammar's loop/iteration/bound/index nodes and scanner nodes.
+
+`Goto_List` and `Label_List` allocate two element-list headers at parse entry.
+The former stays empty; the latter receives `F` elements. Despite the absence
+of source goto/label syntax, `Find_Natural_Loops` is called and allocates a
+third header. Its merge's remainder loop copies all `F` loop entries to that
+list; the subsequent dispatch recognizes neither labels nor gotos and does
+no rewriting (`par-labl.adb:158,242–276,426–476,538`). Thus the complete Main
+parser/label-helper contribution is **three element-list headers and `2F`
+elements**. These are `Elists`/`Elmts`, distinct from ordinary syntax lists.
+Their append/header constructors allocate one entry each; each entry has two
+32-bit fields (eight bytes). The nominal usable identity ranges each contain
+99,999,999 IDs; initialization, semantic helpers and dependencies consume
+their own shares (`elists.adb:88–137,354–371`, `types.ads:330–342,474–494`).
+Apply the separate backing-table/sentinel bounds with initial lengths 200
+and 1,200 respectively and 100-percent growth (`alloc.ads:52–56`).
+
+These transfers close the named auxiliary caller routes for Main. Ordinary
+parser/scanner node multiplicities, semantic/generated allocations, selected
+dependency parsing and other auxiliary representations still need their own
+bounds. No compiler, GNATprove or Lean run was used for this derivation.
+
 ## Individual generated names are another representation
 
 Aggregate name entries/characters do not cover every name representation.

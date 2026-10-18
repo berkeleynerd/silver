@@ -148,8 +148,13 @@ fixed library dependencies, and it does not itself count producer allocations.
 
 ## Loops: three entities plus at most two captures
 
-An unlabelled loop creates one `E_Loop` scope
-(`sem_ch5.adb:4109–4115`). The source defining identifier becomes one
+An unlabelled source loop creates one scope entity: the parser supplies its
+identifier and implicit label declaration (`par-ch5.adb:1667–1685`,
+`par-labl.adb:510–540`); semantic analysis sets that entity to `E_Label`,
+then mutates it to `E_Loop`
+(`sem_ch5.adb:2162–2176,4090–4099`). The no-identifier branch at
+`:4109–4115` is for other generated loops and is not an additional source-loop
+allocation. The source defining identifier becomes one
 `E_Loop_Parameter`. `Make_Index` creates one `E_Signed_Integer_Subtype`, marked
 as an itype by `Create_Itype` (`sem_ch5.adb:3259–3265,3434–3438`;
 `sem_ch3.adb:20712–20759`; `itypes.adb:45–85`). Explicit scalar `L .. U` cannot

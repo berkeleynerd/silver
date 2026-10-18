@@ -22,7 +22,15 @@
     "tbuild.adb": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c",
     "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
     "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
-    "par-ch4.adb": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7"
+    "par-ch4.adb": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+    "par.adb": "0660ed38f66cab0e9c2870dadff7d066174bba1c795df35562d0529ad7e4718f",
+    "par-ch5.adb": "be592a8382db8b249308949e51595dabf3a19e98e1ffe694c1e012983804c298",
+    "par-ch6.adb": "93daabccfe3b63c05289916f5241fc7822d7405a516045ed2b3fbecb8eda4480",
+    "par-util.adb": "1aec06552dcadb3afc170029c4c69f35f95e4e986f2cc0a987ae36c6c2f59292",
+    "par-endh.adb": "da28478447cbf48a35c7e0c8fc787b9a985bcf1fc0c671f7ecb452249597ee11",
+    "par-labl.adb": "cf28682a83d42c49b2a762270acf1ba5026dfaebaed68784c8aef387431bc7c8",
+    "elists.adb": "c3808beb8857481e1ef462529410997f43cc5a5a813f08040b4aa27c819669dc",
+    "sem_ch5.adb": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e"
   },
   "demand_envelope": {
     "kind": "sufficient backing-length bound; no whole-source demand established",
@@ -545,6 +553,1313 @@
     "scope": "local calls/source word interning; not generated-name caller counts or qualification/consumer closure"
   },
   "lexical_table_instance_count": 161,
+  "main_parser_auxiliaries": {
+    "scope_peak_entry_count": "2 + maximum nested if/for statement depth",
+    "scope_initial": 50,
+    "scope_increment_percent": 100,
+    "suspicious_label_appends": "Q <= F; bare Reject followed by for",
+    "suspicious_label_entry_bytes": 12,
+    "suspicious_label_initial": 50,
+    "suspicious_label_increment_percent": 100,
+    "loop_counter_delta": "F; incoming counter plus F must fit Nat",
+    "loop_name_entry_charge": "F",
+    "loop_name_character_charge": "F * 13 including NUL",
+    "element_list_headers": 3,
+    "element_list_elements": "2 * F",
+    "element_list_entry_bytes": 8,
+    "loop_auxiliary_ordinary_nodes": "2 * F",
+    "loop_auxiliary_entities": "F; same loop scopes as entity component",
+    "implicit_declaration_list_links": "F",
+    "extra_ordinary_lists": 0,
+    "lexical_sites": [
+      {
+        "file": "par-ch10.adb",
+        "line_lf": 389,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch10.adb",
+        "line_lf": 390,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch10.adb",
+        "line_lf": 391,
+        "source": "Scopes (Scope.Last).Sloc := SIS_Sloc;"
+      },
+      {
+        "file": "par-ch10.adb",
+        "line_lf": 392,
+        "source": "Scopes (Scope.Last).Ecol := SIS_Ecol;"
+      },
+      {
+        "file": "par-ch10.adb",
+        "line_lf": 393,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch12.adb",
+        "line_lf": 221,
+        "source": "and then Scope.Last > 0"
+      },
+      {
+        "file": "par-ch12.adb",
+        "line_lf": 302,
+        "source": "and then Start_Column <= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch13.adb",
+        "line_lf": 827,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch13.adb",
+        "line_lf": 828,
+        "source": "Scopes (Scope.Last).Etyp := E_Record;"
+      },
+      {
+        "file": "par-ch13.adb",
+        "line_lf": 829,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch13.adb",
+        "line_lf": 830,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3594,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3595,
+        "source": "Scopes (Scope.Last).Etyp := E_Record;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3596,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3597,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3598,
+        "source": "Scopes (Scope.Last).Labl := Error;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3599,
+        "source": "Scopes (Scope.Last).Junk := (Token /= Tok_Record);"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3675,
+        "source": "if Start_Column > Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3896,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3897,
+        "source": "Scopes (Scope.Last).Etyp := E_Case;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3898,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3899,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4511,
+        "source": "--  Get rid of active SIS entry from outer scope. This means we will"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4775,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4776,
+        "source": "Scopes (Scope.Last).Sloc := SIS_Sloc;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4777,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4778,
+        "source": "Scopes (Scope.Last).Ecol := SIS_Ecol;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4779,
+        "source": "Scopes (Scope.Last).Labl := SIS_Labl;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4780,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 4983,
+        "source": "--  Get rid of active SIS entry from outer scope. This means we will"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 72,
+        "source": "function Set_Loop_Block_Name (L : Character) return Name_Id;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 75,
+        "source": "--  incrementing the variable Loop_Block_Count."
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 354,
+        "source": "or else Start_Column < Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 377,
+        "source": "or else Start_Column < Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 401,
+        "source": "Start_Column >= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 423,
+        "source": "and then Start_Column >= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 442,
+        "source": "or else Start_Column < Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 482,
+        "source": "or else Start_Column < Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 546,
+        "source": "Suspicious_Labels.Append"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1115,
+        "source": "Append_Elmt (Label_Node, Label_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1220,
+        "source": "and then Start_Column /= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1222,
+        "source": "Error_Msg_Col := Scopes (Scope.Last).Ecol;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1269,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1270,
+        "source": "Scopes (Scope.Last).Etyp := E_If;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1271,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1272,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1273,
+        "source": "Scopes (Scope.Last).Labl := Error;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1274,
+        "source": "Scopes (Scope.Last).Node := If_Node;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1443,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1444,
+        "source": "Scopes (Scope.Last).Etyp := E_Case;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1445,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1446,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1447,
+        "source": "Scopes (Scope.Last).Labl := Error;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1448,
+        "source": "Scopes (Scope.Last).Node := Case_Node;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1493,
+        "source": "or else Start_Column > Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1590,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1591,
+        "source": "Scopes (Scope.Last).Labl := Loop_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1592,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1593,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1594,
+        "source": "Scopes (Scope.Last).Etyp := E_Loop;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1601,
+        "source": "Make_Identifier (Sloc (Loop_Node), Set_Loop_Block_Name ('L'));"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1605,
+        "source": "Scopes (Scope.Last).Labl := Created_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1610,
+        "source": "Append_Elmt (Loop_Node, Label_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1636,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1637,
+        "source": "Scopes (Scope.Last).Labl := Loop_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1638,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1639,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1640,
+        "source": "Scopes (Scope.Last).Etyp := E_Loop;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1672,
+        "source": "Make_Identifier (Sloc (Loop_Node), Set_Loop_Block_Name ('L'));"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1676,
+        "source": "Scopes (Scope.Last).Labl := Created_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1685,
+        "source": "Append_Elmt (Loop_Node, Label_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1707,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1708,
+        "source": "Scopes (Scope.Last).Labl := Loop_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1709,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1710,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1711,
+        "source": "Scopes (Scope.Last).Etyp := E_Loop;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1738,
+        "source": "Make_Identifier (Sloc (Loop_Node), Set_Loop_Block_Name ('L'));"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1742,
+        "source": "Scopes (Scope.Last).Labl := Created_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1750,
+        "source": "Append_Elmt (Loop_Node, Label_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1919,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1920,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1921,
+        "source": "Scopes (Scope.Last).Lreq := Present (Block_Name);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1922,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1923,
+        "source": "Scopes (Scope.Last).Labl := Block_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1924,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1930,
+        "source": "Make_Identifier (Sloc (Block), Set_Loop_Block_Name ('B'));"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1934,
+        "source": "Scopes (Scope.Last).Labl := Created_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1939,
+        "source": "Append_Elmt (Block, Label_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1962,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1963,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1964,
+        "source": "Scopes (Scope.Last).Lreq := Present (Block_Name);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1965,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1966,
+        "source": "Scopes (Scope.Last).Labl := Block_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1967,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1971,
+        "source": "Make_Identifier (Sloc (Block), Set_Loop_Block_Name ('B'));"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1975,
+        "source": "Scopes (Scope.Last).Labl := Created_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1980,
+        "source": "Append_Elmt (Block, Label_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1982,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 1983,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2046,
+        "source": "Append_Elmt (Goto_Node, Goto_List);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2214,
+        "source": "Error_Msg_Col := Scopes (Scope.Last).Ecol;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2223,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2226,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2243,
+        "source": "and then Scopes (Scope.Last).Etyp = E_Suspicious_Is"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2245,
+        "source": "Scopes (Scope.Last).Etyp := E_Bad_Is;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2269,
+        "source": "Error_Msg_Sloc := Scopes (Scope.Last).Sloc;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2270,
+        "source": "Error_Msg_Node_1 := Scopes (Scope.Last).Labl;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2332,
+        "source": "if Scope.Table (Scope.Last + 1).Etyp = E_Bad_Is then"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2334,
+        "source": "(\"|IS should be \"\";\"\"\", Scope.Table (Scope.Last + 1).S_Is);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2341,
+        "source": "-- Set_Loop_Block_Name --"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2344,
+        "source": "function Set_Loop_Block_Name (L : Character) return Name_Id is"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2349,
+        "source": "Loop_Block_Count := Loop_Block_Count + 1;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2350,
+        "source": "Add_Nat_To_Name_Buffer (Loop_Block_Count);"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2352,
+        "source": "end Set_Loop_Block_Name;"
+      },
+      {
+        "file": "par-ch5.adb",
+        "line_lf": 2402,
+        "source": "for J in reverse 1 .. Scope.Last loop"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 286,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 287,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 288,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 289,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 290,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 365,
+        "source": "and then Scope.Last = 1"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 399,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 591,
+        "source": "and then Start_Column >= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 809,
+        "source": "(Scopes (Scope.Last).Labl);"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 816,
+        "source": "if Scope.Last > 1 then"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 818,
+        "source": "Parent (Scopes (Scope.Last - 1).Labl);"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 970,
+        "source": "and then Start_Column <= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 971,
+        "source": "and then Scope.Last /= 1"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 973,
+        "source": "Scopes (Scope.Last).Etyp := E_Suspicious_Is;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 974,
+        "source": "Scopes (Scope.Last).S_Is := Prev_Token_Ptr;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 1055,
+        "source": "SIS_Labl := Scopes (Scope.Last).Labl;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 1056,
+        "source": "SIS_Sloc := Scopes (Scope.Last).Sloc;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 1057,
+        "source": "SIS_Ecol := Scopes (Scope.Last).Ecol;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 1320,
+        "source": "if Scope.Last > 1 then"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 2010,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 2011,
+        "source": "Scopes (Scope.Last).Ecol := Ret_Strt;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 2012,
+        "source": "Scopes (Scope.Last).Etyp := E_Return;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 2013,
+        "source": "Scopes (Scope.Last).Labl := Error;"
+      },
+      {
+        "file": "par-ch6.adb",
+        "line_lf": 2014,
+        "source": "Scopes (Scope.Last).Sloc := Ret_Sloc;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 104,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 105,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 106,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 107,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 127,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 129,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 172,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 174,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch7.adb",
+        "line_lf": 253,
+        "source": "Error_Msg_Col := Scopes (Scope.Last).Ecol;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 93,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 94,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 95,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 96,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 97,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 103,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 168,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 177,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 323,
+        "source": "--  Get rid of active SIS entry from outer scope. This means we will"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 433,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 434,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 435,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 436,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 442,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 496,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 512,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 618,
+        "source": "--  Get rid of active SIS entry from outer scope. This means we will"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1056,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1057,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1058,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1062,
+        "source": "Scopes (Scope.Last).Labl := Token_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1105,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1106,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1199,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1203,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1204,
+        "source": "Scopes (Scope.Last).Lreq := False;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1205,
+        "source": "Scopes (Scope.Last).Etyp := E_Name;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1206,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1210,
+        "source": "Scopes (Scope.Last).Labl := Name_Node;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1507,
+        "source": "Push_Scope_Stack;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1508,
+        "source": "Scopes (Scope.Last).Etyp := E_Select;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1509,
+        "source": "Scopes (Scope.Last).Ecol := Start_Column;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1510,
+        "source": "Scopes (Scope.Last).Sloc := Token_Ptr;"
+      },
+      {
+        "file": "par-ch9.adb",
+        "line_lf": 1511,
+        "source": "Scopes (Scope.Last).Labl := Error;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 50,
+        "source": "--  scope. Token and the scan pointer are set to point to the end"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 63,
+        "source": "--  scope. An appropriate message has been issued and the caller"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 184,
+        "source": "Span_Node : constant Node_Id := Scopes (Scope.Last).Node;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 298,
+        "source": "not Same_Label (End_Labl, Scopes (Scope.Last).Labl)"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 311,
+        "source": "End_Labl := Scopes (Scope.Last).Labl;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 395,
+        "source": "and then Explicit_Start_Label (Scope.Last)"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 396,
+        "source": "and then Nkind (Parent (Scopes (Scope.Last).Labl))"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 399,
+        "source": "Style.No_End_Name (Scopes (Scope.Last).Labl);"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 751,
+        "source": "for J in 1 .. Suspicious_Labels.Last loop"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 754,
+        "source": "Suspicious_Labels.Table (J);"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 916,
+        "source": "if Scopes (Scope.Last).Junk then"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 920,
+        "source": "End_Type := Scopes (Scope.Last).Etyp;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 921,
+        "source": "Error_Msg_Col  := Scopes (Scope.Last).Ecol;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 922,
+        "source": "Error_Msg_Sloc := Scopes (Scope.Last).Sloc;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 924,
+        "source": "if Explicit_Start_Label (Scope.Last) then"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 925,
+        "source": "Error_Msg_Node_1 := Scopes (Scope.Last).Labl;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1016,
+        "source": "Scopes (Scope.Last).Etyp := E_Bad_Is;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1031,
+        "source": "if Scopes (Scope.Last).Junk then"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1035,
+        "source": "End_Type := Scopes (Scope.Last).Etyp;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1036,
+        "source": "Error_Msg_Sloc   := Scopes (Scope.Last).Sloc;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1038,
+        "source": "if Explicit_Start_Label (Scope.Last) then"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1039,
+        "source": "Error_Msg_Node_1 := Scopes (Scope.Last).Labl;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1077,
+        "source": "Scopes (Scope.Last).Etyp := E_Bad_Is;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1142,
+        "source": "and then Scope.Last > 1"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1153,
+        "source": "Evaluate_End_Entry (Scope.Last);"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1166,
+        "source": "if End_Column /= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1167,
+        "source": "and then Current_Line_Start > Scopes (Scope.Last).Sloc"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1172,
+        "source": "and then (Scopes (Scope.Last).Etyp /= E_Record"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1176,
+        "source": "Error_Msg_Col := Scopes (Scope.Last).Ecol;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1209,
+        "source": "(Scope.Last = 1"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1211,
+        "source": "not Explicit_Start_Label (Scope.Last - 1)"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1215,
+        "source": "Scopes (Scope.Last - 1).Labl))"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1268,
+        "source": "or else Scopes (Scope.Last).Etyp = E_Record;"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1274,
+        "source": "for J in reverse 1 .. Scope.Last - 1 loop"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1328,
+        "source": "or else End_Column <= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1329,
+        "source": "or else (End_Type = Scopes (Scope.Last).Etyp"
+      },
+      {
+        "file": "par-endh.adb",
+        "line_lf": 1339,
+        "source": "--  us that it nevertheless belongs to the current scope. For this"
+      },
+      {
+        "file": "par-labl.adb",
+        "line_lf": 69,
+        "source": "Next_Other_Label_Elmt : Elmt_Id := First_Elmt (Label_List);"
+      },
+      {
+        "file": "par-labl.adb",
+        "line_lf": 242,
+        "source": "L1 := First_Elmt (Label_List);"
+      },
+      {
+        "file": "par-labl.adb",
+        "line_lf": 243,
+        "source": "G1 := First_Elmt (Goto_List);"
+      },
+      {
+        "file": "par-labl.adb",
+        "line_lf": 483,
+        "source": "Next_Label_Elmt := First_Elmt (Label_List);"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 193,
+        "source": "and then Start_Column <= Scopes (Scope.Last).Ecol"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 673,
+        "source": "elsif Scopes (Scope.Last).Etyp /= E_Case then"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 741,
+        "source": "pragma Assert (Scope.Last > 0);"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 742,
+        "source": "Scope.Decrement_Last;"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 745,
+        "source": "Error_Msg_Uint_1 := UI_From_Int (Scope.Last);"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 751,
+        "source": "-- Push_Scope_Stack --"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 754,
+        "source": "procedure Push_Scope_Stack is"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 756,
+        "source": "Scope.Increment_Last;"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 759,
+        "source": "and then Scope.Last = Style_Max_Nesting_Level + 1"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 766,
+        "source": "Scopes (Scope.Last).Junk := False;"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 767,
+        "source": "Scopes (Scope.Last).Node := Empty;"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 770,
+        "source": "Error_Msg_Uint_1 := UI_From_Int (Scope.Last);"
+      },
+      {
+        "file": "par-util.adb",
+        "line_lf": 773,
+        "source": "end Push_Scope_Stack;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 65,
+        "source": "Loop_Block_Count : Nat := 0;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 272,
+        "source": "--  scope. In the above case, this could result for example in a bogus"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 424,
+        "source": "Goto_List : Elist_Id;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 429,
+        "source": "Label_List : Elist_Id;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 446,
+        "source": "--  Type of end entry required for this scope. The last two entries are"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 541,
+        "source": "--  stack pointer, so that Scope.Table (Scope.Last) is the top entry. The"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 560,
+        "source": "--  like Scopes (Scope.Last).Something. Note that there is one place in"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 565,
+        "source": "pragma Assert (Index in Scope.First .. Scope.Last);"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 566,
+        "source": "return Scope.Table (Index)'Unrestricted_Access;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1146,
+        "source": "--  the Scope.Table to describe the expected form of the end. This can"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1428,
+        "source": "procedure Push_Scope_Stack;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1429,
+        "source": "pragma Inline (Push_Scope_Stack);"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1430,
+        "source": "--  Push a new entry onto the scope stack. Scope.Last (the stack pointer)"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1433,
+        "source": "--  entry at Scopes (Scope.Last)."
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1439,
+        "source": "--  Scope.Last must be non-zero at the time of call)."
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1683,
+        "source": "Scope.Init;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1684,
+        "source": "Scope.Increment_Last;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1689,
+        "source": "Goto_List  := New_Elmt_List;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1690,
+        "source": "Label_List := New_Elmt_List;"
+      },
+      {
+        "file": "par.adb",
+        "line_lf": 1828,
+        "source": "pragma Assert (Scope.Last = 0);"
+      },
+      {
+        "file": "par_sco.adb",
+        "line_lf": 1240,
+        "source": "--  subprogram with nodes that are out of the SCO generation scope."
+      }
+    ],
+    "scope": "one successful Main parse and Par.Labl, current grammar; not ordinary parser nodes/scanner multiplicities or dependency parsing"
+  },
   "parenthesis_counts": {
     "lexical_setter_sites": [
       {

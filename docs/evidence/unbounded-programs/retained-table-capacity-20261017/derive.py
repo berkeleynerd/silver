@@ -13,7 +13,9 @@ a = p.parse_args()
 files = ['table.ads', 'table.adb', 'types.ads', 'alloc.ads', 'atree.ads',
          'atree.adb', 'nlists.adb', 'namet.ads', 'namet.adb', 'sinput.adb',
          'stringt.adb', 'uintp.adb', 'exp_dbug.adb', 'scng.adb', 'hostparm.ads',
-         'tbuild.adb', 'lib.adb', 'sem_ch3.adb', 'par-ch4.adb']
+         'tbuild.adb', 'lib.adb', 'sem_ch3.adb', 'par-ch4.adb', 'par.adb',
+         'par-ch5.adb', 'par-ch6.adb', 'par-util.adb', 'par-endh.adb',
+         'par-labl.adb', 'elists.adb', 'sem_ch5.adb']
 pin = '6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea'
 repository = Path(__file__).resolve().parents[4]
 manifest_path = repository / 'docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json'
@@ -65,6 +67,7 @@ def growth(initial, increment):
 
 instances = []
 paren_count_sites = []
+parser_auxiliary_sites = []
 inventory_paths = sorted(path for path in a.ada_source.iterdir()
                          if path.suffix in ('.ads', '.adb') and path.is_file())
 expected_names = {name for name in expected
@@ -78,6 +81,14 @@ for path in inventory_paths:
         number = source.count('\n', 0, match.start()) + 1
         paren_count_sites.append({'file': path.name, 'line_lf': number,
                                   'source': lines[number - 1].strip()})
+    if path.name.startswith('par'):
+        for number, line in enumerate(lines, 1):
+            if re.search(r'\b(?:Push_Scope_Stack|Loop_Block_Count|'
+                         r'Set_Loop_Block_Name|Goto_List|Label_List)\b|'
+                         r'\b(?:Scope|Suspicious_Labels)\s*\.', line, re.I):
+                parser_auxiliary_sites.append({'file': path.name,
+                                               'line_lf': number,
+                                               'source': line.strip()})
     # Lexical inventory only: comments, reachability, alternate allocators and
     # generated sources require separate source review, not inference here.
     for m in re.finditer(r'package\s+(\w+)\s+is\s+new\s+Table\.Table\s*\((.*?)\);', source, re.S | re.I):
@@ -164,6 +175,28 @@ result = {
         'scope': 'local calls/source word interning; not generated-name caller counts or qualification/consumer closure',
     },
     'lexical_table_instance_count': len(instances),
+    'main_parser_auxiliaries': {
+        'scope_peak_entry_count': '2 + maximum nested if/for statement depth',
+        'scope_initial': 50,
+        'scope_increment_percent': 100,
+        'suspicious_label_appends': 'Q <= F; bare Reject followed by for',
+        'suspicious_label_entry_bytes': 12,
+        'suspicious_label_initial': 50,
+        'suspicious_label_increment_percent': 100,
+        'loop_counter_delta': 'F; incoming counter plus F must fit Nat',
+        'loop_name_entry_charge': 'F',
+        'loop_name_character_charge': 'F * 13 including NUL',
+        'element_list_headers': 3,
+        'element_list_elements': '2 * F',
+        'element_list_entry_bytes': 8,
+        'loop_auxiliary_ordinary_nodes': '2 * F',
+        'loop_auxiliary_entities': 'F; same loop scopes as entity component',
+        'implicit_declaration_list_links': 'F',
+        'extra_ordinary_lists': 0,
+        'lexical_sites': parser_auxiliary_sites,
+        'scope': 'one successful Main parse and Par.Labl, current grammar; '
+                 'not ordinary parser nodes/scanner multiplicities or dependency parsing',
+    },
     'parenthesis_counts': {
         'lexical_setter_sites': paren_count_sites,
         'auxiliary_entry_bytes': 8,
