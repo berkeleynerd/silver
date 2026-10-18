@@ -9953,6 +9953,26 @@
     "scope": "Gigi file-info interning only; all other compiler allocations remain separate",
     "varying_full_path_count": 2
   },
+  "controlled_binder_capture": {
+    "argument_bytes_with_terminators": 303,
+    "argument_count": 6,
+    "binder_duration_seconds": 0.012159347534179688,
+    "complete_child_environment": {
+      "ADA_PRJ_OBJECTS_FILE": "/tmp/silver-binder-fixed-20261018/temporary/GPR.404292/GNAT-TEMP-000002.TMP",
+      "LC_ALL": "C",
+      "PATH": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+      "TMPDIR": "/tmp/silver-binder-fixed-20261018/temporary"
+    },
+    "generated_source_hash_equal": true,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "managed_duration_seconds": 2.003563374,
+    "managed_run": "20261018T104855-09a597637815",
+    "retained_inputs_unchanged": true,
+    "returncode": 0,
+    "scope": "one controlled binder process; no historical GPR environment reconstruction or compiler/object claim",
+    "source_argument_bound_for_this_root": 311,
+    "temporary_root_bytes": 43
+  },
   "generated_source_bound": {
     "aligned_combined_at_example": 40960,
     "body_constant_bytes": 7483,
@@ -10066,6 +10086,7 @@
       "system__soft_links__initialize___elabb",
       "system__traceback__symbolic___elabb"
     ],
+    "observed_gnu_ifunc_symbols": 0,
     "observed_gnu_warning_sections": 0,
     "observed_object_additional_names": [
       "ada__containers___elabs",
@@ -10090,7 +10111,8 @@
     ],
     "observed_source_external_name_count": 152,
     "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
-    "selected_explicit_section_and_assembly_ingress_absent": true
+    "selected_explicit_section_and_assembly_ingress_absent": true,
+    "selected_ifunc_attribute_and_lto_ingress_absent": true
   },
   "selected_binder_arguments": {
     "argument_count": 6,
@@ -10115,6 +10137,26 @@
     "size_including_argument_terminators_at_tmp_root": 233,
     "temp_path_bound_at_tmp_root": 40,
     "tmp_root_example_bytes": 4
+  },
+  "selected_search_directories": {
+    "each_table_initial_capacity": 10,
+    "library_table_demand_including_primary": 3,
+    "premises": [
+      "no extra configured binder search switch",
+      "ADA_INCLUDE_PATH, ADA_OBJECTS_PATH, ADA_PRJ_INCLUDE_FILE empty or absent",
+      "ADA_PRJ_OBJECTS_FILE is the generated one-row project file",
+      "default runtime and absent optional installed search files",
+      "fixed absolute binder executable; absent GNSA_ROOT/GCC_ROOT and fixed filesystem"
+    ],
+    "project_directory_normalized_bytes": 114,
+    "project_object_directory_rows": 1,
+    "project_object_path_file_bytes_bound": 115,
+    "runtime_library_directory_bytes": 181,
+    "runtime_path_iteration_copy_bytes_bound": 366,
+    "runtime_source_directory_bytes": 185,
+    "scope": "source-derived descriptor; no retained GPR child environment capture",
+    "source_table_demand_including_primary": 2,
+    "three_normalized_directory_payload_bytes": 480
   },
   "signature_hash_max_bytes": 37
 }

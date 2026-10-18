@@ -113,6 +113,7 @@ def analyze(artifacts, sources):
         assert not re.search(rb"\b(?:Machine_Code|Asm|Asm_Input|Asm_Output)\b", outside_comments(spec+body), re.I)
         e = elf(obj)
         assert all("@" not in s for s in e["external_names"])
+        assert all(s["type"] != 10 for s in e["symbols"])  # STT_GNU_IFUNC
         result["cases"][case] = {
             "spec": digest(spec), "body": digest(body),
             "spec_lf_lines": spec.count(b"\n"), "body_lf_lines": body.count(b"\n"),
@@ -153,6 +154,12 @@ def analyze(artifacts, sources):
         "gcc/config/i386/att.h", "gcc/ada/gcc-interface/utils.cc"))
     assert all(not s["name"].startswith(".gnu.warning")
                for s in result["cases"]["indexed-lf"]["object"]["sections"])
+    assert b'#define IFUNC_ASM_TYPE "gnu_indirect_function"' in sources["gcc/defaults.h"]
+    assert b"&& cgraph_node::get (decl)->ifunc_resolver)" in sources["gcc/varasm.cc"]
+    assert b"ifunc_resolver (false)" in sources["gcc/cgraph.h"]
+    assert re.findall(rb'if \(lookup_attribute \("ifunc", DECL_ATTRIBUTES \((\w+)\)\)\)\s+'
+                      rb'\w+->ifunc_resolver = true;', sources["gcc/cgraph.cc"]) == [b"decl", b"alias"]
+    assert b'node->ifunc_resolver = 1;' in sources["gcc/lto-cgraph.cc"]
     selected_interfaces = re.findall(rb'pragma\s+(?:Import|Export)\s*\([^;]+"([^"\n]+)"\s*\)',
                                     outside_comments(selected_source), re.I)
     assert all(b"@" not in s for s in selected_interfaces)
@@ -174,6 +181,8 @@ def analyze(artifacts, sources):
         "observed_object_additional_names": sorted(observed_extra_names),
         "selected_explicit_section_and_assembly_ingress_absent": True,
         "observed_gnu_warning_sections": 0,
+        "observed_gnu_ifunc_symbols": 0,
+        "selected_ifunc_attribute_and_lto_ingress_absent": True,
         "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
     }
     # Only the three workspace comment lines change in these retained cases.
@@ -284,6 +293,103 @@ def analyze(artifacts, sources):
         "scan_retained_string_bytes_at_tmp_root": main_ali_path+13+2*40,
         "main_directory_two_copy_bytes": 2*len(paths[1]),
         "scope": "six-argument descriptor; exchange-row producer/configuration and search storage remain separate",
+    }
+    common_gnat_config = artifacts["configuration/gnat.xml"].split(b"<!-- CUDA -->")[0]
+    assert b'for Mapping_File_Switches    ("Ada") use ("-gnatem=");' in common_gnat_config
+    assert b'for Objects_Path_File     ("Ada") use "ADA_PRJ_OBJECTS_FILE";' in common_gnat_config
+    assert b"Use_Include_Path_File : Boolean := False;" in sources["gpr/gpr/src/gpr-opt.ads"]
+    result["selected_search_directories"] = {
+        "project_object_directory_rows": 1,
+        "project_object_path_file_bytes_bound": len(paths[1])+1,
+        "source_table_demand_including_primary": 2,
+        "library_table_demand_including_primary": 3,
+        "each_table_initial_capacity": 10,
+        "project_directory_normalized_bytes": len(paths[1]),
+        "runtime_library_directory_bytes": len(paths[3]),
+        "runtime_source_directory_bytes": len(paths[3])+4,
+        "three_normalized_directory_payload_bytes": len(paths[1])+2*len(paths[3])+4,
+        "runtime_path_iteration_copy_bytes_bound": 2*len(paths[3])+4,
+        "premises": ["no extra configured binder search switch",
+                     "ADA_INCLUDE_PATH, ADA_OBJECTS_PATH, ADA_PRJ_INCLUDE_FILE empty or absent",
+                     "ADA_PRJ_OBJECTS_FILE is the generated one-row project file",
+                     "default runtime and absent optional installed search files",
+                     "fixed absolute binder executable; absent GNSA_ROOT/GCC_ROOT and fixed filesystem"],
+        "scope": "source-derived descriptor; no retained GPR child environment capture",
+    }
+    # Reconcile the one controlled binder run, without executing it again.
+    prefix = "controlled-capture/"
+    invocation = json.loads(artifacts[prefix+"invocation.json"])
+    captured = json.loads(artifacts[prefix+"result.json"])
+    input_manifest = json.loads(artifacts[prefix+"input-manifest.json"])
+    original_members = input_manifest["archives"]["artifacts.tar.gz"]["members"]
+    for name, row in original_members.items():
+        assert digest(artifacts[name]) == {k: row[k] for k in ("bytes", "sha256")}
+    argv, environment = invocation["argv"], invocation["environment"]
+    assert len(argv) == 7 and argv[1:3] == ["-o", "b__main~1.adb"] and argv[4] == "-x"
+    assert argv[0].endswith("/bin/gnatbind") and argv[3].endswith("/obj/main~1.ali")
+    assert argv[5].startswith("-F=") and argv[6].startswith("-O=")
+    assert set(environment) == {"PATH", "LC_ALL", "TMPDIR", "ADA_PRJ_OBJECTS_FILE"}
+    assert environment["LC_ALL"] == "C"
+    assert environment["PATH"] == str(Path(argv[0]).parent)+":/usr/bin:/bin"
+    assert len(environment["TMPDIR"]) == captured["temporary_root_bytes"] == 43
+    assert len(argv[3]) == main_ali_path
+    temporary_names = {argv[5][3:], environment["ADA_PRJ_OBJECTS_FILE"], argv[6][3:]}
+    assert all(p.startswith(environment["TMPDIR"]+"/GPR.") for p in temporary_names)
+    assert all(len(p) <= captured["temporary_root_bytes"]+36 for p in temporary_names)
+    assert set(invocation["temporary_input_files"]) == {argv[5][3:], environment["ADA_PRJ_OBJECTS_FILE"]}
+    for path, row in invocation["temporary_input_files"].items():
+        raw = artifacts[prefix+"temporary/"+Path(path).name]
+        assert digest(raw) == row["identity"] and raw.decode() == row["text"]
+    assert invocation["temporary_input_files"][argv[5][3:]]["text"] == ""
+    object_directory = str(Path(argv[3]).parent)+"/\n"
+    assert invocation["temporary_input_files"][environment["ADA_PRJ_OBJECTS_FILE"]]["text"] == object_directory
+    assert len(object_directory) == result["selected_search_directories"]["project_object_path_file_bytes_bound"]
+    required_inputs = {row["original_path"]: {k: row[k] for k in ("bytes", "sha256")}
+                       for name, row in original_members.items()
+                       if name.startswith(("closure/", "compiler-support/")) or
+                       name in ("cases/indexed-cr/b__main~1.ads", "cases/indexed-cr/b__main~1.adb")}
+    for path, row in required_inputs.items():
+        assert invocation["input_identities"][path] == row
+    assert set(invocation["input_identities"]) == set(required_inputs) | {argv[0]}
+    for suffix in ("ads", "adb"):
+        name = "b__main~1."+suffix
+        raw = artifacts[prefix+"output/"+name]
+        assert raw == artifacts["cases/indexed-cr/"+name]
+        assert digest(raw) == captured["generated"][name]
+        assert captured["matches_original_indexed_source"][name] is True
+    assert set(captured["generated"]) == {"b__main~1.ads", "b__main~1.adb"}
+    object_list = artifacts[prefix+"temporary/"+Path(argv[6][3:]).name]
+    assert object_list.decode() == captured["object_list"]["text"] == argv[3][:-4]+".o\n"
+    assert digest(object_list) == captured["object_list"]["identity"]
+    assert not artifacts[prefix+"stdout"] and not artifacts[prefix+"stderr"]
+    assert captured["returncode"] == captured["stdout_bytes"] == captured["stderr_bytes"] == 0
+    assert captured["retained_inputs_unchanged"] is True
+    assert captured["host"].startswith("Linux-")
+    assert captured["selected_argument_count"] == 6
+    assert sum(len(a)+1 for a in argv[1:]) == captured["selected_argument_bytes_with_terminators"] == 303
+    events = [json.loads(line) for line in artifacts[prefix+"managed/events.jsonl"].splitlines()]
+    prepared, = [e for e in events if e["event"] == "prepared"]
+    managed_pins = prepared["inputs"]["inputs_sha256"]
+    manifest_pin, = [v for p,v in managed_pins.items() if p.endswith("/retained-binder-capacity-20261018/manifest.json")]
+    script_pin, = [v for p,v in managed_pins.items() if p.endswith("/silver-binder-fixed-20261018/run.py")]
+    assert manifest_pin == digest(artifacts[prefix+"input-manifest.json"])["sha256"]
+    assert script_pin == digest(artifacts[prefix+"run.py"])["sha256"]
+    assert managed_pins[argv[0]] == invocation["input_identities"][argv[0]]["sha256"]
+    finished, = [e for e in events if e["event"] == "finished"]
+    assert finished["outcome"] == "success"
+    native_end, = [e for e in events if e["event"] == "phase-end" and e["phase"] == "native-tool"]
+    assert native_end["returncode"] == 0
+    result["controlled_binder_capture"] = {
+        "managed_run": finished["run_id"], "host": captured["host"],
+        "binder_duration_seconds": captured["duration_seconds"],
+        "managed_duration_seconds": finished["duration_seconds"],
+        "returncode": 0, "retained_inputs_unchanged": True,
+        "generated_source_hash_equal": True,
+        "complete_child_environment": environment,
+        "argument_count": 6, "argument_bytes_with_terminators": 303,
+        "temporary_root_bytes": 43,
+        "source_argument_bound_for_this_root": main_ali_path+argv_constant+2*(43+36),
+        "scope": "one controlled binder process; no historical GPR environment reconstruction or compiler/object claim",
     }
     compiler_support = {k.removeprefix("compiler-support/"): digest(v)
                         for k,v in artifacts.items() if k.startswith("compiler-support/")}
@@ -476,6 +582,10 @@ def analyze(artifacts, sources):
 
 def main():
     manifest = json.loads((ROOT / "manifest.json").read_text())
+    absent = manifest["optional_default_search_files"]
+    assert set(absent) == {"ada_source_path", "ada_object_path"}
+    for name, row in absent.items():
+        assert row["path"].endswith("/16.1.0/"+name) and row["exists_at_collection"] is False
     for name, record in manifest["archives"].items():
         raw = (ROOT / name).read_bytes()
         assert digest(raw) == record["archive"]

@@ -29,6 +29,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repair-installation", type=Path, required=True)
     parser.add_argument("--native-option-probe", type=Path, required=True)
+    parser.add_argument("--binder-capture", type=Path, required=True)
+    parser.add_argument("--binder-managed-run", type=Path, required=True)
     parser.add_argument("--gcc-ada", type=Path, required=True)
     parser.add_argument("--gcc-backend", type=Path, required=True)
     parser.add_argument("--gpr-source", type=Path, required=True)
@@ -54,7 +56,20 @@ def main():
     for file in ("main.ali", "b__main.ads", "b__main.adb", "b__main.ali", "b__main.o"):
         add(artifacts, f"cases/unindexed-proposed/{file}", old/"obj"/file)
     add(artifacts, "cases/unindexed-proposed/build.stdout", old/"build.stdout")
+    for file in ("run.py", "input-manifest.json", "invocation.json", "result.json", "stdout", "stderr",
+                 "output/b__main~1.ads", "output/b__main~1.adb"):
+        add(artifacts, "controlled-capture/"+file, args.binder_capture/file)
+    for path in sorted((args.binder_capture/"temporary").glob("GPR.*/*.TMP")):
+        add(artifacts, "controlled-capture/temporary/"+path.name, path)
+    for file in ("events.jsonl", "native.log"):
+        add(artifacts, "controlled-capture/managed/"+file, args.binder_managed_run/file)
     adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+    add(artifacts, "configuration/gnat.xml",
+        install/".tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/gnat.xml")
+    optional_default_search_files = {
+        name: {"path": str(adalib.parent/name), "exists_at_collection": (adalib.parent/name).exists()}
+        for name in ("ada_source_path", "ada_object_path")}
+    assert all(not row["exists_at_collection"] for row in optional_default_search_files.values())
     for file in ["system.ads", "s-parame.ads", "s-secsta.ads", "s-stoele.ads"]:
         add(artifacts, "compiler-support/"+file, adalib.parent/"adainclude"/file)
     obj = install/".silver/linux-x86_64/program-RibQE3/obj"
@@ -82,22 +97,23 @@ def main():
                  "uname.adb", "targparm.adb", "csets.adb", "uintp.adb", "scans.adb", "fname.adb",
                  "exp_attr.adb", "exp_tss.adb", "exp_tss.ads", "sem_util.adb", "exp_ch11.adb", "adaint.c",
                  "gcc-interface/utils.cc", "gcc-interface/ada-builtins.def",
-                 "osint.ads", "output.adb", "output.ads", "hostparm.ads", "link.c"]
+                 "osint.ads", "output.adb", "output.ads", "hostparm.ads", "link.c", "Make-generated.in"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc", "stringpool.cc",
-                     "langhooks.cc", "cgraphclones.cc", "cgraphunit.cc", "symtab.cc", "defaults.h",
+                     "langhooks.cc", "cgraphclones.cc", "cgraphunit.cc", "cgraph.cc", "cgraph.h",
+                     "lto-cgraph.cc", "symtab.cc", "defaults.h",
                      "builtins.def", "sync-builtins.def", "omp-builtins.def", "gtm-builtins.def",
                      "sanitizer.def", "coroutine-builtins.def", "optabs.def", "optabs-libfuncs.cc",
                      "config/i386/i386.cc", "config/i386/i386.h", "config/i386/i386-features.cc",
                      "config/i386/i386-builtins.cc", "config/i386/i386-builtins.h",
-                     "config/i386/i386-builtin.def", "config/i386/att.h", "config/elfos.h"]
+                     "config/i386/i386-builtin.def", "config/i386/att.h", "config/elfos.h", "prefix.cc"]
     for file in backend_files:
         add(sources, "gcc/"+file, args.gcc_backend/file)
     add(sources, "libcpp/symtab.cc", args.gcc_backend.parent/"libcpp/symtab.cc")
     for file in ["src/gprbind.adb", "src/gprbuild-post_compile.adb",
                  "gpr/src/gpr_build_util.adb", "gpr/src/gpr-tempdir.adb",
-                 "gpr/src/gpr-util.ads"]:
+                 "gpr/src/gpr-util.ads", "src/gprbuild-compile.adb", "gpr/src/gpr-opt.ads"]:
         add(sources, "gpr/"+file, args.gpr_source/file)
     for file in ["silver.adb", "silver_platform.adb"]:
         add(sources, "silver/src/"+file, install/"src"/file)
@@ -118,6 +134,7 @@ def main():
     (args.output/"result.json").write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")
     manifest = {"gcc_commit": gcc_manifest["commit"], "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
                 "source_identity_scope": "retained source pins, not historical binary build attestation",
+                "optional_default_search_files": optional_default_search_files,
                 "archives": {"sources.tar.gz": archive(args.output, "sources.tar.gz", sources),
                              "artifacts.tar.gz": archive(args.output, "artifacts.tar.gz", artifacts)}}
     (args.output/"manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True)+"\n")

@@ -9,9 +9,10 @@ the observed object inventory below is **not yet a universal object bound**.
 
 The [portable evidence](../evidence/retained-binder-capacity-20261018/README.md)
 contains complete reviewed source files, the selected ALI closure and existing
-generated sources/objects. No compiler, binder, assembler, linker, prover or
-Lean process ran for this component. Existing successful executions are reused
-only with their original identities and scope.
+generated sources/objects. The extension includes one controlled binder-only
+capture, described below. No compiler build, assembler/linker execution, prover
+run or Lean check was performed for this component. Existing successful
+executions are reused only with their original identities and scope.
 
 ## Descriptor and input contract
 
@@ -642,6 +643,111 @@ argument/file payloads and arrays. Default-path/environment reads,
 search-directory normalization and tables, OS spawn storage and GPR vectors
 remain separate allocations; none is assigned zero by this calculation.
 
+### Selected search-directory and default-relocation projection
+
+This join makes the search environment premise concrete. It selects the
+default native runtime, no extra binder search switch, empty or absent
+`ADA_INCLUDE_PATH`, `ADA_OBJECTS_PATH` and `ADA_PRJ_INCLUDE_FILE`, and the
+one generated `ADA_PRJ_OBJECTS_FILE`. The optional installed
+`ada_source_path`/`ada_object_path` files are absent. The collector records
+their absence at the retained installation on this date, not an observation
+of a historical child environment. The packet also retains the installed
+`gnat.xml` configuration fragment. No raw GPR child environment was captured.
+
+The standard GNAT configuration uses `-gnatem=` mapping and
+`ADA_PRJ_OBJECTS_FILE`. With the default `Use_Include_Path_File=False`, the
+compiler preparation route does not create an include-path file when mapping
+switches exist (`gprbuild-compile.adb:3363–3370`, `gpr-opt.ads:241`). The
+project has one source directory, one object directory, and no imported or
+extended project. `Get_Directories` visits that sole project; its
+`Executable_Binding` route adds only its object directory
+(`gpr_build_util.adb:595–750`). `gprbuild-post_compile.adb:4857–4924` writes
+each selected directory followed by LF and sets `ADA_PRJ_OBJECTS_FILE` to
+that file. Thus this input has **one row**, at most `K+21 = 115 bytes`
+including LF. It cannot grow with Main's comments, case or source size.
+
+`Osint.Add_Default_Search_Dirs` reads that file, normalizes its directory,
+then adds the fixed default source/library paths (`osint.adb:456–565`).
+`Get_Dirs_From_File` allocates exactly the input byte count, and its local
+C-compatible filename is the temporary-path length plus one (`:361–427`).
+The four `Getenv` reads copy their values once; under this descriptor only
+the object-file variable has a nonempty payload, bounded by `T_root+36`
+(`s-os_lib.adb:1177–1201`). Those environment strings are not `Namet` entries.
+
+Both search tables reserve primary slot zero and start at ten pointer slots
+(`osint.adb:220–237,1712–1736`). There are at most **two source slots**
+(empty primary plus default include) and **three library slots** (primary,
+project object directory and default runtime library). No table growth occurs.
+Library insertion compares directory text and may deduplicate, but the bound
+charges every successful insertion event. Source insertion does not deduplicate
+(`:592–657`). The later Main-file selection sets its primary library slot to
+the workspace object directory; this explains the two equal workspace `-L`
+comments rather than treating them as one allocation.
+
+The three directory-normalization calls copy at most **480 characters**:
+114 for the project object directory, 185 for the runtime source directory
+and 181 for the runtime library directory. `Normalize_Directory_Name` copies
+a trailing-separator path unchanged or appends one separator; it performs
+no filesystem traversal (`osint.adb:2100–2152`). The two default-path iterator
+calls separately allocate at most **366 characters** before normalization
+(`:1487–1514`). The earlier 228-byte pair of Main-directory copies remains
+additional; it is not absorbed into the project-directory contribution.
+
+The remaining default relocation work has fixed inputs independent of this
+Main family. `Make-generated.in:49–72` constructs `Sdefault` from the tool's
+fixed installation strings. Gprbind invokes the fixed absolute binder
+executable, so `Executable_Prefix` takes its path-bearing branch, and
+`Normalize_Pathname` takes its absolute-name branch without consulting the
+variable working directory (`osint.adb:955–1015`,
+`s-os_lib.adb:2254–2283`). Retain the fixed symlink/filesystem and absence of
+`GNSA_ROOT` and `GCC_ROOT` as descriptor inputs.
+`Relocate_Path`/`Update_Path` and the C prefix translator then read only those
+fixed values, their fixed initialized prefix state and installed paths
+(`osint.adb:2833–2884,3228–3250`, `prefix.cc:90–123,182–225,248–352`).
+
+Consequently that isolated default-relocation execution, including C scratch
+allocations, reduces to the successful fixed execution under those same
+inputs. The four `Sdefault` return Strings, four separate `Update_Path`
+result copies and C allocations are discharged by this read projection;
+they are not assigned the size of only the final directory strings.
+`Read_Default_Search_Dirs` takes
+its absent-file return before allocating or expanding any file contents
+(`osint.adb:2324–2375`). Its filename scratch has the fixed prefix, the
+15-character `ada_source_path` or `ada_object_path` name and one NUL.
+
+This closes the selected directory acquisition, its table growth and the
+default-relocation representations under the explicit descriptor. A changed
+environment/search file, runtime, executable path or symlink selection needs
+its own accounting. GPR's project/vector storage, native spawn, later
+filesystem caches and the binder compiler remain separate; this result is
+not a whole-driver or whole-binder allocation total.
+
+### Controlled descriptor witness
+
+Managed run `20261018T104855-09a597637815` executed the retained indexed binder
+once with precisely that environment descriptor, fresh output/temporary
+directories and the original Main/runtime ALIs kept at their retained paths.
+The child environment contains only the selected tool `PATH`, `LC_ALL=C`,
+`TMPDIR` and the one-row `ADA_PRJ_OBJECTS_FILE`. The packet records the exact
+arguments, environment, input identities, temporary file contents, script,
+pre-extension input manifest and managed log/events. This is new controlled
+evidence, not a reconstruction of the historical GPR child environment.
+
+The binder exited zero in **0.0122 seconds** (managed run **2.0036 seconds**),
+with empty stdout/stderr. Both generated files hash-equal the indexed witness:
+14,556-byte spec and 8,014-byte body. The 61 closure ALIs, four compiler-support
+specs, two retained generated sources and binder executable were hashed before
+and after and remained unchanged. The capture's temporary root is 43 bytes,
+so the general command formula gives **311 bytes**; its six actual arguments
+use **303 bytes** including terminators. The earlier 233-byte `/tmp` bound is
+not claimed for this scratch root.
+
+This supplies the fixed successful execution used by the default-relocation
+read projection. It adds no compiler/object witness and does not close the
+initial GPR exchange or GPR project/vector storage. The offline checker
+reconciles the captured bytes and managed input pins without running the
+binder again.
+
 ## Fixed library/invocation graph projection
 
 The graph core reads a fixed logical input under the null ALI contract:
@@ -742,6 +848,22 @@ linker-warning route. Consequently a warning-section suffix cannot introduce
 a new `@` name through the linker's separate warning-symbol path. This is
 the additional warning-name premise needed by the linker; the zero warning
 sections observed in the retained object only corroborate it.
+
+The generated binder object also has **no GNU IFUNC symbol**, local or
+nonlocal. The ELF alias emitter uses `IFUNC_ASM_TYPE` only when its call-graph
+node has `ifunc_resolver` set (`varasm.cc:6558–6565`); the fixed spelling is
+`gnu_indirect_function` (`defaults.h:111–112`). That flag starts false
+(`cgraph.h:154`). Ordinary node and alias creation set it only for an `ifunc`
+attribute (`cgraph.cc:674–675,732–733`); LTO deserialization can also set it
+(`lto-cgraph.cc:1359`), but LTO is excluded by this descriptor.
+The x86 automatic resolver route introduces the attribute for function
+multiversioning (`i386-features.cc:5679–5685`); the selected generated sources
+and four dependency specs have neither target/target-clone attributes nor the
+Ada `Machine_Attribute` ingress (`decl.cc:7428–7502`). Plugins and assembly
+are also absent. Thus neither explicit nor compiler-created resolver ingress
+is selected. The zero type-10 (`STT_GNU_IFUNC`) records in each retained binder
+object corroborate this source argument. This supplies the binder's empty
+local-IFUNC contribution independently of the remaining object-count bound.
 
 Under this descriptor, **generated binder nonlocal symbols have no `@` in
 their names**. This supplies the binder part of the linker's `W=0` suffix

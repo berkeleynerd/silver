@@ -2,8 +2,8 @@
   "archives": {
     "artifacts.tar.gz": {
       "archive": {
-        "bytes": 206780,
-        "sha256": "3a81a17f0d6aa42f61c8216ae22db4390990aa762cd8bd0e6bf92117aa7f9583"
+        "bytes": 236030,
+        "sha256": "a33a2a7c8cc8780c9123e5c04b2c8383cf0b5ea62c4a38d2242e021084c30258"
       },
       "members": {
         "cases/indexed-cr/b__main~1.adb": {
@@ -475,15 +475,90 @@
           "bytes": 7503,
           "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
           "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+        },
+        "configuration/gnat.xml": {
+          "bytes": 12862,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig/gnat.xml",
+          "sha256": "75860604394acd18884a83321d3644b7f2816906c5dfa7e09b17a1d04c160e30"
+        },
+        "controlled-capture/input-manifest.json": {
+          "bytes": 63098,
+          "original_path": "/tmp/silver-binder-fixed-20261018/input-manifest.json",
+          "sha256": "f48ba345aee8a7e656ae75f813f1324ee6c31b1c67fcd5875d4decf715c721f6"
+        },
+        "controlled-capture/invocation.json": {
+          "bytes": 22855,
+          "original_path": "/tmp/silver-binder-fixed-20261018/invocation.json",
+          "sha256": "856b21c136483d059479f4d49bfe2030a7298c7a0df05d5474a3fd224b5f1933"
+        },
+        "controlled-capture/managed/events.jsonl": {
+          "bytes": 12181,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T104855-09a597637815/events.jsonl",
+          "sha256": "4fee301c8edc15d10dfff2635427cf4f0e19e63f7173933c10ab61d70b37b6a8"
+        },
+        "controlled-capture/managed/native.log": {
+          "bytes": 967,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T104855-09a597637815/native.log",
+          "sha256": "9d5a78e11a3f98055c52ba9b34c9596feac5bd0dbf0e31d9d9af9e5b98c7257c"
+        },
+        "controlled-capture/output/b__main~1.adb": {
+          "bytes": 8014,
+          "original_path": "/tmp/silver-binder-fixed-20261018/output/b__main~1.adb",
+          "sha256": "15bc56ca5a6b40c83ae4661c5c64e849d67aeaeaa58638d2b5d1813e850d8a5c"
+        },
+        "controlled-capture/output/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/tmp/silver-binder-fixed-20261018/output/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "controlled-capture/result.json": {
+          "bytes": 1085,
+          "original_path": "/tmp/silver-binder-fixed-20261018/result.json",
+          "sha256": "501784024effcc70defc1ca6fc0188068ac50275b293245bbd2976f1975e7583"
+        },
+        "controlled-capture/run.py": {
+          "bytes": 4138,
+          "original_path": "/tmp/silver-binder-fixed-20261018/run.py",
+          "sha256": "545f7068c71cd739adc42cac6e256a7ec1ad34780014d255cbd52e5def39f268"
+        },
+        "controlled-capture/stderr": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-binder-fixed-20261018/stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "controlled-capture/stdout": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-binder-fixed-20261018/stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "controlled-capture/temporary/GNAT-TEMP-000001.TMP": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-binder-fixed-20261018/temporary/GPR.404292/GNAT-TEMP-000001.TMP",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "controlled-capture/temporary/GNAT-TEMP-000002.TMP": {
+          "bytes": 115,
+          "original_path": "/tmp/silver-binder-fixed-20261018/temporary/GPR.404292/GNAT-TEMP-000002.TMP",
+          "sha256": "6b1e408f188a976d17bbc1fc560d313c7e0a26e9af95eae115dd4379a8012dc6"
+        },
+        "controlled-capture/temporary/GNAT-TEMP-000003.TMP": {
+          "bytes": 123,
+          "original_path": "/tmp/silver-binder-fixed-20261018/temporary/GPR.404292/GNAT-TEMP-000003.TMP",
+          "sha256": "c8ebd093769aad596b5ff7942ea794612ab7063382b3ebe317aa51d220324589"
         }
       }
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 1854684,
-        "sha256": "3753d18231316899a2f805a9b293ba9c0897a004e267074260bfaf4e2cac3fc8"
+        "bytes": 1972553,
+        "sha256": "47e8421f392b863ca3e45218924748d9ac711a3387cb1a015f137d8df7fceed8"
       },
       "members": {
+        "gcc/ada/Make-generated.in": {
+          "bytes": 4424,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/Make-generated.in",
+          "sha256": "2107e5920adc62a598352655bca5ec99095879e696ac241484e1758e8539812c"
+        },
         "gcc/ada/adaint.c": {
           "bytes": 85922,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/adaint.c",
@@ -829,6 +904,16 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfgrtl.cc",
           "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
         },
+        "gcc/cgraph.cc": {
+          "bytes": 143751,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cgraph.cc",
+          "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76"
+        },
+        "gcc/cgraph.h": {
+          "bytes": 138341,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cgraph.h",
+          "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1"
+        },
         "gcc/cgraphclones.cc": {
           "bytes": 42120,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cgraphclones.cc",
@@ -899,6 +984,11 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/langhooks.cc",
           "sha256": "f014ada9499002acd773d82d7d9ceb0c5046a20e2de8798c8605640969b78c66"
         },
+        "gcc/lto-cgraph.cc": {
+          "bytes": 75498,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/lto-cgraph.cc",
+          "sha256": "28b0c3bd5a5dacbcb6efd054577138bf9844229d1922d9d09d2533462baa7bfa"
+        },
         "gcc/omp-builtins.def": {
           "bytes": 24309,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/omp-builtins.def",
@@ -913,6 +1003,11 @@
           "bytes": 27904,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/optabs.def",
           "sha256": "3dfb1e6e0f9b491a5c9c72055984e5c1040c46e8e3d981eeb3740daeb5e0c1c3"
+        },
+        "gcc/prefix.cc": {
+          "bytes": 8893,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/prefix.cc",
+          "sha256": "ba855d5f056bd96fbb81ff2bfb6214c88a55f8c81ced5a2510169820f3510784"
         },
         "gcc/sanitizer.def": {
           "bytes": 33532,
@@ -944,6 +1039,11 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/varasm.cc",
           "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
         },
+        "gpr/gpr/src/gpr-opt.ads": {
+          "bytes": 13222,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-opt.ads",
+          "sha256": "cc1bbe85525f51f0556b0da441342377d77f384540ad09b84d2b955ceb521443"
+        },
         "gpr/gpr/src/gpr-tempdir.adb": {
           "bytes": 9084,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tempdir.adb",
@@ -963,6 +1063,11 @@
           "bytes": 43658,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbind.adb",
           "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802"
+        },
+        "gpr/src/gprbuild-compile.adb": {
+          "bytes": 138514,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb",
+          "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
         },
         "gpr/src/gprbuild-post_compile.adb": {
           "bytes": 185437,
@@ -989,5 +1094,15 @@
   },
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "optional_default_search_files": {
+    "ada_object_path": {
+      "exists_at_collection": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_object_path"
+    },
+    "ada_source_path": {
+      "exists_at_collection": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_source_path"
+    }
+  },
   "source_identity_scope": "retained source pins, not historical binary build attestation"
 }
