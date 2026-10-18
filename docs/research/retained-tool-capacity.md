@@ -15,9 +15,13 @@ its preferred ownership route is superseded by the owner's decision.
 
 The orchestration investigation also found a current-language defect:
 [#123](https://github.com/berkeleynerd/silver/issues/123), an admitted CR-ended
-comment can make GPR2 misread Main's unit name and stop GNATprove. A separate
-same-source generated-project repair is in progress. The conditional component
-arguments below do not establish successful execution of that broken route.
+comment could make GPR2 misread Main's unit name and stop GNATprove. The separate
+[same-source repair](../indexed-main-discovery.md) was delivered in
+[PR #124](https://github.com/berkeleynerd/silver/pull/124), merged at `0a98153803`.
+Its native and Lean audits, full suite and separate rechecks are complete.
+This branch includes that delivery. Historical unindexed capacity descriptors
+remain historical; the indexed invocation and source-load corrections below
+must be applied before composing them for the current route.
 
 ## Inputs and required conclusion
 
@@ -164,6 +168,13 @@ memory gate. The [installed startup values](retained-assembler-capacity.md#selec
 exclude SFrame for the selected null assembler invocation; the earlier
 optional-output union remains valid, and fixed/binder link inputs still need
 their independent SFrame accounting.
+The [assembler startup and lifetime join](retained-assembler-startup.md) bounds
+the output BFD's actual cumulative `alloc_size` counter by `P+31800`, retaining
+the separate individual-request condition. The two ELF string-table arenas
+have independent 4,051-bucket backbones and bounded entry/sort vectors.
+Their allocations are distinct from that counter and the shared notes arena;
+these results introduce no aggregate memory gate. Remaining GAS parser/relaxation
+and actual argument/path joins stay explicit.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -236,7 +247,11 @@ names/reference events and final relocation/layout remain open.
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
 bloom-filter shifts and the fifteen-bit version domain. Its configuration
-and source-to-count joins remain explicit.
+and source-to-count joins remain explicit. The retained fixed input records
+bound imported dependencies by117 and their groups by11. A separate exact
+version-name inventory supplies51 possible fixed suffixes even through default
+aliases, giving `V <= 51+W` and maximum version index `169+W` for an additional
+generated/synthetic suffix budget W. It does not assume V=0 or supply W yet.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative
@@ -252,7 +267,8 @@ ranger and CFG backing now contributes100 further GGC events; ranger setup
 uses ordinary storage and its Boolean ranges remain inline. The complete
 98-pass generic RTL schedule and eight target insertions add one late
 RTL-info allocation; selected final/CFI/section emission adds five further
-GGC requests. The known subtotal is39,957, with metadata/Main translation,
+GGC requests. Null gigi helper objects and vectors add11 more, making the
+known subtotal39,968, with metadata/Main translation,
 remaining whole-unit output helpers and shared collector composition still
 explicit in the native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
@@ -262,6 +278,17 @@ Its fixed-input join now parses888 distinct ET_REL unwind sections and
 accounts for1,175 weighted occurrences, with14,948 FDEs. Fixed fields fit
 their narrow representations; generated Main/binder/linker additions and
 CFA/relocation meaning still require composition.
+
+The delivered indexed naming adds three GCC-to-gnat1 arguments and one stored
+ALI switch. The source-derived generated configuration grows from244 to327
+bytes, still one aligned source extent. The imported-unit index-zero/Fname
+guard prevents repeated successful imports; the general native source bound
+adds at most one extra8,192-byte aligned System buffer, while null reuses its
+startup System buffer. These [indexed corrections](retained-native-expansion.md)
+have separate checked source identities. Complete frontend table composition
+and the producer descriptor correction remain open. Source locations can
+produce real O0 merge nops, so a fixed null assembly witness alone cannot
+replace the source-derived instruction/layout bounds.
 
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
 selected prover answers and consecutive-answer warnings to raw solver-output
@@ -289,7 +316,7 @@ prices Main/System writer and reader records, source xrefs, parser tables and
 recursive Text_IO line objects. The [GPR descriptor](retained-producer-gpr-descriptor.md)
 joins the current production project's switches and temporary naming input:
 789-byte records and29,622,766 ALI bytes bound this selected writer route.
-The indexed naming candidate for #123 requires an updated descriptor before
+The indexed naming repair for #123 requires an updated producer descriptor before
 those numbers can apply to the repair.
 The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
 prices 167 fixed rules and streaming output despite the empty result vector.
