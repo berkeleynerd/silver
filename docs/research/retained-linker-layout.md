@@ -161,8 +161,10 @@ D <= 285 + 44 R + 24 Q + 13 V + 2 Qin + 2 Qout
   <= 611 + 44 R + 32 Q + 12 P + 13 V.
 ```
 
-This is the existing live/traversal symbol-domain bound. It is not a bound on
-lifetime dynamic registration or allocation events.
+`D` bounds the dynamic-symbol count's high water, using the existing lifetime
+registration-event transfer (including rollback losses). This substitution
+closes its section-walk inputs; it does not replace that event argument with
+the separate live/traversal global-entry bound `H`, or bound allocation events.
 
 ## ELF section headers and program headers
 
