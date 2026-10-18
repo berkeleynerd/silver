@@ -645,6 +645,72 @@ hashes and formulas in the existing table evidence. Semantic type creation,
 constant evaluation, freeze/check generation, copies and final phase table
 locking still need to be added before this can bound the producer's `A_Main`.
 
+### Source-sensitive versus uniform parser envelope
+
+For `B` complete-source bytes, the same parser contribution also has a sound
+uniform envelope:
+
+```text
+ordinary nodes        <= 3B + 7
+node identities       <= 3B + F + 7 <= 4B + 7
+dynamic slots         <= 70B + 124
+ordinary list headers <= B + 4.
+```
+
+These bounds compare two ways of charging the **same parse**, not two proposed
+whole-tool rules. They supply no replacement source cap. A token charging
+argument derives the coefficients instead of choosing a safety margin:
+
+- Charge the scanner's two visits to each source token. Counting all word
+  tokens, including keywords, is conservative. An identifier or decimal
+  numeral can be one byte and costs at most two ordinary nodes, hence 18
+  dynamic slots. A colon-delimited numeral can cost four scanner nodes but
+  needs at least four bytes. String tokens need at least two bytes.
+- Charge structural nodes to their introducing tokens: a declaration's node
+  and defining-identifier promotion to its `:` (9+61=70 slots), its three
+  range nodes to `range`, an assignment to `:=`, and each branch/null node to
+  its keyword. Charge both loop entities (fresh scope and promoted index),
+  seven ordinary loop nodes and the conservative scanner word charge to
+  `for`: `2*61+7*9+2*9=203 <= 3*70`. For ordinary nodes alone that token costs
+  nine nodes, including the word charge, in three bytes.
+- Charge a dot to itself, a named association to `=>`, a call wrapper to its
+  opening parenthesis, and an attribute to Image/Length. Charge a procedure
+  kind change and Reject's shallow copy to its operation-name token, whose
+  shortest possible spelling is Put (three bytes) or Reject (six). A context
+  clause node is charged to its package-name token. All these token totals,
+  including their scanner word charges where applicable, are below three
+  ordinary nodes and 70 slots per byte.
+- The scalar lower-bound replays and String flattenings use disjoint operator
+  sets. Each flattening consumes at least 1000 distinct concat operators;
+  `4P <= A_concat` for nodes and `5P <= A_concat` for slots, including the
+  growing rewrite. Thus all operator allocation/mutation charges fit two
+  ordinary-node-size charges per operator occurrence. An operator is at least
+  one byte; word operators have enough spelling bytes for their conservative
+  scanner charges as well. Flattened chains are disjoint by the earlier
+  [literal-chain argument](retained-value-capacity.md#main-parser-multiplicity).
+- The fixed shell contributes seven ordinary nodes and one entity promotion:
+  `7*9+61=124` slots. Source-token scanner charges remain in `B`. For lists,
+  charge at most three lists to each if/first-then pair (at least six keyword
+  bytes), one to each loop or elsif keyword, and one to each call opening
+  parenthesis or Image keyword. These are disjoint sites and each has enough
+  bytes. The four fixed lists remain separate.
+
+No byte is charged as part of two lexical tokens. The explicit per-token sums
+include overlapping scanner and structural charges. This establishes a useful
+uniform comparison without claiming optimal coefficients.
+
+The detailed rule preserves space that this uniform envelope discards. Adding
+`b` comment/whitespace bytes to a fixed program changes none of its parser
+node, slot or syntax-list counts, whereas the uniform charges grow by `3b`,
+`70b` and `b`. The separate source-position and line/column budgets still grow.
+Adding another loop increases the detailed parser's structural term by seven
+ordinary nodes, two entity allocations/promotions and its lexical contribution;
+padding an existing identifier adds no parser node. Large String spelling
+likewise changes value/character storage without adding parser syntax nodes.
+This is the concrete reason to retain separate source-sensitive components.
+Whole-rule comparison still requires the missing semantic, dependency and
+backend contributions; a parser-only advantage cannot settle #119.
+
 ## Individual generated names are another representation
 
 Aggregate name entries/characters do not cover every name representation.

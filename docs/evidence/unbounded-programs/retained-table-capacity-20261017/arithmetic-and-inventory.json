@@ -1875,6 +1875,31 @@
     "ordinary_growing_mutations": "C_proc + P",
     "dynamic_slot_charge": "9*(A_ordinary + C_proc + P) + 61*(D + 2F + 1)",
     "ordinary_list_headers": "4 + F + 3I + E + C + J",
+    "uniform_comparison": {
+      "ordinary_nodes": "3B + 7",
+      "node_identities": "3B + F + 7 <= 4B + 7",
+      "dynamic_slots": "70B + 124",
+      "ordinary_list_headers": "B + 4",
+      "scope": "parser components only; B is complete source byte count; not a whole-tool bound or source limit",
+      "largest_per_byte_slot_charges": {
+        "declaration_colon": {
+          "bytes": 1,
+          "slots": 70
+        },
+        "for_keyword_with_two_entities": {
+          "bytes": 3,
+          "slots": 203
+        },
+        "one_byte_identifier_or_numeral": {
+          "bytes": 1,
+          "slots": 18
+        },
+        "replayed_scalar_operator": {
+          "bytes": 1,
+          "slots": 18
+        }
+      }
+    },
     "replay_operator_bound": "O_lower <= O; grouped scalar lower bounds only",
     "loop_ordinary_nodes": {
       "iteration_scheme": 1,
