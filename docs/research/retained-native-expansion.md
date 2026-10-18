@@ -4366,24 +4366,25 @@ gigi numerical increments. Add 288 ordinary nodes/2592 slots for all 36
 possible Main implicit-with clauses and 1336 element-list headers for all
 RE_Id first-lookup residues. Context_Items already exists, and Maybe_Add_With
 uses Append, without another list header (`rtsfind.adb:1257–1327`). The resulting
-fixed inputs to the common table join are:
+fixed inputs to the common table join, including the controlled GPR naming
+pragma delta derived below, are:
 
 | Dimension | Fixed contribution before variable Main/scanner/common addends |
 | --- | ---: |
-| Node identities | 41176 |
+| Node identities | 41216 |
 | Entity identities, deliberately bounded by all captured nodes | 40888 |
-| Dynamic AST slots | 441449 |
-| Syntax-list headers | 6526 |
+| Dynamic AST slots | 441809 |
+| Syntax-list headers | 6531 |
 | Elist headers / elements | 2313 / 2096 |
 | Uint entries / digit words / Ureal entries | 24324 / 74958 / 60 |
-| String descriptors / characters | 203 / 7255 |
-| Name entries, including retained reserve | 6222 |
+| String descriptors / characters | 211 / 7279 |
+| Name entries, including retained reserve | 6234 |
 | Xref positive increments | 353 |
 | New semantic compilation units | 39 |
 
 The entity overcount uses a captured defining entity's node identity; it does
 not require a separate entity measurement. Implicit-with nodes contain no new
-entities. The fixed AST count of 41176 also dominates every fixed-scaffold
+entities. The fixed AST count of 41216 also dominates every fixed-scaffold
 call marker in the invocation join. Scope saves remain variable: the common
 metadata row adds 40 Elist headers and `39*(40888+E_Main+1)` elements,
 conservatively retaining the scope saves already present in the witness.
@@ -4419,9 +4420,50 @@ For input-binding length d (zero when absent), the sufficient fixed name charge
 is
 
 ```text
-Name characters = 10*117918 + 835*(P+1) + 4*max(0,d-1).
+Name characters = 10*117918 + 835*(P+1) + 4*max(0,d-1) + 160.
 fixed Name_Buffer demand <= 1700 + 17*(P+1) + max(0,d-1).
 ```
+
+### Controlled GPR naming configuration delta
+
+The retained native capture's archived `driver-dry-run.log` invokes gcc/gnat1
+directly with `-I`, and does not include `-gnatec`, `-gnatem` or `-gnatA`.
+The existing [GPR source reconciliation](retained-source-closure.md#generated-configuration-and-request-names)
+selects one244-byte file containing two default `Source_File_Name_Project`
+pragmas. The capture does not pay for their parsing. Preserve this distinction
+when applying fixed evidence to production: its missing configuration/map/
+switch inputs cannot be attributed to variable Main syntax.
+
+`native_gpr_naming_configuration` verifies the retained244-byte file's hash
+and adds its fixed pragma-core transfer. It has12 word tokens (148 characters),
+four String tokens (12 decoded characters), two pragma nodes and six named
+argument-association nodes. Charging two scanner visits gives40 ordinary node
+identities and360 dynamic slots. Five syntax-list headers pay the frontend
+collection, Par's initial Result, its configuration collection and two actual
+lists (`frontend.adb:138–155,213–254`; `par.adb:1598–1654`;
+`par-ch2.adb:351–400,634–668`). Configuration parsing bypasses the ordinary
+Scope/Goto/Label initialization, so it adds no parser scope or element list.
+Word interning adds at most12 entries/160 characters; String scanning adds at
+most eight descriptors/24 characters. No numeric token, entity or scalar
+semantic analysis occurs on this path.
+
+`Par.Prag` handles the pattern branch immediately: it copies each five-byte
+pattern and one-byte dot replacement to heap Strings and first allocates the
+one-byte default dot, yielding six String allocation requests/14 characters
+(`par-prag.adb:640–715,824–890`). No name is interned by that branch's
+Get_String_Argument. Set_File_Name_Pattern appends one record per pragma and
+moves the two initialized default records (`fname-uf.adb:625–643`); add two
+SFN_Patterns entries. Its four fields each fit a16-byte aligned allowance,
+so64 bytes is a padded component upper bound. The semantic case only checks
+configuration placement (`sem_prag.adb:25940–25979`), with no generated tree.
+
+The main fixed vector above includes these node/list/name/String-pool deltas;
+the source/backing join below includes the pattern table and individual heap
+objects. **GPR's extra configuration filename, argv/ALI switch spellings,
+mapping file, effective search-path files and their readers remain a separate
+invocation delta.** The835-path-occurrence correction describes the captured
+invocation's existing roles and does not cover extra roles merely because
+their paths are short. No complete production invocation claim follows yet.
 
 The buffer bound uses the recorded maximum spelling length170 and the same
 decimal/path/input-name corrections. These corrections add no Name entry.
@@ -5469,6 +5511,69 @@ previous peak. No native recursion-stack byte limit is inferred from this table.
 All five real-source examples below pass these two additional table checks and
 the serial-counter check. The complete native frontend remains open.
 
+## Source, physical-line and selected name-buffer join
+
+`native_source_and_frontend_name_backing` composes the existing source/line
+transfers with the fixed native source closure. The reconciler now records
+each of the38 selected specification files' byte count, aligned extent,
+physical-line bound and tab-expanded maximum column while rechecking its
+retained hash. Together their aligned extents total364,544 and their physical
+line bounds total6,187; the largest final expanded column is84. None contains
+a Source_Reference pragma. These are fixed input measurements under the
+source-selected closure, not extrapolation from Main.
+
+Add the source-sensitive `q(B)=4096*ceil((B+1)/4096)` for Main, q(244) for the
+controlled GPR configuration, and the previously justified optional physical
+Image generic body q(4898). Seven Unchecked_Conversion template copies, the
+Image specification and its optional body add40,960 virtual positions. The
+optional body allowance only enlarges this source-position vector; it does
+not promote any unrecorded semantic body allocations. Check the resulting
+aligned sum minus one against `Int'Last-4096`, retaining the final source-block
+increment/alignment headroom. All five current source examples yield the
+same421,887 upper bound because each Main fits one aligned block.
+
+For each physical source, count CRLF once and lone CR/LF once; the fixed
+runtime scan also treats VT/FF as terminators (`scng.adb:1386`). One plus the
+separator count bounds physical line entries. Each virtual entry shares its
+template text and line arrays (`sinput-l.adb:143–165`), so it requires no new
+copy of those buffers. Start line backing at500 and double to the demand;
+check capacity*32 in signed Int before the source's byte-size conversion
+(`sinput.adb:109–155`). Check every physical source byte length plus EOF in Int,
+its individual allocation with a16-byte descriptor allowance in signed64,
+and the established tab-expanded final-column bound32766. These are separate
+per-object/index checks, with no aggregate memory ceiling.
+
+There are at most41 physical and nine virtual entries under this overcounted
+closure. A failed physical load increments Source_File.Last and immediately
+decrements it before returning (`sinput-l.adb:398–429`); allow one additional
+active entry. Source_File therefore has demand51, and Instances has at most
+ten entries including its initial sentinel (a body can share the specification's
+instance, so this overcounts). Both tables have initial10/increment200%; lows
+are1 and0. Source_File_Record has29 fields, each fitting a16-byte aligned
+allowance, including the14-character timestamp and fat pointers:464 bytes is
+a padded upper bound (`sinput.ads:787–859`). Instances uses four-byte pointers
+into the source coordinate space. The static Source_File_Index_Table has
+`2+floor(Int'Last/4096)` four-byte entries; the cursor check covers its accessed
+indices and post-store increment (`sinput.adb:72–87,851–864`). The same backing
+join also checks fixed SFN_Patterns demand4+2=6 after the GPR correction.
+
+The selected ordinary name consumers need a smaller buffer than global
+Name_Buffer. Append_Decoded first copies the raw spelling into a default
+4096-character Bounded_String (`namet.adb:169–202`), before any decoding can
+shorten it. Main's qualification bound is already source-sensitive. The fixed
+inventory's largest **nonpath** spelling is70 characters; tenfold decimal-run
+normalization gives700, with the input-name correction added. Take the maximum
+of those fixed/Main ordinary-name bounds, then add32 for the selected Integer
+encoding and five for an external-name prefix, and check4096. This gives737
+for four examples and740 for the input name `Name`. Main's homonym buffer is
+empty under the earlier Has_Homonym exclusion. Arbitrary path/argv decoding,
+GCC suffixes and other late name constructors are not covered by this selected
+ordinary-name check; their own producers/consumers remain explicit obligations.
+
+All five sources pass the source/line/name checks and these three additional
+table checks. The results still do not complete native or proof-producer
+capacity, and no compiler execution was needed.
+
 ## Real-source composition checks
 
 The [representative inputs](../evidence/unbounded-programs/retained-native-expansion-20261017/representative-inputs.json)
@@ -5572,7 +5677,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
 - **Fixed scaffold and dependencies:** the source-root/freezing reduction and
   concrete fixed join now supply the retained constants, first-runtime-lookup
   Elist/implicit-with corrections, input-name normalization and configurable
-  pathname charge. Preserve the controlled invocation/search shape and supply
+  pathname charge. The GPR naming-pragma core delta is now included, while its
+  additional path/argv/map/search-file storage remains open. Preserve the
+  controlled invocation/search shape and supply
   the actual path bound; charge every variable default literal through its
   scanner/standalone-literal row. These premises still need integration into
   the complete capacity rule.
@@ -5588,8 +5695,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
 - **Representations and late consumers:** the22 selected backing joins and
   five source-counted examples now compose actual scanner/parser inputs for
   those examples. A general source counter/descriptor implementation and its
-  correspondence remain required. Compose the existing physical/virtual
-  source, line/column and name-buffer components; finish backing/layout and
+  correspondence remain required. The physical/virtual source, line/column
+  and selected frontend name-buffer components now have a concrete join above;
+  finish backing/layout and
   individual allocation/caller checks for the unjoined parser auxiliaries,
   copy maps, diagnostic tables/strings, invocation graph/hash/DFS containers
   and fixed non-table heaps. Parser Scope/Suspicious_Labels and their loop serial

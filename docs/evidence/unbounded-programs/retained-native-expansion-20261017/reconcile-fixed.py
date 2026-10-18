@@ -21,6 +21,20 @@ def code_only(raw):
                   raw.decode("latin-1"))
 
 
+def source_shape(raw):
+    lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
+    maximum = 1
+    for line in lines:
+        column = 1
+        for byte in line:
+            column = 8*((column-1+8)//8)+1 if byte == 9 else column+1
+        maximum = max(maximum,column)
+    return dict(physical_line_entries_bound=len(lines),
+        max_expanded_final_column=maximum,maximum_line_bytes=max(map(len,lines)),
+        aligned_source_extent=4096*((len(raw)+4096)//4096),
+        has_Source_Reference=bool(re.search(rb"\bpragma\s+Source_Reference\b",raw,re.I)))
+
+
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("capture", type=Path)
 parser.add_argument("output", type=Path)
@@ -50,7 +64,8 @@ for spelling, entry in manifest.items():
         dependencies.append(name.rsplit(".", 1)[0])
     instances = [{"line":code.count("\n",0,m.start())+1,"name":m[2],"generic":m[3]}
         for m in re.finditer(r"\b(package|procedure|function)\s+([\w.]+)\s+is\s+new\s+([\w.]+)", code, re.I)]
-    units[name] = dict(file=path.name, **entry, dependencies=sorted(set(dependencies)), generic_instances=instances)
+    units[name] = dict(file=path.name, **entry, dependencies=sorted(set(dependencies)),
+                      generic_instances=instances,source_shape=source_shape(raw))
 roots = ["silver_io", "silver_arguments", "system", "system.standard_library",
          "system.exception_table", "ada.exceptions", "system.soft_links",
          "system.stack_checking", "ada.tags", "system.put_images",
@@ -100,6 +115,7 @@ result = dict(
         slash_occurrences=path_occurrences,
         max_path_occurrences_per_spelling=max_path_occurrences,
         maximum_recorded_spelling_length=max(map(len,names)),
+        maximum_recorded_nonpath_spelling_length=max(map(len,(x for x in names if "/" not in x))),
         decimal_serial_digit_allowance=10,
         normalization="10*fixed_character_growth + path_occurrence_allowance*(P+1) + 4*(input_identifier_length-1); P bounds each complete pathname under the same search/invocation shape",
         fixed_Name_buffer_bound="10*maximum_recorded_spelling_length + max_path_occurrences_per_spelling*(P+1) + max(0,input_identifier_length-1)"),

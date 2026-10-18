@@ -45,8 +45,9 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "scng.adb", "scn.adb", "scans.adb", "scans.ads", "par-ch2.adb", "par-ch3.adb",
          "par-ch4.adb", "par-ch5.adb", "par-ch6.adb", "par-ch8.adb", "par-ch10.adb",
          "par-ch11.adb", "par-util.adb", "par-endh.adb", "par-prag.adb", "par.adb", "par-labl.adb",
+         "frontend.adb", "fname-uf.adb", "nlists.ads", "sinput.ads", "sinput.adb", "sinput-l.adb", "osint.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
-         "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads"
+         "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads", "libgnat/s-imagei.adb"
          ] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
 sources = {}
 hashes = {}
@@ -1140,6 +1141,35 @@ def native_invocation_metadata(source_calls, words, concats, images,
 fixed_native_inputs = json.loads((Path(__file__).parent/"native-fixed-inputs.json").read_text())
 
 
+def native_gpr_naming_configuration():
+    """Fixed pragma-core delta from direct captured gnat1 to controlled GPR.
+
+    Source/path/map/switch-file storage is separate. This prices the exact two
+    default naming pragmas; arbitrary project configuration is not permitted.
+    """
+    path = repository / ("docs/evidence/unbounded-programs/retained-source-closure-20261017/"
+                         "driver-snapshots/293256/GNAT-TEMP-000002.TMP")
+    raw = path.read_bytes()
+    assert len(raw) == 244
+    assert hashlib.sha256(raw).hexdigest() == "3d84ea27f99f81f20bd402e0c255538ad3d04c82d26e10ee32ea68c9fd4b1574"
+    tokens = re.findall(r'"(?:""|[^"])*"|[A-Za-z][A-Za-z_0-9]*|=>|[^\s]',raw.decode("ascii"))
+    words = [t for t in tokens if re.fullmatch(r"[A-Za-z][A-Za-z_0-9]*",t)]
+    strings = [t[1:-1] for t in tokens if t.startswith('"')]
+    assert len(words) == 12 and sum(map(len,words)) == 148
+    assert strings == ["*.ads","-","*.adb","-"] and tokens.count("=>") == 6
+    nodes = 2*(len(words)+len(strings))+2+6
+    return dict(source=str(path.relative_to(repository)),sha256=hashlib.sha256(raw).hexdigest(),
+        source_bytes=len(raw),ordinary_nodes=nodes,dynamic_slots=9*nodes,
+        syntax_list_headers=5,Name_entries=len(words),Name_characters=148+len(words),
+        String_descriptors=2*len(strings),String_characters=2*sum(map(len,strings)),
+        entities=0,Elist_headers=0,Elist_elements=0,Uint_entries=0,Uint_digits=0,
+        SFN_Patterns_entries=2,SFN_Table_entries=0,
+        pattern_String_allocations=6,pattern_String_character_sum=14,
+        maximum_pattern_String_characters=5,
+        filename_map_switch_and_search_storage_included=False,
+        whole_invocation_delta_closed=False)
+
+
 def native_fixed_frontend(input_identifier_length, pathname_length):
     """Actual retained fixed constants with source-derived corrections.
 
@@ -1157,19 +1187,20 @@ def native_fixed_frontend(input_identifier_length, pathname_length):
     normalized_names = 10*raw["namet__name_chars__last_val"]
     paths = fixed_native_inputs["names"]["path_occurrence_allowance"]
     assert paths == 835
-    return dict(node_identities=40888+implicit,
+    config = native_gpr_naming_configuration()
+    return dict(node_identities=40888+implicit+config["ordinary_nodes"],
         entity_identities=40888,
-        dynamic_slots=raw["atree__atree_private_part__slots__last_val"]+9*implicit,
-        syntax_list_headers=raw["nlists__lists__last_valX"],
+        dynamic_slots=raw["atree__atree_private_part__slots__last_val"]+9*implicit+config["dynamic_slots"],
+        syntax_list_headers=raw["nlists__lists__last_valX"]+config["syntax_list_headers"],
         Elist_headers=raw["elists__elists__last_valX"]+len(re_ids),
         Elist_elements=raw["elists__elmts__last_valX"],
         Uint_entries=raw["uintp__uints__last_val"],
         Uint_digits=raw["uintp__udigits__last_val"],
         Ureal_entries=raw["urealp__ureals__last_valX"],
-        String_descriptors=raw["stringt__strings__last_valX"],
-        String_characters=raw["stringt__string_chars__last_valX"],
-        Name_entries=raw["namet__name_entries__last_val"],
-        Name_characters=normalized_names+paths*(pathname_length+1)+input_correction,
+        String_descriptors=raw["stringt__strings__last_valX"]+config["String_descriptors"],
+        String_characters=raw["stringt__string_chars__last_valX"]+config["String_characters"],
+        Name_entries=raw["namet__name_entries__last_val"]+config["Name_entries"],
+        Name_characters=normalized_names+paths*(pathname_length+1)+input_correction+config["Name_characters"],
         fixed_Name_buffer_bound=(10*fixed_native_inputs["names"]["maximum_recorded_spelling_length"]
                                 +fixed_native_inputs["names"]["max_path_occurrences_per_spelling"]*(pathname_length+1)
                                 +max(0,input_identifier_length-1)),
@@ -1178,6 +1209,8 @@ def native_fixed_frontend(input_identifier_length, pathname_length):
         first_RTE_Elist_headers=len(re_ids),
         input_name_character_correction=input_correction,
         pathname_length_input=pathname_length,
+        gpr_naming_configuration=config,
+        additional_gpr_path_map_switch_storage_closed=False,
         variable_default_literal_included=False,
         whole_native_frontend_closed=False)
 
@@ -1349,6 +1382,88 @@ def native_parser_auxiliary_backing(logical,table_factor=1):
         Loop_Block_Count=auxiliary["Loop_Block_Count_bound"]<=2**31-1)
     return dict(tables=rows,checks=checks,all_selected_checks_pass=all(checks.values()),
         physical_recursive_stack_included=False,whole_native_frontend_closed=False)
+
+
+def source_shape(raw):
+    """Physical-line sufficient rule; FF/VT included for fixed runtime files."""
+    lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
+    maximum = 1
+    for line in lines:
+        column = 1
+        for byte in line:
+            column = 8*((column-1+8)//8)+1 if byte == 9 else column+1
+        maximum = max(maximum,column)
+    return dict(physical_line_entries_bound=len(lines),max_expanded_final_column=maximum,
+        maximum_line_bytes=max(map(len,lines)),aligned_source_extent=4096*((len(raw)+4096)//4096))
+
+
+def native_source_and_frontend_name_backing(logical,main_source):
+    """Existing source/line/selected name-buffer components joined for Main.
+
+    The source closure includes one optional Image generic body physically and
+    virtually, conservatively; this does not promote unmeasured semantic body
+    allocations. GPR source search/map/switch payload remains a separate join.
+    """
+    i32, i64 = 2**31-1,2**63-1
+    selected = fixed_native_inputs["selected_specifications"]
+    assert len(selected) == 38 and not any(x["source_shape"]["has_Source_Reference"] for x in selected.values())
+    config = native_gpr_naming_configuration()
+    config_raw = (repository/config["source"]).read_bytes()
+    body = sources["libgnat/s-imagei.adb"].encode()
+    assert len(body) == 4898
+    physical = [dict(source=x["file"],bytes=x["bytes"],**x["source_shape"])
+                for x in selected.values()]
+    physical += [dict(source="main.adb",bytes=len(main_source),**source_shape(main_source)),
+                 dict(source="controlled-gpr-configuration",bytes=len(config_raw),**source_shape(config_raw)),
+                 dict(source="optional-s-imagei.adb",bytes=len(body),**source_shape(body))]
+    assert selected["ada.unchecked_conversion"]["bytes"] == 1554
+    assert selected["system.image_i"]["bytes"] == 3367
+    q = lambda b:4096*((b+4096)//4096)
+    virtual_extents = [q(1554)]*7+[q(3367),q(4898)]
+    extent = sum(x["aligned_source_extent"] for x in physical)+sum(virtual_extents)
+    last_bound = extent-1
+    for entry in physical:
+        capacity = 500
+        while capacity < entry["physical_line_entries_bound"]:
+            capacity *= 2
+        entry["line_capacity_bound"] = capacity
+        entry["checks"] = dict(line_component_bit_product=capacity*32<=i32,
+            source_length_and_EOF=entry["bytes"]+1<=i32,
+            source_allocation_size=entry["bytes"]+1+16<=i64,
+            expanded_columns=entry["max_expanded_final_column"]<=32766)
+    source_record = re.search(r"type Source_File_Record is record(.*?)end record;",
+                              sources["sinput.ads"],re.S).group(1)
+    source_record = re.sub(r"--[^\n]*", "", source_record)
+    fields = len(re.findall(r"\b\w+\s*:(?!=)",source_record))
+    assert fields == 29 and "Time_Stamp_Length : constant := 14;" in sources["types.ads"]
+    # Failed physical loads decrement Last immediately: at most one extra
+    # active entry beyond the successful physical/virtual source inventory.
+    source_entries = len(physical)+len(virtual_extents)+1
+    tables = dict(Source_File=native_table_backing_row(source_entries,1,10,200,16*fields,i32),
+                  Instances=native_table_backing_row(1+len(virtual_extents),0,10,200,4,i32),
+                  SFN_Patterns=native_table_backing_row(
+                      fixed_native_inputs["fixed_lifetime_table_growth"]["fname__uf__sfn_patterns__last_valXn"]
+                      +config["SFN_Patterns_entries"],1,10,100,64,i32))
+    main_name = max(logical["common"]["max_qualified_name"],logical["common"]["max_unqualified_name"])
+    fixed_nonpath = 10*fixed_native_inputs["names"]["maximum_recorded_nonpath_spelling_length"]
+    input_delta = logical["fixed"]["input_name_character_correction"]//4
+    name_buffer = max(main_name+32+5,fixed_nonpath+input_delta+32+5)
+    checks = dict(source_cursor_and_block_increment=last_bound<=i32-4096,
+        physical_file_checks=all(all(x["checks"].values()) for x in physical),
+        source_and_pattern_tables=all(x["all_selected_checks_pass"] for x in tables.values()),
+        selected_frontend_name_Bounded_String=name_buffer<=4096,
+        source_file_index_static_array=(2+i32//4096)*4<=i64,
+        pattern_String_individual_object=5+16<=i64)
+    return dict(physical_sources=physical,virtual_aligned_extents=virtual_extents,
+        source_cursor_aligned_extent=extent,Source_Last_bound=last_bound,
+        tables=tables,source_record_component_bytes_upper=16*fields,
+        Source_File_Index_static_entries=2+i32//4096,
+        selected_frontend_name_buffer_bound=name_buffer,
+        fixed_nonpath_name_before_selected_encoding=fixed_nonpath+input_delta,
+        Main_name_before_selected_encoding=main_name,
+        checks=checks,all_selected_checks_pass=all(checks.values()),
+        notes="virtual sources share template text/line arrays; ordinary source-reference pragmas absent; selected name decode/qualification/scalar encoding only, no GCC suffix or arbitrary path/CLI decoding claim",
+        whole_native_frontend_closed=False)
 
 
 def native_core_table_backing(logical, *, table_factor=1):
@@ -1603,6 +1718,7 @@ def representative_current_programs():
             counter_note=item["counter_note"],source_counts=counts,scanner_pools=pools,
             logical_join=logical,selected_backing_checks=physical,
             parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
+            source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
             diagnostics=native_diagnostic_metadata(counts["loops"],syntax["with_names"])))
     return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],
         scan_multiplicity="two for identifiers/literals/numerals; Name_Find interning is not multiplied",
