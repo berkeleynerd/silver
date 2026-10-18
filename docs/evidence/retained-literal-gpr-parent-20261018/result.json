@@ -1,0 +1,451 @@
+{
+  "scope": "GPRbuild.Compile Phase_2_ALI DW reader under the explicit fresh-output job/child interface",
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "path_spelling_bytes_upper": 512,
+  "Main_ALI_interface": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "path_spelling_bytes_upper": 512,
+    "physical_source": {
+      "physical_line_entries_bound": 7,
+      "max_expanded_final_column": 41,
+      "maximum_line_bytes": 40,
+      "aligned_source_extent": 4096
+    },
+    "stored_native_switches": [
+      "-Wno-free-nonheap-object",
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatx",
+      "-mtune=generic",
+      "-march=x86-64",
+      "-gnateI1",
+      "-fsplit-wide-types"
+    ],
+    "ALI_A_records": 10,
+    "ALI_A_payload_characters": 110,
+    "Main_invocation_interface": {
+      "ALI_Invocation_Constructs": 19,
+      "ALI_Invocation_Relations": 361,
+      "ALI_Invocation_Signatures": 19,
+      "max_serialized_signature_characters": 97
+    },
+    "Main_ALI_writer": {
+      "source_descriptor": "native-ali-inputs.json",
+      "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+      "record_character_bounds_before_LF": {
+        "version": 16,
+        "main": 44,
+        "switches": 28,
+        "parameters": 49,
+        "restriction_header": 2,
+        "restrictions": 55,
+        "unit": 739,
+        "with_unit": 1183,
+        "task_stacks": 23,
+        "dependency": 1158,
+        "invocation_attributes": 5,
+        "invocation_construct": 107,
+        "invocation_relation": 206
+      },
+      "max_record_bytes_including_LF": 1184,
+      "EOL_reserved_bytes": 2112,
+      "single_object_bytes": {
+        "Info_Buffer": 2112000,
+        "With_Flags": 41,
+        "Elab_Flags": 41,
+        "Elab_All_Flags": 41,
+        "Elab_Des_Flags": 41,
+        "Elab_All_Des_Flags": 41,
+        "Has_Implicit_With": 41,
+        "Sdep_Table": 168,
+        "With_Table": 164,
+        "Unit_Name_hash_headers": 2056,
+        "Unit_Name_hash_wrapper": 16,
+        "dependency_quoted_path": 1026
+      },
+      "Units_table": {
+        "demand": 41,
+        "low_bound": 0,
+        "initial": 30,
+        "increment_percent": 100,
+        "component_bytes_upper_bound": 104,
+        "backing_capacity_bound": 82,
+        "bytes_with_sentinel": 8632,
+        "checks": {
+          "initial_product": true,
+          "growth_product": true,
+          "backing_length_and_plus_one": true,
+          "empty_index": true,
+          "backing_index_and_sentinel": true,
+          "logical_nominal_index": true,
+          "allocation_and_pointer_difference": true
+        },
+        "all_selected_checks_pass": true
+      },
+      "Unit_Name_hash_wrapper_count": 41,
+      "serialized_file_byte_bound": 2152396,
+      "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+      "late_variable_Uint_appends": 0,
+      "late_variable_name_interning": 0,
+      "checks": {
+        "record_or_complete_buffer_fit": true,
+        "EOL_reserve_arithmetic": true,
+        "quote_growth_Name_Buffer": true,
+        "local_unit_counters": true,
+        "unit_table_backing": true,
+        "xref_sort_counter": true,
+        "per_object_pointer_difference": true
+      },
+      "all_selected_checks_pass": true,
+      "complete_native_capacity_result": false,
+      "remaining": "ALI consumers/binder, backend diagnostic rendering and other late heap/callback representations"
+    },
+    "Main_ALI_reader_bytes_including_EOF_upper": 2152397,
+    "conditions": {
+      "writer": true,
+      "Main_ALI_reader_Integer_and_EOF": true,
+      "source_byte_and_coordinate_representations": true
+    },
+    "selected_Main_ALI_interface_fits": true,
+    "fixed_inputs_checked": 10,
+    "serializer_source_inputs_checked": 48,
+    "native_tool_executions": 0,
+    "whole_binder_or_parent_capacity_established": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "remaining": [
+      "Complete output launch/options/search materialization.",
+      "Join Main ALI and fixed ALIs to binder parser/graph/driver lifetimes.",
+      "Join native GPR and other ALI readers with their actual selected row policies."
+    ],
+    "premises": [
+      "Relevant installed behavior matches the reviewed source.",
+      "Selected indexed native no-Xref/split-wide configuration and fixed output dependencies.",
+      "Other source/frontend representations and physical resources are established separately."
+    ]
+  },
+  "fixed_parent_job_ALIs": {
+    "silver_io.ali": {
+      "complete_bytes": 4443,
+      "non_A_complete_bytes": 4371,
+      "recorded_A_payloads": [
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-mtune=generic",
+        "-march=x86-64"
+      ],
+      "table_demands_upper": {
+        "ALIs": 1,
+        "Units": 2,
+        "Withs": 7,
+        "Sdep": 30,
+        "Args": 0
+      },
+      "consumed_name_row_bytes_upper": 70,
+      "parser_name_entry_events_upper": 116,
+      "parser_name_value_bytes_upper": 8120,
+      "withed_units": [
+        "ada.strings.text_buffers%s",
+        "interfaces%s",
+        "interfaces.c%s",
+        "silver_output_libc%s",
+        "system%s",
+        "ada%s",
+        "ada.text_io%s"
+      ],
+      "records_before_X": {
+        "A": 6,
+        "D": 30,
+        "G": 9,
+        "P": 1,
+        "R": 6,
+        "U": 2,
+        "V": 1,
+        "W": 6,
+        "Z": 1
+      },
+      "invocation_signature_records_consumed": 0,
+      "Xref_records_consumed": 0
+    },
+    "silver_output_libc.ali": {
+      "complete_bytes": 2933,
+      "non_A_complete_bytes": 2861,
+      "recorded_A_payloads": [
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-mtune=generic",
+        "-march=x86-64"
+      ],
+      "table_demands_upper": {
+        "ALIs": 1,
+        "Units": 1,
+        "Withs": 6,
+        "Sdep": 28,
+        "Args": 0
+      },
+      "consumed_name_row_bytes_upper": 70,
+      "parser_name_entry_events_upper": 105,
+      "parser_name_value_bytes_upper": 7350,
+      "withed_units": [
+        "ada%s",
+        "ada.strings.text_buffers%s",
+        "ada.text_io%s",
+        "interfaces%s",
+        "interfaces.c%s",
+        "system%s"
+      ],
+      "records_before_X": {
+        "A": 6,
+        "D": 28,
+        "G": 4,
+        "P": 1,
+        "R": 4,
+        "U": 1,
+        "V": 1,
+        "W": 5,
+        "Z": 1
+      },
+      "invocation_signature_records_consumed": 0,
+      "Xref_records_consumed": 0
+    }
+  },
+  "fixed_native_stored_switch_envelope": {
+    "switches": [
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-mtune=generic",
+      "-march=x86-64",
+      "-Wno-free-nonheap-object",
+      "-gnatx",
+      "-fsplit-wide-types"
+    ],
+    "rows_upper": 9,
+    "payload_bytes_upper": 102,
+    "complete_A_bytes_upper": 129,
+    "indexed_Main_switch_excluded": "-gnateI1",
+    "duplicates_or_extra_stored_switches_permitted": false
+  },
+  "schedule": {
+    "Phase_2_ALI_DW_calls_upper": 3,
+    "Record_ALI_For_additional_W_reads_upper": 0,
+    "selected_jobs": [
+      "Main",
+      "Silver_IO body",
+      "Silver_Output_Libc spec"
+    ],
+    "runtime_ALI_recursion_in_parent": 0,
+    "native_parent_ALI_buffers_simultaneously_live_upper": 1,
+    "successful_scans_reset_ALI_tables": true,
+    "shared_GPR_Names_persists": true,
+    "fresh_job_frontier_requires_descriptor_premises": true,
+    "whole_parent_call_graph_closed": false
+  },
+  "parser_tables_per_scan": {
+    "ALIs": {
+      "demand_upper": 1,
+      "capacities": [
+        500
+      ],
+      "component_bytes_upper": 8192,
+      "allocated_bytes_upper": 4096000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Units": {
+      "demand_upper": 41,
+      "capacities": [
+        100
+      ],
+      "component_bytes_upper": 320,
+      "allocated_bytes_upper": 32000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Withs": {
+      "demand_upper": 1681,
+      "capacities": [
+        5000
+      ],
+      "component_bytes_upper": 80,
+      "allocated_bytes_upper": 400000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Sdep": {
+      "demand_upper": 41,
+      "capacities": [
+        5000
+      ],
+      "component_bytes_upper": 128,
+      "allocated_bytes_upper": 640000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Args": {
+      "demand_upper": 0,
+      "capacities": [],
+      "component_bytes_upper": 16,
+      "allocated_bytes_upper": 0,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    }
+  },
+  "table_append_counts_cumulative_upper": {
+    "ALIs": 3,
+    "Units": 44,
+    "Withs": 1694,
+    "Sdep": 99,
+    "Args": 0
+  },
+  "parser_tables_without_inter_scan_reset": {
+    "ALIs": {
+      "demand_upper": 3,
+      "capacities": [
+        500
+      ],
+      "component_bytes_upper": 8192,
+      "allocated_bytes_upper": 4096000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Units": {
+      "demand_upper": 44,
+      "capacities": [
+        100
+      ],
+      "component_bytes_upper": 320,
+      "allocated_bytes_upper": 32000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Withs": {
+      "demand_upper": 1694,
+      "capacities": [
+        5000
+      ],
+      "component_bytes_upper": 80,
+      "allocated_bytes_upper": 400000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Sdep": {
+      "demand_upper": 99,
+      "capacities": [
+        5000
+      ],
+      "component_bytes_upper": 128,
+      "allocated_bytes_upper": 640000,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    },
+    "Args": {
+      "demand_upper": 0,
+      "capacities": [],
+      "component_bytes_upper": 16,
+      "allocated_bytes_upper": 0,
+      "indices_and_next_slot_fit": true,
+      "allocation_bits_and_pointer_difference_fit": true
+    }
+  },
+  "raw_buffers": {
+    "Main_including_EOF_upper": 2152397,
+    "fixed_including_EOF_upper": {
+      "silver_io.ali": 4501,
+      "silver_output_libc.ali": 2991
+    },
+    "peak_local_reader_bytes_upper": 2152397,
+    "cumulative_local_reader_bytes_upper": 2159889,
+    "cumulative_is_not_peak_live_or_RAM_gate": true
+  },
+  "parser_name_contribution": {
+    "Main_entry_events_upper": 5249,
+    "fixed_entry_events_upper": 221,
+    "entry_events_upper": 5470,
+    "value_bytes_upper": 6225037,
+    "maximum_payload_bytes_upper": 1183,
+    "extra_NUL_per_stored_value": 0,
+    "static_hash_slots": 65536,
+    "static_name_scratch_bytes": 1000000,
+    "reset_between_scans": false,
+    "complete_name_vector_backing_established": false,
+    "ALI_path_interning_charged": false,
+    "incoming_contract": "F/Dep_Path names already interned; add E_parser and C_parser to all incoming/nonparser events and value bytes. Bound Name_Id and Count_Type, discriminated entry metadata/padding, indefinite-vector capacity/overlap and every incoming payload separately. Table resets do not release Names."
+  },
+  "argument_strings_allocated": 0,
+  "invocation_signature_tables_or_hash_text_allocated": 0,
+  "version_local_scratch_bytes": 32,
+  "conditions": {
+    "accepted_Main_writer_and_source": true,
+    "parent_parser_table_indices": true,
+    "parent_parser_individual_table_allocations": true,
+    "parent_raw_reader_indices_and_EOF": true,
+    "parent_cursors_and_line_counter": true,
+    "parent_shared_name_scratch": true
+  },
+  "selected_parent_DW_reader_local_interface_fits": true,
+  "fixed_inputs_checked": 10,
+  "binder_source_members_checked": 151,
+  "additional_source_members_checked": 3,
+  "split_source_members_checked": 29,
+  "native_tool_executions": 0,
+  "aggregate_RAM_gate": false,
+  "output_launch_descriptor_materialized": false,
+  "fixed_child_regeneration_correspondence_established": false,
+  "complete_GPR_Names_backing_established": false,
+  "output_parent_source_buffers_established": false,
+  "whole_native_parent_capacity_established": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "premises": [
+    "Relevant installed behavior matches pinned GCC/GPR source on Linux x86-64; case-sensitive filenames, native mode rather than GnatProve mode, ordinary LP64 scalar/layout and physical-resource premises remain separate.",
+    "One ordinary non-library project/tree/Main, no imports/extensions/aggregates/Roots, no runtime sources in the project inventory; fixed Silver sources are unindexed, Main alone indexed.",
+    "Fresh writable native object/ALI/exchange directories, default object checks; one local non-jobserver compile pass, no unique-compile/compile-all/distributed/requeue/keep-going/check-switches/no-split modes or external injection.",
+    "Coherent accepted literal Main and fixed Silver source/specification bytes; the accepted Main W closure reaches only the two fixed Silver jobs in this project inventory.",
+    "Each fixed child ALI preserves retained version/U/W/Y/Z/D names and row-width envelopes, fixed metadata field widths, and complete non-A byte envelope except optional Xref deletion; the nine allowed unindexed stored native switches occur at most once. Selected native/producer option separation and this regeneration correspondence must be realized by the later descriptor.",
+    "Successful child/parsing interfaces and ordinary process wait completion; every Dep_Path spelling and C NUL satisfies P; Names includes all incoming and nonparser producers."
+  ],
+  "remaining": [
+    "Materialize the complete selected output launch/search/options descriptor and fixed-child ALI regeneration correspondence; this callable checks the interface, not those producers.",
+    "Close persistent shared GPR.Names vector backing with incoming/nonparser contributions.",
+    "Price additional fixed Silver source buffers, source/name/project/configuration/phase routes, queue and driver lifetimes; the null three-buffer witness does not transfer.",
+    "Compose all native/producer/link/binder components; research #119 remains incomplete."
+  ]
+}

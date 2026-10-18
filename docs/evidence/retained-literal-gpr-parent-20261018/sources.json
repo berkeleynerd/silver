@@ -1,0 +1,28 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gprbuild_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "archive": {
+    "bytes": 34556,
+    "sha256": "a5c8833a7866632a9c6f4565fdde49dd0ab977611f02e877c2adc51f78c85d84"
+  },
+  "files": [
+    {
+      "path": "gcc/ada/libgnat/s-rident.ads",
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/s-rident.ads",
+      "bytes": 36946,
+      "sha256": "e9baa9af82dd10ddcd9ac016f52e230babdcdf19f4f18b0ded647643324949a8"
+    },
+    {
+      "path": "gcc/ada/switch-c.adb",
+      "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/switch-c.adb",
+      "bytes": 59201,
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+    },
+    {
+      "path": "gpr/src/gprbuild-main.adb",
+      "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "bytes": 91326,
+      "sha256": "080a437b127db61c26abba5d1b60aad97b228ee31ea8196f88974332df1f95c4"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "task": "Silver#119 literal-output native parent DW reader interface",
+  "base_commit": "54a5c273d5",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_reasoning_effort": "Extra High",
+  "selected_settings_source": "Parent delegated task",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_reasoning_effort": null,
+  "runtime_confirmation": "Unavailable in this subthread; no live model-change claim.",
+  "started_UTC": "2026-10-18T18:54:46+00:00",
+  "completed_UTC": "2026-10-18T19:08:17+00:00",
+  "elapsed_wall_seconds": 811,
+  "token_usage": null,
+  "cost": null,
+  "native_tool_execution_seconds": 0,
+  "native_tool_executions": 0,
+  "outcome": "Conditional local Phase_2_ALI DW table/buffer/scratch and additive persistent-name interface; three-job source frontier.",
+  "significant_findings": [
+    "Record_ALI_For reuses the successful Phase_2 ALI, so no extra W-only reread in the selected fresh path.",
+    "ALI reset releases local table backing but preserves shared GPR.Names.",
+    "Fixed regenerated ALIs replace 72 historical A bytes by up to129 selected A bytes; fixed native units exclude indexed Main selector.",
+    "Complete descriptor/fixed-child non-A correspondence, incoming Names/vector backing and additional output source/project/driver routes remain open."
+  ],
+  "verification": {
+    "offline_cases": 16,
+    "all_passed": true,
+    "retained_check_output_reproduced_byte_for_byte": true,
+    "local_Markdown_links_checked": true,
+    "diff_whitespace_check": "Passed staged check; repeated before final commit."
+  },
+  "independent_review_status": "Not performed by implementer; exact frozen commit is the next review target.",
+  "live_harness_goal": "get_goal returned null in this subthread; no goal changed.",
+  "CLI_memory_updated": false
+}

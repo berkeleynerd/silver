@@ -1,0 +1,337 @@
+{
+  "cases": [
+    {
+      "case": "hello",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "source_counts": {
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "selected_parent_DW_reader_local_interface_fits": true
+    },
+    {
+      "case": "large_literal",
+      "source": {
+        "bytes": 8286,
+        "sha256": "bbf27a12d8bbc914d984958dea54e1502fcf11d3be38f31dd477262380936d29"
+      },
+      "source_counts": {
+        "output_calls": 1,
+        "Put": 1,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_bytes": 8192,
+        "maximum_literal_length": 8192
+      },
+      "selected_parent_DW_reader_local_interface_fits": true
+    },
+    {
+      "case": "repeated_calls",
+      "source": {
+        "bytes": 105075,
+        "sha256": "38a5bd86502507bb40f15f04f31954c5033c6ccfcd655cc9374603a13ec6cf0f"
+      },
+      "source_counts": {
+        "output_calls": 5000,
+        "Put": 5000,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_bytes": 5000,
+        "maximum_literal_length": 1
+      },
+      "selected_parent_DW_reader_local_interface_fits": true
+    },
+    {
+      "case": "both_calls_empty_and_quotes",
+      "source": {
+        "bytes": 129,
+        "sha256": "c5b676cd936c9ccacc78a1043f673d84f2e221546df911dcb64811b95acc7f12"
+      },
+      "source_counts": {
+        "output_calls": 2,
+        "Put": 1,
+        "Put_Line": 1,
+        "null_statements": 1,
+        "decoded_literal_bytes": 3,
+        "maximum_literal_length": 3
+      },
+      "selected_parent_DW_reader_local_interface_fits": true
+    },
+    {
+      "case": "case_and_CR_comments",
+      "source": {
+        "bytes": 120,
+        "sha256": "096be6983802b2ecb6aceb830f2852a2f6a1dfa4d831d8aabbe0ea667533dc8b"
+      },
+      "source_counts": {
+        "output_calls": 1,
+        "Put": 1,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_bytes": 1,
+        "maximum_literal_length": 1
+      },
+      "selected_parent_DW_reader_local_interface_fits": true
+    },
+    {
+      "case": "expected_local_totals",
+      "matches": true
+    },
+    {
+      "case": "path_976",
+      "conditions": {
+        "accepted_Main_writer_and_source": true,
+        "parent_parser_table_indices": true,
+        "parent_parser_individual_table_allocations": true,
+        "parent_raw_reader_indices_and_EOF": true,
+        "parent_cursors_and_line_counter": true,
+        "parent_shared_name_scratch": true
+      },
+      "fits": true
+    },
+    {
+      "case": "path_977",
+      "conditions": {
+        "accepted_Main_writer_and_source": false,
+        "parent_parser_table_indices": true,
+        "parent_parser_individual_table_allocations": true,
+        "parent_raw_reader_indices_and_EOF": true,
+        "parent_cursors_and_line_counter": true,
+        "parent_shared_name_scratch": true
+      },
+      "fits": false
+    },
+    {
+      "case": "path_2147483647",
+      "conditions": {
+        "accepted_Main_writer_and_source": false,
+        "parent_parser_table_indices": true,
+        "parent_parser_individual_table_allocations": true,
+        "parent_raw_reader_indices_and_EOF": false,
+        "parent_cursors_and_line_counter": false,
+        "parent_shared_name_scratch": false
+      },
+      "fits": false
+    },
+    {
+      "case": "physical_column_overflow",
+      "conditions": {
+        "accepted_Main_writer_and_source": false,
+        "parent_parser_table_indices": true,
+        "parent_parser_individual_table_allocations": true,
+        "parent_raw_reader_indices_and_EOF": true,
+        "parent_cursors_and_line_counter": true,
+        "parent_shared_name_scratch": true
+      },
+      "fits": false
+    },
+    {
+      "case": "nonliteral",
+      "rejected": true
+    },
+    {
+      "case": "forbidden_VT",
+      "rejected": true
+    },
+    {
+      "case": "negative_path",
+      "rejected": true
+    },
+    {
+      "case": "silver_io.ali_policy_and_ignored_records",
+      "matches": true,
+      "huge_ignored_G_coordinate_allocated_signature": false,
+      "added_split_A_raw_bytes": 21,
+      "raw_charge_is_separate_from_parser_projection": true
+    },
+    {
+      "case": "silver_output_libc.ali_policy_and_ignored_records",
+      "matches": true,
+      "huge_ignored_G_coordinate_allocated_signature": false,
+      "added_split_A_raw_bytes": 21,
+      "raw_charge_is_separate_from_parser_projection": true
+    },
+    {
+      "case": "retained_Silver_edges_and_project_inventory",
+      "matches": true,
+      "actual_fresh_literal_launch_established": false
+    }
+  ],
+  "local_projection_at_P512": {
+    "schedule": {
+      "Phase_2_ALI_DW_calls_upper": 3,
+      "Record_ALI_For_additional_W_reads_upper": 0,
+      "selected_jobs": [
+        "Main",
+        "Silver_IO body",
+        "Silver_Output_Libc spec"
+      ],
+      "runtime_ALI_recursion_in_parent": 0,
+      "native_parent_ALI_buffers_simultaneously_live_upper": 1,
+      "successful_scans_reset_ALI_tables": true,
+      "shared_GPR_Names_persists": true,
+      "fresh_job_frontier_requires_descriptor_premises": true,
+      "whole_parent_call_graph_closed": false
+    },
+    "parser_tables_per_scan": {
+      "ALIs": {
+        "demand_upper": 1,
+        "capacities": [
+          500
+        ],
+        "component_bytes_upper": 8192,
+        "allocated_bytes_upper": 4096000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Units": {
+        "demand_upper": 41,
+        "capacities": [
+          100
+        ],
+        "component_bytes_upper": 320,
+        "allocated_bytes_upper": 32000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Withs": {
+        "demand_upper": 1681,
+        "capacities": [
+          5000
+        ],
+        "component_bytes_upper": 80,
+        "allocated_bytes_upper": 400000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Sdep": {
+        "demand_upper": 41,
+        "capacities": [
+          5000
+        ],
+        "component_bytes_upper": 128,
+        "allocated_bytes_upper": 640000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Args": {
+        "demand_upper": 0,
+        "capacities": [],
+        "component_bytes_upper": 16,
+        "allocated_bytes_upper": 0,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      }
+    },
+    "table_append_counts_cumulative_upper": {
+      "ALIs": 3,
+      "Units": 44,
+      "Withs": 1694,
+      "Sdep": 99,
+      "Args": 0
+    },
+    "parser_tables_without_inter_scan_reset": {
+      "ALIs": {
+        "demand_upper": 3,
+        "capacities": [
+          500
+        ],
+        "component_bytes_upper": 8192,
+        "allocated_bytes_upper": 4096000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Units": {
+        "demand_upper": 44,
+        "capacities": [
+          100
+        ],
+        "component_bytes_upper": 320,
+        "allocated_bytes_upper": 32000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Withs": {
+        "demand_upper": 1694,
+        "capacities": [
+          5000
+        ],
+        "component_bytes_upper": 80,
+        "allocated_bytes_upper": 400000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Sdep": {
+        "demand_upper": 99,
+        "capacities": [
+          5000
+        ],
+        "component_bytes_upper": 128,
+        "allocated_bytes_upper": 640000,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      },
+      "Args": {
+        "demand_upper": 0,
+        "capacities": [],
+        "component_bytes_upper": 16,
+        "allocated_bytes_upper": 0,
+        "indices_and_next_slot_fit": true,
+        "allocation_bits_and_pointer_difference_fit": true
+      }
+    },
+    "raw_buffers": {
+      "Main_including_EOF_upper": 2152397,
+      "fixed_including_EOF_upper": {
+        "silver_io.ali": 4501,
+        "silver_output_libc.ali": 2991
+      },
+      "peak_local_reader_bytes_upper": 2152397,
+      "cumulative_local_reader_bytes_upper": 2159889,
+      "cumulative_is_not_peak_live_or_RAM_gate": true
+    },
+    "parser_name_contribution": {
+      "Main_entry_events_upper": 5249,
+      "fixed_entry_events_upper": 221,
+      "entry_events_upper": 5470,
+      "value_bytes_upper": 6225037,
+      "maximum_payload_bytes_upper": 1183,
+      "extra_NUL_per_stored_value": 0,
+      "static_hash_slots": 65536,
+      "static_name_scratch_bytes": 1000000,
+      "reset_between_scans": false,
+      "complete_name_vector_backing_established": false,
+      "ALI_path_interning_charged": false,
+      "incoming_contract": "F/Dep_Path names already interned; add E_parser and C_parser to all incoming/nonparser events and value bytes. Bound Name_Id and Count_Type, discriminated entry metadata/padding, indefinite-vector capacity/overlap and every incoming payload separately. Table resets do not release Names."
+    },
+    "fixed_native_stored_switch_envelope": {
+      "switches": [
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-mtune=generic",
+        "-march=x86-64",
+        "-Wno-free-nonheap-object",
+        "-gnatx",
+        "-fsplit-wide-types"
+      ],
+      "rows_upper": 9,
+      "payload_bytes_upper": 102,
+      "complete_A_bytes_upper": 129,
+      "indexed_Main_switch_excluded": "-gnateI1",
+      "duplicates_or_extra_stored_switches_permitted": false
+    }
+  },
+  "all_checks_pass": true,
+  "native_tool_executions": 0,
+  "whole_native_parent_capacity_established": false,
+  "whole_literal_pipeline_capacity_established": false
+}
