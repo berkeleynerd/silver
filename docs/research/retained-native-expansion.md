@@ -11248,9 +11248,10 @@ unchanged until its authorized implementation/proof work is completed.
 This is an evidence stream toward the complete #119 language objective, not a
 new language fragment, milestone or source cap. The
 [offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
-scans this restricted source class completely and checks 34 complete source
-identities. Its equations cover initial lowering, CF/CFG/SSA and data operands.
-Later GIMPLE/IPA, RTL, allocation counters and final assembly/object composition
+scans this restricted source class completely and checks 50 complete source
+identities. Its equations cover initial lowering, CF/CFG/SSA, conditional O0
+and out-of-SSA shape preservation, and data operands. Whole-unit IPA, RTL,
+allocation counters and final assembly/object composition
 remain required; neither the checker nor its arithmetic proves those stages.
 
 ### Native expansion composes without a transient scope
@@ -11487,14 +11488,94 @@ counts do not discharge them. The local `4*(N+4)<=INT_MAX` and unsigned SSA
 version checks in the offline replay protect selected intermediates only.
 They are not a complete CFG or backend capacity predicate.
 
-The checker now pins 34 full source files and records the CF/CFG/SSA equations.
+The CF/CFG/SSA projection uses 34 full source files and records these equations.
 For the retained C=1,N=0 hello-world fixture the ceilings are seven CF
 statements, two ordinary blocks, three edges, five post-CFG statements, four
 fresh memory SSA names and a five-slot SSA-name vector. Four memory uses fit
 in the first 1024-byte operand slab. Focused arithmetic checks cover its first
-two slab transitions. Remaining O0/IPA passes, out-of-SSA, RTL/frame layout,
-final assembly/object emission and lifetime allocation accounting still need
-their own joins; the whole-backend flag remains false.
+two slab transitions. The following conditional O0/out-of-SSA section joins
+per-function shape preservation. Whole-unit IPA, pass allocation, RTL/frame
+layout, final assembly/object emission and lifetime allocation accounting
+still need their own joins; the whole-backend flag remains false.
+
+### Conditional O0 continuation to RTL entry
+
+The preceding graph can enter RTL expansion without a new scalar SSA partition.
+This is a conditional per-function shape join, with the same selected native
+O0/no-debug/no-instrumentation premises as the
+[null-body continuation](retained-backend-gigi.md#null-main-through-the-remaining-o0-gimple-stages).
+The compilation unit must preserve Main and its imported output declarations.
+Whole-unit IPA/cgraph summaries, imported-unit processing, allocation events,
+and the fixed dummy varpool symbol are separate composition inputs. This
+section does not count them as absent merely because Main is straight-line.
+
+The mandatory O0 pass argument extends as follows:
+
+- The early inliner sees at most two distinct external callees, neither with
+  an always-inline attribute or an available body in this native Main
+  compilation. Its always-inline guard and O0 ordinary-inlining guard leave
+  every call intact (`ipa-inline.cc:3009–3059,3235–3250`). Local summaries and
+  cgraph rebuilding still scan C call occurrences and have their own costs.
+- The selected optimization-superpass guards are false. Local alignment
+  visits at most C descriptors and changes declaration alignment only
+  (`adjust-alignment.cc:60–78`). The x86 hook leaves this two-pointer record
+  aligned to 8 or 16 bytes, never more (`i386.cc:18701–18811`). No source or
+  GIMPLE descriptor copy is introduced by alignment adjustment.
+- Varargs, complex, vector and bitint lowering have no eligible operand.
+  In particular, the two stores per call are ordinary pointer COMPONENT_REF
+  assignments from ADDR_EXPRs; they are neither complex operations nor vector
+  operations. The bitint scanner examines virtual definitions but their
+  store RHS types are pointers (`tree-complex.cc:213–333`,
+  `tree-vect-generic.cc:2185–2254`, `gimple-lower-bitint.cc:6943–6997`). The
+  output calls have no result to lower. There is no IFN_VA_ARG or switch.
+- EH dispatch/cleanup need a local region tree and RESX lowering finds no
+  RESX. The previously established no-transform cases for assumption, SIMD-ID,
+  musttail, NRV and instrumentation apply under the selected options. GIMPLE
+  instruction selection uses the selected default target hook. Its builtin
+  call helper returns immediately at O0; its store path only has a special
+  transformation for a comparison RHS, absent here
+  (`gimple-isel.cc:1274–1281,1350–1393`).
+- The selected warning policy includes `-Wno-free-nonheap-object` with the
+  other two access-pass gate flags disabled, so both access-pass gates are
+  false (`gimple-ssa-warn-access.cc:2270–2275`). This is a property of the
+  selected invocation, not of arbitrary warning overrides. The alloca pass
+  still creates its ranger, then skips each non-alloca statement
+  (`gimple-ssa-warn-alloca.cc:258–273`). Other warning premises remain those
+  recorded for the null continuation. None adds a statement here.
+
+SSA-name compaction only shrinks its vector (`tree-ssanames.cc:983–1013`).
+The required SSA/CFG TODOs have no newly marked scalar name, join, branch,
+local exception association or noreturn call to process. Final path cleanup
+can shorten the same graph but cannot introduce the missing forms. Therefore
+the entry to `rewrite_out_of_ssa` retains the ceilings
+`b=N+2`, `e=N+3`, `t=3C+N+2`, `z=3C+2`, with C aggregate local descriptors,
+zero real SSA names and zero PHIs. These are sufficient input ceilings, not
+claims that all optional deletions happen.
+
+Out-of-SSA has no backedge-copy or PHI-elimination work and no parameter,
+static chain or nonvoid-result default definition
+(`tree-outof-ssa.cc:919–944,1382–1405`). `init_var_map` still requests a
+partition of z and a block-pointer vector for at most b ordinary blocks
+(`tree-ssa-live.cc:84–121`). The coalesce population sees no SSA-name copy,
+nonvoid return, PHI or asm. Its per-name pass excludes virtual names, while
+the same-variable hash path excludes the ignored `.MEM` declaration
+(`tree-ssa-coalesce.cc:1043–1213,1249–1339`). Thus the real partition view is
+empty (`tree-ssa-live.cc:198–230`), and the coalescer returns before live-range
+and conflict-graph construction (`tree-ssa-coalesce.cc:1843–1871`). Its fixed
+record/hash/obstack requests and the z-sized initial partition still count.
+A local `z<=INT_MAX` condition protects `init_var_map(int)`; a zero real
+partition count does not permit ignoring this pre-filtering size.
+
+No SSA-lowering statement, RTL PHI copy, label, edge, real pseudo or additional
+local object is created. The PHI-elimination graph still requests its fixed
+vectors and bitmap (`tree-outof-ssa.cc:433–438,1012–1049`).
+`partition_to_pseudo` is logically length zero (`cfgexpand.cc:7023–7036`).
+**This does not mean zero RTL pseudos for Main**: the C aggregate descriptors,
+2C pointer stores and C direct calls still enter ordinary expression/call
+expansion. Actual storage choice, call argument moves, symbol references,
+register allocation, frame/spill layout and final emission remain required.
+Likewise the later expansion ranger's storage cannot use the null fixture's
+two-slot SSA ceiling; its input is now z<=3C+2.
 
 ## Exact remaining obligations
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline source-to-initial-SSA interface for direct literal output.
+"""Offline direct literal output interface through conditional RTL entry.
 
 The source argument in retained-native-expansion.md supplies reachability and
 helper behavior. This checker verifies inputs, scans a restricted source class
@@ -106,12 +106,27 @@ def composition(counts):
             reaching_definition_stack_pushes_upper=n+4+6*c,
             operand_slab_requested_bytes_upper=(1024+(4096 if uses>25 else 0)
                 +16384*((max(0,uses-127)+408)//409))),
+        conditional_O0_out_of_SSA=dict(
+            requires_selected_options_and_whole_unit_Main_preservation=True,
+            ordinary_blocks_upper=n+2, edges_upper=n+3,
+            block_index_slots_upper=n+4,
+            live_GIMPLE_statements_upper=3*c+n+2,
+            SSA_name_vector_length_upper=3*c+2,
+            descriptor_local_declarations_upper=c,
+            descriptor_alignment_bytes_upper=16,
+            prefilter_partition_extent_upper=3*c+2,
+            ordinary_block_pointer_vector_length_upper=n+2,
+            real_partitions=0, SSA_lowering_fresh_statements=0,
+            SSA_lowering_fresh_real_pseudos=0, RTL_PHI_copies=0,
+            expression_and_call_RTL_pseudo_bound_established=False,
+            whole_unit_IPA_allocation_and_counter_join_established=False),
         local_representation_checks=dict(
             literal_length_fits_String_Length_and_Integer=length<=I32,
             String_constructor_unsigned_size=length+21<=2**32-1,
             Character_array_bit_size_fits_signed64=8*length<=2**63-1,
             CFG_SSA_dominator_signed_intermediates=4*(n+4)<=I32,
             initial_SSA_name_versions_fit_unsigned32=3*c+2<=2**32-1,
+            out_of_SSA_partition_extent_fits_signed_int=3*c+2<=I32,
             descriptor_objects_have_fixed_size=True),
         semantic_library_admissibility='separate parameter; current 4096-byte rule is not promoted into this backend bound',
         later_GIMPLE_IPA_RTL_allocation_and_counter_composition_established=False,
@@ -167,7 +182,7 @@ def main():
         raw = (roots[row['root']]/row['path']).read_bytes()
         require(len(raw)==row['bytes'] and sha(raw)==row['sha256'], 'changed source: '+row['path'])
     counts = source_counts(a.source.read_bytes())
-    result = dict(scope='direct literal output: source to initial SSA and data operands',
+    result = dict(scope='direct literal output: source through conditional O0/out-of-SSA entry and data operands',
         source_files_verified=len(identity['files']), source_counts=counts,
         components=composition(counts), focused_checks=focused_checks(),
         native_tool_executions=0,

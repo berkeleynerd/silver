@@ -1,6 +1,6 @@
 {
-  "scope": "direct literal output: source to initial SSA and data operands",
-  "source_files_verified": 34,
+  "scope": "direct literal output: source through conditional O0/out-of-SSA entry and data operands",
+  "source_files_verified": 50,
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -93,12 +93,31 @@
       "reaching_definition_stack_pushes_upper": 10,
       "operand_slab_requested_bytes_upper": 1024
     },
+    "conditional_O0_out_of_SSA": {
+      "requires_selected_options_and_whole_unit_Main_preservation": true,
+      "ordinary_blocks_upper": 2,
+      "edges_upper": 3,
+      "block_index_slots_upper": 4,
+      "live_GIMPLE_statements_upper": 5,
+      "SSA_name_vector_length_upper": 5,
+      "descriptor_local_declarations_upper": 1,
+      "descriptor_alignment_bytes_upper": 16,
+      "prefilter_partition_extent_upper": 5,
+      "ordinary_block_pointer_vector_length_upper": 2,
+      "real_partitions": 0,
+      "SSA_lowering_fresh_statements": 0,
+      "SSA_lowering_fresh_real_pseudos": 0,
+      "RTL_PHI_copies": 0,
+      "expression_and_call_RTL_pseudo_bound_established": false,
+      "whole_unit_IPA_allocation_and_counter_join_established": false
+    },
     "local_representation_checks": {
       "literal_length_fits_String_Length_and_Integer": true,
       "String_constructor_unsigned_size": true,
       "Character_array_bit_size_fits_signed64": true,
       "CFG_SSA_dominator_signed_intermediates": true,
       "initial_SSA_name_versions_fit_unsigned32": true,
+      "out_of_SSA_partition_extent_fits_signed_int": true,
       "descriptor_objects_have_fixed_size": true
     },
     "semantic_library_admissibility": "separate parameter; current 4096-byte rule is not promoted into this backend bound",
