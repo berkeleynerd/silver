@@ -1,5 +1,34 @@
 # Session memory
 
+## 2026-10-18 — Portable model policy and host settings
+
+After reviewing the proposed model/delegation policy, the owner instructed:
+**“Agree. Please implement your recommendations erring on the side of more
+intelligence rather than less.”** Preserve the earlier increase in effort and
+Sol-for-Luna decision. Use Astra Extra High for the lead and unclassified or
+uncertain/consequential work; Sol Extra High for established implementation,
+proof and checkable extraction; Sol High for routine work. Max is a named
+escalation, followed by a return to the appropriate baseline. Ultra remains
+available for meaningful parallel work under the same ownership and resource
+controls. Independent second opinions are selected by the question, not a
+fixed provider or reviewer count.
+
+The [portable project policy](../AGENTS.md#models-effort-and-delegation) and
+[configuration/reporting guidance](agent-workflow.md) make this usable across
+hosts and agents. The lead reads the governing context and gives bounded
+subthreads the relevant requirements, decisions, owned files and evidence;
+subthreads expand that reading when necessary. New reviews and substantive
+round records identify actual/selected model and effort, outcomes, rework and
+available cost evidence without inventing unavailable measurements.
+
+Host defaults and named profiles are authorized to implement this policy;
+saved configuration and live session settings must be reported separately.
+Keep provider, permission and credential settings intact. Research #119 and
+dependent #88–#94 retain their existing authorization and unfinished status;
+this workflow change alters no Oracle guarantee, language admission, proof
+requirement or tool pin. The completed For loops and integers harness goal
+remains complete. Routine publication is authorized; CLI memory is unavailable.
+
 ## 2026-10-17 — Retained-tool capacity direction adopted
 
 After discussing the tool-imposed representation boundary and requesting a

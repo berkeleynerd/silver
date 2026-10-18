@@ -1,6 +1,6 @@
 # Silver session guidance
 
-Read [oracle.md](oracle.md), [language.md](language.md),
+The lead reads [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the dated
 [session memory](docs/session-memory.md) before substantial work, then check the
 open issues of the current milestone and open `type: decision` issues as
@@ -8,9 +8,54 @@ open issues of the current milestone and open `type: decision` issues as
 Follow the current human request; a proposal, roadmap entry or issue alone does
 not authorize implementation.
 
+For a bounded subthread, the lead supplies the objective and authorization,
+applicable Oracle requirements, exact owned files, relevant milestone decisions
+and evidence, and completion criteria. The subthread reads this file and the
+relevant linked sections; it need not reread the entire session memory or all
+governing documents. Expand that context whenever a guarantee, dependency or
+scope is uncertain. This briefing never waives an applicable requirement.
+
 The primary coding agent implements owner-authorized work. The planning agent
 maintains the board, issues, Rosetta assessments and reviews. Start only Ready
 items whose owner authorization is recorded, or work the owner requests directly.
+
+## Models, effort and delegation
+
+This project policy travels with the repository; it does not depend on another
+agent having the lead's global instructions. Favor more intelligence when the
+task's uncertainty or consequences are unclear. Use the following starting
+points when available (mapping reviewed 2026-10-18):
+
+| Work | Model | Effort |
+| --- | --- | --- |
+| Lead or unclassified work; uncertain research, architecture, capacity, soundness or consequential judgment | GPT-6 Astra | Extra High |
+| Independent review of a critical argument or high-consequence change | GPT-6 Astra | Extra High |
+| Substantial implementation, debugging or proof with an established approach | GPT-6.1 Sol | Extra High |
+| Directly checkable extraction, inventory or transformation | GPT-6.1 Sol | Extra High |
+| Routine implementation, documentation, evidence scripts or coordination | GPT-6.1 Sol | High |
+
+Use Sol in place of Luna. Escalate to Max for a named unresolved problem when
+the baseline is inadequate or the difficulty warrants it, and return to the
+appropriate baseline when it is resolved. Effort cannot replace missing evidence
+or required validation. Honor explicit owner choices; consult current official
+guidance when model availability changes. Do not silently lower the tier when
+a model or usage allocation is unavailable.
+
+Before a fan-out, briefly state the expected subthreads, models/efforts and
+deliverables. Delegate only separable work with explicit ownership and review
+the results. Use Ultra when meaningful parallel work justifies it; automated
+delegation follows the same ownership, permissions and resource rules. Select
+second opinions by the unresolved question and consequences, across providers
+when available and authorized; avoid a fixed vendor or verifier-count rule.
+
+Agent concurrency is separate from native worker and memory allocation. Respect
+actual session slots, workspace leases and host headroom. Use managed runners
+and explicit worker reservations; serialize dense runs when their combined
+requirements exceed available resources. A read-only role instruction is not
+a separate sandbox. Apply the [configuration and reporting guidance](docs/agent-workflow.md)
+and [round monitoring rules](development.md#goal-and-review-bookkeeping).
+Report actual settings; changing saved defaults does not prove a live lead
+model or effort changed.
 
 ## Authority and priorities
 
