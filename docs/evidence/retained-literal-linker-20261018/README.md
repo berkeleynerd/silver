@@ -3,7 +3,10 @@
 Research for [#119](https://github.com/berkeleynerd/silver/issues/119). Read the
 [source argument](../../research/retained-literal-linker.md) for the precise
 conditional claim, descriptor, no-plugin compatibility transfer and scope.
-This packet is awaiting independent review. It changes no production rule.
+The [independent review](review.md) accepts this conditional scope. It changes
+no production rule. The evaluator does not itself attest review; its false
+review field and the pre-review implementation `round.json` remain historical
+evidence rather than the current review disposition.
 
 From the repository root:
 

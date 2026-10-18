@@ -10,8 +10,9 @@ bytes from the complete source. It accepts no author-supplied counts.
 
 Under the source/configuration premises below, a true result is a sufficient
 representation condition for the selected assembler and output linker. This
-is a review-ready source argument, **not independently accepted yet**, a
-production admission rule, or a claim that every literal source satisfies it.
+argument is [independently accepted](../evidence/retained-literal-linker-20261018/review.md)
+within that conditional scope. It is not a production admission rule or a
+claim that every literal source satisfies it.
 `whole_literal_pipeline_capacity_established` remains false. The Oracle,
 language, tool options and current 4096-byte library/admission rule are unchanged;
 #88–#94 remain pending the complete rule. The 8192-byte case below explores
@@ -288,5 +289,5 @@ with nulls, and independent host mmap-page parameters. Successful results are
 conditional representation claims with the manual source argument above; the
 source snippet checks in Python are identity/landmark guards, not a machine
 proof of control flow. Production invocation/materialization, other producer,
-compiler and binder phases, whole-pipeline composition and independent review
+compiler and binder phases and whole-pipeline composition
 remain separate obligations. No current admission behavior is changed.
