@@ -571,8 +571,10 @@ the small requests above do not silently close those obligations.
 
 ## Remaining composition
 
-The current record leaves common notes/frchain backing, remaining relaxation
-state, object-file metadata, and fixed startup tables open. The subsequent
+The subsequent [shared backing transfer](retained-assembler-backing.md)
+supplies notes/frchain chunk arithmetic and CFI/SFrame raw request ceilings.
+Remaining relaxation state, fixed startup tables and BFD initialization
+still need their inventory. The subsequent
 [ELF object transfer](retained-elf-object-capacity.md) supplies the selected
 writer's metadata counts and complete object-file envelope; fixed BFD
 initialization and shared backing remain separate. The selected

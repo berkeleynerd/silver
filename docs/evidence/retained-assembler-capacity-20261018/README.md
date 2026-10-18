@@ -54,6 +54,22 @@ symbol entries, 281 relocations and 14352 file bytes. Symbol mapping reuses
 existing BFD section symbols. Common allocator storage and final-link reach
 remain separate; the file bound is not an observed native output size.
 
+The [shared backing transfer](../../research/retained-assembler-backing.md)
+adds frame/subsection structure ceilings and common GAS obstack arithmetic:
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-backing.py \
+  --output /tmp/retained-assembler-backing-check.json
+```
+
+The thirteen fragment-chain control objects fit one initial 4064-byte chunk.
+Shared notes chunks are bounded by `max(4064,Q+241)`, where
+`Q=max(2248,8*(A+1),P)` records actual argument-count and copied output-path
+inputs. The descriptor example `as --64 -o main.o TEMP.s` gives 4064 bytes;
+the production phase join must supply its actual argument/path inputs.
+This bounds individual requests, not aggregate RAM or the remaining fixed
+parser/opcode/hash and BFD initialization inventory.
+
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic
 checks were the only new execution.

@@ -1,0 +1,62 @@
+{
+  "scope": "Selected GAS common backing and frame requests; fixed startup/BFD inventory remains open",
+  "source_files_verified": 54,
+  "selected_LP64_raw_request_ceilings": {
+    "frchain": {
+      "count_upper": 13,
+      "bytes_per_request_upper": 192
+    },
+    "segment_info": {
+      "count_upper": 13,
+      "bytes_per_request_upper": 128
+    },
+    "CFI_instruction": {
+      "count_upper": 12,
+      "bytes_per_request_upper": 96
+    },
+    "FDE": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 224
+    },
+    "frchain_CFI_state": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 32
+    },
+    "CIE": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 128
+    },
+    "SFrame_row": {
+      "count_upper": 6,
+      "bytes_per_request_upper": 128
+    },
+    "SFrame_function": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 64
+    },
+    "SFrame_context": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 64
+    },
+    "SFrame_FDE_symbol_array": {
+      "count_upper": 1,
+      "bytes_per_request_upper": 8
+    }
+  },
+  "frchains_initial_chunk_bytes": 4064,
+  "frchains_space_with_alignment_upper": 2723,
+  "frchains_extra_chunks": 0,
+  "conditional_directive_initial_chunk_bytes": 4064,
+  "conditional_directive_objects": 0,
+  "notes_existing_prefix_at_growth_entry_upper": 112,
+  "notes_raw_request_contract": "Q=max(2248,8*(A+1),P)",
+  "notes_chunk_contract": "max(4064,Q+241)<=PTRDIFF_MAX; 0<=A<INT_MAX",
+  "descriptor_example_inputs": {
+    "argc": 5,
+    "output_path_bytes_including_NUL": 7
+  },
+  "descriptor_example_notes_Q": 2248,
+  "descriptor_example_notes_chunk_bytes_upper": 4064,
+  "production_phase_argument_path_join_complete": false,
+  "native_execution": false
+}
