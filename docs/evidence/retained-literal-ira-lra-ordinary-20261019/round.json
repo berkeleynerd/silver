@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost_measurement": null,
+  "subdelegation": false,
+  "base_commit": "d8e9c70e373de172280b87a1459ece88114c2eaf",
+  "retained_GCC_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "worktree": "tmp/literal-ira-lra-ordinary-20261019",
+  "branch": "research/119-literal-ira-lra-ordinary",
+  "round_started_UTC": "2026-10-19T11:41:56+00:00",
+  "checkpoint_UTC": "2026-10-19T11:58:59.566545+00:00",
+  "elapsed_to_checkpoint_seconds": 1023.566545,
+  "intended_outcome": "Exhaustive named IRA graph/cost/traversal allocation-storage subset with explicit outer IRA/LRA and numeric residuals",
+  "achieved_result": "25 local storage guards, 29 request rows and four pool transfers; focused checker passes, source argument handwritten, candidate pending independent review",
+  "significant_findings": [
+    "Cost-class map size is narrowed to signed int: 8K<=INT_MAX is distinct from size_t/PTRDIFF span checks.",
+    "Preferences can be nonempty even at O0; one per allocno is retained.",
+    "Unknown allocno packing uses stride upper 256 with separate retained-slot bound; exact stride is not invented.",
+    "Single-reg-class operand cost allocation requires explicit nonsingleton movdi exclusion.",
+    "Draft 68P excess-pressure bound removed: cross-class threshold updates need a separate argument.",
+    "Target move matrices use unsigned short, each 2312 bytes."
+  ],
+  "validation": {
+    "checks_passed": 192,
+    "checker_wall_seconds": 0.030164259995217435,
+    "count_cases": 15,
+    "vector_lengths": 4096,
+    "pool_stride_and_edge_cases": 288,
+    "prime_boundary_cases": 60,
+    "host": {
+      "system": "Linux",
+      "release": "7.0.14",
+      "machine": "x86_64"
+    },
+    "input_verification": {
+      "GCC_files": 45,
+      "repository_files": 19,
+      "source_excerpts": 35
+    },
+    "successful_checker_runs": 1,
+    "failed_checker_runs": 0,
+    "native_tool_executions": 0,
+    "predecessor_evaluator_or_checker_executions": 0,
+    "aggregate_or_corpus_replays": 0
+  },
+  "independent_review_status": "pending",
+  "review_target": "The frozen commit containing the named source note and this evidence directory; parent records its exact hash",
+  "reviewer_model": null,
+  "reviewer_effort": null,
+  "actual_source_adapter_created": false,
+  "remaining_obligations": [
+    "Independent review of source reachability and local representation transfer.",
+    "Numeric IRA cost/frequency/equivalence/priority and excess-pressure arithmetic.",
+    "Outer IRA equivalence/initial-value/reginfo/regstat helper lifetimes.",
+    "Remaining LRA ordinary instruction/register/assignment/elimination/CFG helper arrays.",
+    "Actual-source integration after accepted review; universal correspondence and overall native capacity remain open."
+  ],
+  "next_step": "Freeze with Refs #119 and give the parent exact commit/API/owner inputs for independent review. Parent owns integration/index/issues/publication.",
+  "live_harness_goal": null,
+  "CLI_memory_updated": false,
+  "new_checker_inputs": {
+    "derive.py": {
+      "bytes": 11753,
+      "sha256": "ece3079fa2ee9f5d2a0ec8e354e9e24fd779e0130871fb02c3f88cb89465a4cf"
+    },
+    "check.py": {
+      "bytes": 10151,
+      "sha256": "d7aba894666b9dfa764f3af9b7f57cb4dfe9adbc644d2e7b49ff48ede45acae5"
+    },
+    "inputs.json": {
+      "bytes": 44090,
+      "sha256": "19c5430519fd5f75225889394103324880a0fd36d33562bbc15cc370cc6d7029"
+    }
+  }
+}

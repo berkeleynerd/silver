@@ -1,0 +1,442 @@
+{
+  "scope": "IRA graph/cost/traversal allocation-storage subset of selected ira_build/fast color/emit-data/ira_emit(false)/destroy, with named imported allocator/DF/query owners; numeric cost and excess-pressure arithmetic and outer IRA/LRA interfaces remain open",
+  "source_input": {
+    "output_calls": 1,
+    "null_statements": 0
+  },
+  "extents": {
+    "A": 4,
+    "K": 104,
+    "B": 10,
+    "M": 27,
+    "U": 29,
+    "P": 64,
+    "cost_class_insert_attempts_upper": 12
+  },
+  "ordinary_requests": [
+    {
+      "family": "allocno/object-ID exact reserve",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 208,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 1672,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "global/root regno-to-allocno map",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 104,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 832,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "block-node array",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 10,
+      "element_bytes": 256,
+      "each_request_bytes_upper": 2560,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "root-node array",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 1,
+      "element_bytes": 256,
+      "each_request_bytes_upper": 256,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "preference/copy pointer exact reserve",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 29,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 240,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "cost tables: working and total",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 4,
+      "element_bytes": 140,
+      "each_request_bytes_upper": 560,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "preferred class by allocno",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 4,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 16,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "allocno class/equivalence gain/best class by register",
+      "simultaneous_instances_upper": 3,
+      "logical_elements_upper": 104,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 416,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "cost-class pointer map with signed byte caller",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 104,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 832,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "individual cost-class record",
+      "simultaneous_instances_upper": 12,
+      "logical_elements_upper": 1,
+      "element_bytes": 644,
+      "each_request_bytes_upper": 644,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "valid mode-change pointer map",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 104,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 832,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "empty valid-mode obstack initial chunk",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 1,
+      "element_bytes": 65536,
+      "each_request_bytes_upper": 65536,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "each class cost-pool wrapper",
+      "simultaneous_instances_upper": 34,
+      "logical_elements_upper": 1,
+      "element_bytes": 136,
+      "each_request_bytes_upper": 136,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "per-allocno saved-call number",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 4,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 16,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "start/finish live-range pointer arrays",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 64,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 512,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "live-point compression map",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 64,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 256,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "minimum live-range array",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 4,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 16,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "last-lived by point array",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 64,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 256,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "fast sorted allocnos",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 4,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 32,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "fast priorities",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 4,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 16,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "fast used hard-register sets by point",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 64,
+      "element_bytes": 16,
+      "each_request_bytes_upper": 1024,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "IRA preorder pointer vector backing",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 20,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 168,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "IRA reverse-order result and DFS vectors",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 10,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 88,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "optional root-region sort array",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 1,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 8,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "optional region child/removed exact reserves",
+      "simultaneous_instances_upper": 2,
+      "logical_elements_upper": 11,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 96,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "emit-data array",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 4,
+      "element_bytes": 24,
+      "each_request_bytes_upper": 96,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "empty new-allocno emit-data pointer reserve",
+      "simultaneous_instances_upper": 1,
+      "logical_elements_upper": 50,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 408,
+      "owner": "new IRA subset"
+    },
+    {
+      "family": "persistent target cost work buffer",
+      "simultaneous_instances_upper": 62,
+      "logical_elements_upper": 1,
+      "element_bytes": 140,
+      "each_request_bytes_upper": 140,
+      "owner": "retained target setup"
+    },
+    {
+      "family": "target move table per mode and flavor",
+      "simultaneous_instances_upper": 3,
+      "logical_elements_upper": 1156,
+      "element_bytes": 2,
+      "each_request_bytes_upper": 2312,
+      "owner": "retained target setup"
+    }
+  ],
+  "ordinary_pools": [
+    {
+      "family": "IRA allocnos",
+      "live_objects_upper": 4,
+      "exact_stride_bytes": null,
+      "stride_bytes_upper": 256,
+      "slots_per_block_lower": 255,
+      "retained_blocks_upper": 1,
+      "allocated_and_free_slots_upper": 8194,
+      "stored_count_type": "size_t",
+      "individual_block_request_bytes": 65536,
+      "new_GGC_events": 0,
+      "new_scalar_registrations": 0,
+      "new_array_registrations": 0,
+      "ordinary_blocks_are_not_GGC_events": true,
+      "retained_counts_fit": true,
+      "lifetime_block_request_total": null
+    },
+    {
+      "family": "IRA objects",
+      "live_objects_upper": 4,
+      "exact_stride_bytes": 88,
+      "stride_bytes_upper": 88,
+      "slots_per_block_lower": 744,
+      "retained_blocks_upper": 1,
+      "allocated_and_free_slots_upper": 744,
+      "stored_count_type": "size_t",
+      "individual_block_request_bytes": 65536,
+      "new_GGC_events": 0,
+      "new_scalar_registrations": 0,
+      "new_array_registrations": 0,
+      "ordinary_blocks_are_not_GGC_events": true,
+      "retained_counts_fit": true,
+      "lifetime_block_request_total": null
+    },
+    {
+      "family": "IRA preferences",
+      "live_objects_upper": 4,
+      "exact_stride_bytes": 32,
+      "stride_bytes_upper": 32,
+      "slots_per_block_lower": 2047,
+      "retained_blocks_upper": 1,
+      "allocated_and_free_slots_upper": 2047,
+      "stored_count_type": "size_t",
+      "individual_block_request_bytes": 65536,
+      "new_GGC_events": 0,
+      "new_scalar_registrations": 0,
+      "new_array_registrations": 0,
+      "ordinary_blocks_are_not_GGC_events": true,
+      "retained_counts_fit": true,
+      "lifetime_block_request_total": null
+    },
+    {
+      "family": "IRA live ranges",
+      "live_objects_upper": 8,
+      "exact_stride_bytes": 40,
+      "stride_bytes_upper": 40,
+      "slots_per_block_lower": 1638,
+      "retained_blocks_upper": 1,
+      "allocated_and_free_slots_upper": 1638,
+      "stored_count_type": "size_t",
+      "individual_block_request_bytes": 65536,
+      "new_GGC_events": 0,
+      "new_scalar_registrations": 0,
+      "new_array_registrations": 0,
+      "ordinary_blocks_are_not_GGC_events": true,
+      "retained_counts_fit": true,
+      "lifetime_block_request_total": null
+    }
+  ],
+  "cost_class_hash": {
+    "wrapper_bytes": 48,
+    "initial_slot_request": 200,
+    "insertion_capable_queries_upper": 12,
+    "record_creations_upper": 12,
+    "slots_upper": 251,
+    "each_backing_bytes_upper": 2008,
+    "pre_hit_growth_included": true,
+    "entries_deleted_before_finish": false
+  },
+  "lifetimes": {
+    "IRA_builds": 1,
+    "fast_color_calls": 1,
+    "root_regions": 1,
+    "allocno_live_objects_upper": 4,
+    "one_word_objects_per_allocno": 1,
+    "preference_records_upper": 4,
+    "copy_records": 0,
+    "hard_cost_vector_pool_backing_blocks": 0,
+    "live_range_constructor_calls_upper": 8,
+    "live_range_copies": 0,
+    "live_range_finish_successor_upper": 65,
+    "pressure_sum_upper_per_allocno": null,
+    "last_call_number_upper": 11,
+    "ordinary_pool_and_graph_teardown_before_LRA": true,
+    "mode_change_obstack_payload_records": 0,
+    "root_bitmap_headers": 4,
+    "root_bitmap_key_extent_upper": 104,
+    "dead_point_bitmap_heads_upper": 34,
+    "dead_point_bitmap_key_extent_upper": 64,
+    "equiv_pseudos_bitmap_heads": 1,
+    "equiv_pseudos_bitmap_key_extent_upper": 104,
+    "shared_bitmap_allocator_owner_preserved": true,
+    "target_cost_buffers_recharged": false
+  },
+  "sparse_sets": {
+    "instances": 2,
+    "element_extent_upper": 4,
+    "individual_bytes_upper": 64
+  },
+  "dense_point_bitmaps": {
+    "instances": 3,
+    "individual_bytes_upper": 16,
+    "accepted_program_point_owner_preserved": true
+  },
+  "local_representation_checks": {
+    "allocno_object_and_preference_ID_signed": true,
+    "register_extent_signed": true,
+    "cost_class_pointer_byte_caller_signed": true,
+    "exact_allocno_vector_signed_doubling": true,
+    "exact_allocno_reserve_covers_live_objects": true,
+    "exact_preference_reserve_covers_live_preferences": true,
+    "preference_copy_capacity_31_bits": true,
+    "CFG_block_and_region_sum_signed": true,
+    "IRA_preorder_growth_unsigned": true,
+    "IRA_preorder_capacity_31_bits": true,
+    "point_endpoint_and_finish_successor_signed": true,
+    "point_range_comparator_differences_signed": true,
+    "call_sequence_counter_signed": true,
+    "sparse_set_unsigned_multiply": true,
+    "sparse_set_unsigned_request": true,
+    "sparse_set_pointer_span": true,
+    "dense_bitmap_unsigned_rounding": true,
+    "dense_bitmap_unsigned_request": true,
+    "every_named_ordinary_request_span": true,
+    "cost_class_hash_prime_exists": true,
+    "cost_class_hash_too_empty_unsigned": true,
+    "cost_class_hash_load_products_size_t": true,
+    "cost_class_hash_probe_addition_unsigned": true,
+    "cost_class_hash_individual_span": true,
+    "typed_pool_retained_count_fields": true
+  },
+  "conditional_named_IRA_allocation_capacity": true,
+  "failed_predicates": [],
+  "new_GGC_events": 0,
+  "new_scalar_registrations": 0,
+  "new_array_registrations": 0,
+  "shared_bitmap_or_ET_blocks_recharged": 0,
+  "aggregate_RAM_gate": false,
+  "aggregate_ordinary_bytes": null,
+  "lifetime_ordinary_request_total": null,
+  "numeric_cost_arithmetic_closed": false,
+  "excess_pressure_arithmetic_closed": false,
+  "outer_IRA_helper_interfaces_closed": false,
+  "all_LRA_ordinary_helpers_closed": false,
+  "complete_all_ordinary_native_capacity": false,
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_admission_changed": false,
+  "independent_review_status": "pending",
+  "source_reachability_argument_is_handwritten": true,
+  "native_tool_executions": 0,
+  "predecessor_evaluator_or_checker_executions": 0,
+  "aggregate_or_corpus_replays": 0,
+  "input_verification": {
+    "GCC_files": 45,
+    "repository_files": 19,
+    "source_excerpts": 35
+  },
+  "retained_interface": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "frozen_GGC_total_preserved": 47054,
+    "no_GGC_owner_row_added": true,
+    "no_actual_source_adapter_created": true,
+    "inherited_point_bitmap_and_pool_owners_preserved": true
+  }
+}

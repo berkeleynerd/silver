@@ -1,0 +1,707 @@
+{
+  "scope": "New IRA graph/cost/traversal storage arithmetic and read-only fixed-Hello reconciliation",
+  "checks_passed": 192,
+  "check_names": [
+    "Hello extents",
+    "Hello local predicates",
+    "Hello frozen GGC owner 47054",
+    "Hello sparse request 64",
+    "Hello point bitmap request 16",
+    "Hello cost hash 251",
+    "one word and at most two constructor opportunities",
+    "no invented pressure bound",
+    "target move-table unsigned short request",
+    "signed caller request 832",
+    "allocno unknown stride distinguished",
+    "no aggregate total",
+    "separate owner new_GGC_events",
+    "separate owner new_scalar_registrations",
+    "separate owner new_array_registrations",
+    "separate owner shared_bitmap_or_ET_blocks_recharged",
+    "residual remains numeric_cost_arithmetic_closed",
+    "residual remains excess_pressure_arithmetic_closed",
+    "residual remains outer_IRA_helper_interfaces_closed",
+    "residual remains all_LRA_ordinary_helpers_closed",
+    "residual remains complete_all_ordinary_native_capacity",
+    "residual remains complete_native_capacity",
+    "residual remains whole_literal_pipeline_capacity_established",
+    "residual remains production_admission_changed",
+    "derived extents (1, 0)",
+    "local conjunction (1, 0)",
+    "no narrowing or wrapping (1, 0)",
+    "derived extents (1, 1)",
+    "local conjunction (1, 1)",
+    "no narrowing or wrapping (1, 1)",
+    "derived extents (1, 64)",
+    "local conjunction (1, 64)",
+    "no narrowing or wrapping (1, 64)",
+    "derived extents (2, 0)",
+    "local conjunction (2, 0)",
+    "no narrowing or wrapping (2, 0)",
+    "derived extents (34, 51)",
+    "local conjunction (34, 51)",
+    "no narrowing or wrapping (34, 51)",
+    "derived extents (1000, 1000)",
+    "local conjunction (1000, 1000)",
+    "no narrowing or wrapping (1000, 1000)",
+    "derived extents (1000000, 1000000)",
+    "local conjunction (1000000, 1000000)",
+    "no narrowing or wrapping (1000000, 1000000)",
+    "derived extents (53687071, 0)",
+    "local conjunction (53687071, 0)",
+    "no narrowing or wrapping (53687071, 0)",
+    "derived extents (53687072, 0)",
+    "local conjunction (53687072, 0)",
+    "no narrowing or wrapping (53687072, 0)",
+    "derived extents (1, 178956965)",
+    "local conjunction (1, 178956965)",
+    "no narrowing or wrapping (1, 178956965)",
+    "derived extents (1, 178956966)",
+    "local conjunction (1, 178956966)",
+    "no narrowing or wrapping (1, 178956966)",
+    "derived extents (134217726, 0)",
+    "local conjunction (134217726, 0)",
+    "no narrowing or wrapping (134217726, 0)",
+    "derived extents (134217727, 0)",
+    "local conjunction (134217727, 0)",
+    "no narrowing or wrapping (134217727, 0)",
+    "derived extents (4294967295, 4294967295)",
+    "local conjunction (4294967295, 4294967295)",
+    "no narrowing or wrapping (4294967295, 4294967295)",
+    "derived extents (9223372036854775807, 9223372036854775807)",
+    "local conjunction (9223372036854775807, 9223372036854775807)",
+    "no narrowing or wrapping (9223372036854775807, 9223372036854775807)",
+    "signed caller exact boundary 53687071",
+    "signed caller failure is not size_t overflow 53687071",
+    "signed caller exact boundary 53687072",
+    "signed caller failure is not size_t overflow 53687072",
+    "point successor boundary 178956965",
+    "point successor boundary 178956966",
+    "sparse unsigned request boundary 134217726",
+    "sparse unsigned request boundary 134217727",
+    "4096 vector lengths",
+    "all 32 bounded strides and pool edges",
+    "selected pool edge 88",
+    "selected pool edge 32",
+    "selected pool edge 40",
+    "prime selection 7",
+    "prime selection 8",
+    "prime selection 13",
+    "prime selection 14",
+    "prime selection 31",
+    "prime selection 32",
+    "prime selection 61",
+    "prime selection 62",
+    "prime selection 127",
+    "prime selection 128",
+    "prime selection 251",
+    "prime selection 252",
+    "prime selection 509",
+    "prime selection 510",
+    "prime selection 1021",
+    "prime selection 1022",
+    "prime selection 2039",
+    "prime selection 2040",
+    "prime selection 4093",
+    "prime selection 4094",
+    "prime selection 8191",
+    "prime selection 8192",
+    "prime selection 16381",
+    "prime selection 16382",
+    "prime selection 32749",
+    "prime selection 32750",
+    "prime selection 65521",
+    "prime selection 65522",
+    "prime selection 131071",
+    "prime selection 131072",
+    "prime selection 262139",
+    "prime selection 262140",
+    "prime selection 524287",
+    "prime selection 524288",
+    "prime selection 1048573",
+    "prime selection 1048574",
+    "prime selection 2097143",
+    "prime selection 2097144",
+    "prime selection 4194301",
+    "prime selection 4194302",
+    "prime selection 8388593",
+    "prime selection 8388594",
+    "prime selection 16777213",
+    "prime selection 16777214",
+    "prime selection 33554393",
+    "prime selection 33554394",
+    "prime selection 67108859",
+    "prime selection 67108860",
+    "prime selection 134217689",
+    "prime selection 134217690",
+    "prime selection 268435399",
+    "prime selection 268435400",
+    "prime selection 536870909",
+    "prime selection 536870910",
+    "prime selection 1073741789",
+    "prime selection 1073741790",
+    "prime selection 2147483647",
+    "prime selection 2147483648",
+    "prime selection 4294967291",
+    "prime selection 4294967292",
+    "hash pre-hit growth (0, 0)",
+    "hash pre-hit growth (0, 2)",
+    "hash pre-hit growth (0, 3)",
+    "hash pre-hit growth (0, 5)",
+    "hash pre-hit growth (1, 0)",
+    "hash pre-hit growth (1, 2)",
+    "hash pre-hit growth (1, 3)",
+    "hash pre-hit growth (1, 5)",
+    "hash pre-hit growth (12, 0)",
+    "hash pre-hit growth (12, 2)",
+    "hash pre-hit growth (12, 3)",
+    "hash pre-hit growth (12, 5)",
+    "hash pre-hit growth (189, 0)",
+    "hash pre-hit growth (189, 2)",
+    "hash pre-hit growth (189, 3)",
+    "hash pre-hit growth (189, 5)",
+    "hash pre-hit growth (190, 0)",
+    "hash pre-hit growth (190, 2)",
+    "hash pre-hit growth (190, 3)",
+    "hash pre-hit growth (190, 5)",
+    "hash pre-hit growth (191, 0)",
+    "hash pre-hit growth (191, 2)",
+    "hash pre-hit growth (191, 3)",
+    "hash pre-hit growth (191, 5)",
+    "hash pre-hit growth (252, 0)",
+    "hash pre-hit growth (252, 2)",
+    "hash pre-hit growth (252, 3)",
+    "hash pre-hit growth (252, 5)",
+    "hash pre-hit growth (1000, 0)",
+    "hash pre-hit growth (1000, 2)",
+    "hash pre-hit growth (1000, 3)",
+    "hash pre-hit growth (1000, 5)",
+    "hash pre-hit growth (10000, 0)",
+    "hash pre-hit growth (10000, 2)",
+    "hash pre-hit growth (10000, 3)",
+    "hash pre-hit growth (10000, 5)",
+    "largest safe probe prime",
+    "last retained prime probe fails",
+    "large input fails every_named_ordinary_request_span",
+    "large input fails cost_class_hash_prime_exists",
+    "large input fails typed_pool_retained_count_fields",
+    "large input fails cost_class_hash_individual_span",
+    "invalid count (0, 0)",
+    "invalid count (True, 0)",
+    "invalid count (1, -1)",
+    "invalid count (1, False)",
+    "invalid count (1.0, 0)",
+    "invalid pool stride",
+    "mutated source pin",
+    "mutated source excerpt"
+  ],
+  "count_cases": [
+    {
+      "C": 1,
+      "N": 0,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 1,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 64,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 2,
+      "N": 0,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 34,
+      "N": 51,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 1000,
+      "N": 1000,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 1000000,
+      "N": 1000000,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 53687071,
+      "N": 0,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 53687072,
+      "N": 0,
+      "local_storage_fits": false,
+      "failed": [
+        "cost_class_pointer_byte_caller_signed"
+      ]
+    },
+    {
+      "C": 1,
+      "N": 178956965,
+      "local_storage_fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 178956966,
+      "local_storage_fits": false,
+      "failed": [
+        "point_endpoint_and_finish_successor_signed",
+        "point_range_comparator_differences_signed"
+      ]
+    },
+    {
+      "C": 134217726,
+      "N": 0,
+      "local_storage_fits": false,
+      "failed": [
+        "cost_class_pointer_byte_caller_signed",
+        "cost_class_hash_too_empty_unsigned"
+      ]
+    },
+    {
+      "C": 134217727,
+      "N": 0,
+      "local_storage_fits": false,
+      "failed": [
+        "cost_class_pointer_byte_caller_signed",
+        "sparse_set_unsigned_request",
+        "cost_class_hash_too_empty_unsigned"
+      ]
+    },
+    {
+      "C": 4294967295,
+      "N": 4294967295,
+      "local_storage_fits": false,
+      "failed": [
+        "allocno_object_and_preference_ID_signed",
+        "register_extent_signed",
+        "cost_class_pointer_byte_caller_signed",
+        "exact_allocno_vector_signed_doubling",
+        "preference_copy_capacity_31_bits",
+        "CFG_block_and_region_sum_signed",
+        "IRA_preorder_growth_unsigned",
+        "IRA_preorder_capacity_31_bits",
+        "point_endpoint_and_finish_successor_signed",
+        "point_range_comparator_differences_signed",
+        "call_sequence_counter_signed",
+        "sparse_set_unsigned_multiply",
+        "sparse_set_unsigned_request",
+        "dense_bitmap_unsigned_rounding",
+        "dense_bitmap_unsigned_request",
+        "cost_class_hash_prime_exists",
+        "cost_class_hash_too_empty_unsigned",
+        "cost_class_hash_load_products_size_t",
+        "cost_class_hash_probe_addition_unsigned",
+        "cost_class_hash_individual_span"
+      ]
+    },
+    {
+      "C": 9223372036854775807,
+      "N": 9223372036854775807,
+      "local_storage_fits": false,
+      "failed": [
+        "allocno_object_and_preference_ID_signed",
+        "register_extent_signed",
+        "cost_class_pointer_byte_caller_signed",
+        "exact_allocno_vector_signed_doubling",
+        "preference_copy_capacity_31_bits",
+        "CFG_block_and_region_sum_signed",
+        "IRA_preorder_growth_unsigned",
+        "IRA_preorder_capacity_31_bits",
+        "point_endpoint_and_finish_successor_signed",
+        "point_range_comparator_differences_signed",
+        "call_sequence_counter_signed",
+        "sparse_set_unsigned_multiply",
+        "sparse_set_unsigned_request",
+        "sparse_set_pointer_span",
+        "dense_bitmap_unsigned_rounding",
+        "dense_bitmap_unsigned_request",
+        "every_named_ordinary_request_span",
+        "cost_class_hash_prime_exists",
+        "cost_class_hash_too_empty_unsigned",
+        "cost_class_hash_load_products_size_t",
+        "cost_class_hash_probe_addition_unsigned",
+        "cost_class_hash_individual_span",
+        "typed_pool_retained_count_fields"
+      ]
+    }
+  ],
+  "vector_lengths_checked": 4096,
+  "vector_growth_boundaries": [
+    {
+      "length": 1,
+      "old": 0,
+      "capacity": 4
+    },
+    {
+      "length": 5,
+      "old": 4,
+      "capacity": 6
+    },
+    {
+      "length": 7,
+      "old": 6,
+      "capacity": 9
+    },
+    {
+      "length": 10,
+      "old": 9,
+      "capacity": 13
+    },
+    {
+      "length": 14,
+      "old": 13,
+      "capacity": 19
+    },
+    {
+      "length": 20,
+      "old": 19,
+      "capacity": 28
+    },
+    {
+      "length": 29,
+      "old": 28,
+      "capacity": 42
+    },
+    {
+      "length": 43,
+      "old": 42,
+      "capacity": 63
+    },
+    {
+      "length": 64,
+      "old": 63,
+      "capacity": 94
+    },
+    {
+      "length": 95,
+      "old": 94,
+      "capacity": 141
+    },
+    {
+      "length": 142,
+      "old": 141,
+      "capacity": 211
+    },
+    {
+      "length": 212,
+      "old": 211,
+      "capacity": 316
+    },
+    {
+      "length": 317,
+      "old": 316,
+      "capacity": 474
+    },
+    {
+      "length": 475,
+      "old": 474,
+      "capacity": 711
+    },
+    {
+      "length": 712,
+      "old": 711,
+      "capacity": 1066
+    },
+    {
+      "length": 1067,
+      "old": 1066,
+      "capacity": 1599
+    },
+    {
+      "length": 1600,
+      "old": 1599,
+      "capacity": 2398
+    },
+    {
+      "length": 2399,
+      "old": 2398,
+      "capacity": 3597
+    },
+    {
+      "length": 3598,
+      "old": 3597,
+      "capacity": 5395
+    }
+  ],
+  "pool_stride_and_edge_cases": 288,
+  "hash_prime_boundary_cases": [
+    {
+      "demand": 7,
+      "selected": 7
+    },
+    {
+      "demand": 8,
+      "selected": 13
+    },
+    {
+      "demand": 13,
+      "selected": 13
+    },
+    {
+      "demand": 14,
+      "selected": 31
+    },
+    {
+      "demand": 31,
+      "selected": 31
+    },
+    {
+      "demand": 32,
+      "selected": 61
+    },
+    {
+      "demand": 61,
+      "selected": 61
+    },
+    {
+      "demand": 62,
+      "selected": 127
+    },
+    {
+      "demand": 127,
+      "selected": 127
+    },
+    {
+      "demand": 128,
+      "selected": 251
+    },
+    {
+      "demand": 251,
+      "selected": 251
+    },
+    {
+      "demand": 252,
+      "selected": 509
+    },
+    {
+      "demand": 509,
+      "selected": 509
+    },
+    {
+      "demand": 510,
+      "selected": 1021
+    },
+    {
+      "demand": 1021,
+      "selected": 1021
+    },
+    {
+      "demand": 1022,
+      "selected": 2039
+    },
+    {
+      "demand": 2039,
+      "selected": 2039
+    },
+    {
+      "demand": 2040,
+      "selected": 4093
+    },
+    {
+      "demand": 4093,
+      "selected": 4093
+    },
+    {
+      "demand": 4094,
+      "selected": 8191
+    },
+    {
+      "demand": 8191,
+      "selected": 8191
+    },
+    {
+      "demand": 8192,
+      "selected": 16381
+    },
+    {
+      "demand": 16381,
+      "selected": 16381
+    },
+    {
+      "demand": 16382,
+      "selected": 32749
+    },
+    {
+      "demand": 32749,
+      "selected": 32749
+    },
+    {
+      "demand": 32750,
+      "selected": 65521
+    },
+    {
+      "demand": 65521,
+      "selected": 65521
+    },
+    {
+      "demand": 65522,
+      "selected": 131071
+    },
+    {
+      "demand": 131071,
+      "selected": 131071
+    },
+    {
+      "demand": 131072,
+      "selected": 262139
+    },
+    {
+      "demand": 262139,
+      "selected": 262139
+    },
+    {
+      "demand": 262140,
+      "selected": 524287
+    },
+    {
+      "demand": 524287,
+      "selected": 524287
+    },
+    {
+      "demand": 524288,
+      "selected": 1048573
+    },
+    {
+      "demand": 1048573,
+      "selected": 1048573
+    },
+    {
+      "demand": 1048574,
+      "selected": 2097143
+    },
+    {
+      "demand": 2097143,
+      "selected": 2097143
+    },
+    {
+      "demand": 2097144,
+      "selected": 4194301
+    },
+    {
+      "demand": 4194301,
+      "selected": 4194301
+    },
+    {
+      "demand": 4194302,
+      "selected": 8388593
+    },
+    {
+      "demand": 8388593,
+      "selected": 8388593
+    },
+    {
+      "demand": 8388594,
+      "selected": 16777213
+    },
+    {
+      "demand": 16777213,
+      "selected": 16777213
+    },
+    {
+      "demand": 16777214,
+      "selected": 33554393
+    },
+    {
+      "demand": 33554393,
+      "selected": 33554393
+    },
+    {
+      "demand": 33554394,
+      "selected": 67108859
+    },
+    {
+      "demand": 67108859,
+      "selected": 67108859
+    },
+    {
+      "demand": 67108860,
+      "selected": 134217689
+    },
+    {
+      "demand": 134217689,
+      "selected": 134217689
+    },
+    {
+      "demand": 134217690,
+      "selected": 268435399
+    },
+    {
+      "demand": 268435399,
+      "selected": 268435399
+    },
+    {
+      "demand": 268435400,
+      "selected": 536870909
+    },
+    {
+      "demand": 536870909,
+      "selected": 536870909
+    },
+    {
+      "demand": 536870910,
+      "selected": 1073741789
+    },
+    {
+      "demand": 1073741789,
+      "selected": 1073741789
+    },
+    {
+      "demand": 1073741790,
+      "selected": 2147483647
+    },
+    {
+      "demand": 2147483647,
+      "selected": 2147483647
+    },
+    {
+      "demand": 2147483648,
+      "selected": 4294967291
+    },
+    {
+      "demand": 4294967291,
+      "selected": 4294967291
+    },
+    {
+      "demand": 4294967292,
+      "selected": null
+    }
+  ],
+  "input_verification": {
+    "GCC_files": 45,
+    "repository_files": 19,
+    "source_excerpts": 35
+  },
+  "started_UTC": "2026-10-19T11:55:14.697876+00:00",
+  "finished_UTC": "2026-10-19T11:55:14.728053+00:00",
+  "checker_wall_seconds": 0.030164259995217435,
+  "host": {
+    "system": "Linux",
+    "release": "7.0.14",
+    "machine": "x86_64"
+  },
+  "native_tool_executions": 0,
+  "predecessor_evaluator_or_checker_executions": 0,
+  "aggregate_or_corpus_replays": 0,
+  "actual_source_adapter_created": false,
+  "source_reachability_argument_is_handwritten": true,
+  "independent_review_status": "pending"
+}
