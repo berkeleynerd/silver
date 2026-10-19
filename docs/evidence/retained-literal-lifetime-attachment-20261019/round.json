@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "authorization": "Owner-authorized unchanged-tool capacity research; bounded aggregate attachment assigned by lead. No GitHub writes.",
+  "base_revision": "7434271343c71746869827d2ce55b0081451b7a0",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_measurements": null,
+  "host": "Linux 7.0.14 x86_64",
+  "started_checkpoint_utc": "2026-10-19 01:08:02 UTC",
+  "final_affected_run": {
+    "started": "2026-10-19T01:13:55.751767+00:00",
+    "completed": "2026-10-19T01:14:01.481352+00:00",
+    "elapsed_seconds": 5.729570962997968,
+    "checks": 204,
+    "inherited_guards": 69,
+    "new_guards": 80,
+    "total_guards": 149,
+    "actual_sources": 3,
+    "arithmetic_cases": 5,
+    "overlay_contexts": 1
+  },
+  "earlier_attempts": [
+    {
+      "result": "Context stopped on exact frozen historical prose identity mismatch",
+      "elapsed_seconds_approx": 5
+    },
+    {
+      "result": "Initial successful changed-overlay run; before strict adapter allowlist/preservation checks",
+      "checks": 196,
+      "elapsed_seconds": 5.994951699998637
+    }
+  ],
+  "rework": [
+    "First attempt stopped in graph Context because the current pipeline audit note contains the later accepted attachment. Compiler, executable and model/source pins all matched. Narrow exact path/revision/hash prose adapter added; frozen leaves unchanged.",
+    "Initial successful changed-overlay run passed196 checks in5.9949517s. Final run adds the exact audit exception allowlist and consumed-argument preservation checks; this code change justified repeating this affected overlay run. No predecessor suite replay.",
+    "Initial scratch pin-generator setup lacked the worktree tmp directory; creating the directory changed no candidate source or bound."
+  ],
+  "retained_evidence": "selected route129; ordinary1609; writer93 and accepted review; repaired RTL17/21029 states; graph36; query42/33 arithmetic cases and accepted reviews. None replayed.",
+  "new_evidence": "204 affected checks and default Hello output. No native tool, predecessor suite, runtime census or corpus replay.",
+  "independent_attachment_review_status": "pending",
+  "complete_native_capacity": false,
+  "complete_collector_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "total_GGC_events": null,
+  "unrelated_pending_commit_excluded": "9d24cab8cf",
+  "github_writes": 0,
+  "CLI_memory_updated": false,
+  "implementation_inputs": {
+    "compose.py": {
+      "bytes": 17596,
+      "sha256": "08bf2cd6e9ed09ea137fbaf0aff52baca1024fd8bd576eea98b7a132391cf597"
+    },
+    "check.py": {
+      "bytes": 18558,
+      "sha256": "ad3d01457e65e4f6ba6cf32b941fc9e8c72ac4d556cd6ec45e7a0dd5484c00af"
+    },
+    "inputs.json": {
+      "bytes": 12836,
+      "sha256": "423462c8efdc2e36339faa7ec1723354bde5c61b0469a5a325c326ec93c38f29"
+    }
+  }
+}
