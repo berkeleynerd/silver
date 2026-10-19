@@ -173,10 +173,10 @@ class Context:
         require(self.maximum_generated_line == 191, 'fixed OUTPUT line projection')
 
 
-def evaluate(raw_source, context, invocation=None, path_bytes=512, host_page_bytes=4096):
+def evaluate(raw_source, context, invocation=None, path_bytes=512, host_page_bytes=4096, runtime=None):
     integer(path_bytes, 1); integer(host_page_bytes, 1)
     fresh = context.inv['build'](raw_source, context.inv_context,
-        path_bytes=path_bytes, host_page_bytes=host_page_bytes)
+        path_bytes=path_bytes, host_page_bytes=host_page_bytes, runtime=runtime)
     if invocation is not None:
         require(invocation == fresh, 'invocation must equal fresh same-source selection')
     require(fresh['GPR_or_Gprbind_jobs'] == 0 and fresh['fixed_Silver_compile_jobs'] == 0,
