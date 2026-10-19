@@ -1,0 +1,59 @@
+{
+  "frozen_base": "1ad16d731098e98e94caaa91f0a39f4b58bd6eb8",
+  "review": "6f5d6a7775a5bd421f674aa9915e0ce7a352119c",
+  "dependencies": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/inputs.json": {
+      "bytes": 2099,
+      "sha256": "6966707996434b173790813b24fa9fb6d042b8f454dbfa29c6b138bc03330c3b"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/result.json": {
+      "bytes": 3736,
+      "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+    }
+  },
+  "local_inputs": {
+    "check.py": {
+      "bytes": 8461,
+      "sha256": "959db0ad9c8495eea891e057dd8a9a2f54d0348347fb99dcd012f0514f6a7552"
+    },
+    "retrieval.json": {
+      "bytes": 326,
+      "sha256": "244c44dfe09418d6d175b58afd49dd438e6b15ec0af9325b9ff744141c68190e"
+    },
+    "native-bodies.json": {
+      "bytes": 72888,
+      "sha256": "5d10f3a12239327d6eb9332330b113af66b67b87e91da72ed7873f4c213fb09f"
+    }
+  },
+  "installed_files": {
+    "gnatwhy3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "identity": {
+        "bytes": 24561432,
+        "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+      }
+    },
+    "ada_terms.cmxs": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs",
+      "identity": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      }
+    },
+    "gnat_json.cmxs": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs",
+      "identity": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    }
+  }
+}

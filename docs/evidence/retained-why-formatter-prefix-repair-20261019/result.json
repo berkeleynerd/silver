@@ -1,0 +1,17 @@
+{
+  "ocaml_source_files_scanned": 2708,
+  "why_source_files_scanned": 603,
+  "prior_ocaml_source_members_compared": 8,
+  "native_target_symbols": 12,
+  "native_relative_candidates": 51,
+  "native_target_pointer_words": 12,
+  "native_bodies_checked": 14,
+  "native_bytes_checked": 2352,
+  "normal_formatter_charge_under_prose_source_argument": 0,
+  "complete_R": null,
+  "full_R_established": false,
+  "composed_endpoint_established": false,
+  "native_runs": 0,
+  "debugger_runs": 0,
+  "disassembler_runs": 0
+}

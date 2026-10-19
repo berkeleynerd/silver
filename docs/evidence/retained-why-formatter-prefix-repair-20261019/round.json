@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-19",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "round_started_utc": "2026-10-19 00:51:41 UTC",
+  "report_checkpoint_utc": "2026-10-19 00:58:04 UTC",
+  "wall_seconds_to_report_checkpoint": 383,
+  "wall_scope": "Includes source retrieval, static investigation and report preparation; excludes final commit. Not native time or whole-team cost.",
+  "host": "Linux 7.0.14 x86_64 GNU/Linux",
+  "harness_goal_at_check": null,
+  "objective": "Repair #142/M1 of frozen formatter prefix 1ad16d7310 using exact linked compiler-library source, surviving-wrapper induction and expanded linked-client reconciliation.",
+  "authorization": "Parent assigned bounded repair under continuing owner Please continue authorization; root owns publication, issue bookkeeping and harness.",
+  "frozen_base": "1ad16d731098e98e94caaa91f0a39f4b58bd6eb8",
+  "review": "6f5d6a7775a5bd421f674aa9915e0ce7a352119c",
+  "finding_disposition": "M1 independently confirmed; extended output-string and tag-marker families, including failed restoration and nesting. Focused re-review requested on the repair commit.",
+  "check_seconds": {
+    "initial_generation": 1.6834093380020931,
+    "final_pinned_check": 1.6498485049996816
+  },
+  "check_scope": "Offline source archive/member/dependency/plugin/ELF identity, lexical and raw relative-reference diagnostics, and byte-matched bodies from existing disassembly.",
+  "no_repeated_native_evidence": true,
+  "native_runs": 0,
+  "captures": 0,
+  "disassembler_runs": 0,
+  "solver_runs": 0,
+  "broad_tests": 0,
+  "cli_memory_updated": false,
+  "remaining": "Exceptional unwinding and registered-printer applicability in a separate packet; complete R null and endpoint unestablished."
+}

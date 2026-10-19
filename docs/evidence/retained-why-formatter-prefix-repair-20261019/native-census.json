@@ -1,0 +1,399 @@
+{
+  "targets": {
+    "camlStdlib__Format__pp_set_formatter_stag_functions_764": 9994368,
+    "camlStdlib__Format__pp_set_formatter_out_functions_1091": 9997648,
+    "camlStdlib__Format__pp_set_formatter_output_functions_1104": 9997856,
+    "camlStdlib__Format__pp_set_formatter_out_channel_1122": 9998208,
+    "camlStdlib__Format__pp_make_formatter_1137": 9999056,
+    "camlStdlib__Format__formatter_of_out_functions_1149": 9999760,
+    "camlStdlib__Format__make_formatter_1152": 9999792,
+    "camlStdlib__Format__formatter_of_out_channel_1157": 10000272,
+    "camlStdlib__Format__formatter_of_buffer_1161": 10000496,
+    "camlStdlib__Format__formatter_of_symbolic_output_buffer_1350": 10001040,
+    "camlStdlib__Format__pp_set_all_formatter_output_functions_1828": 10008288,
+    "camlStdlib__Format__pp_set_formatter_tag_functions_1856": 10008736
+  },
+  "raw_relative_candidates": [
+    {
+      "address": 5433766,
+      "owner": "camlGnat_main__entry",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8c5ae4500"
+    },
+    {
+      "address": 5434005,
+      "owner": "camlGnat_main__entry",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8f6ac4500"
+    },
+    {
+      "address": 5435761,
+      "owner": "camlGnat_checks__log_968",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e81aa64500"
+    },
+    {
+      "address": 5515368,
+      "owner": "camlWhy3__Exn_printer__fun_815",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e803704400"
+    },
+    {
+      "address": 5538187,
+      "owner": "camlWhy3__Pp__open_formatter_inner_1421",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e800164400"
+    },
+    {
+      "address": 5538929,
+      "owner": "camlWhy3__Pp__string_of_924",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8fa134400"
+    },
+    {
+      "address": 5539309,
+      "owner": "camlWhy3__Pp__wnl_1031",
+      "target": "camlStdlib__Format__pp_set_formatter_out_functions_1091",
+      "hex": "e95e074400"
+    },
+    {
+      "address": 5539404,
+      "owner": "camlWhy3__Pp__string_of_wnl_1036",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e81f124400"
+    },
+    {
+      "address": 5539543,
+      "owner": "camlWhy3__Pp__sprintf_wnl_1043",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e894114400"
+    },
+    {
+      "address": 5610557,
+      "owner": "camlWhy3__Debug__set_debug_formatter_1396",
+      "target": "camlStdlib__Format__pp_set_formatter_out_functions_1091",
+      "hex": "e80ef14200"
+    },
+    {
+      "address": 5618913,
+      "owner": "camlWhy3__Loc__warning_1331",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e88adb4200"
+    },
+    {
+      "address": 5629793,
+      "owner": "camlWhy3__Sysutil__write_file_fmt_925",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e82ab04200"
+    },
+    {
+      "address": 5630147,
+      "owner": "camlWhy3__Sysutil__write_unique_file_fmt_939",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8c8ae4200"
+    },
+    {
+      "address": 5652760,
+      "owner": "camlWhy3__Rc__to_channel_1708",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e873564200"
+    },
+    {
+      "address": 5652817,
+      "owner": "camlWhy3__Rc__to_file_1712",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e83a564200"
+    },
+    {
+      "address": 5990551,
+      "owner": "camlWhy3__Printer__sprint_tdecl_3267",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8d42f3d00"
+    },
+    {
+      "address": 5990935,
+      "owner": "camlWhy3__Printer__sprint_decl_3360",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8542e3d00"
+    },
+    {
+      "address": 6127627,
+      "owner": "camlWhy3__Driver__prove_task_prepared_3682",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e860183b00"
+    },
+    {
+      "address": 6705240,
+      "owner": "camlWhy3__Rac__check_term_3578",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e833473200"
+    },
+    {
+      "address": 6964400,
+      "owner": "camlWhy3__C__print_global_def_2066",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8bb532e00"
+    },
+    {
+      "address": 8300795,
+      "owner": "camlWhy3__Termcode__const_shape_2323",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e870ef1900"
+    },
+    {
+      "address": 8306593,
+      "owner": "camlWhy3__Termcode__const_3056",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8cad81900"
+    },
+    {
+      "address": 8373368,
+      "owner": "camlWhy3__Session_itp__save_4319",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e813d31800"
+    },
+    {
+      "address": 8402601,
+      "owner": "camlWhy3__Controller_itp__prepare_edition_2393",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8e2601800"
+    },
+    {
+      "address": 8833197,
+      "owner": "camlSexplib0__Sexp__to_buffer_hum_inner_1419",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8becf1100"
+    },
+    {
+      "address": 8869632,
+      "owner": "camlYojson__Basic__to_channel_1298",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e88b401100"
+    },
+    {
+      "address": 8915920,
+      "owner": "camlYojson__Raw__to_channel_1298",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8bb8b1000"
+    },
+    {
+      "address": 8990928,
+      "owner": "camlYojson__Safe__to_channel_1397",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8bb660f00"
+    },
+    {
+      "address": 9011344,
+      "owner": "camlYojson__T__to_channel_1361",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8fb160f00"
+    },
+    {
+      "address": 9054393,
+      "owner": "camlDynlink_compilerlibs__Misc__set_color_tag_handling_2742",
+      "target": "camlStdlib__Format__pp_set_formatter_stag_functions_764",
+      "hex": "e8c2570e00"
+    },
+    {
+      "address": 9126361,
+      "owner": "camlDynlink_compilerlibs__Location__print_updating_num_loc_lines_465",
+      "target": "camlStdlib__Format__pp_set_formatter_out_functions_1091",
+      "hex": "e8724b0d00"
+    },
+    {
+      "address": 9126414,
+      "owner": "camlDynlink_compilerlibs__Location__print_updating_num_loc_lines_465",
+      "target": "camlStdlib__Format__pp_set_formatter_out_functions_1091",
+      "hex": "e93d4b0d00"
+    },
+    {
+      "address": 9244856,
+      "owner": "camlDynlink_compilerlibs__Shape__output_681",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8d3860b00"
+    },
+    {
+      "address": 9505292,
+      "owner": "camlRe__Fmt__to_to_string_1016",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e85f8e0700"
+    },
+    {
+      "address": 9999779,
+      "owner": "camlStdlib__Format__formatter_of_out_functions_1149",
+      "target": "camlStdlib__Format__pp_make_formatter_1137",
+      "hex": "e928fdffff"
+    },
+    {
+      "address": 9999817,
+      "owner": "camlStdlib__Format__make_formatter_1152",
+      "target": "camlStdlib__Format__pp_make_formatter_1137",
+      "hex": "e802fdffff"
+    },
+    {
+      "address": 10000405,
+      "owner": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "target": "camlStdlib__Format__make_formatter_1152",
+      "hex": "e996fdffff"
+    },
+    {
+      "address": 10000592,
+      "owner": "camlStdlib__Format__formatter_of_buffer_1161",
+      "target": "camlStdlib__Format__make_formatter_1152",
+      "hex": "e9dbfcffff"
+    },
+    {
+      "address": 10001340,
+      "owner": "camlStdlib__Format__formatter_of_symbolic_output_buffer_1350",
+      "target": "camlStdlib__Format__pp_make_formatter_1137",
+      "hex": "e90ff7ffff"
+    },
+    {
+      "address": 10002954,
+      "owner": "camlStdlib__Format__fun_2805",
+      "target": "camlStdlib__Format__pp_set_formatter_out_channel_1122",
+      "hex": "e971edffff"
+    },
+    {
+      "address": 10002970,
+      "owner": "camlStdlib__Format__fun_2811",
+      "target": "camlStdlib__Format__pp_set_formatter_out_functions_1091",
+      "hex": "e931ebffff"
+    },
+    {
+      "address": 10003130,
+      "owner": "camlStdlib__Format__fun_2840",
+      "target": "camlStdlib__Format__pp_set_formatter_stag_functions_764",
+      "hex": "e9c1ddffff"
+    },
+    {
+      "address": 10004572,
+      "owner": "camlStdlib__Format__compute_tag_1645",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e80ff0ffff"
+    },
+    {
+      "address": 10007708,
+      "owner": "camlStdlib__Format__ksprintf_1801",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8cfe3ffff"
+    },
+    {
+      "address": 10007980,
+      "owner": "camlStdlib__Format__kasprintf_1813",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e8bfe2ffff"
+    },
+    {
+      "address": 10008524,
+      "owner": "camlStdlib__Format__fun_3046",
+      "target": "camlStdlib__Format__pp_set_all_formatter_output_functions_1828",
+      "hex": "e90fffffff"
+    },
+    {
+      "address": 10008568,
+      "owner": "camlStdlib__Format__bprintf_1841",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e873e0ffff"
+    },
+    {
+      "address": 10009914,
+      "owner": "camlStdlib__Format__fun_3106",
+      "target": "camlStdlib__Format__pp_set_formatter_tag_functions_1856",
+      "hex": "e961fbffff"
+    },
+    {
+      "address": 10011552,
+      "owner": "camlStdlib__Format__entry",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8ebd3ffff"
+    },
+    {
+      "address": 10011575,
+      "owner": "camlStdlib__Format__entry",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157",
+      "hex": "e8d4d3ffff"
+    },
+    {
+      "address": 10011599,
+      "owner": "camlStdlib__Format__entry",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161",
+      "hex": "e89cd4ffff"
+    }
+  ],
+  "aligned_data_words": [
+    {
+      "address": 16294456,
+      "owner": "camlStdlib__Format__71+0x10",
+      "target": "camlStdlib__Format__pp_set_formatter_out_functions_1091"
+    },
+    {
+      "address": 16294520,
+      "owner": "camlStdlib__Format__69+0x10",
+      "target": "camlStdlib__Format__pp_set_formatter_output_functions_1104"
+    },
+    {
+      "address": 16294648,
+      "owner": "camlStdlib__Format__65+0x10",
+      "target": "camlStdlib__Format__pp_set_formatter_out_channel_1122"
+    },
+    {
+      "address": 16294776,
+      "owner": "camlStdlib__Format__60+0x10",
+      "target": "camlStdlib__Format__pp_make_formatter_1137"
+    },
+    {
+      "address": 16294792,
+      "owner": "camlStdlib__Format__59+0x0",
+      "target": "camlStdlib__Format__formatter_of_out_functions_1149"
+    },
+    {
+      "address": 16294832,
+      "owner": "camlStdlib__Format__58+0x10",
+      "target": "camlStdlib__Format__make_formatter_1152"
+    },
+    {
+      "address": 16294848,
+      "owner": "camlStdlib__Format__57+0x0",
+      "target": "camlStdlib__Format__formatter_of_out_channel_1157"
+    },
+    {
+      "address": 16294872,
+      "owner": "camlStdlib__Format__56+0x0",
+      "target": "camlStdlib__Format__formatter_of_buffer_1161"
+    },
+    {
+      "address": 16295104,
+      "owner": "camlStdlib__Format__47+0x0",
+      "target": "camlStdlib__Format__formatter_of_symbolic_output_buffer_1350"
+    },
+    {
+      "address": 16295952,
+      "owner": "camlStdlib__Format__22+0x10",
+      "target": "camlStdlib__Format__pp_set_all_formatter_output_functions_1828"
+    },
+    {
+      "address": 16296048,
+      "owner": "camlStdlib__Format__19+0x10",
+      "target": "camlStdlib__Format__pp_set_formatter_tag_functions_1856"
+    },
+    {
+      "address": 16297616,
+      "owner": "camlStdlib__Format__119+0x10",
+      "target": "camlStdlib__Format__pp_set_formatter_stag_functions_764"
+    }
+  ],
+  "plugin_format_symbols": {
+    "ada_terms.cmxs": [
+      "camlStdlib__Format__fprintf_1781"
+    ],
+    "gnat_json.cmxs": [
+      "camlStdlib__Format",
+      "camlStdlib__Format__formatter_of_out_channel_1157",
+      "camlStdlib__Format__fprintf_1781",
+      "camlStdlib__Format__kasprintf_1813",
+      "camlStdlib__Format__ksprintf_1801",
+      "camlStdlib__Format__pp_print_list_inner_2889"
+    ]
+  }
+}
