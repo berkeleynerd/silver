@@ -2161,3 +2161,106 @@ link; excluding code fences repaired the checker without changing a candidate.
 Whitespace checks passed. Review freeze `f71b1937bc` is integrated as
 `1b01f24e12`; #146 is repaired and independently accepted, pending the research
 PR's merge. #145 and #119 remain open and In progress.
+
+### Reviewed native completion and assessment pause
+
+The [complete native composition](../research/retained-literal-native-completion.md)
+`4f29a3bf85` is the accepted implementation freeze for #145. It freshly recognizes actual source
+in the declaration-free Main/SPARK family, with C>=1 qualified literal
+Put/Put_Line calls and N>=0 null statements, and binds the same source to
+the selected four-job native graph. Its 475 current conditions and twelve
+explicit stage closures join parent materialization/routing, the 51-owner GGC
+ledger, all 120 installed Ada-table owners plus auxiliary/local storage,
+three GCC drivers and collect2, direct output binder, both compiler shells,
+binder compiler/assembler and fixed-bundle linker. A component's inherited
+false whole-native scope is not used as an uncomputed aggregate success.
+
+The [packet](retained-literal-native-completion-20261019/README.md) retains
+a fresh default evaluation in 9.298653225 seconds and 3,301 focused offline
+checks in 13.624896653 seconds. Those include 1,632 separately forced false
+or unknown conditions across both 408-guard predecessor maps; every fault
+prevents success. Fresh source variants, exact graph/argv/environment joins,
+path units, checksum classes and the first-collection boundary are also
+checked. The aggregate's default record supplies only explicit mutation
+baselines, never another source's capacity result.
+
+The initial aggregate integration exposed the predecessor's 512-character
+pathname/513-byte NUL-inclusive bound versus the child packets' stronger
+512-byte bound. The fresh graph now establishes that stronger limit and
+requires whole-record equality after changing only the scalar bound. Binder's
+optional runtime pass-through preserves the same actual directory graph.
+No capacity guard is weakened. No native tool ran for either the initial
+unsuccessful aggregate attempt or the passing aggregate checks.
+
+Accepted component reviews are separate evidence. The
+[driver report](../reviews/review-literal-driver-completion-20261019.md)
+records original implementation `63e7b6fb25` and integration input `fcd2d99a6b`;
+review commit `d31e731e5` is integrated as `e546f5bfa7`. Independent
+checks passed 593 assertions in 0.836870709 seconds. The
+[binder-assembler report](../reviews/review-literal-binder-assembler-20261019.md)
+accepts original implementation `cc7db56baf`; review commit `3120215db`
+is integrated as `ec11bc047a`. It records 663 independent assertions plus
+34 author checks in 0.207498795 seconds, including the 0.011062663-second
+author check. Those reviews ran no native tool.
+
+The [frontend/binder review](../reviews/review-literal-frontend-binder-completion-20261019.md)
+`0d974e826d`, integrated as `26411aa1a7`, accepts Ada source `96be67dd`
+(integrated `9a03d4d132`), binder source `b4f3969` (integrated `964e889edb`)
+and only the binder runtime pass-through repair from `4f29a3bf85`, with no
+blocking findings. The independent phase passed 1,031 assertions in
+2.042068046 seconds. Binder's 232,430 author checks passed afresh in
+1.356152787 seconds, and fresh default evaluation matched in 1.157053353
+seconds. Ada's 773 author checks passed in 0.927980424 seconds, with fresh
+result equality; metadata and closure-audit re-extraction reproduced three
+input files byte for byte in 2.790973662 seconds. These are reviewer checks,
+separate from the original author runs of 773 / 0.852747865 seconds and
+232,430 / 1.318648694 seconds. The reviewer used owned TMPDIR scratch after
+the full host overlay rejected an initial binder scratch creation; no formula
+or guard changed. This review ran no native tool and does not accept the
+complete-native aggregate; the separate acceptance below supplies that verdict.
+
+The [whole-native review](../reviews/review-literal-native-completion-20261019.md)
+`20de4a4367`, integrated as `5e95cf8810`, accepts aggregate freeze `4f29a3bf85`
+and its new common-compiler-shell and binder-compiler transfers with no material
+findings. The reviewer authored the separate binder component, so its internal
+source argument is accepted by the other independent lane's report above;
+this review challenges the aggregate joins and new transfers. A fresh C7/N4
+actual source passes all 475 conditions and twelve stages. Its 92 independent
+checks passed in 9.981868322 seconds; the review phase took approximately twelve
+minutes, including freeze coordination. The author default and 3,301-check
+successes were inspected and retained rather than replayed. No implementation
+rework was required after the frozen candidate arrived, and no native tool ran.
+
+The only new native observations in this latter closure phase belong to the
+earlier binder-assembler increment: four compiler and four assembler calls,
+0.226930716 seconds of native tool time and 2.286502532 seconds managed elapsed.
+The source argument covers every uint32 checksum; four samples do not establish
+that universal claim. No new capture, compiler/binder/linker execution, prover,
+Lean build, broad corpus or predecessor-suite replay ran for the aggregate.
+All native observations have their recorded Linux x86-64/input scope.
+
+A separate integration consistency check covered 60 changed files since
+`8eaf9d5ca9`, parsed 16 Python AST and 29 JSON inputs, checked 54 Markdown
+links and matched all 94 exact aggregate pins in 0.075997024 seconds. Its
+raw result is retained in integration scratch `tmp/native-freeze-check-4f29a3bf85.json`.
+This is an identity/syntax/link check, separate from source review and capacity
+validation; successful component evaluators were not replayed.
+
+Source and critical-review lanes select GPT-6 Astra / Extra High; this bounded
+records task selects GPT-6.1 Sol / High. Runtime confirmation, token totals and
+monetary costs are unavailable. Reported intervals measure the named checks,
+not total team cost or a causal model-quality comparison. The observed result
+is independently accepted source closure and integrated complete selected
+native capacity, with the remaining #119 obligations explicit.
+
+#145 is technically complete and In review pending research PR #121's merge.
+The #119 planning estimate moves from approximately 75% to 80%, reflecting
+reviewed closure of the complete selected native graph and its input boundary.
+This is a planning judgment, not a prediction of remaining time. #119 remains
+open and returns to Backlog for the owner-requested assessment pause after this
+published checkpoint. All subthreads stop; no new work package starts. Required
+producer/Why3 paths, fixed-library proof, current-grammar coverage, sound
+whole-rule composition/correspondence, useful-domain comparison and final
+review remain on #119. Production #88–#94 is authorized and unstarted;
+Oracle, admission and installed tools/pins are unchanged. This is an assessment
+pause, not a research-stop selection.

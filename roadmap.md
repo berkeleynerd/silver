@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Retained-tool direction adopted; capacity design in progress.** The owner
+**Retained-tool direction adopted; capacity design paused for assessment.** The owner
 [selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 keeping the existing GNAT/GNATprove toolchain, accepting explicit tool-imposed
 representation boundaries and removing unnecessary Silver limits within a
@@ -35,7 +35,7 @@ These are conditional source facts, not native near-limit failures or safe
 admission thresholds. PR #109 and PR #116 preserve the completed research and
 reviews. Their external-support recommendation is superseded, not their evidence.
 
-The next technical work is
+The unfinished technical work is
 [#119 Derive capacity rules for unchanged tools](https://github.com/berkeleynerd/silver/issues/119),
 a design subpackage of #91 shared with #93. The
 [design contract](docs/research/retained-tool-capacity.md) requires a sound,
@@ -45,18 +45,26 @@ Prefer program-structure accounting and justify any conservative envelope.
 `Integer'Last` is an inherited ceiling; a per-value bound alone does not justify
 all compositions. No numerical aggregate cap or larger admission domain is selected.
 
-The next owner-authorized design increment is
-[#145 Complete literal-output native-build capacity](https://github.com/berkeleynerd/silver/issues/145),
-within #119. Its order is: attach accepted recognition and close remaining native
-source obligations; compose Main/assembler/binder/binder-compiler/linker and
-fixed native inputs; close materialization/parent routing; independently review
-the complete selected native evaluator. Reuse the accepted source components.
-The fixed-bundle graph does not include implicit dependency regeneration.
-After that result, #119 still requires producer/Why3 paths and fixed-library
-proofs, current-grammar generalization, whole-rule composition/correspondence,
-useful-domain comparison and final review before production #88–#94.
-No new owner decision is needed for routine closure within that recorded scope;
-any proposed Oracle or admission amendment remains a separate decision.
+The owner-authorized design increment
+[#145 Complete literal-output native-build capacity](https://github.com/berkeleynerd/silver/issues/145)
+has an independently [accepted selected native rule](docs/research/retained-literal-native-completion.md).
+It joins actual-source recognition, Main and assembler, all Ada-table owners,
+driver/collect2 and output-binder storage, binder compiler/assembler, linker,
+fixed native inputs and bounded parent materialization/routing. The selected
+graph contains a fixed Silver object/ALI bundle and no implicit dependency
+regeneration. This source-derived research rule adds no production support or
+admission change. #145 is technically complete and In review pending research
+PR #121's merge; the [aggregate review](docs/reviews/review-literal-native-completion-20261019.md)
+and separate [Ada/binder review](docs/reviews/review-literal-frontend-binder-completion-20261019.md)
+record the exact accepted inputs.
+
+#119 remains open and returns to Backlog for the owner-requested assessment
+pause. Its approximate planning estimate moves from 75% to 80% after complete
+native acceptance. No new work package starts. Remaining work is producer/Why3
+paths and fixed-library proofs, current-grammar generalization, whole-rule
+composition/correspondence, useful-domain comparison and final review before
+production #88–#94. Any proposed Oracle or admission amendment remains a
+separate owner decision.
 
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,

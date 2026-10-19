@@ -1,28 +1,45 @@
 # Capacity contract for the retained tools
 
-**2026-10-19 — resumed for the complete selected native-build checkpoint.**
+**2026-10-19 — reviewed complete native checkpoint; paused for assessment.**
 The [owner resumption](../session-memory.md#2026-10-19--resume-119-for-the-complete-native-build-checkpoint)
-starts [#145](https://github.com/berkeleynerd/silver/issues/145) within #119.
-Complete the selected literal-output native graph and its input/materialization
-boundary, then review the combined result. The last reviewed estimate remains
-approximately 75%; update it only after actual closure. Required producer/Why3,
-current-grammar and whole-rule obligations remain on #119.
+authorizes [#145](https://github.com/berkeleynerd/silver/issues/145) within
+unfinished #119. The [complete native composition](retained-literal-native-completion.md)
+now derives the selected four-job graph from actual source: a declaration-free
+Main/SPARK shell with C>=1 qualified literal Put/Put_Line calls and N>=0 null
+statements, under the accepted lexical/trivia rules. Counts alone do not identify
+the family. The recognizer consumes every source byte; the public evaluator
+freshly derives the source, invocation and component joins.
 
-The reviewed [register completion](retained-literal-register-completion.md)
-now attaches recognition, the remaining outer IRA interfaces and LRA arithmetic
-to actual source. Its current 408-condition result corrects [#146](https://github.com/berkeleynerd/silver/issues/146)
-with one disjoint four-event row: 51 GGC owners, 47,058 events for Hello, and
-recomputed collector page/index thresholds. The older 50-row completeness claim
-is superseded. The reviewed [parent design](retained-literal-native-materialization.md)
-also supplies bounded copying, fixed-input timestamps, direct argument/environment
-routing and four sequential jobs; its production SPARK/proof implementation
-remains #89. The [source review](../reviews/review-native-register-source-completion-20261019.md)
-and [adapter/parent review](../reviews/review-native-register-parent-attachment-20261019.md)
-are distinct evidence. #145 remains in progress: the coverage audit identifies
-Ada auxiliary-table/local-heap owners, current GCC driver/collect2 storage and
-the output-family binder name/graph closure, followed by the complete native
-conjunction and its independent review. None is silently discharged by an older
-component's passing guards. No revised completion estimate is claimed here.
+The reviewed rule retains all 408 corrected register conditions and adds the parent,
+all 120 installed Ada-table owners and auxiliary/local storage, all three GCC
+drivers and collect2, direct output binder, both compiler shells and the
+checksum-family binder compiler/assembler. Its 475-condition conjunction has
+twelve explicit native-stage closures. The current GGC ledger has 51 disjoint
+owners, including the independently reviewed [#146 correction](retained-literal-register-completion.md).
+The [parent design](retained-literal-native-materialization.md) accounts for
+bounded input copying, fixed-input timestamps, argv/environment routing and
+four sequential jobs with a fixed Silver object/ALI bundle. It assumes no
+implicit dependency regeneration; its production SPARK/proof implementation
+remains #89. Component source arguments and aggregate conjunction are separate
+review inputs, documented in the [packet](../evidence/retained-literal-native-completion-20261019/README.md).
+
+The [Ada/binder source review](../reviews/review-literal-frontend-binder-completion-20261019.md)
+accepts both bounded completions and the binder runtime pass-through repair.
+The [whole-native review](../reviews/review-literal-native-completion-20261019.md)
+accepts aggregate freeze `4f29a3bf85`, including its new common-shell and
+binder-compiler transfers, with no material findings. Its reviewer relies on
+the other independent lane's accepted binder/Ada argument rather than reviewing
+its own binder component. #145 is technically complete and In review pending
+research PR #121's merge.
+
+The #119 planning estimate is now approximately 80%, reflecting reviewed closure
+of the complete selected native graph. This is a planning judgment, not a
+prediction of remaining time. #119 remains open and returns to Backlog for the
+owner-requested assessment pause; no new work package starts. Required
+producer/Why3 paths, fixed-library proof, current-grammar coverage, whole-rule
+composition/correspondence, useful-domain comparison and final review remain.
+This source-derived research capacity rule changes no production behavior,
+admission, Oracle, installed tools or pins.
 
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
@@ -1757,7 +1774,8 @@ an arbitrary safety margin is not a derived tool maximum or a justified choice.
 
 The [round monitoring record](../evidence/retained-tool-rounds.md) tracks the
 owner-selected model/effort routing by integrated outcomes and actual evidence.
-The next derivation work, in dependency order, is below. Steps 1–3 are internal
+On future owner resumption, the remaining derivation work is below in dependency
+order. Steps 1–3 are internal
 phases of the single #119 deliverable, not independently completed work packages:
 
 1. The callable null-pipeline conjunction is established under its explicit
@@ -1765,8 +1783,9 @@ phases of the single #119 deliverable, not independently completed work packages
    extending the evaluator. The older broad phase-2 `first_or_default` capture
    remains reusable instrumentation, not the selected null vectors. This is
    a composition checkpoint, not completion of the useful-domain argument.
-2. Complete literal output as the first nonnull conjunction, then close the
-   current grammar through coordinated native/producer source summaries.
+2. Retain the reviewed complete selected native rule from #145, then finish
+   the required literal-output producer/Why3 conjunction and close the current
+   grammar through coordinated native/producer summaries.
    Every construct/composition and required predicate input needs coverage,
    including the remaining fixed-library Why3 and general Main producers.
    New investigations must discharge a named missing input or correctness
