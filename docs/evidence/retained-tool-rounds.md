@@ -1106,3 +1106,79 @@ required producer/consumer/fixed-library/parent coverage, current-grammar
 composition, useful-domain comparison and final review remain required.
 #119 stays active. Oracle, tools/pins and admission remain unchanged;
 production #88–#94 remains authorized and unstarted.
+
+## Round 15 — frontend attachment, shared-source repair and session observation
+
+Date: 2026-10-18–19; continues from published `b68a197d1b`. #119 remains
+active with its full current-grammar scope and no research stop selected.
+
+| Work | Selected setting | Frozen target and review |
+| --- | --- | --- |
+| Frontend/location attachment | GPT-6.1 Sol / Extra High | `b869717db6`, accepted by `0ddb3edf4f` |
+| Ordinary-map preallocation | Lead live setting unavailable; no switch claimed | `9c52c43a6f`, accepted by `50bcfccba2` |
+| Named later shared consumers | GPT-6 Astra / Extra High | `1fc7ee7bcf`, corrected by lead `7df2aee6d4`, accepted by `fac6de422d` |
+| Session-save missing inputs and observer preparation | GPT-6 Astra / Extra High | `c164e913fe` accepted by `50bcfccba2`; subsequent observer `b440504b89` parent-inspected, outside that independent review |
+
+The accepted attachment completes #137's downstream filename/identifier/serial
+correction. Same-source/configuration/frontend/numeric/warning joins now carry
+69 conjunctive predicates, including the nine individual eight-byte Dope_Rec
+requests. The 118 affected checks took 11.958925409s. Independent review reused
+them and added 100 narrow checks in 0.477930200s, including all 40 inherited
+false-guard cases. No full Context or runtime census was repeated in review.
+The shared 768-event and partial 2,312-event ledgers remain unchanged; Hello's
+13 location/warning requests remain separately owned. Full capacity flags stay
+false and totals null.
+
+Ordinary-map preallocation has three backing requests, at most 131,072 bytes
+individually, and zero finalizers under the existing line/population premises.
+Its 1,609 arithmetic/interface checks took 0.026610526s, including all 1,590
+file counts. This is preallocation only; later writers and attachment remain.
+The combined map/missing-input review added 75 narrow checks in 0.489463953s,
+reusing successful source/coverage checks without a full raw-memory scan.
+
+The named shared transfer derives `2C+1` identifiers, `3C+2` declaration UIDs
+and six scalar registrations, with unjoined endpoint inputs explicitly null.
+Its 40 checks remain historical at `1fc7ee7bcf`. Review found medium #140:
+validation chose the first function AST while execution chose the last named
+definition. Repair uniquely selects and compiles the exact validated nodes.
+Thirty-three focused checks took 0.814389036s; the independent 0.445557s
+recheck rejects the original mutation and preserves Hello. No original suite
+was repeated. The nine residual storage families retain concrete next joins.
+
+The Why source packet proves that three runtime root words are absent from the
+785,851-read historical archive and that its launch began with a fresh session.
+Its prior 3.771548261s check was reused. The new observer passed nine fixtures
+(0.091s reported by unittest) and a 205-input preparation check (0.402279858s).
+After verifying the frozen 24 prepared files, zero active managed runs, worker
+availability and host headroom, the lead ran one restricted observation:
+`20261019T000304-fcb988ec2c03`, success, **35.824959949 managed seconds**,
+including **33.606329287 debugger seconds**. PID 97103 was stopped before first
+inlining, save, printing or prover requests. No solver ran. Raw root/session/
+helper projections and the original same-process core were retained, with zero
+failures or guard hits. Initial observations are five proof-node visits, five
+raw tasks, 248 logical declarations and two exit-hook links plus the terminal
+closure. Exact offline replay of 49,728 reads succeeds. Fully opened binder
+mass, helper charge/preservation and new-instance input
+correspondence remain required; the old 61,641 accounted endpoint is not
+upgraded by this observation. Existing data is preserved; no native retry ran.
+
+Integration checks 51 frozen files, 22 JSON and 14 Python syntax inputs,
+74 local links and 28 current selected-route pins. This is integration evidence,
+not a substitute for source arguments or whole-pipeline closure. Source/spec
+reviews retain their exact frozen scope; the prospective observer implementation
+was inspected by the parent and is not silently included in an earlier review.
+
+The mixed-model round completed a reviewed integration, closed a preallocation
+slice, exposed and repaired an AST provenance error, and obtained previously
+missing live inputs on the first guarded attempt. These are observed outcomes,
+not causal model-quality evidence. Independent reviewers selected Astra Extra
+High. Live lead settings and per-round token/cost measurements are unavailable;
+overlapping reviewer intervals are not additive whole-team elapsed time.
+CLI memory remains unavailable.
+
+Next work attaches the reviewed map/shared slices, closes selected RTL cache/
+control lifetimes, and charges the replayed Why session graph. Complete
+native/collector, required producer/consumer/fixed-library/parent coverage,
+current-grammar composition, useful-domain comparison and final review remain
+required. Oracle, installed tools/pins and admission remain unchanged;
+production #88–#94 stays authorized and unstarted.

@@ -401,9 +401,10 @@ Subsequent source-count reconciliation found
 [#137](https://github.com/berkeleynerd/silver/issues/137): the shared filename
 interface must also allow the indexed startup System duplicate. Its conservative
 bounds become 1,589 permanent source entries and 1,590 filename lookups;
-the [location/lifetime packet](retained-literal-location-lifetime.md) now
-supplies corrected identifier/backing/serial arithmetic, with aggregate
-attachment still pending. The retained 48-predicate result predates that attachment
+the [location/lifetime packet](retained-literal-location-lifetime.md) supplies
+corrected identifier/backing/serial arithmetic. The selected attachment below
+now propagates that correction to the actual-source aggregate. The retained
+48-predicate result predates that attachment
 and remains scoped local evidence, not a complete native verdict.
 
 The location/lifetime packet, frozen at `11057399b9` and
@@ -434,10 +435,50 @@ encoded frontend name bound 737 and source extent 20,561,920. Review corrected
 allowance is 14 lifetime requests (eight defaults plus six configuration),
 each at most 21 bytes. The 43 initial checks and 52 focused correction checks
 are retained with their different inputs; no full corpus or model rerun was
-needed for the correction. Nine virtual-source Dope_Rec objects and other late
-metadata remain explicit residuals. Aggregate attachment of these frontend
-and location predicates is the next integration step; no complete native bound
-is inferred from the passing component checks.
+needed for the correction. Its leaf leaves nine virtual-source Dope_Rec objects
+and other late metadata as explicit residuals; the selected attachment below
+prices the nine individual objects while preserving the other open obligations.
+
+The [frontend/location attachment review](../reviews/review-literal-frontend-location-b869717db6.md)
+accepts frozen `b869717db6`, including the downstream repair for #137. It joins
+the same actual source, path/configuration, scanner/Main/numeric demands, node
+arrays, R<=5 incoming warning boundary and indexed filename/shared state.
+The nine Dope_Rec requests are each eight bytes under five exact selected
+source/ABI pins. The 21 new predicates join all earlier predicates, giving
+**69 conjunctive conditions**. Hello, mixed empty/8,192-byte literals and 5,000
+calls pass locally; 32,766 calls return numeric success and the separate linker
+failure. The 118 affected checks passed in 11.958925409 seconds; independent
+review reused them and added 100 narrow checks, including forcing every one of
+the 40 inherited guards false, in 0.477930200 seconds. No full Context or runtime
+census was repeated in review. Old core/leaf outputs remain explicitly scoped
+intermediates. The shared 768-event and partial 2,312-event ledgers are unchanged;
+the 13 Hello location/warning events remain separate. No total GGC, complete
+native/proof/parent capacity or production admission claim follows.
+
+The [ordinary source-map preallocation](retained-literal-ordinary-maps.md),
+frozen at `9c52c43a6f` and [independently accepted](../reviews/review-ordinary-maps-and-session-inputs-round15.md),
+prices the selected gigi map-array slice. Under the existing logical-line and
+source-population premises, each file creates one map. At most 1,589 entries
+require three GGC requests of 8,192, 32,768 and 131,072 bytes, with no finalizer.
+All 1,590 file counts and the line/interface boundaries were checked offline;
+the ten source identities match the accepted location/frontend inputs. Later
+ordinary-map writers and aggregate attachment remain open.
+
+The [named later shared-storage transfer](retained-literal-later-shared-storage.md),
+frozen at `1fc7ee7bcf` with repair `7df2aee6d4`, is
+[independently accepted](../reviews/review-literal-later-shared-1fc7ee7bcf.md).
+Its disjoint Main gimplifier/CF/SSA/pool/graph consumers add `2C+1` identifiers,
+`3C+2` declaration UIDs and six scalar finalizer registrations. Actual-source
+original and corrected indexed state are required. These are named-consumer
+projections, not complete lifetime endpoints: interleaved residuals remain
+null, and lookup-only RTL cache arithmetic excludes other growth paths.
+Review found [#140](https://github.com/berkeleynerd/silver/issues/140): the AST
+checker could validate a first definition but execute a duplicate last one.
+The repair uniquely selects, validates and compiles the same nodes. All 33
+focused repair checks pass; independent rechecking rejects the original
+mutation and preserves Hello output. The original 40-check record remains
+historical. Nine remaining storage families and their next source joins are
+explicit; no complete global-counter/collector/native result is inferred.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -639,6 +680,30 @@ is retained without identifying it as the current in-memory graph. The launch
 mask alternative remains unimplemented, with cancellation, solver-child and
 new-prefix-counter joins explicit. The 29-state abstraction and seven retained
 native function bodies support the scoped argument; no new target ran.
+
+The [session-save input packet](retained-why-session-save-capacity.md), frozen
+at `c164e913fe` and [independently accepted](../reviews/review-ordinary-maps-and-session-inputs-round15.md),
+locates three missing runtime roots in the historical capture. All 785,851
+retained reads miss the signal-handler, exit-function and registered-statistics
+root words. The initialization source and retained launch inventory establish
+a fresh session; the historical five-goal XML was not its seed. Direct
+inlining/save routes preserve the relevant forest, while helper/callback
+preservation and `B_binders`/`R` remain open.
+
+The [restricted observer preparation](../evidence/retained-why-session-save-observer-20261018/README.md)
+is frozen at `b440504b89`. Nine offline fixtures and 205 planned input checks
+passed before the parent-coordinated managed run
+`20261019T000304-fcb988ec2c03`. That run succeeded in 35.824959949 seconds
+(33.606329287 seconds in the debugger), stopped before transformation/save/
+printing/prover requests, and retained PID 97103's own counter/input/Hsdecl/
+session join. Its initial projection reports five proof-node visits, five raw
+tasks, 248 logical declarations and two exit-hook links plus the terminal
+closure, with no guard hits or projection failures. Exact offline replay of
+49,728 reads succeeds. These are observed inputs for charging,
+not a numeric save bound or a family-wide proof. The previous source/spec review
+does not claim to review the later observer implementation or this capture.
+No new `B_binders` or `R` is claimed, and no historical missing root is filled
+retroactively from the new process.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
