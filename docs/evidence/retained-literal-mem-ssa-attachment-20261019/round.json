@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "authorization": "Continuing owner-authorized research; bounded MEM/SSA actual-source attachment assigned by parent. No GitHub writes or delegation.",
+  "base_revision": "97b387d54181ff7e4885792b511271317d1a2bea",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_measurements": null,
+  "host": "Linux 7.0.14 x86_64",
+  "intended_outcome": "Attach accepted MEM/counter/pool and zero-increment SSA lifetimes to actual-source149-guard wrapper with all owners and failure predicates retained",
+  "achieved": "Actual-source Context/evaluate, checked general SSA adapter,149 inherited plus29 new guards, disjoint later register owner and ordinary DF generation/lifetime quantities; independent attachment review pending",
+  "first_recorded_clock_checkpoint_utc": "2026-10-19T01:25:26+00:00",
+  "round_record_utc": "2026-10-19T01:31:48.178075+00:00",
+  "recorded_checkpoint_interval_seconds": 382.178075,
+  "whole_task_elapsed_seconds": null,
+  "checkpoint_scope": "Source inspection had already begun at the first recorded clock checkpoint; interval is not whole-task duration.",
+  "final_affected_run": {
+    "started_utc": "2026-10-19T01:29:53.373150+00:00",
+    "completed_utc": "2026-10-19T01:29:59.563369+00:00",
+    "elapsed_seconds": 6.193662269997731,
+    "checks": 269,
+    "inherited_guard_count": 149,
+    "new_guard_count": 29,
+    "total_guards": 178,
+    "new_contexts": 1
+  },
+  "actual_sources": 5,
+  "count_only_cases": 9,
+  "earlier_attempts": [
+    {
+      "result": "Stopped at checker error-substring assertion; mutated nested source identity shares the top-level identity and was correctly rejected earlier",
+      "process_wall_seconds": 6.316424845,
+      "implementation_or_bound_repair": false
+    }
+  ],
+  "rework": "Corrected only the expected negative-test message fragment, then reran the changed affected checker successfully. No owner formula or source argument changed.",
+  "retained_evidence": "Accepted lifetime204; MEM49/27 count cases/48 register boundaries/42 pool boundaries; SSA66; predecessor successes and exact acceptance reports. None replayed.",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "large_corpus_rerun": false,
+  "runtime_census_reinventoried": false,
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive validation started or resumed; only focused offline checks.",
+  "github_writes": 0,
+  "delegation": 0,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "complete_native_capacity": false,
+  "complete_collector_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "total_GGC_events": null,
+  "remaining": [
+    "Independent review of new attachment",
+    "Complete disjoint positive GGC event/object/request ledger",
+    "Remaining ordinary/shared bitmap/pool/stack lifetimes, typed-array/outer-finalizer/depth and collector composition",
+    "Other required phases and full-current-grammar capacity"
+  ],
+  "implementation_inputs": {
+    "compose.py": {
+      "bytes": 18673,
+      "sha256": "fef852e1bafa67467d8663546483ba1194b4e527448510ebc90882fb23a769cb"
+    },
+    "check.py": {
+      "bytes": 20035,
+      "sha256": "63a28575a4cf3addcff568656493b0f8cd5378c4bde3fc3ffe678cbc24293a98"
+    },
+    "inputs.json": {
+      "bytes": 6861,
+      "sha256": "dee83456a106970fa8456320a5d878327f15ab5fbf7d42799e94f8027728a108"
+    }
+  },
+  "evidence_identities": {
+    "README.md": {
+      "bytes": 2919,
+      "sha256": "3a8c9b3054132589945f882ada54be658468a13b55a644c5a72e5b39462bbd93"
+    },
+    "result.json": {
+      "bytes": 711235,
+      "sha256": "ceca4b28ebcf95a4bda47f074305a69f320c40b86a1039249e44034ea62e2a73"
+    },
+    "check-results.json": {
+      "bytes": 45019,
+      "sha256": "ef0ce1019380448809e242037248177ea38a3f8459bd0c2b9f61fa769dcff44e"
+    }
+  },
+  "source_note_identity": {
+    "bytes": 10031,
+    "sha256": "70e988f356254b42cfe90919562aed70af93646ce0fa69c52fd743b87fb00f04"
+  }
+}

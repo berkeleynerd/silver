@@ -1,0 +1,157 @@
+{
+  "scope": "Accepted complete lifetime/MEM/SSA packets, source arguments and acceptance reports; nested manifests retain actual source/configuration/ABI checks",
+  "base_revision": "97b387d541",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/README.md",
+      "bytes": 2763,
+      "sha256": "31e20b1f615f0e5f87831fe34548b6bb18a788493ef3de88462987da89988857"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/check-results.json",
+      "bytes": 28139,
+      "sha256": "b3347b97e3cc57817d7ec3d7b8816f3619898f822c8f60f78df089ddcb71a7ea"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/check.py",
+      "bytes": 18558,
+      "sha256": "ad3d01457e65e4f6ba6cf32b941fc9e8c72ac4d556cd6ec45e7a0dd5484c00af"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/compose.py",
+      "bytes": 17596,
+      "sha256": "08bf2cd6e9ed09ea137fbaf0aff52baca1024fd8bd576eea98b7a132391cf597"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/inputs.json",
+      "bytes": 12836,
+      "sha256": "423462c8efdc2e36339faa7ec1723354bde5c61b0469a5a325c326ec93c38f29"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/result.json",
+      "bytes": 679445,
+      "sha256": "59a432d0a7427205b03db49c9aa5ef3feaf2d7512785a221b0d291496c7b3408"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/evidence/retained-literal-lifetime-attachment-20261019/round.json",
+      "bytes": 2933,
+      "sha256": "8bc6b7e9d1e39f83022885d82acbb19ad059c7a13b09255cf8618f19f4520459"
+    },
+    {
+      "revision": "b9b94f26ffb4770dc22c76b45c2c56d3368c3ccb",
+      "path": "docs/research/retained-literal-lifetime-attachment.md",
+      "bytes": 11707,
+      "sha256": "5c52bd4c0068625f9ec9d0dcaac926470ea982186efac8402a7fcfba1e39bbb2"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/README.md",
+      "bytes": 3837,
+      "sha256": "947f623ede32b39d1b728d51f2d6c51617c58433e7f5ca9c6e501e5054ad5592"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/check-results.json",
+      "bytes": 3271,
+      "sha256": "441e2fd5df3c181f070873c1367ca560ff149fe10c1958a0d7da4f896c76a016"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/check.py",
+      "bytes": 12162,
+      "sha256": "68534c875a8bc13abe3d3463a48100961a6e6c0509e535a58ed5df362e727a52"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/derive.py",
+      "bytes": 18443,
+      "sha256": "5f8bbbe8d9a6081d9cd1557fa280c5f4c91350e9077aa25c7fd38b984a89f932"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/inputs.json",
+      "bytes": 14279,
+      "sha256": "f85b4e1cfdcacdc8c45c43d536ee105aee4cc6953d0c2501d2c2ff9628185fdc"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/result.json",
+      "bytes": 15240,
+      "sha256": "447a7c47eabd034d8affbb672005b391150e7f0fcec5ac8748b8fa7c9aaff084"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/round.json",
+      "bytes": 4400,
+      "sha256": "93a89076f29df210472a5f2f3596678cb3b72ac5266b5ef8a6acd387c9cdd96d"
+    },
+    {
+      "revision": "9d24cab8cf9ba9fa6148ed21d340926444cbdd31",
+      "path": "docs/research/retained-literal-mem-counter-lifetime.md",
+      "bytes": 19205,
+      "sha256": "26d7c44f0bdd8233bca669668fa668a2b5530d2422a31dc9c199e858e95990e2"
+    },
+    {
+      "revision": "e0c24340e86f4ae90c9de0794bab6797a0bd1563",
+      "path": "docs/evidence/retained-literal-ssa-lifetime-20261019/README.md",
+      "bytes": 997,
+      "sha256": "904f5d62665ab9409df18861c0a97cc035ffd9c9a0ba4c45bf7834d88d21f6f0"
+    },
+    {
+      "revision": "e0c24340e86f4ae90c9de0794bab6797a0bd1563",
+      "path": "docs/evidence/retained-literal-ssa-lifetime-20261019/check.py",
+      "bytes": 4788,
+      "sha256": "b87328cb4605956ba1f19c674e820a85f0d080c29b6153346d75cdc39cf5a12f"
+    },
+    {
+      "revision": "e0c24340e86f4ae90c9de0794bab6797a0bd1563",
+      "path": "docs/evidence/retained-literal-ssa-lifetime-20261019/inputs.json",
+      "bytes": 30590,
+      "sha256": "a8ab597725da0f16901516f7cffc3937e42a79ce9940343497dbd5c041bd2f2c"
+    },
+    {
+      "revision": "e0c24340e86f4ae90c9de0794bab6797a0bd1563",
+      "path": "docs/evidence/retained-literal-ssa-lifetime-20261019/result.json",
+      "bytes": 6464,
+      "sha256": "41d4c08f148698745c297dcdd3f960ab5f2a97b6fd61ad233ea49e3c4c6d0f17"
+    },
+    {
+      "revision": "e0c24340e86f4ae90c9de0794bab6797a0bd1563",
+      "path": "docs/evidence/retained-literal-ssa-lifetime-20261019/round.json",
+      "bytes": 2128,
+      "sha256": "b1f28a5347e903b1d20e4602f4f4dc3156595c2c367a6992ed2b3d9625611c9a"
+    },
+    {
+      "revision": "e0c24340e86f4ae90c9de0794bab6797a0bd1563",
+      "path": "docs/research/retained-literal-ssa-lifetime.md",
+      "bytes": 11034,
+      "sha256": "a89f89fc227855699fb43ad9f4506c37297ac8b0f6d1026247a4b60f62e4334e"
+    },
+    {
+      "revision": "ad0b400815c0275ab89cc75316f2aede66f9c45e",
+      "path": "docs/reviews/review-literal-lifetime-attachment-b9b94f26ff.md",
+      "bytes": 9785,
+      "sha256": "76d1e2865aa90e896864d211df84f7c134163b331d7ef57d47c7b6149841f828"
+    },
+    {
+      "revision": "cf5d72b6760a196fc348b6ada7b1ce6dd955accb",
+      "path": "docs/reviews/review-literal-mem-counter-lifetime-9d24cab8cf.md",
+      "bytes": 11497,
+      "sha256": "e4d15c146208e08cf2afac983f98174de06b2cdc821f7bb37b7ce39e77bc59d9"
+    },
+    {
+      "revision": "c63c6088f91d00e4224c7cf96fe1367e20861e83",
+      "path": "docs/reviews/review-literal-ssa-lifetime-e0c24340e8.md",
+      "bytes": 10863,
+      "sha256": "f1718f8557dbf176864c9c6bf55085c7fee1b149401e0ce1077639807c8d4503"
+    }
+  ]
+}
