@@ -1,0 +1,185 @@
+{
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "scope": "Selected literal Main SSA families under the pinned source argument; independent review required",
+  "later_incremental_update_allocations": 0,
+  "later_new_SSA_NAME_objects": 0,
+  "later_SSA_name_vector_backings": 0,
+  "later_free_name_queue_backings": 0,
+  "later_free_name_vector_backings": 0,
+  "later_default_hash_keys": 0,
+  "operand_slabs_beyond_initial_envelope": 0,
+  "retained_initial_SSA_owned_GGC_events_upper": 17,
+  "retained_initial_individual_GGC_request_groups": [
+    {
+      "object": "initial gimple_df",
+      "requests_upper": 1,
+      "raw_bytes_upper": 256
+    },
+    {
+      "object": "default-def hash control",
+      "requests_upper": 1,
+      "raw_bytes_upper": 128
+    },
+    {
+      "object": "default-def initial backing",
+      "requests_upper": 1,
+      "raw_bytes_upper": 248
+    },
+    {
+      "object": "initial SSA-name vector and growth",
+      "requests_upper": 5,
+      "raw_bytes_upper": 512
+    },
+    {
+      "object": "memory VAR_DECL",
+      "requests_upper": 1,
+      "raw_bytes_upper": 312
+    },
+    {
+      "object": "memory identifier",
+      "requests_upper": 1,
+      "raw_bytes_upper": 40
+    },
+    {
+      "object": "memory identifier characters",
+      "requests_upper": 1,
+      "raw_bytes_upper": 5
+    },
+    {
+      "object": "fresh memory SSA_NAME",
+      "requests_upper": 4,
+      "raw_bytes_upper": 88
+    },
+    {
+      "object": "detached default definition NOP",
+      "requests_upper": 1,
+      "raw_bytes_upper": 64
+    },
+    {
+      "object": "operand-use first slab",
+      "requests_upper": 1,
+      "raw_bytes_upper": 1024
+    },
+    {
+      "object": "operand-use second slab",
+      "requests_upper": 0,
+      "raw_bytes_upper": 4096
+    },
+    {
+      "object": "operand-use later slabs",
+      "requests_upper": 0,
+      "raw_bytes_upper": 16384
+    }
+  ],
+  "retained_initial_guards": {
+    "phase_SSA_name_versions_and_fresh_count": true,
+    "SSA_vector_growth_unsigned_intermediate": true,
+    "SSA_vector_normalized_capacity_31_bit": true,
+    "SSA_vector_size_product": true,
+    "var_info_initial_hash_region": true,
+    "initial_CFG_and_dominance_signed_intermediate": true,
+    "definition_stack_growth_unsigned_intermediate": true,
+    "definition_stack_capacity_31_bit": true,
+    "bitmap_rounding_unsigned": true,
+    "ordinary_size_products": true
+  },
+  "conditional_selected_SSA_lifetime_fits": true,
+  "additional_GGC_events_charged": 0,
+  "additional_scalar_registrations_charged": 0,
+  "helper_SSA_owners_added_again": 0,
+  "full_GGC_ledger_established": false,
+  "complete_native_capacity": false,
+  "production_admission_changed": false,
+  "source_argument_is_handwritten": true,
+  "independent_review_status": "pending",
+  "checks": [
+    "identity:gcc:gcc/tree-into-ssa.cc",
+    "identity:gcc:gcc/tree-ssanames.cc",
+    "identity:gcc:gcc/tree-ssa-operands.cc",
+    "identity:gcc:gcc/tree-ssa.cc",
+    "identity:gcc:gcc/passes.cc",
+    "identity:gcc:gcc/passes.def",
+    "identity:gcc:gcc/tree-cfg.cc",
+    "identity:gcc:gcc/tree-cfgcleanup.cc",
+    "identity:gcc:gcc/cgraph.cc",
+    "identity:gcc:gcc/ipa-inline-transform.cc",
+    "identity:gcc:gcc/ipa-inline.cc",
+    "identity:gcc:gcc/tree-outof-ssa.cc",
+    "identity:gcc:gcc/cfgexpand.cc",
+    "identity:gcc:gcc/final.cc",
+    "identity:gcc:gcc/tree-complex.cc",
+    "identity:gcc:gcc/tree-vect-generic.cc",
+    "identity:gcc:gcc/gimple-lower-bitint.cc",
+    "identity:gcc:gcc/gimple-isel.cc",
+    "identity:gcc:gcc/tree-stdarg.cc",
+    "identity:gcc:gcc/tree-switch-conversion.cc",
+    "identity:gcc:gcc/adjust-alignment.cc",
+    "identity:gcc:gcc/gimple-ssa-warn-alloca.cc",
+    "identity:gcc:gcc/tree-eh.cc",
+    "identity:gcc:gcc/vec.h",
+    "identity:repository:docs/research/retained-native-expansion.md",
+    "identity:repository:docs/research/retained-literal-pipeline.md",
+    "identity:repository:docs/research/retained-literal-shared-query-lifetime.md",
+    "identity:repository:docs/research/retained-literal-synthetic-function-storage.md",
+    "identity:repository:docs/research/retained-literal-invocation-join.md",
+    "identity:repository:docs/evidence/retained-literal-pipeline-20261018/compose.py",
+    "identity:repository:docs/evidence/retained-literal-pipeline-20261018/selected-route.py",
+    "identity:repository:docs/evidence/retained-literal-pipeline-20261018/selected-route-result.json",
+    "excerpt:gcc/tree-into-ssa.cc:117:117",
+    "excerpt:gcc/tree-into-ssa.cc:2410:2438",
+    "excerpt:gcc/tree-into-ssa.cc:2520:2538",
+    "excerpt:gcc/tree-into-ssa.cc:3053:3151",
+    "excerpt:gcc/tree-into-ssa.cc:3369:3385",
+    "excerpt:gcc/tree-ssanames.cc:143:185",
+    "excerpt:gcc/tree-ssanames.cc:322:329",
+    "excerpt:gcc/tree-ssanames.cc:665:728",
+    "excerpt:gcc/tree-ssanames.cc:983:1013",
+    "excerpt:gcc/tree-ssa-operands.cc:284:300",
+    "excerpt:gcc/tree-ssa-operands.cc:351:363",
+    "excerpt:gcc/tree-ssa-operands.cc:387:485",
+    "excerpt:gcc/tree-ssa-operands.cc:583:600",
+    "excerpt:gcc/cgraph.cc:1834:1837",
+    "excerpt:gcc/cgraph.cc:2186:2201",
+    "excerpt:gcc/ipa-inline-transform.cc:838:883",
+    "excerpt:gcc/passes.cc:2056:2072",
+    "excerpt:gcc/passes.cc:2151:2158",
+    "excerpt:gcc/tree-outof-ssa.cc:1335:1360",
+    "excerpt:gcc/tree-ssa.cc:1226:1241",
+    "excerpt:gcc/cfgexpand.cc:7260:7300",
+    "excerpt:gcc/final.cc:4515:4516",
+    "excerpt:gcc/gimple-lower-bitint.cc:6943:6997",
+    "excerpt:gcc/gimple-isel.cc:1274:1281",
+    "excerpt:gcc/gimple-isel.cc:1350:1393",
+    "excerpt:gcc/tree-cfgcleanup.cc:1196:1200",
+    "actual-source count binding",
+    "no real names or PHIs",
+    "single default definition",
+    "nondefault definition ownership",
+    "retained row sum and initial envelope",
+    "guard conjunction retained",
+    "existing scalar registration",
+    "whole native capacity remains open"
+  ],
+  "gcc_files": 24,
+  "repository_files": 8,
+  "source_excerpts": 26,
+  "native_tool_executions": 0,
+  "aggregate_executions": 0,
+  "accepted_component_suites_rerun": 0
+}

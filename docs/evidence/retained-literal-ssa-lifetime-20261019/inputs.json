@@ -1,0 +1,356 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "integration_base": "2ba84b1f74",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/tree-into-ssa.cc",
+      "bytes": 106038,
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssanames.cc",
+      "bytes": 32186,
+      "sha256": "912f01856cb72bd68199c99d6c57d91384f857cf281a4a02bf294ff37089ed86"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa-operands.cc",
+      "bytes": 38594,
+      "sha256": "61c73f75dbe24d2c87ba0f176d9f7085fc86811099abf000d98746c8c54514bf"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa.cc",
+      "bytes": 66992,
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-cfgcleanup.cc",
+      "bytes": 48340,
+      "sha256": "75582d69d7f785c21e49fec38c286ba059ef5dfac8caa1f22a31a2e09497614a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraph.cc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-inline-transform.cc",
+      "bytes": 30301,
+      "sha256": "152ccc17a9c38cf8226a0ade7abde662430c58d0e25b0482f2957725441a9fc3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-inline.cc",
+      "bytes": 112365,
+      "sha256": "17a339c37db9d130c93300a6f1cdfb7fd585bac69e70ba20e21d3f48c8d61955"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-outof-ssa.cc",
+      "bytes": 38337,
+      "sha256": "db74cee5a9579f29a38c6c6dc50fa98bd14175313a29e0ffa2c15b348f8f1115"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-complex.cc",
+      "bytes": 61338,
+      "sha256": "328a62d965228b1964dbc8200dc2bd8e0b8cf0f91052ea2d05462d01bccff417"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-vect-generic.cc",
+      "bytes": 81382,
+      "sha256": "61f56c9759b777d60a7391d2745099bdcb0ac1162bb93473ee47f072b3082048"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-lower-bitint.cc",
+      "bytes": 263982,
+      "sha256": "f2c19b60431affbea75c7bee2d7e4aa683f0176f86b8db2869301163d612cf9a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-isel.cc",
+      "bytes": 40402,
+      "sha256": "6e9e5152d17e4b265cdfc704e7520451bf0b367d7a5b5eaf442b3939617abdf2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-stdarg.cc",
+      "bytes": 31943,
+      "sha256": "0a2d8cb361a03d4e8b78bec39c9d227c8bada0f34874f77ab7060e50578a1314"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-switch-conversion.cc",
+      "bytes": 95004,
+      "sha256": "25687a39fd7f1ac7f20b61e9ba41929dd2da3a2d5f150b4c34294a6c6eb61e71"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/adjust-alignment.cc",
+      "bytes": 2215,
+      "sha256": "c49802c9f66feb435fc8845a823c493da89b6e869eb7744af958f6b82b265d3c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-ssa-warn-alloca.cc",
+      "bytes": 11880,
+      "sha256": "e260cbf58b2c0e9fde3eaf16f717b611ecd1394096d3dd090b975bb0c72cb3d0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-eh.cc",
+      "bytes": 147108,
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 163754,
+      "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-query-lifetime.md",
+      "bytes": 24499,
+      "sha256": "7c36a41128812f863533e51d71b1cbfc16eb2c9daa38ced5e8e0d12541c4b9c7"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-synthetic-function-storage.md",
+      "bytes": 23056,
+      "sha256": "b8a664861e2fe87b6b4c870dc1d0904b83f89d9005c8a29bc9aaf29947ad5f2e"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-invocation-join.md",
+      "bytes": 16456,
+      "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "bytes": 140462,
+      "sha256": "9ee527a80ed4082e51828278ee3d3173576631d0d32d2a4d2c44aa16e573f0be"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/selected-route.py",
+      "bytes": 45657,
+      "sha256": "f08df69d8c6689a4d1728cddac70b4b7ff2a019dd5f8f08bd77d087be62059bc"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/selected-route-result.json",
+      "bytes": 636730,
+      "sha256": "9147025ceaef7bc6fdebd3af6e1a0b119af3dd6e4c2aef78b29473b87774ed43"
+    }
+  ],
+  "source_excerpts": [
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "start": 117,
+      "end": 117,
+      "source": "static struct function *update_ssa_initialized_fn = NULL;"
+    },
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "start": 2410,
+      "end": 2438,
+      "source": "\nstatic void\ninit_ssa_renamer (void)\n{\n  cfun->gimple_df->in_ssa_p = false;\n\n  /* Allocate memory for the DEF_BLOCKS hash table.  */\n  gcc_assert (!var_infos);\n  var_infos = new hash_table<var_info_hasher>\n    (vec_safe_length (cfun->local_decls));\n\n  bitmap_obstack_initialize (&update_ssa_obstack);\n}\n\n\n/* Deallocate internal data structures used by the renamer.  */\n\nstatic void\nfini_ssa_renamer (void)\n{\n  delete var_infos;\n    var_infos = NULL;\n\n  bitmap_obstack_release (&update_ssa_obstack);\n\n  cfun->gimple_df->ssa_renaming_needed = 0;\n  cfun->gimple_df->rename_vops = 0;\n  cfun->gimple_df->in_ssa_p = true;\n}"
+    },
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "start": 2520,
+      "end": 2538,
+      "source": "\n  /* 2- Find and mark definition sites.  */\n  mark_def_dom_walker (CDI_DOMINATORS).walk (fun->cfg->x_entry_block_ptr);\n\n  /* 3- Insert PHI nodes at dominance frontiers of definition blocks.  */\n  insert_phi_nodes (dfs);\n\n  /* 4- Rename all the blocks.  */\n  rewrite_blocks (ENTRY_BLOCK_PTR_FOR_FN (fun), REWRITE_ALL);\n\n  /* Free allocated memory.  */\n  FOR_EACH_BB_FN (bb, fun)\n    bitmap_clear (&dfs[bb->index]);\n  free (dfs);\n\n  sbitmap_free (interesting_blocks);\n  interesting_blocks = NULL;\n\n  fini_ssa_renamer ();"
+    },
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "start": 3053,
+      "end": 3151,
+      "source": "tree\ncreate_new_def_for (tree old_name, gimple *stmt, def_operand_p def)\n{\n  tree new_name;\n\n  timevar_push (TV_TREE_SSA_INCREMENTAL);\n\n  if (!update_ssa_initialized_fn)\n    init_update_ssa (cfun);\n\n  gcc_assert (update_ssa_initialized_fn == cfun);\n\n  new_name = duplicate_ssa_name (old_name, stmt);\n  if (def)\n    SET_DEF (def, new_name);\n  else\n    gimple_assign_set_lhs (stmt, new_name);\n\n  if (gimple_code (stmt) == GIMPLE_PHI)\n    {\n      basic_block bb = gimple_bb (stmt);\n\n      /* If needed, mark NEW_NAME as occurring in an abnormal PHI node. */\n      SSA_NAME_OCCURS_IN_ABNORMAL_PHI (new_name) = bb_has_abnormal_pred (bb);\n    }\n\n  add_new_name_mapping (new_name, old_name);\n\n  /* For the benefit of passes that will be updating the SSA form on\n     their own, set the current reaching definition of OLD_NAME to be\n     NEW_NAME.  */\n  get_ssa_name_ann (old_name)->info.current_def = new_name;\n\n  timevar_pop (TV_TREE_SSA_INCREMENTAL);\n\n  return new_name;\n}\n\n\n/* Mark virtual operands of FN for renaming by update_ssa.  */\n\nvoid\nmark_virtual_operands_for_renaming (struct function *fn)\n{\n  fn->gimple_df->ssa_renaming_needed = 1;\n  fn->gimple_df->rename_vops = 1;\n}\n\n/* Replace all uses of NAME by underlying variable and mark it\n   for renaming.  This assumes the defining statement of NAME is\n   going to be removed.  */\n\nvoid\nmark_virtual_operand_for_renaming (tree name)\n{\n  tree name_var = SSA_NAME_VAR (name);\n  bool used = false;\n  imm_use_iterator iter;\n  use_operand_p use_p;\n  gimple *stmt;\n\n  gcc_assert (VAR_DECL_IS_VIRTUAL_OPERAND (name_var));\n  FOR_EACH_IMM_USE_STMT (stmt, iter, name)\n    {\n      FOR_EACH_IMM_USE_ON_STMT (use_p, iter)\n        SET_USE (use_p, name_var);\n      used = true;\n    }\n  if (used)\n    mark_virtual_operands_for_renaming (cfun);\n}\n\n/* Replace all uses of the virtual PHI result by its underlying variable\n   and mark it for renaming.  This assumes the PHI node is going to be\n   removed.  */\n\nvoid\nmark_virtual_phi_result_for_renaming (gphi *phi)\n{\n  if (dump_file && (dump_flags & TDF_DETAILS))\n    {\n      fprintf (dump_file, \"Marking result for renaming : \");\n      print_gimple_stmt (dump_file, phi, 0, TDF_SLIM);\n      fprintf (dump_file, \"\\n\");\n    }\n\n  mark_virtual_operand_for_renaming (gimple_phi_result (phi));\n}\n\n/* Return true if there is any work to be done by update_ssa\n   for function FN.  */\n\nbool\nneed_ssa_update_p (struct function *fn)\n{\n  gcc_assert (fn != NULL);\n  return (update_ssa_initialized_fn == fn\n\t  || (fn->gimple_df && fn->gimple_df->ssa_renaming_needed));\n}"
+    },
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "start": 3369,
+      "end": 3385,
+      "source": "update_ssa (unsigned update_flags)\n{\n  basic_block bb, start_bb;\n  bitmap_iterator bi;\n  unsigned i = 0;\n  bool insert_phi_p;\n  sbitmap_iterator sbi;\n  tree sym;\n\n  /* Only one update flag should be set.  */\n  gcc_assert (update_flags == TODO_update_ssa\n              || update_flags == TODO_update_ssa_no_phi\n\t      || update_flags == TODO_update_ssa_full_phi\n\t      || update_flags == TODO_update_ssa_only_virtuals);\n\n  if (!need_ssa_update_p (cfun))\n    return;"
+    },
+    {
+      "path": "gcc/tree-ssanames.cc",
+      "start": 143,
+      "end": 185,
+      "source": "   zero use default.  */\n\nvoid\ninit_ssanames (struct function *fn, int size)\n{\n  if (!size)\n    vec_alloc (SSANAMES (fn), 50);\n  else\n    vec_safe_reserve (SSANAMES (fn), size, true);\n\n  /* Version 0 is special, so reserve the first slot in the table.  Though\n     currently unused, we may use version 0 in alias analysis as part of\n     the heuristics used to group aliases when the alias sets are too\n     large.\n\n     We use vec::quick_push here because we know that SSA_NAMES has at\n     least 50 elements reserved in it.  */\n  SSANAMES (fn)->quick_push (NULL_TREE);\n  FREE_SSANAMES (fn) = NULL;\n  FREE_SSANAMES_QUEUE (fn) = NULL;\n\n  fn->gimple_df->ssa_renaming_needed = 0;\n  fn->gimple_df->rename_vops = 0;\n}\n\n/* Finalize management of SSA_NAMEs.  */\n\nvoid\nfini_ssanames (struct function *fn)\n{\n  unsigned i;\n  tree name;\n  /* Some SSA names leak into global tree data structures so we can't simply\n     ggc_free them.  But make sure to clear references to stmts since we now\n     ggc_free the CFG itself.  */\n  FOR_EACH_VEC_SAFE_ELT (SSANAMES (fn), i, name)\n    if (name)\n      SSA_NAME_DEF_STMT (name) = NULL;\n  vec_free (SSANAMES (fn));\n  vec_free (FREE_SSANAMES (fn));\n  vec_free (FREE_SSANAMES_QUEUE (fn));\n}\n"
+    },
+    {
+      "path": "gcc/tree-ssanames.cc",
+      "start": 322,
+      "end": 329,
+      "source": "flush_ssaname_freelist (void)\n{\n  /* If there were any SSA names released reset the SCEV cache.  */\n  if (! vec_safe_is_empty (FREE_SSANAMES_QUEUE (cfun)))\n    scev_reset_htab ();\n  vec_safe_splice (FREE_SSANAMES (cfun), FREE_SSANAMES_QUEUE (cfun));\n  vec_safe_truncate (FREE_SSANAMES_QUEUE (cfun), 0);\n}"
+    },
+    {
+      "path": "gcc/tree-ssanames.cc",
+      "start": 665,
+      "end": 728,
+      "source": "release_ssa_name_fn (struct function *fn, tree var)\n{\n  if (!var)\n    return;\n\n  /* Never release the default definition for a symbol.  It's a\n     special SSA name that should always exist once it's created.  */\n  if (SSA_NAME_IS_DEFAULT_DEF (var))\n    return;\n\n  /* If VAR has been registered for SSA updating, don't remove it.\n     After update_ssa has run, the name will be released.  */\n  if (name_registered_for_update_p (var))\n    {\n      release_ssa_name_after_update_ssa (var);\n      return;\n    }\n\n  /* release_ssa_name can be called multiple times on a single SSA_NAME.\n     However, it should only end up on our free list one time.   We\n     keep a status bit in the SSA_NAME node itself to indicate it has\n     been put on the free list.\n\n     Note that once on the freelist you cannot reference the SSA_NAME's\n     defining statement.  */\n  if (! SSA_NAME_IN_FREE_LIST (var))\n    {\n      int saved_ssa_name_version = SSA_NAME_VERSION (var);\n      use_operand_p imm = &(SSA_NAME_IMM_USE_NODE (var));\n\n      if (MAY_HAVE_DEBUG_BIND_STMTS)\n\tinsert_debug_temp_for_var_def (NULL, var);\n\n      if (flag_checking)\n\tverify_imm_links (stderr, var);\n      while (imm->next != imm)\n\tdelink_imm_use (imm->next);\n\n      (*SSANAMES (fn))[SSA_NAME_VERSION (var)] = NULL_TREE;\n      memset (var, 0, tree_size (var));\n\n      imm->prev = imm;\n      imm->next = imm;\n      imm->loc.ssa_name = var;\n\n      /* First put back the right tree node so that the tree checking\n\t macros do not complain.  */\n      TREE_SET_CODE (var, SSA_NAME);\n\n      /* Restore the version number.  */\n      SSA_NAME_VERSION (var) = saved_ssa_name_version;\n\n      /* Note this SSA_NAME is now in the first list.  */\n      SSA_NAME_IN_FREE_LIST (var) = 1;\n\n      /* Put in a non-NULL TREE_TYPE so dumping code will not ICE\n         if it happens to come along a released SSA name and tries\n\t to inspect its type.  */\n      TREE_TYPE (var) = error_mark_node;\n\n      /* And finally queue it so that it will be put on the free list.  */\n      vec_safe_push (FREE_SSANAMES_QUEUE (fn), var);\n    }\n}"
+    },
+    {
+      "path": "gcc/tree-ssanames.cc",
+      "start": 983,
+      "end": 1013,
+      "source": "release_free_names_and_compact_live_names (function *fun)\n{\n  unsigned i, j;\n  int n = vec_safe_length (FREE_SSANAMES (fun));\n\n  /* Now release the freelist.  */\n  vec_free (FREE_SSANAMES (fun));\n\n  /* And compact the SSA number space.  We make sure to not change the\n     relative order of SSA versions.  */\n  for (i = 1, j = 1; i < fun->gimple_df->ssa_names->length (); ++i)\n    {\n      tree name = ssa_name (i);\n      if (name)\n\t{\n\t  if (i != j)\n\t    {\n\t      SSA_NAME_VERSION (name) = j;\n\t      (*fun->gimple_df->ssa_names)[j] = name;\n\t    }\n\t  j++;\n\t}\n    }\n  fun->gimple_df->ssa_names->truncate (j);\n\n  statistics_counter_event (fun, \"SSA names released\", n);\n  statistics_counter_event (fun, \"SSA name holes removed\", i - j);\n  if (dump_file)\n    fprintf (dump_file, \"Released %i names, %.2f%%, removed %i holes\\n\",\n\t     n, n * 100.0 / num_ssa_names, i - j);\n}"
+    },
+    {
+      "path": "gcc/tree-ssa-operands.cc",
+      "start": 284,
+      "end": 300,
+      "source": "fini_ssa_operands (struct function *fn)\n{\n  struct ssa_operand_memory_d *ptr;\n\n  gimple_ssa_operands (fn)->free_uses = NULL;\n\n  while ((ptr = gimple_ssa_operands (fn)->operand_memory) != NULL)\n    {\n      gimple_ssa_operands (fn)->operand_memory\n\t= gimple_ssa_operands (fn)->operand_memory->next;\n      ggc_free (ptr);\n    }\n\n  gimple_ssa_operands (fn)->ops_active = false;\n\n  fn->gimple_df->vop = NULL_TREE;\n}"
+    },
+    {
+      "path": "gcc/tree-ssa-operands.cc",
+      "start": 351,
+      "end": 363,
+      "source": "static inline struct use_optype_d *\nalloc_use (struct function *fn)\n{\n  struct use_optype_d *ret;\n  if (gimple_ssa_operands (fn)->free_uses)\n    {\n      ret = gimple_ssa_operands (fn)->free_uses;\n      gimple_ssa_operands (fn)->free_uses\n\t= gimple_ssa_operands (fn)->free_uses->next;\n    }\n  else\n    ret = (struct use_optype_d *)\n          ssa_operand_alloc (fn, sizeof (struct use_optype_d));"
+    },
+    {
+      "path": "gcc/tree-ssa-operands.cc",
+      "start": 387,
+      "end": 485,
+      "source": "\ninline void\noperands_scanner::finalize_ssa_defs ()\n{\n  /* Pre-pend the vdef we may have built.  */\n  if (build_vdef != NULL_TREE)\n    {\n      tree oldvdef = gimple_vdef (stmt);\n      if (oldvdef\n\t  && TREE_CODE (oldvdef) == SSA_NAME)\n\toldvdef = SSA_NAME_VAR (oldvdef);\n      if (oldvdef != build_vdef)\n\tgimple_set_vdef (stmt, build_vdef);\n    }\n\n  /* Clear and unlink a no longer necessary VDEF.  */\n  if (build_vdef == NULL_TREE\n      && gimple_vdef (stmt) != NULL_TREE)\n    {\n      if (TREE_CODE (gimple_vdef (stmt)) == SSA_NAME)\n\t{\n\t  unlink_stmt_vdef (stmt);\n\t  release_ssa_name_fn (fn, gimple_vdef (stmt));\n\t}\n      gimple_set_vdef (stmt, NULL_TREE);\n    }\n\n  /* If we have a non-SSA_NAME VDEF, mark it for renaming.  */\n  if (gimple_vdef (stmt)\n      && TREE_CODE (gimple_vdef (stmt)) != SSA_NAME)\n    {\n      fn->gimple_df->rename_vops = 1;\n      fn->gimple_df->ssa_renaming_needed = 1;\n    }\n}\n\n\n/* Takes elements from build_uses and turns them into use operands of STMT.  */\n\ninline void\noperands_scanner::finalize_ssa_uses ()\n{\n  unsigned new_i;\n  struct use_optype_d new_list;\n  use_optype_p old_ops, ptr, last;\n\n  /* Pre-pend the VUSE we may have built.  */\n  if (build_vuse != NULL_TREE)\n    {\n      tree oldvuse = gimple_vuse (stmt);\n      if (oldvuse\n\t  && TREE_CODE (oldvuse) == SSA_NAME)\n\toldvuse = SSA_NAME_VAR (oldvuse);\n      if (oldvuse != (build_vuse != NULL_TREE\n\t\t      ? build_vuse : build_vdef))\n\tgimple_set_vuse (stmt, NULL_TREE);\n      build_uses.safe_insert (0, gimple_vuse_ptr (stmt));\n    }\n\n  new_list.next = NULL;\n  last = &new_list;\n\n  old_ops = gimple_use_ops (stmt);\n\n  /* Clear a no longer necessary VUSE.  */\n  if (build_vuse == NULL_TREE\n      && gimple_vuse (stmt) != NULL_TREE)\n    gimple_set_vuse (stmt, NULL_TREE);\n\n  /* If there is anything in the old list, free it.  */\n  if (old_ops)\n    {\n      for (ptr = old_ops; ptr->next; ptr = ptr->next)\n\tdelink_imm_use (USE_OP_PTR (ptr));\n      delink_imm_use (USE_OP_PTR (ptr));\n      ptr->next = gimple_ssa_operands (fn)->free_uses;\n      gimple_ssa_operands (fn)->free_uses = old_ops;\n    }\n\n  /* If we added a VUSE, make sure to set the operand if it is not already\n     present and mark it for renaming.  */\n  if (build_vuse != NULL_TREE\n      && gimple_vuse (stmt) == NULL_TREE)\n    {\n      gimple_set_vuse (stmt, gimple_vop (fn));\n      fn->gimple_df->rename_vops = 1;\n      fn->gimple_df->ssa_renaming_needed = 1;\n    }\n\n  /* Now create nodes for all the new nodes.  */\n  for (new_i = 0; new_i < build_uses.length (); new_i++)\n    {\n      tree *op = build_uses[new_i];\n      last = add_use_op (fn, stmt, op, last);\n    }\n\n  /* Now set the stmt's operands.  */\n  gimple_set_use_ops (stmt, new_list.next);\n}"
+    },
+    {
+      "path": "gcc/tree-ssa-operands.cc",
+      "start": 583,
+      "end": 600,
+      "source": "operands_scanner::add_stmt_operand (tree *var_p, int flags)\n{\n  tree var = *var_p;\n\n  gcc_assert (SSA_VAR_P (*var_p)\n\t      || TREE_CODE (*var_p) == STRING_CST\n\t      || TREE_CODE (*var_p) == CONST_DECL);\n\n  if (is_gimple_reg (var))\n    {\n      /* The variable is a GIMPLE register.  Add it to real operands.  */\n      if (flags & opf_def)\n\t;\n      else\n\tappend_use (var_p);\n      if (DECL_P (*var_p))\n\tfn->gimple_df->ssa_renaming_needed = 1;\n    }"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "start": 1834,
+      "end": 1837,
+      "source": "\n  if (e->indirect_unknown_callee\n      || decl == e->callee->decl)\n    return e->call_stmt;"
+    },
+    {
+      "path": "gcc/cgraph.cc",
+      "start": 2186,
+      "end": 2201,
+      "source": "void\nrelease_function_body (tree decl)\n{\n  function *fn = DECL_STRUCT_FUNCTION (decl);\n  if (fn)\n    {\n      if (fn->cfg\n\t  && loops_for_fn (fn))\n\t{\n\t  fn->curr_properties &= ~PROP_loops;\n\t  loop_optimizer_finalize (fn);\n\t}\n      if (fn->gimple_df)\n\t{\n\t  delete_tree_ssa (fn);\n\t  fn->eh = NULL;"
+    },
+    {
+      "path": "gcc/ipa-inline-transform.cc",
+      "start": 838,
+      "end": 883,
+      "source": "      cfun->cfg->count_max = profile_count::uninitialized ();\n      FOR_ALL_BB_FN (bb, cfun)\n\t{\n\t  bb->count = bb->count.apply_scale (num, den);\n\t  cfun->cfg->count_max = profile_count::max_prefer_initialized\n\t\t  (cfun->cfg->count_max, bb->count);\n\t}\n      ENTRY_BLOCK_PTR_FOR_FN (cfun)->count = node->count;\n    }\n\n  maybe_materialize_called_clones (node);\n  for (e = node->callees; e; e = next)\n    {\n      if (!e->inline_failed)\n\thas_inline = true;\n      next = e->next_callee;\n      if (e->has_callback)\n\t{\n\t  /* Redirect callback edges when redirecting their carrying edge.  */\n\t  cgraph_edge *cbe;\n\t  cgraph_edge::redirect_call_stmt_to_callee (e);\n\t  for (cbe = e->first_callback_edge (); cbe;\n\t       cbe = cbe->next_callback_edge ())\n\t    cgraph_edge::redirect_call_stmt_to_callee (cbe);\n\t}\n      else\n\tcgraph_edge::redirect_call_stmt_to_callee (e);\n    }\n  node->remove_all_references ();\n\n  timevar_push (TV_INTEGRATION);\n  if (node->callees && (opt_for_fn (node->decl, optimize) || has_inline))\n    {\n      todo = optimize_inline_calls (current_function_decl);\n    }\n  timevar_pop (TV_INTEGRATION);\n\n  cfun->always_inline_functions_inlined = true;\n  cfun->after_inlining = true;\n  todo |= execute_fixup_cfg ();\n\n  if (!(todo & TODO_update_ssa_any))\n    /* Redirecting edges might lead to a need for vops to be recomputed.  */\n    todo |= TODO_update_ssa_only_virtuals;\n\n  return todo;"
+    },
+    {
+      "path": "gcc/passes.cc",
+      "start": 2056,
+      "end": 2072,
+      "source": "\nstatic void\nexecute_function_todo (function *fn, void *data)\n{\n  bool from_ipa_pass = (cfun == NULL);\n  unsigned int flags = (size_t)data;\n  if (!flags)\n    return;\n\n  push_cfun (fn);\n\n  /* If we need to cleanup the CFG let it perform a needed SSA update.  */\n  if (flags & TODO_cleanup_cfg)\n    cleanup_tree_cfg (flags & TODO_update_ssa_any);\n  else if (flags & TODO_update_ssa_any)\n    update_ssa (flags & TODO_update_ssa_any);\n  gcc_assert (!need_ssa_update_p (fn));"
+    },
+    {
+      "path": "gcc/passes.cc",
+      "start": 2151,
+      "end": 2158,
+      "source": "  if (flags)\n    do_per_function (execute_function_todo, (void *)(size_t) flags);\n\n  /* At this point we should not have any unreachable code in the\n     CFG, so it is safe to flush the pending freelist for SSA_NAMES.  */\n  if (cfun && cfun->gimple_df)\n    flush_ssaname_freelist ();\n"
+    },
+    {
+      "path": "gcc/tree-outof-ssa.cc",
+      "start": 1335,
+      "end": 1360,
+      "source": "/* Remove indirect clobbers.  */\n\nstatic void\nremove_indirect_clobbers (void)\n{\n  basic_block bb;\n\n  FOR_EACH_BB_FN (bb, cfun)\n    for (auto gsi = gsi_start_bb (bb); !gsi_end_p (gsi);)\n      {\n\tgimple *stmt = gsi_stmt (gsi);\n\tif (gimple_clobber_p (stmt))\n\t  {\n\t    tree lhs = gimple_assign_lhs (stmt);\n\t    if (TREE_CODE (lhs) == MEM_REF\n\t\t&& TREE_CODE (TREE_OPERAND (lhs, 0)) == SSA_NAME)\n\t      {\n\t\tunlink_stmt_vdef (stmt);\n\t\tgsi_remove (&gsi, true);\n\t\trelease_defs (stmt);\n\t\tcontinue;\n\t      }\n\t  }\n\tgsi_next (&gsi);\n      }\n}"
+    },
+    {
+      "path": "gcc/tree-ssa.cc",
+      "start": 1226,
+      "end": 1241,
+      "source": "delete_tree_ssa (struct function *fn)\n{\n  fini_ssanames (fn);\n\n  /* We no longer maintain the SSA operand cache at this point.  */\n  if (ssa_operands_active (fn))\n    fini_ssa_operands (fn);\n\n  fn->gimple_df->default_defs->empty ();\n  fn->gimple_df->default_defs = NULL;\n  pt_solution_reset (&fn->gimple_df->escaped);\n  pt_solution_reset (&fn->gimple_df->escaped_return);\n  if (fn->gimple_df->decls_to_pointers != NULL)\n    delete fn->gimple_df->decls_to_pointers;\n  fn->gimple_df->decls_to_pointers = NULL;\n  fn->gimple_df = NULL;"
+    },
+    {
+      "path": "gcc/cfgexpand.cc",
+      "start": 7260,
+      "end": 7300,
+      "source": "\t{\n\t  bb->il.gimple.seq = NULL;\n\t  bb->il.gimple.phi_nodes = NULL;\n\t  init_rtl_bb_info (bb);\n\t  bb->flags |= BB_RTL;\n\t  BB_HEAD (bb) = head_end_for_bb[bb->index].first;\n\t  BB_END (bb) = head_end_for_bb[bb->index].second;\n\t}\n      /* These flags have no purpose in RTL land.  */\n      if (EDGE_COUNT (bb->succs) == 2)\n\t{\n\t  EDGE_SUCC (bb, 0)->flags &= ~(EDGE_TRUE_VALUE | EDGE_FALSE_VALUE);\n\t  EDGE_SUCC (bb, 1)->flags &= ~(EDGE_TRUE_VALUE | EDGE_FALSE_VALUE);\n\t}\n      else if (single_succ_p (bb))\n\tsingle_succ_edge (bb)->flags &= ~(EDGE_TRUE_VALUE | EDGE_FALSE_VALUE);\n    }\n  head_end_for_bb.release ();\n\n  if (MAY_HAVE_DEBUG_BIND_INSNS)\n    expand_debug_locations ();\n\n  if (deep_ter_debug_map)\n    {\n      delete deep_ter_debug_map;\n      deep_ter_debug_map = NULL;\n    }\n\n  /* Free stuff we no longer need after GIMPLE optimizations.  */\n  free_dominance_info (CDI_DOMINATORS);\n  free_dominance_info (CDI_POST_DOMINATORS);\n  delete_tree_cfg_annotations (fun);\n\n  timevar_push (TV_OUT_OF_SSA);\n  finish_out_of_ssa (&SA);\n  timevar_pop (TV_OUT_OF_SSA);\n\n  timevar_push (TV_POST_EXPAND);\n  /* We are no longer in SSA form.  */\n  fun->gimple_df->in_ssa_p = false;\n  loops_state_clear (LOOP_CLOSED_SSA);"
+    },
+    {
+      "path": "gcc/final.cc",
+      "start": 4515,
+      "end": 4516,
+      "source": "  if (cfun->gimple_df)\n    delete_tree_ssa (cfun);"
+    },
+    {
+      "path": "gcc/gimple-lower-bitint.cc",
+      "start": 6943,
+      "end": 6997,
+      "source": "gimple_lower_bitint (void)\n{\n  small_max_prec = mid_min_prec = large_min_prec = huge_min_prec = 0;\n  limb_prec = abi_limb_prec = 0;\n  bitint_big_endian = false;\n\n  unsigned int i;\n  for (i = 0; i < num_ssa_names; ++i)\n    {\n      tree s = ssa_name (i);\n      if (s == NULL)\n\tcontinue;\n      tree type = TREE_TYPE (s);\n      if (TREE_CODE (type) == COMPLEX_TYPE)\n\t{\n\t  if (arith_overflow_arg_kind (SSA_NAME_DEF_STMT (s))\n\t      != bitint_prec_small)\n\t    break;\n\t  type = TREE_TYPE (type);\n\t}\n      if (TREE_CODE (type) == BITINT_TYPE\n\t  && bitint_precision_kind (type) != bitint_prec_small)\n\tbreak;\n      /* We need to also rewrite stores of large/huge _BitInt INTEGER_CSTs\n\t into memory.  Such functions could have no large/huge SSA_NAMEs.  */\n      if (SSA_NAME_IS_VIRTUAL_OPERAND (s))\n\t{\n\t  gimple *g = SSA_NAME_DEF_STMT (s);\n\t  if (is_gimple_assign (g) && gimple_store_p (g))\n\t    {\n\t      tree t = gimple_assign_rhs1 (g);\n\t      if (TREE_CODE (TREE_TYPE (t)) == BITINT_TYPE\n\t\t  && (bitint_precision_kind (TREE_TYPE (t))\n\t\t      >= bitint_prec_large))\n\t\tbreak;\n\t    }\n\t}\n      /* Similarly, e.g. with -frounding-math casts from _BitInt INTEGER_CSTs\n\t to floating point types need to be rewritten.  */\n      else if (SCALAR_FLOAT_TYPE_P (type))\n\t{\n\t  gimple *g = SSA_NAME_DEF_STMT (s);\n\t  if (is_gimple_assign (g) && gimple_assign_rhs_code (g) == FLOAT_EXPR)\n\t    {\n\t      tree t = gimple_assign_rhs1 (g);\n\t      if (TREE_CODE (t) == INTEGER_CST\n\t\t  && TREE_CODE (TREE_TYPE (t)) == BITINT_TYPE\n\t\t  && (bitint_precision_kind (TREE_TYPE (t))\n\t\t      != bitint_prec_small))\n\t\tbreak;\n\t    }\n\t}\n    }\n  if (i == num_ssa_names)\n    return 0;"
+    },
+    {
+      "path": "gcc/gimple-isel.cc",
+      "start": 1274,
+      "end": 1281,
+      "source": "gimple_isel_builtin_call (gcall *call, gimple_stmt_iterator *gsi)\n{\n  /* Don't handle these in non optimization mode or optimize debug mode.  */\n  if (!optimize || optimize_debug)\n    return;\n\n  if (!gimple_call_builtin_p (call, BUILT_IN_NORMAL))\n    return;"
+    },
+    {
+      "path": "gcc/gimple-isel.cc",
+      "start": 1350,
+      "end": 1393,
+      "source": "pass_gimple_isel::execute (struct function *fun)\n{\n  gimple_stmt_iterator gsi;\n  basic_block bb;\n  bool cfg_changed = false;\n\n  FOR_EACH_BB_FN (bb, fun)\n    {\n      for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))\n\t{\n\t  /* Give the target first try at replacing the instruction.  */\n\t  cfg_changed |= targetm.instruction_selection (fun, &gsi);\n\n\t  /* Pre-expand VEC_COND_EXPRs to .VCOND* internal function\n\t     calls mapping to supported optabs.  */\n\t  gimple *g = gimple_expand_vec_cond_expr (&gsi);\n\t  if (g != NULL)\n\t    {\n\t      tree lhs = gimple_assign_lhs (gsi_stmt (gsi));\n\t      gimple_set_lhs (g, lhs);\n\t      gsi_replace (&gsi, g, false);\n\t    }\n\n\t  /* Recognize .VEC_SET and .VEC_EXTRACT patterns.  */\n\t  cfg_changed |= gimple_expand_vec_set_extract_expr (fun, &gsi);\n\t  if (gsi_end_p (gsi))\n\t    break;\n\n\t  if (gcall *call = dyn_cast <gcall*>(*gsi))\n\t    {\n\t      gimple_isel_builtin_call (call, &gsi);\n\t      continue;\n\t    }\n\t  gassign *stmt = dyn_cast <gassign *> (*gsi);\n\t  if (!stmt)\n\t    continue;\n\n\t  tree_code code = gimple_assign_rhs_code (stmt);\n\t  if (TREE_CODE_CLASS (code) == tcc_comparison)\n\t    maybe_duplicate_comparison (stmt, bb);\n\t}\n    }\n\n  return cfg_changed ? TODO_cleanup_cfg : 0;"
+    },
+    {
+      "path": "gcc/tree-cfgcleanup.cc",
+      "start": 1196,
+      "end": 1200,
+      "source": "  if (ssa_update_flags)\n    {\n      timevar_pop (TV_TREE_CLEANUP_CFG);\n      update_ssa (ssa_update_flags);\n      timevar_push (TV_TREE_CLEANUP_CFG);"
+    }
+  ]
+}
