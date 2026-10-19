@@ -1,0 +1,478 @@
+{
+  "all_checks_pass": true,
+  "checks": 232430,
+  "seconds": 1.318648693995783,
+  "cases": [
+    {
+      "case": "C3N4",
+      "source": {
+        "bytes": 192,
+        "sha256": "ead942bfe08f9a0e72953f77b0ebcb7403cb328558e0540cc204f6641bafff78"
+      },
+      "counts": {
+        "source_bytes": 192,
+        "source_sha256": "ead942bfe08f9a0e72953f77b0ebcb7403cb328558e0540cc204f6641bafff78",
+        "output_calls": 3,
+        "Put": 0,
+        "Put_Line": 3,
+        "null_statements": 4,
+        "decoded_literal_lengths": [
+          6,
+          6,
+          6
+        ],
+        "decoded_literal_bytes": 18,
+        "maximum_literal_length": 6
+      },
+      "binder_fits": true
+    },
+    {
+      "case": "mixed_quotes",
+      "source": {
+        "bytes": 129,
+        "sha256": "c5b676cd936c9ccacc78a1043f673d84f2e221546df911dcb64811b95acc7f12"
+      },
+      "counts": {
+        "source_bytes": 129,
+        "source_sha256": "c5b676cd936c9ccacc78a1043f673d84f2e221546df911dcb64811b95acc7f12",
+        "output_calls": 2,
+        "Put": 1,
+        "Put_Line": 1,
+        "null_statements": 1,
+        "decoded_literal_lengths": [
+          3,
+          0
+        ],
+        "decoded_literal_bytes": 3,
+        "maximum_literal_length": 3
+      },
+      "binder_fits": true
+    },
+    {
+      "case": "large_literal",
+      "source": {
+        "bytes": 8286,
+        "sha256": "bbf27a12d8bbc914d984958dea54e1502fcf11d3be38f31dd477262380936d29"
+      },
+      "counts": {
+        "source_bytes": 8286,
+        "source_sha256": "bbf27a12d8bbc914d984958dea54e1502fcf11d3be38f31dd477262380936d29",
+        "output_calls": 1,
+        "Put": 1,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          8192
+        ],
+        "decoded_literal_bytes": 8192,
+        "maximum_literal_length": 8192
+      },
+      "binder_fits": true
+    },
+    {
+      "case": "many_calls",
+      "source": {
+        "bytes": 2112,
+        "sha256": "eacbf13a7545849c02355b58cf779276a1ac15477fe20aa211589b593e7265be"
+      },
+      "counts": {
+        "source_bytes": 2112,
+        "source_sha256": "eacbf13a7545849c02355b58cf779276a1ac15477fe20aa211589b593e7265be",
+        "output_calls": 97,
+        "Put": 97,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "decoded_literal_bytes": 97,
+        "maximum_literal_length": 1
+      },
+      "binder_fits": true
+    },
+    {
+      "case": "reject_source",
+      "rejected": true
+    },
+    {
+      "case": "reject_job",
+      "rejected": true
+    },
+    {
+      "case": "reject_environment",
+      "rejected": true
+    },
+    {
+      "case": "reject_GPR",
+      "rejected": true
+    },
+    {
+      "case": "P977_retains_native_writer_guard",
+      "binder_fits": false,
+      "residuals": [
+        "accepted_native_ALI_local_interfaces"
+      ]
+    },
+    {
+      "case": "all_initials_and_growth_counts",
+      "states": 232380,
+      "largest_actual_capacity": 1712
+    }
+  ],
+  "new_owner_projection_at_P512": {
+    "names": {
+      "nonparser_entry_producers": {
+        "startup": 1211,
+        "mapping": 5,
+        "ALI_lookup_and_object_names": 166,
+        "Main_and_runtime_seed": 2,
+        "System": 2,
+        "generated_spec_and_body": 4,
+        "consistency": 2096,
+        "duplicate_subunits": 14
+      },
+      "nonparser_entry_events": 3500,
+      "nonparser_character_slots": 2608914,
+      "parser_entry_events": 16611,
+      "parser_character_slots": 10229999,
+      "path_producer_events": 179,
+      "row_producer_events": 2110,
+      "maximum_payload_bytes": 1186,
+      "scratch_bytes": 131064,
+      "entry_table": {
+        "demand": 20111,
+        "capacities": [
+          6000,
+          12000,
+          24000
+        ],
+        "low": -399999997,
+        "last_allocated_index": -399975998,
+        "next_after_demand": -399979886,
+        "allocated_bytes": 384000,
+        "old_and_new_bytes": 576000,
+        "fits": true
+      },
+      "character_table": {
+        "demand": 12838913,
+        "capacities": [
+          50000,
+          100000,
+          200000,
+          400000,
+          800000,
+          1600000,
+          3200000,
+          6400000,
+          12800000,
+          25600000
+        ],
+        "low": 0,
+        "last_allocated_index": 25599999,
+        "next_after_demand": 12838913,
+        "allocated_bytes": 25600000,
+        "old_and_new_bytes": 38400000,
+        "fits": true
+      },
+      "conditions": {
+        "name_payload_Short": true,
+        "name_scratch": true,
+        "name_entry_indices_and_backing": true,
+        "name_character_indices_and_backing": true
+      }
+    },
+    "graph": {
+      "units_upper": 180,
+      "constructs_upper": 1290,
+      "relations_upper": 367,
+      "signatures_upper": 1290,
+      "owner_maps": {
+        "elaborable_units": {
+          "nodes_upper": 180,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 360,
+          "coexisting_bucket_slots_upper": 540,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 23072,
+          "nodes_controls_and_coexisting_bytes_upper": 46208,
+          "fits": true
+        },
+        "elaborable_construct_signatures": {
+          "nodes_upper": 1290,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 2580,
+          "coexisting_bucket_slots_upper": 3870,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 165152,
+          "nodes_controls_and_coexisting_bytes_upper": 330368,
+          "fits": true
+        },
+        "invocation_vertex_attributes": {
+          "nodes_upper": 1290,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 2580,
+          "coexisting_bucket_slots_upper": 3870,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 165152,
+          "nodes_controls_and_coexisting_bytes_upper": 330368,
+          "fits": true
+        },
+        "invocation_signature_to_vertex": {
+          "nodes_upper": 1290,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 2580,
+          "coexisting_bucket_slots_upper": 3870,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 165152,
+          "nodes_controls_and_coexisting_bytes_upper": 330368,
+          "fits": true
+        },
+        "directed_all_vertices": {
+          "nodes_upper": 1290,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 2580,
+          "coexisting_bucket_slots_upper": 3870,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 165152,
+          "nodes_controls_and_coexisting_bytes_upper": 330368,
+          "fits": true
+        },
+        "invocation_edge_attributes": {
+          "nodes_upper": 367,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 734,
+          "coexisting_bucket_slots_upper": 1101,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 47008,
+          "nodes_controls_and_coexisting_bytes_upper": 94080,
+          "fits": true
+        },
+        "invocation_source_target_relations": {
+          "nodes_upper": 367,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 734,
+          "coexisting_bucket_slots_upper": 1101,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 47008,
+          "nodes_controls_and_coexisting_bytes_upper": 94080,
+          "fits": true
+        },
+        "directed_all_edges": {
+          "nodes_upper": 367,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 734,
+          "coexisting_bucket_slots_upper": 1101,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 47008,
+          "nodes_controls_and_coexisting_bytes_upper": 94080,
+          "fits": true
+        },
+        "invocation_roots_empty": {
+          "nodes_upper": 0,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 360,
+          "coexisting_bucket_slots_upper": 540,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 23072,
+          "nodes_controls_and_coexisting_bytes_upper": 34688,
+          "fits": true
+        },
+        "directed_components_empty": {
+          "nodes_upper": 0,
+          "initial_upper": 180,
+          "bucket_capacity_upper": 360,
+          "coexisting_bucket_slots_upper": 540,
+          "node_or_bucket_bytes_upper": 64,
+          "control_bytes_upper": 64,
+          "coexisting_array_metadata_bytes_upper": 64,
+          "largest_bucket_request_bytes_upper": 23072,
+          "nodes_controls_and_coexisting_bytes_upper": 34688,
+          "fits": true
+        }
+      },
+      "outgoing_sets": {
+        "instances_upper": 1290,
+        "initial_buckets_each": 8,
+        "nodes_upper": 367,
+        "coexisting_bucket_slots_upper": 32061,
+        "controls_and_array_metadata_bytes_upper": 165120,
+        "largest_bucket_request_bytes_upper": 47008,
+        "nodes_controls_and_coexisting_bytes_upper": 2240512
+      },
+      "invocation_and_directed_control_bytes_upper": 320,
+      "owned_coexisting_representation_bytes_upper": 3960128,
+      "iterator_handle_bound": 3706,
+      "invocation_root_count": 0,
+      "invocation_component_node_count": 0,
+      "invocation_DFS_sets_or_frames": 0,
+      "invocation_list_nodes_or_controls": 0,
+      "library_graph": "fixed OUTPUT read projection, not null/no-relations graph",
+      "conditions": {
+        "invocation_ID_successors": true,
+        "graph_hash_indices_and_requests": true,
+        "outgoing_set_indices_and_requests": true,
+        "graph_controls_and_coexistence": true,
+        "graph_counts_and_iterator_locks": true
+      }
+    },
+    "fixed_process_owners": {
+      "argument_count": 6,
+      "filename_and_index_slots_each": 8,
+      "filename_and_index_array_bytes_upper": 128,
+      "current_argument_copy_bytes": 124,
+      "retained_argument_payload_bytes": 305,
+      "Main_directory_two_copies_bytes_upper": 1026,
+      "source_search_slots_upper": 2,
+      "library_search_slots_upper": 3,
+      "source_and_library_initial_pointer_slots_each": 10,
+      "search_pointer_backing_bytes_upper": 160,
+      "directory_normalization_payload_bytes_upper": 1539,
+      "default_path_iterator_payload_bytes_upper": 1026,
+      "object_directory_file_bytes_upper": 513,
+      "source_mapping_file_bytes": 0,
+      "source_mapping_reader_bytes": 1,
+      "mapping_tables_initial_entries_each": 1000,
+      "system_reader_bytes": 7504,
+      "normalizer_max_path_parameter": 4096,
+      "normalization_path_buffer_bytes_upper": 8708,
+      "normalization_link_buffer_bytes": 4098,
+      "normalization_result_and_final_scratch_bytes_upper": 1026,
+      "locate_file_scratch_bytes_upper": 513,
+      "prefix_saved_copy_bytes_upper": 513,
+      "prefix_key_bytes": 5,
+      "prefix_key_root_bytes": 9,
+      "prefix_translation_scratch_bytes_upper": 517,
+      "prefix_ada_C_input_and_output_bytes_upper": 1026,
+      "prefix_translation_iterations_upper": 1,
+      "generated_statement_buffer_bytes": 1000,
+      "generated_line_bytes_upper": 191,
+      "direct_generated_path_line_bytes_upper": 522,
+      "generated_output_stream_buffer_bytes": 32767,
+      "interrupt_and_dispatch_initial_slots_each": 100,
+      "output_object_list_lines_upper": 180,
+      "output_object_list_line_bytes_upper": 513,
+      "source_coverage": "retained fixed initialization + direct-argument/search transfer + fixed OUTPUT generator projection"
+    }
+  },
+  "native_tool_executions": 0,
+  "predecessor_suite_replays": 0,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_settings_confirmed": false,
+  "token_usage": null,
+  "monetary_cost": null
+}

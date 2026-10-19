@@ -1,0 +1,368 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "repository": [
+    {
+      "path": "docs/research/retained-literal-binder-ali.md",
+      "bytes": 14611,
+      "sha256": "5d096e6e175d967f72410d94fd7644da4d36f4da4abeb77cc2d6e4426504b329"
+    },
+    {
+      "path": "docs/research/retained-binder-capacity.md",
+      "bytes": 96009,
+      "sha256": "10a98ba3c5834017b4d7f1d1a93974912cdccfe9f8ef220bf227c12a1c695cad"
+    },
+    {
+      "path": "docs/research/retained-linker-output-delta.md",
+      "bytes": 9784,
+      "sha256": "dfa220dde69d436e846cb925b6cb8a5bd8961b1c507191ca022044ee41a3d500"
+    },
+    {
+      "path": "docs/research/retained-literal-invocation-join.md",
+      "bytes": 16456,
+      "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+    },
+    {
+      "path": "docs/research/retained-native-environment.md",
+      "bytes": 18235,
+      "sha256": "f845d083cc0f85789eddec0e4bc51666bcf3da9fb4d42ed22ed47f8b05b5986a"
+    },
+    {
+      "path": "docs/evidence/retained-literal-binder-ali-20261018/compose.py",
+      "bytes": 17734,
+      "sha256": "c58355d3a1184627cbe3fd5ed38ca594f1df0f633b544031241b21ead9c8c2ed"
+    },
+    {
+      "path": "docs/evidence/retained-literal-binder-ali-20261018/inputs.json",
+      "bytes": 2171,
+      "sha256": "425589a21d7741e9f188367d61861e18c56b9f1c82675ba5569e72a02526821b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-binder-ali-20261018/review.md",
+      "bytes": 4221,
+      "sha256": "10e47650bedc9011d2658ac58f31fd25e6926adc707b53808a9dc2a1dbd2f9bc"
+    },
+    {
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/compose.py",
+      "bytes": 22174,
+      "sha256": "93865d8a5c0b1c86e179ce5209d4816e6fd7ce9ccabfb8a48c1eb848948bfdc0"
+    },
+    {
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/inputs.json",
+      "bytes": 6756,
+      "sha256": "5193026fa3099c4fe988f47206bf2dd33dbe7066665d0746e3059b9cd6635532"
+    },
+    {
+      "path": "docs/evidence/retained-binder-capacity-20261018/manifest.json",
+      "bytes": 121234,
+      "sha256": "bd4c5fbc24c284da3be11c93b34e4223dbd7cd660a0656eba6af6d9d9e5662b1"
+    },
+    {
+      "path": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+      "bytes": 2405544,
+      "sha256": "d6d41649ad0151edb2a3ac1972045f6ab97d0a903922351ce29aace97893e20a"
+    },
+    {
+      "path": "docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz",
+      "bytes": 750174,
+      "sha256": "4b05db51a84ec0432db5b270d6ff46f477abd9c6df866ce0297baa3f8868b52f"
+    },
+    {
+      "path": "docs/evidence/retained-linker-output-delta-20261018/manifest.json",
+      "bytes": 52328,
+      "sha256": "8195c73bf3dba18357d2231f1046c806726fd8dc489b94a800e7c109068756a3"
+    },
+    {
+      "path": "docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz",
+      "bytes": 271904,
+      "sha256": "a34bc5cf5fdb94fb0aa1c38a1743c2bf3198b2f1e6b7c9def9b2fe421e2e3347"
+    }
+  ],
+  "sources": [
+    {
+      "root": "ada",
+      "path": "bindo-builders.adb",
+      "bytes": 25765,
+      "sha256": "d5ff479e913ed1ff5a5cbca4a696abc483cae8d242da347d18185e6fb2738174",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindo-graphs.ads",
+      "bytes": 68420,
+      "sha256": "023a6ebacf0a8f24b9d75ea30629851b314c67a00147314bdce51e5395368346",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "bindo-graphs.adb",
+      "bytes": 188535,
+      "sha256": "0baea3916392f4f42115b20592be19315da41b91fadb3096c2e526845400ea0e",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindo-units.adb",
+      "bytes": 13655,
+      "sha256": "d89cef887c67dc90f765d86b5af33168e9de52e03dd30d4233499c7361cf52a7",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindo-units.ads",
+      "bytes": 6995,
+      "sha256": "2b91599065c7049c379196ac764e0c75539b6a87d87612ad318f15f18855db9e",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "bindo-augmentors.adb",
+      "bytes": 12822,
+      "sha256": "1636dfd32367160bd70dfd158282d6b19a5208314531d39cede2dee313c59a01",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindo-elaborators.adb",
+      "bytes": 64932,
+      "sha256": "2a173ab69eacf7753a7162ea9b91a31522b6a8ef38a07c712074cb03018087fd",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindo-writers.adb",
+      "bytes": 52833,
+      "sha256": "68bdb6af00426f006cf75a9e06a5a990be9e4fd78fc146f24902954345e76676",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindo-validators.adb",
+      "bytes": 26374,
+      "sha256": "1604848ecd3c701e3249299b06789f7fbb651791ca087350805ceeec5c458b19",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-dynhta.ads",
+      "bytes": 21934,
+      "sha256": "f5974932d644929f906716abf69a51a42eca74a2f57378338abd52b3fb7a8b3a",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-dynhta.adb",
+      "bytes": 37669,
+      "sha256": "375eb69170cc0df545d2ba4aa9e17c4eaa7cdda41980746cc82aaa60b49e0494",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-graphs.ads",
+      "bytes": 20399,
+      "sha256": "2c210d072c17c0dba96e78f908cfccc28357407abeb75d90fa71c7e0d3577476",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-graphs.adb",
+      "bytes": 43311,
+      "sha256": "b3f4d920b1b3ce94f7411bffbfb145a8347fe1ab0d3fdffbac1f6f9bbf942e02",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-sets.ads",
+      "bytes": 7946,
+      "sha256": "23c8df7520ff9727a875caaa53819920afe5a2e463f963d295ab62b909ca638b",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-sets.adb",
+      "bytes": 5525,
+      "sha256": "4efbcbccd029b8c88e1b1a98c48127b393d3294227120b9d1fdff08935082550",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-lists.ads",
+      "bytes": 10255,
+      "sha256": "193c022fc50a2c231ace140d620307bb5b5e105058ae8d98a35109c5f5513485",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/g-lists.adb",
+      "bytes": 19803,
+      "sha256": "f9dbbc6b1a827ba7cca2ab75f7a1c4cc8e3b47c3173df0aaec331ab2f424a7e8",
+      "matches_retained_binder_capsule": false
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/gnat.ads",
+      "bytes": 3510,
+      "sha256": "ae442ce0c51ff344cb4974db5a48d962ef078c7321f472d11c7a0ddfcfd83cce",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "namet.ads",
+      "bytes": 29827,
+      "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "namet.adb",
+      "bytes": 48624,
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "snames.ads-tmpl",
+      "bytes": 117427,
+      "sha256": "86039b55f96358ca035039f277ded2e0eed9a735ea39922898d4b63348723dea",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "snames.adb-tmpl",
+      "bytes": 24675,
+      "sha256": "fd1659f3d00b8485d6825175807e3a13ab5c71f169b59eda0a86e774a55a13e6",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "xsnamest.adb",
+      "bytes": 11241,
+      "sha256": "37c86e15b931685aaaa6a496a3d5c803750c78cc135f0768b3a16cb7f8950f77",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bcheck.adb",
+      "bytes": 59616,
+      "sha256": "891effb9c72b133a0acf5a187210c9af7b10b9d3c3ecaf97a042bf461f21f1b1",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "uname.adb",
+      "bytes": 21813,
+      "sha256": "eed6c355860732494bffbed9510abec304a3de01d88cdabc55daad0703cc812f",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "osint.adb",
+      "bytes": 105542,
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "osint-b.adb",
+      "bytes": 6731,
+      "sha256": "d1f5223b02efdedf0bdf0b8f57e7ea893d81685fba7718edb7b7a4d1ea192b94",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "fmap.adb",
+      "bytes": 15474,
+      "sha256": "831a3334022631e111510e14d27b9ac35f9667490e3c2a5688303c01ee53ac17",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "gnatbind.adb",
+      "bytes": 29989,
+      "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "targparm.adb",
+      "bytes": 31527,
+      "sha256": "a4a4720e4859263138a9138587521b9d2df7ba6da88f45a81ea86570b3438596",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "ali.ads",
+      "bytes": 56611,
+      "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "ali.adb",
+      "bytes": 105321,
+      "sha256": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "table.adb",
+      "bytes": 13959,
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "bindgen.adb",
+      "bytes": 126166,
+      "sha256": "fe911dc10dd32c8f06d3a46959c05acf22057912b9d69702306d1da94ca606a6",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "output.adb",
+      "bytes": 14658,
+      "sha256": "11bd6d34393cd24f56f00e5fa56bafdc0bad140f30f83e6124a94de23a467c2b",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "types.ads",
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-os_lib.adb",
+      "bytes": 90264,
+      "sha256": "9aed35c4ec6eaeacab780262f2c1528c95fb4f263f2f966f8526d0f4e080b201",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "adaint.c",
+      "bytes": 85922,
+      "sha256": "4cc1ffe9386f4164bd613a356a096340463e9f2d26a6e70dbfc9632968b2318c",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "ada",
+      "path": "Make-generated.in",
+      "bytes": 4424,
+      "sha256": "2107e5920adc62a598352655bca5ec99095879e696ac241484e1758e8539812c",
+      "matches_retained_binder_capsule": true
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/prefix.cc",
+      "bytes": 8893,
+      "sha256": "ba855d5f056bd96fbb81ff2bfb6214c88a55f8c81ced5a2510169820f3510784"
+    }
+  ]
+}

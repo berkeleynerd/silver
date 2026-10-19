@@ -1,0 +1,706 @@
+{
+  "scope": "selected direct GNATBIND process; literal-output family",
+  "source_identity": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "path_bytes": 512,
+  "host_page_bytes": 4096,
+  "conditions": {
+    "selected_same_source_invocation": true,
+    "accepted_native_ALI_local_interfaces": true,
+    "name_payload_Short": true,
+    "name_scratch": true,
+    "name_entry_indices_and_backing": true,
+    "name_character_indices_and_backing": true,
+    "invocation_ID_successors": true,
+    "graph_hash_indices_and_requests": true,
+    "outgoing_set_indices_and_requests": true,
+    "graph_controls_and_coexistence": true,
+    "graph_counts_and_iterator_locks": true,
+    "binder_argv_search_and_path_indices": true,
+    "binder_generation_buffers": true,
+    "fixed_OUTPUT_library_graph_projection": true,
+    "fixed_initialization_and_direct_process_coverage": true
+  },
+  "names": {
+    "nonparser_entry_producers": {
+      "startup": 1211,
+      "mapping": 5,
+      "ALI_lookup_and_object_names": 166,
+      "Main_and_runtime_seed": 2,
+      "System": 2,
+      "generated_spec_and_body": 4,
+      "consistency": 2096,
+      "duplicate_subunits": 14
+    },
+    "nonparser_entry_events": 3500,
+    "nonparser_character_slots": 2608914,
+    "parser_entry_events": 16611,
+    "parser_character_slots": 10229999,
+    "path_producer_events": 179,
+    "row_producer_events": 2110,
+    "maximum_payload_bytes": 1186,
+    "scratch_bytes": 131064,
+    "entry_table": {
+      "demand": 20111,
+      "capacities": [
+        6000,
+        12000,
+        24000
+      ],
+      "low": -399999997,
+      "last_allocated_index": -399975998,
+      "next_after_demand": -399979886,
+      "allocated_bytes": 384000,
+      "old_and_new_bytes": 576000,
+      "fits": true
+    },
+    "character_table": {
+      "demand": 12838913,
+      "capacities": [
+        50000,
+        100000,
+        200000,
+        400000,
+        800000,
+        1600000,
+        3200000,
+        6400000,
+        12800000,
+        25600000
+      ],
+      "low": 0,
+      "last_allocated_index": 25599999,
+      "next_after_demand": 12838913,
+      "allocated_bytes": 25600000,
+      "old_and_new_bytes": 38400000,
+      "fits": true
+    },
+    "conditions": {
+      "name_payload_Short": true,
+      "name_scratch": true,
+      "name_entry_indices_and_backing": true,
+      "name_character_indices_and_backing": true
+    }
+  },
+  "graph": {
+    "units_upper": 180,
+    "constructs_upper": 1290,
+    "relations_upper": 367,
+    "signatures_upper": 1290,
+    "owner_maps": {
+      "elaborable_units": {
+        "nodes_upper": 180,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 360,
+        "coexisting_bucket_slots_upper": 540,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 23072,
+        "nodes_controls_and_coexisting_bytes_upper": 46208,
+        "fits": true
+      },
+      "elaborable_construct_signatures": {
+        "nodes_upper": 1290,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 2580,
+        "coexisting_bucket_slots_upper": 3870,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 165152,
+        "nodes_controls_and_coexisting_bytes_upper": 330368,
+        "fits": true
+      },
+      "invocation_vertex_attributes": {
+        "nodes_upper": 1290,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 2580,
+        "coexisting_bucket_slots_upper": 3870,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 165152,
+        "nodes_controls_and_coexisting_bytes_upper": 330368,
+        "fits": true
+      },
+      "invocation_signature_to_vertex": {
+        "nodes_upper": 1290,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 2580,
+        "coexisting_bucket_slots_upper": 3870,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 165152,
+        "nodes_controls_and_coexisting_bytes_upper": 330368,
+        "fits": true
+      },
+      "directed_all_vertices": {
+        "nodes_upper": 1290,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 2580,
+        "coexisting_bucket_slots_upper": 3870,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 165152,
+        "nodes_controls_and_coexisting_bytes_upper": 330368,
+        "fits": true
+      },
+      "invocation_edge_attributes": {
+        "nodes_upper": 367,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 734,
+        "coexisting_bucket_slots_upper": 1101,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 47008,
+        "nodes_controls_and_coexisting_bytes_upper": 94080,
+        "fits": true
+      },
+      "invocation_source_target_relations": {
+        "nodes_upper": 367,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 734,
+        "coexisting_bucket_slots_upper": 1101,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 47008,
+        "nodes_controls_and_coexisting_bytes_upper": 94080,
+        "fits": true
+      },
+      "directed_all_edges": {
+        "nodes_upper": 367,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 734,
+        "coexisting_bucket_slots_upper": 1101,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 47008,
+        "nodes_controls_and_coexisting_bytes_upper": 94080,
+        "fits": true
+      },
+      "invocation_roots_empty": {
+        "nodes_upper": 0,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 360,
+        "coexisting_bucket_slots_upper": 540,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 23072,
+        "nodes_controls_and_coexisting_bytes_upper": 34688,
+        "fits": true
+      },
+      "directed_components_empty": {
+        "nodes_upper": 0,
+        "initial_upper": 180,
+        "bucket_capacity_upper": 360,
+        "coexisting_bucket_slots_upper": 540,
+        "node_or_bucket_bytes_upper": 64,
+        "control_bytes_upper": 64,
+        "coexisting_array_metadata_bytes_upper": 64,
+        "largest_bucket_request_bytes_upper": 23072,
+        "nodes_controls_and_coexisting_bytes_upper": 34688,
+        "fits": true
+      }
+    },
+    "outgoing_sets": {
+      "instances_upper": 1290,
+      "initial_buckets_each": 8,
+      "nodes_upper": 367,
+      "coexisting_bucket_slots_upper": 32061,
+      "controls_and_array_metadata_bytes_upper": 165120,
+      "largest_bucket_request_bytes_upper": 47008,
+      "nodes_controls_and_coexisting_bytes_upper": 2240512
+    },
+    "invocation_and_directed_control_bytes_upper": 320,
+    "owned_coexisting_representation_bytes_upper": 3960128,
+    "iterator_handle_bound": 3706,
+    "invocation_root_count": 0,
+    "invocation_component_node_count": 0,
+    "invocation_DFS_sets_or_frames": 0,
+    "invocation_list_nodes_or_controls": 0,
+    "library_graph": "fixed OUTPUT read projection, not null/no-relations graph",
+    "conditions": {
+      "invocation_ID_successors": true,
+      "graph_hash_indices_and_requests": true,
+      "outgoing_set_indices_and_requests": true,
+      "graph_controls_and_coexistence": true,
+      "graph_counts_and_iterator_locks": true
+    }
+  },
+  "fixed_process_owners": {
+    "argument_count": 6,
+    "filename_and_index_slots_each": 8,
+    "filename_and_index_array_bytes_upper": 128,
+    "current_argument_copy_bytes": 124,
+    "retained_argument_payload_bytes": 305,
+    "Main_directory_two_copies_bytes_upper": 1026,
+    "source_search_slots_upper": 2,
+    "library_search_slots_upper": 3,
+    "source_and_library_initial_pointer_slots_each": 10,
+    "search_pointer_backing_bytes_upper": 160,
+    "directory_normalization_payload_bytes_upper": 1539,
+    "default_path_iterator_payload_bytes_upper": 1026,
+    "object_directory_file_bytes_upper": 513,
+    "source_mapping_file_bytes": 0,
+    "source_mapping_reader_bytes": 1,
+    "mapping_tables_initial_entries_each": 1000,
+    "system_reader_bytes": 7504,
+    "normalizer_max_path_parameter": 4096,
+    "normalization_path_buffer_bytes_upper": 8708,
+    "normalization_link_buffer_bytes": 4098,
+    "normalization_result_and_final_scratch_bytes_upper": 1026,
+    "locate_file_scratch_bytes_upper": 513,
+    "prefix_saved_copy_bytes_upper": 513,
+    "prefix_key_bytes": 5,
+    "prefix_key_root_bytes": 9,
+    "prefix_translation_scratch_bytes_upper": 517,
+    "prefix_ada_C_input_and_output_bytes_upper": 1026,
+    "prefix_translation_iterations_upper": 1,
+    "generated_statement_buffer_bytes": 1000,
+    "generated_line_bytes_upper": 191,
+    "direct_generated_path_line_bytes_upper": 522,
+    "generated_output_stream_buffer_bytes": 32767,
+    "interrupt_and_dispatch_initial_slots_each": 100,
+    "output_object_list_lines_upper": 180,
+    "output_object_list_line_bytes_upper": 513,
+    "source_coverage": "retained fixed initialization + direct-argument/search transfer + fixed OUTPUT generator projection"
+  },
+  "ALI_local_result": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "path_spelling_bytes_upper": 512,
+    "fixed_closure": {
+      "ALI_files": 82,
+      "complete_file_bytes": 655467,
+      "max_complete_file_bytes": 58770,
+      "records": {
+        "A": 823,
+        "D": 1007,
+        "G": 1359,
+        "L": 1,
+        "N": 7,
+        "P": 82,
+        "R": 523,
+        "U": 139,
+        "V": 82,
+        "W": 421,
+        "Z": 118
+      },
+      "invocation_records": {
+        "a": 82,
+        "c": 1271,
+        "r": 6
+      },
+      "distinct_signatures": 1271,
+      "all_constructs_ordinary": true,
+      "fixed_Main_signature_count": 0,
+      "maximum_signature_hash_bytes": 93,
+      "max_consumed_row_bytes_before_LF": 108,
+      "distinct_dependency_names": 163,
+      "dependency_mismatch_count": 0,
+      "subunit_names": [
+        "ada.exceptions.call_chain",
+        "ada.exceptions.exception_data",
+        "ada.exceptions.exception_propagation",
+        "ada.exceptions.exception_traces",
+        "ada.exceptions.stream_attributes",
+        "ada.text_io.get_line",
+        "system.traceback.symbolic.module_name"
+      ],
+      "notes_with_explicit_source": 0,
+      "argument_payload_bytes": 5979,
+      "maximum_argument_payload_bytes": 27,
+      "parser_name_entry_events": 8779,
+      "parser_name_character_slots": 956911
+    },
+    "Main_ALI_interface": {
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "path_spelling_bytes_upper": 512,
+      "physical_source": {
+        "physical_line_entries_bound": 7,
+        "max_expanded_final_column": 41,
+        "maximum_line_bytes": 40,
+        "aligned_source_extent": 4096
+      },
+      "stored_native_switches": [
+        "-Wno-free-nonheap-object",
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatx",
+        "-mtune=generic",
+        "-march=x86-64",
+        "-gnateI1",
+        "-fsplit-wide-types"
+      ],
+      "ALI_A_records": 10,
+      "ALI_A_payload_characters": 110,
+      "Main_invocation_interface": {
+        "ALI_Invocation_Constructs": 19,
+        "ALI_Invocation_Relations": 361,
+        "ALI_Invocation_Signatures": 19,
+        "max_serialized_signature_characters": 97
+      },
+      "Main_ALI_writer": {
+        "source_descriptor": "native-ali-inputs.json",
+        "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+        "record_character_bounds_before_LF": {
+          "version": 16,
+          "main": 44,
+          "switches": 28,
+          "parameters": 49,
+          "restriction_header": 2,
+          "restrictions": 55,
+          "unit": 739,
+          "with_unit": 1183,
+          "task_stacks": 23,
+          "dependency": 1158,
+          "invocation_attributes": 5,
+          "invocation_construct": 107,
+          "invocation_relation": 206
+        },
+        "max_record_bytes_including_LF": 1184,
+        "EOL_reserved_bytes": 2112,
+        "single_object_bytes": {
+          "Info_Buffer": 2112000,
+          "With_Flags": 41,
+          "Elab_Flags": 41,
+          "Elab_All_Flags": 41,
+          "Elab_Des_Flags": 41,
+          "Elab_All_Des_Flags": 41,
+          "Has_Implicit_With": 41,
+          "Sdep_Table": 168,
+          "With_Table": 164,
+          "Unit_Name_hash_headers": 2056,
+          "Unit_Name_hash_wrapper": 16,
+          "dependency_quoted_path": 1026
+        },
+        "Units_table": {
+          "demand": 41,
+          "low_bound": 0,
+          "initial": 30,
+          "increment_percent": 100,
+          "component_bytes_upper_bound": 104,
+          "backing_capacity_bound": 82,
+          "bytes_with_sentinel": 8632,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_and_plus_one": true,
+            "empty_index": true,
+            "backing_index_and_sentinel": true,
+            "logical_nominal_index": true,
+            "allocation_and_pointer_difference": true
+          },
+          "all_selected_checks_pass": true
+        },
+        "Unit_Name_hash_wrapper_count": 41,
+        "serialized_file_byte_bound": 2152396,
+        "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+        "late_variable_Uint_appends": 0,
+        "late_variable_name_interning": 0,
+        "checks": {
+          "record_or_complete_buffer_fit": true,
+          "EOL_reserve_arithmetic": true,
+          "quote_growth_Name_Buffer": true,
+          "local_unit_counters": true,
+          "unit_table_backing": true,
+          "xref_sort_counter": true,
+          "per_object_pointer_difference": true
+        },
+        "all_selected_checks_pass": true,
+        "complete_native_capacity_result": false,
+        "remaining": "ALI consumers/binder, backend diagnostic rendering and other late heap/callback representations"
+      },
+      "Main_ALI_reader_bytes_including_EOF_upper": 2152397,
+      "conditions": {
+        "writer": true,
+        "Main_ALI_reader_Integer_and_EOF": true,
+        "source_byte_and_coordinate_representations": true
+      },
+      "selected_Main_ALI_interface_fits": true,
+      "fixed_inputs_checked": 10,
+      "serializer_source_inputs_checked": 48,
+      "native_tool_executions": 0,
+      "whole_binder_or_parent_capacity_established": false,
+      "whole_literal_pipeline_capacity_established": false,
+      "remaining": [
+        "Complete output launch/options/search materialization.",
+        "Join Main ALI and fixed ALIs to binder parser/graph/driver lifetimes.",
+        "Join native GPR and other ALI readers with their actual selected row policies."
+      ],
+      "premises": [
+        "Relevant installed behavior matches the reviewed source.",
+        "Selected indexed native no-Xref/split-wide configuration and fixed output dependencies.",
+        "Other source/frontend representations and physical resources are established separately."
+      ]
+    },
+    "native_parser_tables": {
+      "ALIs": {
+        "demand_upper": 83,
+        "capacities": [
+          500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Units": {
+        "demand_upper": 180,
+        "capacities": [
+          100,
+          300
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Withs": {
+        "demand_upper": 2220,
+        "capacities": [
+          5000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Args": {
+        "demand_upper": 833,
+        "capacities": [
+          1000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Sdep": {
+        "demand_upper": 1048,
+        "capacities": [
+          5000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Source": {
+        "demand_upper": 204,
+        "capacities": [
+          1000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Invocation_Constructs": {
+        "demand_upper": 1290,
+        "capacities": [
+          2500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Invocation_Relations": {
+        "demand_upper": 367,
+        "capacities": [
+          2500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Invocation_Signatures": {
+        "demand_upper": 1290,
+        "capacities": [
+          2500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Linker_Options": {
+        "demand_upper": 2,
+        "capacities": [
+          200
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Notes": {
+        "demand_upper": 8,
+        "capacities": [
+          200
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "No_Deps": {
+        "demand_upper": 0,
+        "capacities": [
+          200
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      }
+    },
+    "native_Unit_Record_bytes_upper": 320,
+    "native_Units_old_and_new_backing_bytes_upper": 128000,
+    "native_signature_map": {
+      "distinct_nodes_upper": 1290,
+      "bucket_capacities": [
+        500,
+        1000
+      ],
+      "coexisting_bucket_slots_upper": 1500,
+      "node_bytes_upper": 64,
+      "nodes_and_coexisting_buckets_bytes_upper": 178560,
+      "hash_text_bytes_upper": 97,
+      "hash_scratch_bytes": 2052,
+      "hash_To_String_temporary_bytes_upper": 97
+    },
+    "native_raw_buffers": {
+      "Main_file_bytes_upper": 2152396,
+      "Main_reader_bytes_including_EOF_upper": 2152397,
+      "fixed_maximum_reader_bytes_including_EOF": 58771,
+      "native_peak_raw_ALI_buffer_bytes_upper": 2152397,
+      "native_cumulative_raw_ALI_allocated_bytes_upper": 2807946,
+      "native_dependency_recursion_depth_upper": 83,
+      "cumulative_bytes_are_not_peak_live_or_RAM_gate": true
+    },
+    "native_parser_name_contribution": {
+      "fixed_entry_events": 8779,
+      "Main_entry_events": 7832,
+      "entry_events_upper": 16611,
+      "character_slots_including_NUL_upper": 10229999,
+      "payload_bytes_upper": 1183,
+      "scratch_bytes": 131064,
+      "stored_payload_Short_limit": 32767,
+      "Name_Entries_initial_slots": 6000,
+      "Name_Entries_growth_percent": 100,
+      "Name_Entry_bytes": 16,
+      "Name_Chars_initial_slots": 50000,
+      "Name_Chars_growth_percent": 100,
+      "complete_pool_backing_established": false,
+      "incoming_contract": "Add all nonparser entry events/character slots before applying Table growth; charge index/sentinel and old/new backing. Every incoming payload must fit Short and scratch."
+    },
+    "native_argument_strings": {
+      "count": 833,
+      "payload_bytes": 6089,
+      "maximum_payload_bytes": 27
+    },
+    "Gprbind_Main_reader": {
+      "reader_role": "Gprbind Main A/U-only parser; not parent GPRbuild D/W parser",
+      "raw_buffer_bytes_including_EOF_upper": 2152397,
+      "table_demands_upper": {
+        "ALIs": 1,
+        "Units": 41,
+        "Args": 10,
+        "Withs": 0,
+        "Sdep": 0
+      },
+      "table_backing_slot_bounds": {
+        "ALIs": 500,
+        "Units": 100,
+        "Args": 1000,
+        "Withs": 0,
+        "Sdep": 0
+      },
+      "argument_string_payload_bytes": 110,
+      "maximum_argument_string_payload_bytes": 24,
+      "argument_filter_local_copy_bytes_upper": 24,
+      "version_scratch_bytes": 32,
+      "name_entry_events_upper": 84,
+      "name_value_bytes_upper": 24381,
+      "maximum_name_payload_bytes_upper": 512,
+      "name_values_have_extra_NUL": false,
+      "static_hash_slots": 65536,
+      "static_name_scratch_bytes": 1000000,
+      "complete_name_vector_backing_established": false,
+      "incoming_contract": "Add these events and value bytes to incoming GPR.Names; charge discriminated entry metadata, indefinite-vector capacities, growth overlap and indices. Main ALI path, including C NUL, must fit scratch.",
+      "recursive_fixed_ALI_reads": 0
+    },
+    "conditions": {
+      "accepted_Main_ALI_interface": true,
+      "native_parser_table_indices": true,
+      "native_Units_growth_bytes": true,
+      "native_signature_map_and_hash": true,
+      "native_parser_name_payload": true,
+      "native_and_GPR_reader_indices": true,
+      "GPR_initial_table_capacities": true,
+      "GPR_local_name_scratch": true
+    },
+    "selected_ALI_consumer_local_interfaces_fit": true,
+    "fixed_inputs_checked": 12,
+    "consumer_source_members_checked": 151,
+    "native_tool_executions": 0,
+    "aggregate_RAM_gate": false,
+    "parent_GPRbuild_DW_reader_capacity_established": false,
+    "whole_binder_or_parent_capacity_established": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "remaining": [
+      "Native nonparser name producers and complete shared name-table backing.",
+      "GPR incoming names, entry metadata/vector backing and all driver argument/search/response lifetimes.",
+      "Native parent GPRbuild D/W ALI reader, including its own tables, buffers and lifetimes.",
+      "Invocation/library graph containers and transient backing under variable signature IDs and Main edges.",
+      "Complete output launch/options/search materialization and the remaining producer pipeline."
+    ],
+    "premises": [
+      "Relevant installed behavior matches the retained reviewed consumer/serializer sources on x86-64 Linux.",
+      "Selected indexed no-Xref/split-wide configuration and retained fixed output closure; Table_Factor=1.",
+      "Path spellings satisfy P; coherent regular files and D versions/timestamps, -x, case-sensitive filesystem, no aliased ALI requests.",
+      "All incoming shared name-pool/driver contracts and physical resources are established separately."
+    ]
+  },
+  "ALI_local_result_scope": "retained local evidence; old nonparser/graph residuals superseded here",
+  "binder_source_coverage_complete": true,
+  "binder_capacity_established": true,
+  "residuals": [],
+  "GPR_or_Gprbind_jobs": 0,
+  "native_tool_executions": 0,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_launcher_adopted": false,
+  "aggregate_RAM_gate": false,
+  "input_pins_checked": {
+    "repository": 15,
+    "sources": 41
+  },
+  "premises": [
+    "Selected coherent invocation/input/filesystem and installed source correspondence.",
+    "LP64 x86-64 Linux; Integer/Natural 32-bit, pointers/alignment at most 8 bytes; GNAT unconstrained-array metadata at most 32 bytes per allocation.",
+    "Linux PATH_MAX=4096; selected complete raw/normalized/resolved paths fit P.",
+    "Accessible files, successful allocator/stack/disk and ordinary libc/OS contracts; no physical-memory total is asserted."
+  ]
+}

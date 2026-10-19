@@ -1,0 +1,68 @@
+{
+  "scope": "Owner-authorized #145 direct GNATBIND literal-output native-capacity completion",
+  "implementation_base": "0b34651ded7b3bbc0c792595d5db8073df1689f6",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_settings_confirmed": false,
+  "intended_outcome": "Close nonparser Namet and variable invocation graph owners, then reconcile complete selected binder-process source coverage.",
+  "achieved_result": "Complete selected binder source partition and conjunctive capacity at P512; exact source/invocation joins; no GPR process; production/pipeline remain false.",
+  "started_UTC": "2026-10-19T14:44:35+00:00",
+  "evidence_completed_UTC": "2026-10-19T15:01:48.733381+00:00",
+  "elapsed_wall_seconds": 1033.733381,
+  "elapsed_scope": "Source investigation, implementation, targeted checks and note preparation; excludes commit. Clock time is not model compute time.",
+  "host": "Linux 7.0.14 x86_64",
+  "focused_checks": 232430,
+  "focused_seconds": 1.318648693995783,
+  "default_result_seconds": 1.1073754430108238,
+  "default_result_rewrite_reason": "Native-only condition naming changed after initial draft, requiring final result regeneration; accepted suites were not replayed.",
+  "rework": [
+    "An initial P977 probe misattributed the inherited failure to Gprbind; source/result inspection identified the native ALI writer guard. Test corrected to require blocking; no accepted guard weakened.",
+    "Preset extraction draft regex expected numeric placeholders; the retained template uses a dollar placeholder. Corrected before evidence generation.",
+    "A Markdown-link checker initially interpreted a fenced Python call as a link; corrected the checker to ignore fenced code."
+  ],
+  "native_tool_executions": 0,
+  "predecessor_suite_replays": 0,
+  "prover_executions": 0,
+  "independent_review": "pending lead assignment",
+  "harness_goal": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "memory_updates": "No session or CLI memory changes in bounded worktree; lead owns integration records.",
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 2318,
+      "sha256": "e46680c723490cba1cf8562ba0c152cbeeee3b81cf4cc75dbcb33a4b49bbee4a"
+    },
+    {
+      "path": "check-results.json",
+      "bytes": 13960,
+      "sha256": "63ef493e692753a2662627effbac644388c33c833d9a913b30ace5dae3c33356"
+    },
+    {
+      "path": "check.py",
+      "bytes": 6468,
+      "sha256": "4718b83140a311aa68ef9bd156bb4cbdc84479d6e73f74bb03598a3323614c23"
+    },
+    {
+      "path": "compose.py",
+      "bytes": 16222,
+      "sha256": "33a306b62e369fa52ee4df934efd7d28bd24ea5ee20675dca2970690be6ed538"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 11907,
+      "sha256": "eda61275f4f0b5f9dbce7e30cc42d00e7aae6e1dfdaa5eab18d5978997e1ab53"
+    },
+    {
+      "path": "result.json",
+      "bytes": 24584,
+      "sha256": "4191541f9ee4fb886e1aa5e4ffd36c5dd2f4671f284ec0d7ebde86a00967bc90"
+    },
+    {
+      "path": "source-excerpts.md",
+      "bytes": 71502,
+      "sha256": "bbfbd8c24decdc3054456034a9bc14622fa9b46c49eb9575f90e6c9573de3921"
+    }
+  ]
+}
