@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-19 — Evening pause of capacity goal #119
+
+The owner requested: **“Let's pause for the evening at the next convenient
+checkpoint. Provide a summary of the day's efforts once the pause is in
+effect.”** Finish the already-near-complete acceptance/publication checkpoint,
+retain unfinished native-ledger work as explicitly review-pending, and stop all
+subthreads. Do not start another work package or automatically resume overnight.
+Resume only on the owner's subsequent instruction.
+
+Issue [#119](https://github.com/berkeleynerd/silver/issues/119) remains unfinished;
+the pause returns its board status to Backlog under the planning workflow.
+It is neither a completed capacity rule nor the alternative reviewed research
+stop. Preserve the reviewed results, raw evidence, worktrees and caches. The
+checkpoint and next concrete steps are published in
+[draft PR #121](https://github.com/berkeleynerd/silver/pull/121) and the issue
+handoff. The current-Silver-grammar scope, Oracle, installed tools/pins and
+production admission are unchanged. Dependent production #88–#94 remains
+authorized but unstarted pending #119 and this pause; no new permission
+ceremony is required after an explicit resumption. CLI memory is unavailable.
+
 ## 2026-10-18 — Capacity issue #119 is the present goal
 
 The owner instructed **“Let's consider 119 the present goal”** and requested
