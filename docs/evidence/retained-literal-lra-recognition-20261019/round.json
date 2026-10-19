@@ -1,0 +1,110 @@
+{
+  "task": "Selected LRA recognition lifetime/container-counter residual, Refs #119",
+  "authorization": "Parent-assigned owner-resumed #119; only named recognition packet/note; optional outer-IRA work skipped at owner pause steering",
+  "base_revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180",
+  "branch": "research/lra-recognition-closure",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "live_harness_goal": null,
+  "work_started_UTC": "2026-10-19T13:10:54+00:00",
+  "recorded_UTC": "2026-10-19T13:24:45.995745+00:00",
+  "elapsed_task_clock_seconds": 831.995745,
+  "elapsed_clock_is_not_model_compute_time": true,
+  "intended_outcome": "Close named recognition lifetime/container residual using accepted owners and no new source cap",
+  "achieved": {
+    "source_theorem": "Conditional recognition ownership and stored-reference invariant through final renumber/draining",
+    "new_numeric_guards": 0,
+    "new_allocation_owners": 0,
+    "checks": 62,
+    "elapsed_check_seconds": 3.371710624996922,
+    "input_verification": {
+      "GCC_files": 17,
+      "repository_files": 26,
+      "literal_LF_excerpts": 72,
+      "mutation_API_occurrences": 65,
+      "owner_writer_occurrences": 26,
+      "retained_headers": 3
+    },
+    "actual_source_adapter": false,
+    "whole_native_capacity": false,
+    "independent_review": "pending"
+  },
+  "accepted_inputs": {
+    "attachment": "71624df23244a680b3da379c655691df1d77312c",
+    "attachment_review": "ac4694d0f7e4d53f98d304ce59db2c18ebf40004",
+    "helper_source": "b795c8f7459d648d7e595aca414629c1eec232bd",
+    "helper_review": "4d7100e7fbb2e39e6fdae2cf63b6d7b657cacb71"
+  },
+  "findings_and_rework": [
+    "Source inspection required a snapshot invariant after final SET_REGNO: current stored pseudo keys differ from renamed RTL until draining; source note/model include this phase.",
+    "Inherited U and 3K premises imply exact rounded retained slot counters; no lifetime call total or new cap is required.",
+    "Self-review aligned the consumed recognition byte-product predicate with the exact accepted SIZE_MAX expression (initial code used PTRDIFF_MAX, redundant under signed H but not the same spelling). Added the excluded constant-reorder source excerpt and remaining LRA source pins to support frequency stability. This justified the final local rerun.",
+    "One prose patch used a line break that did not match the target and was corrected; no source input changed."
+  ],
+  "local_runs": [
+    {
+      "checks": 62,
+      "elapsed_seconds": 3.3804316370078595,
+      "scope": "initial local check"
+    },
+    {
+      "checks": 62,
+      "elapsed_seconds": 3.371710624996922,
+      "scope": "final local check after exact inherited predicate/source excerpt correction"
+    }
+  ],
+  "prohibited_or_unrun": {
+    "native_compiler_target_build_capture": 0,
+    "prover_solver_Lean": 0,
+    "predecessor_suites_or_evaluators": 0,
+    "aggregate_corpus": 0,
+    "GitHub_or_CLI_memory_writes": 0
+  },
+  "residuals": [
+    "independent review and actual-source attachment",
+    "other outer IRA and imported helper/sort interfaces",
+    "other LRA arithmetic/elimination offsets/automatic storage",
+    "complete native/producer/proof/parent capacity and production correspondence"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/README.md",
+      "bytes": 3598,
+      "sha256": "2fa30e24aaf9d377e452b3085b8acbf2bdf9a171571c135346dc8806962639c6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/check-results.json",
+      "bytes": 3531,
+      "sha256": "7f3e94328ef006e48410e378fbfd6784c777f9783d409a73d711c3ae2e853703"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/check.py",
+      "bytes": 11012,
+      "sha256": "4f158f0092bba21f24f157472845768ed4b06fbdbc70ca45a9618477ca0bc7a4"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/derive.py",
+      "bytes": 9115,
+      "sha256": "bb2cf420be78bacf5170ec87def25068f43ce020ecc2ba2b9188e5b258d16e96"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/inputs.json",
+      "bytes": 128385,
+      "sha256": "a3f37babe38b6e116012878354f9a053c0fe9895dc51a806c84fb12e37974bb6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/result.json",
+      "bytes": 4825,
+      "sha256": "c3fb4750fc3e6892740985cc1703df914ad9e7139ef1ee82a5d9558a6d7d5cf5"
+    },
+    {
+      "path": "docs/research/retained-literal-lra-recognition.md",
+      "bytes": 19567,
+      "sha256": "0f26977586538998ceddd1af5c6e6f172b193ee955e0777609954af84382b04c"
+    }
+  ]
+}

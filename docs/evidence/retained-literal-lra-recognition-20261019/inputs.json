@@ -1,0 +1,1606 @@
+{
+  "scope": "New recognition residual source theorem; accepted owners and successful evidence retained without evaluator replay",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "base_revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-int.h",
+      "bytes": 20763,
+      "sha256": "fd73c4bb99ec40e9ac957268ac5f5f3ccea6692d2655572412c7191b5f5e14a0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-eliminations.cc",
+      "bytes": 51361,
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "bytes": 29811,
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-coalesce.cc",
+      "bytes": 11759,
+      "sha256": "30e64caf42a872a3ed9a0ad8d320f0d5632ef92f0de570214833432b7980fe97"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-remat.cc",
+      "bytes": 42501,
+      "sha256": "eedf07afe6c8fb79dc8fb73a0633f177e72f9a715ebf9bedafd591e59dbdc752"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.h",
+      "bytes": 1342,
+      "sha256": "a4dd07595a048ef1505cdeb0629ee1cbd4ca2c11dc278591e995270eda0e2cf2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.h",
+      "bytes": 19888,
+      "sha256": "f95de8e612758e4e35aec029eed601d19fa484d7fa62ac4dea9788b36069e688"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/regs.h",
+      "bytes": 12632,
+      "sha256": "21a9e28558966cf4b1b31b7aa8c9d7b357e83865a7eb72376fc50fec64e46826"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/profile-count.cc",
+      "bytes": 15997,
+      "sha256": "15852368210288e9b70ccc0e931ed23db0a525778063d97a26c80c3154df3de6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reginfo.cc",
+      "bytes": 39713,
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/README.md",
+      "bytes": 4267,
+      "sha256": "cbec4f5ed277700529445f494f6487b14cfd613f69d5b491a480408d2d751a4b",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check-results.json",
+      "bytes": 30611,
+      "sha256": "81de0ea98112bcfdca0ae56b0bc265bc27382ca829e499c856fdc3c54f86fd48",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check.py",
+      "bytes": 21987,
+      "sha256": "e6c117026c3aa695e59a7637de62139446095711f7a99a29c696c322285ffe24",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/compose.py",
+      "bytes": 18280,
+      "sha256": "2fd777ab545c79d106af7064c3f5323799a36e817dfce403d555fbefc9a0308d",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/inputs.json",
+      "bytes": 5846,
+      "sha256": "792f6826a0dc581bc27d39a63f42777964315466a92dcf6dc40c09c30c8abebb",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/result.json",
+      "bytes": 1111857,
+      "sha256": "f1e1663c15cbc548a29e2292c90306183719b18f536963a8f2076e620172e4f1",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/round.json",
+      "bytes": 7966,
+      "sha256": "678e35a44a8e50fb30bd95ff1fb492b8400592d9feca22e790e813a0d40b00b0",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ira-lra-helper-attachment.md",
+      "bytes": 12177,
+      "sha256": "375fc63a348997d083fea9005b8e4c66fb8ca90be4e149cb2a78b090875402d3",
+      "revision": "71624df23244a680b3da379c655691df1d77312c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/README.md",
+      "bytes": 1362,
+      "sha256": "07e95a41f8c7a800e4a0a09c57aba3d1261b9c78aadbef99286a4b2bb1ca3aa2",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/check-results.json",
+      "bytes": 7012,
+      "sha256": "1c4e547725944a92da629a63a2891abe568163604c7afd67984df0dd942a3c45",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/check.py",
+      "bytes": 9852,
+      "sha256": "52a8b9af4444a99de2e9dc644a87d0469fee7c9b3818a6e9d97c33936bb54eea",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/derive.py",
+      "bytes": 14210,
+      "sha256": "86d0dc09df981a04c2049261303065145af801be8877a92d21d3f5e95fab30ed",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/inputs.json",
+      "bytes": 120829,
+      "sha256": "78bd55882a352540a090bc90922de67634f0c91ad7cd0dc973dc7827135e7d48",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/result.json",
+      "bytes": 11854,
+      "sha256": "bded346244f3ef8e06867ee469939514d81e91302e0fa9bbc72f384289a3609f",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/round.json",
+      "bytes": 5163,
+      "sha256": "518dde3ad865fdbb467bfdd7399be3173c330a4de8f483ee79fcd2d3631e9c80",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ira-lra-helpers.md",
+      "bytes": 18943,
+      "sha256": "b3620dd21e45176e8b6626890cf2fd4035e052c86dec7610faf3527b1c8d1863",
+      "revision": "b795c8f7459d648d7e595aca414629c1eec232bd"
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-ira-lra-helper-attachment-71624df232.md",
+      "bytes": 10661,
+      "sha256": "e3d7cc4bf8818d73c1a963ef08cab2530a2e5c746d22579b82ad283b4678b48f",
+      "revision": "ac4694d0f7e4d53f98d304ce59db2c18ebf40004"
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-ira-lra-helpers-b795c8f745.md",
+      "bytes": 11313,
+      "sha256": "d1f118178743d78d91d5f08013d31d19126958bcde11dcb23b83b97b22e9dda6",
+      "revision": "4d7100e7fbb2e39e6fdae2cf63b6d7b657cacb71"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/literal-rtl-backing-review.md",
+      "bytes": 1950,
+      "sha256": "0ba2b7f1d3eb435dc660c71c4a8ac44416d852ff3b754d5c91cf93818727f218",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/literal-rtl-backing-inputs.json",
+      "bytes": 8364,
+      "sha256": "3b195b3daa1bd51086d480e4c3fa03d5397d6ea872275ade100eba7d060023f7",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-literal-rtl-backing.json",
+      "bytes": 7155,
+      "sha256": "c07474e80314f7f6117129f7f1af440d26a17e0514377b8648807f570be3d9d9",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py",
+      "bytes": 14174,
+      "sha256": "6cb79df71b928240343179ee561df879cb35a48aa57ab2cba09a911bf09375bb",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-selected-headers.tar.gz",
+      "bytes": 305654,
+      "sha256": "fa8f79590eb9d667882db331eb8584753e0bfe267f2cbdc9e898637fbeaedb17",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/df-backing-selected-headers.tar.gz",
+      "bytes": 67288,
+      "sha256": "8034de717166f84a72237479967d0f72ecea78bde74d915a8c8c8dc896c42da8",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-bitmap-pools.md",
+      "bytes": 20006,
+      "sha256": "b37297072221c7fb6267bedff2e4bb2af91b196746b4a4ca427f96aae39bab44",
+      "revision": "36af6a0fa26f7af07f348de2aac29aac3fab0180"
+    }
+  ],
+  "excerpts": [
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "invalidation and deletion",
+      "first_LF_line": 249,
+      "last_LF_line": 285,
+      "text": "/* Invalidate INSN related info used by LRA.  The info should never be\n   used after that.  */\nvoid\nlra_invalidate_insn_data (rtx_insn *insn)\n{\n  lra_invalidate_insn_regno_info (insn);\n  invalidate_insn_recog_data (INSN_UID (insn));\n}\n\n/* Mark INSN deleted and invalidate the insn related info used by\n   LRA.\t */\nvoid\nlra_set_insn_deleted (rtx_insn *insn)\n{\n  bitmap_clear_bit (&lra_postponed_insns, INSN_UID (insn));\n  lra_invalidate_insn_data (insn);\n  SET_INSN_DELETED (insn);\n}\n\n/* Delete an unneeded INSN and any previous insns who sole purpose is\n   loading data that is dead in INSN.  */\nvoid\nlra_delete_dead_insn (rtx_insn *insn)\n{\n  rtx_insn *prev = prev_real_insn (insn);\n  rtx prev_dest;\n\n  /* If the previous insn sets a register that dies in our insn,\n     delete it too.  */\n  if (prev && GET_CODE (PATTERN (prev)) == SET\n      && (prev_dest = SET_DEST (PATTERN (prev)), REG_P (prev_dest))\n      && reg_mentioned_p (prev_dest, PATTERN (insn))\n      && find_regno_note (insn, REG_DEAD, REGNO (prev_dest))\n      && ! side_effects_p (SET_SRC (PATTERN (prev))))\n    lra_delete_dead_insn (prev);\n\n  lra_set_insn_deleted (insn);",
+      "identity": {
+        "bytes": 1137,
+        "sha256": "fbbcbd7b6e5e7cca1495319f54c7ffe34af6dd8adac2fd2100f7581ca2aca3dd"
+      },
+      "operative_fragments": [
+        "lra_invalidate_insn_regno_info (insn);",
+        "invalidate_insn_recog_data (INSN_UID (insn));"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "list slot creator and frees",
+      "first_LF_line": 577,
+      "last_LF_line": 622,
+      "text": "/* Pools for insn reg info.  */\nobject_allocator<lra_insn_reg> lra_insn_reg_pool (\"insn regs\");\n\n/* Create LRA insn related info about a reference to REGNO in INSN\n   with TYPE (in/out/inout), biggest reference mode MODE, flag that it\n   is reference through subreg (SUBREG_P), and reference to the next\n   insn reg info (NEXT).  If REGNO can be early clobbered,\n   alternatives in which it can be early clobbered are given by\n   EARLY_CLOBBER_ALTS.  */\nstatic struct lra_insn_reg *\nnew_insn_reg (rtx_insn *insn, int regno, enum op_type type,\n\t      machine_mode mode, bool subreg_p,\n\t      alternative_mask early_clobber_alts,\n\t      struct lra_insn_reg *next)\n{\n  lra_insn_reg *ir = lra_insn_reg_pool.allocate ();\n  ir->type = type;\n  ir->biggest_mode = mode;\n  if (NONDEBUG_INSN_P (insn))\n    lra_update_biggest_mode (regno, mode);\n  ir->subreg_p = subreg_p;\n  ir->early_clobber_alts = early_clobber_alts;\n  ir->regno = regno;\n  ir->next = next;\n  return ir;\n}\n\n/* Free insn reg info list IR.\t*/\nstatic void\nfree_insn_regs (struct lra_insn_reg *ir)\n{\n  struct lra_insn_reg *next_ir;\n\n  for (; ir != NULL; ir = next_ir)\n    {\n      next_ir = ir->next;\n      lra_insn_reg_pool.remove (ir);\n    }\n}\n\n/* Finish pool for insn reg info.  */\nstatic void\nfinish_insn_regs (void)\n{\n  lra_insn_reg_pool.release ();\n}",
+      "identity": {
+        "bytes": 1309,
+        "sha256": "42734510a8117dfecf7e7671425e37b94df913594bcefad84634674c69603b6f"
+      },
+      "operative_fragments": [
+        "lra_insn_reg_pool.allocate",
+        "lra_insn_reg_pool.remove",
+        "lra_insn_reg_pool.release"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "static map lifetime",
+      "first_LF_line": 629,
+      "last_LF_line": 631,
+      "text": "/* Map INSN_CODE -> the static insn data.  This info is valid during\n   all translation unit.  */\nstruct lra_static_insn_data *insn_code_data[NUM_INSN_CODES];",
+      "identity": {
+        "bytes": 158,
+        "sha256": "9f583d7c559b214e9f310c343ad6b9c4ce967d0d95a1443354ab66325fb2cb47"
+      },
+      "operative_fragments": [
+        "all translation unit",
+        "insn_code_data"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "static cache initialization creation finish",
+      "first_LF_line": 681,
+      "last_LF_line": 752,
+      "text": "/* Called once per compiler work to initialize some LRA data related\n   to insns.  */\nstatic void\ninit_insn_code_data_once (void)\n{\n  memset (insn_code_data, 0, sizeof (insn_code_data));\n}\n\n/* Called once per compiler work to finalize some LRA data related to\n   insns.  */\nstatic void\nfinish_insn_code_data_once (void)\n{\n  for (unsigned int i = 0; i < NUM_INSN_CODES; i++)\n    {\n      if (insn_code_data[i] != NULL)\n\t{\n\t  free (insn_code_data[i]);\n\t  insn_code_data[i] = NULL;\n\t}\n    }\n}\n\n/* Return static insn data, allocate and setup if necessary.  Although\n   dup_num is static data (it depends only on icode), to set it up we\n   need to extract insn first.\tSo recog_data should be valid for\n   normal insn (ICODE >= 0) before the call.  */\nstatic struct lra_static_insn_data *\nget_static_insn_data (int icode, int nop, int ndup, int nalt)\n{\n  struct lra_static_insn_data *data;\n  size_t n_bytes;\n\n  lra_assert (icode < (int) NUM_INSN_CODES);\n  if (icode >= 0 && (data = insn_code_data[icode]) != NULL)\n    return data;\n  lra_assert (nop >= 0 && ndup >= 0 && nalt >= 0);\n  n_bytes = sizeof (struct lra_static_insn_data)\n\t    + sizeof (struct lra_operand_data) * nop\n\t    + sizeof (int) * ndup;\n  data = XNEWVAR (struct lra_static_insn_data, n_bytes);\n  data->operand_alternative = NULL;\n  data->n_operands = nop;\n  data->n_dups = ndup;\n  data->n_alternatives = nalt;\n  data->operand = ((struct lra_operand_data *)\n\t\t   ((char *) data + sizeof (struct lra_static_insn_data)));\n  data->dup_num = ((int *) ((char *) data->operand\n\t\t\t    + sizeof (struct lra_operand_data) * nop));\n  if (icode >= 0)\n    {\n      int i;\n\n      insn_code_data[icode] = data;\n      for (i = 0; i < nop; i++)\n\t{\n\t  data->operand[i].constraint\n\t    = insn_data[icode].operand[i].constraint;\n\t  data->operand[i].mode = insn_data[icode].operand[i].mode;\n\t  data->operand[i].strict_low = insn_data[icode].operand[i].strict_low;\n\t  data->operand[i].is_operator\n\t    = insn_data[icode].operand[i].is_operator;\n\t  data->operand[i].type\n\t    = (data->operand[i].constraint[0] == '=' ? OP_OUT\n\t       : data->operand[i].constraint[0] == '+' ? OP_INOUT\n\t       : OP_IN);\n\t  data->operand[i].is_address = false;\n\t}\n      for (i = 0; i < ndup; i++)\n\tdata->dup_num[i] = recog_data.dup_num[i];\n    }\n  return data;",
+      "identity": {
+        "bytes": 2279,
+        "sha256": "e1b856945d961ee9093039e8bcb9c176ab3ce6a05abd275173bf1de1b6f4d3f9"
+      },
+      "operative_fragments": [
+        "memset (insn_code_data",
+        "free (insn_code_data[i])",
+        "n_bytes = sizeof",
+        "insn_code_data[icode] = data"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "map and dynamic free finish",
+      "first_LF_line": 755,
+      "last_LF_line": 833,
+      "text": "/* The current length of the following array.  */\nint lra_insn_recog_data_len;\n\n/* Map INSN_UID -> the insn recog data (NULL if unknown).  */\nlra_insn_recog_data_t *lra_insn_recog_data;\n\n/* Alloc pool we allocate entries for lra_insn_recog_data from.  */\nstatic object_allocator<class lra_insn_recog_data>\n  lra_insn_recog_data_pool (\"insn recog data pool\");\n\n/* Initialize LRA data about insns.  */\nstatic void\ninit_insn_recog_data (void)\n{\n  lra_insn_recog_data_len = 0;\n  lra_insn_recog_data = NULL;\n}\n\n/* Expand, if necessary, LRA data about insns.\t*/\nstatic void\ncheck_and_expand_insn_recog_data (int index)\n{\n  int i, old;\n\n  if (lra_insn_recog_data_len > index)\n    return;\n  old = lra_insn_recog_data_len;\n  lra_insn_recog_data_len = index * 3U / 2;\n  if (lra_insn_recog_data_len <= index)\n    lra_insn_recog_data_len = index + 1;\n  lra_insn_recog_data = XRESIZEVEC (lra_insn_recog_data_t,\n\t\t\t\t    lra_insn_recog_data,\n\t\t\t\t    lra_insn_recog_data_len);\n  for (i = old; i < lra_insn_recog_data_len; i++)\n    lra_insn_recog_data[i] = NULL;\n}\n\n/* Finish LRA DATA about insn.\t*/\nstatic void\nfree_insn_recog_data (lra_insn_recog_data_t data)\n{\n  if (data->operand_loc != NULL)\n    free (data->operand_loc);\n  if (data->dup_loc != NULL)\n    free (data->dup_loc);\n  if (data->arg_hard_regs != NULL)\n    free (data->arg_hard_regs);\n  if (data->icode < 0 && NONDEBUG_INSN_P (data->insn))\n    {\n      if (data->insn_static_data->operand_alternative != NULL)\n\tfree (const_cast <operand_alternative *>\n\t      (data->insn_static_data->operand_alternative));\n      free_insn_regs (data->insn_static_data->hard_regs);\n      free (data->insn_static_data);\n    }\n  free_insn_regs (data->regs);\n  data->regs = NULL;\n  lra_insn_recog_data_pool.remove (data);\n}\n\n/* Pools for copies.  */\nstatic object_allocator<lra_copy> lra_copy_pool (\"lra copies\");\n\n/* Finish LRA data about all insns.  */\nstatic void\nfinish_insn_recog_data (void)\n{\n  int i;\n  lra_insn_recog_data_t data;\n\n  for (i = 0; i < lra_insn_recog_data_len; i++)\n    if ((data = lra_insn_recog_data[i]) != NULL)\n      free_insn_recog_data (data);\n  finish_insn_regs ();\n  lra_copy_pool.release ();\n  lra_insn_reg_pool.release ();\n  lra_insn_recog_data_pool.release ();\n  free (lra_insn_recog_data);\n}",
+      "identity": {
+        "bytes": 2250,
+        "sha256": "5221e64d713b2c6644a842912c8148b135879dfb81a4b629524a71cfd13180e7"
+      },
+      "operative_fragments": [
+        "index * 3U / 2",
+        "index + 1",
+        "lra_insn_recog_data[i] = NULL",
+        "free_insn_regs (data->regs)",
+        "lra_insn_recog_data_pool.release"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "alternative mask construction",
+      "first_LF_line": 835,
+      "last_LF_line": 870,
+      "text": "/* Setup info about operands in alternatives of LRA DATA of insn.  */\nstatic void\nsetup_operand_alternative (lra_insn_recog_data_t data,\n\t\t\t   const operand_alternative *op_alt)\n{\n  int i, j, nop, nalt;\n  int icode = data->icode;\n  struct lra_static_insn_data *static_data = data->insn_static_data;\n\n  static_data->commutative = -1;\n  nop = static_data->n_operands;\n  nalt = static_data->n_alternatives;\n  static_data->operand_alternative = op_alt;\n  for (i = 0; i < nop; i++)\n    {\n      static_data->operand[i].early_clobber_alts = 0;\n      static_data->operand[i].is_address = false;\n      if (static_data->operand[i].constraint[0] == '%')\n\t{\n\t  /* We currently only support one commutative pair of operands.  */\n\t  if (static_data->commutative < 0)\n\t    static_data->commutative = i;\n\t  else\n\t    lra_assert (icode < 0); /* Asm  */\n\t  /* The last operand should not be marked commutative.  */\n\t  lra_assert (i != nop - 1);\n\t}\n    }\n  for (j = 0; j < nalt; j++)\n    for (i = 0; i < nop; i++, op_alt++)\n      {\n\tif (op_alt->earlyclobber)\n\t  static_data->operand[i].early_clobber_alts |= (alternative_mask) 1 << j;\n\tstatic_data->operand[i].is_address |= op_alt->is_address;\n      }\n}",
+      "identity": {
+        "bytes": 1184,
+        "sha256": "1ad2bf897316a20e1fbf243c1695c32d5d46e0dc4b37de52d049ed0668307552"
+      },
+      "operative_fragments": [
+        "j < nalt",
+        "(alternative_mask) 1 << j"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "static hard-reg collector",
+      "first_LF_line": 877,
+      "last_LF_line": 982,
+      "text": "static struct lra_insn_reg *\ncollect_non_operand_hard_regs (rtx_insn *insn, rtx *x,\n\t\t\t       lra_insn_recog_data_t data,\n\t\t\t       struct lra_insn_reg *list,\n\t\t\t       enum op_type type, bool early_clobber)\n{\n  int i, j, regno, last;\n  bool subreg_p;\n  machine_mode mode;\n  struct lra_insn_reg *curr;\n  rtx op = *x;\n  enum rtx_code code = GET_CODE (op);\n  const char *fmt = GET_RTX_FORMAT (code);\n\n  for (i = 0; i < data->insn_static_data->n_operands; i++)\n    if (! data->insn_static_data->operand[i].is_operator\n\t&& x == data->operand_loc[i])\n      /* It is an operand loc. Stop here.  */\n      return list;\n  for (i = 0; i < data->insn_static_data->n_dups; i++)\n    if (x == data->dup_loc[i])\n      /* It is a dup loc. Stop here.  */\n      return list;\n  mode = GET_MODE (op);\n  subreg_p = false;\n  if (code == SUBREG)\n    {\n      mode = wider_subreg_mode (op);\n      if (read_modify_subreg_p (op))\n\tsubreg_p = true;\n      op = SUBREG_REG (op);\n      code = GET_CODE (op);\n    }\n  if (REG_P (op))\n    {\n      if ((regno = REGNO (op)) >= FIRST_PSEUDO_REGISTER)\n\treturn list;\n      /* Process all regs even unallocatable ones as we need info\n\t about all regs for rematerialization pass.  */\n      for (last = end_hard_regno (mode, regno); regno < last; regno++)\n\t{\n\t  for (curr = list; curr != NULL; curr = curr->next)\n\t    if (curr->regno == regno && curr->subreg_p == subreg_p\n\t\t&& curr->biggest_mode == mode)\n\t      {\n\t\tif (curr->type != type)\n\t\t  curr->type = OP_INOUT;\n\t\tif (early_clobber)\n\t\t  curr->early_clobber_alts = ALL_ALTERNATIVES;\n\t\tbreak;\n\t      }\n\t  if (curr == NULL)\n\t    {\n\t      /* This is a new hard regno or the info cannot be\n\t\t integrated into the found structure.\t */\n#ifdef STACK_REGS\n\t      early_clobber\n\t\t= (early_clobber\n\t\t   /* This clobber is to inform popping floating\n\t\t      point stack only.  */\n\t\t   && ! (FIRST_STACK_REG <= regno\n\t\t\t && regno <= LAST_STACK_REG));\n#endif\n\t      list = new_insn_reg (data->insn, regno, type, mode, subreg_p,\n\t\t\t\t   early_clobber ? ALL_ALTERNATIVES : 0, list);\n\t    }\n\t}\n      return list;\n    }\n  switch (code)\n    {\n    case SET:\n      list = collect_non_operand_hard_regs (insn, &SET_DEST (op), data,\n\t\t\t\t\t    list, OP_OUT, false);\n      list = collect_non_operand_hard_regs (insn, &SET_SRC (op), data,\n\t\t\t\t\t    list, OP_IN, false);\n      break;\n    case CLOBBER:\n      /* We treat clobber of non-operand hard registers as early clobber.  */\n      list = collect_non_operand_hard_regs (insn, &XEXP (op, 0), data,\n\t\t\t\t\t    list, OP_OUT, true);\n      break;\n    case PRE_INC: case PRE_DEC: case POST_INC: case POST_DEC:\n      list = collect_non_operand_hard_regs (insn, &XEXP (op, 0), data,\n\t\t\t\t\t    list, OP_INOUT, false);\n      break;\n    case PRE_MODIFY: case POST_MODIFY:\n      list = collect_non_operand_hard_regs (insn, &XEXP (op, 0), data,\n\t\t\t\t\t    list, OP_INOUT, false);\n      list = collect_non_operand_hard_regs (insn, &XEXP (op, 1), data,\n\t\t\t\t\t    list, OP_IN, false);\n      break;\n    default:\n      fmt = GET_RTX_FORMAT (code);\n      for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)\n\t{\n\t  if (fmt[i] == 'e')\n\t    list = collect_non_operand_hard_regs (insn, &XEXP (op, i), data,\n\t\t\t\t\t\t  list, OP_IN, false);\n\t  else if (fmt[i] == 'E')\n\t    for (j = XVECLEN (op, i) - 1; j >= 0; j--)\n\t      list = collect_non_operand_hard_regs (insn, &XVECEXP (op, i, j),\n\t\t\t\t\t\t    data, list, OP_IN, false);\n\t}\n    }\n  return list;",
+      "identity": {
+        "bytes": 3398,
+        "sha256": "94ac09c422af5bdaf9b23220d82aa6a73d2a664a618dc2841a69252fd61d6a02"
+      },
+      "operative_fragments": [
+        "x == data->operand_loc[i]",
+        "return list",
+        "new_insn_reg"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "dynamic constructor and recognition sentinel",
+      "first_LF_line": 988,
+      "last_LF_line": 1031,
+      "text": "lra_set_insn_recog_data (rtx_insn *insn)\n{\n  lra_insn_recog_data_t data;\n  int i, n, icode;\n  rtx **locs;\n  unsigned int uid = INSN_UID (insn);\n  struct lra_static_insn_data *insn_static_data;\n\n  check_and_expand_insn_recog_data (uid);\n  if (DEBUG_INSN_P (insn))\n    icode = -1;\n  else\n    {\n      icode = INSN_CODE (insn);\n      if (icode < 0)\n\t/* It might be a new simple insn which is not recognized yet.  */\n\tINSN_CODE (insn) = icode = recog_memoized (insn);\n    }\n  data = lra_insn_recog_data_pool.allocate ();\n  lra_insn_recog_data[uid] = data;\n  data->insn = insn;\n  data->used_insn_alternative = LRA_UNKNOWN_ALT;\n  data->asm_reloads_num = 0;\n  data->icode = icode;\n  data->regs = NULL;\n  if (DEBUG_INSN_P (insn))\n    {\n      data->dup_loc = NULL;\n      data->arg_hard_regs = NULL;\n      data->preferred_alternatives = ALL_ALTERNATIVES;\n      if (DEBUG_BIND_INSN_P (insn))\n\t{\n\t  data->insn_static_data = &debug_bind_static_data;\n\t  data->operand_loc = XNEWVEC (rtx *, 1);\n\t  data->operand_loc[0] = &INSN_VAR_LOCATION_LOC (insn);\n\t}\n      else if (DEBUG_MARKER_INSN_P (insn))\n\t{\n\t  data->insn_static_data = &debug_marker_static_data;\n\t  data->operand_loc = NULL;\n\t}\n      return data;\n    }\n  if (icode < 0)",
+      "identity": {
+        "bytes": 1213,
+        "sha256": "cf7307286f65b5385d982d5f9a45195b6d67c7229147c756b4677683267c13ac"
+      },
+      "operative_fragments": [
+        "recog_memoized (insn)",
+        "lra_insn_recog_data[uid] = data",
+        "data->regs = NULL"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "normal operands and shared alternatives",
+      "first_LF_line": 1092,
+      "last_LF_line": 1135,
+      "text": "  else\n    {\n      insn_extract (insn);\n      data->insn_static_data = insn_static_data\n\t= get_static_insn_data (icode, insn_data[icode].n_operands,\n\t\t\t\tinsn_data[icode].n_dups,\n\t\t\t\tinsn_data[icode].n_alternatives);\n      n = insn_static_data->n_operands;\n      if (n == 0)\n\tlocs = NULL;\n      else\n\t{\n\t  locs = XNEWVEC (rtx *, n);\n\t  memcpy (locs, recog_data.operand_loc, n * sizeof (rtx *));\n\t}\n      data->operand_loc = locs;\n      n = insn_static_data->n_dups;\n      if (n == 0)\n\tlocs = NULL;\n      else\n\t{\n\t  locs = XNEWVEC (rtx *, n);\n\t  memcpy (locs, recog_data.dup_loc, n * sizeof (rtx *));\n\t}\n      data->dup_loc = locs;\n      data->preferred_alternatives = get_preferred_alternatives (insn);\n      const operand_alternative *op_alt = preprocess_insn_constraints (icode);\n      if (!insn_static_data->operand_alternative)\n\tsetup_operand_alternative (data, op_alt);\n      else if (op_alt != insn_static_data->operand_alternative)\n\tinsn_static_data->operand_alternative = op_alt;\n    }\n  if (GET_CODE (PATTERN (insn)) == CLOBBER || GET_CODE (PATTERN (insn)) == USE)\n    insn_static_data->hard_regs = NULL;\n  else\n    insn_static_data->hard_regs\n      = collect_non_operand_hard_regs (insn, &PATTERN (insn), data,\n\t\t\t\t       NULL, OP_IN, false);\n  data->arg_hard_regs = NULL;\n  if (CALL_P (insn))\n    {\n      bool use_p;\n      rtx link;\n      int n_hard_regs, regno, arg_hard_regs[FIRST_PSEUDO_REGISTER];",
+      "identity": {
+        "bytes": 1410,
+        "sha256": "9e21645ab74fbc34eda4ce07ae080e98733c97d3ce5b0414431dcc053c56e723"
+      },
+      "operative_fragments": [
+        "get_static_insn_data",
+        "XNEWVEC (rtx *, n)",
+        "preprocess_insn_constraints",
+        "arg_hard_regs[FIRST_PSEUDO_REGISTER]"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "argument fixed buffer",
+      "first_LF_line": 1135,
+      "last_LF_line": 1162,
+      "text": "      int n_hard_regs, regno, arg_hard_regs[FIRST_PSEUDO_REGISTER];\n\n      n_hard_regs = 0;\n      /* Finding implicit hard register usage.\tWe believe it will be\n\t not changed whatever transformations are used.\t Call insns\n\t are such example.  */\n      for (link = CALL_INSN_FUNCTION_USAGE (insn);\n\t   link != NULL_RTX;\n\t   link = XEXP (link, 1))\n\tif (((use_p = GET_CODE (XEXP (link, 0)) == USE)\n\t     || GET_CODE (XEXP (link, 0)) == CLOBBER)\n\t    && REG_P (XEXP (XEXP (link, 0), 0)))\n\t  {\n\t    regno = REGNO (XEXP (XEXP (link, 0), 0));\n\t    lra_assert (regno < FIRST_PSEUDO_REGISTER);\n\t    /* It is an argument register.  */\n\t    for (i = REG_NREGS (XEXP (XEXP (link, 0), 0)) - 1; i >= 0; i--)\n\t      arg_hard_regs[n_hard_regs++]\n\t\t= regno + i + (use_p ? 0 : FIRST_PSEUDO_REGISTER);\n\t  }\n\n      if (n_hard_regs != 0)\n\t{\n\t  arg_hard_regs[n_hard_regs++] = -1;\n\t  data->arg_hard_regs = XNEWVEC (int, n_hard_regs);\n\t  memcpy (data->arg_hard_regs, arg_hard_regs,\n\t\t  sizeof (int) * n_hard_regs);\n\t}",
+      "identity": {
+        "bytes": 993,
+        "sha256": "659a7f1c521729eeb49741c6e2a34c2b036235e743abf5c823d19c3eaf9b2c65"
+      },
+      "operative_fragments": [
+        "n_hard_regs = 0",
+        "REG_NREGS",
+        "arg_hard_regs[n_hard_regs++] = -1"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "operand direction correction",
+      "first_LF_line": 1164,
+      "last_LF_line": 1203,
+      "text": "  /* Some output operand can be recognized only from the context not\n     from the constraints which are empty in this case.\t Call insn may\n     contain a hard register in set destination with empty constraint\n     and extract_insn treats them as an input.\t*/\n  for (i = 0; i < insn_static_data->n_operands; i++)\n    {\n      int j;\n      rtx pat, set;\n      struct lra_operand_data *operand = &insn_static_data->operand[i];\n\n      /* ??? Should we treat 'X' the same way.\tIt looks to me that\n\t 'X' means anything and empty constraint means we do not\n\t care.\t*/\n      if (operand->type != OP_IN || *operand->constraint != '\\0'\n\t  || operand->is_operator)\n\tcontinue;\n      pat = PATTERN (insn);\n      if (GET_CODE (pat) == SET)\n\t{\n\t  if (data->operand_loc[i] != &SET_DEST (pat))\n\t    continue;\n\t}\n      else if (GET_CODE (pat) == PARALLEL)\n\t{\n\t  for (j = XVECLEN (pat, 0) - 1; j >= 0; j--)\n\t    {\n\t      set = XVECEXP (PATTERN (insn), 0, j);\n\t      if (GET_CODE (set) == SET\n\t\t  && &SET_DEST (set) == data->operand_loc[i])\n\t\tbreak;\n\t    }\n\t  if (j < 0)\n\t    continue;\n\t}\n      else\n\tcontinue;\n      operand->type = OP_OUT;\n    }\n  return data;\n}",
+      "identity": {
+        "bytes": 1143,
+        "sha256": "35aafdcf5a90c23120e888822549e6ea63db00ab25e768606b527c9150630e3d"
+      },
+      "operative_fragments": [
+        "i < insn_static_data->n_operands",
+        "operand->type = OP_OUT"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "get and code-changing update",
+      "first_LF_line": 1205,
+      "last_LF_line": 1256,
+      "text": "/* Return info about insn give by UID.\tThe info should be already set\n   up.\t*/\nstatic lra_insn_recog_data_t\nget_insn_recog_data_by_uid (int uid)\n{\n  lra_insn_recog_data_t data;\n\n  data = lra_insn_recog_data[uid];\n  lra_assert (data != NULL);\n  return data;\n}\n\n/* Invalidate all info about insn given by its UID.  */\nstatic void\ninvalidate_insn_recog_data (int uid)\n{\n  lra_insn_recog_data_t data;\n\n  data = lra_insn_recog_data[uid];\n  lra_assert (data != NULL);\n  free_insn_recog_data (data);\n  lra_insn_recog_data[uid] = NULL;\n}\n\n/* Update all the insn info about INSN.\t It is usually called when\n   something in the insn was changed.  Return the updated info.\t */\nlra_insn_recog_data_t\nlra_update_insn_recog_data (rtx_insn *insn)\n{\n  lra_insn_recog_data_t data;\n  int n;\n  unsigned int uid = INSN_UID (insn);\n  struct lra_static_insn_data *insn_static_data;\n  poly_int64 sp_offset = 0;\n\n  check_and_expand_insn_recog_data (uid);\n  if ((data = lra_insn_recog_data[uid]) != NULL\n      && data->icode != INSN_CODE (insn))\n    {\n      sp_offset = data->sp_offset;\n      invalidate_insn_data_regno_info (data, insn, get_insn_freq (insn));\n      invalidate_insn_recog_data (uid);\n      data = NULL;\n    }\n  if (data == NULL)\n    {\n      data = lra_get_insn_recog_data (insn);\n      /* Initiate or restore SP offset.  */\n      data->sp_offset = sp_offset;\n      return data;\n    }\n  insn_static_data = data->insn_static_data;",
+      "identity": {
+        "bytes": 1421,
+        "sha256": "0ef310c3edb434b49a7c80706d5a37de1699cde9f9cbff266c780265d1fe5ddd"
+      },
+      "operative_fragments": [
+        "invalidate_insn_data_regno_info",
+        "invalidate_insn_recog_data (uid)",
+        "data = lra_get_insn_recog_data"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "same-code reuse and alternative numbers",
+      "first_LF_line": 1256,
+      "last_LF_line": 1328,
+      "text": "  insn_static_data = data->insn_static_data;\n  data->used_insn_alternative = LRA_UNKNOWN_ALT;\n  if (DEBUG_INSN_P (insn))\n    return data;\n  if (data->icode < 0)\n    {\n      int nop;\n      machine_mode operand_mode[MAX_RECOG_OPERANDS];\n      const char *constraints[MAX_RECOG_OPERANDS];\n\n      nop = asm_noperands (PATTERN (insn));\n      if (nop >= 0)\n\t{\n\t  lra_assert (nop == data->insn_static_data->n_operands);\n\t  /* Now get the operand values and constraints out of the\n\t     insn.  */\n\t  decode_asm_operands (PATTERN (insn), NULL,\n\t\t\t       data->operand_loc,\n\t\t\t       constraints, operand_mode, NULL);\n\n\t  if (flag_checking)\n\t    for (int i = 0; i < nop; i++)\n\t      lra_assert\n\t\t(insn_static_data->operand[i].mode == operand_mode[i]\n\t\t && insn_static_data->operand[i].constraint == constraints[i]\n\t\t && ! insn_static_data->operand[i].is_operator);\n\t}\n\n      if (flag_checking)\n\tfor (int i = 0; i < insn_static_data->n_operands; i++)\n\t  lra_assert\n\t    (insn_static_data->operand[i].type\n\t     == (insn_static_data->operand[i].constraint[0] == '=' ? OP_OUT\n\t\t : insn_static_data->operand[i].constraint[0] == '+' ? OP_INOUT\n\t\t : OP_IN));\n    }\n  else\n    {\n      insn_extract (insn);\n      n = insn_static_data->n_operands;\n      if (n != 0)\n\tmemcpy (data->operand_loc, recog_data.operand_loc, n * sizeof (rtx *));\n      n = insn_static_data->n_dups;\n      if (n != 0)\n\tmemcpy (data->dup_loc, recog_data.dup_loc, n * sizeof (rtx *));\n      lra_assert (check_bool_attrs (insn));\n    }\n  return data;\n}\n\n/* Set up that INSN is using alternative ALT now.  */\nvoid\nlra_set_used_insn_alternative (rtx_insn *insn, int alt)\n{\n  lra_insn_recog_data_t data;\n\n  data = lra_get_insn_recog_data (insn);\n  data->used_insn_alternative = alt;\n}\n\n/* Set up that insn with UID is using alternative ALT now.  The insn\n   info should be already set up.  */\nvoid\nlra_set_used_insn_alternative_by_uid (int uid, int alt)\n{\n  lra_insn_recog_data_t data;\n\n  check_and_expand_insn_recog_data (uid);\n  data = lra_insn_recog_data[uid];\n  lra_assert (data != NULL);\n  data->used_insn_alternative = alt;\n}\n",
+      "identity": {
+        "bytes": 2082,
+        "sha256": "ddcc3be829375e988978d2a57bfdc2fe84e46d62c6e4059519f35175478a49a8"
+      },
+      "operative_fragments": [
+        "n * sizeof (rtx *)",
+        "data->used_insn_alternative = alt"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "register initialization",
+      "first_LF_line": 1354,
+      "last_LF_line": 1389,
+      "text": "/* Initialize I-th element of lra_reg_info.  */\nstatic inline void\ninitialize_lra_reg_info_element (int i)\n{\n  bitmap_initialize (&lra_reg_info[i].insn_bitmap, &reg_obstack);\n#ifdef STACK_REGS\n  lra_reg_info[i].no_stack_p = false;\n#endif\n  CLEAR_HARD_REG_SET (lra_reg_info[i].conflict_hard_regs);\n  CLEAR_HARD_REG_SET (lra_reg_info[i].exclude_start_hard_regs);\n  lra_reg_info[i].preferred_hard_regno1 = -1;\n  lra_reg_info[i].preferred_hard_regno2 = -1;\n  lra_reg_info[i].preferred_hard_regno_profit1 = 0;\n  lra_reg_info[i].preferred_hard_regno_profit2 = 0;\n  lra_reg_info[i].biggest_mode = VOIDmode;\n  lra_reg_info[i].live_ranges = NULL;\n  lra_reg_info[i].nrefs = lra_reg_info[i].freq = 0;\n  lra_reg_info[i].last_reload = 0;\n  lra_reg_info[i].restore_rtx = NULL_RTX;\n  lra_reg_info[i].val = get_new_reg_value ();\n  lra_reg_info[i].offset = 0;\n  lra_reg_info[i].copies = NULL;\n}\n\n/* Initialize common reg info and copies.  */\nstatic void\ninit_reg_info (void)\n{\n  int i;\n\n  last_reg_value = 0;\n  reg_info_size = max_reg_num () * 3 / 2 + 1;\n  lra_reg_info = XNEWVEC (class lra_reg, reg_info_size);\n  for (i = 0; i < reg_info_size; i++)\n    initialize_lra_reg_info_element (i);\n  copy_vec.truncate (0);",
+      "identity": {
+        "bytes": 1198,
+        "sha256": "ff153d5c181162556bb4c8e2d226ed772ed3077cca4bfb5f08f3daacaf33b341"
+      },
+      "operative_fragments": [
+        "nrefs = lra_reg_info[i].freq = 0",
+        "max_reg_num () * 3 / 2 + 1"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "unique compatible instruction-register key",
+      "first_LF_line": 1484,
+      "last_LF_line": 1538,
+      "text": "add_regs_to_insn_regno_info (lra_insn_recog_data_t data, rtx x,\n\t\t\t     rtx_insn *insn, enum op_type type,\n\t\t\t     alternative_mask early_clobber_alts)\n{\n  int i, j, regno;\n  bool subreg_p;\n  machine_mode mode;\n  const char *fmt;\n  enum rtx_code code;\n  struct lra_insn_reg *curr;\n\n  code = GET_CODE (x);\n  mode = GET_MODE (x);\n  subreg_p = false;\n  if (GET_CODE (x) == SUBREG)\n    {\n      mode = wider_subreg_mode (x);\n      if (read_modify_subreg_p (x))\n\tsubreg_p = true;\n      x = SUBREG_REG (x);\n      code = GET_CODE (x);\n    }\n  if (REG_P (x))\n    {\n      regno = REGNO (x);\n      /* Process all regs even unallocatable ones as we need info about\n\t all regs for rematerialization pass.  */\n      expand_reg_info ();\n      if (bitmap_set_bit (&lra_reg_info[regno].insn_bitmap, INSN_UID (insn)))\n\t{\n\t  data->regs = new_insn_reg (data->insn, regno, type, mode, subreg_p,\n\t\t\t\t     early_clobber_alts, data->regs);\n\t  return;\n\t}\n      else\n\t{\n\t  for (curr = data->regs; curr != NULL; curr = curr->next)\n\t    if (curr->regno == regno)\n\t      {\n\t\tif (curr->subreg_p != subreg_p || curr->biggest_mode != mode)\n\t\t  /* The info cannot be integrated into the found\n\t\t     structure.  */\n\t\t  data->regs = new_insn_reg (data->insn, regno, type, mode,\n\t\t\t\t\t     subreg_p, early_clobber_alts,\n\t\t\t\t\t     data->regs);\n\t\telse\n\t\t  {\n\t\t    if (curr->type != type)\n\t\t      curr->type = OP_INOUT;\n\t\t    curr->early_clobber_alts |= early_clobber_alts;\n\t\t  }\n\t\treturn;\n\t      }\n\t  gcc_unreachable ();\n\t}",
+      "identity": {
+        "bytes": 1485,
+        "sha256": "0b00777bc7a51af9711afa8cd0842bce7bb2afe33752ec0fb3e954a34dc71f3d"
+      },
+      "operative_fragments": [
+        "bitmap_set_bit",
+        "curr->subreg_p != subreg_p",
+        "curr->type = OP_INOUT"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "recursive register collector",
+      "first_LF_line": 1541,
+      "last_LF_line": 1588,
+      "text": "  switch (code)\n    {\n    case SET:\n      add_regs_to_insn_regno_info (data, SET_DEST (x), insn, OP_OUT, 0);\n      add_regs_to_insn_regno_info (data, SET_SRC (x), insn, OP_IN, 0);\n      break;\n    case CLOBBER:\n      /* We treat clobber of non-operand hard registers as early\n\t clobber.  */\n      add_regs_to_insn_regno_info (data, XEXP (x, 0), insn, OP_OUT,\n\t\t\t\t   ALL_ALTERNATIVES);\n      break;\n    case PRE_INC: case PRE_DEC: case POST_INC: case POST_DEC:\n      add_regs_to_insn_regno_info (data, XEXP (x, 0), insn, OP_INOUT, 0);\n      break;\n    case PRE_MODIFY: case POST_MODIFY:\n      add_regs_to_insn_regno_info (data, XEXP (x, 0), insn, OP_INOUT, 0);\n      add_regs_to_insn_regno_info (data, XEXP (x, 1), insn, OP_IN, 0);\n      break;\n    default:\n      if ((code != PARALLEL && code != EXPR_LIST) || type != OP_OUT)\n\t/* Some targets place small structures in registers for return\n\t   values of functions, and those registers are wrapped in\n\t   PARALLEL that we may see as the destination of a SET.  Here\n\t   is an example:\n\n\t   (call_insn 13 12 14 2 (set (parallel:BLK [\n\t\t(expr_list:REG_DEP_TRUE (reg:DI 0 ax)\n\t\t    (const_int 0 [0]))\n\t\t(expr_list:REG_DEP_TRUE (reg:DI 1 dx)\n\t\t    (const_int 8 [0x8]))\n\t       ])\n\t     (call (mem:QI (symbol_ref:DI (...\t*/\n\ttype = OP_IN;\n      fmt = GET_RTX_FORMAT (code);\n      for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)\n\t{\n\t  if (fmt[i] == 'e')\n\t    add_regs_to_insn_regno_info (data, XEXP (x, i), insn, type, 0);\n\t  else if (fmt[i] == 'E')\n\t    {\n\t      for (j = XVECLEN (x, i) - 1; j >= 0; j--)\n\t\tadd_regs_to_insn_regno_info (data, XVECEXP (x, i, j), insn,\n\t\t\t\t\t     type, 0);\n\t    }\n\t}\n    }\n}",
+      "identity": {
+        "bytes": 1648,
+        "sha256": "1d0df5ef1d1221e71b37265e5a18d212ecef826c805484a7a99cbf46f40ce4cc"
+      },
+      "operative_fragments": [
+        "add_regs_to_insn_regno_info",
+        "XVECLEN"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "stable frequencies and symmetric updates",
+      "first_LF_line": 1590,
+      "last_LF_line": 1652,
+      "text": "/* Return execution frequency of INSN.\t*/\nstatic int\nget_insn_freq (rtx_insn *insn)\n{\n  basic_block bb = BLOCK_FOR_INSN (insn);\n\n  gcc_checking_assert (bb != NULL);\n  return REG_FREQ_FROM_BB (bb);\n}\n\n/* Invalidate all reg info of INSN with DATA and execution frequency\n   FREQ.  Update common info about the invalidated registers.  */\nstatic void\ninvalidate_insn_data_regno_info (lra_insn_recog_data_t data, rtx_insn *insn,\n\t\t\t\t int freq)\n{\n  int uid;\n  bool debug_p;\n  unsigned int i;\n  struct lra_insn_reg *ir, *next_ir;\n\n  uid = INSN_UID (insn);\n  debug_p = DEBUG_INSN_P (insn);\n  for (ir = data->regs; ir != NULL; ir = next_ir)\n    {\n      i = ir->regno;\n      next_ir = ir->next;\n      lra_insn_reg_pool.remove (ir);\n      bitmap_clear_bit (&lra_reg_info[i].insn_bitmap, uid);\n      if (i >= FIRST_PSEUDO_REGISTER && ! debug_p)\n\t{\n\t  lra_reg_info[i].nrefs--;\n\t  lra_reg_info[i].freq -= freq;\n\t  lra_assert (lra_reg_info[i].nrefs >= 0 && lra_reg_info[i].freq >= 0);\n\t}\n    }\n  data->regs = NULL;\n}\n\n/* Invalidate all reg info of INSN.  Update common info about the\n   invalidated registers.  */\nvoid\nlra_invalidate_insn_regno_info (rtx_insn *insn)\n{\n  invalidate_insn_data_regno_info (lra_get_insn_recog_data (insn), insn,\n\t\t\t\t   get_insn_freq (insn));\n}\n\n/* Update common reg info from reg info of insn given by its DATA and\n   execution frequency FREQ.  */\nstatic void\nsetup_insn_reg_info (lra_insn_recog_data_t data, int freq)\n{\n  unsigned int i;\n  struct lra_insn_reg *ir;\n\n  for (ir = data->regs; ir != NULL; ir = ir->next)\n    if ((i = ir->regno) >= FIRST_PSEUDO_REGISTER)\n      {\n\tlra_reg_info[i].nrefs++;\n\tlra_reg_info[i].freq += freq;\n      }\n}",
+      "identity": {
+        "bytes": 1657,
+        "sha256": "1313c141e203eb65f48833adf9998e2de398f0f44691361ef4e1878f398fa1ab"
+      },
+      "operative_fragments": [
+        "REG_FREQ_FROM_BB",
+        "nrefs--",
+        "freq -= freq",
+        "nrefs++",
+        "freq += freq"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "rebuild ordering",
+      "first_LF_line": 1654,
+      "last_LF_line": 1695,
+      "text": "/* Set up insn reg info of INSN.  Update common reg info from reg info\n   of INSN.  */\nvoid\nlra_update_insn_regno_info (rtx_insn *insn)\n{\n  int i, freq;\n  lra_insn_recog_data_t data;\n  struct lra_static_insn_data *static_data;\n  enum rtx_code code;\n  rtx link;\n\n  if (! INSN_P (insn))\n    return;\n  data = lra_get_insn_recog_data (insn);\n  static_data = data->insn_static_data;\n  freq = NONDEBUG_INSN_P (insn) ? get_insn_freq (insn) : 0;\n  invalidate_insn_data_regno_info (data, insn, freq);\n  for (i = static_data->n_operands - 1; i >= 0; i--)\n    add_regs_to_insn_regno_info (data, *data->operand_loc[i], insn,\n\t\t\t\t static_data->operand[i].type,\n\t\t\t\t static_data->operand[i].early_clobber_alts);\n  if ((code = GET_CODE (PATTERN (insn))) == CLOBBER || code == USE)\n    add_regs_to_insn_regno_info (data, XEXP (PATTERN (insn), 0), insn,\n\t\t\t\t code == USE ? OP_IN : OP_OUT, 0);\n  if (CALL_P (insn))\n    /* On some targets call insns can refer to pseudos in memory in\n       CALL_INSN_FUNCTION_USAGE list.  Process them in order to\n       consider their occurrences in calls for different\n       transformations (e.g. inheritance) with given pseudos.  */\n    for (link = CALL_INSN_FUNCTION_USAGE (insn);\n\t link != NULL_RTX;\n\t link = XEXP (link, 1))\n      {\n\tcode = GET_CODE (XEXP (link, 0));\n\tif ((code == USE || code == CLOBBER)\n\t    && MEM_P (XEXP (XEXP (link, 0), 0)))\n\t  add_regs_to_insn_regno_info (data, XEXP (XEXP (link, 0), 0), insn,\n\t\t\t\t       code == USE ? OP_IN : OP_OUT, 0);\n      }\n  if (NONDEBUG_INSN_P (insn))\n    setup_insn_reg_info (data, freq);\n}",
+      "identity": {
+        "bytes": 1561,
+        "sha256": "cb2575472a202dd5f6feff3b769c287507bd4b600de2305a004479acb3e8854f"
+      },
+      "operative_fragments": [
+        "invalidate_insn_data_regno_info",
+        "MEM_P (XEXP (XEXP (link, 0), 0))",
+        "setup_insn_reg_info (data, freq)"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "initial and forced pushes",
+      "first_LF_line": 1816,
+      "last_LF_line": 1850,
+      "text": "/* Put INSN on the stack.  If ALWAYS_UPDATE is true, always update the reg\n   info for INSN, otherwise only update it if INSN is not already on the\n   stack.  */\nstatic inline void\nlra_push_insn_1 (rtx_insn *insn, bool always_update)\n{\n  unsigned int uid = INSN_UID (insn);\n  if (always_update)\n    lra_update_insn_regno_info (insn);\n  if (uid >= SBITMAP_SIZE (lra_constraint_insn_stack_bitmap))\n    lra_constraint_insn_stack_bitmap =\n      sbitmap_resize (lra_constraint_insn_stack_bitmap, 3 * uid / 2, 0);\n  if (bitmap_bit_p (lra_constraint_insn_stack_bitmap, uid))\n    return;\n  bitmap_set_bit (lra_constraint_insn_stack_bitmap, uid);\n  if (! always_update)\n    lra_update_insn_regno_info (insn);\n  lra_constraint_insn_stack.safe_push (insn);\n}\n\n/* Put INSN on the stack.  */\nvoid\nlra_push_insn (rtx_insn *insn)\n{\n  lra_push_insn_1 (insn, false);\n}\n\n/* Put INSN on the stack and update its reg info.  */\nvoid\nlra_push_insn_and_update_insn_regno_info (rtx_insn *insn)\n{\n  lra_push_insn_1 (insn, true);\n}\n\n/* Put insn with UID on the stack.  */",
+      "identity": {
+        "bytes": 1045,
+        "sha256": "6f17b9582990ec597ba6e9abaf86ad6b4edae3975ade38fe002ab011fd40e288"
+      },
+      "operative_fragments": [
+        "if (always_update)",
+        "if (! always_update)",
+        "lra_push_insn_1 (insn, true)"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "recognition init before constraints",
+      "first_LF_line": 2438,
+      "last_LF_line": 2462,
+      "text": "  init_reg_info ();\n  expand_reg_info ();\n\n  init_insn_recog_data ();\n\n  /* Some quick check on RTL generated by previous passes.  */\n  if (flag_checking)\n    check_rtl (false);\n\n  lra_in_progress = true;\n\n  lra_live_range_iter = lra_coalesce_iter = lra_constraint_iter = 0;\n  lra_assignment_iter = lra_assignment_iter_after_spill = 0;\n  lra_inheritance_iter = lra_undo_inheritance_iter = 0;\n  lra_rematerialization_iter = 0;\n\n  setup_reg_spill_flag ();\n\n  /* Function remove_scratches can creates new pseudos for clobbers --\n     so set up lra_constraint_new_regno_start before its call to\n     permit changing reg classes for pseudos created by this\n     simplification.  */\n  lra_constraint_new_regno_start = lra_new_regno_start = max_reg_num ();\n  lra_bad_spill_regno_start = INT_MAX;\n  remove_scratches ();",
+      "identity": {
+        "bytes": 811,
+        "sha256": "1c9a5a081d2b08a28b455b62785fad6e0c25cc7e9918103ff4e73724d5b9bf44"
+      },
+      "operative_fragments": [
+        "init_insn_recog_data",
+        "lra_constraint_new_regno_start",
+        "remove_scratches"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "initial stack scan",
+      "first_LF_line": 2480,
+      "last_LF_line": 2486,
+      "text": "  lra_constraint_insn_stack.create (get_max_uid ());\n  lra_constraint_insn_stack_bitmap = sbitmap_alloc (get_max_uid ());\n  bitmap_clear (lra_constraint_insn_stack_bitmap);\n  lra_live_ranges_init ();\n  lra_constraints_init ();\n  lra_curr_reload_num = 0;\n  push_insns (get_last_insn (), NULL);",
+      "identity": {
+        "bytes": 292,
+        "sha256": "4c043c9a413ee056ffdc00a742ab44ad68d10f6eb8f403c5771e690b634b54b7"
+      },
+      "operative_fragments": [
+        "get_max_uid",
+        "push_insns"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "excluded spill and included final phase",
+      "first_LF_line": 2618,
+      "last_LF_line": 2665,
+      "text": "      /* We should check necessity for spilling here as the above live\n\t range pass can remove spilled pseudos.  */\n      if (! lra_need_for_spills_p ())\n\tbreak;\n      /* Now we know what pseudos should be spilled.  Try to\n\t rematerialize them first.  */\n      if (lra_remat ())\n\t{\n\t  /* We need full live info -- see the comment above.  We also might\n\t     need live info if we have a pseudo assigned to hard frame pointer\n\t     reg and will need FP for usual purposes.  */\n\t  lra_create_live_ranges (lra_reg_spill_p || lra_fp_pseudo_p (),\n\t\t\t\t  true);\n\t  live_p = true;\n\t  if (! lra_need_for_spills_p ())\n\t    {\n\t      if (lra_need_for_scratch_reg_p ())\n\t\tcontinue;\n\t      break;\n\t    }\n\t}\n      lra_spill ();\n      /* Assignment of stack slots changes elimination offsets for\n\t some eliminations.  So update the offsets here.  */\n      lra_eliminate (false, false);\n      lra_constraint_new_regno_start = max_reg_num ();\n      if (lra_bad_spill_regno_start == INT_MAX\n\t  && lra_inheritance_iter > LRA_MAX_INHERITANCE_PASSES\n\t  && lra_rematerialization_iter > LRA_MAX_REMATERIALIZATION_PASSES)\n\t/* After switching off inheritance and rematerialization\n\t   passes, avoid spilling reload pseudos will be created to\n\t   prevent LRA cycling in some complicated cases.  */\n\tlra_bad_spill_regno_start = lra_constraint_new_regno_start;\n      lra_assignment_iter_after_spill = 0;\n    }\n  ira_restore_scratches (lra_dump_file);\n  lra_eliminate (true, false);\n  lra_final_code_change ();\n  lra_in_progress = false;\n  if (live_p)\n    lra_clear_live_ranges ();\n  lra_live_ranges_finish ();\n  lra_constraints_finish ();\n  finish_reg_info ();\n  sbitmap_free (lra_constraint_insn_stack_bitmap);\n  lra_constraint_insn_stack.release ();\n  finish_insn_recog_data ();\n  lra_finish_equiv ();",
+      "identity": {
+        "bytes": 1773,
+        "sha256": "50978e360cea53ab99677c4a987dbd60b161233d499ff4dc4e884b328e1a49f4"
+      },
+      "operative_fragments": [
+        "if (! lra_need_for_spills_p ())",
+        "lra_spill ();",
+        "lra_final_code_change ();",
+        "finish_reg_info ();",
+        "finish_insn_recog_data ();"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "static work-level lifecycle",
+      "first_LF_line": 2694,
+      "last_LF_line": 2709,
+      "text": "}\n\n/* Called once per compiler to initialize LRA data once.  */\nvoid\nlra_init_once (void)\n{\n  init_insn_code_data_once ();\n}\n\n/* Called once per compiler to finish LRA data which are initialize\n   once.  */\nvoid\nlra_finish_once (void)\n{\n  finish_insn_code_data_once ();\n}",
+      "identity": {
+        "bytes": 271,
+        "sha256": "d0dd9cb4926ebf661e170ce265003fd1f138e391fe0f6ab07cbc050ac51a81ee"
+      },
+      "operative_fragments": [
+        "init_insn_code_data_once",
+        "finish_insn_code_data_once"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-int.h",
+      "name": "record fields and sentinels",
+      "first_LF_line": 172,
+      "last_LF_line": 238,
+      "text": "struct lra_static_insn_data\n{\n  /* Static info about each insn operand.  */\n  struct lra_operand_data *operand;\n  /* Each duplication refers to the number of the corresponding\n     operand which is duplicated.  */\n  int *dup_num;\n  /* The number of an operand marked as commutative, -1 otherwise.  */\n  int commutative;\n  /* Number of operands, duplications, and alternatives of the\n     insn.  */\n  char n_operands;\n  char n_dups;\n  char n_alternatives;\n  /* Insns in machine description (or clobbers in asm) may contain\n     explicit hard regs which are not operands.\t The following list\n     describes such hard registers.  */\n  struct lra_insn_reg *hard_regs;\n  /* Array [n_alternatives][n_operand] of static constraint info for\n     given operand in given alternative.  This info can be changed if\n     the target reg info is changed.  */\n  const struct operand_alternative *operand_alternative;\n};\n\n/* Negative insn alternative numbers used for special cases.  */\n#define LRA_UNKNOWN_ALT -1\n#define LRA_NON_CLOBBERED_ALT -2\n\n/* LRA internal info about an insn (LRA internal insn\n   representation).  */\nclass lra_insn_recog_data\n{\npublic:\n  /* The insn code.  */\n  int icode;\n  /* The alternative should be used for the insn, LRA_UNKNOWN_ALT if\n     unknown, or we should assume any alternative, or the insn is a\n     debug insn.  LRA_NON_CLOBBERED_ALT means ignoring any earlier\n     clobbers for the insn.  */\n  int used_insn_alternative;\n  /* Defined for asm insn and it is how many times we already generated reloads\n     for the asm insn.  */\n  int asm_reloads_num;\n  /* SP offset before the insn relative to one at the func start.  */\n  poly_int64 sp_offset;\n  /* The insn itself.  */\n  rtx_insn *insn;\n  /* Common data for insns with the same ICODE.  Asm insns (their\n     ICODE is negative) do not share such structures.  */\n  struct lra_static_insn_data *insn_static_data;\n  /* Two arrays of size correspondingly equal to the operand and the\n     duplication numbers: */\n  rtx **operand_loc; /* The operand locations, NULL if no operands.  */\n  rtx **dup_loc; /* The dup locations, NULL if no dups.\t */\n  /* Number of hard registers implicitly used/clobbered in given call\n     insn.  The value can be NULL or points to array of the hard\n     register numbers ending with a negative value.  To differ\n     clobbered and used hard regs, clobbered hard regs are incremented\n     by FIRST_PSEUDO_REGISTER.  */\n  int *arg_hard_regs;\n  /* Cached value of get_preferred_alternatives.  */\n  alternative_mask preferred_alternatives;\n  /* The following member value is always NULL for a debug insn.  */\n  struct lra_insn_reg *regs;\n};\n\ntypedef class lra_insn_recog_data *lra_insn_recog_data_t;",
+      "identity": {
+        "bytes": 2699,
+        "sha256": "17b50e8a599511fabe0883ab15027750399fc38445f589349ae5f962bcb65b5e"
+      },
+      "operative_fragments": [
+        "char n_operands",
+        "char n_alternatives",
+        "LRA_UNKNOWN_ALT -1",
+        "LRA_NON_CLOBBERED_ALT -2",
+        "int asm_reloads_num"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-int.h",
+      "name": "sole get miss setter",
+      "first_LF_line": 507,
+      "last_LF_line": 525,
+      "text": "/* Return info about INSN.  Set up the info if it is not done yet.  */\ninline lra_insn_recog_data_t\nlra_get_insn_recog_data (rtx_insn *insn)\n{\n  lra_insn_recog_data_t data;\n  unsigned int uid = INSN_UID (insn);\n\n  if (lra_insn_recog_data_len > (int) uid\n      && (data = lra_insn_recog_data[uid]) != NULL)\n    {\n      /* Check that we did not change insn without updating the insn\n\t info.\t*/\n      lra_assert (data->insn == insn\n\t\t  && (INSN_CODE (insn) < 0\n\t\t      || data->icode == INSN_CODE (insn)));\n      return data;\n    }\n  return lra_set_insn_recog_data (insn);\n}",
+      "identity": {
+        "bytes": 571,
+        "sha256": "8dbecc0702b2e4bafa38c0d032afcb78896da61a7bd6b176511d24a1d94d4d22"
+      },
+      "operative_fragments": [
+        "lra_insn_recog_data_len > (int) uid",
+        "return lra_set_insn_recog_data (insn)"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "name": "alternative table memoization",
+      "first_LF_line": 3052,
+      "last_LF_line": 3080,
+      "text": "   instruction ICODE.  */\n\nconst operand_alternative *\npreprocess_insn_constraints (unsigned int icode)\n{\n  gcc_checking_assert (IN_RANGE (icode, 0, NUM_INSN_CODES - 1));\n  if (this_target_recog->x_op_alt[icode])\n    return this_target_recog->x_op_alt[icode];\n\n  int n_operands = insn_data[icode].n_operands;\n  if (n_operands == 0)\n    return 0;\n  /* Always provide at least one alternative so that which_op_alt ()\n     works correctly.  If the instruction has 0 alternatives (i.e. all\n     constraint strings are empty) then each operand in this alternative\n     will have anything_ok set.  */\n  int n_alternatives = MAX (insn_data[icode].n_alternatives, 1);\n  int n_entries = n_operands * n_alternatives;\n\n  operand_alternative *op_alt = XCNEWVEC (operand_alternative, n_entries);\n  const char **constraints = XALLOCAVEC (const char *, n_operands);\n\n  for (int i = 0; i < n_operands; ++i)\n    constraints[i] = insn_data[icode].operand[i].constraint;\n  preprocess_constraints (n_operands, n_alternatives, constraints, op_alt,\n\t\t\t  NULL);\n\n  this_target_recog->x_op_alt[icode] = op_alt;\n  return op_alt;",
+      "identity": {
+        "bytes": 1103,
+        "sha256": "629b302f87f198518c8b894a1ea990174536b253f739d862aede46fbbe968069"
+      },
+      "operative_fragments": [
+        "n_operands == 0",
+        "n_operands * n_alternatives",
+        "XALLOCAVEC",
+        "x_op_alt[icode] = op_alt"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "name": "target cache reset",
+      "first_LF_line": 4748,
+      "last_LF_line": 4765,
+      "text": "void\nrecog_init ()\n{\n  /* The information is zero-initialized, so we don't need to do anything\n     first time round.  */\n  if (!this_target_recog->x_initialized)\n    {\n      this_target_recog->x_initialized = true;\n      return;\n    }\n  memset (this_target_recog->x_bool_attr_masks, 0,\n\t  sizeof (this_target_recog->x_bool_attr_masks));\n  for (unsigned int i = 0; i < NUM_INSN_CODES; ++i)\n    if (this_target_recog->x_op_alt[i])\n      {\n\tfree (this_target_recog->x_op_alt[i]);\n\tthis_target_recog->x_op_alt[i] = 0;\n      }",
+      "identity": {
+        "bytes": 522,
+        "sha256": "33d82642c0856220a8f96dccad2eb8b349d73c7bbd3d74a2f705fd6d09541af2"
+      },
+      "operative_fragments": [
+        "free (this_target_recog->x_op_alt[i])",
+        "x_op_alt[i] = 0"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.h",
+      "name": "mask width",
+      "first_LF_line": 24,
+      "last_LF_line": 36,
+      "text": "#include \"tree.h\"\n\n/* Random number that should be large enough for all purposes.  Also define\n   a type that has at least MAX_RECOG_ALTERNATIVES + 1 bits, with the extra\n   bit giving an invalid value that can be used to mean \"uninitialized\".  */\n#define MAX_RECOG_ALTERNATIVES 35\ntypedef uint64_t alternative_mask;  /* Keep in sync with genattrtab.cc.  */\n\n/* A mask of all alternatives.  */\n#define ALL_ALTERNATIVES ((alternative_mask) -1)\n\n/* A mask containing just alternative X.  */\n#define ALTERNATIVE_BIT(X) ((alternative_mask) 1 << (X))",
+      "identity": {
+        "bytes": 545,
+        "sha256": "29e726a0af5a12e0290a95672a78326aaac5ab62a4681538ce15b37e8b305a8d"
+      },
+      "operative_fragments": [
+        "MAX_RECOG_ALTERNATIVES 35",
+        "uint64_t alternative_mask"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/regs.h",
+      "name": "frequency macro",
+      "first_LF_line": 125,
+      "last_LF_line": 138,
+      "text": "#define REG_FREQ_MAX 1000\n\n/* Compute register frequency from the BB frequency.  When optimizing for size,\n   or profile driven feedback is available and the function is never executed,\n   frequency is always equivalent.  Otherwise rescale the basic block\n   frequency.  */\n#define REG_FREQ_FROM_BB(bb) ((optimize_function_for_size_p (cfun)\t      \\\n\t\t\t       || !cfun->cfg->count_max.initialized_p ())     \\\n\t\t\t      ? REG_FREQ_MAX\t\t\t\t      \\\n\t\t\t      : ((bb)->count.to_frequency (cfun)\t      \\\n\t\t\t\t* REG_FREQ_MAX / BB_FREQ_MAX)\t\t      \\\n\t\t\t      ? ((bb)->count.to_frequency (cfun)\t      \\\n\t\t\t\t * REG_FREQ_MAX / BB_FREQ_MAX)\t\t      \\\n\t\t\t      : 1)",
+      "identity": {
+        "bytes": 647,
+        "sha256": "d83b863c1d4c0ad24462e2f31a43d27678fa5bb950e17754019067a488dfb589"
+      },
+      "operative_fragments": [
+        "REG_FREQ_MAX 1000",
+        "REG_FREQ_FROM_BB"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/profile-count.cc",
+      "name": "profile frequency source",
+      "first_LF_line": 296,
+      "last_LF_line": 307,
+      "text": "profile_count::to_frequency (struct function *fun) const\n{\n  if (!initialized_p ())\n    return BB_FREQ_MAX;\n  if (*this == zero ())\n    return 0;\n  STATIC_ASSERT (REG_BR_PROB_BASE == BB_FREQ_MAX);\n  gcc_assert (fun->cfg->count_max.initialized_p ());\n  profile_probability prob = probability_in (fun->cfg->count_max);\n  if (!prob.initialized_p ())\n    return REG_BR_PROB_BASE;\n  return prob.to_reg_br_prob_base ();",
+      "identity": {
+        "bytes": 413,
+        "sha256": "f2b16394b5c0254eac52302fd2e5dbc8e67311f89029f368caa5180d0e8f223c"
+      },
+      "operative_fragments": [
+        "BB_FREQ_MAX",
+        "prob.to_reg_br_prob_base"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "name": "nonchecking pool layout",
+      "first_LF_line": 153,
+      "last_LF_line": 180,
+      "text": "private:\n  struct allocation_pool_list\n  {\n    allocation_pool_list *next;\n  };\n\n  /* Initialize a pool allocator.  */\n  void initialize ();\n\n  struct allocation_object\n  {\n#if CHECKING_P\n    /* The ID of alloc pool which the object was allocated from.  */\n    ALLOC_POOL_ID_TYPE id;\n#endif\n\n    union\n      {\n\t/* The data of the object.  */\n\tchar data[1];\n\n\t/* Because we want any type of data to be well aligned after the ID,\n\t   the following elements are here.  They are never accessed so\n\t   the allocated object may be even smaller than this structure.\n\t   We do not care about alignment for floating-point types.  */\n\tchar *align_p;\n\tint64_t align_i;\n      } u;",
+      "identity": {
+        "bytes": 668,
+        "sha256": "000abf247641ceb886948f68fa8e2c779421969847074202902d69e041f99a98"
+      },
+      "operative_fragments": [
+        "#if CHECKING_P",
+        "ALLOC_POOL_ID_TYPE id"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "name": "pool counter types",
+      "first_LF_line": 208,
+      "last_LF_line": 226,
+      "text": "  size_t m_elts_per_block;\n\n  /* These are the elements that have been allocated at least once\n     and freed.  */\n  allocation_pool_list *m_returned_free_list;\n\n  /* These are the elements that have not yet been allocated out of\n     the last block obtained from XNEWVEC.  */\n  char* m_virgin_free_list;\n\n  /* The number of elements in the virgin_free_list that can be\n     allocated before needing another block.  */\n  size_t m_virgin_elts_remaining;\n  /* The number of elements that are allocated.  */\n  size_t m_elts_allocated;\n  /* The number of elements that are released.  */\n  size_t m_elts_free;\n  /* The number of allocated blocks.  */\n  size_t m_blocks_allocated;",
+      "identity": {
+        "bytes": 674,
+        "sha256": "2a62bed35af0b5380673d2c31764ea04e7a88d761a86658d3bdb3048be5a1063"
+      },
+      "operative_fragments": [
+        "size_t m_elts_allocated",
+        "size_t m_elts_free",
+        "size_t m_blocks_allocated"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "name": "pool initialization and layout",
+      "first_LF_line": 239,
+      "last_LF_line": 297,
+      "text": "template <typename TBlockAllocator>\ninline\nbase_pool_allocator <TBlockAllocator>::base_pool_allocator (\n\t\t\t\tconst char *name, size_t size MEM_STAT_DECL):\n  m_name (name), m_id (0), m_elts_per_block (0), m_returned_free_list (NULL),\n  m_virgin_free_list (NULL), m_virgin_elts_remaining (0), m_elts_allocated (0),\n  m_elts_free (0), m_blocks_allocated (0), m_block_list (NULL), m_elt_size (0),\n  m_size (size), m_initialized (false),\n  m_location (ALLOC_POOL_ORIGIN, false PASS_MEM_STAT) {}\n\n/* Initialize a pool allocator.  */\n\ntemplate <typename TBlockAllocator>\ninline void\nbase_pool_allocator <TBlockAllocator>::initialize ()\n{\n  gcc_checking_assert (!m_initialized);\n  m_initialized = true;\n\n  size_t size = m_size;\n\n  gcc_checking_assert (m_name);\n  gcc_checking_assert (m_size);\n\n  /* Make size large enough to store the list header.  */\n  if (size < sizeof (allocation_pool_list*))\n    size = sizeof (allocation_pool_list*);\n\n  /* Now align the size to a multiple of 8.  */\n  size = align_eight (size);\n\n  /* Add the aligned size of ID.  */\n  size += offsetof (allocation_object, u.data);\n\n  m_elt_size = size;\n\n  if (GATHER_STATISTICS)\n    {\n      pool_usage *u = pool_allocator_usage.register_descriptor\n\t(this, new mem_location (m_location));\n\n      u->m_element_size = m_elt_size;\n      u->m_pool_name = m_name;\n    }\n\n  /* List header size should be a multiple of 8.  */\n  size_t header_size = align_eight (sizeof (allocation_pool_list));\n\n  m_elts_per_block = (TBlockAllocator::block_size - header_size) / size;\n  gcc_checking_assert (m_elts_per_block != 0);\n\n  /* Increase the last used ID and use it for this pool.\n     ID == 0 is used for free elements of pool so skip it.  */\n  last_id++;\n  if (last_id == 0)\n    last_id++;\n\n  m_id = last_id;\n}",
+      "identity": {
+        "bytes": 1760,
+        "sha256": "e3623cbbced1bd6d5d24eac0e02e86e21c3309e24266496060467d109302a1e6"
+      },
+      "operative_fragments": [
+        "m_elts_allocated (0)",
+        "m_elts_per_block =",
+        "last_id++"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "name": "pool release zeros",
+      "first_LF_line": 302,
+      "last_LF_line": 327,
+      "text": "base_pool_allocator <TBlockAllocator>::release ()\n{\n  if (!m_initialized)\n    return;\n\n  allocation_pool_list *block, *next_block;\n\n  /* Free each block allocated to the pool.  */\n  for (block = m_block_list; block != NULL; block = next_block)\n    {\n      next_block = block->next;\n      TBlockAllocator::release (block);\n    }\n\n  if (GATHER_STATISTICS && !after_memory_report)\n    {\n      pool_allocator_usage.release_instance_overhead\n\t(this, (m_elts_allocated - m_elts_free) * m_elt_size);\n    }\n\n  m_returned_free_list = NULL;\n  m_virgin_free_list = NULL;\n  m_virgin_elts_remaining = 0;\n  m_elts_allocated = 0;\n  m_elts_free = 0;\n  m_blocks_allocated = 0;",
+      "identity": {
+        "bytes": 659,
+        "sha256": "70454305e873380f51c80586721327da211c263713b1c994dc967d5e51f31afc"
+      },
+      "operative_fragments": [
+        "m_elts_allocated = 0",
+        "m_elts_free = 0",
+        "m_blocks_allocated = 0"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "name": "returned-before-virgin allocation",
+      "first_LF_line": 348,
+      "last_LF_line": 426,
+      "text": "base_pool_allocator <TBlockAllocator>::allocate ()\n{\n  if (!m_initialized)\n    initialize ();\n\n  allocation_pool_list *header;\n#ifdef ENABLE_VALGRIND_ANNOTATIONS\n  int size;\n#endif\n\n  if (GATHER_STATISTICS)\n    {\n      pool_allocator_usage.register_instance_overhead (m_elt_size, this);\n    }\n\n#ifdef ENABLE_VALGRIND_ANNOTATIONS\n  size = m_elt_size - offsetof (allocation_object, u.data);\n#endif\n\n  /* If there are no more free elements, make some more!.  */\n  if (!m_returned_free_list)\n    {\n      char *block;\n      if (!m_virgin_elts_remaining)\n\t{\n\t  allocation_pool_list *block_header;\n\n\t  /* Make the block.  */\n\t  block = reinterpret_cast<char *> (TBlockAllocator::allocate ());\n\t  block_header = new (block) allocation_pool_list;\n\t  block += align_eight (sizeof (allocation_pool_list));\n\n\t  /* Throw it on the block list.  */\n\t  block_header->next = m_block_list;\n\t  m_block_list = block_header;\n\n\t  /* Make the block available for allocation.  */\n\t  m_virgin_free_list = block;\n\t  m_virgin_elts_remaining = m_elts_per_block;\n\n\t  /* Also update the number of elements we have free/allocated, and\n\t     increment the allocated block count.  */\n\t  m_elts_allocated += m_elts_per_block;\n\t  m_elts_free += m_elts_per_block;\n\t  m_blocks_allocated += 1;\n\t}\n\n      /* We now know that we can take the first elt off the virgin list and\n\t put it on the returned list.  */\n      block = m_virgin_free_list;\n      header = (allocation_pool_list*) allocation_object::get_data (block);\n      header->next = NULL;\n\n      /* Mark the element to be free.  */\n#if CHECKING_P\n      ((allocation_object*) block)->id = 0;\n#endif\n      VALGRIND_DISCARD (VALGRIND_MAKE_MEM_NOACCESS (header,size));\n      m_returned_free_list = header;\n      m_virgin_free_list += m_elt_size;\n      m_virgin_elts_remaining--;\n\n    }\n\n  /* Pull the first free element from the free list, and return it.  */\n  header = m_returned_free_list;\n  VALGRIND_DISCARD (VALGRIND_MAKE_MEM_DEFINED (header, sizeof (*header)));\n  m_returned_free_list = header->next;\n  m_elts_free--;\n\n  /* Set the ID for element.  */\n#if CHECKING_P\n  allocation_object::get_instance (header)->id = m_id;\n#endif\n  VALGRIND_DISCARD (VALGRIND_MAKE_MEM_UNDEFINED (header, size));\n\n  return (void *)(header);\n}\n",
+      "identity": {
+        "bytes": 2244,
+        "sha256": "ff7b3d63873bd37314529dccf315c13867af05eb4c14b2a5f75ba9d0e583b730"
+      },
+      "operative_fragments": [
+        "if (!m_returned_free_list)",
+        "if (!m_virgin_elts_remaining)",
+        "m_elts_allocated += m_elts_per_block",
+        "m_elts_free--"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "name": "pool return",
+      "first_LF_line": 430,
+      "last_LF_line": 461,
+      "text": "base_pool_allocator <TBlockAllocator>::remove (void *object)\n{\n  int size = m_elt_size - offsetof (allocation_object, u.data);\n\n  if (flag_checking)\n    {\n      gcc_assert (m_initialized);\n      gcc_assert (object\n\t\t  /* Check if we free more than we allocated.  */\n\t\t  && m_elts_free < m_elts_allocated);\n#if CHECKING_P\n      /* Check whether the PTR was allocated from POOL.  */\n      gcc_assert (m_id == allocation_object::get_instance (object)->id);\n#endif\n\n      memset (object, 0xaf, size);\n    }\n\n#if CHECKING_P\n  /* Mark the element to be free.  */\n  allocation_object::get_instance (object)->id = 0;\n#endif\n\n  allocation_pool_list *header = new (object) allocation_pool_list;\n  header->next = m_returned_free_list;\n  m_returned_free_list = header;\n  VALGRIND_DISCARD (VALGRIND_MAKE_MEM_NOACCESS (object, size));\n  m_elts_free++;\n\n  if (GATHER_STATISTICS)\n    {\n      pool_allocator_usage.release_instance_overhead (this, m_elt_size);",
+      "identity": {
+        "bytes": 942,
+        "sha256": "7e3a75e7e81f2e4f2a76d58c50d6577d8a6781f3e6b619e40b21fa9ea7f9da2b"
+      },
+      "operative_fragments": [
+        "m_elts_free < m_elts_allocated",
+        "m_returned_free_list = header",
+        "m_elts_free++"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-eliminations.cc",
+      "name": "internal elimination code update",
+      "first_LF_line": 1013,
+      "last_LF_line": 1044,
+      "text": "\t  if (known_eq (offset, 0) || plus_src)\n\t    {\n\t      rtx new_src = plus_constant (GET_MODE (to_rtx), to_rtx, offset);\n\n\t      old_set = single_set (insn);\n\n\t      /* First see if this insn remains valid when we make the\n\t\t change.  If not, try to replace the whole pattern\n\t\t with a simple set (this may help if the original insn\n\t\t was a PARALLEL that was only recognized as single_set\n\t\t due to REG_UNUSED notes).  If this isn't valid\n\t\t either, keep the INSN_CODE the same and let the\n\t\t constraint pass fix it up.  */\n\t      if (! validate_change (insn, &SET_SRC (old_set), new_src, 0))\n\t\t{\n\t\t  rtx new_pat = gen_rtx_SET (SET_DEST (old_set), new_src);\n\n\t\t  if (! validate_change (insn, &PATTERN (insn), new_pat, 0))\n\t\t    SET_SRC (old_set) = new_src;\n\t\t}\n\t      lra_update_insn_recog_data (insn);\n\t      /* This can't have an effect on elimination offsets, so skip\n\t\t right to the end.  */\n\t      return;\n\t    }\n\t}\n    }\n\n  /* Eliminate all eliminable registers occurring in operands that\n     can be handled by the constraint pass.  */\n  id = lra_get_insn_recog_data (insn);\n  static_id = id->insn_static_data;",
+      "identity": {
+        "bytes": 1117,
+        "sha256": "a0dac3f62df78c0c099e3e118e8630110e0e45ac889faaf59aa4537249bfd77c"
+      },
+      "operative_fragments": [
+        "lra_update_insn_recog_data (insn)",
+        "lra_get_insn_recog_data"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-eliminations.cc",
+      "name": "elimination end update",
+      "first_LF_line": 1120,
+      "last_LF_line": 1126,
+      "text": "  /* If we had a move insn but now we don't, re-recognize it.\n     This will cause spurious re-recognition if the old move had a\n     PARALLEL since the new one still will, but we can't call\n     single_set without having put new body into the insn and the\n     re-recognition won't hurt in this rare case.  */\n  lra_update_insn_recog_data (insn);\n}",
+      "identity": {
+        "bytes": 349,
+        "sha256": "89cb0b3e9da3176727795217ea88b2a18a9bda50cc9052a28de020066dfbc2b5"
+      },
+      "operative_fragments": [
+        "lra_update_insn_recog_data (insn)"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-eliminations.cc",
+      "name": "nonfinal rebuild ordering",
+      "first_LF_line": 1404,
+      "last_LF_line": 1431,
+      "text": "/* Do (final if FINAL_P or first if FIRST_P) elimination in INSN.  Add\n   the insn for subsequent processing in the constraint pass, update\n   the insn info.  */\nstatic void\nprocess_insn_for_elimination (rtx_insn *insn, bool final_p, bool first_p)\n{\n  eliminate_regs_in_insn (insn, final_p, first_p, 0);\n  if (! final_p)\n    {\n      /* Check that insn changed its code.  This is a case when a move\n\t insn becomes an add insn and we do not want to process the\n\t insn as a move anymore.  */\n      int icode = recog (PATTERN (insn), insn, 0);\n\n      if (icode >= 0 && icode != INSN_CODE (insn))\n\t{\n\t  if (INSN_CODE (insn) >= 0)\n\t    /* Insn code is changed.  It may change its operand type\n\t       from IN to INOUT.  Inform the subsequent assignment\n\t       subpass about this situation.  */\n\t    check_and_force_assignment_correctness_p = true;\n\t  INSN_CODE (insn) = icode;\n\t  lra_update_insn_recog_data (insn);\n\t}\n      lra_update_insn_regno_info (insn);\n      lra_push_insn (insn);\n      lra_set_used_insn_alternative (insn, LRA_UNKNOWN_ALT);\n    }",
+      "identity": {
+        "bytes": 1048,
+        "sha256": "ad0aa66f579ff4b7fcc987ab0c7e5074432cc76e45dd3988b23c007b4da14b40"
+      },
+      "operative_fragments": [
+        "if (! final_p)",
+        "lra_update_insn_recog_data",
+        "lra_update_insn_regno_info",
+        "lra_push_insn"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "name": "final renumber and deletion",
+      "first_LF_line": 767,
+      "last_LF_line": 879,
+      "text": "/* Final change of pseudos got hard registers into the corresponding\n   hard registers and removing temporary clobbers.  */\nvoid\nlra_final_code_change (void)\n{\n  int i, hard_regno;\n  basic_block bb;\n  rtx_insn *insn, *curr;\n  rtx set;\n  int max_regno = max_reg_num ();\n\n  for (i = FIRST_PSEUDO_REGISTER; i < max_regno; i++)\n    if (lra_reg_info[i].nrefs != 0\n\t&& (hard_regno = lra_get_regno_hard_regno (i)) >= 0)\n      SET_REGNO (regno_reg_rtx[i], hard_regno);\n  FOR_EACH_BB_FN (bb, cfun)\n    FOR_BB_INSNS_SAFE (bb, insn, curr)\n      if (INSN_P (insn))\n\t{\n\t  rtx pat = PATTERN (insn);\n\n\t  if (GET_CODE (pat) == USE && XEXP (pat, 0) == const1_rtx)\n\t    {\n\t      /* Remove markers to eliminate critical edges for jump insn\n\t\t output reloads (see code in ira.cc::ira).  */\n\t      lra_invalidate_insn_data (insn);\n\t      delete_insn (insn);\n\t      continue;\n\t    }\n\t  if (GET_CODE (pat) == CLOBBER && LRA_TEMP_CLOBBER_P (pat))\n\t    {\n\t      /* Remove clobbers temporarily created in LRA.  We don't\n\t\t need them anymore and don't want to waste compiler\n\t\t time processing them in a few subsequent passes.  */\n\t      lra_invalidate_insn_data (insn);\n\t      delete_insn (insn);\n\t      continue;\n\t    }\n\n\t  /* IRA can generate move insns involving pseudos.  It is\n\t     better remove them earlier to speed up compiler a bit.\n\t     It is also better to do it here as they might not pass\n\t     final RTL check in LRA, (e.g. insn moving a control\n\t     register into itself).  So remove an useless move insn\n\t     unless next insn is USE marking the return reg (we should\n\t     save this as some subsequent optimizations assume that\n\t     such original insns are saved).  */\n\t  if (NONJUMP_INSN_P (insn) && GET_CODE (pat) == SET\n\t      && REG_P (SET_SRC (pat)) && REG_P (SET_DEST (pat))\n\t      && REGNO (SET_SRC (pat)) == REGNO (SET_DEST (pat))\n\t      && REGNO (SET_SRC (pat)) >= FIRST_PSEUDO_REGISTER)\n\t    {\n\t      lra_invalidate_insn_data (insn);\n\t      delete_insn (insn);\n\t      continue;\n\t    }\n\n\t  lra_insn_recog_data_t id = lra_get_insn_recog_data (insn);\n\t  struct lra_insn_reg *reg;\n\n\t  for (reg = id->regs; reg != NULL; reg = reg->next)\n\t    if (reg->regno >= FIRST_PSEUDO_REGISTER\n\t\t&& lra_reg_info [reg->regno].nrefs == 0)\n\t      break;\n\n\t  if (reg != NULL)\n\t    {\n\t      /* Pseudos still can be in debug insns in some very rare\n\t\t and complicated cases, e.g. the pseudo was removed by\n\t\t inheritance and the debug insn is not EBBs where the\n\t\t inheritance happened.  It is difficult and time\n\t\t consuming to find what hard register corresponds the\n\t\t pseudo -- so just remove the debug insn.  Another\n\t\t solution could be assigning hard reg/memory but it\n\t\t would be a misleading info.  It is better not to have\n\t\t info than have it wrong.  */\n\t      lra_assert (DEBUG_INSN_P (insn));\n\t      lra_invalidate_insn_data (insn);\n\t      delete_insn (insn);\n\t      continue;\n\t    }\n\n\t  struct lra_static_insn_data *static_id = id->insn_static_data;\n\t  bool insn_change_p = false;\n\n\t  for (i = id->insn_static_data->n_operands - 1; i >= 0; i--)\n\t    if ((DEBUG_INSN_P (insn) || ! static_id->operand[i].is_operator)\n\t\t&& alter_subregs (id->operand_loc[i], ! DEBUG_INSN_P (insn)))\n\t      {\n\t\tlra_update_dup (id, i);\n\t\tinsn_change_p = true;\n\t      }\n\t  if ((GET_CODE (pat) == USE || GET_CODE (pat) == CLOBBER)\n\t      && alter_subregs (&XEXP (pat, 0), false))\n\t    insn_change_p = true;\n\t  if (insn_change_p)\n\t    lra_update_operator_dups (id);\n\n\t  if ((set = single_set (insn)) != NULL\n\t      && REG_P (SET_SRC (set)) && REG_P (SET_DEST (set))\n\t      && REGNO (SET_SRC (set)) == REGNO (SET_DEST (set)))\n\t    {\n\t      /* Remove an useless move insn.  IRA can generate move\n\t\t insns involving pseudos.  It is better remove them\n\t\t earlier to speed up compiler a bit.  It is also\n\t\t better to do it here as they might not pass final RTL\n\t\t check in LRA, (e.g. insn moving a control register\n\t\t into itself).  */\n\t      lra_invalidate_insn_data (insn);\n\t      delete_insn (insn);\n\t    }\n\t}\n}",
+      "identity": {
+        "bytes": 3980,
+        "sha256": "4525d366f46ded81638d3bd9e9fcfb6533bf5c5d102b941127c040bef95d9ebe"
+      },
+      "operative_fragments": [
+        "SET_REGNO",
+        "lra_get_insn_recog_data",
+        "reg->regno",
+        "lra_invalidate_insn_data"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-lives.cc",
+      "name": "live scan deletion and debug substitution",
+      "first_LF_line": 753,
+      "last_LF_line": 775,
+      "text": "\t  if (remove_p && ! volatile_refs_p (PATTERN (curr_insn)))\n\t    {\n\t      dst_regno = REGNO (SET_DEST (set));\n\t      if (lra_dump_file != NULL)\n\t\tfprintf (lra_dump_file, \"   Deleting dead insn %u\\n\",\n\t\t\t INSN_UID (curr_insn));\n\t      lra_set_insn_deleted (curr_insn);\n\t      if (lra_reg_info[dst_regno].nrefs == 0)\n\t\t{\n\t\t  /* There might be some debug insns with the pseudo.  */\n\t\t  unsigned int uid;\n\t\t  rtx_insn *insn;\n\n\t\t  bitmap_copy (&temp_bitmap, &lra_reg_info[dst_regno].insn_bitmap);\n\t\t  EXECUTE_IF_SET_IN_BITMAP (&temp_bitmap, 0, uid, bi)\n\t\t    {\n\t\t      insn = lra_insn_recog_data[uid]->insn;\n\t\t      lra_substitute_pseudo_within_insn (insn, dst_regno,\n\t\t\t\t\t\t\t SET_SRC (set), true);\n\t\t      lra_update_insn_regno_info (insn);\n\t\t    }\n\t\t}\n\t      continue;",
+      "identity": {
+        "bytes": 764,
+        "sha256": "5adb0b44e84ef3f8fdb1d029b21d72b422da6c41eebcf80c2ccde7cf08b337e3"
+      },
+      "operative_fragments": [
+        "lra_set_insn_deleted",
+        "debug insns",
+        "lra_update_insn_regno_info"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "secondary reload deletion",
+      "first_LF_line": 1495,
+      "last_LF_line": 1529,
+      "text": "    return false;\n  *change_p = true;\n  new_reg = NULL_RTX;\n  if (secondary_class != NO_REGS)\n    new_reg = lra_create_new_reg_with_unique_value (GET_MODE (src), NULL_RTX,\n\t\t\t\t\t\t    secondary_class, NULL,\n\t\t\t\t\t\t    \"secondary\");\n  start_sequence ();\n  if (sri.icode == CODE_FOR_nothing)\n    lra_emit_move (new_reg, src);\n  else\n    {\n      enum reg_class scratch_class;\n\n      scratch_class = (reg_class_from_constraints\n\t\t       (insn_data[sri.icode].operand[2].constraint));\n      scratch_reg = (lra_create_new_reg_with_unique_value\n\t\t     (insn_data[sri.icode].operand[2].mode, NULL_RTX,\n\t\t      scratch_class, NULL, \"scratch\"));\n      emit_insn (GEN_FCN (sri.icode) (new_reg != NULL_RTX ? new_reg : dest,\n\t\t\t\t      src, scratch_reg));\n    }\n  before = end_sequence ();\n  lra_process_new_insns (curr_insn, before, NULL, \"Inserting the move\");\n  if (new_reg != NULL_RTX)\n    SET_SRC (curr_insn_set) = new_reg;\n  else\n    {\n      if (lra_dump_file != NULL)\n\t{\n\t  fprintf (lra_dump_file, \"Deleting move %u\\n\", INSN_UID (curr_insn));\n\t  dump_insn_slim (lra_dump_file, curr_insn);\n\t}\n      lra_set_insn_deleted (curr_insn);\n      return true;",
+      "identity": {
+        "bytes": 1140,
+        "sha256": "c0385c8e14d1a26847aa4b857833e097b26327e4ceb8813f82a9bf8cc7220e65"
+      },
+      "operative_fragments": [
+        "secondary_class",
+        "lra_process_new_insns",
+        "lra_set_insn_deleted"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "asm failure route",
+      "first_LF_line": 4519,
+      "last_LF_line": 4539,
+      "text": "  if (! alt_p && ! sec_mem_p)\n    {\n      /* No alternative works with reloads??  */\n      if (INSN_CODE (curr_insn) >= 0)\n\tfatal_insn (\"unable to generate reloads for:\", curr_insn);\n      error_for_asm (curr_insn,\n\t\t     \"inconsistent operand constraints in an %<asm%>\");\n      lra_asm_error_p = true;\n      if (! JUMP_P (curr_insn))\n\t{\n\t  /* Avoid further trouble with this insn.  Don't generate use\n\t     pattern here as we could use the insn SP offset.  */\n\t  lra_set_insn_deleted (curr_insn);\n\t}\n      else\n\t{\n\t  lra_invalidate_insn_data (curr_insn);\n\t  ira_nullify_asm_goto (curr_insn);\n\t  lra_update_insn_regno_info (curr_insn);\n\t}\n      return true;",
+      "identity": {
+        "bytes": 657,
+        "sha256": "1e76b45a8eaa4b9dc7444ad94526f1929e6b75f228a426d5050b52b2d72d89af"
+      },
+      "operative_fragments": [
+        "error_for_asm",
+        "lra_invalidate_insn_data",
+        "lra_update_insn_regno_info"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "secondary memory reload change",
+      "first_LF_line": 4580,
+      "last_LF_line": 4642,
+      "text": "      for (i = 0; i < n_operands; i++)\n\tif (*curr_id->operand_loc[i] == dest)\n\t  out = i;\n\telse if (*curr_id->operand_loc[i] == src)\n\t  in = i;\n      for (i = 0; i < curr_static_id->n_dups; i++)\n\tif (out < 0 && *curr_id->dup_loc[i] == dest)\n\t  out = curr_static_id->dup_num[i];\n\telse if (in < 0 && *curr_id->dup_loc[i] == src)\n\t  in = curr_static_id->dup_num[i];\n      lra_assert (out >= 0 && in >= 0\n\t\t  && curr_static_id->operand[out].type == OP_OUT\n\t\t  && curr_static_id->operand[in].type == OP_IN);\n      rld = partial_subreg_p (GET_MODE (src), GET_MODE (dest)) ? src : dest;\n      rld_mode = GET_MODE (rld);\n      sec_mode = targetm.secondary_memory_needed_mode (rld_mode);\n      if (rld_mode != sec_mode\n\t  && (invalid_mode_reg_p (sec_mode, dest)\n\t      || invalid_mode_reg_p (sec_mode, src)))\n\tsec_mode = rld_mode;\n      new_reg = lra_create_new_reg (sec_mode, NULL_RTX, NO_REGS, NULL,\n\t\t\t\t    \"secondary\");\n      /* If the mode is changed, it should be wider.  */\n      lra_assert (!partial_subreg_p (sec_mode, rld_mode));\n      if (sec_mode != rld_mode)\n        {\n\t  /* If the target says specifically to use another mode for\n\t     secondary memory moves we cannot reuse the original\n\t     insn.  */\n\t  after = emit_spill_move (false, new_reg, dest);\n\t  lra_process_new_insns (curr_insn, NULL, after,\n\t\t\t\t \"Inserting the sec. move\");\n\t  /* We may have non null BEFORE here (e.g. after address\n\t     processing.  */\n\t  push_to_sequence (before);\n\t  before = emit_spill_move (true, new_reg, src);\n\t  emit_insn (before);\n\t  before = end_sequence ();\n\t  lra_process_new_insns (curr_insn, before, NULL, \"Changing on\");\n\t  lra_set_insn_deleted (curr_insn);\n\t}\n      else if (dest == rld)\n        {\n\t  *curr_id->operand_loc[out] = new_reg;\n\t  lra_update_dup (curr_id, out);\n\t  after = emit_spill_move (false, new_reg, dest);\n\t  lra_process_new_insns (curr_insn, NULL, after,\n\t\t\t\t \"Inserting the sec. move\");\n\t}\n      else\n\t{\n\t  *curr_id->operand_loc[in] = new_reg;\n\t  lra_update_dup (curr_id, in);\n\t  /* See comments above.  */\n\t  push_to_sequence (before);\n\t  before = emit_spill_move (true, new_reg, src);\n\t  emit_insn (before);\n\t  before = end_sequence ();\n\t  lra_process_new_insns (curr_insn, before, NULL,\n\t\t\t\t \"Inserting the sec. move\");\n\t}\n      lra_update_insn_regno_info (curr_insn);\n      return true;",
+      "identity": {
+        "bytes": 2313,
+        "sha256": "1e470328027fedc32440f881c8fe434d3a254b0d96d119fb57bdeaa8318a22a0"
+      },
+      "operative_fragments": [
+        "lra_process_new_insns",
+        "lra_update_insn_regno_info"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "ordinary changed-insn and asm counter",
+      "first_LF_line": 5075,
+      "last_LF_line": 5089,
+      "text": "  if (before != NULL_RTX || after != NULL_RTX\n      || max_regno_before != max_reg_num ())\n    change_p = true;\n  if (change_p)\n    {\n      lra_update_operator_dups (curr_id);\n      /* Something changes -- process the insn.\t */\n      lra_update_insn_regno_info (curr_insn);\n      if (asm_noperands (PATTERN (curr_insn)) >= 0\n\t  && ++curr_id->asm_reloads_num >= FIRST_PSEUDO_REGISTER)\n\t/* Most probably there are no enough registers to satisfy asm insn: */\n\t{\n\t  lra_asm_insn_error (curr_insn);\n\t  return change_p;\n\t}",
+      "identity": {
+        "bytes": 516,
+        "sha256": "76ee58dad41684f34ea8d63aba1495cc8b851948d7eb1d90ab25b4aa5568781f"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info",
+        "asm_noperands",
+        "++curr_id->asm_reloads_num"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "excluded reload constant reorder",
+      "first_LF_line": 5113,
+      "last_LF_line": 5153,
+      "text": "  int const_regno = -1;\n  rtx set;\n  rtx_insn *prev, *const_insn = NULL;\n  if (before != NULL_RTX && (prev = PREV_INSN (curr_insn)) != NULL_RTX\n      && (set = single_set (prev)) != NULL_RTX && CONSTANT_P (SET_SRC (set)))\n    {\n      rtx reg = SET_DEST (set);\n      if (GET_CODE (reg) == SUBREG)\n\treg = SUBREG_REG (reg);\n      /* Consider only reload insns as we don't want to change the order\n\t created by previous optimizations.  */\n      if (REG_P (reg) && (int) REGNO (reg) >= lra_new_regno_start\n\t  && bitmap_bit_p (&lra_reg_info[REGNO (reg)].insn_bitmap,\n\t\t\t   INSN_UID (curr_insn)))\n\t{\n\t  const_regno = REGNO (reg);\n\t  const_insn = prev;\n\t}\n    }\n  if (asm_noperands (PATTERN (curr_insn)) >= 0)\n    {\n      /* Asm can have a lot of operands.  To guarantee their assignment,\n\t postpone processing the reload insns until the reload pseudos are\n\t assigned.  */\n      postpone_insns (before);\n      postpone_insns (after);\n    }\n  lra_process_new_insns (curr_insn, before, after,\n\t\t\t \"Inserting insn reload\", true);\n  if (const_regno >= 0) {\n    bool move_p = true;\n    for (rtx_insn *insn = before; insn != curr_insn; insn = NEXT_INSN (insn))\n      if (bitmap_bit_p (&lra_reg_info[const_regno].insn_bitmap,\n\t\t\tINSN_UID (insn)))\n\t{\n\t  move_p = false;\n\t  break;\n\t}\n    if (move_p)\n      {\n\treorder_insns_nobb (const_insn, const_insn, PREV_INSN (curr_insn));",
+      "identity": {
+        "bytes": 1359,
+        "sha256": "016f8cedc5969994cec0964108b2d6d153204af2728a62936ee2b73125fbafe8"
+      },
+      "operative_fragments": [
+        "before != NULL_RTX",
+        "REGNO (reg) >= lra_new_regno_start",
+        "reorder_insns_nobb"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "debug-only equivalence update",
+      "first_LF_line": 5705,
+      "last_LF_line": 5725,
+      "text": "      if (DEBUG_INSN_P (curr_insn))\n\t{\n\t  /* We need to check equivalence in debug insn and change\n\t     pseudo to the equivalent value if necessary.  */\n\t  curr_id = lra_get_insn_recog_data (curr_insn);\n\t  if (bitmap_bit_p (equiv_insn_bitmap, INSN_UID (curr_insn)))\n\t    {\n\t      rtx old = *curr_id->operand_loc[0];\n\t      *curr_id->operand_loc[0]\n\t\t= simplify_replace_fn_rtx (old, NULL_RTX,\n\t\t\t\t\t   loc_equivalence_callback, curr_insn);\n\t      if (old != *curr_id->operand_loc[0])\n\t\t{\n\t\t  /* If we substitute pseudo by shared equivalence, we can fail\n\t\t     to update LRA reg info and this can result in many\n\t\t     unexpected consequences.  So keep rtl unshared:  */\n\t\t  *curr_id->operand_loc[0]\n\t\t    = copy_rtx (*curr_id->operand_loc[0]);\n\t\t  lra_update_insn_regno_info (curr_insn);\n\t\t  changed_p = true;\n\t\t}",
+      "identity": {
+        "bytes": 813,
+        "sha256": "603ea94e09071dafb7201e446bd87cc37d04e6f40970817000bbbd4c8bdb89b7"
+      },
+      "operative_fragments": [
+        "DEBUG_INSN_P",
+        "lra_update_insn_regno_info"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "equivalence transform and ordinary processing",
+      "first_LF_line": 5730,
+      "last_LF_line": 5805,
+      "text": "\t  if ((set = single_set (curr_insn)) != NULL_RTX)\n\t    {\n\t      nosubreg_dest = SET_DEST (set);\n\t      /* The equivalence pseudo could be set up as SUBREG in a\n\t\t case when it is a call restore insn in a mode\n\t\t different from the pseudo mode.  */\n\t      if (GET_CODE (nosubreg_dest) == SUBREG)\n\t\tnosubreg_dest = SUBREG_REG (nosubreg_dest);\n\t      if ((REG_P (nosubreg_dest)\n\t\t   && (x = get_equiv (nosubreg_dest)) != nosubreg_dest\n\t\t   /* Remove insns which set up a pseudo whose value\n\t\t      cannot be changed.  Such insns might be not in\n\t\t      init_insns because we don't update equiv data\n\t\t      during insn transformations.\n\n\t\t      As an example, let suppose that a pseudo got\n\t\t      hard register and on the 1st pass was not\n\t\t      changed to equivalent constant.  We generate an\n\t\t      additional insn setting up the pseudo because of\n\t\t      secondary memory movement.  Then the pseudo is\n\t\t      spilled and we use the equiv constant.  In this\n\t\t      case we should remove the additional insn and\n\t\t      this insn is not init_insns list.  */\n\t\t   && (! MEM_P (x) || MEM_READONLY_P (x)\n\t\t       /* Check that this is actually an insn setting\n\t\t\t  up the equivalence.  */\n\t\t       || in_list_p (curr_insn,\n\t\t\t\t     ira_reg_equiv\n\t\t\t\t     [REGNO (nosubreg_dest)].init_insns)))\n\t\t  || (((x = get_equiv (SET_SRC (set))) != SET_SRC (set))\n\t\t      && in_list_p (curr_insn,\n\t\t\t\t    ira_reg_equiv\n\t\t\t\t    [REGNO (SET_SRC (set))].init_insns)\n\t\t      /* This is a reverse equivalence to memory (see ira.cc)\n\t\t\t in store insn.  We can reload all the destination and\n\t\t\t have an output reload which is a store to memory.  If\n\t\t\t we just remove the insn, we will have the output\n\t\t\t reload storing an undefined value to the memory.\n\t\t\t Check that we did not reload the memory to prevent a\n\t\t\t wrong code generation.  We could implement using the\n\t\t\t equivalence still in such case but doing this is not\n\t\t\t worth the efforts as such case is very rare.  */\n\t\t      && MEM_P (nosubreg_dest)))\n\t\t{\n\t\t  /* This is equiv init insn of pseudo which did not get a\n\t\t     hard register -- remove the insn.\t*/\n\t\t  if (lra_dump_file != NULL)\n\t\t    {\n\t\t      fprintf (lra_dump_file,\n\t\t\t       \"      Removing equiv init insn %i (freq=%d)\\n\",\n\t\t\t       INSN_UID (curr_insn),\n\t\t\t       REG_FREQ_FROM_BB (BLOCK_FOR_INSN (curr_insn)));\n\t\t      dump_insn_slim (lra_dump_file, curr_insn);\n\t\t    }\n\t\t  if (contains_reg_p (x, true, false))\n\t\t    check_and_force_assignment_correctness_p = true;\n\t\t  lra_set_insn_deleted (curr_insn);\n\t\t  continue;\n\t\t}\n\t    }\n\t  curr_id = lra_get_insn_recog_data (curr_insn);\n\t  curr_static_id = curr_id->insn_static_data;\n\t  init_curr_insn_input_reloads ();\n\t  init_curr_operand_mode ();\n\t  if (curr_insn_transform (false))\n\t    changed_p = true;\n\t  /* Check non-transformed insns too for equiv change as USE\n\t     or CLOBBER don't need reloads but can contain pseudos\n\t     being changed on their equivalences.  */\n\t  else if (bitmap_bit_p (equiv_insn_bitmap, INSN_UID (curr_insn))\n\t\t   && loc_equivalence_change_p (&PATTERN (curr_insn)))\n\t    {\n\t      lra_update_insn_regno_info (curr_insn);\n\t      lra_push_insn_by_uid (INSN_UID (curr_insn));\n\t      changed_p = true;\n\t    }",
+      "identity": {
+        "bytes": 3196,
+        "sha256": "9126c2ec2c0b2d48b4e7e4237da7e5199c34844dba77e24d4cd8958ea5bfc207"
+      },
+      "operative_fragments": [
+        "get_equiv",
+        "lra_set_insn_deleted",
+        "curr_insn_transform",
+        "lra_update_insn_regno_info"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "inheritance scan deletion",
+      "first_LF_line": 6925,
+      "last_LF_line": 6975,
+      "text": "      if (! NONDEBUG_INSN_P (curr_insn))\n\tcontinue;\n      curr_id = lra_get_insn_recog_data (curr_insn);\n      curr_static_id = curr_id->insn_static_data;\n      remove_p = false;\n      if ((set = single_set (curr_insn)) != NULL_RTX\n\t  && REG_P (SET_DEST (set))\n\t  && (regno = REGNO (SET_DEST (set))) >= FIRST_PSEUDO_REGISTER\n\t  && SET_DEST (set) != pic_offset_table_rtx\n\t  && bitmap_bit_p (&check_only_regs, regno)\n\t  && ! bitmap_bit_p (&live_regs, regno))\n\tremove_p = true;\n      /* See which defined values die here.  */\n      for (reg = curr_id->regs; reg != NULL; reg = reg->next)\n\tif (reg->type == OP_OUT && ! reg->subreg_p)\n\t  bitmap_clear_bit (&live_regs, reg->regno);\n      for (reg = curr_static_id->hard_regs; reg != NULL; reg = reg->next)\n\tif (reg->type == OP_OUT && ! reg->subreg_p)\n\t  bitmap_clear_bit (&live_regs, reg->regno);\n      if (curr_id->arg_hard_regs != NULL)\n\t/* Make clobbered argument hard registers die.  */\n\tfor (i = 0; (regno = curr_id->arg_hard_regs[i]) >= 0; i++)\n\t  if (regno >= FIRST_PSEUDO_REGISTER)\n\t    bitmap_clear_bit (&live_regs, regno - FIRST_PSEUDO_REGISTER);\n      /* Mark each used value as live.  */\n      for (reg = curr_id->regs; reg != NULL; reg = reg->next)\n\tif (reg->type != OP_OUT\n\t    && bitmap_bit_p (&check_only_regs, reg->regno))\n\t  bitmap_set_bit (&live_regs, reg->regno);\n      for (reg = curr_static_id->hard_regs; reg != NULL; reg = reg->next)\n\tif (reg->type != OP_OUT\n\t    && bitmap_bit_p (&check_only_regs, reg->regno))\n\t  bitmap_set_bit (&live_regs, reg->regno);\n      if (curr_id->arg_hard_regs != NULL)\n\t/* Make used argument hard registers live.  */\n\tfor (i = 0; (regno = curr_id->arg_hard_regs[i]) >= 0; i++)\n\t  if (regno < FIRST_PSEUDO_REGISTER\n\t      && bitmap_bit_p (&check_only_regs, regno))\n\t    bitmap_set_bit (&live_regs, regno);\n      /* It is quite important to remove dead move insns because it\n\t means removing dead store.  We don't need to process them for\n\t constraints.  */\n      if (remove_p)\n\t{\n\t  if (lra_dump_file != NULL)\n\t    {\n\t      fprintf (lra_dump_file, \"\t    Removing dead insn:\\n \");\n\t      dump_insn_slim (lra_dump_file, curr_insn);\n\t    }\n\t  lra_set_insn_deleted (curr_insn);\n\t}",
+      "identity": {
+        "bytes": 2172,
+        "sha256": "610e5c8a9956cabaca5a02753fe468c81e61f1229937c0955a404a3c85f8a954"
+      },
+      "operative_fragments": [
+        "remove_p = false",
+        "lra_set_insn_deleted"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "restore-pseudo gated mutation",
+      "first_LF_line": 7828,
+      "last_LF_line": 7868,
+      "text": "\t  if (! done_p)\n\t    {\n\t      struct lra_insn_reg *reg;\n\t      bool restored_regs_p = false;\n\t      bool kept_regs_p = false;\n\n\t      curr_id = lra_get_insn_recog_data (curr_insn);\n\t      for (reg = curr_id->regs; reg != NULL; reg = reg->next)\n\t\t{\n\t\t  regno = reg->regno;\n\t\t  restore_rtx = lra_reg_info[regno].restore_rtx;\n\t\t  if (restore_rtx != NULL_RTX)\n\t\t    {\n\t\t      if (change_p && bitmap_bit_p (remove_pseudos, regno))\n\t\t\t{\n\t\t\t  lra_substitute_pseudo_within_insn\n\t\t\t    (curr_insn, regno, restore_rtx, false);\n\t\t\t  restored_regs_p = true;\n\t\t\t}\n\t\t      else\n\t\t\tkept_regs_p = true;\n\t\t    }\n\t\t}\n\t      if (NONDEBUG_INSN_P (curr_insn) && kept_regs_p)\n\t\t{\n\t\t  /* The instruction has changed since the previous\n\t\t     constraints pass.  */\n\t\t  lra_push_insn_and_update_insn_regno_info (curr_insn);\n\t\t  lra_set_used_insn_alternative_by_uid\n\t\t    (INSN_UID (curr_insn), LRA_UNKNOWN_ALT);\n\t\t}\n\t      else if (restored_regs_p)\n\t\t/* The instruction has been restored to the form that\n\t\t   it had during the previous constraints pass.  */\n\t\tlra_update_insn_regno_info (curr_insn);\n\t      if (restored_regs_p && lra_dump_file != NULL)\n\t\t{\n\t\t  fprintf (lra_dump_file, \"   Insn after restoring regs:\\n\");\n\t\t  dump_insn_slim (lra_dump_file, curr_insn);\n\t\t}\n\t    }",
+      "identity": {
+        "bytes": 1255,
+        "sha256": "93959c75a93376dfab43d6e540a97735ad77eeca0abc9107b244372fbfe6acf9"
+      },
+      "operative_fragments": [
+        "restore_rtx != NULL_RTX",
+        "lra_push_insn_and_update_insn_regno_info",
+        "lra_update_insn_regno_info"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reginfo.cc",
+      "name": "target register reinitialization",
+      "first_LF_line": 515,
+      "last_LF_line": 526,
+      "text": "/* The same as previous function plus initializing IRA.  */\nvoid\nreinit_regs (void)\n{\n  init_regs ();\n  /* caller_save needs to be re-initialized.  */\n  caller_save_initialized_p = false;\n  if (this_target_rtl->target_specific_initialized)\n    {\n      ira_init ();\n      recog_init ();\n    }",
+      "identity": {
+        "bytes": 291,
+        "sha256": "0a6a6eba293980112ac36c68c520182595db37bf5eef3479bca7ea30fa0d5ec7"
+      },
+      "operative_fragments": [
+        "reinit_regs",
+        "recog_init"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "name": "target backend initialization",
+      "first_LF_line": 1790,
+      "last_LF_line": 1805,
+      "text": "static void\nbackend_init_target (void)\n{\n  /* This depends on stack_pointer_rtx.  */\n  init_fake_stack_mems ();\n\n  /* Sets static_base_value[HARD_FRAME_POINTER_REGNUM], which is\n     mode-dependent.  */\n  init_alias_target ();\n\n  /* Depends on HARD_FRAME_POINTER_REGNUM.  */\n  if (!ira_use_lra_p)\n    init_reload ();\n\n  /* Depends on the enabled attribute.  */\n  recog_init ();",
+      "identity": {
+        "bytes": 377,
+        "sha256": "7cf68d1bc2c8ad76c27c4bfb7a43880f57d1e6895f1e6829e63a8e12bec3ee5f"
+      },
+      "operative_fragments": [
+        "backend_init_target",
+        "recog_init"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-coalesce.cc",
+      "name": "mutation call gcc/lra-coalesce.cc:312",
+      "first_LF_line": 307,
+      "last_LF_line": 317,
+      "text": "\tif (INSN_P (insn)\n\t    && bitmap_bit_p (&involved_insns_bitmap, INSN_UID (insn)))\n\t  {\n\t    if (! substitute_within_insn (insn))\n\t      continue;\n\t    lra_update_insn_regno_info (insn);\n\t    if ((set = single_set (insn)) != NULL_RTX && set_noop_p (set))\n\t      {\n\t\t/* Coalesced move.  */\n\t\tif (lra_dump_file != NULL)\n\t\t  fprintf (lra_dump_file, \"\t Removing move %i (freq=%d)\\n\",",
+      "identity": {
+        "bytes": 379,
+        "sha256": "4764ef5e4ba787b80c6ffc108f12a19d49019abaafe2122785820c8f0579a055"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-coalesce.cc",
+      "name": "mutation call gcc/lra-coalesce.cc:320",
+      "first_LF_line": 315,
+      "last_LF_line": 325,
+      "text": "\t\t/* Coalesced move.  */\n\t\tif (lra_dump_file != NULL)\n\t\t  fprintf (lra_dump_file, \"\t Removing move %i (freq=%d)\\n\",\n\t\t\t   INSN_UID (insn),\n\t\t\t   REG_FREQ_FROM_BB (BLOCK_FOR_INSN (insn)));\n\t\tlra_set_insn_deleted (insn);\n\t      }\n\t  }\n    }\n  /* If we have situation after inheritance pass:\n",
+      "identity": {
+        "bytes": 289,
+        "sha256": "8f455849734011fff4aa582c88a5a0377424ac2c9a776b62b186616c2b88245c"
+      },
+      "operative_fragments": [
+        "lra_set_insn_deleted (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:5495",
+      "first_LF_line": 5490,
+      "last_LF_line": 5500,
+      "text": "      *id->operand_loc[nop] = to_reg;\n      changed_nops[n++] = nop;\n    }\n  changed_nops[n] = -1;\n  lra_update_dups (id, changed_nops);\n  lra_update_insn_regno_info (to);\n  ok_p = recog_memoized (to) >= 0;\n  if (ok_p)\n    {\n      /* Check that combined insn does not need any reloads: */\n      saved_insn = curr_insn;",
+      "identity": {
+        "bytes": 318,
+        "sha256": "e2f36ff7d257b5b58d75936eab1e9a10e776f09a01dbdbd0ba134edf98a19b61"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (to);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:5528",
+      "first_LF_line": 5523,
+      "last_LF_line": 5533,
+      "text": "      curr_static_id = curr_id->insn_static_data;\n    }\n  if (ok_p)\n    {\n      id->used_insn_alternative = -1;\n      lra_push_insn_and_update_insn_regno_info (to);\n      if (lra_dump_file != NULL)\n\t{\n\t  fprintf (lra_dump_file, \"    Use combined insn:\\n\");\n\t  dump_insn_slim (lra_dump_file, to);\n\t}",
+      "identity": {
+        "bytes": 298,
+        "sha256": "b884392cff762a319003ad5a296583590d660b8b9eed0c3250c070deaf2c18be"
+      },
+      "operative_fragments": [
+        "lra_push_insn_and_update_insn_regno_info (to);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:5547",
+      "first_LF_line": 5542,
+      "last_LF_line": 5552,
+      "text": "    {\n      nop = changed_nops[i];\n      *id->operand_loc[nop] = from_reg;\n    }\n  lra_update_dups (id, changed_nops);\n  lra_update_insn_regno_info (to);\n  if (lra_dump_file != NULL)\n    {\n      fprintf (lra_dump_file, \"    Restoring insn after failed combining:\\n\");\n      dump_insn_slim (lra_dump_file, to);\n    }",
+      "identity": {
+        "bytes": 315,
+        "sha256": "50b85d2d20826feb904a13ac3c358225846eff1384fd154f16803acc5ab1b121"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (to);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:6210",
+      "first_LF_line": 6205,
+      "last_LF_line": 6215,
+      "text": "\t\t   \"\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\\n\");\n\t}\n      return false;\n    }\n  lra_substitute_pseudo_within_insn (insn, original_regno, new_reg, false);\n  lra_update_insn_regno_info (insn);\n  if (! def_p)\n    /* We now have a new usage insn for original regno.  */\n    setup_next_usage_insn (original_regno, new_insns, reloads_num, false);\n  if (lra_dump_file != NULL)\n    fprintf (lra_dump_file, \"    Original reg change %d->%d (bb%d):\\n\",",
+      "identity": {
+        "bytes": 455,
+        "sha256": "6685ea6cc29e2dc8f2d3cfc2782ff895e724af83d179160d2bee2b4a0a3fa8f8"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:6243",
+      "first_LF_line": 6238,
+      "last_LF_line": 6248,
+      "text": "\t  lra_assert (DEBUG_INSN_P (usage_insn));\n\t  next_usage_insns = XEXP (next_usage_insns, 1);\n\t}\n      lra_substitute_pseudo (&usage_insn, original_regno, new_reg, false,\n\t\t\t     DEBUG_INSN_P (usage_insn));\n      lra_update_insn_regno_info (as_a <rtx_insn *> (usage_insn));\n      if (lra_dump_file != NULL)\n\t{\n\t  basic_block bb = BLOCK_FOR_INSN (usage_insn);\n\t  fprintf (lra_dump_file,\n\t\t   \"    Inheritance reuse change %d->%d (bb%d):\\n\",",
+      "identity": {
+        "bytes": 438,
+        "sha256": "181e29d819110b04568dfd09b21bd613b1680a0fa9efb344e1f1468f7ee7bbb5"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (as_a <rtx_insn *> (usage_insn));"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:6587",
+      "first_LF_line": 6582,
+      "last_LF_line": 6592,
+      "text": "\t  usage_insn = XEXP (next_usage_insns, 0);\n\t  lra_assert (DEBUG_INSN_P (usage_insn));\n\t  next_usage_insns = XEXP (next_usage_insns, 1);\n\t  lra_substitute_pseudo (&usage_insn, original_regno, new_reg, false,\n\t\t\t\t true);\n\t  lra_update_insn_regno_info (as_a <rtx_insn *> (usage_insn));\n\t  if (lra_dump_file != NULL)\n\t    {\n\t      fprintf (lra_dump_file, \"    Split reuse change %d->%d:\\n\",\n\t\t       original_regno, new_regno);\n\t      dump_insn_slim (lra_dump_file, as_a <rtx_insn *> (usage_insn));",
+      "identity": {
+        "bytes": 495,
+        "sha256": "bd6074d0efec924fd08588c7c39e136821085f7e53aa4bfa109a656948c17a31"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (as_a <rtx_insn *> (usage_insn));"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:6841",
+      "first_LF_line": 6836,
+      "last_LF_line": 6846,
+      "text": "\t  start_sequence ();\n\t  lra_emit_move (SET_DEST (insn_set), new_reg);\n\t  new_insns = end_sequence ();\n\t  lra_process_new_insns (insn, NULL, new_insns,\n\t\t\t\t \"Changing reload<-inheritance\");\n\t  lra_set_insn_deleted (insn);\n\t  succ_p = true;\n\t  if (lra_dump_file != NULL)\n\t    {\n\t      fprintf (lra_dump_file,\n\t\t       \"    Invariant inheritance reuse change %d (bb%d):\\n\",",
+      "identity": {
+        "bytes": 371,
+        "sha256": "484f742208cd84f11c1a12178339e0e9360f5aecea242bd87777fee8c5458baa"
+      },
+      "operative_fragments": [
+        "lra_set_insn_deleted (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:7641",
+      "first_LF_line": 7636,
+      "last_LF_line": 7646,
+      "text": "static void\ndelete_move_and_clobber (rtx_insn *insn, int dregno)\n{\n  rtx_insn *prev_insn = PREV_INSN (insn);\n\n  lra_set_insn_deleted (insn);\n  lra_assert (dregno >= 0);\n  if (prev_insn != NULL && NONDEBUG_INSN_P (prev_insn)\n      && GET_CODE (PATTERN (prev_insn)) == CLOBBER\n      && dregno == get_regno (XEXP (PATTERN (prev_insn), 0)))\n    lra_set_insn_deleted (prev_insn);",
+      "identity": {
+        "bytes": 374,
+        "sha256": "3839187aecb0e230d8683210283d73acc1fdf4ac4973108fdaf16749d6d7db23"
+      },
+      "operative_fragments": [
+        "lra_set_insn_deleted (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:7816",
+      "first_LF_line": 7811,
+      "last_LF_line": 7821,
+      "text": "\t\t\t  if (GET_CODE (SET_DEST (set)) == SUBREG)\n\t\t\t    SUBREG_REG (SET_DEST (set)) = restore_rtx;\n\t\t\t  else\n\t\t\t    SET_DEST (set) = restore_rtx;\n\t\t\t}\n\t\t      lra_push_insn_and_update_insn_regno_info (curr_insn);\n\t\t      lra_set_used_insn_alternative_by_uid\n\t\t\t(INSN_UID (curr_insn), LRA_UNKNOWN_ALT);\n\t\t      done_p = true;\n\t\t      if (lra_dump_file != NULL)\n\t\t\t{",
+      "identity": {
+        "bytes": 361,
+        "sha256": "963e88295130ae55704f0b30813fe2a9e3f14180bfe113e46dad37e1c9608087"
+      },
+      "operative_fragments": [
+        "lra_push_insn_and_update_insn_regno_info (curr_insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "name": "mutation call gcc/lra-constraints.cc:7979",
+      "first_LF_line": 7974,
+      "last_LF_line": 7984,
+      "text": "\t      && get_regno (SET_DEST (insn)) == (int) regno)\n\t    /* Refuse to remap clobbers to preexisting pseudos.  */\n\t    gcc_unreachable ();\n\t  lra_substitute_pseudo_within_insn\n\t    (insn, regno, lra_reg_info[regno].restore_rtx, false);\n\t  lra_update_insn_regno_info (insn);\n\t  if (lra_dump_file != NULL)\n\t    {\n\t      fprintf (lra_dump_file,\n\t\t       \"  Restoring original insn:\\n\");\n\t      dump_insn_slim (lra_dump_file, insn);",
+      "identity": {
+        "bytes": 429,
+        "sha256": "e7cc6bce0a04f2a37be09a19571573479a8041dbdad7d5bb50cdae32142384e1"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-remat.cc",
+      "name": "mutation call gcc/lra-remat.cc:1180",
+      "first_LF_line": 1175,
+      "last_LF_line": 1185,
+      "text": "\t\t}\n\n\t      if (reg == NULL)\n\t\t{\n\t\t  *cand_id->operand_loc[cand->nop] = SET_DEST (set);\n\t\t  lra_update_insn_regno_info (cand->insn);\n\t\t  bool ok_p = lra_constrain_insn (cand->insn);\n\t\t  if (ok_p)\n\t\t    {\n\t\t      rtx remat_pat = copy_insn (PATTERN (cand->insn));\n",
+      "identity": {
+        "bytes": 262,
+        "sha256": "3fda5661f49f6ec8b4e44e87683252af44d3d93a4798f250dbb650d721979e34"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (cand->insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-remat.cc",
+      "name": "mutation call gcc/lra-remat.cc:1194",
+      "first_LF_line": 1189,
+      "last_LF_line": 1199,
+      "text": "\t\t      if (recog_memoized (remat_insn) < 0)\n\t\t\tremat_insn = NULL;\n\t\t      cand_sp_offset = cand_id->sp_offset;\n\t\t    }\n\t\t  *cand_id->operand_loc[cand->nop] = saved_op;\n\t\t  lra_update_insn_regno_info (cand->insn);\n\t\t}\n\t    }\n\n\t  bitmap_clear (&temp_bitmap);\n\t  /* Update avail_cands (see analogous code for",
+      "identity": {
+        "bytes": 306,
+        "sha256": "5a18faac7ff601538930b9eedccbefd2ee0f767d0d6b88d8643afa8500db914b"
+      },
+      "operative_fragments": [
+        "lra_update_insn_regno_info (cand->insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-remat.cc",
+      "name": "mutation call gcc/lra-remat.cc:1258",
+      "first_LF_line": 1253,
+      "last_LF_line": 1263,
+      "text": "\t      if (maybe_ne (sp_offset_change, 0))\n\t\tchange_sp_offset (remat_insn, sp_offset_change);\n\t      update_scratch_ops (remat_insn);\n\t      lra_process_new_insns (insn, remat_insn, NULL,\n\t\t\t\t     \"Inserting rematerialization insn\");\n\t      lra_set_insn_deleted (insn);\n\t      changed_p = true;\n\t      continue;\n\t    }\n\n\t  /* Update live hard regs: */",
+      "identity": {
+        "bytes": 351,
+        "sha256": "ac62e7cf7b7b3e09c740121347be2df93d3f3fe1c96d5071753fae455a50340e"
+      },
+      "operative_fragments": [
+        "lra_set_insn_deleted (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "name": "mutation call gcc/lra-spills.cc:480",
+      "first_LF_line": 475,
+      "last_LF_line": 485,
+      "text": "      if (GET_CODE (SUBREG_REG (*loc)) == MEM)\n\t{\n\t  alter_subreg (loc, false);\n\t  if (GET_CODE (*loc) == MEM)\n\t    {\n\t      lra_update_insn_recog_data (insn);\n\t      if (lra_dump_file != NULL)\n\t\tfprintf (lra_dump_file,\n\t\t\t \"Memory subreg was simplified in insn #%u\\n\",\n\t\t\t INSN_UID (insn));\n\t    }",
+      "identity": {
+        "bytes": 298,
+        "sha256": "2d86677b67836106862a87d067695ee075dc69667ca1970a41a4653ae0adf7fb"
+      },
+      "operative_fragments": [
+        "lra_update_insn_recog_data (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "name": "mutation call gcc/lra-spills.cc:596",
+      "first_LF_line": 591,
+      "last_LF_line": 601,
+      "text": "\t\tLRA_TEMP_CLOBBER_P (PATTERN (insn)) = 1;\n\t      if (lra_dump_file != NULL)\n\t\tfprintf (lra_dump_file,\n\t\t\t \"Changing spilled pseudos to memory in insn #%u\\n\",\n\t\t\t INSN_UID (insn));\n\t      lra_push_insn_and_update_insn_regno_info (insn);\n\t      if (lra_reg_spill_p || targetm.different_addr_displacement_p ())\n\t\tlra_set_used_insn_alternative (insn, LRA_UNKNOWN_ALT);\n\t    }\n\t  else if (CALL_P (insn)\n\t\t   /* Presence of any pseudo in CALL_INSN_FUNCTION_USAGE",
+      "identity": {
+        "bytes": 457,
+        "sha256": "a9451389abe42a49d805a43c3f8cb2875aa5e543bbfdd4bf70399eefe8f47487"
+      },
+      "operative_fragments": [
+        "lra_push_insn_and_update_insn_regno_info (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "name": "mutation call gcc/lra-spills.cc:614",
+      "first_LF_line": 609,
+      "last_LF_line": 619,
+      "text": "\t\t   && remove_pseudos (&CALL_INSN_FUNCTION_USAGE (insn), insn))\n\t    removed_pseudo_p = true;\n\t  if (removed_pseudo_p)\n\t    {\n\t      lra_assert (DEBUG_INSN_P (insn));\n\t      lra_invalidate_insn_data (insn);\n\t      INSN_VAR_LOCATION_LOC (insn) = gen_rtx_UNKNOWN_VAR_LOC ();\n\t      if (lra_dump_file != NULL)\n\t\tfprintf (lra_dump_file,\n\t\t\t \"Debug insn #%u is reset because it referenced \"\n\t\t\t \"removed pseudo\\n\", INSN_UID (insn));",
+      "identity": {
+        "bytes": 428,
+        "sha256": "f5aee5237b9cb8f2cea55fba3b21e398248c2112ec189684a3199a02f12de9f8"
+      },
+      "operative_fragments": [
+        "lra_invalidate_insn_data (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "mutation call gcc/lra.cc:562",
+      "first_LF_line": 557,
+      "last_LF_line": 567,
+      "text": "\t\t \" or there are not enough registers\");\n  /* Avoid further trouble with this insn.  */\n  if (JUMP_P (insn))\n    {\n      ira_nullify_asm_goto (insn);\n      lra_invalidate_insn_data (insn);\n      bitmap_clear_bit (&lra_postponed_insns, INSN_UID (insn));\n    }\n  else\n    {\n      PATTERN (insn) = gen_rtx_USE (VOIDmode, const0_rtx);",
+      "identity": {
+        "bytes": 331,
+        "sha256": "27546d3c03c0ea77949a767eda99a645be2371e9e1974b55933db270867e419f"
+      },
+      "operative_fragments": [
+        "lra_invalidate_insn_data (insn);"
+      ]
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "name": "mutation call gcc/lra.cc:568",
+      "first_LF_line": 563,
+      "last_LF_line": 573,
+      "text": "      bitmap_clear_bit (&lra_postponed_insns, INSN_UID (insn));\n    }\n  else\n    {\n      PATTERN (insn) = gen_rtx_USE (VOIDmode, const0_rtx);\n      lra_set_insn_deleted (insn);\n    }\n}\n\n\f\n",
+      "identity": {
+        "bytes": 188,
+        "sha256": "9c366b98b2d77276cf22142a756b153fcefc0064ef6831c3954bb59bc47bfd8e"
+      },
+      "operative_fragments": [
+        "lra_set_insn_deleted (insn);"
+      ]
+    }
+  ],
+  "mutation_API_inventory": [
+    "gcc/lra-coalesce.cc:312:\t    lra_update_insn_regno_info (insn);",
+    "gcc/lra-coalesce.cc:320:\t\tlra_set_insn_deleted (insn);",
+    "gcc/lra-constraints.cc:1528:      lra_set_insn_deleted (curr_insn);",
+    "gcc/lra-constraints.cc:4531:\t  lra_set_insn_deleted (curr_insn);",
+    "gcc/lra-constraints.cc:4535:\t  lra_invalidate_insn_data (curr_insn);",
+    "gcc/lra-constraints.cc:4537:\t  lra_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:4619:\t  lra_set_insn_deleted (curr_insn);",
+    "gcc/lra-constraints.cc:4641:      lra_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:5082:      lra_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:5495:  lra_update_insn_regno_info (to);",
+    "gcc/lra-constraints.cc:5528:      lra_push_insn_and_update_insn_regno_info (to);",
+    "gcc/lra-constraints.cc:5547:  lra_update_insn_regno_info (to);",
+    "gcc/lra-constraints.cc:5723:\t\t  lra_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:5786:\t\t  lra_set_insn_deleted (curr_insn);",
+    "gcc/lra-constraints.cc:5802:\t      lra_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:6210:  lra_update_insn_regno_info (insn);",
+    "gcc/lra-constraints.cc:6243:      lra_update_insn_regno_info (as_a <rtx_insn *> (usage_insn));",
+    "gcc/lra-constraints.cc:6587:\t  lra_update_insn_regno_info (as_a <rtx_insn *> (usage_insn));",
+    "gcc/lra-constraints.cc:6841:\t  lra_set_insn_deleted (insn);",
+    "gcc/lra-constraints.cc:6974:\t  lra_set_insn_deleted (curr_insn);",
+    "gcc/lra-constraints.cc:7641:  lra_set_insn_deleted (insn);",
+    "gcc/lra-constraints.cc:7646:    lra_set_insn_deleted (prev_insn);",
+    "gcc/lra-constraints.cc:7816:\t\t      lra_push_insn_and_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:7855:\t\t  lra_push_insn_and_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:7862:\t\tlra_update_insn_regno_info (curr_insn);",
+    "gcc/lra-constraints.cc:7979:\t  lra_update_insn_regno_info (insn);",
+    "gcc/lra-eliminations.cc:1033:\t      lra_update_insn_recog_data (insn);",
+    "gcc/lra-eliminations.cc:1125:  lra_update_insn_recog_data (insn);",
+    "gcc/lra-eliminations.cc:1426:\t  lra_update_insn_recog_data (insn);",
+    "gcc/lra-eliminations.cc:1428:      lra_update_insn_regno_info (insn);",
+    "gcc/lra-int.h:310:extern void lra_push_insn_and_update_insn_regno_info (rtx_insn *);",
+    "gcc/lra-int.h:320:extern void lra_invalidate_insn_data (rtx_insn *);",
+    "gcc/lra-int.h:321:extern void lra_set_insn_deleted (rtx_insn *);",
+    "gcc/lra-int.h:338:extern lra_insn_recog_data_t lra_set_insn_recog_data (rtx_insn *);",
+    "gcc/lra-int.h:339:extern lra_insn_recog_data_t lra_update_insn_recog_data (rtx_insn *);",
+    "gcc/lra-int.h:343:extern void lra_invalidate_insn_regno_info (rtx_insn *);",
+    "gcc/lra-int.h:344:extern void lra_update_insn_regno_info (rtx_insn *);",
+    "gcc/lra-int.h:524:  return lra_set_insn_recog_data (insn);",
+    "gcc/lra-lives.cc:759:\t      lra_set_insn_deleted (curr_insn);",
+    "gcc/lra-lives.cc:772:\t\t      lra_update_insn_regno_info (insn);",
+    "gcc/lra-remat.cc:1180:\t\t  lra_update_insn_regno_info (cand->insn);",
+    "gcc/lra-remat.cc:1194:\t\t  lra_update_insn_regno_info (cand->insn);",
+    "gcc/lra-remat.cc:1258:\t      lra_set_insn_deleted (insn);",
+    "gcc/lra-spills.cc:480:\t      lra_update_insn_recog_data (insn);",
+    "gcc/lra-spills.cc:596:\t      lra_push_insn_and_update_insn_regno_info (insn);",
+    "gcc/lra-spills.cc:614:\t      lra_invalidate_insn_data (insn);",
+    "gcc/lra-spills.cc:792:\t      lra_invalidate_insn_data (insn);",
+    "gcc/lra-spills.cc:801:\t      lra_invalidate_insn_data (insn);",
+    "gcc/lra-spills.cc:819:\t      lra_invalidate_insn_data (insn);",
+    "gcc/lra-spills.cc:844:\t      lra_invalidate_insn_data (insn);",
+    "gcc/lra-spills.cc:875:\t      lra_invalidate_insn_data (insn);",
+    "gcc/lra.cc:1232:lra_update_insn_recog_data (rtx_insn *insn)",
+    "gcc/lra.cc:1632:lra_invalidate_insn_regno_info (rtx_insn *insn)",
+    "gcc/lra.cc:1657:lra_update_insn_regno_info (rtx_insn *insn)",
+    "gcc/lra.cc:1824:    lra_update_insn_regno_info (insn);",
+    "gcc/lra.cc:1832:    lra_update_insn_regno_info (insn);",
+    "gcc/lra.cc:1845:lra_push_insn_and_update_insn_regno_info (rtx_insn *insn)",
+    "gcc/lra.cc:252:lra_invalidate_insn_data (rtx_insn *insn)",
+    "gcc/lra.cc:254:  lra_invalidate_insn_regno_info (insn);",
+    "gcc/lra.cc:261:lra_set_insn_deleted (rtx_insn *insn)",
+    "gcc/lra.cc:264:  lra_invalidate_insn_data (insn);",
+    "gcc/lra.cc:285:  lra_set_insn_deleted (insn);",
+    "gcc/lra.cc:562:      lra_invalidate_insn_data (insn);",
+    "gcc/lra.cc:568:      lra_set_insn_deleted (insn);",
+    "gcc/lra.cc:988:lra_set_insn_recog_data (rtx_insn *insn)"
+  ],
+  "owner_writer_inventory": [
+    "gcc/lra-lives.cc:760:\t      if (lra_reg_info[dst_regno].nrefs == 0)",
+    "gcc/lra-spills.cc:497:      if (lra_reg_info[i].nrefs == 0",
+    "gcc/lra.cc:1007:  lra_insn_recog_data[uid] = data;",
+    "gcc/lra.cc:1226:  lra_insn_recog_data[uid] = NULL;",
+    "gcc/lra.cc:1370:  lra_reg_info[i].nrefs = lra_reg_info[i].freq = 0;",
+    "gcc/lra.cc:1514:\t  data->regs = new_insn_reg (data->insn, regno, type, mode, subreg_p,",
+    "gcc/lra.cc:1526:\t\t  data->regs = new_insn_reg (data->insn, regno, type, mode,",
+    "gcc/lra.cc:1617:      lra_insn_reg_pool.remove (ir);",
+    "gcc/lra.cc:1621:\t  lra_reg_info[i].nrefs--;",
+    "gcc/lra.cc:1622:\t  lra_reg_info[i].freq -= freq;",
+    "gcc/lra.cc:1641:setup_insn_reg_info (lra_insn_recog_data_t data, int freq)",
+    "gcc/lra.cc:1649:\tlra_reg_info[i].nrefs++;",
+    "gcc/lra.cc:1650:\tlra_reg_info[i].freq += freq;",
+    "gcc/lra.cc:1694:    setup_insn_reg_info (data, freq);",
+    "gcc/lra.cc:587:new_insn_reg (rtx_insn *insn, int regno, enum op_type type,",
+    "gcc/lra.cc:592:  lra_insn_reg *ir = lra_insn_reg_pool.allocate ();",
+    "gcc/lra.cc:606:free_insn_regs (struct lra_insn_reg *ir)",
+    "gcc/lra.cc:613:      lra_insn_reg_pool.remove (ir);",
+    "gcc/lra.cc:621:  lra_insn_reg_pool.release ();",
+    "gcc/lra.cc:699:\t  insn_code_data[i] = NULL;",
+    "gcc/lra.cc:734:      insn_code_data[icode] = data;",
+    "gcc/lra.cc:789:    lra_insn_recog_data[i] = NULL;",
+    "gcc/lra.cc:807:      free_insn_regs (data->insn_static_data->hard_regs);",
+    "gcc/lra.cc:810:  free_insn_regs (data->regs);",
+    "gcc/lra.cc:830:  lra_insn_reg_pool.release ();",
+    "gcc/lra.cc:940:\t      list = new_insn_reg (data->insn, regno, type, mode, subreg_p,"
+  ],
+  "retained_headers": [
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-selected-headers.tar.gz",
+      "members": [
+        {
+          "path": "insn-config.h",
+          "identity": {
+            "bytes": 557,
+            "sha256": "43609a26afc202021cdb33192b3b48837b8e3aa12b3f8960fb77751cf3c3803f"
+          },
+          "operative_fragments": [
+            "#define MAX_RECOG_OPERANDS 30"
+          ]
+        },
+        {
+          "path": "insn-codes.h",
+          "identity": {
+            "bytes": 370891,
+            "sha256": "4983df39999166bdea95394ff3ad0cdaf36373c5799393c138cca1af304f8b5f"
+          },
+          "operative_fragments": [
+            "NUM_INSN_CODES = 15169"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/df-backing-selected-headers.tar.gz",
+      "members": [
+        {
+          "path": "insn-modes.h",
+          "identity": {
+            "bytes": 27388,
+            "sha256": "6de8c9ea5760a673d43344ba92b15620b6d378f8cf82673b4ec0e182eb1d5d85"
+          },
+          "operative_fragments": [
+            "#define NUM_POLY_INT_COEFFS 1"
+          ]
+        }
+      ]
+    }
+  ]
+}

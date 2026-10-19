@@ -1,0 +1,133 @@
+{
+  "scope": "Conditional source theorem and fixed accepted-owner reconciliation; review pending",
+  "arithmetic": {
+    "C": 1,
+    "N": 0,
+    "K": 104,
+    "M": 27,
+    "U": 29,
+    "inherited_arithmetic_premises": {
+      "LRA_register_tripling_signed_intermediate": true,
+      "LRA_instruction_UID_signed": true,
+      "LRA_recognition_tripling_unsigned_intermediate": true,
+      "LRA_recognition_stored_capacity_signed": true,
+      "LRA_recognition_array_byte_product": true
+    },
+    "computed": true,
+    "derived": {
+      "recognition_pool": {
+        "live_upper": 27,
+        "slots_per_block": 819,
+        "retained_blocks_upper": 1,
+        "retained_slots_upper": 819
+      },
+      "instruction_register_pool": {
+        "live_upper": 10,
+        "slots_per_block": 2730,
+        "retained_blocks_upper": 1,
+        "retained_slots_upper": 2730
+      },
+      "per_pseudo_nrefs_upper": 2,
+      "per_pseudo_frequency_upper": 2000,
+      "per_instruction_frequency_upper": 1000,
+      "argument_stack_entries_used": 3,
+      "argument_stack_entries_available": 92,
+      "operands_upper": 2,
+      "operands_available": 30,
+      "alternatives_upper": 35,
+      "alternative_mask_bits": 64,
+      "maximum_shift": 34,
+      "alternative_entries_upper": 70,
+      "constraint_pointer_scratch_bytes_upper": 16,
+      "signed_char_largest_nonnegative_count": 35,
+      "asm_reloads_num": 0,
+      "map_entries_upper": 42,
+      "map_request_bytes_upper": 336,
+      "new_numeric_restrictions": 0
+    },
+    "source_and_configuration_join_required": true,
+    "actual_source_adapter": false,
+    "independently_reviewed": false,
+    "new_GGC_events": 0,
+    "new_finalizer_registrations": 0,
+    "new_pool_or_bitmap_charge": 0,
+    "all_LRA_capacity": false,
+    "complete_native_capacity": false,
+    "whole_pipeline_capacity": false,
+    "lifetime_ordinary_allocations": null,
+    "aggregate_RAM_gate": false
+  },
+  "accepted_fixture": {
+    "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/result.json",
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "owner_path": "core_result.selected_native_backing.LRA_register_and_recognition_backing",
+    "complete_owner": {
+      "register_record_entries_upper": 157,
+      "each_register_record_bytes": 144,
+      "register_record_request_bytes_upper": 22608,
+      "register_record_array_requests": 1,
+      "last_reg_value_upper": 157,
+      "recognition_pointer_entries_upper": 42,
+      "recognition_pointer_request_bytes_upper": 336,
+      "live_recognition_records_upper": 27,
+      "each_recognition_record_bytes": 80,
+      "recognition_pool_blocks_upper": 1,
+      "static_recognition_records_upper": 4,
+      "each_static_recognition_request_bytes_upper": 88,
+      "live_operand_location_arrays_upper": 7,
+      "each_operand_location_array_bytes": 16,
+      "duplication_arrays": 0,
+      "live_call_hard_argument_arrays_upper": 1,
+      "each_call_hard_argument_array_bytes": 12,
+      "implicit_call_array_stack_entries_used": 3,
+      "implicit_call_array_stack_entries_available": 92,
+      "static_operand_alternative_arrays_upper": 2,
+      "each_operand_alternative_array_bytes_upper": 1680,
+      "live_instruction_register_records_upper": 10,
+      "each_instruction_register_record_bytes": 24,
+      "instruction_register_pool_blocks_upper": 1,
+      "static_nonoperand_register_records": 0,
+      "live_register_instruction_bitmap_elements_upper": 10,
+      "referenced_pseudo_nrefs_upper": 2,
+      "constraint_stack_request_bytes_upper": 240,
+      "constraint_stack_bitmap_bytes_upper": 16,
+      "constraint_stack_growth_requests_after_initialization": 0,
+      "all_LRA_helpers_and_shared_bitmap_backing_included": false
+    },
+    "guard_count": 367,
+    "source_correspondence_reused": true
+  },
+  "new_source_guards": 0,
+  "new_allocation_owners": 0,
+  "complete_dynamic_recognition_lifetime_conditional": true,
+  "remaining_scope": [
+    "actual-source successor",
+    "other outer IRA/imported helpers",
+    "other LRA arithmetic/automatic storage/elimination offsets",
+    "complete native/producer/proof/parent and production correspondence"
+  ],
+  "input_verification": {
+    "GCC_files": 17,
+    "repository_files": 26,
+    "literal_LF_excerpts": 72,
+    "mutation_API_occurrences": 65,
+    "owner_writer_occurrences": 26,
+    "retained_headers": 3
+  }
+}
