@@ -1,0 +1,123 @@
+{
+  "pid": 97103,
+  "load_bias": 94173092061184,
+  "formatter_record": 139794218869840,
+  "formatter_words": 28,
+  "core_raw_read_records_scanned": 835579,
+  "targets": [
+    {
+      "label": "Debug formatter field 0",
+      "address": 139794218870296,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 1",
+      "address": 139794218870072,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 2",
+      "address": 139794218870096,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 3",
+      "address": 139794218870120,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 4",
+      "address": 139794218870144,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 15",
+      "address": 94173108361288,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 16",
+      "address": 139794218870408,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 17",
+      "address": 94173108357408,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 18",
+      "address": 139794218869640,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 19",
+      "address": 139794218869760,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 20",
+      "address": 139794218869720,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 23",
+      "address": 94173108355848,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 24",
+      "address": 94173108355872,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 25",
+      "address": 94173108355896,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 26",
+      "address": 94173108355920,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "Debug formatter field 27",
+      "address": 139794218870376,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "camlStdlib__Format+0x360",
+      "address": 94173108360272,
+      "bytes": 8,
+      "overlapping_reads": 0
+    },
+    {
+      "label": "camlStdlib__Format+0x368",
+      "address": 94173108360280,
+      "bytes": 8,
+      "overlapping_reads": 0
+    }
+  ],
+  "target_word_count": 18,
+  "complete_R": false,
+  "scope": "Absence of overlap with these exact 18 runtime words, not a claim about arbitrary descendants or source-prefix invariance",
+  "native_runs": 0,
+  "objdump_runs": 0,
+  "solver_runs": 0
+}
