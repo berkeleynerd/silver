@@ -1,0 +1,2132 @@
+{
+  "scope": "Outer IRA source completion, retained owner reconciliation, and disjoint cold-probe correction",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "base_revision": "7b66f9b6c326aac5b45202431538b899e68259d7",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "identity": {
+        "bytes": 198361,
+        "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "identity": {
+        "bytes": 106712,
+        "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-color.cc",
+      "identity": {
+        "bytes": 177541,
+        "sha256": "bbc68e6f86d1b5d2b5fd87b5b99901b87194c0dbcf360e9c3a01c0c24f81c3c8"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-emit.cc",
+      "identity": {
+        "bytes": 41804,
+        "sha256": "66b08bc37fb42cafc7df53eb99b794bfbbce07c58fb108fa6dd44b7a5c6a1163"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-costs.cc",
+      "identity": {
+        "bytes": 88610,
+        "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-lives.cc",
+      "identity": {
+        "bytes": 56331,
+        "sha256": "427b2f4c5219e2c05a406972848daa02484a3cc87657c305aad13440b9244edf"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-int.h",
+      "identity": {
+        "bytes": 63045,
+        "sha256": "afbfec872426e7e0fbc2d352ac3ade7232cc72d886bcafb66d3def4532a88f48"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "identity": {
+        "bytes": 112284,
+        "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/loop-init.cc",
+      "identity": {
+        "bytes": 16620,
+        "sha256": "475ea3527abbea9ca7582753bc9ebea01ecfd6bbae3c62cedc63af2dfe9ecb92"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgloop.cc",
+      "identity": {
+        "bytes": 56182,
+        "sha256": "85733a1157f28b71ddda81e333da35776ae4562698deece8a2c8d4cede480ff3"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgloop.h",
+      "identity": {
+        "bytes": 28358,
+        "sha256": "c3d43490b4a32e3ab1534fcc9da1fcdead1007db5ae54305315019e38a6e4b17"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfganal.cc",
+      "identity": {
+        "bytes": 57472,
+        "sha256": "e2c13056e8fde97f6a9008baf73fa9ab6527e376996bd9a537f95c9c2150ad1e"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dominance.cc",
+      "identity": {
+        "bytes": 48171,
+        "sha256": "83ae712d69a2424e7d401a49024221a7fa950da2a7ce587b75a0b6b59d7ee930"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "identity": {
+        "bytes": 73101,
+        "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-scan.cc",
+      "identity": {
+        "bytes": 121906,
+        "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "identity": {
+        "bytes": 145024,
+        "sha256": "0d4b5382df19fecd93447141a20141762e21064da41eb57565b3ad8f6cf8ab9e"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df.h",
+      "identity": {
+        "bytes": 48445,
+        "sha256": "15903c1080da45b1d99b2f4868f25c9a1b7d0bbd3b88659cc7b143e6e45c7a56"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.h",
+      "identity": {
+        "bytes": 37720,
+        "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.h",
+      "identity": {
+        "bytes": 10479,
+        "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.cc",
+      "identity": {
+        "bytes": 27107,
+        "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "identity": {
+        "bytes": 74232,
+        "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "identity": {
+        "bytes": 22283,
+        "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sort.cc",
+      "identity": {
+        "bytes": 9896,
+        "sha256": "c7d3068301225f78c505d882ec9e8b11082946ca4201eee0b4849b2e527795b3"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/system.h",
+      "identity": {
+        "bytes": 39549,
+        "sha256": "79efd56bfd4896fb6512451c53d609686783e64da4ea41a9c136363baf1b1d46"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "identity": {
+        "bytes": 193419,
+        "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.h",
+      "identity": {
+        "bytes": 162393,
+        "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.cc",
+      "identity": {
+        "bytes": 23229,
+        "sha256": "516c1f4b2ad68750095d3c09f3c0d123d1cf8009331b439a4d0ef67bcf6910ee"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.def",
+      "identity": {
+        "bytes": 61727,
+        "sha256": "29cc3589ac9b95caae287954ab3c7f8d49db7f4f06b5df14a81315522ddbe7c6"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "identity": {
+        "bytes": 132604,
+        "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.h",
+      "identity": {
+        "bytes": 19888,
+        "sha256": "f95de8e612758e4e35aec029eed601d19fa484d7fa62ac4dea9788b36069e688"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/genrecog.cc",
+      "identity": {
+        "bytes": 168870,
+        "sha256": "839e842c4689c7175fd51f7228737e20715b781ae72484baf9df6c234511cb0f"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/genextract.cc",
+      "identity": {
+        "bytes": 13101,
+        "sha256": "91bfebce958af97e8fba5cbacde74728e6038801479677e7017f3014f1142be6"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/genattrtab.cc",
+      "identity": {
+        "bytes": 147877,
+        "sha256": "bb9512ea34bf4caa4da7539fd948e8e5b0f26e7214651be7402a1cc4945f3d48"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/genpreds.cc",
+      "identity": {
+        "bytes": 52453,
+        "sha256": "970886e58e931fcf7ddf4871d2c142966a654908b831518f41d31b1bc10011ac"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "identity": {
+        "bytes": 832808,
+        "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.h",
+      "identity": {
+        "bytes": 122286,
+        "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386-protos.h",
+      "identity": {
+        "bytes": 19481,
+        "sha256": "eb81bff19b9092466542648fcec5ced9f0ec2e500f1e4a8a26755009ebed79ac"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/params.opt",
+      "identity": {
+        "bytes": 67891,
+        "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "identity": {
+        "bytes": 221482,
+        "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/final.cc",
+      "identity": {
+        "bytes": 128479,
+        "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cse.cc",
+      "identity": {
+        "bytes": 240025,
+        "sha256": "23209573e8355647e0a3eb8c895e7e21ab23d220b0959b4cbda5cff8b2b49325"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/regstat.cc",
+      "identity": {
+        "bytes": 13002,
+        "sha256": "196034c49ef943c9e918c35dc96f3c380c8a00edb7224de0ea10d8ba7b9849ee"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reginfo.cc",
+      "identity": {
+        "bytes": 39713,
+        "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/target.def",
+      "identity": {
+        "bytes": 349626,
+        "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "include/obstack.h",
+      "identity": {
+        "bytes": 22405,
+        "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/athlon.md",
+      "identity": {
+        "bytes": 51799,
+        "sha256": "bb4c6e0d3449e41ff6f56880c8fbdc9bf448860bac0b198ed54593321b9d30b0"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/atom.md",
+      "identity": {
+        "bytes": 28256,
+        "sha256": "f78870916a314dd33d295accc67370bc2b6060e671719dc8559b207659041991"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/bdver1.md",
+      "identity": {
+        "bytes": 35642,
+        "sha256": "53725cbe312aa11697a669ce05a7fa6d915f2957fe217726c40b4839cc960f63"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/bdver3.md",
+      "identity": {
+        "bytes": 33665,
+        "sha256": "d22aa408c8f086d87ab7a432050b560d0b97f2fa54c8729562a29fd65f111699"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/btver2.md",
+      "identity": {
+        "bytes": 49822,
+        "sha256": "0ce51b319cdf1632ac7cd8902eae28c22324670118028ac9c8d0efe304b8179c"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/constraints.md",
+      "identity": {
+        "bytes": 18453,
+        "sha256": "dddc5eb7a550e5db9fc4350024877d9917728985697e17ed1f8059ef17dbebed"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/core2.md",
+      "identity": {
+        "bytes": 25222,
+        "sha256": "5505e50eb296f96bd14f846ed9f256bdb5b96a18b33a8373274ee96d4f4d9cfb"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/geode.md",
+      "identity": {
+        "bytes": 4634,
+        "sha256": "6633784fd9f7f58fc5e0334ff21f13fcc0724a556dec63d6e9ee71e29980d4fc"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/glm.md",
+      "identity": {
+        "bytes": 22332,
+        "sha256": "368bdc7fb2826a436b34152c1bf8b47c7f98dd56728fc23c0bf653e4c6b6718a"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/haswell.md",
+      "identity": {
+        "bytes": 22034,
+        "sha256": "caa5a6e9c5dd29e2da976d5cbd2b9bb278b3f941e48b7a1e81339025d77de3f9"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.md",
+      "identity": {
+        "bytes": 1013857,
+        "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/k6.md",
+      "identity": {
+        "bytes": 10000,
+        "sha256": "e7f77a101ab0b88a1d8b8f6672af9d5b4872f4afc8e3842189378eff03c9de35"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/lujiazui.md",
+      "identity": {
+        "bytes": 28071,
+        "sha256": "acd432a415d22de937bd0cb6b5c0bda0bc90e63ce7286928e08604fd8667e5da"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/mmx.md",
+      "identity": {
+        "bytes": 226884,
+        "sha256": "34f2f6ff61792b6bc7c2b0a58f6ef07427c6a90873bbbc65e8ad8bc81b022562"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/pentium.md",
+      "identity": {
+        "bytes": 11001,
+        "sha256": "3d86ef21af08beb9802472b8c9bb681cd3b65ee4bc2b8a0cb3890dcd599c7029"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/ppro.md",
+      "identity": {
+        "bytes": 27441,
+        "sha256": "499c2e0849aa72a25a3c7c242e8e85cbe369425504351896511b5a6befc4f7e1"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/predicates.md",
+      "identity": {
+        "bytes": 71950,
+        "sha256": "5075f3aae42a16baab5e7e9c9fdab376b7cfcfea81f0f9ca53d55e1db9ecbf87"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/slm.md",
+      "identity": {
+        "bytes": 25849,
+        "sha256": "704585ff5db111ebed6aa3e27378dddf09a5da93d72bc511022bd94a6479c0d3"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/sse.md",
+      "identity": {
+        "bytes": 1170312,
+        "sha256": "a5afc2af3435e4d510595f974d326f1449d0835043b35053c39760d7f7139fca"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/subst.md",
+      "identity": {
+        "bytes": 20122,
+        "sha256": "57109d346ec72f87c926980e9f33a58eacf2e6f2e58fcbc3bc44a022eea18c61"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/sync.md",
+      "identity": {
+        "bytes": 40614,
+        "sha256": "d228fdb6e9b63bb0c9f927be33bee61c4159580eca2ce825daa1b5ff0d988bfd"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/yongfeng.md",
+      "identity": {
+        "bytes": 31074,
+        "sha256": "bad46d093abc2c819df405e79d05d01e529187820c887ef5889c3c3edfcdf68f"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/zn4zn5.md",
+      "identity": {
+        "bytes": 68237,
+        "sha256": "562b5b4ec75b6d950e2d22e54ab576c30de5faed8a2adf4f99dc0f2d5baea28f"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/znver.md",
+      "identity": {
+        "bytes": 50401,
+        "sha256": "0acfd3754c883e1ef792f4ba058cf1e9f8bee7329bfbab6a21ccc89fb4cc2576"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-output-rtl.md",
+      "identity": {
+        "bytes": 21155,
+        "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "identity": {
+        "bytes": 781411,
+        "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ira-lra-ordinary.md",
+      "identity": {
+        "bytes": 18879,
+        "sha256": "96bf95a8badaddedb43585ec9c008174eb6d315d586c35d333defe6b2cf5d322"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ira-lra-helpers.md",
+      "identity": {
+        "bytes": 18943,
+        "sha256": "b3620dd21e45176e8b6626890cf2fd4035e052c86dec7610faf3527b1c8d1863"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ira-numeric.md",
+      "identity": {
+        "bytes": 19218,
+        "sha256": "e072d78e19dc5312801615f7fa22e3f00e92da6a056d08f256275c254bc52e21"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-cfi-cfg-ordinary.md",
+      "identity": {
+        "bytes": 18243,
+        "sha256": "c3b9fa331fb80732f3a01d0618480a2f4fbc86a0e087e6956fb88ffca5976ec6"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-mem-counter-lifetime.md",
+      "identity": {
+        "bytes": 19205,
+        "sha256": "26d7c44f0bdd8233bca669668fa668a2b5530d2422a31dc9c199e858e95990e2"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-bitmap-pools.md",
+      "identity": {
+        "bytes": 20006,
+        "sha256": "b37297072221c7fb6267bedff2e4bb2af91b196746b4a4ca427f96aae39bab44"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-native-ggc-ledger.md",
+      "identity": {
+        "bytes": 17828,
+        "sha256": "d87cd42673a766a3e1f7e41a6c12de7fa6e95bcbcbfd27d206f38e4fa65db533"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ira-lra-helper-attachment.md",
+      "identity": {
+        "bytes": 12177,
+        "sha256": "375fc63a348997d083fea9005b8e4c66fb8ca90be4e149cb2a78b090875402d3"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-ira-storage-66da47daa2.md",
+      "identity": {
+        "bytes": 9854,
+        "sha256": "d0fceaa5c3045ff40eb426bd24d002f578e171614df9e88c7b674178f0a43c9c"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-ira-lra-helpers-b795c8f745.md",
+      "identity": {
+        "bytes": 11313,
+        "sha256": "d1f118178743d78d91d5f08013d31d19126958bcde11dcb23b83b97b22e9dda6"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-ira-numeric-9ed466e07f.md",
+      "identity": {
+        "bytes": 13345,
+        "sha256": "80b89fc682a55a0303b88707b678225de29c5951ed82369d03c52624ee876046"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-cfi-cfg-ordinary-f21a344719.md",
+      "identity": {
+        "bytes": 8891,
+        "sha256": "98a3e5a9ef0ad30a195c80bd29d4fbdef514508813fe1064cf515b98728c6b7c"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-mem-counter-lifetime-9d24cab8cf.md",
+      "identity": {
+        "bytes": 11497,
+        "sha256": "e4d15c146208e08cf2afac983f98174de06b2cdc821f7bb37b7ce39e77bc59d9"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md",
+      "identity": {
+        "bytes": 16586,
+        "sha256": "5775ed97dcc5b7a4deff2c1d89b09ad725f585fef6b561f07c06c75cf687b143"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-native-ggc-ledger-ca4ef8d20f.md",
+      "identity": {
+        "bytes": 13367,
+        "sha256": "24ebd21647479b3e9c0b251ba0f9ac229fe61f2db067148401629702c0a815a8"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-ira-lra-helper-attachment-71624df232.md",
+      "identity": {
+        "bytes": 10661,
+        "sha256": "e3d7cc4bf8818d73c1a963ef08cab2530a2e5c746d22579b82ad283b4678b48f"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py",
+      "identity": {
+        "bytes": 14174,
+        "sha256": "6cb79df71b928240343179ee561df879cb35a48aa57ab2cba09a911bf09375bb"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-selected-headers.tar.gz",
+      "identity": {
+        "bytes": 305654,
+        "sha256": "fa8f79590eb9d667882db331eb8584753e0bfe267f2cbdc9e898637fbeaedb17"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/df-backing-selected-headers.tar.gz",
+      "identity": {
+        "bytes": 67288,
+        "sha256": "8034de717166f84a72237479967d0f72ecea78bde74d915a8c8c8dc896c42da8"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json",
+      "identity": {
+        "bytes": 2989,
+        "sha256": "302806a957f307d7cd4704f0e7c9d0f303bdda46b37e935dc93c402645b43612"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-rtl-setup.py",
+      "identity": {
+        "bytes": 13051,
+        "sha256": "849926067e1b9216079a43eb77931648562b42d6c5ab0dc18ca729d2dafde270"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/README.md",
+      "identity": {
+        "bytes": 4267,
+        "sha256": "cbec4f5ed277700529445f494f6487b14cfd613f69d5b491a480408d2d751a4b"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check-results.json",
+      "identity": {
+        "bytes": 30611,
+        "sha256": "81de0ea98112bcfdca0ae56b0bc265bc27382ca829e499c856fdc3c54f86fd48"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check.py",
+      "identity": {
+        "bytes": 21987,
+        "sha256": "e6c117026c3aa695e59a7637de62139446095711f7a99a29c696c322285ffe24"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/compose.py",
+      "identity": {
+        "bytes": 18280,
+        "sha256": "2fd777ab545c79d106af7064c3f5323799a36e817dfce403d555fbefc9a0308d"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/inputs.json",
+      "identity": {
+        "bytes": 5846,
+        "sha256": "792f6826a0dc581bc27d39a63f42777964315466a92dcf6dc40c09c30c8abebb"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/result.json",
+      "identity": {
+        "bytes": 1111857,
+        "sha256": "f1e1663c15cbc548a29e2292c90306183719b18f536963a8f2076e620172e4f1"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/round.json",
+      "identity": {
+        "bytes": 7966,
+        "sha256": "678e35a44a8e50fb30bd95ff1fb492b8400592d9feca22e790e813a0d40b00b0"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/README.md",
+      "identity": {
+        "bytes": 1362,
+        "sha256": "07e95a41f8c7a800e4a0a09c57aba3d1261b9c78aadbef99286a4b2bb1ca3aa2"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/check-results.json",
+      "identity": {
+        "bytes": 7012,
+        "sha256": "1c4e547725944a92da629a63a2891abe568163604c7afd67984df0dd942a3c45"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/check.py",
+      "identity": {
+        "bytes": 9852,
+        "sha256": "52a8b9af4444a99de2e9dc644a87d0469fee7c9b3818a6e9d97c33936bb54eea"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/derive.py",
+      "identity": {
+        "bytes": 14210,
+        "sha256": "86d0dc09df981a04c2049261303065145af801be8877a92d21d3f5e95fab30ed"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/inputs.json",
+      "identity": {
+        "bytes": 120829,
+        "sha256": "78bd55882a352540a090bc90922de67634f0c91ad7cd0dc973dc7827135e7d48"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/result.json",
+      "identity": {
+        "bytes": 11854,
+        "sha256": "bded346244f3ef8e06867ee469939514d81e91302e0fa9bbc72f384289a3609f"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helpers-20261019/round.json",
+      "identity": {
+        "bytes": 5163,
+        "sha256": "518dde3ad865fdbb467bfdd7399be3173c330a4de8f483ee79fcd2d3631e9c80"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/README.md",
+      "identity": {
+        "bytes": 2076,
+        "sha256": "7a706af1f34504faea0a058d1a94cb30f7405e8cb53d931c8505e87e24803503"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/check-results.json",
+      "identity": {
+        "bytes": 9556,
+        "sha256": "cc1ed1e2c8204111dda2169c34956185cf9e422d598264838a6f7c28f52b3c64"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/check.py",
+      "identity": {
+        "bytes": 11421,
+        "sha256": "dc685002e9b5f9a253c9d7a430a8c8c494ceaa99e0db64c9ccf32cb4434fa8c0"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/derive.py",
+      "identity": {
+        "bytes": 10334,
+        "sha256": "bb2ab4152eebab80132b8ea879214546032aad231b3ceae8dd04d9e7a99e64d1"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/inputs.json",
+      "identity": {
+        "bytes": 47603,
+        "sha256": "aa0056bd262b5bc326d373cbb89431c0fafa3a07f67e4723f607ef367a133a30"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/result.json",
+      "identity": {
+        "bytes": 5879,
+        "sha256": "0711c928202b1d1fcc4411ded70d0cb6bdc5cfc6114b7af873bf4aba796a8758"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/round.json",
+      "identity": {
+        "bytes": 4198,
+        "sha256": "45c7a367b6c1e4f326e1716778a86568f998b055200d2c9f960a437df92ccfb7"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/README.md",
+      "identity": {
+        "bytes": 4776,
+        "sha256": "cea8e967e1e8225d544f58406296505f035536c9eeae0e664552f555b5726d03"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/check-results.json",
+      "identity": {
+        "bytes": 25780,
+        "sha256": "49000450220d2879546bf119ce52bcece9c17c0c3e5d4ecec6fbefb4f0304b30"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/check.py",
+      "identity": {
+        "bytes": 17706,
+        "sha256": "3c4919ed1757d8dedd10ed1a8d0c40f32da5922260fb7e098e59188e83993d7e"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/compose.py",
+      "identity": {
+        "bytes": 22237,
+        "sha256": "1daa94de315b697a2484be46e9ea4bdd13cc1c677276e47d6239d8bef3578dec"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/inputs.json",
+      "identity": {
+        "bytes": 8638,
+        "sha256": "6d279c491a53e1eea43aefbeeb635993777d6f5b8cdfce7a0001af655748dd77"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/result.json",
+      "identity": {
+        "bytes": 838496,
+        "sha256": "d82262008cf21d10879f062cdc973d1b5d9c8384c320c674ece5ef93b33abe2b"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/round.json",
+      "identity": {
+        "bytes": 10154,
+        "sha256": "ba4a77961d4b0f67164462681f1f06db0f3e74cde158ec269ae4ba0905425f28"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/README.md",
+      "identity": {
+        "bytes": 2868,
+        "sha256": "4af95b26064b4f9175649eceacbf4d2c9d062826f7ca2cdd9fed1870d467f492"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/check-results.json",
+      "identity": {
+        "bytes": 4465,
+        "sha256": "f7ba34c86cb083469fd270bc98e9099a9f7d922f7c5ae8d769805e7184bd64fc"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/check.py",
+      "identity": {
+        "bytes": 9351,
+        "sha256": "023a9409b63e18217ff0f8ebe9481308abfb6bd091a392c4509b82feee373cd5"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/derive.py",
+      "identity": {
+        "bytes": 21113,
+        "sha256": "4a99185226e49ffc0104e3eb4e543fbb17237ab425f2b3f5e0cd82d774171f11"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/inputs.json",
+      "identity": {
+        "bytes": 14901,
+        "sha256": "519db11b74467b34576826a54694c51c4da83b27e73b5e41fb765ffcc701f704"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/result.json",
+      "identity": {
+        "bytes": 24303,
+        "sha256": "12e1cfa1f6943e38093c9c9442666ecded2bf91f0d751b45605c451f88b38c46"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/round.json",
+      "identity": {
+        "bytes": 2502,
+        "sha256": "abb7fd39a98aa1e21f338210cf5a025cc77ffe590131723e9ff12478bab3180c"
+      }
+    }
+  ],
+  "excerpts": [
+    {
+      "name": "probe constructors and fixed loops",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 1721,
+      "last_LF_line": 1755,
+      "text": "setup_prohibited_mode_move_regs (void)\n{\n  int i, j;\n  rtx test_reg1, test_reg2, move_pat;\n  rtx_insn *move_insn;\n\n  if (ira_prohibited_mode_move_regs_initialized_p)\n    return;\n  ira_prohibited_mode_move_regs_initialized_p = true;\n  test_reg1 = gen_rtx_REG (word_mode, LAST_VIRTUAL_REGISTER + 1);\n  test_reg2 = gen_rtx_REG (word_mode, LAST_VIRTUAL_REGISTER + 2);\n  move_pat = gen_rtx_SET (test_reg1, test_reg2);\n  move_insn = gen_rtx_INSN (VOIDmode, 0, 0, 0, move_pat, 0, -1, 0);\n  for (i = 0; i < NUM_MACHINE_MODES; i++)\n    {\n      SET_HARD_REG_SET (ira_prohibited_mode_move_regs[i]);\n      for (j = 0; j < FIRST_PSEUDO_REGISTER; j++)\n\t{\n\t  if (!targetm.hard_regno_mode_ok (j, (machine_mode) i))\n\t    continue;\n\t  set_mode_and_regno (test_reg1, (machine_mode) i, j);\n\t  set_mode_and_regno (test_reg2, (machine_mode) i, j);\n\t  INSN_CODE (move_insn) = -1;\n\t  recog_memoized (move_insn);\n\t  if (INSN_CODE (move_insn) < 0)\n\t    continue;\n\t  extract_insn (move_insn);\n\t  /* We don't know whether the move will be in code that is optimized\n\t     for size or speed, so consider all enabled alternatives.  */\n\t  if (! constrain_operands (1, get_enabled_alternatives (move_insn)))\n\t    continue;\n\t  CLEAR_HARD_REG_BIT (ira_prohibited_mode_move_regs[i], j);\n\t}\n    }\n}",
+      "identity": {
+        "bytes": 1261,
+        "sha256": "a37dd1fef62ef8c1ff45db751d21d255ce1bf5ca818c1bcf28be64f73c2e1dd3"
+      },
+      "operative_fragments": [
+        "if (ira_prohibited_mode_move_regs_initialized_p)",
+        "gen_rtx_REG",
+        "gen_rtx_SET",
+        "gen_rtx_INSN",
+        "constrain_operands"
+      ]
+    },
+    {
+      "name": "outer hard-ref census",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 5627,
+      "last_LF_line": 5650,
+      "text": "/* Set up array ira_hard_regno_nrefs.  */\nstatic void\nsetup_hard_regno_nrefs (void)\n{\n  int i;\n\n  for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)\n    {\n      ira_hard_regno_nrefs[i] = 0;\n      for (df_ref use = DF_REG_USE_CHAIN (i);\n\t   use != NULL;\n\t   use = DF_REF_NEXT_REG (use))\n\tif (DF_REF_CLASS (use) != DF_REF_ARTIFICIAL\n\t    && !(DF_REF_INSN_INFO (use) && DEBUG_INSN_P (DF_REF_INSN (use))))\n\t  ira_hard_regno_nrefs[i]++;\n      for (df_ref def = DF_REG_DEF_CHAIN (i);\n\t   def != NULL;\n\t   def = DF_REF_NEXT_REG (def))\n\tif (DF_REF_CLASS (def) != DF_REF_ARTIFICIAL\n\t    && !(DF_REF_INSN_INFO (def) && DEBUG_INSN_P (DF_REF_INSN (def))))\n\t  ira_hard_regno_nrefs[i]++;\n    }\n}\n",
+      "identity": {
+        "bytes": 675,
+        "sha256": "e64b28226b31011f18755c9b348fb465463baaec74a4327cfdd4fe414a439be6"
+      },
+      "operative_fragments": [
+        "ira_hard_regno_nrefs[i]++"
+      ]
+    },
+    {
+      "name": "outer jump-output gate",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 5668,
+      "last_LF_line": 5715,
+      "text": "\t as USE which will be removed at the end of LRA.  The major\n\t goal is actually to create BBs for critical edges for LRA and\n\t populate them later by live info.  In LRA it will be\n\t difficult to do this. */\n      FOR_EACH_BB_FN (bb, cfun)\n\t{\n\t  rtx_insn *end = BB_END (bb);\n\t  if (!JUMP_P (end))\n\t    continue;\n\t  extract_insn (end);\n\t  for (int i = 0; i < recog_data.n_operands; i++)\n\t    if (recog_data.operand_type[i] != OP_IN)\n\t      {\n\t\tbool skip_p = false;\n\t\tFOR_EACH_EDGE (e, ei, bb->succs)\n\t\t  if (EDGE_CRITICAL_P (e)\n\t\t      && e->dest != EXIT_BLOCK_PTR_FOR_FN (cfun)\n\t\t      && (e->flags & EDGE_ABNORMAL))\n\t\t    {\n\t\t      skip_p = true;\n\t\t      break;\n\t\t    }\n\t\tif (skip_p)\n\t\t  break;\n\t\toutput_jump_reload_p = true;\n\t\tFOR_EACH_EDGE (e, ei, bb->succs)\n\t\t  if (EDGE_CRITICAL_P (e)\n\t\t      && e->dest != EXIT_BLOCK_PTR_FOR_FN (cfun))\n\t\t    {\n\t\t      start_sequence ();\n\t\t      /* We need to put some no-op insn here.  We can\n\t\t\t not put a note as commit_edges insertion will\n\t\t\t fail.  */\n\t\t      emit_insn (gen_rtx_USE (VOIDmode, const1_rtx));\n\t\t      rtx_insn *insns = end_sequence ();\n\t\t      insert_insn_on_edge (insns, e);\n\t\t    }\n\t\tbreak;\n\t      }\n\t}\n      if (output_jump_reload_p)\n\tcommit_edge_insertions ();\n    }\n\n  if (flag_ira_verbose < 10)\n    {\n      internal_flag_ira_verbose = flag_ira_verbose;\n      ira_dump_file = f;",
+      "identity": {
+        "bytes": 1342,
+        "sha256": "7ba17f612a617c1a5540b140f300658abd860eac04cd930891b4bb48dadb2978"
+      },
+      "operative_fragments": [
+        "if (!JUMP_P (end))",
+        "if (output_jump_reload_p)"
+      ]
+    },
+    {
+      "name": "outer target and simple-LRA",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 5727,
+      "last_LF_line": 5777,
+      "text": "     epilogue thus changing register elimination offsets.\n     Other target callbacks may use crtl->is_leaf too, including\n     SHRINK_WRAPPING_ENABLED, so initialize as early as possible.  */\n  crtl->is_leaf = leaf_function_p ();\n\n  /* Perform target specific PIC register initialization.  */\n  targetm.init_pic_reg ();\n\n  ira_conflicts_p = optimize > 0;\n\n  /* Determine the number of pseudos actually requiring coloring.  */\n  unsigned int num_used_regs = 0;\n  for (unsigned int i = FIRST_PSEUDO_REGISTER; i < DF_REG_SIZE (df); i++)\n    if (DF_REG_DEF_COUNT (i) || DF_REG_USE_COUNT (i))\n      num_used_regs++;\n\n  /* If there are too many pseudos and/or basic blocks (e.g. 10K pseudos and\n     10K blocks or 100K pseudos and 1K blocks) or we have too many function\n     insns, we will use simplified and faster algorithms in LRA.  */\n  lra_simple_p\n    = (ira_use_lra_p\n       && (num_used_regs >= (1U << 26) / last_basic_block_for_fn (cfun)\n           /* max uid is a good evaluation of the number of insns as most\n              optimizations are done on tree-SSA level.  */\n           || ((uint64_t) get_max_uid ()\n\t       > (uint64_t) param_ira_simple_lra_insn_threshold * 1000)));\n\n  if (lra_simple_p)\n    {\n      /* It permits to skip live range splitting in LRA.  */\n      flag_caller_saves = false;\n      /* There is no sense to do regional allocation when we use\n\tsimplified LRA.  */\n      flag_ira_region = IRA_REGION_ONE;\n      ira_conflicts_p = false;\n    }\n\n#ifndef IRA_NO_OBSTACK\n  gcc_obstack_init (&ira_obstack);\n#endif\n  bitmap_obstack_initialize (&ira_bitmap_obstack);\n\n  /* LRA uses its own infrastructure to handle caller save registers.  */\n  if (flag_caller_saves && !ira_use_lra_p)\n    init_caller_save ();\n\n  setup_prohibited_mode_move_regs ();\n  decrease_live_ranges_number ();\n  df_note_add_problem ();\n\n  /* DF_LIVE can't be used in the register allocator, too many other",
+      "identity": {
+        "bytes": 1898,
+        "sha256": "0754166ac999f511687586bc271217b1a2bfc6286e7f3965582acc0031afe1fe"
+      },
+      "operative_fragments": [
+        "targetm.init_pic_reg",
+        "(uint64_t) param_ira_simple_lra_insn_threshold * 1000",
+        "setup_prohibited_mode_move_regs"
+      ]
+    },
+    {
+      "name": "outer DF equivalence alias",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 5778,
+      "last_LF_line": 5848,
+      "text": "     parts of the compiler depend on using the \"classic\" liveness\n     interpretation of the DF_LR problem.  See PR38711.\n     Remove the problem, so that we don't spend time updating it in\n     any of the df_analyze() calls during IRA/LRA.  */\n  if (optimize > 1)\n    df_remove_problem (df_live);\n  gcc_checking_assert (df_live == NULL);\n\n  if (flag_checking)\n    df->changeable_flags |= DF_VERIFY_SCHEDULED;\n\n  df_analyze ();\n\n  init_reg_equiv ();\n  if (ira_conflicts_p)\n    {\n      calculate_dominance_info (CDI_DOMINATORS);\n\n      if (split_live_ranges_for_shrink_wrap ())\n\tdf_analyze ();\n\n      free_dominance_info (CDI_DOMINATORS);\n    }\n\n  df_clear_flags (DF_NO_INSN_RESCAN);\n\n  indirect_jump_optimize ();\n  if (delete_trivially_dead_insns (get_insns (), max_reg_num ()))\n    df_analyze ();\n\n  regstat_init_n_sets_and_refs ();\n  regstat_compute_ri ();\n\n  /* If we are not optimizing, then this is the only place before\n     register allocation where dataflow is done.  And that is needed\n     to generate these warnings.  */\n  if (warn_clobbered)\n    generate_setjmp_warnings ();\n\n  /* update_equiv_regs can use reg classes of pseudos and they are set up in\n     register pressure sensitive scheduling and loop invariant motion and in\n     live range shrinking.  This info can become obsolete if we add new pseudos\n     since the last set up.  Recalculate it again if the new pseudos were\n     added.  */\n  if (resize_reg_info () && (flag_sched_pressure || flag_live_range_shrinkage\n\t\t\t     || flag_ira_loop_pressure))\n    ira_set_pseudo_classes (true, ira_dump_file);\n\n  init_alias_analysis ();\n  loop_optimizer_init (AVOID_CFG_MODIFICATIONS);\n  reg_equiv = XCNEWVEC (struct equivalence, max_reg_num ());\n  update_equiv_regs_prescan ();\n  update_equiv_regs ();\n\n  /* Don't move insns if live range shrinkage or register\n     pressure-sensitive scheduling were done because it will not\n     improve allocation but likely worsen insn scheduling.  */\n  if (optimize\n      && !flag_live_range_shrinkage\n      && !(flag_sched_pressure && flag_schedule_insns))\n    combine_and_move_insns ();\n\n  /* Gather additional equivalences with memory.  */\n  if (optimize && flag_expensive_optimizations)\n    add_store_equivs ();\n\n  loop_optimizer_finalize ();\n  free_dominance_info (CDI_DOMINATORS);\n  end_alias_analysis ();\n  free (reg_equiv);\n",
+      "identity": {
+        "bytes": 2337,
+        "sha256": "0b729c3e301911772c016d0ec2296332101735931ee8f136e47a4b1b6f00d2ad"
+      },
+      "operative_fragments": [
+        "df_analyze",
+        "indirect_jump_optimize",
+        "init_alias_analysis",
+        "loop_optimizer_init",
+        "end_alias_analysis"
+      ]
+    },
+    {
+      "name": "outer graph and root setup",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 5858,
+      "last_LF_line": 5922,
+      "text": "\n  int max_regno_before_rm = max_reg_num ();\n  if (ira_use_lra_p && remove_scratches ())\n    {\n      ira_expand_reg_equiv ();\n      /* For now remove_scatches is supposed to create pseudos when it\n\t succeeds, assert this happens all the time.  Once it doesn't\n\t hold, we should guard the regstat recompute for the case\n\t max_regno changes.  */\n      gcc_assert (max_regno_before_rm != max_reg_num ());\n      regstat_recompute_for_max_regno ();\n    }\n\n  setup_reg_equiv ();\n  grow_reg_equivs ();\n  setup_reg_equiv_init ();\n\n  allocated_reg_info_size = max_reg_num ();\n\n  /* It is not worth to do such improvement when we use a simple\n     allocation because of -O0 usage or because the function is too\n     big.  */\n  if (ira_conflicts_p)\n    find_moveable_pseudos ();\n\n  max_regno_before_ira = max_reg_num ();\n  ira_setup_eliminable_regset ();\n\n  ira_overall_cost = ira_reg_cost = ira_mem_cost = 0;\n  ira_load_cost = ira_store_cost = ira_shuffle_cost = 0;\n  ira_move_loops_num = ira_additional_jumps_num = 0;\n\n  ira_assert (current_loops == NULL);\n  if (flag_ira_region == IRA_REGION_ALL || flag_ira_region == IRA_REGION_MIXED)\n    loop_optimizer_init (AVOID_CFG_MODIFICATIONS | LOOPS_HAVE_RECORDED_EXITS);\n\n  if (internal_flag_ira_verbose > 0 && ira_dump_file != NULL)\n    fprintf (ira_dump_file, \"Building IRA IR\\n\");\n  loops_p = ira_build ();\n\n  ira_assert (ira_conflicts_p || !loops_p);\n\n  saved_flag_ira_share_spill_slots = flag_ira_share_spill_slots;\n  if (too_high_register_pressure_p () || cfun->calls_setjmp)\n    /* It is just wasting compiler's time to pack spilled pseudos into\n       stack slots in this case -- prohibit it.  We also do this if\n       there is setjmp call because a variable not modified between\n       setjmp and longjmp the compiler is required to preserve its\n       value and sharing slots does not guarantee it.  */\n    flag_ira_share_spill_slots = false;\n\n  ira_color ();\n\n  ira_max_point_before_emit = ira_max_point;\n\n  ira_initiate_emit_data ();\n\n  ira_emit (loops_p);\n\n  max_regno = max_reg_num ();\n  if (ira_conflicts_p)\n    {\n      if (! loops_p)\n\t{\n\t  if (! ira_use_lra_p)",
+      "identity": {
+        "bytes": 2113,
+        "sha256": "5103412f7a642553015ce2210bc91c31fd778c3162f0d982731962f1d8aa6f04"
+      },
+      "operative_fragments": [
+        "remove_scratches",
+        "ira_setup_eliminable_regset",
+        "loops_p = ira_build",
+        "ira_color",
+        "ira_emit"
+      ]
+    },
+    {
+      "name": "outer tail gates",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 5986,
+      "last_LF_line": 6030,
+      "text": "       that code generated with the check and without it will be a bit\n       different.  Calling ira_flattening in any mode would be a\n       wasting CPU time.  So do not check the allocation for LRA.  */\n    check_allocation ();\n#endif\n\n  if (max_regno != max_regno_before_ira)\n    regstat_recompute_for_max_regno ();\n\n  overall_cost_before = ira_overall_cost;\n  if (! ira_conflicts_p)\n    grow_reg_equivs ();\n  else\n    {\n      fix_reg_equiv_init ();\n\n#ifdef ENABLE_IRA_CHECKING\n      print_redundant_copies ();\n#endif\n      if (! ira_use_lra_p)\n\t{\n\t  ira_spilled_reg_stack_slots_num = 0;\n\t  ira_spilled_reg_stack_slots\n\t    = ((class ira_spilled_reg_stack_slot *)\n\t       ira_allocate (max_regno\n\t\t\t     * sizeof (class ira_spilled_reg_stack_slot)));\n\t  memset ((void *)ira_spilled_reg_stack_slots, 0,\n\t\t  max_regno * sizeof (class ira_spilled_reg_stack_slot));\n\t}\n    }\n  allocate_initial_values ();\n\n  /* See comment for find_moveable_pseudos call.  */\n  if (ira_conflicts_p)\n    move_unallocated_pseudos ();\n\n  /* Restore original values.  */\n  if (lra_simple_p)\n    {\n      flag_caller_saves = saved_flag_caller_saves;\n      flag_ira_region = saved_flag_ira_region;\n    }\n}\n\n/* Modify asm goto to avoid further trouble with this insn.  We can",
+      "identity": {
+        "bytes": 1250,
+        "sha256": "4a887881de7d00f5c0070a852634d83da3fa64e4d64cd4e66edcb51463ba5144"
+      },
+      "operative_fragments": [
+        "max_regno != max_regno_before_ira",
+        "allocate_initial_values",
+        "if (lra_simple_p)"
+      ]
+    },
+    {
+      "name": "outer reload entry",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 6043,
+      "last_LF_line": 6083,
+      "text": "}\n\nstatic void\ndo_reload (void)\n{\n  basic_block bb;\n  bool need_dce;\n  unsigned pic_offset_table_regno = INVALID_REGNUM;\n\n  if (flag_ira_verbose < 10)\n    ira_dump_file = dump_file;\n\n  /* If pic_offset_table_rtx is a pseudo register, then keep it so\n     after reload to avoid possible wrong usages of hard reg assigned\n     to it.  */\n  if (pic_offset_table_rtx\n      && REGNO (pic_offset_table_rtx) >= FIRST_PSEUDO_REGISTER)\n    pic_offset_table_regno = REGNO (pic_offset_table_rtx);\n\n  timevar_push (TV_RELOAD);\n  if (ira_use_lra_p)\n    {\n      if (current_loops != NULL)\n\t{\n\t  loop_optimizer_finalize ();\n\t  free_dominance_info (CDI_DOMINATORS);\n\t}\n      FOR_ALL_BB_FN (bb, cfun)\n\tbb->loop_father = NULL;\n      current_loops = NULL;\n\n      ira_destroy ();\n\n      lra (ira_dump_file, internal_flag_ira_verbose);\n      /* ???!!! Move it before lra () when we use ira_reg_equiv in\n\t LRA.  */\n      vec_free (reg_equivs);\n      reg_equivs = NULL;\n      need_dce = false;\n    }\n  else",
+      "identity": {
+        "bytes": 983,
+        "sha256": "e909d9f40b3edabe1aa214b388b5170b791c97a515fbeff3fa9a826c3d5abff9"
+      },
+      "operative_fragments": [
+        "if (ira_use_lra_p)",
+        "ira_destroy",
+        "lra ("
+      ]
+    },
+    {
+      "name": "outer reload teardown",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 6119,
+      "last_LF_line": 6186,
+      "text": "\n      regstat_free_ri ();\n      regstat_free_n_sets_and_refs ();\n    }\n\n  if (optimize)\n    cleanup_cfg (CLEANUP_EXPENSIVE);\n\n  finish_reg_equiv ();\n\n  bitmap_obstack_release (&ira_bitmap_obstack);\n#ifndef IRA_NO_OBSTACK\n  obstack_free (&ira_obstack, NULL);\n#endif\n\n  /* The code after the reload has changed so much that at this point\n     we might as well just rescan everything.  Note that\n     df_rescan_all_insns is not going to help here because it does not\n     touch the artificial uses and defs.  */\n  df_finish_pass (true);\n  df_scan_alloc (NULL);\n  df_scan_blocks ();\n\n  if (optimize > 1)\n    {\n      df_live_add_problem ();\n      df_live_set_all_dirty ();\n    }\n\n  if (optimize)\n    df_analyze ();\n\n  if (need_dce && optimize)\n    run_fast_dce ();\n\n  /* Diagnose uses of the hard frame pointer when it is used as a global\n     register.  Often we can get away with letting the user appropriate\n     the frame pointer, but we should let them know when code generation\n     makes that impossible.  */\n  if (global_regs[HARD_FRAME_POINTER_REGNUM] && frame_pointer_needed)\n    {\n      tree decl = global_regs_decl[HARD_FRAME_POINTER_REGNUM];\n      error_at (DECL_SOURCE_LOCATION (current_function_decl),\n                \"frame pointer required, but reserved\");\n      inform (DECL_SOURCE_LOCATION (decl), \"for %qD\", decl);\n    }\n\n  /* If we are doing generic stack checking, give a warning if this\n     function's frame size is larger than we expect.  */\n  if (flag_stack_check == GENERIC_STACK_CHECK)\n    {\n      poly_int64 size = get_frame_size () + STACK_CHECK_FIXED_FRAME_SIZE;\n\n      for (int i = 0; i < FIRST_PSEUDO_REGISTER; i++)\n\tif (df_regs_ever_live_p (i)\n\t    && !fixed_regs[i]\n\t    && !crtl->abi->clobbers_full_reg_p (i))\n\t  size += UNITS_PER_WORD;\n\n      if (constant_lower_bound (size) > STACK_CHECK_MAX_FRAME_SIZE)\n\twarning (0, \"frame size too large for reliable stack checking\");\n    }\n\n  if (pic_offset_table_regno != INVALID_REGNUM)\n    pic_offset_table_rtx = gen_rtx_REG (Pmode, pic_offset_table_regno);\n\n  timevar_pop (TV_IRA);\n}",
+      "identity": {
+        "bytes": 2057,
+        "sha256": "705d28b97f0394ecbede913584ab836d61395db6d87b7499d666c535ed1af145"
+      },
+      "operative_fragments": [
+        "finish_reg_equiv",
+        "df_finish_pass (true)",
+        "df_scan_alloc",
+        "flag_stack_check"
+      ]
+    },
+    {
+      "name": "indirect jump gate",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 4144,
+      "last_LF_line": 4192,
+      "text": "indirect_jump_optimize (void)\n{\n  basic_block bb;\n  bool rebuild_p = false;\n\n  FOR_EACH_BB_REVERSE_FN (bb, cfun)\n    {\n      rtx_insn *insn = BB_END (bb);\n      if (!JUMP_P (insn)\n\t  || find_reg_note (insn, REG_NON_LOCAL_GOTO, NULL_RTX))\n\tcontinue;\n\n      rtx x = pc_set (insn);\n      if (!x || !REG_P (SET_SRC (x)))\n\tcontinue;\n\n      int regno = REGNO (SET_SRC (x));\n      if (DF_REG_DEF_COUNT (regno) == 1)\n\t{\n\t  df_ref def = DF_REG_DEF_CHAIN (regno);\n\t  if (!DF_REF_IS_ARTIFICIAL (def))\n\t    {\n\t      rtx_insn *def_insn = DF_REF_INSN (def);\n\t      rtx lab = NULL_RTX;\n\t      rtx set = single_set (def_insn);\n\t      if (set && GET_CODE (SET_SRC (set)) == LABEL_REF)\n\t\tlab = SET_SRC (set);\n\t      else\n\t\t{\n\t\t  rtx eqnote = find_reg_note (def_insn, REG_EQUAL, NULL_RTX);\n\t\t  if (eqnote && GET_CODE (XEXP (eqnote, 0)) == LABEL_REF)\n\t\t    lab = XEXP (eqnote, 0);\n\t\t}\n\t      if (lab && validate_replace_rtx (SET_SRC (x), lab, insn))\n\t\trebuild_p = true;\n\t    }\n\t}\n    }\n\n  if (rebuild_p)\n    {\n      timevar_push (TV_JUMP);\n      rebuild_jump_labels (get_insns ());\n      if (purge_all_dead_edges ())\n\tdelete_unreachable_blocks ();\n      timevar_pop (TV_JUMP);\n    }\n}\n\f",
+      "identity": {
+        "bytes": 1166,
+        "sha256": "487525e8a4d61a4fec99c11611ce2704b031b478323427bedcff1618a9824b49"
+      },
+      "operative_fragments": [
+        "!REG_P (SET_SRC (x))",
+        "if (rebuild_p)"
+      ]
+    },
+    {
+      "name": "range decrease gate",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 2214,
+      "last_LF_line": 2227,
+      "text": "decrease_live_ranges_number (void)\n{\n  basic_block bb;\n  rtx_insn *insn;\n  rtx set, src, dest, dest_death, note;\n  rtx_insn *p, *q;\n  int sregno, dregno;\n\n  if (! flag_expensive_optimizations)\n    return;\n\n  if (ira_dump_file)\n    fprintf (ira_dump_file, \"Starting decreasing number of live ranges...\\n\");\n",
+      "identity": {
+        "bytes": 306,
+        "sha256": "01d03f25b171fc5d2d9b6462977f4ed16dbc2bdeb59eba36b06508d3c4ca1963"
+      },
+      "operative_fragments": [
+        "if (! flag_expensive_optimizations)"
+      ]
+    },
+    {
+      "name": "asm and elimination selection",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "first_LF_line": 2429,
+      "last_LF_line": 2506,
+      "text": "compute_regs_asm_clobbered (void)\n{\n  basic_block bb;\n\n  FOR_EACH_BB_FN (bb, cfun)\n    {\n      rtx_insn *insn;\n      FOR_BB_INSNS_REVERSE (bb, insn)\n\t{\n\t  df_ref def;\n\n\t  if (NONDEBUG_INSN_P (insn) && asm_noperands (PATTERN (insn)) >= 0)\n\t    FOR_EACH_INSN_DEF (def, insn)\n\t      {\n\t\tunsigned int dregno = DF_REF_REGNO (def);\n\t\tif (HARD_REGISTER_NUM_P (dregno))\n\t\t  add_to_hard_reg_set (&crtl->asm_clobbers,\n\t\t\t\t       GET_MODE (DF_REF_REAL_REG (def)),\n\t\t\t\t       dregno);\n\t      }\n\t}\n    }\n}\n\n\n/* Set up ELIMINABLE_REGSET, IRA_NO_ALLOC_REGS, and\n   REGS_EVER_LIVE.  */\nvoid\nira_setup_eliminable_regset (void)\n{\n  int i;\n  static const struct {const int from, to; } eliminables[] = ELIMINABLE_REGS;\n  int fp_reg_count = hard_regno_nregs (HARD_FRAME_POINTER_REGNUM, Pmode);\n\n  /* Setup is_leaf as frame_pointer_required may use it.  This function\n     is called by sched_init before ira if scheduling is enabled.  */\n  crtl->is_leaf = leaf_function_p ();\n\n  /* FIXME: If EXIT_IGNORE_STACK is set, we will not save and restore\n     sp for alloca.  So we can't eliminate the frame pointer in that\n     case.  At some point, we should improve this by emitting the\n     sp-adjusting insns for this case.  */\n  frame_pointer_needed\n    = (! flag_omit_frame_pointer\n       || (cfun->calls_alloca && EXIT_IGNORE_STACK)\n       /* We need the frame pointer to catch stack overflow exceptions if\n\t  the stack pointer is moving (as for the alloca case just above).  */\n       || (STACK_CHECK_MOVING_SP\n\t   && flag_stack_check\n\t   && flag_exceptions\n\t   && cfun->can_throw_non_call_exceptions)\n       || crtl->accesses_prior_frames\n       || (SUPPORTS_STACK_ALIGNMENT && crtl->stack_realign_needed)\n       || targetm.frame_pointer_required ());\n\n    /* The chance that FRAME_POINTER_NEEDED is changed from inspecting\n       RTL is very small.  So if we use frame pointer for RA and RTL\n       actually prevents this, we will spill pseudos assigned to the\n       frame pointer in LRA.  */\n\n  if (frame_pointer_needed)\n    for (i = 0; i < fp_reg_count; i++)\n      df_set_regs_ever_live (HARD_FRAME_POINTER_REGNUM + i, true);\n\n  ira_no_alloc_regs = no_unit_alloc_regs;\n  CLEAR_HARD_REG_SET (eliminable_regset);\n\n  compute_regs_asm_clobbered ();\n\n  /* Build the regset of all eliminable registers and show we can't\n     use those that we already know won't be eliminated.  */\n  for (i = 0; i < (int) ARRAY_SIZE (eliminables); i++)\n    {\n      bool cannot_elim\n\t= (! targetm.can_eliminate (eliminables[i].from, eliminables[i].to)\n\t   || (eliminables[i].to == STACK_POINTER_REGNUM && frame_pointer_needed));\n\n      if (!TEST_HARD_REG_BIT (crtl->asm_clobbers, eliminables[i].from))",
+      "identity": {
+        "bytes": 2661,
+        "sha256": "2609ef65a2690d3839e94604d5c7ba7c6076fa4ff102c841c5fbbdf5f809cdf8"
+      },
+      "operative_fragments": [
+        "asm_noperands",
+        "fp_reg_count",
+        "compute_regs_asm_clobbered"
+      ]
+    },
+    {
+      "name": "alias allocation",
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "first_LF_line": 3353,
+      "last_LF_line": 3387,
+      "text": "init_alias_analysis (void)\n{\n  const bool frame_pointer_eliminated\n    = reload_completed\n      && !frame_pointer_needed\n      && targetm.can_eliminate (FRAME_POINTER_REGNUM, STACK_POINTER_REGNUM);\n  unsigned int maxreg = max_reg_num ();\n  bool changed;\n  int pass, i;\n  unsigned int ui;\n  rtx_insn *insn;\n  rtx val;\n  int rpo_cnt;\n  int *rpo;\n\n  timevar_push (TV_ALIAS_ANALYSIS);\n\n  vec_safe_grow_cleared (reg_known_value, maxreg - FIRST_PSEUDO_REGISTER,\n\t\t\t true);\n  reg_known_equiv_p = sbitmap_alloc (maxreg - FIRST_PSEUDO_REGISTER);\n  bitmap_clear (reg_known_equiv_p);\n\n  /* If we have memory allocated from the previous run, use it.  */\n  if (old_reg_base_value)\n    reg_base_value = old_reg_base_value;\n\n  if (reg_base_value)\n    reg_base_value->truncate (0);\n\n  vec_safe_grow_cleared (reg_base_value, maxreg, true);\n\n  new_reg_base_value = XNEWVEC (rtx, maxreg);\n  reg_seen = sbitmap_alloc (maxreg);\n\n  /* The basic idea is that each pass through this loop will use the",
+      "identity": {
+        "bytes": 976,
+        "sha256": "85a48d40ad18d19e0a06f003c9a0a87b13b5bf7893fc8d2f07692f17b35401db"
+      },
+      "operative_fragments": [
+        "vec_safe_grow_cleared",
+        "sbitmap_alloc",
+        "new_reg_base_value = XNEWVEC"
+      ]
+    },
+    {
+      "name": "alias iteration setup",
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "first_LF_line": 3406,
+      "last_LF_line": 3441,
+      "text": "     The state of the arrays for the set chain in question does not matter\n     since the program has undefined behavior.  */\n\n  rpo = XNEWVEC (int, n_basic_blocks_for_fn (cfun));\n  rpo_cnt = pre_and_rev_post_order_compute (NULL, rpo, false);\n\n  pass = 0;\n  do\n    {\n      /* Assume nothing will change this iteration of the loop.  */\n      changed = false;\n\n      /* We want to assign the same IDs each iteration of this loop, so\n\t start counting from one each iteration of the loop.  */\n      unique_id = 1;\n\n      /* We're at the start of the function each iteration through the\n\t loop, so we're copying arguments.  */\n      copying_arguments = true;\n\n      /* Wipe the potential alias information clean for this pass.  */\n      memset (new_reg_base_value, 0, maxreg * sizeof (rtx));\n\n      /* Wipe the reg_seen array clean.  */\n      bitmap_clear (reg_seen);\n\n      /* Initialize the alias information for this pass.  */\n      for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)\n\tif (static_reg_base_value[i]\n\t    /* Don't treat the hard frame pointer as special if we\n\t       eliminated the frame pointer to the stack pointer.  */\n\t    && !(i == HARD_FRAME_POINTER_REGNUM && frame_pointer_eliminated))\n\t  {\n\t    new_reg_base_value[i] = static_reg_base_value[i];\n\t    bitmap_set_bit (reg_seen, i);\n\t  }",
+      "identity": {
+        "bytes": 1298,
+        "sha256": "a19638012505c42458ab35f727915f31a1ae7a2420ab28eb40cf601ab5551dc3"
+      },
+      "operative_fragments": [
+        "rpo = XNEWVEC",
+        "unique_id = 1",
+        "memset"
+      ]
+    },
+    {
+      "name": "alias known-value routes",
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "first_LF_line": 3450,
+      "last_LF_line": 3517,
+      "text": "\t\t{\n\t\t  rtx note, set;\n\n\t\t  /* Treat the hard frame pointer as special unless we\n\t\t     eliminated the frame pointer to the stack pointer.  */\n\t\t  if (!frame_pointer_eliminated\n\t\t      && modified_in_p (hard_frame_pointer_rtx, insn))\n\t\t    continue;\n\n\t\t  /* If this insn has a noalias note, process it,  Otherwise,\n\t\t     scan for sets.  A simple set will have no side effects\n\t\t     which could change the base value of any other register.  */\n\t\t  if (GET_CODE (PATTERN (insn)) == SET\n\t\t      && REG_NOTES (insn) != 0\n\t\t      && find_reg_note (insn, REG_NOALIAS, NULL_RTX))\n\t\t    record_set (SET_DEST (PATTERN (insn)), NULL_RTX, NULL);\n\t\t  else\n\t\t    note_stores (insn, record_set, NULL);\n\n\t\t  set = single_set (insn);\n\n\t\t  if (set != 0\n\t\t      && REG_P (SET_DEST (set))\n\t\t      && REGNO (SET_DEST (set)) >= FIRST_PSEUDO_REGISTER)\n\t\t    {\n\t\t      unsigned int regno = REGNO (SET_DEST (set));\n\t\t      rtx src = SET_SRC (set);\n\t\t      rtx t;\n\n\t\t      note = find_reg_equal_equiv_note (insn);\n\t\t      if (note && REG_NOTE_KIND (note) == REG_EQUAL\n\t\t\t  && DF_REG_DEF_COUNT (regno) != 1)\n\t\t\tnote = NULL_RTX;\n\n\t\t      poly_int64 offset;\n\t\t      if (note != NULL_RTX\n\t\t\t  && GET_CODE (XEXP (note, 0)) != EXPR_LIST\n\t\t\t  && ! rtx_varies_p (XEXP (note, 0), 1)\n\t\t\t  && ! reg_overlap_mentioned_p (SET_DEST (set),\n\t\t\t\t\t\t\tXEXP (note, 0)))\n\t\t\t{\n\t\t\t  set_reg_known_value (regno, XEXP (note, 0));\n\t\t\t  set_reg_known_equiv_p (regno,\n\t\t\t\t\t\t REG_NOTE_KIND (note) == REG_EQUIV);\n\t\t\t}\n\t\t      else if (DF_REG_DEF_COUNT (regno) == 1\n\t\t\t       && GET_CODE (src) == PLUS\n\t\t\t       && REG_P (XEXP (src, 0))\n\t\t\t       && (t = get_reg_known_value (REGNO (XEXP (src, 0))))\n\t\t\t       && poly_int_rtx_p (XEXP (src, 1), &offset))\n\t\t\t{\n\t\t\t  t = plus_constant (GET_MODE (src), t, offset);\n\t\t\t  set_reg_known_value (regno, t);\n\t\t\t  set_reg_known_equiv_p (regno, false);\n\t\t\t}\n\t\t      else if (DF_REG_DEF_COUNT (regno) == 1\n\t\t\t       && ! rtx_varies_p (src, 1))\n\t\t\t{\n\t\t\t  set_reg_known_value (regno, src);\n\t\t\t  set_reg_known_equiv_p (regno, false);\n\t\t\t}\n\t\t    }\n\t\t}\n\t      else if (NOTE_P (insn)\n\t\t       && NOTE_KIND (insn) == NOTE_INSN_FUNCTION_BEG)\n\t\tcopying_arguments = false;\n\t    }\n\t}",
+      "identity": {
+        "bytes": 2154,
+        "sha256": "d223ac73ee781c8abe1adb816b37f495bfaa7336854bd9305426fb4d82b30025"
+      },
+      "operative_fragments": [
+        "REG_NOALIAS",
+        "GET_CODE (src) == PLUS",
+        "plus_constant"
+      ]
+    },
+    {
+      "name": "alias termination and release",
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "first_LF_line": 3519,
+      "last_LF_line": 3567,
+      "text": "      /* Now propagate values from new_reg_base_value to reg_base_value.  */\n      gcc_assert (maxreg == (unsigned int) max_reg_num ());\n\n      for (ui = 0; ui < maxreg; ui++)\n\t{\n\t  if (new_reg_base_value[ui]\n\t      && new_reg_base_value[ui] != (*reg_base_value)[ui]\n\t      && ! rtx_equal_p (new_reg_base_value[ui], (*reg_base_value)[ui]))\n\t    {\n\t      (*reg_base_value)[ui] = new_reg_base_value[ui];\n\t      changed = true;\n\t    }\n\t}\n    }\n  while (changed && ++pass < MAX_ALIAS_LOOP_PASSES);\n  XDELETEVEC (rpo);\n\n  /* Fill in the remaining entries.  */\n  FOR_EACH_VEC_ELT (*reg_known_value, i, val)\n    {\n      int regno = i + FIRST_PSEUDO_REGISTER;\n      if (! val)\n\tset_reg_known_value (regno, regno_reg_rtx[regno]);\n    }\n\n  /* Clean up.  */\n  free (new_reg_base_value);\n  new_reg_base_value = 0;\n  sbitmap_free (reg_seen);\n  reg_seen = 0;\n  timevar_pop (TV_ALIAS_ANALYSIS);\n}\n\n/* Equate REG_BASE_VALUE (reg1) to REG_BASE_VALUE (reg2).\n   Special API for var-tracking pass purposes.  */\n\nvoid\nvt_equate_reg_base_value (const_rtx reg1, const_rtx reg2)\n{\n  (*reg_base_value)[REGNO (reg1)] = REG_BASE_VALUE (reg2);\n}\n\nvoid\nend_alias_analysis (void)\n{\n  old_reg_base_value = reg_base_value;\n  vec_free (reg_known_value);\n  sbitmap_free (reg_known_equiv_p);\n}",
+      "identity": {
+        "bytes": 1259,
+        "sha256": "f777b2f4ab9bd9368be0a1a7ec3ff6710ee013566554e08d19667853c31d4db3"
+      },
+      "operative_fragments": [
+        "++pass < MAX_ALIAS_LOOP_PASSES",
+        "i + FIRST_PSEUDO_REGISTER",
+        "free (new_reg_base_value)",
+        "vec_free"
+      ]
+    },
+    {
+      "name": "alias record creation gate",
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "first_LF_line": 1548,
+      "last_LF_line": 1601,
+      "text": "   register N has been set in this function.  */\nstatic sbitmap reg_seen;\n\nstatic void\nrecord_set (rtx dest, const_rtx set, void *data ATTRIBUTE_UNUSED)\n{\n  unsigned regno;\n  rtx src;\n  int n;\n\n  if (!REG_P (dest))\n    return;\n\n  regno = REGNO (dest);\n\n  gcc_checking_assert (regno < reg_base_value->length ());\n\n  n = REG_NREGS (dest);\n  if (n != 1)\n    {\n      while (--n >= 0)\n\t{\n\t  bitmap_set_bit (reg_seen, regno + n);\n\t  new_reg_base_value[regno + n] = 0;\n\t}\n      return;\n    }\n\n  if (set)\n    {\n      /* A CLOBBER wipes out any old value but does not prevent a previously\n\t unset register from acquiring a base address (i.e. reg_seen is not\n\t set).  */\n      if (GET_CODE (set) == CLOBBER)\n\t{\n\t  new_reg_base_value[regno] = 0;\n\t  return;\n\t}\n\n      src = SET_SRC (set);\n    }\n  else\n    {\n      /* There's a REG_NOALIAS note against DEST.  */\n      if (bitmap_bit_p (reg_seen, regno))\n\t{\n\t  new_reg_base_value[regno] = 0;\n\t  return;\n\t}\n      bitmap_set_bit (reg_seen, regno);\n      new_reg_base_value[regno] = unique_base_value (unique_id++);\n      return;\n    }\n",
+      "identity": {
+        "bytes": 1070,
+        "sha256": "e5ae19260beebcef7be2a87a95a907064bff78e2c7cade25b6c0715916381128"
+      },
+      "operative_fragments": [
+        "if (!REG_P (dest))",
+        "unique_base_value (unique_id++)"
+      ]
+    },
+    {
+      "name": "alias symbol register bases",
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "first_LF_line": 1409,
+      "last_LF_line": 1456,
+      "text": "{\n  unsigned int regno;\n  scalar_int_mode int_mode;\n\n#if defined (FIND_BASE_TERM)\n  /* Try machine-dependent ways to find the base term.  */\n  src = FIND_BASE_TERM (src);\n#endif\n\n  switch (GET_CODE (src))\n    {\n    case SYMBOL_REF:\n    case LABEL_REF:\n      return src;\n\n    case REG:\n      regno = REGNO (src);\n      /* At the start of a function, argument registers have known base\n\t values which may be lost later.  Returning an ADDRESS\n\t expression here allows optimization based on argument values\n\t even when the argument registers are used for other purposes.  */\n      if (regno < FIRST_PSEUDO_REGISTER && copying_arguments)\n\treturn new_reg_base_value[regno];\n\n      /* If a pseudo has a known base value, return it.  Do not do this\n\t for non-fixed hard regs since it can result in a circular\n\t dependency chain for registers which have values at function entry.\n\n\t The test above is not sufficient because the scheduler may move\n\t a copy out of an arg reg past the NOTE_INSN_FUNCTION_BEGIN.  */\n      if ((regno >= FIRST_PSEUDO_REGISTER || fixed_regs[regno])\n\t  && regno < vec_safe_length (reg_base_value))\n\t{\n\t  /* If we're inside init_alias_analysis, use new_reg_base_value\n\t     to reduce the number of relaxation iterations.  */\n\t  if (new_reg_base_value && new_reg_base_value[regno]\n\t      && DF_REG_DEF_COUNT (regno) == 1)\n\t    return new_reg_base_value[regno];\n\n\t  if ((*reg_base_value)[regno])\n\t    return (*reg_base_value)[regno];\n\t}\n\n      return 0;\n\n    case MEM:\n      /* Check for an argument passed in memory.  Only record in the\n\t copying-arguments block; it is too hard to track changes",
+      "identity": {
+        "bytes": 1611,
+        "sha256": "1d72d1d57931e1a2eb318a1dfb92d6086f1f3b7d9b064a354a28778f896e9a6c"
+      },
+      "operative_fragments": [
+        "case SYMBOL_REF:",
+        "new_reg_base_value[regno]"
+      ]
+    },
+    {
+      "name": "loop flags",
+      "root": "gcc",
+      "path": "gcc/loop-init.cc",
+      "first_LF_line": 40,
+      "last_LF_line": 80,
+      "text": "\nstatic void\napply_loop_flags (unsigned flags)\n{\n  if (flags & LOOPS_MAY_HAVE_MULTIPLE_LATCHES)\n    {\n      /* If the loops may have multiple latches, we cannot canonicalize\n\t them further (and most of the loop manipulation functions will\n\t not work).  However, we avoid modifying cfg, which some\n\t passes may want.  */\n      gcc_assert ((flags & ~(LOOPS_MAY_HAVE_MULTIPLE_LATCHES\n\t\t\t     | LOOPS_HAVE_RECORDED_EXITS\n\t\t\t     | LOOPS_HAVE_MARKED_IRREDUCIBLE_REGIONS)) == 0);\n      loops_state_set (LOOPS_MAY_HAVE_MULTIPLE_LATCHES);\n    }\n  else\n    disambiguate_loops_with_multiple_latches ();\n\n  /* Create pre-headers.  */\n  if (flags & LOOPS_HAVE_PREHEADERS)\n    {\n      int cp_flags = CP_SIMPLE_PREHEADERS;\n\n      if (flags & LOOPS_HAVE_FALLTHRU_PREHEADERS)\n        cp_flags |= CP_FALLTHRU_PREHEADERS;\n\n      create_preheaders (cp_flags);\n    }\n\n  /* Force all latches to have only single successor.  */\n  if (flags & LOOPS_HAVE_SIMPLE_LATCHES)\n    force_single_succ_latches ();\n\n  /* Mark irreducible loops.  */\n  if (flags & LOOPS_HAVE_MARKED_IRREDUCIBLE_REGIONS)\n    mark_irreducible_loops ();\n\n  if (flags & LOOPS_HAVE_RECORDED_EXITS)\n    record_loop_exits ();\n}\n",
+      "identity": {
+        "bytes": 1169,
+        "sha256": "3ea0f8e39d61c2958f24cf7a00f3530bbb1be15c1aaca0258d0ed52f1520a10d"
+      },
+      "operative_fragments": [
+        "LOOPS_MAY_HAVE_MULTIPLE_LATCHES",
+        "record_loop_exits"
+      ]
+    },
+    {
+      "name": "loop init/finalize",
+      "root": "gcc",
+      "path": "gcc/loop-init.cc",
+      "first_LF_line": 86,
+      "last_LF_line": 182,
+      "text": "loop_optimizer_init (unsigned flags)\n{\n  timevar_push (TV_LOOP_INIT);\n\n  if (!current_loops)\n    {\n      gcc_assert (!(cfun->curr_properties & PROP_loops));\n\n      /* Find the loops.  */\n      current_loops = flow_loops_find (NULL);\n    }\n  else\n    {\n      bool recorded_exits = loops_state_satisfies_p (LOOPS_HAVE_RECORDED_EXITS);\n      bool needs_fixup = loops_state_satisfies_p (LOOPS_NEED_FIXUP);\n\n      gcc_assert (cfun->curr_properties & PROP_loops);\n\n      /* Ensure that the dominators are computed, like flow_loops_find does.  */\n      calculate_dominance_info (CDI_DOMINATORS);\n\n      if (!needs_fixup)\n\tchecking_verify_loop_structure ();\n\n      /* Clear all flags.  */\n      if (recorded_exits)\n\trelease_recorded_exits (cfun);\n      loops_state_clear (~0U);\n\n      if (needs_fixup)\n\t{\n\t  /* Apply LOOPS_MAY_HAVE_MULTIPLE_LATCHES early as fix_loop_structure\n\t     re-applies flags.  */\n\t  loops_state_set (flags & LOOPS_MAY_HAVE_MULTIPLE_LATCHES);\n\t  fix_loop_structure (NULL);\n\t}\n    }\n\n  /* Apply flags to loops.  */\n  apply_loop_flags (flags);\n\n  /* Dump loops.  */\n  flow_loops_dump (dump_file, NULL, 1);\n\n  checking_verify_loop_structure ();\n\n  timevar_pop (TV_LOOP_INIT);\n}\n\n/* Finalize loop structures.  */\n\nvoid\nloop_optimizer_finalize (struct function *fn, bool clean_loop_closed_phi)\n{\n  basic_block bb;\n\n  timevar_push (TV_LOOP_FINI);\n\n  if (clean_loop_closed_phi && loops_state_satisfies_p (fn, LOOP_CLOSED_SSA))\n    {\n      clean_up_loop_closed_phi (fn);\n      loops_state_clear (fn, LOOP_CLOSED_SSA);\n    }\n\n  if (loops_state_satisfies_p (fn, LOOPS_HAVE_RECORDED_EXITS))\n    release_recorded_exits (fn);\n\n  free_numbers_of_iterations_estimates (fn);\n\n  /* If we should preserve loop structure, do not free it but clear\n     flags that advanced properties are there as we are not preserving\n     that in full.  */\n  if (fn->curr_properties & PROP_loops)\n    {\n      loops_state_clear (fn, LOOP_CLOSED_SSA\n\t\t\t | LOOPS_HAVE_MARKED_IRREDUCIBLE_REGIONS\n\t\t\t | LOOPS_HAVE_PREHEADERS\n\t\t\t | LOOPS_HAVE_SIMPLE_LATCHES\n\t\t\t | LOOPS_HAVE_FALLTHRU_PREHEADERS);\n      loops_state_set (fn, LOOPS_MAY_HAVE_MULTIPLE_LATCHES);\n      goto loop_fini_done;\n    }\n\n  for (auto loop : loops_list (fn, 0))\n    free_simple_loop_desc (loop);\n\n  /* Clean up.  */\n  flow_loops_free (loops_for_fn (fn));\n  ggc_free (loops_for_fn (fn));\n  set_loops_for_fn (fn, NULL);\n\n  FOR_ALL_BB_FN (bb, fn)\n    {\n      bb->loop_father = NULL;\n    }\n\nloop_fini_done:",
+      "identity": {
+        "bytes": 2446,
+        "sha256": "75f724d85b97a0f9f08d7ebbaa701f206c3a86ec50d3739eb82a260b3231742a"
+      },
+      "operative_fragments": [
+        "flow_loops_find",
+        "flow_loops_free"
+      ]
+    },
+    {
+      "name": "root creation and no backedge",
+      "root": "gcc",
+      "path": "gcc/cfgloop.cc",
+      "first_LF_line": 340,
+      "last_LF_line": 414,
+      "text": "alloc_loop (void)\n{\n  class loop *loop = ggc_cleared_alloc<class loop> ();\n\n  loop->exits = ggc_cleared_alloc<loop_exit> ();\n  loop->exits->next = loop->exits->prev = loop->exits;\n  loop->can_be_parallel = false;\n  loop->constraints = 0;\n  loop->nb_iterations_upper_bound = 0;\n  loop->nb_iterations_likely_upper_bound = 0;\n  loop->nb_iterations_estimate = 0;\n  return loop;\n}\n\n/* Initializes loops structure LOOPS, reserving place for NUM_LOOPS loops\n   (including the root of the loop tree).  */\n\nvoid\ninit_loops_structure (struct function *fn,\n\t\t      struct loops *loops, unsigned num_loops)\n{\n  class loop *root;\n\n  memset (loops, 0, sizeof *loops);\n  vec_alloc (loops->larray, num_loops);\n\n  /* Dummy loop containing whole function.  */\n  root = alloc_loop ();\n  root->num_nodes = n_basic_blocks_for_fn (fn);\n  root->latch = EXIT_BLOCK_PTR_FOR_FN (fn);\n  root->header = ENTRY_BLOCK_PTR_FOR_FN (fn);\n  ENTRY_BLOCK_PTR_FOR_FN (fn)->loop_father = root;\n  EXIT_BLOCK_PTR_FOR_FN (fn)->loop_father = root;\n\n  loops->larray->quick_push (root);\n  loops->tree_root = root;\n}\n\n/* Returns whether HEADER is a loop header.  */\n\nbool\nbb_loop_header_p (basic_block header)\n{\n  edge_iterator ei;\n  edge e;\n\n  /* If we have an abnormal predecessor, do not consider the\n     loop (not worth the problems).  */\n  if (bb_has_abnormal_pred (header))\n    return false;\n\n  /* Look for back edges where a predecessor is dominated\n     by this block.  A natural loop has a single entry\n     node (header) that dominates all the nodes in the\n     loop.  It also has single back edge to the header\n     from a latch node.  */\n  FOR_EACH_EDGE (e, ei, header->preds)\n    {\n      basic_block latch = e->src;\n      if (latch != ENTRY_BLOCK_PTR_FOR_FN (cfun)\n\t  && dominated_by_p (CDI_DOMINATORS, latch, header))\n\treturn true;\n    }\n\n  return false;\n}\n\n/* Find all the natural loops in the function and save in LOOPS structure and\n   recalculate loop_father information in basic block structures.\n   If LOOPS is non-NULL then the loop structures for already recorded loops\n   will be re-used and their number will not change.  We assume that no\n   stale loops exist in LOOPS.\n   When LOOPS is NULL it is allocated and re-built from scratch.\n   Return the built LOOPS structure.  */\n",
+      "identity": {
+        "bytes": 2256,
+        "sha256": "b7ca47a9596c7b815d1bba761ac1227f7c8d59966dacced71485451b1f53f563"
+      },
+      "operative_fragments": [
+        "num_nodes = n_basic_blocks_for_fn",
+        "dominated_by_p"
+      ]
+    },
+    {
+      "name": "root reverse order and candidate",
+      "root": "gcc",
+      "path": "gcc/cfgloop.cc",
+      "first_LF_line": 423,
+      "last_LF_line": 491,
+      "text": "  /* Ensure that the dominators are computed.  */\n  calculate_dominance_info (CDI_DOMINATORS);\n\n  if (!loops)\n    {\n      loops = ggc_cleared_alloc<struct loops> ();\n      init_loops_structure (cfun, loops, 1);\n    }\n\n  /* Ensure that loop exits were released.  */\n  gcc_assert (loops->exits == NULL);\n\n  /* Taking care of this degenerate case makes the rest of\n     this code simpler.  */\n  if (n_basic_blocks_for_fn (cfun) == NUM_FIXED_BLOCKS)\n    return loops;\n\n  /* The root loop node contains all basic-blocks.  */\n  loops->tree_root->num_nodes = n_basic_blocks_for_fn (cfun);\n\n  /* Compute depth first search order of the CFG so that outer\n     natural loops will be found before inner natural loops.  */\n  rc_order = XNEWVEC (int, n_basic_blocks_for_fn (cfun));\n  pre_and_rev_post_order_compute (NULL, rc_order, false);\n\n  /* Gather all loop headers in reverse completion order and allocate\n     loop structures for loops that are not already present.  */\n  auto_vec<loop_p> larray (loops->larray->length ());\n  for (b = 0; b < n_basic_blocks_for_fn (cfun) - NUM_FIXED_BLOCKS; b++)\n    {\n      basic_block header = BASIC_BLOCK_FOR_FN (cfun, rc_order[b]);\n      if (bb_loop_header_p (header))\n\t{\n\t  class loop *loop;\n\n\t  /* The current active loop tree has valid loop-fathers for\n\t     header blocks.  */\n\t  if (!from_scratch\n\t      && header->loop_father->header == header)\n\t    {\n\t      loop = header->loop_father;\n\t      /* If we found an existing loop remove it from the\n\t\t loop tree.  It is going to be inserted again\n\t\t below.  */\n\t      flow_loop_tree_node_remove (loop);\n\t    }\n\t  else\n\t    {\n\t      /* Otherwise allocate a new loop structure for the loop.  */\n\t      loop = alloc_loop ();\n\t      /* ???  We could re-use unused loop slots here.  */\n\t      loop->num = loops->larray->length ();\n\t      vec_safe_push (loops->larray, loop);\n\t      loop->header = header;\n\n\t      if (!from_scratch\n\t\t  && dump_file && (dump_flags & TDF_DETAILS))\n\t\tfprintf (dump_file, \"flow_loops_find: discovered new \"\n\t\t\t \"loop %d with header %d\\n\",\n\t\t\t loop->num, header->index);\n\t    }\n\t  /* Reset latch, we recompute it below.  */\n\t  loop->latch = NULL;\n\t  larray.safe_push (loop);\n\t}\n\n      /* Make blocks part of the loop root node at start.  */\n      header->loop_father = loops->tree_root;\n    }",
+      "identity": {
+        "bytes": 2297,
+        "sha256": "0cf1c6b8076006ea9d294415e3f4a4a3ac4d09795590d633b4557dcd533118fe"
+      },
+      "operative_fragments": [
+        "rc_order = XNEWVEC",
+        "auto_vec<loop_p> larray",
+        "bb_loop_header_p"
+      ]
+    },
+    {
+      "name": "root exit no entries",
+      "root": "gcc",
+      "path": "gcc/cfgloop.cc",
+      "first_LF_line": 1072,
+      "last_LF_line": 1150,
+      "text": "rescan_loop_exit (edge e, bool new_edge, bool removed)\n{\n  struct loop_exit *exits = NULL, *exit;\n  class loop *aloop, *cloop;\n\n  if (!loops_state_satisfies_p (LOOPS_HAVE_RECORDED_EXITS))\n    return;\n\n  if (!removed\n      && e->src->loop_father != NULL\n      && e->dest->loop_father != NULL\n      && !flow_bb_inside_loop_p (e->src->loop_father, e->dest))\n    {\n      cloop = find_common_loop (e->src->loop_father, e->dest->loop_father);\n      for (aloop = e->src->loop_father;\n\t   aloop != cloop;\n\t   aloop = loop_outer (aloop))\n\t{\n\t  exit = ggc_alloc<loop_exit> ();\n\t  exit->e = e;\n\n\t  exit->next = aloop->exits->next;\n\t  exit->prev = aloop->exits;\n\t  exit->next->prev = exit;\n\t  exit->prev->next = exit;\n\n\t  exit->next_e = exits;\n\t  exits = exit;\n\t}\n    }\n\n  if (!exits && new_edge)\n    return;\n\n  loop_exit **slot\n    = current_loops->exits->find_slot_with_hash (e, htab_hash_pointer (e),\n\t\t\t\t\t\t exits ? INSERT : NO_INSERT);\n  if (!slot)\n    return;\n\n  if (exits)\n    {\n      if (*slot)\n\tloop_exit_hasher::remove (*slot);\n      *slot = exits;\n    }\n  else\n    current_loops->exits->clear_slot (slot);\n}\n\n/* For each loop, record list of exit edges, and start maintaining these\n   lists.  */\n\nvoid\nrecord_loop_exits (void)\n{\n  basic_block bb;\n  edge_iterator ei;\n  edge e;\n\n  if (!current_loops)\n    return;\n\n  if (loops_state_satisfies_p (LOOPS_HAVE_RECORDED_EXITS))\n    return;\n  loops_state_set (LOOPS_HAVE_RECORDED_EXITS);\n\n  gcc_assert (current_loops->exits == NULL);\n  current_loops->exits\n    = hash_table<loop_exit_hasher>::create_ggc (2 * number_of_loops (cfun));\n\n  FOR_EACH_BB_FN (bb, cfun)\n    {\n      FOR_EACH_EDGE (e, ei, bb->succs)\n\t{\n\t  rescan_loop_exit (e, true, false);\n\t}\n    }\n}",
+      "identity": {
+        "bytes": 1700,
+        "sha256": "09f9dacb216410c051d493508f9d61eb01a5a30a2b7fbfa32caa5b3c8f2e85e4"
+      },
+      "operative_fragments": [
+        "!flow_bb_inside_loop_p",
+        "if (!exits && new_edge)",
+        "create_ggc (2 * number_of_loops"
+      ]
+    },
+    {
+      "name": "DF dataflow control",
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "first_LF_line": 414,
+      "last_LF_line": 455,
+      "text": "void\ndf_add_problem (const struct df_problem *problem)\n{\n  struct dataflow *dflow;\n  int i;\n\n  /* First try to add the dependent problem. */\n  if (problem->dependent_problem)\n    df_add_problem (problem->dependent_problem);\n\n  /* Check to see if this problem has already been defined.  If it\n     has, just return that instance, if not, add it to the end of the\n     vector.  */\n  dflow = df->problems_by_index[problem->id];\n  if (dflow)\n    return;\n\n  /* Make a new one and add it to the end.  */\n  dflow = XCNEW (struct dataflow);\n  dflow->problem = problem;\n  dflow->computed = false;\n  dflow->solutions_dirty = true;\n  df->problems_by_index[dflow->problem->id] = dflow;\n\n  /* Keep the defined problems ordered by index.  This solves the\n     problem that RI will use the information from UREC if UREC has\n     been defined, or from LIVE if LIVE is defined and otherwise LR.\n     However for this to work, the computation of RI must be pushed\n     after which ever of those problems is defined, but we do not\n     require any of those except for LR to have actually been\n     defined.  */\n  df->num_problems_defined++;\n  for (i = df->num_problems_defined - 2; i >= 0; i--)\n    {\n      if (problem->id < df->problems_in_order[i]->problem->id)\n\tdf->problems_in_order[i+1] = df->problems_in_order[i];\n      else\n\t{\n\t  df->problems_in_order[i+1] = dflow;\n\t  return;\n\t}\n    }",
+      "identity": {
+        "bytes": 1373,
+        "sha256": "d4493da2a6ae6645355aa84790145549c40f27ec88fcded039ff196eeb5e377a"
+      },
+      "operative_fragments": [
+        "XCNEW (struct dataflow)",
+        "df->num_problems_defined++"
+      ]
+    },
+    {
+      "name": "DF control layout",
+      "root": "gcc",
+      "path": "gcc/df.h",
+      "first_LF_line": 291,
+      "last_LF_line": 339,
+      "text": "/* The specific instance of the problem to solve.  */\nstruct dataflow\n{\n  const struct df_problem *problem;     /* The problem to be solved.  */\n\n  /* Array indexed by bb->index, that contains basic block problem and\n     solution specific information.  */\n  void *block_info;\n  unsigned int block_info_size;\n\n  /* The pool to allocate the block_info from. */\n  object_allocator<df_link> *block_pool;\n\n  /* The lr and live problems have their transfer functions recomputed\n     only if necessary.  This is possible for them because, the\n     problems are kept active for the entire backend and their\n     transfer functions are indexed by the REGNO.  These are not\n     defined for any other problem.  */\n  bitmap out_of_date_transfer_functions;\n\n  /* Other problem specific data that is not on a per basic block\n     basis.  The structure is generally defined privately for the\n     problem.  The exception being the scanning problem where it is\n     fully public.  */\n  void *problem_data;\n\n  /* Local flags for some of the problems. */\n  unsigned int local_flags;\n\n  /* True if this problem of this instance has been initialized.  This\n     is used by the dumpers to keep garbage out of the dumps if, for\n     debugging a dump is produced before the first call to\n     df_analyze after a new problem is added.  */\n  bool computed;\n\n  /* True if the something has changed which invalidates the dataflow\n     solutions.  Note that this bit is always true for all problems except\n     lr and live.  */\n  bool solutions_dirty;\n\n  /* If true, this pass is deleted by df_finish_pass.  This is never\n     true for DF_SCAN and DF_LR.  It is true for DF_LIVE if optimize >\n     1.  It is always true for the other problems.  */\n  bool optional_p;\n};\n\n\n/* The set of multiword hardregs used as operands to this\n   instruction. These are factored into individual uses and defs but",
+      "identity": {
+        "bytes": 1872,
+        "sha256": "69f5d6e3d5e49f8256585fe5e689352fcd757bead0eaffc9e99246ab10a1b364"
+      },
+      "operative_fragments": [
+        "struct dataflow",
+        "unsigned int local_flags",
+        "bool optional_p"
+      ]
+    },
+    {
+      "name": "LR control and bitmap reuse",
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "first_LF_line": 724,
+      "last_LF_line": 792,
+      "text": "struct df_lr_problem_data\n{\n  bitmap_head *in;\n  bitmap_head *out;\n  /* An obstack for the bitmaps we need for this problem.  */\n  bitmap_obstack lr_bitmaps;\n};\n\n/* Free basic block info.  */\n\nstatic void\ndf_lr_free_bb_info (basic_block bb ATTRIBUTE_UNUSED,\n\t\t    void *vbb_info)\n{\n  class df_lr_bb_info *bb_info = (class df_lr_bb_info *) vbb_info;\n  if (bb_info)\n    {\n      bitmap_clear (&bb_info->use);\n      bitmap_clear (&bb_info->def);\n      bitmap_clear (&bb_info->in);\n      bitmap_clear (&bb_info->out);\n    }\n}\n\n\n/* Allocate or reset bitmaps for DF_LR blocks. The solution bits are\n   not touched unless the block is new.  */\n\nstatic void\ndf_lr_alloc (bitmap all_blocks ATTRIBUTE_UNUSED)\n{\n  unsigned int bb_index;\n  bitmap_iterator bi;\n  struct df_lr_problem_data *problem_data;\n\n  df_grow_bb_info (df_lr);\n  if (df_lr->problem_data)\n    problem_data = (struct df_lr_problem_data *) df_lr->problem_data;\n  else\n    {\n      problem_data = XNEW (struct df_lr_problem_data);\n      df_lr->problem_data = problem_data;\n\n      problem_data->out = NULL;\n      problem_data->in = NULL;\n      bitmap_obstack_initialize (&problem_data->lr_bitmaps);\n    }\n\n  EXECUTE_IF_SET_IN_BITMAP (df_lr->out_of_date_transfer_functions, 0, bb_index, bi)\n    {\n      class df_lr_bb_info *bb_info = df_lr_get_bb_info (bb_index);\n\n      /* When bitmaps are already initialized, just clear them.  */\n      if (bb_info->use.obstack)\n\t{\n\t  bitmap_clear (&bb_info->def);\n\t  bitmap_clear (&bb_info->use);\n\t}\n      else\n\t{\n\t  bitmap_initialize (&bb_info->use, &problem_data->lr_bitmaps);\n\t  bitmap_initialize (&bb_info->def, &problem_data->lr_bitmaps);\n\t  bitmap_initialize (&bb_info->in, &problem_data->lr_bitmaps);\n\t  bitmap_initialize (&bb_info->out, &problem_data->lr_bitmaps);\n\t}\n    }\n\n  df_lr->optional_p = false;\n}",
+      "identity": {
+        "bytes": 1800,
+        "sha256": "d2d390070cfa6c3facf634354a754065d676d99db31ca7912d5d1722b4a999cf"
+      },
+      "operative_fragments": [
+        "struct df_lr_problem_data",
+        "XNEW (struct df_lr_problem_data)",
+        "df_grow_bb_info"
+      ]
+    },
+    {
+      "name": "DF solver exact vectors",
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "first_LF_line": 1019,
+      "last_LF_line": 1046,
+      "text": "df_worklist_dataflow_doublequeue (struct dataflow *dataflow,\n                                  sbitmap considered,\n                                  int *blocks_in_postorder,\n\t\t\t\t  unsigned *bbindex_to_postorder,\n\t\t\t\t  unsigned n_blocks)\n{\n  enum df_flow_dir dir = dataflow->problem->dir;\n  int dcount = 0;\n  int age = 0;\n  bool changed;\n  vec<int> last_visit_age = vNULL;\n  vec<int> last_change_age = vNULL;\n\n  bitmap worklist = BITMAP_ALLOC (&df_bitmap_obstack);\n  bitmap_tree_view (worklist);\n\n  last_visit_age.safe_grow (n_blocks, true);\n  last_change_age.safe_grow (last_basic_block_for_fn (cfun) + 1, true);\n  /* Make last_change_age defined - we can access uninit values for not\n     considered blocks but will make sure they are considered as well.  */\n  VALGRIND_DISCARD (VALGRIND_MAKE_MEM_DEFINED\n\t\t      (last_change_age.address (),\n\t\t       sizeof (int) * last_basic_block_for_fn (cfun)));\n\n  /* We start with processing all blocks, populating pending for the\n     next iteration.  */\n  bitmap pending = BITMAP_ALLOC (&df_bitmap_obstack);\n  bitmap_tree_view (pending);",
+      "identity": {
+        "bytes": 1080,
+        "sha256": "8f0c61ac10ef402773303edad89e4279b04c70a744c849a0f07c5cdf1b8b51ad"
+      },
+      "operative_fragments": [
+        "last_visit_age.safe_grow (n_blocks, true)",
+        "last_change_age.safe_grow (last_basic_block_for_fn (cfun) + 1, true)"
+      ]
+    },
+    {
+      "name": "DF solver counters and release",
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "first_LF_line": 1046,
+      "last_LF_line": 1118,
+      "text": "  bitmap_tree_view (pending);\n  for (unsigned index = 0; index < n_blocks; ++index)\n    {\n      unsigned bb_index = blocks_in_postorder[index];\n      dcount++;\n      if (dir == DF_FORWARD)\n\tchanged = df_worklist_propagate_forward (dataflow, bb_index,\n\t\t\t\t\t\t bbindex_to_postorder,\n\t\t\t\t\t\t NULL, pending,\n\t\t\t\t\t\t considered,\n\t\t\t\t\t\t last_change_age, 0);\n      else\n\tchanged = df_worklist_propagate_backward (dataflow, bb_index,\n\t\t\t\t\t\t  bbindex_to_postorder,\n\t\t\t\t\t\t  NULL, pending,\n\t\t\t\t\t\t  considered,\n\t\t\t\t\t\t  last_change_age, 0);\n      last_visit_age[index] = ++age;\n      if (changed)\n\tlast_change_age[bb_index] = age;\n      else\n\tlast_change_age[bb_index] = 0;\n    }\n\n  /* Double-queueing.  Worklist is for the current iteration,\n     and pending is for the next.  */\n  while (!bitmap_empty_p (pending))\n    {\n      std::swap (pending, worklist);\n\n      do\n\t{\n\t  unsigned index = bitmap_clear_first_set_bit (worklist);\n\t  unsigned bb_index = blocks_in_postorder[index];\n\t  dcount++;\n\t  int prev_age = last_visit_age[index];\n\t  if (dir == DF_FORWARD)\n\t    changed = df_worklist_propagate_forward (dataflow, bb_index,\n\t\t\t\t\t\t     bbindex_to_postorder,\n\t\t\t\t\t\t     worklist, pending,\n\t\t\t\t\t\t     considered,\n\t\t\t\t\t\t     last_change_age,\n\t\t\t\t\t\t     prev_age);\n\t  else\n\t    changed = df_worklist_propagate_backward (dataflow, bb_index,\n\t\t\t\t\t\t      bbindex_to_postorder,\n\t\t\t\t\t\t      worklist, pending,\n\t\t\t\t\t\t      considered,\n\t\t\t\t\t\t      last_change_age,\n\t\t\t\t\t\t      prev_age);\n\t  last_visit_age[index] = ++age;\n\t  if (changed)\n\t    last_change_age[bb_index] = age;\n\t}\n      while (!bitmap_empty_p (worklist));\n    }\n\n  BITMAP_FREE (worklist);\n  BITMAP_FREE (pending);\n  last_visit_age.release ();\n  last_change_age.release ();\n\n  /* Dump statistics. */\n  if (dump_file)\n    fprintf (dump_file, \"df_worklist_dataflow_doublequeue:\"\n\t     \" n_basic_blocks %d n_edges %d\"\n\t     \" count %d (%5.2g)\\n\",\n\t     n_basic_blocks_for_fn (cfun), n_edges_for_fn (cfun),\n\t     dcount, dcount / (double)n_basic_blocks_for_fn (cfun));\n}\n\n/* Worklist-based dataflow solver. It uses sbitmap as a worklist,\n   with \"n\"-th bit representing the n-th block in the reverse-postorder order.",
+      "identity": {
+        "bytes": 2153,
+        "sha256": "7cb361eae85cc89635f5c1d876385d4f371284ece4d8ea90b00a4ad21a269328"
+      },
+      "operative_fragments": [
+        "dcount++",
+        "last_visit_age[index] = ++age",
+        "last_visit_age.release"
+      ]
+    },
+    {
+      "name": "DF solver dense and map",
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "first_LF_line": 1123,
+      "last_LF_line": 1166,
+      "text": "\nvoid\ndf_worklist_dataflow (struct dataflow *dataflow,\n                      bitmap blocks_to_consider,\n                      int *blocks_in_postorder,\n                      int n_blocks)\n{\n  bitmap_iterator bi;\n  unsigned int *bbindex_to_postorder;\n  int i;\n  unsigned int index;\n  enum df_flow_dir dir = dataflow->problem->dir;\n\n  gcc_assert (dir != DF_NONE);\n\n  /* BBINDEX_TO_POSTORDER maps the bb->index to the reverse postorder.  */\n  bbindex_to_postorder = XNEWVEC (unsigned int,\n\t\t\t\t  last_basic_block_for_fn (cfun));\n\n  /* Initialize the array to an out-of-bound value.  */\n  for (i = 0; i < last_basic_block_for_fn (cfun); i++)\n    bbindex_to_postorder[i] = last_basic_block_for_fn (cfun);\n\n  /* Initialize the considered map.  */\n  auto_sbitmap considered (last_basic_block_for_fn (cfun));\n  bitmap_clear (considered);\n  EXECUTE_IF_SET_IN_BITMAP (blocks_to_consider, 0, index, bi)\n    {\n      bitmap_set_bit (considered, index);\n    }\n\n  /* Initialize the mapping of block index to postorder.  */\n  for (i = 0; i < n_blocks; i++)\n    bbindex_to_postorder[blocks_in_postorder[i]] = i;\n\n  /* Initialize the problem. */\n  if (dataflow->problem->init_fun)\n    dataflow->problem->init_fun (blocks_to_consider);\n\n  /* Solve it.  */\n  df_worklist_dataflow_doublequeue (dataflow, considered, blocks_in_postorder,\n\t\t\t\t    bbindex_to_postorder, n_blocks);\n  free (bbindex_to_postorder);\n}",
+      "identity": {
+        "bytes": 1388,
+        "sha256": "9f89c2d320bf5769095d6697029918496a345e7318d401305b1416764b5d20dc"
+      },
+      "operative_fragments": [
+        "XNEWVEC",
+        "auto_sbitmap considered",
+        "free (bbindex_to_postorder)"
+      ]
+    },
+    {
+      "name": "DF active dispatch",
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "first_LF_line": 1236,
+      "last_LF_line": 1272,
+      "text": "df_analyze_1 (void)\n{\n  int i;\n\n  /* We need to do this before the df_verify_all because this is\n     not kept incrementally up to date.  */\n  df_compute_regs_ever_live (false);\n  df_process_deferred_rescans ();\n\n  if (dump_file)\n    fprintf (dump_file, \"df_analyze called\\n\");\n\n#ifndef ENABLE_DF_CHECKING\n  if (df->changeable_flags & DF_VERIFY_SCHEDULED)\n#endif\n    df_verify ();\n\n  /* Skip over the DF_SCAN problem. */\n  for (i = 1; i < df->num_problems_defined; i++)\n    {\n      struct dataflow *dflow = df->problems_in_order[i];\n      if (dflow->solutions_dirty)\n        {\n          if (dflow->problem->dir == DF_FORWARD)\n            df_analyze_problem (dflow,\n                                df->blocks_to_analyze,\n\t\t\t\tdf->postorder_inverted,\n\t\t\t\tdf->n_blocks);\n          else\n            df_analyze_problem (dflow,\n                                df->blocks_to_analyze,\n                                df->postorder,\n                                df->n_blocks);\n        }\n    }\n\n  if (!df->analyze_subset)",
+      "identity": {
+        "bytes": 1013,
+        "sha256": "77872b007ef5e37a0d4e18f6f855fe5455af2ec70197f29b4ce976528e66b715"
+      },
+      "operative_fragments": [
+        "df_process_deferred_rescans",
+        "for (i = 1;",
+        "dflow->solutions_dirty"
+      ]
+    },
+    {
+      "name": "DF postorder allocations",
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "first_LF_line": 1286,
+      "last_LF_line": 1336,
+      "text": "df_analyze (void)\n{\n  bitmap current_all_blocks = BITMAP_ALLOC (&df_bitmap_obstack);\n\n  free (df->postorder);\n  free (df->postorder_inverted);\n  /* For DF_FORWARD use a RPO on the forward graph.  Since we want to\n     have unreachable blocks deleted use post_order_compute and reverse\n     the order.  */\n  df->postorder_inverted = XNEWVEC (int, n_basic_blocks_for_fn (cfun));\n  df->n_blocks = post_order_compute (df->postorder_inverted, true, true);\n  for (int i = 0; i < df->n_blocks / 2; ++i)\n    std::swap (df->postorder_inverted[i],\n\t       df->postorder_inverted[df->n_blocks - 1 - i]);\n  /* For DF_BACKWARD use a RPO on the reverse graph.  */\n  df->postorder = XNEWVEC (int, n_basic_blocks_for_fn (cfun));\n  int n = inverted_rev_post_order_compute (cfun, df->postorder);\n  gcc_assert (n == df->n_blocks);\n\n  for (int i = 0; i < df->n_blocks; i++)\n    bitmap_set_bit (current_all_blocks, df->postorder[i]);\n\n  if (flag_checking)\n    {\n      /* Verify that POSTORDER_INVERTED only contains blocks reachable from\n\t the ENTRY block.  */\n      for (int i = 0; i < df->n_blocks; i++)\n\tgcc_assert (bitmap_bit_p (current_all_blocks,\n\t\t\t\t  df->postorder_inverted[i]));\n    }\n\n  /* Make sure that we have pruned any unreachable blocks from these\n     sets.  */\n  if (df->analyze_subset)\n    {\n      bitmap_and_into (df->blocks_to_analyze, current_all_blocks);\n      unsigned int newlen = df_prune_to_subcfg (df->postorder, df->n_blocks,\n\t\t\t\t\t\tdf->blocks_to_analyze);\n      df_prune_to_subcfg (df->postorder_inverted, df->n_blocks,\n\t\t\t  df->blocks_to_analyze);\n      df->n_blocks = newlen;\n      BITMAP_FREE (current_all_blocks);\n    }\n  else\n    {\n      df->blocks_to_analyze = current_all_blocks;\n      current_all_blocks = NULL;\n    }\n\n  df_analyze_1 ();\n}",
+      "identity": {
+        "bytes": 1755,
+        "sha256": "47c4cd94b85ca7c3f3112ee2d03ca2f2f0aa77e8b8730d0a047aa24461f66f52"
+      },
+      "operative_fragments": [
+        "free (df->postorder)",
+        "XNEWVEC (int",
+        "df_analyze_1"
+      ]
+    },
+    {
+      "name": "NOTE no extra block allocation",
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "first_LF_line": 3189,
+      "last_LF_line": 3194,
+      "text": "static void\ndf_note_alloc (bitmap all_blocks ATTRIBUTE_UNUSED)\n{\n  df_note->optional_p = true;\n}\n",
+      "identity": {
+        "bytes": 97,
+        "sha256": "928f83fe0894eecbe27e5cf279e5f708bea5f86191bf799fbb39481fb861e3d0"
+      },
+      "operative_fragments": [
+        "df_note->optional_p = true"
+      ]
+    },
+    {
+      "name": "NOTE finalization",
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "first_LF_line": 3749,
+      "last_LF_line": 3823,
+      "text": "{\n  unsigned int bb_index;\n  bitmap_iterator bi;\n  bitmap_head live, do_not_gen, artificial_uses;\n\n  bitmap_initialize (&live, &df_bitmap_obstack);\n  bitmap_initialize (&do_not_gen, &df_bitmap_obstack);\n  bitmap_initialize (&artificial_uses, &df_bitmap_obstack);\n\n  EXECUTE_IF_SET_IN_BITMAP (all_blocks, 0, bb_index, bi)\n  {\n    /* ??? Unlike fast DCE, we don't use global_debug for uses of dead\n       pseudos in debug insns because we don't always (re)visit blocks\n       with death points after visiting dead uses.  Even changing this\n       loop to postorder would still leave room for visiting a death\n       point before visiting a subsequent debug use.  */\n    df_note_bb_compute (bb_index, &live, &do_not_gen, &artificial_uses);\n  }\n\n  bitmap_clear (&live);\n  bitmap_clear (&do_not_gen);\n  bitmap_clear (&artificial_uses);\n}\n\n\n/* Free all storage associated with the problem.  */\n\nstatic void\ndf_note_free (void)\n{\n  free (df_note);\n}\n\n\n/* All of the information associated every instance of the problem.  */\n\nstatic const struct df_problem problem_NOTE =\n{\n  DF_NOTE,                    /* Problem id.  */\n  DF_NONE,                    /* Direction.  */\n  df_note_alloc,              /* Allocate the problem specific data.  */\n  NULL,                       /* Reset global information.  */\n  NULL,                       /* Free basic block info.  */\n  df_note_compute,            /* Local compute function.  */\n  NULL,                       /* Init the solution specific data.  */\n  NULL,                       /* Iterative solver.  */\n  NULL,                       /* Confluence operator 0.  */\n  NULL,                       /* Confluence operator n.  */\n  NULL,                       /* Transfer function.  */\n  NULL,                       /* Finalize function.  */\n  df_note_free,               /* Free all of the problem information.  */\n  df_note_free,               /* Remove this problem from the stack of dataflow problems.  */\n  NULL,                       /* Debugging.  */\n  NULL,                       /* Debugging start block.  */\n  NULL,                       /* Debugging end block.  */\n  NULL,                       /* Debugging start insn.  */\n  NULL,                       /* Debugging end insn.  */\n  NULL,                       /* Incremental solution verify start.  */\n  NULL,                       /* Incremental solution verify end.  */\n  &problem_LR,                /* Dependent problem.  */\n  sizeof (struct df_scan_bb_info),/* Size of entry of block_info array.  */\n  TV_DF_NOTE,                 /* Timing variable.  */\n  false                       /* Reset blocks on dropping out of blocks_to_analyze.  */\n};\n\n\n/* Create a new DATAFLOW instance and add it to an existing instance\n   of DF.  The returned structure is what is used to get at the\n   solution.  */\n\nvoid\ndf_note_add_problem (void)\n{\n  df_add_problem (&problem_NOTE);\n}",
+      "identity": {
+        "bytes": 2868,
+        "sha256": "effb920d0e928a4b91d8f3ffee4eed0619a1cf12b14a9585ea068eaf1aa17fc5"
+      },
+      "operative_fragments": [
+        "bitmap_initialize",
+        "free (df_note)",
+        "NULL,                       /* Iterative solver.  */"
+      ]
+    },
+    {
+      "name": "sort redirect",
+      "root": "gcc",
+      "path": "gcc/system.h",
+      "first_LF_line": 1204,
+      "last_LF_line": 1213,
+      "text": "void gcc_qsort (void *, size_t, size_t, int (*)(const void *, const void *));\nvoid gcc_stablesort (void *, size_t, size_t,\n\t\t     int (*)(const void *, const void *));\nvoid gcc_stablesort_r (void *, size_t, size_t, sort_r_cmp_fn *, void *data);\n/* Redirect four-argument qsort calls to gcc_qsort; one-argument invocations\n   correspond to vec::qsort, and use C qsort internally.  */\n#define PP_5th(a1, a2, a3, a4, a5, ...) a5\n#undef qsort\n#define qsort(...) PP_5th (__VA_ARGS__, gcc_qsort, 3, 2, qsort, 0) (__VA_ARGS__)\n",
+      "identity": {
+        "bytes": 520,
+        "sha256": "538f36be74877b0b7c0bf365d0fe837c5e1bda3589e063646088dc6c796701f2"
+      },
+      "operative_fragments": [
+        "void gcc_qsort",
+        "#define qsort"
+      ]
+    },
+    {
+      "name": "sort base networks",
+      "root": "gcc",
+      "path": "gcc/sort.cc",
+      "first_LF_line": 164,
+      "last_LF_line": 198,
+      "text": "  e1 = (char *)((intptr_t)e1 ^ x);    \\\n} while (0)\n\n  char *e0 = in, *e1 = e0 + c->size, *e2 = e1 + c->size;\n  CMP (e0, e1);\n  if (LIKELY (c->n == 3))\n    {\n      CMP (e1, e2);\n      CMP (e0, e1);\n    }\n  if (c->n <= 3)\n    return reorder23 (c, e0, e1, e2);\n  char *e3 = e2 + c->size, *e4 = e3 + c->size;\n  if (LIKELY (c->n == 5))\n    {\n      CMP (e3, e4);\n      CMP (e2, e4);\n    }\n  CMP (e2, e3);\n  if (LIKELY (c->n == 5))\n    {\n      CMP (e0, e3);\n      CMP (e1, e4);\n    }\n  CMP (e0, e2);\n  CMP (e1, e3);\n  CMP (e1, e2);\n  reorder45 (c, e0, e1, e2, e3, e4);\n}\n\n/* Execute merge sort on N elements from IN, placing them into OUT,\n   using TMP as temporary storage if IN is equal to OUT.\n   This is a stable sort if netsort is used only for 2 or 3 elements.  */\ntemplate<typename sort_ctx>\nstatic void",
+      "identity": {
+        "bytes": 804,
+        "sha256": "f0b6baeaa44953eca6b5ec41b0f229e9f4b0795ebc27698f63150b31f2a40b60"
+      },
+      "operative_fragments": [
+        "char *e0",
+        "if (c->n <= 3)",
+        "reorder45"
+      ]
+    },
+    {
+      "name": "sort merge spans",
+      "root": "gcc",
+      "path": "gcc/sort.cc",
+      "first_LF_line": 200,
+      "last_LF_line": 240,
+      "text": "{\n  if (LIKELY (n <= c->nlim))\n    {\n      c->out = out;\n      c->n = n;\n      return netsort (in, c);\n    }\n  size_t nl = n / 2, nr = n - nl, sz = nl * c->size;\n  char *mid = in + sz, *r = out + sz, *l = in == out ? tmp : in;\n  /* Sort the right half, outputting to right half of OUT.  */\n  mergesort (mid, c, nr, r, tmp);\n  /* Sort the left half, leaving left half of OUT free.  */\n  mergesort (in, c, nl, l, mid);\n  /* Merge sorted halves given by L, R to [OUT, END).  */\n#define MERGE_ELTSIZE(SIZE)                     \\\ndo {                                            \\\n  intptr_t mr = c->cmp (r, l) >> 31;            \\\n  intptr_t lr = (intptr_t)l ^ (intptr_t)r;      \\\n  lr = (intptr_t)l ^ (lr & mr);                 \\\n  out = (char *)memcpy (out, (char *)lr, SIZE); \\\n  out += SIZE;                                  \\\n  r += mr & SIZE;                               \\\n  if (r == out) return;                         \\\n  l += ~mr & SIZE;                              \\\n} while (r != end)\n\n  if (LIKELY (c->cmp (r, l + (r - out) - c->size) < 0))\n    {\n      char *end = out + n * c->size;\n      if (sizeof (size_t) == 8 && LIKELY (c->size == 8))\n\tMERGE_ELTSIZE (8);\n      else if (LIKELY (c->size == 4))\n\tMERGE_ELTSIZE (4);\n      else\n\tMERGE_ELTSIZE (c->size);\n    }\n  memcpy (out, l, r - out);\n}\n\n#if CHECKING_P\n  /* Don't complain about cast from void* to function pointer.  */",
+      "identity": {
+        "bytes": 1384,
+        "sha256": "49ecd1dcb2c7a54734c2ab957fd6e7f51050fc7d467e82ec2eabedffba9e34ce"
+      },
+      "operative_fragments": [
+        "size_t nl = n / 2",
+        "mergesort (mid",
+        "n * c->size",
+        "memcpy (out, l, r - out)"
+      ]
+    },
+    {
+      "name": "sort stack heap",
+      "root": "gcc",
+      "path": "gcc/sort.cc",
+      "first_LF_line": 253,
+      "last_LF_line": 277,
+      "text": "/* Replacement for C qsort.  */\nvoid\ngcc_qsort (void *vbase, size_t n, size_t size, cmp_fn *cmp)\n{\n  if (n < 2)\n    return;\n  size_t nlim = 5;\n  bool stable = (ssize_t) size < 0;\n  if (stable)\n    nlim = 3, size = ~size;\n  char *base = (char *)vbase;\n  sort_ctx c = {cmp, base, n, size, nlim};\n  long long scratch[32];\n  size_t bufsz = (n / 2) * size;\n  void *buf = bufsz <= sizeof scratch ? scratch : xmalloc (bufsz);\n  mergesort (base, &c, n, base, (char *)buf);\n  if (buf != scratch)\n    free (buf);\n#if CHECKING_P\n  qsort_chk (vbase, n, size, cmp2to3, (void*)cmp);\n#pragma GCC diagnostic pop\n#endif\n}\n\n/* Substitute for Glibc qsort_r.  */",
+      "identity": {
+        "bytes": 642,
+        "sha256": "84c3b2ffefc615d971dbdd14c3aaab26ebb56e2841e8f75cf6cb04bbc0f94109"
+      },
+      "operative_fragments": [
+        "if (n < 2)",
+        "long long scratch[32]",
+        "(n / 2) * size",
+        "xmalloc (bufsz)"
+      ]
+    },
+    {
+      "name": "root empty sort",
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "first_LF_line": 2280,
+      "last_LF_line": 2330,
+      "text": "static void\nmark_loops_for_removal (void)\n{\n  int i, n;\n  ira_loop_tree_node_t *sorted_loops;\n  loop_p loop;\n\n  ira_assert (current_loops != NULL);\n  sorted_loops\n    = (ira_loop_tree_node_t *) ira_allocate (sizeof (ira_loop_tree_node_t)\n\t\t\t\t\t     * number_of_loops (cfun));\n  for (n = i = 0; vec_safe_iterate (get_loops (cfun), i, &loop); i++)\n    if (ira_loop_nodes[i].regno_allocno_map != NULL)\n      {\n\tif (ira_loop_nodes[i].parent == NULL)\n\t  {\n\t    /* Don't remove the root.  */\n\t    ira_loop_nodes[i].to_remove_p = false;\n\t    continue;\n\t  }\n\tsorted_loops[n++] = &ira_loop_nodes[i];\n\tira_loop_nodes[i].to_remove_p\n\t  = ((low_pressure_loop_node_p (ira_loop_nodes[i].parent)\n\t      && low_pressure_loop_node_p (&ira_loop_nodes[i]))\n#ifdef STACK_REGS\n\t     || loop_with_complex_edge_p (ira_loop_nodes[i].loop)\n#endif\n\t     );\n      }\n  qsort (sorted_loops, n, sizeof (ira_loop_tree_node_t), loop_compare_func);\n  for (i = 0; i < n - param_ira_max_loops_num; i++)\n    {\n      sorted_loops[i]->to_remove_p = true;\n      if (internal_flag_ira_verbose > 1 && ira_dump_file != NULL)\n\tfprintf\n\t  (ira_dump_file,\n\t   \"  Mark loop %d (header %d, freq %d, depth %d) for removal (%s)\\n\",\n\t   sorted_loops[i]->loop_num, sorted_loops[i]->loop->header->index,\n\t   sorted_loops[i]->loop->header->count.to_frequency (cfun),\n\t   loop_depth (sorted_loops[i]->loop),\n\t   low_pressure_loop_node_p (sorted_loops[i]->parent)\n\t   && low_pressure_loop_node_p (sorted_loops[i])\n\t   ? \"low pressure\" : \"cheap loop\");\n    }\n  ira_free (sorted_loops);\n}\n\n/* Mark all loops but root for removing.  */\nstatic void\nmark_all_loops_for_removal (void)\n{",
+      "identity": {
+        "bytes": 1624,
+        "sha256": "1b426aed7fa2ff29fa3ba8b7ee01d939f6c31f799abe75f4ff4685efae480253"
+      },
+      "operative_fragments": [
+        "Don't remove the root",
+        "sorted_loops[n++]",
+        "qsort (sorted_loops"
+      ]
+    },
+    {
+      "name": "register singleton sort",
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "first_LF_line": 2435,
+      "last_LF_line": 2458,
+      "text": "\n/* Restore allocno order for REGNO in the regno allocno list.  */\nstatic void\nira_rebuild_regno_allocno_list (int regno)\n{\n  int i, n;\n  ira_allocno_t a;\n\n  for (n = 0, a = ira_regno_allocno_map[regno];\n       a != NULL;\n       a = ALLOCNO_NEXT_REGNO_ALLOCNO (a))\n    regno_allocnos[n++] = a;\n  ira_assert (n > 0);\n  qsort (regno_allocnos, n, sizeof (ira_allocno_t),\n\t regno_allocno_order_compare_func);\n  for (i = 1; i < n; i++)\n    ALLOCNO_NEXT_REGNO_ALLOCNO (regno_allocnos[i - 1]) = regno_allocnos[i];\n  ALLOCNO_NEXT_REGNO_ALLOCNO (regno_allocnos[n - 1]) = NULL;\n  ira_regno_allocno_map[regno] = regno_allocnos[0];\n  if (internal_flag_ira_verbose > 1 && ira_dump_file != NULL)\n    fprintf (ira_dump_file, \" Rebuilding regno allocno list for %d\\n\", regno);\n}\n\n/* Propagate info from allocno FROM_A to allocno A.  */",
+      "identity": {
+        "bytes": 819,
+        "sha256": "9460ed575c05d871bac8e09e690c89299f2ec47b51768a84fdd5a3ade5613fd2"
+      },
+      "operative_fragments": [
+        "ira_rebuild_regno_allocno_list",
+        "qsort (regno_allocnos"
+      ]
+    },
+    {
+      "name": "object sort comparator",
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "first_LF_line": 2827,
+      "last_LF_line": 2882,
+      "text": "    }\n#endif\n}\n\n/* Sort allocnos according to their live ranges.  Allocnos with\n   smaller allocno class are put first unless we use priority\n   coloring.  Allocnos with the same class are ordered according\n   their start (min).  Allocnos with the same start are ordered\n   according their finish (max).  */\nstatic int\nobject_range_compare_func (const void *v1p, const void *v2p)\n{\n  int diff;\n  ira_object_t obj1 = *(const ira_object_t *) v1p;\n  ira_object_t obj2 = *(const ira_object_t *) v2p;\n  ira_allocno_t a1 = OBJECT_ALLOCNO (obj1);\n  ira_allocno_t a2 = OBJECT_ALLOCNO (obj2);\n\n  if ((diff = OBJECT_MIN (obj1) - OBJECT_MIN (obj2)) != 0)\n    return diff;\n  if ((diff = OBJECT_MAX (obj1) - OBJECT_MAX (obj2)) != 0)\n     return diff;\n  return ALLOCNO_NUM (a1) - ALLOCNO_NUM (a2);\n}\n\n/* Sort ira_object_id_map and set up conflict id of allocnos.  */\nstatic void\nsort_conflict_id_map (void)\n{\n  int i, num;\n  ira_allocno_t a;\n  ira_allocno_iterator ai;\n\n  num = 0;\n  FOR_EACH_ALLOCNO (a, ai)\n    {\n      ira_allocno_object_iterator oi;\n      ira_object_t obj;\n\n      FOR_EACH_ALLOCNO_OBJECT (a, obj, oi)\n\tira_object_id_map[num++] = obj;\n    }\n  if (num > 1)\n    qsort (ira_object_id_map, num, sizeof (ira_object_t),\n\t   object_range_compare_func);\n  for (i = 0; i < num; i++)\n    {\n      ira_object_t obj = ira_object_id_map[i];\n\n      gcc_assert (obj != NULL);\n      OBJECT_CONFLICT_ID (obj) = i;\n    }\n  for (i = num; i < ira_objects_num; i++)\n    ira_object_id_map[i] = NULL;\n}\n",
+      "identity": {
+        "bytes": 1483,
+        "sha256": "08b70d3abff2cfd8d30f23e769f7e8cf4d8b9929509bef99eabfa075af248616"
+      },
+      "operative_fragments": [
+        "OBJECT_MIN (obj1) - OBJECT_MIN (obj2)",
+        "qsort (ira_object_id_map"
+      ]
+    },
+    {
+      "name": "fast allocation sort",
+      "root": "gcc",
+      "path": "gcc/ira-color.cc",
+      "first_LF_line": 5280,
+      "last_LF_line": 5296,
+      "text": "\n  sorted_allocnos = (ira_allocno_t *) ira_allocate (sizeof (ira_allocno_t)\n\t\t\t\t\t\t    * ira_allocnos_num);\n  num = 0;\n  FOR_EACH_ALLOCNO (a, ai)\n    sorted_allocnos[num++] = a;\n  allocno_priorities = (int *) ira_allocate (sizeof (int) * ira_allocnos_num);\n  setup_allocno_priorities (sorted_allocnos, num);\n  used_hard_regs = (HARD_REG_SET *) ira_allocate (sizeof (HARD_REG_SET)\n\t\t\t\t\t\t  * ira_max_point);\n  for (i = 0; i < ira_max_point; i++)\n    CLEAR_HARD_REG_SET (used_hard_regs[i]);\n  qsort (sorted_allocnos, num, sizeof (ira_allocno_t),\n\t allocno_priority_compare_func);\n  for (i = 0; i < num; i++)\n    {\n      int nr, l;",
+      "identity": {
+        "bytes": 626,
+        "sha256": "8f8584c4dc2d54bc1b515e630acd6460a52294d941163a2ec2118a3e80f0c718"
+      },
+      "operative_fragments": [
+        "qsort (sorted_allocnos",
+        "allocno_priority_compare_func"
+      ]
+    },
+    {
+      "name": "DF sort comparator",
+      "root": "gcc",
+      "path": "gcc/df-scan.cc",
+      "first_LF_line": 2070,
+      "last_LF_line": 2157,
+      "text": "static int\ndf_ref_compare (df_ref ref1, df_ref ref2)\n{\n  if (DF_REF_CLASS (ref1) != DF_REF_CLASS (ref2))\n    return (int)DF_REF_CLASS (ref1) - (int)DF_REF_CLASS (ref2);\n\n  if (DF_REF_REGNO (ref1) != DF_REF_REGNO (ref2))\n    return (int)DF_REF_REGNO (ref1) - (int)DF_REF_REGNO (ref2);\n\n  if (DF_REF_TYPE (ref1) != DF_REF_TYPE (ref2))\n    return (int)DF_REF_TYPE (ref1) - (int)DF_REF_TYPE (ref2);\n\n  if (DF_REF_REG (ref1) != DF_REF_REG (ref2))\n    return (int)DF_REF_ORDER (ref1) - (int)DF_REF_ORDER (ref2);\n\n  /* Cannot look at the LOC field on artificial refs.  */\n  if (DF_REF_CLASS (ref1) != DF_REF_ARTIFICIAL\n      && DF_REF_LOC (ref1) != DF_REF_LOC (ref2))\n    return (int)DF_REF_ORDER (ref1) - (int)DF_REF_ORDER (ref2);\n\n  if (DF_REF_FLAGS (ref1) != DF_REF_FLAGS (ref2))\n    {\n      /* If two refs are identical except that one of them has is from\n\t a mw and one is not, we need to have the one with the mw\n\t first.  */\n      if (DF_REF_FLAGS_IS_SET (ref1, DF_REF_MW_HARDREG) ==\n\t  DF_REF_FLAGS_IS_SET (ref2, DF_REF_MW_HARDREG))\n\treturn DF_REF_FLAGS (ref1) - DF_REF_FLAGS (ref2);\n      else if (DF_REF_FLAGS_IS_SET (ref1, DF_REF_MW_HARDREG))\n\treturn -1;\n      else\n\treturn 1;\n    }\n\n  return (int)DF_REF_ORDER (ref1) - (int)DF_REF_ORDER (ref2);\n}\n\n/* Like df_ref_compare, but compare two df_ref* pointers R1 and R2.  */\n\nstatic int\ndf_ref_ptr_compare (const void *r1, const void *r2)\n{\n  return df_ref_compare (*(const df_ref *) r1, *(const df_ref *) r2);\n}\n\n/* Sort and compress a set of refs.  */\n\nstatic void\ndf_sort_and_compress_refs (vec<df_ref, va_heap> *ref_vec)\n{\n  unsigned int count;\n  unsigned int i;\n  unsigned int dist = 0;\n\n  count = ref_vec->length ();\n\n  /* If there are 1 or 0 elements, there is nothing to do.  */\n  if (count < 2)\n    return;\n  else if (count == 2)\n    {\n      df_ref r0 = (*ref_vec)[0];\n      df_ref r1 = (*ref_vec)[1];\n      if (df_ref_compare (r0, r1) > 0)\n\tstd::swap ((*ref_vec)[0], (*ref_vec)[1]);\n    }\n  else\n    {\n      for (i = 0; i < count - 1; i++)\n\t{\n\t  df_ref r0 = (*ref_vec)[i];\n\t  df_ref r1 = (*ref_vec)[i + 1];\n\t  if (df_ref_compare (r0, r1) >= 0)\n\t    break;\n\t}\n      /* If the array is already strictly ordered,\n         which is the most common case for large COUNT case\n         (which happens for CALL INSNs),\n         no need to sort and filter out duplicate.\n         Simply return the count.\n         Make sure DF_GET_ADD_REFS adds refs in the increasing order\n         of DF_REF_COMPARE.  */\n      if (i == count - 1)\n        return;\n      ref_vec->qsort (df_ref_ptr_compare);\n    }\n\n  for (i=0; i<count-dist; i++)",
+      "identity": {
+        "bytes": 2579,
+        "sha256": "48d80a535bc69ca6d932e0c32dd6a29cd1e3b861d848617c3e8acff2fd9ddb6f"
+      },
+      "operative_fragments": [
+        "(int)DF_REF_ORDER (ref1) - (int)DF_REF_ORDER (ref2)",
+        "ref_vec->qsort"
+      ]
+    },
+    {
+      "name": "REG constructor and mutation",
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "first_LF_line": 463,
+      "last_LF_line": 494,
+      "text": "set_mode_and_regno (rtx x, machine_mode mode, unsigned int regno)\n{\n  unsigned int nregs = (HARD_REGISTER_NUM_P (regno)\n\t\t\t? hard_regno_nregs (regno, mode)\n\t\t\t: 1);\n  PUT_MODE_RAW (x, mode);\n  set_regno_raw (x, regno, nregs);\n}\n\n/* Initialize a fresh REG rtx with mode MODE and register REGNO.  */\n\nrtx\ninit_raw_REG (rtx x, machine_mode mode, unsigned int regno)\n{\n  set_mode_and_regno (x, mode, regno);\n  REG_ATTRS (x) = NULL;\n  ORIGINAL_REGNO (x) = regno;\n  return x;\n}\n\n/* Generate a new REG rtx.  Make sure ORIGINAL_REGNO is set properly, and\n   don't attempt to share with the various global pieces of rtl (such as\n   frame_pointer_rtx).  */\n\nrtx\ngen_raw_REG (machine_mode mode, unsigned int regno)\n{\n  rtx x = rtx_alloc (REG MEM_STAT_INFO);\n  init_raw_REG (x, mode, regno);\n  return x;\n}\n",
+      "identity": {
+        "bytes": 794,
+        "sha256": "d4426a133dfe9210d122fa2bb008cf9634df0a2909983c8289d2fcff6da11838"
+      },
+      "operative_fragments": [
+        "set_mode_and_regno",
+        "rtx_alloc (REG"
+      ]
+    },
+    {
+      "name": "INSN constructor",
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "first_LF_line": 513,
+      "last_LF_line": 523,
+      "text": "rtx_insn *\ngen_rtx_INSN (machine_mode mode, rtx_insn *prev_insn, rtx_insn *next_insn,\n\t      basic_block bb, rtx pattern, location_t location, int code,\n\t      rtx reg_notes)\n{\n  return as_a <rtx_insn *> (gen_rtx_fmt_uuBeLie (INSN, mode,\n\t\t\t\t\t\t prev_insn, next_insn,\n\t\t\t\t\t\t bb, pattern, location, code,\n\t\t\t\t\t\t reg_notes));\n}\n",
+      "identity": {
+        "bytes": 325,
+        "sha256": "40bfc053fe434ed274f9115b013846c8e7546362dea41d50e9c143b0b080f051"
+      },
+      "operative_fragments": [
+        "gen_rtx_fmt_uuBeLie"
+      ]
+    },
+    {
+      "name": "REG no pseudo cache",
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "first_LF_line": 791,
+      "last_LF_line": 856,
+      "text": "gen_rtx_REG (machine_mode mode, unsigned int regno)\n{\n  /* In case the MD file explicitly references the frame pointer, have\n     all such references point to the same frame pointer.  This is\n     used during frame pointer elimination to distinguish the explicit\n     references to these registers from pseudos that happened to be\n     assigned to them.\n\n     If we have eliminated the frame pointer or arg pointer, we will\n     be using it as a normal register, for example as a spill\n     register.  In such cases, we might be accessing it in a mode that\n     is not Pmode and therefore cannot use the pre-allocated rtx.\n\n     Also don't do this when we are making new REGs in reload, since\n     we don't want to get confused with the real pointers.  */\n\n  if (mode == Pmode && !reload_in_progress && !lra_in_progress)\n    {\n      if (regno == FRAME_POINTER_REGNUM\n\t  && (!reload_completed || frame_pointer_needed))\n\treturn frame_pointer_rtx;\n\n      if (!HARD_FRAME_POINTER_IS_FRAME_POINTER\n\t  && regno == HARD_FRAME_POINTER_REGNUM\n\t  && (!reload_completed || frame_pointer_needed))\n\treturn hard_frame_pointer_rtx;\n#if !HARD_FRAME_POINTER_IS_ARG_POINTER\n      if (FRAME_POINTER_REGNUM != ARG_POINTER_REGNUM\n\t  && regno == ARG_POINTER_REGNUM)\n\treturn arg_pointer_rtx;\n#endif\n#ifdef RETURN_ADDRESS_POINTER_REGNUM\n      if (regno == RETURN_ADDRESS_POINTER_REGNUM)\n\treturn return_address_pointer_rtx;\n#endif\n      if (regno == (unsigned) PIC_OFFSET_TABLE_REGNUM\n\t  && PIC_OFFSET_TABLE_REGNUM != INVALID_REGNUM\n\t  && fixed_regs[PIC_OFFSET_TABLE_REGNUM])\n\treturn pic_offset_table_rtx;\n      if (regno == STACK_POINTER_REGNUM)\n\treturn stack_pointer_rtx;\n    }\n\n#if 0\n  /* If the per-function register table has been set up, try to re-use\n     an existing entry in that table to avoid useless generation of RTL.\n\n     This code is disabled for now until we can fix the various backends\n     which depend on having non-shared hard registers in some cases.   Long\n     term we want to re-enable this code as it can significantly cut down\n     on the amount of useless RTL that gets generated.\n\n     We'll also need to fix some code that runs after reload that wants to\n     set ORIGINAL_REGNO.  */\n\n  if (cfun\n      && cfun->emit\n      && regno_reg_rtx\n      && regno < FIRST_PSEUDO_REGISTER\n      && reg_raw_mode[regno] == mode)\n    return regno_reg_rtx[regno];\n#endif\n\n  return gen_raw_REG (mode, regno);\n}\n",
+      "identity": {
+        "bytes": 2401,
+        "sha256": "10116b19dd1b8d4c2f7d1e131306ccf44f834b2b4daf142b789e8defbfed7e64"
+      },
+      "operative_fragments": [
+        "if (mode == Pmode",
+        "return gen_raw_REG"
+      ]
+    },
+    {
+      "name": "PIC no creator gate",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 1795,
+      "last_LF_line": 1806,
+      "text": "ix86_use_pseudo_pic_reg (void)\n{\n  if ((TARGET_64BIT\n       && (ix86_cmodel == CM_SMALL_PIC\n\t   || TARGET_PECOFF))\n      || !flag_pic)\n    return false;\n  return true;\n}\n\n/* Initialize large model PIC register.  */\n",
+      "identity": {
+        "bytes": 215,
+        "sha256": "2bab06fc7ca1eefba9f474d5230fc73ad7f2922619a92887d571844b5b08bf0c"
+      },
+      "operative_fragments": [
+        "CM_SMALL_PIC",
+        "!flag_pic",
+        "return false"
+      ]
+    },
+    {
+      "name": "target mode checks",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 21756,
+      "last_LF_line": 21859,
+      "text": "ix86_hard_regno_mode_ok (unsigned int regno, machine_mode mode)\n{\n  /* Flags and only flags can only hold CCmode values.  */\n  if (CC_REGNO_P (regno))\n    return GET_MODE_CLASS (mode) == MODE_CC;\n  if (GET_MODE_CLASS (mode) == MODE_CC\n      || GET_MODE_CLASS (mode) == MODE_RANDOM)\n    return false;\n  if (STACK_REGNO_P (regno))\n    return VALID_FP_MODE_P (mode);\n  if (MASK_REGNO_P (regno))\n    {\n      /* Register pair only starts at even register number.  */\n      if ((mode == P2QImode || mode == P2HImode))\n\treturn MASK_PAIR_REGNO_P(regno);\n\n      return ((TARGET_AVX512F && VALID_MASK_REG_MODE (mode))\n\t      || (TARGET_AVX512BW && VALID_MASK_AVX512BW_MODE (mode)));\n    }\n\n  if (GET_MODE_CLASS (mode) == MODE_PARTIAL_INT)\n    return false;\n\n  if (SSE_REGNO_P (regno))\n    {\n      /* We implement the move patterns for all vector modes into and\n\t out of SSE registers, even when no operation instructions\n\t are available.  */\n\n      /* For AVX-512 we allow, regardless of regno:\n\t  - XI mode\n\t  - any of 512-bit wide vector mode\n\t  - any scalar mode.  */\n      if (TARGET_AVX512F\n\t  && ((VALID_AVX512F_REG_OR_XI_MODE (mode))\n\t      || VALID_AVX512F_SCALAR_MODE (mode)))\n\treturn true;\n\n      /* TODO check for QI/HI scalars.  */\n      /* AVX512VL allows sse regs16+ for 128/256 bit modes.  */\n      if (TARGET_AVX512VL\n\t  && (VALID_AVX256_REG_OR_OI_MODE (mode)\n\t      || VALID_AVX512VL_128_REG_MODE (mode)))\n\treturn true;\n\n      /* xmm16-xmm31 are only available for AVX-512.  */\n      if (EXT_REX_SSE_REGNO_P (regno))\n\treturn false;\n\n      /* OImode and AVX modes are available only when AVX is enabled.  */\n      return ((TARGET_AVX\n\t       && VALID_AVX256_REG_OR_OI_MODE (mode))\n\t      || VALID_SSE_REG_MODE (mode)\n\t      || VALID_SSE2_REG_MODE (mode)\n\t      || VALID_MMX_REG_MODE (mode)\n\t      || VALID_MMX_REG_MODE_3DNOW (mode));\n    }\n  if (MMX_REGNO_P (regno))\n    {\n      /* We implement the move patterns for 3DNOW modes even in MMX mode,\n\t so if the register is available at all, then we can move data of\n\t the given mode into or out of it.  */\n      return (VALID_MMX_REG_MODE (mode)\n\t      || VALID_MMX_REG_MODE_3DNOW (mode));\n    }\n\n  if (mode == QImode)\n    {\n      /* Take care for QImode values - they can be in non-QI regs,\n\t but then they do cause partial register stalls.  */\n      if (ANY_QI_REGNO_P (regno))\n\treturn true;\n      if (!TARGET_PARTIAL_REG_STALL)\n\treturn true;\n      /* LRA checks if the hard register is OK for the given mode.\n\t QImode values can live in non-QI regs, so we allow all\n\t registers here.  */\n      if (lra_in_progress)\n       return true;\n      return !can_create_pseudo_p ();\n    }\n  /* We handle both integer and floats in the general purpose registers.  */\n  else if (VALID_INT_MODE_P (mode)\n\t   || VALID_FP_MODE_P (mode))\n    return true;\n  /* Lots of MMX code casts 8 byte vector modes to DImode.  If we then go\n     on to use that value in smaller contexts, this can easily force a\n     pseudo to be allocated to GENERAL_REGS.  Since this is no worse than\n     supporting DImode, allow it.  */\n  else if (VALID_MMX_REG_MODE_3DNOW (mode) || VALID_MMX_REG_MODE (mode))\n    return true;\n\n  return false;\n}\n\n/* Implement TARGET_INSN_CALLEE_ABI.  */\n\nconst predefined_function_abi &\nix86_insn_callee_abi (const rtx_insn *insn)\n{\n  unsigned int abi_id = 0;\n  rtx pat = PATTERN (insn);\n  if (vzeroupper_pattern (pat, VOIDmode))\n    abi_id = ABI_VZEROUPPER;",
+      "identity": {
+        "bytes": 3408,
+        "sha256": "3b45806f99f71ebc66e85c47dffd9e2db9b65f869daf4b68f38f5d218f91e4fd"
+      },
+      "operative_fragments": [
+        "CC_REGNO_P",
+        "VALID_FP_MODE_P",
+        "return false"
+      ]
+    },
+    {
+      "name": "target fixed elimination",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 6904,
+      "last_LF_line": 6914,
+      "text": "ix86_can_eliminate (const int from, const int to)\n{\n  if (stack_realign_fp)\n    return ((from == ARG_POINTER_REGNUM\n\t     && to == HARD_FRAME_POINTER_REGNUM)\n\t    || (from == FRAME_POINTER_REGNUM\n\t\t&& to == STACK_POINTER_REGNUM));\n  else\n    return to == STACK_POINTER_REGNUM ? !frame_pointer_needed : true;\n}\n",
+      "identity": {
+        "bytes": 310,
+        "sha256": "090549e8e9a2b994b2ea8f7388bad034b46f0942c3f6a7efed447534da367b22"
+      },
+      "operative_fragments": [
+        "stack_realign_fp",
+        "!frame_pointer_needed"
+      ]
+    },
+    {
+      "name": "target base-term returns",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 13745,
+      "last_LF_line": 13768,
+      "text": "ix86_find_base_term (rtx x)\n{\n  rtx term;\n\n  if (TARGET_64BIT)\n    {\n      if (GET_CODE (x) != CONST)\n\treturn x;\n      term = XEXP (x, 0);\n      if (GET_CODE (term) == PLUS\n\t  && CONST_INT_P (XEXP (term, 1)))\n\tterm = XEXP (term, 0);\n      if (GET_CODE (term) != UNSPEC\n\t  || (XINT (term, 1) != UNSPEC_GOTPCREL\n\t      && XINT (term, 1) != UNSPEC_PCREL))\n\treturn x;\n\n      return XVECEXP (term, 0, 0);\n    }\n\n  return ix86_delegitimize_address_1 (x, true);\n}\n\n/* Return true if X shouldn't be emitted into the debug info.",
+      "identity": {
+        "bytes": 519,
+        "sha256": "26f405d6f2a726837e8d4211f3c46cde2eeb6f8f447fb977c6f35b5a70186f96"
+      },
+      "operative_fragments": [
+        "if (GET_CODE (x) != CONST)",
+        "return x"
+      ]
+    },
+    {
+      "name": "target move predicate",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 21251,
+      "last_LF_line": 21266,
+      "text": "ix86_hardreg_mov_ok (rtx dst, rtx src)\n{\n  /* Avoid complex sets of likely_spilled hard registers before reload.  */\n  if (REG_P (dst) && HARD_REGISTER_P (dst)\n      && !REG_P (src) && !MEM_P (src)\n      && !(VECTOR_MODE_P (GET_MODE (dst))\n\t   ? standard_sse_constant_p (src, GET_MODE (dst))\n\t   : x86_64_immediate_operand (src, GET_MODE (dst)))\n      && ix86_class_likely_spilled_p (REGNO_REG_CLASS (REGNO (dst)))\n      && ix86_pre_reload_split ())\n    return false;\n  return true;\n}\n\n/* If we are copying between registers from different register sets\n   (e.g. FP and integer), we may need a memory location.",
+      "identity": {
+        "bytes": 610,
+        "sha256": "08e709b7d900510e3296a1b6e381999a494222e05cb7387817cd2d9041028926"
+      },
+      "operative_fragments": [
+        "&& !REG_P (src)",
+        "return true"
+      ]
+    },
+    {
+      "name": "target register address",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 12167,
+      "last_LF_line": 12232,
+      "text": "ix86_legitimate_address_p (machine_mode, rtx addr, bool strict,\n\t\t\t   code_helper = ERROR_MARK)\n{\n  struct ix86_address parts;\n  rtx base, index, disp;\n  HOST_WIDE_INT scale;\n  addr_space_t seg;\n\n  if (ix86_decompose_address (addr, &parts) == 0)\n    /* Decomposition failed.  */\n    return false;\n\n  base = parts.base;\n  index = parts.index;\n  disp = parts.disp;\n  scale = parts.scale;\n  seg = parts.seg;\n\n  /* Validate base register.  */\n  if (base)\n    {\n      rtx reg = ix86_validate_address_register (base);\n\n      if (reg == NULL_RTX)\n\treturn false;\n\n      unsigned int regno = REGNO (reg);\n      if ((strict && !REGNO_OK_FOR_BASE_P (regno))\n\t  || (!strict && !REGNO_OK_FOR_BASE_NONSTRICT_P (regno)))\n\t/* Base is not valid.  */\n\treturn false;\n    }\n\n  /* Validate index register.  */\n  if (index)\n    {\n      rtx reg = ix86_validate_address_register (index);\n\n      if (reg == NULL_RTX)\n\treturn false;\n\n      unsigned int regno = REGNO (reg);\n      if ((strict && !REGNO_OK_FOR_INDEX_P (regno))\n\t  || (!strict && !REGNO_OK_FOR_INDEX_NONSTRICT_P (regno)))\n\t/* Index is not valid.  */\n\treturn false;\n    }\n\n  /* Index and base should have the same mode.  */\n  if (base && index\n      && GET_MODE (base) != GET_MODE (index))\n    return false;\n\n  /* Address override works only on the (%reg) part of %fs:(%reg).  */\n  if (seg != ADDR_SPACE_GENERIC\n      && ((base && GET_MODE (base) != word_mode)\n\t  || (index && GET_MODE (index) != word_mode)))\n    return false;\n\n  /* Validate scale factor.  */\n  if (scale != 1)\n    {\n      if (!index)\n\t/* Scale without index.  */\n\treturn false;\n",
+      "identity": {
+        "bytes": 1584,
+        "sha256": "c098da90fed194be3ee9ed74d6a21ddbdd9416a4d7168bc7f9280d4185fbc2da"
+      },
+      "operative_fragments": [
+        "ix86_decompose_address",
+        "REGNO_OK_FOR_BASE_P",
+        "if (scale != 1)"
+      ]
+    },
+    {
+      "name": "probe constraint attribute HF/BF",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.md",
+      "first_LF_line": 4481,
+      "last_LF_line": 4483,
+      "text": "(define_mode_attr hfbfconstf\n [(HF \"F\") (BF \"\")])\n",
+      "identity": {
+        "bytes": 50,
+        "sha256": "271004c02c4acf4e4aa036967307846c08a7f860a2d35348fc2b5045160653f3"
+      },
+      "operative_fragments": [
+        "(HF \"F\") (BF \"\")"
+      ]
+    },
+    {
+      "name": "probe constraint attribute vectors",
+      "root": "gcc",
+      "path": "gcc/config/i386/sse.md",
+      "first_LF_line": 1072,
+      "last_LF_line": 1079,
+      "text": "(define_mode_attr sseconstm1\n  [(V64QI \"BC\") (V32HI \"BC\") (V16SI \"BC\") (V8DI \"BC\") (V4TI \"BC\")\n   (V32QI \"BC\") (V16HI \"BC\") (V8SI \"BC\") (V4DI \"BC\") (V2TI \"BC\")\n   (V16QI \"BC\") (V8HI \"BC\") (V4SI \"BC\") (V2DI \"BC\") (V1TI \"BC\")\n   (V32HF \"BF\") (V32BF \"BF\") (V16SF \"BF\") (V8DF \"BF\")\n   (V16HF \"BF\") (V16BF \"BF\") (V8SF \"BF\") (V4DF \"BF\")\n   (V8HF \"BF\") (V8BF \"BF\") (V4SF \"BF\") (V2DF \"BF\")])\n",
+      "identity": {
+        "bytes": 384,
+        "sha256": "2fac05eb98edbe98c10415c965fa5271a6e06ec63492eccfb5289c0a4355efad"
+      },
+      "operative_fragments": [
+        "sseconstm1",
+        "\"BC\"",
+        "\"BF\""
+      ]
+    },
+    {
+      "name": "register address base branch",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 11329,
+      "last_LF_line": 11341,
+      "text": "  if (REG_P (addr))\n    base = addr;\n  else if (SUBREG_P (addr))\n    {\n      if (REG_P (SUBREG_REG (addr)))\n\tbase = addr;\n      else\n\treturn false;\n    }\n  else if (GET_CODE (addr) == PLUS)\n    {\n      rtx addends[4], op;\n      int n = 0, i;",
+      "identity": {
+        "bytes": 241,
+        "sha256": "9a75651fae182d202edd627c5aaab9ec41993e9ba8ff1c57ef513f858f470efd"
+      },
+      "operative_fragments": [
+        "if (REG_P (addr))",
+        "base = addr"
+      ]
+    },
+    {
+      "name": "register address validator",
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "first_LF_line": 12013,
+      "last_LF_line": 12025,
+      "text": "ix86_validate_address_register (rtx op)\n{\n  machine_mode mode = GET_MODE (op);\n\n  /* Only SImode or DImode registers can form the address.  */\n  if (mode != SImode && mode != DImode)\n    return NULL_RTX;\n\n  if (REG_P (op))\n    return op;\n  else if (SUBREG_P (op))\n    {\n      rtx reg = SUBREG_REG (op);",
+      "identity": {
+        "bytes": 302,
+        "sha256": "be157fc8b0587da42d8534e1679535769e2ddff73173abd8f75d3eed65909f2b"
+      },
+      "operative_fragments": [
+        "return op",
+        "SImode",
+        "DImode"
+      ]
+    },
+    {
+      "name": "fixed recognition dimensions",
+      "root": "gcc",
+      "path": "gcc/recog.h",
+      "first_LF_line": 23,
+      "last_LF_line": 37,
+      "text": "/* For enum tree_code ERROR_MARK.  */\n#include \"tree.h\"\n\n/* Random number that should be large enough for all purposes.  Also define\n   a type that has at least MAX_RECOG_ALTERNATIVES + 1 bits, with the extra\n   bit giving an invalid value that can be used to mean \"uninitialized\".  */\n#define MAX_RECOG_ALTERNATIVES 35\ntypedef uint64_t alternative_mask;  /* Keep in sync with genattrtab.cc.  */\n\n/* A mask of all alternatives.  */\n#define ALL_ALTERNATIVES ((alternative_mask) -1)\n\n/* A mask containing just alternative X.  */\n#define ALTERNATIVE_BIT(X) ((alternative_mask) 1 << (X))\n",
+      "identity": {
+        "bytes": 584,
+        "sha256": "43a9ccd0d4869313a0d53d22961c39ef517374c493569369211aa8482762dfd5"
+      },
+      "operative_fragments": [
+        "#define MAX_RECOG_ALTERNATIVES 35",
+        "typedef uint64_t alternative_mask"
+      ]
+    },
+    {
+      "name": "recognition no clobber repair",
+      "root": "gcc",
+      "path": "gcc/recog.h",
+      "first_LF_line": 319,
+      "last_LF_line": 327,
+      "text": "inline int\nrecog_memoized (rtx_insn *insn)\n{\n  if (INSN_CODE (insn) < 0)\n    INSN_CODE (insn) = recog (PATTERN (insn), insn, 0);\n  return INSN_CODE (insn);\n}\n#endif\n",
+      "identity": {
+        "bytes": 165,
+        "sha256": "984bd747dc434e406232ba978dbe8cc4e6d27d57a9df29455e0f61bb27420d70"
+      },
+      "operative_fragments": [
+        "recog (PATTERN (insn), insn, 0)"
+      ]
+    },
+    {
+      "name": "enabled attribute fixed table",
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "first_LF_line": 2664,
+      "last_LF_line": 2723,
+      "text": "  gcc_unreachable ();\n}\n\n/* Like get_bool_attr_mask, but don't use the cache.  */\n\nstatic alternative_mask\nget_bool_attr_mask_uncached (rtx_insn *insn, bool_attr attr)\n{\n  /* Temporarily install enough information for get_attr_<foo> to assume\n     that the insn operands are already cached.  As above, the attribute\n     mustn't depend on the values of operands, so we don't provide their\n     real values here.  */\n  rtx_insn *old_insn = recog_data.insn;\n  int old_alternative = which_alternative;\n\n  recog_data.insn = insn;\n  alternative_mask mask = ALL_ALTERNATIVES;\n  int n_alternatives = insn_data[INSN_CODE (insn)].n_alternatives;\n  for (int i = 0; i < n_alternatives; i++)\n    {\n      which_alternative = i;\n      if (!get_bool_attr (insn, attr))\n\tmask &= ~ALTERNATIVE_BIT (i);\n    }\n\n  recog_data.insn = old_insn;\n  which_alternative = old_alternative;\n  return mask;\n}\n\n/* Return the mask of operand alternatives that are allowed for INSN\n   by boolean attribute ATTR.  This mask depends only on INSN and on\n   the current target; it does not depend on things like the values of\n   operands.  */\n\nstatic alternative_mask\nget_bool_attr_mask (rtx_insn *insn, bool_attr attr)\n{\n  /* Quick exit for asms and for targets that don't use these attributes.  */\n  int code = INSN_CODE (insn);\n  if (code < 0 || !have_bool_attr (attr))\n    return ALL_ALTERNATIVES;\n\n  /* Calling get_attr_<foo> can be expensive, so cache the mask\n     for speed.  */\n  if (!this_target_recog->x_bool_attr_masks[code][attr])\n    this_target_recog->x_bool_attr_masks[code][attr]\n      = get_bool_attr_mask_uncached (insn, attr);\n  return this_target_recog->x_bool_attr_masks[code][attr];\n}\n\n/* Return the set of alternatives of INSN that are allowed by the current\n   target.  */\n\nalternative_mask\nget_enabled_alternatives (rtx_insn *insn)\n{\n  return get_bool_attr_mask (insn, BA_ENABLED);\n}\n",
+      "identity": {
+        "bytes": 1872,
+        "sha256": "8747885a3c90d7b93f75977dbed7ed072b86c618cc1d44a267b0905b42f226b2"
+      },
+      "operative_fragments": [
+        "i < n_alternatives",
+        "ALTERNATIVE_BIT (i)",
+        "x_bool_attr_masks"
+      ]
+    },
+    {
+      "name": "extract static operands",
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "first_LF_line": 2881,
+      "last_LF_line": 2918,
+      "text": "\t  break;\n\t}\n      fatal_insn_not_found (insn);\n\n    default:\n    normal_insn:\n      /* Ordinary insn: recognize it, get the operands via insn_extract\n\t and get the constraints.  */\n\n      icode = recog_memoized (insn);\n      if (icode < 0)\n\tfatal_insn_not_found (insn);\n\n      recog_data.n_operands = noperands = insn_data[icode].n_operands;\n      recog_data.n_alternatives = insn_data[icode].n_alternatives;\n      recog_data.n_dups = insn_data[icode].n_dups;\n\n      insn_extract (insn);\n\n      for (i = 0; i < noperands; i++)\n\t{\n\t  recog_data.constraints[i] = insn_data[icode].operand[i].constraint;\n\t  recog_data.is_operator[i] = insn_data[icode].operand[i].is_operator;\n\t  recog_data.operand_mode[i] = insn_data[icode].operand[i].mode;\n\t  /* VOIDmode match_operands gets mode from their real operand.  */\n\t  if (recog_data.operand_mode[i] == VOIDmode)\n\t    recog_data.operand_mode[i] = GET_MODE (recog_data.operand[i]);\n\t}\n    }\n  for (i = 0; i < noperands; i++)\n    recog_data.operand_type[i]\n      = (recog_data.constraints[i][0] == '=' ? OP_OUT\n\t : recog_data.constraints[i][0] == '+' ? OP_INOUT\n\t : OP_IN);\n\n  gcc_assert (recog_data.n_alternatives <= MAX_RECOG_ALTERNATIVES);\n\n  recog_data.insn = NULL;",
+      "identity": {
+        "bytes": 1210,
+        "sha256": "419867520dd07ccf3d3488d175fdbc560c515fa319364d44126f5453aed6950d"
+      },
+      "operative_fragments": [
+        "n_operands = noperands = insn_data",
+        "insn_extract",
+        "MAX_RECOG_ALTERNATIVES"
+      ]
+    },
+    {
+      "name": "constraint automatic arrays",
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "first_LF_line": 3140,
+      "last_LF_line": 3199,
+      "text": "constrain_operands (int strict, alternative_mask alternatives)\n{\n  const char *constraints[MAX_RECOG_OPERANDS];\n  int matching_operands[MAX_RECOG_OPERANDS];\n  int earlyclobber[MAX_RECOG_OPERANDS];\n  int c;\n\n  struct funny_match funny_match[MAX_RECOG_OPERANDS];\n  int funny_match_index;\n\n  which_alternative = 0;\n  if (recog_data.n_operands == 0 || recog_data.n_alternatives == 0)\n    return true;\n\n  for (c = 0; c < recog_data.n_operands; c++)\n    constraints[c] = recog_data.constraints[c];\n\n  do\n    {\n      int seen_earlyclobber_at = -1;\n      int opno;\n      bool lose = false;\n      funny_match_index = 0;\n\n      if (!TEST_BIT (alternatives, which_alternative))\n\t{\n\t  int i;\n\n\t  for (i = 0; i < recog_data.n_operands; i++)\n\t    constraints[i] = skip_alternative (constraints[i]);\n\n\t  which_alternative++;\n\t  continue;\n\t}\n\n      for (opno = 0; opno < recog_data.n_operands; opno++)\n\tmatching_operands[opno] = -1;\n\n      for (opno = 0; opno < recog_data.n_operands; opno++)\n\t{\n\t  rtx op = recog_data.operand[opno];\n\t  machine_mode mode = GET_MODE (op);\n\t  const char *p = constraints[opno];\n\t  int offset = 0;\n\t  bool win = false;\n\t  int val;\n\t  int len;\n\n\t  earlyclobber[opno] = 0;\n\n\t  if (GET_CODE (op) == SUBREG)\n\t    {\n\t      if (REG_P (SUBREG_REG (op))\n\t\t  && REGNO (SUBREG_REG (op)) < FIRST_PSEUDO_REGISTER)\n\t\toffset = subreg_regno_offset (REGNO (SUBREG_REG (op)),\n\t\t\t\t\t      GET_MODE (SUBREG_REG (op)),\n\t\t\t\t\t      SUBREG_BYTE (op),\n\t\t\t\t\t      GET_MODE (op));\n\t      op = SUBREG_REG (op);\n\t    }",
+      "identity": {
+        "bytes": 1504,
+        "sha256": "20fdea2ead295ea8edb91c25db61c675606780b7276967576ee0d9f78e680a7b"
+      },
+      "operative_fragments": [
+        "constraints[MAX_RECOG_OPERANDS]",
+        "if (GET_CODE (op) == SUBREG)",
+        "TEST_BIT"
+      ]
+    },
+    {
+      "name": "strict recursion exclusion",
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "first_LF_line": 3449,
+      "last_LF_line": 3465,
+      "text": "\t      return true;\n\t    }\n\t}\n\n      which_alternative++;\n    }\n  while (which_alternative < recog_data.n_alternatives);\n\n  which_alternative = -1;\n  /* If we are about to reject this, but we are not to test strictly,\n     try a very loose test.  Only return failure if it fails also.  */\n  if (strict == 0)\n    return constrain_operands (-1, alternatives);\n  else\n    return false;\n}\n",
+      "identity": {
+        "bytes": 385,
+        "sha256": "93b66aa66e30f777bfdeba32a81d598987cc4f62710de60a19b74be439a95d0f"
+      },
+      "operative_fragments": [
+        "if (strict == 0)",
+        "constrain_operands (-1"
+      ]
+    },
+    {
+      "name": "separate preprocessing allocation",
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "first_LF_line": 3055,
+      "last_LF_line": 3081,
+      "text": "preprocess_insn_constraints (unsigned int icode)\n{\n  gcc_checking_assert (IN_RANGE (icode, 0, NUM_INSN_CODES - 1));\n  if (this_target_recog->x_op_alt[icode])\n    return this_target_recog->x_op_alt[icode];\n\n  int n_operands = insn_data[icode].n_operands;\n  if (n_operands == 0)\n    return 0;\n  /* Always provide at least one alternative so that which_op_alt ()\n     works correctly.  If the instruction has 0 alternatives (i.e. all\n     constraint strings are empty) then each operand in this alternative\n     will have anything_ok set.  */\n  int n_alternatives = MAX (insn_data[icode].n_alternatives, 1);\n  int n_entries = n_operands * n_alternatives;\n\n  operand_alternative *op_alt = XCNEWVEC (operand_alternative, n_entries);\n  const char **constraints = XALLOCAVEC (const char *, n_operands);\n\n  for (int i = 0; i < n_operands; ++i)\n    constraints[i] = insn_data[icode].operand[i].constraint;\n  preprocess_constraints (n_operands, n_alternatives, constraints, op_alt,\n\t\t\t  NULL);\n\n  this_target_recog->x_op_alt[icode] = op_alt;\n  return op_alt;\n}",
+      "identity": {
+        "bytes": 1050,
+        "sha256": "c8f845675ecf1f1906c2e3f24691bf20ca93bc6d3fd7302944772930d0b5cd6e"
+      },
+      "operative_fragments": [
+        "XCNEWVEC (operand_alternative",
+        "preprocess_constraints"
+      ]
+    },
+    {
+      "name": "warning empty setjmp",
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "first_LF_line": 4320,
+      "last_LF_line": 4331,
+      "text": "generate_setjmp_warnings (void)\n{\n  bitmap setjmp_crosses = regstat_get_setjmp_crosses ();\n\n  if (n_basic_blocks_for_fn (cfun) == NUM_FIXED_BLOCKS\n      || bitmap_empty_p (setjmp_crosses))\n    return;\n\n  setjmp_vars_warning (setjmp_crosses, DECL_INITIAL (current_function_decl));\n  setjmp_args_warning (setjmp_crosses);\n}\n",
+      "identity": {
+        "bytes": 322,
+        "sha256": "4ddb4fcca6a253823b1b9526c9d3e9cd866a9f186a830f4fe8fb914fd65f97c3"
+      },
+      "operative_fragments": [
+        "bitmap_empty_p (setjmp_crosses)",
+        "return"
+      ]
+    },
+    {
+      "name": "selected threshold defaults",
+      "root": "gcc",
+      "path": "gcc/params.opt",
+      "first_LF_line": 344,
+      "last_LF_line": 350,
+      "text": "-param=ira-simple-lra-insn-threshold=\nCommon Joined UInteger Var(param_ira_simple_lra_insn_threshold) Init(1000) Param Optimization\nApproximate function insn number in 1K units triggering simple local RA.\n\n-param=ira-max-loops-num=\nCommon Joined UInteger Var(param_ira_max_loops_num) Init(100) Param Optimization\nMaximum number of loops for regional RA.",
+      "identity": {
+        "bytes": 353,
+        "sha256": "11fa53256105b9f276463c6e1630cac1ed2b64b7218271bbd1a623e7e7340014"
+      },
+      "operative_fragments": [
+        "Init(1000)",
+        "Init(100)"
+      ]
+    },
+    {
+      "name": "dense rounding",
+      "root": "gcc",
+      "path": "gcc/sbitmap.cc",
+      "first_LF_line": 42,
+      "last_LF_line": 55,
+      "text": "sbitmap_alloc (unsigned int n_elms)\n{\n  unsigned int bytes, size, amt;\n  sbitmap bmap;\n\n  size = SBITMAP_SET_SIZE (n_elms);\n  bytes = size * sizeof (SBITMAP_ELT_TYPE);\n  amt = (sizeof (struct simple_bitmap_def)\n\t + bytes - sizeof (SBITMAP_ELT_TYPE));\n  bmap = (sbitmap) xmalloc (amt);\n  bmap->n_bits = n_elms;\n  bmap->size = size;\n  return bmap;\n}",
+      "identity": {
+        "bytes": 347,
+        "sha256": "4aa0f291a8cff104e2ccdb0778fa1e1b7ec9fe4489efcb42bc2d19f0d1fc2c00"
+      },
+      "operative_fragments": [
+        "n_elms",
+        "SBITMAP_SET_SIZE",
+        "xmalloc (amt)"
+      ]
+    },
+    {
+      "name": "exact age vector grow",
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "first_LF_line": 2129,
+      "last_LF_line": 2140,
+      "text": "inline void\nvec<T, va_heap, vl_ptr>::safe_grow (unsigned len, bool exact MEM_STAT_DECL)\n{\n  unsigned oldlen = length ();\n  gcc_checking_assert (oldlen <= len);\n  reserve (len - oldlen, exact PASS_MEM_STAT);\n  if (m_vec)\n    m_vec->quick_grow (len);\n  else\n    gcc_checking_assert (len == 0);\n}\n",
+      "identity": {
+        "bytes": 294,
+        "sha256": "c778deb37b7323f38230648d635e7512890679b2735759065d7e1ed45de78c0b"
+      },
+      "operative_fragments": [
+        "reserve (len - oldlen, exact",
+        "quick_grow"
+      ]
+    }
+  ],
+  "coordinate_system": "literal LF only; form feeds preserved",
+  "accepted_actual_source_adapter": {
+    "implementation": "71624df23244a680b3da379c655691df1d77312c",
+    "review": "ac4694d0f7"
+  },
+  "accepted_numeric": {
+    "implementation": "9ed466e07f",
+    "review": "7b702023dc"
+  },
+  "accepted_helpers": {
+    "implementation": "b795c8f7459d648d7e595aca414629c1eec232bd",
+    "review": "4d7100e7fbb2e39e6fdae2cf63b6d7b657cacb71"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-19",
+  "issues": [
+    145,
+    146,
+    119
+  ],
+  "objective": "Complete selected outer IRA source interfaces and reconcile ordinary/GGC ownership without predecessor replay",
+  "authorization": "Owner resumed native-build capacity checkpoint; parent bounded delegation at integration 7b66f9b6c3",
+  "base_revision": "7b66f9b6c326aac5b45202431538b899e68259d7",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "measured_interval": {
+    "start_UTC": "2026-10-19 14:00:01",
+    "end_UTC": "2026-10-19 14:17:26",
+    "elapsed_seconds": 1045,
+    "scope": "First observed clock through packet checkpoint, including source inspection and artifact preparation; excludes final commit and independent review"
+  },
+  "achieved": {
+    "complete_selected_outer_IRA_source_case_split": true,
+    "local_guards": 18,
+    "source_pins": 69,
+    "repository_pins": 58,
+    "LF_excerpts": 66,
+    "MD_direct_SET_templates": 37,
+    "MD_root_wildcards": 7,
+    "new_GGC_owner": "IRA_cold_prohibited_mode_probe",
+    "new_positive_GGC_events": 4,
+    "old_owner_rows_preserved": 50,
+    "corrected_owner_rows": 51,
+    "retained_Hello_old_events": 47054,
+    "retained_Hello_corrected_events": 47058
+  },
+  "material_findings": [
+    {
+      "issue": 146,
+      "status": "source-confirmed; independent review and actual-source collector correction pending",
+      "finding": "Cold prohibited-mode move probe creates two REGs, one SET and one detached INSN outside all 50 accepted owner scopes",
+      "disposition": "Export disjoint four-event row; supersede old completeness claim without mutating historical records"
+    }
+  ],
+  "verification": {
+    "passed": true,
+    "checks": 442,
+    "elapsed_seconds": 0.7689414600026794,
+    "host": {
+      "system": "Linux",
+      "release": "7.0.14",
+      "machine": "x86_64"
+    },
+    "source_argument": "handwritten universal case split; finite checks are not a proof of reachability",
+    "preflight_rework": [
+      "LF excerpt ranges/fragments corrected before success; literal LF coordinates retained",
+      "Constraint audit initially treated mode attribute <...> text as literal modifier; checker now verifies its pinned F/BC/BF/empty expansions"
+    ],
+    "successful_local_rerun_reason": "After 439-check success, added explicit correspondence for the two constraint mode attributes and four operative source excerpts; final run has442 checks. No predecessor suite rerun."
+  },
+  "prohibited_or_unrun": {
+    "native_compiler_or_build": 0,
+    "capture": 0,
+    "prover_solver_Lean": 0,
+    "predecessor_evaluator_or_checker": 0,
+    "aggregate_suite": 0,
+    "full_suite": 0,
+    "corpus_replay": 0
+  },
+  "unresolved": [
+    "Independent source review",
+    "Actual-source outer IRA attachment including corrected GGC/collector transfer and old false/null guard preservation",
+    "Separate LRA arithmetic/elimination and native automatic stack/other helpers",
+    "Complete native/proof/parent/current-grammar capacity"
+  ],
+  "repository_effects": {
+    "owned_paths_only": true,
+    "Oracle_or_language_or_toolchain_changed": false,
+    "GitHub_writes": false,
+    "CLI_memory_updated": false,
+    "root_docs_changed": false
+  },
+  "live_harness_goal": null,
+  "independent_review_status": "pending",
+  "parent_owns": [
+    "review",
+    "integration",
+    "actual-source attachment",
+    "root indexes",
+    "issues and durable memory",
+    "publication"
+  ]
+}

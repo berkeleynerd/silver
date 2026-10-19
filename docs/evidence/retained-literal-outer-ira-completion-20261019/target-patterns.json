@@ -1,0 +1,1239 @@
+{
+  "scope": "Unexpanded direct SET/leaf templates and root wildcards; handwritten source argument classifies them",
+  "files": [
+    "gcc/config/i386/athlon.md",
+    "gcc/config/i386/atom.md",
+    "gcc/config/i386/bdver1.md",
+    "gcc/config/i386/bdver3.md",
+    "gcc/config/i386/btver2.md",
+    "gcc/config/i386/constraints.md",
+    "gcc/config/i386/core2.md",
+    "gcc/config/i386/geode.md",
+    "gcc/config/i386/glm.md",
+    "gcc/config/i386/haswell.md",
+    "gcc/config/i386/i386.md",
+    "gcc/config/i386/k6.md",
+    "gcc/config/i386/lujiazui.md",
+    "gcc/config/i386/mmx.md",
+    "gcc/config/i386/pentium.md",
+    "gcc/config/i386/ppro.md",
+    "gcc/config/i386/predicates.md",
+    "gcc/config/i386/slm.md",
+    "gcc/config/i386/sse.md",
+    "gcc/config/i386/subst.md",
+    "gcc/config/i386/sync.md",
+    "gcc/config/i386/yongfeng.md",
+    "gcc/config/i386/zn4zn5.md",
+    "gcc/config/i386/znver.md"
+  ],
+  "includes": [
+    {
+      "file": "i386.md",
+      "include": "pentium.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "ppro.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "k6.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "athlon.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "bdver1.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "bdver3.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "btver2.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "znver.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "zn4zn5.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "geode.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "atom.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "slm.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "glm.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "core2.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "haswell.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "lujiazui.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "yongfeng.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "predicates.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "constraints.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "mmx.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "sse.md"
+    },
+    {
+      "file": "i386.md",
+      "include": "sync.md"
+    },
+    {
+      "file": "sse.md",
+      "include": "subst.md"
+    }
+  ],
+  "constraint_mode_attributes": [
+    {
+      "file": "i386.md",
+      "name": "hfbfconstf",
+      "values": [
+        [
+          "HF",
+          "\"F\""
+        ],
+        [
+          "BF",
+          "\"\""
+        ]
+      ]
+    },
+    {
+      "file": "sse.md",
+      "name": "sseconstm1",
+      "values": [
+        [
+          "V64QI",
+          "\"BC\""
+        ],
+        [
+          "V32HI",
+          "\"BC\""
+        ],
+        [
+          "V16SI",
+          "\"BC\""
+        ],
+        [
+          "V8DI",
+          "\"BC\""
+        ],
+        [
+          "V4TI",
+          "\"BC\""
+        ],
+        [
+          "V32QI",
+          "\"BC\""
+        ],
+        [
+          "V16HI",
+          "\"BC\""
+        ],
+        [
+          "V8SI",
+          "\"BC\""
+        ],
+        [
+          "V4DI",
+          "\"BC\""
+        ],
+        [
+          "V2TI",
+          "\"BC\""
+        ],
+        [
+          "V16QI",
+          "\"BC\""
+        ],
+        [
+          "V8HI",
+          "\"BC\""
+        ],
+        [
+          "V4SI",
+          "\"BC\""
+        ],
+        [
+          "V2DI",
+          "\"BC\""
+        ],
+        [
+          "V1TI",
+          "\"BC\""
+        ],
+        [
+          "V32HF",
+          "\"BF\""
+        ],
+        [
+          "V32BF",
+          "\"BF\""
+        ],
+        [
+          "V16SF",
+          "\"BF\""
+        ],
+        [
+          "V8DF",
+          "\"BF\""
+        ],
+        [
+          "V16HF",
+          "\"BF\""
+        ],
+        [
+          "V16BF",
+          "\"BF\""
+        ],
+        [
+          "V8SF",
+          "\"BF\""
+        ],
+        [
+          "V4DF",
+          "\"BF\""
+        ],
+        [
+          "V8HF",
+          "\"BF\""
+        ],
+        [
+          "V8BF",
+          "\"BF\""
+        ],
+        [
+          "V4SF",
+          "\"BF\""
+        ],
+        [
+          "V2DF",
+          "\"BF\""
+        ]
+      ]
+    }
+  ],
+  "direct_SET_leaf_templates": [
+    {
+      "file": "i386.md",
+      "name": "\"*pushv1ti2\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V1TI",
+          "0",
+          "\"push_operand\"",
+          "\"=<\""
+        ],
+        [
+          "match_operand:V1TI",
+          "1",
+          "\"register_operand\"",
+          "\"v\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT && TARGET_STV\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*push<mode>2\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:DWI",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<\""
+        ],
+        [
+          "match_operand:DWI",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"riF*o,*v\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushdi2_rex64\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:DI",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<,!<\""
+        ],
+        [
+          "match_operand:DI",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"re*m,*v,n\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushsi2_rex64\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SI",
+          "0",
+          "\"push_operand\"",
+          "\"=X,X\""
+        ],
+        [
+          "match_operand:SI",
+          "1",
+          "\"nonmemory_no_elim_operand\"",
+          "\"re,*v\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushsi2\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SI",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<\""
+        ],
+        [
+          "match_operand:SI",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"ri*m,*v\""
+        ]
+      ],
+      "condition": "\"!TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*push<mode>2\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SWI12",
+          "0",
+          "\"push_operand\"",
+          "\"=X\""
+        ],
+        [
+          "match_operand:SWI12",
+          "1",
+          "\"nonmemory_no_elim_operand\"",
+          "\"rn\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pop<mode>1\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:W",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r*m\""
+        ],
+        [
+          "match_operand:W",
+          "1",
+          "\"pop_operand\"",
+          "\">\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movxi_internal_avx512f\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:XI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=v,v ,v ,m\""
+        ],
+        [
+          "match_operand:XI",
+          "1",
+          "\"nonimmediate_or_sse_const_operand\"",
+          "\" C,BC,vm,v\""
+        ]
+      ],
+      "condition": "\"TARGET_AVX512F\n   && (register_operand (operands[0], XImode)\n       || register_operand (operands[1], XImode))\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movoi_internal_avx\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:OI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=v,v ,v ,m\""
+        ],
+        [
+          "match_operand:OI",
+          "1",
+          "\"nonimmediate_or_sse_const_operand\"",
+          "\" C,BC,vm,v\""
+        ]
+      ],
+      "condition": "\"TARGET_AVX\n   && (register_operand (operands[0], OImode)\n       || register_operand (operands[1], OImode))\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movti_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:TI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=!r ,o ,v,v ,v ,m,?jc,?Yd\""
+        ],
+        [
+          "match_operand:TI",
+          "1",
+          "\"general_operand\"",
+          "\"riFo,re,C,BC,vm,v,Yd,jc\""
+        ]
+      ],
+      "condition": "\"(TARGET_64BIT\n    && !(MEM_P (operands[0]) && MEM_P (operands[1])))\n   || (TARGET_SSE\n       && nonimmediate_or_sse_const_operand (operands[1], TImode)\n       && (register_operand (operands[0], TImode)\n\t   || register_operand (operands[1], TImode)))\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movdi_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:DI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r  ,o  ,r,r  ,r,m ,*y,*y,?*y,?m,?r,?*y,?Yv,?v,?v,m ,m,?jc,?*Yd,?r,?v,?*y,?*x,*k,*k  ,*r,*m,*k\""
+        ],
+        [
+          "match_operand:DI",
+          "1",
+          "\"general_operand\"",
+          "\"riFo,riF,Z,rem,i,re,C ,*y,Bk ,*y,*y,r  ,C  ,?v,Bk,?v,v,*Yd,jc  ,?v,r ,*x ,*y ,*r,*kBk,*k,*k,CBC\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movsi_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r,m ,*y,*y,?*y,?m,?r,?*y,?Yv,?v,?v,m ,?r,?v,*k,*k  ,*rm,*k\""
+        ],
+        [
+          "match_operand:SI",
+          "1",
+          "\"general_operand\"",
+          "\"g ,re,C ,*y,Bk ,*y,*y,r  ,C  ,?v,Bk,?v,?v,r ,*r,*kBk,*k ,CBC\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movhi_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:HI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r,r,r,m ,*k,*k ,r ,m ,*k ,?r,?*v,*Yv,*v,*v,jm,m\""
+        ],
+        [
+          "match_operand:HI",
+          "1",
+          "\"general_operand\"",
+          "\"r ,n,m,rn,r ,*km,*k,*k,CBC,*v,r  ,C  ,*v,m ,*x,*v\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movqi_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:QI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=Q,R,r,q,q,r,r ,?r,m ,*k,*k,*r,*m,*k,*k,*k\""
+        ],
+        [
+          "match_operand:QI",
+          "1",
+          "\"general_operand\"",
+          "\"Q ,R,r,n,m,q,rn, m,qn,*r,*k,*k,*k,*m,C,BC\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushtf\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:TF",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<\""
+        ],
+        [
+          "match_operand:TF",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"v,*roC\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT || TARGET_SSE\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushxf\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:XF",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<,<,<,<\""
+        ],
+        [
+          "match_operand:XF",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"f,r,*r,oF,oC\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushdf\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:DF",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<,<,<,<,<\""
+        ],
+        [
+          "match_operand:DF",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"f,r,*r,oF,rmC,v\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*push<mode>_rex64\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:HFBF",
+          "0",
+          "\"push_operand\"",
+          "\"=X,X\""
+        ],
+        [
+          "match_operand:HFBF",
+          "1",
+          "\"nonmemory_no_elim_operand\"",
+          "\"r,x\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*push<mode>\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:HFBF",
+          "0",
+          "\"push_operand\"",
+          "\"=X,X\""
+        ],
+        [
+          "match_operand:HFBF",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"rmF,x\""
+        ]
+      ],
+      "condition": "\"!TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushsf_rex64\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SF",
+          "0",
+          "\"push_operand\"",
+          "\"=X,X,X\""
+        ],
+        [
+          "match_operand:SF",
+          "1",
+          "\"nonmemory_no_elim_operand\"",
+          "\"f,rF,v\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*pushsf\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SF",
+          "0",
+          "\"push_operand\"",
+          "\"=<,<,<\""
+        ],
+        [
+          "match_operand:SF",
+          "1",
+          "\"general_no_elim_operand\"",
+          "\"f,rmF,v\""
+        ]
+      ],
+      "condition": "\"!TARGET_64BIT\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movtf_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:TF",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=v,v ,m,?*r ,!o\""
+        ],
+        [
+          "match_operand:TF",
+          "1",
+          "\"general_operand\"",
+          "\"C ,vm,v,*roF,*rC\""
+        ]
+      ],
+      "condition": "\"(TARGET_64BIT || TARGET_SSE)\n   && !(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && (lra_in_progress || reload_completed\n       || !CONST_DOUBLE_P (operands[1])\n       || (standard_sse_constant_p (operands[1], TFmode) == 1\n\t   && !memory_operand (operands[0], TFmode))\n       || (!TARGET_MEMORY_MISMATCH_STALL\n\t   && memory_operand (operands[0], TFmode)))\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movxf_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:XF",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=f,m,f,?r ,!o,?*r ,!o,!o,!o,r  ,o ,o\""
+        ],
+        [
+          "match_operand:XF",
+          "1",
+          "\"general_operand\"",
+          "\"fm,f,G,roF,r ,*roF,*r,F ,C ,roF,rF,rC\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && (lra_in_progress || reload_completed\n       || !CONST_DOUBLE_P (operands[1])\n       || ((optimize_function_for_size_p (cfun)\n\t    || (ix86_cmodel == CM_LARGE || ix86_cmodel == CM_LARGE_PIC))\n\t   && standard_80387_constant_p (operands[1]) > 0\n\t   && !memory_operand (operands[0], XFmode))\n       || (!TARGET_MEMORY_MISMATCH_STALL\n\t   && memory_operand (operands[0], XFmode))\n       || !TARGET_HARD_XF_REGS)\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movdf_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:DF",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=Yf*f,m   ,Yf*f,?r ,!o,?*r ,!o,!o,?r,?m,?r,?r,Yv,v,v,m,*x,*x,*x,m ,?r,?v,r  ,o ,r  ,m\""
+        ],
+        [
+          "match_operand:DF",
+          "1",
+          "\"general_operand\"",
+          "\"Yf*fm,Yf*f,G   ,roF,r ,*roF,*r,F ,rm,rC,C ,F ,C ,v,m,v,C ,*x,m ,*x, v, r,roF,rF,rmF,rC\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && (lra_in_progress || reload_completed\n       || !CONST_DOUBLE_P (operands[1])\n       || ((optimize_function_for_size_p (cfun)\n\t    || (ix86_cmodel == CM_LARGE || ix86_cmodel == CM_LARGE_PIC))\n\t   && IS_STACK_MODE (DFmode)\n\t   && standard_80387_constant_p (operands[1]) > 0\n\t   && !memory_operand (operands[0], DFmode))\n       || (TARGET_SSE2 && TARGET_SSE_MATH\n\t   && standard_sse_constant_p (operands[1], DFmode) == 1\n\t   && !memory_operand (operands[0], DFmode))\n       || ((TARGET_64BIT || !TARGET_MEMORY_MISMATCH_STALL)\n\t   && memory_operand (operands[0], DFmode))\n       || !TARGET_HARD_DF_REGS)\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*movsf_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SF",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=Yf*f,m   ,Yf*f,?r ,?m,Yv,v,v,m,?r,?v,!*y,!*y,!m,!r,!*y,r  ,m\""
+        ],
+        [
+          "match_operand:SF",
+          "1",
+          "\"general_operand\"",
+          "\"Yf*fm,Yf*f,G   ,rmF,rF,C ,v,m,v,v ,r ,*y ,m  ,*y,*y,r  ,rmF,rF\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && (lra_in_progress || reload_completed\n       || !CONST_DOUBLE_P (operands[1])\n       || ((optimize_function_for_size_p (cfun)\n\t    || (ix86_cmodel == CM_LARGE || ix86_cmodel == CM_LARGE_PIC))\n\t   && IS_STACK_MODE (SFmode)\n\t   && standard_80387_constant_p (operands[1]) > 0)\n       || (TARGET_SSE && TARGET_SSE_MATH\n\t   && standard_sse_constant_p (operands[1], SFmode) == 1)\n       || memory_operand (operands[0], SFmode)\n       || !TARGET_HARD_SF_REGS)\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*mov<mode>_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:HFBF",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=?r,?r,?r,?m\t\t ,Yv,v,?r,jm,m,?v,v\""
+        ],
+        [
+          "match_operand:HFBF",
+          "1",
+          "\"general_operand\"",
+          "\"r  ,F ,m ,r<hfbfconstf>,C ,v, v,v ,v,r ,m\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n  && (lra_in_progress\n      || reload_completed\n      || !CONST_DOUBLE_P (operands[1])\n      || (TARGET_SSE2\n\t  && standard_sse_constant_p (operands[1], <MODE>mode) == 1)\n      || memory_operand (operands[0], <MODE>mode))\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*lea<mode>\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:SWI48",
+          "0",
+          "\"register_operand\"",
+          "\"=r\""
+        ],
+        [
+          "match_operand:SWI48",
+          "1",
+          "\"address_no_seg_operand\"",
+          "\"Ts\""
+        ]
+      ],
+      "condition": "\"ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "i386.md",
+      "name": "\"*setccc\"",
+      "pattern": [
+        "set",
+        [
+          "reg:CCC",
+          "FLAGS_REG"
+        ],
+        [
+          "reg:CCC",
+          "FLAGS_REG"
+        ]
+      ],
+      "condition": "\"ix86_pre_reload_split ()\""
+    },
+    {
+      "file": "mmx.md",
+      "name": "\"*mov<mode>_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:MMXMODE",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r ,o ,r,r ,m ,?!y,!y,?!y,m  ,r  ,?!y,v,v,v,m,r,v,!y,*x\""
+        ],
+        [
+          "match_operand:MMXMODE",
+          "1",
+          "\"nonimm_or_0_operand\"",
+          "\"rCo,rC,C,rm,rC,C  ,!y,m  ,?!y,?!y,r  ,C,v,m,v,v,r,*x,!y\""
+        ]
+      ],
+      "condition": "\"(TARGET_MMX || TARGET_MMX_WITH_SSE)\n   && !(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "mmx.md",
+      "name": "\"*mov<mode>_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V_32",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r ,m ,v,v,v,m,r,v\""
+        ],
+        [
+          "match_operand:V_32",
+          "1",
+          "\"nonimm_or_0_operand\"",
+          "\"rmC,rC,C,v,m,v,v,r\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "mmx.md",
+      "name": "\"*push<mode>2_rex64\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V_32",
+          "0",
+          "\"push_operand\"",
+          "\"=X,X\""
+        ],
+        [
+          "match_operand:V_32",
+          "1",
+          "\"nonmemory_no_elim_operand\"",
+          "\"rC,*v\""
+        ]
+      ],
+      "condition": "\"TARGET_64BIT\""
+    },
+    {
+      "file": "mmx.md",
+      "name": "\"*movv2qi_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V2QI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=r,r,r,m ,v,v,v,jm,m,r,v\""
+        ],
+        [
+          "match_operand:V2QI",
+          "1",
+          "\"nonimm_or_0_operand\"",
+          "\"r ,C,m,rC,C,v,m,x,v,v,r\""
+        ]
+      ],
+      "condition": "\"!(MEM_P (operands[0]) && MEM_P (operands[1]))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "mmx.md",
+      "name": "\"*mov<mode>_imm\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V_16_32_64",
+          "0",
+          "\"memory_operand\"",
+          "\"=m\""
+        ],
+        [
+          "match_operand:V_16_32_64",
+          "1",
+          "\"x86_64_const_vector_operand\"",
+          "\"i\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "mmx.md",
+      "name": "\"*pushv2qi2\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V2QI",
+          "0",
+          "\"push_operand\"",
+          "\"=X,X\""
+        ],
+        [
+          "match_operand:V2QI",
+          "1",
+          "\"nonmemory_no_elim_operand\"",
+          "\"rC,v\""
+        ]
+      ],
+      "condition": "\"\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"mov<mode>_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:VMOVE",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=v,v ,x,v ,m\""
+        ],
+        [
+          "match_operand:VMOVE",
+          "1",
+          "\"nonimmediate_or_sse_const_operand\"",
+          "\" C,<sseconstm1>,BH,vm,v\""
+        ]
+      ],
+      "condition": "\"TARGET_SSE\n   && (register_operand (operands[0], <MODE>mode)\n       || register_operand (operands[1], <MODE>mode))\n   && ix86_hardreg_mov_ok (operands[0], operands[1])\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*<avx512>_vpternlog<mode>_0\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:V",
+          "0",
+          "\"register_operand\""
+        ],
+        [
+          "match_operand:V",
+          "1",
+          "\"ternlog_operand\""
+        ]
+      ],
+      "condition": "\"(<MODE_SIZE> == 64 || TARGET_AVX512VL\n    || (TARGET_AVX512F && !TARGET_PREFER_AVX256))\n   && ix86_pre_reload_split ()\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*mov<mode>_internal\"",
+      "pattern": [
+        "set",
+        [
+          "match_operand:MASK_DWI",
+          "0",
+          "\"nonimmediate_operand\"",
+          "\"=k,o\""
+        ],
+        [
+          "match_operand:MASK_DWI",
+          "1",
+          "\"nonimmediate_operand\"",
+          "\"ko,k\""
+        ]
+      ],
+      "condition": "\"TARGET_AVX512VP2INTERSECT\n   && !(MEM_P (operands[0]) && MEM_P (operands[1]))\""
+    }
+  ],
+  "root_wildcard_templates": [
+    {
+      "file": "sse.md",
+      "name": "\"*save_multiple<mode>\"",
+      "pattern": [
+        "match_parallel",
+        "0",
+        "\"save_multiple\"",
+        [
+          [
+            "use",
+            [
+              "match_operand:P",
+              "1",
+              "\"symbol_operand\""
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_SSE && TARGET_64BIT\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*restore_multiple<mode>\"",
+      "pattern": [
+        "match_parallel",
+        "0",
+        "\"restore_multiple\"",
+        [
+          [
+            "use",
+            [
+              "match_operand:P",
+              "1",
+              "\"symbol_operand\""
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_SSE && TARGET_64BIT\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*restore_multiple_and_return<mode>\"",
+      "pattern": [
+        "match_parallel",
+        "0",
+        "\"restore_multiple\"",
+        [
+          [
+            "return"
+          ],
+          [
+            "use",
+            [
+              "match_operand:P",
+              "1",
+              "\"symbol_operand\""
+            ]
+          ],
+          [
+            "set",
+            [
+              "reg:DI",
+              "SP_REG"
+            ],
+            [
+              "reg:DI",
+              "R10_REG"
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_SSE && TARGET_64BIT\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*restore_multiple_leave_return<mode>\"",
+      "pattern": [
+        "match_parallel",
+        "0",
+        "\"restore_multiple\"",
+        [
+          [
+            "return"
+          ],
+          [
+            "use",
+            [
+              "match_operand:P",
+              "1",
+              "\"symbol_operand\""
+            ]
+          ],
+          [
+            "set",
+            [
+              "reg:DI",
+              "SP_REG"
+            ],
+            [
+              "plus:DI",
+              [
+                "reg:DI",
+                "BP_REG"
+              ],
+              [
+                "const_int",
+                "8"
+              ]
+            ]
+          ],
+          [
+            "set",
+            [
+              "reg:DI",
+              "BP_REG"
+            ],
+            [
+              "mem:DI",
+              [
+                "reg:DI",
+                "BP_REG"
+              ]
+            ]
+          ],
+          [
+            "clobber",
+            [
+              "mem:BLK",
+              [
+                "scratch"
+              ]
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_SSE && TARGET_64BIT\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*encodekey128u32\"",
+      "pattern": [
+        "match_parallel",
+        "2",
+        "\"encodekey128_operation\"",
+        [
+          [
+            "set",
+            [
+              "match_operand:SI",
+              "0",
+              "\"register_operand\"",
+              "\"=jr\""
+            ],
+            [
+              "unspec_volatile:SI",
+              [
+                [
+                  "match_operand:SI",
+                  "1",
+                  "\"register_operand\"",
+                  "\"jr\""
+                ],
+                [
+                  "reg:V2DI",
+                  "XMM0_REG"
+                ]
+              ],
+              "UNSPECV_ENCODEKEY128U32"
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_KL\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*encodekey256u32\"",
+      "pattern": [
+        "match_parallel",
+        "2",
+        "\"encodekey256_operation\"",
+        [
+          [
+            "set",
+            [
+              "match_operand:SI",
+              "0",
+              "\"register_operand\"",
+              "\"=jr\""
+            ],
+            [
+              "unspec_volatile:SI",
+              [
+                [
+                  "match_operand:SI",
+                  "1",
+                  "\"register_operand\"",
+                  "\"jr\""
+                ],
+                [
+                  "reg:V2DI",
+                  "XMM0_REG"
+                ],
+                [
+                  "reg:V2DI",
+                  "XMM1_REG"
+                ]
+              ],
+              "UNSPECV_ENCODEKEY256U32"
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_KL\""
+    },
+    {
+      "file": "sse.md",
+      "name": "\"*aes<aeswideklvariant>u8\"",
+      "pattern": [
+        "match_parallel",
+        "1",
+        "\"aeswidekl_operation\"",
+        [
+          [
+            "set",
+            [
+              "reg:CCZ",
+              "FLAGS_REG"
+            ],
+            [
+              "unspec_volatile:CCZ",
+              [
+                [
+                  "match_operand:BLK",
+                  "0",
+                  "\"memory_operand\"",
+                  "\"jm\""
+                ]
+              ],
+              "AESDECENCWIDEKL"
+            ]
+          ]
+        ]
+      ],
+      "condition": "\"TARGET_WIDEKL\""
+    }
+  ],
+  "does_not_execute_recognizer_or_generators": true
+}
