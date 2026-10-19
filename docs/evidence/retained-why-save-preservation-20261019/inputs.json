@@ -1,0 +1,46 @@
+{
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-inline-callback-closure-20261018/native.tar.gz": {
+    "bytes": 332459,
+    "sha256": "ed2f6226dfc0266cb819b2dacc211844ba2f51dc3ad4720f57721f05db8884fd"
+  },
+  "docs/research/retained-why-inline-callback-closure.md": {
+    "bytes": 16775,
+    "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+  },
+  "docs/research/retained-why-callback-launch.md": {
+    "bytes": 15004,
+    "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+  },
+  "docs/research/retained-why-sexplib-converter-prefix.md": {
+    "bytes": 13161,
+    "sha256": "2ff1302b3e71e272e224ca3b8babc1cc9fefdeaace17f682bf4c1ceeb1703bc8"
+  },
+  "docs/research/retained-why-session-save-outcomes.md": {
+    "bytes": 15737,
+    "sha256": "8af10d3db23e226d1a73c2453f6c9a7e74d5a929ee7c13fa142bf71210a49a76"
+  },
+  "docs/reviews/review-why-session-save-outcomes-0aa373fb93.md": {
+    "bytes": 12869,
+    "sha256": "8b154847c3ef61624964968818d27868ed82a1b0903fc2b5a8c023c5df049e31"
+  },
+  "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json": {
+    "bytes": 97976,
+    "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+  },
+  "docs/evidence/retained-why-session-save-state-20261019/capture-identities.json": {
+    "bytes": 9304,
+    "sha256": "3d947260aa81a2de9bfaa3feb7eade7430fc2360e7201743efa28146344941c8"
+  },
+  "docs/evidence/retained-why-session-save-outcomes-20261019/atom-certificate.json": {
+    "bytes": 189009,
+    "sha256": "7c3a8f84d3d05d99f7718a1274af6b1f6fd2b41e87559d9fd0a4503526b82915"
+  }
+}

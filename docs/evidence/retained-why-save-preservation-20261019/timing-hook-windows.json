@@ -1,0 +1,63 @@
+{
+  "origin": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+  "origin_identity": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "windows": [
+    {
+      "symbol": "caml_major_slice_begin_hook",
+      "object_address": 16428872,
+      "instruction_address": 10245405,
+      "instruction_bytes": "488b05245a5e00",
+      "instruction": "  9c551d:\t48 8b 05 24 5a 5e 00 \tmov    0x5e5a24(%rip),%rax        # faaf48 <caml_major_slice_begin_hook>",
+      "object_storage": "zero-fill",
+      "object_runtime_value_observed": false
+    },
+    {
+      "symbol": "caml_major_slice_end_hook",
+      "object_address": 16428864,
+      "instruction_address": 10246494,
+      "instruction_bytes": "488b05db555e00",
+      "instruction": "  9c595e:\t48 8b 05 db 55 5e 00 \tmov    0x5e55db(%rip),%rax        # faaf40 <caml_major_slice_end_hook>",
+      "object_storage": "zero-fill",
+      "object_runtime_value_observed": false
+    },
+    {
+      "symbol": "caml_minor_gc_begin_hook",
+      "object_address": 16428856,
+      "instruction_address": 10251151,
+      "instruction_bytes": "488b15a2435e00",
+      "instruction": "  9c6b8f:\t48 8b 15 a2 43 5e 00 \tmov    0x5e43a2(%rip),%rdx        # faaf38 <caml_minor_gc_begin_hook>",
+      "object_storage": "zero-fill",
+      "object_runtime_value_observed": false
+    },
+    {
+      "symbol": "caml_minor_gc_end_hook",
+      "object_address": 16428848,
+      "instruction_address": 10251777,
+      "instruction_bytes": "488b0528415e00",
+      "instruction": "  9c6e01:\t48 8b 05 28 41 5e 00 \tmov    0x5e4128(%rip),%rax        # faaf30 <caml_minor_gc_end_hook>",
+      "object_storage": "zero-fill",
+      "object_runtime_value_observed": false
+    },
+    {
+      "symbol": "caml_finalise_begin_hook",
+      "object_address": 16428840,
+      "instruction_address": 10339330,
+      "instruction_bytes": "488b051feb5c00",
+      "instruction": "  9dc402:\t48 8b 05 1f eb 5c 00 \tmov    0x5ceb1f(%rip),%rax        # faaf28 <caml_finalise_begin_hook>",
+      "object_storage": "zero-fill",
+      "object_runtime_value_observed": false
+    },
+    {
+      "symbol": "caml_finalise_end_hook",
+      "object_address": 16428832,
+      "instruction_address": 10339534,
+      "instruction_bytes": "488b054bea5c00",
+      "instruction": "  9dc4ce:\t48 8b 05 4b ea 5c 00 \tmov    0x5cea4b(%rip),%rax        # faaf20 <caml_finalise_end_hook>",
+      "object_storage": "zero-fill",
+      "object_runtime_value_observed": false
+    }
+  ]
+}

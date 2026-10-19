@@ -1,0 +1,57 @@
+{
+  "issue": 119,
+  "base_commit": "ba82867962",
+  "branch": "research/119-why-save-preservation",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-save-preservation-20261019",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "host": "Linux 7.0.14 x86_64",
+  "measured_interval": {
+    "start_utc": "2026-10-19 11:20:40 UTC",
+    "source_and_evidence_checkpoint_utc": "2026-10-19 11:32:08 UTC",
+    "seconds_at_one_second_resolution": 688,
+    "excludes": "Initial worktree setup, final README/round preparation and commit; not total task elapsed time."
+  },
+  "intended_result": "Close or precisely isolate Shape/private-Wtask and runtime pending-action preservation for the retained first-fold/serial-SIGINT-save interval.",
+  "achieved_result": [
+    "Established typed/API ownership of Shape buffer, local constant formatter and identifier printer, and first-fold cache/todo.",
+    "Joined accepted Gc registration-capability findings to empty OCaml-finalizer queues and disabled Memprof allocation/postponed dispatch.",
+    "Classified installed SIGVTALRM preemption and serial blocked SIGINT-save effects.",
+    "Isolated four native collection timing-hook cells whose selected setter/client ownership is not supplied by the accepted packet; retained ten source-use lines and 42 installed load bytes without claiming live values.",
+    "Separated ordinary ending save-before-JSON and its possible one-level nested SIGINT save from the masked serial-save argument."
+  ],
+  "author_corrections_and_coordination": [
+    "Initial new checker used the historical install prefix without its bin component and stopped with FileNotFoundError; fixed before byte checking.",
+    "Lead challenged whether existing no-unmodeled-foreign-mutation premises covered legitimate timing-hook clients. Corrected disposition to retain four native hook cells as an explicit residual; no added no-hook premise.",
+    "Added only the authorized four-name runtime/otherlibs source-use query and strengthened target decoding in comparison mode before final focused validation."
+  ],
+  "independent_review": "Pending; root owns reviewer and integration.",
+  "validation": {
+    "final_compare_seconds": 0.6577781319938367,
+    "source_excerpts": 32,
+    "source_members": 18,
+    "named_hook_source_occurrences": 10,
+    "new_installed_bytes_checked": 42,
+    "native_execution": false,
+    "new_capture": false,
+    "new_disassembly": false,
+    "solver_execution": false,
+    "old_checker_or_context_replay": false,
+    "broad_corpus_census": false
+  },
+  "remaining": [
+    "Selected native setter/alias/callback-effect closure for four collection timing hooks.",
+    "Reachable save/exit exception family and actual interrupted receiving continuations.",
+    "Normal-ending later-forest bound and shared-buffer nesting/resumption join before JSON.",
+    "Required at_exit output, escaping hook exceptions, older-chain continuation and terminal flush effects.",
+    "Complete R, exceptional identifier charge, current-grammar capacity and whole-pipeline assurance."
+  ],
+  "complete_R": null,
+  "exceptional_identifier_charge": null,
+  "conditional_counter_interface": "counter_end <= 63573 + 2R",
+  "cli_memory_updated": false
+}

@@ -1,0 +1,92 @@
+{
+  "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+  "scope": [
+    "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/",
+    "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/"
+  ],
+  "names": [
+    "caml_major_slice_begin_hook",
+    "caml_major_slice_end_hook",
+    "caml_minor_gc_begin_hook",
+    "caml_minor_gc_end_hook"
+  ],
+  "files": [
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+      "identity": {
+        "bytes": 15851,
+        "sha256": "7e5ebfe4f6851181892a640c90e9b3d25b4b52b78ae72cfea31de489a3460fd8"
+      },
+      "matches": [
+        {
+          "line": 194,
+          "text": "extern caml_timing_hook caml_major_slice_begin_hook, caml_major_slice_end_hook;"
+        },
+        {
+          "line": 195,
+          "text": "extern caml_timing_hook caml_minor_gc_begin_hook, caml_minor_gc_end_hook;"
+        }
+      ]
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "identity": {
+        "bytes": 45689,
+        "sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242"
+      },
+      "matches": [
+        {
+          "line": 1001,
+          "text": "  if (caml_major_slice_begin_hook != NULL) (*caml_major_slice_begin_hook) ();"
+        },
+        {
+          "line": 1171,
+          "text": "  if (caml_major_slice_end_hook != NULL) (*caml_major_slice_end_hook) ();"
+        }
+      ]
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "identity": {
+        "bytes": 23482,
+        "sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90"
+      },
+      "matches": [
+        {
+          "line": 363,
+          "text": "    if (caml_minor_gc_begin_hook != NULL) (*caml_minor_gc_begin_hook) ();"
+        },
+        {
+          "line": 437,
+          "text": "    if (caml_minor_gc_end_hook != NULL) (*caml_minor_gc_end_hook) ();"
+        }
+      ]
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "identity": {
+        "bytes": 6130,
+        "sha256": "138584a5e7fdf75e28440d9319cfac561091cb0c085e6ce45cccb7244d977794"
+      },
+      "matches": [
+        {
+          "line": 37,
+          "text": "caml_timing_hook caml_major_slice_begin_hook = NULL;"
+        },
+        {
+          "line": 38,
+          "text": "caml_timing_hook caml_major_slice_end_hook = NULL;"
+        },
+        {
+          "line": 39,
+          "text": "caml_timing_hook caml_minor_gc_begin_hook = NULL;"
+        },
+        {
+          "line": 40,
+          "text": "caml_timing_hook caml_minor_gc_end_hook = NULL;"
+        }
+      ]
+    }
+  ],
+  "complete_selected_linked_native_source_relation": false
+}

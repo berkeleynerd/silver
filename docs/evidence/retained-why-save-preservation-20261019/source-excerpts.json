@@ -1,0 +1,354 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.mli",
+    "file_identity": {
+      "bytes": 5034,
+      "sha256": "6c0b227c00532ae0207013b5a715d615cca70f9170f7f6ef444d2cdfc890029f"
+    },
+    "first": 35,
+    "last": 108,
+    "text": "type shape\n\n(* This shape representation is not just a classic \"summary\" of a task as\n   [shape]. Each declaration shape of the whole session is recorded in the\n   session (see Gshape.gshape for these global field) and associated to a\n   unique index. The [bound_shape] is just the list of integers corresponding to\n   the shapes of declarations.\n   These shape are used from recent shape version *)\ntype bound_shape\n\nval empty_bound_shape: bound_shape\nval empty_shape: shape\n\ntype shape_v =\n  | Old_shape of shape\n  | Bound_shape of bound_shape\n\ntype sum_shape_version\n\nexception InvalidShape\n\nval string_to_sum_shape_version : string -> sum_shape_version\n(** raise [InvalidShape] if argument is not denoting a valid shape version *)\n\nval pp_sum_shape_version : Format.formatter -> sum_shape_version -> unit\n\n(* True if a shape version represented as bound_shape false if it is shape *)\nval is_bound_sum_shape_version: sum_shape_version -> bool\n\nval current_sum_shape_version : sum_shape_version\n\nval shape_of_string: version:sum_shape_version -> string -> shape_v\nval string_of_shape: shape_v -> string\n\nval t_shape_task: version:sum_shape_version -> expl:string -> Task.task -> shape\n(** returns the shape of a given task. returns [empty_shape] for unrecognized versions *)\n\n(* This modules handles the session part of the new [bound_shape]. A [gshape]\n   is now included in the session *)\nmodule Gshape : sig\n\n  (* This type records the mapping between integers and shapes' declaration *)\n  type gshape\n\n  val create              : unit   -> gshape\n  val copy                : gshape -> gshape -> unit\n  val clear_gs            : gshape -> unit\n\n  (* Add the following string shape to the gshape *)\n  val add_shape_g         : gshape -> string -> unit\n  (* Write all added shape (in the order they were saved) on given channel *)\n  val write_shape_to_file : gshape -> Compress.Compress_z.out_channel -> unit\n  (* Convert a bound_shape back into a shape. This uses the added shape and\n     replace first two integers (expl and goal) with their shape *)\n  val goal_and_expl_shapes  : gshape -> bound_shape -> shape\n\n  val t_bound_shape_task:\n    gshape -> version:sum_shape_version -> expl:string -> Task.task -> bound_shape\n\n  val empty_bshape: bound_shape\nend\n\n(** Checksums *)\n\ntype checksum\nval print_checksum: Format.formatter -> checksum -> unit\nval string_of_checksum: checksum -> string\nval checksum_of_string: string -> checksum\nval equal_checksum: checksum -> checksum -> bool\nval dumb_checksum: checksum\n\nval buffer_checksum : Buffer.t -> checksum\n\nval task_checksum : ?version:sum_shape_version -> Task.task -> checksum\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 338,
+    "last": 409,
+    "text": "let tag_var = 'V'\nlet tag_wild = 'w'\nlet tag_as = 'z'\n\nexception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n\n(* Remove infix and mixfix. (prefix should be rare enough) *)\nlet decoded pr id =\n  Ident.(match sn_decode id.id_string with\n  | SNword _ -> Ident.id_unique pr id\n  | SNinfix s | SNtight s | SNprefix s | SNget s | SNset s\n  | SNupdate s | SNcut s | SNlcut s | SNrcut s -> s)\n\nlet ident_v4 h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = id.Ident.id_string in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet ident_v5 pr h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = decoded pr id in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet vs_rename_alpha c h vs =\n  incr c;\n  let s = string_of_int !c in\n  h := Ident.Mid.add vs.vs_name s !h\n\nlet vl_rename_alpha c h vl = List.iter (vs_rename_alpha c h) vl\n\nlet rec pat_rename_alpha c h p = match p.pat_node with\n  | Pvar v -> vs_rename_alpha c h v\n  | Pas (p, v) -> vs_rename_alpha c h v; pat_rename_alpha c h p\n  | Por (p, _) -> pat_rename_alpha c h p\n  | _ -> Term.pat_fold (fun () -> pat_rename_alpha c h) () p\n\n(*\nlet id_string_shape id = push id\n\nlet ident_shape id = id_string_shape id.Ident.id_string\n*)\n\nlet const_shape v c =\n  let fmt = Format.formatter_of_buffer shape_buffer in\n  begin match v with\n  | SV1 | SV2 | SV3 | SV4 | SV5 -> Common.const_v1 fmt c\n  | SV6 -> Common.const_v2 fmt c\n  end;\n  Format.pp_print_flush fmt ();\n  check ()\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 509,
+    "last": 543,
+    "text": "  Buffer.clear shape_buffer;\n  let pr = Ident.create_ident_printer [] in\n  let f = Task.task_goal_fmla t in\n  let c = ref (-1) in\n  let m = ref Ident.Mid.empty in\n  let () =\n    try\n      (* expl *)\n      begin match version with\n      | SV1 | SV2 -> ()\n      | SV3 | SV4 | SV5 | SV6 -> push expl end;\n      (* goal shape *)\n      t_shape ~version pr c m f;\n      (* All declarations shape *)\n      begin match version with\n      | SV1 | SV2 | SV3 | SV4 -> ()\n      | SV5 | SV6 ->\n         let open Decl in\n         let do_td td = match td.Theory.td_node with\n           | Theory.Decl d ->\n              begin match d.d_node with\n              | Dparam _ls -> ()\n              | Dprop (_, _pr, f) ->\n                  t_shape ~version pr c m f\n              | _ -> ()\n              end\n           | _ -> () in\n         let _, prev = Task.task_separate_goal t in\n         Task.task_iter do_td prev\n      end\n    with ShapeTooLong -> ()\n  in\n  Buffer.contents shape_buffer\n\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 599,
+    "last": 637,
+    "text": "    with Not_found -> \"\"\n\n  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)\n    !current_shape\n\n  let empty_bshape = []\n\nend\n\nlet t_shape_task ~version ~expl t =\n  if is_bound_sum_shape_version version then empty_shape else\n  Shape.t_shape_task ~version ~expl t\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "file_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first": 75,
+    "last": 103,
+    "text": "let fold fn v =\n  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n\nlet fold_l fn v = fold (fun task -> Lists.apply (fn task)) [v]\n\nlet fold_decl fn v =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "file_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "first": 69,
+    "last": 104,
+    "text": "\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n\n  let copy = H.copy\n\n  let memoize n fn =\n    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n\n  let memoize_rec n fn =\n    let h = create n in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "file_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 225,
+    "last": 286,
+    "text": "type ident_printer = {\n  indices   : int Hstr.t;\n  values    : string Hid.t;\n  sanitizer : string -> string;\n  blacklist : string list;\n}\n\n(* name is already sanitized *)\nlet find_unique indices name =\n  let specname ind =\n    (* If the symbol is infix/prefix *and* the name has not been\n       sanitized for provers, we don't want to disambiguate with\n       a number but with a quote symbol: \"+\" becomes \"+'\" \"+''\" etc.\n       This allows to parse the ident again (for transformations). *)\n    if ind <= 0 then name else\n    match sn_decode name with\n    | SNword _ -> name ^ string_of_int ind\n    | _        -> name ^ String.make ind '\\'' in\n  let testname ind = Hstr.mem indices (specname ind) in\n  let rec advance ind =\n    if testname ind then advance (succ ind) else ind in\n  let rec retreat ind =\n    if ind = 1 || testname (pred ind) then ind else retreat (pred ind) in\n  let fetch ind =\n    if testname ind then advance (succ ind) else retreat ind in\n  let name = try\n    let ind = fetch (succ (Hstr.find indices name)) in\n    Hstr.replace indices name ind;\n    specname ind\n  with Not_found -> name in\n  Hstr.replace indices name 0;\n  name\n\nlet reserve indices name = ignore (find_unique indices name)\n\nlet same x = x\n\nlet create_ident_printer ?(sanitizer = same) sl =\n  let indices = Hstr.create 1997 in\n  List.iter (reserve indices) sl;\n  { indices   = indices;\n    values    = Hid.create 1997;\n    sanitizer = sanitizer;\n    blacklist = sl }\n\nlet duplicate_ident_printer id_printer =\n  {id_printer with\n   indices = Hstr.copy id_printer.indices;\n   values  = Hid.copy id_printer.values;\n  }\n\nlet known_id printer id =\n  try\n    (let _ = Hid.find printer.values id in true)\n  with Not_found ->\n    false\n\nlet id_unique printer ?(sanitizer = same) id =\n  try\n    Hid.find printer.values id\n  with Not_found ->\n    let name = sanitizer (printer.sanitizer id.id_string) in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "file_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "first": 59,
+    "last": 100,
+    "text": "let mm_add mm t td = if t.meta_excl\n  then Mmeta.add t (tds_singleton td) mm\n  else mm_add mm t td\n\n(** Task *)\n\ntype task = task_hd option\n\nand task_hd = {\n  task_decl  : tdecl;        (* last declaration *)\n  task_prev  : task;         (* context *)\n  task_known : known_map;    (* known identifiers *)\n  task_clone : clone_map;    (* use/clone history *)\n  task_meta  : meta_map;     (* meta properties *)\n  task_tag   : Weakhtbl.tag; (* unique magical tag *)\n}\n\nlet task_hd_equal t1 t2 = match t1.task_decl.td_node, t2.task_decl.td_node with\n  | Decl {d_node = Dprop (Pgoal,p1,g1)}, Decl {d_node = Dprop (Pgoal,p2,g2)} ->\n      Option.equal (==) t1.task_prev t2.task_prev &&\n      pr_equal p1 p2 && t_equal_strict g1 g2\n  | _ -> t1 == t2\n\nlet task_hd_hash t = Weakhtbl.tag_hash t.task_tag\n\nlet task_equal t1 t2 = Option.equal task_hd_equal t1 t2\n\nlet task_hash t = Option.fold ~some:(fun t -> task_hd_hash t + 1) ~none:0 t\n\nmodule Hstask = Hashcons.Make (struct\n  type t = task_hd\n\n  let equal t1 t2 = td_equal t1.task_decl t2.task_decl &&\n                  task_equal t1.task_prev t2.task_prev\n\n  let hash t = Hashcons.combine (td_hash t.task_decl) (task_hash t.task_prev)\n\n  let tag i task = { task with task_tag = Weakhtbl.create_tag i }\nend)\n\nlet mk_task decl prev known clone meta = Some (Hstask.hashcons {\n  task_decl  = decl;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "file_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 2212,
+    "last": 2245,
+    "text": "let save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 265,
+    "last": 279,
+    "text": "(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 298,
+    "last": 309,
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 331,
+    "last": 335,
+    "text": "  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "file_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "first": 15,
+    "last": 40,
+    "text": "\n(* Extensible buffers *)\n\ntype t =\n {mutable buffer : bytes;\n  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\nlet sub b ofs len =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "file_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "first": 56,
+    "last": 127,
+    "text": "   invalid_arg \"Buffer.nth\"\n  else Bytes.unsafe_get b.buffer ofs\n\n\nlet length b = b.position\n\nlet clear b = b.position <- 0\n\nlet reset b =\n  b.position <- 0;\n  b.buffer <- b.initial_buffer;\n  b.length <- Bytes.length b.buffer\n\n(* [resize b more] ensures that [b.position + more <= b.length] holds\n   by dynamically extending [b.buffer] if necessary -- and thus\n   increasing [b.length].\n\n   In particular, after [resize b more] is called, a direct access of\n   size [more] at [b.position] will always be in-bounds, so that\n   (unsafe_{get,set}) may be used for performance.\n*)\nlet resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n\n     There are two potential allocation points in this function,\n     [ref] and [Bytes.create], but all reads and writes to the fields\n     of [b] happen before both of them or after both of them.\n\n     We therefore assume that [b.position] may change at these allocations,\n     and check that the [b.position + more <= b.length] postcondition\n     holds for both values of [b.position], before or after the function\n     is called. More precisely, the following invariants must hold if the\n     function returns correctly, in addition to the usual buffer invariants:\n     - [old(b.position) + more <= new(b.length)]\n     - [new(b.position) + more <= new(b.length)]\n     - [old(b.length) <= new(b.length)]\n\n     Note: [b.position + more <= old(b.length)] does *not*\n     hold in general, as it is precisely the case where you need\n     to call [resize] to increase [b.length].\n\n     Note: [assert] above does not mean that we know the conditions\n     always hold, but that the function may return correctly\n     only if they hold.\n\n     Note: the other functions in this module does not need\n     to be checked with this level of scrutiny, given that they\n     read/write the buffer immediately after checking that\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "file_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 937,
+    "last": 977,
+    "text": "let pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "file_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 990,
+    "last": 1007,
+    "text": "(* Make a formatter with default functions to output spaces,\n  indentation, and new lines. *)\nlet make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "file_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "first": 72,
+    "last": 104,
+    "text": "CAMLexport value caml_process_pending_signals_exn(void)\n{\n  int i;\n#ifdef POSIX_SIGNALS\n  sigset_t set;\n#endif\n\n  if(!signals_are_pending)\n    return Val_unit;\n  signals_are_pending = 0;\n\n  /* Check that there is indeed a pending signal before issuing the\n     syscall in [caml_sigmask_hook]. */\n  if (!check_for_pending_signals())\n    return Val_unit;\n\n#ifdef POSIX_SIGNALS\n  caml_sigmask_hook(/* dummy */ SIG_BLOCK, NULL, &set);\n#endif\n  for (i = 0; i < NSIG; i++) {\n    if (!caml_pending_signals[i])\n      continue;\n#ifdef POSIX_SIGNALS\n    if(sigismember(&set, i))\n      continue;\n#endif\n    caml_pending_signals[i] = 0;\n    {\n      value exn = caml_execute_signal_exn(i, 0);\n      if (Is_exception_result(exn)) return exn;\n    }\n  }\n  return Val_unit;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "file_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "first": 201,
+    "last": 227,
+    "text": "value caml_execute_signal_exn(int signal_number, int in_signal_handler)\n{\n  value res;\n  value handler;\n#ifdef POSIX_SIGNALS\n  sigset_t nsigs, sigs;\n  /* Block the signal before executing the handler, and record in sigs\n     the original signal mask */\n  sigemptyset(&nsigs);\n  sigaddset(&nsigs, signal_number);\n  caml_sigmask_hook(SIG_BLOCK, &nsigs, &sigs);\n#endif\n  handler = Field(caml_signal_handlers, signal_number);\n    res = caml_callback_exn(\n             handler,\n             Val_int(caml_rev_convert_signal_number(signal_number)));\n#ifdef POSIX_SIGNALS\n  if (! in_signal_handler) {\n    /* Restore the original signal mask */\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  } else if (Is_exception_result(res)) {\n    /* Restore the original signal mask and unblock the signal itself */\n    sigdelset(&sigs, signal_number);\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  }\n#endif\n  return res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "file_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "first": 260,
+    "last": 292,
+    "text": "value caml_do_pending_actions_exn(void)\n{\n  value exn;\n\n  caml_something_to_do = 0;\n\n  // Do any pending minor collection or major slice\n  caml_check_urgent_gc(Val_unit);\n\n  caml_update_young_limit();\n\n  // Call signal handlers first\n  exn = caml_process_pending_signals_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call memprof callbacks\n  exn = caml_memprof_handle_postponed_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call finalisers\n  exn = caml_final_do_calls_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  return Val_unit;\n\nexception:\n  /* If an exception is raised during an asynchronous callback, then\n     it might be the case that we did not run all the callbacks we\n     needed. Therefore, we set [caml_something_to_do] again in order\n     to force reexamination of callbacks. */\n  caml_set_action_pending();\n  return exn;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/finalise.c",
+    "file_identity": {
+      "bytes": 13648,
+      "sha256": "d71f3790da1764a173793a63c468abe2de89903a1c8fec47034bca90342bd736"
+    },
+    "first": 44,
+    "last": 70,
+    "text": "\n   The element of the finalisable set are moved to the finalising set\n   below when the value are unreachable (for the first or last time).\n\n*/\n\nstatic struct finalisable finalisable_first = {NULL,0,0,0};\nstatic struct finalisable finalisable_last = {NULL,0,0,0};\n\nstruct to_do {\n  struct to_do *next;\n  int size;\n  struct final item[1];  /* variable size */\n};\n\nstatic struct to_do *to_do_hd = NULL;\nstatic struct to_do *to_do_tl = NULL;\n/*\n  to_do_hd: head of the list of finalisation functions that can be run.\n  to_do_tl: tail of the list of finalisation functions that can be run.\n\n  It is the finalising set.\n*/\n\nstatic int running_finalisation_function = 0;\n\n/* [size] is a number of elements for the [to_do.item] array */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/finalise.c",
+    "file_identity": {
+      "bytes": 13648,
+      "sha256": "d71f3790da1764a173793a63c468abe2de89903a1c8fec47034bca90342bd736"
+    },
+    "first": 164,
+    "last": 194,
+    "text": "   Note that this function must be reentrant.\n*/\nvalue caml_final_do_calls_exn (void)\n{\n  struct final f;\n  value res;\n\n  if (!running_finalisation_function && to_do_hd != NULL){\n    if (caml_finalise_begin_hook != NULL) (*caml_finalise_begin_hook) ();\n    caml_gc_message (0x80, \"Calling finalisation functions.\\n\");\n    while (1){\n      while (to_do_hd != NULL && to_do_hd->size == 0){\n        struct to_do *next_hd = to_do_hd->next;\n        caml_stat_free (to_do_hd);\n        to_do_hd = next_hd;\n        if (to_do_hd == NULL) to_do_tl = NULL;\n      }\n      if (to_do_hd == NULL) break;\n      CAMLassert (to_do_hd->size > 0);\n      -- to_do_hd->size;\n      f = to_do_hd->item[to_do_hd->size];\n      running_finalisation_function = 1;\n      res = caml_callback_exn (f.fun, f.val + f.offset);\n      running_finalisation_function = 0;\n      if (Is_exception_result (res)) return res;\n    }\n    caml_gc_message (0x80, \"Done calling finalisation functions.\\n\");\n    if (caml_finalise_end_hook != NULL) (*caml_finalise_end_hook) ();\n  }\n  return Val_unit;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/finalise.c",
+    "file_identity": {
+      "bytes": 13648,
+      "sha256": "d71f3790da1764a173793a63c468abe2de89903a1c8fec47034bca90342bd736"
+    },
+    "first": 352,
+    "last": 404,
+    "text": "  finalisable_last.old = finalisable_last.young;\n}\n\n/* Put (f,v) in the recent set. */\nstatic void generic_final_register (struct finalisable *final, value f, value v)\n{\n  if (!Is_block (v)\n      || !Is_in_heap_or_young(v)\n      || Tag_val (v) == Lazy_tag\n#ifdef FLAT_FLOAT_ARRAY\n      || Tag_val (v) == Double_tag\n#endif\n      || Tag_val (v) == Forward_tag) {\n    caml_invalid_argument (\"Gc.finalise\");\n  }\n  CAMLassert (final->old <= final->young);\n\n  if (final->young >= final->size){\n    if (final->table == NULL){\n      uintnat new_size = 30;\n      final->table = caml_stat_alloc (new_size * sizeof (struct final));\n      CAMLassert (final->old == 0);\n      CAMLassert (final->young == 0);\n      final->size = new_size;\n    }else{\n      uintnat new_size = final->size * 2;\n      final->table = caml_stat_resize (final->table,\n                                      new_size * sizeof (struct final));\n      final->size = new_size;\n    }\n  }\n  CAMLassert (final->young < final->size);\n  final->table[final->young].fun = f;\n  if (Tag_val (v) == Infix_tag){\n    final->table[final->young].offset = Infix_offset_val (v);\n    final->table[final->young].val = v - Infix_offset_val (v);\n  }else{\n    final->table[final->young].offset = 0;\n    final->table[final->young].val = v;\n  }\n  ++ final->young;\n\n}\n\nCAMLprim value caml_final_register (value f, value v){\n  generic_final_register(&finalisable_first, f, v);\n  return Val_unit;\n}\n\nCAMLprim value caml_final_register_called_without_value (value f, value v){\n  generic_final_register(&finalisable_last, f, v);\n  return Val_unit;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/gc.ml",
+    "file_identity": {
+      "bytes": 5794,
+      "sha256": "6b50140431666557e6b3f2717360db849c22a1411a1032ba730db4b0632f6952"
+    },
+    "first": 103,
+    "last": 161,
+    "text": "external finalise_last : (unit -> unit) -> 'a -> unit =\n  \"caml_final_register_called_without_value\"\nexternal finalise_release : unit -> unit = \"caml_final_release\"\n\n\ntype alarm = bool ref\ntype alarm_rec = {active : alarm; f : unit -> unit}\n\nlet rec call_alarm arec =\n  if !(arec.active) then begin\n    finalise call_alarm arec;\n    arec.f ();\n  end\n\n\nlet create_alarm f =\n  let arec = { active = ref true; f = f } in\n  finalise call_alarm arec;\n  arec.active\n\n\nlet delete_alarm a = a := false\n\nmodule Memprof =\n  struct\n    type allocation_source = Normal | Marshal | Custom\n    type allocation =\n      { n_samples : int;\n        size : int;\n        source : allocation_source;\n        callstack : Printexc.raw_backtrace }\n\n    type ('minor, 'major) tracker = {\n      alloc_minor: allocation -> 'minor option;\n      alloc_major: allocation -> 'major option;\n      promote: 'minor -> 'major option;\n      dealloc_minor: 'minor -> unit;\n      dealloc_major: 'major -> unit;\n    }\n\n    let null_tracker = {\n      alloc_minor = (fun _ -> None);\n      alloc_major = (fun _ -> None);\n      promote = (fun _ -> None);\n      dealloc_minor = (fun _ -> ());\n      dealloc_major = (fun _ -> ());\n    }\n\n    external c_start :\n      float -> int -> ('minor, 'major) tracker -> unit\n      = \"caml_memprof_start\"\n\n    let start\n      ~sampling_rate\n      ?(callstack_size = max_int)\n      tracker =\n      c_start sampling_rate callstack_size tracker\n\n    external stop : unit -> unit = \"caml_memprof_stop\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+    "file_identity": {
+      "bytes": 38130,
+      "sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac"
+    },
+    "first": 40,
+    "last": 52,
+    "text": "/* [lambda] is the mean number of samples for each allocated word (including\n   block headers). */\nstatic double lambda = 0;\n/* Precomputed value of [1/log(1-lambda)], for fast sampling of\n   geometric distribution.\n   Dummy if [lambda = 0]. */\nstatic float one_log1m_lambda;\n\nstatic intnat callstack_size;\n\n/* accessors for the OCaml type [Gc.Memprof.tracker],\n   which is the type of the [tracker] global below. */\n#define Alloc_minor(tracker) (Field(tracker, 0))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+    "file_identity": {
+      "bytes": 38130,
+      "sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac"
+    },
+    "first": 119,
+    "last": 181,
+    "text": "  struct tracked* t;\n  uintnat min_alloc_len, alloc_len, len;\n  /* Before this position, the [block] and [user_data] fields point to\n     the major heap ([young <= len]). */\n  uintnat young_idx;\n  /* There are no blocks to be deleted before this position\n     ([delete_idx <= len]). */\n  uintnat delete_idx;\n};\n\n#define MIN_ENTRIES_LOCAL_ALLOC_LEN 16\n#define MIN_ENTRIES_GLOBAL_ALLOC_LEN 128\n\n/* Entries for other blocks. This variable is shared across threads. */\nstatic struct entry_array entries_global =\n  { NULL, MIN_ENTRIES_GLOBAL_ALLOC_LEN, 0, 0, 0, 0 };\n\n/* There are no pending callbacks in [entries_global] before this\n   position ([callback_idx <= entries_global.len]). */\nstatic uintnat callback_idx;\n\n#define CB_IDLE -1\n#define CB_LOCAL -2\n#define CB_STOPPED -3\n\n/* Structure for thread-local variables. */\nstruct caml_memprof_th_ctx {\n  /* [suspended] is used for masking memprof callbacks when\n     a callback is running or when an uncaught exception handler is\n     called. */\n  int suspended;\n\n  /* [callback_status] contains:\n     - CB_STOPPED if the current thread is running a callback, but\n       sampling has been stopped using [caml_memprof_stop];\n     - The index of the corresponding entry in the [entries_global]\n       array if the current thread is currently running a promotion or\n       a deallocation callback;\n     - CB_LOCAL if the current thread is currently running an\n       allocation callback;\n     - CB_IDLE if the current thread is not running any callback.\n  */\n  intnat callback_status;\n\n  /* Entries for blocks whose alloc callback has not yet been called. */\n  struct entry_array entries;\n} caml_memprof_main_ctx =\n  { 0, CB_IDLE, { NULL, MIN_ENTRIES_LOCAL_ALLOC_LEN, 0, 0, 0, 0 } };\nstatic struct caml_memprof_th_ctx* local = &caml_memprof_main_ctx;\n\n/* Pointer to the word following the next sample in the minor\n   heap. Equals [Caml_state->young_alloc_start] if no sampling is planned in\n   the current minor heap.\n   Invariant: [caml_memprof_young_trigger <= Caml_state->young_ptr].\n */\nvalue* caml_memprof_young_trigger;\n\n/* Whether memprof has been initialized.  */\nstatic int init = 0;\n\n/* Whether memprof is started. */\nstatic int started = 0;\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+    "file_identity": {
+      "bytes": 38130,
+      "sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac"
+    },
+    "first": 568,
+    "last": 624,
+    "text": "value caml_memprof_handle_postponed_exn(void)\n{\n  value res = Val_unit;\n  uintnat i;\n  if (local->suspended) return Val_unit;\n  if (callback_idx >= entries_global.len && local->entries.len == 0)\n    return Val_unit;\n\n  caml_memprof_set_suspended(1);\n\n  for (i = 0; i < local->entries.len; i++) {\n    /* We are the only thread allowed to modify [local->entries], so\n       the indices cannot shift, but it is still possible that\n       [caml_memprof_stop] got called during the callback,\n       invalidating all the entries. */\n    res = run_alloc_callback_exn(i);\n    if (Is_exception_result(res)) goto end;\n    if (local->entries.len == 0)\n      goto end; /* [caml_memprof_stop] has been called. */\n    if (local->entries.t[i].deleted) continue;\n    if (realloc_entries(&entries_global, 1))\n      /* Transfer the entry to the global array. */\n      entries_global.t[entries_global.len++] = local->entries.t[i];\n    mark_deleted(&local->entries, i);\n  }\n\n  while (callback_idx < entries_global.len) {\n    struct tracked* t = &entries_global.t[callback_idx];\n\n    if (t->deleted || t->running != NULL) {\n      /* This entry is not ready. Ignore it. */\n      callback_idx++;\n    } else if (t->promoted && !t->cb_promote_called) {\n      t->cb_promote_called = 1;\n      res = run_callback_exn(&entries_global, callback_idx, Promote(tracker),\n                             t->user_data);\n      if (Is_exception_result(res)) goto end;\n    } else if (t->deallocated && !t->cb_dealloc_called) {\n      value cb = (t->promoted || !t->alloc_young) ?\n        Dealloc_major(tracker) : Dealloc_minor(tracker);\n      t->cb_dealloc_called = 1;\n      res = run_callback_exn(&entries_global, callback_idx, cb, t->user_data);\n      if (Is_exception_result(res)) goto end;\n    } else {\n      /* There is nothing more to do with this entry. */\n      callback_idx++;\n    }\n  }\n\n end:\n  flush_deleted(&local->entries);\n  flush_deleted(&entries_global);\n  /* We need to reset the suspended flag *after* flushing\n     [local->entries] to make sure the floag is not set back to 1. */\n  caml_memprof_set_suspended(0);\n  return res;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+    "file_identity": {
+      "bytes": 38130,
+      "sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac"
+    },
+    "first": 766,
+    "last": 815,
+    "text": "void caml_memprof_track_alloc_shr(value block)\n{\n  CAMLassert(Is_in_heap(block));\n  if (lambda == 0 || local->suspended) return;\n\n  maybe_track_block(block, rand_binom(Whsize_val(block)),\n                    Wosize_val(block), SRC_NORMAL);\n}\n\nvoid caml_memprof_track_custom(value block, mlsize_t bytes)\n{\n  CAMLassert(Is_young(block) || Is_in_heap(block));\n  if (lambda == 0 || local->suspended) return;\n\n  maybe_track_block(block, rand_binom(Wsize_bsize(bytes)),\n                    Wsize_bsize(bytes), SRC_CUSTOM);\n}\n\n/* Shifts the next sample in the minor heap by [n] words. Essentially,\n   this tells the sampler to ignore the next [n] words of the minor\n   heap. */\nstatic void shift_sample(uintnat n)\n{\n  if (caml_memprof_young_trigger - Caml_state->young_alloc_start > n)\n    caml_memprof_young_trigger -= n;\n  else\n    caml_memprof_young_trigger = Caml_state->young_alloc_start;\n  caml_update_young_limit();\n}\n\n/* Renew the next sample in the minor heap. This needs to be called\n   after each minor sampling and after each minor collection. In\n   practice, this is called at each sampling in the minor heap and at\n   each minor collection. Extra calls do not change the statistical\n   properties of the sampling because of the memorylessness of the\n   geometric distribution. */\nvoid caml_memprof_renew_minor_sample(void)\n{\n  if (lambda == 0 || local->suspended)\n    /* No trigger in the current minor heap. */\n    caml_memprof_young_trigger = Caml_state->young_alloc_start;\n  else {\n    uintnat geom = rand_geom();\n    if (Caml_state->young_ptr - Caml_state->young_alloc_start < geom)\n      /* No trigger in the current minor heap. */\n      caml_memprof_young_trigger = Caml_state->young_alloc_start;\n    else\n      caml_memprof_young_trigger = Caml_state->young_ptr - (geom - 1);\n  }\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+    "file_identity": {
+      "bytes": 38130,
+      "sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac"
+    },
+    "first": 975,
+    "last": 1049,
+    "text": "void caml_memprof_track_interned(header_t* block, header_t* blockend)\n{\n  header_t *p;\n  value callstack = 0;\n  int is_young = Is_young(Val_hp(block));\n\n  if (lambda == 0 || local->suspended) return;\n\n  p = block;\n  while (1) {\n    uintnat next_sample = rand_geom();\n    header_t *next_sample_p, *next_p;\n    if (next_sample > blockend - p)\n      break;\n    /* [next_sample_p] is the block *following* the next sampled\n       block! */\n    next_sample_p = p + next_sample;\n\n    while (1) {\n      next_p = p + Whsize_hp(p);\n      if (next_p >= next_sample_p) break;\n      p = next_p;\n    }\n\n    if (callstack == 0) callstack = capture_callstack_postponed();\n    if (callstack == 0) break;  /* OOM */\n    new_tracked(rand_binom(next_p - next_sample_p) + 1,\n                Wosize_hp(p), SRC_MARSHAL, is_young, Val_hp(p), callstack);\n    p = next_p;\n  }\n  check_action_pending();\n}\n\n/**** Interface with the OCaml code. ****/\n\nstatic void caml_memprof_init(void)\n{\n  init = 1;\n  xoshiro_init();\n}\n\nCAMLprim value caml_memprof_start(value lv, value szv, value tracker_param)\n{\n  CAMLparam3(lv, szv, tracker_param);\n\n  double l = Double_val(lv);\n  intnat sz = Long_val(szv);\n\n  if (started) caml_failwith(\"Gc.Memprof.start: already started.\");\n\n  if (sz < 0 || !(l >= 0.) || l > 1.) /* Checks that [l] is not NAN. */\n    caml_invalid_argument(\"Gc.Memprof.start\");\n\n  if (!init) caml_memprof_init();\n\n  lambda = l;\n  if (l > 0) {\n    one_log1m_lambda = l == 1 ? 0 : 1/caml_log1p(-l);\n    rand_pos = RAND_BLOCK_SIZE;\n    /* next_rand_geom can be zero if the next word is to be sampled,\n       but rand_geom always returns a value >= 1. Subtract 1 to correct. */\n    next_rand_geom = rand_geom() - 1;\n  }\n\n  caml_memprof_renew_minor_sample();\n\n  callstack_size = sz;\n  started = 1;\n\n  tracker = tracker_param;\n  caml_register_generational_global_root(&tracker);\n\n  CAMLreturn(Val_unit);\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+    "file_identity": {
+      "bytes": 4299,
+      "sha256": "ccbfe9d1a2f8b31d1374a0cf1b24a5be91686d3d9e307a76047ba4734ba2c9cb"
+    },
+    "first": 81,
+    "last": 102,
+    "text": "(* Preemption *)\n\nlet preempt signal = yield()\n\n(* Initialization of the scheduler *)\n\nlet preempt_signal =\n  match Sys.os_type with\n  | \"Win32\" -> Sys.sigterm\n  | _       -> Sys.sigvtalrm\n\nlet () =\n  Sys.set_signal preempt_signal (Sys.Signal_handle preempt);\n  thread_initialize ();\n  Callback.register \"Thread.at_shutdown\" (fun () ->\n    thread_cleanup();\n    (* In case of DLL-embedded OCaml the preempt_signal handler\n       will point to nowhere after DLL unloading and an accidental\n       preempt_signal will crash the main program. So restore the\n       default handler. *)\n    Sys.set_signal preempt_signal Sys.Signal_default\n  )\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+    "file_identity": {
+      "bytes": 31017,
+      "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+    },
+    "first": 723,
+    "last": 740,
+    "text": "CAMLprim value caml_thread_yield(value unit)        /* ML */\n{\n  if (st_masterlock_waiters(&caml_master_lock) == 0) return Val_unit;\n\n  /* Do all the parts of a blocking section enter/leave except lock\n     manipulation, which we'll do more efficiently in st_thread_yield. (Since\n     our blocking section doesn't contain anything interesting, don't bother\n     with saving errno.)\n  */\n  caml_raise_if_exception(caml_process_pending_signals_exn());\n  caml_thread_save_runtime_state();\n  st_thread_yield(&caml_master_lock);\n  curr_thread = st_tls_get(thread_descriptor_key);\n  caml_thread_restore_runtime_state();\n  caml_raise_if_exception(caml_process_pending_signals_exn());\n\n  return Val_unit;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+    "file_identity": {
+      "bytes": 6130,
+      "sha256": "138584a5e7fdf75e28440d9319cfac561091cb0c085e6ce45cccb7244d977794"
+    },
+    "first": 36,
+    "last": 42,
+    "text": "\ncaml_timing_hook caml_major_slice_begin_hook = NULL;\ncaml_timing_hook caml_major_slice_end_hook = NULL;\ncaml_timing_hook caml_minor_gc_begin_hook = NULL;\ncaml_timing_hook caml_minor_gc_end_hook = NULL;\ncaml_timing_hook caml_finalise_begin_hook = NULL;\ncaml_timing_hook caml_finalise_end_hook = NULL;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+    "file_identity": {
+      "bytes": 15851,
+      "sha256": "7e5ebfe4f6851181892a640c90e9b3d25b4b52b78ae72cfea31de489a3460fd8"
+    },
+    "first": 193,
+    "last": 196,
+    "text": "typedef void (*caml_timing_hook) (void);\nextern caml_timing_hook caml_major_slice_begin_hook, caml_major_slice_end_hook;\nextern caml_timing_hook caml_minor_gc_begin_hook, caml_minor_gc_end_hook;\nextern caml_timing_hook caml_finalise_begin_hook, caml_finalise_end_hook;\n"
+  }
+]

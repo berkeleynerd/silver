@@ -1,0 +1,49 @@
+{
+  "origin_archive": "docs/evidence/retained-why-inline-callback-closure-20261018/native.tar.gz",
+  "origin_member": "native-audit.json",
+  "member_identity": {
+    "bytes": 755019,
+    "sha256": "dd1dbb3a519ea3b65b233693e60c72522282fcd67fb234852e817c62ce95d709"
+  },
+  "selected_code_references": [
+    {
+      "function": "caml_program",
+      "address": 5399956,
+      "target": 9959216,
+      "groups": [
+        "camlStdlib__Gc:code"
+      ],
+      "instruction": "526594:\te8 97 91 45 00       \tcall   97f730 <camlStdlib__Gc__entry>"
+    },
+    {
+      "function": "camlStdlib__Gc__start_inner_723",
+      "address": 9959149,
+      "target": 10367184,
+      "groups": [
+        "caml_memprof_start"
+      ],
+      "instruction": "97f6ed:\t48 8d 05 dc 39 06 00 \tlea    0x639dc(%rip),%rax        # 9e30d0 <caml_memprof_start>"
+    }
+  ],
+  "external_gc_data_references": [
+    {
+      "section": ".data",
+      "address": 11453352,
+      "value": 16265024,
+      "nearest_symbol": "caml_globals+0x140",
+      "groups": [
+        "camlStdlib__Gc:data"
+      ]
+    },
+    {
+      "section": ".data",
+      "address": 11473888,
+      "value": 16264512,
+      "nearest_symbol": "caml_data_segments+0x290",
+      "groups": [
+        "camlStdlib__Gc:data"
+      ]
+    }
+  ],
+  "scope": "Projection of accepted diagnostic only; no new reachability census."
+}

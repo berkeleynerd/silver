@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "source_excerpts": 32,
+  "source_members": 18,
+  "imported_code_reference_records": 2,
+  "new_timing_hook_windows": 6,
+  "new_installed_bytes_checked": 42,
+  "named_hook_source_occurrences": 10,
+  "unclosed_collection_timing_hook_cells": 4,
+  "complete_R": null,
+  "exceptional_identifier_charge": null,
+  "measured_seconds": 0.6577781319938367,
+  "mode": "compare"
+}
