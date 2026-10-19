@@ -1,0 +1,337 @@
+{
+  "files": [
+    {
+      "bytes": 112284,
+      "path": "gcc/alias.cc",
+      "root": "gcc",
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "bytes": 226526,
+      "path": "gcc/cfgexpand.cc",
+      "root": "gcc",
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "bytes": 56182,
+      "path": "gcc/cfgloop.cc",
+      "root": "gcc",
+      "sha256": "85733a1157f28b71ddda81e333da35776ae4562698deece8a2c8d4cede480ff3"
+    },
+    {
+      "bytes": 122400,
+      "path": "gcc/common.opt",
+      "root": "gcc",
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "bytes": 790498,
+      "path": "gcc/config/i386/i386-expand.cc",
+      "root": "gcc",
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "bytes": 138368,
+      "path": "gcc/config/i386/i386-options.cc",
+      "root": "gcc",
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "bytes": 832808,
+      "path": "gcc/config/i386/i386.cc",
+      "root": "gcc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "bytes": 240025,
+      "path": "gcc/cse.cc",
+      "root": "gcc",
+      "sha256": "23209573e8355647e0a3eb8c895e7e21ab23d220b0959b4cbda5cff8b2b49325"
+    },
+    {
+      "bytes": 73101,
+      "path": "gcc/df-core.cc",
+      "root": "gcc",
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "bytes": 145024,
+      "path": "gcc/df-problems.cc",
+      "root": "gcc",
+      "sha256": "0d4b5382df19fecd93447141a20141762e21064da41eb57565b3ad8f6cf8ab9e"
+    },
+    {
+      "bytes": 121906,
+      "path": "gcc/df-scan.cc",
+      "root": "gcc",
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "bytes": 107474,
+      "path": "gcc/dwarf2cfi.cc",
+      "root": "gcc",
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "bytes": 193419,
+      "path": "gcc/emit-rtl.cc",
+      "root": "gcc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "bytes": 74040,
+      "path": "gcc/explow.cc",
+      "root": "gcc",
+      "sha256": "769aeb0b48c48ea64c963f8bbaf4cac04c243cc8e3e1208fb81d05197e54df9a"
+    },
+    {
+      "bytes": 472318,
+      "path": "gcc/expr.cc",
+      "root": "gcc",
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "bytes": 128479,
+      "path": "gcc/final.cc",
+      "root": "gcc",
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "bytes": 221482,
+      "path": "gcc/function.cc",
+      "root": "gcc",
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "bytes": 78408,
+      "path": "gcc/ggc-page.cc",
+      "root": "gcc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "bytes": 11939,
+      "path": "gcc/ggc.h",
+      "root": "gcc",
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "bytes": 4564,
+      "path": "gcc/hash-table.cc",
+      "root": "gcc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "root": "gcc",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 11226,
+      "path": "gcc/hash-traits.h",
+      "root": "gcc",
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49"
+    },
+    {
+      "bytes": 41804,
+      "path": "gcc/ira-emit.cc",
+      "root": "gcc",
+      "sha256": "66b08bc37fb42cafc7df53eb99b794bfbbce07c58fb108fa6dd44b7a5c6a1163"
+    },
+    {
+      "bytes": 198361,
+      "path": "gcc/ira.cc",
+      "root": "gcc",
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "bytes": 16620,
+      "path": "gcc/loop-init.cc",
+      "root": "gcc",
+      "sha256": "475ea3527abbea9ca7582753bc9ebea01ecfd6bbae3c62cedc63af2dfe9ecb92"
+    },
+    {
+      "bytes": 53494,
+      "path": "gcc/lower-subreg.cc",
+      "root": "gcc",
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "bytes": 270051,
+      "path": "gcc/lra-constraints.cc",
+      "root": "gcc",
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "bytes": 51361,
+      "path": "gcc/lra-eliminations.cc",
+      "root": "gcc",
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "bytes": 29811,
+      "path": "gcc/lra-spills.cc",
+      "root": "gcc",
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
+      "bytes": 80715,
+      "path": "gcc/lra.cc",
+      "root": "gcc",
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "bytes": 127927,
+      "path": "gcc/opts.cc",
+      "root": "gcc",
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "bytes": 24225,
+      "path": "gcc/passes.def",
+      "root": "gcc",
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "bytes": 39713,
+      "path": "gcc/reginfo.cc",
+      "root": "gcc",
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "bytes": 311396,
+      "path": "gcc/simplify-rtx.cc",
+      "root": "gcc",
+      "sha256": "918de336822964fa3c4ad1f5b241a8ca4ae7039cb3cd921e3b691c80e85bd8f5"
+    },
+    {
+      "bytes": 72691,
+      "path": "gcc/toplev.cc",
+      "root": "gcc",
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "bytes": 16624,
+      "path": "gcc/tree-ssa-loop.cc",
+      "root": "gcc",
+      "sha256": "fc6e4bfa863972fd8edbb92cdd28fdeb996db105e375c77a21b2248ed991456d"
+    },
+    {
+      "bytes": 271386,
+      "path": "gcc/varasm.cc",
+      "root": "gcc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "bytes": 4105,
+      "path": "docs/evidence/retained-literal-warning-map-20261018/derive.py",
+      "root": "repository",
+      "sha256": "8353bc0cfcfe20903447a0f4e4490f9717ea031a5499b8bb00eaebfbeec94731"
+    },
+    {
+      "bytes": 21593,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "root": "repository",
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "bytes": 72173,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-collector-closure.json",
+      "root": "repository",
+      "sha256": "10f84f314ca3c63cae1b1ca565343ff69255c5f4514e0c687238b93adc79f650"
+    },
+    {
+      "bytes": 11222,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json",
+      "root": "repository",
+      "sha256": "fc6b87125fa2314f185f69b338d685011900ceb7277922afd0a0ade3b7c3834a"
+    },
+    {
+      "bytes": 3891,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+      "root": "repository",
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "bytes": 7155,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-literal-rtl-backing.json",
+      "root": "repository",
+      "sha256": "c07474e80314f7f6117129f7f1af440d26a17e0514377b8648807f570be3d9d9"
+    },
+    {
+      "bytes": 1862,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-real-function-start.json",
+      "root": "repository",
+      "sha256": "76475972486a00aa98f84f1cb8fcf8f1e920ee0b015825018f24aa63c28f8126"
+    },
+    {
+      "bytes": 3114,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-constructors.json",
+      "root": "repository",
+      "sha256": "48567140c26cfed75283a7d373e1a2a9f371caab4b5cbfde2ab39f216b7e362b"
+    },
+    {
+      "bytes": 2989,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json",
+      "root": "repository",
+      "sha256": "302806a957f307d7cd4704f0e7c9d0f303bdda46b37e935dc93c402645b43612"
+    },
+    {
+      "bytes": 5122,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-constructors-source-identity.json",
+      "root": "repository",
+      "sha256": "7df16970bf801fb54339d62d1a595b7d0a753895aef4e047d2edfaa0f5b5cef1"
+    },
+    {
+      "bytes": 21487,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-schedule-inventory.json",
+      "root": "repository",
+      "sha256": "feaa625dd8698a4e49890393f169a4e4ccb14df4a9227adb5b5d62ce05a9361d"
+    },
+    {
+      "bytes": 12725,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "root": "repository",
+      "sha256": "ec73bd4f5a2b0ad13491daef35019d2c0ef821edf09bebcc112d39da94415134"
+    },
+    {
+      "bytes": 8346,
+      "path": "docs/research/retained-literal-collector-callbacks.md",
+      "root": "repository",
+      "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+    },
+    {
+      "bytes": 21040,
+      "path": "docs/research/retained-literal-original-shared-storage.md",
+      "root": "repository",
+      "sha256": "bac51ab37640bff6e6d94db3460ceb0305d40c969208681b62e1f7d1fee2179d"
+    },
+    {
+      "bytes": 781411,
+      "path": "docs/research/retained-native-expansion.md",
+      "root": "repository",
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "bytes": 21155,
+      "path": "docs/research/retained-output-rtl.md",
+      "root": "repository",
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "bytes": 12552,
+      "path": "docs/reviews/review-literal-later-shared-1fc7ee7bcf.md",
+      "root": "repository",
+      "sha256": "b25b355aa1b6f5b689439fc135d4fa40736098c117136caf4d66b3ed07e39dcd"
+    },
+    {
+      "bytes": 9950,
+      "path": "docs/reviews/review-literal-selected-route-64e347db16.md",
+      "root": "repository",
+      "sha256": "de23f9143eade95b5d4f532045d401cae69821a2d2d4633114b07b4f4bc4034f"
+    }
+  ],
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "scope": "Selected literal RTL cache/control source lifetimes and existing direct owners",
+  "silver_base": "ab12e2db3756e5871467bbcb423459291a7d76bd"
+}

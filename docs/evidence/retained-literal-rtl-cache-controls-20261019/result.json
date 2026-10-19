@@ -1,0 +1,152 @@
+{
+  "CONST_INT": {
+    "allocated_slots_upper": 131071,
+    "checks": {
+      "allocator_order": true,
+      "historical_region": true,
+      "individual_request": true,
+      "load_products": true,
+      "prime_exists": true,
+      "unsigned_probe_addition": true
+    },
+    "conditional_capacity_established": true,
+    "each_backing_caller_bytes_upper": 1048568,
+    "each_backing_rounded_bytes_upper": 1048576,
+    "first_setup_backing_events_already_owned": 121,
+    "fits": true,
+    "fixed_setup_new_entries_upper": 120,
+    "historical_insertions_upper": 39378,
+    "incoming_prefix_history_upper": 39257,
+    "new_scalar_finalizer_registrations": 0,
+    "new_shared_GGC_backing_events_upper": 1,
+    "occupied_upper": 39378,
+    "operation_insertion_capable_lookups_upper": 1,
+    "operation_new_entries_upper": 1,
+    "post_prefix_non_lookup_backing_events": 0,
+    "source_lifetime_closed": true,
+    "total_post_prefix_backing_events_upper": 122
+  },
+  "accepted_component_suites_rerun": 0,
+  "additional_control_scalar_registrations_upper": 5,
+  "additional_scalar_finalizer_ordinary_backing_requests_upper": 5,
+  "aggregate_RAM_gate": false,
+  "aggregate_executions": 0,
+  "already_owned_direct_CONST_INT_objects_upper": 121,
+  "already_owned_direct_reg_attrs_objects_upper": 3,
+  "already_owned_first_setup_backing_events": 121,
+  "complete_collector_lifetime_closed": false,
+  "complete_global_counter_lifetime_closed": false,
+  "complete_scalar_finalizer_lifetime_closed": false,
+  "complete_source_files_verified": 37,
+  "complete_type_alias_lifetime_closed": false,
+  "conditional_cache_capacity_established": true,
+  "control_rows": [
+    {
+      "controls": 1,
+      "initial_slots": 31,
+      "insertions": 0,
+      "non_lookup_replacements": 0,
+      "owner": "dummy RTL constant pool",
+      "prior_direct_owner": "11 dummy objects inside first-RTL437",
+      "raw_backing_bytes": 248,
+      "raw_wrapper_bytes": 48,
+      "registrations": 1
+    },
+    {
+      "controls": 1,
+      "initial_slots": 61,
+      "insertions": 0,
+      "non_lookup_replacements": 0,
+      "owner": "rooted temporary-address table",
+      "prior_direct_owner": "11 dummy objects inside first-RTL437",
+      "raw_backing_bytes": 488,
+      "raw_wrapper_bytes": 48,
+      "registrations": 1
+    },
+    {
+      "controls": 1,
+      "initial_slots": 31,
+      "insertions": 0,
+      "non_lookup_replacements": 0,
+      "owner": "real Main RTL constant pool",
+      "prior_direct_owner": "4 real Main RTL preparation objects",
+      "raw_backing_bytes": 248,
+      "raw_wrapper_bytes": 48,
+      "registrations": 1
+    },
+    {
+      "controls": 2,
+      "initial_slots": 31,
+      "insertions": 4,
+      "non_lookup_replacements": 0,
+      "owner": "prologue/epilogue recording tables",
+      "prior_direct_owner": "4 frame wrappers/backbones in existing constructor envelope",
+      "raw_backing_bytes": 248,
+      "raw_wrapper_bytes": 48,
+      "registrations": 2
+    }
+  ],
+  "exact_next_family": "Reachable type/alias construction: canonical pointer/reference builders, alias_sets pushes/entries and alias child hash controls at alias.cc:1219; then finish scalar registration endpoint.",
+  "named_six_registrations_added_again": 0,
+  "native_tool_executions": 0,
+  "new_control_direct_GGC_events": 0,
+  "new_control_hash_replacement_events": 0,
+  "new_shared_GGC_backing_request_events_upper": 4,
+  "original_five_registrations_added_again": 0,
+  "production_admission_changed": false,
+  "reg_attrs": {
+    "additional_new_entries_upper": 3,
+    "allocated_slots_upper": 131071,
+    "checks": {
+      "allocator_order": true,
+      "historical_region": true,
+      "individual_request": true,
+      "load_products": true,
+      "prime_exists": true,
+      "unsigned_probe_addition": true
+    },
+    "conditional_capacity_established": true,
+    "each_backing_caller_bytes_upper": 1048568,
+    "each_backing_rounded_bytes_upper": 1048576,
+    "fits": true,
+    "historical_insertions_upper": 39260,
+    "incoming_prefix_history_upper": 39257,
+    "insertion_capable_lookups_upper": 3,
+    "new_scalar_finalizer_registrations": 0,
+    "new_shared_GGC_backing_events_upper": 3,
+    "occupied_upper": 39260,
+    "original_declaration_calls_upper": 1,
+    "post_prefix_non_lookup_backing_events": 0,
+    "source_lifetime_closed": true,
+    "split_part_calls_upper": 2
+  },
+  "repository_inputs_verified": 18,
+  "selected_DF_GGC_controls": 0,
+  "selected_configuration": "Retained Linux x86-64 SysV generic O0, fsplit-wide-types as reviewed; no target/function-option changes, debug, instrumentation, plugin, PCH or LTO",
+  "selected_fixed_RTL_control_lifetimes_closed": true,
+  "selected_recorded_loop_exit_controls": 0,
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_argument": "docs/research/retained-literal-rtl-cache-controls.md",
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_input": {
+    "null_statements": 0,
+    "output_calls": 1
+  },
+  "total_GGC_events": null,
+  "whole_literal_pipeline_capacity_established": false
+}

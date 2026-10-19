@@ -1,0 +1,42 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_evidence": null,
+  "base": "ab12e2db3756e5871467bbcb423459291a7d76bd",
+  "native_platform": "Linux x86-64",
+  "overall_round_elapsed_seconds": null,
+  "scope": "Complete selected CONST_INT/reg_attrs source lifetimes and fixed RTL control registrations; no aggregate edits",
+  "achieved_result": "New disjoint cache backbone bound4C; full historical endpoints include prefix39257 and fixed120; five control registrations sourced.",
+  "significant_source_findings": [
+    "Alias IDs use ADDRESS operands, distinct from cached CONST_INTs.",
+    "Register-attribute propagation through reg_scan belongs to excluded CSE; selected wide-part copies supply2C lookups.",
+    "The only explicit reg_attrs empty call is init_emit_regs in the fixed prefix; selected target context is not reset.",
+    "Default IRA_REGION_ONE and O0 conflict exclusion prevent optional recorded-loop-exit hash construction.",
+    "Alias child-map creation at alias.cc1219 prevents treating the five fixed control registrations as the whole scalar residual."
+  ],
+  "remaining": "Reachable canonical type/alias graph, alias child maps and full scalar registration endpoint.",
+  "independent_review": "pending; parent owns frozen-commit review",
+  "native_tool_executions": 0,
+  "accepted_component_suites_rerun": 0,
+  "aggregate_executions": 0,
+  "corpus_checkers_rerun": 0,
+  "CLI_memory_updated": false,
+  "completed_utc": "2026-10-19T00:17:53.810031+00:00",
+  "focused_checks": 39,
+  "focused_check_elapsed_seconds": 0.050183576000563335,
+  "focused_runs": [
+    {
+      "checks": 39,
+      "passed": true,
+      "elapsed_seconds": 0.036171431002003374,
+      "reason": "Initial complete packet verification."
+    },
+    {
+      "checks": 39,
+      "passed": true,
+      "elapsed_seconds": 0.050183576000563335,
+      "reason": "Refresh source-argument identity after clarifying the distinction from tree caches; no code/result change."
+    }
+  ]
+}
