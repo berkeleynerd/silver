@@ -2200,8 +2200,8 @@ checks passed 593 assertions in 0.836870709 seconds. The
 [binder-assembler report](../reviews/review-literal-binder-assembler-20261019.md)
 accepts original implementation `cc7db56baf`; review commit `3120215db`
 is integrated as `ec11bc047a`. It records 663 independent assertions plus
-34 author checks in 0.207498795 seconds, including the 0.011062663-second
-author check. Those reviews ran no native tool.
+34 author checks in 0.207498795 seconds, including the 0.011399536-second
+author check (0.011062663 seconds was the reviewer replay). Those reviews ran no native tool.
 
 The [frontend/binder review](../reviews/review-literal-frontend-binder-completion-20261019.md)
 `0d974e826d`, integrated as `26411aa1a7`, accepts Ada source `96be67dd`
@@ -2264,3 +2264,30 @@ whole-rule composition/correspondence, useful-domain comparison and final
 review remain on #119. Production #88–#94 is authorized and unstarted;
 Oracle, admission and installed tools/pins are unchanged. This is an assessment
 pause, not a research-stop selection.
+
+### Limited external-review record maintenance, 2026-10-19
+
+[Review-a3af180047](../reviews/review-a3af180047.md) found no blocker under the
+selected premises. The [disposition](../review-a3af180047-disposition.md) assigns
+M1's exact invocation adoption or alternative rederivation to #89, with required
+Bronze/Silver and Lean correspondence; production's GPRbuild graph is outside
+the current result. It enumerates the residual scope, component accepted-region
+boundary, host/design premises and rederivation triggers, and corrects the
+stage, binder-interface and conservative-bound wording. Whole-rule integration
+remains a substantial uncertainty behind the subjective 80% estimate.
+
+The owner authorized only this record/tracking cleanup. Main receives the
+branch-only decisions, post-#145 pause and limited-maintenance scope, and those
+authoritative records reconcile PR #121's conflicts. #148/#149 track the record
+repairs; #150 retains deferred follow-ups for future authorized work. #119 stays
+Backlog and the harness paused; #145 remains In review. No evaluator, native
+tool, proof, broad review or production implementation resumes.
+
+One bounded read-only triage subthread selected GPT-6.1 Sol / High. Actual lead
+settings and runtime confirmation are unavailable, as are token/monetary totals.
+The [retention packet](review-a3af180047-retention-20261019/README.md) preserves
+19 original scratch files with hashes, without execution, including available
+reviewer probes/results. Its identity/syntax/link check records its own elapsed
+time only, not total team cost. The 94 aggregate pins, code and results remain
+unchanged. This maintenance closes publication and interpretation gaps; it does
+not increase the technical completion estimate.

@@ -1,17 +1,37 @@
 # Session memory
 
+## 2026-10-19 — Limited checkpoint-review maintenance; #119 remains paused
+
+After the independent [review of a3af180047](reviews/review-a3af180047.md),
+the owner agreed to the limited records and tracking plan: **“Agree. Pleae
+proceed with this limited plan of action.”** Preserve the review and available
+existing evidence, assign M1's exact invocation adoption or rederivation to #89,
+reconcile main's pause decisions and PR #121's documentation conflicts, enumerate
+the residual scope and accepted region, and publish the inexpensive record
+corrections. Track deferred findings for the appropriate future work.
+
+This authorizes the small documentation PR and research-branch reconciliation;
+it does not authorize merging the large research PR or resuming research,
+evaluators, native/proof validation, production implementation or feature work.
+#119 remains Backlog and the harness paused. #145 remains In review pending
+PR #121; production #88–#94 remains unstarted with its existing dependencies.
+The [disposition](review-a3af180047-disposition.md) records the precise boundary
+and follow-ups #148–#150. The technical result stands under its premises; the
+production GPRbuild route is outside the researched invocation. No Oracle,
+admission, tool or pin change is selected. CLI memory is unavailable.
+
 ## 2026-10-19 — Reviewed complete native result; assessment pause
 
 The owner-authorized [#145](https://github.com/berkeleynerd/silver/issues/145)
-increment has a [complete native research result](research/retained-literal-native-completion.md),
+increment has a [complete native research result](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/research/retained-literal-native-completion.md),
 composed from actual source for the selected declaration-free literal-output
 family and fixed four-job native graph. It closes input materialization/routing
 and the native process/storage joins under the recorded source/configuration
-and external-service premises. The [whole-native review](reviews/review-literal-native-completion-20261019.md)
+and external-service premises. The [whole-native review](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/reviews/review-literal-native-completion-20261019.md)
 accepts freeze `4f29a3bf85`; the separate
-[Ada/binder review](reviews/review-literal-frontend-binder-completion-20261019.md)
+[Ada/binder review](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/reviews/review-literal-frontend-binder-completion-20261019.md)
 accepts those components and the runtime-interface repair. The
-[Round 24 record](evidence/retained-tool-rounds.md#reviewed-native-completion-and-assessment-pause)
+[Round 24 record](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/evidence/retained-tool-rounds.md#reviewed-native-completion-and-assessment-pause)
 retains exact review identities, checks and source scope.
 
 #145 is technically complete and In review pending research PR #121's merge.
@@ -128,7 +148,7 @@ The previously completed For loops and integers goal remains historical; the
 new active objective supersedes the earlier instruction to leave that completed
 goal as the live harness record. Later production #88–#94 retains its existing
 authorization but is outside the present #119 goal until its prerequisite is
-justified. The [capacity contract](research/retained-tool-capacity.md#comparison-and-next-derivation)
+justified. The [capacity contract](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/research/retained-tool-capacity.md#comparison-and-next-derivation)
 records the existing closure order: null conjunction established, literal/full
 grammar conjunction unfinished, then complete-rule comparison and review.
 Status and continuation remain on #119; CLI memory is unavailable.
@@ -182,7 +202,7 @@ work and its dependent implementation scope. Use concise outcome monitoring:
 integrated results, resolved obligations, material findings/rework and available
 cost evidence. Do not infer model quality from token or document volume, invent
 unavailable measurements or add approval steps. The
-[round record](evidence/retained-tool-rounds.md) records actual agent selections
+[round record](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/evidence/retained-tool-rounds.md) records actual agent selections
 and outcomes; it does not claim that the lead model was changed. The completed
 For loops and integers harness goal remains complete.
 
@@ -195,7 +215,7 @@ work. This adds no approval step and does not waive required assurance.
 The owner also confirmed that no additional records are available identifying
 the historical SPARK source used for the installed GNATprove archive. Continue
 with the retained evidence and resolve that technical limitation without
-repeating the information request. The [source-identity record](research/retained-tool-source-identity.md)
+repeating the information request. The [source-identity record](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/research/retained-tool-source-identity.md)
 distinguishes what is established from what remains unknown.
 
 ## 2026-10-17 — Retained-tool capacity direction adopted

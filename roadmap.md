@@ -35,7 +35,7 @@ These are conditional source facts, not native near-limit failures or safe
 admission thresholds. PR #109 and PR #116 preserve the completed research and
 reviews. Their external-support recommendation is superseded, not their evidence.
 
-The unfinished technical work is
+The next technical work is
 [#119 Derive capacity rules for unchanged tools](https://github.com/berkeleynerd/silver/issues/119),
 a design subpackage of #91 shared with #93. The
 [design contract](docs/research/retained-tool-capacity.md) requires a sound,
@@ -45,26 +45,24 @@ Prefer program-structure accounting and justify any conservative envelope.
 `Integer'Last` is an inherited ceiling; a per-value bound alone does not justify
 all compositions. No numerical aggregate cap or larger admission domain is selected.
 
-The owner-authorized design increment
-[#145 Complete literal-output native-build capacity](https://github.com/berkeleynerd/silver/issues/145)
-has an independently [accepted selected native rule](docs/research/retained-literal-native-completion.md).
-It joins actual-source recognition, Main and assembler, all Ada-table owners,
-driver/collect2 and output-binder storage, binder compiler/assembler, linker,
-fixed native inputs and bounded parent materialization/routing. The selected
-graph contains a fixed Silver object/ALI bundle and no implicit dependency
-regeneration. This source-derived research rule adds no production support or
-admission change. #145 is technically complete and In review pending research
-PR #121's merge; the [aggregate review](docs/reviews/review-literal-native-completion-20261019.md)
-and separate [Ada/binder review](docs/reviews/review-literal-frontend-binder-completion-20261019.md)
-record the exact accepted inputs.
+The selected literal-output native-build increment
+[#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
+and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
+**#119 remains paused in Backlog.** The owner authorized only the
+[checkpoint-review maintenance](docs/session-memory.md#2026-10-19--limited-checkpoint-review-maintenance-119-remains-paused).
+The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
+remaining #119 obligations, shape-dependent accepted region, configuration
+premises and deferred findings. The approximate 80% estimate is a subjective
+planning judgment with substantial whole-rule integration uncertainty.
 
-#119 remains open and returns to Backlog for the owner-requested assessment
-pause. Its approximate planning estimate moves from 75% to 80% after complete
-native acceptance. No new work package starts. Remaining work is producer/Why3
-paths and fixed-library proofs, current-grammar generalization, whole-rule
-composition/correspondence, useful-domain comparison and final review before
-production #88–#94. Any proposed Oracle or admission amendment remains a
-separate owner decision.
+The result covers a selected direct four-job graph with extra compiler options,
+direct GNATBIND and a fixed two-unit Silver object/ALI bundle. Production still
+runs GPRbuild over a seven-unit project and is outside that researched invocation.
+**#89 must adopt the exact researched graph, options, materialization, environment
+and fixed-input contracts with Bronze/Silver and Lean source correspondence,
+coordinated with #88, or rederive capacity for the alternative graph.** This is
+a future production obligation; the checkpoint does not discharge it. No new
+work package starts during the pause.
 
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,
@@ -83,7 +81,9 @@ before any expanded membership:
    identity, and classify resource, representation and other failures accurately.
 3. **Compiler storage and complexity [#89](https://github.com/berkeleynerd/silver/issues/89):**
    input-sized storage, growable process/file/path interfaces, explicit stack work
-   and producer/consumer representation accounting. Admission stays unchanged.
+   and producer/consumer representation accounting. Adopt the researched native
+   invocation with source correspondence, or rederive capacity for the selected
+   alternative, as recorded above. Admission stays unchanged.
 4. **Parameterized Lean assurance [#90](https://github.com/berkeleynerd/silver/issues/90):**
    exact length ranges and the selected capacity predicate, native correspondence,
    composition and automatic discharge. Admission stays unchanged.

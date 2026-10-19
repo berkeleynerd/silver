@@ -16,6 +16,15 @@ accepted lexical/trivia rules. Counts alone do not identify this family: the
 existing recognizer consumes every actual source byte. This is neither the
 complete current Silver grammar nor the proposed future language surface.
 
+The later [external review and disposition](../review-a3af180047-disposition.md)
+confirm no blocker under these premises and correct the record boundary.
+Production still uses a different GPRbuild graph: #89 must adopt this exact
+invocation with Bronze/Silver and Lean correspondence, coordinated with #88,
+or rederive capacity for the alternative. The disposition enumerates the
+accepted region, host premises, invalidation triggers and remaining #119 scope.
+Research and implementation remain paused; the 94 pinned component inputs
+and evaluator/results are unchanged by these prose corrections.
+
 ## Computable rule and source identity
 
 The input is the retained selected-route descriptor and an actual source path.
@@ -56,9 +65,10 @@ supplied-invocation equality check and all capacity arithmetic remain intact.
 
 The complete native verdict is the conjunction of both current condition
 maps, the additional component guards and every stage below: **475 conditions**
-on the passing selected route. Twelve explicit
-stage entries prevent an uncomputed component from becoming a successful
-whole-native result. This Boolean is a source-derived **research capacity
+on the passing selected route. Twelve explicit stage entries summarize the
+prerequisite-gated source arguments and conjunctions. Some are constants behind
+`require()` or guard checks, not twelve independently computed closures. The
+required guards and checks prevent unknown prerequisites from yielding success. This Boolean is a source-derived **research capacity
 rule under the stated interfaces**, not evidence that the future SPARK parent
 has already been implemented or verified.
 
@@ -104,9 +114,10 @@ uses the accepted [process-shell](retained-native-expansion.md#native-process-sh
 and [static-lifecycle](retained-native-expansion.md#fixed-ordinary-prefix-transfer-and-actual-static-lifecycle)
 arguments with the actual command projection. Fresh Context validation checks
 their complete source/configuration manifests. The [split-options transfer](retained-split-options.md)
-already raises the argv envelope to25. For that full envelope, conservatively
-allow 50 optimization-vector entries rather than depending on the fact that
-the added option has no Optimization attribute:
+already raises the argv envelope to25. At most24 option pushes reach vector
+capacity24 and request2,312 bytes, so the retained4,808-byte request envelope
+is conservative. It is not justified by50 pushes, which would grow to capacity54
+and require5,192 bytes:
 
 | Individual request | Upper bytes |
 | --- | ---: |
@@ -148,8 +159,9 @@ semantic read projection, ordinary requests and output object layout are
 unchanged except the explicitly charged numeric/cache effects. The accepted
 [checksum closure](../evidence/retained-binder-checksum-closure-20261018/review.md)
 provides E=56,378 positive GGC requests, cumulative rounded allocation
-B=5,167,732 and maximum rounded request262,144. B is below the first
-collection threshold5,242,880 by75,148 bytes. This excludes actual marking
+B=5,167,732 and maximum rounded request262,144. B is below the conservative first-collection threshold lower bound5,242,880
+by75,148 bytes. The source minimum is approximately4 MiB x1.30 =5,452,595;
+5,242,880 is a smaller sufficient bound, not the exact heuristic threshold. This excludes actual marking
 collections, not heuristic calls to `ggc_collect`.
 
 The collector therefore needs at most E active pages. Its pointer capacity
@@ -173,10 +185,13 @@ is introduced by the operand. Its complete assembly is at most31,743 bytes,
 path/environment argument for the current invocation; the short capture's
 `-S` command is not relabeled the production command.
 
-The join requires the actual binder family to have16 sections,243 symbols,
-134 relocations, alignment32, EH-frame224, text1278, allocated12,493 and file
-upper17,952 bytes. Both checksum classes produce that interface, with only
-four object data bytes changing. The linker accepts that family, not one
+The join checks a retained binder-family interface against constants:16 sections,
+243 symbols,134 relocations, alignment32, EH-frame224, text1278, allocated12,493
+and file upper17,952 bytes. Transfer relies on fixed-family invariance and the
+checksum source argument; it does not inspect a newly generated binder per
+evaluation. Both checksum classes have that interface, with only four object
+data bytes changing. The full consumer inventory is a deferred record follow-up
+in #150, as the external review disposition explains. The linker accepts that family, not one
 captured checksum object's hash. Fixed runtime inputs, library resolution,
 relocation reach and output layout retain the current independently reviewed
 source-sensitive bounds.
@@ -209,3 +224,9 @@ authored the binder component and explicitly relies on the other independent
 lane for that component's source review. Independent aggregate checks added
 92 assertions in 9.981868322 seconds, including a new C7/N4 source and late
 false/null stage outcomes. No post-freeze implementation repair was required.
+
+The [precise residual list and accepted region](../review-a3af180047-disposition.md#precise-remaining-scope)
+supplement the older broad residual metadata. The retained30,653/30,654 one-byte
+literal boundary is an assembler/linker component result, not a new aggregate
+run or universal cap. [Preserved reviewer artifacts](../evidence/review-a3af180047-retention-20261019/README.md)
+retain available original probes/results; missing harnesses remain identified.

@@ -38,6 +38,13 @@ prediction of remaining time. #119 remains open and returns to Backlog for the
 owner-requested assessment pause; no new work package starts. Required
 producer/Why3 paths, fixed-library proof, current-grammar coverage, whole-rule
 composition/correspondence, useful-domain comparison and final review remain.
+The [external-review disposition](../review-a3af180047-disposition.md) now
+enumerates those residuals, including #131 reconciliation, #88 dependency-test
+classification, decidability/checked accounting, current-shape losses and #93
+rederivation triggers. It states the shape-dependent accepted region and host
+premises. Production's GPRbuild graph is outside this invocation: #89 must adopt
+the exact researched route with source correspondence or rederive capacity for
+its alternative. Only the authorized records pass proceeds during the pause.
 This source-derived research capacity rule changes no production behavior,
 admission, Oracle, installed tools or pins.
 

@@ -50,13 +50,24 @@ Selected source/review worker setting: GPT-6 Astra / Extra High. Live lead
 model/effort, runtime confirmation of worker settings and token/monetary cost
 are unavailable. Timings above measure offline checks, not total team cost.
 
-Example from the repository root (use owned TMPDIR if host `/tmp` is full):
+The [external-review disposition](../../review-a3af180047-disposition.md)
+clarifies production adoption, constant stage flags, host premises and remaining
+scope. [Preserved reviewer scratch](../review-a3af180047-retention-20261019/README.md)
+retains available original scripts/results without rerunning them. Missing
+harnesses remain explicitly identified.
+
+The source corpora are GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`
+(including its Ada tree) and binutils2.46.1 / `5e56594815`, with exact files
+validated transitively by the component manifests. Historical worker `/tmp`
+locations are not portable paths. Substitute corpus extraction directories
+matching those manifests in this example; no corpus extraction or evaluator
+execution is part of the paused maintenance:
 
 ```sh
 python3 docs/evidence/retained-literal-native-completion-20261019/compose.py \
-  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
-  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gcc-root /path/to/extracted/gcc-corpus \
+  --ada-root /path/to/extracted/ada-corpus \
   --plugin-include /path/to/toolchain/lib/gcc/x86_64-pc-linux-gnu/16.1.0/plugin/include \
-  --gas-root /tmp/silver-backend-compose-20261018/gas-source \
+  --gas-root /path/to/extracted/binutils-corpus \
   --output /path/to/owned/result.json
 ```
