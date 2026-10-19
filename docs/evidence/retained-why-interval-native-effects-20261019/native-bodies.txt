@@ -1,0 +1,2240 @@
+00000000009c3000 <caml_darken_all_roots_start>:
+  9c3000:	f3 0f 1e fa          	endbr64
+  9c3004:	48 8d 3d 65 23 00 00 	lea    0x2365(%rip),%rdi        # 9c5370 <caml_darken>
+  9c300b:	31 f6                	xor    %esi,%esi
+  9c300d:	e9 8e fe ff ff       	jmp    9c2ea0 <caml_do_roots>
+  9c3012:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c3019:	00 00 00 
+  9c301c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+00000000009c2ea0 <caml_do_roots>:
+  9c2ea0:	f3 0f 1e fa          	endbr64
+  9c2ea4:	41 56                	push   %r14
+  9c2ea6:	41 55                	push   %r13
+  9c2ea8:	41 54                	push   %r12
+  9c2eaa:	55                   	push   %rbp
+  9c2eab:	48 89 fd             	mov    %rdi,%rbp
+  9c2eae:	53                   	push   %rbx
+  9c2eaf:	85 f6                	test   %esi,%esi
+  9c2eb1:	74 70                	je     9c2f23 <caml_do_roots+0x83>
+  9c2eb3:	48 8b 1d ae 93 12 00 	mov    0x1293ae(%rip),%rbx        # aec268 <caml_globals>
+  9c2eba:	45 31 e4             	xor    %r12d,%r12d
+  9c2ebd:	4c 8d 2d a4 93 12 00 	lea    0x1293a4(%rip),%r13        # aec268 <caml_globals>
+  9c2ec4:	48 85 db             	test   %rbx,%rbx
+  9c2ec7:	74 5a                	je     9c2f23 <caml_do_roots+0x83>
+  9c2ec9:	48 83 3b 00          	cmpq   $0x0,(%rbx)
+  9c2ecd:	74 43                	je     9c2f12 <caml_do_roots+0x72>
+  9c2ecf:	90                   	nop
+  9c2ed0:	48 8b 13             	mov    (%rbx),%rdx
+  9c2ed3:	45 31 f6             	xor    %r14d,%r14d
+  9c2ed6:	31 c9                	xor    %ecx,%ecx
+  9c2ed8:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c2edc:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c2ee0:	74 26                	je     9c2f08 <caml_do_roots+0x68>
+  9c2ee2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c2ee8:	48 8d 34 ca          	lea    (%rdx,%rcx,8),%rsi
+  9c2eec:	41 83 c6 01          	add    $0x1,%r14d
+  9c2ef0:	48 8b 3e             	mov    (%rsi),%rdi
+  9c2ef3:	ff d5                	call   *%rbp
+  9c2ef5:	48 8b 13             	mov    (%rbx),%rdx
+  9c2ef8:	49 63 ce             	movslq %r14d,%rcx
+  9c2efb:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c2eff:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c2f03:	48 39 c1             	cmp    %rax,%rcx
+  9c2f06:	72 e0                	jb     9c2ee8 <caml_do_roots+0x48>
+  9c2f08:	48 83 c3 08          	add    $0x8,%rbx
+  9c2f0c:	48 83 3b 00          	cmpq   $0x0,(%rbx)
+  9c2f10:	75 be                	jne    9c2ed0 <caml_do_roots+0x30>
+  9c2f12:	41 83 c4 01          	add    $0x1,%r12d
+  9c2f16:	49 63 c4             	movslq %r12d,%rax
+  9c2f19:	49 8b 5c c5 00       	mov    0x0(%r13,%rax,8),%rbx
+  9c2f1e:	48 85 db             	test   %rbx,%rbx
+  9c2f21:	75 a6                	jne    9c2ec9 <caml_do_roots+0x29>
+  9c2f23:	4c 8b 25 96 7d 5e 00 	mov    0x5e7d96(%rip),%r12        # faacc0 <caml_dyn_globals>
+  9c2f2a:	4d 85 e4             	test   %r12,%r12
+  9c2f2d:	74 5d                	je     9c2f8c <caml_do_roots+0xec>
+  9c2f2f:	90                   	nop
+  9c2f30:	49 8b 1c 24          	mov    (%r12),%rbx
+  9c2f34:	48 83 3b 00          	cmpq   $0x0,(%rbx)
+  9c2f38:	74 48                	je     9c2f82 <caml_do_roots+0xe2>
+  9c2f3a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c2f40:	48 8b 13             	mov    (%rbx),%rdx
+  9c2f43:	45 31 ed             	xor    %r13d,%r13d
+  9c2f46:	31 c9                	xor    %ecx,%ecx
+  9c2f48:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c2f4c:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c2f50:	74 26                	je     9c2f78 <caml_do_roots+0xd8>
+  9c2f52:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c2f58:	48 8d 34 ca          	lea    (%rdx,%rcx,8),%rsi
+  9c2f5c:	41 83 c5 01          	add    $0x1,%r13d
+  9c2f60:	48 8b 3e             	mov    (%rsi),%rdi
+  9c2f63:	ff d5                	call   *%rbp
+  9c2f65:	48 8b 13             	mov    (%rbx),%rdx
+  9c2f68:	49 63 cd             	movslq %r13d,%rcx
+  9c2f6b:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c2f6f:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c2f73:	48 39 c1             	cmp    %rax,%rcx
+  9c2f76:	72 e0                	jb     9c2f58 <caml_do_roots+0xb8>
+  9c2f78:	48 83 c3 08          	add    $0x8,%rbx
+  9c2f7c:	48 83 3b 00          	cmpq   $0x0,(%rbx)
+  9c2f80:	75 be                	jne    9c2f40 <caml_do_roots+0xa0>
+  9c2f82:	4d 8b 64 24 08       	mov    0x8(%r12),%r12
+  9c2f87:	4d 85 e4             	test   %r12,%r12
+  9c2f8a:	75 a4                	jne    9c2f30 <caml_do_roots+0x90>
+  9c2f8c:	48 8b 05 75 c7 5e 00 	mov    0x5ec775(%rip),%rax        # faf708 <Caml_state>
+  9c2f93:	48 89 ef             	mov    %rbp,%rdi
+  9c2f96:	48 8b 88 e0 00 00 00 	mov    0xe0(%rax),%rcx
+  9c2f9d:	48 8b 90 d8 00 00 00 	mov    0xd8(%rax),%rdx
+  9c2fa4:	48 8b b0 d0 00 00 00 	mov    0xd0(%rax),%rsi
+  9c2fab:	4c 8b 80 20 01 00 00 	mov    0x120(%rax),%r8
+  9c2fb2:	e8 49 fd ff ff       	call   9c2d00 <caml_do_local_roots_nat>
+  9c2fb7:	48 89 ef             	mov    %rbp,%rdi
+  9c2fba:	e8 01 a1 01 00       	call   9dd0c0 <caml_scan_global_roots>
+  9c2fbf:	48 89 ef             	mov    %rbp,%rdi
+  9c2fc2:	e8 29 95 01 00       	call   9dc4f0 <caml_final_do_roots>
+  9c2fc7:	48 89 ef             	mov    %rbp,%rdi
+  9c2fca:	e8 31 f1 01 00       	call   9e2100 <caml_memprof_do_roots>
+  9c2fcf:	48 8b 05 c2 7c 5e 00 	mov    0x5e7cc2(%rip),%rax        # faac98 <caml_scan_roots_hook>
+  9c2fd6:	48 85 c0             	test   %rax,%rax
+  9c2fd9:	74 0d                	je     9c2fe8 <caml_do_roots+0x148>
+  9c2fdb:	5b                   	pop    %rbx
+  9c2fdc:	48 89 ef             	mov    %rbp,%rdi
+  9c2fdf:	5d                   	pop    %rbp
+  9c2fe0:	41 5c                	pop    %r12
+  9c2fe2:	41 5d                	pop    %r13
+  9c2fe4:	41 5e                	pop    %r14
+  9c2fe6:	ff e0                	jmp    *%rax
+  9c2fe8:	5b                   	pop    %rbx
+  9c2fe9:	5d                   	pop    %rbp
+  9c2fea:	41 5c                	pop    %r12
+  9c2fec:	41 5d                	pop    %r13
+  9c2fee:	41 5e                	pop    %r14
+  9c2ff0:	c3                   	ret
+  9c2ff1:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c2ff8:	00 00 00 
+  9c2ffb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000009c6b70 <caml_empty_minor_heap>:
+  9c6b70:	f3 0f 1e fa          	endbr64
+  9c6b74:	48 8b 05 8d 8b 5e 00 	mov    0x5e8b8d(%rip),%rax        # faf708 <Caml_state>
+  9c6b7b:	48 8b 50 38          	mov    0x38(%rax),%rdx
+  9c6b7f:	48 39 50 08          	cmp    %rdx,0x8(%rax)
+  9c6b83:	0f 84 37 03 00 00    	je     9c6ec0 <caml_empty_minor_heap+0x350>
+  9c6b89:	55                   	push   %rbp
+  9c6b8a:	53                   	push   %rbx
+  9c6b8b:	48 83 ec 08          	sub    $0x8,%rsp
+  9c6b8f:	48 8b 15 a2 43 5e 00 	mov    0x5e43a2(%rip),%rdx        # faaf38 <caml_minor_gc_begin_hook>
+  9c6b96:	48 85 d2             	test   %rdx,%rdx
+  9c6b99:	74 09                	je     9c6ba4 <caml_empty_minor_heap+0x34>
+  9c6b9b:	ff d2                	call   *%rdx
+  9c6b9d:	48 8b 05 64 8b 5e 00 	mov    0x5e8b64(%rip),%rax        # faf708 <Caml_state>
+  9c6ba4:	48 c7 40 58 01 00 00 	movq   $0x1,0x58(%rax)
+  9c6bab:	00 
+  9c6bac:	48 8d 35 d6 9c 02 00 	lea    0x29cd6(%rip),%rsi        # 9f0889 <caml_absf_mask+0x9849>
+  9c6bb3:	31 c0                	xor    %eax,%eax
+  9c6bb5:	bf 02 00 00 00       	mov    $0x2,%edi
+  9c6bba:	48 8b 2d 77 45 5e 00 	mov    0x5e4577(%rip),%rbp        # fab138 <caml_allocated_words>
+  9c6bc1:	e8 7a d3 ff ff       	call   9c3f40 <caml_gc_message>
+  9c6bc6:	e8 05 bd ff ff       	call   9c28d0 <caml_oldify_local_roots>
+  9c6bcb:	48 8b 05 36 8b 5e 00 	mov    0x5e8b36(%rip),%rax        # faf708 <Caml_state>
+  9c6bd2:	48 8b 40 68          	mov    0x68(%rax),%rax
+  9c6bd6:	48 8b 18             	mov    (%rax),%rbx
+  9c6bd9:	48 3b 58 18          	cmp    0x18(%rax),%rbx
+  9c6bdd:	73 21                	jae    9c6c00 <caml_empty_minor_heap+0x90>
+  9c6bdf:	90                   	nop
+  9c6be0:	48 8b 33             	mov    (%rbx),%rsi
+  9c6be3:	48 83 c3 08          	add    $0x8,%rbx
+  9c6be7:	48 8b 3e             	mov    (%rsi),%rdi
+  9c6bea:	e8 31 fb ff ff       	call   9c6720 <caml_oldify_one>
+  9c6bef:	48 8b 05 12 8b 5e 00 	mov    0x5e8b12(%rip),%rax        # faf708 <Caml_state>
+  9c6bf6:	48 8b 40 68          	mov    0x68(%rax),%rax
+  9c6bfa:	48 3b 58 18          	cmp    0x18(%rax),%rbx
+  9c6bfe:	72 e0                	jb     9c6be0 <caml_empty_minor_heap+0x70>
+  9c6c00:	e8 4b fd ff ff       	call   9c6950 <caml_oldify_mopup>
+  9c6c05:	48 8b 15 fc 8a 5e 00 	mov    0x5e8afc(%rip),%rdx        # faf708 <Caml_state>
+  9c6c0c:	48 8b 4a 70          	mov    0x70(%rdx),%rcx
+  9c6c10:	48 8b 01             	mov    (%rcx),%rax
+  9c6c13:	48 3b 41 18          	cmp    0x18(%rcx),%rax
+  9c6c17:	73 7d                	jae    9c6c96 <caml_empty_minor_heap+0x126>
+  9c6c19:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9c6c20:	48 8b 30             	mov    (%rax),%rsi
+  9c6c23:	48 8b 78 08          	mov    0x8(%rax),%rdi
+  9c6c27:	48 8b 4e f8          	mov    -0x8(%rsi),%rcx
+  9c6c2b:	48 c1 e9 0a          	shr    $0xa,%rcx
+  9c6c2f:	48 39 cf             	cmp    %rcx,%rdi
+  9c6c32:	73 54                	jae    9c6c88 <caml_empty_minor_heap+0x118>
+  9c6c34:	48 8d 3c fe          	lea    (%rsi,%rdi,8),%rdi
+  9c6c38:	48 8b 35 d1 3b 5e 00 	mov    0x5e3bd1(%rip),%rsi        # faa810 <caml_ephe_none>
+  9c6c3f:	48 8b 0f             	mov    (%rdi),%rcx
+  9c6c42:	48 39 ce             	cmp    %rcx,%rsi
+  9c6c45:	74 41                	je     9c6c88 <caml_empty_minor_heap+0x118>
+  9c6c47:	f6 c1 01             	test   $0x1,%cl
+  9c6c4a:	75 3c                	jne    9c6c88 <caml_empty_minor_heap+0x118>
+  9c6c4c:	48 3b 4a 28          	cmp    0x28(%rdx),%rcx
+  9c6c50:	73 36                	jae    9c6c88 <caml_empty_minor_heap+0x118>
+  9c6c52:	48 39 4a 20          	cmp    %rcx,0x20(%rdx)
+  9c6c56:	73 30                	jae    9c6c88 <caml_empty_minor_heap+0x118>
+  9c6c58:	31 d2                	xor    %edx,%edx
+  9c6c5a:	80 79 f8 f9          	cmpb   $0xf9,-0x8(%rcx)
+  9c6c5e:	4c 8b 49 f8          	mov    -0x8(%rcx),%r9
+  9c6c62:	4c 8d 41 f8          	lea    -0x8(%rcx),%r8
+  9c6c66:	0f 84 34 02 00 00    	je     9c6ea0 <caml_empty_minor_heap+0x330>
+  9c6c6c:	49 83 38 00          	cmpq   $0x0,(%r8)
+  9c6c70:	0f 85 fa 01 00 00    	jne    9c6e70 <caml_empty_minor_heap+0x300>
+  9c6c76:	48 03 11             	add    (%rcx),%rdx
+  9c6c79:	48 89 17             	mov    %rdx,(%rdi)
+  9c6c7c:	48 8b 15 85 8a 5e 00 	mov    0x5e8a85(%rip),%rdx        # faf708 <Caml_state>
+  9c6c83:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c6c88:	48 8b 4a 70          	mov    0x70(%rdx),%rcx
+  9c6c8c:	48 83 c0 10          	add    $0x10,%rax
+  9c6c90:	48 3b 41 18          	cmp    0x18(%rcx),%rax
+  9c6c94:	72 8a                	jb     9c6c20 <caml_empty_minor_heap+0xb0>
+  9c6c96:	e8 75 5a 01 00       	call   9dc710 <caml_final_update_minor_roots>
+  9c6c9b:	e8 c0 b3 01 00       	call   9e2060 <caml_memprof_minor_update>
+  9c6ca0:	48 8b 15 61 8a 5e 00 	mov    0x5e8a61(%rip),%rdx        # faf708 <Caml_state>
+  9c6ca7:	48 8b 42 78          	mov    0x78(%rdx),%rax
+  9c6cab:	48 8b 18             	mov    (%rax),%rbx
+  9c6cae:	48 3b 58 18          	cmp    0x18(%rax),%rbx
+  9c6cb2:	72 2f                	jb     9c6ce3 <caml_empty_minor_heap+0x173>
+  9c6cb4:	eb 59                	jmp    9c6d0f <caml_empty_minor_heap+0x19f>
+  9c6cb6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c6cbd:	00 00 00 
+  9c6cc0:	48 8b 07             	mov    (%rdi),%rax
+  9c6cc3:	48 8b 40 08          	mov    0x8(%rax),%rax
+  9c6cc7:	48 85 c0             	test   %rax,%rax
+  9c6cca:	74 09                	je     9c6cd5 <caml_empty_minor_heap+0x165>
+  9c6ccc:	ff d0                	call   *%rax
+  9c6cce:	48 8b 15 33 8a 5e 00 	mov    0x5e8a33(%rip),%rdx        # faf708 <Caml_state>
+  9c6cd5:	48 8b 42 78          	mov    0x78(%rdx),%rax
+  9c6cd9:	48 83 c3 18          	add    $0x18,%rbx
+  9c6cdd:	48 3b 58 18          	cmp    0x18(%rax),%rbx
+  9c6ce1:	73 2c                	jae    9c6d0f <caml_empty_minor_heap+0x19f>
+  9c6ce3:	48 8b 3b             	mov    (%rbx),%rdi
+  9c6ce6:	48 83 7f f8 00       	cmpq   $0x0,-0x8(%rdi)
+  9c6ceb:	75 d3                	jne    9c6cc0 <caml_empty_minor_heap+0x150>
+  9c6ced:	48 8b 73 10          	mov    0x10(%rbx),%rsi
+  9c6cf1:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+  9c6cf5:	48 83 c3 18          	add    $0x18,%rbx
+  9c6cf9:	e8 32 08 00 00       	call   9c7530 <caml_adjust_gc_speed>
+  9c6cfe:	48 8b 15 03 8a 5e 00 	mov    0x5e8a03(%rip),%rdx        # faf708 <Caml_state>
+  9c6d05:	48 8b 42 78          	mov    0x78(%rdx),%rax
+  9c6d09:	48 3b 58 18          	cmp    0x18(%rax),%rbx
+  9c6d0d:	72 d4                	jb     9c6ce3 <caml_empty_minor_heap+0x173>
+  9c6d0f:	48 8b 4a 38          	mov    0x38(%rdx),%rcx
+  9c6d13:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c6d17:	f2 0f 10 8a 28 01 00 	movsd  0x128(%rdx),%xmm1
+  9c6d1e:	00 
+  9c6d1f:	48 89 c8             	mov    %rcx,%rax
+  9c6d22:	48 2b 42 08          	sub    0x8(%rdx),%rax
+  9c6d26:	48 c1 f8 03          	sar    $0x3,%rax
+  9c6d2a:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+  9c6d2f:	48 8b 42 50          	mov    0x50(%rdx),%rax
+  9c6d33:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+  9c6d37:	f2 0f 11 8a 28 01 00 	movsd  %xmm1,0x128(%rdx)
+  9c6d3e:	00 
+  9c6d3f:	48 85 c0             	test   %rax,%rax
+  9c6d42:	0f 88 d0 00 00 00    	js     9c6e18 <caml_empty_minor_heap+0x2a8>
+  9c6d48:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c6d4c:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
+  9c6d51:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+  9c6d55:	48 8b 42 68          	mov    0x68(%rdx),%rax
+  9c6d59:	48 89 4a 08          	mov    %rcx,0x8(%rdx)
+  9c6d5d:	48 8d 35 75 9e 02 00 	lea    0x29e75(%rip),%rsi        # 9f0bd9 <caml_absf_mask+0x9b99>
+  9c6d64:	bf 02 00 00 00       	mov    $0x2,%edi
+  9c6d69:	f2 0f 58 05 f7 41 5e 	addsd  0x5e41f7(%rip),%xmm0        # faaf68 <caml_gc_clock>
+  9c6d70:	00 
+  9c6d71:	f2 0f 11 05 ef 41 5e 	movsd  %xmm0,0x5e41ef(%rip)        # faaf68 <caml_gc_clock>
+  9c6d78:	00 
+  9c6d79:	f3 0f 7e 00          	movq   (%rax),%xmm0
+  9c6d7d:	0f 16 40 10          	movhps 0x10(%rax),%xmm0
+  9c6d81:	0f 11 40 18          	movups %xmm0,0x18(%rax)
+  9c6d85:	48 8b 42 70          	mov    0x70(%rdx),%rax
+  9c6d89:	f3 0f 7e 00          	movq   (%rax),%xmm0
+  9c6d8d:	0f 16 40 10          	movhps 0x10(%rax),%xmm0
+  9c6d91:	0f 11 40 18          	movups %xmm0,0x18(%rax)
+  9c6d95:	48 8b 42 78          	mov    0x78(%rdx),%rax
+  9c6d99:	f3 0f 7e 00          	movq   (%rax),%xmm0
+  9c6d9d:	0f 16 40 10          	movhps 0x10(%rax),%xmm0
+  9c6da1:	0f 11 40 18          	movups %xmm0,0x18(%rax)
+  9c6da5:	31 c0                	xor    %eax,%eax
+  9c6da7:	48 c7 42 60 00 00 00 	movq   $0x0,0x60(%rdx)
+  9c6dae:	00 
+  9c6daf:	e8 8c d1 ff ff       	call   9c3f40 <caml_gc_message>
+  9c6db4:	48 8b 05 4d 89 5e 00 	mov    0x5e894d(%rip),%rax        # faf708 <Caml_state>
+  9c6dbb:	48 c7 40 58 00 00 00 	movq   $0x0,0x58(%rax)
+  9c6dc2:	00 
+  9c6dc3:	e8 08 5b 01 00       	call   9dc8d0 <caml_final_empty_young>
+  9c6dc8:	48 8b 05 69 43 5e 00 	mov    0x5e4369(%rip),%rax        # fab138 <caml_allocated_words>
+  9c6dcf:	48 8b 15 32 89 5e 00 	mov    0x5e8932(%rip),%rdx        # faf708 <Caml_state>
+  9c6dd6:	48 29 e8             	sub    %rbp,%rax
+  9c6dd9:	78 65                	js     9c6e40 <caml_empty_minor_heap+0x2d0>
+  9c6ddb:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c6ddf:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+  9c6de4:	f2 0f 58 82 30 01 00 	addsd  0x130(%rdx),%xmm0
+  9c6deb:	00 
+  9c6dec:	48 83 82 40 01 00 00 	addq   $0x1,0x140(%rdx)
+  9c6df3:	01 
+  9c6df4:	f2 0f 11 82 30 01 00 	movsd  %xmm0,0x130(%rdx)
+  9c6dfb:	00 
+  9c6dfc:	e8 cf b5 01 00       	call   9e23d0 <caml_memprof_renew_minor_sample>
+  9c6e01:	48 8b 05 28 41 5e 00 	mov    0x5e4128(%rip),%rax        # faaf30 <caml_minor_gc_end_hook>
+  9c6e08:	48 85 c0             	test   %rax,%rax
+  9c6e0b:	74 53                	je     9c6e60 <caml_empty_minor_heap+0x2f0>
+  9c6e0d:	48 83 c4 08          	add    $0x8,%rsp
+  9c6e11:	5b                   	pop    %rbx
+  9c6e12:	5d                   	pop    %rbp
+  9c6e13:	ff e0                	jmp    *%rax
+  9c6e15:	0f 1f 00             	nopl   (%rax)
+  9c6e18:	48 89 c6             	mov    %rax,%rsi
+  9c6e1b:	83 e0 01             	and    $0x1,%eax
+  9c6e1e:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c6e22:	48 d1 ee             	shr    $1,%rsi
+  9c6e25:	48 09 c6             	or     %rax,%rsi
+  9c6e28:	f2 48 0f 2a ce       	cvtsi2sd %rsi,%xmm1
+  9c6e2d:	f2 0f 58 c9          	addsd  %xmm1,%xmm1
+  9c6e31:	e9 1b ff ff ff       	jmp    9c6d51 <caml_empty_minor_heap+0x1e1>
+  9c6e36:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c6e3d:	00 00 00 
+  9c6e40:	48 89 c1             	mov    %rax,%rcx
+  9c6e43:	83 e0 01             	and    $0x1,%eax
+  9c6e46:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c6e4a:	48 d1 e9             	shr    $1,%rcx
+  9c6e4d:	48 09 c1             	or     %rax,%rcx
+  9c6e50:	f2 48 0f 2a c1       	cvtsi2sd %rcx,%xmm0
+  9c6e55:	f2 0f 58 c0          	addsd  %xmm0,%xmm0
+  9c6e59:	eb 89                	jmp    9c6de4 <caml_empty_minor_heap+0x274>
+  9c6e5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c6e60:	48 83 c4 08          	add    $0x8,%rsp
+  9c6e64:	5b                   	pop    %rbx
+  9c6e65:	5d                   	pop    %rbp
+  9c6e66:	c3                   	ret
+  9c6e67:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9c6e6e:	00 00 
+  9c6e70:	48 89 37             	mov    %rsi,(%rdi)
+  9c6e73:	48 8b 10             	mov    (%rax),%rdx
+  9c6e76:	48 83 c0 10          	add    $0x10,%rax
+  9c6e7a:	48 89 72 08          	mov    %rsi,0x8(%rdx)
+  9c6e7e:	48 8b 15 83 88 5e 00 	mov    0x5e8883(%rip),%rdx        # faf708 <Caml_state>
+  9c6e85:	48 8b 4a 70          	mov    0x70(%rdx),%rcx
+  9c6e89:	48 3b 41 18          	cmp    0x18(%rcx),%rax
+  9c6e8d:	0f 82 8d fd ff ff    	jb     9c6c20 <caml_empty_minor_heap+0xb0>
+  9c6e93:	e9 fe fd ff ff       	jmp    9c6c96 <caml_empty_minor_heap+0x126>
+  9c6e98:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  9c6e9f:	00 
+  9c6ea0:	49 c1 e9 0a          	shr    $0xa,%r9
+  9c6ea4:	4a 8d 14 cd 00 00 00 	lea    0x0(,%r9,8),%rdx
+  9c6eab:	00 
+  9c6eac:	48 29 d1             	sub    %rdx,%rcx
+  9c6eaf:	4c 8d 41 f8          	lea    -0x8(%rcx),%r8
+  9c6eb3:	e9 b4 fd ff ff       	jmp    9c6c6c <caml_empty_minor_heap+0xfc>
+  9c6eb8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  9c6ebf:	00 
+  9c6ec0:	e9 0b 5a 01 00       	jmp    9dc8d0 <caml_final_empty_young>
+  9c6ec5:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c6ecc:	00 00 00 
+  9c6ecf:	90                   	nop
+
+00000000009c5510 <caml_major_collection_slice>:
+  9c5510:	f3 0f 1e fa          	endbr64
+  9c5514:	55                   	push   %rbp
+  9c5515:	53                   	push   %rbx
+  9c5516:	48 89 fb             	mov    %rdi,%rbx
+  9c5519:	48 83 ec 18          	sub    $0x18,%rsp
+  9c551d:	48 8b 05 24 5a 5e 00 	mov    0x5e5a24(%rip),%rax        # faaf48 <caml_major_slice_begin_hook>
+  9c5524:	48 85 c0             	test   %rax,%rax
+  9c5527:	74 02                	je     9c552b <caml_major_collection_slice+0x1b>
+  9c5529:	ff d0                	call   *%rax
+  9c552b:	48 8b 05 2e 5c 5e 00 	mov    0x5e5c2e(%rip),%rax        # fab160 <caml_percent_free>
+  9c5532:	48 89 c2             	mov    %rax,%rdx
+  9c5535:	48 83 c2 64          	add    $0x64,%rdx
+  9c5539:	0f 88 81 05 00 00    	js     9c5ac0 <caml_major_collection_slice+0x5b0>
+  9c553f:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c5543:	f2 48 0f 2a da       	cvtsi2sd %rdx,%xmm3
+  9c5548:	48 85 c0             	test   %rax,%rax
+  9c554b:	0f 88 27 05 00 00    	js     9c5a78 <caml_major_collection_slice+0x568>
+  9c5551:	66 0f ef d2          	pxor   %xmm2,%xmm2
+  9c5555:	f2 48 0f 2a d0       	cvtsi2sd %rax,%xmm2
+  9c555a:	48 8b 05 d7 5b 5e 00 	mov    0x5e5bd7(%rip),%rax        # fab138 <caml_allocated_words>
+  9c5561:	48 85 c0             	test   %rax,%rax
+  9c5564:	0f 88 37 05 00 00    	js     9c5aa1 <caml_major_collection_slice+0x591>
+  9c556a:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c556e:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+  9c5573:	f2 0f 59 05 35 73 02 	mulsd  0x27335(%rip),%xmm0        # 9ec8b0 <caml_absf_mask+0x5870>
+  9c557a:	00 
+  9c557b:	48 8b 05 86 a1 5e 00 	mov    0x5ea186(%rip),%rax        # faf708 <Caml_state>
+  9c5582:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5586:	f2 48 0f 2a 88 50 01 	cvtsi2sdq 0x150(%rax),%xmm1
+  9c558d:	00 00 
+  9c558f:	48 8b 05 9a 5b 5e 00 	mov    0x5e5b9a(%rip),%rax        # fab130 <caml_dependent_size>
+  9c5596:	f2 0f 59 c3          	mulsd  %xmm3,%xmm0
+  9c559a:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+  9c559e:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c55a2:	f2 0f 5e c2          	divsd  %xmm2,%xmm0
+  9c55a6:	f2 0f 59 05 c2 72 02 	mulsd  0x272c2(%rip),%xmm0        # 9ec870 <caml_absf_mask+0x5830>
+  9c55ad:	00 
+  9c55ae:	48 85 c0             	test   %rax,%rax
+  9c55b1:	74 37                	je     9c55ea <caml_major_collection_slice+0xda>
+  9c55b3:	48 8b 15 6e 5b 5e 00 	mov    0x5e5b6e(%rip),%rdx        # fab128 <caml_dependent_allocated>
+  9c55ba:	48 85 d2             	test   %rdx,%rdx
+  9c55bd:	0f 88 6d 04 00 00    	js     9c5a30 <caml_major_collection_slice+0x520>
+  9c55c3:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c55c7:	f2 48 0f 2a ca       	cvtsi2sd %rdx,%xmm1
+  9c55cc:	f2 0f 59 cb          	mulsd  %xmm3,%xmm1
+  9c55d0:	48 85 c0             	test   %rax,%rax
+  9c55d3:	0f 88 7d 04 00 00    	js     9c5a56 <caml_major_collection_slice+0x546>
+  9c55d9:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c55dd:	f2 48 0f 2a d8       	cvtsi2sd %rax,%xmm3
+  9c55e2:	f2 0f 5e cb          	divsd  %xmm3,%xmm1
+  9c55e6:	f2 0f 5e ca          	divsd  %xmm2,%xmm1
+  9c55ea:	f2 0f 5f c8          	maxsd  %xmm0,%xmm1
+  9c55ee:	f2 0f 10 05 2a 5b 5e 	movsd  0x5e5b2a(%rip),%xmm0        # fab120 <caml_extra_heap_resources>
+  9c55f5:	00 
+  9c55f6:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
+  9c55fa:	f2 0f 58 05 76 5b 5e 	addsd  0x5e5b76(%rip),%xmm0        # fab178 <p_backlog>
+  9c5601:	00 
+  9c5602:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5606:	66 0f 28 e0          	movapd %xmm0,%xmm4
+  9c560a:	f2 0f 11 04 24       	movsd  %xmm0,(%rsp)
+  9c560f:	f2 0f 10 05 91 72 02 	movsd  0x27291(%rip),%xmm0        # 9ec8a8 <caml_absf_mask+0x5868>
+  9c5616:	00 
+  9c5617:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  9c561b:	76 0d                	jbe    9c562a <caml_major_collection_slice+0x11a>
+  9c561d:	f2 0f 5c e0          	subsd  %xmm0,%xmm4
+  9c5621:	f2 0f 11 04 24       	movsd  %xmm0,(%rsp)
+  9c5626:	66 0f 28 cc          	movapd %xmm4,%xmm1
+  9c562a:	31 c0                	xor    %eax,%eax
+  9c562c:	48 89 da             	mov    %rbx,%rdx
+  9c562f:	48 8d 35 20 b1 02 00 	lea    0x2b120(%rip),%rsi        # 9f0756 <caml_absf_mask+0x9716>
+  9c5636:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c563b:	f2 0f 11 0d 35 5b 5e 	movsd  %xmm1,0x5e5b35(%rip)        # fab178 <p_backlog>
+  9c5642:	00 
+  9c5643:	e8 f8 e8 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5648:	48 8b 15 e9 5a 5e 00 	mov    0x5e5ae9(%rip),%rdx        # fab138 <caml_allocated_words>
+  9c564f:	31 c0                	xor    %eax,%eax
+  9c5651:	48 8d 35 18 b1 02 00 	lea    0x2b118(%rip),%rsi        # 9f0770 <caml_absf_mask+0x9730>
+  9c5658:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c565d:	e8 de e8 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5662:	f2 0f 10 05 2e 72 02 	movsd  0x2722e(%rip),%xmm0        # 9ec898 <caml_absf_mask+0x5858>
+  9c5669:	00 
+  9c566a:	f2 0f 59 05 ae 5a 5e 	mulsd  0x5e5aae(%rip),%xmm0        # fab120 <caml_extra_heap_resources>
+  9c5671:	00 
+  9c5672:	f2 0f 10 0d 3e 72 02 	movsd  0x2723e(%rip),%xmm1        # 9ec8b8 <caml_absf_mask+0x5878>
+  9c5679:	00 
+  9c567a:	66 0f 2f c1          	comisd %xmm1,%xmm0
+  9c567e:	0f 83 1c 03 00 00    	jae    9c59a0 <caml_major_collection_slice+0x490>
+  9c5684:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
+  9c5689:	48 8d 35 f7 b0 02 00 	lea    0x2b0f7(%rip),%rsi        # 9f0787 <caml_absf_mask+0x9747>
+  9c5690:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c5695:	31 c0                	xor    %eax,%eax
+  9c5697:	e8 a4 e8 ff ff       	call   9c3f40 <caml_gc_message>
+  9c569c:	f2 0f 10 05 f4 71 02 	movsd  0x271f4(%rip),%xmm0        # 9ec898 <caml_absf_mask+0x5858>
+  9c56a3:	00 
+  9c56a4:	f2 0f 59 04 24       	mulsd  (%rsp),%xmm0
+  9c56a9:	31 c0                	xor    %eax,%eax
+  9c56ab:	48 8d 35 f2 b0 02 00 	lea    0x2b0f2(%rip),%rsi        # 9f07a4 <caml_absf_mask+0x9764>
+  9c56b2:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c56b7:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
+  9c56bc:	e8 7f e8 ff ff       	call   9c3f40 <caml_gc_message>
+  9c56c1:	f2 0f 10 05 cf 71 02 	movsd  0x271cf(%rip),%xmm0        # 9ec898 <caml_absf_mask+0x5858>
+  9c56c8:	00 
+  9c56c9:	48 8d 35 eb b0 02 00 	lea    0x2b0eb(%rip),%rsi        # 9f07bb <caml_absf_mask+0x977b>
+  9c56d0:	31 c0                	xor    %eax,%eax
+  9c56d2:	f2 0f 59 05 9e 5a 5e 	mulsd  0x5e5a9e(%rip),%xmm0        # fab178 <p_backlog>
+  9c56d9:	00 
+  9c56da:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c56df:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
+  9c56e4:	e8 57 e8 ff ff       	call   9c3f40 <caml_gc_message>
+  9c56e9:	8b 0d 9d 4f 5e 00    	mov    0x5e4f9d(%rip),%ecx        # faa68c <caml_major_window>
+  9c56ef:	85 c9                	test   %ecx,%ecx
+  9c56f1:	7e 3b                	jle    9c572e <caml_major_collection_slice+0x21e>
+  9c56f3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c56f7:	f2 0f 10 0c 24       	movsd  (%rsp),%xmm1
+  9c56fc:	48 8d 05 7d 58 5e 00 	lea    0x5e587d(%rip),%rax        # faaf80 <caml_major_ring>
+  9c5703:	48 63 d1             	movslq %ecx,%rdx
+  9c5706:	f2 0f 2a c1          	cvtsi2sd %ecx,%xmm0
+  9c570a:	48 8d 14 d0          	lea    (%rax,%rdx,8),%rdx
+  9c570e:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
+  9c5712:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c5718:	f2 0f 10 00          	movsd  (%rax),%xmm0
+  9c571c:	48 83 c0 08          	add    $0x8,%rax
+  9c5720:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+  9c5724:	f2 0f 11 40 f8       	movsd  %xmm0,-0x8(%rax)
+  9c5729:	48 39 c2             	cmp    %rax,%rdx
+  9c572c:	75 ea                	jne    9c5718 <caml_major_collection_slice+0x208>
+  9c572e:	f2 0f 10 05 32 58 5e 	movsd  0x5e5832(%rip),%xmm0        # faaf68 <caml_gc_clock>
+  9c5735:	00 
+  9c5736:	f2 0f 10 15 e2 70 02 	movsd  0x270e2(%rip),%xmm2        # 9ec820 <caml_absf_mask+0x57e0>
+  9c573d:	00 
+  9c573e:	66 0f 2f c2          	comisd %xmm2,%xmm0
+  9c5742:	72 22                	jb     9c5766 <caml_major_collection_slice+0x256>
+  9c5744:	8b 05 2e 58 5e 00    	mov    0x5e582e(%rip),%eax        # faaf78 <caml_major_ring_index>
+  9c574a:	31 d2                	xor    %edx,%edx
+  9c574c:	f2 0f 5c c2          	subsd  %xmm2,%xmm0
+  9c5750:	83 c0 01             	add    $0x1,%eax
+  9c5753:	39 c8                	cmp    %ecx,%eax
+  9c5755:	f2 0f 11 05 0b 58 5e 	movsd  %xmm0,0x5e580b(%rip)        # faaf68 <caml_gc_clock>
+  9c575c:	00 
+  9c575d:	0f 4d c2             	cmovge %edx,%eax
+  9c5760:	89 05 12 58 5e 00    	mov    %eax,0x5e5812(%rip)        # faaf78 <caml_major_ring_index>
+  9c5766:	f2 0f 10 0d 02 58 5e 	movsd  0x5e5802(%rip),%xmm1        # faaf70 <caml_major_work_credit>
+  9c576d:	00 
+  9c576e:	48 83 fb ff          	cmp    $0xffffffffffffffff,%rbx
+  9c5772:	0f 84 88 03 00 00    	je     9c5b00 <caml_major_collection_slice+0x5f0>
+  9c5778:	48 85 db             	test   %rbx,%rbx
+  9c577b:	0f 85 37 02 00 00    	jne    9c59b8 <caml_major_collection_slice+0x4a8>
+  9c5781:	8b 05 f1 57 5e 00    	mov    0x5e57f1(%rip),%eax        # faaf78 <caml_major_ring_index>
+  9c5787:	31 d2                	xor    %edx,%edx
+  9c5789:	83 c0 01             	add    $0x1,%eax
+  9c578c:	39 c8                	cmp    %ecx,%eax
+  9c578e:	0f 4d c2             	cmovge %edx,%eax
+  9c5791:	48 8d 15 e8 57 5e 00 	lea    0x5e57e8(%rip),%rdx        # faaf80 <caml_major_ring>
+  9c5798:	48 98                	cltq
+  9c579a:	f2 0f 10 3c c2       	movsd  (%rdx,%rax,8),%xmm7
+  9c579f:	f2 0f 11 3c 24       	movsd  %xmm7,(%rsp)
+  9c57a4:	f2 0f 58 0c 24       	addsd  (%rsp),%xmm1
+  9c57a9:	66 0f 28 c1          	movapd %xmm1,%xmm0
+  9c57ad:	66 0f 28 ca          	movapd %xmm2,%xmm1
+  9c57b1:	e8 6a fc b5 ff       	call   525420 <fmin@plt>
+  9c57b6:	f2 0f 11 05 b2 57 5e 	movsd  %xmm0,0x5e57b2(%rip)        # faaf70 <caml_major_work_credit>
+  9c57bd:	00 
+  9c57be:	f2 0f 10 05 d2 70 02 	movsd  0x270d2(%rip),%xmm0        # 9ec898 <caml_absf_mask+0x5858>
+  9c57c5:	00 
+  9c57c6:	f2 0f 59 04 24       	mulsd  (%rsp),%xmm0
+  9c57cb:	31 c0                	xor    %eax,%eax
+  9c57cd:	48 8d 35 fc af 02 00 	lea    0x2affc(%rip),%rsi        # 9f07d0 <caml_absf_mask+0x9790>
+  9c57d4:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c57d9:	f2 48 0f 2c d8       	cvttsd2si %xmm0,%rbx
+  9c57de:	48 89 da             	mov    %rbx,%rdx
+  9c57e1:	e8 5a e7 ff ff       	call   9c3f40 <caml_gc_message>
+  9c57e6:	8b 05 54 59 5e 00    	mov    0x5e5954(%rip),%eax        # fab140 <caml_gc_phase>
+  9c57ec:	83 f8 03             	cmp    $0x3,%eax
+  9c57ef:	0f 84 c3 03 00 00    	je     9c5bb8 <caml_major_collection_slice+0x6a8>
+  9c57f5:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c57f9:	66 0f 2f 04 24       	comisd (%rsp),%xmm0
+  9c57fe:	0f 87 c9 03 00 00    	ja     9c5bcd <caml_major_collection_slice+0x6bd>
+  9c5804:	48 8b 15 fd 9e 5e 00 	mov    0x5e9efd(%rip),%rdx        # faf708 <Caml_state>
+  9c580b:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c580f:	f2 48 0f 2a 82 50 01 	cvtsi2sdq 0x150(%rdx),%xmm0
+  9c5816:	00 00 
+  9c5818:	83 f8 01             	cmp    $0x1,%eax
+  9c581b:	0f 86 3f 03 00 00    	jbe    9c5b60 <caml_major_collection_slice+0x650>
+  9c5821:	f2 0f 59 04 24       	mulsd  (%rsp),%xmm0
+  9c5826:	f2 0f 59 05 9a 70 02 	mulsd  0x2709a(%rip),%xmm0        # 9ec8c8 <caml_absf_mask+0x5888>
+  9c582d:	00 
+  9c582e:	f2 0f 5e 05 7a 70 02 	divsd  0x2707a(%rip),%xmm0        # 9ec8b0 <caml_absf_mask+0x5870>
+  9c5835:	00 
+  9c5836:	f2 48 0f 2c e8       	cvttsd2si %xmm0,%rbp
+  9c583b:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c5840:	31 c0                	xor    %eax,%eax
+  9c5842:	48 89 ea             	mov    %rbp,%rdx
+  9c5845:	48 8d 35 bd af 02 00 	lea    0x2afbd(%rip),%rsi        # 9f0809 <caml_absf_mask+0x97c9>
+  9c584c:	e8 ef e6 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5851:	8b 05 e9 58 5e 00    	mov    0x5e58e9(%rip),%eax        # fab140 <caml_gc_phase>
+  9c5857:	48 89 ef             	mov    %rbp,%rdi
+  9c585a:	85 c0                	test   %eax,%eax
+  9c585c:	0f 84 be 03 00 00    	je     9c5c20 <caml_major_collection_slice+0x710>
+  9c5862:	83 f8 01             	cmp    $0x1,%eax
+  9c5865:	0f 84 65 04 00 00    	je     9c5cd0 <caml_major_collection_slice+0x7c0>
+  9c586b:	e8 d0 f0 ff ff       	call   9c4940 <sweep_slice>
+  9c5870:	48 8d 35 b2 af 02 00 	lea    0x2afb2(%rip),%rsi        # 9f0829 <caml_absf_mask+0x97e9>
+  9c5877:	bf 02 00 00 00       	mov    $0x2,%edi
+  9c587c:	31 c0                	xor    %eax,%eax
+  9c587e:	e8 bd e6 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5883:	83 3d b6 58 5e 00 03 	cmpl   $0x3,0x5e58b6(%rip)        # fab140 <caml_gc_phase>
+  9c588a:	0f 84 b5 03 00 00    	je     9c5c45 <caml_major_collection_slice+0x735>
+  9c5890:	f2 0f 10 3c 24       	movsd  (%rsp),%xmm7
+  9c5895:	f2 0f 11 7c 24 08    	movsd  %xmm7,0x8(%rsp)
+  9c589b:	31 c0                	xor    %eax,%eax
+  9c589d:	48 89 da             	mov    %rbx,%rdx
+  9c58a0:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c58a5:	48 8d 35 99 af 02 00 	lea    0x2af99(%rip),%rsi        # 9f0845 <caml_absf_mask+0x9805>
+  9c58ac:	e8 8f e6 ff ff       	call   9c3f40 <caml_gc_message>
+  9c58b1:	f2 0f 10 15 b7 56 5e 	movsd  0x5e56b7(%rip),%xmm2        # faaf70 <caml_major_work_credit>
+  9c58b8:	00 
+  9c58b9:	f2 0f 10 0c 24       	movsd  (%rsp),%xmm1
+  9c58be:	f2 0f 5c 4c 24 08    	subsd  0x8(%rsp),%xmm1
+  9c58c4:	66 0f 28 c2          	movapd %xmm2,%xmm0
+  9c58c8:	f2 0f 11 0c 24       	movsd  %xmm1,(%rsp)
+  9c58cd:	e8 4e fb b5 ff       	call   525420 <fmin@plt>
+  9c58d2:	f2 0f 10 15 96 56 5e 	movsd  0x5e5696(%rip),%xmm2        # faaf70 <caml_major_work_credit>
+  9c58d9:	00 
+  9c58da:	f2 0f 10 0c 24       	movsd  (%rsp),%xmm1
+  9c58df:	f2 0f 5c d0          	subsd  %xmm0,%xmm2
+  9c58e3:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  9c58e7:	f2 0f 11 15 81 56 5e 	movsd  %xmm2,0x5e5681(%rip)        # faaf70 <caml_major_work_credit>
+  9c58ee:	00 
+  9c58ef:	76 45                	jbe    9c5936 <caml_major_collection_slice+0x426>
+  9c58f1:	48 63 15 94 4d 5e 00 	movslq 0x5e4d94(%rip),%rdx        # faa68c <caml_major_window>
+  9c58f8:	f2 0f 5c c8          	subsd  %xmm0,%xmm1
+  9c58fc:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c5900:	f2 0f 2a c2          	cvtsi2sd %edx,%xmm0
+  9c5904:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
+  9c5908:	85 d2                	test   %edx,%edx
+  9c590a:	7e 2a                	jle    9c5936 <caml_major_collection_slice+0x426>
+  9c590c:	48 8d 05 6d 56 5e 00 	lea    0x5e566d(%rip),%rax        # faaf80 <caml_major_ring>
+  9c5913:	48 8d 14 d0          	lea    (%rax,%rdx,8),%rdx
+  9c5917:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9c591e:	00 00 
+  9c5920:	f2 0f 10 00          	movsd  (%rax),%xmm0
+  9c5924:	48 83 c0 08          	add    $0x8,%rax
+  9c5928:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+  9c592c:	f2 0f 11 40 f8       	movsd  %xmm0,-0x8(%rax)
+  9c5931:	48 39 c2             	cmp    %rax,%rdx
+  9c5934:	75 ea                	jne    9c5920 <caml_major_collection_slice+0x410>
+  9c5936:	48 8b 05 fb 57 5e 00 	mov    0x5e57fb(%rip),%rax        # fab138 <caml_allocated_words>
+  9c593d:	48 8b 15 c4 9d 5e 00 	mov    0x5e9dc4(%rip),%rdx        # faf708 <Caml_state>
+  9c5944:	48 85 c0             	test   %rax,%rax
+  9c5947:	0f 88 93 01 00 00    	js     9c5ae0 <caml_major_collection_slice+0x5d0>
+  9c594d:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c5951:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+  9c5956:	f2 0f 58 82 38 01 00 	addsd  0x138(%rdx),%xmm0
+  9c595d:	00 
+  9c595e:	48 8b 05 db 55 5e 00 	mov    0x5e55db(%rip),%rax        # faaf40 <caml_major_slice_end_hook>
+  9c5965:	48 c7 05 c8 57 5e 00 	movq   $0x0,0x5e57c8(%rip)        # fab138 <caml_allocated_words>
+  9c596c:	00 00 00 00 
+  9c5970:	48 c7 05 ad 57 5e 00 	movq   $0x0,0x5e57ad(%rip)        # fab128 <caml_dependent_allocated>
+  9c5977:	00 00 00 00 
+  9c597b:	48 c7 05 9a 57 5e 00 	movq   $0x0,0x5e579a(%rip)        # fab120 <caml_extra_heap_resources>
+  9c5982:	00 00 00 00 
+  9c5986:	f2 0f 11 82 38 01 00 	movsd  %xmm0,0x138(%rdx)
+  9c598d:	00 
+  9c598e:	48 85 c0             	test   %rax,%rax
+  9c5991:	0f 84 c1 01 00 00    	je     9c5b58 <caml_major_collection_slice+0x648>
+  9c5997:	48 83 c4 18          	add    $0x18,%rsp
+  9c599b:	5b                   	pop    %rbx
+  9c599c:	5d                   	pop    %rbp
+  9c599d:	ff e0                	jmp    *%rax
+  9c599f:	90                   	nop
+  9c59a0:	f2 0f 5c c1          	subsd  %xmm1,%xmm0
+  9c59a4:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
+  9c59a9:	48 0f ba fa 3f       	btc    $0x3f,%rdx
+  9c59ae:	e9 d6 fc ff ff       	jmp    9c5689 <caml_major_collection_slice+0x179>
+  9c59b3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c59b8:	48 8b 05 a1 57 5e 00 	mov    0x5e57a1(%rip),%rax        # fab160 <caml_percent_free>
+  9c59bf:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c59c3:	f2 48 0f 2a c3       	cvtsi2sd %rbx,%xmm0
+  9c59c8:	f2 0f 59 05 e0 6e 02 	mulsd  0x26ee0(%rip),%xmm0        # 9ec8b0 <caml_absf_mask+0x5870>
+  9c59cf:	00 
+  9c59d0:	48 89 c2             	mov    %rax,%rdx
+  9c59d3:	48 83 c2 64          	add    $0x64,%rdx
+  9c59d7:	0f 88 03 02 00 00    	js     9c5be0 <caml_major_collection_slice+0x6d0>
+  9c59dd:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c59e1:	f2 48 0f 2a da       	cvtsi2sd %rdx,%xmm3
+  9c59e6:	48 8b 15 1b 9d 5e 00 	mov    0x5e9d1b(%rip),%rdx        # faf708 <Caml_state>
+  9c59ed:	f2 0f 59 c3          	mulsd  %xmm3,%xmm0
+  9c59f1:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c59f5:	f2 48 0f 2a 9a 50 01 	cvtsi2sdq 0x150(%rdx),%xmm3
+  9c59fc:	00 00 
+  9c59fe:	f2 0f 5e c3          	divsd  %xmm3,%xmm0
+  9c5a02:	48 85 c0             	test   %rax,%rax
+  9c5a05:	0f 88 a5 02 00 00    	js     9c5cb0 <caml_major_collection_slice+0x7a0>
+  9c5a0b:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c5a0f:	f2 48 0f 2a d8       	cvtsi2sd %rax,%xmm3
+  9c5a14:	f2 0f 5e c3          	divsd  %xmm3,%xmm0
+  9c5a18:	f2 0f 59 05 50 6e 02 	mulsd  0x26e50(%rip),%xmm0        # 9ec870 <caml_absf_mask+0x5830>
+  9c5a1f:	00 
+  9c5a20:	f2 0f 11 04 24       	movsd  %xmm0,(%rsp)
+  9c5a25:	e9 7a fd ff ff       	jmp    9c57a4 <caml_major_collection_slice+0x294>
+  9c5a2a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c5a30:	48 89 d1             	mov    %rdx,%rcx
+  9c5a33:	83 e2 01             	and    $0x1,%edx
+  9c5a36:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5a3a:	48 d1 e9             	shr    $1,%rcx
+  9c5a3d:	48 09 d1             	or     %rdx,%rcx
+  9c5a40:	f2 48 0f 2a c9       	cvtsi2sd %rcx,%xmm1
+  9c5a45:	f2 0f 58 c9          	addsd  %xmm1,%xmm1
+  9c5a49:	f2 0f 59 cb          	mulsd  %xmm3,%xmm1
+  9c5a4d:	48 85 c0             	test   %rax,%rax
+  9c5a50:	0f 89 83 fb ff ff    	jns    9c55d9 <caml_major_collection_slice+0xc9>
+  9c5a56:	48 89 c2             	mov    %rax,%rdx
+  9c5a59:	83 e0 01             	and    $0x1,%eax
+  9c5a5c:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c5a60:	48 d1 ea             	shr    $1,%rdx
+  9c5a63:	48 09 c2             	or     %rax,%rdx
+  9c5a66:	f2 48 0f 2a da       	cvtsi2sd %rdx,%xmm3
+  9c5a6b:	f2 0f 58 db          	addsd  %xmm3,%xmm3
+  9c5a6f:	e9 6e fb ff ff       	jmp    9c55e2 <caml_major_collection_slice+0xd2>
+  9c5a74:	0f 1f 40 00          	nopl   0x0(%rax)
+  9c5a78:	48 89 c2             	mov    %rax,%rdx
+  9c5a7b:	83 e0 01             	and    $0x1,%eax
+  9c5a7e:	66 0f ef d2          	pxor   %xmm2,%xmm2
+  9c5a82:	48 d1 ea             	shr    $1,%rdx
+  9c5a85:	48 09 c2             	or     %rax,%rdx
+  9c5a88:	48 8b 05 a9 56 5e 00 	mov    0x5e56a9(%rip),%rax        # fab138 <caml_allocated_words>
+  9c5a8f:	f2 48 0f 2a d2       	cvtsi2sd %rdx,%xmm2
+  9c5a94:	f2 0f 58 d2          	addsd  %xmm2,%xmm2
+  9c5a98:	48 85 c0             	test   %rax,%rax
+  9c5a9b:	0f 89 c9 fa ff ff    	jns    9c556a <caml_major_collection_slice+0x5a>
+  9c5aa1:	48 89 c2             	mov    %rax,%rdx
+  9c5aa4:	83 e0 01             	and    $0x1,%eax
+  9c5aa7:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c5aab:	48 d1 ea             	shr    $1,%rdx
+  9c5aae:	48 09 c2             	or     %rax,%rdx
+  9c5ab1:	f2 48 0f 2a c2       	cvtsi2sd %rdx,%xmm0
+  9c5ab6:	f2 0f 58 c0          	addsd  %xmm0,%xmm0
+  9c5aba:	e9 b4 fa ff ff       	jmp    9c5573 <caml_major_collection_slice+0x63>
+  9c5abf:	90                   	nop
+  9c5ac0:	48 89 d1             	mov    %rdx,%rcx
+  9c5ac3:	83 e2 01             	and    $0x1,%edx
+  9c5ac6:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c5aca:	48 d1 e9             	shr    $1,%rcx
+  9c5acd:	48 09 d1             	or     %rdx,%rcx
+  9c5ad0:	f2 48 0f 2a d9       	cvtsi2sd %rcx,%xmm3
+  9c5ad5:	f2 0f 58 db          	addsd  %xmm3,%xmm3
+  9c5ad9:	e9 6a fa ff ff       	jmp    9c5548 <caml_major_collection_slice+0x38>
+  9c5ade:	66 90                	xchg   %ax,%ax
+  9c5ae0:	48 89 c1             	mov    %rax,%rcx
+  9c5ae3:	83 e0 01             	and    $0x1,%eax
+  9c5ae6:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c5aea:	48 d1 e9             	shr    $1,%rcx
+  9c5aed:	48 09 c1             	or     %rax,%rcx
+  9c5af0:	f2 48 0f 2a c1       	cvtsi2sd %rcx,%xmm0
+  9c5af5:	f2 0f 58 c0          	addsd  %xmm0,%xmm0
+  9c5af9:	e9 58 fe ff ff       	jmp    9c5956 <caml_major_collection_slice+0x446>
+  9c5afe:	66 90                	xchg   %ax,%ax
+  9c5b00:	48 63 2d 71 54 5e 00 	movslq 0x5e5471(%rip),%rbp        # faaf78 <caml_major_ring_index>
+  9c5b07:	48 8d 1d 72 54 5e 00 	lea    0x5e5472(%rip),%rbx        # faaf80 <caml_major_ring>
+  9c5b0e:	f2 0f 11 4c 24 08    	movsd  %xmm1,0x8(%rsp)
+  9c5b14:	f2 0f 10 14 eb       	movsd  (%rbx,%rbp,8),%xmm2
+  9c5b19:	66 0f 28 c2          	movapd %xmm2,%xmm0
+  9c5b1d:	f2 0f 11 14 24       	movsd  %xmm2,(%rsp)
+  9c5b22:	e8 f9 f8 b5 ff       	call   525420 <fmin@plt>
+  9c5b27:	f2 0f 10 14 24       	movsd  (%rsp),%xmm2
+  9c5b2c:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+  9c5b32:	48 c7 04 eb 00 00 00 	movq   $0x0,(%rbx,%rbp,8)
+  9c5b39:	00 
+  9c5b3a:	f2 0f 5c c8          	subsd  %xmm0,%xmm1
+  9c5b3e:	f2 0f 5c d0          	subsd  %xmm0,%xmm2
+  9c5b42:	f2 0f 11 0d 26 54 5e 	movsd  %xmm1,0x5e5426(%rip)        # faaf70 <caml_major_work_credit>
+  9c5b49:	00 
+  9c5b4a:	f2 0f 11 14 24       	movsd  %xmm2,(%rsp)
+  9c5b4f:	e9 6a fc ff ff       	jmp    9c57be <caml_major_collection_slice+0x2ae>
+  9c5b54:	0f 1f 40 00          	nopl   0x0(%rax)
+  9c5b58:	48 83 c4 18          	add    $0x18,%rsp
+  9c5b5c:	5b                   	pop    %rbx
+  9c5b5d:	5d                   	pop    %rbp
+  9c5b5e:	c3                   	ret
+  9c5b5f:	90                   	nop
+  9c5b60:	48 8b 05 f9 55 5e 00 	mov    0x5e55f9(%rip),%rax        # fab160 <caml_percent_free>
+  9c5b67:	f2 0f 59 05 51 6d 02 	mulsd  0x26d51(%rip),%xmm0        # 9ec8c0 <caml_absf_mask+0x5880>
+  9c5b6e:	00 
+  9c5b6f:	48 83 c0 64          	add    $0x64,%rax
+  9c5b73:	0f 88 87 00 00 00    	js     9c5c00 <caml_major_collection_slice+0x6f0>
+  9c5b79:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5b7d:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
+  9c5b82:	48 8b 05 ef 50 5e 00 	mov    0x5e50ef(%rip),%rax        # faac78 <caml_incremental_roots_count>
+  9c5b89:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+  9c5b8d:	48 85 c0             	test   %rax,%rax
+  9c5b90:	0f 88 5a 01 00 00    	js     9c5cf0 <caml_major_collection_slice+0x7e0>
+  9c5b96:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5b9a:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
+  9c5b9f:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+  9c5ba3:	f2 0f 59 04 24       	mulsd  (%rsp),%xmm0
+  9c5ba8:	f2 48 0f 2c e8       	cvttsd2si %xmm0,%rbp
+  9c5bad:	e9 89 fc ff ff       	jmp    9c583b <caml_major_collection_slice+0x32b>
+  9c5bb2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c5bb8:	48 8b 05 49 9b 5e 00 	mov    0x5e9b49(%rip),%rax        # faf708 <Caml_state>
+  9c5bbf:	48 8b 58 38          	mov    0x38(%rax),%rbx
+  9c5bc3:	48 39 58 08          	cmp    %rbx,0x8(%rax)
+  9c5bc7:	0f 84 9f 01 00 00    	je     9c5d6c <caml_major_collection_slice+0x85c>
+  9c5bcd:	48 c7 44 24 08 00 00 	movq   $0x0,0x8(%rsp)
+  9c5bd4:	00 00 
+  9c5bd6:	31 db                	xor    %ebx,%ebx
+  9c5bd8:	e9 be fc ff ff       	jmp    9c589b <caml_major_collection_slice+0x38b>
+  9c5bdd:	0f 1f 00             	nopl   (%rax)
+  9c5be0:	48 89 d1             	mov    %rdx,%rcx
+  9c5be3:	83 e2 01             	and    $0x1,%edx
+  9c5be6:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c5bea:	48 d1 e9             	shr    $1,%rcx
+  9c5bed:	48 09 d1             	or     %rdx,%rcx
+  9c5bf0:	f2 48 0f 2a d9       	cvtsi2sd %rcx,%xmm3
+  9c5bf5:	f2 0f 58 db          	addsd  %xmm3,%xmm3
+  9c5bf9:	e9 e8 fd ff ff       	jmp    9c59e6 <caml_major_collection_slice+0x4d6>
+  9c5bfe:	66 90                	xchg   %ax,%ax
+  9c5c00:	48 89 c2             	mov    %rax,%rdx
+  9c5c03:	83 e0 01             	and    $0x1,%eax
+  9c5c06:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5c0a:	48 d1 ea             	shr    $1,%rdx
+  9c5c0d:	48 09 c2             	or     %rax,%rdx
+  9c5c10:	f2 48 0f 2a ca       	cvtsi2sd %rdx,%xmm1
+  9c5c15:	f2 0f 58 c9          	addsd  %xmm1,%xmm1
+  9c5c19:	e9 64 ff ff ff       	jmp    9c5b82 <caml_major_collection_slice+0x672>
+  9c5c1e:	66 90                	xchg   %ax,%ax
+  9c5c20:	e8 4b ee ff ff       	call   9c4a70 <mark_slice>
+  9c5c25:	31 c0                	xor    %eax,%eax
+  9c5c27:	bf 02 00 00 00       	mov    $0x2,%edi
+  9c5c2c:	48 8d 35 f1 ab 02 00 	lea    0x2abf1(%rip),%rsi        # 9f0824 <caml_absf_mask+0x97e4>
+  9c5c33:	e8 08 e3 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5c38:	83 3d 01 55 5e 00 03 	cmpl   $0x3,0x5e5501(%rip)        # fab140 <caml_gc_phase>
+  9c5c3f:	0f 85 4b fc ff ff    	jne    9c5890 <caml_major_collection_slice+0x380>
+  9c5c45:	48 8b 15 4c 55 5e 00 	mov    0x5e554c(%rip),%rdx        # fab198 <marked_words>
+  9c5c4c:	48 8d 35 d8 ab 02 00 	lea    0x2abd8(%rip),%rsi        # 9f082b <caml_absf_mask+0x97eb>
+  9c5c53:	bf 00 02 00 00       	mov    $0x200,%edi
+  9c5c58:	31 c0                	xor    %eax,%eax
+  9c5c5a:	e8 e1 e2 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5c5f:	48 8b 15 2a 55 5e 00 	mov    0x5e552a(%rip),%rdx        # fab190 <heap_wsz_at_cycle_start>
+  9c5c66:	31 c0                	xor    %eax,%eax
+  9c5c68:	48 8d 35 91 ba 02 00 	lea    0x2ba91(%rip),%rsi        # 9f1700 <caml_absf_mask+0xa6c0>
+  9c5c6f:	bf 00 02 00 00       	mov    $0x200,%edi
+  9c5c74:	e8 c7 e2 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5c79:	48 8b 05 18 55 5e 00 	mov    0x5e5518(%rip),%rax        # fab198 <marked_words>
+  9c5c80:	48 85 c0             	test   %rax,%rax
+  9c5c83:	0f 85 85 00 00 00    	jne    9c5d0e <caml_major_collection_slice+0x7fe>
+  9c5c89:	48 8d 35 a0 ba 02 00 	lea    0x2baa0(%rip),%rsi        # 9f1730 <caml_absf_mask+0xa6f0>
+  9c5c90:	bf 00 02 00 00       	mov    $0x200,%edi
+  9c5c95:	e8 a6 e2 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5c9a:	f2 0f 10 05 f6 6b 02 	movsd  0x26bf6(%rip),%xmm0        # 9ec898 <caml_absf_mask+0x5858>
+  9c5ca1:	00 
+  9c5ca2:	e8 29 61 01 00       	call   9dbdd0 <caml_compact_heap_maybe>
+  9c5ca7:	e9 e4 fb ff ff       	jmp    9c5890 <caml_major_collection_slice+0x380>
+  9c5cac:	0f 1f 40 00          	nopl   0x0(%rax)
+  9c5cb0:	48 89 c2             	mov    %rax,%rdx
+  9c5cb3:	83 e0 01             	and    $0x1,%eax
+  9c5cb6:	66 0f ef db          	pxor   %xmm3,%xmm3
+  9c5cba:	48 d1 ea             	shr    $1,%rdx
+  9c5cbd:	48 09 c2             	or     %rax,%rdx
+  9c5cc0:	f2 48 0f 2a da       	cvtsi2sd %rdx,%xmm3
+  9c5cc5:	f2 0f 58 db          	addsd  %xmm3,%xmm3
+  9c5cc9:	e9 46 fd ff ff       	jmp    9c5a14 <caml_major_collection_slice+0x504>
+  9c5cce:	66 90                	xchg   %ax,%ax
+  9c5cd0:	e8 fb f3 ff ff       	call   9c50d0 <clean_slice>
+  9c5cd5:	48 8d 35 4a ab 02 00 	lea    0x2ab4a(%rip),%rsi        # 9f0826 <caml_absf_mask+0x97e6>
+  9c5cdc:	bf 02 00 00 00       	mov    $0x2,%edi
+  9c5ce1:	31 c0                	xor    %eax,%eax
+  9c5ce3:	e8 58 e2 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5ce8:	e9 96 fb ff ff       	jmp    9c5883 <caml_major_collection_slice+0x373>
+  9c5ced:	0f 1f 00             	nopl   (%rax)
+  9c5cf0:	48 89 c2             	mov    %rax,%rdx
+  9c5cf3:	83 e0 01             	and    $0x1,%eax
+  9c5cf6:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5cfa:	48 d1 ea             	shr    $1,%rdx
+  9c5cfd:	48 09 c2             	or     %rax,%rdx
+  9c5d00:	f2 48 0f 2a ca       	cvtsi2sd %rdx,%xmm1
+  9c5d05:	f2 0f 58 c9          	addsd  %xmm1,%xmm1
+  9c5d09:	e9 91 fe ff ff       	jmp    9c5b9f <caml_major_collection_slice+0x68f>
+  9c5d0e:	48 8b 15 7b 54 5e 00 	mov    0x5e547b(%rip),%rdx        # fab190 <heap_wsz_at_cycle_start>
+  9c5d15:	48 29 c2             	sub    %rax,%rdx
+  9c5d18:	0f 88 be 00 00 00    	js     9c5ddc <caml_major_collection_slice+0x8cc>
+  9c5d1e:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c5d22:	f2 48 0f 2a c2       	cvtsi2sd %rdx,%xmm0
+  9c5d27:	f2 0f 59 05 a1 6b 02 	mulsd  0x26ba1(%rip),%xmm0        # 9ec8d0 <caml_absf_mask+0x5890>
+  9c5d2e:	00 
+  9c5d2f:	48 85 c0             	test   %rax,%rax
+  9c5d32:	0f 88 c2 00 00 00    	js     9c5dfa <caml_major_collection_slice+0x8ea>
+  9c5d38:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5d3c:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
+  9c5d41:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+  9c5d45:	bf 00 02 00 00       	mov    $0x200,%edi
+  9c5d4a:	b8 01 00 00 00       	mov    $0x1,%eax
+  9c5d4f:	48 8d 35 02 ba 02 00 	lea    0x2ba02(%rip),%rsi        # 9f1758 <caml_absf_mask+0xa718>
+  9c5d56:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
+  9c5d5c:	e8 df e1 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5d61:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
+  9c5d67:	e9 36 ff ff ff       	jmp    9c5ca2 <caml_major_collection_slice+0x792>
+  9c5d6c:	31 c0                	xor    %eax,%eax
+  9c5d6e:	48 8d 35 77 aa 02 00 	lea    0x2aa77(%rip),%rsi        # 9f07ec <caml_absf_mask+0x97ac>
+  9c5d75:	bf 01 00 00 00       	mov    $0x1,%edi
+  9c5d7a:	e8 c1 e1 ff ff       	call   9c3f40 <caml_gc_message>
+  9c5d7f:	48 c7 05 0e 54 5e 00 	movq   $0x0,0x5e540e(%rip)        # fab198 <marked_words>
+  9c5d86:	00 00 00 00 
+  9c5d8a:	e8 71 d2 ff ff       	call   9c3000 <caml_darken_all_roots_start>
+  9c5d8f:	48 8b 05 72 99 5e 00 	mov    0x5e9972(%rip),%rax        # faf708 <Caml_state>
+  9c5d96:	c7 05 a0 53 5e 00 00 	movl   $0x0,0x5e53a0(%rip)        # fab140 <caml_gc_phase>
+  9c5d9d:	00 00 00 
+  9c5da0:	c7 05 6a 53 5e 00 0a 	movl   $0xa,0x5e536a(%rip)        # fab114 <caml_gc_subphase>
+  9c5da7:	00 00 00 
+  9c5daa:	48 8b 80 50 01 00 00 	mov    0x150(%rax),%rax
+  9c5db1:	c7 05 55 53 5e 00 01 	movl   $0x1,0x5e5355(%rip)        # fab110 <caml_ephe_list_pure>
+  9c5db8:	00 00 00 
+  9c5dbb:	48 89 05 ce 53 5e 00 	mov    %rax,0x5e53ce(%rip)        # fab190 <heap_wsz_at_cycle_start>
+  9c5dc2:	48 8d 05 ff 8d 5e 00 	lea    0x5e8dff(%rip),%rax        # faebc8 <caml_ephe_list_head>
+  9c5dc9:	48 89 05 a0 53 5e 00 	mov    %rax,0x5e53a0(%rip)        # fab170 <ephes_checked_if_pure>
+  9c5dd0:	48 89 05 91 53 5e 00 	mov    %rax,0x5e5391(%rip)        # fab168 <ephes_to_check>
+  9c5dd7:	e9 f1 fd ff ff       	jmp    9c5bcd <caml_major_collection_slice+0x6bd>
+  9c5ddc:	48 89 d1             	mov    %rdx,%rcx
+  9c5ddf:	83 e2 01             	and    $0x1,%edx
+  9c5de2:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  9c5de6:	48 d1 e9             	shr    $1,%rcx
+  9c5de9:	48 09 d1             	or     %rdx,%rcx
+  9c5dec:	f2 48 0f 2a c1       	cvtsi2sd %rcx,%xmm0
+  9c5df1:	f2 0f 58 c0          	addsd  %xmm0,%xmm0
+  9c5df5:	e9 2d ff ff ff       	jmp    9c5d27 <caml_major_collection_slice+0x817>
+  9c5dfa:	48 89 c2             	mov    %rax,%rdx
+  9c5dfd:	83 e0 01             	and    $0x1,%eax
+  9c5e00:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c5e04:	48 d1 ea             	shr    $1,%rdx
+  9c5e07:	48 09 c2             	or     %rax,%rdx
+  9c5e0a:	f2 48 0f 2a ca       	cvtsi2sd %rdx,%xmm1
+  9c5e0f:	f2 0f 58 c9          	addsd  %xmm1,%xmm1
+  9c5e13:	e9 29 ff ff ff       	jmp    9c5d41 <caml_major_collection_slice+0x831>
+  9c5e18:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  9c5e1f:	00 
+
+00000000009c28d0 <caml_oldify_local_roots>:
+  9c28d0:	f3 0f 1e fa          	endbr64
+  9c28d4:	48 8b 05 a5 83 5e 00 	mov    0x5e83a5(%rip),%rax        # faac80 <caml_globals_inited>
+  9c28db:	48 8b 0d 26 ce 5e 00 	mov    0x5ece26(%rip),%rcx        # faf708 <Caml_state>
+  9c28e2:	41 56                	push   %r14
+  9c28e4:	41 55                	push   %r13
+  9c28e6:	41 54                	push   %r12
+  9c28e8:	4c 8d 25 79 99 12 00 	lea    0x129979(%rip),%r12        # aec268 <caml_globals>
+  9c28ef:	55                   	push   %rbp
+  9c28f0:	48 8b 2d d1 83 5e 00 	mov    0x5e83d1(%rip),%rbp        # faacc8 <caml_globals_scanned>
+  9c28f7:	53                   	push   %rbx
+  9c28f8:	48 39 c5             	cmp    %rax,%rbp
+  9c28fb:	7f 6f                	jg     9c296c <caml_oldify_local_roots+0x9c>
+  9c28fd:	0f 1f 00             	nopl   (%rax)
+  9c2900:	4d 8b 2c ec          	mov    (%r12,%rbp,8),%r13
+  9c2904:	4d 85 ed             	test   %r13,%r13
+  9c2907:	74 63                	je     9c296c <caml_oldify_local_roots+0x9c>
+  9c2909:	49 83 7d 00 00       	cmpq   $0x0,0x0(%r13)
+  9c290e:	74 53                	je     9c2963 <caml_oldify_local_roots+0x93>
+  9c2910:	49 8b 55 00          	mov    0x0(%r13),%rdx
+  9c2914:	31 db                	xor    %ebx,%ebx
+  9c2916:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c291a:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c291e:	74 31                	je     9c2951 <caml_oldify_local_roots+0x81>
+  9c2920:	48 8d 34 da          	lea    (%rdx,%rbx,8),%rsi
+  9c2924:	48 8b 3e             	mov    (%rsi),%rdi
+  9c2927:	40 f6 c7 01          	test   $0x1,%dil
+  9c292b:	75 13                	jne    9c2940 <caml_oldify_local_roots+0x70>
+  9c292d:	48 3b 79 28          	cmp    0x28(%rcx),%rdi
+  9c2931:	73 0d                	jae    9c2940 <caml_oldify_local_roots+0x70>
+  9c2933:	48 39 79 20          	cmp    %rdi,0x20(%rcx)
+  9c2937:	0f 82 33 01 00 00    	jb     9c2a70 <caml_oldify_local_roots+0x1a0>
+  9c293d:	0f 1f 00             	nopl   (%rax)
+  9c2940:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c2944:	48 83 c3 01          	add    $0x1,%rbx
+  9c2948:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c294c:	48 39 c3             	cmp    %rax,%rbx
+  9c294f:	72 cf                	jb     9c2920 <caml_oldify_local_roots+0x50>
+  9c2951:	49 83 c5 08          	add    $0x8,%r13
+  9c2955:	49 83 7d 00 00       	cmpq   $0x0,0x0(%r13)
+  9c295a:	75 b4                	jne    9c2910 <caml_oldify_local_roots+0x40>
+  9c295c:	48 8b 05 1d 83 5e 00 	mov    0x5e831d(%rip),%rax        # faac80 <caml_globals_inited>
+  9c2963:	48 83 c5 01          	add    $0x1,%rbp
+  9c2967:	48 39 e8             	cmp    %rbp,%rax
+  9c296a:	7d 94                	jge    9c2900 <caml_oldify_local_roots+0x30>
+  9c296c:	48 8b 2d 4d 83 5e 00 	mov    0x5e834d(%rip),%rbp        # faacc0 <caml_dyn_globals>
+  9c2973:	48 89 05 4e 83 5e 00 	mov    %rax,0x5e834e(%rip)        # faacc8 <caml_globals_scanned>
+  9c297a:	48 85 ed             	test   %rbp,%rbp
+  9c297d:	74 66                	je     9c29e5 <caml_oldify_local_roots+0x115>
+  9c297f:	90                   	nop
+  9c2980:	4c 8b 65 00          	mov    0x0(%rbp),%r12
+  9c2984:	49 83 3c 24 00       	cmpq   $0x0,(%r12)
+  9c2989:	74 51                	je     9c29dc <caml_oldify_local_roots+0x10c>
+  9c298b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c2990:	49 8b 14 24          	mov    (%r12),%rdx
+  9c2994:	31 db                	xor    %ebx,%ebx
+  9c2996:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c299a:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c299e:	74 31                	je     9c29d1 <caml_oldify_local_roots+0x101>
+  9c29a0:	48 8d 34 da          	lea    (%rdx,%rbx,8),%rsi
+  9c29a4:	48 8b 3e             	mov    (%rsi),%rdi
+  9c29a7:	40 f6 c7 01          	test   $0x1,%dil
+  9c29ab:	75 13                	jne    9c29c0 <caml_oldify_local_roots+0xf0>
+  9c29ad:	48 3b 79 28          	cmp    0x28(%rcx),%rdi
+  9c29b1:	73 0d                	jae    9c29c0 <caml_oldify_local_roots+0xf0>
+  9c29b3:	48 39 79 20          	cmp    %rdi,0x20(%rcx)
+  9c29b7:	0f 82 cb 00 00 00    	jb     9c2a88 <caml_oldify_local_roots+0x1b8>
+  9c29bd:	0f 1f 00             	nopl   (%rax)
+  9c29c0:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  9c29c4:	48 83 c3 01          	add    $0x1,%rbx
+  9c29c8:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c29cc:	48 39 c3             	cmp    %rax,%rbx
+  9c29cf:	72 cf                	jb     9c29a0 <caml_oldify_local_roots+0xd0>
+  9c29d1:	49 83 c4 08          	add    $0x8,%r12
+  9c29d5:	49 83 3c 24 00       	cmpq   $0x0,(%r12)
+  9c29da:	75 b4                	jne    9c2990 <caml_oldify_local_roots+0xc0>
+  9c29dc:	48 8b 6d 08          	mov    0x8(%rbp),%rbp
+  9c29e0:	48 85 ed             	test   %rbp,%rbp
+  9c29e3:	75 9b                	jne    9c2980 <caml_oldify_local_roots+0xb0>
+  9c29e5:	4c 8b a1 d0 00 00 00 	mov    0xd0(%rcx),%r12
+  9c29ec:	4d 85 e4             	test   %r12,%r12
+  9c29ef:	0f 84 2d 01 00 00    	je     9c2b22 <caml_oldify_local_roots+0x252>
+  9c29f5:	48 8b 91 d8 00 00 00 	mov    0xd8(%rcx),%rdx
+  9c29fc:	4c 8b a9 e0 00 00 00 	mov    0xe0(%rcx),%r13
+  9c2a03:	48 8b 3d 7e 82 5e 00 	mov    0x5e827e(%rip),%rdi        # faac88 <caml_frame_descriptors_mask>
+  9c2a0a:	48 8b 35 7f 82 5e 00 	mov    0x5e827f(%rip),%rsi        # faac90 <caml_frame_descriptors>
+  9c2a11:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9c2a18:	48 89 d0             	mov    %rdx,%rax
+  9c2a1b:	48 c1 e8 03          	shr    $0x3,%rax
+  9c2a1f:	48 21 f8             	and    %rdi,%rax
+  9c2a22:	48 8b 1c c6          	mov    (%rsi,%rax,8),%rbx
+  9c2a26:	48 3b 13             	cmp    (%rbx),%rdx
+  9c2a29:	74 15                	je     9c2a40 <caml_oldify_local_roots+0x170>
+  9c2a2b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c2a30:	48 83 c0 01          	add    $0x1,%rax
+  9c2a34:	48 21 f8             	and    %rdi,%rax
+  9c2a37:	48 8b 1c c6          	mov    (%rsi,%rax,8),%rbx
+  9c2a3b:	48 39 13             	cmp    %rdx,(%rbx)
+  9c2a3e:	75 f0                	jne    9c2a30 <caml_oldify_local_roots+0x160>
+  9c2a40:	0f b7 43 08          	movzwl 0x8(%rbx),%eax
+  9c2a44:	66 83 f8 ff          	cmp    $0xffff,%ax
+  9c2a48:	75 53                	jne    9c2a9d <caml_oldify_local_roots+0x1cd>
+  9c2a4a:	49 8b 44 24 10       	mov    0x10(%r12),%rax
+  9c2a4f:	49 8b 54 24 18       	mov    0x18(%r12),%rdx
+  9c2a54:	4d 8b 6c 24 20       	mov    0x20(%r12),%r13
+  9c2a59:	48 85 c0             	test   %rax,%rax
+  9c2a5c:	0f 84 c0 00 00 00    	je     9c2b22 <caml_oldify_local_roots+0x252>
+  9c2a62:	49 89 c4             	mov    %rax,%r12
+  9c2a65:	eb b1                	jmp    9c2a18 <caml_oldify_local_roots+0x148>
+  9c2a67:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9c2a6e:	00 00 
+  9c2a70:	e8 ab 3c 00 00       	call   9c6720 <caml_oldify_one>
+  9c2a75:	48 8b 0d 8c cc 5e 00 	mov    0x5ecc8c(%rip),%rcx        # faf708 <Caml_state>
+  9c2a7c:	49 8b 55 00          	mov    0x0(%r13),%rdx
+  9c2a80:	e9 bb fe ff ff       	jmp    9c2940 <caml_oldify_local_roots+0x70>
+  9c2a85:	0f 1f 00             	nopl   (%rax)
+  9c2a88:	e8 93 3c 00 00       	call   9c6720 <caml_oldify_one>
+  9c2a8d:	48 8b 0d 74 cc 5e 00 	mov    0x5ecc74(%rip),%rcx        # faf708 <Caml_state>
+  9c2a94:	49 8b 14 24          	mov    (%r12),%rdx
+  9c2a98:	e9 23 ff ff ff       	jmp    9c29c0 <caml_oldify_local_roots+0xf0>
+  9c2a9d:	0f b7 53 0a          	movzwl 0xa(%rbx),%edx
+  9c2aa1:	48 8d 6b 0c          	lea    0xc(%rbx),%rbp
+  9c2aa5:	66 85 d2             	test   %dx,%dx
+  9c2aa8:	74 59                	je     9c2b03 <caml_oldify_local_roots+0x233>
+  9c2aaa:	4c 8d 74 53 0c       	lea    0xc(%rbx,%rdx,2),%r14
+  9c2aaf:	90                   	nop
+  9c2ab0:	0f b7 45 00          	movzwl 0x0(%rbp),%eax
+  9c2ab4:	49 8d 34 04          	lea    (%r12,%rax,1),%rsi
+  9c2ab8:	a8 01                	test   $0x1,%al
+  9c2aba:	74 11                	je     9c2acd <caml_oldify_local_roots+0x1fd>
+  9c2abc:	48 8d 34 85 00 00 00 	lea    0x0(,%rax,4),%rsi
+  9c2ac3:	00 
+  9c2ac4:	81 e6 f8 ff 03 00    	and    $0x3fff8,%esi
+  9c2aca:	4c 01 ee             	add    %r13,%rsi
+  9c2acd:	48 8b 3e             	mov    (%rsi),%rdi
+  9c2ad0:	40 f6 c7 01          	test   $0x1,%dil
+  9c2ad4:	75 12                	jne    9c2ae8 <caml_oldify_local_roots+0x218>
+  9c2ad6:	48 3b 79 28          	cmp    0x28(%rcx),%rdi
+  9c2ada:	73 0c                	jae    9c2ae8 <caml_oldify_local_roots+0x218>
+  9c2adc:	48 39 79 20          	cmp    %rdi,0x20(%rcx)
+  9c2ae0:	72 32                	jb     9c2b14 <caml_oldify_local_roots+0x244>
+  9c2ae2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c2ae8:	48 83 c5 02          	add    $0x2,%rbp
+  9c2aec:	4c 39 f5             	cmp    %r14,%rbp
+  9c2aef:	75 bf                	jne    9c2ab0 <caml_oldify_local_roots+0x1e0>
+  9c2af1:	0f b7 43 08          	movzwl 0x8(%rbx),%eax
+  9c2af5:	48 8b 3d 8c 81 5e 00 	mov    0x5e818c(%rip),%rdi        # faac88 <caml_frame_descriptors_mask>
+  9c2afc:	48 8b 35 8d 81 5e 00 	mov    0x5e818d(%rip),%rsi        # faac90 <caml_frame_descriptors>
+  9c2b03:	25 fc ff 00 00       	and    $0xfffc,%eax
+  9c2b08:	4c 01 e0             	add    %r12,%rax
+  9c2b0b:	48 8b 50 f8          	mov    -0x8(%rax),%rdx
+  9c2b0f:	e9 4e ff ff ff       	jmp    9c2a62 <caml_oldify_local_roots+0x192>
+  9c2b14:	e8 07 3c 00 00       	call   9c6720 <caml_oldify_one>
+  9c2b19:	48 8b 0d e8 cb 5e 00 	mov    0x5ecbe8(%rip),%rcx        # faf708 <Caml_state>
+  9c2b20:	eb c6                	jmp    9c2ae8 <caml_oldify_local_roots+0x218>
+  9c2b22:	48 8b a9 20 01 00 00 	mov    0x120(%rcx),%rbp
+  9c2b29:	48 85 ed             	test   %rbp,%rbp
+  9c2b2c:	74 67                	je     9c2b95 <caml_oldify_local_roots+0x2c5>
+  9c2b2e:	66 90                	xchg   %ax,%ax
+  9c2b30:	45 31 e4             	xor    %r12d,%r12d
+  9c2b33:	48 83 7d 08 00       	cmpq   $0x0,0x8(%rbp)
+  9c2b38:	7e 52                	jle    9c2b8c <caml_oldify_local_roots+0x2bc>
+  9c2b3a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c2b40:	31 db                	xor    %ebx,%ebx
+  9c2b42:	48 83 7d 10 00       	cmpq   $0x0,0x10(%rbp)
+  9c2b47:	7e 39                	jle    9c2b82 <caml_oldify_local_roots+0x2b2>
+  9c2b49:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9c2b50:	4a 8b 44 e5 18       	mov    0x18(%rbp,%r12,8),%rax
+  9c2b55:	48 8d 34 d8          	lea    (%rax,%rbx,8),%rsi
+  9c2b59:	48 8b 3e             	mov    (%rsi),%rdi
+  9c2b5c:	40 f6 c7 01          	test   $0x1,%dil
+  9c2b60:	75 16                	jne    9c2b78 <caml_oldify_local_roots+0x2a8>
+  9c2b62:	48 8b 05 9f cb 5e 00 	mov    0x5ecb9f(%rip),%rax        # faf708 <Caml_state>
+  9c2b69:	48 3b 78 28          	cmp    0x28(%rax),%rdi
+  9c2b6d:	73 09                	jae    9c2b78 <caml_oldify_local_roots+0x2a8>
+  9c2b6f:	48 39 78 20          	cmp    %rdi,0x20(%rax)
+  9c2b73:	72 5b                	jb     9c2bd0 <caml_oldify_local_roots+0x300>
+  9c2b75:	0f 1f 00             	nopl   (%rax)
+  9c2b78:	48 83 c3 01          	add    $0x1,%rbx
+  9c2b7c:	48 39 5d 10          	cmp    %rbx,0x10(%rbp)
+  9c2b80:	7f ce                	jg     9c2b50 <caml_oldify_local_roots+0x280>
+  9c2b82:	49 83 c4 01          	add    $0x1,%r12
+  9c2b86:	4c 39 65 08          	cmp    %r12,0x8(%rbp)
+  9c2b8a:	7f b4                	jg     9c2b40 <caml_oldify_local_roots+0x270>
+  9c2b8c:	48 8b 6d 00          	mov    0x0(%rbp),%rbp
+  9c2b90:	48 85 ed             	test   %rbp,%rbp
+  9c2b93:	75 9b                	jne    9c2b30 <caml_oldify_local_roots+0x260>
+  9c2b95:	48 8d 1d 84 3b 00 00 	lea    0x3b84(%rip),%rbx        # 9c6720 <caml_oldify_one>
+  9c2b9c:	48 89 df             	mov    %rbx,%rdi
+  9c2b9f:	e8 9c a5 01 00       	call   9dd140 <caml_scan_global_young_roots>
+  9c2ba4:	e8 b7 9a 01 00       	call   9dc660 <caml_final_oldify_young_roots>
+  9c2ba9:	e8 02 f4 01 00       	call   9e1fb0 <caml_memprof_oldify_young_roots>
+  9c2bae:	48 8b 05 e3 80 5e 00 	mov    0x5e80e3(%rip),%rax        # faac98 <caml_scan_roots_hook>
+  9c2bb5:	48 85 c0             	test   %rax,%rax
+  9c2bb8:	74 1d                	je     9c2bd7 <caml_oldify_local_roots+0x307>
+  9c2bba:	48 89 df             	mov    %rbx,%rdi
+  9c2bbd:	5b                   	pop    %rbx
+  9c2bbe:	5d                   	pop    %rbp
+  9c2bbf:	41 5c                	pop    %r12
+  9c2bc1:	41 5d                	pop    %r13
+  9c2bc3:	41 5e                	pop    %r14
+  9c2bc5:	ff e0                	jmp    *%rax
+  9c2bc7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9c2bce:	00 00 
+  9c2bd0:	e8 4b 3b 00 00       	call   9c6720 <caml_oldify_one>
+  9c2bd5:	eb a1                	jmp    9c2b78 <caml_oldify_local_roots+0x2a8>
+  9c2bd7:	5b                   	pop    %rbx
+  9c2bd8:	5d                   	pop    %rbp
+  9c2bd9:	41 5c                	pop    %r12
+  9c2bdb:	41 5d                	pop    %r13
+  9c2bdd:	41 5e                	pop    %r14
+  9c2bdf:	c3                   	ret
+
+00000000009b8d90 <caml_thread_initialize>:
+  9b8d90:	f3 0f 1e fa          	endbr64
+  9b8d94:	48 83 3d 44 1d 5f 00 	cmpq   $0x0,0x5f1d44(%rip)        # faaae0 <curr_thread>
+  9b8d9b:	00 
+  9b8d9c:	74 0a                	je     9b8da8 <caml_thread_initialize+0x18>
+  9b8d9e:	b8 01 00 00 00       	mov    $0x1,%eax
+  9b8da3:	c3                   	ret
+  9b8da4:	0f 1f 40 00          	nopl   0x0(%rax)
+  9b8da8:	53                   	push   %rbx
+  9b8da9:	48 8b 15 08 32 13 00 	mov    0x133208(%rip),%rdx        # aebfb8 <pthread_sigmask@GLIBC_2.32>
+  9b8db0:	31 f6                	xor    %esi,%esi
+  9b8db2:	48 8d 3d c7 1c 5f 00 	lea    0x5f1cc7(%rip),%rdi        # faaa80 <caml_master_lock>
+  9b8db9:	48 8d 05 c0 18 5f 00 	lea    0x5f18c0(%rip),%rax        # faa680 <caml_sigmask_hook>
+  9b8dc0:	48 89 10             	mov    %rdx,(%rax)
+  9b8dc3:	e8 08 cf b6 ff       	call   525cd0 <pthread_mutex_init@plt>
+  9b8dc8:	31 f6                	xor    %esi,%esi
+  9b8dca:	48 8d 3d df 1c 5f 00 	lea    0x5f1cdf(%rip),%rdi        # faaab0 <caml_master_lock+0x30>
+  9b8dd1:	e8 fa cb b6 ff       	call   5259d0 <pthread_cond_init@plt>
+  9b8dd6:	31 f6                	xor    %esi,%esi
+  9b8dd8:	48 8d 3d 7d 1c 5f 00 	lea    0x5f1c7d(%rip),%rdi        # faaa5c <thread_descriptor_key>
+  9b8ddf:	c7 05 bf 1c 5f 00 01 	movl   $0x1,0x5f1cbf(%rip)        # faaaa8 <caml_master_lock+0x28>
+  9b8de6:	00 00 00 
+  9b8de9:	c7 05 b9 1c 5f 00 00 	movl   $0x0,0x5f1cb9(%rip)        # faaaac <caml_master_lock+0x2c>
+  9b8df0:	00 00 00 
+  9b8df3:	e8 88 cf b6 ff       	call   525d80 <pthread_key_create@plt>
+  9b8df8:	31 f6                	xor    %esi,%esi
+  9b8dfa:	48 8d 3d 57 1c 5f 00 	lea    0x5f1c57(%rip),%rdi        # faaa58 <last_channel_locked_key>
+  9b8e01:	e8 7a cf b6 ff       	call   525d80 <pthread_key_create@plt>
+  9b8e06:	bf 70 00 00 00       	mov    $0x70,%edi
+  9b8e0b:	e8 20 f7 00 00       	call   9c8530 <caml_stat_alloc>
+  9b8e10:	bf 01 00 00 00       	mov    $0x1,%edi
+  9b8e15:	48 89 c3             	mov    %rax,%rbx
+  9b8e18:	48 89 05 c1 1c 5f 00 	mov    %rax,0x5f1cc1(%rip)        # faaae0 <curr_thread>
+  9b8e1f:	e8 8c fb ff ff       	call   9b89b0 <caml_thread_new_descriptor>
+  9b8e24:	48 8b 35 b5 1c 5f 00 	mov    0x5f1cb5(%rip),%rsi        # faaae0 <curr_thread>
+  9b8e2b:	8b 3d 2b 1c 5f 00    	mov    0x5f1c2b(%rip),%edi        # faaa5c <thread_descriptor_key>
+  9b8e31:	48 89 03             	mov    %rax,(%rbx)
+  9b8e34:	48 8d 05 65 1d 5f 00 	lea    0x5f1d65(%rip),%rax        # faaba0 <caml_termination_jmpbuf>
+  9b8e3b:	48 8d 1d be f9 ff ff 	lea    -0x642(%rip),%rbx        # 9b8800 <caml_thread_leave_blocking_section>
+  9b8e42:	66 48 0f 6e c6       	movq   %rsi,%xmm0
+  9b8e47:	48 c7 46 60 01 00 00 	movq   $0x1,0x60(%rsi)
+  9b8e4e:	00 
+  9b8e4f:	48 89 46 48          	mov    %rax,0x48(%rsi)
+  9b8e53:	48 8d 05 66 1a 5f 00 	lea    0x5f1a66(%rip),%rax        # faa8c0 <caml_memprof_main_ctx>
+  9b8e5a:	66 0f 6c c0          	punpcklqdq %xmm0,%xmm0
+  9b8e5e:	0f 11 46 08          	movups %xmm0,0x8(%rsi)
+  9b8e62:	48 89 46 68          	mov    %rax,0x68(%rsi)
+  9b8e66:	48 89 35 7b 1c 5f 00 	mov    %rsi,0x5f1c7b(%rip)        # faaae8 <all_threads>
+  9b8e6d:	e8 ee c2 b6 ff       	call   525160 <pthread_setspecific@plt>
+  9b8e72:	48 8d 05 1f 1e 5f 00 	lea    0x5f1e1f(%rip),%rax        # faac98 <caml_scan_roots_hook>
+  9b8e79:	48 8d 0d e0 f4 ff ff 	lea    -0xb20(%rip),%rcx        # 9b8360 <caml_thread_scan_roots>
+  9b8e80:	48 8b 10             	mov    (%rax),%rdx
+  9b8e83:	48 89 08             	mov    %rcx,(%rax)
+  9b8e86:	48 8d 0d 73 fa ff ff 	lea    -0x58d(%rip),%rcx        # 9b8900 <caml_thread_enter_blocking_section>
+  9b8e8d:	48 8d 05 e4 17 5f 00 	lea    0x5f17e4(%rip),%rax        # faa678 <caml_enter_blocking_section_hook>
+  9b8e94:	48 89 15 ad 1b 5f 00 	mov    %rdx,0x5f1bad(%rip)        # faaa48 <prev_scan_roots_hook>
+  9b8e9b:	48 8d 15 fe f6 ff ff 	lea    -0x902(%rip),%rdx        # 9b85a0 <caml_io_mutex_lock>
+  9b8ea2:	48 89 08             	mov    %rcx,(%rax)
+  9b8ea5:	48 8d 05 c4 17 5f 00 	lea    0x5f17c4(%rip),%rax        # faa670 <caml_leave_blocking_section_hook>
+  9b8eac:	48 8d 0d 8d f4 ff ff 	lea    -0xb73(%rip),%rcx        # 9b8340 <st_thread_exit>
+  9b8eb3:	48 89 18             	mov    %rbx,(%rax)
+  9b8eb6:	48 8d 05 c3 1c 5f 00 	lea    0x5f1cc3(%rip),%rax        # faab80 <caml_termination_hook>
+  9b8ebd:	48 8d 1d ec f7 ff ff 	lea    -0x814(%rip),%rbx        # 9b86b0 <caml_io_mutex_free>
+  9b8ec4:	48 89 08             	mov    %rcx,(%rax)
+  9b8ec7:	48 8d 05 62 23 5f 00 	lea    0x5f2362(%rip),%rax        # fab230 <caml_channel_mutex_free>
+  9b8ece:	48 8d 0d 1b f5 ff ff 	lea    -0xae5(%rip),%rcx        # 9b83f0 <caml_io_mutex_unlock>
+  9b8ed5:	48 89 18             	mov    %rbx,(%rax)
+  9b8ed8:	48 8d 05 49 23 5f 00 	lea    0x5f2349(%rip),%rax        # fab228 <caml_channel_mutex_lock>
+  9b8edf:	48 8d 1d da f8 ff ff 	lea    -0x726(%rip),%rbx        # 9b87c0 <caml_io_mutex_unlock_exn>
+  9b8ee6:	48 89 10             	mov    %rdx,(%rax)
+  9b8ee9:	48 8d 05 30 23 5f 00 	lea    0x5f2330(%rip),%rax        # fab220 <caml_channel_mutex_unlock>
+  9b8ef0:	48 89 08             	mov    %rcx,(%rax)
+  9b8ef3:	48 8d 05 1e 23 5f 00 	lea    0x5f231e(%rip),%rax        # fab218 <caml_channel_mutex_unlock_exn>
+  9b8efa:	48 8d 0d 3f f2 ff ff 	lea    -0xdc1(%rip),%rcx        # 9b8140 <memprof_ctx_iter>
+  9b8f01:	48 89 18             	mov    %rbx,(%rax)
+  9b8f04:	48 8d 05 65 1d 5f 00 	lea    0x5f1d65(%rip),%rax        # faac70 <caml_stack_usage_hook>
+  9b8f0b:	48 8d 1d fe f7 ff ff 	lea    -0x802(%rip),%rbx        # 9b8710 <caml_thread_reinitialize>
+  9b8f12:	48 8b 10             	mov    (%rax),%rdx
+  9b8f15:	48 89 15 24 1b 5f 00 	mov    %rdx,0x5f1b24(%rip)        # faaa40 <prev_stack_usage_hook>
+  9b8f1c:	48 8d 15 5d f2 ff ff 	lea    -0xda3(%rip),%rdx        # 9b8180 <caml_thread_stack_usage>
+  9b8f23:	48 89 10             	mov    %rdx,(%rax)
+  9b8f26:	48 8d 05 03 1a 5f 00 	lea    0x5f1a03(%rip),%rax        # faa930 <caml_memprof_th_ctx_iter_hook>
+  9b8f2d:	48 89 08             	mov    %rcx,(%rax)
+  9b8f30:	48 8d 05 c9 67 5f 00 	lea    0x5f67c9(%rip),%rax        # faf700 <caml_atfork_hook>
+  9b8f37:	48 89 18             	mov    %rbx,(%rax)
+  9b8f3a:	b8 01 00 00 00       	mov    $0x1,%eax
+  9b8f3f:	5b                   	pop    %rbx
+  9b8f40:	c3                   	ret
+  9b8f41:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9b8f48:	00 00 00 
+  9b8f4b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000009b8360 <caml_thread_scan_roots>:
+  9b8360:	f3 0f 1e fa          	endbr64
+  9b8364:	55                   	push   %rbp
+  9b8365:	48 89 fd             	mov    %rdi,%rbp
+  9b8368:	53                   	push   %rbx
+  9b8369:	48 83 ec 08          	sub    $0x8,%rsp
+  9b836d:	48 8b 1d 6c 27 5f 00 	mov    0x5f276c(%rip),%rbx        # faaae0 <curr_thread>
+  9b8374:	0f 1f 40 00          	nopl   0x0(%rax)
+  9b8378:	48 8b 3b             	mov    (%rbx),%rdi
+  9b837b:	48 89 de             	mov    %rbx,%rsi
+  9b837e:	ff d5                	call   *%rbp
+  9b8380:	48 8b 7b 60          	mov    0x60(%rbx),%rdi
+  9b8384:	48 8d 73 60          	lea    0x60(%rbx),%rsi
+  9b8388:	ff d5                	call   *%rbp
+  9b838a:	48 8b 05 4f 27 5f 00 	mov    0x5f274f(%rip),%rax        # faaae0 <curr_thread>
+  9b8391:	48 39 d8             	cmp    %rbx,%rax
+  9b8394:	74 24                	je     9b83ba <caml_thread_scan_roots+0x5a>
+  9b8396:	48 8b 73 20          	mov    0x20(%rbx),%rsi
+  9b839a:	48 85 f6             	test   %rsi,%rsi
+  9b839d:	74 1b                	je     9b83ba <caml_thread_scan_roots+0x5a>
+  9b839f:	48 8b 4b 30          	mov    0x30(%rbx),%rcx
+  9b83a3:	48 8b 53 28          	mov    0x28(%rbx),%rdx
+  9b83a7:	48 89 ef             	mov    %rbp,%rdi
+  9b83aa:	4c 8b 43 40          	mov    0x40(%rbx),%r8
+  9b83ae:	e8 4d a9 00 00       	call   9c2d00 <caml_do_local_roots_nat>
+  9b83b3:	48 8b 05 26 27 5f 00 	mov    0x5f2726(%rip),%rax        # faaae0 <curr_thread>
+  9b83ba:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  9b83be:	48 39 c3             	cmp    %rax,%rbx
+  9b83c1:	75 b5                	jne    9b8378 <caml_thread_scan_roots+0x18>
+  9b83c3:	48 8b 05 7e 26 5f 00 	mov    0x5f267e(%rip),%rax        # faaa48 <prev_scan_roots_hook>
+  9b83ca:	48 85 c0             	test   %rax,%rax
+  9b83cd:	74 11                	je     9b83e0 <caml_thread_scan_roots+0x80>
+  9b83cf:	48 83 c4 08          	add    $0x8,%rsp
+  9b83d3:	48 89 ef             	mov    %rbp,%rdi
+  9b83d6:	5b                   	pop    %rbx
+  9b83d7:	5d                   	pop    %rbp
+  9b83d8:	ff e0                	jmp    *%rax
+  9b83da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9b83e0:	48 83 c4 08          	add    $0x8,%rsp
+  9b83e4:	5b                   	pop    %rbx
+  9b83e5:	5d                   	pop    %rbp
+  9b83e6:	c3                   	ret
+  9b83e7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9b83ee:	00 00 
+
+00000000009c50d0 <clean_slice>:
+  9c50d0:	41 57                	push   %r15
+  9c50d2:	48 89 fa             	mov    %rdi,%rdx
+  9c50d5:	31 c0                	xor    %eax,%eax
+  9c50d7:	48 8d 35 48 b6 02 00 	lea    0x2b648(%rip),%rsi        # 9f0726 <caml_absf_mask+0x96e6>
+  9c50de:	41 56                	push   %r14
+  9c50e0:	41 55                	push   %r13
+  9c50e2:	41 54                	push   %r12
+  9c50e4:	55                   	push   %rbp
+  9c50e5:	53                   	push   %rbx
+  9c50e6:	48 89 fb             	mov    %rdi,%rbx
+  9c50e9:	48 83 ec 28          	sub    $0x28,%rsp
+  9c50ed:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  9c50f2:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c50f7:	e8 44 ee ff ff       	call   9c3f40 <caml_gc_message>
+  9c50fc:	48 85 db             	test   %rbx,%rbx
+  9c50ff:	7f 28                	jg     9c5129 <clean_slice+0x59>
+  9c5101:	e9 99 01 00 00       	jmp    9c529f <clean_slice+0x1cf>
+  9c5106:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c510d:	00 00 00 
+  9c5110:	49 8b 55 00          	mov    0x0(%r13),%rdx
+  9c5114:	48 83 6c 24 10 01    	subq   $0x1,0x10(%rsp)
+  9c511a:	48 83 7c 24 10 00    	cmpq   $0x0,0x10(%rsp)
+  9c5120:	48 89 10             	mov    %rdx,(%rax)
+  9c5123:	0f 8e 76 01 00 00    	jle    9c529f <clean_slice+0x1cf>
+  9c5129:	48 8b 05 38 60 5e 00 	mov    0x5e6038(%rip),%rax        # fab168 <ephes_to_check>
+  9c5130:	4c 8b 28             	mov    (%rax),%r13
+  9c5133:	4d 85 ed             	test   %r13,%r13
+  9c5136:	0f 84 17 02 00 00    	je     9c5353 <clean_slice+0x283>
+  9c513c:	49 8b 55 f8          	mov    -0x8(%r13),%rdx
+  9c5140:	f6 c6 03             	test   $0x3,%dh
+  9c5143:	74 cb                	je     9c5110 <clean_slice+0x40>
+  9c5145:	48 89 d0             	mov    %rdx,%rax
+  9c5148:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c514c:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9c5151:	48 81 fa ff 0b 00 00 	cmp    $0xbff,%rdx
+  9c5158:	0f 86 18 01 00 00    	jbe    9c5276 <clean_slice+0x1a6>
+  9c515e:	c7 44 24 1c 00 00 00 	movl   $0x0,0x1c(%rsp)
+  9c5165:	00 
+  9c5166:	4c 8b 3d a3 56 5e 00 	mov    0x5e56a3(%rip),%r15        # faa810 <caml_ephe_none>
+  9c516d:	41 bc 02 00 00 00    	mov    $0x2,%r12d
+  9c5173:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c5178:	4b 8d 5c e5 00       	lea    0x0(%r13,%r12,8),%rbx
+  9c517d:	4c 8b 33             	mov    (%rbx),%r14
+  9c5180:	4d 39 fe             	cmp    %r15,%r14
+  9c5183:	0f 84 bf 00 00 00    	je     9c5248 <clean_slice+0x178>
+  9c5189:	41 f6 c6 01          	test   $0x1,%r14b
+  9c518d:	74 19                	je     9c51a8 <clean_slice+0xd8>
+  9c518f:	e9 b4 00 00 00       	jmp    9c5248 <clean_slice+0x178>
+  9c5194:	0f 1f 40 00          	nopl   0x0(%rax)
+  9c5198:	4c 39 3d 71 56 5e 00 	cmp    %r15,0x5e5671(%rip)        # faa810 <caml_ephe_none>
+  9c519f:	0f 84 a3 00 00 00    	je     9c5248 <clean_slice+0x178>
+  9c51a5:	4d 89 fe             	mov    %r15,%r14
+  9c51a8:	4c 89 f7             	mov    %r14,%rdi
+  9c51ab:	e8 00 22 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c51b0:	a8 07                	test   $0x7,%al
+  9c51b2:	0f 84 80 01 00 00    	je     9c5338 <clean_slice+0x268>
+  9c51b8:	41 0f b6 46 f8       	movzbl -0x8(%r14),%eax
+  9c51bd:	49 8d 6e f8          	lea    -0x8(%r14),%rbp
+  9c51c1:	3c fa                	cmp    $0xfa,%al
+  9c51c3:	0f 85 eb 00 00 00    	jne    9c52b4 <clean_slice+0x1e4>
+  9c51c9:	4d 8b 3e             	mov    (%r14),%r15
+  9c51cc:	41 f6 c7 01          	test   $0x1,%r15b
+  9c51d0:	0f 85 f5 00 00 00    	jne    9c52cb <clean_slice+0x1fb>
+  9c51d6:	4c 89 ff             	mov    %r15,%rdi
+  9c51d9:	e8 d2 21 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c51de:	a8 07                	test   $0x7,%al
+  9c51e0:	0f 84 ca 00 00 00    	je     9c52b0 <clean_slice+0x1e0>
+  9c51e6:	41 0f b6 47 f8       	movzbl -0x8(%r15),%eax
+  9c51eb:	83 c0 0a             	add    $0xa,%eax
+  9c51ee:	3c 07                	cmp    $0x7,%al
+  9c51f0:	77 0f                	ja     9c5201 <clean_slice+0x131>
+  9c51f2:	be 91 00 00 00       	mov    $0x91,%esi
+  9c51f7:	48 0f a3 c6          	bt     %rax,%rsi
+  9c51fb:	0f 82 af 00 00 00    	jb     9c52b0 <clean_slice+0x1e0>
+  9c5201:	4c 89 3b             	mov    %r15,(%rbx)
+  9c5204:	48 8b 05 fd a4 5e 00 	mov    0x5ea4fd(%rip),%rax        # faf708 <Caml_state>
+  9c520b:	4c 3b 78 28          	cmp    0x28(%rax),%r15
+  9c520f:	73 87                	jae    9c5198 <clean_slice+0xc8>
+  9c5211:	4c 39 78 20          	cmp    %r15,0x20(%rax)
+  9c5215:	73 81                	jae    9c5198 <clean_slice+0xc8>
+  9c5217:	48 8b 68 70          	mov    0x70(%rax),%rbp
+  9c521b:	48 8b 45 18          	mov    0x18(%rbp),%rax
+  9c521f:	48 3b 45 20          	cmp    0x20(%rbp),%rax
+  9c5223:	0f 83 f7 00 00 00    	jae    9c5320 <clean_slice+0x250>
+  9c5229:	48 8d 48 10          	lea    0x10(%rax),%rcx
+  9c522d:	48 89 4d 18          	mov    %rcx,0x18(%rbp)
+  9c5231:	4c 89 28             	mov    %r13,(%rax)
+  9c5234:	4c 39 3d d5 55 5e 00 	cmp    %r15,0x5e55d5(%rip)        # faa810 <caml_ephe_none>
+  9c523b:	4c 89 60 08          	mov    %r12,0x8(%rax)
+  9c523f:	0f 85 60 ff ff ff    	jne    9c51a5 <clean_slice+0xd5>
+  9c5245:	0f 1f 00             	nopl   (%rax)
+  9c5248:	49 83 c4 01          	add    $0x1,%r12
+  9c524c:	4c 39 64 24 08       	cmp    %r12,0x8(%rsp)
+  9c5251:	0f 85 21 ff ff ff    	jne    9c5178 <clean_slice+0xa8>
+  9c5257:	4d 39 7d 08          	cmp    %r15,0x8(%r13)
+  9c525b:	74 0c                	je     9c5269 <clean_slice+0x199>
+  9c525d:	8b 44 24 1c          	mov    0x1c(%rsp),%eax
+  9c5261:	85 c0                	test   %eax,%eax
+  9c5263:	74 04                	je     9c5269 <clean_slice+0x199>
+  9c5265:	4d 89 7d 08          	mov    %r15,0x8(%r13)
+  9c5269:	49 8b 45 f8          	mov    -0x8(%r13),%rax
+  9c526d:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c5271:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9c5276:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  9c527b:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+  9c5280:	4c 89 2d e1 5e 5e 00 	mov    %r13,0x5e5ee1(%rip)        # fab168 <ephes_to_check>
+  9c5287:	48 83 e8 01          	sub    $0x1,%rax
+  9c528b:	48 29 d0             	sub    %rdx,%rax
+  9c528e:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  9c5293:	48 83 7c 24 10 00    	cmpq   $0x0,0x10(%rsp)
+  9c5299:	0f 8f 8a fe ff ff    	jg     9c5129 <clean_slice+0x59>
+  9c529f:	48 83 c4 28          	add    $0x28,%rsp
+  9c52a3:	5b                   	pop    %rbx
+  9c52a4:	5d                   	pop    %rbp
+  9c52a5:	41 5c                	pop    %r12
+  9c52a7:	41 5d                	pop    %r13
+  9c52a9:	41 5e                	pop    %r14
+  9c52ab:	41 5f                	pop    %r15
+  9c52ad:	c3                   	ret
+  9c52ae:	66 90                	xchg   %ax,%ax
+  9c52b0:	0f b6 45 00          	movzbl 0x0(%rbp),%eax
+  9c52b4:	3c f9                	cmp    $0xf9,%al
+  9c52b6:	75 13                	jne    9c52cb <clean_slice+0x1fb>
+  9c52b8:	48 8b 45 00          	mov    0x0(%rbp),%rax
+  9c52bc:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c52c0:	48 c1 e0 03          	shl    $0x3,%rax
+  9c52c4:	49 29 c6             	sub    %rax,%r14
+  9c52c7:	49 8d 6e f8          	lea    -0x8(%r14),%rbp
+  9c52cb:	4c 8b 3d 3e 55 5e 00 	mov    0x5e553e(%rip),%r15        # faa810 <caml_ephe_none>
+  9c52d2:	48 f7 45 00 00 03 00 	testq  $0x300,0x0(%rbp)
+  9c52d9:	00 
+  9c52da:	0f 85 68 ff ff ff    	jne    9c5248 <clean_slice+0x178>
+  9c52e0:	48 8b 05 21 a4 5e 00 	mov    0x5ea421(%rip),%rax        # faf708 <Caml_state>
+  9c52e7:	4c 3b 70 28          	cmp    0x28(%rax),%r14
+  9c52eb:	73 0a                	jae    9c52f7 <clean_slice+0x227>
+  9c52ed:	4c 39 70 20          	cmp    %r14,0x20(%rax)
+  9c52f1:	0f 82 51 ff ff ff    	jb     9c5248 <clean_slice+0x178>
+  9c52f7:	4c 89 3b             	mov    %r15,(%rbx)
+  9c52fa:	49 83 c4 01          	add    $0x1,%r12
+  9c52fe:	c7 44 24 1c 01 00 00 	movl   $0x1,0x1c(%rsp)
+  9c5305:	00 
+  9c5306:	4c 39 64 24 08       	cmp    %r12,0x8(%rsp)
+  9c530b:	0f 85 67 fe ff ff    	jne    9c5178 <clean_slice+0xa8>
+  9c5311:	e9 41 ff ff ff       	jmp    9c5257 <clean_slice+0x187>
+  9c5316:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c531d:	00 00 00 
+  9c5320:	48 89 ef             	mov    %rbp,%rdi
+  9c5323:	e8 28 20 00 00       	call   9c7350 <caml_realloc_ephe_ref_table>
+  9c5328:	48 8b 45 18          	mov    0x18(%rbp),%rax
+  9c532c:	e9 f8 fe ff ff       	jmp    9c5229 <clean_slice+0x159>
+  9c5331:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9c5338:	4c 8b 3d d1 54 5e 00 	mov    0x5e54d1(%rip),%r15        # faa810 <caml_ephe_none>
+  9c533f:	49 83 c4 01          	add    $0x1,%r12
+  9c5343:	4c 39 64 24 08       	cmp    %r12,0x8(%rsp)
+  9c5348:	0f 85 2a fe ff ff    	jne    9c5178 <clean_slice+0xa8>
+  9c534e:	e9 04 ff ff ff       	jmp    9c5257 <clean_slice+0x187>
+  9c5353:	48 83 c4 28          	add    $0x28,%rsp
+  9c5357:	5b                   	pop    %rbx
+  9c5358:	5d                   	pop    %rbp
+  9c5359:	41 5c                	pop    %r12
+  9c535b:	41 5d                	pop    %r13
+  9c535d:	41 5e                	pop    %r14
+  9c535f:	41 5f                	pop    %r15
+  9c5361:	e9 ca ef ff ff       	jmp    9c4330 <init_sweep_phase>
+  9c5366:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c536d:	00 00 00 
+
+00000000009c4330 <init_sweep_phase>:
+  9c4330:	48 83 ec 08          	sub    $0x8,%rsp
+  9c4334:	48 8b 05 15 6e 5e 00 	mov    0x5e6e15(%rip),%rax        # fab150 <caml_heap_start>
+  9c433b:	48 89 05 06 6e 5e 00 	mov    %rax,0x5e6e06(%rip)        # fab148 <caml_gc_sweep_hp>
+  9c4342:	ff 15 50 b5 5e 00    	call   *0x5eb550(%rip)        # faf898 <caml_fl_p_init_merge>
+  9c4348:	48 8b 05 01 6e 5e 00 	mov    0x5e6e01(%rip),%rax        # fab150 <caml_heap_start>
+  9c434f:	c7 05 e7 6d 5e 00 02 	movl   $0x2,0x5e6de7(%rip)        # fab140 <caml_gc_phase>
+  9c4356:	00 00 00 
+  9c4359:	48 89 05 20 6e 5e 00 	mov    %rax,0x5e6e20(%rip)        # fab180 <sweep_chunk>
+  9c4360:	48 89 05 e1 6d 5e 00 	mov    %rax,0x5e6de1(%rip)        # fab148 <caml_gc_sweep_hp>
+  9c4367:	48 8b 05 42 b5 5e 00 	mov    0x5eb542(%rip),%rax        # faf8b0 <caml_fl_cur_wsz>
+  9c436e:	48 89 05 a3 6d 5e 00 	mov    %rax,0x5e6da3(%rip)        # fab118 <caml_fl_wsz_at_phase_change>
+  9c4375:	48 8b 05 e4 6b 5e 00 	mov    0x5e6be4(%rip),%rax        # faaf60 <caml_major_gc_hook>
+  9c437c:	48 85 c0             	test   %rax,%rax
+  9c437f:	74 0f                	je     9c4390 <init_sweep_phase+0x60>
+  9c4381:	48 83 c4 08          	add    $0x8,%rsp
+  9c4385:	ff e0                	jmp    *%rax
+  9c4387:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9c438e:	00 00 
+  9c4390:	48 83 c4 08          	add    $0x8,%rsp
+  9c4394:	c3                   	ret
+  9c4395:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9c439c:	00 00 00 
+  9c439f:	90                   	nop
+
+00000000009c4a70 <mark_slice>:
+  9c4a70:	41 57                	push   %r15
+  9c4a72:	48 89 fa             	mov    %rdi,%rdx
+  9c4a75:	48 8d 35 88 bc 02 00 	lea    0x2bc88(%rip),%rsi        # 9f0704 <caml_absf_mask+0x96c4>
+  9c4a7c:	41 56                	push   %r14
+  9c4a7e:	41 55                	push   %r13
+  9c4a80:	49 89 fd             	mov    %rdi,%r13
+  9c4a83:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c4a88:	41 54                	push   %r12
+  9c4a8a:	55                   	push   %rbp
+  9c4a8b:	53                   	push   %rbx
+  9c4a8c:	48 83 ec 18          	sub    $0x18,%rsp
+  9c4a90:	48 8b 05 71 ac 5e 00 	mov    0x5eac71(%rip),%rax        # faf708 <Caml_state>
+  9c4a97:	4c 8b b8 80 00 00 00 	mov    0x80(%rax),%r15
+  9c4a9e:	31 c0                	xor    %eax,%eax
+  9c4aa0:	e8 9b f4 ff ff       	call   9c3f40 <caml_gc_message>
+  9c4aa5:	8b 15 69 66 5e 00    	mov    0x5e6669(%rip),%edx        # fab114 <caml_gc_subphase>
+  9c4aab:	48 8d 35 65 bc 02 00 	lea    0x2bc65(%rip),%rsi        # 9f0717 <caml_absf_mask+0x96d7>
+  9c4ab2:	31 c0                	xor    %eax,%eax
+  9c4ab4:	bf 40 00 00 00       	mov    $0x40,%edi
+  9c4ab9:	e8 82 f4 ff ff       	call   9c3f40 <caml_gc_message>
+  9c4abe:	4c 01 2d d3 66 5e 00 	add    %r13,0x5e66d3(%rip)        # fab198 <marked_words>
+  9c4ac5:	0f 1f 00             	nopl   (%rax)
+  9c4ac8:	4c 89 ef             	mov    %r13,%rdi
+  9c4acb:	e8 d0 fa ff ff       	call   9c45a0 <do_some_marking>
+  9c4ad0:	49 89 c5             	mov    %rax,%r13
+  9c4ad3:	48 85 c0             	test   %rax,%rax
+  9c4ad6:	0f 8e 49 01 00 00    	jle    9c4c25 <mark_slice+0x1b5>
+  9c4adc:	4c 8b 15 a5 66 5e 00 	mov    0x5e66a5(%rip),%r10        # fab188 <redarken_first_chunk>
+  9c4ae3:	4d 85 d2             	test   %r10,%r10
+  9c4ae6:	0f 84 e1 00 00 00    	je     9c4bcd <mark_slice+0x15d>
+  9c4aec:	49 8b 52 e8          	mov    -0x18(%r10),%rdx
+  9c4af0:	49 8b 7a f8          	mov    -0x8(%r10),%rdi
+  9c4af4:	49 8b 42 f0          	mov    -0x10(%r10),%rax
+  9c4af8:	48 39 fa             	cmp    %rdi,%rdx
+  9c4afb:	0f 83 53 01 00 00    	jae    9c4c54 <mark_slice+0x1e4>
+  9c4b01:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9c4b08:	48 39 c2             	cmp    %rax,%rdx
+  9c4b0b:	73 56                	jae    9c4b63 <mark_slice+0xf3>
+  9c4b0d:	48 8b 32             	mov    (%rdx),%rsi
+  9c4b10:	40 f6 c6 01          	test   $0x1,%sil
+  9c4b14:	75 1a                	jne    9c4b30 <mark_slice+0xc0>
+  9c4b16:	4c 8b 0d eb ab 5e 00 	mov    0x5eabeb(%rip),%r9        # faf708 <Caml_state>
+  9c4b1d:	49 3b 71 28          	cmp    0x28(%r9),%rsi
+  9c4b21:	73 7d                	jae    9c4ba0 <mark_slice+0x130>
+  9c4b23:	49 39 71 20          	cmp    %rsi,0x20(%r9)
+  9c4b27:	73 77                	jae    9c4ba0 <mark_slice+0x130>
+  9c4b29:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9c4b30:	48 83 c2 08          	add    $0x8,%rdx
+  9c4b34:	48 39 c2             	cmp    %rax,%rdx
+  9c4b37:	72 d4                	jb     9c4b0d <mark_slice+0x9d>
+  9c4b39:	48 39 f8             	cmp    %rdi,%rax
+  9c4b3c:	73 2a                	jae    9c4b68 <mark_slice+0xf8>
+  9c4b3e:	66 90                	xchg   %ax,%ax
+  9c4b40:	80 38 fa             	cmpb   $0xfa,(%rax)
+  9c4b43:	48 8b 10             	mov    (%rax),%rdx
+  9c4b46:	48 8d 70 08          	lea    0x8(%rax),%rsi
+  9c4b4a:	77 0f                	ja     9c4b5b <mark_slice+0xeb>
+  9c4b4c:	49 89 d1             	mov    %rdx,%r9
+  9c4b4f:	49 f7 d1             	not    %r9
+  9c4b52:	41 f7 c1 00 03 00 00 	test   $0x300,%r9d
+  9c4b59:	74 0d                	je     9c4b68 <mark_slice+0xf8>
+  9c4b5b:	48 c1 ea 0a          	shr    $0xa,%rdx
+  9c4b5f:	48 8d 04 d6          	lea    (%rsi,%rdx,8),%rax
+  9c4b63:	48 39 f8             	cmp    %rdi,%rax
+  9c4b66:	72 d8                	jb     9c4b40 <mark_slice+0xd0>
+  9c4b68:	48 89 c6             	mov    %rax,%rsi
+  9c4b6b:	48 39 c7             	cmp    %rax,%rdi
+  9c4b6e:	0f 84 c7 00 00 00    	je     9c4c3b <mark_slice+0x1cb>
+  9c4b74:	48 8d 50 08          	lea    0x8(%rax),%rdx
+  9c4b78:	48 8b 00             	mov    (%rax),%rax
+  9c4b7b:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c4b7f:	80 3e f7             	cmpb   $0xf7,(%rsi)
+  9c4b82:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+  9c4b86:	75 80                	jne    9c4b08 <mark_slice+0x98>
+  9c4b88:	48 8b 76 10          	mov    0x10(%rsi),%rsi
+  9c4b8c:	48 c1 e6 08          	shl    $0x8,%rsi
+  9c4b90:	48 c1 ee 09          	shr    $0x9,%rsi
+  9c4b94:	48 8d 14 f2          	lea    (%rdx,%rsi,8),%rdx
+  9c4b98:	e9 6b ff ff ff       	jmp    9c4b08 <mark_slice+0x98>
+  9c4b9d:	0f 1f 00             	nopl   (%rax)
+  9c4ba0:	4d 8b 4f 10          	mov    0x10(%r15),%r9
+  9c4ba4:	49 8b 77 08          	mov    0x8(%r15),%rsi
+  9c4ba8:	49 c1 e9 02          	shr    $0x2,%r9
+  9c4bac:	4c 39 ce             	cmp    %r9,%rsi
+  9c4baf:	0f 83 00 01 00 00    	jae    9c4cb5 <mark_slice+0x245>
+  9c4bb5:	4c 8d 4e 01          	lea    0x1(%rsi),%r9
+  9c4bb9:	48 c1 e6 04          	shl    $0x4,%rsi
+  9c4bbd:	49 03 37             	add    (%r15),%rsi
+  9c4bc0:	4d 89 4f 08          	mov    %r9,0x8(%r15)
+  9c4bc4:	48 89 16             	mov    %rdx,(%rsi)
+  9c4bc7:	48 89 46 08          	mov    %rax,0x8(%rsi)
+  9c4bcb:	eb 96                	jmp    9c4b63 <mark_slice+0xf3>
+  9c4bcd:	8b 15 41 65 5e 00    	mov    0x5e6541(%rip),%edx        # fab114 <caml_gc_subphase>
+  9c4bd3:	83 fa 0a             	cmp    $0xa,%edx
+  9c4bd6:	0f 84 2c 01 00 00    	je     9c4d08 <mark_slice+0x298>
+  9c4bdc:	48 8b 05 85 65 5e 00 	mov    0x5e6585(%rip),%rax        # fab168 <ephes_to_check>
+  9c4be3:	48 8b 18             	mov    (%rax),%rbx
+  9c4be6:	48 85 db             	test   %rbx,%rbx
+  9c4be9:	0f 85 d3 00 00 00    	jne    9c4cc2 <mark_slice+0x252>
+  9c4bef:	8b 0d 1b 65 5e 00    	mov    0x5e651b(%rip),%ecx        # fab110 <caml_ephe_list_pure>
+  9c4bf5:	85 c9                	test   %ecx,%ecx
+  9c4bf7:	75 6b                	jne    9c4c64 <mark_slice+0x1f4>
+  9c4bf9:	48 8b 05 70 65 5e 00 	mov    0x5e6570(%rip),%rax        # fab170 <ephes_checked_if_pure>
+  9c4c00:	4c 89 ef             	mov    %r13,%rdi
+  9c4c03:	c7 05 03 65 5e 00 01 	movl   $0x1,0x5e6503(%rip)        # fab110 <caml_ephe_list_pure>
+  9c4c0a:	00 00 00 
+  9c4c0d:	48 89 05 54 65 5e 00 	mov    %rax,0x5e6554(%rip)        # fab168 <ephes_to_check>
+  9c4c14:	e8 87 f9 ff ff       	call   9c45a0 <do_some_marking>
+  9c4c19:	49 89 c5             	mov    %rax,%r13
+  9c4c1c:	48 85 c0             	test   %rax,%rax
+  9c4c1f:	0f 8f b7 fe ff ff    	jg     9c4adc <mark_slice+0x6c>
+  9c4c25:	48 29 05 6c 65 5e 00 	sub    %rax,0x5e656c(%rip)        # fab198 <marked_words>
+  9c4c2c:	48 83 c4 18          	add    $0x18,%rsp
+  9c4c30:	5b                   	pop    %rbx
+  9c4c31:	5d                   	pop    %rbp
+  9c4c32:	41 5c                	pop    %r12
+  9c4c34:	41 5d                	pop    %r13
+  9c4c36:	41 5e                	pop    %r14
+  9c4c38:	41 5f                	pop    %r15
+  9c4c3a:	c3                   	ret
+  9c4c3b:	49 8b 42 d8          	mov    -0x28(%r10),%rax
+  9c4c3f:	4d 89 52 f8          	mov    %r10,-0x8(%r10)
+  9c4c43:	4c 01 d0             	add    %r10,%rax
+  9c4c46:	66 48 0f 6e c0       	movq   %rax,%xmm0
+  9c4c4b:	66 0f 6c c0          	punpcklqdq %xmm0,%xmm0
+  9c4c4f:	41 0f 11 42 e8       	movups %xmm0,-0x18(%r10)
+  9c4c54:	49 8b 42 e0          	mov    -0x20(%r10),%rax
+  9c4c58:	48 89 05 29 65 5e 00 	mov    %rax,0x5e6529(%rip)        # fab188 <redarken_first_chunk>
+  9c4c5f:	e9 64 fe ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4c64:	83 fa 0b             	cmp    $0xb,%edx
+  9c4c67:	0f 84 e3 01 00 00    	je     9c4e50 <mark_slice+0x3e0>
+  9c4c6d:	83 fa 0c             	cmp    $0xc,%edx
+  9c4c70:	0f 85 52 fe ff ff    	jne    9c4ac8 <mark_slice+0x58>
+  9c4c76:	c7 05 c0 64 5e 00 01 	movl   $0x1,0x5e64c0(%rip)        # fab140 <caml_gc_phase>
+  9c4c7d:	00 00 00 
+  9c4c80:	e8 3b 77 01 00       	call   9dc3c0 <caml_final_update_clean_phase>
+  9c4c85:	e8 16 d5 01 00       	call   9e21a0 <caml_memprof_update_clean_phase>
+  9c4c8a:	48 83 3d 36 9f 5e 00 	cmpq   $0x0,0x5e9f36(%rip)        # faebc8 <caml_ephe_list_head>
+  9c4c91:	00 
+  9c4c92:	0f 84 f9 01 00 00    	je     9c4e91 <mark_slice+0x421>
+  9c4c98:	48 8d 05 29 9f 5e 00 	lea    0x5e9f29(%rip),%rax        # faebc8 <caml_ephe_list_head>
+  9c4c9f:	48 89 05 c2 64 5e 00 	mov    %rax,0x5e64c2(%rip)        # fab168 <ephes_to_check>
+  9c4ca6:	4c 29 2d eb 64 5e 00 	sub    %r13,0x5e64eb(%rip)        # fab198 <marked_words>
+  9c4cad:	45 31 ed             	xor    %r13d,%r13d
+  9c4cb0:	e9 13 fe ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4cb5:	49 89 52 e8          	mov    %rdx,-0x18(%r10)
+  9c4cb9:	49 89 42 f0          	mov    %rax,-0x10(%r10)
+  9c4cbd:	e9 06 fe ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4cc2:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+  9c4cc6:	48 3b 2d 43 5b 5e 00 	cmp    0x5e5b43(%rip),%rbp        # faa810 <caml_ephe_none>
+  9c4ccd:	4c 8b 63 f8          	mov    -0x8(%rbx),%r12
+  9c4cd1:	74 06                	je     9c4cd9 <mark_slice+0x269>
+  9c4cd3:	40 f6 c5 01          	test   $0x1,%bpl
+  9c4cd7:	74 60                	je     9c4d39 <mark_slice+0x2c9>
+  9c4cd9:	49 83 ed 01          	sub    $0x1,%r13
+  9c4cdd:	48 8b 15 8c 64 5e 00 	mov    0x5e648c(%rip),%rdx        # fab170 <ephes_checked_if_pure>
+  9c4ce4:	48 39 c2             	cmp    %rax,%rdx
+  9c4ce7:	0f 84 85 01 00 00    	je     9c4e72 <mark_slice+0x402>
+  9c4ced:	48 8b 33             	mov    (%rbx),%rsi
+  9c4cf0:	48 89 1d 79 64 5e 00 	mov    %rbx,0x5e6479(%rip)        # fab170 <ephes_checked_if_pure>
+  9c4cf7:	48 89 30             	mov    %rsi,(%rax)
+  9c4cfa:	48 8b 02             	mov    (%rdx),%rax
+  9c4cfd:	48 89 03             	mov    %rax,(%rbx)
+  9c4d00:	48 89 1a             	mov    %rbx,(%rdx)
+  9c4d03:	e9 c0 fd ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4d08:	48 89 c7             	mov    %rax,%rdi
+  9c4d0b:	48 29 05 86 64 5e 00 	sub    %rax,0x5e6486(%rip)        # fab198 <marked_words>
+  9c4d12:	e8 c9 de ff ff       	call   9c2be0 <caml_darken_all_roots_slice>
+  9c4d17:	48 01 05 7a 64 5e 00 	add    %rax,0x5e647a(%rip)        # fab198 <marked_words>
+  9c4d1e:	49 89 c5             	mov    %rax,%r13
+  9c4d21:	48 85 c0             	test   %rax,%rax
+  9c4d24:	0f 8e 9e fd ff ff    	jle    9c4ac8 <mark_slice+0x58>
+  9c4d2a:	c7 05 e0 63 5e 00 0b 	movl   $0xb,0x5e63e0(%rip)        # fab114 <caml_gc_subphase>
+  9c4d31:	00 00 00 
+  9c4d34:	e9 8f fd ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4d39:	48 89 ef             	mov    %rbp,%rdi
+  9c4d3c:	e8 6f 26 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c4d41:	a8 01                	test   $0x1,%al
+  9c4d43:	0f 84 3c 01 00 00    	je     9c4e85 <mark_slice+0x415>
+  9c4d49:	48 f7 45 f8 00 03 00 	testq  $0x300,-0x8(%rbp)
+  9c4d50:	00 
+  9c4d51:	0f 85 2e 01 00 00    	jne    9c4e85 <mark_slice+0x415>
+  9c4d57:	4c 89 e1             	mov    %r12,%rcx
+  9c4d5a:	4c 89 e0             	mov    %r12,%rax
+  9c4d5d:	48 c1 e9 0a          	shr    $0xa,%rcx
+  9c4d61:	25 00 03 00 00       	and    $0x300,%eax
+  9c4d66:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+  9c4d6b:	49 81 fc ff 0b 00 00 	cmp    $0xbff,%r12
+  9c4d72:	0f 86 41 01 00 00    	jbe    9c4eb9 <mark_slice+0x449>
+  9c4d78:	48 85 c0             	test   %rax,%rax
+  9c4d7b:	0f 84 38 01 00 00    	je     9c4eb9 <mark_slice+0x449>
+  9c4d81:	48 c7 04 24 02 00 00 	movq   $0x2,(%rsp)
+  9c4d88:	00 
+  9c4d89:	48 8d 6b 10          	lea    0x10(%rbx),%rbp
+  9c4d8d:	4c 8b 75 00          	mov    0x0(%rbp),%r14
+  9c4d91:	4c 39 35 78 5a 5e 00 	cmp    %r14,0x5e5a78(%rip)        # faa810 <caml_ephe_none>
+  9c4d98:	74 6e                	je     9c4e08 <mark_slice+0x398>
+  9c4d9a:	41 f6 c6 01          	test   $0x1,%r14b
+  9c4d9e:	74 5c                	je     9c4dfc <mark_slice+0x38c>
+  9c4da0:	eb 66                	jmp    9c4e08 <mark_slice+0x398>
+  9c4da2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9c4da8:	41 80 7e f8 fa       	cmpb   $0xfa,-0x8(%r14)
+  9c4dad:	4d 8d 66 f8          	lea    -0x8(%r14),%r12
+  9c4db1:	0f 85 e4 00 00 00    	jne    9c4e9b <mark_slice+0x42b>
+  9c4db7:	4d 8b 36             	mov    (%r14),%r14
+  9c4dba:	41 f6 c6 01          	test   $0x1,%r14b
+  9c4dbe:	0f 85 d7 00 00 00    	jne    9c4e9b <mark_slice+0x42b>
+  9c4dc4:	4c 89 f7             	mov    %r14,%rdi
+  9c4dc7:	e8 e4 25 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c4dcc:	a8 07                	test   $0x7,%al
+  9c4dce:	0f 84 c7 00 00 00    	je     9c4e9b <mark_slice+0x42b>
+  9c4dd4:	41 0f b6 46 f8       	movzbl -0x8(%r14),%eax
+  9c4dd9:	83 c0 0a             	add    $0xa,%eax
+  9c4ddc:	3c 07                	cmp    $0x7,%al
+  9c4dde:	77 0f                	ja     9c4def <mark_slice+0x37f>
+  9c4de0:	b9 91 00 00 00       	mov    $0x91,%ecx
+  9c4de5:	48 0f a3 c1          	bt     %rax,%rcx
+  9c4de9:	0f 82 ac 00 00 00    	jb     9c4e9b <mark_slice+0x42b>
+  9c4def:	4c 89 75 00          	mov    %r14,0x0(%rbp)
+  9c4df3:	4c 39 35 16 5a 5e 00 	cmp    %r14,0x5e5a16(%rip)        # faa810 <caml_ephe_none>
+  9c4dfa:	74 0c                	je     9c4e08 <mark_slice+0x398>
+  9c4dfc:	4c 89 f7             	mov    %r14,%rdi
+  9c4dff:	e8 ac 25 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c4e04:	a8 01                	test   $0x1,%al
+  9c4e06:	75 a0                	jne    9c4da8 <mark_slice+0x338>
+  9c4e08:	48 83 04 24 01       	addq   $0x1,(%rsp)
+  9c4e0d:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  9c4e12:	48 83 c5 08          	add    $0x8,%rbp
+  9c4e16:	48 8b 04 24          	mov    (%rsp),%rax
+  9c4e1a:	48 39 c8             	cmp    %rcx,%rax
+  9c4e1d:	0f 82 6a ff ff ff    	jb     9c4d8d <mark_slice+0x31d>
+  9c4e23:	48 8b 04 24          	mov    (%rsp),%rax
+  9c4e27:	4d 8d 65 ff          	lea    -0x1(%r13),%r12
+  9c4e2b:	49 29 c4             	sub    %rax,%r12
+  9c4e2e:	4d 89 e5             	mov    %r12,%r13
+  9c4e31:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+  9c4e35:	40 f6 c5 01          	test   $0x1,%bpl
+  9c4e39:	0f 84 91 00 00 00    	je     9c4ed0 <mark_slice+0x460>
+  9c4e3f:	48 8b 05 22 63 5e 00 	mov    0x5e6322(%rip),%rax        # fab168 <ephes_to_check>
+  9c4e46:	e9 92 fe ff ff       	jmp    9c4cdd <mark_slice+0x26d>
+  9c4e4b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c4e50:	e8 4b 75 01 00       	call   9dc3a0 <caml_final_update_mark_phase>
+  9c4e55:	48 8b 05 14 63 5e 00 	mov    0x5e6314(%rip),%rax        # fab170 <ephes_checked_if_pure>
+  9c4e5c:	c7 05 ae 62 5e 00 0c 	movl   $0xc,0x5e62ae(%rip)        # fab114 <caml_gc_subphase>
+  9c4e63:	00 00 00 
+  9c4e66:	48 89 05 fb 62 5e 00 	mov    %rax,0x5e62fb(%rip)        # fab168 <ephes_to_check>
+  9c4e6d:	e9 56 fc ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4e72:	48 89 1d f7 62 5e 00 	mov    %rbx,0x5e62f7(%rip)        # fab170 <ephes_checked_if_pure>
+  9c4e79:	48 89 1d e8 62 5e 00 	mov    %rbx,0x5e62e8(%rip)        # fab168 <ephes_to_check>
+  9c4e80:	e9 43 fc ff ff       	jmp    9c4ac8 <mark_slice+0x58>
+  9c4e85:	48 8b 05 dc 62 5e 00 	mov    0x5e62dc(%rip),%rax        # fab168 <ephes_to_check>
+  9c4e8c:	e9 48 fe ff ff       	jmp    9c4cd9 <mark_slice+0x269>
+  9c4e91:	e8 9a f4 ff ff       	call   9c4330 <init_sweep_phase>
+  9c4e96:	e9 0b fe ff ff       	jmp    9c4ca6 <mark_slice+0x236>
+  9c4e9b:	49 f7 04 24 00 03 00 	testq  $0x300,(%r12)
+  9c4ea2:	00 
+  9c4ea3:	0f 85 5f ff ff ff    	jne    9c4e08 <mark_slice+0x398>
+  9c4ea9:	48 8b 04 24          	mov    (%rsp),%rax
+  9c4ead:	4d 8d 45 fe          	lea    -0x2(%r13),%r8
+  9c4eb1:	49 29 c0             	sub    %rax,%r8
+  9c4eb4:	4d 89 c5             	mov    %r8,%r13
+  9c4eb7:	eb c0                	jmp    9c4e79 <mark_slice+0x409>
+  9c4eb9:	4d 8d 65 fd          	lea    -0x3(%r13),%r12
+  9c4ebd:	4d 89 e5             	mov    %r12,%r13
+  9c4ec0:	48 85 c0             	test   %rax,%rax
+  9c4ec3:	0f 85 68 ff ff ff    	jne    9c4e31 <mark_slice+0x3c1>
+  9c4ec9:	eb ae                	jmp    9c4e79 <mark_slice+0x409>
+  9c4ecb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9c4ed0:	48 89 ef             	mov    %rbp,%rdi
+  9c4ed3:	e8 d8 24 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c4ed8:	a8 01                	test   $0x1,%al
+  9c4eda:	0f 84 5f ff ff ff    	je     9c4e3f <mark_slice+0x3cf>
+  9c4ee0:	4c 8b 75 f8          	mov    -0x8(%rbp),%r14
+  9c4ee4:	48 8d 45 f8          	lea    -0x8(%rbp),%rax
+  9c4ee8:	48 89 04 24          	mov    %rax,(%rsp)
+  9c4eec:	41 0f b6 c6          	movzbl %r14b,%eax
+  9c4ef0:	41 80 fe fa          	cmp    $0xfa,%r14b
+  9c4ef4:	74 5f                	je     9c4f55 <mark_slice+0x4e5>
+  9c4ef6:	3d f9 00 00 00       	cmp    $0xf9,%eax
+  9c4efb:	75 12                	jne    9c4f0f <mark_slice+0x49f>
+  9c4efd:	4c 89 f0             	mov    %r14,%rax
+  9c4f00:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c4f04:	48 c1 e0 03          	shl    $0x3,%rax
+  9c4f08:	48 29 c5             	sub    %rax,%rbp
+  9c4f0b:	4c 8b 75 f8          	mov    -0x8(%rbp),%r14
+  9c4f0f:	41 f7 c6 00 03 00 00 	test   $0x300,%r14d
+  9c4f16:	0f 85 23 ff ff ff    	jne    9c4e3f <mark_slice+0x3cf>
+  9c4f1c:	c7 05 ea 61 5e 00 00 	movl   $0x0,0x5e61ea(%rip)        # fab110 <caml_ephe_list_pure>
+  9c4f23:	00 00 00 
+  9c4f26:	48 8d 45 f8          	lea    -0x8(%rbp),%rax
+  9c4f2a:	48 89 04 24          	mov    %rax,(%rsp)
+  9c4f2e:	4c 89 f0             	mov    %r14,%rax
+  9c4f31:	80 cc 03             	or     $0x3,%ah
+  9c4f34:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  9c4f38:	41 80 fe fa          	cmp    $0xfa,%r14b
+  9c4f3c:	0f 86 cc 00 00 00    	jbe    9c500e <mark_slice+0x59e>
+  9c4f42:	49 83 ec 01          	sub    $0x1,%r12
+  9c4f46:	49 c1 ee 0a          	shr    $0xa,%r14
+  9c4f4a:	4d 29 f4             	sub    %r14,%r12
+  9c4f4d:	4d 89 e5             	mov    %r12,%r13
+  9c4f50:	e9 ea fe ff ff       	jmp    9c4e3f <mark_slice+0x3cf>
+  9c4f55:	48 8b 4d 00          	mov    0x0(%rbp),%rcx
+  9c4f59:	f6 c1 01             	test   $0x1,%cl
+  9c4f5c:	0f 85 8a 00 00 00    	jne    9c4fec <mark_slice+0x57c>
+  9c4f62:	48 89 cf             	mov    %rcx,%rdi
+  9c4f65:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+  9c4f6a:	e8 41 24 00 00       	call   9c73b0 <caml_page_table_lookup>
+  9c4f6f:	a8 07                	test   $0x7,%al
+  9c4f71:	74 79                	je     9c4fec <mark_slice+0x57c>
+  9c4f73:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  9c4f78:	0f b6 41 f8          	movzbl -0x8(%rcx),%eax
+  9c4f7c:	83 c0 0a             	add    $0xa,%eax
+  9c4f7f:	3c 07                	cmp    $0x7,%al
+  9c4f81:	77 0b                	ja     9c4f8e <mark_slice+0x51e>
+  9c4f83:	ba 91 00 00 00       	mov    $0x91,%edx
+  9c4f88:	48 0f a3 c2          	bt     %rax,%rdx
+  9c4f8c:	72 81                	jb     9c4f0f <mark_slice+0x49f>
+  9c4f8e:	48 89 4b 08          	mov    %rcx,0x8(%rbx)
+  9c4f92:	48 8b 05 6f a7 5e 00 	mov    0x5ea76f(%rip),%rax        # faf708 <Caml_state>
+  9c4f99:	48 8b 70 28          	mov    0x28(%rax),%rsi
+  9c4f9d:	48 39 f1             	cmp    %rsi,%rcx
+  9c4fa0:	73 4a                	jae    9c4fec <mark_slice+0x57c>
+  9c4fa2:	48 8b 50 20          	mov    0x20(%rax),%rdx
+  9c4fa6:	48 39 ca             	cmp    %rcx,%rdx
+  9c4fa9:	73 41                	jae    9c4fec <mark_slice+0x57c>
+  9c4fab:	48 39 ee             	cmp    %rbp,%rsi
+  9c4fae:	76 05                	jbe    9c4fb5 <mark_slice+0x545>
+  9c4fb0:	48 39 ea             	cmp    %rbp,%rdx
+  9c4fb3:	72 37                	jb     9c4fec <mark_slice+0x57c>
+  9c4fb5:	48 8b 48 70          	mov    0x70(%rax),%rcx
+  9c4fb9:	48 8b 41 18          	mov    0x18(%rcx),%rax
+  9c4fbd:	48 3b 41 20          	cmp    0x20(%rcx),%rax
+  9c4fc1:	72 16                	jb     9c4fd9 <mark_slice+0x569>
+  9c4fc3:	48 89 cf             	mov    %rcx,%rdi
+  9c4fc6:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+  9c4fcb:	e8 80 23 00 00       	call   9c7350 <caml_realloc_ephe_ref_table>
+  9c4fd0:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  9c4fd5:	48 8b 41 18          	mov    0x18(%rcx),%rax
+  9c4fd9:	48 8d 50 10          	lea    0x10(%rax),%rdx
+  9c4fdd:	48 89 51 18          	mov    %rdx,0x18(%rcx)
+  9c4fe1:	48 89 18             	mov    %rbx,(%rax)
+  9c4fe4:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  9c4feb:	00 
+  9c4fec:	41 f7 c6 00 03 00 00 	test   $0x300,%r14d
+  9c4ff3:	0f 85 46 fe ff ff    	jne    9c4e3f <mark_slice+0x3cf>
+  9c4ff9:	31 c0                	xor    %eax,%eax
+  9c4ffb:	48 8b 0c 24          	mov    (%rsp),%rcx
+  9c4fff:	89 05 0b 61 5e 00    	mov    %eax,0x5e610b(%rip)        # fab110 <caml_ephe_list_pure>
+  9c5005:	4c 89 f0             	mov    %r14,%rax
+  9c5008:	80 cc 03             	or     $0x3,%ah
+  9c500b:	48 89 01             	mov    %rax,(%rcx)
+  9c500e:	48 c1 e8 0a          	shr    $0xa,%rax
+  9c5012:	48 89 c2             	mov    %rax,%rdx
+  9c5015:	b8 08 00 00 00       	mov    $0x8,%eax
+  9c501a:	39 c2                	cmp    %eax,%edx
+  9c501c:	0f 4e c2             	cmovle %edx,%eax
+  9c501f:	89 c6                	mov    %eax,%esi
+  9c5021:	85 d2                	test   %edx,%edx
+  9c5023:	7e 2e                	jle    9c5053 <mark_slice+0x5e3>
+  9c5025:	4c 8b 0d dc a6 5e 00 	mov    0x5ea6dc(%rip),%r9        # faf708 <Caml_state>
+  9c502c:	48 89 ef             	mov    %rbp,%rdi
+  9c502f:	31 c0                	xor    %eax,%eax
+  9c5031:	4c 8b 07             	mov    (%rdi),%r8
+  9c5034:	41 f6 c0 01          	test   $0x1,%r8b
+  9c5038:	75 0c                	jne    9c5046 <mark_slice+0x5d6>
+  9c503a:	4d 3b 41 28          	cmp    0x28(%r9),%r8
+  9c503e:	73 15                	jae    9c5055 <mark_slice+0x5e5>
+  9c5040:	4d 39 41 20          	cmp    %r8,0x20(%r9)
+  9c5044:	73 0f                	jae    9c5055 <mark_slice+0x5e5>
+  9c5046:	83 c0 01             	add    $0x1,%eax
+  9c5049:	48 83 c7 08          	add    $0x8,%rdi
+  9c504d:	39 c6                	cmp    %eax,%esi
+  9c504f:	7f e0                	jg     9c5031 <mark_slice+0x5c1>
+  9c5051:	eb 02                	jmp    9c5055 <mark_slice+0x5e5>
+  9c5053:	31 c0                	xor    %eax,%eax
+  9c5055:	39 d0                	cmp    %edx,%eax
+  9c5057:	74 4a                	je     9c50a3 <mark_slice+0x633>
+  9c5059:	4c 63 f0             	movslq %eax,%r14
+  9c505c:	49 8b 47 08          	mov    0x8(%r15),%rax
+  9c5060:	4d 29 f4             	sub    %r14,%r12
+  9c5063:	4d 89 e5             	mov    %r12,%r13
+  9c5066:	49 3b 47 10          	cmp    0x10(%r15),%rax
+  9c506a:	74 4f                	je     9c50bb <mark_slice+0x64b>
+  9c506c:	48 8d 50 01          	lea    0x1(%rax),%rdx
+  9c5070:	48 8b 0c 24          	mov    (%rsp),%rcx
+  9c5074:	48 c1 e0 04          	shl    $0x4,%rax
+  9c5078:	49 03 07             	add    (%r15),%rax
+  9c507b:	49 89 57 08          	mov    %rdx,0x8(%r15)
+  9c507f:	4a 8d 54 f5 00       	lea    0x0(%rbp,%r14,8),%rdx
+  9c5084:	48 89 10             	mov    %rdx,(%rax)
+  9c5087:	48 8b 11             	mov    (%rcx),%rdx
+  9c508a:	48 c1 ea 0a          	shr    $0xa,%rdx
+  9c508e:	48 8d 54 d5 00       	lea    0x0(%rbp,%rdx,8),%rdx
+  9c5093:	48 89 50 08          	mov    %rdx,0x8(%rax)
+  9c5097:	48 8b 05 ca 60 5e 00 	mov    0x5e60ca(%rip),%rax        # fab168 <ephes_to_check>
+  9c509e:	e9 3a fc ff ff       	jmp    9c4cdd <mark_slice+0x26d>
+  9c50a3:	48 98                	cltq
+  9c50a5:	49 83 ec 01          	sub    $0x1,%r12
+  9c50a9:	49 29 c4             	sub    %rax,%r12
+  9c50ac:	48 8b 05 b5 60 5e 00 	mov    0x5e60b5(%rip),%rax        # fab168 <ephes_to_check>
+  9c50b3:	4d 89 e5             	mov    %r12,%r13
+  9c50b6:	e9 22 fc ff ff       	jmp    9c4cdd <mark_slice+0x26d>
+  9c50bb:	4c 89 ff             	mov    %r15,%rdi
+  9c50be:	e8 dd f2 ff ff       	call   9c43a0 <realloc_mark_stack>
+  9c50c3:	49 8b 47 08          	mov    0x8(%r15),%rax
+  9c50c7:	eb a3                	jmp    9c506c <mark_slice+0x5fc>
+  9c50c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000009ae5d0 <ml_z_format>:
+  9ae5d0:	f3 0f 1e fa          	endbr64
+  9ae5d4:	41 57                	push   %r15
+  9ae5d6:	41 56                	push   %r14
+  9ae5d8:	41 55                	push   %r13
+  9ae5da:	41 54                	push   %r12
+  9ae5dc:	55                   	push   %rbp
+  9ae5dd:	53                   	push   %rbx
+  9ae5de:	48 81 ec e8 00 00 00 	sub    $0xe8,%rsp
+  9ae5e5:	66 0f 6f 05 63 8a 03 	movdqa 0x38a63(%rip),%xmm0        # 9e7050 <caml_absf_mask+0x10>
+  9ae5ec:	00 
+  9ae5ed:	48 89 74 24 50       	mov    %rsi,0x50(%rsp)
+  9ae5f2:	48 8d 94 24 90 00 00 	lea    0x90(%rsp),%rdx
+  9ae5f9:	00 
+  9ae5fa:	48 89 7c 24 58       	mov    %rdi,0x58(%rsp)
+  9ae5ff:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  9ae606:	00 00 
+  9ae608:	48 89 84 24 d8 00 00 	mov    %rax,0xd8(%rsp)
+  9ae60f:	00 
+  9ae610:	48 8d 05 f1 10 60 00 	lea    0x6010f1(%rip),%rax        # faf708 <Caml_state>
+  9ae617:	0f 11 84 24 98 00 00 	movups %xmm0,0x98(%rsp)
+  9ae61e:	00 
+  9ae61f:	48 8b 00             	mov    (%rax),%rax
+  9ae622:	48 8b 98 20 01 00 00 	mov    0x120(%rax),%rbx
+  9ae629:	48 89 90 20 01 00 00 	mov    %rdx,0x120(%rax)
+  9ae630:	48 8d 44 24 58       	lea    0x58(%rsp),%rax
+  9ae635:	48 89 f2             	mov    %rsi,%rdx
+  9ae638:	66 48 0f 6e c0       	movq   %rax,%xmm0
+  9ae63d:	48 8d 44 24 50       	lea    0x50(%rsp),%rax
+  9ae642:	83 e6 01             	and    $0x1,%esi
+  9ae645:	66 48 0f 6e c8       	movq   %rax,%xmm1
+  9ae64a:	48 89 5c 24 20       	mov    %rbx,0x20(%rsp)
+  9ae64f:	48 89 f8             	mov    %rdi,%rax
+  9ae652:	66 0f 6c c1          	punpcklqdq %xmm1,%xmm0
+  9ae656:	48 89 9c 24 90 00 00 	mov    %rbx,0x90(%rsp)
+  9ae65d:	00 
+  9ae65e:	0f 11 84 24 a8 00 00 	movups %xmm0,0xa8(%rsp)
+  9ae665:	00 
+  9ae666:	66 0f 6f 05 22 8a 03 	movdqa 0x38a22(%rip),%xmm0        # 9e7090 <caml_absf_mask+0x50>
+  9ae66d:	00 
+  9ae66e:	0f 29 44 24 70       	movaps %xmm0,0x70(%rsp)
+  9ae673:	66 0f 6f 05 25 8a 03 	movdqa 0x38a25(%rip),%xmm0        # 9e70a0 <caml_absf_mask+0x60>
+  9ae67a:	00 
+  9ae67b:	0f 29 84 24 80 00 00 	movaps %xmm0,0x80(%rsp)
+  9ae682:	00 
+  9ae683:	0f 84 07 01 00 00    	je     9ae790 <ml_z_format+0x1c0>
+  9ae689:	48 d1 fa             	sar    $1,%rdx
+  9ae68c:	48 8d 74 24 68       	lea    0x68(%rsp),%rsi
+  9ae691:	48 bf 00 00 00 00 00 	movabs $0x8000000000000000,%rdi
+  9ae698:	00 00 80 
+  9ae69b:	48 89 d1             	mov    %rdx,%rcx
+  9ae69e:	48 89 74 24 30       	mov    %rsi,0x30(%rsp)
+  9ae6a3:	48 f7 d9             	neg    %rcx
+  9ae6a6:	48 0f 48 ca          	cmovs  %rdx,%rcx
+  9ae6aa:	45 31 c9             	xor    %r9d,%r9d
+  9ae6ad:	48 21 d7             	and    %rdx,%rdi
+  9ae6b0:	48 85 d2             	test   %rdx,%rdx
+  9ae6b3:	41 0f 95 c1          	setne  %r9b
+  9ae6b7:	48 89 4c 24 68       	mov    %rcx,0x68(%rsp)
+  9ae6bc:	80 38 25             	cmpb   $0x25,(%rax)
+  9ae6bf:	75 10                	jne    9ae6d1 <ml_z_format+0x101>
+  9ae6c1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9ae6c8:	48 83 c0 01          	add    $0x1,%rax
+  9ae6cc:	80 38 25             	cmpb   $0x25,(%rax)
+  9ae6cf:	74 f7                	je     9ae6c8 <ml_z_format+0xf8>
+  9ae6d1:	41 bc 20 00 00 00    	mov    $0x20,%r12d
+  9ae6d7:	c7 44 24 08 00 00 00 	movl   $0x0,0x8(%rsp)
+  9ae6de:	00 
+  9ae6df:	45 31 ed             	xor    %r13d,%r13d
+  9ae6e2:	48 8d 35 0f 41 04 00 	lea    0x4410f(%rip),%rsi        # 9f27f8 <caml_absf_mask+0xb7b8>
+  9ae6e9:	c7 44 24 10 00 00 00 	movl   $0x0,0x10(%rsp)
+  9ae6f0:	00 
+  9ae6f1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9ae6f8:	0f be 10             	movsbl (%rax),%edx
+  9ae6fb:	8d 4a e0             	lea    -0x20(%rdx),%ecx
+  9ae6fe:	80 f9 10             	cmp    $0x10,%cl
+  9ae701:	77 0d                	ja     9ae710 <ml_z_format+0x140>
+  9ae703:	0f b6 c9             	movzbl %cl,%ecx
+  9ae706:	48 63 0c 8e          	movslq (%rsi,%rcx,4),%rcx
+  9ae70a:	48 01 f1             	add    %rsi,%rcx
+  9ae70d:	3e ff e1             	notrack jmp *%rcx
+  9ae710:	48 85 ff             	test   %rdi,%rdi
+  9ae713:	b9 2d 00 00 00       	mov    $0x2d,%ecx
+  9ae718:	44 0f 45 e9          	cmovne %ecx,%r13d
+  9ae71c:	8d 4a d0             	lea    -0x30(%rdx),%ecx
+  9ae71f:	31 ed                	xor    %ebp,%ebp
+  9ae721:	80 f9 09             	cmp    $0x9,%cl
+  9ae724:	77 21                	ja     9ae747 <ml_z_format+0x177>
+  9ae726:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9ae72d:	00 00 00 
+  9ae730:	8d 4c ad 00          	lea    0x0(%rbp,%rbp,4),%ecx
+  9ae734:	48 83 c0 01          	add    $0x1,%rax
+  9ae738:	8d 6c 4a d0          	lea    -0x30(%rdx,%rcx,2),%ebp
+  9ae73c:	0f be 10             	movsbl (%rax),%edx
+  9ae73f:	8d 4a d0             	lea    -0x30(%rdx),%ecx
+  9ae742:	80 f9 09             	cmp    $0x9,%cl
+  9ae745:	76 e9                	jbe    9ae730 <ml_z_format+0x160>
+  9ae747:	83 ea 58             	sub    $0x58,%edx
+  9ae74a:	80 fa 20             	cmp    $0x20,%dl
+  9ae74d:	0f 87 d9 04 00 00    	ja     9aec2c <ml_z_format+0x65c>
+  9ae753:	48 8d 0d e2 40 04 00 	lea    0x440e2(%rip),%rcx        # 9f283c <caml_absf_mask+0xb7fc>
+  9ae75a:	0f b6 d2             	movzbl %dl,%edx
+  9ae75d:	48 63 04 91          	movslq (%rcx,%rdx,4),%rax
+  9ae761:	48 01 c8             	add    %rcx,%rax
+  9ae764:	3e ff e0             	notrack jmp *%rax
+  9ae767:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9ae76e:	00 00 
+  9ae770:	41 89 d5             	mov    %edx,%r13d
+  9ae773:	48 83 c0 01          	add    $0x1,%rax
+  9ae777:	e9 7c ff ff ff       	jmp    9ae6f8 <ml_z_format+0x128>
+  9ae77c:	0f 1f 40 00          	nopl   0x0(%rax)
+  9ae780:	c7 44 24 08 01 00 00 	movl   $0x1,0x8(%rsp)
+  9ae787:	00 
+  9ae788:	eb e9                	jmp    9ae773 <ml_z_format+0x1a3>
+  9ae78a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9ae790:	48 8b 7a 08          	mov    0x8(%rdx),%rdi
+  9ae794:	48 8d 72 10          	lea    0x10(%rdx),%rsi
+  9ae798:	48 b9 00 00 00 00 00 	movabs $0x8000000000000000,%rcx
+  9ae79f:	00 00 80 
+  9ae7a2:	48 89 74 24 30       	mov    %rsi,0x30(%rsp)
+  9ae7a7:	49 89 f9             	mov    %rdi,%r9
+  9ae7aa:	48 21 cf             	and    %rcx,%rdi
+  9ae7ad:	49 0f ba f1 3f       	btr    $0x3f,%r9
+  9ae7b2:	e9 05 ff ff ff       	jmp    9ae6bc <ml_z_format+0xec>
+  9ae7b7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9ae7be:	00 00 
+  9ae7c0:	41 89 d4             	mov    %edx,%r12d
+  9ae7c3:	eb ae                	jmp    9ae773 <ml_z_format+0x1a3>
+  9ae7c5:	0f 1f 00             	nopl   (%rax)
+  9ae7c8:	c7 44 24 10 01 00 00 	movl   $0x1,0x10(%rsp)
+  9ae7cf:	00 
+  9ae7d0:	eb a1                	jmp    9ae773 <ml_z_format+0x1a3>
+  9ae7d2:	c7 44 24 10 00 00 00 	movl   $0x0,0x10(%rsp)
+  9ae7d9:	00 
+  9ae7da:	4c 8d 35 ee 24 04 00 	lea    0x424ee(%rip),%r14        # 9f0ccf <caml_absf_mask+0x9c8f>
+  9ae7e1:	c7 44 24 44 0a 00 00 	movl   $0xa,0x44(%rsp)
+  9ae7e8:	00 
+  9ae7e9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  9ae7f0:	8b 54 24 08          	mov    0x8(%rsp),%edx
+  9ae7f4:	b8 20 00 00 00       	mov    $0x20,%eax
+  9ae7f9:	4c 89 4c 24 28       	mov    %r9,0x28(%rsp)
+  9ae7fe:	85 d2                	test   %edx,%edx
+  9ae800:	4c 89 ca             	mov    %r9,%rdx
+  9ae803:	44 0f 45 e0          	cmovne %eax,%r12d
+  9ae807:	8d 44 2d 00          	lea    0x0(%rbp,%rbp,1),%eax
+  9ae80b:	48 c1 e2 06          	shl    $0x6,%rdx
+  9ae80f:	48 98                	cltq
+  9ae811:	48 8d 44 02 05       	lea    0x5(%rdx,%rax,1),%rax
+  9ae816:	48 89 c7             	mov    %rax,%rdi
+  9ae819:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  9ae81e:	e8 fd 72 b7 ff       	call   525b20 <malloc@plt>
+  9ae823:	4c 8b 4c 24 28       	mov    0x28(%rsp),%r9
+  9ae828:	48 89 c3             	mov    %rax,%rbx
+  9ae82b:	48 63 c5             	movslq %ebp,%rax
+  9ae82e:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  9ae833:	4c 8d 7c 03 03       	lea    0x3(%rbx,%rax,1),%r15
+  9ae838:	4d 85 c9             	test   %r9,%r9
+  9ae83b:	0f 85 2f 02 00 00    	jne    9aea70 <ml_z_format+0x4a0>
+  9ae841:	41 c6 07 30          	movb   $0x30,(%r15)
+  9ae845:	ba 01 00 00 00       	mov    $0x1,%edx
+  9ae84a:	4c 89 f7             	mov    %r14,%rdi
+  9ae84d:	48 89 54 24 10       	mov    %rdx,0x10(%rsp)
+  9ae852:	e8 a9 6a b7 ff       	call   525300 <strlen@plt>
+  9ae857:	41 80 fc 20          	cmp    $0x20,%r12b
+  9ae85b:	48 8b 54 24 10       	mov    0x10(%rsp),%rdx
+  9ae860:	48 89 c1             	mov    %rax,%rcx
+  9ae863:	0f 84 87 01 00 00    	je     9ae9f0 <ml_z_format+0x420>
+  9ae869:	41 80 fd 01          	cmp    $0x1,%r13b
+  9ae86d:	41 89 e8             	mov    %ebp,%r8d
+  9ae870:	41 83 d0 ff          	adc    $0xffffffff,%r8d
+  9ae874:	41 29 c0             	sub    %eax,%r8d
+  9ae877:	49 63 e8             	movslq %r8d,%rbp
+  9ae87a:	48 39 ea             	cmp    %rbp,%rdx
+  9ae87d:	0f 8d a1 03 00 00    	jge    9aec24 <ml_z_format+0x654>
+  9ae883:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9ae888:	48 89 d0             	mov    %rdx,%rax
+  9ae88b:	41 0f be f4          	movsbl %r12b,%esi
+  9ae88f:	48 29 e8             	sub    %rbp,%rax
+  9ae892:	49 01 c7             	add    %rax,%r15
+  9ae895:	48 89 e8             	mov    %rbp,%rax
+  9ae898:	48 29 d0             	sub    %rdx,%rax
+  9ae89b:	4c 89 ff             	mov    %r15,%rdi
+  9ae89e:	48 89 c2             	mov    %rax,%rdx
+  9ae8a1:	e8 8a 6b b7 ff       	call   525430 <memset@plt>
+  9ae8a6:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  9ae8ab:	4d 89 fc             	mov    %r15,%r12
+  9ae8ae:	48 85 c9             	test   %rcx,%rcx
+  9ae8b1:	75 0a                	jne    9ae8bd <ml_z_format+0x2ed>
+  9ae8b3:	eb 22                	jmp    9ae8d7 <ml_z_format+0x307>
+  9ae8b5:	0f 1f 00             	nopl   (%rax)
+  9ae8b8:	b9 01 00 00 00       	mov    $0x1,%ecx
+  9ae8bd:	41 0f b6 44 0e ff    	movzbl -0x1(%r14,%rcx,1),%eax
+  9ae8c3:	49 83 ec 01          	sub    $0x1,%r12
+  9ae8c7:	41 88 04 24          	mov    %al,(%r12)
+  9ae8cb:	48 83 f9 01          	cmp    $0x1,%rcx
+  9ae8cf:	75 e7                	jne    9ae8b8 <ml_z_format+0x2e8>
+  9ae8d1:	4c 01 fd             	add    %r15,%rbp
+  9ae8d4:	4c 29 e5             	sub    %r12,%rbp
+  9ae8d7:	45 84 ed             	test   %r13b,%r13b
+  9ae8da:	74 0d                	je     9ae8e9 <ml_z_format+0x319>
+  9ae8dc:	45 88 6c 24 ff       	mov    %r13b,-0x1(%r12)
+  9ae8e1:	48 83 c5 01          	add    $0x1,%rbp
+  9ae8e5:	49 83 ec 01          	sub    $0x1,%r12
+  9ae8e9:	4c 01 e5             	add    %r12,%rbp
+  9ae8ec:	c6 45 00 00          	movb   $0x0,0x0(%rbp)
+  9ae8f0:	49 39 dc             	cmp    %rbx,%r12
+  9ae8f3:	0f 82 4f 03 00 00    	jb     9aec48 <ml_z_format+0x678>
+  9ae8f9:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  9ae8fe:	48 01 d8             	add    %rbx,%rax
+  9ae901:	48 39 c5             	cmp    %rax,%rbp
+  9ae904:	0f 83 3e 03 00 00    	jae    9aec48 <ml_z_format+0x678>
+  9ae90a:	4c 89 e7             	mov    %r12,%rdi
+  9ae90d:	e8 8e a2 01 00       	call   9c8ba0 <caml_copy_string>
+  9ae912:	48 89 df             	mov    %rbx,%rdi
+  9ae915:	48 89 c5             	mov    %rax,%rbp
+  9ae918:	e8 93 70 b7 ff       	call   5259b0 <free@plt>
+  9ae91d:	48 8d 05 e4 0d 60 00 	lea    0x600de4(%rip),%rax        # faf708 <Caml_state>
+  9ae924:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+  9ae929:	48 8b 00             	mov    (%rax),%rax
+  9ae92c:	48 89 b0 20 01 00 00 	mov    %rsi,0x120(%rax)
+  9ae933:	48 8b 84 24 d8 00 00 	mov    0xd8(%rsp),%rax
+  9ae93a:	00 
+  9ae93b:	64 48 2b 04 25 28 00 	sub    %fs:0x28,%rax
+  9ae942:	00 00 
+  9ae944:	0f 85 0a 03 00 00    	jne    9aec54 <ml_z_format+0x684>
+  9ae94a:	48 81 c4 e8 00 00 00 	add    $0xe8,%rsp
+  9ae951:	48 89 e8             	mov    %rbp,%rax
+  9ae954:	5b                   	pop    %rbx
+  9ae955:	5d                   	pop    %rbp
+  9ae956:	41 5c                	pop    %r12
+  9ae958:	41 5d                	pop    %r13
+  9ae95a:	41 5e                	pop    %r14
+  9ae95c:	41 5f                	pop    %r15
+  9ae95e:	c3                   	ret
+  9ae95f:	8b 4c 24 10          	mov    0x10(%rsp),%ecx
+  9ae963:	85 c9                	test   %ecx,%ecx
+  9ae965:	0f 85 9d 02 00 00    	jne    9aec08 <ml_z_format+0x638>
+  9ae96b:	c7 44 24 44 10 00 00 	movl   $0x10,0x44(%rsp)
+  9ae972:	00 
+  9ae973:	4c 8d 35 55 23 04 00 	lea    0x42355(%rip),%r14        # 9f0ccf <caml_absf_mask+0x9c8f>
+  9ae97a:	e9 71 fe ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9ae97f:	8b 74 24 10          	mov    0x10(%rsp),%esi
+  9ae983:	c7 44 24 44 10 00 00 	movl   $0x10,0x44(%rsp)
+  9ae98a:	00 
+  9ae98b:	4c 8d 35 fe 16 04 00 	lea    0x416fe(%rip),%r14        # 9f0090 <caml_absf_mask+0x9050>
+  9ae992:	85 f6                	test   %esi,%esi
+  9ae994:	0f 85 56 fe ff ff    	jne    9ae7f0 <ml_z_format+0x220>
+  9ae99a:	c7 44 24 10 01 00 00 	movl   $0x1,0x10(%rsp)
+  9ae9a1:	00 
+  9ae9a2:	4c 8d 35 26 23 04 00 	lea    0x42326(%rip),%r14        # 9f0ccf <caml_absf_mask+0x9c8f>
+  9ae9a9:	e9 42 fe ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9ae9ae:	44 8b 44 24 10       	mov    0x10(%rsp),%r8d
+  9ae9b3:	45 85 c0             	test   %r8d,%r8d
+  9ae9b6:	0f 85 2c 02 00 00    	jne    9aebe8 <ml_z_format+0x618>
+  9ae9bc:	c7 44 24 44 02 00 00 	movl   $0x2,0x44(%rsp)
+  9ae9c3:	00 
+  9ae9c4:	4c 8d 35 04 23 04 00 	lea    0x42304(%rip),%r14        # 9f0ccf <caml_absf_mask+0x9c8f>
+  9ae9cb:	e9 20 fe ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9ae9d0:	8b 7c 24 10          	mov    0x10(%rsp),%edi
+  9ae9d4:	85 ff                	test   %edi,%edi
+  9ae9d6:	0f 85 ec 01 00 00    	jne    9aebc8 <ml_z_format+0x5f8>
+  9ae9dc:	c7 44 24 44 08 00 00 	movl   $0x8,0x44(%rsp)
+  9ae9e3:	00 
+  9ae9e4:	4c 8d 35 e4 22 04 00 	lea    0x422e4(%rip),%r14        # 9f0ccf <caml_absf_mask+0x9c8f>
+  9ae9eb:	e9 00 fe ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9ae9f0:	8b 44 24 08          	mov    0x8(%rsp),%eax
+  9ae9f4:	4d 89 fc             	mov    %r15,%r12
+  9ae9f7:	85 c0                	test   %eax,%eax
+  9ae9f9:	0f 84 51 01 00 00    	je     9aeb50 <ml_z_format+0x580>
+  9ae9ff:	48 85 c9             	test   %rcx,%rcx
+  9aea02:	75 11                	jne    9aea15 <ml_z_format+0x445>
+  9aea04:	eb 29                	jmp    9aea2f <ml_z_format+0x45f>
+  9aea06:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  9aea0d:	00 00 00 
+  9aea10:	b9 01 00 00 00       	mov    $0x1,%ecx
+  9aea15:	41 0f b6 44 0e ff    	movzbl -0x1(%r14,%rcx,1),%eax
+  9aea1b:	49 83 ec 01          	sub    $0x1,%r12
+  9aea1f:	41 88 04 24          	mov    %al,(%r12)
+  9aea23:	48 83 f9 01          	cmp    $0x1,%rcx
+  9aea27:	75 e7                	jne    9aea10 <ml_z_format+0x440>
+  9aea29:	4c 01 fa             	add    %r15,%rdx
+  9aea2c:	4c 29 e2             	sub    %r12,%rdx
+  9aea2f:	45 84 ed             	test   %r13b,%r13b
+  9aea32:	74 0d                	je     9aea41 <ml_z_format+0x471>
+  9aea34:	45 88 6c 24 ff       	mov    %r13b,-0x1(%r12)
+  9aea39:	48 83 c2 01          	add    $0x1,%rdx
+  9aea3d:	49 83 ec 01          	sub    $0x1,%r12
+  9aea41:	48 8b 6c 24 38       	mov    0x38(%rsp),%rbp
+  9aea46:	48 39 d5             	cmp    %rdx,%rbp
+  9aea49:	0f 8e f1 01 00 00    	jle    9aec40 <ml_z_format+0x670>
+  9aea4f:	48 89 e8             	mov    %rbp,%rax
+  9aea52:	49 8d 3c 14          	lea    (%r12,%rdx,1),%rdi
+  9aea56:	be 20 00 00 00       	mov    $0x20,%esi
+  9aea5b:	48 29 d0             	sub    %rdx,%rax
+  9aea5e:	48 89 c2             	mov    %rax,%rdx
+  9aea61:	e8 ca 69 b7 ff       	call   525430 <memset@plt>
+  9aea66:	e9 7e fe ff ff       	jmp    9ae8e9 <ml_z_format+0x319>
+  9aea6b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9aea70:	4a 8d 14 cd 00 00 00 	lea    0x0(,%r9,8),%rdx
+  9aea77:	00 
+  9aea78:	4c 89 4c 24 48       	mov    %r9,0x48(%rsp)
+  9aea7d:	48 89 d7             	mov    %rdx,%rdi
+  9aea80:	48 89 54 24 28       	mov    %rdx,0x28(%rsp)
+  9aea85:	e8 96 70 b7 ff       	call   525b20 <malloc@plt>
+  9aea8a:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  9aea8f:	48 8b 74 24 30       	mov    0x30(%rsp),%rsi
+  9aea94:	48 89 c7             	mov    %rax,%rdi
+  9aea97:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  9aea9c:	48 89 d1             	mov    %rdx,%rcx
+  9aea9f:	e8 ec 73 b7 ff       	call   525e90 <__memcpy_chk@plt>
+  9aeaa4:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+  9aeaa9:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  9aeaae:	4c 89 ff             	mov    %r15,%rdi
+  9aeab1:	8b 74 24 44          	mov    0x44(%rsp),%esi
+  9aeab5:	e8 56 71 b7 ff       	call   525c10 <__gmpn_get_str@plt>
+  9aeaba:	48 89 c2             	mov    %rax,%rdx
+  9aeabd:	49 8d 0c 07          	lea    (%r15,%rax,1),%rcx
+  9aeac1:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  9aeac6:	48 01 d8             	add    %rbx,%rax
+  9aeac9:	48 39 c1             	cmp    %rax,%rcx
+  9aeacc:	0f 83 76 01 00 00    	jae    9aec48 <ml_z_format+0x678>
+  9aead2:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  9aead7:	48 89 54 24 30       	mov    %rdx,0x30(%rsp)
+  9aeadc:	e8 cf 6e b7 ff       	call   5259b0 <free@plt>
+  9aeae1:	48 8b 54 24 30       	mov    0x30(%rsp),%rdx
+  9aeae6:	48 85 d2             	test   %rdx,%rdx
+  9aeae9:	75 13                	jne    9aeafe <ml_z_format+0x52e>
+  9aeaeb:	e9 5a fd ff ff       	jmp    9ae84a <ml_z_format+0x27a>
+  9aeaf0:	49 83 c7 01          	add    $0x1,%r15
+  9aeaf4:	48 83 ea 01          	sub    $0x1,%rdx
+  9aeaf8:	0f 84 4c fd ff ff    	je     9ae84a <ml_z_format+0x27a>
+  9aeafe:	41 80 3f 00          	cmpb   $0x0,(%r15)
+  9aeb02:	74 ec                	je     9aeaf0 <ml_z_format+0x520>
+  9aeb04:	48 85 d2             	test   %rdx,%rdx
+  9aeb07:	0f 8e 3d fd ff ff    	jle    9ae84a <ml_z_format+0x27a>
+  9aeb0d:	48 63 4c 24 10       	movslq 0x10(%rsp),%rcx
+  9aeb12:	4c 89 f8             	mov    %r15,%rax
+  9aeb15:	4a 8d 3c 3a          	lea    (%rdx,%r15,1),%rdi
+  9aeb19:	48 c1 e1 04          	shl    $0x4,%rcx
+  9aeb1d:	48 8d b1 e0 00 00 00 	lea    0xe0(%rcx),%rsi
+  9aeb24:	48 01 e6             	add    %rsp,%rsi
+  9aeb27:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9aeb2e:	00 00 
+  9aeb30:	48 0f be 08          	movsbq (%rax),%rcx
+  9aeb34:	48 83 c0 01          	add    $0x1,%rax
+  9aeb38:	0f b6 4c 31 90       	movzbl -0x70(%rcx,%rsi,1),%ecx
+  9aeb3d:	88 48 ff             	mov    %cl,-0x1(%rax)
+  9aeb40:	48 39 c7             	cmp    %rax,%rdi
+  9aeb43:	75 eb                	jne    9aeb30 <ml_z_format+0x560>
+  9aeb45:	e9 00 fd ff ff       	jmp    9ae84a <ml_z_format+0x27a>
+  9aeb4a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  9aeb50:	48 85 c9             	test   %rcx,%rcx
+  9aeb53:	75 10                	jne    9aeb65 <ml_z_format+0x595>
+  9aeb55:	eb 28                	jmp    9aeb7f <ml_z_format+0x5af>
+  9aeb57:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  9aeb5e:	00 00 
+  9aeb60:	b9 01 00 00 00       	mov    $0x1,%ecx
+  9aeb65:	41 0f b6 44 0e ff    	movzbl -0x1(%r14,%rcx,1),%eax
+  9aeb6b:	49 83 ec 01          	sub    $0x1,%r12
+  9aeb6f:	41 88 04 24          	mov    %al,(%r12)
+  9aeb73:	48 83 f9 01          	cmp    $0x1,%rcx
+  9aeb77:	75 e7                	jne    9aeb60 <ml_z_format+0x590>
+  9aeb79:	4c 01 fa             	add    %r15,%rdx
+  9aeb7c:	4c 29 e2             	sub    %r12,%rdx
+  9aeb7f:	45 84 ed             	test   %r13b,%r13b
+  9aeb82:	74 0d                	je     9aeb91 <ml_z_format+0x5c1>
+  9aeb84:	45 88 6c 24 ff       	mov    %r13b,-0x1(%r12)
+  9aeb89:	48 83 c2 01          	add    $0x1,%rdx
+  9aeb8d:	49 83 ec 01          	sub    $0x1,%r12
+  9aeb91:	48 8b 6c 24 38       	mov    0x38(%rsp),%rbp
+  9aeb96:	48 39 d5             	cmp    %rdx,%rbp
+  9aeb99:	0f 8e a1 00 00 00    	jle    9aec40 <ml_z_format+0x670>
+  9aeb9f:	48 89 d0             	mov    %rdx,%rax
+  9aeba2:	be 20 00 00 00       	mov    $0x20,%esi
+  9aeba7:	48 29 e8             	sub    %rbp,%rax
+  9aebaa:	49 01 c4             	add    %rax,%r12
+  9aebad:	48 89 e8             	mov    %rbp,%rax
+  9aebb0:	48 29 d0             	sub    %rdx,%rax
+  9aebb3:	4c 89 e7             	mov    %r12,%rdi
+  9aebb6:	48 89 c2             	mov    %rax,%rdx
+  9aebb9:	e8 72 68 b7 ff       	call   525430 <memset@plt>
+  9aebbe:	e9 26 fd ff ff       	jmp    9ae8e9 <ml_z_format+0x319>
+  9aebc3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  9aebc8:	c7 44 24 10 00 00 00 	movl   $0x0,0x10(%rsp)
+  9aebcf:	00 
+  9aebd0:	4c 8d 35 b6 14 04 00 	lea    0x414b6(%rip),%r14        # 9f008d <caml_absf_mask+0x904d>
+  9aebd7:	c7 44 24 44 08 00 00 	movl   $0x8,0x44(%rsp)
+  9aebde:	00 
+  9aebdf:	e9 0c fc ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9aebe4:	0f 1f 40 00          	nopl   0x0(%rax)
+  9aebe8:	c7 44 24 10 00 00 00 	movl   $0x0,0x10(%rsp)
+  9aebef:	00 
+  9aebf0:	4c 8d 35 93 14 04 00 	lea    0x41493(%rip),%r14        # 9f008a <caml_absf_mask+0x904a>
+  9aebf7:	c7 44 24 44 02 00 00 	movl   $0x2,0x44(%rsp)
+  9aebfe:	00 
+  9aebff:	e9 ec fb ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9aec04:	0f 1f 40 00          	nopl   0x0(%rax)
+  9aec08:	c7 44 24 10 00 00 00 	movl   $0x0,0x10(%rsp)
+  9aec0f:	00 
+  9aec10:	4c 8d 35 7c 14 04 00 	lea    0x4147c(%rip),%r14        # 9f0093 <caml_absf_mask+0x9053>
+  9aec17:	c7 44 24 44 10 00 00 	movl   $0x10,0x44(%rsp)
+  9aec1e:	00 
+  9aec1f:	e9 cc fb ff ff       	jmp    9ae7f0 <ml_z_format+0x220>
+  9aec24:	48 89 d5             	mov    %rdx,%rbp
+  9aec27:	e9 7f fc ff ff       	jmp    9ae8ab <ml_z_format+0x2db>
+  9aec2c:	48 8d 3d 63 14 04 00 	lea    0x41463(%rip),%rdi        # 9f0096 <caml_absf_mask+0x9056>
+  9aec33:	e8 b8 35 01 00       	call   9c21f0 <caml_invalid_argument>
+  9aec38:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  9aec3f:	00 
+  9aec40:	48 89 d5             	mov    %rdx,%rbp
+  9aec43:	e9 a1 fc ff ff       	jmp    9ae8e9 <ml_z_format+0x319>
+  9aec48:	48 8d 3d 60 14 04 00 	lea    0x41460(%rip),%rdi        # 9f00af <caml_absf_mask+0x906f>
+  9aec4f:	e8 5c 35 01 00       	call   9c21b0 <caml_failwith>
+  9aec54:	e8 d7 6c b7 ff       	call   525930 <__stack_chk_fail@plt>
+  9aec59:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+

@@ -1,0 +1,67 @@
+{
+  "pid": 97103,
+  "load_bias": 94173092061184,
+  "targets": {
+    "caml_major_slice_begin_hook": {
+      "elf_address": 16428872,
+      "process_address": 94173108490056,
+      "bytes": 8,
+      "overlaps": []
+    },
+    "caml_major_slice_end_hook": {
+      "elf_address": 16428864,
+      "process_address": 94173108490048,
+      "bytes": 8,
+      "overlaps": []
+    },
+    "caml_minor_gc_begin_hook": {
+      "elf_address": 16428856,
+      "process_address": 94173108490040,
+      "bytes": 8,
+      "overlaps": []
+    },
+    "caml_minor_gc_end_hook": {
+      "elf_address": 16428848,
+      "process_address": 94173108490032,
+      "bytes": 8,
+      "overlaps": []
+    },
+    "caml_major_gc_hook": {
+      "elf_address": 16428896,
+      "process_address": 94173108490080,
+      "bytes": 8,
+      "overlaps": []
+    },
+    "caml_scan_roots_hook": {
+      "elf_address": 16428184,
+      "process_address": 94173108489368,
+      "bytes": 8,
+      "overlaps": []
+    },
+    "prev_scan_roots_hook": {
+      "elf_address": 16427592,
+      "process_address": 94173108488776,
+      "bytes": 8,
+      "overlaps": []
+    }
+  },
+  "streams": [
+    {
+      "member": "input_is_valid/capture/memory-reads.jsonl",
+      "identity": {
+        "bytes": 63427323,
+        "sha256": "f216777a004fa04a6ff807b23a9cf4a40574e8165b18db5980032ee98e967e1b"
+      },
+      "records": 835579
+    },
+    {
+      "member": "input_is_valid/capture/session-memory-reads.jsonl",
+      "identity": {
+        "bytes": 3777387,
+        "sha256": "babf813b9c1af857aa7b2ebcee8dc104e5ea27004c93aa659b428bd38cb11efa"
+      },
+      "records": 49728
+    }
+  ],
+  "any_target_read_observed": false
+}

@@ -1,0 +1,177 @@
+{
+  "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+  "archive_identity": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "files": {
+    "runtime/major_gc.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "identity": {
+        "bytes": 45689,
+        "sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242"
+      },
+      "excerpts": [
+        {
+          "first": 125,
+          "last": 134,
+          "text": "static unsigned long major_gc_counter = 0;\n#endif\n\n#ifdef NAKED_POINTERS_CHECKER\nint caml_naked_pointers_detected = 0;\n#endif\n\nvoid (*caml_major_gc_hook)(void) = NULL;\n\n/* This function prunes the mark stack if it's about to overflow. It does so\n"
+        },
+        {
+          "first": 395,
+          "last": 431,
+          "text": "  chunk->redarken_end = (value*)heap_chunk;\n\n  return 1;\n}\n\nstatic void start_cycle (void)\n{\n  CAMLassert (caml_gc_phase == Phase_idle);\n  CAMLassert (Caml_state->mark_stack->count == 0);\n  CAMLassert (redarken_first_chunk == NULL);\n  caml_gc_message (0x01, \"Starting new major GC cycle\\n\");\n  marked_words = 0;\n  caml_darken_all_roots_start ();\n  caml_gc_phase = Phase_mark;\n  heap_wsz_at_cycle_start = Caml_state->stat_heap_wsz;\n  caml_gc_subphase = Subphase_mark_roots;\n  caml_ephe_list_pure = 1;\n  ephes_checked_if_pure = &caml_ephe_list_head;\n  ephes_to_check = &caml_ephe_list_head;\n#ifdef DEBUG\n  ++ major_gc_counter;\n  caml_heap_check ();\n#endif\n}\n\nstatic void init_sweep_phase(void)\n{\n  /* Phase_clean is done. */\n  /* Initialise the sweep phase. */\n  caml_gc_sweep_hp = caml_heap_start;\n  caml_fl_init_merge ();\n  caml_gc_phase = Phase_sweep;\n  sweep_chunk = caml_heap_start;\n  caml_gc_sweep_hp = sweep_chunk;\n  caml_fl_wsz_at_phase_change = caml_fl_cur_wsz;\n  if (caml_major_gc_hook) (*caml_major_gc_hook)();\n}\n"
+        },
+        {
+          "first": 820,
+          "last": 843,
+          "text": "          caml_final_update_mark_phase ();\n          /* Complete the marking */\n          ephes_to_check = ephes_checked_if_pure;\n          CAML_EV_END(EV_MAJOR_MARK_MAIN);\n          caml_gc_subphase = Subphase_mark_final;\n      }\n        break;\n      case Subphase_mark_final: {\n        /** The set of unreachable value will not change anymore for\n            this cycle. Start clean phase. */\n        CAML_EV_BEGIN(EV_MAJOR_MARK_FINAL);\n        caml_gc_phase = Phase_clean;\n        caml_final_update_clean_phase ();\n        caml_memprof_update_clean_phase ();\n        if (caml_ephe_list_head != (value) NULL){\n          /* Initialise the clean phase. */\n          ephes_to_check = &caml_ephe_list_head;\n        } else {\n          /* Initialise the sweep phase. */\n          init_sweep_phase();\n        }\n        marked_words -= work;\n        work = 0;\n        CAML_EV_END(EV_MAJOR_MARK_FINAL);\n"
+        },
+        {
+          "first": 851,
+          "last": 882,
+          "text": "  CAML_EV_COUNTER(EV_C_MAJOR_MARK_SLICE_FIELDS, slice_fields);\n  CAML_EV_COUNTER(EV_C_MAJOR_MARK_SLICE_POINTERS, slice_pointers);\n}\n\n/* Clean ephemerons */\nstatic void clean_slice (intnat work)\n{\n  value v;\n\n  caml_gc_message (0x40, \"Cleaning %\"\n                   ARCH_INTNAT_PRINTF_FORMAT \"d words\\n\", work);\n  while (work > 0){\n    v = *ephes_to_check;\n    if (v != (value) NULL){\n      if (Is_white_val (v)){\n        /* The whole array is dead, remove it from the list. */\n        *ephes_to_check = Field (v, CAML_EPHE_LINK_OFFSET);\n        work -= 1;\n      }else{\n        caml_ephe_clean(v);\n        ephes_to_check = &Field (v, CAML_EPHE_LINK_OFFSET);\n        work -= Whsize_val (v);\n      }\n    }else{ /* End of list reached */\n      /* Phase_clean is done. */\n      /* Initialise the sweep phase. */\n      init_sweep_phase();\n      work = 0;\n    }\n  }\n}\n\n"
+        },
+        {
+          "first": 1106,
+          "last": 1125,
+          "text": "    computed_work = (intnat) (p * Caml_state->stat_heap_wsz * 5 / 3);\n  }\n  caml_gc_message (0x40, \"computed work = %\"\n                   ARCH_INTNAT_PRINTF_FORMAT \"d words\\n\", computed_work);\n  if (caml_gc_phase == Phase_mark){\n    CAML_EV_COUNTER (EV_C_MAJOR_WORK_MARK, computed_work);\n    CAML_EV_BEGIN(EV_MAJOR_MARK);\n    mark_slice (computed_work);\n    CAML_EV_END(EV_MAJOR_MARK);\n    caml_gc_message (0x02, \"!\");\n  }else if (caml_gc_phase == Phase_clean){\n    clean_slice (computed_work);\n    caml_gc_message (0x02, \"%%\");\n  }else{\n    CAMLassert (caml_gc_phase == Phase_sweep);\n    CAML_EV_COUNTER (EV_C_MAJOR_WORK_SWEEP, computed_work);\n    CAML_EV_BEGIN(EV_MAJOR_SWEEP);\n    sweep_slice (computed_work);\n    CAML_EV_END(EV_MAJOR_SWEEP);\n    caml_gc_message (0x02, \"$\");\n"
+        }
+      ]
+    },
+    "runtime/roots_nat.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+      "identity": {
+        "bytes": 15164,
+        "sha256": "4e6d01431de0ca6877d992ef43d41a69d36b7ea43a1da3ec1928447c025de8c1"
+      },
+      "excerpts": [
+        {
+          "first": 30,
+          "last": 37,
+          "text": "#include \"caml/eventlog.h\"\n#include <string.h>\n#include <stdio.h>\n\n/* Roots registered from C functions */\n\nvoid (*caml_scan_roots_hook) (scanning_action) = NULL;\n\n"
+        },
+        {
+          "first": 330,
+          "last": 360,
+          "text": "  /* Local C roots */\n  for (lr = Caml_state->local_roots; lr != NULL; lr = lr->next) {\n    for (i = 0; i < lr->ntables; i++){\n      for (j = 0; j < lr->nitems; j++){\n        root = &(lr->tables[i][j]);\n        Oldify (root);\n      }\n    }\n  }\n  /* Global C roots */\n  caml_scan_global_young_roots(&caml_oldify_one);\n  /* Finalised values */\n  caml_final_oldify_young_roots ();\n  /* Memprof */\n  caml_memprof_oldify_young_roots ();\n  /* Hook */\n  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(&caml_oldify_one);\n}\n\nuintnat caml_incremental_roots_count = 0;\n\n/* Call [caml_darken] on all roots, incrementally:\n   [caml_darken_all_roots_start] does the non-incremental part and\n   sets things up for [caml_darken_all_roots_slice].\n*/\nvoid caml_darken_all_roots_start (void)\n{\n  caml_do_roots (caml_darken, 0);\n}\n\n/* Call [caml_darken] on at most [work] global roots. Return the\n"
+        },
+        {
+          "first": 405,
+          "last": 452,
+          "text": "void caml_do_roots (scanning_action f, int do_globals)\n{\n  int i, j;\n  value * glob;\n  link *lnk;\n\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_DYNAMIC_GLOBAL);\n  if (do_globals){\n    /* The global roots */\n    for (i = 0; caml_globals[i] != 0; i++) {\n      for(glob = caml_globals[i]; *glob != 0; glob++) {\n        for (j = 0; j < Wosize_val(*glob); j++)\n          f (Field (*glob, j), &Field (*glob, j));\n      }\n    }\n  }\n  /* Dynamic global roots */\n  iter_list(caml_dyn_globals, lnk) {\n    for(glob = (value *) lnk->data; *glob != 0; glob++) {\n      for (j = 0; j < Wosize_val(*glob); j++){\n        f (Field (*glob, j), &Field (*glob, j));\n      }\n    }\n  }\n  CAML_EV_END(EV_MAJOR_ROOTS_DYNAMIC_GLOBAL);\n  /* The stack and local roots */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_LOCAL);\n  caml_do_local_roots_nat(f, Caml_state->bottom_of_stack,\n                          Caml_state->last_return_address, Caml_state->gc_regs,\n                          Caml_state->local_roots);\n  CAML_EV_END(EV_MAJOR_ROOTS_LOCAL);\n  /* Global C roots */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_C);\n  caml_scan_global_roots(f);\n  CAML_EV_END(EV_MAJOR_ROOTS_C);\n  /* Finalised values */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_FINALISED);\n  caml_final_do_roots (f);\n  CAML_EV_END(EV_MAJOR_ROOTS_FINALISED);\n  /* Memprof */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_MEMPROF);\n  caml_memprof_do_roots (f);\n  CAML_EV_END(EV_MAJOR_ROOTS_MEMPROF);\n  /* Hook */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_HOOK);\n  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(f);\n  CAML_EV_END(EV_MAJOR_ROOTS_HOOK);\n}\n"
+        }
+      ]
+    },
+    "runtime/minor_gc.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "identity": {
+        "bytes": 23482,
+        "sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90"
+      },
+      "excerpts": [
+        {
+          "first": 356,
+          "last": 373,
+          "text": "  value **r;\n  struct caml_custom_elt *elt;\n  uintnat prev_alloc_words;\n  struct caml_ephe_ref_elt *re;\n\n  if (Caml_state->young_ptr != Caml_state->young_alloc_end){\n    CAMLassert_young_header(*(header_t*)Caml_state->young_ptr);\n    if (caml_minor_gc_begin_hook != NULL) (*caml_minor_gc_begin_hook) ();\n    prev_alloc_words = caml_allocated_words;\n    Caml_state->in_minor_collection = 1;\n    caml_gc_message (0x02, \"<\");\n    CAML_EV_BEGIN(EV_MINOR_LOCAL_ROOTS);\n    caml_oldify_local_roots();\n    CAML_EV_END(EV_MINOR_LOCAL_ROOTS);\n    CAML_EV_BEGIN(EV_MINOR_REF_TABLES);\n    for (r = Caml_state->ref_table->base;\n         r < Caml_state->ref_table->ptr; r++) {\n      caml_oldify_one (**r, *r);\n"
+        },
+        {
+          "first": 486,
+          "last": 505,
+          "text": "  if (Caml_state->requested_minor_gc) {\n    /* reset the pointers first because the end hooks might allocate */\n    CAML_EV_BEGIN(EV_MINOR);\n    Caml_state->requested_minor_gc = 0;\n    Caml_state->young_trigger = Caml_state->young_alloc_mid;\n    caml_update_young_limit();\n    caml_empty_minor_heap ();\n    CAML_EV_END(EV_MINOR);\n  }\n  if (Caml_state->requested_major_slice) {\n    Caml_state->requested_major_slice = 0;\n    Caml_state->young_trigger = Caml_state->young_alloc_start;\n    caml_update_young_limit();\n    CAML_EV_BEGIN(EV_MAJOR);\n    caml_major_collection_slice (-1);\n    CAML_EV_END(EV_MAJOR);\n  }\n}\n\n/* Called by young allocations when [Caml_state->young_ptr] reaches\n"
+        }
+      ]
+    },
+    "otherlibs/systhreads/st_stubs.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "identity": {
+        "bytes": 31017,
+        "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+      },
+      "excerpts": [
+        {
+          "first": 132,
+          "last": 162,
+          "text": "/* Imports from the native-code runtime system */\n#ifdef NATIVE_CODE\nextern struct longjmp_buffer caml_termination_jmpbuf;\nextern void (*caml_termination_hook)(void);\n#endif\n\n/* Hook for scanning the stacks of the other threads */\n\nstatic void (*prev_scan_roots_hook) (scanning_action);\n\nstatic void caml_thread_scan_roots(scanning_action action)\n{\n  caml_thread_t th = curr_thread;\n  do {\n    (*action)(th->descr, &th->descr);\n    (*action)(th->backtrace_last_exn, &th->backtrace_last_exn);\n    /* Don't rescan the stack of the current thread, it was done already */\n    if (th != curr_thread) {\n#ifdef NATIVE_CODE\n      if (th->bottom_of_stack != NULL)\n        caml_do_local_roots(action, th->bottom_of_stack, th->last_retaddr,\n                       th->gc_regs, th->local_roots);\n#else\n      caml_do_local_roots(action, th->sp, th->stack_high, th->local_roots);\n#endif\n    }\n    th = th->next;\n  } while (th != curr_thread);\n  /* Hook */\n  if (prev_scan_roots_hook != NULL) (*prev_scan_roots_hook)(action);\n}\n"
+        },
+        {
+          "first": 429,
+          "last": 475,
+          "text": "\nCAMLprim value caml_thread_initialize(value unit)   /* ML */\n{\n  /* Protect against repeated initialization (PR#3532) */\n  if (curr_thread != NULL) return Val_unit;\n  /* OS-specific initialization */\n  st_initialize();\n  /* Initialize and acquire the master lock */\n  st_masterlock_init(&caml_master_lock);\n  /* Initialize the keys */\n  st_tls_newkey(&thread_descriptor_key);\n  st_tls_newkey(&last_channel_locked_key);\n  /* Set up a thread info block for the current thread */\n  curr_thread =\n    (caml_thread_t) caml_stat_alloc(sizeof(struct caml_thread_struct));\n  curr_thread->descr = caml_thread_new_descriptor(Val_unit);\n  curr_thread->next = curr_thread;\n  curr_thread->prev = curr_thread;\n  all_threads = curr_thread;\n  curr_thread->backtrace_last_exn = Val_unit;\n#ifdef NATIVE_CODE\n  curr_thread->exit_buf = &caml_termination_jmpbuf;\n#endif\n  curr_thread->memprof_ctx = &caml_memprof_main_ctx;\n  /* The stack-related fields will be filled in at the next\n     caml_enter_blocking_section */\n  /* Associate the thread descriptor with the thread */\n  st_tls_set(thread_descriptor_key, (void *) curr_thread);\n  st_thread_set_id(Ident(curr_thread->descr));\n  /* Set up the hooks */\n  prev_scan_roots_hook = caml_scan_roots_hook;\n  caml_scan_roots_hook = caml_thread_scan_roots;\n  caml_enter_blocking_section_hook = caml_thread_enter_blocking_section;\n  caml_leave_blocking_section_hook = caml_thread_leave_blocking_section;\n#ifdef NATIVE_CODE\n  caml_termination_hook = st_thread_exit;\n#endif\n  caml_channel_mutex_free = caml_io_mutex_free;\n  caml_channel_mutex_lock = caml_io_mutex_lock;\n  caml_channel_mutex_unlock = caml_io_mutex_unlock;\n  caml_channel_mutex_unlock_exn = caml_io_mutex_unlock_exn;\n  prev_stack_usage_hook = caml_stack_usage_hook;\n  caml_stack_usage_hook = caml_thread_stack_usage;\n  caml_memprof_th_ctx_iter_hook = memprof_ctx_iter;\n  /* Set up fork() to reinitialize the thread machinery in the child\n     (PR#4577) */\n  caml_atfork_hook = caml_thread_reinitialize;\n"
+        }
+      ]
+    },
+    "runtime/caml/freelist.h": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/freelist.h",
+      "identity": {
+        "bytes": 2625,
+        "sha256": "e1eaa499c357428cce96d2bd244fb129e48732f7d4b0a325db392e596f10e9b3"
+      },
+      "excerpts": [
+        {
+          "first": 26,
+          "last": 44,
+          "text": "extern asize_t caml_fl_cur_wsz;\n\n/* See [freelist.c] for usage info on these functions. */\nextern header_t *(*caml_fl_p_allocate) (mlsize_t wo_sz);\nextern void (*caml_fl_p_init_merge) (void);\nextern header_t *(*caml_fl_p_merge_block) (value bp, char *limit);\nextern void (*caml_fl_p_add_blocks) (value bp);\nextern void (*caml_fl_p_make_free_blocks)\n  (value *p, mlsize_t size, int do_merge, int color);\n#ifdef DEBUG\nextern void (*caml_fl_p_check) (void);\n#endif\n\nCaml_inline header_t *caml_fl_allocate (mlsize_t wo_sz)\n  { return (*caml_fl_p_allocate) (wo_sz); }\n\nCaml_inline void caml_fl_init_merge (void)\n  { (*caml_fl_p_init_merge) (); }\n\n"
+        }
+      ]
+    },
+    "runtime/freelist.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/freelist.c",
+      "identity": {
+        "bytes": 56153,
+        "sha256": "d60addf518d40a7d7e6035571dcc60d14ec34ce7bf3d603ecdfd8397f2e5ade9"
+      },
+      "excerpts": [
+        {
+          "first": 1755,
+          "last": 1765,
+          "text": "   is found in the free set.\n*/\nheader_t *(*caml_fl_p_allocate) (mlsize_t wo_sz) = NULL;\n\n/* Initialize the merge_block machinery (at start of sweeping). */\nvoid (*caml_fl_p_init_merge) (void) = NULL;\n\n/* These are called internally. */\nstatic void (*caml_fl_p_init) (void) = NULL;\nstatic void (*caml_fl_p_reset) (void) = NULL;\n\n"
+        },
+        {
+          "first": 1780,
+          "last": 1840,
+          "text": "   p: pointer to the first word of the block\n   size: size of the block (in words)\n   do_merge: 1 -> do merge; 0 -> do not merge\n   color: which color to give to the pieces; if [do_merge] is 1, this\n          is overridden by the merge code, but we have historically used\n          [Caml_white].\n*/\nvoid (*caml_fl_p_make_free_blocks)\n  (value *p, mlsize_t size, int do_merge, int color)\n  = NULL;\n\n#ifdef DEBUG\nvoid (*caml_fl_p_check) (void) = NULL;\n#endif\n\n/* This variable and the above function pointers must be initialized with\n   a call to [caml_set_allocation_policy]. */\nuintnat caml_allocation_policy = 999;\n\nvoid caml_set_allocation_policy (uintnat p)\n{\n  switch (p){\n  case caml_policy_next_fit:\n    caml_allocation_policy = p;\n    caml_fl_p_allocate = &nf_allocate;\n    caml_fl_p_init_merge = &nf_init_merge;\n    caml_fl_p_reset = &nf_reset;\n    caml_fl_p_init = &nf_init;\n    caml_fl_p_merge_block = &nf_merge_block;\n    caml_fl_p_add_blocks = &nf_add_blocks;\n    caml_fl_p_make_free_blocks = &nf_make_free_blocks;\n#ifdef DEBUG\n    caml_fl_p_check = &nf_check;\n#endif\n    break;\n\n  case caml_policy_first_fit:\n    caml_allocation_policy = p;\n    caml_fl_p_allocate = &ff_allocate;\n    caml_fl_p_init_merge = &ff_init_merge;\n    caml_fl_p_reset = &ff_reset;\n    caml_fl_p_init = &ff_init;\n    caml_fl_p_merge_block = &ff_merge_block;\n    caml_fl_p_add_blocks = &ff_add_blocks;\n    caml_fl_p_make_free_blocks = &ff_make_free_blocks;\n#ifdef DEBUG\n    caml_fl_p_check = &ff_check;\n#endif\n    break;\n\n  default:\n  case caml_policy_best_fit:\n    caml_allocation_policy = caml_policy_best_fit;\n    caml_fl_p_allocate = &bf_allocate;\n    caml_fl_p_init_merge = &bf_init_merge;\n    caml_fl_p_reset = &bf_reset;\n    caml_fl_p_init = &bf_init;\n    caml_fl_p_merge_block = &bf_merge_block;\n    caml_fl_p_add_blocks = &bf_add_blocks;\n    caml_fl_p_make_free_blocks = &bf_make_free_blocks;\n#ifdef DEBUG\n"
+        }
+      ]
+    },
+    "runtime/signals.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "identity": {
+        "bytes": 13251,
+        "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+      },
+      "excerpts": [
+        {
+          "first": 54,
+          "last": 58,
+          "text": "  else return 0;\n}\n\nCAMLexport int (*caml_sigmask_hook)(int, const sigset_t *, sigset_t *)\n  = sigprocmask_wrapper;\n"
+        },
+        {
+          "first": 145,
+          "last": 177,
+          "text": "\nCAMLexport void (*caml_enter_blocking_section_hook)(void) =\n   caml_enter_blocking_section_default;\nCAMLexport void (*caml_leave_blocking_section_hook)(void) =\n   caml_leave_blocking_section_default;\n\nCAMLno_tsan /* The read of [caml_something_to_do] is not synchronized. */\nCAMLexport void caml_enter_blocking_section(void)\n{\n  while (1){\n    /* Process all pending signals now */\n    caml_raise_if_exception(caml_process_pending_signals_exn());\n    caml_enter_blocking_section_hook ();\n    /* Check again for pending signals.\n       If none, done; otherwise, try again */\n    if (! signals_are_pending) break;\n    caml_leave_blocking_section_hook ();\n  }\n}\n\nCAMLexport void caml_enter_blocking_section_no_pending(void)\n{\n  caml_enter_blocking_section_hook ();\n}\n\nCAMLexport void caml_leave_blocking_section(void)\n{\n  int saved_errno;\n  /* Save the value of errno (PR#5982). */\n  saved_errno = errno;\n  caml_leave_blocking_section_hook ();\n\n  /* Some other thread may have switched\n"
+        },
+        {
+          "first": 201,
+          "last": 227,
+          "text": "value caml_execute_signal_exn(int signal_number, int in_signal_handler)\n{\n  value res;\n  value handler;\n#ifdef POSIX_SIGNALS\n  sigset_t nsigs, sigs;\n  /* Block the signal before executing the handler, and record in sigs\n     the original signal mask */\n  sigemptyset(&nsigs);\n  sigaddset(&nsigs, signal_number);\n  caml_sigmask_hook(SIG_BLOCK, &nsigs, &sigs);\n#endif\n  handler = Field(caml_signal_handlers, signal_number);\n    res = caml_callback_exn(\n             handler,\n             Val_int(caml_rev_convert_signal_number(signal_number)));\n#ifdef POSIX_SIGNALS\n  if (! in_signal_handler) {\n    /* Restore the original signal mask */\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  } else if (Is_exception_result(res)) {\n    /* Restore the original signal mask and unblock the signal itself */\n    sigdelset(&sigs, signal_number);\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  }\n#endif\n  return res;\n"
+        }
+      ]
+    },
+    "runtime/io.c": {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "identity": {
+        "bytes": 25046,
+        "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+      },
+      "excerpts": [
+        {
+          "first": 54,
+          "last": 63,
+          "text": "\n\n/* Hooks for locking channels */\n\nCAMLexport void (*caml_channel_mutex_free) (struct channel *) = NULL;\nCAMLexport void (*caml_channel_mutex_lock) (struct channel *) = NULL;\nCAMLexport void (*caml_channel_mutex_unlock) (struct channel *) = NULL;\nCAMLexport void (*caml_channel_mutex_unlock_exn) (void) = NULL;\n\n/* List of opened channels */\n"
+        }
+      ]
+    }
+  }
+}

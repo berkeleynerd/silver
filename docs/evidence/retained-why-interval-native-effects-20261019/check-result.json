@@ -1,0 +1,12 @@
+{
+  "selected_function_bodies": 11,
+  "matched_bytes_including_padding": 9040,
+  "selected_source_files": 8,
+  "selected_native_cells": 7,
+  "read_coverage_recomputed": false,
+  "complete_reachable_native_effect_set": false,
+  "null_preservation_established": false,
+  "R": null,
+  "exceptional_identifier_charge": null,
+  "elapsed_seconds": 0.43773691001115367
+}

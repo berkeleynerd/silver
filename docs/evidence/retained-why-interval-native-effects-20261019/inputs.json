@@ -1,0 +1,22 @@
+{
+  "docs/evidence/retained-why-native-collection-hooks-20261019/capture-binding.json": {
+    "bytes": 8841,
+    "sha256": "89229cb265c23bd65b1286a8fc59d6a266719d395905215200f3c134f1a5e46e"
+  },
+  "docs/evidence/retained-why-native-collection-hooks-20261019/code-projection.json": {
+    "bytes": 34296,
+    "sha256": "7690b7213400aa88528d3fde39b9b5a24871f8d936c2907a640488081ed3f5d1"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz": {
+    "bytes": 12297103,
+    "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+  }
+}
