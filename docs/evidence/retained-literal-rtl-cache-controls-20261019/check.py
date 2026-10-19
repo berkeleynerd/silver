@@ -44,9 +44,11 @@ def main():
           result['new_shared_GGC_backing_request_events_upper']==4)
     check('cache capacities do not assume empty incoming history',
           all(result[k]['incoming_prefix_history_upper']==39257 for k in ('CONST_INT','reg_attrs')))
-    check('register lookup composition',result['reg_attrs']['original_declaration_calls_upper']==1 and
+    check('register lookup composition',result['reg_attrs']['original_declaration_calls_upper']==2 and
           result['reg_attrs']['split_part_calls_upper']==2 and
-          result['reg_attrs']['insertion_capable_lookups_upper']==3)
+          result['reg_attrs']['insertion_capable_lookups_upper']==4 and
+          result['reg_attrs']['paired_identical_key_no_collection_established'] and
+          result['reg_attrs']['paired_declaration_backing_events_upper']==1)
     check('nonlookup backbones are closed source zeros',all(
           result[k]['source_lifetime_closed'] and result[k]['post_prefix_non_lookup_backing_events']==0
           for k in ('CONST_INT','reg_attrs')))

@@ -1,0 +1,53 @@
+{
+  "accepted_component_suites_rerun": 0,
+  "aggregate_executions": 0,
+  "callable_identity": {
+    "bytes": 9158,
+    "sha256": "9e485e84418ae0e3ed7cb48d2a92955bba0d6447de890f539c34b650e6699a0b"
+  },
+  "cases": [
+    "repaired source-associated result matches retained output",
+    "two descriptor calls plus two split calls at C=1",
+    "paired miss and backbone ceilings retained at C=1",
+    "two descriptor calls plus two split calls at C=2",
+    "paired miss and backbone ceilings retained at C=2",
+    "two descriptor calls plus two split calls at C=40",
+    "paired miss and backbone ceilings retained at C=40",
+    "two descriptor calls plus two split calls at C=1048576",
+    "paired miss and backbone ceilings retained at C=1048576",
+    "second hit expands after first miss crosses old threshold",
+    "first lookup expands and second hit does not",
+    "same-size compaction prevents second expansion",
+    "shrink after weak deletions prevents second expansion",
+    "all finite paired table states keep at most one expansion and record",
+    "complete setter macro source pinned",
+    "changed complete setter macro source rejected",
+    "global claims remain open"
+  ],
+  "checker_identity": {
+    "bytes": 5918,
+    "sha256": "c633280efc6d8d67de6de4e509b05149c022e465c79f16d579ae51caa6c506e8"
+  },
+  "checks": 17,
+  "completed_utc": "2026-10-19T00:29:42.043662+00:00",
+  "corpus_checkers_rerun": 0,
+  "elapsed_seconds": 0.05146142599915038,
+  "independent_review": "targeted rereview pending",
+  "native_tool_executions": 0,
+  "old_packet_suite_rerun": false,
+  "original_review_target": "8e4a84cfa3",
+  "paired_table_states": 21029,
+  "passed": true,
+  "repository_inputs": 18,
+  "review_issue": 141,
+  "runtime_confirmed_model_effort": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "source_argument_identity": {
+    "bytes": 18234,
+    "sha256": "cbfe35688bee3f687f38c6e4aa01d3a96d8ee0da243e0c23756ee758e5750147"
+  },
+  "source_files": 38,
+  "started_utc": "2026-10-19T00:29:41.992220+00:00",
+  "token_cost_evidence": null
+}

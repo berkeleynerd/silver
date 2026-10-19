@@ -127,9 +127,13 @@ cache assumption is needed outside the fixed setup.
 lookup. Every other invocation makes one insertion-capable lookup and at most
 one16-byte record (`emit-rtl.cc:424–443`). There are two selected consumers:
 
-1. `set_decl_rtl` assigns each of C descriptor declarations one TI REG. Its
-   declaration setter invokes `get_reg_attrs` once. Function and pool RTL are
-   MEMs, not REG/CONCAT/PARALLEL values; their assignment takes no attribute
+1. Each of C descriptor declarations receives a fresh TI REG through
+   `expand_one_register_var::set_rtl` (`cfgexpand.cc:1919–1937`). This calls
+   the declaration-attribute setter **twice**: first directly after merging
+   the old/new leader (`:254–264`), then through the non-SSA `SET_DECL_RTL`
+   (`:304–305`, `tree.h:3121`, `emit-rtl.cc:1467–1470`). Thus there are2C
+   insertion-capable lookups here, not C. Function and pool RTL are MEMs,
+   not REG/CONCAT/PARALLEL values; their assignment takes no attribute
    lookup (`emit-rtl.cc:1412–1470`). Main has no formal or result parameter.
 2. `decompose_register` calls `gen_reg_rtx_offset` for two DI parts of each
    descriptor (`lower-subreg.cc:618–645`; `emit-rtl.cc:1277–1311`), adding2C
@@ -149,8 +153,31 @@ scratch REG. IRA/LRA copy assignments, if reached, copy the existing
 `REG_ATTRS` pointer (`ira-emit.cc:344`, `lra.cc:205`); they do not intern a record.
 No mode-adjustment caller is selected.
 
-This exhausts the entry API at **3C lookup calls**, hence at most3C new records
-and3C backbones. Fixed target probes use raw REG objects without declarations;
+The descriptor pair has identical keys. Fresh raw REG construction clears
+REG_ATTRS (`emit-rtl.cc:478,1230`), so `leader_merge(null,decl)` chooses that
+same declaration (`cfgexpand.cc:153–174`). Both setters see the unchanged TI
+register and declaration mode and compute the same offset. Between them the
+non-SSA route only tests the tree code and assigns DECL_RTL. The lookup,
+entry allocation and table expansion have no collector call; GGC allocation
+does not itself collect (`hash-table.h:833–903,1021–1100`,
+`ggc-page.cc:1351–1537`). No weak-cache deletion, intervening insertion or
+register/declaration mutation separates the pair. The second lookup is
+therefore a hit, even if the first was a miss.
+
+A hit may still expand **before** finding its key, so identical keys alone
+do not establish the backbone bound. At most one expansion occurs per pair.
+If the first lookup does not expand, only the second can. If it does expand,
+let L be the live count and S the resulting prime size. Expansion removes
+tombstones and ensures `2L <= S`, with `S >= 7`. After at most one insertion,
+`4(L+1) <= 2S+4 < 3S`, so the second lookup cannot meet the growth trigger.
+This includes retained capacity, same-size compaction and shrinking after
+weak deletions. The first lookup's miss can cross the old threshold and make
+the **second** lookup expand; that is the one expansion already allowed.
+
+This exhausts the entry API at **4C lookup calls**, partitioned into C
+adjacent identical-key pairs plus2C split-part calls. The pairs add at most
+C new records and C backbones, so the historical insertion and backbone
+ceilings remain **3C each**. Fixed target probes use raw REG objects without declarations;
 they add no register-attribute lookup. The static table's only explicit
 non-lookup mutation is `init_emit_regs::empty` (`emit-rtl.cc:6256`), which occurs
 in the fixed prefix. The unchanged target/options prevent a later invocation.

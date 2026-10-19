@@ -83,8 +83,10 @@ def transfer(c,n,context):
         total_post_prefix_backing_events_upper=121+c,
         post_prefix_non_lookup_backing_events=0,new_scalar_finalizer_registrations=0,
         source_lifetime_closed=True,conditional_capacity_established=const['fits'])
-    regs.update(incoming_prefix_history_upper=prefix,original_declaration_calls_upper=c,
-        split_part_calls_upper=2*c,insertion_capable_lookups_upper=3*c,
+    regs.update(incoming_prefix_history_upper=prefix,original_declaration_calls_upper=2*c,
+        original_declaration_pairs_upper=c,paired_declaration_new_entries_upper=c,
+        paired_declaration_backing_events_upper=c,paired_identical_key_no_collection_established=True,
+        split_part_calls_upper=2*c,insertion_capable_lookups_upper=4*c,
         additional_new_entries_upper=3*c,new_shared_GGC_backing_events_upper=3*c,
         post_prefix_non_lookup_backing_events=0,new_scalar_finalizer_registrations=0,
         source_lifetime_closed=True,conditional_capacity_established=regs['fits'])

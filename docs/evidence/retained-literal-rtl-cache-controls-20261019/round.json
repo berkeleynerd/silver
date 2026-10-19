@@ -38,5 +38,26 @@
       "elapsed_seconds": 0.050183576000563335,
       "reason": "Refresh source-argument identity after clarifying the distinction from tree caches; no code/result change."
     }
-  ]
+  ],
+  "review_repair": {
+    "issue": 141,
+    "original_review_target": "8e4a84cfa3b513b6a0d4e02ede7e910ab12697ad",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "runtime_confirmed_model_effort": null,
+    "token_cost_evidence": null,
+    "finding": "cfgexpand calls the descriptor attribute setter directly and through SET_DECL_RTL, so actual lookup bound is4C.",
+    "repair": "Document adjacent identical-key/no-collection pair and at-most-one-expansion proof; retain3C records/backbones and4C total new cache backbones. Pin complete tree.h.",
+    "checks": 17,
+    "paired_table_states": 21029,
+    "elapsed_seconds": 0.05146142599915038,
+    "completed_utc": "2026-10-19T00:29:42.043662+00:00",
+    "original39_checks_rerun": false,
+    "old_check_results_preserved_as_history": true,
+    "native_tool_executions": 0,
+    "accepted_component_suites_rerun": 0,
+    "aggregate_executions": 0,
+    "corpus_checkers_rerun": 0,
+    "independent_review": "targeted rereview pending"
+  }
 }
