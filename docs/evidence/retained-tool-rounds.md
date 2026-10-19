@@ -1325,3 +1325,81 @@ required producer/consumer/fixed-library/parent coverage, current-grammar
 composition, useful-domain comparison and final review. Oracle, installed
 tools/pins and production admission remain unchanged; #119 stays active and
 production #88–#94 remains authorized and unstarted.
+
+
+## Round 17 — formatter repair, chronological state and lifetime integration
+
+Date: 2026-10-19; continues from published `7434271343`. The owner again asked
+to continue #119. Scope remains the full current-Silver-grammar capacity rule;
+no research stop or production admission change is selected.
+
+| Work | Selected setting | Frozen target and disposition |
+| --- | --- | --- |
+| Formatter family repair | GPT-6 Astra / Extra High | `72096d1909`, independently accepted by `5ebd74113d` |
+| MEM/counter/pool lifetime | GPT-6 Astra / Extra High | `9d24cab8cf`, independently accepted by `cf5d72b676` |
+| Later SSA allocation lifetime | Lead live setting unavailable; no switch claimed | `e0c24340e8`, independently accepted by Astra / Extra High at `c63c6088f9` |
+| Actual-source lifetime attachment | GPT-6.1 Sol / Extra High | `b9b94f26ff`, independently accepted by Astra / Extra High at `ad0b400815` |
+| Why exception and converter-prefix analysis | GPT-6 Astra / Extra High | Frozen exception `18bd02108f` and converter `040fba6e24` packets; combined independent review in progress |
+
+The #142 repair includes linked OCaml Location/Color callbacks, including
+nested/nonrestored and partially restored formatter state. Its author checks
+are retained; independent source/ELF identity and candidate checking passed
+in 0.619610204s. The reviewer checkpoint took 291s, including report preparation
+and excluding commit. Complete R and exceptional control flow remain open.
+
+The MEM/counter/pool result retains 5C mem_attrs with its prior owner and adds
+the register-growth difference q(99+5C)-q(98+3C). It supplies DF per-generation
+pool bounds separately from lifetime requests and preserves nonreset DF
+ref_order. Its 49 checks/27 count cases/48 register boundaries/42 pool boundaries
+passed in 0.065099725s. Independent review checked 56 GCC/19 repository and seven
+round identities; narrow source-state/arithmetic probes passed in 0.021284920s.
+The reviewer checkpoint was 319s. No aggregate/predecessor/corpus/native replay
+was performed. Later SSA, shared pools/bitmaps and collector joins remained
+explicitly open at that target.
+
+The lead's separate accepted SSA argument examines the actual updater triggers,
+queued-inline TODO, equal-callee early return, same-variable operand rescans,
+name compaction/free queues and final teardown. It extends the initial SSA
+owner without charging it again. Its 66 checks of 24 GCC/8 repository inputs,
+26 LF-coordinate excerpts and retained ownership/guards passed in 0.021110448s.
+These checks establish source consistency; the handwritten source argument
+and independent review supply the scoped lifetime conclusion. Review found no
+material findings and checked the temporary-creation/release, unused-local,
+stack-alias and slab-rooting challenges. Independent identities and owner/guard
+comparisons took 0.073638651s and 0.009820267s; the review checkpoint took 244s.
+The lead's source-inspection wall time was not instrumented.
+
+The actual-source lifetime wrapper attaches the four accepted map/RTL/graph/query
+leaves, with all 149 guards conjunctive and event owners separate. Its exact
+historical prose adapter resolves the earlier note-identity mismatch without
+substituting executable/compiler/model inputs. The final changed-wrapper checks
+passed 204 cases in 5.729571s; independent 46-record identity and 31-comparison
+checks took 0.464597393s and 0.024494734s. Review found no material findings;
+its evidence checkpoint took 94s, excluding report preparation and commit.
+This demonstrates a completed bounded Sol implementation with Astra review;
+it does not establish a causal cost or quality comparison between models.
+
+The Why exception and converter packets are frozen for combined review. The
+converter argument reconciles 24 initializer registrations / 23 keys, including
+a real replacement and the enabled/disabled callback distinction. Exceptional
+charge and complete R remain null. A bounded applicability assessment is checking
+which interrupted paths matter under the existing trusted boundary; no exclusion
+or changed premise has yet been accepted. Shared bitmap/pool work continues on
+Astra / Extra High. MEM/SSA attachment, complete GGC/finalizer/collector joins,
+required phases/current grammar and useful-domain comparison remain unfinished.
+
+Runtime confirmation, lead settings and per-round token/monetary cost are
+unavailable. These observations measure closed obligations and focused check
+work, not causal model quality. CLI memory remains unavailable. No new native
+compiler/prover/capture, Lean build or broad suite has run in this round.
+The separately blocked harness status has no available resume transition;
+owner-authorized issue work continues without claiming a harness state change.
+
+Round 17 integration binds **114 frozen files**, parses 56 JSON and 21 Python
+syntax inputs, checks 125 packet links, 46 current selected-route pins,
+46 attachment manifest records, the one exact historical audit document and
+260 checkpoint links. The read-only integration check passed in 0.453631383s;
+`git diff --check` passed. No successful predecessor computation was replayed.
+The raw integration record is retained at `tmp/round17-integration.json` in the
+shared checkout. #142 is technically repaired and independently accepted;
+publication carries its merge-closing reference, while #119 remains In progress.

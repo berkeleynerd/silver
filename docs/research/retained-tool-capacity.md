@@ -509,8 +509,9 @@ histories `39257+120+C` and `39257+3C`, with zero later non-lookup growth.
 It prices at most **4C new shared backbones**; the setup's 121 backbones remain
 inside the existing 437-event envelope and direct objects retain their owners.
 Five additional fixed scalar controls are identified; recorded-loop/DF control
-increments are zero on this route. The reachable tree-type/alias child-map
-family remains open, so five is not the complete scalar-finalizer residual.
+increments are zero on this route. That packet leaves the reachable
+tree-type/alias child-map family open; the subsequent accepted graph/query
+closure below supplies the complete selected scalar history.
 Review found [#141](https://github.com/berkeleynerd/silver/issues/141): fresh
 descriptor setup performs two adjacent attribute lookups, so total reg_attrs
 lookup demand is 4C. The repair proves at most one new record/backbone per
@@ -537,6 +538,40 @@ in 0.476313202 seconds. No native observation or broad suite was repeated.
 Separate mem_attrs, SSA/RTL/DF/emission counters, ordinary pools/stacks,
 array/outer finalizers and collector page/mark state, and the disjoint total
 GGC ledger remain open. These closures do not establish full native capacity.
+
+The [MEM/counter lifetime result](retained-literal-mem-counter-lifetime.md),
+frozen at `9d24cab8cf` and [independently accepted](../reviews/review-literal-mem-counter-lifetime-9d24cab8cf.md),
+retains the already-owned **5C mem_attrs records** and prices the additional
+register backing growth `q(99+5C)-q(98+3C)`, with q the least doubling count
+from 198 slots. Dummy/Main arrays keep distinct owners. It reconciles selected
+RTL/DF/LRA/emission reset and reuse boundaries, distinguishes unsigned SSA
+statistics from semantic counters, and prices the remaining DF reference and
+instruction pools. Hello has 60 blocks per generation / 120 lifetime requests,
+not 120 simultaneously live blocks. Collection-vector capacities are
+33,49,73,109, with individual backing at most 880 bytes. The 49 focused author
+checks and independent 0.021284920-second arithmetic/source probes pass.
+Shared pools/bitmaps, typed-array/outer finalizers and the complete collector
+ledger remain open. The [later SSA lifetime result](retained-literal-ssa-lifetime.md),
+frozen at `e0c24340e8` and [independently accepted](../reviews/review-literal-ssa-lifetime-e0c24340e8.md),
+extends the initial Main SSA allowance through concrete updater/rescan/teardown
+branches. Its 66 source/ownership consistency checks passed in 0.021110448
+seconds. Independent review challenged temporary creation/release, local removal,
+stack-alias construction and slab rooting; no material findings. The existing
+`6C+10+L` owner (Hello 17 requests) is extended, not charged again.
+
+The [actual-source lifetime attachment](retained-literal-lifetime-attachment.md),
+frozen at `b9b94f26ff` and [independently accepted](../reviews/review-literal-lifetime-attachment-b9b94f26ff.md),
+joins the ordinary-map, repaired RTL-cache, completed alias-graph and query
+lifetimes to the selected native source. All 69 inherited guards and 80 added
+guards remain conjunctive. Source/ownership mismatches reject; arithmetic
+failures return failed guards. An exact historical prose adapter preserves the
+graph/query audit dependency while all executable/compiler/model inputs stay
+current; consumed-argument equality and negative checks cover that adaptation.
+The 204 focused author checks passed in 5.729571 seconds. Independent review
+accepted the joins and separate owners: maps 3, RTL 4C, graph 14, query 0. Shared
+768, partial native 2,312 and location 13 remain separate Hello allowances,
+not a summed total. MEM/SSA actual-source attachment and the remaining pool,
+finalizer, collector and full-pipeline joins remain open.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -804,9 +839,17 @@ that separation, the inspected Why wrappers and the installed `Compress_none`
 selection, but requires [#142](https://github.com/berkeleynerd/silver/issues/142)
 before accepting the installed callback-family closure. Linked OCaml `Misc.Color`
 and `Location` introduce additional tag/output wrappers outside the stated
-family. Their bodies appear compatible with zero identifier work, but their
-initialization and preservation must be included explicitly. The repair and
-separate exceptional-unwinding argument remain open; complete R is still null.
+family. The [repair](retained-why-session-formatter-prefix-repair.md), frozen
+at `72096d1909`, is now [independently accepted](../reviews/review-why-formatter-prefix-repair-72096d1909.md).
+It includes nested, surviving and partially/stale-restored Location output
+wrappers and Color marker fallbacks while preserving print callbacks.
+Independent source/ELF checking reconciled 14 bodies / 2,352 bytes, all 51
+recorded branches, twelve words/targets and exact source/plugin identities in
+0.619610204 seconds. #142's bounded repair is complete pending merge; it does
+not establish the exceptional-unwinding charge or complete R, which stays null.
+A separate exception-dispatch packet is under analysis; the linked Sexplib
+converter prefix, reachable exception family and interrupted-handler
+continuations require their own closure.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
