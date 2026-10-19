@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "authorization": "Continuing owner-authorized research; parent-assigned bounded actual-source pool/finalizer successor. No GitHub writes or delegation.",
+  "base_revision": "4697bfcaa18caa066c73fe3819ff84b8b5ce8b4d",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_measurements": null,
+  "host": "Linux 7.0.14 x86_64",
+  "intended_outcome": "Attach accepted shared bitmap/pool and array/depth/outer-finalizer source scopes to actual-source178 wrapper, retaining all guards and existing owners",
+  "achieved": "Actual-source Context/evaluate, complete ordinary cold-owner checks, exact source-derived configured invocation and checked finalizer theorem adaptation;178 inherited+41 new=219 guards; zero new GGC/finalizer deltas; independent attachment review pending",
+  "first_recorded_post_worktree_checkpoint_utc": "2026-10-19T01:41:26+00:00",
+  "round_record_utc": "2026-10-19T01:49:08.389692+00:00",
+  "recorded_checkpoint_interval_seconds": 462.389692,
+  "whole_task_elapsed_seconds": null,
+  "checkpoint_scope": "Clock checkpoint follows worktree creation; not a measured whole-task start.",
+  "final_affected_run": {
+    "started_utc": "2026-10-19T01:47:37.697123+00:00",
+    "completed_utc": "2026-10-19T01:47:45.585958+00:00",
+    "elapsed_seconds": 7.8926078689983115,
+    "checks": 309,
+    "inherited_guard_count": 178,
+    "new_guard_count": 41,
+    "total_guards": 219,
+    "new_contexts": 1
+  },
+  "actual_sources": 4,
+  "count_only_cases": 12,
+  "earlier_affected_run": {
+    "passed": true,
+    "checks": 306,
+    "elapsed_seconds": 7.6623788500000956
+  },
+  "significant_rework": "After initial success, self-review strengthened ordinary cold-owner retention to complete CFG/SSA request dictionaries and SSA-helper output; added three ET/CFG corruption checks. Changed implementation justified final focused rerun. No failed run or source-argument/bound repair.",
+  "accepted_nonblocking_erratum": "vec<int> point_freq_vec at gcc/lra-lives.cc530 has four-byte int elements; reserve/growth/capacity arithmetic unsigned; compression uses MAX/copy. Frozen source note unchanged.",
+  "retained_evidence": "Accepted MEM/SSA269 and predecessors; pool52/21 count cases/11 bitmap boundaries/18 pool boundaries; finalizer67 and retained15-type28-site projection; exact A/B/C source review. None replayed.",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "large_corpus_rerun": false,
+  "array_census_regenerated": false,
+  "runtime_census_reinventoried": false,
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive validation started or resumed; only new focused offline checks.",
+  "pending_event_ledger_consumed": false,
+  "github_writes": 0,
+  "delegation": 0,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "new_GGC_events": 0,
+  "new_scalar_registrations": 0,
+  "new_array_registrations": 0,
+  "total_GGC_events": null,
+  "active_page_bound": null,
+  "complete_native_capacity": false,
+  "complete_collector_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "remaining": [
+    "Independent review of new attachment",
+    "Complete positive GGC event/object/request ledger and remaining ordinary/IRA/stack owners",
+    "Collector page/mark/free-page/order/epoch/by_depth/save_in_use metadata and counters",
+    "Other required phases and full-current-grammar capacity"
+  ],
+  "implementation_inputs": {
+    "compose.py": {
+      "bytes": 21451,
+      "sha256": "09982a2919efc091cb8f7669b66487b61bee7128acee91381b36144a815a986e"
+    },
+    "check.py": {
+      "bytes": 19987,
+      "sha256": "5201eb3092ec1c8f8e5644f9e69dc33888efbbf6240573e0e9a2e3a0f4611ffe"
+    },
+    "inputs.json": {
+      "bytes": 6443,
+      "sha256": "072850a9408597df4d8619747c3ec57c11dc745ac18611f000e1d05ddc381322"
+    }
+  },
+  "evidence_identities": {
+    "README.md": {
+      "bytes": 2969,
+      "sha256": "57c32f40bd458aadbf8ca4e958e0aee3b96699ba70a302d9b2ae2c2b2853efc3"
+    },
+    "result.json": {
+      "bytes": 740459,
+      "sha256": "fbf85f0dcc7c94866dd23b34e96ba3ddc6d5f5248a9e004dfc97a98527b5e612"
+    },
+    "check-results.json": {
+      "bytes": 44123,
+      "sha256": "92ebb52806eb73016952de1655811fad9912ae4673355bfa5028cbf6bafe291b"
+    }
+  },
+  "source_note_identity": {
+    "bytes": 10732,
+    "sha256": "35e65f161be0595089a05abc8dc376efb7af7b1d81232f4f93255875f3570f3f"
+  }
+}

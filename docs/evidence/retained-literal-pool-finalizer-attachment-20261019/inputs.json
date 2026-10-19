@@ -1,0 +1,145 @@
+{
+  "scope": "Accepted complete178-guard predecessor and shared-bitmap/pool and finalizer packets/source notes; exact A/B/C acceptance report with point-frequency erratum; no pending event ledger input",
+  "base_revision": "4697bfcaa18caa066c73fe3819ff84b8b5ce8b4d",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/README.md",
+      "bytes": 2919,
+      "sha256": "3a8c9b3054132589945f882ada54be658468a13b55a644c5a72e5b39462bbd93"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/check-results.json",
+      "bytes": 45019,
+      "sha256": "ef0ce1019380448809e242037248177ea38a3f8459bd0c2b9f61fa769dcff44e"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/check.py",
+      "bytes": 20035,
+      "sha256": "63a28575a4cf3addcff568656493b0f8cd5378c4bde3fc3ffe678cbc24293a98"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/compose.py",
+      "bytes": 18673,
+      "sha256": "fef852e1bafa67467d8663546483ba1194b4e527448510ebc90882fb23a769cb"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/inputs.json",
+      "bytes": 6861,
+      "sha256": "dee83456a106970fa8456320a5d878327f15ab5fbf7d42799e94f8027728a108"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/result.json",
+      "bytes": 711235,
+      "sha256": "ceca4b28ebcf95a4bda47f074305a69f320c40b86a1039249e44034ea62e2a73"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/round.json",
+      "bytes": 4199,
+      "sha256": "34012b51ef57e55e3e35077cafd7dfe23beb6eb2b4cfc3569834952e3d50d620"
+    },
+    {
+      "revision": "e28fef05f2eb5948ceffbc2b8d2e7b09b1a0b511",
+      "path": "docs/research/retained-literal-mem-ssa-attachment.md",
+      "bytes": 10031,
+      "sha256": "70e988f356254b42cfe90919562aed70af93646ce0fa69c52fd743b87fb00f04"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/README.md",
+      "bytes": 4191,
+      "sha256": "084703e452544b875d30385a5597aa7785e7bd343d0dd85ab5a06f3cbbf62c47"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/check-results.json",
+      "bytes": 3401,
+      "sha256": "60bc0a714203273898a88f57acdac5dfc667b7c80851c2e4a213d42b4d52a323"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/check.py",
+      "bytes": 11487,
+      "sha256": "963b637cc2862ab4c404df1bed6485b66545bbd54af7e843dee00a8fb3807721"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/derive.py",
+      "bytes": 16168,
+      "sha256": "b80d837a04a223b54784260c6f4ed6b194dfe5092e8bc55d16a195f2cdd87abb"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/inputs.json",
+      "bytes": 11203,
+      "sha256": "2a7852cacb1e4b75e386d2e73f0a5b3044f43eeb7455e6501a28b650af423c43"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/result.json",
+      "bytes": 11499,
+      "sha256": "13c62435277133d9b8b31b60d06416bc56d9ecfc6cf216eaebc930f588e89a56"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/round.json",
+      "bytes": 5527,
+      "sha256": "d8ee8c6066b0c1d70b5c31581635ed4aee71c5fb275cb13be8beb8aff89ff5e8"
+    },
+    {
+      "revision": "86d50fa7ec32c8f57e66d3c07286ba881d311b80",
+      "path": "docs/research/retained-literal-shared-bitmap-pools.md",
+      "bytes": 20006,
+      "sha256": "b37297072221c7fb6267bedff2e4bb2af91b196746b4a4ca427f96aae39bab44"
+    },
+    {
+      "revision": "2b16ef1814d5c668590dc9728fef94d46ea549cd",
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/README.md",
+      "bytes": 908,
+      "sha256": "114d2cc882af00179b7e3c093375fa481627ba7331d9ce7ff015e736e21fce49"
+    },
+    {
+      "revision": "2b16ef1814d5c668590dc9728fef94d46ea549cd",
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/check.py",
+      "bytes": 4265,
+      "sha256": "f4d1168def314fba91da76ab8c080c2d2388814527025f22ef4a0cc645e4947a"
+    },
+    {
+      "revision": "2b16ef1814d5c668590dc9728fef94d46ea549cd",
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/inputs.json",
+      "bytes": 14438,
+      "sha256": "e0bce5cf12ae3c336c1f1e5992ad59c6f9443ca4c4e2c1dc5369eb4861fdf8b2"
+    },
+    {
+      "revision": "2b16ef1814d5c668590dc9728fef94d46ea549cd",
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/result.json",
+      "bytes": 4181,
+      "sha256": "adbbd2396a0039490eb09a7bc23823de9b46d7e59d31bca58d87febe0573f653"
+    },
+    {
+      "revision": "2b16ef1814d5c668590dc9728fef94d46ea549cd",
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/round.json",
+      "bytes": 1478,
+      "sha256": "7b7f4613009d7a9b85f32a759468d79f0e2e8960f4456d2cf269dd779039802c"
+    },
+    {
+      "revision": "2b16ef1814d5c668590dc9728fef94d46ea549cd",
+      "path": "docs/research/retained-literal-finalizer-lifetime.md",
+      "bytes": 8206,
+      "sha256": "69df4de7f6c23994bbef39219307276338121c90c441d935fcc25f004bdff623"
+    },
+    {
+      "revision": "d22953155f84b5ad875a74bbf6e565c9ae37c7cc",
+      "path": "docs/reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md",
+      "bytes": 16586,
+      "sha256": "5775ed97dcc5b7a4deff2c1d89b09ad725f585fef6b561f07c06c75cf687b143"
+    }
+  ]
+}

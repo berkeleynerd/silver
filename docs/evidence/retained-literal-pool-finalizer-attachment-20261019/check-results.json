@@ -1,0 +1,815 @@
+{
+  "started_utc": "2026-10-19T01:47:37.697123+00:00",
+  "completed_utc": "2026-10-19T01:47:45.585958+00:00",
+  "elapsed_seconds": 7.8926078689983115,
+  "passed": true,
+  "checks": 309,
+  "check_names": [
+    "complete pool and finalizer identities/excerpts checked without fixed checker",
+    "corrected int element and unsigned capacity representation bound to actual declaration",
+    "Hello both new leaves match actual complete source identity/counts",
+    "Hello inherited178 and new41 predicates remain conjunctive219",
+    "Hello original core MEM SSA query and previous event owners unchanged",
+    "Hello ordinary cold bitmap ET and invariant owners retained once",
+    "Hello ordinary block cache and linked allocator have no invented lifetime counter",
+    "Hello scalar39275 capacity58911 and zero-array depth0 theorem joined to actual route",
+    "Hello pool and finalizer joins add zero events or registrations",
+    "Hello accepted current scopes separated from frozen historical flags",
+    "Hello page GGC native and full pipeline stay nullfalse",
+    "Hello pool exactly equals accepted general-callable retained result",
+    "Hello accepted finalizer fields agree without calling fixed checker",
+    "same_counts_other_bytes both new leaves match actual complete source identity/counts",
+    "same_counts_other_bytes inherited178 and new41 predicates remain conjunctive219",
+    "same_counts_other_bytes original core MEM SSA query and previous event owners unchanged",
+    "same_counts_other_bytes ordinary cold bitmap ET and invariant owners retained once",
+    "same_counts_other_bytes ordinary block cache and linked allocator have no invented lifetime counter",
+    "same_counts_other_bytes scalar39275 capacity58911 and zero-array depth0 theorem joined to actual route",
+    "same_counts_other_bytes pool and finalizer joins add zero events or registrations",
+    "same_counts_other_bytes accepted current scopes separated from frozen historical flags",
+    "same_counts_other_bytes page GGC native and full pipeline stay nullfalse",
+    "same_counts_other_bytes same-count sample identity cannot be reused",
+    "mixed_empty_literals_and_nulls both new leaves match actual complete source identity/counts",
+    "mixed_empty_literals_and_nulls inherited178 and new41 predicates remain conjunctive219",
+    "mixed_empty_literals_and_nulls original core MEM SSA query and previous event owners unchanged",
+    "mixed_empty_literals_and_nulls ordinary cold bitmap ET and invariant owners retained once",
+    "mixed_empty_literals_and_nulls ordinary block cache and linked allocator have no invented lifetime counter",
+    "mixed_empty_literals_and_nulls scalar39275 capacity58911 and zero-array depth0 theorem joined to actual route",
+    "mixed_empty_literals_and_nulls pool and finalizer joins add zero events or registrations",
+    "mixed_empty_literals_and_nulls accepted current scopes separated from frozen historical flags",
+    "mixed_empty_literals_and_nulls page GGC native and full pipeline stay nullfalse",
+    "mixed_empty_literals_and_nulls same-count sample identity cannot be reused",
+    "program_point_domain_over128 both new leaves match actual complete source identity/counts",
+    "program_point_domain_over128 inherited178 and new41 predicates remain conjunctive219",
+    "program_point_domain_over128 original core MEM SSA query and previous event owners unchanged",
+    "program_point_domain_over128 ordinary cold bitmap ET and invariant owners retained once",
+    "program_point_domain_over128 ordinary block cache and linked allocator have no invented lifetime counter",
+    "program_point_domain_over128 scalar39275 capacity58911 and zero-array depth0 theorem joined to actual route",
+    "program_point_domain_over128 pool and finalizer joins add zero events or registrations",
+    "program_point_domain_over128 accepted current scopes separated from frozen historical flags",
+    "program_point_domain_over128 page GGC native and full pipeline stay nullfalse",
+    "program_point_domain_over128 same-count sample identity cannot be reused",
+    "actual program-point bitmap crosses sparse element boundary with four-byte int backing",
+    "changed descriptor configuration rejected",
+    "inherited false guard retained shared_launch_paths",
+    "inherited false guard retained Main_source_EOF",
+    "inherited false guard retained Main_source_request",
+    "inherited false guard retained Main_line_table",
+    "inherited false guard retained Main_expanded_columns",
+    "inherited false guard retained native_Main_logical_lines",
+    "inherited false guard retained native_Main_frontend_literal_length",
+    "inherited false guard retained native_lowering_and_data",
+    "inherited false guard retained native_RTL_shape",
+    "inherited false guard retained native_selected_helper_backing",
+    "inherited false guard retained native_varpool_and_shared_tree_pool",
+    "inherited false guard retained native_graph_and_summary_lifetime",
+    "inherited false guard retained native_function_and_symbol_counter_endpoints",
+    "inherited false guard retained native_global_RTL_label_endpoint",
+    "inherited false guard retained native_global_constant_label_endpoint",
+    "inherited false guard retained native_SSA_helper_backing",
+    "inherited false guard retained native_initial_SSA_lifetime",
+    "inherited false guard retained native_initial_CF_CFG_lifetime",
+    "inherited false guard retained native_whole_body_copy_local_interface",
+    "inherited false guard retained native_initial_warning_map_lifetime",
+    "inherited false guard retained native_collector_callback_local_interface",
+    "inherited false guard retained native_original_helper_name_arithmetic",
+    "inherited false guard retained native_synthetic_individual_request_sizes",
+    "inherited false guard retained Main_assembler_object_interface",
+    "inherited false guard retained Main_GAS_BFD_storage",
+    "inherited false guard retained literal_output_linker_representation",
+    "inherited false guard retained Main_ALI_interface",
+    "inherited false guard retained ALI_consumer_local_interfaces",
+    "inherited false guard retained GPR_parent_DW_local_interface",
+    "inherited false guard retained Why_core",
+    "inherited false guard retained output_binder_checksum_no_collection",
+    "inherited false guard retained native_original_shared_identifier_hash",
+    "inherited false guard retained native_original_shared_type_hash",
+    "inherited false guard retained native_original_shared_integer_hash",
+    "inherited false guard retained native_original_shared_global_decls",
+    "inherited false guard retained native_original_shared_stmt_list_cache",
+    "inherited false guard retained native_original_shared_alias_sets",
+    "inherited false guard retained native_original_shared_scalar_finalizers",
+    "inherited false guard retained native_original_shared_selected_counter_endpoints",
+    "inherited false guard retained native_original_shared_filename_ingress",
+    "inherited false guard retained native_invocation_selected_native_launch_graph_computable",
+    "inherited false guard retained native_invocation_selected_main_emission_to_GAS_object_route_bound",
+    "inherited false guard retained native_invocation_selected_fixed_link_input_materialization_computable",
+    "inherited false guard retained native_Ada_numeric_numeric_tables",
+    "inherited false guard retained native_Ada_numeric_selected_local_numeric_objects",
+    "inherited false guard retained native_Ada_numeric_float_callback_vector",
+    "inherited false guard retained native_Ada_numeric_original_constant_callback_digits",
+    "inherited false guard retained native_Ada_numeric_Rep_Table_index_negation",
+    "inherited false guard retained native_frontend_configuration",
+    "inherited false guard retained native_frontend_core_tables",
+    "inherited false guard retained native_frontend_parser_auxiliary",
+    "inherited false guard retained native_frontend_invocation",
+    "inherited false guard retained native_frontend_numeric",
+    "inherited false guard retained native_frontend_physical_sources",
+    "inherited false guard retained native_frontend_gigi_array_and_name_input",
+    "inherited false guard retained native_location_ad_hoc_storage",
+    "inherited false guard retained native_location_later_warning_storage",
+    "inherited false guard retained native_location_filename_direct_objects",
+    "inherited false guard retained native_location_Main_ordinary_map_lines",
+    "inherited false guard retained native_location_fixed_runtime_ordinary_map_lines",
+    "inherited false guard retained native_location_fixed_extra_ordinary_map_lines",
+    "inherited false guard retained native_location_virtual_template_ordinary_map_lines",
+    "inherited false guard retained native_indexed_identifier_historical_insertions_unsigned",
+    "inherited false guard retained native_indexed_identifier_slot_threshold_unsigned",
+    "inherited false guard retained native_indexed_identifier_doubling_unsigned",
+    "inherited false guard retained native_indexed_identifier_individual_request",
+    "inherited false guard retained native_indexed_serial_incoming_temporary_name_serial_unsigned",
+    "inherited false guard retained native_indexed_serial_temporary_name_serial_unsigned",
+    "inherited false guard retained native_virtual_Dope_Rec_individual_request",
+    "inherited false guard retained native_lifetime_ordinary_one_map_per_file",
+    "inherited false guard retained native_lifetime_ordinary_location_space",
+    "inherited false guard retained native_lifetime_ordinary_individual_size_t_products",
+    "inherited false guard retained native_lifetime_ordinary_map_count_and_index_uint64",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_historical_region",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_prime_exists",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_load_products",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_unsigned_probe_addition",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_individual_request",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_allocator_order",
+    "inherited false guard retained native_lifetime_RTL_CONST_INT_fits",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_historical_region",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_prime_exists",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_load_products",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_unsigned_probe_addition",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_individual_request",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_allocator_order",
+    "inherited false guard retained native_lifetime_RTL_reg_attrs_fits",
+    "inherited false guard retained native_lifetime_RTL_conditional_cache_capacity",
+    "inherited false guard retained native_lifetime_graph_alias_sets_length_unsigned",
+    "inherited false guard retained native_lifetime_graph_alias_sets_growth_unsigned",
+    "inherited false guard retained native_lifetime_graph_alias_sets_normalized_capacity_31_bits",
+    "inherited false guard retained native_lifetime_graph_alias_sets_request_and_pointer_span",
+    "inherited false guard retained native_lifetime_graph_alias_sets_allocator_order_region",
+    "inherited false guard retained native_lifetime_graph_child_maps_no_pre_hit_growth",
+    "inherited false guard retained native_lifetime_graph_child_maps_alias_keys_fit_signed",
+    "inherited false guard retained native_lifetime_graph_child_maps_reserved_int_keys_excluded",
+    "inherited false guard retained native_lifetime_graph_child_maps_backing_request_span",
+    "inherited false guard retained native_lifetime_graph_scalar_finalizers_length_unsigned",
+    "inherited false guard retained native_lifetime_graph_scalar_finalizers_growth_unsigned",
+    "inherited false guard retained native_lifetime_graph_scalar_finalizers_capacity_31_bits",
+    "inherited false guard retained native_lifetime_graph_scalar_finalizers_request_span",
+    "inherited false guard retained native_lifetime_graph_alias_vector_fits",
+    "inherited false guard retained native_lifetime_graph_type_UID_unsigned",
+    "inherited false guard retained native_lifetime_graph_conditional_graph_capacity",
+    "inherited false guard retained native_lifetime_query_identifier_hash_history_unsigned",
+    "inherited false guard retained native_lifetime_query_identifier_hash_threshold_unsigned",
+    "inherited false guard retained native_lifetime_query_identifier_hash_doubling_unsigned",
+    "inherited false guard retained native_lifetime_query_identifier_hash_request_span",
+    "inherited false guard retained native_lifetime_query_type_hash_prime_exists",
+    "inherited false guard retained native_lifetime_query_type_hash_load_products",
+    "inherited false guard retained native_lifetime_query_type_hash_empty_threshold_unsigned",
+    "inherited false guard retained native_lifetime_query_type_hash_probe_addition",
+    "inherited false guard retained native_lifetime_query_type_hash_request_and_pointer_span",
+    "inherited false guard retained native_lifetime_query_type_hash_allocator_order_region",
+    "inherited false guard retained native_lifetime_query_type_hash_fits",
+    "inherited false guard retained native_lifetime_query_integer_hash_prime_exists",
+    "inherited false guard retained native_lifetime_query_integer_hash_load_products",
+    "inherited false guard retained native_lifetime_query_integer_hash_empty_threshold_unsigned",
+    "inherited false guard retained native_lifetime_query_integer_hash_probe_addition",
+    "inherited false guard retained native_lifetime_query_integer_hash_request_and_pointer_span",
+    "inherited false guard retained native_lifetime_query_integer_hash_allocator_order_region",
+    "inherited false guard retained native_lifetime_query_integer_hash_fits",
+    "inherited false guard retained native_lifetime_query_global_decls_length_unsigned",
+    "inherited false guard retained native_lifetime_query_global_decls_growth_unsigned",
+    "inherited false guard retained native_lifetime_query_global_decls_normalized_capacity_31_bits",
+    "inherited false guard retained native_lifetime_query_global_decls_request_and_pointer_span",
+    "inherited false guard retained native_lifetime_query_global_decls_allocator_order_region",
+    "inherited false guard retained native_lifetime_query_global_decls_fits",
+    "inherited false guard retained native_lifetime_query_stmt_list_cache_length_unsigned",
+    "inherited false guard retained native_lifetime_query_stmt_list_cache_growth_unsigned",
+    "inherited false guard retained native_lifetime_query_stmt_list_cache_normalized_capacity_31_bits",
+    "inherited false guard retained native_lifetime_query_stmt_list_cache_request_and_pointer_span",
+    "inherited false guard retained native_lifetime_query_stmt_list_cache_allocator_order_region",
+    "inherited false guard retained native_lifetime_query_stmt_list_cache_fits",
+    "inherited false guard retained native_lifetime_query_alias_sets_length_unsigned",
+    "inherited false guard retained native_lifetime_query_alias_sets_growth_unsigned",
+    "inherited false guard retained native_lifetime_query_alias_sets_normalized_capacity_31_bits",
+    "inherited false guard retained native_lifetime_query_alias_sets_request_and_pointer_span",
+    "inherited false guard retained native_lifetime_query_alias_sets_allocator_order_region",
+    "inherited false guard retained native_lifetime_query_alias_sets_fits",
+    "inherited false guard retained native_lifetime_query_scalar_finalizers_length_unsigned",
+    "inherited false guard retained native_lifetime_query_scalar_finalizers_growth_unsigned",
+    "inherited false guard retained native_lifetime_query_scalar_finalizers_capacity_31_bits",
+    "inherited false guard retained native_lifetime_query_scalar_finalizers_request_span",
+    "inherited false guard retained native_lifetime_query_counter_endpoints_DECL_UID_signed",
+    "inherited false guard retained native_lifetime_query_counter_endpoints_type_UID_unsigned",
+    "inherited false guard retained native_lifetime_query_counter_endpoints_alias_ID_signed",
+    "inherited false guard retained native_lifetime_query_counter_endpoints_temporary_name_serial_unsigned",
+    "inherited false guard retained native_lifetime_query_conditional_shared_capacity",
+    "inherited false guard retained native_mem_ssa_MEM_inherited_RTL_DF_LRA_checks",
+    "inherited false guard retained native_mem_ssa_MEM_Main_register_array_signed_doubling",
+    "inherited false guard retained native_mem_ssa_MEM_Main_register_array_pointer_span",
+    "inherited false guard retained native_mem_ssa_MEM_Main_register_array_alignment_span",
+    "inherited false guard retained native_mem_ssa_MEM_ordinary_pool_retained_count_widths",
+    "inherited false guard retained native_mem_ssa_MEM_DF_collection_use_capacity_31_bits",
+    "inherited false guard retained native_mem_ssa_MEM_DF_collection_use_growth_unsigned",
+    "inherited false guard retained native_mem_ssa_MEM_DF_collection_use_request_span",
+    "inherited false guard retained native_mem_ssa_MEM_cfun_capacity_covers_peak",
+    "inherited false guard retained native_mem_ssa_emission_literal_length_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_ordinary_label_next_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_constant_label_next_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_Main_instruction_UID_and_label_span_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_final_scan_counter_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_text_and_CFI_location_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_CFI_label_temporary_and_next_signed_int",
+    "inherited false guard retained native_mem_ssa_emission_function_definition_next_signed_int",
+    "inherited false guard retained native_mem_ssa_MEM_conditional_capacity",
+    "inherited false guard retained native_mem_ssa_SSA_phase_SSA_name_versions_and_fresh_count",
+    "inherited false guard retained native_mem_ssa_SSA_SSA_vector_growth_unsigned_intermediate",
+    "inherited false guard retained native_mem_ssa_SSA_SSA_vector_normalized_capacity_31_bit",
+    "inherited false guard retained native_mem_ssa_SSA_SSA_vector_size_product",
+    "inherited false guard retained native_mem_ssa_SSA_var_info_initial_hash_region",
+    "inherited false guard retained native_mem_ssa_SSA_initial_CFG_and_dominance_signed_intermediate",
+    "inherited false guard retained native_mem_ssa_SSA_definition_stack_growth_unsigned_intermediate",
+    "inherited false guard retained native_mem_ssa_SSA_definition_stack_capacity_31_bit",
+    "inherited false guard retained native_mem_ssa_SSA_bitmap_rounding_unsigned",
+    "inherited false guard retained native_mem_ssa_SSA_ordinary_size_products",
+    "inherited false guard retained native_mem_ssa_SSA_conditional_lifetime_capacity",
+    "new false raw guard retained pool.local_representation_checks.inherited_RTL_DF_LRA_representation",
+    "new false raw guard retained pool.local_representation_checks.sparse_bitmap_indices_range_ends_and_rounding",
+    "new false raw guard retained pool.local_representation_checks.declaration_UID_signed",
+    "new false raw guard retained pool.local_representation_checks.bitmap_default_nesting_signed",
+    "new false raw guard retained pool.local_representation_checks.bitmap_chunk_local_arithmetic",
+    "new false raw guard retained pool.local_representation_checks.program_point_finish_plus_one_signed",
+    "new false raw guard retained pool.local_representation_checks.point_frequency_initial_unsigned_product",
+    "new false raw guard retained pool.local_representation_checks.point_frequency_growth_unsigned_product",
+    "new false raw guard retained pool.local_representation_checks.point_frequency_capacity_31_bits",
+    "new false raw guard retained pool.local_representation_checks.local_array_and_vector_pointer_spans",
+    "new false raw guard retained pool.local_representation_checks.dense_bitmap_rounding_and_stored_size",
+    "new false raw guard retained pool.local_representation_checks.sparse_set_unsigned_request",
+    "new false raw guard retained pool.local_representation_checks.ET_DFS_and_relative_depth_signed",
+    "new false raw guard retained pool.local_representation_checks.typed_pool_retained_counters",
+    "new false raw guard retained pool.inherited_owner_guards.mem",
+    "new false raw guard retained pool.inherited_owner_guards.initial_SSA",
+    "new false raw guard retained pool.inherited_owner_guards.initial_CFG",
+    "new false raw guard retained pool.inherited_owner_guards.SSA_helpers",
+    "new false raw guard retained pool.bit_domains.hard_register.fits",
+    "new false raw guard retained pool.bit_domains.register.fits",
+    "new false raw guard retained pool.bit_domains.final_instruction_UID.fits",
+    "new false raw guard retained pool.bit_domains.basic_block.fits",
+    "new false raw guard retained pool.bit_domains.initial_GIMPLE_block.fits",
+    "new false raw guard retained pool.bit_domains.program_point.fits",
+    "new false raw guard retained pool.bit_domains.declaration_UID.fits",
+    "new false raw guard retained pool.bit_domains.initial_SSA_version.fits",
+    "new false raw guard retained pool.dominance.ordinary_pools.0.fits",
+    "new false raw guard retained pool.dominance.ordinary_pools.1.fits",
+    "new false raw guard retained pool.LRA_additional_pools.live_ranges.fits",
+    "new false raw guard retained pool.conditional_selected_shared_bitmap_and_pool_capacity_established",
+    "new false raw guard retained finalizer.retained_scalar_guards.length_unsigned",
+    "new false raw guard retained finalizer.retained_scalar_guards.growth_unsigned",
+    "new false raw guard retained finalizer.retained_scalar_guards.capacity_31_bits",
+    "new false raw guard retained finalizer.retained_scalar_guards.request_span",
+    "new false raw guard retained finalizer.local_representation_checks.context_depth_masks_fit_64_bits",
+    "new false raw guard retained finalizer.local_representation_checks.depth_entries_fit_existing_ten",
+    "new false raw guard retained finalizer.local_representation_checks.depth_individual_request_span",
+    "new false raw guard retained finalizer.local_representation_checks.outer_vector_length_unsigned",
+    "new false raw guard retained finalizer.local_representation_checks.outer_vector_growth_and_capacity",
+    "new false raw guard retained finalizer.local_representation_checks.outer_individual_request_span",
+    "new false raw guard retained finalizer.conditional_selected_finalizer_capacity",
+    "nonboolean new raw arithmetic rejected",
+    "reject changed input source.sha256",
+    "reject changed input source_counts.maximum_literal_length",
+    "reject changed input core_result.source.sha256",
+    "reject changed input selected_native_MEM_counter_lifetime.source_counts.decoded_literal_bytes",
+    "reject changed input selected_native_shared_query_lifetime.counter_endpoints.next_DECL_UID_upper",
+    "reject changed input selected_native_shared_query_lifetime.scalar_finalizers.allocated_slots_upper",
+    "reject changed input core_result.native_initial_SSA_lifetime.ordinary_requests.shared_default_bitmap_headers_upper",
+    "reject changed input core_result.native_SSA_helper_backing.ranger_per_instance.bitmap_obstack_initial_chunks_upper",
+    "reject changed input core_result.native_initial_SSA_lifetime.ordinary_requests.ET_node_pool_blocks_upper",
+    "reject changed input core_result.native_initial_SSA_lifetime.ordinary_requests.ET_occurrence_pool_blocks_upper",
+    "reject changed input core_result.native_initial_CF_CFG_lifetime.ordinary_requests",
+    "reject changed input selected_native_invocation.processes.0.argv",
+    "reject changed input selected_native_invocation.processes.0.environment.OTHER_PLUGIN",
+    "reject changed input core_result.native_collector_callbacks.finalizer_additional_ordinary_allocation_requests",
+    "reject changed leaf identity/counts pool.source.sha256",
+    "reject changed leaf identity/counts pool.source_counts.maximum_literal_length",
+    "reject changed leaf identity/counts finalizer.source.sha256",
+    "reject changed leaf identity/counts finalizer.source_counts.maximum_literal_length",
+    "reject owner/theorem/scope change pool.new_GGC_events",
+    "reject owner/theorem/scope change finalizer.new_scalar_registrations",
+    "reject owner/theorem/scope change pool.LRA_additional_pools.invariant_vector_initial_slots_already_owned",
+    "reject owner/theorem/scope change pool.dominance.initial_CF_SSA_and_RTL_cold_block_owners_recharged",
+    "reject owner/theorem/scope change pool.DF_bitmap_families.generations_coexist",
+    "reject owner/theorem/scope change pool.bitmap_allocator.lifetime_chunk_requests_upper",
+    "reject owner/theorem/scope change finalizer.initialization_and_scalar_owners_recharged",
+    "reject owner/theorem/scope change finalizer.array_registration_history",
+    "reject owner/theorem/scope change finalizer.context_depth",
+    "reject owner/theorem/scope change finalizer.active_page_bound",
+    "changed accepted source record rejected without new Context",
+    "equal counts cannot substitute another source identity",
+    "new count-only guard conjunction (1, 0)",
+    "new count-only guard conjunction (6, 0)",
+    "new count-only guard conjunction (204, 0)",
+    "new count-only guard conjunction (205, 0)",
+    "new count-only guard conjunction (1, 165)",
+    "new count-only guard conjunction (1, 166)",
+    "new count-only guard conjunction (1, 250)",
+    "new count-only guard conjunction (1, 251)",
+    "new count-only guard conjunction (76695840, 0)",
+    "new count-only guard conjunction (76695841, 0)",
+    "new count-only guard conjunction (2147483648, 0)",
+    "new count-only guard conjunction (1, 4294967296)",
+    "new live-range and ET retained-block boundaries represented",
+    "point-frequency 31-bit boundary retains failing predicate independently of other failures"
+  ],
+  "actual_source_variants": [
+    {
+      "name": "Hello",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "guards": 219,
+      "passed": true,
+      "point_extent": 64,
+      "scalar_history": 39275
+    },
+    {
+      "name": "same_counts_other_bytes",
+      "source": {
+        "bytes": 118,
+        "sha256": "556c17e44db0e905294b7f6ae0923f533f08c0f2fca04080eb98da6d21115653"
+      },
+      "counts": {
+        "source_bytes": 118,
+        "source_sha256": "556c17e44db0e905294b7f6ae0923f533f08c0f2fca04080eb98da6d21115653",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "guards": 219,
+      "passed": true,
+      "point_extent": 64,
+      "scalar_history": 39275
+    },
+    {
+      "name": "mixed_empty_literals_and_nulls",
+      "source": {
+        "bytes": 133,
+        "sha256": "17313de4ae6517b52d140d73d7da7aa89a571293d3f4197accdc6f336b60e46e"
+      },
+      "counts": {
+        "source_bytes": 133,
+        "source_sha256": "17313de4ae6517b52d140d73d7da7aa89a571293d3f4197accdc6f336b60e46e",
+        "output_calls": 2,
+        "Put": 1,
+        "Put_Line": 1,
+        "null_statements": 2,
+        "decoded_literal_lengths": [
+          0,
+          2
+        ],
+        "decoded_literal_bytes": 2,
+        "maximum_literal_length": 2
+      },
+      "guards": 219,
+      "passed": true,
+      "point_extent": 102,
+      "scalar_history": 39275
+    },
+    {
+      "name": "program_point_domain_over128",
+      "source": {
+        "bytes": 200,
+        "sha256": "11ab63f8b4c048cf9909d1641e15a060ffa8f205f0c2a395ca257e3c5760e8ac"
+      },
+      "counts": {
+        "source_bytes": 200,
+        "source_sha256": "11ab63f8b4c048cf9909d1641e15a060ffa8f205f0c2a395ca257e3c5760e8ac",
+        "output_calls": 6,
+        "Put": 6,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "decoded_literal_bytes": 6,
+        "maximum_literal_length": 1
+      },
+      "guards": 219,
+      "passed": true,
+      "point_extent": 134,
+      "scalar_history": 39275
+    }
+  ],
+  "count_only_arithmetic_cases": [
+    {
+      "C": 1,
+      "N": 0,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 6,
+      "N": 0,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 204,
+      "N": 0,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 205,
+      "N": 0,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 2,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 1,
+      "N": 165,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 1,
+      "N": 166,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        1,
+        2
+      ]
+    },
+    {
+      "C": 1,
+      "N": 250,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        1,
+        2
+      ]
+    },
+    {
+      "C": 1,
+      "N": 251,
+      "passed": true,
+      "failed": [],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        2,
+        2
+      ]
+    },
+    {
+      "C": 76695840,
+      "N": 0,
+      "passed": false,
+      "failed": [
+        "native_pool_finalizer_pool_inherited_RTL_DF_LRA_representation",
+        "native_pool_finalizer_pool_inherited_mem",
+        "native_pool_finalizer_pool_conditional_capacity"
+      ],
+      "LRA_live_pool_blocks": 374675,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 76695841,
+      "N": 0,
+      "passed": false,
+      "failed": [
+        "native_pool_finalizer_pool_inherited_RTL_DF_LRA_representation",
+        "native_pool_finalizer_pool_point_frequency_capacity_31_bits",
+        "native_pool_finalizer_pool_inherited_mem",
+        "native_pool_finalizer_pool_conditional_capacity"
+      ],
+      "LRA_live_pool_blocks": 374675,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 2147483648,
+      "N": 0,
+      "passed": false,
+      "failed": [
+        "native_pool_finalizer_pool_inherited_RTL_DF_LRA_representation",
+        "native_pool_finalizer_pool_sparse_bitmap_indices_range_ends_and_rounding",
+        "native_pool_finalizer_pool_declaration_UID_signed",
+        "native_pool_finalizer_pool_program_point_finish_plus_one_signed",
+        "native_pool_finalizer_pool_point_frequency_initial_unsigned_product",
+        "native_pool_finalizer_pool_point_frequency_growth_unsigned_product",
+        "native_pool_finalizer_pool_point_frequency_capacity_31_bits",
+        "native_pool_finalizer_pool_dense_bitmap_rounding_and_stored_size",
+        "native_pool_finalizer_pool_sparse_set_unsigned_request",
+        "native_pool_finalizer_pool_inherited_mem",
+        "native_pool_finalizer_pool_inherited_initial_SSA",
+        "native_pool_finalizer_pool_inherited_initial_CFG",
+        "native_pool_finalizer_pool_inherited_SSA_helpers",
+        "native_pool_finalizer_pool_domain_register",
+        "native_pool_finalizer_pool_domain_final_instruction_UID",
+        "native_pool_finalizer_pool_domain_program_point",
+        "native_pool_finalizer_pool_domain_declaration_UID",
+        "native_pool_finalizer_pool_domain_initial_SSA_version",
+        "native_pool_finalizer_pool_conditional_capacity"
+      ],
+      "LRA_live_pool_blocks": 10490883,
+      "ET_blocks": [
+        1,
+        1
+      ]
+    },
+    {
+      "C": 1,
+      "N": 4294967296,
+      "passed": false,
+      "failed": [
+        "native_pool_finalizer_pool_inherited_RTL_DF_LRA_representation",
+        "native_pool_finalizer_pool_sparse_bitmap_indices_range_ends_and_rounding",
+        "native_pool_finalizer_pool_declaration_UID_signed",
+        "native_pool_finalizer_pool_program_point_finish_plus_one_signed",
+        "native_pool_finalizer_pool_point_frequency_initial_unsigned_product",
+        "native_pool_finalizer_pool_point_frequency_growth_unsigned_product",
+        "native_pool_finalizer_pool_point_frequency_capacity_31_bits",
+        "native_pool_finalizer_pool_dense_bitmap_rounding_and_stored_size",
+        "native_pool_finalizer_pool_ET_DFS_and_relative_depth_signed",
+        "native_pool_finalizer_pool_inherited_mem",
+        "native_pool_finalizer_pool_inherited_initial_SSA",
+        "native_pool_finalizer_pool_inherited_initial_CFG",
+        "native_pool_finalizer_pool_inherited_SSA_helpers",
+        "native_pool_finalizer_pool_domain_final_instruction_UID",
+        "native_pool_finalizer_pool_domain_basic_block",
+        "native_pool_finalizer_pool_domain_initial_GIMPLE_block",
+        "native_pool_finalizer_pool_domain_program_point",
+        "native_pool_finalizer_pool_domain_declaration_UID",
+        "native_pool_finalizer_pool_conditional_capacity"
+      ],
+      "LRA_live_pool_blocks": 1,
+      "ET_blocks": [
+        16793617,
+        25171970
+      ]
+    }
+  ],
+  "inherited_guard_count": 178,
+  "new_guard_count": 41,
+  "total_guards": 219,
+  "new_contexts": 1,
+  "validation": {
+    "accepted_current_and_historical_records": 23,
+    "predecessor": {
+      "accepted_current_and_historical_records": 25,
+      "predecessor": {
+        "accepted_historical_and_current_records": 46,
+        "ordinary_writer_identity_records": 63,
+        "leaf_identity_records": {
+          "rtl": {
+            "compiler": 38,
+            "repository": 18
+          },
+          "graph": {
+            "compiler": 22,
+            "repository": 18
+          },
+          "query": {
+            "compiler": 96,
+            "repository": 28
+          }
+        },
+        "selected_route_validation": {
+          "current_attachment_input_records": 46,
+          "numeric_input_freeze": "64237926eb",
+          "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
+          "historical_acceptance_review_records": 7,
+          "core_current_input_records": 205,
+          "core_distinct_current_files": 2711,
+          "invocation_current_repository_records": 37,
+          "invocation_complete_retained_sources": 16,
+          "invocation_installed_configuration_records": 109,
+          "numeric_identity_records": 61,
+          "frontend_direct_identity_records": 41,
+          "location_repository_identity_records": 33,
+          "location_complete_source_identity_records": 121,
+          "runtime_census_reused_from": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
+          "runtime_census_reinventoried": false,
+          "native_shape_identity_records": 5,
+          "ordinary_map_complete_source_identity_records": 10,
+          "later_shared_complete_source_identity_records": 31,
+          "later_shared_repository_identity_records": 21,
+          "later_shared_unique_validated_function_ASTs": 7,
+          "counts_overlap_and_must_not_be_added": true,
+          "accepted_reviews": [
+            {
+              "path": "docs/reviews/review-literal-shared-linker-attachment-99b7247d18.md",
+              "bytes": 8871,
+              "sha256": "48a1bbcf5d7f92c136bf216b6a4285ef68fe56f4861bfc7bba8a71459b904683",
+              "revision": "b04b32a18424d3fb6520cce671b5eeb59d58dead"
+            },
+            {
+              "path": "docs/reviews/review-literal-invocation-f3bc1d023b.md",
+              "bytes": 9898,
+              "sha256": "cc31c13d7f5409b30ebb7c07a347c16560c3812b1651a4a043c7a403fc8a56e9",
+              "revision": "a9b1436f3b5b3b37b2a809cee6901ba2c4d7e153"
+            },
+            {
+              "path": "docs/reviews/review-literal-ada-numeric-3a7d590389.md",
+              "bytes": 10993,
+              "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
+              "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
+            },
+            {
+              "path": "docs/reviews/review-literal-frontend-numeric-d7034d9520.md",
+              "bytes": 14105,
+              "sha256": "099daf16ea7d7ceaf87398feabe21d414526a61dc64647713d4e26ad500ec6ba",
+              "revision": "0f4ef0ab6f6134702d08aba23b05877260af6951"
+            },
+            {
+              "path": "docs/reviews/review-literal-location-11057399b9.md",
+              "bytes": 13228,
+              "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
+              "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
+            },
+            {
+              "path": "docs/reviews/review-ordinary-maps-and-session-inputs-round15.md",
+              "bytes": 14408,
+              "sha256": "00c2c8b2f936f98645bbd57d94c9a6bbda51998f3c76709f297f175f66905938",
+              "revision": "50bcfccba23ddbb1543abfc9cbb8a2945bef65b9"
+            },
+            {
+              "path": "docs/reviews/review-literal-later-shared-1fc7ee7bcf.md",
+              "bytes": 12552,
+              "sha256": "b25b355aa1b6f5b689439fc135d4fa40736098c117136caf4d66b3ed07e39dcd",
+              "revision": "fac6de422d910cffef25952458bbf9c85f6c69b1"
+            }
+          ]
+        },
+        "identity_sets_overlap_and_must_not_be_added": true,
+        "accepted_runtime_census_reused": true,
+        "predecessor_suites_rerun": false,
+        "historical_prose_input": {
+          "revision": "603e0feeaab329b6492c3cc8d82f90a7f095c070",
+          "path": "docs/research/retained-literal-pipeline.md",
+          "bytes": 157004,
+          "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+        },
+        "current_pipeline_extension_correspondence": {
+          "current_note": {
+            "bytes": 163754,
+            "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+          },
+          "historical_note": {
+            "bytes": 157004,
+            "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+          },
+          "argument_before_attachment_section_unchanged": true,
+          "selected_source_configuration_frontend_location_argument_unchanged": true,
+          "later_attachment_extension_review": "docs/reviews/review-literal-map-later-attachment-6beebbc39c.md",
+          "exception_applies_only_to_historical_prose": true
+        },
+        "historical_prose_scope": "Graph/query Context only: exact accepted pipeline audit note. All compiler, executable, formal-model and source inputs use current pinned bytes; current pipeline note is separately pinned.",
+        "source_reachability_arguments_are_reviewed_handwritten_arguments": true
+      },
+      "MEM": {
+        "compiler": 56,
+        "repository": 19
+      },
+      "SSA": {
+        "compiler": 24,
+        "repository": 8,
+        "excerpts": 26
+      },
+      "identity_sets_overlap_and_must_not_be_added": true,
+      "historical_MEM_prose_input": {
+        "revision": "603e0feeaab329b6492c3cc8d82f90a7f095c070",
+        "path": "docs/research/retained-literal-pipeline.md",
+        "bytes": 157004,
+        "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+      },
+      "historical_MEM_prose_extension_correspondence": {
+        "current_note": {
+          "bytes": 163754,
+          "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+        },
+        "historical_note": {
+          "bytes": 157004,
+          "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+        },
+        "argument_before_attachment_section_unchanged": true,
+        "selected_source_configuration_frontend_location_argument_unchanged": true,
+        "later_attachment_extension_review": "docs/reviews/review-literal-map-later-attachment-6beebbc39c.md",
+        "exception_applies_only_to_historical_prose": true
+      },
+      "all_executable_compiler_source_configuration_inputs_are_actual_pinned_bytes": true,
+      "fixed_SSA_result_used_as_general_evaluator": false,
+      "SSA_adapter": "Recompute the complete accepted initial owner with its callable for actual counts; attach accepted zero-increment source argument. The frozen Hello checker is never called.",
+      "predecessor_suites_rerun": false,
+      "accepted_runtime_census_reused": true,
+      "source_lifetime_arguments_are_reviewed_handwritten_arguments": true
+    },
+    "pool": {
+      "compiler": 38,
+      "repository": 19
+    },
+    "finalizer": {
+      "compiler": 24,
+      "repository": 8,
+      "excerpts": 27,
+      "retained_array_types": 15,
+      "retained_array_sites": 28
+    },
+    "identity_sets_overlap_and_must_not_be_added": true,
+    "all_executable_compiler_configuration_inputs_are_actual_pinned_bytes": true,
+    "no_new_historical_input_exception": true,
+    "accepted_array_census_reused_not_regenerated": true,
+    "fixed_finalizer_checker_used_as_general_evaluator": false,
+    "finalizer_adapter": "Actual recognized source, actual scalar/callback owners and exact source-derived configured invocation; accepted source theorem supplies zero array registrations and depth0 independently of C/N.",
+    "point_frequency_representation": {
+      "element_type": "int",
+      "element_bytes": 4,
+      "reserve_and_growth_arithmetic": "unsigned",
+      "compression": "MAX or copy; no signed sum",
+      "actual_declaration": "gcc/lra-lives.cc:530: static vec<int> point_freq_vec;",
+      "accepted_nonblocking_erratum": "docs/reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md"
+    },
+    "predecessor_suites_rerun": false,
+    "source_reachability_arguments_are_reviewed_handwritten_arguments": true
+  },
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_measurements": null,
+  "host": "Linux 7.0.14 x86_64",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "large_corpus_rerun": false,
+  "array_census_regenerated": false,
+  "runtime_census_reinventoried": false,
+  "implementation_inputs": {
+    "compose.py": {
+      "bytes": 21451,
+      "sha256": "09982a2919efc091cb8f7669b66487b61bee7128acee91381b36144a815a986e"
+    },
+    "check.py": {
+      "bytes": 19987,
+      "sha256": "5201eb3092ec1c8f8e5644f9e69dc33888efbbf6240573e0e9a2e3a0f4611ffe"
+    },
+    "inputs.json": {
+      "bytes": 6443,
+      "sha256": "072850a9408597df4d8619747c3ec57c11dc745ac18611f000e1d05ddc381322"
+    }
+  },
+  "reused_evidence": "Accepted MEM/SSA269 and predecessors; pool52/21 count cases/11 bitmap boundaries/18 pool boundaries; finalizer67 and retained15-type28-site projection; exact A/B/C source review. None replayed.",
+  "validation_scope": "New actual-source, source-derived configuration, owner, representation and failure joins; finite arithmetic corroboration. Accepted handwritten arguments supply lifetime reachability."
+}
