@@ -1,0 +1,117 @@
+{
+  "task": "Additive selected Ada frontend residual completion, Refs #145 and #119",
+  "authorization": "Parent follow-up: reconcile all120 tables and close fixed/Main semantic/local/generic traversal; additive commit in owned lane; no native/prover/capture/predecessor/GitHub runs",
+  "frozen_partial_commit": "d23e7395e3d8df4019f90c798348334f86c4d376",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "work_started_UTC": "2026-10-19T14:44:45+00:00",
+  "recorded_UTC": "2026-10-19T15:14:56.269462+00:00",
+  "elapsed_task_clock_seconds": 1811.269462,
+  "elapsed_clock_is_not_model_compute_time": true,
+  "intended_outcome": "Close exact120 census and selected Ada source/traversal partition without remainder-safe premise",
+  "achieved": {
+    "exact_table_owners": 120,
+    "inherited": 39,
+    "partial_named": 14,
+    "new": 67,
+    "unreconciled": 0,
+    "checks": 773,
+    "elapsed_checks_seconds": 0.852747864992125,
+    "input_verification": {
+      "source_files": 62,
+      "repository_files": 11,
+      "literal_LF_excerpts": 191,
+      "closure_source_files": 384,
+      "retained_partial_file_pins": 37
+    },
+    "conditional_selected_Ada_capacity": true,
+    "whole_native_capacity": false,
+    "independent_review": "pending"
+  },
+  "significant_findings": [
+    "Fixed successful read projection supplies ordinary fixed local/traversal acceptance after explicit separation of changing IDs, names, paths, numeric caches, outer scopes and Main constructors. No new whole-grammar theorem is assumed.",
+    "Current ALI evidence already establishes exact ten switches/110 payload bytes; historical six/72 paragraph is superseded. Compilation_Switches uses10; File_Name_Chars uses actual physical opens times(P+1); Load_Stack uses peak42 not lifetime121.",
+    "Ada Args/Osint/switch path objects were outside driver worker ownership and are now priced here.",
+    "Generated metadata contains real new A allocators. Enum-derived bounds retain those and optional Atree field sets without guessing Ada assertions from GCC flag_checking.",
+    "General copy Elist elements can be ordinary nodes. Rank narrative explicitly uses successful fixed traversal to exclude a nonentity-only cycle; parent-only syntax rank was corrected before freezing.",
+    "API sibling import changed to isolated runpy after lead inspection; context checks pins once and apply requires retained367 keys. Following final integration review, every supplied extra guard is also conjoined, with the complete supplied map and pending keys preserved."
+  ],
+  "local_checks": [
+    {
+      "run": "initial focused validation",
+      "checks": 771,
+      "elapsed_seconds": 0.8492267620022176
+    },
+    {
+      "run": "final validation after rank text/output correction and isolated loader integration",
+      "checks": 771,
+      "elapsed_seconds": 0.8209287130011944
+    },
+    {
+      "run": "final integration correction: added guard true/false/unknown and complete condition conjunction",
+      "checks": 773,
+      "elapsed_seconds": 0.852747864992125
+    }
+  ],
+  "native_prover_capture_predecessor_GitHub_executions": 0,
+  "remaining": [
+    "Independent review of exact source coverage, fixed read projection, semantic rank and selected path/argv bounds",
+    "Parent integration against fresh register predecessor/current408 conditions; final whole-native/toolchain composition remains parent work"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/check_completion.py",
+      "bytes": 6855,
+      "sha256": "5f0c99bf89e297323cca94d457e3d1765b50eb3f807a9f64cf6ee9541a43dbd0"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/closure-owner-audit.json",
+      "bytes": 232136,
+      "sha256": "d3db767fd09195fae7e9e319735bba6a016176baa56a7df70e1d74970faafe54"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/completion-check-results.json",
+      "bytes": 97486,
+      "sha256": "ecb621986202260f4809e310ce83c0dce1f2745909456871e7671e8272346d61"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/completion-inputs.json",
+      "bytes": 233468,
+      "sha256": "1900e3e7112eeca0675a687ebe7f2926b6707d83a96c665b7e42df536ec05422"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/completion-result.json",
+      "bytes": 127822,
+      "sha256": "a9ba8a34fdd979107c73a9d9110105c88076c619487d7b24fbc23827d796bb23"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/completion-tables.json",
+      "bytes": 94869,
+      "sha256": "ef4c40a6f7b75d3e3e69314d49bb813e206515bc2c61eb7daac5d88b2a0b567a"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/completion.py",
+      "bytes": 12726,
+      "sha256": "5043ef71238970824d95fc032095aa7005760fe2435b00586b71150f1a5849a3"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/prepare_closure.py",
+      "bytes": 7868,
+      "sha256": "c18c9e7f88a854e38c7142330696427fe65953b431ace89d61efd5e58463ee19"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/prepare_completion.py",
+      "bytes": 9771,
+      "sha256": "eedf23105e01ac3b7da770f0e8d937e4fb466c67d5a8745bf4321fb1877ff44c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/source-census-files.json",
+      "bytes": 8027,
+      "sha256": "0c90652d3793fde5cf80e50c4d9885ebc2b2544669cebe01c1b1649e49609698"
+    }
+  ]
+}

@@ -1,0 +1,3689 @@
+{
+  "rows": [
+    {
+      "symbol": "ali__alis__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__alis",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 500,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 8896,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Afile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Ofile_Full_Name"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Sfile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Ver"
+            ],
+            "type": "String (1 .. Ver_Len_Max)",
+            "bytes_upper_each": 272
+          },
+          {
+            "names": [
+              "Ver_Len"
+            ],
+            "type": "Natural",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "SAL_Interface"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Unit"
+            ],
+            "type": "Unit_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Unit"
+            ],
+            "type": "Unit_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Sdep"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Sdep"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Main_Program"
+            ],
+            "type": "Main_Program_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Main_Priority"
+            ],
+            "type": "Int",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Main_CPU"
+            ],
+            "type": "Int",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Time_Slice_Value"
+            ],
+            "type": "Int",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "WC_Encoding"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Locking_Policy"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Partition_Elaboration_Policy"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Queuing_Policy"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Task_Dispatching_Policy"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Compile_Errors"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "GNATprove_Mode"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Interrupts_Default_To_System"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "No_Component_Reordering"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "No_Object"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Normalize_Scalars"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "SSO_Default"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Unit_Exception_Table"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Zero_Cost_Exceptions"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Restrictions"
+            ],
+            "type": "Restrictions_Info",
+            "bytes_upper_each": 8080
+          },
+          {
+            "names": [
+              "First_CUDA_Kernel"
+            ],
+            "type": "CUDA_Kernel_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_CUDA_Kernel"
+            ],
+            "type": "CUDA_Kernel_Id'Base",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Interrupt_State"
+            ],
+            "type": "Interrupt_State_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Interrupt_State"
+            ],
+            "type": "Interrupt_State_Id'Base",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Specific_Dispatching"
+            ],
+            "type": "Priority_Specific_Dispatching_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Specific_Dispatching"
+            ],
+            "type": "Priority_Specific_Dispatching_Id'Base",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Invocation_Graph_Encoding"
+            ],
+            "type": "Invocation_Graph_Encoding_Kind",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 8896
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 297,
+        "last_LF_line": 303
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__args__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__args",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1000,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 16,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 16
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 724,
+        "last_LF_line": 730
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__cuda_kernels__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__cuda_kernels",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 16,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Kernel_Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 16
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 318,
+        "last_LF_line": 324
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__interrupt_states__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__interrupt_states",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Interrupt_Id"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Interrupt_State"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "IS_Pragma_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 535,
+        "last_LF_line": 541
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__linker_options__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__linker_options",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 400,
+      "low": 0,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Unit"
+            ],
+            "type": "Unit_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Internal_File"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 762,
+        "last_LF_line": 768
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__no_deps__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__no_deps",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 400,
+      "low": 0,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "ALI_File"
+            ],
+            "type": "ALI_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "No_Dep_Unit"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 850,
+        "last_LF_line": 856
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__notes__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__notes",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 400,
+      "low": 0,
+      "component_bytes_upper": 80,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Pragma_Type"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Col"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Source_File"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Args"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 80
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 800,
+        "last_LF_line": 806
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__sdep__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__sdep",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5000,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 128,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Sfile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Stamp"
+            ],
+            "type": "Time_Stamp_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Checksum"
+            ],
+            "type": "Word",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Dummy_Entry"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Subunit_Name"
+            ],
+            "type": "Unit_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Unit_Name"
+            ],
+            "type": "Unit_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Rfile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Start_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 128
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 908,
+        "last_LF_line": 914
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__specific_dispatching__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__specific_dispatching",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Dispatching_Policy"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Priority"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Priority"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "PSD_Pragma_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 569,
+        "last_LF_line": 575
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__units__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__units",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 640,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "My_ALI"
+            ],
+            "type": "ALI_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Uname"
+            ],
+            "type": "Unit_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Sfile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Preelab"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "No_Elab"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pure"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Dynamic_Elab"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elaborate_Body"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Set_Elab_Entity"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Has_RACW"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Remote_Types"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Serious_Errors"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Shared_Passive"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "RCI"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Predefined"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Internal"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_With"
+            ],
+            "type": "With_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_With"
+            ],
+            "type": "With_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Arg"
+            ],
+            "type": "Arg_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Arg"
+            ],
+            "type": "Arg_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Invocation_Construct"
+            ],
+            "type": "Invocation_Construct_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Invocation_Construct"
+            ],
+            "type": "Invocation_Construct_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Invocation_Relation"
+            ],
+            "type": "Invocation_Relation_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Invocation_Relation"
+            ],
+            "type": "Invocation_Relation_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Utype"
+            ],
+            "type": "Unit_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Is_Generic"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Unit_Kind"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Version"
+            ],
+            "type": "Version_String",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Icasing"
+            ],
+            "type": "Casing_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Kcasing"
+            ],
+            "type": "Casing_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elab_Position"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Init_Scalars"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "SAL_Interface"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Directly_Scanned"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Body_Needed_For_SAL"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elaborate_Body_Desirable"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Optimize_Alignment"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Has_Finalizer"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Primary_Stack_Count"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Sec_Stack_Count"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 640
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 497,
+        "last_LF_line": 503
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__withs__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__withs",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5000,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 160,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Uname"
+            ],
+            "type": "Unit_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Sfile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Afile"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elaborate"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elaborate_All"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elab_All_Desirable"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Elab_Desirable"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "SAL_Interface"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Implicit_With"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Limited_With"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 160
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 702,
+        "last_LF_line": 708
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__xref__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__xref",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 2000,
+      "increment_percent": 300,
+      "low": 1,
+      "component_bytes_upper": 112,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "File_Num"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Rtype"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Col"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Imported_Lang"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Imported_Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 112
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 1121,
+        "last_LF_line": 1127
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__xref_entity__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__xref_entity",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 500,
+      "increment_percent": 300,
+      "low": 1,
+      "component_bytes_upper": 320,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Line"
+            ],
+            "type": "Pos",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Etype"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Col"
+            ],
+            "type": "Pos",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Visibility"
+            ],
+            "type": "Visibility_Kind",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Entity"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Iref_File_Num"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Iref_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Rref_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Rref_Col"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Tref"
+            ],
+            "type": "Tref_Kind",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Tref_File_Num"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Tref_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Tref_Type"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Tref_Col"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Tref_Standard_Entity"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Oref_File_Num"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Oref_Line"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Oref_Col"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Xref"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Xref"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 320
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 1061,
+        "last_LF_line": 1067
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ali__xref_section__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.ali__xref_section",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 300,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "File_Num"
+            ],
+            "type": "Sdep_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "File_Name"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Entity"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Entity"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "ali.ads",
+        "first_LF_line": 950,
+        "last_LF_line": 956
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "checks__alignment_warnings__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.checks__alignment_warnings",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "E"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "A"
+            ],
+            "type": "Uint",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "P"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "W"
+            ],
+            "type": "Error_Msg_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "checks.ads",
+        "first_LF_line": 131,
+        "last_LF_line": 137
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "checks__check_names__last_val",
+      "retained_positive_lifetime_growth": 30,
+      "owner": "selected_Main_process.checks__check_names",
+      "demand_upper": 30,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 30,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "checks.ads",
+        "first_LF_line": 977,
+        "last_LF_line": 983
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "exp_cg__call_graph_nodes__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.exp_cg__call_graph_nodes",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "exp_cg.adb",
+        "first_LF_line": 70,
+        "last_LF_line": 76
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "exp_unst__calls__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.exp_unst__calls",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "N"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Caller"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Callee"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "exp_unst.adb",
+        "first_LF_line": 92,
+        "last_LF_line": 98
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "exp_unst__subps__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.exp_unst__subps",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1000,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 224,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Ent"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Bod"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Lev"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Reachable"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Uplevel_Ref"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Declares_AREC"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Uents"
+            ],
+            "type": "Elist_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last"
+            ],
+            "type": "SI_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "ARECnF"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "ARECn"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "ARECnT"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "ARECnPT"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "ARECnP"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "ARECnU"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 224
+      },
+      "declaration": {
+        "path": "exp_unst.ads",
+        "first_LF_line": 701,
+        "last_LF_line": 707
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "exp_unst__urefs__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.exp_unst__urefs",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Ref"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Ent"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Caller"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Callee"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "exp_unst.adb",
+        "first_LF_line": 155,
+        "last_LF_line": 161
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "ghost__ignored_ghost_nodes__last_valX",
+      "retained_positive_lifetime_growth": 21,
+      "owner": "selected_Main_process.ghost__ignored_ghost_nodes",
+      "demand_upper": 21,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 100,
+      "low": 0,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "ghost.adb",
+        "first_LF_line": 56,
+        "last_LF_line": 62
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "inline__called_pending_instantiations__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.inline__called_pending_instantiations",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 0,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "inline.adb",
+        "first_LF_line": 126,
+        "last_LF_line": 132
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "inline__inlined__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.inline__inlined",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 80,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Name"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Next"
+            ],
+            "type": "Subp_Index",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Succ"
+            ],
+            "type": "Succ_Index",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Main_Call"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Processed"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 80
+      },
+      "declaration": {
+        "path": "inline.adb",
+        "first_LF_line": 241,
+        "last_LF_line": 247
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "inline__inlined_bodies__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.inline__inlined_bodies",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "inline.adb",
+        "first_LF_line": 178,
+        "last_LF_line": 184
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "inline__pending_instantiations__last_valX",
+      "retained_positive_lifetime_growth": 1,
+      "owner": "selected_Main_process.inline__pending_instantiations",
+      "demand_upper": 1,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 0,
+      "component_bytes_upper": 2016,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Inst_Node"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Act_Decl"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Fin_Scop"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Config_Switches"
+            ],
+            "type": "Config_Switches_Type",
+            "bytes_upper_each": 416
+          },
+          {
+            "names": [
+              "Current_Sem_Unit"
+            ],
+            "type": "Unit_Number_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Expander_Status"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Scope_Suppress"
+            ],
+            "type": "Suppress_Record",
+            "bytes_upper_each": 512
+          },
+          {
+            "names": [
+              "Local_Suppress_Stack_Top"
+            ],
+            "type": "Suppress_Stack_Entry_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Warnings"
+            ],
+            "type": "Warnings_State",
+            "bytes_upper_each": 992
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 2016
+      },
+      "declaration": {
+        "path": "inline.adb",
+        "first_LF_line": 107,
+        "last_LF_line": 113
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "inline__successors__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.inline__successors",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Subp"
+            ],
+            "type": "Subp_Index",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Next"
+            ],
+            "type": "Succ_Index",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "inline.adb",
+        "first_LF_line": 225,
+        "last_LF_line": 231
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__compilation_switches__last_val",
+      "retained_positive_lifetime_growth": 5,
+      "owner": "selected_Main_process.lib__compilation_switches",
+      "demand_upper": 10,
+      "demand_basis": "current Main_ALI_interface.stored_native_switches exact ten payloads, total110 characters; supersedes historical five/six",
+      "initial": 30,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 16,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 16
+      },
+      "declaration": {
+        "path": "lib.ads",
+        "first_LF_line": 954,
+        "last_LF_line": 960
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__linker_option_lines__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__linker_option_lines",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Option"
+            ],
+            "type": "String_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Unit"
+            ],
+            "type": "Unit_Number_Type",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "lib.ads",
+        "first_LF_line": 927,
+        "last_LF_line": 933
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__load_stack__last_val",
+      "retained_positive_lifetime_growth": 121,
+      "owner": "selected_Main_process.lib__load_stack",
+      "demand_upper": 42,
+      "demand_basis": "at most41 admitted unit records plus one already-loaded temporary request; repeated calls pop before returning",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 0,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Unit_Number"
+            ],
+            "type": "Unit_Number_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "With_Node"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "lib.ads",
+        "first_LF_line": 983,
+        "last_LF_line": 989
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__notes__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__notes",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "lib.ads",
+        "first_LF_line": 937,
+        "last_LF_line": 943
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__restriction_set_dependences__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__restriction_set_dependences",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 0,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "lib.ads",
+        "first_LF_line": 800,
+        "last_LF_line": 806
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__version_ref__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__version_ref",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 20,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "lib.ads",
+        "first_LF_line": 1000,
+        "last_LF_line": 1006
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__writ__interrupt_states__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__writ__interrupt_states",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 30,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Interrupt_Number"
+            ],
+            "type": "Pos",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Interrupt_State"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Loc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "lib-writ.ads",
+        "first_LF_line": 1010,
+        "last_LF_line": 1016
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__writ__specific_dispatching__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__writ__specific_dispatching",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Dispatching_Policy"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "First_Priority"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last_Priority"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Loc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "lib-writ.ads",
+        "first_LF_line": 1040,
+        "last_LF_line": 1046
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "lib__xref__spark_specific__drefs__last_valXnn",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.lib__xref__spark_specific__drefs",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5,
+      "increment_percent": 1000,
+      "low": 1,
+      "component_bytes_upper": 160,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Key"
+            ],
+            "type": "Xref_Key",
+            "bytes_upper_each": 112
+          },
+          {
+            "names": [
+              "Ent_Scope_File"
+            ],
+            "type": "Unit_Number_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Def"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "HTable_Next"
+            ],
+            "type": "Xref_Entry_Number",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 160
+      },
+      "declaration": {
+        "path": "lib-xref-spark_specific.adb",
+        "first_LF_line": 64,
+        "last_LF_line": 70
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "osint__file_name_chars__last_valX",
+      "retained_positive_lifetime_growth": 204,
+      "owner": "selected_Main_process.osint__file_name_chars",
+      "demand_upper": 810540,
+      "demand_basis": "at most1580 successful physical Source opens, each complete spelling <=512 plus LF; repeat System already included",
+      "initial": 10000,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 1,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 1
+      },
+      "declaration": {
+        "path": "osint.adb",
+        "first_LF_line": 196,
+        "last_LF_line": 202
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "par_sco__sc__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.par_sco__sc",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1000,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "N"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "From"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "To"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Typ"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "par_sco.adb",
+        "first_LF_line": 1375,
+        "last_LF_line": 1381
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "par_sco__sco_raw_table__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.par_sco__sco_raw_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 500,
+      "increment_percent": 300,
+      "low": 1,
+      "component_bytes_upper": 144,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "From"
+            ],
+            "type": "Source_Location",
+            "bytes_upper_each": 32
+          },
+          {
+            "names": [
+              "To"
+            ],
+            "type": "Source_Location",
+            "bytes_upper_each": 32
+          },
+          {
+            "names": [
+              "C1"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "C2"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Sloc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Aspect_Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 144
+      },
+      "declaration": {
+        "path": "par_sco.adb",
+        "first_LF_line": 79,
+        "last_LF_line": 85
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "par_sco__sco_unit_number_table__last_valX",
+      "retained_positive_lifetime_growth": 1,
+      "owner": "selected_Main_process.par_sco__sco_unit_number_table",
+      "demand_upper": 1,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 20,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "par_sco.adb",
+        "first_LF_line": 99,
+        "last_LF_line": 105
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "par_sco__sd__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.par_sco__sd",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1000,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Nod"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Lst"
+            ],
+            "type": "List_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Typ"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Plo"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "par_sco.adb",
+        "first_LF_line": 1408,
+        "last_LF_line": 1414
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "prep__pp_states__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.prep__pp_states",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "If_Ptr"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Else_Ptr"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Deleting"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Match_Seen"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "prep.adb",
+        "first_LF_line": 167,
+        "last_LF_line": 173
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "prepcomp__dependencies__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.prepcomp__dependencies",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "prepcomp.adb",
+        "first_LF_line": 106,
+        "last_LF_line": 112
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "prepcomp__preproc_data_table__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.prepcomp__preproc_data_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 208,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Mapping"
+            ],
+            "type": "Symbol_Table.Instance",
+            "bytes_upper_each": 64
+          },
+          {
+            "names": [
+              "File_Name"
+            ],
+            "type": "File_Name_Type",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Deffile"
+            ],
+            "type": "String_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Undef_False"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Always_Blank"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Comments"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Empty_Comments"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "No_Deletion"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "List_Symbols"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Processed"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 208
+      },
+      "declaration": {
+        "path": "prepcomp.adb",
+        "first_LF_line": 93,
+        "last_LF_line": 99
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "repinfo__dynamic_so_entity_table__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.repinfo__dynamic_so_entity_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1000,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "repinfo.adb",
+        "first_LF_line": 91,
+        "last_LF_line": 97
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "repinfo__input__json_component_table__last_valXn",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.repinfo__input__json_component_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Bit_Offset"
+            ],
+            "type": "Node_Ref_Or_Val",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Esize"
+            ],
+            "type": "Node_Ref_Or_Val",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "repinfo-input.adb",
+        "first_LF_line": 70,
+        "last_LF_line": 76
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "repinfo__input__json_entity_table__last_valXn",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.repinfo__input__json_entity_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 96,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Esize"
+            ],
+            "type": "Node_Ref_Or_Val",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "RM_Size"
+            ],
+            "type": "Node_Ref_Or_Val",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Variant"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Component_Size"
+            ],
+            "type": "Node_Ref_Or_Val",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Dummy"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 16,
+        "bytes_upper": 96
+      },
+      "declaration": {
+        "path": "repinfo-input.adb",
+        "first_LF_line": 55,
+        "last_LF_line": 61
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "repinfo__input__json_variant_table__last_valXn",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.repinfo__input__json_variant_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Present"
+            ],
+            "type": "Node_Ref_Or_Val",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Variant"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Next"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "repinfo-input.adb",
+        "first_LF_line": 86,
+        "last_LF_line": 92
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "restrict__no_dependences__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.restrict__no_dependences",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Unit"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "System_Child"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Warn"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Profile"
+            ],
+            "type": "Profile_Name",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "restrict.ads",
+        "first_LF_line": 182,
+        "last_LF_line": 188
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "restrict__no_use_of_entity__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.restrict__no_use_of_entity",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Entity"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Warn"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Profile"
+            ],
+            "type": "Profile_Name",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "restrict.ads",
+        "first_LF_line": 215,
+        "last_LF_line": 221
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "scos__sco_instance_table__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.scos__sco_instance_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 20,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Inst_Dep_Num"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Inst_Loc"
+            ],
+            "type": "Source_Location",
+            "bytes_upper_each": 32
+          },
+          {
+            "names": [
+              "Enclosing_Instance"
+            ],
+            "type": "SCO_Instance_Index",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "scos.ads",
+        "first_LF_line": 554,
+        "last_LF_line": 560
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "scos__sco_table__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.scos__sco_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 500,
+      "increment_percent": 300,
+      "low": 1,
+      "component_bytes_upper": 144,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "From"
+            ],
+            "type": "Source_Location",
+            "bytes_upper_each": 32
+          },
+          {
+            "names": [
+              "To"
+            ],
+            "type": "Source_Location",
+            "bytes_upper_each": 32
+          },
+          {
+            "names": [
+              "C1"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "C2"
+            ],
+            "type": "Character",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Last"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Sloc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Pragma_Aspect_Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 144
+      },
+      "declaration": {
+        "path": "scos.ads",
+        "first_LF_line": 384,
+        "last_LF_line": 390
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "scos__sco_unit_table__last_val",
+      "retained_positive_lifetime_growth": 1,
+      "owner": "selected_Main_process.scos__sco_unit_table",
+      "demand_upper": 1,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 20,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 80,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "File_Name"
+            ],
+            "type": "String_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "File_Index"
+            ],
+            "type": "Source_File_Index",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Dep_Num"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "From"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "To"
+            ],
+            "type": "Nat",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 80
+      },
+      "declaration": {
+        "path": "scos.ads",
+        "first_LF_line": 532,
+        "last_LF_line": 538
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_aux__obsolescent_warnings__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_aux__obsolescent_warnings",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 200,
+      "low": 0,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Ent"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Msg"
+            ],
+            "type": "String_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "sem_aux.ads",
+        "first_LF_line": 56,
+        "last_LF_line": 62
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_ch13__address_clause_checks__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_ch13__address_clause_checks",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 20,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 80,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "N"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "X"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "A"
+            ],
+            "type": "Uint",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Y"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Off"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 80
+      },
+      "declaration": {
+        "path": "sem_ch13.adb",
+        "first_LF_line": 445,
+        "last_LF_line": 451
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_ch13__unchecked_conversions__last_valX",
+      "retained_positive_lifetime_growth": 7,
+      "owner": "selected_Main_process.sem_ch13__unchecked_conversions",
+      "demand_upper": 7,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Eloc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Source"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Target"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Act_Unit"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "sem_ch13.adb",
+        "first_LF_line": 403,
+        "last_LF_line": 409
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_ch8__urefs__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_ch8__urefs",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 10,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 64,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Node"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Err"
+            ],
+            "type": "Error_Msg_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Nvis"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Loc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 64
+      },
+      "declaration": {
+        "path": "sem_ch8.adb",
+        "first_LF_line": 346,
+        "last_LF_line": 352
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_ch9__lock_free_subprogram_table__last_val",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_ch9__lock_free_subprogram_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5,
+      "increment_percent": 5,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Sub_Body"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Comp_Id"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "sem_ch9.ads",
+        "first_LF_line": 84,
+        "last_LF_line": 90
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_dim__system_table__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_dim__system_table",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 5,
+      "increment_percent": 5,
+      "low": 1,
+      "component_bytes_upper": 368,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Type_Decl"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Unit_Names"
+            ],
+            "type": "Name_Array",
+            "bytes_upper_each": 112
+          },
+          {
+            "names": [
+              "Unit_Symbols"
+            ],
+            "type": "Symbol_Array",
+            "bytes_upper_each": 112
+          },
+          {
+            "names": [
+              "Dim_Symbols"
+            ],
+            "type": "Symbol_Array",
+            "bytes_upper_each": 112
+          },
+          {
+            "names": [
+              "Count"
+            ],
+            "type": "Dimension_Position",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 368
+      },
+      "declaration": {
+        "path": "sem_dim.adb",
+        "first_LF_line": 140,
+        "last_LF_line": 146
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_elab__delay_check__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_elab__delay_check",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1000,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 128,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "N"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "E"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Orig_Ent"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Curscop"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Outer_Scope"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "From_Elab_Code"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "In_Task_Activation"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "From_SPARK_Code"
+            ],
+            "type": "Boolean",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 128
+      },
+      "declaration": {
+        "path": "sem_elab.adb",
+        "first_LF_line": 16143,
+        "last_LF_line": 16149
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_elab__elab_call__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_elab__elab_call",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Cloc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Ent"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "sem_elab.adb",
+        "first_LF_line": 16070,
+        "last_LF_line": 16076
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_elab__elab_visited__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_elab__elab_visited",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 200,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Subp_Id"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Context"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "sem_elab.adb",
+        "first_LF_line": 16100,
+        "last_LF_line": 16106
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_elim__elim_entities__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_elim__elim_entities",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 200,
+      "low": -399999997,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Prag"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Subp"
+            ],
+            "type": "Entity_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "sem_elim.adb",
+        "first_LF_line": 224,
+        "last_LF_line": 230
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_prag__assertion_levels__last_valX",
+      "retained_positive_lifetime_growth": 3,
+      "owner": "selected_Main_process.sem_prag__assertion_levels",
+      "demand_upper": 3,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 30,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "sem_prag.adb",
+        "first_LF_line": 142,
+        "last_LF_line": 148
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_prag__compile_time_warnings_errors__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.sem_prag__compile_time_warnings_errors",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 48,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Eloc"
+            ],
+            "type": "Source_Ptr",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Prag"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Scope"
+            ],
+            "type": "Node_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 48
+      },
+      "declaration": {
+        "path": "sem_prag.adb",
+        "first_LF_line": 509,
+        "last_LF_line": 515
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "sem_prag__externals__last_valX",
+      "retained_positive_lifetime_growth": 11,
+      "owner": "selected_Main_process.sem_prag__externals",
+      "demand_upper": 11,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 100,
+      "increment_percent": 100,
+      "low": 0,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "sem_prag.adb",
+        "first_LF_line": 282,
+        "last_LF_line": 288
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "snames__convention_identifiers__last_valX",
+      "retained_positive_lifetime_growth": 7,
+      "owner": "selected_Main_process.snames__convention_identifiers",
+      "demand_upper": 7,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 50,
+      "increment_percent": 200,
+      "low": 1,
+      "component_bytes_upper": 32,
+      "layout": {
+        "kind": "record_all_variant_arms_padded",
+        "members": [
+          {
+            "names": [
+              "Name"
+            ],
+            "type": "Name_Id",
+            "bytes_upper_each": 16
+          },
+          {
+            "names": [
+              "Convention"
+            ],
+            "type": "Convention_Id",
+            "bytes_upper_each": 16
+          }
+        ],
+        "discriminant_bytes_upper": 0,
+        "bytes_upper": 32
+      },
+      "declaration": {
+        "path": "snames.adb-tmpl",
+        "first_LF_line": 40,
+        "last_LF_line": 46
+      },
+      "initial_backing_retained": true
+    },
+    {
+      "symbol": "vast__node_stack__last_valX",
+      "retained_positive_lifetime_growth": 0,
+      "owner": "selected_Main_process.vast__node_stack",
+      "demand_upper": 0,
+      "demand_basis": "fixed successful root projection; zero Main writer delta",
+      "initial": 1,
+      "increment_percent": 100,
+      "low": 1,
+      "component_bytes_upper": 4,
+      "layout": {
+        "kind": "scalar_or_pointer",
+        "bytes_upper": 4
+      },
+      "declaration": {
+        "path": "vast.adb",
+        "first_LF_line": 117,
+        "last_LF_line": 123
+      },
+      "initial_backing_retained": true
+    }
+  ],
+  "new_named_table_count": 67,
+  "nested_layout_bytes_upper": {
+    "Restrictions_Info": 8080,
+    "Config_Switches_Type": 416,
+    "Suppress_Record": 512,
+    "Warnings_State": 992,
+    "Symbol_Table.Instance": 64,
+    "Name_Array": 112,
+    "Symbol_Array": 112,
+    "Xref_Key": 112,
+    "Source_Location": 32,
+    "Time_Stamp_Type": 16,
+    "Version_String": 16
+  },
+  "restriction_enum_count": 101,
+  "warning_enum_count": 62,
+  "IL_type_enum_count": 451,
+  "IL_field_enum_count": 902,
+  "optional_field_check_each_array_bytes_upper": 6508848,
+  "retained_partial_rows": 53,
+  "exact_reconciled_census_rows": 120
+}

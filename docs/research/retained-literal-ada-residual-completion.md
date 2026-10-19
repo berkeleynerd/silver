@@ -1,5 +1,9 @@
 # Selected literal Ada remainder audit and named closures
 
+The original partial audit is preserved below. The additive completion section
+now reconciles all120 fixed-table owners and closes the selected Ada remainder;
+its complete flag remains conditional on the existing source interfaces.
+
 2026-10-19, owner-resumed [#145](https://github.com/berkeleynerd/silver/issues/145)
 within [#119](https://github.com/berkeleynerd/silver/issues/119). This audit closes
 several named Ada representations, but **does not establish complete Ada
@@ -241,3 +245,261 @@ current Main owners, then price the residual fixed records using the accepted
 root reduction and source layouts, while completing the fixed local/generic
 caller partition. No native build, capture, compiler/prover/Lean, predecessor
 suite, corpus replay or admission change was performed.
+
+## Additive completion of the frozen partial packet
+
+The preceding sections describe the frozen partial result at `d23e7395e3d8`.
+This follow-up supersedes its 67-table and fixed-traversal residual status.
+[completion.py](../evidence/retained-literal-ada-residual-completion-20261019/completion.py)
+exports complete **selected Main-process Ada frontend** storage and local/count
+representability conditional on the existing source/configuration interfaces.
+It does not establish physical stack/RAM availability, the C/C++ process shell,
+other child processes, or complete native/toolchain capacity. Independent review
+is pending. No caller can assert that an unexamined remainder is safe.
+
+### The fixed-work projection
+
+The proof is a projection of the already accepted fixed execution and the
+complete selected Main constructor/caller closure, not extrapolation from the
+Hello example. The fixed native capture reached gigi and the compiler return;
+its [README](../evidence/retained-native-fixed-capture-20261018/README.md),
+summary and input identities are pinned by this packet. The fixed source
+reduction in `retained-native-expansion.md:4258–4385` gives the runtime roots,
+once-per-unit analysis, eight fixed generic instances and first-freeze guards.
+The accepted literal frontend then retains that entire witness and its explicit
+configuration/first-lookup corrections; its fixed node allowance is F=41234.
+No fixed witness allocation is subtracted to offset a Main allocation.
+
+This is the same fixed-request acceptance method already used for ordinary
+compiler initialization (`retained-native-expansion.md:10910–10938`) and the
+binder compiler's preserved semantic execution
+(`retained-binder-capacity.md:1384–1415`). It includes fixed objects that no
+Table.Last counter measures. Its necessary read projection is explicit:
+
+| Input a fixed semantic worker can observe | Transfer |
+| --- | --- |
+| Source syntax, declaration order, generic actuals, type completions and semantic flags | Fixed pinned runtime specifications; Main cannot inject names into their reset scope. The once-analyzed guard and first-freeze reduction suppress repeated analysis, rather than replaying a generic for each output statement. |
+| Node/entity IDs | An injective renaming preserves kinds, equality, list links, parent relations and semantic references. Changed hash buckets can change lookup probes; they cannot supply a different value for an equal key. Core ID domains retain their existing guards. |
+| Numeric cache state | The accepted coherent all-miss fixed trace and numeric transfer retain positive lifetime growth. No local-object proof relies on a cache hit. |
+| Outer visibility and current-unit state | Already separated into common scope-save/element-list terms, invocation maps and unit-boundary storage. They are not declared invariant. |
+| Serial names, paths, configuration/map contents, source offsets and argv | Existing name/location/scanner/configuration owners plus the explicit path/argument corrections below. Fixed observed spelling lengths are not reused. |
+| Main statements and literal values | Main can call only the selected ordinary String-in procedures and has no declaration, aspect, case, membership, aggregate, instance, inline body, type completion or contract. Its actual constructor, numeric and String transfers own these inputs. |
+
+Thus fixed-only semantic workers see the same finite mathematical structures,
+up to identity renaming and the separately bounded spelling/location fields.
+All fixed local initialization, fixed generic-body objects, linked allocations
+and counted traversals remain included in the successful fixed projection.
+The result does not require enumerating every transitive fixed helper anew.
+The source/allocator inventory is a check on the partition, not its substitute.
+
+### All 120 fixed counters have actual process owners
+
+[completion-tables.json](../evidence/retained-literal-ada-residual-completion-20261019/completion-tables.json)
+adds all 67 missing exact symbols to the previous 39 inherited and 14 named
+owners. Each row records the literal source declaration, initial count, growth,
+lower bound, component layout, demand basis and actual Main-process owner.
+`apply` resolves the 39 inherited owners against the fresh frontend record;
+lib.Units resolves to Main_ALI_writer, whereas ALI.Units is separately priced
+as an initialized Main-process instance. ALI consumer/binder owners are never
+substituted merely because their table names match.
+
+The rows group as ALI14, Checks2, Exp_Cg1, Exp_Unst3, Ghost1, Inline5, Lib9,
+Osint1, Par_SCO4, Prep1, Prepcomp2, Repinfo4, Restrict2, SCOS3, Sem_Aux1,
+Sem_Ch13 2, Sem_Ch8 1, Sem_Ch9 1, Sem_Dim1, Sem_Elab3, Sem_Elim1, Sem_Prag3,
+Snames1 and VAST1. The accepted zero-Main caller partition applies to all
+fixed-only rows; initial backing remains charged at zero demand. Table.Table
+calls Init at actual package elaboration. A local instance is elaborated only
+when its enclosing routine is entered.
+
+Most positive fixed rows retain their complete positive lifetime growth:
+Check_Names30, Ignored_Ghost_Nodes21, Pending_Instantiations1,
+Unchecked_Conversions7, Assertion_Levels3, Externals11 and
+Convention_Identifiers7. The two SCO unit tables retain their initialized
+sentinel demand1 despite selected no-SCO output. Three demand corrections are
+separate from the old capture:
+
+- Compilation_Switches has exactly ten current payloads totaling110 characters,
+  checked against `core_result.Main_ALI_interface.stored_native_switches`.
+  The current ALI packet already supersedes the old five/six-switch text;
+  its serializer owns the corresponding A-record extent. Each copied switch
+  String is independently bounded here.
+- File_Name_Chars appends each opened non-runtime Source name, plus LF
+  (`osint.adb:2685–2703`). Debug printing is not its guard. Charge every one
+  of the accepted1580 physical opens, including the repeated indexed-System
+  open and even runtime paths, by P+1. This is the accepted request-name/open
+  transfer, not a count of distinct inodes. The Load_File cache precedes the
+  open (`sinput-l.adb:345–398,418–427`). Failed absent-file lookups return
+  before this append. Changed search/alias or retry behavior invalidates the
+  existing physical-source interface.
+- Load_Stack is a live stack. Its121 observed lifetime increments are not a
+  peak argument. At most41 admitted unit records can be active; allow one
+  extra already-loaded request, giving demand42. The request pushes before
+  lookup and pops on the already-loaded path (`lib-load.adb:672–730`). No new
+  Main declaration/body/instantiation can enlarge the unit chain.
+
+Every record is bounded from its fields, with16-byte padding per immediate
+scalar/pointer and separately expanded nested arrays/records. In particular,
+ALIs.Restrictions has five arrays bounded by the full101-element enum;
+Pending_Body_Info includes its26-field configuration,30-check suppression
+array and full62-element warning enum; System_Type includes three seven-entry
+arrays. `Preproc_Data.Mapping` includes the actual Dynamic_Tables instance
+record. No nested record is silently treated as one pointer.
+All67 backing checks use the same source-derived growth/sentinel arithmetic as
+the partial packet. No new C/N restriction is introduced by these fixed rows.
+
+### Semantic local arrays and recursion
+
+The named examples from the partial packet now have concrete object bounds.
+They are fixed-only callers, not arrays whose length grows with C/N:
+
+| Site | Bound and reason |
+| --- | --- |
+| Membership `Alts(0 .. List_Length(Alternatives(N)))` | At most F+1 two-ID records, padded32 bytes each plus16 descriptor. The source list contains at most F fixed nodes (`sem_res.adb:10283–10320`). |
+| Discrete interval workspace and result copies | At most F² intervals,32 bytes each plus16 descriptor. Each direct choice contributes one interval or the length of one Others list; there are at most F direct choices and F nodes per referenced list. Aggregate component choice lists partition their direct syntax nodes (`sem_util.adb:31133–31324`). |
+| Case `Choice_Table(0 .. Num_Choices)` | At most F²+1 three-ID records,48 bytes each plus16 descriptor. Direct choices and fixed predicate lists bound the nested enumeration; static-predicate copies remain in the fixed constructor contribution (`sem_case.adb:3535–3576,3637–3830`). Each linked collection record is64 bytes including its next pointer. |
+
+F²=1700242756 and F(F+1)=1700283990 are below signed Int'Last. Count successors
+and these individual array byte products fit their actual domains. These large
+upper bounds are representability arguments, not requested memory reservations.
+Heap_Sort_G guards `C > Positive'Last/2` before `Son := 2*C`, and increments Son
+only below Max (`libgnat/g-hesorg.adb:50–148`). Its sifting loops move strictly
+toward a leaf or parent; phase two decreases Max.
+
+General fixed New_Copy_Tree does not reduce to a syntactic-descendant count.
+Phase1 maps an entity/itype before following its semantic fields
+(`sem_util.adb:25094–25158,25243–25357`). A previously mapped entity returns;
+ordinary syntax descent requires the source parent relationship, and all
+syntax/Elist sibling walks advance their cursor. Elist elements may also be
+ordinary nodes, so parent descent alone is insufficient. In the selected fixed
+graph, a reachable cycle consisting only of ordinary-node/list transitions
+would replay unchanged source fields without a visited-node stopping guard.
+The successful fixed traversal excludes such a cycle. Its fixed nonentity
+subgraph therefore has height at most F. A rank is the lexicographic pair of
+unvisited original entities and remaining height in that fixed nonentity
+graph, with finite list cursors as local loop ranks. A semantic transition
+that resets this height first removes a previously unvisited entity. This
+argument uses the fixed successful projection; it is not a universal theorem
+that every possible semantic graph is a syntax tree.
+Phase2 looks up entity replacements and copies syntactic descendants; it does
+not recurse through replacement entities. Original field references remain
+fixed during Phase1. Hash enumeration in the update phase changes no map keys
+or source topology. Consequently the fixed counted nesting is conservatively
+bounded by F(F+1); successful fixed execution also establishes the required
+selected type/parent invariants. This proves no aggregate native stack-byte
+bound. Pending Elist objects and node copies retain their accepted owners.
+
+The selected Main has zero general semantic-graph-copy input. Its established
+literal/static-bound leaf copying creates no expression-with-actions tree,
+generic instance or owned discriminated/composite graph. A String literal's
+variable decoded length enters its already bounded String/numeric routines,
+not a membership/case workspace. Qualified-name workers follow strict lexical
+Scope ancestors; additional statements are siblings, not nested scopes.
+
+For ordinary statement processing, Analyze_List and Analyze_Statements call
+Analyze then Next (`sem.adb:873–908`, `sem_ch5.adb:4523–4595`). Atree traversal
+likewise finishes a child before advancing the list (`atree.adb:2627–2659`).
+Writing only work/depth structure, not elapsed-time or stack-byte estimates:
+
+```text
+T(C,N) = T0 + C*Tcall + N*Tnull
+D(C+1,N) = max(D(C,N), Dcall)
+D(C,N+1) = max(D(C,N), Dnull).
+```
+
+The variable total work does not accumulate one active semantic frame per
+statement. Local literal queries retain H=4/A=19, with actual digit/character
+lengths checked by their numeric/String owners. A fixed dependency entered
+from a statement returns before the next statement; outer-scope saves already
+include their explicit Main contribution.
+
+### Generic, generated and command-line objects
+
+The [closure owner audit](../evidence/retained-literal-ada-residual-completion-20261019/closure-owner-audit.json)
+records312 explicit allocator sites and223 generic-instantiation candidates in
+384 build/related source files. This is an overapproximate inspection aid;
+generic template declarations are not independent runtime allocations, and
+it is not claimed to be an exhaustive semantic call graph.
+
+Allocation owners are the actual instance and Create/elaboration site:
+
+- Modern Sem_Elab's NE_List/NE_Set/NE_List_Map/ECR/UA/ETT/NTS/IR instances and
+  ALI.Sig_Map resolve to the existing fourteen invocation hash owners and list
+  owners, including initialized buckets at zero pairs. A shared generic body
+  does not merge distinct instances. Nested Membership_Sets and generic hash
+  implementation allocations are part of that actual owner.
+- NCT maps and Type_Map retain the partial packet's wrappers/buckets. Interp_Map,
+  UI_Ints, Fmap maps, lib.Unit_Names and Xref static headers retain their prior
+  owners. This follow-up adds SFN_HTable's101 eight-byte headers/16-byte wrapper
+  and Osint.File_Name_Hash_Table's1021 headers/80-byte padded wrapper, including
+  its32-byte aligned File_Attributes. These fixed-header maps have no dynamic
+  length field; their keys are existing Name/Unit IDs, and Set replaces an
+  existing key without growing a chain.
+- Fixed aspect-name registries, generic/private/runtime semantic containers and
+  target setup remain in the fixed read projection. Main cannot activate their
+  omitted aspect/type/instance writers. Selected no-inline/no-SCO/no-listing/
+  no-preprocessing/no-Eliminate options exclude local optional instances;
+  library-level Table.Table backing is nevertheless retained. Dynamic_Tables
+  starts at its shared empty array; merely declaring its Instance does not
+  allocate an initial ten-element heap (`g-dyntab.ads:144–182`).
+- Sinfo_Utils.Lists is allocated at Lowest_Common_Ancestor, whose frontend caller
+  is goto/label analysis (`sinfo-utils.adb:379–430`, `sem_ch5.adb:1905–1930`).
+  Main has neither; any fixed caller remains in fixed semantic work. Diagnostic
+  pretty/SARIF list creation is excluded by the established empty-message/text
+  route, while its unconditional printer record remains priced.
+
+Generated source is covered through its actual generators and existing
+source/installed-tool correspondence. Nmake creates New_Node/New_Entity and
+sets fields (`gen_il-gen.adb:2608–2633`); those are exactly the existing
+constructor owners. Generated getters/setters access existing fields.
+Generated node/entity metadata really allocates `new A` at package elaboration
+(`:2188–2249`): each field-sequence array is at most902 padded fields plus16
+bytes. There are451 entries in the full generator type enum and902 in the
+field enum; generated subtypes cannot exceed those domains. The separate
+Seinfo_Tables debug-layout output explicitly says it is not used by the compiler
+and is absent from GNAT1_ADA_OBJS; it is not conflated with compiled Seinfo.
+Snames' generated convention table is one of the67 reconciled owners.
+
+The optional Atree assertion field sets are conservatively retained: each
+array is at most451*902*16+16=6508848 bytes. This closes their layout regardless
+of Ada assertion-build selection and does not equate GCC flag_checking with
+Ada `pragma Debug`. Their local set-return objects are smaller than the same
+bound. Fixed FPT_Mode_Table has1000 six-field records, at most96000 bytes;
+its registration inputs and mode-name Strings belong to the fixed selected
+x86-64 target projection. No target-description file override is selected.
+
+The driver packet owns C-side child argv construction; this packet owns the
+Ada-side copies. At most25 argument positions give a416-byte padded Args
+object, and each argument/local copy is at most max(24,P+8)+16 bytes.
+Osint's initial Argument_Count+2 name-pointer/index arrays use27 entries:
+448 and124 bytes. There is one selected Main source, so Add_File's doubling
+branch is absent. The config path allocates one String and one singleton
+pointer array, and the mapping/object-name paths allocate their own Strings.
+Each path String is bounded by P+16; every selected slice/normalization/join
+is conservatively bounded by2P+32+16. The largest such join concatenates two
+complete path components and a fixed `rts-`/directory suffix. Complete raw,
+normalized and resolved path/environment spellings remain existing invocation
+requirements. The search-path-file readers and arbitrary wildcard expansion
+are not selected. Runtime/default search String constants and naming-pattern
+Strings still allocate and are explicitly priced. File/map source text and
+line buffers remain with their existing source/configuration owners.
+
+### Callable interface and verification boundary
+
+Construct `Context(ada_root, repository_root)` once. It checks retained partial
+pins, the new source/excerpt manifest, the fixed successful evidence and all
+384 source-census identities. Then call
+`apply(fresh_predecessor_record, conditions, context)`. The caller supplies the
+fresh record produced by the existing complete source recognizer; this small
+module does not run a predecessor model or pretend its JSON illustration is a
+new source scan. It rejects source/count disagreement, inconsistent literal
+counts, changed physical-source populations and a changed saved-switch vector.
+
+The367 retained condition keys must exist and all supplied values must be
+three-valued. Any false or unknown supplied condition leaves `derived=null`
+and complete-selected-Ada false. Later condition supersets are allowed and
+conjoined, including corrected backend guards. The module preserves the full
+supplied map and separately reports all pending and retained pending keys.
+The final composition owns the derivation of its additional guard values.
+Its own residual status is derived from the source partition and object checks,
+not a supplied remainder-safe Boolean. All whole-native/whole-toolchain and
+physical-resource flags remain false.
