@@ -1,0 +1,3249 @@
+[
+  {
+    "role": "gcc",
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "bytes": 2455824,
+    "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+    "init_array": [
+      4232592,
+      4229584,
+      4230288,
+      4230592,
+      4230656,
+      4230672,
+      4231184,
+      4231696,
+      4231744,
+      4231808
+    ],
+    "fini_array": [
+      4232544,
+      4228512
+    ],
+    "preinit_array_present": false,
+    "CRT_init": 4232592,
+    "Cxx_runtime_init": 4231808,
+    "cxa_atexit_plt": 4207232,
+    "roots": [
+      {
+        "address": 4229584,
+        "instructions": [
+          {
+            "address": 4229584,
+            "hex": "488b05a1f42400",
+            "mnemonic": "movq",
+            "operands": "0x24f4a1(%rip), %rax"
+          },
+          {
+            "address": 4229591,
+            "hex": "4889050aeb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eb0a(%rip)"
+          },
+          {
+            "address": 4229598,
+            "hex": "488b05cbf42400",
+            "mnemonic": "movq",
+            "operands": "0x24f4cb(%rip), %rax"
+          },
+          {
+            "address": 4229605,
+            "hex": "4889052ceb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eb2c(%rip)"
+          },
+          {
+            "address": 4229612,
+            "hex": "488b05b5f42400",
+            "mnemonic": "movq",
+            "operands": "0x24f4b5(%rip), %rax"
+          },
+          {
+            "address": 4229619,
+            "hex": "4889054eeb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eb4e(%rip)"
+          },
+          {
+            "address": 4229626,
+            "hex": "488b056ff42400",
+            "mnemonic": "movq",
+            "operands": "0x24f46f(%rip), %rax"
+          },
+          {
+            "address": 4229633,
+            "hex": "48890570eb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eb70(%rip)"
+          },
+          {
+            "address": 4229640,
+            "hex": "488b05a1f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f3a1(%rip), %rax"
+          },
+          {
+            "address": 4229647,
+            "hex": "48890592eb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eb92(%rip)"
+          },
+          {
+            "address": 4229654,
+            "hex": "488b058bf32400",
+            "mnemonic": "movq",
+            "operands": "0x24f38b(%rip), %rax"
+          },
+          {
+            "address": 4229661,
+            "hex": "488905b4eb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ebb4(%rip)"
+          },
+          {
+            "address": 4229668,
+            "hex": "488b0575f42400",
+            "mnemonic": "movq",
+            "operands": "0x24f475(%rip), %rax"
+          },
+          {
+            "address": 4229675,
+            "hex": "488905d6eb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ebd6(%rip)"
+          },
+          {
+            "address": 4229682,
+            "hex": "488b058ff32400",
+            "mnemonic": "movq",
+            "operands": "0x24f38f(%rip), %rax"
+          },
+          {
+            "address": 4229689,
+            "hex": "488905f8eb2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ebf8(%rip)"
+          },
+          {
+            "address": 4229696,
+            "hex": "488b0579f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f379(%rip), %rax"
+          },
+          {
+            "address": 4229703,
+            "hex": "4889051aec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ec1a(%rip)"
+          },
+          {
+            "address": 4229710,
+            "hex": "488b057bf32400",
+            "mnemonic": "movq",
+            "operands": "0x24f37b(%rip), %rax"
+          },
+          {
+            "address": 4229717,
+            "hex": "4889053cec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ec3c(%rip)"
+          },
+          {
+            "address": 4229724,
+            "hex": "488b0575f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f375(%rip), %rax"
+          },
+          {
+            "address": 4229731,
+            "hex": "4889055eec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ec5e(%rip)"
+          },
+          {
+            "address": 4229738,
+            "hex": "488b0527f42400",
+            "mnemonic": "movq",
+            "operands": "0x24f427(%rip), %rax"
+          },
+          {
+            "address": 4229745,
+            "hex": "48890580ec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ec80(%rip)"
+          },
+          {
+            "address": 4229752,
+            "hex": "488b0539f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f339(%rip), %rax"
+          },
+          {
+            "address": 4229759,
+            "hex": "488905a2ec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eca2(%rip)"
+          },
+          {
+            "address": 4229766,
+            "hex": "488b0503f42400",
+            "mnemonic": "movq",
+            "operands": "0x24f403(%rip), %rax"
+          },
+          {
+            "address": 4229773,
+            "hex": "488905c4ec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ecc4(%rip)"
+          },
+          {
+            "address": 4229780,
+            "hex": "488b05edf32400",
+            "mnemonic": "movq",
+            "operands": "0x24f3ed(%rip), %rax"
+          },
+          {
+            "address": 4229787,
+            "hex": "488905e6ec2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ece6(%rip)"
+          },
+          {
+            "address": 4229794,
+            "hex": "488b05d7f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f3d7(%rip), %rax"
+          },
+          {
+            "address": 4229801,
+            "hex": "48890508ed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ed08(%rip)"
+          },
+          {
+            "address": 4229808,
+            "hex": "488b0591f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f391(%rip), %rax"
+          },
+          {
+            "address": 4229815,
+            "hex": "4889052aed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ed2a(%rip)"
+          },
+          {
+            "address": 4229822,
+            "hex": "488b05a3f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f3a3(%rip), %rax"
+          },
+          {
+            "address": 4229829,
+            "hex": "4889054ced2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ed4c(%rip)"
+          },
+          {
+            "address": 4229836,
+            "hex": "488b058df32400",
+            "mnemonic": "movq",
+            "operands": "0x24f38d(%rip), %rax"
+          },
+          {
+            "address": 4229843,
+            "hex": "4889056eed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ed6e(%rip)"
+          },
+          {
+            "address": 4229850,
+            "hex": "488b0577f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f377(%rip), %rax"
+          },
+          {
+            "address": 4229857,
+            "hex": "48890590ed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ed90(%rip)"
+          },
+          {
+            "address": 4229864,
+            "hex": "488b0561f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f361(%rip), %rax"
+          },
+          {
+            "address": 4229871,
+            "hex": "488905b2ed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24edb2(%rip)"
+          },
+          {
+            "address": 4229878,
+            "hex": "488b0543f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f343(%rip), %rax"
+          },
+          {
+            "address": 4229885,
+            "hex": "488905d4ed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24edd4(%rip)"
+          },
+          {
+            "address": 4229892,
+            "hex": "488b05b5f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f3b5(%rip), %rax"
+          },
+          {
+            "address": 4229899,
+            "hex": "488905f6ed2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24edf6(%rip)"
+          },
+          {
+            "address": 4229906,
+            "hex": "488b0507f92400",
+            "mnemonic": "movq",
+            "operands": "0x24f907(%rip), %rax"
+          },
+          {
+            "address": 4229913,
+            "hex": "48890518ee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ee18(%rip)"
+          },
+          {
+            "address": 4229920,
+            "hex": "488b05c1f72400",
+            "mnemonic": "movq",
+            "operands": "0x24f7c1(%rip), %rax"
+          },
+          {
+            "address": 4229927,
+            "hex": "4889053aee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ee3a(%rip)"
+          },
+          {
+            "address": 4229934,
+            "hex": "488b05a3f72400",
+            "mnemonic": "movq",
+            "operands": "0x24f7a3(%rip), %rax"
+          },
+          {
+            "address": 4229941,
+            "hex": "4889055cee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ee5c(%rip)"
+          },
+          {
+            "address": 4229948,
+            "hex": "488b0595f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f395(%rip), %rax"
+          },
+          {
+            "address": 4229955,
+            "hex": "4889057eee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ee7e(%rip)"
+          },
+          {
+            "address": 4229962,
+            "hex": "488b058ff72400",
+            "mnemonic": "movq",
+            "operands": "0x24f78f(%rip), %rax"
+          },
+          {
+            "address": 4229969,
+            "hex": "488905a0ee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eea0(%rip)"
+          },
+          {
+            "address": 4229976,
+            "hex": "488b0571f72400",
+            "mnemonic": "movq",
+            "operands": "0x24f771(%rip), %rax"
+          },
+          {
+            "address": 4229983,
+            "hex": "488905c2ee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eec2(%rip)"
+          },
+          {
+            "address": 4229990,
+            "hex": "488b0563f32400",
+            "mnemonic": "movq",
+            "operands": "0x24f363(%rip), %rax"
+          },
+          {
+            "address": 4229997,
+            "hex": "488905e4ee2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eee4(%rip)"
+          },
+          {
+            "address": 4230004,
+            "hex": "488b054df72400",
+            "mnemonic": "movq",
+            "operands": "0x24f74d(%rip), %rax"
+          },
+          {
+            "address": 4230011,
+            "hex": "48890506ef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ef06(%rip)"
+          },
+          {
+            "address": 4230018,
+            "hex": "488b05aff22400",
+            "mnemonic": "movq",
+            "operands": "0x24f2af(%rip), %rax"
+          },
+          {
+            "address": 4230025,
+            "hex": "48890528ef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ef28(%rip)"
+          },
+          {
+            "address": 4230032,
+            "hex": "488b0599f22400",
+            "mnemonic": "movq",
+            "operands": "0x24f299(%rip), %rax"
+          },
+          {
+            "address": 4230039,
+            "hex": "4889054aef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ef4a(%rip)"
+          },
+          {
+            "address": 4230046,
+            "hex": "488b0583f22400",
+            "mnemonic": "movq",
+            "operands": "0x24f283(%rip), %rax"
+          },
+          {
+            "address": 4230053,
+            "hex": "4889056cef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ef6c(%rip)"
+          },
+          {
+            "address": 4230060,
+            "hex": "488b056df22400",
+            "mnemonic": "movq",
+            "operands": "0x24f26d(%rip), %rax"
+          },
+          {
+            "address": 4230067,
+            "hex": "4889058eef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24ef8e(%rip)"
+          },
+          {
+            "address": 4230074,
+            "hex": "488b0557f22400",
+            "mnemonic": "movq",
+            "operands": "0x24f257(%rip), %rax"
+          },
+          {
+            "address": 4230081,
+            "hex": "488905b0ef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24efb0(%rip)"
+          },
+          {
+            "address": 4230088,
+            "hex": "488b0539f22400",
+            "mnemonic": "movq",
+            "operands": "0x24f239(%rip), %rax"
+          },
+          {
+            "address": 4230095,
+            "hex": "488905d2ef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24efd2(%rip)"
+          },
+          {
+            "address": 4230102,
+            "hex": "488b0563f12400",
+            "mnemonic": "movq",
+            "operands": "0x24f163(%rip), %rax"
+          },
+          {
+            "address": 4230109,
+            "hex": "488905f4ef2400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24eff4(%rip)"
+          },
+          {
+            "address": 4230116,
+            "hex": "488b054df12400",
+            "mnemonic": "movq",
+            "operands": "0x24f14d(%rip), %rax"
+          },
+          {
+            "address": 4230123,
+            "hex": "48890516f02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f016(%rip)"
+          },
+          {
+            "address": 4230130,
+            "hex": "488b0537f12400",
+            "mnemonic": "movq",
+            "operands": "0x24f137(%rip), %rax"
+          },
+          {
+            "address": 4230137,
+            "hex": "48890538f02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f038(%rip)"
+          },
+          {
+            "address": 4230144,
+            "hex": "488b05f9f12400",
+            "mnemonic": "movq",
+            "operands": "0x24f1f9(%rip), %rax"
+          },
+          {
+            "address": 4230151,
+            "hex": "4889055af02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f05a(%rip)"
+          },
+          {
+            "address": 4230158,
+            "hex": "488b05e3f12400",
+            "mnemonic": "movq",
+            "operands": "0x24f1e3(%rip), %rax"
+          },
+          {
+            "address": 4230165,
+            "hex": "4889057cf02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f07c(%rip)"
+          },
+          {
+            "address": 4230172,
+            "hex": "488b05cdf12400",
+            "mnemonic": "movq",
+            "operands": "0x24f1cd(%rip), %rax"
+          },
+          {
+            "address": 4230179,
+            "hex": "4889059ef02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f09e(%rip)"
+          },
+          {
+            "address": 4230186,
+            "hex": "488b05b7f12400",
+            "mnemonic": "movq",
+            "operands": "0x24f1b7(%rip), %rax"
+          },
+          {
+            "address": 4230193,
+            "hex": "488905c0f02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f0c0(%rip)"
+          },
+          {
+            "address": 4230200,
+            "hex": "488b05a1f12400",
+            "mnemonic": "movq",
+            "operands": "0x24f1a1(%rip), %rax"
+          },
+          {
+            "address": 4230207,
+            "hex": "488905e2f02400",
+            "mnemonic": "movq",
+            "operands": "%rax, 0x24f0e2(%rip)"
+          },
+          {
+            "address": 4230214,
+            "hex": "c3",
+            "mnemonic": "retq",
+            "operands": ""
+          }
+        ],
+        "source_disposition": "fixed builtin spec pointers"
+      },
+      {
+        "address": 4230288,
+        "instructions": [
+          {
+            "address": 4230288,
+            "hex": "4154",
+            "mnemonic": "pushq",
+            "operands": "%r12"
+          },
+          {
+            "address": 4230290,
+            "hex": "bf30000000",
+            "mnemonic": "movl",
+            "operands": "$0x30, %edi"
+          },
+          {
+            "address": 4230295,
+            "hex": "55",
+            "mnemonic": "pushq",
+            "operands": "%rbp"
+          },
+          {
+            "address": 4230296,
+            "hex": "53",
+            "mnemonic": "pushq",
+            "operands": "%rbx"
+          },
+          {
+            "address": 4230297,
+            "hex": "e802b50f00",
+            "mnemonic": "callq",
+            "operands": "0x5041a0"
+          },
+          {
+            "address": 4230302,
+            "hex": "660fefc0",
+            "mnemonic": "pxor",
+            "operands": "%xmm0, %xmm0"
+          },
+          {
+            "address": 4230306,
+            "hex": "bf0d000000",
+            "mnemonic": "movl",
+            "operands": "$0xd, %edi"
+          },
+          {
+            "address": 4230311,
+            "hex": "4889c3",
+            "mnemonic": "movq",
+            "operands": "%rax, %rbx"
+          },
+          {
+            "address": 4230314,
+            "hex": "0f114010",
+            "mnemonic": "movups",
+            "operands": "%xmm0, 0x10(%rax)"
+          },
+          {
+            "address": 4230318,
+            "hex": "48c7402000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x20(%rax)"
+          },
+          {
+            "address": 4230326,
+            "hex": "31c0",
+            "mnemonic": "xorl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4230328,
+            "hex": "6689432c",
+            "mnemonic": "movw",
+            "operands": "%ax, 0x2c(%rbx)"
+          },
+          {
+            "address": 4230332,
+            "hex": "e8ff320300",
+            "mnemonic": "callq",
+            "operands": "0x43bfc0"
+          },
+          {
+            "address": 4230337,
+            "hex": "be10000000",
+            "mnemonic": "movl",
+            "operands": "$0x10, %esi"
+          },
+          {
+            "address": 4230342,
+            "hex": "89c5",
+            "mnemonic": "movl",
+            "operands": "%eax, %ebp"
+          },
+          {
+            "address": 4230344,
+            "hex": "89c0",
+            "mnemonic": "movl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4230346,
+            "hex": "48c1e004",
+            "mnemonic": "shlq",
+            "operands": "$4, %rax"
+          },
+          {
+            "address": 4230350,
+            "hex": "448ba040fe5c00",
+            "mnemonic": "movl",
+            "operands": "0x5cfe40(%rax), %r12d"
+          },
+          {
+            "address": 4230357,
+            "hex": "4c89e7",
+            "mnemonic": "movq",
+            "operands": "%r12, %rdi"
+          },
+          {
+            "address": 4230360,
+            "hex": "e843ad0f00",
+            "mnemonic": "callq",
+            "operands": "0x503a20"
+          },
+          {
+            "address": 4230365,
+            "hex": "4c896308",
+            "mnemonic": "movq",
+            "operands": "%r12, 8(%rbx)"
+          },
+          {
+            "address": 4230369,
+            "hex": "bf30000000",
+            "mnemonic": "movl",
+            "operands": "$0x30, %edi"
+          },
+          {
+            "address": 4230374,
+            "hex": "896b28",
+            "mnemonic": "movl",
+            "operands": "%ebp, 0x28(%rbx)"
+          },
+          {
+            "address": 4230377,
+            "hex": "488903",
+            "mnemonic": "movq",
+            "operands": "%rax, (%rbx)"
+          },
+          {
+            "address": 4230380,
+            "hex": "48891d552f2500",
+            "mnemonic": "movq",
+            "operands": "%rbx, 0x252f55(%rip)"
+          },
+          {
+            "address": 4230387,
+            "hex": "e8a8b40f00",
+            "mnemonic": "callq",
+            "operands": "0x5041a0"
+          },
+          {
+            "address": 4230392,
+            "hex": "31d2",
+            "mnemonic": "xorl",
+            "operands": "%edx, %edx"
+          },
+          {
+            "address": 4230394,
+            "hex": "660fefc0",
+            "mnemonic": "pxor",
+            "operands": "%xmm0, %xmm0"
+          },
+          {
+            "address": 4230398,
+            "hex": "bf0d000000",
+            "mnemonic": "movl",
+            "operands": "$0xd, %edi"
+          },
+          {
+            "address": 4230403,
+            "hex": "6689502c",
+            "mnemonic": "movw",
+            "operands": "%dx, 0x2c(%rax)"
+          },
+          {
+            "address": 4230407,
+            "hex": "4889c3",
+            "mnemonic": "movq",
+            "operands": "%rax, %rbx"
+          },
+          {
+            "address": 4230410,
+            "hex": "48c7402000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x20(%rax)"
+          },
+          {
+            "address": 4230418,
+            "hex": "0f114010",
+            "mnemonic": "movups",
+            "operands": "%xmm0, 0x10(%rax)"
+          },
+          {
+            "address": 4230422,
+            "hex": "e8a5320300",
+            "mnemonic": "callq",
+            "operands": "0x43bfc0"
+          },
+          {
+            "address": 4230427,
+            "hex": "be18000000",
+            "mnemonic": "movl",
+            "operands": "$0x18, %esi"
+          },
+          {
+            "address": 4230432,
+            "hex": "89c5",
+            "mnemonic": "movl",
+            "operands": "%eax, %ebp"
+          },
+          {
+            "address": 4230434,
+            "hex": "89c0",
+            "mnemonic": "movl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4230436,
+            "hex": "48c1e004",
+            "mnemonic": "shlq",
+            "operands": "$4, %rax"
+          },
+          {
+            "address": 4230440,
+            "hex": "448ba040fe5c00",
+            "mnemonic": "movl",
+            "operands": "0x5cfe40(%rax), %r12d"
+          },
+          {
+            "address": 4230447,
+            "hex": "4c89e7",
+            "mnemonic": "movq",
+            "operands": "%r12, %rdi"
+          },
+          {
+            "address": 4230450,
+            "hex": "e8e9ac0f00",
+            "mnemonic": "callq",
+            "operands": "0x503a20"
+          },
+          {
+            "address": 4230455,
+            "hex": "4c896308",
+            "mnemonic": "movq",
+            "operands": "%r12, 8(%rbx)"
+          },
+          {
+            "address": 4230459,
+            "hex": "bf30000000",
+            "mnemonic": "movl",
+            "operands": "$0x30, %edi"
+          },
+          {
+            "address": 4230464,
+            "hex": "896b28",
+            "mnemonic": "movl",
+            "operands": "%ebp, 0x28(%rbx)"
+          },
+          {
+            "address": 4230467,
+            "hex": "488903",
+            "mnemonic": "movq",
+            "operands": "%rax, (%rbx)"
+          },
+          {
+            "address": 4230470,
+            "hex": "48891d032f2500",
+            "mnemonic": "movq",
+            "operands": "%rbx, 0x252f03(%rip)"
+          },
+          {
+            "address": 4230477,
+            "hex": "e84eb40f00",
+            "mnemonic": "callq",
+            "operands": "0x5041a0"
+          },
+          {
+            "address": 4230482,
+            "hex": "31c9",
+            "mnemonic": "xorl",
+            "operands": "%ecx, %ecx"
+          },
+          {
+            "address": 4230484,
+            "hex": "660fefc0",
+            "mnemonic": "pxor",
+            "operands": "%xmm0, %xmm0"
+          },
+          {
+            "address": 4230488,
+            "hex": "bf0d000000",
+            "mnemonic": "movl",
+            "operands": "$0xd, %edi"
+          },
+          {
+            "address": 4230493,
+            "hex": "6689482c",
+            "mnemonic": "movw",
+            "operands": "%cx, 0x2c(%rax)"
+          },
+          {
+            "address": 4230497,
+            "hex": "4889c3",
+            "mnemonic": "movq",
+            "operands": "%rax, %rbx"
+          },
+          {
+            "address": 4230500,
+            "hex": "48c7402000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x20(%rax)"
+          },
+          {
+            "address": 4230508,
+            "hex": "0f114010",
+            "mnemonic": "movups",
+            "operands": "%xmm0, 0x10(%rax)"
+          },
+          {
+            "address": 4230512,
+            "hex": "e84b320300",
+            "mnemonic": "callq",
+            "operands": "0x43bfc0"
+          },
+          {
+            "address": 4230517,
+            "hex": "be18000000",
+            "mnemonic": "movl",
+            "operands": "$0x18, %esi"
+          },
+          {
+            "address": 4230522,
+            "hex": "89c5",
+            "mnemonic": "movl",
+            "operands": "%eax, %ebp"
+          },
+          {
+            "address": 4230524,
+            "hex": "89c0",
+            "mnemonic": "movl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4230526,
+            "hex": "48c1e004",
+            "mnemonic": "shlq",
+            "operands": "$4, %rax"
+          },
+          {
+            "address": 4230530,
+            "hex": "448ba040fe5c00",
+            "mnemonic": "movl",
+            "operands": "0x5cfe40(%rax), %r12d"
+          },
+          {
+            "address": 4230537,
+            "hex": "4c89e7",
+            "mnemonic": "movq",
+            "operands": "%r12, %rdi"
+          },
+          {
+            "address": 4230540,
+            "hex": "e88fac0f00",
+            "mnemonic": "callq",
+            "operands": "0x503a20"
+          },
+          {
+            "address": 4230545,
+            "hex": "4c896308",
+            "mnemonic": "movq",
+            "operands": "%r12, 8(%rbx)"
+          },
+          {
+            "address": 4230549,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230554,
+            "hex": "be20bc6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bc20, %esi"
+          },
+          {
+            "address": 4230559,
+            "hex": "488903",
+            "mnemonic": "movq",
+            "operands": "%rax, (%rbx)"
+          },
+          {
+            "address": 4230562,
+            "hex": "bf40ab4300",
+            "mnemonic": "movl",
+            "operands": "$0x43ab40, %edi"
+          },
+          {
+            "address": 4230567,
+            "hex": "896b28",
+            "mnemonic": "movl",
+            "operands": "%ebp, 0x28(%rbx)"
+          },
+          {
+            "address": 4230570,
+            "hex": "48891d6f2e2500",
+            "mnemonic": "movq",
+            "operands": "%rbx, 0x252e6f(%rip)"
+          },
+          {
+            "address": 4230577,
+            "hex": "5b",
+            "mnemonic": "popq",
+            "operands": "%rbx"
+          },
+          {
+            "address": 4230578,
+            "hex": "5d",
+            "mnemonic": "popq",
+            "operands": "%rbp"
+          },
+          {
+            "address": 4230579,
+            "hex": "415c",
+            "mnemonic": "popq",
+            "operands": "%r12"
+          },
+          {
+            "address": 4230581,
+            "hex": "e9c6a4ffff",
+            "mnemonic": "jmp",
+            "operands": "0x403280"
+          }
+        ],
+        "source_disposition": "vec statistics: three empty maps"
+      },
+      {
+        "address": 4230592,
+        "instructions": [
+          {
+            "address": 4230592,
+            "hex": "4883ec08",
+            "mnemonic": "subq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4230596,
+            "hex": "bfd0bc6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bcd0, %edi"
+          },
+          {
+            "address": 4230601,
+            "hex": "e822b00300",
+            "mnemonic": "callq",
+            "operands": "0x443df0"
+          },
+          {
+            "address": 4230606,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230611,
+            "hex": "bec0bc6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bcc0, %esi"
+          },
+          {
+            "address": 4230616,
+            "hex": "c705662f250000000000",
+            "mnemonic": "movl",
+            "operands": "$0, 0x252f66(%rip)"
+          },
+          {
+            "address": 4230626,
+            "hex": "48c7051330250000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x253013(%rip)"
+          },
+          {
+            "address": 4230637,
+            "hex": "bff0104400",
+            "mnemonic": "movl",
+            "operands": "$0x4410f0, %edi"
+          },
+          {
+            "address": 4230642,
+            "hex": "4883c408",
+            "mnemonic": "addq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4230646,
+            "hex": "e985a4ffff",
+            "mnemonic": "jmp",
+            "operands": "0x403280"
+          }
+        ],
+        "source_disposition": "diagnostic counters/context"
+      },
+      {
+        "address": 4230656,
+        "instructions": [
+          {
+            "address": 4230656,
+            "hex": "48c7059d30250000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x25309d(%rip)"
+          },
+          {
+            "address": 4230667,
+            "hex": "c3",
+            "mnemonic": "retq",
+            "operands": ""
+          }
+        ],
+        "source_disposition": "fixed null pointer store"
+      },
+      {
+        "address": 4230672,
+        "instructions": [
+          {
+            "address": 4230672,
+            "hex": "4883ec08",
+            "mnemonic": "subq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4230676,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230681,
+            "hex": "be70bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf70, %esi"
+          },
+          {
+            "address": 4230686,
+            "hex": "bfe0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955e0, %edi"
+          },
+          {
+            "address": 4230691,
+            "hex": "48c7054231250000d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d300, 0x253142(%rip)"
+          },
+          {
+            "address": 4230702,
+            "hex": "c6054331250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x253143(%rip)"
+          },
+          {
+            "address": 4230709,
+            "hex": "e846a4ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230714,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230719,
+            "hex": "be60bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf60, %esi"
+          },
+          {
+            "address": 4230724,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230729,
+            "hex": "48c7050c31250020d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d320, 0x25310c(%rip)"
+          },
+          {
+            "address": 4230740,
+            "hex": "c6050d31250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x25310d(%rip)"
+          },
+          {
+            "address": 4230747,
+            "hex": "e820a4ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230752,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230757,
+            "hex": "be50bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf50, %esi"
+          },
+          {
+            "address": 4230762,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230767,
+            "hex": "48c705d630250048d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d348, 0x2530d6(%rip)"
+          },
+          {
+            "address": 4230778,
+            "hex": "c605d730250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x2530d7(%rip)"
+          },
+          {
+            "address": 4230785,
+            "hex": "e8faa3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230790,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230795,
+            "hex": "be40bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf40, %esi"
+          },
+          {
+            "address": 4230800,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230805,
+            "hex": "48c705a030250078d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d378, 0x2530a0(%rip)"
+          },
+          {
+            "address": 4230816,
+            "hex": "c605a130250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x2530a1(%rip)"
+          },
+          {
+            "address": 4230823,
+            "hex": "e8d4a3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230828,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230833,
+            "hex": "be30bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf30, %esi"
+          },
+          {
+            "address": 4230838,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230843,
+            "hex": "48c7056a30250098d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d398, 0x25306a(%rip)"
+          },
+          {
+            "address": 4230854,
+            "hex": "c6056b30250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x25306b(%rip)"
+          },
+          {
+            "address": 4230861,
+            "hex": "e8aea3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230866,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230871,
+            "hex": "be20bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf20, %esi"
+          },
+          {
+            "address": 4230876,
+            "hex": "bfa0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955a0, %edi"
+          },
+          {
+            "address": 4230881,
+            "hex": "48c70534302500b8d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d3b8, 0x253034(%rip)"
+          },
+          {
+            "address": 4230892,
+            "hex": "c6053530250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x253035(%rip)"
+          },
+          {
+            "address": 4230899,
+            "hex": "e888a3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230904,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230909,
+            "hex": "be10bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf10, %esi"
+          },
+          {
+            "address": 4230914,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230919,
+            "hex": "48c705fe2f2500d8d35700",
+            "mnemonic": "movq",
+            "operands": "$0x57d3d8, 0x252ffe(%rip)"
+          },
+          {
+            "address": 4230930,
+            "hex": "c605ff2f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252fff(%rip)"
+          },
+          {
+            "address": 4230937,
+            "hex": "e862a3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230942,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230947,
+            "hex": "be00bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf00, %esi"
+          },
+          {
+            "address": 4230952,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230957,
+            "hex": "48c705c82f250000d45700",
+            "mnemonic": "movq",
+            "operands": "$0x57d400, 0x252fc8(%rip)"
+          },
+          {
+            "address": 4230968,
+            "hex": "c605c92f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252fc9(%rip)"
+          },
+          {
+            "address": 4230975,
+            "hex": "e83ca3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4230980,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4230985,
+            "hex": "bef0be6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bef0, %esi"
+          },
+          {
+            "address": 4230990,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4230995,
+            "hex": "48c705922f250020d45700",
+            "mnemonic": "movq",
+            "operands": "$0x57d420, 0x252f92(%rip)"
+          },
+          {
+            "address": 4231006,
+            "hex": "c605932f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252f93(%rip)"
+          },
+          {
+            "address": 4231013,
+            "hex": "e816a3ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231018,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231023,
+            "hex": "bee0be6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bee0, %esi"
+          },
+          {
+            "address": 4231028,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231033,
+            "hex": "48c7055c2f250040d45700",
+            "mnemonic": "movq",
+            "operands": "$0x57d440, 0x252f5c(%rip)"
+          },
+          {
+            "address": 4231044,
+            "hex": "c6055d2f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252f5d(%rip)"
+          },
+          {
+            "address": 4231051,
+            "hex": "e8f0a2ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231056,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231061,
+            "hex": "bed0be6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bed0, %esi"
+          },
+          {
+            "address": 4231066,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231071,
+            "hex": "48c705262f250068d45700",
+            "mnemonic": "movq",
+            "operands": "$0x57d468, 0x252f26(%rip)"
+          },
+          {
+            "address": 4231082,
+            "hex": "c605272f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252f27(%rip)"
+          },
+          {
+            "address": 4231089,
+            "hex": "e8caa2ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231094,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231099,
+            "hex": "bec0be6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bec0, %esi"
+          },
+          {
+            "address": 4231104,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231109,
+            "hex": "48c705f02e250090d45700",
+            "mnemonic": "movq",
+            "operands": "$0x57d490, 0x252ef0(%rip)"
+          },
+          {
+            "address": 4231120,
+            "hex": "c605f12e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252ef1(%rip)"
+          },
+          {
+            "address": 4231127,
+            "hex": "e8a4a2ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231132,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231137,
+            "hex": "beb0be6500",
+            "mnemonic": "movl",
+            "operands": "$0x65beb0, %esi"
+          },
+          {
+            "address": 4231142,
+            "hex": "48c705bf2e2500c0d45700",
+            "mnemonic": "movq",
+            "operands": "$0x57d4c0, 0x252ebf(%rip)"
+          },
+          {
+            "address": 4231153,
+            "hex": "c605c02e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252ec0(%rip)"
+          },
+          {
+            "address": 4231160,
+            "hex": "bf80554900",
+            "mnemonic": "movl",
+            "operands": "$0x495580, %edi"
+          },
+          {
+            "address": 4231165,
+            "hex": "4883c408",
+            "mnemonic": "addq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4231169,
+            "hex": "e97aa2ffff",
+            "mnemonic": "jmp",
+            "operands": "0x403280"
+          }
+        ],
+        "source_disposition": "borrowed JSON keys:13"
+      },
+      {
+        "address": 4231184,
+        "instructions": [
+          {
+            "address": 4231184,
+            "hex": "4883ec08",
+            "mnemonic": "subq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4231188,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231193,
+            "hex": "be50c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c050, %esi"
+          },
+          {
+            "address": 4231198,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231203,
+            "hex": "48c705223025003b3f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533f3b, 0x253022(%rip)"
+          },
+          {
+            "address": 4231214,
+            "hex": "c6052330250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x253023(%rip)"
+          },
+          {
+            "address": 4231221,
+            "hex": "e846a2ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231226,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231231,
+            "hex": "be40c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c040, %esi"
+          },
+          {
+            "address": 4231236,
+            "hex": "bf605e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e60, %edi"
+          },
+          {
+            "address": 4231241,
+            "hex": "48c705ec2f2500533f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533f53, 0x252fec(%rip)"
+          },
+          {
+            "address": 4231252,
+            "hex": "c605ed2f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252fed(%rip)"
+          },
+          {
+            "address": 4231259,
+            "hex": "e820a2ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231264,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231269,
+            "hex": "be30c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c030, %esi"
+          },
+          {
+            "address": 4231274,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231279,
+            "hex": "48c705b62f25006d3f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533f6d, 0x252fb6(%rip)"
+          },
+          {
+            "address": 4231290,
+            "hex": "c605b72f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252fb7(%rip)"
+          },
+          {
+            "address": 4231297,
+            "hex": "e8faa1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231302,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231307,
+            "hex": "be20c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c020, %esi"
+          },
+          {
+            "address": 4231312,
+            "hex": "bf605e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e60, %edi"
+          },
+          {
+            "address": 4231317,
+            "hex": "48c705802f25007f3f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533f7f, 0x252f80(%rip)"
+          },
+          {
+            "address": 4231328,
+            "hex": "c605812f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252f81(%rip)"
+          },
+          {
+            "address": 4231335,
+            "hex": "e8d4a1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231340,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231345,
+            "hex": "be10c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c010, %esi"
+          },
+          {
+            "address": 4231350,
+            "hex": "bf605e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e60, %edi"
+          },
+          {
+            "address": 4231355,
+            "hex": "48c7054a2f2500903f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533f90, 0x252f4a(%rip)"
+          },
+          {
+            "address": 4231366,
+            "hex": "c6054b2f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252f4b(%rip)"
+          },
+          {
+            "address": 4231373,
+            "hex": "e8aea1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231378,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231383,
+            "hex": "be00c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c000, %esi"
+          },
+          {
+            "address": 4231388,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231393,
+            "hex": "48c705142f2500a33f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533fa3, 0x252f14(%rip)"
+          },
+          {
+            "address": 4231404,
+            "hex": "c605152f250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252f15(%rip)"
+          },
+          {
+            "address": 4231411,
+            "hex": "e888a1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231416,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231421,
+            "hex": "bef0bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bff0, %esi"
+          },
+          {
+            "address": 4231426,
+            "hex": "bf605e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e60, %edi"
+          },
+          {
+            "address": 4231431,
+            "hex": "48c705de2e2500bc3f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533fbc, 0x252ede(%rip)"
+          },
+          {
+            "address": 4231442,
+            "hex": "c605df2e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252edf(%rip)"
+          },
+          {
+            "address": 4231449,
+            "hex": "e862a1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231454,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231459,
+            "hex": "bee0bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bfe0, %esi"
+          },
+          {
+            "address": 4231464,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231469,
+            "hex": "48c705a82e2500d63f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533fd6, 0x252ea8(%rip)"
+          },
+          {
+            "address": 4231480,
+            "hex": "c605a92e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252ea9(%rip)"
+          },
+          {
+            "address": 4231487,
+            "hex": "e83ca1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231492,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231497,
+            "hex": "bed0bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bfd0, %esi"
+          },
+          {
+            "address": 4231502,
+            "hex": "bf405e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e40, %edi"
+          },
+          {
+            "address": 4231507,
+            "hex": "48c705722e2500b8d55700",
+            "mnemonic": "movq",
+            "operands": "$0x57d5b8, 0x252e72(%rip)"
+          },
+          {
+            "address": 4231518,
+            "hex": "c605732e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252e73(%rip)"
+          },
+          {
+            "address": 4231525,
+            "hex": "e816a1ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231530,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231535,
+            "hex": "bec0bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bfc0, %esi"
+          },
+          {
+            "address": 4231540,
+            "hex": "bf405e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e40, %edi"
+          },
+          {
+            "address": 4231545,
+            "hex": "48c7053c2e2500d8d55700",
+            "mnemonic": "movq",
+            "operands": "$0x57d5d8, 0x252e3c(%rip)"
+          },
+          {
+            "address": 4231556,
+            "hex": "c6053d2e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252e3d(%rip)"
+          },
+          {
+            "address": 4231563,
+            "hex": "e8f0a0ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231568,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231573,
+            "hex": "beb0bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bfb0, %esi"
+          },
+          {
+            "address": 4231578,
+            "hex": "bf405e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e40, %edi"
+          },
+          {
+            "address": 4231583,
+            "hex": "48c705062e2500f03f5300",
+            "mnemonic": "movq",
+            "operands": "$0x533ff0, 0x252e06(%rip)"
+          },
+          {
+            "address": 4231594,
+            "hex": "c605072e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252e07(%rip)"
+          },
+          {
+            "address": 4231601,
+            "hex": "e8caa0ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231606,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231611,
+            "hex": "bea0bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bfa0, %esi"
+          },
+          {
+            "address": 4231616,
+            "hex": "bf405e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e40, %edi"
+          },
+          {
+            "address": 4231621,
+            "hex": "48c705d02d25000e405300",
+            "mnemonic": "movq",
+            "operands": "$0x53400e, 0x252dd0(%rip)"
+          },
+          {
+            "address": 4231632,
+            "hex": "c605d12d250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252dd1(%rip)"
+          },
+          {
+            "address": 4231639,
+            "hex": "e8a4a0ffff",
+            "mnemonic": "callq",
+            "operands": "0x403280"
+          },
+          {
+            "address": 4231644,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231649,
+            "hex": "be90bf6500",
+            "mnemonic": "movl",
+            "operands": "$0x65bf90, %esi"
+          },
+          {
+            "address": 4231654,
+            "hex": "48c7059f2d250021405300",
+            "mnemonic": "movq",
+            "operands": "$0x534021, 0x252d9f(%rip)"
+          },
+          {
+            "address": 4231665,
+            "hex": "c605a02d250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252da0(%rip)"
+          },
+          {
+            "address": 4231672,
+            "hex": "bf605e4a00",
+            "mnemonic": "movl",
+            "operands": "$0x4a5e60, %edi"
+          },
+          {
+            "address": 4231677,
+            "hex": "4883c408",
+            "mnemonic": "addq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4231681,
+            "hex": "e97aa0ffff",
+            "mnemonic": "jmp",
+            "operands": "0x403280"
+          }
+        ],
+        "source_disposition": "borrowed JSON keys:13"
+      },
+      {
+        "address": 4231696,
+        "instructions": [
+          {
+            "address": 4231696,
+            "hex": "baa8746500",
+            "mnemonic": "movl",
+            "operands": "$0x6574a8, %edx"
+          },
+          {
+            "address": 4231701,
+            "hex": "be60c06500",
+            "mnemonic": "movl",
+            "operands": "$0x65c060, %esi"
+          },
+          {
+            "address": 4231706,
+            "hex": "bfc0554900",
+            "mnemonic": "movl",
+            "operands": "$0x4955c0, %edi"
+          },
+          {
+            "address": 4231711,
+            "hex": "48c705362e25003d405300",
+            "mnemonic": "movq",
+            "operands": "$0x53403d, 0x252e36(%rip)"
+          },
+          {
+            "address": 4231722,
+            "hex": "c605372e250000",
+            "mnemonic": "movb",
+            "operands": "$0, 0x252e37(%rip)"
+          },
+          {
+            "address": 4231729,
+            "hex": "e94aa0ffff",
+            "mnemonic": "jmp",
+            "operands": "0x403280"
+          }
+        ],
+        "source_disposition": "borrowed JSON key:1"
+      },
+      {
+        "address": 4231744,
+        "instructions": [
+          {
+            "address": 4231744,
+            "hex": "488d1561e22400",
+            "mnemonic": "leaq",
+            "operands": "0x24e261(%rip), %rdx"
+          },
+          {
+            "address": 4231751,
+            "hex": "488d35d22e2500",
+            "mnemonic": "leaq",
+            "operands": "0x252ed2(%rip), %rsi"
+          },
+          {
+            "address": 4231758,
+            "hex": "c705c82e250000000000",
+            "mnemonic": "movl",
+            "operands": "$0, 0x252ec8(%rip)"
+          },
+          {
+            "address": 4231768,
+            "hex": "488d3dc1110c00",
+            "mnemonic": "leaq",
+            "operands": "0xc11c1(%rip), %rdi"
+          },
+          {
+            "address": 4231775,
+            "hex": "c705bf2f250000000000",
+            "mnemonic": "movl",
+            "operands": "$0, 0x252fbf(%rip)"
+          },
+          {
+            "address": 4231785,
+            "hex": "48c705bc2f250000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x252fbc(%rip)"
+          },
+          {
+            "address": 4231796,
+            "hex": "e907a0ffff",
+            "mnemonic": "jmp",
+            "operands": "0x403280"
+          }
+        ],
+        "source_disposition": "empty bidi context vector"
+      }
+    ],
+    "registrations": [
+      {
+        "site": 4230581,
+        "root": 4230288,
+        "destructor": 4434752
+      },
+      {
+        "site": 4230646,
+        "root": 4230592,
+        "destructor": 4460784
+      },
+      {
+        "site": 4230709,
+        "root": 4230672,
+        "destructor": 4806112
+      },
+      {
+        "site": 4230747,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4230785,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4230823,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4230861,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4230899,
+        "root": 4230672,
+        "destructor": 4806048
+      },
+      {
+        "site": 4230937,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4230975,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231013,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231051,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231089,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231127,
+        "root": 4230672,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231169,
+        "root": 4230672,
+        "destructor": 4806016
+      },
+      {
+        "site": 4231221,
+        "root": 4231184,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231259,
+        "root": 4231184,
+        "destructor": 4873824
+      },
+      {
+        "site": 4231297,
+        "root": 4231184,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231335,
+        "root": 4231184,
+        "destructor": 4873824
+      },
+      {
+        "site": 4231373,
+        "root": 4231184,
+        "destructor": 4873824
+      },
+      {
+        "site": 4231411,
+        "root": 4231184,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231449,
+        "root": 4231184,
+        "destructor": 4873824
+      },
+      {
+        "site": 4231487,
+        "root": 4231184,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231525,
+        "root": 4231184,
+        "destructor": 4873792
+      },
+      {
+        "site": 4231563,
+        "root": 4231184,
+        "destructor": 4873792
+      },
+      {
+        "site": 4231601,
+        "root": 4231184,
+        "destructor": 4873792
+      },
+      {
+        "site": 4231639,
+        "root": 4231184,
+        "destructor": 4873792
+      },
+      {
+        "site": 4231681,
+        "root": 4231184,
+        "destructor": 4873824
+      },
+      {
+        "site": 4231729,
+        "root": 4231696,
+        "destructor": 4806080
+      },
+      {
+        "site": 4231796,
+        "root": 4231744,
+        "destructor": 5022752
+      }
+    ],
+    "other_direct_registration_candidates": [
+      {
+        "site": 4440241,
+        "hex": "80bc6500e87e010000baa8746500be80bc6500bfe0c04300e8ca71fcffbf68bc6500e820800c00b880bc65004883c408",
+        "start": 4440217,
+        "source_disposition": "hash statistics function-static; GATHER_STATISTICS=0"
+      },
+      {
+        "site": 5396093,
+        "hex": "712eeeff0f1f8000000000f30f1efa488b152d1e130031f6e9fedbedff",
+        "start": 5396069,
+        "source_disposition": "linked atexit adapter for explicit cleanup callbacks"
+      }
+    ],
+    "calls": [
+      {
+        "site": 4230297,
+        "root": 4230288,
+        "target": 5259680
+      },
+      {
+        "site": 4230332,
+        "root": 4230288,
+        "target": 4440000
+      },
+      {
+        "site": 4230360,
+        "root": 4230288,
+        "target": 5257760
+      },
+      {
+        "site": 4230387,
+        "root": 4230288,
+        "target": 5259680
+      },
+      {
+        "site": 4230422,
+        "root": 4230288,
+        "target": 4440000
+      },
+      {
+        "site": 4230450,
+        "root": 4230288,
+        "target": 5257760
+      },
+      {
+        "site": 4230477,
+        "root": 4230288,
+        "target": 5259680
+      },
+      {
+        "site": 4230512,
+        "root": 4230288,
+        "target": 4440000
+      },
+      {
+        "site": 4230540,
+        "root": 4230288,
+        "target": 5257760
+      },
+      {
+        "site": 4230601,
+        "root": 4230592,
+        "target": 4472304
+      }
+    ],
+    "windows": [
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4434752,
+        "hex": "41544989fc5553488b5728488b6a08488b0248c1e5044801c54839e8731466904889c34883380177174883c0104839e872ee31ed31db662e0f1f8400000000004885db0f84bf000000488b3b4885ff740abe20000000e815940c00488b7b084885ff740abe38000000e802940c00488d43104839e8731b660f1f8400000000004889c34883380177b74883c0104839e872ee498b5c24284885db741b488b3b807b2c00747fe8a626feffbe300000004889dfe8b9930c00498b5c24304885db741b488b3b807b2c007453e88126feffbe300000004889dfe894930c00498b1c244885db7449488b3b807b2c007428e85d26feff4889dfbe300000005b5d415ce96c930c000f1f40004885ed0f8538ffffffe97cffffffe80d8dfcffebd6e8068dfcffebabe8ff8cfcffe97cffffff5b5d415cc3662e0f1f8400000000000f1f004156415541544989d4554889fd534881ec001000004c8b7608448b6e10488b1eeb0a660f1f440000488d5804bec41753004889dfe85788fcff4885c075ea4489e94d89f04889dabec91753004889e7e85c87fcff488b4d28c64424300041bb200000004881f9ff27000076174881f9ffff9f000f87e701000048c1e90a41bb6b000000488b552041ba200000004881faff27000076174881faffff9f000f877d01000048c1ea0a41ba6b000000488b75084885f60f887d010000660fefc9f248"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4460784,
+        "hex": "488bbf400100004885ff7414807f03007916c7470400000000c3660f1f440000c30f1f8000000000e94b28fcff0f1f00c3900f1f0066662e0f1f84000000000041554189d5ba321d53004154458d6502554889f54489ee534889fb4889ef4883ec08e819480000488b7b104489e24889eee84a3a04004489eeba309652004889efe8fa4700004c8b6b20488b5b184939dd7435669066662e0f1f840000000000488b3b4883c3084489e24889ee488b07ff50104939dd75e84883c4085b5d415c415dc30f1f4400004883c4084489e64889ef5b5d415c415de9534900000f1f004883ec1885d2784841b8d83553004c89c1751d488b3d166e21004889f231c04883c418be161b5300e98326fcff0f1f0089d74889742408e854290c00488b742408b95f5b53004989c0ebc80f1f4400004883c418c366662e0f1f8400000000004889d04c09c00f84fc0000004883ec488b0748895c24184c89c348896c24204889d54c896424284989fc4c897424384989f64c897c24404189cf85c00f848600000083f8130f8fe500000083c00189074d85c00f843f0100004889dfbe0b4000004c896c243041bd04000000e8ffcc0b0048894424084885c0480f45d84531e44a8b34e5e0005d004c89ea4889dfe84d1ffcff85c0750d420fb6042b84c074703c28746c4983c4014983fc040f84fe0000004a8b3ce5e0005d00e88120fcff49"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4806016,
+        "hex": "807f0800750ac3660f1f840000000000488b3fe9d0e3f6ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe9b0e3f6ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe990e3f6ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe970e3f6ff0f1f8400000000004883ec28488b46084c896424184989f44c896c24204989fd4885c0743f488b004885c0743748895c2408488d58088b400448896c2410488d2cc34839dd741390488b3b4883c308488b07ff50284839dd75ee488b5c2408488b6c2410498d7c2410e86aebfaff4c8b64241849c785e8000000000000004c8b6c24204883c428c34883ec388b4e20488b46084c896424184989fc4c896c24204c8d6e1048895c240848896c24104c897c243085c90f8ea50000004885c00f8484000000488b004885c0747c488d58088b400441bf01000000488d2cc34839eb7466660f1f440000488b3b4883c308488b07ff50304839dd75ee498d7424104c89efe881eafaff4180ff0119f683e60283c6044c89e7e89deefaff488b5c2408488b6c24104c89e74c8b6c24204c8b642418be010000004c8b7c24304883c438e913eefaff0f1f00498d7424104c89efe833eafaffbe04000000ebb70f1f40008b564485d20f8f50ffffff4885c07428488b004885c07420488d58088b40044531ff488d2cc34839"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4806048,
+        "hex": "807f0800750ac3660f1f840000000000488b3fe9b0e3f6ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe990e3f6ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe970e3f6ff0f1f8400000000004883ec28488b46084c896424184989f44c896c24204989fd4885c0743f488b004885c0743748895c2408488d58088b400448896c2410488d2cc34839dd741390488b3b4883c308488b07ff50284839dd75ee488b5c2408488b6c2410498d7c2410e86aebfaff4c8b64241849c785e8000000000000004c8b6c24204883c428c34883ec388b4e20488b46084c896424184989fc4c896c24204c8d6e1048895c240848896c24104c897c243085c90f8ea50000004885c00f8484000000488b004885c0747c488d58088b400441bf01000000488d2cc34839eb7466660f1f440000488b3b4883c308488b07ff50304839dd75ee498d7424104c89efe881eafaff4180ff0119f683e60283c6044c89e7e89deefaff488b5c2408488b6c24104c89e74c8b6c24204c8b642418be010000004c8b7c24304883c438e913eefaff0f1f00498d7424104c89efe833eafaffbe04000000ebb70f1f40008b564485d20f8f50ffffff4885c07428488b004885c07420488d58088b40044531ff488d2cc34839eb0f8559ffffff660f1f840000000000498d7424104c89efe8e3e9faffbe0600"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4806080,
+        "hex": "807f0800750ac3660f1f840000000000488b3fe990e3f6ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe970e3f6ff0f1f8400000000004883ec28488b46084c896424184989f44c896c24204989fd4885c0743f488b004885c0743748895c2408488d58088b400448896c2410488d2cc34839dd741390488b3b4883c308488b07ff50284839dd75ee488b5c2408488b6c2410498d7c2410e86aebfaff4c8b64241849c785e8000000000000004c8b6c24204883c428c34883ec388b4e20488b46084c896424184989fc4c896c24204c8d6e1048895c240848896c24104c897c243085c90f8ea50000004885c00f8484000000488b004885c0747c488d58088b400441bf01000000488d2cc34839eb7466660f1f440000488b3b4883c308488b07ff50304839dd75ee498d7424104c89efe881eafaff4180ff0119f683e60283c6044c89e7e89deefaff488b5c2408488b6c24104c89e74c8b6c24204c8b642418be010000004c8b7c24304883c438e913eefaff0f1f00498d7424104c89efe833eafaffbe04000000ebb70f1f40008b564485d20f8f50ffffff4885c07428488b004885c07420488d58088b40044531ff488d2cc34839eb0f8559ffffff660f1f840000000000498d7424104c89efe8e3e9faffbe06000000e964ffffff900f1f8400000000004889374883c71048c747f800000000e9"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4806112,
+        "hex": "807f0800750ac3660f1f840000000000488b3fe970e3f6ff0f1f8400000000004883ec28488b46084c896424184989f44c896c24204989fd4885c0743f488b004885c0743748895c2408488d58088b400448896c2410488d2cc34839dd741390488b3b4883c308488b07ff50284839dd75ee488b5c2408488b6c2410498d7c2410e86aebfaff4c8b64241849c785e8000000000000004c8b6c24204883c428c34883ec388b4e20488b46084c896424184989fc4c896c24204c8d6e1048895c240848896c24104c897c243085c90f8ea50000004885c00f8484000000488b004885c0747c488d58088b400441bf01000000488d2cc34839eb7466660f1f440000488b3b4883c308488b07ff50304839dd75ee498d7424104c89efe881eafaff4180ff0119f683e60283c6044c89e7e89deefaff488b5c2408488b6c24104c89e74c8b6c24204c8b642418be010000004c8b7c24304883c438e913eefaff0f1f00498d7424104c89efe833eafaffbe04000000ebb70f1f40008b564485d20f8f50ffffff4885c07428488b004885c07420488d58088b40044531ff488d2cc34839eb0f8559ffffff660f1f840000000000498d7424104c89efe8e3e9faffbe06000000e964ffffff900f1f8400000000004889374883c71048c747f800000000e92ce6faff9066662e0f1f840000000000488b47084885c00f84ab0000004889fa"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4873792,
+        "hex": "807f0800750ac3660f1f840000000000488b3fe910dbf5ff0f1f840000000000807f0800750ac3660f1f840000000000488b3fe9f0daf5ff0f1f84000000000083ea3d4889f883fa090f87b1000000488d0d0ad71200486314914801caffe290f30f6f86d0020000488b96f00200000f1107f30f6f86e0020000488957200f114710c30f1f440000f30f6f8658020000488b96780200000f1107f30f6f8668020000488957200f114710c30f1f440000f30f6f86a8020000488b96c80200000f1107f30f6f86b8020000488957200f114710c30f1f440000f30f6f8680020000488b96a00200000f1107f30f6f8690020000488957200f114710c30f1f440000f30f6f8630020000488b96500200000f1100f30f6f8640020000488950200f114010c3669066662e0f1f840000000000554889e54157415641554989d541544989cc534889fb4883ec18488975c04889ce4889572048894f184889d7e80fd2f5ff85c0752b488d05d402000048c74308ffffffff488903c74310ffffffff488d65d84889d85b415c415d415e415f5dc34c89efe898d3f5ff4c89e74989c6e88dd3f5ff4c89e64989c7498d4406194883e0f04c89fa4829c4488d44240f4883e0f04889c7488945c8e8e3d8f5ff488b45c8498d56014c89ee4c8d3581dd1a0042c604382f4a8d7c38014531ffe8bfd8f5ff0f1f400066662e0f1f840000000000"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4873824,
+        "hex": "807f0800750ac3660f1f840000000000488b3fe9f0daf5ff0f1f84000000000083ea3d4889f883fa090f87b1000000488d0d0ad71200486314914801caffe290f30f6f86d0020000488b96f00200000f1107f30f6f86e0020000488957200f114710c30f1f440000f30f6f8658020000488b96780200000f1107f30f6f8668020000488957200f114710c30f1f440000f30f6f86a8020000488b96c80200000f1107f30f6f86b8020000488957200f114710c30f1f440000f30f6f8680020000488b96a00200000f1107f30f6f8690020000488957200f114710c30f1f440000f30f6f8630020000488b96500200000f1100f30f6f8640020000488950200f114010c3669066662e0f1f840000000000554889e54157415641554989d541544989cc534889fb4883ec18488975c04889ce4889572048894f184889d7e80fd2f5ff85c0752b488d05d402000048c74308ffffffff488903c74310ffffffff488d65d84889d85b415c415d415e415f5dc34c89efe898d3f5ff4c89e74989c6e88dd3f5ff4c89e64989c7498d4406194883e0f04c89fa4829c4488d44240f4883e0f04889c7488945c8e8e3d8f5ff488b45c8498d56014c89ee4c8d3581dd1a0042c604382f4a8d7c38014531ffe8bfd8f5ff0f1f400066662e0f1f840000000000498b36488b7dc8e864d1f5ff85c074704983c7014983c6184983ff0875e2488d"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 5022752,
+        "hex": "488bbf10010000e93c95f3ff0f1f40004889f885d2743983ea0183fa0f7e4189d24883ea1048c1e204480315e01d1900837a080b0f87f20000008b5208488d0d1c831500486314914801caffe20f1f00488d35e3aa0600c6470800488937c3904863d2488d0d961c190048c1e204488d541108ebbb0f1f00488d15e15a0b00488910c6400800c3660f1f840000000000488d15a15a0b00ebe60f1f8000000000488d15d95a0b00ebd60f1f8000000000488d15e95a0b00ebc60f1f8000000000488d15495a0b00ebb60f1f8000000000488d1524aa0600eba60f1f8000000000488d1530aa0600eb960f1f8000000000488d15c95a0b00eb860f1f8000000000488d15d6a90600e973ffffff0f1f4000488d15c95a0b00e963ffffff0f1f4000488d15e15a0b00e953ffffff50488d15ffa90600be3f050000488d3d6ba50600e817a1f3ff662e0f1f840000000000904863078d5001891783f80f7f1b48c1e0044801c7488b0648894708488b46054889470dc30f1f40004883ec284889f98d50f04989f0488bbf100100004885ff74278b810801000039d07e5d498b0048c1e20448890417498b400548894417054883c428c30f1f4000c7810801000010000000bf000100008954241448894c24084889742418e8f6930300488b4c24088b5424144c8b4424184889c748898110010000eba70f1f400001c0488974241889"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4232592,
+        "hex": "f30f1efaeb8a662e0f1f840000000000662e0f1f840000000000662e0f1f840000000000662e0f1f84000000000066904889f8669066662e0f1f8400000000000fb61080fa0a741780fa20740580fa09751e0fb650014883c00180fa0a75e9488d50018078010a742f4889d0ebd2669080fa23752c66662e0f1f8400000000004889c24883c00180380a75f4488d4202ebae660f1f4400008078020a75cb4889d0c30f1f0066662e0f1f84000000000055534883ec0883ff010f8531a3ffff8b05ebe924004889f531db85c07e3a6690488b05d1e92400488b3cd84885ff741c488b7500e8c7660f0085c0750f488b05b4e9240048c704d8000000004883c301391daae924007fc84883c40831c05b5dc30f1f400066662e0f1f8400000000004883ec1848891c2483ff020f85d3a2ffff8b0579e924004c8964241031db4989f485c00f8e8c00000048896c2408eb2c662e0f1f84000000000066662e0f1f84000000000066662e0f1f8400000000004883c301391d36e924007e54488b0525e92400488d2cdd00000000488b3cd84885ff74dc498b3424e813660f0085c075cf498b7c240848032dfbe824004883c301e8daa30f00391df4e82400488945007fba0f1f0066662e0f1f840000000000488b6c2408488b1c244c8b64241031c04883c418c366662e0f1f84000000000083ff010f85e700000053488b1ebea89e"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4231808,
+        "hex": "f30f1efa4883ec68660fefc0488d3d8bce120048c705c23125000000000048895c244048c705ba3125000000000048c705b73125000000000048c705d4312500000000000f1105ad3125000f1105b6312500e889a0ffffc74424380001000048c7442420000000004889c3488d053dce12004889442418488d053ace120048c74424100800000048c74424280900000048894424304885db0f84bc00000048896c244848bd676c69626378782e4c896c245849bd2e65685f706f6f6ceb1766904889dfbe3a000000e883a2ffff4889c34885c0747b31c0803b3a0f94c04801c348392b75db4c396b0775d5807b0f2e75cf4c897424604883c3104c896424504c8d6424104d8b34244d85f67414498b7c24084c89f24889dee893a3ffff85c0750b42803c333d0f84960000004983c418488d4424404c39e075ca4c8b6424504c8b742460e977ffffff0f1f8000000000488b6c24484c8b6c24584863442438ba00100000b90600000039d0480f4ed0486344242085c0480f44c14883c01e480fafc248c1e0034889058b3025004889c3750a488b5c24404883c468c34889c7e8fc9dffff488905653025004885c0746231d24889054f30250048891848895008ebd031d24a8d7c3301488d742408e87da4ffff488b5c24084889c10fb61380fa3a0f94c084d20f94c208d00f8449ffffff4881f9ffffff7f0f873cffffff4189"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4232544,
+        "hex": "f30f1efa803da5ea2400007513554889e5e87affffffc60593ea2400015dc390c30f1f400066662e0f1f840000000000f30f1efaeb8a662e0f1f840000000000662e0f1f840000000000662e0f1f840000000000662e0f1f84000000000066904889f8669066662e0f1f8400000000000fb61080fa0a741780fa20740580fa09751e0fb650014883c00180fa0a75e9488d50018078010a742f4889d0ebd2669080fa23752c66662e0f1f8400000000004889c24883c00180380a75f4488d4202ebae660f1f4400008078020a75cb4889d0c30f1f0066662e0f1f84000000000055534883ec0883ff010f8531a3ffff8b05ebe924004889f531db85c07e3a6690488b05d1e92400488b3cd84885ff741c488b7500e8c7660f0085c0750f488b05b4e9240048c704d8000000004883c301391daae924007fc84883c40831c05b5dc30f1f400066662e0f1f8400000000004883ec1848891c2483ff020f85d3a2ffff8b0579e924004c8964241031db4989f485c00f8e8c00000048896c2408eb2c662e0f1f84000000000066662e0f1f84000000000066662e0f1f8400000000004883c301391d36e924007e54488b0525e92400488d2cdd00000000488b3cd84885ff74dc498b3424e813660f0085c075cf498b7c240848032dfbe824004883c301e8daa30f00391df4e82400488945007fba0f1f0066662e0f1f840000000000"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4228512,
+        "hex": "f30f1efa4883ec08488d3dc13f2500e89cffffff488d3d953f2500e890ffffffc605813f2500014883c408c30f1f40004883ec4848895c2420488b1a48896c24284889fd4889df4c896424308974241c4889542410e876adffff488d3c034839fb7516eb1a66662e0f1f8400000000004883ef014839fb7406807fff2f75f148893d12382500e805b30f00488d742410488d7c241c4c8b642410e8116e0f00488b5c24104939dc7407c60558fe240001448b64241ce886f30100bea0856500bfe0a06500e897f301004889de488d4d084c8d4510ba000008004489e7e8cf6a02004889efe827fc00004889efe8bffd00004889efe817300100488b1df8fb24004885db74078b530485d2755d488b4424104889ef488b30e8840201008b056efb240085c00f844b0200004889efe8de0301004889efe866050100488b35b7fd24004885f60f8402020000488d7d18e82d48030031c0488b5c2420488b6c24284c8b6424304883c448c341b8f0034900b9c003490031d231f6bf60836500e8fe980f00488b0557fc2400482b0548fc24004883f8120f8623020000488b0537fc2400660f6f05d7a817000f1100c7400f4f4e533d4883051dfc240013837b04000f84f80000004c897424384531e44c897c2440418d4424014589e74c8b34c34989c4488b05f0fb2400483905f1fb24000f84fc010000488b05dcfb24004c89f748"
+      },
+      {
+        "role": ".init",
+        "address": 4206616,
+        "hex": "f30f1efa4883ec08488b05813f25004885c07402ffd04883c408c3"
+      },
+      {
+        "role": ".fini",
+        "address": 5396100,
+        "hex": "f30f1efa4883ec084883c408c3"
+      }
+    ],
+    "destructor_dispositions": [
+      {
+        "address": 4434752,
+        "source_disposition": "empty statistics maps"
+      },
+      {
+        "address": 4460784,
+        "source_disposition": "diagnostics implicit members"
+      },
+      {
+        "address": 4806016,
+        "source_disposition": "borrowed JSON key"
+      },
+      {
+        "address": 4806048,
+        "source_disposition": "borrowed JSON key"
+      },
+      {
+        "address": 4806080,
+        "source_disposition": "borrowed JSON key"
+      },
+      {
+        "address": 4806112,
+        "source_disposition": "borrowed JSON key"
+      },
+      {
+        "address": 4873792,
+        "source_disposition": "borrowed JSON key"
+      },
+      {
+        "address": 4873824,
+        "source_disposition": "borrowed JSON key"
+      },
+      {
+        "address": 5022752,
+        "source_disposition": "empty bidi vector"
+      }
+    ]
+  },
+  {
+    "role": "collect2",
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/collect2",
+    "bytes": 1404416,
+    "sha256": "49afc5dd53ea83667299fbf42b96dd09f4faba2340ba507ccbefbbdf11d1377b",
+    "init_array": [
+      4229216,
+      4227984,
+      4228288,
+      4228352,
+      4228368,
+      4228432
+    ],
+    "fini_array": [
+      4229168,
+      4222784
+    ],
+    "preinit_array_present": false,
+    "CRT_init": 4229216,
+    "Cxx_runtime_init": 4228432,
+    "cxa_atexit_plt": 4206240,
+    "roots": [
+      {
+        "address": 4227984,
+        "instructions": [
+          {
+            "address": 4227984,
+            "hex": "4154",
+            "mnemonic": "pushq",
+            "operands": "%r12"
+          },
+          {
+            "address": 4227986,
+            "hex": "bf30000000",
+            "mnemonic": "movl",
+            "operands": "$0x30, %edi"
+          },
+          {
+            "address": 4227991,
+            "hex": "55",
+            "mnemonic": "pushq",
+            "operands": "%rbp"
+          },
+          {
+            "address": 4227992,
+            "hex": "53",
+            "mnemonic": "pushq",
+            "operands": "%rbx"
+          },
+          {
+            "address": 4227993,
+            "hex": "e8324d0a00",
+            "mnemonic": "callq",
+            "operands": "0x4ad0d0"
+          },
+          {
+            "address": 4227998,
+            "hex": "660fefc0",
+            "mnemonic": "pxor",
+            "operands": "%xmm0, %xmm0"
+          },
+          {
+            "address": 4228002,
+            "hex": "bf0d000000",
+            "mnemonic": "movl",
+            "operands": "$0xd, %edi"
+          },
+          {
+            "address": 4228007,
+            "hex": "4889c3",
+            "mnemonic": "movq",
+            "operands": "%rax, %rbx"
+          },
+          {
+            "address": 4228010,
+            "hex": "0f114010",
+            "mnemonic": "movups",
+            "operands": "%xmm0, 0x10(%rax)"
+          },
+          {
+            "address": 4228014,
+            "hex": "48c7402000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x20(%rax)"
+          },
+          {
+            "address": 4228022,
+            "hex": "31c0",
+            "mnemonic": "xorl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4228024,
+            "hex": "6689432c",
+            "mnemonic": "movw",
+            "operands": "%ax, 0x2c(%rbx)"
+          },
+          {
+            "address": 4228028,
+            "hex": "e8ff4e0000",
+            "mnemonic": "callq",
+            "operands": "0x40d2c0"
+          },
+          {
+            "address": 4228033,
+            "hex": "be10000000",
+            "mnemonic": "movl",
+            "operands": "$0x10, %esi"
+          },
+          {
+            "address": 4228038,
+            "hex": "89c5",
+            "mnemonic": "movl",
+            "operands": "%eax, %ebp"
+          },
+          {
+            "address": 4228040,
+            "hex": "89c0",
+            "mnemonic": "movl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4228042,
+            "hex": "48c1e004",
+            "mnemonic": "shlq",
+            "operands": "$4, %rax"
+          },
+          {
+            "address": 4228046,
+            "hex": "448ba020944d00",
+            "mnemonic": "movl",
+            "operands": "0x4d9420(%rax), %r12d"
+          },
+          {
+            "address": 4228053,
+            "hex": "4c89e7",
+            "mnemonic": "movq",
+            "operands": "%r12, %rdi"
+          },
+          {
+            "address": 4228056,
+            "hex": "e873450a00",
+            "mnemonic": "callq",
+            "operands": "0x4ac950"
+          },
+          {
+            "address": 4228061,
+            "hex": "4c896308",
+            "mnemonic": "movq",
+            "operands": "%r12, 8(%rbx)"
+          },
+          {
+            "address": 4228065,
+            "hex": "bf30000000",
+            "mnemonic": "movl",
+            "operands": "$0x30, %edi"
+          },
+          {
+            "address": 4228070,
+            "hex": "896b28",
+            "mnemonic": "movl",
+            "operands": "%ebp, 0x28(%rbx)"
+          },
+          {
+            "address": 4228073,
+            "hex": "488903",
+            "mnemonic": "movq",
+            "operands": "%rax, (%rbx)"
+          },
+          {
+            "address": 4228076,
+            "hex": "48891dd5e21400",
+            "mnemonic": "movq",
+            "operands": "%rbx, 0x14e2d5(%rip)"
+          },
+          {
+            "address": 4228083,
+            "hex": "e8d84c0a00",
+            "mnemonic": "callq",
+            "operands": "0x4ad0d0"
+          },
+          {
+            "address": 4228088,
+            "hex": "31d2",
+            "mnemonic": "xorl",
+            "operands": "%edx, %edx"
+          },
+          {
+            "address": 4228090,
+            "hex": "660fefc0",
+            "mnemonic": "pxor",
+            "operands": "%xmm0, %xmm0"
+          },
+          {
+            "address": 4228094,
+            "hex": "bf0d000000",
+            "mnemonic": "movl",
+            "operands": "$0xd, %edi"
+          },
+          {
+            "address": 4228099,
+            "hex": "6689502c",
+            "mnemonic": "movw",
+            "operands": "%dx, 0x2c(%rax)"
+          },
+          {
+            "address": 4228103,
+            "hex": "4889c3",
+            "mnemonic": "movq",
+            "operands": "%rax, %rbx"
+          },
+          {
+            "address": 4228106,
+            "hex": "48c7402000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x20(%rax)"
+          },
+          {
+            "address": 4228114,
+            "hex": "0f114010",
+            "mnemonic": "movups",
+            "operands": "%xmm0, 0x10(%rax)"
+          },
+          {
+            "address": 4228118,
+            "hex": "e8a54e0000",
+            "mnemonic": "callq",
+            "operands": "0x40d2c0"
+          },
+          {
+            "address": 4228123,
+            "hex": "be18000000",
+            "mnemonic": "movl",
+            "operands": "$0x18, %esi"
+          },
+          {
+            "address": 4228128,
+            "hex": "89c5",
+            "mnemonic": "movl",
+            "operands": "%eax, %ebp"
+          },
+          {
+            "address": 4228130,
+            "hex": "89c0",
+            "mnemonic": "movl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4228132,
+            "hex": "48c1e004",
+            "mnemonic": "shlq",
+            "operands": "$4, %rax"
+          },
+          {
+            "address": 4228136,
+            "hex": "448ba020944d00",
+            "mnemonic": "movl",
+            "operands": "0x4d9420(%rax), %r12d"
+          },
+          {
+            "address": 4228143,
+            "hex": "4c89e7",
+            "mnemonic": "movq",
+            "operands": "%r12, %rdi"
+          },
+          {
+            "address": 4228146,
+            "hex": "e819450a00",
+            "mnemonic": "callq",
+            "operands": "0x4ac950"
+          },
+          {
+            "address": 4228151,
+            "hex": "4c896308",
+            "mnemonic": "movq",
+            "operands": "%r12, 8(%rbx)"
+          },
+          {
+            "address": 4228155,
+            "hex": "bf30000000",
+            "mnemonic": "movl",
+            "operands": "$0x30, %edi"
+          },
+          {
+            "address": 4228160,
+            "hex": "896b28",
+            "mnemonic": "movl",
+            "operands": "%ebp, 0x28(%rbx)"
+          },
+          {
+            "address": 4228163,
+            "hex": "488903",
+            "mnemonic": "movq",
+            "operands": "%rax, (%rbx)"
+          },
+          {
+            "address": 4228166,
+            "hex": "48891d83e21400",
+            "mnemonic": "movq",
+            "operands": "%rbx, 0x14e283(%rip)"
+          },
+          {
+            "address": 4228173,
+            "hex": "e87e4c0a00",
+            "mnemonic": "callq",
+            "operands": "0x4ad0d0"
+          },
+          {
+            "address": 4228178,
+            "hex": "31c9",
+            "mnemonic": "xorl",
+            "operands": "%ecx, %ecx"
+          },
+          {
+            "address": 4228180,
+            "hex": "660fefc0",
+            "mnemonic": "pxor",
+            "operands": "%xmm0, %xmm0"
+          },
+          {
+            "address": 4228184,
+            "hex": "bf0d000000",
+            "mnemonic": "movl",
+            "operands": "$0xd, %edi"
+          },
+          {
+            "address": 4228189,
+            "hex": "6689482c",
+            "mnemonic": "movw",
+            "operands": "%cx, 0x2c(%rax)"
+          },
+          {
+            "address": 4228193,
+            "hex": "4889c3",
+            "mnemonic": "movq",
+            "operands": "%rax, %rbx"
+          },
+          {
+            "address": 4228196,
+            "hex": "48c7402000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x20(%rax)"
+          },
+          {
+            "address": 4228204,
+            "hex": "0f114010",
+            "mnemonic": "movups",
+            "operands": "%xmm0, 0x10(%rax)"
+          },
+          {
+            "address": 4228208,
+            "hex": "e84b4e0000",
+            "mnemonic": "callq",
+            "operands": "0x40d2c0"
+          },
+          {
+            "address": 4228213,
+            "hex": "be18000000",
+            "mnemonic": "movl",
+            "operands": "$0x18, %esi"
+          },
+          {
+            "address": 4228218,
+            "hex": "89c5",
+            "mnemonic": "movl",
+            "operands": "%eax, %ebp"
+          },
+          {
+            "address": 4228220,
+            "hex": "89c0",
+            "mnemonic": "movl",
+            "operands": "%eax, %eax"
+          },
+          {
+            "address": 4228222,
+            "hex": "48c1e004",
+            "mnemonic": "shlq",
+            "operands": "$4, %rax"
+          },
+          {
+            "address": 4228226,
+            "hex": "448ba020944d00",
+            "mnemonic": "movl",
+            "operands": "0x4d9420(%rax), %r12d"
+          },
+          {
+            "address": 4228233,
+            "hex": "4c89e7",
+            "mnemonic": "movq",
+            "operands": "%r12, %rdi"
+          },
+          {
+            "address": 4228236,
+            "hex": "e8bf440a00",
+            "mnemonic": "callq",
+            "operands": "0x4ac950"
+          },
+          {
+            "address": 4228241,
+            "hex": "4c896308",
+            "mnemonic": "movq",
+            "operands": "%r12, 8(%rbx)"
+          },
+          {
+            "address": 4228245,
+            "hex": "ba18645500",
+            "mnemonic": "movl",
+            "operands": "$0x556418, %edx"
+          },
+          {
+            "address": 4228250,
+            "hex": "bea0665500",
+            "mnemonic": "movl",
+            "operands": "$0x5566a0, %esi"
+          },
+          {
+            "address": 4228255,
+            "hex": "488903",
+            "mnemonic": "movq",
+            "operands": "%rax, (%rbx)"
+          },
+          {
+            "address": 4228258,
+            "hex": "bfc0b34000",
+            "mnemonic": "movl",
+            "operands": "$0x40b3c0, %edi"
+          },
+          {
+            "address": 4228263,
+            "hex": "896b28",
+            "mnemonic": "movl",
+            "operands": "%ebp, 0x28(%rbx)"
+          },
+          {
+            "address": 4228266,
+            "hex": "48891defe11400",
+            "mnemonic": "movq",
+            "operands": "%rbx, 0x14e1ef(%rip)"
+          },
+          {
+            "address": 4228273,
+            "hex": "5b",
+            "mnemonic": "popq",
+            "operands": "%rbx"
+          },
+          {
+            "address": 4228274,
+            "hex": "5d",
+            "mnemonic": "popq",
+            "operands": "%rbp"
+          },
+          {
+            "address": 4228275,
+            "hex": "415c",
+            "mnemonic": "popq",
+            "operands": "%r12"
+          },
+          {
+            "address": 4228277,
+            "hex": "e9e6a9ffff",
+            "mnemonic": "jmp",
+            "operands": "0x402ea0"
+          }
+        ],
+        "source_disposition": "vec statistics: three empty maps"
+      },
+      {
+        "address": 4228288,
+        "instructions": [
+          {
+            "address": 4228288,
+            "hex": "4883ec08",
+            "mnemonic": "subq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4228292,
+            "hex": "bf70675500",
+            "mnemonic": "movl",
+            "operands": "$0x556770, %edi"
+          },
+          {
+            "address": 4228297,
+            "hex": "e802c00000",
+            "mnemonic": "callq",
+            "operands": "0x4144d0"
+          },
+          {
+            "address": 4228302,
+            "hex": "ba18645500",
+            "mnemonic": "movl",
+            "operands": "$0x556418, %edx"
+          },
+          {
+            "address": 4228307,
+            "hex": "be60675500",
+            "mnemonic": "movl",
+            "operands": "$0x556760, %esi"
+          },
+          {
+            "address": 4228312,
+            "hex": "c70506e3140000000000",
+            "mnemonic": "movl",
+            "operands": "$0, 0x14e306(%rip)"
+          },
+          {
+            "address": 4228322,
+            "hex": "48c705b3e3140000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x14e3b3(%rip)"
+          },
+          {
+            "address": 4228333,
+            "hex": "bf80174100",
+            "mnemonic": "movl",
+            "operands": "$0x411780, %edi"
+          },
+          {
+            "address": 4228338,
+            "hex": "4883c408",
+            "mnemonic": "addq",
+            "operands": "$8, %rsp"
+          },
+          {
+            "address": 4228342,
+            "hex": "e9a5a9ffff",
+            "mnemonic": "jmp",
+            "operands": "0x402ea0"
+          }
+        ],
+        "source_disposition": "diagnostic counters/context"
+      },
+      {
+        "address": 4228352,
+        "instructions": [
+          {
+            "address": 4228352,
+            "hex": "48c7053de4140000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x14e43d(%rip)"
+          },
+          {
+            "address": 4228363,
+            "hex": "c3",
+            "mnemonic": "retq",
+            "operands": ""
+          }
+        ],
+        "source_disposition": "fixed null pointer store"
+      },
+      {
+        "address": 4228368,
+        "instructions": [
+          {
+            "address": 4228368,
+            "hex": "488d1501df1400",
+            "mnemonic": "leaq",
+            "operands": "0x14df01(%rip), %rdx"
+          },
+          {
+            "address": 4228375,
+            "hex": "488d35e2e41400",
+            "mnemonic": "leaq",
+            "operands": "0x14e4e2(%rip), %rsi"
+          },
+          {
+            "address": 4228382,
+            "hex": "c705d8e4140000000000",
+            "mnemonic": "movl",
+            "operands": "$0, 0x14e4d8(%rip)"
+          },
+          {
+            "address": 4228392,
+            "hex": "488d3db1b10600",
+            "mnemonic": "leaq",
+            "operands": "0x6b1b1(%rip), %rdi"
+          },
+          {
+            "address": 4228399,
+            "hex": "c705cfe5140000000000",
+            "mnemonic": "movl",
+            "operands": "$0, 0x14e5cf(%rip)"
+          },
+          {
+            "address": 4228409,
+            "hex": "48c705cce5140000000000",
+            "mnemonic": "movq",
+            "operands": "$0, 0x14e5cc(%rip)"
+          },
+          {
+            "address": 4228420,
+            "hex": "e957a9ffff",
+            "mnemonic": "jmp",
+            "operands": "0x402ea0"
+          }
+        ],
+        "source_disposition": "empty bidi context vector"
+      }
+    ],
+    "registrations": [
+      {
+        "site": 4228277,
+        "root": 4227984,
+        "destructor": 4240320
+      },
+      {
+        "site": 4228342,
+        "root": 4228288,
+        "destructor": 4265856
+      },
+      {
+        "site": 4228420,
+        "root": 4228368,
+        "destructor": 4667104
+      }
+    ],
+    "other_direct_registration_candidates": [
+      {
+        "site": 4248497,
+        "hex": "20675500e87e010000ba18645500be20675500bfe0d34000e8ea5affffbf08675500e850fc0900b8206755004883c408",
+        "start": 4248473,
+        "source_disposition": "hash statistics function-static; GATHER_STATISTICS=0"
+      },
+      {
+        "site": 5039613,
+        "hex": "8788f3ff0f1f8000000000f30f1efa488b151d7e080031f6e99e48f3ff",
+        "start": 5039589,
+        "source_disposition": "linked atexit adapter for explicit cleanup callbacks"
+      }
+    ],
+    "calls": [
+      {
+        "site": 4227993,
+        "root": 4227984,
+        "target": 4903120
+      },
+      {
+        "site": 4228028,
+        "root": 4227984,
+        "target": 4248256
+      },
+      {
+        "site": 4228056,
+        "root": 4227984,
+        "target": 4901200
+      },
+      {
+        "site": 4228083,
+        "root": 4227984,
+        "target": 4903120
+      },
+      {
+        "site": 4228118,
+        "root": 4227984,
+        "target": 4248256
+      },
+      {
+        "site": 4228146,
+        "root": 4227984,
+        "target": 4901200
+      },
+      {
+        "site": 4228173,
+        "root": 4227984,
+        "target": 4903120
+      },
+      {
+        "site": 4228208,
+        "root": 4227984,
+        "target": 4248256
+      },
+      {
+        "site": 4228236,
+        "root": 4227984,
+        "target": 4901200
+      },
+      {
+        "site": 4228297,
+        "root": 4228288,
+        "target": 4277456
+      }
+    ],
+    "windows": [
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4240320,
+        "hex": "41544989fc5553488b5728488b6a08488b0248c1e5044801c54839e8731466904889c34883380177174883c0104839e872ee31ed31db662e0f1f8400000000004885db0f84bf000000488b3b4885ff740abe20000000e8d51a0a00488b7b084885ff740abe38000000e8c21a0a00488d43104839e8731b660f1f8400000000004889c34883380177b74883c0104839e872ee498b5c24284885db741b488b3b807b2c00747fe8b6130000be300000004889dfe8791a0a00498b5c24304885db741b488b3b807b2c007453e891130000be300000004889dfe8541a0a00498b1c244885db7449488b3b807b2c007428e86d1300004889dfbe300000005b5d415ce92c1a0a000f1f40004885ed0f8538ffffffe97cffffffe8dd7fffffebd6e8d67fffffebabe8cf7fffffe97cffffff5b5d415cc3662e0f1f8400000000000f1f004156415541544989d4554889fd534881ec001000004c8b7608448b6e10488b1eeb0a660f1f440000488d5804be64ee4c004889dfe8c77bffff4885c075ea4489e94d89f04889dabe69ee4c004889e7e8dc7affff488b4d28c64424300041bb200000004881f9ff27000076174881f9ffff9f000f87e701000048c1e90a41bb6b000000488b552041ba200000004881faff27000076174881faffff9f000f877d01000048c1ea0a41ba6b000000488b75084885f60f887d010000660fefc9f248"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4265856,
+        "hex": "488bbf400100004885ff7414807f03007916c7470400000000c3660f1f440000c30f1f8000000000e90b1dffff0f1f00488b07488b35264d140031d2488b4010ffe0662e0f1f8400000000000f1f4000488b07488b35064d140031d2488b4020ffe0662e0f1f840000000000662e0f1f840000000000662e0f1f840000000000c3900f1f0066662e0f1f84000000000041554189d5ba7ef44c004154458d6502554889f54489ee534889fb4889ef4883ec08e829480000488b7b104489e24889eee86a9702004489eeba50f24c004889efe80a4800004c8b6b20488b5b184939dd7435669066662e0f1f840000000000488b3b4883c3084489e24889ee488b07ff50104939dd75e84883c4085b5d415c415dc30f1f4400004883c4084489e64889ef5b5d415c415de9634900000f1f004883ec1885d2784841b8c3074d004c89c1751d488b3d164c14004889f231c04883c418be5bf24c00e9e31affff0f1f0089d74889742408e8a4b10900488b742408b9042a4d004989c0ebc80f1f4400004883c418c366662e0f1f8400000000004889d04c09c00f84fc0000004883ec488b0748895c24184c89c348896c24204889d54c896424284989fc4c897424384989f64c897c24404189cf85c00f848600000083f8130f8fe500000083c00189074d85c00f843f0100004889dfbe0b4000004c896c243041bd04000000e8dfeb08"
+      },
+      {
+        "role": "registered_destructor_source_correspondence",
+        "address": 4667104,
+        "hex": "488bbf10010000e9ccfdf8ff0f1f40004889f885d2743983ea0183fa0f7e4189d24883ea1048c1e20448031500340e00837a080b0f87f20000008b5208488d0dfc7c0b00486314914801caffe20f1f00488d3508e80500c6470800488937c3904863d2488d0db6320e0048c1e204488d541108ebbb0f1f00488d1569430600488910c6400800c3660f1f840000000000488d1529430600ebe60f1f8000000000488d1561430600ebd60f1f8000000000488d1571430600ebc60f1f8000000000488d15d1420600ebb60f1f8000000000488d1549e70500eba60f1f8000000000488d1555e70500eb960f1f8000000000488d1551430600eb860f1f8000000000488d15fbe60500e973ffffff0f1f4000488d1551430600e963ffffff0f1f4000488d1569430600e953ffffff50488d1524e70500be3f050000488d3d83e20500e88ffef8ff662e0f1f840000000000904863078d5001891783f80f7f1b48c1e0044801c7488b0648894708488b46054889470dc30f1f40004883ec284889f98d50f04989f0488bbf100100004885ff74278b810801000039d07e5d498b0048c1e20448890417498b400548894417054883c428c30f1f4000c7810801000010000000bf000100008954241448894c24084889742418e866900300488b4c24088b5424144c8b4424184889c748898110010000eba70f1f400001c0488974241889"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4229216,
+        "hex": "f30f1efaeb8a662e0f1f840000000000662e0f1f840000000000660f1f4400004883ec28488b05addc140048895c2410488b1f48896c24184889fd0fb61384d20f84f7000000488b058bdc1400488b0d8cdc14004c896424204883c3014531e44889c74489e683f60180fa20750a40f6c6010f85c000000080fa5c757340f6c601746d440fb6234584e40f84a80000004883c3014889caeb340f1f8000000000488d50014889152ddc1400448820440fb6234584e40f842d010000488b151edc1400488b050fdc14004883c3014839c275cebe01000000bf20655500e85fb40900488b05f0db1400ebb6660f1f44000080fa270f84cf0000004839c10f841e010000488d4701488905cbdb140088170fb61384d20f84ce000000488b3db7db1400488b0db8db14004883c3014889f8e92fffffff0f1f40004c8b6424204839059cdb14000f84b7000000488d500148891583db1400c6000048895d00488b0d6ddb1400488b056edb14004839c80f84d5000000488b1576db1400488b3547db1400488b5c2410488b6c24184801d048f7d24821d0488b1545db14004889c74989d04829f74929f04939f8480f42c248890523db140048890514db14004889c84883c428c30f1f40000fb61384d20f8465ffffff4883c3014889c74189f4e981feffff660f1f440000488b05e9da1400483905eada14004c8b6424200f8549ffff"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4228432,
+        "hex": "f30f1efa4883ec68660fefc0488d3d73ad0c0048c70552e614000000000048895c244048c7054ae614000000000048c70547e614000000000048c70564e61400000000000f11053de614000f110546e61400e8c9a9ffffc74424380001000048c7442420000000004889c3488d0525ad0c004889442418488d0522ad0c0048c74424100800000048c74424280900000048894424304885db0f84bc00000048896c244848bd676c69626378782e4c896c245849bd2e65685f706f6f6ceb1766904889dfbe3a000000e873abffff4889c34885c0747b31c0803b3a0f94c04801c348392b75db4c396b0775d5807b0f2e75cf4c897424604883c3104c896424504c8d6424104d8b34244d85f67414498b7c24084c89f24889dee833acffff85c0750b42803c333d0f84960000004983c418488d4424404c39e075ca4c8b6424504c8b742460e977ffffff0f1f8000000000488b6c24484c8b6c24584863442438ba00100000b90600000039d0480f4ed0486344242085c0480f44c14883c01e480fafc248c1e0034889051be514004889c3750a488b5c24404883c468c34889c7e84ca7ffff488905f5e414004885c0746231d2488905dfe4140048891848895008ebd031d24a8d7c3301488d742408e8edacffff488b5c24084889c10fb61380fa3a0f94c084d20f94c208d00f8449ffffff4881f9ffffff7f0f873cffffff4189"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4229168,
+        "hex": "f30f1efa803db5dc1400007513554889e5e87affffffc605a3dc1400015dc390c30f1f400066662e0f1f840000000000f30f1efaeb8a662e0f1f840000000000662e0f1f840000000000660f1f4400004883ec28488b05addc140048895c2410488b1f48896c24184889fd0fb61384d20f84f7000000488b058bdc1400488b0d8cdc14004c896424204883c3014531e44889c74489e683f60180fa20750a40f6c6010f85c000000080fa5c757340f6c601746d440fb6234584e40f84a80000004883c3014889caeb340f1f8000000000488d50014889152ddc1400448820440fb6234584e40f842d010000488b151edc1400488b050fdc14004883c3014839c275cebe01000000bf20655500e85fb40900488b05f0db1400ebb6660f1f44000080fa270f84cf0000004839c10f841e010000488d4701488905cbdb140088170fb61384d20f84ce000000488b3db7db1400488b0db8db14004883c3014889f8e92fffffff0f1f40004c8b6424204839059cdb14000f84b7000000488d500148891583db1400c6000048895d00488b0d6ddb1400488b056edb14004839c80f84d5000000488b1576db1400488b3547db1400488b5c2410488b6c24184801d048f7d24821d0488b1545db14004889c74989d04829f74929f04939f8480f42c248890523db140048890514db14004889c84883c428c30f1f40000fb61384d20f8465"
+      },
+      {
+        "role": "existing_CRT_or_Cxx_runtime_boundary",
+        "address": 4222784,
+        "hex": "f30f1efa4883ec08488d3d81fd1400e89cffffff488d3d55fd1400e890ffffffc60541fd1400014883c408c30f1f40004157b983f14c00415666480f6ec14155660f6cc0415455534881ecb8000000488b1e897c245c4889df0f29442470f30f7e054a220d000f16054b220d0048897424500f29842480000000f30f7e053e220d000f16053f220d0048c78424a000000029ea4c000f29842490000000e89ebfffff488d3c034839fb750eeb120f1f004883ef014839fb7406807fff2f75f148893dd2f81400e855580a00488d742450488d7c245c488b5c2450e8f1a9090048395c24507407c6054bf5140001448b64245ce8f9580000e8a4b30900488b3de5f3140031f6e806cf0000bf60a44000e89c750c0085c00f85031300008b44245cbe080000004183c4098d78044863ffe8dc580a00be0800000048894424108b44245c8d780b4863ffe8c3580a0048637c245cbe080000004889442420e8af580a004c8b6c2450c60533f614000048894424284d8b7d08c60524f614000048c705a0f51400d1254d004d85ff0f8495110000c644240800bb0100000031ed41be01000000eb1a0f1f00c605f3f514000183c3014c63f34f8b7cf5004d85ff7445bed2e94c004c89ffe844c1ffff85c074d8ba08000000bed9e94c004c89ffe80ebdffff85c00f85c6050000c705ecf214000000000083c3014c63f34f8b7cf5004d"
+      },
+      {
+        "role": ".init",
+        "address": 4205656,
+        "hex": "f30f1efa4883ec08488b05413315004885c07402ffd04883c408c3"
+      },
+      {
+        "role": ".fini",
+        "address": 5039620,
+        "hex": "f30f1efa4883ec084883c408c3"
+      }
+    ],
+    "destructor_dispositions": [
+      {
+        "address": 4240320,
+        "source_disposition": "empty statistics maps"
+      },
+      {
+        "address": 4265856,
+        "source_disposition": "diagnostics implicit members"
+      },
+      {
+        "address": 4667104,
+        "source_disposition": "empty bidi vector"
+      }
+    ]
+  }
+]

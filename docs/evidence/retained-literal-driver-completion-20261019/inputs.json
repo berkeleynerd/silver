@@ -1,0 +1,112 @@
+[
+  {
+    "path": "docs/evidence/retained-literal-invocation-join-20261018/compose.py",
+    "bytes": 22174,
+    "sha256": "93865d8a5c0b1c86e179ce5209d4816e6fd7ce9ccabfb8a48c1eb848948bfdc0"
+  },
+  {
+    "path": "docs/evidence/retained-literal-invocation-join-20261018/inputs.json",
+    "bytes": 6756,
+    "sha256": "5193026fa3099c4fe988f47206bf2dd33dbe7066665d0746e3059b9cd6635532"
+  },
+  {
+    "path": "docs/evidence/retained-native-driver-20261018/sources.json",
+    "bytes": 2949,
+    "sha256": "7f5227da0c6ea32d7380b15240e66fa505d01b538d91cb80f3b361263ed330f7"
+  },
+  {
+    "path": "docs/evidence/retained-native-driver-20261018/checks.json",
+    "bytes": 1884,
+    "sha256": "4f52b875a1e2e2c178fe8932bacb149c7d1a839f32de6bf9fb5fc3a3b38f4cda"
+  },
+  {
+    "path": "docs/evidence/retained-native-driver-20261018/installed-configuration.json",
+    "bytes": 1437,
+    "sha256": "4598b42bb2afb41340b11006dd2ab408fd45126b252a1b31d646b8d15f551772"
+  },
+  {
+    "path": "docs/evidence/retained-native-driver-20261018/unix-selection.json",
+    "bytes": 3662,
+    "sha256": "2ab9a2ba43b007c5f4d33f860ee422b3a4b6137ce95e850d8c9d8d8640a617ff"
+  },
+  {
+    "path": "docs/evidence/retained-native-environment-20261018/sources.json",
+    "bytes": 1650,
+    "sha256": "ee7936370399f3ad3d0ac979f840997e2bf47f99718b52ef26d8dfd2b07f31e8"
+  },
+  {
+    "path": "docs/evidence/retained-native-environment-20261018/path-configuration.json",
+    "bytes": 4269,
+    "sha256": "3e3b84204eaaea241e4ae5da301f5652023344d641092e7c991adb153227ab08"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/gcc-corpus-manifest.json.gz",
+    "bytes": 248618,
+    "sha256": "4577e4697319aaf51db87784b5eaadcc329a0cf2a57605029be35c2bbec3b3ec"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/process-shell-inputs.json",
+    "bytes": 11134,
+    "sha256": "c6c75161326a10aee25d8715bfa1b4425195e4952e90c8fbc6bb7287a094eae3"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-process-shell.json",
+    "bytes": 2955,
+    "sha256": "374cbe5484b6c16304b8468d032902ec35f48712ef6039d4f32a3ece4369528c"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/static-lifecycle-inputs.json",
+    "bytes": 32552,
+    "sha256": "8ab63ca9cbc9ed64c0e46bac4779d0b00c93498c68c5b5f9f437da5760c1820c"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-static-lifecycle.json",
+    "bytes": 16294,
+    "sha256": "14939013d35bff0dcdbc858baf12d2fa275c4f4c7c28af13de8384a51481170f"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/fixed-gcc-prefix-witness/dumpspecs.stdout.gz",
+    "bytes": 2978,
+    "sha256": "3e67c0c5d481d744c0f93b5aea1ac369cbe7be40d7240f72523303f0bb90936b"
+  },
+  {
+    "path": "docs/evidence/retained-binder-options-20261018/artifacts.tar.gz",
+    "bytes": 1463725,
+    "sha256": "85123c5efa4b115ab431db206c66b1cc02f7d5984564e41bdde37c07dc70b2df"
+  },
+  {
+    "path": "docs/evidence/retained-link-no-lto-20261018/capture/result.json",
+    "bytes": 4593,
+    "sha256": "5a9d78fc608e5db40b615d2ebac74a4016679394ef0d0d3308c0486b5d7e5b9e"
+  },
+  {
+    "path": "docs/evidence/retained-link-inputs-20261018/checks.json",
+    "bytes": 2622,
+    "sha256": "1d870fe56d6b95793ca39cffbd453161ebca7b4b73373aaaa1870f0cd32fca12"
+  },
+  {
+    "path": "docs/research/retained-native-driver.md",
+    "bytes": 14098,
+    "sha256": "cbd1e8b7c5d25b428ff9618804a9b94db1f668d28e3cca37eb2d26e4514100a2"
+  },
+  {
+    "path": "docs/research/retained-native-environment.md",
+    "bytes": 18235,
+    "sha256": "f845d083cc0f85789eddec0e4bc51666bcf3da9fb4d42ed22ed47f8b05b5986a"
+  },
+  {
+    "path": "docs/research/retained-link-inputs.md",
+    "bytes": 16614,
+    "sha256": "e166967fe59af04fd2697c8578b06ee0662a718b67ff0555c3f15de55e7c5046"
+  },
+  {
+    "path": "docs/research/retained-backend-obstacks.md",
+    "bytes": 6300,
+    "sha256": "9d4edd265cfdd5e140f14004101ac9ebdc8337fcd8655beb111ede35341a2076"
+  },
+  {
+    "path": "docs/research/retained-native-expansion.md",
+    "bytes": 781411,
+    "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+  }
+]
