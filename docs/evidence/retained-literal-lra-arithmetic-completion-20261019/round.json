@@ -1,0 +1,116 @@
+{
+  "task": "Selected literal LRA arithmetic/automatic-storage residual, Refs #145, #119",
+  "authorization": "Parent-assigned owner-resumed native-build checkpoint; only owned research note and evidence directory",
+  "base_revision": "7b66f9b6c326aac5b45202431538b899e68259d7",
+  "branch": "research/lra-arithmetic-completion-20261019",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "live_harness_goal": null,
+  "work_started_UTC": "2026-10-19T14:00:09+00:00",
+  "recorded_UTC": "2026-10-19T14:21:24.834054+00:00",
+  "elapsed_task_clock_seconds": 1275.834054,
+  "elapsed_clock_is_not_model_compute_time": true,
+  "intended_outcome": "Close selected LRA elimination, preference/cost, constraint/recognition recursion and automatic-storage residuals without new C/N restrictions or recharging owners",
+  "achieved": {
+    "source_theorem": "Conditional named selected-route arithmetic and automatic-object/index bounds",
+    "new_numeric_guards": 0,
+    "new_allocation_owners": 0,
+    "checks": 126,
+    "independent_score_corners": 168,
+    "elapsed_check_seconds": 0.7294883629947435,
+    "input_verification": {
+      "GCC_files": 19,
+      "repository_files": 20,
+      "literal_LF_excerpts": 80,
+      "retained_generated_headers": 2
+    },
+    "actual_source_adapter": false,
+    "whole_native_capacity": false,
+    "independent_review": "pending"
+  },
+  "accepted_inputs": {
+    "integration_base": "7b66f9b6c326aac5b45202431538b899e68259d7",
+    "owner_authorization": "44936e7216c74c53c6bd4cc38f46f8de2bf7edac",
+    "helper_source": "b795c8f7459d648d7e595aca414629c1eec232bd",
+    "helper_review": "4d7100e7fbb2e39e6fdae2cf63b6d7b657cacb71",
+    "attachment_source": "71624df23244a680b3da379c655691df1d77312c",
+    "attachment_review": "ac4694d0f7e4d53f98d304ce59db2c18ebf40004",
+    "numeric_source": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+    "numeric_review": "d7b20eb4d2610a1bcf1ed2e06653b68238deb430",
+    "recognition_source": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+    "recognition_review": "df9ada3f10e8182cd90f9293701c687e20305150"
+  },
+  "findings_and_rework": [
+    "Empty elimination instruction bitmaps do not skip frame layout; fixed frame offsets and initial -1 sentinels yield first differences 17 and 1, then zero.",
+    "Initial movdi alternatives 0/1 are disabled on x64; selected symbol alternatives 2/3/4 expose only GENERAL_REGS or NO_REGS, making the process-persistent unsigned marker consumer inactive even across wrap.",
+    "Preference comparison permits a zero quotient and early return; fixed parameter arithmetic is checked before comparisons.",
+    "Final alter_subregs is executed on selected leaf operands and returns without subreg conversion or recursive child descent.",
+    "Offline extraction initially rejected absent continue/lra_set_insn_deleted fragments; corrected to the actual source route and added the final rewriting span before generating successful inputs.",
+    "Generated recognizer output is unavailable: retained generator/source semantics are conditional premises, not claimed generated-artifact or binary verification."
+  ],
+  "local_runs": [
+    {
+      "scope": "New focused local arithmetic and source-interface checks",
+      "checks": 126,
+      "elapsed_seconds": 0.7294883629947435
+    }
+  ],
+  "prohibited_or_unrun": {
+    "native_compiler_target_build_capture": 0,
+    "prover_solver_Lean": 0,
+    "predecessor_suites_or_evaluators": 0,
+    "aggregate_corpus": 0,
+    "GitHub_or_CLI_memory_writes": 0
+  },
+  "residuals": [
+    "Independent review and future actual-source attachment preserving every prior false/null guard and owner",
+    "Outer IRA and imported helper/sort/execution interfaces",
+    "Production source-to-binary correspondence and complete native/producer/proof/parent capacity"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/README.md",
+      "bytes": 3810,
+      "sha256": "4030de75b06df9dd119b02f8d692b770e4a1d7507f7dfc242e9cd34b1fc60d9c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/check-results.json",
+      "bytes": 7233,
+      "sha256": "96537727837e38f14afe480857adb7fa56eb77977176f1c4a80894ed5545ca76"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/check.py",
+      "bytes": 9457,
+      "sha256": "31c3b56ee7c11175284e93023c1f2f4be4c505ee0ba31bafba8f73d2211c836c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/derive.py",
+      "bytes": 11333,
+      "sha256": "12c05e55f2c9b9f91fdccfcbf9e1187b828c68dfd7cf02dbdafe2cb3dfaa0cd4"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/inputs.json",
+      "bytes": 269486,
+      "sha256": "43e262895be6cb28c9b39f3e95596e5ae050b7d1fc6a514f83fc6e934dfa5e9e"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/prepare_inputs.py",
+      "bytes": 10264,
+      "sha256": "65f576e2ab942abbf6b5633db029357c4e86b450add36f95fb82dcf6b09a03c6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/result.json",
+      "bytes": 9543,
+      "sha256": "42bc88523b0f76c07d1104097316cd3e633be6b73ff750309d864eee5eb4e738"
+    },
+    {
+      "path": "docs/research/retained-literal-lra-arithmetic-completion.md",
+      "bytes": 20500,
+      "sha256": "36ec7949d3edbd047b5e4ede13fb8ff52f0d6c4bd94e972bf05b5c652b14ea1d"
+    }
+  ]
+}
