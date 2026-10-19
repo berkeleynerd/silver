@@ -1,0 +1,30 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "docs/evidence/retained-why-session-save-observer-20261018/test_observer.py",
+      "--scratch-root",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-observer-fixtures-20261018",
+      "-v"
+    ],
+    "seconds": 0.1738505579996854,
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_bucket_cycle_and_count_mismatch (__main__.ObserverTests.test_bucket_cycle_and_count_mismatch) ... ok\ntest_diagnostic_limit_does_not_create_complete_claim (__main__.ObserverTests.test_diagnostic_limit_does_not_create_complete_claim) ... ok\ntest_distinct_colliding_keys_keep_first_duplicate_binding (__main__.ObserverTests.test_distinct_colliding_keys_keep_first_duplicate_binding) ... ok\ntest_helper_failure_does_not_discard_session (__main__.ObserverTests.test_helper_failure_does_not_discard_session) ... ok\ntest_missing_raw_task_is_detached (__main__.ObserverTests.test_missing_raw_task_is_detached) ... ok\ntest_session_cycle_preserves_raw_root_and_failure (__main__.ObserverTests.test_session_cycle_preserves_raw_root_and_failure) ... ok\ntest_sharing_duplicates_and_exact_read_replay (__main__.ObserverTests.test_sharing_duplicates_and_exact_read_replay) ... ok\ntest_standalone_replay_on_retained_synthetic_files (__main__.ObserverTests.test_standalone_replay_on_retained_synthetic_files) ... ok\ntest_unsupported_logical_closure_retained_before_rejection (__main__.ObserverTests.test_unsupported_logical_closure_retained_before_rejection) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.091s\n\nOK\n",
+    "native_target_runs": 0
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "docs/evidence/retained-why-session-save-observer-20261018/check_prepared.py",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261018"
+    ],
+    "seconds": 0.4634705029966426,
+    "returncode": 0,
+    "stdout": "{\"status\": \"pass\", \"seconds\": 0.40227985799720045, \"frozen_files\": 24, \"plan_input_identities\": 205, \"original_guards_preserved\": true, \"new_save_stop_guards\": [\"camlGnat_main__save_session_and_exit_3133\", \"camlWhy3__Session_itp__save_session_4339\"], \"native_runs\": 0}\n",
+    "stderr": "",
+    "native_target_runs": 0
+  }
+]

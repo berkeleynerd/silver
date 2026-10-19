@@ -1,0 +1,66 @@
+{
+  "base_missing_root_commit": "c164e913fee6e549d67b9ee64792f3b962b6ff7b",
+  "prepared_only": true,
+  "native_executed": false,
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261018",
+  "packet_inputs": {
+    "README.md": {
+      "bytes": 6164,
+      "sha256": "8a87f183459344e6b35a599c6e3ec654f0b8ddd05b2b13c2518db24ec02dade6"
+    },
+    "check_prepared.py": {
+      "bytes": 3699,
+      "sha256": "2d620402f1bad867de130720b3ee288e2216170cf9310b5da8ba2f6e394013d5"
+    },
+    "checks.json": {
+      "bytes": 2330,
+      "sha256": "8c9fc8eec933fda8b74d22d76d8b8d80db0a4334f2ca5435a9f75fc4cb5d8a94"
+    },
+    "gdb_adapter.py": {
+      "bytes": 4481,
+      "sha256": "1dd639cd2f8f891efc8f271cd4e908ed5ad0c11fcf34f5e4eef143bf86fe49ce"
+    },
+    "harness.tar.gz": {
+      "bytes": 98031,
+      "sha256": "2970c794513ae698218fc006695f11a3b2c59eee1a7a28cdd89b9357dc32cb6a"
+    },
+    "managed-command.txt": {
+      "bytes": 34332,
+      "sha256": "f57341bab8b363caac64b9d15e03aa03a1a4def43f8869977abfc047a8230b8a"
+    },
+    "prepare.py": {
+      "bytes": 8439,
+      "sha256": "f1ad5e12a2886c0ba223c520ce803af41c81d3b87dfe70ba68e9ce501afebf95"
+    },
+    "prepared.json": {
+      "bytes": 41375,
+      "sha256": "af6ebff2fec1cac1e14a0c3c155c3548ecca717a67d4ea9936a1e934707adbd9"
+    },
+    "replay.py": {
+      "bytes": 3196,
+      "sha256": "518643e9f4d2873ef1959572a4f32fef3db40d290fe657a23f5a2738c96d48be"
+    },
+    "session_observer.py": {
+      "bytes": 17871,
+      "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+    },
+    "test_observer.py": {
+      "bytes": 12133,
+      "sha256": "24d521ab2ba585caf487c203a022bee819666c262e07c8741ef10a7d25adfaf8"
+    }
+  },
+  "previous_packets": {
+    "docs/evidence/retained-why-session-save-capacity-20261018/inputs.json": {
+      "bytes": 3339,
+      "sha256": "fb230e6c9793e4a126a8629b81f437ce21884fe7a27e602e6a875419f9570c54"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/observer-plan.json": {
+      "bytes": 12067,
+      "sha256": "560cdd2c7fc29e8a7932d69bca33758cd7787c870d086c60a07c4c08f9459a70"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/native-layout.json": {
+      "bytes": 71295,
+      "sha256": "aa6a5e3e9463eb8c6fc1e9391f50fb520a1e96a96420c20e1c2de9222f89f555"
+    }
+  }
+}

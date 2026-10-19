@@ -1,0 +1,123 @@
+{
+  "issue": "https://github.com/berkeleynerd/silver/issues/119",
+  "base": "c164e913fee6e549d67b9ee64792f3b962b6ff7b",
+  "objective": "Implement and freeze restricted session-root observer, offline fixtures/replay and concrete managed command; await parent resource coordination before native execution.",
+  "authorization": "Parent explicitly authorized observer implementation/offline checks after inspecting missing-root packet, later inspected draft harness/protocol and requested freeze before a coordinated attempt. No native execution in this worker round. Own new observer packet only; parent owns integration/review/publication/issues/memory/harness.",
+  "worker": {
+    "agent": "/root/why_inline_operations",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null
+  },
+  "started_utc": "2026-10-18T23:50:42+00:00",
+  "recorded_utc": "2026-10-19T00:00:34.203799+00:00",
+  "elapsed_seconds_through_record": 592.203799,
+  "elapsed_scope": "Observer implementation through frozen artifact/round preparation, excluding commit and parent coordination/launch/review.",
+  "host": "Linux x86_64",
+  "native_target_runs": 0,
+  "debugger_runs": 0,
+  "objdump_runs": 0,
+  "compiler_build_proof_solver_runs": 0,
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-session-save-observer-20261018/test_observer.py",
+        "--scratch-root",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-observer-fixtures-20261018",
+        "-v"
+      ],
+      "seconds": 0.1738505579996854,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_bucket_cycle_and_count_mismatch (__main__.ObserverTests.test_bucket_cycle_and_count_mismatch) ... ok\ntest_diagnostic_limit_does_not_create_complete_claim (__main__.ObserverTests.test_diagnostic_limit_does_not_create_complete_claim) ... ok\ntest_distinct_colliding_keys_keep_first_duplicate_binding (__main__.ObserverTests.test_distinct_colliding_keys_keep_first_duplicate_binding) ... ok\ntest_helper_failure_does_not_discard_session (__main__.ObserverTests.test_helper_failure_does_not_discard_session) ... ok\ntest_missing_raw_task_is_detached (__main__.ObserverTests.test_missing_raw_task_is_detached) ... ok\ntest_session_cycle_preserves_raw_root_and_failure (__main__.ObserverTests.test_session_cycle_preserves_raw_root_and_failure) ... ok\ntest_sharing_duplicates_and_exact_read_replay (__main__.ObserverTests.test_sharing_duplicates_and_exact_read_replay) ... ok\ntest_standalone_replay_on_retained_synthetic_files (__main__.ObserverTests.test_standalone_replay_on_retained_synthetic_files) ... ok\ntest_unsupported_logical_closure_retained_before_rejection (__main__.ObserverTests.test_unsupported_logical_closure_retained_before_rejection) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.091s\n\nOK\n",
+      "native_target_runs": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-session-save-observer-20261018/check_prepared.py",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261018"
+      ],
+      "seconds": 0.4634705029966426,
+      "returncode": 0,
+      "stdout": "{\"status\": \"pass\", \"seconds\": 0.40227985799720045, \"frozen_files\": 24, \"plan_input_identities\": 205, \"original_guards_preserved\": true, \"new_save_stop_guards\": [\"camlGnat_main__save_session_and_exit_3133\", \"camlWhy3__Session_itp__save_session_4339\"], \"native_runs\": 0}\n",
+      "stderr": "",
+      "native_target_runs": 0
+    }
+  ],
+  "material_findings_and_rework": [
+    "Used streamed raw blocks with bounded cache and independent session/helper completeness flags; core persisted before deep optional decoding.",
+    "Source-bound integer Hashtbl.Make(Int) buckets and first duplicate-binding semantics.",
+    "Added break-before-body guards for both GNAT handler and Session_itp.save_session before final freeze.",
+    "Preserved unexecuted first preparation directory; final ready workspace has the added save guards and final adapter/replay identities. No target retries.",
+    "Inherited run.py five-case docstring explicitly distinguished from actual one-case plan.",
+    "Exact synthetic replay rejects changed process core file; table/forest failures retain raw evidence."
+  ],
+  "achieved": "Frozen one-attempt harness and command with nine passing offline fixtures and 205-identity minimal-diff check. No current session capture, B_binders or R result yet.",
+  "next_step": "Parent checks live managed resources and coordinates one native attempt from the frozen ready workspace; then retain/replay actual same-process evidence and perform binder/helper analysis.",
+  "writes_outside_owned_packet": {
+    "github": false,
+    "cli_memory": false,
+    "harness_goal": false,
+    "production": false,
+    "configuration": false,
+    "oracle": false,
+    "owned_repository_tmp_preparation": true
+  },
+  "exact_review_inputs": {
+    "docs/evidence/retained-why-session-save-observer-20261018/README.md": {
+      "bytes": 6164,
+      "sha256": "8a87f183459344e6b35a599c6e3ec654f0b8ddd05b2b13c2518db24ec02dade6"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/check_prepared.py": {
+      "bytes": 3699,
+      "sha256": "2d620402f1bad867de130720b3ee288e2216170cf9310b5da8ba2f6e394013d5"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/checks.json": {
+      "bytes": 2330,
+      "sha256": "8c9fc8eec933fda8b74d22d76d8b8d80db0a4334f2ca5435a9f75fc4cb5d8a94"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/gdb_adapter.py": {
+      "bytes": 4481,
+      "sha256": "1dd639cd2f8f891efc8f271cd4e908ed5ad0c11fcf34f5e4eef143bf86fe49ce"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/harness.tar.gz": {
+      "bytes": 98031,
+      "sha256": "2970c794513ae698218fc006695f11a3b2c59eee1a7a28cdd89b9357dc32cb6a"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/inputs.json": {
+      "bytes": 2365,
+      "sha256": "d2b5fb91ce7a9647065accc36b8b142b52e641b3b488fb363c18554f07411c75"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/managed-command.txt": {
+      "bytes": 34332,
+      "sha256": "f57341bab8b363caac64b9d15e03aa03a1a4def43f8869977abfc047a8230b8a"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/prepare.py": {
+      "bytes": 8439,
+      "sha256": "f1ad5e12a2886c0ba223c520ce803af41c81d3b87dfe70ba68e9ce501afebf95"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/prepared.json": {
+      "bytes": 41375,
+      "sha256": "af6ebff2fec1cac1e14a0c3c155c3548ecca717a67d4ea9936a1e934707adbd9"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/replay.py": {
+      "bytes": 3196,
+      "sha256": "518643e9f4d2873ef1959572a4f32fef3db40d290fe657a23f5a2738c96d48be"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/session_observer.py": {
+      "bytes": 17871,
+      "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+    },
+    "docs/evidence/retained-why-session-save-observer-20261018/test_observer.py": {
+      "bytes": 12133,
+      "sha256": "24d521ab2ba585caf487c203a022bee819666c262e07c8741ef10a7d25adfaf8"
+    }
+  }
+}
