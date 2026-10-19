@@ -1685,3 +1685,111 @@ without replaying the accepted evaluators or native validation. The batch leaves
 #119 open and in progress. No complete rule, reviewed research stop or new
 production admission is claimed. The existing successful Why capture remains
 `20261019T000304-fcb988ec2c03`; no new native/prover/Lean/full-suite run occurred.
+
+## Round 21 — ordinary native storage and hook correspondence
+
+Date: 2026-10-19; follows published `800fa74b04`. Owner-resumed #119 continues
+with the current-grammar scope, unchanged Oracle/tools/admission and no selected
+research stop. Production #88–#94 remains authorized and unstarted.
+
+The IRA storage subset `66da47daa2`, selected Astra / Extra High, is accepted
+by independent review `3d00f8af99`, also selected Astra / Extra High; integration
+is `1a4ff3378e` / `3be5bf4bab`. It closes the named ordinary graph, preference,
+cost-class, traversal, fast-color and emit-setup storage with 25 guards,
+29 individual request rows and four pools. It adds no GGC/finalizer/shared
+bitmap/ET charge. Numeric cost/pressure/priority arithmetic, outer IRA helpers
+and remaining LRA storage remain open. The signed `8K <= INT_MAX` caller is
+separate from object-span fit; target move matrices use unsigned short and
+are 2,312 bytes each. Preferences can be nonempty at O0. Unknown allocno
+packing retains an upper stride rather than an invented exact layout.
+
+Author evidence: 192 checks, 15 count cases, 4,096 vector lengths, 288 pool
+cases and 60 prime boundaries in 0.030164260s; source/evidence checkpoint
+1,023.566545s. The draft pressure bound was removed after its cross-class
+update assumption proved insufficient. Review found no material findings,
+matched 45 GCC/19 repository pins, 35 text snippets, nine extent joins and
+the fixed Hello GGC owner in 0.019549114s, and inspected for 369s including
+a context handoff. Its nonblocking erratum corrects 23/35 excerpt coordinate
+pairs and some selections using literal-LF coordinates and actual operative
+lines. The whole-file pins are correct; source presence checks are not a proof
+of line metadata or semantic coverage. Review reused the author success.
+
+The Sol / Extra High ordinary adapter first passed 366 focused CFI checks
+in 12.968061242s over seven actual sources, preserving all 236 inherited
+rejections and their null/uncomputed states. The combined adapter is frozen
+at `aa838b8fc9`, independently accepted by `df0859818d` (Astra / Extra High).
+Integration is `e45978d32a` / `6af8c5533f`. It adds the accepted IRA
+storage callable and retains all **236 + 43 + 26 = 305 guards**. Its affected
+IRA/changed-join run passed 109 checks in 7.931407529s over five actual sources,
+including the C=70 allocno-pool ceiling and C=10/N=10's actual 69,927 GGC
+events. All 26 new false guards and representative inherited false/null states
+are checked. The unaffected CFI evidence and its exact inputs remain retained,
+without an exhaustive replay. The author's measured checkpoint interval is
+1,800.291502s, including the wait for IRA acceptance; this is not compute or
+native execution time. A checker expected-error fragment was corrected when
+the accepted invocation validation rejected the mutated configuration earlier
+than expected; no implementation or bound repair was needed. The next Astra /
+Extra High source task addresses named IRA numeric obligations under the
+actual single-definition/single-use call-group route.
+
+The adapter review found no material findings. Its independent identity,
+record and arithmetic checks took 0.232518559s, covering 27 current/Git records,
+33 GCC/23 repository/26 CFI excerpts, 45 GCC/19 repository/35 IRA excerpt texts,
+seven corrected operative LF sites, 15 preserved owner/bound fields, 305 guards
+and 50 GGC rows. These overlapping inventories are not summed as unique files.
+Inspection lasted 145s, excluding report preparation and commit. The reviewer
+reused both author successes without executing the adapter or its suites.
+
+Independent review `144d7013b7` rejected the native-hook null-preservation
+claim at `fae1a1ebd0`, tracked as [#143](https://github.com/berkeleynerd/silver/issues/143).
+The exact-address/anchor census does not exclude a faithful compiler-generated
+shared-base-plus-offset access. Source-level no-forged-mutation cannot exclude
+that machine lowering. No actual setter or nonnull hook was found. This
+candidate has not been accepted as preservation evidence; the published
+Round 20 checkpoint retains its four-hook residual. Correction `8b686a52e5`
+withdraws the unsupported claim and is independently accepted by `7ffaa134f4`
+for that reporting correction. Original, review, correction and rereview
+integrate as `56133e7622`, `7655c2d526`, `c0e5f52422`, `fa85a5ea0d`.
+Correcting #143 does not discharge the underlying native-hook obligation on
+#119. The original positive result and round remain explicitly superseded
+history; the current checker/result keep ownership false and complete R null.
+
+The native-hook author and both reviews selected Astra / Extra High. The
+original author interval was 682s; its successful retained-disassembly census
+matched 1,102,177 instructions / 4,986,162 bytes in 11.116126336s and its narrow
+projection check took 1.501943978s. Review inspected for 233s and independently
+checked eight inputs, seven images, three metadata/source members and 179
+byte witnesses in 1.039714569s. The repair inspected the existing relevant
+compilation/source relation without establishing the missing coverage, then
+retracted the claim. Its interval was 269s, with an affected verdict check
+of 1.553306039s and preservation check of 0.001832340s. Rereview inspected
+for 50s and checked seven preserved/historical artifacts, nine context pins,
+the exact checker-field change and unchanged accepted preservation note in
+0.073691987s. The full census was reused; no native target or capture ran.
+
+This round's review prevented an unsupported source-interface conclusion from
+becoming accepted preservation evidence. The repair corrected the record;
+it did not close the substantive obligation. The next Astra / Extra High
+task investigates the complete native callee/effect set reachable during the
+specific interval, with initial state and preservation separated. A new capture
+is not justified until a specific missing initial input remains after that
+source argument. Active source inspection has also found the major-GC and
+root-scanning hooks, including the systhreads scanner's saved predecessor.
+The root independently checked these witnesses in the pinned OCaml archive;
+the current overview now explicitly rejects four-cell exhaustiveness. This is
+a separate coverage issue from #143 and the successor's installed/effect
+argument is still pending. Native numeric work continues independently.
+Runtime setting confirmation and token/monetary measurements
+remain unavailable; these observations are not a causal model comparison.
+
+The integration check passed over **265 frozen files**, 140 JSON and 45 Python
+syntax inputs, 227 packet links, 290 checkpoint links and all inherited/current
+input manifests in **0.839910907s**. It also verifies the hook correction's
+seven historical artifacts, false current preservation claims and null R,
+and the ordinary adapter's 27 accepted Git/current identities. Raw output is
+retained at shared-checkout `tmp/round21-integration.json`. No accepted evaluator,
+native process, capture, compiler/prover/Lean audit or full suite was replayed.
+#119 remains open and in progress; complete capacity and production expansion
+are not established. The next work is independent IRA numeric review, remaining
+ordinary helpers and a corrected native-effect boundary, followed by the other
+required phases/current-grammar joins, comparison and final review.

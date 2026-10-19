@@ -3,7 +3,7 @@
 **2026-10-19 — resumed research; derivation unfinished.**
 The [resumption decision](../session-memory.md#2026-10-19--capacity-goal-119-resumed)
 continues from the preserved evening checkpoint. The
-[round record](../evidence/retained-tool-rounds.md#round-20--resumption-and-native-collector-composition)
+[round record](../evidence/retained-tool-rounds.md#round-21--ordinary-native-storage-and-hook-correspondence)
 identifies accepted and review-pending work and the first resumption steps.
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
@@ -665,6 +665,32 @@ separate. Author evidence comprises 148 focused checks in 0.077607723s.
 IRA/LRA ordinary arrays/pools, remaining native helper/stack state and the
 producer/proof/parent joins remain open.
 
+The [IRA storage subset](retained-literal-ira-lra-ordinary.md), frozen at
+`66da47daa2`, is [independently accepted](../reviews/review-literal-ira-storage-66da47daa2.md)
+for the named graph, object, preference, cost-class, traversal, fast-color and
+emit-setup storage. Its 25 local guards cover 29 individual request rows and
+four pool transfers, including the signed `8K <= INT_MAX` byte-size caller.
+Existing GGC, finalizer, bitmap and ET-pool owners are unchanged. The 192
+focused checks passed in 0.030164260s. Review supplies literal-LF coordinate
+and excerpt-selection corrections against the correctly pinned whole files;
+the excerpt-presence checks do not prove semantic coverage. Numeric costs,
+frequency/pressure/priority, outer IRA helpers, remaining LRA storage and the
+general actual-source attachment remain separate. No full IRA/native capacity
+follows from the local conjunction.
+
+The [ordinary actual-source attachment](retained-literal-ordinary-attachment.md),
+frozen at `aa838b8fc9`, is
+[independently accepted](../reviews/review-literal-ordinary-attachment-aa838b8fc9.md).
+It joins those CFI/CFG and IRA storage results to the actual program and
+configured invocation, preserving **236 inherited + 43 CFI + 26 IRA = 305
+conjunctive guards**. Source and complete-owner validation precede arithmetic;
+failed or uncomputed prerequisites leave all 69 ordinary guards null. The
+actual GGC ledger is retained, including 69,927 events for C=10/N=10 rather
+than the fixed Hello value. Existing owners receive no new charge. The 366
+CFI checks are retained; 109 affected IRA/changed-join checks passed in
+7.931407529s. Review found no material findings. Numeric IRA arithmetic,
+outer IRA/LRA helpers and complete native/pipeline capacities remain open.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
@@ -988,6 +1014,31 @@ alongside other exception/exit joins. No numeric R or exceptional identifier
 charge follows. The counter interface remains **63,573 + 2R**, conditional on
 completing R. Review found no material findings; the successful retained capture
 was reused without another native execution.
+
+The [native-hook linkage packet](retained-why-native-collection-hooks.md)
+retains verified direct-load, ELF, selected-image and identified-anchor evidence.
+Its proposed null-preservation claim at `fae1a1ebd0` was rejected by
+[independent review](../reviews/review-why-native-collection-hooks-fae1a1ebd0.md):
+faithful compiler-generated base-plus-offset accesses are not excluded by an
+exact-address census or the source-level no-forged-mutation premise. The
+[accepted correction](../reviews/review-why-native-hooks-repair-8b686a52e5.md)
+at `8b686a52e5` withdraws that claim and corrects reporting finding
+[#143](https://github.com/berkeleynerd/silver/issues/143). The four-hook condition
+remains on #119; no actual setter or nonnull hook was demonstrated. The next
+bounded approach is a complete interval-local native callee/effect relation,
+with initial-state evidence separate from preservation. No further native
+capture or broad address scan follows merely from the retraction.
+
+The ongoing interval inventory also identifies `caml_major_gc_hook`
+(`major_gc.c:430`) and `caml_scan_roots_hook` (`roots_nat.c:346,450`), including
+the systhreads scanner's saved predecessor (`st_stubs.c:161,459–460`), in the
+retained OCaml source. These source witnesses were checked against the
+[pinned archive](../evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz).
+The four timing cells therefore do not exhaust the native callback boundary.
+Their source/installed linkage, initial state and effect coverage are part of
+the active successor; no arbitrary nonnull callback or failing execution has
+been demonstrated. The older four-cell wording is insufficient as a complete
+preservation condition, independently of #143's computed-address finding.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
