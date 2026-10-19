@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Retained-tool direction adopted; capacity design in progress.** The owner
+**Retained-tool direction adopted; capacity design paused for assessment.** The owner
 [selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 keeping the existing GNAT/GNATprove toolchain, accepting explicit tool-imposed
 representation boundaries and removing unnecessary Silver limits within a
@@ -57,18 +57,24 @@ Prefer program-structure accounting and justify any conservative envelope.
 `Integer'Last` is an inherited ceiling; a per-value bound alone does not justify
 all compositions. No numerical aggregate cap or larger admission domain is selected.
 
-The next owner-authorized design increment is
-[#145 Complete literal-output native-build capacity](https://github.com/berkeleynerd/silver/issues/145),
-within #119. Its order is: attach accepted recognition and close remaining native
-source obligations; compose Main/assembler/binder/binder-compiler/linker and
-fixed native inputs; close materialization/parent routing; independently review
-the complete selected native evaluator. Reuse the accepted source components.
-The fixed-bundle graph does not include implicit dependency regeneration.
-After that result, #119 still requires producer/Why3 paths and fixed-library
-proofs, current-grammar generalization, whole-rule composition/correspondence,
-useful-domain comparison and final review before production #88–#94.
-No new owner decision is needed for routine closure within that recorded scope;
-any proposed Oracle or admission amendment remains a separate decision.
+The selected literal-output native-build increment
+[#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
+and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
+**#119 remains paused in Backlog.** The owner authorized only the
+[checkpoint-review maintenance](docs/session-memory.md#2026-10-19--limited-checkpoint-review-maintenance-119-remains-paused).
+The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
+remaining #119 obligations, shape-dependent accepted region, configuration
+premises and deferred findings. The approximate 80% estimate is a subjective
+planning judgment with substantial whole-rule integration uncertainty.
+
+The result covers a selected direct four-job graph with extra compiler options,
+direct GNATBIND and a fixed two-unit Silver object/ALI bundle. Production still
+runs GPRbuild over a seven-unit project and is outside that researched invocation.
+**#89 must adopt the exact researched graph, options, materialization, environment
+and fixed-input contracts with Bronze/Silver and Lean source correspondence,
+coordinated with #88, or rederive capacity for the alternative graph.** This is
+a future production obligation; the checkpoint does not discharge it. No new
+work package starts during the pause.
 
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,
@@ -87,7 +93,9 @@ before any expanded membership:
    identity, and classify resource, representation and other failures accurately.
 3. **Compiler storage and complexity [#89](https://github.com/berkeleynerd/silver/issues/89):**
    input-sized storage, growable process/file/path interfaces, explicit stack work
-   and producer/consumer representation accounting. Admission stays unchanged.
+   and producer/consumer representation accounting. Adopt the researched native
+   invocation with source correspondence, or rederive capacity for the selected
+   alternative, as recorded above. Admission stays unchanged.
 4. **Parameterized Lean assurance [#90](https://github.com/berkeleynerd/silver/issues/90):**
    exact length ranges and the selected capacity predicate, native correspondence,
    composition and automatic discharge. Admission stays unchanged.

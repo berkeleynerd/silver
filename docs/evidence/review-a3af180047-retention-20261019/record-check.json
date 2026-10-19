@@ -1,0 +1,10 @@
+{
+  "scope": "record/archive identity, syntax, local file links and pinned-input preservation only",
+  "review_sha256": "267a2002a3335e4033f1f4ca5cb9b00c994ff6ed5ac61ec540e260f33e8a5ffd",
+  "preserved_original_files": 19,
+  "aggregate_pins_unchanged": 94,
+  "local_file_links_checked": 323,
+  "elapsed_seconds": 0.096586,
+  "evaluator_native_proof_test_executions": 0,
+  "status": "passed"
+}

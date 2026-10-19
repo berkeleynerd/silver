@@ -196,7 +196,7 @@ that loose mode precedes expansion and that #119 defines strict.
 [unbounded feasibility result](research/unbounded-feasibility-result.md);
 [frontend representation result](research/frontend-representation-result.md);
 [capacity contract](research/retained-tool-capacity.md);
-the independent review of the #145 checkpoint (`docs/reviews/review-a3af180047.md`,
-untracked pending the owner's filing decision), whose admitted-region finding
+the [independent review of the #145 checkpoint](reviews/review-a3af180047.md) and its
+[disposition](review-a3af180047-disposition.md), whose accepted-region finding
 shows the first binding guards for the literal family are the linker and
 assembler near 30,000 output calls, not GNAT's tables.

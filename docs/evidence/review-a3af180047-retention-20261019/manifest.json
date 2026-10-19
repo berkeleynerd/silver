@@ -1,0 +1,121 @@
+{
+  "preserved_utc_date": "2026-10-19",
+  "executed_during_preservation": false,
+  "archive_sha256": "3d22ebdbe4f2100353cccf9ba57c65f6ff73552b79a882eb429e6f69d66f79e0",
+  "files": [
+    {
+      "archive_path": "native-review/fresh-result.json",
+      "original_path": "tmp/literal-native-completion-review-20261019/tmp/native-review/fresh-result.json",
+      "bytes": 1899336,
+      "sha256": "02675413ff3593e77f9a2854dc90cf392cd1878da7e671dbdd7a95946fa51eb1"
+    },
+    {
+      "archive_path": "native-review/main.adb",
+      "original_path": "tmp/literal-native-completion-review-20261019/tmp/native-review/main.adb",
+      "bytes": 781,
+      "sha256": "e85ff803736f86ff18799bd714914bee09727e4acae6d2647521b8f650a09eb1"
+    },
+    {
+      "archive_path": "native-review/probe-result.json",
+      "original_path": "tmp/literal-native-completion-review-20261019/tmp/native-review/probe-result.json",
+      "bytes": 737,
+      "sha256": "62f1df021827812661bd49efeeb3fed95f5321dfb4cbddbc6f9f80767104faa8"
+    },
+    {
+      "archive_path": "native-review/probe.py",
+      "original_path": "tmp/literal-native-completion-review-20261019/tmp/native-review/probe.py",
+      "bytes": 10200,
+      "sha256": "0b9501d0fe5e90851939f7fb2d3edefb5d2adf78ad2d99893ba15b53877ea1c2"
+    },
+    {
+      "archive_path": "driver-review/main.adb",
+      "original_path": "tmp/literal-driver-completion-review-20261019/tmp/driver-review/main.adb",
+      "bytes": 199,
+      "sha256": "8f8e32b5eca7dae87efc194b90caf3036b9630164e8b88dab1a8860d267b244d"
+    },
+    {
+      "archive_path": "driver-review/probe-result.json",
+      "original_path": "tmp/literal-driver-completion-review-20261019/tmp/driver-review/probe-result.json",
+      "bytes": 779,
+      "sha256": "04fa216a937658e2b61fd6cd9cb733d8c15a3f91347e1f36360942756d3a577c"
+    },
+    {
+      "archive_path": "driver-review/probe.py",
+      "original_path": "tmp/literal-driver-completion-review-20261019/tmp/driver-review/probe.py",
+      "bytes": 8446,
+      "sha256": "6b9b2682405cfa3b5fcbefca958299e883041c7d8ef2e309ea456f176acf2afd"
+    },
+    {
+      "archive_path": "binder-assembler-review/author-checks.json",
+      "original_path": "tmp/review-literal-binder-assembler-20261019/tmp/binder-assembler-review/author-checks.json",
+      "bytes": 93,
+      "sha256": "b939ec7507159478ff909c7a66cff72b2996489712d7ceb53055a8e6dc636d26"
+    },
+    {
+      "archive_path": "binder-assembler-review/check-independent.py",
+      "original_path": "tmp/review-literal-binder-assembler-20261019/tmp/binder-assembler-review/check-independent.py",
+      "bytes": 6166,
+      "sha256": "c5849b68daf8befa01ac3741b07e67a55788f971064355ebb86bb81858840212"
+    },
+    {
+      "archive_path": "binder-assembler-review/result.json",
+      "original_path": "tmp/review-literal-binder-assembler-20261019/tmp/binder-assembler-review/result.json",
+      "bytes": 869,
+      "sha256": "d935bf25d3545dfabf2a03cd1c766d7fa1395080258f27f5d9883befe94e6f0f"
+    },
+    {
+      "archive_path": "frontend-binder-review/ada-completion-check-results.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/ada-completion-check-results.json",
+      "bytes": 97487,
+      "sha256": "2fc6c1854d6efe6e065c625852b13d774a1955464b6803eeecaa60263fd5a7c7"
+    },
+    {
+      "archive_path": "frontend-binder-review/ada-completion-result.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/ada-completion-result.json",
+      "bytes": 127822,
+      "sha256": "a9ba8a34fdd979107c73a9d9110105c88076c619487d7b24fbc23827d796bb23"
+    },
+    {
+      "archive_path": "frontend-binder-review/binder-author-checks.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/binder-author-checks.json",
+      "bytes": 13961,
+      "sha256": "743161b79f9ec182971c977f2a3864c2a9de78daf052f0f7675fe498943c00e9"
+    },
+    {
+      "archive_path": "frontend-binder-review/binder-independent.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/binder-independent.json",
+      "bytes": 181,
+      "sha256": "f52b17dab3f4253c076b99ffcf653cd5230ddc09e20b0174ae5757f8c1227cee"
+    },
+    {
+      "archive_path": "frontend-binder-review/completion-independent.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/completion-independent.json",
+      "bytes": 288,
+      "sha256": "1da7dbe48c3b5d80ab5085cb1e9e004ff91f6f92083d008af61c503e6384bec6"
+    },
+    {
+      "archive_path": "frontend-binder-review/reextracted-closure-owner-audit.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/reextracted-closure-owner-audit.json",
+      "bytes": 232136,
+      "sha256": "d3db767fd09195fae7e9e319735bba6a016176baa56a7df70e1d74970faafe54"
+    },
+    {
+      "archive_path": "frontend-binder-review/reextracted-completion-inputs.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/reextracted-completion-inputs.json",
+      "bytes": 233468,
+      "sha256": "1900e3e7112eeca0675a687ebe7f2926b6707d83a96c665b7e42df536ec05422"
+    },
+    {
+      "archive_path": "frontend-binder-review/reextracted-completion-tables.json",
+      "original_path": "tmp/review-literal-frontend-binder-completion-20261019/tmp/frontend-binder-review/reextracted-completion-tables.json",
+      "bytes": 94869,
+      "sha256": "ef4c40a6f7b75d3e3e69314d49bb813e206515bc2c61eb7daac5d88b2a0b567a"
+    },
+    {
+      "archive_path": "integration/native-freeze-check-4f29a3bf85.json",
+      "original_path": "tmp/retained-tool-capacity/tmp/native-freeze-check-4f29a3bf85.json",
+      "bytes": 119,
+      "sha256": "13ccea2e70d167ecb10ffc518921f65d2a60fea05b19abab49fcd89329fb21b8"
+    }
+  ]
+}
