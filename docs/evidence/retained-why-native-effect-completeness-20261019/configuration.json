@@ -1,0 +1,232 @@
+{
+  "schema": 1,
+  "selector_count": 17,
+  "selectors": [
+    {
+      "symbol": "caml_major_slice_begin_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "misc"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaaf48"
+    },
+    {
+      "symbol": "caml_major_slice_end_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "misc"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaaf40"
+    },
+    {
+      "symbol": "caml_minor_gc_begin_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "misc"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaaf38"
+    },
+    {
+      "symbol": "caml_minor_gc_end_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "misc"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaaf30"
+    },
+    {
+      "symbol": "caml_major_gc_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "major"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaaf60"
+    },
+    {
+      "symbol": "caml_scan_roots_hook",
+      "source_derived_value": "caml_thread_scan_roots",
+      "witnesses": [
+        "roots",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaac98"
+    },
+    {
+      "symbol": "st_stubs.c::prev_scan_roots_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": "0xfaaa48"
+    },
+    {
+      "symbol": "caml_memprof_th_ctx_iter_hook",
+      "source_derived_value": "memprof_ctx_iter",
+      "witnesses": [
+        "memprof",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_enter_blocking_section_hook",
+      "source_derived_value": "caml_thread_enter_blocking_section",
+      "witnesses": [
+        "signals",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_leave_blocking_section_hook",
+      "source_derived_value": "caml_thread_leave_blocking_section",
+      "witnesses": [
+        "signals",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_channel_mutex_free",
+      "source_derived_value": "caml_io_mutex_free",
+      "witnesses": [
+        "io",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_channel_mutex_lock",
+      "source_derived_value": "caml_io_mutex_lock",
+      "witnesses": [
+        "io",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_channel_mutex_unlock",
+      "source_derived_value": "caml_io_mutex_unlock",
+      "witnesses": [
+        "io",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_channel_mutex_unlock_exn",
+      "source_derived_value": "caml_io_mutex_unlock_exn",
+      "witnesses": [
+        "io",
+        "thread"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_sigmask_hook",
+      "source_derived_value": "pthread_sigmask",
+      "witnesses": [
+        "signals",
+        "thread_posix"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_fatal_error_hook",
+      "source_derived_value": "NULL",
+      "witnesses": [
+        "misc",
+        "misc_header"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    },
+    {
+      "symbol": "caml_cleanup_on_exit",
+      "source_derived_value": "0",
+      "witnesses": [
+        "startup",
+        "sys"
+      ],
+      "value_observed_in_this_packet": false,
+      "retained_elf_relative_address": null
+    }
+  ],
+  "derivation": "Source defaults, selected Thread entry/installers and exact no-c OCAMLRUNPARAM, with native source/client family coverage and ordinary loader/CRT contracts.",
+  "initial_source_relation_established_under_named_behavior_premise": true,
+  "interval_preservation": "Named owner bodies/ordinary interfaces have no other selector assignments or exposed cell-writing alias. Selected dynamic reflection/loading alternatives retain their accepted exclusion.",
+  "source_default_is_live_observation": false,
+  "prefix_auxiliary_interfaces": [
+    {
+      "symbol": "caml_natdynlink_hook",
+      "derived": "NULL; no selected source installer",
+      "witnesses": [
+        "native_loader"
+      ]
+    },
+    {
+      "symbol": "caml_atfork_hook",
+      "derived": "Thread reinitialization; runtime thread/mutex writes only",
+      "witnesses": [
+        "thread"
+      ]
+    },
+    {
+      "symbol": "caml_stack_usage_hook / prev_stack_usage_hook",
+      "derived": "Thread counter / NULL; excluded from interval by scoped roots",
+      "witnesses": [
+        "thread",
+        "roots",
+        "gc_control"
+      ]
+    },
+    {
+      "symbol": "caml_termination_hook",
+      "derived": "st_thread_exit; Thread.exit jump excluded in scoped interval",
+      "witnesses": [
+        "thread",
+        "startup_native"
+      ]
+    }
+  ],
+  "lifetime_owners": [
+    {
+      "owner": "teardown_eventlog",
+      "effect": "flush/free/close owned C event buffer/file; no OCaml entry",
+      "witnesses": [
+        "eventlog"
+      ]
+    },
+    {
+      "owner": "ml_z_dump_count",
+      "effect": "print scalar native counters; no OCaml entry",
+      "witnesses": [
+        "zarith"
+      ]
+    },
+    {
+      "owner": "winsock_cleanup",
+      "effect": "excluded Windows-bytecode debugger branch",
+      "witnesses": [
+        "debugger"
+      ]
+    }
+  ],
+  "lifetime_family_closed_under_source_link_relation": true,
+  "new_capture_required": false
+}

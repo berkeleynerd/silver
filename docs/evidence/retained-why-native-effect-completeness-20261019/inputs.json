@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "base_commit": "7cb95968b07f8d400d440e3afd92ee59b2dad24e",
+  "inputs": {
+    "ocaml": {
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "size": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "why": {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "size": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "zarith_c": {
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c",
+      "size": 92312,
+      "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    },
+    "zarith_z": {
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/z.ml",
+      "size": 17756,
+      "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+    },
+    "zarith_big": {
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml",
+      "size": 3138,
+      "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa"
+    },
+    "capture": {
+      "path": "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz",
+      "size": 12297103,
+      "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+    },
+    "sexplib0": {
+      "path": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib0.tar.gz",
+      "size": 22176,
+      "sha256": "6daf8a709c50461e89a4976b7518eeae42455176d6bee31a4b6e99e11aa32aa2"
+    },
+    "sexplib": {
+      "path": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib.tar.gz",
+      "size": 55017,
+      "sha256": "a675ca2f6f40ab7c950b611de24630f1ef92fc40a162bb615b6a8a12d2838885"
+    },
+    "parsexp": {
+      "path": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/parsexp.tar.gz",
+      "size": 56930,
+      "sha256": "75d1403ada93dd1fa747a34111a3a5d4123071d70d95f54b314c55ab1d31f1ba"
+    },
+    "retained-why-interval-native-effects": {
+      "path": "docs/research/retained-why-interval-native-effects.md",
+      "size": 14486,
+      "sha256": "7864e7920ecc40bb638cc38e12f2d95b0d1f96edfa4e0e3f7ec399b6a6e3e3f7"
+    },
+    "retained-why-save-preservation": {
+      "path": "docs/research/retained-why-save-preservation.md",
+      "size": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    "retained-why-inline-callback-closure": {
+      "path": "docs/research/retained-why-inline-callback-closure.md",
+      "size": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    },
+    "retained-why-inline-comparand-capacity": {
+      "path": "docs/research/retained-why-inline-comparand-capacity.md",
+      "size": 16236,
+      "sha256": "400be92e60e44576741b75fbcc6e36512057286e71967f09fc1fa29bcce11b36"
+    },
+    "retained-why-session-formatter-prefix-repair": {
+      "path": "docs/research/retained-why-session-formatter-prefix-repair.md",
+      "size": 10753,
+      "sha256": "711672f317f8fd8c980df92191a3636fb4074d6be672e0be28d4a8b09dffe970"
+    },
+    "retained-why-session-exception-prefix": {
+      "path": "docs/research/retained-why-session-exception-prefix.md",
+      "size": 14032,
+      "sha256": "68f29c5526f89b57a0921adb06ff1c479a0fbcba4b8267f1a3f6f205ac0236e8"
+    },
+    "retained-why-sexplib-converter-prefix": {
+      "path": "docs/research/retained-why-sexplib-converter-prefix.md",
+      "size": 13161,
+      "sha256": "2ff1302b3e71e272e224ca3b8babc1cc9fefdeaace17f682bf4c1ceeb1703bc8"
+    },
+    "retained-tool-source-identity": {
+      "path": "docs/research/retained-tool-source-identity.md",
+      "size": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "elf_reader": {
+      "path": "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py",
+      "size": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "callback_native": {
+      "path": "docs/evidence/retained-why-inline-callback-closure-20261018/native.tar.gz",
+      "size": 332459,
+      "sha256": "ed2f6226dfc0266cb819b2dacc211844ba2f51dc3ad4720f57721f05db8884fd"
+    },
+    "companion_effect_ledger": {
+      "path": "docs/evidence/retained-why-native-effect-completeness-20261019/companion-effect-ledger.json",
+      "size": 8471,
+      "sha256": "b28696459a1cf4cee6d2682e25b0b0d9f79db1306303df325d0d2d845bed4775"
+    },
+    "companion_report_sites": {
+      "path": "docs/evidence/retained-why-native-effect-completeness-20261019/companion-report-sites.json",
+      "size": 3018,
+      "sha256": "31e1a232c4316ca18d8d4ccb7cd7b75ba2de2f18e949844af58433ce9a96168a"
+    },
+    "image_gnatwhy3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "size": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "image_ada_terms_cmxs": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs",
+      "size": 374704,
+      "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+    },
+    "image_gnat_json_cmxs": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs",
+      "size": 710720,
+      "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+    },
+    "image_libc_so_6": {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "size": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+    },
+    "image_libm_so_6": {
+      "path": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+      "size": 1198376,
+      "sha256": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8"
+    },
+    "image_libgmp_so_10_5_0": {
+      "path": "/usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0",
+      "size": 543168,
+      "sha256": "fda9699eef15deda5f1c626e9140377a7f5d88c41516a54278ac02429cb20fa5"
+    },
+    "image_ld-linux-x86-64_so_2": {
+      "path": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "size": 254864,
+      "sha256": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14"
+    },
+    "companion_review": {
+      "path": "docs/evidence/retained-why-native-effect-completeness-20261019/companion-review.txt",
+      "size": 12169,
+      "sha256": "f4c2f61a62d4a09cb1c9b53bc31b2cff6bcda14cdb3e800ac84fff1c28e8490f"
+    }
+  },
+  "source_revisions": {
+    "ocaml": "8eb41f72ded84df884c3671734c947f612091f84",
+    "why": "9390baf120ef260547dfa14f08e11c890b203d9c",
+    "zarith": "667d742948914aa1f80d5ad5abb98bc412335e51"
+  },
+  "selected_run": {
+    "run_id": "20261019T000304-fcb988ec2c03",
+    "pid": 97103,
+    "executable_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "companion": {
+    "commit": "6dd2732dd083ba6e29c7e2bd026d5668a0283b5e",
+    "review_status": "accepted; no material findings",
+    "source_effect_domain": "primitive/payload-free save failures, BadTypeArity, BadArity, TypeMismatch and specified wrappers/type-symbol printers",
+    "source_inputs": [
+      "companion_effect_ledger",
+      "companion_report_sites"
+    ],
+    "review_commit": "3956aa7fb78c5ada4c9ceda2ba26ce76766b389e",
+    "review_path": "docs/reviews/review-why-save-exit-charge-6dd2732dd0.md"
+  },
+  "images": [
+    "image_gnatwhy3",
+    "image_ada_terms_cmxs",
+    "image_gnat_json_cmxs",
+    "image_libc_so_6",
+    "image_libm_so_6",
+    "image_libgmp_so_10_5_0",
+    "image_ld-linux-x86-64_so_2"
+  ]
+}

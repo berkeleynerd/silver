@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "run_id": "20261019T000304-fcb988ec2c03",
+  "pid": 97103,
+  "names": [
+    "__gmon_start__",
+    "_ITM_registerTMCloneTable",
+    "_ITM_deregisterTMCloneTable"
+  ],
+  "scope": "All seven mapped images reconciled to retained hashes; dynamic providers of the three ordinary CRT weak interfaces.",
+  "images": [
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+      "weak_interface_symbols": [
+        {
+          "name": "_ITM_deregisterTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "__gmon_start__",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "_ITM_registerTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        }
+      ]
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs",
+      "bytes": 374704,
+      "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27",
+      "weak_interface_symbols": [
+        {
+          "name": "_ITM_registerTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "_ITM_deregisterTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "__gmon_start__",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        }
+      ]
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs",
+      "bytes": 710720,
+      "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1",
+      "weak_interface_symbols": [
+        {
+          "name": "_ITM_registerTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "_ITM_deregisterTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "__gmon_start__",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        }
+      ]
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "bytes": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7",
+      "weak_interface_symbols": []
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+      "bytes": 1198376,
+      "sha256": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8",
+      "weak_interface_symbols": [
+        {
+          "name": "_ITM_deregisterTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "__gmon_start__",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "_ITM_registerTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        }
+      ]
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0",
+      "bytes": 543168,
+      "sha256": "fda9699eef15deda5f1c626e9140377a7f5d88c41516a54278ac02429cb20fa5",
+      "weak_interface_symbols": [
+        {
+          "name": "_ITM_deregisterTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "__gmon_start__",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        },
+        {
+          "name": "_ITM_registerTMCloneTable",
+          "info": 32,
+          "other": 0,
+          "shndx": 0,
+          "value": 0,
+          "size": 0
+        }
+      ]
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "bytes": 254864,
+      "sha256": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14",
+      "weak_interface_symbols": []
+    }
+  ]
+}

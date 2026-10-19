@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "run_id": "20261019T000304-fcb988ec2c03",
+  "pid": 97103,
+  "executable_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+  "scope": "whole retained first-inline invocation, at most two serial SIGINT saves, and source-bounded exceptional reporting before the stated return/termination boundary",
+  "initial_counter": 60496,
+  "first_fold_registrations": 1145,
+  "maximum_serial_SIGINT_attempts": 2,
+  "binder_registrations_per_attempt": 966,
+  "whole_interval_reporting_allowance": 25920,
+  "N_native": 0,
+  "endpoint_upper": 89493,
+  "counter_limit": 4611686018427387903,
+  "headroom": 4611686018427298410,
+  "total_registrations_upper": 28997,
+  "no_wrap_under_stated_source_runtime_relation": true,
+  "freshness_bootstrap": "Every prefix of the selected interval has no more registrations than this total. Starting from captured counter 60496 and the components' cut invariants, induction establishes no wrap during this interval and preserves the typed/source invariants used by the two components. Native zero-charge/preservation is derived independently of this numeric endpoint.",
+  "prior_history_limit": "No no-wrap or global-freshness result before the selected cut is established here.",
+  "companion_source_commit": "6dd2732dd083ba6e29c7e2bd026d5668a0283b5e",
+  "companion_review_commit": "3956aa7fb78c5ada4c9ceda2ba26ce76766b389e",
+  "native_review_status": "pending",
+  "other_capacity_claims": {
+    "complete_R_scalar_instantiated": false,
+    "ordinary_ending_save_closed": false,
+    "later_invocations_closed": false,
+    "auxiliary_resource_capacity_closed": false,
+    "full_transform_capacity_closed": false,
+    "whole_pipeline_capacity_closed": false,
+    "current_grammar_capacity_closed": false
+  }
+}

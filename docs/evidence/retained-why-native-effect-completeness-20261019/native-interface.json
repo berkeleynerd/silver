@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "issue": 119,
+  "run_id": "20261019T000304-fcb988ec2c03",
+  "pid": 97103,
+  "executable_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+  "N_native": 0,
+  "charge_scope": "whole retained first-inline invocation, at most two serial SIGINT saves, and source-bounded exceptional reporting before the stated return/termination boundary",
+  "preserves": [
+    "typed retained term/session and representative projection",
+    "first-fold private work list/cache ownership",
+    "Shape buffer and active shape-printer ownership outside source-accounted direct operations",
+    "private identifier counter except separately charged OCaml registrations",
+    "classified callback/formatter/printer families",
+    "derived native selector owners"
+  ],
+  "allowed_OCaml_entries": [
+    "source-accounted GNAT SIGINT save/exit",
+    "SIGVTALRM Thread yield with one OCaml worker",
+    "source-accounted named uncaught/exit reporting routes"
+  ],
+  "native_exception_family": "ordinary source runtime/allocation/I/O/numeric primitive failures; no arbitrary logical payload fabrication",
+  "unaccounted_replay": false,
+  "companion_commit": "6dd2732dd083ba6e29c7e2bd026d5668a0283b5e",
+  "companion_identifier_allowance_derived_here": false,
+  "source_semantics_machine_checked": false,
+  "binary_refinement_proved": false,
+  "new_capture_required": false,
+  "source_relation": "The selected fixed native initialization/runtime/lifetime families implement named reviewed OCaml runtime/Unix/systhreads, Zarith, generated startup and ordinary CRT/loader interfaces; exact ELF metadata corroborates selection, without proving a complete historical source manifest or arbitrary alias theorem.",
+  "remaining_integration": [
+    "independent native source-effect and combined-bound review",
+    "lead integration/publication"
+  ],
+  "outside_scope": [
+    "later driver transforms/printing",
+    "next scheduler invocation",
+    "ordinary normal-ending save and its SIGINT interference",
+    "other resource capacities",
+    "whole-pipeline guarantee"
+  ],
+  "companion_review_status": "accepted by independent review",
+  "companion_review_commit": "3956aa7fb78c5ada4c9ceda2ba26ce76766b389e"
+}

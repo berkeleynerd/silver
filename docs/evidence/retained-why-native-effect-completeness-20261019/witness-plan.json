@@ -1,0 +1,736 @@
+{
+  "schema": 1,
+  "witnesses": [
+    {
+      "id": "memprof",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+      "ranges": [
+        [
+          628,
+          660
+        ],
+        [
+          689,
+          712
+        ],
+        [
+          1095,
+          1110
+        ]
+      ]
+    },
+    {
+      "id": "roots",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+      "ranges": [
+        [
+          30,
+          38
+        ],
+        [
+          330,
+          346
+        ],
+        [
+          405,
+          452
+        ],
+        [
+          520,
+          529
+        ]
+      ]
+    },
+    {
+      "id": "thread",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "ranges": [
+        [
+          140,
+          173
+        ],
+        [
+          235,
+          301
+        ],
+        [
+          305,
+          327
+        ],
+        [
+          399,
+          476
+        ],
+        [
+          723,
+          740
+        ]
+      ]
+    },
+    {
+      "id": "thread_posix",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_posix.h",
+      "ranges": [
+        [
+          37,
+          41
+        ]
+      ]
+    },
+    {
+      "id": "thread_ml",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+      "ranges": [
+        [
+          81,
+          102
+        ]
+      ]
+    },
+    {
+      "id": "io",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "ranges": [
+        [
+          58,
+          80
+        ],
+        [
+          445,
+          502
+        ]
+      ]
+    },
+    {
+      "id": "signals",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "ranges": [
+        [
+          53,
+          58
+        ],
+        [
+          137,
+          181
+        ],
+        [
+          260,
+          292
+        ]
+      ]
+    },
+    {
+      "id": "raise",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/fail_nat.c",
+      "ranges": [
+        [
+          63,
+          88
+        ]
+      ]
+    },
+    {
+      "id": "misc",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "ranges": [
+        [
+          36,
+          42
+        ],
+        [
+          79,
+          94
+        ]
+      ]
+    },
+    {
+      "id": "misc_header",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+      "ranges": [
+        [
+          238,
+          245
+        ]
+      ]
+    },
+    {
+      "id": "custom",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+      "ranges": [
+        [
+          33,
+          74
+        ],
+        [
+          118,
+          166
+        ]
+      ]
+    },
+    {
+      "id": "custom_header",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/custom.h",
+      "ranges": [
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "startup",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+      "ranges": [
+        [
+          86,
+          116
+        ],
+        [
+          167,
+          197
+        ]
+      ]
+    },
+    {
+      "id": "startup_native",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+      "ranges": [
+        [
+          110,
+          164
+        ]
+      ]
+    },
+    {
+      "id": "sys",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+      "ranges": [
+        [
+          150,
+          179
+        ],
+        [
+          239,
+          255
+        ],
+        [
+          285,
+          318
+        ],
+        [
+          566,
+          617
+        ]
+      ]
+    },
+    {
+      "id": "uncaught",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+      "ranges": [
+        [
+          107,
+          162
+        ]
+      ]
+    },
+    {
+      "id": "eventlog",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/eventlog.c",
+      "ranges": [
+        [
+          170,
+          264
+        ]
+      ]
+    },
+    {
+      "id": "debugger",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/debugger.c",
+      "ranges": [
+        [
+          182,
+          207
+        ]
+      ]
+    },
+    {
+      "id": "weak",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/weak.c",
+      "ranges": [
+        [
+          110,
+          139
+        ],
+        [
+          290,
+          342
+        ]
+      ]
+    },
+    {
+      "id": "hashtbl",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "ranges": [
+        [
+          47,
+          76
+        ]
+      ]
+    },
+    {
+      "id": "ephemeron",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+      "ranges": [
+        [
+          127,
+          139
+        ],
+        [
+          493,
+          514
+        ]
+      ]
+    },
+    {
+      "id": "stdlib_weak",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml",
+      "ranges": [
+        [
+          18,
+          72
+        ]
+      ]
+    },
+    {
+      "id": "stdlib_printexc",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+      "ranges": [
+        [
+          327,
+          367
+        ]
+      ]
+    },
+    {
+      "id": "time",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/gettimeofday.c",
+      "ranges": [
+        [
+          24,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "error_message",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/errmsg.c",
+      "ranges": [
+        [
+          21,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "backtrace",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace_nat.c",
+      "ranges": [
+        [
+          25,
+          103
+        ]
+      ]
+    },
+    {
+      "id": "compare",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compare.c",
+      "ranges": [
+        [
+          130,
+          169
+        ],
+        [
+          263,
+          286
+        ]
+      ]
+    },
+    {
+      "id": "hash",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/hash.c",
+      "ranges": [
+        [
+          240,
+          261
+        ]
+      ]
+    },
+    {
+      "id": "gc_control",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/gc_ctrl.c",
+      "ranges": [
+        [
+          250,
+          259
+        ],
+        [
+          310,
+          320
+        ]
+      ]
+    },
+    {
+      "id": "major",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "ranges": [
+        [
+          132,
+          134
+        ],
+        [
+          420,
+          431
+        ],
+        [
+          1248,
+          1258
+        ]
+      ]
+    },
+    {
+      "id": "minor",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "ranges": [
+        [
+          461,
+          535
+        ]
+      ]
+    },
+    {
+      "id": "compact",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compact.c",
+      "ranges": [
+        [
+          161,
+          173
+        ]
+      ]
+    },
+    {
+      "id": "native_loader",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+      "ranges": [
+        [
+          32,
+          52
+        ],
+        [
+          64,
+          133
+        ]
+      ]
+    },
+    {
+      "id": "startup_generator",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/cmm_helpers.ml",
+      "ranges": [
+        [
+          2581,
+          2607
+        ]
+      ]
+    },
+    {
+      "id": "linker",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/asmlink.ml",
+      "ranges": [
+        [
+          230,
+          246
+        ]
+      ]
+    },
+    {
+      "id": "main",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/main.c",
+      "ranges": [
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "inlining",
+      "input": "why",
+      "member": "why3/src/transform/inlining.ml",
+      "ranges": [
+        [
+          23,
+          103
+        ]
+      ]
+    },
+    {
+      "id": "trans",
+      "input": "why",
+      "member": "why3/src/core/trans.ml",
+      "ranges": [
+        [
+          75,
+          103
+        ]
+      ]
+    },
+    {
+      "id": "hashcons",
+      "input": "why",
+      "member": "why3/src/util/hashcons.ml",
+      "ranges": [
+        [
+          32,
+          62
+        ]
+      ]
+    },
+    {
+      "id": "weakhtbl",
+      "input": "why",
+      "member": "why3/src/util/weakhtbl.ml",
+      "ranges": [
+        [
+          56,
+          122
+        ]
+      ]
+    },
+    {
+      "id": "bigint",
+      "input": "why",
+      "member": "why3/src/util/bigInt.ml",
+      "ranges": [
+        [
+          12,
+          22
+        ],
+        [
+          58,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "handler",
+      "input": "why",
+      "member": "why3/src/gnat/gnat_main.ml",
+      "ranges": [
+        [
+          298,
+          309
+        ],
+        [
+          356,
+          360
+        ]
+      ]
+    },
+    {
+      "id": "gnat_util",
+      "input": "why",
+      "member": "why3/src/gnat/gnat_util.ml",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "shape",
+      "input": "why",
+      "member": "why3/src/session/termcode.ml",
+      "ranges": [
+        [
+          220,
+          228
+        ],
+        [
+          338,
+          355
+        ],
+        [
+          400,
+          407
+        ],
+        [
+          599,
+          627
+        ]
+      ]
+    },
+    {
+      "id": "save",
+      "input": "why",
+      "member": "why3/src/session/session_itp.ml",
+      "ranges": [
+        [
+          1933,
+          1952
+        ],
+        [
+          2098,
+          2135
+        ],
+        [
+          2166,
+          2245
+        ]
+      ]
+    },
+    {
+      "id": "sysutil",
+      "input": "why",
+      "member": "why3/src/util/sysutil.ml",
+      "ranges": [
+        [
+          11,
+          16
+        ],
+        [
+          131,
+          136
+        ]
+      ]
+    },
+    {
+      "id": "debug",
+      "input": "why",
+      "member": "why3/src/util/debug.ml",
+      "ranges": [
+        [
+          158,
+          190
+        ]
+      ]
+    },
+    {
+      "id": "json",
+      "input": "why",
+      "member": "why3/src/util/json_base.ml",
+      "ranges": [
+        [
+          13,
+          78
+        ]
+      ]
+    },
+    {
+      "id": "exn_printer",
+      "input": "why",
+      "member": "why3/src/util/exn_printer.ml",
+      "ranges": [
+        [
+          12,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "tuple",
+      "input": "why",
+      "member": "why3/src/core/ty.ml",
+      "ranges": [
+        [
+          278,
+          289
+        ]
+      ]
+    },
+    {
+      "id": "zarith",
+      "input": "zarith_c",
+      "member": null,
+      "ranges": [
+        [
+          38,
+          51
+        ],
+        [
+          1004,
+          1083
+        ],
+        [
+          1259,
+          1271
+        ],
+        [
+          3461,
+          3476
+        ],
+        [
+          3509,
+          3538
+        ]
+      ]
+    },
+    {
+      "id": "zarith_z",
+      "input": "zarith_z",
+      "member": null,
+      "ranges": [
+        [
+          228,
+          234
+        ]
+      ]
+    },
+    {
+      "id": "zarith_big",
+      "input": "zarith_big",
+      "member": null,
+      "ranges": [
+        [
+          77,
+          86
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "input": "capture",
+  "plan_member": "plan.json",
+  "plan_sha256": "1f06a3fd9b4293d5a8f4c6d797cfcc15a9638a0793efb0e5e2d3ba21253e5c6a",
+  "summary_member": "input_is_valid/capture/summary.json",
+  "summary_sha256": "6f3bd6bd4a56a27e2bd61f32796d0dd96c69150f17870e27e3698dcce2b9747b",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LC_ALL": "C",
+    "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261018/input_is_valid/temp",
+    "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+  },
+  "scope": "Retained launch input; source-prefix derivation, not a live selector observation."
+}

@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "input_files": 29,
+  "source_witness_files": 53,
+  "source_excerpt_ranges": 90,
+  "source_family_members": 233,
+  "additional_source_family": "Zarith",
+  "ELF_lifecycle_images": 3,
+  "CRT_provider_images": 7,
+  "source_file_label_rows": 153,
+  "source_selector_occurrences": 88,
+  "source_lifetime_occurrences": 3,
+  "source_root_rows": 11,
+  "source_contracts": 7,
+  "source_selectors": 17,
+  "N_native": 0,
+  "N_native_basis": "inspected source argument under named external behavior relation; not checker-proved semantics",
+  "composed_endpoint_upper": 89493,
+  "below_tagged_counter_limit": true,
+  "new_native_runs": 0,
+  "new_disassembly_runs": 0,
+  "old_expensive_checks_replayed": 0
+}

@@ -1,0 +1,1023 @@
+{
+  "schema": 1,
+  "scope": "Source identity/excerpt witnesses; not a semantic proof or native closure census.",
+  "witnesses": [
+    {
+      "id": "memprof",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+      "source_sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac",
+      "source_lines": 1136,
+      "excerpts": [
+        {
+          "first_line": 628,
+          "last_line": 660,
+          "sha256": "2f3cf6a180636a63c9d9fac870e4f2a01908967a8dcf042995e556a293757335",
+          "text": "typedef void (*ea_action)(struct entry_array*, void*);\nstruct call_on_entry_array_data { ea_action f; void *data; };\nstatic void call_on_entry_array(struct caml_memprof_th_ctx* ctx, void *data)\n{\n  struct call_on_entry_array_data* closure = data;\n  closure->f(&ctx->entries, closure->data);\n}\n\nstatic void entry_arrays_iter(ea_action f, void *data)\n{\n  struct call_on_entry_array_data closure = { f, data };\n  f(&entries_global, data);\n  caml_memprof_th_ctx_iter_hook(call_on_entry_array, &closure);\n}\n\nstatic void entry_array_oldify_young_roots(struct entry_array *ea, void *data)\n{\n  uintnat i;\n  (void)data;\n  /* This loop should always have a small number of iterations (when\n     compared to the size of the minor heap), because the young_idx\n     pointer should always be close to the end of the array. Indeed,\n     it is only moved back when returning from a callback triggered by\n     allocation or promotion, which can only happen for blocks\n     allocated recently, which are close to the end of the\n     [entries_global] array. */\n  for (i = ea->young_idx; i < ea->len; i++)\n    caml_oldify_one(ea->t[i].user_data, &ea->t[i].user_data);\n}\n\nvoid caml_memprof_oldify_young_roots(void)\n{\n  entry_arrays_iter(entry_array_oldify_young_roots, NULL);\n"
+        },
+        {
+          "first_line": 689,
+          "last_line": 712,
+          "sha256": "1352ce81df65e9f252baddc1ea3527932603a4946d7b4f199645f261a8748033",
+          "text": "void caml_memprof_minor_update(void)\n{\n  if (callback_idx > entries_global.young_idx) {\n    /* The entries after [entries_global.young_idx] will possibly get\n       promoted. Hence, there might be pending promotion callbacks. */\n    callback_idx = entries_global.young_idx;\n    check_action_pending();\n  }\n\n  entry_arrays_iter(entry_array_minor_update, NULL);\n}\n\nstatic void entry_array_do_roots(struct entry_array *ea, void* data)\n{\n  scanning_action f = data;\n  uintnat i;\n  for (i = 0; i < ea->len; i++)\n    f(ea->t[i].user_data, &ea->t[i].user_data);\n}\n\nvoid caml_memprof_do_roots(scanning_action f)\n{\n  entry_arrays_iter(entry_array_do_roots, f);\n}\n"
+        },
+        {
+          "first_line": 1095,
+          "last_line": 1110,
+          "sha256": "3c7a55924525cb36b41eb4f7f4918157526bf7c08b0ff5c426a0d3d96c1da6d2",
+          "text": "static void th_ctx_iter_default(th_ctx_action f, void* data) {\n  f(local, data);\n}\n\nCAMLexport void (*caml_memprof_th_ctx_iter_hook)(th_ctx_action, void*)\n  = th_ctx_iter_default;\n\nCAMLexport struct caml_memprof_th_ctx* caml_memprof_new_th_ctx(void)\n{\n  struct caml_memprof_th_ctx* ctx =\n    caml_stat_alloc(sizeof(struct caml_memprof_th_ctx));\n  ctx->suspended = 0;\n  ctx->callback_status = CB_IDLE;\n  ctx->entries.t = NULL;\n  ctx->entries.min_alloc_len = MIN_ENTRIES_LOCAL_ALLOC_LEN;\n  ctx->entries.alloc_len = ctx->entries.len = 0;\n"
+        }
+      ]
+    },
+    {
+      "id": "roots",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+      "source_sha256": "4e6d01431de0ca6877d992ef43d41a69d36b7ea43a1da3ec1928447c025de8c1",
+      "source_lines": 530,
+      "excerpts": [
+        {
+          "first_line": 30,
+          "last_line": 38,
+          "sha256": "02573a485f0c96d8986d13d1e829786049e8e2fe1355e854cb2c73b4e3c806f3",
+          "text": "#include \"caml/eventlog.h\"\n#include <string.h>\n#include <stdio.h>\n\n/* Roots registered from C functions */\n\nvoid (*caml_scan_roots_hook) (scanning_action) = NULL;\n\n/* The hashtable of frame descriptors */\n"
+        },
+        {
+          "first_line": 330,
+          "last_line": 346,
+          "sha256": "d856f65f641cd14ca2950f2c921bce0a740c5cb17494b9798fd4efac0e4189b9",
+          "text": "  /* Local C roots */\n  for (lr = Caml_state->local_roots; lr != NULL; lr = lr->next) {\n    for (i = 0; i < lr->ntables; i++){\n      for (j = 0; j < lr->nitems; j++){\n        root = &(lr->tables[i][j]);\n        Oldify (root);\n      }\n    }\n  }\n  /* Global C roots */\n  caml_scan_global_young_roots(&caml_oldify_one);\n  /* Finalised values */\n  caml_final_oldify_young_roots ();\n  /* Memprof */\n  caml_memprof_oldify_young_roots ();\n  /* Hook */\n  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(&caml_oldify_one);\n"
+        },
+        {
+          "first_line": 405,
+          "last_line": 452,
+          "sha256": "1bbc51cfbe9146009eae8b2a5b80e9a187a8f34fef7ef8b74cbaa10d63ff969e",
+          "text": "void caml_do_roots (scanning_action f, int do_globals)\n{\n  int i, j;\n  value * glob;\n  link *lnk;\n\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_DYNAMIC_GLOBAL);\n  if (do_globals){\n    /* The global roots */\n    for (i = 0; caml_globals[i] != 0; i++) {\n      for(glob = caml_globals[i]; *glob != 0; glob++) {\n        for (j = 0; j < Wosize_val(*glob); j++)\n          f (Field (*glob, j), &Field (*glob, j));\n      }\n    }\n  }\n  /* Dynamic global roots */\n  iter_list(caml_dyn_globals, lnk) {\n    for(glob = (value *) lnk->data; *glob != 0; glob++) {\n      for (j = 0; j < Wosize_val(*glob); j++){\n        f (Field (*glob, j), &Field (*glob, j));\n      }\n    }\n  }\n  CAML_EV_END(EV_MAJOR_ROOTS_DYNAMIC_GLOBAL);\n  /* The stack and local roots */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_LOCAL);\n  caml_do_local_roots_nat(f, Caml_state->bottom_of_stack,\n                          Caml_state->last_return_address, Caml_state->gc_regs,\n                          Caml_state->local_roots);\n  CAML_EV_END(EV_MAJOR_ROOTS_LOCAL);\n  /* Global C roots */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_C);\n  caml_scan_global_roots(f);\n  CAML_EV_END(EV_MAJOR_ROOTS_C);\n  /* Finalised values */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_FINALISED);\n  caml_final_do_roots (f);\n  CAML_EV_END(EV_MAJOR_ROOTS_FINALISED);\n  /* Memprof */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_MEMPROF);\n  caml_memprof_do_roots (f);\n  CAML_EV_END(EV_MAJOR_ROOTS_MEMPROF);\n  /* Hook */\n  CAML_EV_BEGIN(EV_MAJOR_ROOTS_HOOK);\n  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(f);\n  CAML_EV_END(EV_MAJOR_ROOTS_HOOK);\n}\n"
+        },
+        {
+          "first_line": 520,
+          "last_line": 529,
+          "sha256": "c7280bafce1bdf53f31fb6cab6bd837dc0bde9cab1cf2fdf89002eb5c37723da",
+          "text": "uintnat (*caml_stack_usage_hook)(void) = NULL;\n\nuintnat caml_stack_usage (void)\n{\n  uintnat sz;\n  sz = (value *) Caml_state->top_of_stack -\n       (value *) Caml_state->bottom_of_stack;\n  if (caml_stack_usage_hook != NULL)\n    sz += (*caml_stack_usage_hook)();\n  return sz;\n"
+        }
+      ]
+    },
+    {
+      "id": "thread",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "source_sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0",
+      "source_lines": 957,
+      "excerpts": [
+        {
+          "first_line": 140,
+          "last_line": 173,
+          "sha256": "41ba263ddbc5deb3d58f582a18fddb4c94334b864743dedf93ab85d7b13a8e36",
+          "text": "static void (*prev_scan_roots_hook) (scanning_action);\n\nstatic void caml_thread_scan_roots(scanning_action action)\n{\n  caml_thread_t th = curr_thread;\n  do {\n    (*action)(th->descr, &th->descr);\n    (*action)(th->backtrace_last_exn, &th->backtrace_last_exn);\n    /* Don't rescan the stack of the current thread, it was done already */\n    if (th != curr_thread) {\n#ifdef NATIVE_CODE\n      if (th->bottom_of_stack != NULL)\n        caml_do_local_roots(action, th->bottom_of_stack, th->last_retaddr,\n                       th->gc_regs, th->local_roots);\n#else\n      caml_do_local_roots(action, th->sp, th->stack_high, th->local_roots);\n#endif\n    }\n    th = th->next;\n  } while (th != curr_thread);\n  /* Hook */\n  if (prev_scan_roots_hook != NULL) (*prev_scan_roots_hook)(action);\n}\n\n/* Hook for iterating over Memprof's entries arrays */\n\nstatic void memprof_ctx_iter(th_ctx_action f, void* data)\n{\n  caml_thread_t th = curr_thread;\n  do {\n    f(th->memprof_ctx, data);\n    th = th->next;\n  } while (th != curr_thread);\n}\n"
+        },
+        {
+          "first_line": 235,
+          "last_line": 301,
+          "sha256": "5c551a3780d655e149ab0217ef245c4b8157e1cf050bd4a9ec23eae99b28d0ce",
+          "text": "static void caml_thread_leave_blocking_section(void)\n{\n#ifdef _WIN32\n  /* TlsGetValue calls SetLastError which will mask any error which occurred\n     prior to the caml_thread_leave_blocking_section call. EnterCriticalSection\n     does not do this. */\n  DWORD error = GetLastError();\n#endif\n  /* Wait until the runtime is free */\n  st_masterlock_acquire(&caml_master_lock);\n  /* Update curr_thread to point to the thread descriptor corresponding\n     to the thread currently executing */\n  curr_thread = st_tls_get(thread_descriptor_key);\n  /* Restore the runtime state from the curr_thread descriptor */\n  caml_thread_restore_runtime_state();\n#ifdef _WIN32\n  SetLastError(error);\n#endif\n}\n\n/* Hooks for I/O locking */\n\nstatic void caml_io_mutex_free(struct channel *chan)\n{\n  st_mutex mutex = chan->mutex;\n  if (mutex != NULL) {\n    st_mutex_destroy(mutex);\n    chan->mutex = NULL;\n  }\n}\n\nstatic void caml_io_mutex_lock(struct channel *chan)\n{\n  st_mutex mutex = chan->mutex;\n\n  if (mutex == NULL) {\n    st_check_error(st_mutex_create(&mutex), \"channel locking\"); /*PR#7038*/\n    chan->mutex = mutex;\n  }\n  /* PR#4351: first try to acquire mutex without releasing the master lock */\n  if (st_mutex_trylock(mutex) == MUTEX_PREVIOUSLY_UNLOCKED) {\n    st_tls_set(last_channel_locked_key, (void *) chan);\n    return;\n  }\n  /* If unsuccessful, block on mutex */\n  caml_enter_blocking_section();\n  st_mutex_lock(mutex);\n  /* Problem: if a signal occurs at this point,\n     and the signal handler raises an exception, we will not\n     unlock the mutex.  The alternative (doing the setspecific\n     before locking the mutex is also incorrect, since we could\n     then unlock a mutex that is unlocked or locked by someone else. */\n  st_tls_set(last_channel_locked_key, (void *) chan);\n  caml_leave_blocking_section();\n}\n\nstatic void caml_io_mutex_unlock(struct channel *chan)\n{\n  st_mutex_unlock(chan->mutex);\n  st_tls_set(last_channel_locked_key, NULL);\n}\n\nstatic void caml_io_mutex_unlock_exn(void)\n{\n  struct channel * chan = st_tls_get(last_channel_locked_key);\n  if (chan != NULL) caml_io_mutex_unlock(chan);\n}\n"
+        },
+        {
+          "first_line": 305,
+          "last_line": 327,
+          "sha256": "3f954b51fd956505e522cf83a104baf66a20b7e3f00fd8c68562eae4e0800ea9",
+          "text": "static uintnat (*prev_stack_usage_hook)(void);\n\nstatic uintnat caml_thread_stack_usage(void)\n{\n  uintnat sz;\n  caml_thread_t th;\n\n  /* Don't add stack for current thread, this is done elsewhere */\n  for (sz = 0, th = curr_thread->next;\n       th != curr_thread;\n       th = th->next) {\n#ifdef NATIVE_CODE\n  if(th->top_of_stack != NULL && th->bottom_of_stack != NULL &&\n     th->top_of_stack > th->bottom_of_stack)\n       sz += (value *) th->top_of_stack - (value *) th->bottom_of_stack;\n#else\n    sz += th->stack_high - th->sp;\n#endif\n  }\n  if (prev_stack_usage_hook != NULL)\n    sz += prev_stack_usage_hook();\n  return sz;\n}\n"
+        },
+        {
+          "first_line": 399,
+          "last_line": 476,
+          "sha256": "dda300968b6d27d98a4182f8735e96a8c9a2c5a8ea868964452f239470ce1f51",
+          "text": "\n/* Reinitialize the thread machinery after a fork() (PR#4577) */\n\nstatic void caml_thread_reinitialize(void)\n{\n  struct channel * chan;\n\n  /* Remove all other threads (now nonexistent)\n     from the doubly-linked list of threads */\n  while (curr_thread->next != curr_thread) {\n    caml_memprof_delete_th_ctx(curr_thread->next->memprof_ctx);\n    caml_thread_remove_info(curr_thread->next);\n  }\n\n  /* Reinitialize the master lock machinery,\n     just in case the fork happened while other threads were doing\n     caml_leave_blocking_section */\n  st_masterlock_init(&caml_master_lock);\n  /* Tick thread is not currently running in child process, will be\n     re-created at next Thread.create */\n  caml_tick_thread_running = 0;\n  /* Reinitialize all IO mutexes */\n  for (chan = caml_all_opened_channels;\n       chan != NULL;\n       chan = chan->next) {\n    if (chan->mutex != NULL) st_mutex_init(chan->mutex);\n  }\n}\n\n/* Initialize the thread machinery */\n\nCAMLprim value caml_thread_initialize(value unit)   /* ML */\n{\n  /* Protect against repeated initialization (PR#3532) */\n  if (curr_thread != NULL) return Val_unit;\n  /* OS-specific initialization */\n  st_initialize();\n  /* Initialize and acquire the master lock */\n  st_masterlock_init(&caml_master_lock);\n  /* Initialize the keys */\n  st_tls_newkey(&thread_descriptor_key);\n  st_tls_newkey(&last_channel_locked_key);\n  /* Set up a thread info block for the current thread */\n  curr_thread =\n    (caml_thread_t) caml_stat_alloc(sizeof(struct caml_thread_struct));\n  curr_thread->descr = caml_thread_new_descriptor(Val_unit);\n  curr_thread->next = curr_thread;\n  curr_thread->prev = curr_thread;\n  all_threads = curr_thread;\n  curr_thread->backtrace_last_exn = Val_unit;\n#ifdef NATIVE_CODE\n  curr_thread->exit_buf = &caml_termination_jmpbuf;\n#endif\n  curr_thread->memprof_ctx = &caml_memprof_main_ctx;\n  /* The stack-related fields will be filled in at the next\n     caml_enter_blocking_section */\n  /* Associate the thread descriptor with the thread */\n  st_tls_set(thread_descriptor_key, (void *) curr_thread);\n  st_thread_set_id(Ident(curr_thread->descr));\n  /* Set up the hooks */\n  prev_scan_roots_hook = caml_scan_roots_hook;\n  caml_scan_roots_hook = caml_thread_scan_roots;\n  caml_enter_blocking_section_hook = caml_thread_enter_blocking_section;\n  caml_leave_blocking_section_hook = caml_thread_leave_blocking_section;\n#ifdef NATIVE_CODE\n  caml_termination_hook = st_thread_exit;\n#endif\n  caml_channel_mutex_free = caml_io_mutex_free;\n  caml_channel_mutex_lock = caml_io_mutex_lock;\n  caml_channel_mutex_unlock = caml_io_mutex_unlock;\n  caml_channel_mutex_unlock_exn = caml_io_mutex_unlock_exn;\n  prev_stack_usage_hook = caml_stack_usage_hook;\n  caml_stack_usage_hook = caml_thread_stack_usage;\n  caml_memprof_th_ctx_iter_hook = memprof_ctx_iter;\n  /* Set up fork() to reinitialize the thread machinery in the child\n     (PR#4577) */\n  caml_atfork_hook = caml_thread_reinitialize;\n  return Val_unit;\n"
+        },
+        {
+          "first_line": 723,
+          "last_line": 740,
+          "sha256": "cb60c7ad42bd546a4bdc09d1cb1d52e0d2dcd62aad416b708ef8dd83cfe4cce0",
+          "text": "CAMLprim value caml_thread_yield(value unit)        /* ML */\n{\n  if (st_masterlock_waiters(&caml_master_lock) == 0) return Val_unit;\n\n  /* Do all the parts of a blocking section enter/leave except lock\n     manipulation, which we'll do more efficiently in st_thread_yield. (Since\n     our blocking section doesn't contain anything interesting, don't bother\n     with saving errno.)\n  */\n  caml_raise_if_exception(caml_process_pending_signals_exn());\n  caml_thread_save_runtime_state();\n  st_thread_yield(&caml_master_lock);\n  curr_thread = st_tls_get(thread_descriptor_key);\n  caml_thread_restore_runtime_state();\n  caml_raise_if_exception(caml_process_pending_signals_exn());\n\n  return Val_unit;\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "thread_posix",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_posix.h",
+      "source_sha256": "75c5a63ddb3f8d3e2e772032734d36d6c25c2175ee3627198c566992a8399811",
+      "source_lines": 475,
+      "excerpts": [
+        {
+          "first_line": 37,
+          "last_line": 41,
+          "sha256": "8969c0147de262f90b2434b547f604d45e97fb633e9dba088d45657240c421c4",
+          "text": "static int st_initialize(void)\n{\n  caml_sigmask_hook = pthread_sigmask;\n  return 0;\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "thread_ml",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+      "source_sha256": "ccbfe9d1a2f8b31d1374a0cf1b24a5be91686d3d9e307a76047ba4734ba2c9cb",
+      "source_lines": 121,
+      "excerpts": [
+        {
+          "first_line": 81,
+          "last_line": 102,
+          "sha256": "095b9cab8c11338e79152cdd317d90dfd374f8278b99cb51905ef97d481fd03f",
+          "text": "(* Preemption *)\n\nlet preempt signal = yield()\n\n(* Initialization of the scheduler *)\n\nlet preempt_signal =\n  match Sys.os_type with\n  | \"Win32\" -> Sys.sigterm\n  | _       -> Sys.sigvtalrm\n\nlet () =\n  Sys.set_signal preempt_signal (Sys.Signal_handle preempt);\n  thread_initialize ();\n  Callback.register \"Thread.at_shutdown\" (fun () ->\n    thread_cleanup();\n    (* In case of DLL-embedded OCaml the preempt_signal handler\n       will point to nowhere after DLL unloading and an accidental\n       preempt_signal will crash the main program. So restore the\n       default handler. *)\n    Sys.set_signal preempt_signal Sys.Signal_default\n  )\n"
+        }
+      ]
+    },
+    {
+      "id": "io",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "source_sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359",
+      "source_lines": 889,
+      "excerpts": [
+        {
+          "first_line": 58,
+          "last_line": 80,
+          "sha256": "a51ccd207810b023a25d00cb9f3a941d39da6db3374ea239540ee0d7dedeb688",
+          "text": "CAMLexport void (*caml_channel_mutex_free) (struct channel *) = NULL;\nCAMLexport void (*caml_channel_mutex_lock) (struct channel *) = NULL;\nCAMLexport void (*caml_channel_mutex_unlock) (struct channel *) = NULL;\nCAMLexport void (*caml_channel_mutex_unlock_exn) (void) = NULL;\n\n/* List of opened channels */\nCAMLexport struct channel * caml_all_opened_channels = NULL;\n\n/* Basic functions over type struct channel *.\n   These functions can be called directly from C.\n   No locking is performed. */\n\n/* Functions shared between input and output */\n\nstatic void check_pending(struct channel *channel)\n{\n  if (caml_check_pending_actions()) {\n    /* Temporarily unlock the channel, to ensure locks are not held\n       while any signal handlers (or finalisers, etc) are running */\n    Unlock(channel);\n    caml_process_pending_actions();\n    Lock(channel);\n  }\n"
+        },
+        {
+          "first_line": 445,
+          "last_line": 502,
+          "sha256": "353775e18a6700f6b51fa932aa8fc75878eee4cdd4b8f3dae8c1fa5f8abf23c0",
+          "text": "void caml_finalize_channel(value vchan)\n{\n  struct channel * chan = Channel(vchan);\n  if ((chan->flags & CHANNEL_FLAG_MANAGED_BY_GC) == 0) return;\n  if (--chan->refcount > 0) return;\n  if (caml_channel_mutex_free != NULL) (*caml_channel_mutex_free)(chan);\n\n  if (chan->fd != -1 && chan->name && caml_runtime_warnings_active())\n    fprintf(stderr,\n            \"[ocaml] channel opened on file '%s' dies without being closed\\n\",\n            chan->name\n            );\n\n  if (chan->max == NULL && chan->curr != chan->buff){\n    /*\n      This is an unclosed out channel (chan->max == NULL) with a\n      non-empty buffer: keep it around so the OCaml [at_exit] function\n      gets a chance to flush it.  We would want to simply flush the\n      channel now, but (i) flushing can raise exceptions, and (ii) it\n      is potentially a blocking operation.  Both are forbidden in a\n      finalization function.\n\n      Refs:\n      http://caml.inria.fr/mantis/view.php?id=6902\n      https://github.com/ocaml/ocaml/pull/210\n    */\n    if (chan->name && caml_runtime_warnings_active())\n      fprintf(stderr,\n              \"[ocaml] (moreover, it has unflushed data)\\n\"\n              );\n  } else {\n    unlink_channel(chan);\n    caml_stat_free(chan->name);\n    caml_stat_free(chan);\n  }\n}\n\nstatic int compare_channel(value vchan1, value vchan2)\n{\n  struct channel * chan1 = Channel(vchan1);\n  struct channel * chan2 = Channel(vchan2);\n  return (chan1 == chan2) ? 0 : (chan1 < chan2) ? -1 : 1;\n}\n\nstatic intnat hash_channel(value vchan)\n{\n  return (intnat) (Channel(vchan));\n}\n\nstatic struct custom_operations channel_operations = {\n  \"_chan\",\n  caml_finalize_channel,\n  compare_channel,\n  hash_channel,\n  custom_serialize_default,\n  custom_deserialize_default,\n  custom_compare_ext_default,\n  custom_fixed_length_default\n"
+        }
+      ]
+    },
+    {
+      "id": "signals",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "source_sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c",
+      "source_lines": 491,
+      "excerpts": [
+        {
+          "first_line": 53,
+          "last_line": 58,
+          "sha256": "a68581c27fd9e66255b431552f77bbcd2ff9a826edb45fc7aeb908e89908f638",
+          "text": "  if(sigprocmask(how, set, oldset) != 0) return errno;\n  else return 0;\n}\n\nCAMLexport int (*caml_sigmask_hook)(int, const sigset_t *, sigset_t *)\n  = sigprocmask_wrapper;\n"
+        },
+        {
+          "first_line": 137,
+          "last_line": 181,
+          "sha256": "56910cebb7bbd46cb2c3a6bed529f30b930dd73ba01b0560093372220374ca3c",
+          "text": "\nstatic void caml_enter_blocking_section_default(void)\n{\n}\n\nstatic void caml_leave_blocking_section_default(void)\n{\n}\n\nCAMLexport void (*caml_enter_blocking_section_hook)(void) =\n   caml_enter_blocking_section_default;\nCAMLexport void (*caml_leave_blocking_section_hook)(void) =\n   caml_leave_blocking_section_default;\n\nCAMLno_tsan /* The read of [caml_something_to_do] is not synchronized. */\nCAMLexport void caml_enter_blocking_section(void)\n{\n  while (1){\n    /* Process all pending signals now */\n    caml_raise_if_exception(caml_process_pending_signals_exn());\n    caml_enter_blocking_section_hook ();\n    /* Check again for pending signals.\n       If none, done; otherwise, try again */\n    if (! signals_are_pending) break;\n    caml_leave_blocking_section_hook ();\n  }\n}\n\nCAMLexport void caml_enter_blocking_section_no_pending(void)\n{\n  caml_enter_blocking_section_hook ();\n}\n\nCAMLexport void caml_leave_blocking_section(void)\n{\n  int saved_errno;\n  /* Save the value of errno (PR#5982). */\n  saved_errno = errno;\n  caml_leave_blocking_section_hook ();\n\n  /* Some other thread may have switched\n     [signals_are_pending] to 0 even though there are still\n     pending signals (masked in the other thread). To handle this\n     case, we force re-examination of all signals by setting it back\n     to 1.\n"
+        },
+        {
+          "first_line": 260,
+          "last_line": 292,
+          "sha256": "67373cce332d045749f58f5a84e979bb48ebf4960267d249668db06e4d8eb9d1",
+          "text": "value caml_do_pending_actions_exn(void)\n{\n  value exn;\n\n  caml_something_to_do = 0;\n\n  // Do any pending minor collection or major slice\n  caml_check_urgent_gc(Val_unit);\n\n  caml_update_young_limit();\n\n  // Call signal handlers first\n  exn = caml_process_pending_signals_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call memprof callbacks\n  exn = caml_memprof_handle_postponed_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call finalisers\n  exn = caml_final_do_calls_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  return Val_unit;\n\nexception:\n  /* If an exception is raised during an asynchronous callback, then\n     it might be the case that we did not run all the callbacks we\n     needed. Therefore, we set [caml_something_to_do] again in order\n     to force reexamination of callbacks. */\n  caml_set_action_pending();\n  return exn;\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "raise",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/fail_nat.c",
+      "source_sha256": "126fa3f69d1b69149ca65f5a3717baac36cd6203f7cd7d1aa20b4a0b1a18cda1",
+      "source_lines": 218,
+      "excerpts": [
+        {
+          "first_line": 63,
+          "last_line": 88,
+          "sha256": "4ee4ec90ee8875ad71020713e497751d6d5289379ee4dce579aa7e9a00770218",
+          "text": "void caml_raise(value v)\n{\n  Unlock_exn();\n\n  CAMLassert(!Is_exception_result(v));\n\n  // avoid calling caml_raise recursively\n  v = caml_process_pending_actions_with_root_exn(v);\n  if (Is_exception_result(v))\n    v = Extract_exception(v);\n\n  if (Caml_state->exception_pointer == NULL) {\n    caml_terminate_signals();\n    caml_fatal_uncaught_exception(v);\n  }\n\n  while (Caml_state->local_roots != NULL &&\n         (char *) Caml_state->local_roots < Caml_state->exception_pointer) {\n    Caml_state->local_roots = Caml_state->local_roots->next;\n  }\n\n  caml_raise_exception(Caml_state, v);\n}\n\n/* Used by the stack overflow handler -> deactivate ASAN (see\n   segv_handler in signals_nat.c). */\n"
+        }
+      ]
+    },
+    {
+      "id": "misc",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "source_sha256": "138584a5e7fdf75e28440d9319cfac561091cb0c085e6ce45cccb7244d977794",
+      "source_lines": 204,
+      "excerpts": [
+        {
+          "first_line": 36,
+          "last_line": 42,
+          "sha256": "c9f60b74181e6c83eb39bdce4bae9f5cf9204729105587022eb0350983810233",
+          "text": "\ncaml_timing_hook caml_major_slice_begin_hook = NULL;\ncaml_timing_hook caml_major_slice_end_hook = NULL;\ncaml_timing_hook caml_minor_gc_begin_hook = NULL;\ncaml_timing_hook caml_minor_gc_end_hook = NULL;\ncaml_timing_hook caml_finalise_begin_hook = NULL;\ncaml_timing_hook caml_finalise_end_hook = NULL;\n"
+        },
+        {
+          "first_line": 79,
+          "last_line": 94,
+          "sha256": "100530d8401adf62ec93126db5bfe0b94e6d086441250dffc5daf743feb59a2c",
+          "text": "void (*caml_fatal_error_hook) (char *msg, va_list args) = NULL;\n\nCAMLexport void caml_fatal_error (char *msg, ...)\n{\n  va_list ap;\n  va_start(ap, msg);\n  if(caml_fatal_error_hook != NULL) {\n    caml_fatal_error_hook(msg, ap);\n  } else {\n    fprintf (stderr, \"Fatal error: \");\n    vfprintf (stderr, msg, ap);\n    fprintf (stderr, \"\\n\");\n  }\n  va_end(ap);\n  abort();\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "misc_header",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+      "source_sha256": "7e5ebfe4f6851181892a640c90e9b3d25b4b52b78ae72cfea31de489a3460fd8",
+      "source_lines": 532,
+      "excerpts": [
+        {
+          "first_line": 238,
+          "last_line": 245,
+          "sha256": "ea3cd19583072e74280c7f41e556955f06ba7a765088c2e6ba5038590f90007c",
+          "text": "/* This hook is called when a fatal error occurs in the OCaml\n   runtime. It is given arguments to be passed to the [vprintf]-like\n   functions in order to synthetize the error message.\n   If it returns, the runtime calls [abort()].\n\n   If it is [NULL], the error message is printed on stderr and then\n   [abort()] is called. */\nextern void (*caml_fatal_error_hook) (char *msg, va_list args);\n"
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+      "source_sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b",
+      "source_lines": 167,
+      "excerpts": [
+        {
+          "first_line": 33,
+          "last_line": 74,
+          "sha256": "9852f5ba844f454ca9721ce47a5d6796c2c51877731e5a143a303c6365cd1d00",
+          "text": "static value alloc_custom_gen (struct custom_operations * ops,\n                               uintnat bsz,\n                               mlsize_t mem,\n                               mlsize_t max_major,\n                               mlsize_t mem_minor,\n                               mlsize_t max_minor)\n{\n  mlsize_t wosize;\n  CAMLparam0();\n  CAMLlocal1(result);\n\n  /* [mem] is the total amount of out-of-heap memory, [mem_minor] is how much\n     of it should be counted against [max_minor]. */\n  CAMLassert (mem_minor <= mem);\n\n  wosize = 1 + (bsz + sizeof(value) - 1) / sizeof(value);\n  if (wosize <= Max_young_wosize) {\n    result = caml_alloc_small(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    if (ops->finalize != NULL || mem != 0) {\n      if (mem > mem_minor) {\n        caml_adjust_gc_speed (mem - mem_minor, max_major);\n      }\n      /* The remaining [mem_minor] will be counted if the block survives a\n         minor GC */\n      add_to_custom_table (Caml_state->custom_table, result,\n                           mem_minor, max_major);\n      /* Keep track of extra resources held by custom block in\n         minor heap. */\n      if (mem_minor != 0) {\n        if (max_minor == 0) max_minor = 1;\n        Caml_state->extra_heap_resources_minor +=\n          (double) mem_minor / (double) max_minor;\n        if (Caml_state->extra_heap_resources_minor > 1.0)\n          caml_minor_collection ();\n      }\n    }\n  } else {\n    result = caml_alloc_shr(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    caml_adjust_gc_speed(mem, max_major);\n    caml_check_urgent_gc(Val_unit);\n"
+        },
+        {
+          "first_line": 118,
+          "last_line": 166,
+          "sha256": "eb3d2d4a9e168bb73d536908dc7fe25507b41c76216b60f5df9fdd10bd028245",
+          "text": "CAMLexport void caml_register_custom_operations(struct custom_operations * ops)\n{\n  struct custom_operations_list * l =\n    caml_stat_alloc(sizeof(struct custom_operations_list));\n  CAMLassert(ops->identifier != NULL);\n  CAMLassert(ops->deserialize != NULL);\n  l->ops = ops;\n  l->next = custom_ops_table;\n  custom_ops_table = l;\n}\n\nstruct custom_operations * caml_find_custom_operations(char * ident)\n{\n  struct custom_operations_list * l;\n  for (l = custom_ops_table; l != NULL; l = l->next)\n    if (strcmp(l->ops->identifier, ident) == 0) return l->ops;\n  return NULL;\n}\n\nstatic struct custom_operations_list * custom_ops_final_table = NULL;\n\nstruct custom_operations * caml_final_custom_operations(final_fun fn)\n{\n  struct custom_operations_list * l;\n  struct custom_operations * ops;\n  for (l = custom_ops_final_table; l != NULL; l = l->next)\n    if (l->ops->finalize == fn) return l->ops;\n  ops = caml_stat_alloc(sizeof(struct custom_operations));\n  ops->identifier = \"_final\";\n  ops->finalize = fn;\n  ops->compare = custom_compare_default;\n  ops->hash = custom_hash_default;\n  ops->serialize = custom_serialize_default;\n  ops->deserialize = custom_deserialize_default;\n  ops->compare_ext = custom_compare_ext_default;\n  ops->fixed_length = custom_fixed_length_default;\n  l = caml_stat_alloc(sizeof(struct custom_operations_list));\n  l->ops = ops;\n  l->next = custom_ops_final_table;\n  custom_ops_final_table = l;\n  return ops;\n}\n\nvoid caml_init_custom_operations(void)\n{\n  caml_register_custom_operations(&caml_int32_ops);\n  caml_register_custom_operations(&caml_nativeint_ops);\n  caml_register_custom_operations(&caml_int64_ops);\n  caml_register_custom_operations(&caml_ba_ops);\n"
+        }
+      ]
+    },
+    {
+      "id": "custom_header",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/custom.h",
+      "source_sha256": "e366c2ad1806442343467a2553fdfc13fb10c9db74c995dccfbf0a9b7b23497e",
+      "source_lines": 89,
+      "excerpts": [
+        {
+          "first_line": 30,
+          "last_line": 40,
+          "sha256": "f12e37128e4394813982a80b9a455cde3d56a0d89c4ffd27ac7f5752c52a0132",
+          "text": "struct custom_operations {\n  char const *identifier;\n  void (*finalize)(value v);\n  int (*compare)(value v1, value v2);\n  intnat (*hash)(value v);\n  void (*serialize)(value v,\n                    /*out*/ uintnat * bsize_32 /*size in bytes*/,\n                    /*out*/ uintnat * bsize_64 /*size in bytes*/);\n  uintnat (*deserialize)(void * dst);\n  int (*compare_ext)(value v1, value v2);\n  const struct custom_fixed_length* fixed_length;\n"
+        }
+      ]
+    },
+    {
+      "id": "startup",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+      "source_sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768",
+      "source_lines": 198,
+      "excerpts": [
+        {
+          "first_line": 86,
+          "last_line": 116,
+          "sha256": "dd6d1121232980be8360e3940bfda8f61465e8dd952a8dbf0abe4828c9225fcf",
+          "text": "int caml_cleanup_on_exit = 0;\n\n\nstatic void scanmult (char_os *opt, uintnat *var)\n{\n  char_os mult = ' ';\n  unsigned int val = 1;\n  sscanf_os (opt, T(\"=%u%c\"), &val, &mult);\n  sscanf_os (opt, T(\"=0x%x%c\"), &val, &mult);\n  switch (mult) {\n  case 'k':   *var = (uintnat) val * 1024; break;\n  case 'M':   *var = (uintnat) val * (1024 * 1024); break;\n  case 'G':   *var = (uintnat) val * (1024 * 1024 * 1024); break;\n  default:    *var = (uintnat) val; break;\n  }\n}\n\nvoid caml_parse_ocamlrunparam(void)\n{\n  char_os *opt = caml_secure_getenv (T(\"OCAMLRUNPARAM\"));\n  uintnat p;\n\n  if (opt == NULL) opt = caml_secure_getenv (T(\"CAMLRUNPARAM\"));\n\n  if (opt != NULL){\n    while (*opt != '\\0'){\n      switch (*opt++){\n      case 'a': scanmult (opt, &caml_init_policy); break;\n      case 'b': scanmult (opt, &p); caml_record_backtraces(p); break;\n      case 'c': scanmult (opt, &p); caml_cleanup_on_exit = (p != 0); break;\n      case 'h': scanmult (opt, &caml_init_heap_wsz); break;\n"
+        },
+        {
+          "first_line": 167,
+          "last_line": 197,
+          "sha256": "484900994329516bda4c84266682c996f519f5d012e01d18482a7292265b64cf",
+          "text": "static void call_registered_value(char* name)\n{\n  const value *f = caml_named_value(name);\n  if (f != NULL)\n    caml_callback_exn(*f, Val_unit);\n}\n\nCAMLexport void caml_shutdown(void)\n{\n  if (startup_count <= 0)\n    caml_fatal_error(\"a call to caml_shutdown has no \"\n                     \"corresponding call to caml_startup\");\n\n  /* Do nothing unless it's the last call remaining */\n  startup_count--;\n  if (startup_count > 0)\n    return;\n\n  call_registered_value(\"Pervasives.do_at_exit\");\n  call_registered_value(\"Thread.at_shutdown\");\n  caml_finalise_heap();\n  caml_free_locale();\n#ifndef NATIVE_CODE\n  caml_free_shared_libs();\n#endif\n  caml_stat_destroy_pool();\n#if defined(_WIN32) && defined(NATIVE_CODE)\n  caml_win32_unregister_overflow_detection();\n#endif\n\n  shutdown_happened = 1;\n"
+        }
+      ]
+    },
+    {
+      "id": "startup_native",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+      "source_sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf",
+      "source_lines": 192,
+      "excerpts": [
+        {
+          "first_line": 110,
+          "last_line": 164,
+          "sha256": "81657d14774a89b4a5e27190cd172a16cf4fcc7b660bf183c83e1180dd4d9b44",
+          "text": "  char tos;\n\n  /* Initialize the domain */\n  caml_init_domain();\n  /* Determine options */\n#ifdef DEBUG\n  caml_verb_gc = 0x3F;\n#endif\n  caml_parse_ocamlrunparam();\n  CAML_EVENTLOG_INIT();\n#ifdef DEBUG\n  caml_gc_message (-1, \"### OCaml runtime: debug mode ###\\n\");\n#endif\n  if (caml_cleanup_on_exit)\n    pooling = 1;\n  if (!caml_startup_aux(pooling))\n    return Val_unit;\n\n  caml_init_frame_descriptors();\n  caml_init_locale();\n#if defined(_MSC_VER) && __STDC_SECURE_LIB__ >= 200411L\n  caml_install_invalid_parameter_handler();\n#endif\n  caml_init_custom_operations();\n  Caml_state->top_of_stack = &tos;\n  caml_init_gc (caml_init_minor_heap_wsz, caml_init_heap_wsz,\n                caml_init_heap_chunk_sz, caml_init_percent_free,\n                caml_init_max_percent_free, caml_init_major_window,\n                caml_init_custom_major_ratio, caml_init_custom_minor_ratio,\n                caml_init_custom_minor_max_bsz, caml_init_policy);\n  init_static();\n  caml_init_signals();\n#ifdef _WIN32\n  caml_win32_overflow_detection();\n#endif\n  caml_init_backtrace();\n  caml_debugger_init (); /* force debugger.o stub to be linked */\n  exe_name = argv[0];\n  if (exe_name == NULL) exe_name = T(\"\");\n  proc_self_exe = caml_executable_name();\n  if (proc_self_exe != NULL)\n    exe_name = proc_self_exe;\n  else\n    exe_name = caml_search_exe_in_path(exe_name);\n  caml_sys_init(exe_name, argv);\n  if (sigsetjmp(caml_termination_jmpbuf.buf, 0)) {\n    caml_terminate_signals();\n    if (caml_termination_hook != NULL) caml_termination_hook(NULL);\n    return Val_unit;\n  }\n  res = caml_start_program(Caml_state);\n  caml_terminate_signals();\n  return res;\n}\n\n"
+        }
+      ]
+    },
+    {
+      "id": "sys",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+      "source_sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa",
+      "source_lines": 730,
+      "excerpts": [
+        {
+          "first_line": 150,
+          "last_line": 179,
+          "sha256": "198a9a240988bee0695eebc5e6e97bdf6cc836e5fa651fe86cd34a9056fbef4d",
+          "text": "                    \"forced_major_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    forcmajcoll);\n  }\n\n#ifndef NATIVE_CODE\n  caml_debugger(PROGRAM_EXIT, Val_unit);\n#endif\n  if (caml_cleanup_on_exit)\n    caml_shutdown();\n#ifdef _WIN32\n  caml_restore_win32_terminal();\n#endif\n  caml_terminate_signals();\n#ifdef NAKED_POINTERS_CHECKER\n  if (retcode == 0 && caml_naked_pointers_detected) {\n    fprintf (stderr, \"\\nOut-of-heap pointers were detected by the runtime.\\n\"\n                     \"The process would otherwise have terminated normally.\\n\");\n    retcode = 70; /* EX_SOFTWARE; see sysexits.h */\n  }\n#endif\n  exit(retcode);\n}\n\nCAMLprim value caml_sys_exit(value retcode)\n{\n  caml_do_exit(Int_val(retcode));\n}\n\n#ifndef O_BINARY\n#define O_BINARY 0\n"
+        },
+        {
+          "first_line": 239,
+          "last_line": 255,
+          "sha256": "fa73dd6f005d3060dcd1f813c8d940181132c32e67ec95ec61b4ecaf7d4cd35a",
+          "text": "CAMLprim value caml_sys_file_exists(value name)\n{\n#ifdef _WIN32\n  struct _stati64 st;\n#else\n  struct stat st;\n#endif\n  char_os * p;\n  int ret;\n\n  if (! caml_string_is_c_safe(name)) return Val_false;\n  p = caml_stat_strdup_to_os(String_val(name));\n  caml_enter_blocking_section();\n  ret = stat_os(p, &st);\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n\n"
+        },
+        {
+          "first_line": 285,
+          "last_line": 318,
+          "sha256": "97a7c176978b6f6d233a0c59ce931617bacb1c3a3ef9cf4b8d71b502d601444d",
+          "text": "CAMLprim value caml_sys_remove(value name)\n{\n  CAMLparam1(name);\n  char_os * p;\n  int ret;\n  caml_sys_check_path(name);\n  p = caml_stat_strdup_to_os(String_val(name));\n  caml_enter_blocking_section();\n  ret = caml_unlink(p);\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n  if (ret != 0) caml_sys_error(name);\n  CAMLreturn(Val_unit);\n}\n\nCAMLprim value caml_sys_rename(value oldname, value newname)\n{\n  char_os * p_old;\n  char_os * p_new;\n  int ret;\n  caml_sys_check_path(oldname);\n  caml_sys_check_path(newname);\n  p_old = caml_stat_strdup_to_os(String_val(oldname));\n  p_new = caml_stat_strdup_to_os(String_val(newname));\n  caml_enter_blocking_section();\n  ret = rename_os(p_old, p_new);\n  caml_leave_blocking_section();\n  caml_stat_free(p_new);\n  caml_stat_free(p_old);\n  if (ret != 0)\n    caml_sys_error(NO_ARG);\n  return Val_unit;\n}\n\n"
+        },
+        {
+          "first_line": 566,
+          "last_line": 617,
+          "sha256": "f027ab9838c5af4e5b18a169d6b58773f9961c316635467d6ebc4aa82f377e62",
+          "text": "int caml_unix_random_seed(intnat data[16])\n{\n  int fd;\n  int n = 0;\n\n  /* Try /dev/urandom first */\n  fd = open(\"/dev/urandom\", O_RDONLY, 0);\n  if (fd != -1) {\n    unsigned char buffer[12];\n    int nread = read(fd, buffer, 12);\n    close(fd);\n    while (nread > 0) data[n++] = buffer[--nread];\n  }\n  /* If the read from /dev/urandom fully succeeded, we now have 96 bits\n     of good random data and can stop here. */\n  if (n >= 12) return n;\n  /* Otherwise, complement whatever we got (probably nothing)\n     with some not-very-random data. */\n  {\n#ifdef HAS_GETTIMEOFDAY\n    struct timeval tv;\n    gettimeofday(&tv, NULL);\n    if (n < 16) data[n++] = tv.tv_usec;\n    if (n < 16) data[n++] = tv.tv_sec;\n#else\n    if (n < 16) data[n++] = time(NULL);\n#endif\n#ifdef HAS_UNISTD\n    if (n < 16) data[n++] = getpid();\n    if (n < 16) data[n++] = getppid();\n#endif\n    return n;\n  }\n}\n#endif\n\nCAMLprim value caml_sys_random_seed (value unit)\n{\n  intnat data[16];\n  int n, i;\n  value res;\n#ifdef _WIN32\n  n = caml_win32_random_seed(data);\n#else\n  n = caml_unix_random_seed(data);\n#endif\n  /* Convert to an OCaml array of ints */\n  res = caml_alloc_small(n, 0);\n  for (i = 0; i < n; i++) Field(res, i) = Val_long(data[i]);\n  return res;\n}\n\n"
+        }
+      ]
+    },
+    {
+      "id": "uncaught",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+      "source_sha256": "5ceac14f0f2dbf51632b15b457956f7c4f163a255cf0d787051018224acd24ee",
+      "source_lines": 162,
+      "excerpts": [
+        {
+          "first_line": 107,
+          "last_line": 162,
+          "sha256": "e1ce10da9dc2f46dd8b614c9751676bd14d589651f4fff4aaefaa5f1b6079ca4",
+          "text": "#  define DEBUGGER_IN_USE caml_debugger_in_use\n#endif\n\n/* Default C implementation in case the OCaml one is not registered. */\nstatic void default_fatal_uncaught_exception(value exn)\n{\n  char * msg;\n  const value * at_exit;\n  int saved_backtrace_active, saved_backtrace_pos;\n\n  /* Build a string representation of the exception */\n  msg = caml_format_exception(exn);\n  /* Perform \"at_exit\" processing, ignoring all exceptions that may\n     be triggered by this */\n  saved_backtrace_active = Caml_state->backtrace_active;\n  saved_backtrace_pos = Caml_state->backtrace_pos;\n  Caml_state->backtrace_active = 0;\n  at_exit = caml_named_value(\"Pervasives.do_at_exit\");\n  if (at_exit != NULL) caml_callback_exn(*at_exit, Val_unit);\n  Caml_state->backtrace_active = saved_backtrace_active;\n  Caml_state->backtrace_pos = saved_backtrace_pos;\n  /* Display the uncaught exception */\n  fprintf(stderr, \"Fatal error: exception %s\\n\", msg);\n  caml_stat_free(msg);\n  /* Display the backtrace if available */\n  if (Caml_state->backtrace_active && !DEBUGGER_IN_USE)\n    caml_print_exception_backtrace();\n}\n\nint caml_abort_on_uncaught_exn = 0; /* see afl.c */\n\nvoid caml_fatal_uncaught_exception(value exn)\n{\n  const value *handle_uncaught_exception;\n\n  handle_uncaught_exception =\n    caml_named_value(\"Printexc.handle_uncaught_exception\");\n\n  /* If the callback allocates, memprof could be called. In this case,\n     memprof's callback could raise an exception while\n     [handle_uncaught_exception] is running, so that the printing of\n     the exception fails. */\n  caml_memprof_set_suspended(1);\n\n  if (handle_uncaught_exception != NULL)\n    /* [Printexc.handle_uncaught_exception] does not raise exception. */\n    caml_callback2(*handle_uncaught_exception, exn, Val_bool(DEBUGGER_IN_USE));\n  else\n    default_fatal_uncaught_exception(exn);\n  /* Terminate the process */\n  if (caml_abort_on_uncaught_exn) {\n    abort();\n  } else {\n    exit(2);\n  }\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "eventlog",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/eventlog.c",
+      "source_sha256": "0d666633191e0536b928a178d567ef076f7895729197f24cf764372d7d2c5f76",
+      "source_lines": 397,
+      "excerpts": [
+        {
+          "first_line": 170,
+          "last_line": 264,
+          "sha256": "c21ef62a766445195c1d4e52692acbb98cb0d26a749cf98637ac10aca8ae6831",
+          "text": "static void flush_events(FILE* out, struct event_buffer* eb)\n{\n  uintnat i;\n  uint64_t flush_duration;\n  uintnat n = eb->ev_generated;\n\n  struct ctf_event_header ev_flush;\n  ev_flush.id = EV_FLUSH;\n  ev_flush.timestamp = time_counter() -\n                        Caml_state->eventlog_startup_timestamp;\n  ev_flush.pid = Caml_state->eventlog_startup_pid;\n\n  for (i = 0; i < n; i++) {\n    struct event ev = eb->events[i];\n    ev.header.pid = Caml_state->eventlog_startup_pid;\n\n    FWRITE_EV(&ev.header, sizeof(struct ctf_event_header));\n\n    switch (ev.header.id)\n    {\n    case EV_ENTRY:\n      FWRITE_EV(&ev.phase, sizeof(uint16_t));\n      break;\n    case EV_EXIT:\n      FWRITE_EV(&ev.phase, sizeof(uint16_t));\n      break;\n    case EV_COUNTER:\n      FWRITE_EV(&ev.count, sizeof(uint64_t));\n      FWRITE_EV(&ev.counter_kind, sizeof(uint16_t));\n      break;\n    case EV_ALLOC:\n      FWRITE_EV(&ev.count, sizeof(uint64_t));\n      FWRITE_EV(&ev.alloc_bucket, sizeof(uint8_t));\n      break;\n    default:\n      break;\n    }\n  }\n\n  flush_duration =\n    (time_counter() - Caml_state->eventlog_startup_timestamp) -\n    ev_flush.timestamp;\n\n  FWRITE_EV(&ev_flush, sizeof(struct ctf_event_header));\n  FWRITE_EV(&flush_duration, sizeof(uint64_t));\n\n  return;\n\n fwrite_failure:\n  /* on event flush failure, shut down eventlog. */\n  if (caml_runtime_warnings_active())\n    fprintf(stderr,\n           \"[ocaml] error while writing trace file, disabling eventlog\\n\");\n  caml_eventlog_disable();\n  return;\n\n}\n\nstatic void teardown_eventlog(void)\n{\n  if (evbuf) {\n    if (Caml_state->eventlog_out)\n      flush_events(Caml_state->eventlog_out, evbuf);\n    caml_stat_free(evbuf);\n    evbuf = NULL;\n  }\n  if (Caml_state->eventlog_out) {\n    fclose(Caml_state->eventlog_out);\n    Caml_state->eventlog_out = NULL;\n  }\n}\n\nvoid caml_eventlog_init(void)\n{\n  char_os *toggle = caml_secure_getenv(T(\"OCAML_EVENTLOG_ENABLED\"));\n\n  if (toggle != NULL) {\n    Caml_state->eventlog_enabled = 1;\n    if (*toggle == 'p')\n      Caml_state->eventlog_paused = 1;\n  };\n\n  if (!Caml_state->eventlog_enabled) return;\n\n  Caml_state->eventlog_startup_timestamp = time_counter();\n#ifdef _WIN32\n  Caml_state->eventlog_startup_pid = _getpid();\n#else\n  Caml_state->eventlog_startup_pid = getpid();\n#endif\n\n  setup_eventlog_file();\n  setup_evbuf();\n\n  atexit(&teardown_eventlog);\n"
+        }
+      ]
+    },
+    {
+      "id": "debugger",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/debugger.c",
+      "source_sha256": "72c5530c6d614e5e309c395b067d19d199cf5b5da27089512fe158bc622242c5",
+      "source_lines": 562,
+      "excerpts": [
+        {
+          "first_line": 182,
+          "last_line": 207,
+          "sha256": "df35a121e8b2c2c27774f038a46d25e80814d93fe356891d567c7cbb29e7af3d",
+          "text": "  marshal_flags = caml_alloc(2, Tag_cons);\n  Store_field(marshal_flags, 0, Val_int(1)); /* Marshal.Closures */\n  Store_field(marshal_flags, 1, Val_emptylist);\n\n  a = caml_secure_getenv(T(\"CAML_DEBUG_SOCKET\"));\n  address = a ? caml_stat_strdup_of_os(a) : NULL;\n  if (address == NULL) return;\n  if (dbg_addr != NULL) caml_stat_free(dbg_addr);\n  dbg_addr = address;\n\n  /* #8676: erase the CAML_DEBUG_SOCKET variable so that processes\n     created by the program being debugged do not try to connect with\n     the debugger. */\n#if defined(_WIN32)\n  _wputenv(L\"CAML_DEBUG_SOCKET=\");\n#elif defined(HAS_SETENV_UNSETENV)\n  unsetenv(\"CAML_DEBUG_SOCKET\");\n#endif\n\n#ifdef _WIN32\n  winsock_startup();\n  (void)atexit(winsock_cleanup);\n#endif\n  /* Parse the address */\n  port = NULL;\n  for (p = address; *p != 0; p++) {\n"
+        }
+      ]
+    },
+    {
+      "id": "weak",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/weak.c",
+      "source_sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c",
+      "source_lines": 677,
+      "excerpts": [
+        {
+          "first_line": 110,
+          "last_line": 139,
+          "sha256": "2371a42483dc2fcd562f3f3e4d5ae3a831b804e6564f3d88768dd3e604eef6d7",
+          "text": "\n/* [len] is a number of words (fields) */\nCAMLexport value caml_ephemeron_create (mlsize_t len)\n{\n  mlsize_t size, i;\n  value res;\n\n  CAMLassert(len <= CAML_EPHE_MAX_WOSIZE);\n  size = len + CAML_EPHE_FIRST_KEY;\n  if (size < CAML_EPHE_FIRST_KEY || size > Max_wosize)\n    caml_invalid_argument (\"Weak.create\");\n  res = caml_alloc_shr (size, Abstract_tag);\n  for (i = 1; i < size; i++) Field (res, i) = caml_ephe_none;\n  Field (res, CAML_EPHE_LINK_OFFSET) = caml_ephe_list_head;\n  caml_ephe_list_head = res;\n  return res;\n}\n\nCAMLprim value caml_ephe_create (value len)\n{\n  value res = caml_ephemeron_create(Long_val(len));\n  // run memprof callbacks\n  return caml_process_pending_actions_with_root(res);\n}\n\nCAMLprim value caml_weak_create (value len)\n{\n  return caml_ephe_create(len);\n}\n\n"
+        },
+        {
+          "first_line": 290,
+          "last_line": 342,
+          "sha256": "17a0db5a9b58273cdc8ae2fefc91040cb78b3c2ef28cc11e60b1c2e424a406d3",
+          "text": "\nCAMLexport void caml_ephemeron_set_data (value ar, value el)\n{\n  value old_data;\n  CAMLassert_valid_ephemeron(ar);\n\n  old_data = Field (ar, CAML_EPHE_DATA_OFFSET);\n  if (caml_gc_phase == Phase_mark && !Is_White_During_Mark(old_data))\n    caml_darken (el, NULL);\n  if (caml_gc_phase == Phase_clean){\n    /* During this phase since we don't know which ephemerons have been\n       cleaned we always need to check it. */\n    caml_ephe_clean(ar);\n  };\n  do_set (ar, CAML_EPHE_DATA_OFFSET, el);\n}\n\nCAMLprim value caml_ephe_set_data (value ar, value el)\n{\n  caml_ephemeron_set_data (ar, el);\n  return Val_unit;\n}\n\nCAMLexport void caml_ephemeron_unset_data (value ar)\n{\n  CAMLassert_valid_ephemeron(ar);\n\n  Field (ar, CAML_EPHE_DATA_OFFSET) = caml_ephe_none;\n}\n\nCAMLprim value caml_ephe_unset_data (value ar)\n{\n  caml_ephemeron_unset_data (ar);\n  return Val_unit;\n}\n\nstatic value optionalize(int status, value *x)\n{\n  CAMLparam0();\n  CAMLlocal2(res, v);\n  if(status) {\n    v = *x;\n    res = caml_alloc_small (1, Some_tag);\n    Field (res, 0) = v;\n  } else {\n    res = None_val;\n  }\n  // run memprof callbacks both for the option we are allocating here\n  // and the calling function.\n  caml_process_pending_actions();\n  CAMLreturn(res);\n}\n\n"
+        }
+      ]
+    },
+    {
+      "id": "hashtbl",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "source_sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f",
+      "source_lines": 630,
+      "excerpts": [
+        {
+          "first_line": 47,
+          "last_line": 76,
+          "sha256": "099b12a93db5e3f1b3c77057dc00068c2b1a79b69e095d3446b73ecb7b38a30a",
+          "text": "(* To pick random seeds if requested *)\n\nlet randomized_default =\n  let params =\n    try Sys.getenv \"OCAMLRUNPARAM\" with Not_found ->\n    try Sys.getenv \"CAMLRUNPARAM\" with Not_found -> \"\" in\n  String.contains params 'R'\n\nlet randomized = ref randomized_default\n\nlet randomize () = randomized := true\nlet is_randomized () = !randomized\n\nlet prng = lazy (Random.State.make_self_init())\n\n(* Functions which appear before the functorial interface must either be\n   independent of the hash function or take it as a parameter (see #2202 and\n   code below the functor definitions. *)\n\n(* Creating a fresh, empty table *)\n\nlet rec power_2_above x n =\n  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n"
+        }
+      ]
+    },
+    {
+      "id": "ephemeron",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+      "source_sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b",
+      "source_lines": 901,
+      "excerpts": [
+        {
+          "first_line": 127,
+          "last_line": 139,
+          "sha256": "21aff07cf73b52922feddea0cd7a745dc4b5143e20e5f327f30a9906173acb00",
+          "text": "    let rec power_2_above x n =\n      if x >= n then x\n      else if x * 2 > Sys.max_array_length then x\n      else power_2_above (x * 2) n\n\n    let prng = lazy (Random.State.make_self_init())\n\n    let create ?(random = (Hashtbl.is_randomized ())) initial_size =\n      let s = power_2_above 16 initial_size in\n      let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n      { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\n    let clear h =\n"
+        },
+        {
+          "first_line": 493,
+          "last_line": 514,
+          "sha256": "1dc4993acd6fde60a57c1462acceb84624759d02d4267692781ae82707bed374",
+          "text": "\nmodule K1 = struct\n  type ('k,'d) t = ObjEph.t\n\n  let create () : ('k,'d) t = ObjEph.create 1\n\n  let get_key (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key t 0)\n  let get_key_copy (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key_copy t 0)\n  let set_key (t:('k,'d) t) (k:'k) : unit = ObjEph.set_key t 0 (Obj.repr k)\n  let unset_key (t:('k,'d) t) : unit = ObjEph.unset_key t 0\n  let check_key (t:('k,'d) t) : bool = ObjEph.check_key t 0\n\n  let blit_key (t1:('k,'d) t) (t2:('k,'d) t): unit =\n    ObjEph.blit_key t1 0 t2 0 1\n\n  let get_data (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data t)\n  let get_data_copy (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data_copy t)\n  let set_data (t:('k,'d) t) (d:'d) : unit = ObjEph.set_data t (Obj.repr d)\n  let unset_data (t:('k,'d) t) : unit = ObjEph.unset_data t\n  let check_data (t:('k,'d) t) : bool = ObjEph.check_data t\n  let blit_data (t1:(_,'d) t) (t2:(_,'d) t) : unit = ObjEph.blit_data t1 t2\n\n"
+        }
+      ]
+    },
+    {
+      "id": "stdlib_weak",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml",
+      "source_sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76",
+      "source_lines": 372,
+      "excerpts": [
+        {
+          "first_line": 18,
+          "last_line": 72,
+          "sha256": "ea94618ebfa344d97ac666c8eae7531d4d24e00aa4183558eb2843827998f37f",
+          "text": "type !'a t\n\nexternal create : int -> 'a t = \"caml_weak_create\"\n\nlet create l =\n  if not (0 <= l && l <= Obj.Ephemeron.max_ephe_length) then\n    invalid_arg(\"Weak.create\");\n  create l\n\n(** number of additional values in a weak pointer *)\nlet additional_values = 2\n\nlet length x = Obj.size(Obj.repr x) - additional_values\n\nlet raise_if_invalid_offset e o msg =\n  if not (0 <= o && o < length e) then\n    invalid_arg(msg)\n\nexternal set' : 'a t -> int -> 'a -> unit = \"caml_ephe_set_key\"\nexternal unset : 'a t -> int -> unit = \"caml_ephe_unset_key\"\nlet set e o x =\n  raise_if_invalid_offset e o \"Weak.set\";\n  match x with\n  | None -> unset e o\n  | Some x -> set' e o x\n\nexternal get : 'a t -> int -> 'a option = \"caml_weak_get\"\nlet get e o =\n  raise_if_invalid_offset e o \"Weak.get\";\n  get e o\n\nexternal get_copy : 'a t -> int -> 'a option = \"caml_weak_get_copy\"\nlet get_copy e o =\n  raise_if_invalid_offset e o \"Weak.get_copy\";\n  get_copy e o\n\nexternal check : 'a t -> int -> bool = \"caml_weak_check\"\nlet check e o =\n  raise_if_invalid_offset e o \"Weak.check\";\n  check e o\n\nexternal blit : 'a t -> int -> 'a t -> int -> int -> unit = \"caml_weak_blit\"\n\n(* blit: src srcoff dst dstoff len *)\nlet blit e1 o1 e2 o2 l =\n  if l < 0 || o1 < 0 || o1 > length e1 - l\n     || o2 < 0 || o2 > length e2 - l\n  then invalid_arg \"Weak.blit\"\n  else if l <> 0 then blit e1 o1 e2 o2 l\n\nlet fill ar ofs len x =\n  if ofs < 0 || len < 0 || ofs > length ar - len\n  then raise (Invalid_argument \"Weak.fill\")\n  else begin\n    for i = ofs to (ofs + len - 1) do\n"
+        }
+      ]
+    },
+    {
+      "id": "stdlib_printexc",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+      "source_sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0",
+      "source_lines": 367,
+      "excerpts": [
+        {
+          "first_line": 327,
+          "last_line": 367,
+          "sha256": "60f61370150dddef7b9122ea947d5347bcdac4106d4402fb59ffee7e0b000e1c",
+          "text": "let handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()\n\nexternal register_named_value : string -> 'a -> unit\n  = \"caml_register_named_value\"\n\nlet () =\n  register_named_value \"Printexc.handle_uncaught_exception\"\n    handle_uncaught_exception\n"
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/gettimeofday.c",
+      "source_sha256": "8a7c45bebf79e74c5b932d366f8a97ee5a108b1ebe92fcd469a2afbcb4205a8b",
+      "source_lines": 33,
+      "excerpts": [
+        {
+          "first_line": 24,
+          "last_line": 33,
+          "sha256": "9895cae261547d38f0f7906835762b23a9b72d9d2a333f604f759e4a8305cc1e",
+          "text": "{\n  struct timeval tp;\n  gettimeofday(&tp, NULL);\n  return ((double) tp.tv_sec + (double) tp.tv_usec / 1e6);\n}\n\nCAMLprim value unix_gettimeofday(value unit)\n{\n  return caml_copy_double(unix_gettimeofday_unboxed(unit));\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "error_message",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/errmsg.c",
+      "source_sha256": "7e950197ffbf472c8d78958d54a0ede0006129a3ca41f51c9b46721916034247",
+      "source_lines": 25,
+      "excerpts": [
+        {
+          "first_line": 21,
+          "last_line": 25,
+          "sha256": "237b4e6e1be229df0bef45d171e36dccaea66e0bf2796f05aabf5ffa1f0b57c6",
+          "text": "CAMLprim value unix_error_message(value err)\n{\n  int errnum = code_of_unix_error(err);\n  return caml_copy_string(strerror(errnum));\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "backtrace",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace_nat.c",
+      "source_sha256": "fd38b604d1e306ddd5ac36ffd30370adbbe7f4eb86dfef4964ecf348c7321624",
+      "source_lines": 301,
+      "excerpts": [
+        {
+          "first_line": 25,
+          "last_line": 103,
+          "sha256": "a8f96b605637cc1159b3433f7e8ad90cf3c461383ea0723de20e3acba119ca0e",
+          "text": "#include \"caml/backtrace.h\"\n#include \"caml/backtrace_prim.h\"\n#include \"caml/memory.h\"\n#include \"caml/misc.h\"\n#include \"caml/mlvalues.h\"\n#include \"caml/stack.h\"\n\n/* Returns the next frame descriptor (or NULL if none is available),\n   and updates *pc and *sp to point to the following one.  */\nframe_descr * caml_next_frame_descriptor(uintnat * pc, char ** sp)\n{\n  frame_descr * d;\n  uintnat h;\n\n  while (1) {\n    h = Hash_retaddr(*pc);\n    while (1) {\n      d = caml_frame_descriptors[h];\n      if (d == NULL) return NULL; /* happens if some code compiled without -g */\n      if (d->retaddr == *pc) break;\n      h = (h+1) & caml_frame_descriptors_mask;\n    }\n    /* Skip to next frame */\n    if (d->frame_size != 0xFFFF) {\n      /* Regular frame, update sp/pc and return the frame descriptor */\n      *sp += (d->frame_size & 0xFFFC);\n      *pc = Saved_return_address(*sp);\n#ifdef Mask_already_scanned\n      *pc = Mask_already_scanned(*pc);\n#endif\n      return d;\n    } else {\n      /* Special frame marking the top of a stack chunk for an ML callback.\n         Skip C portion of stack and continue with next ML stack chunk. */\n      struct caml_context * next_context = Callback_link(*sp);\n      *sp = next_context->bottom_of_stack;\n      *pc = next_context->last_retaddr;\n      /* A null sp means no more ML stack chunks; stop here. */\n      if (*sp == NULL) return NULL;\n    }\n  }\n}\n\nint caml_alloc_backtrace_buffer(void){\n  CAMLassert(Caml_state->backtrace_pos == 0);\n  Caml_state->backtrace_buffer =\n    caml_stat_alloc_noexc(BACKTRACE_BUFFER_SIZE * sizeof(backtrace_slot));\n  if (Caml_state->backtrace_buffer == NULL) return -1;\n  return 0;\n}\n\n/* Stores the return addresses contained in the given stack fragment\n   into the backtrace array ; this version is performance-sensitive as\n   it is called at each [raise] in a program compiled with [-g], so we\n   preserved the global, statically bounded buffer of the old\n   implementation -- before the more flexible\n   [caml_get_current_callstack] was implemented. */\nvoid caml_stash_backtrace(value exn, uintnat pc, char * sp, char * trapsp)\n{\n  if (exn != Caml_state->backtrace_last_exn) {\n    Caml_state->backtrace_pos = 0;\n    Caml_state->backtrace_last_exn = exn;\n  }\n\n  if (Caml_state->backtrace_buffer == NULL &&\n      caml_alloc_backtrace_buffer() == -1)\n    return;\n\n  /* iterate on each frame  */\n  while (1) {\n    frame_descr * descr = caml_next_frame_descriptor(&pc, &sp);\n    if (descr == NULL) return;\n    /* store its descriptor in the backtrace buffer */\n    if (Caml_state->backtrace_pos >= BACKTRACE_BUFFER_SIZE) return;\n    Caml_state->backtrace_buffer[Caml_state->backtrace_pos++] =\n      (backtrace_slot) descr;\n\n    /* Stop when we reach the current exception handler */\n    if (sp > trapsp) return;\n"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compare.c",
+      "source_sha256": "21f4c29f37af1d42dec28e7c1f5a05f59480830a76f14d771b1569113868821f",
+      "source_lines": 356,
+      "excerpts": [
+        {
+          "first_line": 130,
+          "last_line": 169,
+          "sha256": "f3b48bb6db93841ce904cb82fdc14f56c101959779c19319b88ef855c6491672",
+          "text": "      if (!Is_in_value_area(v2))\n        return LESS;\n      switch (Tag_val(v2)) {\n        case Forward_tag:\n          v2 = Forward_val(v2);\n          continue;\n        case Custom_tag: {\n          int res;\n          int (*compare)(value v1, value v2) = Custom_ops_val(v2)->compare_ext;\n          if (compare == NULL) break;  /* for backward compatibility */\n          Caml_state->compare_unordered = 0;\n          res = compare(v1, v2);\n          if (Caml_state->compare_unordered && !total) return UNORDERED;\n          if (res != 0) return res;\n          goto next_item;\n        }\n        default: /*fallthrough*/;\n        }\n      return LESS;                /* v1 long < v2 block */\n    }\n    if (Is_long(v2)) {\n      if (!Is_in_value_area(v1))\n        return GREATER;\n      switch (Tag_val(v1)) {\n        case Forward_tag:\n          v1 = Forward_val(v1);\n          continue;\n        case Custom_tag: {\n          int res;\n          int (*compare)(value v1, value v2) = Custom_ops_val(v1)->compare_ext;\n          if (compare == NULL) break;  /* for backward compatibility */\n          Caml_state->compare_unordered = 0;\n          res = compare(v1, v2);\n          if (Caml_state->compare_unordered && !total) return UNORDERED;\n          if (res != 0) return res;\n          goto next_item;\n        }\n        default: /*fallthrough*/;\n        }\n      return GREATER;            /* v1 block > v2 long */\n"
+        },
+        {
+          "first_line": 263,
+          "last_line": 286,
+          "sha256": "709f8f54a5c176cbe48f52d9157f3101bd3fb2398a0e15e83ed281bfe8fd177e",
+          "text": "      int res;\n      int (*compare)(value v1, value v2) = Custom_ops_val(v1)->compare;\n      /* Hardening against comparisons between different types */\n      if (compare != Custom_ops_val(v2)->compare) {\n        return strcmp(Custom_ops_val(v1)->identifier,\n                      Custom_ops_val(v2)->identifier) < 0\n               ? LESS : GREATER;\n      }\n      if (compare == NULL) {\n        compare_free_stack(stk);\n        caml_invalid_argument(\"compare: abstract value\");\n      }\n      Caml_state->compare_unordered = 0;\n      res = compare(v1, v2);\n      if (Caml_state->compare_unordered && !total) return UNORDERED;\n      if (res != 0) return res;\n      break;\n    }\n    default: {\n      mlsize_t sz1 = Wosize_val(v1);\n      mlsize_t sz2 = Wosize_val(v2);\n      /* Compare sizes first for speed */\n      if (sz1 != sz2) return sz1 - sz2;\n      if (sz1 == 0) break;\n"
+        }
+      ]
+    },
+    {
+      "id": "hash",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/hash.c",
+      "source_sha256": "6e1e3d0f9f6cb64ce393de8930b61139bb7198023e26a69f6deb57eeab21b3b5",
+      "source_lines": 318,
+      "excerpts": [
+        {
+          "first_line": 240,
+          "last_line": 261,
+          "sha256": "c1918a9398a2c5270684705bf0f646e2968a5e2b720c63fc78d9310317fb1f9f",
+          "text": "      case Forward_tag:\n        /* PR#6361: we can have a loop here, so limit the number of\n           Forward_tag links being followed */\n        for (i = MAX_FORWARD_DEREFERENCE; i > 0; i--) {\n          v = Forward_val(v);\n          if (Is_long(v) || !Is_in_value_area(v) || Tag_val(v) != Forward_tag)\n            goto again;\n        }\n        /* Give up on this object and move to the next */\n        break;\n      case Object_tag:\n        h = caml_hash_mix_intnat(h, Oid_val(v));\n        num--;\n        break;\n      case Custom_tag:\n        /* If no hashing function provided, do nothing. */\n        /* Only use low 32 bits of custom hash, for 32/64 compatibility */\n        if (Custom_ops_val(v)->hash != NULL) {\n          uint32_t n = (uint32_t) Custom_ops_val(v)->hash(v);\n          h = caml_hash_mix_uint32(h, n);\n          num--;\n        }\n"
+        }
+      ]
+    },
+    {
+      "id": "gc_control",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/gc_ctrl.c",
+      "source_sha256": "8ce4d2a967642354d6c55811d33465558a2ca1c18cd10671254420784be1ef91",
+      "source_lines": 789,
+      "excerpts": [
+        {
+          "first_line": 250,
+          "last_line": 259,
+          "sha256": "5f1dc40b013ed1d8405be77bc85933963c12b30fe9115974f7182bc3cf647d83",
+          "text": "    Store_field (res, 9, Val_long (free_words));\n    Store_field (res, 10, Val_long (free_blocks));\n    Store_field (res, 11, Val_long (largest_free));\n    Store_field (res, 12, Val_long (fragments));\n    Store_field (res, 13, Val_long (cpct));\n    Store_field (res, 14, Val_long (top_heap_words));\n    Store_field (res, 15, Val_long (caml_stack_usage()));\n    Store_field (res, 16, Val_long (forcmajcoll));\n    CAMLreturn (res);\n  }else{\n"
+        },
+        {
+          "first_line": 310,
+          "last_line": 320,
+          "sha256": "170ba0ece66bef0793bc82600dafa64659238822dc6a89c43ede0625d1cd1d4b",
+          "text": "  Store_field (res, 8, Val_long (0));\n  Store_field (res, 9, Val_long (0));\n  Store_field (res, 10, Val_long (0));\n  Store_field (res, 11, Val_long (0));\n  Store_field (res, 12, Val_long (0));\n  Store_field (res, 13, Val_long (cpct));\n  Store_field (res, 14, Val_long (top_heap_words));\n  Store_field (res, 15, Val_long (caml_stack_usage()));\n  Store_field (res, 16, Val_long (forcmajcoll));\n  CAMLreturn (res);\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "major",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "source_sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242",
+      "source_lines": 1412,
+      "excerpts": [
+        {
+          "first_line": 132,
+          "last_line": 134,
+          "sha256": "ac02837b2c82f7fd621576223155351adcba7c880561f81549ff95c364c02d3e",
+          "text": "void (*caml_major_gc_hook)(void) = NULL;\n\n/* This function prunes the mark stack if it's about to overflow. It does so\n"
+        },
+        {
+          "first_line": 420,
+          "last_line": 431,
+          "sha256": "24e007bf45f187a703f293d3bd1082c5c7be8af7cf0d47ae4d139b64c47f2c03",
+          "text": "static void init_sweep_phase(void)\n{\n  /* Phase_clean is done. */\n  /* Initialise the sweep phase. */\n  caml_gc_sweep_hp = caml_heap_start;\n  caml_fl_init_merge ();\n  caml_gc_phase = Phase_sweep;\n  sweep_chunk = caml_heap_start;\n  caml_gc_sweep_hp = sweep_chunk;\n  caml_fl_wsz_at_phase_change = caml_fl_cur_wsz;\n  if (caml_major_gc_hook) (*caml_major_gc_hook)();\n}\n"
+        },
+        {
+          "first_line": 1248,
+          "last_line": 1258,
+          "sha256": "83f412ae45d6002f3338ab3c0bac9806eff04fcc1c39fe14ef05bc183b897608",
+          "text": "  if (Caml_state->mark_stack == NULL)\n    caml_fatal_error (\"not enough memory for the mark stack\");\n\n  Caml_state->mark_stack->stack =\n    caml_stat_alloc_noexc(MARK_STACK_INIT_SIZE * sizeof(mark_entry));\n\n  if(Caml_state->mark_stack->stack == NULL)\n    caml_fatal_error(\"not enough memory for the mark stack\");\n\n  Caml_state->mark_stack->count = 0;\n  Caml_state->mark_stack->size = MARK_STACK_INIT_SIZE;\n"
+        }
+      ]
+    },
+    {
+      "id": "minor",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "source_sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90",
+      "source_lines": 645,
+      "excerpts": [
+        {
+          "first_line": 461,
+          "last_line": 535,
+          "sha256": "3b229026b304e4751efc95456b1c5e25947a90c2ee2e8551c362404f80f77bc8",
+          "text": "void caml_gc_dispatch (void)\n{\n  CAML_EVENTLOG_DO({\n    CAML_EV_COUNTER(EV_C_ALLOC_JUMP, caml_instr_alloc_jump);\n    caml_instr_alloc_jump =  0;\n  });\n\n  if (Caml_state->young_trigger == Caml_state->young_alloc_start){\n    /* The minor heap is full, we must do a minor collection. */\n    Caml_state->requested_minor_gc = 1;\n  }else{\n    /* The minor heap is half-full, do a major GC slice. */\n    Caml_state->requested_major_slice = 1;\n  }\n  if (caml_gc_phase == Phase_idle){\n    /* The major GC needs an empty minor heap in order to start a new cycle.\n       If a major slice was requested, we need to do a minor collection\n       before we can do the major slice that starts a new major GC cycle.\n       If a minor collection was requested, we take the opportunity to start\n       a new major GC cycle.\n       In either case, we have to do a minor cycle followed by a major slice.\n    */\n    Caml_state->requested_minor_gc = 1;\n    Caml_state->requested_major_slice = 1;\n  }\n  if (Caml_state->requested_minor_gc) {\n    /* reset the pointers first because the end hooks might allocate */\n    CAML_EV_BEGIN(EV_MINOR);\n    Caml_state->requested_minor_gc = 0;\n    Caml_state->young_trigger = Caml_state->young_alloc_mid;\n    caml_update_young_limit();\n    caml_empty_minor_heap ();\n    CAML_EV_END(EV_MINOR);\n  }\n  if (Caml_state->requested_major_slice) {\n    Caml_state->requested_major_slice = 0;\n    Caml_state->young_trigger = Caml_state->young_alloc_start;\n    caml_update_young_limit();\n    CAML_EV_BEGIN(EV_MAJOR);\n    caml_major_collection_slice (-1);\n    CAML_EV_END(EV_MAJOR);\n  }\n}\n\n/* Called by young allocations when [Caml_state->young_ptr] reaches\n   [Caml_state->young_limit]. We may have to either call memprof or\n   the gc. */\nvoid caml_alloc_small_dispatch (intnat wosize, int flags,\n                                int nallocs, unsigned char* encoded_alloc_lens)\n{\n  intnat whsize = Whsize_wosize (wosize);\n\n  /* First, we un-do the allocation performed in [Alloc_small] */\n  Caml_state->young_ptr += whsize;\n\n  while(1) {\n    /* We might be here because of an async callback / urgent GC\n       request. Take the opportunity to do what has been requested. */\n    if (flags & CAML_FROM_CAML)\n      /* In the case of allocations performed from OCaml, execute\n         asynchronous callbacks. */\n      caml_raise_if_exception(caml_do_pending_actions_exn ());\n    else {\n      caml_check_urgent_gc (Val_unit);\n      /* In the case of long-running C code that regularly polls with\n         caml_process_pending_actions, force a query of all callbacks\n         at every minor collection or major slice. */\n      caml_something_to_do = 1;\n    }\n\n    /* Now, there might be enough room in the minor heap to do our\n       allocation. */\n    if (Caml_state->young_ptr - whsize >= Caml_state->young_trigger)\n      break;\n\n"
+        }
+      ]
+    },
+    {
+      "id": "compact",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compact.c",
+      "source_sha256": "e491b5db6b5c396e5d5afa5ac3397867785f500fca7dea9c1a0bd7bb6b4fd653",
+      "source_lines": 501,
+      "excerpts": [
+        {
+          "first_line": 161,
+          "last_line": 173,
+          "sha256": "bb9974aded23a731cc3cc90f50af03b92ffd31fd58f61fa7443bc35288700962",
+          "text": "\n  /* Second pass: invert pointers.\n     Don't forget roots and weak pointers.\n     This is a mark-like pass. */\n  {\n    caml_do_roots (caml_invert_root, 1);\n    /* The values to be finalised are not roots but should still be inverted */\n    caml_final_invert_finalisable_values ();\n    /* Idem for memprof tracked blocks */\n    caml_memprof_invert_tracked ();\n\n    ch = caml_heap_start;\n    while (ch != NULL){\n"
+        }
+      ]
+    },
+    {
+      "id": "native_loader",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+      "source_sha256": "b92408575c901c0ee86fdef83582ff0de378905d491f671b0dfa50d3047f1a26",
+      "source_lines": 172,
+      "excerpts": [
+        {
+          "first_line": 32,
+          "last_line": 52,
+          "sha256": "4f7ddfc544f81850ac84f2bada74f813a810ac16b5f6bec5a5ec14c83404c596",
+          "text": "CAMLexport void (*caml_natdynlink_hook)(void* handle, const char* unit) = NULL;\n\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n\n#define Handle_val(v) (*((void **) Data_abstract_val(v)))\nstatic value Val_handle(void* handle) {\n  value res = caml_alloc_small(1, Abstract_tag);\n  Handle_val(res) = handle;\n  return res;\n}\n\nstatic void *getsym(void *handle, const char *module, const char *name){\n  char *fullname = caml_stat_strconcat(3, \"caml\", module, name);\n  void *sym;\n  sym = caml_dlsym (handle, fullname);\n  /*  printf(\"%s => %lx\\n\", fullname, (uintnat) sym); */\n  caml_stat_free(fullname);\n  return sym;\n}\n"
+        },
+        {
+          "first_line": 64,
+          "last_line": 133,
+          "sha256": "00a5970a7e98457cc6d3a8e034f7019d056009b11be96dd8089d807d0065c2a0",
+          "text": "CAMLprim value caml_natdynlink_open(value filename, value global)\n{\n  CAMLparam2 (filename, global);\n  CAMLlocal3 (res, handle, header);\n  void *sym;\n  void *dlhandle;\n  char_os *p;\n\n  /* TODO: dlclose in case of error... */\n\n  p = caml_stat_strdup_to_os(String_val(filename));\n  caml_enter_blocking_section();\n  dlhandle = caml_dlopen(p, 1, Int_val(global));\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n\n  if (NULL == dlhandle)\n    caml_failwith(caml_dlerror());\n\n  sym = caml_dlsym(dlhandle, \"caml_plugin_header\");\n  if (NULL == sym)\n    caml_failwith(\"not an OCaml plugin\");\n\n  handle = Val_handle(dlhandle);\n  header = caml_input_value_from_block(sym, INT_MAX);\n\n  res = caml_alloc_tuple(2);\n  Field(res, 0) = handle;\n  Field(res, 1) = header;\n  CAMLreturn(res);\n}\n\nCAMLprim value caml_natdynlink_run(value handle_v, value symbol) {\n  CAMLparam2 (handle_v, symbol);\n  CAMLlocal1 (result);\n  void *sym,*sym2;\n  void* handle = Handle_val(handle_v);\n\n#define optsym(n) getsym(handle,unit,n)\n  const char *unit;\n  void (*entrypoint)(void);\n\n  unit = String_val(symbol);\n\n  sym = optsym(\"__frametable\");\n  if (NULL != sym) caml_register_frametable(sym);\n\n  sym = optsym(\"__gc_roots\");\n  if (NULL != sym) caml_register_dyn_global(sym);\n\n  sym = optsym(\"__data_begin\");\n  sym2 = optsym(\"__data_end\");\n  if (NULL != sym && NULL != sym2)\n    caml_page_table_add(In_static_data, sym, sym2);\n\n  sym = optsym(\"__code_begin\");\n  sym2 = optsym(\"__code_end\");\n  if (NULL != sym && NULL != sym2)\n    caml_register_code_fragment((char *) sym, (char *) sym2,\n                                DIGEST_LATER, NULL);\n\n  if( caml_natdynlink_hook != NULL ) caml_natdynlink_hook(handle,unit);\n\n  entrypoint = optsym(\"__entry\");\n  if (NULL != entrypoint) result = caml_callback((value)(&entrypoint), 0);\n  else result = Val_unit;\n\n#undef optsym\n\n  CAMLreturn (result);\n"
+        }
+      ]
+    },
+    {
+      "id": "startup_generator",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/cmm_helpers.ml",
+      "source_sha256": "11f055ec0da9ff2bf21b7dbe34038a077f800fceae65780496671c3a8ea4094f",
+      "source_lines": 2806,
+      "excerpts": [
+        {
+          "first_line": 2581,
+          "last_line": 2607,
+          "sha256": "17595e38643b1c1f1efeceec3352acb8c4d9f5c5b5b9ae8e2365d53900a9b67f",
+          "text": "let entry_point namelist =\n  let dbg = placeholder_dbg in\n  let cconst_int i = Cconst_int (i, dbg ()) in\n  let cconst_symbol sym = Cconst_symbol (sym, dbg ()) in\n  let incr_global_inited () =\n    Cop(Cstore (Word_int, Assignment),\n        [cconst_symbol \"caml_globals_inited\";\n         Cop(Caddi, [Cop(Cload (Word_int, Mutable),\n                       [cconst_symbol \"caml_globals_inited\"], dbg ());\n                     cconst_int 1], dbg ())], dbg ()) in\n  let body =\n    List.fold_right\n      (fun name next ->\n        let entry_sym = Compilenv.make_symbol ~unitname:name (Some \"entry\") in\n        Csequence(Cop(Capply typ_void,\n                         [cconst_symbol entry_sym], dbg ()),\n                  Csequence(incr_global_inited (), next)))\n      namelist (cconst_int 1) in\n  let fun_name = \"caml_program\" in\n  let fun_dbg = placeholder_fun_dbg ~human_name:fun_name in\n  Cfunction {fun_name;\n             fun_args = [];\n             fun_body = body;\n             fun_codegen_options = [Reduce_code_size];\n             fun_poll = Default_poll;\n             fun_dbg;\n            }\n"
+        }
+      ]
+    },
+    {
+      "id": "linker",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/asmlink.ml",
+      "source_sha256": "727088aa7e3f10945a00eb5bccb0928599479a66f020324bd558357ebeed73fc",
+      "source_lines": 447,
+      "excerpts": [
+        {
+          "first_line": 230,
+          "last_line": 246,
+          "sha256": "7679cf09018dcc86e9bbacd8f2173d64e049f2acbae0bbe6cdfd95b081aed5e9",
+          "text": "\nlet make_startup_file ~ppf_dump units_list ~crc_interfaces =\n  let compile_phrase p = Asmgen.compile_phrase ~ppf_dump p in\n  Location.input_name := \"caml_startup\"; (* set name of \"current\" input *)\n  Compilenv.reset \"_startup\";\n  (* set the name of the \"current\" compunit *)\n  Emit.begin_assembly ();\n  let name_list =\n    List.flatten (List.map (fun (info,_,_) -> info.ui_defines) units_list) in\n  compile_phrase (Cmm_helpers.entry_point name_list);\n  let units = List.map (fun (info,_,_) -> info) units_list in\n  List.iter compile_phrase (Cmm_helpers.generic_functions false units);\n  Array.iteri\n    (fun i name -> compile_phrase (Cmm_helpers.predef_exception i name))\n    Runtimedef.builtin_exceptions;\n  compile_phrase (Cmm_helpers.global_table name_list);\n  let globals_map = make_globals_map units_list ~crc_interfaces in\n"
+        }
+      ]
+    },
+    {
+      "id": "main",
+      "input": "ocaml",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/main.c",
+      "source_sha256": "fee424332de4af4855699488ddf3e573ce7a31a039a2b24688b5fcdfdb518116",
+      "source_lines": 40,
+      "excerpts": [
+        {
+          "first_line": 30,
+          "last_line": 40,
+          "sha256": "15803b485597cb7942f7b8680403ffcaaf7d7a140030bed9eae432c76ef04015",
+          "text": "int main_os(int argc, char_os **argv)\n{\n#ifdef _WIN32\n  /* Expand wildcards and diversions in command line */\n  caml_expand_command_line(&argc, &argv);\n#endif\n\n  caml_main(argv);\n  caml_do_exit(0);\n  return 0; /* not reached */\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "inlining",
+      "input": "why",
+      "member": "why3/src/transform/inlining.ml",
+      "source_sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9",
+      "source_lines": 167,
+      "excerpts": [
+        {
+          "first_line": 23,
+          "last_line": 103,
+          "sha256": "d88de84bf3648128a7fde17c6322020537076bda1482bc5506e739a62a0e85f9",
+          "text": "\nlet t_unfold loc env fs tl ty =\n  match Mls.find_opt fs env with\n  | None ->\n      t_app fs tl ty\n  | Some (vl,e) ->\n      let add (mt,mv) x y = ty_match mt x.vs_ty (t_type y), Mvs.add x y mv in\n      let (mt,mv) = List.fold_left2 add (Ty.Mtv.empty, Mvs.empty) vl tl in\n      let mt = oty_match mt e.t_ty ty in\n      t_ty_subst mt mv (relocate loc e)\n\n(* inline every symbol *)\n\nlet rec t_replace_all env t =\n  let t = t_map (t_replace_all env) t in\n  match t.t_node with\n  | Tapp (fs,tl) -> t_attr_copy t (t_unfold t.t_loc env fs tl t.t_ty)\n  | _ -> t\n\n(* inline the top-most symbol *)\n\nlet rec f_replace_top env f = match f.t_node with\n  | Tapp (ps,_) when ls_equal ps ps_equ ->\n      t_map (f_replace_top env) f\n  | Tapp (ls,tl) ->\n      t_attr_copy f (t_unfold f.t_loc env ls tl f.t_ty)\n  | _ when f.t_ty = None ->\n      TermTF.t_map (fun t -> t) (f_replace_top env) f\n  | _ ->\n      f\n\n(* treat a declaration *)\n\nlet fold in_goal only_top_in_goal notls notdef d (env, task) =\n  let d = match d.d_node with\n    | Dprop (Pgoal,_,_) ->\n        let replace = if only_top_in_goal then f_replace_top else t_replace_all in\n        decl_map (replace env) d\n    | _ when in_goal ->\n        d\n    | _ ->\n        decl_map (t_replace_all env) d\n  in\n  match d.d_node with\n    | Dlogic [ls,ld]\n      when not (Sid.mem ls.ls_name (get_used_syms_decl d) || notls ls) ->\n        let vl,e = open_ls_defn ld in\n        let attrs = Sattr.union e.t_attrs ls.ls_name.id_attrs in\n        let e_ls_attrs = t_attr_set ?loc:e.t_loc attrs e in\n        if notdef e_ls_attrs then env, Task.add_decl task d\n        else Mls.add ls (vl,e) env,\n             if in_goal then Task.add_decl task d else task\n    | _ ->\n        env, Task.add_decl task d\n\nlet fold in_goal only_top_in_goal notls notdef task_hd (env, task) =\n  match task_hd.task_decl.td_node with\n    | Decl d ->\n        fold in_goal only_top_in_goal notls notdef d (env, task)\n    | _ ->\n        env, add_tdecl task task_hd.task_decl\n\n(* transformations *)\n\nlet inline_label = Ident.create_attribute \"inline\"\n\nlet meta = Theory.register_meta \"inline:no\" [Theory.MTlsymbol]\n  ~desc:\"Disallow@ the@ inlining@ of@ the@ given@ function/predicate@ symbol.\"\n\nlet t ~use_meta ~in_goal ?(only_top_in_goal=in_goal) ~notls ~notdef =\n  Trans.bind (Trans.store Driver.get_counterexmp) (fun for_counterexample ->\n    let trans notls =\n      Trans.fold_map (fold in_goal only_top_in_goal notls notdef) Mls.empty None in\n    if use_meta then\n      Trans.on_tagged_ls meta (fun sls ->\n        let notls ls = Sls.mem ls sls || notls ~for_counterexample ls in\n        trans notls)\n    else\n      trans (notls ~for_counterexample))\n\nlet all =\n"
+        }
+      ]
+    },
+    {
+      "id": "trans",
+      "input": "why",
+      "member": "why3/src/core/trans.ml",
+      "source_sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523",
+      "source_lines": 566,
+      "excerpts": [
+        {
+          "first_line": 75,
+          "last_line": 103,
+          "sha256": "1b066f101b1a9f133e0713751088d7055cf650fe5025793e3b8f9371294c9cd0",
+          "text": "let fold fn v =\n  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n\nlet fold_l fn v = fold (fun task -> Lists.apply (fn task)) [v]\n\nlet fold_decl fn v =\n"
+        }
+      ]
+    },
+    {
+      "id": "hashcons",
+      "input": "why",
+      "member": "why3/src/util/hashcons.ml",
+      "source_sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe",
+      "source_lines": 62,
+      "excerpts": [
+        {
+          "first_line": 32,
+          "last_line": 62,
+          "sha256": "7ed69297a436403fa6af9cf29c5534e5c357542f30fc9f5d79f203d4978c1595",
+          "text": "struct\n  type t = H.t\n\n  module WH = Weak.Make (H)\n\n  let next_tag = ref 0\n\n  let htable = WH.create 5003\n\n  let hashcons d =\n    let d = H.tag !next_tag d in\n    let o = WH.merge htable d in\n    if o == d then incr next_tag;\n    o\n\n  let unique d =\n    let d = H.tag !next_tag d in\n    incr next_tag;\n    d\n\n  let iter f = WH.iter f htable\n\n  let stats () = WH.stats htable\nend\n\nlet combine acc n = acc * 65599 + n\nlet combine2 acc n1 n2 = combine (combine acc n1) n2\nlet combine3 acc n1 n2 n3 = combine (combine2 acc n1 n2) n3\nlet combine_list f acc l = List.fold_left (fun acc x -> combine acc (f x)) acc l\nlet combine_option h = function None -> -1 | Some s -> h s\nlet combine_pair h1 h2 (a1,a2) = combine (h1 a1) (h2 a2)\n"
+        }
+      ]
+    },
+    {
+      "id": "weakhtbl",
+      "input": "why",
+      "member": "why3/src/util/weakhtbl.ml",
+      "source_sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26",
+      "source_lines": 122,
+      "excerpts": [
+        {
+          "first_line": 56,
+          "last_line": 122,
+          "sha256": "876769e7c2d8e7ea4d3ce3f0a35a1fde3f0006e3c6a89bcf7661274efabe8967",
+          "text": "let tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n\nmodule type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n\n  let copy = H.copy\n\n  let memoize n fn =\n    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n\n  let memoize_rec n fn =\n    let h = create n in\n    let rec f e =\n      try find h e\n      with Not_found ->\n        let v = fn f e in\n        set h e v;\n        v\n    in\n    f\n\n  let memoize_option n fn =\n    let v = lazy (fn None) in\n    let fn e = fn (Some e) in\n    let fn = memoize n fn in\n    function\n      | Some e -> fn e\n      | None -> Lazy.force v\n\nend\n"
+        }
+      ]
+    },
+    {
+      "id": "bigint",
+      "input": "why",
+      "member": "why3/src/util/bigInt.ml",
+      "source_sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885",
+      "source_lines": 70,
+      "excerpts": [
+        {
+          "first_line": 12,
+          "last_line": 22,
+          "sha256": "d2c8ecc0f8110e8dbeced5feed60e3f541ab8009cd4927f35bc9e260223a027b",
+          "text": "open Big_int_Z\n\ntype t = big_int\n[@@deriving sexp]\nlet compare = compare_big_int\n\nlet zero = zero_big_int\nlet one = unit_big_int\nlet of_int = big_int_of_int\n\nlet succ = succ_big_int\n"
+        },
+        {
+          "first_line": 58,
+          "last_line": 70,
+          "sha256": "08a9ce589950bc0044290e891051c6a16fb1a95d1246529f67666834305a04af",
+          "text": "let min = min_big_int\nlet max = max_big_int\nlet abs = abs_big_int\n\nlet num_digits = num_digits_big_int\n\nlet pow_int_pos = power_int_positive_int\nlet pow_int_pos_bigint = power_int_positive_big_int\n\nlet to_string = string_of_big_int\nlet of_string = big_int_of_string\nlet to_int = int_of_big_int\nlet is_int = is_int_big_int\n"
+        }
+      ]
+    },
+    {
+      "id": "handler",
+      "input": "why",
+      "member": "why3/src/gnat/gnat_main.ml",
+      "source_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80",
+      "source_lines": 360,
+      "excerpts": [
+        {
+          "first_line": 298,
+          "last_line": 309,
+          "sha256": "ab67ff89682423f5d78fd4d83a1d8ecaff083dd3383a5e15ed12e27a5e484db5",
+          "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+        },
+        {
+          "first_line": 356,
+          "last_line": 360,
+          "sha256": "849669e984c6dae019179bcbb508687f1e35caedc7635f5a756ded076fa50798",
+          "text": "  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n"
+        }
+      ]
+    },
+    {
+      "id": "gnat_util",
+      "input": "why",
+      "member": "why3/src/gnat/gnat_util.ml",
+      "source_sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4",
+      "source_lines": 153,
+      "excerpts": [
+        {
+          "first_line": 1,
+          "last_line": 22,
+          "sha256": "da5b35fec3dc7bbd8a3294a391ba63a2ca27f03f0a9f43f43699585964986607",
+          "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "input": "why",
+      "member": "why3/src/session/termcode.ml",
+      "source_sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8",
+      "source_lines": 1185,
+      "excerpts": [
+        {
+          "first_line": 220,
+          "last_line": 228,
+          "sha256": "1fa3d2c30a25187506242c73f601bbf2d57a6584fc38b3c3ba3151ac862ab4a3",
+          "text": "let const_v2 fmt c =\n  match c with\n  | ConstInt { il_kind=_; il_int=i } ->\n      Format.pp_print_string fmt (BigInt.to_string i)\n  | ConstReal { rl_kind=_; rl_real={ rv_sig=i; rv_pow2=p2; rv_pow5=p5 } } ->\n      Format.fprintf fmt \"%s.p%se%s\"\n        (BigInt.to_string i) (BigInt.to_string p2) (BigInt.to_string p5)\n  | ConstStr c ->\n      print_string_def fmt c\n"
+        },
+        {
+          "first_line": 338,
+          "last_line": 355,
+          "sha256": "c93ab1f19cc97cf6b61f133e688c289993cb99ab1c3247adee270cb7037b265a",
+          "text": "let tag_var = 'V'\nlet tag_wild = 'w'\nlet tag_as = 'z'\n\nexception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n"
+        },
+        {
+          "first_line": 400,
+          "last_line": 407,
+          "sha256": "cd8de399b1069c8e253781eaa4e6d90e8e263bf17784b787dc64cc1cfb955023",
+          "text": "\nlet const_shape v c =\n  let fmt = Format.formatter_of_buffer shape_buffer in\n  begin match v with\n  | SV1 | SV2 | SV3 | SV4 | SV5 -> Common.const_v1 fmt c\n  | SV6 -> Common.const_v2 fmt c\n  end;\n  Format.pp_print_flush fmt ();\n"
+        },
+        {
+          "first_line": 599,
+          "last_line": 627,
+          "sha256": "635fde5600716402fdf7b1c3d0d69f990c716f269c6ec77ba0f62b1c8b381668",
+          "text": "    with Not_found -> \"\"\n\n  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)\n"
+        }
+      ]
+    },
+    {
+      "id": "save",
+      "input": "why",
+      "member": "why3/src/session/session_itp.ml",
+      "source_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+      "source_lines": 2290,
+      "excerpts": [
+        {
+          "first_line": 1933,
+          "last_line": 1952,
+          "sha256": "d1b54b3243618e20a248348708618c60b8598ab3a3b14e9272d86909d1b21ecf",
+          "text": "\nmodule Mprover = Whyconf.Mprover\nmodule PHprover = Whyconf.Hprover\n\nopen Format\n\nlet save_string = Pp.html_string\n\ntype save_ctxt = {\n  provers : (\n    (* id *)\n    int *\n    (* timelimit *)\n    float *\n    (* steplimit *)\n    int *\n    (* mem limit *)\n    int) Mprover.t;\n  ch_shapes : Compress.Compress_z.out_channel;\n}\n"
+        },
+        {
+          "first_line": 2098,
+          "last_line": 2135,
+          "sha256": "84e031ef43b6395cd3d76ac33d418b83f4fff6ebae34441284c38b0ce36e764d",
+          "text": "\nlet save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n"
+        },
+        {
+          "first_line": 2166,
+          "last_line": 2245,
+          "sha256": "2d20cc85ab80230255e548081e96f0a59da61e318f4f3f0f425a7b22e07df156",
+          "text": "    (save_string_attrib \"format\") f.file_format\n    (save_bool_def \"proved\" false) (file_proved s f)\n    save_file_path f.file_path;\n  List.iter (save_theory s ctxt fmt) f.file_theories;\n  fprintf fmt \"@]@\\n</file>\"\n\nlet save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n      (get_used_provers_with_stats session) Mprover.empty\n  in\n  let provers_to_save =\n    Mprover.fold\n      (fun p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc ->\n        Mint.add id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc)\n      provers Mint.empty\n  in\n  Mint.iter (save_prover fmt) provers_to_save;\n  if Termcode.is_bound_sum_shape_version session.shapes.shape_version then\n    begin\n      (* In version SV6 or higher, first save the list of variables that are\n         referenced in shapes. *)\n      let s =\n        Format.asprintf\n          \"(* shapes version: %a *)\\n\"\n          Termcode.pp_sum_shape_version session.shapes.shape_version in\n      Compress.Compress_z.output_string chsh s;\n      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;\n      Compress.Compress_z.output_string chsh \"\\n\";\n    end;\n  let ctxt = { provers = provers; ch_shapes = chsh } in\n  Hfile.iter (save_file session ctxt fmt) session.session_files;\n  fprintf fmt \"@]@\\n</why3session>\";\n  fprintf fmt \"@.\";\n  close_out ch;\n  Compress.Compress_z.close_out chsh\n\n\nlet save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n\n"
+        }
+      ]
+    },
+    {
+      "id": "sysutil",
+      "input": "why",
+      "member": "why3/src/util/sysutil.ml",
+      "source_sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb",
+      "source_lines": 294,
+      "excerpts": [
+        {
+          "first_line": 11,
+          "last_line": 16,
+          "sha256": "408c12cd532268d60df54e0facfeacff7131155bf7912a8e1a788826d8272bd4",
+          "text": "let backup_file f =\n  if Sys.file_exists f then begin\n    let fb = f ^ \".bak\" in\n    if Sys.file_exists fb then Sys.remove fb;\n    Sys.rename f fb\n  end\n"
+        },
+        {
+          "first_line": 131,
+          "last_line": 136,
+          "sha256": "28a627243c3b49f730472bb07f9604d18a69fa073858401fd76d8accc2d74073",
+          "text": "type file_path = string list\nlet empty_path = []\nlet add_to_path p fn = p @ [fn]\nlet is_empty_path p = match p with [] -> true | _ -> false\nlet decompose_path p = p\n\n"
+        }
+      ]
+    },
+    {
+      "id": "debug",
+      "input": "why",
+      "member": "why3/src/util/debug.ml",
+      "source_sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1",
+      "source_lines": 218,
+      "excerpts": [
+        {
+          "first_line": 158,
+          "last_line": 190,
+          "sha256": "82f9e4ad538eca08e39e728b32879afa467b231dcd4b6499eb8342c7655c8794",
+          "text": "let timing_map = Hashtbl.create 42\n\nlet get_timings () = timing_map\n\nlet add_timing name time =\n  let old_t, old_n =\n    try Hashtbl.find timing_map name\n    with Not_found -> 0.0, 0 in\n  Hashtbl.replace timing_map name (old_t +. time, old_n + 1)\n\nlet record_timing name f =\n  if test_flag stats then\n    let begin_time = Unix.gettimeofday () in\n    Fun.protect f\n      ~finally:(fun () -> add_timing name (Unix.gettimeofday () -. begin_time))\n  else f ()\n\n  let registered_stats :  (Format.formatter -> unit) list ref = ref []\n\n  let print fmt =\n    List.iter (fun s -> Format.fprintf fmt \"<stats>@[%t@]@.\" s) !registered_stats;\n    Hashtbl.iter (fun s (t, n) ->\n        Format.fprintf fmt \"<stats>@[%s: %f, %d@]@.\" s t n)\n      timing_map\n\n  let () =\n    at_exit (fun () ->\n        if test_flag stats then begin\n            print !formatter;\n            Format.pp_print_flush !formatter ()\n          end)\n\n(* top-level code disabled because issue #383 and nobody knows why this code was for\n"
+        }
+      ]
+    },
+    {
+      "id": "json",
+      "input": "why",
+      "member": "why3/src/util/json_base.ml",
+      "source_sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970",
+      "source_lines": 146,
+      "excerpts": [
+        {
+          "first_line": 13,
+          "last_line": 78,
+          "sha256": "93950ebbb8f6202d777cad1e8be6e00ce6dc383591ef4fbfcd1bf0543f9e6ddf",
+          "text": "let char fmt = function\n  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b\nlet float fmt f = fprintf fmt \"%g\" f\nlet standard_float fmt f = fprintf fmt \"%f\" f\n\nlet rec seq pr fmt = function\n  | [] -> ()\n  | [v] -> pr fmt v\n  | h::t ->\n      pr fmt h;\n      Format.fprintf fmt \",@ \";\n      seq pr fmt t\n\nlet list pr fmt l =\n  fprintf fmt \"@[<hv 1>[%a]@]\" (seq pr) l\n\ntype json =\n  | Record of (string * json) list\n  | List of json list\n  | String of string\n  | Int of int\n  | Float of float\n  | StandardFloat of float\n  | Bool of bool\n  | Null\n\nlet rec print_json fmt v =\n  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n  | List l -> no_formatting_list fmt l\n  | String s -> string fmt s\n"
+        }
+      ]
+    },
+    {
+      "id": "exn_printer",
+      "input": "why",
+      "member": "why3/src/util/exn_printer.ml",
+      "source_sha256": "ccaecea24fece683c74855baa1fe8a8bc7e87ae6bb360afddeeaff7f3fdb4948",
+      "source_lines": 52,
+      "excerpts": [
+        {
+          "first_line": 12,
+          "last_line": 51,
+          "sha256": "725b6d8692c1461dac59c7476ae7416e652648c2ecf2a3ce5557756646be1248",
+          "text": "\nlet exn_printers =\n  (Stack.create () : (Format.formatter -> exn -> unit) Stack.t)\n\nlet register exn_printer = Stack.push exn_printer exn_printers\n\nlet anomaly_exn_printer fmt exn =\n  Format.fprintf fmt \"anomaly: %s\" (Printexc.to_string exn)\n\nexception Exit_loop\n\nlet registered_exn_printer fmt exn =\n  let test f =\n    try\n      Format.fprintf fmt \"@[%a@]\" f exn;\n      raise Exit_loop\n    with\n      | Exit_loop -> raise Exit_loop\n      | _ -> ()\n  in\n  Stack.iter test exn_printers\n\n\nlet exn_printer fmt exn =\n  try\n    registered_exn_printer fmt exn;\n    anomaly_exn_printer fmt exn\n  with Exit_loop -> ()\n\n\nlet () =\n  Printexc.register_printer (fun exn ->\n      let b = Buffer.create 10 in\n      let fmt = Format.formatter_of_buffer b in\n      try\n        registered_exn_printer fmt exn;\n        None\n      with Exit_loop ->\n        Format.pp_print_flush fmt ();\n        Some (Buffer.contents b)\n"
+        }
+      ]
+    },
+    {
+      "id": "tuple",
+      "input": "why",
+      "member": "why3/src/core/ty.ml",
+      "source_sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e",
+      "source_lines": 315,
+      "excerpts": [
+        {
+          "first_line": 278,
+          "last_line": 289,
+          "sha256": "cb568b430871bf11165611ceb5bb9ea6a9654032c301773cbdfc2661da32e964",
+          "text": "let ts_tuple_ids = Hid.create 17\n\nlet ts_tuple = Hint.memo 17 (fun n ->\n  let vl = ref [] in\n  for _i = 1 to n do vl := create_tvsymbol (id_fresh \"a\") :: !vl done;\n  let ts = create_tysymbol (id_fresh (\"tuple\" ^ string_of_int n)) !vl NoDef in\n  Hid.add ts_tuple_ids ts.ts_name n;\n  ts)\n\nlet ty_tuple tyl = ty_app (ts_tuple (List.length tyl)) tyl\n\nlet is_ts_tuple ts = ts_equal ts (ts_tuple (List.length ts.ts_args))\n"
+        }
+      ]
+    },
+    {
+      "id": "zarith",
+      "input": "zarith_c",
+      "member": null,
+      "source_sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7",
+      "source_lines": 3543,
+      "excerpts": [
+        {
+          "first_line": 38,
+          "last_line": 51,
+          "sha256": "c3504288be7d41e4f68d6b32584ce240b36455076e8af74fb110ae9743a64f1d",
+          "text": "#include \"zarith.h\"\n\n#ifdef __cplusplus\nextern \"C\" {\n#endif\n\n#include <caml/mlvalues.h>\n#include <caml/memory.h>\n#include <caml/alloc.h>\n#include <caml/fail.h>\n#include <caml/custom.h>\n#include <caml/intext.h>\n#include <caml/callback.h>\n#include <caml/intext.h>\n"
+        },
+        {
+          "first_line": 1004,
+          "last_line": 1083,
+          "sha256": "69fe7158029cb52d0c34fe1fb990f0795f20c5aae98148be0c43a34c246ec79a",
+          "text": "  int dir = 0;       /* right / left adjusted */\n  char sign = 0;     /* sign char */\n  char pad = ' ';    /* padding char */\n  char *prefix = \"\";\n  Z_MARK_OP;\n  Z_CHECK(v);\n  Z_ARG(v);\n  Z_MARK_SLOW;\n\n  /* parse format */\n  while (*fmt == '%') fmt++;\n  for (; ; fmt++) {\n    if (*fmt == '#') alt = 1;\n    else if (*fmt == '0') pad = '0';\n    else if (*fmt == '-') dir = 1;\n    else if (*fmt == ' ' || *fmt == '+') sign = *fmt;\n    else break;\n  }\n  if (sign_v) sign = '-';\n  for (;*fmt>='0' && *fmt<='9';fmt++)\n    width = 10*width + *fmt-'0';\n  switch (*fmt) {\n  case 'i': case 'd': case 'u': break;\n  case 'b': base = 2; if (alt) prefix = \"0b\"; break;\n  case 'o': base = 8; if (alt) prefix = \"0o\"; break;\n  case 'x': base = 16; if (alt) prefix = \"0x\"; cas = 1; break;\n  case 'X': base = 16; if (alt) prefix = \"0X\"; break;\n  default: caml_invalid_argument(\"Z.format: invalid format\");\n  }\n  if (dir) pad = ' ';\n  /* get digits */\n  /*  we need space for sign + prefix + digits + 1 + padding + terminal 0 */\n  max_size = 1 + 2 + Z_LIMB_BITS * size_v + 1 + 2 * width + 1;\n  buf = (char*) malloc(max_size);\n  dst = buf + 1 + 2 + width;\n  if (!size_v) {\n    size_dst = 1;\n    *dst = '0';\n  }\n  else {\n    mp_limb_t* copy_v = ml_z_dup_limb(ptr_v, size_v);\n    size_dst = mpn_get_str((unsigned char*)dst, base, copy_v, size_v);\n    if (dst + size_dst >= buf + max_size)\n      caml_failwith(\"Z.format: internal error\");\n    free(copy_v);\n    while (size_dst && !*dst) { dst++; size_dst--; }\n    for (i = 0; i < size_dst; i++)\n      dst[i] = tab[cas][ (int) dst[i] ];\n  }\n  /* add prefix, sign & padding */\n  if (pad == ' ') {\n    if (dir) {\n      /* left alignment */\n      for (i = strlen(prefix); i > 0; i--, size_dst++)\n        *(--dst) = prefix[i-1];\n      if (sign) { *(--dst) = sign; size_dst++; }\n      for (; size_dst < width; size_dst++)\n        dst[size_dst] = pad;\n    }\n    else {\n      /* right alignment, space padding */\n      for (i = strlen(prefix); i > 0; i--, size_dst++)\n        *(--dst) = prefix[i-1];\n      if (sign) { *(--dst) = sign; size_dst++; }\n      for (; size_dst < width; size_dst++) *(--dst) = pad;\n    }\n  }\n  else {\n    /* right alignment, non-space padding */\n    width -= strlen(prefix) + (sign ? 1 : 0);\n    for (; size_dst < width; size_dst++) *(--dst) = pad;\n    for (i = strlen(prefix); i > 0; i--, size_dst++)\n      *(--dst) = prefix[i-1];\n    if (sign) { *(--dst) = sign; size_dst++; }\n  }\n  dst[size_dst] = 0;\n  if (dst < buf || dst + size_dst >= buf + max_size)\n    caml_failwith(\"Z.format: internal error\");\n  r = caml_copy_string(dst);\n  free(buf);\n"
+        },
+        {
+          "first_line": 1259,
+          "last_line": 1271,
+          "sha256": "bd7c6b429fe592f07811926999287ef19c2eefbe1cee3bcc8ad8582d3606ce6d",
+          "text": "CAMLprim value ml_z_compare(value arg1, value arg2)\n{\n  int r;\n  Z_DECL(arg1); Z_DECL(arg2);\n  Z_MARK_OP;\n  Z_CHECK(arg1); Z_CHECK(arg2);\n#if Z_FAST_PATH\n  /* Value-equal small integers are equal.\n     Pointer-equal big integers are equal as well. */\n  if (arg1 == arg2) return Val_long(0);\n  if (Is_long(arg2)) {\n    if (Is_long(arg1)) {\n      return arg1 > arg2 ? Val_long(1) : Val_long(-1);\n"
+        },
+        {
+          "first_line": 3461,
+          "last_line": 3476,
+          "sha256": "6c80aeb0db838cf247dd03721de4c12e9f15ec5a84e226e5be0fdc21336af941",
+          "text": "struct custom_operations ml_z_custom_ops = {\n  /* Identifiers starting with _ are normally reserved for the OCaml runtime\n     system, but we got authorization form Gallium to use \"_z\".\n     It is very compact and stays in the spirit of identifiers used for\n     int32 & co (\"_i\" & co.).\n  */\n  \"_z\",\n  custom_finalize_default,\n  ml_z_custom_compare,\n  ml_z_custom_hash,\n  ml_z_custom_serialize,\n  ml_z_custom_deserialize,\n  ml_z_custom_compare,\n#ifndef Z_OCAML_LEGACY_CUSTOM_OPERATIONS\n  custom_fixed_length_default\n#endif\n"
+        },
+        {
+          "first_line": 3509,
+          "last_line": 3538,
+          "sha256": "52b0ac3b11bd329499a8505d47ec9167ea0b57b380793d821b521b71d3510bc8",
+          "text": "\n/* called at program exit to display performance information */\n#if Z_PERF_COUNTER\nstatic void ml_z_dump_count()\n{\n  printf(\"Z: %lu asm operations, %lu C operations, %lu slow (%lu%%)\\n\",\n         ml_z_ops_as, ml_z_ops, ml_z_slow,\n         ml_z_ops ? (ml_z_slow*100/(ml_z_ops+ml_z_ops_as)) : 0);\n}\n#endif\n\nCAMLprim value ml_z_init()\n{\n  ml_z_2p32 = ldexp(1., 32);\n  /* run-time checks */\n#ifdef ARCH_SIXTYFOUR\n  if (sizeof(intnat) != 8 || sizeof(mp_limb_t) != 8)\n    caml_failwith(\"Z.init: invalid size of types, 8 expected\");\n#else\n  if (sizeof(intnat) != 4 || sizeof(mp_limb_t) != 4)\n    caml_failwith(\"Z.init: invalid size of types, 4 expected\");\n#endif\n  /* install functions */\n#if Z_PERF_COUNTER\n  atexit(ml_z_dump_count);\n#endif\n#if Z_CUSTOM_BLOCK\n  caml_register_custom_operations(&ml_z_custom_ops);\n#endif\n  return Val_unit;\n"
+        }
+      ]
+    },
+    {
+      "id": "zarith_z",
+      "input": "zarith_z",
+      "member": null,
+      "source_sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103",
+      "source_lines": 555,
+      "excerpts": [
+        {
+          "first_line": 228,
+          "last_line": 234,
+          "sha256": "6ab4e7997e37bf42d9bbd87d64f85e5e1949d1d79cc926553588336a82114db9",
+          "text": "external to_nativeint_unsigned: t -> nativeint = \"ml_z_to_nativeint_unsigned\"\nexternal format: string -> t -> string = \"ml_z_format\"\nexternal of_substring_base: int -> string -> pos:int -> len:int -> t = \"ml_z_of_substring_base\"\nexternal compare: t -> t -> int = \"ml_z_compare\" [@@noalloc]\nexternal equal: t -> t -> bool = \"ml_z_equal\" [@@noalloc]\nexternal sign: t -> int = \"ml_z_sign\" [@@noalloc]\nexternal gcd: t -> t -> t = \"ml_z_gcd\"\n"
+        }
+      ]
+    },
+    {
+      "id": "zarith_big",
+      "input": "zarith_big",
+      "member": null,
+      "source_sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa",
+      "source_lines": 144,
+      "excerpts": [
+        {
+          "first_line": 77,
+          "last_line": 86,
+          "sha256": "7ea0e16fba3bf5a185a49bd4b215d44436922027aed8a4c13831e1bade398610",
+          "text": "  power_big a b\n\nlet sign_big_int = Z.sign\n\nlet compare_big_int = Z.compare\n\nlet eq_big_int = Z.equal\n\nlet le_big_int a b = Z.compare a b <= 0\n\n"
+        }
+      ]
+    }
+  ]
+}

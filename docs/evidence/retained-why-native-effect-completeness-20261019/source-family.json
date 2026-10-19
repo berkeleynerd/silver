@@ -1,0 +1,2013 @@
+{
+  "schema": 1,
+  "external_behavior_relation": "For the reached native initialization, runtime-interface and lifetime behavior of these fixed images, the selected OCaml runtime/Unix/systhreads, Zarith, generated OCaml startup and ordinary CRT/loader families implement the named reviewed source/interface contracts. ELF metadata corroborates family selection; STT_FILE names and absent imports do not independently prove exhaustive native provenance or non-aliasing.",
+  "file_symbol_rows": [
+    {
+      "file_symbol": "Scrt1.o",
+      "family": "ordinary_system_CRT",
+      "source_members": [],
+      "contract": "ordinary ELF/libc CRT startup, weak profiling/TM hooks and registered destructor dispatch; selected init/fini and weak providers checked separately"
+    },
+    {
+      "file_symbol": "accept.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/accept.c",
+          "sha256": "be24813bde8d407c95af675eea799eaae5a0034826548c0e1a48b442a2e2b618"
+        }
+      ]
+    },
+    {
+      "file_symbol": "access.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/access.c",
+          "sha256": "ae79836de4a94c85a3841487ad808f4a034b6ba50db050d6b43f1bf6edfe1df6"
+        }
+      ]
+    },
+    {
+      "file_symbol": "addrofstr.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/addrofstr.c",
+          "sha256": "1d51330dbe4031e3f8fb3b0a9f7a0ce3cd965e31ccffd4eb9d484aef9b517910"
+        }
+      ]
+    },
+    {
+      "file_symbol": "alarm.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/alarm.c",
+          "sha256": "ecb0c7e285c1337d9d5b420d98cd0ca0a5b969259a23f666e67e06d52dcd94b0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "alloc.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+          "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+        }
+      ]
+    },
+    {
+      "file_symbol": "amd64.o",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/amd64.S",
+          "sha256": "df4d43cb872791c03999ef89afd088a089298d0b559ce98c249e3eeb8148004a"
+        }
+      ]
+    },
+    {
+      "file_symbol": "array.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/array.c",
+          "sha256": "e8593858c8d48679d7c3bf8575b7d007d34c4bd91cb93222caf765c9ff998ffc"
+        }
+      ]
+    },
+    {
+      "file_symbol": "backtrace.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "sha256": "0d2e69c660a03dc1ec33c83f1f199a966c126e2cfde408e5c2c9c2d36a0a9b53"
+        }
+      ]
+    },
+    {
+      "file_symbol": "backtrace_nat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace_nat.c",
+          "sha256": "fd38b604d1e306ddd5ac36ffd30370adbbe7f4eb86dfef4964ecf348c7321624"
+        }
+      ]
+    },
+    {
+      "file_symbol": "bigarray.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/bigarray.c",
+          "sha256": "0b8536a773ff156bf214571eaa4bbb4323816d18d52aa67e00c61304b768d97b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "bind.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/bind.c",
+          "sha256": "cc7fa4e9df91b7087a25060c9dec73da995b1b75dccde375b577dba80422c88e"
+        }
+      ]
+    },
+    {
+      "file_symbol": "callback.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/callback.c",
+          "sha256": "726529ac693b58aa5d272d62e7f7ca275ecc2791e638f4ed89cc67ddc94140ff"
+        }
+      ]
+    },
+    {
+      "file_symbol": "caml_z.c",
+      "family": "Zarith",
+      "source_file": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c",
+      "source_sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    },
+    {
+      "file_symbol": "channels.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/channels.c",
+          "sha256": "fadaa149b962e5c1f2f9bacef6c7d76491529d9ad2c9495270bf8502e400a472"
+        }
+      ]
+    },
+    {
+      "file_symbol": "chdir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/chdir.c",
+          "sha256": "ded11076580ee990b0abfe6e719054b2934fd25b0a968c84dc70b04acffea1b3"
+        }
+      ]
+    },
+    {
+      "file_symbol": "chmod.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/chmod.c",
+          "sha256": "50bde09e457cfd5966aef46f34b2a3b8d6c4342cd7b6352e01d7fce2bc9aab50"
+        }
+      ]
+    },
+    {
+      "file_symbol": "chown.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/chown.c",
+          "sha256": "0bd21fc9f5fa13cb9e90e0ac3e8458637423624fdc4b99056580c1e2ff3eaddf"
+        }
+      ]
+    },
+    {
+      "file_symbol": "chroot.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/chroot.c",
+          "sha256": "ad96483cf29283250bb45b8fbdc364b3153b56b70358fb3cee0e246897a13173"
+        }
+      ]
+    },
+    {
+      "file_symbol": "close.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/close.c",
+          "sha256": "ff9e395d7329f1309a8f04ec4a350d63b23f512e70b8a81f57c8648dbd267592"
+        }
+      ]
+    },
+    {
+      "file_symbol": "closedir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/closedir.c",
+          "sha256": "7306d4a1caee9b73703844e8142289f3eec8815982dd01d1c4c9b3f5a12d537d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "codefrag.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/codefrag.c",
+          "sha256": "fcb8642e6682453f8e8ef193cc763222b4c3b7ae3d89aee0546a078fa612c3ca"
+        }
+      ]
+    },
+    {
+      "file_symbol": "compact.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compact.c",
+          "sha256": "e491b5db6b5c396e5d5afa5ac3397867785f500fca7dea9c1a0bd7bb6b4fd653"
+        }
+      ]
+    },
+    {
+      "file_symbol": "compare.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compare.c",
+          "sha256": "21f4c29f37af1d42dec28e7c1f5a05f59480830a76f14d771b1569113868821f"
+        }
+      ]
+    },
+    {
+      "file_symbol": "connect.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/connect.c",
+          "sha256": "0574a2bc840dd7863d3cc09a57ac35ae21a533ed6200cf7150c7c10809305267"
+        }
+      ]
+    },
+    {
+      "file_symbol": "crtstuff.c",
+      "family": "ordinary_system_CRT",
+      "source_members": [],
+      "contract": "ordinary ELF/libc CRT startup, weak profiling/TM hooks and registered destructor dispatch; selected init/fini and weak providers checked separately"
+    },
+    {
+      "file_symbol": "cst2constr.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/cst2constr.c",
+          "sha256": "cc0abb826111c06c79469f3254f02cacce1d0e0f57aa8cc6c7c1045351e5afd2"
+        }
+      ]
+    },
+    {
+      "file_symbol": "cstringv.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/cstringv.c",
+          "sha256": "6284ecef5da273e56b2c57b4da29c89c7726c35fe3b300d4976f89af5d170e10"
+        }
+      ]
+    },
+    {
+      "file_symbol": "custom.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+          "sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "debugger.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/debugger.c",
+          "sha256": "72c5530c6d614e5e309c395b067d19d199cf5b5da27089512fe158bc622242c5"
+        }
+      ]
+    },
+    {
+      "file_symbol": "domain.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/domain.c",
+          "sha256": "6d6b4483d79f6eb2ca5aa093b83356be2ab06b0f3f2f5fb1df12e89aa21cd7f0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "dup.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/dup.c",
+          "sha256": "cf0ec16399f93f23df2cf7f0f6d736c6ee1bf14e466a9625ba87f736e1a580e0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "dup2.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/dup2.c",
+          "sha256": "6a75a145f7a9e8bf10b31324d1d1324a9877c4562ae7f05b8ce4cb08f7e9044e"
+        }
+      ]
+    },
+    {
+      "file_symbol": "dynlink.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink.c",
+          "sha256": "f30e85f6f09e98e1c41366014730510127d2203f8180321cff903534fbf51076"
+        }
+      ]
+    },
+    {
+      "file_symbol": "dynlink_nat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+          "sha256": "b92408575c901c0ee86fdef83582ff0de378905d491f671b0dfa50d3047f1a26"
+        }
+      ]
+    },
+    {
+      "file_symbol": "envir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/envir.c",
+          "sha256": "abc9aaf41e63de1cabbf073ffaca18d5a25f7ec2fed04c09ea6b635175847082"
+        }
+      ]
+    },
+    {
+      "file_symbol": "errmsg.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/errmsg.c",
+          "sha256": "7e950197ffbf472c8d78958d54a0ede0006129a3ca41f51c9b46721916034247"
+        }
+      ]
+    },
+    {
+      "file_symbol": "eventlog.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/eventlog.c",
+          "sha256": "0d666633191e0536b928a178d567ef076f7895729197f24cf764372d7d2c5f76"
+        }
+      ]
+    },
+    {
+      "file_symbol": "execv.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/execv.c",
+          "sha256": "0f84d8789fba202e6a7d44573ac78dd4a54c065fd201fa8f3833434d75867d67"
+        }
+      ]
+    },
+    {
+      "file_symbol": "execve.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/execve.c",
+          "sha256": "3504ffcd5391eddc8c877da0a2dd9ebae687df4bafe567f7f268f5241ec556c3"
+        }
+      ]
+    },
+    {
+      "file_symbol": "execvp.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/execvp.c",
+          "sha256": "825cce99bda690fc829977e3a0482515841f09d505c88c3ee0cceba726c54403"
+        }
+      ]
+    },
+    {
+      "file_symbol": "exit.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/exit.c",
+          "sha256": "e21fa7a2ae996f8c750fc0328fe4c963bcc33e5f6ddf4a16f90a1ddd7f840edc"
+        }
+      ]
+    },
+    {
+      "file_symbol": "extern.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/extern.c",
+          "sha256": "1b604729c08a177490c5fa1ddddcd268a19c14d83693f6ba8f6f92eb5d8bb890"
+        }
+      ]
+    },
+    {
+      "file_symbol": "fail_nat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/fail_nat.c",
+          "sha256": "126fa3f69d1b69149ca65f5a3717baac36cd6203f7cd7d1aa20b4a0b1a18cda1"
+        }
+      ]
+    },
+    {
+      "file_symbol": "fchmod.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/fchmod.c",
+          "sha256": "a2bf3781e0746df51bcca11951e5e63df879bb83aa37d363aa62388fbf877828"
+        }
+      ]
+    },
+    {
+      "file_symbol": "fchown.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/fchown.c",
+          "sha256": "b3bd5d1a5697a06e482aa55f027eb20e9ab53a1581247a3483a23ff36f244a6d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "fcntl.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/fcntl.c",
+          "sha256": "a3e628ab8db39f0ba9f2ffc9fe7f26323b341f110705ed579ebc346986146f7e"
+        }
+      ]
+    },
+    {
+      "file_symbol": "finalise.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/finalise.c",
+          "sha256": "d71f3790da1764a173793a63c468abe2de89903a1c8fec47034bca90342bd736"
+        }
+      ]
+    },
+    {
+      "file_symbol": "floats.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/floats.c",
+          "sha256": "a6ec40850df442e8af21f83acec1a046da9d749806de13472159a7707fb885e7"
+        }
+      ]
+    },
+    {
+      "file_symbol": "fork.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/fork.c",
+          "sha256": "ec0fb85ec7e65053f14b8a265a7acf44751e8c48f41203f61af3c56c462c45de"
+        }
+      ]
+    },
+    {
+      "file_symbol": "freelist.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/freelist.c",
+          "sha256": "d60addf518d40a7d7e6035571dcc60d14ec34ce7bf3d603ecdfd8397f2e5ade9"
+        }
+      ]
+    },
+    {
+      "file_symbol": "fsync.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/fsync.c",
+          "sha256": "a249d9631a0b3efee4db6cafcc193c538eab28d2efdb52690963643a978bec28"
+        }
+      ]
+    },
+    {
+      "file_symbol": "ftruncate.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/ftruncate.c",
+          "sha256": "24bd8629b5a67be7fcf70c01519b58f8b6b524b530c15693d73f4acfb964260b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "gc_ctrl.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/gc_ctrl.c",
+          "sha256": "8ce4d2a967642354d6c55811d33465558a2ca1c18cd10671254420784be1ef91"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getaddrinfo.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getaddrinfo.c",
+          "sha256": "7bea8db98d69b1b2972741d91aeb1960fdb434cd339019783198c3865f2763c2"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getcwd.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getcwd.c",
+          "sha256": "1f6b489f72f83876b2ce1afb6e46ea99a740492c54a0f60e253decdc569387e3"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getegid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getegid.c",
+          "sha256": "54af270428881c971a5632ba46d1c0b35f1eb0d76265238a4456cc82fdbdbb0e"
+        }
+      ]
+    },
+    {
+      "file_symbol": "geteuid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/geteuid.c",
+          "sha256": "93e2a50b3028c97a33f9cc8d9c309b52888f96e3c76448f7966813215a50be06"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getgid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getgid.c",
+          "sha256": "69d7c07cda2abd27b894af3127a8fbe4eb8575fa1e39b2073dc338e2c3f065f5"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getgr.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getgr.c",
+          "sha256": "50f1c87dbb9680512fd1b8930c490620d9f3a6e69a05431581725bfec6259f17"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getgroups.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getgroups.c",
+          "sha256": "89233348e279f7dd907f6674b48a861d7a6916b583869531dd0e61a983c8d848"
+        }
+      ]
+    },
+    {
+      "file_symbol": "gethost.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/gethost.c",
+          "sha256": "1537fbb44ad9b9cc2e4598192965b86a857e12a2c00c19aec5bd37e09aaded4e"
+        }
+      ]
+    },
+    {
+      "file_symbol": "gethostname.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/gethostname.c",
+          "sha256": "96c6be13f6454a1ac1dd7b46d0d841267677229bac2847217168464d8800dcf4"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getlogin.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getlogin.c",
+          "sha256": "107cc0e324336aa06ea3def8ff1e70dd5b3d8c9017251fe70a6fef71543bbc33"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getnameinfo.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getnameinfo.c",
+          "sha256": "88b5996682dca828ee2bda3fea8ee0c48024f32fa60008b2aa05b886bd66129d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getpeername.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getpeername.c",
+          "sha256": "ea49e5884479e251ffb08893ab2ebc5d807df06dc05b6f66cb31d9070713641f"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getpid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getpid.c",
+          "sha256": "66c0ffdc494865b228663232dc156fcbbdfe5714dcacdb0f84576490681585d3"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getppid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getppid.c",
+          "sha256": "f36a84445ade59823197c541f643275e27fcb01bad145f949e2e89cef59c6984"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getproto.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getproto.c",
+          "sha256": "0f3e54417a9210b78e9523730b963bf80de1cd9078d93ffc9e44508836781aea"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getpw.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getpw.c",
+          "sha256": "0c3a77d05141befa1e70d59b9bb5418af455c4afe5d2b0a0941a86641555cfff"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getserv.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getserv.c",
+          "sha256": "ebd37067e6527ad536eb8165d457457889ce75815e84b613c78efae93607cef6"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getsockname.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getsockname.c",
+          "sha256": "518424337de8e37865349f8e36c3a86194cc0f7cde66259bc5a292770fa447aa"
+        }
+      ]
+    },
+    {
+      "file_symbol": "gettimeofday.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/gettimeofday.c",
+          "sha256": "8a7c45bebf79e74c5b932d366f8a97ee5a108b1ebe92fcd469a2afbcb4205a8b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "getuid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/getuid.c",
+          "sha256": "d875c010615e78fe45784b92b1b3daea648b179390b5e114dad21986c1aa8f03"
+        }
+      ]
+    },
+    {
+      "file_symbol": "globroots.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/globroots.c",
+          "sha256": "e74cbc93dfe98440c6170264339ece5478da56a324c3369316926130052cde32"
+        }
+      ]
+    },
+    {
+      "file_symbol": "gmtime.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/gmtime.c",
+          "sha256": "9ef9756cde0b4a9f32dbe29817196faedd5bdeb3a49e52a1cc85b0a08e2b5817"
+        }
+      ]
+    },
+    {
+      "file_symbol": "hash.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/hash.c",
+          "sha256": "6e1e3d0f9f6cb64ce393de8930b61139bb7198023e26a69f6deb57eeab21b3b5"
+        }
+      ]
+    },
+    {
+      "file_symbol": "initgroups.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/initgroups.c",
+          "sha256": "965cbfff6b50ecd03ecf28e7ead151c7f0258b815c28e504341237fb9a5e0045"
+        }
+      ]
+    },
+    {
+      "file_symbol": "intern.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/intern.c",
+          "sha256": "e575fd49bf8011128aabe051af6e1f7009d803941f8766bccd3abf7957a86c71"
+        }
+      ]
+    },
+    {
+      "file_symbol": "ints.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/ints.c",
+          "sha256": "db5785971627191d4aa48f4c598878cbbe65994ae9c86597f0c0555e07460f6d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "io.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+          "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+        }
+      ]
+    },
+    {
+      "file_symbol": "isatty.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/isatty.c",
+          "sha256": "afe88889e49861d9e689159b88618581c3c72b43e178e9f967952e39f35e4245"
+        }
+      ]
+    },
+    {
+      "file_symbol": "itimer.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/itimer.c",
+          "sha256": "931d6f15e0912fba06a976052b10b2d15a479b3e4264cfd796658685cb2d6f30"
+        }
+      ]
+    },
+    {
+      "file_symbol": "kill.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/kill.c",
+          "sha256": "f8569b49afdb2298bf2d11ccfd092e0c98c10dc01bd411b86a79314cfdb28234"
+        }
+      ]
+    },
+    {
+      "file_symbol": "lexing.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/lexing.c",
+          "sha256": "8d5e9f9f2fad21517d118e95fae218c835948e240bb0dbd6addd4850cd8595bf"
+        }
+      ]
+    },
+    {
+      "file_symbol": "link.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/link.c",
+          "sha256": "3f19472499cb6c4435076a1a693f70832c46155524be4c19e9dbc4c86699f143"
+        }
+      ]
+    },
+    {
+      "file_symbol": "listen.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/listen.c",
+          "sha256": "53f6bb5cfd082767ce849eef8c227b7c0e7c80e9da1696286119fce2acc25eda"
+        }
+      ]
+    },
+    {
+      "file_symbol": "lockf.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/lockf.c",
+          "sha256": "1058fa6bbd2e9ad44e18b287383060cee19b41f90d45c574bc586a225f072ae6"
+        }
+      ]
+    },
+    {
+      "file_symbol": "lseek.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/lseek.c",
+          "sha256": "d7bb70edcbb95b1195c5c29ca790b65807591080efc2980498c2fc05ac0f40c0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "main.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/main.c",
+          "sha256": "fee424332de4af4855699488ddf3e573ce7a31a039a2b24688b5fcdfdb518116"
+        }
+      ]
+    },
+    {
+      "file_symbol": "major_gc.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+          "sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242"
+        }
+      ]
+    },
+    {
+      "file_symbol": "md5.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/md5.c",
+          "sha256": "5890196ee50744771d29d966e6201bdf811dac8f201158a904806f48b61b6800"
+        }
+      ]
+    },
+    {
+      "file_symbol": "memory.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+          "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "memprof.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+          "sha256": "a64cfcbe9228eb8074b432d1c195122e3d334f2aed5558904800ef662f0df8ac"
+        }
+      ]
+    },
+    {
+      "file_symbol": "meta.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/meta.c",
+          "sha256": "20c4e4ce399841d3d0477de498a192714534c73ac02c74bfb20a75a88bde10c8"
+        }
+      ]
+    },
+    {
+      "file_symbol": "minor_gc.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+          "sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90"
+        }
+      ]
+    },
+    {
+      "file_symbol": "misc.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+          "sha256": "138584a5e7fdf75e28440d9319cfac561091cb0c085e6ce45cccb7244d977794"
+        }
+      ]
+    },
+    {
+      "file_symbol": "mkdir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/mkdir.c",
+          "sha256": "ed7e8cfc41d2803027432d384fa8d98eba8e5adf783222932f15a656ac957b56"
+        }
+      ]
+    },
+    {
+      "file_symbol": "mkfifo.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/mkfifo.c",
+          "sha256": "c518ca62cc0782633c01732ac963b6afea3dbf374b210f4c57bb92eb1dcb15d0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "mmap.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/mmap.c",
+          "sha256": "6696150ca63169bfecb3369ed79db4b8019a97731254f928f3054f1e512d993a"
+        }
+      ]
+    },
+    {
+      "file_symbol": "mmap_ba.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/mmap_ba.c",
+          "sha256": "22b00b41b7fc5cde68f22b3d67cbc91441e7d0c81742b218e30f4e6f42561382"
+        }
+      ]
+    },
+    {
+      "file_symbol": "nice.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/nice.c",
+          "sha256": "75ec82213a9a58a08a6375594ce90d2c56a34a09079335b59c03e4689000f136"
+        }
+      ]
+    },
+    {
+      "file_symbol": "obj.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/obj.c",
+          "sha256": "09dcee5092e08c18fc0f6ed8eff69e301bf4c64913dcea9cd0b32f3dcd3fc4ac"
+        }
+      ]
+    },
+    {
+      "file_symbol": "open.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/open.c",
+          "sha256": "1953737f38a216c70f50df4b905d987e12bb6dc34596521dd3d1915411a42c57"
+        }
+      ]
+    },
+    {
+      "file_symbol": "opendir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/opendir.c",
+          "sha256": "5d8ae244cc95270feea289c39d9891d1e2c8115b37487caa03326f19e2bd2d4d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "parsing.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/parsing.c",
+          "sha256": "7c05aeab633ad681185e932ff00ab3a6475522da0c730b1371f70cad70ee745c"
+        }
+      ]
+    },
+    {
+      "file_symbol": "pipe.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/pipe.c",
+          "sha256": "ae9e9e3f9597a45858cfd713d79364040f63f64a67d2712259f0bab472811ed0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "printexc.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "sha256": "5ceac14f0f2dbf51632b15b457956f7c4f163a255cf0d787051018224acd24ee"
+        }
+      ]
+    },
+    {
+      "file_symbol": "putenv.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/putenv.c",
+          "sha256": "9633a55a4df8d3ee7aa008f7916a7f047ef65026f212528ec20ba68b8368cf20"
+        }
+      ]
+    },
+    {
+      "file_symbol": "read.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/read.c",
+          "sha256": "5e2091631461ea7a82f16202972b3a294bdbfb9df883ae1114bcbed27640211a"
+        }
+      ]
+    },
+    {
+      "file_symbol": "readdir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/readdir.c",
+          "sha256": "9760ce1ece756b77565d283aa89ce4993ce2312efa18843408f238ce5bcd0338"
+        }
+      ]
+    },
+    {
+      "file_symbol": "readlink.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/readlink.c",
+          "sha256": "e3968fa6711437da4a39ed31d899855a77721e66c8fcf29e5b0acbf0e51dec82"
+        }
+      ]
+    },
+    {
+      "file_symbol": "realpath.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/realpath.c",
+          "sha256": "9bd2f79e0214e7e5c29f5a07aa0d0f3ed5f2cb9819c40c72a106913d5d28fd1e"
+        }
+      ]
+    },
+    {
+      "file_symbol": "rename.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/rename.c",
+          "sha256": "6463afb29fab29e66646371a1c2063e4c8d8832e4aabbc78486f2a1619cf91ab"
+        }
+      ]
+    },
+    {
+      "file_symbol": "rewinddir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/rewinddir.c",
+          "sha256": "22af30612ae32032394bdcaea151db348095253cacc458191060c7b21f1c3f57"
+        }
+      ]
+    },
+    {
+      "file_symbol": "rmdir.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/rmdir.c",
+          "sha256": "0af3d3a8bb6094b995ece2680dc4f1d2e99be125b324c653628a0a9bf1bc95ef"
+        }
+      ]
+    },
+    {
+      "file_symbol": "roots_nat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+          "sha256": "4e6d01431de0ca6877d992ef43d41a69d36b7ea43a1da3ec1928447c025de8c1"
+        }
+      ]
+    },
+    {
+      "file_symbol": "select.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/select.c",
+          "sha256": "e01007c1896aa0d96567f4022d1dcfcd7bfd5e5e2e71d1bacafae3e5275adbbe"
+        }
+      ]
+    },
+    {
+      "file_symbol": "sendrecv.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/sendrecv.c",
+          "sha256": "033c8b487bc39dbfbc72a5cf7d088be145d3b310beef9dea67155cadb3dc658a"
+        }
+      ]
+    },
+    {
+      "file_symbol": "setgid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/setgid.c",
+          "sha256": "eb53b43a2e1d26a0b5f14f7daf6426f348e34a2e8a675c02714bd07440c9ef00"
+        }
+      ]
+    },
+    {
+      "file_symbol": "setgroups.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/setgroups.c",
+          "sha256": "165766740484a40bb57c16ada63a26f601d9e94335a98f074a579e678364d457"
+        }
+      ]
+    },
+    {
+      "file_symbol": "setsid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/setsid.c",
+          "sha256": "a05594a50b197729a37398e63b8413635b5756de68b2b9dee76d8cd8d25983c8"
+        }
+      ]
+    },
+    {
+      "file_symbol": "setuid.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/setuid.c",
+          "sha256": "cca51ef21e5f38eb872af70cb4ddb938abf46a43de9bacda7b48e3ff9ec46b94"
+        }
+      ]
+    },
+    {
+      "file_symbol": "shutdown.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/shutdown.c",
+          "sha256": "11e0f1f143a17465f8f15b2e73b16a835e5822252079d059eb36810a4c5600d0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "signals.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+          "sha256": "9b05e9b25d1a60297f5c9656a65d574dc05e0307eba314887e86f4e1eca1700a"
+        },
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+          "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+        }
+      ]
+    },
+    {
+      "file_symbol": "signals_nat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals_nat.c",
+          "sha256": "de368978463ec11405ea9917e1bec0842fcad99301670815fdd64feb6213c251"
+        }
+      ]
+    },
+    {
+      "file_symbol": "skiplist.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/skiplist.c",
+          "sha256": "c3a3b6b9da6f6e745f9573a3ac6c6d043ab7324b836fc82f3558aca78eed4bfe"
+        }
+      ]
+    },
+    {
+      "file_symbol": "sleep.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/sleep.c",
+          "sha256": "819a34c82683906461c45f2248501fa93840c422df8b5f86c260d76834b963b9"
+        }
+      ]
+    },
+    {
+      "file_symbol": "socket.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/socket.c",
+          "sha256": "38d9c40502ec4dd2cf4eb16553e214c9f51d0bc07e41171b54f0682854a59986"
+        }
+      ]
+    },
+    {
+      "file_symbol": "socketaddr.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/socketaddr.c",
+          "sha256": "3c2f2974e0a276b0654f0d86866cb9df7cba8bf95f58e20f228b4e14e7165cf7"
+        }
+      ]
+    },
+    {
+      "file_symbol": "socketpair.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/socketpair.c",
+          "sha256": "01139046fd9347196e45c5ef603fa9b371837e385deb91ccf628c73766cfc0d5"
+        }
+      ]
+    },
+    {
+      "file_symbol": "sockopt.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/sockopt.c",
+          "sha256": "d03b3a443012c014ba39cecb1726c9f334ad3b85dc6667a26487d7e9f20a2b66"
+        }
+      ]
+    },
+    {
+      "file_symbol": "spawn.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/spawn.c",
+          "sha256": "7cc0165fad74a485b74b4b6c0240b475d450426a33c8dc01479a42856d66e419"
+        }
+      ]
+    },
+    {
+      "file_symbol": "st_stubs.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+          "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+        }
+      ]
+    },
+    {
+      "file_symbol": "startup_aux.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+          "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+        }
+      ]
+    },
+    {
+      "file_symbol": "startup_nat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+          "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+        }
+      ]
+    },
+    {
+      "file_symbol": "stat.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/stat.c",
+          "sha256": "e2498fa722b8d239c3c0dfa0fcf83818d562b9ca7a345313a8de131f3f84164b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "str.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/str.c",
+          "sha256": "867131739fa77397819fea19f6551710ea82c18ff4ffa9bf739e1b1d6f188e09"
+        }
+      ]
+    },
+    {
+      "file_symbol": "strofaddr.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/strofaddr.c",
+          "sha256": "595af2863c77b7df9664c615e891f7d94b4c04b196b3c4a18d1587aeddcae714"
+        }
+      ]
+    },
+    {
+      "file_symbol": "symlink.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/symlink.c",
+          "sha256": "24e43a671ba501246870c4c430cc26abddeaaad2e7969977dc2d36268f4a08c7"
+        }
+      ]
+    },
+    {
+      "file_symbol": "sys.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+          "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+        }
+      ]
+    },
+    {
+      "file_symbol": "termios.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/termios.c",
+          "sha256": "27c0736355daa0f5c8bf188f9e1465d6db1d869c61b4257ecc0df044066145d6"
+        }
+      ]
+    },
+    {
+      "file_symbol": "time.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/time.c",
+          "sha256": "a935f551f141b739ae12113ce9245667394efced6505a37a5d05692e90bbf2c8"
+        }
+      ]
+    },
+    {
+      "file_symbol": "times.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/times.c",
+          "sha256": "f9dec6cd78edcc501a4e4dff9dc90472a753fb554b11dc6d72aeab4c3845252b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "truncate.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/truncate.c",
+          "sha256": "4fec6b2b9c5cd179ff0054b7e21388eaef7c36186b785bc22143f3c11a616260"
+        }
+      ]
+    },
+    {
+      "file_symbol": "umask.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/umask.c",
+          "sha256": "63c23d82e5c37433326c72639274688b765789bb68a198ad4127a37e1aa16373"
+        }
+      ]
+    },
+    {
+      "file_symbol": "unix.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/unix.c",
+          "sha256": "9a814299dfd0fca01b340e2d52577b07885fcf3504646190781d57ebc8e87529"
+        }
+      ]
+    },
+    {
+      "file_symbol": "unixsupport.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/unixsupport.c",
+          "sha256": "0404f8c2359af39084b780793f2a45c9bacf38c767910497c2d27407bb4c425d"
+        }
+      ]
+    },
+    {
+      "file_symbol": "unlink.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/unlink.c",
+          "sha256": "b726112bf91b79748dbe2e9efbccf002aee22623bf9a7254d322cbbc6ce1fe62"
+        }
+      ]
+    },
+    {
+      "file_symbol": "utimes.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/utimes.c",
+          "sha256": "85a3daa2a0553ffe0529b8b7ee39629c1e071266a3bd1f53aa267c9af49724c5"
+        }
+      ]
+    },
+    {
+      "file_symbol": "wait.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/wait.c",
+          "sha256": "b29a021040c5d160078ef301d3cd9cca8e21727b9aec0620b80550885d6b116b"
+        }
+      ]
+    },
+    {
+      "file_symbol": "weak.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/weak.c",
+          "sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c"
+        }
+      ]
+    },
+    {
+      "file_symbol": "write.c",
+      "family": "OCaml runtime/Unix/systhreads",
+      "source_members": [
+        {
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/write.c",
+          "sha256": "e022539a47ccda32491e3554d08fed12e6a18755333f4c83afb2aa04349fb97a"
+        }
+      ]
+    }
+  ],
+  "source_scope": {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7",
+    "c_header_assembly_members": 233,
+    "prefixes": [
+      "runtime/",
+      "otherlibs/unix/",
+      "otherlibs/systhreads/"
+    ],
+    "Zarith_file": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c"
+  },
+  "lifetime_registration_syntax": [
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/debugger.c",
+      "line": 203,
+      "text": "  (void)atexit(winsock_cleanup);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/eventlog.c",
+      "line": 264,
+      "text": "  atexit(&teardown_eventlog);"
+    },
+    {
+      "file": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c",
+      "line": 3533,
+      "text": "  atexit(ml_z_dump_count);"
+    }
+  ],
+  "native_selector_syntax": [
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_posix.h",
+      "line": 39,
+      "text": "  caml_sigmask_hook = pthread_sigmask;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 140,
+      "text": "static void (*prev_scan_roots_hook) (scanning_action);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 161,
+      "text": "  if (prev_scan_roots_hook != NULL) (*prev_scan_roots_hook)(action);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 459,
+      "text": "  prev_scan_roots_hook = caml_scan_roots_hook;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 460,
+      "text": "  caml_scan_roots_hook = caml_thread_scan_roots;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 461,
+      "text": "  caml_enter_blocking_section_hook = caml_thread_enter_blocking_section;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 462,
+      "text": "  caml_leave_blocking_section_hook = caml_thread_leave_blocking_section;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 466,
+      "text": "  caml_channel_mutex_free = caml_io_mutex_free;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 467,
+      "text": "  caml_channel_mutex_lock = caml_io_mutex_lock;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 468,
+      "text": "  caml_channel_mutex_unlock = caml_io_mutex_unlock;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 469,
+      "text": "  caml_channel_mutex_unlock_exn = caml_io_mutex_unlock_exn;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+      "line": 472,
+      "text": "  caml_memprof_th_ctx_iter_hook = memprof_ctx_iter;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 72,
+      "text": "  retcode = caml_sigmask_hook(how, &set, &oldset);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 180,
+      "text": "#define channel_mutex_free CAML_DEPRECATED(\"channel_mutex_free\", \"caml_channel_mutex_free\") caml_channel_mutex_free"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 181,
+      "text": "#define channel_mutex_lock CAML_DEPRECATED(\"channel_mutex_lock\", \"caml_channel_mutex_lock\") caml_channel_mutex_lock"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 182,
+      "text": "#define channel_mutex_unlock CAML_DEPRECATED(\"channel_mutex_unlock\", \"caml_channel_mutex_unlock\") caml_channel_mutex_unlock"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 183,
+      "text": "#define channel_mutex_unlock_exn CAML_DEPRECATED(\"channel_mutex_unlock_exn\", \"caml_channel_mutex_unlock_exn\") caml_channel_mutex_unlock_exn"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 259,
+      "text": "#define scan_roots_hook CAML_DEPRECATED(\"scan_roots_hook\", \"caml_scan_roots_hook\") caml_scan_roots_hook"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 265,
+      "text": "#define enter_blocking_section_hook CAML_DEPRECATED(\"enter_blocking_section_hook\", \"caml_enter_blocking_section_hook\") caml_enter_blocking_section_hook"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+      "line": 266,
+      "text": "#define leave_blocking_section_hook CAML_DEPRECATED(\"leave_blocking_section_hook\", \"caml_leave_blocking_section_hook\") caml_leave_blocking_section_hook"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/hooks.h",
+      "line": 32,
+      "text": "CAMLextern void (*caml_natdynlink_hook)(void* handle, const char* unit);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 100,
+      "text": "CAMLextern void (*caml_channel_mutex_free) (struct channel *);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 101,
+      "text": "CAMLextern void (*caml_channel_mutex_lock) (struct channel *);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 102,
+      "text": "CAMLextern void (*caml_channel_mutex_unlock) (struct channel *);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 103,
+      "text": "CAMLextern void (*caml_channel_mutex_unlock_exn) (void);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 108,
+      "text": "  if (caml_channel_mutex_lock != NULL) (*caml_channel_mutex_lock)(channel)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 110,
+      "text": "  if (caml_channel_mutex_unlock != NULL) (*caml_channel_mutex_unlock)(channel)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "line": 112,
+      "text": "  if (caml_channel_mutex_unlock_exn != NULL) (*caml_channel_mutex_unlock_exn)()"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/major_gc.h",
+      "line": 84,
+      "text": "/* [caml_major_gc_hook] is called just between the end of the mark"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/major_gc.h",
+      "line": 89,
+      "text": "CAMLextern void (*caml_major_gc_hook)(void);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/memprof.h",
+      "line": 52,
+      "text": "extern void (*caml_memprof_th_ctx_iter_hook)(th_ctx_action, void*);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+      "line": 194,
+      "text": "extern caml_timing_hook caml_major_slice_begin_hook, caml_major_slice_end_hook;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+      "line": 195,
+      "text": "extern caml_timing_hook caml_minor_gc_begin_hook, caml_minor_gc_end_hook;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+      "line": 245,
+      "text": "extern void (*caml_fatal_error_hook) (char *msg, va_list args);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/roots.h",
+      "line": 43,
+      "text": "CAMLextern void (*caml_scan_roots_hook) (scanning_action);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/signals.h",
+      "line": 94,
+      "text": "CAMLextern void (*caml_enter_blocking_section_hook)(void);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/signals.h",
+      "line": 95,
+      "text": "CAMLextern void (*caml_leave_blocking_section_hook)(void);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/signals.h",
+      "line": 97,
+      "text": "CAMLextern int (*caml_sigmask_hook)(int, const sigset_t *, sigset_t *);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/startup_aux.h",
+      "line": 40,
+      "text": "extern int caml_cleanup_on_exit;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+      "line": 32,
+      "text": "CAMLexport void (*caml_natdynlink_hook)(void* handle, const char* unit) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+      "line": 125,
+      "text": "  if( caml_natdynlink_hook != NULL ) caml_natdynlink_hook(handle,unit);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "line": 58,
+      "text": "CAMLexport void (*caml_channel_mutex_free) (struct channel *) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "line": 59,
+      "text": "CAMLexport void (*caml_channel_mutex_lock) (struct channel *) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "line": 60,
+      "text": "CAMLexport void (*caml_channel_mutex_unlock) (struct channel *) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "line": 61,
+      "text": "CAMLexport void (*caml_channel_mutex_unlock_exn) (void) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "line": 142,
+      "text": "  if (caml_channel_mutex_free != NULL) (*caml_channel_mutex_free)(channel);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "line": 450,
+      "text": "  if (caml_channel_mutex_free != NULL) (*caml_channel_mutex_free)(chan);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "line": 132,
+      "text": "void (*caml_major_gc_hook)(void) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "line": 430,
+      "text": "  if (caml_major_gc_hook) (*caml_major_gc_hook)();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "line": 1001,
+      "text": "  if (caml_major_slice_begin_hook != NULL) (*caml_major_slice_begin_hook) ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+      "line": 1171,
+      "text": "  if (caml_major_slice_end_hook != NULL) (*caml_major_slice_end_hook) ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+      "line": 640,
+      "text": "  caml_memprof_th_ctx_iter_hook(call_on_entry_array, &closure);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+      "line": 1074,
+      "text": "  caml_memprof_th_ctx_iter_hook(th_ctx_memprof_stop, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memprof.c",
+      "line": 1099,
+      "text": "CAMLexport void (*caml_memprof_th_ctx_iter_hook)(th_ctx_action, void*)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "line": 363,
+      "text": "    if (caml_minor_gc_begin_hook != NULL) (*caml_minor_gc_begin_hook) ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "line": 437,
+      "text": "    if (caml_minor_gc_end_hook != NULL) (*caml_minor_gc_end_hook) ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 37,
+      "text": "caml_timing_hook caml_major_slice_begin_hook = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 38,
+      "text": "caml_timing_hook caml_major_slice_end_hook = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 39,
+      "text": "caml_timing_hook caml_minor_gc_begin_hook = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 40,
+      "text": "caml_timing_hook caml_minor_gc_end_hook = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 79,
+      "text": "void (*caml_fatal_error_hook) (char *msg, va_list args) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 85,
+      "text": "  if(caml_fatal_error_hook != NULL) {"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/misc.c",
+      "line": 86,
+      "text": "    caml_fatal_error_hook(msg, ap);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_byt.c",
+      "line": 33,
+      "text": "CAMLexport void (*caml_scan_roots_hook) (scanning_action f) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_byt.c",
+      "line": 68,
+      "text": "  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(&caml_oldify_one);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_byt.c",
+      "line": 112,
+      "text": "  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(f);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+      "line": 36,
+      "text": "void (*caml_scan_roots_hook) (scanning_action) = NULL;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+      "line": 346,
+      "text": "  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(&caml_oldify_one);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/roots_nat.c",
+      "line": 450,
+      "text": "  if (caml_scan_roots_hook != NULL) (*caml_scan_roots_hook)(f);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 57,
+      "text": "CAMLexport int (*caml_sigmask_hook)(int, const sigset_t *, sigset_t *)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 84,
+      "text": "     syscall in [caml_sigmask_hook]. */"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 89,
+      "text": "  caml_sigmask_hook(/* dummy */ SIG_BLOCK, NULL, &set);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 146,
+      "text": "CAMLexport void (*caml_enter_blocking_section_hook)(void) ="
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 148,
+      "text": "CAMLexport void (*caml_leave_blocking_section_hook)(void) ="
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 157,
+      "text": "    caml_enter_blocking_section_hook ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 161,
+      "text": "    caml_leave_blocking_section_hook ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 167,
+      "text": "  caml_enter_blocking_section_hook ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 175,
+      "text": "  caml_leave_blocking_section_hook ();"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 211,
+      "text": "  caml_sigmask_hook(SIG_BLOCK, &nsigs, &sigs);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 220,
+      "text": "    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 224,
+      "text": "    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals_nat.c",
+      "line": 168,
+      "text": "    caml_sigmask_hook(SIG_UNBLOCK, &mask, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+      "line": 86,
+      "text": "int caml_cleanup_on_exit = 0;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+      "line": 115,
+      "text": "      case 'c': scanmult (opt, &p); caml_cleanup_on_exit = (p != 0); break;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_byt.c",
+      "line": 479,
+      "text": "  if (!caml_startup_aux(/* pooling */ caml_cleanup_on_exit))"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_byt.c",
+      "line": 623,
+      "text": "  if (caml_cleanup_on_exit)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+      "line": 123,
+      "text": "  if (caml_cleanup_on_exit)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+      "line": 157,
+      "text": "  if (caml_cleanup_on_exit)"
+    }
+  ],
+  "generated_startup_members": [
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/cmm_helpers.ml",
+      "sha256": "11f055ec0da9ff2bf21b7dbe34038a077f800fceae65780496671c3a8ea4094f"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/asmlink.ml",
+      "sha256": "727088aa7e3f10945a00eb5bccb0928599479a66f020324bd558357ebeed73fc"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/asmcomp/asmgen.ml",
+      "sha256": "e3edebac0e9c3d3799df560e44dc90d0725a2f8de0b7fcef39b5656308b36d72"
+    }
+  ],
+  "classification": "All direct selector definitions/uses/installations in this source family are reviewed with their enclosing owner bodies. No cell address is published as a mutable OCaml value or passed to ordinary libc/GMP as a buffer. Dynamic lookup/loading is restricted by the accepted selected-loader capability proof. Syntax projection locates these facts; the source frame and loader contracts supply the argument."
+}

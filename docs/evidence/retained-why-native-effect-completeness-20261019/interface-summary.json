@@ -1,0 +1,406 @@
+{
+  "schema": 1,
+  "source_native_component_closed_under_named_relation": true,
+  "binary_refinement_proved": false,
+  "contracts": [
+    {
+      "id": "A",
+      "name": "allocation_collection_pending",
+      "ordinary_effects": [
+        "owned runtime storage",
+        "faithful logical relocation",
+        "weak clearing"
+      ],
+      "application_interfaces": [
+        "timing4",
+        "major",
+        "root scanner and predecessor",
+        "Memprof context iterator",
+        "selected custom destructors",
+        "accepted signal/finalizer/tracker routes"
+      ],
+      "successors": [
+        "A",
+        "S",
+        "X",
+        "F",
+        "T"
+      ],
+      "witnesses": [
+        "memprof",
+        "roots",
+        "major",
+        "minor",
+        "compact",
+        "custom",
+        "signals",
+        "weak"
+      ]
+    },
+    {
+      "id": "V",
+      "name": "scalar_string_array_table",
+      "ordinary_effects": [
+        "read values",
+        "write supplied/new containers",
+        "weak/ephemeron operations",
+        "bounded compare/hash"
+      ],
+      "application_interfaces": [
+        "custom compare/hash excluded by actual representation domains"
+      ],
+      "successors": [
+        "A",
+        "X"
+      ],
+      "witnesses": [
+        "weak",
+        "stdlib_weak",
+        "ephemeron",
+        "hashtbl",
+        "compare",
+        "hash",
+        "backtrace"
+      ]
+    },
+    {
+      "id": "F",
+      "name": "formatter_channel_file",
+      "ordinary_effects": [
+        "accepted Format owners",
+        "channel mutex/TLS/buffer effects",
+        "OS file operations"
+      ],
+      "application_interfaces": [
+        "channel4",
+        "blocking2",
+        "sigmask",
+        "accepted pending clients"
+      ],
+      "successors": [
+        "A",
+        "X",
+        "S"
+      ],
+      "witnesses": [
+        "io",
+        "thread",
+        "signals",
+        "sys"
+      ]
+    },
+    {
+      "id": "X",
+      "name": "raise_backtrace",
+      "ordinary_effects": [
+        "root exception",
+        "unwind trap",
+        "read backtrace",
+        "return ordinary error representation"
+      ],
+      "application_interfaces": [
+        "channel unlock_exn",
+        "pending actions",
+        "named uncaught callback"
+      ],
+      "successors": [
+        "A",
+        "F",
+        "T"
+      ],
+      "witnesses": [
+        "raise",
+        "uncaught",
+        "backtrace",
+        "stdlib_printexc",
+        "error_message"
+      ]
+    },
+    {
+      "id": "S",
+      "name": "signal_setting_dispatch",
+      "ordinary_effects": [
+        "classified signal actions",
+        "pending flag/mask effects"
+      ],
+      "application_interfaces": [
+        "sigmask",
+        "accepted SIGINT and SIGVTALRM closures"
+      ],
+      "successors": [
+        "A",
+        "F",
+        "X",
+        "T"
+      ],
+      "witnesses": [
+        "signals",
+        "thread_ml",
+        "handler"
+      ]
+    },
+    {
+      "id": "N",
+      "name": "bounded_Zarith",
+      "ordinary_effects": [
+        "immediate comparison",
+        "five-atom decimal format with ordinary GMP allocation"
+      ],
+      "application_interfaces": [],
+      "successors": [
+        "A",
+        "X"
+      ],
+      "witnesses": [
+        "bigint",
+        "zarith",
+        "zarith_z",
+        "zarith_big"
+      ]
+    },
+    {
+      "id": "T",
+      "name": "termination_lifetime",
+      "ordinary_effects": [
+        "source-accounted OCaml exit routes",
+        "cleanup zero",
+        "ordinary libc termination"
+      ],
+      "application_interfaces": [
+        "null fatal hook",
+        "classified eventlog/Zarith lifetime clients",
+        "ordinary CRT finalization with absent weak providers"
+      ],
+      "successors": [
+        "A",
+        "F",
+        "X"
+      ],
+      "witnesses": [
+        "sys",
+        "startup",
+        "uncaught",
+        "misc",
+        "eventlog",
+        "zarith"
+      ]
+    }
+  ],
+  "roots": [
+    {
+      "id": "fold",
+      "witnesses": [
+        "inlining",
+        "trans",
+        "hashcons",
+        "weakhtbl"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "X",
+        "N"
+      ],
+      "domain": "accepted term/type/declaration/task transfer; immediate signed32 constants",
+      "source_status": "covered using accepted transfer",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "signal_handler",
+      "witnesses": [
+        "handler"
+      ],
+      "contracts": [
+        "S",
+        "A",
+        "X",
+        "T"
+      ],
+      "domain": "successful ignore protocol; at most two serial saves",
+      "source_status": "covered using accepted protocol",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "shape",
+      "witnesses": [
+        "save",
+        "shape"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "F",
+        "N",
+        "X"
+      ],
+      "domain": "SV6 retained roots, five atoms and private Shape ownership",
+      "source_status": "covered using accepted transfer",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "serialization",
+      "witnesses": [
+        "save"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "F",
+        "X"
+      ],
+      "domain": "strings, ints, floats, bools, primitive prover keys; Compress_none",
+      "source_status": "covered",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "backup_path",
+      "witnesses": [
+        "sysutil",
+        "save"
+      ],
+      "contracts": [
+        "F",
+        "A",
+        "X"
+      ],
+      "domain": "three backup paths; stored path string lists",
+      "source_status": "covered",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "debug_exit_timing",
+      "witnesses": [
+        "debug",
+        "time"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "F",
+        "X"
+      ],
+      "domain": "empty registered stats family and primitive timing map",
+      "source_status": "covered using accepted prefix",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "formatter_flush",
+      "witnesses": [
+        "io"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "F",
+        "X"
+      ],
+      "domain": "accepted formatter/Location/Color owners and out-channel list",
+      "source_status": "covered using accepted prefix",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "gnat_error_json",
+      "witnesses": [
+        "gnat_util",
+        "json"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "F",
+        "X",
+        "T"
+      ],
+      "domain": "fixed Record(error String, internal Bool, results empty List)",
+      "source_status": "covered",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "exception_reporting",
+      "witnesses": [
+        "exn_printer",
+        "stdlib_printexc",
+        "gnat_util",
+        "tuple"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "F",
+        "X",
+        "T"
+      ],
+      "domain": "frozen E_report primitive/payload-free/translated type-symbol family; tuple misses have separate OCaml charge",
+      "source_status": "companion source domain integrated; independent review separate",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "optional_hash_seed",
+      "witnesses": [
+        "hashtbl",
+        "ephemeron",
+        "sys"
+      ],
+      "contracts": [
+        "A",
+        "V",
+        "X"
+      ],
+      "domain": "either randomization branch; standard PRNG/entropy/time/process data",
+      "source_status": "covered",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    },
+    {
+      "id": "native_terminal",
+      "witnesses": [
+        "sys",
+        "startup",
+        "startup_native",
+        "uncaught",
+        "misc",
+        "eventlog",
+        "zarith"
+      ],
+      "contracts": [
+        "T",
+        "X",
+        "F"
+      ],
+      "domain": "derived configuration and classified lifetime/CRT families",
+      "source_status": "covered under named source/link relation",
+      "additional_native_identifier_charge": 0,
+      "charge_condition": "Named source/link behavior relation, accepted source representations and protocols, integrated E_report domain; excludes the separately charged OCaml roots."
+    }
+  ],
+  "generated_entries_included": [
+    "allocation",
+    "GC/pending poll",
+    "raise/bounds/stack failure",
+    "ordinary closure dispatch to source-accounted OCaml roots"
+  ],
+  "postcondition": "Named owned writes preserve charged logical state and do not supply unaccounted Ident.id_register calls or unclassified OCaml entries/exceptions/replay. Listed OCaml roots retain separate charges.",
+  "configuration_derivation": "source-family.json + configuration.json + retained-plan.json",
+  "E_report_commit": "6dd2732dd083ba6e29c7e2bd026d5668a0283b5e",
+  "excluded_by_scoped_roots_not_global_absence": [
+    "Marshal",
+    "Number real/range diagnostics",
+    "Yojson",
+    "Re",
+    "Gc.stat stack-usage dispatch",
+    "fork/atfork",
+    "Thread.exit/termination-hook jump",
+    "Unix.closedir"
+  ],
+  "new_capture_required": false,
+  "independent_review": "pending"
+}

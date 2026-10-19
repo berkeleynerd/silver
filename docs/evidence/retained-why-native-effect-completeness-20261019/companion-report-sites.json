@@ -1,0 +1,55 @@
+{
+  "argument_status": "inspected source envelope, conditional on complete native effects",
+  "sites": [
+    {
+      "id": "build_callback",
+      "source_refs": ["controller_report", "main_reports"],
+      "reason_at_most_once": "One selected Driver.prove_task call; its Sys_error handler is outside its own protected body.",
+      "forward_on_report_failure": ["idle_callback", "main_catch", "gnat_uncaught"]
+    },
+    {
+      "id": "idle_callback",
+      "source_refs": ["controller_idle", "main_reports"],
+      "reason_at_most_once": "One idle_handler invocation for the selected dequeued attempt; the broad handler cannot catch itself. A returning loop's next invocation is outside the interval.",
+      "forward_on_report_failure": ["main_catch", "gnat_uncaught"]
+    },
+    {
+      "id": "main_catch",
+      "source_refs": ["main_catch"],
+      "reason_at_most_once": "The top-level handler body has no enclosing self-retry; stack-trace and Out_of_memory branches skip this printer.",
+      "forward_on_report_failure": ["gnat_uncaught"]
+    },
+    {
+      "id": "gnat_uncaught",
+      "source_refs": ["abort", "runtime_uncaught"],
+      "reason_at_most_once": "The one runtime uncaught-handler wrapper invokes its registered handler once, after suppressing do_at_exit failure.",
+      "forward_on_report_failure": ["fallback_original"]
+    },
+    {
+      "id": "fallback_original",
+      "source_refs": ["runtime_uncaught"],
+      "reason_at_most_once": "One sequential to_string of the original exception after registered-handler failure; failures escape to the final suppressor.",
+      "forward_on_report_failure": [],
+      "forward_on_success": ["fallback_secondary"]
+    },
+    {
+      "id": "fallback_secondary",
+      "source_refs": ["runtime_uncaught"],
+      "reason_at_most_once": "One sequential to_string of the secondary exception; failures escape to the final suppressor.",
+      "forward_on_report_failure": []
+    }
+  ],
+  "signal_attempts_upper": 2,
+  "signal_interruption": "A signal executes save/exit, which contains none of these reporting calls. Success exits; failure unwinds to a still-active source trap or the next outer site. Registry catches may continue the original report but do not reinvoke its outer source site. Native callback/fatal dispatch effects remain an independent open obligation.",
+  "within_report": {
+    "maximum_why_wrapper_depth": 2,
+    "why_wrappers": ["Loc.Located", "Trans.TransFailure"],
+    "finally_wrapper": "Fun.Finally_raised replaces the original with a primitive/save secondary; it does not add to a TypeMismatch wrapper chain.",
+    "registry_failure": "Suppress secondary exception and continue with original input; do not recursively print the secondary inside the registry."
+  },
+  "excluded_transitions": [
+    "normal return to later driver debug printing or next transform",
+    "returning InternalFailure callback followed by a new idle/scheduler invocation",
+    "Gnat_scheduler.main_loop Exit catch entering ordinary ending save"
+  ]
+}
