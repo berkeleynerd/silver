@@ -27,6 +27,14 @@ The [original review](reviews/review-ec82b4e5f2.md) and
 [planning repair record](review-ec82b4e5f2-repairs.md) remain historical records.
 Neither research closure nor this direction change establishes a larger language.
 
+**Assurance modes (2026-10-19).** The owner adopted in principle a strict/loose
+split, recorded in [assurance-modes.md](assurance-modes.md) with its proposed
+Oracle amendment: strict programs prove by construction under the derived
+capacity rules; loose programs beyond them compile only when their own proof run
+succeeds. This scope's design sections remain the production design for the
+compiler, confirmation and outcomes; the modes record states which of the limits
+below loose mode may raise and which are hard in both modes.
+
 ## Goal and owner direction
 
 The owner wants Silver without "unadjustable or unnecessary arbitrary limits"

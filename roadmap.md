@@ -26,6 +26,18 @@ frontends cease to be prerequisites. The [scope](docs/unbounded-programs.md)
 and [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) retain the
 unchanged Oracle and current supported language.
 
+**Assurance modes (direction, 2026-10-19).** The owner
+[adopted in principle](docs/session-memory.md#2026-10-19--strict-and-loose-assurance-modes-adopted-in-principle)
+two assurance modes, recorded in [assurance modes](docs/assurance-modes.md): a
+strict program satisfies the derived capacity rules and proves by construction
+without a per-program prover run; a loose program is valid Silver beyond those
+rules and compiles only when its own proof run succeeds, doing no worse than
+GNATprove itself. The Oracle amendment is proposed in the same pull request and
+takes effect only when the owner merges it. Build stays paused until #119
+completes; when work resumes, loose mode (#88, #89, #90 and a sound envelope
+for the undetected-overflow limits) precedes expansion, and #119's rule
+defines strict mode.
+
 The reviewed research [#107/#108](docs/research/unbounded-feasibility-result.md)
 and [#113](docs/research/frontend-representation-result.md) establishes a
 source-derived obstruction to the original full String composition domain.

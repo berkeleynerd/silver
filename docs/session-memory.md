@@ -1,5 +1,39 @@
 # Session memory
 
+## 2026-10-19 — Strict and loose assurance modes adopted in principle
+
+After the independent review of the #145 native capacity checkpoint and a
+discussion of which limits the research supports loosening, the owner proposed
+two assurance modes: **"'strict' code will not need gnatprove to run on the
+resulting program to have implicit guarantees by construction while 'loose' code
+will require gnatprove to run since various restrictions on output will depend
+on host capabilities"**, under the standard **"We will do no worse than
+SPARK/GNATProve itself under this assumption."** The owner then said: **"Agree
+that we should create a patch for the oracle amendment and perhaps some
+documentation where the split detail lives. We will pause build until 119
+completes in any case due to token restrictions but this is the approach I
+think we should adopt."** and **"Yes, please draft this."**
+
+This entry, the [assurance modes record](assurance-modes.md) and the Oracle
+amendment in the same pull request are that draft. The amendment takes effect
+only when the owner merges it; merging is the explicit approval the Oracle
+requires. The record separates the numbers loose mode may raise, whose overflow
+the tools detect, from the hard limits both modes keep, whose overflow would be
+silent, and gives the Lean division: membership, semantics and correspondence in
+both modes; discharge completeness for strict programs only; a decidable strict
+predicate with native correspondence; a resource-indexed outcome contract for
+loose programs.
+
+Not authorized: implementation of either mode, any change to admission or the
+current language, starting #88–#94, or resuming #119. Build is paused until
+#119 completes. When work resumes, loose mode (#88, #89, #90 and a crude sound
+envelope for the hard limits whose exact numbers #119 is deriving) precedes
+expansion, and #119's rule defines strict mode; the roadmap records that order
+as direction. Installed tools, pins and admission are unchanged. The planning
+agent drafted these documents; the review report
+`docs/reviews/review-a3af180047.md` remains untracked pending the owner's filing
+decision. CLI memory was updated.
+
 ## 2026-10-19 — Resume #119 for the complete native-build checkpoint
 
 The owner instructed **“Proceed”** after selecting the complete native-build
