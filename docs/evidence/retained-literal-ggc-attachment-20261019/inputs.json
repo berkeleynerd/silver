@@ -1,0 +1,115 @@
+{
+  "scope": "Complete accepted219 and native GGC ledger packets and notes with exact acceptance reports; no pending Why/CFI inputs",
+  "base_revision": "05876640ff96dfee48a43f7602badabea065ddaf",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/README.md",
+      "bytes": 2969,
+      "sha256": "57c32f40bd458aadbf8ca4e958e0aee3b96699ba70a302d9b2ae2c2b2853efc3"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/check-results.json",
+      "bytes": 44123,
+      "sha256": "92ebb52806eb73016952de1655811fad9912ae4673355bfa5028cbf6bafe291b"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/check.py",
+      "bytes": 19987,
+      "sha256": "5201eb3092ec1c8f8e5644f9e69dc33888efbbf6240573e0e9a2e3a0f4611ffe"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/compose.py",
+      "bytes": 21451,
+      "sha256": "09982a2919efc091cb8f7669b66487b61bee7128acee91381b36144a815a986e"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/inputs.json",
+      "bytes": 6443,
+      "sha256": "072850a9408597df4d8619747c3ec57c11dc745ac18611f000e1d05ddc381322"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/result.json",
+      "bytes": 740459,
+      "sha256": "fbf85f0dcc7c94866dd23b34e96ba3ddc6d5f5248a9e004dfc97a98527b5e612"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/evidence/retained-literal-pool-finalizer-attachment-20261019/round.json",
+      "bytes": 4631,
+      "sha256": "425497473ed033ba0a05a6be24f57c983cf6cc7a32ae0386d6f5aa4b121a16a8"
+    },
+    {
+      "revision": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+      "path": "docs/research/retained-literal-pool-finalizer-attachment.md",
+      "bytes": 10732,
+      "sha256": "35e65f161be0595089a05abc8dc376efb7af7b1d81232f4f93255875f3570f3f"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/README.md",
+      "bytes": 2868,
+      "sha256": "4af95b26064b4f9175649eceacbf4d2c9d062826f7ca2cdd9fed1870d467f492"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/check-results.json",
+      "bytes": 4465,
+      "sha256": "f7ba34c86cb083469fd270bc98e9099a9f7d922f7c5ae8d769805e7184bd64fc"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/check.py",
+      "bytes": 9351,
+      "sha256": "023a9409b63e18217ff0f8ebe9481308abfb6bd091a392c4509b82feee373cd5"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/derive.py",
+      "bytes": 21113,
+      "sha256": "4a99185226e49ffc0104e3eb4e543fbb17237ab425f2b3f5e0cd82d774171f11"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/inputs.json",
+      "bytes": 14901,
+      "sha256": "519db11b74467b34576826a54694c51c4da83b27e73b5e41fb765ffcc701f704"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/result.json",
+      "bytes": 24303,
+      "sha256": "12e1cfa1f6943e38093c9c9442666ecded2bf91f0d751b45605c451f88b38c46"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/evidence/retained-literal-native-ggc-ledger-20261019/round.json",
+      "bytes": 2502,
+      "sha256": "abb7fd39a98aa1e21f338210cf5a025cc77ffe590131723e9ff12478bab3180c"
+    },
+    {
+      "revision": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+      "path": "docs/research/retained-literal-native-ggc-ledger.md",
+      "bytes": 17828,
+      "sha256": "d87cd42673a766a3e1f7e41a6c12de7fa6e95bcbcbfd27d206f38e4fa65db533"
+    },
+    {
+      "revision": "d454e615431be79b746bb62c19175d3d2191d196",
+      "path": "docs/reviews/review-literal-pool-finalizer-attachment-562493728b.md",
+      "bytes": 9123,
+      "sha256": "b7e65282457923adeadd268c7e045b25cc7a5c28c6c877fec43611ba36f3cf4b"
+    },
+    {
+      "revision": "f58ceffafe3a7458447b24fa563aa3f7f146deca",
+      "path": "docs/reviews/review-literal-native-ggc-ledger-ca4ef8d20f.md",
+      "bytes": 13367,
+      "sha256": "24ebd21647479b3e9c0b251ba0f9ac229fe61f2db067148401629702c0a815a8"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "authorization": "Continuing owner-authorized research; parent-assigned bounded actual-source GGC successor. No GitHub writes or delegation.",
+  "base_revision": "05876640ff96dfee48a43f7602badabea065ddaf",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_measurements": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "intended_outcome": "Attach accepted complete selected positive GGC partition and indexed collector storage to actual-source 219-guard route while preserving all upstream failures and exact source/configuration/ordinary owners",
+  "achieved": "219 inherited +17 new =236 guards; exact source/configured invocation/current finalizer joins; explicit upstream short-circuit versus computed local failure; conditional positive GGC/page bounds; all broader capacity remains open; independent attachment review pending",
+  "first_recorded_post_worktree_checkpoint_utc": "2026-10-19T11:27:29+00:00",
+  "round_record_utc": "2026-10-19T11:38:44.063974+00:00",
+  "recorded_checkpoint_interval_seconds": 675.063974,
+  "whole_task_elapsed_seconds": null,
+  "checkpoint_scope": "First clock checkpoint follows worktree creation; not a measured whole-task start.",
+  "final_affected_run": {
+    "started_utc": "2026-10-19T11:36:58.491144+00:00",
+    "completed_utc": "2026-10-19T11:37:08.818578+00:00",
+    "elapsed_seconds": 10.3274282689963,
+    "checks": 353,
+    "inherited_guard_count": 219,
+    "new_guard_count": 17,
+    "total_guards": 236,
+    "new_contexts": 1,
+    "actual_sources": 5,
+    "count_only_boundaries": 8
+  },
+  "earlier_affected_successes": [
+    {
+      "checks": 339,
+      "elapsed_seconds": 10.004067262998433
+    },
+    {
+      "checks": 343,
+      "elapsed_seconds": 10.134704907992273
+    }
+  ],
+  "significant_rework": [
+    "Initial checker assertion incorrectly treated full source_counts as numerical counts; source_sha256 is intentionally part of complete record. Equal-count comparison now omits only that identity field. Two expected-error fragments were aligned with actual accepted callee diagnostics; one prospective cold-owner mutation path was corrected to the existing request schema. These were checker defects, not bound/source-argument failures.",
+    "After 339-check success, self-review strengthened exact launch correspondence with the existing arithmetic-independent invocation join, checked native/producer options and actual library source identities. Added jointly mutated launch/options checks on passing and failed paths; 343-check affected rerun passed.",
+    "Added a fifth actual C=10/N=10 source crossing 65536 page-pointer slots to verify integrated capacity transfer beyond pure count boundaries; final 353-check affected rerun passed. No identical-success expensive run."
+  ],
+  "retained_evidence": "Accepted native 84 checks/24 count cases/17 boundaries and exact acceptance report; accepted 219-guard predecessor 309 and earlier suites/source arguments. None replayed.",
+  "selected_native_implementation": "ca4ef8d20f557307b1d1085b42d570fc5d224d77",
+  "selected_native_acceptance": "f58ceffafe3a7458447b24fa563aa3f7f146deca",
+  "selected219_implementation": "562493728b6cd0ec918cee1eb2848c05c2c3a565",
+  "selected219_acceptance": "d454e615431be79b746bb62c19175d3d2191d196",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "large_corpus_rerun": false,
+  "array_census_regenerated": false,
+  "runtime_census_reinventoried": false,
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive validation started or resumed; new focused offline checks only.",
+  "pending_Why_CFI_candidates_consumed": false,
+  "github_writes": 0,
+  "delegation": 0,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "selected_positive_GGC_events_upper": 47054,
+  "selected_active_pages_upper": 47054,
+  "each_page_pointer_capacity_upper": 65536,
+  "each_page_pointer_backing_bytes_upper": 524288,
+  "complete_ordinary_native_capacity": false,
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_gate": false,
+  "remaining": [
+    "Independent review of this actual-source attachment",
+    "Remaining ordinary IRA/LRA/RTL-CFG/CFI and stack capacities",
+    "Other required native/producer/proof/parent phases and full-current-grammar capacity",
+    "Production launcher/materialization and source/binary correspondence"
+  ],
+  "implementation_inputs": {
+    "compose.py": {
+      "bytes": 20305,
+      "sha256": "2e21429f48781d47001894b780790a51552c88ed3df7f288afd71bee3b5838df"
+    },
+    "check.py": {
+      "bytes": 19887,
+      "sha256": "fcf6ff1b1d6fcb4d60132d331ccf256eb8d57be6719ed7c6488d9c55ff66ebf4"
+    },
+    "inputs.json": {
+      "bytes": 5091,
+      "sha256": "afd9c4143c0e1304da87b239ac4adfda0c113cb21e5888c1cc3eb4a2078471ed"
+    }
+  },
+  "evidence_identities": {
+    "README.md": {
+      "bytes": 3578,
+      "sha256": "cecf8d5afa5ef8f80791472546090f48b7c112fc7b1bb93766d075dfbfe0b4eb"
+    },
+    "result.json": {
+      "bytes": 772085,
+      "sha256": "e0142390c79ae658c63ab1d926e12ae8d4a901de2919c7be1972ea199c6ae701"
+    },
+    "check-results.json": {
+      "bytes": 49949,
+      "sha256": "b2949545174f395af38bf62a853eca5cc0f5a4b8ffcdfa3af3dce1974c605a00"
+    }
+  },
+  "source_note_identity": {
+    "bytes": 11029,
+    "sha256": "8058cbaf81757f5bad89c161dbdf19ab025e9651aeef6d1e5d62297337ba2edd"
+  }
+}
