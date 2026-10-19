@@ -1,0 +1,116 @@
+{
+  "task": "Selected literal Ada remainder audit and named closure, Refs #145, #119",
+  "authorization": "Parent bounded source audit; close residuals or identify precise missing obligations; own only this research note/evidence directory",
+  "base_revision": "a75f4c28ed",
+  "branch": "research/literal-ada-residual-completion-20261019",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "work_started_UTC": "2026-10-19T14:22:39+00:00",
+  "recorded_UTC": "2026-10-19T14:42:20.112871+00:00",
+  "elapsed_task_clock_seconds": 1181.112871,
+  "elapsed_clock_is_not_model_compute_time": true,
+  "intended_outcome": "Complete selected Ada remainder case split and concrete owner/guard exports without turning missing obligations into assumptions",
+  "achieved": {
+    "named_fixed_generic_tables": 3,
+    "named_diagnostic_tables": 11,
+    "registry_literal_String_requests": 177,
+    "copy_map_and_linked_record_individual_bounds": true,
+    "retained_table_census_rows": 120,
+    "inherited_table_owners": 39,
+    "new_named_table_owners": 14,
+    "unreconciled_symbols": 67,
+    "checks": 70,
+    "elapsed_check_seconds": 0.06160105299204588,
+    "input_verification": {
+      "files": 37,
+      "literal_LF_excerpts": 48
+    },
+    "complete_Ada_frontend_capacity": false,
+    "complete_native_capacity": false,
+    "independent_review": "pending"
+  },
+  "findings_and_rework": [
+    "Current named frontend components do not exhaust the retained120-symbol fixed table census; Table.Table unconditionally initializes even at zero appends. The67 unowned symbols are retained as obligations, not assigned an assumed-safe flag.",
+    "NCT wrappers can be priced through their distinct-key/pointer representation independently of the unclosed semantic-copy recursion; pending Elist storage retains its prior owner.",
+    "Unconditional Errid package elaboration creates177 literal Strings even on the zero-message route. Opt initialization also precedes selected-option exclusions.",
+    "Inherited registry/source inventories were read only; no predecessor code executed. A new lexical build-list inspection remained a diagnostic aid and was not promoted to a complete callgraph or allocation census.",
+    "Source extraction rejected absent/mislocated operative fragments in Errout, Sem_Elim and Sem_Warn spans; corrected against literal LF source before producing successful inputs."
+  ],
+  "local_runs": [
+    {
+      "scope": "New focused arithmetic/source/interface checks",
+      "checks": 70,
+      "elapsed_seconds": 0.06160105299204588
+    }
+  ],
+  "prohibited_or_unrun": {
+    "native_compiler_target_build_capture": 0,
+    "prover_solver_Lean": 0,
+    "predecessor_suites_or_evaluators": 0,
+    "corpus_or_aggregate_replay": 0,
+    "GitHub_index_session_memory_CLI_memory_writes": 0
+  },
+  "remaining": [
+    "67 retained fixed-table symbols need exact owner reconciliation or source/backing/caller proofs",
+    "Remaining fixed non-table/generic instances and optional build-mode allocation exclusions",
+    "Fixed semantic/copy/deferred-name local objects, index/successor products and recursion rank",
+    "Completion of source/generic/generated-unit allocator and local-object census",
+    "Independent review and future actual-source integration retaining all prior conditions"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/README.md",
+      "bytes": 3923,
+      "sha256": "b735012f3d9204af41d0c5e2b9468ace99bd4358683bd05d7741c5d8704551a9"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/check-results.json",
+      "bytes": 3996,
+      "sha256": "540fc5c3119fb4421c0bd0bbbadc8fb8ca0bf79ad9824909cce308709aeb16e3"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/check.py",
+      "bytes": 7399,
+      "sha256": "39805ebf9a2bc387eafaa1df52ed3c5360855d29b5ee1d23ae90e8980c6707ed"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/derive.py",
+      "bytes": 6384,
+      "sha256": "71a5d006596eed992d8b83b1f8b8d8e23a429db624ac6e95db3b3d9860a25b30"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/fixed-table-census.json",
+      "bytes": 34386,
+      "sha256": "bda144d7ae740d252ed6da953921e553e2e193ecbcd9169e6141da7dbefa4846"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/inputs.json",
+      "bytes": 126745,
+      "sha256": "967b8da0c9ff405a9e796c9c97c708d74d432ac0eea89773f969db4d52be6b60"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/prepare_inputs.py",
+      "bytes": 8413,
+      "sha256": "02dc0fc5b534f02397246844a566597344aca00299a933ef9cee21116471f230"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/registry-literals.json",
+      "bytes": 17644,
+      "sha256": "d514e83974dc961d58e542fc45be20cf7432ee831cfef43d8b8e9b35d83d7c31"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-residual-completion-20261019/result.json",
+      "bytes": 9647,
+      "sha256": "75c4be3a24697e8abc5f6b2397b4c0b485d104e7456d2d6dae33a12c03fdd8bf"
+    },
+    {
+      "path": "docs/research/retained-literal-ada-residual-completion.md",
+      "bytes": 16166,
+      "sha256": "016ebb53009cffd8c1a765193e8416cc6276dab6be494661d5f108d678244344"
+    }
+  ]
+}

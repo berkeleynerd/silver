@@ -1,0 +1,845 @@
+{
+  "GCC_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "integration_base": "a75f4c28ed",
+  "files": [
+    {
+      "root": "ada",
+      "path": "alloc.ads",
+      "identity": {
+        "bytes": 7830,
+        "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "atree.adb",
+      "identity": {
+        "bytes": 103427,
+        "sha256": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "errid-diagnostic_repository.ads",
+      "identity": {
+        "bytes": 4850,
+        "sha256": "b5e40197579a060299260a4ff1132161818b03bf8e3e87369e691d1bea2d3f05"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "errid-switch_repository.ads",
+      "identity": {
+        "bytes": 29086,
+        "sha256": "29ce678206b976ee35edcd126253f176d14b187b3a07a8c326749467873b10d9"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "errid.ads",
+      "identity": {
+        "bytes": 4238,
+        "sha256": "e25cd30a4072733e5da0e02e5ac44a0c80da1f1e1531bfd24944ce044d284c06"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "errout.adb",
+      "identity": {
+        "bytes": 147124,
+        "sha256": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "errout.ads",
+      "identity": {
+        "bytes": 59365,
+        "sha256": "89f65433e23cca5eb5ffdcf5490f9be4f4a04abff7022081770848c500683766"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "erroutc-sarif_emitter.ads",
+      "identity": {
+        "bytes": 3854,
+        "sha256": "5f7287123a043808e774ef1cb8c316a93b46c3e050082e527cd50fa3c414ed7f"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "erroutc.ads",
+      "identity": {
+        "bytes": 39437,
+        "sha256": "9ee0204a0bf38d8a3bf2e7ec401686c9bc4608c30c985d108ae162fbf44a6a76"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "exp_dbug.adb",
+      "identity": {
+        "bytes": 55041,
+        "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "exp_util.adb",
+      "identity": {
+        "bytes": 533310,
+        "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "lib-writ.adb",
+      "identity": {
+        "bytes": 61061,
+        "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-htable.adb",
+      "identity": {
+        "bytes": 11128,
+        "sha256": "b734b51a0eba840292b2d2ac0ace88782bc713755cf020f97ef8fa08158b69f8"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "namet.adb",
+      "identity": {
+        "bytes": 48624,
+        "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "opt.ads",
+      "identity": {
+        "bytes": 93026,
+        "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem.adb",
+      "identity": {
+        "bytes": 83263,
+        "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem.ads",
+      "identity": {
+        "bytes": 39576,
+        "sha256": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_case.adb",
+      "identity": {
+        "bytes": 153221,
+        "sha256": "efd02fba82b3c8dce9644ee6af797f2c1ea571a409bc3caadeacf5493ba44663"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_ch12.adb",
+      "identity": {
+        "bytes": 729258,
+        "sha256": "4d67a12cbf80298c1eacfba27b7c7ae42d9757989d0241993c0da6748320fde8"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_ch6.adb",
+      "identity": {
+        "bytes": 545826,
+        "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_elim.adb",
+      "identity": {
+        "bytes": 34557,
+        "sha256": "6977031b82062070e830bb300c4ae90a3ae669c6b53742b43696878bb8e2a302"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_res.adb",
+      "identity": {
+        "bytes": 559989,
+        "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "identity": {
+        "bytes": 1074489,
+        "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_warn.adb",
+      "identity": {
+        "bytes": 187139,
+        "sha256": "698effea285660dfe3513e64231d0947e0579b3635cb7b55420e9ebf35dd1e55"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "sem_warn.ads",
+      "identity": {
+        "bytes": 14310,
+        "sha256": "2784336b9c54a756e7f10a05a3dbe60c2da61057f12141fe41c561c21c77872f"
+      }
+    },
+    {
+      "root": "ada",
+      "path": "table.adb",
+      "identity": {
+        "bytes": 13959,
+        "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/result.json",
+      "identity": {
+        "bytes": 1111857,
+        "sha256": "f1e1663c15cbc548a29e2292c90306183719b18f536963a8f2076e620172e4f1"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-inputs.json",
+      "identity": {
+        "bytes": 27601,
+        "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-frontend-storage.md",
+      "identity": {
+        "bytes": 19874,
+        "sha256": "087145507a68ab8544a04c7d07d9d6099a357bf02b918c7e5f10a8f3092f5311"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-native-frontend.md",
+      "identity": {
+        "bytes": 11203,
+        "sha256": "fad49ee07adafe8fd65199e015170bec412abbd960bc3f1250f8cf1c53295801"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "identity": {
+        "bytes": 781411,
+        "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-main-semantics.md",
+      "identity": {
+        "bytes": 124347,
+        "sha256": "bb71a6fecfdd9102ad784cdf8cddb64a6934b35e45b5f0f737a8f2cb51272ca9"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ada-numeric.md",
+      "identity": {
+        "bytes": 10353,
+        "sha256": "ba04df646370c3d70faad6f45ef51d9211b1769ab4d368f371d304a3a707be3b"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-invocation-join.md",
+      "identity": {
+        "bytes": 16456,
+        "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-original-main-storage.md",
+      "identity": {
+        "bytes": 19802,
+        "sha256": "5485d9230dda1ac3960c9d412977f7d7029d712e584389cb26ddc503f56e32d9"
+      }
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-string-layout-storage.md",
+      "identity": {
+        "bytes": 21589,
+        "sha256": "dc904323ffd91b677f6d6984ac4c090711d8e584158ef06ae76784e30e9f5794"
+      }
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/Make-lang.in",
+      "identity": {
+        "bytes": 39567,
+        "sha256": "4e35beb96f3dd5eecf62bbea9baa20477cce3ca348ddefb29d0d092efdfd67d7"
+      }
+    }
+  ],
+  "excerpts": [
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 24064,
+      "last_LF_line": 24125,
+      "text": "   --  The following tables play a key role in replicating entities and Itypes.\n   --  They are intentionally declared at the library level rather than within\n   --  New_Copy_Tree to avoid elaborating them on each call. This performance\n   --  optimization saves up to 2% of the entire compilation time spent in the\n   --  front end. Care should be taken to reset the tables on each new call to\n   --  New_Copy_Tree.\n\n   NCT_Table_Max : constant := 511;\n\n   subtype NCT_Table_Index is Nat range 0 .. NCT_Table_Max - 1;\n\n   function NCT_Table_Hash (Key : Node_Or_Entity_Id) return NCT_Table_Index;\n   --  Obtain the hash value of node or entity Key\n\n   --------------------\n   -- NCT_Table_Hash --\n   --------------------\n\n   function NCT_Table_Hash (Key : Node_Or_Entity_Id) return NCT_Table_Index is\n   begin\n      return NCT_Table_Index (Key mod NCT_Table_Max);\n   end NCT_Table_Hash;\n\n   ----------------------\n   -- NCT_New_Entities --\n   ----------------------\n\n   --  The following table maps old entities and Itypes to their corresponding\n   --  new entities and Itypes.\n\n   --    Aaa -> Xxx\n\n   package NCT_New_Entities is new Simple_HTable (\n     Header_Num => NCT_Table_Index,\n     Element    => Entity_Id,\n     No_Element => Empty,\n     Key        => Entity_Id,\n     Hash       => NCT_Table_Hash,\n     Equal      => \"=\");\n\n   ------------------------\n   -- NCT_Pending_Itypes --\n   ------------------------\n\n   --  The following table maps old Associated_Node_For_Itype nodes to a set of\n   --  new itypes. Given a set of old Itypes Aaa, Bbb, and Ccc, where all three\n   --  have the same Associated_Node_For_Itype Ppp, and their corresponding new\n   --  Itypes Xxx, Yyy, Zzz, the table contains the following mapping:\n\n   --    Ppp -> (Xxx, Yyy, Zzz)\n\n   --  The set is expressed as an Elist\n\n   package NCT_Pending_Itypes is new Simple_HTable (\n     Header_Num => NCT_Table_Index,\n     Element    => Elist_Id,\n     No_Element => No_Elist,\n     Key        => Node_Id,\n     Hash       => NCT_Table_Hash,\n     Equal      => \"=\");\n\n   NCT_Tables_In_Use : Boolean := False;",
+      "operative_fragments": [
+        "NCT_Table_Max",
+        "Key mod NCT_Table_Max"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 24317,
+      "last_LF_line": 24422,
+      "text": "      procedure Add_New_Entity (Old_Id : Entity_Id; New_Id : Entity_Id) is\n      begin\n         pragma Assert (Present (Old_Id));\n         pragma Assert (Present (New_Id));\n         pragma Assert (Nkind (Old_Id) in N_Entity);\n         pragma Assert (Nkind (New_Id) in N_Entity);\n\n         NCT_Tables_In_Use := True;\n\n         --  Sanity check the NCT_New_Entities table. No previous mapping with\n         --  key Old_Id should exist.\n\n         pragma Assert (No (NCT_New_Entities.Get (Old_Id)));\n\n         --  Establish the mapping\n\n         --    Old_Id -> New_Id\n\n         NCT_New_Entities.Set (Old_Id, New_Id);\n      end Add_New_Entity;\n\n      -----------------------\n      -- Add_Pending_Itype --\n      -----------------------\n\n      procedure Add_Pending_Itype (Assoc_Nod : Node_Id; Itype : Entity_Id) is\n         Itypes : Elist_Id;\n\n      begin\n         pragma Assert (Present (Assoc_Nod));\n         pragma Assert (Present (Itype));\n         pragma Assert (Nkind (Itype) in N_Entity);\n         pragma Assert (Is_Itype (Itype));\n\n         NCT_Tables_In_Use := True;\n\n         --  It is not possible to sanity check the NCT_Pendint_Itypes table\n         --  directly because a single node may act as the associated node for\n         --  multiple itypes.\n\n         Itypes := NCT_Pending_Itypes.Get (Assoc_Nod);\n\n         if No (Itypes) then\n            Itypes := New_Elmt_List;\n            NCT_Pending_Itypes.Set (Assoc_Nod, Itypes);\n         end if;\n\n         --  Establish the mapping\n\n         --    Assoc_Nod -> (Itype, ...)\n\n         --  Avoid inserting the same itype multiple times. This involves a\n         --  linear search, however the set of itypes with the same associated\n         --  node is very small.\n\n         Append_Unique_Elmt (Itype, Itypes);\n      end Add_Pending_Itype;\n\n      ----------------------\n      -- Build_NCT_Tables --\n      ----------------------\n\n      procedure Build_NCT_Tables (Entity_Map : Elist_Id) is\n         Elmt   : Elmt_Id;\n         Old_Id : Entity_Id;\n         New_Id : Entity_Id;\n\n      begin\n         --  Nothing to do when there is no entity map\n\n         if No (Entity_Map) then\n            return;\n         end if;\n\n         Elmt := First_Elmt (Entity_Map);\n         while Present (Elmt) loop\n\n            --  Extract the (Old_Id, New_Id) pair from the entity map\n\n            Old_Id := Node (Elmt);\n            Next_Elmt (Elmt);\n\n            New_Id := Node (Elmt);\n            Next_Elmt (Elmt);\n\n            --  Establish the following mapping within table NCT_New_Entities\n\n            --    Old_Id -> New_Id\n\n            Add_New_Entity (Old_Id, New_Id);\n\n            --  Establish the following mapping within table NCT_Pending_Itypes\n            --  when the new entity is an itype.\n\n            --    Assoc_Nod -> (New_Id, ...)\n\n            --  IMPORTANT: the associated node is that of the old itype because\n            --  the node will be replicated in Phase 2.\n\n            if Is_Itype (Old_Id) then\n               Add_Pending_Itype\n                 (Assoc_Nod => Associated_Node_For_Itype (Old_Id),\n                  Itype     => New_Id);\n            end if;\n         end loop;\n      end Build_NCT_Tables;",
+      "operative_fragments": [
+        "NCT_New_Entities.Set",
+        "New_Elmt_List",
+        "Append_Unique_Elmt",
+        "Build_NCT_Tables"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 24443,
+      "last_LF_line": 24622,
+      "text": "      function Copy_Elist_With_Replacement (List : Elist_Id) return Elist_Id is\n         Elmt   : Elmt_Id;\n         Result : Elist_Id;\n\n      begin\n         --  Copy the contents of the old list. Note that the list itself may\n         --  be empty, in which case the routine returns a new empty list. This\n         --  avoids sharing lists between subtrees. The element of an entity\n         --  list could be an entity or a node, hence the invocation of routine\n         --  Copy_Any_Node_With_Replacement.\n\n         if Present (List) then\n            Result := New_Elmt_List;\n\n            Elmt := First_Elmt (List);\n            while Present (Elmt) loop\n               Append_Elmt\n                 (Copy_Any_Node_With_Replacement (Node (Elmt)), Result);\n\n               Next_Elmt (Elmt);\n            end loop;\n\n         --  Otherwise the list does not exist\n\n         else\n            Result := No_Elist;\n         end if;\n\n         return Result;\n      end Copy_Elist_With_Replacement;\n\n      ---------------------------------\n      -- Copy_Field_With_Replacement --\n      ---------------------------------\n\n      function Copy_Field_With_Replacement\n        (Field    : Union_Id;\n         Old_Par  : Node_Id := Empty;\n         New_Par  : Node_Id := Empty;\n         Semantic : Boolean := False) return Union_Id\n      is\n      begin\n         --  The field is empty\n\n         if Field = Union_Id (Empty) then\n            return Field;\n\n         --  The field is an entity/itype/node\n\n         elsif Field in Node_Range then\n            declare\n               Old_N     : constant Node_Id := Node_Id (Field);\n               Syntactic : constant Boolean :=\n                 Is_Syntactic_Node (Source => Old_Par, Field => Old_N);\n\n               New_N : Node_Id;\n\n            begin\n               --  The field is an entity/itype\n\n               if Nkind (Old_N) in N_Entity then\n\n                  --  An entity/itype is always replicated\n\n                  New_N := Corresponding_Entity (Old_N);\n\n                  --  Update the parent pointer when the entity is a syntactic\n                  --  field. Note that itypes do not have parent pointers.\n\n                  if Syntactic and then New_N /= Old_N then\n                     Set_Parent (New_N, New_Par);\n                  end if;\n\n               --  The field is a node\n\n               else\n                  --  A node is replicated when it is either a syntactic field\n                  --  or when the caller treats it as a semantic attribute.\n\n                  if Syntactic or else Semantic then\n                     New_N := Copy_Node_With_Replacement (Old_N);\n\n                     --  Update the parent pointer when the node is a syntactic\n                     --  field.\n\n                     if Syntactic and then New_N /= Old_N then\n                        Set_Parent (New_N, New_Par);\n                     end if;\n\n                  --  Otherwise the node is returned unchanged\n\n                  else\n                     New_N := Old_N;\n                  end if;\n               end if;\n\n               return Union_Id (New_N);\n            end;\n\n         --  The field is an entity list\n\n         elsif Field in Elist_Range then\n            return Union_Id (Copy_Elist_With_Replacement (Elist_Id (Field)));\n\n         --  The field is a syntactic list\n\n         elsif Field in List_Range then\n            declare\n               Old_List  : constant List_Id := List_Id (Field);\n               Syntactic : constant Boolean := Parent (Old_List) = Old_Par;\n\n               New_List : List_Id;\n\n            begin\n               --  A list is replicated when it is either a syntactic field or\n               --  when the caller treats it as a semantic attribute.\n\n               if Syntactic or else Semantic then\n                  New_List := Copy_List_With_Replacement (Old_List);\n\n                  --  Update the parent pointer when the list is a syntactic\n                  --  field.\n\n                  if Syntactic and then New_List /= Old_List then\n                     Set_Parent (New_List, New_Par);\n                  end if;\n\n               --  Otherwise the list is returned unchanged\n\n               else\n                  New_List := Old_List;\n               end if;\n\n               return Union_Id (New_List);\n            end;\n\n         --  Otherwise the field denotes an attribute that does not need to be\n         --  replicated (Chars, literals, etc).\n\n         else\n            return Field;\n         end if;\n      end Copy_Field_With_Replacement;\n\n      --------------------------------\n      -- Copy_List_With_Replacement --\n      --------------------------------\n\n      function Copy_List_With_Replacement (List : List_Id) return List_Id is\n         Elmt   : Node_Id;\n         Result : List_Id;\n\n      begin\n         --  Copy the contents of the old list. Note that the list itself may\n         --  be empty, in which case the routine returns a new empty list. This\n         --  avoids sharing lists between subtrees. The element of a syntactic\n         --  list is always a node, never an entity or itype, hence the call to\n         --  routine Copy_Node_With_Replacement.\n\n         if Present (List) then\n            Result := New_List;\n\n            Elmt := First (List);\n            while Present (Elmt) loop\n               Append (Copy_Node_With_Replacement (Elmt), Result);\n\n               Next (Elmt);\n            end loop;\n\n         --  Otherwise the list does not exist\n\n         else\n            Result := No_List;\n         end if;\n\n         return Result;\n      end Copy_List_With_Replacement;\n\n      --------------------------------\n      -- Copy_Node_With_Replacement --",
+      "operative_fragments": [
+        "Copy_Elist_With_Replacement",
+        "Copy_List_With_Replacement",
+        "Next (Elmt)"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 24913,
+      "last_LF_line": 24962,
+      "text": "      procedure Update_New_Entities (Entity_Map : Elist_Id) is\n         New_Id : Entity_Id := Empty;\n         Old_Id : Entity_Id := Empty;\n\n      begin\n         if NCT_Tables_In_Use then\n            NCT_New_Entities.Get_First (Old_Id, New_Id);\n\n            --  Update the semantic fields of all new entities created during\n            --  Phase 1 which were not supplied via an entity map.\n            --  ??? Is there a better way of distinguishing those?\n\n            while Present (Old_Id) and then Present (New_Id) loop\n               if not In_Entity_Map (Old_Id, Entity_Map) then\n                  Update_Semantic_Fields (New_Id);\n               end if;\n\n               NCT_New_Entities.Get_Next (Old_Id, New_Id);\n            end loop;\n         end if;\n      end Update_New_Entities;\n\n      ---------------------------\n      -- Update_Pending_Itypes --\n      ---------------------------\n\n      procedure Update_Pending_Itypes\n        (Old_Assoc : Node_Id;\n         New_Assoc : Node_Id)\n      is\n         Item   : Elmt_Id;\n         Itypes : Elist_Id;\n\n      begin\n         if NCT_Tables_In_Use then\n            Itypes := NCT_Pending_Itypes.Get (Old_Assoc);\n\n            --  Update the Associated_Node_For_Itype attribute for all itypes\n            --  which originally refer to Old_Assoc to designate New_Assoc.\n\n            if Present (Itypes) then\n               Item := First_Elmt (Itypes);\n               while Present (Item) loop\n                  Set_Associated_Node_For_Itype (Node (Item), New_Assoc);\n\n                  Next_Elmt (Item);\n               end loop;\n            end if;\n         end if;\n      end Update_Pending_Itypes;",
+      "operative_fragments": [
+        "Update_New_Entities",
+        "Update_Semantic_Fields",
+        "Next_Elmt"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 25108,
+      "last_LF_line": 25159,
+      "text": "         --  within an N_Expression_With_Actions node.\n\n         elsif EWA_Inner_Scope_Level > 0 then\n            return;\n\n         --  Nothing to do when the entity was already visited\n\n         elsif NCT_Tables_In_Use\n           and then Present (NCT_New_Entities.Get (Id))\n         then\n            return;\n\n         --  Nothing to do when the declaration node of the entity is not in\n         --  the subtree being replicated.\n\n         elsif not In_Subtree\n                     (N    => Declaration_Node (Id),\n                      Root => Source)\n         then\n            return;\n         end if;\n\n         --  Create a new entity by directly copying the old entity. This\n         --  action causes all attributes of the old entity to be inherited.\n\n         New_Id := New_Copy (Id);\n\n         --  Create a new name for the new entity because the back end needs\n         --  distinct names for debugging purposes, provided that the entity\n         --  has already been analyzed.\n\n         if Ekind (Id) /= E_Void then\n            Set_Chars (New_Id, New_Internal_Name ('T'));\n         end if;\n\n         --  Update the Comes_From_Source and Sloc attributes of the entity in\n         --  case the caller has supplied new values.\n\n         Update_CFS_Sloc (New_Id);\n\n         --  Establish the following mapping within table NCT_New_Entities:\n\n         --    Id -> New_Id\n\n         Add_New_Entity (Id, New_Id);\n\n         --  Deal with the semantic fields of entities. The fields are visited\n         --  because they may mention entities which reside within the subtree\n         --  being copied.\n\n         Visit_Semantic_Fields (Id);\n      end Visit_Entity;",
+      "operative_fragments": [
+        "NCT_New_Entities.Get",
+        "New_Copy (Id)",
+        "Visit_Semantic_Fields"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 25255,
+      "last_LF_line": 25356,
+      "text": "         --  share such itypes, which is fine because their elaboration will\n         --  have no side effects.\n\n         if Ekind (Itype) = E_Subprogram_Type then\n            return;\n\n         --  Nothing to do if the itype was already visited\n\n         elsif NCT_Tables_In_Use\n           and then Present (NCT_New_Entities.Get (Itype))\n         then\n            return;\n\n         --  Nothing to do if the associated node of the itype is not within\n         --  the subtree being replicated.\n\n         elsif not In_Subtree\n                     (N    => Associated_Node_For_Itype (Itype),\n                      Root => Source)\n         then\n            return;\n         end if;\n\n         --  Create a new itype by directly copying the old itype. This action\n         --  causes all attributes of the old itype to be inherited.\n\n         New_Itype := New_Copy (Itype);\n\n         --  Create a new name for the new itype because the back end requires\n         --  distinct names for debugging purposes.\n\n         Set_Chars (New_Itype, New_Internal_Name ('T'));\n\n         --  Update the Comes_From_Source and Sloc attributes of the itype in\n         --  case the caller has supplied new values.\n\n         Update_CFS_Sloc (New_Itype);\n\n         --  Establish the following mapping within table NCT_New_Entities:\n\n         --    Itype -> New_Itype\n\n         Add_New_Entity (Itype, New_Itype);\n\n         --  The new itype must be unfrozen because the resulting subtree may\n         --  be inserted anywhere and cause an earlier or later freezing.\n\n         if Present (Freeze_Node (New_Itype)) then\n            Set_Freeze_Node (New_Itype, Empty);\n            Set_Is_Frozen   (New_Itype, False);\n         end if;\n\n         --  If a record subtype is simply copied, the entity list will be\n         --  shared, so Cloned_Subtype must be set to indicate this.\n\n         if Ekind (Itype) in E_Class_Wide_Subtype | E_Record_Subtype then\n            Set_Cloned_Subtype (New_Itype, Itype);\n         end if;\n\n         --  The associated node may denote an entity, in which case it may\n         --  already have a new corresponding entity created during a prior\n         --  call to Visit_Entity or Visit_Itype for the same subtree.\n\n         --    Given\n         --       Old_Assoc ---------> New_Assoc\n\n         --    Created by Visit_Itype\n         --       Itype -------------> New_Itype\n         --       ANFI = Old_Assoc     ANFI = Old_Assoc  <  must be updated\n\n         --  In the example above, Old_Assoc is an arbitrary entity that was\n         --  already visited for the same subtree and has a corresponding new\n         --  entity New_Assoc. Old_Assoc was inherited by New_Itype by virtue\n         --  of copying entities, however it must be updated to New_Assoc.\n\n         Old_Assoc := Associated_Node_For_Itype (Itype);\n\n         if Nkind (Old_Assoc) in N_Entity then\n            if NCT_Tables_In_Use then\n               New_Assoc := NCT_New_Entities.Get (Old_Assoc);\n\n               if Present (New_Assoc) then\n                  Set_Associated_Node_For_Itype (New_Itype, New_Assoc);\n               end if;\n            end if;\n\n         --  Otherwise the associated node denotes a node. Postpone the update\n         --  until Phase 2 when the node is replicated. Establish the following\n         --  mapping within table NCT_Pending_Itypes:\n\n         --    Old_Assoc -> (New_Type, ...)\n\n         else\n            Add_Pending_Itype (Old_Assoc, New_Itype);\n         end if;\n\n         --  Deal with the semantic fields of itypes. The fields are visited\n         --  because they may mention entities that reside within the subtree\n         --  being copied.\n\n         Visit_Semantic_Fields (Itype);\n      end Visit_Itype;",
+      "operative_fragments": [
+        "NCT_New_Entities.Get",
+        "New_Copy (Itype)",
+        "Add_Pending_Itype"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 25567,
+      "last_LF_line": 25624,
+      "text": "      --  Preparatory phase. Clear the contents of tables NCT_New_Entities and\n      --  NCT_Pending_Itypes in case a previous call to New_Copy_Tree left some\n      --  data inside.\n\n      if NCT_Tables_In_Use then\n         NCT_Tables_In_Use := False;\n\n         NCT_New_Entities.Reset;\n         NCT_Pending_Itypes.Reset;\n      end if;\n\n      --  Populate tables NCT_New_Entities and NCT_Pending_Itypes with data\n      --  supplied by a linear entity map. The tables offer faster access to\n      --  the same data.\n\n      Build_NCT_Tables (Map);\n\n      --  Execute Phase 1. Traverse the subtree and generate new entities for\n      --  the following cases:\n\n      --    * An entity defined within an N_Expression_With_Actions node\n\n      --    * An itype referenced within the subtree where the associated node\n      --      is also in the subtree.\n\n      --  All new entities are accessible via table NCT_New_Entities, which\n      --  contains mappings of the form:\n\n      --    Old_Entity -> New_Entity\n      --    Old_Itype  -> New_Itype\n\n      --  In addition, the associated nodes of all new itypes are mapped in\n      --  table NCT_Pending_Itypes:\n\n      --    Assoc_Nod -> (New_Itype1, New_Itype2, .., New_ItypeN)\n\n      Visit_Any_Node (Source);\n\n      --  Update the semantic attributes of all new entities generated during\n      --  Phase 1 before starting Phase 2. The updates could be performed in\n      --  routine Corresponding_Entity, however this may cause the same entity\n      --  to be updated multiple times, effectively generating useless nodes.\n      --  Keeping the updates separates from Phase 2 ensures that only one set\n      --  of attributes is generated for an entity at any one time.\n\n      Update_New_Entities (Map);\n\n      --  Execute Phase 2. Replicate the source subtree one node at a time.\n      --  The following transformations take place:\n\n      --    * References to entities and itypes are updated to refer to the\n      --      new entities and itypes generated during Phase 1.\n\n      --    * All Associated_Node_For_Itype attributes of itypes are updated\n      --      to refer to the new replicated Associated_Node_For_Itype.\n\n      return Copy_Node_With_Replacement (Source);\n   end New_Copy_Tree;",
+      "operative_fragments": [
+        "NCT_New_Entities.Reset",
+        "NCT_Pending_Itypes.Reset",
+        "Visit_Any_Node",
+        "Copy_Node_With_Replacement"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-htable.adb",
+      "first_LF_line": 40,
+      "last_LF_line": 119,
+      "text": "\n   package body Static_HTable is\n\n      Table : array (Header_Num) of Elmt_Ptr;\n\n      Iterator_Index   : Header_Num;\n      Iterator_Ptr     : Elmt_Ptr;\n      Iterator_Started : Boolean := False;\n\n      function Get_Non_Null return Elmt_Ptr;\n      --  Returns Null_Ptr if Iterator_Started is false or the Table is empty.\n      --  Returns Iterator_Ptr if non null, or the next non null element in\n      --  table if any.\n\n      ---------\n      -- Get --\n      ---------\n\n      function Get (K : Key) return Elmt_Ptr is\n         Elmt : Elmt_Ptr;\n\n      begin\n         Elmt := Table (Hash (K));\n         loop\n            if Elmt = Null_Ptr then\n               return Null_Ptr;\n\n            elsif Equal (Get_Key (Elmt), K) then\n               return Elmt;\n\n            else\n               Elmt := Next (Elmt);\n            end if;\n         end loop;\n      end Get;\n\n      ---------------\n      -- Get_First --\n      ---------------\n\n      function Get_First return Elmt_Ptr is\n      begin\n         Iterator_Started := True;\n         Iterator_Index   := Table'First;\n         Iterator_Ptr     := Table (Iterator_Index);\n         return Get_Non_Null;\n      end Get_First;\n\n      --------------\n      -- Get_Next --\n      --------------\n\n      function Get_Next return Elmt_Ptr is\n      begin\n         if not Iterator_Started then\n            return Null_Ptr;\n         else\n            Iterator_Ptr := Next (Iterator_Ptr);\n            return Get_Non_Null;\n         end if;\n      end Get_Next;\n\n      ------------------\n      -- Get_Non_Null --\n      ------------------\n\n      function Get_Non_Null return Elmt_Ptr is\n      begin\n         while Iterator_Ptr = Null_Ptr loop\n            if Iterator_Index = Table'Last then\n               Iterator_Started := False;\n               return Null_Ptr;\n            end if;\n\n            Iterator_Index := Iterator_Index + 1;\n            Iterator_Ptr   := Table (Iterator_Index);\n         end loop;\n\n         return Iterator_Ptr;\n      end Get_Non_Null;",
+      "operative_fragments": [
+        "Iterator_Index",
+        "Table'Last",
+        "Iterator_Index + 1"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-htable.adb",
+      "first_LF_line": 225,
+      "last_LF_line": 258,
+      "text": "\n   package body Simple_HTable is\n\n      type Element_Wrapper;\n      type Elmt_Ptr is access all Element_Wrapper;\n      type Element_Wrapper is record\n         K    : Key;\n         E    : Element;\n         Next : Elmt_Ptr;\n      end record;\n\n      procedure Free is new\n        Ada.Unchecked_Deallocation (Element_Wrapper, Elmt_Ptr);\n\n      procedure Set_Next (E : Elmt_Ptr; Next : Elmt_Ptr);\n      function  Next     (E : Elmt_Ptr) return Elmt_Ptr;\n      function  Get_Key  (E : Elmt_Ptr) return Key;\n\n      package Tab is new Static_HTable (\n        Header_Num => Header_Num,\n        Element    => Element_Wrapper,\n        Elmt_Ptr   => Elmt_Ptr,\n        Null_Ptr   => null,\n        Set_Next   => Set_Next,\n        Next       => Next,\n        Key        => Key,\n        Get_Key    => Get_Key,\n        Hash       => Hash,\n        Equal      => Equal);\n\n      ---------\n      -- Get --\n      ---------\n",
+      "operative_fragments": [
+        "type Element_Wrapper is record",
+        "Next : Elmt_Ptr"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-htable.adb",
+      "first_LF_line": 357,
+      "last_LF_line": 387,
+      "text": "      procedure Reset is\n         E1, E2 : Elmt_Ptr;\n\n      begin\n         E1 := Tab.Get_First;\n         while E1 /= null loop\n            E2 := Tab.Get_Next;\n            Free (E1);\n            E1 := E2;\n         end loop;\n\n         Tab.Reset;\n      end Reset;\n\n      ---------\n      -- Set --\n      ---------\n\n      procedure Set (K : Key; E : Element) is\n         Tmp : constant Elmt_Ptr := Tab.Get (K);\n      begin\n         if Tmp = null then\n            Tab.Set (new Element_Wrapper'(K, E, null));\n         else\n            Tmp.E := E;\n         end if;\n      end Set;\n\n      --------------\n      -- Set_Next --\n      --------------",
+      "operative_fragments": [
+        "Free (E1)",
+        "new Element_Wrapper"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "exp_util.adb",
+      "first_LF_line": 106,
+      "last_LF_line": 117,
+      "text": "   Type_Map_Size : constant := 511;\n\n   subtype Type_Map_Header is Integer range 0 .. Type_Map_Size - 1;\n   function Type_Map_Hash (Id : Entity_Id) return Type_Map_Header;\n\n   package Type_Map is new GNAT.HTable.Simple_HTable\n     (Header_Num => Type_Map_Header,\n      Key        => Entity_Id,\n      Element    => Node_Or_Entity_Id,\n      No_Element => Empty,\n      Hash       => Type_Map_Hash,\n      Equal      => \"=\");",
+      "operative_fragments": [
+        "Type_Map_Size",
+        "Simple_HTable",
+        "Node_Or_Entity_Id"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem.ads",
+      "first_LF_line": 386,
+      "last_LF_line": 410,
+      "text": "   type Suppress_Stack_Entry;\n   type Suppress_Stack_Entry_Ptr is access all Suppress_Stack_Entry;\n\n   type Suppress_Stack_Entry is record\n      Entity : Entity_Id;\n      --  Entity to which the check applies, or Empty for a check that has\n      --  no entity name (and thus applies to all entities).\n\n      Check : Check_Id;\n      --  Check which is set (can be All_Checks for the All_Checks case)\n\n      Suppress : Boolean;\n      --  Set True for Suppress, and False for Unsuppress\n\n      Prev : Suppress_Stack_Entry_Ptr;\n      --  Pointer to previous entry on stack\n\n      Next : Suppress_Stack_Entry_Ptr;\n      --  All allocated Suppress_Stack_Entry records are chained together in\n      --  a linked list whose head is Suppress_Stack_Entries, and the Next\n      --  field is used as a forward pointer (null ends the list). This is\n      --  used to free all entries in Sem.Init (which will be important if\n      --  we ever setup the compiler to be reused).\n   end record;\n",
+      "operative_fragments": [
+        "type Suppress_Stack_Entry",
+        "Prev :",
+        "Next :"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem.adb",
+      "first_LF_line": 1387,
+      "last_LF_line": 1421,
+      "text": "   procedure Push_Global_Suppress_Stack_Entry\n     (Entity   : Entity_Id;\n      Check    : Check_Id;\n      Suppress : Boolean)\n   is\n   begin\n      Global_Suppress_Stack_Top :=\n        new Suppress_Stack_Entry'\n          (Entity   => Entity,\n           Check    => Check,\n           Suppress => Suppress,\n           Prev     => Global_Suppress_Stack_Top,\n           Next     => Suppress_Stack_Entries);\n      Suppress_Stack_Entries := Global_Suppress_Stack_Top;\n   end Push_Global_Suppress_Stack_Entry;\n\n   -------------------------------------\n   -- Push_Local_Suppress_Stack_Entry --\n   -------------------------------------\n\n   procedure Push_Local_Suppress_Stack_Entry\n     (Entity   : Entity_Id;\n      Check    : Check_Id;\n      Suppress : Boolean)\n   is\n   begin\n      Local_Suppress_Stack_Top :=\n        new Suppress_Stack_Entry'\n          (Entity   => Entity,\n           Check    => Check,\n           Suppress => Suppress,\n           Prev     => Local_Suppress_Stack_Top,\n           Next     => Suppress_Stack_Entries);\n      Suppress_Stack_Entries := Local_Suppress_Stack_Top;\n   end Push_Local_Suppress_Stack_Entry;",
+      "operative_fragments": [
+        "new Suppress_Stack_Entry"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_ch12.adb",
+      "first_LF_line": 999,
+      "last_LF_line": 1042,
+      "text": "   type Assoc_Ptr is new Int;\n\n   Assoc_Null : constant Assoc_Ptr := -1;\n\n   type Assoc is record\n      Gen_Id         : Entity_Id;\n      Act_Id         : Entity_Id;\n      Next_In_HTable : Assoc_Ptr;\n   end record;\n\n   package Generic_Renamings is new Table.Table\n     (Table_Component_Type => Assoc,\n      Table_Index_Type     => Assoc_Ptr,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Generic_Renamings\");\n\n   --  Variable to hold enclosing instantiation. When the environment is\n   --  saved for a subprogram inlining, the corresponding Act_Id is empty.\n\n   Current_Instantiated_Parent : Assoc := (Empty, Empty, Assoc_Null);\n\n   --  Hash table for associations\n\n   HTable_Size : constant := 37;\n   type HTable_Range is range 0 .. HTable_Size - 1;\n\n   procedure Set_Next_Assoc (E : Assoc_Ptr; Next : Assoc_Ptr);\n   function  Next_Assoc     (E : Assoc_Ptr) return Assoc_Ptr;\n   function  Get_Gen_Id     (E : Assoc_Ptr) return Entity_Id;\n   function  Hash           (F : Entity_Id) return HTable_Range;\n\n   package Generic_Renamings_HTable is new GNAT.HTable.Static_HTable (\n      Header_Num => HTable_Range,\n      Element    => Assoc,\n      Elmt_Ptr   => Assoc_Ptr,\n      Null_Ptr   => Assoc_Null,\n      Set_Next   => Set_Next_Assoc,\n      Next       => Next_Assoc,\n      Key        => Entity_Id,\n      Get_Key    => Get_Gen_Id,\n      Hash       => Hash,\n      Equal      => \"=\");",
+      "operative_fragments": [
+        "type Assoc is record",
+        "Table_Initial",
+        "HTable_Size"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_ch12.adb",
+      "first_LF_line": 1075,
+      "last_LF_line": 1128,
+      "text": "   type Instance_Env is record\n      Instantiated_Parent  : Assoc;\n      Exchanged_Views      : Elist_Id;\n      Hidden_Entities      : Elist_Id;\n      Current_Sem_Unit     : Unit_Number_Type;\n      Parent_Unit_Visible  : Boolean   := False;\n      Instance_Parent_Unit : Entity_Id := Empty;\n      Switches             : Config_Switches_Type;\n   end record;\n\n   package Instance_Envs is new Table.Table (\n     Table_Component_Type => Instance_Env,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 32,\n     Table_Increment      => 100,\n     Table_Name           => \"Instance_Envs\");\n\n   ------------------------------------\n   -- Structures for Error Reporting --\n   ------------------------------------\n\n   Instantiation_Node : Node_Id;\n   --  Used by subprograms that validate instantiation of formal parameters\n   --  where there might be no actual on which to place the error message.\n   --  Also used to locate the instantiation node for generic subunits.\n\n   Instantiation_Error : exception;\n   --  When there is a semantic error in the generic parameter matching,\n   --  there is no point in continuing the instantiation, because the\n   --  number of cascaded errors is unpredictable. This exception aborts\n   --  the instantiation process altogether.\n\n   S_Adjustment : Sloc_Adjustment;\n   --  Offset created for each node in an instantiation, in order to keep\n   --  track of the source position of the instantiation in each of its nodes.\n   --  A subsequent semantic error or warning on a construct of the instance\n   --  points to both places: the original generic node, and the point of\n   --  instantiation. See Sinput and Sinput.L for additional details.\n\n   ------------------------------------------------------------\n   -- Data structure for keeping track when inside a Generic --\n   ------------------------------------------------------------\n\n   --  The following table is used to save values of the Inside_A_Generic\n   --  flag (see spec of Sem) when they are saved by Start_Generic.\n\n   package Generic_Flags is new Table.Table (\n     Table_Component_Type => Boolean,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 32,\n     Table_Increment      => 200,\n     Table_Name           => \"Generic_Flags\");",
+      "operative_fragments": [
+        "type Instance_Env is record",
+        "Config_Switches_Type",
+        "Table_Initial"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "opt.ads",
+      "first_LF_line": 2082,
+      "last_LF_line": 2109,
+      "text": "   type Config_Switches_Type is record\n      Ada_Version                    : Ada_Version_Type;\n      Ada_Version_Explicit           : Ada_Version_Type;\n      Ada_Version_Pragma             : Node_Id;\n      Assertions_Enabled             : Boolean;\n      Assume_No_Invalid_Values       : Boolean;\n      Check_Float_Overflow           : Boolean;\n      Check_Policy_List              : Node_Id;\n      Default_Pool                   : Node_Id;\n      Default_SSO                    : Character;\n      Dynamic_Elaboration_Checks     : Boolean;\n      Exception_Locations_Suppressed : Boolean;\n      External_Name_Exp_Casing       : External_Casing_Type;\n      External_Name_Imp_Casing       : External_Casing_Type;\n      Fast_Math                      : Boolean;\n      Initialize_Scalars             : Boolean;\n      No_Component_Reordering        : Boolean;\n      Normalize_Scalars              : Boolean;\n      Optimize_Alignment             : Character;\n      Optimize_Alignment_Local       : Boolean;\n      Persistent_BSS_Mode            : Boolean;\n      Prefix_Exception_Messages      : Boolean;\n      SPARK_Mode                     : SPARK_Mode_Type;\n      SPARK_Mode_Pragma              : Node_Id;\n      Uneval_Old                     : Character;\n      Use_VADS_Size                  : Boolean;\n      Warnings_As_Errors_Count       : Natural;\n   end record;",
+      "operative_fragments": [
+        "type Config_Switches_Type is record",
+        "Warnings_As_Errors_Count"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "opt.ads",
+      "first_LF_line": 135,
+      "last_LF_line": 155,
+      "text": "   Ada_Final_Suffix : constant String := \"final\";\n   Ada_Final_Name   : String_Ptr := new String'(\"ada\" & Ada_Final_Suffix);\n   --  GNATBIND\n   --  The name of the procedure that performs the finalization at the end of\n   --  execution. This variable may be modified by Gnatbind.Scan_Bind_Arg.\n\n   Ada_Init_Suffix : constant String := \"init\";\n   Ada_Init_Name   : String_Ptr := new String'(\"ada\" & Ada_Init_Suffix);\n   --  GNATBIND\n   --  The name of the procedure that performs initialization at the start\n   --  of execution. This variable may be modified by Gnatbind.Scan_Bind_Arg.\n\n   Ada_Main_Name_Suffix : constant String := \"main\";\n   --  GNATBIND\n   --  The suffix for Ada_Main_Name. Defined as a constant here so that it\n   --  can be referenced in a uniform manner to create either the default\n   --  value of Ada_Main_Name (declared below), or the non-default name\n   --  set by Gnatbind.Scan_Bind_Arg.\n\n   Ada_Main_Name : String_Ptr := new String'(\"ada_\" & Ada_Main_Name_Suffix);\n   --  GNATBIND",
+      "operative_fragments": [
+        "new String",
+        "Ada_Main_Name"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "opt.ads",
+      "first_LF_line": 1284,
+      "last_LF_line": 1293,
+      "text": "   Preprocessing_Data_File : String_Ptr := null;\n   --  GNAT\n   --  Set by switch -gnatep=. The file name of the preprocessing data file.\n\n   Preprocessing_Symbol_Defs : String_List_Access := new String_List (1 .. 4);\n   --  An extensible array to temporarily stores symbol definitions specified\n   --  on the command line with -gnateD switches. The value 4 is an arbitrary\n   --  starting point, if more space is needed it is allocated as required.\n\n   Preprocessing_Symbol_Last : Natural := 0;",
+      "operative_fragments": [
+        "new String_List (1 .. 4)",
+        "Preprocessing_Symbol_Last"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "errid-diagnostic_repository.ads",
+      "first_LF_line": 30,
+      "last_LF_line": 98,
+      "text": "      Status : Status_Type := Active;\n\n      Human_Id : String_Ptr := null;\n      --  A human readable code for the diagnostic. If the diagnostic has a\n      --  switch with a human id then the human_id of the switch shall be used\n      --  in SARIF reports.\n\n      Switch : Switch_Id := No_Switch_Id;\n      --  The switch that controls the diagnostic message.\n   end record;\n\n   type Diagnostics_Registry_Type is\n     array (Diagnostic_Id) of Diagnostic_Entry_Type;\n\n   --  Include the diagnostic entries for every diagnostic id.\n   --  The entries should include:\n   --  * Whether the diagnostic with this id is active or not\n   --  * The human-readable name for the diagnostic for SARIF reports\n   --  * The switch id for the diagnostic if the diagnostic is linked to any\n   --    compiler switch\n   --  * The documentation file for the diagnostic written in the MD format.\n   --    The documentation file should include:\n   --    - The diagnostic id\n   --    - A short description of the diagnostic\n   --    - A minimal example of the code that triggers the diagnostic\n   --    - An explanation of why the diagnostic was triggered\n   --    - A suggestion on how to fix the issue\n   --    - Optionally additional information\n   --    TODO: the mandatory fields for the documentation file could be changed\n\n   Diagnostic_Entries : constant Diagnostics_Registry_Type :=\n     (No_Diagnostic_Id => <>,\n      GNAT0001         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Default_Iterator_Not_Primitive_Error\"),\n         Switch   => No_Switch_Id),\n      GNAT0002         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Invalid_Operand_Types_General_Error\"),\n         Switch   => No_Switch_Id),\n      GNAT0003         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Pragma_No_Effect_With_Lock_Free_Warning\"),\n         Switch   => No_Switch_Id),\n      GNAT0004         =>\n        (Status   => Active,\n         Human_Id => new String'(\"End_Loop_Expected_Error\"),\n         Switch   => No_Switch_Id),\n      GNAT0005         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Representation_Too_Late_Error\"),\n         Switch   => No_Switch_Id),\n      GNAT0006         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Mixed_Container_Aggregate_Error\"),\n         Switch   => No_Switch_Id),\n     GNAT0007         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Volatile_Not_Modifed_Warning\"),\n         Switch   => gnatwk),\n     GNAT0008         =>\n        (Status   => Active,\n         Human_Id => new String'(\"Variable_Not_Modifed_Warning\"),\n         Switch   => gnatwk),\n     GNAT0009         =>\n        (Status   => Active,\n         Human_Id => new String'(\"In_Out_Not_Modifed_Warning\"),\n         Switch   => gnatwk));\nend Errid.Diagnostic_Repository;",
+      "operative_fragments": [
+        "Diagnostics_Registry_Type",
+        "new String"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "errid-switch_repository.ads",
+      "first_LF_line": 30,
+      "last_LF_line": 662,
+      "text": "   type Switch_Type is record\n\n      Status : Status_Type := Active;\n      --  The status will indicate whether the switch is currently active,\n      --  or has been deprecated. A deprecated switch will not control\n      --  diagnostics, and will not be emitted by the GNAT usage.\n\n      Human_Id : String_Ptr := null;\n      --  The Human_Id will be a unique and stable string-based ID which\n      --  identifies the content of the switch within the switch registry.\n      --  This ID will appear in SARIF readers.\n\n      Short_Name : String_Ptr := null;\n      --  The Short_Name will denote the -gnatXX name of the switch.\n\n      Description : String_Ptr := null;\n      --  The description will contain the description of the switch, as it is\n      --  currently emitted by the GNAT usage.\n\n      Documentation_Url : String_Ptr := null;\n      --  The documentation_url will point to the AdaCore documentation site\n      --  for the switch.\n\n      Diagnostics : Diagnostic_Id_Array_Access := null;\n      --  Diagnostics that are activated by the given switch.\n\n   end record;\n\n   Switches : constant array (Switch_Id) of Switch_Type :=\n     (No_Switch_Id       => <>,\n      gnatwb             =>\n        (Human_Id          => new String'(\"Warn_On_Bad_Fixed_Value\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwb\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwc             =>\n        (Human_Id          => new String'(\"Constant_Condition_Warnings\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwc\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwd             =>\n        --  TODO: is this a subcheck of general gnatwu?\n        (Human_Id          => new String'(\"Warn_On_Dereference\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwd\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwf             =>\n        (Human_Id          => new String'(\"Check_Unreferenced_Formals\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwf\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwg             =>\n        (Human_Id          => new String'(\"Warn_On_Unrecognized_Pragma\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwg\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwh             =>\n        (Human_Id          => new String'(\"Warn_On_Hiding\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwh\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwi             =>\n        (Human_Id          => new String'(\"Implementation_Unit_Warnings\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwi\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwj             =>\n        (Human_Id          => new String'(\"Warn_On_Obsolescent_Feature\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwj\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwk             =>\n        (Human_Id          => new String'(\"Warn_On_Constant\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwk\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       =>\n           new Diagnostic_Id_Array'(GNAT0007, GNAT0008, GNAT0009)),\n      gnatwl             =>\n        (Human_Id          => new String'(\"Elab_Warnings\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwl\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwm             =>\n        (Human_Id          => new String'(\"Warn_On_Modified_Unread\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwm\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwo             =>\n        (Human_Id          => new String'(\"Address_Clause_Overlay_Warnings\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwo\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwp             =>\n        (Human_Id          => new String'(\"Ineffective_Inline_Warnings\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwp\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwq             =>\n        (Human_Id          =>\n           new String'(\"Warn_On_Questionable_Missing_Parens\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwq\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwr             =>\n        (Human_Id          => new String'(\"Warn_On_Redundant_Constructs\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwr\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwt             =>\n        (Human_Id          => new String'(\"Warn_On_Deleted_Code\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwt\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwu             =>\n        (Human_Id          => new String'(\"Warn_On_Unused_Entities\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwu\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwv             =>\n        (Human_Id          => new String'(\"Warn_On_No_Value_Assigned\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwv\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatww             =>\n        (Human_Id          => new String'(\"Warn_On_Assumed_Low_Bound\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatww\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwx             =>\n        (Human_Id          => new String'(\"Warn_On_Export_Import\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwx\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwy             =>\n        (Human_Id          => new String'(\"Warn_On_Ada_Compatibility_Issues\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwy\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatwz             =>\n        (Human_Id          => new String'(\"Warn_On_Unchecked_Conversion\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatwz\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_a        =>\n        (Human_Id          => new String'(\"Warn_On_Assertion_Failure\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.a\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_b        =>\n        (Human_Id          => new String'(\"Warn_On_Biased_Representation\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.b\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_c        =>\n        (Human_Id          => new String'(\"Warn_On_Unrepped_Components\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.c\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_f        =>\n        (Human_Id          => new String'(\"Warn_On_Elab_Access\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.f\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_h        =>\n        (Human_Id          => new String'(\"Warn_On_Record_Holes\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.h\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_i        =>\n        (Human_Id          => new String'(\"Warn_On_Overlap\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.i\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_j        =>\n        (Human_Id          => new String'(\"Warn_On_Late_Primitives\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.j\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_k        =>\n        (Human_Id          => new String'(\"Warn_On_Standard_Redefinition\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.k\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_l        =>\n        (Human_Id          => new String'(\"List_Inherited_Aspects\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.l\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_m        =>\n        (Human_Id          => new String'(\"Warn_On_Suspicious_Modulus_Value\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.m\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_n        =>\n        (Human_Id          => new String'(\"Warn_On_Atomic_Synchronization\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.n\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_o        =>\n        (Human_Id          => new String'(\"Warn_On_All_Unread_Out_Parameters\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.o\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_p        =>\n        (Human_Id          => new String'(\"Warn_On_Parameter_Order\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.p\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_q        =>\n        (Human_Id          => new String'(\"Warn_On_Questionable_Layout\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.q\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_r        =>\n        (Human_Id          => new String'(\"Warn_On_Object_Renames_Function\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.r\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_s        =>\n        (Human_Id          => new String'(\"Warn_On_Overridden_Size\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.s\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_t        =>\n        (Human_Id          => new String'(\"Warn_On_Suspicious_Contract\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.t\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_u        =>\n        (Human_Id          =>\n           new String'(\"Warn_On_Unordered_Enumeration_Type\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.u\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_v        =>\n        (Human_Id          => new String'(\"Warn_On_Reverse_Bit_Order\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.v\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_w        =>\n        (Human_Id          => new String'(\"Warn_On_Warnings_Off\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.w\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_x        =>\n        (Human_Id          =>\n           new String'(\"Warn_No_Exception_Propagation_Active\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.x\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_y        =>\n        (Human_Id          => new String'(\"List_Body_Required_Info\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.y\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_dot_z        =>\n        (Human_Id          => new String'(\"Warn_On_Size_Alignment\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw.z\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_a =>\n        (Human_Id          => new String'(\"Warn_On_Anonymous_Allocators\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_a\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_c =>\n        (Human_Id          =>\n           new String'(\"Warn_On_Unknown_Compile_Time_Warning\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_c\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_j =>\n        (Human_Id          =>\n           new String'(\"Warn_On_Non_Dispatching_Primitives\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_j\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_l =>\n        (Human_Id          => new String'(\"Warn_On_Inherently_Limited_Types\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_l\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_p =>\n        (Human_Id          => new String'(\"Warn_On_Pedantic_Checks\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_p\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_q =>\n        (Human_Id          => new String'(\"Warn_On_Ignored_Equality\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_q\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_r =>\n        (Human_Id          => new String'(\"Warn_On_Component_Order\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_r\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatw_underscore_s =>\n        (Human_Id          =>\n           new String'(\"Warn_On_Ineffective_Predicate_Test\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatw_s\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      --  NOTE: this flag is usually followed by a number specfifying the\n      --  indentation level. We encode all of these warnings as -gnaty0\n      --  irregardless of the actual numeric value.\n      gnaty              =>\n        (Human_Id          => new String'(\"Style_Check_Indentation_Level\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnaty0\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatya             =>\n        (Human_Id          => new String'(\"Style_Check_Attribute_Casing\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatya\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyaa            =>\n        (Human_Id          => new String'(\"Address_Clause_Overlay_Warnings\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyA\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyb             =>\n        (Human_Id          => new String'(\"Style_Check_Blanks_At_End\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyb\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatybb            =>\n        --  NOTE: in live documentation it is called \"Check Boolean operators\"\n        (Human_Id          => new String'(\"Style_Check_Boolean_And_Or\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyB\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyc             =>\n        (Human_Id          => new String'(\"Style_Check_Comments_Double_Space\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyc\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatycc            =>\n        (Human_Id          => new String'(\"Style_Check_Comments_Single_Space\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyC\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyd             =>\n        (Human_Id          => new String'(\"Style_Check_DOS_Line_Terminator\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyd\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatydd            =>\n        (Human_Id          => new String'(\"Style_Check_Mixed_Case_Decls\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyD\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatye             =>\n        (Human_Id          => new String'(\"Style_Check_End_Labels\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatye\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyf             =>\n        (Human_Id          => new String'(\"Style_Check_Form_Feeds\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyf\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyh             =>\n        (Human_Id          => new String'(\"Style_Check_Horizontal_Tabs\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyh\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyi             =>\n        (Human_Id          => new String'(\"Style_Check_If_Then_Layout\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyi\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyii            =>\n        (Human_Id          => new String'(\"Style_Check_Mode_In\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyI\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyk             =>\n        (Human_Id          => new String'(\"Style_Check_Keyword_Casing\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyk\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyl             =>\n        (Human_Id          => new String'(\"Style_Check_Layout\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyl\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyll            =>\n        (Human_Id          => new String'(\"Style_Check_Max_Nesting_Level\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyL\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatym             =>\n        (Human_Id          => new String'(\"Style_Check_Max_Line_Length\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatym\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatymm            =>\n        --  TODO: May contain line length\n        (Human_Id          => new String'(\"Style_Check_Max_Line_Length\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyM\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyn             =>\n        (Human_Id          => new String'(\"Style_Check_Standard\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyn\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyo             =>\n        (Human_Id          => new String'(\"Style_Check_Order_Subprograms\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyo\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyoo            =>\n        (Human_Id          => new String'(\"Style_Check_Missing_Overriding\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyO\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyp             =>\n        (Human_Id          => new String'(\"Style_Check_Pragma_Casing\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyp\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyr             =>\n        (Human_Id          => new String'(\"Style_Check_References\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyr\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatys             =>\n        (Human_Id          => new String'(\"Style_Check_Specs\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatys\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyss            =>\n        (Human_Id          => new String'(\"Style_Check_Separate_Stmt_Lines\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyS\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatytt            =>\n        (Human_Id          => new String'(\"Style_Check_Tokens\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyt\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyu             =>\n        (Human_Id          => new String'(\"Style_Check_Blank_Lines\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyu\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyx             =>\n        (Human_Id          => new String'(\"Style_Check_Xtra_Parens\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyx\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatyz             =>\n        (Human_Id          =>\n           new String'(\"Style_Check_Xtra_Parens_Precedence\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatyz\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null),\n      gnatel             =>\n        (Human_Id          => new String'(\"Display_Elaboration_Messages\"),\n         Status            => Active,\n         Short_Name        => new String'(\"gnatel\"),\n         Description       => null,\n         Documentation_Url => null,\n         Diagnostics       => null));\n",
+      "operative_fragments": [
+        "Switches : constant array",
+        "new String",
+        "new Diagnostic_Id_Array"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "errid.ads",
+      "first_LF_line": 26,
+      "last_LF_line": 147,
+      "text": "package Errid is\n\n   type Status_Type is\n     (Active,\n      Deprecated);\n\n   type Diagnostic_Id is\n     (No_Diagnostic_Id,\n      GNAT0001,\n      GNAT0002,\n      GNAT0003,\n      GNAT0004,\n      GNAT0005,\n      GNAT0006,\n      GNAT0007,\n      GNAT0008,\n      GNAT0009);\n\n   type Diagnostic_Id_Array is array (Positive range <>) of Diagnostic_Id;\n   type Diagnostic_Id_Array_Access is access Diagnostic_Id_Array;\n   type Switch_Id is (\n      No_Switch_Id,\n      gnatel,\n      gnatwb,\n      gnatwc,\n      gnatwd,\n      gnatwf,\n      gnatwg,\n      gnatwh,\n      gnatwi,\n      gnatwj,\n      gnatwk,\n      gnatwl,\n      gnatwm,\n      gnatwo,\n      gnatwp,\n      gnatwq,\n      gnatwr,\n      gnatwt,\n      gnatwu,\n      gnatwv,\n      gnatww,\n      gnatwx,\n      gnatwy,\n      gnatwz,\n      gnatw_dot_a,\n      gnatw_dot_b,\n      gnatw_dot_c,\n      gnatw_dot_f,\n      gnatw_dot_h,\n      gnatw_dot_i,\n      gnatw_dot_j,\n      gnatw_dot_k,\n      gnatw_dot_l,\n      gnatw_dot_m,\n      gnatw_dot_n,\n      gnatw_dot_o,\n      gnatw_dot_p,\n      gnatw_dot_q,\n      gnatw_dot_r,\n      gnatw_dot_s,\n      gnatw_dot_t,\n      gnatw_dot_u,\n      gnatw_dot_v,\n      gnatw_dot_w,\n      gnatw_dot_x,\n      gnatw_dot_y,\n      gnatw_dot_z,\n      gnatw_underscore_a,\n      gnatw_underscore_c,\n      gnatw_underscore_j,\n      gnatw_underscore_l,\n      gnatw_underscore_p,\n      gnatw_underscore_q,\n      gnatw_underscore_r,\n      gnatw_underscore_s,\n      gnaty,\n      gnatya,\n      gnatyb,\n      gnatyc,\n      gnatyd,\n      gnatye,\n      gnatyf,\n      gnatyh,\n      gnatyi,\n      gnatyk,\n      gnatyl,\n      gnatym,\n      gnatyn,\n      gnatyo,\n      gnatyp,\n      gnatyr,\n      gnatys,\n      gnatyu,\n      gnatyx,\n      gnatyz,\n      gnatyaa,\n      gnatybb,\n      gnatycc,\n      gnatydd,\n      gnatyii,\n      gnatyll,\n      gnatymm,\n      gnatyoo,\n      gnatyss,\n      gnatytt\n   );\n\n   subtype Active_Switch_Id is Switch_Id range gnatel .. gnatytt;\n\n   function Get_Documentation_File (Id : Diagnostic_Id) return String;\n   --  Return the location of the documentation file as a string.\n\n   function To_String (Id : Diagnostic_Id) return String;\n   --  Convert the diagnostic ID to a 4 character string padded with 0-s.\n\n   procedure Print_Diagnostic_Repository;\n   --  Print all of the Diagnostic_Id-s and Switch_Id-s as rules in the SARIF\n   --  format.\n\nend Errid;\n",
+      "operative_fragments": [
+        "type Diagnostic_Id",
+        "type Switch_Id"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "atree.adb",
+      "first_LF_line": 275,
+      "last_LF_line": 285,
+      "text": "   package body Field_Checking is\n\n      --  Tables used by Field_Present\n\n      type Node_Field_Sets is array (Node_Kind) of Node_Field_Set;\n      type Node_Field_Sets_Ptr is access all Node_Field_Sets;\n      Node_Fields_Present : Node_Field_Sets_Ptr;\n\n      type Entity_Field_Sets is array (Entity_Kind) of Entity_Field_Set;\n      type Entity_Field_Sets_Ptr is access all Entity_Field_Sets;\n      Entity_Fields_Present : Entity_Field_Sets_Ptr;",
+      "operative_fragments": [
+        "Node_Field_Sets",
+        "Entity_Field_Sets"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "atree.adb",
+      "first_LF_line": 332,
+      "last_LF_line": 352,
+      "text": "      procedure Init_Tables is\n      begin\n         Node_Fields_Present := new Node_Field_Sets;\n\n         for Kind in Node_Kind loop\n            Node_Fields_Present (Kind) := Create_Node_Fields_Present (Kind);\n         end loop;\n\n         Entity_Fields_Present := new Entity_Field_Sets;\n\n         for Kind in Entity_Kind loop\n            Entity_Fields_Present (Kind) :=\n              Create_Entity_Fields_Present (Kind);\n         end loop;\n      end Init_Tables;\n\n      --  In production mode, we leave Node_Fields_Present and\n      --  Entity_Fields_Present null. Field_Present is only for\n      --  use in assertions.\n\n      pragma Debug (Init_Tables);",
+      "operative_fragments": [
+        "new Node_Field_Sets",
+        "new Entity_Field_Sets",
+        "pragma Debug"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "exp_dbug.adb",
+      "first_LF_line": 1214,
+      "last_LF_line": 1240,
+      "text": "   procedure Qualify_Entity_Name (Ent : Entity_Id) is\n\n      Full_Qualify_Name : String (1 .. Name_Buffer'Length);\n      Full_Qualify_Len  : Natural := 0;\n      --  Used to accumulate fully qualified name of subprogram\n\n      procedure Fully_Qualify_Name (E : Entity_Id);\n      --  Used to qualify a subprogram or type name, where full\n      --  qualification up to Standard is always used. Name is set\n      --  in Full_Qualify_Name with the length in Full_Qualify_Len.\n      --  Note that this routine does not prepend the _ada_ string\n      --  required for library subprograms (this is done in the back end).\n\n      function Is_BNPE (S : Entity_Id) return Boolean;\n      --  Determines if S is a BNPE, i.e. Body-Nested Package Entity, which\n      --  is defined to be a package which is immediately nested within a\n      --  package body.\n\n      function Qualify_Needed (S : Entity_Id) return Boolean;\n      --  Given a scope, determines if the scope is to be included in the\n      --  fully qualified name, True if so, False if not. Blocks and loops\n      --  are excluded from a qualified name.\n\n      procedure Set_BNPE_Suffix (E : Entity_Id);\n      --  Recursive routine to append the BNPE qualification suffix. Works\n      --  from right to left with E being the current entity in the list.\n      --  The result does NOT have the trailing n's and trailing b stripped.",
+      "operative_fragments": [
+        "Full_Qualify_Name : String",
+        "Recursive"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "exp_dbug.adb",
+      "first_LF_line": 1270,
+      "last_LF_line": 1317,
+      "text": "\n         elsif Is_Generic_Instance (E)\n           and then Is_Subprogram (E)\n           and then not Comes_From_Source (E)\n           and then not Is_Compilation_Unit (Scope (E))\n         then\n            Fully_Qualify_Name (Related_Instance (Scope (E)));\n            return;\n         end if;\n\n         --  If we reached fully qualified name, then just copy it\n\n         if Has_Fully_Qualified_Name (E) then\n            Get_Name_String (Chars (E));\n            Strip_Suffixes (Discard);\n            Full_Qualify_Name (1 .. Name_Len) := Name_Buffer (1 .. Name_Len);\n            Full_Qualify_Len := Name_Len;\n            Set_Has_Fully_Qualified_Name (Ent);\n\n         --  Case of non-fully qualified name\n\n         else\n            if Scope (E) = Standard_Standard then\n               Set_Has_Fully_Qualified_Name (Ent);\n            else\n               Fully_Qualify_Name (Scope (E));\n               Full_Qualify_Name (Full_Qualify_Len + 1) := '_';\n               Full_Qualify_Name (Full_Qualify_Len + 2) := '_';\n               Full_Qualify_Len := Full_Qualify_Len + 2;\n            end if;\n\n            if Has_Qualified_Name (E) then\n               Get_Unqualified_Name_String (Chars (E));\n            else\n               Get_Name_String (Chars (E));\n            end if;\n\n            --  Here we do one step of the qualification\n\n            Full_Qualify_Name\n              (Full_Qualify_Len + 1 .. Full_Qualify_Len + Name_Len) :=\n                 Name_Buffer (1 .. Name_Len);\n            Full_Qualify_Len := Full_Qualify_Len + Name_Len;\n            Append_Homonym_Number (E);\n         end if;\n\n         if Is_BNPE (E) then\n            BNPE_Suffix_Needed := True;",
+      "operative_fragments": [
+        "Fully_Qualify_Name (Scope (E))",
+        "Full_Qualify_Len"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "exp_dbug.adb",
+      "first_LF_line": 1381,
+      "last_LF_line": 1422,
+      "text": "      procedure Set_Entity_Name (E : Entity_Id) is\n         S : constant Entity_Id := Scope (E);\n\n      begin\n         --  If we reach an already qualified name, just take the encoding\n         --  except that we strip the package body suffixes, since these\n         --  will be separately put on later.\n\n         if Has_Qualified_Name (E) then\n            Get_Name_String_And_Append (Chars (E));\n            Strip_Suffixes (BNPE_Suffix_Needed);\n\n            --  If the top level name we are adding is itself fully\n            --  qualified, then that means that the name that we are\n            --  preparing for the Fully_Qualify_Name call will also\n            --  generate a fully qualified name.\n\n            if Has_Fully_Qualified_Name (E) then\n               Set_Has_Fully_Qualified_Name (Ent);\n            end if;\n\n         --  Case where upper level name is not encoded yet\n\n         else\n            --  Recurse if further qualification required\n\n            if Qualify_Needed (S) then\n               Set_Entity_Name (S);\n               Add_Str_To_Name_Buffer (\"__\");\n            end if;\n\n            --  Otherwise get name and note if it is a BNPE\n\n            Get_Name_String_And_Append (Chars (E));\n\n            if Is_BNPE (E) then\n               BNPE_Suffix_Needed := True;\n            end if;\n\n            Append_Homonym_Number (E);\n         end if;\n      end Set_Entity_Name;",
+      "operative_fragments": [
+        "Set_Entity_Name (S)",
+        "Add_Str_To_Name_Buffer"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "namet.adb",
+      "first_LF_line": 169,
+      "last_LF_line": 212,
+      "text": "   procedure Append_Decoded\n     (Buf : in out Bounded_String;\n      Id  : Valid_Name_Id)\n   is\n      Temp : Bounded_String;\n\n      function Has_Encodings (Temp : Bounded_String) return Boolean;\n      --  True if Temp contains encoded characters. If not, we can set\n      --  Name_Has_No_Encodings to True below, and never call this again\n      --  on the same Name_Id.\n\n      function Has_Encodings (Temp : Bounded_String) return Boolean is\n      begin\n         for J in 1 .. Temp.Length loop\n            if Temp.Chars (J) in 'U' | 'W' | 'Q' | 'O' then\n               return True;\n            end if;\n         end loop;\n\n         return False;\n      end Has_Encodings;\n\n   begin\n      Append (Temp, Id);\n\n      --  Skip scan if we already know there are no encodings (i.e. the first\n      --  time this was called on Id, the Has_Encodings call below returned\n      --  False).\n\n      if Name_Entries.Table (Id).Name_Has_No_Encodings then\n         goto Done;\n      end if;\n\n      if not Has_Encodings (Temp) then\n         Name_Entries.Table (Id).Name_Has_No_Encodings := True;\n         goto Done;\n      end if;\n\n      --  Here we have at least some encoding that we must decode\n\n      Decode : declare\n         New_Len : Natural;\n         Old     : Positive;\n         New_Buf : String (1 .. Temp.Chars'Last);",
+      "operative_fragments": [
+        "Temp : Bounded_String",
+        "New_Buf : String"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "namet.adb",
+      "first_LF_line": 1546,
+      "last_LF_line": 1583,
+      "text": "   ----------------\n\n   procedure Write_Name (Id : Valid_Name_Id) is\n      Buf : Bounded_String (Max_Length => Natural (Length_Of_Name (Id)));\n   begin\n      Append (Buf, Id);\n      Write_Str (Buf.Chars (1 .. Buf.Length));\n   end Write_Name;\n\n   ------------------------\n   -- Write_Name_Decoded --\n   ------------------------\n\n   procedure Write_Name_Decoded (Id : Valid_Name_Id) is\n      Buf : Bounded_String;\n   begin\n      Append_Decoded (Buf, Id);\n      Write_Str (Buf.Chars (1 .. Buf.Length));\n   end Write_Name_Decoded;\n\n   --------------------------\n   -- Write_Name_For_Debug --\n   --------------------------\n\n   procedure Write_Name_For_Debug (Id : Name_Id; Quote : String := \"\") is\n   begin\n      if Is_Valid_Name (Id) then\n         Write_Str (Quote);\n\n         declare\n            Buf : Bounded_String (Max_Length => Natural (Length_Of_Name (Id)));\n         begin\n            Append (Buf, Id);\n            Write_Str (Buf.Chars (1 .. Buf.Length));\n         end;\n\n         Write_Str (Quote);\n",
+      "operative_fragments": [
+        "Length_Of_Name",
+        "Bounded_String"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "errout.adb",
+      "first_LF_line": 2912,
+      "last_LF_line": 2940,
+      "text": "      E          : Error_Msg_Id;\n      Err_Flag   : Boolean;\n\n      Sarif_File_Name       : constant String :=\n        Get_First_Main_File_Name & \".gnat.sarif\";\n\n      Printer : Erroutc.SARIF_Emitter.SARIF_Printer;\n\n      Dummy : Boolean;\n\n   --  Start of processing for Output_Messages\n\n   begin\n      --  Error if Finalize has not been called\n\n      if not Finalize_Called then\n         raise Program_Error;\n      end if;\n\n      Erroutc.Exit_Code := Exit_Code;\n\n      --  Reset current error source file if the main unit has a pragma\n      --  Source_Reference. This ensures outputting the proper name of\n      --  the source file in this situation.\n\n      if Main_Source_File <= No_Source_File\n        or else Num_SRef_Pragmas (Main_Source_File) /= 0\n      then\n         Current_Error_Source_File := No_Source_File;",
+      "operative_fragments": [
+        ".gnat.sarif",
+        "SARIF_Printer"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "errout.adb",
+      "first_LF_line": 2960,
+      "last_LF_line": 3035,
+      "text": "            E := Errors.Table (E).Next;\n\n            while E /= No_Error_Msg loop\n\n               --  Skip deleted messages.\n               --  Also skip continuation messages, as they have already been\n               --  printed along the message they're attached to.\n\n               if not Errors.Table (E).Deleted\n                 and then not Errors.Table (E).Msg_Cont\n               then\n                  Write_Char (',');\n                  Output_JSON_Message (E);\n               end if;\n\n               E := Errors.Table (E).Next;\n            end loop;\n         end if;\n\n         Write_Char (']');\n\n         Set_Standard_Output;\n\n      --  Do not print any messages if all messages are killed -gnatdK\n\n      elsif Debug_Flag_KK then\n\n         null;\n\n      --  Brief Error mode\n\n      elsif Brief_Output or (not Full_List and not Verbose_Mode) then\n\n         --  Use updated diagnostic mechanism\n\n         if Opt.SARIF_Output then\n            Set_Standard_Error;\n            Add_Unique_Diagnostics_And_Switches (Printer);\n            Print_SARIF_Report (Printer);\n            Free (Printer);\n            Set_Standard_Output;\n\n         elsif Opt.SARIF_File then\n            System.OS_Lib.Delete_File (Sarif_File_Name, Dummy);\n            declare\n               Output_FD :\n                 constant System.OS_Lib.File_Descriptor :=\n                 System.OS_Lib.Create_New_File\n                   (Sarif_File_Name, Fmode => System.OS_Lib.Text);\n            begin\n               Set_Output (Output_FD);\n               Add_Unique_Diagnostics_And_Switches (Printer);\n               Print_SARIF_Report (Printer);\n               Free (Printer);\n               Set_Standard_Output;\n               System.OS_Lib.Close (Output_FD);\n            end;\n         elsif Debug_Flag_FF then\n            Erroutc.Pretty_Emitter.Print_Error_Messages;\n         else\n            Emit_Error_Msgs;\n         end if;\n      end if;\n\n      --  Full source listing case\n\n      if Full_List then\n         List_Pragmas_Index := 1;\n         List_Pragmas_Mode := True;\n         E := First_Error_Msg;\n\n         --  Normal case, to stdout (copyright notice already output)\n\n         if Full_List_File_Name = null then\n            if not Debug_Flag_7 then\n               Write_Eol;",
+      "operative_fragments": [
+        "Sarif"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "erroutc-sarif_emitter.ads",
+      "first_LF_line": 59,
+      "last_LF_line": 71,
+      "text": "   type SARIF_Printer is record\n      Diagnostics : Diagnostic_Id_List;\n      --  Unique diagnostics printed as rules in the SARIF report\n\n      Switches : Switch_Id_List;\n      --  Unique switches printed as rules in the SARIF report\n\n      Report_Type : Report_Kind := Diagnostic_Report;\n      --  The type of report to be printed in SARIF\n   end record;\n\n   procedure Free (Self : in out SARIF_Printer);\n   --  Free memory for the SARIF_Pritner",
+      "operative_fragments": [
+        "SARIF_Printer",
+        "record"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "lib-writ.adb",
+      "first_LF_line": 225,
+      "last_LF_line": 260,
+      "text": "   procedure Write_ALI (Object : Boolean) is\n\n      ----------------\n      -- Local Data --\n      ----------------\n\n      Last_Unit : constant Unit_Number_Type := Units.Last;\n      --  Record unit number of last unit. We capture this in case we\n      --  have to add a dummy entry to the unit table for package System.\n\n      With_Flags : array (Units.First .. Last_Unit) of Boolean;\n      --  Array of flags to show which units are with'ed\n\n      Elab_Flags : array (Units.First .. Last_Unit) of Boolean;\n      --  Array of flags to show which units have pragma Elaborate set\n\n      Elab_All_Flags : array (Units.First .. Last_Unit) of Boolean;\n      --  Array of flags to show which units have pragma Elaborate All set\n\n      Elab_Des_Flags : array (Units.First .. Last_Unit) of Boolean;\n      --  Array of flags to show which units have Elaborate_Desirable set\n\n      Elab_All_Des_Flags : array (Units.First .. Last_Unit) of Boolean;\n      --  Array of flags to show which units have Elaborate_All_Desirable set\n\n      type Yes_No is (Unknown, Yes, No);\n      Has_Implicit_With : array (Units.First .. Last_Unit) of Yes_No;\n      --  Indicates if an implicit with has been given for the unit. Yes if\n      --  certainly present, No if certainly absent, Unknown if not known.\n\n      Sdep_Table : Unit_Ref_Table (1 .. Pos (Last_Unit - Units.First + 2));\n      --  Sorted table of source dependencies. One extra entry in case we\n      --  have to add a dummy entry for System.\n\n      Num_Sdep : Nat := 0;\n      --  Number of active entries in Sdep_Table",
+      "operative_fragments": [
+        "With_Flags",
+        "Has_Implicit_With"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "lib-writ.adb",
+      "first_LF_line": 28,
+      "last_LF_line": 80,
+      "text": "with Casing;         use Casing;\nwith Debug;          use Debug;\nwith Einfo;          use Einfo;\nwith Einfo.Entities; use Einfo.Entities;\nwith Einfo.Utils;    use Einfo.Utils;\nwith Elists;         use Elists;\nwith Errout;         use Errout;\nwith Fname;          use Fname;\nwith Fname.UF;       use Fname.UF;\nwith Lib.Util;       use Lib.Util;\nwith Lib.Xref;       use Lib.Xref;\nwith Nlists;         use Nlists;\nwith Gnatvsn;        use Gnatvsn;\nwith GNAT_CUDA;      use GNAT_CUDA;\nwith Opt;            use Opt;\nwith Osint;          use Osint;\nwith Osint.C;        use Osint.C;\nwith Output;         use Output;\nwith Par;\nwith Par_SCO;        use Par_SCO;\nwith Restrict;       use Restrict;\nwith Rident;         use Rident;\nwith Stand;          use Stand;\nwith Scn;            use Scn;\nwith Sem_Eval;       use Sem_Eval;\nwith Sem_Util;       use Sem_Util;\nwith Sinfo;          use Sinfo;\nwith Sinfo.Nodes;    use Sinfo.Nodes;\nwith Sinfo.Utils;    use Sinfo.Utils;\nwith Sinput;         use Sinput;\nwith Snames;         use Snames;\nwith Stringt;        use Stringt;\nwith Tbuild;         use Tbuild;\nwith Uname;          use Uname;\n\nwith System.Case_Util; use System.Case_Util;\nwith System.WCh_Con;   use System.WCh_Con;\n\npackage body Lib.Writ is\n\n   -----------------------\n   -- Local subprograms --\n   -----------------------\n\n   function Present (N_Id : Name_Id) return Boolean;\n   pragma Inline (Present);\n   --  Determine whether a name with id N_Id exists\n\n   procedure Write_Invocation_Construct (IC_Id : Invocation_Construct_Id);\n   pragma Inline (Write_Invocation_Construct);\n   --  Write invocation construct IC_Id to the ALI file\n\n   procedure Write_Invocation_Graph;",
+      "operative_fragments": [
+        "with"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_case.adb",
+      "first_LF_line": 3379,
+      "last_LF_line": 3388,
+      "text": "            --  Note: we still store the bounds, even if they are out of range,\n            --  since this may prevent unnecessary cascaded errors for values\n            --  that are covered by such an excessive range.\n\n            Choice_List :=\n              new Link'(Val => (Lo, Hi, Choice), Nxt => Choice_List);\n            Num_Choices := Num_Choices + 1;\n         end Check;\n\n         --------------------------------",
+      "operative_fragments": [
+        "new Link",
+        "Num_Choices := Num_Choices + 1"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_ch6.adb",
+      "first_LF_line": 7503,
+      "last_LF_line": 7535,
+      "text": "   begin\n      --  Check body in alpha order if this is option\n\n      if Style_Check\n        and then Style_Check_Order_Subprograms\n        and then Nkind (N) = N_Subprogram_Body\n        and then Comes_From_Source (N)\n        and then In_Extended_Main_Source_Unit (N)\n      then\n         declare\n            LSN : String_Ptr\n                    renames Scope_Stack.Table\n                              (Scope_Stack.Last).Last_Subprogram_Name;\n\n            Body_Id : constant Entity_Id :=\n                        Defining_Entity (Specification (N));\n\n         begin\n            Get_Decoded_Name_String (Chars (Body_Id));\n\n            if LSN /= null then\n               if Subprogram_Name_Greater\n                    (LSN.all, Name_Buffer (1 .. Name_Len))\n               then\n                  Style.Subprogram_Not_In_Alpha_Order (Body_Id);\n               end if;\n\n               Free (LSN);\n            end if;\n\n            LSN := new String'(Name_Buffer (1 .. Name_Len));\n         end;\n      end if;",
+      "operative_fragments": [
+        "Style_Check",
+        "new String"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_elim.adb",
+      "first_LF_line": 812,
+      "last_LF_line": 827,
+      "text": "   procedure Process_Eliminate_Pragma\n     (Pragma_Node         : Node_Id;\n      Arg_Unit_Name       : Node_Id;\n      Arg_Entity          : Node_Id;\n      Arg_Parameter_Types : Node_Id;\n      Arg_Result_Type     : Node_Id;\n      Arg_Source_Location : Node_Id)\n   is\n      Data : constant Access_Elim_Data := new Elim_Data;\n      --  Build result data here\n\n      Elmt : Access_Elim_Data;\n\n      Num_Names : Nat := 0;\n      --  Number of names in unit name\n",
+      "operative_fragments": [
+        "new Elim_Data"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_elim.adb",
+      "first_LF_line": 202,
+      "last_LF_line": 250,
+      "text": "   package Elim_Hash_Table is new Static_HTable (\n      Header_Num => Header_Num,\n      Element    => Element,\n      Elmt_Ptr   => Elmt_Ptr,\n      Null_Ptr   => Null_Ptr,\n      Set_Next   => Hash_Subprograms.Set_Next,\n      Next       => Hash_Subprograms.Next,\n      Key        => Key,\n      Get_Key    => Hash_Subprograms.Get_Key,\n      Hash       => Hash_Subprograms.Hash,\n      Equal      => Hash_Subprograms.Equal);\n\n   --  The following table records entities for subprograms that are\n   --  eliminated, and corresponding eliminate pragmas that caused the\n   --  elimination. Entries in this table are set by Check_Eliminated\n   --  and read by Eliminate_Error_Msg.\n\n   type Elim_Entity_Entry is record\n      Prag : Node_Id;\n      Subp : Entity_Id;\n   end record;\n\n   package Elim_Entities is new Table.Table (\n     Table_Component_Type => Elim_Entity_Entry,\n     Table_Index_Type     => Name_Id'Base,\n     Table_Low_Bound      => First_Name_Id,\n     Table_Initial        => 50,\n     Table_Increment      => 200,\n     Table_Name           => \"Elim_Entries\");\n\n   ----------------------\n   -- Check_Eliminated --\n   ----------------------\n\n   procedure Check_Eliminated (E : Entity_Id) is\n      Elmt : Access_Elim_Data;\n      Scop : Entity_Id;\n      Form : Entity_Id;\n      Up   : Nat;\n\n   begin\n      if No_Elimination then\n         return;\n\n      --  Elimination of objects and types is not implemented yet\n\n      elsif not Is_Subprogram (E) then\n         return;\n      end if;",
+      "operative_fragments": [
+        "Check_Eliminated"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_res.adb",
+      "first_LF_line": 10283,
+      "last_LF_line": 10300,
+      "text": "         --  Check for duplicates for discrete case\n\n         if Is_Discrete_Type (T) then\n            declare\n               type Ent is record\n                  Alt : Node_Id;\n                  Val : Uint;\n               end record;\n\n               Alts  : array (0 .. List_Length (Alternatives (N))) of Ent;\n               Nalts : Nat;\n\n            begin\n               --  Loop checking duplicates. This is quadratic, but giant sets\n               --  are unlikely in this context so it's a reasonable choice.\n\n               Nalts := 0;\n               Alt := First (Alternatives (N));",
+      "operative_fragments": [
+        "Alts",
+        "List_Length"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_util.adb",
+      "first_LF_line": 31262,
+      "last_LF_line": 31282,
+      "text": "                    Count + List_Length (Others_Discrete_Choices (Choice));\n               else\n                  Count := Count + 1;  -- an ordinary expression or range\n               end if;\n\n               Next (Choice);\n            end loop;\n            return Count;\n         end Unmerged_Choice_Count;\n\n         --  Local variables\n\n         Choice : Node_Id := First (Discrete_Choices);\n         Result : Discrete_Interval_List (1 .. Unmerged_Choice_Count);\n         Count  : Nat := 0;\n\n      --  Start of processing for Choice_List_Intervals\n\n      begin\n         while Present (Choice) loop\n            if Nkind (Choice) = N_Others_Choice then",
+      "operative_fragments": [
+        "Unmerged_Choice_Count",
+        "Discrete_Interval_List"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "table.adb",
+      "first_LF_line": 128,
+      "last_LF_line": 154,
+      "text": "      procedure Init is\n         Old_Length : constant Int := Length;\n\n      begin\n         Locked   := False;\n         Clear;\n         Max      := Min + (Table_Initial * Table_Factor) - 1;\n         Length   := Max - Min + 1;\n\n         --  If table is same size as before (happens when table is never\n         --  expanded which is a common case), then simply reuse it. Note\n         --  that this also means that an explicit Init call right after\n         --  the implicit one in the package body is harmless.\n\n         if Old_Length = Length then\n            return;\n\n         --  Otherwise we can use Reallocate to get a table of the right size.\n         --  Note that Reallocate works fine to allocate a table of the right\n         --  initial size when it is first allocated.\n\n         else\n            Reallocate;\n         end if;\n      end Init;\n\n      ----------",
+      "operative_fragments": [
+        "Table_Initial * Table_Factor",
+        "Reallocate"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "table.adb",
+      "first_LF_line": 167,
+      "last_LF_line": 218,
+      "text": "      procedure Reallocate is\n         New_Size   : Memory.size_t;\n         New_Length : Long_Long_Integer;\n\n      begin\n         if Max < Last_Val then\n            pragma Assert (not Locked);\n\n            --  Make sure that we have at least the initial allocation. This\n            --  is needed in cases where a zero length table is written out.\n\n            Length := Int'Max (Length, Table_Initial);\n\n            --  Now increment table length until it is sufficiently large. Use\n            --  the increment value or 10, which ever is larger (the reason\n            --  for the use of 10 here is to ensure that the table does really\n            --  increase in size (which would not be the case for a table of\n            --  length 10 increased by 3% for instance). Do the intermediate\n            --  calculation in Long_Long_Integer to avoid overflow.\n\n            while Max < Last_Val loop\n               New_Length :=\n                 Long_Long_Integer (Length) *\n                    (100 + Long_Long_Integer (Table_Increment)) / 100;\n               Length := Int'Max (Int (New_Length), Length + 10);\n               Max := Min + Length - 1;\n            end loop;\n\n            if Debug_Flag_D then\n               Write_Str (\"--> Allocating new \");\n               Write_Str (Table_Name);\n               Write_Str (\" table, size = \");\n               Write_Int (Max - Min + 1);\n               Write_Eol;\n            end if;\n         end if;\n\n         --  Do the intermediate calculation in size_t to avoid signed overflow\n\n         New_Size :=\n           Memory.size_t (Max - Min + 1) *\n                                    (Table_Type'Component_Size / Storage_Unit);\n\n         if Table = null then\n            Table := To_Pointer (Alloc (New_Size));\n\n         elsif New_Size > 0 then\n            Table :=\n              To_Pointer (Realloc (Ptr  => To_Address (Table),\n                                   Size => New_Size));\n         end if;\n",
+      "operative_fragments": [
+        "New_Length",
+        "Table_Type'Component_Size"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "table.adb",
+      "first_LF_line": 413,
+      "last_LF_line": 416,
+      "text": "   begin\n      Init;\n   end Table;\nend Table;",
+      "operative_fragments": [
+        "Init",
+        "end Table"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "erroutc.ads",
+      "first_LF_line": 187,
+      "last_LF_line": 374,
+      "text": "   type Labeled_Span_Type is record\n      Label : String_Ptr := null;\n      --  Text associated with the span\n\n      Span : Source_Span := (others => No_Location);\n      --  Textual region in the source code\n\n      Is_Primary : Boolean := True;\n      --  Primary spans are used to indicate the primary location of the\n      --  diagnostic. Typically there should just be one primary span per\n      --  diagnostic.\n      --  Non-primary spans are used to indicate secondary locations and\n      --  typically are formatted in a different way or omitted in some\n      --  contexts.\n\n      Is_Region : Boolean := False;\n      --  Regional spans are multiline spans that have a unique way of being\n      --  displayed in the pretty output.\n\n      Next : Labeled_Span_Id := No_Labeled_Span;\n\n   end record;\n\n   No_Labeled_Span_Object : Labeled_Span_Type := (others => <>);\n\n   package Locations is new Table.Table (\n     Table_Component_Type => Labeled_Span_Type,\n     Table_Index_Type     => Labeled_Span_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Location\");\n\n   type Edit_Id is new Int;\n   No_Edit : constant Edit_Id := 0;\n\n   type Edit_Type is record\n      Span : Source_Span;\n      --  Region of the file to be removed\n\n      Text : String_Ptr;\n      --  Text to be inserted at the start location of the span\n\n      Next : Edit_Id := No_Edit;\n   end record;\n\n   package Edits is new Table.Table (\n     Table_Component_Type => Edit_Type,\n     Table_Index_Type     => Edit_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Edit\");\n\n   type Fix_Id is new Int;\n   No_Fix : constant Fix_Id := 0;\n\n   type Fix_Type is record\n      Description : String_Ptr := null;\n      --  Message describing the fix that will be displayed to the user.\n\n      Edits : Edit_Id := No_Edit;\n      --   File changes for the fix.\n\n      Next : Fix_Id := No_Fix;\n   end record;\n\n   package Fixes is new Table.Table (\n     Table_Component_Type => Fix_Type,\n     Table_Index_Type     => Fix_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Fix\");\n\n   type Warning_As_Error_Kind is\n     (None, From_Pragma, From_Warn_As_Err, From_Run_Time_As_Err);\n   --  The reason for a warning to be converted as an error:\n   --  * None - Regular warning. Default value for non-warning messages.\n   --  * From_Pragma - Warning converted to an error due to a pragma\n   --    Warning_As_Error.\n   --  * From_Warn_As_Err - Warning converted to an error because the\n   --    Warning_Mode was set to Treat_As_Errors by -gnatwe.\n   --  * From_Run_Time_As_Err - Warning converted to an error because the\n   --    Warning_Mode was set to Treat_Run_Time_Warnings_As_Errors by -gnatwE.\n\n   type Error_Msg_Object is record\n      Text : String_Ptr;\n      --  Text of error message, fully expanded with all insertions\n\n      Next : Error_Msg_Id;\n      --  Pointer to next message in error chain. A value of No_Error_Msg\n      --  indicates the end of the chain.\n\n      Prev : Error_Msg_Id;\n      --  Pointer to previous message in error chain. Only set during the\n      --  Finalize procedure. A value of No_Error_Msg indicates the first\n      --  message in the chain.\n\n      Sfile : Source_File_Index;\n      --  Source table index of source file. In the case of an error that\n      --  refers to a template, always references the original template\n      --  not an instantiation copy.\n\n      Sptr : Source_Span;\n      --  Flag pointer. In the case of an error that refers to a template,\n      --  always references the original template, not an instantiation copy.\n      --  This value is the actual place in the source that the error message\n      --  will be posted. Note that an error placed on an instantiation will\n      --  have Sptr pointing to the instantiation point.\n\n      Optr : Source_Span;\n      --  Flag location used in the call to post the error. This is the same as\n      --  Sptr, except when an error is posted on a particular instantiation of\n      --  a generic. In such a case, Sptr will point to the original source\n      --  location of the instantiation itself, but Optr will point to the\n      --  template location (more accurately to the template copy in the\n      --  instantiation copy corresponding to the instantiation referenced by\n      --  Sptr).\n\n      Insertion_Sloc : Source_Ptr;\n      --  Location in message for insertion character # when used\n\n      Line : Physical_Line_Number;\n      --  Line number for error message\n\n      Col : Column_Number;\n      --  Column number for error message\n\n      Compile_Time_Pragma : Boolean;\n      --  True if the message originates from a Compile_Time_Warning or\n      --  Compile_Time_Error pragma\n\n      Warn_Err : Warning_As_Error_Kind;\n      --  By default this is None. If the warning was converted by some reason\n      --  to an error then it has a different value. Depending on the value\n      --  the warning will be printed in a different way due to historical\n      --  reasons.\n\n      Warn_Chr : String (1 .. 2);\n      --  See Warning_Msg_Char\n\n      Uncond : Boolean;\n      --  True if unconditional message (i.e. insertion character ! appeared)\n\n      Msg_Cont : Boolean;\n      --  This is used for logical messages that are composed of multiple\n      --  individual messages. For messages that are not part of such a\n      --  group, or that are the first message in such a group. Msg_Cont\n      --  is set to False. For subsequent messages in a group, Msg_Cont\n      --  is set to True. This is used to make sure that such a group of\n      --  messages is either suppressed or retained as a group (e.g. in\n      --  the circuit that deletes identical messages).\n\n      Deleted : Boolean;\n      --  If this flag is set, the message is not printed. This is used\n      --  in the circuit for deleting duplicate/redundant error messages.\n\n      Kind : Error_Msg_Type;\n      --  The kind of the error message. This determines how the message\n      --  should be handled and what kind of prefix should be added before the\n      --  message text.\n\n      Switch : Switch_Id := No_Switch_Id;\n      --  Identifier for a given switch that enabled the diagnostic\n\n      Id : Diagnostic_Id := No_Diagnostic_Id;\n      --  Unique error code for the given message\n\n      Locations : Labeled_Span_Id := No_Labeled_Span;\n      --  Identifier to the first location identified by the error message.\n      --  These locations are marked with an underlying span line and\n      --  optionally given a short label.\n\n      Fixes : Fix_Id := No_Fix;\n      --  Identifier to the first fix object for the error message. The fix\n      --  contains a suggestion to prevent the error from being triggered.\n      --  This includes edits that can be made to the source code. An edit\n      --  contians a region of the code that needs to be changed and the new\n      --  text that should be inserted to that region.\n   end record;\n\n   package Errors is new Table.Table (\n     Table_Component_Type => Error_Msg_Object,\n     Table_Index_Type     => Error_Msg_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,",
+      "operative_fragments": [
+        "Errors",
+        "Locations",
+        "Warnings"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "erroutc.ads",
+      "first_LF_line": 457,
+      "last_LF_line": 504,
+      "text": "   type Warnings_Entry is record\n      Start  : Source_Ptr;\n      Stop   : Source_Ptr;\n      Reason : String_Id;\n   end record;\n\n   package Warnings is new Table.Table (\n     Table_Component_Type => Warnings_Entry,\n     Table_Index_Type     => Natural,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Warnings\");\n\n   --  The second table is used for the specific forms of the pragma, where\n   --  the first argument is ON or OFF, and the second parameter is a string\n   --  which is the pattern to match for suppressing a warning.\n\n   type Specific_Warning_Entry is record\n      Start : Source_Ptr;\n      Stop  : Source_Ptr;\n      --  Starting and ending source pointers for the range. These are always\n      --  from the same source file.\n\n      Reason : String_Id;\n      --  Reason string from pragma Warnings, or null string if none\n\n      Msg : String_Ptr;\n      --  Message from pragma Warnings (Off, string)\n\n      Open : Boolean;\n      --  Set to True if OFF has been encountered with no matching ON\n\n      Used : Boolean;\n      --  Set to True if entry has been used to suppress a warning\n\n      Config : Boolean;\n      --  True if pragma is configuration pragma (in which case no matching Off\n      --  pragma is required, and it is not required that a specific warning be\n      --  suppressed).\n   end record;\n\n   package Specific_Warnings is new Table.Table (\n     Table_Component_Type => Specific_Warning_Entry,\n     Table_Index_Type     => Natural,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 200,",
+      "operative_fragments": [
+        "Specific_Warnings",
+        "Table_Initial"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "errout.ads",
+      "first_LF_line": 640,
+      "last_LF_line": 659,
+      "text": "   type List_Pragma_Type is (List_On, List_Off, Page);\n\n   type List_Pragma_Record is record\n      Ptyp : List_Pragma_Type;\n      Ploc : Source_Ptr;\n   end record;\n\n   --  Note: Ploc points to the terminating semicolon in the List_Off and Page\n   --  cases, and to the pragma keyword for List_On. In the case of a pragma\n   --  List_Off, a List_On entry is also made in the table, pointing to the\n   --  pragma keyword. This ensures that, as required, a List (Off) pragma is\n   --  listed even in list off mode.\n\n   package List_Pragmas is new Table.Table (\n     Table_Component_Type => List_Pragma_Record,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 50,\n     Table_Increment      => 200,\n     Table_Name           => \"List_Pragmas\");",
+      "operative_fragments": [
+        "List_Pragmas",
+        "Table_Initial"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_warn.ads",
+      "first_LF_line": 40,
+      "last_LF_line": 62,
+      "text": "   type Warnings_Off_Entry is record\n      N : Node_Id;\n      --  A pragma Warnings (Off, ent [,Reason]) node\n\n      E : Entity_Id;\n      --  The entity involved\n\n      R : String_Id;\n      --  Warning reason if present, or null if not (not currently used)\n   end record;\n\n   --  An entry is made in the following table for any valid Pragma Warnings\n   --  (Off, entity) encountered while Opt.Warn_On_Warnings_Off is True. It\n   --  is used to generate warnings on any of these pragmas that turn out not\n   --  to be needed, or that could be replaced by Unmodified/Unreferenced.\n\n   package Warnings_Off_Pragmas is new Table.Table (\n     Table_Component_Type => Warnings_Off_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Warnings_Off_Pragmas_Initial,\n     Table_Increment      => Alloc.Warnings_Off_Pragmas_Increment,\n     Table_Name           => \"Name_Warnings_Off_Pragmas\");",
+      "operative_fragments": [
+        "Warnings_Off_Pragmas",
+        "Table_Initial"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "sem_warn.adb",
+      "first_LF_line": 63,
+      "last_LF_line": 87,
+      "text": "   package Unreferenced_Entities is new Table.Table (\n     Table_Component_Type => Entity_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Unreferenced_Entities_Initial,\n     Table_Increment      => Alloc.Unreferenced_Entities_Increment,\n     Table_Name           => \"Unreferenced_Entities\");\n\n   --  The following table collects potential warnings for IN OUT parameters\n   --  that are referenced but not modified. These warnings are processed when\n   --  the front end calls the procedure Output_Non_Modified_In_Out_Warnings.\n   --  The reason that we defer output of these messages is that we want to\n   --  detect the case where the relevant procedure is used as a generic actual\n   --  in an instantiation, since we suppress the warnings in this case. The\n   --  flag Used_As_Generic_Actual will be set in this case, but only at the\n   --  point of usage. Similarly, we suppress the message if the address of the\n   --  procedure is taken, where the flag Address_Taken may be set later.\n\n   package In_Out_Warnings is new Table.Table (\n     Table_Component_Type => Entity_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.In_Out_Warnings_Initial,\n     Table_Increment      => Alloc.In_Out_Warnings_Increment,\n     Table_Name           => \"In_Out_Warnings\");",
+      "operative_fragments": [
+        "In_Out_Warnings",
+        "Unreferenced_Entities"
+      ]
+    },
+    {
+      "root": "ada",
+      "path": "alloc.ads",
+      "first_LF_line": 55,
+      "last_LF_line": 165,
+      "text": "   Elmts_Initial                    : constant := 1_200;      -- Elists\n   Elmts_Increment                  : constant := 100;\n\n   File_Name_Chars_Initial          : constant := 10_000;     -- Osint\n   File_Name_Chars_Increment        : constant := 100;\n\n   In_Out_Warnings_Initial          : constant := 100;        -- Sem_Warn\n   In_Out_Warnings_Increment        : constant := 100;\n\n   Ignored_Ghost_Nodes_Initial      : constant := 100;        -- Ghost\n   Ignored_Ghost_Nodes_Increment    : constant := 100;\n\n   Inlined_Initial                  : constant := 100;        -- Inline\n   Inlined_Increment                : constant := 100;\n\n   Inlined_Bodies_Initial           : constant := 50;         -- Inline\n   Inlined_Bodies_Increment         : constant := 200;\n\n   Interp_Map_Initial               : constant := 200;        -- Sem_Type\n   Interp_Map_Increment             : constant := 100;\n\n   Lines_Initial                    : constant := 500;        -- Sinput\n   Lines_Increment                  : constant := 150;\n\n   Linker_Option_Lines_Initial      : constant := 5;          -- Lib\n   Linker_Option_Lines_Increment    : constant := 200;\n\n   Lists_Initial                    : constant := 4_000;      -- Nlists\n   Lists_Increment                  : constant := 200;\n\n   Load_Stack_Initial               : constant := 10;         -- Lib\n   Load_Stack_Increment             : constant := 100;\n\n   Name_Chars_Initial               : constant := 50_000;     -- Namet\n   Name_Chars_Increment             : constant := 100;\n\n   Name_Qualify_Units_Initial       : constant := 200;        -- Exp_Dbug\n   Name_Qualify_Units_Increment     : constant := 300;\n\n   Names_Initial                    : constant := 6_000;      -- Namet\n   Names_Increment                  : constant := 100;\n\n   Node_Offsets_Initial             : constant := 500_000;    -- Atree, Nlists\n   Node_Offsets_Increment           : constant := 100;\n\n   Slots_Initial                    : constant := 2_000_000;  -- Atree\n   Slots_Increment                  : constant := 100;\n\n   Notes_Initial                    : constant := 100;        -- Lib\n   Notes_Increment                  : constant := 200;\n\n   Obsolescent_Warnings_Initial     : constant := 50;         -- Sem_Prag\n   Obsolescent_Warnings_Increment   : constant := 200;\n\n   Pending_Instantiations_Initial   : constant := 10;         -- Inline\n   Pending_Instantiations_Increment : constant := 100;\n\n   Rep_Table_Initial                : constant := 1000;       -- Repinfo\n   Rep_Table_Increment              : constant := 200;\n\n   Rep_JSON_Table_Initial           : constant := 10;          -- Repinfo\n   Rep_JSON_Table_Increment         : constant := 200;\n\n   Scope_Stack_Initial              : constant := 10;         -- Sem\n   Scope_Stack_Increment            : constant := 200;\n\n   SFN_Table_Initial                : constant := 10;         -- Fname\n   SFN_Table_Increment              : constant := 200;\n\n   Source_File_Initial              : constant := 10;         -- Sinput\n   Source_File_Increment            : constant := 200;\n\n   String_Chars_Initial             : constant := 2_500;      -- Stringt\n   String_Chars_Increment           : constant := 150;\n\n   Strings_Initial                  : constant := 5_00;       -- Stringt\n   Strings_Increment                : constant := 150;\n\n   Successors_Initial               : constant := 2_00;       -- Inline\n   Successors_Increment             : constant := 100;\n\n   Udigits_Initial                  : constant := 10_000;     -- Uintp\n   Udigits_Increment                : constant := 100;\n\n   Uints_Initial                    : constant := 5_000;      -- Uintp\n   Uints_Increment                  : constant := 100;\n\n   Units_Initial                    : constant := 30;         -- Lib\n   Units_Increment                  : constant := 100;\n\n   Ureals_Initial                   : constant := 200;        -- Urealp\n   Ureals_Increment                 : constant := 100;\n\n   Unreferenced_Entities_Initial    : constant := 1_000;      -- Sem_Warn\n   Unreferenced_Entities_Increment  : constant := 100;\n\n   Warnings_Off_Pragmas_Initial     : constant := 500;        -- Sem_Warn\n   Warnings_Off_Pragmas_Increment   : constant := 100;\n\n   With_List_Initial                : constant := 10;         -- Features\n   With_List_Increment              : constant := 300;\n\n   Xrefs_Initial                    : constant := 5_000;      -- Cross-refs\n   Xrefs_Increment                  : constant := 300;\n\n   Drefs_Initial                    : constant := 5;          -- Dereferences\n   Drefs_Increment                  : constant := 1_000;\n\nend Alloc;\n",
+      "operative_fragments": [
+        "Warnings_Off",
+        "Initial"
+      ]
+    }
+  ],
+  "repository_inputs_are_reused_not_executed": true,
+  "literal_LF_positions_preserve_form_feeds": true
+}

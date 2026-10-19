@@ -1,0 +1,901 @@
+[
+  {
+    "path": "errid-diagnostic_repository.ads",
+    "literals": [
+      {
+        "LF": 64,
+        "characters": 36,
+        "value": "Default_Iterator_Not_Primitive_Error"
+      },
+      {
+        "LF": 68,
+        "characters": 35,
+        "value": "Invalid_Operand_Types_General_Error"
+      },
+      {
+        "LF": 72,
+        "characters": 39,
+        "value": "Pragma_No_Effect_With_Lock_Free_Warning"
+      },
+      {
+        "LF": 76,
+        "characters": 23,
+        "value": "End_Loop_Expected_Error"
+      },
+      {
+        "LF": 80,
+        "characters": 29,
+        "value": "Representation_Too_Late_Error"
+      },
+      {
+        "LF": 84,
+        "characters": 31,
+        "value": "Mixed_Container_Aggregate_Error"
+      },
+      {
+        "LF": 88,
+        "characters": 28,
+        "value": "Volatile_Not_Modifed_Warning"
+      },
+      {
+        "LF": 92,
+        "characters": 28,
+        "value": "Variable_Not_Modifed_Warning"
+      },
+      {
+        "LF": 96,
+        "characters": 26,
+        "value": "In_Out_Not_Modifed_Warning"
+      }
+    ],
+    "count": 9,
+    "maximum_characters": 39
+  },
+  {
+    "path": "errid-switch_repository.ads",
+    "literals": [
+      {
+        "LF": 61,
+        "characters": 23,
+        "value": "Warn_On_Bad_Fixed_Value"
+      },
+      {
+        "LF": 63,
+        "characters": 6,
+        "value": "gnatwb"
+      },
+      {
+        "LF": 68,
+        "characters": 27,
+        "value": "Constant_Condition_Warnings"
+      },
+      {
+        "LF": 70,
+        "characters": 6,
+        "value": "gnatwc"
+      },
+      {
+        "LF": 76,
+        "characters": 19,
+        "value": "Warn_On_Dereference"
+      },
+      {
+        "LF": 78,
+        "characters": 6,
+        "value": "gnatwd"
+      },
+      {
+        "LF": 83,
+        "characters": 26,
+        "value": "Check_Unreferenced_Formals"
+      },
+      {
+        "LF": 85,
+        "characters": 6,
+        "value": "gnatwf"
+      },
+      {
+        "LF": 90,
+        "characters": 27,
+        "value": "Warn_On_Unrecognized_Pragma"
+      },
+      {
+        "LF": 92,
+        "characters": 6,
+        "value": "gnatwg"
+      },
+      {
+        "LF": 97,
+        "characters": 14,
+        "value": "Warn_On_Hiding"
+      },
+      {
+        "LF": 99,
+        "characters": 6,
+        "value": "gnatwh"
+      },
+      {
+        "LF": 104,
+        "characters": 28,
+        "value": "Implementation_Unit_Warnings"
+      },
+      {
+        "LF": 106,
+        "characters": 6,
+        "value": "gnatwi"
+      },
+      {
+        "LF": 111,
+        "characters": 27,
+        "value": "Warn_On_Obsolescent_Feature"
+      },
+      {
+        "LF": 113,
+        "characters": 6,
+        "value": "gnatwj"
+      },
+      {
+        "LF": 118,
+        "characters": 16,
+        "value": "Warn_On_Constant"
+      },
+      {
+        "LF": 120,
+        "characters": 6,
+        "value": "gnatwk"
+      },
+      {
+        "LF": 126,
+        "characters": 13,
+        "value": "Elab_Warnings"
+      },
+      {
+        "LF": 128,
+        "characters": 6,
+        "value": "gnatwl"
+      },
+      {
+        "LF": 133,
+        "characters": 23,
+        "value": "Warn_On_Modified_Unread"
+      },
+      {
+        "LF": 135,
+        "characters": 6,
+        "value": "gnatwm"
+      },
+      {
+        "LF": 140,
+        "characters": 31,
+        "value": "Address_Clause_Overlay_Warnings"
+      },
+      {
+        "LF": 142,
+        "characters": 6,
+        "value": "gnatwo"
+      },
+      {
+        "LF": 147,
+        "characters": 27,
+        "value": "Ineffective_Inline_Warnings"
+      },
+      {
+        "LF": 149,
+        "characters": 6,
+        "value": "gnatwp"
+      },
+      {
+        "LF": 155,
+        "characters": 35,
+        "value": "Warn_On_Questionable_Missing_Parens"
+      },
+      {
+        "LF": 157,
+        "characters": 6,
+        "value": "gnatwq"
+      },
+      {
+        "LF": 162,
+        "characters": 28,
+        "value": "Warn_On_Redundant_Constructs"
+      },
+      {
+        "LF": 164,
+        "characters": 6,
+        "value": "gnatwr"
+      },
+      {
+        "LF": 169,
+        "characters": 20,
+        "value": "Warn_On_Deleted_Code"
+      },
+      {
+        "LF": 171,
+        "characters": 6,
+        "value": "gnatwt"
+      },
+      {
+        "LF": 176,
+        "characters": 23,
+        "value": "Warn_On_Unused_Entities"
+      },
+      {
+        "LF": 178,
+        "characters": 6,
+        "value": "gnatwu"
+      },
+      {
+        "LF": 183,
+        "characters": 25,
+        "value": "Warn_On_No_Value_Assigned"
+      },
+      {
+        "LF": 185,
+        "characters": 6,
+        "value": "gnatwv"
+      },
+      {
+        "LF": 190,
+        "characters": 25,
+        "value": "Warn_On_Assumed_Low_Bound"
+      },
+      {
+        "LF": 192,
+        "characters": 6,
+        "value": "gnatww"
+      },
+      {
+        "LF": 197,
+        "characters": 21,
+        "value": "Warn_On_Export_Import"
+      },
+      {
+        "LF": 199,
+        "characters": 6,
+        "value": "gnatwx"
+      },
+      {
+        "LF": 204,
+        "characters": 32,
+        "value": "Warn_On_Ada_Compatibility_Issues"
+      },
+      {
+        "LF": 206,
+        "characters": 6,
+        "value": "gnatwy"
+      },
+      {
+        "LF": 211,
+        "characters": 28,
+        "value": "Warn_On_Unchecked_Conversion"
+      },
+      {
+        "LF": 213,
+        "characters": 6,
+        "value": "gnatwz"
+      },
+      {
+        "LF": 218,
+        "characters": 25,
+        "value": "Warn_On_Assertion_Failure"
+      },
+      {
+        "LF": 220,
+        "characters": 7,
+        "value": "gnatw.a"
+      },
+      {
+        "LF": 225,
+        "characters": 29,
+        "value": "Warn_On_Biased_Representation"
+      },
+      {
+        "LF": 227,
+        "characters": 7,
+        "value": "gnatw.b"
+      },
+      {
+        "LF": 232,
+        "characters": 27,
+        "value": "Warn_On_Unrepped_Components"
+      },
+      {
+        "LF": 234,
+        "characters": 7,
+        "value": "gnatw.c"
+      },
+      {
+        "LF": 239,
+        "characters": 19,
+        "value": "Warn_On_Elab_Access"
+      },
+      {
+        "LF": 241,
+        "characters": 7,
+        "value": "gnatw.f"
+      },
+      {
+        "LF": 246,
+        "characters": 20,
+        "value": "Warn_On_Record_Holes"
+      },
+      {
+        "LF": 248,
+        "characters": 7,
+        "value": "gnatw.h"
+      },
+      {
+        "LF": 253,
+        "characters": 15,
+        "value": "Warn_On_Overlap"
+      },
+      {
+        "LF": 255,
+        "characters": 7,
+        "value": "gnatw.i"
+      },
+      {
+        "LF": 260,
+        "characters": 23,
+        "value": "Warn_On_Late_Primitives"
+      },
+      {
+        "LF": 262,
+        "characters": 7,
+        "value": "gnatw.j"
+      },
+      {
+        "LF": 267,
+        "characters": 29,
+        "value": "Warn_On_Standard_Redefinition"
+      },
+      {
+        "LF": 269,
+        "characters": 7,
+        "value": "gnatw.k"
+      },
+      {
+        "LF": 274,
+        "characters": 22,
+        "value": "List_Inherited_Aspects"
+      },
+      {
+        "LF": 276,
+        "characters": 7,
+        "value": "gnatw.l"
+      },
+      {
+        "LF": 281,
+        "characters": 32,
+        "value": "Warn_On_Suspicious_Modulus_Value"
+      },
+      {
+        "LF": 283,
+        "characters": 7,
+        "value": "gnatw.m"
+      },
+      {
+        "LF": 288,
+        "characters": 30,
+        "value": "Warn_On_Atomic_Synchronization"
+      },
+      {
+        "LF": 290,
+        "characters": 7,
+        "value": "gnatw.n"
+      },
+      {
+        "LF": 295,
+        "characters": 33,
+        "value": "Warn_On_All_Unread_Out_Parameters"
+      },
+      {
+        "LF": 297,
+        "characters": 7,
+        "value": "gnatw.o"
+      },
+      {
+        "LF": 302,
+        "characters": 23,
+        "value": "Warn_On_Parameter_Order"
+      },
+      {
+        "LF": 304,
+        "characters": 7,
+        "value": "gnatw.p"
+      },
+      {
+        "LF": 309,
+        "characters": 27,
+        "value": "Warn_On_Questionable_Layout"
+      },
+      {
+        "LF": 311,
+        "characters": 7,
+        "value": "gnatw.q"
+      },
+      {
+        "LF": 316,
+        "characters": 31,
+        "value": "Warn_On_Object_Renames_Function"
+      },
+      {
+        "LF": 318,
+        "characters": 7,
+        "value": "gnatw.r"
+      },
+      {
+        "LF": 323,
+        "characters": 23,
+        "value": "Warn_On_Overridden_Size"
+      },
+      {
+        "LF": 325,
+        "characters": 7,
+        "value": "gnatw.s"
+      },
+      {
+        "LF": 330,
+        "characters": 27,
+        "value": "Warn_On_Suspicious_Contract"
+      },
+      {
+        "LF": 332,
+        "characters": 7,
+        "value": "gnatw.t"
+      },
+      {
+        "LF": 338,
+        "characters": 34,
+        "value": "Warn_On_Unordered_Enumeration_Type"
+      },
+      {
+        "LF": 340,
+        "characters": 7,
+        "value": "gnatw.u"
+      },
+      {
+        "LF": 345,
+        "characters": 25,
+        "value": "Warn_On_Reverse_Bit_Order"
+      },
+      {
+        "LF": 347,
+        "characters": 7,
+        "value": "gnatw.v"
+      },
+      {
+        "LF": 352,
+        "characters": 20,
+        "value": "Warn_On_Warnings_Off"
+      },
+      {
+        "LF": 354,
+        "characters": 7,
+        "value": "gnatw.w"
+      },
+      {
+        "LF": 360,
+        "characters": 36,
+        "value": "Warn_No_Exception_Propagation_Active"
+      },
+      {
+        "LF": 362,
+        "characters": 7,
+        "value": "gnatw.x"
+      },
+      {
+        "LF": 367,
+        "characters": 23,
+        "value": "List_Body_Required_Info"
+      },
+      {
+        "LF": 369,
+        "characters": 7,
+        "value": "gnatw.y"
+      },
+      {
+        "LF": 374,
+        "characters": 22,
+        "value": "Warn_On_Size_Alignment"
+      },
+      {
+        "LF": 376,
+        "characters": 7,
+        "value": "gnatw.z"
+      },
+      {
+        "LF": 381,
+        "characters": 28,
+        "value": "Warn_On_Anonymous_Allocators"
+      },
+      {
+        "LF": 383,
+        "characters": 7,
+        "value": "gnatw_a"
+      },
+      {
+        "LF": 389,
+        "characters": 36,
+        "value": "Warn_On_Unknown_Compile_Time_Warning"
+      },
+      {
+        "LF": 391,
+        "characters": 7,
+        "value": "gnatw_c"
+      },
+      {
+        "LF": 397,
+        "characters": 34,
+        "value": "Warn_On_Non_Dispatching_Primitives"
+      },
+      {
+        "LF": 399,
+        "characters": 7,
+        "value": "gnatw_j"
+      },
+      {
+        "LF": 404,
+        "characters": 32,
+        "value": "Warn_On_Inherently_Limited_Types"
+      },
+      {
+        "LF": 406,
+        "characters": 7,
+        "value": "gnatw_l"
+      },
+      {
+        "LF": 411,
+        "characters": 23,
+        "value": "Warn_On_Pedantic_Checks"
+      },
+      {
+        "LF": 413,
+        "characters": 7,
+        "value": "gnatw_p"
+      },
+      {
+        "LF": 418,
+        "characters": 24,
+        "value": "Warn_On_Ignored_Equality"
+      },
+      {
+        "LF": 420,
+        "characters": 7,
+        "value": "gnatw_q"
+      },
+      {
+        "LF": 425,
+        "characters": 23,
+        "value": "Warn_On_Component_Order"
+      },
+      {
+        "LF": 427,
+        "characters": 7,
+        "value": "gnatw_r"
+      },
+      {
+        "LF": 433,
+        "characters": 34,
+        "value": "Warn_On_Ineffective_Predicate_Test"
+      },
+      {
+        "LF": 435,
+        "characters": 7,
+        "value": "gnatw_s"
+      },
+      {
+        "LF": 443,
+        "characters": 29,
+        "value": "Style_Check_Indentation_Level"
+      },
+      {
+        "LF": 445,
+        "characters": 6,
+        "value": "gnaty0"
+      },
+      {
+        "LF": 450,
+        "characters": 28,
+        "value": "Style_Check_Attribute_Casing"
+      },
+      {
+        "LF": 452,
+        "characters": 6,
+        "value": "gnatya"
+      },
+      {
+        "LF": 457,
+        "characters": 31,
+        "value": "Address_Clause_Overlay_Warnings"
+      },
+      {
+        "LF": 459,
+        "characters": 6,
+        "value": "gnatyA"
+      },
+      {
+        "LF": 464,
+        "characters": 25,
+        "value": "Style_Check_Blanks_At_End"
+      },
+      {
+        "LF": 466,
+        "characters": 6,
+        "value": "gnatyb"
+      },
+      {
+        "LF": 472,
+        "characters": 26,
+        "value": "Style_Check_Boolean_And_Or"
+      },
+      {
+        "LF": 474,
+        "characters": 6,
+        "value": "gnatyB"
+      },
+      {
+        "LF": 479,
+        "characters": 33,
+        "value": "Style_Check_Comments_Double_Space"
+      },
+      {
+        "LF": 481,
+        "characters": 6,
+        "value": "gnatyc"
+      },
+      {
+        "LF": 486,
+        "characters": 33,
+        "value": "Style_Check_Comments_Single_Space"
+      },
+      {
+        "LF": 488,
+        "characters": 6,
+        "value": "gnatyC"
+      },
+      {
+        "LF": 493,
+        "characters": 31,
+        "value": "Style_Check_DOS_Line_Terminator"
+      },
+      {
+        "LF": 495,
+        "characters": 6,
+        "value": "gnatyd"
+      },
+      {
+        "LF": 500,
+        "characters": 28,
+        "value": "Style_Check_Mixed_Case_Decls"
+      },
+      {
+        "LF": 502,
+        "characters": 6,
+        "value": "gnatyD"
+      },
+      {
+        "LF": 507,
+        "characters": 22,
+        "value": "Style_Check_End_Labels"
+      },
+      {
+        "LF": 509,
+        "characters": 6,
+        "value": "gnatye"
+      },
+      {
+        "LF": 514,
+        "characters": 22,
+        "value": "Style_Check_Form_Feeds"
+      },
+      {
+        "LF": 516,
+        "characters": 6,
+        "value": "gnatyf"
+      },
+      {
+        "LF": 521,
+        "characters": 27,
+        "value": "Style_Check_Horizontal_Tabs"
+      },
+      {
+        "LF": 523,
+        "characters": 6,
+        "value": "gnatyh"
+      },
+      {
+        "LF": 528,
+        "characters": 26,
+        "value": "Style_Check_If_Then_Layout"
+      },
+      {
+        "LF": 530,
+        "characters": 6,
+        "value": "gnatyi"
+      },
+      {
+        "LF": 535,
+        "characters": 19,
+        "value": "Style_Check_Mode_In"
+      },
+      {
+        "LF": 537,
+        "characters": 6,
+        "value": "gnatyI"
+      },
+      {
+        "LF": 542,
+        "characters": 26,
+        "value": "Style_Check_Keyword_Casing"
+      },
+      {
+        "LF": 544,
+        "characters": 6,
+        "value": "gnatyk"
+      },
+      {
+        "LF": 549,
+        "characters": 18,
+        "value": "Style_Check_Layout"
+      },
+      {
+        "LF": 551,
+        "characters": 6,
+        "value": "gnatyl"
+      },
+      {
+        "LF": 556,
+        "characters": 29,
+        "value": "Style_Check_Max_Nesting_Level"
+      },
+      {
+        "LF": 558,
+        "characters": 6,
+        "value": "gnatyL"
+      },
+      {
+        "LF": 563,
+        "characters": 27,
+        "value": "Style_Check_Max_Line_Length"
+      },
+      {
+        "LF": 565,
+        "characters": 6,
+        "value": "gnatym"
+      },
+      {
+        "LF": 571,
+        "characters": 27,
+        "value": "Style_Check_Max_Line_Length"
+      },
+      {
+        "LF": 573,
+        "characters": 6,
+        "value": "gnatyM"
+      },
+      {
+        "LF": 578,
+        "characters": 20,
+        "value": "Style_Check_Standard"
+      },
+      {
+        "LF": 580,
+        "characters": 6,
+        "value": "gnatyn"
+      },
+      {
+        "LF": 585,
+        "characters": 29,
+        "value": "Style_Check_Order_Subprograms"
+      },
+      {
+        "LF": 587,
+        "characters": 6,
+        "value": "gnatyo"
+      },
+      {
+        "LF": 592,
+        "characters": 30,
+        "value": "Style_Check_Missing_Overriding"
+      },
+      {
+        "LF": 594,
+        "characters": 6,
+        "value": "gnatyO"
+      },
+      {
+        "LF": 599,
+        "characters": 25,
+        "value": "Style_Check_Pragma_Casing"
+      },
+      {
+        "LF": 601,
+        "characters": 6,
+        "value": "gnatyp"
+      },
+      {
+        "LF": 606,
+        "characters": 22,
+        "value": "Style_Check_References"
+      },
+      {
+        "LF": 608,
+        "characters": 6,
+        "value": "gnatyr"
+      },
+      {
+        "LF": 613,
+        "characters": 17,
+        "value": "Style_Check_Specs"
+      },
+      {
+        "LF": 615,
+        "characters": 6,
+        "value": "gnatys"
+      },
+      {
+        "LF": 620,
+        "characters": 31,
+        "value": "Style_Check_Separate_Stmt_Lines"
+      },
+      {
+        "LF": 622,
+        "characters": 6,
+        "value": "gnatyS"
+      },
+      {
+        "LF": 627,
+        "characters": 18,
+        "value": "Style_Check_Tokens"
+      },
+      {
+        "LF": 629,
+        "characters": 6,
+        "value": "gnatyt"
+      },
+      {
+        "LF": 634,
+        "characters": 23,
+        "value": "Style_Check_Blank_Lines"
+      },
+      {
+        "LF": 636,
+        "characters": 6,
+        "value": "gnatyu"
+      },
+      {
+        "LF": 641,
+        "characters": 23,
+        "value": "Style_Check_Xtra_Parens"
+      },
+      {
+        "LF": 643,
+        "characters": 6,
+        "value": "gnatyx"
+      },
+      {
+        "LF": 649,
+        "characters": 34,
+        "value": "Style_Check_Xtra_Parens_Precedence"
+      },
+      {
+        "LF": 651,
+        "characters": 6,
+        "value": "gnatyz"
+      },
+      {
+        "LF": 656,
+        "characters": 28,
+        "value": "Display_Elaboration_Messages"
+      },
+      {
+        "LF": 658,
+        "characters": 6,
+        "value": "gnatel"
+      }
+    ],
+    "count": 168,
+    "maximum_characters": 36
+  }
+]
