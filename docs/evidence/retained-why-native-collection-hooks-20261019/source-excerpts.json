@@ -1,0 +1,35 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+    "identity": {
+      "bytes": 15851,
+      "sha256": "7e5ebfe4f6851181892a640c90e9b3d25b4b52b78ae72cfea31de489a3460fd8"
+    },
+    "first": 188,
+    "last": 196,
+    "text": "#endif\n\n/* GC timing hooks. These can be assigned by the user. These hooks\n   must not allocate, change any heap value, nor call OCaml code.\n*/\ntypedef void (*caml_timing_hook) (void);\nextern caml_timing_hook caml_major_slice_begin_hook, caml_major_slice_end_hook;\nextern caml_timing_hook caml_minor_gc_begin_hook, caml_minor_gc_end_hook;\nextern caml_timing_hook caml_finalise_begin_hook, caml_finalise_end_hook;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/envir.c",
+    "identity": {
+      "bytes": 2002,
+      "sha256": "abc9aaf41e63de1cabbf073ffaca18d5a25f7ec2fed04c09ea6b635175847082"
+    },
+    "first": 40,
+    "last": 70,
+    "text": "static char **secure_environ(void)\n{\n#ifdef HAS_GETAUXVAL\n  if (!getauxval(AT_SECURE))\n    return environ;\n  else\n   return NULL;\n#elif defined(HAS_ISSETUGID)\n  if (!issetugid ())\n    return environ;\n  else\n    return NULL;\n#else\n  if (geteuid () == getuid () && getegid () == getgid ())\n    return environ;\n  else\n    return NULL;\n#endif\n}\n\nCAMLprim value unix_environment(value unit)\n{\n  char **e = secure_environ();\n  if (e != NULL) {\n    return caml_copy_string_array((const char**)e);\n  } else {\n    return Atom(0);\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+    "identity": {
+      "bytes": 6850,
+      "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+    },
+    "first": 89,
+    "last": 143,
+    "text": "static void scanmult (char_os *opt, uintnat *var)\n{\n  char_os mult = ' ';\n  unsigned int val = 1;\n  sscanf_os (opt, T(\"=%u%c\"), &val, &mult);\n  sscanf_os (opt, T(\"=0x%x%c\"), &val, &mult);\n  switch (mult) {\n  case 'k':   *var = (uintnat) val * 1024; break;\n  case 'M':   *var = (uintnat) val * (1024 * 1024); break;\n  case 'G':   *var = (uintnat) val * (1024 * 1024 * 1024); break;\n  default:    *var = (uintnat) val; break;\n  }\n}\n\nvoid caml_parse_ocamlrunparam(void)\n{\n  char_os *opt = caml_secure_getenv (T(\"OCAMLRUNPARAM\"));\n  uintnat p;\n\n  if (opt == NULL) opt = caml_secure_getenv (T(\"CAMLRUNPARAM\"));\n\n  if (opt != NULL){\n    while (*opt != '\\0'){\n      switch (*opt++){\n      case 'a': scanmult (opt, &caml_init_policy); break;\n      case 'b': scanmult (opt, &p); caml_record_backtraces(p); break;\n      case 'c': scanmult (opt, &p); caml_cleanup_on_exit = (p != 0); break;\n      case 'h': scanmult (opt, &caml_init_heap_wsz); break;\n      case 'H': scanmult (opt, &caml_use_huge_pages); break;\n      case 'i': scanmult (opt, &caml_init_heap_chunk_sz); break;\n      case 'l': scanmult (opt, &caml_init_max_stack_wsz); break;\n      case 'M': scanmult (opt, &caml_init_custom_major_ratio); break;\n      case 'm': scanmult (opt, &caml_init_custom_minor_ratio); break;\n      case 'n': scanmult (opt, &caml_init_custom_minor_max_bsz); break;\n      case 'o': scanmult (opt, &caml_init_percent_free); break;\n      case 'O': scanmult (opt, &caml_init_max_percent_free); break;\n      case 'p': scanmult (opt, &p); caml_parser_trace = (p != 0); break;\n      case 'R': break; /*  see stdlib/hashtbl.mli */\n      case 's': scanmult (opt, &caml_init_minor_heap_wsz); break;\n      case 't': scanmult (opt, &caml_trace_level); break;\n      case 'v': scanmult (opt, &caml_verb_gc); break;\n      case 'w': scanmult (opt, &caml_init_major_window); break;\n      case 'W': scanmult (opt, &caml_runtime_warnings); break;\n      case ',': continue;\n      }\n      while (*opt != '\\0'){\n        if (*opt++ == ',') break;\n      }\n    }\n  }\n}\n\n\n/* The number of outstanding calls to caml_startup */\nstatic int startup_count = 0;\n"
+  }
+]
