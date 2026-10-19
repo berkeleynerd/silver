@@ -45,6 +45,19 @@ Prefer program-structure accounting and justify any conservative envelope.
 `Integer'Last` is an inherited ceiling; a per-value bound alone does not justify
 all compositions. No numerical aggregate cap or larger admission domain is selected.
 
+The next owner-authorized design increment is
+[#145 Complete literal-output native-build capacity](https://github.com/berkeleynerd/silver/issues/145),
+within #119. Its order is: attach accepted recognition and close remaining native
+source obligations; compose Main/assembler/binder/binder-compiler/linker and
+fixed native inputs; close materialization/parent routing; independently review
+the complete selected native evaluator. Reuse the accepted source components.
+The fixed-bundle graph does not include implicit dependency regeneration.
+After that result, #119 still requires producer/Why3 paths and fixed-library
+proofs, current-grammar generalization, whole-rule composition/correspondence,
+useful-domain comparison and final review before production #88–#94.
+No new owner decision is needed for routine closure within that recorded scope;
+any proposed Oracle or admission amendment remains a separate decision.
+
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,
 distinct from physical resource exhaustion. Optional confirmation cannot waive

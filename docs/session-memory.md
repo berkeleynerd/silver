@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-10-19 — Resume #119 for the complete native-build checkpoint
+
+The owner instructed **“Proceed”** after selecting the complete native-build
+capacity result for literal-output programs as the next substantial unit.
+This revokes the assessment pause and resumes #119, with the explicit next
+increment [#145](https://github.com/berkeleynerd/silver/issues/145). Complete
+its actual-source recognition attachment and remaining native obligations,
+compose Main/assembler/binder/binder-compiler/linker and fixed inputs, account
+for input materialization/parent routing, then independently review and publish
+one complete selected native capacity result. The selected graph has a fixed
+Silver object/ALI bundle; broader regenerating builds are not silently included.
+
+Retain accepted evidence, scope new checks to missing questions, and reassess
+the approximate completion estimate only after reviewed closure. The native
+increment does not complete #119: required producer/Why3 paths, current-grammar
+generalization, sound whole-rule composition and useful-domain comparison remain.
+Production #88–#94 remains authorized and unstarted pending the parent rule.
+Oracle, installed tools/pins and admission are unchanged. No research stop is
+selected. #119 and #145 return to In progress under this direct authorization.
+
+The harness still displays paused and exposes no resume transition; this does
+not revoke the owner's instruction. Preserve its existing objective rather than
+creating a replacement goal. CLI memory is unavailable. Routine publication and
+bounded parallel work follow the existing authorization and model policy.
+
 ## 2026-10-19 — Capacity goal #119 paused for assessment
 
 The owner requested: **“Let's pause an assess after the next substantial unit
