@@ -1,0 +1,932 @@
+[
+  {
+    "id": "entry",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "first_line": 298,
+    "last_line": 309,
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "excerpt_identity": {
+      "bytes": 504,
+      "sha256": "ab67ff89682423f5d78fd4d83a1d8ecaff083dd3383a5e15ed12e27a5e484db5"
+    }
+  },
+  {
+    "id": "main_reports",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "first_line": 95,
+    "last_line": 115,
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "excerpt_identity": {
+      "bytes": 975,
+      "sha256": "39baa95d4e0a199eb196fda17cbfac5c84a79eafa678badecd51cfad61e94002"
+    }
+  },
+  {
+    "id": "main_catch",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "first_line": 331,
+    "last_line": 360,
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "excerpt_identity": {
+      "bytes": 1216,
+      "sha256": "532dc0d52c56c4528cd8d069246f28b81613fb3684643a21f25b1a6fd6cab462"
+    }
+  },
+  {
+    "id": "abort",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "first_line": 1,
+    "last_line": 22,
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "excerpt_identity": {
+      "bytes": 645,
+      "sha256": "da5b35fec3dc7bbd8a3294a391ba63a2ca27f03f0a9f43f43699585964986607"
+    }
+  },
+  {
+    "id": "warnings",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_report.ml",
+    "first_line": 36,
+    "last_line": 44,
+    "member_identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "excerpt_identity": {
+      "bytes": 267,
+      "sha256": "ac249de81c425f9f76488906f68a6635f88f37724e697a405e4ab629a5c91cf8"
+    }
+  },
+  {
+    "id": "scheduler",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_scheduler.ml",
+    "first_line": 1,
+    "last_line": 28,
+    "member_identity": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    },
+    "excerpt_identity": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    }
+  },
+  {
+    "id": "save_delegate",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "first_line": 750,
+    "last_line": 754,
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "excerpt_identity": {
+      "bytes": 133,
+      "sha256": "bf00736634cfd50006dfec829453bf8a6c3e046c2ffc74f36e4a2ed84e976157"
+    }
+  },
+  {
+    "id": "session_nodes",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "first_line": 300,
+    "last_line": 327,
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "excerpt_identity": {
+      "bytes": 688,
+      "sha256": "227e90266b62755e652c81fb396e8a4fdb2498fe9eee2ae54e8151c8763c2c7d"
+    }
+  },
+  {
+    "id": "session_shape",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "first_line": 164,
+    "last_line": 189,
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "excerpt_identity": {
+      "bytes": 1076,
+      "sha256": "bc38294efe4b5a81660d8550b2b31aff6d39a85ceae6bfc1975eec968ea48c00"
+    }
+  },
+  {
+    "id": "session_walk",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "first_line": 369,
+    "last_line": 459,
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "excerpt_identity": {
+      "bytes": 2492,
+      "sha256": "c4c8401339dba02eb35632b36591f036de1ce9b9bfc845abd57694a8804c724b"
+    }
+  },
+  {
+    "id": "session_save",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "first_line": 1939,
+    "last_line": 2244,
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "excerpt_identity": {
+      "bytes": 10873,
+      "sha256": "eff04550a066a94546d043ef4628968dbe8c873169d07bc3596715b13c21a94a"
+    }
+  },
+  {
+    "id": "explanation",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "first_line": 20,
+    "last_line": 98,
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "excerpt_identity": {
+      "bytes": 2334,
+      "sha256": "73eb5b25026bc3cf065ec32a752d45ee19242033641de57b78a854845aaed744"
+    }
+  },
+  {
+    "id": "shape",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "first_line": 338,
+    "last_line": 627,
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "excerpt_identity": {
+      "bytes": 8415,
+      "sha256": "099c734e5754d8725bffcdedd9ce68bb3c00a87c7634d8b3a2bfaf605928605e"
+    }
+  },
+  {
+    "id": "term_open",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 739,
+    "last_line": 835,
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "excerpt_identity": {
+      "bytes": 2774,
+      "sha256": "4fce745083a53e2d2d812f3e5cfc58e52fad16bdb839beaac8545c40f4033c2b"
+    }
+  },
+  {
+    "id": "term_checks",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 855,
+    "last_line": 978,
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "excerpt_identity": {
+      "bytes": 3434,
+      "sha256": "de2d11beac9be63a615a742e7354b2ea344e176aafec936aa4877392304a132b"
+    }
+  },
+  {
+    "id": "term_raw",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 565,
+    "last_line": 665,
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "excerpt_identity": {
+      "bytes": 3165,
+      "sha256": "d2b12337924a157deee9399e6a29b9752ab9cd8909a5729fe2821e773375f59d"
+    }
+  },
+  {
+    "id": "term_types",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1083,
+    "last_line": 1174,
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "excerpt_identity": {
+      "bytes": 2888,
+      "sha256": "924f59caf018f59c2b55866e1c3f5ff50a36faa2558eb85a76175741ab58870a"
+    }
+  },
+  {
+    "id": "term_patterns",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 140,
+    "last_line": 177,
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "excerpt_identity": {
+      "bytes": 1204,
+      "sha256": "4892d048acfa55c2d689eaf31e654665995bba653c80fa788b544a759bf613e2"
+    }
+  },
+  {
+    "id": "term_comparison",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 325,
+    "last_line": 405,
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "excerpt_identity": {
+      "bytes": 4179,
+      "sha256": "ac95da000fb0db59753740758db8a3cb9cf5820536d59068d44ccf859feff067"
+    }
+  },
+  {
+    "id": "ty_checks_tuple",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "first_line": 180,
+    "last_line": 294,
+    "member_identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "excerpt_identity": {
+      "bytes": 3490,
+      "sha256": "ff73e83bccd790193ed49947aa2ba4d35eb7124755418b157da5891e5b41353f"
+    }
+  },
+  {
+    "id": "ty_registration",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "first_line": 20,
+    "last_line": 135,
+    "member_identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "excerpt_identity": {
+      "bytes": 2603,
+      "sha256": "99d3a45373cf0fd05dfda86f5b464ced644d59c35dcdcfab455a0d49f3423474"
+    }
+  },
+  {
+    "id": "ty_error_checks",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "first_line": 296,
+    "last_line": 315,
+    "member_identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "excerpt_identity": {
+      "bytes": 617,
+      "sha256": "886b4189c948750b72639b1b55e92eb042500e4434058f260da3010e6759ab15"
+    }
+  },
+  {
+    "id": "ident_registration",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 181,
+    "last_line": 213,
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "excerpt_identity": {
+      "bytes": 838,
+      "sha256": "842425ac6867cbc73753f37198c57ea57586effa15124e9ef17e240df9fbfacb"
+    }
+  },
+  {
+    "id": "ident_names",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 233,
+    "last_line": 302,
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "excerpt_identity": {
+      "bytes": 2150,
+      "sha256": "41ed2bf1e699a3a447f228f3ac1a8d1d4df364b3d2d84c4f1080463d752a94d0"
+    }
+  },
+  {
+    "id": "theory_path",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 474,
+    "last_line": 493,
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "excerpt_identity": {
+      "bytes": 773,
+      "sha256": "5ab5a24f758039cea81be7ef21bdb178a7d9244a93ce737aabe650df82b04a65"
+    }
+  },
+  {
+    "id": "decl_definition",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 29,
+    "last_line": 103,
+    "member_identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "excerpt_identity": {
+      "bytes": 2309,
+      "sha256": "51d60fc4b2ed98cc871b7db0ae85f28ac2c674407a7e3142e98b0f3d1205d09b"
+    }
+  },
+  {
+    "id": "decl_termination",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 113,
+    "last_line": 279,
+    "member_identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "excerpt_identity": {
+      "bytes": 5268,
+      "sha256": "d44d4886181cc58ae7382d04dffeaad3ec61d3c4d3c0d19f26cbc2f7f95aa1cf"
+    }
+  },
+  {
+    "id": "decl_map",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 621,
+    "last_line": 653,
+    "member_identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "excerpt_identity": {
+      "bytes": 926,
+      "sha256": "f0fa3948862334a19c822dc7e55a2846716062fc9d249b8009df291427ee259b"
+    }
+  },
+  {
+    "id": "decl_validation",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 699,
+    "last_line": 826,
+    "member_identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "excerpt_identity": {
+      "bytes": 4515,
+      "sha256": "92abcceb7402752d86534f740c930f380b02ecd9585b657ceee5f0fefb1be23a"
+    }
+  },
+  {
+    "id": "task_add",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "first_line": 125,
+    "last_line": 165,
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "excerpt_identity": {
+      "bytes": 1212,
+      "sha256": "c419847d9f7f582ee10aaea5a657ed65444b8c944593b67ae91a72e3c60cb263"
+    }
+  },
+  {
+    "id": "task_selection",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "first_line": 245,
+    "last_line": 277,
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "excerpt_identity": {
+      "bytes": 954,
+      "sha256": "dbe51df07a539215dc1ced53ac47ed35a54503bf40863e4032362cb069d0d03a"
+    }
+  },
+  {
+    "id": "pattern",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pattern.ml",
+    "first_line": 20,
+    "last_line": 153,
+    "member_identity": {
+      "bytes": 6741,
+      "sha256": "555b36960e345feafe67deddc2fe1fb4bd7cb2e97cd11a0894e1856207ba6456"
+    },
+    "excerpt_identity": {
+      "bytes": 5524,
+      "sha256": "257d1b02298a86acdbd8e408f32b94ad3737c52a9433266a0f6cf512da71721b"
+    }
+  },
+  {
+    "id": "inline",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/inlining.ml",
+    "first_line": 20,
+    "last_line": 167,
+    "member_identity": {
+      "bytes": 5891,
+      "sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9"
+    },
+    "excerpt_identity": {
+      "bytes": 5082,
+      "sha256": "e0144021407652b4e5564da95a8bf4359ef462ea8958bc8839b0e8a756fb18e9"
+    }
+  },
+  {
+    "id": "trans_fold",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 51,
+    "last_line": 103,
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "excerpt_identity": {
+      "bytes": 1742,
+      "sha256": "29c0782124d072ac5dbef99c3be8e28d61a8de6373ce1fec3886fb96f0d91b58"
+    }
+  },
+  {
+    "id": "trans_meta",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 230,
+    "last_line": 300,
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "excerpt_identity": {
+      "bytes": 1952,
+      "sha256": "fd29f4bd857c768999a2b4c39dbd85133237166bbe234a1d9b5c7b88ac1b51cd"
+    }
+  },
+  {
+    "id": "trans_named",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 369,
+    "last_line": 394,
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "excerpt_identity": {
+      "bytes": 1003,
+      "sha256": "a7f84a94f6567d35285ec5bd5c5d27a7fae83154aad7360fc6bf29de94e533ed"
+    }
+  },
+  {
+    "id": "trans_printer",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 547,
+    "last_line": 566,
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "excerpt_identity": {
+      "bytes": 956,
+      "sha256": "d5104f59b07741dfb3fbff5e6260ca13543c8fddfb67de46d407466ad6726689"
+    }
+  },
+  {
+    "id": "weak_memo",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "first_line": 95,
+    "last_line": 112,
+    "member_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "excerpt_identity": {
+      "bytes": 329,
+      "sha256": "a0a7350a149d27425a979e236f4858777f962fef91e5355c9fbb2b17525252f5"
+    }
+  },
+  {
+    "id": "table_memo",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/exthtbl.ml",
+    "first_line": 45,
+    "last_line": 57,
+    "member_identity": {
+      "bytes": 1984,
+      "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+    },
+    "excerpt_identity": {
+      "bytes": 322,
+      "sha256": "d424580b42382d9906b6bf92a8ef35c510117b5e5e544a64a129e43d6967fddc"
+    }
+  },
+  {
+    "id": "map_lookup",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "first_line": 482,
+    "last_line": 515,
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "excerpt_identity": {
+      "bytes": 1219,
+      "sha256": "97e1caec3e726744065b2fd40436108879b142c7f336487ffa32316a4ed93f8d"
+    }
+  },
+  {
+    "id": "list_equal",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/lists.ml",
+    "first_line": 20,
+    "last_line": 47,
+    "member_identity": {
+      "bytes": 3960,
+      "sha256": "f86b9cf67f07c2818d504a42d2e8e6f36a6e49d19a8d5770409832cfc9cf5cfd"
+    },
+    "excerpt_identity": {
+      "bytes": 658,
+      "sha256": "d26d3f36565dbe6562823987bd871cb4f151d6db2902dfb2a6e3dd817650d2d7"
+    }
+  },
+  {
+    "id": "util_sentinels",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/util.ml",
+    "first_line": 20,
+    "last_line": 59,
+    "member_identity": {
+      "bytes": 4859,
+      "sha256": "acec03834981133f3a3fee0dfaaec36a4c381f375ff4ec4d54b6f2585b502c57"
+    },
+    "excerpt_identity": {
+      "bytes": 1285,
+      "sha256": "45fb0a8d22d82e203193336da523025f181471426f88cf388830d5a16ff1a5bf"
+    }
+  },
+  {
+    "id": "loc_wrap",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/loc.ml",
+    "first_line": 300,
+    "last_line": 352,
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "excerpt_identity": {
+      "bytes": 1652,
+      "sha256": "0f952ae0ba6ce520e9b98a9b648ac14f60a5baf366cd1756fd98d28275ef5f7d"
+    }
+  },
+  {
+    "id": "pretty_dispatch",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pretty.ml",
+    "first_line": 134,
+    "last_line": 154,
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "excerpt_identity": {
+      "bytes": 780,
+      "sha256": "07a32c6551851ffc3820afa3a57e0eefb9ff00377e461c39b98630dd62068f9c"
+    }
+  },
+  {
+    "id": "pretty_types",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pretty.ml",
+    "first_line": 181,
+    "last_line": 288,
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "excerpt_identity": {
+      "bytes": 3901,
+      "sha256": "fc3b8b2db258cb95c095df018971d8ae25bab9f362c09518c3fd083038bb945b"
+    }
+  },
+  {
+    "id": "pretty_legacy",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pretty.ml",
+    "first_line": 759,
+    "last_line": 853,
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "excerpt_identity": {
+      "bytes": 3669,
+      "sha256": "ee8da967e425bdbd5a157c5c7657d2f165ddb000d2e1337711970022444f1256"
+    }
+  },
+  {
+    "id": "exn_registry",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/exn_printer.ml",
+    "first_line": 11,
+    "last_line": 52,
+    "member_identity": {
+      "bytes": 1599,
+      "sha256": "ccaecea24fece683c74855baa1fe8a8bc7e87ae6bb360afddeeaff7f3fdb4948"
+    },
+    "excerpt_identity": {
+      "bytes": 959,
+      "sha256": "6e29131c17248592218b70e3e19e54c0a4f0aa40e64dae091388b37577cbd6d9"
+    }
+  },
+  {
+    "id": "debug_stats",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/debug.ml",
+    "first_line": 145,
+    "last_line": 187,
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "excerpt_identity": {
+      "bytes": 1111,
+      "sha256": "e721000b0a60e12bbcd56ec34c3a09e123093ebadd13f5a5a9afdb2a74d9a617"
+    }
+  },
+  {
+    "id": "driver",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 372,
+    "last_line": 390,
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "excerpt_identity": {
+      "bytes": 689,
+      "sha256": "f11492606ac915ea3c2571cdfb6ee34cde7d8b5c71eff7e28b7be3147e94c533"
+    }
+  },
+  {
+    "id": "driver_prove",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 490,
+    "last_line": 495,
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "excerpt_identity": {
+      "bytes": 210,
+      "sha256": "9a00e7838aeaccd16008db112d83c0a3079d27785323b1f97a0607f30daed7b9"
+    }
+  },
+  {
+    "id": "controller_report",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 412,
+    "last_line": 440,
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "excerpt_identity": {
+      "bytes": 1252,
+      "sha256": "06c23129fb736cb36503f826cabcbdda7ac19c6d2eb8e1f6d1a8e2b8b38de63d"
+    }
+  },
+  {
+    "id": "controller_idle",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 517,
+    "last_line": 536,
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "excerpt_identity": {
+      "bytes": 661,
+      "sha256": "fc3c55eda8d07d07ab8da03af2f7834a2b7b625a36ea381d4944cfdda76eb908"
+    }
+  },
+  {
+    "id": "controller_start",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 578,
+    "last_line": 592,
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "excerpt_identity": {
+      "bytes": 552,
+      "sha256": "d5b873acae8de92066b5e3569af8b07fa832b6b45b8f3a4a759c2d42c559bfa2"
+    }
+  },
+  {
+    "id": "json",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/json_base.ml",
+    "first_line": 13,
+    "last_line": 71,
+    "member_identity": {
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "excerpt_identity": {
+      "bytes": 1643,
+      "sha256": "2235175a2cea0d5f739e4b57a068a8aa8c4405ec6fbe5370a2360136450bbe69"
+    }
+  },
+  {
+    "id": "sys_backup",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/sysutil.ml",
+    "first_line": 11,
+    "last_line": 17,
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "excerpt_identity": {
+      "bytes": 154,
+      "sha256": "e9909e04cbcc51a27c861f86cd32d26e33c106cde050a3ffc463dcdcd031f817"
+    }
+  },
+  {
+    "id": "html",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/pp.ml",
+    "first_line": 216,
+    "last_line": 228,
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "excerpt_identity": {
+      "bytes": 365,
+      "sha256": "6b11103c1dc5ab122fc78513da42124a92960db6e0acb1fcb4a779b55a061acb"
+    }
+  },
+  {
+    "id": "runtime_exn",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "first_line": 24,
+    "last_line": 76,
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "excerpt_identity": {
+      "bytes": 1600,
+      "sha256": "540ccf6121327c94f88577a32f9d3593512b0f96f3437409f165d9a19dc9a444"
+    }
+  },
+  {
+    "id": "runtime_uncaught",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "first_line": 309,
+    "last_line": 360,
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "excerpt_identity": {
+      "bytes": 1679,
+      "sha256": "f5562e43738ad86979917c18a758cc4c66c6b94d3a07bbbf1dd36f3dbafd5fb5"
+    }
+  },
+  {
+    "id": "runtime_protect",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+    "first_line": 21,
+    "last_line": 38,
+    "member_identity": {
+      "bytes": 1788,
+      "sha256": "153414360c64163c6ca739d5c2138ab8f39b3bf0e280cfdfba6b8994c0bb1eca"
+    },
+    "excerpt_identity": {
+      "bytes": 603,
+      "sha256": "caf616bf9179a7f5143d4aef00344dde77deb36846ebeb6fb9ce776bbacd752b"
+    }
+  },
+  {
+    "id": "runtime_exit",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "first_line": 552,
+    "last_line": 570,
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "excerpt_identity": {
+      "bytes": 601,
+      "sha256": "600c84c52afabec2ecaee6ef5cd43886016a24378ba7386cac8ec69b879c0683"
+    }
+  },
+  {
+    "id": "ephemeron_replace",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "first_line": 315,
+    "last_line": 338,
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "excerpt_identity": {
+      "bytes": 807,
+      "sha256": "fefba2dc5e8ece009b1f1ec246bd49be131c4d3e7f4934deb606f2aa76003bef"
+    }
+  },
+  {
+    "id": "hashtbl_cleanup",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "first_line": 154,
+    "last_line": 233,
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "excerpt_identity": {
+      "bytes": 2119,
+      "sha256": "f70398be454e3499fc0086e18880418f494a7dd2c4bad7af1c0268a8eda4862a"
+    }
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "status": "source_bindings_and_conditional_arithmetic_passed",
+  "source_excerpts": 62,
+  "effect_rows": 16,
+  "capture_run": "20261019T000304-fcb988ec2c03",
+  "capture_pid": 97103,
+  "conditional_components": {
+    "initial_counter": 60496,
+    "accounted_first_fold": 1145,
+    "save_attempts_upper": 2,
+    "save_binders_per_attempt": 966,
+    "direct_ocaml_save_exit_nonbinder": 0,
+    "first_fold_returning_continuation_excess": 0,
+    "diagnostic_type_nodes": 81,
+    "diagnostic_type_pair_nodes": 90,
+    "identifiers_per_pretty_attempt": 540,
+    "pretty_attempts_per_outer_report": 8,
+    "outer_report_calls_upper": 6,
+    "whole_interval_reporting_D": 25920,
+    "counter_interface": "counter_end <= 89493 + N_native",
+    "native_charge_N_native": null
+  },
+  "endpoint": {
+    "normal": "first selected invocation return, before later driver printing/transform",
+    "handled_failure": "return from its failure-report callback, before next scheduler invocation",
+    "uncaught": "completion/termination of the one uncaught-handler wrapper",
+    "scheduler_exit": "before transition into ordinary ending save",
+    "ordinary_ending_forest_and_reentrant_save_covered": false,
+    "later_scheduled_invocations_covered": false
+  },
+  "native_effect_preservation_obligation": "OPEN",
+  "exception_family_conditional_on_native_effect_closure": true,
+  "source_argument_machine_checked": false,
+  "complete_R": null,
+  "unconditional_counter_endpoint": null,
+  "counter_no_wrap_established": false,
+  "native_runs": 0,
+  "old_checker_replays": 0,
+  "global_censuses": 0,
+  "checker_seconds": 0.49199085700092837
+}

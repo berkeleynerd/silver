@@ -1,0 +1,313 @@
+[
+  {
+    "id": "save_entry",
+    "source_refs": [
+      "entry",
+      "save_delegate",
+      "session_save"
+    ],
+    "entry": "GNAT SIGINT -> save_session -> exit",
+    "continuation": "No save retry; at most two serial attempts; unsupported-signal catch returns once.",
+    "identifier_charge": {
+      "binder_per_attempt": 966,
+      "other": 0
+    },
+    "leaves": [
+      "session traversal",
+      "fixed formatter",
+      "scalar I/O",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "save_terms",
+    "source_refs": [
+      "explanation",
+      "shape",
+      "term_open",
+      "term_raw",
+      "session_shape",
+      "task_selection"
+    ],
+    "entry": "goal_expl_task and Gshape bound shape",
+    "continuation": "Unsafe openings charged; no Tcase. Pure local_decls suffix may be recomputed but returns ordered subset, no duplicated shape body.",
+    "identifier_charge": {
+      "included_in_binder_charge": true,
+      "other": 0
+    },
+    "leaves": [
+      "map/list/string",
+      "covered immediate integer formatting",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "serialize",
+    "source_refs": [
+      "session_save",
+      "session_nodes",
+      "session_walk",
+      "theory_path",
+      "ident_names",
+      "sys_backup",
+      "html",
+      "json"
+    ],
+    "entry": "Save XML/shapes, names, prover limits",
+    "continuation": "Existing identifiers and scalar fields only. Prover ID loop is not Ident.id_register; no scalar capacity claim.",
+    "identifier_charge": {
+      "other": 0
+    },
+    "leaves": [
+      "Compress_none inherited correspondence",
+      "fixed Format output",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "fold_cache",
+    "source_refs": [
+      "trans_fold",
+      "weak_memo",
+      "trans_meta",
+      "inline"
+    ],
+    "entry": "First backward walk and rewind",
+    "continuation": "Empty lookup catches select baseline miss; callback and set outside memo lookup trap. Wtds returns closure before fold application.",
+    "identifier_charge": {
+      "returning_excess": 0
+    },
+    "leaves": [
+      "ephemeron lookup",
+      "fixed hash/equality",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "type_cache",
+    "source_refs": [
+      "term_types",
+      "weak_memo",
+      "ty_checks_tuple"
+    ],
+    "entry": "Wty memo callback ty_inst",
+    "continuation": "Lookup miss recomputes only type nodes; variable generation is outside trap and in 1145.",
+    "identifier_charge": {
+      "returning_excess": 0
+    },
+    "leaves": [
+      "type hashcons",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "equality",
+    "source_refs": [
+      "list_equal",
+      "decl_definition",
+      "term_comparison",
+      "decl_map"
+    ],
+    "entry": "Lists.equal catches Invalid_argument",
+    "continuation": "False selects valid reconstruction already charged; comparison/hashing adds no identifiers; no extra declaration visit.",
+    "identifier_charge": {
+      "returning_excess": 0
+    },
+    "leaves": [
+      "pure selected equality",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "map_recovery",
+    "source_refs": [
+      "map_lookup",
+      "table_memo",
+      "decl_termination"
+    ],
+    "entry": "Scalar/default and termination catches",
+    "continuation": "Extmap lookup is structural. vs_graph_let drops mapping; subsumption false does not create recursive call closure in nonrecursive singleton input.",
+    "identifier_charge": {
+      "returning_excess": 0
+    },
+    "leaves": [
+      "map/list/array",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "containers",
+    "source_refs": [
+      "ephemeron_replace",
+      "hashtbl_cleanup"
+    ],
+    "entry": "Ephemeron.replace and Hashtbl iteration",
+    "continuation": "Add container or restore traversal flag/reraise; no replay of user binder callback.",
+    "identifier_charge": {
+      "returning_excess": 0
+    },
+    "leaves": [
+      "selected hash/equality",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "private_catches",
+    "source_refs": [
+      "util_sentinels",
+      "term_comparison",
+      "pattern",
+      "task_add"
+    ],
+    "entry": "FoldSkip, CompLT/GT, Bare/NonExhaustive, KnownIdent",
+    "continuation": "Distinct constructors not constructed by save; normal branches covered by baseline. Pattern.check_compile gets nonempty term list and nullary patterns.",
+    "identifier_charge": {
+      "returning_excess": 0
+    },
+    "leaves": [
+      "accepted typed representative invariants"
+    ]
+  },
+  {
+    "id": "translation",
+    "source_refs": [
+      "ty_checks_tuple",
+      "ty_error_checks",
+      "term_checks",
+      "term_patterns",
+      "decl_map",
+      "decl_validation",
+      "loc_wrap",
+      "trans_named"
+    ],
+    "entry": "Primitive receiver translation",
+    "continuation": "Invalid_argument -> BadTypeArity/BadArity; Exit -> TypeMismatch. Valid reconstruction preserves type; no TermExpected/FmlaExpected/UnsupportedTerm/UnsupportedDecl origin.",
+    "identifier_charge": {
+      "other": 0
+    },
+    "leaves": [
+      "logical diagnostics",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "wrappers",
+    "source_refs": [
+      "loc_wrap",
+      "trans_named",
+      "debug_stats",
+      "runtime_protect"
+    ],
+    "entry": "Loc + Trans wrappers; scalar timing finally",
+    "continuation": "At most two Why wrappers; finally failure replaces with primitive/save secondary, never retains original TypeMismatch.",
+    "identifier_charge": {
+      "other": 0
+    },
+    "leaves": [
+      "fixed Exn_printer",
+      "primitive timing",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "diagnostic",
+    "source_refs": [
+      "pretty_dispatch",
+      "pretty_types",
+      "pretty_legacy",
+      "ty_checks_tuple",
+      "ty_registration",
+      "ident_registration",
+      "ident_names"
+    ],
+    "entry": "LegacyPrinter TypeMismatch",
+    "continuation": "At most 90 type occurrences; at most two tuple probes/occurrence; at most three registrations/probe, even on all misses or failed prefixes.",
+    "identifier_charge": {
+      "per_matching_pretty_attempt": 540
+    },
+    "leaves": [
+      "NoDef symbol constructors",
+      "strings/tables/Format",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "registry",
+    "source_refs": [
+      "exn_registry",
+      "runtime_exn",
+      "trans_printer",
+      "loc_wrap",
+      "runtime_protect"
+    ],
+    "entry": "Why and Printexc registries",
+    "continuation": "At most 2 leaf passes, doubling per Why wrapper; two wrappers -> at most 8 Pretty attempts per root report; failed printers retain original input.",
+    "identifier_charge": {
+      "pretty_attempts_per_report": 8
+    },
+    "leaves": [
+      "inherited 55 Why registration family",
+      "inherited Sexplib constructor exclusion",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "report_sites",
+    "source_refs": [
+      "controller_report",
+      "controller_idle",
+      "main_reports",
+      "main_catch",
+      "abort",
+      "runtime_uncaught",
+      "warnings"
+    ],
+    "entry": "Six outer report sites",
+    "continuation": "Each source site at most once before returning out of first invocation or uncaught completion; loop starts/next scheduled task outside boundary.",
+    "identifier_charge": {
+      "root_reports": 6
+    },
+    "leaves": [
+      "fixed reporting callbacks",
+      "scalar JSON/backtrace",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "exit",
+    "source_refs": [
+      "entry",
+      "runtime_exit",
+      "debug_stats",
+      "runtime_uncaught"
+    ],
+    "entry": "Debug/Format/flush_all and uncaught exit handling",
+    "continuation": "Gates clear before hook; throws skip older links; terminal flush_all may repeat but adds zero identifiers; uncaught output failure is suppressed.",
+    "identifier_charge": {
+      "other": 0
+    },
+    "leaves": [
+      "inherited formatter repair",
+      "scalar timing/output",
+      "native_effect_open"
+    ]
+  },
+  {
+    "id": "boundary",
+    "source_refs": [
+      "driver",
+      "driver_prove",
+      "scheduler",
+      "controller_start",
+      "main_catch"
+    ],
+    "entry": "First invocation and reporting continuation",
+    "continuation": "Stop before successful later driver printing/transform, next scheduler invocation, or Exit -> ordinary ending save. No later-forest claim.",
+    "identifier_charge": {
+      "ordinary_ending": null
+    },
+    "leaves": [
+      "separate normal_ending_obligation"
+    ]
+  }
+]

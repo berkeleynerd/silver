@@ -1,0 +1,184 @@
+{
+  "base_commit": "08062f36ac",
+  "capture": {
+    "run": "20261019T000304-fcb988ec2c03",
+    "pid": 97103,
+    "executable_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "revisions": {
+    "why3": "9390baf120ef260547dfa14f08e11c890b203d9c",
+    "ocaml": "8eb41f72ded84df884c3671734c947f612091f84"
+  },
+  "dependencies": {
+    "docs/evidence/retained-why-callback-launch-20261018/result.json": {
+      "bytes": 2678,
+      "sha256": "fcc96c3362ac8c6fb26266f9b4890e8cdd8728b4d8a9a4d383e823947578cae6"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/inputs.json": {
+      "bytes": 2376,
+      "sha256": "3fe8966ff9332c949ca830c1a8883c58de1423ac294272ae57fb4d9bcc262cbd"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/result.json": {
+      "bytes": 510,
+      "sha256": "4a03423c60b2c05dcbf7bb1ab0dc9f100a92f3d631f73fe5f6628cf709006e56"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/inputs.json": {
+      "bytes": 32859,
+      "sha256": "2bcb7638ed58dede4b1703753b7bba117519ae45e09bfd512777c6c5483cf9eb"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/result.json": {
+      "bytes": 5781,
+      "sha256": "d9fe8d884c8d890df0b4b7718106f78774bdc4f265f420c28ef15af2cfd49a0d"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/result.json": {
+      "bytes": 14633,
+      "sha256": "f98666e34cd1945c492948e88d9e356f0b83cbd1639aac74e69d0f32f757ec53"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/result.json": {
+      "bytes": 42528,
+      "sha256": "4a6ef8aa508f75748adc5eab6102fabe21c5f2d74e64827f4100ec29df584852"
+    },
+    "docs/evidence/retained-why-interval-native-effects-20261019/check-result.json": {
+      "bytes": 364,
+      "sha256": "ef913540f144799aef5b96b1916cfd008d4f4be346b25989a98f4ee98e9eb917"
+    },
+    "docs/evidence/retained-why-interval-native-effects-20261019/inputs.json": {
+      "bytes": 959,
+      "sha256": "885c23dc5f75d96c63b390294006e11dbc7d858f7adca1afde4284b09a5b1e9d"
+    },
+    "docs/evidence/retained-why-save-preservation-20261019/result.json": {
+      "bytes": 392,
+      "sha256": "cbef1d829709e08483c2bea691a583d6856cadaf9309bd622a4b87ffd29b0f1c"
+    },
+    "docs/evidence/retained-why-session-exception-prefix-20261019/inputs.json": {
+      "bytes": 2013,
+      "sha256": "23371efa665f41fe28f5a7aca743f7cf2e168fe9747bbc742ff639d1be09c3e3"
+    },
+    "docs/evidence/retained-why-session-exception-prefix-20261019/registration-inventory.json": {
+      "bytes": 6798,
+      "sha256": "de60d09d38eed5e9e691501162c84cfdb9df0528a6b47ade8ef336856725662b"
+    },
+    "docs/evidence/retained-why-session-exception-prefix-20261019/result.json": {
+      "bytes": 657,
+      "sha256": "3d2cf2eaeff31ab10c205106a46505849cf1f27d4a30942fe056b8629639c519"
+    },
+    "docs/evidence/retained-why-session-exception-prefix-20261019/why-printer-inventory.json": {
+      "bytes": 46714,
+      "sha256": "f040f30bfde2b6a563dc064e57fbac2ae535cd43cd876d9d985f939ec9d912f8"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/native-source-correspondence.json": {
+      "bytes": 243625,
+      "sha256": "c1518cc3e6f8a9ac5080407d037ad5ccfe822b2ffff2955c23f7f5d9a2128159"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/result.json": {
+      "bytes": 475,
+      "sha256": "87311e5e407c61e15d94abb46fec67f7bdf75c1d7a27fe2021ed1d925ca6186c"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+      "bytes": 169096,
+      "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/atom-certificate.json": {
+      "bytes": 189009,
+      "sha256": "7c3a8f84d3d05d99f7718a1274af6b1f6fd2b41e87559d9fd0a4503526b82915"
+    },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/inputs.json": {
+      "bytes": 952,
+      "sha256": "0979323005878e96488d778abfad04ec4bf0f15bb0ca986e0ba94479b9058899"
+    },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/result.json": {
+      "bytes": 456,
+      "sha256": "843ee7ee802acff2547cd6ebc2d7d2bfb460607d70d03298452177e757700c85"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json": {
+      "bytes": 97976,
+      "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/inputs.json": {
+      "bytes": 5581,
+      "sha256": "36d1f8daa767c5defaf4b68a08f04413864dba06004086ddc554854a38d99520"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/registration-events.json": {
+      "bytes": 9695,
+      "sha256": "c8d611836d5fe82d262321a543d14f8d618897e63d0a9e227d352ce2071c689e"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/result.json": {
+      "bytes": 921,
+      "sha256": "6e55b1633bdb8a3e80356be8be480174ca53fd7e88435f9f41cc30ec4b96596b"
+    },
+    "docs/research/retained-why-callback-launch.md": {
+      "bytes": 15004,
+      "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+    },
+    "docs/research/retained-why-inline-identifier-state.md": {
+      "bytes": 12914,
+      "sha256": "a9981e42a802835e0b30264f2f0f025a91e6a45510e1bfb973b94503786b5ff5"
+    },
+    "docs/research/retained-why-inline-operations.md": {
+      "bytes": 18244,
+      "sha256": "ec268bd7d82fd43fef73c14dd732ea4f1952abbe842a803c9a0d03950652cb5e"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    },
+    "docs/research/retained-why-interval-native-effects.md": {
+      "bytes": 14486,
+      "sha256": "7864e7920ecc40bb638cc38e12f2d95b0d1f96edfa4e0e3f7ec399b6a6e3e3f7"
+    },
+    "docs/research/retained-why-save-preservation.md": {
+      "bytes": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    "docs/research/retained-why-session-exception-prefix.md": {
+      "bytes": 14032,
+      "sha256": "68f29c5526f89b57a0921adb06ff1c479a0fbcba4b8267f1a3f6f205ac0236e8"
+    },
+    "docs/research/retained-why-session-formatter-prefix-repair.md": {
+      "bytes": 10753,
+      "sha256": "711672f317f8fd8c980df92191a3636fb4074d6be672e0be28d4a8b09dffe970"
+    },
+    "docs/research/retained-why-session-save-outcomes.md": {
+      "bytes": 15737,
+      "sha256": "8af10d3db23e226d1a73c2453f6c9a7e74d5a929ee7c13fa142bf71210a49a76"
+    },
+    "docs/research/retained-why-sexplib-converter-prefix.md": {
+      "bytes": 13161,
+      "sha256": "2ff1302b3e71e272e224ca3b8babc1cc9fefdeaace17f682bf4c1ceeb1703bc8"
+    }
+  },
+  "local_inputs": {
+    "docs/evidence/retained-why-save-exit-charge-20261019/source-excerpts.json": {
+      "bytes": 30324,
+      "sha256": "a17c242b4c3ebbfcece23facc73b04b055c5fef193d2316b962aee0f276df11b"
+    },
+    "docs/evidence/retained-why-save-exit-charge-20261019/source-excerpts.txt": {
+      "bytes": 122320,
+      "sha256": "94c3de04f3bb46e3639e9cee70892c1593796f1fc6ec6e1f6e247c56c2c1cdf4"
+    },
+    "docs/evidence/retained-why-save-exit-charge-20261019/effect-ledger.json": {
+      "bytes": 8471,
+      "sha256": "b28696459a1cf4cee6d2682e25b0b0d9f79db1306303df325d0d2d845bed4775"
+    },
+    "docs/evidence/retained-why-save-exit-charge-20261019/report-sites.json": {
+      "bytes": 3018,
+      "sha256": "31e1a232c4316ca18d8d4ccb7cd7b75ba2de2f18e949844af58433ce9a96168a"
+    },
+    "docs/evidence/retained-why-save-exit-charge-20261019/check.py": {
+      "bytes": 7629,
+      "sha256": "43418f5112ea3681f621015eb2ab1aed129d7fb06cc7694d479ea0f3cff12422"
+    },
+    "docs/research/retained-why-save-exit-charge.md": {
+      "bytes": 18846,
+      "sha256": "1f080fde891c5202747b2fade8c6246d7372b7a44b15a26f558db3560e31c310"
+    }
+  }
+}

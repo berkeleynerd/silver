@@ -1,0 +1,41 @@
+{
+  "task": "#119 conditional first-fold save/exit and reporting charge",
+  "base_commit": "08062f36ac",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "started_utc": "2026-10-19 12:50:32 UTC",
+  "ended_utc": "2026-10-19 13:14:31 UTC",
+  "elapsed_seconds": 1439,
+  "host": {
+    "system": "Linux",
+    "release": "7.0.14",
+    "machine": "x86_64"
+  },
+  "intended_outcome": "Bound transitive OCaml non-binder save/exit/reporting effects and returning first-fold excess, independently of open native component.",
+  "achieved_result": "Conditional direct nonbinder=0, returning excess=0, reporting D=25920, interface counter<=89493+N_native; full native obligation and complete R remain open.",
+  "significant_rework": [
+    "Rejected tentative zero diagnostic charge: Pretty.print_ty_node invokes Ty.is_ts_tuple and memoized ts_tuple, whose miss creates named type variables and a type symbol.",
+    "Used a whole-interval D, including zero-SIGINT native primitive failure, instead of assigning all reporting to executed save attempts.",
+    "Corrected out-of-range excerpt endpoints during local packet construction; no source/evidence version changed."
+  ],
+  "validation": {
+    "checker_seconds": 0.49199085700092837,
+    "source_excerpts": 62,
+    "effect_rows": 16,
+    "local_links": "passed",
+    "authored_whitespace": "passed; exact source excerpts preserve upstream whitespace",
+    "old_checker_replays": 0,
+    "capture_replays": 0,
+    "native_runs": 0,
+    "builds": 0,
+    "solver_runs": 0,
+    "global_censuses": 0,
+    "git_diff_check": "One verbatim upstream trailing space in source-excerpts.txt, gnat_util.ml line 5; authored files clean."
+  },
+  "independent_review": "pending; parent owns review/integration",
+  "token_count": null,
+  "cost": null,
+  "cli_memory_updated": false
+}
