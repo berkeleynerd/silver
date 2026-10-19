@@ -1,0 +1,1348 @@
+{
+  "origin_identity": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "counts": {
+    "instructions": 1102177,
+    "matched_instruction_bytes": 4986162
+  },
+  "executable_sections": [
+    {
+      "name": ".init",
+      "addr": 5394432,
+      "size": 27
+    },
+    {
+      "name": ".plt",
+      "addr": 5394464,
+      "size": 4512
+    },
+    {
+      "name": ".plt.got",
+      "addr": 5398976,
+      "size": 16
+    },
+    {
+      "name": ".text",
+      "addr": 5398992,
+      "size": 4981594
+    },
+    {
+      "name": ".fini",
+      "addr": 10380588,
+      "size": 13
+    }
+  ],
+  "undecoded_ranges": [],
+  "hook_references": [
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245405,
+      "bytes": "488b05245a5e00",
+      "operation": "mov    0x5e5a24(%rip),%rax        # faaf48 <caml_major_slice_begin_hook>",
+      "targets": [
+        16428872
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246494,
+      "bytes": "488b05db555e00",
+      "operation": "mov    0x5e55db(%rip),%rax        # faaf40 <caml_major_slice_end_hook>",
+      "targets": [
+        16428864
+      ]
+    },
+    {
+      "owner": "caml_empty_minor_heap",
+      "address": 10251151,
+      "bytes": "488b15a2435e00",
+      "operation": "mov    0x5e43a2(%rip),%rdx        # faaf38 <caml_minor_gc_begin_hook>",
+      "targets": [
+        16428856
+      ]
+    },
+    {
+      "owner": "caml_empty_minor_heap",
+      "address": 10251777,
+      "bytes": "488b0528415e00",
+      "operation": "mov    0x5e4128(%rip),%rax        # faaf30 <caml_minor_gc_end_hook>",
+      "targets": [
+        16428848
+      ]
+    }
+  ],
+  "neighbouring_references": [
+    {
+      "owner": "caml_parse_ocamlrunparam",
+      "address": 10230130,
+      "bytes": "488d359f955e00",
+      "operation": "lea    0x5e959f(%rip),%rsi        # faaf18 <caml_verb_gc>",
+      "targets": [
+        16428824
+      ]
+    },
+    {
+      "owner": "caml_parse_ocamlrunparam",
+      "address": 10230409,
+      "bytes": "488d3578945e00",
+      "operation": "lea    0x5e9478(%rip),%rsi        # faaf08 <caml_runtime_warnings>",
+      "targets": [
+        16428808
+      ]
+    },
+    {
+      "owner": "caml_init_signals",
+      "address": 10239396,
+      "bytes": "48890555715e00",
+      "operation": "mov    %rax,0x5e7155(%rip)        # faaf00 <caml_signal_stack>",
+      "targets": [
+        16428800
+      ]
+    },
+    {
+      "owner": "caml_terminate_signals",
+      "address": 10239742,
+      "bytes": "488b3dfb6f5e00",
+      "operation": "mov    0x5e6ffb(%rip),%rdi        # faaf00 <caml_signal_stack>",
+      "targets": [
+        16428800
+      ]
+    },
+    {
+      "owner": "caml_terminate_signals",
+      "address": 10239754,
+      "bytes": "48c705eb6f5e0000000000",
+      "operation": "movq   $0x0,0x5e6feb(%rip)        # faaf00 <caml_signal_stack>",
+      "targets": [
+        16428800
+      ]
+    },
+    {
+      "owner": "caml_gc_message",
+      "address": 10239917,
+      "bytes": "48233d646f5e00",
+      "operation": "and    0x5e6f64(%rip),%rdi        # faaf18 <caml_verb_gc>",
+      "targets": [
+        16428824
+      ]
+    },
+    {
+      "owner": "caml_fatal_error",
+      "address": 10240177,
+      "bytes": "488b05586e5e00",
+      "operation": "mov    0x5e6e58(%rip),%rax        # faaf10 <caml_fatal_error_hook>",
+      "targets": [
+        16428816
+      ]
+    },
+    {
+      "owner": "caml_runtime_warnings_active",
+      "address": 10240724,
+      "bytes": "48833d2c6c5e0000",
+      "operation": "cmpq   $0x0,0x5e6c2c(%rip)        # faaf08 <caml_runtime_warnings>",
+      "targets": [
+        16428808
+      ]
+    },
+    {
+      "owner": "init_sweep_phase",
+      "address": 10240885,
+      "bytes": "488b05e46b5e00",
+      "operation": "mov    0x5e6be4(%rip),%rax        # faaf60 <caml_major_gc_hook>",
+      "targets": [
+        16428896
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245405,
+      "bytes": "488b05245a5e00",
+      "operation": "mov    0x5e5a24(%rip),%rax        # faaf48 <caml_major_slice_begin_hook>",
+      "targets": [
+        16428872
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245934,
+      "bytes": "f20f100532585e00",
+      "operation": "movsd  0x5e5832(%rip),%xmm0        # faaf68 <caml_gc_clock>",
+      "targets": [
+        16428904
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245956,
+      "bytes": "8b052e585e00",
+      "operation": "mov    0x5e582e(%rip),%eax        # faaf78 <caml_major_ring_index>",
+      "targets": [
+        16428920
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245973,
+      "bytes": "f20f11050b585e00",
+      "operation": "movsd  %xmm0,0x5e580b(%rip)        # faaf68 <caml_gc_clock>",
+      "targets": [
+        16428904
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245984,
+      "bytes": "890512585e00",
+      "operation": "mov    %eax,0x5e5812(%rip)        # faaf78 <caml_major_ring_index>",
+      "targets": [
+        16428920
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10245990,
+      "bytes": "f20f100d02585e00",
+      "operation": "movsd  0x5e5802(%rip),%xmm1        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246017,
+      "bytes": "8b05f1575e00",
+      "operation": "mov    0x5e57f1(%rip),%eax        # faaf78 <caml_major_ring_index>",
+      "targets": [
+        16428920
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246070,
+      "bytes": "f20f1105b2575e00",
+      "operation": "movsd  %xmm0,0x5e57b2(%rip)        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246321,
+      "bytes": "f20f1015b7565e00",
+      "operation": "movsd  0x5e56b7(%rip),%xmm2        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246354,
+      "bytes": "f20f101596565e00",
+      "operation": "movsd  0x5e5696(%rip),%xmm2        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246375,
+      "bytes": "f20f111581565e00",
+      "operation": "movsd  %xmm2,0x5e5681(%rip)        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246494,
+      "bytes": "488b05db555e00",
+      "operation": "mov    0x5e55db(%rip),%rax        # faaf40 <caml_major_slice_end_hook>",
+      "targets": [
+        16428864
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246912,
+      "bytes": "48632d71545e00",
+      "operation": "movslq 0x5e5471(%rip),%rbp        # faaf78 <caml_major_ring_index>",
+      "targets": [
+        16428920
+      ]
+    },
+    {
+      "owner": "caml_major_collection_slice",
+      "address": 10246978,
+      "bytes": "f20f110d26545e00",
+      "operation": "movsd  %xmm1,0x5e5426(%rip)        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_empty_minor_heap",
+      "address": 10251151,
+      "bytes": "488b15a2435e00",
+      "operation": "mov    0x5e43a2(%rip),%rdx        # faaf38 <caml_minor_gc_begin_hook>",
+      "targets": [
+        16428856
+      ]
+    },
+    {
+      "owner": "caml_empty_minor_heap",
+      "address": 10251625,
+      "bytes": "f20f5805f7415e00",
+      "operation": "addsd  0x5e41f7(%rip),%xmm0        # faaf68 <caml_gc_clock>",
+      "targets": [
+        16428904
+      ]
+    },
+    {
+      "owner": "caml_empty_minor_heap",
+      "address": 10251633,
+      "bytes": "f20f1105ef415e00",
+      "operation": "movsd  %xmm0,0x5e41ef(%rip)        # faaf68 <caml_gc_clock>",
+      "targets": [
+        16428904
+      ]
+    },
+    {
+      "owner": "caml_empty_minor_heap",
+      "address": 10251777,
+      "bytes": "488b0528415e00",
+      "operation": "mov    0x5e4128(%rip),%rax        # faaf30 <caml_minor_gc_end_hook>",
+      "targets": [
+        16428848
+      ]
+    },
+    {
+      "owner": "caml_do_exit",
+      "address": 10306564,
+      "bytes": "f6050e6b5d0004",
+      "operation": "testb  $0x4,0x5d6b0e(%rip)        # faaf19 <caml_verb_gc+0x1>",
+      "targets": [
+        16428825
+      ]
+    },
+    {
+      "owner": "caml_gc_get",
+      "address": 10316785,
+      "bytes": "488b0520435d00",
+      "operation": "mov    0x5d4320(%rip),%rax        # faaf18 <caml_verb_gc>",
+      "targets": [
+        16428824
+      ]
+    },
+    {
+      "owner": "caml_gc_set",
+      "address": 10317060,
+      "bytes": "4889050d425d00",
+      "operation": "mov    %rax,0x5d420d(%rip)        # faaf18 <caml_verb_gc>",
+      "targets": [
+        16428824
+      ]
+    },
+    {
+      "owner": "caml_get_major_bucket",
+      "address": 10318266,
+      "bytes": "486305b73d5d00",
+      "operation": "movslq 0x5d3db7(%rip),%rax        # faaf78 <caml_major_ring_index>",
+      "targets": [
+        16428920
+      ]
+    },
+    {
+      "owner": "caml_get_major_credit",
+      "address": 10318348,
+      "bytes": "f20f59055c3d5d00",
+      "operation": "mulsd  0x5d3d5c(%rip),%xmm0        # faaf70 <caml_major_work_credit>",
+      "targets": [
+        16428912
+      ]
+    },
+    {
+      "owner": "caml_runtime_parameters",
+      "address": 10318979,
+      "bytes": "ff357f3a5d00",
+      "operation": "push   0x5d3a7f(%rip)        # faaf08 <caml_runtime_warnings>",
+      "targets": [
+        16428808
+      ]
+    },
+    {
+      "owner": "caml_runtime_parameters",
+      "address": 10318986,
+      "bytes": "ff35883a5d00",
+      "operation": "push   0x5d3a88(%rip)        # faaf18 <caml_verb_gc>",
+      "targets": [
+        16428824
+      ]
+    },
+    {
+      "owner": "caml_ml_enable_runtime_warnings",
+      "address": 10319055,
+      "bytes": "48893d323a5d00",
+      "operation": "mov    %rdi,0x5d3a32(%rip)        # faaf08 <caml_runtime_warnings>",
+      "targets": [
+        16428808
+      ]
+    },
+    {
+      "owner": "caml_ml_runtime_warnings_enabled",
+      "address": 10319076,
+      "bytes": "48833d1c3a5d0001",
+      "operation": "cmpq   $0x1,0x5d3a1c(%rip)        # faaf08 <caml_runtime_warnings>",
+      "targets": [
+        16428808
+      ]
+    },
+    {
+      "owner": "caml_final_do_calls_exn",
+      "address": 10339330,
+      "bytes": "488b051feb5c00",
+      "operation": "mov    0x5ceb1f(%rip),%rax        # faaf28 <caml_finalise_begin_hook>",
+      "targets": [
+        16428840
+      ]
+    },
+    {
+      "owner": "caml_final_do_calls_exn",
+      "address": 10339534,
+      "bytes": "488b054bea5c00",
+      "operation": "mov    0x5cea4b(%rip),%rax        # faaf20 <caml_finalise_end_hook>",
+      "targets": [
+        16428832
+      ]
+    }
+  ],
+  "section_anchor_references": [
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399120,
+      "bytes": "488d3d9147a800",
+      "operation": "lea    0xa84791(%rip),%rdi        # faa9e8 <__TMC_END__>",
+      "targets": [
+        16427496
+      ]
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399127,
+      "bytes": "488d058a47a800",
+      "operation": "lea    0xa8478a(%rip),%rax        # faa9e8 <__TMC_END__>",
+      "targets": [
+        16427496
+      ]
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399168,
+      "bytes": "488d3d6147a800",
+      "operation": "lea    0xa84761(%rip),%rdi        # faa9e8 <__TMC_END__>",
+      "targets": [
+        16427496
+      ]
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399175,
+      "bytes": "488d355a47a800",
+      "operation": "lea    0xa8475a(%rip),%rsi        # faa9e8 <__TMC_END__>",
+      "targets": [
+        16427496
+      ]
+    },
+    {
+      "owner": "caml_array_bound_error",
+      "address": 10232694,
+      "bytes": "488b0d83865e00",
+      "operation": "mov    0x5e8683(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_gc_message",
+      "address": 10239960,
+      "bytes": "488b3d216a5e00",
+      "operation": "mov    0x5e6a21(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_gc_message",
+      "address": 10240013,
+      "bytes": "488b3dec695e00",
+      "operation": "mov    0x5e69ec(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_fatal_error",
+      "address": 10240210,
+      "bytes": "488b0d27695e00",
+      "operation": "mov    0x5e6927(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_fatal_error",
+      "address": 10240250,
+      "bytes": "488b3dff685e00",
+      "operation": "mov    0x5e68ff(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_fatal_error",
+      "address": 10240262,
+      "bytes": "488b35f3685e00",
+      "operation": "mov    0x5e68f3(%rip),%rsi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_runtime_warnings_active",
+      "address": 10240756,
+      "bytes": "488b0d05675e00",
+      "operation": "mov    0x5e6705(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_finalize_channel",
+      "address": 10282415,
+      "bytes": "488b3d4ac45d00",
+      "operation": "mov    0x5dc44a(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_finalize_channel",
+      "address": 10282448,
+      "bytes": "488b0d29c45d00",
+      "operation": "mov    0x5dc429(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10312036,
+      "bytes": "488b3d95505d00",
+      "operation": "mov    0x5d5095(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313083,
+      "bytes": "488b3d7e4c5d00",
+      "operation": "mov    0x5d4c7e(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313120,
+      "bytes": "488b0d594c5d00",
+      "operation": "mov    0x5d4c59(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313277,
+      "bytes": "488b3dbc4b5d00",
+      "operation": "mov    0x5d4bbc(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313346,
+      "bytes": "488b0d774b5d00",
+      "operation": "mov    0x5d4b77(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313397,
+      "bytes": "488b0d444b5d00",
+      "operation": "mov    0x5d4b44(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313481,
+      "bytes": "488b3df04a5d00",
+      "operation": "mov    0x5d4af0(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313616,
+      "bytes": "488b3d694a5d00",
+      "operation": "mov    0x5d4a69(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313656,
+      "bytes": "488b0d414a5d00",
+      "operation": "mov    0x5d4a41(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313715,
+      "bytes": "488b3d064a5d00",
+      "operation": "mov    0x5d4a06(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_parse_engine",
+      "address": 10313774,
+      "bytes": "488b3dcb495d00",
+      "operation": "mov    0x5d49cb(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_fatal_uncaught_exception",
+      "address": 10327512,
+      "bytes": "488b3d21145d00",
+      "operation": "mov    0x5d1421(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10343678,
+      "bytes": "488b3dfbd45c00",
+      "operation": "mov    0x5cd4fb(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10343770,
+      "bytes": "488b3d9fd45c00",
+      "operation": "mov    0x5cd49f(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10343942,
+      "bytes": "488b0df3d35c00",
+      "operation": "mov    0x5cd3f3(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10344020,
+      "bytes": "488b3da5d35c00",
+      "operation": "mov    0x5cd3a5(%rip),%rdi        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10344070,
+      "bytes": "488b0d73d35c00",
+      "operation": "mov    0x5cd373(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10344120,
+      "bytes": "488b0d41d35c00",
+      "operation": "mov    0x5cd341(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10344163,
+      "bytes": "488b0d16d35c00",
+      "operation": "mov    0x5cd316(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    },
+    {
+      "owner": "caml_print_exception_backtrace",
+      "address": 10344197,
+      "bytes": "488b0df4d25c00",
+      "operation": "mov    0x5cd2f4(%rip),%rcx        # faaa00 <stderr@GLIBC_2.2.5>",
+      "targets": [
+        16427520
+      ]
+    }
+  ],
+  "getauxval_references": [
+    {
+      "owner": "unix_environment",
+      "address": 10201485,
+      "bytes": "e8eeb5b6ff",
+      "operation": "call   525f80 <getauxval@plt>"
+    }
+  ],
+  "selected_owner_instructions": [
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399120,
+      "bytes": "488d3d9147a800",
+      "operation": "lea    0xa84791(%rip),%rdi        # faa9e8 <__TMC_END__>"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399127,
+      "bytes": "488d058a47a800",
+      "operation": "lea    0xa8478a(%rip),%rax        # faa9e8 <__TMC_END__>"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399134,
+      "bytes": "4839f8",
+      "operation": "cmp    %rdi,%rax"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399137,
+      "bytes": "7415",
+      "operation": "je     526278 <deregister_tm_clones+0x28>"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399139,
+      "bytes": "488b05765d5c00",
+      "operation": "mov    0x5c5d76(%rip),%rax        # aebfe0 <_ITM_deregisterTMCloneTable@Base>"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399146,
+      "bytes": "4885c0",
+      "operation": "test   %rax,%rax"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399149,
+      "bytes": "7409",
+      "operation": "je     526278 <deregister_tm_clones+0x28>"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399151,
+      "bytes": "ffe0",
+      "operation": "jmp    *%rax"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399153,
+      "bytes": "0f1f8000000000",
+      "operation": "nopl   0x0(%rax)"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399160,
+      "bytes": "c3",
+      "operation": "ret"
+    },
+    {
+      "owner": "deregister_tm_clones",
+      "address": 5399161,
+      "bytes": "0f1f8000000000",
+      "operation": "nopl   0x0(%rax)"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399168,
+      "bytes": "488d3d6147a800",
+      "operation": "lea    0xa84761(%rip),%rdi        # faa9e8 <__TMC_END__>"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399175,
+      "bytes": "488d355a47a800",
+      "operation": "lea    0xa8475a(%rip),%rsi        # faa9e8 <__TMC_END__>"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399182,
+      "bytes": "4829fe",
+      "operation": "sub    %rdi,%rsi"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399185,
+      "bytes": "4889f0",
+      "operation": "mov    %rsi,%rax"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399188,
+      "bytes": "48c1ee3f",
+      "operation": "shr    $0x3f,%rsi"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399192,
+      "bytes": "48c1f803",
+      "operation": "sar    $0x3,%rax"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399196,
+      "bytes": "4801c6",
+      "operation": "add    %rax,%rsi"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399199,
+      "bytes": "48d1fe",
+      "operation": "sar    $1,%rsi"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399202,
+      "bytes": "7414",
+      "operation": "je     5262b8 <register_tm_clones+0x38>"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399204,
+      "bytes": "488b05455d5c00",
+      "operation": "mov    0x5c5d45(%rip),%rax        # aebff0 <_ITM_registerTMCloneTable@Base>"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399211,
+      "bytes": "4885c0",
+      "operation": "test   %rax,%rax"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399214,
+      "bytes": "7408",
+      "operation": "je     5262b8 <register_tm_clones+0x38>"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399216,
+      "bytes": "ffe0",
+      "operation": "jmp    *%rax"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399218,
+      "bytes": "660f1f440000",
+      "operation": "nopw   0x0(%rax,%rax,1)"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399224,
+      "bytes": "c3",
+      "operation": "ret"
+    },
+    {
+      "owner": "register_tm_clones",
+      "address": 5399225,
+      "bytes": "0f1f8000000000",
+      "operation": "nopl   0x0(%rax)"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201472,
+      "bytes": "f30f1efa",
+      "operation": "endbr64"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201476,
+      "bytes": "4883ec08",
+      "operation": "sub    $0x8,%rsp"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201480,
+      "bytes": "bf17000000",
+      "operation": "mov    $0x17,%edi"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201485,
+      "bytes": "e8eeb5b6ff",
+      "operation": "call   525f80 <getauxval@plt>"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201490,
+      "bytes": "4885c0",
+      "operation": "test   %rax,%rax"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201493,
+      "bytes": "7519",
+      "operation": "jne    9ba9b0 <unix_environment+0x30>"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201495,
+      "bytes": "488b053a161300",
+      "operation": "mov    0x13163a(%rip),%rax        # aebfd8 <environ@GLIBC_2.2.5>"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201502,
+      "bytes": "488b38",
+      "operation": "mov    (%rax),%rdi"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201505,
+      "bytes": "4885ff",
+      "operation": "test   %rdi,%rdi"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201508,
+      "bytes": "740a",
+      "operation": "je     9ba9b0 <unix_environment+0x30>"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201510,
+      "bytes": "4883c408",
+      "operation": "add    $0x8,%rsp"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201514,
+      "bytes": "e991e40000",
+      "operation": "jmp    9c8e40 <caml_copy_string_array>"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201519,
+      "bytes": "90",
+      "operation": "nop"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201520,
+      "bytes": "488d05a9015f00",
+      "operation": "lea    0x5f01a9(%rip),%rax        # faab60 <caml_atom_table>"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201527,
+      "bytes": "488b00",
+      "operation": "mov    (%rax),%rax"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201530,
+      "bytes": "4883c408",
+      "operation": "add    $0x8,%rsp"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201534,
+      "bytes": "4883c008",
+      "operation": "add    $0x8,%rax"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201538,
+      "bytes": "c3",
+      "operation": "ret"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201539,
+      "bytes": "662e0f1f840000000000",
+      "operation": "cs nopw 0x0(%rax,%rax,1)"
+    },
+    {
+      "owner": "unix_environment",
+      "address": 10201549,
+      "bytes": "0f1f00",
+      "operation": "nopl   (%rax)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229600,
+      "bytes": "4155",
+      "operation": "push   %r13"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229602,
+      "bytes": "4154",
+      "operation": "push   %r12"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229604,
+      "bytes": "55",
+      "operation": "push   %rbp"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229605,
+      "bytes": "4889f5",
+      "operation": "mov    %rsi,%rbp"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229608,
+      "bytes": "488d35fbee0200",
+      "operation": "lea    0x2eefb(%rip),%rsi        # 9f066a <caml_absf_mask+0x962a>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229615,
+      "bytes": "53",
+      "operation": "push   %rbx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229616,
+      "bytes": "4889fb",
+      "operation": "mov    %rdi,%rbx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229619,
+      "bytes": "4883ec18",
+      "operation": "sub    $0x18,%rsp"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229623,
+      "bytes": "64488b042528000000",
+      "operation": "mov    %fs:0x28,%rax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229632,
+      "bytes": "4889442408",
+      "operation": "mov    %rax,0x8(%rsp)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229637,
+      "bytes": "31c0",
+      "operation": "xor    %eax,%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229639,
+      "bytes": "4c8d6c2403",
+      "operation": "lea    0x3(%rsp),%r13"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229644,
+      "bytes": "4c8d642404",
+      "operation": "lea    0x4(%rsp),%r12"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229649,
+      "bytes": "c644240320",
+      "operation": "movb   $0x20,0x3(%rsp)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229654,
+      "bytes": "4c89e9",
+      "operation": "mov    %r13,%rcx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229657,
+      "bytes": "4c89e2",
+      "operation": "mov    %r12,%rdx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229660,
+      "bytes": "c744240401000000",
+      "operation": "movl   $0x1,0x4(%rsp)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229668,
+      "bytes": "e8d740b6ff",
+      "operation": "call   525880 <__isoc99_sscanf@plt>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229673,
+      "bytes": "4c89e9",
+      "operation": "mov    %r13,%rcx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229676,
+      "bytes": "4c89e2",
+      "operation": "mov    %r12,%rdx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229679,
+      "bytes": "4889df",
+      "operation": "mov    %rbx,%rdi"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229682,
+      "bytes": "488d35b7ee0200",
+      "operation": "lea    0x2eeb7(%rip),%rsi        # 9f0670 <caml_absf_mask+0x9630>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229689,
+      "bytes": "31c0",
+      "operation": "xor    %eax,%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229691,
+      "bytes": "e8c040b6ff",
+      "operation": "call   525880 <__isoc99_sscanf@plt>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229696,
+      "bytes": "0fb6442403",
+      "operation": "movzbl 0x3(%rsp),%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229701,
+      "bytes": "3c4d",
+      "operation": "cmp    $0x4d,%al"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229703,
+      "bytes": "743f",
+      "operation": "je     9c1808 <scanmult+0xa8>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229705,
+      "bytes": "3c6b",
+      "operation": "cmp    $0x6b,%al"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229707,
+      "bytes": "742b",
+      "operation": "je     9c17f8 <scanmult+0x98>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229709,
+      "bytes": "3c47",
+      "operation": "cmp    $0x47,%al"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229711,
+      "bytes": "7447",
+      "operation": "je     9c1818 <scanmult+0xb8>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229713,
+      "bytes": "8b442404",
+      "operation": "mov    0x4(%rsp),%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229717,
+      "bytes": "48894500",
+      "operation": "mov    %rax,0x0(%rbp)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229721,
+      "bytes": "488b442408",
+      "operation": "mov    0x8(%rsp),%rax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229726,
+      "bytes": "64482b042528000000",
+      "operation": "sub    %fs:0x28,%rax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229735,
+      "bytes": "7539",
+      "operation": "jne    9c1822 <scanmult+0xc2>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229737,
+      "bytes": "4883c418",
+      "operation": "add    $0x18,%rsp"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229741,
+      "bytes": "5b",
+      "operation": "pop    %rbx"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229742,
+      "bytes": "5d",
+      "operation": "pop    %rbp"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229743,
+      "bytes": "415c",
+      "operation": "pop    %r12"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229745,
+      "bytes": "415d",
+      "operation": "pop    %r13"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229747,
+      "bytes": "c3",
+      "operation": "ret"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229748,
+      "bytes": "0f1f4000",
+      "operation": "nopl   0x0(%rax)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229752,
+      "bytes": "8b442404",
+      "operation": "mov    0x4(%rsp),%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229756,
+      "bytes": "48c1e00a",
+      "operation": "shl    $0xa,%rax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229760,
+      "bytes": "ebd3",
+      "operation": "jmp    9c17d5 <scanmult+0x75>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229762,
+      "bytes": "660f1f440000",
+      "operation": "nopw   0x0(%rax,%rax,1)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229768,
+      "bytes": "8b442404",
+      "operation": "mov    0x4(%rsp),%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229772,
+      "bytes": "48c1e014",
+      "operation": "shl    $0x14,%rax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229776,
+      "bytes": "ebc3",
+      "operation": "jmp    9c17d5 <scanmult+0x75>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229778,
+      "bytes": "660f1f440000",
+      "operation": "nopw   0x0(%rax,%rax,1)"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229784,
+      "bytes": "8b442404",
+      "operation": "mov    0x4(%rsp),%eax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229788,
+      "bytes": "48c1e01e",
+      "operation": "shl    $0x1e,%rax"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229792,
+      "bytes": "ebb3",
+      "operation": "jmp    9c17d5 <scanmult+0x75>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229794,
+      "bytes": "e80941b6ff",
+      "operation": "call   525930 <__stack_chk_fail@plt>"
+    },
+    {
+      "owner": "scanmult",
+      "address": 10229799,
+      "bytes": "660f1f840000000000",
+      "operation": "nopw   0x0(%rax,%rax,1)"
+    }
+  ],
+  "scope": "Numeric operands and decoded RIP targets; no register value propagation, alternate-entry decoding or native alias theorem."
+}

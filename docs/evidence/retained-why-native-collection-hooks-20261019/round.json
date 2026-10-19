@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-19",
+  "task": "#119: selected native collection timing-hook ownership",
+  "base_commit": "d8e9c70e373de172280b87a1459ece88114c2eaf",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "selection_confirmation": "Lead confirmed actual spawn arguments; runtime confirmation unavailable.",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "host": "Linux 7.0.14 x86_64",
+  "inspection_started_utc": "2026-10-19T11:42:03Z",
+  "inspection_finished_utc": "2026-10-19T11:53:25Z",
+  "inspection_elapsed_seconds": 682,
+  "timing_scope": "Targeted native evidence/source inspection and note preparation; excludes initial worktree setup/read-in, final round record, commit and independent review.",
+  "intended_result": "Close four selected native hook setter/alias/effect owners or isolate a legitimate unresolved address-acquisition route.",
+  "achieved_result": "Source/interface null-preservation closure under the accepted fixed-code, faithful-runtime, reflection and no-forged-mutation boundaries. No actual legitimate setter/address source remains in the selected routes. Independent review pending.",
+  "checks": {
+    "initial_census_seconds": 11.110105421001208,
+    "final_expanded_census_seconds": 11.11612633599725,
+    "default_projection_check_seconds": 1.5019439779862296,
+    "native_target_executions": 0,
+    "new_disassembler_runs": 0,
+    "new_captures": 0,
+    "old_checker_executions": 0
+  },
+  "rework": [
+    "readelf was absent from PATH; used a local ELF parser on the pinned installed data instead.",
+    "Initial numeric census was expanded to linker anchors, getauxval ownership and neighbouring bases before drawing null-preservation conclusions. Its successful pass was not treated as an arbitrary alias theorem.",
+    "Expanded anchor assertion initially overlooked that __bss_start coincides with stderr. Retained all these actual loads and classified their loaded FILE pointer separately from section-address materialization; no evidence was discarded.",
+    "The API comment was treated only as a client obligation. Address provenance, including actual section anchors and reflection owners, supplies the closure.",
+    "Default checking validates deterministic link/data projections and frozen byte witnesses; optional disassembly recheck is explicit, preserving the successful full census."
+  ],
+  "retained_limits": [
+    "No live hook values observed.",
+    "No machine-checked arbitrary native alias theorem.",
+    "Save/exit exception continuations and ordinary-ending forest/nesting remain open.",
+    "Complete R and exceptional identifier charge remain null.",
+    "Current grammar and whole-pipeline capacity remain unestablished."
+  ],
+  "managed_status": {
+    "reserved_workers": 0,
+    "diagnostics_required": []
+  },
+  "live_subthread_goal": null,
+  "cli_memory_updated": false,
+  "root_owns": [
+    "independent review",
+    "integration",
+    "GitHub",
+    "session memory",
+    "publication"
+  ]
+}

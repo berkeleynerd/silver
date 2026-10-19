@@ -1,0 +1,56 @@
+{
+  "run_id": "20261019T000304-fcb988ec2c03",
+  "pid": 97103,
+  "members": {
+    "input_is_valid/capture/summary.json": {
+      "bytes": 232563,
+      "sha256": "6f3bd6bd4a56a27e2bd61f32796d0dd96c69150f17870e27e3698dcce2b9747b"
+    },
+    "input_is_valid/capture/process.json": {
+      "bytes": 1117,
+      "sha256": "3c5045dfa509aeed907b7691fadb641510b63f702450e0859529900ac9f5c115"
+    },
+    "input_is_valid/capture/maps.txt": {
+      "bytes": 6407,
+      "sha256": "f1cf8675553ae480ae19cb916107ff84bba47a6109102db45ccbbbed4bc4e1bb"
+    }
+  },
+  "mapped_files": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs": {
+      "bytes": 374704,
+      "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs": {
+      "bytes": 710720,
+      "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+    },
+    "/usr/lib/x86_64-linux-gnu/libc.so.6": {
+      "bytes": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+    },
+    "/usr/lib/x86_64-linux-gnu/libm.so.6": {
+      "bytes": 1198376,
+      "sha256": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8"
+    },
+    "/usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0": {
+      "bytes": 543168,
+      "sha256": "fda9699eef15deda5f1c626e9140377a7f5d88c41516a54278ac02429cb20fa5"
+    },
+    "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2": {
+      "bytes": 254864,
+      "sha256": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14"
+    }
+  },
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LC_ALL": "C",
+    "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261018/input_is_valid/temp",
+    "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+  },
+  "maps": "55a661b32000-55a662057000 r--p 00000000 00:35 20981114                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3\n55a662057000-55a662519000 r-xp 00525000 00:35 20981114                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3\n55a662519000-55a66261d000 r--p 009e7000 00:35 20981114                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3\n55a66261d000-55a66261e000 r--p 00aea000 00:35 20981114                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3\n55a66261e000-55a662add000 rw-p 00aeb000 00:35 20981114                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3\n55a662add000-55a662ae4000 rw-p 00000000 00:00 0 \n55a662ae4000-55a663060000 rw-p 00000000 00:00 0                          [heap]\n7f2378de1000-7f2378df3000 r--p 00000000 00:35 22825141                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs\n7f2378df3000-7f2378e04000 r-xp 00012000 00:35 22825141                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs\n7f2378e04000-7f2378e08000 r--p 00023000 00:35 22825141                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs\n7f2378e08000-7f2378e09000 r--p 00027000 00:35 22825141                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs\n7f2378e09000-7f2378e26000 rw-p 00028000 00:35 22825141                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs\n7f2378e26000-7f2378e50000 r--p 00000000 00:35 22825147                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs\n7f2378e50000-7f2378e74000 r-xp 0002a000 00:35 22825147                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs\n7f2378e74000-7f2378e7c000 r--p 0004e000 00:35 22825147                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs\n7f2378e7c000-7f2378e7d000 r--p 00056000 00:35 22825147                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs\n7f2378e7d000-7f2378ea3000 rw-p 00057000 00:35 22825147                   /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs\n7f2378ea3000-7f24620b0000 rw-p 00000000 00:00 0 \n7f24620b0000-7f24620d8000 r--p 00000000 00:1b 1056946                    /usr/lib/x86_64-linux-gnu/libc.so.6\n7f24620d8000-7f2462270000 r-xp 00028000 00:1b 1056946                    /usr/lib/x86_64-linux-gnu/libc.so.6\n7f2462270000-7f24622be000 r--p 001c0000 00:1b 1056946                    /usr/lib/x86_64-linux-gnu/libc.so.6\n7f24622be000-7f24622c2000 r--p 0020e000 00:1b 1056946                    /usr/lib/x86_64-linux-gnu/libc.so.6\n7f24622c2000-7f24622c4000 rw-p 00212000 00:1b 1056946                    /usr/lib/x86_64-linux-gnu/libc.so.6\n7f24622c4000-7f24622d1000 rw-p 00000000 00:00 0 \n7f24622d1000-7f24622e3000 r--p 00000000 00:1b 1056958                    /usr/lib/x86_64-linux-gnu/libm.so.6\n7f24622e3000-7f2462383000 r-xp 00012000 00:1b 1056958                    /usr/lib/x86_64-linux-gnu/libm.so.6\n7f2462383000-7f24623f5000 r--p 000b2000 00:1b 1056958                    /usr/lib/x86_64-linux-gnu/libm.so.6\n7f24623f5000-7f24623f6000 r--p 00123000 00:1b 1056958                    /usr/lib/x86_64-linux-gnu/libm.so.6\n7f24623f6000-7f24623f7000 rw-p 00124000 00:1b 1056958                    /usr/lib/x86_64-linux-gnu/libm.so.6\n7f24623f7000-7f2462401000 r--p 00000000 00:1b 9223372036857074257        /usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0\n7f2462401000-7f2462466000 r-xp 0000a000 00:1b 9223372036857074257        /usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0\n7f2462466000-7f246247b000 r--p 0006f000 00:1b 9223372036857074257        /usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0\n7f246247b000-7f246247c000 r--p 00083000 00:1b 9223372036857074257        /usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0\n7f246247c000-7f246247d000 rw-p 00084000 00:1b 9223372036857074257        /usr/lib/x86_64-linux-gnu/libgmp.so.10.5.0\n7f2462480000-7f2462482000 rw-p 00000000 00:00 0 \n7f2462482000-7f2462486000 r--p 00000000 00:00 0                          [vvar]\n7f2462486000-7f2462488000 r--p 00000000 00:00 0                          [vvar_vclock]\n7f2462488000-7f246248a000 r-xp 00000000 00:00 0                          [vdso]\n7f246248a000-7f246248b000 r--p 00000000 00:1b 1056934                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2\n7f246248b000-7f24624ba000 r-xp 00001000 00:1b 1056934                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2\n7f24624ba000-7f24624c5000 r--p 00030000 00:1b 1056934                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2\n7f24624c5000-7f24624c7000 r--p 0003b000 00:1b 1056934                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2\n7f24624c7000-7f24624c8000 rw-p 0003d000 00:1b 1056934                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2\n7f24624c8000-7f24624c9000 rw-p 00000000 00:00 0 \n7fff7a632000-7fff7a653000 rw-p 00000000 00:00 0                          [stack]\nffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]\n",
+  "scope": "Metadata projection only; accepted observation is not replayed."
+}
