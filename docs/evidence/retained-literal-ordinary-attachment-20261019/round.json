@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "status": "Combined actual-source CFI/CFG and IRA named-storage attachment passed; frozen implementation awaits independent review",
+  "authorization": "Owner-authorized #119 research; parent-assigned ordinary actual-source attachment. Own note and evidence packet only; parent owns review, integration, GitHub and publication.",
+  "base_revision": "3be5bf4baba95ff007667f53182d115dca0bfd05",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "first_recorded_checkpoint_utc": "2026-10-19T11:47:48+00:00",
+  "current_record_utc": "2026-10-19T12:17:48.291502+00:00",
+  "whole_task_elapsed_seconds": null,
+  "intended_outcome": "Batch accepted named ordinary source capacities onto accepted actual-source236 with exact owner/configuration joins and preserved boolean/null failures",
+  "achieved_CFI_stage": "236 inherited +43 new =279 guards,366 focused checks; seven actual sources including inline and trace growth boundaries; exact failed178 values and real17-null GGC state preserved without promotion",
+  "CFI_stage": {
+    "started_utc": "2026-10-19T11:51:40.652149+00:00",
+    "completed_utc": "2026-10-19T11:51:53.620231+00:00",
+    "elapsed_seconds": 12.968061241990654,
+    "checks": 366,
+    "actual_sources": 7,
+    "new_successor_contexts": 1,
+    "retained_input_and_output_identities": {
+      "scope": "Exact initial CFI-only366-success input/result bytes retained before accepted IRA batching. Python files retain original path-derived constants; inspect these snapshots or restore to original packet layout to reproduce, rather than directly executing inside this snapshot directory.",
+      "original_packet": "docs/evidence/retained-literal-ordinary-attachment-20261019",
+      "files": {
+        "compose.py": {
+          "bytes": 14777,
+          "sha256": "161d42eaf2c80e8aed9cdd8016ab3b144b79ebf75cc8b606fd1d5cc316bc85f3"
+        },
+        "check.py": {
+          "bytes": 15427,
+          "sha256": "bdc7c670631d56befab36797e61763d6a90b0eb1899687bf49cac473f5702333"
+        },
+        "inputs.json": {
+          "bytes": 4961,
+          "sha256": "7913ea332617057a864dbbc421934de447acd095fae08a8515470967acf3c4d5"
+        },
+        "check-results.json": {
+          "bytes": 53698,
+          "sha256": "ea93979cb04511f0d3b2af584a28b1a545db916c8c699d320f8529a49e239fc6"
+        },
+        "result.json": {
+          "bytes": 799807,
+          "sha256": "ff2d980203b6882051f2bfb963763b178ed1cde34d4b6ce894feb5817bdb9e97"
+        }
+      }
+    }
+  },
+  "findings_and_rework": [
+    "No failed CFI check or source/bound repair. Exact initial 366-success implementation, manifest, checker and results were preserved before IRA changes, as parent requested.",
+    "Accepted IRA review has a nonblocking source-coordinate/selection erratum: 23 of 35 excerpt coordinates differ from literal LF positions. Frozen packet/full-file pins stay unchanged; exact review and seven operative LF sites are separately pinned.",
+    "First IRA checker attempt stopped because its expected-error fragment assumed a later ordinary check; accepted invocation validation correctly rejected the mutated shared configuration earlier. Corrected only the checker expectation; final 109 checks passed. No implementation, bound or source argument repair.",
+    "No exhaustive inherited 236 or CFI 43 loop was replayed after the accepted IRA addition. Final checks target IRA addition, changed source/owner joins and representative failed/null layers.",
+    "Final source-note/README wording and stale round checkpoint were corrected after the successful 109 run. Implementation, checker, accepted inputs and successful result bytes are unchanged."
+  ],
+  "retained_evidence": "Exact initial CFI366 snapshot plus accepted CFI148 arithmetic/22 count cases/2048 trace lengths/58 hash boundaries, GGC353 and IRA192 source/arithmetic evidence, with exact source/attachment reviews. No predecessor suite replay.",
+  "source_candidate_consumed": false,
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive validation started or resumed; only focused offline new attachment checks.",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "aggregate_or_corpus_executions": 0,
+  "github_writes": 0,
+  "delegation": 0,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_gate": false,
+  "original_worktree_base": "b544da6ba5b622babfa21374c79181acc5354830",
+  "accepted_IRA_source_revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+  "accepted_IRA_review_revision": "3d00f8af990f45a537f7854e8c898d5c222ee394",
+  "accepted_IRA_integration_revision": "1a4ff3378e",
+  "checkpoint_interval_seconds": 1800.291502,
+  "clock_measurement_scope": "Interval from first recorded 11:47:48 UTC checkpoint to this record; exact task start and whole-task compute time are unavailable. Includes external wait for independent IRA acceptance, subsequent affected work and handoff bookkeeping; not checker/native execution time.",
+  "achieved_result": "305 guards:236 inherited +43 CFI/CFG +26 IRA; all actual-source/configuration/owner joins precede ordinary arithmetic. Prior false/null values, existing owners and narrow residuals remain unchanged.",
+  "IRA_affected_stage": {
+    "started_utc": "2026-10-19T12:12:03.372677+00:00",
+    "completed_utc": "2026-10-19T12:12:11.304109+00:00",
+    "elapsed_seconds": 7.931407529002172,
+    "checks": 109,
+    "actual_sources": 5,
+    "new_successor_contexts": 1,
+    "source_cases": [
+      "Hello",
+      "same_counts_other_bytes",
+      "C2_N2",
+      "C70_allocno_pool_bound",
+      "C10_N10_variable_GGC"
+    ],
+    "all_new_IRA_false_guards": 26,
+    "representative_inherited_failure_layers": 3,
+    "real_null_GGC_guards": 17,
+    "retained_CFI_checks": 366,
+    "retained_CFI_elapsed_seconds": 12.968061241990654,
+    "unaffected_CFI_exhaustive_loops_replayed": false,
+    "reason_for_affected_scope": "Parent requested reuse of successful 366-check CFI evidence. IRA adds source/owner validation and a local conjunction without changing shared prerequisite gathering, projection or CFI guard arithmetic; affected checks cover changed joins, 26 new false cases and representative previous failure/null layers.",
+    "variable_GGC_case": "Actual C10/N10 retains 69,927 GGC events rather than substituting fixed Hello 47,054.",
+    "pool_case": "Actual C70/N0 gives A=280 and conservative allocno pool bound 2; exact allocno stride remains unknown."
+  },
+  "external_dependency_wait": {
+    "reason": "Waited for independent acceptance and parent integration of IRA named-storage subset before batching.",
+    "included_in_checkpoint_interval": true,
+    "duration_seconds": null,
+    "compute_time_inferred": false
+  },
+  "pending_Why_CFI_hook_candidate_consumed": false,
+  "census_executions": 0,
+  "remaining_obligations": [
+    "Independent review of this exact attachment implementation before parent integration.",
+    "IRA numeric cost/frequency/preference/priority and pressure arithmetic; outer IRA/reginfo/regstat and remaining LRA storage.",
+    "Other ordinary helper/stack and native/producer/proof/parent capacity; no whole-current-grammar or production materialization/source-binary claim."
+  ],
+  "parent_owned_follow_up": "Independent review, integration, affected issue/index/round updates and publication; no GitHub writes by this subthread.",
+  "final_artifact_identities": {
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/compose.py": {
+      "bytes": 22237,
+      "sha256": "1daa94de315b697a2484be46e9ea4bdd13cc1c677276e47d6239d8bef3578dec"
+    },
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/check.py": {
+      "bytes": 17706,
+      "sha256": "3c4919ed1757d8dedd10ed1a8d0c40f32da5922260fb7e098e59188e83993d7e"
+    },
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/inputs.json": {
+      "bytes": 8638,
+      "sha256": "6d279c491a53e1eea43aefbeeb635993777d6f5b8cdfce7a0001af655748dd77"
+    },
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/check-results.json": {
+      "bytes": 25780,
+      "sha256": "49000450220d2879546bf119ce52bcece9c17c0c3e5d4ecec6fbefb4f0304b30"
+    },
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/result.json": {
+      "bytes": 838496,
+      "sha256": "d82262008cf21d10879f062cdc973d1b5d9c8384c320c674ece5ef93b33abe2b"
+    },
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/README.md": {
+      "bytes": 4776,
+      "sha256": "cea8e967e1e8225d544f58406296505f035536c9eeae0e664552f555b5726d03"
+    },
+    "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/identities.json": {
+      "bytes": 1069,
+      "sha256": "361309d715fa08f25cd2d431e57a5f0f0ecc35d9840053f34bfcc3ef4c8a6050"
+    },
+    "docs/research/retained-literal-ordinary-attachment.md": {
+      "bytes": 14683,
+      "sha256": "1a6418caabe658a96cca575d9071fe3e9a7c7fd9aaebf1b1aa9734a7bd90b05d"
+    }
+  },
+  "artifact_identity_scope": "Hashes cover final implementation, checker, accepted-input manifest, retained successful evidence, README, source note and snapshot identity record. This round record is not self-hashed.",
+  "final_record_validation": {
+    "status": "passed",
+    "python_syntax_files": 4,
+    "JSON_files": 8,
+    "final_artifact_hashes": 8,
+    "CFI_snapshot_hashes": 5,
+    "accepted_current_and_git_pins": 27,
+    "operative_LF_pins": 7,
+    "final_guards": 305,
+    "new_guards": 69,
+    "retained_CFI_checks": 366,
+    "affected_IRA_checks": 109,
+    "broad_capacity": false,
+    "checker_replayed": false,
+    "scope": "Syntax, JSON, current/accepted Git identities, frozen snapshot identities and retained result/guard/scope consistency only. No attachment checker replay."
+  }
+}

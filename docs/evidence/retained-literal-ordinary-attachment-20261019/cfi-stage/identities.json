@@ -1,0 +1,26 @@
+{
+  "scope": "Exact initial CFI-only366-success input/result bytes retained before accepted IRA batching. Python files retain original path-derived constants; inspect these snapshots or restore to original packet layout to reproduce, rather than directly executing inside this snapshot directory.",
+  "original_packet": "docs/evidence/retained-literal-ordinary-attachment-20261019",
+  "files": {
+    "compose.py": {
+      "bytes": 14777,
+      "sha256": "161d42eaf2c80e8aed9cdd8016ab3b144b79ebf75cc8b606fd1d5cc316bc85f3"
+    },
+    "check.py": {
+      "bytes": 15427,
+      "sha256": "bdc7c670631d56befab36797e61763d6a90b0eb1899687bf49cac473f5702333"
+    },
+    "inputs.json": {
+      "bytes": 4961,
+      "sha256": "7913ea332617057a864dbbc421934de447acd095fae08a8515470967acf3c4d5"
+    },
+    "check-results.json": {
+      "bytes": 53698,
+      "sha256": "ea93979cb04511f0d3b2af584a28b1a545db916c8c699d320f8529a49e239fc6"
+    },
+    "result.json": {
+      "bytes": 799807,
+      "sha256": "ff2d980203b6882051f2bfb963763b178ed1cde34d4b6ce894feb5817bdb9e97"
+    }
+  }
+}

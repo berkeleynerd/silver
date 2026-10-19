@@ -1,0 +1,214 @@
+{
+  "scope": "Complete accepted236, CFI/CFG ordinary and IRA named-storage packets/source notes/exact reviews; no pending candidate input",
+  "base_revision": "3be5bf4baba95ff007667f53182d115dca0bfd05",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/README.md",
+      "bytes": 3578,
+      "sha256": "cecf8d5afa5ef8f80791472546090f48b7c112fc7b1bb93766d075dfbfe0b4eb"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/check-results.json",
+      "bytes": 49949,
+      "sha256": "b2949545174f395af38bf62a853eca5cc0f5a4b8ffcdfa3af3dce1974c605a00"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/check.py",
+      "bytes": 19887,
+      "sha256": "fcf6ff1b1d6fcb4d60132d331ccf256eb8d57be6719ed7c6488d9c55ff66ebf4"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/compose.py",
+      "bytes": 20305,
+      "sha256": "2e21429f48781d47001894b780790a51552c88ed3df7f288afd71bee3b5838df"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/inputs.json",
+      "bytes": 5091,
+      "sha256": "afd9c4143c0e1304da87b239ac4adfda0c113cb21e5888c1cc3eb4a2078471ed"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/result.json",
+      "bytes": 772085,
+      "sha256": "e0142390c79ae658c63ab1d926e12ae8d4a901de2919c7be1972ea199c6ae701"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/evidence/retained-literal-ggc-attachment-20261019/round.json",
+      "bytes": 5648,
+      "sha256": "b738f20e0811de8140d6125da0b0f0119968a3a299a314300f40e0a0abaf2253"
+    },
+    {
+      "revision": "a5cc012d14e52fd8b81a0fd30a024ee6c0be2364",
+      "path": "docs/research/retained-literal-ggc-attachment.md",
+      "bytes": 11029,
+      "sha256": "8058cbaf81757f5bad89c161dbdf19ab025e9651aeef6d1e5d62297337ba2edd"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/README.md",
+      "bytes": 1974,
+      "sha256": "5e4cf89815dfa55e0d924ab253dd1d527f4648eea674ccb35d9af4361d89f088"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/check-results.json",
+      "bytes": 15726,
+      "sha256": "b2fb898e8d43f8b51a490a394f632ceb668ce9adf329e1ccc51ba73d2b736aca"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/check.py",
+      "bytes": 11168,
+      "sha256": "c0440bbddbb5658dfb4635b41e257ff5ac67343c4a3a15062d35518879948020"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/derive.py",
+      "bytes": 14224,
+      "sha256": "7919f6027b6e97f6c5d1e5370fb1bb661037cc8578c900008147b0a4b26c8485"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/inputs.json",
+      "bytes": 15635,
+      "sha256": "428392f8920f80caa57b793f230cb47945f81399ab5859310ddccea1f197a30d"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/result.json",
+      "bytes": 14184,
+      "sha256": "7a29a49c6dfe32545198a05e02b54eabf13315a32eb4290d8089debc9cfa20c8"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/evidence/retained-literal-cfi-cfg-ordinary-20261019/round.json",
+      "bytes": 3137,
+      "sha256": "33b6053c2539634c678aa41a699c5d76c3aa8d08471cd1241a1da11783436fca"
+    },
+    {
+      "revision": "f21a34471976916160fc82b8be62cfac2d0f6c65",
+      "path": "docs/research/retained-literal-cfi-cfg-ordinary.md",
+      "bytes": 18243,
+      "sha256": "c3b9fa331fb80732f3a01d0618480a2f4fbc86a0e087e6956fb88ffca5976ec6"
+    },
+    {
+      "revision": "971206a267144518c65f6f9595ff825dab9021e5",
+      "path": "docs/reviews/review-literal-ggc-attachment-a5cc012d14.md",
+      "bytes": 9617,
+      "sha256": "9d13d5d1c4be4d186a606a92256b57a3757d0249de3209a00a91a85f79aae41b"
+    },
+    {
+      "revision": "4034d2d02a2ef7f0e5772f932ce0b2114df0217a",
+      "path": "docs/reviews/review-literal-cfi-cfg-ordinary-f21a344719.md",
+      "bytes": 8891,
+      "sha256": "98a3e5a9ef0ad30a195c80bd29d4fbdef514508813fe1064cf515b98728c6b7c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/README.md",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 2331,
+      "sha256": "0a8009d516ae6e27d1db20e0abd3138cad41b39e3137fec9e5ded9ff313c862c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/check-results.json",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 16978,
+      "sha256": "7e8e898aa81d6bbd319d02662209a104abd85f117727121d51115bfbdfce49a7"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/check.py",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 10151,
+      "sha256": "d7aba894666b9dfa764f3af9b7f57cb4dfe9adbc644d2e7b49ff48ede45acae5"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/derive.py",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 11753,
+      "sha256": "ece3079fa2ee9f5d2a0ec8e354e9e24fd779e0130871fb02c3f88cb89465a4cf"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/inputs.json",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 44090,
+      "sha256": "19c5430519fd5f75225889394103324880a0fd36d33562bbc15cc370cc6d7029"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/result.json",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 14138,
+      "sha256": "2613ac5dc86802145cd74b2c48dd6d31ee242b4ca0001ba244948c924218062d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-ordinary-20261019/round.json",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 3586,
+      "sha256": "a8a46fb94c3854e741291bf98118204cb0aacb20c0dcbef5e78874671fa39c49"
+    },
+    {
+      "path": "docs/research/retained-literal-ira-lra-ordinary.md",
+      "revision": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+      "bytes": 18879,
+      "sha256": "96bf95a8badaddedb43585ec9c008174eb6d315d586c35d333defe6b2cf5d322"
+    },
+    {
+      "path": "docs/reviews/review-literal-ira-storage-66da47daa2.md",
+      "revision": "3d00f8af990f45a537f7854e8c898d5c222ee394",
+      "bytes": 9854,
+      "sha256": "d0fceaa5c3045ff40eb426bd24d002f578e171614df9e88c7b674178f0a43c9c"
+    }
+  ],
+  "original_worktree_base": "b544da6ba5b622babfa21374c79181acc5354830",
+  "IRA_reviewed_LF_sites": [
+    {
+      "path": "gcc/config/i386/i386.md",
+      "first": 2594,
+      "last": 2598,
+      "sha256": "2157ab5ee6aaa6ce87586b175f68bc18b2380cf3e5e93977f811ad96565ce5d2"
+    },
+    {
+      "path": "gcc/ira.cc",
+      "first": 1599,
+      "last": 1601,
+      "sha256": "d9049e3174ae87645cc2ca8a1b2bc5682e0fdd8fdb7605a0c60a11b01cdd1f1a"
+    },
+    {
+      "path": "gcc/ira-color.cc",
+      "first": 5281,
+      "last": 5290,
+      "sha256": "72522f4c86b8a239ab47813499b3b34de60247add719eca05846a259886cc9a5"
+    },
+    {
+      "path": "gcc/ira-build.cc",
+      "first": 3455,
+      "last": 3457,
+      "sha256": "c029dd36c862a484c9d71b2482da7a9c099838f3b418396070f7105f69fafc5c"
+    },
+    {
+      "path": "gcc/ira-build.cc",
+      "first": 3567,
+      "last": 3577,
+      "sha256": "50daf0a955bdd54af5c1f2bf99804c1b5268cd3213f0a453447ecb2db7eb68a9"
+    },
+    {
+      "path": "gcc/ira.cc",
+      "first": 6063,
+      "last": 6076,
+      "sha256": "d43869046627c0f64ee0f976be514d37aaa984537384720b4f684e7068be7f86"
+    },
+    {
+      "path": "gcc/sbitmap.cc",
+      "first": 41,
+      "last": 54,
+      "sha256": "9e22a4eb7bba0deffa092bed2dc5591385ae0c7d36c0d811ebd53cd0c4fd3733"
+    }
+  ]
+}
