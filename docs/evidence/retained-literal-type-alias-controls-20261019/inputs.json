@@ -1,0 +1,246 @@
+{
+  "base": "bf898c7344d4e5f4c6f3ec2c99c2da7c38f974e3",
+  "files": [
+    {
+      "bytes": 112284,
+      "path": "gcc/alias.cc",
+      "root": "gcc",
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "bytes": 484431,
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "bytes": 16377,
+      "path": "gcc/coretypes.h",
+      "root": "gcc",
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "bytes": 73833,
+      "path": "gcc/tree-core.h",
+      "root": "gcc",
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "bytes": 10909,
+      "path": "gcc/hash-map.h",
+      "root": "gcc",
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "root": "gcc",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 11226,
+      "path": "gcc/hash-traits.h",
+      "root": "gcc",
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49"
+    },
+    {
+      "bytes": 11939,
+      "path": "gcc/ggc.h",
+      "root": "gcc",
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "bytes": 78408,
+      "path": "gcc/ggc-page.cc",
+      "root": "gcc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "root": "gcc",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 22283,
+      "path": "gcc/vec.cc",
+      "root": "gcc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "bytes": 703569,
+      "path": "gcc/gimplify.cc",
+      "root": "gcc",
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "bytes": 472318,
+      "path": "gcc/expr.cc",
+      "root": "gcc",
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "bytes": 271386,
+      "path": "gcc/varasm.cc",
+      "root": "gcc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "bytes": 226526,
+      "path": "gcc/cfgexpand.cc",
+      "root": "gcc",
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "bytes": 38706,
+      "path": "gcc/ipa-free-lang-data.cc",
+      "root": "gcc",
+      "sha256": "9552e4fef23511063faa4f55df4c37c8e248170364e6f43180bf1d0121eac632"
+    },
+    {
+      "bytes": 193419,
+      "path": "gcc/emit-rtl.cc",
+      "root": "gcc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "bytes": 414991,
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "gcc",
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "bytes": 266602,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "gcc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "bytes": 122255,
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "root": "gcc",
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
+    },
+    {
+      "bytes": 47742,
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "root": "gcc",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "bytes": 29804,
+      "path": "libiberty/hashtab.c",
+      "root": "gcc",
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f"
+    },
+    {
+      "bytes": 14873,
+      "path": "docs/research/retained-literal-string-layout.md",
+      "root": "repository",
+      "sha256": "0f7a4ef3a0abf228e6c5e204e518e3386603d93eba35e6bb591e1158ddb13392"
+    },
+    {
+      "bytes": 21589,
+      "path": "docs/research/retained-literal-string-layout-storage.md",
+      "root": "repository",
+      "sha256": "dc904323ffd91b677f6d6984ac4c090711d8e584158ef06ae76784e30e9f5794"
+    },
+    {
+      "bytes": 18406,
+      "path": "docs/research/retained-literal-original-string-storage.md",
+      "root": "repository",
+      "sha256": "927ec892bb446e6a65d83b7515ef8436142e281215d7eafb25bf320acd78087c"
+    },
+    {
+      "bytes": 19802,
+      "path": "docs/research/retained-literal-original-main-storage.md",
+      "root": "repository",
+      "sha256": "5485d9230dda1ac3960c9d412977f7d7029d712e584389cb26ddc503f56e32d9"
+    },
+    {
+      "bytes": 21040,
+      "path": "docs/research/retained-literal-original-shared-storage.md",
+      "root": "repository",
+      "sha256": "bac51ab37640bff6e6d94db3460ceb0305d40c969208681b62e1f7d1fee2179d"
+    },
+    {
+      "bytes": 15310,
+      "path": "docs/research/retained-literal-later-shared-storage.md",
+      "root": "repository",
+      "sha256": "dec46ebfca6d3ed2d4da5c804fd12fd10c5cba4ffc1421190d51d492a3b85355"
+    },
+    {
+      "bytes": 18234,
+      "path": "docs/research/retained-literal-rtl-cache-controls.md",
+      "root": "repository",
+      "sha256": "cbfe35688bee3f687f38c6e4aa01d3a96d8ee0da243e0c23756ee758e5750147"
+    },
+    {
+      "bytes": 157004,
+      "path": "docs/research/retained-literal-pipeline.md",
+      "root": "repository",
+      "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+    },
+    {
+      "bytes": 21155,
+      "path": "docs/research/retained-output-rtl.md",
+      "root": "repository",
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "bytes": 17889,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/compose.py",
+      "root": "repository",
+      "sha256": "c67ea8781a195a0206ccb5c337f4546e5991bba5764e9a993e85af33350b1433"
+    },
+    {
+      "bytes": 9040,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/result.json",
+      "root": "repository",
+      "sha256": "e97d03b2a63337f769f2b6d718561c5617f9b105b06fed14ecfff79b39df3164"
+    },
+    {
+      "bytes": 13527,
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/result.json",
+      "root": "repository",
+      "sha256": "0b30dc88c18c79994ab6726c539e0230688bb8461cecbc71c1728a20a4784fdb"
+    },
+    {
+      "bytes": 5608,
+      "path": "docs/evidence/retained-literal-rtl-cache-controls-20261019/result.json",
+      "root": "repository",
+      "sha256": "ca30c6129c660d031fec465f33b4469e0592915d293decd7af782cf7dabdd0eb"
+    },
+    {
+      "bytes": 4105,
+      "path": "docs/evidence/retained-literal-warning-map-20261018/derive.py",
+      "root": "repository",
+      "sha256": "8353bc0cfcfe20903447a0f4e4490f9717ea031a5499b8bb00eaebfbeec94731"
+    },
+    {
+      "bytes": 21593,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "root": "repository",
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "bytes": 72173,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-collector-closure.json",
+      "root": "repository",
+      "sha256": "10f84f314ca3c63cae1b1ca565343ff69255c5f4514e0c687238b93adc79f650"
+    },
+    {
+      "bytes": 3891,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+      "root": "repository",
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "bytes": 1186,
+      "path": "docs/evidence/retained-literal-string-layout-20261018/interface.json",
+      "root": "repository",
+      "sha256": "c163292c7972dfa9893ed84dcb817629be6b962b95d220d3b689c452b59b32d7"
+    }
+  ],
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+}

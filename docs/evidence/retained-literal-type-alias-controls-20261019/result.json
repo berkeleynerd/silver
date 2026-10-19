@@ -1,0 +1,166 @@
+{
+  "accepted_component_suites_rerun": 0,
+  "aggregate_RAM_gate": false,
+  "aggregate_executions": 0,
+  "alias_graph_rows": [
+    {
+      "alias_IDs": 1,
+      "child_keys": 0,
+      "child_maps": 0,
+      "entry_records": 0,
+      "node": "XUB"
+    },
+    {
+      "alias_IDs": 1,
+      "child_keys": 0,
+      "child_maps": 0,
+      "entry_records": 1,
+      "node": "pointer to XUB"
+    },
+    {
+      "alias_IDs": 1,
+      "child_keys": 0,
+      "child_maps": 0,
+      "entry_records": 1,
+      "node": "pointer to XUA"
+    },
+    {
+      "alias_IDs": 1,
+      "child_keys": 2,
+      "child_maps": 1,
+      "entry_records": 1,
+      "node": "XUP"
+    },
+    {
+      "alias_IDs": 1,
+      "child_keys": 2,
+      "child_maps": 1,
+      "entry_records": 1,
+      "node": "XUT (conservative existing-root allowance)"
+    }
+  ],
+  "alias_sets": {
+    "additional_GGC_backing_requests_upper": 10,
+    "additional_pushes": 10,
+    "allocated_slots_upper": 1048575,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "complete_global_lifetime_closed": false,
+    "each_caller_bytes_upper": 8388608,
+    "each_rounded_bytes_upper": 8388608,
+    "fits": true,
+    "incoming_allocated_slots_upper": 414851,
+    "incoming_occupied_upper": 414851,
+    "new_GGC_backing_requests_upper": 6,
+    "new_cold_sentinel_pushes": 0,
+    "new_frame_pushes_upper": 1,
+    "new_graph_pushes_upper": 5,
+    "occupied_upper": 414861,
+    "original_pushes_already_owned": 4
+  },
+  "child_maps": {
+    "additional_backing_replacements": 0,
+    "additional_traversal_replacements": 0,
+    "allocated_slots": 127,
+    "array_finalizer_registrations": 0,
+    "checks": {
+      "alias_keys_fit_signed": true,
+      "backing_request_span": true,
+      "no_pre_hit_growth": true,
+      "reserved_int_keys_excluded": true
+    },
+    "controls_upper": 2,
+    "each_backing_caller_bytes": 1016,
+    "each_backing_rounded_bytes": 1024,
+    "each_control_caller_bytes": 48,
+    "each_control_rounded_bytes": 64,
+    "each_entry_record_caller_bytes": 16,
+    "each_entry_record_rounded_bytes": 16,
+    "entry_records_upper": 4,
+    "initial_requested_slots": 64,
+    "maximum_keys_per_map": 2,
+    "scalar_finalizer_registrations_upper": 2,
+    "selected_graph_lifetime_closed": true
+  },
+  "complete_alias_lifetime_closed": false,
+  "complete_collector_lifetime_closed": false,
+  "complete_global_counter_lifetime_closed": false,
+  "complete_scalar_finalizer_lifetime_closed": false,
+  "complete_source_files_verified": 22,
+  "complete_type_lifetime_closed": false,
+  "conditional_selected_graph_capacity_established": true,
+  "existing_direct_tree_RTL_objects_added_again": 0,
+  "joined_alias_ID_projection_upper": 414860,
+  "joined_type_UID_projection_upper": 2306,
+  "native_tool_executions": 0,
+  "new_alias_IDs_upper": 6,
+  "new_disjoint_GGC_events_upper": 14,
+  "new_fixed_frame_alias_IDs_upper": 1,
+  "new_scalar_finalizer_registrations_upper": 2,
+  "new_shared_GGC_backing_events_upper": 6,
+  "new_type_derived_alias_IDs_upper": 5,
+  "non_LTO_free_lang_data_type_alias_sweep_requests": 0,
+  "original_alias_pushes_added_again": 0,
+  "production_admission_changed": false,
+  "remaining": "Other later type/cache/identity writers, other direct native alias sources and remaining typed controls; array finalizers and complete collector lifetime.",
+  "repository_inputs_verified": 18,
+  "scalar_finalizers": {
+    "RTL_control_registrations_already_owned": 5,
+    "checks": {
+      "capacity_31_bits": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "request_span": true
+    },
+    "complete_global_lifetime_closed": false,
+    "each_ordinary_backing_bytes_upper": 942584,
+    "incoming_prefix_history_upper": 39257,
+    "joined_capacity_projection_upper": 58911,
+    "joined_occupied_projection_upper": 39275,
+    "named_registrations_already_owned": 6,
+    "new_graph_registrations_upper": 2,
+    "new_ordinary_backing_requests_upper": 2,
+    "original_registrations_already_owned": 5
+  },
+  "selected_bounds_address_type_UID_increments": 0,
+  "selected_configuration": "Retained Linux x86-64 SysV generic O0; completed ordinary String; reviewed wide split; no LTO/offload/debug/instrumentation",
+  "selected_direct_callee_pointer_type_UID_increments": 0,
+  "selected_graph_DECL_UID_increments": 0,
+  "selected_graph_direct_GGC_events_upper": 8,
+  "selected_graph_identifier_insertions": 0,
+  "selected_graph_integer_cache_lookups": 0,
+  "selected_graph_lifetime_closed": true,
+  "selected_graph_pointer_layout_requests": 0,
+  "selected_graph_type_UID_increments": 0,
+  "selected_graph_type_hash_lookups": 0,
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_argument": "docs/research/retained-literal-type-alias-controls.md",
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_input": {
+    "distinct_output_callees": 1,
+    "null_statements": 0,
+    "output_calls": 1
+  },
+  "total_GGC_events": null,
+  "whole_literal_pipeline_capacity_established": false
+}

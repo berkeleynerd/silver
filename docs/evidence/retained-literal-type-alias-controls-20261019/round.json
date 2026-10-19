@@ -1,0 +1,47 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_evidence": null,
+  "base": "bf898c7344d4e5f4c6f3ec2c99c2da7c38f974e3",
+  "native_platform": "Linux x86-64",
+  "overall_round_elapsed_seconds": null,
+  "scope": "Completed String descriptor/array alias graph, canonical pointer reuse, and fixed-frame alias ID; graph packet only",
+  "achieved_result": "Five graph alias IDs plus one frame ID; four trivial entries, two child controls/backbones, six vector replacements:14 new GGC requests and2 scalar registrations.",
+  "significant_source_findings": [
+    "XUB scalar fields remain nonaddressable after the promotion predicate; XUP pointer fields and XUT fields are explicitly addressable.",
+    "Alias record component traversal includes trailing record_component_aliases after ALIAS_SET_COPY; ARRAY arms are empty.",
+    "One-layer pointers to completed self-canonical XUA/XUB reuse existing default pointer nodes.",
+    "The temporary void-pointer field is overwritten before these alias clients; function MEM attributes are explicitly skipped.",
+    "R1/#141 interrupted this draft: duplicate descriptor setter repaired separately in bf898c7344; this packet consumes repaired cache evidence."
+  ],
+  "remaining": [
+    "Finish selected get_alias_set/get_deref_alias_set clients outside the described descriptor/pool/component graph.",
+    "Direct native new_alias_set clients: emit-rtl spill-slot declaration, i386 GOT alias, setjmp/ASan/control-flow hardening; exact selected exclusions still need the full query census.",
+    "Finish later pointer/reference/type-hash/integer-hash writers and global_decls/stmt_list_cache consumers before replacing global endpoints.",
+    "Reconcile remaining typed controls, array finalizers and complete collector event count."
+  ],
+  "focused_checks": 36,
+  "focused_check_elapsed_seconds": 0.03192858699912904,
+  "focused_runs": [
+    {
+      "checks": 36,
+      "passed": true,
+      "elapsed_seconds": 0.037520304998906795,
+      "reason": "Initial graph/source/capacity packet checks before the separate RTL review repair."
+    },
+    {
+      "checks": 36,
+      "passed": true,
+      "elapsed_seconds": 0.03192858699912904,
+      "reason": "New corrected RTL source/result pins after bf898c7344; graph formulas unchanged."
+    }
+  ],
+  "independent_review": "pending; parent owns frozen-commit review",
+  "native_tool_executions": 0,
+  "accepted_component_suites_rerun": 0,
+  "aggregate_executions": 0,
+  "corpus_checkers_rerun": 0,
+  "CLI_memory_updated": false,
+  "completed_utc": "2026-10-19T00:31:04.422316+00:00"
+}
