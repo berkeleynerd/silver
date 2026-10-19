@@ -1,0 +1,453 @@
+[
+  {
+    "file": "why3/src/core/term.ml",
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 17,
+    "last": 48,
+    "member": "why3/src/core/term.ml",
+    "text": "type vsymbol = {\n  vs_name : ident;\n  vs_ty   : ty;\n}\n\nmodule Vsym = MakeMSHW (struct\n  type t = vsymbol\n  let tag vs = vs.vs_name.id_tag\nend)\n\nmodule Svs = Vsym.S\nmodule Mvs = Vsym.M\nmodule Hvs = Vsym.H\nmodule Wvs = Vsym.W\n\nlet vs_equal : vsymbol -> vsymbol -> bool = (==)\nlet vs_hash vs = id_hash vs.vs_name\nlet vs_compare vs1 vs2 = id_compare vs1.vs_name vs2.vs_name\n\nlet create_vsymbol name ty = {\n  vs_name = id_register name;\n  vs_ty   = ty;\n}\n\n(** Function and predicate symbols *)\n\ntype lsymbol = {\n  ls_name   : ident;\n  ls_args   : ty list;\n  ls_value  : ty option;\n  ls_constr : int;\n  ls_proj   : bool;"
+  },
+  {
+    "file": "why3/src/core/term.ml",
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 93,
+    "last": 108,
+    "member": "why3/src/core/term.ml",
+    "text": "type pattern = {\n  pat_node : pattern_node;\n  pat_vars : Svs.t;\n  pat_ty   : ty;\n}\n\nand pattern_node =\n  | Pwild (* _ *)\n  | Pvar of vsymbol (* newly introduced variables *)\n  | Papp of lsymbol * pattern list (* application *)\n  | Por  of pattern * pattern (* | *)\n  | Pas  of pattern * vsymbol\n  (* naming a term recognized by pattern as a variable *)\n\n(* h-consing constructors for patterns *)\n"
+  },
+  {
+    "file": "why3/src/core/term.ml",
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 222,
+    "last": 254,
+    "member": "why3/src/core/term.ml",
+    "text": "\ntype term = {\n  t_node  : term_node;\n  t_ty    : ty option;\n  t_attrs : Sattr.t;\n  t_loc   : Loc.position option;\n}\n\nand term_node =\n  | Tvar of vsymbol\n  | Tconst of Constant.constant\n  | Tapp of lsymbol * term list\n  | Tif of term * term * term\n  | Tlet of term * term_bound\n  | Tcase of term * term_branch list\n  | Teps of term_bound\n  | Tquant of quant * term_quant\n  | Tbinop of binop * term * term\n  | Tnot of term\n  | Ttrue\n  | Tfalse\n\nand term_bound  = vsymbol * bind_info * term\nand term_branch = pattern * bind_info * term\nand term_quant  = vsymbol list * bind_info * trigger * term\n\nand trigger = term list list\n\nand bind_info = {\n  bv_vars  : int Mvs.t;   (* free variables *)\n  bv_subst : term Mvs.t   (* deferred substitution *)\n}\n"
+  },
+  {
+    "file": "why3/src/core/term.ml",
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 739,
+    "last": 781,
+    "member": "why3/src/core/term.ml",
+    "text": "let rec t_subst_unsafe m t =\n  let t_subst t = t_subst_unsafe m t in\n  let b_subst (u,b,e as bv) =\n    if Mvs.set_disjoint m b.bv_vars then bv else\n    (u, bv_subst_unsafe m b, e) in\n  match t.t_node with\n  | Tvar u ->\n      t_attr_copy t (Mvs.find_def t u m)\n  | Tlet (e, bt) ->\n      let d = t_subst e in\n      t_attr_copy t (t_let d (b_subst bt) t.t_ty)\n  | Tcase (e, bl) ->\n      let d = t_subst e in\n      let bl = List.map b_subst bl in\n      t_attr_copy t (t_case d bl t.t_ty)\n  | Teps bf ->\n      t_attr_copy t (t_eps (b_subst bf) t.t_ty)\n  | Tquant (q, (vl,b,tl,f1 as bq)) ->\n      let bq =\n        if Mvs.set_disjoint m b.bv_vars then bq else\n        (vl,bv_subst_unsafe m b,tl,f1) in\n      t_attr_copy t (t_quant q bq)\n  | _ ->\n      t_map_unsafe t_subst t\n\nand bv_subst_unsafe m b =\n  (* restrict m to the variables free in b *)\n  let m = Mvs.set_inter m b.bv_vars in\n  (* if m is empty, return early *)\n  if Mvs.is_empty m then b else\n  (* remove from b.bv_vars the variables replaced by m *)\n  let s = Mvs.set_diff b.bv_vars m in\n  (* add to b.bv_vars the free variables added by m *)\n  let s = Mvs.fold2_inter add_nt_vars b.bv_vars m s in\n  (* apply m to the terms in b.bv_subst *)\n  let h = Mvs.map (t_subst_unsafe m) b.bv_subst in\n  (* join m to b.bv_subst *)\n  let h = Mvs.set_union h m in\n  (* reconstruct b *)\n  { bv_vars = s ; bv_subst = h }\n\nlet t_subst_unsafe m t =\n  if Mvs.is_empty m then t else t_subst_unsafe m t"
+  },
+  {
+    "file": "why3/src/core/term.ml",
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 799,
+    "last": 832,
+    "member": "why3/src/core/term.ml",
+    "text": "let fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f\n"
+  },
+  {
+    "file": "why3/src/core/ident.ml",
+    "file_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 114,
+    "last": 155,
+    "member": "why3/src/core/ident.ml",
+    "text": "  let len = String.length s in\n  if len <= 6 then SNword s else\n  if s.[5] <> ' ' && s.[6] <> ' ' then SNword s else\n  let k = match String.sub s 0 6 with\n    | \"infix \" -> 6\n    | \"prefix\" -> 7\n    | \"mixfix\" -> (try succ (String.index_from s 7 ']') with Not_found -> 0)\n    | _ -> 0 in\n  if k = 0 then SNword s else\n  let rec skip_opchar i =\n    if i = len then i else match s.[i] with\n      | '@' | '!' | '^' | '$' | '=' | '%' | '>' | '#'\n      | '.' | '<' | '-' | '&' | '/' | '+' | '?' | ':'\n      | '*' | '~' | '|' | '\\\\' -> skip_opchar (succ i)\n      | _ -> i in\n  let l = skip_opchar k in\n  let rec skip_quote i =\n    if i = len then i else\n    if s.[i] = '\\'' then skip_quote (succ i) else\n    if i = l || s.[i] = '_' then i else pred i in\n  let m = skip_quote l in\n  let prefix o =\n    if o.[0] <> '!' && o.[0] <> '?' then SNprefix o\n    else try for i = 1 to l - 8 do match o.[i] with\n      | '!' | '$' | '&' | '?' | '@'\n      | '^' | '.' | ':' | '|' | '#' -> ()\n      | _ -> raise Exit done; SNtight o\n    with Exit -> SNprefix o in\n  if l = k && k < 8 then SNword s (* null infix/prefix *) else\n  let w = if k = 6 then SNinfix (String.sub s 6 (m - 6)) else\n          if k = 7 then prefix (String.sub s 7 (m - 7)) else\n          let p = if l < m then String.sub s l (m - l) else \"\" in\n          match String.sub s 8 (l - 8) with\n          | \"]\"   -> SNget p | \"]<-\"  -> SNset p  | \"<-]\"  -> SNupdate p\n          | \"..]\" -> SNcut p | \".._]\" -> SNlcut p | \"_..]\" -> SNrcut p\n          | _ -> SNword (if m = len then s else String.sub s 0 m) in\n  if m = len then w (* no appended suffix *) else\n  if s.[m] <> '\\'' && s.[m] <> '_' then SNword s else\n  SNword (Format.asprintf \"%a%s\" print_sn w (String.sub s m (len - m)))\n\nlet print_decoded fmt s = print_sn fmt (sn_decode s)\n"
+  },
+  {
+    "file": "why3/src/core/ident.ml",
+    "file_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 158,
+    "last": 164,
+    "member": "why3/src/core/ident.ml",
+    "text": "type ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n"
+  },
+  {
+    "file": "why3/src/core/ident.ml",
+    "file_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 209,
+    "last": 213,
+    "member": "why3/src/core/ident.ml",
+    "text": "let id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc"
+  },
+  {
+    "file": "why3/src/core/ident.ml",
+    "file_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 225,
+    "last": 286,
+    "member": "why3/src/core/ident.ml",
+    "text": "type ident_printer = {\n  indices   : int Hstr.t;\n  values    : string Hid.t;\n  sanitizer : string -> string;\n  blacklist : string list;\n}\n\n(* name is already sanitized *)\nlet find_unique indices name =\n  let specname ind =\n    (* If the symbol is infix/prefix *and* the name has not been\n       sanitized for provers, we don't want to disambiguate with\n       a number but with a quote symbol: \"+\" becomes \"+'\" \"+''\" etc.\n       This allows to parse the ident again (for transformations). *)\n    if ind <= 0 then name else\n    match sn_decode name with\n    | SNword _ -> name ^ string_of_int ind\n    | _        -> name ^ String.make ind '\\'' in\n  let testname ind = Hstr.mem indices (specname ind) in\n  let rec advance ind =\n    if testname ind then advance (succ ind) else ind in\n  let rec retreat ind =\n    if ind = 1 || testname (pred ind) then ind else retreat (pred ind) in\n  let fetch ind =\n    if testname ind then advance (succ ind) else retreat ind in\n  let name = try\n    let ind = fetch (succ (Hstr.find indices name)) in\n    Hstr.replace indices name ind;\n    specname ind\n  with Not_found -> name in\n  Hstr.replace indices name 0;\n  name\n\nlet reserve indices name = ignore (find_unique indices name)\n\nlet same x = x\n\nlet create_ident_printer ?(sanitizer = same) sl =\n  let indices = Hstr.create 1997 in\n  List.iter (reserve indices) sl;\n  { indices   = indices;\n    values    = Hid.create 1997;\n    sanitizer = sanitizer;\n    blacklist = sl }\n\nlet duplicate_ident_printer id_printer =\n  {id_printer with\n   indices = Hstr.copy id_printer.indices;\n   values  = Hid.copy id_printer.values;\n  }\n\nlet known_id printer id =\n  try\n    (let _ = Hid.find printer.values id in true)\n  with Not_found ->\n    false\n\nlet id_unique printer ?(sanitizer = same) id =\n  try\n    Hid.find printer.values id\n  with Not_found ->\n    let name = sanitizer (printer.sanitizer id.id_string) in"
+  },
+  {
+    "file": "why3/src/core/trans.ml",
+    "file_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first": 45,
+    "last": 57,
+    "member": "why3/src/core/trans.ml",
+    "text": "\nmodule Wtask = Weakhtbl.Make (struct\n  type t = task_hd\n  let tag t = t.task_tag\nend)\n\nlet store fn = let tr = Wtask.memoize_option 63 fn in fun t -> match t with\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}}} -> fn t\n  | _ -> tr t\n\nlet bind f g = store (fun task -> g (f task) task)\n\nlet bind_comp f g ="
+  },
+  {
+    "file": "why3/src/core/trans.ml",
+    "file_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first": 75,
+    "last": 103,
+    "member": "why3/src/core/trans.ml",
+    "text": "let fold fn v =\n  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n\nlet fold_l fn v = fold (fun task -> Lists.apply (fn task)) [v]\n\nlet fold_decl fn v ="
+  },
+  {
+    "file": "why3/src/core/trans.ml",
+    "file_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first": 369,
+    "last": 372,
+    "member": "why3/src/core/trans.ml",
+    "text": "let named s f (x : task) =\n  Debug.dprintf debug \"Apply transformation %s@.\" s;\n  if Debug.test_flag Debug.stack_trace then f x\n  else try f x with e -> raise (TransFailure (s,e))"
+  },
+  {
+    "file": "why3/src/util/weakhtbl.ml",
+    "file_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "first": 97,
+    "last": 122,
+    "member": "why3/src/util/weakhtbl.ml",
+    "text": "      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n\n  let memoize_rec n fn =\n    let h = create n in\n    let rec f e =\n      try find h e\n      with Not_found ->\n        let v = fn f e in\n        set h e v;\n        v\n    in\n    f\n\n  let memoize_option n fn =\n    let v = lazy (fn None) in\n    let fn e = fn (Some e) in\n    let fn = memoize n fn in\n    function\n      | Some e -> fn e\n      | None -> Lazy.force v\n\nend"
+  },
+  {
+    "file": "why3/src/util/number.ml",
+    "file_identity": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    },
+    "first": 19,
+    "last": 47,
+    "member": "why3/src/util/number.ml",
+    "text": "[@@deriving sexp]\n\ntype int_literal_kind =\n  ILitUnk | ILitDec | ILitHex | ILitOct | ILitBin\n[@@deriving sexp]\n\ntype int_constant = {\n  il_kind : int_literal_kind;\n  il_int  : BigInt.t;\n}\n[@@deriving sexp]\n\ntype real_value = {\n  rv_sig  : BigInt.t;\n  rv_pow2 : BigInt.t;\n  rv_pow5 : BigInt.t;\n}\n[@@deriving sexp]\n\ntype real_literal_kind =\n  RLitUnk | RLitDec of int | RLitHex of int\n[@@deriving sexp]\n\ntype real_constant = {\n  rl_kind : real_literal_kind;\n  rl_real : real_value\n}\n[@@deriving sexp]\n"
+  },
+  {
+    "file": "why3/src/util/constant.ml",
+    "file_identity": {
+      "bytes": 2699,
+      "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+    },
+    "first": 16,
+    "last": 20,
+    "member": "why3/src/util/constant.ml",
+    "text": "type constant =\n  | ConstInt  of int_constant\n  | ConstReal of real_constant\n  | ConstStr  of string\n[@@deriving sexp]"
+  },
+  {
+    "file": "why3/src/util/constant.ml",
+    "file_identity": {
+      "bytes": 2699,
+      "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+    },
+    "first": 48,
+    "last": 73,
+    "member": "why3/src/util/constant.ml",
+    "text": "type escape_map = char -> string\n\nlet default_escape c = match c with\n  | '\\\\' -> \"\\\\\\\\\"\n  | '\\n' -> \"\\\\n\"\n  | '\\r' -> \"\\\\r\"\n  | '\\t' -> \"\\\\t\"\n  | '\\b' -> \"\\\\b\"\n  | '\\\"'  -> \"\\\\\\\"\"\n  | '\\032' .. '\\126' -> Format.sprintf \"%c\" c\n  | '\\000' .. '\\031'\n  | '\\127' .. '\\255' -> Format.sprintf \"\\\\x%02X\" (Char.code c)\n\nlet unsupported_escape = fun _ -> assert false\n\nlet escape f s =\n  let open Buffer in\n  let b = create (String.length s) in\n  String.iter (fun c -> add_string b (f c)) s;\n  contents b\n\nlet print_string_constant string_escape fmt s =\n  Format.fprintf fmt \"\\\"%s\\\"\" (escape string_escape s)\n\nlet print_string_def fmt s =\n  print_string_constant default_escape fmt s"
+  },
+  {
+    "file": "why3/src/util/bigInt.ml",
+    "file_identity": {
+      "bytes": 2000,
+      "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885"
+    },
+    "first": 13,
+    "last": 18,
+    "member": "why3/src/util/bigInt.ml",
+    "text": "\ntype t = big_int\n[@@deriving sexp]\nlet compare = compare_big_int\n\nlet zero = zero_big_int"
+  },
+  {
+    "file": "why3/src/util/bigInt.ml",
+    "file_identity": {
+      "bytes": 2000,
+      "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885"
+    },
+    "first": 64,
+    "last": 70,
+    "member": "why3/src/util/bigInt.ml",
+    "text": "let pow_int_pos = power_int_positive_int\nlet pow_int_pos_bigint = power_int_positive_big_int\n\nlet to_string = string_of_big_int\nlet of_string = big_int_of_string\nlet to_int = int_of_big_int\nlet is_int = is_int_big_int"
+  },
+  {
+    "file": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 192,
+    "last": 229,
+    "member": "why3/src/session/termcode.ml",
+    "text": "  if n then Format.pp_print_char fmt '-'\n\nlet const_v1 fmt c =\n  match c with\n  | ConstInt { il_kind=k; il_int=i } ->\n      sign fmt (BigInt.lt i BigInt.zero);\n      let i = BigInt.abs i in\n      begin match k with\n      | ILitUnk | ILitDec -> Format.pp_print_string fmt (BigInt.to_string i)\n      | ILitHex -> Format.fprintf fmt \"0x%a\" (Number.print_in_base 16 None) i\n      | ILitOct -> Format.fprintf fmt \"0o%a\" (Number.print_in_base 8 None) i\n      | ILitBin -> Format.fprintf fmt \"0b%a\" (Number.print_in_base 2 None) i\n      end\n  | ConstReal { rl_kind=k; rl_real={ rv_sig=i; rv_pow2=p2; rv_pow5=p5 } } ->\n      (* not the actual encoding *)\n      sign fmt (BigInt.lt i BigInt.zero);\n      let i = BigInt.abs i in\n      begin match k with\n      | RLitUnk | RLitDec _ ->\n          Format.fprintf fmt \"%s.0e%sp%s\"\n            (BigInt.to_string i) (BigInt.to_string p5) (BigInt.to_string p2)\n      | RLitHex _ ->\n          Format.fprintf fmt \"%a.0p%se%s\"\n            (Number.print_in_base 16 None) i (BigInt.to_string p2) (BigInt.to_string p5)\n      end\n  | ConstStr c ->\n      print_string_def fmt c\n\nlet const_v2 fmt c =\n  match c with\n  | ConstInt { il_kind=_; il_int=i } ->\n      Format.pp_print_string fmt (BigInt.to_string i)\n  | ConstReal { rl_kind=_; rl_real={ rv_sig=i; rv_pow2=p2; rv_pow5=p5 } } ->\n      Format.fprintf fmt \"%s.p%se%s\"\n        (BigInt.to_string i) (BigInt.to_string p2) (BigInt.to_string p5)\n  | ConstStr c ->\n      print_string_def fmt c\n"
+  },
+  {
+    "file": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 232,
+    "last": 267,
+    "member": "why3/src/session/termcode.ml",
+    "text": "(* {2 Shapes} *)\n\ntype shape = string\n\ntype bound_shape = int list\n\ntype sum_shape_version = SV1 | SV2 | SV3 | SV4 | SV5 | SV6\n\nlet current_sum_shape_version = SV6\n\nexception InvalidShape\n\nlet string_to_sum_shape_version n =\n  match n with\n  | \"1\" -> SV1 | \"2\" -> SV2 | \"3\" -> SV3 | \"4\" -> SV4 | \"5\" -> SV5 | \"6\" -> SV6\n  | _ -> raise InvalidShape\n\nlet string_of_sum_shape_version n =\n  match n with\n  | SV1 -> \"1\" | SV2 -> \"2\" | SV3 -> \"3\" | SV4 -> \"4\" | SV5 -> \"5\" | SV6 -> \"6\"\n\nlet pp_sum_shape_version fmt v =\n  Format.pp_print_string fmt (string_of_sum_shape_version v)\n\nlet is_bound_sum_shape_version v =\n    match v with\n    | SV1 | SV2 | SV3 | SV4 | SV5 -> false\n    | SV6 -> true\n\ntype shape_v =\n  | Old_shape of shape\n  | Bound_shape of bound_shape\n\nlet string_of_shape sv =\n  match sv with\n  | Old_shape s -> s"
+  },
+  {
+    "file": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 342,
+    "last": 409,
+    "member": "why3/src/session/termcode.ml",
+    "text": "exception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n\n(* Remove infix and mixfix. (prefix should be rare enough) *)\nlet decoded pr id =\n  Ident.(match sn_decode id.id_string with\n  | SNword _ -> Ident.id_unique pr id\n  | SNinfix s | SNtight s | SNprefix s | SNget s | SNset s\n  | SNupdate s | SNcut s | SNlcut s | SNrcut s -> s)\n\nlet ident_v4 h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = id.Ident.id_string in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet ident_v5 pr h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = decoded pr id in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet vs_rename_alpha c h vs =\n  incr c;\n  let s = string_of_int !c in\n  h := Ident.Mid.add vs.vs_name s !h\n\nlet vl_rename_alpha c h vl = List.iter (vs_rename_alpha c h) vl\n\nlet rec pat_rename_alpha c h p = match p.pat_node with\n  | Pvar v -> vs_rename_alpha c h v\n  | Pas (p, v) -> vs_rename_alpha c h v; pat_rename_alpha c h p\n  | Por (p, _) -> pat_rename_alpha c h p\n  | _ -> Term.pat_fold (fun () -> pat_rename_alpha c h) () p\n\n(*\nlet id_string_shape id = push id\n\nlet ident_shape id = id_string_shape id.Ident.id_string\n*)\n\nlet const_shape v c =\n  let fmt = Format.formatter_of_buffer shape_buffer in\n  begin match v with\n  | SV1 | SV2 | SV3 | SV4 | SV5 -> Common.const_v1 fmt c\n  | SV6 -> Common.const_v2 fmt c\n  end;\n  Format.pp_print_flush fmt ();\n  check ()\n"
+  },
+  {
+    "file": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 430,
+    "last": 506,
+    "member": "why3/src/session/termcode.ml",
+    "text": "    | Tconst c -> pushc tag_const; const_shape version c\n    | Tvar v -> pushc tag_var; ident_shape version pr m v.vs_name\n    | Tapp (s,l) ->\n        pushc tag_app;\n        ident_shape version pr m s.ls_name;\n        List.iter fn l\n    | Tif (f,t1,t2) ->\n      begin match version with\n      | SV1 | SV2 -> pushc tag_if; fn f; fn t1; fn t2\n      | SV3 | SV4 | SV5 | SV6 -> pushc tag_if; fn t2; fn t1; fn f\n      end\n    | Tcase (t1,bl) ->\n        let br_shape b =\n          let p,t2 = t_open_branch b in\n          match version with\n          | SV1 | SV2 ->\n            pat_shape ~version pr c m p;\n            pat_rename_alpha c m p;\n            fn t2\n          | SV3 | SV4 | SV5 | SV6 ->\n            pat_rename_alpha c m p;\n            fn t2;\n            pat_shape ~version pr c m p\n        in\n        begin match version with\n        | SV1 | SV2 ->\n                 pushc tag_case;\n                 fn t1;\n                 List.iter br_shape bl\n        | SV3 | SV4 | SV5 | SV6->\n           pushc tag_case;\n           List.iter br_shape bl;\n           fn t1\n        end\n    | Teps b ->\n        pushc tag_eps;\n        let u,f = t_open_bound b in\n        vs_rename_alpha c m u;\n        fn f\n    | Tquant (q,b) ->\n        let vl,triggers,f1 = t_open_quant b in\n        vl_rename_alpha c m vl;\n        (* argument first, intentionally, to give more weight on A in\n           forall x,A *)\n        fn f1;\n        let hq = match q with Tforall -> tag_forall | Texists -> tag_exists in\n        pushc hq;\n        List.iter (fun trigger -> List.iter fn trigger) triggers\n    | Tbinop (o,f,g) ->\n       (* g first, intentionally, to give more weight on B in A->B *)\n       fn g;\n       let tag = match o with\n         | Tand -> tag_and\n         | Tor -> tag_or\n         | Timplies -> tag_impl\n         | Tiff -> tag_iff\n       in\n       pushc tag;\n       fn f\n    | Tlet (t1,b) ->\n        let u,t2 = t_open_bound b in\n        vs_rename_alpha c m u;\n        begin\n          match version with\n            | SV1 ->\n                pushc tag_let; fn t1; fn t2\n            | SV2 | SV3 | SV4 | SV5 | SV6 ->\n                (* t2 first, intentionally *)\n                fn t2; pushc tag_let; fn t1\n        end\n    | Tnot f ->\n      begin match version with\n      | SV1 | SV2 -> fn f; pushc tag_not\n      | SV3 | SV4 | SV5 | SV6 -> pushc tag_not; fn f\n      end\n    | Ttrue -> pushc tag_true\n    | Tfalse -> pushc tag_false"
+  },
+  {
+    "file": "why3/src/session/termcode.ml",
+    "file_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 548,
+    "last": 627,
+    "member": "why3/src/session/termcode.ml",
+    "text": "\n  (* [hyp_shape] associate a shape to its index in the file;\n     [index_sh] associate an index to a shape;\n     [n] is the last shape variable *)\n  type gshape = { mutable hyp_shape: int Mstr.t;\n                  mutable index_sh: string Mint.t;\n                  mutable n: int }\n\n  let create () =\n    { hyp_shape = Mstr.empty;\n      index_sh = Mint.empty;\n      n = 0 }\n\n  let copy from_s to_s =\n    to_s.hyp_shape <- from_s.hyp_shape;\n    to_s.index_sh <- from_s.index_sh;\n    to_s.n <- from_s.n\n\n  let clear_gs gs =\n    gs.hyp_shape <- Mstr.empty;\n    gs.index_sh <- Mint.empty;\n    gs.n <- 0\n\n  let add_shape gs s =\n    try Mstr.find s gs.hyp_shape with\n    | Not_found ->\n        gs.hyp_shape <- Mstr.add s gs.n gs.hyp_shape;\n        gs.index_sh  <- Mint.add gs.n s gs.index_sh;\n        gs.n <- gs.n + 1;\n        gs.n - 1\n\n  let add_and_prepend gs current_shape s : unit =\n    (* Do not save empty: could be confused with end of assingments (TODO to be improved)  *)\n    if s = \"\" then () else\n      current_shape := add_shape gs s :: !current_shape\n\n  let add_shape_g gs s =\n    let (_: int) = add_shape gs s in ()\n\n  let write_shape_to_file s csh =\n    Mint.iter (fun _ s -> Compress.Compress_z.output_string csh s;\n                Compress.Compress_z.output_string csh \"\\n\")\n      s.index_sh\n\n  let goal_and_expl_shapes (gs: gshape) li =\n    try\n      match li with\n      | expl :: goal :: _ ->\n          Mint.find expl gs.index_sh ^ Mint.find goal gs.index_sh\n      | _ ->\n          \"\"\n    with Not_found -> \"\"\n\n  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)"
+  },
+  {
+    "file": "why3/src/session/session_itp.ml",
+    "file_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 107,
+    "last": 144,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "module Hfile = Hint\n\ntype sshape = {\n  mutable shape_version     : Termcode.sum_shape_version;\n  has_shapes : bool;\n  (* New shapes handling *)\n  (* Global shape declarations *)\n  session_global_shapes     : Termcode.Gshape.gshape;\n  (* New shapes *)\n  session_bound_shape_table : (Termcode.bound_shape) Hpn.t;\n  (* Old shapes (mutually exclusive with session_global_shapes and\n     session_sum_shape_table_new *)\n  session_shape_table       : Termcode.shape Hpn.t;\n  session_sum_table         : Termcode.checksum Hpn.t;\n}\n\ntype session = {\n  proofAttempt_table            : proof_attempt_node Hint.t;\n  mutable next_proofAttemptID   : int;\n  proofNode_table               : proof_node Hint.t;\n  mutable next_proofNodeID      : int;\n  trans_table                   : transformation_node Hint.t;\n  mutable next_transID          : int;\n  mutable next_fileID           : int;\n  session_dir                   : string; (** Absolute path *)\n  session_files                 : file Hfile.t;\n  session_prover_ids            : int Hprover.t;\n  shapes                        : sshape;\n  (* tasks *)\n  session_raw_tasks : Task.task Hpn.t;\n  session_task_tables : Trans.naming_table Hpn.t;\n  (* proved status *)\n  file_state: bool Hfile.t;\n  th_state: bool Ident.Hid.t;\n  tn_state: bool Htn.t;\n  pn_state : bool Hpn.t;\n}\n"
+  },
+  {
+    "file": "why3/src/session/session_itp.ml",
+    "file_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 163,
+    "last": 201,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "\n  let get_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n         let shape = try Hpn.find s.shapes.session_bound_shape_table goal_id with\n                     | Not_found -> empty_bound_shape in\n         Bound_shape shape\n       else\n         let shape = try Hpn.find s.shapes.session_shape_table goal_id with\n                     | Not_found -> empty_shape in\n         Old_shape shape\n\n  let compute_and_add_shape s ~expl goal_id t =\n    let sshapes = s.shapes in\n    let version = sshapes.shape_version in\n        if is_bound_sum_shape_version sshapes.shape_version then\n         let gs = sshapes.session_global_shapes in\n         let shape = Gshape.t_bound_shape_task gs ~version ~expl t in\n         Hpn.add sshapes.session_bound_shape_table goal_id shape\n       else\n         let shape = t_shape_task ~version ~expl t in\n         Hpn.add sshapes.session_shape_table goal_id shape\n\n  let find_sum s goal_id =\n    try Hpn.find s.shapes.session_sum_table goal_id with\n    | Not_found -> Termcode.dumb_checksum\n\n  let add_sum s goal_id sum =\n    Hpn.add s.shapes.session_sum_table goal_id sum\n\n  let clear s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table;\n    Hpn.clear s.shapes.session_sum_table\n\n  let clear_only_shape s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table"
+  },
+  {
+    "file": "why3/src/session/session_itp.ml",
+    "file_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 298,
+    "last": 332,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "exception BadID\n\nlet get_proof_attempt_node (s : session) (id : proofAttemptID) =\n  try\n    Hint.find s.proofAttempt_table id\n  with Not_found -> raise BadID\n\nlet get_proofNode (s : session) (id : proofNodeID) =\n  try\n    Hint.find s.proofNode_table id\n  with Not_found -> raise BadID\n\nlet get_task s id =\n  Hpn.find s.session_raw_tasks id\n\nlet get_task_name_table s n =\n  let t = get_task s n in\n  let table = try\n    Hpn.find s.session_task_tables n\n  with Not_found ->\n    let ta = Args_wrapper.build_naming_tables t in\n    Hpn.add s.session_task_tables n ta;\n    ta\n  in\n  t,table\n\nlet get_transfNode (s : session) (id : transID) =\n  try\n    Hint.find s.trans_table id\n  with Not_found -> raise BadID\n\nlet get_transformations (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_transformations\n\nlet get_proof_attempt_ids (s : session) (id : proofNodeID) ="
+  },
+  {
+    "file": "why3/src/session/session_itp.ml",
+    "file_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 2099,
+    "last": 2156,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "let save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n\nand save_trans s ctxt fmt (tid,t) =\n  let arg_id = ref 0 in\n  let save_arg fmt s =\n    arg_id := !arg_id + 1;\n    fprintf fmt \"arg%i=\\\"%a\\\"\" !arg_id save_string s\n  in\n  fprintf fmt \"@\\n@[<hov 1>@[<h><transf@ name=\\\"%a\\\"%a %a>@]\"\n    save_string t.transf_name\n    (save_bool_def \"proved\" false) (tn_proved s tid)\n    (Pp.print_list Pp.space save_arg) t.transf_args;\n  List.iter (save_goal s ctxt fmt) t.transf_subtasks;\n  fprintf fmt \"@]@\\n</transf>\"\n\nlet save_theory s ctxt fmt t =\n  (* Saving empty theories takes space in session files. Not saving them should\n     be harmless. *)\n  if t.theory_goals <> [] then\n  begin\n    fprintf fmt\n      \"@\\n@[<v 1>@[<h><theory@ %a%a>@]\""
+  },
+  {
+    "file": "why3/src/session/session_itp.ml",
+    "file_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 2172,
+    "last": 2244,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "let save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n      (get_used_provers_with_stats session) Mprover.empty\n  in\n  let provers_to_save =\n    Mprover.fold\n      (fun p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc ->\n        Mint.add id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc)\n      provers Mint.empty\n  in\n  Mint.iter (save_prover fmt) provers_to_save;\n  if Termcode.is_bound_sum_shape_version session.shapes.shape_version then\n    begin\n      (* In version SV6 or higher, first save the list of variables that are\n         referenced in shapes. *)\n      let s =\n        Format.asprintf\n          \"(* shapes version: %a *)\\n\"\n          Termcode.pp_sum_shape_version session.shapes.shape_version in\n      Compress.Compress_z.output_string chsh s;\n      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;\n      Compress.Compress_z.output_string chsh \"\\n\";\n    end;\n  let ctxt = { provers = provers; ch_shapes = chsh } in\n  Hfile.iter (save_file session ctxt fmt) session.session_files;\n  fprintf fmt \"@]@\\n</why3session>\";\n  fprintf fmt \"@.\";\n  close_out ch;\n  Compress.Compress_z.close_out chsh\n\n\nlet save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s"
+  },
+  {
+    "file": "why3/src/gnat/gnat_main.ml",
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 265,
+    "last": 278,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "text": "(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;"
+  },
+  {
+    "file": "why3/src/gnat/gnat_main.ml",
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 298,
+    "last": 309,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum"
+  },
+  {
+    "file": "why3/src/gnat/gnat_main.ml",
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 355,
+    "last": 360,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "text": "    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s"
+  },
+  {
+    "file": "ocaml/stdlib/buffer.ml",
+    "file_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "first": 16,
+    "last": 39,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "text": "(* Extensible buffers *)\n\ntype t =\n {mutable buffer : bytes;\n  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n"
+  },
+  {
+    "file": "ocaml/stdlib/buffer.ml",
+    "file_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "first": 59,
+    "last": 69,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "text": "\nlet length b = b.position\n\nlet clear b = b.position <- 0\n\nlet reset b =\n  b.position <- 0;\n  b.buffer <- b.initial_buffer;\n  b.length <- Bytes.length b.buffer\n\n(* [resize b more] ensures that [b.position + more <= b.length] holds"
+  },
+  {
+    "file": "ocaml/stdlib/buffer.ml",
+    "file_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "first": 77,
+    "last": 138,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "text": "let resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n\n     There are two potential allocation points in this function,\n     [ref] and [Bytes.create], but all reads and writes to the fields\n     of [b] happen before both of them or after both of them.\n\n     We therefore assume that [b.position] may change at these allocations,\n     and check that the [b.position + more <= b.length] postcondition\n     holds for both values of [b.position], before or after the function\n     is called. More precisely, the following invariants must hold if the\n     function returns correctly, in addition to the usual buffer invariants:\n     - [old(b.position) + more <= new(b.length)]\n     - [new(b.position) + more <= new(b.length)]\n     - [old(b.length) <= new(b.length)]\n\n     Note: [b.position + more <= old(b.length)] does *not*\n     hold in general, as it is precisely the case where you need\n     to call [resize] to increase [b.length].\n\n     Note: [assert] above does not mean that we know the conditions\n     always hold, but that the function may return correctly\n     only if they hold.\n\n     Note: the other functions in this module does not need\n     to be checked with this level of scrutiny, given that they\n     read/write the buffer immediately after checking that\n     [b.position + more <= b.length] hold or calling [resize].\n  *)\n\nlet add_char b c =\n  let pos = b.position in\n  if pos >= b.length then resize b 1;\n  Bytes.unsafe_set b.buffer pos c;\n  b.position <- pos + 1\n\nlet uchar_utf_8_byte_length_max = 4\nlet uchar_utf_16_byte_length_max = 4"
+  },
+  {
+    "file": "ocaml/stdlib/buffer.ml",
+    "file_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "first": 164,
+    "last": 180,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "text": "let add_substring b s offset len =\n  if offset < 0 || len < 0 || offset > String.length s - len\n  then invalid_arg \"Buffer.add_substring/add_subbytes\";\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s offset b.buffer b.position len;\n  b.position <- new_position\n\nlet add_subbytes b s offset len =\n  add_substring b (Bytes.unsafe_to_string s) offset len\n\nlet add_string b s =\n  let len = String.length s in\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s 0 b.buffer b.position len;\n  b.position <- new_position"
+  },
+  {
+    "file": "ocaml/stdlib/format.ml",
+    "file_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 937,
+    "last": 978,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "text": "let pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n"
+  },
+  {
+    "file": "ocaml/stdlib/format.ml",
+    "file_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 992,
+    "last": 1007,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "text": "let make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "file_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first": 550,
+    "last": 570,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "text": "external sys_exit : int -> 'a = \"caml_sys_exit\"\n\nlet exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode"
+  },
+  {
+    "file": "ocaml/stdlib/printexc.ml",
+    "file_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "first": 327,
+    "last": 360,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "text": "let handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()"
+  },
+  {
+    "file": "ocaml/stdlib/sys.ml.in",
+    "file_identity": {
+      "bytes": 5435,
+      "sha256": "b449e284aafa6f7e0b857d06b84d307ab25acccf63536fe45ce339c4521cd8a5"
+    },
+    "first": 28,
+    "last": 48,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/sys.ml.in",
+    "text": "external word_size : unit -> int = \"%word_size\"\nexternal int_size : unit -> int = \"%int_size\"\nexternal max_wosize : unit -> int = \"%max_wosize\"\nexternal unix : unit -> bool = \"%ostype_unix\"\nexternal win32 : unit -> bool = \"%ostype_win32\"\nexternal cygwin : unit -> bool = \"%ostype_cygwin\"\nexternal get_backend_type : unit -> backend_type = \"%backend_type\"\n\nlet executable_name = get_executable_name()\nlet (os_type, _, _) = get_config()\nlet backend_type = get_backend_type ()\nlet big_endian = big_endian ()\nlet word_size = word_size ()\nlet int_size = int_size ()\nlet unix = unix ()\nlet win32 = win32 ()\nlet cygwin = cygwin ()\nlet max_array_length = max_wosize ()\nlet max_floatarray_length = max_array_length / (64 / word_size)\nlet max_string_length = word_size / 8 * max_array_length - 1\nexternal runtime_variant : unit -> string = \"caml_runtime_variant\""
+  },
+  {
+    "file": "ocaml/runtime/caml/mlvalues.h",
+    "file_identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "first": 142,
+    "last": 161,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "text": "#define Hp_val(val) (((header_t *) (val)) - 1)\n#define Hp_op(op) (Hp_val (op))\n#define Hp_bp(bp) (Hp_val (bp))\n#define Val_op(op) ((value) (op))\n#define Val_hp(hp) ((value) (((header_t *) (hp)) + 1))\n#define Op_hp(hp) ((value *) Val_hp (hp))\n#define Bp_hp(hp) ((char *) Val_hp (hp))\n\n#define Num_tags (1 << 8)\n#ifdef ARCH_SIXTYFOUR\n#ifdef WITH_PROFINFO\n#define Max_wosize (((intnat)1 << (54-PROFINFO_WIDTH)) - 1)\n#else\n#define Max_wosize (((intnat)1 << 54) - 1)\n#endif\n#else\n#define Max_wosize ((1 << 22) - 1)\n#endif /* ARCH_SIXTYFOUR */\n\n#define Wosize_val(val) (Wosize_hd (Hd_val (val)))"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "checked_bytes": 37,
+  "disassembler_runs": 0,
+  "elf_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "max_string_length": 144115188075855863,
+  "max_wosize": 18014398509481983,
+  "native_executions": 0,
+  "origin": "existing /tmp/silver-why-callback-closure-disassembly-20261018.txt",
+  "windows": [
+    {
+      "address": 9709913,
+      "hex": "48c7434081000000",
+      "meaning": "Sys.entry stores tagged word_size 129 (64) at module offset 0x40"
+    },
+    {
+      "address": 9709981,
+      "hex": "48b8efffffffffffff0348894358",
+      "meaning": "Sys.entry stores tagged max_string_length 0x3ffffffffffffef at offset 0x58"
+    },
+    {
+      "address": 10310976,
+      "hex": "f30f1efa48b8ffffffffffff7f00c3",
+      "meaning": "caml_sys_const_max_wosize returns tagged 0x7fffffffffffff"
+    }
+  ]
+}
