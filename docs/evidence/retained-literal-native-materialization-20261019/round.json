@@ -1,0 +1,64 @@
+{
+  "objective": "Close the selected literal native input-materialization/parent design contract for #145 within #119",
+  "authorization_commit": "44936e7216c74c53c6bd4cc38f46f8de2bf7edac",
+  "integration_base": "a75f4c28ed",
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "runtime_model_confirmation": "unavailable",
+  "runtime_reasoning_confirmation": "unavailable",
+  "started_checkpoint_UTC": "2026-10-19T14:09:08+00:00",
+  "finished_UTC": "2026-10-19T14:24:19.742665+00:00",
+  "elapsed_since_worktree_checkpoint_seconds": 911.742665,
+  "token_measurement": "unavailable",
+  "cost_measurement": "unavailable",
+  "native_tool_elapsed_seconds": 0,
+  "validation": {
+    "status": "passed",
+    "focused_checks": 44768,
+    "exhaustive_reduced_copy_states": 15436,
+    "started_UTC": "2026-10-19T14:23:28.447228+00:00",
+    "finished_UTC": "2026-10-19T14:23:29.491047+00:00",
+    "elapsed_seconds": 1.0438260729861213,
+    "native_platform": "linux-x86_64",
+    "actual_source": "samples/hello_world.adb",
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "native_tool_executions": 0,
+    "production_admission_changed": false,
+    "production_launcher_adopted": false,
+    "whole_literal_pipeline_capacity_established": false
+  },
+  "result": "Concrete bounded parent design plus callable exact-source/graph attachment; parent design residuals empty, production implementation/correspondence false",
+  "self_review_rework": [
+    "Added explicit Linux/POSIX argument and NAME_MAX interface guards.",
+    "Added explicit routing invariant and positive chunk-domain validation.",
+    "Corrected the local link-check utility to exclude fenced Python examples."
+  ],
+  "independent_review": "Pending lead-arranged frozen-commit review",
+  "unchanged": [
+    "Oracle",
+    "production launcher/admission",
+    "accepted invocation packet",
+    "installed tools and source pins"
+  ],
+  "evidence_scope": "Focused offline model only; no native, compiler, binder, assembler, linker, solver, proof, Lean or broad replay",
+  "exact_owned_source_inputs": [
+    {
+      "path": "docs/evidence/retained-literal-native-materialization-20261019/compose.py",
+      "bytes": 16382,
+      "sha256": "d86606e3d08b47763e4db58ca3290f4befda5c89cb5744922d03860e74f04f1c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-materialization-20261019/check.py",
+      "bytes": 10524,
+      "sha256": "d6458d45448f091304ba21634e2218f47eb1d34423a2fe66f13084f44b0505c7"
+    },
+    {
+      "path": "docs/research/retained-literal-native-materialization.md",
+      "bytes": 20388,
+      "sha256": "4ee1808647c8ae259c4ef5fca40ac544751ecc64aab576bb0125f9fddd918f1d"
+    }
+  ]
+}

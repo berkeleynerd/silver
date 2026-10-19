@@ -1,0 +1,463 @@
+{
+  "scope": "selected native literal input materialization and four-job parent design",
+  "source_identity": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "invocation_identity": {
+    "bytes": 86210,
+    "sha256": "56a2c06d450b123dbda02b989b0f8c8d005cdaecdb4c83bacf2c08272db90262"
+  },
+  "selected_process_roles": [
+    "Main_compile",
+    "binder_generate",
+    "binder_compile",
+    "link"
+  ],
+  "initial_files": [
+    {
+      "role": "Main",
+      "path_index": 6,
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "payload_offset": null,
+      "mtime_seconds": null
+    },
+    {
+      "role": "naming",
+      "path_index": 7,
+      "identity": {
+        "bytes": 327,
+        "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+      },
+      "payload_offset": 0,
+      "mtime_seconds": null
+    },
+    {
+      "role": "silver_io.ads",
+      "path_index": 8,
+      "identity": {
+        "bytes": 2222,
+        "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+      },
+      "payload_offset": 327,
+      "mtime_seconds": 1792304395
+    },
+    {
+      "role": "silver_io.adb",
+      "path_index": 9,
+      "identity": {
+        "bytes": 3358,
+        "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+      },
+      "payload_offset": 2549,
+      "mtime_seconds": 1792304395
+    },
+    {
+      "role": "silver_output_libc.ads",
+      "path_index": 10,
+      "identity": {
+        "bytes": 1532,
+        "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+      },
+      "payload_offset": 5907,
+      "mtime_seconds": 1792304395
+    },
+    {
+      "role": "source_mapping",
+      "path_index": 11,
+      "identity": {
+        "bytes": 612,
+        "sha256": "9f4b274a703a5ce405b26ba512f1170a46df55668fbea4967ee1b7fb9a93d0cf"
+      },
+      "payload_offset": 7439,
+      "mtime_seconds": null
+    },
+    {
+      "role": "silver_io.ali",
+      "path_index": 12,
+      "identity": {
+        "bytes": 4443,
+        "sha256": "b044271f7b146c59ff78f53b2b254c91c2f15038b50757a9623b785da1b2fd9a"
+      },
+      "payload_offset": 8051,
+      "mtime_seconds": null
+    },
+    {
+      "role": "silver_output_libc.ali",
+      "path_index": 13,
+      "identity": {
+        "bytes": 2933,
+        "sha256": "6115c1a8ae101d7f2662f9696b1ec673e6282e62060305edda15f1f7041b3681"
+      },
+      "payload_offset": 12494,
+      "mtime_seconds": null
+    },
+    {
+      "role": "silver_io.o",
+      "path_index": 14,
+      "identity": {
+        "bytes": 2456,
+        "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de"
+      },
+      "payload_offset": 15427,
+      "mtime_seconds": null
+    },
+    {
+      "role": "silver_output_libc.o",
+      "path_index": 15,
+      "identity": {
+        "bytes": 1000,
+        "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d"
+      },
+      "payload_offset": 17883,
+      "mtime_seconds": null
+    },
+    {
+      "role": "binder_mapping",
+      "path_index": 16,
+      "identity": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "payload_offset": 18883,
+      "mtime_seconds": null
+    },
+    {
+      "role": "binder_object_path",
+      "path_index": 17,
+      "identity": {
+        "bytes": 115,
+        "sha256": "100adb6888a258006f11c477bd5a88f6a31d2e12398004b2cda73cdacef0177b"
+      },
+      "payload_offset": 18883,
+      "mtime_seconds": null
+    }
+  ],
+  "parent_paths": [
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000002.TMP",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_io.ads",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_io.adb",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/silver_output_libc.ads",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.ali",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.ali",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_io.o",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/silver_output_libc.o",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000001.TMP",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000002.TMP",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ads",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.o",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ali",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatbind"
+  ],
+  "directories": [
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002"
+  ],
+  "generated_outputs": [
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ads",
+    "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.o",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ali",
+    "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main"
+  ],
+  "vectors": [
+    {
+      "role": "Main_compile",
+      "cwd_index": 2,
+      "argv": {
+        "count": 17,
+        "bytes_including_NUL": 538,
+        "offsets": [
+          0,
+          120,
+          123,
+          126,
+          130,
+          137,
+          147,
+          154,
+          161,
+          168,
+          193,
+          212,
+          305,
+          398,
+          517,
+          520,
+          529
+        ],
+        "maximum_string_bytes_including_NUL": 120,
+        "identity": {
+          "bytes": 538,
+          "sha256": "d12237c70ab22bb17b76a97bcb26b392f6796f052892ab09dce0837110f799f1"
+        }
+      },
+      "environment": {
+        "count": 7,
+        "bytes_including_NUL": 563,
+        "offsets": [
+          0,
+          135,
+          144,
+          151,
+          161,
+          217,
+          392
+        ],
+        "maximum_string_bytes_including_NUL": 175,
+        "identity": {
+          "bytes": 563,
+          "sha256": "de0d3c5c1b71885773cdefc965c84149c46a87aca2654faddb22862d2c9fb056"
+        }
+      },
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o"
+      ]
+    },
+    {
+      "role": "binder_generate",
+      "cwd_index": 2,
+      "argv": {
+        "count": 7,
+        "bytes_including_NUL": 446,
+        "offsets": [
+          0,
+          125,
+          128,
+          142,
+          267,
+          270,
+          358
+        ],
+        "maximum_string_bytes_including_NUL": 125,
+        "identity": {
+          "bytes": 446,
+          "sha256": "32ead8a05f23b92d1b0d0e9302e869db2100d4bb917f47e0110436a63712a50d"
+        }
+      },
+      "environment": {
+        "count": 4,
+        "bytes_including_NUL": 306,
+        "offsets": [
+          0,
+          135,
+          144,
+          200
+        ],
+        "maximum_string_bytes_including_NUL": 135,
+        "identity": {
+          "bytes": 306,
+          "sha256": "8714152bcca263ec0f5c9d0bdbb3b53695824ce14511f5bf0de1c7cbbf86c09d"
+        }
+      },
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ads",
+        "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP"
+      ]
+    },
+    {
+      "role": "binder_compile",
+      "cwd_index": 2,
+      "argv": {
+        "count": 17,
+        "bytes_including_NUL": 273,
+        "offsets": [
+          0,
+          120,
+          123,
+          126,
+          130,
+          137,
+          140,
+          147,
+          155,
+          163,
+          171,
+          196,
+          211,
+          225,
+          244,
+          258,
+          261
+        ],
+        "maximum_string_bytes_including_NUL": 120,
+        "identity": {
+          "bytes": 273,
+          "sha256": "65c01750d6258018879a7a76ebfec4e82744d34aef3728ac7d7a2f25d459bc33"
+        }
+      },
+      "environment": {
+        "count": 3,
+        "bytes_including_NUL": 200,
+        "offsets": [
+          0,
+          135,
+          144
+        ],
+        "maximum_string_bytes_including_NUL": 135,
+        "identity": {
+          "bytes": 200,
+          "sha256": "26f540b9c888d3b573cf1537a546c3064bb88802d527e731ae871b3b0e8c747c"
+        }
+      },
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.o",
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ali"
+      ]
+    },
+    {
+      "role": "link",
+      "cwd_index": 2,
+      "argv": {
+        "count": 17,
+        "bytes_including_NUL": 1493,
+        "offsets": [
+          0,
+          120,
+          129,
+          152,
+          161,
+          173,
+          308,
+          434,
+          551,
+          668,
+          825,
+          840,
+          1004,
+          1009,
+          1180,
+          1371,
+          1374
+        ],
+        "maximum_string_bytes_including_NUL": 191,
+        "identity": {
+          "bytes": 1493,
+          "sha256": "848cccfa76cedd6113bce13f0f734a1211d8688b657cf420b791a9507b62dcb1"
+        }
+      },
+      "environment": {
+        "count": 7,
+        "bytes_including_NUL": 563,
+        "offsets": [
+          0,
+          135,
+          144,
+          151,
+          161,
+          217,
+          392
+        ],
+        "maximum_string_bytes_including_NUL": 175,
+        "identity": {
+          "bytes": 563,
+          "sha256": "de0d3c5c1b71885773cdefc965c84149c46a87aca2654faddb22862d2c9fb056"
+        }
+      },
+      "outputs": [
+        "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main"
+      ]
+    }
+  ],
+  "limits": {
+    "path_bytes": 512,
+    "path_slots": 32,
+    "initial_files": 12,
+    "jobs": 4,
+    "directory_count": 6,
+    "chunk_bytes": 4096,
+    "argv_slots": 17,
+    "env_slots": 7,
+    "argv_bytes": 2048,
+    "env_bytes": 1024,
+    "maximum_file_bytes": 9223372036854775807,
+    "maximum_positive_pid": 2147483647,
+    "maximum_outstanding_parent_children": 1,
+    "parent_open_file_descriptors_in_addition_to_standard": 2
+  },
+  "observed_graph_extents": {
+    "fixed_input_bytes": 18998,
+    "parent_path_count": 28,
+    "maximum_argv_bytes_including_NUL": 1493,
+    "maximum_env_bytes_including_NUL": 563
+  },
+  "representation_payload_bytes": {
+    "path_bytes": 16384,
+    "initial_payload_bytes": 18998,
+    "job_argv_env_bytes": 12288,
+    "copy_buffer_bytes": 4096,
+    "argv_env_pointer_bytes": 208,
+    "path_and_vector_U16_offset_bytes": 256,
+    "initial_file_descriptors": 384,
+    "job_descriptors": 64,
+    "directory_path_indexes": 6,
+    "copy_and_route_scalar_record": 128,
+    "OS_stat_and_two_timespec_records": 288
+  },
+  "representation_payload_sum": 53100,
+  "representation_internal_alignment_allowance": 2048,
+  "conditions": {
+    "actual_source_and_selected_graph_bound": true,
+    "all_file_extents_fit_signed_off_t": true,
+    "fixed_payload_and_path_arenas_fit": true,
+    "exact_parent_vectors_fit": true,
+    "direct_sequential_route_has_four_jobs": true,
+    "record_payload_and_internal_alignment_fit_64KiB": true,
+    "chunk_request_fits_ssize_t_size_t": true,
+    "exec_string_pointer_and_executable_bytes_below_4096": true,
+    "parent_path_components_fit_NAME_MAX_255": true,
+    "PID_and_file_descriptor_interfaces_use_signed_C_int": true,
+    "fixed_timestamp_fits_signed_time_t": true
+  },
+  "selected_parent_design_capacity_fits": true,
+  "parent_design_residuals": [],
+  "production_launcher_adopted": false,
+  "production_SPARK_GNATprove_Lean_correspondence_complete": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "native_tool_executions": 0,
+  "composition_obligations": [
+    "Use the same raw bytes and exact accepted invocation in every native component.",
+    "Conjoin all child capacity/semantic guards; this record does not discharge them.",
+    "Selected coherent filesystem, stable source/configuration and Linux ABI/services apply.",
+    "Implement every Silver-owned parent operation in SPARK and verify Bronze/Silver plus Lean correspondence in #89."
+  ]
+}

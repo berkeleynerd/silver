@@ -1,0 +1,27 @@
+[
+  {
+    "path": "docs/evidence/retained-literal-invocation-join-20261018/compose.py",
+    "bytes": 22174,
+    "sha256": "93865d8a5c0b1c86e179ce5209d4816e6fd7ce9ccabfb8a48c1eb848948bfdc0"
+  },
+  {
+    "path": "docs/evidence/retained-literal-invocation-join-20261018/inputs.json",
+    "bytes": 6756,
+    "sha256": "5193026fa3099c4fe988f47206bf2dd33dbe7066665d0746e3059b9cd6635532"
+  },
+  {
+    "path": "docs/evidence/retained-literal-invocation-join-20261018/sources.json",
+    "bytes": 3765,
+    "sha256": "ecaa2255465c909f7729eb7ba20f274605c852438aee17adba4d96e44ddfa1e2"
+  },
+  {
+    "path": "docs/research/retained-literal-invocation-join.md",
+    "bytes": 16456,
+    "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+  },
+  {
+    "path": "docs/research/retained-null-pipeline.md",
+    "bytes": 11827,
+    "sha256": "8050accd43c665ec95c85697508462c42af37359170dfe4d97af5320b5c47256"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "focused_checks": 44768,
+  "exhaustive_reduced_copy_states": 15436,
+  "started_UTC": "2026-10-19T14:23:28.447228+00:00",
+  "finished_UTC": "2026-10-19T14:23:29.491047+00:00",
+  "elapsed_seconds": 1.0438260729861213,
+  "native_platform": "linux-x86_64",
+  "actual_source": "samples/hello_world.adb",
+  "source_identity": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "native_tool_executions": 0,
+  "production_admission_changed": false,
+  "production_launcher_adopted": false,
+  "whole_literal_pipeline_capacity_established": false
+}
