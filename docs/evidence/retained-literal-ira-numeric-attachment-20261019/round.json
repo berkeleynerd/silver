@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "status": "Actual-source named IRA numeric attachment passed; pending independent attachment review",
+  "authorization": "Owner-authorized #119 research, parent-assigned bounded numeric attachment; only new source note and evidence packet owned. Parent owns review/integration/root index/round/issues/GitHub/publication.",
+  "base_revision": "d7b20eb4d2610a1bcf1ed2e06653b68238deb430",
+  "branch": "research/retained-ira-numeric-attachment",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "first_recorded_checkpoint_utc": "2026-10-19T12:32:27+00:00",
+  "current_record_utc": "2026-10-19T12:41:11.495533+00:00",
+  "checkpoint_interval_seconds": 524.495533,
+  "whole_task_elapsed_seconds": null,
+  "clock_measurement_scope": "Measured interval from first recorded checkpoint, including implementation, evidence and handoff bookkeeping. Exact task start/model compute time are unavailable; checker and native execution times are separate.",
+  "intended_outcome": "Attach accepted IRA numeric arithmetic to actual-source305 with complete source/configuration/launch/count/owner transfer before false/null branching, exact map preservation and narrow named scope.",
+  "achieved_result": "335 guards =305 inherited +27 local numeric +2 repeated ID/point +1 conjunction. Existing false/null values and GGC/finalizer/pool/ordinary owners remain unchanged; new named numeric closure does not promote outer IRA/LRA/native/pipeline claims.",
+  "affected_checker": {
+    "started_utc": "2026-10-19T12:37:55.602667+00:00",
+    "completed_utc": "2026-10-19T12:38:04.164569+00:00",
+    "elapsed_seconds": 8.561891109013231,
+    "checks": 128,
+    "actual_sources": 4,
+    "source_cases": [
+      "Hello",
+      "same_counts_other_bytes",
+      "C2_N2",
+      "C10_N10"
+    ],
+    "new_successor_contexts": 1,
+    "new_false_checks": 30,
+    "real_failed_unresolved_predicates": 116,
+    "pure_boundary_cases": 6,
+    "scope": "New numeric attachment, new complete prior owner validation and representative inherited false/null layers. Accepted predecessor suites and unaffected successes were not replayed."
+  },
+  "accepted_inputs": {
+    "actual_source305": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+    "actual_source305_review": "df0859818d8222b52cf7f59018bd69c69b99f463",
+    "numeric_source": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+    "numeric_source_review": "7b702023dc213ced18fcdde6a3846a28cdb5e29b",
+    "complete_frozen_records": 24,
+    "numeric_GCC_files": 29,
+    "numeric_repository_files": 18,
+    "numeric_LF_coordinate_text_operative_excerpts": 39,
+    "inventory_sets_overlap": true
+  },
+  "findings_and_rework": [
+    "First focused run passed all 128 checks; no implementation, checker, bound or source argument correction was needed.",
+    "Exact schema is 30 new guards:27 local,2 repeated ID/point prerequisites and conjunction. Separate LRA10000 guard stays inherited and independently conjunctive.",
+    "Complete structural comparisons use accepted old pure count models while omitting only explicitly exported arithmetic fields; no inherited condition is promoted and new numeric arithmetic stays forbidden on false/null prerequisites.",
+    "Earlier numeric-open flags, null pressure endpoint and pure-record pending/adapter-status fields stay as frozen component history under an explicit new attachment wrapper.",
+    "Only source note, README, round and final record verification followed the successful checker; successful implementation/checker/input/result bytes were not changed."
+  ],
+  "reused_evidence": {
+    "ordinary_CFI_checks": 366,
+    "ordinary_CFI_elapsed_seconds": 12.968061241990654,
+    "ordinary_IRA_checks": 109,
+    "ordinary_IRA_elapsed_seconds": 7.931407529002172,
+    "accepted_numeric_checks": 111,
+    "accepted_numeric_checker_seconds": 0.09544452698901296,
+    "numeric_review_inspection_seconds": 223,
+    "numeric_review_record_arithmetic_check_seconds": 0.14374063900322653,
+    "other": "Accepted GGC353/CFI148/IRA192 and earlier source/configuration/correspondence evidence remain retained by exact predecessor records.",
+    "replayed": false,
+    "reason": "Parent required affected additions/joins checks and reuse of unaffected305/CFIGGC evidence. No predecessor suite rerun is needed for the new numeric branch."
+  },
+  "final_artifact_identities": {
+    "docs/evidence/retained-literal-ira-numeric-attachment-20261019/compose.py": {
+      "bytes": 16092,
+      "sha256": "5b804f4cf666c6aa0ce1e07cd297e7e328b423f582f0baf6df35f184802f1b58"
+    },
+    "docs/evidence/retained-literal-ira-numeric-attachment-20261019/check.py": {
+      "bytes": 18315,
+      "sha256": "0abb82a0bf93b9e60cbd46721eb60cd15d28b17aed50faed9de35a577a45bc88"
+    },
+    "docs/evidence/retained-literal-ira-numeric-attachment-20261019/inputs.json": {
+      "bytes": 7131,
+      "sha256": "30acbcf227bb534aea0ce542d868efe7c0de7cc6165b54094b3813b6760cf303"
+    },
+    "docs/evidence/retained-literal-ira-numeric-attachment-20261019/check-results.json": {
+      "bytes": 27902,
+      "sha256": "decb7dd662f5294ba14761deba9fab5e999bbca46ecb54e8cdf7c4cd1dcf45c1"
+    },
+    "docs/evidence/retained-literal-ira-numeric-attachment-20261019/result.json": {
+      "bytes": 921574,
+      "sha256": "e0f1d5cc074f2df21715d2ff130c5f9cd85ab6f5e7de663210e81af87f1fe6b5"
+    },
+    "docs/evidence/retained-literal-ira-numeric-attachment-20261019/README.md": {
+      "bytes": 4149,
+      "sha256": "98884b5524e7f1cfb3d11dd63847495288c27bfb4705436d5067579195de61ea"
+    },
+    "docs/research/retained-literal-ira-numeric-attachment.md": {
+      "bytes": 12833,
+      "sha256": "9f99f98d8d8fc914ffb6c1fa0bfb5fb50bae093a2be49388b0f051ba477a0ac7"
+    }
+  },
+  "artifact_identity_scope": "Final implementation, checker, manifest, retained successful evidence, README and source note; this round is not self-hashed.",
+  "accepted_numeric_source_consumed": true,
+  "pending_outer_IRA_LRA_hook_Why_CFI_candidate_consumed": false,
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive validation started or resumed; focused offline arithmetic/source/owner checks only.",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "census_executions": 0,
+  "aggregate_or_corpus_executions": 0,
+  "github_writes": 0,
+  "delegation": 0,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "remaining_outer_IRA_helper_capacity": true,
+  "remaining_LRA_arithmetic_and_storage": true,
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_gate": false,
+  "remaining_obligations": [
+    "Independent review of this exact implementation before parent integration.",
+    "Outer IRA/equivalence/initial-value/reginfo/regstat helper capacity, remaining LRA arithmetic/storage, other native helper/stack, producer/proof/parent and whole-current-grammar capacity.",
+    "Production launcher/materialization/source-binary correspondence remains separate; no GPRbuild/Gprbind or fixed-child regeneration job in this graph."
+  ],
+  "final_record_validation": {
+    "status": "passed",
+    "python_syntax_files": 2,
+    "JSON_files": 4,
+    "final_artifact_hashes": 7,
+    "accepted_current_and_Git_pins": 24,
+    "numeric_GCC_files": 29,
+    "numeric_repository_files": 18,
+    "numeric_literal_LF_checks": 39,
+    "final_guards": 335,
+    "new_guards": 30,
+    "affected_checks": 128,
+    "predecessor_suite_replay": false,
+    "broad_capacity": false
+  }
+}

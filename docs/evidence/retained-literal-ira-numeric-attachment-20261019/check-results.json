@@ -1,0 +1,576 @@
+{
+  "status": "passed",
+  "check_count": 128,
+  "checks": [
+    "complete accepted packets and39 actual LF coordinate operative checks",
+    "Hello actual complete source path launch config and335 guards",
+    "Hello exact independent inherited305 maps and20 owner fields preserved",
+    "Hello actual A K B M P and signed64 client transfer",
+    "Hello actual GGC owner retained without fixed47054 rule",
+    "Hello separate IRA1000 and LRA10000 fields retained",
+    "Hello zero GGC finalizer bitmap ET recharge and broad scope",
+    "Hello earlier numeric-open flags remain frozen component history",
+    "Hello numeric pure fields exactly match accepted result",
+    "same_counts_other_bytes actual complete source path launch config and335 guards",
+    "same_counts_other_bytes exact independent inherited305 maps and20 owner fields preserved",
+    "same_counts_other_bytes actual A K B M P and signed64 client transfer",
+    "same_counts_other_bytes actual GGC owner retained without fixed47054 rule",
+    "same_counts_other_bytes separate IRA1000 and LRA10000 fields retained",
+    "same_counts_other_bytes zero GGC finalizer bitmap ET recharge and broad scope",
+    "same_counts_other_bytes earlier numeric-open flags remain frozen component history",
+    "same numerical counts retain different physical identity",
+    "C2_N2 actual complete source path launch config and335 guards",
+    "C2_N2 exact independent inherited305 maps and20 owner fields preserved",
+    "C2_N2 actual A K B M P and signed64 client transfer",
+    "C2_N2 actual GGC owner retained without fixed47054 rule",
+    "C2_N2 separate IRA1000 and LRA10000 fields retained",
+    "C2_N2 zero GGC finalizer bitmap ET recharge and broad scope",
+    "C2_N2 earlier numeric-open flags remain frozen component history",
+    "C10_N10 actual complete source path launch config and335 guards",
+    "C10_N10 exact independent inherited305 maps and20 owner fields preserved",
+    "C10_N10 actual A K B M P and signed64 client transfer",
+    "C10_N10 actual GGC owner retained without fixed47054 rule",
+    "C10_N10 separate IRA1000 and LRA10000 fields retained",
+    "C10_N10 zero GGC finalizer bitmap ET recharge and broad scope",
+    "C10_N10 earlier numeric-open flags remain frozen component history",
+    "nonHello69927 GGC events retained",
+    "conditions prior ordinary native_ordinary_CFI_CFG_CFI_trace_ID_and_length_unsigned=False skips numeric unchanged",
+    "conditions prior ordinary native_ordinary_CFI_CFG_CFI_trace_ID_and_length_unsigned=None skips numeric unchanged",
+    "conditions prior ordinary native_ordinary_IRA_allocno_object_and_preference_ID_signed=False skips numeric unchanged",
+    "conditions prior ordinary native_ordinary_IRA_allocno_object_and_preference_ID_signed=None skips numeric unchanged",
+    "conditional_conditions prior ordinary native_ordinary_CFI_CFG_CFI_trace_ID_and_length_unsigned=False skips numeric unchanged",
+    "conditional_conditions prior ordinary native_ordinary_CFI_CFG_CFI_trace_ID_and_length_unsigned=None skips numeric unchanged",
+    "conditional_conditions prior ordinary native_ordinary_IRA_allocno_object_and_preference_ID_signed=False skips numeric unchanged",
+    "conditional_conditions prior ordinary native_ordinary_IRA_allocno_object_and_preference_ID_signed=None skips numeric unchanged",
+    "real failed219 layer retains17 GGC69 ordinary30 numeric nulls shared_launch_paths",
+    "real failed219 layer retains17 GGC69 ordinary30 numeric nulls native_pool_finalizer_pool_inherited_RTL_DF_LRA_representation",
+    "distinct native prerequisite native_GGC_active_page_signed_index cannot be replaced by numeric theorem",
+    "distinct native prerequisite native_GGC_LRA_signed_hard_register_frequency cannot be replaced by numeric theorem",
+    "false summary skips numeric evaluated_predicates_pass",
+    "false summary skips numeric conditional_arithmetic_pass",
+    "false summary skips numeric selected_named_ordinary_capacity_established",
+    "false summary skips numeric ordinary_attachment.selected_named_ordinary_capacity_established",
+    "false summary skips numeric core_result.conditional_arithmetic_pass",
+    "passing source configuration owner mismatch core_result.RTL_shape.split_referenced_pseudos_upper",
+    "passing source configuration owner mismatch selected_native_shared_bitmap_pool_lifetime.extents.P",
+    "passing source configuration owner mismatch actual_shared_inputs.configuration.sha256",
+    "passing source configuration owner mismatch selected_native_invocation.processes.0.environment.EXTRA",
+    "passing source configuration owner mismatch ordinary_attachment.new_GGC_events",
+    "passing equal-count wrong physical source rejected",
+    "real false/null source configuration owner mismatch core_result.RTL_shape.split_referenced_pseudos_upper",
+    "real false/null source configuration owner mismatch selected_native_shared_bitmap_pool_lifetime.extents.P",
+    "real false/null source configuration owner mismatch actual_shared_inputs.configuration.sha256",
+    "real false/null source configuration owner mismatch selected_native_invocation.processes.0.environment.EXTRA",
+    "real false/null source configuration owner mismatch ordinary_attachment.new_GGC_events",
+    "real false/null equal-count wrong physical source rejected",
+    "passing complete prior owner mismatch selected_native_IRA_ordinary_storage.ordinary_requests.0.each_request_bytes_upper",
+    "passing complete prior owner mismatch selected_native_IRA_ordinary_storage.launch.native_options",
+    "passing complete prior owner mismatch selected_native_CFI_CFG_ordinary_lifetime.retained_owners.initial_CF_CFG_GGC",
+    "passing complete prior owner mismatch selected_native_IRA_ordinary_storage.retained_owners.existing_GGC_positive_events_upper",
+    "passing complete prior owner mismatch selected_native_IRA_ordinary_storage.extents.A",
+    "passing complete prior owner mismatch selected_native_IRA_ordinary_storage.numeric_cost_arithmetic_closed",
+    "false ordinary arithmetic complete prior owner mismatch selected_native_IRA_ordinary_storage.ordinary_requests.0.each_request_bytes_upper",
+    "false ordinary arithmetic complete prior owner mismatch selected_native_IRA_ordinary_storage.launch.native_options",
+    "false ordinary arithmetic complete prior owner mismatch selected_native_CFI_CFG_ordinary_lifetime.retained_owners.initial_CF_CFG_GGC",
+    "false ordinary arithmetic complete prior owner mismatch selected_native_IRA_ordinary_storage.retained_owners.existing_GGC_positive_events_upper",
+    "false ordinary arithmetic complete prior owner mismatch selected_native_IRA_ordinary_storage.extents.A",
+    "false ordinary arithmetic complete prior owner mismatch selected_native_IRA_ordinary_storage.numeric_cost_arithmetic_closed",
+    "false numeric check stays computed frequency_rescale_product_signed",
+    "false numeric check stays computed per_allocno_reference_count_signed",
+    "false numeric check stays computed per_allocno_frequency_signed",
+    "false numeric check stays computed DI_memory_table_signed_short",
+    "false numeric check stays computed DI_register_table_unsigned_short",
+    "false numeric check stays computed DI_non_sentinel_target_matrix_arithmetic",
+    "false numeric check stays computed selected_alternative_reject_sum_signed",
+    "false numeric check stays computed selected_alternative_bit_index",
+    "false numeric check stays computed nonpseudo_copy_and_penalty_signed",
+    "false numeric check stays computed alternative_frequency_product_signed",
+    "false numeric check stays computed class_candidate_before_MIN_signed",
+    "false numeric check stays computed memory_candidate_before_MIN_signed",
+    "false numeric check stays computed direct_hard_move_product_signed",
+    "false numeric check stays computed two_reference_class_sum_signed",
+    "false numeric check stays computed two_reference_memory_sum_signed",
+    "false numeric check stays computed preferred_difference_before_division_signed",
+    "false numeric check stays computed preference_denominator_strictly_positive",
+    "false numeric check stays computed preference_stored_frequency_signed",
+    "false numeric check stays computed pressure_live_count_signed",
+    "false numeric check stays computed pressure_single_summand_signed",
+    "false numeric check stays computed excess_pressure_accumulation_signed",
+    "false numeric check stays computed priority_difference_before_checked_multiply_signed",
+    "false numeric check stays computed priority_first_product_without_saturation_signed",
+    "false numeric check stays computed priority_normalization_product_signed",
+    "false numeric check stays computed priority_sort_boolean_difference_signed",
+    "false numeric check stays computed priority_sort_allocno_ID_difference_signed",
+    "false numeric check stays computed aggregate_cost_sums_signed64",
+    "false numeric check stays computed allocno_ID_count_signed",
+    "false numeric check stays computed point_endpoint_successor_signed",
+    "false new numeric conjunction remains computed",
+    "nonboolean numeric local check rejected",
+    "nonboolean numeric inherited check rejected",
+    "numeric returned owner scope mutation source_counts.null_statements",
+    "numeric returned owner scope mutation extents.A",
+    "numeric returned owner scope mutation separate_LRA_signed_usage_guard",
+    "numeric returned owner scope mutation previous_storage_owners_modified",
+    "numeric returned owner scope mutation new_GGC_events",
+    "numeric returned owner scope mutation new_scalar_registrations",
+    "numeric returned owner scope mutation new_array_registrations",
+    "numeric returned owner scope mutation new_shared_bitmap_or_ET_blocks",
+    "numeric returned owner scope mutation outer_IRA_helper_capacity_closed",
+    "numeric returned owner scope mutation remaining_LRA_arithmetic_closed",
+    "numeric returned owner scope mutation all_ordinary_native_capacity",
+    "numeric returned owner scope mutation complete_native_capacity",
+    "numeric returned owner scope mutation whole_literal_pipeline_capacity_established",
+    "numeric returned owner scope mutation production_admission_changed",
+    "numeric returned owner scope mutation aggregate_RAM_gate",
+    "pure boundary exact guard exported aggregate_last",
+    "pure boundary exact guard exported aggregate_first",
+    "pure boundary exact guard exported point_last",
+    "pure boundary exact guard exported point_first",
+    "pure boundary exact guard exported ID_last",
+    "pure boundary exact guard exported ID_first",
+    "IRA conjunction can pass while separate LRA10000 guard fails",
+    "new retained owner audit copies do not alias prior owners"
+  ],
+  "actual_sources": [
+    {
+      "name": "Hello",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "extents": {
+        "A": 4,
+        "K": 104,
+        "B": 10,
+        "M": 27,
+        "P": 64
+      },
+      "guards": 335,
+      "GGC_events": 47054,
+      "passed": true
+    },
+    {
+      "name": "same_counts_other_bytes",
+      "source": {
+        "bytes": 118,
+        "sha256": "556c17e44db0e905294b7f6ae0923f533f08c0f2fca04080eb98da6d21115653"
+      },
+      "counts": {
+        "source_bytes": 118,
+        "source_sha256": "556c17e44db0e905294b7f6ae0923f533f08c0f2fca04080eb98da6d21115653",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "extents": {
+        "A": 4,
+        "K": 104,
+        "B": 10,
+        "M": 27,
+        "P": 64
+      },
+      "guards": 335,
+      "GGC_events": 47054,
+      "passed": true
+    },
+    {
+      "name": "C2_N2",
+      "source": {
+        "bytes": 133,
+        "sha256": "17313de4ae6517b52d140d73d7da7aa89a571293d3f4197accdc6f336b60e46e"
+      },
+      "counts": {
+        "source_bytes": 133,
+        "source_sha256": "17313de4ae6517b52d140d73d7da7aa89a571293d3f4197accdc6f336b60e46e",
+        "output_calls": 2,
+        "Put": 1,
+        "Put_Line": 1,
+        "null_statements": 2,
+        "decoded_literal_lengths": [
+          0,
+          2
+        ],
+        "decoded_literal_bytes": 2,
+        "maximum_literal_length": 2
+      },
+      "extents": {
+        "A": 8,
+        "K": 109,
+        "B": 14,
+        "M": 44,
+        "P": 102
+      },
+      "guards": 335,
+      "GGC_events": 49731,
+      "passed": true
+    },
+    {
+      "name": "C10_N10",
+      "source": {
+        "bytes": 344,
+        "sha256": "0497bc5438a0775f101f1bf96d761dd10aba86d0eceea8b112fa526121ac34ad"
+      },
+      "counts": {
+        "source_bytes": 344,
+        "source_sha256": "0497bc5438a0775f101f1bf96d761dd10aba86d0eceea8b112fa526121ac34ad",
+        "output_calls": 10,
+        "Put": 10,
+        "Put_Line": 0,
+        "null_statements": 10,
+        "decoded_literal_lengths": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "decoded_literal_bytes": 10,
+        "maximum_literal_length": 1
+      },
+      "extents": {
+        "A": 40,
+        "K": 149,
+        "B": 30,
+        "M": 140,
+        "P": 310
+      },
+      "guards": 335,
+      "GGC_events": 69927,
+      "passed": true
+    }
+  ],
+  "pure_boundary_cases": [
+    {
+      "name": "aggregate_last",
+      "C": 17592454483,
+      "N": 0,
+      "guard": "aggregate_cost_sums_signed64",
+      "value": true,
+      "failed_predicates": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed",
+        "priority_sort_allocno_ID_difference_signed"
+      ]
+    },
+    {
+      "name": "aggregate_first",
+      "C": 17592454484,
+      "N": 0,
+      "guard": "aggregate_cost_sums_signed64",
+      "value": false,
+      "failed_predicates": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed",
+        "priority_sort_allocno_ID_difference_signed",
+        "aggregate_cost_sums_signed64"
+      ]
+    },
+    {
+      "name": "point_last",
+      "C": 1,
+      "N": 178956965,
+      "guard": "point_endpoint_successor_signed",
+      "value": true,
+      "failed_predicates": []
+    },
+    {
+      "name": "point_first",
+      "C": 1,
+      "N": 178956966,
+      "guard": "point_endpoint_successor_signed",
+      "value": false,
+      "failed_predicates": [
+        "point_endpoint_successor_signed"
+      ]
+    },
+    {
+      "name": "ID_last",
+      "C": 536870911,
+      "N": 0,
+      "guard": "allocno_ID_count_signed",
+      "value": true,
+      "failed_predicates": [
+        "point_endpoint_successor_signed"
+      ]
+    },
+    {
+      "name": "ID_first",
+      "C": 536870912,
+      "N": 0,
+      "guard": "allocno_ID_count_signed",
+      "value": false,
+      "failed_predicates": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed"
+      ]
+    }
+  ],
+  "affected_scope": "New numeric attachment, complete prior owner validation and representative false/null layers only; unaffected305 and accepted numeric111 evidence reused.",
+  "new_successor_contexts": 1,
+  "new_numeric_false_checks": 30,
+  "real_failed_unresolved_predicates": 116,
+  "started_utc": "2026-10-19T12:37:55.602667+00:00",
+  "completed_utc": "2026-10-19T12:38:04.164569+00:00",
+  "elapsed_seconds": 8.561891109013231,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "validation": {
+    "accepted_current_and_historical_records": 24,
+    "predecessor": {
+      "accepted_current_and_historical_records": 27,
+      "predecessor": {
+        "accepted_current_and_historical_records": 18,
+        "predecessor": {
+          "accepted_current_and_historical_records": 23,
+          "predecessor": {
+            "accepted_current_and_historical_records": 25,
+            "predecessor": {
+              "accepted_historical_and_current_records": 46,
+              "ordinary_writer_identity_records": 63,
+              "leaf_identity_records": {
+                "rtl": {
+                  "compiler": 38,
+                  "repository": 18
+                },
+                "graph": {
+                  "compiler": 22,
+                  "repository": 18
+                },
+                "query": {
+                  "compiler": 96,
+                  "repository": 28
+                }
+              },
+              "selected_route_validation": {
+                "current_attachment_input_records": 46,
+                "numeric_input_freeze": "64237926eb",
+                "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
+                "historical_acceptance_review_records": 7,
+                "core_current_input_records": 205,
+                "core_distinct_current_files": 2711,
+                "invocation_current_repository_records": 37,
+                "invocation_complete_retained_sources": 16,
+                "invocation_installed_configuration_records": 109,
+                "numeric_identity_records": 61,
+                "frontend_direct_identity_records": 41,
+                "location_repository_identity_records": 33,
+                "location_complete_source_identity_records": 121,
+                "runtime_census_reused_from": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
+                "runtime_census_reinventoried": false,
+                "native_shape_identity_records": 5,
+                "ordinary_map_complete_source_identity_records": 10,
+                "later_shared_complete_source_identity_records": 31,
+                "later_shared_repository_identity_records": 21,
+                "later_shared_unique_validated_function_ASTs": 7,
+                "counts_overlap_and_must_not_be_added": true,
+                "accepted_reviews": [
+                  {
+                    "path": "docs/reviews/review-literal-shared-linker-attachment-99b7247d18.md",
+                    "bytes": 8871,
+                    "sha256": "48a1bbcf5d7f92c136bf216b6a4285ef68fe56f4861bfc7bba8a71459b904683",
+                    "revision": "b04b32a18424d3fb6520cce671b5eeb59d58dead"
+                  },
+                  {
+                    "path": "docs/reviews/review-literal-invocation-f3bc1d023b.md",
+                    "bytes": 9898,
+                    "sha256": "cc31c13d7f5409b30ebb7c07a347c16560c3812b1651a4a043c7a403fc8a56e9",
+                    "revision": "a9b1436f3b5b3b37b2a809cee6901ba2c4d7e153"
+                  },
+                  {
+                    "path": "docs/reviews/review-literal-ada-numeric-3a7d590389.md",
+                    "bytes": 10993,
+                    "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
+                    "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
+                  },
+                  {
+                    "path": "docs/reviews/review-literal-frontend-numeric-d7034d9520.md",
+                    "bytes": 14105,
+                    "sha256": "099daf16ea7d7ceaf87398feabe21d414526a61dc64647713d4e26ad500ec6ba",
+                    "revision": "0f4ef0ab6f6134702d08aba23b05877260af6951"
+                  },
+                  {
+                    "path": "docs/reviews/review-literal-location-11057399b9.md",
+                    "bytes": 13228,
+                    "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
+                    "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
+                  },
+                  {
+                    "path": "docs/reviews/review-ordinary-maps-and-session-inputs-round15.md",
+                    "bytes": 14408,
+                    "sha256": "00c2c8b2f936f98645bbd57d94c9a6bbda51998f3c76709f297f175f66905938",
+                    "revision": "50bcfccba23ddbb1543abfc9cbb8a2945bef65b9"
+                  },
+                  {
+                    "path": "docs/reviews/review-literal-later-shared-1fc7ee7bcf.md",
+                    "bytes": 12552,
+                    "sha256": "b25b355aa1b6f5b689439fc135d4fa40736098c117136caf4d66b3ed07e39dcd",
+                    "revision": "fac6de422d910cffef25952458bbf9c85f6c69b1"
+                  }
+                ]
+              },
+              "identity_sets_overlap_and_must_not_be_added": true,
+              "accepted_runtime_census_reused": true,
+              "predecessor_suites_rerun": false,
+              "historical_prose_input": {
+                "revision": "603e0feeaab329b6492c3cc8d82f90a7f095c070",
+                "path": "docs/research/retained-literal-pipeline.md",
+                "bytes": 157004,
+                "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+              },
+              "current_pipeline_extension_correspondence": {
+                "current_note": {
+                  "bytes": 163754,
+                  "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+                },
+                "historical_note": {
+                  "bytes": 157004,
+                  "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+                },
+                "argument_before_attachment_section_unchanged": true,
+                "selected_source_configuration_frontend_location_argument_unchanged": true,
+                "later_attachment_extension_review": "docs/reviews/review-literal-map-later-attachment-6beebbc39c.md",
+                "exception_applies_only_to_historical_prose": true
+              },
+              "historical_prose_scope": "Graph/query Context only: exact accepted pipeline audit note. All compiler, executable, formal-model and source inputs use current pinned bytes; current pipeline note is separately pinned.",
+              "source_reachability_arguments_are_reviewed_handwritten_arguments": true
+            },
+            "MEM": {
+              "compiler": 56,
+              "repository": 19
+            },
+            "SSA": {
+              "compiler": 24,
+              "repository": 8,
+              "excerpts": 26
+            },
+            "identity_sets_overlap_and_must_not_be_added": true,
+            "historical_MEM_prose_input": {
+              "revision": "603e0feeaab329b6492c3cc8d82f90a7f095c070",
+              "path": "docs/research/retained-literal-pipeline.md",
+              "bytes": 157004,
+              "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+            },
+            "historical_MEM_prose_extension_correspondence": {
+              "current_note": {
+                "bytes": 163754,
+                "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+              },
+              "historical_note": {
+                "bytes": 157004,
+                "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+              },
+              "argument_before_attachment_section_unchanged": true,
+              "selected_source_configuration_frontend_location_argument_unchanged": true,
+              "later_attachment_extension_review": "docs/reviews/review-literal-map-later-attachment-6beebbc39c.md",
+              "exception_applies_only_to_historical_prose": true
+            },
+            "all_executable_compiler_source_configuration_inputs_are_actual_pinned_bytes": true,
+            "fixed_SSA_result_used_as_general_evaluator": false,
+            "SSA_adapter": "Recompute the complete accepted initial owner with its callable for actual counts; attach accepted zero-increment source argument. The frozen Hello checker is never called.",
+            "predecessor_suites_rerun": false,
+            "accepted_runtime_census_reused": true,
+            "source_lifetime_arguments_are_reviewed_handwritten_arguments": true
+          },
+          "pool": {
+            "compiler": 38,
+            "repository": 19
+          },
+          "finalizer": {
+            "compiler": 24,
+            "repository": 8,
+            "excerpts": 27,
+            "retained_array_types": 15,
+            "retained_array_sites": 28
+          },
+          "identity_sets_overlap_and_must_not_be_added": true,
+          "all_executable_compiler_configuration_inputs_are_actual_pinned_bytes": true,
+          "no_new_historical_input_exception": true,
+          "accepted_array_census_reused_not_regenerated": true,
+          "fixed_finalizer_checker_used_as_general_evaluator": false,
+          "finalizer_adapter": "Actual recognized source, actual scalar/callback owners and exact source-derived configured invocation; accepted source theorem supplies zero array registrations and depth0 independently of C/N.",
+          "point_frequency_representation": {
+            "element_type": "int",
+            "element_bytes": 4,
+            "reserve_and_growth_arithmetic": "unsigned",
+            "compression": "MAX or copy; no signed sum",
+            "actual_declaration": "gcc/lra-lives.cc:530: static vec<int> point_freq_vec;",
+            "accepted_nonblocking_erratum": "docs/reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md"
+          },
+          "predecessor_suites_rerun": false,
+          "source_reachability_arguments_are_reviewed_handwritten_arguments": true
+        },
+        "native": {
+          "gcc": 46,
+          "repository": 29
+        },
+        "identity_sets_overlap_and_must_not_be_added": true,
+        "all_executable_compiler_configuration_inputs_are_actual_pinned_bytes": true,
+        "no_new_historical_input_exception": true,
+        "predecessor_suites_rerun": false,
+        "source_reachability_arguments_are_reviewed_handwritten_arguments": true,
+        "upstream_false_guards_short_circuit_native_evaluation": true,
+        "source_configuration_and_owner_checks_precede_short_circuit": true,
+        "actual_finalizer_theorem_compared_with_native_premises": true
+      },
+      "CFI_CFG": {
+        "source_files": 33,
+        "repository_files": 23,
+        "source_excerpts": 26
+      },
+      "IRA": {
+        "GCC_files": 45,
+        "repository_files": 19,
+        "source_excerpts": 35
+      },
+      "IRA_reviewed_operative_LF_sites": 7,
+      "frozen_IRA_excerpt_metadata_not_promoted_to_correct_LF_coordinates": true,
+      "IRA_fixed_Hello_interface_checker_called": false,
+      "identity_sets_overlap_and_must_not_be_added": true,
+      "no_new_historical_input_exception": true,
+      "source_configuration_and_owner_checks_precede_arithmetic": true,
+      "upstream_false_or_uncomputed_short_circuits_ordinary_evaluation": true,
+      "predecessor_suites_rerun": false,
+      "source_arguments_are_reviewed_handwritten_arguments": true
+    },
+    "numeric": {
+      "GCC_files": 29,
+      "repository_files": 18,
+      "LF_coordinate_and_operative_excerpt_checks": 39
+    },
+    "inventory_sets_overlap_and_must_not_be_added": true,
+    "no_new_historical_input_exception": true,
+    "numeric_fixed_Hello_reconciliation_called": false,
+    "source_configuration_and_complete_owners_checked_before_short_circuit": true,
+    "source_argument_is_reviewed_handwritten_argument": true,
+    "predecessor_suites_rerun": false,
+    "pending_outer_IRA_LRA_or_hook_candidate_consumed": false
+  },
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "aggregate_or_corpus_executions": 0,
+  "fixed_Hello_reconciliation_called": false
+}

@@ -1,0 +1,161 @@
+{
+  "scope": "Complete accepted actual-source305 and IRA numeric source packets/notes/exact reviews. No pending outer IRA/LRA or hook candidate.",
+  "base_revision": "d7b20eb4d2610a1bcf1ed2e06653b68238deb430",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/README.md",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 4776,
+      "sha256": "cea8e967e1e8225d544f58406296505f035536c9eeae0e664552f555b5726d03"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/check-results.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 53698,
+      "sha256": "ea93979cb04511f0d3b2af584a28b1a545db916c8c699d320f8529a49e239fc6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/check.py",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 15427,
+      "sha256": "bdc7c670631d56befab36797e61763d6a90b0eb1899687bf49cac473f5702333"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/compose.py",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 14777,
+      "sha256": "161d42eaf2c80e8aed9cdd8016ab3b144b79ebf75cc8b606fd1d5cc316bc85f3"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/identities.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 1069,
+      "sha256": "361309d715fa08f25cd2d431e57a5f0f0ecc35d9840053f34bfcc3ef4c8a6050"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/inputs.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 4961,
+      "sha256": "7913ea332617057a864dbbc421934de447acd095fae08a8515470967acf3c4d5"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/cfi-stage/result.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 799807,
+      "sha256": "ff2d980203b6882051f2bfb963763b178ed1cde34d4b6ce894feb5817bdb9e97"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/check-results.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 25780,
+      "sha256": "49000450220d2879546bf119ce52bcece9c17c0c3e5d4ecec6fbefb4f0304b30"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/check.py",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 17706,
+      "sha256": "3c4919ed1757d8dedd10ed1a8d0c40f32da5922260fb7e098e59188e83993d7e"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/compose.py",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 22237,
+      "sha256": "1daa94de315b697a2484be46e9ea4bdd13cc1c677276e47d6239d8bef3578dec"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/inputs.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 8638,
+      "sha256": "6d279c491a53e1eea43aefbeeb635993777d6f5b8cdfce7a0001af655748dd77"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/result.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 838496,
+      "sha256": "d82262008cf21d10879f062cdc973d1b5d9c8384c320c674ece5ef93b33abe2b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-attachment-20261019/round.json",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 10154,
+      "sha256": "ba4a77961d4b0f67164462681f1f06db0f3e74cde158ec269ae4ba0905425f28"
+    },
+    {
+      "path": "docs/research/retained-literal-ordinary-attachment.md",
+      "revision": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+      "bytes": 14683,
+      "sha256": "1a6418caabe658a96cca575d9071fe3e9a7c7fd9aaebf1b1aa9734a7bd90b05d"
+    },
+    {
+      "path": "docs/reviews/review-literal-ordinary-attachment-aa838b8fc9.md",
+      "revision": "df0859818d8222b52cf7f59018bd69c69b99f463",
+      "bytes": 11000,
+      "sha256": "e1fca73cd1e1d7a6b2b51038b375eca7c96ed6586206887db6c3fe1986a33204"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/README.md",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 2076,
+      "sha256": "7a706af1f34504faea0a058d1a94cb30f7405e8cb53d931c8505e87e24803503"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/check-results.json",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 9556,
+      "sha256": "cc1ed1e2c8204111dda2169c34956185cf9e422d598264838a6f7c28f52b3c64"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/check.py",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 11421,
+      "sha256": "dc685002e9b5f9a253c9d7a430a8c8c494ceaa99e0db64c9ccf32cb4434fa8c0"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/derive.py",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 10334,
+      "sha256": "bb2ab4152eebab80132b8ea879214546032aad231b3ceae8dd04d9e7a99e64d1"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/inputs.json",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 47603,
+      "sha256": "aa0056bd262b5bc326d373cbb89431c0fafa3a07f67e4723f607ef367a133a30"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/result.json",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 5879,
+      "sha256": "0711c928202b1d1fcc4411ded70d0cb6bdc5cfc6114b7af873bf4aba796a8758"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-numeric-20261019/round.json",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 4198,
+      "sha256": "45c7a367b6c1e4f326e1716778a86568f998b055200d2c9f960a437df92ccfb7"
+    },
+    {
+      "path": "docs/research/retained-literal-ira-numeric.md",
+      "revision": "9ed466e07f5db96f7240b33bb5055ba434deb192",
+      "bytes": 19218,
+      "sha256": "e072d78e19dc5312801615f7fa22e3f00e92da6a056d08f256275c254bc52e21"
+    },
+    {
+      "path": "docs/reviews/review-literal-ira-numeric-9ed466e07f.md",
+      "revision": "7b702023dc213ced18fcdde6a3846a28cdb5e29b",
+      "bytes": 13345,
+      "sha256": "80b89fc682a55a0303b88707b678225de29c5951ed82369d03c52624ee876046"
+    }
+  ],
+  "numeric_source_inventory": {
+    "GCC_files": 29,
+    "repository_files": 18,
+    "LF_coordinate_and_operative_excerpt_checks": 39
+  },
+  "inherited_numeric_guard_owners": {
+    "allocno_ID_count_signed": "native_ordinary_IRA_allocno_object_and_preference_ID_signed",
+    "point_endpoint_successor_signed": "native_ordinary_IRA_point_endpoint_and_finish_successor_signed"
+  },
+  "separate_LRA_guard": "native_GGC_LRA_signed_hard_register_frequency"
+}
