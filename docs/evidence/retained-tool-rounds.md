@@ -1182,3 +1182,146 @@ native/collector, required producer/consumer/fixed-library/parent coverage,
 current-grammar composition, useful-domain comparison and final review remain
 required. Oracle, installed tools/pins and admission remain unchanged;
 production #88–#94 stays authorized and unstarted.
+
+## Round 16 — reviewed partial attachment and further lifetime arguments
+
+Date: 2026-10-19; continues from published `e967d061ca`. The intervening owner
+status request was answered without changing scope; the goal remains the full
+current-Silver-grammar #119 rule. No research stop is selected.
+
+| Work | Selected setting | Frozen target and review |
+| --- | --- | --- |
+| Ordinary-map/named shared attachment | GPT-6.1 Sol / Extra High | `6beebbc39c`, accepted by `1e8632b03e` |
+| Later ordinary-map writer closure | Lead live setting unavailable; no switch claimed | `164a4c6ab0`, accepted by `960ed47da2` |
+| Selected RTL caches and fixed controls | GPT-6 Astra / Extra High | `8e4a84cfa3`, repaired `bf898c7344`, accepted `6a7af6a540` |
+| Same-process Why session and binder charge | GPT-6 Astra / Extra High | `98fdd88dbf`, accepted by `960ed47da2` |
+| Normal formatter-prefix candidate | GPT-6 Astra / Extra High | `1ad16d7310`, review `6f5d6a7775` requires #142 |
+| Completed alias graph and shared-query lifetimes | GPT-6 Astra / Extra High | `603e0feeaab` / `054b25caec5`, accepted by `634136172c` |
+
+The accepted attachment binds ordinary preallocation and the repaired named
+shared transfer to actual Main/fixed/template sources while retaining all 69
+existing conjunctive conditions. Its 129 affected checks took 5.080602804s.
+Independent review reused the successful suites and added 40 grouped assertions
+in 0.558221265s, without constructing a full aggregate Context. Before the
+successful author run, two small corrections supplied a full historical commit
+identity and independently recomputed the corrected identifier projection after
+an aliased mutation exposed an insufficient comparison. No accepted leaf or
+core changed. Complete lifetime endpoints remain null; shared 768/partial
+2,312/location 13 ledgers are unchanged and separately owned.
+
+The ordinary-map writer argument excludes later backing growth under the
+selected native Main route. The source census includes genuine runtime
+physical-location creation, whose callers are AArch64 JSON tuning and the
+standalone diagnostics library, separately from excluded self-tests, other
+frontends, libcpp readers and LTO input. Its 93 identity/census checks took
+0.043762149s across 43 reference files/457 references, 54 source pins and nine
+repository pins. The first check exposed Python `splitlines` treating a source
+form-feed as a new line; using LF coordinates corrected the checker without
+changing the argument or bound. The three accepted preallocation requests
+cover the entire selected ordinary-array lifetime. Independent review accepts
+the source argument, reusing the successful check and adding a 0.074022984s
+identity check. Lifetime attachment remains pending; the original leaf stays
+frozen.
+
+The RTL packet derives historical cache ceilings `39257+120+C` and `39257+3C`,
+zero later non-lookup growth and **4C** disjoint shared backing requests. Its
+five fixed controls exclude recorded-loop/DF increments on the selected route,
+but reachable tree-type/alias child maps still prevent a full finalizer endpoint.
+The 39 focused checks took 0.036171431s; after a source-note clarification, the
+source-identity-inclusive check took 0.050183576s. No result or implementation
+changed between these checks. The existing 121 setup backbones inside 437
+events, direct objects and named six registrations are not charged again.
+Independent review found #141: descriptor setup calls the attribute setter
+twice, so the claimed 3C lookup count was false. Repair `bf898c7344` counts 4C
+lookups and proves one record/backbone per adjacent identical-key descriptor
+pair, with no intervening collection. It includes possible expansion before
+the second hit, preserving the original 3C register-cache and 4C combined
+backing allowances. Seventeen focused checks over 21,029 table states took
+0.051461426s; the original 39-check record remains historical, not rerun.
+The independent original 41,585-state diagnostic took 0.182864943s; targeted
+repair identity/output/pair checks took 0.243213960s. The repair is accepted.
+
+The Why packet reuses the one successful Round 15 observation. Exact replay
+retains 49,728 session reads; its own counter/input/Hsdecl join re-establishes
+the accounted 1,145 inline registrations from 60,496. The five visit charges
+sum to **B_binders=966**, with repeated occurrences/delayed substitutions and
+all 66 proposition formulas independently crosschecked against the existing
+explicit-alpha decoder. Eight focused binder regressions pass. Initial
+changed-input composition took 5.129758843s; adding source/native-body identities
+and exact driver/session bindings justified the extended 5.485126837s check.
+The 12,297,103-byte archive retains this process, not historical PID 74171.
+The empty statistics list and actual exit-hook identities narrow helper work;
+the buffer formatter's transitive helpers/global state remain open. R is null,
+and `63573+2R` is a conditional expression, not an endpoint. No native retry ran.
+Independent review inspected the actual observer and added a 1.841769745s
+archive/subsequence/certificate check, reproducing 966 and visit multiplicity.
+The combined map/Why review's inspection interval was 303s at one-second
+resolution, excluding report preparation/commit. Its frozen scope excludes the
+later RTL packet and the following helper diagnostic.
+
+Separate diagnostic `fd77b13bb7` scans 835,579 retained reads against 18 exact
+formatter/global target words and finds no overlap, in 2.722842437s. Parent
+source inspection accepts this as a missing-input record, not independent
+closure of the helper argument. The worker is pursuing source initialization
+and callback preservation from the already-identified OCaml version; no new
+capture is inferred to be necessary solely from absent words.
+
+The normal formatter candidate `1ad16d7310` retains matching OCaml sources,
+the 603-file Why projection and ten additional installed bodies. Its source
+argument separates queued data from synchronously executed custom printers,
+classifies Why output/tag wrappers and identifies installed `Compress_none`.
+The 0.440460635s initial and 0.477335563s final pinned checks are retained.
+Independent review verified 612 archive members, ten bodies/9,110 bytes and
+other identities in 0.207042792s, but found #142: linked OCaml Misc.Color and
+Location wrappers fall outside the stated callback family. Their bodies appear
+safe for identifier counts; inclusion/preservation is a required proof edge.
+The 432s review interval includes report preparation, excludes final commit,
+and is not whole-team elapsed time. Repair is in progress; R remains open.
+
+The completed String alias graph and selected shared-query lifetimes are
+independently accepted at `603e0feeaab` / `054b25caec5`. Fourteen graph requests
+and two scalar registrations retain separate ownership; the query closure
+adds no events. It closes the selected identifier/UID/cache/vector/alias and
+scalar histories, including scalar history 39275 / capacity 58911. Original
+36 graph checks and 42 query checks / 33 cases are reused. Independent review
+verified 22 compiler / 18 repository graph inputs and 96 compiler / 28 repository
+query inputs and passed 22 grouped checks in 0.476313202s. These overlapping
+input counts are not a summed unique-file count. No native/aggregate/corpus
+rerun occurred. Actual-source attachment and other native/collector accounting
+remain open.
+
+The earlier integration check verified 60 frozen files, 30 JSON and 11 Python
+syntax inputs, 85 local packet links, 46 current selected-route pins and 249
+checkpoint links in 0.701248058s. The extended check after graph/query
+integration verifies 77 frozen files, 38 JSON and 15 Python syntax inputs,
+98 local packet links, the same 46 selected-route pins and 252 checkpoint
+links in 0.227231072s. Exact selected bytes, including correction overlays,
+match their frozen commits.
+This does not rerun the successful component suites or supply independent
+review. Managed status shows no active native job, zero reserved workers and
+no required diagnostic. No new compiler, debugger, solver, build, Lean or full
+test-suite run occurred in this round.
+
+This mixed-model round completed a reviewed attachment and supplied further
+source/input arguments. It exposed small check/recording corrections and
+narrowed the remaining alias and formatter obligations. These observations do
+not establish causal model-quality or cost comparisons. The two material
+source-correspondence findings show the value of challenging entry/caller
+completeness; #141 is repaired and #142 is being addressed. Independent review
+uses Astra Extra High; runtime confirmation, lead settings and per-round
+token/cost measurements are unavailable. CLI memory remains unavailable.
+
+During this round, subthreads reported a lead model-capacity interruption, and
+the live harness later read `blocked`. The owner explicitly requested continued
+work; tools and the selected subthread tiers resumed. The harness objective is
+unchanged, and that status is distinct from issue #119's ongoing work. No lower
+subthread tier or research stop was selected; available goal controls do not
+provide a resume transition. This is not a claim that the goal is complete.
+
+Next work attaches the accepted map/RTL/graph/query lifetime results, reviews
+the frozen #142 formatter repair and closes Why helper/exception preservation,
+then completes remaining native/collector,
+required producer/consumer/fixed-library/parent coverage, current-grammar
+composition, useful-domain comparison and final review. Oracle, installed
+tools/pins and production admission remain unchanged; #119 stays active and
+production #88–#94 remains authorized and unstarted.

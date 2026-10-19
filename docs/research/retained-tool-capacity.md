@@ -461,8 +461,29 @@ prices the selected gigi map-array slice. Under the existing logical-line and
 source-population premises, each file creates one map. At most 1,589 entries
 require three GGC requests of 8,192, 32,768 and 131,072 bytes, with no finalizer.
 All 1,590 file counts and the line/interface boundaries were checked offline;
-the ten source identities match the accepted location/frontend inputs. Later
-ordinary-map writers and aggregate attachment remain open.
+the ten source identities match the accepted location/frontend inputs.
+
+The [map/shared attachment](../reviews/review-literal-map-later-attachment-6beebbc39c.md)
+accepts frozen `6beebbc39c`. It binds the ordinary preallocation and repaired
+named shared-storage results to the same actual Main/fixed/template source
+objects. All **69 existing guards** remain conjunctive. Its 129 focused checks
+took 5.080602804 seconds; the independent 40-assertion check took 0.558221265
+seconds without constructing the full aggregate Context or repeating the
+runtime census. Named projected endpoints remain diagnostic, all whole-lifetime
+residuals null, and the shared 768/partial 2,312/location 13 event ledgers stay
+separate. The attachment itself still exports preallocation only.
+
+The new [ordinary-map writer argument](retained-literal-ordinary-map-writers.md),
+frozen at `164a4c6ab0` and
+[independently accepted](../reviews/review-ordinary-writers-and-why-session-round16.md),
+excludes later ordinary-array growth on the selected
+x86-64 native Main route. Genuine runtime physical-location-maker callers are
+handled separately from self-tests: they belong to AArch64 JSON tuning and the
+standalone diagnostics library. Other frontends, libcpp readers and LTO inputs
+are excluded by the selected source/launch graph. Its 93 focused source/census
+checks took 0.043762149 seconds. Independent source review and a narrow
+0.074022984-second identity check accept the closure; lifetime attachment
+remains pending and the accepted preallocation packet is unchanged.
 
 The [named later shared-storage transfer](retained-literal-later-shared-storage.md),
 frozen at `1fc7ee7bcf` with repair `7df2aee6d4`, is
@@ -479,6 +500,43 @@ focused repair checks pass; independent rechecking rejects the original
 mutation and preserves Hello output. The original 40-check record remains
 historical. Nine remaining storage families and their next source joins are
 explicit; no complete global-counter/collector/native result is inferred.
+
+The [selected RTL cache/control lifetime argument](retained-literal-rtl-cache-controls.md),
+frozen at `8e4a84cfa3` with repair `bf898c7344` and
+[independently accepted as repaired](../reviews/review-literal-rtl-cache-repair-bf898c7344.md),
+supplies complete selected CONST_INT and reg_attrs
+histories `39257+120+C` and `39257+3C`, with zero later non-lookup growth.
+It prices at most **4C new shared backbones**; the setup's 121 backbones remain
+inside the existing 437-event envelope and direct objects retain their owners.
+Five additional fixed scalar controls are identified; recorded-loop/DF control
+increments are zero on this route. The reachable tree-type/alias child-map
+family remains open, so five is not the complete scalar-finalizer residual.
+Review found [#141](https://github.com/berkeleynerd/silver/issues/141): fresh
+descriptor setup performs two adjacent attribute lookups, so total reg_attrs
+lookup demand is 4C. The repair proves at most one new record/backbone per
+identical-key pair, including growth before a second hit. Thus the 3C record/
+history/backbone and 4C combined backing bounds remain valid. Seventeen focused
+repair checks cover 21,029 paired states in 0.051461426 seconds; the original
+39 checks remain historical. Independent repair checking took 0.243213960
+seconds. Aggregate attachment remains pending, and no complete native/collector
+total is inferred.
+
+The [completed String alias graph](retained-literal-type-alias-controls.md),
+frozen at `603e0feeaab`, and [selected shared-query lifetime](retained-literal-shared-query-lifetime.md),
+frozen at `054b25caec5`, are [independently accepted](../reviews/review-literal-type-alias-and-shared-query-round16.md).
+The graph adds **14 disjoint GGC requests and two scalar registrations**;
+the query closure adds no events. It closes selected identifier history
+`40879+3C+4D`, declaration UID `5869+5C+N+3D`, type UID `2295+6C+5D`,
+type/integer-cache and global/list-vector histories, alias occupancy 414861
+and alias ID 414860. Scalar registration history is **39275**, with allocated
+capacity **58911**. The prior named projections remain frozen intermediates;
+these new leaf results still need actual-source aggregate attachment.
+The 36 graph checks and 42 query checks / 33 arithmetic cases are retained;
+independent identity and 22 grouped interface/arithmetic assertions passed
+in 0.476313202 seconds. No native observation or broad suite was repeated.
+Separate mem_attrs, SSA/RTL/DF/emission counters, ordinary pools/stacks,
+array/outer finalizers and collector page/mark state, and the disjoint total
+GGC ledger remain open. These closures do not establish full native capacity.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -674,9 +732,11 @@ The second entry conservatively covers one stale runtime pending bit after
 ignore installation; arbitrary external signals do not create an unbounded
 queue under those premises. This yields a conditional charge
 `61641 + 2*(B_binders(S)+R)`, including explanation and shape binder openings.
-The current session graph, its fully opened occurrence bound and remaining
-helper/exit work are still missing inputs. A historical five-goal session seed
-is retained without identifying it as the current in-memory graph. The launch
+At that checkpoint the current session graph, its fully opened occurrence bound
+and remaining helper/exit work were missing inputs; the new instance below
+supplies the graph and binder charge while retaining the helper obligation.
+A historical five-goal session seed is retained without identifying it as the
+current in-memory graph. The launch
 mask alternative remains unimplemented, with cancellation, solver-child and
 new-prefix-counter joins explicit. The 29-state abstraction and seven retained
 native function bodies support the scoped argument; no new target ran.
@@ -702,8 +762,51 @@ closure, with no guard hits or projection failures. Exact offline replay of
 49,728 reads succeeds. These are observed inputs for charging,
 not a numeric save bound or a family-wide proof. The previous source/spec review
 does not claim to review the later observer implementation or this capture.
-No new `B_binders` or `R` is claimed, and no historical missing root is filled
-retroactively from the new process.
+That preparation/observation checkpoint supplied no numeric `B_binders` or `R`,
+and no historical missing root is filled retroactively from the new process.
+
+The new [same-process session/binder packet](retained-why-session-save-state.md),
+frozen at `98fdd88dbf` and
+[independently accepted](../reviews/review-ordinary-writers-and-why-session-round16.md),
+retains the successful capture and exact replay. It
+re-establishes the 1,145 accounted source registrations from PID 97103's counter
+60,496 using its own 14,477-block input isomorphism and complete current Hsdecl
+projection. The five forest visits yield **`B_binders=966`**, preserving shared
+occurrence multiplicity and delayed substitutions; all 66 distinct proposition
+formulas agree with the existing explicit-alpha decoder. Eight focused binder
+regressions pass. The extended offline source/ELF/join/binder check took
+5.485126837 seconds, with no additional native run. The original session
+projection's 17,955 blocks/511,712 bytes and final helper-inclusive projection's
+17,985 blocks/513,248 bytes name different stages of the same capture.
+
+The actual registered-statistics list is empty, and the two exit hooks plus
+terminal closure are identified. GNAT uses a buffer formatter; no
+`err_formatter` assumption supplies the missing transitive helper/global
+closure. **R remains unknown** and `63573+2R` is a conditional expression,
+not a numeric endpoint. This review includes the actual observer's stopped-process
+behavior and an independent 1.841769745-second archive/subsequence/certificate
+check; earlier reviews did not cover it. Full callback preservation, other
+entries and whole-pipeline capacity remain separate obligations.
+
+The separate [helper-read coverage diagnostic](../evidence/retained-why-session-helper-coverage-20261019/README.md),
+frozen at `fd77b13bb7`, finds no overlap between the 835,579 retained raw reads
+and 18 exact formatter/global target words. Its 2.722842437-second scan is a
+new missing-input check, not another capture. The parent inspected its source;
+it is outside the preceding independent review. A source-initialization and
+preservation argument using the identified OCaml version is being pursued
+before any further observation; no numeric helper charge is inferred.
+
+The subsequent [normal formatter-prefix candidate](retained-why-session-formatter-prefix.md),
+frozen at `1ad16d7310`, establishes that queued tokens carry data while `%a`/`%t`
+callbacks belong to a separate accumulator executed synchronously. The
+[independent review](../reviews/review-why-formatter-prefix-1ad16d7310.md) accepts
+that separation, the inspected Why wrappers and the installed `Compress_none`
+selection, but requires [#142](https://github.com/berkeleynerd/silver/issues/142)
+before accepting the installed callback-family closure. Linked OCaml `Misc.Color`
+and `Location` introduce additional tag/output wrappers outside the stated
+family. Their bodies appear compatible with zero identifier work, but their
+initialization and preservation must be included explicitly. The repair and
+separate exceptional-unwinding argument remain open; complete R is still null.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
