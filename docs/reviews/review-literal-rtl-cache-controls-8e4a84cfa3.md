@@ -61,7 +61,7 @@ For each fresh non-SSA TI descriptor, `expand_one_register_var` constructs the
 REG and calls `set_rtl` (`cfgexpand.cc:1930–1937`). Its initially null
 `REG_EXPR` and `leader_merge(null,t)` select the declaration. The first branch
 calls `set_reg_attrs_for_decl_rtl(t,x)` at line264. The non-SSA tail then executes
-`SET_DECL_RTL(t,x)` at line308. `tree.h:3121` maps that macro to `set_decl_rtl`,
+`SET_DECL_RTL(t,x)` at line305. `tree.h:3121` maps that macro to `set_decl_rtl`,
 whose body calls `set_reg_attrs_for_decl_rtl` again
 (`emit-rtl.cc:1463–1469`). Both non-null-declaration calls reach the
 insertion-capable lookup in `get_reg_attrs`.
