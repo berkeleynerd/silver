@@ -1,0 +1,536 @@
+{
+  "base_revision": "97b387d541",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "array_census": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-collector-closure.json",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/btfout.cc",
+      "bytes": 54837,
+      "sha256": "4f605115dfc8d380f401eb3b6afcb20fbb890f3383fbb9220401273dbd200480"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/coretypes.h",
+      "bytes": 16377,
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ctfout.cc",
+      "bytes": 25570,
+      "sha256": "451f02336fb1f53f937cae8953ca45836fefd0fa3f1cc88d935b5498043445c8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2out.cc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gcc-diagnostic-spec.h",
+      "bytes": 3763,
+      "sha256": "e2ffcff7c2448b3d02f365814f26727166b02532cc604ca33de994d2aea676b2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-common.cc",
+      "bytes": 40096,
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-map-traits.h",
+      "bytes": 5627,
+      "sha256": "d457b8c1c64d0b8bd21a10b330e1f325cf566e68c7fc6667da18c08a95959df2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/input.cc",
+      "bytes": 117157,
+      "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lto-streamer-in.cc",
+      "bytes": 64470,
+      "sha256": "48dd36a7756a37b424616579d07de740ed9ff23733e546a337e6bbb2837a9917"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stringpool.cc",
+      "bytes": 8292,
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/symtab.cc",
+      "bytes": 75509,
+      "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-data-ref.h",
+      "bytes": 25753,
+      "sha256": "4056908001e53202fd90b4f3e46dc36be7603785aeefd09bad5ef2d2552c3d0c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/line-map.h",
+      "bytes": 53179,
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/symtab.h",
+      "bytes": 3800,
+      "sha256": "44711b95df747e070c150eab63ca6b5de19121ca39775ac99551df10691a8fe1"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-collector-closure.json",
+      "bytes": 72173,
+      "sha256": "10f84f314ca3c63cae1b1ca565343ff69255c5f4514e0c687238b93adc79f650"
+    },
+    {
+      "root": "repo",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repo",
+      "path": "docs/research/retained-literal-collector-callbacks.md",
+      "bytes": 8346,
+      "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+    },
+    {
+      "root": "repo",
+      "path": "docs/research/retained-literal-shared-query-lifetime.md",
+      "bytes": 24499,
+      "sha256": "7c36a41128812f863533e51d71b1cbfc16eb2c9daa38ced5e8e0d12541c4b9c7"
+    },
+    {
+      "root": "repo",
+      "path": "docs/reviews/review-literal-storage-5706684775.md",
+      "bytes": 13213,
+      "sha256": "4edddeeb32c5f5477f36a7783aafa0908cec02c04d2ef5be1d014a3db2482c72"
+    },
+    {
+      "root": "repo",
+      "path": "docs/reviews/review-literal-type-alias-and-shared-query-round16.md",
+      "bytes": 12435,
+      "sha256": "05593012783102e980621094635ab665de36eb82144fa5227bff4203eadef212"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-shared-query-lifetime-20261019/result.json",
+      "bytes": 8943,
+      "sha256": "74f6198d099798da0cf8865a92bd83255195e14e90ec8105b0bc58e2aa1350be"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/ggc-storage-source-identity.json",
+      "bytes": 2087,
+      "sha256": "4bb979a89989b56e9f56a7b59a224a9ba78eff9cd8d93c1d7679b3371026cf68"
+    }
+  ],
+  "excerpts": [
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 331,
+      "last": 364,
+      "sha256": "e3025d1184d1c07c16e0512562e2da02505e494cf7fd03ca21321f0722009380"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 560,
+      "last": 570,
+      "sha256": "0194339463b6457b0bb66fbde048aef59f5153399a1d5d68c83dd384acbf1d09"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 980,
+      "last": 988,
+      "sha256": "bb9d214ca575d0f0374ec43449c4aa00a8ae904a63a4bda42912b73a4e7bff0c"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 1018,
+      "last": 1027,
+      "sha256": "584bd4a4f8c52ab6f17a4ecb7c811ca4f22ea5004cf73de46e29f27f67266adf"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 1328,
+      "last": 1344,
+      "sha256": "8510bacedc4933b67e1f59fc9e7adefe8bf04399e078917dacc1b6cf9b1f1dcd"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 1376,
+      "last": 1382,
+      "sha256": "c041fbd1b3cb6330d229a69a6e1890778ced41d38c4a953055a4cbc4f5c6a91a"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 1498,
+      "last": 1502,
+      "sha256": "142a66d1d27c555c7a2e9b092daedf66ba58531b3c2bbc8c375c27207315e09b"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 1923,
+      "last": 1935,
+      "sha256": "6d26bf271c245bf8f80de1a7b3792975ad5a9a407b5492bb2a777ae343ee50bf"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 1991,
+      "last": 2002,
+      "sha256": "f0fa01366307c132a135cc775c0eec6ae9e69b5c806a316303e9a19761edf845"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 2021,
+      "last": 2062,
+      "sha256": "142e01cf0639fd3c08b3d9b22da20548dad0544f458d33c82645acf1bd946a54"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 2326,
+      "last": 2333,
+      "sha256": "bd98429775b085f7082192c3ed0872f7231ec36d6c9fb33cf6ee3d19c84e6585"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "first": 2724,
+      "last": 2729,
+      "sha256": "a227d22b1d2a0ccd867579c9417007833360a05143f0d1578a9ace102b2cf6f0"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "first": 139,
+      "last": 158,
+      "sha256": "4217a0644fa0faea4ed43e8897d1715a91b330705fbe6bbb3848d6aedfef83e8"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "first": 160,
+      "last": 171,
+      "sha256": "1557c227f78e8cb17dec437e9d4422fe44847870c72819116bbd6de87a6b3adb"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "first": 174,
+      "last": 254,
+      "sha256": "8dd42d01cc041f03a0c028cf0f59b726948f9b9ae6cf10280c50db439d924441"
+    },
+    {
+      "path": "gcc/ggc-common.cc",
+      "first": 121,
+      "last": 206,
+      "sha256": "68a1fe8792f23087daabcfa97520de963e4a15f86fecf5ce208f4a21111545e5"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "first": 727,
+      "last": 774,
+      "sha256": "a045bd4f2cfa63bf5642bc0f8a4d8854a5c19b30c6d73f0040bec9bfd6154d52"
+    },
+    {
+      "path": "gcc/hash-map.h",
+      "first": 37,
+      "last": 50,
+      "sha256": "8d9219f205beb727d57d699e28e7c3d64cbf21ac64a56466c487ca77930107d5"
+    },
+    {
+      "path": "gcc/gcc-diagnostic-spec.h",
+      "first": 29,
+      "last": 110,
+      "sha256": "08d6e3f619665652e925054b897b2147cdb4579e6330f35e622b90a6a9a7ef55"
+    },
+    {
+      "path": "gcc/function.cc",
+      "first": 1256,
+      "last": 1265,
+      "sha256": "ecf99fbccafb1d379e55fc7391677fc0b275e6e779cfe3befcd29de39930dea0"
+    },
+    {
+      "path": "gcc/coretypes.h",
+      "first": 54,
+      "last": 60,
+      "sha256": "267f6d83d33910f5ac35282cac0b681515b8580189c7578066b3e7628d1b1087"
+    },
+    {
+      "path": "gcc/coretypes.h",
+      "first": 94,
+      "last": 99,
+      "sha256": "163e6d3d2f1627de371fe9cbf9fbadfbf992bba76649d7709c52345bc1352e13"
+    },
+    {
+      "path": "libcpp/include/symtab.h",
+      "first": 27,
+      "last": 33,
+      "sha256": "303686dfddefc404b90866099827f5c6f02f509dc84dc259770c21fd8761883f"
+    },
+    {
+      "path": "libcpp/include/line-map.h",
+      "first": 294,
+      "last": 303,
+      "sha256": "28c2a79f78644e8b89b7e6c7da961a20939d924cad178306b709b2e3d056d9bb"
+    },
+    {
+      "path": "gcc/vec.h",
+      "first": 1394,
+      "last": 1405,
+      "sha256": "d3ba191bbf2f0993f9535f3f613eec584e3c7ce35363879ee8499e146d948624"
+    },
+    {
+      "path": "gcc/vec.h",
+      "first": 1545,
+      "last": 1558,
+      "sha256": "e4556c20a76006e5abf9156031e37a68b17de1f1bb266511b6b32a4b6428b3ce"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "first": 150,
+      "last": 169,
+      "sha256": "77319d4dd6ac3e542ead901c2031376c3245265244f4598495c70dedbb4643c1"
+    }
+  ],
+  "array_sites": {
+    "char": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1781,
+        "path": "gcc/symtab.cc"
+      }
+    ],
+    "ctf_dtdef_ref": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1494,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1713,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 333,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_dtdef_t*": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 321,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_dvdef_ref": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1432,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 303,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_dvdef_t*": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 293,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "gimple_omp_for_iter": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 997,
+        "path": "gcc/gimple.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 2128,
+        "path": "gcc/gimple.cc"
+      }
+    ],
+    "ht_identifier_ptr": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 299,
+        "path": "gcc/stringpool.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 306,
+        "path": "gcc/stringpool.cc"
+      }
+    ],
+    "initial_value_pair": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1310,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "lambda_int": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 733,
+        "path": "gcc/tree-data-ref.h"
+      }
+    ],
+    "location_t": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 731,
+        "path": "gcc/input.cc"
+      }
+    ],
+    "rtx": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 6000,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "tree": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 436,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      },
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 439,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "unsigned char": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 17013,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 17592,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 17635,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 20691,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 20714,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 21414,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 31350,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 2048,
+        "path": "gcc/lto-streamer-in.cc"
+      }
+    ],
+    "value_type": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 767,
+        "path": "gcc/hash-table.h"
+      }
+    ],
+    "void **": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 221,
+        "path": "gcc/ggc-common.cc"
+      }
+    ]
+  },
+  "accepted_census_reexecuted": false
+}

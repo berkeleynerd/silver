@@ -1,0 +1,40 @@
+{
+  "base_revision": "97b387d541",
+  "started_checkpoint_utc": "2026-10-19T01:25:50Z",
+  "finished_checkpoint_utc": "2026-10-19T01:28:59.431030+00:00",
+  "selected_model": "lead; live model unavailable",
+  "selected_effort": "unavailable; no switch claimed",
+  "tokens": null,
+  "monetary_cost": null,
+  "checks_elapsed_seconds": 0.028112546999182086,
+  "successful_prior_suites_rerun": false,
+  "native_executions": 0,
+  "independent_review_pending": true,
+  "files": [
+    {
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/result.json",
+      "bytes": 4181,
+      "sha256": "adbbd2396a0039490eb09a7bc23823de9b46d7e59d31bca58d87febe0573f653"
+    },
+    {
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/inputs.json",
+      "bytes": 14438,
+      "sha256": "e0bce5cf12ae3c336c1f1e5992ad59c6f9443ca4c4e2c1dc5369eb4861fdf8b2"
+    },
+    {
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/README.md",
+      "bytes": 908,
+      "sha256": "114d2cc882af00179b7e3c093375fa481627ba7331d9ce7ff015e736e21fce49"
+    },
+    {
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/check.py",
+      "bytes": 4265,
+      "sha256": "f4d1168def314fba91da76ab8c080c2d2388814527025f22ef4a0cc645e4947a"
+    },
+    {
+      "path": "docs/research/retained-literal-finalizer-lifetime.md",
+      "bytes": 8206,
+      "sha256": "69df4de7f6c23994bbef39219307276338121c90c441d935fcc25f004bdff623"
+    }
+  ]
+}
