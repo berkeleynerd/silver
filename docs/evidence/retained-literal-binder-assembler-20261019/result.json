@@ -1,0 +1,40 @@
+{
+  "scope": "Selected output-binder assembler checksum family under source projection",
+  "checksum_domain": [
+    0,
+    4294967295
+  ],
+  "source_equivalence_classes": [
+    "zero",
+    "nonzero signed32 decimal"
+  ],
+  "assembly_bytes_upper": 31743,
+  "lines": 1262,
+  "longest_line_bytes": 87,
+  "maximum_checksum_directive_bytes": 19,
+  "decimal_digits_upper": 10,
+  "numeric_operand_depth_upper": 2,
+  "checksum_data_bytes": 4,
+  "conditions": {
+    "decimal_accumulation_unsigned64": true,
+    "signed32_data_fits_four_bytes": true,
+    "decimal_length_below_GAS_small_threshold": true,
+    "complete_source_below_first_input_buffer": true,
+    "longest_line_below_initial_scrub": true,
+    "line_counter_signed": true,
+    "zero_repeat_and_byte_count_signed": true,
+    "checksum_does_not_change_symbol_or_fixup_counts": true
+  },
+  "conditional_binder_assembler_capacity": true,
+  "source_argument_required": true,
+  "same_source_invocation_join_required": true,
+  "fixed_success_transfers_zero_and_nonzero_requests": true,
+  "total_or_peak_RAM_inferred": false,
+  "complete_native_capacity": false,
+  "production_admission_changed": false,
+  "native_tool_executions": 0,
+  "retained_native_executions": 8,
+  "retained_tool_seconds": 0.22693071600224357,
+  "retained_managed_seconds": 2.286502532,
+  "offline_seconds": 0.010723966988734901
+}
