@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-19",
+  "issues": [
+    145,
+    119
+  ],
+  "status": "Actual-source named recognition attachment passed; frozen for independent attachment review",
+  "authorization": "Owner resumed #145 within119 at44936e7216; parent assigned bounded recognition attachment at7b66f9b6c3. Own new attachment note/packet only; parent owns Astra review, integration, global composition, indexes/issues/memory/publication.",
+  "base_revision": "7b66f9b6c326aac5b45202431538b899e68259d7",
+  "branch": "research/lra-recognition-attachment-20261019",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "first_recorded_checkpoint_utc": "2026-10-19T13:59:32+00:00",
+  "current_record_utc": "2026-10-19T14:07:45.534281+00:00",
+  "checkpoint_interval_seconds": 493.534281,
+  "whole_task_elapsed_seconds": null,
+  "clock_measurement_scope": "Measured interval from first tool clock checkpoint, including worktree/dependency reading, implementation/checks/documentation. Exact task start/model compute time unavailable; focused checker and native time separate.",
+  "intended_outcome": "Attach accepted recognition source implication to complete actual-source367 joins; preserve both maps and all owners, false/null behavior, final-renumber stored pseudo keys,819/2730 rounded slots and nrefs2/freq2000; no new source guard/owner/charge.",
+  "achieved_result": "367 inherited guards unchanged; named actual-source recognition lifetime/counter result attached after complete validation. Zero new guards or owners; complete native/pipeline false.",
+  "affected_checker": {
+    "started_utc": "2026-10-19T14:04:43.824295+00:00",
+    "completed_utc": "2026-10-19T14:04:54.031464+00:00",
+    "elapsed_seconds": 10.207152711998788,
+    "check_count": 111,
+    "new_successor_contexts": 1,
+    "inherited_guards": 367,
+    "new_guards": 0,
+    "real_failed_unresolved_predicates": 148,
+    "affected_scope": "New recognition attachment, complete helper/backing/source joins and representative inherited false/null paths; accepted source and predecessor evidence reused."
+  },
+  "actual_sources": 4,
+  "pure_count_cases": 9,
+  "accepted_inputs": {
+    "accepted_actual_source367": "71624df23244a680b3da379c655691df1d77312c",
+    "accepted_actual_source367_review": "ac4694d0f7e4d53f98d304ce59db2c18ebf40004",
+    "accepted_recognition_source": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+    "accepted_recognition_review": "df9ada3f10e8182cd90f9293701c687e20305150",
+    "recognition_source_inventory": {
+      "GCC_files": 17,
+      "repository_files": 26,
+      "literal_LF_excerpts": 72,
+      "mutation_API_occurrences": 65,
+      "owner_writer_occurrences": 26,
+      "retained_headers": 3
+    }
+  },
+  "accepted_complete_current_and_Git_records": 18,
+  "findings_and_rework": [
+    "First focused attempt passed four actual-source transfers, then correctly rejected an inconsistent synthetic LRA10000 guard mutation through the accepted ordinary owner validator. Checker changed to build the real failed GGC/ordinary/numeric/helper chain, preserving131 nulls; no source or bound change. Failed run elapsed unavailable.",
+    "During that checkpoint, recomputed failed/unresolved lists from unchanged inherited maps. No new predicate added.",
+    "Second attempt reached broader-scope corruption checks and correctly rejected through an earlier accepted pool-finalizer validator; checker error-fragment expectation narrowed to the shared scope phrase. Failed run elapsed unavailable.",
+    "Final focused checker passed111 checks in10.207152711998788 seconds. No subsequent adapter/checker/input/result changes.",
+    "Initial final-record scratch comparison forgot nested source_path metadata differs between retained worktree results. Corrected to recursively omit only source_path for that retained-run comparison; all other prior fields except intended wrapper scope/validation/accounting/open-join/run fields match. No target correction or evaluator rerun.",
+    "Lead reported separate #146 cold IRA probe four-event GGC correction (two REG, SET, detached INSN). Exact accepted367 GGC snapshot remains unchanged; global correction and collector rederivation belong to lead/later authorized composition."
+  ],
+  "reused_evidence": {
+    "recognition_source_checks": 62,
+    "recognition_source_check_seconds": 3.371710624996922,
+    "recognition_review_inspection_seconds": 151,
+    "recognition_review_record_arithmetic_seconds": 0.33892058600031305,
+    "helper_attachment_checks": 146,
+    "helper_attachment_seconds": 9.525369996001245,
+    "other": "Accepted helper/numeric/ordinary/GGC/source Context chains and all successful predecessor suites/source arguments retained.",
+    "replayed": false
+  },
+  "final_artifact_identities": {
+    "docs/evidence/retained-literal-lra-recognition-attachment-20261019/compose.py": {
+      "bytes": 14586,
+      "sha256": "9d671c2c1c6612ca31a8cc2230842fef1c4ef014c795fafc6a5ab09ac6ff754f"
+    },
+    "docs/evidence/retained-literal-lra-recognition-attachment-20261019/check.py": {
+      "bytes": 18184,
+      "sha256": "5594febf2c0ef4738d1cfe98aac08bcdf818db1da13270fcaf0628aa19332c1d"
+    },
+    "docs/evidence/retained-literal-lra-recognition-attachment-20261019/inputs.json": {
+      "bytes": 5965,
+      "sha256": "12abfadd7b2d075e81b67b2fe2d0c11aabeeacc5feaffe4fac9b31f85995aaac"
+    },
+    "docs/evidence/retained-literal-lra-recognition-attachment-20261019/check-results.json": {
+      "bytes": 40241,
+      "sha256": "0b1e4d53ab249ae0307716a53b4be2ca6a896f673e27a88a878e27081e7f2b9c"
+    },
+    "docs/evidence/retained-literal-lra-recognition-attachment-20261019/result.json": {
+      "bytes": 1359850,
+      "sha256": "63e6b00397a41866d9f851877de7acd1798e839fe4726eda42a1de457eabba22"
+    },
+    "docs/evidence/retained-literal-lra-recognition-attachment-20261019/README.md": {
+      "bytes": 3680,
+      "sha256": "d71be7284b21131b18825f398a06436454d59289925bd51eb06dbf27b6c3deaa"
+    },
+    "docs/research/retained-literal-lra-recognition-attachment.md": {
+      "bytes": 11846,
+      "sha256": "905913e39c0d8eb97ec5c7140fa35fa8c6323e7cda54f08dd72bc5207fffadad"
+    }
+  },
+  "artifact_identity_scope": "Final adapter/checker/manifest/result/check-results/README/note. Round not self-hashed.",
+  "final_record_validation": {
+    "status": "passed",
+    "python_syntax_files": 2,
+    "JSON_files": 3,
+    "accepted_current_and_Git_pins": 18,
+    "focused_checks": 111,
+    "final_guards": 367,
+    "new_guards": 0,
+    "Hello_GGC_events": 47054,
+    "actual_C10_N10_GGC_events": 69927,
+    "elapsed_seconds": 0.14533668199146632,
+    "scope": "Read/hash/AST/JSON and retained-record checks only; normalize source_path metadata between different retained worktree runs; no Context/evaluator/checker or broad/native replay."
+  },
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive validation started or resumed; focused offline identity/owner/arithmetic checks only.",
+  "native_workers": 0,
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "census_executions": 0,
+  "aggregate_or_corpus_executions": 0,
+  "recognition_fixed_Hello_fixture_called": false,
+  "github_writes": 0,
+  "delegation": 0,
+  "session_memory_updated": false,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_gate": false,
+  "remaining_obligations": [
+    "Independent Astra review of exact frozen commit before parent integration.",
+    "Lead-owned global composition and #146 cold-IRA four-event GGC owner correction/collector rederivation.",
+    "Other outer IRA/imported/external-sort helpers, remaining LRA arithmetic/automatic storage/elimination offsets, other native/helper/stack and producer/proof/parent/current-grammar capacity.",
+    "Production launcher/materialization/source-binary correspondence and physical external allocation assumptions remain separate; no GPRbuild/Gprbind/fixed-child regeneration in selected graph."
+  ]
+}

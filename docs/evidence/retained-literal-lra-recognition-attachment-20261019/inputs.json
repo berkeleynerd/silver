@@ -1,0 +1,136 @@
+{
+  "scope": "Complete accepted actual-source367 and recognition source packets, notes and exact independent reviews; fixed Hello fixture never used as a general source rule.",
+  "base_revision": "7b66f9b6c326aac5b45202431538b899e68259d7",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/README.md",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 4267,
+      "sha256": "cbec4f5ed277700529445f494f6487b14cfd613f69d5b491a480408d2d751a4b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check-results.json",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 30611,
+      "sha256": "81de0ea98112bcfdca0ae56b0bc265bc27382ca829e499c856fdc3c54f86fd48"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check.py",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 21987,
+      "sha256": "e6c117026c3aa695e59a7637de62139446095711f7a99a29c696c322285ffe24"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/compose.py",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 18280,
+      "sha256": "2fd777ab545c79d106af7064c3f5323799a36e817dfce403d555fbefc9a0308d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/inputs.json",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 5846,
+      "sha256": "792f6826a0dc581bc27d39a63f42777964315466a92dcf6dc40c09c30c8abebb"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/result.json",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 1111857,
+      "sha256": "f1e1663c15cbc548a29e2292c90306183719b18f536963a8f2076e620172e4f1"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/round.json",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 7966,
+      "sha256": "678e35a44a8e50fb30bd95ff1fb492b8400592d9feca22e790e813a0d40b00b0"
+    },
+    {
+      "path": "docs/research/retained-literal-ira-lra-helper-attachment.md",
+      "revision": "71624df23244a680b3da379c655691df1d77312c",
+      "bytes": 12177,
+      "sha256": "375fc63a348997d083fea9005b8e4c66fb8ca90be4e149cb2a78b090875402d3"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/README.md",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 3598,
+      "sha256": "2fa30e24aaf9d377e452b3085b8acbf2bdf9a171571c135346dc8806962639c6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/check-results.json",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 3531,
+      "sha256": "7f3e94328ef006e48410e378fbfd6784c777f9783d409a73d711c3ae2e853703"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/check.py",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 11012,
+      "sha256": "4f158f0092bba21f24f157472845768ed4b06fbdbc70ca45a9618477ca0bc7a4"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/derive.py",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 9115,
+      "sha256": "bb2cf420be78bacf5170ec87def25068f43ce020ecc2ba2b9188e5b258d16e96"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/inputs.json",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 128385,
+      "sha256": "a3f37babe38b6e116012878354f9a053c0fe9895dc51a806c84fb12e37974bb6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/result.json",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 4825,
+      "sha256": "c3fb4750fc3e6892740985cc1703df914ad9e7139ef1ee82a5d9558a6d7d5cf5"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-20261019/round.json",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 4823,
+      "sha256": "2978990e4db1f77cf642da2cf76097f7167b92324010d9e62550069c8a2b7b0f"
+    },
+    {
+      "path": "docs/research/retained-literal-lra-recognition.md",
+      "revision": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+      "bytes": 19567,
+      "sha256": "0f26977586538998ceddd1af5c6e6f172b193ee955e0777609954af84382b04c"
+    },
+    {
+      "path": "docs/reviews/review-literal-ira-lra-helper-attachment-71624df232.md",
+      "revision": "ac4694d0f7e4d53f98d304ce59db2c18ebf40004",
+      "bytes": 10661,
+      "sha256": "e3d7cc4bf8818d73c1a963ef08cab2530a2e5c746d22579b82ad283b4678b48f"
+    },
+    {
+      "path": "docs/reviews/review-literal-lra-recognition-b341b7f33a.md",
+      "revision": "df9ada3f10e8182cd90f9293701c687e20305150",
+      "bytes": 9816,
+      "sha256": "2ff423de929f73441ef75ad783b3b365287a92d8b020fcd1fe8c786938544c56"
+    }
+  ],
+  "accepted_actual_source367": "71624df23244a680b3da379c655691df1d77312c",
+  "accepted_actual_source367_review": "ac4694d0f7e4d53f98d304ce59db2c18ebf40004",
+  "accepted_recognition_source": "b341b7f33a6ce3e4f5c05683f0dcfe06596e09f4",
+  "accepted_recognition_review": "df9ada3f10e8182cd90f9293701c687e20305150",
+  "recognition_source_inventory": {
+    "GCC_files": 17,
+    "repository_files": 26,
+    "literal_LF_excerpts": 72,
+    "mutation_API_occurrences": 65,
+    "owner_writer_occurrences": 26,
+    "retained_headers": 3
+  },
+  "inherited_guard_count": 367,
+  "new_guard_count": 0,
+  "consumed_backing_premises": [
+    "LRA_register_tripling_signed_intermediate",
+    "LRA_instruction_UID_signed",
+    "LRA_recognition_tripling_unsigned_intermediate",
+    "LRA_recognition_stored_capacity_signed",
+    "LRA_recognition_array_byte_product"
+  ]
+}
