@@ -1793,3 +1793,129 @@ native process, capture, compiler/prover/Lean audit or full suite was replayed.
 are not established. The next work is independent IRA numeric review, remaining
 ordinary helpers and a corrected native-effect boundary, followed by the other
 required phases/current-grammar joins, comparison and final review.
+
+## Round 22 — IRA numeric closure and native callback coverage
+
+Date: 2026-10-19; follows published `8af6e536d8`. Owner-resumed #119 remains
+active work under the unchanged Oracle/tools/pins/admission and current-grammar
+scope. The harness's paused UI has no available resume transition. Production
+#88–#94 remains authorized and unstarted; no research stop is selected.
+
+IRA numeric source `9ed466e07f`, selected Astra / Extra High, is independently
+accepted by `7b702023dc`, also selected Astra / Extra High. Integration is
+`bc8ad862ed` / `d7b20eb4d2`. Its 27 local and two inherited guards close the
+named cost/frequency/equivalence/preference, pressure, fast-priority and int64
+aggregate arithmetic. Per-allocno bounds do not grow with C/N. Pressure is
+bounded by `7*(2*92+4+1)*34*15 = 674730`; this counts both hard-death scans,
+pseudo deaths and the separate own-range callback. A lead challenge about
+old pressure timestamps is resolved by the actual `max(threshold, range.start)`
+clipping, not an assumed group-entry reset. Priority multiplication is bounded
+before division and cost candidates before saturation. IRA's frequency unit
+1,000 remains distinct from the inherited LRA 10,000C guard.
+
+The author interval was 936.292761s; its sole focused run passed 111 checks
+in 0.095444527s, including 1,000 frequencies, 20,000 raw-candidate corners,
+61,497 normalization cases, nine adversarial pressure samples and 13 C/N cases.
+Independent review inspected for 223s, checked 29 GCC/18 current-and-base-Git
+identities, 39 literal-LF operative excerpts and retained arithmetic in
+0.143740639s, and found no material findings. It reused the author success
+without executing the evaluator/checker.
+
+The actual-source numeric attachment `eda02a9975`, selected Sol / Extra High,
+is independently accepted by `835e80f28a`, selected Astra / Extra High;
+integration is `af4778c2e2` / `08062f36ac`. It preserves 305 inherited guards
+and adds 27 local numeric, two repeated ID/point and one conjunction guard,
+for **335 guards**. Physical source/configuration and complete inherited
+owners are checked before new arithmetic. Failed or uncomputed prerequisites
+leave the numeric leaf and all 30 new guards null. The separate LRA frequency
+condition, prior storage owners and frozen component scope flags are preserved.
+The actual C=10/N=10 case keeps 69,927 GGC events, rather than Hello's 47,054.
+
+The author interval was 524.495533s. Its first run passed 128 checks in
+8.561891109s using one Context and four actual sources, with no rework. Review
+inspected for 97s and independently reconciled 24 current/Git records, seven
+artifact identities, 29 GCC/18 repository pins, 39 operative LF excerpts,
+20 complete preserved owner fields, 50 GGC rows and six boundary exports
+in 0.197514779s. These overlapping inventories are not unique-file totals.
+No material findings were identified; accepted author/source/predecessor
+successes were reused without executing their evaluators or suites.
+
+Outer IRA/LRA helper source `b795c8f745`, selected Astra / Extra High, is
+independently accepted by `4d7100e7fb`, also selected Astra / Extra High;
+integration is `9b8c13356f` / `5e4318b8ac`. It closes 18 named request families
+with 31 local guards. Size-dependent `lra_simple_p` requires the included
+inheritance usage array and EBB/call/UID counters; O0 alone does not exclude
+them. A lead challenge replaced a draft quadratic assignment-length bound
+with the source-supported per-pseudo **2(P+1)** bound. Each pseudo offers at
+most two range creations, independently of the global 10C pool. The 5,000-call
+case passes all local guards with length ceiling 140,102. No accepted earlier
+packet depended on the draft inheritance exclusion or quadratic guard.
+
+The author interval was 1,263.447065s. Final affected evidence passed 116
+checks in 0.117161937s; earlier 114-check runs of 0.099553302s and 0.119898209s
+preceded the selected-target and range-bound refinements. Review inspected
+for 186s and reconciled eight target/25 accepted Git records, seven artifact
+identities, 36 GCC/25 repository pins, 72 operative literal-LF excerpts and
+the unchanged 50-owner GGC partition in 0.255826640s. No material findings
+were identified. The minor regstat locator correction points to LF75–76,
+already inside the correct frozen excerpt. The successful author checks were
+reused. The fixed-Hello interface is not a general adapter; a Sol / Extra High
+successor now joins the named helper result to the accepted 335-guard route.
+Dynamic recognition lifetime, remaining outer helpers and LRA arithmetic
+remain separate obligations.
+
+The native-effect successor `f9e8f43523`, selected Astra / Extra High, is
+independently accepted by `8623c5123d`, also selected Astra / Extra High.
+Integration is `3738413dd2` / `7cb95968b0`. The medium coverage finding
+[#144](https://github.com/berkeleynerd/silver/issues/144) is corrected:
+the four-only condition omits major-GC and root-scanning/predecessor dispatch.
+This is separate from #143's address-correspondence defect. Eight pinned
+OCaml files and 11 installed bodies / 9,040 bytes support the additional edges.
+The seven selected cells are all unobserved in the retained streams; seven is
+not asserted exhaustive. Typed/API and classified OCaml-client results remain
+supported. The finite saved-root integer formatting interface also bounds its
+5/69-byte buffer and 8-byte nonzero limb copy under existing numeric contracts;
+it does not cover arbitrary first-inline or exceptional operands.
+
+The author interval was 1,091s. Its expanded projection/read check took
+3.517233508s and final default check 0.437736910s; the earlier four-cell
+observation is retained separately. A duplicate-unrelated-ELF-symbol extraction
+error was corrected before successful projection. Review inspected for 135s,
+reconciled five inputs, eight OCaml members/19 excerpts, 2,218 native records,
+9,040 bytes and the named decoded branch/load interfaces in 0.384650007s,
+and found no material findings. Retained read/capture successes were reused.
+Original imported source/disassembly whitespace is preserved. Initial state,
+preservation, complete native effect coverage and R remain open; no observed
+callback failure or production bug is asserted.
+
+After two bounded native-effect rounds, the complete preservation condition
+is still unresolved. The next task selects **Astra / Max** specifically to
+derive a complete relevant application-callback interface/configuration/effect
+summary using the existing runtime/library contracts, then identify essential
+initial inputs. Another exact-address census cannot answer that question.
+This is a named escalation, with return to the baseline after resolving it;
+it is not evidence that one model setting is causally superior. Ordinary
+allocator/libc/GMP implementations remain trusted. No new capture is justified
+until the missing state projection follows from the interface argument.
+
+Runtime model/effort confirmation and per-round token/monetary measurements
+remain unavailable. The paused harness's cumulative token/time counters were
+unchanged across this continuation and do not measure the resumed work.
+
+The stable integration check passed over **309 frozen files**, 161 JSON and
+52 Python syntax inputs, 256 packet links, 297 checkpoint links and all
+inherited/current input manifests in **1.008897709s**. It verifies the numeric
+adapter's 24 current/Git identities, the helper source's 25 repository pins,
+and the native-effect correction's explicit false/null completion fields.
+Raw output is retained at shared-checkout `tmp/round22-integration.json`.
+No accepted evaluator, native process, capture, compiler/prover/Lean audit
+or full suite was replayed. The #144 reporting correction is ready for
+publication/disposition; complete native preservation remains open.
+
+The next parallel work comprises the Sol / Extra High helper attachment,
+the named Astra / Max native-effect closure, and an Astra / Extra High
+conditional save/exit identifier and returning-catch argument. The last
+keeps native preservation as an explicit separate dependency. Their objective
+is to discharge the remaining joins, followed by required phases/current
+grammar, sound composition, useful-domain comparison and final review.
+#119 remains unfinished and production #88–#94 remains unstarted.

@@ -3,7 +3,7 @@
 **2026-10-19 — resumed research; derivation unfinished.**
 The [resumption decision](../session-memory.md#2026-10-19--capacity-goal-119-resumed)
 continues from the preserved evening checkpoint. The
-[round record](../evidence/retained-tool-rounds.md#round-21--ordinary-native-storage-and-hook-correspondence)
+[round record](../evidence/retained-tool-rounds.md#round-22--ira-numeric-closure-and-native-callback-coverage)
 identifies accepted and review-pending work and the first resumption steps.
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
@@ -660,8 +660,8 @@ The review checks actual traversal allocations as well as lifetime ceilings:
 the selected entry has one successor and later destinations are marked before
 push, so pending entries fit the actual live-block allocation. The root-only
 loop list stays in its 16 inline integer slots. The frozen Hello attachment
-checks these source/owner interfaces; a general actual-source attachment remains
-separate. Author evidence comprises 148 focused checks in 0.077607723s.
+checks these source/owner interfaces; the general actual-source attachment
+follows below. Author evidence comprises 148 focused checks in 0.077607723s.
 IRA/LRA ordinary arrays/pools, remaining native helper/stack state and the
 producer/proof/parent joins remain open.
 
@@ -674,8 +674,9 @@ Existing GGC, finalizer, bitmap and ET-pool owners are unchanged. The 192
 focused checks passed in 0.030164260s. Review supplies literal-LF coordinate
 and excerpt-selection corrections against the correctly pinned whole files;
 the excerpt-presence checks do not prove semantic coverage. Numeric costs,
-frequency/pressure/priority, outer IRA helpers, remaining LRA storage and the
-general actual-source attachment remain separate. No full IRA/native capacity
+frequency/pressure/priority, outer IRA helpers, remaining LRA storage and
+actual-source attachment were separate at that source checkpoint; the accepted
+numeric and attachment successors follow below. No full IRA/native capacity
 follows from the local conjunction.
 
 The [ordinary actual-source attachment](retained-literal-ordinary-attachment.md),
@@ -690,6 +691,46 @@ than the fixed Hello value. Existing owners receive no new charge. The 366
 CFI checks are retained; 109 affected IRA/changed-join checks passed in
 7.931407529s. Review found no material findings. Numeric IRA arithmetic,
 outer IRA/LRA helpers and complete native/pipeline capacities remain open.
+
+The [IRA numeric successor](retained-literal-ira-numeric.md), frozen at
+`9ed466e07f`, is [independently accepted](../reviews/review-literal-ira-numeric-9ed466e07f.md).
+It closes named costs, frequencies, equivalence/preference arithmetic,
+excess pressure, fast priorities and the int64 allocation-cost sum under
+27 local and two inherited guards. The pressure bound **674,730** counts
+repeated cross-class callbacks; each summand is clipped to the current
+object's range start even when the saved threshold is older. Pre-saturation
+costs and priority multiplication before division are bounded explicitly.
+Per-allocno bounds are independent of C/N; the aggregate has its own int64
+guard. IRA's frequency ceiling 1,000 does not replace LRA's separate 10,000C
+condition. Review reused the 111 focused checks and found no material findings.
+Its actual-source attachment follows below. Remaining outer IRA/LRA clients
+and complete native capacity remain open.
+
+The [actual-source numeric attachment](retained-literal-ira-numeric-attachment.md),
+frozen at `eda02a9975`, is
+[independently accepted](../reviews/review-literal-ira-numeric-attachment-eda02a9975.md).
+It preserves all 305 inherited conditions and adds 30 numeric conditions,
+for **335 conjunctive guards**. Actual source/configuration and complete owners
+are checked before failure branching; any false or uncomputed prerequisite
+leaves the numeric leaf and its new guards null. Existing owner records and
+the separate LRA frequency guard remain unchanged. Its first focused run
+passed 128 checks in 8.561891109s over four actual sources. Review found no
+material findings and reused that success. This attaches the named numeric
+result; outer IRA/LRA helpers and complete native/pipeline capacity remain open.
+
+The [outer IRA/LRA helper source](retained-literal-ira-lra-helpers.md), frozen
+at `b795c8f745`, is [independently accepted](../reviews/review-literal-ira-lra-helpers-b795c8f745.md)
+for 18 named request families and 31 local storage/index guards. It includes
+the size-dependent inheritance route and its usage array and counters;
+`-O0` alone does not exclude that route. Each pseudo has at most two range
+creation opportunities, so **2(P+1)<=INT_MAX** bounds its assignment-length
+sum without a quadratic C multiplier. The 5,000-call case passes these local
+guards. Existing register/constraint, bitmap and GGC owners are preserved.
+The 116 focused checks passed in 0.117161937s; review found no material findings
+and supplies one minor source-line locator correction. This source packet's
+fixed-Hello reconciliation is separate from the next actual-source attachment.
+Dynamic recognition lifetimes, other outer helpers and LRA arithmetic remain
+open, as does complete native capacity.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -1029,16 +1070,21 @@ bounded approach is a complete interval-local native callee/effect relation,
 with initial-state evidence separate from preservation. No further native
 capture or broad address scan follows merely from the retraction.
 
-The ongoing interval inventory also identifies `caml_major_gc_hook`
-(`major_gc.c:430`) and `caml_scan_roots_hook` (`roots_nat.c:346,450`), including
-the systhreads scanner's saved predecessor (`st_stubs.c:161,459–460`), in the
-retained OCaml source. These source witnesses were checked against the
-[pinned archive](../evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz).
-The four timing cells therefore do not exhaust the native callback boundary.
-Their source/installed linkage, initial state and effect coverage are part of
-the active successor; no arbitrary nonnull callback or failing execution has
-been demonstrated. The older four-cell wording is insufficient as a complete
-preservation condition, independently of #143's computed-address finding.
+The [interval-native-effects correction](retained-why-interval-native-effects.md),
+frozen at `f9e8f43523`, is
+[independently accepted](../reviews/review-why-interval-native-effects-f9e8f43523.md)
+for finding [#144](https://github.com/berkeleynerd/silver/issues/144).
+`caml_major_gc_hook` and the root-scanning hook/systhreads predecessor chain
+are additional reachable dispatch obligations. Eight pinned OCaml files and
+11 installed bodies, 9,040 bytes, establish those named routes. The older
+four-only boundary and buffer condition are superseded; the supported typed
+and classified OCaml-client lemmas remain. Seven targeted cells are all
+unobserved in the retained read streams, and seven is not an exhaustive native
+interface count. Initial configuration, complete effect coverage and interval
+preservation remain open. No unknown nonnull callback or failing execution is
+demonstrated. Existing collector/allocator/libc/GMP contracts still apply;
+the missing application-callback relation does not require re-proving those
+implementations. This coverage correction is distinct from #143.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
