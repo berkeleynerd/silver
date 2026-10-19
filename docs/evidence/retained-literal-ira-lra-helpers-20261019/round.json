@@ -1,0 +1,124 @@
+{
+  "task": "Named outer IRA and selected LRA helper storage, Refs #119",
+  "authorization": "Parent-assigned owner-authorized #119 research; only this packet and source note; no native/capture/build/prover/predecessor/corpus/GitHub work",
+  "base_commit": "8af6e536d8917d432182dcb6e45e33f8d3056b7e",
+  "branch": "research/119-literal-ira-lra-helpers",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "live_harness_goal": null,
+  "work_started_UTC": "2026-10-19T12:26:00+00:00",
+  "recorded_UTC": "2026-10-19T12:47:03.447065+00:00",
+  "elapsed_clock_seconds_to_record": 1263.447065,
+  "elapsed_clock_is_not_model_compute_time": true,
+  "intended_outcome": "Source-supported named outer IRA helper/reginfo/regstat and selected LRA storage with exact accepted owner reconciliation",
+  "achieved": {
+    "individual_request_families": 18,
+    "local_guards": 31,
+    "checks": 116,
+    "elapsed_check_seconds": 0.1171619369997643,
+    "input_verification": {
+      "GCC_files": 36,
+      "repository_files": 25,
+      "literal_LF_operative_excerpts": 72,
+      "retained_generated_headers": 1,
+      "selected_target_files_without_initial_value_override": 9
+    },
+    "actual_source_adapter_created": false,
+    "whole_native_capacity_established": false,
+    "review_status": "pending"
+  },
+  "retained_input_acceptance": {
+    "ordinary_adapter_implementation": "aa838b8fc9f8fe038d7f3dff7044d1365687fc44",
+    "ordinary_adapter_review": "df0859818d8222b52cf7f59018bd69c69b99f463",
+    "IRA_storage_implementation": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+    "IRA_storage_review": "3d00f8af990f45a537f7854e8c898d5c222ee394",
+    "numeric_packet_consumed": false
+  },
+  "source_and_review_findings": [
+    "Draft reading incorrectly treated O0 as excluding inheritance. Full source showed size-dependent lra_simple_p; final packet includes the optional 24K request and EBB/call/UID counters. No accepted source packet relied on that draft mistake.",
+    "Parent challenged draft quadratic 10C(P+1) assignment-length guard. Final per-pseudo argument uses at most two current instruction-register references/USE_POINT opportunities and no boundary/copy creator, yielding 2(P+1). The global 10C pool owner is preserved separately.",
+    "The first scratch manifest preparation rejected a layout excerpt starting after the class declaration; the start was corrected from LF68 to LF64 before any successful source check."
+  ],
+  "checks_and_rework": [
+    {
+      "checks": 114,
+      "elapsed_seconds": 0.09955330198863521,
+      "scope": "initial local arithmetic and source/owner interface"
+    },
+    {
+      "checks": 114,
+      "elapsed_seconds": 0.119898208999075,
+      "reason": "added explicit selected-target no-override verification"
+    },
+    {
+      "checks": 116,
+      "elapsed_seconds": 0.1171619369997643,
+      "reason": "linear per-pseudo range guard, five operative source excerpts, retained nrefs owner mutation and explicit 5000-call success"
+    }
+  ],
+  "comparison": {
+    "C": 5000,
+    "N": 0,
+    "all_local_helper_guards_pass": true,
+    "per_pseudo_live_length_upper": 140102,
+    "global_live_pool_objects_upper": 50000,
+    "previous_quadratic_draft_rejected": true,
+    "no_within_group_timestamp_assumption": true
+  },
+  "remaining": [
+    "full dynamic LRA recognition lifetime join to existing backing owner",
+    "other outer IRA imported helpers and external sort",
+    "other LRA arithmetic/automatic storage and elimination offsets",
+    "separate IRA numeric packet",
+    "actual-source successor preserving nullable prerequisites",
+    "whole native/producer/proof/parent capacity"
+  ],
+  "executions": {
+    "native_tools": 0,
+    "builds": 0,
+    "captures": 0,
+    "provers_or_solvers": 0,
+    "predecessor_evaluators_or_checkers": 0,
+    "aggregate_or_corpus_replays": 0
+  },
+  "bookkeeping": {
+    "root_integration_review_issues_publication_owned_by_parent": true,
+    "session_memory_updated": false,
+    "CLI_memory_updated": false
+  },
+  "artifact_identities": {
+    "README.md": {
+      "bytes": 1362,
+      "sha256": "07e95a41f8c7a800e4a0a09c57aba3d1261b9c78aadbef99286a4b2bb1ca3aa2"
+    },
+    "check-results.json": {
+      "bytes": 7012,
+      "sha256": "1c4e547725944a92da629a63a2891abe568163604c7afd67984df0dd942a3c45"
+    },
+    "check.py": {
+      "bytes": 9852,
+      "sha256": "52a8b9af4444a99de2e9dc644a87d0469fee7c9b3818a6e9d97c33936bb54eea"
+    },
+    "derive.py": {
+      "bytes": 14210,
+      "sha256": "86d0dc09df981a04c2049261303065145af801be8877a92d21d3f5e95fab30ed"
+    },
+    "inputs.json": {
+      "bytes": 120829,
+      "sha256": "78bd55882a352540a090bc90922de67634f0c91ad7cd0dc973dc7827135e7d48"
+    },
+    "result.json": {
+      "bytes": 11854,
+      "sha256": "bded346244f3ef8e06867ee469939514d81e91302e0fa9bbc72f384289a3609f"
+    }
+  },
+  "source_note_identity": {
+    "path": "docs/research/retained-literal-ira-lra-helpers.md",
+    "bytes": 18943,
+    "sha256": "b3620dd21e45176e8b6626890cf2fd4035e052c86dec7610faf3527b1c8d1863"
+  }
+}

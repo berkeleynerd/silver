@@ -1,0 +1,338 @@
+{
+  "scope": "conditional named outer IRA and selected LRA helper storage",
+  "counts": {
+    "C": 1,
+    "N": 0
+  },
+  "extents": {
+    "A": 4,
+    "K": 104,
+    "B": 10,
+    "M": 27,
+    "U": 29,
+    "P": 64,
+    "R": 157
+  },
+  "individual_requests": [
+    {
+      "name": "IRA equivalence array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 157,
+      "element_bytes": 40,
+      "each_request_bytes_upper": 6280,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "temporary IRA equivalence array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 104,
+      "element_bytes": 32,
+      "each_request_bytes_upper": 3328,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "common register renumber array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 157,
+      "element_bytes": 2,
+      "each_request_bytes_upper": 314,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "common register preference array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 157,
+      "element_bytes": 3,
+      "each_request_bytes_upper": 471,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "regstat set-reference array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 104,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 832,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "regstat information array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 104,
+      "element_bytes": 16,
+      "each_request_bytes_upper": 1664,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "empty IRA scratch pointer reserve",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 29,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 240,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "LRA register-info array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 157,
+      "element_bytes": 144,
+      "each_request_bytes_upper": 22608,
+      "accounting_owner": "retained core selected_native_backing; same allocation"
+    },
+    {
+      "name": "LRA block gen-kill records",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 10,
+      "element_bytes": 72,
+      "each_request_bytes_upper": 720,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "LRA reverse-postorder array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 10,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 40,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "optional LRA inheritance usage array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 104,
+      "element_bytes": 24,
+      "each_request_bytes_upper": 2496,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "LRA assignment integer arrays",
+      "simultaneous_instances_upper": 6,
+      "elements_upper": 104,
+      "element_bytes": 4,
+      "each_request_bytes_upper": 416,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "LRA assignment thread array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 104,
+      "element_bytes": 12,
+      "each_request_bytes_upper": 1248,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "LRA assignment start-point array",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 64,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 512,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "persistent LRA elimination table",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 4,
+      "element_bytes": 48,
+      "each_request_bytes_upper": 192,
+      "accounting_owner": "retained target helper; one cold control, no repeated charge"
+    },
+    {
+      "name": "empty LRA pointer-equivalence hash wrapper",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 1,
+      "element_bytes": 48,
+      "each_request_bytes_upper": 48,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "empty LRA pointer-equivalence hash slots",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 13,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 104,
+      "accounting_owner": "named helper"
+    },
+    {
+      "name": "LRA constraint pointer reserve",
+      "simultaneous_instances_upper": 1,
+      "elements_upper": 29,
+      "element_bytes": 8,
+      "each_request_bytes_upper": 240,
+      "accounting_owner": "retained core selected_native_backing; same allocation"
+    }
+  ],
+  "counters": {
+    "accepted_DF_reference_creations_upper": 36766,
+    "regstat_sets_and_refs_each_upper": 36766,
+    "regstat_deaths_each_upper": 600,
+    "calls_crossed_each_upper": 1,
+    "pseudo_calls_crossed": 0,
+    "frequency_before_saturation_upper": 2000,
+    "frequency_stored_upper": 1000,
+    "inheritance_passes_upper": 1,
+    "inheritance_EBB_epochs_upper": 10,
+    "inheritance_reload_counter": 0,
+    "inheritance_call_counter_upper": 1,
+    "LRA_initial_value_counter_upper": 157,
+    "LRA_live_ranges_per_pseudo_upper": 2,
+    "assignment_live_length_sum_upper": 130
+  },
+  "selected_schedule": {
+    "regstat_initializations": 1,
+    "regstat_recomputations": 0,
+    "IRA_scratch_records": 0,
+    "initial_value_hook_invocations": 0,
+    "LRA_register_array_requests": 1,
+    "LRA_register_growth_requests": 0,
+    "LRA_live_range_builds": 1,
+    "LRA_assignments": 1,
+    "LRA_inheritance_passes_upper": 1,
+    "LRA_exception_receiver_worklist_requests": 0
+  },
+  "local_representation_checks": {
+    "register_growth_signed_tripling": true,
+    "register_array_length_and_value_counter_signed": true,
+    "register_indices_signed": true,
+    "block_indices_and_inheritance_epoch_signed": true,
+    "UID_narrowing_and_negation_signed": true,
+    "empty_scratch_vector_31_bit_capacity": true,
+    "point_endpoint_and_loop_successor_signed": true,
+    "regstat_DF_count_narrowing_and_use_plus_set": true,
+    "regstat_note_death_increments": true,
+    "regstat_and_inheritance_call_counters": true,
+    "regstat_pre_saturation_frequency": true,
+    "assignment_live_length_sum_signed": true,
+    "stored_class_char_and_hard_reg_short": true,
+    "request_PTRDIFF_MAX:IRA equivalence array": true,
+    "request_PTRDIFF_MAX:temporary IRA equivalence array": true,
+    "request_PTRDIFF_MAX:common register renumber array": true,
+    "request_PTRDIFF_MAX:common register preference array": true,
+    "request_PTRDIFF_MAX:regstat set-reference array": true,
+    "request_PTRDIFF_MAX:regstat information array": true,
+    "request_PTRDIFF_MAX:empty IRA scratch pointer reserve": true,
+    "request_PTRDIFF_MAX:LRA register-info array": true,
+    "request_PTRDIFF_MAX:LRA block gen-kill records": true,
+    "request_PTRDIFF_MAX:LRA reverse-postorder array": true,
+    "request_PTRDIFF_MAX:optional LRA inheritance usage array": true,
+    "request_PTRDIFF_MAX:LRA assignment integer arrays": true,
+    "request_PTRDIFF_MAX:LRA assignment thread array": true,
+    "request_PTRDIFF_MAX:LRA assignment start-point array": true,
+    "request_PTRDIFF_MAX:persistent LRA elimination table": true,
+    "request_PTRDIFF_MAX:empty LRA pointer-equivalence hash wrapper": true,
+    "request_PTRDIFF_MAX:empty LRA pointer-equivalence hash slots": true,
+    "request_PTRDIFF_MAX:LRA constraint pointer reserve": true
+  },
+  "conditional_named_helper_storage_capacity": true,
+  "failed_predicates": [],
+  "new_GGC_events": 0,
+  "new_scalar_registrations": 0,
+  "new_array_registrations": 0,
+  "shared_bitmap_or_ET_blocks_recharged": 0,
+  "retained_LRA_register_and_constraint_owners_recharged": false,
+  "aggregate_ordinary_bytes": null,
+  "lifetime_ordinary_request_total": null,
+  "aggregate_RAM_gate": false,
+  "all_outer_IRA_interfaces_closed": false,
+  "all_LRA_ordinary_helpers_closed": false,
+  "all_LRA_numeric_arithmetic_closed": false,
+  "complete_all_ordinary_native_capacity": false,
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_admission_changed": false,
+  "actual_source_adapter_created": false,
+  "numeric_packet_consumed": false,
+  "independent_review_status": "pending",
+  "source_reachability_argument_is_handwritten": true,
+  "native_tool_executions": 0,
+  "predecessor_evaluator_or_checker_executions": 0,
+  "aggregate_or_corpus_replays": 0,
+  "input_verification": {
+    "GCC_files": 36,
+    "repository_files": 25,
+    "literal_LF_operative_excerpts": 72,
+    "retained_generated_headers": 1,
+    "selected_target_files_without_initial_value_override": 9
+  },
+  "retained_interface": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "accepted_adapter_result_identity": {
+      "bytes": 838496,
+      "sha256": "d82262008cf21d10879f062cdc973d1b5d9c8384c320c674ece5ef93b33abe2b"
+    },
+    "accepted_predicates_preserved": 305,
+    "accepted_GGC_owners_preserved": 50,
+    "fixed_Hello_positive_GGC_events_preserved": 47054,
+    "reload_equivalence_owner": {
+      "record_bytes": 56,
+      "first_capacity_upper": 146,
+      "first_bytes_upper": 8192,
+      "second_extra_slots_upper": 104,
+      "second_desired_length_upper": 208,
+      "second_pre_round_slots_upper": 219,
+      "second_capacity_upper": 292,
+      "second_bytes_upper": 16384
+    },
+    "LRA_register_record_owner": {
+      "register_record_entries_upper": 157,
+      "each_register_record_bytes": 144,
+      "register_record_request_bytes_upper": 22608,
+      "register_record_array_requests": 1,
+      "last_reg_value_upper": 157,
+      "recognition_pointer_entries_upper": 42,
+      "recognition_pointer_request_bytes_upper": 336,
+      "live_recognition_records_upper": 27,
+      "each_recognition_record_bytes": 80,
+      "recognition_pool_blocks_upper": 1,
+      "static_recognition_records_upper": 4,
+      "each_static_recognition_request_bytes_upper": 88,
+      "live_operand_location_arrays_upper": 7,
+      "each_operand_location_array_bytes": 16,
+      "duplication_arrays": 0,
+      "live_call_hard_argument_arrays_upper": 1,
+      "each_call_hard_argument_array_bytes": 12,
+      "implicit_call_array_stack_entries_used": 3,
+      "implicit_call_array_stack_entries_available": 92,
+      "static_operand_alternative_arrays_upper": 2,
+      "each_operand_alternative_array_bytes_upper": 1680,
+      "live_instruction_register_records_upper": 10,
+      "each_instruction_register_record_bytes": 24,
+      "instruction_register_pool_blocks_upper": 1,
+      "static_nonoperand_register_records": 0,
+      "live_register_instruction_bitmap_elements_upper": 10,
+      "referenced_pseudo_nrefs_upper": 2,
+      "constraint_stack_request_bytes_upper": 240,
+      "constraint_stack_bitmap_bytes_upper": 16,
+      "constraint_stack_growth_requests_after_initialization": 0,
+      "all_LRA_helpers_and_shared_bitmap_backing_included": false
+    },
+    "DF_count_owner": {
+      "ref_order_final_upper": 36766,
+      "selected_note_requests_upper": 600
+    },
+    "selected_LRA_schedule": {
+      "constraints": 2,
+      "live_range_construction": 1,
+      "assignment": 1,
+      "inheritance_upper": 1,
+      "undo_upper": 1
+    },
+    "existing_owner_rows_replaced": 0,
+    "new_GGC_owner_rows": 0,
+    "no_actual_source_adapter_created": true,
+    "numeric_packet_consumed": false
+  }
+}
