@@ -1,5 +1,20 @@
 # Session memory
 
+## 2026-10-19 — Capacity goal #119 resumed
+
+The owner instructed **“Let's resume.”** This revokes the evening pause and
+resumes [#119](https://github.com/berkeleynerd/silver/issues/119) from the
+published `ba82867962` checkpoint in draft PR #121. Return #119 to In progress.
+First independently review the frozen native ledger `ca4ef8d20f`; integrate
+accepted results, then continue the recorded remaining capacity obligations.
+Reuse successful evidence and preserve worktrees/caches. Current-Silver-grammar
+scope, Oracle, installed tools/pins and production admission are unchanged.
+Production #88–#94 remains authorized and unstarted pending the justified rule.
+No research stop is selected. The live harness still reports paused at the
+resumption read; available goal tools have no resume transition. That UI state
+does not revoke this direct authorization or mean the objective is complete.
+CLI memory is unavailable.
+
 ## 2026-10-19 — Evening pause of capacity goal #119
 
 The owner requested: **“Let's pause for the evening at the next convenient
