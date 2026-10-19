@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Attach accepted native invocation and Ada numeric leaves to unchanged core.
+"""Attach accepted selected-route components to the unchanged source-driven core.
 
 Offline design research. Fixed path classes, no materialization/native jobs.
 All local arithmetic predicates remain conjunctive; total capacity stays open.
@@ -55,12 +55,19 @@ class Context:
         self.frontend = runpy.run_path(str(E/'retained-literal-frontend-storage-20261018/compose.py'))
         self.location = runpy.run_path(str(E/'retained-literal-location-lifetime-20261018/derive.py'))
         self.location_context = self.location['Context'](gcc_root, ada_root)
+        self.ordinary = runpy.run_path(str(E/'retained-literal-ordinary-maps-20261018/derive.py'))
+        self.ordinary_inputs_verified = self.ordinary['check_inputs'](gcc_root, ada_root)
+        self.ordinary_reference = read(E/'retained-literal-ordinary-maps-20261018/result.json')
+        self.ordinary_reference.pop('complete_source_identities_checked')
+        self.later = runpy.run_path(str(E/'retained-literal-later-shared-storage-20261018/derive.py'))
+        self.later_context = self.later['Context'](gcc_root)
         roots = dict(repository=REPO, ada=Path(ada_root), plugin=Path(plugin_include))
         frontend_pins = read(E/'retained-literal-frontend-storage-20261018/inputs.json')
         for row in frontend_pins['files']+manifest['native_shape_inputs']:
             require(identity((roots[row['root']]/row['path']).read_bytes()) ==
                     {k:row[k] for k in ('bytes','sha256')}, 'frontend/ABI input: '+row['path'])
         retained_runtime = read(E/'retained-literal-frontend-storage-20261018/result.json')['components']['physical_sources']['runtime']
+        self.accepted_runtime = copy.deepcopy(retained_runtime)
         def reuse_runtime(directory):
             require(str(directory) == retained_runtime['directory'], 'same retained verified runtime census')
             return copy.deepcopy(retained_runtime)
@@ -71,10 +78,12 @@ class Context:
             indexed=read(prior/'native-indexed-invocation.json')['indexed_configuration_delta'],
             indexed_physical=read(prior/'native-indexed-source-buffers.json'), runtime_inventory=reuse_runtime)
         self.virtual_template_lines = {}
+        self.virtual_template_objects = {}
         for name in ('a-unccon.ads','s-imagei.ads','s-imagei.adb'):
             raw=(Path(ada_root)/'libgnat'/name).read_bytes()
             require(raw == (Path(retained_runtime['directory'])/name).read_bytes(), 'virtual template/runtime identity')
             self.virtual_template_lines['libgnat/'+name] = len(re.split(rb'\r\n|[\r\n]',raw))
+            self.virtual_template_objects['libgnat/'+name] = self.frontend['source_object'](raw)
         types=(Path(ada_root)/'types.ads').read_text(); c_types=(Path(ada_root)/'types.h').read_text()
         sinput=(Path(ada_root)/'sinput.ads').read_text(); load=(Path(ada_root)/'sinput-l.adb').read_text()
         host=(Path(plugin_include)/'auto-host.h').read_text()
@@ -104,6 +113,10 @@ class Context:
             location_complete_source_identity_records=self.location_context.source_inputs_verified,
             runtime_census_reused_from=manifest['frontend_freeze'], runtime_census_reinventoried=False,
             native_shape_identity_records=len(manifest['native_shape_inputs']),
+            ordinary_map_complete_source_identity_records=self.ordinary_inputs_verified,
+            later_shared_complete_source_identity_records=self.later_context.source_files,
+            later_shared_repository_identity_records=self.later_context.repository_files,
+            later_shared_unique_validated_function_ASTs=7,
             counts_overlap_and_must_not_be_added=True,
             accepted_reviews=manifest['reviews'])
 
@@ -339,10 +352,107 @@ def join_frontend_location(raw, core, invocation, numeric, frontend, location, c
         ordinary_line_map_backing_and_other_late_shared_storage_closed=False)
 
 
+def join_ordinary_and_named_later(raw, core, frontend, storage, ordinary, later, context):
+    """Attach preallocation and named demands without inventing full endpoints."""
+    source, counts = identity(raw), core['source_counts']
+    require(core['source'] == frontend['source'] == source and frontend['source_counts'] == counts,
+            'ordinary/later same actual frontend source/counts')
+    physical = frontend['components']['physical_sources']
+    require(frontend['exported_source_entry_bounds']['permanent_source_entries_upper'] ==
+            physical['permanent_source_entries_upper'] == physical['backend_File_Info_entries_upper'] == 1589 and
+            physical['Source_File_backing_demand'] == 1590 and
+            ordinary['file_count_upper'] == 1589 and ordinary['logical_lines_upper'] == 2**24,
+            'ordinary permanent population excludes transient spare')
+    require(physical['runtime'] == context.accepted_runtime and
+            physical['runtime']['all_per_source_checks_pass'] and
+            physical['runtime']['logical_line_table_objects'] == 0 and
+            all(row['checks']['no_Source_Reference'] and row['logical_line_table_objects'] == 0
+                for row in physical['extra_physical_objects'].values()),
+            'ordinary physical-to-logical no Source_Reference or logical table')
+    templates = context.virtual_template_objects
+    require({row['template']:row['copies_upper'] for row in physical['virtual_sources']} ==
+            {'libgnat/a-unccon.ads':7,'libgnat/s-imagei.ads':1,'libgnat/s-imagei.adb':1} and
+            all(row['shared_physical_text_and_line_arrays'] and row['new_text_or_line_array_objects'] == 0 and
+                templates[row['template']]['checks']['no_Source_Reference'] and
+                templates[row['template']]['logical_line_table_objects'] == 0 and
+                templates[row['template']]['physical_line_entries_bound'] == context.virtual_template_lines[row['template']]
+                for row in physical['virtual_sources']), 'ordinary virtual template logical-line identity')
+    logical_lines = dict(runtime_maximum=physical['runtime']['physical_line_entries_bound_maximum'],
+        extras={name:row['physical_line_entries_bound'] for name,row in physical['extra_physical_objects'].items()},
+        virtual_templates={name:row['physical_line_entries_bound'] for name,row in templates.items()})
+    expected_lines = dict(Main_ordinary_map_lines=1 <= logical_lines['extras']['Main'] <= 2**24,
+        fixed_runtime_ordinary_map_lines=1 <= logical_lines['runtime_maximum'] <= 2**24,
+        fixed_extra_ordinary_map_lines=all(1 <= value <= 2**24 for name,value in logical_lines['extras'].items() if name != 'Main'),
+        virtual_template_ordinary_map_lines=all(1 <= value <= 2**24 for value in logical_lines['virtual_templates'].values()))
+    require(storage['ordinary_map_line_checks'] == expected_lines,
+            'ordinary logical last-line bounds equal existing four line guards')
+    require(ordinary == context.ordinary_reference and
+            [row['rounded_GGC_bytes'] for row in ordinary['allocation_rows']] == [8192,32768,131072] and
+            ordinary['additional_GGC_events_upper'] == 3 and ordinary['additional_finalizers_upper'] == 0 and
+            not ordinary['complete_ordinary_map_lifetime_closed'] and ordinary['total_GGC_events'] is None,
+            'ordinary exact accepted preallocation and separate ownership')
+    shared = core['native_original_shared_storage']['interface']
+    corrected = storage['corrected_shared_identifier_projection']
+    require(corrected == context.location['corrected_shared_identifier_projection'](shared,source,counts),
+            'named later actual original shared and current corrected ingress')
+    require(later['source'] == later['incoming_original_shared_source'] == source and
+            later['source_counts'] == counts and
+            later['incoming_corrected_identifier_state'] == corrected['identifier_hash'] ==
+                storage['current_source_bound_shared_storage']['identifier_hash'] and
+            later['incoming_original_counters'] == shared['counter_endpoints'] and
+            later['incoming_scalar_finalizers'] == shared['scalar_finalizers'],
+            'named later actual original shared and current corrected ingress')
+    c = counts['output_calls']
+    demands = dict(identifier_insertions=2*c+1, DECL_UID_increments=3*c+2,
+        type_UID_increments=0, scalar_finalizer_registrations=6)
+    require(later['named_source_demands'] == demands and
+            all(sum(row[key] for row in later['consumer_rows']) == demands[name] for key,name in
+                (('identifiers','identifier_insertions'),('DECL_UID','DECL_UID_increments'),
+                 ('type_UID','type_UID_increments'),('scalar_finalizers','scalar_finalizer_registrations'))),
+            'named later disjoint 2C+1 3C+2 zero type and six ownership')
+    ownership = later['ownership']
+    require(ownership == dict(new_direct_GGC_objects_added=0,new_named_shared_GGC_backing_events=0,
+        additional_identifier_ordinary_backing_requests_upper=2*c+1,
+        additional_named_scalar_finalizer_ordinary_backing_requests_upper=6,
+        original_warning_and_assembler_name_controls_added_again=0,original_five_scalar_registrations_added_again=0,
+        original_dummy_identifier_and_DECL_UID_added_again=0,original_synthetic173_function_structures_added_again=0,
+        Main_struct_function_five_direct_requests_added_again=0,already_owned_direct_pool_GGC_events=10*c,
+        graph_pool_and_SSA_direct_request_subtotals_added_again=0), 'named later no repeated direct or shared costs')
+    projection = later['named_only_projection']; full = later['conditional_full_endpoint']
+    require(not projection['valid_as_complete_lifetime_endpoint'] and
+            projection['byte_bounds_exclude_interleaved_unjoined_consumers'] and
+            later['explicit_residual_ceilings'] == {name:None for name in context.later['RESIDUALS']} and
+            later['unresolved_endpoint_inputs'] == list(context.later['RESIDUALS']) and
+            all(full[name] is None for name in ('identifier_hash','scalar_finalizers','next_DECL_UID_upper',
+                'next_type_UID_upper','temporary_name_serial_upper')) and full['checks'] == {} and
+            later['conditional_full_arithmetic_fits'] is None and later['total_GGC_events'] is None and
+            not any(later[name] for name in ('supplied_residual_source_bounds_established',
+                'complete_later_shared_storage_closed','complete_global_counter_lifetime_closed',
+                'complete_collector_lifetime_closed','complete_gimplifier_lifetime_closed',
+                'whole_literal_pipeline_capacity_established','production_admission_changed','aggregate_RAM_gate')),
+            'named later unresolved residuals and full endpoints stay null')
+    return dict(source=source,source_counts=counts,permanent_source_entries_upper=1589,
+        physical_to_logical_identity_under_no_Source_Reference=True,logical_line_bounds=logical_lines,
+        virtual_template_identities={name:{k:row[k] for k in ('bytes','sha256')} for name,row in templates.items()},
+        existing_logical_line_guards=expected_lines,
+        ordinary_preallocation_bound_applies=all(expected_lines.values()),
+        ordinary_preallocation_GGC_events_upper=3,ordinary_preallocation_finalizers_upper=0,
+        ordinary_preallocation_ownership='Three source-map backing requests only; no filename, ad-hoc, warning, prefix or shared-partial-ledger charge repeated.',
+        later_named_demand_join_closed=True,later_named_projection_used_as_whole_lifetime_guard=False,
+        named_projection_guards_added=0,existing_condition_keys_changed=False,
+        later_named_ownership='Demand transfer only: direct pool/SSA/graph objects and original five registrations remain with existing owners.',
+        existing_GGC_partial_ledger_changed=False,complete_ordinary_map_lifetime_closed=False,
+        complete_later_shared_storage_closed=False,total_GGC_events=None)
+
+
 def attach(raw, core, invocation, numeric, frontend, location, context):
     route_join = join_invocation(raw, core, invocation, context)
     numeric_join = join_numeric(raw, core, numeric, context)
     storage_join = join_frontend_location(raw,core,invocation,numeric,frontend,location,context)
+    ordinary = context.ordinary['derive'](1589,2**24)
+    later = context.later['evaluate_source'](raw,core['native_original_shared_storage']['interface'],
+        storage_join['corrected_shared_identifier_projection'],context.later_context)
+    later_join = join_ordinary_and_named_later(raw,core,frontend,storage_join,ordinary,later,context)
     conditions, conditional = core['conditions'].copy(), core['conditional_conditions'].copy()
     require(set(core['unresolved_predicates']) == set(CLOSED), 'three core source-family gaps')
     assessments = copy.deepcopy(core['native_unit_frontier']['source_family_condition_assessments'])
@@ -380,14 +490,18 @@ def attach(raw, core, invocation, numeric, frontend, location, context):
         invocation_join=route_join, native_Ada_numeric=numeric, numeric_join=numeric_join,
         selected_native_frontend_storage=frontend,selected_native_location_lifetime=location,
         frontend_location_join=storage_join,
+        selected_native_ordinary_map_preallocation=ordinary,selected_native_later_shared_demands=later,
+        ordinary_map_later_shared_join=later_join,
         selected_current_source_bound_shared_storage=storage_join['current_source_bound_shared_storage'],
         frontend_leaf_scope='Unmodified accepted leaf; its Dope_Rec individual-object remainder is discharged by frontend_location_join.virtual_Dope_Rec. Its other remaining/global flags stay scoped to that leaf.',
-        location_leaf_scope='Unmodified accepted actual-source leaf. Frontend/ordinary-line premises and actual-source indexed identifier correction are supplied by frontend_location_join. Total GGC, ordinary line-map backing and later shared lifetimes remain open.',
+        location_leaf_scope='Unmodified accepted actual-source leaf. Frontend/ordinary-line premises and actual-source indexed identifier correction are supplied by frontend_location_join. Ordinary preallocation is attached separately; total GGC, later ordinary writers and full later shared lifetimes remain open.',
+        ordinary_map_leaf_scope='Accepted initial gigi preallocation only, bound to1589 permanent entries and existing logical-line guards by ordinary_map_later_shared_join; later ordinary writers remain open.',
+        later_shared_leaf_scope='Actual-source named demands only; projections are not chronological endpoints or complete byte bounds, residual/full endpoints stay null, and no named-only projection is a whole-lifetime guard.',
         selected_current_linker_result='core_result.literal_output_linker',
         selected_current_GGC_partial_ledger='core_result.native_original_shared_storage.partial_ledger',
-        accounting='No invocation/numeric/frontend/filename/prefix/old-warning/shared rows are added to the GCC partial ledger. The location/later-warning delta is separate. Repeated projections check correspondence; current corrected shared state supersedes only the scoped old identifier/filename/serial projections.',
+        accounting='Existing GCC partial ledger unchanged. Location/later-warning and three ordinary-map preallocation requests stay disjoint. Named later shared adds demands but no direct GGC objects/backbones, and no named-only endpoint is a whole-lifetime guard. No invocation/numeric/frontend/filename/prefix/old-warning/shared row is added again.',
         open_joins=dict(
-            native_remaining_lifetime_and_collector='Ordinary source line-map backing, other late frontend/name/ALI/local/recursive heaps, later shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes. Named frontend/numeric/location/later-warning intervals are attached; no complete original or native total follows.',
+            native_remaining_lifetime_and_collector='Later ordinary line-map writers, other late frontend/name/ALI/local/recursive heaps, residual shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes. Initial ordinary-map preallocation and named later shared demands are attached; four shared residuals and full endpoints remain null. No complete original or native total follows.',
             native_materializing_parent_storage='Complete selected parent source/map/project/driver/library graph storage and shared name pools remain open. Fixed Silver compile regeneration is not a job on this graph.',
             producer_frontends_and_consumers='Complete datarep/light frontend, producer launch, fixed Silver library proof jobs, report/flow/Why/server consumers and final reports remain open. Common Main path binding does not supply their argv graph.',
             production_adoption='Selected design graph is computable but no production launcher is adopted.'),

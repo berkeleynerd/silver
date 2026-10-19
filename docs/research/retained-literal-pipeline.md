@@ -2188,7 +2188,7 @@ packet and this note changed; parent owns independent review and integration.
 
 ## Selected native design route, frontend storage and location attachment
 
-The current wrapper is based on integrated `9091e36fb2` and consumes these
+The current wrapper is based on integrated `ab12e2db37` and consumes these
 accepted packets without changing their bytes:
 
 - Shared/linker attachment `99b7247d18`, reviewed in `b04b32a184`.
@@ -2204,6 +2204,13 @@ accepted packets without changing their bytes:
 - [Location/later-warning lifetime](retained-literal-location-lifetime.md)
   `11057399b9`, accepted in
   [review](../reviews/review-literal-location-11057399b9.md) `ab12d9119a`.
+- [Ordinary-map preallocation](retained-literal-ordinary-maps.md)
+  `9c52c43a6f`, accepted in
+  [review](../reviews/review-ordinary-maps-and-session-inputs-round15.md)
+  `50bcfccba2`.
+- [Named later-shared demands](retained-literal-later-shared-storage.md)
+  `1fc7ee7bcf` with provenance repair `7df2aee6d4`, accepted in
+  [review](../reviews/review-literal-later-shared-1fc7ee7bcf.md) `fac6de422d`.
 
 `selected-route.json` supplies explicit runtime configuration and points to
 `selected-core-fixture.json`. Native, datarep, phase1 and phase2 all bind the
@@ -2342,6 +2349,61 @@ eight-byte alignment and individual **eight-byte allocation**. There are nine
 such requests. This closes that particular unpriced virtual metadata remainder
 without introducing a summed heap or RAM gate.
 
+The ordinary-map attachment exports the unchanged accepted preallocation
+arithmetic as `selected_native_ordinary_map_preallocation` and its actual
+source binding in `ordinary_map_later_shared_join`. Its population is the
+**1,589 permanent entries**, never the 1,590-slot Source_File backing bound.
+`back_end.adb` passes the logical last line, through `Physical_To_Logical`.
+The reviewed source argument establishes physical-to-logical identity only
+when there are no Source_Reference pragmas or logical-line tables. The new
+join binds that obligation to the frontend's checked Main/configuration/System/
+Silver objects and accepted runtime census, and to the three directly checked
+virtual-template identities and shared line arrays. It equates their logical
+line bounds with the four existing `1 <= L <= 2^24` guards; the physical bound
+alone is not treated as sufficient for arbitrary remapped input.
+
+Under those guards, initial gigi preallocation takes at most **three GGC
+requests: 8,192, 32,768 and 131,072 bytes**, yielding map capacities 256,
+1,024 and 4,096. The accepted selected 32-byte ordinary-map representation
+and location endpoint arithmetic remain unchanged. No finalizer is added.
+The line-table control, initial ordinary hash, filenames, combined-location
+and warning backings keep their earlier owners; replacement frees earn no
+negative event credit. These three requests are a disjoint slice outside the
+existing shared partial ledger. Their bound is conditional on the named line
+guards. A failed line guard still returns the full selected result with
+`ordinary_preallocation_bound_applies=false`. This is initial preallocation
+only: later ordinary-map writers and full map-lifetime backing remain open.
+
+`selected_native_later_shared_demands` is computed with the same actual
+`core_result.native_original_shared_storage.interface` and the complete
+source-bound corrected identifier projection from `frontend_location_join`.
+The outer join independently recomputes that correction before comparing the
+consumed states. A retained Hello interface cannot stand in for another
+source, even if C and N coincide. Incoming original counters and scalar
+finalizers retain their original ownership scopes; the corrected identifier
+state must equal `selected_current_source_bound_shared_storage.identifier_hash`.
+
+The five named consumer rows transfer **2C+1 identifier insertions, 3C+2
+DECL_UID increments, zero type_UID increments and six scalar registrations**.
+Main materialization/CF/initial SSA/direct String-bounds pools/graph controls
+retain the accepted split. The original five registrations, Main's original
+function structure, dummy identifiers and already-owned direct pool/SSA/graph
+objects are not charged again. This named transfer adds zero direct GGC
+objects and zero shared GGC backbones. Its identifier/finalizer backing
+request counts are ordinary heap demands, not additional GGC events.
+
+For Hello, the named-only projections are identifier history **40,886** with
+65,536 slots, next DECL_UID **5,877**, next type_UID **2,306**, and scalar
+occupancy/capacity **39,268 / 58,900** (942,408 bytes per projected ordinary
+request). These figures exclude interleaved unjoined consumers. They are
+neither full chronological endpoints nor complete backing-byte bounds. The
+four explicit residual ceilings remain null, as do identifier/finalizer,
+declaration/type and temporary-serial full endpoints; full arithmetic remains
+null and every whole-lifetime flag false. The named-only fit checks remain
+diagnostics and contribute **no new whole-lifetime guard**. The remaining-family
+partition stays attached for future shared lifetime composition, including
+other identity/hash/cache/finalizer/counter consumers and later ordinary maps.
+
 All 40 core local guards and the three invocation/five numeric guards remain
 conjunctive. The new seven frontend, three location-storage, four ordinary-line,
 four corrected identifier, two serial and one Dope_Rec guard add 21, giving
@@ -2352,31 +2414,40 @@ demands **323,314 Uints / 2,466,878 Udigits / 67 Ureals / 504 Rep_Table**; only
 the independent refined linker predicate fails. The original conservative
 5,000-call linker failure remains an explicitly separate diagnostic.
 
-The frontend and location outputs remain unmodified accepted component
-outputs, with their scopes explained by the outer join. Complete frontend,
+The frontend, location and named later outputs remain unmodified accepted
+component outputs, with their scopes explained by the outer join. The named
+leaf's zero aggregate-Context count describes its own isolated execution; the
+outer wrapper still constructs its selected-route Context. Complete frontend,
 original gigi, native, collector, proof-pipeline and parent-storage claims
-remain false; complete imported event/byte totals remain null. Ordinary GCC
-line-map backing, other late frontend/name/ALI/local/recursive heaps, later
+remain false; complete imported event/byte totals remain null. Later ordinary
+map writers, other late frontend/name/ALI/local/recursive heaps, residual
 shared consumers, remaining passes, RTL/DF ceilings and complete global
 counter/collector lifetimes remain open. Full datarep/light producer, library
 proof and report/Why/server consumer graphs also remain open. No production
-launcher or admission change is adopted. This attachment requires independent
-review before claiming #137's downstream propagation complete; #119 remains
-open regardless of that scoped review.
+launcher or admission change is adopted. The prior frontend/location
+[attachment review](../reviews/review-literal-frontend-location-b869717db6.md)
+accepted #137's selected-route downstream propagation at `b869717db6`;
+this new ordinary/named-shared attachment still requires independent review.
+#119's rule for the full currently admitted grammar remains unfinished.
 
-`selected-route-inputs.json` now records **28 current attachment files**, five
+`selected-route-inputs.json` now records **46 current attachment files**, seven
 exact historical acceptance-review identities and the five native-shape pins
 above. Existing validation remains: 205 core pins and 2,711 distinct current
 core files; invocation's 37 repository records, 16 complete retained sources
 and 109 installed configuration identities; numeric's 61 identity records.
 The frontend's **41 direct identities** and location's **33 repository / 121
 complete source identities** are checked. These sets overlap and are reported
-separately, never summed into a unique-file count. The shared manifest's
+separately, never summed into a unique-file count. The ordinary-map callable
+checks **ten complete source identities**; named later shared checks **31
+complete source / 21 repository identities**, seven uniquely validated
+function ASTs and the accepted native-width assignment. The repaired loader
+compiles exactly the validated unique nodes. No accepted packet or source pin
+was updated. The shared manifest's
 35 current and three historical aggregate dependencies remain unchanged.
 Wrapper/descriptor/output identities stay outside core and leaf manifests,
 avoiding cyclic pins.
 
-The affected attachment passed **118 checks in 11.958925 seconds**,
+The prior frontend/location attachment passed **118 checks in 11.958925 seconds**,
 **23:47:51–23:48:03 UTC** on Linux x86-64, generating the default Hello output
 once within that run. It checks all four actual source variants, independently
 forces each of the 21 new guards false, and retains invocation/numeric
@@ -2395,6 +2466,33 @@ guard/identity/ownership coverage was then added, justifying the affected
 historical evidence, including the long-column capacity failure and its
 expectation-only correction. Frontend43/52, location140/191 and numeric57/106
 successes were reused; no predecessor suite or corpus inventory was repeated.
+That result and its default output remain historical evidence at the reviewed
+`b869717db6` target; they are not relabeled as a new full attachment run.
+
+The current affected ordinary-map/named-later attachment passed **129 checks
+in 5.080603 seconds**, **2026-10-19 00:10:27–00:10:32 UTC**, on Linux x86-64.
+It generates Hello once and checks two further actual sources: different bytes
+with equal call counts, and mixed Put/Put_Line with a null. Each consumes its
+own full original shared result and indexed correction. The checker compares
+Hello's existing 69 condition values, current corrected state and partial
+ledger to exact base `ab12e2db37`; it independently forces all 69 guards false.
+Twenty-three new interface mutations check permanent/transient population,
+Source_Reference/logical-table and virtual-template premises, preallocation
+request/finalizer ownership, corrected ingress, named rows and null full
+endpoints. Further checks reject changed new attachment pins, return a full
+result for a false existing logical-line guard and retain false named-only
+fit checks as diagnostics. The last two use explicit in-memory guard fixtures,
+not claims about freshly generated failing source programs.
+
+The initial attempt stopped after identity validation because the historical
+reader requires a full 40-character revision. The second passed the source
+and 69-guard checks, then exposed aliasing among the correction references in
+a mutation fixture. Independently recomputing the correction from the original
+shared input in the new join makes that comparison effective even when aliases
+move together. The checker records both corrections and the exact final five
+implementation/input identities. No accepted leaf arithmetic changed.
+Ordinary **1,609** and named later **40 / repair33** successes were reused;
+neither their checkers nor the prior 118-case route suite were replayed.
 
 Selected attachment worker settings were **GPT-6.1 Sol / Extra High**; runtime
 confirmation and token/cost measurements are unavailable. The original

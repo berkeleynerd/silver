@@ -143,6 +143,96 @@
       "path": "docs/evidence/retained-literal-location-lifetime-20261018/result.json",
       "bytes": 6830,
       "sha256": "a480bed483e335308942ec90f634f5bc32bc039b488756592d44d654ab0a79cd"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/README.md",
+      "bytes": 642,
+      "sha256": "d59753f8aaf6313cda7d13bf45bbf58a15eb32952ff552eda023c5147a78525b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/check-results.json",
+      "bytes": 44797,
+      "sha256": "4a00fc8519d5ce1500985166ad921c994b9cdc91a61883fea2f362eac477b6ba"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/check.py",
+      "bytes": 2936,
+      "sha256": "cdaaaea1fb96032b81f6ac9e69edca0ca3b5c7ec00ae84e44e3f688bbe05cf7e"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/derive.py",
+      "bytes": 4822,
+      "sha256": "90f114d0bf49ab12ccddbfa110a6080e28a1ddec63b0ab0d8fddb7293bf09196"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/inputs.json",
+      "bytes": 1912,
+      "sha256": "099e44c7ef0d26584742e0725d87c1c002bd0594cdae65a86c1c8e2f336d230f"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/result.json",
+      "bytes": 1489,
+      "sha256": "0850b1041f4cf476742ed6b0e5cd9bd2c63bdc5ccf02972b78ff1ec4ad91ffe2"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/README.md",
+      "bytes": 4021,
+      "sha256": "2f1a08a58ec6b7f2569edb151fe71118d45d854460d44c4c7f01c06e25a32dd3"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/ast-repair-results.json",
+      "bytes": 2705,
+      "sha256": "2a6c10dd11b057cfa8aa178976c78790f7735f731fe9fd537bf1711ed82caa37"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/check-ast-repair.py",
+      "bytes": 3430,
+      "sha256": "b6a34fdc1704bcd97535c899a3f85366e7a25fa5013b7d4d19310688a2fc9d24"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/check-results.json",
+      "bytes": 3128,
+      "sha256": "caf71e1d532a2b43ece3057b2f25ce30c19a7b2ab2430998ca95a9c9890ca3ce"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/check.py",
+      "bytes": 12619,
+      "sha256": "371bac80831b8f25ed0229cf9d63ab893f8a0de6e34ad7f8c98b98737954cd07"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/derive.py",
+      "bytes": 17134,
+      "sha256": "65e66016e94a209eeb87692d2f40df618a47b2c6af52b475bc6d12f6dfc7609d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/inputs.json",
+      "bytes": 11678,
+      "sha256": "66fb5554bca8f4b99d72b9a1319632bf25ff1e08d94a28f36e5b1945d2f02ca6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/remaining-families.json",
+      "bytes": 6558,
+      "sha256": "58dc8e6d53ab90b6825defc4fafd0a7ec1dd5b47c38a17e20c48806ebf6dc886"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/result.json",
+      "bytes": 13527,
+      "sha256": "0b30dc88c18c79994ab6726c539e0230688bb8461cecbc71c1728a20a4784fdb"
+    },
+    {
+      "path": "docs/evidence/retained-literal-later-shared-storage-20261018/round.json",
+      "bytes": 1936,
+      "sha256": "b1219144736b39c3b04c4886f7c65bbba55ffd61f467601bb8ec5ad4b7d6d102"
+    },
+    {
+      "path": "docs/research/retained-literal-ordinary-maps.md",
+      "bytes": 4517,
+      "sha256": "49a8c60debeed2923c4c4ad84ed3123590cd091c4a8d75b704614139178bde9d"
+    },
+    {
+      "path": "docs/research/retained-literal-later-shared-storage.md",
+      "bytes": 15310,
+      "sha256": "dec46ebfca6d3ed2d4da5c804fd12fd10c5cba4ffc1421190d51d492a3b85355"
     }
   ],
   "reviews": [
@@ -175,6 +265,18 @@
       "bytes": 13228,
       "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
       "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
+    },
+    {
+      "path": "docs/reviews/review-ordinary-maps-and-session-inputs-round15.md",
+      "bytes": 14408,
+      "sha256": "00c2c8b2f936f98645bbd57d94c9a6bbda51998f3c76709f297f175f66905938",
+      "revision": "50bcfccba23ddbb1543abfc9cbb8a2945bef65b9"
+    },
+    {
+      "path": "docs/reviews/review-literal-later-shared-1fc7ee7bcf.md",
+      "bytes": 12552,
+      "sha256": "b25b355aa1b6f5b689439fc135d4fa40736098c117136caf4d66b3ed07e39dcd",
+      "revision": "fac6de422d910cffef25952458bbf9c85f6c69b1"
     }
   ],
   "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
@@ -213,5 +315,8 @@
       "bytes": 62999,
       "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
     }
-  ]
+  ],
+  "ordinary_map_freeze": "9c52c43a6fd5e2bcb6afbc0fbc684e8baee1c962",
+  "later_shared_freeze": "1fc7ee7bcf28b6bfe0355ece1a4fa41105e56e8b",
+  "later_shared_AST_repair": "7df2aee6d4f3e7395df3a431034e067b7973e61e"
 }

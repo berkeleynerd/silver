@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/literal-selected-frontend-location-20261018/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/literal-selected-map-later-shared-20261019/samples/hello_world.adb",
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -247,7 +247,7 @@
       "bytes": 118,
       "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
     },
-    "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/literal-selected-frontend-location-20261018/samples/hello_world.adb",
+    "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/literal-selected-map-later-shared-20261019/samples/hello_world.adb",
     "actual_shared_inputs": {
       "configuration": {
         "bytes": 327,
@@ -15247,6 +15247,398 @@
     "partial_ledger_ownership": "Existing source-specific partial ledger remains separate and unchanged; no total GGC count follows.",
     "ordinary_line_map_backing_and_other_late_shared_storage_closed": false
   },
+  "selected_native_ordinary_map_preallocation": {
+    "file_count_upper": 1589,
+    "logical_lines_upper": 16777216,
+    "guards": {
+      "one_map_per_file": true,
+      "location_space": true
+    },
+    "source_map_size_bytes": 32,
+    "allocation_rows": [
+      {
+        "used_before": 0,
+        "requested_maps": 256,
+        "raw_before_rounding": 8192,
+        "reallocator_caller_bytes": 8192,
+        "rounded_GGC_bytes": 8192,
+        "allocated_map_slots": 256
+      },
+      {
+        "used_before": 256,
+        "requested_maps": 514,
+        "raw_before_rounding": 16448,
+        "reallocator_caller_bytes": 32768,
+        "rounded_GGC_bytes": 32768,
+        "allocated_map_slots": 1024
+      },
+      {
+        "used_before": 1024,
+        "requested_maps": 2050,
+        "raw_before_rounding": 65600,
+        "reallocator_caller_bytes": 131072,
+        "rounded_GGC_bytes": 131072,
+        "allocated_map_slots": 4096
+      }
+    ],
+    "additional_GGC_events_upper": 3,
+    "additional_finalizers_upper": 0,
+    "complete_ordinary_map_lifetime_closed": false,
+    "total_GGC_events": null,
+    "complete_native_capacity": false,
+    "aggregate_RAM_gate": false,
+    "production_admission_changed": false,
+    "native_tool_executions": 0,
+    "allocated_map_slots_upper": 4096,
+    "each_caller_bytes_upper": 131072,
+    "individual_size_t_products_fit": true,
+    "map_count_and_index_uint64_fit": true,
+    "highest_location_upper": 6824703033345,
+    "gigi_source_map_preallocation_closed_under_premises": true,
+    "later_ordinary_map_mutators_excluded_here": false
+  },
+  "selected_native_later_shared_demands": {
+    "scope": "Disjoint named Main gimplifier/CF/SSA/pool/graph shared demands after finalize_size_functions",
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "incoming_original_shared_source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "incoming_corrected_identifier_state": {
+      "incoming_historical_insertions_upper": 40847,
+      "incoming_occupied_upper": 40847,
+      "incoming_allocated_slots_upper": 65536,
+      "historical_insertions_upper": 40883,
+      "occupied_upper": 40883,
+      "allocated_slots_upper": 65536,
+      "each_ordinary_backing_bytes_upper": 524288,
+      "variable_ingress_backing_requests_upper": 1590,
+      "post_prefix_backing_requests_upper": 36,
+      "checks": {
+        "historical_insertions_unsigned": true,
+        "slot_threshold_unsigned": true,
+        "doubling_unsigned": true,
+        "individual_request": true
+      },
+      "fits": true
+    },
+    "incoming_original_counters": {
+      "incoming_DECL_UID_upper": 5832,
+      "next_DECL_UID_upper": 5872,
+      "incoming_type_UID_upper": 2278,
+      "next_type_UID_upper": 2306,
+      "incoming_temporary_name_serial_upper": 40846,
+      "next_temporary_name_serial_upper": 40882,
+      "alias_ID_upper": 414854,
+      "function_definition_numbers": {
+        "empty_elaboration": 0,
+        "Main": 1,
+        "String_bit_size_helper": 2,
+        "String_byte_size_helper": 3
+      },
+      "next_function_definition_number": 4,
+      "helper_name_fnno_next": 2,
+      "checks": {
+        "DECL_UID_signed": true,
+        "type_UID_unsigned": true,
+        "alias_ID_signed": true,
+        "temporary_name_serial_unsigned": true
+      }
+    },
+    "incoming_scalar_finalizers": {
+      "incoming_occupied_upper": 39257,
+      "incoming_allocated_slots_upper": 58884,
+      "additional_pushes": 5,
+      "additional_ordinary_backing_requests_upper": 5,
+      "occupied_upper": 39262,
+      "allocated_slots_upper": 58891,
+      "each_ordinary_backing_bytes_upper": 942264,
+      "checks": {
+        "length_unsigned": true,
+        "growth_unsigned": true,
+        "capacity_31_bits": true,
+        "request_span": true
+      },
+      "fits": true
+    },
+    "named_source_demands": {
+      "identifier_insertions": 3,
+      "DECL_UID_increments": 5,
+      "type_UID_increments": 0,
+      "scalar_finalizer_registrations": 6
+    },
+    "consumer_rows": [
+      {
+        "owner": "Main direct gimplifier",
+        "identifiers": 0,
+        "DECL_UID": 1,
+        "type_UID": 0,
+        "scalar_finalizers": 0
+      },
+      {
+        "owner": "CF return label",
+        "identifiers": 0,
+        "DECL_UID": 1,
+        "type_UID": 0,
+        "scalar_finalizers": 0
+      },
+      {
+        "owner": "initial SSA .MEM and default-def control",
+        "identifiers": 1,
+        "DECL_UID": 1,
+        "type_UID": 0,
+        "scalar_finalizers": 1
+      },
+      {
+        "owner": "direct String/bounds pool objects",
+        "identifiers": 2,
+        "DECL_UID": 2,
+        "type_UID": 0,
+        "scalar_finalizers": 0
+      },
+      {
+        "owner": "graph call-site and value-range controls",
+        "identifiers": 0,
+        "DECL_UID": 0,
+        "type_UID": 0,
+        "scalar_finalizers": 5
+      }
+    ],
+    "named_only_projection": {
+      "identifier_hash": {
+        "incoming_historical_insertions_upper": 40883,
+        "incoming_allocated_slots_upper": 65536,
+        "additional_ordinary_backing_requests_upper": 3,
+        "historical_insertions_upper": 40886,
+        "occupied_upper": 40886,
+        "allocated_slots_upper": 65536,
+        "each_ordinary_backing_bytes_upper": 524288,
+        "checks": {
+          "historical_insertions_unsigned": true,
+          "slot_threshold_unsigned": true,
+          "doubling_unsigned": true,
+          "individual_request": true
+        },
+        "fits": true
+      },
+      "scalar_finalizers": {
+        "incoming_occupied_upper": 39262,
+        "incoming_allocated_slots_upper": 58891,
+        "additional_ordinary_backing_requests_upper": 6,
+        "occupied_upper": 39268,
+        "allocated_slots_upper": 58900,
+        "each_ordinary_backing_bytes_upper": 942408,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "capacity_31_bits": true,
+          "request_span": true
+        },
+        "fits": true
+      },
+      "next_DECL_UID_upper": 5877,
+      "next_type_UID_upper": 2306,
+      "temporary_name_serial_upper": 40886,
+      "checks": {
+        "identifier": true,
+        "scalar_finalizers": true,
+        "DECL_UID": true,
+        "type_UID": true
+      },
+      "valid_as_complete_lifetime_endpoint": false,
+      "byte_bounds_exclude_interleaved_unjoined_consumers": true
+    },
+    "explicit_residual_ceilings": {
+      "identifier_insertions": null,
+      "DECL_UID_increments": null,
+      "type_UID_increments": null,
+      "scalar_finalizer_registrations": null
+    },
+    "unresolved_endpoint_inputs": [
+      "identifier_insertions",
+      "DECL_UID_increments",
+      "type_UID_increments",
+      "scalar_finalizer_registrations"
+    ],
+    "conditional_full_endpoint": {
+      "identifier_hash": null,
+      "scalar_finalizers": null,
+      "next_DECL_UID_upper": null,
+      "next_type_UID_upper": null,
+      "temporary_name_serial_upper": null,
+      "checks": {}
+    },
+    "conditional_full_arithmetic_fits": null,
+    "supplied_residual_source_bounds_established": false,
+    "ownership": {
+      "new_direct_GGC_objects_added": 0,
+      "new_named_shared_GGC_backing_events": 0,
+      "additional_identifier_ordinary_backing_requests_upper": 3,
+      "additional_named_scalar_finalizer_ordinary_backing_requests_upper": 6,
+      "original_warning_and_assembler_name_controls_added_again": 0,
+      "original_five_scalar_registrations_added_again": 0,
+      "original_dummy_identifier_and_DECL_UID_added_again": 0,
+      "original_synthetic173_function_structures_added_again": 0,
+      "Main_struct_function_five_direct_requests_added_again": 0,
+      "already_owned_direct_pool_GGC_events": 10,
+      "graph_pool_and_SSA_direct_request_subtotals_added_again": 0
+    },
+    "remaining_shared_families": [
+      {
+        "family": "Remaining tree identity and identifier consumers",
+        "closed_here": "Named Main gimplifier/CF/SSA/direct-pool/graph demands: identifiers 2C+1, DECL_UID 3C+2, type_UID 0.",
+        "required_input": "R_identifier, R_decl, R_type: insertion/increment ceilings for all other consumers after finalize_size_functions, including any interleaving with these named owners.",
+        "next_join": "Finish the constructor partition through fixed RTL setup, expansion, frame/passes and unit output; reuse fixed setup's source-projected zero tree-UID change, and check pointer/type helpers, spill/debug declarations and name setters before assigning any residual zero. Bind every endpoint to the same source and corrected identifier history."
+      },
+      {
+        "family": "Tree type/integer caches and shared frontend vectors",
+        "closed_here": "No request is attributed to these containers by the five named rows; their accepted incoming state is not reset.",
+        "required_input": "Remaining insertion-capable type_hash/integer_hash calls and new entries; global_decls/stmt_list_cache/alias_sets pushes, with actual incoming allocated state.",
+        "next_join": "Exhaust later type/pointer/alias and scalar folding consumers. In particular get_alias_set still constructs type aliases under no-strict-aliasing. GIMPLE tuple construction is not a statement-list-cache append. Use the existing original-shared hash/vector transfers once these demands are closed."
+      },
+      {
+        "family": "CONST_INT weak cache",
+        "closed_here": "Existing operation inventory contributes at most C upper-bound constant candidates; first target setup separately owns 120 candidates and at most 121 backing events inside its 437-event envelope.",
+        "required_input": "Complete incoming historical occupancy and allocated slots, plus insertion-capable lookups/new entries or an independently justified replacement bound for the remaining selected phases.",
+        "next_join": "Join emit-rtl.cc gen_rtx_CONST_INT with fixed setup, operation expansion, alias analysis, splitting/LRA, frame and emission. Charge pre-hit expansion and GC-triggered reinsertion. Reuse the 121 setup events rather than adding them again. Constructor, empty(), resizing traverse() and explicit resize backbones need separate ownership from the lookup-driven subtotal."
+      },
+      {
+        "family": "reg_attrs weak cache",
+        "closed_here": "Existing operation and split inventories expose C plus 2C potential direct records; these records are already owned.",
+        "required_input": "Complete incoming historical occupancy/capacity and insertion-capable get_reg_attrs calls beyond the known selected constructor sites.",
+        "next_join": "Join declaration RTL assignment, split gen_reg_rtx_offset and later copy/rename/LRA routes, including hits and weak-cache deletion. Evaluate the exported conditional RTL hash transfer only after its inputs are sourced. Constructor, empty(), resizing traverse() and explicit resize backbones need separate ownership from the lookup-driven subtotal."
+      },
+      {
+        "family": "mem_attrs direct records",
+        "closed_here": "The existing operation inventory owns at most 5C direct records. set_mem_attrs allocates changed records directly; there is no shared mem_attrs hash to grow.",
+        "required_input": "Additional successful changing setters in fixed setup, copies/adjustments, frame and any selected spills; each record's existing individual size/layout guard.",
+        "next_join": "Reconcile all selected setters with the operation/frame inventories. Do not count the 5C records again and do not infer the remaining setters are zero from absence of an interned table."
+      },
+      {
+        "family": "Remaining scalar finalizer registrations",
+        "closed_here": "Six named registrations: initial SSA one plus graph five. Original five already include warning and assembler-name controls.",
+        "required_input": "R_finalizer: all other post-cutoff scalar registrations. Known separate owners include cold dummy pool/temp-address controls, real Main pool control and prologue/epilogue controls.",
+        "next_join": "Bind the two fixed-startup controls, one real pool control and at most two frame controls to their existing direct owners, then exhaust selected loop-exit/pass controls and their recreation lifetimes using the retained typed-destructor census. Propagate 39262+6+R_finalizer through the scalar vector without assuming interleaving is absent."
+      },
+      {
+        "family": "Vector finalizers, outer vectors and collector state",
+        "closed_here": "The named rows add zero vector-finalizer registrations; raw trees/tuples/records and pointer backbones have no typed array destructor.",
+        "required_input": "Complete scalar/vector registration histories, depth/outer-vector state, complete positive GGC events and per-object rounded ceilings.",
+        "next_join": "Combine the existing callback zero-allocation result with the complete allocation ledger and typed-allocation census. Apply the retained page-index/mark-array/finalizer vector guards; callback closure alone is not registration closure."
+      },
+      {
+        "family": "Other global counters and ordinary shared allocators",
+        "closed_here": "Function/symbol/label and per-phase SSA/RTL/DF bounds keep their existing separate owners; this packet supplies no total counter or RAM result.",
+        "required_input": "Incoming-plus-lifetime deltas for SSA-name creation, instruction/label/register counters, alias IDs and ordinary non-DF pools/stacks across their selected lifetimes.",
+        "next_join": "Reconcile the accepted counter/emission, CFG/SSA, split/LRA/DF and pool interfaces by chronological reset/reuse boundaries. Retain dynamic register capacity, signed UID and allocator products. Other frontend tables and external invocation/producer/link/storage obligations remain outside this native shared-family checklist."
+      },
+      {
+        "family": "Ordinary source line-map backing (GGC)",
+        "closed_here": "No line-map events are counted here. Parent preallocation slice 9c52c43a6f is completed but unreviewed; its values are not consumed by this packet.",
+        "required_input": "Review and attach the separate indexed preallocation slice, then close all later selected ordinary-map writers and their allocated-capacity endpoint.",
+        "next_join": "Parent packet docs/research/retained-literal-ordinary-maps.md covers Source_File preallocation; subsequent selected writers remain open. Keep ordinary-map GGC backing distinct from combined-location maps/hash and ordinary-heap identifier/finalizer arrays."
+      }
+    ],
+    "named_consumer_demand_join_closed": true,
+    "complete_later_shared_storage_closed": false,
+    "complete_global_counter_lifetime_closed": false,
+    "complete_collector_lifetime_closed": false,
+    "complete_gimplifier_lifetime_closed": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "total_GGC_events": null,
+    "production_admission_changed": false,
+    "aggregate_RAM_gate": false,
+    "native_tool_executions": 0,
+    "accepted_component_suites_rerun": 0,
+    "aggregate_Context_instantiations": 0,
+    "complete_source_files_verified": 31,
+    "repository_inputs_verified": 21
+  },
+  "ordinary_map_later_shared_join": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "permanent_source_entries_upper": 1589,
+    "physical_to_logical_identity_under_no_Source_Reference": true,
+    "logical_line_bounds": {
+      "runtime_maximum": 12565,
+      "extras": {
+        "Main": 7,
+        "configuration": 4,
+        "additional_indexed_System": 156,
+        "silver_io.ads": 38,
+        "silver_output_libc.ads": 27
+      },
+      "virtual_templates": {
+        "libgnat/a-unccon.ads": 29,
+        "libgnat/s-imagei.ads": 59,
+        "libgnat/s-imagei.adb": 129
+      }
+    },
+    "virtual_template_identities": {
+      "libgnat/a-unccon.ads": {
+        "bytes": 1554,
+        "sha256": "576b8b0ecb9ab7a72b6686f06f4c30e74c8e4eff1e1ce93de7f3a32da0599864"
+      },
+      "libgnat/s-imagei.ads": {
+        "bytes": 3367,
+        "sha256": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126"
+      },
+      "libgnat/s-imagei.adb": {
+        "bytes": 4898,
+        "sha256": "a3ecb3b79889596b107988c10b47f6a35b9ccd8aeca4d0d482345a7f00c669cf"
+      }
+    },
+    "existing_logical_line_guards": {
+      "Main_ordinary_map_lines": true,
+      "fixed_runtime_ordinary_map_lines": true,
+      "fixed_extra_ordinary_map_lines": true,
+      "virtual_template_ordinary_map_lines": true
+    },
+    "ordinary_preallocation_bound_applies": true,
+    "ordinary_preallocation_GGC_events_upper": 3,
+    "ordinary_preallocation_finalizers_upper": 0,
+    "ordinary_preallocation_ownership": "Three source-map backing requests only; no filename, ad-hoc, warning, prefix or shared-partial-ledger charge repeated.",
+    "later_named_demand_join_closed": true,
+    "later_named_projection_used_as_whole_lifetime_guard": false,
+    "named_projection_guards_added": 0,
+    "existing_condition_keys_changed": false,
+    "later_named_ownership": "Demand transfer only: direct pool/SSA/graph objects and original five registrations remain with existing owners.",
+    "existing_GGC_partial_ledger_changed": false,
+    "complete_ordinary_map_lifetime_closed": false,
+    "complete_later_shared_storage_closed": false,
+    "total_GGC_events": null
+  },
   "selected_current_source_bound_shared_storage": {
     "source": {
       "bytes": 118,
@@ -15447,12 +15839,14 @@
     "complete_collector_lifetime_closed": false
   },
   "frontend_leaf_scope": "Unmodified accepted leaf; its Dope_Rec individual-object remainder is discharged by frontend_location_join.virtual_Dope_Rec. Its other remaining/global flags stay scoped to that leaf.",
-  "location_leaf_scope": "Unmodified accepted actual-source leaf. Frontend/ordinary-line premises and actual-source indexed identifier correction are supplied by frontend_location_join. Total GGC, ordinary line-map backing and later shared lifetimes remain open.",
+  "location_leaf_scope": "Unmodified accepted actual-source leaf. Frontend/ordinary-line premises and actual-source indexed identifier correction are supplied by frontend_location_join. Ordinary preallocation is attached separately; total GGC, later ordinary writers and full later shared lifetimes remain open.",
+  "ordinary_map_leaf_scope": "Accepted initial gigi preallocation only, bound to1589 permanent entries and existing logical-line guards by ordinary_map_later_shared_join; later ordinary writers remain open.",
+  "later_shared_leaf_scope": "Actual-source named demands only; projections are not chronological endpoints or complete byte bounds, residual/full endpoints stay null, and no named-only projection is a whole-lifetime guard.",
   "selected_current_linker_result": "core_result.literal_output_linker",
   "selected_current_GGC_partial_ledger": "core_result.native_original_shared_storage.partial_ledger",
-  "accounting": "No invocation/numeric/frontend/filename/prefix/old-warning/shared rows are added to the GCC partial ledger. The location/later-warning delta is separate. Repeated projections check correspondence; current corrected shared state supersedes only the scoped old identifier/filename/serial projections.",
+  "accounting": "Existing GCC partial ledger unchanged. Location/later-warning and three ordinary-map preallocation requests stay disjoint. Named later shared adds demands but no direct GGC objects/backbones, and no named-only endpoint is a whole-lifetime guard. No invocation/numeric/frontend/filename/prefix/old-warning/shared row is added again.",
   "open_joins": {
-    "native_remaining_lifetime_and_collector": "Ordinary source line-map backing, other late frontend/name/ALI/local/recursive heaps, later shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes. Named frontend/numeric/location/later-warning intervals are attached; no complete original or native total follows.",
+    "native_remaining_lifetime_and_collector": "Later ordinary line-map writers, other late frontend/name/ALI/local/recursive heaps, residual shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes. Initial ordinary-map preallocation and named later shared demands are attached; four shared residuals and full endpoints remain null. No complete original or native total follows.",
     "native_materializing_parent_storage": "Complete selected parent source/map/project/driver/library graph storage and shared name pools remain open. Fixed Silver compile regeneration is not a job on this graph.",
     "producer_frontends_and_consumers": "Complete datarep/light frontend, producer launch, fixed Silver library proof jobs, report/flow/Why/server consumers and final reports remain open. Common Main path binding does not supply their argv graph.",
     "production_adoption": "Selected design graph is computable but no production launcher is adopted."
@@ -15468,10 +15862,10 @@
   "aggregate_RAM_gate": false,
   "native_tool_executions": 0,
   "validation": {
-    "current_attachment_input_records": 28,
+    "current_attachment_input_records": 46,
     "numeric_input_freeze": "64237926eb",
     "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
-    "historical_acceptance_review_records": 5,
+    "historical_acceptance_review_records": 7,
     "core_current_input_records": 205,
     "core_distinct_current_files": 2711,
     "invocation_current_repository_records": 37,
@@ -15484,6 +15878,10 @@
     "runtime_census_reused_from": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
     "runtime_census_reinventoried": false,
     "native_shape_identity_records": 5,
+    "ordinary_map_complete_source_identity_records": 10,
+    "later_shared_complete_source_identity_records": 31,
+    "later_shared_repository_identity_records": 21,
+    "later_shared_unique_validated_function_ASTs": 7,
     "counts_overlap_and_must_not_be_added": true,
     "accepted_reviews": [
       {
@@ -15515,6 +15913,18 @@
         "bytes": 13228,
         "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
         "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
+      },
+      {
+        "path": "docs/reviews/review-ordinary-maps-and-session-inputs-round15.md",
+        "bytes": 14408,
+        "sha256": "00c2c8b2f936f98645bbd57d94c9a6bbda51998f3c76709f297f175f66905938",
+        "revision": "50bcfccba23ddbb1543abfc9cbb8a2945bef65b9"
+      },
+      {
+        "path": "docs/reviews/review-literal-later-shared-1fc7ee7bcf.md",
+        "bytes": 12552,
+        "sha256": "b25b355aa1b6f5b689439fc135d4fa40736098c117136caf4d66b3ed07e39dcd",
+        "revision": "fac6de422d910cffef25952458bbf9c85f6c69b1"
       }
     ]
   },
@@ -15528,8 +15938,8 @@
     "Checked filesystem inputs remain stable through materialization and use; ordinary external resources/services remain assumptions."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T23:47:51.370451+00:00",
-    "completed_utc": "2026-10-18T23:48:03.325965+00:00",
-    "scope": "Hello generated once within affected attachment check; no separate replay"
+    "started_utc": "2026-10-19T00:10:27.809335+00:00",
+    "completed_utc": "2026-10-19T00:10:32.886864+00:00",
+    "scope": "Hello generated once within affected ordinary-map/named-later attachment check"
   }
 }

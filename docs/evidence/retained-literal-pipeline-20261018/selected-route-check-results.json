@@ -1,479 +1,523 @@
 {
-  "started_utc": "2026-10-18T23:47:51.370451+00:00",
-  "completed_utc": "2026-10-18T23:48:03.329384+00:00",
-  "elapsed_seconds": 11.958925409002404,
-  "checks": 118,
+  "started_utc": "2026-10-19T00:10:27.809335+00:00",
+  "completed_utc": "2026-10-19T00:10:32.889969+00:00",
+  "elapsed_seconds": 5.080602803998772,
+  "checks": 129,
   "passed": [
     {
-      "name": "Hello same actual source identities",
+      "name": "Hello actual source bound through original corrected and named state",
       "passed": true
     },
     {
-      "name": "Hello all old predicates preserved except three source gaps",
+      "name": "Hello all existing 69 condition keys unchanged",
       "passed": true
     },
     {
-      "name": "Hello selected final diagnostics",
+      "name": "Hello ordinary permanent not transient population",
       "passed": true
     },
     {
-      "name": "Hello selected source assessments closed independently of production",
+      "name": "Hello physical to logical binding and all existing line guards",
       "passed": true
     },
     {
-      "name": "Hello all numeric guards conjunctive",
+      "name": "Hello three separate ordinary GGC requests and zero finalizers",
       "passed": true
     },
     {
-      "name": "Hello all new storage guards conjunctive",
+      "name": "Hello named ownership rows sum to2C+1 3C+2 zero and six",
       "passed": true
     },
     {
-      "name": "Hello frontend same source numeric paths and node arrays",
+      "name": "Hello no repeated direct or GGC costs",
       "passed": true
     },
     {
-      "name": "Hello current indexed source and filename population",
+      "name": "Hello four residuals and five full endpoints remain null",
       "passed": true
     },
     {
-      "name": "Hello identifier history is corrected actual source",
+      "name": "Hello named projections never become lifetime guards",
       "passed": true
     },
     {
-      "name": "Hello warning boundary and delta ownership",
+      "name": "Hello complete lifetime and imported totals remain open",
       "passed": true
     },
     {
-      "name": "Hello ordinary line premises and individual Dope bound",
+      "name": "Hello existing condition values and partial ledger unchanged",
       "passed": true
     },
     {
-      "name": "Hello immutable core GGC ledger unchanged",
+      "name": "Hello independent accepted named result equality",
       "passed": true
     },
     {
-      "name": "Hello missing totals and broad flags remain open",
+      "name": "Hello shared768 partial2312 location13 remain separate",
       "passed": true
     },
     {
-      "name": "Hello 39 linker guards and exact conservative input preserved",
+      "name": "equal_counts_other_source actual source bound through original corrected and named state",
       "passed": true
     },
     {
-      "name": "Hello accepted numeric exact equality",
+      "name": "equal_counts_other_source all existing 69 condition keys unchanged",
       "passed": true
     },
     {
-      "name": "Hello separate partial2312 and numeric28429",
+      "name": "equal_counts_other_source ordinary permanent not transient population",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 same actual source identities",
+      "name": "equal_counts_other_source physical to logical binding and all existing line guards",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 all old predicates preserved except three source gaps",
+      "name": "equal_counts_other_source three separate ordinary GGC requests and zero finalizers",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 selected final diagnostics",
+      "name": "equal_counts_other_source named ownership rows sum to2C+1 3C+2 zero and six",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 selected source assessments closed independently of production",
+      "name": "equal_counts_other_source no repeated direct or GGC costs",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 all numeric guards conjunctive",
+      "name": "equal_counts_other_source four residuals and five full endpoints remain null",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 all new storage guards conjunctive",
+      "name": "equal_counts_other_source named projections never become lifetime guards",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 frontend same source numeric paths and node arrays",
+      "name": "equal_counts_other_source complete lifetime and imported totals remain open",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 current indexed source and filename population",
+      "name": "mixed_callees actual source bound through original corrected and named state",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 identifier history is corrected actual source",
+      "name": "mixed_callees all existing 69 condition keys unchanged",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 warning boundary and delta ownership",
+      "name": "mixed_callees ordinary permanent not transient population",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 ordinary line premises and individual Dope bound",
+      "name": "mixed_callees physical to logical binding and all existing line guards",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 immutable core GGC ledger unchanged",
+      "name": "mixed_callees three separate ordinary GGC requests and zero finalizers",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 missing totals and broad flags remain open",
+      "name": "mixed_callees named ownership rows sum to2C+1 3C+2 zero and six",
       "passed": true
     },
     {
-      "name": "mixed_empty_8192 39 linker guards and exact conservative input preserved",
+      "name": "mixed_callees no repeated direct or GGC costs",
       "passed": true
     },
     {
-      "name": "5000_calls same actual source identities",
+      "name": "mixed_callees four residuals and five full endpoints remain null",
       "passed": true
     },
     {
-      "name": "5000_calls all old predicates preserved except three source gaps",
+      "name": "mixed_callees named projections never become lifetime guards",
       "passed": true
     },
     {
-      "name": "5000_calls selected final diagnostics",
+      "name": "mixed_callees complete lifetime and imported totals remain open",
       "passed": true
     },
     {
-      "name": "5000_calls selected source assessments closed independently of production",
+      "name": "existing core guard remains conjunctive shared_launch_paths",
       "passed": true
     },
     {
-      "name": "5000_calls all numeric guards conjunctive",
+      "name": "existing core guard remains conjunctive Main_source_EOF",
       "passed": true
     },
     {
-      "name": "5000_calls all new storage guards conjunctive",
+      "name": "existing core guard remains conjunctive Main_source_request",
       "passed": true
     },
     {
-      "name": "5000_calls frontend same source numeric paths and node arrays",
+      "name": "existing core guard remains conjunctive Main_line_table",
       "passed": true
     },
     {
-      "name": "5000_calls current indexed source and filename population",
+      "name": "existing core guard remains conjunctive Main_expanded_columns",
       "passed": true
     },
     {
-      "name": "5000_calls identifier history is corrected actual source",
+      "name": "existing core guard remains conjunctive native_Main_logical_lines",
       "passed": true
     },
     {
-      "name": "5000_calls warning boundary and delta ownership",
+      "name": "existing core guard remains conjunctive native_Main_frontend_literal_length",
       "passed": true
     },
     {
-      "name": "5000_calls ordinary line premises and individual Dope bound",
+      "name": "existing core guard remains conjunctive native_lowering_and_data",
       "passed": true
     },
     {
-      "name": "5000_calls immutable core GGC ledger unchanged",
+      "name": "existing core guard remains conjunctive native_RTL_shape",
       "passed": true
     },
     {
-      "name": "5000_calls missing totals and broad flags remain open",
+      "name": "existing core guard remains conjunctive native_selected_helper_backing",
       "passed": true
     },
     {
-      "name": "5000_calls 39 linker guards and exact conservative input preserved",
+      "name": "existing core guard remains conjunctive native_varpool_and_shared_tree_pool",
       "passed": true
     },
     {
-      "name": "5000 old conservative failure remains diagnostic",
+      "name": "existing core guard remains conjunctive native_graph_and_summary_lifetime",
       "passed": true
     },
     {
-      "name": "32766_calls same actual source identities",
+      "name": "existing core guard remains conjunctive native_function_and_symbol_counter_endpoints",
       "passed": true
     },
     {
-      "name": "32766_calls all old predicates preserved except three source gaps",
+      "name": "existing core guard remains conjunctive native_global_RTL_label_endpoint",
       "passed": true
     },
     {
-      "name": "32766_calls selected final diagnostics",
+      "name": "existing core guard remains conjunctive native_global_constant_label_endpoint",
       "passed": true
     },
     {
-      "name": "32766_calls selected source assessments closed independently of production",
+      "name": "existing core guard remains conjunctive native_SSA_helper_backing",
       "passed": true
     },
     {
-      "name": "32766_calls all numeric guards conjunctive",
+      "name": "existing core guard remains conjunctive native_initial_SSA_lifetime",
       "passed": true
     },
     {
-      "name": "32766_calls all new storage guards conjunctive",
+      "name": "existing core guard remains conjunctive native_initial_CF_CFG_lifetime",
       "passed": true
     },
     {
-      "name": "32766_calls frontend same source numeric paths and node arrays",
+      "name": "existing core guard remains conjunctive native_whole_body_copy_local_interface",
       "passed": true
     },
     {
-      "name": "32766_calls current indexed source and filename population",
+      "name": "existing core guard remains conjunctive native_initial_warning_map_lifetime",
       "passed": true
     },
     {
-      "name": "32766_calls identifier history is corrected actual source",
+      "name": "existing core guard remains conjunctive native_collector_callback_local_interface",
       "passed": true
     },
     {
-      "name": "32766_calls warning boundary and delta ownership",
+      "name": "existing core guard remains conjunctive native_original_helper_name_arithmetic",
       "passed": true
     },
     {
-      "name": "32766_calls ordinary line premises and individual Dope bound",
+      "name": "existing core guard remains conjunctive native_synthetic_individual_request_sizes",
       "passed": true
     },
     {
-      "name": "32766_calls immutable core GGC ledger unchanged",
+      "name": "existing core guard remains conjunctive Main_assembler_object_interface",
       "passed": true
     },
     {
-      "name": "32766_calls missing totals and broad flags remain open",
+      "name": "existing core guard remains conjunctive Main_GAS_BFD_storage",
       "passed": true
     },
     {
-      "name": "32766_calls 39 linker guards and exact conservative input preserved",
+      "name": "existing core guard remains conjunctive literal_output_linker_representation",
       "passed": true
     },
     {
-      "name": "scope digit transition returns numeric success and linker failure",
+      "name": "existing core guard remains conjunctive Main_ALI_interface",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_configuration",
+      "name": "existing core guard remains conjunctive ALI_consumer_local_interfaces",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_core_tables",
+      "name": "existing core guard remains conjunctive GPR_parent_DW_local_interface",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_parser_auxiliary",
+      "name": "existing core guard remains conjunctive Why_core",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_invocation",
+      "name": "existing core guard remains conjunctive output_binder_checksum_no_collection",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_numeric",
+      "name": "existing core guard remains conjunctive native_original_shared_identifier_hash",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_physical_sources",
+      "name": "existing core guard remains conjunctive native_original_shared_type_hash",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_frontend_gigi_array_and_name_input",
+      "name": "existing core guard remains conjunctive native_original_shared_integer_hash",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_ad_hoc_storage",
+      "name": "existing core guard remains conjunctive native_original_shared_global_decls",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_later_warning_storage",
+      "name": "existing core guard remains conjunctive native_original_shared_stmt_list_cache",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_filename_direct_objects",
+      "name": "existing core guard remains conjunctive native_original_shared_alias_sets",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_Main_ordinary_map_lines",
+      "name": "existing core guard remains conjunctive native_original_shared_scalar_finalizers",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_fixed_runtime_ordinary_map_lines",
+      "name": "existing core guard remains conjunctive native_original_shared_selected_counter_endpoints",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_fixed_extra_ordinary_map_lines",
+      "name": "existing core guard remains conjunctive native_original_shared_filename_ingress",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_location_virtual_template_ordinary_map_lines",
+      "name": "existing storage guard remains conjunctive native_frontend_configuration",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_indexed_identifier_historical_insertions_unsigned",
+      "name": "existing storage guard remains conjunctive native_frontend_core_tables",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_indexed_identifier_slot_threshold_unsigned",
+      "name": "existing storage guard remains conjunctive native_frontend_parser_auxiliary",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_indexed_identifier_doubling_unsigned",
+      "name": "existing storage guard remains conjunctive native_frontend_invocation",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_indexed_identifier_individual_request",
+      "name": "existing storage guard remains conjunctive native_frontend_numeric",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_indexed_serial_incoming_temporary_name_serial_unsigned",
+      "name": "existing storage guard remains conjunctive native_frontend_physical_sources",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_indexed_serial_temporary_name_serial_unsigned",
+      "name": "existing storage guard remains conjunctive native_frontend_gigi_array_and_name_input",
       "passed": true
     },
     {
-      "name": "new guard failure stays independently conjunctive native_virtual_Dope_Rec_individual_request",
+      "name": "existing storage guard remains conjunctive native_location_ad_hoc_storage",
       "passed": true
     },
     {
-      "name": "frontend source",
+      "name": "existing storage guard remains conjunctive native_location_later_warning_storage",
       "passed": true
     },
     {
-      "name": "frontend path",
+      "name": "existing storage guard remains conjunctive native_location_filename_direct_objects",
       "passed": true
     },
     {
-      "name": "frontend actual map",
+      "name": "existing storage guard remains conjunctive native_location_Main_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "frontend physical bytes",
+      "name": "existing storage guard remains conjunctive native_location_fixed_runtime_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "frontend numeric double charge",
+      "name": "existing storage guard remains conjunctive native_location_fixed_extra_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "frontend node table",
+      "name": "existing storage guard remains conjunctive native_location_virtual_template_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "frontend transient ownership",
+      "name": "existing storage guard remains conjunctive native_indexed_identifier_historical_insertions_unsigned",
       "passed": true
     },
     {
-      "name": "frontend patterns lifetime",
+      "name": "existing storage guard remains conjunctive native_indexed_identifier_slot_threshold_unsigned",
       "passed": true
     },
     {
-      "name": "location source",
+      "name": "existing storage guard remains conjunctive native_indexed_identifier_doubling_unsigned",
       "passed": true
     },
     {
-      "name": "location old warning boundary",
+      "name": "existing storage guard remains conjunctive native_indexed_identifier_individual_request",
       "passed": true
     },
     {
-      "name": "location filename double charge",
+      "name": "existing storage guard remains conjunctive native_indexed_serial_incoming_temporary_name_serial_unsigned",
       "passed": true
     },
     {
-      "name": "location prefix double charge",
+      "name": "existing storage guard remains conjunctive native_indexed_serial_temporary_name_serial_unsigned",
       "passed": true
     },
     {
-      "name": "location total GGC claim",
+      "name": "existing storage guard remains conjunctive native_virtual_Dope_Rec_individual_request",
       "passed": true
     },
     {
-      "name": "location Main line identity",
+      "name": "existing numeric guard remains conjunctive numeric_tables",
       "passed": true
     },
     {
-      "name": "retained Hello cannot impersonate actual source-bound shared",
+      "name": "existing numeric guard remains conjunctive selected_local_numeric_objects",
       "passed": true
     },
     {
-      "name": "changed Dope object ABI",
+      "name": "existing numeric guard remains conjunctive float_callback_vector",
       "passed": true
     },
     {
-      "name": "numeric guard failure stays conjunctive numeric_tables",
+      "name": "existing numeric guard remains conjunctive original_constant_callback_digits",
       "passed": true
     },
     {
-      "name": "numeric guard failure stays conjunctive selected_local_numeric_objects",
+      "name": "existing numeric guard remains conjunctive Rep_Table_index_negation",
       "passed": true
     },
     {
-      "name": "numeric guard failure stays conjunctive float_callback_vector",
+      "name": "existing invocation guard remains conjunctive selected_native_launch_graph_computable",
       "passed": true
     },
     {
-      "name": "numeric guard failure stays conjunctive original_constant_callback_digits",
+      "name": "existing invocation guard remains conjunctive selected_main_emission_to_GAS_object_route_bound",
       "passed": true
     },
     {
-      "name": "numeric guard failure stays conjunctive Rep_Table_index_negation",
+      "name": "existing invocation guard remains conjunctive selected_fixed_link_input_materialization_computable",
       "passed": true
     },
     {
-      "name": "invocation guard failure stays conjunctive selected_native_launch_graph_computable",
+      "name": "reject permanent population",
       "passed": true
     },
     {
-      "name": "invocation guard failure stays conjunctive selected_main_emission_to_GAS_object_route_bound",
+      "name": "reject transient spare",
       "passed": true
     },
     {
-      "name": "invocation guard failure stays conjunctive selected_fixed_link_input_materialization_computable",
+      "name": "reject runtime logical table",
       "passed": true
     },
     {
-      "name": "source identity",
+      "name": "reject Main Source_Reference",
       "passed": true
     },
     {
-      "name": "counts",
+      "name": "reject Main logical table",
       "passed": true
     },
     {
-      "name": "common path",
+      "name": "reject virtual multiplicity",
       "passed": true
     },
     {
-      "name": "System",
+      "name": "reject virtual line sharing",
       "passed": true
     },
     {
-      "name": "emission",
+      "name": "reject logical guard",
       "passed": true
     },
     {
-      "name": "link input",
+      "name": "reject ordinary request",
       "passed": true
     },
     {
-      "name": "binder family",
+      "name": "reject ordinary events",
       "passed": true
     },
     {
-      "name": "fixed object hash",
+      "name": "reject ordinary finalizers",
       "passed": true
     },
     {
-      "name": "exact ELF interface",
+      "name": "reject ordinary lifetime",
       "passed": true
     },
     {
-      "name": "numeric ownership",
+      "name": "reject named source",
       "passed": true
     },
     {
-      "name": "historical short root cannot impersonate graph",
+      "name": "reject named old counters",
       "passed": true
     },
     {
-      "name": "fixed route path conventions",
+      "name": "reject named corrected ingress",
       "passed": true
     },
     {
-      "name": "historical fixture unchanged and distinct route",
+      "name": "reject named identifier demand",
+      "passed": true
+    },
+    {
+      "name": "reject named registration row",
+      "passed": true
+    },
+    {
+      "name": "reject named original controls double charge",
+      "passed": true
+    },
+    {
+      "name": "reject named full endpoint",
+      "passed": true
+    },
+    {
+      "name": "reject named invented zero residual",
+      "passed": true
+    },
+    {
+      "name": "reject named full arithmetic",
+      "passed": true
+    },
+    {
+      "name": "reject named complete lifetime",
+      "passed": true
+    },
+    {
+      "name": "reject named complete projection",
+      "passed": true
+    },
+    {
+      "name": "false named-only arithmetic stays diagnostic and adds no guard",
+      "passed": true
+    },
+    {
+      "name": "existing logical-line capacity failure returns full graph and null endpoints",
+      "passed": true
+    },
+    {
+      "name": "reject changed new attachment identity retained-literal-ordinary-maps-20261018/derive.py",
+      "passed": true
+    },
+    {
+      "name": "reject changed new attachment identity retained-literal-later-shared-storage-20261018/derive.py",
       "passed": true
     }
   ],
@@ -485,95 +529,225 @@
         "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
       },
       "calls": 1,
-      "demands": {
-        "Uints": 28429,
-        "Udigits": 107797,
-        "Ureals": 67,
-        "Rep_Table": 504
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
       },
-      "evaluated_predicates_pass": true,
-      "failed_predicates": [],
-      "unresolved_predicates": [],
-      "core_unresolved_predicates": [
-        "Main_assembler_object_interface",
-        "Main_GAS_BFD_storage",
-        "literal_output_linker_representation"
-      ]
+      "named_demands": {
+        "identifier_insertions": 3,
+        "DECL_UID_increments": 5,
+        "type_UID_increments": 0,
+        "scalar_finalizer_registrations": 6
+      },
+      "named_only_projection": {
+        "identifier_hash": {
+          "incoming_historical_insertions_upper": 40883,
+          "incoming_allocated_slots_upper": 65536,
+          "additional_ordinary_backing_requests_upper": 3,
+          "historical_insertions_upper": 40886,
+          "occupied_upper": 40886,
+          "allocated_slots_upper": 65536,
+          "each_ordinary_backing_bytes_upper": 524288,
+          "checks": {
+            "historical_insertions_unsigned": true,
+            "slot_threshold_unsigned": true,
+            "doubling_unsigned": true,
+            "individual_request": true
+          },
+          "fits": true
+        },
+        "scalar_finalizers": {
+          "incoming_occupied_upper": 39262,
+          "incoming_allocated_slots_upper": 58891,
+          "additional_ordinary_backing_requests_upper": 6,
+          "occupied_upper": 39268,
+          "allocated_slots_upper": 58900,
+          "each_ordinary_backing_bytes_upper": 942408,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "capacity_31_bits": true,
+            "request_span": true
+          },
+          "fits": true
+        },
+        "next_DECL_UID_upper": 5877,
+        "next_type_UID_upper": 2306,
+        "temporary_name_serial_upper": 40886,
+        "checks": {
+          "identifier": true,
+          "scalar_finalizers": true,
+          "DECL_UID": true,
+          "type_UID": true
+        },
+        "valid_as_complete_lifetime_endpoint": false,
+        "byte_bounds_exclude_interleaved_unjoined_consumers": true
+      },
+      "conditions": 69,
+      "evaluated_predicates_pass": true
     },
     {
-      "name": "mixed_empty_8192",
+      "name": "equal_counts_other_source",
       "source": {
-        "bytes": 8317,
-        "sha256": "f569f8f23e1e04cafd4d2a2c07b1c6c501abc1f3a476fd5183980be1f8161223"
+        "bytes": 118,
+        "sha256": "556c17e44db0e905294b7f6ae0923f533f08c0f2fca04080eb98da6d21115653"
+      },
+      "calls": 1,
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "556c17e44db0e905294b7f6ae0923f533f08c0f2fca04080eb98da6d21115653",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "named_demands": {
+        "identifier_insertions": 3,
+        "DECL_UID_increments": 5,
+        "type_UID_increments": 0,
+        "scalar_finalizer_registrations": 6
+      },
+      "named_only_projection": {
+        "identifier_hash": {
+          "incoming_historical_insertions_upper": 40883,
+          "incoming_allocated_slots_upper": 65536,
+          "additional_ordinary_backing_requests_upper": 3,
+          "historical_insertions_upper": 40886,
+          "occupied_upper": 40886,
+          "allocated_slots_upper": 65536,
+          "each_ordinary_backing_bytes_upper": 524288,
+          "checks": {
+            "historical_insertions_unsigned": true,
+            "slot_threshold_unsigned": true,
+            "doubling_unsigned": true,
+            "individual_request": true
+          },
+          "fits": true
+        },
+        "scalar_finalizers": {
+          "incoming_occupied_upper": 39262,
+          "incoming_allocated_slots_upper": 58891,
+          "additional_ordinary_backing_requests_upper": 6,
+          "occupied_upper": 39268,
+          "allocated_slots_upper": 58900,
+          "each_ordinary_backing_bytes_upper": 942408,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "capacity_31_bits": true,
+            "request_span": true
+          },
+          "fits": true
+        },
+        "next_DECL_UID_upper": 5877,
+        "next_type_UID_upper": 2306,
+        "temporary_name_serial_upper": 40886,
+        "checks": {
+          "identifier": true,
+          "scalar_finalizers": true,
+          "DECL_UID": true,
+          "type_UID": true
+        },
+        "valid_as_complete_lifetime_endpoint": false,
+        "byte_bounds_exclude_interleaved_unjoined_consumers": true
+      },
+      "conditions": 69,
+      "evaluated_predicates_pass": true
+    },
+    {
+      "name": "mixed_callees",
+      "source": {
+        "bytes": 127,
+        "sha256": "44ac3908e706bdced97fc30a7ffce7df9c819fdee8ebaa231569911ed3a3aeea"
       },
       "calls": 2,
-      "demands": {
-        "Uints": 28438,
-        "Udigits": 107868,
-        "Ureals": 67,
-        "Rep_Table": 504
+      "source_counts": {
+        "source_bytes": 127,
+        "source_sha256": "44ac3908e706bdced97fc30a7ffce7df9c819fdee8ebaa231569911ed3a3aeea",
+        "output_calls": 2,
+        "Put": 1,
+        "Put_Line": 1,
+        "null_statements": 1,
+        "decoded_literal_lengths": [
+          0,
+          2
+        ],
+        "decoded_literal_bytes": 2,
+        "maximum_literal_length": 2
       },
-      "evaluated_predicates_pass": true,
-      "failed_predicates": [],
-      "unresolved_predicates": [],
-      "core_unresolved_predicates": [
-        "Main_assembler_object_interface",
-        "Main_GAS_BFD_storage",
-        "literal_output_linker_representation"
-      ]
-    },
-    {
-      "name": "5000_calls",
-      "source": {
-        "bytes": 105075,
-        "sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+      "named_demands": {
+        "identifier_insertions": 5,
+        "DECL_UID_increments": 8,
+        "type_UID_increments": 0,
+        "scalar_finalizer_registrations": 6
       },
-      "calls": 5000,
-      "demands": {
-        "Uints": 73420,
-        "Udigits": 462726,
-        "Ureals": 67,
-        "Rep_Table": 504
+      "named_only_projection": {
+        "identifier_hash": {
+          "incoming_historical_insertions_upper": 40888,
+          "incoming_allocated_slots_upper": 65536,
+          "additional_ordinary_backing_requests_upper": 5,
+          "historical_insertions_upper": 40893,
+          "occupied_upper": 40893,
+          "allocated_slots_upper": 65536,
+          "each_ordinary_backing_bytes_upper": 524288,
+          "checks": {
+            "historical_insertions_unsigned": true,
+            "slot_threshold_unsigned": true,
+            "doubling_unsigned": true,
+            "individual_request": true
+          },
+          "fits": true
+        },
+        "scalar_finalizers": {
+          "incoming_occupied_upper": 39262,
+          "incoming_allocated_slots_upper": 58891,
+          "additional_ordinary_backing_requests_upper": 6,
+          "occupied_upper": 39268,
+          "allocated_slots_upper": 58900,
+          "each_ordinary_backing_bytes_upper": 942408,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "capacity_31_bits": true,
+            "request_span": true
+          },
+          "fits": true
+        },
+        "next_DECL_UID_upper": 5886,
+        "next_type_UID_upper": 2317,
+        "temporary_name_serial_upper": 40893,
+        "checks": {
+          "identifier": true,
+          "scalar_finalizers": true,
+          "DECL_UID": true,
+          "type_UID": true
+        },
+        "valid_as_complete_lifetime_endpoint": false,
+        "byte_bounds_exclude_interleaved_unjoined_consumers": true
       },
-      "evaluated_predicates_pass": true,
-      "failed_predicates": [],
-      "unresolved_predicates": [],
-      "core_unresolved_predicates": [
-        "Main_assembler_object_interface",
-        "Main_GAS_BFD_storage",
-        "literal_output_linker_representation"
-      ]
-    },
-    {
-      "name": "32766_calls",
-      "source": {
-        "bytes": 688161,
-        "sha256": "b80c594f37e9c4d6c122cbda4883ff7b826103de181429ae3bc065eb797ffe88"
-      },
-      "calls": 32766,
-      "demands": {
-        "Uints": 323314,
-        "Udigits": 2466878,
-        "Ureals": 67,
-        "Rep_Table": 504
-      },
-      "evaluated_predicates_pass": false,
-      "failed_predicates": [
-        "literal_output_linker_representation"
-      ],
-      "unresolved_predicates": [],
-      "core_unresolved_predicates": [
-        "Main_assembler_object_interface",
-        "Main_GAS_BFD_storage",
-        "literal_output_linker_representation"
-      ]
+      "conditions": 69,
+      "evaluated_predicates_pass": true
     }
   ],
   "validation": {
-    "current_attachment_input_records": 28,
+    "current_attachment_input_records": 46,
     "numeric_input_freeze": "64237926eb",
     "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
-    "historical_acceptance_review_records": 5,
+    "historical_acceptance_review_records": 7,
     "core_current_input_records": 205,
     "core_distinct_current_files": 2711,
     "invocation_current_repository_records": 37,
@@ -586,6 +760,10 @@
     "runtime_census_reused_from": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
     "runtime_census_reinventoried": false,
     "native_shape_identity_records": 5,
+    "ordinary_map_complete_source_identity_records": 10,
+    "later_shared_complete_source_identity_records": 31,
+    "later_shared_repository_identity_records": 21,
+    "later_shared_unique_validated_function_ASTs": 7,
     "counts_overlap_and_must_not_be_added": true,
     "accepted_reviews": [
       {
@@ -617,13 +795,25 @@
         "bytes": 13228,
         "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
         "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
+      },
+      {
+        "path": "docs/reviews/review-ordinary-maps-and-session-inputs-round15.md",
+        "bytes": 14408,
+        "sha256": "00c2c8b2f936f98645bbd57d94c9a6bbda51998f3c76709f297f175f66905938",
+        "revision": "50bcfccba23ddbb1543abfc9cbb8a2945bef65b9"
+      },
+      {
+        "path": "docs/reviews/review-literal-later-shared-1fc7ee7bcf.md",
+        "bytes": 12552,
+        "sha256": "b25b355aa1b6f5b689439fc135d4fa40736098c117136caf4d66b3ed07e39dcd",
+        "revision": "fac6de422d910cffef25952458bbf9c85f6c69b1"
       }
     ]
   },
   "implementation_inputs": {
     "selected-route.py": {
-      "bytes": 35431,
-      "sha256": "1b9c046e35fb714a8fc547e3bbccb7ff965b0488e6eb8f509e619580c5d173ab"
+      "bytes": 45657,
+      "sha256": "f08df69d8c6689a4d1728cddac70b4b7ff2a019dd5f8f08bd77d087be62059bc"
     },
     "selected-route.json": {
       "bytes": 372,
@@ -634,25 +824,26 @@
       "sha256": "e85eeee8318825a1582a9c87c8a92e9466992c9ed3f393ab505fb244967360d5"
     },
     "selected-route-inputs.json": {
-      "bytes": 8464,
-      "sha256": "36a48f65c5aec37ec6510962e2c1cb6fe5b063c61d9384f73da9225bd838ea0d"
+      "bytes": 12865,
+      "sha256": "551f9faf204c3ad9a4f5750a9a3ba2a6d3c4effba89fe0a127005da7d6c7b2f1"
     },
     "check-selected-route.py": {
-      "bytes": 18928,
-      "sha256": "be71f0a74ec273f73d6771dac28f15c413b3996a868eb1b78274943b374f5f96"
+      "bytes": 18061,
+      "sha256": "7b56a33ac3d6b6260dfa98e957fb795be1d28ed3ac2ff78398820e0a97b28e10"
     }
   },
   "native_tool_executions": 0,
   "predecessor_suites_rerun": false,
   "broad_suites_rerun": false,
+  "runtime_census_reinventoried": false,
   "selected_model": "GPT-6.1 Sol",
   "selected_effort": "Extra High",
   "runtime_confirmed_model_effort": null,
   "token_cost_measurements": null,
-  "validation_rework": {
-    "scope": "New frontend/location/source-bound indexed shared attachment only.",
-    "initial_new_attachment_smoke": "57 checks passed in11.662330seconds; new guard/ownership/identity assertions added for required coverage, then rerun only this affected harness.",
-    "earlier_selected_route_evidence": "106 checks before9091e36fb2 retained in repository history before this attachment; not rerun as a predecessor suite.",
-    "preserved_leaf_successes": "frontend43/52,location140/191,numeric57/106 retained; no corpus inventory repeated."
-  }
+  "validation_scope": "Affected ordinary preallocation/named-later source identity, ownership, null endpoints and preservation of all69 guard assembly only.",
+  "validation_rework": [
+    "Attempt1 stopped after Context identity checks before source evaluation: historical reader requires a full40-character revision; checker reference corrected to exact base.",
+    "Attempt2 passed source and all69 guard checks, then a corrected-ingress mutation exposed shared-object aliasing across helper inputs. New join now independently recomputes the correction from original shared input before comparison. Accepted leaves/arithmetic unchanged."
+  ],
+  "reused_evidence": "ordinary1609; named later40 and AST repair33; prior selected118; earlier accepted leaves unchanged; no corpus inventory or predecessor suite replay."
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One affected selected-route attachment run; no predecessor/broad suites."""
+"""Affected ordinary-map/named-later attachment checks; no predecessor suites."""
 import argparse
 import copy
 from datetime import datetime, timezone
@@ -22,191 +22,187 @@ def main():
     rows=[]; summaries=[]
 
     def check(name,value):
-        if not value:raise AssertionError(name)
+        if not value: raise AssertionError(name)
         rows.append(dict(name=name,passed=True))
 
     def reject(name,fn,fragment):
-        try:fn()
-        except ValueError as exc:check(name,fragment in str(exc))
-        else:raise AssertionError(name+' accepted')
+        try: fn()
+        except ValueError as exc: check(name,fragment in str(exc))
+        else: raise AssertionError(name+' accepted')
 
+    historical=json.loads(ctx.core['read_historical_repository_file']('ab12e2db3756e5871467bbcb423459291a7d76bd',
+        'docs/evidence/retained-literal-pipeline-20261018/selected-route-result.json'))
     hello=(m['REPO']/'samples/hello_world.adb').read_bytes()
-    shell=b'with Silver_IO; procedure Main is pragma SPARK_Mode (On); begin\n'; tail=b'\nend Main;\n'
-    variants=[('Hello',hello,True),
-        ('mixed_empty_8192',shell+b'Silver_IO.Put (""); null; Silver_IO.Put_Line ("'+b'x'*8192+b'");'+tail,True),
-        ('5000_calls',shell+b'Silver_IO.Put ("x");\n'*5000+tail,True),
-        ('32766_calls',shell+b'Silver_IO.Put ("x");\n'*32766+tail,False)]
+    shell=b'with Silver_IO; procedure Main is pragma SPARK_Mode (On); begin\n'
+    variants=[('Hello',hello),('equal_counts_other_source',hello.replace(b'Hello, world!',b'Other, world!')),
+        ('mixed_callees',shell+b'Silver_IO.Put (""); null; Silver_IO.Put_Line ("xy");\nend Main;\n')]
     (m['REPO']/'tmp').mkdir(exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='selected-route-',dir=m['REPO']/'tmp') as temp:
+    with tempfile.TemporaryDirectory(prefix='selected-map-later-',dir=m['REPO']/'tmp') as temp:
         source=Path(temp)/'main.adb'
-        for name,raw,passing in variants:
+        for name,raw in variants:
             source.write_bytes(raw)
             result=m['evaluate'](HERE/'selected-route.json',ctx,None if name=='Hello' else source)
-            core=result['core_result']; invocation=result['selected_native_invocation']; numeric=result['native_Ada_numeric']
-            frontend=result['selected_native_frontend_storage'];location=result['selected_native_location_lifetime']
-            c=result['source_counts']['output_calls']
-            check(name+' same actual source identities',result['source']==core['source']==invocation['source_identity']==m['identity'](raw)
-                and numeric['source']['sha256']==result['source']['sha256'])
-            check(name+' all old predicates preserved except three source gaps',all(result['conditions'][k]==
-                (core['conditional_conditions'][k] if k in m['CLOSED'] else v) for k,v in core['conditions'].items())
-                and all(result['conditional_conditions'][k]==v for k,v in core['conditional_conditions'].items()))
-            check(name+' selected final diagnostics',result['evaluated_predicates_pass']==passing
-                and result['conditional_arithmetic_pass']==passing and result['unresolved_predicates']==[]
-                and set(core['unresolved_predicates'])==set(m['CLOSED'])
-                and ('historical-in-derivation' in result['core_result_scope']))
-            check(name+' selected source assessments closed independently of production',all(
-                result['source_family_condition_assessments'][k]['source_family_premises_closed']
-                and not result['source_family_condition_assessments'][k]['production_launcher_adopted'] for k in m['CLOSED']))
-            check(name+' all numeric guards conjunctive',all(result['conditions']['native_Ada_numeric_'+k]==v
-                for k,v in numeric['checks'].items()) and numeric['demands']==dict(Uints=28420+9*c,
-                    Udigits=107726+(70+ctx.numeric_context.model['uint_digits'](c+2))*c,Ureals=67,Rep_Table=504))
-            storage=result['frontend_location_join'];current=result['selected_current_source_bound_shared_storage']
-            old_shared=core['native_original_shared_storage']['interface']
-            check(name+' all new storage guards conjunctive',all(result['conditions'][k]==v
-                and result['conditional_conditions'][k]==v for k,v in storage['guards'].items())
-                and len(result['conditions'])==len(core['conditions'])+8+len(storage['guards']))
-            check(name+' frontend same source numeric paths and node arrays',frontend['source']==result['source']
-                and frontend['components']['numeric']==numeric and frontend['selected_launch']['native']==invocation['graph']['native']
-                and frontend['components']['gigi_array_and_name_input']['each_association_array_raw_bytes_upper']==
-                    8*frontend['joined_logical_tables']['node_identities'])
-            check(name+' current indexed source and filename population',frontend['exported_source_entry_bounds']['permanent_source_entries_upper']==1589
-                and frontend['exported_source_entry_bounds']['Source_File_backing_demand']==1590
-                and current['filename_ingress']['lookup_calls_upper']==1590
-                and current['filename_ingress']['direct_GGC_requests_upper']==3180)
-            check(name+' identifier history is corrected actual source',current['source']==result['source']
-                and current['source_counts']==result['source_counts']
-                and current['identifier_hash']['incoming_historical_insertions_upper']==40847
-                and current['identifier_hash']['historical_insertions_upper']==40847+old_shared['source_bound_demands']['identifier_new_entries']
-                and current['counter_endpoints']['next_temporary_name_serial_upper']==old_shared['counter_endpoints']['next_temporary_name_serial_upper']+1)
-            check(name+' warning boundary and delta ownership',location['later_warning']['incoming']==core['native_warning_map_demand']['conditional_map_transfer']
-                and location['additional_location_and_later_warning_GGC_events_upper']==
-                    location['ad_hoc_storage']['additional_GGC_backing_requests_upper']+location['later_warning']['additional_GGC_backing_requests_upper']
-                and not location['filename_ingress']['included_in_new_location_warning_delta']
-                and current['extra_shared_GGC_backing_events']==0
-                and current['additional_shared_GGC_backing_request_events_upper']==old_shared['additional_shared_GGC_backing_request_events_upper'])
-            check(name+' ordinary line premises and individual Dope bound',all(storage['ordinary_map_line_checks'].values())
-                and storage['virtual_Dope_Rec']['individual_caller_bytes']==8 and storage['virtual_Dope_Rec']['objects_upper']==9
-                and not frontend['components']['physical_sources']['virtual_source_Dope_Rec_metadata_storage_priced_here'])
-            check(name+' immutable core GGC ledger unchanged',core['native_original_shared_storage']['partial_ledger']==
-                ctx.core['attach_original_shared_storage'](dict(source=core['source'],source_counts=core['source_counts'],
-                    complete_path_bound=core['complete_path_bound'],**{k:core[k] for k in
-                    core['native_original_shared_storage']['source_capacity_projection_keys'] if k not in ('source','source_counts','complete_path_bound')},
-                    whole_literal_pipeline_capacity_established=False,
-                    unresolved_predicates=core['unresolved_predicates'],
-                    failed_conditional_predicates=[k for k,v in core['conditional_conditions'].items()
-                        if not k.startswith('native_original_shared_') and not v]),ctx.core_context)['partial_ledger'])
-            check(name+' missing totals and broad flags remain open',result['complete_imported_allocation_events'] is None
-                and result['complete_imported_allocation_bytes'] is None and not any(result[k] for k in
-                ('whole_literal_pipeline_capacity_established','complete_native_capacity','complete_proof_pipeline_capacity',
-                 'complete_parent_storage_closed','production_launcher_adopted','production_admission_changed','aggregate_RAM_gate'))
-                and not invocation['proof_library_verification_waived'] and invocation['fixed_Silver_compile_jobs']==0)
-            check(name+' 39 linker guards and exact conservative input preserved',invocation['link_interface']==core['literal_output_linker_historical_conservative']
-                and len(core['literal_output_linker_refinement']['unchanged_other_checks'])==39
-                and all(core['literal_output_linker']['link']['checks'][k]==v for k,v in
-                    core['literal_output_linker_refinement']['unchanged_other_checks'].items()))
+            core=result['core_result'];storage=result['frontend_location_join']
+            ordinary=result['selected_native_ordinary_map_preallocation'];later=result['selected_native_later_shared_demands']
+            joined=result['ordinary_map_later_shared_join'];c=result['source_counts']['output_calls']
+            check(name+' actual source bound through original corrected and named state',
+                result['source']==joined['source']==later['source']==m['identity'](raw)
+                and later['source_counts']==result['source_counts']
+                and later['incoming_corrected_identifier_state']==result['selected_current_source_bound_shared_storage']['identifier_hash']
+                and later['incoming_original_counters']==core['native_original_shared_storage']['interface']['counter_endpoints'])
+            check(name+' all existing 69 condition keys unchanged',len(result['conditions'])==69
+                and result['conditions'].keys()==historical['conditions'].keys()
+                and result['conditions']==result['conditional_conditions'] and result['evaluated_predicates_pass'])
+            check(name+' ordinary permanent not transient population',joined['permanent_source_entries_upper']==ordinary['file_count_upper']==1589
+                and result['selected_native_frontend_storage']['exported_source_entry_bounds']['Source_File_backing_demand']==1590)
+            check(name+' physical to logical binding and all existing line guards',joined['physical_to_logical_identity_under_no_Source_Reference']
+                and joined['existing_logical_line_guards']==storage['ordinary_map_line_checks']
+                and joined['ordinary_preallocation_bound_applies'] and ordinary['logical_lines_upper']==2**24
+                and len(joined['virtual_template_identities'])==3)
+            check(name+' three separate ordinary GGC requests and zero finalizers',
+                [r['rounded_GGC_bytes'] for r in ordinary['allocation_rows']]==[8192,32768,131072]
+                and ordinary['additional_GGC_events_upper']==3 and ordinary['additional_finalizers_upper']==0)
+            check(name+' named ownership rows sum to2C+1 3C+2 zero and six',later['named_source_demands']==dict(
+                identifier_insertions=2*c+1,DECL_UID_increments=3*c+2,type_UID_increments=0,scalar_finalizer_registrations=6)
+                and sum(r['identifiers'] for r in later['consumer_rows'])==2*c+1
+                and sum(r['DECL_UID'] for r in later['consumer_rows'])==3*c+2
+                and sum(r['scalar_finalizers'] for r in later['consumer_rows'])==6)
+            check(name+' no repeated direct or GGC costs',later['ownership']['new_direct_GGC_objects_added']==0
+                and later['ownership']['new_named_shared_GGC_backing_events']==0
+                and all(v==0 for k,v in later['ownership'].items() if k.endswith('added_again'))
+                and not joined['existing_GGC_partial_ledger_changed'])
+            check(name+' four residuals and five full endpoints remain null',
+                later['explicit_residual_ceilings']==dict.fromkeys(ctx.later['RESIDUALS'])
+                and all(later['conditional_full_endpoint'][k] is None for k in ('identifier_hash','scalar_finalizers',
+                    'next_DECL_UID_upper','next_type_UID_upper','temporary_name_serial_upper'))
+                and later['conditional_full_arithmetic_fits'] is None and later['conditional_full_endpoint']['checks']=={})
+            check(name+' named projections never become lifetime guards',not later['named_only_projection']['valid_as_complete_lifetime_endpoint']
+                and later['named_only_projection']['byte_bounds_exclude_interleaved_unjoined_consumers']
+                and joined['named_projection_guards_added']==0 and not joined['later_named_projection_used_as_whole_lifetime_guard'])
+            check(name+' complete lifetime and imported totals remain open',ordinary['total_GGC_events'] is None
+                and not ordinary['complete_ordinary_map_lifetime_closed'] and not ordinary['later_ordinary_map_mutators_excluded_here']
+                and later['total_GGC_events'] is None and not any(later[k] for k in
+                    ('complete_later_shared_storage_closed','complete_global_counter_lifetime_closed','complete_collector_lifetime_closed',
+                     'complete_gimplifier_lifetime_closed','whole_literal_pipeline_capacity_established'))
+                and result['complete_imported_allocation_events'] is None and result['complete_imported_allocation_bytes'] is None
+                and not any(result[k] for k in ('whole_literal_pipeline_capacity_established','complete_native_capacity',
+                    'complete_proof_pipeline_capacity','complete_parent_storage_closed','production_launcher_adopted',
+                    'production_admission_changed','aggregate_RAM_gate')))
             if name=='Hello':
                 baseline=result
-                check('Hello accepted numeric exact equality',numeric==m['read'](m['E']/'retained-literal-ada-numeric-20261018/result.json'))
-                check('Hello separate partial2312 and numeric28429',core['native_original_shared_storage']['partial_ledger']['known_selected_GGC_event_subtotal']==2312
-                    and numeric['demands']['Uints']==28429)
-            if name=='5000_calls':
-                check('5000 old conservative failure remains diagnostic',invocation['link_interface']['link']['failed_sufficient_checks']==['fixed_signed_relocation_reach']
-                    and core['literal_output_linker']['link']['failed_sufficient_checks']==[] and result['failed_predicates']==[])
-            if name=='32766_calls':
-                check('scope digit transition returns numeric success and linker failure',
-                    numeric['demand_rows']['Main_constructor']['Udigits']==62*c
-                    and numeric['all_selected_checks_pass']
-                    and 'literal_output_linker_representation' in result['failed_predicates'])
-            summaries.append(dict(name=name,source=result['source'],calls=c,demands=numeric['demands'],
-                evaluated_predicates_pass=result['evaluated_predicates_pass'],failed_predicates=result['failed_predicates'],
-                unresolved_predicates=result['unresolved_predicates'],core_unresolved_predicates=core['unresolved_predicates']))
-        core=baseline['core_result'];invocation=baseline['selected_native_invocation'];numeric=baseline['native_Ada_numeric']
-        frontend=baseline['selected_native_frontend_storage'];location=baseline['selected_native_location_lifetime']
-        real_join=m['attach'].__globals__['join_frontend_location']
-        for key in baseline['frontend_location_join']['guards']:
-            def forced(*a, key=key, **kw):
-                joined=real_join(*a,**kw);joined['guards'][key]=False;return joined
-            m['attach'].__globals__['join_frontend_location']=forced
-            try:r=m['attach'](hello,core,invocation,numeric,frontend,location,ctx)
-            finally:m['attach'].__globals__['join_frontend_location']=real_join
-            check('new guard failure stays independently conjunctive '+key,key in r['failed_predicates']
-                and not r['evaluated_predicates_pass'] and not r['conditional_arithmetic_pass'])
-        for label,target,path,value,fragment in [
-            ('frontend source',frontend,['source','sha256'],'0'*64,'actual source/count'),
-            ('frontend path',frontend,['selected_launch','native','configuration'],'/wrong.adc','path/configuration'),
-            ('frontend actual map',frontend,['mapping','records'],1,'actual mapping'),
-            ('frontend physical bytes',frontend,['components','physical_sources','extra_physical_objects','Main','bytes'],1,'physical source identity'),
-            ('frontend numeric double charge',frontend,['numeric_lifetime_projection','Uints'],1,'numeric projection'),
-            ('frontend node table',frontend,['components','core_tables','tables','Node_Offsets','demand'],1,'node and association'),
-            ('frontend transient ownership',frontend,['exported_source_entry_bounds','permanent_source_entries_upper'],1590,'source population'),
-            ('frontend patterns lifetime',frontend,['components','physical_sources','pattern_String_allocations_upper'],6,'pattern String lifetime'),
-            ('location source',location,['source','sha256'],'0'*64,'actual source/count'),
-            ('location old warning boundary',location,['later_warning','incoming','original_gigi_put_call_ceiling'],1,'warning R5'),
-            ('location filename double charge',location,['filename_ingress','included_in_new_location_warning_delta'],True,'warning R5'),
-            ('location prefix double charge',location,['ad_hoc_storage','initial_ordinary_objects_added_again'],1,'warning R5'),
-            ('location total GGC claim',location,['total_GGC_events'],1,'warning R5'),
-            ('location Main line identity',location,['Main_physical_line_entries_upper'],1,'ordinary-map line')]:
-            changed=copy.deepcopy(target);obj=changed
-            for k in path[:-1]:obj=obj[k]
-            obj[path[-1]]=value
-            ff,ll=(changed,location) if target is frontend else (frontend,changed)
-            reject(label,lambda:m['attach'](hello,core,invocation,numeric,ff,ll,ctx),fragment)
-        changed=copy.deepcopy(core);changed['native_original_shared_storage']['interface']['source']['sha256']='0'*64
-        reject('retained Hello cannot impersonate actual source-bound shared',lambda:m['attach'](hello,changed,invocation,numeric,frontend,location,ctx),'shared projection source')
-        original_abi=ctx.dope_abi;ctx.dope_abi=dict(original_abi,individual_caller_bytes=16)
-        try:reject('changed Dope object ABI',lambda:m['attach'](hello,core,invocation,numeric,frontend,location,ctx),'Dope_Rec individual-object ABI')
-        finally:ctx.dope_abi=original_abi
-        for key in numeric['checks']:
-            changed=copy.deepcopy(numeric);changed['checks'][key]=False;changed['all_selected_checks_pass']=False
-            changed_front=copy.deepcopy(frontend);changed_front['components']['numeric']=changed
-            r=m['attach'](hello,core,invocation,changed,changed_front,location,ctx)
-            check('numeric guard failure stays conjunctive '+key,'native_Ada_numeric_'+key in r['failed_predicates']
-                and not r['evaluated_predicates_pass'])
-        for key in ('selected_native_launch_graph_computable','selected_main_emission_to_GAS_object_route_bound',
-                    'selected_fixed_link_input_materialization_computable'):
-            changed=copy.deepcopy(invocation);changed[key]=False
-            r=m['attach'](hello,core,changed,numeric,frontend,location,ctx)
-            check('invocation guard failure stays conjunctive '+key,'native_invocation_'+key in r['failed_predicates'])
-        for label,path,value,fragment in [
-            ('source identity',['source_identity','sha256'],'0'*64,'source/count'),
-            ('counts',['source_counts','output_calls'],2,'source/count'),
-            ('common path',['common_Main_bindings','phase1','path'],'/tmp/wrong/main.adb','common Main'),
-            ('System',['shared_System','identity','bytes'],1,'configuration/System'),
-            ('emission',['emission_interface','final_chain'],1,'exact emission'),
-            ('link input',['link_interface','link','layout','retained_endpoint'],1,'conservative linker'),
-            ('binder family',['binder_object_family','GGC_events_upper'],1,'binder family')]:
-            changed=copy.deepcopy(invocation);obj=changed
-            for k in path[:-1]:obj=obj[k]
-            obj[path[-1]]=value
-            reject(label,lambda:m['attach'](hello,core,changed,numeric,frontend,location,ctx),fragment)
-        changed=copy.deepcopy(invocation)
-        next(row for row in changed['materialization'] if row['role']=='silver_io.o')['identity']['bytes']=1
-        reject('fixed object hash',lambda:m['attach'](hello,core,changed,numeric,frontend,location,ctx),'fixed object/linker')
-        changed=copy.deepcopy(core);changed['Main_assembler_object_interface']['ELF']['file_bytes_upper']=-1
-        reject('exact ELF interface',lambda:m['attach'](hello,changed,invocation,numeric,frontend,location,ctx),'assembly/ELF/storage')
-        changed=copy.deepcopy(numeric);changed['demand_rows']['original_Main_constant_size_callbacks']['Uints']+=1
-        reject('numeric ownership',lambda:m['attach'](hello,core,invocation,changed,frontend,location,ctx),'numeric demand ownership')
-        descriptor=m['read'](HERE/'selected-route.json');descriptor['core_descriptor']=str(HERE/'selected-core-fixture.json')
-        descriptor['runtime']['cwd']='/tmp/silver-literal-pipeline-20261018'
-        path=Path(temp)/'route.json';path.write_text(json.dumps(descriptor))
-        reject('historical short root cannot impersonate graph',lambda:m['evaluate'](path,ctx),'accepted source and temporary path classes')
-        check('fixed route path conventions',len(invocation['graph']['project_root'])==109 and
-            invocation['path_bytes']==513 and core['complete_path_bound']==512)
-        check('historical fixture unchanged and distinct route',m['read'](HERE/'fixture.json')['launch']['native_Main'] !=
-            core['launch']['native_Main'] and ctx.core_context.original_shared_source_validation['current_repository_files_verified']==35)
-        baseline['offline_run']=dict(started_utc=started,completed_utc=datetime.now(timezone.utc).isoformat(),
-            scope='Hello generated once within affected attachment check; no separate replay')
-        (HERE/'selected-route-result.json').write_text(json.dumps(baseline,indent=2)+'\n')
+                check('Hello existing condition values and partial ledger unchanged',result['conditions']==historical['conditions']
+                    and core['native_original_shared_storage']['partial_ledger']==historical['core_result']['native_original_shared_storage']['partial_ledger']
+                    and result['selected_current_source_bound_shared_storage']==historical['selected_current_source_bound_shared_storage'])
+                check('Hello independent accepted named result equality',later==m['read'](m['E']/'retained-literal-later-shared-storage-20261018/result.json'))
+                check('Hello shared768 partial2312 location13 remain separate',
+                    core['native_original_shared_storage']['interface']['additional_shared_GGC_backing_request_events_upper']==768
+                    and core['native_original_shared_storage']['partial_ledger']['known_selected_GGC_event_subtotal']==2312
+                    and result['selected_native_location_lifetime']['additional_location_and_later_warning_GGC_events_upper']==13)
+            summaries.append(dict(name=name,source=result['source'],calls=c,source_counts=result['source_counts'],
+                named_demands=later['named_source_demands'],named_only_projection=later['named_only_projection'],
+                conditions=len(result['conditions']),evaluated_predicates_pass=result['evaluated_predicates_pass']))
+
+    core=baseline['core_result'];invocation=baseline['selected_native_invocation'];numeric=baseline['native_Ada_numeric']
+    frontend=baseline['selected_native_frontend_storage'];location=baseline['selected_native_location_lifetime']
+    storage=baseline['frontend_location_join'];ordinary=baseline['selected_native_ordinary_map_preallocation']
+    later=baseline['selected_native_later_shared_demands']
+    # Only the affected assembly of existing guards is exercised; leaf suites are not rerun.
+    for key in core['conditions']:
+        changed=copy.deepcopy(core);changed['conditional_conditions'][key]=False
+        if key not in m['CLOSED']:changed['conditions'][key]=False
+        r=m['attach'](hello,changed,invocation,numeric,frontend,location,ctx)
+        check('existing core guard remains conjunctive '+key,key in r['failed_predicates'] and not r['evaluated_predicates_pass'])
+    globals_=m['attach'].__globals__;real_join=globals_['join_frontend_location']
+    for key in storage['guards']:
+        def forced(*a,key=key,**kw):
+            joined=real_join(*a,**kw);joined['guards'][key]=False;return joined
+        globals_['join_frontend_location']=forced
+        try:r=m['attach'](hello,core,invocation,numeric,frontend,location,ctx)
+        finally:globals_['join_frontend_location']=real_join
+        check('existing storage guard remains conjunctive '+key,key in r['failed_predicates'] and not r['conditional_arithmetic_pass'])
+    for key in numeric['checks']:
+        changed=copy.deepcopy(numeric);changed['checks'][key]=False;ff=copy.deepcopy(frontend);ff['components']['numeric']=changed
+        r=m['attach'](hello,core,invocation,changed,ff,location,ctx)
+        check('existing numeric guard remains conjunctive '+key,'native_Ada_numeric_'+key in r['failed_predicates'])
+    for key in ('selected_native_launch_graph_computable','selected_main_emission_to_GAS_object_route_bound',
+                'selected_fixed_link_input_materialization_computable'):
+        changed=copy.deepcopy(invocation);changed[key]=False
+        r=m['attach'](hello,core,changed,numeric,frontend,location,ctx)
+        check('existing invocation guard remains conjunctive '+key,'native_invocation_'+key in r['failed_predicates'])
+
+    inputs=dict(frontend=frontend,storage=storage,ordinary=ordinary,later=later)
+    for name,role,path,value,fragment in [
+        ('permanent population','frontend',['exported_source_entry_bounds','permanent_source_entries_upper'],1590,'permanent population'),
+        ('transient spare','frontend',['components','physical_sources','Source_File_backing_demand'],1591,'permanent population'),
+        ('runtime logical table','frontend',['components','physical_sources','runtime','logical_line_table_objects'],1,'physical-to-logical'),
+        ('Main Source_Reference','frontend',['components','physical_sources','extra_physical_objects','Main','checks','no_Source_Reference'],False,'physical-to-logical'),
+        ('Main logical table','frontend',['components','physical_sources','extra_physical_objects','Main','logical_line_table_objects'],1,'physical-to-logical'),
+        ('virtual multiplicity','frontend',['components','physical_sources','virtual_sources',0,'copies_upper'],8,'virtual template'),
+        ('virtual line sharing','frontend',['components','physical_sources','virtual_sources',0,'shared_physical_text_and_line_arrays'],False,'virtual template'),
+        ('logical guard','storage',['ordinary_map_line_checks','Main_ordinary_map_lines'],False,'logical last-line'),
+        ('ordinary request','ordinary',['allocation_rows',1,'rounded_GGC_bytes'],1,'exact accepted preallocation'),
+        ('ordinary events','ordinary',['additional_GGC_events_upper'],0,'exact accepted preallocation'),
+        ('ordinary finalizers','ordinary',['additional_finalizers_upper'],1,'exact accepted preallocation'),
+        ('ordinary lifetime','ordinary',['complete_ordinary_map_lifetime_closed'],True,'exact accepted preallocation'),
+        ('named source','later',['source','sha256'],'0'*64,'actual original shared'),
+        ('named old counters','later',['incoming_original_counters','next_DECL_UID_upper'],0,'actual original shared'),
+        ('named corrected ingress','storage',['current_source_bound_shared_storage','identifier_hash','historical_insertions_upper'],0,'actual original shared'),
+        ('named identifier demand','later',['named_source_demands','identifier_insertions'],0,'disjoint 2C+1'),
+        ('named registration row','later',['consumer_rows',2,'scalar_finalizers'],2,'disjoint 2C+1'),
+        ('named original controls double charge','later',['ownership','original_five_scalar_registrations_added_again'],1,'no repeated'),
+        ('named full endpoint','later',['conditional_full_endpoint','next_DECL_UID_upper'],0,'stay null'),
+        ('named invented zero residual','later',['explicit_residual_ceilings','identifier_insertions'],0,'stay null'),
+        ('named full arithmetic','later',['conditional_full_arithmetic_fits'],True,'stay null'),
+        ('named complete lifetime','later',['complete_later_shared_storage_closed'],True,'stay null'),
+        ('named complete projection','later',['named_only_projection','valid_as_complete_lifetime_endpoint'],True,'stay null')]:
+        changed=copy.deepcopy(inputs);obj=changed[role]
+        for key in path[:-1]:obj=obj[key]
+        obj[path[-1]]=value
+        reject('reject '+name,lambda:m['join_ordinary_and_named_later'](hello,core,
+            changed['frontend'],changed['storage'],changed['ordinary'],changed['later'],ctx),fragment)
+    old_eval=ctx.later['evaluate_source']
+    def failed_named(*a,**kw):
+        value=old_eval(*a,**kw)
+        value['named_only_projection']['checks']=dict.fromkeys(value['named_only_projection']['checks'],False)
+        return value
+    ctx.later['evaluate_source']=failed_named
+    try:r=m['attach'](hello,core,invocation,numeric,frontend,location,ctx)
+    finally:ctx.later['evaluate_source']=old_eval
+    check('false named-only arithmetic stays diagnostic and adds no guard',r['conditions']==baseline['conditions']
+        and r['evaluated_predicates_pass'] and not any(r['selected_native_later_shared_demands']['named_only_projection']['checks'].values()))
+    ff=copy.deepcopy(frontend);ll=copy.deepcopy(location)
+    ff['components']['physical_sources']['extra_physical_objects']['Main']['physical_line_entries_bound']=2**24+1
+    ll['Main_physical_line_entries_upper']=2**24+1;ll['Main_ordinary_map_line_guard']=False
+    r=m['attach'](hello,core,invocation,numeric,ff,ll,ctx)
+    check('existing logical-line capacity failure returns full graph and null endpoints',
+        r['failed_predicates']==['native_location_Main_ordinary_map_lines']
+        and not r['ordinary_map_later_shared_join']['ordinary_preallocation_bound_applies']
+        and r['selected_native_later_shared_demands']['conditional_full_arithmetic_fits'] is None)
+    for fragment in ('retained-literal-ordinary-maps-20261018/derive.py','retained-literal-later-shared-storage-20261018/derive.py'):
+        original_read=m['Context'].__init__.__globals__['read']
+        def changed_pin(path,fragment=fragment):
+            value=original_read(path)
+            if Path(path)==HERE/'selected-route-inputs.json':
+                value=copy.deepcopy(value);next(row for row in value['files'] if row['path'].endswith(fragment))['sha256']='0'*64
+            return value
+        m['Context'].__init__.__globals__['read']=changed_pin
+        try:reject('reject changed new attachment identity '+fragment,
+            lambda:m['Context'](args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match),'selected route current input')
+        finally:m['Context'].__init__.__globals__['read']=original_read
+    baseline['offline_run']=dict(started_utc=started,completed_utc=datetime.now(timezone.utc).isoformat(),
+        scope='Hello generated once within affected ordinary-map/named-later attachment check')
+    (HERE/'selected-route-result.json').write_text(json.dumps(baseline,indent=2)+'\n')
     output=dict(started_utc=started,completed_utc=datetime.now(timezone.utc).isoformat(),elapsed_seconds=time.perf_counter()-timer,
         checks=len(rows),passed=rows,variants=summaries,validation=ctx.validation,
         implementation_inputs={name:m['identity']((HERE/name).read_bytes()) for name in
             ('selected-route.py','selected-route.json','selected-core-fixture.json','selected-route-inputs.json','check-selected-route.py')},
-        native_tool_executions=0,predecessor_suites_rerun=False,broad_suites_rerun=False,
+        native_tool_executions=0,predecessor_suites_rerun=False,broad_suites_rerun=False,runtime_census_reinventoried=False,
         selected_model='GPT-6.1 Sol',selected_effort='Extra High',runtime_confirmed_model_effort=None,token_cost_measurements=None,
-        validation_rework=dict(scope='New frontend/location/source-bound indexed shared attachment only.',
-            initial_new_attachment_smoke='57 checks passed in11.662330seconds; new guard/ownership/identity assertions added for required coverage, then rerun only this affected harness.',
-            earlier_selected_route_evidence='106 checks before9091e36fb2 retained in repository history before this attachment; not rerun as a predecessor suite.',
-            preserved_leaf_successes='frontend43/52,location140/191,numeric57/106 retained; no corpus inventory repeated.'))
+        validation_scope='Affected ordinary preallocation/named-later source identity, ownership, null endpoints and preservation of all69 guard assembly only.',
+        validation_rework=[
+            'Attempt1 stopped after Context identity checks before source evaluation: historical reader requires a full40-character revision; checker reference corrected to exact base.',
+            'Attempt2 passed source and all69 guard checks, then a corrected-ingress mutation exposed shared-object aliasing across helper inputs. New join now independently recomputes the correction from original shared input before comparison. Accepted leaves/arithmetic unchanged.'],
+        reused_evidence='ordinary1609; named later40 and AST repair33; prior selected118; earlier accepted leaves unchanged; no corpus inventory or predecessor suite replay.')
     args.output.write_text(json.dumps(output,indent=2)+'\n')
     print(json.dumps({k:output[k] for k in ('checks','elapsed_seconds','native_tool_executions')}))
 
