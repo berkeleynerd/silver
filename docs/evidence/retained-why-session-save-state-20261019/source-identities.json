@@ -1,0 +1,144 @@
+{
+  "identity": {
+    "bytes": 122292,
+    "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+  },
+  "members": {
+    "why3/src/gnat/gnat_main.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/gnat/gnat_main.ml",
+      "identity": {
+        "bytes": 14829,
+        "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+      }
+    },
+    "why3/src/gnat/gnat_checks.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/gnat/gnat_checks.ml",
+      "identity": {
+        "bytes": 48146,
+        "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+      }
+    },
+    "why3/src/gnat/gnat_config.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/gnat/gnat_config.ml",
+      "identity": {
+        "bytes": 25991,
+        "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+      }
+    },
+    "why3/src/util/debug.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/util/debug.ml",
+      "identity": {
+        "bytes": 6900,
+        "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+      }
+    },
+    "why3/src/util/pp.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/util/pp.ml",
+      "identity": {
+        "bytes": 6788,
+        "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+      }
+    },
+    "why3/src/util/sysutil.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/util/sysutil.ml",
+      "identity": {
+        "bytes": 8096,
+        "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+      }
+    },
+    "why3/src/session/session_itp.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/session/session_itp.ml",
+      "identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      }
+    },
+    "why3/src/session/controller_itp.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/session/controller_itp.ml",
+      "identity": {
+        "bytes": 56291,
+        "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+      }
+    },
+    "why3/src/session/termcode.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/session/termcode.ml",
+      "identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      }
+    },
+    "why3/src/core/term.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      }
+    },
+    "why3/src/core/task.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/core/task.ml",
+      "identity": {
+        "bytes": 11462,
+        "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+      }
+    },
+    "why3/src/core/decl.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/core/decl.ml",
+      "identity": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+      }
+    },
+    "why3/src/core/ident.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      }
+    },
+    "why3/src/core/theory.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/core/theory.ml",
+      "identity": {
+        "bytes": 35066,
+        "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+      }
+    },
+    "why3/src/transform/inlining.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/transform/inlining.ml",
+      "identity": {
+        "bytes": 5891,
+        "sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9"
+      }
+    },
+    "why3/src/driver/driver.ml": {
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "path": "src/driver/driver.ml",
+      "identity": {
+        "bytes": 18796,
+        "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+      }
+    },
+    "ocaml/stdlib/stdlib.ml": {
+      "revision": "8eb41f72ded84df884c3671734c947f612091f84",
+      "path": "stdlib/stdlib.ml",
+      "identity": {
+        "bytes": 21993,
+        "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+      }
+    }
+  }
+}

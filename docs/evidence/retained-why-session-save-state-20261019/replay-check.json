@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "pid": 97103,
+  "raw_reads": 49728,
+  "session_complete": true,
+  "helper_roots_complete": true,
+  "complete_R": false,
+  "command": "python3 -B docs/evidence/retained-why-session-save-observer-20261018/replay.py /home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261018/input_is_valid/capture --scratch-root /home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-replay-20261019",
+  "isolated_replay_seconds": null,
+  "tool_command_seconds_including_branch_status_commands": 1.073071278,
+  "note": "Exact sequential replay completed before archiving; every emitted projection file byte-matched. The archive identities retain those exact files. No duplicate successful replay was run for timing.",
+  "files": [
+    "exit-hook-roots.json",
+    "session-blocks.jsonl",
+    "session-forest-events.jsonl",
+    "session-forest.json",
+    "session-result.json",
+    "session-root.json",
+    "session-tables.json",
+    "session-task-chains.json",
+    "session-task-graph-addresses.jsonl",
+    "statistic-values-addresses.jsonl",
+    "timing-values-addresses.jsonl"
+  ]
+}

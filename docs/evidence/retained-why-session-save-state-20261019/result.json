@@ -1,0 +1,144 @@
+{
+  "pid": 97103,
+  "native_platform": "linux-x86_64",
+  "managed_run": "20261019T000304-fcb988ec2c03",
+  "managed_outcome": "success",
+  "managed_seconds": 35.824959949,
+  "debugger_seconds": 33.606329286998516,
+  "frozen_preparation_files_matched": 24,
+  "core_raw_read_records_scanned": 835579,
+  "private_counter_and_auxiliary_values_replayed": true,
+  "input_graph_isomorphism_blocks": 14477,
+  "input_declaration_roots": 244,
+  "complete_Hsdecl_graph_blocks": 326456,
+  "Hsdecl_buckets": 5003,
+  "Hsdecl_unique_old_objects": 6704,
+  "Hsdecl_bucket_max": 7,
+  "same_process_representative_projection": {
+    "mapped_keys_unique": 143,
+    "all_miss_input_alternatives_checked": 143,
+    "kind_or_symbol_excluded_old_declarations": 6559,
+    "excluded_kind_counts": {
+      "0": 296,
+      "5": 2735,
+      "2": 2336,
+      "3": 1122,
+      "1": 59,
+      "4": 11
+    },
+    "same_key_old_declarations": 145,
+    "strict_shape_exclusions": [
+      {
+        "declaration_index": 143,
+        "name": "concat_singleton_left_def",
+        "address": 139793614532744,
+        "opened_coordinates": [
+          72,
+          8,
+          0,
+          19
+        ],
+        "candidate_coordinates_upper": [
+          72,
+          7,
+          0,
+          19
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "b"
+        ]
+      },
+      {
+        "declaration_index": 152,
+        "name": "bool_eq_rev",
+        "address": 139793613328840,
+        "opened_coordinates": [
+          53,
+          7,
+          0,
+          18
+        ],
+        "candidate_coordinates_upper": [
+          52,
+          7,
+          0,
+          18
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "n"
+        ]
+      },
+      {
+        "declaration_index": 242,
+        "name": "argument_count__post_axiom",
+        "address": 139793606364896,
+        "opened_coordinates": [
+          17,
+          2,
+          0,
+          8
+        ],
+        "candidate_coordinates_upper": [
+          16,
+          2,
+          0,
+          8
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "n"
+        ]
+      }
+    ],
+    "remaining_old_representatives_are_input_roots": 142
+  },
+  "representative_envelope": {
+    "seed_saved_entries_per_formula": 8,
+    "delayed_value_nodes": 6,
+    "type_occurrence_nodes": 3,
+    "attribute_universe_entries": 80
+  },
+  "registration_transfer": {
+    "initial": 60496,
+    "registrations_upper": 1145,
+    "first_tag_if_called": 60497,
+    "last_tag_upper": 61641,
+    "counter_after_call_upper": 61641,
+    "value_bits": 63,
+    "signed_maximum": 4611686018427387903,
+    "remaining_headroom": 4611686018427326262,
+    "no_overflow_during_bounded_call": true
+  },
+  "session_table_bindings": {
+    "files": 1,
+    "proof_nodes": 5,
+    "transformations": 1,
+    "raw_tasks": 5,
+    "proof_attempts": 4
+  },
+  "apn_visits": 5,
+  "attached_visits": 5,
+  "distinct_raw_tasks": 5,
+  "logical_declaration_roots": 248,
+  "distinct_prop_formulas": 66,
+  "logical_graph_blocks": 16106,
+  "all_session_and_helper_blocks": 17985,
+  "all_session_and_helper_payload_bytes": 513248,
+  "finite_opened_states": 1651,
+  "distinct_nonempty_bv_subst_records": 4,
+  "B_binders": 966,
+  "registered_statistics": 0,
+  "timing_entries": 4,
+  "exit_callback_symbols_then_terminal": [
+    "camlWhy3__Debug__fun_3069+0x0",
+    "camlStdlib__Format__flush_standard_formatters_1825+0x0",
+    "camlStdlib__flush_all_236+0x0"
+  ],
+  "native_helper_bodies_checked": 9,
+  "native_helper_bytes_checked": 1008,
+  "retained_source_files": 17,
+  "helper_roots_complete": true,
+  "complete_R": false,
+  "composed_endpoint_established": false,
+  "native_runs_by_this_checker": 0,
+  "solver_runs": 0
+}

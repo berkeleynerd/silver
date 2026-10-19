@@ -1,0 +1,33 @@
+{
+  "pid": 97103,
+  "complete_R": false,
+  "R": null,
+  "composed_endpoint_established": false,
+  "closed_inputs": [
+    "actual SIGINT/controller/session root chain",
+    "actual two at_exit callbacks and terminal closure identities",
+    "empty registered-statistics list",
+    "four primitive timing entries",
+    "complete current task/forest binder projection",
+    "new-process inline counter/Hsdecl bound"
+  ],
+  "direct_source_preservation": [
+    "inline task rebuilding does not graft session forest or replace raw tasks",
+    "save rewrites shapes and serialization state without changing charged forest/raw formulas",
+    "direct inline/save paths do not call Debug.Stats.register",
+    "exit once-only gates only transition from true to false"
+  ],
+  "open_obligations": [
+    "source/native correspondence for transitive formatting, compression, I/O and exceptional helper paths",
+    "actual formatter/global output and tag callbacks and pending queues, or sufficient source initialization and preservation proof",
+    "uniform R charge and preservation through all helper routes admitted by the continuing-call premises"
+  ],
+  "formatter_reduction": {
+    "debug_formatter_record": 139794218869840,
+    "initialization": "GNAT buffer formatter; GNATWHY3LOG absent in exact launch environment",
+    "retained_depth": "formatter record only, output-closure environments not completely projected",
+    "pinned_Format_and_CamlinternalFormat_source_retained": false
+  },
+  "conditional_formula_only": "counter_end <= 61641 + 2*(966 + R) = 63573 + 2*R",
+  "independent_review_pending": true
+}

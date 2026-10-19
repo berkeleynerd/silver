@@ -1,0 +1,63 @@
+{
+  "started_utc": "2026-10-19 00:04:42 UTC",
+  "checkpoint_utc": "2026-10-19 00:15:26 UTC",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "task": "PID 97103 exact offline replay, capture retention, same-process inline-bound join, finite session binder certificate and actual helper inspection",
+  "authorization": "Offline only after parent-coordinated single native capture; no new target/debugger/solver/build/proof execution. Parent owns integration and publication.",
+  "native_attempts_by_this_subthread": 0,
+  "parent_managed_run": "20261019T000304-fcb988ec2c03",
+  "parent_managed_seconds": 35.824959949,
+  "parent_debugger_seconds": 33.606329286998516,
+  "checks": [
+    {
+      "name": "exact sequential session replay",
+      "status": "pass",
+      "reads": 49728,
+      "isolated_seconds": null,
+      "command_including_branch_status_seconds": 1.073071278
+    },
+    {
+      "name": "first changed-input and binder composition",
+      "status": "pass",
+      "seconds": 5.129758842998854
+    },
+    {
+      "name": "eight focused binder regressions",
+      "status": "pass",
+      "unittest_seconds": 0.001
+    },
+    {
+      "name": "extended source/ELF/join/binder generation check",
+      "status": "pass",
+      "seconds": 5.48512683700028,
+      "reason_for_additional_check": "New source identities and nine native helper body correspondences, exact driver/session task joins and dependency pins added after initial changed-input pass."
+    }
+  ],
+  "achieved": [
+    "new capture archived with process/input/core/managed identities",
+    "exact session replay",
+    "new-process <=1145 accounted source bound from counter60496",
+    "B_binders=966 with 66-formula explicit-alpha cross-check",
+    "actual two hooks plus terminal identified; registered stats empty; final helper projection counts retained"
+  ],
+  "significant_rework": [
+    "Distinguished raw core records scanned from private counter/auxiliary reads actually reconstructed.",
+    "Distinguished pre-helper17955/511712 from final17985/513248 projection counts.",
+    "Did not assume Debug formatter is err_formatter; GNAT selects a buffer formatter."
+  ],
+  "remaining": [
+    "complete R and helper/global preservation",
+    "parent independent review and integration"
+  ],
+  "scope_not_upgraded": [
+    "full callback capacity",
+    "auxiliary allocation capacity",
+    "full transform capacity",
+    "whole pipeline capacity",
+    "historical/family guarantee"
+  ]
+}

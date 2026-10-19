@@ -1,0 +1,1231 @@
+{
+  "executable": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "source": "existing retained disassembly; no objdump invocation",
+  "bodies": {
+    "camlWhy3__Debug__fun_3069": {
+      "address": 5613184,
+      "symbol_size": 82,
+      "instructions": [
+        {
+          "address": 5613184,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 5613188,
+          "hex": "488d050dda5c00",
+          "text": "lea    0x5cda0d(%rip),%rax        # b28098 <camlWhy3__Debug>"
+        },
+        {
+          "address": 5613195,
+          "hex": "488b5870",
+          "text": "mov    0x70(%rax),%rbx"
+        },
+        {
+          "address": 5613199,
+          "hex": "488b5b08",
+          "text": "mov    0x8(%rbx),%rbx"
+        },
+        {
+          "address": 5613203,
+          "hex": "4883fb01",
+          "text": "cmp    $0x1,%rbx"
+        },
+        {
+          "address": 5613207,
+          "hex": "742f",
+          "text": "je     55a6c8 <camlWhy3__Debug__fun_3069+0x48>"
+        },
+        {
+          "address": 5613209,
+          "hex": "488b8080000000",
+          "text": "mov    0x80(%rax),%rax"
+        },
+        {
+          "address": 5613216,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 5613219,
+          "hex": "e878feffff",
+          "text": "call   55a520 <camlWhy3__Debug__print_1651>"
+        },
+        {
+          "address": 5613224,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 5613229,
+          "hex": "488d05e4d95c00",
+          "text": "lea    0x5cd9e4(%rip),%rax        # b28098 <camlWhy3__Debug>"
+        },
+        {
+          "address": 5613236,
+          "hex": "488b8080000000",
+          "text": "mov    0x80(%rax),%rax"
+        },
+        {
+          "address": 5613243,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 5613246,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5613250,
+          "hex": "e9d9dd4200",
+          "text": "jmp    9884a0 <camlStdlib__Format__pp_print_flush_938>"
+        },
+        {
+          "address": 5613255,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 5613256,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 5613261,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5613265,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5613266,
+          "hex": "66662e0f1f8400",
+          "text": "data16 cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 5613273,
+          "hex": "00000000",
+          "text": ""
+        },
+        {
+          "address": 5613277,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        }
+      ]
+    },
+    "camlWhy3__Debug__print_1651": {
+      "address": 5612832,
+      "symbol_size": 190,
+      "instructions": [
+        {
+          "address": 5612832,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 5612836,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 5612840,
+          "hex": "4983ef20",
+          "text": "sub    $0x20,%r15"
+        },
+        {
+          "address": 5612844,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 5612847,
+          "hex": "0f829f000000",
+          "text": "jb     55a5d4 <camlWhy3__Debug__print_1651+0xb4>"
+        },
+        {
+          "address": 5612853,
+          "hex": "498d7f08",
+          "text": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 5612857,
+          "hex": "48c747f8f70c00",
+          "text": "movq   $0xcf7,-0x8(%rdi)"
+        },
+        {
+          "address": 5612864,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5612865,
+          "hex": "488d1d98000000",
+          "text": "lea    0x98(%rip),%rbx        # 55a5e0 <camlWhy3__Debug__fun_3047>"
+        },
+        {
+          "address": 5612872,
+          "hex": "48891f",
+          "text": "mov    %rbx,(%rdi)"
+        },
+        {
+          "address": 5612875,
+          "hex": "48bb0500000000",
+          "text": "movabs $0x100000000000005,%rbx"
+        },
+        {
+          "address": 5612882,
+          "hex": "000001",
+          "text": ""
+        },
+        {
+          "address": 5612885,
+          "hex": "48895f08",
+          "text": "mov    %rbx,0x8(%rdi)"
+        },
+        {
+          "address": 5612889,
+          "hex": "48894710",
+          "text": "mov    %rax,0x10(%rdi)"
+        },
+        {
+          "address": 5612893,
+          "hex": "488d0534db5c00",
+          "text": "lea    0x5cdb34(%rip),%rax        # b28098 <camlWhy3__Debug>"
+        },
+        {
+          "address": 5612900,
+          "hex": "488b8028010000",
+          "text": "mov    0x128(%rax),%rax"
+        },
+        {
+          "address": 5612907,
+          "hex": "488b18",
+          "text": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 5612910,
+          "hex": "4889f8",
+          "text": "mov    %rdi,%rax"
+        },
+        {
+          "address": 5612913,
+          "hex": "e87aeb3e00",
+          "text": "call   9490f0 <camlStdlib__List__iter_507>"
+        },
+        {
+          "address": 5612918,
+          "hex": "4983ef28",
+          "text": "sub    $0x28,%r15"
+        },
+        {
+          "address": 5612922,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 5612925,
+          "hex": "724e",
+          "text": "jb     55a5cd <camlWhy3__Debug__print_1651+0xad>"
+        },
+        {
+          "address": 5612927,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 5612931,
+          "hex": "48c740f8f71000",
+          "text": "movq   $0x10f7,-0x8(%rax)"
+        },
+        {
+          "address": 5612938,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5612939,
+          "hex": "488d1d4e0dfdff",
+          "text": "lea    -0x2f2b2(%rip),%rbx        # 52b2e0 <caml_curry2>"
+        },
+        {
+          "address": 5612946,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 5612949,
+          "hex": "48bb0700000000",
+          "text": "movabs $0x200000000000007,%rbx"
+        },
+        {
+          "address": 5612956,
+          "hex": "000002",
+          "text": ""
+        },
+        {
+          "address": 5612959,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 5612963,
+          "hex": "488d1d76000000",
+          "text": "lea    0x76(%rip),%rbx        # 55a620 <camlWhy3__Debug__fun_3056>"
+        },
+        {
+          "address": 5612970,
+          "hex": "48895810",
+          "text": "mov    %rbx,0x10(%rax)"
+        },
+        {
+          "address": 5612974,
+          "hex": "488b1c24",
+          "text": "mov    (%rsp),%rbx"
+        },
+        {
+          "address": 5612978,
+          "hex": "48895818",
+          "text": "mov    %rbx,0x18(%rax)"
+        },
+        {
+          "address": 5612982,
+          "hex": "488d1ddbda5c00",
+          "text": "lea    0x5cdadb(%rip),%rbx        # b28098 <camlWhy3__Debug>"
+        },
+        {
+          "address": 5612989,
+          "hex": "488b9b08010000",
+          "text": "mov    0x108(%rbx),%rbx"
+        },
+        {
+          "address": 5612996,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5613000,
+          "hex": "e993724200",
+          "text": "jmp    981860 <camlStdlib__Hashtbl__iter_730>"
+        },
+        {
+          "address": 5613005,
+          "hex": "e85a984800",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 5613010,
+          "hex": "ebab",
+          "text": "jmp    55a57f <camlWhy3__Debug__print_1651+0x5f>"
+        },
+        {
+          "address": 5613012,
+          "hex": "e853984800",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 5613017,
+          "hex": "e957ffffff",
+          "text": "jmp    55a535 <camlWhy3__Debug__print_1651+0x15>"
+        },
+        {
+          "address": 5613022,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        }
+      ]
+    },
+    "camlWhy3__Debug__set_debug_formatter_1396": {
+      "address": 5610432,
+      "symbol_size": 173,
+      "instructions": [
+        {
+          "address": 5610432,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 5610436,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 5610440,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 5610445,
+          "hex": "e8eef14200",
+          "text": "call   988dc0 <camlStdlib__Format__pp_get_formatter_out_functions_1100>"
+        },
+        {
+          "address": 5610450,
+          "hex": "4983ef50",
+          "text": "sub    $0x50,%r15"
+        },
+        {
+          "address": 5610454,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 5610457,
+          "hex": "0f8284000000",
+          "text": "jb     559c63 <camlWhy3__Debug__set_debug_formatter_1396+0xa3>"
+        },
+        {
+          "address": 5610463,
+          "hex": "498d7f08",
+          "text": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 5610467,
+          "hex": "4883c730",
+          "text": "add    $0x30,%rdi"
+        },
+        {
+          "address": 5610471,
+          "hex": "48c747f8f70c00",
+          "text": "movq   $0xcf7,-0x8(%rdi)"
+        },
+        {
+          "address": 5610478,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5610479,
+          "hex": "488d1d7a000000",
+          "text": "lea    0x7a(%rip),%rbx        # 559c70 <camlWhy3__Debug__fun_2950>"
+        },
+        {
+          "address": 5610486,
+          "hex": "48891f",
+          "text": "mov    %rbx,(%rdi)"
+        },
+        {
+          "address": 5610489,
+          "hex": "48bb0500000000",
+          "text": "movabs $0x100000000000005,%rbx"
+        },
+        {
+          "address": 5610496,
+          "hex": "000001",
+          "text": ""
+        },
+        {
+          "address": 5610499,
+          "hex": "48895f08",
+          "text": "mov    %rbx,0x8(%rdi)"
+        },
+        {
+          "address": 5610503,
+          "hex": "48894710",
+          "text": "mov    %rax,0x10(%rdi)"
+        },
+        {
+          "address": 5610507,
+          "hex": "488d5fd0",
+          "text": "lea    -0x30(%rdi),%rbx"
+        },
+        {
+          "address": 5610511,
+          "hex": "48c743f8001400",
+          "text": "movq   $0x1400,-0x8(%rbx)"
+        },
+        {
+          "address": 5610518,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5610519,
+          "hex": "488b30",
+          "text": "mov    (%rax),%rsi"
+        },
+        {
+          "address": 5610522,
+          "hex": "488933",
+          "text": "mov    %rsi,(%rbx)"
+        },
+        {
+          "address": 5610525,
+          "hex": "488b7008",
+          "text": "mov    0x8(%rax),%rsi"
+        },
+        {
+          "address": 5610529,
+          "hex": "48897308",
+          "text": "mov    %rsi,0x8(%rbx)"
+        },
+        {
+          "address": 5610533,
+          "hex": "48897b10",
+          "text": "mov    %rdi,0x10(%rbx)"
+        },
+        {
+          "address": 5610537,
+          "hex": "488b7818",
+          "text": "mov    0x18(%rax),%rdi"
+        },
+        {
+          "address": 5610541,
+          "hex": "48897b18",
+          "text": "mov    %rdi,0x18(%rbx)"
+        },
+        {
+          "address": 5610545,
+          "hex": "488b4020",
+          "text": "mov    0x20(%rax),%rax"
+        },
+        {
+          "address": 5610549,
+          "hex": "48894320",
+          "text": "mov    %rax,0x20(%rbx)"
+        },
+        {
+          "address": 5610553,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 5610557,
+          "hex": "e80ef14200",
+          "text": "call   988d50 <camlStdlib__Format__pp_set_formatter_out_functions_1091>"
+        },
+        {
+          "address": 5610562,
+          "hex": "488d054fe45c00",
+          "text": "lea    0x5ce44f(%rip),%rax        # b28098 <camlWhy3__Debug>"
+        },
+        {
+          "address": 5610569,
+          "hex": "488bb880000000",
+          "text": "mov    0x80(%rax),%rdi"
+        },
+        {
+          "address": 5610576,
+          "hex": "488b3424",
+          "text": "mov    (%rsp),%rsi"
+        },
+        {
+          "address": 5610580,
+          "hex": "e8f7d94600",
+          "text": "call   9c7650 <caml_modify>"
+        },
+        {
+          "address": 5610585,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 5610590,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5610594,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5610595,
+          "hex": "e8c4a14800",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 5610600,
+          "hex": "e972ffffff",
+          "text": "jmp    559bdf <camlWhy3__Debug__set_debug_formatter_1396+0x1f>"
+        },
+        {
+          "address": 5610605,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        }
+      ]
+    },
+    "camlStdlib__Format__flush_standard_formatters_1825": {
+      "address": 10008224,
+      "symbol_size": 56,
+      "instructions": [
+        {
+          "address": 10008224,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 10008228,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 10008233,
+          "hex": "488d0540fa5f00",
+          "text": "lea    0x5ffa40(%rip),%rax        # f8b0f0 <camlStdlib__Format>"
+        },
+        {
+          "address": 10008240,
+          "hex": "488b8060030000",
+          "text": "mov    0x360(%rax),%rax"
+        },
+        {
+          "address": 10008247,
+          "hex": "e8e4cdffff",
+          "text": "call   9884a0 <camlStdlib__Format__pp_print_flush_938>"
+        },
+        {
+          "address": 10008252,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 10008257,
+          "hex": "488d0528fa5f00",
+          "text": "lea    0x5ffa28(%rip),%rax        # f8b0f0 <camlStdlib__Format>"
+        },
+        {
+          "address": 10008264,
+          "hex": "488b8068030000",
+          "text": "mov    0x368(%rax),%rax"
+        },
+        {
+          "address": 10008271,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 10008275,
+          "hex": "e9c8cdffff",
+          "text": "jmp    9884a0 <camlStdlib__Format__pp_print_flush_938>"
+        },
+        {
+          "address": 10008280,
+          "hex": "0f1f8400000000",
+          "text": "nopl   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 10008287,
+          "hex": "00",
+          "text": ""
+        }
+      ]
+    },
+    "camlStdlib__Format__formatter_of_out_channel_1157": {
+      "address": 10000272,
+      "symbol_size": 148,
+      "instructions": [
+        {
+          "address": 10000272,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 10000276,
+          "hex": "4983ef50",
+          "text": "sub    $0x50,%r15"
+        },
+        {
+          "address": 10000280,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 10000283,
+          "hex": "727d",
+          "text": "jb     98981a <camlStdlib__Format__formatter_of_out_channel_1157+0x8a>"
+        },
+        {
+          "address": 10000285,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 10000289,
+          "hex": "4883c330",
+          "text": "add    $0x30,%rbx"
+        },
+        {
+          "address": 10000293,
+          "hex": "48c743f8f70c00",
+          "text": "movq   $0xcf7,-0x8(%rbx)"
+        },
+        {
+          "address": 10000300,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 10000301,
+          "hex": "488d3d9c000000",
+          "text": "lea    0x9c(%rip),%rdi        # 989850 <camlStdlib__Format__fun_2433>"
+        },
+        {
+          "address": 10000308,
+          "hex": "48893b",
+          "text": "mov    %rdi,(%rbx)"
+        },
+        {
+          "address": 10000311,
+          "hex": "48bf0500000000",
+          "text": "movabs $0x100000000000005,%rdi"
+        },
+        {
+          "address": 10000318,
+          "hex": "000001",
+          "text": ""
+        },
+        {
+          "address": 10000321,
+          "hex": "48897b08",
+          "text": "mov    %rdi,0x8(%rbx)"
+        },
+        {
+          "address": 10000325,
+          "hex": "48894310",
+          "text": "mov    %rax,0x10(%rbx)"
+        },
+        {
+          "address": 10000329,
+          "hex": "488d3dc82d5c00",
+          "text": "lea    0x5c2dc8(%rip),%rdi        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 10000336,
+          "hex": "488bbf20020000",
+          "text": "mov    0x220(%rdi),%rdi"
+        },
+        {
+          "address": 10000343,
+          "hex": "488d73d0",
+          "text": "lea    -0x30(%rbx),%rsi"
+        },
+        {
+          "address": 10000347,
+          "hex": "48c746f8f71400",
+          "text": "movq   $0x14f7,-0x8(%rsi)"
+        },
+        {
+          "address": 10000354,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 10000355,
+          "hex": "488d15e619baff",
+          "text": "lea    -0x45e61a(%rip),%rdx        # 52b1d0 <caml_curry3>"
+        },
+        {
+          "address": 10000362,
+          "hex": "488916",
+          "text": "mov    %rdx,(%rsi)"
+        },
+        {
+          "address": 10000365,
+          "hex": "48ba0700000000",
+          "text": "movabs $0x300000000000007,%rdx"
+        },
+        {
+          "address": 10000372,
+          "hex": "000003",
+          "text": ""
+        },
+        {
+          "address": 10000375,
+          "hex": "48895608",
+          "text": "mov    %rdx,0x8(%rsi)"
+        },
+        {
+          "address": 10000379,
+          "hex": "488d152e000000",
+          "text": "lea    0x2e(%rip),%rdx        # 989830 <camlStdlib__Format__fun_2430>"
+        },
+        {
+          "address": 10000386,
+          "hex": "48895610",
+          "text": "mov    %rdx,0x10(%rsi)"
+        },
+        {
+          "address": 10000390,
+          "hex": "48894618",
+          "text": "mov    %rax,0x18(%rsi)"
+        },
+        {
+          "address": 10000394,
+          "hex": "48897e20",
+          "text": "mov    %rdi,0x20(%rsi)"
+        },
+        {
+          "address": 10000398,
+          "hex": "4889f0",
+          "text": "mov    %rsi,%rax"
+        },
+        {
+          "address": 10000401,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 10000405,
+          "hex": "e996fdffff",
+          "text": "jmp    9895b0 <camlStdlib__Format__make_formatter_1152>"
+        },
+        {
+          "address": 10000410,
+          "hex": "e80da60500",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 10000415,
+          "hex": "e979ffffff",
+          "text": "jmp    98979d <camlStdlib__Format__formatter_of_out_channel_1157+0xd>"
+        },
+        {
+          "address": 10000420,
+          "hex": "662e0f1f840000",
+          "text": "cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 10000427,
+          "hex": "000000",
+          "text": ""
+        },
+        {
+          "address": 10000430,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        }
+      ]
+    },
+    "camlStdlib__Format__formatter_of_buffer_1161": {
+      "address": 10000496,
+      "symbol_size": 108,
+      "instructions": [
+        {
+          "address": 10000496,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 10000500,
+          "hex": "488d1da51d5e00",
+          "text": "lea    0x5e1da5(%rip),%rbx        # f6b620 <camlStdlib__Buffer>"
+        },
+        {
+          "address": 10000507,
+          "hex": "488b9b88000000",
+          "text": "mov    0x88(%rbx),%rbx"
+        },
+        {
+          "address": 10000514,
+          "hex": "4983ef30",
+          "text": "sub    $0x30,%r15"
+        },
+        {
+          "address": 10000518,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 10000521,
+          "hex": "724a",
+          "text": "jb     9898d5 <camlStdlib__Format__formatter_of_buffer_1161+0x65>"
+        },
+        {
+          "address": 10000523,
+          "hex": "498d7f08",
+          "text": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 10000527,
+          "hex": "48c747f8f71400",
+          "text": "movq   $0x14f7,-0x8(%rdi)"
+        },
+        {
+          "address": 10000534,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 10000535,
+          "hex": "488d353219baff",
+          "text": "lea    -0x45e6ce(%rip),%rsi        # 52b1d0 <caml_curry3>"
+        },
+        {
+          "address": 10000542,
+          "hex": "488937",
+          "text": "mov    %rsi,(%rdi)"
+        },
+        {
+          "address": 10000545,
+          "hex": "48be0700000000",
+          "text": "movabs $0x300000000000007,%rsi"
+        },
+        {
+          "address": 10000552,
+          "hex": "000003",
+          "text": ""
+        },
+        {
+          "address": 10000555,
+          "hex": "48897708",
+          "text": "mov    %rsi,0x8(%rdi)"
+        },
+        {
+          "address": 10000559,
+          "hex": "488d352a000000",
+          "text": "lea    0x2a(%rip),%rsi        # 9898e0 <camlStdlib__Format__fun_2444>"
+        },
+        {
+          "address": 10000566,
+          "hex": "48897710",
+          "text": "mov    %rsi,0x10(%rdi)"
+        },
+        {
+          "address": 10000570,
+          "hex": "48894718",
+          "text": "mov    %rax,0x18(%rdi)"
+        },
+        {
+          "address": 10000574,
+          "hex": "48895f20",
+          "text": "mov    %rbx,0x20(%rdi)"
+        },
+        {
+          "address": 10000578,
+          "hex": "488d1d57106000",
+          "text": "lea    0x601057(%rip),%rbx        # f8a920 <camlStdlib__Format__165>"
+        },
+        {
+          "address": 10000585,
+          "hex": "4889f8",
+          "text": "mov    %rdi,%rax"
+        },
+        {
+          "address": 10000588,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 10000592,
+          "hex": "e9dbfcffff",
+          "text": "jmp    9895b0 <camlStdlib__Format__make_formatter_1152>"
+        },
+        {
+          "address": 10000597,
+          "hex": "e852a50500",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 10000602,
+          "hex": "ebaf",
+          "text": "jmp    98988b <camlStdlib__Format__formatter_of_buffer_1161+0x1b>"
+        },
+        {
+          "address": 10000604,
+          "hex": "0f1f4000",
+          "text": "nopl   0x0(%rax)"
+        }
+      ]
+    },
+    "camlStdlib__Format__pp_print_flush_938": {
+      "address": 9995424,
+      "symbol_size": 55,
+      "instructions": [
+        {
+          "address": 9995424,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9995428,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9995432,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9995435,
+          "hex": "7623",
+          "text": "jbe    9884d0 <camlStdlib__Format__pp_print_flush_938+0x30>"
+        },
+        {
+          "address": 9995437,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 9995442,
+          "hex": "e859fdffff",
+          "text": "call   988210 <camlStdlib__Format__pp_flush_queue_779>"
+        },
+        {
+          "address": 9995447,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9995451,
+          "hex": "488b9888000000",
+          "text": "mov    0x88(%rax),%rbx"
+        },
+        {
+          "address": 9995458,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9995463,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9995466,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9995470,
+          "hex": "ffe7",
+          "text": "jmp    *%rdi"
+        },
+        {
+          "address": 9995472,
+          "hex": "e857b90500",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9995477,
+          "hex": "ebd6",
+          "text": "jmp    9884ad <camlStdlib__Format__pp_print_flush_938+0xd>"
+        },
+        {
+          "address": 9995479,
+          "hex": "660f1f84000000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9995486,
+          "hex": "0000",
+          "text": ""
+        }
+      ]
+    },
+    "camlStdlib__flush_all_236": {
+      "address": 9701088,
+      "symbol_size": 46,
+      "instructions": [
+        {
+          "address": 9701088,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9701092,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9701095,
+          "hex": "761e",
+          "text": "jbe    940707 <camlStdlib__flush_all_236+0x27>"
+        },
+        {
+          "address": 9701097,
+          "hex": "bf01000000",
+          "text": "mov    $0x1,%edi"
+        },
+        {
+          "address": 9701102,
+          "hex": "488d054beb0800",
+          "text": "lea    0x8eb4b(%rip),%rax        # 9cf240 <caml_ml_out_channels_list>"
+        },
+        {
+          "address": 9701109,
+          "hex": "e8ae380a00",
+          "text": "call   9e3fa8 <caml_c_call>"
+        },
+        {
+          "address": 9701114,
+          "hex": "4d8b7e08",
+          "text": "mov    0x8(%r14),%r15"
+        },
+        {
+          "address": 9701118,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9701122,
+          "hex": "e909000000",
+          "text": "jmp    940710 <camlStdlib__iter_238>"
+        },
+        {
+          "address": 9701127,
+          "hex": "e820370a00",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9701132,
+          "hex": "ebdb",
+          "text": "jmp    9406e9 <camlStdlib__flush_all_236+0x9>"
+        },
+        {
+          "address": 9701134,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        }
+      ]
+    },
+    "camlStdlib__new_exit_481": {
+      "address": 9704800,
+      "symbol_size": 88,
+      "instructions": [
+        {
+          "address": 9704800,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9704804,
+          "hex": "48891c24",
+          "text": "mov    %rbx,(%rsp)"
+        },
+        {
+          "address": 9704808,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9704811,
+          "hex": "7644",
+          "text": "jbe    9415b1 <camlStdlib__new_exit_481+0x51>"
+        },
+        {
+          "address": 9704813,
+          "hex": "bf01000000",
+          "text": "mov    $0x1,%edi"
+        },
+        {
+          "address": 9704818,
+          "hex": "be03000000",
+          "text": "mov    $0x3,%esi"
+        },
+        {
+          "address": 9704823,
+          "hex": "488b4318",
+          "text": "mov    0x18(%rbx),%rax"
+        },
+        {
+          "address": 9704827,
+          "hex": "4889f3",
+          "text": "mov    %rsi,%rbx"
+        },
+        {
+          "address": 9704830,
+          "hex": "e8fde7ffff",
+          "text": "call   93fd80 <camlCamlinternalAtomic__compare_and_set_24>"
+        },
+        {
+          "address": 9704835,
+          "hex": "4883f801",
+          "text": "cmp    $0x1,%rax"
+        },
+        {
+          "address": 9704839,
+          "hex": "7412",
+          "text": "je     94159b <camlStdlib__new_exit_481+0x3b>"
+        },
+        {
+          "address": 9704841,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9704845,
+          "hex": "488b5810",
+          "text": "mov    0x10(%rax),%rbx"
+        },
+        {
+          "address": 9704849,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9704854,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9704857,
+          "hex": "ffd7",
+          "text": "call   *%rdi"
+        },
+        {
+          "address": 9704859,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9704863,
+          "hex": "488b5820",
+          "text": "mov    0x20(%rax),%rbx"
+        },
+        {
+          "address": 9704867,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9704872,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9704875,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9704879,
+          "hex": "ffe7",
+          "text": "jmp    *%rdi"
+        },
+        {
+          "address": 9704881,
+          "hex": "e876280a00",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9704886,
+          "hex": "ebb5",
+          "text": "jmp    94156d <camlStdlib__new_exit_481+0xd>"
+        },
+        {
+          "address": 9704888,
+          "hex": "0f1f8400000000",
+          "text": "nopl   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9704895,
+          "hex": "00",
+          "text": ""
+        }
+      ]
+    }
+  }
+}
