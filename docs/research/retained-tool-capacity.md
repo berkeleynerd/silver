@@ -570,8 +570,41 @@ current; consumed-argument equality and negative checks cover that adaptation.
 The 204 focused author checks passed in 5.729571 seconds. Independent review
 accepted the joins and separate owners: maps 3, RTL 4C, graph 14, query 0. Shared
 768, partial native 2,312 and location 13 remain separate Hello allowances,
-not a summed total. MEM/SSA actual-source attachment and the remaining pool,
-finalizer, collector and full-pipeline joins remain open.
+not a summed total.
+
+The [MEM/SSA actual-source attachment](retained-literal-mem-ssa-attachment.md),
+frozen at `e28fef05f2`, is [independently accepted](../reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md).
+It connects the actual MEM/core/query inputs and compares the complete initial
+SSA owner before applying the accepted zero-increment lifetime result. All
+149 inherited and 29 added predicates remain conjunctive: **178 guards**.
+The 269 focused checks cover five actual sources and nine count cases in
+6.193662270s. C=20 needs one new pointer and one ordinary alignment backing;
+C=34's existing pre-split owner already covers growth. No old owner is charged
+again and no global total is inferred.
+
+The [shared bitmap/pool source result](retained-literal-shared-bitmap-pools.md),
+frozen at `86d50fa7ec`, is accepted in the same review. Ordinary bitmap and
+shared block-cache storage use fixed 65,536-byte requests and linked chains,
+with no cumulative allocation counter. Actual bit domains, default depth,
+LRA program points/live ranges and shared dominance-pool retained counts are
+bounded. The result adds zero GGC events/finalizers. Its 52 focused checks,
+21 count cases, eleven bitmap and eighteen pool boundaries passed in
+0.056576059s. **Wording correction:** `point_freq_vec` stores signed `int`
+elements (`lra-lives.cc:530`); capacity arithmetic is unsigned. Append, MAX,
+copy and reset do not accumulate element values, and the four-byte storage
+bound/guards are unchanged. See the [review erratum](../reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md#point-frequency-wording-erratum);
+the frozen packet is retained unchanged.
+
+The [finalizer/depth source join](retained-literal-finalizer-lifetime.md),
+frozen at `2b16ef1814`, is also independently accepted. Typed constructor and
+selected descriptor coverage proves **zero array-finalizer registrations**.
+The scalar history/capacity remains 39,275/58,911 under its existing owner.
+Context depth stays zero: the depth backing and each of the two outer finalizer
+backings are independently 40 bytes, and no old-context bitmap backup is
+allocated. The 67 focused checks over 24 GCC/eight repository inputs and
+27 excerpts passed in 0.028112547s. Pool/finalizer actual-source attachment,
+remaining direct/ordinary owners, the complete GGC/collector ledger and
+full-pipeline/current-grammar composition remain open.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -847,9 +880,24 @@ Independent source/ELF checking reconciled 14 bodies / 2,352 bytes, all 51
 recorded branches, twelve words/targets and exact source/plugin identities in
 0.619610204 seconds. #142's bounded repair is complete pending merge; it does
 not establish the exceptional-unwinding charge or complete R, which stays null.
-A separate exception-dispatch packet is under analysis; the linked Sexplib
-converter prefix, reachable exception family and interrupted-handler
-continuations require their own closure.
+The [exception-dispatch packet](retained-why-session-exception-prefix.md)
+(`18bd02108f`) and [Sexplib converter prefix](retained-why-sexplib-converter-prefix.md)
+(`040fba6e24`) are [independently accepted for their bounded claims](../reviews/review-why-exception-and-sexplib-prefix-040fba6e24.md).
+They establish primitive-family rejection and reconcile 24 registrations /
+23 keys, including a real same-key replacement and nested exception delegation.
+The exact callable family is closed; reachable exception effects and continued
+computation remain separate obligations. The review used retained successful
+checks and a new 38-check installed/source/edge diagnostic, without native or
+checker replay.
+
+Independent applicability review found no existing compiler-wide no-signal
+premise. A completed process may have resumed after a caught signal-save failure;
+normal scheduler completion also saves before emitting results, and synchronous
+exit hooks remain. Genuine failed environmental premises may exclude a trace
+from the conditional completed-pipeline theorem, but representation-origin
+failures cannot be waived. Next is the actual save/exit outcome/effect partition:
+source cause, receiving catch or terminal path, identifier charge and state
+preservation. Complete R remains null; no boundary or admission change follows.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

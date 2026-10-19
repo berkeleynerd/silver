@@ -1403,3 +1403,76 @@ syntax inputs, checks 125 packet links, 46 current selected-route pins,
 The raw integration record is retained at `tmp/round17-integration.json` in the
 shared checkout. #142 is technically repaired and independently accepted;
 publication carries its merge-closing reference, while #119 remains In progress.
+
+
+## Round 18 — exception dispatch and remaining native storage joins
+
+Date: 2026-10-19; continues from published `97b387d541`. #119 remains the
+authorized goal, with Oracle/tools/admission unchanged and production #88–#94
+unstarted. The separately blocked harness has no available resume transition.
+
+The frozen Why exception `18bd02108f` and Sexplib converter `040fba6e24` packets
+are independently accepted by `5455245a01`, using Astra / Extra High for author
+and reviewer. They close the scoped primitive rejection and converter family,
+including actual replacement and nested delegates. They leave complete R null.
+The reviewer checked dependency/local/installed identities in 1.237283506s and
+38 installed/source/edge checks in 0.153225253s; the evidence checkpoint took
+225s, excluding report preparation and commit. Prior successful packet checks
+were reused, with no native execution, new disassembly or checker replay.
+
+Author and independent reviewer agree that the existing completed-process and
+resource premises do not establish signal absence. Normal save/exit work also
+remains, and representation-origin failure cannot be relabeled environmental.
+The author continues a bounded actual outcome/effect partition on Astra /
+Extra High, rather than dropping the remaining broad continuing-invocation
+obligation. No new environmental restriction was adopted.
+
+The lead's finalizer/depth source join is frozen at `2b16ef1814` and
+independently accepted by `d22953155f`. It derives zero selected array registrations from the
+typed-site/descriptor census, retains the scalar owner and closes depth/outer
+backing with zero new GGC requests. Its 67 focused identity/excerpt/interface
+checks over 24 GCC/eight repository inputs pass in 0.028112547s. Inspection
+began at 01:25:50 UTC and reached the recorded checkpoint at 01:28:59.431030 UTC;
+this includes source inspection and packet preparation, not isolated reasoning.
+Lead live model/effort is unavailable and no switch is claimed.
+
+The shared bitmap/pool packet `86d50fa7ec` (Astra / Extra High) and actual-source
+MEM/SSA attachment `e28fef05f2` (Sol / Extra High) are independently accepted by
+the same Astra / Extra High batch review `d22953155f`. It accepts all three
+bounded targets without promoting them to whole-native or collector closure.
+One nonblocking prose erratum is resolved in the current index and review:
+point-frequency entries are signed int, with unchanged four-byte storage and
+unsigned capacity arithmetic. The inspected operations append/copy/MAX/reset;
+no element accumulation is hidden by the correction. Frozen bytes remain intact.
+
+| New source/attachment evidence | Reused focused outcome | Independent evidence |
+| --- | --- | --- |
+| Bitmap/pools | 52 checks, 21 count cases, 11 bitmap and 18 pool boundaries; 0.056576059s | 38 GCC/19 repository identities; 0.122703076s |
+| Finalizer/depth | 67 checks, 24 GCC/8 repository, 27 excerpts; 0.028112547s | 24 GCC/8 repository identities; 0.064707603s |
+| MEM/SSA actual-source overlay | 269 checks, five actual sources/nine count cases, all 149+29 failed guards; 6.193662270s | 25 records, nested MEM/SSA identities, 26 excerpts and retained owner/guard comparisons; 0.585337546s |
+
+The review evidence checkpoint took 392s, excluding report preparation/commit;
+identity sets overlap and must not be summed as unique-file counts. Sol's first
+attachment check expected a later rejection message after mutating shared identity
+objects; only the expected diagnostic was corrected, with no bound/source change.
+That changed checker justified the retry. No prior successful checker or Context
+was replayed for review. The round produced accepted source closures and a
+general source adapter without material rework; this is an observed outcome,
+not a controlled model-performance comparison.
+
+Next, Sol / Extra High attaches accepted pool/finalizer results; Astra / Extra
+High closes the remaining native gimplifier/RTL owners and complete event ledger,
+and the bounded Why outcome/continuation argument. These are isolated scopes.
+The native source audit located a second selected RTL unshare, which needs a
+separate owner; it is not a claim of a delivered production defect. Complete
+GGC/collector, remaining phases/current grammar, useful-domain comparison and
+final review remain open. Token/monetary measurements and runtime setting
+confirmation are unavailable. No broad native, prover, build or suite execution
+was started.
+
+Round 18 integration checks **169 frozen files**, 89 JSON and 28 Python syntax
+inputs, 157 packet links, 46 current selected-route pins, 46 prior-attachment
+records, 25 MEM/SSA attachment records, one exact historical audit document
+and 268 checkpoint links. It passed in **0.538510587s**; `git diff --check`
+passed. Raw results remain at `tmp/round18-integration.json` in the shared
+checkout. No native execution or prior successful suite replay occurred.
