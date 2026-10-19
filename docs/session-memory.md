@@ -1,5 +1,51 @@
 # Session memory
 
+## 2026-10-19 — Limited checkpoint-review maintenance; #119 remains paused
+
+After the independent [review of a3af180047](reviews/review-a3af180047.md),
+the owner agreed to the limited records and tracking plan: **“Agree. Pleae
+proceed with this limited plan of action.”** Preserve the review and available
+existing evidence, assign M1's exact invocation adoption or rederivation to #89,
+reconcile main's pause decisions and PR #121's documentation conflicts, enumerate
+the residual scope and accepted region, and publish the inexpensive record
+corrections. Track deferred findings for the appropriate future work.
+
+This authorizes the small documentation PR and research-branch reconciliation;
+it does not authorize merging the large research PR or resuming research,
+evaluators, native/proof validation, production implementation or feature work.
+#119 remains Backlog and the harness paused. #145 remains In review pending
+PR #121; production #88–#94 remains unstarted with its existing dependencies.
+The [disposition](review-a3af180047-disposition.md) records the precise boundary
+and follow-ups #148–#150. The technical result stands under its premises; the
+production GPRbuild route is outside the researched invocation. No Oracle,
+admission, tool or pin change is selected. CLI memory is unavailable.
+
+## 2026-10-19 — Reviewed complete native result; assessment pause
+
+The owner-authorized [#145](https://github.com/berkeleynerd/silver/issues/145)
+increment has a [complete native research result](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/research/retained-literal-native-completion.md),
+composed from actual source for the selected declaration-free literal-output
+family and fixed four-job native graph. It closes input materialization/routing
+and the native process/storage joins under the recorded source/configuration
+and external-service premises. The [whole-native review](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/reviews/review-literal-native-completion-20261019.md)
+accepts freeze `4f29a3bf85`; the separate
+[Ada/binder review](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/reviews/review-literal-frontend-binder-completion-20261019.md)
+accepts those components and the runtime-interface repair. The
+[Round 24 record](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/evidence/retained-tool-rounds.md#reviewed-native-completion-and-assessment-pause)
+retains exact review identities, checks and source scope.
+
+#145 is technically complete and In review pending research PR #121's merge.
+#119 remains open and returns to Backlog for the owner's already requested
+pause and assessment after this substantial increment. The approximate planning
+estimate moves from 75% to 80% following complete native acceptance; it does not
+predict remaining time. All subthreads stop and no next work package starts.
+Parent #119 still requires producer/Why3 paths, fixed-library proof,
+current-grammar coverage, whole-rule composition/correspondence, useful-domain
+comparison and final review. Production #88–#94 remains authorized and unstarted
+pending that rule. This is an assessment pause, not a research-stop selection.
+Oracle, admission and installed tools/pins are unchanged. CLI memory is
+unavailable.
+
 ## 2026-10-19 — Resume #119 for the complete native-build checkpoint
 
 The owner instructed **“Proceed”** after selecting the complete native-build
@@ -86,6 +132,34 @@ production admission are unchanged. Dependent production #88–#94 remains
 authorized but unstarted pending #119 and this pause; no new permission
 ceremony is required after an explicit resumption. CLI memory is unavailable.
 
+## 2026-10-18 — Capacity issue #119 is the present goal
+
+The owner instructed **“Let's consider 119 the present goal”** and requested
+an assessment of the work remaining to close that issue. The live harness goal
+now targets [#119](https://github.com/berkeleynerd/silver/issues/119)'s existing
+completion criteria: a concrete, computable and independently reviewed capacity
+rule with complete phase/construct coverage, soundness, relevant correspondence
+and useful-domain comparison; or the issue's precise reviewed research-stop
+outcome, which would not unlock language expansion. No research stop is selected
+by this instruction. Continue pursuing the capacity rule under the unchanged
+Oracle, installed tools/pins and current admission.
+
+The previously completed For loops and integers goal remains historical; the
+new active objective supersedes the earlier instruction to leave that completed
+goal as the live harness record. Later production #88–#94 retains its existing
+authorization but is outside the present #119 goal until its prerequisite is
+justified. The [capacity contract](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/research/retained-tool-capacity.md#comparison-and-next-derivation)
+records the existing closure order: null conjunction established, literal/full
+grammar conjunction unfinished, then complete-rule comparison and review.
+Status and continuation remain on #119; CLI memory is unavailable.
+
+After considering whether to defer capacity work until a broader language
+surface exists, the owner reaffirmed **“I agree. Continue with 119.”** Its
+grammar scope is the currently supported Silver constructs and their permitted
+combinations under the proposed capacity relaxation, not all SPARK or future
+user-defined procedures and general arrays. The existing capacity-rule
+completion criteria and later production dependency remain unchanged.
+
 ## 2026-10-18 — Portable model policy and host settings
 
 After reviewing the proposed model/delegation policy, the owner instructed:
@@ -117,6 +191,32 @@ remains complete. Routine publication is authorized; CLI memory is unavailable.
 The [implementation and validation record](evidence/agent-policy-20261018.md)
 distinguishes the updated host files, effective defaults, profile-load checks,
 independent review and the unchanged live lead setting.
+
+## 2026-10-18 — Model routing and outcome monitoring
+
+The owner adopted general model/effort guidance, then raised every recommended
+effort by one level and replaced Luna with Sol. The global `AGENTS.md` carries
+the actual routing policy. On **“Proceed and monitor the effectiveness of this
+new approach across rounds”**, resume the authorized retained-tool capacity
+work and its dependent implementation scope. Use concise outcome monitoring:
+integrated results, resolved obligations, material findings/rework and available
+cost evidence. Do not infer model quality from token or document volume, invent
+unavailable measurements or add approval steps. The
+[round record](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/evidence/retained-tool-rounds.md) records actual agent selections
+and outcomes; it does not claim that the lead model was changed. The completed
+For loops and integers harness goal remains complete.
+
+## 2026-10-18 — Keep capacity work focused
+
+The owner instructed **“Don't get bogged down in red tape.”** Keep tracking
+brief and batch independent reviews around meaningful aggregate checkpoints;
+prioritize the capacity derivation and the already-authorized compiler/proof
+work. This adds no approval step and does not waive required assurance.
+The owner also confirmed that no additional records are available identifying
+the historical SPARK source used for the installed GNATprove archive. Continue
+with the retained evidence and resolve that technical limitation without
+repeating the information request. The [source-identity record](https://github.com/berkeleynerd/silver/blob/a3af18004743d36328a499760699305357389fb8/docs/research/retained-tool-source-identity.md)
+distinguishes what is established from what remains unknown.
 
 ## 2026-10-17 — Retained-tool capacity direction adopted
 
