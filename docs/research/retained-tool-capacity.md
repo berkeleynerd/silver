@@ -1,11 +1,12 @@
 # Capacity contract for the retained tools
 
-**2026-10-19 — paused after reviewed Round 23; derivation unfinished.**
-The [owner pause](../session-memory.md#2026-10-19--capacity-goal-119-paused-for-assessment)
-follows the substantive combined first-inlining identifier-bound checkpoint.
-The [round record](../evidence/retained-tool-rounds.md#round-23--reviewed-first-inline-bound-and-lra-joins)
-identifies accepted work, the revised subjective estimate of approximately
-75% and the remaining obligations. Resume only on subsequent owner instruction.
+**2026-10-19 — resumed for the complete selected native-build checkpoint.**
+The [owner resumption](../session-memory.md#2026-10-19--resume-119-for-the-complete-native-build-checkpoint)
+starts [#145](https://github.com/berkeleynerd/silver/issues/145) within #119.
+Complete the selected literal-output native graph and its input/materialization
+boundary, then review the combined result. The last reviewed estimate remains
+approximately 75%; update it only after actual closure. Required producer/Why3,
+current-grammar and whole-rule obligations remain on #119.
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 in [decision #117](https://github.com/berkeleynerd/silver/issues/117).

@@ -2073,3 +2073,24 @@ The reviewed checkpoint is published in draft PR #121. All subthreads stop,
 #119 remains open and returns to Backlog, and the harness is paused. This is
 an owner pause for assessment, not a research-stop selection. Oracle, installed
 tools/pins and admission remain unchanged. CLI memory is unavailable.
+
+## Round 24 — complete native-build increment resumed
+
+Date: 2026-10-19; owner instructed “Proceed” after selecting the complete
+literal-output native capacity result. Main authorization `44936e7216`, integrated
+as `7b66f9b6c3`, creates increment #145 within the unfinished #119. Both issues
+are In progress. The harness still displays paused because no resume control
+is exposed; the direct owner resumption governs work. No research stop or
+production #88–#94 implementation is selected.
+
+Initial parallel tasks select Sol / Extra High for the accepted recognition
+source attachment and Astra / Extra High for remaining outer IRA and LRA
+arithmetic/automatic-storage source arguments. The lead owns materialization,
+process composition, integration and the coverage/review checkpoint. No native
+workers are reserved; accepted evidence is retained.
+
+The outer IRA coverage pass identified finding #146: four cold target-probe
+RTL allocations lack an explicit owner in the older 50-row GGC ledger. The
+new source/attachment correction must add a disjoint owner and rederive affected
+collector bounds; conservative slack does not replace ownership. Current
+admission remains unchanged. Independent correction review is pending.
