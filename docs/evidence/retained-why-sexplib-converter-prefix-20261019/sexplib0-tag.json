@@ -1,0 +1,15 @@
+{
+  "url": "https://api.github.com/repos/janestreet/sexplib0/git/ref/tags/v0.16.0",
+  "status": 200,
+  "final_url": "https://api.github.com/repos/janestreet/sexplib0/git/ref/tags/v0.16.0",
+  "response": {
+    "ref": "refs/tags/v0.16.0",
+    "node_id": "MDM6UmVmMTI1NTMyMjI1OnJlZnMvdGFncy92MC4xNi4w",
+    "url": "https://api.github.com/repos/janestreet/sexplib0/git/refs/tags/v0.16.0",
+    "object": {
+      "sha": "df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130",
+      "type": "commit",
+      "url": "https://api.github.com/repos/janestreet/sexplib0/git/commits/df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130"
+    }
+  }
+}

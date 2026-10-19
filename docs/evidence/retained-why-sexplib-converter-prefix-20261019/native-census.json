@@ -1,0 +1,633 @@
+{
+  "targets": {
+    "camlSexplib__Exn_magic__register_284": 8579776,
+    "camlSexplib__Exn_magic__register1_722": 8580000,
+    "camlSexplib__Exn_magic__register2_731": 8580336,
+    "camlSexplib__Exn_magic__register3_742": 8580816,
+    "camlSexplib__Exn_magic__register4_755": 8581424,
+    "camlSexplib__Exn_magic__register5_770": 8582160,
+    "camlSexplib__Exn_magic__register6_787": 8583040,
+    "camlSexplib__Exn_magic__register7_806": 8584048,
+    "camlSexplib__Exn_magic__register8_827": 8585200,
+    "camlSexplib__Exn_magic__register9_850": 8586480,
+    "camlSexplib__Exn_magic__register10_875": 8587904,
+    "camlSexplib0__Sexp_conv__add_inner_2040": 8840368,
+    "camlSexplib0__Sexp_conv__add_1312": 8840448
+  },
+  "raw_relative_candidates": [
+    {
+      "address": 8560077,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8de460400"
+    },
+    {
+      "address": 8560315,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8f0450400"
+    },
+    {
+      "address": 8560481,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e84a450400"
+    },
+    {
+      "address": 8562326,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8153e0400"
+    },
+    {
+      "address": 8579859,
+      "owner": "camlSexplib__Exn_magic__register_284",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e998f90300"
+    },
+    {
+      "address": 8580123,
+      "owner": "camlSexplib__Exn_magic__register1_722",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e990f80300"
+    },
+    {
+      "address": 8580478,
+      "owner": "camlSexplib__Exn_magic__register2_731",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e92df70300"
+    },
+    {
+      "address": 8580977,
+      "owner": "camlSexplib__Exn_magic__register3_742",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e93af50300"
+    },
+    {
+      "address": 8581604,
+      "owner": "camlSexplib__Exn_magic__register4_755",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9c7f20300"
+    },
+    {
+      "address": 8582359,
+      "owner": "camlSexplib__Exn_magic__register5_770",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9d4ef0300"
+    },
+    {
+      "address": 8583264,
+      "owner": "camlSexplib__Exn_magic__register6_787",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e94bec0300"
+    },
+    {
+      "address": 8584292,
+      "owner": "camlSexplib__Exn_magic__register7_806",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e947e80300"
+    },
+    {
+      "address": 8585464,
+      "owner": "camlSexplib__Exn_magic__register8_827",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9b3e30300"
+    },
+    {
+      "address": 8586771,
+      "owner": "camlSexplib__Exn_magic__register9_850",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e998de0300"
+    },
+    {
+      "address": 8588229,
+      "owner": "camlSexplib__Exn_magic__register10_875",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9e6d80300"
+    },
+    {
+      "address": 8604661,
+      "owner": "camlParsexp__Parse_error__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8b6980300"
+    },
+    {
+      "address": 8821994,
+      "owner": "camlParsexp__Of_sexp_error__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8c1470000"
+    },
+    {
+      "address": 8840463,
+      "owner": "camlSexplib0__Sexp_conv__add_1312",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e99cffffff"
+    },
+    {
+      "address": 8844466,
+      "owner": "camlSexplib0__Sexp_conv__fun_2098",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9f9efffff"
+    },
+    {
+      "address": 8847058,
+      "owner": "camlSexplib0__Sexp_conv__fun_2135",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9d9e5ffff"
+    }
+  ],
+  "aligned_data_words": [
+    {
+      "address": 11484008,
+      "owner": "caml_code_segments+0xef0",
+      "target": "camlSexplib__Exn_magic__register_284"
+    },
+    {
+      "address": 15015120,
+      "owner": "camlSexplib__Exn_magic__9+0x10",
+      "target": "camlSexplib__Exn_magic__register2_731"
+    },
+    {
+      "address": 15015152,
+      "owner": "camlSexplib__Exn_magic__8+0x10",
+      "target": "camlSexplib__Exn_magic__register3_742"
+    },
+    {
+      "address": 15015184,
+      "owner": "camlSexplib__Exn_magic__7+0x10",
+      "target": "camlSexplib__Exn_magic__register4_755"
+    },
+    {
+      "address": 15015216,
+      "owner": "camlSexplib__Exn_magic__6+0x10",
+      "target": "camlSexplib__Exn_magic__register5_770"
+    },
+    {
+      "address": 15015248,
+      "owner": "camlSexplib__Exn_magic__5+0x10",
+      "target": "camlSexplib__Exn_magic__register6_787"
+    },
+    {
+      "address": 15015280,
+      "owner": "camlSexplib__Exn_magic__4+0x10",
+      "target": "camlSexplib__Exn_magic__register7_806"
+    },
+    {
+      "address": 15015312,
+      "owner": "camlSexplib__Exn_magic__3+0x10",
+      "target": "camlSexplib__Exn_magic__register8_827"
+    },
+    {
+      "address": 15015344,
+      "owner": "camlSexplib__Exn_magic__2+0x10",
+      "target": "camlSexplib__Exn_magic__register9_850"
+    },
+    {
+      "address": 15015376,
+      "owner": "camlSexplib__Exn_magic__12+0x10",
+      "target": "camlSexplib__Exn_magic__register_284"
+    },
+    {
+      "address": 15015440,
+      "owner": "camlSexplib__Exn_magic__10+0x10",
+      "target": "camlSexplib__Exn_magic__register1_722"
+    },
+    {
+      "address": 15015472,
+      "owner": "camlSexplib__Exn_magic__1+0x10",
+      "target": "camlSexplib__Exn_magic__register10_875"
+    },
+    {
+      "address": 15080880,
+      "owner": "camlSexplib0__Sexp_conv__161+0x10",
+      "target": "camlSexplib0__Sexp_conv__add_1312"
+    },
+    {
+      "address": 15080912,
+      "owner": "camlSexplib0__Sexp_conv__161+0x30",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040"
+    }
+  ],
+  "access": {
+    "raw_rip_candidates": [
+      {
+        "address": 5516060,
+        "owner": "camlWhy3__Mysexplib__input_sexp_1073",
+        "target": 15003928,
+        "ranges": [
+          "camlSexplib__Conv"
+        ],
+        "hex": "488d1df5c59000"
+      },
+      {
+        "address": 8524187,
+        "owner": "camlPpx_sexp_conv_lib__entry",
+        "target": 14947008,
+        "ranges": [
+          "camlPpx_sexp_conv_lib"
+        ],
+        "hex": "488d3d1e016200"
+      },
+      {
+        "address": 8571028,
+        "owner": "camlSexplib__Conv__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d059d5a6300"
+      },
+      {
+        "address": 8571035,
+        "owner": "camlSexplib__Conv__entry",
+        "target": 15003928,
+        "ranges": [
+          "camlSexplib__Conv"
+        ],
+        "hex": "488d3d76286200"
+      },
+      {
+        "address": 8572281,
+        "owner": "camlSexplib__Conv__entry",
+        "target": 15003928,
+        "ranges": [
+          "camlSexplib__Conv"
+        ],
+        "hex": "488d1d98236200"
+      },
+      {
+        "address": 8572320,
+        "owner": "camlSexplib__Conv__entry",
+        "target": 15003928,
+        "ranges": [
+          "camlSexplib__Conv"
+        ],
+        "hex": "488d3d71236200"
+      },
+      {
+        "address": 8573427,
+        "owner": "camlSexplib__Std__entry",
+        "target": 15003928,
+        "ranges": [
+          "camlSexplib__Conv"
+        ],
+        "hex": "488d3d1e1f6200"
+      },
+      {
+        "address": 8589472,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015360,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05190d6200"
+      },
+      {
+        "address": 8589479,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015488,
+        "ranges": [
+          "camlSexplib__Exn_magic"
+        ],
+        "hex": "488d1d920d6200"
+      },
+      {
+        "address": 8589489,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015392,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05280d6200"
+      },
+      {
+        "address": 8589500,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015424,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d053d0d6200"
+      },
+      {
+        "address": 8589511,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015104,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05f20b6200"
+      },
+      {
+        "address": 8589522,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015136,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05070c6200"
+      },
+      {
+        "address": 8589533,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015168,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d051c0c6200"
+      },
+      {
+        "address": 8589544,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015200,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05310c6200"
+      },
+      {
+        "address": 8589555,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015232,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05460c6200"
+      },
+      {
+        "address": 8589566,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015264,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d055b0c6200"
+      },
+      {
+        "address": 8589577,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015296,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05700c6200"
+      },
+      {
+        "address": 8589588,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015328,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05850c6200"
+      },
+      {
+        "address": 8589599,
+        "owner": "camlSexplib__Exn_magic__entry",
+        "target": 15015456,
+        "ranges": [
+          "Exn_magic_export_closures"
+        ],
+        "hex": "488d05fa0c6200"
+      },
+      {
+        "address": 8589920,
+        "owner": "camlParsexp__Import__entry",
+        "target": 15024336,
+        "ranges": [
+          "camlParsexp__Import"
+        ],
+        "hex": "488d3d692e6200"
+      },
+      {
+        "address": 8589937,
+        "owner": "camlParsexp__Import__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d05c0106300"
+      },
+      {
+        "address": 8598832,
+        "owner": "camlParsexp__Cst__sexp_of_t_404",
+        "target": 15024336,
+        "ranges": [
+          "camlParsexp__Import"
+        ],
+        "hex": "488d05990b6200"
+      },
+      {
+        "address": 8838676,
+        "owner": "camlSexplib0__Sexp_conv__sexp_of_float_581",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d1d455f00"
+      },
+      {
+        "address": 8839020,
+        "owner": "camlSexplib0__Sexp_conv__sexp_of_option_744",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d05c5435f00"
+      },
+      {
+        "address": 8839067,
+        "owner": "camlSexplib0__Sexp_conv__sexp_of_option_744",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d96435f00"
+      },
+      {
+        "address": 8840403,
+        "owner": "camlSexplib0__Sexp_conv__add_inner_2040",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d355e3e5f00"
+      },
+      {
+        "address": 8840504,
+        "owner": "camlSexplib0__Sexp_conv__find_auto_1320",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d3df93d5f00"
+      },
+      {
+        "address": 8840644,
+        "owner": "camlSexplib0__Sexp_conv__size_1327",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d6d3d5f00"
+      },
+      {
+        "address": 8841065,
+        "owner": "camlSexplib0__Sexp_conv__of_sexp_error_exn_1386",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d35c83b5f00"
+      },
+      {
+        "address": 8841179,
+        "owner": "camlSexplib0__Sexp_conv__of_sexp_error_1390",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d35563b5f00"
+      },
+      {
+        "address": 8842487,
+        "owner": "camlSexplib0__Sexp_conv__option_of_sexp_1445",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d053a365f00"
+      },
+      {
+        "address": 8847076,
+        "owner": "camlSexplib0__Sexp_conv__fun_2138",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d4d245f00"
+      },
+      {
+        "address": 8847383,
+        "owner": "camlSexplib0__Sexp_conv__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d1a235f00"
+      },
+      {
+        "address": 8847757,
+        "owner": "camlSexplib0__Sexp_conv__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1da4215f00"
+      },
+      {
+        "address": 8847804,
+        "owner": "camlSexplib0__Sexp_conv__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d75215f00"
+      },
+      {
+        "address": 8847818,
+        "owner": "camlSexplib0__Sexp_conv__entry",
+        "target": 15080864,
+        "ranges": [
+          "Exn_converter_add_closure"
+        ],
+        "hex": "488d05cf1b5f00"
+      },
+      {
+        "address": 8848088,
+        "owner": "camlSexplib0__Sexp_conv__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d3559205f00"
+      },
+      {
+        "address": 8849654,
+        "owner": "camlSexplib0__Sexp_conv__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d1d3b1a5f00"
+      },
+      {
+        "address": 8851108,
+        "owner": "camlSexplib0__Sexp_conv_error__entry",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d058d145f00"
+      },
+      {
+        "address": 8855671,
+        "owner": "camlSexplib0__Sexp_conv_record__record_of_sexps_832",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ],
+        "hex": "488d3dba025f00"
+      }
+    ],
+    "aligned_data_words": [
+      {
+        "address": 14947168,
+        "owner": "camlPpx_sexp_conv_lib__gc_roots+0x0",
+        "target": 14947008,
+        "ranges": [
+          "camlPpx_sexp_conv_lib"
+        ]
+      },
+      {
+        "address": 15004776,
+        "owner": "camlSexplib__Conv__gc_roots+0x0",
+        "target": 15003928,
+        "ranges": [
+          "camlSexplib__Conv"
+        ]
+      },
+      {
+        "address": 15015584,
+        "owner": "camlSexplib__Exn_magic__gc_roots+0x0",
+        "target": 15015488,
+        "ranges": [
+          "camlSexplib__Exn_magic"
+        ]
+      },
+      {
+        "address": 15024920,
+        "owner": "camlParsexp__Import__gc_roots+0x0",
+        "target": 15024336,
+        "ranges": [
+          "camlParsexp__Import"
+        ]
+      },
+      {
+        "address": 15082952,
+        "owner": "camlSexplib0__Sexp_conv__gc_roots+0x0",
+        "target": 15082296,
+        "ranges": [
+          "camlSexplib0__Sexp_conv"
+        ]
+      }
+    ]
+  },
+  "plugin_related_symbols": {
+    "ada_terms.cmxs": [],
+    "gnat_json.cmxs": [
+      "camlSexplib0__Sexp__to_string_mach_1258"
+    ]
+  },
+  "sexplib_unix_symbols": []
+}

@@ -1,0 +1,29 @@
+{
+  "package_source_files": {
+    "sexplib0": 17,
+    "sexplib": 53,
+    "parsexp": 96
+  },
+  "why_source_files": 603,
+  "why_sexp_deriving_declarations": 64,
+  "source_excerpts_checked": 26,
+  "native_bodies_checked": 50,
+  "native_windows_checked": 4,
+  "native_bytes_checked": 20509,
+  "static_closures_checked": 39,
+  "initialization_registration_events": 24,
+  "distinct_constructor_keys": 23,
+  "latest_auto_enabled_keys": 6,
+  "latest_auto_disabled_keys": 17,
+  "converter_prefix_family_closed_under_prose_argument": true,
+  "arbitrary_inner_exception_charge_established": false,
+  "whole_exception_family_exhaustiveness_established": false,
+  "interrupted_catch_and_continuation_preservation_closed": false,
+  "exceptional_identifier_charge": null,
+  "complete_R": null,
+  "full_R_established": false,
+  "composed_endpoint_established": false,
+  "native_runs": 0,
+  "debugger_runs": 0,
+  "disassembler_runs": 0
+}

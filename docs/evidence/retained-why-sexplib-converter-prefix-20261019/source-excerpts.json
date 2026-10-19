@@ -1,0 +1,262 @@
+[
+  {
+    "file": "sexplib0/src/sexp_conv.ml",
+    "file_identity": {
+      "bytes": 13580,
+      "sha256": "bc76e48a3ff63336a1f825565ebe930b60118a8ccbcf6f23c074fe8ce9b52e50"
+    },
+    "start": 76,
+    "end": 157,
+    "source": "module Exn_converter = struct\n  (* These exception registration functions assume that context-switches\n     cannot happen unless there is an allocation.  It is reasonable to expect\n     that this will remain true for the foreseeable future.  That way we\n     avoid using mutexes and thus a dependency on the threads library. *)\n\n  (* Fast and automatic exception registration *)\n\n  module Registration = struct\n    type t =\n      { sexp_of_exn : exn -> Sexp.t\n      ; (* If [printexc = true] then this sexp converter is used for Printexc.to_string *)\n        printexc : bool\n      }\n  end\n\n  module Exn_table = Ephemeron.K1.Make (struct\n      type t = extension_constructor\n\n      let equal = ( == )\n      let hash = Obj.Extension_constructor.id\n    end)\n\n  let the_exn_table : Registration.t Exn_table.t = Exn_table.create 17\n\n  (* Ephemerons are used so that [sexp_of_exn] closure don't keep the\n     extension_constructor live. *)\n  let add ?(printexc = true) ?finalise:_ extension_constructor sexp_of_exn =\n    Exn_table.add the_exn_table extension_constructor { sexp_of_exn; printexc }\n  ;;\n\n  let find_auto ~for_printexc exn =\n    let extension_constructor = Obj.Extension_constructor.of_val exn in\n    match Exn_table.find_opt the_exn_table extension_constructor with\n    | None -> None\n    | Some { sexp_of_exn; printexc } ->\n      (match for_printexc, printexc with\n       | false, _ | _, true -> Some (sexp_of_exn exn)\n       | true, false -> None)\n  ;;\n\n  module For_unit_tests_only = struct\n    let size () = (Exn_table.stats_alive the_exn_table).num_bindings\n  end\nend\n\nlet sexp_of_exn_opt_for_printexc exn = Exn_converter.find_auto ~for_printexc:true exn\nlet sexp_of_exn_opt exn = Exn_converter.find_auto ~for_printexc:false exn\n\nlet sexp_of_exn exn =\n  match sexp_of_exn_opt exn with\n  | None -> List [ Atom (Printexc.to_string exn) ]\n  | Some sexp -> sexp\n;;\n\nlet exn_to_string e = Sexp.to_string_hum (sexp_of_exn e)\n\n(* {[exception Blah [@@deriving sexp]]} generates a call to the function\n   [Exn_converter.add] defined in this file.  So we are guaranted that as soon as we\n   mark an exception as sexpable, this module will be linked in and this printer will be\n   registered, which is what we want. *)\nlet () =\n  Printexc.register_printer (fun exn ->\n    match sexp_of_exn_opt_for_printexc exn with\n    | None -> None\n    | Some sexp -> Some (Sexp.to_string_hum ~indent:2 sexp))\n;;\n\nlet printexc_prefer_sexp exn =\n  match sexp_of_exn_opt exn with\n  | None -> Printexc.to_string exn\n  | Some sexp -> Sexp.to_string_hum ~indent:2 sexp\n;;\n\n(* Conversion of S-expressions to OCaml-values *)\n\nexception Of_sexp_error = Sexp.Of_sexp_error\n\nlet record_check_extra_fields = ref true\nlet of_sexp_error_exn exc sexp = raise (Of_sexp_error (exc, sexp))\nlet of_sexp_error what sexp = raise (Of_sexp_error (Failure what, sexp))\n"
+  },
+  {
+    "file": "sexplib0/src/sexp_conv.ml",
+    "file_identity": {
+      "bytes": 13580,
+      "sha256": "bc76e48a3ff63336a1f825565ebe930b60118a8ccbcf6f23c074fe8ce9b52e50"
+    },
+    "start": 325,
+    "end": 411,
+    "source": "let get_flc_error name (file, line, chr) = Atom (sprintf \"%s %s:%d:%d\" name file line chr)\n\nlet () =\n  List.iter\n    ~f:(fun (extension_constructor, handler) ->\n      Exn_converter.add ~printexc:false ~finalise:false extension_constructor handler)\n    [ ( [%extension_constructor Assert_failure]\n      , function\n        | Assert_failure arg -> get_flc_error \"Assert_failure\" arg\n        | _ -> assert false )\n    ; ( [%extension_constructor Exit]\n      , function\n        | Exit -> Atom \"Exit\"\n        | _ -> assert false )\n    ; ( [%extension_constructor End_of_file]\n      , function\n        | End_of_file -> Atom \"End_of_file\"\n        | _ -> assert false )\n    ; ( [%extension_constructor Failure]\n      , function\n        | Failure arg -> List [ Atom \"Failure\"; Atom arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Not_found]\n      , function\n        | Not_found -> Atom \"Not_found\"\n        | _ -> assert false )\n    ; ( [%extension_constructor Invalid_argument]\n      , function\n        | Invalid_argument arg -> List [ Atom \"Invalid_argument\"; Atom arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Match_failure]\n      , function\n        | Match_failure arg -> get_flc_error \"Match_failure\" arg\n        | _ -> assert false )\n    ; ( [%extension_constructor Not_found_s]\n      , function\n        | Not_found_s arg -> List [ Atom \"Not_found_s\"; arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Sys_error]\n      , function\n        | Sys_error arg -> List [ Atom \"Sys_error\"; Atom arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Arg.Help]\n      , function\n        | Arg.Help arg -> List [ Atom \"Arg.Help\"; Atom arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Arg.Bad]\n      , function\n        | Arg.Bad arg -> List [ Atom \"Arg.Bad\"; Atom arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Lazy.Undefined]\n      , function\n        | Lazy.Undefined -> Atom \"Lazy.Undefined\"\n        | _ -> assert false )\n    ; ( [%extension_constructor Parsing.Parse_error]\n      , function\n        | Parsing.Parse_error -> Atom \"Parsing.Parse_error\"\n        | _ -> assert false )\n    ; ( [%extension_constructor Queue.Empty]\n      , function\n        | Queue.Empty -> Atom \"Queue.Empty\"\n        | _ -> assert false )\n    ; ( [%extension_constructor Scanf.Scan_failure]\n      , function\n        | Scanf.Scan_failure arg -> List [ Atom \"Scanf.Scan_failure\"; Atom arg ]\n        | _ -> assert false )\n    ; ( [%extension_constructor Stack.Empty]\n      , function\n        | Stack.Empty -> Atom \"Stack.Empty\"\n        | _ -> assert false )\n    ; ( [%extension_constructor Sys.Break]\n      , function\n        | Sys.Break -> Atom \"Sys.Break\"\n        | _ -> assert false )\n    ]\n;;\n\nlet () =\n  List.iter\n    ~f:(fun (extension_constructor, handler) ->\n      Exn_converter.add ~printexc:true ~finalise:false extension_constructor handler)\n    [ ( [%extension_constructor Of_sexp_error]\n      , function\n        | Of_sexp_error (exc, sexp) ->\n          List [ Atom \"Sexplib.Conv.Of_sexp_error\"; sexp_of_exn exc; sexp ]\n        | _ -> assert false )\n    ]"
+  },
+  {
+    "file": "sexplib0/src/sexp_conv.mli",
+    "file_identity": {
+      "bytes": 11130,
+      "sha256": "1aa6e570b626d758007e92c00d40ad1130803f783952995d8d684a76bc9a047b"
+    },
+    "start": 268,
+    "end": 284,
+    "source": "module Exn_converter : sig\n  (** [add constructor sexp_of_exn] registers exception S-expression\n      converter [sexp_of_exn] for exceptions with the given [constructor].\n\n      NOTE: [finalise] is ignored, and provided only for backward compatibility. *)\n  val add\n    :  ?printexc:bool\n    -> ?finalise:bool\n    -> extension_constructor\n    -> (exn -> Sexp.t)\n    -> unit\n\n\n  module For_unit_tests_only : sig\n    val size : unit -> int\n  end\nend"
+  },
+  {
+    "file": "sexplib0/src/sexplib0.ml",
+    "file_identity": {
+      "bytes": 194,
+      "sha256": "bb6f37b184630584957c897ef71122f36ed861cfd8ce900ac5b20d464d487887"
+    },
+    "start": 1,
+    "end": 6,
+    "source": "module Sexp = Sexp\nmodule Sexp_conv = Sexp_conv\nmodule Sexp_conv_error = Sexp_conv_error\nmodule Sexp_conv_record = Sexp_conv_record\nmodule Sexp_grammar = Sexp_grammar\nmodule Sexpable = Sexpable"
+  },
+  {
+    "file": "sexplib0/src/sexp.ml",
+    "file_identity": {
+      "bytes": 9977,
+      "sha256": "18bb9f5cd8e6e3dab2e3d20613fe18e892e0d2882bd86edbc05725ebb8d61415"
+    },
+    "start": 1,
+    "end": 44,
+    "source": "[@@@ocaml.warning \"-3\"]\n\n(* blit_string doesn't exist in [StdLabels.Bytes]...  *)\nlet bytes_blit_string ~src ~src_pos ~dst ~dst_pos ~len =\n  Bytes.blit_string src src_pos dst dst_pos len\n;;\n\nopen StdLabels\nopen Format\n\n(** Type of S-expressions *)\ntype t =\n  | Atom of string\n  | List of t list\n\nlet sexp_of_t t = t\nlet t_of_sexp t = t\n\nlet rec compare_list a b =\n  match a, b with\n  | [], [] -> 0\n  | [], _ -> -1\n  | _, [] -> 1\n  | x :: xs, y :: ys ->\n    let res = compare x y in\n    if res <> 0 then res else compare_list xs ys\n\nand compare a b =\n  if a == b\n  then 0\n  else (\n    match a, b with\n    | Atom a, Atom b -> String.compare a b\n    | Atom _, _ -> -1\n    | _, Atom _ -> 1\n    | List a, List b -> compare_list a b)\n;;\n\nlet equal a b = compare a b = 0\n\nexception Not_found_s of t\nexception Of_sexp_error of exn * t\n\nmodule Printing = struct"
+  },
+  {
+    "file": "sexplib0/src/sexp.ml",
+    "file_identity": {
+      "bytes": 9977,
+      "sha256": "18bb9f5cd8e6e3dab2e3d20613fe18e892e0d2882bd86edbc05725ebb8d61415"
+    },
+    "start": 175,
+    "end": 259,
+    "source": "      loop 0;\n      pp_print_string ppf \"\\\"\";\n      pp_close_box ppf ())\n  ;;\n\n  let mach_maybe_esc_str str = if must_escape str then esc_str str else str\n\n  (* Output of S-expressions to formatters *)\n\n  let rec pp_hum_indent indent ppf = function\n    | Atom str -> pp_hum_maybe_esc_str ppf str\n    | List (h :: t) ->\n      pp_open_box ppf indent;\n      pp_print_string ppf \"(\";\n      pp_hum_indent indent ppf h;\n      pp_hum_rest indent ppf t\n    | List [] -> pp_print_string ppf \"()\"\n\n  and pp_hum_rest indent ppf = function\n    | h :: t ->\n      pp_print_space ppf ();\n      pp_hum_indent indent ppf h;\n      pp_hum_rest indent ppf t\n    | [] ->\n      pp_print_string ppf \")\";\n      pp_close_box ppf ()\n  ;;\n\n  let rec pp_mach_internal may_need_space ppf = function\n    | Atom str ->\n      let str' = mach_maybe_esc_str str in\n      let new_may_need_space = str' == str in\n      if may_need_space && new_may_need_space then pp_print_string ppf \" \";\n      pp_print_string ppf str';\n      new_may_need_space\n    | List (h :: t) ->\n      pp_print_string ppf \"(\";\n      let may_need_space = pp_mach_internal false ppf h in\n      pp_mach_rest may_need_space ppf t;\n      false\n    | List [] ->\n      pp_print_string ppf \"()\";\n      false\n\n  and pp_mach_rest may_need_space ppf = function\n    | h :: t ->\n      let may_need_space = pp_mach_internal may_need_space ppf h in\n      pp_mach_rest may_need_space ppf t\n    | [] -> pp_print_string ppf \")\"\n  ;;\n\n  let pp_hum ppf sexp = pp_hum_indent !default_indent ppf sexp\n  let pp_mach ppf sexp = ignore (pp_mach_internal false ppf sexp)\n  let pp = pp_mach\n\n  (* Sexp size *)\n\n  let rec size_loop ((v, c) as acc) = function\n    | Atom str -> v + 1, c + String.length str\n    | List lst -> List.fold_left lst ~init:acc ~f:size_loop\n  ;;\n\n  let size sexp = size_loop (0, 0) sexp\n\n  (* Buffer conversions *)\n\n  let to_buffer_hum ~buf ?(indent = !default_indent) sexp =\n    let ppf = Format.formatter_of_buffer buf in\n    Format.fprintf ppf \"%a@?\" (pp_hum_indent indent) sexp\n  ;;\n\n  let to_buffer_mach ~buf sexp =\n    let rec loop may_need_space = function\n      | Atom str ->\n        let str' = mach_maybe_esc_str str in\n        let new_may_need_space = str' == str in\n        if may_need_space && new_may_need_space then Buffer.add_char buf ' ';\n        Buffer.add_string buf str';\n        new_may_need_space\n      | List (h :: t) ->\n        Buffer.add_char buf '(';\n        let may_need_space = loop false h in\n        loop_rest may_need_space t;\n        false\n      | List [] ->"
+  },
+  {
+    "file": "sexplib0/src/sexp.ml",
+    "file_identity": {
+      "bytes": 9977,
+      "sha256": "18bb9f5cd8e6e3dab2e3d20613fe18e892e0d2882bd86edbc05725ebb8d61415"
+    },
+    "start": 307,
+    "end": 322,
+    "source": "     the extra two doublings from 1024 bytes to 2048 and 4096. And especially\n     performance-sensitive applications to always pass in a larger buffer to\n     use. *)\n  let buffer () = Buffer.create 1024\n\n  (* String conversions *)\n\n  let to_string_hum ?indent = function\n    | Atom str\n      when match index_of_newline str 0 with\n        | None -> true\n        | Some _ -> false -> mach_maybe_esc_str str\n    | sexp ->\n      let buf = buffer () in\n      to_buffer_hum ?indent sexp ~buf;\n      Buffer.contents buf"
+  },
+  {
+    "file": "sexplib/src/pre_sexp.ml",
+    "file_identity": {
+      "bytes": 27314,
+      "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f"
+    },
+    "start": 1,
+    "end": 23,
+    "source": "(* Sexp: Module for handling S-expressions (I/O, etc.) *)\n\nopen Format\nopen Bigarray\nmodule Sexplib = Sexplib0\nmodule Conv = Sexplib.Sexp_conv\n\n(* conv.ml depends on us so we can only use this module *)\n\ninclude Type\n\ntype bigstring = (char, int8_unsigned_elt, c_layout) Array1.t\n\ninclude (\n  Sexplib.Sexp :\n    module type of struct\n    include Sexplib.Sexp\n  end\n  with type t := t)\n\ninclude Private\n\nlet t_sexp_grammar = Conv.sexp_t_sexp_grammar"
+  },
+  {
+    "file": "sexplib/src/pre_sexp.ml",
+    "file_identity": {
+      "bytes": 27314,
+      "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f"
+    },
+    "start": 150,
+    "end": 168,
+    "source": "let sexp_conversion_error_message ?containing_sexp ?location ?invalid_sexp () ~exn : t =\n  List\n    (List.concat\n       [ [ Atom \"Of_sexp_error\" ]\n       ; (match location with\n          | None -> []\n          | Some x -> [ Atom x ])\n       ; [ (match exn with\n             | Failure x -> Atom x\n             | _ -> Conv.sexp_of_exn exn)\n         ]\n       ; (match invalid_sexp with\n          | None -> []\n          | Some x -> [ List [ Atom \"invalid_sexp\"; x ] ])\n       ; (match containing_sexp with\n          | None -> []\n          | Some x -> [ List [ Atom \"containing_sexp\"; x ] ])\n       ])\n;;"
+  },
+  {
+    "file": "sexplib/src/pre_sexp.ml",
+    "file_identity": {
+      "bytes": 27314,
+      "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f"
+    },
+    "start": 193,
+    "end": 199,
+    "source": "  exception Conv_exn of string * exn\n\n  let () =\n    Conv.Exn_converter.add ~finalise:false [%extension_constructor Conv_exn] (function\n      | Conv_exn (location, exn) -> sexp_conversion_error_message () ~location ~exn\n      | _ -> assert false)\n  ;;"
+  },
+  {
+    "file": "sexplib/src/pre_sexp.ml",
+    "file_identity": {
+      "bytes": 27314,
+      "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f"
+    },
+    "start": 238,
+    "end": 247,
+    "source": "let () =\n  Conv.Exn_converter.add ~finalise:false [%extension_constructor Of_sexp_error] (function\n    | Of_sexp_error (Annot.Conv_exn (location, exn), invalid_sexp) ->\n      sexp_conversion_error_message () ~location ~invalid_sexp ~exn\n    | Of_sexp_error (exn, invalid_sexp) ->\n      sexp_conversion_error_message () ~invalid_sexp ~exn\n    | _ ->\n      (* Reaching this branch indicates a bug in sexplib. *)\n      assert false)\n;;"
+  },
+  {
+    "file": "sexplib/src/pre_sexp.ml",
+    "file_identity": {
+      "bytes": 27314,
+      "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f"
+    },
+    "start": 283,
+    "end": 308,
+    "source": "type parse_error =\n  { err_msg : string\n  ; parse_state : [ `Sexp of t list list parse_state | `Annot of Annot.stack parse_state ]\n  }\n\nexception Parse_error of parse_error\n\nlet () =\n  Conv.Exn_converter.add ~finalise:false [%extension_constructor Parse_error] (function\n    | Parse_error pe ->\n      let ppos =\n        match pe.parse_state with\n        | `Sexp { parse_pos } | `Annot { parse_pos } -> parse_pos\n      in\n      List\n        [ Atom \"Sexplib.Sexp.Parse_error\"\n        ; List\n            [ List [ Atom \"err_msg\"; Atom pe.err_msg ]\n            ; List [ Atom \"text_line\"; Conv.sexp_of_int ppos.Parse_pos.text_line ]\n            ; List [ Atom \"text_char\"; Conv.sexp_of_int ppos.Parse_pos.text_char ]\n            ; List [ Atom \"global_offset\"; Conv.sexp_of_int ppos.Parse_pos.global_offset ]\n            ; List [ Atom \"buf_pos\"; Conv.sexp_of_int ppos.Parse_pos.buf_pos ]\n            ]\n        ]\n    | _ -> assert false)\n;;"
+  },
+  {
+    "file": "sexplib/src/pre_sexp.ml",
+    "file_identity": {
+      "bytes": 27314,
+      "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f"
+    },
+    "start": 857,
+    "end": 875,
+    "source": "module Of_string_conv_exn = struct\n  type t =\n    { exc : exn\n    ; sexp : Type.t\n    ; sub_sexp : Type.t\n    }\n\n  exception E of t\n\n  let () =\n    Conv.Exn_converter.add ~finalise:false [%extension_constructor E] (function\n      | E osce ->\n        sexp_conversion_error_message\n          ()\n          ~invalid_sexp:osce.sub_sexp\n          ~exn:osce.exc\n          ~containing_sexp:osce.sexp\n      | _ -> assert false)\n  ;;"
+  },
+  {
+    "file": "sexplib/src/conv.ml",
+    "file_identity": {
+      "bytes": 4966,
+      "sha256": "e80d6e597376b508c0dc7bdcf0684e113b44b02d6f9d6cc259f970e20de7915a"
+    },
+    "start": 1,
+    "end": 4,
+    "source": "open Printf\nopen Bigarray\ninclude Sexplib0.Sexp_conv\nopen Sexp"
+  },
+  {
+    "file": "sexplib/src/conv.mli",
+    "file_identity": {
+      "bytes": 3651,
+      "sha256": "945ae2a96bca30e632b05cad4cf2d8522fa7b43c9912e5b2fdff4589803b3824"
+    },
+    "start": 1,
+    "end": 4,
+    "source": "(** Utility Module for S-expression Conversions *)\n\nopen Bigarray\ninclude module type of Sexplib0.Sexp_conv"
+  },
+  {
+    "file": "sexplib/src/std.ml",
+    "file_identity": {
+      "bytes": 2147,
+      "sha256": "1503c1ab82bd3b1511f413c6014fca5583718a3709b6522f0e54c7c5161c4b56"
+    },
+    "start": 1,
+    "end": 59,
+    "source": "module Hashtbl = struct\n  include Hashtbl\n\n  let sexp_of_t = Conv.sexp_of_hashtbl\n  let t_of_sexp = Conv.hashtbl_of_sexp\nend\n\nmodule Lazy = struct\n  include Lazy\n\n  let t_of_sexp = Conv.lazy_t_of_sexp\n  let sexp_of_t = Conv.sexp_of_lazy_t\n  let t_sexp_grammar = Conv.lazy_t_sexp_grammar\nend\n\nlet sexp_of_unit = Conv.sexp_of_unit\nlet unit_of_sexp = Conv.unit_of_sexp\nlet unit_sexp_grammar = Conv.unit_sexp_grammar\nlet sexp_of_bool = Conv.sexp_of_bool\nlet bool_of_sexp = Conv.bool_of_sexp\nlet bool_sexp_grammar = Conv.bool_sexp_grammar\nlet sexp_of_string = Conv.sexp_of_string\nlet string_of_sexp = Conv.string_of_sexp\nlet string_sexp_grammar = Conv.string_sexp_grammar\nlet sexp_of_char = Conv.sexp_of_char\nlet char_of_sexp = Conv.char_of_sexp\nlet char_sexp_grammar = Conv.char_sexp_grammar\nlet sexp_of_int = Conv.sexp_of_int\nlet int_of_sexp = Conv.int_of_sexp\nlet int_sexp_grammar = Conv.int_sexp_grammar\nlet sexp_of_float = Conv.sexp_of_float\nlet float_of_sexp = Conv.float_of_sexp\nlet float_sexp_grammar = Conv.float_sexp_grammar\nlet sexp_of_int32 = Conv.sexp_of_int32\nlet int32_of_sexp = Conv.int32_of_sexp\nlet int32_sexp_grammar = Conv.int32_sexp_grammar\nlet sexp_of_int64 = Conv.sexp_of_int64\nlet int64_of_sexp = Conv.int64_of_sexp\nlet int64_sexp_grammar = Conv.int64_sexp_grammar\nlet sexp_of_nativeint = Conv.sexp_of_nativeint\nlet nativeint_of_sexp = Conv.nativeint_of_sexp\nlet nativeint_sexp_grammar = Conv.nativeint_sexp_grammar\nlet sexp_of_ref = Conv.sexp_of_ref\nlet ref_of_sexp = Conv.ref_of_sexp\nlet ref_sexp_grammar = Conv.ref_sexp_grammar\nlet sexp_of_lazy_t = Conv.sexp_of_lazy_t\nlet lazy_t_of_sexp = Conv.lazy_t_of_sexp\nlet lazy_t_sexp_grammar = Conv.lazy_t_sexp_grammar\nlet sexp_of_option = Conv.sexp_of_option\nlet option_of_sexp = Conv.option_of_sexp\nlet option_sexp_grammar = Conv.option_sexp_grammar\nlet sexp_of_list = Conv.sexp_of_list\nlet list_of_sexp = Conv.list_of_sexp\nlet list_sexp_grammar = Conv.list_sexp_grammar\nlet sexp_of_array = Conv.sexp_of_array\nlet array_of_sexp = Conv.array_of_sexp\nlet array_sexp_grammar = Conv.array_sexp_grammar\nlet sexp_of_exn = Conv.sexp_of_exn\nlet exn_sexp_grammar = Conv.sexp_t_sexp_grammar"
+  },
+  {
+    "file": "sexplib/src/exn_magic.ml",
+    "file_identity": {
+      "bytes": 8042,
+      "sha256": "c2846bba49800a8c6c97880347d0ca8383820f77e0dc8e48cf7bc3509b33b403"
+    },
+    "start": 1,
+    "end": 24,
+    "source": "let register exc exc_name =\n  Conv.Exn_converter.add (Obj.Extension_constructor.of_val exc) (fun _exc ->\n    Sexp.Atom exc_name)\n;;\n\nlet magic_field repr n = Obj.magic (Obj.field repr n)\n\nlet register1 make_exc exc_name sexp_of_arg1 =\n  let exc = make_exc (Obj.magic None) in\n  Conv.Exn_converter.add (Obj.Extension_constructor.of_val exc) (fun exc ->\n    let repr = Obj.repr exc in\n    let sexp1 = sexp_of_arg1 (magic_field repr 1) in\n    Sexp.List [ Sexp.Atom exc_name; sexp1 ])\n;;\n\nlet register2 make_exc exc_name sexp_of_arg1 sexp_of_arg2 =\n  let exc = make_exc (Obj.magic None) (Obj.magic None) in\n  Conv.Exn_converter.add (Obj.Extension_constructor.of_val exc) (fun exc ->\n    let repr = Obj.repr exc in\n    let sexp1 = sexp_of_arg1 (magic_field repr 1) in\n    let sexp2 = sexp_of_arg2 (magic_field repr 2) in\n    Sexp.List [ Sexp.Atom exc_name; sexp1; sexp2 ])\n;;\n"
+  },
+  {
+    "file": "sexplib/src/exn_magic.ml",
+    "file_identity": {
+      "bytes": 8042,
+      "sha256": "c2846bba49800a8c6c97880347d0ca8383820f77e0dc8e48cf7bc3509b33b403"
+    },
+    "start": 248,
+    "end": 277,
+    "source": "      (Obj.magic None)\n      (Obj.magic None)\n      (Obj.magic None)\n  in\n  Conv.Exn_converter.add (Obj.Extension_constructor.of_val exc) (fun exc ->\n    let repr = Obj.repr exc in\n    let sexp1 = sexp_of_arg1 (magic_field repr 1) in\n    let sexp2 = sexp_of_arg2 (magic_field repr 2) in\n    let sexp3 = sexp_of_arg3 (magic_field repr 3) in\n    let sexp4 = sexp_of_arg4 (magic_field repr 4) in\n    let sexp5 = sexp_of_arg5 (magic_field repr 5) in\n    let sexp6 = sexp_of_arg6 (magic_field repr 6) in\n    let sexp7 = sexp_of_arg7 (magic_field repr 7) in\n    let sexp8 = sexp_of_arg8 (magic_field repr 8) in\n    let sexp9 = sexp_of_arg9 (magic_field repr 9) in\n    let sexp10 = sexp_of_arg10 (magic_field repr 10) in\n    Sexp.List\n      [ Sexp.Atom exc_name\n      ; sexp1\n      ; sexp2\n      ; sexp3\n      ; sexp4\n      ; sexp5\n      ; sexp6\n      ; sexp7\n      ; sexp8\n      ; sexp9\n      ; sexp10\n      ])\n;;"
+  },
+  {
+    "file": "sexplib/unix/lib/sexplib_unix_conv.ml",
+    "file_identity": {
+      "bytes": 759,
+      "sha256": "c22c1170346de7ea5e35b4fc4dee6089a8c2f9e80ebe13454bf54dd71edee976"
+    },
+    "start": 1,
+    "end": 20,
+    "source": "(** Exception sexp converters that are Unix-specific. Handles [Unix.Unix_error].\n\n    Write [let () = Sexplib_unix.Sexplib_unix_conv.linkme] in your program to ensure that\n    the code in this module is run, i.e. the unix-specific exception converters are added.\n    This is already done by [Core], so any application that uses Core need not worry\n    about this module at all. *)\nopen Sexplib.Sexp\n\nopen Sexplib.Conv\n\nlet () =\n  Exn_converter.add\n    ~printexc:false\n    ~finalise:false\n    [%extension_constructor Unix.Unix_error]\n    (function\n      | Unix.Unix_error (err, loc, arg) ->\n        let err_str = Unix.error_message err in\n        List [ Atom \"Unix.Unix_error\"; Atom err_str; Atom loc; Atom arg ]\n      | _ -> assert false)"
+  },
+  {
+    "file": "parsexp/src/import.ml",
+    "file_identity": {
+      "bytes": 231,
+      "sha256": "6d3a1a4a1b9a442cb0f405d77a7a18bf16d9a9df48fa44772f06f65470df3ec2"
+    },
+    "start": 1,
+    "end": 9,
+    "source": "module Ppx_sexp_conv_lib = struct\n  module Conv_error = Sexplib0.Sexp_conv_error\n  module Conv = Sexplib0.Sexp_conv\n  module Sexp = Sexplib0.Sexp\nend\n\nmodule Sexp = Sexplib0.Sexp\ninclude Sexplib0.Sexp_conv\nmodule List = ListLabels"
+  },
+  {
+    "file": "parsexp/src/parse_error.ml",
+    "file_identity": {
+      "bytes": 3202,
+      "sha256": "938470fc42ee90630f2f33b2a3e03d809e3e54dd11050d9dbf91535e2cfe128d"
+    },
+    "start": 1,
+    "end": 41,
+    "source": "open! Import\ninclude Parse_error_intf\n\ntype t =\n  { position : Positions.pos\n  ; message : string\n  ; old_parser_exn : [ `Parse_error | `Failure ]\n  }\n\nlet sexp_of_t { position; message; old_parser_exn = _ } : Sexp.t =\n  List\n    [ List [ Atom \"position\"; Positions.sexp_of_pos position ]\n    ; List [ Atom \"message\"; sexp_of_string message ]\n    ]\n;;\n\nlet position t = t.position\nlet message t = t.message\nlet old_parser_exn t = t.old_parser_exn\n\nlet report ppf ~filename t =\n  let pos = position t in\n  let msg = message t in\n  Format.fprintf\n    ppf\n    \"File \\\"%s\\\", line %d, character %d:\\nError: s-expression parsing error;\\n%s\\n\"\n    filename\n    pos.line\n    pos.col\n    msg\n;;\n\nexception Parse_error of t [@@deriving_inline sexp]\n\nlet () =\n  Sexplib0.Sexp_conv.Exn_converter.add [%extension_constructor Parse_error] (function\n    | Parse_error arg0__001_ ->\n      let res0__002_ = sexp_of_t arg0__001_ in\n      Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"parse_error.ml.Parse_error\"; res0__002_ ]\n    | _ -> assert false)\n;;"
+  },
+  {
+    "file": "parsexp/src/of_sexp_error.ml",
+    "file_identity": {
+      "bytes": 2026,
+      "sha256": "059bd4c1fb677dfad6190520412b965bc2359bc19dbc3e0a6bd9cf88c42f66a7"
+    },
+    "start": 1,
+    "end": 66,
+    "source": "open! Import\n\ntype t =\n  { user_exn : exn\n  ; sub_sexp : Sexp.t\n  ; location : Positions.range option\n  }\n[@@deriving_inline sexp_of]\n\nlet sexp_of_t =\n  (fun { user_exn = user_exn__002_; sub_sexp = sub_sexp__004_; location = location__006_ } ->\n     let bnds__001_ = ([] : _ Stdlib.List.t) in\n     let bnds__001_ =\n       let arg__007_ = sexp_of_option Positions.sexp_of_range location__006_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"location\"; arg__007_ ] :: bnds__001_\n        : _ Stdlib.List.t)\n     in\n     let bnds__001_ =\n       let arg__005_ = Sexp.sexp_of_t sub_sexp__004_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"sub_sexp\"; arg__005_ ] :: bnds__001_\n        : _ Stdlib.List.t)\n     in\n     let bnds__001_ =\n       let arg__003_ = sexp_of_exn user_exn__002_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"user_exn\"; arg__003_ ] :: bnds__001_\n        : _ Stdlib.List.t)\n     in\n     Sexplib0.Sexp.List bnds__001_\n     : t -> Sexplib0.Sexp.t)\n;;\n\n[@@@end]\n\nlet user_exn t = t.user_exn\nlet sub_sexp t = t.sub_sexp\nlet location t = t.location\n\nlet report ppf ~filename t =\n  let line, start, stop =\n    match t.location with\n    | None -> 1, 0, 0\n    | Some { start_pos; end_pos } ->\n      start_pos.line, start_pos.col, start_pos.col + end_pos.offset - start_pos.offset\n  in\n  Format.fprintf\n    ppf\n    \"File \\\"%s\\\", line %d, characters %d-%d:\\n\\\n     Error: s-expression conversion error;\\n\\\n     exception %s\\n\"\n    filename\n    line\n    start\n    stop\n    (Sexplib0.Sexp_conv.printexc_prefer_sexp t.user_exn)\n;;\n\nexception Of_sexp_error of t [@@deriving_inline sexp_of]\n\nlet () =\n  Sexplib0.Sexp_conv.Exn_converter.add [%extension_constructor Of_sexp_error] (function\n    | Of_sexp_error arg0__008_ ->\n      let res0__009_ = sexp_of_t arg0__008_ in\n      Sexplib0.Sexp.List\n        [ Sexplib0.Sexp.Atom \"of_sexp_error.ml.Of_sexp_error\"; res0__009_ ]\n    | _ -> assert false)\n;;"
+  },
+  {
+    "file": "parsexp/src/positions.ml",
+    "file_identity": {
+      "bytes": 16904,
+      "sha256": "3094d464c3dc0be685fa7a88a2d336e8932a44c2ce4555d5f8071f485cc09a27"
+    },
+    "start": 67,
+    "end": 133,
+    "source": "type pos =\n  { line : int\n  ; col : int\n  ; offset : int\n  }\n[@@deriving_inline sexp_of]\n\nlet sexp_of_pos =\n  (fun { line = line__002_; col = col__004_; offset = offset__006_ } ->\n     let bnds__001_ = ([] : _ Stdlib.List.t) in\n     let bnds__001_ =\n       let arg__007_ = sexp_of_int offset__006_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"offset\"; arg__007_ ] :: bnds__001_\n        : _ Stdlib.List.t)\n     in\n     let bnds__001_ =\n       let arg__005_ = sexp_of_int col__004_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"col\"; arg__005_ ] :: bnds__001_\n        : _ Stdlib.List.t)\n     in\n     let bnds__001_ =\n       let arg__003_ = sexp_of_int line__002_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"line\"; arg__003_ ] :: bnds__001_\n        : _ Stdlib.List.t)\n     in\n     Sexplib0.Sexp.List bnds__001_\n     : pos -> Sexplib0.Sexp.t)\n;;\n\n[@@@end]\n\nlet compare_pos = Stdlib.compare\nlet beginning_of_file = { line = 1; col = 0; offset = 0 }\nlet shift_pos pos ~cols = { pos with col = pos.col + cols; offset = pos.offset + cols }\n\ntype range =\n  { start_pos : pos\n  ; end_pos : pos\n  }\n[@@deriving_inline sexp_of]\n\nlet sexp_of_range =\n  (fun { start_pos = start_pos__009_; end_pos = end_pos__011_ } ->\n     let bnds__008_ = ([] : _ Stdlib.List.t) in\n     let bnds__008_ =\n       let arg__012_ = sexp_of_pos end_pos__011_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"end_pos\"; arg__012_ ] :: bnds__008_\n        : _ Stdlib.List.t)\n     in\n     let bnds__008_ =\n       let arg__010_ = sexp_of_pos start_pos__009_ in\n       (Sexplib0.Sexp.List [ Sexplib0.Sexp.Atom \"start_pos\"; arg__010_ ] :: bnds__008_\n        : _ Stdlib.List.t)\n     in\n     Sexplib0.Sexp.List bnds__008_\n     : range -> Sexplib0.Sexp.t)\n;;\n\n[@@@end]\n\nlet compare_range = Stdlib.compare\n\nlet make_range_incl ~start_pos ~last_pos =\n  { start_pos; end_pos = shift_pos last_pos ~cols:1 }\n;;\n\nmodule Chunk : sig"
+  },
+  {
+    "file": "why3/src/util/mysexplib-real.ml",
+    "file_identity": {
+      "bytes": 2350,
+      "sha256": "d1cc307908231e2ba5dcbfc1eeab07aed7df57c409455c25f0360c21584f890f"
+    },
+    "start": 11,
+    "end": 43,
+    "source": "type sexp = Sexplib.Sexp.t\n\nmodule Std = Sexplib.Std\n\nmodule Std_big_int = struct\n\nlet big_int_of_sexp sexp =\n  match sexp with\n  | Sexplib.Sexp.Atom str ->\n      begin\n        try Big_int_Z.big_int_of_string str\n        with _ -> Sexplib.Conv.of_sexp_error \"big_int_of_sexp\" sexp\n      end\n  | _ -> Sexplib.Conv.of_sexp_error \"big_int_of_sexp\" sexp\n\nlet sexp_of_big_int n = Sexplib.Sexp.Atom (Big_int_Z.string_of_big_int n)\n\nend\n\nexception Parse_error of string\n\nlet () = Exn_printer.register (fun fmt exn -> match exn with\n  | Parse_error msg -> Format.fprintf fmt \"Sexp parser syntax error: %s\" msg\n  | _ -> raise exn)\n\nlet input_sexp (c : in_channel) : sexp =\n  try\n    Sexplib.Sexp.input_sexp c\n  with\n    Sexplib.Conv.Of_sexp_error(Failure msg,_) ->\n      raise (Parse_error msg)\n\n(*"
+  },
+  {
+    "file": "ocaml/stdlib/ephemeron.ml",
+    "file_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "start": 214,
+    "end": 221,
+    "source": "    let add h key info =\n      let hkey = H.hash h.seed key in\n      let i = key_index h hkey in\n      let container = H.create key info in\n      let bucket = Cons(hkey, container, h.data.(i)) in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize h"
+  },
+  {
+    "file": "ocaml/stdlib/ephemeron.ml",
+    "file_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "start": 270,
+    "end": 293,
+    "source": "    let rec find_rec_opt key hkey = function\n      | Empty ->\n          None\n      | Cons(hk, c, rest) when hkey = hk  ->\n          begin match H.equal c key with\n          | ETrue ->\n              begin match H.get_data c with\n              | None ->\n                  (* This case is not impossible because the gc can run between\n                      H.equal and H.get_data *)\n                  find_rec_opt key hkey rest\n              | Some _ as d -> d\n              end\n          | EFalse -> find_rec_opt key hkey rest\n          | EDead ->\n              find_rec_opt key hkey rest\n          end\n      | Cons(_, _, rest) ->\n          find_rec_opt key hkey rest\n\n    let find_opt h key =\n      let hkey = H.hash h.seed key in\n      (* TODO inline 3 iterations *)\n      find_rec_opt key hkey (h.data.(key_index h hkey))"
+  }
+]

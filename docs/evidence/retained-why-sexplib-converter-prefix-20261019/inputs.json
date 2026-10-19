@@ -1,0 +1,158 @@
+{
+  "frozen_exception_input": "18bd02108fc2e0456f4339d3e31b593b5daab7da",
+  "frozen_formatter_repair": "72096d190945da9e9697627b81e3631387574b8a",
+  "dependencies": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/check.py": {
+      "bytes": 8461,
+      "sha256": "959db0ad9c8495eea891e057dd8a9a2f54d0348347fb99dcd012f0514f6a7552"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "docs/evidence/retained-why-session-exception-prefix-20261019/native-census.json": {
+      "bytes": 6072,
+      "sha256": "ac07f59f25ebc7894ec511d0a76f274edce8852a14fec787d16c122b7efcbcfc"
+    },
+    "docs/evidence/retained-why-session-exception-prefix-20261019/result.json": {
+      "bytes": 657,
+      "sha256": "3d2cf2eaeff31ab10c205106a46505849cf1f27d4a30942fe056b8629639c519"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/result.json": {
+      "bytes": 3736,
+      "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+    }
+  },
+  "local_inputs": {
+    "check.py": {
+      "bytes": 11980,
+      "sha256": "ed9f223c7c847f6313a32d575d8029f17527fb65efad21251a34e9b574fddaaf"
+    },
+    "native-bodies.json": {
+      "bytes": 572298,
+      "sha256": "9ac9bdd7f1ff23a285cbe3d65294ee9eeedc3db2306a69d4bfb3e9aebff62bb2"
+    },
+    "parsexp-retrieval.json": {
+      "bytes": 442,
+      "sha256": "75108f01f4135f8563dae135ec1d71293bd855c825e6110f6acb0b42736c9930"
+    },
+    "parsexp-tag.json": {
+      "bytes": 607,
+      "sha256": "564bb097b7a15665449d354c8b46eb36ed20181fc4c4355ebb9da734911027ff"
+    },
+    "parsexp.tar.gz": {
+      "bytes": 56930,
+      "sha256": "75d1403ada93dd1fa747a34111a3a5d4123071d70d95f54b314c55ab1d31f1ba"
+    },
+    "registration-events.json": {
+      "bytes": 9695,
+      "sha256": "c8d611836d5fe82d262321a543d14f8d618897e63d0a9e227d352ce2071c689e"
+    },
+    "sexplib-retrieval.json": {
+      "bytes": 442,
+      "sha256": "7f0d0f30b8380162851378e648b91c37497e78aca16eb5cc8ce9578bafe33fb0"
+    },
+    "sexplib-tag.json": {
+      "bytes": 607,
+      "sha256": "8dd8eee4be879e7225ba4c9b919bb7409f87042751b1a33787ec39ccc0b139fb"
+    },
+    "sexplib.tar.gz": {
+      "bytes": 55017,
+      "sha256": "a675ca2f6f40ab7c950b611de24630f1ef92fc40a162bb615b6a8a12d2838885"
+    },
+    "sexplib0-retrieval.json": {
+      "bytes": 445,
+      "sha256": "9fe51af81bf8445cf60f6c71820681c1dc26ab863e75989e3e92baef426bb256"
+    },
+    "sexplib0-tag.json": {
+      "bytes": 611,
+      "sha256": "81b4b4de0b09caba796c1c460ba56a4bf92e1e3dc9152c324526a4af92c4e306"
+    },
+    "sexplib0.tar.gz": {
+      "bytes": 22176,
+      "sha256": "6daf8a709c50461e89a4976b7518eeae42455176d6bee31a4b6e99e11aa32aa2"
+    },
+    "source-excerpts.json": {
+      "bytes": 32400,
+      "sha256": "9e504a28de4864dd026b634bde6cfe3a1b100ab814fba3974426b4ae3291f339"
+    }
+  },
+  "installed_files": {
+    "gnatwhy3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "identity": {
+        "bytes": 24561432,
+        "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+      }
+    },
+    "ada_terms.cmxs": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs",
+      "identity": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      }
+    },
+    "gnat_json.cmxs": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs",
+      "identity": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    }
+  },
+  "installed_version_strings": [
+    {
+      "package": "sexplib0",
+      "file_offset": 19520670,
+      "value": "/home/runner/work/why3/why3/_opam/.opam-switch/build/sexplib0.v0.16.0/_build/default"
+    },
+    {
+      "package": "sexplib",
+      "file_offset": 19492631,
+      "value": "/home/runner/work/why3/why3/_opam/.opam-switch/build/sexplib.v0.16.0/_build/default"
+    },
+    {
+      "package": "parsexp",
+      "file_offset": 19507138,
+      "value": "/home/runner/work/why3/why3/_opam/.opam-switch/build/parsexp.v0.16.0/_build/default"
+    }
+  ],
+  "access_ranges": {
+    "camlSexplib0__Sexp_conv": {
+      "start": 15082296,
+      "end": 15082952
+    },
+    "camlSexplib__Conv": {
+      "start": 15003928,
+      "end": 15004776
+    },
+    "camlSexplib__Exn_magic": {
+      "start": 15015488,
+      "end": 15015584
+    },
+    "camlParsexp__Import": {
+      "start": 15024336,
+      "end": 15024920
+    },
+    "camlPpx_sexp_conv_lib": {
+      "start": 14947008,
+      "end": 14947168
+    },
+    "Exn_magic_export_closures": {
+      "start": 15015104,
+      "end": 15015488
+    },
+    "Exn_converter_add_closure": {
+      "start": 15080864,
+      "end": 15080920
+    }
+  }
+}
