@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "status": "Actual-source named IRA/LRA helper attachment passed; pending independent attachment review",
+  "authorization": "Owner resumed #119; parent-assigned bounded attachment. Own only the new attachment note and packet. Parent owns independent review, integration, indexes, issues/memory and publication.",
+  "base_revision": "5e4318b8ac0f5bb0b5fc9dcecf1d99159e90fdc2",
+  "branch": "research/helper-attachment-20261019",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "first_recorded_checkpoint_utc": "2026-10-19T12:56:27+00:00",
+  "current_record_utc": "2026-10-19T13:03:58.076566+00:00",
+  "checkpoint_interval_seconds": 451.076566,
+  "whole_task_elapsed_seconds": null,
+  "clock_measurement_scope": "Measured interval from the first clock checkpoint during dependency reading; includes implementation/evidence/documentation. Exact task start/model compute time is unavailable. Focused checker and native execution time remain separate.",
+  "intended_outcome": "Attach the accepted named31-guard helper source arithmetic to335 actual-source guards, after complete physical source/configuration/count/invocation/owner validation, preserving false/null and historical component fields.",
+  "achieved_result": "367 guards =335 inherited +31 local helper +1 conjunction. Complete numeric/backing/ordinary/pool/GGC owners persist; optional inheritance and2(P+1) per-pseudo bound included without recharge or broader completion.",
+  "affected_checker": {
+    "started_utc": "2026-10-19T13:00:55.996340+00:00",
+    "completed_utc": "2026-10-19T13:01:05.521725+00:00",
+    "elapsed_seconds": 9.525369996001245,
+    "check_count": 146,
+    "new_successor_contexts": 1,
+    "new_helper_false_checks": 32,
+    "real_failed_unresolved_predicates": 148,
+    "affected_scope": "New helper attachment, complete prior numeric/backing joins and representative inherited false/null routes; accepted predecessor/source success reused."
+  },
+  "actual_sources": 4,
+  "pure_count_cases": 3,
+  "accepted_inputs": {
+    "actual_source335": "eda02a9975a62a16536fd622d27101fa65dc816a",
+    "actual_source335_review": "835e80f28ae5beb49b77f73f8f4a1284582e5e65",
+    "named_helper_source": "b795c8f7459d648d7e595aca414629c1eec232bd",
+    "named_helper_source_review": "4d7100e7fbb2e39e6fdae2cf63b6d7b657cacb71",
+    "complete_current_and_Git_records": 18,
+    "helper_source_inventory": {
+      "GCC_files": 36,
+      "repository_files": 25,
+      "literal_LF_operative_excerpts": 72,
+      "retained_generated_headers": 1,
+      "selected_target_files_without_initial_value_override": 9
+    },
+    "inventory_sets_overlap": true
+  },
+  "findings_and_rework": [
+    "First focused run reached backing mutation checks but expected a later new-validator error; the accepted bitmap interface correctly rejected corruption earlier with accepted RTL backing. Corrected four checker error-fragment expectations only; no adapter, source argument, owner or bound changed. Failed-run elapsed time is unavailable.",
+    "Corrected checker passed146 focused checks in9.525369996001245 seconds. No subsequent implementation/checker/input/result changes followed that successful run.",
+    "All31 local guards plus conjunction exported. Existing335 maps and23 full owner/attachment fields compared on the four actual-source variants.",
+    "False/null prerequisite paths forbid helper arithmetic. Real original/pool failure retains116 prior nulls and adds32=148; GGC/LRA failure retains99 and adds32=131. Source/configuration/full available-owner checks precede all branching.",
+    "The accepted helper source review corrects the regstat use-plus-set locator to LF75\u201376 within frozen45\u201393 excerpt; input records remain unchanged.",
+    "5000-call pure comparison retains140102 per-pseudo length and passing31 locals, separate from global50000 live objects. It is a count/export check, not actual-source admission."
+  ],
+  "reused_evidence": {
+    "accepted_actual_source335_checks": 128,
+    "accepted_actual_source335_seconds": 8.561891109013231,
+    "accepted_helper_checks": 116,
+    "accepted_helper_seconds": 0.1171619369997643,
+    "helper_review_inspection_seconds": 186,
+    "helper_review_record_arithmetic_seconds": 0.2558266400010325,
+    "other": "Full accepted numeric/ordinary/GGC/CFI/bitmap Context and exact source/review chain retained; semantic arguments and predecessor suites not repeated.",
+    "replayed": false
+  },
+  "final_artifact_identities": {
+    "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/compose.py": {
+      "bytes": 18280,
+      "sha256": "2fd777ab545c79d106af7064c3f5323799a36e817dfce403d555fbefc9a0308d"
+    },
+    "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check.py": {
+      "bytes": 21987,
+      "sha256": "e6c117026c3aa695e59a7637de62139446095711f7a99a29c696c322285ffe24"
+    },
+    "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/inputs.json": {
+      "bytes": 5846,
+      "sha256": "792f6826a0dc581bc27d39a63f42777964315466a92dcf6dc40c09c30c8abebb"
+    },
+    "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/check-results.json": {
+      "bytes": 30611,
+      "sha256": "81de0ea98112bcfdca0ae56b0bc265bc27382ca829e499c856fdc3c54f86fd48"
+    },
+    "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/result.json": {
+      "bytes": 1111857,
+      "sha256": "f1e1663c15cbc548a29e2292c90306183719b18f536963a8f2076e620172e4f1"
+    },
+    "docs/evidence/retained-literal-ira-lra-helper-attachment-20261019/README.md": {
+      "bytes": 4267,
+      "sha256": "cbec4f5ed277700529445f494f6487b14cfd613f69d5b491a480408d2d751a4b"
+    },
+    "docs/research/retained-literal-ira-lra-helper-attachment.md": {
+      "bytes": 12177,
+      "sha256": "375fc63a348997d083fea9005b8e4c66fb8ca90be4e149cb2a78b090875402d3"
+    }
+  },
+  "artifact_identity_scope": "Final adapter/checker/manifest/result/check-results/README and note. This round is not self-hashed.",
+  "final_record_validation": {
+    "status": "passed",
+    "python_syntax_files": 2,
+    "JSON_files_before_round": 3,
+    "accepted_current_and_Git_pins": 18,
+    "focused_checks": 146,
+    "final_guards": 367,
+    "new_guards": 32,
+    "retained_Hello_GGC_events": 47054,
+    "actual_C10_N10_GGC_events": 69927,
+    "final_identity_consistency_elapsed_seconds": 0.1330670659954194,
+    "scope": "No Context, evaluator/checker, native tool, source-suite or broad-suite replay in final record checks."
+  },
+  "expensive_managed_job_needed": false,
+  "managed_status_read": false,
+  "managed_status_note": "No expensive managed validation started/resumed; focused offline source identity/owner/arithmetic checks only.",
+  "native_tool_executions": 0,
+  "build_prover_solver_capture_runs": 0,
+  "predecessor_suites_rerun": false,
+  "census_executions": 0,
+  "aggregate_or_corpus_executions": 0,
+  "helper_fixed_Hello_reconciliation_called": false,
+  "github_writes": 0,
+  "delegation": 0,
+  "session_memory_updated": false,
+  "CLI_memory_updated": false,
+  "live_subthread_harness_goal": null,
+  "independent_attachment_review_status": "pending",
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_gate": false,
+  "remaining_obligations": [
+    "Independent review of this exact frozen attachment before parent integration.",
+    "Full dynamic LRA recognition lifetime and container counters; other outer IRA/imported/external-sort helpers; other LRA arithmetic/automatic storage/elimination offsets; other native/helper/stack, producer/proof/parent/current-grammar capacity.",
+    "Production launcher/materialization/source-binary correspondence remains separate; no GPRbuild/Gprbind or fixed-child regeneration job in the selected graph."
+  ]
+}
