@@ -1,0 +1,32 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_evidence": null,
+  "overall_round_elapsed_seconds": null,
+  "base": "603e0feeaab329b6492c3cc8d82f90a7f095c070",
+  "native_platform": "Linux x86_64",
+  "scope": "Complete selected later type/alias/integer/global/list/identity and scalar-finalizer query census",
+  "achieved_result": "Closed selected family endpoints with zero new events; scalar registration history39275 and capacity58911; full native/collector and pipeline obligations remain open.",
+  "significant_findings": [
+    "canonicalize_addr_expr can build an element pointer before its final compatibility test; selected same-space/mode conversion is removed before this helper.",
+    "Global/list vector zero includes indirect append/splice writers, preserved STATEMENT_LIST headers, simple helper conditions and constant constructor elements.",
+    "Call reconstruction performs C real sizetype(4) queries, with rooted original small-cache hits; component offset arithmetic returns existing operands.",
+    "Direct spill/GOT/TLS/instrumentation alias constructors excluded by actual selected triggers; ordinary get_alias_set is retained at O0.",
+    "Typed control census joins original5 + named6 + RTL5 + graph2 once; no unowned scalar residual remains."
+  ],
+  "focused_checks": 42,
+  "focused_check_elapsed_seconds": 0.05243568700097967,
+  "arithmetic_cases": 33,
+  "source_files_verified": 96,
+  "repository_inputs_verified": 28,
+  "independent_review": "pending; parent owns frozen-commit review and integration",
+  "parent_status_observed": "Selected model is at capacity; no fallback selected by this subthread.",
+  "native_tool_executions": 0,
+  "accepted_component_suites_rerun": 0,
+  "aggregate_executions": 0,
+  "corpus_checkers_rerun": 0,
+  "live_harness_goal": null,
+  "CLI_memory_updated": false,
+  "completed_utc": "2026-10-19T00:47:19.623836+00:00"
+}

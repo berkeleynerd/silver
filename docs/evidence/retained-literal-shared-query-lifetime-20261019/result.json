@@ -1,0 +1,271 @@
+{
+  "RTL4C_events_added_again": 0,
+  "accepted_component_suites_rerun": 0,
+  "aggregate_RAM_gate": false,
+  "aggregate_executions": 0,
+  "alias_sets": {
+    "additional_GGC_backing_requests_upper": 10,
+    "additional_pushes": 10,
+    "all_backing_events_already_owned": true,
+    "allocated_slots_upper": 1048575,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "each_caller_bytes_upper": 8388608,
+    "each_rounded_bytes_upper": 8388608,
+    "fits": true,
+    "incoming_allocated_slots_upper": 414851,
+    "incoming_occupied_upper": 414851,
+    "new_backing_events_in_this_packet": 0,
+    "occupied_upper": 414861
+  },
+  "closed_scalar_control_owners": [
+    {
+      "owner": "original",
+      "registrations": 5
+    },
+    {
+      "owner": "named later",
+      "registrations": 6
+    },
+    {
+      "owner": "RTL controls",
+      "registrations": 5
+    },
+    {
+      "owner": "alias graph",
+      "registrations": 2
+    }
+  ],
+  "complete_DECL_UID_lifetime_closed": true,
+  "complete_alias_lifetime_closed": true,
+  "complete_array_finalizer_lifetime_closed": false,
+  "complete_collector_lifetime_closed": false,
+  "complete_gimplifier_lifetime_closed": false,
+  "complete_global_counter_lifetime_closed": false,
+  "complete_global_decls_lifetime_closed": true,
+  "complete_identifier_lifetime_closed": true,
+  "complete_scalar_finalizer_lifetime_closed": true,
+  "complete_source_files_verified": 96,
+  "complete_stmt_list_cache_lifetime_closed": true,
+  "complete_tree_integer_cache_lifetime_closed": true,
+  "complete_type_lifetime_closed": true,
+  "conditional_selected_shared_capacity_established": true,
+  "corpus_checkers_rerun": 0,
+  "counter_endpoints": {
+    "alias_ID_upper": 414860,
+    "checks": {
+      "DECL_UID_signed": true,
+      "alias_ID_signed": true,
+      "temporary_name_serial_unsigned": true,
+      "type_UID_unsigned": true
+    },
+    "next_DECL_UID_upper": 5877,
+    "next_type_UID_upper": 2306,
+    "temporary_name_serial_upper": 40886
+  },
+  "global_decls": {
+    "additional_GGC_backing_requests_upper": 9,
+    "additional_pushes": 9,
+    "all_backing_events_already_owned": true,
+    "allocated_slots_upper": 1048575,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "each_caller_bytes_upper": 8388608,
+    "each_rounded_bytes_upper": 8388608,
+    "fits": true,
+    "incoming_allocated_slots_upper": 414851,
+    "incoming_occupied_upper": 414851,
+    "new_backing_events_in_this_packet": 0,
+    "occupied_upper": 414860
+  },
+  "graph14_events_added_again": 0,
+  "identifier_hash": {
+    "allocated_slots_upper": 65536,
+    "checks": {
+      "doubling_unsigned": true,
+      "history_unsigned": true,
+      "request_span": true,
+      "threshold_unsigned": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "corrected_incoming_history_upper": 40847,
+    "each_ordinary_backing_bytes_upper": 524288,
+    "historical_insertions_upper": 40886,
+    "named_insertions_already_owned": 3,
+    "occupied_upper": 40886,
+    "original_insertions_already_owned": 36,
+    "other_later_insertions": 0
+  },
+  "independent_review_status": "pending",
+  "integer_hash": {
+    "additional_GGC_backing_requests_upper": 317,
+    "additional_insertion_capable_lookups": 317,
+    "additional_new_entries_upper": 317,
+    "all_backing_events_already_owned": true,
+    "allocated_slots_upper": 131071,
+    "checks": {
+      "allocator_order_region": true,
+      "empty_threshold_unsigned": true,
+      "load_products": true,
+      "prime_exists": true,
+      "probe_addition": true,
+      "request_and_pointer_span": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "each_caller_bytes_upper": 1048568,
+    "each_rounded_bytes_upper": 1048576,
+    "fits": true,
+    "incoming_allocated_slots_upper": 131071,
+    "incoming_occupied_upper": 39257,
+    "new_backing_events_in_this_packet": 0,
+    "occupied_upper": 39574,
+    "successful_lookup_can_replace_backing": true
+  },
+  "later_query_demands": {
+    "DECL_UID_increments_already_owned": 5,
+    "alias_sets_pushes_already_owned": 6,
+    "call_length_existing_small_slot_lookups": 1,
+    "global_decls_pushes": 0,
+    "identifier_insertions_already_owned": 3,
+    "integer_hash_entries": 0,
+    "integer_hash_lookups": 0,
+    "other_DECL_UID_increments": 0,
+    "other_identifier_insertions": 0,
+    "small_integer_cache_vectors": 0,
+    "small_integer_cache_writes": 0,
+    "stmt_list_cache_pushes": 0,
+    "type_UID_increments": 0,
+    "type_hash_entries": 0,
+    "type_hash_lookups": 0
+  },
+  "native_tool_executions": 0,
+  "new_direct_GGC_events": 0,
+  "new_ordinary_backing_events": 0,
+  "new_scalar_registrations": 0,
+  "new_shared_GGC_backing_events": 0,
+  "original_source_demands": {
+    "alias_sets_pushes": 4,
+    "already_owned_small_integer_cache_vectors": 188,
+    "global_decls_pushes": 9,
+    "integer_hash_entries": 317,
+    "integer_hash_lookups": 317,
+    "small_integer_cache_writes": 320,
+    "stmt_list_cache_pushes": 432,
+    "type_hash_entries": 6,
+    "type_hash_lookups": 6
+  },
+  "production_admission_changed": false,
+  "remaining_families": [
+    "mem_attrs changing setters versus existing operation/frame owners",
+    "SSA/version, instruction/label/register, DF and emission reset-boundary counters",
+    "ordinary pools/stacks",
+    "array/outer-finalizer/depth and collector page/mark state",
+    "disjoint positive GGC event and individual object ledger",
+    "frontend tables, production invocation/source correspondence and external pipeline"
+  ],
+  "repository_inputs_verified": 28,
+  "same_source_corrected_incoming_history_verified": true,
+  "scalar_finalizers": {
+    "RTL_registrations_already_owned": 5,
+    "additional_registrations_upper": 18,
+    "alias_graph_registrations_already_owned": 2,
+    "allocated_slots_upper": 58911,
+    "checks": {
+      "capacity_31_bits": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "request_span": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "each_ordinary_backing_bytes_upper": 942584,
+    "historical_registrations_upper": 39275,
+    "incoming_history_upper": 39257,
+    "named_registrations_already_owned": 6,
+    "occupied_upper": 39275,
+    "original_registrations_already_owned": 5,
+    "other_later_registrations": 0
+  },
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_argument": "docs/research/retained-literal-shared-query-lifetime.md",
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_input": {
+    "distinct_output_callees": 1,
+    "null_statements": 0,
+    "output_calls": 1
+  },
+  "source_reachability_argument_is_handwritten": true,
+  "stmt_list_cache": {
+    "additional_GGC_backing_requests_upper": 432,
+    "additional_pushes": 432,
+    "all_backing_events_already_owned": true,
+    "allocated_slots_upper": 1023,
+    "checks": {
+      "allocator_order_region": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "normalized_capacity_31_bits": true,
+      "request_and_pointer_span": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "each_caller_bytes_upper": 8192,
+    "each_rounded_bytes_upper": 8192,
+    "fits": true,
+    "incoming_allocated_slots_upper": 0,
+    "incoming_occupied_upper": 0,
+    "new_backing_events_in_this_packet": 0,
+    "occupied_upper": 432
+  },
+  "total_GGC_events": null,
+  "type_hash": {
+    "additional_GGC_backing_requests_upper": 6,
+    "additional_insertion_capable_lookups": 6,
+    "additional_new_entries_upper": 6,
+    "all_backing_events_already_owned": true,
+    "allocated_slots_upper": 131071,
+    "checks": {
+      "allocator_order_region": true,
+      "empty_threshold_unsigned": true,
+      "load_products": true,
+      "prime_exists": true,
+      "probe_addition": true,
+      "request_and_pointer_span": true
+    },
+    "complete_selected_lifetime_closed": true,
+    "each_caller_bytes_upper": 1048568,
+    "each_rounded_bytes_upper": 1048576,
+    "fits": true,
+    "incoming_allocated_slots_upper": 131071,
+    "incoming_occupied_upper": 39257,
+    "new_backing_events_in_this_packet": 0,
+    "occupied_upper": 39263,
+    "successful_lookup_can_replace_backing": true
+  },
+  "whole_literal_pipeline_capacity_established": false
+}
