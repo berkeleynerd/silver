@@ -1,0 +1,113 @@
+{
+  "issue": 119,
+  "authorization": "Parent-assigned bounded shared bitmap/pool research; new note and packet only",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "parent_agent": "/root",
+  "subthread": "/root/native_lifetime_next_join",
+  "delegation": null,
+  "branch": "research/119-literal-shared-bitmap-pools",
+  "base_commit": "412dfa64e5729827d43372624ef5a13668bcab7c",
+  "intended_outcome": "Close default/reg/DF sparse bitmap representation and selected ordinary pool retained-state joins without a cumulative ordinary-allocation or RAM gate",
+  "achieved_outcome": [
+    "Fixed 32/40-byte bitmap objects and 65536-byte chunk requests, actual bit/range/iterator domains and default nesting9 joined",
+    "Common returned-block cache is a linked list without a stored count; released owner state is distinguished from retained physical memory",
+    "DF scan/LR and selected shared scratch bitmap domains plus accepted initial CFG/SSA/ranger/out-of-SSA owners preserved",
+    "P=2M+B program points, point-frequency capacity and individual array/bitmap/sparse-set requests bounded",
+    "LRA live-range objects10C, copy/invariant objects0 with initial control owners retained",
+    "Shared ET state at most2B nodes/4B occurrences, exact selected1023/1365 block slots and retained size_t fields bounded"
+  ],
+  "significant_findings_or_rework": [
+    "No cumulative chunk count exists in bitmap obstacks or the common block cache; a total ordinary history would add an unsupported obligation",
+    "Exact selected ET64/48-byte layout used for actual retained-slot counters while old conservative72/56-byte initial block owners remain unchanged",
+    "Initial LRA point reserve2U need not cover conservative point ceilingP; later vector growth included",
+    "Final source audit refined extra IRA point exclusion to early-clobber/tied-operand conflicts and distinguished common cached blocks from active scan generations",
+    "Self-review tightened verification of the scalar-owner field exported for context; added rejection of its erasure"
+  ],
+  "focused_validation": {
+    "check_count": 52,
+    "arithmetic_cases": 21,
+    "bitmap_boundary_cases": 11,
+    "pool_boundary_cases": 18,
+    "source_files_verified": 38,
+    "repository_inputs_verified": 19,
+    "elapsed_seconds": 0.0565760589997808,
+    "completed_utc": "2026-10-19T01:30:44.218438+00:00",
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "preliminary_focused_runs": [
+    {
+      "check_count": 50,
+      "elapsed_seconds": 0.04381709199878969,
+      "followup_reason": "Added shared returned-block cache representation and owning-state distinction"
+    },
+    {
+      "check_count": 51,
+      "elapsed_seconds": 0.05027913399680983,
+      "followup_reason": "Tightened exported scalar owner verification and added mutation rejection"
+    }
+  ],
+  "started_utc": "2026-10-19T01:17:13+00:00",
+  "completed_utc": "2026-10-19T01:31:20.332431+00:00",
+  "total_round_elapsed_seconds": 847.332431,
+  "token_usage": null,
+  "cost": null,
+  "elapsed_measurement_scope": "Wall clock from retained round start to packet metadata creation, including context handoff; checker timing separately measured",
+  "native_executions": 0,
+  "accepted_suite_reruns": 0,
+  "aggregate_executions": 0,
+  "corpus_checker_reruns": 0,
+  "repeated_identical_success_expensive_runs": 0,
+  "independent_review_status": "pending",
+  "exact_review_inputs": [
+    {
+      "path": "docs/research/retained-literal-shared-bitmap-pools.md",
+      "bytes": 20006,
+      "sha256": "b37297072221c7fb6267bedff2e4bb2af91b196746b4a4ca427f96aae39bab44"
+    },
+    {
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/README.md",
+      "bytes": 4191,
+      "sha256": "084703e452544b875d30385a5597aa7785e7bd343d0dd85ab5a06f3cbbf62c47"
+    },
+    {
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/inputs.json",
+      "bytes": 11203,
+      "sha256": "2a7852cacb1e4b75e386d2e73f0a5b3044f43eeb7455e6501a28b650af423c43"
+    },
+    {
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/derive.py",
+      "bytes": 16168,
+      "sha256": "b80d837a04a223b54784260c6f4ed6b194dfe5092e8bc55d16a195f2cdd87abb"
+    },
+    {
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/result.json",
+      "bytes": 11499,
+      "sha256": "13c62435277133d9b8b31b60d06416bc56d9ecfc6cf216eaebc930f588e89a56"
+    },
+    {
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/check.py",
+      "bytes": 11487,
+      "sha256": "963b637cc2862ab4c404df1bed6485b66545bbd54af7e843dee00a8fb3807721"
+    },
+    {
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/check-results.json",
+      "bytes": 3401,
+      "sha256": "60bc0a714203273898a88f57acdac5dfc667b7c80851c2e4a213d42b4d52a323"
+    }
+  ],
+  "remaining": [
+    "Other IRA allocno/object/live-range/cost pools and ordinary pass helpers",
+    "Disjoint complete positive GGC event and individual-request ledger",
+    "Parent typed-array/outer-finalizer candidate2b16ef1814 pending independent review; collector page/order/mark/epoch joins separate",
+    "Production actual-source attachment and installed correspondence"
+  ],
+  "local_harness_goal_at_resume": null,
+  "parent_harness_state_not_modified": true,
+  "GitHub_updated": false,
+  "publication_performed": false,
+  "CLI_memory_updated": false
+}

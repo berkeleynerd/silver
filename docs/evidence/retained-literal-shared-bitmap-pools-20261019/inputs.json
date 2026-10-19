@@ -1,0 +1,349 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "base_commit": "412dfa64e5729827d43372624ef5a13668bcab7c",
+  "scope": "Focused shared bitmap and selected ordinary pool source/interface inputs; no predecessor execution",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/coretypes.h",
+      "bytes": 16377,
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "root": "gcc",
+      "path": "include/obstack.h",
+      "bytes": 22405,
+      "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632"
+    },
+    {
+      "root": "gcc",
+      "path": "libiberty/obstack.c",
+      "bytes": 13005,
+      "sha256": "bd202f89c53690fce0d8ba7430f10d5ff6b8b71700de1499644147bb022eb658"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/memory-block.h",
+      "bytes": 2500,
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/symtab.cc",
+      "bytes": 75509,
+      "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dominance.cc",
+      "bytes": 48171,
+      "sha256": "83ae712d69a2424e7d401a49024221a7fa950da2a7ce587b75a0b6b59d7ee930"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/et-forest.cc",
+      "bytes": 17433,
+      "sha256": "d2a9395270619f63779a5cdb2b1dd3e64fbccfbac8b8951d9028d904bd8d60cd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/et-forest.h",
+      "bytes": 2693,
+      "sha256": "c7f245d7ab7ba523b666724f69a4ea32006462130b90f4d7a104d56c9b00a060"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "bytes": 73101,
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-scan.cc",
+      "bytes": 121906,
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "bytes": 145024,
+      "sha256": "0d4b5382df19fecd93447141a20141762e21064da41eb57565b3ad8f6cf8ab9e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df.h",
+      "bytes": 48445,
+      "sha256": "15903c1080da45b1d99b2f4868f25c9a1b7d0bbd3b88659cc7b143e6e45c7a56"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/regstat.cc",
+      "bytes": 13002,
+      "sha256": "196034c49ef943c9e918c35dc96f3c380c8a00edb7224de0ea10d8ba7b9849ee"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-lives.cc",
+      "bytes": 56331,
+      "sha256": "427b2f4c5219e2c05a406972848daa02484a3cc87657c305aad13440b9244edf"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "bytes": 106712,
+      "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-costs.cc",
+      "bytes": 88610,
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-int.h",
+      "bytes": 20763,
+      "sha256": "fd73c4bb99ec40e9ac957268ac5f5f3ccea6692d2655572412c7191b5f5e14a0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "bytes": 29811,
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-coalesce.cc",
+      "bytes": 11759,
+      "sha256": "30e64caf42a872a3ed9a0ad8d320f0d5632ef92f0de570214833432b7980fe97"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-eliminations.cc",
+      "bytes": 51361,
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.cc",
+      "bytes": 27107,
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.h",
+      "bytes": 10479,
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sparseset.cc",
+      "bytes": 5396,
+      "sha256": "14312f0e83a83b3831adcc95bfecf98568bf28ddfe2e38e7462919a374b151e7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sparseset.h",
+      "bytes": 6812,
+      "sha256": "22beaa4d9bb2b3ebf9ddc5778fc56fa2dd33a0ced5a6eaee365cc04cacd8937a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-into-ssa.cc",
+      "bytes": 106038,
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-outof-ssa.cc",
+      "bytes": 38337,
+      "sha256": "db74cee5a9579f29a38c6c6dc50fa98bd14175313a29e0ffa2c15b348f8f1115"
+    },
+    {
+      "root": "repository",
+      "path": "samples/hello_world.adb",
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-output-rtl.md",
+      "bytes": 21155,
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 163754,
+      "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-query-lifetime.md",
+      "bytes": 24499,
+      "sha256": "7c36a41128812f863533e51d71b1cbfc16eb2c9daa38ced5e8e0d12541c4b9c7"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-mem-counter-lifetime.md",
+      "bytes": 19205,
+      "sha256": "26d7c44f0bdd8233bca669668fa668a2b5530d2422a31dc9c199e858e95990e2"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-collector-callbacks.md",
+      "bytes": 8346,
+      "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-mem-counter-lifetime-9d24cab8cf.md",
+      "bytes": 11497,
+      "sha256": "e4d15c146208e08cf2afac983f98174de06b2cdc821f7bb37b7ce39e77bc59d9"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/result.json",
+      "bytes": 352848,
+      "sha256": "ade1163258eb4b2529f5519afa153c91ec055d1d3bc8d20a59cbea2ea08e1c13"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "bytes": 140462,
+      "sha256": "9ee527a80ed4082e51828278ee3d3173576631d0d32d2a4d2c44aa16e573f0be"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-query-lifetime-20261019/result.json",
+      "bytes": 8943,
+      "sha256": "74f6198d099798da0cf8865a92bd83255195e14e90ec8105b0bc58e2aa1350be"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/result.json",
+      "bytes": 15240,
+      "sha256": "447a7c47eabd034d8affbb672005b391150e7f0fcec5ac8748b8fa7c9aaff084"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-collector-callbacks-20261018/result.json",
+      "bytes": 1473,
+      "sha256": "488c54d84936648e3af1c4557c9c129b3b192c2db505f6a33adc698ce139d403"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-pass-framework.json",
+      "bytes": 1421,
+      "sha256": "f4f4daaa2392f7febda07ad898e2d728030f8a9f14063213be16c60712873c17"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/pass-framework-source-identity.json",
+      "bytes": 4228,
+      "sha256": "c0934b0a8a6392a91db77c25130fa4e96978958e32027234879ebe5fbb43fc7c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json",
+      "bytes": 11222,
+      "sha256": "fc6b87125fa2314f185f69b338d685011900ceb7277922afd0a0ade3b7c3834a"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-null-initial-gimple.json",
+      "bytes": 5240,
+      "sha256": "52914e7fa3db2320af81a457afda45dae33d599d76f33f39e84cc268a7c8487c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py",
+      "bytes": 14174,
+      "sha256": "6cb79df71b928240343179ee561df879cb35a48aa57ab2cba09a911bf09375bb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/memory-block.cc",
+      "bytes": 2268,
+      "sha256": "16f4beb0f9a9354ba461e8cf519bc2055db9754193e00e43ff17ee71624963dd"
+    }
+  ]
+}

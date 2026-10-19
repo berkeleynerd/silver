@@ -1,0 +1,347 @@
+{
+  "source_input": {
+    "output_calls": 1,
+    "null_statements": 0,
+    "next_DECL_UID_upper": 5877
+  },
+  "extents": {
+    "K": 104,
+    "U": 29,
+    "Uf": 53,
+    "B": 10,
+    "G": 4,
+    "M": 27,
+    "P": 64
+  },
+  "bit_domains": {
+    "hard_register": {
+      "exclusive_bit_bound": 92,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 92,
+      "iterator_next_and_rounding_upper": 219,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "register": {
+      "exclusive_bit_bound": 104,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 104,
+      "iterator_next_and_rounding_upper": 231,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "final_instruction_UID": {
+      "exclusive_bit_bound": 53,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 53,
+      "iterator_next_and_rounding_upper": 180,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "basic_block": {
+      "exclusive_bit_bound": 10,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 10,
+      "iterator_next_and_rounding_upper": 137,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "initial_GIMPLE_block": {
+      "exclusive_bit_bound": 4,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 4,
+      "iterator_next_and_rounding_upper": 131,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "program_point": {
+      "exclusive_bit_bound": 64,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 64,
+      "iterator_next_and_rounding_upper": 191,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "declaration_UID": {
+      "exclusive_bit_bound": 5877,
+      "live_elements_per_header_upper": 46,
+      "range_end_upper": 5877,
+      "iterator_next_and_rounding_upper": 6004,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    },
+    "initial_SSA_version": {
+      "exclusive_bit_bound": 5,
+      "live_elements_per_header_upper": 1,
+      "range_end_upper": 5,
+      "iterator_next_and_rounding_upper": 132,
+      "count_bits_return_type": "unsigned long",
+      "fits": true
+    }
+  },
+  "bitmap_allocator": {
+    "header_bytes": 32,
+    "element_bytes": 40,
+    "element_bits": 128,
+    "alignment_bytes": 8,
+    "individual_initial_chunk_bytes": 65536,
+    "partial_object_bytes_at_newchunk": 0,
+    "largest_newchunk_formula_bytes": 147,
+    "individual_later_chunk_bytes": 65536,
+    "cumulative_chunk_or_element_count_field": false,
+    "allocation_statistics_enabled": false,
+    "default_depth_upper": 9,
+    "default_depth_type": "int",
+    "default_depth_counts_nesting_not_lifetime_initializations": true,
+    "selected_shared_obstacks": [
+      "default",
+      "reg_obstack",
+      "df_bitmap_obstack"
+    ],
+    "selected_private_obstacks": [
+      "initial SSA",
+      "ranger",
+      "DF scan registers",
+      "DF scan instructions",
+      "DF LR",
+      "LRA assignment hard-register pseudos",
+      "LRA assignment reload/inheritance pseudos"
+    ],
+    "lifetime_chunk_requests_upper": null,
+    "lifetime_chunk_count_required_for_representation": false,
+    "combined_live_header_or_element_count_required_for_representation": false,
+    "GGC_events": 0,
+    "scalar_registrations": 0,
+    "array_registrations": 0
+  },
+  "shared_block_cache": {
+    "individual_block_bytes": 65536,
+    "stored_block_count_field": false,
+    "default_trim_retained_blocks": 16,
+    "trim_local_counter_counts_requested_prefix_only": true,
+    "returned_blocks_can_outlive_their_original_typed_pool_or_obstack": true,
+    "aggregate_retained_block_count_required_for_representation": false
+  },
+  "retained_bitmap_owner_rows": {
+    "initial_CF_CFG": {
+      "shared_headers": 3,
+      "altered_live_elements": 1,
+      "other_elements": 0
+    },
+    "initial_SSA": {
+      "shared_headers": 3,
+      "kills_live_elements": 1,
+      "kills_fresh_element_requests_upper": 4,
+      "prune_live_elements": 1
+    },
+    "out_of_SSA": {
+      "shared_headers": 5,
+      "elements": 0
+    },
+    "ranger": {
+      "sequential_instances": 2,
+      "private_obstacks_each": 5,
+      "headers_each_upper": 18,
+      "elements": 0
+    },
+    "no_predecessor_event_owner_recharged": true
+  },
+  "DF_bitmap_families": {
+    "scan_generations": 2,
+    "generations_coexist": false,
+    "returned_block_cache_is_separate": true,
+    "scan_register_heads": 5,
+    "scan_allocated_register_heads": 2,
+    "scan_register_live_elements_upper": 5,
+    "scan_instruction_embedded_heads": 3,
+    "scan_instruction_live_elements_upper": 3,
+    "LR_embedded_heads_upper": 40,
+    "LR_live_elements_upper": 40,
+    "LR_verification_copies_selected": false,
+    "shared_scratch_domain_upper": 104,
+    "shared_scratch_domains": [
+      "register",
+      "final_instruction_UID",
+      "basic_block"
+    ],
+    "initial_chunks_retain_existing_owners": true
+  },
+  "reg_bitmap_families": {
+    "initializations": 1,
+    "domains": [
+      "hard_register",
+      "register",
+      "final_instruction_UID",
+      "basic_block",
+      "program_point"
+    ],
+    "LRA_per_register_instruction_heads_upper": 157,
+    "LRA_per_register_instruction_live_elements_upper": 10,
+    "IRA_dead_point_heads_upper": 34,
+    "IRA_dead_point_element_domain_upper": 64,
+    "optimizer_and_failure_routes_selected": false
+  },
+  "program_points": {
+    "IRA_and_LRA_upper": 64,
+    "LRA_builds": 1,
+    "per_instruction_increments_upper": 2,
+    "per_block_increments_upper": 1,
+    "initial_point_frequency_reserve_upper": 58,
+    "point_frequency_length_upper": 64,
+    "point_frequency_capacity_upper": 128,
+    "point_frequency_request_bytes_upper": 520,
+    "each_assignment_header_array_bytes_upper": 2048,
+    "assignment_header_arrays": 2,
+    "assignment_private_initial_chunks": 2,
+    "assignment_bitmap_register_domain_upper": 104,
+    "reload_inheritance_assignment_bitmap_elements": 0,
+    "each_dense_point_bitmap_bytes_upper": 16,
+    "dense_point_bitmaps_per_compression": 3,
+    "compression_map_bytes_upper": 256,
+    "each_register_sparseset_bytes_upper": 864,
+    "compression_only_decreases_point_count": true
+  },
+  "LRA_additional_pools": {
+    "live_ranges": {
+      "family": "LRA live ranges",
+      "live_objects_upper": 10,
+      "object_bytes": 32,
+      "objects_per_block": 2047,
+      "retained_blocks_upper": 1,
+      "retained_slots_upper": 2047,
+      "allocated_and_free_count_upper": 2047,
+      "block_count_upper": 1,
+      "individual_block_request_bytes": 65536,
+      "retained_count_type": "size_t",
+      "lifetime_block_requests_upper": null,
+      "lifetime_block_count_required_for_counter_proof": false,
+      "fits": true,
+      "new_GGC_events": 0,
+      "new_scalar_registrations": 0,
+      "new_array_registrations": 0
+    },
+    "live_range_builds": 1,
+    "live_range_copies": 0,
+    "copy_pool_objects": 0,
+    "invariant_pool_objects": 0,
+    "invariant_vector_initial_slots_already_owned": 100,
+    "invariant_hash_initial_slots_already_owned": 127,
+    "live_range_pool_released_at_finish": true,
+    "copy_and_invariant_controls_retain_existing_owners": true
+  },
+  "dominance": {
+    "functions_with_CFG": 1,
+    "directions_upper": 2,
+    "live_nodes_combined_upper": 20,
+    "live_occurrences_combined_upper": 40,
+    "live_nodes_per_tree_upper": 10,
+    "fast_DFS_endpoint_per_direction_upper": 20,
+    "signed_relative_depth_intermediate_magnitude_upper": 80,
+    "old_parent_occurrence_released_before_reparent": true,
+    "empty_pools_released_and_counts_reset": true,
+    "ordinary_pools": [
+      {
+        "family": "shared dominance ET nodes",
+        "live_objects_upper": 20,
+        "object_bytes": 64,
+        "objects_per_block": 1023,
+        "retained_blocks_upper": 1,
+        "retained_slots_upper": 1023,
+        "allocated_and_free_count_upper": 1023,
+        "block_count_upper": 1,
+        "individual_block_request_bytes": 65536,
+        "retained_count_type": "size_t",
+        "lifetime_block_requests_upper": null,
+        "lifetime_block_count_required_for_counter_proof": false,
+        "fits": true,
+        "new_GGC_events": 0,
+        "new_scalar_registrations": 0,
+        "new_array_registrations": 0
+      },
+      {
+        "family": "shared dominance ET occurrences",
+        "live_objects_upper": 40,
+        "object_bytes": 48,
+        "objects_per_block": 1365,
+        "retained_blocks_upper": 1,
+        "retained_slots_upper": 1365,
+        "allocated_and_free_count_upper": 1365,
+        "block_count_upper": 1,
+        "individual_block_request_bytes": 65536,
+        "retained_count_type": "size_t",
+        "lifetime_block_requests_upper": null,
+        "lifetime_block_count_required_for_counter_proof": false,
+        "fits": true,
+        "new_GGC_events": 0,
+        "new_scalar_registrations": 0,
+        "new_array_registrations": 0
+      }
+    ],
+    "initial_CF_SSA_and_RTL_cold_block_owners_recharged": false,
+    "shared_incoming_and_retained_pool_state_closed": true
+  },
+  "new_GGC_events": 0,
+  "new_scalar_registrations": 0,
+  "new_array_registrations": 0,
+  "total_GGC_events": null,
+  "aggregate_RAM_gate": false,
+  "production_admission_changed": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "complete_all_ordinary_helper_lifetimes_closed": false,
+  "complete_array_finalizer_lifetime_closed": false,
+  "complete_collector_lifetime_closed": false,
+  "source_reachability_argument_is_handwritten": true,
+  "independent_review_status": "pending",
+  "native_tool_executions": 0,
+  "accepted_component_suites_rerun": 0,
+  "aggregate_executions": 0,
+  "corpus_checkers_rerun": 0,
+  "local_representation_checks": {
+    "inherited_RTL_DF_LRA_representation": true,
+    "sparse_bitmap_indices_range_ends_and_rounding": true,
+    "declaration_UID_signed": true,
+    "bitmap_default_nesting_signed": true,
+    "bitmap_chunk_local_arithmetic": true,
+    "program_point_finish_plus_one_signed": true,
+    "point_frequency_initial_unsigned_product": true,
+    "point_frequency_growth_unsigned_product": true,
+    "point_frequency_capacity_31_bits": true,
+    "local_array_and_vector_pointer_spans": true,
+    "dense_bitmap_rounding_and_stored_size": true,
+    "sparse_set_unsigned_request": true,
+    "ET_DFS_and_relative_depth_signed": true,
+    "typed_pool_retained_counters": true
+  },
+  "conditional_selected_shared_bitmap_and_pool_capacity_established": true,
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "same_source_accepted_owners_verified": true,
+  "inherited_owner_guards": {
+    "mem": true,
+    "initial_SSA": true,
+    "initial_CFG": true,
+    "SSA_helpers": true
+  },
+  "collector_callback_GGC_events": 0,
+  "collector_marker_individual_ordinary_request_bytes": 104,
+  "collector_call_count": null,
+  "retained_scalar_finalizer_history_upper": 39275,
+  "source_argument": "docs/research/retained-literal-shared-bitmap-pools.md",
+  "complete_source_files_verified": 38,
+  "repository_inputs_verified": 19
+}
