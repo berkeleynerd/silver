@@ -1,6 +1,11 @@
 # Capacity contract for the retained tools
 
-**2026-10-18 — design checkpoint; derivation unfinished.** The owner
+**2026-10-19 — evening checkpoint; owner-requested pause, derivation unfinished.**
+The [pause decision](../session-memory.md#2026-10-19--evening-pause-of-capacity-goal-119)
+preserves completed results and requires an explicit resumption. The
+[round record](../evidence/retained-tool-rounds.md#round-19--reviewed-attachments-and-evening-pause)
+identifies accepted and review-pending work and the first resumption steps.
+The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 in [decision #117](https://github.com/berkeleynerd/silver/issues/117).
 This [#119 work package](https://github.com/berkeleynerd/silver/issues/119)
@@ -602,9 +607,27 @@ The scalar history/capacity remains 39,275/58,911 under its existing owner.
 Context depth stays zero: the depth backing and each of the two outer finalizer
 backings are independently 40 bytes, and no old-context bitmap backup is
 allocated. The 67 focused checks over 24 GCC/eight repository inputs and
-27 excerpts passed in 0.028112547s. Pool/finalizer actual-source attachment,
-remaining direct/ordinary owners, the complete GGC/collector ledger and
+27 excerpts passed in 0.028112547s. Remaining direct/ordinary owners, the complete GGC/collector ledger and
 full-pipeline/current-grammar composition remain open.
+
+The [pool/finalizer actual-source attachment](retained-literal-pool-finalizer-attachment.md),
+frozen at `562493728b`, is [independently accepted](../reviews/review-literal-pool-finalizer-attachment-562493728b.md).
+All **178 inherited + 41 new = 219 guards** remain conjunctive. The pool
+callable consumes actual source/core/query/MEM owners; the finalizer adapter
+binds the accepted source theorem to the complete actual configured invocation
+and scalar/callback owners. Complete existing ordinary initialization owners
+are preserved, with zero additional GGC or finalizer-registration charge.
+The 309 focused checks passed in 7.892607869s over four actual sources and
+twelve count cases; review found no material findings and reused that evidence.
+Frozen pending-review wording remains historical. Global totals remain null.
+
+At the evening pause, the native ledger candidate
+[`ca4ef8d20f`](https://github.com/berkeleynerd/silver/commit/ca4ef8d20f557307b1d1085b42d570fc5d224d77)
+is retained on its separate published branch, **review-pending and not integrated**.
+Its proposed allocation partition and collector transfer require independent
+review before use; ordinary helper capacities still remain. The next step is
+that exact frozen review after explicit owner resumption, as the round record
+specifies. No candidate total is promoted to accepted capacity here.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -898,6 +921,21 @@ from the conditional completed-pipeline theorem, but representation-origin
 failures cannot be waived. Next is the actual save/exit outcome/effect partition:
 source cause, receiving catch or terminal path, identifier charge and state
 preservation. Complete R remains null; no boundary or admission change follows.
+
+The subsequent [save-outcome argument](retained-why-session-save-outcomes.md),
+frozen at `0aa373fb93`, is [independently accepted](../reviews/review-why-session-save-outcomes-0aa373fb93.md).
+The retained 66 formula roots close over 1,545 terms, 309 identifiers and ten
+integer constants. The largest append is 51 bytes, so the actual pre-guard
+shape-buffer extent is at most **1,074 bytes**, excluding its named maximum-string
+failure under preserved-input/noninterference premises. Up to 1,435 visits per
+fresh printer cover cache misses; shape insertion is at most 315 per reset.
+The first private `Trans.current` catch handles a save-origin bare `Not_found`
+as its already-accounted empty-cache miss, without repeating inlining work.
+Partial saves preserve the charged roots and retry resets shape state; they
+do not roll back every process/file effect. Runtime/finalizer aliases, other
+exception origins and receiving traps, later normal-ending state and exit
+output/catches remain open. Neither complete R nor exceptional charge is
+instantiated. Review reused successful evidence; no new native run was needed.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

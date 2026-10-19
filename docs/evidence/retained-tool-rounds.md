@@ -1476,3 +1476,88 @@ records, 25 MEM/SSA attachment records, one exact historical audit document
 and 268 checkpoint links. It passed in **0.538510587s**; `git diff --check`
 passed. Raw results remain at `tmp/round18-integration.json` in the shared
 checkout. No native execution or prior successful suite replay occurred.
+
+## Round 19 — reviewed attachments and evening pause
+
+Date: 2026-10-19; continues from published `8e1f69e315`. The owner requested an
+evening pause at the next convenient checkpoint. The decision is recorded on
+`main` at `36a5b7f729`; issue #119 returns to Backlog to record the pause, without
+completion or a research-stop decision. No further work starts until the owner
+resumes. Oracle, installed tools/pins and production admission remain unchanged.
+Dependent production #88–#94 remains authorized and unstarted.
+
+The Why save-outcome source result `0aa373fb93` is independently accepted by
+`a8e3d54795`, both selected Astra / Extra High. Its typed 66-root closure,
+1,074-byte buffer bound, 315 insertions per reset and first-fold empty-cache
+continuation close specific representation/control-flow questions. They retain
+open runtime/finalizer alias preservation, other exception origins/receiving
+traps, later normal-ending state and exit effects. Complete R and exceptional
+identifier charge remain null. The author reused the successful retained
+capture and passed the new focused check in 0.890309957s; its source/packet
+checkpoint interval was 886s. Independent identity and atom/edge/installed-byte
+checks took 0.923799705s and 0.101789157s; the review evidence checkpoint was
+250s, excluding report preparation/commit. No material findings or native runs.
+
+The Sol / Extra High pool/finalizer actual-source attachment is frozen at
+`562493728b`. It retains 178 inherited guards and adds 41, giving **219**
+conjunctive predicates. Actual core/MEM/query inputs feed the pool evaluator;
+the finalizer source theorem is attached to the complete actual configured
+invocation and scalar/callback owners. Existing ordinary initialization owners
+remain unchanged and the added GGC/finalizer deltas are zero. Its final changed
+implementation passed **309 focused checks in 7.892607869s**, over four actual
+sources and twelve count cases. Self-review strengthened complete ordinary
+owner equality and added three corruption checks after the first successful
+306-check run; that code change justified the final rerun. No bound repair or
+failed run occurred. The measured checkpoint interval was 462.389692s, not a
+whole-task duration. Independent Astra / Extra High review `e0cc7a6919` accepts
+the attachment without material findings. It checked 23 current/frozen pins,
+27 finalizer excerpts, retained guard/owner comparisons and boundary arithmetic
+in 0.273933152s. The evidence checkpoint took 112s, excluding report preparation
+and commit. A cross-run core comparison differs only in the expected author
+worktree `source_path`; source identity and all other fields match. No checker,
+Context or native replay was performed. Both authors and the reviewer stopped
+at their completed checkpoints; no native-ledger review started.
+
+The native ledger author, selected Astra / Extra High, stopped with the clean
+candidate `ca4ef8d20f557307b1d1085b42d570fc5d224d77`, published separately on
+`research/119-literal-native-ledger`. Its eight new files are **review-pending**
+and are not integrated or counted as accepted capacity evidence. The candidate
+contains 47,054 positive GGC requests for Hello, a 65,536-entry page-vector
+capacity and 524,288-byte pointer backings; those are candidate conditional
+results, not a whole-native guarantee. Its 84 focused checks, 24 count cases
+and 17 boundaries passed in 0.069334957s against 46 GCC/29 repository pins.
+The source/packet checkpoint spans 01:33:06–01:50:24 UTC. No native tool,
+predecessor evaluator/checker, aggregate or corpus replay ran.
+
+On explicit resumption, first independently review that frozen ledger's
+gimplifier exhaustion, disjoint allocation owners, the two association arrays,
+rebuilt CALL_EXPR row, second RTL unshare and extra rtvec, signed hard-register
+frequency guard and reused collector transfer. Integrate only after acceptance.
+Then finish the named ordinary IRA/LRA/CFG/CFI capacities and Why preservation/
+exception/normal-ending joins, other required phases and current-grammar
+composition, useful-domain comparison and final review. Preserve the successful
+capture `20261019T000304-fcb988ec2c03`; no new capture or broad rerun is presently
+justified. The detailed remaining scope stays in the capacity contract.
+
+The day's progression established the conditional null-pipeline conjunction,
+connected increasingly complete literal-output producer/consumer/native
+components to actual source/configuration, repaired source-accounting and
+interface findings, and reduced Why counter/control-flow uncertainty. It did
+not establish the complete current-grammar capacity rule or unlock admission
+changes. Astra / Extra High source/review and Sol / Extra High implementation
+closed bounded obligations with focused checks; this observation is not a
+causal model-quality or cost comparison. Lead live setting, runtime setting
+confirmation and per-round token/monetary cost remain unavailable. CLI memory
+is unavailable. The last managed status has zero reserved workers and no
+required diagnostic. Worktrees, scratch and successful caches are preserved.
+
+Final integration checks **188 frozen files**, 99 JSON and 31 Python syntax
+inputs, 168 packet links, 46 current selected-route pins, 46 lifetime, 25 MEM/SSA
+and 23 pool/finalizer attachment pins, one exact historical prose document and
+274 checkpoint links. The focused check passed in **0.317315150s**;
+`git diff --check` passed. The raw result is retained in the shared checkout
+at `tmp/round19-integration.json`. No new native/compiler/prover/Lean/full-suite
+execution or successful predecessor replay occurred. The accepted Why source
+and report integrate as `23d1d26678` / `b2ff0ad0b0`; the pool/finalizer source
+and report integrate as `986e26db80` / `d454e61543`. The pause memory is on main
+at `36a5b7f729` and on this branch at `9455cc79f1`.
