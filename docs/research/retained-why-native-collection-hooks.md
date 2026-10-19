@@ -1,20 +1,27 @@
-# Retained native collection hooks: selected ownership closure
+# Retained native collection hooks: partial selected linkage
 
 2026-10-19 UTC, Linux x86_64, research
-[#119](https://github.com/berkeleynerd/silver/issues/119). **The four collection
-timing hooks remain null on the retained first-fold / serial-SIGINT-save
-interval, at the inspected source and native-link interface level.** This joins
-the native residual in the accepted
-[save-preservation argument](retained-why-save-preservation.md). The conclusion
-uses its existing faithful-runtime, fixed-loaded-code, no-forged-mutation and
-reflection/capability boundaries. It does not add an assumption that legitimate
-hook clients are harmless: the selected address-acquisition routes below supply
-no installer or writable cell capability to such a client.
+[#119](https://github.com/berkeleynerd/silver/issues/119). **The selected ELF,
+direct-load and identified-address-route results are established; four-hook null
+preservation remains open.** The native residual in the accepted
+[save-preservation argument](retained-why-save-preservation.md) is retained.
+A legitimate source-level assignment can compile to a shared-base-plus-offset
+store without an exact hook-address operand. The packet has no complete selected
+source/compilation relation or effective-address proof excluding that case.
 
-This is a reviewed-source-style argument supported by an installed-image census,
-not a machine-checked arbitrary native alias theorem or a measurement of live
-hook values. Complete `R` and exceptional identifier charge remain **null**.
-Remaining exception continuations, ordinary-ending nested saves and exit/output
+[Independent review `144d7013b7`](../reviews/review-why-native-collection-hooks-fae1a1ebd0.md)
+identified this gap in author `fae1a1ebd0be76b247eae0ad8778483dbdc71cd0`.
+The finding is tracked as [#143](https://github.com/berkeleynerd/silver/issues/143).
+That commit's null-preservation induction and removal of the hook condition are
+**withdrawn**. Its valid partial evidence is unchanged, and its original result
+and round remain explicitly historical. No actual setter, nonnull hook or
+interference has been demonstrated. The existing faithful-runtime,
+fixed-loaded-code and no-forged-mutation premises have not been expanded.
+
+This remains a source/interface investigation supported by installed-image
+evidence, not a machine-checked arbitrary native alias theorem or a measurement
+of live hook values. Complete `R` and exceptional identifier charge remain
+**null**. Exception continuations, ordinary-ending nested saves and exit/output
 effects are not closed. No production, tool, Oracle or admission change is made.
 
 ## Exact selected inputs
@@ -47,10 +54,10 @@ The predecessor's four null definitions and four guarded source calls are reused
 The new check reads the selected native image, including statically linked code;
 it is not another same-name search of OCaml runtime files.
 
-## Where a legitimate client would obtain the cell
+## Direct references and ordinary linkage routes
 
 The distinction is between reading a hook's **function-pointer value** and
-obtaining the **address of its writable cell**. All four installed references
+obtaining the **address of its writable cell**. All four enumerated direct references
 perform the former. They load, test and conditionally call the value. No such
 load returns or publishes the cell's address.
 
@@ -62,12 +69,12 @@ the four loads into the 32-byte hook range. There is no direct store or `lea`
 for a cell. Matching all bytes establishes that this is the selected installed
 code; it does not turn the extractor into control-flow or pointer analysis.
 
-The independently decoded ELF tables and data provide the remaining ordinary
-linkage routes:
+The independently decoded ELF tables and data cover these additional ordinary
+linkage routes. They do not enumerate all possible compiled address computations:
 
 | Capability route | Selected result and implication |
 | --- | --- |
-| Named object or subobject alias | Both symbol tables identify each cell as its own 8-byte `GLOBAL DEFAULT OBJECT` in `.bss`. No other named object overlaps any cell. These are four independent objects, not fields of an addressable enclosing hook array or structure. |
+| Named object or subobject alias | Both symbol tables identify each cell as its own 8-byte `GLOBAL DEFAULT OBJECT` in `.bss`. No other named object overlaps any cell. The inspected definitions are independent objects; the symbol table supplies no named enclosing object. This does not constrain the compiler's temporary machine-address bases. |
 | Static stored pointer | An every-byte-offset search of 6,039,220 allocated nonexecutable PROGBITS bytes finds no 32-bit or 64-bit encoding of any byte address in the cells. The search includes unaligned encodings. It is a concrete stored-address check, not an argument about all computed values. |
 | Linker/loader relocation | The main image has only `.rela.dyn` and `.rela.plt`, with no relocation targeting a hook slot or materializing its address. No selected external image has a hook-named relocation or symbol. |
 | Ordinary external symbol binding | All four cells are genuinely exported; export alone is not absence. Neither selected plugin nor libc, libm, libgmp or the loader imports or defines any hook name. The plugins have no `DT_NEEDED` entries; the main image's libgmp/libm/libc dependencies and their loader dependencies are exactly within the retained seven-image set. |
@@ -82,21 +89,21 @@ handles remain retained even on errors, so an initialized then hidden/unmapped
 hook plugin is not an omitted route under that fixed-image argument. This note
 does not replace those source/capability facts with the captured map alone.
 
-## Base addresses and legitimate computed aliases
+## Identified bases and the unclosed lowering case
 
-A census of exact hook addresses would be insufficient if a selected client
-legitimately held an enclosing object or ELF-section capability and then indexed
-into the cells. The additional anchor check distinguishes those cases.
+A census of exact hook addresses is insufficient to exclude all computed
+accesses. The additional anchor check resolves the following particular bases;
+it is not a proof that the listed bases exhaust legitimate compiled accesses.
 
 Within `0xfaaf00–0xfaaf7f`, the only address-taking instructions are in
 `caml_parse_ocamlrunparam`: `&caml_verb_gc` at `0xfaaf18` and
 `&caml_runtime_warnings` at `0xfaaf08`. The pinned `startup_aux.c:89–143`
 passes each to `scanmult`, whose four arms write exactly `*var`, one `uintnat`.
-The retained installed `scanmult` body agrees. Neither object encloses a timing
-hook. Advancing either pointer outside its own object to write a hook is not a
-legitimate subobject operation; it is precisely an out-of-object mutation
-excluded by the already accepted well-formed/no-forged-mutation boundary.
-No additional whole-BSS object capability is inferred from adjacency.
+The retained installed `scanmult` body agrees. Neither destination object
+encloses a timing hook, so these concrete writes do not affect the cells. This
+is a fact about those bodies and their identified arguments; it is not a reason
+to interpret every compiler-generated machine base as a source-level pointer
+to an unrelated object.
 
 The explicit section-anchor set is `__bss_start`, `_edata`, `_end`,
 `__data_start`/`data_start`, `_DYNAMIC`, `__TMC_END__` and
@@ -120,47 +127,93 @@ or image-base capability. No selected image imports `dl_iterate_phdr`, `dladdr`
 or `dlinfo` through the inspected dynamic tables. The existing native lookup
 owners remain the relevant reflective route, already discharged above.
 
-Consequently there is no remaining identified legitimate address source from
-which a client could compute a hook-cell alias. Constructing one from an
-unrelated object, function address or numeric constant without such a capability
-would require the forged/out-of-object mutation already outside the accepted
-boundary. This is not a new prohibition on native hook use: an actual import,
-address-taking instruction, enclosing-object range or exercised symbol lookup
-would have required its real setter and callback effect to be joined. None is
-present in these selected routes. The conclusion is intentionally scoped to
-ordinary faithful source/link interfaces, not arbitrary self-inspecting or
-self-modifying native programs.
+The unresolved case is **legitimate compiler/linker lowering**, for example:
 
-## Null preservation and the remaining obligation
+```text
+materialize a shared base B into a register
+store callback at [register + (hook_address - B)]
+```
 
-Initially the pinned definitions and ELF loader's zero-fill semantics give
-null values. Relocations do not replace them. For the selected interval, direct
-cell uses only read those values; static/external/reflection/legitimate-alias
-routes above supply no setter capability. Induction through initialization and
-the retained first-fold/serial-save execution therefore keeps all four cells
-null. Their guarded calls do not run, including collection initiated during
-pending-action processing or allocation. This establishes their zero callback
-effect without choosing a hypothetical callback implementation or observing live
-BSS contents.
+This is a missing-case form, not an instruction sequence found in this image.
+The base need not be in the 128-byte neighbour window or the eight-name anchor
+set, and neither operand need equal a hook address. Well-formed source can
+compile this way: the temporary machine base need not carry the source object's
+identity. The no-forged/out-of-object mutation premise therefore cannot exclude
+it. Original static relocations may have been resolved away in the final ELF;
+absence of surviving dynamic relocations does not close the case either.
+The extractor does not propagate register/data values across instructions.
+Decoded-byte coverage and the four exact-target matches cannot supply that
+missing analysis. The accepted reflection result addresses another route.
+
+## The precise missing join and the bounded repair attempt
+
+The repair first checked the **retained selected compilation/source-relation
+route**, rather than launching global native pointer analysis. The callback and
+formatter packets pin the reviewed sources and installed image identities.
+The retained release/recipe investigation identifies the selected package route,
+and `spark2014.anod` includes and installs the `why3` dependency. Those inspected
+records do not establish a complete native translation-unit/object relation for
+this `gnatwhy3`, or a compiler/linker behavior restriction that excludes the
+shared-base form. Source revision pins and the ELF `STT_FILE` labels alone are
+not such a relation. No generic claim that x86 compilers normally use RIP-relative
+accesses is substituted for it.
+
+The [source-identity policy](retained-tool-source-identity.md#relevant-behavior-within-the-existing-trust-boundary)
+allows explicit source-reviewed behavior premises without historical binary
+attestation. That policy does not make an incomplete native client set complete,
+or imply a particular address-lowering convention. Requiring recovery of every
+historical build input is not the repair; identifying and reviewing the actual
+relevant source/interface relation is.
+
+The smallest constructive next input is either:
+
+1. A bounded selected native object/client-to-reviewed-source relation covering
+   all legitimate static hook accesses, including native inputs outside the
+   already searched OCaml runtime/otherlibs projection. It must account for
+   aliases and applicable preprocessing/link choices, with the existing faithful
+   source behavior relation applied to that complete selected client set. The
+   retained `STT_FILE` labels, including `caml_z.c` and startup objects, are
+   locating evidence rather than a complete link manifest. If instead relying
+   on an address-lowering restriction, establish its selected compiler/linker
+   applicability and why it excludes shared bases; a default-option guess is
+   insufficient.
+2. A bounded installed-code effective-address argument covering the candidate
+   computed bases and writes to these four cells, including register/data
+   propagation. The current exact-target and fixed-anchor extraction cannot be
+   relabeled as that proof.
+
+Neither input has been established here. No broad source/native scan, compiler
+experiment, pointer-analysis project or new capture was started. A live zero
+snapshot would not prove absence of later computed setters. The precise residual
+is unjoined **legitimate static client/address lowering**, not an alleged native
+bug or an arbitrary new no-mutation assumption.
+
+## Preservation remains conditional
+
+The definitions and ELF zero-fill semantics support initial null values, and
+selected dynamic relocations do not replace them. The known direct uses read
+them. Preservation through initialization and the first-fold/serial-save
+interval still needs the missing static-client/lowering join. The original
+null-preservation induction and its zero-callback-effect conclusion do not
+follow from the retained partial facts.
 
 `runtime/caml/misc.h:190–192` additionally says timing hooks must not allocate,
 change heap values or call OCaml code. That is a client API obligation. The
 argument does **not** treat the comment as proof that an unknown installed
-client complies; absence of an installer on the selected interfaces is what
-closes this join.
+client complies. It does not discharge the remaining ownership/effect join.
 
-Combined with the accepted typed/private-state and registered-OCaml-client
-lemmas, this removes the four-hook condition on preservation of Shape's buffer,
-the fresh formatter/printer, the first fold's empty private cache and backward
-work list during its serial SIGINT saves. It also removes that particular
-condition from the accepted **1,074-byte** buffer-growth and preserved-cache
-miss implications. It establishes neither an actual escaping exception nor an
-exception-free save. The two finalization hooks remain excluded by the already
-accepted empty-finalizer-registration argument.
+The accepted typed/private-state and registered-OCaml-client preservation
+lemmas are unchanged. Shape's buffer, the fresh formatter/printer, the first
+fold's empty private cache and backward work list remain conditional on the
+four-hook native join during serial SIGINT saves. The accepted **1,074-byte**
+buffer-growth and preserved-cache miss implications retain that condition.
+Neither an actual escaping exception nor an exception-free save is established.
+The two finalization hooks remain excluded by the already accepted
+empty-finalizer-registration argument.
 
-The next work is the actual save/exit exception sources and receiving
-continuations, and the ordinary ending save's later forest and nested shared
-buffer behavior. The captured **66 roots**, **966 binders**, **315**
+Remaining work includes this four-hook ownership/lowering join, the actual
+save/exit exception sources and receiving continuations, and the ordinary ending
+save's later forest and nested shared buffer behavior. The captured **66 roots**, **966 binders**, **315**
 insertion/reset bound and accounted endpoint **61,641** are unchanged.
 `counter_end <= 63,573 + 2R` remains conditional on completing `R`; it is not
 an established 63,573 endpoint. Normal completion, later invocations, auxiliary

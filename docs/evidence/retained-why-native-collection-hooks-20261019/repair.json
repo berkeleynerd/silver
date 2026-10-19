@@ -1,0 +1,93 @@
+{
+  "original_commit": "fae1a1ebd0be76b247eae0ad8778483dbdc71cd0",
+  "independent_review": {
+    "commit": "144d7013b748ecc584b42f0ab56c0886d0a4197e",
+    "path": "docs/reviews/review-why-native-collection-hooks-fae1a1ebd0.md",
+    "identity": {
+      "bytes": 9648,
+      "sha256": "7358bda3f64393164c9313c793ac8720262337b4afe64599f135c5e13c7ba20f"
+    },
+    "disposition": "changes required"
+  },
+  "finding_issue": 143,
+  "parent_issue": 119,
+  "diagnosis": "Exact hook numerics and a fixed anchor set do not exclude legitimate static hook assignment lowered through shared base plus offset. No source-forged mutation need occur. No actual setter or nonnull hook was demonstrated.",
+  "bounded_attempt": "Inspected retained source/image pins, release/build recipe and external source-behavior policy for an applicable complete selected native-client or address-lowering relation. These inspected records do not establish it.",
+  "disposition": "Withdraw null-preservation induction and removal of the four-hook condition; preserve valid partial evidence. Reporting correction does not discharge the native obligation.",
+  "next_hypothesis": "A complete bounded selected native client/source relation, including native inputs outside the runtime/otherlibs projection, can establish relevant setter effects under the accepted faithful-source behavior boundary. Alternatively a bounded effective-address argument must cover computed bases. No such investigation was started by this repair.",
+  "native_ownership_closed": false,
+  "inspected_interface_null_preservation_claim": false,
+  "complete_R": null,
+  "exceptional_identifier_charge": null,
+  "new_boundary_premise": false,
+  "actual_setter_alleged": false,
+  "preserved_files": {
+    "capture-binding.json": {
+      "bytes": 8841,
+      "sha256": "89229cb265c23bd65b1286a8fc59d6a266719d395905215200f3c134f1a5e46e"
+    },
+    "code-projection.json": {
+      "bytes": 34296,
+      "sha256": "7690b7213400aa88528d3fde39b9b5a24871f8d936c2907a640488081ed3f5d1"
+    },
+    "inputs.json": {
+      "bytes": 1448,
+      "sha256": "fea40619dcc16f706304aedf50ca668df1dda1c81c9eef7e2185c8971fcc1d88"
+    },
+    "linkage.json": {
+      "bytes": 31643,
+      "sha256": "c7325ffda8bef2667bb8188dd0586e977da98b731f806cf1802b87c37d0b8e4e"
+    },
+    "source-excerpts.json": {
+      "bytes": 4267,
+      "sha256": "028339e0c96f9407d9fe31b1de4f96dbe2ea44a1b8ab13a5df7f7f63af8b3dae"
+    },
+    "round.json": {
+      "bytes": 3055,
+      "sha256": "2c4c6d878dd04cd827d971dc6d8e94b429ce4da40f7b782bd349dd7f75be5445"
+    },
+    "pre-review-result.json": {
+      "bytes": 460,
+      "sha256": "4b0ea785946e2f52ed68731f76caefca51c580e471fb94295833b7ec0952b5c4"
+    }
+  },
+  "bounded_context_inputs": {
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "docs/evidence/retained-tool-source-identity-20261018/spark2014.anod": {
+      "bytes": 9025,
+      "sha256": "be63c40fa19b2db8d4a5e18ae39315b0b5edbe72245fa0300fd246470e11e1aa"
+    },
+    "docs/evidence/retained-tool-source-identity-20261018/common-recipe.source": {
+      "bytes": 3848,
+      "sha256": "5693318700f484d68409349e79586ae3fe049ce7a25c75cdb81a2259efe5029e"
+    },
+    "docs/evidence/retained-tool-source-identity-20261018/package-recipe.source": {
+      "bytes": 6482,
+      "sha256": "d7a005e08ea703dd8eb3e04f8de8b669746155310675b715baa64686a0fa8204"
+    },
+    "docs/evidence/retained-tool-source-identity-20261018/build-helper.source": {
+      "bytes": 12476,
+      "sha256": "dd8ba77c8236d30de3adef6db951df01ede1f7b0e0dcc0b651cadc55f0764ca2"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/inputs.json": {
+      "bytes": 10194,
+      "sha256": "0e0db56819d1a8eac9b79a1c1523322c91ae6949c06003b7cbfdbd7da6dfd87c"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/inputs.json": {
+      "bytes": 2376,
+      "sha256": "3fe8966ff9332c949ca830c1a8883c58de1423ac294272ae57fb4d9bcc262cbd"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/retrieval.json": {
+      "bytes": 326,
+      "sha256": "244c44dfe09418d6d175b58afd49dd438e6b15ec0af9325b9ff744141c68190e"
+    }
+  },
+  "independent_rereview_required": true
+}

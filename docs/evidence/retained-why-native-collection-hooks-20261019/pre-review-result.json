@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "selected_images": 7,
+  "hook_cells": 4,
+  "main_hook_instruction_references": 4,
+  "main_stored_address_matches": 0,
+  "selected_hook_relocations": 0,
+  "instruction_census_recomputed": true,
+  "inspected_interface_null_preservation_claim": true,
+  "arbitrary_native_alias_theorem": false,
+  "runtime_hook_values_observed": false,
+  "complete_R": null,
+  "exceptional_identifier_charge": null,
+  "elapsed_seconds": 11.11612633599725
+}

@@ -359,7 +359,9 @@ def run():
         main_stored_address_matches=len(images['gnatwhy3']['stored_address_matches']),
         selected_hook_relocations=sum(len(x['selected_relocations']) for x in images.values()),
         instruction_census_recomputed=bool(args.write or args.disassembly),
-        inspected_interface_null_preservation_claim=True,
+        inspected_interface_null_preservation_claim=False,
+        native_ownership_closed=False,
+        residual="Selected static-client and base-plus-offset lowering relation is unjoined.",
         arbitrary_native_alias_theorem=False, runtime_hook_values_observed=False,
         complete_R=None, exceptional_identifier_charge=None,
         elapsed_seconds=time.monotonic() - started)

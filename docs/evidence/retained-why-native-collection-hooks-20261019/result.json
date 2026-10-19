@@ -5,11 +5,13 @@
   "main_hook_instruction_references": 4,
   "main_stored_address_matches": 0,
   "selected_hook_relocations": 0,
-  "instruction_census_recomputed": true,
-  "inspected_interface_null_preservation_claim": true,
+  "instruction_census_recomputed": false,
+  "inspected_interface_null_preservation_claim": false,
+  "native_ownership_closed": false,
+  "residual": "Selected static-client and base-plus-offset lowering relation is unjoined.",
   "arbitrary_native_alias_theorem": false,
   "runtime_hook_values_observed": false,
   "complete_R": null,
   "exceptional_identifier_charge": null,
-  "elapsed_seconds": 11.11612633599725
+  "elapsed_seconds": 1.553306039000745
 }
