@@ -1,0 +1,8 @@
+{
+  "phase": "first focused consistency check, before successful freeze",
+  "failure": "CHECKING_P section gcc/diagnostics/context.cc",
+  "cause": "Python str.splitlines counted a form-feed page separator as a line; the retained source locations and rg census use LF lines.",
+  "correction": "Use split('\\n') for source line coordinates.",
+  "source_argument_or_numeric_bounds_changed": false,
+  "native_tool_executions": 0
+}

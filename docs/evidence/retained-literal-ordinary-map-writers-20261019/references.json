@@ -1,0 +1,1916 @@
+{
+  "gcc/ada/gcc-interface/trans.cc": [
+    {
+      "line": 358,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 360,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 361,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 362,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/algol68/a68-parser.cc": [
+    {
+      "line": 1162,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1163,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1164,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1165,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1177,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1178,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1179,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1180,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/c-family/c-format.cc": [
+    {
+      "line": 5564,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 5566,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5568,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5569,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5570,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/c-family/c-opts.cc": [
+    {
+      "line": 246,
+      "symbol": "cpp_create_reader"
+    },
+    {
+      "line": 1682,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1685,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1706,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1709,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "gcc/c-family/c-pch.cc": [
+    {
+      "line": 353,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 360,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/c/c-parser.cc": [
+    {
+      "line": 2034,
+      "symbol": "cpp_create_reader"
+    }
+  ],
+  "gcc/cobol/util.cc": [
+    {
+      "line": 2935,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2989,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 3030,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 3031,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 3032,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 3033,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/config/aarch64/aarch64-json-tunings-parser.cc": [
+    {
+      "line": 97,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 104,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 115,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 144,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 180,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 194,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 212,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 231,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 256,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 297,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 524,
+      "symbol": "gcc_json_context"
+    }
+  ],
+  "gcc/cp/module.cc": [
+    {
+      "line": 19443,
+      "symbol": "line_map_new_raw"
+    },
+    {
+      "line": 22476,
+      "symbol": "linemap_module_loc"
+    },
+    {
+      "line": 23427,
+      "symbol": "linemap_module_restore"
+    },
+    {
+      "line": 23828,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/d/d-codegen.cc": [
+    {
+      "line": 55,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 56,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 57,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 58,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/diagnostics/changes.cc": [
+    {
+      "line": 987,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 990,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1043,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1046,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1047,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1089,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1092,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1132,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1135,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1142,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1182,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1186,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1187,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1190,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1232,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1235,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1236,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1278,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1281,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1282,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1323,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1327,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1328,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1329,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1363,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1366,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1367,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1411,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1413,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1414,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1415,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1416,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1417,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1540,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1541,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1611,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1613,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1614,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1615,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1687,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1689,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1719,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1722,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1751,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1753,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1754,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1755,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1756,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/diagnostics/context.cc": [
+    {
+      "line": 2082,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2083,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2084,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2085,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2103,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2104,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2105,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2107,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2108,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2126,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2127,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2128,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2130,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2131,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2157,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2158,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2159,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2161,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2162,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/diagnostics/paths-output.cc": [
+    {
+      "line": 1872,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1874,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "gcc/diagnostics/physical-location-maker.cc": [
+    {
+      "line": 29,
+      "symbol": "physical_location_maker"
+    },
+    {
+      "line": 32,
+      "symbol": "physical_location_maker"
+    },
+    {
+      "line": 37,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 41,
+      "symbol": "physical_location_maker"
+    },
+    {
+      "line": 47,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 51,
+      "symbol": "physical_location_maker"
+    },
+    {
+      "line": 57,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 67,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 72,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "gcc/diagnostics/physical-location-maker.h": [
+    {
+      "line": 31,
+      "symbol": "physical_location_maker"
+    },
+    {
+      "line": 34,
+      "symbol": "physical_location_maker"
+    }
+  ],
+  "gcc/diagnostics/sarif-sink.cc": [
+    {
+      "line": 4810,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4827,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4828,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4829,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4831,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4832,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4833,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4835,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4836,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4837,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5061,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5070,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5071,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5072,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/diagnostics/source-printing.cc": [
+    {
+      "line": 4094,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 4183,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4216,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 4218,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4300,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4331,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4385,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 4387,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4410,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4499,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4513,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4525,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4526,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4527,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4568,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4569,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4570,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4574,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4575,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4576,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4580,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4581,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4582,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4599,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4614,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4615,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4632,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4633,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4713,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4714,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4731,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4732,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4733,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4756,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4757,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4758,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4780,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4781,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4884,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4902,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4906,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4922,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4923,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4924,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4926,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4927,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4928,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4930,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4931,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4932,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5124,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5168,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5184,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5185,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5186,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5205,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5206,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5207,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5211,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5212,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5213,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5217,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5218,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5219,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5239,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5258,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5259,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5279,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5280,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5300,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5301,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5323,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5324,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5325,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5353,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5354,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5355,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5382,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5383,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5498,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5521,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5528,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5550,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5551,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5552,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5554,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5555,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5556,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5558,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5559,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5560,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5689,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5723,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5775,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 5778,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 5841,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 5844,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 5931,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 5933,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5934,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5935,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5936,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5937,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5938,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6082,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6085,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6287,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6290,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6515,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6518,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6605,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6607,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6608,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6610,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6675,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6676,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6734,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6738,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6739,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6740,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6774,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6775,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6824,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6827,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6838,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6851,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 6870,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6871,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6923,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6924,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 6978,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 6979,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "gcc/dumpfile.cc": [
+    {
+      "line": 2288,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2289,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2290,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2291,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2292,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/fortran/cpp.cc": [
+    {
+      "line": 509,
+      "symbol": "cpp_create_reader"
+    }
+  ],
+  "gcc/fortran/f95-lang.cc": [
+    {
+      "line": 279,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 280,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/fortran/scanner.cc": [
+    {
+      "line": 2066,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2187,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2190,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2202,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2218,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 2229,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2232,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2555,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2577,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2587,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2703,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2708,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2763,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/genmatch.cc": [
+    {
+      "line": 6348,
+      "symbol": "cpp_create_reader"
+    }
+  ],
+  "gcc/go/go-linemap.cc": [
+    {
+      "line": 69,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 70,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 120,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 129,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 137,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/input.cc": [
+    {
+      "line": 576,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 1316,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1318,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1319,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1320,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1322,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1323,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1324,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1327,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1328,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1331,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1332,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1344,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1347,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1349,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1351,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1354,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1355,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1357,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1360,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1361,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1362,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1363,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1430,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1432,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1433,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1434,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1435,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1436,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1539,
+      "symbol": "cpp_create_reader"
+    },
+    {
+      "line": 1757,
+      "symbol": "cpp_create_reader"
+    },
+    {
+      "line": 3094,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 3095,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 3096,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 3103,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "gcc/jit/jit-playback.cc": [
+    {
+      "line": 3874,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 3895,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 3899,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 3903,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/json-diagnostic.cc": [
+    {
+      "line": 39,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 252,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 255,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 257,
+      "symbol": "physical_location_maker"
+    },
+    {
+      "line": 264,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 279,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 329,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 345,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 363,
+      "symbol": "gcc_json_context"
+    }
+  ],
+  "gcc/json-diagnostic.h": [
+    {
+      "line": 31,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 34,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 52,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 60,
+      "symbol": "gcc_json_context"
+    },
+    {
+      "line": 69,
+      "symbol": "gcc_json_context"
+    }
+  ],
+  "gcc/libgdiagnostics.cc": [
+    {
+      "line": 709,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 923,
+      "symbol": "physical_location_maker"
+    }
+  ],
+  "gcc/lto-streamer-in.cc": [
+    {
+      "line": 443,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 455,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 462,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/m2/gm2-gcc/m2linemap.cc": [
+    {
+      "line": 57,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 68,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 79,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 89,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 102,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 103,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 126,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 129,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/opt-problem.cc": [
+    {
+      "line": 181,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 183,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 186,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "gcc/rust/lex/rust-lex.cc": [
+    {
+      "line": 192,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2602,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "gcc/rust/rust-linemap.cc": [
+    {
+      "line": 31,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 32,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 66,
+      "symbol": "linemap_add"
+    }
+  ],
+  "gcc/rust/rust-session-manager.cc": [
+    {
+      "line": 523,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 534,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "libcpp/directives.cc": [
+    {
+      "line": 1673,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1713,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1717,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "libcpp/files.cc": [
+    {
+      "line": 1075,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "libcpp/include/cpplib.h": [
+    {
+      "line": 178,
+      "symbol": "cpp_create_reader"
+    },
+    {
+      "line": 1150,
+      "symbol": "cpp_create_reader"
+    }
+  ],
+  "libcpp/include/line-map.h": [
+    {
+      "line": 69,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 897,
+      "symbol": "LINEMAPS_ALLOCATED ("
+    },
+    {
+      "line": 902,
+      "symbol": "info_ordinary.allocated"
+    },
+    {
+      "line": 908,
+      "symbol": "LINEMAPS_ALLOCATED ("
+    },
+    {
+      "line": 913,
+      "symbol": "info_ordinary.allocated"
+    },
+    {
+      "line": 919,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 924,
+      "symbol": "info_ordinary.used"
+    },
+    {
+      "line": 930,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 935,
+      "symbol": "info_ordinary.used"
+    },
+    {
+      "line": 945,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 954,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 956,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 963,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 972,
+      "symbol": "LINEMAPS_ALLOCATED ("
+    },
+    {
+      "line": 979,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 994,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 1003,
+      "symbol": "LINEMAPS_ALLOCATED ("
+    },
+    {
+      "line": 1010,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 1064,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1068,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1072,
+      "symbol": "line_map_new_raw"
+    },
+    {
+      "line": 1087,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1115,
+      "symbol": "linemap_module_loc"
+    },
+    {
+      "line": 1126,
+      "symbol": "linemap_module_restore"
+    },
+    {
+      "line": 1223,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1226,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "libcpp/init.cc": [
+    {
+      "line": 220,
+      "symbol": "cpp_create_reader"
+    },
+    {
+      "line": 840,
+      "symbol": "info_ordinary.used"
+    }
+  ],
+  "libcpp/internal.h": [
+    {
+      "line": 77,
+      "symbol": "linemap_line_start"
+    }
+  ],
+  "libcpp/lex.cc": [
+    {
+      "line": 1360,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1362,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1369,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1371,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1659,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 2049,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 3963,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 4456,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5493,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 5692,
+      "symbol": "linemap_position_for_column"
+    }
+  ],
+  "libcpp/line-map.cc": [
+    {
+      "line": 470,
+      "symbol": "line_map_new_raw"
+    },
+    {
+      "line": 472,
+      "symbol": "LINEMAPS_ALLOCATED ("
+    },
+    {
+      "line": 473,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 494,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 517,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 518,
+      "symbol": "LINEMAPS_ALLOCATED ("
+    },
+    {
+      "line": 522,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 523,
+      "symbol": "LINEMAPS_USED ("
+    },
+    {
+      "line": 536,
+      "symbol": "line_map_new_raw"
+    },
+    {
+      "line": 570,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 640,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 663,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 685,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 718,
+      "symbol": "linemap_module_loc"
+    },
+    {
+      "line": 721,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 724,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 746,
+      "symbol": "linemap_module_restore"
+    },
+    {
+      "line": 756,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 760,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 885,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 890,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 958,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 1005,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 1009,
+      "symbol": "linemap_position_for_column"
+    },
+    {
+      "line": 1030,
+      "symbol": "linemap_line_start"
+    },
+    {
+      "line": 2033,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 2112,
+      "symbol": "info_ordinary.used"
+    },
+    {
+      "line": 2117,
+      "symbol": "info_ordinary.used"
+    },
+    {
+      "line": 2119,
+      "symbol": "info_ordinary.maps"
+    },
+    {
+      "line": 2131,
+      "symbol": "info_ordinary.used"
+    },
+    {
+      "line": 2134,
+      "symbol": "info_ordinary.maps"
+    }
+  ],
+  "libcpp/pch.cc": [
+    {
+      "line": 904,
+      "symbol": "linemap_add"
+    },
+    {
+      "line": 908,
+      "symbol": "linemap_line_start"
+    }
+  ]
+}

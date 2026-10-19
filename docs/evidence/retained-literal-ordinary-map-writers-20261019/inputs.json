@@ -1,0 +1,386 @@
+{
+  "scope": "Selected native Main ordinary-map writer closure; source/reference evidence, not a parsed call graph",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "selected_invocation_freeze": "f3bc1d023b0459c78c1fb70a33ffb93b8b9fa6ba",
+  "accepted_preallocation_freeze": "9c52c43a6fd5e2bcb6afbc0fbc684e8baee1c962",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/Makefile.in",
+      "bytes": 182346,
+      "sha256": "cb87772ccf27a62bdcd040bd96d58e362d3442722c7a526ae2230bac3323e6b1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/Make-lang.in",
+      "bytes": 39567,
+      "sha256": "4e35beb96f3dd5eecf62bbea9baa20477cce3ca348ddefb29d0d092efdfd67d7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/lang-specs.h",
+      "bytes": 3476,
+      "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/algol68/a68-parser.cc",
+      "bytes": 28105,
+      "sha256": "49d1f01a81d56a2b033da81982ed93edc0161c74244504314b0108f3160509ef"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/c-family/c-format.cc",
+      "bytes": 191674,
+      "sha256": "11618af7255335a2e1c1b814e461a41728e43378dbd582049be7a3fbd4482e71"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/c-family/c-opts.cc",
+      "bytes": 63457,
+      "sha256": "af66e04ce9ccd5d81da13024fe6c077846c3a329ea00fa6a80e87ff9b8698639"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/c-family/c-pch.cc",
+      "bytes": 11873,
+      "sha256": "2e4074fd67275aa635573de2aba6e06e6f7e5f7edcd9ca46c830f0a926733491"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/c/c-parser.cc",
+      "bytes": 953408,
+      "sha256": "22cb2d4aaa7bc2fb991bd8c25383738de6113c5e4cdb1914308e90452f5a0880"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cobol/util.cc",
+      "bytes": 115014,
+      "sha256": "e8ad09932644b11e43bdbd5b0f68ad3403d596a4d2dfa1158d3b0d230229d981"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/aarch64/aarch64-json-tunings-parser.cc",
+      "bytes": 22319,
+      "sha256": "5e7ecea4ee608e2567be725a0b169632262f5334f568c50f62696cb460850fb4"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cp/module.cc",
+      "bytes": 654348,
+      "sha256": "35f7cd0496d76ff01f7455fdf7340878bd7956adea4b9580b5020237610b2c75"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/d/d-codegen.cc",
+      "bytes": 88799,
+      "sha256": "e72e5ba8d64739368207134f9d446366ce289389cd49aa5654632da70553816f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/changes.cc",
+      "bytes": 56342,
+      "sha256": "2c15506c7fbd10b5d3afb0d72ecb542041c98f81cfe44356ed63442e9d4ba3a7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/context.cc",
+      "bytes": 66477,
+      "sha256": "32264b018798a6f64361c69da5af84ed5422ef38349ff68ba4683c58beefebd9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/paths-output.cc",
+      "bytes": 91328,
+      "sha256": "0c05bb00a7bb0d7fff6f4ededdec45ef92db62414eff02af7043ff670e3489af"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/physical-location-maker.cc",
+      "bytes": 2212,
+      "sha256": "1bbac556b3e2da37be9e7e6b0915cca1f6cfd51002e9e4a456ed7adbbb7b2954"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/physical-location-maker.h",
+      "bytes": 1725,
+      "sha256": "a7db6050758488316726211c942f31b2ab7764fff61c01c4240537c29e7666c2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/sarif-sink.cc",
+      "bytes": 168464,
+      "sha256": "53f6c1c046231d1aab852a4cd320fb60955d13f23f18dd58b4bc97904127bee8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/diagnostics/source-printing.cc",
+      "bytes": 230123,
+      "sha256": "8f10fcc7fb7d316cdd948198878a7300abe1ca2347cc03717f78639966da211a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dumpfile.cc",
+      "bytes": 81299,
+      "sha256": "1054e1cfd054fbfcbfe36f11963dce31bc439e28cbaf07523b80a456aa933eea"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/fortran/cpp.cc",
+      "bytes": 33278,
+      "sha256": "a6a37ebdc42c116da35f40c1cec9cf01ea9845ef12eff048cc9abd51112528e7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/fortran/f95-lang.cc",
+      "bytes": 54377,
+      "sha256": "3f62d6369775500a86e72ec9f7df72afa115394aff6c750398ffa27c5fdd8f1d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/fortran/scanner.cc",
+      "bytes": 67198,
+      "sha256": "ca9ec0a215ae0cee2fecb19dc2b12f799a60236c97094658afb8151f754ecaa4"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/genmatch.cc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-common.cc",
+      "bytes": 40096,
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/go/go-linemap.cc",
+      "bytes": 3451,
+      "sha256": "17ffa30baca16df5608dad7e4b233fe67dde8f8ece9085b3ba3c8ea497ad68d5"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/input.cc",
+      "bytes": 117157,
+      "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-devirt.cc",
+      "bytes": 143807,
+      "sha256": "74776c1b6db584b085d4dc08bb007ba4c0a7d7941699427fef485586a6c7a97e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/jit/jit-playback.cc",
+      "bytes": 110868,
+      "sha256": "39398aedc08b66ea199a34da1b1a3c50d7ee96731e9d3545d646c8447fd74f48"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/json-diagnostic.cc",
+      "bytes": 9992,
+      "sha256": "d5f3c1eb3fa4b5a625994a9549acee5c4fa0e61d6bb73429c9cedefebd139547"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/json-diagnostic.h",
+      "bytes": 2064,
+      "sha256": "137b72d01c692db0d0907af88b8cbe22a6ea7bff6929277cf25119fb0b9d8962"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/libgdiagnostics.cc",
+      "bytes": 75346,
+      "sha256": "4b6edd76e3b6e3cf5c467cf1df202415fd2e1b7fc71591368835bbcb16a0529c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lto-streamer-in.cc",
+      "bytes": 64470,
+      "sha256": "48dd36a7756a37b424616579d07de740ed9ff23733e546a337e6bbb2837a9917"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lto-streamer.h",
+      "bytes": 38638,
+      "sha256": "2594d33cc04b09fd807a4ec95a3bd68205b09f53614bc376c48a9b0ee6834f74"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/m2/gm2-gcc/m2linemap.cc",
+      "bytes": 8972,
+      "sha256": "8e59a5a009e3be306df0961c2250e2846e074917c8cae298e5d57d66d3cd52e9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opt-problem.cc",
+      "bytes": 10358,
+      "sha256": "0556338a6b6be5cd71c32aa1e41bd370fe866318f81a088151345cd64c927b2b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rust/lex/rust-lex.cc",
+      "bytes": 65274,
+      "sha256": "57d808ac204733d3b05ec4e6ce09baed5a5fe787a3bfb31b7532b2ab306cbc68"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rust/rust-linemap.cc",
+      "bytes": 2098,
+      "sha256": "0f4065992de94637117261f10fb4c16ae6f5d1da4095b0f56bc8793a4b185636"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rust/rust-session-manager.cc",
+      "bytes": 47218,
+      "sha256": "c692250cda68378a58b96250034ad443d48d211084a1e21cf9112e45e51e902c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/selftest-run-tests.cc",
+      "bytes": 4346,
+      "sha256": "6d555d008542386e1f9a458a906f3a462224e1839586a044572e58ee03244601"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-streamer-in.cc",
+      "bytes": 39585,
+      "sha256": "89c58ec2149c306fed86b90cf06db7b64e00a8c6bab8fd56e51f3d06292b71eb"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/directives.cc",
+      "bytes": 100177,
+      "sha256": "f31cd8832c33898f295e608d93fcfbe352cdaec2227ef9979ff954abe3a93e23"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/files.cc",
+      "bytes": 82571,
+      "sha256": "fea8b715758698e16ccaf97b54c7cdf181eb18116c5a75c28ae78f4f10b3c90d"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/cpplib.h",
+      "bytes": 62687,
+      "sha256": "f5730bda92674f1f8b1d21b445c311219e7492bd8be4ff84f6da66e6974dfdaf"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/line-map.h",
+      "bytes": 53179,
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/init.cc",
+      "bytes": 34703,
+      "sha256": "405f8bc9adb1913f68509136aefa8f1256cd1aae82a7d22781706618b5ca075f"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/internal.h",
+      "bytes": 35271,
+      "sha256": "49d670a0ea4bca100fdd76772b249664091d1adf545d234fabdfe8b019dfc9aa"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/lex.cc",
+      "bytes": 166158,
+      "sha256": "8c64d56ef32d274daf0a1c0efab74d482fde267ebf1f864865b1c2c5517f0c88"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/line-map.cc",
+      "bytes": 86805,
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/pch.cc",
+      "bytes": 26772,
+      "sha256": "898ae22fbb33336347e0ed5e0a4977d697602318f28bf4fb5c785e8c107480b5"
+    },
+    {
+      "root": "repo",
+      "path": "docs/research/retained-literal-invocation-join.md",
+      "bytes": 16456,
+      "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/compose.py",
+      "bytes": 22174,
+      "sha256": "93865d8a5c0b1c86e179ce5209d4816e6fd7ce9ccabfb8a48c1eb848948bfdc0"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/result.json",
+      "bytes": 105590,
+      "sha256": "75eab6e13e1c8bb395f5ae1510695d9d3646962cef895073b9dff23dcbc96688"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/inputs.json",
+      "bytes": 6756,
+      "sha256": "5193026fa3099c4fe988f47206bf2dd33dbe7066665d0746e3059b9cd6635532"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/inputs.json",
+      "bytes": 1912,
+      "sha256": "099e44c7ef0d26584742e0725d87c1c002bd0594cdae65a86c1c8e2f336d230f"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/result.json",
+      "bytes": 1489,
+      "sha256": "0850b1041f4cf476742ed6b0e5cd9bd2c63bdc5ccf02972b78ff1ec4ad91ffe2"
+    },
+    {
+      "root": "repo",
+      "path": "docs/evidence/retained-literal-ordinary-maps-20261018/check-results.json",
+      "bytes": 44797,
+      "sha256": "4a00fc8519d5ce1500985166ad921c994b9cdc91a61883fea2f362eac477b6ba"
+    },
+    {
+      "root": "repo",
+      "path": "docs/reviews/review-ordinary-maps-and-session-inputs-round15.md",
+      "bytes": 14408,
+      "sha256": "00c2c8b2f936f98645bbd57d94c9a6bbda51998f3c76709f297f175f66905938"
+    },
+    {
+      "root": "repo",
+      "path": "docs/reviews/review-literal-invocation-f3bc1d023b.md",
+      "bytes": 9898,
+      "sha256": "cc31c13d7f5409b30ebb7c07a347c16560c3812b1651a4a043c7a403fc8a56e9"
+    }
+  ]
+}
