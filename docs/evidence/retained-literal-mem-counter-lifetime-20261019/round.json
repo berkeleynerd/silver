@@ -1,0 +1,95 @@
+{
+  "issue": 119,
+  "authorization": "Parent-assigned native source/capacity research under owner Please continue; new packet only",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "parent_agent": "/root",
+  "subthread": "/root/native_lifetime_next_join",
+  "delegation": null,
+  "branch": "research/119-literal-mem-counter-lifetime",
+  "base_commit": "054b25caec5c46974f484a21ecd7ab7b0fa52bd3",
+  "intended_outcome": "Close selected mem_attrs setters, reconcile native counter reset/reuse, price scoped ordinary residuals, and identify exact collector/event joins",
+  "achieved_outcome": [
+    "Complete selected mem_attrs setter partition retains5C existing events, adds0",
+    "Chronological dummy/Main UID and register arrays, cold alias vectors, DF scan reconstruction, LRA value/pool reset and emission prefixes joined",
+    "Additional final register growth q(99+5C)-q(98+3C) exported without recharging operation growth",
+    "DF four remaining typed pools and actual auto-vector growth priced; existing register/LRA pool and cfun/sequence owners retained",
+    "Global SSA created/reused are unsigned statistics; capacity relevance discharged, actual later SSA allocation ledger left open"
+  ],
+  "significant_findings": [
+    "DF full scan rebuild frees pools without resetting df->ref_order",
+    "CFI address-adjustment helpers initialize builtin dwarf register size tables; ordinary push/pop MEMs remain raw",
+    "Auto-vector first heap reserve hides inline storage: capacities33,49,73,109",
+    "Deletable sequence cache prevents replacing cold event counts by maximum nesting"
+  ],
+  "focused_validation": {
+    "checks": 49,
+    "elapsed_seconds": 0.06509972499770811,
+    "completed_utc": "2026-10-19T01:03:07.690552+00:00",
+    "arithmetic_cases": 27,
+    "register_boundary_cases": 48,
+    "pool_boundary_cases": 42,
+    "source_files_verified": 56,
+    "repository_inputs_verified": 19
+  },
+  "total_round_elapsed_seconds": null,
+  "token_usage": null,
+  "cost": null,
+  "elapsed_measurement_scope": "Focused new checker only; no total-round clock was recorded before source audit",
+  "native_executions": 0,
+  "accepted_suite_reruns": 0,
+  "aggregate_executions": 0,
+  "corpus_checker_reruns": 0,
+  "repeated_identical_success_expensive_runs": 0,
+  "independent_review_status": "pending",
+  "exact_review_inputs": [
+    {
+      "path": "docs/research/retained-literal-mem-counter-lifetime.md",
+      "bytes": 19205,
+      "sha256": "26d7c44f0bdd8233bca669668fa668a2b5530d2422a31dc9c199e858e95990e2"
+    },
+    {
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/README.md",
+      "bytes": 3837,
+      "sha256": "947f623ede32b39d1b728d51f2d6c51617c58433e7f5ca9c6e501e5054ad5592"
+    },
+    {
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/inputs.json",
+      "bytes": 14279,
+      "sha256": "f85b4e1cfdcacdc8c45c43d536ee105aee4cc6953d0c2501d2c2ff9628185fdc"
+    },
+    {
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/derive.py",
+      "bytes": 18443,
+      "sha256": "5f8bbbe8d9a6081d9cd1557fa280c5f4c91350e9077aa25c7fd38b984a89f932"
+    },
+    {
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/result.json",
+      "bytes": 15240,
+      "sha256": "447a7c47eabd034d8affbb672005b391150e7f0fcec5ac8748b8fa7c9aaff084"
+    },
+    {
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/check.py",
+      "bytes": 12162,
+      "sha256": "68534c875a8bc13abe3d3463a48100961a6e6c0509e535a58ed5df362e727a52"
+    },
+    {
+      "path": "docs/evidence/retained-literal-mem-counter-lifetime-20261019/check-results.json",
+      "bytes": 3271,
+      "sha256": "441e2fd5df3c181f070873c1367ca560ff149fe10c1958a0d7da4f896c76a016"
+    }
+  ],
+  "remaining": [
+    "Later SSA allocation/update and vector/free-list lifetime",
+    "Complete direct/shared GGC event ledger including final register growth",
+    "Shared bitmap/ET/IRA/LRA pool and pass-manager residuals",
+    "Typed-array finalizers and collector page/epoch/metadata/counter composition",
+    "Production materialization and installed-source correspondence"
+  ],
+  "local_harness_goal_at_resume": null,
+  "parent_harness_state_not_modified": true,
+  "GitHub_updated": false,
+  "CLI_memory_updated": false
+}

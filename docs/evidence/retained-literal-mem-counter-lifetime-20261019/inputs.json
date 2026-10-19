@@ -1,0 +1,457 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "selected_native_platform": "Linux x86-64 LP64",
+  "base_commit": "054b25caec5c46974f484a21ecd7ab7b0fa52bd3",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "bytes": 112284,
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.cc",
+      "bytes": 1184,
+      "sha256": "c331dbdc02f7b4e0e6e7c931dbc32be21905d2db8cbbd9c11fbf060c65708d16"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/avoid-store-forwarding.cc",
+      "bytes": 20316,
+      "sha256": "13d5f86841bf6e9704454feefe432b8fb5017be81dea1034a3f6bd9f9a0b1cfd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/calls.cc",
+      "bytes": 178248,
+      "sha256": "f1354772f2dd9465c3eacebfcff2c53f7a0a5036eadc0ba2cf2f014c7a7e42ba"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386-expand.cc",
+      "bytes": 790498,
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cse.cc",
+      "bytes": 240025,
+      "sha256": "23209573e8355647e0a3eb8c895e7e21ab23d220b0959b4cbda5cff8b2b49325"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "bytes": 73101,
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "bytes": 145024,
+      "sha256": "0d4b5382df19fecd93447141a20141762e21064da41eb57565b3ad8f6cf8ab9e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-scan.cc",
+      "bytes": 121906,
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df.h",
+      "bytes": 48445,
+      "sha256": "15903c1080da45b1d99b2f4868f25c9a1b7d0bbd3b88659cc7b143e6e45c7a56"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dse.cc",
+      "bytes": 114786,
+      "sha256": "8e4b5a7b7591a1563499a9815ce6db3cc8fe43406b2b095da09afa0d9f04328d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.h",
+      "bytes": 21029,
+      "sha256": "6d094bfb23b2b403410642dd68191a9971ecd766d21b2c116e15b03070b5aa04"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/expr.cc",
+      "bytes": 472318,
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.h",
+      "bytes": 27144,
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gcse.cc",
+      "bytes": 132336,
+      "sha256": "5876219b5e067e14a72f275a32a3d5ed08cb36bc076bae6cd2f65ce12e4d414a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/haifa-sched.cc",
+      "bytes": 272729,
+      "sha256": "1e58e94c4318741b20602d7b0ab81db8c44664acc0f780be486e9e36db085a46"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "bytes": 106712,
+      "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-coalesce.cc",
+      "bytes": 11759,
+      "sha256": "30e64caf42a872a3ed9a0ad8d320f0d5632ef92f0de570214833432b7980fe97"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/postreload-gcse.cc",
+      "bytes": 42531,
+      "sha256": "7298c092c732289a631cde38be53a324a20b441319e2159f54c45dbf0d13c290"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/postreload.cc",
+      "bytes": 74753,
+      "sha256": "ba6a03d4c3a154fe85c03b085924cce9275c5e52201a05647fad7230bb438f32"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reginfo.cc",
+      "bytes": 39713,
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.cc",
+      "bytes": 23229,
+      "sha256": "516c1f4b2ad68750095d3c09f3c0d123d1cf8009331b439a4d0ef67bcf6910ee"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.h",
+      "bytes": 162393,
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/store-motion.cc",
+      "bytes": 35272,
+      "sha256": "e0e66ed69bbbe387710297ced7121439ce59e1b1c5ccd3612751f8840fac604a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-into-ssa.cc",
+      "bytes": 106038,
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa-operands.cc",
+      "bytes": 38594,
+      "sha256": "61c73f75dbe24d2c87ba0f176d9f7085fc86811099abf000d98746c8c54514bf"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssa.cc",
+      "bytes": 66992,
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssanames.cc",
+      "bytes": 32186,
+      "sha256": "912f01856cb72bd68199c99d6c57d91384f857cf281a4a02bf294ff37089ed86"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-ssanames.h",
+      "bytes": 5675,
+      "sha256": "93189a36917ecfb590f3a632f941bbfd96840a195cc35ed3ea17081864ac449f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-counter-emission-20261018/interface.json",
+      "bytes": 2204,
+      "sha256": "26ee911d66a275c749ce7d9d911c81c437f488241a5947a2a307ac52e5476756"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-emission-closure-20261018/derive.py",
+      "bytes": 6353,
+      "sha256": "dcf2892d3efd3f6ffbab83e7fddef044973b6be2128185e65ab5f48763f6c344"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "bytes": 140462,
+      "sha256": "9ee527a80ed4082e51828278ee3d3173576631d0d32d2a4d2c44aa16e573f0be"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/result.json",
+      "bytes": 352848,
+      "sha256": "ade1163258eb4b2529f5519afa153c91ec055d1d3bc8d20a59cbea2ea08e1c13"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-query-lifetime-20261019/derive.py",
+      "bytes": 12086,
+      "sha256": "65444ee6605cc82b1c48e7b568dba724c1b995bc8df0a7977ecef0de1e31c2a4"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-query-lifetime-20261019/result.json",
+      "bytes": 8943,
+      "sha256": "74f6198d099798da0cf8865a92bd83255195e14e90ec8105b0bc58e2aa1350be"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py",
+      "bytes": 14174,
+      "sha256": "6cb79df71b928240343179ee561df879cb35a48aa57ab2cba09a911bf09375bb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json",
+      "bytes": 11222,
+      "sha256": "fc6b87125fa2314f185f69b338d685011900ceb7277922afd0a0ade3b7c3834a"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-constructors.json",
+      "bytes": 3114,
+      "sha256": "48567140c26cfed75283a7d373e1a2a9f371caab4b5cbfde2ab39f216b7e362b"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json",
+      "bytes": 2989,
+      "sha256": "302806a957f307d7cd4704f0e7c9d0f303bdda46b37e935dc93c402645b43612"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 157004,
+      "sha256": "898ee62690d7fe58f639192198ff83aaa7a95a89a88c2a6658250699fa0bc3eb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-rtl-cache-controls.md",
+      "bytes": 18234,
+      "sha256": "cbfe35688bee3f687f38c6e4aa01d3a96d8ee0da243e0c23756ee758e5750147"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-query-lifetime.md",
+      "bytes": 24499,
+      "sha256": "7c36a41128812f863533e51d71b1cbfc16eb2c9daa38ced5e8e0d12541c4b9c7"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-synthetic-function-storage.md",
+      "bytes": 23056,
+      "sha256": "b8a664861e2fe87b6b4c870dc1d0904b83f89d9005c8a29bc9aaf29947ad5f2e"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-type-alias-controls.md",
+      "bytes": 13172,
+      "sha256": "8ce9761d8f4eda9d5304335b74f7877c0502f998552bd31d151cc78d508563a3"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-output-rtl.md",
+      "bytes": 21155,
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "root": "repository",
+      "path": "samples/hello_world.adb",
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    }
+  ]
+}
