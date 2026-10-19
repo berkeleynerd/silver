@@ -1,0 +1,45 @@
+{
+  "checkpoint_utc": "2026-10-19 00:27:36 UTC",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "authorization": "Parent requested source-prefix route, including matching official source only where identity is justified; no installed changes, native retry or version substitution.",
+  "source_identity": "Existing selected OCaml4.14.2 commit8eb41f72ded84df884c3671734c947f612091f84 and scoped source/runtime correspondence premise; checked installed embedded-version bytes and selected native bodies.",
+  "intended_outcome": "Decide whether missing formatter roots/queues require another native observation for Why Ident registration capacity.",
+  "achieved": [
+    "Data-only formatter queues separated from synchronous Acc_delay printer callbacks.",
+    "Finite source initialization/update invariant reduces normal output/tag callbacks to zero Why Ident registrations.",
+    "Matched installed Compress_none, removing an unneeded Gzip source branch.",
+    "Retained exact official source retrievals, full Why source projection, lexical setter/exception inventories and native-body correspondence."
+  ],
+  "checks": [
+    {
+      "name": "source/ELF/inventory generation",
+      "status": "pass",
+      "seconds": 0.4404606349999085,
+      "source_files": 612,
+      "native_bodies": 10,
+      "native_bytes": 9110
+    },
+    {
+      "name": "final pinned dependency and retained-result verification",
+      "status": "pass",
+      "seconds": 0.47733556299863267,
+      "reason": "Added exact dependency/local-input identities after the source/ELF generation pass; verified retained JSON equality."
+    }
+  ],
+  "significant_findings": [
+    "Missing queue/root bytes do not force capture for the normal formatter argument.",
+    "gnat_util also installs an uncaught-exception handler; exceptional unwinding reaches registered exception printers.",
+    "Some Pretty exception branches open logical terms; normal formatter closure must not silently become complete R."
+  ],
+  "next_obligation": "Classify all save/exit exceptions admitted under the valid-state premises and their wrappers; close or bound selected Exn_printer branches, preservation and the existing runtime callback boundary.",
+  "new_native_runs": 0,
+  "new_debugger_runs": 0,
+  "new_objdump_runs": 0,
+  "new_solver_runs": 0,
+  "complete_R": false,
+  "independent_review_pending": true
+}

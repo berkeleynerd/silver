@@ -1,0 +1,16 @@
+{
+  "source_files": 612,
+  "why3_source_files": 603,
+  "official_matching_ocaml_files_retrieved": 8,
+  "runtime_embedded_version": "4.14.2",
+  "native_bodies_checked": 10,
+  "native_bytes_checked": 9110,
+  "compression_implementation": "Compress_none",
+  "normal_formatter_identifier_charge_under_source_argument": 0,
+  "full_R_established": false,
+  "composed_endpoint_established": false,
+  "native_runs": 0,
+  "debugger_runs": 0,
+  "objdump_runs": 0,
+  "solver_runs": 0
+}

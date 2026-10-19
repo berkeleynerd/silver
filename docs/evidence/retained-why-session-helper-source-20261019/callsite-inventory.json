@@ -1,0 +1,336 @@
+{
+  "formatter_setters": [
+    {
+      "file": "why3/src/gnat/gnat_main.ml",
+      "line": 268,
+      "text": "let () = Debug.set_debug_formatter escape_formatter"
+    },
+    {
+      "file": "why3/src/gnat/gnat_main.ml",
+      "line": 327,
+      "text": "Debug.set_debug_formatter fmt;"
+    },
+    {
+      "file": "why3/src/tools/why3prove.ml",
+      "line": 549,
+      "text": "Format.set_formatter_stag_functions Util.ansi_color_tags;"
+    },
+    {
+      "file": "why3/src/util/debug.ml",
+      "line": 65,
+      "text": "let set_debug_formatter f ="
+    },
+    {
+      "file": "why3/src/util/debug.ml",
+      "line": 68,
+      "text": "Format.pp_set_formatter_out_functions f"
+    },
+    {
+      "file": "why3/src/util/debug.ml",
+      "line": 75,
+      "text": "let () = set_debug_formatter Format.err_formatter"
+    },
+    {
+      "file": "why3/src/util/debug.mli",
+      "line": 40,
+      "text": "val set_debug_formatter : Format.formatter -> unit"
+    },
+    {
+      "file": "why3/src/util/pp.ml",
+      "line": 193,
+      "text": "pp_set_all_formatter_output_functions fmt"
+    },
+    {
+      "file": "why3/src/util/pp.ml",
+      "line": 197,
+      "text": "pp_set_formatter_out_functions fmt"
+    }
+  ],
+  "exception_registrations": [
+    {
+      "file": "why3/plugins/ada_terms/ada_lexer.mll",
+      "line": 219,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/ada_terms/ada_parser.mly",
+      "line": 67,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/cfg/cfg_lexer.mll",
+      "line": 292,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/cfg/cfg_paths.ml",
+      "line": 59,
+      "text": "Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "file": "why3/plugins/cfg/cfg_stackify.ml",
+      "line": 59,
+      "text": "Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "file": "why3/plugins/cfg/stackify.ml",
+      "line": 70,
+      "text": "Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "file": "why3/plugins/coma/coma_lexer.mll",
+      "line": 317,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/coma/coma_logic.ml",
+      "line": 955,
+      "text": "let () = Exn_printer.register (fun fmt -> function"
+    },
+    {
+      "file": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "line": 1430,
+      "text": "Exn_printer.register"
+    },
+    {
+      "file": "why3/plugins/microc/mc_lexer.mll",
+      "line": 18,
+      "text": "let () = Why3.Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/microc/mc_parser.mly",
+      "line": 18,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/parser/dimacs.mll",
+      "line": 57,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/plugins/python/py_lexer.mll",
+      "line": 18,
+      "text": "let () = Why3.Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/python/py_parser.mly",
+      "line": 16,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/tptp/tptp_lexer.mll",
+      "line": 26,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/plugins/tptp/tptp_parser.mly",
+      "line": 20,
+      "text": "let () = Why3.Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/plugins/tptp/tptp_typing.ml",
+      "line": 35,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/core/coercion.ml",
+      "line": 147,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/core/dterm.ml",
+      "line": 724,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/core/env.ml",
+      "line": 250,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/core/pretty.ml",
+      "line": 806,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 620,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/core/task.ml",
+      "line": 364,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/core/trans.ml",
+      "line": 547,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 501,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/driver/driver_parser.mly",
+      "line": 14,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/driver/prove_client.ml",
+      "line": 252,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/driver/smtv2_model_parser.ml",
+      "line": 1606,
+      "text": "Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "file": "why3/src/driver/whyconf.ml",
+      "line": 1085,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/extract/java.ml",
+      "line": 32,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/extract/pdriver.ml",
+      "line": 347,
+      "text": "let () = Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "file": "why3/src/gnat/gnat_util.ml",
+      "line": 12,
+      "text": "Printexc.set_uncaught_exception_handler"
+    },
+    {
+      "file": "why3/src/mlw/dexpr.ml",
+      "line": 1847,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/mlw/expr.ml",
+      "line": 1606,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/mlw/ity.ml",
+      "line": 1773,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/mlw/pmodule.ml",
+      "line": 1734,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/parser/lexer.mll",
+      "line": 207,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/parser/parser_common.mly",
+      "line": 167,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/parser/typing.ml",
+      "line": 1970,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/session/session_itp.ml",
+      "line": 1566,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/session/strategy.ml",
+      "line": 29,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/tools/why3extract.ml",
+      "line": 243,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/transform/args_wrapper.ml",
+      "line": 27,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/transform/args_wrapper.ml",
+      "line": 278,
+      "text": "let () = Exn_printer.register (fun fmt e ->"
+    },
+    {
+      "file": "why3/src/util/cmdline.ml",
+      "line": 91,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/util/debug.ml",
+      "line": 53,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/util/exn_printer.ml",
+      "line": 43,
+      "text": "Printexc.register_printer (fun exn ->"
+    },
+    {
+      "file": "why3/src/util/lexlib.mll",
+      "line": 18,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/util/lexlib.mll",
+      "line": 134,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 343,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "file": "why3/src/util/mysexplib-dummy.ml",
+      "line": 18,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/util/mysexplib-real.ml",
+      "line": 32,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/util/number.ml",
+      "line": 571,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "file": "why3/src/util/plugin.ml",
+      "line": 60,
+      "text": "Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "file": "why3/src/util/rc.mll",
+      "line": 89,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/util/rc.mll",
+      "line": 413,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "file": "why3/src/util/sysutil.ml",
+      "line": 287,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    }
+  ]
+}

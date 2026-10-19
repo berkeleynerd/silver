@@ -1,0 +1,54 @@
+{
+  "dependencies": {
+    "docs/evidence/retained-why-session-save-state-20261019/capture-identities.json": {
+      "bytes": 9304,
+      "sha256": "3d947260aa81a2de9bfaa3feb7eade7430fc2360e7201743efa28146344941c8"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/result.json": {
+      "bytes": 3736,
+      "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/native-helpers.json": {
+      "bytes": 31512,
+      "sha256": "991b342af163e561f27e32bb408fa654c0f473076d73022b843812d481b0e27e"
+    },
+    "docs/evidence/retained-why-session-helper-coverage-20261019/result.json": {
+      "bytes": 2876,
+      "sha256": "456c74838b0aec2e372469fdf43197efcaac235e0797fc127e94e4d5b75ea4e8"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/inputs.json": {
+      "bytes": 10194,
+      "sha256": "0e0db56819d1a8eac9b79a1c1523322c91ae6949c06003b7cbfdbd7da6dfd87c"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/identity.json": {
+      "bytes": 35016,
+      "sha256": "003d10e01f9c8c62559d02565be07b368e39cc0dc5639594f429a19dfa053780"
+    }
+  },
+  "local_inputs": {
+    "check.py": {
+      "bytes": 6543,
+      "sha256": "d54cffcad1069cdde0818613ec70c979eda147577d31ead6eb5bcd5b80d5bc21"
+    },
+    "source-identities.json": {
+      "bytes": 169096,
+      "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+    },
+    "retrieval.json": {
+      "bytes": 3513,
+      "sha256": "e9a345973dde2d1be6bc8d7fa0647519bfd086ad81bf6ab0f898191e94d7dac9"
+    },
+    "runtime-version.json": {
+      "bytes": 466,
+      "sha256": "468e70930fe8ec280cf1cc48a332191c394f31f1fba4be6a340c964c3d5565eb"
+    },
+    "native-source-correspondence.json": {
+      "bytes": 243625,
+      "sha256": "c1518cc3e6f8a9ac5080407d037ad5ccfe822b2ffff2955c23f7f5d9a2128159"
+    }
+  }
+}

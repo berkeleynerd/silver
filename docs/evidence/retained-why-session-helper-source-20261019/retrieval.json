@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-19",
+  "revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "files": [
+    {
+      "path": "VERSION",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/VERSION",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/VERSION",
+      "status": 200,
+      "bytes": 580,
+      "sha256": "c5b793d13805231fb43c6c4bb50198b9da1cf095812d5d5aaf0ee3f76b5a514b"
+    },
+    {
+      "path": "stdlib/format.ml",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "status": 200,
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    {
+      "path": "stdlib/camlinternalFormat.ml",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+      "status": 200,
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    {
+      "path": "stdlib/camlinternalFormatBasics.ml",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormatBasics.ml",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormatBasics.ml",
+      "status": 200,
+      "bytes": 29125,
+      "sha256": "aa6c9acb608710a9c0a41ffd8dfef07e0207ba8d19adeb7b95a535915d58d579"
+    },
+    {
+      "path": "stdlib/buffer.ml",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+      "status": 200,
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    {
+      "path": "runtime/io.c",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "status": 200,
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    {
+      "path": "stdlib/format.mli",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.mli",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.mli",
+      "status": 200,
+      "bytes": 54889,
+      "sha256": "9ad3e7b77cb9ff72e15edded0557f4643068caf0926479a422ee5b665fd2ee61"
+    },
+    {
+      "path": "stdlib/printexc.ml",
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+      "final_url": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+      "status": 200,
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    }
+  ]
+}
