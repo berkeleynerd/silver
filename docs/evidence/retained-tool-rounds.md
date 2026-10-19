@@ -2093,4 +2093,71 @@ The outer IRA coverage pass identified finding #146: four cold target-probe
 RTL allocations lack an explicit owner in the older 50-row GGC ledger. The
 new source/attachment correction must add a disjoint owner and rederive affected
 collector bounds; conservative slack does not replace ownership. Current
-admission remains unchanged. Independent correction review is pending.
+admission remains unchanged. Independent correction review was pending at
+the opening of this round.
+
+### Reviewed register and parent checkpoint; native closure continues
+
+Recognition attachment `deb54da3d8` selected Sol / Extra High. Outer IRA
+`0bbad996d6`, LRA arithmetic `fa34ed9658` and parent materialization
+`4438f8c92a` selected Astra / Extra High. The independent source review
+`9967a422b6` selected Astra / Extra High and accepted the first three inputs
+without material findings. Its 101 focused probes took 7.157224207 seconds;
+27-file Git/syntax/JSON/artifact checks took 0.215222406 seconds. An interrupted
+probe encountered a full host `/tmp` overlay; owned repository TMPDIR scratch
+allowed the affected probe to complete without deleting shared artifacts.
+
+The lead's joint [register adapter](../../docs/research/retained-literal-register-completion.md)
+`0b34651ded` adds 41 predicates to the accepted 367, binds both source arguments
+to actual source/configuration and adds the disjoint cold-probe row. It retains
+all 50 old owners and recomputes the current total/page guards, fixing #146.
+Hello is 47,058 events; the old 47,054 result is explicitly historical. The
+first integrated check passed 55 checks in 11.407329016 seconds over five
+actual sources and seven synthetic collector-boundary cases. A separate
+6.979032949-second evaluation retained the complete default evidence result.
+Draft field-schema/CLI mistakes were corrected before that integrated check;
+no later implementation rework was needed. No live lead model change is
+claimed; its runtime model/effort is not exposed by this session's tools.
+
+The [parent algorithm](../../docs/research/retained-literal-native-materialization.md)
+closes design-time input copying and process routing for twelve files/four
+jobs, with a 53,100-byte state payload and explicit ABI padding bound. It has
+no opaque Silver-owned materializer premise. Its author checks cover 44,768
+assertions, including 15,436 reduced copy states, in approximately 1.04 seconds.
+The future SPARK implementation and required native/Lean correspondence stay
+in #89, and no child capacity is inferred from the parent's bounded state.
+
+The separate [adapter/parent review](../reviews/review-native-register-parent-attachment-20261019.md),
+selected Astra / Extra High, accepts both conditional inputs without material
+findings. It adds 113 parent probes in 0.807220012 seconds and 39 register
+probes in 7.415583972 seconds. The latter include a new C7/N5 actual source,
+ten pure collector boundaries, false/null short-circuit checks and forced
+corrected-failure propagation into both current maps and summaries. Source
+review, implementation validation and independent adapter review are separate
+claims. No compiler, target execution, capture, GNATprove, solver, Lean, build,
+predecessor suite or broad corpus replay was used for this checkpoint.
+
+The complete native coverage audit also identified real remaining work:
+the 120-table Ada census contains auxiliary/static owners beyond the named
+22 core tables; the current three GCC driver command classes require their
+own counts and common initialization; the literal-output binder's nonparser
+names and invocation-graph backing were explicitly left open by its local
+parser packet. Astra / Extra High source lanes address those obligations.
+These findings are progress in coverage, not completed capacity claims.
+The lead will compose and independently review the complete native evaluator
+before ending #145 or updating the last reviewed estimate. No research stop
+or new Oracle/admission/toolchain direction is selected.
+
+Token/monetary measurements and runtime confirmation of selected subagent
+settings remain unavailable. Measured checks are not total team cost. The
+observed benefit is accepted source closure, one corrected owner omission and
+an explicit smaller residual list; it is not a causal model-quality comparison.
+
+The integration check matched all 45 newly frozen files to their original
+Git bytes, parsed 12 Python and 21 JSON files, checked 342 packet/index links
+and matched the adapter's 28 current/Git input pins in 0.560509104 seconds.
+The first link-check attempt mistook a fenced Python call for a Markdown
+link; excluding code fences repaired the checker without changing a candidate.
+Whitespace checks passed. Review freeze `f71b1937bc` is integrated as
+`1b01f24e12`; #146 is repaired and independently accepted, pending the research
+PR's merge. #145 and #119 remain open and In progress.

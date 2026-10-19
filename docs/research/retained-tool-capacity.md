@@ -7,6 +7,23 @@ Complete the selected literal-output native graph and its input/materialization
 boundary, then review the combined result. The last reviewed estimate remains
 approximately 75%; update it only after actual closure. Required producer/Why3,
 current-grammar and whole-rule obligations remain on #119.
+
+The reviewed [register completion](retained-literal-register-completion.md)
+now attaches recognition, the remaining outer IRA interfaces and LRA arithmetic
+to actual source. Its current 408-condition result corrects [#146](https://github.com/berkeleynerd/silver/issues/146)
+with one disjoint four-event row: 51 GGC owners, 47,058 events for Hello, and
+recomputed collector page/index thresholds. The older 50-row completeness claim
+is superseded. The reviewed [parent design](retained-literal-native-materialization.md)
+also supplies bounded copying, fixed-input timestamps, direct argument/environment
+routing and four sequential jobs; its production SPARK/proof implementation
+remains #89. The [source review](../reviews/review-native-register-source-completion-20261019.md)
+and [adapter/parent review](../reviews/review-native-register-parent-attachment-20261019.md)
+are distinct evidence. #145 remains in progress: the coverage audit identifies
+Ada auxiliary-table/local-heap owners, current GCC driver/collect2 storage and
+the output-family binder name/graph closure, followed by the complete native
+conjunction and its independent review. None is silently discharged by an older
+component's passing guards. No revised completion estimate is claimed here.
+
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 in [decision #117](https://github.com/berkeleynerd/silver/issues/117).
