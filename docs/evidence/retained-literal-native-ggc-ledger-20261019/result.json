@@ -1,0 +1,663 @@
+{
+  "scope": "Selected literal Main positive GGC owner partition and collector indexed storage",
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-mem-ssa-attachment/samples/hello_world.adb",
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "launch": {
+    "native_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "datarep_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "phase1_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "phase2_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "native_options": [
+      "-gnatx",
+      "-Wno-free-nonheap-object",
+      "-fsplit-wide-types"
+    ],
+    "producer_options": [
+      "-Wno-free-nonheap-object"
+    ],
+    "library_source_directory": "/home/canto/src/github.com/berkeleynerd/silver/src"
+  },
+  "complete_path_bound": 512,
+  "same_source_path_and_owner_join_verified": true,
+  "new_transfer": {
+    "counts": {
+      "C": 1,
+      "N": 0,
+      "K0": 101,
+      "K": 104,
+      "B": 10,
+      "E_CFG": 9,
+      "R0": 80
+    },
+    "rows": [
+      {
+        "owner": "expansion_CALL_EXPR_trees",
+        "positive_GGC_requests_upper": 1,
+        "each_raw_request_bytes_upper": 56,
+        "each_rounded_request_bytes_upper": 64,
+        "authority": "cfgexpand.cc:3131; shared-query rooted hits"
+      },
+      {
+        "owner": "second_LRA_unshare_nonchain",
+        "positive_GGC_requests_upper": 680,
+        "each_raw_request_bytes_upper": 24,
+        "each_rounded_request_bytes_upper": 32,
+        "authority": "lra.cc:2688; emit-rtl.cc:3250-3355"
+      },
+      {
+        "owner": "second_LRA_unshare_blockage_rtvec",
+        "positive_GGC_requests_upper": 1,
+        "each_raw_request_bytes_upper": 16,
+        "each_rounded_request_bytes_upper": 16,
+        "authority": "emit-rtl.cc:3339-3340"
+      },
+      {
+        "owner": "alias_pointer_vectors",
+        "positive_GGC_requests_upper": 2,
+        "each_raw_request_bytes_upper": 840,
+        "each_rounded_request_bytes_upper": 1024,
+        "authority": "accepted literal backing alias_direct_helpers"
+      },
+      {
+        "owner": "reload_equivalence_vectors",
+        "positive_GGC_requests_upper": 2,
+        "each_raw_request_bytes_upper": 16384,
+        "each_rounded_request_bytes_upper": 16384,
+        "authority": "reload1.cc:644-657; two additional-slot reserves"
+      },
+      {
+        "owner": "LRA_elimination_REGs",
+        "positive_GGC_requests_upper": 8,
+        "each_raw_request_bytes_upper": 24,
+        "each_rounded_request_bytes_upper": 32,
+        "authority": "accepted elimination-register constructor source"
+      },
+      {
+        "owner": "IRA_root_loop_setups",
+        "positive_GGC_requests_upper": 10,
+        "each_raw_request_bytes_upper": 1024,
+        "each_rounded_request_bytes_upper": 1024,
+        "authority": "two root-only loop setups and optional exit hash"
+      },
+      {
+        "owner": "LRA_unused_pseudo",
+        "positive_GGC_requests_upper": 1,
+        "each_raw_request_bytes_upper": 24,
+        "each_rounded_request_bytes_upper": 32,
+        "authority": "lra.cc:2420-2439"
+      },
+      {
+        "owner": "frame_patterns_notes_sequences_hashes",
+        "positive_GGC_requests_upper": 19,
+        "each_raw_request_bytes_upper": 248,
+        "each_rounded_request_bytes_upper": 256,
+        "authority": "accepted frame 7+3+5+4 owners"
+      },
+      {
+        "owner": "RTL_new_CFG_blocks",
+        "positive_GGC_requests_upper": 6,
+        "each_raw_request_bytes_upper": 96,
+        "each_rounded_request_bytes_upper": 128,
+        "authority": "two expansion blocks and N+4 layout-edge splits"
+      },
+      {
+        "owner": "RTL_new_CFG_edges",
+        "positive_GGC_requests_upper": 6,
+        "each_raw_request_bytes_upper": 48,
+        "each_rounded_request_bytes_upper": 64,
+        "authority": "same selected block/edge routes"
+      },
+      {
+        "owner": "RTL_block_information",
+        "positive_GGC_requests_upper": 10,
+        "each_raw_request_bytes_upper": 24,
+        "each_rounded_request_bytes_upper": 32,
+        "authority": "incoming and newly created blocks"
+      },
+      {
+        "owner": "RTL_block_map_growth",
+        "positive_GGC_requests_upper": 6,
+        "each_raw_request_bytes_upper": 256,
+        "each_rounded_request_bytes_upper": 256,
+        "authority": "monotone map; one growth per new block"
+      },
+      {
+        "owner": "RTL_edge_vector_growth",
+        "positive_GGC_requests_upper": 54,
+        "each_raw_request_bytes_upper": 256,
+        "each_rounded_request_bytes_upper": 256,
+        "authority": "transferred monotone histories, cold overallowance of additional events"
+      },
+      {
+        "owner": "variable_expansion_cold_sequence",
+        "positive_GGC_requests_upper": 1,
+        "each_raw_request_bytes_upper": 24,
+        "each_rounded_request_bytes_upper": 32,
+        "authority": "cfgexpand.cc:7091-7099"
+      },
+      {
+        "owner": "CFI_nonchain_and_backings",
+        "positive_GGC_requests_upper": 39,
+        "each_raw_request_bytes_upper": 256,
+        "each_rounded_request_bytes_upper": 256,
+        "authority": "2N+10 rows/vectors and 19 fixed events"
+      },
+      {
+        "owner": "late_cgraph_RTL_info",
+        "positive_GGC_requests_upper": 1,
+        "each_raw_request_bytes_upper": 24,
+        "each_rounded_request_bytes_upper": 32,
+        "authority": "final.cc:4521-4528; cgraph.cc:2408-2427"
+      },
+      {
+        "owner": "final_sections_and_text_ranges",
+        "positive_GGC_requests_upper": 5,
+        "each_raw_request_bytes_upper": 256,
+        "each_rounded_request_bytes_upper": 256,
+        "authority": "two sections, two strings, one range vector"
+      }
+    ],
+    "new_owner_events_upper": 852,
+    "reload_equivalence": {
+      "record_bytes": 56,
+      "first_capacity_upper": 146,
+      "first_bytes_upper": 8192,
+      "second_extra_slots_upper": 104,
+      "second_desired_length_upper": 208,
+      "second_pre_round_slots_upper": 219,
+      "second_capacity_upper": 292,
+      "second_bytes_upper": 16384
+    },
+    "edge_vectors": {
+      "histories_upper": 18,
+      "allocations_per_history_upper": 3,
+      "lifetime_degree_upper": 9,
+      "each_request_bytes_upper": 256,
+      "incoming_backings_receive_cold_credit": true,
+      "owner_interval": "additional RTL requests"
+    },
+    "hard_register_usage": {
+      "element_type": "int",
+      "block_frequency_upper": 1000,
+      "pseudo_frequency_upper": 2000,
+      "instruction_register_records_upper": 10,
+      "per_hard_register_sum_upper": 10000,
+      "selected_reassignment_updates": 0,
+      "point_frequency_element_type": "int",
+      "point_frequency_accumulation": false
+    },
+    "local_representation_checks": {
+      "reload_first_normalized_capacity": true,
+      "reload_second_normalized_capacity": true,
+      "reload_growth_unsigned": true,
+      "reload_individual_request": true,
+      "CFG_signed_extent": true,
+      "CFG_vector_growth_unsigned": true,
+      "CFG_vector_normalized_capacity": true,
+      "CFG_individual_requests": true,
+      "second_unshare_individual_requests": true,
+      "LRA_signed_hard_register_frequency": true
+    },
+    "fits": true
+  },
+  "owner_rows": [
+    {
+      "owner": "fixed_prefix",
+      "positive_GGC_requests_upper": 39257,
+      "each_raw_request_bytes_upper": 65536,
+      "each_rounded_request_bytes_upper": 65536,
+      "authority": "retained fixed-prefix source projection and witness"
+    },
+    {
+      "owner": "filename_ingress",
+      "positive_GGC_requests_upper": 3180,
+      "each_raw_request_bytes_upper": 513,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "selected_current_source_bound_shared_storage.filename_ingress"
+    },
+    {
+      "owner": "ordinary_line_map_array",
+      "positive_GGC_requests_upper": 3,
+      "each_raw_request_bytes_upper": 131072,
+      "each_rounded_request_bytes_upper": 131072,
+      "authority": "ordinary-map owner extended by accepted complete location/query lifetime"
+    },
+    {
+      "owner": "GNAT_node_association_arrays",
+      "positive_GGC_requests_upper": 2,
+      "each_raw_request_bytes_upper": 330352,
+      "each_rounded_request_bytes_upper": 524288,
+      "authority": "selected_native_frontend_storage.components.gigi_array_and_name_input"
+    },
+    {
+      "owner": "original_Main",
+      "positive_GGC_requests_upper": 1061,
+      "each_raw_request_bytes_upper": 2040,
+      "each_rounded_request_bytes_upper": 2048,
+      "authority": "original Main rows plus fixed-context I, excluding Main struct_function"
+    },
+    {
+      "owner": "original_String",
+      "positive_GGC_requests_upper": 216,
+      "each_raw_request_bytes_upper": 2048,
+      "each_rounded_request_bytes_upper": 2048,
+      "authority": "accepted fixed String216 direct requests"
+    },
+    {
+      "owner": "original_size_helper_construction",
+      "positive_GGC_requests_upper": 94,
+      "each_raw_request_bytes_upper": 576,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "accepted helper94 direct requests"
+    },
+    {
+      "owner": "synthetic_nonMain_structures_and_gimplification",
+      "positive_GGC_requests_upper": 173,
+      "each_raw_request_bytes_upper": 1024,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "accepted synthetic173; three nonMain function structures"
+    },
+    {
+      "owner": "original_shared_backings",
+      "positive_GGC_requests_upper": 768,
+      "each_raw_request_bytes_upper": 8388608,
+      "each_rounded_request_bytes_upper": 8388608,
+      "authority": "actual-source corrected original shared requests; already inside original subtotal"
+    },
+    {
+      "owner": "Main_struct_function",
+      "positive_GGC_requests_upper": 5,
+      "each_raw_request_bytes_upper": 320,
+      "each_rounded_request_bytes_upper": 512,
+      "authority": "function208, EH48, two EH vectors40, machine320"
+    },
+    {
+      "owner": "Main_gimplifier_trees_and_tuples",
+      "positive_GGC_requests_upper": 56,
+      "each_raw_request_bytes_upper": 312,
+      "each_rounded_request_bytes_upper": 512,
+      "authority": "exhausted existing whole-body + corrected direct + 8C helpers"
+    },
+    {
+      "owner": "original_and_initial_warning_backing",
+      "positive_GGC_requests_upper": 11,
+      "each_raw_request_bytes_upper": 262096,
+      "each_rounded_request_bytes_upper": 262144,
+      "authority": "conditional_map_transfer"
+    },
+    {
+      "owner": "later_locations_and_warning_backing",
+      "positive_GGC_requests_upper": 13,
+      "each_raw_request_bytes_upper": 262096,
+      "each_rounded_request_bytes_upper": 262144,
+      "authority": "complete location lifetime; original warning owner excluded"
+    },
+    {
+      "owner": "pool_varpool_and_shared_backings",
+      "positive_GGC_requests_upper": 12,
+      "each_raw_request_bytes_upper": 1048568,
+      "each_rounded_request_bytes_upper": 1048576,
+      "authority": "native_pool_lifetime"
+    },
+    {
+      "owner": "graph_symbols_and_summaries",
+      "positive_GGC_requests_upper": 43,
+      "each_raw_request_bytes_upper": 1016,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "native_graph_lifetime"
+    },
+    {
+      "owner": "initial_SSA_complete_lifetime",
+      "positive_GGC_requests_upper": 17,
+      "each_raw_request_bytes_upper": 16384,
+      "each_rounded_request_bytes_upper": 16384,
+      "authority": "native_initial_SSA_lifetime"
+    },
+    {
+      "owner": "initial_CF_CFG",
+      "positive_GGC_requests_upper": 24,
+      "each_raw_request_bytes_upper": 1024,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "native_initial_CF_CFG_lifetime"
+    },
+    {
+      "owner": "first_RTL_setup",
+      "positive_GGC_requests_upper": 437,
+      "each_raw_request_bytes_upper": 1048568,
+      "each_rounded_request_bytes_upper": 1048576,
+      "authority": "fixed175 + cold constants120 + sequences10 + dummy11 + CONST_INT backing121"
+    },
+    {
+      "owner": "Main_RTL_initialization",
+      "positive_GGC_requests_upper": 4,
+      "each_raw_request_bytes_upper": 1584,
+      "each_rounded_request_bytes_upper": 2048,
+      "authority": "initial pointer vector, constant pool, hash control/backing"
+    },
+    {
+      "owner": "operation_nonchain_RTX_through_first_unshare",
+      "positive_GGC_requests_upper": 121,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "40C+1+R0; first cfgexpand unshare retained"
+    },
+    {
+      "owner": "whole_final_instruction_chain",
+      "positive_GGC_requests_upper": 52,
+      "each_raw_request_bytes_upper": 72,
+      "each_rounded_request_bytes_upper": 128,
+      "authority": "replaces expansion I0; includes frame/CFI/merge chain"
+    },
+    {
+      "owner": "operation_rtvecs_through_first_unshare",
+      "positive_GGC_requests_upper": 4,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "2C transient ABI vectors plus initial/first blockage"
+    },
+    {
+      "owner": "operation_reg_attrs",
+      "positive_GGC_requests_upper": 1,
+      "each_raw_request_bytes_upper": 16,
+      "each_rounded_request_bytes_upper": 16,
+      "authority": "descriptor reg_attrs; shared cache separate"
+    },
+    {
+      "owner": "operation_mem_attrs",
+      "positive_GGC_requests_upper": 5,
+      "each_raw_request_bytes_upper": 40,
+      "each_rounded_request_bytes_upper": 64,
+      "authority": "accepted complete MEM setter lifetime"
+    },
+    {
+      "owner": "operation_sequence_stacks",
+      "positive_GGC_requests_upper": 8,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "cold-per-scope lifetime allowance"
+    },
+    {
+      "owner": "direct_constant_pool_objects",
+      "positive_GGC_requests_upper": 10,
+      "each_raw_request_bytes_upper": 312,
+      "each_rounded_request_bytes_upper": 512,
+      "authority": "direct pool10C; graph/pool backings separate"
+    },
+    {
+      "owner": "empty_temporary_slot_vector",
+      "positive_GGC_requests_upper": 2,
+      "each_raw_request_bytes_upper": 32,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "depth1, no stack payload"
+    },
+    {
+      "owner": "whole_Main_register_pointer_growth",
+      "positive_GGC_requests_upper": 0,
+      "each_raw_request_bytes_upper": 1584,
+      "each_rounded_request_bytes_upper": 2048,
+      "authority": "q(K) replaces q(K0), initial vector separate"
+    },
+    {
+      "owner": "wide_split_REG_rtvec_attrs",
+      "positive_GGC_requests_upper": 5,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "2C REG + C two-element rtvec + 2C attrs"
+    },
+    {
+      "owner": "DF_LRA_register_note_construction",
+      "positive_GGC_requests_upper": 600,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "accepted backing note owner; second copies separate"
+    },
+    {
+      "owner": "RTL_CONST_INT_and_reg_attrs_backings",
+      "positive_GGC_requests_upper": 4,
+      "each_raw_request_bytes_upper": 1048568,
+      "each_rounded_request_bytes_upper": 1048576,
+      "authority": "complete post-setup cache lifetime; fixed121 stays in first_RTL_setup"
+    },
+    {
+      "owner": "completed_alias_graph_and_later_backings",
+      "positive_GGC_requests_upper": 14,
+      "each_raw_request_bytes_upper": 8388608,
+      "each_rounded_request_bytes_upper": 8388608,
+      "authority": "new direct8 + later shared6; original4 backings not repeated"
+    },
+    {
+      "owner": "expansion_CALL_EXPR_trees",
+      "positive_GGC_requests_upper": 1,
+      "each_raw_request_bytes_upper": 56,
+      "each_rounded_request_bytes_upper": 64,
+      "authority": "cfgexpand.cc:3131; shared-query rooted hits"
+    },
+    {
+      "owner": "second_LRA_unshare_nonchain",
+      "positive_GGC_requests_upper": 680,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "lra.cc:2688; emit-rtl.cc:3250-3355"
+    },
+    {
+      "owner": "second_LRA_unshare_blockage_rtvec",
+      "positive_GGC_requests_upper": 1,
+      "each_raw_request_bytes_upper": 16,
+      "each_rounded_request_bytes_upper": 16,
+      "authority": "emit-rtl.cc:3339-3340"
+    },
+    {
+      "owner": "alias_pointer_vectors",
+      "positive_GGC_requests_upper": 2,
+      "each_raw_request_bytes_upper": 840,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "accepted literal backing alias_direct_helpers"
+    },
+    {
+      "owner": "reload_equivalence_vectors",
+      "positive_GGC_requests_upper": 2,
+      "each_raw_request_bytes_upper": 16384,
+      "each_rounded_request_bytes_upper": 16384,
+      "authority": "reload1.cc:644-657; two additional-slot reserves"
+    },
+    {
+      "owner": "LRA_elimination_REGs",
+      "positive_GGC_requests_upper": 8,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "accepted elimination-register constructor source"
+    },
+    {
+      "owner": "IRA_root_loop_setups",
+      "positive_GGC_requests_upper": 10,
+      "each_raw_request_bytes_upper": 1024,
+      "each_rounded_request_bytes_upper": 1024,
+      "authority": "two root-only loop setups and optional exit hash"
+    },
+    {
+      "owner": "LRA_unused_pseudo",
+      "positive_GGC_requests_upper": 1,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "lra.cc:2420-2439"
+    },
+    {
+      "owner": "frame_patterns_notes_sequences_hashes",
+      "positive_GGC_requests_upper": 19,
+      "each_raw_request_bytes_upper": 248,
+      "each_rounded_request_bytes_upper": 256,
+      "authority": "accepted frame 7+3+5+4 owners"
+    },
+    {
+      "owner": "RTL_new_CFG_blocks",
+      "positive_GGC_requests_upper": 6,
+      "each_raw_request_bytes_upper": 96,
+      "each_rounded_request_bytes_upper": 128,
+      "authority": "two expansion blocks and N+4 layout-edge splits"
+    },
+    {
+      "owner": "RTL_new_CFG_edges",
+      "positive_GGC_requests_upper": 6,
+      "each_raw_request_bytes_upper": 48,
+      "each_rounded_request_bytes_upper": 64,
+      "authority": "same selected block/edge routes"
+    },
+    {
+      "owner": "RTL_block_information",
+      "positive_GGC_requests_upper": 10,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "incoming and newly created blocks"
+    },
+    {
+      "owner": "RTL_block_map_growth",
+      "positive_GGC_requests_upper": 6,
+      "each_raw_request_bytes_upper": 256,
+      "each_rounded_request_bytes_upper": 256,
+      "authority": "monotone map; one growth per new block"
+    },
+    {
+      "owner": "RTL_edge_vector_growth",
+      "positive_GGC_requests_upper": 54,
+      "each_raw_request_bytes_upper": 256,
+      "each_rounded_request_bytes_upper": 256,
+      "authority": "transferred monotone histories, cold overallowance of additional events"
+    },
+    {
+      "owner": "variable_expansion_cold_sequence",
+      "positive_GGC_requests_upper": 1,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "cfgexpand.cc:7091-7099"
+    },
+    {
+      "owner": "CFI_nonchain_and_backings",
+      "positive_GGC_requests_upper": 39,
+      "each_raw_request_bytes_upper": 256,
+      "each_rounded_request_bytes_upper": 256,
+      "authority": "2N+10 rows/vectors and 19 fixed events"
+    },
+    {
+      "owner": "late_cgraph_RTL_info",
+      "positive_GGC_requests_upper": 1,
+      "each_raw_request_bytes_upper": 24,
+      "each_rounded_request_bytes_upper": 32,
+      "authority": "final.cc:4521-4528; cgraph.cc:2408-2427"
+    },
+    {
+      "owner": "final_sections_and_text_ranges",
+      "positive_GGC_requests_upper": 5,
+      "each_raw_request_bytes_upper": 256,
+      "each_rounded_request_bytes_upper": 256,
+      "authority": "two sections, two strings, one range vector"
+    }
+  ],
+  "total_positive_GGC_events_upper": 47054,
+  "selected_GGC_event_partition_closed": true,
+  "gimplifier_exhaustion": {
+    "existing_event_sum": 56,
+    "new_events": 0,
+    "initial_SSA_warnings_and_pool_owners_remain_separate": true
+  },
+  "ownership": {
+    "fixed_prefix_retained": 39257,
+    "filename_ingress_separate": 3180,
+    "association_arrays_separate": 2,
+    "original_subtotal": 2312,
+    "original_subtotal_added_as_an_extra_row": false,
+    "historical_null_totals_added": false,
+    "expansion_chain_replaced_by_whole_final_chain": true,
+    "expansion_register_growth_replaced_by_whole_Main_growth": true,
+    "scalar_finalizer_history_recomputed_from_event_total": false
+  },
+  "collector": {
+    "active_pages_upper": 47054,
+    "each_pointer_vector_capacity_upper": 65536,
+    "each_pointer_vector_request_bytes_upper": 524288,
+    "unused_quire_pages_in_active_count": false,
+    "maximum_page_entry_request_bytes": 128,
+    "maximum_bitmap_with_sentry_bytes": 72,
+    "maximum_objects_per_page": 512,
+    "maximum_free_count_or_hint": 513,
+    "quire_request_bytes": 2097152,
+    "page_table_chain_bytes": 2064,
+    "secondary_lookup_bytes": 32768,
+    "scalar_finalizer_history_upper": 39275,
+    "scalar_finalizer_capacity_upper": 58911,
+    "scalar_finalizer_backing_bytes_upper": 942584,
+    "array_finalizer_registrations": 0,
+    "context_depth": 0,
+    "depth_backing_bytes": 40,
+    "each_outer_finalizer_backing_bytes": 40,
+    "old_context_bitmap_backups": 0,
+    "callback_GGC_events": 0,
+    "marker_ordinary_request_bytes_each": 104,
+    "actual_collection_count": null,
+    "scheduling_counters_require_cumulative_byte_no_wrap": false,
+    "individual_caller_arithmetic_remains_required": true
+  },
+  "local_representation_checks": {
+    "reload_first_normalized_capacity": true,
+    "reload_second_normalized_capacity": true,
+    "reload_growth_unsigned": true,
+    "reload_individual_request": true,
+    "CFG_signed_extent": true,
+    "CFG_vector_growth_unsigned": true,
+    "CFG_vector_normalized_capacity": true,
+    "CFG_individual_requests": true,
+    "second_unshare_individual_requests": true,
+    "LRA_signed_hard_register_frequency": true,
+    "individual_GGC_order_region": true,
+    "active_page_signed_index": true,
+    "active_page_unsigned_capacity": true,
+    "each_active_page_pointer_backing": true,
+    "association_individual_caller_product": true,
+    "source_bound_inherited_guards": true
+  },
+  "conditional_selected_GGC_and_collector_storage_capacity": true,
+  "zero_added_GGC_families": [
+    "later SSA",
+    "collector callbacks",
+    "finalizer vectors",
+    "shared bitmap/pools",
+    "ordinary IRA/DF/LRA/CFI helpers"
+  ],
+  "remaining_ordinary_owners": [
+    "IRA allocno/object/preference/cost-class and traversal/emit storage",
+    "remaining LRA helper arrays/maps",
+    "RTL CFG/jump/label temporary containers",
+    "CFI trace/hash/vector capacities"
+  ],
+  "complete_all_ordinary_native_capacity": false,
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_invocation_established": false,
+  "production_admission_changed": false,
+  "aggregate_RAM_gate": false,
+  "source_argument_is_handwritten": true,
+  "independent_review_status": "pending",
+  "verified_input_files": {
+    "gcc": 46,
+    "repository": 29
+  },
+  "native_tool_executions": 0,
+  "predecessor_evaluator_or_checker_executions": 0,
+  "aggregate_executions": 0,
+  "corpus_replays": 0
+}

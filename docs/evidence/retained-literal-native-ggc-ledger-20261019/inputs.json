@@ -1,0 +1,457 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "base": "4697bfcaa1",
+  "accepted_batch_review": "d22953155f84b5ad875a74bbf6e565c9ae37c7cc",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-expr.cc",
+      "bytes": 29310,
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/tree-iterator.cc",
+      "bytes": 9984,
+      "sha256": "812e0464468f94dc5f0aaf62cf4ac5a000c741c0df43c4ba91ea9968512d5d93"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/gimple-low.cc",
+      "bytes": 45880,
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/fold-const.cc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "bytes": 29811,
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reload1.cc",
+      "bytes": 298163,
+      "sha256": "70119e331816e0fb14ac59bef93bf689bb02d69bc982401b6d2aebc60eae6bab"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reload.h",
+      "bytes": 17655,
+      "sha256": "51c5ce8c302a52e39226133b108d086f4a12984a5832317bb32bbf3152e2567e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-costs.cc",
+      "bytes": 88610,
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-lives.cc",
+      "bytes": 56331,
+      "sha256": "427b2f4c5219e2c05a406972848daa02484a3cc87657c305aad13440b9244edf"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-emit.cc",
+      "bytes": 41804,
+      "sha256": "66b08bc37fb42cafc7df53eb99b794bfbbce07c58fb108fa6dd44b7a5c6a1163"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/regs.h",
+      "bytes": 12632,
+      "sha256": "21a9e28558966cf4b1b31b7aa8c9d7b357e83865a7eb72376fc50fec64e46826"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/profile-count.cc",
+      "bytes": 15997,
+      "sha256": "15852368210288e9b70ccc0e931ed23db0a525778063d97a26c80c3154df3de6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/profile-count.h",
+      "bytes": 41935,
+      "sha256": "0d638dc150f8da15c97a155c3d333fb77576c80ee8baa4ee3d1fb8e3e51248ec"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfghooks.cc",
+      "bytes": 45042,
+      "sha256": "cc9020e0a6cf256aa1b02b8d8d05977b82212e1266e0acc36cce47f6424f4c32"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgcleanup.cc",
+      "bytes": 96782,
+      "sha256": "bc8a425854ca62c0db4cfba05249d44bbd85d54624d483cfb5f9ac19ccd69eb4"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgrtl.cc",
+      "bytes": 154498,
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/basic-block.h",
+      "bytes": 18376,
+      "sha256": "85841b8d8c11e9ccd2c80d67531747d658e8346fa1a113996e2cfe78c70d74a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2out.cc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraph.cc",
+      "bytes": 143751,
+      "sha256": "bdd4e6ef057410409b339ac09a97c1b9c207b7f99ac25c26dea10ee37f7c2d76"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-common.cc",
+      "bytes": 40096,
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "root": "repository",
+      "path": "samples/hello_world.adb",
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-mem-ssa-attachment.md",
+      "bytes": 10031,
+      "sha256": "70e988f356254b42cfe90919562aed70af93646ce0fa69c52fd743b87fb00f04"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-finalizer-lifetime.md",
+      "bytes": 8206,
+      "sha256": "69df4de7f6c23994bbef39219307276338121c90c441d935fcc25f004bdff623"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-bitmap-pools.md",
+      "bytes": 20006,
+      "sha256": "b37297072221c7fb6267bedff2e4bb2af91b196746b4a4ca427f96aae39bab44"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-query-lifetime.md",
+      "bytes": 24499,
+      "sha256": "7c36a41128812f863533e51d71b1cbfc16eb2c9daa38ced5e8e0d12541c4b9c7"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-collector-callbacks.md",
+      "bytes": 8346,
+      "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-original-main-storage.md",
+      "bytes": 19802,
+      "sha256": "5485d9230dda1ac3960c9d412977f7d7029d712e584389cb26ddc503f56e32d9"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-original-shared-storage.md",
+      "bytes": 21040,
+      "sha256": "bac51ab37640bff6e6d94db3460ceb0305d40c969208681b62e1f7d1fee2179d"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-ingress-bound.md",
+      "bytes": 23155,
+      "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 163754,
+      "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-backend-gigi.md",
+      "bytes": 187178,
+      "sha256": "da9cdf3ddb6e2d6e02e2c173fe437a7cd70039e76adbb9d349e258fbd25644de"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-output-rtl.md",
+      "bytes": 21155,
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md",
+      "bytes": 16586,
+      "sha256": "5775ed97dcc5b7a4deff2c1d89b09ad725f585fef6b561f07c06c75cf687b143"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/result.json",
+      "bytes": 711235,
+      "sha256": "ceca4b28ebcf95a4bda47f074305a69f320c40b86a1039249e44034ea62e2a73"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-finalizer-lifetime-20261019/result.json",
+      "bytes": 4181,
+      "sha256": "adbbd2396a0039490eb09a7bc23823de9b46d7e59d31bca58d87febe0573f653"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/result.json",
+      "bytes": 11499,
+      "sha256": "13c62435277133d9b8b31b60d06416bc56d9ecfc6cf216eaebc930f588e89a56"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py",
+      "bytes": 14174,
+      "sha256": "6cb79df71b928240343179ee561df879cb35a48aa57ab2cba09a911bf09375bb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-ggc-storage.json",
+      "bytes": 1970,
+      "sha256": "c2dc0988c57bb2cd3ee3f7ef8da937e9bf938584c43dc6e9de39e32b58ed6a62"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/ggc-storage-source-identity.json",
+      "bytes": 2087,
+      "sha256": "4bb979a89989b56e9f56a7b59a224a9ba78eff9cd8d93c1d7679b3371026cf68"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-constructors.json",
+      "bytes": 3114,
+      "sha256": "48567140c26cfed75283a7d373e1a2a9f371caab4b5cbfde2ab39f216b7e362b"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-helpers.json",
+      "bytes": 3931,
+      "sha256": "4f14da90924a8286366af4559f75d1d701f2f0fa659c5b950d7bf628abce000c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-cfi-storage.json",
+      "bytes": 2476,
+      "sha256": "bd6a1d6b6624b6a2f67ff94dd9a07374bee4ca91d9c1410d17501554e88ddfc4"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-emission.json",
+      "bytes": 3313,
+      "sha256": "57b84659c62d25507db7af09e972717ba6ed9026e71bab6305dc9e8486e2f4e5"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+      "bytes": 3891,
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-real-function-start.json",
+      "bytes": 1862,
+      "sha256": "76475972486a00aa98f84f1cb8fcf8f1e920ee0b015825018f24aa63c28f8126"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-schedule-inventory.json",
+      "bytes": 21487,
+      "sha256": "feaa625dd8698a4e49890393f169a4e4ccb14df4a9227adb5b5d62ce05a9361d"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-pass-framework.json",
+      "bytes": 1421,
+      "sha256": "f4f4daaa2392f7febda07ad898e2d728030f8a9f14063213be16c60712873c17"
+    }
+  ]
+}
