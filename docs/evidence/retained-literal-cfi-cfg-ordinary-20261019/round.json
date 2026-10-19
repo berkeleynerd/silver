@@ -1,0 +1,66 @@
+{
+  "issue": 119,
+  "scope": "Named ordinary CFI trace/hash/vector, expansion label/head-end/maps, jump counts and generic CFG traversal/dominance scratch",
+  "authorization": "Owner resumed #119 on 2026-10-19; decision 620807834c; parent assigned this bounded successor",
+  "base_commit": "ba82867962510165780367e28528e8b8eef9dbfb",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "round_start_UTC": "2026-10-19T11:20:54+00:00",
+  "pre_freeze_checkpoint_UTC": "2026-10-19T11:36:15.147101+00:00",
+  "clock_checkpoint_interval_seconds": 921.147101,
+  "clock_interval_is_measured_whole_task_duration": false,
+  "checker_started_UTC": "2026-10-19T11:32:17.833286+00:00",
+  "checker_finished_UTC": "2026-10-19T11:32:17.910907+00:00",
+  "checker_wall_seconds": 0.07760772301116958,
+  "actual_host": {
+    "system": "Linux",
+    "release": "7.0.14",
+    "machine": "x86_64"
+  },
+  "intended_outcome": "Close named source-sized ordinary temporary representations while retaining accepted GGC, bitmap, ET and emission owners",
+  "achieved_result": {
+    "local_guards": 42,
+    "focused_checks": 148,
+    "count_cases": 22,
+    "trace_lengths": 2048,
+    "trace_growth_boundaries": 12,
+    "hash_prime_boundary_cases": 58,
+    "input_verification": {
+      "source_files": 33,
+      "repository_files": 23,
+      "source_excerpts": 26
+    },
+    "new_GGC_events": 0,
+    "new_finalizer_registrations": 0,
+    "new_shared_bitmap_or_ET_blocks": 0,
+    "independent_review": "pending"
+  },
+  "material_findings": [
+    "CFI index is constructed after trace-vector growth; no stale vector pointers in the hash",
+    "Head/end reserve is made after initial-block construction and released before exit-block construction",
+    "IRA entry repeats delete_trivially_dead_insns; selected splitting adds no counted register occurrence and DF death/unused notes are ignored",
+    "Hash probing needs unsigned index-addition guard; conservative too_empty_p unsigned multiplication is checked separately",
+    "loops_list uses sixteen inline integer slots; reserving one root does not allocate heap backing"
+  ],
+  "rework": "No failed checker attempt or retry; inline loop-iterator behavior corrected while composing the first candidate",
+  "validation_reused": "Accepted source/layout/interface evidence and successful predecessor checks; no predecessor Context/evaluator or suite rerun",
+  "native_tool_executions": 0,
+  "build_or_solver_executions": 0,
+  "aggregate_or_corpus_executions": 0,
+  "pending_native_GGC_ledger_consumed": false,
+  "aggregate_RAM_gate": false,
+  "remaining": [
+    "Independent parent review and integration",
+    "Separate IRA/LRA private arrays and allocation/cost-class pools",
+    "Remaining native ordinary/stack and complete collector composition",
+    "Separate selected parent materializer and producer/proof obligations",
+    "Production and whole-current-grammar capacity"
+  ],
+  "CLI_memory_updated": false,
+  "GitHub_updated": false,
+  "publication_owner": "parent"
+}

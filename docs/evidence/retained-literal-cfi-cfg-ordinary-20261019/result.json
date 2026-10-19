@@ -1,0 +1,377 @@
+{
+  "scope": "Named ordinary CFI/expansion/jump/CFG traversal and dominance containers",
+  "source_input": {
+    "output_calls": 1,
+    "null_statements": 0
+  },
+  "extents": {
+    "B": 10,
+    "expansion_block_slots": 6,
+    "T": 5,
+    "K0": 101,
+    "K": 104,
+    "R0": 80,
+    "M": 27,
+    "Uf": 53
+  },
+  "CFI": {
+    "trace_element_bytes": 144,
+    "trace_initial_capacity": 16,
+    "trace_length_upper": 5,
+    "trace_capacity_upper": 16,
+    "trace_each_backing_bytes_upper": 2312,
+    "index_created_after_last_vector_growth": true,
+    "worklist_length_upper": 1,
+    "worklist_capacity": 4,
+    "worklist_backing_bytes": 40,
+    "queued_saves_length_upper": 1,
+    "queued_saves_capacity": 4,
+    "queued_save_element_bytes": 24,
+    "queued_saves_backing_bytes": 104,
+    "regs_saved_in_regs_entries": 0,
+    "regs_saved_in_regs_backing_requests": 0,
+    "ordinary_label_requests_upper": 5,
+    "ordinary_label_bytes_each_including_NUL": 8,
+    "ordinary_label_stack_buffer_bytes": 20,
+    "FDE_label_requests_upper": 2,
+    "FDE_label_bytes_each_including_NUL_upper": 26,
+    "FDE_label_stack_buffer_bytes": 40
+  },
+  "hashes": [
+    {
+      "family": "CFI trace pointer index",
+      "initial_slot_request": 5,
+      "unique_entries_upper": 5,
+      "no_deletion_or_repeated_insertion_growth": true,
+      "prime_demand_upper": 10,
+      "slots_upper": 13,
+      "element_bytes": 8,
+      "wrapper_bytes": 48,
+      "each_backing_bytes_upper": 104,
+      "checks": {
+        "prime_exists": true,
+        "entry_count_and_too_empty_unsigned": true,
+        "load_products_size_t": true,
+        "probe_addition_unsigned": true,
+        "individual_request_span": true
+      },
+      "fits": true
+    },
+    {
+      "family": "expansion block-to-label map",
+      "initial_slot_request": 13,
+      "unique_entries_upper": 6,
+      "no_deletion_or_repeated_insertion_growth": true,
+      "prime_demand_upper": 13,
+      "slots_upper": 13,
+      "element_bytes": 16,
+      "wrapper_bytes": 48,
+      "each_backing_bytes_upper": 208,
+      "checks": {
+        "prime_exists": true,
+        "entry_count_and_too_empty_unsigned": true,
+        "load_products_size_t": true,
+        "probe_addition_unsigned": true,
+        "individual_request_span": true
+      },
+      "fits": true
+    },
+    {
+      "family": "empty stack-partition map",
+      "initial_slot_request": 13,
+      "unique_entries_upper": 0,
+      "no_deletion_or_repeated_insertion_growth": true,
+      "prime_demand_upper": 13,
+      "slots_upper": 13,
+      "element_bytes": 16,
+      "wrapper_bytes": 48,
+      "each_backing_bytes_upper": 208,
+      "checks": {
+        "prime_exists": true,
+        "entry_count_and_too_empty_unsigned": true,
+        "load_products_size_t": true,
+        "probe_addition_unsigned": true,
+        "individual_request_span": true
+      },
+      "fits": true
+    },
+    {
+      "family": "each empty CFG copy map",
+      "initial_slot_request": 10,
+      "unique_entries_upper": 0,
+      "no_deletion_or_repeated_insertion_growth": true,
+      "prime_demand_upper": 10,
+      "slots_upper": 13,
+      "element_bytes": 8,
+      "wrapper_bytes": 48,
+      "each_backing_bytes_upper": 104,
+      "checks": {
+        "prime_exists": true,
+        "entry_count_and_too_empty_unsigned": true,
+        "load_products_size_t": true,
+        "probe_addition_unsigned": true,
+        "individual_request_span": true
+      },
+      "fits": true
+    }
+  ],
+  "expansion": {
+    "head_end_slots_upper": 6,
+    "head_end_element_bytes": 16,
+    "head_end_backing_bytes_upper": 104,
+    "no_backing_growth_during_selected_body_expansion": true,
+    "released_before_exit_block_construction": true,
+    "maybe_local_decls_length_upper": 1,
+    "maybe_local_decls_capacity_upper": 4,
+    "maybe_local_decls_each_backing_bytes_upper": 40,
+    "selected_stack_variable_count": 0,
+    "stack_partition_arrays": 0,
+    "CFG_copy_maps": 3
+  },
+  "jump": {
+    "register_array_slots_upper": 104,
+    "register_array_element_bytes": 4,
+    "register_array_bytes_upper": 416,
+    "signed_usage_magnitude_upper": 81,
+    "deleted_instruction_count_upper": 27,
+    "count_array_reinitialized_per_invocation": true,
+    "DF_death_and_unused_notes_traversed": false,
+    "wide_split_adds_counted_REG_occurrences": false,
+    "no_debug_replacement_array": true,
+    "later_debug_set_vars_heap_requests": 0
+  },
+  "CFG": {
+    "unreachable_worklist_entries_upper": 10,
+    "unreachable_worklist_bytes_upper": 80,
+    "traversal_stack_length_upper": 11,
+    "traversal_inline_slots": 20,
+    "traversal_iterator_element_bytes": 16,
+    "traversal_heap_request_bytes_upper": 0,
+    "traversal_exact_reserve_and_quick_push": true,
+    "dense_bitmap_bytes_upper": 16,
+    "preorder_temporary_block_flag_bit": 15,
+    "loop_reverse_order_array_bytes_upper": 40,
+    "empty_loop_candidate_vector_capacity": 1,
+    "empty_loop_candidate_vector_bytes": 16,
+    "root_loop_iterator_length_upper": 1,
+    "root_loop_iterator_inline_capacity": 16,
+    "root_loop_iterator_heap_requests": 0
+  },
+  "dominance": {
+    "unsigned_arrays": 9,
+    "unsigned_array_bytes_each_upper": 40,
+    "order_array_bytes_upper": 44,
+    "pointer_map_bytes_upper": 80,
+    "iterator_stack_bytes_upper": 176,
+    "fast_DFS_endpoint_upper": 20,
+    "arithmetic_intermediate_upper": 40,
+    "ET_pool_backing_recharged": false
+  },
+  "local_representation_checks": {
+    "CFI_trace_ID_and_length_unsigned": true,
+    "CFI_vector_growth_intermediate_unsigned": true,
+    "CFI_vector_capacity_31_bits": true,
+    "CFI_vector_individual_span": true,
+    "expansion_block_index_signed": true,
+    "expansion_head_end_capacity_31_bits": true,
+    "expansion_head_end_individual_span": true,
+    "maybe_local_decls_growth_unsigned": true,
+    "maybe_local_decls_capacity_31_bits": true,
+    "maybe_local_decls_individual_span": true,
+    "jump_register_extent_signed": true,
+    "jump_register_array_individual_span": true,
+    "jump_signed_usage_counter_magnitude": true,
+    "jump_signed_deleted_instruction_count": true,
+    "CFG_block_and_stack_counters_signed": true,
+    "CFG_traversal_capacity_31_bits": true,
+    "CFG_traversal_individual_spans": true,
+    "CFG_dense_bitmap_rounding_unsigned": true,
+    "CFG_dense_bitmap_request_unsigned": true,
+    "dominance_signed_and_unsigned_intermediates": true,
+    "dominance_individual_spans": true,
+    "inherited_UID_hash_input_signed": true,
+    "CFI_trace_pointer_index_prime_exists": true,
+    "CFI_trace_pointer_index_entry_count_and_too_empty_unsigned": true,
+    "CFI_trace_pointer_index_load_products_size_t": true,
+    "CFI_trace_pointer_index_probe_addition_unsigned": true,
+    "CFI_trace_pointer_index_individual_request_span": true,
+    "expansion_block_to_label_map_prime_exists": true,
+    "expansion_block_to_label_map_entry_count_and_too_empty_unsigned": true,
+    "expansion_block_to_label_map_load_products_size_t": true,
+    "expansion_block_to_label_map_probe_addition_unsigned": true,
+    "expansion_block_to_label_map_individual_request_span": true,
+    "empty_stack_partition_map_prime_exists": true,
+    "empty_stack_partition_map_entry_count_and_too_empty_unsigned": true,
+    "empty_stack_partition_map_load_products_size_t": true,
+    "empty_stack_partition_map_probe_addition_unsigned": true,
+    "empty_stack_partition_map_individual_request_span": true,
+    "each_empty_CFG_copy_map_prime_exists": true,
+    "each_empty_CFG_copy_map_entry_count_and_too_empty_unsigned": true,
+    "each_empty_CFG_copy_map_load_products_size_t": true,
+    "each_empty_CFG_copy_map_probe_addition_unsigned": true,
+    "each_empty_CFG_copy_map_individual_request_span": true
+  },
+  "conditional_named_ordinary_container_capacity_established": true,
+  "failed_predicates": [],
+  "new_GGC_events": 0,
+  "new_scalar_registrations": 0,
+  "new_array_registrations": 0,
+  "new_shared_bitmap_or_ET_pool_blocks": 0,
+  "aggregate_ordinary_bytes": null,
+  "lifetime_ordinary_request_total": null,
+  "aggregate_RAM_gate": false,
+  "total_GGC_events": null,
+  "complete_all_ordinary_helper_lifetimes_closed": false,
+  "complete_native_capacity": false,
+  "complete_collector_lifetime_closed": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_admission_changed": false,
+  "source_reachability_argument_is_handwritten": true,
+  "independent_review_status": "pending",
+  "native_tool_executions": 0,
+  "predecessor_Context_or_evaluator_calls": 0,
+  "aggregate_or_corpus_executions": 0,
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-mem-ssa-attachment/samples/hello_world.adb",
+  "launch": {
+    "native_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "datarep_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "phase1_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "phase2_Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+    "native_options": [
+      "-gnatx",
+      "-Wno-free-nonheap-object",
+      "-fsplit-wide-types"
+    ],
+    "producer_options": [
+      "-Wno-free-nonheap-object"
+    ],
+    "library_source_directory": "/home/canto/src/github.com/berkeleynerd/silver/src"
+  },
+  "actual_shared_inputs": {
+    "configuration": {
+      "bytes": 327,
+      "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+    },
+    "System": {
+      "bytes": 7503,
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    },
+    "silver_io.ads": {
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    "silver_io.adb": {
+      "bytes": 3358,
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    "silver_output_libc.ads": {
+      "bytes": 1532,
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    }
+  },
+  "complete_path_bound": 512,
+  "same_source_accepted_owners_verified": true,
+  "retained_owners": {
+    "shared_bitmap_and_ET": {
+      "functions_with_CFG": 1,
+      "directions_upper": 2,
+      "live_nodes_combined_upper": 20,
+      "live_occurrences_combined_upper": 40,
+      "live_nodes_per_tree_upper": 10,
+      "fast_DFS_endpoint_per_direction_upper": 20,
+      "signed_relative_depth_intermediate_magnitude_upper": 80,
+      "old_parent_occurrence_released_before_reparent": true,
+      "empty_pools_released_and_counts_reset": true,
+      "ordinary_pools": [
+        {
+          "family": "shared dominance ET nodes",
+          "live_objects_upper": 20,
+          "object_bytes": 64,
+          "objects_per_block": 1023,
+          "retained_blocks_upper": 1,
+          "retained_slots_upper": 1023,
+          "allocated_and_free_count_upper": 1023,
+          "block_count_upper": 1,
+          "individual_block_request_bytes": 65536,
+          "retained_count_type": "size_t",
+          "lifetime_block_requests_upper": null,
+          "lifetime_block_count_required_for_counter_proof": false,
+          "fits": true,
+          "new_GGC_events": 0,
+          "new_scalar_registrations": 0,
+          "new_array_registrations": 0
+        },
+        {
+          "family": "shared dominance ET occurrences",
+          "live_objects_upper": 40,
+          "object_bytes": 48,
+          "objects_per_block": 1365,
+          "retained_blocks_upper": 1,
+          "retained_slots_upper": 1365,
+          "allocated_and_free_count_upper": 1365,
+          "block_count_upper": 1,
+          "individual_block_request_bytes": 65536,
+          "retained_count_type": "size_t",
+          "lifetime_block_requests_upper": null,
+          "lifetime_block_count_required_for_counter_proof": false,
+          "fits": true,
+          "new_GGC_events": 0,
+          "new_scalar_registrations": 0,
+          "new_array_registrations": 0
+        }
+      ],
+      "initial_CF_SSA_and_RTL_cold_block_owners_recharged": false,
+      "shared_incoming_and_retained_pool_state_closed": true
+    },
+    "initial_CF_CFG_GGC": 24,
+    "emission_labels": {
+      "fixed_prefix_positive_GGC_events_upper": 39257,
+      "ordinary_label_initial_value": 1,
+      "ordinary_label_next_at_prefix_exit_upper": 39258,
+      "target_cost_setup_ordinary_label_increments": 0,
+      "imported_and_non_Main_ordinary_label_increments": 0,
+      "Main_ordinary_label_increments_upper": 52,
+      "ordinary_label_next_at_exit_upper": 39310,
+      "Main_label_alignment_span_upper": 53,
+      "constant_label_initial_value": 0,
+      "constant_label_next_at_prefix_exit_upper": 39257,
+      "target_cost_setup_constant_label_increments": 0,
+      "additional_imported_constant_label_increments": 0,
+      "Main_tree_constant_label_increments_upper": 2,
+      "post_prefix_RTL_pool_static_space_partition_label_increments": 0,
+      "constant_label_next_at_exit_upper": 39259,
+      "final_scan_counter_initial_value": 0,
+      "final_scan_counter_at_exit_upper": 52,
+      "CFI_label_counter_initial_value": 0,
+      "CFI_label_counter_at_exit_upper": 5,
+      "CFI_label_signed_temporary_maximum": 4,
+      "Main_function_definition_number": 1,
+      "next_function_definition_number": 4
+    },
+    "CFI_rows_and_vectors": "existing separate GGC owner; no recharge",
+    "stack_variable_bitmap": "existing shared bitmap/pool owner; no recharge"
+  },
+  "inherited_guard_count": 178,
+  "input_verification": {
+    "source_files": 33,
+    "repository_files": 23,
+    "source_excerpts": 26
+  }
+}

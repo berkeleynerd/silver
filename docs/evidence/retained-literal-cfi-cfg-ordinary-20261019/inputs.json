@@ -1,0 +1,501 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "base_commit": "ba82867962510165780367e28528e8b8eef9dbfb",
+  "scope": "Complete byte pins for named CFI/CFG source arguments and accepted read-only owners; no pending GGC ledger",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2out.cc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dwarf2out.h",
+      "bytes": 19501,
+      "sha256": "091f3611f0bb63502ad0388662111572d17b76f79d7610aecf7e1221e762eb54"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.cc",
+      "bytes": 4564,
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-traits.h",
+      "bytes": 11226,
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgcleanup.cc",
+      "bytes": 96782,
+      "sha256": "bc8a425854ca62c0db4cfba05249d44bbd85d54624d483cfb5f9ac19ccd69eb4"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgrtl.cc",
+      "bytes": 154498,
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfganal.cc",
+      "bytes": 57472,
+      "sha256": "e2c13056e8fde97f6a9008baf73fa9ab6527e376996bd9a537f95c9c2150ad1e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfg.h",
+      "bytes": 6695,
+      "sha256": "2d6d9e1878b701a4e3410fb07ac65c293802cb35561f60b414c3e3ee085972be"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfg-flags.def",
+      "bytes": 6827,
+      "sha256": "ab90478982cac217df3adb896274ae8704951b91064c6fa4ebac626d8f2343e8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/basic-block.h",
+      "bytes": 18376,
+      "sha256": "85841b8d8c11e9ccd2c80d67531747d658e8346fa1a113996e2cfe78c70d74a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cse.cc",
+      "bytes": 240025,
+      "sha256": "23209573e8355647e0a3eb8c895e7e21ab23d220b0959b4cbda5cff8b2b49325"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/dominance.cc",
+      "bytes": 48171,
+      "sha256": "83ae712d69a2424e7d401a49024221a7fa950da2a7ce587b75a0b6b59d7ee930"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgloop.cc",
+      "bytes": 56182,
+      "sha256": "85733a1157f28b71ddda81e333da35776ae4562698deece8a2c8d4cede480ff3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgloop.h",
+      "bytes": 28358,
+      "sha256": "c3d43490b4a32e3ab1534fcc9da1fcdead1007db5ae54305315019e38a6e4b17"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/loop-init.cc",
+      "bytes": 16620,
+      "sha256": "475ea3527abbea9ca7582753bc9ebea01ecfd6bbae3c62cedc63af2dfe9ecb92"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.cc",
+      "bytes": 27107,
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.h",
+      "bytes": 10479,
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-output-rtl.md",
+      "bytes": 21155,
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-backend-gigi.md",
+      "bytes": 187178,
+      "sha256": "da9cdf3ddb6e2d6e02e2c173fe437a7cd70039e76adbb9d349e258fbd25644de"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 163754,
+      "sha256": "456dc45f6d78e1b39150e9a4b2c870ad482cc48c2c5748a52066056bde07becb"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-mem-counter-lifetime.md",
+      "bytes": 19205,
+      "sha256": "26d7c44f0bdd8233bca669668fa668a2b5530d2422a31dc9c199e858e95990e2"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-mem-ssa-attachment.md",
+      "bytes": 10031,
+      "sha256": "70e988f356254b42cfe90919562aed70af93646ce0fa69c52fd743b87fb00f04"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-shared-bitmap-pools.md",
+      "bytes": 20006,
+      "sha256": "b37297072221c7fb6267bedff2e4bb2af91b196746b4a4ca427f96aae39bab44"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/inputs.json",
+      "bytes": 6861,
+      "sha256": "dee83456a106970fa8456320a5d878327f15ab5fbf7d42799e94f8027728a108"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/result.json",
+      "bytes": 711235,
+      "sha256": "ceca4b28ebcf95a4bda47f074305a69f320c40b86a1039249e44034ea62e2a73"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-mem-ssa-attachment-20261019/check-results.json",
+      "bytes": 45019,
+      "sha256": "ef0ce1019380448809e242037248177ea38a3f8459bd0c2b9f61fa769dcff44e"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/inputs.json",
+      "bytes": 11203,
+      "sha256": "2a7852cacb1e4b75e386d2e73f0a5b3044f43eeb7455e6501a28b650af423c43"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/result.json",
+      "bytes": 11499,
+      "sha256": "13c62435277133d9b8b31b60d06416bc56d9ecfc6cf216eaebc930f588e89a56"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-shared-bitmap-pools-20261019/check-results.json",
+      "bytes": 3401,
+      "sha256": "60bc0a714203273898a88f57acdac5dfc667b7c80851c2e4a213d42b4d52a323"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/cfi-storage-source-identity.json",
+      "bytes": 2265,
+      "sha256": "0ec7c6bb2b29becbd11751b15ad73d294356f4f332f3c7ff157a6c7bb5a32e83"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-helpers-source-identity.json",
+      "bytes": 8283,
+      "sha256": "ce0518a2ea730aa2b2205de260486f206c2613165d427b2b9713860505783eef"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "bytes": 12725,
+      "sha256": "ec73bd4f5a2b0ad13491daef35019d2c0ef821edf09bebcc112d39da94415134"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-selected-headers.tar.gz",
+      "bytes": 305654,
+      "sha256": "fa8f79590eb9d667882db331eb8584753e0bfe267f2cbdc9e898637fbeaedb17"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-cfi-storage.json",
+      "bytes": 2476,
+      "sha256": "bd6a1d6b6624b6a2f67ff94dd9a07374bee4ca91d9c1410d17501554e88ddfc4"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-helpers.json",
+      "bytes": 3931,
+      "sha256": "4f14da90924a8286366af4559f75d1d701f2f0fa659c5b950d7bf628abce000c"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-emission.json",
+      "bytes": 3313,
+      "sha256": "57b84659c62d25507db7af09e972717ba6ed9026e71bab6305dc9e8486e2f4e5"
+    },
+    {
+      "root": "repository",
+      "path": "docs/reviews/review-literal-bitmap-finalizer-mem-ssa-e28fef05f2.md",
+      "bytes": 16586,
+      "sha256": "5775ed97dcc5b7a4deff2c1d89b09ad725f585fef6b561f07c06c75cf687b143"
+    },
+    {
+      "root": "repository",
+      "path": "samples/hello_world.adb",
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    }
+  ],
+  "excerpts": [
+    {
+      "name": "trace initial capacity",
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "text": "trace_info.create (16);"
+    },
+    {
+      "name": "trace index after growth",
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "text": "/* Create the trace index after we've finished building trace_info,"
+    },
+    {
+      "name": "trace worklist once",
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "text": "if (ti->beg_row == NULL)"
+    },
+    {
+      "name": "trace worklist release",
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "text": "trace_work_list.release ();"
+    },
+    {
+      "name": "CFI queued vector release",
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "text": "queued_reg_saves.release ();"
+    },
+    {
+      "name": "trace record layout",
+      "root": "gcc",
+      "path": "gcc/dwarf2cfi.cc",
+      "text": "poly_int64 beg_true_args_size, end_true_args_size;"
+    },
+    {
+      "name": "growth multiplication",
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "text": "alloc = (alloc * 3 / 2);"
+    },
+    {
+      "name": "inline constructor cutoff",
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "text": "if (s > N)"
+    },
+    {
+      "name": "hash pre-insert growth",
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "text": "if (insert == INSERT && m_size * 3 <= m_n_elements * 4)"
+    },
+    {
+      "name": "hash growth demand",
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "text": "nindex = hash_table_higher_prime_index (elts * 2);"
+    },
+    {
+      "name": "hash too-empty unsigned",
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "text": "return elts * 8 < m_size && m_size > 32;"
+    },
+    {
+      "name": "hash unsigned counters",
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "text": "unsigned int m_searches;"
+    },
+    {
+      "name": "hash unsigned probe",
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "text": "index += hash2;"
+    },
+    {
+      "name": "expansion initial head-end",
+      "root": "gcc",
+      "path": "gcc/cfgexpand.cc",
+      "text": "head_end_for_bb.create (last_basic_block_for_fn (fun));"
+    },
+    {
+      "name": "expansion map destruction",
+      "root": "gcc",
+      "path": "gcc/cfgexpand.cc",
+      "text": "delete lab_rtx_for_bb;"
+    },
+    {
+      "name": "CFG copy map key/value",
+      "root": "gcc",
+      "path": "gcc/cfg.cc",
+      "text": "typedef hash_map<int_hash<int, -1, -2>, int> copy_map_t;"
+    },
+    {
+      "name": "jump no-debug allocation",
+      "root": "gcc",
+      "path": "gcc/cse.cc",
+      "text": "counts = XCNEWVEC (int, nreg);"
+    },
+    {
+      "name": "jump signed count mutation",
+      "root": "gcc",
+      "path": "gcc/cse.cc",
+      "text": "counts[REGNO (x)] += incr;"
+    },
+    {
+      "name": "IRA entry dead scan",
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "text": "if (delete_trivially_dead_insns (get_insns (), max_reg_num ()))"
+    },
+    {
+      "name": "CFG unreachable scratch",
+      "root": "gcc",
+      "path": "gcc/cfganal.cc",
+      "text": "tos = worklist = XNEWVEC (basic_block, n_basic_blocks_for_fn (cfun));"
+    },
+    {
+      "name": "CFG inline traversal stack",
+      "root": "gcc",
+      "path": "gcc/cfganal.cc",
+      "text": "auto_vec<edge_iterator, 20> stack (n_basic_blocks_for_fn (cfun) + 1);"
+    },
+    {
+      "name": "dominance order last index",
+      "root": "gcc",
+      "path": "gcc/dominance.cc",
+      "text": "m_dfs_order = new_zero_array <TBB> (last_bb_index + 1);"
+    },
+    {
+      "name": "dominance DFS array",
+      "root": "gcc",
+      "path": "gcc/dominance.cc",
+      "text": "edge_iterator *stack = new edge_iterator[m_n_basic_blocks + 1];"
+    },
+    {
+      "name": "root-only loop iterator inline storage",
+      "root": "gcc",
+      "path": "gcc/cfgloop.h",
+      "text": "auto_vec<int, 16> to_visit;"
+    },
+    {
+      "name": "root-only candidate exact reserve",
+      "root": "gcc",
+      "path": "gcc/cfgloop.cc",
+      "text": "auto_vec<loop_p> larray (loops->larray->length ());"
+    },
+    {
+      "name": "sbitmap unsigned request",
+      "root": "gcc",
+      "path": "gcc/sbitmap.cc",
+      "text": "unsigned int bytes, size, amt;"
+    }
+  ]
+}

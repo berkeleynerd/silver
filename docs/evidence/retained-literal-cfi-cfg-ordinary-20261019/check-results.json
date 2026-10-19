@@ -1,0 +1,684 @@
+{
+  "scope": "New CFI/CFG source, arithmetic and frozen-Hello attachment checks",
+  "checks_passed": 148,
+  "check_names": [
+    "retained Hello source and counts",
+    "all local predicates are true booleans",
+    "Hello trace backing 2312",
+    "Hello ordinary trace hash upper 13",
+    "Hello expansion label-map upper 13",
+    "Hello head-end backing 104",
+    "Hello jump nreg backing 416",
+    "Hello signed use bound 81",
+    "Hello traversal inline no heap",
+    "loop iterator inline16 no heap",
+    "ET owner retained exactly",
+    "ordinary and GGC domains separate",
+    "no aggregate memory or lifetime total",
+    "no broad completion claim",
+    "arithmetic conjunction (1, 0)",
+    "arithmetic conjunction (1, 1)",
+    "arithmetic conjunction (1, 4)",
+    "arithmetic conjunction (1, 5)",
+    "arithmetic conjunction (1, 10)",
+    "arithmetic conjunction (1, 11)",
+    "arithmetic conjunction (1, 12)",
+    "arithmetic conjunction (1, 19)",
+    "arithmetic conjunction (1, 20)",
+    "arithmetic conjunction (2, 0)",
+    "arithmetic conjunction (20, 31)",
+    "arithmetic conjunction (34, 64)",
+    "arithmetic conjunction (1000, 1000)",
+    "arithmetic conjunction (1000000, 1000000)",
+    "arithmetic conjunction (33554431, 0)",
+    "arithmetic conjunction (33554432, 0)",
+    "arithmetic conjunction (1, 429496724)",
+    "arithmetic conjunction (1, 429496725)",
+    "arithmetic conjunction (1, 268435450)",
+    "arithmetic conjunction (1, 268435451)",
+    "arithmetic conjunction (4294967295, 4294967295)",
+    "arithmetic conjunction (9223372036854775807, 9223372036854775807)",
+    "2048 trace lengths cover actual recurrence",
+    "trace bound at 16",
+    "trace bound at 17",
+    "trace bound at 24",
+    "trace bound at 25",
+    "CFG inline boundary N=4",
+    "CFG inline boundary N=5",
+    "hash prime demand 7",
+    "hash prime demand 8",
+    "hash prime demand 13",
+    "hash prime demand 14",
+    "hash prime demand 31",
+    "hash prime demand 32",
+    "hash prime demand 61",
+    "hash prime demand 62",
+    "hash prime demand 127",
+    "hash prime demand 128",
+    "hash prime demand 251",
+    "hash prime demand 252",
+    "hash prime demand 509",
+    "hash prime demand 510",
+    "hash prime demand 1021",
+    "hash prime demand 1022",
+    "hash prime demand 2039",
+    "hash prime demand 2040",
+    "hash prime demand 4093",
+    "hash prime demand 4094",
+    "hash prime demand 8191",
+    "hash prime demand 8192",
+    "hash prime demand 16381",
+    "hash prime demand 16382",
+    "hash prime demand 32749",
+    "hash prime demand 32750",
+    "hash prime demand 65521",
+    "hash prime demand 65522",
+    "hash prime demand 131071",
+    "hash prime demand 131072",
+    "hash prime demand 262139",
+    "hash prime demand 262140",
+    "hash prime demand 524287",
+    "hash prime demand 524288",
+    "hash prime demand 1048573",
+    "hash prime demand 1048574",
+    "hash prime demand 2097143",
+    "hash prime demand 2097144",
+    "hash prime demand 4194301",
+    "hash prime demand 4194302",
+    "hash prime demand 8388593",
+    "hash prime demand 8388594",
+    "hash prime demand 16777213",
+    "hash prime demand 16777214",
+    "hash prime demand 33554393",
+    "hash prime demand 33554394",
+    "hash prime demand 67108859",
+    "hash prime demand 67108860",
+    "hash prime demand 134217689",
+    "hash prime demand 134217690",
+    "hash prime demand 268435399",
+    "hash prime demand 268435400",
+    "hash prime demand 536870909",
+    "hash prime demand 536870910",
+    "hash prime demand 1073741789",
+    "hash prime demand 1073741790",
+    "hash prime demand 2147483647",
+    "hash prime demand 2147483648",
+    "prime table exhausted",
+    "largest usable probe prime",
+    "last table prime violates probe addition",
+    "hash missing prime fails safely",
+    "hash too-empty unsigned limit",
+    "hash too-empty unsigned next",
+    "insertion-only map growth 0",
+    "insertion-only map growth 1",
+    "insertion-only map growth 5",
+    "insertion-only map growth 6",
+    "insertion-only map growth 7",
+    "insertion-only map growth 9",
+    "insertion-only map growth 10",
+    "insertion-only map growth 11",
+    "insertion-only map growth 13",
+    "insertion-only map growth 16",
+    "insertion-only map growth 31",
+    "insertion-only map growth 100",
+    "insertion-only map growth 1000",
+    "jump signed usage boundary 33554431",
+    "jump signed usage boundary 33554432",
+    "jump signed ndead boundary 429496724",
+    "jump signed ndead boundary 429496725",
+    "individual request overlarge CFI_vector_individual_span",
+    "individual request overlarge expansion_head_end_individual_span",
+    "individual request overlarge maybe_local_decls_individual_span",
+    "individual request overlarge jump_register_array_individual_span",
+    "individual request overlarge CFG_traversal_individual_spans",
+    "individual request overlarge dominance_individual_spans",
+    "zero calls",
+    "boolean call count",
+    "negative null count",
+    "same counts different bytes",
+    "wrong source path",
+    "physical alphabet b'\\x00'",
+    "physical alphabet b'\\x0b'",
+    "physical alphabet b'\\x0c'",
+    "physical alphabet b'\\x80'",
+    "core complete counts",
+    "core shape owner",
+    "MEM chronology owner",
+    "CFI label owner",
+    "failed inherited guard",
+    "changed selected launch",
+    "ET ownership mutation",
+    "source pin mutation",
+    "source excerpt mutation"
+  ],
+  "count_cases": [
+    {
+      "C": 1,
+      "N": 0,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 1,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 4,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 5,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 10,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 11,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 12,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 19,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 20,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 2,
+      "N": 0,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 20,
+      "N": 31,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 34,
+      "N": 64,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1000,
+      "N": 1000,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1000000,
+      "N": 1000000,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 33554431,
+      "N": 0,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 33554432,
+      "N": 0,
+      "fits": false,
+      "failed": [
+        "jump_signed_usage_counter_magnitude"
+      ]
+    },
+    {
+      "C": 1,
+      "N": 429496724,
+      "fits": false,
+      "failed": [
+        "dominance_signed_and_unsigned_intermediates",
+        "inherited_UID_hash_input_signed"
+      ]
+    },
+    {
+      "C": 1,
+      "N": 429496725,
+      "fits": false,
+      "failed": [
+        "jump_signed_deleted_instruction_count",
+        "dominance_signed_and_unsigned_intermediates",
+        "inherited_UID_hash_input_signed"
+      ]
+    },
+    {
+      "C": 1,
+      "N": 268435450,
+      "fits": true,
+      "failed": []
+    },
+    {
+      "C": 1,
+      "N": 268435451,
+      "fits": false,
+      "failed": [
+        "dominance_signed_and_unsigned_intermediates"
+      ]
+    },
+    {
+      "C": 4294967295,
+      "N": 4294967295,
+      "fits": false,
+      "failed": [
+        "CFI_trace_ID_and_length_unsigned",
+        "CFI_vector_growth_intermediate_unsigned",
+        "CFI_vector_capacity_31_bits",
+        "expansion_block_index_signed",
+        "expansion_head_end_capacity_31_bits",
+        "maybe_local_decls_growth_unsigned",
+        "maybe_local_decls_capacity_31_bits",
+        "jump_register_extent_signed",
+        "jump_signed_usage_counter_magnitude",
+        "jump_signed_deleted_instruction_count",
+        "CFG_block_and_stack_counters_signed",
+        "CFG_traversal_capacity_31_bits",
+        "CFG_dense_bitmap_rounding_unsigned",
+        "dominance_signed_and_unsigned_intermediates",
+        "inherited_UID_hash_input_signed",
+        "CFI_trace_pointer_index_prime_exists",
+        "CFI_trace_pointer_index_entry_count_and_too_empty_unsigned",
+        "CFI_trace_pointer_index_load_products_size_t",
+        "CFI_trace_pointer_index_probe_addition_unsigned",
+        "CFI_trace_pointer_index_individual_request_span",
+        "expansion_block_to_label_map_prime_exists",
+        "expansion_block_to_label_map_entry_count_and_too_empty_unsigned",
+        "expansion_block_to_label_map_load_products_size_t",
+        "expansion_block_to_label_map_probe_addition_unsigned",
+        "expansion_block_to_label_map_individual_request_span"
+      ]
+    },
+    {
+      "C": 9223372036854775807,
+      "N": 9223372036854775807,
+      "fits": false,
+      "failed": [
+        "CFI_trace_ID_and_length_unsigned",
+        "CFI_vector_growth_intermediate_unsigned",
+        "CFI_vector_capacity_31_bits",
+        "CFI_vector_individual_span",
+        "expansion_block_index_signed",
+        "expansion_head_end_capacity_31_bits",
+        "expansion_head_end_individual_span",
+        "maybe_local_decls_growth_unsigned",
+        "maybe_local_decls_capacity_31_bits",
+        "maybe_local_decls_individual_span",
+        "jump_register_extent_signed",
+        "jump_register_array_individual_span",
+        "jump_signed_usage_counter_magnitude",
+        "jump_signed_deleted_instruction_count",
+        "CFG_block_and_stack_counters_signed",
+        "CFG_traversal_capacity_31_bits",
+        "CFG_traversal_individual_spans",
+        "CFG_dense_bitmap_rounding_unsigned",
+        "CFG_dense_bitmap_request_unsigned",
+        "dominance_signed_and_unsigned_intermediates",
+        "dominance_individual_spans",
+        "inherited_UID_hash_input_signed",
+        "CFI_trace_pointer_index_prime_exists",
+        "CFI_trace_pointer_index_entry_count_and_too_empty_unsigned",
+        "CFI_trace_pointer_index_load_products_size_t",
+        "CFI_trace_pointer_index_probe_addition_unsigned",
+        "CFI_trace_pointer_index_individual_request_span",
+        "expansion_block_to_label_map_prime_exists",
+        "expansion_block_to_label_map_entry_count_and_too_empty_unsigned",
+        "expansion_block_to_label_map_load_products_size_t",
+        "expansion_block_to_label_map_probe_addition_unsigned",
+        "expansion_block_to_label_map_individual_request_span"
+      ]
+    }
+  ],
+  "trace_lengths_checked": 2048,
+  "trace_growth_boundaries": [
+    {
+      "logical": 17,
+      "old": 16,
+      "actual": 24,
+      "upper": 24
+    },
+    {
+      "logical": 25,
+      "old": 24,
+      "actual": 36,
+      "upper": 36
+    },
+    {
+      "logical": 37,
+      "old": 36,
+      "actual": 54,
+      "upper": 54
+    },
+    {
+      "logical": 55,
+      "old": 54,
+      "actual": 81,
+      "upper": 81
+    },
+    {
+      "logical": 82,
+      "old": 81,
+      "actual": 121,
+      "upper": 121
+    },
+    {
+      "logical": 122,
+      "old": 121,
+      "actual": 181,
+      "upper": 181
+    },
+    {
+      "logical": 182,
+      "old": 181,
+      "actual": 271,
+      "upper": 271
+    },
+    {
+      "logical": 272,
+      "old": 271,
+      "actual": 406,
+      "upper": 406
+    },
+    {
+      "logical": 407,
+      "old": 406,
+      "actual": 609,
+      "upper": 609
+    },
+    {
+      "logical": 610,
+      "old": 609,
+      "actual": 913,
+      "upper": 913
+    },
+    {
+      "logical": 914,
+      "old": 913,
+      "actual": 1369,
+      "upper": 1369
+    },
+    {
+      "logical": 1370,
+      "old": 1369,
+      "actual": 2053,
+      "upper": 2053
+    }
+  ],
+  "hash_prime_boundary_cases": [
+    {
+      "demand": 7,
+      "prime": 7
+    },
+    {
+      "demand": 8,
+      "prime": 13
+    },
+    {
+      "demand": 13,
+      "prime": 13
+    },
+    {
+      "demand": 14,
+      "prime": 31
+    },
+    {
+      "demand": 31,
+      "prime": 31
+    },
+    {
+      "demand": 32,
+      "prime": 61
+    },
+    {
+      "demand": 61,
+      "prime": 61
+    },
+    {
+      "demand": 62,
+      "prime": 127
+    },
+    {
+      "demand": 127,
+      "prime": 127
+    },
+    {
+      "demand": 128,
+      "prime": 251
+    },
+    {
+      "demand": 251,
+      "prime": 251
+    },
+    {
+      "demand": 252,
+      "prime": 509
+    },
+    {
+      "demand": 509,
+      "prime": 509
+    },
+    {
+      "demand": 510,
+      "prime": 1021
+    },
+    {
+      "demand": 1021,
+      "prime": 1021
+    },
+    {
+      "demand": 1022,
+      "prime": 2039
+    },
+    {
+      "demand": 2039,
+      "prime": 2039
+    },
+    {
+      "demand": 2040,
+      "prime": 4093
+    },
+    {
+      "demand": 4093,
+      "prime": 4093
+    },
+    {
+      "demand": 4094,
+      "prime": 8191
+    },
+    {
+      "demand": 8191,
+      "prime": 8191
+    },
+    {
+      "demand": 8192,
+      "prime": 16381
+    },
+    {
+      "demand": 16381,
+      "prime": 16381
+    },
+    {
+      "demand": 16382,
+      "prime": 32749
+    },
+    {
+      "demand": 32749,
+      "prime": 32749
+    },
+    {
+      "demand": 32750,
+      "prime": 65521
+    },
+    {
+      "demand": 65521,
+      "prime": 65521
+    },
+    {
+      "demand": 65522,
+      "prime": 131071
+    },
+    {
+      "demand": 131071,
+      "prime": 131071
+    },
+    {
+      "demand": 131072,
+      "prime": 262139
+    },
+    {
+      "demand": 262139,
+      "prime": 262139
+    },
+    {
+      "demand": 262140,
+      "prime": 524287
+    },
+    {
+      "demand": 524287,
+      "prime": 524287
+    },
+    {
+      "demand": 524288,
+      "prime": 1048573
+    },
+    {
+      "demand": 1048573,
+      "prime": 1048573
+    },
+    {
+      "demand": 1048574,
+      "prime": 2097143
+    },
+    {
+      "demand": 2097143,
+      "prime": 2097143
+    },
+    {
+      "demand": 2097144,
+      "prime": 4194301
+    },
+    {
+      "demand": 4194301,
+      "prime": 4194301
+    },
+    {
+      "demand": 4194302,
+      "prime": 8388593
+    },
+    {
+      "demand": 8388593,
+      "prime": 8388593
+    },
+    {
+      "demand": 8388594,
+      "prime": 16777213
+    },
+    {
+      "demand": 16777213,
+      "prime": 16777213
+    },
+    {
+      "demand": 16777214,
+      "prime": 33554393
+    },
+    {
+      "demand": 33554393,
+      "prime": 33554393
+    },
+    {
+      "demand": 33554394,
+      "prime": 67108859
+    },
+    {
+      "demand": 67108859,
+      "prime": 67108859
+    },
+    {
+      "demand": 67108860,
+      "prime": 134217689
+    },
+    {
+      "demand": 134217689,
+      "prime": 134217689
+    },
+    {
+      "demand": 134217690,
+      "prime": 268435399
+    },
+    {
+      "demand": 268435399,
+      "prime": 268435399
+    },
+    {
+      "demand": 268435400,
+      "prime": 536870909
+    },
+    {
+      "demand": 536870909,
+      "prime": 536870909
+    },
+    {
+      "demand": 536870910,
+      "prime": 1073741789
+    },
+    {
+      "demand": 1073741789,
+      "prime": 1073741789
+    },
+    {
+      "demand": 1073741790,
+      "prime": 2147483647
+    },
+    {
+      "demand": 2147483647,
+      "prime": 2147483647
+    },
+    {
+      "demand": 2147483648,
+      "prime": 4294967291
+    }
+  ],
+  "input_verification": {
+    "source_files": 33,
+    "repository_files": 23,
+    "source_excerpts": 26
+  },
+  "started_UTC": "2026-10-19T11:32:17.833286+00:00",
+  "finished_UTC": "2026-10-19T11:32:17.910907+00:00",
+  "checker_wall_seconds": 0.07760772301116958,
+  "host": {
+    "system": "Linux",
+    "release": "7.0.14",
+    "machine": "x86_64"
+  },
+  "native_tool_executions": 0,
+  "predecessor_Context_or_evaluator_calls": 0,
+  "aggregate_or_corpus_executions": 0,
+  "independent_review_status": "pending"
+}
