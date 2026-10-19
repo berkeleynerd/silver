@@ -1,0 +1,175 @@
+{
+  "scope": "Actual-source367 recognition plus selected outer IRA and LRA arithmetic; four-event GGC correction #146",
+  "source_review_accepted": true,
+  "files": [
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/README.md",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 3680,
+      "sha256": "d71be7284b21131b18825f398a06436454d59289925bd51eb06dbf27b6c3deaa"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/check-results.json",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 40241,
+      "sha256": "0b1e4d53ab249ae0307716a53b4be2ca6a896f673e27a88a878e27081e7f2b9c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/check.py",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 18184,
+      "sha256": "5594febf2c0ef4738d1cfe98aac08bcdf818db1da13270fcaf0628aa19332c1d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/compose.py",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 14586,
+      "sha256": "9d671c2c1c6612ca31a8cc2230842fef1c4ef014c795fafc6a5ab09ac6ff754f"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/inputs.json",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 5965,
+      "sha256": "12abfadd7b2d075e81b67b2fe2d0c11aabeeacc5feaffe4fac9b31f85995aaac"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/result.json",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 1359850,
+      "sha256": "63e6b00397a41866d9f851877de7acd1798e839fe4726eda42a1de457eabba22"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-recognition-attachment-20261019/round.json",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 8318,
+      "sha256": "beeb705eb5fa741808b2834f4f7e9a9376850d8b1c4a14cd4208f85a5cd9e7bd"
+    },
+    {
+      "path": "docs/research/retained-literal-lra-recognition-attachment.md",
+      "revision": "deb54da3d8d523e23a8985b82c4213929a9b606a",
+      "bytes": 11846,
+      "sha256": "905913e39c0d8eb97ec5c7140fa35fa8c6323e7cda54f08dd72bc5207fffadad"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/README.md",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 2066,
+      "sha256": "3a452a86b00783875709a4393a372ab3f1fae54138b70b49fd857118cb5290fb"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/check-results.json",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 20929,
+      "sha256": "902904f13a5538064ec012bb4f70fa2f6a198399cfcfe7b846a05cb7ff9f5ac1"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/check.py",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 9045,
+      "sha256": "183c7b2b4f342ddac5e945a12bd85ce349974233344d7be1d57792068d2bfe3b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/derive.py",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 8627,
+      "sha256": "751f358701e52074d499f3bbe0c150d6c3487bba717a539f03ee6d4f71eb719d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/inputs.json",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 144115,
+      "sha256": "5e10fb782236c0adb44ebeefebf957c490452e547801096f10256745d6eba77b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/inspect-md.py",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 2764,
+      "sha256": "962087c4f1a568ee47a8545296fcee90d9d67a21d9e2ed5838d1e92996b9e6d6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/result.json",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 20062,
+      "sha256": "def55249767e9cc0a017d46736a719f9a4a2ee9097aa7fe5a3476c0744aaa994"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/round.json",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 3584,
+      "sha256": "1d5d9b2146b08c0738d36faf02e84750a710e47618531c86af0a24b745ed2c40"
+    },
+    {
+      "path": "docs/evidence/retained-literal-outer-ira-completion-20261019/target-patterns.json",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 29202,
+      "sha256": "421a74e1d51ab7313819d1f39ef21cbfa7f4d2ec98501a8c8a5888f9d13d0198"
+    },
+    {
+      "path": "docs/research/retained-literal-outer-ira-completion.md",
+      "revision": "0bbad996d67ef22dde9f3d26e559b7bdf93dfeab",
+      "bytes": 21366,
+      "sha256": "847ef39ec74b8f2b918407208c86ac07479e8d8183b91e16506f993e64286274"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/README.md",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 3810,
+      "sha256": "4030de75b06df9dd119b02f8d692b770e4a1d7507f7dfc242e9cd34b1fc60d9c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/check-results.json",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 7233,
+      "sha256": "96537727837e38f14afe480857adb7fa56eb77977176f1c4a80894ed5545ca76"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/check.py",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 9457,
+      "sha256": "31c3b56ee7c11175284e93023c1f2f4be4c505ee0ba31bafba8f73d2211c836c"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/derive.py",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 11333,
+      "sha256": "12c05e55f2c9b9f91fdccfcbf9e1187b828c68dfd7cf02dbdafe2cb3dfaa0cd4"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/inputs.json",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 269486,
+      "sha256": "43e262895be6cb28c9b39f3e95596e5ae050b7d1fc6a514f83fc6e934dfa5e9e"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/prepare_inputs.py",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 10264,
+      "sha256": "65f576e2ab942abbf6b5633db029357c4e86b450add36f95fb82dcf6b09a03c6"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/result.json",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 9543,
+      "sha256": "42bc88523b0f76c07d1104097316cd3e633be6b73ff750309d864eee5eb4e738"
+    },
+    {
+      "path": "docs/evidence/retained-literal-lra-arithmetic-completion-20261019/round.json",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 5649,
+      "sha256": "10b0acab31377e94253494965db05084e689cbfc7e6111dd84bd9c974bf0f558"
+    },
+    {
+      "path": "docs/research/retained-literal-lra-arithmetic-completion.md",
+      "revision": "fa34ed96587c4d73cea38181deb21e8d3466335e",
+      "bytes": 20500,
+      "sha256": "36ec7949d3edbd047b5e4ede13fb8ff52f0d6c4bd94e972bf05b5c652b14ea1d"
+    },
+    {
+      "path": "docs/reviews/review-native-register-source-completion-20261019.md",
+      "revision": "9967a422b62db99a2e759a962dc5fcce366e9285",
+      "bytes": 17702,
+      "sha256": "75fae5dbe8672faadfac9cfc19b339df7f16ba10af15a08a8d24904b474c4bf1"
+    }
+  ],
+  "accepted_source_review": "9967a422b62db99a2e759a962dc5fcce366e9285"
+}

@@ -1,0 +1,58 @@
+{
+  "scope": "Lead register attachment implementation and affected offline evidence",
+  "completed_UTC": "2026-10-19T14:32:18.548751+00:00",
+  "lead_model_and_effort": {
+    "live_setting_changed": false,
+    "runtime_confirmation_available": false,
+    "policy_baseline": "GPT-6 Astra / Extra High for lead; runtime selected setting not exposed"
+  },
+  "independent_source_review": {
+    "model_selected": "GPT-6 Astra",
+    "effort_selected": "Extra High",
+    "revision": "9967a422b62db99a2e759a962dc5fcce366e9285",
+    "runtime_confirmed": false
+  },
+  "intended_outcome": "Attach remaining selected register source arguments and correct all actual-source collector thresholds",
+  "result": "408 current predicates; 51 GGC owners; five actual-source cases and seven pure boundary cases; native total remains incomplete",
+  "focused_checks": 55,
+  "focused_check_seconds": 11.407329016001313,
+  "retained_default_result_seconds": 6.979032948991517,
+  "rework": "Before the first integrated check, corrected two draft field-schema assumptions and added explicit CLI descriptor/source/output options. First integrated checker passed without further changes.",
+  "native_tool_executions": 0,
+  "predecessor_suite_replays": 0,
+  "token_usage": null,
+  "monetary_cost": null,
+  "independent_attachment_review": "pending",
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 1860,
+      "sha256": "7828109cb2ea19ebdcd777cfd27a1fc1f4969b8f3dd493a5a0c5fc6d8cb43974"
+    },
+    {
+      "path": "check-results.json",
+      "bytes": 72580,
+      "sha256": "60141ae8322de6cc7b68d84df28fa8a174d7080fe48a834d6ae51b55ac31d1b5"
+    },
+    {
+      "path": "check.py",
+      "bytes": 9789,
+      "sha256": "4f06bd4d3620dd73ca6096bb5b8f7622dbaf586d6d5bd8ccd41fa5fbb3d6429e"
+    },
+    {
+      "path": "compose.py",
+      "bytes": 13988,
+      "sha256": "fb4ff3b0897154c3408bf13579cda46d489ca673150dbd02c7b46a1874116074"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 7842,
+      "sha256": "7dc31ffe367ee46d39cad4bdb5c23da650c4349706ec13a31bbebee272773c6b"
+    },
+    {
+      "path": "result.json",
+      "bytes": 1529499,
+      "sha256": "9c0971537e2f270af148db8bd830a5cb7780204885f2fc182101bcd53d0f365b"
+    }
+  ]
+}
