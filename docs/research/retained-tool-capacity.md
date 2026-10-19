@@ -1,9 +1,9 @@
 # Capacity contract for the retained tools
 
-**2026-10-19 — evening checkpoint; owner-requested pause, derivation unfinished.**
-The [pause decision](../session-memory.md#2026-10-19--evening-pause-of-capacity-goal-119)
-preserves completed results and requires an explicit resumption. The
-[round record](../evidence/retained-tool-rounds.md#round-19--reviewed-attachments-and-evening-pause)
+**2026-10-19 — resumed research; derivation unfinished.**
+The [resumption decision](../session-memory.md#2026-10-19--capacity-goal-119-resumed)
+continues from the preserved evening checkpoint. The
+[round record](../evidence/retained-tool-rounds.md#round-20--resumption-and-native-collector-composition)
 identifies accepted and review-pending work and the first resumption steps.
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
@@ -621,13 +621,49 @@ The 309 focused checks passed in 7.892607869s over four actual sources and
 twelve count cases; review found no material findings and reused that evidence.
 Frozen pending-review wording remains historical. Global totals remain null.
 
-At the evening pause, the native ledger candidate
-[`ca4ef8d20f`](https://github.com/berkeleynerd/silver/commit/ca4ef8d20f557307b1d1085b42d570fc5d224d77)
-is retained on its separate published branch, **review-pending and not integrated**.
-Its proposed allocation partition and collector transfer require independent
-review before use; ordinary helper capacities still remain. The next step is
-that exact frozen review after explicit owner resumption, as the round record
-specifies. No candidate total is promoted to accepted capacity here.
+The [native GGC ledger](retained-literal-native-ggc-ledger.md), frozen at
+`ca4ef8d20f` at the evening pause, is now [independently accepted](../reviews/review-literal-native-ggc-ledger-ca4ef8d20f.md)
+after resumption. Its 50 disjoint owner rows retain the fixed prefix, filename
+ingress and two source-sized association arrays, and close the Main gimplifier
+sum without recharging it. Rebuilt CALL_EXPR trees and the second post-LRA
+unshare have distinct owners. A signed `10000C <= INT_MAX` guard covers the
+separate hard-register frequency accumulation. The accepted Hello composition
+has **47,054 positive GGC requests**, a **65,536-entry** active-page-vector
+capacity and **524,288-byte** individual pointer backings. These are sufficient
+bounds, not measurements or an aggregate RAM gate. The collector transfer keeps
+unsigned scheduling counters distinct from correctness-relevant indices.
+Review found no material findings and reused the 84 focused checks. This
+acceptance covers the exact retained source/owner join; the actual-source
+attachment and named ordinary CFI/CFG closure follow below. Ordinary IRA/LRA
+capacities remain separate.
+It does not establish complete native or whole-pipeline capacity.
+
+The [actual-source GGC attachment](retained-literal-ggc-attachment.md), frozen
+at `a5cc012d14`, is [independently accepted](../reviews/review-literal-ggc-attachment-a5cc012d14.md).
+It retains all **219 inherited + 17 new = 236 predicates**, binds actual source,
+configured invocation and complete finalizer/ordinary owners, and checks those
+identities before arithmetic short-circuit. Any false prerequisite leaves the
+native ledger and its new guards explicitly uncomputed; computed native failures
+remain distinct. Neither state can pass the conjunction. All 50 event owners
+remain disjoint. Five actual-source cases include the retained Hello result
+and C=10/N=10 crossing to 131,072 pointer slots; 353 focused checks passed in
+10.327428269s. Review found no material findings. Indexed collector capacity
+is a conditional component; ordinary/native/proof/parent capacity remains open.
+
+The [ordinary CFI/CFG result](retained-literal-cfi-cfg-ordinary.md), frozen at
+`f21a344719`, is [independently accepted](../reviews/review-literal-cfi-cfg-ordinary-f21a344719.md)
+for the named trace/hash/vector, expansion label/head-end/map, dead-instruction
+count, traversal and forward-dominance containers. Its 42 local guards keep
+signed counts, vector growth, hash probes and individual requests distinct;
+existing GGC, finalizer, bitmap and ET-pool owners receive no additional charge.
+The review checks actual traversal allocations as well as lifetime ceilings:
+the selected entry has one successor and later destinations are marked before
+push, so pending entries fit the actual live-block allocation. The root-only
+loop list stays in its 16 inline integer slots. The frozen Hello attachment
+checks these source/owner interfaces; a general actual-source attachment remains
+separate. Author evidence comprises 148 focused checks in 0.077607723s.
+IRA/LRA ordinary arrays/pools, remaining native helper/stack state and the
+producer/proof/parent joins remain open.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -936,6 +972,22 @@ do not roll back every process/file effect. Runtime/finalizer aliases, other
 exception origins and receiving traps, later normal-ending state and exit
 output/catches remain open. Neither complete R nor exceptional charge is
 instantiated. Review reused successful evidence; no new native run was needed.
+
+The [save-preservation successor](retained-why-save-preservation.md), frozen
+at `3700c2adc7`, is [independently accepted](../reviews/review-why-save-preservation-3700c2adc7.md)
+for private Shape/printer/fold ownership and the classified OCaml pending
+clients. The accepted capability argument keeps OCaml finalizer registrations
+empty and Memprof never started; the retained single-worker yield and blocked
+serial SIGINT protocol preserve these objects. Four native collection
+timing-hook cells remain an explicit setter/alias/effect obligation. The narrow
+runtime/otherlibs source search has no installer, but does not cover all linked
+native clients; installed load bytes do not establish live null values.
+The ordinary ending saves before JSON output and may itself be interrupted
+by a SIGINT save. Its outer Buffer resumption and later forest remain open,
+alongside other exception/exit joins. No numeric R or exceptional identifier
+charge follows. The counter interface remains **63,573 + 2R**, conditional on
+completing R. Review found no material findings; the successful retained capture
+was reused without another native execution.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

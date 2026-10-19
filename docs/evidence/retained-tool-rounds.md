@@ -1561,3 +1561,127 @@ execution or successful predecessor replay occurred. The accepted Why source
 and report integrate as `23d1d26678` / `b2ff0ad0b0`; the pool/finalizer source
 and report integrate as `986e26db80` / `d454e61543`. The pause memory is on main
 at `36a5b7f729` and on this branch at `9455cc79f1`.
+
+## Round 20 — resumption and native collector composition
+
+Date: 2026-10-19; resumed at 11:18 UTC from published `ba82867962`.
+The owner instructed “Let's resume”; decision `620807834c` is on main and
+integrates as `4bf30670d8`. Issue #119 is In progress again. The harness still
+reports paused and the available controls have no resume transition; that
+separate status does not revoke the owner's direct authorization. Oracle,
+tools/pins, admission and the current-Silver-grammar objective are unchanged.
+Production #88–#94 remains authorized and unstarted pending the justified rule.
+No managed workers were reserved and no diagnostic was required at resumption.
+
+The preserved native ledger `ca4ef8d20f` is independently accepted by
+`f58ceffafe`, selected Astra / Extra High, without material findings. It
+integrates as `5b8d872ecc` / `05876640ff`. Review accepts the 50-row positive
+GGC partition and page/index transfer for the exact retained source/owner
+join. It checks distinct original/filename/association-array, gimplifier,
+rebuilt CALL_EXPR, first/second unshare, chain/register-growth and generic
+RTL/CFG/CFI owners. The signed hard-register frequency condition is retained.
+Hello has 47,054 events, 65,536 pointer slots and individual 524,288-byte
+backings; no whole-native or aggregate-RAM conclusion follows.
+
+Review reused the frozen 84 checks, 24 count cases and 17 boundaries. New
+independent checks matched 46 GCC/29 repository inputs, 178 inherited and
+16 local guards, source/path equality and row/rounding arithmetic in
+0.029697276s and 0.008780006s. The evidence checkpoint was
+11:19:39–11:24:32 UTC, 293s, excluding report preparation/commit. No native
+tool, capture, disassembly, predecessor Context/evaluator/checker, aggregate
+suite or corpus replay ran. The original source/packet preparation cost remains
+in the preceding round; acceptance does not count it again as new work.
+
+Parallel work is bounded: Sol / Extra High attaches this accepted ledger to
+the actual-source 219-guard evaluator, preserving upstream rejection and exact
+ownership/configuration; Astra / Extra High addresses the concrete Why
+runtime/finalizer/private-buffer preservation join; and Astra / Extra High
+bounds the named ordinary CFI/CFG temporary containers. Those source scopes
+are independent and do not substitute for the other remaining IRA/LRA,
+producer/consumer/current-grammar or useful-domain obligations. Selected
+settings are not runtime confirmation. Lead live setting and token/monetary
+measurements are unavailable; CLI memory is unavailable.
+
+The Why preservation successor `3700c2adc7`, selected Astra / Extra High,
+is independently accepted by `d81d5ec56e`, also selected Astra / Extra High,
+without material findings. Source and report integrate as `4f34692f29` /
+`d8e9c70e37`. Private Shape/printer/fold ownership and classified OCaml pending
+clients are established. The source-prefix capability argument excludes OCaml
+finalizer registrations and any Memprof start. Four native collection timing
+hooks remain an explicit ownership/effect join; the root's pre-freeze challenge
+prevented an overly broad foreign-mutation premise from concealing that gap.
+The ordinary ending saves before JSON and can be interrupted by one simultaneous
+signal save; outer Buffer resumption, the later forest and other exception/exit
+effects remain open. Complete R and exceptional identifier charge stay null;
+63,573 + 2R remains a conditional interface.
+
+Author source/evidence interval: 688s, including an initial source-path fix and
+the ownership clarification; final focused check 0.657778132s over 32 excerpts,
+18 members and 42 installed bytes. Review evidence interval: 169s; independent
+identity/source checks 0.613966280s over 11 inputs, 18 members, 32 excerpts,
+ten named hook-use lines, two code/two data records and 42 bytes. Neither
+interval includes unreported token or monetary measurements. No native capture,
+predecessor checker or broad validation was replayed. After integration, a
+bounded Astra / Extra High successor examines actual selected native setters
+and clients of the four hooks; repeating the runtime-name search alone cannot
+close the obligation.
+
+The named ordinary CFI/CFG source `f21a344719`, selected Astra / Extra High,
+is independently accepted by `4034d2d02a`, also selected Astra / Extra High,
+without material findings; integration commits are `e74e31bcf2` / `c2b4928bb2`.
+It adds 42 conditional representation guards for the named ordinary containers,
+with zero additional GGC/finalizer/bitmap/ET-pool charge. Review makes the
+actual unreachable-block work-list capacity argument explicit: the selected
+entry has a unique successor and later destinations are marked before push;
+the lifetime edge ceiling alone would not prove an arbitrary graph fits its
+actual live-block allocation. This is a selected-route claim. The frozen
+Hello join does not replace the general actual-source evaluator.
+
+Author evidence: 148 checks, 22 count-only cases, 2,048 trace lengths with
+12 growth boundaries and 58 hash-prime boundaries in 0.077607723s. The source
+checkpoint spans 921.147101s; the source-level inline-vector correction is
+retained. Independent review reused those checks and matched 33 GCC/23
+repository pins, 26 excerpts, 42 local/178 inherited guards and exact owner
+joins in 0.017920755s. Its 234s inspection interval includes a context handoff,
+not a native or predecessor replay. Separate IRA ordinary graph, object,
+preference/cost-class and traversal/emit storage is the next bounded Astra /
+Extra High source task; remaining LRA helper storage stays explicit if outside
+that packet. General attachments will be batched after source acceptance.
+
+The actual-source GGC attachment `a5cc012d14`, selected Sol / Extra High,
+is independently accepted by `971206a267`, selected Astra / Extra High,
+without material findings. Integration is `bde445e51d` / `b544da6ba5`.
+All 219 inherited plus 17 new predicates remain conjunctive. Actual bytes,
+configured invocation and complete ordinary/finalizer owners are checked before
+short-circuit; inherited failures leave all new ledger predicates null, while
+computed local failures remain boolean failures. This attaches the accepted
+positive-event partition and collector indexed storage without claiming complete
+ordinary/native/proof/parent capacity.
+
+The final affected author run passed 353 checks in 10.327428269s over five
+actual sources, all 219 upstream rejection cases and all 17 local/conjunction
+failure cases. Earlier affected development runs are retained in its packet;
+the added checks followed a real launch-correspondence strengthening and an
+actual pointer-capacity-boundary source. The first equal-count test expectation
+was corrected to exclude only `source_sha256` from numerical-count comparison.
+Independent review reused those successes and matched 18 current/historical
+pins, seven artifact identities, 46 GCC/29 repository inputs, 236 guards,
+nine preserved owners, 50 rows and five actual source identities in
+0.156193281s. Inspection interval: 111s, excluding report preparation/commit.
+No predecessor checker, native process, capture or broad validation replay ran.
+The next Sol / Extra High task batches actual-source ordinary-storage attachment
+after each source component is accepted; Astra / Extra High native-hook and
+IRA source arguments continue independently. Agent slots do not reserve native
+workers; the managed pool still has zero reservations and no required diagnostic.
+
+The focused integration check verifies **226 frozen files**, 118 JSON and
+38 Python syntax inputs, 198 packet links, 46 current selected-route pins,
+46 lifetime / 25 MEMSSA / 23 pool-finalizer / 29 native-ledger / 23 CFI
+repository pins, 11 Why-preservation inputs, 18 current/historical GGC-attachment
+pins, one historical prose document and 282 checkpoint links. It passed in
+**0.592536892s**; raw result is retained at shared-checkout
+`tmp/round20-integration.json`. This checks the integrated identities and links
+without replaying the accepted evaluators or native validation. The batch leaves
+#119 open and in progress. No complete rule, reviewed research stop or new
+production admission is claimed. The existing successful Why capture remains
+`20261019T000304-fcb988ec2c03`; no new native/prover/Lean/full-suite run occurred.
