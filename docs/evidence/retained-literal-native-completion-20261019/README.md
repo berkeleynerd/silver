@@ -1,7 +1,8 @@
 # Complete selected native composition
 
 See the [source argument](../../research/retained-literal-native-completion.md).
-The new aggregate is pending independent review. This is a research capacity
+The [independent review](../../reviews/review-literal-native-completion-20261019.md)
+accepts freeze `4f29a3bf85` with no material findings. This is a research capacity
 rule; production implementation/correspondence and the remaining #119 proof
 pipeline/current-grammar work are not complete.
 
@@ -33,7 +34,17 @@ The fresh graph comparison now permits exactly that scalar bound change and
 requires equality everywhere else. Binder's optional runtime pass-through was
 added to preserve the actual selected directory graph. No underlying capacity
 condition was weakened. The initial unsuccessful aggregate attempt and a
-documentation patch context mismatch ran no native tool.
+subsequent passing evaluation ran no native tool.
+
+Independent aggregate review `20de4a4367` (integrated `5e95cf8810`) added92
+checks in9.981868322 seconds and inspected source coverage and interface
+composition. The separate Ada/binder review `0d974e826d` (integrated
+`26411aa1a7`) accepts those components and the runtime pass-through repair;
+its1,031 independent assertions took2.042068046 seconds. The aggregate review
+explicitly excludes its author's binder component from self-review. Both
+reviews retain exact inputs and reuse successful evidence. All475 guards and
+12 stages pass for the independent C7/N4 source. No post-freeze implementation
+change or new native run was needed.
 
 Selected source/review worker setting: GPT-6 Astra / Extra High. Live lead
 model/effort, runtime confirmation of worker settings and token/monetary cost
