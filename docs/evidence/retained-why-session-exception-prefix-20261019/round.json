@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-19",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "preceding_formatter_commit_utc": "2026-10-19 00:58:19 UTC",
+  "report_checkpoint_utc": "2026-10-19 01:06:32 UTC",
+  "elapsed_seconds_between_phase_boundaries": 493,
+  "wall_scope": "Time between preceding formatter repair commit and exception report checkpoint, including source/native-file inspection and documentation. Not native execution time or whole-team cost.",
+  "host": "Linux 7.0.14 x86_64 GNU/Linux",
+  "objective": "Separate bounded exceptional-unwind/Exn_printer classification after frozen #142 repair, retaining concrete unresolved R.",
+  "authorization": "Parent instruction under continuing owner authorization; root owns review routing, integration, issues, memory, harness and publication.",
+  "frozen_formatter_input": "72096d190945da9e9697627b81e3631387574b8a",
+  "achieved": "All 55 lexical Why printer registrations inspected for named primitive exception family; wrapper/fallback dispatch mapped; linked Sexplib0 indirect converter and interrupted-handler continuation obligations isolated.",
+  "significant_findings": [
+    "Why anomaly and uncaught-handler failure routes both reach the separate Printexc registry.",
+    "Sexplib0 registers an ephemeron-table converter dispatcher; known default auto=false registrations do not by themselves close prefix replacement.",
+    "Save exceptions can be consumed by interrupted handlers, including local lookup fallbacks or Controller InternalFailure, so immediate fatality is not a valid general premise."
+  ],
+  "check_seconds": {
+    "first_generation": 1.0759812760006753,
+    "extended_alias_inventory_generation": 1.2073474520002492,
+    "final_pinned_check": 1.2073443560002488
+  },
+  "reason_for_updated_generation": "Added exact lexical exception-alias inventory after reviewing all Why registered printer snippets; no expensive or native check repeated.",
+  "native_bodies": 22,
+  "native_bytes": 5619,
+  "native_runs": 0,
+  "captures": 0,
+  "disassembler_runs": 0,
+  "solver_runs": 0,
+  "broad_tests": 0,
+  "cli_memory_updated": false,
+  "exceptional_identifier_charge": null,
+  "complete_R": null,
+  "remaining": "Reachable exception-family exhaustiveness, Sexplib converter registration prefix, and interrupted catch/continuation preservation. No observed failure or nonzero counterexample asserted."
+}

@@ -1,0 +1,6461 @@
+{
+  "existing_disassembly": {
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "identity": {
+      "bytes": 69046582,
+      "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+    }
+  },
+  "bodies": {
+    "camlWhy3__Exn_printer__register_466": {
+      "address": 5514880,
+      "symbol_size": 16,
+      "instructions": [
+        {
+          "address": 5514880,
+          "hex": "488d1da1ff5c00",
+          "text": "lea    0x5cffa1(%rip),%rbx        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5514887,
+          "hex": "488b5b10",
+          "text": "mov    0x10(%rbx),%rbx"
+        },
+        {
+          "address": 5514891,
+          "hex": "e9601a4200",
+          "text": "jmp    9640f0 <camlStdlib__Stack__push_280>"
+        }
+      ]
+    },
+    "camlWhy3__Exn_printer__anomaly_exn_printer_469": {
+      "address": 5514896,
+      "symbol_size": 76,
+      "instructions": [
+        {
+          "address": 5514896,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 5514900,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 5514904,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 5514907,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 5514910,
+          "hex": "7635",
+          "text": "jbe    5426d5 <camlWhy3__Exn_printer__anomaly_exn_printer_469+0x45>"
+        },
+        {
+          "address": 5514912,
+          "hex": "e8dbb54300",
+          "text": "call   97dc80 <camlStdlib__Printexc__to_string_447>"
+        },
+        {
+          "address": 5514917,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 5514922,
+          "hex": "488d05e7ff5c00",
+          "text": "lea    0x5cffe7(%rip),%rax        # b12698 <camlWhy3__Exn_printer__5>"
+        },
+        {
+          "address": 5514929,
+          "hex": "4889442408",
+          "text": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 5514934,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 5514938,
+          "hex": "e8c18b4400",
+          "text": "call   98b280 <camlStdlib__Format__fprintf_1781>"
+        },
+        {
+          "address": 5514943,
+          "hex": "4889c7",
+          "text": "mov    %rax,%rdi"
+        },
+        {
+          "address": 5514946,
+          "hex": "488b442408",
+          "text": "mov    0x8(%rsp),%rax"
+        },
+        {
+          "address": 5514951,
+          "hex": "488b5c2410",
+          "text": "mov    0x10(%rsp),%rbx"
+        },
+        {
+          "address": 5514956,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5514960,
+          "hex": "e90ba9feff",
+          "text": "jmp    52cfe0 <caml_apply2>"
+        },
+        {
+          "address": 5514965,
+          "hex": "e852174a00",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 5514970,
+          "hex": "ebc4",
+          "text": "jmp    5426a0 <camlWhy3__Exn_printer__anomaly_exn_printer_469+0x10>"
+        },
+        {
+          "address": 5514972,
+          "hex": "0f1f4000",
+          "text": "nopl   0x0(%rax)"
+        }
+      ]
+    },
+    "camlWhy3__Exn_printer__registered_exn_printer_693": {
+      "address": 5514976,
+      "symbol_size": 90,
+      "instructions": [
+        {
+          "address": 5514976,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 5514980,
+          "hex": "4983ef28",
+          "text": "sub    $0x28,%r15"
+        },
+        {
+          "address": 5514984,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 5514987,
+          "hex": "7246",
+          "text": "jb     542733 <camlWhy3__Exn_printer__registered_exn_printer_693+0x53>"
+        },
+        {
+          "address": 5514989,
+          "hex": "498d7f08",
+          "text": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 5514993,
+          "hex": "48c747f8f71000",
+          "text": "movq   $0x10f7,-0x8(%rdi)"
+        },
+        {
+          "address": 5515000,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5515001,
+          "hex": "488d3540000000",
+          "text": "lea    0x40(%rip),%rsi        # 542740 <camlWhy3__Exn_printer__test_697>"
+        },
+        {
+          "address": 5515008,
+          "hex": "488937",
+          "text": "mov    %rsi,(%rdi)"
+        },
+        {
+          "address": 5515011,
+          "hex": "48be0500000000",
+          "text": "movabs $0x100000000000005,%rsi"
+        },
+        {
+          "address": 5515018,
+          "hex": "000001",
+          "text": ""
+        },
+        {
+          "address": 5515021,
+          "hex": "48897708",
+          "text": "mov    %rsi,0x8(%rdi)"
+        },
+        {
+          "address": 5515025,
+          "hex": "48894710",
+          "text": "mov    %rax,0x10(%rdi)"
+        },
+        {
+          "address": 5515029,
+          "hex": "48895f18",
+          "text": "mov    %rbx,0x18(%rdi)"
+        },
+        {
+          "address": 5515033,
+          "hex": "488d0508ff5c00",
+          "text": "lea    0x5cff08(%rip),%rax        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515040,
+          "hex": "488b4010",
+          "text": "mov    0x10(%rax),%rax"
+        },
+        {
+          "address": 5515044,
+          "hex": "488b18",
+          "text": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 5515047,
+          "hex": "4889f8",
+          "text": "mov    %rdi,%rax"
+        },
+        {
+          "address": 5515050,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5515054,
+          "hex": "e9bd694000",
+          "text": "jmp    9490f0 <camlStdlib__List__iter_507>"
+        },
+        {
+          "address": 5515059,
+          "hex": "e8f4164a00",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 5515064,
+          "hex": "ebb3",
+          "text": "jmp    5426ed <camlWhy3__Exn_printer__registered_exn_printer_693+0xd>"
+        },
+        {
+          "address": 5515066,
+          "hex": "660f1f440000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        }
+      ]
+    },
+    "camlWhy3__Exn_printer__test_697": {
+      "address": 5515072,
+      "symbol_size": 154,
+      "instructions": [
+        {
+          "address": 5515072,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 5515076,
+          "hex": "4c8d1d5f000000",
+          "text": "lea    0x5f(%rip),%r11        # 5427aa <camlWhy3__Exn_printer__test_697+0x6a>"
+        },
+        {
+          "address": 5515083,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 5515085,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 5515089,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 5515093,
+          "hex": "488b7b18",
+          "text": "mov    0x18(%rbx),%rdi"
+        },
+        {
+          "address": 5515097,
+          "hex": "48897c2420",
+          "text": "mov    %rdi,0x20(%rsp)"
+        },
+        {
+          "address": 5515102,
+          "hex": "4889442418",
+          "text": "mov    %rax,0x18(%rsp)"
+        },
+        {
+          "address": 5515107,
+          "hex": "488d0576ff5c00",
+          "text": "lea    0x5cff76(%rip),%rax        # b126e0 <camlWhy3__Exn_printer__22>"
+        },
+        {
+          "address": 5515114,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 5515119,
+          "hex": "488b4310",
+          "text": "mov    0x10(%rbx),%rax"
+        },
+        {
+          "address": 5515123,
+          "hex": "e8088b4400",
+          "text": "call   98b280 <camlStdlib__Format__fprintf_1781>"
+        },
+        {
+          "address": 5515128,
+          "hex": "4889c6",
+          "text": "mov    %rax,%rsi"
+        },
+        {
+          "address": 5515131,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 5515136,
+          "hex": "488b5c2418",
+          "text": "mov    0x18(%rsp),%rbx"
+        },
+        {
+          "address": 5515141,
+          "hex": "488b7c2420",
+          "text": "mov    0x20(%rsp),%rdi"
+        },
+        {
+          "address": 5515146,
+          "hex": "e801a8feff",
+          "text": "call   52cf90 <caml_apply3>"
+        },
+        {
+          "address": 5515151,
+          "hex": "488d0592fe5c00",
+          "text": "lea    0x5cfe92(%rip),%rax        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515158,
+          "hex": "488b4020",
+          "text": "mov    0x20(%rax),%rax"
+        },
+        {
+          "address": 5515162,
+          "hex": "49c786f0000000",
+          "text": "movq   $0x0,0xf0(%r14)"
+        },
+        {
+          "address": 5515169,
+          "hex": "00000000",
+          "text": ""
+        },
+        {
+          "address": 5515173,
+          "hex": "e8ae184a00",
+          "text": "call   9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 5515178,
+          "hex": "488d1d77fe5c00",
+          "text": "lea    0x5cfe77(%rip),%rbx        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515185,
+          "hex": "488b5b20",
+          "text": "mov    0x20(%rbx),%rbx"
+        },
+        {
+          "address": 5515189,
+          "hex": "4839d8",
+          "text": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 5515192,
+          "hex": "7516",
+          "text": "jne    5427d0 <camlWhy3__Exn_printer__test_697+0x90>"
+        },
+        {
+          "address": 5515194,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 5515197,
+          "hex": "49c786f0000000",
+          "text": "movq   $0x0,0xf0(%r14)"
+        },
+        {
+          "address": 5515204,
+          "hex": "00000000",
+          "text": ""
+        },
+        {
+          "address": 5515208,
+          "hex": "e88b184a00",
+          "text": "call   9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 5515213,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 5515216,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 5515221,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5515225,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5515226,
+          "hex": "660f1f440000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        }
+      ]
+    },
+    "camlWhy3__Exn_printer__exn_printer_700": {
+      "address": 5515232,
+      "symbol_size": 101,
+      "instructions": [
+        {
+          "address": 5515232,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 5515236,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 5515240,
+          "hex": "48895c2408",
+          "text": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 5515245,
+          "hex": "4c8d1d28000000",
+          "text": "lea    0x28(%rip),%r11        # 54281c <camlWhy3__Exn_printer__exn_printer_700+0x3c>"
+        },
+        {
+          "address": 5515252,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 5515254,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 5515258,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 5515262,
+          "hex": "e8ddfeffff",
+          "text": "call   5426e0 <camlWhy3__Exn_printer__registered_exn_printer_693>"
+        },
+        {
+          "address": 5515267,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 5515272,
+          "hex": "488b5c2418",
+          "text": "mov    0x18(%rsp),%rbx"
+        },
+        {
+          "address": 5515277,
+          "hex": "e87efeffff",
+          "text": "call   542690 <camlWhy3__Exn_printer__anomaly_exn_printer_469>"
+        },
+        {
+          "address": 5515282,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 5515286,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5515290,
+          "hex": "eb24",
+          "text": "jmp    542840 <camlWhy3__Exn_printer__exn_printer_700+0x60>"
+        },
+        {
+          "address": 5515292,
+          "hex": "488d1d05fe5c00",
+          "text": "lea    0x5cfe05(%rip),%rbx        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515299,
+          "hex": "488b5b20",
+          "text": "mov    0x20(%rbx),%rbx"
+        },
+        {
+          "address": 5515303,
+          "hex": "4839d8",
+          "text": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 5515306,
+          "hex": "750c",
+          "text": "jne    542838 <camlWhy3__Exn_printer__exn_printer_700+0x58>"
+        },
+        {
+          "address": 5515308,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 5515313,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5515317,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5515318,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 5515320,
+          "hex": "e81b184a00",
+          "text": "call   9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 5515325,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 5515328,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5515332,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5515333,
+          "hex": "66662e0f1f8400",
+          "text": "data16 cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 5515340,
+          "hex": "00000000",
+          "text": ""
+        }
+      ]
+    },
+    "camlWhy3__Exn_printer__fun_815": {
+      "address": 5515344,
+      "symbol_size": 180,
+      "instructions": [
+        {
+          "address": 5515344,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 5515348,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 5515353,
+          "hex": "b815000000",
+          "text": "mov    $0x15,%eax"
+        },
+        {
+          "address": 5515358,
+          "hex": "e8bd3a4200",
+          "text": "call   966320 <camlStdlib__Buffer__create_272>"
+        },
+        {
+          "address": 5515363,
+          "hex": "4889442408",
+          "text": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 5515368,
+          "hex": "e803704400",
+          "text": "call   989870 <camlStdlib__Format__formatter_of_buffer_1161>"
+        },
+        {
+          "address": 5515373,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 5515377,
+          "hex": "4c8d1d24000000",
+          "text": "lea    0x24(%rip),%r11        # 54289c <camlWhy3__Exn_printer__fun_815+0x4c>"
+        },
+        {
+          "address": 5515384,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 5515386,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 5515390,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 5515394,
+          "hex": "488b5c2420",
+          "text": "mov    0x20(%rsp),%rbx"
+        },
+        {
+          "address": 5515399,
+          "hex": "e854feffff",
+          "text": "call   5426e0 <camlWhy3__Exn_printer__registered_exn_printer_693>"
+        },
+        {
+          "address": 5515404,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 5515409,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 5515413,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5515417,
+          "hex": "eb5d",
+          "text": "jmp    5428f8 <camlWhy3__Exn_printer__fun_815+0xa8>"
+        },
+        {
+          "address": 5515419,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 5515420,
+          "hex": "488d1d85fd5c00",
+          "text": "lea    0x5cfd85(%rip),%rbx        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515427,
+          "hex": "488b5b20",
+          "text": "mov    0x20(%rbx),%rbx"
+        },
+        {
+          "address": 5515431,
+          "hex": "4839d8",
+          "text": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 5515434,
+          "hex": "7544",
+          "text": "jne    5428f0 <camlWhy3__Exn_printer__fun_815+0xa0>"
+        },
+        {
+          "address": 5515436,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 5515441,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 5515445,
+          "hex": "e8e65b4400",
+          "text": "call   9884a0 <camlStdlib__Format__pp_print_flush_938>"
+        },
+        {
+          "address": 5515450,
+          "hex": "488b442408",
+          "text": "mov    0x8(%rsp),%rax"
+        },
+        {
+          "address": 5515455,
+          "hex": "488b7808",
+          "text": "mov    0x8(%rax),%rdi"
+        },
+        {
+          "address": 5515459,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 5515462,
+          "hex": "bb01000000",
+          "text": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 5515467,
+          "hex": "e880ad4000",
+          "text": "call   94d650 <camlStdlib__Bytes__sub_302>"
+        },
+        {
+          "address": 5515472,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 5515476,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 5515479,
+          "hex": "7224",
+          "text": "jb     5428fd <camlWhy3__Exn_printer__fun_815+0xad>"
+        },
+        {
+          "address": 5515481,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 5515485,
+          "hex": "48c743f8000400",
+          "text": "movq   $0x400,-0x8(%rbx)"
+        },
+        {
+          "address": 5515492,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5515493,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 5515496,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 5515499,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5515503,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5515504,
+          "hex": "e863174a00",
+          "text": "call   9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 5515509,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 5515512,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5515516,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 5515517,
+          "hex": "e82a154a00",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 5515522,
+          "hex": "ebd5",
+          "text": "jmp    5428d9 <camlWhy3__Exn_printer__fun_815+0x89>"
+        },
+        {
+          "address": 5515524,
+          "hex": "66662e0f1f8400",
+          "text": "data16 cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 5515531,
+          "hex": "00000000",
+          "text": ""
+        },
+        {
+          "address": 5515535,
+          "hex": "90",
+          "text": "nop"
+        }
+      ]
+    },
+    "camlWhy3__Exn_printer__entry": {
+      "address": 5515536,
+      "symbol_size": 164,
+      "instructions": [
+        {
+          "address": 5515536,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 5515540,
+          "hex": "e863164a00",
+          "text": "call   9e3f7c <caml_alloc2>"
+        },
+        {
+          "address": 5515545,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 5515549,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 5515556,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5515557,
+          "hex": "48c70001000000",
+          "text": "movq   $0x1,(%rax)"
+        },
+        {
+          "address": 5515564,
+          "hex": "48c74008010000",
+          "text": "movq   $0x1,0x8(%rax)"
+        },
+        {
+          "address": 5515571,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5515572,
+          "hex": "488d1dedfc5c00",
+          "text": "lea    0x5cfced(%rip),%rbx        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515579,
+          "hex": "48894310",
+          "text": "mov    %rax,0x10(%rbx)"
+        },
+        {
+          "address": 5515583,
+          "hex": "488d0552fc5c00",
+          "text": "lea    0x5cfc52(%rip),%rax        # b12598 <camlWhy3__Exn_printer__27>"
+        },
+        {
+          "address": 5515590,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 5515593,
+          "hex": "488d0560fc5c00",
+          "text": "lea    0x5cfc60(%rip),%rax        # b125b0 <camlWhy3__Exn_printer__26>"
+        },
+        {
+          "address": 5515600,
+          "hex": "48894318",
+          "text": "mov    %rax,0x18(%rbx)"
+        },
+        {
+          "address": 5515604,
+          "hex": "bf01000000",
+          "text": "mov    $0x1,%edi"
+        },
+        {
+          "address": 5515609,
+          "hex": "e8e25e4900",
+          "text": "call   9d8840 <caml_fresh_oo_id>"
+        },
+        {
+          "address": 5515614,
+          "hex": "e819164a00",
+          "text": "call   9e3f7c <caml_alloc2>"
+        },
+        {
+          "address": 5515619,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 5515623,
+          "hex": "48c743f8f80800",
+          "text": "movq   $0x8f8,-0x8(%rbx)"
+        },
+        {
+          "address": 5515630,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 5515631,
+          "hex": "488d3dfafc5c00",
+          "text": "lea    0x5cfcfa(%rip),%rdi        # b12670 <camlWhy3__Exn_printer__6>"
+        },
+        {
+          "address": 5515638,
+          "hex": "48893b",
+          "text": "mov    %rdi,(%rbx)"
+        },
+        {
+          "address": 5515641,
+          "hex": "48894308",
+          "text": "mov    %rax,0x8(%rbx)"
+        },
+        {
+          "address": 5515645,
+          "hex": "488d05a4fc5c00",
+          "text": "lea    0x5cfca4(%rip),%rax        # b12628 <camlWhy3__Exn_printer>"
+        },
+        {
+          "address": 5515652,
+          "hex": "48895820",
+          "text": "mov    %rbx,0x20(%rax)"
+        },
+        {
+          "address": 5515656,
+          "hex": "488d1d41fc5c00",
+          "text": "lea    0x5cfc41(%rip),%rbx        # b125d0 <camlWhy3__Exn_printer__25>"
+        },
+        {
+          "address": 5515663,
+          "hex": "48895828",
+          "text": "mov    %rbx,0x28(%rax)"
+        },
+        {
+          "address": 5515667,
+          "hex": "488d1d56fc5c00",
+          "text": "lea    0x5cfc56(%rip),%rbx        # b125f0 <camlWhy3__Exn_printer__24>"
+        },
+        {
+          "address": 5515674,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 5515678,
+          "hex": "488d056bfc5c00",
+          "text": "lea    0x5cfc6b(%rip),%rax        # b12610 <camlWhy3__Exn_printer__23>"
+        },
+        {
+          "address": 5515685,
+          "hex": "e886bb4300",
+          "text": "call   97e530 <camlStdlib__Printexc__register_printer_697>"
+        },
+        {
+          "address": 5515690,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 5515695,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 5515699,
+          "hex": "c3",
+          "text": "ret"
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__add_inner_2040": {
+      "address": 8840368,
+      "symbol_size": 76,
+      "instructions": [
+        {
+          "address": 8840368,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 8840372,
+          "hex": "4889fb",
+          "text": "mov    %rdi,%rbx"
+        },
+        {
+          "address": 8840375,
+          "hex": "4983ef18",
+          "text": "sub    $0x18,%r15"
+        },
+        {
+          "address": 8840379,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 8840382,
+          "hex": "7235",
+          "text": "jb     86e4f5 <camlSexplib0__Sexp_conv__add_inner_2040+0x45>"
+        },
+        {
+          "address": 8840384,
+          "hex": "498d7f08",
+          "text": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 8840388,
+          "hex": "48c747f8000800",
+          "text": "movq   $0x800,-0x8(%rdi)"
+        },
+        {
+          "address": 8840395,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8840396,
+          "hex": "488937",
+          "text": "mov    %rsi,(%rdi)"
+        },
+        {
+          "address": 8840399,
+          "hex": "48894708",
+          "text": "mov    %rax,0x8(%rdi)"
+        },
+        {
+          "address": 8840403,
+          "hex": "488d355e3e5f00",
+          "text": "lea    0x5f3e5e(%rip),%rsi        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8840410,
+          "hex": "488b8668020000",
+          "text": "mov    0x268(%rsi),%rax"
+        },
+        {
+          "address": 8840417,
+          "hex": "488bb660020000",
+          "text": "mov    0x260(%rsi),%rsi"
+        },
+        {
+          "address": 8840424,
+          "hex": "488b7620",
+          "text": "mov    0x20(%rsi),%rsi"
+        },
+        {
+          "address": 8840428,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 8840432,
+          "hex": "e9cb161300",
+          "text": "jmp    99fbc0 <camlStdlib__Ephemeron__add_698>"
+        },
+        {
+          "address": 8840437,
+          "hex": "e832591700",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 8840442,
+          "hex": "ebc4",
+          "text": "jmp    86e4c0 <camlSexplib0__Sexp_conv__add_inner_2040+0x10>"
+        },
+        {
+          "address": 8840444,
+          "hex": "0f1f4000",
+          "text": "nopl   0x0(%rax)"
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__find_auto_1320": {
+      "address": 8840480,
+      "symbol_size": 155,
+      "instructions": [
+        {
+          "address": 8840480,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 8840484,
+          "hex": "4889442408",
+          "text": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 8840489,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 8840492,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 8840496,
+          "hex": "e8cb470d00",
+          "text": "call   942d00 <camlStdlib__Obj__of_val_484>"
+        },
+        {
+          "address": 8840501,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 8840504,
+          "hex": "488d3df93d5f00",
+          "text": "lea    0x5f3df9(%rip),%rdi        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8840511,
+          "hex": "488b8768020000",
+          "text": "mov    0x268(%rdi),%rax"
+        },
+        {
+          "address": 8840518,
+          "hex": "488bbf60020000",
+          "text": "mov    0x260(%rdi),%rdi"
+        },
+        {
+          "address": 8840525,
+          "hex": "488b7f38",
+          "text": "mov    0x38(%rdi),%rdi"
+        },
+        {
+          "address": 8840529,
+          "hex": "e8ea1b1300",
+          "text": "call   9a0140 <camlStdlib__Ephemeron__find_opt_744>"
+        },
+        {
+          "address": 8840534,
+          "hex": "a801",
+          "text": "test   $0x1,%al"
+        },
+        {
+          "address": 8840536,
+          "hex": "740a",
+          "text": "je     86e564 <camlSexplib0__Sexp_conv__find_auto_1320+0x44>"
+        },
+        {
+          "address": 8840538,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8840543,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 8840547,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 8840548,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 8840551,
+          "hex": "488b5c2408",
+          "text": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 8840556,
+          "hex": "4883fb01",
+          "text": "cmp    $0x1,%rbx"
+        },
+        {
+          "address": 8840560,
+          "hex": "7416",
+          "text": "je     86e588 <camlSexplib0__Sexp_conv__find_auto_1320+0x68>"
+        },
+        {
+          "address": 8840562,
+          "hex": "488b5808",
+          "text": "mov    0x8(%rax),%rbx"
+        },
+        {
+          "address": 8840566,
+          "hex": "4883fb01",
+          "text": "cmp    $0x1,%rbx"
+        },
+        {
+          "address": 8840570,
+          "hex": "750c",
+          "text": "jne    86e588 <camlSexplib0__Sexp_conv__find_auto_1320+0x68>"
+        },
+        {
+          "address": 8840572,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8840577,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 8840581,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 8840582,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 8840584,
+          "hex": "488b18",
+          "text": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 8840587,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 8840590,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 8840594,
+          "hex": "ffd7",
+          "text": "call   *%rdi"
+        },
+        {
+          "address": 8840596,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 8840600,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 8840603,
+          "hex": "7217",
+          "text": "jb     86e5b4 <camlSexplib0__Sexp_conv__find_auto_1320+0x94>"
+        },
+        {
+          "address": 8840605,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 8840609,
+          "hex": "48c743f8000400",
+          "text": "movq   $0x400,-0x8(%rbx)"
+        },
+        {
+          "address": 8840616,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8840617,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8840620,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 8840623,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 8840627,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 8840628,
+          "hex": "e873581700",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 8840633,
+          "hex": "ebe2",
+          "text": "jmp    86e59d <camlSexplib0__Sexp_conv__find_auto_1320+0x7d>"
+        },
+        {
+          "address": 8840635,
+          "hex": "0f1f440000",
+          "text": "nopl   0x0(%rax,%rax,1)"
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__fun_2060": {
+      "address": 8840880,
+      "symbol_size": 86,
+      "instructions": [
+        {
+          "address": 8840880,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 8840884,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 8840887,
+          "hex": "b803000000",
+          "text": "mov    $0x3,%eax"
+        },
+        {
+          "address": 8840892,
+          "hex": "e85ffeffff",
+          "text": "call   86e520 <camlSexplib0__Sexp_conv__find_auto_1320>"
+        },
+        {
+          "address": 8840897,
+          "hex": "a801",
+          "text": "test   $0x1,%al"
+        },
+        {
+          "address": 8840899,
+          "hex": "740b",
+          "text": "je     86e6d0 <camlSexplib0__Sexp_conv__fun_2060+0x20>"
+        },
+        {
+          "address": 8840901,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8840906,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 8840910,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 8840911,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 8840912,
+          "hex": "488b18",
+          "text": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 8840915,
+          "hex": "488d05fe495f00",
+          "text": "lea    0x5f49fe(%rip),%rax        # e630d8 <camlSexplib0__Sexp_conv__13>"
+        },
+        {
+          "address": 8840922,
+          "hex": "e881e7ffff",
+          "text": "call   86ce60 <camlSexplib0__Sexp__to_string_hum_1252>"
+        },
+        {
+          "address": 8840927,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 8840931,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 8840934,
+          "hex": "7217",
+          "text": "jb     86e6ff <camlSexplib0__Sexp_conv__fun_2060+0x4f>"
+        },
+        {
+          "address": 8840936,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 8840940,
+          "hex": "48c743f8000400",
+          "text": "movq   $0x400,-0x8(%rbx)"
+        },
+        {
+          "address": 8840947,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8840948,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8840951,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 8840954,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 8840958,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 8840959,
+          "hex": "e828571700",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 8840964,
+          "hex": "ebe2",
+          "text": "jmp    86e6e8 <camlSexplib0__Sexp_conv__fun_2060+0x38>"
+        },
+        {
+          "address": 8840966,
+          "hex": "662e0f1f840000",
+          "text": "cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 8840973,
+          "hex": "000000",
+          "text": ""
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__printexc_prefer_sexp_1380": {
+      "address": 8840976,
+      "symbol_size": 59,
+      "instructions": [
+        {
+          "address": 8840976,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 8840980,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 8840983,
+          "hex": "48891c24",
+          "text": "mov    %rbx,(%rsp)"
+        },
+        {
+          "address": 8840987,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8840992,
+          "hex": "e8fbfdffff",
+          "text": "call   86e520 <camlSexplib0__Sexp_conv__find_auto_1320>"
+        },
+        {
+          "address": 8840997,
+          "hex": "a801",
+          "text": "test   $0x1,%al"
+        },
+        {
+          "address": 8840999,
+          "hex": "740f",
+          "text": "je     86e738 <camlSexplib0__Sexp_conv__printexc_prefer_sexp_1380+0x28>"
+        },
+        {
+          "address": 8841001,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 8841005,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 8841009,
+          "hex": "e94af51000",
+          "text": "jmp    97dc80 <camlStdlib__Printexc__to_string_447>"
+        },
+        {
+          "address": 8841014,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 8841016,
+          "hex": "488b18",
+          "text": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 8841019,
+          "hex": "488d0596495f00",
+          "text": "lea    0x5f4996(%rip),%rax        # e630d8 <camlSexplib0__Sexp_conv__13>"
+        },
+        {
+          "address": 8841026,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 8841030,
+          "hex": "e915e7ffff",
+          "text": "jmp    86ce60 <camlSexplib0__Sexp__to_string_hum_1252>"
+        },
+        {
+          "address": 8841035,
+          "hex": "0f1f440000",
+          "text": "nopl   0x0(%rax,%rax,1)"
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__fun_2098": {
+      "address": 8844448,
+      "symbol_size": 23,
+      "instructions": [
+        {
+          "address": 8844448,
+          "hex": "4889c7",
+          "text": "mov    %rax,%rdi"
+        },
+        {
+          "address": 8844451,
+          "hex": "4889de",
+          "text": "mov    %rbx,%rsi"
+        },
+        {
+          "address": 8844454,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8844459,
+          "hex": "488d1dc6355f00",
+          "text": "lea    0x5f35c6(%rip),%rbx        # e62a78 <camlSexplib0__Sexp_conv__54>"
+        },
+        {
+          "address": 8844466,
+          "hex": "e9f9efffff",
+          "text": "jmp    86e4b0 <camlSexplib0__Sexp_conv__add_inner_2040>"
+        },
+        {
+          "address": 8844471,
+          "hex": "660f1f84000000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 8844478,
+          "hex": "0000",
+          "text": ""
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__fun_2135": {
+      "address": 8847040,
+      "symbol_size": 23,
+      "instructions": [
+        {
+          "address": 8847040,
+          "hex": "4889c7",
+          "text": "mov    %rax,%rdi"
+        },
+        {
+          "address": 8847043,
+          "hex": "4889de",
+          "text": "mov    %rbx,%rsi"
+        },
+        {
+          "address": 8847046,
+          "hex": "b803000000",
+          "text": "mov    $0x3,%eax"
+        },
+        {
+          "address": 8847051,
+          "hex": "488d1da62b5f00",
+          "text": "lea    0x5f2ba6(%rip),%rbx        # e62a78 <camlSexplib0__Sexp_conv__54>"
+        },
+        {
+          "address": 8847058,
+          "hex": "e9d9e5ffff",
+          "text": "jmp    86e4b0 <camlSexplib0__Sexp_conv__add_inner_2040>"
+        },
+        {
+          "address": 8847063,
+          "hex": "660f1f84000000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 8847070,
+          "hex": "0000",
+          "text": ""
+        }
+      ]
+    },
+    "camlSexplib0__Sexp_conv__entry": {
+      "address": 8847344,
+      "symbol_size": 2383,
+      "instructions": [
+        {
+          "address": 8847344,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 8847348,
+          "hex": "4983ef48",
+          "text": "sub    $0x48,%r15"
+        },
+        {
+          "address": 8847352,
+          "hex": "e89f3f1700",
+          "text": "call   9e3f9c <caml_allocN>"
+        },
+        {
+          "address": 8847357,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 8847361,
+          "hex": "4883c038",
+          "text": "add    $0x38,%rax"
+        },
+        {
+          "address": 8847365,
+          "hex": "48c740f8000400",
+          "text": "movq   $0x400,-0x8(%rax)"
+        },
+        {
+          "address": 8847372,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847373,
+          "hex": "488d1d341b5f00",
+          "text": "lea    0x5f1b34(%rip),%rbx        # e61b48 <camlSexplib0__Sexp_conv__183>"
+        },
+        {
+          "address": 8847380,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8847383,
+          "hex": "488d1d1a235f00",
+          "text": "lea    0x5f231a(%rip),%rbx        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8847390,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8847393,
+          "hex": "4883c0f0",
+          "text": "add    $0xfffffffffffffff0,%rax"
+        },
+        {
+          "address": 8847397,
+          "hex": "48c740f8000400",
+          "text": "movq   $0x400,-0x8(%rax)"
+        },
+        {
+          "address": 8847404,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847405,
+          "hex": "48c70003000000",
+          "text": "movq   $0x3,(%rax)"
+        },
+        {
+          "address": 8847412,
+          "hex": "48894310",
+          "text": "mov    %rax,0x10(%rbx)"
+        },
+        {
+          "address": 8847416,
+          "hex": "4883c0f0",
+          "text": "add    $0xfffffffffffffff0,%rax"
+        },
+        {
+          "address": 8847420,
+          "hex": "48c740f8000400",
+          "text": "movq   $0x400,-0x8(%rax)"
+        },
+        {
+          "address": 8847427,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847428,
+          "hex": "48c70003000000",
+          "text": "movq   $0x3,(%rax)"
+        },
+        {
+          "address": 8847435,
+          "hex": "48894308",
+          "text": "mov    %rax,0x8(%rbx)"
+        },
+        {
+          "address": 8847439,
+          "hex": "488d3d0a1b5f00",
+          "text": "lea    0x5f1b0a(%rip),%rdi        # e61b60 <camlSexplib0__Sexp_conv__182>"
+        },
+        {
+          "address": 8847446,
+          "hex": "48897b18",
+          "text": "mov    %rdi,0x18(%rbx)"
+        },
+        {
+          "address": 8847450,
+          "hex": "488d3d1f1b5f00",
+          "text": "lea    0x5f1b1f(%rip),%rdi        # e61b80 <camlSexplib0__Sexp_conv__181>"
+        },
+        {
+          "address": 8847457,
+          "hex": "48897b20",
+          "text": "mov    %rdi,0x20(%rbx)"
+        },
+        {
+          "address": 8847461,
+          "hex": "488d3d2c1b5f00",
+          "text": "lea    0x5f1b2c(%rip),%rdi        # e61b98 <camlSexplib0__Sexp_conv__180>"
+        },
+        {
+          "address": 8847468,
+          "hex": "48897b28",
+          "text": "mov    %rdi,0x28(%rbx)"
+        },
+        {
+          "address": 8847472,
+          "hex": "488d3d391b5f00",
+          "text": "lea    0x5f1b39(%rip),%rdi        # e61bb0 <camlSexplib0__Sexp_conv__179>"
+        },
+        {
+          "address": 8847479,
+          "hex": "48897b30",
+          "text": "mov    %rdi,0x30(%rbx)"
+        },
+        {
+          "address": 8847483,
+          "hex": "488d3d461b5f00",
+          "text": "lea    0x5f1b46(%rip),%rdi        # e61bc8 <camlSexplib0__Sexp_conv__178>"
+        },
+        {
+          "address": 8847490,
+          "hex": "48897b38",
+          "text": "mov    %rdi,0x38(%rbx)"
+        },
+        {
+          "address": 8847494,
+          "hex": "488d3d531b5f00",
+          "text": "lea    0x5f1b53(%rip),%rdi        # e61be0 <camlSexplib0__Sexp_conv__177>"
+        },
+        {
+          "address": 8847501,
+          "hex": "48897b40",
+          "text": "mov    %rdi,0x40(%rbx)"
+        },
+        {
+          "address": 8847505,
+          "hex": "488d3d601b5f00",
+          "text": "lea    0x5f1b60(%rip),%rdi        # e61bf8 <camlSexplib0__Sexp_conv__176>"
+        },
+        {
+          "address": 8847512,
+          "hex": "48897b48",
+          "text": "mov    %rdi,0x48(%rbx)"
+        },
+        {
+          "address": 8847516,
+          "hex": "488d3d6d1b5f00",
+          "text": "lea    0x5f1b6d(%rip),%rdi        # e61c10 <camlSexplib0__Sexp_conv__175>"
+        },
+        {
+          "address": 8847523,
+          "hex": "48897b50",
+          "text": "mov    %rdi,0x50(%rbx)"
+        },
+        {
+          "address": 8847527,
+          "hex": "488d3d7a1b5f00",
+          "text": "lea    0x5f1b7a(%rip),%rdi        # e61c28 <camlSexplib0__Sexp_conv__174>"
+        },
+        {
+          "address": 8847534,
+          "hex": "48897b58",
+          "text": "mov    %rdi,0x58(%rbx)"
+        },
+        {
+          "address": 8847538,
+          "hex": "488d3d871b5f00",
+          "text": "lea    0x5f1b87(%rip),%rdi        # e61c40 <camlSexplib0__Sexp_conv__173>"
+        },
+        {
+          "address": 8847545,
+          "hex": "48897b60",
+          "text": "mov    %rdi,0x60(%rbx)"
+        },
+        {
+          "address": 8847549,
+          "hex": "488d3d941b5f00",
+          "text": "lea    0x5f1b94(%rip),%rdi        # e61c58 <camlSexplib0__Sexp_conv__172>"
+        },
+        {
+          "address": 8847556,
+          "hex": "48897b68",
+          "text": "mov    %rdi,0x68(%rbx)"
+        },
+        {
+          "address": 8847560,
+          "hex": "488d3da11b5f00",
+          "text": "lea    0x5f1ba1(%rip),%rdi        # e61c70 <camlSexplib0__Sexp_conv__171>"
+        },
+        {
+          "address": 8847567,
+          "hex": "48897b70",
+          "text": "mov    %rdi,0x70(%rbx)"
+        },
+        {
+          "address": 8847571,
+          "hex": "488d3db61b5f00",
+          "text": "lea    0x5f1bb6(%rip),%rdi        # e61c90 <camlSexplib0__Sexp_conv__170>"
+        },
+        {
+          "address": 8847578,
+          "hex": "48897b78",
+          "text": "mov    %rdi,0x78(%rbx)"
+        },
+        {
+          "address": 8847582,
+          "hex": "488d3dcb1b5f00",
+          "text": "lea    0x5f1bcb(%rip),%rdi        # e61cb0 <camlSexplib0__Sexp_conv__169>"
+        },
+        {
+          "address": 8847589,
+          "hex": "4889bb80000000",
+          "text": "mov    %rdi,0x80(%rbx)"
+        },
+        {
+          "address": 8847596,
+          "hex": "488d3ddd1b5f00",
+          "text": "lea    0x5f1bdd(%rip),%rdi        # e61cd0 <camlSexplib0__Sexp_conv__168>"
+        },
+        {
+          "address": 8847603,
+          "hex": "4889bb88000000",
+          "text": "mov    %rdi,0x88(%rbx)"
+        },
+        {
+          "address": 8847610,
+          "hex": "488d3def1b5f00",
+          "text": "lea    0x5f1bef(%rip),%rdi        # e61cf0 <camlSexplib0__Sexp_conv__167>"
+        },
+        {
+          "address": 8847617,
+          "hex": "4889bb90000000",
+          "text": "mov    %rdi,0x90(%rbx)"
+        },
+        {
+          "address": 8847624,
+          "hex": "488d3d011c5f00",
+          "text": "lea    0x5f1c01(%rip),%rdi        # e61d10 <camlSexplib0__Sexp_conv__166>"
+        },
+        {
+          "address": 8847631,
+          "hex": "4889bb98000000",
+          "text": "mov    %rdi,0x98(%rbx)"
+        },
+        {
+          "address": 8847638,
+          "hex": "488d3d131c5f00",
+          "text": "lea    0x5f1c13(%rip),%rdi        # e61d30 <camlSexplib0__Sexp_conv__165>"
+        },
+        {
+          "address": 8847645,
+          "hex": "4889bba0000000",
+          "text": "mov    %rdi,0xa0(%rbx)"
+        },
+        {
+          "address": 8847652,
+          "hex": "488d3d251c5f00",
+          "text": "lea    0x5f1c25(%rip),%rdi        # e61d50 <camlSexplib0__Sexp_conv__164>"
+        },
+        {
+          "address": 8847659,
+          "hex": "4889bba8000000",
+          "text": "mov    %rdi,0xa8(%rbx)"
+        },
+        {
+          "address": 8847666,
+          "hex": "488d3d371c5f00",
+          "text": "lea    0x5f1c37(%rip),%rdi        # e61d70 <camlSexplib0__Sexp_conv__163>"
+        },
+        {
+          "address": 8847673,
+          "hex": "4889bbb0000000",
+          "text": "mov    %rdi,0xb0(%rbx)"
+        },
+        {
+          "address": 8847680,
+          "hex": "488d3d411c5f00",
+          "text": "lea    0x5f1c41(%rip),%rdi        # e61d88 <camlSexplib0__Sexp_conv__162>"
+        },
+        {
+          "address": 8847687,
+          "hex": "4889bbb8000000",
+          "text": "mov    %rdi,0xb8(%rbx)"
+        },
+        {
+          "address": 8847694,
+          "hex": "488d3d932f5f00",
+          "text": "lea    0x5f2f93(%rip),%rdi        # e630e8 <camlSexplib0__Sexp_conv__12>"
+        },
+        {
+          "address": 8847701,
+          "hex": "4889bb58020000",
+          "text": "mov    %rdi,0x258(%rbx)"
+        },
+        {
+          "address": 8847708,
+          "hex": "488d1db51c5f00",
+          "text": "lea    0x5f1cb5(%rip),%rbx        # e61e18 <camlSexplib0__Sexp_conv__158>"
+        },
+        {
+          "address": 8847715,
+          "hex": "488d3d3ef16d00",
+          "text": "lea    0x6df13e(%rip),%rdi        # f4f2a8 <camlStdlib__Obj>"
+        },
+        {
+          "address": 8847722,
+          "hex": "488bbfa8000000",
+          "text": "mov    0xa8(%rdi),%rdi"
+        },
+        {
+          "address": 8847729,
+          "hex": "488b7f10",
+          "text": "mov    0x10(%rdi),%rdi"
+        },
+        {
+          "address": 8847733,
+          "hex": "4883c0e8",
+          "text": "add    $0xffffffffffffffe8,%rax"
+        },
+        {
+          "address": 8847737,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8847744,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847745,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8847748,
+          "hex": "48897808",
+          "text": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 8847752,
+          "hex": "e823181300",
+          "text": "call   9a19b0 <camlStdlib__Ephemeron__Make_1422>"
+        },
+        {
+          "address": 8847757,
+          "hex": "488d1da4215f00",
+          "text": "lea    0x5f21a4(%rip),%rbx        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8847764,
+          "hex": "48898360020000",
+          "text": "mov    %rax,0x260(%rbx)"
+        },
+        {
+          "address": 8847771,
+          "hex": "488b8360020000",
+          "text": "mov    0x260(%rbx),%rax"
+        },
+        {
+          "address": 8847778,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 8847781,
+          "hex": "488b7810",
+          "text": "mov    0x10(%rax),%rdi"
+        },
+        {
+          "address": 8847785,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8847790,
+          "hex": "4883c720",
+          "text": "add    $0x20,%rdi"
+        },
+        {
+          "address": 8847794,
+          "hex": "bb23000000",
+          "text": "mov    $0x23,%ebx"
+        },
+        {
+          "address": 8847799,
+          "hex": "e884f31200",
+          "text": "call   99f540 <camlStdlib__Ephemeron__create_inner_3312>"
+        },
+        {
+          "address": 8847804,
+          "hex": "488d1d75215f00",
+          "text": "lea    0x5f2175(%rip),%rbx        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8847811,
+          "hex": "48898368020000",
+          "text": "mov    %rax,0x268(%rbx)"
+        },
+        {
+          "address": 8847818,
+          "hex": "488d05cf1b5f00",
+          "text": "lea    0x5f1bcf(%rip),%rax        # e61da0 <camlSexplib0__Sexp_conv__161>"
+        },
+        {
+          "address": 8847825,
+          "hex": "48898370020000",
+          "text": "mov    %rax,0x270(%rbx)"
+        },
+        {
+          "address": 8847832,
+          "hex": "488d05011c5f00",
+          "text": "lea    0x5f1c01(%rip),%rax        # e61de0 <camlSexplib0__Sexp_conv__160>"
+        },
+        {
+          "address": 8847839,
+          "hex": "48898378020000",
+          "text": "mov    %rax,0x278(%rbx)"
+        },
+        {
+          "address": 8847846,
+          "hex": "488d05131c5f00",
+          "text": "lea    0x5f1c13(%rip),%rax        # e61e00 <camlSexplib0__Sexp_conv__159>"
+        },
+        {
+          "address": 8847853,
+          "hex": "48898388020000",
+          "text": "mov    %rax,0x288(%rbx)"
+        },
+        {
+          "address": 8847860,
+          "hex": "4983ef60",
+          "text": "sub    $0x60,%r15"
+        },
+        {
+          "address": 8847864,
+          "hex": "e89f3d1700",
+          "text": "call   9e3f9c <caml_allocN>"
+        },
+        {
+          "address": 8847869,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 8847873,
+          "hex": "4883c050",
+          "text": "add    $0x50,%rax"
+        },
+        {
+          "address": 8847877,
+          "hex": "48c740f8000400",
+          "text": "movq   $0x400,-0x8(%rax)"
+        },
+        {
+          "address": 8847884,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847885,
+          "hex": "488bbb88020000",
+          "text": "mov    0x288(%rbx),%rdi"
+        },
+        {
+          "address": 8847892,
+          "hex": "488938",
+          "text": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 8847895,
+          "hex": "48898380020000",
+          "text": "mov    %rax,0x280(%rbx)"
+        },
+        {
+          "address": 8847902,
+          "hex": "4883c0c8",
+          "text": "add    $0xffffffffffffffc8,%rax"
+        },
+        {
+          "address": 8847906,
+          "hex": "48c740f8001800",
+          "text": "movq   $0x1800,-0x8(%rax)"
+        },
+        {
+          "address": 8847913,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847914,
+          "hex": "488d3db72e5f00",
+          "text": "lea    0x5f2eb7(%rip),%rdi        # e630e8 <camlSexplib0__Sexp_conv__12>"
+        },
+        {
+          "address": 8847921,
+          "hex": "488938",
+          "text": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 8847924,
+          "hex": "488bbb60020000",
+          "text": "mov    0x260(%rbx),%rdi"
+        },
+        {
+          "address": 8847931,
+          "hex": "48897808",
+          "text": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 8847935,
+          "hex": "488bbb68020000",
+          "text": "mov    0x268(%rbx),%rdi"
+        },
+        {
+          "address": 8847942,
+          "hex": "48897810",
+          "text": "mov    %rdi,0x10(%rax)"
+        },
+        {
+          "address": 8847946,
+          "hex": "488bbb70020000",
+          "text": "mov    0x270(%rbx),%rdi"
+        },
+        {
+          "address": 8847953,
+          "hex": "48897818",
+          "text": "mov    %rdi,0x18(%rax)"
+        },
+        {
+          "address": 8847957,
+          "hex": "488bbb78020000",
+          "text": "mov    0x278(%rbx),%rdi"
+        },
+        {
+          "address": 8847964,
+          "hex": "48897820",
+          "text": "mov    %rdi,0x20(%rax)"
+        },
+        {
+          "address": 8847968,
+          "hex": "488bbb80020000",
+          "text": "mov    0x280(%rbx),%rdi"
+        },
+        {
+          "address": 8847975,
+          "hex": "48897828",
+          "text": "mov    %rdi,0x28(%rax)"
+        },
+        {
+          "address": 8847979,
+          "hex": "488d78e8",
+          "text": "lea    -0x18(%rax),%rdi"
+        },
+        {
+          "address": 8847983,
+          "hex": "48c747f8000800",
+          "text": "movq   $0x800,-0x8(%rdi)"
+        },
+        {
+          "address": 8847990,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8847991,
+          "hex": "488b7018",
+          "text": "mov    0x18(%rax),%rsi"
+        },
+        {
+          "address": 8847995,
+          "hex": "488937",
+          "text": "mov    %rsi,(%rdi)"
+        },
+        {
+          "address": 8847998,
+          "hex": "488b4028",
+          "text": "mov    0x28(%rax),%rax"
+        },
+        {
+          "address": 8848002,
+          "hex": "48894708",
+          "text": "mov    %rax,0x8(%rdi)"
+        },
+        {
+          "address": 8848006,
+          "hex": "4889bb38020000",
+          "text": "mov    %rdi,0x238(%rbx)"
+        },
+        {
+          "address": 8848013,
+          "hex": "488d05a41b5f00",
+          "text": "lea    0x5f1ba4(%rip),%rax        # e61e38 <camlSexplib0__Sexp_conv__157>"
+        },
+        {
+          "address": 8848020,
+          "hex": "48898340020000",
+          "text": "mov    %rax,0x240(%rbx)"
+        },
+        {
+          "address": 8848027,
+          "hex": "488d05ae1b5f00",
+          "text": "lea    0x5f1bae(%rip),%rax        # e61e50 <camlSexplib0__Sexp_conv__156>"
+        },
+        {
+          "address": 8848034,
+          "hex": "48898330020000",
+          "text": "mov    %rax,0x230(%rbx)"
+        },
+        {
+          "address": 8848041,
+          "hex": "488d05b81b5f00",
+          "text": "lea    0x5f1bb8(%rip),%rax        # e61e68 <camlSexplib0__Sexp_conv__155>"
+        },
+        {
+          "address": 8848048,
+          "hex": "48898320020000",
+          "text": "mov    %rax,0x220(%rbx)"
+        },
+        {
+          "address": 8848055,
+          "hex": "488d05c21b5f00",
+          "text": "lea    0x5f1bc2(%rip),%rax        # e61e80 <camlSexplib0__Sexp_conv__154>"
+        },
+        {
+          "address": 8848062,
+          "hex": "48898348020000",
+          "text": "mov    %rax,0x248(%rbx)"
+        },
+        {
+          "address": 8848069,
+          "hex": "488d05cc1b5f00",
+          "text": "lea    0x5f1bcc(%rip),%rax        # e61e98 <camlSexplib0__Sexp_conv__153>"
+        },
+        {
+          "address": 8848076,
+          "hex": "e85fe21000",
+          "text": "call   97e530 <camlStdlib__Printexc__register_printer_697>"
+        },
+        {
+          "address": 8848081,
+          "hex": "488d05d81b5f00",
+          "text": "lea    0x5f1bd8(%rip),%rax        # e61eb0 <camlSexplib0__Sexp_conv__152>"
+        },
+        {
+          "address": 8848088,
+          "hex": "488d3559205f00",
+          "text": "lea    0x5f2059(%rip),%rsi        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8848095,
+          "hex": "48898628020000",
+          "text": "mov    %rax,0x228(%rsi)"
+        },
+        {
+          "address": 8848102,
+          "hex": "488d3d13fb5e00",
+          "text": "lea    0x5efb13(%rip),%rdi        # e5fe00 <camlSexplib0__Sexp>"
+        },
+        {
+          "address": 8848109,
+          "hex": "488b4728",
+          "text": "mov    0x28(%rdi),%rax"
+        },
+        {
+          "address": 8848113,
+          "hex": "488986c0000000",
+          "text": "mov    %rax,0xc0(%rsi)"
+        },
+        {
+          "address": 8848120,
+          "hex": "4981ef40030000",
+          "text": "sub    $0x340,%r15"
+        },
+        {
+          "address": 8848127,
+          "hex": "e8983c1700",
+          "text": "call   9e3f9c <caml_allocN>"
+        },
+        {
+          "address": 8848132,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 8848136,
+          "hex": "4881c330030000",
+          "text": "add    $0x330,%rbx"
+        },
+        {
+          "address": 8848143,
+          "hex": "48c743f8000400",
+          "text": "movq   $0x400,-0x8(%rbx)"
+        },
+        {
+          "address": 8848150,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848151,
+          "hex": "48c70303000000",
+          "text": "movq   $0x3,(%rbx)"
+        },
+        {
+          "address": 8848158,
+          "hex": "48899ec8000000",
+          "text": "mov    %rbx,0xc8(%rsi)"
+        },
+        {
+          "address": 8848165,
+          "hex": "488d059c1b5f00",
+          "text": "lea    0x5f1b9c(%rip),%rax        # e61ec8 <camlSexplib0__Sexp_conv__151>"
+        },
+        {
+          "address": 8848172,
+          "hex": "488986d8000000",
+          "text": "mov    %rax,0xd8(%rsi)"
+        },
+        {
+          "address": 8848179,
+          "hex": "488d05ae1b5f00",
+          "text": "lea    0x5f1bae(%rip),%rax        # e61ee8 <camlSexplib0__Sexp_conv__150>"
+        },
+        {
+          "address": 8848186,
+          "hex": "488986d0000000",
+          "text": "mov    %rax,0xd0(%rsi)"
+        },
+        {
+          "address": 8848193,
+          "hex": "488d05c01b5f00",
+          "text": "lea    0x5f1bc0(%rip),%rax        # e61f08 <camlSexplib0__Sexp_conv__149>"
+        },
+        {
+          "address": 8848200,
+          "hex": "488986e0000000",
+          "text": "mov    %rax,0xe0(%rsi)"
+        },
+        {
+          "address": 8848207,
+          "hex": "488d05ca1b5f00",
+          "text": "lea    0x5f1bca(%rip),%rax        # e61f20 <camlSexplib0__Sexp_conv__148>"
+        },
+        {
+          "address": 8848214,
+          "hex": "488986e8000000",
+          "text": "mov    %rax,0xe8(%rsi)"
+        },
+        {
+          "address": 8848221,
+          "hex": "488d05d41b5f00",
+          "text": "lea    0x5f1bd4(%rip),%rax        # e61f38 <camlSexplib0__Sexp_conv__147>"
+        },
+        {
+          "address": 8848228,
+          "hex": "488986f0000000",
+          "text": "mov    %rax,0xf0(%rsi)"
+        },
+        {
+          "address": 8848235,
+          "hex": "488d05de1b5f00",
+          "text": "lea    0x5f1bde(%rip),%rax        # e61f50 <camlSexplib0__Sexp_conv__146>"
+        },
+        {
+          "address": 8848242,
+          "hex": "488986f8000000",
+          "text": "mov    %rax,0xf8(%rsi)"
+        },
+        {
+          "address": 8848249,
+          "hex": "488d05e81b5f00",
+          "text": "lea    0x5f1be8(%rip),%rax        # e61f68 <camlSexplib0__Sexp_conv__145>"
+        },
+        {
+          "address": 8848256,
+          "hex": "48898600010000",
+          "text": "mov    %rax,0x100(%rsi)"
+        },
+        {
+          "address": 8848263,
+          "hex": "488d05f21b5f00",
+          "text": "lea    0x5f1bf2(%rip),%rax        # e61f80 <camlSexplib0__Sexp_conv__144>"
+        },
+        {
+          "address": 8848270,
+          "hex": "48898608010000",
+          "text": "mov    %rax,0x108(%rsi)"
+        },
+        {
+          "address": 8848277,
+          "hex": "488d05fc1b5f00",
+          "text": "lea    0x5f1bfc(%rip),%rax        # e61f98 <camlSexplib0__Sexp_conv__143>"
+        },
+        {
+          "address": 8848284,
+          "hex": "48898610010000",
+          "text": "mov    %rax,0x110(%rsi)"
+        },
+        {
+          "address": 8848291,
+          "hex": "488d05061c5f00",
+          "text": "lea    0x5f1c06(%rip),%rax        # e61fb0 <camlSexplib0__Sexp_conv__142>"
+        },
+        {
+          "address": 8848298,
+          "hex": "48898618010000",
+          "text": "mov    %rax,0x118(%rsi)"
+        },
+        {
+          "address": 8848305,
+          "hex": "488d05101c5f00",
+          "text": "lea    0x5f1c10(%rip),%rax        # e61fc8 <camlSexplib0__Sexp_conv__141>"
+        },
+        {
+          "address": 8848312,
+          "hex": "48898620010000",
+          "text": "mov    %rax,0x120(%rsi)"
+        },
+        {
+          "address": 8848319,
+          "hex": "488d051a1c5f00",
+          "text": "lea    0x5f1c1a(%rip),%rax        # e61fe0 <camlSexplib0__Sexp_conv__140>"
+        },
+        {
+          "address": 8848326,
+          "hex": "48898628010000",
+          "text": "mov    %rax,0x128(%rsi)"
+        },
+        {
+          "address": 8848333,
+          "hex": "488d05241c5f00",
+          "text": "lea    0x5f1c24(%rip),%rax        # e61ff8 <camlSexplib0__Sexp_conv__139>"
+        },
+        {
+          "address": 8848340,
+          "hex": "48898630010000",
+          "text": "mov    %rax,0x130(%rsi)"
+        },
+        {
+          "address": 8848347,
+          "hex": "488d05361c5f00",
+          "text": "lea    0x5f1c36(%rip),%rax        # e62018 <camlSexplib0__Sexp_conv__138>"
+        },
+        {
+          "address": 8848354,
+          "hex": "48898638010000",
+          "text": "mov    %rax,0x138(%rsi)"
+        },
+        {
+          "address": 8848361,
+          "hex": "488d05481c5f00",
+          "text": "lea    0x5f1c48(%rip),%rax        # e62038 <camlSexplib0__Sexp_conv__137>"
+        },
+        {
+          "address": 8848368,
+          "hex": "48898640010000",
+          "text": "mov    %rax,0x140(%rsi)"
+        },
+        {
+          "address": 8848375,
+          "hex": "488d055a1c5f00",
+          "text": "lea    0x5f1c5a(%rip),%rax        # e62058 <camlSexplib0__Sexp_conv__136>"
+        },
+        {
+          "address": 8848382,
+          "hex": "48898648010000",
+          "text": "mov    %rax,0x148(%rsi)"
+        },
+        {
+          "address": 8848389,
+          "hex": "488d056c1c5f00",
+          "text": "lea    0x5f1c6c(%rip),%rax        # e62078 <camlSexplib0__Sexp_conv__135>"
+        },
+        {
+          "address": 8848396,
+          "hex": "48898650010000",
+          "text": "mov    %rax,0x150(%rsi)"
+        },
+        {
+          "address": 8848403,
+          "hex": "488d057e1c5f00",
+          "text": "lea    0x5f1c7e(%rip),%rax        # e62098 <camlSexplib0__Sexp_conv__134>"
+        },
+        {
+          "address": 8848410,
+          "hex": "48898658010000",
+          "text": "mov    %rax,0x158(%rsi)"
+        },
+        {
+          "address": 8848417,
+          "hex": "488d05901c5f00",
+          "text": "lea    0x5f1c90(%rip),%rax        # e620b8 <camlSexplib0__Sexp_conv__133>"
+        },
+        {
+          "address": 8848424,
+          "hex": "48898660010000",
+          "text": "mov    %rax,0x160(%rsi)"
+        },
+        {
+          "address": 8848431,
+          "hex": "488d05a21c5f00",
+          "text": "lea    0x5f1ca2(%rip),%rax        # e620d8 <camlSexplib0__Sexp_conv__132>"
+        },
+        {
+          "address": 8848438,
+          "hex": "48898668010000",
+          "text": "mov    %rax,0x168(%rsi)"
+        },
+        {
+          "address": 8848445,
+          "hex": "488d05b41c5f00",
+          "text": "lea    0x5f1cb4(%rip),%rax        # e620f8 <camlSexplib0__Sexp_conv__131>"
+        },
+        {
+          "address": 8848452,
+          "hex": "48898670010000",
+          "text": "mov    %rax,0x170(%rsi)"
+        },
+        {
+          "address": 8848459,
+          "hex": "488d05be1c5f00",
+          "text": "lea    0x5f1cbe(%rip),%rax        # e62110 <camlSexplib0__Sexp_conv__130>"
+        },
+        {
+          "address": 8848466,
+          "hex": "48898678010000",
+          "text": "mov    %rax,0x178(%rsi)"
+        },
+        {
+          "address": 8848473,
+          "hex": "488d05b0135f00",
+          "text": "lea    0x5f13b0(%rip),%rax        # e61810 <camlSexplib0__Sexp_conv_grammar>"
+        },
+        {
+          "address": 8848480,
+          "hex": "488b10",
+          "text": "mov    (%rax),%rdx"
+        },
+        {
+          "address": 8848483,
+          "hex": "48899680010000",
+          "text": "mov    %rdx,0x180(%rsi)"
+        },
+        {
+          "address": 8848490,
+          "hex": "488b5008",
+          "text": "mov    0x8(%rax),%rdx"
+        },
+        {
+          "address": 8848494,
+          "hex": "48899688010000",
+          "text": "mov    %rdx,0x188(%rsi)"
+        },
+        {
+          "address": 8848501,
+          "hex": "488d1584145f00",
+          "text": "lea    0x5f1484(%rip),%rdx        # e61900 <camlSexplib0__Sexp_conv_grammar__1>"
+        },
+        {
+          "address": 8848508,
+          "hex": "48899690010000",
+          "text": "mov    %rdx,0x190(%rsi)"
+        },
+        {
+          "address": 8848515,
+          "hex": "48c78698010000",
+          "text": "movq   $0x1,0x198(%rsi)"
+        },
+        {
+          "address": 8848522,
+          "hex": "01000000",
+          "text": ""
+        },
+        {
+          "address": 8848526,
+          "hex": "48c786a0010000",
+          "text": "movq   $0x9,0x1a0(%rsi)"
+        },
+        {
+          "address": 8848533,
+          "hex": "09000000",
+          "text": ""
+        },
+        {
+          "address": 8848537,
+          "hex": "48c786a8010000",
+          "text": "movq   $0x9,0x1a8(%rsi)"
+        },
+        {
+          "address": 8848544,
+          "hex": "09000000",
+          "text": ""
+        },
+        {
+          "address": 8848548,
+          "hex": "48c786b0010000",
+          "text": "movq   $0x3,0x1b0(%rsi)"
+        },
+        {
+          "address": 8848555,
+          "hex": "03000000",
+          "text": ""
+        },
+        {
+          "address": 8848559,
+          "hex": "48c786b8010000",
+          "text": "movq   $0x5,0x1b8(%rsi)"
+        },
+        {
+          "address": 8848566,
+          "hex": "05000000",
+          "text": ""
+        },
+        {
+          "address": 8848570,
+          "hex": "48c786c0010000",
+          "text": "movq   $0x7,0x1c0(%rsi)"
+        },
+        {
+          "address": 8848577,
+          "hex": "07000000",
+          "text": ""
+        },
+        {
+          "address": 8848581,
+          "hex": "48c786c8010000",
+          "text": "movq   $0x5,0x1c8(%rsi)"
+        },
+        {
+          "address": 8848588,
+          "hex": "05000000",
+          "text": ""
+        },
+        {
+          "address": 8848592,
+          "hex": "48c786d0010000",
+          "text": "movq   $0x5,0x1d0(%rsi)"
+        },
+        {
+          "address": 8848599,
+          "hex": "05000000",
+          "text": ""
+        },
+        {
+          "address": 8848603,
+          "hex": "48c786d8010000",
+          "text": "movq   $0x5,0x1d8(%rsi)"
+        },
+        {
+          "address": 8848610,
+          "hex": "05000000",
+          "text": ""
+        },
+        {
+          "address": 8848614,
+          "hex": "488d15f3135f00",
+          "text": "lea    0x5f13f3(%rip),%rdx        # e618e0 <camlSexplib0__Sexp_conv_grammar__3>"
+        },
+        {
+          "address": 8848621,
+          "hex": "488996e0010000",
+          "text": "mov    %rdx,0x1e0(%rsi)"
+        },
+        {
+          "address": 8848628,
+          "hex": "488b5068",
+          "text": "mov    0x68(%rax),%rdx"
+        },
+        {
+          "address": 8848632,
+          "hex": "488996e8010000",
+          "text": "mov    %rdx,0x1e8(%rsi)"
+        },
+        {
+          "address": 8848639,
+          "hex": "488b5070",
+          "text": "mov    0x70(%rax),%rdx"
+        },
+        {
+          "address": 8848643,
+          "hex": "488996f0010000",
+          "text": "mov    %rdx,0x1f0(%rsi)"
+        },
+        {
+          "address": 8848650,
+          "hex": "488b5078",
+          "text": "mov    0x78(%rax),%rdx"
+        },
+        {
+          "address": 8848654,
+          "hex": "488996f8010000",
+          "text": "mov    %rdx,0x1f8(%rsi)"
+        },
+        {
+          "address": 8848661,
+          "hex": "488b9080000000",
+          "text": "mov    0x80(%rax),%rdx"
+        },
+        {
+          "address": 8848668,
+          "hex": "48899600020000",
+          "text": "mov    %rdx,0x200(%rsi)"
+        },
+        {
+          "address": 8848675,
+          "hex": "488b8088000000",
+          "text": "mov    0x88(%rax),%rax"
+        },
+        {
+          "address": 8848682,
+          "hex": "48898608020000",
+          "text": "mov    %rax,0x208(%rsi)"
+        },
+        {
+          "address": 8848689,
+          "hex": "488d0598135f00",
+          "text": "lea    0x5f1398(%rip),%rax        # e618d0 <camlSexplib0__Sexp_conv_grammar__4>"
+        },
+        {
+          "address": 8848696,
+          "hex": "48898610020000",
+          "text": "mov    %rax,0x210(%rsi)"
+        },
+        {
+          "address": 8848703,
+          "hex": "48898618020000",
+          "text": "mov    %rax,0x218(%rsi)"
+        },
+        {
+          "address": 8848710,
+          "hex": "488d05db1b5f00",
+          "text": "lea    0x5f1bdb(%rip),%rax        # e62128 <camlSexplib0__Sexp_conv__129>"
+        },
+        {
+          "address": 8848717,
+          "hex": "48898650020000",
+          "text": "mov    %rax,0x250(%rsi)"
+        },
+        {
+          "address": 8848724,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8848728,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8848735,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848736,
+          "hex": "488d1dc9e56d00",
+          "text": "lea    0x6de5c9(%rip),%rbx        # f4eb30 <camlStdlib__Sys>"
+        },
+        {
+          "address": 8848743,
+          "hex": "488b9b58010000",
+          "text": "mov    0x158(%rbx),%rbx"
+        },
+        {
+          "address": 8848750,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8848753,
+          "hex": "488d1dd01b5f00",
+          "text": "lea    0x5f1bd0(%rip),%rbx        # e62148 <camlSexplib0__Sexp_conv__128>"
+        },
+        {
+          "address": 8848760,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8848764,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8848768,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8848775,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848776,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8848779,
+          "hex": "48c74308010000",
+          "text": "movq   $0x1,0x8(%rbx)"
+        },
+        {
+          "address": 8848786,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848787,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8848791,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8848798,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848799,
+          "hex": "488d35828b6f00",
+          "text": "lea    0x6f8b82(%rip),%rsi        # f69128 <camlStdlib__Stack>"
+        },
+        {
+          "address": 8848806,
+          "hex": "488b36",
+          "text": "mov    (%rsi),%rsi"
+        },
+        {
+          "address": 8848809,
+          "hex": "488930",
+          "text": "mov    %rsi,(%rax)"
+        },
+        {
+          "address": 8848812,
+          "hex": "488d35ad1b5f00",
+          "text": "lea    0x5f1bad(%rip),%rsi        # e62160 <camlSexplib0__Sexp_conv__127>"
+        },
+        {
+          "address": 8848819,
+          "hex": "48897008",
+          "text": "mov    %rsi,0x8(%rax)"
+        },
+        {
+          "address": 8848823,
+          "hex": "488d70e8",
+          "text": "lea    -0x18(%rax),%rsi"
+        },
+        {
+          "address": 8848827,
+          "hex": "48c746f8000800",
+          "text": "movq   $0x800,-0x8(%rsi)"
+        },
+        {
+          "address": 8848834,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848835,
+          "hex": "488906",
+          "text": "mov    %rax,(%rsi)"
+        },
+        {
+          "address": 8848838,
+          "hex": "48895e08",
+          "text": "mov    %rbx,0x8(%rsi)"
+        },
+        {
+          "address": 8848842,
+          "hex": "488d46e8",
+          "text": "lea    -0x18(%rsi),%rax"
+        },
+        {
+          "address": 8848846,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8848853,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848854,
+          "hex": "488d1dc3fe7100",
+          "text": "lea    0x71fec3(%rip),%rbx        # f904a0 <camlStdlib__Scanf>"
+        },
+        {
+          "address": 8848861,
+          "hex": "488b5b08",
+          "text": "mov    0x8(%rbx),%rbx"
+        },
+        {
+          "address": 8848865,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8848868,
+          "hex": "488d1d8d1b5f00",
+          "text": "lea    0x5f1b8d(%rip),%rbx        # e62178 <camlSexplib0__Sexp_conv__126>"
+        },
+        {
+          "address": 8848875,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8848879,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8848883,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8848890,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848891,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8848894,
+          "hex": "48897308",
+          "text": "mov    %rsi,0x8(%rbx)"
+        },
+        {
+          "address": 8848898,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8848902,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8848909,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848910,
+          "hex": "488d3573906f00",
+          "text": "lea    0x6f9073(%rip),%rsi        # f69688 <camlStdlib__Queue>"
+        },
+        {
+          "address": 8848917,
+          "hex": "488b36",
+          "text": "mov    (%rsi),%rsi"
+        },
+        {
+          "address": 8848920,
+          "hex": "488930",
+          "text": "mov    %rsi,(%rax)"
+        },
+        {
+          "address": 8848923,
+          "hex": "488d356e1b5f00",
+          "text": "lea    0x5f1b6e(%rip),%rsi        # e62190 <camlSexplib0__Sexp_conv__125>"
+        },
+        {
+          "address": 8848930,
+          "hex": "48897008",
+          "text": "mov    %rsi,0x8(%rax)"
+        },
+        {
+          "address": 8848934,
+          "hex": "488d70e8",
+          "text": "lea    -0x18(%rax),%rsi"
+        },
+        {
+          "address": 8848938,
+          "hex": "48c746f8000800",
+          "text": "movq   $0x800,-0x8(%rsi)"
+        },
+        {
+          "address": 8848945,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848946,
+          "hex": "488906",
+          "text": "mov    %rax,(%rsi)"
+        },
+        {
+          "address": 8848949,
+          "hex": "48895e08",
+          "text": "mov    %rbx,0x8(%rsi)"
+        },
+        {
+          "address": 8848953,
+          "hex": "488d46e8",
+          "text": "lea    -0x18(%rsi),%rax"
+        },
+        {
+          "address": 8848957,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8848964,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8848965,
+          "hex": "488d1dd4336f00",
+          "text": "lea    0x6f33d4(%rip),%rbx        # f63a20 <camlStdlib__Parsing>"
+        },
+        {
+          "address": 8848972,
+          "hex": "488b5b48",
+          "text": "mov    0x48(%rbx),%rbx"
+        },
+        {
+          "address": 8848976,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8848979,
+          "hex": "488d1d4e1b5f00",
+          "text": "lea    0x5f1b4e(%rip),%rbx        # e621a8 <camlSexplib0__Sexp_conv__124>"
+        },
+        {
+          "address": 8848986,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8848990,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8848994,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849001,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849002,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849005,
+          "hex": "48897308",
+          "text": "mov    %rsi,0x8(%rbx)"
+        },
+        {
+          "address": 8849009,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8849013,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849020,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849021,
+          "hex": "488d3574f96d00",
+          "text": "lea    0x6df974(%rip),%rsi        # f4fff8 <camlStdlib__Lazy>"
+        },
+        {
+          "address": 8849028,
+          "hex": "488b36",
+          "text": "mov    (%rsi),%rsi"
+        },
+        {
+          "address": 8849031,
+          "hex": "488930",
+          "text": "mov    %rsi,(%rax)"
+        },
+        {
+          "address": 8849034,
+          "hex": "488d352f1b5f00",
+          "text": "lea    0x5f1b2f(%rip),%rsi        # e621c0 <camlSexplib0__Sexp_conv__123>"
+        },
+        {
+          "address": 8849041,
+          "hex": "48897008",
+          "text": "mov    %rsi,0x8(%rax)"
+        },
+        {
+          "address": 8849045,
+          "hex": "488d70e8",
+          "text": "lea    -0x18(%rax),%rsi"
+        },
+        {
+          "address": 8849049,
+          "hex": "48c746f8000800",
+          "text": "movq   $0x800,-0x8(%rsi)"
+        },
+        {
+          "address": 8849056,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849057,
+          "hex": "488906",
+          "text": "mov    %rax,(%rsi)"
+        },
+        {
+          "address": 8849060,
+          "hex": "48895e08",
+          "text": "mov    %rbx,0x8(%rsi)"
+        },
+        {
+          "address": 8849064,
+          "hex": "488d46e8",
+          "text": "lea    -0x18(%rsi),%rax"
+        },
+        {
+          "address": 8849068,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849075,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849076,
+          "hex": "488d1db5d07000",
+          "text": "lea    0x70d0b5(%rip),%rbx        # f7d770 <camlStdlib__Arg>"
+        },
+        {
+          "address": 8849083,
+          "hex": "488b5338",
+          "text": "mov    0x38(%rbx),%rdx"
+        },
+        {
+          "address": 8849087,
+          "hex": "488910",
+          "text": "mov    %rdx,(%rax)"
+        },
+        {
+          "address": 8849090,
+          "hex": "488d150f1b5f00",
+          "text": "lea    0x5f1b0f(%rip),%rdx        # e621d8 <camlSexplib0__Sexp_conv__122>"
+        },
+        {
+          "address": 8849097,
+          "hex": "48895008",
+          "text": "mov    %rdx,0x8(%rax)"
+        },
+        {
+          "address": 8849101,
+          "hex": "488d50e8",
+          "text": "lea    -0x18(%rax),%rdx"
+        },
+        {
+          "address": 8849105,
+          "hex": "48c742f8000800",
+          "text": "movq   $0x800,-0x8(%rdx)"
+        },
+        {
+          "address": 8849112,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849113,
+          "hex": "488902",
+          "text": "mov    %rax,(%rdx)"
+        },
+        {
+          "address": 8849116,
+          "hex": "48897208",
+          "text": "mov    %rsi,0x8(%rdx)"
+        },
+        {
+          "address": 8849120,
+          "hex": "488d42e8",
+          "text": "lea    -0x18(%rdx),%rax"
+        },
+        {
+          "address": 8849124,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849131,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849132,
+          "hex": "488b5b30",
+          "text": "mov    0x30(%rbx),%rbx"
+        },
+        {
+          "address": 8849136,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849139,
+          "hex": "488d1df61a5f00",
+          "text": "lea    0x5f1af6(%rip),%rbx        # e621f0 <camlSexplib0__Sexp_conv__121>"
+        },
+        {
+          "address": 8849146,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849150,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8849154,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849161,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849162,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849165,
+          "hex": "48895308",
+          "text": "mov    %rdx,0x8(%rbx)"
+        },
+        {
+          "address": 8849169,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8849173,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849180,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849181,
+          "hex": "488d3574be6d00",
+          "text": "lea    0x6dbe74(%rip),%rsi        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 8849188,
+          "hex": "488b5650",
+          "text": "mov    0x50(%rsi),%rdx"
+        },
+        {
+          "address": 8849192,
+          "hex": "488910",
+          "text": "mov    %rdx,(%rax)"
+        },
+        {
+          "address": 8849195,
+          "hex": "488d15d61a5f00",
+          "text": "lea    0x5f1ad6(%rip),%rdx        # e62208 <camlSexplib0__Sexp_conv__120>"
+        },
+        {
+          "address": 8849202,
+          "hex": "48895008",
+          "text": "mov    %rdx,0x8(%rax)"
+        },
+        {
+          "address": 8849206,
+          "hex": "488d50e8",
+          "text": "lea    -0x18(%rax),%rdx"
+        },
+        {
+          "address": 8849210,
+          "hex": "48c742f8000800",
+          "text": "movq   $0x800,-0x8(%rdx)"
+        },
+        {
+          "address": 8849217,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849218,
+          "hex": "488902",
+          "text": "mov    %rax,(%rdx)"
+        },
+        {
+          "address": 8849221,
+          "hex": "48895a08",
+          "text": "mov    %rbx,0x8(%rdx)"
+        },
+        {
+          "address": 8849225,
+          "hex": "488d42e8",
+          "text": "lea    -0x18(%rdx),%rax"
+        },
+        {
+          "address": 8849229,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849236,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849237,
+          "hex": "488b5f20",
+          "text": "mov    0x20(%rdi),%rbx"
+        },
+        {
+          "address": 8849241,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849244,
+          "hex": "488d1dbd1a5f00",
+          "text": "lea    0x5f1abd(%rip),%rbx        # e62220 <camlSexplib0__Sexp_conv__119>"
+        },
+        {
+          "address": 8849251,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849255,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8849259,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849266,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849267,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849270,
+          "hex": "48895308",
+          "text": "mov    %rdx,0x8(%rbx)"
+        },
+        {
+          "address": 8849274,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8849278,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849285,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849286,
+          "hex": "488b7e18",
+          "text": "mov    0x18(%rsi),%rdi"
+        },
+        {
+          "address": 8849290,
+          "hex": "488938",
+          "text": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 8849293,
+          "hex": "488d3da41a5f00",
+          "text": "lea    0x5f1aa4(%rip),%rdi        # e62238 <camlSexplib0__Sexp_conv__118>"
+        },
+        {
+          "address": 8849300,
+          "hex": "48897808",
+          "text": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 8849304,
+          "hex": "488d78e8",
+          "text": "lea    -0x18(%rax),%rdi"
+        },
+        {
+          "address": 8849308,
+          "hex": "48c747f8000800",
+          "text": "movq   $0x800,-0x8(%rdi)"
+        },
+        {
+          "address": 8849315,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849316,
+          "hex": "488907",
+          "text": "mov    %rax,(%rdi)"
+        },
+        {
+          "address": 8849319,
+          "hex": "48895f08",
+          "text": "mov    %rbx,0x8(%rdi)"
+        },
+        {
+          "address": 8849323,
+          "hex": "488d47e8",
+          "text": "lea    -0x18(%rdi),%rax"
+        },
+        {
+          "address": 8849327,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849334,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849335,
+          "hex": "488b5e28",
+          "text": "mov    0x28(%rsi),%rbx"
+        },
+        {
+          "address": 8849339,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849342,
+          "hex": "488d1d8b1a5f00",
+          "text": "lea    0x5f1a8b(%rip),%rbx        # e62250 <camlSexplib0__Sexp_conv__117>"
+        },
+        {
+          "address": 8849349,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849353,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8849357,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849364,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849365,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849368,
+          "hex": "48897b08",
+          "text": "mov    %rdi,0x8(%rbx)"
+        },
+        {
+          "address": 8849372,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8849376,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849383,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849384,
+          "hex": "488b7e38",
+          "text": "mov    0x38(%rsi),%rdi"
+        },
+        {
+          "address": 8849388,
+          "hex": "488938",
+          "text": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 8849391,
+          "hex": "488d3d721a5f00",
+          "text": "lea    0x5f1a72(%rip),%rdi        # e62268 <camlSexplib0__Sexp_conv__116>"
+        },
+        {
+          "address": 8849398,
+          "hex": "48897808",
+          "text": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 8849402,
+          "hex": "488d78e8",
+          "text": "lea    -0x18(%rax),%rdi"
+        },
+        {
+          "address": 8849406,
+          "hex": "48c747f8000800",
+          "text": "movq   $0x800,-0x8(%rdi)"
+        },
+        {
+          "address": 8849413,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849414,
+          "hex": "488907",
+          "text": "mov    %rax,(%rdi)"
+        },
+        {
+          "address": 8849417,
+          "hex": "48895f08",
+          "text": "mov    %rbx,0x8(%rdi)"
+        },
+        {
+          "address": 8849421,
+          "hex": "488d47e8",
+          "text": "lea    -0x18(%rdi),%rax"
+        },
+        {
+          "address": 8849425,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849432,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849433,
+          "hex": "488b5e30",
+          "text": "mov    0x30(%rsi),%rbx"
+        },
+        {
+          "address": 8849437,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849440,
+          "hex": "488d1d591a5f00",
+          "text": "lea    0x5f1a59(%rip),%rbx        # e62280 <camlSexplib0__Sexp_conv__115>"
+        },
+        {
+          "address": 8849447,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849451,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8849455,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849462,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849463,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849466,
+          "hex": "48897b08",
+          "text": "mov    %rdi,0x8(%rbx)"
+        },
+        {
+          "address": 8849470,
+          "hex": "488d43e8",
+          "text": "lea    -0x18(%rbx),%rax"
+        },
+        {
+          "address": 8849474,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849481,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849482,
+          "hex": "488b7e58",
+          "text": "mov    0x58(%rsi),%rdi"
+        },
+        {
+          "address": 8849486,
+          "hex": "488938",
+          "text": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 8849489,
+          "hex": "488d3d401a5f00",
+          "text": "lea    0x5f1a40(%rip),%rdi        # e62298 <camlSexplib0__Sexp_conv__114>"
+        },
+        {
+          "address": 8849496,
+          "hex": "48897808",
+          "text": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 8849500,
+          "hex": "488d78e8",
+          "text": "lea    -0x18(%rax),%rdi"
+        },
+        {
+          "address": 8849504,
+          "hex": "48c747f8000800",
+          "text": "movq   $0x800,-0x8(%rdi)"
+        },
+        {
+          "address": 8849511,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849512,
+          "hex": "488907",
+          "text": "mov    %rax,(%rdi)"
+        },
+        {
+          "address": 8849515,
+          "hex": "48895f08",
+          "text": "mov    %rbx,0x8(%rdi)"
+        },
+        {
+          "address": 8849519,
+          "hex": "488d47e8",
+          "text": "lea    -0x18(%rdi),%rax"
+        },
+        {
+          "address": 8849523,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849530,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849531,
+          "hex": "488b5e10",
+          "text": "mov    0x10(%rsi),%rbx"
+        },
+        {
+          "address": 8849535,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849538,
+          "hex": "488d1d271a5f00",
+          "text": "lea    0x5f1a27(%rip),%rbx        # e622b0 <camlSexplib0__Sexp_conv__113>"
+        },
+        {
+          "address": 8849545,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849549,
+          "hex": "488d50e8",
+          "text": "lea    -0x18(%rax),%rdx"
+        },
+        {
+          "address": 8849553,
+          "hex": "48c742f8000800",
+          "text": "movq   $0x800,-0x8(%rdx)"
+        },
+        {
+          "address": 8849560,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849561,
+          "hex": "488902",
+          "text": "mov    %rax,(%rdx)"
+        },
+        {
+          "address": 8849564,
+          "hex": "48897a08",
+          "text": "mov    %rdi,0x8(%rdx)"
+        },
+        {
+          "address": 8849568,
+          "hex": "488d42e8",
+          "text": "lea    -0x18(%rdx),%rax"
+        },
+        {
+          "address": 8849572,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849579,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849580,
+          "hex": "488b5e20",
+          "text": "mov    0x20(%rsi),%rbx"
+        },
+        {
+          "address": 8849584,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849587,
+          "hex": "488d1d0e1a5f00",
+          "text": "lea    0x5f1a0e(%rip),%rbx        # e622c8 <camlSexplib0__Sexp_conv__112>"
+        },
+        {
+          "address": 8849594,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849598,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8849602,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849609,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849610,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849613,
+          "hex": "48895308",
+          "text": "mov    %rdx,0x8(%rbx)"
+        },
+        {
+          "address": 8849617,
+          "hex": "488d05081a5f00",
+          "text": "lea    0x5f1a08(%rip),%rax        # e622e0 <camlSexplib0__Sexp_conv__111>"
+        },
+        {
+          "address": 8849624,
+          "hex": "e813880d00",
+          "text": "call   9490f0 <camlStdlib__List__iter_507>"
+        },
+        {
+          "address": 8849629,
+          "hex": "4983ef30",
+          "text": "sub    $0x30,%r15"
+        },
+        {
+          "address": 8849633,
+          "hex": "e8b6361700",
+          "text": "call   9e3f9c <caml_allocN>"
+        },
+        {
+          "address": 8849638,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 8849642,
+          "hex": "4883c018",
+          "text": "add    $0x18,%rax"
+        },
+        {
+          "address": 8849646,
+          "hex": "48c740f8000800",
+          "text": "movq   $0x800,-0x8(%rax)"
+        },
+        {
+          "address": 8849653,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849654,
+          "hex": "488d1d3b1a5f00",
+          "text": "lea    0x5f1a3b(%rip),%rbx        # e62338 <camlSexplib0__Sexp_conv>"
+        },
+        {
+          "address": 8849661,
+          "hex": "488b9bc0000000",
+          "text": "mov    0xc0(%rbx),%rbx"
+        },
+        {
+          "address": 8849668,
+          "hex": "488918",
+          "text": "mov    %rbx,(%rax)"
+        },
+        {
+          "address": 8849671,
+          "hex": "488d1df2195f00",
+          "text": "lea    0x5f19f2(%rip),%rbx        # e62300 <camlSexplib0__Sexp_conv__110>"
+        },
+        {
+          "address": 8849678,
+          "hex": "48895808",
+          "text": "mov    %rbx,0x8(%rax)"
+        },
+        {
+          "address": 8849682,
+          "hex": "488d58e8",
+          "text": "lea    -0x18(%rax),%rbx"
+        },
+        {
+          "address": 8849686,
+          "hex": "48c743f8000800",
+          "text": "movq   $0x800,-0x8(%rbx)"
+        },
+        {
+          "address": 8849693,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849694,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 8849697,
+          "hex": "48c74308010000",
+          "text": "movq   $0x1,0x8(%rbx)"
+        },
+        {
+          "address": 8849704,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 8849705,
+          "hex": "488d05e8195f00",
+          "text": "lea    0x5f19e8(%rip),%rax        # e62318 <camlSexplib0__Sexp_conv__109>"
+        },
+        {
+          "address": 8849712,
+          "hex": "e8bb870d00",
+          "text": "call   9490f0 <camlStdlib__List__iter_507>"
+        },
+        {
+          "address": 8849717,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 8849722,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 8849726,
+          "hex": "c3",
+          "text": "ret"
+        }
+      ]
+    },
+    "camlStdlib__Printexc__field_324": {
+      "address": 9950912,
+      "symbol_size": 220,
+      "instructions": [
+        {
+          "address": 9950912,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9950916,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9950919,
+          "hex": "0f86c5000000",
+          "text": "jbe    97d792 <camlStdlib__Printexc__field_324+0xd2>"
+        },
+        {
+          "address": 9950925,
+          "hex": "480fb678f8",
+          "text": "movzbq -0x8(%rax),%rdi"
+        },
+        {
+          "address": 9950930,
+          "hex": "4881fffe000000",
+          "text": "cmp    $0xfe,%rdi"
+        },
+        {
+          "address": 9950937,
+          "hex": "7409",
+          "text": "je     97d6e4 <camlStdlib__Printexc__field_324+0x24>"
+        },
+        {
+          "address": 9950939,
+          "hex": "4c8b6498fc",
+          "text": "mov    -0x4(%rax,%rbx,4),%r12"
+        },
+        {
+          "address": 9950944,
+          "hex": "eb28",
+          "text": "jmp    97d70a <camlStdlib__Printexc__field_324+0x4a>"
+        },
+        {
+          "address": 9950946,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9950948,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9950952,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9950955,
+          "hex": "0f8297000000",
+          "text": "jb     97d788 <camlStdlib__Printexc__field_324+0xc8>"
+        },
+        {
+          "address": 9950961,
+          "hex": "4d8d6708",
+          "text": "lea    0x8(%r15),%r12"
+        },
+        {
+          "address": 9950965,
+          "hex": "49c74424f8fd04",
+          "text": "movq   $0x4fd,-0x8(%r12)"
+        },
+        {
+          "address": 9950972,
+          "hex": "0000",
+          "text": ""
+        },
+        {
+          "address": 9950974,
+          "hex": "f20f104498fc",
+          "text": "movsd  -0x4(%rax,%rbx,4),%xmm0"
+        },
+        {
+          "address": 9950980,
+          "hex": "f2410f110424",
+          "text": "movsd  %xmm0,(%r12)"
+        },
+        {
+          "address": 9950986,
+          "hex": "41f6c401",
+          "text": "test   $0x1,%r12b"
+        },
+        {
+          "address": 9950990,
+          "hex": "7420",
+          "text": "je     97d730 <camlStdlib__Printexc__field_324+0x70>"
+        },
+        {
+          "address": 9950992,
+          "hex": "4c892424",
+          "text": "mov    %r12,(%rsp)"
+        },
+        {
+          "address": 9950996,
+          "hex": "488d05553c6000",
+          "text": "lea    0x603c55(%rip),%rax        # f81370 <camlStdlib__Printexc__19>"
+        },
+        {
+          "address": 9951003,
+          "hex": "e890d2ffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9951008,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9951011,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9951014,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951018,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9951022,
+          "hex": "ffe7",
+          "text": "jmp    *%rdi"
+        },
+        {
+          "address": 9951024,
+          "hex": "4c89e7",
+          "text": "mov    %r12,%rdi"
+        },
+        {
+          "address": 9951027,
+          "hex": "e878ab0500",
+          "text": "call   9d82b0 <caml_obj_tag>"
+        },
+        {
+          "address": 9951032,
+          "hex": "483df9010000",
+          "text": "cmp    $0x1f9,%rax"
+        },
+        {
+          "address": 9951038,
+          "hex": "7520",
+          "text": "jne    97d760 <camlStdlib__Printexc__field_324+0xa0>"
+        },
+        {
+          "address": 9951040,
+          "hex": "4c892424",
+          "text": "mov    %r12,(%rsp)"
+        },
+        {
+          "address": 9951044,
+          "hex": "488d05cd3b6000",
+          "text": "lea    0x603bcd(%rip),%rax        # f81318 <camlStdlib__Printexc__22>"
+        },
+        {
+          "address": 9951051,
+          "hex": "e860d2ffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9951056,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9951059,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9951062,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951066,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9951070,
+          "hex": "ffe7",
+          "text": "jmp    *%rdi"
+        },
+        {
+          "address": 9951072,
+          "hex": "4c89e7",
+          "text": "mov    %r12,%rdi"
+        },
+        {
+          "address": 9951075,
+          "hex": "e848ab0500",
+          "text": "call   9d82b0 <caml_obj_tag>"
+        },
+        {
+          "address": 9951080,
+          "hex": "483dfb010000",
+          "text": "cmp    $0x1fb,%rax"
+        },
+        {
+          "address": 9951086,
+          "hex": "750c",
+          "text": "jne    97d77c <camlStdlib__Printexc__field_324+0xbc>"
+        },
+        {
+          "address": 9951088,
+          "hex": "4c89e0",
+          "text": "mov    %r12,%rax"
+        },
+        {
+          "address": 9951091,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9951095,
+          "hex": "e9b42dfcff",
+          "text": "jmp    940530 <camlStdlib__string_of_float_191>"
+        },
+        {
+          "address": 9951100,
+          "hex": "488d05853b6000",
+          "text": "lea    0x603b85(%rip),%rax        # f81308 <camlStdlib__Printexc__23>"
+        },
+        {
+          "address": 9951107,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9951111,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951112,
+          "hex": "e89f660600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9951117,
+          "hex": "e95fffffff",
+          "text": "jmp    97d6f1 <camlStdlib__Printexc__field_324+0x31>"
+        },
+        {
+          "address": 9951122,
+          "hex": "e895660600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9951127,
+          "hex": "e931ffffff",
+          "text": "jmp    97d6cd <camlStdlib__Printexc__field_324+0xd>"
+        },
+        {
+          "address": 9951132,
+          "hex": "0f1f4000",
+          "text": "nopl   0x0(%rax)"
+        }
+      ]
+    },
+    "camlStdlib__Printexc__fields_422": {
+      "address": 9951264,
+      "symbol_size": 199,
+      "instructions": [
+        {
+          "address": 9951264,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 9951268,
+          "hex": "4889c7",
+          "text": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9951271,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9951274,
+          "hex": "0f86ad000000",
+          "text": "jbe    97d8dd <camlStdlib__Printexc__fields_422+0xbd>"
+        },
+        {
+          "address": 9951280,
+          "hex": "488b47f8",
+          "text": "mov    -0x8(%rdi),%rax"
+        },
+        {
+          "address": 9951284,
+          "hex": "48c1e809",
+          "text": "shr    $0x9,%rax"
+        },
+        {
+          "address": 9951288,
+          "hex": "4883c801",
+          "text": "or     $0x1,%rax"
+        },
+        {
+          "address": 9951292,
+          "hex": "4883f805",
+          "text": "cmp    $0x5,%rax"
+        },
+        {
+          "address": 9951296,
+          "hex": "764a",
+          "text": "jbe    97d88c <camlStdlib__Printexc__fields_422+0x6c>"
+        },
+        {
+          "address": 9951298,
+          "hex": "48893c24",
+          "text": "mov    %rdi,(%rsp)"
+        },
+        {
+          "address": 9951302,
+          "hex": "bb05000000",
+          "text": "mov    $0x5,%ebx"
+        },
+        {
+          "address": 9951307,
+          "hex": "4889f8",
+          "text": "mov    %rdi,%rax"
+        },
+        {
+          "address": 9951310,
+          "hex": "e84dffffff",
+          "text": "call   97d7a0 <camlStdlib__Printexc__other_fields_419>"
+        },
+        {
+          "address": 9951315,
+          "hex": "4889442408",
+          "text": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 9951320,
+          "hex": "bb03000000",
+          "text": "mov    $0x3,%ebx"
+        },
+        {
+          "address": 9951325,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951329,
+          "hex": "e85afeffff",
+          "text": "call   97d6c0 <camlStdlib__Printexc__field_324>"
+        },
+        {
+          "address": 9951334,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9951338,
+          "hex": "488d057f396000",
+          "text": "lea    0x60397f(%rip),%rax        # f811f0 <camlStdlib__Printexc__35>"
+        },
+        {
+          "address": 9951345,
+          "hex": "e83ad1ffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9951350,
+          "hex": "4889c7",
+          "text": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9951353,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951357,
+          "hex": "488b5c2408",
+          "text": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 9951362,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9951366,
+          "hex": "e955f7baff",
+          "text": "jmp    52cfe0 <caml_apply2>"
+        },
+        {
+          "address": 9951371,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 9951372,
+          "hex": "48d1f8",
+          "text": "sar    $1,%rax"
+        },
+        {
+          "address": 9951375,
+          "hex": "4883f801",
+          "text": "cmp    $0x1,%rax"
+        },
+        {
+          "address": 9951379,
+          "hex": "740f",
+          "text": "je     97d8a4 <camlStdlib__Printexc__fields_422+0x84>"
+        },
+        {
+          "address": 9951381,
+          "hex": "7719",
+          "text": "ja     97d8b0 <camlStdlib__Printexc__fields_422+0x90>"
+        },
+        {
+          "address": 9951383,
+          "hex": "488d055a3a6000",
+          "text": "lea    0x603a5a(%rip),%rax        # f812f8 <camlStdlib__Printexc__24>"
+        },
+        {
+          "address": 9951390,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9951394,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951395,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 9951396,
+          "hex": "488d054d3a6000",
+          "text": "lea    0x603a4d(%rip),%rax        # f812f8 <camlStdlib__Printexc__24>"
+        },
+        {
+          "address": 9951403,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9951407,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951408,
+          "hex": "bb03000000",
+          "text": "mov    $0x3,%ebx"
+        },
+        {
+          "address": 9951413,
+          "hex": "4889f8",
+          "text": "mov    %rdi,%rax"
+        },
+        {
+          "address": 9951416,
+          "hex": "e803feffff",
+          "text": "call   97d6c0 <camlStdlib__Printexc__field_324>"
+        },
+        {
+          "address": 9951421,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9951425,
+          "hex": "488d05e8386000",
+          "text": "lea    0x6038e8(%rip),%rax        # f811b0 <camlStdlib__Printexc__38>"
+        },
+        {
+          "address": 9951432,
+          "hex": "e8e3d0ffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9951437,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9951440,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9951443,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951447,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9951451,
+          "hex": "ffe7",
+          "text": "jmp    *%rdi"
+        },
+        {
+          "address": 9951453,
+          "hex": "e84a650600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9951458,
+          "hex": "e949ffffff",
+          "text": "jmp    97d830 <camlStdlib__Printexc__fields_422+0x10>"
+        },
+        {
+          "address": 9951463,
+          "hex": "660f1f84000000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9951470,
+          "hex": "0000",
+          "text": ""
+        }
+      ]
+    },
+    "camlStdlib__Printexc__use_printers_425": {
+      "address": 9951472,
+      "symbol_size": 86,
+      "instructions": [
+        {
+          "address": 9951472,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9951476,
+          "hex": "4983ef20",
+          "text": "sub    $0x20,%r15"
+        },
+        {
+          "address": 9951480,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9951483,
+          "hex": "7242",
+          "text": "jb     97d93f <camlStdlib__Printexc__use_printers_425+0x4f>"
+        },
+        {
+          "address": 9951485,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 9951489,
+          "hex": "48c743f8f70c00",
+          "text": "movq   $0xcf7,-0x8(%rbx)"
+        },
+        {
+          "address": 9951496,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 9951497,
+          "hex": "488d3d40000000",
+          "text": "lea    0x40(%rip),%rdi        # 97d950 <camlStdlib__Printexc__conv_428>"
+        },
+        {
+          "address": 9951504,
+          "hex": "48893b",
+          "text": "mov    %rdi,(%rbx)"
+        },
+        {
+          "address": 9951507,
+          "hex": "48bf0500000000",
+          "text": "movabs $0x100000000000005,%rdi"
+        },
+        {
+          "address": 9951514,
+          "hex": "000001",
+          "text": ""
+        },
+        {
+          "address": 9951517,
+          "hex": "48897b08",
+          "text": "mov    %rdi,0x8(%rbx)"
+        },
+        {
+          "address": 9951521,
+          "hex": "48894310",
+          "text": "mov    %rax,0x10(%rbx)"
+        },
+        {
+          "address": 9951525,
+          "hex": "488d05742e6000",
+          "text": "lea    0x602e74(%rip),%rax        # f807a0 <camlStdlib__Printexc>"
+        },
+        {
+          "address": 9951532,
+          "hex": "488b80c8000000",
+          "text": "mov    0xc8(%rax),%rax"
+        },
+        {
+          "address": 9951539,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9951542,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9951546,
+          "hex": "e911000000",
+          "text": "jmp    97d950 <camlStdlib__Printexc__conv_428>"
+        },
+        {
+          "address": 9951551,
+          "hex": "e8e8640600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9951556,
+          "hex": "ebb7",
+          "text": "jmp    97d8fd <camlStdlib__Printexc__use_printers_425+0xd>"
+        },
+        {
+          "address": 9951558,
+          "hex": "662e0f1f840000",
+          "text": "cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9951565,
+          "hex": "000000",
+          "text": ""
+        }
+      ]
+    },
+    "camlStdlib__Printexc__conv_428": {
+      "address": 9951568,
+      "symbol_size": 159,
+      "instructions": [
+        {
+          "address": 9951568,
+          "hex": "4883ec18",
+          "text": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 9951572,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9951575,
+          "hex": "0f8688000000",
+          "text": "jbe    97d9e5 <camlStdlib__Printexc__conv_428+0x95>"
+        },
+        {
+          "address": 9951581,
+          "hex": "a801",
+          "text": "test   $0x1,%al"
+        },
+        {
+          "address": 9951583,
+          "hex": "740b",
+          "text": "je     97d96c <camlStdlib__Printexc__conv_428+0x1c>"
+        },
+        {
+          "address": 9951585,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9951590,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9951594,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951595,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 9951596,
+          "hex": "48895c2408",
+          "text": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 9951601,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9951605,
+          "hex": "4c8d1d24000000",
+          "text": "lea    0x24(%rip),%r11        # 97d9a0 <camlStdlib__Printexc__conv_428+0x50>"
+        },
+        {
+          "address": 9951612,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 9951614,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 9951618,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 9951622,
+          "hex": "488b38",
+          "text": "mov    (%rax),%rdi"
+        },
+        {
+          "address": 9951625,
+          "hex": "488b4310",
+          "text": "mov    0x10(%rbx),%rax"
+        },
+        {
+          "address": 9951629,
+          "hex": "488b37",
+          "text": "mov    (%rdi),%rsi"
+        },
+        {
+          "address": 9951632,
+          "hex": "4889fb",
+          "text": "mov    %rdi,%rbx"
+        },
+        {
+          "address": 9951635,
+          "hex": "ffd6",
+          "text": "call   *%rsi"
+        },
+        {
+          "address": 9951637,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 9951641,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9951645,
+          "hex": "eb05",
+          "text": "jmp    97d9a4 <camlStdlib__Printexc__conv_428+0x54>"
+        },
+        {
+          "address": 9951647,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 9951648,
+          "hex": "eb2a",
+          "text": "jmp    97d9cc <camlStdlib__Printexc__conv_428+0x7c>"
+        },
+        {
+          "address": 9951650,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9951652,
+          "hex": "a801",
+          "text": "test   $0x1,%al"
+        },
+        {
+          "address": 9951654,
+          "hex": "7524",
+          "text": "jne    97d9cc <camlStdlib__Printexc__conv_428+0x7c>"
+        },
+        {
+          "address": 9951656,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9951660,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9951663,
+          "hex": "722d",
+          "text": "jb     97d9de <camlStdlib__Printexc__conv_428+0x8e>"
+        },
+        {
+          "address": 9951665,
+          "hex": "498d5f08",
+          "text": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 9951669,
+          "hex": "48c743f8000400",
+          "text": "movq   $0x400,-0x8(%rbx)"
+        },
+        {
+          "address": 9951676,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 9951677,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9951680,
+          "hex": "488903",
+          "text": "mov    %rax,(%rbx)"
+        },
+        {
+          "address": 9951683,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 9951686,
+          "hex": "4883c418",
+          "text": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9951690,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951691,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 9951692,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951696,
+          "hex": "488b4008",
+          "text": "mov    0x8(%rax),%rax"
+        },
+        {
+          "address": 9951700,
+          "hex": "488b5c2408",
+          "text": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 9951705,
+          "hex": "e976ffffff",
+          "text": "jmp    97d954 <camlStdlib__Printexc__conv_428+0x4>"
+        },
+        {
+          "address": 9951710,
+          "hex": "e849640600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9951715,
+          "hex": "ebcc",
+          "text": "jmp    97d9b1 <camlStdlib__Printexc__conv_428+0x61>"
+        },
+        {
+          "address": 9951717,
+          "hex": "e842640600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9951722,
+          "hex": "e96effffff",
+          "text": "jmp    97d95d <camlStdlib__Printexc__conv_428+0xd>"
+        },
+        {
+          "address": 9951727,
+          "hex": "90",
+          "text": "nop"
+        }
+      ]
+    },
+    "camlStdlib__Printexc__to_string_default_433": {
+      "address": 9951728,
+      "symbol_size": 647,
+      "instructions": [
+        {
+          "address": 9951728,
+          "hex": "4883ec28",
+          "text": "sub    $0x28,%rsp"
+        },
+        {
+          "address": 9951732,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9951735,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9951738,
+          "hex": "0f866d020000",
+          "text": "jbe    97dc6d <camlStdlib__Printexc__to_string_default_433+0x27d>"
+        },
+        {
+          "address": 9951744,
+          "hex": "488d0591eb5c00",
+          "text": "lea    0x5ceb91(%rip),%rax        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9951751,
+          "hex": "488b7840",
+          "text": "mov    0x40(%rax),%rdi"
+        },
+        {
+          "address": 9951755,
+          "hex": "4839fb",
+          "text": "cmp    %rdi,%rbx"
+        },
+        {
+          "address": 9951758,
+          "hex": "750c",
+          "text": "jne    97da1c <camlStdlib__Printexc__to_string_default_433+0x2c>"
+        },
+        {
+          "address": 9951760,
+          "hex": "488d0581376000",
+          "text": "lea    0x603781(%rip),%rax        # f81198 <camlStdlib__Printexc__39>"
+        },
+        {
+          "address": 9951767,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9951771,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951772,
+          "hex": "488b7848",
+          "text": "mov    0x48(%rax),%rdi"
+        },
+        {
+          "address": 9951776,
+          "hex": "4839fb",
+          "text": "cmp    %rdi,%rbx"
+        },
+        {
+          "address": 9951779,
+          "hex": "750f",
+          "text": "jne    97da34 <camlStdlib__Printexc__to_string_default_433+0x44>"
+        },
+        {
+          "address": 9951781,
+          "hex": "488d0544376000",
+          "text": "lea    0x603744(%rip),%rax        # f81170 <camlStdlib__Printexc__40>"
+        },
+        {
+          "address": 9951788,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9951792,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9951793,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 9951796,
+          "hex": "488b7818",
+          "text": "mov    0x18(%rax),%rdi"
+        },
+        {
+          "address": 9951800,
+          "hex": "488b33",
+          "text": "mov    (%rbx),%rsi"
+        },
+        {
+          "address": 9951803,
+          "hex": "4839fe",
+          "text": "cmp    %rdi,%rsi"
+        },
+        {
+          "address": 9951806,
+          "hex": "7568",
+          "text": "jne    97daa8 <camlStdlib__Printexc__to_string_default_433+0xb8>"
+        },
+        {
+          "address": 9951808,
+          "hex": "488b4308",
+          "text": "mov    0x8(%rbx),%rax"
+        },
+        {
+          "address": 9951812,
+          "hex": "488b5810",
+          "text": "mov    0x10(%rax),%rbx"
+        },
+        {
+          "address": 9951816,
+          "hex": "488d3d01376000",
+          "text": "lea    0x603701(%rip),%rdi        # f81150 <camlStdlib__Printexc__41>"
+        },
+        {
+          "address": 9951823,
+          "hex": "48897c2420",
+          "text": "mov    %rdi,0x20(%rsp)"
+        },
+        {
+          "address": 9951828,
+          "hex": "4889df",
+          "text": "mov    %rbx,%rdi"
+        },
+        {
+          "address": 9951831,
+          "hex": "4883c70a",
+          "text": "add    $0xa,%rdi"
+        },
+        {
+          "address": 9951835,
+          "hex": "48897c2418",
+          "text": "mov    %rdi,0x18(%rsp)"
+        },
+        {
+          "address": 9951840,
+          "hex": "48895c2410",
+          "text": "mov    %rbx,0x10(%rsp)"
+        },
+        {
+          "address": 9951845,
+          "hex": "488b5808",
+          "text": "mov    0x8(%rax),%rbx"
+        },
+        {
+          "address": 9951849,
+          "hex": "48895c2408",
+          "text": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 9951854,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9951857,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9951861,
+          "hex": "488d0544396000",
+          "text": "lea    0x603944(%rip),%rax        # f813c0 <camlStdlib__Printexc__16>"
+        },
+        {
+          "address": 9951868,
+          "hex": "e82fcfffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9951873,
+          "hex": "4889c1",
+          "text": "mov    %rax,%rcx"
+        },
+        {
+          "address": 9951876,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951880,
+          "hex": "488b5c2408",
+          "text": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 9951885,
+          "hex": "488b7c2410",
+          "text": "mov    0x10(%rsp),%rdi"
+        },
+        {
+          "address": 9951890,
+          "hex": "488b742418",
+          "text": "mov    0x18(%rsp),%rsi"
+        },
+        {
+          "address": 9951895,
+          "hex": "488b542420",
+          "text": "mov    0x20(%rsp),%rdx"
+        },
+        {
+          "address": 9951900,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9951904,
+          "hex": "e90bf4baff",
+          "text": "jmp    52ceb0 <caml_apply5>"
+        },
+        {
+          "address": 9951909,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 9951912,
+          "hex": "488b7820",
+          "text": "mov    0x20(%rax),%rdi"
+        },
+        {
+          "address": 9951916,
+          "hex": "4839fe",
+          "text": "cmp    %rdi,%rsi"
+        },
+        {
+          "address": 9951919,
+          "hex": "7567",
+          "text": "jne    97db18 <camlStdlib__Printexc__to_string_default_433+0x128>"
+        },
+        {
+          "address": 9951921,
+          "hex": "488b4308",
+          "text": "mov    0x8(%rbx),%rax"
+        },
+        {
+          "address": 9951925,
+          "hex": "488b5810",
+          "text": "mov    0x10(%rax),%rbx"
+        },
+        {
+          "address": 9951929,
+          "hex": "488d3d70366000",
+          "text": "lea    0x603670(%rip),%rdi        # f81130 <camlStdlib__Printexc__42>"
+        },
+        {
+          "address": 9951936,
+          "hex": "48897c2420",
+          "text": "mov    %rdi,0x20(%rsp)"
+        },
+        {
+          "address": 9951941,
+          "hex": "4889df",
+          "text": "mov    %rbx,%rdi"
+        },
+        {
+          "address": 9951944,
+          "hex": "4883c70c",
+          "text": "add    $0xc,%rdi"
+        },
+        {
+          "address": 9951948,
+          "hex": "48897c2418",
+          "text": "mov    %rdi,0x18(%rsp)"
+        },
+        {
+          "address": 9951953,
+          "hex": "48895c2410",
+          "text": "mov    %rbx,0x10(%rsp)"
+        },
+        {
+          "address": 9951958,
+          "hex": "488b5808",
+          "text": "mov    0x8(%rax),%rbx"
+        },
+        {
+          "address": 9951962,
+          "hex": "48895c2408",
+          "text": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 9951967,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9951970,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9951974,
+          "hex": "488d05d3386000",
+          "text": "lea    0x6038d3(%rip),%rax        # f813c0 <camlStdlib__Printexc__16>"
+        },
+        {
+          "address": 9951981,
+          "hex": "e8beceffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9951986,
+          "hex": "4889c1",
+          "text": "mov    %rax,%rcx"
+        },
+        {
+          "address": 9951989,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9951993,
+          "hex": "488b5c2408",
+          "text": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 9951998,
+          "hex": "488b7c2410",
+          "text": "mov    0x10(%rsp),%rdi"
+        },
+        {
+          "address": 9952003,
+          "hex": "488b742418",
+          "text": "mov    0x18(%rsp),%rsi"
+        },
+        {
+          "address": 9952008,
+          "hex": "488b542420",
+          "text": "mov    0x20(%rsp),%rdx"
+        },
+        {
+          "address": 9952013,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9952017,
+          "hex": "e99af3baff",
+          "text": "jmp    52ceb0 <caml_apply5>"
+        },
+        {
+          "address": 9952022,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9952024,
+          "hex": "488b4070",
+          "text": "mov    0x70(%rax),%rax"
+        },
+        {
+          "address": 9952028,
+          "hex": "4839c6",
+          "text": "cmp    %rax,%rsi"
+        },
+        {
+          "address": 9952031,
+          "hex": "7567",
+          "text": "jne    97db88 <camlStdlib__Printexc__to_string_default_433+0x198>"
+        },
+        {
+          "address": 9952033,
+          "hex": "488b4308",
+          "text": "mov    0x8(%rbx),%rax"
+        },
+        {
+          "address": 9952037,
+          "hex": "488b5810",
+          "text": "mov    0x10(%rax),%rbx"
+        },
+        {
+          "address": 9952041,
+          "hex": "488d3dd8356000",
+          "text": "lea    0x6035d8(%rip),%rdi        # f81108 <camlStdlib__Printexc__43>"
+        },
+        {
+          "address": 9952048,
+          "hex": "48897c2420",
+          "text": "mov    %rdi,0x20(%rsp)"
+        },
+        {
+          "address": 9952053,
+          "hex": "4889df",
+          "text": "mov    %rbx,%rdi"
+        },
+        {
+          "address": 9952056,
+          "hex": "4883c70c",
+          "text": "add    $0xc,%rdi"
+        },
+        {
+          "address": 9952060,
+          "hex": "48897c2418",
+          "text": "mov    %rdi,0x18(%rsp)"
+        },
+        {
+          "address": 9952065,
+          "hex": "48895c2410",
+          "text": "mov    %rbx,0x10(%rsp)"
+        },
+        {
+          "address": 9952070,
+          "hex": "488b5808",
+          "text": "mov    0x8(%rax),%rbx"
+        },
+        {
+          "address": 9952074,
+          "hex": "48895c2408",
+          "text": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 9952079,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9952082,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9952086,
+          "hex": "488d0563386000",
+          "text": "lea    0x603863(%rip),%rax        # f813c0 <camlStdlib__Printexc__16>"
+        },
+        {
+          "address": 9952093,
+          "hex": "e84eceffff",
+          "text": "call   97a9b0 <camlStdlib__Printf__sprintf_453>"
+        },
+        {
+          "address": 9952098,
+          "hex": "4889c1",
+          "text": "mov    %rax,%rcx"
+        },
+        {
+          "address": 9952101,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9952105,
+          "hex": "488b5c2408",
+          "text": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 9952110,
+          "hex": "488b7c2410",
+          "text": "mov    0x10(%rsp),%rdi"
+        },
+        {
+          "address": 9952115,
+          "hex": "488b742418",
+          "text": "mov    0x18(%rsp),%rsi"
+        },
+        {
+          "address": 9952120,
+          "hex": "488b542420",
+          "text": "mov    0x20(%rsp),%rdx"
+        },
+        {
+          "address": 9952125,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9952129,
+          "hex": "e92af3baff",
+          "text": "jmp    52ceb0 <caml_apply5>"
+        },
+        {
+          "address": 9952134,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9952136,
+          "hex": "4889df",
+          "text": "mov    %rbx,%rdi"
+        },
+        {
+          "address": 9952139,
+          "hex": "e820a70500",
+          "text": "call   9d82b0 <caml_obj_tag>"
+        },
+        {
+          "address": 9952144,
+          "hex": "4883f801",
+          "text": "cmp    $0x1,%rax"
+        },
+        {
+          "address": 9952148,
+          "hex": "743e",
+          "text": "je     97dbd4 <camlStdlib__Printexc__to_string_default_433+0x1e4>"
+        },
+        {
+          "address": 9952150,
+          "hex": "480fb643f8",
+          "text": "movzbq -0x8(%rbx),%rax"
+        },
+        {
+          "address": 9952155,
+          "hex": "483dfe000000",
+          "text": "cmp    $0xfe,%rax"
+        },
+        {
+          "address": 9952161,
+          "hex": "7409",
+          "text": "je     97dbac <camlStdlib__Printexc__to_string_default_433+0x1bc>"
+        },
+        {
+          "address": 9952163,
+          "hex": "488b03",
+          "text": "mov    (%rbx),%rax"
+        },
+        {
+          "address": 9952166,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9952170,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9952171,
+          "hex": "90",
+          "text": "nop"
+        },
+        {
+          "address": 9952172,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9952176,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9952179,
+          "hex": "0f82aa000000",
+          "text": "jb     97dc63 <camlStdlib__Printexc__to_string_default_433+0x273>"
+        },
+        {
+          "address": 9952185,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 9952189,
+          "hex": "48c740f8fd0400",
+          "text": "movq   $0x4fd,-0x8(%rax)"
+        },
+        {
+          "address": 9952196,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 9952197,
+          "hex": "f20f1003",
+          "text": "movsd  (%rbx),%xmm0"
+        },
+        {
+          "address": 9952201,
+          "hex": "f20f1100",
+          "text": "movsd  %xmm0,(%rax)"
+        },
+        {
+          "address": 9952205,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9952209,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9952210,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9952212,
+          "hex": "480fb643f8",
+          "text": "movzbq -0x8(%rbx),%rax"
+        },
+        {
+          "address": 9952217,
+          "hex": "483dfe000000",
+          "text": "cmp    $0xfe,%rax"
+        },
+        {
+          "address": 9952223,
+          "hex": "7407",
+          "text": "je     97dbe8 <camlStdlib__Printexc__to_string_default_433+0x1f8>"
+        },
+        {
+          "address": 9952225,
+          "hex": "488b03",
+          "text": "mov    (%rbx),%rax"
+        },
+        {
+          "address": 9952228,
+          "hex": "eb1f",
+          "text": "jmp    97dc05 <camlStdlib__Printexc__to_string_default_433+0x215>"
+        },
+        {
+          "address": 9952230,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9952232,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9952236,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9952239,
+          "hex": "726b",
+          "text": "jb     97dc5c <camlStdlib__Printexc__to_string_default_433+0x26c>"
+        },
+        {
+          "address": 9952241,
+          "hex": "498d4708",
+          "text": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 9952245,
+          "hex": "48c740f8fd0400",
+          "text": "movq   $0x4fd,-0x8(%rax)"
+        },
+        {
+          "address": 9952252,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 9952253,
+          "hex": "f20f1003",
+          "text": "movsd  (%rbx),%xmm0"
+        },
+        {
+          "address": 9952257,
+          "hex": "f20f1100",
+          "text": "movsd  %xmm0,(%rax)"
+        },
+        {
+          "address": 9952261,
+          "hex": "480fb678f8",
+          "text": "movzbq -0x8(%rax),%rdi"
+        },
+        {
+          "address": 9952266,
+          "hex": "4881fffe000000",
+          "text": "cmp    $0xfe,%rdi"
+        },
+        {
+          "address": 9952273,
+          "hex": "7409",
+          "text": "je     97dc1c <camlStdlib__Printexc__to_string_default_433+0x22c>"
+        },
+        {
+          "address": 9952275,
+          "hex": "488b38",
+          "text": "mov    (%rax),%rdi"
+        },
+        {
+          "address": 9952278,
+          "hex": "48893c24",
+          "text": "mov    %rdi,(%rsp)"
+        },
+        {
+          "address": 9952282,
+          "hex": "eb21",
+          "text": "jmp    97dc3d <camlStdlib__Printexc__to_string_default_433+0x24d>"
+        },
+        {
+          "address": 9952284,
+          "hex": "4983ef10",
+          "text": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9952288,
+          "hex": "4d3b3e",
+          "text": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9952291,
+          "hex": "7230",
+          "text": "jb     97dc55 <camlStdlib__Printexc__to_string_default_433+0x265>"
+        },
+        {
+          "address": 9952293,
+          "hex": "498d7f08",
+          "text": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 9952297,
+          "hex": "48c747f8fd0400",
+          "text": "movq   $0x4fd,-0x8(%rdi)"
+        },
+        {
+          "address": 9952304,
+          "hex": "00",
+          "text": ""
+        },
+        {
+          "address": 9952305,
+          "hex": "f20f1000",
+          "text": "movsd  (%rax),%xmm0"
+        },
+        {
+          "address": 9952309,
+          "hex": "f20f1107",
+          "text": "movsd  %xmm0,(%rdi)"
+        },
+        {
+          "address": 9952313,
+          "hex": "48893c24",
+          "text": "mov    %rdi,(%rsp)"
+        },
+        {
+          "address": 9952317,
+          "hex": "4889d8",
+          "text": "mov    %rbx,%rax"
+        },
+        {
+          "address": 9952320,
+          "hex": "e8dbfbffff",
+          "text": "call   97d820 <camlStdlib__Printexc__fields_422>"
+        },
+        {
+          "address": 9952325,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9952328,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9952332,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9952336,
+          "hex": "e98b25fcff",
+          "text": "jmp    9401e0 <camlStdlib__$5e_141>"
+        },
+        {
+          "address": 9952341,
+          "hex": "e8d2610600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9952346,
+          "hex": "ebc9",
+          "text": "jmp    97dc25 <camlStdlib__Printexc__to_string_default_433+0x235>"
+        },
+        {
+          "address": 9952348,
+          "hex": "e8cb610600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9952353,
+          "hex": "eb8e",
+          "text": "jmp    97dbf1 <camlStdlib__Printexc__to_string_default_433+0x201>"
+        },
+        {
+          "address": 9952355,
+          "hex": "e8c4610600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9952360,
+          "hex": "e94cffffff",
+          "text": "jmp    97dbb9 <camlStdlib__Printexc__to_string_default_433+0x1c9>"
+        },
+        {
+          "address": 9952365,
+          "hex": "e8ba610600",
+          "text": "call   9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9952370,
+          "hex": "e989fdffff",
+          "text": "jmp    97da00 <camlStdlib__Printexc__to_string_default_433+0x10>"
+        },
+        {
+          "address": 9952375,
+          "hex": "660f1f84000000",
+          "text": "nopw   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9952382,
+          "hex": "0000",
+          "text": ""
+        }
+      ]
+    },
+    "camlStdlib__Printexc__to_string_447": {
+      "address": 9952384,
+      "symbol_size": 40,
+      "instructions": [
+        {
+          "address": 9952384,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9952388,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9952392,
+          "hex": "e863fcffff",
+          "text": "call   97d8f0 <camlStdlib__Printexc__use_printers_425>"
+        },
+        {
+          "address": 9952397,
+          "hex": "a801",
+          "text": "test   $0x1,%al"
+        },
+        {
+          "address": 9952399,
+          "hex": "740f",
+          "text": "je     97dca0 <camlStdlib__Printexc__to_string_447+0x20>"
+        },
+        {
+          "address": 9952401,
+          "hex": "488b0424",
+          "text": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9952405,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9952409,
+          "hex": "e952fdffff",
+          "text": "jmp    97d9f0 <camlStdlib__Printexc__to_string_default_433>"
+        },
+        {
+          "address": 9952414,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9952416,
+          "hex": "488b00",
+          "text": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9952419,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9952423,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9952424,
+          "hex": "0f1f8400000000",
+          "text": "nopl   0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9952431,
+          "hex": "00",
+          "text": ""
+        }
+      ]
+    },
+    "camlStdlib__Printexc__handle_uncaught_exception$27_730": {
+      "address": 9955344,
+      "symbol_size": 481,
+      "instructions": [
+        {
+          "address": 9955344,
+          "hex": "4883ec28",
+          "text": "sub    $0x28,%rsp"
+        },
+        {
+          "address": 9955348,
+          "hex": "48890424",
+          "text": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9955352,
+          "hex": "4c8d1da5010000",
+          "text": "lea    0x1a5(%rip),%r11        # 97e9c4 <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x1b4>"
+        },
+        {
+          "address": 9955359,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 9955361,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 9955365,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 9955369,
+          "hex": "4883fb01",
+          "text": "cmp    $0x1,%rbx"
+        },
+        {
+          "address": 9955373,
+          "hex": "7411",
+          "text": "je     97e840 <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x30>"
+        },
+        {
+          "address": 9955375,
+          "hex": "488d0552216000",
+          "text": "lea    0x602152(%rip),%rax        # f80988 <camlStdlib__Printexc__98>"
+        },
+        {
+          "address": 9955382,
+          "hex": "4889442428",
+          "text": "mov    %rax,0x28(%rsp)"
+        },
+        {
+          "address": 9955387,
+          "hex": "eb12",
+          "text": "jmp    97e84f <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x3f>"
+        },
+        {
+          "address": 9955389,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 9955392,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9955397,
+          "hex": "e876ffffff",
+          "text": "call   97e7c0 <camlStdlib__Printexc__try_get_raw_backtrace_727>"
+        },
+        {
+          "address": 9955402,
+          "hex": "4889442428",
+          "text": "mov    %rax,0x28(%rsp)"
+        },
+        {
+          "address": 9955407,
+          "hex": "4c8d1d32000000",
+          "text": "lea    0x32(%rip),%r11        # 97e888 <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x78>"
+        },
+        {
+          "address": 9955414,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 9955416,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 9955420,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 9955424,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9955429,
+          "hex": "488d1d2cdd5c00",
+          "text": "lea    0x5cdd2c(%rip),%rbx        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955436,
+          "hex": "488b9b38030000",
+          "text": "mov    0x338(%rbx),%rbx"
+        },
+        {
+          "address": 9955443,
+          "hex": "488b1b",
+          "text": "mov    (%rbx),%rbx"
+        },
+        {
+          "address": 9955446,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9955449,
+          "hex": "ffd7",
+          "text": "call   *%rdi"
+        },
+        {
+          "address": 9955451,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 9955455,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9955459,
+          "hex": "eb03",
+          "text": "jmp    97e888 <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x78>"
+        },
+        {
+          "address": 9955461,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 9955464,
+          "hex": "4c8d1d39000000",
+          "text": "lea    0x39(%rip),%r11        # 97e8c8 <camlStdlib__Printexc__handle_uncaught_exception$27_730+0xb8>"
+        },
+        {
+          "address": 9955471,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 9955473,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 9955477,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 9955481,
+          "hex": "488d05001f6000",
+          "text": "lea    0x601f00(%rip),%rax        # f807a0 <camlStdlib__Printexc>"
+        },
+        {
+          "address": 9955488,
+          "hex": "488b8040010000",
+          "text": "mov    0x140(%rax),%rax"
+        },
+        {
+          "address": 9955495,
+          "hex": "488b38",
+          "text": "mov    (%rax),%rdi"
+        },
+        {
+          "address": 9955498,
+          "hex": "488b442420",
+          "text": "mov    0x20(%rsp),%rax"
+        },
+        {
+          "address": 9955503,
+          "hex": "488b5c2438",
+          "text": "mov    0x38(%rsp),%rbx"
+        },
+        {
+          "address": 9955508,
+          "hex": "e827e7baff",
+          "text": "call   52cfe0 <caml_apply2>"
+        },
+        {
+          "address": 9955513,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 9955517,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9955521,
+          "hex": "e9f4000000",
+          "text": "jmp    97e9ba <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x1aa>"
+        },
+        {
+          "address": 9955526,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9955528,
+          "hex": "4889442418",
+          "text": "mov    %rax,0x18(%rsp)"
+        },
+        {
+          "address": 9955533,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9955538,
+          "hex": "e8e9feffff",
+          "text": "call   97e7c0 <camlStdlib__Printexc__try_get_raw_backtrace_727>"
+        },
+        {
+          "address": 9955543,
+          "hex": "4889442420",
+          "text": "mov    %rax,0x20(%rsp)"
+        },
+        {
+          "address": 9955548,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9955553,
+          "hex": "e89af3ffff",
+          "text": "call   97dc80 <camlStdlib__Printexc__to_string_447>"
+        },
+        {
+          "address": 9955558,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 9955563,
+          "hex": "488d1d9e206000",
+          "text": "lea    0x60209e(%rip),%rbx        # f80990 <camlStdlib__Printexc__97>"
+        },
+        {
+          "address": 9955570,
+          "hex": "488d059fdc5c00",
+          "text": "lea    0x5cdc9f(%rip),%rax        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955577,
+          "hex": "488b8038010000",
+          "text": "mov    0x138(%rax),%rax"
+        },
+        {
+          "address": 9955584,
+          "hex": "e8dbbeffff",
+          "text": "call   97a7e0 <camlStdlib__Printf__fprintf_422>"
+        },
+        {
+          "address": 9955589,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9955592,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9955595,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9955600,
+          "hex": "ffd7",
+          "text": "call   *%rdi"
+        },
+        {
+          "address": 9955602,
+          "hex": "488d057fdc5c00",
+          "text": "lea    0x5cdc7f(%rip),%rax        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955609,
+          "hex": "488b8038010000",
+          "text": "mov    0x138(%rax),%rax"
+        },
+        {
+          "address": 9955616,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 9955621,
+          "hex": "488b442428",
+          "text": "mov    0x28(%rsp),%rax"
+        },
+        {
+          "address": 9955626,
+          "hex": "e8d1f4ffff",
+          "text": "call   97de00 <camlStdlib__Printexc__convert_raw_backtrace_482>"
+        },
+        {
+          "address": 9955631,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9955634,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9955639,
+          "hex": "e814f7ffff",
+          "text": "call   97e050 <camlStdlib__Printexc__print_exception_backtrace_493>"
+        },
+        {
+          "address": 9955644,
+          "hex": "488b442418",
+          "text": "mov    0x18(%rsp),%rax"
+        },
+        {
+          "address": 9955649,
+          "hex": "e83af3ffff",
+          "text": "call   97dc80 <camlStdlib__Printexc__to_string_447>"
+        },
+        {
+          "address": 9955654,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 9955659,
+          "hex": "488d1da62b6000",
+          "text": "lea    0x602ba6(%rip),%rbx        # f814f8 <camlStdlib__Printexc__102>"
+        },
+        {
+          "address": 9955666,
+          "hex": "488d053fdc5c00",
+          "text": "lea    0x5cdc3f(%rip),%rax        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955673,
+          "hex": "488b8038010000",
+          "text": "mov    0x138(%rax),%rax"
+        },
+        {
+          "address": 9955680,
+          "hex": "e87bbeffff",
+          "text": "call   97a7e0 <camlStdlib__Printf__fprintf_422>"
+        },
+        {
+          "address": 9955685,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9955688,
+          "hex": "488b3b",
+          "text": "mov    (%rbx),%rdi"
+        },
+        {
+          "address": 9955691,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9955696,
+          "hex": "ffd7",
+          "text": "call   *%rdi"
+        },
+        {
+          "address": 9955698,
+          "hex": "488d051fdc5c00",
+          "text": "lea    0x5cdc1f(%rip),%rax        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955705,
+          "hex": "488b8038010000",
+          "text": "mov    0x138(%rax),%rax"
+        },
+        {
+          "address": 9955712,
+          "hex": "4889442410",
+          "text": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 9955717,
+          "hex": "488b442420",
+          "text": "mov    0x20(%rsp),%rax"
+        },
+        {
+          "address": 9955722,
+          "hex": "e871f4ffff",
+          "text": "call   97de00 <camlStdlib__Printexc__convert_raw_backtrace_482>"
+        },
+        {
+          "address": 9955727,
+          "hex": "4889c3",
+          "text": "mov    %rax,%rbx"
+        },
+        {
+          "address": 9955730,
+          "hex": "488b442410",
+          "text": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9955735,
+          "hex": "e8b4f6ffff",
+          "text": "call   97e050 <camlStdlib__Printexc__print_exception_backtrace_493>"
+        },
+        {
+          "address": 9955740,
+          "hex": "488d05f5db5c00",
+          "text": "lea    0x5cdbf5(%rip),%rax        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955747,
+          "hex": "488bb838010000",
+          "text": "mov    0x138(%rax),%rdi"
+        },
+        {
+          "address": 9955754,
+          "hex": "488d05df0a0500",
+          "text": "lea    0x50adf(%rip),%rax        # 9cf490 <caml_ml_flush>"
+        },
+        {
+          "address": 9955761,
+          "hex": "e8f2550600",
+          "text": "call   9e3fa8 <caml_c_call>"
+        },
+        {
+          "address": 9955766,
+          "hex": "4d8b7e08",
+          "text": "mov    0x8(%r14),%r15"
+        },
+        {
+          "address": 9955770,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 9955774,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9955778,
+          "hex": "eb28",
+          "text": "jmp    97e9ec <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x1dc>"
+        },
+        {
+          "address": 9955780,
+          "hex": "488d1dcddb5c00",
+          "text": "lea    0x5cdbcd(%rip),%rbx        # f4c598 <camlStdlib>"
+        },
+        {
+          "address": 9955787,
+          "hex": "488b5b40",
+          "text": "mov    0x40(%rbx),%rbx"
+        },
+        {
+          "address": 9955791,
+          "hex": "4839d8",
+          "text": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 9955794,
+          "hex": "7510",
+          "text": "jne    97e9e4 <camlStdlib__Printexc__handle_uncaught_exception$27_730+0x1d4>"
+        },
+        {
+          "address": 9955796,
+          "hex": "488d05d52a6000",
+          "text": "lea    0x602ad5(%rip),%rax        # f814b0 <camlStdlib__Printexc__103>"
+        },
+        {
+          "address": 9955803,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9955807,
+          "hex": "e9fc27fcff",
+          "text": "jmp    9411e0 <camlStdlib__prerr_endline_387>"
+        },
+        {
+          "address": 9955812,
+          "hex": "e86f560600",
+          "text": "call   9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 9955817,
+          "hex": "0f1f00",
+          "text": "nopl   (%rax)"
+        },
+        {
+          "address": 9955820,
+          "hex": "4883c428",
+          "text": "add    $0x28,%rsp"
+        },
+        {
+          "address": 9955824,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9955825,
+          "hex": "662e0f1f840000",
+          "text": "cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9955832,
+          "hex": "000000",
+          "text": ""
+        },
+        {
+          "address": 9955835,
+          "hex": "0f1f440000",
+          "text": "nopl   0x0(%rax,%rax,1)"
+        }
+      ]
+    },
+    "camlStdlib__Printexc__handle_uncaught_exception_737": {
+      "address": 9955840,
+      "symbol_size": 53,
+      "instructions": [
+        {
+          "address": 9955840,
+          "hex": "4883ec08",
+          "text": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9955844,
+          "hex": "4c8d1d19000000",
+          "text": "lea    0x19(%rip),%r11        # 97ea24 <camlStdlib__Printexc__handle_uncaught_exception_737+0x24>"
+        },
+        {
+          "address": 9955851,
+          "hex": "4153",
+          "text": "push   %r11"
+        },
+        {
+          "address": 9955853,
+          "hex": "41ff7610",
+          "text": "push   0x10(%r14)"
+        },
+        {
+          "address": 9955857,
+          "hex": "49896610",
+          "text": "mov    %rsp,0x10(%r14)"
+        },
+        {
+          "address": 9955861,
+          "hex": "e8f6fdffff",
+          "text": "call   97e810 <camlStdlib__Printexc__handle_uncaught_exception$27_730>"
+        },
+        {
+          "address": 9955866,
+          "hex": "418f4610",
+          "text": "pop    0x10(%r14)"
+        },
+        {
+          "address": 9955870,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9955874,
+          "hex": "eb0c",
+          "text": "jmp    97ea30 <camlStdlib__Printexc__handle_uncaught_exception_737+0x30>"
+        },
+        {
+          "address": 9955876,
+          "hex": "b801000000",
+          "text": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9955881,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9955885,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9955886,
+          "hex": "6690",
+          "text": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9955888,
+          "hex": "4883c408",
+          "text": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9955892,
+          "hex": "c3",
+          "text": "ret"
+        },
+        {
+          "address": 9955893,
+          "hex": "662e0f1f840000",
+          "text": "cs nopw 0x0(%rax,%rax,1)"
+        },
+        {
+          "address": 9955900,
+          "hex": "000000",
+          "text": ""
+        },
+        {
+          "address": 9955903,
+          "hex": "90",
+          "text": "nop"
+        }
+      ]
+    }
+  },
+  "static_words": [
+    {
+      "address": 15081112,
+      "hex": "b0e68600000000000500000000000001",
+      "closure_symbol": "camlSexplib0__Sexp_conv__153",
+      "code_symbol": "camlSexplib0__Sexp_conv__fun_2060"
+    }
+  ]
+}

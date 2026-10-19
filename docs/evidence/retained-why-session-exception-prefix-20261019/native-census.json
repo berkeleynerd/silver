@@ -1,0 +1,205 @@
+{
+  "targets": {
+    "camlWhy3__Exn_printer__register_466": 5514880,
+    "camlSexplib0__Sexp_conv__add_inner_2040": 8840368,
+    "camlSexplib0__Sexp_conv__add_1312": 8840448,
+    "camlSexplib0__Sexp_conv__printexc_prefer_sexp_1380": 8840976,
+    "camlStdlib__Printexc__register_printer_697": 9954608,
+    "camlStdlib__Printexc__set_uncaught_exception_handler_723": 9955216
+  },
+  "raw_relative_candidates": [
+    {
+      "address": 5515685,
+      "owner": "camlWhy3__Exn_printer__entry",
+      "target": "camlStdlib__Printexc__register_printer_697",
+      "hex": "e886bb4300"
+    },
+    {
+      "address": 8560077,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8de460400"
+    },
+    {
+      "address": 8560315,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8f0450400"
+    },
+    {
+      "address": 8560481,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e84a450400"
+    },
+    {
+      "address": 8562326,
+      "owner": "camlSexplib__Pre_sexp__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8153e0400"
+    },
+    {
+      "address": 8579859,
+      "owner": "camlSexplib__Exn_magic__register_284",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e998f90300"
+    },
+    {
+      "address": 8580123,
+      "owner": "camlSexplib__Exn_magic__register1_722",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e990f80300"
+    },
+    {
+      "address": 8580478,
+      "owner": "camlSexplib__Exn_magic__register2_731",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e92df70300"
+    },
+    {
+      "address": 8580977,
+      "owner": "camlSexplib__Exn_magic__register3_742",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e93af50300"
+    },
+    {
+      "address": 8581604,
+      "owner": "camlSexplib__Exn_magic__register4_755",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9c7f20300"
+    },
+    {
+      "address": 8582359,
+      "owner": "camlSexplib__Exn_magic__register5_770",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9d4ef0300"
+    },
+    {
+      "address": 8583264,
+      "owner": "camlSexplib__Exn_magic__register6_787",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e94bec0300"
+    },
+    {
+      "address": 8584292,
+      "owner": "camlSexplib__Exn_magic__register7_806",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e947e80300"
+    },
+    {
+      "address": 8585464,
+      "owner": "camlSexplib__Exn_magic__register8_827",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9b3e30300"
+    },
+    {
+      "address": 8586771,
+      "owner": "camlSexplib__Exn_magic__register9_850",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e998de0300"
+    },
+    {
+      "address": 8588229,
+      "owner": "camlSexplib__Exn_magic__register10_875",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9e6d80300"
+    },
+    {
+      "address": 8604661,
+      "owner": "camlParsexp__Parse_error__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8b6980300"
+    },
+    {
+      "address": 8821427,
+      "owner": "camlParsexp__Of_sexp_error__report_524",
+      "target": "camlSexplib0__Sexp_conv__printexc_prefer_sexp_1380",
+      "hex": "e8584c0000"
+    },
+    {
+      "address": 8821994,
+      "owner": "camlParsexp__Of_sexp_error__entry",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e8c1470000"
+    },
+    {
+      "address": 8840463,
+      "owner": "camlSexplib0__Sexp_conv__add_1312",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e99cffffff"
+    },
+    {
+      "address": 8844466,
+      "owner": "camlSexplib0__Sexp_conv__fun_2098",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9f9efffff"
+    },
+    {
+      "address": 8847058,
+      "owner": "camlSexplib0__Sexp_conv__fun_2135",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040",
+      "hex": "e9d9e5ffff"
+    },
+    {
+      "address": 8848076,
+      "owner": "camlSexplib0__Sexp_conv__entry",
+      "target": "camlStdlib__Printexc__register_printer_697",
+      "hex": "e85fe21000"
+    },
+    {
+      "address": 9470857,
+      "owner": "camlDynlink_types__entry",
+      "target": "camlStdlib__Printexc__register_printer_697",
+      "hex": "e8a2610700"
+    },
+    {
+      "address": 9691195,
+      "owner": "camlUnix__entry",
+      "target": "camlStdlib__Printexc__register_printer_697",
+      "hex": "e8f0040400"
+    },
+    {
+      "address": 9957494,
+      "owner": "camlStdlib__Fun__entry",
+      "target": "camlStdlib__Printexc__register_printer_697",
+      "hex": "e8b5f4ffff"
+    }
+  ],
+  "aligned_data_words": [
+    {
+      "address": 11484072,
+      "owner": "caml_code_segments+0xf30",
+      "target": "camlWhy3__Exn_printer__register_466"
+    },
+    {
+      "address": 11609496,
+      "owner": "camlWhy3__Exn_printer__27+0x0",
+      "target": "camlWhy3__Exn_printer__register_466"
+    },
+    {
+      "address": 15080880,
+      "owner": "camlSexplib0__Sexp_conv__161+0x10",
+      "target": "camlSexplib0__Sexp_conv__add_1312"
+    },
+    {
+      "address": 15080912,
+      "owner": "camlSexplib0__Sexp_conv__161+0x30",
+      "target": "camlSexplib0__Sexp_conv__add_inner_2040"
+    },
+    {
+      "address": 15081136,
+      "owner": "camlSexplib0__Sexp_conv__152+0x0",
+      "target": "camlSexplib0__Sexp_conv__printexc_prefer_sexp_1380"
+    },
+    {
+      "address": 16254640,
+      "owner": "camlStdlib__Printexc__113+0x0",
+      "target": "camlStdlib__Printexc__register_printer_697"
+    },
+    {
+      "address": 16254768,
+      "owner": "camlStdlib__Printexc__108+0x0",
+      "target": "camlStdlib__Printexc__set_uncaught_exception_handler_723"
+    }
+  ]
+}

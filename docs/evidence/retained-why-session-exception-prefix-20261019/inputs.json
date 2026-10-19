@@ -1,0 +1,50 @@
+{
+  "frozen_formatter_repair": "72096d190945da9e9697627b81e3631387574b8a",
+  "dependencies": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/check.py": {
+      "bytes": 8461,
+      "sha256": "959db0ad9c8495eea891e057dd8a9a2f54d0348347fb99dcd012f0514f6a7552"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/result.json": {
+      "bytes": 510,
+      "sha256": "4a03423c60b2c05dcbf7bb1ab0dc9f100a92f3d631f73fe5f6628cf709006e56"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/result.json": {
+      "bytes": 3736,
+      "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+    }
+  },
+  "local_inputs": {
+    "check.py": {
+      "bytes": 6848,
+      "sha256": "d705e7bda8dac8b74f031ff3a1fc29c2ac321679c29425049f44e6e285d9ab2c"
+    },
+    "source-excerpts.json": {
+      "bytes": 54389,
+      "sha256": "74d71ca149a379c4c700445fccae94561e2006177d596da8f52eb9533bddb2c4"
+    },
+    "native-bodies.json": {
+      "bytes": 167904,
+      "sha256": "f495ea4d85bf9e9f82c960d58e89883b7d746dd898f30a76d98bb8d31c64f640"
+    }
+  },
+  "installed_executable": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  }
+}

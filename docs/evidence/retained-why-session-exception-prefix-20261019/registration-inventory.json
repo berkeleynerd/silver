@@ -1,0 +1,272 @@
+[
+  {
+    "file": "ocaml/boot/menhir/menhirLib.ml",
+    "line": 3684,
+    "text": "exception Error ="
+  },
+  {
+    "file": "ocaml/boot/menhir/parser.ml",
+    "line": 9,
+    "text": "exception Error = Parsing.Parse_error"
+  },
+  {
+    "file": "ocaml/ocamldoc/odoc_info.ml",
+    "line": 61,
+    "text": "exception Text_syntax = Odoc_text.Text_syntax"
+  },
+  {
+    "file": "ocaml/ocamldoc/odoc_info.mli",
+    "line": 227,
+    "text": "when we have [exception Ex = Target_ex].*)"
+  },
+  {
+    "file": "ocaml/otherlibs/dynlink/byte/dynlink.ml",
+    "line": 206,
+    "text": "exception Error = DT.Error"
+  },
+  {
+    "file": "ocaml/otherlibs/dynlink/dynlink_types.ml",
+    "line": 85,
+    "text": "Printexc.register_printer (function"
+  },
+  {
+    "file": "ocaml/otherlibs/dynlink/native/dynlink.ml",
+    "line": 129,
+    "text": "exception Error = DT.Error"
+  },
+  {
+    "file": "ocaml/otherlibs/unix/unix.ml",
+    "line": 97,
+    "text": "Printexc.register_printer"
+  },
+  {
+    "file": "ocaml/otherlibs/win32unix/unix.ml",
+    "line": 107,
+    "text": "Printexc.register_printer"
+  },
+  {
+    "file": "ocaml/parsing/location.ml",
+    "line": 910,
+    "text": "exception Already_displayed_error = Warnings.Errors"
+  },
+  {
+    "file": "ocaml/parsing/parsetree.mli",
+    "line": 993,
+    "text": "- [exception C = M.X] *)"
+  },
+  {
+    "file": "ocaml/stdlib/fun.ml",
+    "line": 23,
+    "text": "let () = Printexc.register_printer @@ function"
+  },
+  {
+    "file": "ocaml/stdlib/lazy.ml",
+    "line": 52,
+    "text": "exception Undefined = CamlinternalLazy.Undefined"
+  },
+  {
+    "file": "ocaml/stdlib/printexc.mli",
+    "line": 86,
+    "text": "(** [Printexc.register_printer fn] registers [fn] as an exception"
+  },
+  {
+    "file": "ocaml/stdlib/printexc.mli",
+    "line": 203,
+    "text": "(** [Printexc.set_uncaught_exception_handler fn] registers [fn] as the handler"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 33,
+    "text": "exception Match_failure = Match_failure"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 34,
+    "text": "exception Assert_failure = Assert_failure"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 35,
+    "text": "exception Invalid_argument = Invalid_argument"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 36,
+    "text": "exception Failure = Failure"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 37,
+    "text": "exception Not_found = Not_found"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 38,
+    "text": "exception Out_of_memory = Out_of_memory"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 39,
+    "text": "exception Stack_overflow = Stack_overflow"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 40,
+    "text": "exception Sys_error = Sys_error"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 41,
+    "text": "exception End_of_file = End_of_file"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 42,
+    "text": "exception Division_by_zero = Division_by_zero"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 43,
+    "text": "exception Sys_blocked_io = Sys_blocked_io"
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "line": 44,
+    "text": "exception Undefined_recursive_module = Undefined_recursive_module"
+  },
+  {
+    "file": "ocaml/testsuite/tests/basic/patmatch.ml",
+    "line": 127,
+    "text": "exception Bar = Foo"
+  },
+  {
+    "file": "ocaml/testsuite/tests/basic/pr7253.ml",
+    "line": 9,
+    "text": "Printexc.set_uncaught_exception_handler (fun exn bt ->"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 398,
+    "text": "exception UIdent = ( with"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 401,
+    "text": "exception UIdent = UIdent |"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 404,
+    "text": "exception UIdent = UIdent . ( with"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 407,
+    "text": "exception UIdent = UIdent . with"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 410,
+    "text": "exception UIdent = UIdent [@ and ] while"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 413,
+    "text": "exception UIdent = UIdent with"
+  },
+  {
+    "file": "ocaml/testsuite/tests/generated-parse-errors/errors.ml",
+    "line": 416,
+    "text": "exception UIdent = with"
+  },
+  {
+    "file": "ocaml/testsuite/tests/parsetree/source.ml",
+    "line": 181,
+    "text": "exception A = M.A[@a]"
+  },
+  {
+    "file": "ocaml/testsuite/tests/parsetree/source.ml",
+    "line": 578,
+    "text": "exception Bar = Bar"
+  },
+  {
+    "file": "ocaml/testsuite/tests/parsetree/source.ml",
+    "line": 579,
+    "text": "exception Foo = Foo"
+  },
+  {
+    "file": "ocaml/testsuite/tests/parsetree/source.ml",
+    "line": 4567,
+    "text": "exception QE = Q.Empty;;"
+  },
+  {
+    "file": "ocaml/testsuite/tests/parsetree/source.ml",
+    "line": 6292,
+    "text": "exception Foo = M.Foo"
+  },
+  {
+    "file": "ocaml/testsuite/tests/parsetree/source.ml",
+    "line": 6334,
+    "text": "exception A = M1.A"
+  },
+  {
+    "file": "ocaml/testsuite/tests/shadow_include/shadow_all.ml",
+    "line": 389,
+    "text": "exception Exn = E"
+  },
+  {
+    "file": "ocaml/testsuite/tests/tool-toplevel/uncaught_exceptions.ml",
+    "line": 6,
+    "text": "Printexc.register_printer (fun e ->"
+  },
+  {
+    "file": "ocaml/testsuite/tests/tool-toplevel/uncaught_exceptions.ml",
+    "line": 14,
+    "text": "Printexc.register_printer (fun e ->"
+  },
+  {
+    "file": "ocaml/testsuite/tests/typing-extensions/extensions.ml",
+    "line": 623,
+    "text": "exception Bar = Bar"
+  },
+  {
+    "file": "ocaml/testsuite/tests/typing-extensions/extensions.ml",
+    "line": 624,
+    "text": "exception Foo = Foo"
+  },
+  {
+    "file": "ocaml/testsuite/tests/typing-modules/aliases.ml",
+    "line": 205,
+    "text": "exception QE = Q.Empty;;"
+  },
+  {
+    "file": "ocaml/testsuite/tests/typing-recordarg/recordarg.ml",
+    "line": 36,
+    "text": "exception Foo = M.Foo"
+  },
+  {
+    "file": "ocaml/testsuite/tests/typing-recordarg/recordarg.ml",
+    "line": 78,
+    "text": "exception A = M1.A"
+  },
+  {
+    "file": "why3/src/extract/c.ml",
+    "line": 13,
+    "text": "exception Unsupported = Printer.Unsupported"
+  },
+  {
+    "file": "why3/src/extract/java.ml",
+    "line": 29,
+    "text": "exception Unsupported = Printer.Unsupported"
+  },
+  {
+    "file": "why3/src/gnat/gnat_util.ml",
+    "line": 12,
+    "text": "Printexc.set_uncaught_exception_handler"
+  },
+  {
+    "file": "why3/src/util/exn_printer.ml",
+    "line": 43,
+    "text": "Printexc.register_printer (fun exn ->"
+  }
+]

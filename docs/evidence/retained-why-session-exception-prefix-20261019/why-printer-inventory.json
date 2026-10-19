@@ -1,0 +1,332 @@
+[
+  {
+    "file": "why3/plugins/ada_terms/ada_lexer.mll",
+    "start": 219,
+    "end": 225,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n  (* This ad hoc switch allows to not edit the automatically generated\n     handcrafted.messages in ad hoc ways. *)\n  | Error None -> Format.fprintf fmt \"syntax error\"\n  | Error (Some s) -> Format.fprintf fmt \"syntax error:\\n %s\" s\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/ada_terms/ada_parser.mly",
+    "start": 67,
+    "end": 70,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n    | Error -> Format.fprintf fmt \"syntax error %s\" (Parser_messages.message 1)\n    | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/cfg/cfg_lexer.mll",
+    "start": 292,
+    "end": 295,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n  | Cfg_parser.Error -> Format.pp_print_string fmt \"MLCFG syntax error\"\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/cfg/cfg_paths.ml",
+    "start": 59,
+    "end": 61,
+    "source": "  Exn_printer.register (fun fmt exn ->\n      match exn with CFGError msg -> Format.fprintf fmt \"CFG translation error: %s\" msg | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/cfg/cfg_stackify.ml",
+    "start": 59,
+    "end": 61,
+    "source": "  Exn_printer.register (fun fmt exn ->\n      match exn with CFGError msg -> Format.fprintf fmt \"CFG translation error: %s\" msg | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/cfg/stackify.ml",
+    "start": 70,
+    "end": 80,
+    "source": "  Exn_printer.register (fun fmt exn ->\n      match exn with\n      | NotReducible (n1, n2) ->\n          Format.fprintf fmt \"CFG is not a reducible graph. The nodes %s %s belong to a cycle with multiple entries\" n1\n            n2\n      | NotConnected s ->\n          Format.fprintf fmt\n            \"CFG is not a connected graph. The following nodes are not reachable from the start block: \";\n          List.iter (fun el -> Format.printf \"%s\" el.id_str) s\n      | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/coma/coma_lexer.mll",
+    "start": 317,
+    "end": 320,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n  | Coma_parser.Error -> Format.pp_print_string fmt \"syntax error\"\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/coma/coma_logic.ml",
+    "start": 955,
+    "end": 962,
+    "source": "let () = Exn_printer.register (fun fmt -> function\n  | BadUndef h -> Format.fprintf fmt\n      \"Handler `%s' is used in an illegal position\" h.hs_name.id_string\n  | CollisionHs h -> Format.fprintf fmt\n      \"Handler `%s' is introduced twice in an expression\" h.hs_name.id_string\n  | CollisionRs r -> Format.fprintf fmt\n      \"Reference `%s' is introduced twice in an expression\" r.vs_name.id_string\n  | exn -> raise exn)"
+  },
+  {
+    "file": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "start": 1430,
+    "end": 1446,
+    "source": "  Exn_printer.register\n    (fun fmt exn -> match exn with\n       | Unexpected_json (s, path) ->\n           (* Errors in the conversion from JSON to Gnat_ast are reported with their path,\n              because the id is not guaranteed to be available. *)\n           Format.fprintf fmt \"Unexpected Json for %s at path %a@.\"\n             s pp_path path\n       | Conversion_error r ->\n           (* Errors in the conversion from Gnat_ast to Why3 Ptree are reported with their\n              id. *)\n           Format.fprintf fmt \"Conversion error for node with ID %d: %s\" r.node_id r.message\n       | Located_by_marker (filename, e) ->\n           (* Located errors (i.e. typing errors) are reported with an hint on the marker, which\n              is inserted into the mlw file by the mlw-printer. *)\n           Format.fprintf fmt \"File %s, marked by (* ERROR: *)(...):@\\n%a\"\n             filename Exn_printer.exn_printer e\n       | _ -> raise exn)"
+  },
+  {
+    "file": "why3/plugins/microc/mc_lexer.mll",
+    "start": 18,
+    "end": 21,
+    "source": "  let () = Why3.Exn_printer.register (fun fmt exn -> match exn with\n  | Lexing_error s -> Format.fprintf fmt \"syntax error: %s\" s\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/microc/mc_parser.mly",
+    "start": 18,
+    "end": 22,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n    | Error -> Format.pp_print_string fmt \"syntax error\"\n    | Unsupported s -> Format.fprintf fmt \"unsupported feature: %s\" s\n    | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/parser/dimacs.mll",
+    "start": 57,
+    "end": 62,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | SyntaxError s -> Format.pp_print_string fmt s\n  | _ -> raise e)\n\n}\n"
+  },
+  {
+    "file": "why3/plugins/python/py_lexer.mll",
+    "start": 18,
+    "end": 21,
+    "source": "  let () = Why3.Exn_printer.register (fun fmt exn -> match exn with\n  | Lexing_error s -> Format.fprintf fmt \"syntax error: %s\" s\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/python/py_parser.mly",
+    "start": 16,
+    "end": 19,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n    | Error -> Format.pp_print_string fmt \"syntax error\"\n    | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/plugins/tptp/tptp_lexer.mll",
+    "start": 26,
+    "end": 32,
+    "source": "  let () = Exn_printer.register (fun fmt e -> match e with\n    | IllegalLexeme s -> fprintf fmt \"illegal lexeme %s\" s\n    | UnterminatedComment -> pp_print_string fmt \"unterminated comment\"\n    | UnknownDDW s -> fprintf fmt \"unknown system_word %s\" s\n    | UnknownDW s -> fprintf fmt \"unknown defined_word %s\" s\n    | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/plugins/tptp/tptp_parser.mly",
+    "start": 20,
+    "end": 23,
+    "source": "let () = Why3.Exn_printer.register (fun fmt exn -> match exn with\n  | UnsupportedRole s -> Format.fprintf fmt \"unsupported role %s\" s\n  | Error -> Format.pp_print_string fmt \"syntax error\"\n  | _ -> raise exn)"
+  },
+  {
+    "file": "why3/plugins/tptp/tptp_typing.ml",
+    "start": 35,
+    "end": 46,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | DuplicateVar s -> fprintf fmt \"variable %s is used twice\" s\n  | TypeExpected -> pp_print_string fmt \"type expression expected\"\n  | TermExpected -> pp_print_string fmt \"term expression expected\"\n  | FmlaExpected -> pp_print_string fmt \"formula expression expected\"\n  | InvalidDummy -> pp_print_string fmt \"unexpected type placeholder\"\n  | MalformedLet -> pp_print_string fmt \"malformed let-expression\"\n  | DependentTy  -> pp_print_string fmt \"dependent type\"\n  | NonNumeric   -> pp_print_string fmt \"non-numeric argument\"\n  | BadArity     -> pp_print_string fmt \"bad arity\"\n  | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/core/coercion.ml",
+    "start": 147,
+    "end": 157,
+    "source": "let () = Exn_printer.register\n    begin fun fmt exn -> match exn with\n      | NotACoercion ls ->\n          Format.fprintf fmt \"Function %s cannot be used as a coercion\"\n            ls.ls_name.id_string\n      | CoercionCycle crc ->\n          Format.fprintf fmt \"This coercion introduces a cycle;@ \";\n          already_a_coercion fmt crc\n      | CoercionAlreadyDefined crc ->\n          already_a_coercion fmt crc\n      | _ -> raise exn end"
+  },
+  {
+    "file": "why3/src/core/dterm.ml",
+    "start": 724,
+    "end": 733,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | TermExpected ->\n      Format.pp_print_string fmt \"term expected\"\n  | FmlaExpected ->\n      Format.pp_print_string fmt \"formula expected\"\n  | DuplicateVar s ->\n      Format.fprintf fmt \"duplicate variable %s\" s\n  | UnboundVar s ->\n      Format.fprintf fmt \"unbound variable %s\" s\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/core/env.ml",
+    "start": 250,
+    "end": 273,
+    "source": "let () = Exn_printer.register\n  begin fun fmt exn -> match exn with\n  | CircularDependency sl -> Format.fprintf fmt\n      \"Circular dependency in %a\" print_path sl\n  | LibraryNotFound sl -> Format.fprintf fmt\n      \"Library file not found: %a\" print_path sl\n  | TheoryNotFound (sl,s) -> Format.fprintf fmt\n      \"Theory %s not found in library %a\" s print_path sl\n  | KnownFormat s -> Format.fprintf fmt\n      \"Format %s is already registered\" s\n  | UnknownFormat s -> Format.fprintf fmt\n      \"Unknown input format: %s\" s\n  | UnknownExtension s -> Format.fprintf fmt\n      \"Unknown file extension: `%s'\" s\n  | UnspecifiedFormat -> Format.fprintf fmt\n      \"Format not specified\"\n  | AmbiguousPath (f1,f2) -> Format.fprintf fmt\n      \"Ambiguous path:@ both %s@ and %s@ match\" f1 f2\n  | InvalidFormat f -> Format.fprintf fmt\n      \"Input format `%s' is unsuitable for the desired content\" f\n  | LibraryConflict sl -> Format.fprintf fmt\n      \"Conflicting definitions for builtin library %a\" print_path sl\n  | _ -> raise exn\n  end"
+  },
+  {
+    "file": "why3/src/core/pretty.ml",
+    "start": 806,
+    "end": 1111,
+    "source": "let () = Exn_printer.register\n  begin fun fmt exn -> match exn with\n  | Ty.TypeMismatch (t1,t2) ->\n      fprintf fmt \"Type mismatch between %a and %a\"\n        print_ty_qualified t1 print_ty_qualified t2\n  | Ty.BadTypeArity ({ts_args = []} as ts, _) ->\n      fprintf fmt \"Type symbol %a expects no arguments\" print_ts ts\n  | Ty.BadTypeArity (ts, app_arg) ->\n      let i = List.length ts.ts_args in\n      fprintf fmt \"Type symbol %a expects %i argument%s but is applied to %i\"\n        print_ts ts i (if i = 1 then \"\" else \"s\") app_arg\n  | Ty.DuplicateTypeVar tv ->\n      fprintf fmt \"Type variable %a is used twice\" print_tv tv\n  | Ty.UnboundTypeVar tv ->\n      fprintf fmt \"Unbound type variable: %a\" print_tv tv\n  | Ty.UnexpectedProp ->\n      pp_print_string fmt \"Unexpected propositional type\"\n  | Ty.EmptyRange ->\n      pp_print_string fmt \"Empty integer range\"\n  | Ty.BadFloatSpec ->\n      pp_print_string fmt \"Invalid floating point format\"\n  | Ty.IllegalTypeParameters ->\n      pp_print_string fmt \"This type cannot have type parameters\"\n  | Term.BadArity ({ls_args = []} as ls, _) ->\n      fprintf fmt \"%s %a expects no arguments\"\n        (if ls.ls_value = None then \"Predicate\" else \"Function\") print_ls ls\n  | Term.BadArity (ls, app_arg) ->\n      let i = List.length ls.ls_args in\n      fprintf fmt \"%s %a expects %i argument%s but is applied to %i\"\n        (if ls.ls_value = None then \"Predicate\" else \"Function\")\n        print_ls ls i (if i = 1 then \"\" else \"s\") app_arg\n  | Term.EmptyCase ->\n      pp_print_string fmt \"Empty match expression\"\n  | Term.DuplicateVar vs ->\n      fprintf fmt \"Variable %a is used twice\" print_vsty vs\n  | Term.UncoveredVar vs ->\n      fprintf fmt \"Variable %a uncovered in \\\"or\\\"-pattern\" print_vsty vs\n  | Term.FunctionSymbolExpected ls ->\n      fprintf fmt \"Not a function symbol: %a\" print_ls ls\n  | Term.PredicateSymbolExpected ls ->\n      fprintf fmt \"Not a predicate symbol: %a\" print_ls ls\n  | Term.ConstructorExpected ls ->\n      fprintf fmt \"%s %a is not a constructor\"\n        (if ls.ls_value = None then \"Predicate\" else \"Function\") print_ls ls\n  | Term.TermExpected t ->\n      fprintf fmt \"Not a term: %a\" print_term t\n  | Term.FmlaExpected t ->\n      fprintf fmt \"Not a formula: %a\" print_term t\n  | Term.InvalidIntegerLiteralType ty\n  | Term.InvalidRealLiteralType ty\n  | Term.InvalidStringLiteralType ty when\n         (match ty.ty_node with Tyvar _ -> true | _ -> false) ->\n      pp_print_string fmt \"literal has an ambiguous type\"\n  | Term.InvalidIntegerLiteralType ty ->\n      fprintf fmt \"Cannot cast an integer literal to type %a\" print_ty ty\n  | Term.InvalidRealLiteralType ty ->\n      fprintf fmt \"Cannot cast a real literal to type %a\" print_ty ty\n  | Term.InvalidStringLiteralType ty ->\n      fprintf fmt \"Cannot cast a string literal to type %a\" print_ty ty\n  | Pattern.ConstructorExpected (ls,ty) ->\n      fprintf fmt \"%s %a is not a constructor of type %a\"\n        (if ls.ls_value = None then \"Predicate\" else \"Function\") print_ls ls\n        print_ty ty\n  | Pattern.NonExhaustive pl ->\n      fprintf fmt \"Pattern not covered by a match:@\\n  @[%a@]\"\n        print_pat (List.hd pl)\n  | Decl.BadConstructor ls ->\n      fprintf fmt \"Bad constructor: %a\" print_ls ls\n  | Decl.BadRecordField ls ->\n      fprintf fmt \"Not a record field: %a\" print_ls ls\n  | Decl.BadRecordCons (ls, ty) ->\n      fprintf fmt \"Type %a contains several constructors and cannot be \\\n                   (de)constructed using curly braces.\\n\\\n                   Function %a is presumably a field of type %a.\"\n        print_ts ty print_ls ls print_ts ty\n  | Decl.BadRecordType (ls, ty) ->\n      fprintf fmt \"Type %a is not a record type or contains an invariant, \\\n                   it cannot be (de)constructed using curly braces.\\n\\\n                   Function %a is presumably a field of type %a.\"\n        print_ts ty print_ls ls print_ts ty\n  | Decl.BadRecordUnnamed (ls, ty) ->\n      fprintf fmt \"Type %a contains unnamed fields and cannot be \\\n                   (de)constructed using curly braces.\\n\\\n                   Function %a is presumably a field of type %a.\"\n        print_ts ty print_ls ls print_ts ty\n  | Decl.RecordFieldMissing ls ->\n      fprintf fmt \"Field %a is missing\" print_ls ls\n  | Decl.DuplicateRecordField ls ->\n      fprintf fmt \"Field %a is used twice in the same constructor\" print_ls ls\n  | Decl.IllegalTypeAlias ts ->\n      fprintf fmt\n        \"Type symbol %a is a type alias and cannot be declared as algebraic\"\n        print_ts ts\n  | Decl.NonFoundedTypeDecl ts ->\n      fprintf fmt \"Cannot construct a value of type %a\" print_ts ts\n  | Decl.NonPositiveTypeDecl (_ts, ls, ty) ->\n      fprintf fmt \"Constructor %a \\\n          contains a non strictly positive occurrence of type %a\"\n        print_ls ls print_ty ty\n  | Decl.InvalidIndDecl (_ls, pr) ->\n      fprintf fmt \"Ill-formed inductive clause %a\"\n        print_pr pr\n  | Decl.NonPositiveIndDecl (_ls, pr, ls1) ->\n      fprintf fmt \"Inductive clause %a contains \\\n          a non strictly positive occurrence of symbol %a\"\n        print_pr pr print_ls ls1\n  | Decl.BadLogicDecl (ls1,ls2) ->\n      fprintf fmt \"Ill-formed definition: symbols %a and %a are different\"\n        print_ls ls1 print_ls ls2\n  | Decl.UnboundVar vs ->\n      fprintf fmt \"Unbound variable: %a\" print_vsty vs\n  | Decl.ClashIdent id ->\n      fprintf fmt \"Ident %a is defined twice\" Ident.print_decoded id.id_string\n  | Decl.EmptyDecl ->\n      pp_print_string fmt \"Empty declaration\"\n  | Decl.EmptyAlgDecl ts ->\n      fprintf fmt \"Algebraic type %a has no constructors\" print_ts ts\n  | Decl.EmptyIndDecl ls ->\n      fprintf fmt \"Inductive predicate %a has no constructors\" print_ls ls\n  | Decl.KnownIdent {id_string = s} ->\n      fprintf fmt \"Ident %a is already declared\" Ident.print_decoded s\n  | Decl.UnknownIdent {id_string = s} ->\n      fprintf fmt \"Ident %a is not yet declared\" Ident.print_decoded s\n  | Decl.RedeclaredIdent {id_string = s} ->\n      fprintf fmt \"Ident %a is already declared, with a different declaration\"\n        Ident.print_decoded s\n  | Decl.NoTerminationProof ls ->\n      fprintf fmt \"Cannot prove termination for %a\" print_ls ls\n  | Decl.UnexpectedProjOrConstr ls ->\n      fprintf fmt \"Unexpected projection or constructor symbol %a\" print_ls ls\n  | NonLocal id -> Format.fprintf fmt\n      \"Non-local symbol: %a\" print_id id\n  | CannotInstantiate id -> Format.fprintf fmt\n      \"Cannot instantiate a defined symbol %a\" print_id id\n  | BadInstance (BadI id) -> Format.fprintf fmt\n      \"Illegal instantiation for symbol %a\" print_id id\n  | BadInstance (BadI_ty_vars ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n          extra type variables in the type expression\"\n        print_ts ts\n  | BadInstance (BadI_ty_ner ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n          record types cannot be instantiated with type expressions\"\n        print_ts ts\n  | BadInstance (BadI_ty_impure ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n          both %a and the refining type expression must be pure\"\n        print_ts ts print_ts ts\n  | BadInstance (BadI_ty_arity ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\narity mismatch\"\n        print_ts ts\n  | BadInstance (BadI_ty_rec ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        the refining type must be a non-recursive record\"\n        print_ts ts\n  | BadInstance (BadI_ty_mut_lhs ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        the refinining type must be mutable\"\n        print_ts ts\n  | BadInstance (BadI_ty_mut_rhs ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        the refinining type must be immutable\"\n        print_ts ts\n  | BadInstance (BadI_ty_alias ts) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        the added fields are aliased with the original fields\"\n        print_ts ts\n  | BadInstance (BadI_field (ts,vs)) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        field %a not found in the refinining type\"\n        print_ts ts print_vs vs\n  | BadInstance (BadI_field_type (ts,vs)) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        incompatible types for field %a\"\n        print_ts ts print_vs vs\n  | BadInstance (BadI_field_ghost (ts,vs)) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        incompatible ghost status for field %a\"\n        print_ts ts print_vs vs\n  | BadInstance (BadI_field_mut (ts,vs)) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        incompatible mutability status for field %a\"\n        print_ts ts print_vs vs\n  | BadInstance (BadI_field_inv (ts,vs)) -> Format.fprintf fmt\n      \"Illegal instantiation for type %a:@\\n\\\n        field %a must not appear in the refined invariant\"\n        print_ts ts print_vs vs\n  | BadInstance (BadI_ls_type (ls,ty1,ty2)) -> Format.fprintf fmt\n      \"Illegal instantiation for %s %a:@\\ntype mismatch between %a and %a\"\n        (if ls.ls_value = None then \"predicate\" else \"function\")\n        print_ls ls print_ty_qualified ty1 print_ty_qualified ty2\n  | BadInstance (BadI_ls_kind ls) -> Format.fprintf fmt\n      \"Illegal instantiation for %s %a:@\\n%s expected\"\n        (if ls.ls_value = None then \"predicate\" else \"function\")\n        print_ls ls\n        (if ls.ls_value = None then \"predicate\" else \"function\")\n  | BadInstance (BadI_ls_arity ls) -> Format.fprintf fmt\n      \"Illegal instantiation for %s %a:@\\narity mismatch\"\n        (if ls.ls_value = None then \"predicate\" else \"function\")\n        print_ls ls\n  | BadInstance (BadI_ls_rs ls) -> Format.fprintf fmt\n      \"Cannot instantiate %s %a:@\\nprogram function %a \\\n        must be refined instead\"\n        (if ls.ls_value = None then \"predicate\" else \"function\")\n        print_ls ls print_ls ls\n  | BadInstance (BadI_rs_arity id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        arity mismatch\"\n        print_id id\n  | BadInstance (BadI_rs_type (id,exn)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        %a\"\n        print_id id Exn_printer.exn_printer exn\n  | BadInstance (BadI_rs_kind id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        incompatible kind\"\n        print_id id\n  | BadInstance (BadI_rs_ghost id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        incompatible ghost status\"\n        print_id id\n  | BadInstance (BadI_rs_mask id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        incompatible mask\"\n        print_id id\n  | BadInstance (BadI_rs_reads (id,svs)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        unreferenced external dependencies: %a\"\n        print_id id (Pp.print_list Pp.space print_vs) (Svs.elements svs)\n  | BadInstance (BadI_rs_writes (id,svs)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        unreferenced write effects in variables: %a\"\n        print_id id (Pp.print_list Pp.space print_vs) (Svs.elements svs)\n  | BadInstance (BadI_rs_taints (id,svs)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        unreferenced ghost write effects in variables: %a\"\n        print_id id (Pp.print_list Pp.space print_vs) (Svs.elements svs)\n  | BadInstance (BadI_rs_covers (id,svs)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        unreferenced region modifications in variables: %a\"\n        print_id id (Pp.print_list Pp.space print_vs) (Svs.elements svs)\n  | BadInstance (BadI_rs_resets (id,svs)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        unreferenced region resets in variables: %a\"\n        print_id id (Pp.print_list Pp.space print_vs) (Svs.elements svs)\n  | BadInstance (BadI_rs_raises (id,sid)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        unreferenced raised exceptions: %a\"\n        print_id id (Pp.print_list Pp.space print_id) (Sid.elements sid)\n  | BadInstance (BadI_rs_spoils (id,stv)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        restricted type variables: %a\"\n        print_id id (Pp.print_list Pp.space print_tv) (Stv.elements stv)\n  | BadInstance (BadI_rs_oneway id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        incompatible termination status\"\n        print_id id\n  | BadInstance (BadI_xs_type id) -> Format.fprintf fmt\n      \"Illegal instantiation for exception %a:@\\n\\\n        type mismatch\"\n        print_id id\n  | BadInstance (BadI_xs_mask id) -> Format.fprintf fmt\n      \"Illegal instantiation for exception %a:@\\n\\\n        incompatible mask\"\n        print_id id\n  | CloseTheory ->\n      pp_print_string fmt \"Cannot close theory: some namespaces are still open\"\n  | NoOpenedNamespace ->\n      pp_print_string fmt \"No opened namespaces\"\n  | ClashSymbol s ->\n      Format.fprintf fmt \"Symbol %s is already defined in the current scope\" s\n  | UnknownMeta s ->\n      Format.fprintf fmt \"Unknown meta-property %s\" s\n  | KnownMeta m ->\n      Format.fprintf fmt \"Metaproperty %s is already registered with \\\n        a conflicting signature\" m.meta_name\n  | BadMetaArity (m,n) ->\n      let i = List.length m.meta_type in\n      Format.fprintf fmt \"Metaproperty %s expects %d argument%s but \\\n        is applied to %d\" m.meta_name i (if i = 1 then \"\" else \"s\") n\n  | MetaTypeMismatch (m,t1,t2) ->\n      Format.fprintf fmt \"Metaproperty %s expects a %a argument but \\\n        is applied to %a\"\n        m.meta_name print_meta_arg_type t1 print_meta_arg_type t2\n  | RangeConflict ts ->\n      Format.fprintf fmt \"Conflicting definitions for range type %a\"\n        print_ts ts\n  | FloatConflict ts ->\n      Format.fprintf fmt \"Conflicting definitions for float type %a\"\n        print_ts ts\n  | ProvedWfConflict ls ->\n      Format.fprintf fmt \"Conflicting definitions for well-foundedness of relation %a\"\n        print_ls ls\n  | IllFormedWf(pr,ls) ->\n      Format.fprintf fmt\n        \"meta \\\"vc:proved_wf\\\" requires that proposition %a has the form (well_founded %a)\"\n        print_pr pr print_ls ls\n  | IllFormedMeta(m,s) ->\n      Format.fprintf fmt\n        \"Ill formed meta \\\"%sf\\\": %s\" m.meta_name s\n  | _ -> raise exn\n  end\n\n\n(* New attribute for plugins (parsing of arguments of transformation when\n   printing Ada, python or C *)"
+  },
+  {
+    "file": "why3/src/core/printer.ml",
+    "start": 620,
+    "end": 659,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | KnownPrinter s ->\n      fprintf fmt \"Printer '%s' is already registered\" s\n  | UnknownPrinter s ->\n      fprintf fmt \"Unknown printer '%s'\" s\n  | KnownTypeSyntax ts ->\n      fprintf fmt \"Syntax for type symbol %a is already defined\"\n        Pretty.print_ts ts\n  | KnownLogicSyntax ls ->\n      fprintf fmt \"Syntax for logical symbol %a is already defined\"\n        Pretty.print_ls ls\n  | TooManyTypeOverride ts ->\n      fprintf fmt \"Too many syntax overriding for type symbol %a\"\n        Pretty.print_ts ts\n  | TooManyLogicOverride ls ->\n      fprintf fmt \"Too many syntax overriding for logic symbol %a\"\n        Pretty.print_ls ls\n  | BadSyntaxIndex i ->\n      fprintf fmt \"Bad argument index %d, must start with 1\" i\n  | BadSyntaxArity (i1,i2) ->\n      fprintf fmt \"Bad argument index %d, must end with %d\" i2 i1\n  | BadSyntaxKind c ->\n      fprintf fmt \"Unrecognized argument kind '%c'\" c\n  | Unsupported s ->\n      fprintf fmt \"@[<hov 3> Uncaught exception 'Unsupported %s'@]\" s\n  | UnsupportedType (e,s) ->\n      fprintf fmt \"@[@[<hov 3> This type isn't supported:@\\n%a@]@\\n %s@]\"\n        Pretty.print_ty e s\n  | UnsupportedTerm (e,s) ->\n      fprintf fmt \"@[@[<hov 3> This expression isn't supported:@\\n%a@]@\\n %s@]\"\n        Pretty.print_term e s\n  | UnsupportedPattern (p,s) ->\n      fprintf fmt \"@[@[<hov 3> This pattern isn't supported:@\\n%a@]@\\n %s@]\"\n        Pretty.print_pat p s\n  | UnsupportedDecl (d,s) ->\n      fprintf fmt \"@[@[<hov 3> This declaration isn't supported:@\\n%a@]@\\n %s@]\"\n        Pretty.print_decl d s\n  | NotImplemented (s) ->\n      fprintf fmt \"@[<hov 3> Unimplemented feature:@\\n%s@]\" s\n  | e -> raise e)"
+  },
+  {
+    "file": "why3/src/core/task.ml",
+    "start": 364,
+    "end": 378,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | LemmaFound ->   Format.pp_print_string fmt \"Task cannot contain a lemma\"\n  | GoalFound ->    Format.pp_print_string fmt \"The task already ends with a goal\"\n  | GoalNotFound -> Format.pp_print_string fmt \"The task does not end with a goal\"\n  | NotTaggingMeta m ->\n      Format.fprintf fmt \"Metaproperty '%s' is not a symbol tag\" m.meta_name\n  | NotExclusiveMeta m ->\n      Format.fprintf fmt \"Metaproperty '%s' is not exclusive\" m.meta_name\n  | _ -> raise exn)\n\n(* task1 : prefix\n   lt : to reduce\n   lk : suffix (reverse order)\n   i : length of lt\n*)"
+  },
+  {
+    "file": "why3/src/core/trans.ml",
+    "start": 547,
+    "end": 566,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | KnownTrans s ->\n      Format.fprintf fmt \"Transformation '%s' is already registered\" s\n  | UnknownTrans s ->\n      Format.fprintf fmt \"Unknown transformation '%s'\" s\n  | UnknownFlagTrans (m,s,l) ->\n      Format.fprintf fmt \"Bad parameter %s for the meta %s@.\" s m.meta_name;\n      Format.fprintf fmt \"Known parameters: %a\"\n        (Pp.print_list Pp.space Pp.string) l\n  | Unnecessary_arguments args ->\n      Format.fprintf fmt \"Unnecessary argument(s) (%a) for transformation\"\n        Pp.(print_list_or_default \"none\" space string) args\n  | IllegalFlagTrans m ->\n      Format.fprintf fmt \"Meta %s must be exclusive string-valued\" m.meta_name\n  | TransFailure (s,e) ->\n      Format.fprintf fmt \"Failure in transformation %s@\\n%a\" s\n        Exn_printer.exn_printer e\n  | Bad_name_table s ->\n      Format.fprintf fmt \"Names table associated to task was not generated in %s\" s\n  | e -> raise e)"
+  },
+  {
+    "file": "why3/src/driver/driver.ml",
+    "start": 501,
+    "end": 518,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | NoPrinter -> Format.fprintf fmt\n      \"No printer specified in the driver file\"\n  | Duplicate s -> Format.fprintf fmt\n      \"Duplicate %s specification\" s\n  | UnknownType (thl,idl) -> Format.fprintf fmt\n      \"Unknown type symbol %s\" (string_of_qualid thl idl)\n  | UnknownLogic (thl,idl) -> Format.fprintf fmt\n      \"Unknown logical symbol %s\" (string_of_qualid thl idl)\n  | UnknownProp (thl,idl) -> Format.fprintf fmt\n      \"Unknown proposition %s\" (string_of_qualid thl idl)\n  | UnknownSpec s -> Format.fprintf fmt\n      \"Unknown format specifier '%%%s', use %%f, %%t or %%g\" s\n  | FSymExpected ls -> Format.fprintf fmt\n      \"%a is not a function symbol\" Pretty.print_ls ls\n  | PSymExpected ls -> Format.fprintf fmt\n      \"%a is not a predicate symbol\" Pretty.print_ls ls\n  | e -> raise e)"
+  },
+  {
+    "file": "why3/src/driver/driver_parser.mly",
+    "start": 14,
+    "end": 16,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n    | Error -> Format.pp_print_string fmt \"syntax error\"\n    | _ -> raise exn)"
+  },
+  {
+    "file": "why3/src/driver/prove_client.ml",
+    "start": 252,
+    "end": 261,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | NotConnected ->\n      Format.pp_print_string fmt \"Not connected to the proof server\"\n  | AlreadyConnected ->\n      Format.pp_print_string fmt \"Already connected to the proof server\"\n  | InvalidAnswer s ->\n      Format.fprintf fmt \"Invalid server answer: %s\" s\n  | ConnectionError s ->\n      Format.fprintf fmt \"Connection error: %s\" s\n  | _ -> raise exn)"
+  },
+  {
+    "file": "why3/src/driver/smtv2_model_parser.ml",
+    "start": 1606,
+    "end": 1629,
+    "source": "  Exn_printer.register (fun fmt exn ->\n      match exn with\n      | FromStringToSexp.E msg ->\n          Format.fprintf fmt\n            \"Error@ while@ parsing@ SMT@ model@ from@ string@ to@ \\\n             S-expression:@ %s\"\n            msg\n      | FromSexpToModel.E (sexp, s) ->\n          Format.fprintf fmt\n            \"Error@ while@ parsing@ SMT@ model@ from@ S-expression@ to@ model@ \\\n             definition:@ cannot@ read@ the@ following@ S-expression@ as@ %s:@ \\\n             %a\"\n            s FromSexpToModel.pp_sexp sexp\n      | FromModelToTerm.E_parsing msg ->\n          Format.fprintf fmt\n            \"Error@ while@ parsing@ SMT@ model@ from@ model@ definition@ to@ \\\n             term:@ %s\"\n            msg\n      | FromModelToTerm.E_concrete_syntax msg ->\n          Format.fprintf fmt\n            \"Mismatch@ error@ between@ term@ and@ concrete@ syntax:@ %s\"\n            msg\n      | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/src/driver/whyconf.ml",
+    "start": 1085,
+    "end": 1108,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | ConfigFailure (f, s) ->\n      Format.fprintf fmt \"error in config file %s: %s\" f s\n  | WrongMagicNumber ->\n      Format.pp_print_string fmt \"outdated config file; rerun 'why3 config'\"\n  | RC_save.NonUniqueId ->\n    Format.pp_print_string fmt \"InternalError: two provers share the same id\"\n  | ProverNotFound (config,fp) ->\n    fprintf fmt \"No prover in %s corresponds to \\\"%a\\\"@.\"\n      (get_conf_file config) print_filter_prover fp\n  | ProverAmbiguity (config,fp,provers ) ->\n    fprintf fmt \"More than one prover@ in %s@ correspond@ to \\\"%a\\\":@ %a@.\"\n      (get_conf_file config) print_filter_prover fp\n      (Pp.print_iter2 Mprover.iter Pp.comma Pp.nothing print_prover Pp.nothing)\n      provers\n  | ParseFilterProver s ->\n    fprintf fmt\n      \"Syntax error prover identification '%s': \\\n       name[,version[,alternative]|,,alternative]\" s\n  | DuplicateShortcut s ->\n    fprintf fmt\n      \"Shortcut %s appears twice in the configuration file\" s\n  | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/extract/java.ml",
+    "start": 32,
+    "end": 35,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | Unsupported s -> fprintf fmt \"unsupported: %s\" s\n  | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/extract/pdriver.ml",
+    "start": 347,
+    "end": 372,
+    "source": "let () = Exn_printer.register (fun fmt exn ->\n  let open Format in\n  match exn with\n  | Duplicate s -> fprintf fmt\n      \"Duplicate %s specification\" s\n  | UnknownType (thl,idl) -> fprintf fmt\n      \"Unknown type symbol %s\" (string_of_qualid thl idl)\n  | UnknownLogic (thl,idl) -> fprintf fmt\n      \"Unknown logical symbol %s\" (string_of_qualid thl idl)\n  | UnknownProp (thl,idl) -> fprintf fmt\n      \"Unknown proposition %s\" (string_of_qualid thl idl)\n  | UnknownVal (thl,idl) -> fprintf fmt\n      \"Unknown val %s\" (string_of_qualid thl idl)\n  | UnknownExn (thl,idl) -> fprintf fmt\n      \"Unknown exception %s\" (string_of_qualid thl idl)\n  | FSymExpected ls -> fprintf fmt\n      \"%a is not a function symbol\" Pretty.print_ls ls\n  | PSymExpected ls -> fprintf fmt\n      \"%a is not a predicate symbol\" Pretty.print_ls ls\n  | NoPrinter ->\n      pp_print_string fmt \"Missing printer in driver\"\n  | KnownPrinter s ->\n      fprintf fmt \"Program printer '%s' is already registered\" s\n  | UnknownPrinter s ->\n      fprintf fmt \"Unknown program printer '%s'\" s\n  | e -> raise e)"
+  },
+  {
+    "file": "why3/src/mlw/dexpr.ml",
+    "start": 1847,
+    "end": 1852,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | UnboundLabel s ->\n      Format.fprintf fmt \"unbound label %s\" s\n  | UnboundExn s ->\n      Format.fprintf fmt \"unbound exception %s\" s\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/mlw/expr.ml",
+    "start": 1606,
+    "end": 1615,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | ConstructorExpected s -> fprintf fmt\n      \"Function %a is not a constructor\" print_rs s\n  | FieldExpected s -> fprintf fmt\n      \"Function %a is not a mutable field\" print_rs s\n  | ExceptionLeak xs -> fprintf fmt\n      \"Uncaught local exception %a\" print_xs xs\n  | NoVariantFound rs -> fprintf fmt\n      \"Cannot prove termination for %a\" print_rs rs\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/mlw/ity.ml",
+    "start": 1773,
+    "end": 1828,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | BadItyArity ({its_ts = {ts_args = []}} as s, _) -> fprintf fmt\n      \"Type symbol %a expects no arguments\" print_its s\n  | BadItyArity (s, app_arg) ->\n      let i = List.length s.its_ts.ts_args in fprintf fmt\n      \"Type symbol %a expects %i argument%s but is applied to %i\"\n        print_its s i (if i = 1 then \"\" else \"s\") app_arg\n  | BadRegArity (s, app_arg) ->\n      let i = List.length s.its_regions in fprintf fmt\n      \"Type symbol %a expects %i region argument%s but is applied to %i\"\n        print_its s i (if i = 1 then \"\" else \"s\") app_arg\n  | DuplicateRegion r -> fprintf fmt\n      \"Region %a is used twice\" print_reg r\n  | UnboundRegion r -> fprintf fmt\n      \"Unbound region %a\" print_reg r\n(*\n  | UnboundException xs -> fprintf fmt\n      \"This function raises %a but does not specify a post-condition for it\"\n        print_xs xs\n*)\n  | TypeMismatch (t1,t2,s) -> fprintf fmt\n      \"Type mismatch between %a and %a\"\n        (print_ity_node s false 0) t1 print_ity_full t2\n  | IllegalUpdate (v, _r) -> fprintf fmt\n      \"This expression modifies a non-updatable component of variable %a\"\n        print_pv v\n  | StaleVariable (v, _r) -> fprintf fmt\n      \"This expression prohibits further usage of the variable %a \\\n        or any function that depends on it\" print_pv v\n  | BadGhostWrite (v, _r) -> fprintf fmt\n      \"This expression makes a ghost modification in the non-ghost variable %a\"\n        print_pv v\n  | AssignPrivate r -> fprintf fmt\n      \"This assignment modifies a value of the private type %a\" print_reg r\n  | AssignSnapshot t -> fprintf fmt\n      \"This assignment modifies a value of the immutable type %a\" print_ity t\n  | WriteImmutable (r, v) -> fprintf fmt\n      \"In the type symbol %a, the field %s is immutable\"\n        print_its r.reg_its v.pv_vs.vs_name.id_string\n  | DuplicateField (_r, v) -> fprintf fmt\n      \"In this assignment, the field %s is modified twice\"\n        v.pv_vs.vs_name.id_string\n  | GhostDivergence -> fprintf fmt\n      \"This ghost expression may not terminate\"\n  | IllegalSnapshot t -> fprintf fmt\n      \"This application expects a mutable type but receives %a\"\n        print_ity t\n  | IllegalAlias _reg -> fprintf fmt\n      \"This application creates an illegal alias\"\n  | ImpureVariable (v,t) -> fprintf fmt\n      \"This application instantiates pure type variable %a \\\n        with a mutable type %a\" Pretty.print_tv v print_ity t\n  | IllegalAssign (r1,r2,r3) -> fprintf fmt\n      \"This assignment mismatches regions (%a: %a - %a)\"\n        print_reg r1 print_reg r2 print_reg r3\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/mlw/pmodule.ml",
+    "start": 1734,
+    "end": 1739,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | IncompatibleNotation nm -> Format.fprintf fmt\n      \"Incombatible type signatures for notation '%a'\" Ident.print_decoded nm\n  | ModuleNotFound (sl,s) -> Format.fprintf fmt\n      \"Module %s not found in library %a\" s print_path sl\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/parser/lexer.mll",
+    "start": 207,
+    "end": 213,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n  (* This ad hoc switch allows to not edit the automatically generated\n     handcrafted.messages in ad hoc ways. *)\n  | Error None -> Format.pp_print_string fmt \"syntax error\"\n  | Error (Some s) -> Format.fprintf fmt \"syntax error: %s\" s\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/src/parser/parser_common.mly",
+    "start": 167,
+    "end": 170,
+    "source": "  let () = Exn_printer.register (fun fmt exn -> match exn with\n    | Error -> Format.fprintf fmt \"syntax error %s\" (Parser_messages.message 1)\n    | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/src/parser/typing.ml",
+    "start": 1970,
+    "end": 1974,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | UnboundSymbol (ty, q) ->\n      Format.fprintf fmt \"unbound %s symbol '%a'\" (symbol_kind_to_string ty)\n        print_qualid q\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/session/session_itp.ml",
+    "start": 1566,
+    "end": 1572,
+    "source": "let () = Exn_printer.register\n    (fun fmt e ->\n      match e with\n      | NoProgress ->\n          Format.pp_print_string fmt \"The transformation made no progress.\\n\"\n      | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/session/strategy.ml",
+    "start": 29,
+    "end": 39,
+    "source": "let () = Exn_printer.register\n    (fun fmt e ->\n      match e with\n      | StratFailure(s,e) ->\n          Format.fprintf fmt \"@[Strategy `%s` failure:@ @[%a@]@]\" s Exn_printer.exn_printer e\n      | UnknownStrat(s) ->\n          Format.fprintf fmt \"Strategy `%s` not known\" s\n      | KnownStrat(s) ->\n          Format.fprintf fmt \"Strategy `%s` already known\" s\n      | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/tools/why3extract.ml",
+    "start": 243,
+    "end": 246,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n      | UnknownModule s -> fprintf fmt \"unknown module: %s\" s\n      | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/transform/args_wrapper.ml",
+    "start": 27,
+    "end": 41,
+    "source": "let () = Exn_printer.register\n    (fun fmt e ->\n      match e with\n      | Parse_error s ->\n          Format.fprintf fmt \"@[Parsing error:@ @[`%s`@]@]\" s\n      | Arg_expected (ty, s) ->\n          Format.fprintf fmt \"Argument expected of type: `%s`\\n Argument given: `%s`\" ty s\n      | Arg_theory_not_found s ->\n          Format.fprintf fmt \"Theory not found `%s`\" s\n      | Arg_expected_none s ->\n          Format.fprintf fmt \"Argument expected of type `%s`. None were given.\" s\n      | Arg_error s ->\n          Format.fprintf fmt \"@[General argument error:@ @[`%s`@].@]\" s\n      | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/transform/args_wrapper.ml",
+    "start": 278,
+    "end": 284,
+    "source": "let () = Exn_printer.register (fun fmt e ->\n    match e with\n    | Arg_parse_type_error (loc, str, e) ->\n        Format.fprintf fmt \"Error while parsing argument(s) %s at %a: %a\"\n          str Loc.pp_position loc Exn_printer.exn_printer e\n    | e -> raise e)\n"
+  },
+  {
+    "file": "why3/src/util/cmdline.ml",
+    "start": 91,
+    "end": 102,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | BadEscape (s,c) ->\n      Format.fprintf fmt \"bad escape sequence '\\\\%c' in string: %s\" c s\n  | UnfinishedEscape s ->\n      Format.fprintf fmt \"unfinished escape sequence in string: %s\" s\n  | UnclosedQuote s ->\n      Format.fprintf fmt \"unclosed quote in string: %s\" s\n  | UnclosedDQuote s ->\n      Format.fprintf fmt \"unclosed double quote in string: %s\" s\n  | EmptyCommandLine ->\n      Format.pp_print_string fmt \"empty command line\"\n  | _ -> raise e)"
+  },
+  {
+    "file": "why3/src/util/debug.ml",
+    "start": 53,
+    "end": 56,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | UnknownFlag s -> Format.fprintf fmt \"unknown debug flag '%s'\" s\n  | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/util/lexlib.mll",
+    "start": 18,
+    "end": 23,
+    "source": "  let () = Exn_printer.register (fun fmt e -> match e with\n    | IllegalEscape -> Format.pp_print_string fmt \"illegal escape\"\n    | IllegalCharInString -> Format.pp_print_string fmt \"illegal character in string\"\n    | UnterminatedString -> Format.pp_print_string fmt \"unterminated string\"\n    | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/util/lexlib.mll",
+    "start": 134,
+    "end": 138,
+    "source": "  let () = Exn_printer.register (fun fmt e -> match e with\n    | UnterminatedComment -> Format.pp_print_string fmt \"unterminated comment\"\n    | IllegalCharacter s -> Format.fprintf fmt \"illegal character %s\" s\n    | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/util/loc.ml",
+    "start": 343,
+    "end": 353,
+    "source": "let () = Exn_printer.register\n  (fun fmt exn ->\n    let open Format in\n    match exn with\n    | Located (loc,e) ->\n        fprintf fmt \"@[File %a:@ %a@]\" pp_position loc Exn_printer.exn_printer e\n    | Message s ->\n        pp_print_string fmt s\n    | _ ->\n        raise exn)\n"
+  },
+  {
+    "file": "why3/src/util/mysexplib-dummy.ml",
+    "start": 18,
+    "end": 21,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | Parse_error msg -> Format.fprintf fmt \"Sexp parser syntax error: %s\" msg\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/src/util/mysexplib-real.ml",
+    "start": 32,
+    "end": 35,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | Parse_error msg -> Format.fprintf fmt \"Sexp parser syntax error: %s\" msg\n  | _ -> raise exn)\n"
+  },
+  {
+    "file": "why3/src/util/number.ml",
+    "start": 571,
+    "end": 580,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | InvalidConstantLiteral (n,s) ->\n      Format.fprintf fmt \"Invalid integer literal in base %d: '%s'\" n s\n  | NonRepresentableFloat c ->\n      Format.fprintf fmt \"Invalid floating point literal: '%a'\"\n        (print_real_constant full_support) c\n  | OutOfRange c ->\n      Format.fprintf fmt \"Integer literal %a is out of range\"\n              (print_int_constant full_support) c\n  | _ -> raise exn)"
+  },
+  {
+    "file": "why3/src/util/plugin.ml",
+    "start": 60,
+    "end": 67,
+    "source": "  Exn_printer.register (fun fmt exn ->\n    match exn with\n      | Plugin_Not_Found (pl,sl) ->\n        Format.fprintf fmt \"The plugin %s can't be found in the directories %a\"\n          pl (Pp.print_list Pp.space Pp.string) sl\n      | Dynlink.Error (error) ->\n        Format.fprintf fmt \"Dynlink error: %s\" (Dynlink.error_message error)\n      | _ -> raise exn)"
+  },
+  {
+    "file": "why3/src/util/rc.mll",
+    "start": 89,
+    "end": 125,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  (* | SyntaxError -> *)\n  (*     fprintf fmt \"syntax error\" *)\n  | ExtraParameters s ->\n      fprintf fmt \"section '%s': header too long\" s\n  | MissingParameters s ->\n      fprintf fmt \"section '%s': header too short\" s\n  (* | UnknownSection s -> *)\n  (*     fprintf fmt \"unknown section '%s'\" s *)\n  | UnknownField s ->\n      fprintf fmt \"unknown field '%s'\" s\n  (* | MissingSection s -> *)\n  (*     fprintf fmt \"section '%s' is missing\" s *)\n  | MissingField s ->\n      fprintf fmt \"field '%s' is missing\" s\n  | DuplicateSection s ->\n      fprintf fmt \"section '%s' is already given\" s\n  | DuplicateField (s,u,v) ->\n      fprintf fmt \"cannot set field '%s' to %a, as it is already set to %a\"\n        s print_rc_value v print_rc_value u\n  | StringExpected (s,v) ->\n      fprintf fmt \"cannot set field '%s' to %a: a string is expected\"\n        s print_rc_value v\n(* dead code\n  | IdentExpected (s,v) ->\n      fprintf fmt \"cannot set field '%s' to %a: an identifier is expected\"\n        s print_rc_value v\n*)\n  | IntExpected (s,v) ->\n      fprintf fmt \"cannot set field '%s' to %a: an integer is expected\"\n        s print_rc_value v\n  | FloatExpected (s,v) ->\n      fprintf fmt \"cannot set field '%s' to %a: a float is expected\"\n        s print_rc_value v\n\n  | e -> raise e)\n"
+  },
+  {
+    "file": "why3/src/util/rc.mll",
+    "start": 413,
+    "end": 419,
+    "source": "let () = Exn_printer.register (fun fmt e -> match e with\n  | CannotOpen (_, s) ->\n      Format.fprintf fmt \"system error: `%s'\" s\n  | SyntaxErrorFile (f, s) ->\n      Format.fprintf fmt \"syntax error in %s: %s\" f s\n  | _ -> raise e)\n"
+  },
+  {
+    "file": "why3/src/util/sysutil.ml",
+    "start": 287,
+    "end": 294,
+    "source": "let () = Exn_printer.register (fun fmt exn -> match exn with\n  | FailedResolve fl ->\n     Format.fprintf fmt\n       \"No resolved file among [%a]\" Pp.(print_list semi print_string) fl\n  | AmbiguousResolve fl ->\n     Format.fprintf fmt\n       \"Ambiguous file name found in [%a]\" Pp.(print_list semi print_string) fl\n  | e -> raise e)"
+  }
+]

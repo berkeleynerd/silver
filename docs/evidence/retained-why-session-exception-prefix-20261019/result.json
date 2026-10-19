@@ -1,0 +1,18 @@
+{
+  "why_printer_registration_snippets": 55,
+  "source_excerpts_checked": 40,
+  "native_bodies_checked": 22,
+  "native_bytes_checked": 5619,
+  "native_raw_relative_candidates": 26,
+  "primitive_exception_rejection_by_inspected_why_callbacks_under_prose_argument": true,
+  "whole_exception_family_exhaustiveness_established": false,
+  "sexplib_converter_registry_prefix_closed": false,
+  "interrupted_catch_and_continuation_preservation_closed": false,
+  "exceptional_identifier_charge": null,
+  "complete_R": null,
+  "full_R_established": false,
+  "composed_endpoint_established": false,
+  "native_runs": 0,
+  "debugger_runs": 0,
+  "disassembler_runs": 0
+}
