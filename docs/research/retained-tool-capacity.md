@@ -1,10 +1,11 @@
 # Capacity contract for the retained tools
 
-**2026-10-19 — resumed research; derivation unfinished.**
-The [resumption decision](../session-memory.md#2026-10-19--capacity-goal-119-resumed)
-continues from the preserved evening checkpoint. The
-[round record](../evidence/retained-tool-rounds.md#round-22--ira-numeric-closure-and-native-callback-coverage)
-identifies accepted and review-pending work and the first resumption steps.
+**2026-10-19 — paused after reviewed Round 23; derivation unfinished.**
+The [owner pause](../session-memory.md#2026-10-19--capacity-goal-119-paused-for-assessment)
+follows the substantive combined first-inlining identifier-bound checkpoint.
+The [round record](../evidence/retained-tool-rounds.md#round-23--reviewed-first-inline-bound-and-lra-joins)
+identifies accepted work, the revised subjective estimate of approximately
+75% and the remaining obligations. Resume only on subsequent owner instruction.
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 in [decision #117](https://github.com/berkeleynerd/silver/issues/117).
@@ -732,6 +733,31 @@ fixed-Hello reconciliation is separate from the next actual-source attachment.
 Dynamic recognition lifetimes, other outer helpers and LRA arithmetic remain
 open, as does complete native capacity.
 
+The [actual-source helper attachment](retained-literal-ira-lra-helper-attachment.md),
+frozen at `71624df232`, is [independently accepted](../reviews/review-literal-ira-lra-helper-attachment-71624df232.md).
+It preserves 335 inherited predicates and adds 31 helper predicates plus their
+conjunction, for **367 guards**. Actual source/configuration and complete
+existing backing/numeric owners are checked before the new arithmetic branch.
+Failed or uncomputed prerequisites leave the helper leaf and 32 new guards
+null. The source's fixed-Hello reconciliation is never used as a general rule;
+the C=10/N=10 case retains its actual 69,927 GGC events. Its 146 focused checks
+passed in 9.525369996s, and independent review found no material findings.
+This completes the named helper attachment, while the broader source
+obligations listed above remain open.
+
+The [LRA recognition lifetime argument](retained-literal-lra-recognition.md),
+frozen at `b341b7f33a`, is [independently accepted](../reviews/review-literal-lra-recognition-b341b7f33a.md).
+Creation, reuse, invalidation, recreation, final renumbering and draining
+preserve the existing recognition owner. Stored register-list keys remain
+pseudo identities during the final renumbering; teardown uses those saved
+keys. Exact retained pool counters are bounded by **819 ceil(M/819)** and
+**2730 ceil(10C/2730)**. Existing UID and 3K guards imply their size_t fit,
+so no new numeric cap or allocation owner is introduced. The 62 focused checks
+passed in 3.371710625s; independent review found no material findings.
+This closes the named source lifetime/counter obligation. Its actual-source
+attachment to the 367-guard route, other outer IRA/LRA helpers and complete
+native capacity remain open.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
@@ -1085,6 +1111,45 @@ preservation remain open. No unknown nonnull callback or failing execution is
 demonstrated. Existing collector/allocator/libc/GMP contracts still apply;
 the missing application-callback relation does not require re-proving those
 implementations. This coverage correction is distinct from #143.
+
+The [conditional save/exit and reporting charge](retained-why-save-exit-charge.md),
+frozen at `6dd2732dd0`, is [independently accepted](../reviews/review-why-save-exit-charge-6dd2732dd0.md).
+Direct save/exit adds zero non-binder registrations, and returning first-fold
+catches add none beyond the existing 1,145 allowance. Diagnostic type printing
+can initialize tuple types, so it receives a separate whole-interval allowance
+**D=25,920**, including failures with no SIGINT save. The interface becomes
+**60,496 + 1,145 + 2*966 + 25,920 + N_native = 89,493 + N_native**.
+The native contribution and preservation remain an independently required
+input. Review accepts the type-origin, returning-catch and six-site reporting
+arguments without claiming that input or an unconditional endpoint. The
+ordinary-ending transition, later transformations and scheduler invocations
+remain outside this first interval. Author checks bind 62 source excerpts and
+16 effect rows in 0.491990857s; review reused that success.
+
+The [native-effect and combined first-interval argument](retained-why-native-effect-completeness.md),
+frozen at `7b84ac0176`, is
+[independently accepted](../reviews/review-why-native-composition-7b84ac0176.md).
+Its complete named source roots, initialization, standard-owner effects and
+lifetime clients derive the selected callback configuration and protected-state
+preservation under the explicit relevant-source/runtime/loader relation.
+The native contribution is **N_native=0**. Joined to the same PID 97103,
+counter/cut, session and accepted diagnostic allowance, this gives
+**counter_end <= 89,493**, below the OCaml tagged-integer limit. The proof
+establishes no wrap from that cut through the first-inlining/serial-save and
+specified reporting interval; it does not infer prior counter history.
+This closes the previously separate native/save/reporting join for this interval.
+
+The source-family argument covers 233 OCaml C/header/assembly members plus
+Zarith and derives 17 logical selectors. Bounded ELF metadata corroborates
+its linked families, lifecycle and weak-provider selection. It does not prove
+historical build identity or exhaustive binary semantics. The data-only check
+took 3.008993754s; independent review found no material findings. The successful
+capture is reused, with no new target execution, disassembly or broad rerun.
+Other counters/resources, ordinary-ending saves, later transformations and
+scheduler invocations, all required task/driver pairs and the whole capacity
+rule remain open. The earlier frozen packets retain their historical null/open
+fields; this accepted successor supplies the scoped closure without rewriting
+them. All workers stop at the owner's requested assessment checkpoint.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

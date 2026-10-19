@@ -1919,3 +1919,157 @@ keeps native preservation as an explicit separate dependency. Their objective
 is to discharge the remaining joins, followed by required phases/current
 grammar, sound composition, useful-domain comparison and final review.
 #119 remains unfinished and production #88–#94 remains unstarted.
+
+## Round 23 — reviewed first-inline bound and LRA joins
+
+Date: 2026-10-19; follows published `ddc7316bf5`. This owner-resumed round
+completed under the unchanged Oracle/tools/pins/admission and current-grammar
+scope, then paused at the owner-selected substantial checkpoint.
+No research stop is selected; dependent production #88–#94 remains unstarted.
+
+Actual-source helper attachment `71624df232`, selected Sol / Extra High,
+is independently accepted by `ac4694d0f7`, selected Astra / Extra High;
+integration is `fe78cff7e7` / `36af6a0fa2`. It preserves all 335 inherited
+conditions and owners, adding 31 named helper predicates plus their conjunction,
+for **367 guards**. Complete physical source/configuration/backing/numeric
+joins precede arithmetic. False or uncomputed prerequisites keep the helper
+leaf and all 32 new guards null. The real original/pool failure retains 148
+null predicates, and the GGC/LRA failure retains 131. Existing counters,
+pool owners and component residual flags are preserved. C=10/N=10 retains
+69,927 GGC events; the frozen Hello reconciliation is not a general rule.
+
+The measured author checkpoint interval was 451.076566s, starting during
+dependency reading rather than at the exact task start. Focused evidence
+passed 146 checks in 9.525369996s with one Context and four actual sources.
+The first attempted run needed four expected-diagnostic strings corrected
+because the accepted bitmap validator rejected backing corruption earlier
+than the new validator; implementation and bounds were unchanged. Review
+inspected for 195s and independently reconciled eight target/18 accepted Git
+records, seven artifact identities, 23 full prior owner fields, both 335-key
+maps, 367 guards, four source/extent cases, three pure-count exports and the
+unchanged 50-owner GGC partition in 0.199562243s. A scratch extraction was
+corrected before that successful review check. No material findings were
+identified; successful author and predecessor checks were reused without
+executing the evaluator or their suites.
+
+The conditional Why save/exit/reporting source `6dd2732dd0`, selected Astra /
+Extra High, is independently accepted by `3956aa7fb7`, also selected Astra /
+Extra High; integration is `812fc2cd1a` / `46c382e462`. Direct save/exit adds
+zero non-binder registrations and returning first-fold catches add zero beyond
+the accepted 1,145 allowance. Diagnostic type printing can initialize tuple
+types; the author's draft zero charge was rejected and replaced by the
+whole-interval **D=25,920** allowance. It covers primitive failures even with
+zero signal-save attempts. The resulting conditional counter interface is
+**89,493 + N_native**. The native-effect/preservation input remains independent
+and open at this packet's freeze. Ordinary-ending saves, later transformations
+and later scheduler invocations remain outside the interval.
+
+The author interval was 1,439s. Its source-binding/arithmetic check covered
+62 exact excerpts and 16 effect rows in 0.491990857s. Independent review
+inspected for 204s, checked the type-origin/substitution envelope, returning
+catches, registry suppression and six-site reporting topology, and found no
+material findings. It reused the author success, with no checker/capture/
+native/prover/Lean or predecessor-suite replay. Imported source excerpts retain
+their original whitespace, including one trailing space in `gnat_util.ml:5`.
+
+The LRA recognition source `b341b7f33a`, selected Astra / Extra High, is
+independently accepted by `df9ada3f10`, also selected Astra / Extra High;
+integration is `268c3fef25` / `3d87c81d1b`. It closes the named recognition
+lifetime and retained-counter argument using the existing backing and pool
+owners. The final-renumbering snapshot preserves stored pseudo keys through
+draining. Exact retained pool slots are 819 ceil(M/819) and
+2730 ceil(10C/2730), and inherited arithmetic implies their representability;
+no new cap, guard or allocation owner is needed. Actual-source attachment
+and the remaining native capacities stay open.
+
+The author checkpoint interval was 831.995745s; final evidence passed 62
+checks in 3.371710625s. The final rerun followed a correction aligning the
+consumed byte-product predicate with the accepted SIZE_MAX spelling and
+added source excerpts. Independent review inspected for 151s and reconciled
+eight target Git records, 17 GCC pins, 26 repository pins, 72 LF excerpts,
+three headers, 65 API and 26 writer occurrences in 0.338920586s. Its eight
+boundary and 16 rounding cases agree; no material findings or implementation
+rework were needed. Author and predecessor successes were reused. The optional
+outer-IRA expansion was skipped at the owner's requested pause boundary.
+
+The named native-effect source `7b84ac0176`, selected Astra / Max, is
+independently accepted by `779acede4c`, selected Astra / Extra High;
+integration is `f1abbd8058` / `d933b11a9c`. Complete named source roots,
+initialization/lifecycle and standard-owner effect contracts supply protected
+state preservation and **N_native=0** under the explicit relevant-source/
+runtime/loader relation. The accepted diagnostic allowance composes with the
+same PID 97103, counter/cut and session to give **counter_end <= 89,493**:
+60,496 + 1,145 + 2*966 + 25,920. No-wrap is established from this cut through
+the stated interval, retaining component cut invariants. Prior global freshness,
+other resources, later invocations and whole capacity are not inferred.
+
+The author interval to the frozen checkpoint was 3,183s. The amended data-only
+check passed in 3.008993754s over 29 inputs, 53 witness files/90 excerpts,
+233 OCaml native source-family members plus Zarith, three lifecycle images
+and seven weak-provider images. It derives 17 logical selectors. The checker
+rerun followed the new composition arithmetic, not unchanged successful
+inputs alone. Source/link metadata corroborates the explicit relevant-source
+relation; it does not prove historical build provenance, arbitrary alias
+absence or binary refinement. No new capture, target execution, disassembler,
+compiler/prover/Lean or broad suite was run. Native allocation/I/O component
+cycles, the disabled-Memprof context iterator and Thread predecessor ownership
+were resolved through source effects; the earlier address-census route was
+not revived. The native proof is independent of the numeric endpoint it enables.
+
+Independent review inspected for 281s and accepted the native/source-family,
+initialization, effect/preservation and noncircular interval composition with no
+material findings. Exact companion ledger/report-graph/review Git identities,
+PID/run/executable and arithmetic joins passed in 0.013489s. The reviewer
+reused the author success and made only focused source and join checks; no
+native or predecessor replay was needed. The review does not extend the scope
+to prior counter history or later/whole-pipeline capacity.
+
+This round closes its intended combined interval, helper attachment and
+recognition source obligations. The named Max escalation ends here; future
+work returns to the workload baselines. These results are observations of
+completed work and review, not a controlled causal comparison of model quality.
+The owner-requested pause prevents optional outer-IRA or other successor work.
+
+Runtime model/effort confirmation and per-round token/monetary measurements
+remain unavailable. Source/review and implementation settings are selected
+settings, and measured intervals do not establish a causal model comparison.
+
+The stable integration check passed over **358 frozen files**, 190 JSON and
+58 Python syntax inputs, 317 packet links and 305 checkpoint links in
+**1.230860205s**. It reconciled all inherited/current manifests, including the
+18 helper-attachment pins, 36 save/exit dependencies, 26 recognition repository
+pins and 22 native repository inputs, and checked the scoped composition and
+preserved broader false/null claims. Raw output is retained in shared-checkout
+`tmp/round23-integration.json`; the checking script is retained in the integration
+worktree's `tmp/check-round23-integration.py`. No successful component evaluator,
+native process/capture, compiler/prover/Lean audit or full suite was replayed.
+This integration check establishes identities, syntax, links and arithmetic;
+it does not replace the independently reviewed source arguments.
+
+### Pause assessment and remaining work
+
+The subjective planning estimate moves from **70% (60–75%)** to approximately
+**75% (65–80%)** for #119. The modest increase reflects the closed first-inline
+native/save/reporting interval and lifetime/source joins. Document, guard,
+reviewer and token counts are not the denominator, and this estimate does not
+predict elapsed time. Whole-rule integration remains a significant uncertainty.
+No enlarged production support or new admission rule has been delivered.
+
+On subsequent owner resumption, work remains in dependency order:
+
+1. Attach accepted LRA recognition to the actual-source route, then close
+   remaining named native helpers/counters and the literal-output pipeline.
+2. Continue required Why3/producer paths beyond this interval: ordinary-ending
+   saves, the remaining task/driver pairs, representations and fixed
+   dependencies with their actual input joins.
+3. Complete coverage for the **current Silver grammar**, then the computable
+   rule, sound composition/correspondence, useful-domain comparison against a
+   justified uniform envelope and independent final review. This does not
+   require implementing the full SPARK language surface.
+4. Only after #119 is justified, perform already authorized production
+   #88–#94 compiler/proof/membership, diagnostics and language changes.
+
+The reviewed checkpoint is published in draft PR #121. All subthreads stop,
+#119 remains open and returns to Backlog, and the harness is paused. This is
+an owner pause for assessment, not a research-stop selection. Oracle, installed
+tools/pins and admission remain unchanged. CLI memory is unavailable.
