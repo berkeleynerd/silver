@@ -1,0 +1,65 @@
+{
+  "checks": 33,
+  "passed": [
+    "compiled module contains exact validated function nodes",
+    "exact validated width node executed",
+    "native_cold_string_interface appended duplicate",
+    "native_cold_string_interface prepended duplicate",
+    "native_cold_string_interface changed sole definition",
+    "native_cold_string_interface async shadow",
+    "native_gimplifier_selected_helpers appended duplicate",
+    "native_gimplifier_selected_helpers prepended duplicate",
+    "native_gimplifier_selected_helpers changed sole definition",
+    "native_gimplifier_selected_helpers async shadow",
+    "native_graph_lifetime appended duplicate",
+    "native_graph_lifetime prepended duplicate",
+    "native_graph_lifetime changed sole definition",
+    "native_graph_lifetime async shadow",
+    "native_initial_cf_cfg_lifetime appended duplicate",
+    "native_initial_cf_cfg_lifetime prepended duplicate",
+    "native_initial_cf_cfg_lifetime changed sole definition",
+    "native_initial_cf_cfg_lifetime async shadow",
+    "native_initial_ssa_lifetime appended duplicate",
+    "native_initial_ssa_lifetime prepended duplicate",
+    "native_initial_ssa_lifetime changed sole definition",
+    "native_initial_ssa_lifetime async shadow",
+    "native_pool_lifetime appended duplicate",
+    "native_pool_lifetime prepended duplicate",
+    "native_pool_lifetime changed sole definition",
+    "native_pool_lifetime async shadow",
+    "require appended duplicate",
+    "require prepended duplicate",
+    "require changed sole definition",
+    "require async shadow",
+    "ambiguous width assignment",
+    "missing accepted function",
+    "current source-bound Hello result unchanged"
+  ],
+  "started_utc": "2026-10-19T00:00:59.847914+00:00",
+  "completed_utc": "2026-10-19T00:01:00.662286+00:00",
+  "elapsed_seconds": 0.814389036000648,
+  "implementation_inputs": {
+    "derive.py": {
+      "bytes": 17134,
+      "sha256": "65e66016e94a209eeb87692d2f40df618a47b2c6af52b475bc6d12f6dfc7609d"
+    },
+    "check-ast-repair.py": {
+      "bytes": 3430,
+      "sha256": "b6a34fdc1704bcd97535c899a3f85366e7a25fa5013b7d4d19310688a2fc9d24"
+    },
+    "inputs.json": {
+      "bytes": 11678,
+      "sha256": "66fb5554bca8f4b99d72b9a1319632bf25ff1e08d94a28f36e5b1945d2f02ca6"
+    },
+    "result.json": {
+      "bytes": 13527,
+      "sha256": "0b30dc88c18c79994ab6726c539e0230688bb8461cecbc71c1728a20a4784fdb"
+    }
+  },
+  "original_40_check_record": "Historical result at 1fc7ee7bcf; unchanged and not rerun.",
+  "native_tool_executions": 0,
+  "aggregate_Context_instantiations": 0,
+  "accepted_suites_rerun": false,
+  "model_effort": "Lead live setting unavailable; no switch claimed",
+  "token_cost_measurements": null
+}

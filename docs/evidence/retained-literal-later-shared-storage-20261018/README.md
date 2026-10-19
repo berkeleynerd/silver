@@ -63,3 +63,12 @@ narrow incoming-field fixtures; they are not full predecessor reruns.
 identities and elapsed time. `round.json` records selected settings and
 available execution evidence. Independent review and aggregate attachment
 belong to the parent task.
+
+Independent review found #140: the original AST check selected the first named
+definition while execution selected the last. The repair rejects duplicates
+and validates and compiles the same unique nodes, including the width
+assignment. `check-ast-repair.py` and `ast-repair-results.json` retain 33 focused
+checks, including before/after duplicates, async shadows, changed sole bodies,
+missing definitions, ambiguous widths and unchanged current Hello output.
+The original 40-check record remains historical evidence for `1fc7ee7bcf`;
+it was not rerun or relabelled as a run of the repaired implementation.

@@ -8,6 +8,13 @@ named-consumer transfer, not the entire later compiler lifetime. The
 [packet](../evidence/retained-literal-later-shared-storage-20261018/README.md)
 keeps unresolved endpoint inputs null and makes no production change.
 
+Review identified [#140](https://github.com/berkeleynerd/silver/issues/140):
+the initial AST validator selected the first definition but its execution map
+selected the last. The repair rejects duplicate definitions and compiles the
+same unique nodes it validates. Thirty-three focused correspondence checks
+pass, including unchanged Hello output. The original 40-check result is
+retained with its original input; no accepted component suite was rerun.
+
 For C>=1 literal calls and N>=0 nulls, the new named demands are:
 
 | Owner | Identifier insertions | DECL_UID increments | type_UID increments | Scalar registrations |

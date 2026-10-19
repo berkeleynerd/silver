@@ -29,10 +29,27 @@ def read(path):
     return json.loads(Path(path).read_bytes())
 
 
-def function_identity(path, name):
-    node = next(n for n in ast.parse(Path(path).read_bytes()).body
-                if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == name)
-    return identity(ast.dump(node, include_attributes=False).encode())
+def validated_core_module(raw, manifest):
+    """Validate and execute the same unique nodes, rejecting shadow definitions."""
+    tree = ast.parse(raw)
+    functions = []
+    for name, expected in manifest['accepted_function_ASTs'].items():
+        matches = [node for node in tree.body
+                   if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+                   and node.name == name]
+        require(len(matches) == 1, 'unique accepted function required '+name)
+        node = matches[0]
+        require(identity(ast.dump(node, include_attributes=False).encode()) == expected,
+                'changed accepted function '+name)
+        functions.append(node)
+    widths = [node for node in tree.body if isinstance(node, ast.Assign) and
+        any(isinstance(target, ast.Tuple) and
+            [item.id for item in target.elts if isinstance(item, ast.Name)] == ['I32','I64']
+            for target in node.targets)]
+    require(len(widths) == 1, 'unique accepted native widths required')
+    require(identity(ast.dump(widths[0], include_attributes=False).encode()) ==
+            manifest['accepted_native_width_assignment_AST'], 'changed accepted native widths')
+    return ast.Module(body=widths+functions, type_ignores=[])
 
 
 class Context:
@@ -45,18 +62,7 @@ class Context:
         # Reuse only these accepted pure constructors. Never instantiate the
         # aggregate Context, evaluate an aggregate, or replay a component suite.
         core_path = E/'retained-literal-pipeline-20261018/compose.py'
-        core_tree = ast.parse(core_path.read_bytes())
-        functions = {node.name:node for node in core_tree.body if isinstance(node,ast.FunctionDef)}
-        for name, expected in manifest['accepted_function_ASTs'].items():
-            require(function_identity(core_path, name) == expected, 'changed accepted function '+name)
-        widths = next(node for node in core_tree.body if isinstance(node,ast.Assign) and
-            any(isinstance(target,ast.Tuple) and
-                [item.id for item in target.elts if isinstance(item,ast.Name)] == ['I32','I64']
-                for target in node.targets))
-        require(identity(ast.dump(widths,include_attributes=False).encode()) ==
-                manifest['accepted_native_width_assignment_AST'], 'changed accepted native widths')
-        selected = ast.Module(body=[widths]+[functions[name] for name in
-            manifest['accepted_function_ASTs']],type_ignores=[])
+        selected = validated_core_module(core_path.read_bytes(), manifest)
         self.core = {}
         exec(compile(selected,str(core_path),'exec'),self.core)
         require(self.core['I32'] == I32 and self.core['I64'] == I64, 'accepted native widths')
