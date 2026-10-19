@@ -1,0 +1,309 @@
+{
+  "scope": "Focused new IRA numeric bounds and source-interface checks",
+  "checks_passed": 111,
+  "check_names": [
+    "Hello local and inherited numeric guards",
+    "Hello frozen GGC owner",
+    "IRA and LRA frequency units distinct",
+    "class interval",
+    "memory interval",
+    "raw candidate computed before MIN",
+    "preference numerator",
+    "pressure update envelope",
+    "first priority product",
+    "Hello aggregate cost envelope",
+    "scope remains bounded previous_storage_owners_modified",
+    "scope remains bounded aggregate_RAM_gate",
+    "scope remains bounded outer_IRA_helper_capacity_closed",
+    "scope remains bounded remaining_LRA_arithmetic_closed",
+    "scope remains bounded all_ordinary_native_capacity",
+    "scope remains bounded complete_native_capacity",
+    "scope remains bounded whole_literal_pipeline_capacity_established",
+    "scope remains bounded production_admission_changed",
+    "scope remains bounded actual_source_adapter_created",
+    "no zero-pressure assumption",
+    "no recharged owner new_GGC_events",
+    "no recharged owner new_scalar_registrations",
+    "no recharged owner new_array_registrations",
+    "no recharged owner new_shared_bitmap_or_ET_blocks",
+    "two movdi operand constraints extracted",
+    "28 fixed alternatives",
+    "no tied commutative inout or extra penalty syntax",
+    "two question marks per alternative at most",
+    "IRA setup alternatives reject upper 24",
+    "all 1000 frequencies and candidate corners",
+    "two-reference addition (-1000, -1000)",
+    "two-reference addition (-1000, 0)",
+    "two-reference addition (-1000, 1000000)",
+    "two-reference addition (-1000, 65535000)",
+    "two-reference addition (0, -1000)",
+    "two-reference addition (0, 0)",
+    "two-reference addition (0, 1000000)",
+    "two-reference addition (0, 65535000)",
+    "two-reference addition (1000000, -1000)",
+    "two-reference addition (1000000, 0)",
+    "two-reference addition (1000000, 1000000)",
+    "two-reference addition (1000000, 65535000)",
+    "two-reference addition (65535000, -1000)",
+    "two-reference addition (65535000, 0)",
+    "two-reference addition (65535000, 1000000)",
+    "two-reference addition (65535000, 65535000)",
+    "preference subtraction before division (-2000, -2000)",
+    "positive preference division (-2000, -2000)",
+    "preference subtraction before division (-2000, 0)",
+    "positive preference division (-2000, 0)",
+    "preference subtraction before division (-2000, 131070000)",
+    "positive preference division (-2000, 131070000)",
+    "preference subtraction before division (0, -2000)",
+    "positive preference division (0, -2000)",
+    "preference subtraction before division (0, 0)",
+    "positive preference division (0, 0)",
+    "preference subtraction before division (0, 131070000)",
+    "positive preference division (0, 131070000)",
+    "preference subtraction before division (131070000, -2000)",
+    "positive preference division (131070000, -2000)",
+    "preference subtraction before division (131070000, 0)",
+    "positive preference division (131070000, 0)",
+    "preference subtraction before division (131070000, 131070000)",
+    "positive preference division (131070000, 131070000)",
+    "both hard-death scans count every register",
+    "all group update opportunities",
+    "pressure local clipping near signed endpoint",
+    "live pressure each class at most 96",
+    "normalization product checked before division",
+    "priority initial product (0, -2000)",
+    "priority initial product (0, 131070000)",
+    "priority initial product (2000000, -2000)",
+    "priority initial product (2000000, 131070000)",
+    "numeric conjunction (1, 0)",
+    "per-allocno bound independent of C/N (1, 0)",
+    "numeric conjunction (1, 1)",
+    "per-allocno bound independent of C/N (1, 1)",
+    "numeric conjunction (7, 64)",
+    "per-allocno bound independent of C/N (7, 64)",
+    "numeric conjunction (1000, 1000)",
+    "per-allocno bound independent of C/N (1000, 1000)",
+    "numeric conjunction (214748, 0)",
+    "per-allocno bound independent of C/N (214748, 0)",
+    "numeric conjunction (214749, 0)",
+    "per-allocno bound independent of C/N (214749, 0)",
+    "numeric conjunction (536870911, 0)",
+    "per-allocno bound independent of C/N (536870911, 0)",
+    "numeric conjunction (536870912, 0)",
+    "per-allocno bound independent of C/N (536870912, 0)",
+    "numeric conjunction (1, 178956965)",
+    "per-allocno bound independent of C/N (1, 178956965)",
+    "numeric conjunction (1, 178956966)",
+    "per-allocno bound independent of C/N (1, 178956966)",
+    "numeric conjunction (17592454483, 0)",
+    "per-allocno bound independent of C/N (17592454483, 0)",
+    "numeric conjunction (17592454484, 0)",
+    "per-allocno bound independent of C/N (17592454484, 0)",
+    "numeric conjunction (9223372036854775807, 9223372036854775807)",
+    "per-allocno bound independent of C/N (9223372036854775807, 9223372036854775807)",
+    "signed64 aggregate exact boundary 17592454483",
+    "signed64 aggregate exact boundary 17592454484",
+    "LRA next-boundary failure distinct from new numeric guard",
+    "ID subtraction endpoint",
+    "invalid counts (0, 0)",
+    "invalid counts (True, 0)",
+    "invalid counts (1, -1)",
+    "invalid counts (1, False)",
+    "invalid counts (1.0, 0)",
+    "source byte mutation",
+    "LF coordinate mutation",
+    "operative fragment mutation"
+  ],
+  "frequency_values_checked": 1000,
+  "candidate_corner_cases": 20000,
+  "priority_normalization_cases": 61497,
+  "pressure_adversarial_samples": [
+    {
+      "group_start": 0,
+      "high_start": 0,
+      "total": 674730
+    },
+    {
+      "group_start": 0,
+      "high_start": 0,
+      "total": 674730
+    },
+    {
+      "group_start": 0,
+      "high_start": 7,
+      "total": 359856
+    },
+    {
+      "group_start": 1000,
+      "high_start": 0,
+      "total": 674730
+    },
+    {
+      "group_start": 1000,
+      "high_start": 1000,
+      "total": 674730
+    },
+    {
+      "group_start": 1000,
+      "high_start": 1007,
+      "total": 359856
+    },
+    {
+      "group_start": 2147483631,
+      "high_start": 0,
+      "total": 674730
+    },
+    {
+      "group_start": 2147483631,
+      "high_start": 2147483631,
+      "total": 674730
+    },
+    {
+      "group_start": 2147483631,
+      "high_start": 2147483638,
+      "total": 359856
+    }
+  ],
+  "count_cases": [
+    {
+      "C": 1,
+      "N": 0,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": true
+    },
+    {
+      "C": 1,
+      "N": 1,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": true
+    },
+    {
+      "C": 7,
+      "N": 64,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": true
+    },
+    {
+      "C": 1000,
+      "N": 1000,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": true
+    },
+    {
+      "C": 214748,
+      "N": 0,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": true
+    },
+    {
+      "C": 214749,
+      "N": 0,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": false
+    },
+    {
+      "C": 536870911,
+      "N": 0,
+      "numeric_fits": false,
+      "failed": [
+        "point_endpoint_successor_signed"
+      ],
+      "LRA_guard": false
+    },
+    {
+      "C": 536870912,
+      "N": 0,
+      "numeric_fits": false,
+      "failed": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed"
+      ],
+      "LRA_guard": false
+    },
+    {
+      "C": 1,
+      "N": 178956965,
+      "numeric_fits": true,
+      "failed": [],
+      "LRA_guard": true
+    },
+    {
+      "C": 1,
+      "N": 178956966,
+      "numeric_fits": false,
+      "failed": [
+        "point_endpoint_successor_signed"
+      ],
+      "LRA_guard": true
+    },
+    {
+      "C": 17592454483,
+      "N": 0,
+      "numeric_fits": false,
+      "failed": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed",
+        "priority_sort_allocno_ID_difference_signed"
+      ],
+      "LRA_guard": false
+    },
+    {
+      "C": 17592454484,
+      "N": 0,
+      "numeric_fits": false,
+      "failed": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed",
+        "priority_sort_allocno_ID_difference_signed",
+        "aggregate_cost_sums_signed64"
+      ],
+      "LRA_guard": false
+    },
+    {
+      "C": 9223372036854775807,
+      "N": 9223372036854775807,
+      "numeric_fits": false,
+      "failed": [
+        "allocno_ID_count_signed",
+        "point_endpoint_successor_signed",
+        "priority_sort_allocno_ID_difference_signed",
+        "aggregate_cost_sums_signed64"
+      ],
+      "LRA_guard": false
+    }
+  ],
+  "extracted_movdi_constraints": [
+    [
+      "0",
+      "=r  ,o  ,r,r  ,r,m ,*y,*y,?*y,?m,?r,?*y,?Yv,?v,?v,m ,m,?jc,?*Yd,?r,?v,?*y,?*x,*k,*k  ,*r,*m,*k"
+    ],
+    [
+      "1",
+      "riFo,riF,Z,rem,i,re,C ,*y,Bk ,*y,*y,r  ,C  ,?v,Bk,?v,v,*Yd,jc  ,?v,r ,*x ,*y ,*r,*kBk,*k,*k,CBC"
+    ]
+  ],
+  "input_verification": {
+    "GCC_files": 29,
+    "repository_files": 18,
+    "LF_coordinate_and_operative_excerpt_checks": 39
+  },
+  "started_UTC": "2026-10-19T12:19:36.090454+00:00",
+  "finished_UTC": "2026-10-19T12:19:36.185936+00:00",
+  "checker_wall_seconds": 0.09544452698901296,
+  "host": {
+    "system": "Linux",
+    "release": "7.0.14",
+    "machine": "x86_64"
+  },
+  "native_tool_executions": 0,
+  "predecessor_evaluator_or_checker_executions": 0,
+  "aggregate_or_corpus_replays": 0,
+  "source_reachability_argument_is_handwritten": true,
+  "independent_review_status": "pending"
+}

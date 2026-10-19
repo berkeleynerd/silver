@@ -1,0 +1,178 @@
+{
+  "scope": "Selected IRA numeric cost/frequency/equivalence/preference, pressure and fast-priority arithmetic; outer helper capacity and LRA arithmetic remain separate",
+  "source_counts": {
+    "output_calls": 1,
+    "null_statements": 0
+  },
+  "extents": {
+    "A": 4,
+    "K": 104,
+    "B": 10,
+    "M": 27,
+    "P": 64
+  },
+  "constants": {
+    "IRA_frequency_upper": 1000,
+    "LRA_frequency_unit_separate": 10000,
+    "group_instructions_upper": 7,
+    "group_pseudos_upper": 4,
+    "hard_registers": 92,
+    "register_classes": 34,
+    "DI_memory_move_upper": 100,
+    "DI_register_move_upper": 65535,
+    "initial_operand_cost": 1000000
+  },
+  "cost_bounds": {
+    "references_per_allocno_upper": 2,
+    "frequency_sum_upper": 2000,
+    "raw_alternative_cost_upper": 104,
+    "alternative_frequency_product_upper": 104000,
+    "generic_class_candidate_before_MIN_upper": 65639000,
+    "generic_memory_candidate_before_MIN_upper": 204000,
+    "generic_stored_operand_cost_interval": [
+      0,
+      1000000
+    ],
+    "direct_hard_move_class_interval": [
+      -1000,
+      65535000
+    ],
+    "accumulated_class_interval": [
+      -2000,
+      131070000
+    ],
+    "accumulated_memory_interval": [
+      0,
+      2000000
+    ],
+    "equivalence_gains": 0,
+    "call_frequency_and_crossings": 0,
+    "preference_difference_absolute_upper": 131072000,
+    "preference_divisor_lower": 2,
+    "preference_frequency_upper": 65536000,
+    "preference_updates_of_existing_record": 0
+  },
+  "pressure": {
+    "live_count_per_class_upper": 96,
+    "hard_death_scans_per_instruction_upper": 2,
+    "decrements_per_instruction_upper": 188,
+    "update_calls_per_allocno_upper": 1323,
+    "classes_per_update_upper": 34,
+    "summand_upper": 15,
+    "excess_pressure_per_allocno_upper": 674730,
+    "high_pressure_may_predate_group": true,
+    "cross_class_repeated_overlaps_included": true,
+    "zero_excess_pressure_claim": false
+  },
+  "priority": {
+    "reference_log_multiplier_upper": 2,
+    "DI_nregs": 1,
+    "difference_interval": [
+      -131070000,
+      2002000
+    ],
+    "first_product_interval": [
+      -262140000,
+      4004000
+    ],
+    "first_product_overflow_branch_needed": false,
+    "final_normalization_absolute_upper": 2147483647,
+    "normalization_rule": "Q=max(abs(q)); t=1 if Q=0 else INT_MAX//Q; abs(q*t)<=INT_MAX",
+    "length_divisor_interval": [
+      1,
+      674730
+    ],
+    "signed_INT_MIN_never_negated": true,
+    "comparison_uses_SORTGT": true,
+    "ID_difference_absolute_upper": 3
+  },
+  "aggregate": {
+    "cost_terms_upper": 4,
+    "each_cost_absolute_upper": 131070000,
+    "signed64_sum_absolute_upper": 524280000,
+    "memory_cost_total": 0,
+    "load_store_shuffle_costs": 0,
+    "move_loops_and_additional_jumps": 0
+  },
+  "inherited_representation_checks": {
+    "allocno_ID_count_signed": true,
+    "point_endpoint_successor_signed": true
+  },
+  "local_numeric_checks": {
+    "frequency_rescale_product_signed": true,
+    "per_allocno_reference_count_signed": true,
+    "per_allocno_frequency_signed": true,
+    "DI_memory_table_signed_short": true,
+    "DI_register_table_unsigned_short": true,
+    "DI_non_sentinel_target_matrix_arithmetic": true,
+    "selected_alternative_reject_sum_signed": true,
+    "selected_alternative_bit_index": true,
+    "nonpseudo_copy_and_penalty_signed": true,
+    "alternative_frequency_product_signed": true,
+    "class_candidate_before_MIN_signed": true,
+    "memory_candidate_before_MIN_signed": true,
+    "direct_hard_move_product_signed": true,
+    "two_reference_class_sum_signed": true,
+    "two_reference_memory_sum_signed": true,
+    "preferred_difference_before_division_signed": true,
+    "preference_denominator_strictly_positive": true,
+    "preference_stored_frequency_signed": true,
+    "pressure_live_count_signed": true,
+    "pressure_single_summand_signed": true,
+    "excess_pressure_accumulation_signed": true,
+    "priority_difference_before_checked_multiply_signed": true,
+    "priority_first_product_without_saturation_signed": true,
+    "priority_normalization_product_signed": true,
+    "priority_sort_boolean_difference_signed": true,
+    "priority_sort_allocno_ID_difference_signed": true,
+    "aggregate_cost_sums_signed64": true
+  },
+  "conditional_selected_IRA_numeric_arithmetic": true,
+  "failed_predicates": [],
+  "separate_LRA_signed_usage_guard": true,
+  "previous_storage_owners_modified": false,
+  "new_GGC_events": 0,
+  "new_scalar_registrations": 0,
+  "new_array_registrations": 0,
+  "new_shared_bitmap_or_ET_blocks": 0,
+  "aggregate_RAM_gate": false,
+  "outer_IRA_helper_capacity_closed": false,
+  "remaining_LRA_arithmetic_closed": false,
+  "all_ordinary_native_capacity": false,
+  "complete_native_capacity": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_admission_changed": false,
+  "source_reachability_argument_is_handwritten": true,
+  "actual_source_adapter_created": false,
+  "independent_review_status": "pending",
+  "native_tool_executions": 0,
+  "predecessor_evaluator_or_checker_executions": 0,
+  "aggregate_or_corpus_replays": 0,
+  "input_verification": {
+    "GCC_files": 29,
+    "repository_files": 18,
+    "LF_coordinate_and_operative_excerpt_checks": 39
+  },
+  "retained_interface": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "frozen_GGC_total_preserved": 47054,
+    "older_storage_result_preserved": true,
+    "predecessor_modules_executed": false
+  }
+}

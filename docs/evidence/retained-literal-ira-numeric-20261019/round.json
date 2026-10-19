@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-19",
+  "issue": 119,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost_measurement": null,
+  "subdelegation": false,
+  "base_commit": "3be5bf4baba95ff007667f53182d115dca0bfd05",
+  "accepted_storage_commit": "66da47daa2c433a0872e8bbc626e0bb18850426e",
+  "accepted_storage_review": "3d00f8af990f45a537f7854e8c898d5c222ee394",
+  "retained_GCC_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "worktree": "tmp/literal-ira-numeric-20261019",
+  "branch": "research/119-literal-ira-numeric",
+  "round_started_UTC": "2026-10-19T12:08:40+00:00",
+  "checkpoint_UTC": "2026-10-19T12:24:16.292761+00:00",
+  "elapsed_to_checkpoint_seconds": 936.292761,
+  "intended_outcome": "Close named selected IRA cost/frequency/equivalence/preference, pressure, priority and aggregate-cost arithmetic with bounded local proof and no native replay",
+  "achieved_result": "27 local numeric and two inherited representation predicates; per-allocno constants independent of C/N; 64-bit aggregate guard; new focused checker passed; handwritten source proof pending review",
+  "significant_findings": [
+    "IRA frequency unit is 1000, distinct from existing LRA 10000C guard.",
+    "Raw class candidate <=65639000 is checked before MIN; accumulated class interval [-2000,131070000] and memory [0,2000000].",
+    "Preference numerator difference fits before positive register-table division; old-record update cannot recur in one cost pass.",
+    "Pressure uses max(saved threshold, object range start), so saved thresholds can predate the group; no group-entry reset or disjoint-interval argument is assumed.",
+    "Count both hard-death scans over all 92 registers, four pseudo deaths and an own-range update per instruction: 7*(2*92+4+1)*34*15=674730.",
+    "Priority subtraction and first product fit before overflow handling; final scaling product fits by abs(q)<=Q and t=floor(INT_MAX/Q).",
+    "New excerpt coordinates use literal LF and verify operative text; old accepted packet was not modified."
+  ],
+  "validation": {
+    "checks_passed": 111,
+    "checker_wall_seconds": 0.09544452698901296,
+    "frequency_values_checked": 1000,
+    "candidate_corner_cases": 20000,
+    "priority_normalization_cases": 61497,
+    "pressure_adversarial_samples": 9,
+    "count_cases": 13,
+    "local_numeric_guards": 27,
+    "inherited_representation_guards": 2,
+    "host": {
+      "system": "Linux",
+      "release": "7.0.14",
+      "machine": "x86_64"
+    },
+    "input_verification": {
+      "GCC_files": 29,
+      "repository_files": 18,
+      "LF_coordinate_and_operative_excerpt_checks": 39
+    },
+    "successful_checker_runs": 1,
+    "failed_checker_runs": 0,
+    "native_tool_executions": 0,
+    "predecessor_evaluator_or_checker_executions": 0,
+    "aggregate_or_corpus_replays": 0
+  },
+  "independent_review_status": "pending",
+  "review_target": "Frozen commit containing docs/research/retained-literal-ira-numeric.md and this seven-file packet; parent records exact commit",
+  "reviewer_model": null,
+  "reviewer_effort": null,
+  "actual_source_adapter_created": false,
+  "remaining_obligations": [
+    "Independent review, especially object-range clipping and all callback multiplicities.",
+    "Actual-source binding after acceptance, preserving inherited failed/null prerequisites and older owners.",
+    "Outer IRA helper lifetime/capacity and remaining LRA numeric/helper clients.",
+    "Universal correspondence and overall native capacity; unrelated target-mode initialization remains separate."
+  ],
+  "next_step": "Freeze with Refs #119, notify parent, then end subthread so independent review can begin.",
+  "live_harness_goal": null,
+  "CLI_memory_updated": false,
+  "new_checker_inputs": {
+    "derive.py": {
+      "bytes": 10334,
+      "sha256": "bb2ab4152eebab80132b8ea879214546032aad231b3ceae8dd04d9e7a99e64d1"
+    },
+    "check.py": {
+      "bytes": 11421,
+      "sha256": "dc685002e9b5f9a253c9d7a430a8c8c494ceaa99e0db64c9ccf32cb4434fa8c0"
+    },
+    "inputs.json": {
+      "bytes": 47603,
+      "sha256": "aa0056bd262b5bc326d373cbb89431c0fafa3a07f67e4723f607ef367a133a30"
+    }
+  }
+}
