@@ -1,0 +1,9 @@
+{
+  "cases": 5,
+  "elapsed_seconds": 2.1319387840012496,
+  "native_bodies": 292,
+  "native_instruction_bytes": 46760,
+  "source_excerpts": 42,
+  "status": "passed",
+  "target_or_proof_or_predecessor_replays": 0
+}

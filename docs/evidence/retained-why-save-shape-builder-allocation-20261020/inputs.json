@@ -1,0 +1,110 @@
+{
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/first-or-default-atoms.json.gz": {
+    "bytes": 191987,
+    "sha256": "e9ed2816959694b4a04622c07730bfe73baec4097ea927ab8461a1085facbb2d"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/input-is-valid-atoms.json.gz": {
+    "bytes": 45455,
+    "sha256": "0f7701642784e8aac84ebad5623b83d239fa57492f15257acbfb9bfad743d9ae"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/is-message-atoms.json.gz": {
+    "bytes": 39186,
+    "sha256": "fba5f7e5da8f99d6afccf5ead9730f45147727ac4cc0e26a0d17d74247be80bd"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/put-atoms.json.gz": {
+    "bytes": 770964,
+    "sha256": "181f00ce095b136c90144b8ae04f41e44a7202585eff0fa1174d970c3f2fa4b5"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/put-line-atoms.json.gz": {
+    "bytes": 946806,
+    "sha256": "4f3e4a9da6e591832b6750a3dee2f995e7f6c83918bd15de996f5cb80b169cf6"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+    "bytes": 2040,
+    "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c": {
+    "bytes": 92312,
+    "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/z.ml": {
+    "bytes": 17756,
+    "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/native-bodies.json": {
+    "bytes": 231876,
+    "sha256": "1d54d8f3e9cafaf142c5b0bef71dc5f49a03f7614a2ae40b6707922068c7ef53"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/native-witnesses.json": {
+    "bytes": 618,
+    "sha256": "96aecf521520ee346d2eddd502555d1c7de32682da2f8d0fd15278e5b3e02b73"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/transfer.py": {
+    "bytes": 6383,
+    "sha256": "065afdf12ed99e95a008a2644229a4bbc009ec2920e6e9db5f0347968b39e7ed"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/administrative-inputs.json.gz": {
+    "bytes": 587126,
+    "sha256": "a16911445bf252875473a5ca989c3c57a82b11a4621f4fcd9decfbf52f5cf30a"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/administrative-summary.json": {
+    "bytes": 8721,
+    "sha256": "a26b11307ee312db5c048cf541a992055b2facd6a34a5c9d9a3625b7fe3438b4"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/result.json": {
+    "bytes": 9194,
+    "sha256": "ceb45afe9251a8cb3d86cdc794d2717f27c28718ed23c7a661d4e8b989e5bc13"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/source-witnesses.json": {
+    "bytes": 33564,
+    "sha256": "7fdf9abc72f47367a2f5f1fe1226a42491cb0277450606a42d8bbe32864f01f1"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+    "bytes": 332715,
+    "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+  },
+  "docs/evidence/retained-why-save-structural-allocation-20261020/native-witnesses.json": {
+    "bytes": 675,
+    "sha256": "a8e22bb4309cdcfd96a9097858ac8686961d91255bfdaeaf0af4e240e654cd54"
+  },
+  "docs/evidence/retained-why-save-structural-allocation-20261020/result.json": {
+    "bytes": 70942,
+    "sha256": "22ad31f01c5ef0ee827825a055b36f82845135953c52c246229e09de52e5cdc1"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json": {
+    "bytes": 101009,
+    "sha256": "1e5b92187bd0ef886bceebda636a9025414062eed4b7adff27be57b6f5890c68"
+  },
+  "docs/research/retained-why-initial-registration-bound.md": {
+    "bytes": 6474,
+    "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+  },
+  "docs/research/retained-why-save-format-allocation.md": {
+    "bytes": 15690,
+    "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+  },
+  "docs/research/retained-why-save-state-join.md": {
+    "bytes": 8809,
+    "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+  },
+  "docs/research/retained-why-save-structural-allocation.md": {
+    "bytes": 16429,
+    "sha256": "4b30eae71fece131e86cc91d9d545c3f9c0899b2d27f4c4af5f486f09203f5be"
+  },
+  "docs/research/retained-why-save-table-contract-join.md": {
+    "bytes": 16750,
+    "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+  },
+  "docs/research/retained-why-session-shape-transfer.md": {
+    "bytes": 15382,
+    "sha256": "0a0091b78e3b4c921731375a2384418d40a92082de5348e431de3a547e11e9f1"
+  }
+}

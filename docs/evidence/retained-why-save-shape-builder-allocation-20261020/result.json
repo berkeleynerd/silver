@@ -1,0 +1,1215 @@
+{
+  "cases": [
+    {
+      "accepted_formatter_subtotal": 95095382112,
+      "case": "put_line",
+      "inputs": {
+        "A": 965,
+        "B": 3110,
+        "Cbytes": 20,
+        "Cchain": 1044,
+        "E": 8985,
+        "G": 65,
+        "I": 136844,
+        "J": 15925,
+        "L": 7,
+        "M": 40,
+        "N": 2773,
+        "P": 5979,
+        "U": 195,
+        "Ubytes": 4102
+      },
+      "joined_direct_save_caller_object_bytes_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119874184875918022733,
+      "joined_total_excludes_failed_service_and_runtime_internals": true,
+      "pid": 17310,
+      "round36_structural_subtotal": 459034838339780136,
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 173719845
+          },
+          "c_requested_bytes_upper": 173719845,
+          "candidate_specname_calls_per_printer_upper": 213847197978,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 144,
+            "output_bytes_upper": 96,
+            "requested_bytes_upper": 317504
+          },
+          "direct_requested_bytes_interval_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119415149942482860485,
+          "explanation_term_visits_upper": 1165905,
+          "first_five_roots_each_calls_upper": 195,
+          "fresh_variable_calls_upper": 16322670,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 35754472,
+          "local_filter_activation_tree_per_call_upper": 377003575316277553052632783947358479815640765734281611362288441560101396530857955835685848633641608981764089063400052322800846281248691448694119974860434438887084693231743502178167752441192448774799271819130974018130465379775860716808779827596916922071594850183201524526501846714374614008118077197384100897810808831,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1899762972120,
+            "identifier_decode_internal_formats_and_candidate_strings": 2995180175058310647720,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 7648336800,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864193090862309617961075557777853644800,
+            "printer_factory_private_tables_and_all_replace_attempts": 382560235200,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 14859945110343369516480,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 9654582038361525660672201024921600,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 2520842730725576989553003520,
+            "used_theories_maps_and_callbacks": 2046828055282225862400
+          },
+          "ocaml_requested_bytes_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119415149942309140640,
+          "opening_calls_upper": 2331810,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 155500,
+            "map_operand_keys_upper": 2976,
+            "map_operation_charges_per_substitution_visit": 11108,
+            "requested_bytes_upper": 4140381093811899623327887360,
+            "substitution_visits_per_opening_upper": 431357000
+          },
+          "private_indices_table": {
+            "capacity_upper": 8192,
+            "largest_array_block_bytes": 65544,
+            "requested_bytes_upper": 1569113744,
+            "writes_upper": 11958
+          },
+          "private_suffix_index_upper": 35754420,
+          "private_values_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 392733536,
+            "writes_upper": 5979
+          },
+          "shape_term_visits_upper": 1165905,
+          "t_shape_root_calls_upper": 47580
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": true,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 173719845
+          },
+          "c_requested_bytes_upper": 173719845,
+          "candidate_specname_calls_per_printer_upper": 213847197978,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 144,
+            "output_bytes_upper": 96,
+            "requested_bytes_upper": 317504
+          },
+          "direct_requested_bytes_interval_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119415149942482860485,
+          "explanation_term_visits_upper": 1165905,
+          "first_five_roots_each_calls_upper": 195,
+          "fresh_variable_calls_upper": 16322670,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 35754472,
+          "local_filter_activation_tree_per_call_upper": 377003575316277553052632783947358479815640765734281611362288441560101396530857955835685848633641608981764089063400052322800846281248691448694119974860434438887084693231743502178167752441192448774799271819130974018130465379775860716808779827596916922071594850183201524526501846714374614008118077197384100897810808831,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1899762972120,
+            "identifier_decode_internal_formats_and_candidate_strings": 2995180175058310647720,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 7648336800,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864193090862309617961075557777853644800,
+            "printer_factory_private_tables_and_all_replace_attempts": 382560235200,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 14859945110343369516480,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 9654582038361525660672201024921600,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 2520842730725576989553003520,
+            "used_theories_maps_and_callbacks": 2046828055282225862400
+          },
+          "ocaml_requested_bytes_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119415149942309140640,
+          "opening_calls_upper": 2331810,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 155500,
+            "map_operand_keys_upper": 2976,
+            "map_operation_charges_per_substitution_visit": 11108,
+            "requested_bytes_upper": 4140381093811899623327887360,
+            "substitution_visits_per_opening_upper": 431357000
+          },
+          "private_indices_table": {
+            "capacity_upper": 8192,
+            "largest_array_block_bytes": 65544,
+            "requested_bytes_upper": 1569113744,
+            "writes_upper": 11958
+          },
+          "private_suffix_index_upper": 35754420,
+          "private_values_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 392733536,
+            "writes_upper": 5979
+          },
+          "shape_term_visits_upper": 1165905,
+          "t_shape_root_calls_upper": 47580
+        },
+        "whole_pipeline_capacity_established": false
+      },
+      "without_external_assertion": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 173719845
+          },
+          "c_requested_bytes_upper": 173719845,
+          "candidate_specname_calls_per_printer_upper": 213847197978,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 144,
+            "output_bytes_upper": 96,
+            "requested_bytes_upper": 317504
+          },
+          "direct_requested_bytes_interval_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119415149942482860485,
+          "explanation_term_visits_upper": 1165905,
+          "first_five_roots_each_calls_upper": 195,
+          "fresh_variable_calls_upper": 16322670,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 35754472,
+          "local_filter_activation_tree_per_call_upper": 377003575316277553052632783947358479815640765734281611362288441560101396530857955835685848633641608981764089063400052322800846281248691448694119974860434438887084693231743502178167752441192448774799271819130974018130465379775860716808779827596916922071594850183201524526501846714374614008118077197384100897810808831,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1899762972120,
+            "identifier_decode_internal_formats_and_candidate_strings": 2995180175058310647720,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 7648336800,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864193090862309617961075557777853644800,
+            "printer_factory_private_tables_and_all_replace_attempts": 382560235200,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 14859945110343369516480,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 9654582038361525660672201024921600,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 2520842730725576989553003520,
+            "used_theories_maps_and_callbacks": 2046828055282225862400
+          },
+          "ocaml_requested_bytes_upper": 19666919311379061343564862860511481401454642441600828250969683757800873491987348467306722254162001630786298175716952489492158067446131737589156940256559367112759214941004424232027170240948221759765688733425514043019401109187539460497333531998351806923555645592596964009059305936440751864202745446868842119415149942309140640,
+          "opening_calls_upper": 2331810,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 155500,
+            "map_operand_keys_upper": 2976,
+            "map_operation_charges_per_substitution_visit": 11108,
+            "requested_bytes_upper": 4140381093811899623327887360,
+            "substitution_visits_per_opening_upper": 431357000
+          },
+          "private_indices_table": {
+            "capacity_upper": 8192,
+            "largest_array_block_bytes": 65544,
+            "requested_bytes_upper": 1569113744,
+            "writes_upper": 11958
+          },
+          "private_suffix_index_upper": 35754420,
+          "private_values_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 392733536,
+            "writes_upper": 5979
+          },
+          "shape_term_visits_upper": 1165905,
+          "t_shape_root_calls_upper": 47580
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": false,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": null,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "accepted_formatter_subtotal": 72677794467,
+      "case": "put",
+      "inputs": {
+        "A": 879,
+        "B": 2648,
+        "Cbytes": 20,
+        "Cchain": 1044,
+        "E": 7473,
+        "G": 54,
+        "I": 121505,
+        "J": 13230,
+        "L": 7,
+        "M": 40,
+        "N": 2379,
+        "P": 5531,
+        "U": 171,
+        "Ubytes": 3394
+      },
+      "joined_direct_save_caller_object_bytes_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038894194475642089092569,
+      "joined_total_excludes_failed_service_and_runtime_internals": true,
+      "pid": 17514,
+      "round36_structural_subtotal": 295292297128074168,
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 133507278
+          },
+          "c_requested_bytes_upper": 133507278,
+          "candidate_specname_calls_per_printer_upper": 169295934298,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 144,
+            "output_bytes_upper": 96,
+            "requested_bytes_upper": 317504
+          },
+          "direct_requested_bytes_interval_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038893899183272283223934,
+          "explanation_term_visits_upper": 896022,
+          "first_five_roots_each_calls_upper": 162,
+          "fresh_variable_calls_upper": 12544308,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 30597544,
+          "local_filter_activation_tree_per_call_upper": 377003575316277553052632783947358479815640765734281611362288441560101396530857955835685848633641608981764089063400052322800846281248691448694119974860434438887084693231743502178167752441192448774799271819130974018130465379775860716808779827596916922071594850183201524526501846714374614008118077197384100897810808831,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1064615342976,
+            "identifier_decode_internal_formats_and_candidate_strings": 1687042496409391457136,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 5877904320,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471791183177918759536893540307755335680,
+            "printer_factory_private_tables_and_all_replace_attempts": 294006215808,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 8963934874185604496256,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 2953954784598925373386441081307136,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 1301668590322814274289889280,
+            "used_theories_maps_and_callbacks": 1190332070289527768064
+          },
+          "ocaml_requested_bytes_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038893899183272149716656,
+          "opening_calls_upper": 1792044,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 132400,
+            "map_operand_keys_upper": 2558,
+            "map_operation_charges_per_substitution_visit": 9532,
+            "requested_bytes_upper": 1648371794776760712006201344,
+            "substitution_visits_per_opening_upper": 315112000
+          },
+          "private_indices_table": {
+            "capacity_upper": 8192,
+            "largest_array_block_bytes": 65544,
+            "requested_bytes_upper": 1451544208,
+            "writes_upper": 11062
+          },
+          "private_suffix_index_upper": 30597492,
+          "private_values_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 363308896,
+            "writes_upper": 5531
+          },
+          "shape_term_visits_upper": 896022,
+          "t_shape_root_calls_upper": 39528
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": true,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 133507278
+          },
+          "c_requested_bytes_upper": 133507278,
+          "candidate_specname_calls_per_printer_upper": 169295934298,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 144,
+            "output_bytes_upper": 96,
+            "requested_bytes_upper": 317504
+          },
+          "direct_requested_bytes_interval_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038893899183272283223934,
+          "explanation_term_visits_upper": 896022,
+          "first_five_roots_each_calls_upper": 162,
+          "fresh_variable_calls_upper": 12544308,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 30597544,
+          "local_filter_activation_tree_per_call_upper": 377003575316277553052632783947358479815640765734281611362288441560101396530857955835685848633641608981764089063400052322800846281248691448694119974860434438887084693231743502178167752441192448774799271819130974018130465379775860716808779827596916922071594850183201524526501846714374614008118077197384100897810808831,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1064615342976,
+            "identifier_decode_internal_formats_and_candidate_strings": 1687042496409391457136,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 5877904320,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471791183177918759536893540307755335680,
+            "printer_factory_private_tables_and_all_replace_attempts": 294006215808,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 8963934874185604496256,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 2953954784598925373386441081307136,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 1301668590322814274289889280,
+            "used_theories_maps_and_callbacks": 1190332070289527768064
+          },
+          "ocaml_requested_bytes_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038893899183272149716656,
+          "opening_calls_upper": 1792044,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 132400,
+            "map_operand_keys_upper": 2558,
+            "map_operation_charges_per_substitution_visit": 9532,
+            "requested_bytes_upper": 1648371794776760712006201344,
+            "substitution_visits_per_opening_upper": 315112000
+          },
+          "private_indices_table": {
+            "capacity_upper": 8192,
+            "largest_array_block_bytes": 65544,
+            "requested_bytes_upper": 1451544208,
+            "writes_upper": 11062
+          },
+          "private_suffix_index_upper": 30597492,
+          "private_values_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 363308896,
+            "writes_upper": 5531
+          },
+          "shape_term_visits_upper": 896022,
+          "t_shape_root_calls_upper": 39528
+        },
+        "whole_pipeline_capacity_established": false
+      },
+      "without_external_assertion": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 133507278
+          },
+          "c_requested_bytes_upper": 133507278,
+          "candidate_specname_calls_per_printer_upper": 169295934298,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 144,
+            "output_bytes_upper": 96,
+            "requested_bytes_upper": 317504
+          },
+          "direct_requested_bytes_interval_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038893899183272283223934,
+          "explanation_term_visits_upper": 896022,
+          "first_five_roots_each_calls_upper": 162,
+          "fresh_variable_calls_upper": 12544308,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 30597544,
+          "local_filter_activation_tree_per_call_upper": 377003575316277553052632783947358479815640765734281611362288441560101396530857955835685848633641608981764089063400052322800846281248691448694119974860434438887084693231743502178167752441192448774799271819130974018130465379775860716808779827596916922071594850183201524526501846714374614008118077197384100897810808831,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1064615342976,
+            "identifier_decode_internal_formats_and_candidate_strings": 1687042496409391457136,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 5877904320,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471791183177918759536893540307755335680,
+            "printer_factory_private_tables_and_all_replace_attempts": 294006215808,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 8963934874185604496256,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 2953954784598925373386441081307136,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 1301668590322814274289889280,
+            "used_theories_maps_and_callbacks": 1190332070289527768064
+          },
+          "ocaml_requested_bytes_upper": 16338671427914912500807732222578769164285395259176072700805583429557648747189489495916353872688432124037847715211006683578100548339863289689453458059295474216753809335603675515837956815556984231189956793922734743431502459940417397951630934275553808828800074800003631638295423393350778471794137134005038893899183272149716656,
+          "opening_calls_upper": 1792044,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 132400,
+            "map_operand_keys_upper": 2558,
+            "map_operation_charges_per_substitution_visit": 9532,
+            "requested_bytes_upper": 1648371794776760712006201344,
+            "substitution_visits_per_opening_upper": 315112000
+          },
+          "private_indices_table": {
+            "capacity_upper": 8192,
+            "largest_array_block_bytes": 65544,
+            "requested_bytes_upper": 1451544208,
+            "writes_upper": 11062
+          },
+          "private_suffix_index_upper": 30597492,
+          "private_values_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 363308896,
+            "writes_upper": 5531
+          },
+          "shape_term_visits_upper": 896022,
+          "t_shape_root_calls_upper": 39528
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": false,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": null,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "accepted_formatter_subtotal": 28512934719,
+      "case": "first_or_default",
+      "inputs": {
+        "A": 541,
+        "B": 2178,
+        "Cbytes": 4,
+        "Cchain": 536,
+        "E": 7713,
+        "G": 33,
+        "I": 77806,
+        "J": 2541,
+        "L": 7,
+        "M": 60,
+        "N": 631,
+        "P": 3352,
+        "U": 193,
+        "Ubytes": 3470
+      },
+      "joined_direct_save_caller_object_bytes_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941126818285045730143,
+      "joined_total_excludes_failed_service_and_runtime_internals": true,
+      "pid": 17631,
+      "round36_structural_subtotal": 4021948642299912,
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 49445352
+          },
+          "c_requested_bytes_upper": 49445352,
+          "candidate_specname_calls_per_printer_upper": 37696471328,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 184,
+            "output_bytes_upper": 136,
+            "requested_bytes_upper": 402104
+          },
+          "direct_requested_bytes_interval_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941122796307890495512,
+          "explanation_term_visits_upper": 331848,
+          "first_five_roots_each_calls_upper": 99,
+          "fresh_variable_calls_upper": 4645872,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 11239328,
+          "local_filter_activation_tree_per_call_upper": 449891379454319638281053850768598185886969711830191663310075557261183758067148787031904068610389085714992091063352089512320826605549429968900851518086516385513471,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 454271992416,
+            "identifier_decode_internal_formats_and_candidate_strings": 85390106395306952448,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 2171613312,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032431789048129544568474381494255616,
+            "printer_factory_private_tables_and_all_replace_attempts": 54519840144,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 745401170470933867968,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 2193565143483860602270460608512,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 133751890894619491717284864,
+            "used_theories_maps_and_callbacks": 191007822786964634880
+          },
+          "ocaml_requested_bytes_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941122796307841050160,
+          "opening_calls_upper": 663696,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 108900,
+            "map_operand_keys_upper": 832,
+            "map_operation_charges_per_substitution_visit": 2540,
+            "requested_bytes_upper": 3305075130005093600489472,
+            "substitution_visits_per_opening_upper": 68824800
+          },
+          "private_indices_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 440351536,
+            "writes_upper": 6704
+          },
+          "private_suffix_index_upper": 11239256,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 110353840,
+            "writes_upper": 3352
+          },
+          "shape_term_visits_upper": 331848,
+          "t_shape_root_calls_upper": 7524
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": true,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 49445352
+          },
+          "c_requested_bytes_upper": 49445352,
+          "candidate_specname_calls_per_printer_upper": 37696471328,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 184,
+            "output_bytes_upper": 136,
+            "requested_bytes_upper": 402104
+          },
+          "direct_requested_bytes_interval_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941122796307890495512,
+          "explanation_term_visits_upper": 331848,
+          "first_five_roots_each_calls_upper": 99,
+          "fresh_variable_calls_upper": 4645872,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 11239328,
+          "local_filter_activation_tree_per_call_upper": 449891379454319638281053850768598185886969711830191663310075557261183758067148787031904068610389085714992091063352089512320826605549429968900851518086516385513471,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 454271992416,
+            "identifier_decode_internal_formats_and_candidate_strings": 85390106395306952448,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 2171613312,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032431789048129544568474381494255616,
+            "printer_factory_private_tables_and_all_replace_attempts": 54519840144,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 745401170470933867968,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 2193565143483860602270460608512,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 133751890894619491717284864,
+            "used_theories_maps_and_callbacks": 191007822786964634880
+          },
+          "ocaml_requested_bytes_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941122796307841050160,
+          "opening_calls_upper": 663696,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 108900,
+            "map_operand_keys_upper": 832,
+            "map_operation_charges_per_substitution_visit": 2540,
+            "requested_bytes_upper": 3305075130005093600489472,
+            "substitution_visits_per_opening_upper": 68824800
+          },
+          "private_indices_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 440351536,
+            "writes_upper": 6704
+          },
+          "private_suffix_index_upper": 11239256,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 110353840,
+            "writes_upper": 3352
+          },
+          "shape_term_visits_upper": 331848,
+          "t_shape_root_calls_upper": 7524
+        },
+        "whole_pipeline_capacity_established": false
+      },
+      "without_external_assertion": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 49445352
+          },
+          "c_requested_bytes_upper": 49445352,
+          "candidate_specname_calls_per_printer_upper": 37696471328,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 184,
+            "output_bytes_upper": 136,
+            "requested_bytes_upper": 402104
+          },
+          "direct_requested_bytes_interval_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941122796307890495512,
+          "explanation_term_visits_upper": 331848,
+          "first_five_roots_each_calls_upper": 99,
+          "fresh_variable_calls_upper": 4645872,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 11239328,
+          "local_filter_activation_tree_per_call_upper": 449891379454319638281053850768598185886969711830191663310075557261183758067148787031904068610389085714992091063352089512320826605549429968900851518086516385513471,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 454271992416,
+            "identifier_decode_internal_formats_and_candidate_strings": 85390106395306952448,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 2171613312,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032431789048129544568474381494255616,
+            "printer_factory_private_tables_and_all_replace_attempts": 54519840144,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 745401170470933867968,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 2193565143483860602270460608512,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 133751890894619491717284864,
+            "used_theories_maps_and_callbacks": 191007822786964634880
+          },
+          "ocaml_requested_bytes_upper": 6122899303918078702063530462313212251215096522247290725517707993773135905311700727034141695880733430749727881523452706494339098836691032433982747025941122796307841050160,
+          "opening_calls_upper": 663696,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 108900,
+            "map_operand_keys_upper": 832,
+            "map_operation_charges_per_substitution_visit": 2540,
+            "requested_bytes_upper": 3305075130005093600489472,
+            "substitution_visits_per_opening_upper": 68824800
+          },
+          "private_indices_table": {
+            "capacity_upper": 4096,
+            "largest_array_block_bytes": 32776,
+            "requested_bytes_upper": 440351536,
+            "writes_upper": 6704
+          },
+          "private_suffix_index_upper": 11239256,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 110353840,
+            "writes_upper": 3352
+          },
+          "shape_term_visits_upper": 331848,
+          "t_shape_root_calls_upper": 7524
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": false,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": null,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "accepted_formatter_subtotal": 3753840753,
+      "case": "is_message",
+      "inputs": {
+        "A": 196,
+        "B": 239,
+        "Cbytes": 4,
+        "Cchain": 368,
+        "E": 1527,
+        "G": 4,
+        "I": 59035,
+        "J": 220,
+        "L": 7,
+        "M": 28,
+        "N": 266,
+        "P": 1276,
+        "U": 42,
+        "Ubytes": 679
+      },
+      "joined_direct_save_caller_object_bytes_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641438880599220009,
+      "joined_total_excludes_failed_service_and_runtime_internals": true,
+      "pid": 17704,
+      "round36_structural_subtotal": 11951316097896,
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 2281488
+          },
+          "c_requested_bytes_upper": 2281488,
+          "candidate_specname_calls_per_printer_upper": 2082442208,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 120,
+            "output_bytes_upper": 72,
+            "requested_bytes_upper": 266712
+          },
+          "direct_requested_bytes_interval_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641426925529281360,
+          "explanation_term_visits_upper": 15312,
+          "first_five_roots_each_calls_upper": 12,
+          "fresh_variable_calls_upper": 214368,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 1629496,
+          "local_filter_activation_tree_per_call_upper": 1202453802380202612679414065556140558016349465041059773802132977424491020858679523053413887173001575952350707711,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 975927552,
+            "identifier_decode_internal_formats_and_candidate_strings": 88106501271765504,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 100201728,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273254925050449154287039676416,
+            "printer_factory_private_tables_and_all_replace_attempts": 1512634176,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 1848012486876982272,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 109631641829475475596902400,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 5373225313399690506731520,
+            "used_theories_maps_and_callbacks": 10113278481646178304
+          },
+          "ocaml_requested_bytes_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641426925526999872,
+          "opening_calls_upper": 30624,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 11950,
+            "map_operand_keys_upper": 316,
+            "map_operation_charges_per_substitution_visit": 1080,
+            "requested_bytes_upper": 3579925608329267097600,
+            "substitution_visits_per_opening_upper": 3190650
+          },
+          "private_indices_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 84024240,
+            "writes_upper": 2552
+          },
+          "private_suffix_index_upper": 1629452,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 42028528,
+            "writes_upper": 1276
+          },
+          "shape_term_visits_upper": 15312,
+          "t_shape_root_calls_upper": 648
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": true,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 2281488
+          },
+          "c_requested_bytes_upper": 2281488,
+          "candidate_specname_calls_per_printer_upper": 2082442208,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 120,
+            "output_bytes_upper": 72,
+            "requested_bytes_upper": 266712
+          },
+          "direct_requested_bytes_interval_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641426925529281360,
+          "explanation_term_visits_upper": 15312,
+          "first_five_roots_each_calls_upper": 12,
+          "fresh_variable_calls_upper": 214368,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 1629496,
+          "local_filter_activation_tree_per_call_upper": 1202453802380202612679414065556140558016349465041059773802132977424491020858679523053413887173001575952350707711,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 975927552,
+            "identifier_decode_internal_formats_and_candidate_strings": 88106501271765504,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 100201728,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273254925050449154287039676416,
+            "printer_factory_private_tables_and_all_replace_attempts": 1512634176,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 1848012486876982272,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 109631641829475475596902400,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 5373225313399690506731520,
+            "used_theories_maps_and_callbacks": 10113278481646178304
+          },
+          "ocaml_requested_bytes_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641426925526999872,
+          "opening_calls_upper": 30624,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 11950,
+            "map_operand_keys_upper": 316,
+            "map_operation_charges_per_substitution_visit": 1080,
+            "requested_bytes_upper": 3579925608329267097600,
+            "substitution_visits_per_opening_upper": 3190650
+          },
+          "private_indices_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 84024240,
+            "writes_upper": 2552
+          },
+          "private_suffix_index_upper": 1629452,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 42028528,
+            "writes_upper": 1276
+          },
+          "shape_term_visits_upper": 15312,
+          "t_shape_root_calls_upper": 648
+        },
+        "whole_pipeline_capacity_established": false
+      },
+      "without_external_assertion": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 2281488
+          },
+          "c_requested_bytes_upper": 2281488,
+          "candidate_specname_calls_per_printer_upper": 2082442208,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 120,
+            "output_bytes_upper": 72,
+            "requested_bytes_upper": 266712
+          },
+          "direct_requested_bytes_interval_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641426925529281360,
+          "explanation_term_visits_upper": 15312,
+          "first_five_roots_each_calls_upper": 12,
+          "fresh_variable_calls_upper": 214368,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 1629496,
+          "local_filter_activation_tree_per_call_upper": 1202453802380202612679414065556140558016349465041059773802132977424491020858679523053413887173001575952350707711,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 975927552,
+            "identifier_decode_internal_formats_and_candidate_strings": 88106501271765504,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 100201728,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273254925050449154287039676416,
+            "printer_factory_private_tables_and_all_replace_attempts": 1512634176,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 1848012486876982272,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 109631641829475475596902400,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 5373225313399690506731520,
+            "used_theories_maps_and_callbacks": 10113278481646178304
+          },
+          "ocaml_requested_bytes_upper": 1363063151856521515249778043464343140069477230387664045669336274953125437532731629588612273369929929641426925526999872,
+          "opening_calls_upper": 30624,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 11950,
+            "map_operand_keys_upper": 316,
+            "map_operation_charges_per_substitution_visit": 1080,
+            "requested_bytes_upper": 3579925608329267097600,
+            "substitution_visits_per_opening_upper": 3190650
+          },
+          "private_indices_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 84024240,
+            "writes_upper": 2552
+          },
+          "private_suffix_index_upper": 1629452,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 42028528,
+            "writes_upper": 1276
+          },
+          "shape_term_visits_upper": 15312,
+          "t_shape_root_calls_upper": 648
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": false,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": null,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "accepted_formatter_subtotal": 4515574341,
+      "case": "input_is_valid",
+      "inputs": {
+        "A": 205,
+        "B": 310,
+        "Cbytes": 4,
+        "Cchain": 434,
+        "E": 1577,
+        "G": 5,
+        "I": 60496,
+        "J": 315,
+        "L": 7,
+        "M": 47,
+        "N": 281,
+        "P": 1435,
+        "U": 44,
+        "Ubytes": 700
+      },
+      "joined_direct_save_caller_object_bytes_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047260214085398038,
+      "joined_total_excludes_failed_service_and_runtime_internals": true,
+      "pid": 17869,
+      "round36_structural_subtotal": 27667599993312,
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 3207225
+          },
+          "c_requested_bytes_upper": 3207225,
+          "candidate_specname_calls_per_printer_upper": 2961171290,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 158,
+            "output_bytes_upper": 110,
+            "requested_bytes_upper": 347080
+          },
+          "direct_requested_bytes_interval_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047232541969830385,
+          "explanation_term_visits_upper": 21525,
+          "first_five_roots_each_calls_upper": 15,
+          "fresh_variable_calls_upper": 301350,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 2060720,
+          "local_filter_activation_tree_per_call_upper": 88725430211866075506509253892578678509965986412026130405455346579667881849780019937279180995332466499116518750764914298527173050367,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1482075240,
+            "identifier_decode_internal_formats_and_candidate_strings": 198483647190124800,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 140859600,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921277712844259789863334707200,
+            "printer_factory_private_tables_and_all_replace_attempts": 2126278080,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 3558883292001643200,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 260733157860660753833779200,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 7406501565850373104266240,
+            "used_theories_maps_and_callbacks": 13603564608752889600
+          },
+          "ocaml_requested_bytes_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047232541966623160,
+          "opening_calls_upper": 43050,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 15500,
+            "map_operand_keys_upper": 333,
+            "map_operation_charges_per_substitution_visit": 1140,
+            "requested_bytes_upper": 6056519346356811935744,
+            "substitution_visits_per_opening_upper": 4371000
+          },
+          "private_indices_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 94490256,
+            "writes_upper": 2870
+          },
+          "private_suffix_index_upper": 2060660,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 47261536,
+            "writes_upper": 1435
+          },
+          "shape_term_visits_upper": 21525,
+          "t_shape_root_calls_upper": 930
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": true,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 3207225
+          },
+          "c_requested_bytes_upper": 3207225,
+          "candidate_specname_calls_per_printer_upper": 2961171290,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 158,
+            "output_bytes_upper": 110,
+            "requested_bytes_upper": 347080
+          },
+          "direct_requested_bytes_interval_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047232541969830385,
+          "explanation_term_visits_upper": 21525,
+          "first_five_roots_each_calls_upper": 15,
+          "fresh_variable_calls_upper": 301350,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 2060720,
+          "local_filter_activation_tree_per_call_upper": 88725430211866075506509253892578678509965986412026130405455346579667881849780019937279180995332466499116518750764914298527173050367,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1482075240,
+            "identifier_decode_internal_formats_and_candidate_strings": 198483647190124800,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 140859600,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921277712844259789863334707200,
+            "printer_factory_private_tables_and_all_replace_attempts": 2126278080,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 3558883292001643200,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 260733157860660753833779200,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 7406501565850373104266240,
+            "used_theories_maps_and_callbacks": 13603564608752889600
+          },
+          "ocaml_requested_bytes_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047232541966623160,
+          "opening_calls_upper": 43050,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 15500,
+            "map_operand_keys_upper": 333,
+            "map_operation_charges_per_substitution_visit": 1140,
+            "requested_bytes_upper": 6056519346356811935744,
+            "substitution_visits_per_opening_upper": 4371000
+          },
+          "private_indices_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 94490256,
+            "writes_upper": 2870
+          },
+          "private_suffix_index_upper": 2060660,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 47261536,
+            "writes_upper": 1435
+          },
+          "shape_term_visits_upper": 21525,
+          "t_shape_root_calls_upper": 930
+        },
+        "whole_pipeline_capacity_established": false
+      },
+      "without_external_assertion": {
+        "candidate": {
+          "c_requested_bytes_by_disjoint_owner": {
+            "integer_constant_Zarith_buffer_and_limb_copy": 3207225
+          },
+          "c_requested_bytes_upper": 3207225,
+          "candidate_specname_calls_per_printer_upper": 2961171290,
+          "decoder_per_call": {
+            "backing_capacity_upper": 512,
+            "core_events_upper": 158,
+            "output_bytes_upper": 110,
+            "requested_bytes_upper": 347080
+          },
+          "direct_requested_bytes_interval_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047232541969830385,
+          "explanation_term_visits_upper": 21525,
+          "first_five_roots_each_calls_upper": 15,
+          "fresh_variable_calls_upper": 301350,
+          "global_escaping_signal_exceptions_upper": 2,
+          "global_save_entries_upper": 3,
+          "largest_new_individual_request_bytes_upper": 2060720,
+          "local_filter_activation_tree_per_call_upper": 88725430211866075506509253892578678509965986412026130405455346579667881849780019937279180995332466499116518750764914298527173050367,
+          "ocaml_requested_bytes_by_disjoint_owner": {
+            "explanation_attribute_substrings_lists_concats_and_caller_blocks": 1482075240,
+            "identifier_decode_internal_formats_and_candidate_strings": 198483647190124800,
+            "integer_constant_private_Format_and_OCaml_decimal_destinations": 140859600,
+            "local_decls_task_list_catch_tree_choose_pairs_and_reversals": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921277712844259789863334707200,
+            "printer_factory_private_tables_and_all_replace_attempts": 2126278080,
+            "shape_local_closures_alpha_strings_and_alpha_name_map": 3558883292001643200,
+            "term_opening_fresh_symbols_substitution_maps_records_and_lists": 260733157860660753833779200,
+            "used_symbols_outer_inner_maps_unions_and_callbacks": 7406501565850373104266240,
+            "used_theories_maps_and_callbacks": 13603564608752889600
+          },
+          "ocaml_requested_bytes_upper": 148206958625901092526073057702163424583047183702648448229272610926677229841872545303231143934603352040124232921545852521047232541966623160,
+          "opening_calls_upper": 43050,
+          "opening_per_call": {
+            "base_skeleton_visits_per_opening_upper": 15500,
+            "map_operand_keys_upper": 333,
+            "map_operation_charges_per_substitution_visit": 1140,
+            "requested_bytes_upper": 6056519346356811935744,
+            "substitution_visits_per_opening_upper": 4371000
+          },
+          "private_indices_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 94490256,
+            "writes_upper": 2870
+          },
+          "private_suffix_index_upper": 2060660,
+          "private_values_table": {
+            "capacity_upper": 2048,
+            "largest_array_block_bytes": 16392,
+            "requested_bytes_upper": 47261536,
+            "writes_upper": 1435
+          },
+          "shape_term_visits_upper": 21525,
+          "t_shape_root_calls_upper": 930
+        },
+        "complete_nonformatter_save_capacity_established": false,
+        "complete_pruned_shape_builder_direct_request_accounting_under_supplied_premises": false,
+        "complete_save_capacity_established": false,
+        "failed_allocation_service_capacity_established": false,
+        "guards": {
+          "accepted_explanation_prefix_two_bound": true,
+          "all_individual_OCaml_header_sizes_represented": true,
+          "all_string_lengths_and_backings_represented": true,
+          "alpha_counter_represented": true,
+          "constant_Format_sentinel": true,
+          "identifier_registration_increment_allowance_represented": true,
+          "internal_decoder_Format_sentinel": true,
+          "list_length_and_name_offsets_represented": true,
+          "map_heights_represented": true,
+          "numeric_limb_and_C_request_sizes": true,
+          "suffix_and_successor_represented": true,
+          "table_size_threshold_and_doubling_represented": true
+        },
+        "multiplicity_scalar_semantics_established": false,
+        "physical_memory_sufficiency_established": false,
+        "printer_rehash_preservation_or_termination_established": false,
+        "pruned_shape_builder_direct_requests_under_supplied_premises": null,
+        "whole_pipeline_capacity_established": false
+      }
+    }
+  ],
+  "complete_save_capacity_established": false,
+  "new_raw_administrative_extraction": false,
+  "one_global_save_and_exception_budget": true,
+  "scope": "Six pruned shape-builder direct request families, conditional on named behavior premises",
+  "source_argument_machine_proved": false,
+  "whole_pipeline_capacity_established": false
+}
