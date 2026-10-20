@@ -1,0 +1,33 @@
+{
+  "review_target": "e6e063c800d38620050960f2b7cae97dbc02305b",
+  "base_commit": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "objective": "Independently review exact stopped-state output binding by four sequential suffix replays without assuming continuing state or freshness.",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_measurement": null,
+  "monetary_measurement": null,
+  "started_utc": "2026-10-20T08:11:33+00:00",
+  "ended_utc": "2026-10-20T08:16:30.516496+00:00",
+  "elapsed_seconds": 297.516496,
+  "disposition": "accept bounded stopped-state replay; no material finding",
+  "focused_check_seconds": 5.2273553200002425,
+  "target_files_checked": 6,
+  "reader_rejection_probes": 8,
+  "full_suffix_replays_repeated": 0,
+  "accepted_prefix_replays_repeated": 0,
+  "binder_analyses": 0,
+  "native_runs": 0,
+  "proof_solver_runs": 0,
+  "capture_runs": 0,
+  "public_evaluator_runs": 0,
+  "predecessor_checker_replays": 0,
+  "github_writes": 0,
+  "subagents": 0,
+  "cli_memory_updated": false,
+  "remaining": [
+    "Pre-endpoint history and freshness, future execution-family and later-state joins.",
+    "Required counter/storage/serialization capacities and continuing native/signal behavior.",
+    "Complete #153 and #119 obligations."
+  ]
+}

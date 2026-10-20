@@ -1,0 +1,172 @@
+{
+  "review_target": "e6e063c800d38620050960f2b7cae97dbc02305b",
+  "disposition": "accept bounded stopped-state suffix replay; no material finding",
+  "exact_target_files": 6,
+  "inputs": {
+    "docs/evidence/retained-why-fixed-registration-state-20261020/README.md": {
+      "bytes": 3963,
+      "sha256": "1e538dc9982f038ab8bafcc68d6cce933c469ed1070befb8d56fc3814c752dc8"
+    },
+    "docs/evidence/retained-why-fixed-registration-state-20261020/check.py": {
+      "bytes": 11954,
+      "sha256": "ad2f2b41e9cfea22c1073f27d463c785508b615de91bc318198c7d45cf44214a"
+    },
+    "docs/evidence/retained-why-fixed-registration-state-20261020/inputs.json": {
+      "bytes": 1125,
+      "sha256": "c9e9201efeeab89a2ebf3f3b5b01015a293c941c41b51dc4b18b9241e0945438"
+    },
+    "docs/evidence/retained-why-fixed-registration-state-20261020/is-message-result.json": {
+      "bytes": 2900,
+      "sha256": "33076251bf75ae83ad50066e5af355ec504fc1559b27e8ea9038623b1a4c64c1"
+    },
+    "docs/evidence/retained-why-fixed-registration-state-20261020/other-cases-result.json": {
+      "bytes": 7864,
+      "sha256": "0325ba60a7d44a63f7bd58a04b4ffe490626ece01f2c9e76acdb3b8e85bd4dc7"
+    },
+    "docs/research/retained-why-fixed-registration-state.md": {
+      "bytes": 2297,
+      "sha256": "bfc2999e40f24108c4f625b99cda196719cdde08a9d8837ddb08e44749f6fd33"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/capture-manifest.json": {
+      "bytes": 33559,
+      "sha256": "f0171f9941ed9352a868bef841a7eba2d3e1b144e0c8676b33b4ca29285c688d"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/summary.json": {
+      "bytes": 5547,
+      "sha256": "14a8a8aa44c324cec208036bfab4e2a1fb8337794a02ac38d7fe65f6de18329a"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/compose.py": {
+      "bytes": 14460,
+      "sha256": "d1710c4fe810a8fadad14954c64c3e2d019c457d8d44da51e2d4ee3c35e1f444"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/counter.py": {
+      "bytes": 1051,
+      "sha256": "38c033ccfa2fbe41ff2d8fa08f126d685b41f4236f07a4b4bf0238302bbb6ea7"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/project.py": {
+      "bytes": 17751,
+      "sha256": "bd9e895da2adf445ac5721eae336c11a381b65d37297f6c13613f432c8f523a3"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/analyze.py": {
+      "bytes": 7667,
+      "sha256": "3c55b3ba1c2a73d7e2fa675121df749e9c9aadbdae4ff6566909ccfc19333f5d"
+    },
+    "docs/reviews/review-why-fixed-session-domain-20261020.md": {
+      "bytes": 7759,
+      "sha256": "9916b37adf3009889268fd12f596771cf98cb2f879feb56e6d33fbc1ccc0e390"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json": {
+      "bytes": 4278229,
+      "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json": {
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json": {
+      "bytes": 804836,
+      "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json": {
+      "bytes": 76267,
+      "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+    }
+  },
+  "source_review": {
+    "probe.py": [
+      {
+        "name": "u64",
+        "first": 12,
+        "last": 12,
+        "sha256": "4f3febd63db429e8fd6a631fb8d86622b537899e0805afc32b0e9d03816c5681"
+      },
+      {
+        "name": "block_fields",
+        "first": 190,
+        "last": 193,
+        "sha256": "5213a3483106e296825c204493ab01096ce0f5a1ff9581b1327b694b1b3bf09a"
+      },
+      {
+        "name": "raw_graph",
+        "first": 261,
+        "last": 286,
+        "sha256": "1832a8facd05f1a0668b7dd6dcb89d7ccded3fc1ca0396196f919a39ee03215a"
+      },
+      {
+        "name": "capture_fixed_session",
+        "first": 293,
+        "last": 324,
+        "sha256": "ad4d3d07ec5a43b40a8181377de8685318ef025cd3d22b9daab3809aec07c59e"
+      }
+    ],
+    "snapshot-observer.py": {
+      "bytes": 4468,
+      "sha256": "8eca9a89754a6020b7c563c9a20ef5c8614ef0db9fb04e701f6fa14be20d8646"
+    },
+    "table-observer.py": {
+      "bytes": 3888,
+      "sha256": "bba1605e03e7396bb53784fabb8b37ab218c91804b868fb1620d77dbe98b2ab5"
+    }
+  },
+  "case_joins": [
+    {
+      "case": "put_line",
+      "pid": 3085,
+      "prefix_reads": 771608,
+      "suffix_reads": 767391,
+      "total_lines_hashed": 1538999,
+      "private_identifier_counter": 136844,
+      "Hsdecl_next_tag": 7207
+    },
+    {
+      "case": "put",
+      "pid": 3323,
+      "prefix_reads": 641314,
+      "suffix_reads": 767195,
+      "total_lines_hashed": 1408509,
+      "private_identifier_counter": 121505,
+      "Hsdecl_next_tag": 7178
+    },
+    {
+      "case": "first_or_default",
+      "pid": 3470,
+      "prefix_reads": 226338,
+      "suffix_reads": 754018,
+      "total_lines_hashed": 980356,
+      "private_identifier_counter": 77806,
+      "Hsdecl_next_tag": 6967
+    },
+    {
+      "case": "is_message",
+      "pid": 3568,
+      "prefix_reads": 40058,
+      "suffix_reads": 744865,
+      "total_lines_hashed": 784923,
+      "private_identifier_counter": 59035,
+      "Hsdecl_next_tag": 6796
+    }
+  ],
+  "reader_positive_probe": "passed",
+  "reader_rejection_probes": [
+    "wrong_address",
+    "wrong_requested_size",
+    "short_payload",
+    "truncated_log",
+    "unconsumed_suffix",
+    "changed_prefix",
+    "changed_payload",
+    "reordered_rows"
+  ],
+  "full_suffix_replays_repeated": 0,
+  "accepted_prefix_replays_repeated": 0,
+  "native_runs": 0,
+  "binder_analyses": 0,
+  "source_semantics_machine_proved": false,
+  "continuing_capacity_established": false,
+  "freshness_established": false,
+  "elapsed_seconds": 5.2273553200002425
+}
