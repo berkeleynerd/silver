@@ -1,0 +1,64 @@
+{
+  "base": "eb4e10cc32caaae49994f3166f78fbd993307ddf",
+  "started_utc": "2026-10-20T17:18:03+00:00",
+  "substantive_finish_utc": "2026-10-20T17:29:45.438254+00:00",
+  "elapsed_seconds_through_validation": 702.438254,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selected_setting_source": "parent spawn settings confirmed in task message",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "native_platform": "Linux x86_64",
+  "live_harness_goal": null,
+  "intended": "Attach standard channel entry/decriptor premises or exact remaining input and decidable proposed launcher condition",
+  "achieved": "Conditional P0=0 and O0=q at five controlled cuts; direct-pipe prospective source guard; actual descriptors/q and universal production join remain null/false",
+  "material_findings": [
+    "Logging.outc is a direct stdout alias but --logging is absent and its init/log callers are gated.",
+    "Direct pre-cut diagnostic routes need their separate control partition; formatter constructor state alone cannot supply channel state.",
+    "Retained launcher gives GDB a shared pipe, not a recorded inferior fd certificate.",
+    "Whole-slot read query found zero complete pointer reads; partial-read stitching was not attempted.",
+    "Source X_pre=0 applies to prefixes reaching named controlled cuts; universal terminating-prefix/signal/output bounds remain open."
+  ],
+  "author_rework": [
+    "Corrected two source-slice ranges that omitted --logging and Arg.parse; added mandatory excerpt anchors.",
+    "Qualified original raw absence shorthand to the actual whole-slot query; no partial reconstruction claim."
+  ],
+  "generation": {
+    "status": "pass",
+    "seconds": 3.206807643000502,
+    "inputs": 22,
+    "archives": 6,
+    "source_slices": 21,
+    "cases": 5,
+    "tests": {
+      "integer_guard_cases": 13,
+      "transfer_boundary_cases": 9
+    },
+    "raw_coverage_replayed": false
+  },
+  "comparison": {
+    "status": "pass",
+    "seconds": 3.198510995003744,
+    "inputs": 22,
+    "archives": 6,
+    "source_slices": 21,
+    "cases": 5,
+    "tests": {
+      "integer_guard_cases": 13,
+      "transfer_boundary_cases": 9
+    },
+    "raw_coverage_replayed": false
+  },
+  "raw_query_runs": 1,
+  "raw_query_seconds": null,
+  "identical_success_expensive_reruns": 0,
+  "review": "Parent-owned independent review pending at committed freeze",
+  "github_writes": 0,
+  "cli_memory_updated": false,
+  "source_files_modified": false,
+  "oracle_or_admission_modified": false,
+  "production_88_94_started": false,
+  "pr_121_merged": false
+}

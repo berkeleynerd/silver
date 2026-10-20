@@ -1,0 +1,22 @@
+[
+  {
+    "member": "registration/run.py",
+    "identity": {
+      "bytes": 5491,
+      "sha256": "fa69f789db02a7c1801a21b82c82705a4cf4bf8eb81db3fa35f3833f40a856ac"
+    },
+    "first": 53,
+    "last": 90,
+    "text": " script='''set pagination off\nset confirm off\nset auto-load off\nset debuginfod enabled off\nset startup-with-shell off\nset disable-randomization off\nset breakpoint always-inserted on\nset language c\npython\nimport gdb,json\nroot='/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020'\nplan=json.load(open(root+'/plan.json'))\nCASE_INDEX=INDEX\ncase=plan['inputs'][CASE_INDEX]\ngdb.execute('unset environment')\nfor k,v in case['environment'].items():gdb.execute('set environment '+k+'='+v)\nend\nstarti\npython\nexec(open(root+'/probe.py').read())\nend\ncontinue\npython\nfinish_capture()\nend\nkill\nquit\n'''.replace('CASE_INDEX=INDEX','CASE_INDEX='+str(i))\n (out/'probe.gdb').write_text(script)\n env={'PATH':'/usr/bin:/bin','LC_ALL':'C','LD_LIBRARY_PATH':str(gdbroot/'usr/lib/x86_64-linux-gnu'),'DEBUGINFOD_URLS':''}\n cmd=[str(gdbroot/'usr/bin/gdb'),'-nx','-q','-batch','-x',str(out/'probe.gdb'),'--args',*case['argv']]\n start=time.monotonic();p=subprocess.Popen(cmd,cwd=case['cwd'],env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)\n timed_out=False\n try:log,_=p.communicate(timeout=600)\n except subprocess.TimeoutExpired:\n  timed_out=True;os.killpg(p.pid,signal.SIGTERM);log,_=p.communicate(timeout=10)\n debugger_seconds=time.monotonic()-start\n (out/'debugger.log').write_text(log)\n"
+  },
+  {
+    "member": "inline/run.py",
+    "identity": {
+      "bytes": 5606,
+      "sha256": "f11c95bedd3eab16d4f5c8098138b692c862aef75d4ea9f381206614c6573f7b"
+    },
+    "first": 54,
+    "last": 91,
+    "text": " script='''set pagination off\nset confirm off\nset auto-load off\nset debuginfod enabled off\nset startup-with-shell off\nset disable-randomization off\nset breakpoint always-inserted on\nset language c\npython\nimport gdb,json\nroot='/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020'\nplan=json.load(open(root+'/plan.json'))\nCASE_INDEX=INDEX\ncase=plan['inputs'][CASE_INDEX]\ngdb.execute('unset environment')\nfor k,v in case['environment'].items():gdb.execute('set environment '+k+'='+v)\nend\nstarti\npython\nexec(open(root+'/probe.py').read())\nend\ncontinue\npython\nfinish_capture()\nend\nkill\nquit\n'''.replace('CASE_INDEX=INDEX','CASE_INDEX='+str(i))\n (out/'probe.gdb').write_text(script)\n env={'PATH':'/usr/bin:/bin','LC_ALL':'C','LD_LIBRARY_PATH':str(gdbroot/'usr/lib/x86_64-linux-gnu'),'DEBUGINFOD_URLS':''}\n cmd=[str(gdbroot/'usr/bin/gdb'),'-nx','-q','-batch','-x',str(out/'probe.gdb'),'--args',*case['argv']]\n start=time.monotonic();p=subprocess.Popen(cmd,cwd=case['cwd'],env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)\n timed_out=False\n try:log,_=p.communicate(timeout=120)\n except subprocess.TimeoutExpired:\n  timed_out=True;os.killpg(p.pid,signal.SIGTERM);log,_=p.communicate(timeout=10)\n debugger_seconds=time.monotonic()-start\n (out/'debugger.log').write_text(log)\n"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "provider": "docs/evidence/retained-why-channel-exit-bound-20261020/native-bodies.json",
+  "symbol": "camlStdlib__entry",
+  "identity": {
+    "bytes": 22463,
+    "sha256": "3977777bec5095b8c7a796594de2d0f8255ffe47c148ac9c5d7a89bafb397b9c"
+  },
+  "global_elf_address": 16041368,
+  "slots": {
+    "stdout": 304,
+    "stderr": 312
+  }
+}

@@ -1,0 +1,1 @@
+{"status": "pass", "seconds": 3.198510995003744, "inputs": 22, "archives": 6, "source_slices": 21, "cases": 5, "tests": {"integer_guard_cases": 13, "transfer_boundary_cases": 9}, "raw_coverage_replayed": false}

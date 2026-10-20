@@ -1,0 +1,233 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 26,
+    "last": 61,
+    "text": "module Logging : sig\n  (* Log proof attempts in a file \"unit.why3log\", with the following structure.\n     Each log entry is on its own line, in JSON format:\n       { ... }\n       { ... }\n     That is, the full file is *not* a JSON file, but needs to be read line by\n     line. This is to permit reading the file while gnatwhy3 is running.\n     Each line is of the following format:\n       line =\n         { \"timestamp\" : float,\n           \"goal_id\"   : str,\n           \"prover\"    : str,\n           \"pas\"       : proof_attempt_status }\n     The timestamp is a float in Unix date, with subsecond resolution.\n       proof_attempt_status =\n         { \"kind\" : str,\n           \"answer\" : str,\n           \"time\" : float\n         }\n     The kind is one of undone, scheduled, running, done, interrupted, detached,\n     internalfailure, uninstalled, upgradeprover and removed. If the kind is\n     not \"done\", the other two fields are absent. If present, answer is one of\n     valid, invalid, timeout, outofmemory, steplimitexceeded, unknown, failure,\n     and highfailure.\n  *)\n\n  val init : unit -> unit\n  val log : goal_id -> string -> Controller_itp.proof_attempt_status -> unit\nend =\nstruct\n\n  let outc = ref stdout\n\n  let init () =\n    outc := open_out (Gnat_config.unit_name ^ \".why3log\")\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 101,
+    "last": 113,
+    "text": "  let log g p pas =\n    let open Why3 in\n    let open Why3.Json_base in\n    print_json_single_line (Format.formatter_of_out_channel !outc) (\n      Record ([(\"timestamp\", StandardFloat (Unix.gettimeofday ()));\n               (\"goal_id\", String (Session_itp.proofNodeID_tostring g));\n               (\"prover\", String p);\n               (\"pas\", pas_to_json pas)])\n    );\n    output_string !outc \"\\n\";\n    flush !outc\n\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 411,
+    "last": 417,
+    "text": "  end;\n\n  (* Init why3server *)\n  init ();\n  if Gnat_config.logging then Logging.init ();\n  if is_new_session then c\n  else\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 1053,
+    "last": 1067,
+    "text": "  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 30,
+    "last": 53,
+    "text": "let opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\nlet opt_proof_dir : string option ref = ref None\nlet opt_ce_mode = ref false\nlet opt_ce_prover = ref \"cvc5_ce\"\nlet opt_warn_prover = ref None\nlet opt_giant_step_rac : bool ref = ref false\nlet opt_rac_timelimit = ref (Some 120)\nlet opt_rac_prover = ref (Some \"cvc5\")\nlet opt_logging = ref false\n\nlet opt_limit_line : Gnat_expl.limit_mode option ref = ref None\nlet opt_limit_lines : string ref = ref \"\"\nlet opt_limit_region : Gnat_loc.region option ref = ref None\nlet opt_socket_name : string ref = ref (match Sys.getenv_opt \"GNATPROVE_SOCKET\" with | Some s -> s | None -> \"\")\nlet opt_standalone = ref false\nlet opt_replay = ref false\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 210,
+    "last": 228,
+    "text": "          \" Limit proof to a file and range of lines, given \\\n           by \\\"file:first_line:last_line\\\"\";\n   \"--list-transforms\", Arg.Unit output_list_transforms,\n          \" Output the list of available transformations and exit\";\n   \"--logging\", Arg.Set opt_logging,\n          \" Enable verbose logging in .why3log files\";\n   \"--debug-prover-errors\", Arg.Set opt_debug_prover_errors,\n          \" Output error/crash messages from provers\";\n   \"--prover\", Arg.String set_prover,\n          \" Use prover given in argument instead of Alt-Ergo\";\n   \"--replay\", Arg.Set opt_replay,\n          \" Do not try new proofs, only replay existing proofs\";\n   \"--socket\", Arg.String set_socket_name,\n          \" The name of the socket to be used\";\n   \"--debug\", Arg.Tuple [Arg.Set opt_debug; Arg.Set opt_standalone],\n          \" Enable debug mode; also deactivates why3server\";\n   \"--debug-why3\", Arg.String (fun s -> let debug = Debug.register_flag s ~desc:\"\" in\n                                (* Record backtrace is done in a part of Why3\n                                   that is not executed by gnatwhy3: we have to\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 263,
+    "last": 271,
+    "text": "   \"--warn-prover\", Arg.String set_warn_prover,\n          \" Give a specific prover for warnings\"\n]\n\nlet () = Arg.parse options set_filename usage_msg\n\nlet merge_opt_keep_first _ v1 v2 =\n  match v1, v2 with\n  | None, x -> x\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 742,
+    "last": 746,
+    "text": "let session_file = Filename.concat session_dir \"why3ession.xml\"\n\nlet logging = !opt_logging\nlet entity =\n  match !opt_entity with\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 298,
+    "last": 308,
+    "text": "exception BadID\n\nlet get_proof_attempt_node (s : session) (id : proofAttemptID) =\n  try\n    Hint.find s.proofAttempt_table id\n  with Not_found -> raise BadID\n\nlet get_proofNode (s : session) (id : proofNodeID) =\n  try\n    Hint.find s.proofNode_table id\n  with Not_found -> raise BadID\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 353,
+    "last": 363,
+    "text": "let get_proof_name (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_name\n\nlet get_proof_expl (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_expl\n\nlet get_proof_parent (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_parent\n\nlet get_trans_parent (s : session) (id : transID) =\n  (get_transfNode s id).transf_parent\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 833,
+    "last": 861,
+    "text": "let rec update_goal_node notification s id =\n  let tr_list = get_transformations s id in\n  let pa_list = get_proof_attempts s id in\n  let proved =\n    List.exists\n      (fun tr -> not (transf_is_detached s tr) &&\n                   tn_proved s tr) tr_list\n    ||\n      List.exists\n        (fun pa -> not (goal_is_detached s pa.parent) &&\n                     pa_ok pa) pa_list\n  in\n  if proved <> pn_proved s id then\n    begin\n      (* too noisy, uncomment if you really need it\n      Debug.dprintf debug \"[Session] setting goal node %a to status proved=%b@.\"\n                    print_proofNodeID id proved;\n       *)\n      Hpn.replace s.pn_state id proved;\n      notification (APn id);\n      match get_proof_parent s id with\n      | Trans trans_id -> update_trans_node notification s trans_id\n      | Theory th -> update_theory_node notification s th\n      | exception Not_found when not (Debug.test_flag Debug.stack_trace) ->\n                  Loc.warning warn_missing_parent\n                    \"Session_itp.update_goal_node: parent missing@.\";\n                  Printexc.print_backtrace stderr;\n                  assert false\n    end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 1588,
+    "last": 1605,
+    "text": "let add_registered_transformation s env old_tr goal_id =\n  let goal = get_proofNode s goal_id in\n  try\n    (* check if transformation already present with the same parameters.\n       this should always fail and raise Not_found *)\n    let _tr = List.find (fun transID -> (get_transfNode s transID).transf_name = old_tr.transf_name &&\n                        Lists.equal (=)\n                                        (get_transfNode s transID).transf_args\n                                        old_tr.transf_args)\n        goal.proofn_transformations in\n    Printexc.print_backtrace stderr;\n    Loc.errorm \"[add_registered_transformation] FATAL transformation already present@.\"\n  with Not_found ->\n    let subgoals =\n      apply_trans_to_goal ~allow_no_effect:true s env old_tr.transf_name old_tr.transf_args goal_id\n    in\n    graft_transf s goal_id old_tr.transf_name old_tr.transf_args subgoals\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/prove_client.ml",
+    "identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "first": 108,
+    "last": 155,
+    "text": "\n(* FIXME? should we send !max_running_provers once connected? *)\nlet connect_external socket_name =\n  if is_connected () then raise AlreadyConnected;\n  Buffer.clear recv_buf;\n  client_connect ~fail:true socket_name\n\nlet connect_internal libdir =\n  if is_connected () then raise AlreadyConnected;\n  Buffer.clear recv_buf;\n  let cwd = Unix.getcwd () in\n  let socket_name =\n    (* A socket_name cannot exceed 108 characters (socket\n       specifications vary and some allow more or less\n       characters than others). So, it is necessary to remove\n       the prefix of the file. *)\n    Filename.basename (Filename.temp_file \"why3server\" \"sock\")\n  in\n  (* Sys.executable_name is used to locate the gnat_server/gnatwhy3 executable.\n     Why3server, gnatwhy3 and gnat_server are in the same directory. *)\n  let exec_spark_location = Filename.dirname Sys.executable_name in\n  let exec = Filename.concat exec_spark_location \"why3server\" in\n  let pid =\n    (* use this version for debugging the C code\n    Unix.create_process \"valgrind\"\n    [|\"/usr/bin/valgrind\";exec; \"--socket\"; socket_name;\n      \"--single-client\";\n      \"-j\"; string_of_int !max_running_provers|]\n    Unix.stdin Unix.stdout Unix.stderr\n     *)\n    Unix.create_process exec\n    [|exec; \"--socket\"; socket_name;\n      \"--single-client\";\n      \"-j\"; string_of_int !max_running_provers|]\n    Unix.stdin Unix.stdout Unix.stderr\n  in\n  Unix.chdir cwd;\n  (* sleep before connecting, or the server will not be ready yet *)\n  let rec try_connect n d =\n    if n <= 0 then client_connect ~fail:true socket_name else\n    try client_connect ~fail:false socket_name with _ ->\n      ignore (Unix.select [] [] [] d);\n      try_connect (pred n) (d *. 4.0) in\n  try_connect 5 0.1; (* 0.1, 0.4, 1.6, 6.4, 25.6 *)\n  at_exit (fun () -> (* only if succesfully connected *)\n    (try client_disconnect () with NotConnected -> ());\n    ignore (Unix.waitpid [] pid))\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/getopt.ml",
+    "identity": {
+      "bytes": 7288,
+      "sha256": "75c10628fadc35f6c06f5537bebe1a192421ff3c9d93bc6de862db96bbbfcc8d"
+    },
+    "first": 192,
+    "last": 208,
+    "text": "let commands = ref [Filename.basename Sys.argv.(0)]\n\nlet handle_exn err =\n  let p = String.concat \" \" !commands in\n  Printf.eprintf \"%s: %s\\nTry '%s --help' for more information.\\n%!\" p err p;\n  exit 1\n\nlet parse_many opts args i =\n  let nargs = Array.length args in\n  let rec aux i =\n    if i = nargs then i\n    else\n      let j = parse_one opts args i in\n      if j <> i then aux j\n      else i in\n  try\n    aux i\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/arg.ml",
+    "identity": {
+      "bytes": 14027,
+      "sha256": "97dde83723539fdd6168249416bbb9ef514c14f0d1b7648c2ebdf0fefde41ac8"
+    },
+    "first": 295,
+    "last": 304,
+    "text": "  parse_argv_dynamic ~current:current argv (ref speclist) anonfun errmsg\n\n\nlet parse l f msg =\n  try\n    parse_argv Sys.argv l f msg\n  with\n  | Bad msg -> eprintf \"%s\" msg; exit 2\n  | Help msg -> printf \"%s\" msg; exit 0\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+    "identity": {
+      "bytes": 4299,
+      "sha256": "ccbfe9d1a2f8b31d1374a0cf1b24a5be91686d3d9e307a76047ba4734ba2c9cb"
+    },
+    "first": 43,
+    "last": 71,
+    "text": "exception Exit\n\nlet create fn arg =\n  thread_new\n    (fun () ->\n      try\n        fn arg;\n        ignore (Sys.opaque_identity (check_memprof_cb ()))\n      with\n      | Exit ->\n        ignore (Sys.opaque_identity (check_memprof_cb ()))\n      | exn ->\n        let raw_backtrace = Printexc.get_raw_backtrace () in\n        flush stdout; flush stderr;\n        try\n          !uncaught_exception_handler exn\n        with\n        | Exit -> ()\n        | exn' ->\n          Printf.eprintf\n            \"Thread %d killed on uncaught exception %s\\n\"\n            (id (self ())) (Printexc.to_string exn);\n          Printexc.print_raw_backtrace stderr raw_backtrace;\n          Printf.eprintf\n            \"Thread %d uncaught exception handler raised %s\\n\"\n            (id (self ())) (Printexc.to_string exn');\n          Printexc.print_backtrace stdout;\n          flush stderr)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "first": 307,
+    "last": 362,
+    "text": "let default_uncaught_exception_handler exn raw_backtrace =\n  eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n  print_raw_backtrace stderr raw_backtrace;\n  let status = get_debug_info_status () in\n  if status < 0 then\n    prerr_endline errors.(abs status);\n  flush stderr\n\nlet uncaught_exception_handler = ref default_uncaught_exception_handler\n\nlet set_uncaught_exception_handler fn = uncaught_exception_handler := fn\n\nlet empty_backtrace : raw_backtrace = [| |]\n\nlet try_get_raw_backtrace () =\n  try\n    get_raw_backtrace ()\n  with _ (* Out_of_memory? *) ->\n    empty_backtrace\n\nlet handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()\n\nexternal register_named_value : string -> 'a -> unit\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first": 310,
+    "last": 316,
+    "text": "external open_descriptor_out : int -> out_channel\n                             = \"caml_ml_open_descriptor_out\"\nexternal open_descriptor_in : int -> in_channel = \"caml_ml_open_descriptor_in\"\n\nlet stdin = open_descriptor_in 0\nlet stdout = open_descriptor_out 1\nlet stderr = open_descriptor_out 2\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first": 88,
+    "last": 124,
+    "text": "  return oldmode == O_BINARY;\n#else\n  return 1;\n#endif\n}\n\nCAMLexport struct channel * caml_open_descriptor_in(int fd)\n{\n  struct channel * channel;\n\n  channel = (struct channel *) caml_stat_alloc(sizeof(struct channel));\n  channel->fd = fd;\n  caml_enter_blocking_section_no_pending();\n  channel->offset = lseek(fd, 0, SEEK_CUR);\n  caml_leave_blocking_section();\n  channel->curr = channel->max = channel->buff;\n  channel->end = channel->buff + IO_BUFFER_SIZE;\n  channel->mutex = NULL;\n  channel->refcount = 0;\n  channel->flags = descriptor_is_in_binary_mode(fd) ? 0 : CHANNEL_TEXT_MODE;\n  channel->next = caml_all_opened_channels;\n  channel->prev = NULL;\n  channel->name = NULL;\n  if (caml_all_opened_channels != NULL)\n    caml_all_opened_channels->prev = channel;\n  caml_all_opened_channels = channel;\n  return channel;\n}\n\nCAMLexport struct channel * caml_open_descriptor_out(int fd)\n{\n  struct channel * channel;\n\n  channel = caml_open_descriptor_in(fd);\n  channel->max = NULL;\n  return channel;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first": 505,
+    "last": 527,
+    "text": "CAMLexport value caml_alloc_channel(struct channel *chan)\n{\n  value res;\n  chan->refcount++;\n  res = caml_alloc_custom_mem(&channel_operations, sizeof(struct channel *),\n                              sizeof(struct channel));\n  Channel(res) = chan;\n  return res;\n}\n\nCAMLprim value caml_ml_open_descriptor_in(value fd)\n{\n  struct channel * chan = caml_open_descriptor_in(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_open_descriptor_out(value fd)\n{\n  struct channel * chan = caml_open_descriptor_out(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+    "identity": {
+      "bytes": 5338,
+      "sha256": "bf106497539e01ad8b0512a206dce3ec07840fc9a161f135929a35cd87e863ff"
+    },
+    "first": 24,
+    "last": 65,
+    "text": "#include \"mlvalues.h\"\n\n#ifndef IO_BUFFER_SIZE\n#define IO_BUFFER_SIZE 65536\n#endif\n\n#if defined(_WIN32)\ntypedef __int64 file_offset;\n#else\n#include <sys/types.h>\ntypedef off_t file_offset;\n#endif\n\nstruct channel {\n  int fd;                       /* Unix file descriptor */\n  file_offset offset;           /* Absolute position of fd in the file */\n  char * end;                   /* Physical end of the buffer */\n  char * curr;                  /* Current position in the buffer */\n  char * max;                   /* Logical end of the buffer (for input) */\n  void * mutex;                 /* Placeholder for mutex (for systhreads) */\n  struct channel * next, * prev;/* Double chaining of channels (flush_all) */\n  int refcount;                 /* Number of custom blocks owning the channel */\n  int flags;                    /* Bitfield */\n  char buff[IO_BUFFER_SIZE];    /* The buffer itself */\n  char * name;                  /* Optional name (to report fd leaks) */\n};\n\nenum {\n  CHANNEL_FLAG_FROM_SOCKET = 1,  /* For Windows */\n  CHANNEL_FLAG_MANAGED_BY_GC = 4,  /* Free and close using GC finalization */\n  CHANNEL_TEXT_MODE = 8,           /* \"Text mode\" for Windows and Cygwin */\n  CHANNEL_FLAG_UNBUFFERED = 16     /* Unbuffered (for output channels only) */\n};\n\n/* For an output channel:\n     [offset] is the absolute position of the beginning of the buffer [buff].\n   For an input channel:\n     [offset] is the absolute position of the logical end of the buffer, [max].\n*/\n\n/* Creating and closing channels from C */\n\n"
+  }
+]

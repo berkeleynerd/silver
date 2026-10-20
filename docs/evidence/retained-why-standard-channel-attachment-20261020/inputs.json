@@ -1,0 +1,264 @@
+{
+  "base": "eb4e10cc32caaae49994f3166f78fbd993307ddf",
+  "imports": {
+    "docs/research/retained-why-standard-channel-capacity.md": {
+      "bytes": 16691,
+      "sha256": "1ab19660d6e1d618b8a032a1efcfef7b0e29747c9350c974569435f2da9a3f76"
+    },
+    "docs/reviews/review-standard-channel-capacity-20261020.md": {
+      "bytes": 10127,
+      "sha256": "0bc73a8f9a782b6411af63bd3317e608a60da01114ed8927076660ecec9eac08"
+    },
+    "docs/evidence/retained-why-standard-channel-capacity-20261020/interface.json": {
+      "bytes": 2349,
+      "sha256": "435fe8c007fc7632a515be87060a0a8482b349b0c995d1f8c7cbc86baeb7b4fc"
+    },
+    "docs/evidence/retained-why-standard-channel-capacity-20261020/source-witnesses.json": {
+      "bytes": 30030,
+      "sha256": "9a36f2141af8265e24943d3bf4901232484a616bfbc35e5866ac018708020e19"
+    },
+    "docs/research/retained-why-standard-initial-state.md": {
+      "bytes": 16458,
+      "sha256": "3e53cad610a38e31a5a1eed096baf4b36641640a1af9445cbdc45f6fc6e37dc7"
+    },
+    "docs/evidence/retained-why-standard-initial-state-20261020/writer-partition.json": {
+      "bytes": 7000,
+      "sha256": "ad591a98edb0e873ca9282fb845040921bf18172cca34725f0d70e7a82cf4241"
+    },
+    "docs/evidence/retained-why-standard-initial-state-20261020/result.json": {
+      "bytes": 11063,
+      "sha256": "ea4607f9e2c3706373224d1b0d20ce272b540b931d2246f1de0334aa61876826"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/initial-inputs.json": {
+      "bytes": 32968,
+      "sha256": "1e457eaf4b57e36ed271cca76eebcdbf8f72d9196c3ce8508b56cd6166539e22"
+    },
+    "docs/research/retained-why-diagnostic-occurrences.md": {
+      "bytes": 14852,
+      "sha256": "db7bd965b5a7bb9046ea1c629d393bb34cd86ca3757f31b2e4a37ad9fa7d3d90"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-standard-prefix-observer.md": {
+      "bytes": 13539,
+      "sha256": "f0e8d587efd716f4da9e31a8f234e9b9ff8bc9d053750c6a6e1357c266df7a96"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-channel-exit-bound.md": {
+      "bytes": 14090,
+      "sha256": "356d98fa80972b812f0b90ec4a088cdabf8997790cf7114cb673849246423a86"
+    },
+    "docs/evidence/retained-why-channel-exit-bound-20261020/native-bodies.json": {
+      "bytes": 256287,
+      "sha256": "d4c57d34b7d0bf0981d95eb78abf78ffed28e0c3d024bc14091a2ca32f4b0e75"
+    },
+    "docs/evidence/retained-why-channel-initial-bound-20261020/native-bodies.json": {
+      "bytes": 28860,
+      "sha256": "7a07498cffefe35da98c3a7182d0d64d5e39718d46f3112128244e8627d5d056"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-save-preservation.md": {
+      "bytes": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    }
+  },
+  "source_ranges": [
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      26,
+      61
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      101,
+      113
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      411,
+      417
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      1053,
+      1067
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      30,
+      53
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      210,
+      228
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      263,
+      271
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      742,
+      746
+    ],
+    [
+      "why3",
+      "src/session/session_itp.ml",
+      298,
+      308
+    ],
+    [
+      "why3",
+      "src/session/session_itp.ml",
+      353,
+      363
+    ],
+    [
+      "why3",
+      "src/session/session_itp.ml",
+      833,
+      861
+    ],
+    [
+      "why3",
+      "src/session/session_itp.ml",
+      1588,
+      1605
+    ],
+    [
+      "why3",
+      "src/driver/prove_client.ml",
+      108,
+      155
+    ],
+    [
+      "why3",
+      "src/util/getopt.ml",
+      192,
+      208
+    ],
+    [
+      "ocaml",
+      "stdlib/arg.ml",
+      295,
+      304
+    ],
+    [
+      "ocaml",
+      "otherlibs/systhreads/thread.ml",
+      43,
+      71
+    ],
+    [
+      "ocaml",
+      "stdlib/printexc.ml",
+      307,
+      362
+    ],
+    [
+      "ocaml",
+      "stdlib/stdlib.ml",
+      310,
+      316
+    ],
+    [
+      "ocaml",
+      "runtime/io.c",
+      88,
+      124
+    ],
+    [
+      "ocaml",
+      "runtime/io.c",
+      505,
+      527
+    ],
+    [
+      "ocaml",
+      "runtime/caml/io.h",
+      24,
+      65
+    ]
+  ],
+  "cases": [
+    [
+      "put_line",
+      17310
+    ],
+    [
+      "put",
+      17514
+    ],
+    [
+      "first_or_default",
+      17631
+    ],
+    [
+      "is_message",
+      17704
+    ],
+    [
+      "input_is_valid",
+      17869
+    ]
+  ],
+  "required_source_anchors": [
+    "let outc = ref stdout",
+    "output_string !outc \"\\n\"",
+    "if Gnat_config.logging then Logging.init ()",
+    "if Gnat_config.logging then Logging.log g prover pas",
+    "let opt_logging = ref false",
+    "\"--logging\", Arg.Set opt_logging",
+    "let () = Arg.parse options set_filename usage_msg",
+    "let logging = !opt_logging",
+    "with Not_found -> raise BadID",
+    "(get_proofNode s id).proofn_parent",
+    "Printexc.print_backtrace stderr",
+    "| Bad msg -> eprintf \"%s\" msg; exit 2",
+    "| Help msg -> printf \"%s\" msg; exit 0",
+    "let create fn arg =",
+    "channel->offset = lseek(fd, 0, SEEK_CUR)",
+    "channel->curr = channel->max = channel->buff",
+    "channel->max = NULL",
+    "Channel(res) = chan",
+    "char buff[IO_BUFFER_SIZE]"
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "method": "For every retained member ending memory-reads.jsonl, parse each JSON row and count rows containing the full 8-byte global pointer slot; no target execution or field reconstruction.",
+  "partial_read_stitching_checked": false,
+  "executed_once_before_packet_authoring": true,
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "archive": "capture-put-line.tar.gz",
+      "load_bias": 94237471531008,
+      "rows": 1600769,
+      "slots": {
+        "stdout": {
+          "address": 94237487572680,
+          "whole_word_read_hits": []
+        },
+        "stderr": {
+          "address": 94237487572688,
+          "whole_word_read_hits": []
+        }
+      }
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "archive": "capture-put.tar.gz",
+      "load_bias": 94070138388480,
+      "rows": 1469491,
+      "slots": {
+        "stdout": {
+          "address": 94070154430152,
+          "whole_word_read_hits": []
+        },
+        "stderr": {
+          "address": 94070154430160,
+          "whole_word_read_hits": []
+        }
+      }
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "archive": "capture-first-or-default.tar.gz",
+      "load_bias": 94541884551168,
+      "rows": 1039410,
+      "slots": {
+        "stdout": {
+          "address": 94541900592840,
+          "whole_word_read_hits": []
+        },
+        "stderr": {
+          "address": 94541900592848,
+          "whole_word_read_hits": []
+        }
+      }
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "archive": "capture-is-message.tar.gz",
+      "load_bias": 94519446523904,
+      "rows": 840069,
+      "slots": {
+        "stdout": {
+          "address": 94519462565576,
+          "whole_word_read_hits": []
+        },
+        "stderr": {
+          "address": 94519462565584,
+          "whole_word_read_hits": []
+        }
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "archive": "capture-input-is-valid.tar.gz",
+      "load_bias": 94660896407552,
+      "rows": 969053,
+      "slots": {
+        "stdout": {
+          "address": 94660912449224,
+          "whole_word_read_hits": []
+        },
+        "stderr": {
+          "address": 94660912449232,
+          "whole_word_read_hits": []
+        }
+      }
+    }
+  ]
+}
