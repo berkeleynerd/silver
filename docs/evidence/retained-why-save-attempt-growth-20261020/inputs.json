@@ -1,0 +1,94 @@
+{
+  "base": "22c5d9274ac7fe6ab7797aef378a3bcb4b4afafe",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "files": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/inputs.json": {
+      "bytes": 7094,
+      "sha256": "7cf91642571924ea1cc81c02a983605f4fe3e3be538440f9a42bcc9d6712beac"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/review.md": {
+      "bytes": 9368,
+      "sha256": "f67bbb105673abbf7412fdf8b9b2684e6410aff2fe342eb3a6619bb556a27706"
+    },
+    "docs/evidence/retained-why-save-entry-inputs-20261020/entry-inputs.json": {
+      "bytes": 2860,
+      "sha256": "377d263f3ae32a4b3a9b0cbdc30a423fa005e4effdaebce04c0646ea194e3f91"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/reviews/review-why-ordinary-ending-control-20261020.md": {
+      "bytes": 10736,
+      "sha256": "688cf3b2c75c9bd124c3b3bd214dcf77b84235c575a25cffa05c74bebfee2fbd"
+    },
+    "docs/research/retained-why-save-operational-bounds.md": {
+      "bytes": 18703,
+      "sha256": "b4381b7341450ea7428a48f7a381744c4d449a8451cd7d0e17b62da932358c85"
+    },
+    "docs/research/retained-why-save-entry-inputs.md": {
+      "bytes": 4538,
+      "sha256": "40506e57af11e26a5d5b71a37fd5ea05eb7f391f1f704a23e326ba9598c469f7"
+    },
+    "docs/research/retained-why-fixed-session-domain.md": {
+      "bytes": 6823,
+      "sha256": "b4ec31dfa3c49f0863ffaaf6429afca82a4bb9c3e943ec615afa93b2c26d217d"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/evidence/retained-why-ordinary-ending-control-20261020/source-excerpts.json": {
+      "bytes": 112188,
+      "sha256": "52ef66ccebadaa3f9a81489fec9cbc2640447f888d47388df4257ee91da39d9e"
+    },
+    "docs/evidence/retained-why-save-entry-inputs-20261020/put-line.json": {
+      "bytes": 107095,
+      "sha256": "07a04e176618df51ca60aa8968b75a1f16e79a7f66f025975d7f1265d367fa72"
+    },
+    "docs/evidence/retained-why-save-entry-inputs-20261020/put.json": {
+      "bytes": 95523,
+      "sha256": "aa8b47acf489eb60944a998d89bfc597656c253b148ca1176e5c60ab8fdac931"
+    },
+    "docs/evidence/retained-why-save-entry-inputs-20261020/first-or-default.json": {
+      "bytes": 71935,
+      "sha256": "8db6137bb5569a61759d440277af797c8017eb33936c22062ec0fbeece0b5e57"
+    },
+    "docs/evidence/retained-why-save-entry-inputs-20261020/is-message.json": {
+      "bytes": 24522,
+      "sha256": "9cc978fd794753dce49e1f6bbf953bed418e002af4c0a06b49a4b7e855ada2cd"
+    },
+    "docs/evidence/retained-why-save-entry-inputs-20261020/input-is-valid.json": {
+      "bytes": 32827,
+      "sha256": "99ce4931a3569e9eef6dd76d731ed58e02cb56d7b1415ac7bef15a308d331b79"
+    },
+    "docs/evidence/retained-why-save-attempt-growth-20261020/source-excerpts.json": {
+      "bytes": 73923,
+      "sha256": "1d08f691558708f9adab8f41668371da63d176b30d514a16649d849aa2fb07d2"
+    },
+    "docs/evidence/retained-why-save-attempt-growth-20261020/source-census.json": {
+      "bytes": 15749,
+      "sha256": "d412f58af95aff381deb1c40efaef6f26753c2d313de9522ae402b7138ba1a72"
+    },
+    "docs/evidence/retained-why-save-attempt-growth-20261020/transfer.py": {
+      "bytes": 4119,
+      "sha256": "978aaade0eee9f7ca326a6044a56d33d8009779d4580e7f3cb1cae839152ec64"
+    },
+    "docs/evidence/retained-why-save-attempt-growth-20261020/build_packet.py": {
+      "bytes": 4393,
+      "sha256": "7621ca2c490d23d54a41f0d4567ade271852351d9ade476d81a414b219577c77"
+    },
+    "docs/evidence/retained-why-save-attempt-growth-20261020/check.py": {
+      "bytes": 8409,
+      "sha256": "84ce9ceece8c715d5d99a6b8e099e6a5e4e21f262a0db6f8304c394a3323aec4"
+    }
+  }
+}

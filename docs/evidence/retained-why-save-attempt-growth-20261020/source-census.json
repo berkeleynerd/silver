@@ -1,0 +1,548 @@
+{
+  "session_metadata_references": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 58,
+      "text": "  pa.proof_script <- Some file"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 64,
+      "text": "  proofn_attempts                : proofAttemptID Hprover.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 124,
+      "text": "  proofAttempt_table            : proof_attempt_node Hint.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 133,
+      "text": "  session_prover_ids            : int Hprover.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 139,
+      "text": "  file_state: bool Hfile.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 140,
+      "text": "  th_state: bool Ident.Hid.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 141,
+      "text": "  tn_state: bool Htn.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 142,
+      "text": "  pn_state : bool Hpn.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 217,
+      "text": "  Hint.iter f s.proofAttempt_table"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 236,
+      "text": "    Hprover.fold (fun _ pa acc -> pa.proofa_attempt::acc) t.proofn_attempts []"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 302,
+      "text": "    Hint.find s.proofAttempt_table id"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 333,
+      "text": "  (get_proofNode s id).proofn_attempts"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 342,
+      "text": "               (get_proofNode s id).proofn_attempts []"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 436,
+      "text": "      pn.proofn_attempts acc"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 481,
+      "text": "                 pn.proofn_attempts) () g"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 496,
+      "text": "         pn.proofn_attempts) () th"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 561,
+      "text": "        pn.proofn_attempts [])"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 593,
+      "text": "    | Some s -> s.session_prover_ids"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 620,
+      "text": "  { proofAttempt_table = Hint.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 629,
+      "text": "    session_prover_ids = prover_ids;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 633,
+      "text": "    file_state = Hfile.create 3;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 634,
+      "text": "    th_state = Ident.Hid.create 7;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 635,
+      "text": "    tn_state = Htn.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 636,
+      "text": "    pn_state = Hpn.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 648,
+      "text": "    let _ = Hprover.find pn.proofn_attempts prover in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 658,
+      "text": "    Hprover.add pn.proofn_attempts prover id;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 659,
+      "text": "    Hint.replace session.proofAttempt_table id pa;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 666,
+      "text": "    let id = Hprover.find pn.proofn_attempts pr in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 667,
+      "text": "    let pa = Hint.find s.proofAttempt_table id in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 671,
+      "text": "    (* Hprover.replace pn.proofn_attempts pr id; useless *)"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 672,
+      "text": "    Hint.replace s.proofAttempt_table id pa;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 684,
+      "text": "             proofn_attempts = Hprover.create 7;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 697,
+      "text": "             proofn_attempts = Hprover.create 7;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 702,
+      "text": "  Hint.add s.pn_state node_id proved"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 725,
+      "text": "  Htn.add s.tn_state node_id proved;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 740,
+      "text": "    let paid = Hprover.find n.proofn_attempts pr in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 742,
+      "text": "    pa.proof_state <- Some st;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 743,
+      "text": "    pa.proof_obsolete <- obsolete;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 750,
+      "text": "let tn_proved s tid = Htn.find_def s.tn_state false tid"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 751,
+      "text": "let pn_proved s pid = Hpn.find_def s.pn_state false pid"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 753,
+      "text": "  try Hid.find s.th_state th.theory_name"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 756,
+      "text": "    Hid.add s.th_state th.theory_name b;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 760,
+      "text": "  try Hfile.find s.file_state f.file_id"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 763,
+      "text": "    Hfile.add s.file_state f.file_id b;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 809,
+      "text": "        Hfile.replace s.file_state f.file_id proved;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 822,
+      "text": "      Hid.replace s.th_state (theory_name th) proved;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 851,
+      "text": "      Hpn.replace s.pn_state id proved;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 868,
+      "text": "      Htn.replace s.tn_state trid proved;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 890,
+      "text": "    let paid = Hprover.find n.proofn_attempts opr in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 892,
+      "text": "    Hprover.remove n.proofn_attempts opr;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 893,
+      "text": "    pa.prover <- npr;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 894,
+      "text": "    pa.proof_obsolete <- true;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 895,
+      "text": "    Hprover.add n.proofn_attempts npr paid;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 913,
+      "text": "  let pa = Hprover.find pn.proofn_attempts prover in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 914,
+      "text": "  Hprover.remove pn.proofn_attempts prover;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 915,
+      "text": "  Hint.remove s.proofAttempt_table pa"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 925,
+      "text": "  pa.proof_obsolete <- true"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1178,
+      "text": "    Hid.add session.th_state thname proved;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1420,
+      "text": "         Hprover.replace s.session_prover_ids p id)"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1499,
+      "text": "                save_detached_proof s id pa) detached_goal.proofn_attempts;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1614,
+      "text": "               old_goal.proofn_attempts;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2126,
+      "text": "      pn.proofn_attempts [] in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2180,
+      "text": "  let prover_ids = session.session_prover_ids in"
+    }
+  ],
+  "forest_mutations": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 70,
+      "text": "  transf_args                      : string list;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 128,
+      "text": "  trans_table                   : transformation_node Hint.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 136,
+      "text": "  session_raw_tasks : Task.task Hpn.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 246,
+      "text": "  let tr = Hint.find s.trans_table id in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 272,
+      "text": "  let _ = Hint.find s.trans_table n in n"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 311,
+      "text": "  Hpn.find s.session_raw_tasks id"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 326,
+      "text": "    Hint.find s.trans_table id"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 347,
+      "text": "let get_transf_args (s : session) (id : transID) ="
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 348,
+      "text": "  (get_transfNode s id).transf_args"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 566,
+      "text": "  let args = get_transf_args s id in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 624,
+      "text": "    trans_table = Hint.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 631,
+      "text": "    session_raw_tasks = Hpn.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 687,
+      "text": "  Hpn.add s.session_raw_tasks node_id t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 718,
+      "text": "             transf_args = args;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 724,
+      "text": "  Hint.add s.trans_table node_id tn;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 726,
+      "text": "  pn.proofn_transformations <- node_id::pn.proofn_transformations"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 905,
+      "text": "  Hint.remove s.trans_table id;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 908,
+      "text": "  pn.proofn_transformations <- trans_up"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 942,
+      "text": "            th.theory_goals <- List.filter ((<>) pn) th.theory_goals"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 945,
+      "text": "            nt.transf_subtasks <- List.filter ((<>) pn) nt.transf_subtasks"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 949,
+      "text": "       f.file_theories <- List.filter ((!=) th) f.file_theories"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1502,
+      "text": "  new_trans.proofn_transformations <- List.rev new_trans.proofn_transformations"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1516,
+      "text": "    let args = old_tr.transf_args in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1533,
+      "text": "  detached_theory.theory_goals <- goalsID;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1595,
+      "text": "                                        (get_transfNode s transID).transf_args"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1596,
+      "text": "                                        old_tr.transf_args)"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1602,
+      "text": "      apply_trans_to_goal ~allow_no_effect:true s env old_tr.transf_name old_tr.transf_args goal_id"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1604,
+      "text": "    graft_transf s goal_id old_tr.transf_name old_tr.transf_args subgoals"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1619,
+      "text": "  new_goal_node.proofn_transformations <- List.rev new_goal_node.proofn_transformations;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1669,
+      "text": "    new_tr.transf_subtasks <-"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1748,
+      "text": "  th.theory_goals <- th.theory_goals @ save_detached_goals old_s detached s (Theory th)"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1800,
+      "text": "    f.file_theories <- theories;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1840,
+      "text": "  f.file_theories <- theories @ detached;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2146,
+      "text": "    (Pp.print_list Pp.space save_arg) t.transf_args;"
+    },
+    {
+      "member": "why3/src/session/controller_itp.ml",
+      "line": 1004,
+      "text": "  let args = get_transf_args s tr in"
+    }
+  ],
+  "save_and_signal_roots": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2212,
+      "text": "let save_session (s : session) ="
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 752,
+      "text": "let save_session c ="
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 753,
+      "text": "   Session_itp.save_session c.Controller_itp.controller_session"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 274,
+      "text": "  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 298,
+      "text": "let save_session_and_exit c signum ="
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 304,
+      "text": "    Sys.set_signal Sys.sigint Sys.Signal_ignore;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 305,
+      "text": "    Sys.set_signal Sys.sighup Sys.Signal_ignore;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 306,
+      "text": "    Sys.set_signal Sys.sigterm Sys.Signal_ignore;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 308,
+      "text": "  C.save_session c;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 335,
+      "text": "    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));"
+    }
+  ]
+}

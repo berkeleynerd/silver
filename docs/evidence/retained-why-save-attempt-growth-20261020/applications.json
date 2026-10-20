@@ -1,0 +1,643 @@
+[
+  {
+    "case": "put_line",
+    "pid": 3085,
+    "phase": "pre-scheduling registration; before driver preparation",
+    "application_kind": "conditional arithmetic: the continued signal condition is assumed, not discharged by this checker",
+    "input_sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+    "inputs": {
+      "A_stats0": 14,
+      "A_xml0": 14,
+      "pair_entries": 192,
+      "selected_provers": 3,
+      "prover_domain0_upper": 1,
+      "max_goal_multiplicity": 1,
+      "next_attempt_id0": 14,
+      "G": 65,
+      "T": 1,
+      "Th": 46,
+      "F": 1,
+      "Args": 0,
+      "all_scripts_none": true
+    },
+    "conditional_transfer": {
+      "conditional_A_stats_upper": 208,
+      "conditional_A_xml_upper": 208,
+      "next_attempt_id_upper": null,
+      "next_attempt_id_reason": "Binding growth does not count constructor prefixes abandoned before membership publication; no interrupted-scheduler entry theorem is asserted here.",
+      "conditional_prover_key_domain_upper": 4,
+      "remaining_signal_save_entries_upper": 2,
+      "remaining_all_save_entries_upper": 3,
+      "private_statistics_prover_bindings_per_save_upper": 6,
+      "private_prover_map_keys_upper": 4,
+      "private_prover_id_map_keys_upper": 4,
+      "new_table_bindings_upper": {
+        "proofAttempt_table": 194,
+        "each_goal_attempt_table": 5,
+        "pn_state": 65,
+        "tn_state": 1,
+        "th_state": 48,
+        "file_state": 3,
+        "session_prover_ids": 6
+      },
+      "tables": {
+        "proofAttempt_table": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 194
+        },
+        "pn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 65
+        },
+        "tn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 1
+        },
+        "th_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 48
+        },
+        "file_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 3
+        },
+        "session_prover_ids": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 6
+        }
+      },
+      "preserved_forest": {
+        "G": 65,
+        "T": 1,
+        "Th": 46,
+        "F": 1,
+        "Args": 0
+      },
+      "proof_script_path_occurrences": 0,
+      "result_status_label_bytes_upper": 17,
+      "usable_attempt_visit_bounds": null,
+      "continued_signal_contract_supplied": true,
+      "native_table_contract_supplied": false,
+      "whole_save_capacity_closed": false
+    },
+    "initial_goal_attempt_binding_counts": {
+      "0": 0,
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 1,
+      "14": 1,
+      "15": 0,
+      "16": 0,
+      "17": 1,
+      "18": 1,
+      "19": 0,
+      "20": 0,
+      "21": 0,
+      "22": 0,
+      "23": 0,
+      "24": 0,
+      "25": 0,
+      "26": 0,
+      "27": 0,
+      "28": 0,
+      "29": 0,
+      "30": 0,
+      "31": 1,
+      "32": 1,
+      "33": 0,
+      "34": 0,
+      "35": 1,
+      "36": 1,
+      "37": 0,
+      "38": 0,
+      "39": 0,
+      "40": 0,
+      "41": 1,
+      "42": 1,
+      "43": 0,
+      "44": 0,
+      "45": 0,
+      "46": 0,
+      "47": 0,
+      "48": 0,
+      "49": 0,
+      "50": 0,
+      "51": 0,
+      "52": 0,
+      "53": 0,
+      "54": 0,
+      "55": 0,
+      "56": 0,
+      "57": 1,
+      "58": 0,
+      "59": 0,
+      "60": 0,
+      "61": 0,
+      "62": 0,
+      "63": 0,
+      "64": 1
+    }
+  },
+  {
+    "case": "put",
+    "pid": 3323,
+    "phase": "pre-scheduling registration; before driver preparation",
+    "application_kind": "conditional arithmetic: the continued signal condition is assumed, not discharged by this checker",
+    "input_sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+    "inputs": {
+      "A_stats0": 12,
+      "A_xml0": 12,
+      "pair_entries": 159,
+      "selected_provers": 3,
+      "prover_domain0_upper": 1,
+      "max_goal_multiplicity": 1,
+      "next_attempt_id0": 12,
+      "G": 54,
+      "T": 1,
+      "Th": 46,
+      "F": 1,
+      "Args": 0,
+      "all_scripts_none": true
+    },
+    "conditional_transfer": {
+      "conditional_A_stats_upper": 173,
+      "conditional_A_xml_upper": 173,
+      "next_attempt_id_upper": null,
+      "next_attempt_id_reason": "Binding growth does not count constructor prefixes abandoned before membership publication; no interrupted-scheduler entry theorem is asserted here.",
+      "conditional_prover_key_domain_upper": 4,
+      "remaining_signal_save_entries_upper": 2,
+      "remaining_all_save_entries_upper": 3,
+      "private_statistics_prover_bindings_per_save_upper": 6,
+      "private_prover_map_keys_upper": 4,
+      "private_prover_id_map_keys_upper": 4,
+      "new_table_bindings_upper": {
+        "proofAttempt_table": 161,
+        "each_goal_attempt_table": 5,
+        "pn_state": 54,
+        "tn_state": 1,
+        "th_state": 48,
+        "file_state": 3,
+        "session_prover_ids": 6
+      },
+      "tables": {
+        "proofAttempt_table": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 161
+        },
+        "pn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 54
+        },
+        "tn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 1
+        },
+        "th_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 48
+        },
+        "file_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 3
+        },
+        "session_prover_ids": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 6
+        }
+      },
+      "preserved_forest": {
+        "G": 54,
+        "T": 1,
+        "Th": 46,
+        "F": 1,
+        "Args": 0
+      },
+      "proof_script_path_occurrences": 0,
+      "result_status_label_bytes_upper": 17,
+      "usable_attempt_visit_bounds": null,
+      "continued_signal_contract_supplied": true,
+      "native_table_contract_supplied": false,
+      "whole_save_capacity_closed": false
+    },
+    "initial_goal_attempt_binding_counts": {
+      "0": 0,
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 1,
+      "14": 1,
+      "15": 0,
+      "16": 0,
+      "17": 1,
+      "18": 1,
+      "19": 0,
+      "20": 0,
+      "21": 0,
+      "22": 0,
+      "23": 0,
+      "24": 0,
+      "25": 0,
+      "26": 0,
+      "27": 0,
+      "28": 0,
+      "29": 0,
+      "30": 0,
+      "31": 1,
+      "32": 1,
+      "33": 0,
+      "34": 0,
+      "35": 1,
+      "36": 1,
+      "37": 0,
+      "38": 0,
+      "39": 0,
+      "40": 0,
+      "41": 0,
+      "42": 0,
+      "43": 0,
+      "44": 0,
+      "45": 0,
+      "46": 0,
+      "47": 1,
+      "48": 0,
+      "49": 0,
+      "50": 0,
+      "51": 0,
+      "52": 0,
+      "53": 1
+    }
+  },
+  {
+    "case": "first_or_default",
+    "pid": 3470,
+    "phase": "pre-scheduling registration; before driver preparation",
+    "application_kind": "conditional arithmetic: the continued signal condition is assumed, not discharged by this checker",
+    "input_sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+    "inputs": {
+      "A_stats0": 10,
+      "A_xml0": 10,
+      "pair_entries": 96,
+      "selected_provers": 3,
+      "prover_domain0_upper": 1,
+      "max_goal_multiplicity": 1,
+      "next_attempt_id0": 10,
+      "G": 33,
+      "T": 1,
+      "Th": 41,
+      "F": 1,
+      "Args": 0,
+      "all_scripts_none": true
+    },
+    "conditional_transfer": {
+      "conditional_A_stats_upper": 108,
+      "conditional_A_xml_upper": 108,
+      "next_attempt_id_upper": null,
+      "next_attempt_id_reason": "Binding growth does not count constructor prefixes abandoned before membership publication; no interrupted-scheduler entry theorem is asserted here.",
+      "conditional_prover_key_domain_upper": 4,
+      "remaining_signal_save_entries_upper": 2,
+      "remaining_all_save_entries_upper": 3,
+      "private_statistics_prover_bindings_per_save_upper": 6,
+      "private_prover_map_keys_upper": 4,
+      "private_prover_id_map_keys_upper": 4,
+      "new_table_bindings_upper": {
+        "proofAttempt_table": 98,
+        "each_goal_attempt_table": 5,
+        "pn_state": 33,
+        "tn_state": 1,
+        "th_state": 43,
+        "file_state": 3,
+        "session_prover_ids": 6
+      },
+      "tables": {
+        "proofAttempt_table": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 98
+        },
+        "pn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 33
+        },
+        "tn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 1
+        },
+        "th_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 43
+        },
+        "file_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 3
+        },
+        "session_prover_ids": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 6
+        }
+      },
+      "preserved_forest": {
+        "G": 33,
+        "T": 1,
+        "Th": 41,
+        "F": 1,
+        "Args": 0
+      },
+      "proof_script_path_occurrences": 0,
+      "result_status_label_bytes_upper": 17,
+      "usable_attempt_visit_bounds": null,
+      "continued_signal_contract_supplied": true,
+      "native_table_contract_supplied": false,
+      "whole_save_capacity_closed": false
+    },
+    "initial_goal_attempt_binding_counts": {
+      "0": 0,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 1,
+      "13": 0,
+      "14": 1,
+      "15": 0,
+      "16": 0,
+      "17": 1,
+      "18": 0,
+      "19": 0,
+      "20": 0,
+      "21": 0,
+      "22": 0,
+      "23": 0,
+      "24": 0,
+      "25": 1,
+      "26": 1,
+      "27": 1,
+      "28": 0,
+      "29": 0,
+      "30": 0,
+      "31": 0,
+      "32": 0
+    }
+  },
+  {
+    "case": "is_message",
+    "pid": 3568,
+    "phase": "pre-scheduling registration; before driver preparation",
+    "application_kind": "conditional arithmetic: the continued signal condition is assumed, not discharged by this checker",
+    "input_sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+    "inputs": {
+      "A_stats0": 1,
+      "A_xml0": 1,
+      "pair_entries": 9,
+      "selected_provers": 3,
+      "prover_domain0_upper": 1,
+      "max_goal_multiplicity": 1,
+      "next_attempt_id0": 1,
+      "G": 4,
+      "T": 1,
+      "Th": 12,
+      "F": 1,
+      "Args": 0,
+      "all_scripts_none": true
+    },
+    "conditional_transfer": {
+      "conditional_A_stats_upper": 12,
+      "conditional_A_xml_upper": 12,
+      "next_attempt_id_upper": null,
+      "next_attempt_id_reason": "Binding growth does not count constructor prefixes abandoned before membership publication; no interrupted-scheduler entry theorem is asserted here.",
+      "conditional_prover_key_domain_upper": 4,
+      "remaining_signal_save_entries_upper": 2,
+      "remaining_all_save_entries_upper": 3,
+      "private_statistics_prover_bindings_per_save_upper": 6,
+      "private_prover_map_keys_upper": 4,
+      "private_prover_id_map_keys_upper": 4,
+      "new_table_bindings_upper": {
+        "proofAttempt_table": 11,
+        "each_goal_attempt_table": 5,
+        "pn_state": 4,
+        "tn_state": 1,
+        "th_state": 14,
+        "file_state": 3,
+        "session_prover_ids": 6
+      },
+      "tables": {
+        "proofAttempt_table": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 11
+        },
+        "pn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 4
+        },
+        "tn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 1
+        },
+        "th_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 14
+        },
+        "file_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 3
+        },
+        "session_prover_ids": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 6
+        }
+      },
+      "preserved_forest": {
+        "G": 4,
+        "T": 1,
+        "Th": 12,
+        "F": 1,
+        "Args": 0
+      },
+      "proof_script_path_occurrences": 0,
+      "result_status_label_bytes_upper": 17,
+      "usable_attempt_visit_bounds": null,
+      "continued_signal_contract_supplied": true,
+      "native_table_contract_supplied": false,
+      "whole_save_capacity_closed": false
+    },
+    "initial_goal_attempt_binding_counts": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 1
+    }
+  },
+  {
+    "case": "input_is_valid",
+    "pid": 97103,
+    "phase": "first-inline entry",
+    "application_kind": "conditional arithmetic: the continued signal condition is assumed, not discharged by this checker",
+    "input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+    "inputs": {
+      "A_stats0": 4,
+      "A_xml0": 4,
+      "pair_entries": 3,
+      "selected_provers": 3,
+      "prover_domain0_upper": 2,
+      "max_goal_multiplicity": 1,
+      "next_attempt_id0": 4,
+      "G": 5,
+      "T": 1,
+      "Th": 21,
+      "F": 1,
+      "Args": 0,
+      "all_scripts_none": true
+    },
+    "conditional_transfer": {
+      "conditional_A_stats_upper": 9,
+      "conditional_A_xml_upper": 9,
+      "next_attempt_id_upper": null,
+      "next_attempt_id_reason": "Binding growth does not count constructor prefixes abandoned before membership publication; no interrupted-scheduler entry theorem is asserted here.",
+      "conditional_prover_key_domain_upper": 5,
+      "remaining_signal_save_entries_upper": 2,
+      "remaining_all_save_entries_upper": 3,
+      "private_statistics_prover_bindings_per_save_upper": 7,
+      "private_prover_map_keys_upper": 5,
+      "private_prover_id_map_keys_upper": 5,
+      "new_table_bindings_upper": {
+        "proofAttempt_table": 5,
+        "each_goal_attempt_table": 5,
+        "pn_state": 5,
+        "tn_state": 1,
+        "th_state": 23,
+        "file_state": 3,
+        "session_prover_ids": 7
+      },
+      "tables": {
+        "proofAttempt_table": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 5
+        },
+        "pn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 5
+        },
+        "tn_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 1
+        },
+        "th_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 23
+        },
+        "file_state": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 3
+        },
+        "session_prover_ids": {
+          "binding_visits_upper": null,
+          "size_upper": null,
+          "no_resize_arithmetic": null,
+          "new_bindings_upper": 7
+        }
+      },
+      "preserved_forest": {
+        "G": 5,
+        "T": 1,
+        "Th": 21,
+        "F": 1,
+        "Args": 0
+      },
+      "proof_script_path_occurrences": 0,
+      "result_status_label_bytes_upper": 17,
+      "usable_attempt_visit_bounds": null,
+      "continued_signal_contract_supplied": true,
+      "native_table_contract_supplied": false,
+      "whole_save_capacity_closed": false
+    },
+    "initial_goal_attempt_binding_counts": {
+      "0": 0,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    }
+  }
+]

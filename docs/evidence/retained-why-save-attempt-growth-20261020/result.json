@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "cases": 5,
+  "checked_input_files": 22,
+  "source_members": 11,
+  "checks": {
+    "unknown_signal_budget_stays_unknown": true,
+    "missing_table_state_stays_unknown": true,
+    "forest_multiplicity_preserved": true,
+    "visits_size_capacity_kept_separate": true,
+    "no_resize_boundary_checked": true,
+    "theory_status_capacity16_growth48_rejected": true,
+    "monotone_key_charging_states": 22,
+    "naive_unique_key_bound_has_counterexample": true
+  },
+  "elapsed_seconds": 0.2868548619990179,
+  "new_native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "capture_replays": 0,
+  "binder_recomputations": 0,
+  "source_fetches": 0,
+  "native_table_contract_discharged_here": false,
+  "whole_save_capacity_closed": false
+}
