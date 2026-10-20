@@ -2491,10 +2491,24 @@ detector was established.
 
 The extraction lane selected Sol / Extra High; both source-author lanes and
 all three independent reviews selected Astra / Extra High. Lead live settings,
-serving-runtime confirmation, token and monetary measurements are unavailable.
+serving-runtime confirmation, per-agent token attribution and monetary
+measurements are unavailable.
 Three author subthreads ran with the lead; after extraction finished, one new
 Astra reviewer took that slot. Existing source authors reviewed separate
 results they had not authored. No recursive reviewer expansion occurred.
+
+The lead read the live harness counters at the start of this continuation and
+after publication: `tokensUsed` increased from **22,661,351 to 24,276,055**, an
+observed delta of **1,614,704 tokens**; `timeUsedSeconds` increased from 18,728 to
+20,493, a delta of **1,765 seconds**. These are aggregate harness counter changes
+over that observed interval, not a per-agent, input/output, monetary or complete
+round attribution. Author lanes had already begun when the continuation started,
+and final measurement-record publication falls after the second observation.
+Individual review reports correctly retain their unavailable local token counts.
+The round closed four bounded source/evidence questions and repaired two interface
+defects; the substantial aggregate usage warrants keeping subsequent work tied
+to a specific unresolved join and integrating before another review round. This
+observation does not establish a causal comparison between model settings.
 
 | Work | Available elapsed evidence | Focused validation |
 | --- | --- | --- |
