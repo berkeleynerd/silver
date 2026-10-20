@@ -1,0 +1,364 @@
+{
+  "files": {
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/put-line-correspondence.json": {
+      "bytes": 78825,
+      "sha256": "4a1c2ad47bc8d44229a6d0b9277c601eba851cee2762797c7c6610d2c4d45016"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json": {
+      "bytes": 4278229,
+      "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/put-correspondence.json": {
+      "bytes": 74816,
+      "sha256": "25bc380948fbd41e50a84244caf2e9a883c4f7b933425df15c21682f3395cb61"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json": {
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/first-or-default-correspondence.json": {
+      "bytes": 35199,
+      "sha256": "d4781f46d2d139cc649549393ed49751a2ba05f439983f655ddf0f87e32fa952"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json": {
+      "bytes": 804836,
+      "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/is-message-correspondence.json": {
+      "bytes": 20628,
+      "sha256": "ed4e95c6313b54ed641a6efaadcfc72350205fccf6956dd94a82939f6f38d747"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json": {
+      "bytes": 76267,
+      "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/input-is-valid-correspondence.json": {
+      "bytes": 22457,
+      "sha256": "2fc367e8a097cbbe11c0e866f6fdeb499d522ba023662c3625d44040378e2e3a"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json": {
+      "bytes": 97976,
+      "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/result.json": {
+      "bytes": 19562,
+      "sha256": "22ff269c8ed27c52db49493fbf1f1746e6e848bbff65f15c627edb1a5867a956"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/result.json": {
+      "bytes": 4645,
+      "sha256": "7319de09e95e06d228c0c7fcdc18c1bac6e6eb3ea4f84c497f007420cbd562d1"
+    },
+    "docs/research/retained-why-save-stack-composition.md": {
+      "bytes": 15338,
+      "sha256": "7adc10bea917dfa9399b6af3c4fa0d7751fb0b04f37f7a7c3d8eebb1daafb14d"
+    },
+    "docs/research/retained-why-save-state-join.md": {
+      "bytes": 8809,
+      "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+    },
+    "docs/research/retained-quiet-prefix-transfer.md": {
+      "bytes": 15078,
+      "sha256": "747ec1afd064e53c7160044da1252c57222b5f0b2bb050a8123e67317448c06f"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    }
+  },
+  "members": [
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 21385986,
+        "sha256": "2297ad27cd54f6bbced9b88d28515a9104865663cf42b6a6d510a41ac369e343"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/session-task-chains.json",
+      "identity": {
+        "bytes": 7330638,
+        "sha256": "22bae39512135b8077aa9f28fcdf9e47adbf686ddd220f2962141ccf9bac3f22"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/session-forest.json",
+      "identity": {
+        "bytes": 9370,
+        "sha256": "57ebc3f26f4bb391972a23d90449dff5a6e5bbe0bac3d2864e203174a4f6c30f"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/process.json",
+      "identity": {
+        "bytes": 1011,
+        "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/summary.json",
+      "identity": {
+        "bytes": 2184427,
+        "sha256": "25795c04c9f3ecf25a8e3539c80cf725cf89691bde5fa6c540fbb6a1155a5312"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 18211951,
+        "sha256": "90d5c8971e55591c5beb37e50df0f7bdf6279991f41dd33f58483ed597276ab1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/session-task-chains.json",
+      "identity": {
+        "bytes": 6090069,
+        "sha256": "5124b8ce66c3cd3ae989324f3796a184d3c4bf8b463add0778b37796015a4764"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/session-forest.json",
+      "identity": {
+        "bytes": 7786,
+        "sha256": "7b44e1a6fcd5b7bd17b9e24349b0aebd8ebe853b1c7ca624f63f26ff9403983f"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/process.json",
+      "identity": {
+        "bytes": 996,
+        "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/summary.json",
+      "identity": {
+        "bytes": 1827167,
+        "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 9356338,
+        "sha256": "0d8a0b52e0a32246ad0ee8cd019729b047edbf184b0dd0ef4a3ee0475a026c12"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/session-task-chains.json",
+      "identity": {
+        "bytes": 1911198,
+        "sha256": "b98e589405cb7258385ba7c5fe590570f52fa93fa29c45a07c46b12c3d4f9ab9"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/session-forest.json",
+      "identity": {
+        "bytes": 4762,
+        "sha256": "acd9c603995c36de2f29356ee83e430565354c0947072fc3fbaeedb7d649dc80"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/process.json",
+      "identity": {
+        "bytes": 1042,
+        "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/summary.json",
+      "identity": {
+        "bytes": 626589,
+        "sha256": "dee45e286bf7e0789f86d81c3615cba6d679eb2ff3690bb9df6ce037fe1c0ca3"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 4592296,
+        "sha256": "1e2ed42fff3ec047c69ca885353489f48f643b81b3afcad7fc70b8e09fae9597"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/session-task-chains.json",
+      "identity": {
+        "bytes": 159087,
+        "sha256": "441e26765e77e2f1498871d545cdeb30034bac5d54188ae4cf01943c1b9e0cb8"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/session-forest.json",
+      "identity": {
+        "bytes": 592,
+        "sha256": "c33704e3e0d58cedd7c38e2e60bc2b8536e66964d391f9ddb7b79175ad6aeb36"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/process.json",
+      "identity": {
+        "bytes": 1024,
+        "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/summary.json",
+      "identity": {
+        "bytes": 120995,
+        "sha256": "2cfdd5ab75d60880b59268891ba74065fa581d60d1664e55f2643fece6c0c3f1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 4964960,
+        "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/session-task-chains.json",
+      "identity": {
+        "bytes": 234498,
+        "sha256": "cb9f1c81caf0a692879de6b8953cc36c6f7cbde62e2cae03c000717e6a7b2f8b"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/session-forest.json",
+      "identity": {
+        "bytes": 735,
+        "sha256": "259d5a285f6fd31561c137efa4737a1ec39818950c4538181ae6bbb53cac098a"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/process.json",
+      "identity": {
+        "bytes": 1117,
+        "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/summary.json",
+      "identity": {
+        "bytes": 232747,
+        "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/driver.ml",
+      "identity": {
+        "bytes": 18796,
+        "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/task.ml",
+      "identity": {
+        "bytes": 11462,
+        "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/decl.ml",
+      "identity": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/pattern.ml",
+      "identity": {
+        "bytes": 6741,
+        "sha256": "555b36960e345feafe67deddc2fe1fb4bd7cb2e97cd11a0894e1856207ba6456"
+      }
+    }
+  ],
+  "accepted_R49_task_interface_commit": "5cbf04b56480a830e336c58908352dcc7f741732",
+  "source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}
