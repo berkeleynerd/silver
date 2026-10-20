@@ -1,0 +1,49 @@
+{
+  "date_utc": "2026-10-20",
+  "issues": [119, 153],
+  "round": 47,
+  "author_base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux codex-silver 7.0.14 x86_64",
+  "paths_checked": true,
+  "harness_goal_observed": null,
+  "objective": "Close nonterminal diagnostic output or identify the exact evidenced missing source-derived size/control premise.",
+  "measured_interval_start_utc": "2026-10-20 18:34:03 UTC",
+  "focused_checks_finished_utc": "2026-10-20 18:41:52 UTC",
+  "measured_interval_seconds": 469,
+  "timing_scope": "First available clock timestamp after initial guidance/import reads through focused checks; excludes final record edit and commit.",
+  "outcome": "Exact returning arithmetic-warning recurrence identified; local W_ar <= 81*K_ar(N)+L_ar(N)+D_ar(N), but no task-derived functions or zero invariant established. API define-fun guard separately retains rendered operand sizes. Complete q and O remain null.",
+  "scope_checkpoint": "Lead requested prioritizing loop caller, normal return and precise missing condition, without a wider solver audit. Lane froze at that evidenced condition.",
+  "author_rework": "Replaced the initial internal debugCheckFunctionBody mismatch example with the earlier Solver::defineFun API guard, which intercepts the mismatch first. This corrected witness selection before freeze; it is not an independent-review finding.",
+  "checks": [
+    {
+      "command": "python3 docs/evidence/retained-cvc5-diagnostic-output-20261020/check.py --write",
+      "purpose": "Generate source identity/excerpt and arithmetic artifacts from the pinned archive.",
+      "status": "pass",
+      "checker_elapsed_seconds": 0.745046
+    },
+    {
+      "command": "python3 docs/evidence/retained-cvc5-diagnostic-output-20261020/check.py",
+      "purpose": "Compare generated artifacts against a fresh offline projection.",
+      "status": "pass",
+      "checker_elapsed_seconds": 0.720887
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass"
+    }
+  ],
+  "source_files_checked": 30,
+  "source_ranges_checked": 49,
+  "solver_native_proof_capture_network_runs": 0,
+  "independent_review": "Pending lead integration; not claimed by this author.",
+  "github_writes": false,
+  "cli_memory_write": false,
+  "oracle_pins_admission_changed": false,
+  "q_cvc5": null,
+  "weighted_O": null
+}

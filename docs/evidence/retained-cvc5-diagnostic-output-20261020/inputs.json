@@ -1,0 +1,148 @@
+{
+  "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+  "archive": {
+    "path": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 9262397,
+    "sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c"
+  },
+  "imported": {
+    "docs/research/retained-cvc5-output-capacity.md": {
+      "bytes": 17878,
+      "sha256": "6fcc524b07df3c1731ab257a7da913650e59ab8a018abc496c7cbd474fd3c682"
+    },
+    "docs/research/retained-cvc5-registry-domain.md": {
+      "bytes": 15798,
+      "sha256": "638d3cdd86d14bcb2e0b8fddbcefff0b82037040892750d843fced7e1d87a480"
+    },
+    "docs/research/retained-solver-task-language.md": {
+      "bytes": 17436,
+      "sha256": "22e058c79acf4c7221b6730e2179f915b5c9108938fac1a1b6194694d6f303a5"
+    },
+    "docs/reviews/review-solver-domains-and-parallel-launch-20261020.md": {
+      "bytes": 13488,
+      "sha256": "0b76afa18d4f50cd7560673777d225f12ae2813215eea6e6b83f56050b401db0"
+    }
+  },
+  "sources": {
+    "src/options/prop_options.toml": {
+      "bytes": 3190,
+      "sha256": "fb263736214110f80ab5564d662448ef8c16c7cd8077f451ac7c7d201471e909"
+    },
+    "src/options/printer_options.toml": {
+      "bytes": 2803,
+      "sha256": "b47820d70d0411212cbd2a664d377e76702c82ff5889736121d7c7b84c66f69f"
+    },
+    "src/options/base_options.toml": {
+      "bytes": 15646,
+      "sha256": "7e21a70b5c326a82e178f49e88ee78d9ee3cb8e78481024f6c5d6b1af2a14595"
+    },
+    "src/prop/prop_engine.cpp": {
+      "bytes": 25521,
+      "sha256": "cb532854e4c7a6fd3aa5b83ef66a733a339a10dea5298915f3a9a34f7ec34530"
+    },
+    "src/prop/sat_solver_factory.cpp": {
+      "bytes": 2568,
+      "sha256": "7cee2d20f130b752ceb51ae85fe2181aa5908097e35169601fde2849f6e198c3"
+    },
+    "src/prop/minisat/minisat.cpp": {
+      "bytes": 12255,
+      "sha256": "104f10d4c57d8a75e8e6713f61b698b98e14972218a66c3cab798ede20ee7f99"
+    },
+    "src/prop/minisat/core/Solver.cc": {
+      "bytes": 70655,
+      "sha256": "2e0bde7f6738462ddbd4cb4350e6fff7fd286e23f3f671c9565364520c83865b"
+    },
+    "src/prop/theory_proxy.cpp": {
+      "bytes": 16603,
+      "sha256": "195ed7c56d8e2bb14bbce976ab867bbb63f20b0a79df11851e55039034e5a604"
+    },
+    "src/theory/theory.cpp": {
+      "bytes": 19618,
+      "sha256": "b596ee192b9b9b708687f9102f661a15ee5bec1c1cae145764a3693c66d27d50"
+    },
+    "src/theory/theory_engine.cpp": {
+      "bytes": 76118,
+      "sha256": "22bae23682b833a5ee2af17829c39893f84d9e7002dbbfd1a4aa212d6e447232"
+    },
+    "src/theory/arith/theory_arith.cpp": {
+      "bytes": 19579,
+      "sha256": "c4f9e94dab34f831432dc6a187227b70effddfb64df4d20827f3762a5aef4920"
+    },
+    "src/theory/arith/theory_arith.h": {
+      "bytes": 7289,
+      "sha256": "ba3be9a08992f04e12f0188a50369f3b5ac64f03e255b36b273c78737d14aebc"
+    },
+    "src/theory/arith/linear/theory_arith_private.cpp": {
+      "bytes": 170621,
+      "sha256": "b5fd5988670040419f0f70a305c34f77f0f5082a735d1b0c0a69d502b8913380"
+    },
+    "src/theory/arith/branch_and_bound.cpp": {
+      "bytes": 6164,
+      "sha256": "be84e37a772240141ecc32b677ecd4792822363f990595a7819383dbc7869dae"
+    },
+    "src/smt/env.cpp": {
+      "bytes": 11320,
+      "sha256": "81919ffaff275b315f218f20cca71b4f043a6d49389862170db02562f3dca448"
+    },
+    "src/smt/env_obj.cpp": {
+      "bytes": 2778,
+      "sha256": "8af021bbab52d0b8a9b97812aec058cb77d192792d822ec7ab804597c506a2a4"
+    },
+    "src/printer/smt2/smt2_printer.cpp": {
+      "bytes": 71910,
+      "sha256": "9b24211f8fc62497f0c819d8b31f1f15cbd9952c936320b80853136d8f30cbc2"
+    },
+    "src/expr/node.h": {
+      "bytes": 44491,
+      "sha256": "b47cb98ea2208e1e823a1a5d4fd780b9e36f52a1ffa8110ac0497ee2206dabb3"
+    },
+    "src/expr/node_value.cpp": {
+      "bytes": 3297,
+      "sha256": "d1e2777fbcd9b8b880f6fcb612a310c3bb4e2abf62477f361c6c4b992403fb48"
+    },
+    "src/util/rational_gmp_imp.h": {
+      "bytes": 9351,
+      "sha256": "02c0891d75dc5ee412d089bfc4ff37f85d6cc71d344903587288943aa02e052e"
+    },
+    "src/util/integer_gmp_imp.h": {
+      "bytes": 11078,
+      "sha256": "633b11071cf67910a4c2718c9ae6998a9bfe032f4b0bd865533c589686fb1381"
+    },
+    "src/util/integer_gmp_imp.cpp": {
+      "bytes": 12610,
+      "sha256": "89337bf7b75eb3079de2fb12384680d6266f5a6413d5944e65942e954516cc53"
+    },
+    "src/util/resource_manager.cpp": {
+      "bytes": 9547,
+      "sha256": "7066af7e1cc324707d10f484a84b4d63bdd9fb751f338ea5b45786f26678cf91"
+    },
+    "src/util/statistics_stats.cpp": {
+      "bytes": 2880,
+      "sha256": "e0f6c628612586969c37ad9e293b0ed9ca24eb7cf61da88b84e9a803de412c09"
+    },
+    "src/api/cpp/cvc5.cpp": {
+      "bytes": 297919,
+      "sha256": "34d8140256f9a0732d568c1e6ea80ade287be69f99704e41e09cbd55f63351ec"
+    },
+    "src/api/cpp/cvc5_checks.h": {
+      "bytes": 47245,
+      "sha256": "d0165b9b57e6bd972ee4dd3077c6c4dbbc4d36cb8b9c40896fd923b35bb868a9"
+    },
+    "include/cvc5/cvc5.h": {
+      "bytes": 224924,
+      "sha256": "7626c8d896a3cb6783b84f7b5dccd590197c8df5538f858bb442ca7a1dc22c7f"
+    },
+    "src/parser/commands.cpp": {
+      "bytes": 79188,
+      "sha256": "e15112905fdba8ee33169726c11680e5a9e890f199b03a05bc5510491a24c447"
+    },
+    "src/expr/node.cpp": {
+      "bytes": 5875,
+      "sha256": "cdb156d0801bde7a1092a24425242e5864e33e43da7ac67e92a7ee16e35e59c5"
+    },
+    "src/base/exception.h": {
+      "bytes": 5102,
+      "sha256": "d5ef2cbd1644e52ce66da96d294416903dd98e4e352e753f0d119471e4da7e1a"
+    }
+  }
+}

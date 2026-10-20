@@ -1,0 +1,28 @@
+{
+  "source_files": 30,
+  "source_ranges": 49,
+  "defaults_checked_not_auto_option_theorem": {
+    "satSolver": "MINISAT",
+    "nodeDepth": "-1",
+    "printArithLitToken": "false",
+    "cumulativeMillisecondLimit": "0",
+    "perCallMillisecondLimit": "0",
+    "cumulativeResourceLimit": "0",
+    "perCallResourceLimit": "0"
+  },
+  "warning_fixed_bytes": 72,
+  "nonintegral_smt2_rational_overhead_bound": 9,
+  "arithmetic_warning_coefficient": 81,
+  "define_fun_api_payload_fixed_bytes": 55,
+  "define_fun_command_wrapper_fixed_bound": 121,
+  "arithmetic_family_conditional_bound": "81*K_ar(N)+L_ar(N)+D_ar(N)",
+  "K_ar": null,
+  "L_ar": null,
+  "D_ar": null,
+  "zero_warning_invariant_established": false,
+  "complete_nonterminal_output_account": false,
+  "q_cvc5": null,
+  "weighted_O": null,
+  "source_native_correspondence_established": false,
+  "solver_or_native_run": false
+}

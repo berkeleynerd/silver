@@ -1,0 +1,296 @@
+[
+  {
+    "source": "src/options/prop_options.toml",
+    "first_line": 1,
+    "last_line": 15,
+    "text": "id     = \"PROP\"\nname   = \"SAT Layer\"\n\n[[option]]\n  name       = \"satSolver\"\n  category   = \"expert\"\n  long       = \"sat-solver=MODE\"\n  type       = \"SatSolverMode\"\n  default    = \"MINISAT\"\n  help       = \"choose which sat solver to use, see --sat-solver=help\"\n  help_mode  = \"CDCL(T) SAT solver backend.\"\n[[option.mode.MINISAT]]\n  name = \"minisat\"\n[[option.mode.CADICAL]]\n  name = \"cadical\"\n"
+  },
+  {
+    "source": "src/options/printer_options.toml",
+    "first_line": 15,
+    "last_line": 31,
+    "text": "[[option]]\n  name       = \"nodeDepth\"\n  category   = \"common\"\n  long       = \"expr-depth=N\"\n  type       = \"int64_t\"\n  default    = \"-1\"\n  minimum    = \"-1\"\n  help       = \"print exprs to depth N (0 == default, -1 == no limit)\"\n\n[[option]]\n  name       = \"dagThresh\"\n  category   = \"common\"\n  long       = \"dag-thresh=N\"\n  type       = \"int64_t\"\n  default    = \"1\"\n  minimum    = \"0\"\n  help       = \"dagify common subexprs appearing > N times (1 == default, 0 == don't dagify)\"\n"
+  },
+  {
+    "source": "src/options/printer_options.toml",
+    "first_line": 76,
+    "last_line": 82,
+    "text": "  help       = \"print rationals and negative arithmetic literals as lexed tokens, e.g. 1/4, -1.5\"\n\n[[option]]\n  name       = \"printSkolemDefinitions\"\n  category   = \"expert\"\n  long       = \"print-skolem-definitions\"\n  type       = \"bool\"\n"
+  },
+  {
+    "source": "src/options/base_options.toml",
+    "first_line": 292,
+    "last_line": 321,
+    "text": "  category   = \"common\"\n  long       = \"tlimit=MS\"\n  type       = \"uint64_t\"\n  default    = \"0\"\n  help       = \"set time limit in milliseconds of wall clock time\"\n\n[[option]]\n  name       = \"perCallMillisecondLimit\"\n  category   = \"common\"\n  long       = \"tlimit-per=MS\"\n  type       = \"uint64_t\"\n  default    = \"0\"\n  help       = \"set time limit per query in milliseconds\"\n\n[[option]]\n  name       = \"cumulativeResourceLimit\"\n  category   = \"common\"\n  long       = \"rlimit=N\"\n  type       = \"uint64_t\"\n  default    = \"0\"\n  help       = \"set resource limit\"\n\n[[option]]\n  name       = \"perCallResourceLimit\"\n  alias      = [\"reproducible-resource-limit\"]\n  category   = \"common\"\n  long       = \"rlimit-per=N\"\n  type       = \"uint64_t\"\n  default    = \"0\"\n  help       = \"set resource limit per query\"\n"
+  },
+  {
+    "source": "src/prop/prop_engine.cpp",
+    "first_line": 82,
+    "last_line": 99,
+    "text": "      d_stats(statisticsRegistry())\n{\n  Trace(\"prop\") << \"Constructing the PropEngine\" << std::endl;\n  context::UserContext* userContext = d_env.getUserContext();\n\n  if (options().prop.satSolver == options::SatSolverMode::MINISAT)\n  {\n    d_satSolver =\n        SatSolverFactory::createCDCLTMinisat(d_env, statisticsRegistry());\n  }\n  else\n  {\n    d_satSolver = SatSolverFactory::createCadicalCDCLT(\n        d_env, statisticsRegistry(), env.getResourceManager(), \"\");\n  }\n\n  // CNF stream and theory proxy required pointers to each other, make the\n  // theory proxy first\n"
+  },
+  {
+    "source": "src/prop/sat_solver_factory.cpp",
+    "first_line": 26,
+    "last_line": 30,
+    "text": "CDCLTSatSolver* SatSolverFactory::createCDCLTMinisat(\n    Env& env, StatisticsRegistry& registry)\n{\n  return new MinisatSatSolver(env, registry);\n}\n"
+  },
+  {
+    "source": "src/prop/minisat/minisat.cpp",
+    "first_line": 109,
+    "last_line": 129,
+    "text": "void MinisatSatSolver::initialize(TheoryProxy* theoryProxy, PropPfManager* ppm)\n{\n  if (options().decision.decisionMode != options::DecisionMode::INTERNAL)\n  {\n    verbose(1) << \"minisat: Incremental solving is forced on (to avoid \"\n                  \"variable elimination)\"\n               << \" unless using internal decision strategy.\" << std::endl;\n  }\n\n  // Create the solver\n  d_minisat =\n      new Minisat::SimpSolver(d_env,\n                              theoryProxy,\n                              context(),\n                              userContext(),\n                              ppm,\n                              options().base.incrementalSolving\n                                  || options().decision.decisionMode\n                                         != options::DecisionMode::INTERNAL);\n\n  d_statistics.init(d_minisat);\n"
+  },
+  {
+    "source": "src/prop/minisat/core/Solver.cc",
+    "first_line": 1153,
+    "last_line": 1185,
+    "text": "    recheck = false;\n    theoryConflict = false;\n\n    ScopedBool scoped_bool(minisat_busy, true);\n\n    // Add lemmas that we're left behind\n    if (lemmas.size() > 0) {\n      confl = updateLemmas();\n      if (confl != CRef_Undef) {\n        return confl;\n      }\n    }\n\n    // If this is the final check, no need for Boolean propagation and\n    // theory propagation\n    if (type == CHECK_FINAL) {\n      // Do the theory check\n      theoryCheck(cvc5::internal::theory::Theory::EFFORT_FULL);\n      // Pick up the theory propagated literals (there could be some,\n      // if new lemmas are added)\n      propagateTheory();\n      // If there are lemmas (or conflicts) update them\n      if (lemmas.size() > 0) {\n        recheck = true;\n        confl = updateLemmas();\n        return confl;\n      } else {\n        recheck = d_proxy->theoryNeedCheck();\n        return confl;\n      }\n    }\n\n    // Keep running until we have checked everything, we\n"
+  },
+  {
+    "source": "src/prop/minisat/core/Solver.cc",
+    "first_line": 1276,
+    "last_line": 1279,
+    "text": "void Solver::theoryCheck(cvc5::internal::theory::Theory::Effort effort)\n{\n  d_proxy->theoryCheck(effort);\n}\n"
+  },
+  {
+    "source": "src/prop/minisat/core/Solver.cc",
+    "first_line": 1486,
+    "last_line": 1500,
+    "text": "lbool Solver::search(int nof_conflicts)\n{\n  Assert(ok);\n  int backtrack_level;\n  int conflictC = 0;\n  vec<Lit> learnt_clause;\n  starts++;\n\n  TheoryCheckType check_type = CHECK_WITH_THEORY;\n  for (;;)\n  {\n    // Propagate and call the theory solvers\n    CRef confl = propagate(check_type);\n    Assert(lemmas.size() == 0);\n\n"
+  },
+  {
+    "source": "src/prop/minisat/core/Solver.cc",
+    "first_line": 1590,
+    "last_line": 1620,
+    "text": "    {\n      // If this was a final check, we are satisfiable\n      if (check_type == CHECK_FINAL)\n      {\n        // Note that we are done making decisions when there are no pending decisions\n        // on assumptions, and the decision engine indicates it is done.\n        bool decisionEngineDone = (decisionLevel() >= assumptions.size())\n                                  && d_proxy->isDecisionEngineDone();\n        // Unless a lemma has added more stuff to the queues\n        if (!decisionEngineDone\n            && (!order_heap.empty() || qhead < trail.size()))\n        {\n          check_type = CHECK_WITH_THEORY;\n          continue;\n        }\n        else if (recheck)\n        {\n          // There some additional stuff added, so we go for another\n          // full-check\n          continue;\n        }\n        else\n        {\n          // Yes, we're truly satisfiable\n          return l_True;\n        }\n      }\n\n      if ((nof_conflicts >= 0 && conflictC >= nof_conflicts)\n          || !withinBudget(Resource::SatConflictStep))\n      {\n"
+  },
+  {
+    "source": "src/prop/minisat/core/Solver.cc",
+    "first_line": 1663,
+    "last_line": 1681,
+    "text": "\n      if (next == lit_Undef)\n      {\n        // New variable decision:\n        next = pickBranchLit();\n\n        if (next == lit_Undef)\n        {\n          // We need to do a full theory check to confirm\n          Trace(\"minisat::search\")\n              << \"Doing a full theory check...\" << std::endl;\n          check_type = CHECK_FINAL;\n          continue;\n        }\n      }\n\n      // Increase decision level and enqueue 'next'\n      newDecisionLevel();\n      uncheckedEnqueue(next);\n"
+  },
+  {
+    "source": "src/prop/minisat/core/Solver.cc",
+    "first_line": 1748,
+    "last_line": 1773,
+    "text": "    learntsize_adjust_confl   = learntsize_adjust_start_confl;\n    learntsize_adjust_cnt     = (int)learntsize_adjust_confl;\n    lbool   status            = l_Undef;\n\n    if (verbosity >= 1){\n        printf(\"============================[ Search Statistics ]==============================\\n\");\n        printf(\"| Conflicts |          ORIGINAL         |          LEARNT          | Progress |\\n\");\n        printf(\"|           |    Vars  Clauses Literals |    Limit  Clauses Lit/Cl |          |\\n\");\n        printf(\"===============================================================================\\n\");\n    }\n\n    // Search:\n    int curr_restarts = 0;\n    while (status == l_Undef){\n        double rest_base = luby_restart ? luby(restart_inc, curr_restarts) : pow(restart_inc, curr_restarts);\n        status = search(rest_base * restart_first);\n        if (!withinBudget(Resource::SatConflictStep))\n          break;  // FIXME add restart option?\n        curr_restarts++;\n    }\n\n    if (!withinBudget(Resource::SatConflictStep))\n      status = l_Undef;\n\n    if (verbosity >= 1)\n        printf(\"===============================================================================\\n\");\n"
+  },
+  {
+    "source": "src/prop/theory_proxy.cpp",
+    "first_line": 209,
+    "last_line": 214,
+    "text": "\nvoid TheoryProxy::theoryCheck(theory::Theory::Effort effort) {\n  Trace(\"theory-proxy\") << \"TheoryProxy: check \" << effort << std::endl;\n  d_activatedSkDefs = false;\n  // check with the preregistrar\n  d_prr->check();\n"
+  },
+  {
+    "source": "src/prop/theory_proxy.cpp",
+    "first_line": 272,
+    "last_line": 277,
+    "text": "  }\n  if (!d_stopSearch.get())\n  {\n    d_theoryEngine->check(effort);\n  }\n}\n"
+  },
+  {
+    "source": "src/theory/theory.cpp",
+    "first_line": 541,
+    "last_line": 599,
+    "text": "{\n  // see if we are already done (as an optimization)\n  if (done() && level < EFFORT_FULL)\n  {\n    return;\n  }\n  Assert(d_theoryState!=nullptr);\n  // standard calls for resource, stats\n  d_out->spendResource(Resource::TheoryCheckStep);\n  TimerStat::CodeTimer checkTimer(d_checkTime);\n  Trace(\"theory-check\") << \"Theory::preCheck \" << level << \" \" << d_id\n                        << std::endl;\n  // pre-check at level\n  if (preCheck(level))\n  {\n    // check aborted for a theory-specific reason\n    return;\n  }\n  Trace(\"theory-check\") << \"Theory::process fact queue \" << d_id << std::endl;\n  // process the pending fact queue\n  while (!done() && !d_theoryState->isInConflict())\n  {\n    // Get the next assertion from the fact queue\n    Assertion assertion = get();\n    TNode fact = assertion.d_assertion;\n    Trace(\"theory-check\") << \"Theory::preNotifyFact \" << fact << \" \" << d_id\n                          << std::endl;\n    bool polarity = fact.getKind() != Kind::NOT;\n    TNode atom = polarity ? fact : fact[0];\n    // call the pre-notify method\n    if (preNotifyFact(atom, polarity, fact, assertion.d_isPreregistered, false))\n    {\n      // handled in theory-specific way that doesn't involve equality engine\n      continue;\n    }\n    Trace(\"theory-check\") << \"Theory::assert \" << fact << \" \" << d_id\n                          << std::endl;\n    // Theories that don't have an equality engine should always return true\n    // for preNotifyFact\n    Assert(d_equalityEngine != nullptr);\n    // assert to the equality engine\n    if (atom.getKind() == Kind::EQUAL)\n    {\n      d_equalityEngine->assertEquality(atom, polarity, fact);\n    }\n    else\n    {\n      d_equalityEngine->assertPredicate(atom, polarity, fact);\n    }\n    Trace(\"theory-check\") << \"Theory::notifyFact \" << fact << \" \" << d_id\n                          << std::endl;\n    // notify the theory of the new fact, which is not internal\n    notifyFact(atom, polarity, fact, false);\n  }\n  Trace(\"theory-check\") << \"Theory::postCheck \" << d_id << std::endl;\n  // post-check at level\n  postCheck(level);\n  Trace(\"theory-check\") << \"Theory::finish check \" << d_id << std::endl;\n}\n"
+  },
+  {
+    "source": "src/theory/theory_engine.cpp",
+    "first_line": 72,
+    "last_line": 86,
+    "text": "#define CVC5_FOR_EACH_THEORY                                     \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_BUILTIN)   \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_BOOL)      \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_UF)        \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_ARITH)     \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_BV)        \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_FF)        \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_FP)        \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_ARRAYS)    \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_DATATYPES) \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_SEP)       \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_SETS)      \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_BAGS)      \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_STRINGS)   \\\n  CVC5_FOR_EACH_THEORY_STATEMENT(cvc5::internal::theory::THEORY_QUANTIFIERS)\n"
+  },
+  {
+    "source": "src/theory/theory_engine.cpp",
+    "first_line": 377,
+    "last_line": 455,
+    "text": "void TheoryEngine::check(Theory::Effort effort) {\n  // spendResource();\n\n  // Reset the interrupt flag\n  d_interrupted = false;\n\n#ifdef CVC5_FOR_EACH_THEORY_STATEMENT\n#undef CVC5_FOR_EACH_THEORY_STATEMENT\n#endif\n#define CVC5_FOR_EACH_THEORY_STATEMENT(THEORY)                           \\\n  if (theory::TheoryTraits<THEORY>::hasCheck && isTheoryEnabled(THEORY)) \\\n  {                                                                      \\\n    theoryOf(THEORY)->check(effort);                                     \\\n    if (d_inConflict)                                                    \\\n    {                                                                    \\\n      Trace(\"conflict\") << THEORY << \" in conflict. \" << std::endl;      \\\n      break;                                                             \\\n    }                                                                    \\\n    if (rm->out())                                                       \\\n    {                                                                    \\\n      interrupt();                                                       \\\n      return;                                                            \\\n    }                                                                    \\\n  }\n\n  // Do the checking\n  try {\n\n    // Mark the output channel unused (if this is FULL_EFFORT, and nothing\n    // is done by the theories, no additional check will be needed)\n    d_outputChannelUsed = false;\n\n    // Mark the lemmas flag (no lemmas added)\n    d_lemmasAdded = false;\n\n    Trace(\"theory\") << \"TheoryEngine::check(\" << effort << \"): d_factsAsserted = \" << (d_factsAsserted ? \"true\" : \"false\") << endl;\n\n    // If in full effort, we have a fake new assertion just to jumpstart the checking\n    if (Theory::fullEffort(effort)) {\n      spendResource(Resource::TheoryFullCheckStep);\n      d_factsAsserted = true;\n      d_tc->resetRound();\n    }\n\n    // check with the theory modules\n    for (TheoryEngineModule* tem : d_modules)\n    {\n      tem->check(effort);\n    }\n\n    auto rm = d_env.getResourceManager();\n\n    // Check until done\n    while (d_factsAsserted && !d_inConflict && !d_lemmasAdded) {\n\n      Trace(\"theory\") << \"TheoryEngine::check(\" << effort << \"): running check\" << endl;\n\n      Trace(\"theory::assertions\") << endl;\n      if (TraceIsOn(\"theory::assertions\")) {\n        printAssertions(\"theory::assertions\");\n      }\n\n      if(Theory::fullEffort(effort)) {\n        Trace(\"theory::assertions::fulleffort\") << endl;\n        if (TraceIsOn(\"theory::assertions::fulleffort\")) {\n          printAssertions(\"theory::assertions::fulleffort\");\n        }\n      }\n\n      // Note that we've discharged all the facts\n      d_factsAsserted = false;\n\n      // Do the checking\n      CVC5_FOR_EACH_THEORY;\n\n      Trace(\"theory\") << \"TheoryEngine::check(\" << effort << \"): running propagation after the initial check\" << endl;\n\n      // We are still satisfiable, propagate as much as possible\n      propagate(effort);\n"
+  },
+  {
+    "source": "src/theory/theory_engine.cpp",
+    "first_line": 462,
+    "last_line": 468,
+    "text": "      }\n\n      if (Theory::fullEffort(effort))\n      {\n        d_stats.d_fullEffortChecks++;\n        // We do combination if all has been processed and we are in fullcheck\n        if (logicInfo().isSharingEnabled() && !d_factsAsserted && !needCheck()\n"
+  },
+  {
+    "source": "src/theory/arith/theory_arith.cpp",
+    "first_line": 245,
+    "last_line": 305,
+    "text": "  if (Theory::fullEffort(level))\n  {\n    // Make sure we don't have old lemmas floating around. This can happen if we\n    // didn't actually reach a last call effort check, but backtracked for some\n    // other reason. In such a case, these lemmas are likely to be irrelevant\n    // and possibly even harmful. If we produce proofs, their proofs have most\n    // likely been deallocated already as well.\n    d_im.clearPending();\n    d_im.clearWaitingLemmas();\n  }\n  // we don't check at last call\n  Assert (level != Theory::EFFORT_LAST_CALL);\n  // otherwise, check with the linear solver\n  if (d_internal.postCheck(level))\n  {\n    // linear solver emitted a conflict or lemma, return\n    return;\n  }\n  if (d_im.hasSent())\n  {\n    return;\n  }\n\n  if (Theory::fullEffort(level))\n  {\n    d_arithModelCache.clear();\n    d_arithModelCacheIllTyped.clear();\n    d_arithModelCacheSubs.clear();\n    d_arithModelCacheSet = false;\n    std::set<Node> termSet;\n    if (d_nonlinearExtension != nullptr)\n    {\n      updateModelCache(termSet);\n      // Check at full effort. This may either send lemmas or otherwise\n      // buffer lemmas that we send at last call.\n      d_nonlinearExtension->checkFullEffort(d_arithModelCache, termSet);\n      // if we already sent a lemma, we are done\n      if (d_im.hasSent())\n      {\n        return;\n      }\n    }\n    else if (d_internal.foundNonlinear())\n    {\n      // set incomplete\n      d_im.setModelUnsound(IncompleteId::ARITH_NL_DISABLED);\n    }\n    // If we won't be doing a last call effort check (which implies that\n    // models will be computed), we must sanity check the integer model\n    // from the linear solver now. We also must update the model cache\n    // if we did not do so above.\n    if (d_nonlinearExtension == nullptr)\n    {\n      updateModelCache(termSet);\n    }\n    sanityCheckIntegerModel();\n    // Now, finalize the model cache, which constructs a substitution to be\n    // used for getEqualityStatus.\n    finalizeModelCache();\n  }\n}\n"
+  },
+  {
+    "source": "src/theory/arith/theory_arith.cpp",
+    "first_line": 493,
+    "last_line": 509,
+    "text": "void TheoryArith::updateModelCache(std::set<Node>& termSet)\n{\n  if (!d_arithModelCacheSet)\n  {\n    collectAssertedTermsForModel(termSet);\n    updateModelCacheInternal(termSet);\n  }\n}\nvoid TheoryArith::updateModelCacheInternal(const std::set<Node>& termSet)\n{\n  if (!d_arithModelCacheSet)\n  {\n    d_arithModelCacheSet = true;\n    d_internal.collectModelValues(\n        termSet, d_arithModelCache, d_arithModelCacheIllTyped);\n  }\n}\n"
+  },
+  {
+    "source": "src/theory/arith/theory_arith.cpp",
+    "first_line": 527,
+    "last_line": 575,
+    "text": "bool TheoryArith::sanityCheckIntegerModel()\n{\n  // Double check that the model from the linear solver respects integer types,\n  // if it does not, add a branch and bound lemma. This typically should never\n  // be necessary, but is needed in rare cases.\n  if (Configuration::isAssertionBuild())\n  {\n    for (CVC5_UNUSED const auto& p : d_arithModelCache)\n    {\n      Assert(p.first.getType() == p.second.getType())\n          << \"Bad type: \" << p.first << \" -> \" << p.second;\n    }\n  }\n  bool addedLemma = false;\n  bool badAssignment = false;\n  Trace(\"arith-check\") << \"model:\" << std::endl;\n  for (const auto& p : d_arithModelCacheIllTyped)\n  {\n    Trace(\"arith-check\") << p.first << \" -> \" << p.second << std::endl;\n    Assert(p.first.getType().isInteger() && !p.second.getType().isInteger());\n    warning() << \"TheoryArithPrivate generated a bad model value for \"\n                 \"integer variable \"\n              << p.first << \" : \" << p.second << std::endl;\n    // must branch and bound\n    std::vector<TrustNode> lems =\n        d_bab.branchIntegerVariable(p.first, p.second.getConst<Rational>());\n    for (const TrustNode& lem : lems)\n    {\n      if (d_im.trustedLemma(lem, InferenceId::ARITH_BB_LEMMA))\n      {\n        addedLemma = true;\n      }\n    }\n    badAssignment = true;\n  }\n  if (addedLemma)\n  {\n    // we had to add a branch and bound lemma since the linear solver assigned\n    // a non-integer value to an integer variable.\n    return true;\n  }\n  // this would imply that linear arithmetic's model failed to satisfy a branch\n  // and bound lemma\n  AlwaysAssert(!badAssignment)\n      << \"Bad assignment from TheoryArithPrivate::collectModelValues, and no \"\n         \"branching lemma was sent\";\n  return false;\n}\n\n"
+  },
+  {
+    "source": "src/theory/arith/theory_arith.h",
+    "first_line": 183,
+    "last_line": 195,
+    "text": "   * postCheck retrieves the model from arith_private and puts it into the\n   * cache. If nonlinear reasoning is enabled, the cache is used for (and\n   * possibly updated by) model-based refinement in postCheck.\n   * In collectModelValues, the cache is filtered for the termSet and then\n   * used to augment the TheoryModel.\n   */\n  std::map<Node, Node> d_arithModelCache;\n  /** Component of the above that was ill-typed */\n  std::map<Node, Node> d_arithModelCacheIllTyped;\n  /** The above model cache, in substitution form. */\n  ArithSubs d_arithModelCacheSubs;\n  /** Is the above map computed? */\n  bool d_arithModelCacheSet;\n"
+  },
+  {
+    "source": "src/theory/arith/linear/theory_arith_private.cpp",
+    "first_line": 3973,
+    "last_line": 4030,
+    "text": "void TheoryArithPrivate::collectModelValues(\n    const std::set<Node>& termSet,\n    std::map<Node, Node>& arithModel,\n    std::map<Node, Node>& arithModelIllTyped)\n{\n  AlwaysAssert(d_qflraStatus == Result::SAT);\n\n  Trace(\"arith::collectModelInfo\") << \"collectModelInfo() begin \" << endl;\n\n  // Delta lasts at least the duration of the function call\n  const Rational& delta = d_partialModel.getDelta();\n  std::unordered_set<TNode> shared;\n  for (TheoryState::shared_terms_iterator i = d_state.shared_terms_begin(),\n                                          i_end = d_state.shared_terms_end();\n       i != i_end;\n       ++i)\n  {\n    shared.insert(*i);\n  }\n\n  // TODO:\n  // This is not very good for user push/pop....\n  // Revisit when implementing push/pop\n  NodeManager* nm = nodeManager();\n  for(var_iterator vi = var_begin(), vend = var_end(); vi != vend; ++vi){\n    ArithVar v = *vi;\n\n    if(!isAuxiliaryVariable(v)){\n      Node term = d_partialModel.asNode(v);\n\n      if((theoryOf(term) == THEORY_ARITH || shared.find(term) != shared.end())\n         && termSet.find(term) != termSet.end()){\n\n        const DeltaRational& mod = d_partialModel.getAssignment(v);\n        Rational qmodel = mod.substituteDelta(delta);\n\n        Node qNode;\n        if (!qmodel.isIntegral())\n        {\n          // Note that the linear solver may generate non-integer values for\n          // integer variables in rare cases. We construct real in this case;\n          // this will be corrected in TheoryArith::sanityCheckIntegerModel.\n          qNode = nm->mkConstReal(qmodel);\n          if (term.getType().isInteger())\n          {\n            Trace(\"arith::collectModelInfo\")\n                << \"add to arithModelIllTyped \" << term << \" -> \" << qNode\n                << std::endl;\n            // in this case, we add to the ill-typed map instead of the main map\n            arithModelIllTyped[term] = qNode;\n            continue;\n          }\n        }\n        else\n        {\n          qNode = nm->mkConstRealOrInt(term.getType(), qmodel);\n        }\n        Trace(\"arith::collectModelInfo\")\n"
+  },
+  {
+    "source": "src/theory/arith/branch_and_bound.cpp",
+    "first_line": 47,
+    "last_line": 54,
+    "text": "  std::vector<TrustNode> lems;\n  NodeManager* nm = nodeManager();\n  Integer floor = value.floor();\n  if (options().arith.brabTest)\n  {\n    Trace(\"integers\") << \"branch-round-and-bound enabled\" << std::endl;\n    Integer ceil = value.ceiling();\n    Rational f = value - floor;\n"
+  },
+  {
+    "source": "src/theory/arith/branch_and_bound.cpp",
+    "first_line": 125,
+    "last_line": 154,
+    "text": "  }\n  else\n  {\n    Node ub = rewrite(nm->mkNode(Kind::LEQ, var, nm->mkConstInt(floor)));\n    // Similar to above, the rewritten form should be a GEQ literal, otherwise\n    // the split returned by this method will not have its intended effect\n    Assert(ub.getKind() == Kind::GEQ\n           || (ub.getKind() == Kind::NOT && ub[0].getKind() == Kind::GEQ));\n    Node lb = ub.notNode();\n    if (proofsEnabled())\n    {\n      lems.push_back(d_pfGen->mkTrustNode(\n          nm->mkNode(Kind::OR, ub, lb), ProofRule::SPLIT, {}, {ub}));\n    }\n    else\n    {\n      lems.push_back(\n          TrustNode::mkTrustLemma(nm->mkNode(Kind::OR, ub, lb), nullptr));\n    }\n  }\n  if (TraceIsOn(\"integers\"))\n  {\n    Trace(\"integers\") << \"integers: branch & bound:\";\n    for (const TrustNode& tn : lems)\n    {\n      Trace(\"integers\") << \" \" << tn;\n    }\n    Trace(\"integers\") << std::endl;\n  }\n  return lems;\n"
+  },
+  {
+    "source": "src/smt/env.cpp",
+    "first_line": 183,
+    "last_line": 201,
+    "text": "\nbool Env::isVerboseOn(int64_t level) const\n{\n  return !Configuration::isMuzzledBuild() && d_options.base.verbosity >= level;\n}\n\nstd::ostream& Env::verbose(int64_t level) const\n{\n  if (isVerboseOn(level))\n  {\n    return *d_options.base.err;\n  }\n  return cvc5::internal::null_os;\n}\n\nstd::ostream& Env::warning() const\n{\n  return verbose(0);\n}\n"
+  },
+  {
+    "source": "src/smt/env_obj.cpp",
+    "first_line": 88,
+    "last_line": 94,
+    "text": "\nstd::ostream& EnvObj::verbose(int64_t level) const\n{\n  return d_env.verbose(level);\n}\n\nstd::ostream& EnvObj::warning() const { return verbose(0); }\n"
+  },
+  {
+    "source": "src/printer/smt2/smt2_printer.cpp",
+    "first_line": 70,
+    "last_line": 146,
+    "text": "static void toStreamRational(std::ostream& out,\n                             const Rational& r,\n                             bool isReal,\n                             Variant v)\n{\n  bool neg = r.sgn() < 0;\n  bool arithTokens = options::ioutils::getPrintArithLitToken(out);\n  // Print the rational, possibly as a real.\n  // Notice that we print (/ (- 5) 3) instead of (- (/ 5 3)),\n  // the former is compliant with real values in the smt lib standard.\n  if (r.isIntegral())\n  {\n    if (arithTokens)\n    {\n      if (neg)\n      {\n        out << \"-\" << -r;\n      }\n      else\n      {\n        out << r;\n      }\n      if (isReal)\n      {\n        out << \"/1\";\n      }\n    }\n    else\n    {\n      if (neg)\n      {\n        out << \"(- \" << -r;\n      }\n      else\n      {\n        out << r;\n      }\n      if (isReal)\n      {\n        out << \".0\";\n      }\n      if (neg)\n      {\n        out << \")\";\n      }\n    }\n  }\n  else\n  {\n    Assert(isReal);\n    if (arithTokens)\n    {\n      if (neg)\n      {\n        Rational abs_r = (-r);\n        out << '-' << abs_r.getNumerator() << '/' << abs_r.getDenominator();\n      }\n      else\n      {\n        out << r.getNumerator() << '/' << r.getDenominator();\n      }\n    }\n    else\n    {\n      out << \"(/ \";\n      if (neg)\n      {\n        Rational abs_r = (-r);\n        out << \"(- \" << abs_r.getNumerator() << \") \" << abs_r.getDenominator();\n      }\n      else\n      {\n        out << r.getNumerator() << ' ' << r.getDenominator();\n      }\n      out << ')';\n    }\n  }\n"
+  },
+  {
+    "source": "src/printer/smt2/smt2_printer.cpp",
+    "first_line": 197,
+    "last_line": 202,
+    "text": "void Smt2Printer::toStream(std::ostream& out, TNode n) const\n{\n  size_t dag = options::ioutils::getDagThresh(out);\n  int toDepth = options::ioutils::getNodeDepth(out);\n  toStream(out, n, toDepth, dag);\n}\n"
+  },
+  {
+    "source": "src/printer/smt2/smt2_printer.cpp",
+    "first_line": 320,
+    "last_line": 324,
+    "text": "    case Kind::CONST_RATIONAL:\n    {\n      const Rational& r = n.getConst<Rational>();\n      toStreamRational(out, r, true, d_variant);\n      break;\n"
+  },
+  {
+    "source": "src/expr/node.h",
+    "first_line": 856,
+    "last_line": 868,
+    "text": "\n  /**\n   * Converts this node into a string representation and sends it to the\n   * given stream\n   *\n   * @param out the stream to serialize this node to\n   */\n  inline void toStream(std::ostream& out) const\n  {\n    assertTNodeNotExpired();\n    d_nv->toStream(out);\n  }\n\n"
+  },
+  {
+    "source": "src/expr/node.h",
+    "first_line": 900,
+    "last_line": 911,
+    "text": "/**\n * Serializes a given node to the given stream.\n *\n * @param out the output stream to use\n * @param n the node to output to the stream\n * @return the stream\n */\ninline std::ostream& operator<<(std::ostream& out, TNode n) {\n  n.toStream(out);\n  return out;\n}\n\n"
+  },
+  {
+    "source": "src/expr/node_value.cpp",
+    "first_line": 44,
+    "last_line": 53,
+    "text": "void NodeValue::toStream(std::ostream& out) const\n{\n  // Ensure that this node value is live for the length of this call.\n  // It really breaks things badly if we don't have a nonzero ref\n  // count, even just for printing.\n  RefCountGuard guard(this);\n\n  Printer::getPrinter(out)->toStream(out, TNode(this));\n}\n\n"
+  },
+  {
+    "source": "src/util/rational_gmp_imp.h",
+    "first_line": 151,
+    "last_line": 160,
+    "text": "  const mpq_class& getValue() const { return d_value; }\n\n  /**\n   * Returns the value of numerator of the Rational.\n   * Note that this makes a deep copy of the numerator.\n   */\n  Integer getNumerator() const { return Integer(d_value.get_num()); }\n\n  /**\n   * Returns the value of denominator of the Rational.\n"
+  },
+  {
+    "source": "src/util/rational_gmp_imp.h",
+    "first_line": 314,
+    "last_line": 320,
+    "text": " private:\n  /**\n   * Stores the value of the rational is stored in a C++ GMP rational class.\n   * Using this instead of mpq_t allows for easier destruction.\n   */\n  mpq_class d_value;\n\n"
+  },
+  {
+    "source": "src/util/integer_gmp_imp.h",
+    "first_line": 326,
+    "last_line": 343,
+    "text": "  const mpz_class& get_mpz() const { return d_value; }\n\n  /**\n   * The value of the rational is stored in a C++ GMP integer class.\n   * Using this instead of mpz_t allows for easier destruction.\n   */\n  mpz_class d_value;\n}; /* class Integer */\n\nstruct IntegerHashFunction\n{\n  inline size_t operator()(const cvc5::internal::Integer& i) const { return i.hash(); }\n}; /* struct IntegerHashFunction */\n\ninline std::ostream& operator<<(std::ostream& os, const Integer& n)\n{\n  return os << n.toString();\n}\n"
+  },
+  {
+    "source": "src/util/integer_gmp_imp.cpp",
+    "first_line": 377,
+    "last_line": 377,
+    "text": "std::string Integer::toString(int base) const { return d_value.get_str(base); }\n"
+  },
+  {
+    "source": "src/util/resource_manager.cpp",
+    "first_line": 281,
+    "last_line": 320,
+    "text": "bool ResourceManager::limitOn() const\n{\n  return (d_options.base.cumulativeResourceLimit > 0)\n         || (d_options.base.perCallMillisecondLimit > 0)\n         || (d_options.base.perCallResourceLimit > 0);\n}\n\nbool ResourceManager::outOfResources() const\n{\n  if (!d_enabled)\n  {\n    return false;\n  }\n  if (d_options.base.perCallResourceLimit > 0)\n  {\n    // Check if per-call resources are exhausted\n    if (d_thisCallResourceUsed >= d_options.base.perCallResourceLimit)\n    {\n      return true;\n    }\n  }\n  if (d_options.base.cumulativeResourceLimit > 0)\n  {\n    // Check if cumulative resources are exhausted\n    if (d_cumulativeResourceUsed >= d_options.base.cumulativeResourceLimit)\n    {\n      return true;\n    }\n  }\n  return false;\n}\n\nbool ResourceManager::outOfTime() const\n{\n  if (!d_enabled)\n  {\n    return false;\n  }\n  if (d_options.base.perCallMillisecondLimit == 0) return false;\n  return d_perCallTimer.expired();\n"
+  },
+  {
+    "source": "src/util/statistics_stats.cpp",
+    "first_line": 42,
+    "last_line": 58,
+    "text": "IntStat& IntStat::operator++()\n{\n  if constexpr (configuration::isStatisticsBuild())\n  {\n    d_data->d_value++;\n  }\n  return *this;\n}\n\nIntStat& IntStat::operator++(int)\n{\n  if constexpr (configuration::isStatisticsBuild())\n  {\n    d_data->d_value++;\n  }\n  return *this;\n}\n"
+  },
+  {
+    "source": "src/api/cpp/cvc5.cpp",
+    "first_line": 2115,
+    "last_line": 2122,
+    "text": "std::ostream& operator<<(std::ostream& out, const Sort& s)\n{\n  out << s.toString();\n  return out;\n}\n\n/* Helpers                                                                    */\n/* -------------------------------------------------------------------------- */\n"
+  },
+  {
+    "source": "src/api/cpp/cvc5.cpp",
+    "first_line": 3774,
+    "last_line": 3780,
+    "text": "std::ostream& operator<<(std::ostream& out, const Term& t)\n{\n  // Note that this ignores the options::ioutils properties of `out`.\n  out << t.toString();\n  return out;\n}\n\n"
+  },
+  {
+    "source": "src/api/cpp/cvc5.cpp",
+    "first_line": 7432,
+    "last_line": 7445,
+    "text": "Term Solver::defineFun(const std::string& symbol,\n                       const std::vector<Term>& bound_vars,\n                       const Sort& sort,\n                       const Term& term,\n                       bool global) const\n{\n  CVC5_API_TRY_CATCH_BEGIN;\n  CVC5_API_SOLVER_CHECK_CODOMAIN_SORT(sort);\n  CVC5_API_SOLVER_CHECK_TERM(term);\n  // the sort of the body must match the return sort\n  CVC5_API_CHECK(term.d_node->getType() == *sort.d_type)\n      << \"invalid sort of function body '\" << term << \"', expected '\" << sort\n      << \"', found '\" << term.getSort() << \"'\";\n\n"
+  },
+  {
+    "source": "src/api/cpp/cvc5_checks.h",
+    "first_line": 32,
+    "last_line": 71,
+    "text": "#define CVC5_API_TRY_CATCH_BEGIN \\\n  try                            \\\n  {\n#define CVC5_API_TRY_CATCH_END                         \\\n  }                                                    \\\n  catch (const internal::OptionException& e)           \\\n  {                                                    \\\n    throw CVC5ApiOptionException(e.getMessage());      \\\n  }                                                    \\\n  catch (const internal::RecoverableModalException& e) \\\n  {                                                    \\\n    throw CVC5ApiRecoverableException(e.getMessage()); \\\n  }                                                    \\\n  catch (const internal::Exception& e)                 \\\n  {                                                    \\\n    throw CVC5ApiException(e.getMessage());            \\\n  }                                                    \\\n  catch (const std::invalid_argument& e) { throw CVC5ApiException(e.what()); }\n\n/* -------------------------------------------------------------------------- */\n/* API guard helpers                                                          */\n/* -------------------------------------------------------------------------- */\n\nclass CVC5ApiExceptionStream\n{\n public:\n  CVC5ApiExceptionStream() {}\n  /* Note: This needs to be explicitly set to 'noexcept(false)' since it is\n   * a destructor that throws an exception and in C++11 all destructors\n   * default to noexcept(true) (else this triggers a call to std::terminate). */\n  ~CVC5ApiExceptionStream() noexcept(false)\n  {\n    if (std::uncaught_exceptions() == 0)\n    {\n      throw CVC5ApiException(d_stream.str());\n    }\n  }\n\n  std::ostream& ostream() { return d_stream; }\n\n"
+  },
+  {
+    "source": "src/api/cpp/cvc5_checks.h",
+    "first_line": 125,
+    "last_line": 130,
+    "text": " */\n#define CVC5_API_CHECK(cond) \\\n  CVC5_PREDICT_TRUE(cond)    \\\n  ? (void)0                  \\\n  : cvc5::internal::OstreamVoider() & cvc5::CVC5ApiExceptionStream().ostream()\n\n"
+  },
+  {
+    "source": "include/cvc5/cvc5.h",
+    "first_line": 100,
+    "last_line": 119,
+    "text": "  /**\n   * Retrieve the message from this exception.\n   * @return The error message.\n   */\n  const std::string& getMessage() const { return d_msg; }\n  /**\n   * Retrieve the message as a C-style array.\n   * @return The error message.\n   */\n  const char* what() const noexcept override { return d_msg.c_str(); }\n\n  /**\n   * Printing: feel free to redefine toStream().  When overridden in\n   * a derived class, it's recommended that this method print the\n   * type of exception before the actual message.\n   */\n  virtual void toStream(std::ostream& os) const { os << d_msg; }\n\n private:\n  /** The stored error message. */\n"
+  },
+  {
+    "source": "src/parser/commands.cpp",
+    "first_line": 1207,
+    "last_line": 1223,
+    "text": "void DefineFunctionCommand::invoke(cvc5::Solver* solver, SymManager* sm)\n{\n  try\n  {\n    bool global = sm->getGlobalDeclarations();\n    cvc5::Term fun =\n        solver->defineFun(d_symbol, d_formals, d_sort, d_formula, global);\n    if (!bindToTerm(sm, fun, true))\n    {\n      return;\n    }\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (exception& e)\n  {\n    d_commandStatus = new CommandFailure(e.what());\n  }\n"
+  },
+  {
+    "source": "src/expr/node.cpp",
+    "first_line": 32,
+    "last_line": 60,
+    "text": "TypeCheckingExceptionPrivate::TypeCheckingExceptionPrivate(TNode node,\n                                                           std::string message)\n    : Exception(message), d_node(new Node(node))\n{\n#ifdef CVC5_DEBUG\n  std::stringstream ss;\n  LastExceptionBuffer* current = LastExceptionBuffer::getCurrent();\n  if(current != NULL){\n    // Since this node is malformed, we cannot use toString().\n    // Instead, we print the kind and the children.\n    ss << \"node kind: \" << node.getKind() << \". children: \";\n    int i = 0;\n    for (const TNode& child : node)\n    {\n      ss << \"child[\" << i << \"]: \" << child << \". \";\n      i++;\n    }\n    string ssstring = ss.str();\n    current->setContents(ssstring.c_str());\n  }\n#endif /* CVC5_DEBUG */\n}\n\nTypeCheckingExceptionPrivate::~TypeCheckingExceptionPrivate() { delete d_node; }\n\nvoid TypeCheckingExceptionPrivate::toStream(std::ostream& os) const\n{\n  os << \"Error during type checking: \" << d_msg << std::endl << *d_node << endl << \"The ill-typed expression: \" << *d_node;\n}\n"
+  },
+  {
+    "source": "src/base/exception.h",
+    "first_line": 37,
+    "last_line": 48,
+    "text": "  Exception(const std::string& msg) : d_msg(msg) {}\n  Exception(const char* msg) : d_msg(msg) {}\n\n  // Destructor\n  virtual ~Exception() {}\n\n  // NON-VIRTUAL METHOD for setting and printing the error message\n  void setMessage(const std::string& msg) { d_msg = msg; }\n  std::string getMessage() const { return d_msg; }\n\n  // overridden from base class std::exception\n  const char* what() const noexcept override { return d_msg.c_str(); }\n"
+  }
+]
