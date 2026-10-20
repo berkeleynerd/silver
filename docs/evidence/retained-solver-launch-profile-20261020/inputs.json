@@ -1,0 +1,83 @@
+{
+  "base_commit": "8d9cee6f09ff1e00010c9189314b230a870f52c1",
+  "archive_members": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "why3/src/gnat/gnat_checks.ml": {
+        "bytes": 48146,
+        "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+      },
+      "why3/src/gnat/gnat_main.ml": {
+        "bytes": 14829,
+        "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+      },
+      "why3/src/gnat/gnat_scheduler.ml": {
+        "bytes": 648,
+        "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+      },
+      "why3/src/session/controller_itp.ml": {
+        "bytes": 56291,
+        "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+      },
+      "why3/src/driver/prove_client.ml": {
+        "bytes": 9236,
+        "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+      },
+      "why3/src/driver/call_provers.ml": {
+        "bytes": 23019,
+        "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+      },
+      "why3/src/server/request.c": {
+        "bytes": 5295,
+        "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+      },
+      "why3/src/server/server-unix.c": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "why3/src/server/proc.c": {
+        "bytes": 1638,
+        "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+      }
+    },
+    "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz": {
+      "spark-source/src/gnatprove/configuration.adb": {
+        "bytes": 118436,
+        "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697"
+      },
+      "spark-source/src/gnatprove/gnatprove.adb": {
+        "bytes": 46206,
+        "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590"
+      }
+    }
+  },
+  "repository_files": {
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-server-record-capacity-20261020/attachment.json": {
+      "bytes": 15013,
+      "sha256": "0c0649ae653072cc617298642ee2e69aed3809dd60f7c28a68dcb5f42d42d6a2"
+    },
+    "docs/evidence/retained-solver-identity-20261020/inventory.json": {
+      "bytes": 12802,
+      "sha256": "1723b582c626365205b73bc618ce9f2d2dc13e75fcf4e896ebcd48cd0e4154e3"
+    },
+    "docs/evidence/retained-producer-options-20261018/identity.json": {
+      "bytes": 3557,
+      "sha256": "7002cac0236330905973dd961844387dcb6cf3c98f284bcb74c9fad223f1be0d"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/research/retained-why-diagnostic-occurrences.md": {
+      "bytes": 14852,
+      "sha256": "db7bd965b5a7bb9046ea1c629d393bb34cd86ca3757f31b2e4a37ad9fa7d3d90"
+    },
+    "docs/research/retained-solver-identity.md": {
+      "bytes": 11769,
+      "sha256": "308f1f47444a14abea92b1b79ee60143de58368adce1a4ce529ba49f00eadc22"
+    }
+  }
+}

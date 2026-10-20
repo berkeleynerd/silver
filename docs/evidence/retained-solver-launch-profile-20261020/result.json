@@ -1,0 +1,71 @@
+{
+  "scope": "prospective conditional source interface; not native coverage",
+  "source_members": 11,
+  "retained_inputs": 7,
+  "cases": [
+    {
+      "case": "put_line",
+      "G": 64,
+      "C_launch": 72,
+      "run_offers_upper": 192,
+      "interrupt_offers_upper": 192,
+      "raw_run_ID_upper": 3284,
+      "line_upper_if_C_is_launch_length": 3396,
+      "finished_allocation_upper_if_C_is_launch_length": 3398,
+      "pending_plus_read_upper_if_C_is_launch_length": 4420,
+      "direct_InvalidAnswer_upper_if_C_is_launch_length": 3419
+    },
+    {
+      "case": "put",
+      "G": 53,
+      "C_launch": 67,
+      "run_offers_upper": 159,
+      "interrupt_offers_upper": 159,
+      "raw_run_ID_upper": 2723,
+      "line_upper_if_C_is_launch_length": 2830,
+      "finished_allocation_upper_if_C_is_launch_length": 2832,
+      "pending_plus_read_upper_if_C_is_launch_length": 3854,
+      "direct_InvalidAnswer_upper_if_C_is_launch_length": 2853
+    },
+    {
+      "case": "first_or_default",
+      "G": 32,
+      "C_launch": 80,
+      "run_offers_upper": 96,
+      "interrupt_offers_upper": 96,
+      "raw_run_ID_upper": 1652,
+      "line_upper_if_C_is_launch_length": 1772,
+      "finished_allocation_upper_if_C_is_launch_length": 1774,
+      "pending_plus_read_upper_if_C_is_launch_length": 2796,
+      "direct_InvalidAnswer_upper_if_C_is_launch_length": 1795
+    },
+    {
+      "case": "is_message",
+      "G": 3,
+      "C_launch": 74,
+      "run_offers_upper": 9,
+      "interrupt_offers_upper": 9,
+      "raw_run_ID_upper": 173,
+      "line_upper_if_C_is_launch_length": 287,
+      "finished_allocation_upper_if_C_is_launch_length": 289,
+      "pending_plus_read_upper_if_C_is_launch_length": 1311,
+      "direct_InvalidAnswer_upper_if_C_is_launch_length": 310
+    },
+    {
+      "case": "input_is_valid",
+      "G": 1,
+      "C_launch": 105,
+      "run_offers_upper": 3,
+      "interrupt_offers_upper": 3,
+      "raw_run_ID_upper": 71,
+      "line_upper_if_C_is_launch_length": 216,
+      "finished_allocation_upper_if_C_is_launch_length": 218,
+      "pending_plus_read_upper_if_C_is_launch_length": 1240,
+      "direct_InvalidAnswer_upper_if_C_is_launch_length": 239
+    }
+  ],
+  "per_file_q": null,
+  "weighted_O": null,
+  "complete_parallel_capacity": false,
+  "elapsed_seconds": 0.16925944499962498
+}
