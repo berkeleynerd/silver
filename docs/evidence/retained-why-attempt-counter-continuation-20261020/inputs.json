@@ -1,0 +1,86 @@
+{
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+    "bytes": 169096,
+    "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+    "bytes": 80360,
+    "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+    "bytes": 332715,
+    "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+  },
+  "docs/evidence/retained-why-save-attempt-growth-20261020/applications.json": {
+    "bytes": 17752,
+    "sha256": "2c35db1feaf4a90f6295adda37d44dfe9c4d35bf61d5921bda9c3bfe06fc1078"
+  },
+  "docs/research/retained-producer-driver-envelope.md": {
+    "bytes": 14373,
+    "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+  },
+  "docs/research/retained-why-save-attempt-growth.md": {
+    "bytes": 20250,
+    "sha256": "4d607cbd118a40254973fa6b27fded85f51c00c4c46de9267f093553551d1080"
+  },
+  "docs/research/retained-why-save-hashtbl-prefix.md": {
+    "bytes": 14208,
+    "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+  },
+  "docs/research/retained-why-ordinary-ending-control.md": {
+    "bytes": 16027,
+    "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+  },
+  "docs/reviews/review-save-state-continuation-20261020.md": {
+    "bytes": 11056,
+    "sha256": "bcf24b30db1ca25f179937561edf77e769ee68891bc049bd949d0eaa37af504a"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/put-line-correspondence.json": {
+    "bytes": 78825,
+    "sha256": "4a1c2ad47bc8d44229a6d0b9277c601eba851cee2762797c7c6610d2c4d45016"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/put-line-replay.json": {
+    "bytes": 1557,
+    "sha256": "6a779156644a6e0241f456835db69dc7da66a33848112c68d9da65f2c3017291"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/put-correspondence.json": {
+    "bytes": 74816,
+    "sha256": "25bc380948fbd41e50a84244caf2e9a883c4f7b933425df15c21682f3395cb61"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/put-replay.json": {
+    "bytes": 1474,
+    "sha256": "f182ee7be98699dd58ba568f8bb5e24cdc13a817c68b1bb0fb55da22d7fa7ef7"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/first-or-default-correspondence.json": {
+    "bytes": 35199,
+    "sha256": "d4781f46d2d139cc649549393ed49751a2ba05f439983f655ddf0f87e32fa952"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/first-or-default-replay.json": {
+    "bytes": 1408,
+    "sha256": "16d8a8e80add7ac4b78f82c756c883caf0775d4fb89f3bcf9cbc3e12c244c934"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/is-message-correspondence.json": {
+    "bytes": 20628,
+    "sha256": "ed4e95c6313b54ed641a6efaadcfc72350205fccf6956dd94a82939f6f38d747"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/is-message-replay.json": {
+    "bytes": 1060,
+    "sha256": "c7f7f29deb810a9bae15e0dffdda735a687af5c954734a67aba240743d341a79"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/input-is-valid-correspondence.json": {
+    "bytes": 22457,
+    "sha256": "2fc367e8a097cbbe11c0e866f6fdeb499d522ba023662c3625d44040378e2e3a"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/input-is-valid-replay.json": {
+    "bytes": 1205,
+    "sha256": "e4e254f29307e82d510b89986f778eaa783618d93fc7b9325eabc0751eafa3fe"
+  }
+}

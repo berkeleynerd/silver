@@ -1,0 +1,45 @@
+{
+  "round": 29,
+  "objective": "Close interrupted next_proofAttemptID headroom from retained captures and exact selected constructor catches",
+  "authorization": "Parent-assigned bounded offline research within owner-resumed #119/#153; local evidence commit authorized",
+  "base_commit": "466c44c54b6ec777829400108c2f53920827bcc0",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_and_effort_confirmed": false,
+  "selection_source": "Parent assignment under project model guidance",
+  "started_UTC": "2026-10-20 09:40:17 UTC",
+  "result_checkpoint_UTC": "2026-10-20 09:55:02 UTC",
+  "elapsed_to_result_checkpoint_seconds": 885,
+  "token_count": null,
+  "cost": null,
+  "measurement_note": "Wall time from tool checkpoints; no runtime model, token or cost telemetry available",
+  "native_platform_of_imported_captures": "linux-x86_64",
+  "new_native_runs": 0,
+  "new_compiler_solver_or_proof_runs": 0,
+  "new_captures": 0,
+  "observer_binder_alpha_replays": 0,
+  "outcome": "Source terminal-prefix theorem plus five fresh hash-bound counter projections; conditional headroom uppers 209/174/109/13/10",
+  "significant_review_or_rework": [
+    "Kept published membership event count distinct from ID increments; added at most one terminal or in-progress unpaired increment",
+    "Reconciled real repeated InternalFailure callbacks with the counter proof: no constructor is dynamically under build/idle protected catches; cache continuation remains a separate lane",
+    "Used fresh PID counters and retained mutable decode joins rather than historical process counters",
+    "Did not expand the normal scheduler/preparation count into an unproved interrupted entry envelope"
+  ],
+  "focused_checks": [
+    "19 exact retained full-member/excerpt identity checks and counter-reference census",
+    "Five capture archive/member/provenance/root/table/counter/domain joins",
+    "126 finite abstract prefix states; missing premises and invalid/unknown values; native integer boundary and restart counterexamples",
+    "git diff --check"
+  ],
+  "remaining_native_attachment_conditions": [
+    "continued whole-post-cut signal contract",
+    "attempt membership publication/key preservation contract",
+    "native counter commit, exception semantics and no unmodeled mutator/callback contract"
+  ],
+  "independent_review": "Lead-owned combined review pending; this is the producing source analysis",
+  "scope_unchanged": [
+    "Oracle, source pins, language admission and production tools",
+    "#119 active and #153 in progress; parent owns issue/memory/integration state",
+    "No whole-save or whole-pipeline capacity conclusion"
+  ]
+}

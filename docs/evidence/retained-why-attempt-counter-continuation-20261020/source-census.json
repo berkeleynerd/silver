@@ -1,0 +1,53 @@
+{
+  "member": "why3/src/session/session_itp.ml",
+  "references": [
+    {
+      "line": 125,
+      "text": "  mutable next_proofAttemptID   : int;"
+    },
+    {
+      "line": 286,
+      "text": "let gen_proofAttemptID (s : session) ="
+    },
+    {
+      "line": 287,
+      "text": "  let id = s.next_proofAttemptID in"
+    },
+    {
+      "line": 288,
+      "text": "  s.next_proofAttemptID <- id + 1;"
+    },
+    {
+      "line": 621,
+      "text": "    next_proofAttemptID = 0;"
+    },
+    {
+      "line": 645,
+      "text": "let add_proof_attempt session prover limits state ~obsolete (edit : Sysutil.file_path option) parentID ="
+    },
+    {
+      "line": 651,
+      "text": "    let id = gen_proofAttemptID session in"
+    },
+    {
+      "line": 662,
+      "text": "let graft_proof_attempt ?file (s : session) (id : proofNodeID) (pr : Whyconf.prover)"
+    },
+    {
+      "line": 675,
+      "text": "    add_proof_attempt s pr limits None ~obsolete:false file id"
+    },
+    {
+      "line": 1130,
+      "text": "          ignore(add_proof_attempt session p limit res ~obsolete edit pid)"
+    },
+    {
+      "line": 1487,
+      "text": "  ignore (add_proof_attempt s old_pa.prover old_pa.limits"
+    },
+    {
+      "line": 1544,
+      "text": "  ignore (add_proof_attempt new_s old_pa.prover old_pa.limits"
+    }
+  ]
+}
