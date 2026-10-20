@@ -23,8 +23,28 @@ not supplied by the older packets. Older inlining packets explicitly quantified
 the missing exclusion set. R53 instead requests the bounded projection in
 `acquisition-spec.json`, so the actual branch can be derived offline.
 
-No old checker is replayed by the audit. No native target, solver or proof has
-been run at this initial specification freeze. Acquisition results, exact input
-checks, managed-run evidence and source/logical correspondence will be retained
-separately in this packet as work proceeds; a specification is not evidence of
-its successful execution.
+No old checker is replayed by the audit. At the initial specification freeze
+`0e7ce6ea890055ae30245a0f25406b8566d5e670`, no new native target had run.
+
+The first-domain continuation now retains one successful native J12 capture,
+two failed attempts and their diagnoses. `first-domain-manifest.json` pins all
+archive/member bytes. `first-or-default-capture.tar.gz` contains the exact
+isolated plan, inputs, collector sources and native observations. The selected
+Z3 metadata has 66 theory entries; typed raw metadata and clone maps are complete.
+The raw logical graph is included solely to bind metadata arguments to the
+frozen logical symbols; full Hsdecl state was not recaptured.
+
+`verify-capture.py CAPTURE_DIRECTORY` replays the new reader from captured
+byte reads and compares nine exact outputs. `first-domain-replay.json` records
+its successful 1.698-second run. `first-domain-correspondence-result.json` and
+the compressed address map retain the 42,481-block raw logical bijection with
+R28. The actual run is J12 at registration; neither arbitrary J>1 shared state
+nor the residual stored family is thereby closed.
+
+`first-domain-managed.tar.gz` retains all three actual managed run logs;
+`round-first-domain.json` distinguishes native time, offline time, reader rework,
+review findings and continuing obligations. Every native attempt had zero
+preparation/solver entries. The failed artifacts are preserved, not relabeled
+as successful metadata captures. Sources in `collector/` document the config
+copy and set-layout corrections. The scripts referencing `/tmp/` describe the
+actual acquisition/replay paths; the archives retain the portable bytes.

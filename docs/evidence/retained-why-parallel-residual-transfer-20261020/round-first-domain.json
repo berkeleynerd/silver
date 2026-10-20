@@ -1,0 +1,46 @@
+{
+  "checkpoint_utc": "2026-10-20T21:25:04Z",
+  "native_attempts": 3,
+  "native_seconds": [
+    0.35447032200045214,
+    4.082430006999857,
+    4.937659297999744
+  ],
+  "native_seconds_total": 9.374559627000053,
+  "offline_replay": {
+    "distinct_reads": 134646,
+    "elapsed_seconds": 1.6979729459999362,
+    "exact_output_files": 9,
+    "full_Hsdecl_captured": false,
+    "native_J": 12,
+    "preparation_entries": 0,
+    "read_rows": 322796,
+    "replay_read_requests": 322784,
+    "solver_launches": 0,
+    "status": "pass"
+  },
+  "parallel_stored_family_closed": false,
+  "remaining": [
+    "Other four physical-domain metadata projections",
+    "Actual updated task metadata and monomorphic branch derivation",
+    "Ordered residual producer transfer including all prefix insertions and hidden saved maps",
+    "Intended parallel global state/source attachment"
+  ],
+  "review_findings": [
+    "Reviewer accepted frozen negative audit after focused replay; exact claim excludes Clone/driver root coverage.",
+    "Reviewer independently confirmed interface hiding of Task.Stdecl: driver uses Theory.Stdecl AVL, task histories HStdecl Patricia."
+  ],
+  "rework": [
+    "Preserved failed early config-copy attempt; corrected exact base/extra config distinction.",
+    "Preserved partial registration attempt; corrected source set representation after reading Task.mli; partial offline replay reached first unavailable AVL child."
+  ],
+  "round": "R53",
+  "runtime_confirmation_available": false,
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "stage": "First physical domain metadata acquired; ordered transfer continuing",
+  "started_utc": "2026-10-20T21:04:01Z",
+  "success": "Complete typed metadata and selected Z3 driver projection; exact captured-byte replay and raw graph address-renaming bijection.",
+  "successful_native_acquisitions": 1,
+  "token_cost_measurements_available": false
+}

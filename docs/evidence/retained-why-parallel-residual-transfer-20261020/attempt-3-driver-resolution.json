@@ -1,0 +1,212 @@
+{
+  "/tmp/silver-r53-20261020-a3/overlay/cvc5_gnatprove.drv": {
+    "identity": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "imports": [
+      {
+        "name": "silver_cvc5_no_steps.gen",
+        "candidates": [
+          "/tmp/silver-r53-20261020-a3/overlay/silver_cvc5_no_steps.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-gnatprove.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-floats-gnatprove.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-floats-int_via_real.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen"
+        ]
+      }
+    ]
+  },
+  "/tmp/silver-r53-20261020-a3/overlay/silver_cvc5_no_steps.gen": {
+    "identity": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "imports": [
+      {
+        "name": "smt-libv2.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-bv.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-bv.gen"
+        ]
+      },
+      {
+        "name": "cvc4_bv.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc4_bv.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-floats.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats.gen"
+        ]
+      },
+      {
+        "name": "discrimination.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/discrimination.gen"
+        ]
+      }
+    ]
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2.gen": {
+    "identity": {
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-bv.gen": {
+    "identity": {
+      "bytes": 10203,
+      "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc4_bv.gen": {
+    "identity": {
+      "bytes": 911,
+      "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats.gen": {
+    "identity": {
+      "bytes": 8423,
+      "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/discrimination.gen": {
+    "identity": {
+      "bytes": 169,
+      "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen": {
+    "identity": {
+      "bytes": 1438,
+      "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen": {
+    "identity": {
+      "bytes": 1815,
+      "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen": {
+    "identity": {
+      "bytes": 357,
+      "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+    },
+    "imports": []
+  },
+  "/tmp/silver-r53-20261020-a3/overlay/z3_gnatprove.drv": {
+    "identity": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "imports": [
+      {
+        "name": "smt-libv2.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-bv.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-bv.gen"
+        ]
+      },
+      {
+        "name": "z3_bv.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/z3_bv.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-floats.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-gnatprove.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-floats-gnatprove.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen"
+        ]
+      },
+      {
+        "name": "smt-libv2-floats-int_via_bv.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen"
+        ]
+      },
+      {
+        "name": "discrimination.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/discrimination.gen"
+        ]
+      }
+    ]
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/z3_bv.gen": {
+    "identity": {
+      "bytes": 940,
+      "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+    },
+    "imports": []
+  },
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen": {
+    "identity": {
+      "bytes": 793,
+      "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+    },
+    "imports": []
+  },
+  "/tmp/silver-r53-20261020-a3/overlay/alt_ergo_gnatprove_smt2.drv": {
+    "identity": {
+      "bytes": 2461,
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    "imports": [
+      {
+        "name": "smt-libv2.gen",
+        "candidates": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2.gen"
+        ]
+      }
+    ]
+  }
+}

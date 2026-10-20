@@ -1,0 +1,329 @@
+"""Read-only GDB observations; every GC/request stops before it executes."""
+import gdb, json, struct, hashlib
+from pathlib import Path
+ROOT=Path('/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020')
+PLAN=json.loads((ROOT/'plan.json').read_text())
+CASE=PLAN['inputs'][CASE_INDEX]
+OUT=Path(CASE['cwd'])/'capture'
+INF=gdb.selected_inferior()
+SUMMARY={'name':CASE['name'],'completed':False,'failures':[],'snapshots':[],
+         'guard_hits':[],'startup_guard_hits':[],'protected':False,'new_threads':[],'guards':{},'counter_addresses':{}}
+def data(addr,n=8):return bytes(INF.read_memory(addr,n))
+def u64(addr):return int.from_bytes(data(addr),'little')
+def address(name):return int(gdb.parse_and_eval('(unsigned long)&'+name))
+def identity(p):
+ b=Path(p).read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+def save(): (OUT/'summary.json').write_text(json.dumps(SUMMARY,indent=2)+'\n')
+def snapshot(label,native=False):
+ state=u64(address('Caml_state'))
+ fields={n:(struct.unpack('<d',data(state+v['offset']))[0] if v['type']=='double' else u64(state+v['offset'])) for n,v in PLAN['state_fields'].items()}
+ ptr=int(gdb.parse_and_eval('$r15')) if native else fields['young_ptr']
+ row={'label':label,'pc':hex(int(gdb.parse_and_eval('$pc'))),'state_address':state,
+      'state':fields,'effective_young_ptr':ptr,'minor_allocated_words':(fields['young_alloc_end']-ptr)//8,
+      'native_r14':int(gdb.parse_and_eval('$r14')) if native else None,'tables':{}}
+ for n in ['caml_allocated_words','caml_gc_phase','caml_extra_heap_resources','caml_dependent_size','caml_dependent_allocated','caml_init_minor_heap_wsz','caml_init_heap_wsz','caml_custom_major_ratio','caml_custom_minor_ratio','caml_custom_minor_max_bsz']:
+  addr=address(n);SUMMARY['counter_addresses'][n]=addr
+  row[n]=struct.unpack('<d',data(addr))[0] if n=='caml_extra_heap_resources' else (int.from_bytes(data(addr,4),'little') if n=='caml_gc_phase' else u64(addr))
+ for n,entry_size in [('ref_table',8),('ephe_ref_table',16),('custom_table',24)]:
+  addr=fields[n];vals={k:u64(addr+i*8) for i,k in enumerate(['base','end','threshold','ptr','limit','size','reserve'])}
+  vals['entry_size']=entry_size;vals['used_entries']=(vals['ptr']-vals['base'])//entry_size;row['tables'][n]=vals
+ SUMMARY['snapshots'].append(row);save();print('SNAPSHOT '+json.dumps({k:row[k] for k in ['label','minor_allocated_words','caml_allocated_words','caml_extra_heap_resources']}),flush=True)
+ return row
+class Guard(gdb.Breakpoint):
+ def __init__(self,name):
+  self.label=name;addr=address(name);super().__init__('*'+hex(addr));self.silent=True
+  SUMMARY['guards'][name]={'address':addr,'first32':data(addr,32).hex()}
+ def stop(self):
+  event={'guard':self.label,'pc':int(gdb.parse_and_eval('$pc')),'backtrace':gdb.execute('bt 12',to_string=True)}
+  if not SUMMARY['protected']:
+   SUMMARY['startup_guard_hits'].append(event);save();return False
+  SUMMARY['guard_hits'].append(event)
+  SUMMARY['failures'].append('collection/request/override guard: '+self.label)
+  try:snapshot('guard:'+self.label)
+  except Exception as e:SUMMARY['failures'].append(str(e))
+  save();return True
+class Phase(gdb.Breakpoint):
+ def __init__(self,name,final=False,start=False):
+  self.start=start;self.final=final;self.label=name;super().__init__('*'+hex(address(name)));self.silent=True
+ def stop(self):
+  try:
+   row=snapshot('end_of_registration' if self.final else ('before_first_why3_module' if self.start else 'runtime_initialized'),self.final or self.start)
+   if self.start:SUMMARY['protected']=True;SUMMARY['baseline']=row;save()
+   if self.final:
+    s=row['state'];assert row['native_r14']==row['state_address']
+    assert s['minor_heap_wsz']==2**28
+    assert row['minor_allocated_words'] < s['minor_heap_wsz']
+    assert row['caml_allocated_words'] < s['minor_heap_wsz']
+    base=SUMMARY['baseline']
+    assert all(s[n]==0 for n in ['in_minor_collection','requested_major_slice','requested_minor_gc'])
+    assert all(s[n]==base['state'][n] for n in ['stat_minor_words','stat_promoted_words','stat_major_words','stat_minor_collections','stat_major_collections','stat_compactions','stat_forced_major_collections'])
+    assert row['caml_gc_phase']==base['caml_gc_phase']
+    assert s['young_trigger']==base['state']['young_trigger']
+    assert s['extra_heap_resources_minor']<=1 and row['caml_extra_heap_resources']<=1
+    for t in row['tables'].values():assert t['ptr']<=t['threshold']
+    proc=Path('/proc')/str(INF.pid)
+    (OUT/'maps.txt').write_bytes((proc/'maps').read_bytes())
+    mapped={}
+    for line in (proc/'maps').read_text().splitlines():
+     parts=line.split()
+     if len(parts)>=6 and parts[-1].startswith('/') and Path(parts[-1]).is_file():mapped[parts[-1]]=identity(parts[-1])
+    SUMMARY['mapped_files']=mapped
+    capture_fixed_session()
+    SUMMARY['completed']=True;save()
+  except Exception as e:SUMMARY['failures'].append(type(e).__name__+': '+str(e));save();return True
+  return self.final
+proc=Path('/proc')/str(INF.pid)
+env=dict(s.decode().split('=',1) for s in (proc/'environ').read_bytes().split(b'\0') if s)
+assert env==CASE['environment'],env
+args=[s.decode() for s in (proc/'cmdline').read_bytes().split(b'\0') if s]
+assert args==CASE['argv'],args
+(OUT/'process.json').write_text(json.dumps({'pid':INF.pid,'executable':str((proc/'exe').resolve()),'environment':env,'argv':args,'initial_threads':len(INF.threads())},indent=2)+'\n')
+for name in PLAN['guards']:Guard(name)
+Phase('caml_start_program');Phase(PLAN['protected_start'],start=True);Phase(PLAN['endpoint']['symbol'],True)
+for kind in ['fork','vfork','exec']:gdb.execute('catch '+kind)
+def new_thread(event):SUMMARY['new_threads'].append(event.inferior_thread.num);save()
+gdb.events.new_thread.connect(new_thread)
+save()
+def finish_capture():
+ if not SUMMARY['completed'] and not SUMMARY['failures']:SUMMARY['failures'].append('stopped before endpoint without a handled guard')
+ if SUMMARY['new_threads']:SUMMARY['failures'].append('unexpected new thread')
+ save()
+
+# Three complete arithmetic-site observers; no inferior calls or field writes.
+SUMMARY['arithmetic']={}
+ARITHMETIC_FILES={}
+def decode_tagged(raw):
+ raw &= (1<<64)-1
+ assert raw & 1, 'non-immediate count operand'
+ if raw >= 1<<63:raw -= 1<<64
+ return raw >> 1
+class Arithmetic(gdb.Breakpoint):
+ def __init__(self,label,spec):
+  self.label=label;self.spec=spec
+  addr=address(spec['symbol'])+spec['offset']
+  super().__init__('*'+hex(addr));self.silent=True
+  SUMMARY['arithmetic'][label]={'address':addr,'first32':data(addr,32).hex(),
+   'operation':spec['operation'],'hits':0,'minimum_left':None,'minimum_right':None,
+   'maximum_left':0,'maximum_right':0,'maximum_result':0,'violations':[]}
+  ARITHMETIC_FILES[label]=open(OUT/(label+'.operands'),'wb',buffering=1<<20)
+ def stop(self):
+  row=SUMMARY['arithmetic'][self.label]
+  try:
+   assert SUMMARY['protected'], 'count operation before protected boundary'
+   frame=gdb.selected_frame()
+   def reg(name):return int(frame.read_register(name))
+   left=decode_tagged(u64(reg('rbx')+16) if self.spec['left']=='closure_rbx_field_2' else reg(self.spec['left']))
+   right=decode_tagged(reg(self.spec['right']))
+   ARITHMETIC_FILES[self.label].write(struct.pack('<qq',left,right))
+   result=left*right if self.spec['operation']=='multiply' else left+right
+   row['hits']+=1
+   for key,value in [('left',left),('right',right)]:
+    row['minimum_'+key]=value if row['minimum_'+key] is None else min(row['minimum_'+key],value)
+    row['maximum_'+key]=max(row['maximum_'+key],value)
+   row['maximum_result']=max(row['maximum_result'],result)
+   assert 0 <= left and 0 <= right and 0 <= result <= (1<<62)-1, 'semantic count range/overflow'
+   if row['hits']%100000==0:
+    print('ARITHMETIC '+self.label+' '+str(row['hits']),flush=True)
+   return False
+  except Exception as e:
+   issue={'error':type(e).__name__+': '+str(e),'pc':int(gdb.parse_and_eval('$pc')),
+          'backtrace':gdb.execute('bt 12',to_string=True)}
+   row['violations'].append(issue);SUMMARY['failures'].append('arithmetic guard '+self.label)
+   save();return True
+for label,spec in PLAN['arithmetic_sites'].items():Arithmetic(label,spec)
+
+# Observe the real open64 result inside caml_sys_open. The retained disassembly
+# establishes rbp = copied pathname, eax = fd result, ebx = original open flags.
+# No inferior calls, writes, FinishBreakpoint, or guessed caller-frame layout.
+SUMMARY['file_opens']=[]
+class FileOpen(gdb.Breakpoint):
+ def __init__(self):
+  spec=PLAN['observer'];addr=address(spec['symbol'])+spec['offset']
+  super().__init__('*'+hex(addr));self.silent=True
+  SUMMARY['file_open_site']={'address':addr,'first32':data(addr,32).hex()}
+  assert SUMMARY['file_open_site']['first32']==spec['first32'], 'file-open instruction mismatch'
+ def stop(self):
+  try:
+   frame=gdb.selected_frame()
+   ptr=int(frame.read_register('rbp'))
+   path=gdb.Value(ptr).cast(gdb.lookup_type('char').pointer()).string(encoding='utf-8',errors='strict')
+   raw=int(frame.read_register('eax')) & 0xffffffff
+   fd=raw if raw < 2**31 else raw-2**32
+   flags=int(frame.read_register('ebx')) & 0xffffffff
+   row={'path':path,'fd':fd,'flags':flags,'protected':SUMMARY['protected']}
+   if fd>=0:
+    link=Path('/proc')/str(INF.pid)/'fd'/str(fd)
+    resolved=link.resolve(strict=True)
+    row['resolved_path']=str(resolved)
+    if flags & 3 == 0 and resolved.is_file():
+     row['identity']=identity(link)
+     assert str(resolved) in PLAN['file_identities'], 'unpinned read: '+str(resolved)
+     assert row['identity']==PLAN['file_identities'][str(resolved)], 'changed read: '+str(resolved)
+   SUMMARY['file_opens'].append(row)
+   return False
+  except Exception as e:
+   SUMMARY['failures'].append('file-open observer: '+type(e).__name__+': '+str(e))
+   save();return True
+FileOpen()
+original_finish_capture=finish_capture
+def finish_capture():
+ for label,handle in ARITHMETIC_FILES.items():
+  handle.flush();handle.close()
+  SUMMARY['arithmetic'][label]['trace']=identity(OUT/(label+'.operands'))
+ if SUMMARY['completed']:
+  actual={r['resolved_path'] for r in SUMMARY['file_opens'] if r['fd']>=0 and r['flags'] & 3 == 0}
+  missing=set(PLAN['required_overlay_paths'])-actual
+  if missing:SUMMARY['failures'].append('overlay paths not opened: '+str(sorted(missing)))
+  missing=set(PLAN['selected_driver_closure'].values())-actual
+  if missing:SUMMARY['failures'].append('selected driver closure paths not opened: '+str(sorted(missing)))
+ original_finish_capture()
+
+# Additional segment boundaries and dispatch guards. All reads are from the
+# stopped inferior; no OCaml helper, register write or fabricated return.
+SUMMARY['dispatch']={'transform':[],'graft':[],'connection':[]}
+SUMMARY['forbidden_calls']={}
+def ocaml_string(ptr):
+ assert ptr & 1 == 0
+ header=u64(ptr-8);assert header & 255 == 252
+ words=header>>10;length=8*words-1-data(ptr+8*words-1,1)[0]
+ return data(ptr,length).decode('utf-8')
+def block_fields(ptr,count):
+ assert ptr & 1 == 0
+ header=u64(ptr-8);assert header & 255 == 0 and header>>10==count,(hex(ptr),hex(header),count)
+ return [u64(ptr+8*i) for i in range(count)]
+def list_values(ptr):
+ seen=set();values=[]
+ while ptr!=1:
+  assert ptr not in seen,'cyclic list';seen.add(ptr)
+  head,ptr=block_fields(ptr,2);values.append(head)
+ return values
+def task_shape(ptr):
+ seen=set();decls=[]
+ while ptr!=1:
+  node=block_fields(ptr,1)[0]
+  assert node not in seen,'cyclic task chain';seen.add(node)
+  fields=block_fields(node,6);decls.append(fields[0]);ptr=fields[1]
+ return {'chain_length':len(decls),'declaration_addresses':decls}
+class PreviousEndpoint(gdb.Breakpoint):
+ def __init__(self):
+  super().__init__('*'+hex(address(PLAN['previous_endpoint']['symbol'])));self.silent=True
+ def stop(self):
+  try:
+   row=snapshot('before_server_and_split',True)
+   SUMMARY['arithmetic_at_previous_endpoint']={k:v['hits'] for k,v in SUMMARY['arithmetic'].items()}
+   SUMMARY['previous_endpoint_visits']=SUMMARY.get('previous_endpoint_visits',0)+1
+   assert SUMMARY['previous_endpoint_visits']==1
+   save();return False
+  except Exception as e:
+   SUMMARY['failures'].append('previous endpoint: '+repr(e));save();return True
+class Dispatch(gdb.Breakpoint):
+ def __init__(self,label,spec):
+  self.label=label;addr=address(spec['symbol']);assert data(addr,32).hex()==spec['first32']
+  super().__init__('*'+hex(addr));self.silent=True
+ def stop(self):
+  try:
+   frame=gdb.selected_frame();reg=lambda n:int(frame.read_register(n))
+   row={'pc':reg('pc')}
+   if self.label=='transform':
+    row.update(name=ocaml_string(reg('rax')),argument_count=len(list_values(reg('rdi'))),input_task=task_shape(reg('rcx')))
+    assert row['name']=='split_goal_wp_conj' and row['argument_count']==0
+   elif self.label=='graft':
+    row.update(name=ocaml_string(reg('rdi')),argument_count=len(list_values(reg('rsi'))),tasks=[task_shape(t) for t in list_values(reg('rdx'))])
+    assert row['name']=='split_goal_wp_conj' and row['argument_count']==0
+   else:
+    row.update(socket_name=ocaml_string(reg('rax')))
+    assert row['socket_name']==CASE['server']['socket']
+   SUMMARY['dispatch'][self.label].append(row);save();return False
+  except Exception as e:
+   SUMMARY['failures'].append('dispatch '+self.label+': '+repr(e));save();return True
+class Forbidden(gdb.Breakpoint):
+ def __init__(self,name,spec):
+  self.name=name;addr=address(name);assert data(addr,32).hex()==spec['first32']
+  super().__init__('*'+hex(addr));self.silent=True
+  SUMMARY['forbidden_calls'][name]={'address':addr,'first32':data(addr,32).hex(),'hits':0}
+ def stop(self):
+  SUMMARY['forbidden_calls'][self.name]['hits']+=1
+  SUMMARY['failures'].append('unexpected scheduling/printing/dispatch: '+self.name);save();return True
+PreviousEndpoint()
+for label,spec in PLAN['dispatch_observers'].items():Dispatch(label,spec)
+for name,spec in PLAN['forbidden_calls'].items():Forbidden(name,spec)
+assert data(address(PLAN['endpoint']['symbol']),32).hex()==PLAN['endpoint']['first32']
+prior_finish_capture=finish_capture
+def finish_capture():
+ prior_finish_capture()
+ if SUMMARY['completed']:
+  assert SUMMARY['previous_endpoint_visits']==1
+  assert len(SUMMARY['dispatch']['connection'])==1
+  assert len(SUMMARY['dispatch']['transform'])==len(SUMMARY['dispatch']['graft'])>0
+  assert not any(r['hits'] for r in SUMMARY['forbidden_calls'].values())
+ save()
+
+def raw_graph(roots):
+ """Lossless OCaml payload graph, limited to logical declaration roots.
+ Custom/string/double blocks are retained as opaque bytes; no C pointers are
+ followed. Closures/lazy/objects fail closed. Limits are diagnostic aborts,
+ never capacity conclusions. Shared addresses are represented once here;
+ semantic occurrence analysis must follow every edge separately.
+ """
+ pending=list(roots);blocks={};total=0
+ while pending:
+  ptr=pending.pop()
+  if ptr & 1 or str(ptr) in blocks:continue
+  assert ptr and ptr % 8 == 0, ('unaligned pointer',hex(ptr))
+  header=u64(ptr-8);tag=header & 255;words=header >> 10
+  assert words <= 1<<20, ('oversized block',hex(ptr),words)
+  assert tag < 246 or tag >= 251, ('unhandled runtime block',hex(ptr),tag)
+  size=words*8;total+=size+8
+  assert len(blocks)<1000000 and total<=128*1024*1024, 'diagnostic dump limit'
+  payload=data(ptr,size)
+  row={'header':header,'tag':tag,'words':words}
+  if tag<246:
+   fields=list(struct.unpack('<'+'Q'*words,payload));row['fields']=fields
+   pending.extend(fields)
+  else:row['payload_hex']=payload.hex()
+  blocks[str(ptr)]=row
+ return {'roots':roots,'blocks':blocks,'retained_payload_bytes':total,
+         'opaque_tags':sorted({r['tag'] for r in blocks.values() if r['tag']>=251})}
+
+
+# New endpoint observer: definitions only until the final registration stop.
+import importlib.util
+_spec=importlib.util.spec_from_file_location('fixed_session_observer',ROOT/'session_observer.py')
+_session_module=importlib.util.module_from_spec(_spec);_spec.loader.exec_module(_session_module)
+def capture_fixed_session():
+    global data
+    # Activate durable all-read logging only at the stopped endpoint.
+    exec(compile((ROOT/'snapshot-observer.py').read_text(),str(ROOT/'snapshot-observer.py'),'exec'),globals())
+    exec(compile((ROOT/'table-observer.py').read_text(),str(ROOT/'table-observer.py'),'exec'),globals())
+    checks={}
+    for name,spec in PLAN['session_observer']['symbols'].items():
+        ptr=address(name);checks[name]={'address':ptr,'elf_value':spec['elf_value']}
+        if 'code_hex' in spec:
+            got=data(ptr,len(bytes.fromhex(spec['code_hex']))).hex()
+            assert got==spec['code_hex'],('session root code mismatch',name)
+            checks[name]['code_hex']=got
+    bias=address('camlWhy3__Ident')-PLAN['session_observer']['ident_elf_value']
+    assert all(row['address']==bias+row['elf_value'] for row in checks.values())
+    (OUT/'session-symbols.json').write_text(json.dumps({'load_bias':bias,'checks':checks},indent=2)+'\n')
+    session=_session_module.SessionCapture(data,address,OUT,PLAN['session_observer']['limits'])
+    try:
+        roots=session.capture_roots();assert roots['complete'],roots
+        result=session.capture_session();assert result['complete'],result
+        helpers=session.capture_helpers();assert helpers['complete'],helpers
+        _missing_spec=importlib.util.spec_from_file_location('save_missing_state',ROOT/'missing_state.py')
+        _missing_module=importlib.util.module_from_spec(_missing_spec);_missing_spec.loader.exec_module(_missing_module)
+        _missing=_missing_module.collect(session,PLAN,'pre-scheduling registration; before driver preparation')
+        SUMMARY['save_missing_state']={'complete':_missing['complete'],'identity':identity(OUT/'save-missing-state.json')}
+        assert _missing['complete'],_missing['failures']
+        SUMMARY['fixed_session']={'complete':True,'identity':identity(OUT/'session-result.json'),
+            'case':CASE['name'],'endpoint':PLAN['endpoint']['symbol']}
+        save()
+    finally:session.close()
+    capture_identifier()
+    table_roots=read_table_state()
+    graph=raw_graph(table_roots)
+    graph['scope']='Every retained Hsdecl representative reachable payload at registration, conservative selectable superset'
+    (OUT/'representative-graph.json').write_text(json.dumps(graph,sort_keys=True)+'\n')
+    aux=capture_auxiliary();assert aux['complete'],aux
+    SUMMARY['representative_graph']={'identity':identity(OUT/'representative-graph.json'),'roots':len(table_roots),'blocks':len(graph['blocks'])}
+    save();_memory_log.close()

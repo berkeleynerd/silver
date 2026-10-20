@@ -1,0 +1,14 @@
+{
+  "case": "first_or_default",
+  "raw_tasks": 33,
+  "declaration_pairs": 334,
+  "events": {
+    "blocks": 42481,
+    "immediates": 48769
+  },
+  "old_load_bias": 94541884551168,
+  "new_load_bias": 94158889127936,
+  "exact_tags_and_immediates_equal": true,
+  "sharing_bijection": true,
+  "custom_operations_join": "same executable-relative address; remaining opaque words equal"
+}

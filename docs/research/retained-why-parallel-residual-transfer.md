@@ -25,3 +25,36 @@ callbacks, three saves and e <= 2 allowance remains one process-wide budget.
 R51 and R52 bytes, production source, tools, pins and global budgets remain
 unchanged. Selected author model/effort: GPT-6 Astra / Extra High; runtime
 confirmation and token/cost telemetry are unavailable.
+
+## First-domain acquisition
+
+First_Or_Default now has a complete targeted metadata capture at native
+client/server J=12. Managed run `20261020T212221-d20b541fcaba` reached the
+registration stop in 4.938 seconds with no protected guard, preparation or
+solver entry. The reader captures the actual raw-task meta/clone histories,
+their typed payloads and the selected Z3 driver's 66-entry theory metadata map.
+It does not capture the complete declaration hashcons table.
+
+An exact offline byte replay regenerated nine projection files from 322,796
+read rows in 1.698 seconds. A separate address-renaming bijection joins every
+raw logical payload to the old capture: 33 raw tasks, 334 declarations, 42,481
+blocks, and 48,769 exactly equal immediate/tag operands. This includes sharing;
+matching printed names is not used as the physical-symbol join. This is a
+concrete J12 registration/raw-input correspondence, not an attachment of every
+old serial mutable table or every intended J>1 launch.
+
+Two failed attempts remain in the packet. The first copied the extra
+configuration into the distinct base configuration slot and exited before
+registration (0.354 seconds). The second retained the complete registration
+logical graph but the metadata reader rejected the driver's set layout
+(4.082 seconds). `Task.mli` exports `HStdecl` and hides its implementation's
+`Stdecl` alias: task histories use Patricia trees, but `Driver.drv_meta` uses
+`Theory.Stdecl` AVL trees. The corrected reader keeps these distinct; its
+partial offline replay reaches the first genuinely absent AVL-child read.
+Neither failed attempt entered preparation or launched a solver.
+
+Actual metadata shows no `introduced_prsymbol` key in this raw/driver domain.
+The remaining work derives updated task metadata and the monomorphic decision,
+then carries the thirteen ordered producers with old-return and saved-map
+coverage. The other physical domains still need their own actual metadata
+attachment; the First_Or_Default graph does not establish those memberships.

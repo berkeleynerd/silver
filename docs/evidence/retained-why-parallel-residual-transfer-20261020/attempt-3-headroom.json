@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-20T21:22:21Z",
+  "reserved_workers": 0,
+  "active_runs": [],
+  "latest_run_ids": [
+    "20261020T211800-4883c7062114",
+    "20261020T211921-dd45e63b7eae"
+  ],
+  "memory_available_kib": 31596756
+}

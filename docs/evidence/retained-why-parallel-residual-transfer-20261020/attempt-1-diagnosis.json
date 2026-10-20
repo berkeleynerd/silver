@@ -1,0 +1,10 @@
+{
+  "managed_run": "20261020T211800-4883c7062114",
+  "failure": "Selected prover not installed or not configured",
+  "cause": "Preparer copied extra overlay why3.conf into distinct base cwd why3.conf slot.",
+  "target_seconds": 0.35447032200045214,
+  "reached_registration": false,
+  "solver_launches": 0,
+  "preparation_entries": 0,
+  "correction": "Copy exact inherited base cwd configuration separately; verify every relocated input against original identity before fresh attempt; preserve J12."
+}

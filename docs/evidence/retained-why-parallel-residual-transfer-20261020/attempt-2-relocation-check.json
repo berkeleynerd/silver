@@ -1,0 +1,63 @@
+{
+  "relocated_native_inputs": [
+    {
+      "path": "/tmp/silver-r53-20261020-a2/overlay/silver_cvc5_no_steps.gen",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/silver_cvc5_no_steps.gen",
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-20261020-a2/overlay/z3_gnatprove.drv",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/z3_gnatprove.drv",
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-20261020-a2/overlay/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "identity": {
+        "bytes": 18,
+        "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-20261020-a2/overlay/cvc5_gnatprove.drv",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/cvc5_gnatprove.drv",
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-20261020-a2/overlay/alt_ergo_gnatprove_smt2.drv",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/alt_ergo_gnatprove_smt2.drv",
+      "identity": {
+        "bytes": 2461,
+        "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-20261020-a2/first_or_default/silver_arguments__first_or_default.gnat-json",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/silver_arguments__first_or_default.gnat-json",
+      "identity": {
+        "bytes": 286340,
+        "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-20261020-a2/first_or_default/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    }
+  ],
+  "all_preserved": true,
+  "client_J": 12,
+  "server_J": 12
+}

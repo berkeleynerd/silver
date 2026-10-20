@@ -1,0 +1,12 @@
+{
+  "managed_run": "20261020T211921-dd45e63b7eae",
+  "native_seconds": 4.082430006999857,
+  "reached_registration": true,
+  "logical_capture_complete": true,
+  "metadata_capture_complete": false,
+  "solver_launches": 0,
+  "preparation_entries": 0,
+  "protected_guard_hits": 0,
+  "cause": "Driver Stdecl is Theory.Stdecl AVL because Task.mli exports HStdecl only; task history sets are Hcpt Patricia.",
+  "correction": "Separate AVL driver set decoder from Patricia history decoder, inspect Task.mli plus Theory.MakeMSH/Extset layouts, replay retained partial logs offline before further native acquisition."
+}
