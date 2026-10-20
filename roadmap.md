@@ -66,6 +66,15 @@ a future production obligation; the checkpoint does not discharge it. Continue
 whole-rule composition/comparison, reusing accepted native evidence. Relevant
 #150 review follow-ups are reconciled at bounded checkpoints.
 
+The next research increment is
+[#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
+retain the four missing fixed-library typed session domains, reuse the existing
+Input_Is_Valid state, establish scheduling/save-domain preservation and ordinary
+ending/SIGINT control, then attach per-process save charges and independently
+review the combined transfer. This does not close later driver transforms,
+printers, solver/server/report transfers or current-grammar generalization.
+Relevant #150 native-review follow-ups proceed in a separate bounded lane.
+
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,
 distinct from physical resource exhaustion. Optional confirmation cannot waive
