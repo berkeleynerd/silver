@@ -109,5 +109,73 @@
       "bytes": 1971,
       "sha256": "abdc54fd52b5b6a55fda9f7aac771eebd9dc6653daebc66b9e73d29d6f0e33df"
     }
+  },
+  "reviewed_companion": {
+    "commit": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+    "archive": "companion-freeze.tar.gz",
+    "identity": {
+      "bytes": 105222,
+      "sha256": "6e9cbe9cadcca23f31268890ccebacdbd6e84dbdb1eb6f316adc94e599193f30"
+    },
+    "files": {
+      "docs/evidence/retained-parallel-logging-prefix-20261020/README.md": {
+        "bytes": 1840,
+        "sha256": "6aeb21a6a7aa92b1ce61898302d6dc852bd7519dc332334bbd070ee0a057c145"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/audit_inputs.py": {
+        "bytes": 4598,
+        "sha256": "c9818ce2f1fee3e66aa3a7f4de9bc1eb5b519aa1836b6741de288002067d6c08"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/check-result.json": {
+        "bytes": 756,
+        "sha256": "ef64ffa06bd9ce2dcd543fcb94ec379ea232785c45f74799acc0b1250546fe7a"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/check.py": {
+        "bytes": 5981,
+        "sha256": "b5d86c2a9c454faf765fb61bc85f3d3473729039d77bb8e82f5be2db08aae3b1"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/control-use-scan.json": {
+        "bytes": 2740,
+        "sha256": "c59a8aef95c27427861297e24f455df6d1dc97f5fd8757465fe7adac32d2c497"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+        "bytes": 40157,
+        "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+        "bytes": 482672,
+        "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/inputs.json": {
+        "bytes": 3871,
+        "sha256": "ecb0f6e6d9514c70f3ff9dab88e4d6a36caf1e32dd8f0d584015310eb244e0a8"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/installed-byte-witnesses.json": {
+        "bytes": 101916,
+        "sha256": "e4842e9bfa7a8dfcc9f2b92b349301a0ac27b834529547b8d23aa864e108cc81"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/installed-startup-disassembly.txt": {
+        "bytes": 75051,
+        "sha256": "a7ccab1fa791a5ac5cf42593621786a4496c674c861d9885130dfb6c09b201e3"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/project.py": {
+        "bytes": 12429,
+        "sha256": "3edcc0108a01ac8c6cc418a9836c4246ede39c25f007869e8820ceb6abee48b4"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/round.md": {
+        "bytes": 3583,
+        "sha256": "f12d4ecbf4c6c331315b65ec65bee6c2e7f84487228eb368f1e5af188db6986a"
+      },
+      "docs/evidence/retained-parallel-logging-prefix-20261020/source-witnesses.json": {
+        "bytes": 69200,
+        "sha256": "4c35f43834cde83e52aae4fda2824d1a027911f8224385a207cfd5b9b05e7f51"
+      },
+      "docs/research/retained-parallel-logging-prefix.md": {
+        "bytes": 15571,
+        "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+      }
+    },
+    "acceptance_scope": "Conditionally accepted by independent reviewer under exact source, path-role, resource and control guards; source transfer is not mechanically proved",
+    "byte_origin": "git show at the exact reviewed commit; every owned file in that commit retained verbatim"
   }
 }

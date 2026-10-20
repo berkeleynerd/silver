@@ -10,7 +10,7 @@
     "unmasked_combined_cache_recovery_proved": false,
     "default_parallel_mutable_state_closed": false,
     "conditional_guarded_family_induction": true,
-    "input_initial_table_relation": "subset of complete older post-CE table under no-GC/successful-prefix and companion pre-registration constructor-trace relation; not equality of cuts",
+    "input_initial_table_relation": "subset of complete older post-CE table under no-GC/successful-prefix and pinned, conditionally reviewed companion pre-registration constructor-trace relation; not equality of cuts",
     "masked_launch_preservation": "source argument under selected native/callback ownership and successful OS mask services",
     "masked_launch_adopted": false,
     "current_signal_mask_observed": false,
@@ -49,9 +49,8 @@
     "default_parallel_mutable_state_closed": false
   },
   "next_obligations": [
-    "Integrate/pin companion all-domain pre-registration constructor-prefix transfer",
-    "Independent review",
-    "Choose and integrate actual supervisor/mask/resource interface, or prove combined continuing-failure state recovery",
+    "Independent final state focused check and combined review",
+    "Integrate actual supervisor/mask/resource interface, or prove combined continuing-failure state recovery",
     "Discharge resource/size/counter guards and complete whole-pipeline composition"
   ],
   "prospective_launch_requirements": {
@@ -61,5 +60,7 @@
     "server": "separately owned external server and solver process groups; shared-server shutdown not inferred from one client EOF",
     "adopted": false,
     "server_creation_race": "Parent returns fork PID before child setpgid; negative-PID kill ignores failure; actual supervisor must cover PID/group creation interval and reap"
-  }
+  },
+  "reviewed_companion_commit": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+  "author_validation_scope": "Retained successful author check at 5f3a10bf before companion metadata pin; final pinned-state check delegated to independent reviewer. No companion/predecessor checker rerun."
 }

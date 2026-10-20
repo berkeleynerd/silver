@@ -46,6 +46,13 @@ def main():
         assert identity((ROOT / name).read_bytes()) == expected, name
     for name, expected in inputs['local'].items():
         assert identity((HERE / name).read_bytes()) == expected, name
+    companion = inputs['reviewed_companion']
+    archive = (HERE / companion['archive']).read_bytes()
+    assert identity(archive) == companion['identity']
+    with tarfile.open(HERE / companion['archive']) as stream:
+        assert set(stream.getnames()) == set(companion['files'])
+        for name, expected in companion['files'].items():
+            assert identity(stream.extractfile(name).read()) == expected, name
     sources = read('source-witnesses.json')
     archives = {}
     try:
@@ -86,6 +93,8 @@ def main():
     result = {
         'status': 'pass', 'elapsed_seconds': time.monotonic() - start,
         'repository_inputs': len(inputs['repository']), 'source_files': len(sources),
+        'reviewed_companion_commit': companion['commit'],
+        'reviewed_companion_files': len(companion['files']),
         'source_excerpts': sum(len(s['excerpts']) for s in sources),
         'native_bodies': len(native['bodies']), 'installed_instruction_bytes_checked': byte_count,
         'context_declarations': {k: v['non_goal_declarations'] for k, v in projection.items()},

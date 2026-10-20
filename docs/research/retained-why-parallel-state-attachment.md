@@ -63,12 +63,18 @@ assume that final arithmetic theorem is already complete.
 ## Initial representative family without equating cuts
 
 R53 joins complete immutable raw graphs and metadata, but deliberately does not
-capture the complete new Hsdecl table. The companion R55 logging-prefix work
-supplies the stronger relation needed here: the same pre-registration Why3
+capture the complete new Hsdecl table. The reviewed
+[companion R55 logging-prefix work](retained-parallel-logging-prefix.md), frozen at
+`bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822`, supplies the stronger relation needed
+here: the same pre-registration Why3
 constructor trace, modulo the source path/address renaming, for the old and
 actual J12 prefixes. It checks actual input/configuration roles and the absence
 of protected collection/escaping interruption; raw-graph equality alone is not
-substituted for that trace relation.
+substituted for that trace relation. This packet pins all fourteen companion
+owned files and retains their exact bytes in `companion-freeze.tar.gz`; the
+state checker checks identities without running the companion checker again.
+The accepted transfer retains the companion's exact source, pathname-role,
+resource and control guards.
 
 This matters because `split_goal_wp_conj` calls
 `Gnat_rewrite.elim_to_of_array`, whose mapper reconstructs every Dprop under its
@@ -282,8 +288,9 @@ disposition is observed or changed by this packet.
 
 ## Result and next obligation
 
-The initial-family argument can now use the companion constructor-prefix
-transfer, including Input's later-table overapproximation. The cache/producer
+The initial-family argument now uses the pinned, conditionally reviewed
+companion constructor-prefix transfer, including Input's later-table
+overapproximation. The cache/producer
 induction covers arbitrary first-fill order and insertion prefixes of failed
 calls **under the stated mutation guard**. The default unmasked continuation
 does not yet discharge that guard. The next decision is concrete: complete the

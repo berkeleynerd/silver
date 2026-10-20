@@ -23,11 +23,15 @@ reader. `--refresh` is the explicit projection-generation mode.
   target-free static GDB queries. The hashcons body is reused from the older
   retained static disassembly. No successful native capture was repeated.
 - `inputs.json` separates repository and local evidence inputs.
+- `companion-freeze.tar.gz` retains all fourteen exact owned files from reviewed
+  companion `bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822`. Its file identities and
+  commit are pinned in `inputs.json`; the companion checker is not rerun.
 - `result.json` and `round.json` distinguish scoped source conclusions,
   conditional failure schemas, validation, rework and remaining integration.
 
-The initial-family transfer depends on the companion R55 logging-prefix
-constructor-trace relation. Input's old post-CE table is only an overapproximation
+The initial-family transfer uses the pinned, conditionally accepted companion
+R55 logging-prefix constructor-trace relation, with its source/resource/control
+guards. Input's old post-CE table is only an overapproximation
 of its old registration prefix; it is never equated with the new registration
 table. The proposed inherited SIGINT mask is source-analyzed, not adopted or
 observed. The global two-callback / three-save / e <= 2 budget is unchanged.

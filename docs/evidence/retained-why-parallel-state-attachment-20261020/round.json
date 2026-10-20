@@ -22,7 +22,8 @@
     "System nm/objdump unavailable; used pinned GDB for two static data-only queries",
     "Pinned the selected Weak shrink-test loop-back poll, without relying on generic float-array branches",
     "Parent/reviewer coordination made prospective SIGTERM default disposition, exact enumerated mask, SIGKILL fallback/reap and separate server ownership explicit",
-    "Independent reviewer identified child setpgid/group-kill race; retained exact two source files and made required PID/group fallback explicit"
+    "Independent reviewer identified child setpgid/group-kill race; retained exact two source files and made required PID/group fallback explicit",
+    "Pinned all fourteen exact files of conditionally accepted companion bb9bc85d in a portable archive; removed obsolete initial-trace integration obligation"
   ],
   "validation": {
     "status": "pass",
@@ -58,12 +59,22 @@
     "old_capture_reader_replays": 0,
     "successful_native_captures_repeated": 0
   },
-  "review": "Pending independent review of this freeze; selected reviewer GPT-6 Astra / Extra High per parent",
+  "review": "Independent reviewer conditionally accepted state source at 5f3a10bf and companion bb9bc85d; final state focused check pending on this exact pin. Selected reviewer GPT-6 Astra / Extra High; runtime telemetry unavailable.",
   "remaining": [
-    "Companion initial-trace dependency freeze/integration",
-    "Independent review",
-    "Actual unmasked recovery or guarded supervisor integration",
+    "Independent final state focused check and combined review",
+    "Actual guarded supervisor integration or unmasked recovery",
     "Whole-process capacities and no-wrap"
   ],
-  "validation_repeat_reason": "Added required server creation/cleanup source excerpts and changed source identities; repeated only bounded packet check"
+  "validation_repeat_reason": "Final new dependency pin and checker handling: reviewer will perform one focused state check; no companion or predecessor replay",
+  "companion_reviewer_check": {
+    "commit": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+    "counted_checks": 1054,
+    "additional_graph_and_input_assertions": true,
+    "source_slices": 47,
+    "instruction_rows": 962,
+    "internal_elapsed_seconds": 8.140359,
+    "subprocess_elapsed_seconds": 8.552581,
+    "source": "Reviewer message; not rerun by this subthread"
+  },
+  "author_validation_scope": "Retained successful author check at 5f3a10bf before companion metadata pin; final pinned-state check delegated to independent reviewer. No companion/predecessor checker rerun."
 }
