@@ -43,6 +43,36 @@ def main():
     generated=builder.make()
     for name,value in generated.items():
         require(value==read(HERE/name),'retained regeneration '+name)
+    # A citation must retain the relevant field, not only neighboring source.
+    # These targeted assertions cover the independently reviewed range defects.
+    inventory={row['id']:row for row in generated['consumer-inventory.json']}
+    citation_checks=0
+    def cited_contains(row_id,role,*tokens):
+        nonlocal citation_checks
+        reference=inventory[row_id][role].split(';')[0]
+        member,ranges=reference.split(':')
+        lines=sources[member].decode().splitlines(keepends=True)
+        pieces=[]
+        for span in ranges.split(','):
+            first,_,last=span.partition('-')
+            first,last=int(first),int(last or first)
+            require(1<=first<=last<=len(lines),'citation range '+reference)
+            pieces.append(''.join(lines[first-1:last]))
+        text=''.join(pieces)
+        for token in tokens:
+            require(token in text,f'cited field {row_id}/{role}: {token}')
+            citation_checks+=1
+    cited_contains('U-name-kind','writer','Write_Info_Str (" SU")')
+    cited_contains('U-finalization','writer','Write_Info_Str (" PF")','Write_Info_Str (" GE")')
+    cited_contains('U-finalization','reader','Is_Generic := True','Has_Finalizer := True',"Unit_Kind := 's'")
+    cited_contains('U-casing','writer','Write_Info_Str (" IL")','Write_Info_Str (" IU")','Write_Info_Str (" KM")','Write_Info_Str (" KU")')
+    cited_contains('U-casing','reader','Icasing := All_Lower_Case','Icasing := All_Upper_Case','Kcasing := Mixed_Case','Kcasing := All_Upper_Case')
+    cited_contains('U-scalars','writer','Write_Info_Str (" IS")')
+    cited_contains('U-scalars','reader','Init_Scalars := True','Initialize_Scalars_Used := True')
+    cited_contains('U-scalars','consumer','if Initialize_Scalars_Used then')
+    cited_contains('U-other','writer','Write_Info_Str (" O")','Write_Info_Str (" RA")','Write_Info_Str (" RC")','Write_Info_Str (" RT")')
+    cited_contains('U-other','reader','Optimize_Alignment := C','RCI := True','Remote_Types := True','Has_RACW := True')
+    cited_contains('fixed-auxiliary','writer','Collect_Withs (Unode)','Write_With_Lines;')
     closure=generated['fixed-ali-projection.json']
     require(len(closure)==82,'fixed closure ALI cardinality')
     projections=[(n,l) for n,row in closure.items() for l in row['projection']]
@@ -69,6 +99,7 @@ def main():
     result=dict(scope='retained-family binder serialization transfer inventory',
         repository_inputs=len(inputs['inputs']),source_members=len(sources),
         literal_excerpts=len(generated['source-excerpts.json']),consumer_groups=len(generated['consumer-inventory.json']),
+        field_specific_citation_checks=citation_checks,
         tracked_bindgen_identifiers=len(occurrences),fixed_ali_files=len(closure),
         restriction_members_excluding_sentinel=len(partition),fixed_boolean_violations=len(absorbed),
         native_executions=0,predecessor_checker_replays=0,

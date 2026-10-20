@@ -36,5 +36,31 @@
   "token_measurement": null,
   "cost_measurement": null,
   "independent_review": "Pending on frozen commit; lead owned.",
-  "cli_memory_updated": false
+  "cli_memory_updated": false,
+  "correction_rounds": [
+    {
+      "review_target": "de84039b49bcfc7e1c3d68bdac824b667dbdb671",
+      "selected_model": "GPT-6 Astra",
+      "selected_effort": "Extra High",
+      "runtime_model_confirmation": null,
+      "runtime_effort_confirmation": null,
+      "started_utc": "2026-10-20 07:47:27 UTC",
+      "source_and_check_complete_utc": "2026-10-20 07:48:30 UTC",
+      "elapsed_seconds_through_source_and_check": 63,
+      "finding": "Independent review found that several U-field writer/reader citations pointed to nearby lines and omitted their actual field assignments. The bounded semantic/census review reported no additional semantic gap.",
+      "repair": "Corrected U name/kind, finalization, casing, scalar and other-field ranges plus the fixed auxiliary writer start in both research table and generator; regenerated inventory and excerpts. Extended the existing writer excerpt through Write_With_Lines. Added 28 targeted expected-token checks within the cited field ranges.",
+      "focused_check_passed": true,
+      "focused_check_seconds": 0.451862323000114,
+      "field_specific_citation_checks": 28,
+      "source_pins_changed": false,
+      "semantic_claims_changed": false,
+      "capacity_arithmetic_changed": false,
+      "native_executions": 0,
+      "predecessor_checker_replays": 0,
+      "public_evaluator_runs": 0,
+      "token_measurement": null,
+      "cost_measurement": null,
+      "review_status": "Awaiting reviewer continuation on the separate fix commit."
+    }
+  ]
 }

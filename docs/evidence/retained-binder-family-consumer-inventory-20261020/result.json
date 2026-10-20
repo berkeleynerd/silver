@@ -4,6 +4,7 @@
   "source_members": 8,
   "literal_excerpts": 39,
   "consumer_groups": 14,
+  "field_specific_citation_checks": 28,
   "tracked_bindgen_identifiers": 55,
   "fixed_ali_files": 82,
   "restriction_members_excluding_sentinel": 100,

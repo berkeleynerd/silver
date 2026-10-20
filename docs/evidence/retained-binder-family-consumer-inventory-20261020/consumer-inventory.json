@@ -58,7 +58,7 @@
   {
     "id": "U-name-kind",
     "fields": "Uname, Sfile, Utype, Unit_Kind, Predefined, Internal, My_ALI, SAL_Interface, Directly_Scanned",
-    "writer": "lib-writ.adb:432-443,453-461,585-610",
+    "writer": "lib-writ.adb:432-443,456-464,567-599",
     "reader": "ali.adb:2628-2670,2865-2955,3176-3198",
     "consumer": "bindgen.adb:1283,1533-1563,1652-1663,1717-1739,1750-1763,1799-1822,1992-2002,2311-2316,2659-2670,3065-3097,3124-3218,3272-3275,3316-3318,3357-3407",
     "argument": "Main remains the same non-generic library subprogram body and source-name role. No SAL/library/replay route is selected. All other units, file roles and order are the accepted fixed closure."
@@ -74,39 +74,39 @@
   {
     "id": "U-finalization",
     "fields": "PF, GE, Unit_Kind",
-    "writer": "lib-writ.adb:535-548,613-621",
-    "reader": "ali.adb:2806-2817,2860-2877",
+    "writer": "lib-writ.adb:526-537,567-599",
+    "reader": "ali.adb:2799-2808,2856-2873,2905-2920",
     "consumer": "bindgen.adb:1769-1948,3261-3281",
     "argument": "Main is a subprogram, never a non-generic package with a finalizer. The fixed packages alone determine Has_Finalizer and generated finalization routines."
   },
   {
     "id": "U-casing",
     "fields": "IL, IU, KM, KU -> Icasing, Kcasing",
-    "writer": "lib-writ.adb:624-637",
-    "reader": "ali.adb:2819-2844",
+    "writer": "lib-writ.adb:601-613",
+    "reader": "ali.adb:2811-2827,2829-2842",
     "consumer": "bindgen.adb:1551-1564,1652-1674",
     "argument": "May vary with source casing. Main No_Elab takes the earlier branch, so its Icasing is not serialized; fixed units retain fixed casing. Kcasing has no bindgen consumer."
   },
   {
     "id": "U-scalars",
     "fields": "IS -> Init_Scalars, Initialize_Scalars_Used",
-    "writer": "lib-writ.adb:640-642",
-    "reader": "ali.adb:2826-2831",
-    "consumer": "bindgen.adb:1117-1126,2570-2572",
+    "writer": "lib-writ.adb:615-617",
+    "reader": "ali.adb:2811-2827",
+    "consumer": "bindgen.adb:1117-1126,2569-2571",
     "argument": "No Initialize_Scalars setting or Invalid_Value use is admitted; the fixed ALIs contain no IS. No Main declaration can add scalar initialization."
   },
   {
     "id": "U-other",
     "fields": "Ox, RA, RC, RT, SE, SP",
-    "writer": "lib-writ.adb:529-531,560-583",
-    "reader": "ali.adb:2878-2955",
+    "writer": "lib-writ.adb:520-521,547-565",
+    "reader": "ali.adb:2875-2920",
     "consumer": "bindgen.adb:1-3656",
     "argument": "Optimization alignment/configuration and successful compilation are fixed; no remote/shared-passive feature. These fields have no direct bindgen reader; their retained consistency/closure consumers are unchanged."
   },
   {
     "id": "fixed-auxiliary",
     "fields": "W/Z closure; interrupt and dispatch tables; linker options; binding environment; target switches",
-    "writer": "lib-writ.adb:645-829; accepted invocation configuration",
+    "writer": "lib-writ.adb:621-829; accepted invocation configuration",
     "reader": "ali.adb:readers under retained binder row policy",
     "consumer": "bindgen.adb:1217-1486,2237-2461,2512-2943,3297-3407,3416-3430,3486-3511,3552-3573",
     "argument": "No new with, pragma, CUDA, interrupt, dispatch, linker option or environment directive occurs. Fixed closure/configuration drives all other serializer branches; comments/path spellings retain the accepted width/renaming transfer."
