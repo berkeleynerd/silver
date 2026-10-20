@@ -1,0 +1,53 @@
+{
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "checks": [
+    {
+      "component": "retained-cvc5-enum-output-20261020",
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-cvc5-enum-output-20261020/check.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"API_Kind\": {\"distinct_spellings\": 297, \"maximum_spelling_bytes\": 32, \"ordinary_histogram_allowance\": 10892, \"spelling_bytes\": 3760}, \"ProofRewriteRule\": {\"distinct_spellings\": 528, \"maximum_spelling_bytes\": 34, \"ordinary_histogram_allowance\": 22527, \"spelling_bytes\": 9851}, \"ProofRule\": {\"distinct_spellings\": 157, \"maximum_spelling_bytes\": 33, \"ordinary_histogram_allowance\": 6022, \"spelling_bytes\": 2250}, \"TypeConstant\": {\"distinct_spellings\": 12, \"maximum_spelling_bytes\": 39, \"ordinary_histogram_allowance\": 557, \"spelling_bytes\": 265}, \"internal_Kind_AST\": {\"distinct_spellings\": 385, \"maximum_spelling_bytes\": 35, \"ordinary_histogram_allowance\": 14748, \"spelling_bytes\": 5504}, \"internal_Kind_SMTLIB_SYGUS\": {\"distinct_spellings\": 380, \"maximum_spelling_bytes\": 35, \"ordinary_histogram_allowance\": 13058, \"spelling_bytes\": 3934}, \"internal_Kind_any_supported_language\": {\"distinct_spellings\": 659, \"maximum_spelling_bytes\": 35, \"ordinary_histogram_allowance\": 23453, \"spelling_bytes\": 7633}}\nPASS: 55 complete source files; generated input domains; q_cvc5/O remain null\n",
+      "stderr": "",
+      "wall_seconds": 0.897814
+    },
+    {
+      "component": "retained-cvc5-registry-domain-20261020",
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-cvc5-registry-domain-20261020/check.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"status\": \"pass\",\n  \"source_files\": 137,\n  \"registration_sites\": 354,\n  \"registered\": {\n    \"S\": 669,\n    \"L_names\": 21449,\n    \"I\": 420,\n    \"D\": 5,\n    \"T\": 126,\n    \"strings\": 2,\n    \"histograms\": {\n      \"API_Kind\": 2,\n      \"InferenceId\": 87,\n      \"LearnedRewriteId\": 1,\n      \"ProofRewriteRule\": 4,\n      \"ProofRule\": 4,\n      \"Resource\": 1,\n      \"TheoryId\": 2,\n      \"TrustId\": 1,\n      \"TypeConstant\": 4,\n      \"bags::Rewrite\": 1,\n      \"internal_Kind\": 4,\n      \"strings::Rewrite\": 1,\n      \"uint32_t\": 4\n    },\n    \"base_bytes_excluding_strings_histogram_values_dynamic\": 35362,\n    \"base_plus_seven_accepted_finite_histogram_families\": 1664192\n  },\n  \"stats_all_false\": {\n    \"S\": 622,\n    \"L_names\": 20096,\n    \"I\": 420,\n    \"D\": 5,\n    \"T\": 125,\n    \"strings\": 1,\n    \"histograms\": {\n      \"API_Kind\": 1,\n      \"InferenceId\": 45,\n      \"LearnedRewriteId\": 1,\n      \"ProofRewriteRule\": 4,\n      \"ProofRule\": 4,\n      \"Resource\": 1,\n      \"TheoryId\": 2,\n      \"TrustId\": 1,\n      \"TypeConstant\": 2,\n      \"bags::Rewrite\": 1,\n      \"internal_Kind\": 4,\n      \"strings::Rewrite\": 1,\n      \"uint32_t\": 4\n    },\n    \"base_bytes_excluding_strings_histogram_values_dynamic\": 33799,\n    \"base_plus_seven_accepted_finite_histogram_families\": 883991\n  },\n  \"dynamic\": {\n    \"name_pattern\": \"DynamicRewriter::_dyn_rewriter_<unsigned decimal>::<suffix>\",\n    \"suffixes\": [\n      \"mergesCount\",\n      \"termsCount\",\n      \"functionTermsCount\",\n      \"constantTermsCount\"\n    ],\n    \"I_per_distinct_counter\": 4,\n    \"S_per_distinct_counter\": 4,\n    \"fixed_name_bytes_per_counter\": 189,\n    \"L_names_formula\": \"189*R + 4*L_decimal\",\n    \"ordinary_byte_formula\": \"285*R + 4*L_decimal\",\n    \"unsigned32_distinct_counter_ceiling\": 4294967296,\n    \"unsigned32_all_decimal_bytes\": 41838561850,\n    \"unsigned32_all_name_bytes\": 979103066344,\n    \"unsigned32_all_ordinary_bytes\": 1391419926760,\n    \"premises\": [\n      \"unsigned has 32 value bits\",\n      \"decimal C locale/default integer stream formatting\",\n      \"represented valid source objects\"\n    ]\n  },\n  \"checker_wall_seconds\": 1.137797\n}\n",
+      "stderr": "",
+      "wall_seconds": 1.206861
+    },
+    {
+      "component": "retained-solver-launch-profile-20261020",
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-solver-launch-profile-20261020/check.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"scope\": \"prospective conditional source interface; not native coverage\",\n  \"source_members\": 11,\n  \"retained_inputs\": 7,\n  \"cases\": [\n    {\n      \"case\": \"put_line\",\n      \"G\": 64,\n      \"C_launch\": 72,\n      \"run_offers_upper\": 192,\n      \"interrupt_offers_upper\": 192,\n      \"raw_run_ID_upper\": 3284,\n      \"line_upper_if_C_is_launch_length\": 3396,\n      \"finished_allocation_upper_if_C_is_launch_length\": 3398,\n      \"pending_plus_read_upper_if_C_is_launch_length\": 4420,\n      \"direct_InvalidAnswer_upper_if_C_is_launch_length\": 3419\n    },\n    {\n      \"case\": \"put\",\n      \"G\": 53,\n      \"C_launch\": 67,\n      \"run_offers_upper\": 159,\n      \"interrupt_offers_upper\": 159,\n      \"raw_run_ID_upper\": 2723,\n      \"line_upper_if_C_is_launch_length\": 2830,\n      \"finished_allocation_upper_if_C_is_launch_length\": 2832,\n      \"pending_plus_read_upper_if_C_is_launch_length\": 3854,\n      \"direct_InvalidAnswer_upper_if_C_is_launch_length\": 2853\n    },\n    {\n      \"case\": \"first_or_default\",\n      \"G\": 32,\n      \"C_launch\": 80,\n      \"run_offers_upper\": 96,\n      \"interrupt_offers_upper\": 96,\n      \"raw_run_ID_upper\": 1652,\n      \"line_upper_if_C_is_launch_length\": 1772,\n      \"finished_allocation_upper_if_C_is_launch_length\": 1774,\n      \"pending_plus_read_upper_if_C_is_launch_length\": 2796,\n      \"direct_InvalidAnswer_upper_if_C_is_launch_length\": 1795\n    },\n    {\n      \"case\": \"is_message\",\n      \"G\": 3,\n      \"C_launch\": 74,\n      \"run_offers_upper\": 9,\n      \"interrupt_offers_upper\": 9,\n      \"raw_run_ID_upper\": 173,\n      \"line_upper_if_C_is_launch_length\": 287,\n      \"finished_allocation_upper_if_C_is_launch_length\": 289,\n      \"pending_plus_read_upper_if_C_is_launch_length\": 1311,\n      \"direct_InvalidAnswer_upper_if_C_is_launch_length\": 310\n    },\n    {\n      \"case\": \"input_is_valid\",\n      \"G\": 1,\n      \"C_launch\": 105,\n      \"run_offers_upper\": 3,\n      \"interrupt_offers_upper\": 3,\n      \"raw_run_ID_upper\": 71,\n      \"line_upper_if_C_is_launch_length\": 216,\n      \"finished_allocation_upper_if_C_is_launch_length\": 218,\n      \"pending_plus_read_upper_if_C_is_launch_length\": 1240,\n      \"direct_InvalidAnswer_upper_if_C_is_launch_length\": 239\n    }\n  ],\n  \"per_file_q\": null,\n  \"weighted_O\": null,\n  \"complete_parallel_capacity\": false,\n  \"elapsed_seconds\": 0.20479725200129906\n}\n",
+      "stderr": "",
+      "wall_seconds": 0.262506
+    },
+    {
+      "component": "retained-solver-task-language-20261020",
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-solver-task-language-20261020/check.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\": \"pass\", \"products\": 5, \"elapsed_seconds\": 0.866525, \"native_solver_proof_runs\": 0}\n",
+      "stderr": "",
+      "wall_seconds": 0.917219
+    }
+  ]
+}
