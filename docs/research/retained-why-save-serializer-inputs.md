@@ -3,7 +3,9 @@
 2026-10-20 UTC; authorized #119 / #153 Round 29 research;
 base `466c44c54b6ec777829400108c2f53920827bcc0`.
 Selected worker setting: GPT-6.1 Sol / Extra High; runtime confirmation and
-token/cost measurements are unavailable. Independent review is pending.
+token/cost measurements are unavailable. The
+[combined Round 29 review](../reviews/review-save-capacity-round29-20261020.md)
+accepts this conditional result at aggregate `7832039860`.
 
 The retained five fresh captures determine every selected XML string field at
 the cut. Source/configuration mapping also determines the three automatic

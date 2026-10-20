@@ -148,5 +148,6 @@ native bound unknown until the continued-signal, membership-publication/key-
 preservation and native-counter/no-unmodeled-mutator contracts are attached.
 No new scheduler-entry/preparation bound, successful serialization guarantee,
 whole-save capacity or whole-pipeline capacity is asserted. Oracle, admission,
-source pins and production tooling are unchanged. Independent combined review
-is lead-owned; this packet is not that review.
+source pins and production tooling are unchanged. The
+[combined Round 29 review](../reviews/review-save-capacity-round29-20261020.md)
+accepts this conditional argument at aggregate `7832039860`.

@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "python_sources_parsed": 8,
+  "local_markdown_links_checked": 102,
+  "author_files": 40,
+  "exact_author_matches": 34,
+  "dependency_identity_updates": 2,
+  "editorial_review_links": 4,
+  "native_pins_unchanged": 94,
+  "note": "Native pins verified once after source integration; no native input changed afterward. No predecessor aggregate/checker replay."
+}

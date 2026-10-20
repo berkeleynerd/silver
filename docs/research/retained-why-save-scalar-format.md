@@ -10,6 +10,9 @@ not establish continued service success, complete Format storage capacity or
 whole-save capacity. The exported actual bound remains null until those named
 conversion premises are joined.
 
+The [combined Round 29 review](../reviews/review-save-capacity-round29-20261020.md)
+accepts this scoped argument at aggregate `7832039860`.
+
 The [packet](../evidence/retained-why-save-scalar-format-20261020/README.md)
 retains source excerpts, 17 installed native bodies (3,408 bytes), three native
 data constants, the published GNU libc conversion contract and a fail-closed

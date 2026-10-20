@@ -1,0 +1,371 @@
+{
+  "reviewed_aggregate": "78320398608b16cff21a199e915913e583e8f8d1",
+  "review_integrated": "739db8e244",
+  "author_files": 40,
+  "exact_author_matches": 34,
+  "dependency_identity_refreshes": 2,
+  "editorial_review_acceptance_updates": 4,
+  "native_aggregate_pins_unchanged": 94,
+  "rows": [
+    {
+      "group": "serializer",
+      "author_freeze": "f1fb2613def431b6dd3c9637304b942a85757872",
+      "path": "docs/evidence/retained-why-save-serializer-inputs-20261020/README.md",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1688,
+      "sha256": "8f190b77afa2c3e9a1b9c1a7ce02f47052d31178661771c9eef0c4eddcf89060"
+    },
+    {
+      "group": "serializer",
+      "author_freeze": "f1fb2613def431b6dd3c9637304b942a85757872",
+      "path": "docs/evidence/retained-why-save-serializer-inputs-20261020/extract.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 17728,
+      "sha256": "e90611fa910953692c34b1cfbe46eacc445a9bc6ca0757a0036ea1d15500e1e2"
+    },
+    {
+      "group": "serializer",
+      "author_freeze": "f1fb2613def431b6dd3c9637304b942a85757872",
+      "path": "docs/evidence/retained-why-save-serializer-inputs-20261020/result.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 423804,
+      "sha256": "03f218de4907eca5069ff25a48b6884fe18cb64787027669b229eb9898d4d361"
+    },
+    {
+      "group": "serializer",
+      "author_freeze": "f1fb2613def431b6dd3c9637304b942a85757872",
+      "path": "docs/evidence/retained-why-save-serializer-inputs-20261020/round.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 2161,
+      "sha256": "dad9f38f86e41c9b5c7b74959390e82b2b56bf108acdefe637e9c397b97f0269"
+    },
+    {
+      "group": "serializer",
+      "author_freeze": "f1fb2613def431b6dd3c9637304b942a85757872",
+      "path": "docs/evidence/retained-why-save-serializer-inputs-20261020/test_extract.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 3209,
+      "sha256": "9bb2430daee7fd7e98b10977ffcb0bc9c9b92cf0c1cec6f0f6a903577ea53672"
+    },
+    {
+      "group": "serializer",
+      "author_freeze": "f1fb2613def431b6dd3c9637304b942a85757872",
+      "path": "docs/research/retained-why-save-serializer-inputs.md",
+      "exact_author_match": false,
+      "integration_change": "Editorial combined-review acceptance link only",
+      "bytes": 11134,
+      "sha256": "c5c47633a78710789e0b35e39d9cdfd8046c4c409376c53c3447d2eaa364fea8"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/README.md",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1525,
+      "sha256": "8aa1e4c8cd7064f9931fea6dbe75f555f6a8af563660058436cad15d8a4f52c6"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/check-result.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 307,
+      "sha256": "25cb4801babcc594562bb03acde55fd0e868dafba8bd49f1d39edab77c174202"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/check.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 4774,
+      "sha256": "f6f6f1d57c846a4aa504f440ad8ce4e73bc61f32df4563c5d7aef71b2238302c"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/inputs.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 2207,
+      "sha256": "c0e57cc10d25ee51448f536165e19599185135d113bd0b3fb9006327c72fa969"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Floating_002dPoint-Conversions.html",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 12574,
+      "sha256": "6b77a6e842a42c54590c7fc9a13a01bafa260eca4fd51aaf869b7841a664e70f"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Formatted-Output-Functions.html",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 18280,
+      "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Integer-Conversions.html",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 14824,
+      "sha256": "8813da73e400c4173aa4dba13d0627ae971156f6d3dd00572102c8f99a5f3c04"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/native-bodies.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 52488,
+      "sha256": "89254942206fbb821a108b4eaf2e3b7718f09de87953e13a625bb01668ecee18"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/native-witnesses.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1092,
+      "sha256": "9d623ed208747c9dc1e23975fe7ec184ada84da5435ca8c7dd78149b5da7579d"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/result.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1293,
+      "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/retrieval.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1165,
+      "sha256": "06ce983ebd19fe9aa6496c49a8e8d84d6bb311378424867c3b353d9100911b74"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/round.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 781,
+      "sha256": "7526c70eb290ce34b86005b282401326b0e1aec933f6c3d46237c231d6c1844b"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/source-witnesses.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 26238,
+      "sha256": "dbe43b048b3216f04a675e9a332c37507f3a9c9fb6cac6ebeb33f0c2656a7f60"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/evidence/retained-why-save-scalar-format-20261020/transfer.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1043,
+      "sha256": "5fd33f677f40bdd146f896401d18a29aeab8273bc06bb19fb319ec22f4344d00"
+    },
+    {
+      "group": "scalar",
+      "author_freeze": "ad11aa9773",
+      "path": "docs/research/retained-why-save-scalar-format.md",
+      "exact_author_match": false,
+      "integration_change": "Editorial combined-review acceptance link only",
+      "bytes": 7889,
+      "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/README.md",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 2175,
+      "sha256": "66a9a1f9f6bd9464a59fec9771df90d93523b17b2e0fa05f0e6878759e931271"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/build_packet.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 4114,
+      "sha256": "9190761dd5f5181fab03cb1c9fa0d90e97a36bcdcf15a380a035739bda4d59f0"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/check.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 11150,
+      "sha256": "03668ac606ec7645f5292bcca1c799d5f5adb2f56bdb136d4d48f29c757905e0"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/inputs.json",
+      "exact_author_match": false,
+      "integration_change": "Single dependency identity refreshed for reviewed preservation-premise clarification",
+      "bytes": 3879,
+      "sha256": "9f1e068984e513b568650271aa77a5f72394dcf8d72aaf71677e2b55bbf3d99f"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/result.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 14854,
+      "sha256": "dec0a6e26f22b14db46a67605469002bd9ce87452c58e9ea7c625a82ca77ef73"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/round.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 2678,
+      "sha256": "d51fe1252d1127f2f2d8382591ab5762a12dd1bb80541ced46c291783f4e6252"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/source-census.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1320,
+      "sha256": "7ab84ad3f6d748c8060a063f77e2692f86b04ffb55252964efb5f9177e987a2b"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/source-excerpts.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 34186,
+      "sha256": "dfac9c88373bd85ccaac9ee0645418e1fbdfa6b6506d7e3e491c2736cfcdb868"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/evidence/retained-why-attempt-counter-continuation-20261020/transfer.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 1370,
+      "sha256": "3c810e99c21958369ec741d3f621a67935456c296d459ad66ff479385ac5db20"
+    },
+    {
+      "group": "counter",
+      "author_freeze": "8cc4934b9017a8bb5a289772bd1a6bfa3bb2a09d",
+      "path": "docs/research/retained-why-attempt-counter-continuation.md",
+      "exact_author_match": false,
+      "integration_change": "Editorial combined-review acceptance link only",
+      "bytes": 10543,
+      "sha256": "781046f60602a6c9070f66fc96c8b05b061afa1406a2c2452086ab6dd803827b"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/README.md",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 2417,
+      "sha256": "dde0575e68a14d304a74a38f6b9125cdd40e97ed1ce190b6c78efb24216e771b"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/capture-projection.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 8081,
+      "sha256": "14ca4b9d26e625e8ab0159d922ca9ef0b456bd9dfd6c128fd46ca171e303857b"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/check-result.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 165,
+      "sha256": "6dfb53afe4f9280078377943ab83d2e3cad5d434d53499fc85e044c2a9ea43b9"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/check.py",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 13398,
+      "sha256": "4844e5a02e4e990982fb45448c981492f2b0a5d706c6c1ff28d5735032b9ce91"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/inputs.json",
+      "exact_author_match": false,
+      "integration_change": "Single dependency identity refreshed for reviewed preservation-premise clarification",
+      "bytes": 2146,
+      "sha256": "0a4ce8b75071310085ca417f5be0e10144c5a87a2d4734c33dbd593f294007f6"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/model-result.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 72068,
+      "sha256": "ec5f8a2d04d35ddba52e00b7040f1b987690a7d0457689bafdf2ce8ffadbb7ee"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/round.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 2362,
+      "sha256": "a4b4a89e6c882486110ecfc60b1153e5174141b2218571469d9dc434b732fd12"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/evidence/retained-why-theory-cache-resize-20261020/source-excerpts.json",
+      "exact_author_match": true,
+      "integration_change": null,
+      "bytes": 21766,
+      "sha256": "91bd0abd3412beef4ee93db76fc4734a784a4ad4b67770386dd9f39da7337437"
+    },
+    {
+      "group": "theory",
+      "author_freeze": "ea3df756004a01d6ba45b296d7904c6e21ec2e18",
+      "path": "docs/research/retained-why-theory-cache-resize.md",
+      "exact_author_match": false,
+      "integration_change": "Editorial combined-review acceptance link only",
+      "bytes": 13832,
+      "sha256": "894b05fbf2a3f08fc2841f725c82b1e7616e77a03ad80c11082182fc1c9ab4c0"
+    }
+  ]
+}

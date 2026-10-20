@@ -17,7 +17,9 @@ binds the five retained capture members, source excerpts, prior native evidence,
 no capture, native execution, disassembly, source fetch, solver/proof execution,
 or replay of accepted observer/binder/alpha/native checkers. Oracle, admission,
 tools and pins are unchanged; production 88–94 remains unstarted and PR #121
-remains draft/unmerged. Independent combined review is owned by the lead.
+remains draft/unmerged. The
+[combined Round 29 review](../reviews/review-save-capacity-round29-20261020.md)
+accepts the first-prefix result and explicit residual at aggregate `7832039860`.
 
 ## Inputs and scope
 

@@ -2789,3 +2789,104 @@ On the owner's progress question, the estimate is **80–85%**, with approximate
 82% as a subjective planning midpoint, not a remaining-time prediction. #119
 and #153 stay active/In progress. No new owner decision, goal-status change,
 Oracle/tool/admission change or CLI-memory update is claimed.
+
+## Round 29 — Save counters, serializer inputs and resize boundary
+
+2026-10-20 UTC, resumed #119 / #153. Four bounded packets supply new conditional
+counter/string/scalar bounds and identify the exact remaining theory-cache
+control question. The [combined independent review](../reviews/review-save-capacity-round29-20261020.md)
+accepts aggregate `78320398608b16cff21a199e915913e583e8f8d1`, with no blocker,
+medium or material low finding remaining in scope. Review author freeze
+`f81d671b34` is integrated as `739db8e244`. This does not complete save capacity,
+#153 or the full #119 goal. Oracle, installed tools/pins and admission are
+unchanged; production #88–#94 remains unstarted and PR #121 draft/unmerged.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Serializer occurrence/configuration inventory | `f1fb2613de` | `d4411679cf` |
+| Selected scalar conversion bound | Lead-authored | `ad11aa9773` |
+| Interrupted attempt-counter bound | `8cc4934b90` | `8c01143a23` |
+| First theory-cache resize and countermodels | `ea3df75600` | `7d546e05b5` |
+| Preservation-premise clarification and dependency joins | Lead-authored | `7832039860` |
+
+The [counter argument](../research/retained-why-attempt-counter-continuation.md)
+establishes `increments <= publications+1 <= K+e+1`, without reusing the normal
+scheduler-entry bound. A constructor abandoned after increment cannot be followed
+by another constructor on the selected receiving paths. The fresh initial
+counters **14 / 12 / 10 / 1 / 4** yield conditional endpoints
+**209 / 174 / 109 / 13 / 10**. Native continuation, counter and publication/key
+contracts remain explicit. InternalFailure can update caches and return with
+queued work; its no-constructor property does not exclude those cache effects.
+
+The [serializer inventory](../research/retained-why-save-serializer-inputs.md)
+gives candidate U values **4,275 / 3,571 / 2,317 / 419 / 384** per save. It
+counts output occurrences and the complete selected structural prover domain
+(74 bytes), not unique forest nodes or only currently attempted provers. Actual
+U remains null because **64 / 53 / 32 / 3 / 4** serialized identifiers lack
+captured restored-path bindings; later registrations need a bound. The
+[scalar argument](../research/retained-why-save-scalar-format.md) derives
+conditional **d=20** (integer20, binary64 `%g`13, Boolean5) and small normal
+temporaries. Actual locale/service joins and aggregate Format/error capacity
+remain separate; the actual scalar output is deliberately null.
+
+The [resize argument](../research/retained-why-theory-cache-resize.md) proves
+finite first-published-resize chains with at most `2N` visits. Prepublication
+allocation failure means N need not be 33; the valid prepublication domain
+gives `N <= Th+2`. A conditional save-only suffix bounds sizes by
+**51 / 51 / 46** and visits by **99 / 99 / 89** for the three large cases.
+Actual-hash models exhibit second-resize cycles after a **hypothetical** later
+file-query pass. They demonstrate why a generic rehash extension is insufficient,
+not a source-reachable or observed native defect. The protected InternalFailure
+and later callback path still needs a status/remaining-signal invariant.
+
+Integration clarifies inherited `Th+2` wording: the whole-continuation allowance
+requires key preservation. An interrupted published resize can lose keys and
+allow reinsertion. The numerical results and false native-contract flags were
+already conditional. Two current-note clarifications and their two new packet
+dependency updates were reviewed together; no historical source excerpt,
+numeric result or native evidence changed. Both affected offline checks pass.
+
+### Verification and cost
+
+The [integration packet](retained-why-save-round29-20261020/README.md) retains
+the affected checks and final file correspondence. The 40 author files reconcile
+as 34 exact matches, two single-dependency identity updates and four editorial
+review-acceptance links. The combined report and current-note clarifications
+are separate. All **94 native aggregate pins** remain unchanged.
+Eight Python sources parse and 102 local document links resolve.
+
+Focused checks cover the five raw counter projections, 126 counter prefix
+states, serializer extraction/four boundary tests, 18 scalar source excerpts,
+17 native bodies (3,408 bytes) and three constants, missing-premise/overflow
+boundaries, and 198 first-resize model states plus three second-resize witnesses.
+These support the reviewed source arguments; they are not proofs by sampling.
+No native target/capture/disassembler/solver/GNATprove/Lean/full-suite run or
+old successful observer/binder/alpha/formatter replay occurred. Root fetched
+three GNU libc manual pages for the imported conversion contract; no new
+implementation source archive was fetched.
+
+Selected authors: Astra / Extra High for counter and theory-cache reasoning;
+Sol / Extra High for serializer extraction; lead settings unavailable for the
+scalar/integration work. One Astra / Extra High reviewer covered the aggregate
+in 9m12s wall time including waiting, with no subdelegation. Runtime confirmation,
+per-agent attribution and monetary cost are unavailable. The observed harness
+interval was **26,176,091 → 27,745,001 tokens** and
+**24,778 → 26,470 time-counter seconds**: deltas **1,568,910** and **1,692**.
+This is an aggregate observed interval, not a complete-round, per-agent,
+input/output or monetary accounting; publication follows the second reading.
+New bounds and a precise obstruction were integrated without broad replay, but
+this does not establish a causal model-quality or cost-efficiency improvement.
+
+### Next concrete obligations
+
+Resolve whether selected status propagation and the remaining global signal
+budget can reach another file-query pass after the first abandoned theory-cache
+resize. Use actual initial statuses and receiving paths; absence of constructors
+or ordinary monotonicity alone is insufficient. Then bound later restored-path
+registrations and join the continuation/native/key/client, scalar-service,
+Format/container and channel/error owners. The wider driver transformations/
+printers, solver/server/results/report, fixed-library and variable-source/current-
+grammar coverage, whole-rule composition/correspondence, useful-domain comparison
+and final review remain #119 obligations. The full goal remains active; the
+80–85% estimate (about82%) is unchanged and subjective. No new owner decision,
+goal-status change or CLI-memory update is claimed.
