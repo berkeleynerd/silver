@@ -1,0 +1,36 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_confirmed_by": "parent agent message",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "total_subthread_elapsed_seconds": null,
+  "token_usage": null,
+  "cost": null,
+  "document_and_packet_phase_start_utc": "2026-10-20 19:21:12 UTC",
+  "initial_source_reading_included_in_measured_interval": false,
+  "intended_result": "Concrete supported same-installed-CVC5 quiet/no-statistics configuration route and preserved required consumers.",
+  "achieved_result": "Controlled direct-base route with unchanged builtin keys and drivers; option effects, generated filename branch, exact +123-byte command difference; no complete q.",
+  "material_rework": [
+    "Deferred custom prover alias because extra plugins/driver object and stock hardcoded warn-prover widen scope.",
+    "Included proof-finalization work difference; checkProofsComplete remains independent."
+  ],
+  "independent_review_status": "pending at author freeze",
+  "native_solver_proof_capture_runs": 0,
+  "document_and_packet_phase_end_utc": "2026-10-20 19:30:23 UTC",
+  "measured_document_and_packet_elapsed_seconds": 551.925,
+  "focused_check_result": {
+    "status": "passed",
+    "source_files": 36,
+    "input_files": 16,
+    "cvc5_driver_files": 10,
+    "option_occurrences": {
+      "option_fields_or_keys": 61,
+      "stream_reassignments": 8,
+      "verbosity_calls": 63
+    },
+    "checked_local_link_targets": 8,
+    "elapsed_seconds": 2.146343
+  },
+  "native_tool_elapsed_seconds": 0
+}

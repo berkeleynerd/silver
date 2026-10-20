@@ -1,0 +1,148 @@
+[
+  {
+    "name": "cvc5_gnatprove.drv",
+    "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+    "member": "overlay/cvc5_gnatprove.drv",
+    "bytes": 2181,
+    "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e",
+    "directives": []
+  },
+  {
+    "name": "silver_cvc5_no_steps.gen",
+    "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+    "member": "overlay/silver_cvc5_no_steps.gen",
+    "bytes": 1779,
+    "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4",
+    "directives": [
+      {
+        "line": 7,
+        "text": "unknown \"^(error \\\"Can't get-info :reason-unknown when the last result wasn't unknown!\\\")$\" \"(not unknown!)\""
+      },
+      {
+        "line": 9,
+        "text": "outofmemory \"cvc5 suffered a segfault\""
+      },
+      {
+        "line": 10,
+        "text": "outofmemory \"cvc5::internal::Minisat::OutOfMemoryException\""
+      },
+      {
+        "line": 18,
+        "text": "filename \"%f-%t-%g.smt2\""
+      },
+      {
+        "line": 19,
+        "text": "printer \"smtv2.6\""
+      },
+      {
+        "line": 32,
+        "text": "outofmemory \"(error \\\".*out of memory\\\")\""
+      },
+      {
+        "line": 33,
+        "text": "outofmemory \"CVC4 suffered a segfault\""
+      },
+      {
+        "line": 34,
+        "text": "outofmemory \"CVC4::BVMinisat::OutOfMemoryException\""
+      },
+      {
+        "line": 35,
+        "text": "outofmemory \"std::bad_alloc\""
+      },
+      {
+        "line": 36,
+        "text": "outofmemory \"Cannot allocate memory\""
+      },
+      {
+        "line": 37,
+        "text": "timeout \"interrupted by timeout\""
+      },
+      {
+        "line": 41,
+        "text": "steplimitexceeded \"unknown (RESOURCEOUT)\""
+      }
+    ]
+  },
+  {
+    "name": "smt-libv2.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen",
+    "bytes": 4017,
+    "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50",
+    "directives": [
+      {
+        "line": 21,
+        "text": "unknown \"^\\\\(unknown\\\\|sat\\\\|Fail\\\\)$\" \"\\\\1\""
+      },
+      {
+        "line": 22,
+        "text": "unknown \"^(:reason-unknown \\\\([^)]*\\\\))$\" \"\\\\1\""
+      },
+      {
+        "line": 23,
+        "text": "time \"why3cpulimit time : %s s\""
+      },
+      {
+        "line": 24,
+        "text": "valid \"^unsat$\""
+      }
+    ]
+  },
+  {
+    "name": "smt-libv2-bv.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen",
+    "bytes": 10203,
+    "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4",
+    "directives": []
+  },
+  {
+    "name": "cvc4_bv.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/cvc4_bv.gen",
+    "bytes": 911,
+    "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423",
+    "directives": []
+  },
+  {
+    "name": "smt-libv2-floats.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen",
+    "bytes": 8423,
+    "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602",
+    "directives": []
+  },
+  {
+    "name": "discrimination.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/discrimination.gen",
+    "bytes": 169,
+    "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671",
+    "directives": []
+  },
+  {
+    "name": "smt-libv2-gnatprove.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen",
+    "bytes": 1438,
+    "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd",
+    "directives": []
+  },
+  {
+    "name": "smt-libv2-floats-gnatprove.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen",
+    "bytes": 1815,
+    "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6",
+    "directives": []
+  },
+  {
+    "name": "smt-libv2-floats-int_via_real.gen",
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen",
+    "bytes": 357,
+    "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec",
+    "directives": []
+  }
+]

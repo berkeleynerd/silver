@@ -1,0 +1,695 @@
+[
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+    "bytes": 15646,
+    "sha256": "7e21a70b5c326a82e178f49e88ee78d9ee3cb8e78481024f6c5d6b1af2a14595",
+    "witnesses": [
+      {
+        "begin": 5,
+        "end": 116,
+        "text": "  name       = \"err\"\n  category   = \"expert\"\n  long       = \"err=erroutput\"\n  type       = \"ManagedErr\"\n  default    = '{}'\n  alias      = [\"diagnostic-output-channel\"]\n  predicates = [\"setErrStream\"]\n  includes   = [\"<iostream>\", \"options/managed_streams.h\"]\n  help       = \"Set the error (or diagnostic) output channel. Writes to stderr for \\\"stderr\\\" or \\\"--\\\", stdout for \\\"stdout\\\" or the given filename otherwise.\"\n\n[[option]]\n  name       = \"in\"\n  category   = \"expert\"\n  long       = \"in=input\"\n  type       = \"ManagedIn\"\n  default    = '{}'\n  includes   = [\"<iostream>\", \"options/managed_streams.h\"]\n  help       = \"Set the error (or diagnostic) output channel. Reads from stdin for \\\"stdin\\\" or \\\"--\\\" and the given filename otherwise.\"\n\n[[option]]\n  name       = \"out\"\n  category   = \"expert\"\n  long       = \"out=output\"\n  type       = \"ManagedOut\"\n  default    = '{}'\n  alias      = [\"regular-output-channel\"]\n  includes   = [\"<iostream>\", \"options/managed_streams.h\"]\n  help       = \"Set the error (or diagnostic) output channel. Writes to stdout for \\\"stdout\\\" or \\\"--\\\", stderr for \\\"stderr\\\" or the given filename otherwise.\"\n\n[[option]]\n  name       = \"inputLanguage\"\n  alias      = [\"input-language\"]\n  category   = \"common\"\n  short      = \"L\"\n  long       = \"lang=LANG\"\n  type       = \"Language\"\n  default    = \"Language::LANG_AUTO\"\n  handler    = \"stringToLanguage\"\n  predicates = [\"setInputLanguage\"]\n  includes   = [\"options/language.h\"]\n  help       = \"force input language (default is \\\"auto\\\"; see --lang help)\"\n\n[[option]]\n  name       = \"verbosity\"\n  long       = \"verbosity=N\"\n  category   = \"common\"\n  type       = \"int64_t\"\n  default    = \"0\"\n  predicates = [\"setVerbosity\"]\n  help       = \"the verbosity level of cvc5\"\n\n[[option]]\n  category   = \"common\"\n  short      = \"v\"\n  long       = \"verbose\"\n  type       = \"bool\"\n  alternate  = false\n  predicates = [\"increaseVerbosity\"]\n  help       = \"increase verbosity (may be repeated)\"\n\n[[option]]\n  category   = \"common\"\n  short      = \"q\"\n  long       = \"quiet\"\n  type       = \"bool\"\n  alternate  = false\n  predicates = [\"decreaseVerbosity\"]\n  help       = \"decrease verbosity (may be repeated)\"\n\n[[option]]\n  name       = \"incrementalSolving\"\n  category   = \"common\"\n  short      = \"i\"\n  long       = \"incremental\"\n  type       = \"bool\"\n  default    = \"true\"\n  help       = \"enable incremental solving\"\n\n[[option]]\n  name       = \"statistics\"\n  long       = \"stats\"\n  category   = \"common\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStats\"]\n  help       = \"give statistics on exit\"\n\n[[option]]\n  name       = \"statisticsAll\"\n  long       = \"stats-all\"\n  category   = \"common\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStatsDetail\"]\n  help       = \"print unchanged (defaulted) statistics as well\"\n\n[[option]]\n  name       = \"statisticsInternal\"\n  long       = \"stats-internal\"\n  category   = \"common\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStatsDetail\"]\n  help       = \"print internal (non-public) statistics as well\"\n\n[[option]]\n  name       = \"statisticsEveryQuery\"\n  long       = \"stats-every-query\"\n  category   = \"regular\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStatsDetail\"]\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+    "bytes": 12677,
+    "sha256": "f73197bb966b19c8700a7b4aa73ec9d57d7865b78f7084030eb8fbcdf392d52c",
+    "witnesses": [
+      {
+        "begin": 106,
+        "end": 112,
+        "text": "OptionsHandler::OptionsHandler(Options* options) : d_options(options) { }\n\nvoid OptionsHandler::setErrStream(const std::string& flag, const ManagedErr& me)\n{\n  Warning.setStream(me);\n  TraceChannel.setStream(me);\n}\n"
+      },
+      {
+        "begin": 161,
+        "end": 223,
+        "text": "void OptionsHandler::setVerbosity(const std::string& flag, int value)\n{\n  if(Configuration::isMuzzledBuild()) {\n    TraceChannel.setStream(&cvc5::internal::null_os);\n    WarningChannel.setStream(&cvc5::internal::null_os);\n  } else {\n    if(value < 0) {\n      WarningChannel.setStream(&cvc5::internal::null_os);\n    } else {\n      WarningChannel.setStream(&std::cerr);\n    }\n  }\n}\n\nvoid OptionsHandler::decreaseVerbosity(const std::string& flag, bool value)\n{\n  d_options->write_base().verbosity -= 1;\n  setVerbosity(flag, d_options->base.verbosity);\n}\n\nvoid OptionsHandler::increaseVerbosity(const std::string& flag, bool value)\n{\n  d_options->write_base().verbosity += 1;\n  setVerbosity(flag, d_options->base.verbosity);\n}\n\nvoid OptionsHandler::setStats(const std::string& flag, bool value)\n{\n#ifndef CVC5_STATISTICS_ON\n  if (value)\n  {\n    std::stringstream ss;\n    ss << \"option `\" << flag\n       << \"' requires a statistics-enabled build of cvc5; this binary was not \"\n          \"built with statistics support\";\n    throw OptionException(ss.str());\n  }\n#endif /* CVC5_STATISTICS_ON */\n  if (!value)\n  {\n    d_options->write_base().statisticsAll = false;\n    d_options->write_base().statisticsEveryQuery = false;\n    d_options->write_base().statisticsInternal = false;\n  }\n}\n\nvoid OptionsHandler::setStatsDetail(const std::string& flag, bool value)\n{\n#ifndef CVC5_STATISTICS_ON\n  if (value)\n  {\n    std::stringstream ss;\n    ss << \"option `\" << flag\n       << \"' requires a statistics-enabled build of cvc5; this binary was not \"\n          \"built with statistics support\";\n    throw OptionException(ss.str());\n  }\n#endif /* CVC5_STATISTICS_ON */\n  if (value)\n  {\n    d_options->write_base().statistics = true;\n  }\n}\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/mkoptions.py",
+    "bytes": 44341,
+    "sha256": "b50606446bb5a979f417d2fd8abf25bda83aef3d24d44e12476e24f21c9b0988",
+    "witnesses": [
+      {
+        "begin": 251,
+        "end": 275,
+        "text": "def generate_holder_mem_inits(modules):\n    \"\"\"Render initializations of holder members of the Option class\"\"\"\n    return concat_format(\n        '        d_{id}(std::make_unique<options::Holder{id_cap}>()),',\n        modules)\n\n\ndef generate_holder_ref_inits(modules):\n    \"\"\"Render initializations of holder references of the Option class\"\"\"\n    return concat_format('        {id}(*d_{id}),', modules)\n\n\ndef generate_write_functions(modules):\n    \"\"\"Render write functions for holders within the Option class\"\"\"\n    return concat_format('''  options::Holder{id_cap}& Options::write_{id}()\n  {{\n    return *d_{id};\n  }}\n''', modules)\n\n\ndef generate_holder_mem_copy(modules):\n    \"\"\"Render copy operation of holder members of the Option class\"\"\"\n    return concat_format('      *d_{id} = *options.d_{id};', modules)\n\n"
+      },
+      {
+        "begin": 360,
+        "end": 416,
+        "text": "\ndef _set_handlers(option):\n    \"\"\"Render handler call for options::set().\"\"\"\n    if option.handler:\n        return 'opts.handler().{}(name, optionarg)'.format(option.handler)\n    elif option.mode:\n        return 'stringTo{}(optionarg)'.format(option.type)\n    return 'handlers::handleOption<{}>(name, optionarg)'.format(option.type)\n\n\ndef _set_predicates(module, option):\n    \"\"\"Render predicate calls for options::set().\"\"\"\n    res = []\n    if option.minimum:\n        res.append(\n            'opts.handler().checkMinimum(name, value, static_cast<{}>({}));'\n            .format(option.type, option.minimum))\n    if option.maximum:\n        res.append(\n            'opts.handler().checkMaximum(name, value, static_cast<{}>({}));'\n            .format(option.type, option.maximum))\n    res += [\n        'opts.handler().{}(name, value);'.format(x) for x in option.predicates\n    ]\n    if module.id == 'printer':\n        res.append('ioutils::setDefault{}(value);'.format(option.name_capitalized))\n\n    return res\n\n\ndef generate_set_impl(modules):\n    \"\"\"Generates the implementation for options::set().\"\"\"\n    res = []\n    res.append('auto it = NAME_TO_ENUM.find(name);')\n    res.append('if (it == NAME_TO_ENUM.end()) {')\n    res.append('  throw OptionException(\\\"Unrecognized option key or setting: \\\" + name);')\n    res.append('}')\n    res.append('switch (it->second) {')\n    for module, option in all_options(modules, True):\n        if not option.long:\n            continue\n        res.append('  case OptionEnum::{}:'.format(option.enum_name()))\n        res.append('  {')\n        res.append('    auto value = {};'.format(_set_handlers(option)))\n        for pred in _set_predicates(module, option):\n            res.append('    {}'.format(pred))\n        if option.name:\n            res.append('    opts.write_{module}().{name} = value;'.format(\n                module=module.id, name=option.name))\n            res.append('    opts.write_{module}().{name}WasSetByUser = true;'.format(\n                module=module.id, name=option.name))\n        res.append('    break;')\n        res.append('  }')\n    res.append('}')\n    return '\\n    '.join(res)\n\ndef cpp_category(category):\n"
+      },
+      {
+        "begin": 631,
+        "end": 695,
+        "text": "\n\ndef generate_parsing(modules):\n    \"\"\"Generates the implementation for main::parseInternal() and matching\n    options definitions suitable for getopt_long(). Returns a tuple with:\n    - short options description (passed as third argument to getopt_long)\n    - long options description (passed as fourth argument to getopt_long)\n    - handler code that turns getopt_long return value to a setOption call\n    \"\"\"\n    short = \"\"\n    opts = []\n    code = []\n    next_id = 256\n    for _, option in all_options(modules, False):\n        needs_impl = False\n        if option.short:  # short option\n            needs_impl = True\n            code.append(\"case '{0}': // -{0}\".format(option.short))\n            short += option.short\n            if option.type != 'bool':\n                short += ':'\n        if option.long:  # long option\n            needs_impl = True\n            _add_cmdoption(option, option.long_name, opts, next_id)\n            code.append('case {}: // --{}'.format(next_id, option.long_name))\n            next_id += 1\n        if option.alias:  # long option aliases\n            needs_impl = True\n            for alias in option.alias:\n                _add_cmdoption(option, alias, opts, next_id)\n                code.append('case {}: // --{}'.format(next_id, alias))\n                next_id += 1\n\n        if needs_impl:\n            # there is some way to call it, add call to solver.setOption()\n            if option.type == 'bool':\n                code.append('  solver.setOption(\"{}\", \"true\"); break;'.format(\n                    option.long_name))\n            else:\n                code.append(\n                    '  solver.setOption(\"{}\", optionarg); break;'.format(\n                        option.long_name))\n\n        if option.alternate:\n            assert option.type == 'bool'\n            # bool option that wants a --no-*\n            needs_impl = False\n            if option.long:  # long option\n                needs_impl = True\n                _add_cmdoption(option, 'no-' + option.long_name, opts, next_id)\n                code.append('case {}: // --no-{}'.format(\n                    next_id, option.long_name))\n                next_id += 1\n            if option.alias:  # long option aliases\n                needs_impl = True\n                for alias in option.alias:\n                    _add_cmdoption(option, 'no-' + alias, opts, next_id)\n                    code.append('case {}: // --no-{}'.format(next_id, alias))\n                    next_id += 1\n            code.append('  solver.setOption(\"{}\", \"false\"); break;'.format(\n                option.long_name))\n\n    return short, '\\n  '.join(opts), '\\n    '.join(code)\n\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_template.cpp",
+    "bytes": 1464,
+    "sha256": "ce50207c70f884720ccef58e43845fe8cf75de2e42d23056d991500ee9d51bab",
+    "witnesses": [
+      {
+        "begin": 50,
+        "end": 59,
+        "text": "  void Options::copyValues(const Options& options)\n  {\n    if (this != &options)\n    {\n// clang-format off\n${holder_mem_copy}$\n// clang-format on\n    }\n  }\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/managed_streams.cpp",
+    "bytes": 3735,
+    "sha256": "7bdbba52d82f54f4a13aa39b15647ce310baa9004a6ca8cb0655f47c1352a30e",
+    "witnesses": [
+      {
+        "begin": 80,
+        "end": 128,
+        "text": "  {\n    std::stringstream ss;\n    ss << \"Cannot open file: `\" << filename << \"': \" << cvc5_errno_failreason();\n    throw OptionException(ss.str());\n  }\n  return res;\n}\nstd::unique_ptr<std::istream> openIStream(const std::string& filename)\n{\n  errno = 0;\n  std::unique_ptr<std::istream> res = std::make_unique<std::ifstream>(filename);\n  if (!res || !*res)\n  {\n    std::stringstream ss;\n    ss << \"Cannot open file: `\" << filename << \"': \" << cvc5_errno_failreason();\n    throw OptionException(ss.str());\n  }\n  return res;\n}\n}  // namespace detail\n\nManagedErr::ManagedErr() : ManagedStream(&std::cerr, \"stderr\") {}\nbool ManagedErr::specialCases(const std::string& value)\n{\n  if (value == \"stderr\" || value == \"--\")\n  {\n    d_nonowned = &std::cerr;\n    d_owned.reset();\n    d_description = \"stderr\";\n    return true;\n  }\n  else if (value == \"stdout\")\n  {\n    d_nonowned = &std::cout;\n    d_owned.reset();\n    d_description = \"stdout\";\n    return true;\n  }\n  return false;\n}\n\nManagedIn::ManagedIn() : ManagedStream(&std::cin, \"stdin\") {}\nbool ManagedIn::specialCases(const std::string& value)\n{\n  if (value == \"stdin\" || value == \"--\")\n  {\n    d_nonowned = &std::cin;\n    d_owned.reset();\n    d_description = \"stdin\";\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/options_template.cpp",
+    "bytes": 10232,
+    "sha256": "5be0e0e94b9b462e7baee7202c3535ef8b784c8b2164a54ccb119c1c1db24f8a",
+    "witnesses": [
+      {
+        "begin": 220,
+        "end": 285,
+        "text": "  {  // Repeat Forever\n\n    optopt = 0;\n\n    optind = main_optind;\n    old_optind = main_optind;\n\n    // If we encounter an element that is not at zero and does not start\n    // with a \"-\", this is a non-option. We consume this element as a\n    // non-option.\n    if (main_optind > 0 && main_optind < argc && argv[main_optind][0] != '-')\n    {\n      Trace(\"options\") << \"enqueueing \" << argv[main_optind]\n                       << \" as a non-option.\" << std::endl;\n      nonoptions.push_back(argv[main_optind]);\n      ++main_optind;\n      continue;\n    }\n\n    Trace(\"options\") << \"[ before, main_optind == \" << main_optind << \" ]\"\n                     << std::endl;\n    Trace(\"options\") << \"[ before, optind == \" << optind << \" ]\" << std::endl;\n    Trace(\"options\") << \"[ argc == \" << argc << \", argv == \" << argv << \" ]\"\n                     << std::endl;\n    // clang-format off\n    int c = getopt_long(argc, argv,\n                        \"+:${cmdoptions_short}$\",\n                        cmdlineOptions, nullptr);\n    // clang-format on\n\n    main_optind = optind;\n\n    Trace(\"options\") << \"[ got \" << int(c) << \" (\" << char(c) << \") ]\"\n                     << \"[ next option will be at pos: \" << optind << \" ]\"\n                     << std::endl;\n\n    // The initial getopt_long call should always determine that argv[0]\n    // is not an option and returns -1. We always manually advance beyond\n    // this element.\n    if (old_optind == 0 && c == -1)\n    {\n      Assert(main_optind > 0);\n      continue;\n    }\n\n    if (c == -1)\n    {\n      if (TraceIsOn(\"options\"))\n      {\n        Trace(\"options\") << \"done with option parsing\" << std::endl;\n        for (int index = optind; index < argc; ++index)\n        {\n          Trace(\"options\") << \"remaining \" << argv[index] << std::endl;\n        }\n      }\n      break;\n    }\n\n    std::string option = argv[old_optind == 0 ? 1 : old_optind];\n    std::string optionarg = (optarg == nullptr) ? \"\" : optarg;\n\n    Trace(\"preemptGetopt\") << \"processing option \" << c << \" (`\" << char(c)\n                           << \"'), \" << option << std::endl;\n\n    switch (c)\n    {\n"
+      },
+      {
+        "begin": 319,
+        "end": 350,
+        "text": "\n  const char* progName = argv[0];\n\n  // To debug options parsing, you may prefer to simply uncomment this\n  // and recompile. Debug flags have not been parsed yet so these have\n  // not been set.\n  // TraceChannel.on(\"options\");\n\n  Trace(\"options\") << \"argv == \" << argv << std::endl;\n\n  // Find the base name of the program.\n  const char* x = strrchr(progName, '/');\n  if (x != nullptr)\n  {\n    progName = x + 1;\n  }\n  binaryName = std::string(progName);\n\n  std::vector<std::string> nonoptions;\n  parseInternal(solver, argc, argv, nonoptions);\n  if (TraceIsOn(\"options\"))\n  {\n    for (const auto& no : nonoptions)\n    {\n      Trace(\"options\") << \"nonoptions \" << no << std::endl;\n    }\n  }\n\n  return nonoptions;\n}\n\n}  // namespace cvc5::main\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/driver_unified.cpp",
+    "bytes": 8731,
+    "sha256": "37eccbd652830be38074be44b1a0089e4938f7247d42cb87fc85081f44de0e4b",
+    "witnesses": [
+      {
+        "begin": 61,
+        "end": 79,
+        "text": "{\n  // Initialize the signal handlers\n  signal_handlers::install();\n\n  progPath = argv[0];\n\n  // Create the command executor to execute the parsed commands\n  pExecutor = std::make_unique<CommandExecutor>(solver);\n  cvc5::DriverOptions dopts = solver->getDriverOptions();\n\n  // Parse the options\n  std::vector<string> filenames = parse(*solver, argc, argv, progName);\n  if (solver->getOptionInfo(\"help\").boolValue())\n  {\n    printUsage(progName, dopts.out());\n    exit(1);\n  }\n  else if (solver->getOptionInfo(\"help-regular\").boolValue())\n  {\n"
+      },
+      {
+        "begin": 112,
+        "end": 171,
+        "text": "  // If no file supplied we will read from standard input\n  const bool inputFromStdin = filenames.empty() || filenames[0] == \"-\";\n\n  // If we're reading from stdin, use interactive mode if we are a TTY.\n  if (!solver->getOptionInfo(\"interactive\").setByUser)\n  {\n    pExecutor->setOptionInternal(\n        \"interactive\",\n        (inputFromStdin && isatty(fileno(stdin))) ? \"true\"  : \"false\");\n  }\n\n  // Auto-detect input language by filename extension\n  std::string filenameStr(\"<stdin>\");\n  if (!inputFromStdin) {\n    filenameStr = std::move(filenames[0]);\n  }\n  const char* filename = filenameStr.c_str();\n  cvc5::modes::InputLanguage ilang;\n  if (solver->getOption(\"input-language\") == \"LANG_AUTO\")\n  {\n    if( inputFromStdin ) {\n      // We can't do any fancy detection on stdin\n      pExecutor->setOptionInternal(\"input-language\", \"smt2\");\n    } else {\n      size_t len = filenameStr.size();\n      if(len >= 5 && !strcmp(\".smt2\", filename + len - 5)) {\n        pExecutor->setOptionInternal(\"input-language\", \"smt2\");\n      } else if((len >= 3 && !strcmp(\".sy\", filename + len - 3))\n                || (len >= 3 && !strcmp(\".sl\", filename + len - 3))) {\n        // version 2 sygus is the default\n        pExecutor->setOptionInternal(\"input-language\", \"sygus2\");\n      }\n    }\n  }\n  if (solver->getOption(\"input-language\") == \"LANG_SYGUS_V2\")\n  {\n    // Enable the sygus API. We set this here instead of in set defaults \n    // to simplify checking at the API level. In particular, the sygus\n    // option is the authority on whether sygus commands are currently\n    // allowed in the API.\n    pExecutor->setOptionInternal(\"sygus\", \"true\");\n    ilang = cvc5::modes::InputLanguage::SYGUS_2_1;\n  }\n  else\n  {\n    ilang = cvc5::modes::InputLanguage::SMT_LIB_2_6;\n  }\n\n  if (solver->getOption(\"output-language\") == \"LANG_AUTO\")\n  {\n    pExecutor->setOptionInternal(\"output-language\",\n                                 solver->getOption(\"input-language\"));\n  }\n\n  // Determine which messages to show based on smtcomp_mode and verbosity\n  if(Configuration::isMuzzledBuild()) {\n    TraceChannel.setStream(&cvc5::internal::null_os);\n    WarningChannel.setStream(&cvc5::internal::null_os);\n  }\n\n"
+      },
+      {
+        "begin": 214,
+        "end": 281,
+        "text": "        // read and execute all available commands\n        if (!shell.readAndExecCommands())\n        {\n          break;\n        }\n      }\n    }\n    else\n    {\n      if (!solver->getOptionInfo(\"incremental\").setByUser)\n      {\n        pExecutor->setOptionInternal(\"incremental\", \"false\");\n      }\n      // we don't need to check that terms passed to API methods are well\n      // formed, since this should be an invariant of the parser\n      if (!solver->getOptionInfo(\"wf-checking\").setByUser)\n      {\n        pExecutor->setOptionInternal(\"wf-checking\", \"false\");\n      }\n      // now store options as original\n      pExecutor->storeOptionsAsOriginal();\n\n      std::unique_ptr<InputParser> parser(new InputParser(\n          pExecutor->getSolver(), pExecutor->getSymbolManager()));\n      if( inputFromStdin ) {\n        parser->setStreamInput(ilang, cin, filename);\n      }\n      else\n      {\n        parser->setFileInput(ilang, filename);\n      }\n\n      PortfolioDriver driver(parser);\n      returnValue = driver.solve(pExecutor) ? 0 : 1;\n    }\n\n#ifdef CVC5_COMPETITION_MODE\n    dopts.out() << std::flush;\n    // exit, don't return (don't want destructors to run)\n    // _exit() from unistd.h doesn't run global destructors\n    // or other on_exit/atexit stuff.\n    _exit(returnValue);\n#endif /* CVC5_COMPETITION_MODE */\n\n    pExecutor->flushOutputStreams();\n\n#ifdef CVC5_DEBUG\n    {\n      auto info = solver->getOptionInfo(\"early-exit\");\n      if (info.boolValue() && info.setByUser)\n      {\n        _exit(returnValue);\n      }\n    }\n#else  /* CVC5_DEBUG */\n    if (solver->getOptionInfo(\"early-exit\").boolValue())\n    {\n      _exit(returnValue);\n    }\n#endif /* CVC5_DEBUG */\n  }\n\n  pExecutor.reset();\n\n  signal_handlers::cleanup();\n\n  return returnValue;\n}\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+    "bytes": 7541,
+    "sha256": "f65bede04067f7e2e98017d877cae584c8d9c73851898499aeec31f64f5eb688",
+    "witnesses": [
+      {
+        "begin": 69,
+        "end": 114,
+        "text": "  // cache the value of parse-only, which is set by the command line only\n  // and thus will not change in a run.\n  d_parseOnly = d_solver->getOptionInfo(\"parse-only\").boolValue();\n}\n\nvoid CommandExecutor::setOptionInternal(const std::string& key,\n                                        const std::string& value)\n{\n  // set option, marked not from user.\n  d_solver->d_slv->setOption(key, value, false);\n}\n\nvoid CommandExecutor::printStatistics(std::ostream& out) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    {\n      const auto& stats = d_solver->getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n    {\n      const auto& stats = d_solver->getTermManager().getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n  }\n}\n\nvoid CommandExecutor::printStatisticsSafe(int fd) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    d_solver->getTermManager().printStatisticsSafe(fd);\n    d_solver->printStatisticsSafe(fd);\n  }\n"
+      },
+      {
+        "begin": 219,
+        "end": 252,
+        "text": "bool CommandExecutor::solverInvoke(cvc5::Solver* solver,\n                                   SymManager* sm,\n                                   Cmd* cmd)\n{\n  // print output for -o raw-benchmark\n  if (solver->isOutputOn(\"raw-benchmark\"))\n  {\n    solver->getOutput(\"raw-benchmark\") << cmd->toString() << std::endl;\n  }\n\n  // In parse-only mode, we do not invoke any of the commands except define-*\n  // declare-*, set-logic, and reset commands. We invoke define-* and declare-*\n  // commands because they add function names to the symbol table.\n  if (d_parseOnly && dynamic_cast<SetBenchmarkLogicCommand*>(cmd) == nullptr\n      && dynamic_cast<ResetCommand*>(cmd) == nullptr\n      && dynamic_cast<DeclarationDefinitionCommand*>(cmd) == nullptr\n      && dynamic_cast<DatatypeDeclarationCommand*>(cmd) == nullptr\n      && dynamic_cast<DefineFunctionRecCommand*>(cmd) == nullptr)\n  {\n    return true;\n  }\n\n  cmd->invokeAndPrintResult(solver, sm);\n  return !cmd->fail();\n}\n\nvoid CommandExecutor::flushOutputStreams() {\n  printStatistics(d_solver->getDriverOptions().err());\n\n  // make sure out and err streams are flushed too\n  d_solver->getDriverOptions().out() << std::flush;\n  d_solver->getDriverOptions().err() << std::flush;\n}\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/main.cpp",
+    "bytes": 2488,
+    "sha256": "7f492ac8d404d527aae1e2b479bbc6567df0ef8d9696766861f946fa04375cb9",
+    "witnesses": [
+      {
+        "begin": 32,
+        "end": 82,
+        "text": "{\n  cvc5::TermManager tm;\n  std::unique_ptr<cvc5::Solver> solver = std::make_unique<cvc5::Solver>(tm);\n  try\n  {\n    return runCvc5(argc, argv, solver);\n  }\n  catch (cvc5::CVC5ApiOptionException& e)\n  {\n#ifdef CVC5_COMPETITION_MODE\n    solver->getDriverOptions().out() << \"unknown\" << std::endl;\n#endif\n    std::cerr << \"(error \\\"\" << e.getMessage() << \"\\\")\" << std::endl\n              << std::endl\n              << \"Please use --help to get help on command-line options.\"\n              << std::endl;\n  }\n  catch (OptionException& e)\n  {\n#ifdef CVC5_COMPETITION_MODE\n    solver->getDriverOptions().out() << \"unknown\" << std::endl;\n#endif\n    std::cerr << \"(error \\\"\" << e.getMessage() << \"\\\")\" << std::endl\n              << std::endl\n              << \"Please use --help to get help on command-line options.\"\n              << std::endl;\n  }\n  catch (cvc5::CVC5ApiException& e)\n  {\n#ifdef CVC5_COMPETITION_MODE\n    solver->getDriverOptions().out() << \"unknown\" << std::endl;\n#endif\n    if (solver->getOption(\"output-language\") == \"LANG_SMTLIB_V2_6\")\n    {\n      solver->getDriverOptions().out()\n          << \"(error \\\"\" << e << \"\\\")\" << std::endl;\n    }\n    else\n    {\n      solver->getDriverOptions().err()\n          << \"(error \\\"\" << e << \"\\\")\" << std::endl;\n    }\n    if (solver->getOptionInfo(\"stats\").boolValue() && pExecutor != nullptr)\n    {\n      pExecutor->printStatistics(solver->getDriverOptions().err());\n    }\n  }\n  // Make sure that the command executor is destroyed before the node manager.\n  pExecutor.reset();\n  exit(1);\n}\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/signal_handlers.cpp",
+    "bytes": 9355,
+    "sha256": "aec15fd9edcba84f9e0a4ac90b895727a0b29d123e810cfe4267f9cf5143ad0e",
+    "witnesses": [
+      {
+        "begin": 48,
+        "end": 124,
+        "text": " * If true, will not spin on segfault even when CVC5_DEBUG is on.\n * Useful for nightly regressions, noninteractive performance runs\n * etc.\n */\nbool segvSpin = false;\n\nnamespace signal_handlers {\n\nvoid print_statistics()\n{\n  if (pExecutor != nullptr)\n  {\n    pExecutor->printStatisticsSafe(STDERR_FILENO);\n  }\n}\n\nvoid timeout_handler()\n{\n  safe_print(STDERR_FILENO, \"cvc5 interrupted by timeout.\\n\");\n  print_statistics();\n  abort();\n}\n\n#ifndef __WIN32__\n\n#ifdef HAVE_SIGALTSTACK\nsize_t stackSize;\nvoid* stackBase;\n#endif /* HAVE_SIGALTSTACK */\n\n/** Handler for SIGXCPU and SIGALRM, i.e., timeout. */\nvoid timeout_handler(int sig, siginfo_t* info, void*) { timeout_handler(); }\n\n/** Handler for SIGTERM. */\nvoid sigterm_handler(int sig, siginfo_t* info, void*)\n{\n  safe_print(STDERR_FILENO, \"cvc5 interrupted by SIGTERM.\\n\");\n  print_statistics();\n  signal(sig, SIG_DFL);\n  raise(sig);\n}\n\n/** Handler for SIGINT, i.e., when the user hits control C. */\nvoid sigint_handler(int sig, siginfo_t* info, void*)\n{\n  safe_print(STDERR_FILENO, \"cvc5 interrupted by user.\\n\");\n  print_statistics();\n  signal(sig, SIG_DFL);\n  raise(sig);\n}\n\n#ifdef HAVE_SIGALTSTACK\n/** Handler for SIGSEGV (segfault). */\nvoid segv_handler(int sig, siginfo_t* info, void* c)\n{\n  uintptr_t extent = reinterpret_cast<uintptr_t>(stackBase) - stackSize;\n  uintptr_t addr = reinterpret_cast<uintptr_t>(info->si_addr);\n#ifdef CVC5_DEBUG\n  safe_print(STDERR_FILENO, \"cvc5 suffered a segfault in DEBUG mode.\\n\");\n  safe_print(STDERR_FILENO, \"Offending address is \");\n  safe_print(STDERR_FILENO, info->si_addr);\n  safe_print(STDERR_FILENO, \"\\n\");\n  // cerr << \"base is \" << (void*)stackBase << endl;\n  // cerr << \"size is \" << stackSize << endl;\n  // cerr << \"extent is \" << (void*)extent << endl;\n  if (addr >= extent && addr <= extent + 10 * 1024)\n  {\n    safe_print(STDERR_FILENO,\n               \"Looks like this is likely due to stack overflow.\\n\");\n    safe_print(STDERR_FILENO,\n               \"You might consider increasing the limit with `ulimit -s' or \"\n               \"equivalent.\\n\");\n  }\n  else if (addr < 10 * 1024)\n  {\n    safe_print(STDERR_FILENO, \"Looks like a NULL pointer was dereferenced.\\n\");\n  }\n"
+      },
+      {
+        "begin": 218,
+        "end": 244,
+        "text": "void cvc5terminate()\n{\n  set_terminate(default_terminator);\n#ifdef CVC5_DEBUG\n  LastExceptionBuffer* current = LastExceptionBuffer::getCurrent();\n  LastExceptionBuffer::setCurrent(NULL);\n  delete current;\n\n  safe_print(STDERR_FILENO,\n             \"\\n\"\n             \"cvc5 was terminated by the C++ runtime.\\n\"\n             \"Perhaps an exception was thrown during stack unwinding.  \"\n             \"(Don't do that.)\\n\");\n  print_statistics();\n  default_terminator();\n#else  /* CVC5_DEBUG */\n  safe_print(STDERR_FILENO,\n             \"cvc5 was terminated by the C++ runtime.\\n\"\n             \"Perhaps an exception was thrown during stack unwinding.\\n\");\n  print_statistics();\n  default_terminator();\n#endif /* CVC5_DEBUG */\n}\n\nvoid install()\n{\n#ifdef CVC5_DEBUG\n"
+      },
+      {
+        "begin": 245,
+        "end": 333,
+        "text": "  LastExceptionBuffer::setCurrent(new LastExceptionBuffer());\n#endif\n\n#ifndef __WIN32__\n  struct rlimit limit;\n  if (getrlimit(RLIMIT_STACK, &limit))\n  {\n    throw Exception(string(\"getrlimit() failure: \") + strerror(errno));\n  }\n  if (limit.rlim_cur != limit.rlim_max)\n  {\n    limit.rlim_cur = limit.rlim_max;\n    if (setrlimit(RLIMIT_STACK, &limit))\n    {\n      throw Exception(string(\"setrlimit() failure: \") + strerror(errno));\n    }\n    if (getrlimit(RLIMIT_STACK, &limit))\n    {\n      throw Exception(string(\"getrlimit() failure: \") + strerror(errno));\n    }\n  }\n\n  struct sigaction act1;\n  act1.sa_sigaction = sigint_handler;\n  act1.sa_flags = SA_SIGINFO;\n  sigemptyset(&act1.sa_mask);\n  if (sigaction(SIGINT, &act1, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGINT) failure: \") + strerror(errno));\n  }\n\n  struct sigaction act2;\n  act2.sa_sigaction = timeout_handler;\n  act2.sa_flags = SA_SIGINFO;\n  sigemptyset(&act2.sa_mask);\n  if (sigaction(SIGXCPU, &act2, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGXCPU) failure: \") + strerror(errno));\n  }\n\n  struct sigaction act3;\n  act3.sa_sigaction = ill_handler;\n  act3.sa_flags = SA_SIGINFO;\n  sigemptyset(&act3.sa_mask);\n  if (sigaction(SIGILL, &act3, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGILL) failure: \") + strerror(errno));\n  }\n\n#ifdef HAVE_SIGALTSTACK\n  stack_t ss;\n  ss.ss_sp = (char*)malloc(SIGSTKSZ);\n  if (ss.ss_sp == NULL)\n  {\n    throw Exception(\"Can't malloc() space for a signal stack\");\n  }\n  ss.ss_size = SIGSTKSZ;\n  ss.ss_flags = 0;\n  /*if (sigaltstack(&ss, NULL) == -1)\n  {\n    throw Exception(string(\"sigaltstack() failure: \") + strerror(errno));\n  }*/\n\n  stackSize = limit.rlim_cur;\n  stackBase = ss.ss_sp;\n\n  struct sigaction act4;\n  act4.sa_sigaction = segv_handler;\n  act4.sa_flags = SA_SIGINFO | SA_ONSTACK;\n  sigemptyset(&act4.sa_mask);\n  if (sigaction(SIGSEGV, &act4, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGSEGV) failure: \") + strerror(errno));\n  }\n#endif /* HAVE_SIGALTSTACK */\n\n  struct sigaction act5;\n  act5.sa_sigaction = sigterm_handler;\n  act5.sa_flags = SA_SIGINFO;\n  sigemptyset(&act5.sa_mask);\n  if (sigaction(SIGTERM, &act5, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGTERM) failure: \") + strerror(errno));\n  }\n\n#endif /* __WIN32__ */\n\n  default_terminator = set_terminate(cvc5terminate);\n}\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/portfolio_driver.cpp",
+    "bytes": 26556,
+    "sha256": "534864ad2cbfde47c825ab307aa4a9c85820a27369bdb8b522f091f8dd4ec110",
+    "witnesses": [
+      {
+        "begin": 46,
+        "end": 96,
+        "text": "bool ExecutionContext::solveContinuous(parser::InputParser* parser,\n                                       bool stopAtSetLogic,\n                                       bool stopAtCheckSat)\n{\n  Command cmd;\n  bool interrupted = false;\n  bool status = true;\n  while (status)\n  {\n    if (interrupted)\n    {\n      solver().getDriverOptions().out() << CommandInterrupted();\n      d_executor->reset();\n      break;\n    }\n    cmd = parser->nextCommand();\n    if (cmd.isNull())\n    {\n      break;\n    }\n    Cmd* cc = cmd.d_cmd.get();\n    if (stopAtCheckSat)\n    {\n      if (dynamic_cast<CheckSatCommand*>(cc) != nullptr)\n      {\n        d_hasReadCheckSat = true;\n        break;\n      }\n    }\n    status = d_executor->doCommand(&cmd);\n    if (cc->interrupted() && status == 0)\n    {\n      interrupted = true;\n      break;\n    }\n    if (dynamic_cast<QuitCommand*>(cc) != nullptr)\n    {\n      break;\n    }\n    if (stopAtSetLogic)\n    {\n      auto* slc = dynamic_cast<SetBenchmarkLogicCommand*>(cc);\n      if (slc != nullptr)\n      {\n        d_logic = slc->getLogic();\n        break;\n      }\n    }\n  }\n  return status;\n}\n"
+      },
+      {
+        "begin": 565,
+        "end": 580,
+        "text": "}  // namespace\n\n#endif\n\nbool PortfolioDriver::solve(std::unique_ptr<CommandExecutor>& executor)\n{\n  ExecutionContext ctx{executor.get()};\n  Solver& solver = ctx.solver();\n  bool use_portfolio = solver.getOption(\"use-portfolio\") == \"true\";\n  if (!use_portfolio)\n  {\n    return ctx.solveContinuous(d_parser, false);\n  }\n#if HAVE_SYS_WAIT_H\n  ctx.solveContinuous(d_parser, true);\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/parser/commands.cpp",
+    "bytes": 79188,
+    "sha256": "e15112905fdba8ee33169726c11680e5a9e890f199b03a05bc5510491a24c447",
+    "witnesses": [
+      {
+        "begin": 134,
+        "end": 151,
+        "text": "void Cmd::invokeAndPrintResult(cvc5::Solver* solver,\n                               parser::SymManager* sm)\n{\n  invoke(solver, sm);\n  // the output stream reference is retrieved here since it might change after\n  // invoking a (set-option :out ...) command\n  std::ostream &out = solver->getDriverOptions().out();\n  if (!ok())\n  {\n    out << *d_commandStatus;\n  }\n  else\n  {\n    printResult(solver, out);\n  }\n  // always flush the output\n  out << std::flush;\n}\n"
+      },
+      {
+        "begin": 361,
+        "end": 383,
+        "text": "\nCheckSatCommand::CheckSatCommand() {}\n\nvoid CheckSatCommand::invoke(cvc5::Solver* solver, SymManager* sm)\n{\n  Trace(\"dtview::command\") << \"* ~COMMAND: \" << getCommandName() << \"~\"\n                           << std::endl;\n  try\n  {\n    d_result = solver->checkSat();\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (exception& e)\n  {\n    d_commandStatus = new CommandFailure(e.what());\n  }\n}\n\ncvc5::Result CheckSatCommand::getResult() const { return d_result; }\n\nvoid CheckSatCommand::printResult(cvc5::Solver* solver, std::ostream& out) const\n{\n  out << d_result << endl;\n"
+      },
+      {
+        "begin": 2570,
+        "end": 2606,
+        "text": "void GetInfoCommand::invoke(cvc5::Solver* solver, SymManager* sm)\n{\n  try\n  {\n    TermManager& tm = solver->getTermManager();\n    std::vector<cvc5::Term> v;\n    Sort bt = tm.getBooleanSort();\n    v.push_back(tm.mkVar(bt, \":\" + d_flag));\n    v.push_back(tm.mkVar(bt, solver->getInfo(d_flag)));\n    d_result = sexprToString(tm.mkTerm(cvc5::Kind::SEXPR, {v}));\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (cvc5::CVC5ApiUnsupportedException&)\n  {\n    d_commandStatus = new CommandUnsupported();\n  }\n  catch (cvc5::CVC5ApiRecoverableException& e)\n  {\n    d_commandStatus = new CommandRecoverableFailure(e.getMessage());\n  }\n  catch (exception& e)\n  {\n    d_commandStatus = new CommandFailure(e.what());\n  }\n}\n\nstd::string GetInfoCommand::getResult() const { return d_result; }\nvoid GetInfoCommand::printResult(cvc5::Solver* solver, std::ostream& out) const\n{\n  if (d_result != \"\")\n  {\n    out << d_result << endl;\n  }\n}\n\nstd::string GetInfoCommand::getCommandName() const { return \"get-info\"; }\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/base/output.h",
+    "bytes": 9805,
+    "sha256": "83d8c83af8feea1ed4946b031a465c204f94af027690e62572fa2fb5a9e24432",
+    "witnesses": [
+      {
+        "begin": 198,
+        "end": 210,
+        "text": "  Cvc5ostream operator()() const { return Cvc5ostream(d_os); }\n\n  std::ostream& setStream(std::ostream* os) { d_os = os; return *d_os; }\n  std::ostream& getStream() const { return *d_os; }\n  std::ostream* getStreamPointer() const { return d_os; }\n\n  bool isOn() const { return d_os != &null_os; }\n\n  // This function supports the WarningOnce() macro, which allows you\n  // to easily indicate that a warning should be emitted, but only\n  // once for a given run of cvc5.\n  bool warnOnce(const std::string& file, size_t line)\n  {\n"
+      },
+      {
+        "begin": 276,
+        "end": 304,
+        "text": "extern WarningC WarningChannel CVC5_EXPORT;\n/** The trace output singleton */\nextern TraceC TraceChannel CVC5_EXPORT;\n\n#ifdef CVC5_MUZZLE\n\n#define Warning                                              \\\n  cvc5::internal::__cvc5_true() ? cvc5::internal::nullStream \\\n                                : cvc5::internal::WarningChannel\n#define WarningOnce                                          \\\n  cvc5::internal::__cvc5_true() ? cvc5::internal::nullStream \\\n                                : cvc5::internal::WarningChannel\n#define TraceIsOn \\\n  cvc5::internal::__cvc5_true() ? false : cvc5::internal::TraceChannel.isOn\n#define Trace(tag)                                           \\\n  cvc5::internal::__cvc5_true() ? cvc5::internal::nullStream \\\n                                : cvc5::internal::TraceChannel()\n\n#else /* CVC5_MUZZLE */\n\n#define Warning                                                         \\\n  (!cvc5::internal::WarningChannel.isOn()) ? cvc5::internal::nullStream \\\n                                           : cvc5::internal::WarningChannel\n#define WarningOnce                                                 \\\n  (!cvc5::internal::WarningChannel.isOn()                           \\\n   || !cvc5::internal::WarningChannel.warnOnce(__FILE__, __LINE__)) \\\n      ? cvc5::internal::nullStream                                  \\\n      : cvc5::internal::WarningChannel\n#ifdef CVC5_TRACING\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+    "bytes": 11320,
+    "sha256": "81919ffaff275b315f218f20cca71b4f043a6d49389862170db02562f3dca448",
+    "witnesses": [
+      {
+        "begin": 60,
+        "end": 75,
+        "text": "{\n  if (opts != nullptr)\n  {\n    d_options.copyValues(*opts);\n  }\n  d_statisticsRegistry.reset(new StatisticsRegistry(\n      d_options.base.statisticsInternal, d_options.base.statisticsAll));\n  // make the evaluators, which depend on the alphabet of strings\n  d_evalRew.reset(new theory::Evaluator(d_rewriter.get(),\n                                        d_options.strings.stringsAlphaCard));\n  d_eval.reset(\n      new theory::Evaluator(nullptr, d_options.strings.stringsAlphaCard));\n  d_statisticsRegistry->registerTimer(\"global::totalTime\").start();\n  d_resourceManager = std::make_unique<ResourceManager>(*d_statisticsRegistry, d_options);\n  d_rewriter->d_resourceManager = d_resourceManager.get();\n}\n"
+      },
+      {
+        "begin": 93,
+        "end": 100,
+        "text": "  if (d_options.quantifiers.oracles)\n  {\n    d_ochecker.reset(new theory::quantifiers::OracleChecker(*this));\n  }\n  d_statisticsRegistry->setStatsAll(d_options.base.statisticsAll);\n  d_statisticsRegistry->setStatsInternal(d_options.base.statisticsInternal);\n}\n\n"
+      },
+      {
+        "begin": 184,
+        "end": 200,
+        "text": "bool Env::isVerboseOn(int64_t level) const\n{\n  return !Configuration::isMuzzledBuild() && d_options.base.verbosity >= level;\n}\n\nstd::ostream& Env::verbose(int64_t level) const\n{\n  if (isVerboseOn(level))\n  {\n    return *d_options.base.err;\n  }\n  return cvc5::internal::null_os;\n}\n\nstd::ostream& Env::warning() const\n{\n  return verbose(0);\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.cpp",
+    "bytes": 2778,
+    "sha256": "8af021bbab52d0b8a9b97812aec058cb77d192792d822ec7ab804597c506a2a4",
+    "witnesses": [
+      {
+        "begin": 84,
+        "end": 94,
+        "text": "bool EnvObj::isVerboseOn(int64_t level) const\n{\n  return d_env.isVerboseOn(level);\n}\n\nstd::ostream& EnvObj::verbose(int64_t level) const\n{\n  return d_env.verbose(level);\n}\n\nstd::ostream& EnvObj::warning() const { return verbose(0); }\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/proof_final_callback.cpp",
+    "bytes": 10172,
+    "sha256": "573803fff11c7b7555b5a7fc66a302350db2f68ac6f7104bbd5e16ceae12cfb9",
+    "witnesses": [
+      {
+        "begin": 73,
+        "end": 106,
+        "text": "void ProofFinalCallback::initializeUpdate()\n{\n  d_pedanticFailure = false;\n  d_pedanticFailureOut.str(\"\");\n  ++d_numFinalProofs;\n  d_checkProofHoles =\n      options().base.statisticsInternal || options().proof.checkProofsComplete;\n}\n\nvoid ProofFinalCallback::finalize(std::shared_ptr<ProofNode> pn)\n{\n  ProofRule r = pn->getRule();\n  ProofNodeManager* pnm = d_env.getProofNodeManager();\n  Assert(pnm != nullptr);\n  // if not doing eager pedantic checking, fail if below threshold\n  if (options().proof.proofCheck != options::ProofCheckMode::EAGER)\n  {\n    if (!d_pedanticFailure)\n    {\n      Assert(d_pedanticFailureOut.str().empty());\n      if (pnm->getChecker()->isPedanticFailure(r, &d_pedanticFailureOut))\n      {\n        d_pedanticFailure = true;\n      }\n    }\n  }\n  if (options().proof.proofCheck != options::ProofCheckMode::NONE)\n  {\n    pnm->ensureChecked(pn.get());\n  }\n  uint32_t plevel = pnm->getChecker()->getPedanticLevel(r);\n  if (plevel != 0)\n  {\n    d_minPedanticLevel.minAssign(plevel);\n"
+      },
+      {
+        "begin": 107,
+        "end": 216,
+        "text": "  }\n  // if not taking statistics or checking completeness, don't bother computing\n  // the following\n  if (d_checkProofHoles)\n  {\n    // record stats for the rule\n    d_ruleCount << r;\n    bool isHandled = proof::AlfPrinter::isHandled(options(), pn.get());\n    if (!isHandled)\n    {\n      d_ruleEouCount << r;\n    }\n    ++d_totalRuleCount;\n    TheoryId trustTid = THEORY_BUILTIN;\n    TrustId trustId = TrustId::NONE;\n    ProofRewriteRule dslId = ProofRewriteRule::NONE;\n    // if a DSL rewrite, take DSL stat\n    if (r == ProofRule::DSL_REWRITE || r == ProofRule::THEORY_REWRITE)\n    {\n      const std::vector<Node>& args = pn->getArguments();\n      rewriter::getRewriteRule(args[0], dslId);\n      Assert(dslId != ProofRewriteRule::NONE);\n      if (r == ProofRule::DSL_REWRITE)\n      {\n        d_dslRuleCount << dslId;\n      }\n      else\n      {\n        if (!isHandled)\n        {\n          d_theoryRewriteEouCount << dslId;\n        }\n        d_theoryRewriteRuleCount << dslId;\n      }\n    }\n    // take stats on the instantiations in the proof\n    else if (r == ProofRule::INSTANTIATE)\n    {\n      Node q = pn->getChildren()[0]->getResult();\n      const std::vector<Node>& args = pn->getArguments();\n      if (args.size() > 1)\n      {\n        InferenceId id;\n        if (getInferenceId(args[1], id))\n        {\n          d_instRuleIds << id;\n        }\n      }\n    }\n    else if (r == ProofRule::TRUST)\n    {\n      if (getTrustId(pn->getArguments()[0], trustId))\n      {\n        d_trustIds << trustId;\n        if (trustId == TrustId::THEORY_LEMMA)\n        {\n          const std::vector<Node>& args = pn->getArguments();\n          if (args.size() >= 3)\n          {\n            builtin::BuiltinProofRuleChecker::getTheoryId(args[2], trustTid);\n          }\n          d_trustTheoryLemmaCount << trustTid;\n        }\n      }\n    }\n    else if (r == ProofRule::TRUST_THEORY_REWRITE)\n    {\n      const std::vector<Node>& args = pn->getArguments();\n      Node eq = args[0];\n      builtin::BuiltinProofRuleChecker::getTheoryId(args[1], trustTid);\n      d_trustTheoryRewriteCount << trustTid;\n    }\n    // If the rule is not handled, and we are checking for complete proofs\n    if (!isHandled && options().proof.checkProofsComplete)\n    {\n      // internal error if hardFailure is true\n      std::stringstream ss;\n      ss << \"The proof was incomplete\";\n      if (r == ProofRule::TRUST)\n      {\n        ss << \" due to a trust step with id \" << trustId;\n        if (trustId == TrustId::THEORY_LEMMA)\n        {\n          ss << \", from theory \" << trustTid;\n        }\n      }\n      else if (r == ProofRule::TRUST_THEORY_REWRITE)\n      {\n        ss << \" due to a trusted theory rewrite from theory \" << trustTid;\n      }\n      else if (r == ProofRule::THEORY_REWRITE)\n      {\n        ss << \" due to an unhandled instance of rewrite rule \" << dslId;\n      }\n      else\n      {\n        ss << \" due to an unhandled instance of proof rule \" << r;\n      }\n      ss << \".\";\n      InternalError() << ss.str();\n    }\n  }\n\n  if (options().proof.checkProofSteps\n      || isOutputOn(OutputTag::TRUSTED_PROOF_STEPS))\n  {\n    Node conc = pn->getResult();\n    ProofChecker* pc = pnm->getChecker();\n    if (pc->getPedanticLevel(r) == 0)\n    {\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/solver_engine.cpp",
+    "bytes": 74031,
+    "sha256": "051cda6c09f7bc69238dbcc5e21543efa80fcf7290880f2d3f36ef466eef2bb3",
+    "witnesses": [
+      {
+        "begin": 830,
+        "end": 859,
+        "text": "  }\n  // Check that UNSAT results generate a proof correctly.\n  if (d_env->getOptions().smt.checkProofs)\n  {\n    if (r.getStatus() == Result::UNSAT)\n    {\n      checkProof();\n    }\n  }\n  // Check that UNSAT results generate an unsat core correctly.\n  if (d_env->getOptions().smt.checkUnsatCores)\n  {\n    if (r.getStatus() == Result::UNSAT)\n    {\n      TimerStat::CodeTimer checkUnsatCoreTimer(d_stats->d_checkUnsatCoreTime);\n      checkUnsatCore();\n    }\n  }\n\n  if (d_env->getOptions().base.statisticsEveryQuery)\n  {\n    printStatisticsDiff();\n  }\n\n  // set the filename on the result\n  const std::string& filename = d_env->getOptions().driver.filename;\n  return Result(r, filename);\n}\n\nstd::pair<Result, std::vector<Node>> SolverEngine::getTimeoutCore(\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+    "bytes": 69893,
+    "sha256": "421f9bfcf934d95776052fe3553fceab802b12eaedd654b2f1bb9e4e8c046759",
+    "witnesses": [
+      {
+        "begin": 1890,
+        "end": 1938,
+        "text": "    }\n    else\n    {\n      Assert(decMode == options::DecisionMode::INTERNAL);\n    }\n  }\n  SET_AND_NOTIFY_VAL_SYM(decision, decisionMode, decMode, \"logic\");\n}\n\nvoid SetDefaults::notifyModifyOption(const std::string& x,\n                                     const std::string& val,\n                                     const std::string& reason) const\n{\n  verbose(1) << \"SetDefaults: setting \" << x << \" to \" << val;\n  if (!reason.empty())\n  {\n    verbose(1) << \" due to \" << reason;\n  }\n  verbose(1) << std::endl;\n  // don't print -o options-auto for internal subsolvers\n  if (!d_isInternalSubsolver)\n  {\n    if (isOutputOn(OutputTag::OPTIONS_AUTO))\n    {\n      output(OutputTag::OPTIONS_AUTO) << \"(options-auto\";\n      output(OutputTag::OPTIONS_AUTO) << \" \" << x;\n      output(OutputTag::OPTIONS_AUTO) << \" \" << val;\n      if (!reason.empty())\n      {\n        output(OutputTag::OPTIONS_AUTO) << \" :reason \\\"\" << reason << \"\\\"\";\n      }\n      output(OutputTag::OPTIONS_AUTO) << \")\" << std::endl;\n    }\n  }\n}\n\nvoid SetDefaults::disableChecking(Options& opts)\n{\n  opts.write_smt().checkUnsatCores = false;\n  opts.write_smt().produceProofs = false;\n  opts.write_smt().checkProofs = false;\n  opts.write_smt().debugCheckModels = false;\n  opts.write_smt().checkModels = false;\n  opts.write_proof().checkProofSteps = false;\n  opts.write_proof().proofLog = false;\n}\n\n}  // namespace smt\n}  // namespace cvc5::internal\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/minisat.cpp",
+    "bytes": 12255,
+    "sha256": "104f10d4c57d8a75e8e6713f61b698b98e14972218a66c3cab798ede20ee7f99",
+    "witnesses": [
+      {
+        "begin": 145,
+        "end": 154,
+        "text": "// Like initialize() above, but called just before each search when in\n// incremental mode\nvoid MinisatSatSolver::setupOptions() {\n  // Copy options from cvc5 options structure into minisat, as appropriate\n\n  // Set up the verbosity\n  d_minisat->verbosity = (options().base.verbosity > 0) ? 1 : -1;\n\n  // Set up the random decision parameters\n  d_minisat->random_var_freq = options().prop.satRandomFreq;\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/util/statistics_registry.h",
+    "bytes": 10028,
+    "sha256": "9ed3c76a1c7d1067e422fdd74e3a0fa8706f6e87ec769257f2f4da16e0c9cd6b",
+    "witnesses": [
+      {
+        "begin": 240,
+        "end": 269,
+        "text": " private:\n  /**\n   * Helper method to register a new statistic.\n   * If the name was already used, a new proxy object is created.\n   * We check whether the type matches the type of the originally registered\n   * statistic using `typeid`.\n   */\n  template <typename Stat>\n  Stat registerStat(const std::string& name, bool internal)\n  {\n    if constexpr (configuration::isStatisticsBuild())\n    {\n      auto it = d_stats.find(name);\n      if (it == d_stats.end())\n      {\n        it = d_stats.emplace(name, std::make_unique<typename Stat::stat_type>())\n                 .first;\n        it->second->d_internal = internal;\n      }\n      auto* ptr = it->second.get();\n      Assert(typeid(*ptr) == typeid(typename Stat::stat_type))\n          << \"Statistic value \" << name\n          << \" was registered again with a different type.\";\n      it->second->d_internal = it->second->d_internal && internal;\n      return Stat(static_cast<typename Stat::stat_type*>(ptr));\n    }\n    return Stat(nullptr);\n  }\n\n  /**\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "bytes": 25991,
+    "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+    "witnesses": [
+      {
+        "begin": 12,
+        "end": 19,
+        "text": "let builtin_provers = [\"altergo\"; \"colibri\"; \"cvc5\"; \"z3\"]\n\nlet is_builtin_prover =\n  let builtin_provers_set =\n    List.fold_left (fun acc x -> Sstr.add x acc) Sstr.empty builtin_provers in\n  (fun s ->\n    let s = String.lowercase_ascii s in\n    Sstr.mem s builtin_provers_set)\n"
+      },
+      {
+        "begin": 24,
+        "end": 57,
+        "text": "let opt_timeout : int option ref = ref None\nlet opt_memlimit : int option ref = ref None\nlet opt_ce_timeout : int option ref = ref None\nlet opt_warn_timeout : int ref = ref 1\nlet opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\nlet opt_proof_dir : string option ref = ref None\nlet opt_ce_mode = ref false\nlet opt_ce_prover = ref \"cvc5_ce\"\nlet opt_warn_prover = ref None\nlet opt_giant_step_rac : bool ref = ref false\nlet opt_rac_timelimit = ref (Some 120)\nlet opt_rac_prover = ref (Some \"cvc5\")\nlet opt_logging = ref false\n\nlet opt_limit_line : Gnat_expl.limit_mode option ref = ref None\nlet opt_limit_lines : string ref = ref \"\"\nlet opt_limit_region : Gnat_loc.region option ref = ref None\nlet opt_socket_name : string ref = ref (match Sys.getenv_opt \"GNATPROVE_SOCKET\" with | Some s -> s | None -> \"\")\nlet opt_standalone = ref false\nlet opt_replay = ref false\n\nlet opt_prepare_shared = ref false\n\nlet opt_why3_conf_file : string option ref = ref None\n"
+      },
+      {
+        "begin": 119,
+        "end": 126,
+        "text": "let set_warn_timeout t =\n   opt_warn_timeout := t\n\nlet set_warn_prover s =\n   opt_warn_prover := Some s\n\nlet set_steps t =\n  if t > 0 then opt_steps := Some t\n"
+      },
+      {
+        "begin": 180,
+        "end": 190,
+        "text": "   \"--memlimit\", Arg.Int set_memlimit,\n          \" Set the memory limit in megabytes\";\n   \"--ce-timeout\", Arg.Int set_ce_timeout,\n          \" Set the timeout for counterexamples in seconds\";\n   \"--entity\", Arg.Int set_entity,\n          \" Set the entity for gnatwhy3\";\n   \"--warn-timeout\", Arg.Int set_warn_timeout,\n          \" Set the timeout for warnings in seconds (default is 1 second)\";\n   \"--steps\", Arg.Int set_steps,\n       \" Set the steps (default: no steps)\";\n   \"--ce-steps\", Arg.Int set_ce_steps,\n"
+      },
+      {
+        "begin": 283,
+        "end": 290,
+        "text": "let check_config_for_builtin_provers config =\n  List.iter (fun prover ->\n      try\n        let _ = filter_one_prover config (mk_filter_prover prover) in\n        Gnat_util.abort_with_message ~internal:false\n          (Format.sprintf \"%s attempts to redefine built-in prover %s\" (Option.get !opt_why3_conf_file) prover)\n      with ProverNotFound _ -> ()) builtin_provers\n\n"
+      },
+      {
+        "begin": 308,
+        "end": 330,
+        "text": "  if str_list = [] && !opt_replay then\n    let base_provers =\n      Mprover.fold (fun _ v acc -> v :: acc)\n        (get_provers config) [] in\n    base_provers, None, None\n  else try\n    let filter_prover prover_string =\n      filter_one_prover config (mk_filter_prover prover_string) in\n    let base_provers = List.map filter_prover str_list in\n    (* the prover for counterexample generation *)\n    let base_prover_ce =\n      if !opt_ce_mode then\n        Some (filter_prover !opt_ce_prover)\n      else\n        None in\n    (* unless specified explicitly, the prover for warnings is the first of the\n       base provers *)\n    let base_prover_warn =\n      match !opt_warn_prover with\n        | Some p -> Some (filter_prover p)\n        | None   -> (if base_provers = [] then None else Some (List.hd base_provers))\n    in\n    base_provers, base_prover_ce, base_prover_warn\n"
+      },
+      {
+        "begin": 346,
+        "end": 410,
+        "text": "let provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n\n  (* now we build the Whyconf.config_prover for all requested provers\n   * and for the prover for counterexample generation *)\n  let base_provers, base_prover_ce, base_prover_warn =\n    compute_base_provers config prover_str_list in\n  let env =\n    Gnat_util.build_env_from_config\n      ~load_plugins:(not builtin_provers_only)\n      ~proof_dir:!opt_proof_dir\n      config in\n  let provers =\n    List.map (fun x -> x.prover) base_provers in\n  let prover_ce =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_ce\n  in\n  let prover_warn =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_warn\n  in\n  provers, prover_ce, prover_warn, config, env\n\n"
+      },
+      {
+        "begin": 565,
+        "end": 646,
+        "text": "(* freeze values *)\n\nlet limit_time ~prover ~warning =\n  if warning then\n    float (!opt_warn_timeout)\n  else match prover_ce, !opt_timeout with\n  | Some p, _ when prover = p.prover_name &&\n                   !opt_ce_timeout <> None ->\n      float (Option.get !opt_ce_timeout)\n  | _, None -> Call_provers.empty_limits.Call_provers.limit_time\n  | _, Some x -> float (x)\n\ntype steps_convert = { add : int; mult : int }\n\nmodule Steps_conversion : sig\n\n  val convert : prover : string -> int -> int\n  val back_convert : prover : string -> int -> int\n\nend = struct\n\n  let convert_data =\n    [\"cvc5\",    { add = 15000;  mult = 35  };\n     \"cvc5_ce\", { add = 15000;  mult = 35  };\n     \"z3\",      { add = 450000; mult = 800 };\n     \"z3_ce\",   { add = 450000; mult = 800 };\n     \"altergo\", { add = 0;      mult = 1   };\n     \"colibri\", { add = 2000;   mult = 1   };\n    ]\n\n  let starts_with a b =\n    if String.length a > String.length b then false\n    else\n      a = String.sub (String.lowercase_ascii b) 0 (String.length a)\n\n  let num_convert conv c =\n    conv.add + conv.mult * c\n\n  let num_back_convert conv c =\n  (* we are adding 1 to the count because the division will round downwards,\n     but we want to have the property that checks are proved with the\n     reported steps *)\n    (max 0 (c - conv.add)) / conv.mult + 1\n\n  let find_convert prover =\n    let rec aux l =\n      match l with\n      | [] -> (* Default *)\n         { add = 0 ; mult = 1 }\n      | (name, conv) :: rest ->\n          if starts_with name prover then conv\n          else aux rest\n    in\n    aux convert_data\n\n  let convert ~prover c =\n    num_convert (find_convert prover) c\n\n  let back_convert ~prover c =\n    num_back_convert (find_convert prover) c\n\nend\n\n\nlet steps ~config_prover =\n  if config_prover.command_steps = None then\n    Call_provers.empty_limits.Call_provers.limit_steps\n  else\n    let prover = config_prover.prover.prover_name in\n    let raw_steps =\n      match prover_ce with\n      | Some p when prover = p.prover_name -> !opt_ce_steps\n      | _ -> !opt_steps\n    in\n    match manual_prover, raw_steps with\n    | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_steps\n    | _, Some c -> Steps_conversion.convert ~prover c\n\nlet limit_mem () =\n  match manual_prover, !opt_memlimit with\n  | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_mem\n  | _, Some m -> m\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "bytes": 5980,
+    "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4",
+    "witnesses": [
+      {
+        "begin": 43,
+        "end": 108,
+        "text": "let spark_prefix =\n  Filename.dirname (Filename.dirname why3_prefix)\n\nlet gnatprove_why3conf_file = \"why3.conf\"\n\nlet rec file_concat l =\n  match l with\n  | [] -> \"\"\n  | [x] -> x\n  | [x;y] -> Filename.concat x y\n  | x :: xs -> Filename.concat x (file_concat xs)\n\nlet spark_loadpath =\n  [ file_concat [why3_prefix; \"share\"; \"why3\"; \"theories\"];\n    file_concat [why3_prefix; \"share\"; \"why3\"; \"modules\"];\n    file_concat [spark_prefix; \"share\"; \"spark\"; \"theories\"]\n  ]\n\nlet find_driver_file ~conf_file ?extra_conf_file (extra_dir,fn) =\n  (* Here we search for the driver file. The argument [fn] is the driver path as\n     returned by the Why3 API (as is in the configuration file), and [extra_dir]\n     optionally contains the subdir to which [fn] is relative. We first check if\n     the path as is points to a file.  Then we try to find the file relative to the\n     why3.conf file. If that also fails, we look into the SPARK drivers dir.\n     If everything fails, we return an error message stating that we cannot find\n     the driver: it also returns the configuration file [conf_file] used. *)\n  (* In Why3, driver names are stored in the configuration file(s) without the\n     suffix, so we add it here; for robustness we still check if it's already\n     there. *)\n  let fn = if Strings.has_suffix fn ~suffix:\".drv\" then fn else fn ^ \".drv\" in\n  try\n    if Sys.file_exists fn then fn\n    else match extra_conf_file with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    with Exit ->\n    try begin match extra_dir with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    end\n    with Exit ->\n      let driver_file = Filename.basename fn in\n      let full_path =\n        file_concat [why3_prefix;\"share\";\"why3\";\"drivers\";driver_file] in\n      if Sys.file_exists full_path then full_path\n      else\n        abort_with_message ~internal:false\n          (Format.sprintf \"Could not find driver file %s referenced from %s. \\\n                           If this is a user-generated file, consider removing \\\n                           it. If not, please report.\" fn conf_file)\n\n\nlet get_gnatprove_config ?extra_conf_file config =\n  let conf_file = Whyconf.get_conf_file config in\n  let transform_driver (base_prover: Whyconf.config_prover) =\n    {base_prover with Whyconf.driver =\n       None, find_driver_file ~conf_file ?extra_conf_file base_prover.Whyconf.driver}\n  in\n  Whyconf.set_provers config\n    (Whyconf.Mprover.map transform_driver (Whyconf.get_provers config))\n"
+      },
+      {
+        "begin": 110,
+        "end": 126,
+        "text": "let build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n\nlet set_debug_flags_gnatprove () =\n  (* Always set the debug flag that prevents from adding \"model\" labels everywhere\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "bytes": 42944,
+    "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6",
+    "witnesses": [
+      {
+        "begin": 40,
+        "end": 43,
+        "text": "let why3_regexp_of_string s = (* define a regexp in why3 *)\n  if s = \"\" then Re.Str.regexp \"^$\" else\n  if s.[0] = '^' then Re.Str.regexp s else\n  Re.Str.regexp (\"^\" ^ Re.Str.quote s ^ \"$\")\n"
+      },
+      {
+        "begin": 247,
+        "end": 256,
+        "text": "let get_complete_command pc ~with_steps =\n  let comm = if not with_steps then pc.command\n    else\n      match pc.command_steps with\n      | None -> raise (StepsCommandNotSpecified\n          \"The solver is used with a step limit and the command for \\\n            running the solver with a step limit is not specified.\")\n      | Some command_steps -> command_steps in\n  String.concat \" \" (comm :: pc.extra_options)\n\n"
+      },
+      {
+        "begin": 274,
+        "end": 293,
+        "text": "let plugins_auto_detection main =\n  let dir = pluginsdir main in\n  let ext = if Dynlink.is_native then \".cmxs\" else \".cma\" in\n  let files = try Sys.readdir dir with Sys_error _ -> [||] in\n  let fold acc p =\n    let open Filename in\n    if extension p = ext then\n      concat dir (chop_extension p) :: acc\n    else\n      acc in\n  Array.fold_left fold [] files\n\nlet load_plugins main =\n  let load x =\n    try Plugin.load x\n    with exn ->\n      Format.eprintf \"%s cannot be loaded: %a@.\" x\n        Exn_printer.exn_printer exn in\n  if main.load_default_plugins then List.iter load (plugins_auto_detection main);\n  List.iter load main.plugins\n"
+      },
+      {
+        "begin": 335,
+        "end": 369,
+        "text": "  let load_prover_id section =\n    let name = get_string section \"name\" in\n    let version = get_string ~default:\"\" section \"version\" in\n    let altern = get_string ~default:\"\" section \"alternative\" in\n    let prover =\n      { prover_name = name;\n        prover_version = version;\n        prover_altern = altern;\n      }\n    in\n    prover\n\n  let load_prover ~config_dir (provers,shortcuts) section =\n    try\n      let prover = load_prover_id section in\n      let info =\n        match Mprover.find_opt prover provers with\n        | None ->\n            let driver = get_string section \"driver\" in\n            Debug.dprintf debug \"Loading a new prover with config_dir = %a, driver = %s@.\"\n              (Pp.print_option Pp.print_string) config_dir driver;\n            { prover  = prover;\n            command = get_string section \"command\";\n\t    command_steps = get_stringo section \"command_steps\";\n            driver  = (config_dir,driver);\n            in_place = get_bool ~default:false section \"in_place\";\n            editor  = get_string ~default:\"\" section \"editor\";\n            interactive = get_bool ~default:false section \"interactive\";\n            extra_options = [];\n            extra_drivers = [];\n            configure_build = get_string ~default:\"\" section \"configure_build\";\n            build_commands = get_stringl section \"build_commands\";\n          }\n        | Some info ->\n            let driver =\n"
+      },
+      {
+        "begin": 778,
+        "end": 838,
+        "text": "let mk_filter_prover ?version ?altern name =\n  begin match version with\n  | Some \"\" -> invalid_arg \"mk_filter_prover: version can't be an empty string\"\n  | _ -> () end;\n  { filter_name    = mk_regexp name;\n    filter_version = Option.map mk_regexp version;\n    filter_altern  = Option.map mk_regexp altern;\n  }\n\nlet filter_from_prover pr =\n    { filter_name    = mk_regexp pr.prover_name ;\n      filter_version = Some (mk_regexp pr.prover_version);\n      filter_altern  = Some (mk_regexp pr.prover_altern);\n    }\n\nlet print_filter_prover fmt fp =\n  match fp.filter_version, fp.filter_altern with\n  | None  , None -> pp_print_string fmt fp.filter_name.desc\n  | Some v, None -> fprintf fmt \"%s,%s\" fp.filter_name.desc v.desc\n  | None  , Some a -> fprintf fmt \"%s,,%s\" fp.filter_name.desc a.desc\n  | Some v, Some a -> fprintf fmt \"%s,%s,%s\" fp.filter_name.desc v.desc a.desc\n\nexception ProverNotFound  of config * filter_prover\nexception ProverAmbiguity of config * filter_prover * config_prover  Mprover.t\nexception ParseFilterProver of string\n\nlet parse_filter_prover s =\n  let sl = Strings.rev_split ',' s in\n  (* reverse order *)\n  match sl with\n  | [name] -> mk_filter_prover name\n  | [version;name] -> mk_filter_prover ~altern:\"\" ~version name\n  | [altern;\"\";name] -> mk_filter_prover ~altern name\n  | [altern;version;name] -> mk_filter_prover ~version ~altern name\n  | _ -> raise (ParseFilterProver s)\n\nlet filter_prover fp p =\n  let check s schema = Re.Str.string_match schema.reg s 0 in\n  check p.prover_name fp.filter_name\n  && Option.fold ~some:(fun v -> check p.prover_version v) ~none:true fp.filter_version\n  && Option.fold ~some:(fun v -> check p.prover_altern v) ~none:true fp.filter_altern\n\nlet filter_prover_with_shortcut whyconf fp =\n  if fp.filter_version = None && fp.filter_altern = None then\n    try\n      let prover = (Mstr.find fp.filter_name.desc whyconf.prover_shortcuts) in\n      filter_from_prover prover\n    with Not_found -> fp\n  else fp\n\n\nlet filter_provers whyconf fp =\n  let fp = filter_prover_with_shortcut whyconf fp in\n  Mprover.filter (fun p _ -> filter_prover fp p) whyconf.provers\n\nlet filter_one_prover whyconf fp =\n  let provers = filter_provers whyconf fp in\n  if Mprover.is_num_elt 1 provers then\n    snd (Mprover.choose provers)\n  else if Mprover.is_empty provers then\n    raise (ProverNotFound (whyconf,fp))\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "bytes": 56291,
+    "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "witnesses": [
+      {
+        "begin": 114,
+        "end": 122,
+        "text": "let load_drivers c =\n  let env = c.controller_env in\n  let config = c.controller_config in\n  let provers = Whyconf.get_provers config in\n  let main = Whyconf.get_main config in\n  Whyconf.Mprover.iter (fun _ p ->\n      let d = Driver.load_driver_for_prover main env p in\n      Whyconf.Hprover.add c.controller_provers p.Whyconf.prover (p,d))\n    provers\n"
+      },
+      {
+        "begin": 411,
+        "end": 433,
+        "text": "\nlet build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n  | exception Not_found (* goal has no task, it is detached *) ->\n    spa.spa_callback Detached\n  | task ->\n    Debug.dprintf debug_sched \"[build_prover_call] Script file = %a@.\"\n                  (Pp.print_option Pp.string) spa.spa_pr_scr;\n    let inplace = config_pr.Whyconf.in_place in\n    let interactive = config_pr.Whyconf.interactive in\n    let main = Whyconf.get_main c.controller_config in\n    try\n      let call = Driver.prove_task ?old:spa.spa_pr_scr ~inplace ~command\n          ~limits ~interactive ~config:main driver task in\n      let pa =\n        { tp_id       = spa.spa_id;\n"
+      },
+      {
+        "begin": 615,
+        "end": 652,
+        "text": "      | Undone -> assert false\n    end;\n    callback panid s\n  in\n  let adaptlimits,ores,proof_script =\n    try\n      let h = get_proof_attempt_ids ses id in\n      let pa = Hprover.find h pr in\n      let a = get_proof_attempt_node ses pa in\n      let old_res = a.proof_state in\n      let config_pr,_ = Hprover.find c.controller_provers pr in\n      let interactive = config_pr.Whyconf.interactive in\n      let use_steps = Call_provers.(limits.limit_steps <> empty_limits.limit_steps) in\n      let limits = adapt_limits ~interactive ~use_steps limits a in\n      let script =\n        if proof_script_filename = None then\n          Option.map (fun s ->\n              let s = Pp.sprintf \"%a\" Sysutil.print_file_path s in\n              Debug.dprintf debug_sched \"Script file = %s@.\" s;\n              Filename.concat (get_dir ses) s) a.proof_script\n          else\n            proof_script_filename\n      in\n      limits, old_res, script\n    with Not_found | Session_itp.BadID -> limits,None,proof_script_filename\n  in\n  let panid = graft_proof_attempt ~limits ses id pr in\n  let spa =\n    { spa_contr    = c;\n      spa_id       = id;\n      spa_pr       = pr;\n      spa_limits   = adaptlimits;\n      spa_pr_scr   = proof_script;\n      spa_callback = callback panid;\n      spa_ores     = ores } in\n  Queue.add spa scheduled_proof_attempts;\n  callback panid Scheduled;\n  run_idle_handler ()\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "bytes": 18796,
+    "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1",
+    "witnesses": [
+      {
+        "begin": 414,
+        "end": 474,
+        "text": "\nlet file_name_of_task ?old ?inplace ?interactive drv task =\n  match old, inplace with\n    | Some fn, Some true ->\n        (* Example: Isabelle. No file should be generated, it should be done\n           in_place and we keep the same file. *)\n        false, fn\n    | Some fn, _ when interactive <> Some true ->\n        (* Example: cvc4. If a file is provided, it means it was passed to\n           schedule_proof_attempt via its proof_script_filename argument.\n           So we ask to erase and regenerate the file (the advantage is that\n           we decide the location of the file).\n        *)\n        false, fn\n    | Some _, _ ->\n        (* Example: Coq.\n           For Coq, the interactively edited file should be kept (not erased)\n           and a new temp file is generated using the old one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n    | _ ->\n        (* Example: cvc4 without ?proof_script_filename argument\n           No file were provided. We have to generate a new one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n\nlet prove_task_prepared\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let buf = Buffer.create 1024 in\n  let fmt = formatter_of_buffer buf in\n  let old_channel = Option.map open_in old in\n  let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n  in\n  Buffer.reset buf;\n  ServerCall res\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/call_provers.ml",
+    "bytes": 23019,
+    "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "witnesses": [
+      {
+        "begin": 232,
+        "end": 305,
+        "text": "\nlet analyse_result exit_result res_parser get_model out =\n  let list_re = res_parser.prp_regexps in\n  let re = craft_efficient_re list_re in\n  let list_re = List.map (fun (a, b) -> Re.Str.regexp a, b) list_re in\n  let result_list = Re.Str.full_split re out in\n  let result_list =\n    List.fold_right\n      (fun s acc ->\n        match s with\n        | Re.Str.Delim r -> Answer (grep r list_re) :: acc\n        | Re.Str.Text \"\\n\" -> acc\n        | Re.Str.Text t -> Model t :: acc)\n      result_list\n      exit_result\n  in\n\n  let merge_answers ans1 opt_ans2 =\n    match opt_ans2 with\n    | None -> ans1\n    | Some ans2 ->\n        match ans1 with\n        (* prefer any answer over HighFailure *)\n        | HighFailure _ -> ans2\n        | _ -> ans1\n  in\n\n  let rec analyse saved_models saved_res l =\n    match l with\n    | [] ->\n        Option.value ~default:(HighFailure \"default answer\") saved_res, List.rev saved_models\n    | Answer Valid :: _ ->\n        (* answer Valid is always a priority *)\n        Valid, []\n    | Answer res :: (Answer (HighFailure s) :: []) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by HighFailure (%s):@ @[%a@]@]@.\" s\n          print_prover_answer res;\n        (* FIXME (see https://gitlab.inria.fr/why3/why3/-/issues/648)\n        This case is a specific treatment for cases when Answer HighFailure\n        is appended at the end of result_list because signaled is true in the function\n        parse_prover_run.\n        Without this hack, if a regexp matches exactly the last line of the prover output\n        and if Answer HighFailure has been appended at the end, we might end up with two\n        consecutive answers in result_list that are ignored by the more general case\n        Answer res1 :: (Answer res2 :: tl as tl1). *)\n        merge_answers res saved_res, List.rev saved_models\n    | Answer res1 :: (Answer res2 :: tl as tl1) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] two consecutive answers:@ @[%a@] and @[%a@]@]@.\"\n          print_prover_answer res1 print_prover_answer res2;\n        (* two consecutive answers may happen when one ask for (reason-unknown) *)\n       begin\n         match res1,res2 with\n         | StepLimitExceeded, Unknown \"resourceout\"\n         | Unknown _, Unknown \"resourceout\" ->\n             (* \"resourceout\" here is a reason given *)\n            analyse saved_models saved_res (Answer StepLimitExceeded :: tl)\n         | Timeout, Unknown \"timeout\"\n         | Unknown _, Unknown \"timeout\" ->\n             (* \"timeout\" here is a reason given *)\n            analyse saved_models saved_res (Answer Timeout :: tl)\n         | (Unknown _, Unknown \"\")| (_, Unknown \"(not unknown!)\") ->\n             (* \"(not unknown!)\" is a reason given when previous answer was not unknown *)\n            analyse saved_models saved_res (Answer res1 :: tl)\n         | Unknown \"\", Unknown _ ->\n            analyse saved_models saved_res tl1\n         | Unknown s1, Unknown s2 ->\n            analyse saved_models saved_res (Answer (Unknown (s1 ^ \" + \" ^ s2)) :: tl)\n         | _,_ -> (\n            Loc.warning\n              (Loc.register_warning \"consecutive_answers\" \"Warn when one of two consecutive prover answers is ignored.@.\")\n              \"two consecutive answers returned by the prover, will ignore the first one.@.\\\n              First answer: %a@.Second answer: %a@.\"\n"
+      },
+      {
+        "begin": 341,
+        "end": 388,
+        "text": "\nlet parse_prover_run res_parser signaled time out exitcode limit get_model =\n  Debug.dprintf debug \"Call_provers: exited with status %Ld@.\" exitcode;\n  (* the following conversion is incorrect (but does not fail) on 32bit, but if\n     the incoming exitcode was really outside the bounds of [int], its exact\n     value is meaningless for Why3 anyway (e.g. some windows status codes). If\n     it becomes meaningful, we might want to change the conversion here *)\n  let int_exitcode = Int64.to_int exitcode in\n  let ans, models =\n    let exit_result =\n      if signaled then [Answer (HighFailure \"signaled\")] else\n      try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]\n      with Not_found -> []\n    in analyse_result exit_result res_parser get_model out\n  in\n  Debug.dprintf debug \"Call_provers: prover output:@\\n%s@.\" out;\n  let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in\n  let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in\n  let tlimit = limit.limit_time in\n  let stepslimit = limit.limit_steps in\n  let ans, time, steps =\n    (* HighFailure or Unknown when steps >= stepslimit are assumed to be StepLimitExceeded *)\n    if stepslimit > 0 && steps >= stepslimit then\n      match ans with\n      | HighFailure _ | Unknown _ | StepLimitExceeded ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %d steps >= stepslimit -> StepLimitExceeded@.\" steps;\n          StepLimitExceeded, time, steps\n      | _ -> ans, time, steps\n    else\n      (* HighFailure or Unknown close to time limit are assumed to be timeouts *)\n    if tlimit > 0.0 && time >= 0.9 *. tlimit -. 0.1 then\n      match ans with\n      | HighFailure _ | Unknown _ | Timeout ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@.\" time;\n          Timeout, tlimit, steps\n      | _ -> ans, time, steps\n    else\n      ans, time, steps\n  in\n  (* We avoid times smaller than 1/1000000s*)\n  let time = max 0.000001 time in\n  { pr_answer = ans;\n    pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;\n    pr_output = out;\n    pr_time   = time;\n    pr_steps  = steps;\n"
+      },
+      {
+        "begin": 394,
+        "end": 429,
+        "text": "    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n\nlet actualcommand ~config command limit file =\n  let stime = string_of_int (Float.to_int (Float.ceil limit.limit_time)) in\n  let stimef = string_of_float limit.limit_time in\n  let stimems = string_of_int (Float.to_int (limit.limit_time *. 1000.)) in\n  let smem = string_of_int limit.limit_mem in\n  let arglist = Cmdline.cmdline_split command in\n  let use_stdin = ref true in\n  let on_timelimit = ref false in\n  let cmd_regexp = Re.Str.regexp \"%\\\\([.]?.\\\\)\" in\n  let replace s = match Re.Str.matched_group 1 s with\n    | \"%\" -> \"%\"\n    | \"f\" -> use_stdin := false; file\n    | \"t\" -> on_timelimit := true; stime\n    | \".t\" -> on_timelimit := true; stimef\n    | \"T\" -> on_timelimit := true; stimems\n    | \"m\" -> smem\n    | \"l\" -> Whyconf.libdir config\n    | \"d\" -> Whyconf.datadir config\n    | \"o\" -> Config.libobjdir\n    | \"S\" -> string_of_int limit.limit_steps\n    | _ -> failwith \"unknown specifier, use %%, %f, %t, %.t, %T, %m, %l, %d or %S\"\n  in\n  let args =\n    List.map (Re.Str.global_substitute cmd_regexp replace) arglist\n  in\n  args, !use_stdin, !on_timelimit\n"
+      },
+      {
+        "begin": 507,
+        "end": 533,
+        "text": "let call_on_file\n      ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =\n  let id = gen_id () in\n  let cmd, use_stdin, on_timelimit =\n    actualcommand ~cleanup:true ~inplace ~config command limits fin in\n  let save = {\n    vc_file         = fin;\n    inplace         = inplace;\n    limits          = limits;\n    res_parser      = res_parser;\n    get_model       = get_model;\n  } in\n  Hashtbl.add saved_data id save;\n  let limits = adapt_limits limits on_timelimit in\n  let use_stdin = if use_stdin then Some fin else None in\n  Debug.dprintf\n    debug\n    \"Request sent to prove_client:@ timelimit=%.2f@ memlimit=%d@ cmd=@[[%a]@]@.\"\n    limits.limit_time limits.limit_mem\n    (Pp.print_list Pp.comma Pp.string) cmd;\n  let libdir = Whyconf.libdir config in\n  send_request ~libdir ~use_stdin ~id\n                            ~timelimit:limits.limit_time\n                            ~memlimit:limits.limit_mem\n                            ~cmd;\n  id\n\n"
+      },
+      {
+        "begin": 604,
+        "end": 618,
+        "text": "let call_on_buffer ~command ~config ~limits ~res_parser ~filename ~get_model\n    ~gen_new_file ?(inplace=false) buffer =\n  let fin,cin =\n    if gen_new_file then\n      Filename.open_temp_file \"why_\" (\"_\" ^ filename)\n    else\n      begin\n        let filename = Sysutil.concat (Sys.getcwd ()) filename in\n        if inplace then\n          Sys.rename filename (backup_file filename);\n        filename, open_out filename\n      end\n  in\n  Buffer.output_buffer cin buffer; close_out cin;\n  call_on_file ~command ~config ~limits ~res_parser ~get_model ~inplace fin\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/prove_client.ml",
+    "bytes": 9236,
+    "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260",
+    "witnesses": [
+      {
+        "begin": 166,
+        "end": 188,
+        "text": "  Buffer.add_string send_buf servercommand;\n  Buffer.add_string send_buf (string_of_int id);\n  Buffer.add_char send_buf ';';\n  Buffer.add_string send_buf (string_of_float timelimit);\n  Buffer.add_char send_buf ';';\n  Buffer.add_string send_buf (string_of_int memlimit);\n  List.iter (fun x ->\n      Buffer.add_char send_buf ';';\n      Buffer.add_string send_buf x)\n    cmd;\n  begin match use_stdin with\n  | None -> ()\n  | Some s ->\n      Buffer.add_char send_buf ';';\n      Buffer.add_string send_buf s\n  end;\n  Buffer.add_char send_buf '\\n';\n  let s = Buffer.contents send_buf in\n  send_request_string s\n\nlet send_interrupt ~libdir ~id =\n  if not (is_connected ()) then connect_internal libdir;\n  Buffer.clear send_buf;\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/cmdline.ml",
+    "bytes": 3206,
+    "sha256": "e1f66e91bd58dea5dd3573887d4f05f5e2629147e7760012631be41448f5319d",
+    "witnesses": [
+      {
+        "begin": 18,
+        "end": 94,
+        "text": "  | ' ' | '\\t' | '\\n' | '\\r' -> true\n  | _ -> false\n\nlet escape s c = match c with\n  | 't' -> '\\t' | 'n' -> '\\n' | 'r' -> '\\r'\n  | '\\'' | '\"' | '\\\\' | ' ' -> c\n  | _ -> raise (BadEscape (s,c))\n\ntype fsm_state =\n  | Normal\n  | Blank\n  | Quote\n  | DQuote\n  | Escape\n  | QEscape\n  | DQEscape\n\nlet cmdline_split s =\n  let argv = ref [] in\n  let cur_arg = Queue.create () in\n  let cstate = ref Blank in\n  let normal = function\n    | '\\'' -> cstate := Quote\n    | '\"' -> cstate := DQuote\n    | '\\\\' -> cstate := Escape\n    | c when is_blank c ->\n        let n = Queue.length cur_arg in\n        let s = String.init n (fun _ -> Queue.take cur_arg) in\n        argv := s :: !argv;\n        cstate := Blank\n    | c -> Queue.add c cur_arg\n  in\n  let blank = function\n    | '\\'' -> cstate := Quote\n    | '\"' -> cstate := DQuote\n    | '\\\\' -> cstate := Escape\n    | c when is_blank c -> ()\n    | c -> Queue.add c cur_arg; cstate := Normal\n  in\n  let quote = function\n    | '\\'' -> cstate := Normal\n    | '\\\\' -> cstate := QEscape\n    | c -> Queue.add c cur_arg\n  in\n  let dquote = function\n    | '\"' -> cstate := Normal\n    | '\\\\' -> cstate := DQEscape\n    | c -> Queue.add c cur_arg\n  in\n  let fsm c = match !cstate with\n    | Normal -> normal c\n    | Blank -> blank c\n    | Quote -> quote c\n    | DQuote -> dquote c\n    | Escape -> Queue.add (escape s c) cur_arg; cstate := Normal\n    | QEscape -> Queue.add (escape s c) cur_arg; cstate := Quote\n    | DQEscape -> Queue.add (escape s c) cur_arg; cstate := DQuote\n  in\n  String.iter fsm s;\n  fsm ' ';\n  match !cstate with\n    | Normal ->\n        assert false\n    | Blank ->\n        if !argv = [] then raise EmptyCommandLine else\n        List.rev !argv\n    | Quote ->\n        raise (UnclosedQuote s)\n    | DQuote ->\n        raise (UnclosedDQuote s)\n    | Escape | QEscape | DQEscape ->\n        raise (UnfinishedEscape s)\n\nlet () = Exn_printer.register (fun fmt e -> match e with\n  | BadEscape (s,c) ->\n      Format.fprintf fmt \"bad escape sequence '\\\\%c' in string: %s\" c s\n  | UnfinishedEscape s ->\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "bytes": 12571,
+    "sha256": "4889618aea6a1bdfec16e77cc6689e27daeb5b81d31722521fcfa6e99192a0ed",
+    "witnesses": [
+      {
+        "begin": 287,
+        "end": 307,
+        "text": "  let test k _ = if Sstr.mem k keyl then ()\n    else raise (UnknownField k) in\n  Mstr.iter test section\n\nlet buf = Buffer.create 17\n\nlet current_rec = ref []\nlet current_list = ref []\nlet current = ref []\n\nlet push_field key value =\n  current_list := (key,value) :: !current_list\n\nlet push_record () =\n  if !current_list <> [] then\n    current := (!current_rec,List.rev !current_list) :: !current;\n  current_rec := [];\n  current_list := []\n\n  exception SyntaxError of string\n  let syntax_error s = raise (SyntaxError s)\n"
+      },
+      {
+        "begin": 342,
+        "end": 390,
+        "text": "  | eof\n      { syntax_error \"unterminated header\" }\n  | _ as c\n      { syntax_error (\"invalid header starting with \" ^ String.make 1 c) }\n\nand value key = parse\n  | integer as i\n      { push_field key (RCint (int_of_string i));\n        record lexbuf }\n  | real as r\n      { push_field key (RCfloat (float_of_string r));\n        record lexbuf }\n  | '\"'\n      { Buffer.clear buf;\n        string_val key false lexbuf }\n  | \"true\"\n      { push_field key (RCbool true);\n        record lexbuf }\n  | \"false\"\n      { push_field key (RCbool false);\n        record lexbuf }\n  | ident as id\n      { push_field key (RCident (*kind_of_ident*) id);\n        record lexbuf }\n  | eof\n      { syntax_error \"unterminated keyval pair\" }\n  | _ as c\n      { syntax_error (\"invalid value starting with \" ^ String.make 1 c) }\n\nand string_val key escape_eol = parse\n  | '\"'\n      { push_field key (RCstring (Buffer.contents buf,escape_eol));\n        record lexbuf\n      }\n  | [^ '\\\\' '\"'] as c\n      { Buffer.add_char buf c;\n        string_val key escape_eol lexbuf }\n  | '\\\\' (['\\\\' '\"' 'n' 'r' 't'] as c)\n      { Buffer.add_char buf\n          (match c with 'n' -> '\\n' | 'r' -> '\\r' | 't' -> '\\t' | _ -> c);\n        string_val key (escape_eol || c = 'n') lexbuf }\n  | '\\\\' '\\n'\n      { string_val key escape_eol lexbuf }\n  | '\\\\' (_ as c)\n      { Buffer.add_char buf '\\\\';\n        Buffer.add_char buf c;\n        string_val key escape_eol lexbuf }\n  | eof\n      { syntax_error \"unterminated string\" }\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/request.c",
+    "bytes": 5295,
+    "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b",
+    "witnesses": [
+      {
+        "begin": 90,
+        "end": 128,
+        "text": "    }\n    free(tmp);\n    return NULL;\n  }\n\n  numargs = semic - 4;\n  if (numargs < 0) {\n    return NULL;\n  }\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  if (strncmp(tmp, \"run\", pos) != 0) {\n    if (strncmp(tmp, \"runstdin\", pos) == 0) {\n      runstdin = true;\n    } else {\n      free(tmp);\n      return NULL;\n    }\n  }\n  free(tmp);\n  req = (prequest) malloc(sizeof(request));\n  req->key = key;\n  req->req_type = REQ_RUN;\n  req->numargs = numargs;\n  req->usestdin = runstdin;\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->timeout = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->memlimit = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->cmd));\n  req->args = (char**)malloc(sizeof(char*) * (numargs));\n  for (int i = 0; i < numargs; i++) {\n    pos = copy_up_to_semicolon(str_req, pos, len, &(req->args[i]));\n  }\n  return req;\n}\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "bytes": 18431,
+    "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc",
+    "witnesses": [
+      {
+        "begin": 363,
+        "end": 400,
+        "text": "    res.rlim_max = timelimit;\n    setrlimit(RLIMIT_CPU,&res);\n  }\n\n  if (memlimit > 0) {\n    /* set the CPU memory limit */\n    getrlimit(RLIMIT_AS,&res);\n    res.rlim_cur = (rlim_t)memlimit * 1024 * 1024;\n    res.rlim_max = (rlim_t)memlimit * 1024 * 1024;\n    setrlimit(RLIMIT_AS,&res);\n  }\n\n  if (timelimit > 0 || memlimit > 0) {\n    /* do not generate core dumps */\n    getrlimit(RLIMIT_CORE,&res);\n    res.rlim_cur = 0;\n    res.rlim_max = 0;\n    setrlimit(RLIMIT_CORE,&res);\n  }\n\n  if (usestdin) {\n    int infile = open(argv[count], O_RDONLY);\n    if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }\n    dup2(infile, 0);\n  }\n\n  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n}\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "bytes": 48146,
+    "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "witnesses": [
+      {
+        "begin": 805,
+        "end": 826,
+        "text": "  let add_to_prover_stat pr stat =\n  (* add the result of the prover run to the statistics record for some prover\n  *)\n    stat.Gnat_report.count <- stat.Gnat_report.count + 1;\n    if pr.Call_provers.pr_time > stat.Gnat_report.max_time then\n      stat.Gnat_report.max_time <- pr.Call_provers.pr_time;\n    if pr.Call_provers.pr_steps > stat.Gnat_report.max_steps then\n      stat.Gnat_report.max_steps <- pr.Call_provers.pr_steps\n\n  (* TODO put this in Controller_itp *)\n  let is_valid (c: Controller_itp.controller) goal =\n    Session_itp.pn_proved c.Controller_itp.controller_session goal\n\n  let add_to_stat prover pr stat =\n    (* add the result pr of the prover run of \"prover\" to the statistics table *)\n    if Whyconf.Hprover.mem stat prover then\n      add_to_prover_stat pr (Whyconf.Hprover.find stat prover)\n    else\n      Whyconf.Hprover.add stat prover\n        Gnat_report.{ count = 1;\n                      max_time = pr.Call_provers.pr_time;\n                      max_steps = pr.Call_provers.pr_steps }\n"
+      },
+      {
+        "begin": 940,
+        "end": 974,
+        "text": "  let rec check_to_json session check =\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    let l = ref [] in\n    GoalSet.iter (fun x -> l := goal_to_json session x :: !l) check_rec.toplevel;\n    Json_base.List !l\n  and goal_to_json session g =\n    Json_base.Record [\n      \"proof_attempts\", proof_attempts_to_json session g;\n      \"transformations\", transformations_to_json session g;\n    ]\n  and proof_attempts_to_json session g =\n    let aux prover paid acc =\n      let pa = Session_itp.get_proof_attempt_node session paid in\n      let pr_name = prover.Whyconf.prover_name in\n      match pa.Session_itp.proof_obsolete, pa.Session_itp.proof_state with\n      | false, Some pr ->\n          (pr_name, proof_result_to_json pr_name pr) :: acc\n      | _, _ -> acc in\n    let pas = Session_itp.get_proof_attempt_ids session g in\n    Json_base.Record (Whyconf.Hprover.fold aux pas [])\n\n  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n  and transformations_to_json session g =\n    let aux tfid =\n      let tf_name = Session_itp.get_transf_name session tfid in\n"
+      },
+      {
+        "begin": 1037,
+        "end": 1083,
+        "text": "\nlet schedule_goal_with_prover ~callback c g p =\n(* actually schedule the goal, i.e., call the prover. This function returns\n   immediately. *)\n  let proof_script_filename =\n    if Gnat_config.debug || Gnat_config.debug_save_vcs then\n      Some (save_vc c g p)\n    else\n      None\n  in\n  run_goal ?proof_script_filename:proof_script_filename ~callback c p g\n\nlet schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_report.ml",
+    "bytes": 7557,
+    "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01",
+    "witnesses": [
+      {
+        "begin": 48,
+        "end": 81,
+        "text": "let adapt_stats statsopt =\n  match statsopt with\n  | None -> None\n  | Some stats ->\n      let newstats = Whyconf.Hprover.create 3 in\n      Whyconf.Hprover.iter (fun k v ->\n        let name = k.Whyconf.prover_name in\n        Whyconf.Hprover.add newstats k {v with max_steps =\n          Gnat_config.back_convert_steps ~prover:name v.max_steps}) stats;\n      Some newstats\n\nlet register check check_tree result =\n  let valid, extra_info, stats, models, manual, unproved_status =\n    match result with\n    | Proved (stats, stats_checker) ->\n        true,\n        {Gnat_expl.pretty_node = None; inlined = None},\n        Some (stats, stats_checker),\n        [],\n        None,\n        Gnat_expl.Unknown\n    | Not_Proved (extra_info, models, manual, unproved_status) ->\n        false, extra_info, None, models, manual, unproved_status\n  in\n  if (Gnat_expl.HCheck.mem msg_set check) then assert false\n  else begin\n    let stats_g = Option.map (fun x -> let (stats, _) = x in stats) stats in\n    let stats_checker = Option.map (fun x -> let (_, sc) = x in sc) stats in\n    let msg =\n    { result         = valid;\n      extra_info     = extra_info;\n      stats          = adapt_stats stats_g;\n      stats_checker  = Option.value ~default:0 stats_checker;\n      check_tree     = check_tree;\n"
+      },
+      {
+        "begin": 135,
+        "end": 158,
+        "text": "let get_prover_stats stat =\n  Record [\n    \"count\", Int stat.count;\n    \"max_steps\", Int stat.max_steps;\n    \"max_time\", StandardFloat stat.max_time\n  ]\n\nlet get_stats (stats, stat_checker) =\n  (* Compute the stats for goal solved by transformations as a fake prover. *)\n  let fake_prover_ch =\n    Whyconf.{prover_name = \"Checker\"; prover_version = \"\"; prover_altern = \"\"}\n  in\n  match stats with\n  | None -> []\n  | Some s ->\n    if stat_checker <> 0 then\n      Whyconf.Hprover.add s fake_prover_ch\n        {count = stat_checker; max_steps = 0; max_time = 0.0};\n    let kv_list = Whyconf.Hprover.fold (fun k v acc -> (k,v)::acc) s [] in\n    let get_name pr = pr.Whyconf.prover_name in\n    [ \"stats\",\n      Record (List.map (fun (k,v) -> get_name k, get_prover_stats v) kv_list) ]\n\nlet opt_int i = Option.value ~default:0 i\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "ocaml/stdlib/buffer.ml",
+    "bytes": 13460,
+    "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691",
+    "witnesses": [
+      {
+        "begin": 20,
+        "end": 52,
+        "text": "  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\nlet sub b ofs len =\n  if ofs < 0 || len < 0 || ofs > b.position - len\n  then invalid_arg \"Buffer.sub\"\n  else Bytes.sub_string b.buffer ofs len\n\n\nlet blit src srcoff dst dstoff len =\n  if len < 0 || srcoff < 0 || srcoff > src.position - len\n             || dstoff < 0 || dstoff > (Bytes.length dst) - len\n  then invalid_arg \"Buffer.blit\"\n  else\n    Bytes.unsafe_blit src.buffer srcoff dst dstoff len\n\n"
+      },
+      {
+        "begin": 60,
+        "end": 103,
+        "text": "let length b = b.position\n\nlet clear b = b.position <- 0\n\nlet reset b =\n  b.position <- 0;\n  b.buffer <- b.initial_buffer;\n  b.length <- Bytes.length b.buffer\n\n(* [resize b more] ensures that [b.position + more <= b.length] holds\n   by dynamically extending [b.buffer] if necessary -- and thus\n   increasing [b.length].\n\n   In particular, after [resize b more] is called, a direct access of\n   size [more] at [b.position] will always be in-bounds, so that\n   (unsafe_{get,set}) may be used for performance.\n*)\nlet resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+    "member": "spark-source/src/gnatprove/gnatprove.adb",
+    "bytes": 46206,
+    "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590",
+    "witnesses": [
+      {
+        "begin": 625,
+        "end": 632,
+        "text": "   is\n      use type GNAT.OS_Lib.Process_Id;\n      Obj_Dir : constant String := Artifact_Dir (Tree).Display_Full_Name;\n   begin\n      Write_Why3_Conf_File (Obj_Dir);\n\n      declare\n         use String_Lists;\n"
+      },
+      {
+        "begin": 1022,
+        "end": 1060,
+        "text": "   procedure Write_Why3_Conf_File (Obj_Dir : String) is\n\n      --  Here we read the \"gnatprove.conf\" file and generate from it\n      --  the \"why3.conf\" file. This comment defines the structure of the\n      --  \"gnatprove.conf\" file.\n      --  Note that we leave many fields uncommented here because they map\n      --  directly to why3 fields.\n      --\n      --  gnatprove.conf =\n      --    { magic    : int,\n      --      memlimit : int,\n      --      provers  : list prover,\n      --      editors  : list editor\n      --    }\n      --\n      --  \"magic\" and \"memlimit\" map directly to the entries in Why3.conf in\n      --  the [main] section.\n      --\n      --  prover =\n      --    { executable : string,\n      --      args       : list string,\n      --      args_steps : list string,\n      --      driver     : string,\n      --      name       : string,\n      --      shortcut   : string,\n      --      version    : string\n      --    }\n      --\n      --    \"driver\", \"name\", \"shortcut\", \"version\" map directly to why3.conf\n      --    keys for a prover. \"executable\" is just the name of the binary to\n      --    be run. \"args\" are all the arguments for a run without a step\n      --    limit. \"args_steps\" are the *extra* arguments that need to be\n      --    provided for a steps limit to be active.\n      --\n      --  editor =\n      --    { title      : string,\n      --      name       : string,\n      --      executable : string,\n      --      args       : list string\n"
+      },
+      {
+        "begin": 1148,
+        "end": 1171,
+        "text": "      --------------------------\n\n      function Build_Prover_Command\n        (Prover : JSON_Value; Args_Step : Boolean) return String\n      is\n         use Ada.Strings.Unbounded;\n         Command  : Unbounded_String;\n         Args     : constant JSON_Array := Get (Get (Prover, \"args\"));\n         Args_Add : constant JSON_Array :=\n           (if Args_Step\n            then Get (Get (Prover, \"args_steps\"))\n            else Get (Get (Prover, \"args_time\")));\n      begin\n         Append\n           (Command,\n            Build_Executable (String'(Get (Get (Prover, \"executable\")))));\n         for Index in 1 .. Length (Args_Add) loop\n            Append (Command, \" \" & String'(Get (Get (Args_Add, Index))));\n         end loop;\n         for Index in 1 .. Length (Args) loop\n            Append (Command, \" \" & String'(Get (Get (Args, Index))));\n         end loop;\n         return To_String (Command);\n      end Build_Prover_Command;\n"
+      },
+      {
+        "begin": 1220,
+        "end": 1274,
+        "text": "\n      -------------------------\n      -- Write_Prover_Config --\n      -------------------------\n\n      procedure Write_Prover_Config (Prover : JSON_Value) is\n      begin\n         Start_Section (\"prover\");\n         Set_Key_Value\n           (\"command\", Build_Prover_Command (Prover, Args_Step => False));\n         if Has_Field (Prover, \"args_steps\") then\n            Set_Key_Value\n              (\"command_steps\",\n               Build_Prover_Command (Prover, Args_Step => True));\n         end if;\n         Set_Key_Value (\"driver\", Get (Get (Prover, \"driver\")));\n         Set_Key_Value (\"name\", Get (Get (Prover, \"name\")));\n         Set_Key_Value (\"shortcut\", Get (Get (Prover, \"shortcut\")));\n         Set_Key_Value (\"version\", Get (Get (Prover, \"version\")));\n         if Has_Field (Prover, \"interactive\") then\n            Set_Key_Value_Bool\n              (\"interactive\", Get (Get (Prover, \"interactive\")));\n         end if;\n         if Has_Field (Prover, \"editor\") then\n            Set_Key_Value (\"editor\", Get (Get (Prover, \"editor\")));\n         end if;\n         if Has_Field (Prover, \"in_place\") then\n            Set_Key_Value_Bool (\"in_place\", Get (Get (Prover, \"in_place\")));\n         end if;\n\n      end Write_Prover_Config;\n\n      Config : constant JSON_Value :=\n        Read_File_Into_JSON (SPARK_Install.Gnatprove_Conf);\n\n      Editors  : constant JSON_Array := Get (Get (Config, \"editors\"));\n      Provers  : constant JSON_Array := Get (Get (Config, \"provers\"));\n      Filename : constant String :=\n        Ada.Directories.Compose (Obj_Dir, \"why3.conf\");\n\n      --  Start of processing for Write_Why3_Conf_File\n\n   begin\n      Create (File, Out_File, Filename);\n      Start_Section (\"main\");\n      Set_Key_Value_Int (\"magic\", Get (Get (Config, \"magic\")));\n      Set_Key_Value_Int (\"memlimit\", Get (Get (Config, \"memlimit\")));\n      for Index in 1 .. Length (Editors) loop\n         Write_Editor_Config (Get (Editors, Index));\n      end loop;\n      for Index in 1 .. Length (Provers) loop\n         Write_Prover_Config (Get (Provers, Index));\n      end loop;\n      Close (File);\n   end Write_Why3_Conf_File;\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+    "member": "spark-source/src/gnatprove/configuration.adb",
+    "bytes": 118436,
+    "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697",
+    "witnesses": [
+      {
+        "begin": 3073,
+        "end": 3090,
+        "text": "   is\n\n      Args          : String_Lists.List;\n      Why3_VF       : constant Virtual_File :=\n        (if CL_Switches.Why3_Conf.all /= \"\"\n         then Create (Filesystem_String (CL_Switches.Why3_Conf.all))\n         else No_File);\n      Gnatwhy3_Conf : constant String :=\n        (if Why3_VF /= No_File\n         then\n           (if Is_Absolute_Path (Why3_VF)\n            then CL_Switches.Why3_Conf.all\n            else\n              Ada.Directories.Compose\n                (+Get_Current_Dir.Full_Name, CL_Switches.Why3_Conf.all))\n         else \"\");\n\n      -------------------------\n"
+      },
+      {
+        "begin": 3176,
+        "end": 3198,
+        "text": "\n      Args.Append (\"gnatwhy3\");\n\n      Args.Append (\"--timeout\");\n      Args.Append (Image (FS.Timeout, 1));\n\n      Args.Append (\"--steps\");\n      Args.Append (Image (FS.Steps, 1));\n\n      Args.Append (\"--ce-steps\");\n      Args.Append (Image (FS.CE_Steps, 1));\n\n      Args.Append (\"--memlimit\");\n      Args.Append (Image (FS.Memlimit, 1));\n\n      if not FS.Provers.Is_Empty then\n         Args.Append (\"--prover\");\n         Args.Append (Prover_List (FS));\n      end if;\n\n      Args.Append (\"--proof\");\n      Args.Append (To_String (FS.Proof));\n\n"
+      },
+      {
+        "begin": 3245,
+        "end": 3254,
+        "text": "         if Has_Manual_Prover then\n            Prepare_Why3_Manual;\n         end if;\n      end if;\n\n      if Gnatwhy3_Conf /= \"\" then\n         Args.Append (\"--why3-conf\");\n         Args.Append (Gnatwhy3_Conf);\n      end if;\n\n"
+      },
+      {
+        "begin": 3280,
+        "end": 3290,
+        "text": "      Args.Append (\"--warn-prover\");\n      if SPARK_Install.CVC5_Present then\n         Args.Append (\"cvc5\");\n      else\n         Args.Append (\"altergo\");\n      end if;\n\n      if FS.Proof_Warn_Timeout /= Invalid_Timeout then\n         Args.Append (\"--warn-timeout\");\n         Args.Append (Image (FS.Proof_Warn_Timeout, 1));\n      end if;\n"
+      }
+    ]
+  }
+]

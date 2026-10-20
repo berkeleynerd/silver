@@ -1,0 +1,675 @@
+{
+  "patterns": {
+    "option_fields_or_keys": "\\b(?:verbosity|statisticsInternal|statisticsEveryQuery|statisticsAll)(?:WasSetByUser)?\\b|(?:base|write_base\\(\\))\\s*\\.\\s*statistics\\b|\"stats(?:-internal|-all|-every-query)?\"|SET[^\\n]*\\bstatistics\\b",
+    "stream_reassignments": "(?:WarningChannel|TraceChannel|Warning)\\.setStream",
+    "verbosity_calls": "\\b(?:isVerboseOn|verbose)\\s*\\("
+  },
+  "matches": {
+    "option_fields_or_keys": [
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/api/cpp/cvc5.cpp",
+        "line": 8687,
+        "text": "      option.find(\"command-verbosity\") != std::string::npos"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/api/cpp/cvc5.cpp",
+        "line": 8697,
+        "text": "                                       \"verbosity\","
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 83,
+        "text": "  if (d_solver->getOptionInfo(\"stats\").boolValue())"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 88,
+        "text": "          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 89,
+        "text": "                      d_solver->getOptionInfo(\"stats-all\").boolValue());"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 98,
+        "text": "          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 99,
+        "text": "                      d_solver->getOptionInfo(\"stats-all\").boolValue());"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 110,
+        "text": "  if (d_solver->getOptionInfo(\"stats\").boolValue())"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+        "line": 119,
+        "text": "  // formerly was guarded by verbosity > 2"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/driver_unified.cpp",
+        "line": 166,
+        "text": "  // Determine which messages to show based on smtcomp_mode and verbosity"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/interactive_shell.cpp",
+        "line": 133,
+        "text": "      if (d_solver->getOptionInfo(\"verbosity\").intValue() >= 1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/interactive_shell.cpp",
+        "line": 153,
+        "text": "  if (d_solver->getOptionInfo(\"verbosity\").intValue() >= 1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/main.cpp",
+        "line": 74,
+        "text": "    if (solver->getOptionInfo(\"stats\").boolValue() && pExecutor != nullptr)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 48,
+        "text": "  name       = \"verbosity\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 49,
+        "text": "  long       = \"verbosity=N\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 54,
+        "text": "  help       = \"the verbosity level of cvc5\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 63,
+        "text": "  help       = \"increase verbosity (may be repeated)\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 72,
+        "text": "  help       = \"decrease verbosity (may be repeated)\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 85,
+        "text": "  long       = \"stats\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 93,
+        "text": "  name       = \"statisticsAll\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 94,
+        "text": "  long       = \"stats-all\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 102,
+        "text": "  name       = \"statisticsInternal\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 103,
+        "text": "  long       = \"stats-internal\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 111,
+        "text": "  name       = \"statisticsEveryQuery\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+        "line": 112,
+        "text": "  long       = \"stats-every-query\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/didyoumean_test.cpp",
+        "line": 433,
+        "text": "      \"stats\","
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/didyoumean_test.cpp",
+        "line": 437,
+        "text": "      \"stats-every-query\","
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 177,
+        "text": "  d_options->write_base().verbosity -= 1;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 178,
+        "text": "  setVerbosity(flag, d_options->base.verbosity);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 183,
+        "text": "  d_options->write_base().verbosity += 1;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 184,
+        "text": "  setVerbosity(flag, d_options->base.verbosity);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 201,
+        "text": "    d_options->write_base().statisticsAll = false;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 202,
+        "text": "    d_options->write_base().statisticsEveryQuery = false;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 203,
+        "text": "    d_options->write_base().statisticsInternal = false;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 221,
+        "text": "    d_options->write_base().statistics = true;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.h",
+        "line": 82,
+        "text": "  /** Apply verbosity to the different output channels */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.h",
+        "line": 84,
+        "text": "  /** Decrease verbosity and call setVerbosity */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.h",
+        "line": 86,
+        "text": "  /** Increase verbosity and call setVerbosity */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.cc",
+        "line": 150,
+        "text": "      verbosity(0),"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.cc",
+        "line": 1574,
+        "text": "        if (verbosity >= 1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.cc",
+        "line": 1752,
+        "text": "    if (verbosity >= 1){"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.cc",
+        "line": 1772,
+        "text": "    if (verbosity >= 1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.cc",
+        "line": 1866,
+        "text": "    if (verbosity > 0)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.cc",
+        "line": 1924,
+        "text": "    if (verbosity >= 2)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/core/Solver.h",
+        "line": 339,
+        "text": " int verbosity;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/minisat.cpp",
+        "line": 150,
+        "text": "  // Set up the verbosity"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/minisat.cpp",
+        "line": 151,
+        "text": "  d_minisat->verbosity = (options().base.verbosity > 0) ? 1 : -1;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/simp/SimpSolver.cc",
+        "line": 150,
+        "text": "    else if (verbosity >= 1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/simp/SimpSolver.cc",
+        "line": 404,
+        "text": "        if (verbose && verbosity >= 2 && cnt++ % 1000 == 0)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/simp/SimpSolver.cc",
+        "line": 681,
+        "text": "            if (verbosity >= 2 && cnt % 100 == 0)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/simp/SimpSolver.cc",
+        "line": 731,
+        "text": "    if (verbosity >= 1 && elimclauses.size() > 0)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/simp/SimpSolver.cc",
+        "line": 789,
+        "text": "    if (verbosity >= 2)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 66,
+        "text": "      d_options.base.statisticsInternal, d_options.base.statisticsAll));"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 97,
+        "text": "  d_statisticsRegistry->setStatsAll(d_options.base.statisticsAll);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 98,
+        "text": "  d_statisticsRegistry->setStatsInternal(d_options.base.statisticsInternal);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 186,
+        "text": "  return !Configuration::isMuzzledBuild() && d_options.base.verbosity >= level;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.h",
+        "line": 187,
+        "text": "   * Check whether the verbose output for the given verbosity level is enabled."
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.h",
+        "line": 188,
+        "text": "   * The verbosity level is raised (or lowered) with the `-v` (or `-q`) option."
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.h",
+        "line": 193,
+        "text": "   * Return the output stream for the given verbosity level. If the verbosity"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/proof_final_callback.cpp",
+        "line": 79,
+        "text": "      options().base.statisticsInternal || options().proof.checkProofsComplete;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/solver_engine.cpp",
+        "line": 849,
+        "text": "  if (d_env->getOptions().base.statisticsEveryQuery)"
+      }
+    ],
+    "stream_reassignments": [
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/driver_unified.cpp",
+        "line": 168,
+        "text": "    TraceChannel.setStream(&cvc5::internal::null_os);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/driver_unified.cpp",
+        "line": 169,
+        "text": "    WarningChannel.setStream(&cvc5::internal::null_os);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 110,
+        "text": "  Warning.setStream(me);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 111,
+        "text": "  TraceChannel.setStream(me);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 164,
+        "text": "    TraceChannel.setStream(&cvc5::internal::null_os);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 165,
+        "text": "    WarningChannel.setStream(&cvc5::internal::null_os);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 168,
+        "text": "      WarningChannel.setStream(&cvc5::internal::null_os);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+        "line": 170,
+        "text": "      WarningChannel.setStream(&std::cerr);"
+      }
+    ],
+    "verbosity_calls": [
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/passes/apply_substs.cpp",
+        "line": 39,
+        "text": "  verbose(2) << \"applying substitutions...\" << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/passes/ite_simp.cpp",
+        "line": 136,
+        "text": "      verbose(2) << \"starting simplifyWithCare()\" << endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/passes/ite_simp.cpp",
+        "line": 138,
+        "text": "      verbose(2) << \"ending simplifyWithCare()\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/preprocessing_pass.cpp",
+        "line": 31,
+        "text": "  verbose(2) << d_name << \"...\" << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/util/ite_utilities.cpp",
+        "line": 530,
+        "text": "  verbose(2) << \"Computed reachability\" << endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/util/ite_utilities.cpp",
+        "line": 535,
+        "text": "  verbose(2) << \"compressing \" << original_size << endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/util/ite_utilities.cpp",
+        "line": 674,
+        "text": "  verbose(2) << \"clear ite caches \" << endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/preprocessing/util/ite_utilities.cpp",
+        "line": 697,
+        "text": "  verbose(2) << \"d_citeEqConstApplications size \" << d_citeEqConstApplications"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/prop/minisat/minisat.cpp",
+        "line": 113,
+        "text": "    verbose(1) << \"minisat: Incremental solving is forced on (to avoid \""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 75,
+        "text": "  // Throughout, we use verbose(1) to give diagnostic output."
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 78,
+        "text": "  // and if verbose(1) is on, the user gave --verbose (or equivalent)."
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 106,
+        "text": "    verbose(1) << \"SolverEngine::checkModel(): checking assertion \" << assertion"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 115,
+        "text": "    verbose(1) << \"SolverEngine::checkModel(): -- substitutes to \" << n"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 128,
+        "text": "      verbose(1) << \"SolverEngine::checkModel(): -- expands to \" << n"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 132,
+        "text": "      verbose(1) << \"SolverEngine::checkModel(): -- rewrites to \" << n"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 136,
+        "text": "      verbose(1) << \"SolverEngine::checkModel(): -- get value : \" << n"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 213,
+        "text": "    verbose(1) << \"SolverEngine::checkModel(): *** PROBLEM: EXPECTED `TRUE' ***\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/check_models.cpp",
+        "line": 263,
+        "text": "    verbose(1) << \"SolverEngine::checkModel(): all assertions checked out OK !\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 184,
+        "text": "bool Env::isVerboseOn(int64_t level) const"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 189,
+        "text": "std::ostream& Env::verbose(int64_t level) const"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 191,
+        "text": "  if (isVerboseOn(level))"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.cpp",
+        "line": 200,
+        "text": "  return verbose(0);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.h",
+        "line": 190,
+        "text": "  bool isVerboseOn(int64_t level) const;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.h",
+        "line": 197,
+        "text": "  std::ostream& verbose(int64_t level) const;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env.h",
+        "line": 199,
+        "text": "  /** Convenience wrapper for verbose(0). */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.cpp",
+        "line": 84,
+        "text": "bool EnvObj::isVerboseOn(int64_t level) const"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.cpp",
+        "line": 86,
+        "text": "  return d_env.isVerboseOn(level);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.cpp",
+        "line": 89,
+        "text": "std::ostream& EnvObj::verbose(int64_t level) const"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.cpp",
+        "line": 91,
+        "text": "  return d_env.verbose(level);"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.cpp",
+        "line": 94,
+        "text": "std::ostream& EnvObj::warning() const { return verbose(0); }"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.h",
+        "line": 110,
+        "text": "  /** Convenience wrapper for Env::isVerboseOn(). */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.h",
+        "line": 111,
+        "text": "  bool isVerboseOn(int64_t level) const;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.h",
+        "line": 113,
+        "text": "  /** Convenience wrapper for Env::verbose(). */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.h",
+        "line": 114,
+        "text": "  std::ostream& verbose(int64_t) const;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/env_obj.h",
+        "line": 116,
+        "text": "  /** Convenience wrapper for Env::verbose(0). */"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/process_assertions.cpp",
+        "line": 261,
+        "text": "  verbose(2) << \"simplifying assertions...\" << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/process_assertions.cpp",
+        "line": 301,
+        "text": "    verbose(2) << \"re-simplifying assertions...\" << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/process_assertions.cpp",
+        "line": 418,
+        "text": "        verbose(2) << \"...ITE simplification found unsat...\" << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/quant_elim_solver.cpp",
+        "line": 117,
+        "text": "      verbose(1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1438,
+        "text": "      verbose(1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1447,
+        "text": "      verbose(1) << \"Enabling integer arithmetic because strings are enabled\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1466,
+        "text": "    verbose(1) << \"Enabling UF because preSkolemQuantNested requires it.\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1497,
+        "text": "        verbose(1) << \"Enabling UF because \" << logic << \" requires it.\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1511,
+        "text": "      verbose(1) << \"Enabling integers because arithMLTrick requires it.\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1903,
+        "text": "  verbose(1) << \"SetDefaults: setting \" << x << \" to \" << val;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1906,
+        "text": "    verbose(1) << \" due to \" << reason;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/set_defaults.cpp",
+        "line": 1908,
+        "text": "  verbose(1) << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/smt_solver.cpp",
+        "line": 167,
+        "text": "  d_env.verbose(2) << \"converting to CNF...\" << endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/solver_engine.cpp",
+        "line": 1685,
+        "text": "  d_env->verbose(1) << \"SolverEngine::checkUnsatCore(): generating unsat core\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/solver_engine.cpp",
+        "line": 1695,
+        "text": "  d_env->verbose(1) << \"SolverEngine::checkUnsatCore(): pushing core assertions\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/solver_engine.cpp",
+        "line": 1711,
+        "text": "  d_env->verbose(1) << \"SolverEngine::checkUnsatCore(): result is \" << r"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/solver_engine.cpp",
+        "line": 1733,
+        "text": "  d_env->verbose(1) << \"SolverEngine::checkModel(): generating model\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/sygus_solver.cpp",
+        "line": 482,
+        "text": "  if (isVerboseOn(1))"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/sygus_solver.cpp",
+        "line": 484,
+        "text": "    verbose(1) << \"SyGuS::checkSynthSolution: checking synthesis solution\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/sygus_solver.cpp",
+        "line": 552,
+        "text": "    if (isVerboseOn(1))"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/sygus_solver.cpp",
+        "line": 554,
+        "text": "      verbose(1) << \"SyGuS::checkSynthSolution: -- body substitutes to \""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/sygus_solver.cpp",
+        "line": 561,
+        "text": "    if (isVerboseOn(1))"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/sygus_solver.cpp",
+        "line": 563,
+        "text": "      verbose(1) << \"SyGuS::checkSynthSolution: result is \" << r << std::endl;"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/timeout_core_manager.cpp",
+        "line": 244,
+        "text": "  verbose(1) << \"TimeoutCoreManager::checkSatNext, #assertions=\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/unsat_core_manager.cpp",
+        "line": 231,
+        "text": "  d_env.verbose(1) << \"SolverEngine::reduceUnsatCore(): reducing unsat core\""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/quantifiers/alpha_equivalence.cpp",
+        "line": 205,
+        "text": "    verbose(1) << \"Ignoring annotated quantified formula based on alpha \""
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/quantifiers/rewrite_verifier.cpp",
+        "line": 108,
+        "text": "      d_env.verbose(1)"
+      },
+      {
+        "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/quantifiers/rewrite_verifier.cpp",
+        "line": 112,
+        "text": "      d_env.verbose(1) << ptOut.str();"
+      }
+    ]
+  }
+}

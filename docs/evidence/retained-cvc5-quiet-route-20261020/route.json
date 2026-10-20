@@ -1,0 +1,75 @@
+{
+  "base_commit": "421486c4e33271c02fc59f54d71182cc98c9558c",
+  "baseline": {
+    "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+    "member": "put_line/why3.conf",
+    "bytes": 1946,
+    "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+  },
+  "candidate": {
+    "path": "candidate-base-why3.conf",
+    "bytes": 2069,
+    "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+  },
+  "target_prover": {
+    "name": "CVC5",
+    "shortcut": "cvc5",
+    "version": "0.0.7-gnatprove"
+  },
+  "command": {
+    "old": "cvc5 --prenex-quant=none --stats-internal %f",
+    "new": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f",
+    "old_bytes": 44,
+    "new_bytes": 167,
+    "delta_bytes": 123,
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+    "argv_template": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "--prenex-quant=none",
+      "--quiet",
+      "%f"
+    ],
+    "argv_count": 4,
+    "old_argv_payload": 41,
+    "new_argv_payload": 164
+  },
+  "base_shape": {
+    "lines": 71,
+    "provers": 9,
+    "quoted_fields": 56,
+    "old_max_quoted_value": 61,
+    "new_max_quoted_value": 167
+  },
+  "selected_provers": [
+    "cvc5",
+    "z3",
+    "altergo"
+  ],
+  "required_client_options": [
+    "--proof",
+    "per_check",
+    "--steps",
+    "0",
+    "--timeout",
+    "0",
+    "--memlimit",
+    "0",
+    "--counterexample",
+    "off"
+  ],
+  "warning_limit": "Separate --warn-timeout; default is 1, candidate all-zero route must explicitly use 0.",
+  "generated_file_branch": [
+    "debug=false",
+    "debug_save_vcs=false",
+    "fresh session with no retained proof scripts",
+    "no explicit proof_script_filename"
+  ],
+  "control_status": "Prospective research construction only; production88 integration unimplemented.",
+  "complete_q": null,
+  "weighted_O": null,
+  "global_budget": {
+    "save_entering_callbacks": 2,
+    "save_attempts": 3,
+    "e_max": 2
+  }
+}

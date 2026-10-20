@@ -1,0 +1,68 @@
+{
+  "files": {
+    "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz": {
+      "bytes": 9262397,
+      "sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz": {
+      "bytes": 3594800,
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz": {
+      "bytes": 469605,
+      "sha256": "6fd1944ce30f0560d72198510fb290084483e5cb0ea65fece54f4c17e46a7aef"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz": {
+      "bytes": 158839,
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+    },
+    "docs/evidence/retained-solver-identity-20261020/drivers.json": {
+      "bytes": 13769,
+      "sha256": "e6c3161b46e4244168fe6f0d2967b40a81277728158f9351bae769021f7dba24"
+    },
+    "docs/evidence/retained-solver-identity-20261020/inventory.json": {
+      "bytes": 12802,
+      "sha256": "1723b582c626365205b73bc618ce9f2d2dc13e75fcf4e896ebcd48cd0e4154e3"
+    },
+    "docs/evidence/retained-cvc5-parser-options-20261020/option-occurrences.json": {
+      "bytes": 87401,
+      "sha256": "7ef2982712e0f628f996ced1987e131bc4f5feba3b06dea3308fef867baa8c96"
+    },
+    "docs/research/retained-cvc5-parser-options.md": {
+      "bytes": 19253,
+      "sha256": "626f31157885af8be89c4c046bc09a576e69a59a2b720035799b7fbb49b4a409"
+    },
+    "docs/research/retained-solver-identity.md": {
+      "bytes": 11769,
+      "sha256": "308f1f47444a14abea92b1b79ee60143de58368adce1a4ce529ba49f00eadc22"
+    },
+    "docs/research/retained-solver-task-language.md": {
+      "bytes": 17436,
+      "sha256": "22e058c79acf4c7221b6730e2179f915b5c9108938fac1a1b6194694d6f303a5"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-cvc5-terminal-output.md": {
+      "bytes": 8514,
+      "sha256": "c37db88792fd759ec1449979d95ba34c79c0617a329cafc79ae97e7aad1a7382"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-producer-response.md": {
+      "bytes": 16991,
+      "sha256": "6726e87d941735b0765f57396fbb04403242f82412438f47bfb84b1898454847"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    }
+  }
+}

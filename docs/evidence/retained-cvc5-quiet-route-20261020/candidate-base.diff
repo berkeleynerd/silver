@@ -1,0 +1,11 @@
+--- docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz!put_line/why3.conf
++++ prospective-cwd/why3.conf
+@@ -33,7 +33,7 @@
+ shortcut = "gappa"
+ version = "1.4"
+ [prover]
+-command = "cvc5 --prenex-quant=none --stats-internal %f"
++command = "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f"
+ command_steps = "cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f"
+ driver = "cvc5_gnatprove"
+ name = "CVC5"

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "source_files": 36,
+  "input_files": 16,
+  "cvc5_driver_files": 10,
+  "option_occurrences": {
+    "option_fields_or_keys": 61,
+    "stream_reassignments": 8,
+    "verbosity_calls": 63
+  },
+  "checked_local_link_targets": 8,
+  "elapsed_seconds": 2.146343
+}

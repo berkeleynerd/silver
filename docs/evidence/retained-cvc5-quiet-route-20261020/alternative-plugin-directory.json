@@ -1,0 +1,16 @@
+{
+  "kind": "static name inventory only; no plugin loaded",
+  "directory": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins",
+  "cmxs": [
+    "ada_terms.cmxs",
+    "cfg.cmxs",
+    "coma.cmxs",
+    "dimacs.cmxs",
+    "forward_propagation.cmxs",
+    "genequlin.cmxs",
+    "gnat_json.cmxs",
+    "microc.cmxs",
+    "python.cmxs",
+    "tptp.cmxs"
+  ]
+}
