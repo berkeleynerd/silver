@@ -1,0 +1,4296 @@
+{
+  "bodies": [
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xbb950",
+        "--stop-address=0xbb990",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa554889e541544989fc53e88dcbf6ff488d58014889dfe871caf6ff4885c074154889d94889da4c89e65b4889c7415c5de957cdf6ff5b31c0415c5dc3",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 768336
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 768340
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 768341
+        },
+        {
+          "asm": "push   %r12",
+          "hex": "4154",
+          "va": 768344
+        },
+        {
+          "asm": "mov    %rdi,%r12",
+          "hex": "4989fc",
+          "va": 768346
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 768349
+        },
+        {
+          "asm": "call   284f0 <*ABS*+0xbc400@plt>",
+          "hex": "e88dcbf6ff",
+          "va": 768350
+        },
+        {
+          "asm": "lea    0x1(%rax),%rbx",
+          "hex": "488d5801",
+          "va": 768355
+        },
+        {
+          "asm": "mov    %rbx,%rdi",
+          "hex": "4889df",
+          "va": 768359
+        },
+        {
+          "asm": "call   283e0 <malloc@plt>",
+          "hex": "e871caf6ff",
+          "va": 768362
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 768367
+        },
+        {
+          "asm": "je     bb989 <__strdup@@GLIBC_2.2.5+0x39>",
+          "hex": "7415",
+          "va": 768370
+        },
+        {
+          "asm": "mov    %rbx,%rcx",
+          "hex": "4889d9",
+          "va": 768372
+        },
+        {
+          "asm": "mov    %rbx,%rdx",
+          "hex": "4889da",
+          "va": 768375
+        },
+        {
+          "asm": "mov    %r12,%rsi",
+          "hex": "4c89e6",
+          "va": 768378
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 768381
+        },
+        {
+          "asm": "mov    %rax,%rdi",
+          "hex": "4889c7",
+          "va": 768382
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 768385
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 768387
+        },
+        {
+          "asm": "jmp    286e0 <*ABS*+0x144710@plt>",
+          "hex": "e957cdf6ff",
+          "va": 768388
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 768393
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 768394
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 768396
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 768398
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 768399
+        }
+      ],
+      "name": "strdup",
+      "size": 64,
+      "va": 768336
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0x126c60",
+        "--stop-address=0x1274fd",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa554889e54157415641554989fd4154534881ec280100004889b508ffffff64488b042528000000488945c831c04885f60f85fe0300004885ff0f8555040000e8c85f0000be001000003d001000000f4df04863f64889f74889b528ffffffe81917f0ff488bb528ffffff4885c048898510ffffff0f8428040000488bbd10ffffffb84f0000000f05483d00f0ffff0f87c405000085c00f8eb0030000488bb510ffffff803e2f0f8489050000488b8508ffffff4c09e80f8428050000488b8508ffffff4883f8010f84be0500004885c00f84be030000488bb510ffffff488985e8feffff4889b5f0feffff4889f0488bb5e8feffff488d3d9d630b00488d1c30488d8530ffffffc643ff004889c648898528ffffffe8f20a000085c00f8803050000488b8530ffffff488bb528ffffff488d3da2450b00488985f8feffff488b8538ffffff48898520ffffffe8bb0a000085c00f88cc040000488b9538ffffff48399520ffffff488d73ff400f95c7488b8530ffffff483985f8feffff0f95c14008cf4088bde7feffff0f84cb0500004889b5d8feffff4c8b35e6af0e004531ff488985c0feffff488995b8feffff4c89ad00ffffff41bd9cffffff4489ef31d2488d35d0620b0031c0e85d0c00004189c585c00f882a050000488bb528ffffff89c7e8c4caffff85c00f85f70400004d85ff74104c89ffe82ff5fcff85c00f85c7040000488b9d30ffffff488b8538ffffff4489ef48899dd0feffff488985c8feffffe853f5fcff4989c74885c00f8497040000483b9df8feffff440fb6a5e7feffff0f958518ffffff906441c706000000004c89ffe860f9fcff4885c00f84770200008078132e0f84cd0200004584e47418488b8d20ffffff4839080f94c20a9518ffffff74c34189d4488d5813488b9528ffffffb9000100004489ef4889dee835caffff85c075a18b8548ffffff2500f000003d00400000758f488b85f8feffff48398530ffffff0f857bffffff488b8520ffffff48398538ffffff0f8567ffffff488b95d8feffff4889df482b9510ffffff48899520ffffffe88a15f0ff488b9520ffffff4989c44839d00f82ad0000004883bd08ffffff000f8518050000488b85e8feffff4c39e04889c1490f42cc4801c848898520ffffff0f82d0040000488bbd10ffffff4889c648898d18ffffff488995f8feffffe83b14f0ff488b8d18ffffff488b95f8feffff4885c04989c00f84990400004801d1498d34104c898518ffffff488d3c08488b85e8feffff4829d04889c2e89d16f0ff4c8b8518ffffff488985d8feffff488b8520ffffff4c898510ffffff488985e8feffff488b8dd8feffff4889de4c89e24c29e14889cfe86216f0ff488bb5d0feffff4889c1488d40ff488985d8feffffc641ff2f4839b5c0feffff7514488bb5c8feffff4839b5b8feffff0f8414030000488b85d0feffff488985f8feffff488b85c8feffff48898520ffffffe98bfdffff0f1f004889bd10ffffff4885ff0f8536fcffffe90bfcffff0f1f000f845afcffff4c8b352bad0e0064418b0683f8240f8446fcffff83f8227510488b8508ffffff4c09e80f84fa0300004d85ed7522488bbd10ffffffe8e012f0ffeb14660f1f440000488b05e9ac0e0064c7001600000048c78510ffffff00000000488b45c864482b0425280000000f85d4030000488b8510ffffff4881c4280100005b415c415d415e415f5dc30f1f0064418b1e85db0f85e40000004584e474774c89ffe8b7f9fcff4c89ffe8bff6fcff4885c00f84640100004531e48078132e0f8579fdffff0fb6501484d20f842dfdffff80fa2e0f8564fdffff807815000f855afdffffe915fdffff0f1f4400000fb6501484d20f8404fdffff80fa2e0f851efdffff807815000f8514fdffffe9ecfcffff0f1f40004c8bad00ffffff85db75646441c706020000004c89ffbb02000000e8a8f1fcff4d85ed410f94c44883bdf0feffff000f84e10000006441891e4883bd08ffffff000f84f7feffff4584e40f84eefeffff488bbdf0feffffe8ac11f0ffe9ddfeffff0f1f80000000004c8bad00ffffff4c89ffe851f1fcffeba70f1f8000000000488bbd10ffffffe87c11f0ffbf00100000e88211f0ff48898510ffffff4885c00f8498feffff48c785f0feffff0000000048c785e8feffff00100000e9c9faffff4c8b3558ab0e0064418b1ee94fffffff488bb508ffffff4c09ee74744d85ed4c0f44ad10ffffff4c89ad10ffffffe955feffff4c8b3525ab0e00f7d864418906e9f3fdffff4c8bad00ffffff64418b1ee9f1feffff488bbd10ffffffe8e610f0ffe90effffff488b05f2aa0e0064c700220000004d85ed0f8500feffff488b8510ffffff488985f0feffffe9fffeffff488bbd10ffffff4863f0e8d810f0ff4989c5e975ffffff4589ec64418b1e4c8bad00ffffff4489e7e81a190000e99dfeffff4589ec64418b1e4c8bad00ffffff4d85ff74e04c89ffe82af0fcffebd64c8bad00ffffff64418b1e4d85ff0f85bbfeffffe967feffff0f1f80000000004c89ff48898528ffffff4c8bad00ffffffe8f2effcff85c00f85c9000000488bb5e8feffff488b8510ffffff488d1c30488bb528ffffff488b8510ffffff488b8de8feffff488d4408ff4839c60f84870000004829f3488bbd10ffffff4889dae89310f0ff4883bd08ffffff00751c483b9de8feffff722b4883bd10ffffff000f8503fdffffe9f3fcffff488b85f0feffff4885c0743148898510ffffffe9e6fcffff4889de488b9d10ffffff4889dfe8c30ff0ff4885c0480f44c348898510ffffffe9c1fcffff4c0bad10ffffff0f84bbfdffffe9affcffffc646ff2f4883ee01e96cffffff64418b1ee970fdffff6441c7060c0000004c89ffe808effcff4883bdf0feffff00742e6441c7060c000000e967fcffff4c8bad00ffffff4c89ff6441c70622000000bb22000000e8d5eefcffe928fdffff488bbd10ffffffe8040ff0ff6441c7060c000000e92dfcffff488d0d90b20b00ba7b000000488d352cb20b00488d3d4db20b00e86849f1ffe863dd0100",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1207392
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1207396
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1207397
+        },
+        {
+          "asm": "push   %r15",
+          "hex": "4157",
+          "va": 1207400
+        },
+        {
+          "asm": "push   %r14",
+          "hex": "4156",
+          "va": 1207402
+        },
+        {
+          "asm": "push   %r13",
+          "hex": "4155",
+          "va": 1207404
+        },
+        {
+          "asm": "mov    %rdi,%r13",
+          "hex": "4989fd",
+          "va": 1207406
+        },
+        {
+          "asm": "push   %r12",
+          "hex": "4154",
+          "va": 1207409
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 1207411
+        },
+        {
+          "asm": "sub    $0x128,%rsp",
+          "hex": "4881ec28010000",
+          "va": 1207412
+        },
+        {
+          "asm": "mov    %rsi,-0xf8(%rbp)",
+          "hex": "4889b508ffffff",
+          "va": 1207419
+        },
+        {
+          "asm": "mov    %fs:0x28,%rax",
+          "hex": "64488b042528000000",
+          "va": 1207426
+        },
+        {
+          "asm": "mov    %rax,-0x38(%rbp)",
+          "hex": "488945c8",
+          "va": 1207435
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1207439
+        },
+        {
+          "asm": "test   %rsi,%rsi",
+          "hex": "4885f6",
+          "va": 1207441
+        },
+        {
+          "asm": "jne    127098 <getcwd@@GLIBC_2.2.5+0x438>",
+          "hex": "0f85fe030000",
+          "va": 1207444
+        },
+        {
+          "asm": "test   %rdi,%rdi",
+          "hex": "4885ff",
+          "va": 1207450
+        },
+        {
+          "asm": "jne    1270f8 <getcwd@@GLIBC_2.2.5+0x498>",
+          "hex": "0f8555040000",
+          "va": 1207453
+        },
+        {
+          "asm": "call   12cc70 <__getpagesize@@GLIBC_2.2.5>",
+          "hex": "e8c85f0000",
+          "va": 1207459
+        },
+        {
+          "asm": "mov    $0x1000,%esi",
+          "hex": "be00100000",
+          "va": 1207464
+        },
+        {
+          "asm": "cmp    $0x1000,%eax",
+          "hex": "3d00100000",
+          "va": 1207469
+        },
+        {
+          "asm": "cmovge %eax,%esi",
+          "hex": "0f4df0",
+          "va": 1207474
+        },
+        {
+          "asm": "movslq %esi,%rsi",
+          "hex": "4863f6",
+          "va": 1207477
+        },
+        {
+          "asm": "mov    %rsi,%rdi",
+          "hex": "4889f7",
+          "va": 1207480
+        },
+        {
+          "asm": "mov    %rsi,-0xd8(%rbp)",
+          "hex": "4889b528ffffff",
+          "va": 1207483
+        },
+        {
+          "asm": "call   283e0 <malloc@plt>",
+          "hex": "e81917f0ff",
+          "va": 1207490
+        },
+        {
+          "asm": "mov    -0xd8(%rbp),%rsi",
+          "hex": "488bb528ffffff",
+          "va": 1207495
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1207502
+        },
+        {
+          "asm": "mov    %rax,-0xf0(%rbp)",
+          "hex": "48898510ffffff",
+          "va": 1207505
+        },
+        {
+          "asm": "je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "0f8428040000",
+          "va": 1207512
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1207518
+        },
+        {
+          "asm": "mov    $0x4f,%eax",
+          "hex": "b84f000000",
+          "va": 1207525
+        },
+        {
+          "asm": "syscall",
+          "hex": "0f05",
+          "va": 1207530
+        },
+        {
+          "asm": "cmp    $0xfffffffffffff000,%rax",
+          "hex": "483d00f0ffff",
+          "va": 1207532
+        },
+        {
+          "asm": "ja     1272bc <getcwd@@GLIBC_2.2.5+0x65c>",
+          "hex": "0f87c4050000",
+          "va": 1207538
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1207544
+        },
+        {
+          "asm": "jle    1270b0 <getcwd@@GLIBC_2.2.5+0x450>",
+          "hex": "0f8eb0030000",
+          "va": 1207546
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rsi",
+          "hex": "488bb510ffffff",
+          "va": 1207552
+        },
+        {
+          "asm": "cmpb   $0x2f,(%rsi)",
+          "hex": "803e2f",
+          "va": 1207559
+        },
+        {
+          "asm": "je     127299 <getcwd@@GLIBC_2.2.5+0x639>",
+          "hex": "0f8489050000",
+          "va": 1207562
+        },
+        {
+          "asm": "mov    -0xf8(%rbp),%rax",
+          "hex": "488b8508ffffff",
+          "va": 1207568
+        },
+        {
+          "asm": "or     %r13,%rax",
+          "hex": "4c09e8",
+          "va": 1207575
+        },
+        {
+          "asm": "je     127248 <getcwd@@GLIBC_2.2.5+0x5e8>",
+          "hex": "0f8428050000",
+          "va": 1207578
+        },
+        {
+          "asm": "mov    -0xf8(%rbp),%rax",
+          "hex": "488b8508ffffff",
+          "va": 1207584
+        },
+        {
+          "asm": "cmp    $0x1,%rax",
+          "hex": "4883f801",
+          "va": 1207591
+        },
+        {
+          "asm": "je     1272ef <getcwd@@GLIBC_2.2.5+0x68f>",
+          "hex": "0f84be050000",
+          "va": 1207595
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1207601
+        },
+        {
+          "asm": "je     1270f8 <getcwd@@GLIBC_2.2.5+0x498>",
+          "hex": "0f84be030000",
+          "va": 1207604
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rsi",
+          "hex": "488bb510ffffff",
+          "va": 1207610
+        },
+        {
+          "asm": "mov    %rax,-0x118(%rbp)",
+          "hex": "488985e8feffff",
+          "va": 1207617
+        },
+        {
+          "asm": "mov    %rsi,-0x110(%rbp)",
+          "hex": "4889b5f0feffff",
+          "va": 1207624
+        },
+        {
+          "asm": "mov    %rsi,%rax",
+          "hex": "4889f0",
+          "va": 1207631
+        },
+        {
+          "asm": "mov    -0x118(%rbp),%rsi",
+          "hex": "488bb5e8feffff",
+          "va": 1207634
+        },
+        {
+          "asm": "lea    0xb639d(%rip),%rdi        # 1dd0fd <__nptl_version@@GLIBC_PRIVATE+0x320>",
+          "hex": "488d3d9d630b00",
+          "va": 1207641
+        },
+        {
+          "asm": "lea    (%rax,%rsi,1),%rbx",
+          "hex": "488d1c30",
+          "va": 1207648
+        },
+        {
+          "asm": "lea    -0xd0(%rbp),%rax",
+          "hex": "488d8530ffffff",
+          "va": 1207652
+        },
+        {
+          "asm": "movb   $0x0,-0x1(%rbx)",
+          "hex": "c643ff00",
+          "va": 1207659
+        },
+        {
+          "asm": "mov    %rax,%rsi",
+          "hex": "4889c6",
+          "va": 1207663
+        },
+        {
+          "asm": "mov    %rax,-0xd8(%rbp)",
+          "hex": "48898528ffffff",
+          "va": 1207666
+        },
+        {
+          "asm": "call   127870 <lstat@@GLIBC_2.33>",
+          "hex": "e8f20a0000",
+          "va": 1207673
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1207678
+        },
+        {
+          "asm": "js     127289 <getcwd@@GLIBC_2.2.5+0x629>",
+          "hex": "0f8803050000",
+          "va": 1207680
+        },
+        {
+          "asm": "mov    -0xd0(%rbp),%rax",
+          "hex": "488b8530ffffff",
+          "va": 1207686
+        },
+        {
+          "asm": "mov    -0xd8(%rbp),%rsi",
+          "hex": "488bb528ffffff",
+          "va": 1207693
+        },
+        {
+          "asm": "lea    0xb45a2(%rip),%rdi        # 1db33d <_thread_db_pthread_list@@GLIBC_PRIVATE+0x5435>",
+          "hex": "488d3da2450b00",
+          "va": 1207700
+        },
+        {
+          "asm": "mov    %rax,-0x108(%rbp)",
+          "hex": "488985f8feffff",
+          "va": 1207707
+        },
+        {
+          "asm": "mov    -0xc8(%rbp),%rax",
+          "hex": "488b8538ffffff",
+          "va": 1207714
+        },
+        {
+          "asm": "mov    %rax,-0xe0(%rbp)",
+          "hex": "48898520ffffff",
+          "va": 1207721
+        },
+        {
+          "asm": "call   127870 <lstat@@GLIBC_2.33>",
+          "hex": "e8bb0a0000",
+          "va": 1207728
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1207733
+        },
+        {
+          "asm": "js     127289 <getcwd@@GLIBC_2.2.5+0x629>",
+          "hex": "0f88cc040000",
+          "va": 1207735
+        },
+        {
+          "asm": "mov    -0xc8(%rbp),%rdx",
+          "hex": "488b9538ffffff",
+          "va": 1207741
+        },
+        {
+          "asm": "cmp    %rdx,-0xe0(%rbp)",
+          "hex": "48399520ffffff",
+          "va": 1207748
+        },
+        {
+          "asm": "lea    -0x1(%rbx),%rsi",
+          "hex": "488d73ff",
+          "va": 1207755
+        },
+        {
+          "asm": "setne  %dil",
+          "hex": "400f95c7",
+          "va": 1207759
+        },
+        {
+          "asm": "mov    -0xd0(%rbp),%rax",
+          "hex": "488b8530ffffff",
+          "va": 1207763
+        },
+        {
+          "asm": "cmp    %rax,-0x108(%rbp)",
+          "hex": "483985f8feffff",
+          "va": 1207770
+        },
+        {
+          "asm": "setne  %cl",
+          "hex": "0f95c1",
+          "va": 1207777
+        },
+        {
+          "asm": "or     %cl,%dil",
+          "hex": "4008cf",
+          "va": 1207780
+        },
+        {
+          "asm": "mov    %dil,-0x119(%rbp)",
+          "hex": "4088bde7feffff",
+          "va": 1207783
+        },
+        {
+          "asm": "je     1273bf <getcwd@@GLIBC_2.2.5+0x75f>",
+          "hex": "0f84cb050000",
+          "va": 1207790
+        },
+        {
+          "asm": "mov    %rsi,-0x128(%rbp)",
+          "hex": "4889b5d8feffff",
+          "va": 1207796
+        },
+        {
+          "asm": "mov    0xeafe6(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "4c8b35e6af0e00",
+          "va": 1207803
+        },
+        {
+          "asm": "xor    %r15d,%r15d",
+          "hex": "4531ff",
+          "va": 1207810
+        },
+        {
+          "asm": "mov    %rax,-0x140(%rbp)",
+          "hex": "488985c0feffff",
+          "va": 1207813
+        },
+        {
+          "asm": "mov    %rdx,-0x148(%rbp)",
+          "hex": "488995b8feffff",
+          "va": 1207820
+        },
+        {
+          "asm": "mov    %r13,-0x100(%rbp)",
+          "hex": "4c89ad00ffffff",
+          "va": 1207827
+        },
+        {
+          "asm": "mov    $0xffffff9c,%r13d",
+          "hex": "41bd9cffffff",
+          "va": 1207834
+        },
+        {
+          "asm": "mov    %r13d,%edi",
+          "hex": "4489ef",
+          "va": 1207840
+        },
+        {
+          "asm": "xor    %edx,%edx",
+          "hex": "31d2",
+          "va": 1207843
+        },
+        {
+          "asm": "lea    0xb62d0(%rip),%rsi        # 1dd0fc <__nptl_version@@GLIBC_PRIVATE+0x31f>",
+          "hex": "488d35d0620b00",
+          "va": 1207845
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1207852
+        },
+        {
+          "asm": "call   127a90 <openat@@GLIBC_2.4>",
+          "hex": "e85d0c0000",
+          "va": 1207854
+        },
+        {
+          "asm": "mov    %eax,%r13d",
+          "hex": "4189c5",
+          "va": 1207859
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1207862
+        },
+        {
+          "asm": "js     127368 <getcwd@@GLIBC_2.2.5+0x708>",
+          "hex": "0f882a050000",
+          "va": 1207864
+        },
+        {
+          "asm": "mov    -0xd8(%rbp),%rsi",
+          "hex": "488bb528ffffff",
+          "va": 1207870
+        },
+        {
+          "asm": "mov    %eax,%edi",
+          "hex": "89c7",
+          "va": 1207877
+        },
+        {
+          "asm": "call   123910 <__fstat64@@GLIBC_PRIVATE>",
+          "hex": "e8c4caffff",
+          "va": 1207879
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1207884
+        },
+        {
+          "asm": "jne    12734b <getcwd@@GLIBC_2.2.5+0x6eb>",
+          "hex": "0f85f7040000",
+          "va": 1207886
+        },
+        {
+          "asm": "test   %r15,%r15",
+          "hex": "4d85ff",
+          "va": 1207892
+        },
+        {
+          "asm": "je     126e69 <getcwd@@GLIBC_2.2.5+0x209>",
+          "hex": "7410",
+          "va": 1207895
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1207897
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e82ff5fcff",
+          "va": 1207900
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1207905
+        },
+        {
+          "asm": "jne    127330 <getcwd@@GLIBC_2.2.5+0x6d0>",
+          "hex": "0f85c7040000",
+          "va": 1207907
+        },
+        {
+          "asm": "mov    -0xd0(%rbp),%rbx",
+          "hex": "488b9d30ffffff",
+          "va": 1207913
+        },
+        {
+          "asm": "mov    -0xc8(%rbp),%rax",
+          "hex": "488b8538ffffff",
+          "va": 1207920
+        },
+        {
+          "asm": "mov    %r13d,%edi",
+          "hex": "4489ef",
+          "va": 1207927
+        },
+        {
+          "asm": "mov    %rbx,-0x130(%rbp)",
+          "hex": "48899dd0feffff",
+          "va": 1207930
+        },
+        {
+          "asm": "mov    %rax,-0x138(%rbp)",
+          "hex": "488985c8feffff",
+          "va": 1207937
+        },
+        {
+          "asm": "call   f63e0 <fdopendir@@GLIBC_2.4>",
+          "hex": "e853f5fcff",
+          "va": 1207944
+        },
+        {
+          "asm": "mov    %rax,%r15",
+          "hex": "4989c7",
+          "va": 1207949
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1207952
+        },
+        {
+          "asm": "je     127330 <getcwd@@GLIBC_2.2.5+0x6d0>",
+          "hex": "0f8497040000",
+          "va": 1207955
+        },
+        {
+          "asm": "cmp    -0x108(%rbp),%rbx",
+          "hex": "483b9df8feffff",
+          "va": 1207961
+        },
+        {
+          "asm": "movzbl -0x119(%rbp),%r12d",
+          "hex": "440fb6a5e7feffff",
+          "va": 1207968
+        },
+        {
+          "asm": "setne  -0xe8(%rbp)",
+          "hex": "0f958518ffffff",
+          "va": 1207976
+        },
+        {
+          "asm": "nop",
+          "hex": "90",
+          "va": 1207983
+        },
+        {
+          "asm": "movl   $0x0,%fs:(%r14)",
+          "hex": "6441c70600000000",
+          "va": 1207984
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1207992
+        },
+        {
+          "asm": "call   f6820 <readdir@@GLIBC_2.2.5>",
+          "hex": "e860f9fcff",
+          "va": 1207995
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1208000
+        },
+        {
+          "asm": "je     127140 <getcwd@@GLIBC_2.2.5+0x4e0>",
+          "hex": "0f8477020000",
+          "va": 1208003
+        },
+        {
+          "asm": "cmpb   $0x2e,0x13(%rax)",
+          "hex": "8078132e",
+          "va": 1208009
+        },
+        {
+          "asm": "je     1271a0 <getcwd@@GLIBC_2.2.5+0x540>",
+          "hex": "0f84cd020000",
+          "va": 1208013
+        },
+        {
+          "asm": "test   %r12b,%r12b",
+          "hex": "4584e4",
+          "va": 1208019
+        },
+        {
+          "asm": "je     126ef0 <getcwd@@GLIBC_2.2.5+0x290>",
+          "hex": "7418",
+          "va": 1208022
+        },
+        {
+          "asm": "mov    -0xe0(%rbp),%rcx",
+          "hex": "488b8d20ffffff",
+          "va": 1208024
+        },
+        {
+          "asm": "cmp    %rcx,(%rax)",
+          "hex": "483908",
+          "va": 1208031
+        },
+        {
+          "asm": "sete   %dl",
+          "hex": "0f94c2",
+          "va": 1208034
+        },
+        {
+          "asm": "or     -0xe8(%rbp),%dl",
+          "hex": "0a9518ffffff",
+          "va": 1208037
+        },
+        {
+          "asm": "je     126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "74c3",
+          "va": 1208043
+        },
+        {
+          "asm": "mov    %edx,%r12d",
+          "hex": "4189d4",
+          "va": 1208045
+        },
+        {
+          "asm": "lea    0x13(%rax),%rbx",
+          "hex": "488d5813",
+          "va": 1208048
+        },
+        {
+          "asm": "mov    -0xd8(%rbp),%rdx",
+          "hex": "488b9528ffffff",
+          "va": 1208052
+        },
+        {
+          "asm": "mov    $0x100,%ecx",
+          "hex": "b900010000",
+          "va": 1208059
+        },
+        {
+          "asm": "mov    %r13d,%edi",
+          "hex": "4489ef",
+          "va": 1208064
+        },
+        {
+          "asm": "mov    %rbx,%rsi",
+          "hex": "4889de",
+          "va": 1208067
+        },
+        {
+          "asm": "call   123940 <fstatat@@GLIBC_2.33>",
+          "hex": "e835caffff",
+          "va": 1208070
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1208075
+        },
+        {
+          "asm": "jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "75a1",
+          "va": 1208077
+        },
+        {
+          "asm": "mov    -0xb8(%rbp),%eax",
+          "hex": "8b8548ffffff",
+          "va": 1208079
+        },
+        {
+          "asm": "and    $0xf000,%eax",
+          "hex": "2500f00000",
+          "va": 1208085
+        },
+        {
+          "asm": "cmp    $0x4000,%eax",
+          "hex": "3d00400000",
+          "va": 1208090
+        },
+        {
+          "asm": "jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "758f",
+          "va": 1208095
+        },
+        {
+          "asm": "mov    -0x108(%rbp),%rax",
+          "hex": "488b85f8feffff",
+          "va": 1208097
+        },
+        {
+          "asm": "cmp    %rax,-0xd0(%rbp)",
+          "hex": "48398530ffffff",
+          "va": 1208104
+        },
+        {
+          "asm": "jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "0f857bffffff",
+          "va": 1208111
+        },
+        {
+          "asm": "mov    -0xe0(%rbp),%rax",
+          "hex": "488b8520ffffff",
+          "va": 1208117
+        },
+        {
+          "asm": "cmp    %rax,-0xc8(%rbp)",
+          "hex": "48398538ffffff",
+          "va": 1208124
+        },
+        {
+          "asm": "jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "0f8567ffffff",
+          "va": 1208131
+        },
+        {
+          "asm": "mov    -0x128(%rbp),%rdx",
+          "hex": "488b95d8feffff",
+          "va": 1208137
+        },
+        {
+          "asm": "mov    %rbx,%rdi",
+          "hex": "4889df",
+          "va": 1208144
+        },
+        {
+          "asm": "sub    -0xf0(%rbp),%rdx",
+          "hex": "482b9510ffffff",
+          "va": 1208147
+        },
+        {
+          "asm": "mov    %rdx,-0xe0(%rbp)",
+          "hex": "48899520ffffff",
+          "va": 1208154
+        },
+        {
+          "asm": "call   284f0 <*ABS*+0xbc400@plt>",
+          "hex": "e88a15f0ff",
+          "va": 1208161
+        },
+        {
+          "asm": "mov    -0xe0(%rbp),%rdx",
+          "hex": "488b9520ffffff",
+          "va": 1208166
+        },
+        {
+          "asm": "mov    %rax,%r12",
+          "hex": "4989c4",
+          "va": 1208173
+        },
+        {
+          "asm": "cmp    %rdx,%rax",
+          "hex": "4839d0",
+          "va": 1208176
+        },
+        {
+          "asm": "jb     127026 <getcwd@@GLIBC_2.2.5+0x3c6>",
+          "hex": "0f82ad000000",
+          "va": 1208179
+        },
+        {
+          "asm": "cmpq   $0x0,-0xf8(%rbp)",
+          "hex": "4883bd08ffffff00",
+          "va": 1208185
+        },
+        {
+          "asm": "jne    12749f <getcwd@@GLIBC_2.2.5+0x83f>",
+          "hex": "0f8518050000",
+          "va": 1208193
+        },
+        {
+          "asm": "mov    -0x118(%rbp),%rax",
+          "hex": "488b85e8feffff",
+          "va": 1208199
+        },
+        {
+          "asm": "cmp    %r12,%rax",
+          "hex": "4c39e0",
+          "va": 1208206
+        },
+        {
+          "asm": "mov    %rax,%rcx",
+          "hex": "4889c1",
+          "va": 1208209
+        },
+        {
+          "asm": "cmovb  %r12,%rcx",
+          "hex": "490f42cc",
+          "va": 1208212
+        },
+        {
+          "asm": "add    %rcx,%rax",
+          "hex": "4801c8",
+          "va": 1208216
+        },
+        {
+          "asm": "mov    %rax,-0xe0(%rbp)",
+          "hex": "48898520ffffff",
+          "va": 1208219
+        },
+        {
+          "asm": "jb     127478 <getcwd@@GLIBC_2.2.5+0x818>",
+          "hex": "0f82d0040000",
+          "va": 1208226
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1208232
+        },
+        {
+          "asm": "mov    %rax,%rsi",
+          "hex": "4889c6",
+          "va": 1208239
+        },
+        {
+          "asm": "mov    %rcx,-0xe8(%rbp)",
+          "hex": "48898d18ffffff",
+          "va": 1208242
+        },
+        {
+          "asm": "mov    %rdx,-0x108(%rbp)",
+          "hex": "488995f8feffff",
+          "va": 1208249
+        },
+        {
+          "asm": "call   28400 <realloc@plt>",
+          "hex": "e83b14f0ff",
+          "va": 1208256
+        },
+        {
+          "asm": "mov    -0xe8(%rbp),%rcx",
+          "hex": "488b8d18ffffff",
+          "va": 1208261
+        },
+        {
+          "asm": "mov    -0x108(%rbp),%rdx",
+          "hex": "488b95f8feffff",
+          "va": 1208268
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1208275
+        },
+        {
+          "asm": "mov    %rax,%r8",
+          "hex": "4989c0",
+          "va": 1208278
+        },
+        {
+          "asm": "je     127478 <getcwd@@GLIBC_2.2.5+0x818>",
+          "hex": "0f8499040000",
+          "va": 1208281
+        },
+        {
+          "asm": "add    %rdx,%rcx",
+          "hex": "4801d1",
+          "va": 1208287
+        },
+        {
+          "asm": "lea    (%r8,%rdx,1),%rsi",
+          "hex": "498d3410",
+          "va": 1208290
+        },
+        {
+          "asm": "mov    %r8,-0xe8(%rbp)",
+          "hex": "4c898518ffffff",
+          "va": 1208294
+        },
+        {
+          "asm": "lea    (%rax,%rcx,1),%rdi",
+          "hex": "488d3c08",
+          "va": 1208301
+        },
+        {
+          "asm": "mov    -0x118(%rbp),%rax",
+          "hex": "488b85e8feffff",
+          "va": 1208305
+        },
+        {
+          "asm": "sub    %rdx,%rax",
+          "hex": "4829d0",
+          "va": 1208312
+        },
+        {
+          "asm": "mov    %rax,%rdx",
+          "hex": "4889c2",
+          "va": 1208315
+        },
+        {
+          "asm": "call   286a0 <*ABS*+0xb8c80@plt>",
+          "hex": "e89d16f0ff",
+          "va": 1208318
+        },
+        {
+          "asm": "mov    -0xe8(%rbp),%r8",
+          "hex": "4c8b8518ffffff",
+          "va": 1208323
+        },
+        {
+          "asm": "mov    %rax,-0x128(%rbp)",
+          "hex": "488985d8feffff",
+          "va": 1208330
+        },
+        {
+          "asm": "mov    -0xe0(%rbp),%rax",
+          "hex": "488b8520ffffff",
+          "va": 1208337
+        },
+        {
+          "asm": "mov    %r8,-0xf0(%rbp)",
+          "hex": "4c898510ffffff",
+          "va": 1208344
+        },
+        {
+          "asm": "mov    %rax,-0x118(%rbp)",
+          "hex": "488985e8feffff",
+          "va": 1208351
+        },
+        {
+          "asm": "mov    -0x128(%rbp),%rcx",
+          "hex": "488b8dd8feffff",
+          "va": 1208358
+        },
+        {
+          "asm": "mov    %rbx,%rsi",
+          "hex": "4889de",
+          "va": 1208365
+        },
+        {
+          "asm": "mov    %r12,%rdx",
+          "hex": "4c89e2",
+          "va": 1208368
+        },
+        {
+          "asm": "sub    %r12,%rcx",
+          "hex": "4c29e1",
+          "va": 1208371
+        },
+        {
+          "asm": "mov    %rcx,%rdi",
+          "hex": "4889cf",
+          "va": 1208374
+        },
+        {
+          "asm": "call   286a0 <*ABS*+0xb8c80@plt>",
+          "hex": "e86216f0ff",
+          "va": 1208377
+        },
+        {
+          "asm": "mov    -0x130(%rbp),%rsi",
+          "hex": "488bb5d0feffff",
+          "va": 1208382
+        },
+        {
+          "asm": "mov    %rax,%rcx",
+          "hex": "4889c1",
+          "va": 1208389
+        },
+        {
+          "asm": "lea    -0x1(%rax),%rax",
+          "hex": "488d40ff",
+          "va": 1208392
+        },
+        {
+          "asm": "mov    %rax,-0x128(%rbp)",
+          "hex": "488985d8feffff",
+          "va": 1208396
+        },
+        {
+          "asm": "movb   $0x2f,-0x1(%rcx)",
+          "hex": "c641ff2f",
+          "va": 1208403
+        },
+        {
+          "asm": "cmp    %rsi,-0x140(%rbp)",
+          "hex": "4839b5c0feffff",
+          "va": 1208407
+        },
+        {
+          "asm": "jne    127074 <getcwd@@GLIBC_2.2.5+0x414>",
+          "hex": "7514",
+          "va": 1208414
+        },
+        {
+          "asm": "mov    -0x138(%rbp),%rsi",
+          "hex": "488bb5c8feffff",
+          "va": 1208416
+        },
+        {
+          "asm": "cmp    %rsi,-0x148(%rbp)",
+          "hex": "4839b5b8feffff",
+          "va": 1208423
+        },
+        {
+          "asm": "je     127388 <getcwd@@GLIBC_2.2.5+0x728>",
+          "hex": "0f8414030000",
+          "va": 1208430
+        },
+        {
+          "asm": "mov    -0x130(%rbp),%rax",
+          "hex": "488b85d0feffff",
+          "va": 1208436
+        },
+        {
+          "asm": "mov    %rax,-0x108(%rbp)",
+          "hex": "488985f8feffff",
+          "va": 1208443
+        },
+        {
+          "asm": "mov    -0x138(%rbp),%rax",
+          "hex": "488b85c8feffff",
+          "va": 1208450
+        },
+        {
+          "asm": "mov    %rax,-0xe0(%rbp)",
+          "hex": "48898520ffffff",
+          "va": 1208457
+        },
+        {
+          "asm": "jmp    126e20 <getcwd@@GLIBC_2.2.5+0x1c0>",
+          "hex": "e98bfdffff",
+          "va": 1208464
+        },
+        {
+          "asm": "nopl   (%rax)",
+          "hex": "0f1f00",
+          "va": 1208469
+        },
+        {
+          "asm": "mov    %rdi,-0xf0(%rbp)",
+          "hex": "4889bd10ffffff",
+          "va": 1208472
+        },
+        {
+          "asm": "test   %rdi,%rdi",
+          "hex": "4885ff",
+          "va": 1208479
+        },
+        {
+          "asm": "jne    126cde <getcwd@@GLIBC_2.2.5+0x7e>",
+          "hex": "0f8536fcffff",
+          "va": 1208482
+        },
+        {
+          "asm": "jmp    126cb8 <getcwd@@GLIBC_2.2.5+0x58>",
+          "hex": "e90bfcffff",
+          "va": 1208488
+        },
+        {
+          "asm": "nopl   (%rax)",
+          "hex": "0f1f00",
+          "va": 1208493
+        },
+        {
+          "asm": "je     126d10 <getcwd@@GLIBC_2.2.5+0xb0>",
+          "hex": "0f845afcffff",
+          "va": 1208496
+        },
+        {
+          "asm": "mov    0xead2b(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "4c8b352bad0e00",
+          "va": 1208502
+        },
+        {
+          "asm": "mov    %fs:(%r14),%eax",
+          "hex": "64418b06",
+          "va": 1208509
+        },
+        {
+          "asm": "cmp    $0x24,%eax",
+          "hex": "83f824",
+          "va": 1208513
+        },
+        {
+          "asm": "je     126d10 <getcwd@@GLIBC_2.2.5+0xb0>",
+          "hex": "0f8446fcffff",
+          "va": 1208516
+        },
+        {
+          "asm": "cmp    $0x22,%eax",
+          "hex": "83f822",
+          "va": 1208522
+        },
+        {
+          "asm": "jne    1270df <getcwd@@GLIBC_2.2.5+0x47f>",
+          "hex": "7510",
+          "va": 1208525
+        },
+        {
+          "asm": "mov    -0xf8(%rbp),%rax",
+          "hex": "488b8508ffffff",
+          "va": 1208527
+        },
+        {
+          "asm": "or     %r13,%rax",
+          "hex": "4c09e8",
+          "va": 1208534
+        },
+        {
+          "asm": "je     1274d9 <getcwd@@GLIBC_2.2.5+0x879>",
+          "hex": "0f84fa030000",
+          "va": 1208537
+        },
+        {
+          "asm": "test   %r13,%r13",
+          "hex": "4d85ed",
+          "va": 1208543
+        },
+        {
+          "asm": "jne    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "7522",
+          "va": 1208546
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1208548
+        },
+        {
+          "asm": "call   283d0 <free@plt>",
+          "hex": "e8e012f0ff",
+          "va": 1208555
+        },
+        {
+          "asm": "jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "eb14",
+          "va": 1208560
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f440000",
+          "va": 1208562
+        },
+        {
+          "asm": "mov    0xeace9(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b05e9ac0e00",
+          "va": 1208568
+        },
+        {
+          "asm": "movl   $0x16,%fs:(%rax)",
+          "hex": "64c70016000000",
+          "va": 1208575
+        },
+        {
+          "asm": "movq   $0x0,-0xf0(%rbp)",
+          "hex": "48c78510ffffff00000000",
+          "va": 1208582
+        },
+        {
+          "asm": "mov    -0x38(%rbp),%rax",
+          "hex": "488b45c8",
+          "va": 1208593
+        },
+        {
+          "asm": "sub    %fs:0x28,%rax",
+          "hex": "64482b042528000000",
+          "va": 1208597
+        },
+        {
+          "asm": "jne    1274f8 <getcwd@@GLIBC_2.2.5+0x898>",
+          "hex": "0f85d4030000",
+          "va": 1208606
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rax",
+          "hex": "488b8510ffffff",
+          "va": 1208612
+        },
+        {
+          "asm": "add    $0x128,%rsp",
+          "hex": "4881c428010000",
+          "va": 1208619
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 1208626
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 1208627
+        },
+        {
+          "asm": "pop    %r13",
+          "hex": "415d",
+          "va": 1208629
+        },
+        {
+          "asm": "pop    %r14",
+          "hex": "415e",
+          "va": 1208631
+        },
+        {
+          "asm": "pop    %r15",
+          "hex": "415f",
+          "va": 1208633
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 1208635
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1208636
+        },
+        {
+          "asm": "nopl   (%rax)",
+          "hex": "0f1f00",
+          "va": 1208637
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1208640
+        },
+        {
+          "asm": "test   %ebx,%ebx",
+          "hex": "85db",
+          "va": 1208644
+        },
+        {
+          "asm": "jne    127230 <getcwd@@GLIBC_2.2.5+0x5d0>",
+          "hex": "0f85e4000000",
+          "va": 1208646
+        },
+        {
+          "asm": "test   %r12b,%r12b",
+          "hex": "4584e4",
+          "va": 1208652
+        },
+        {
+          "asm": "je     1271c8 <getcwd@@GLIBC_2.2.5+0x568>",
+          "hex": "7477",
+          "va": 1208655
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1208657
+        },
+        {
+          "asm": "call   f6b10 <rewinddir@@GLIBC_2.2.5>",
+          "hex": "e8b7f9fcff",
+          "va": 1208660
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1208665
+        },
+        {
+          "asm": "call   f6820 <readdir@@GLIBC_2.2.5>",
+          "hex": "e8bff6fcff",
+          "va": 1208668
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1208673
+        },
+        {
+          "asm": "je     1272ce <getcwd@@GLIBC_2.2.5+0x66e>",
+          "hex": "0f8464010000",
+          "va": 1208676
+        },
+        {
+          "asm": "xor    %r12d,%r12d",
+          "hex": "4531e4",
+          "va": 1208682
+        },
+        {
+          "asm": "cmpb   $0x2e,0x13(%rax)",
+          "hex": "8078132e",
+          "va": 1208685
+        },
+        {
+          "asm": "jne    126ef0 <getcwd@@GLIBC_2.2.5+0x290>",
+          "hex": "0f8579fdffff",
+          "va": 1208689
+        },
+        {
+          "asm": "movzbl 0x14(%rax),%edx",
+          "hex": "0fb65014",
+          "va": 1208695
+        },
+        {
+          "asm": "test   %dl,%dl",
+          "hex": "84d2",
+          "va": 1208699
+        },
+        {
+          "asm": "je     126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "0f842dfdffff",
+          "va": 1208701
+        },
+        {
+          "asm": "cmp    $0x2e,%dl",
+          "hex": "80fa2e",
+          "va": 1208707
+        },
+        {
+          "asm": "jne    126ef0 <getcwd@@GLIBC_2.2.5+0x290>",
+          "hex": "0f8564fdffff",
+          "va": 1208710
+        },
+        {
+          "asm": "cmpb   $0x0,0x15(%rax)",
+          "hex": "80781500",
+          "va": 1208716
+        },
+        {
+          "asm": "jne    126ef0 <getcwd@@GLIBC_2.2.5+0x290>",
+          "hex": "0f855afdffff",
+          "va": 1208720
+        },
+        {
+          "asm": "jmp    126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "e915fdffff",
+          "va": 1208726
+        },
+        {
+          "asm": "nopl   0x0(%rax,%rax,1)",
+          "hex": "0f1f440000",
+          "va": 1208731
+        },
+        {
+          "asm": "movzbl 0x14(%rax),%edx",
+          "hex": "0fb65014",
+          "va": 1208736
+        },
+        {
+          "asm": "test   %dl,%dl",
+          "hex": "84d2",
+          "va": 1208740
+        },
+        {
+          "asm": "je     126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "0f8404fdffff",
+          "va": 1208742
+        },
+        {
+          "asm": "cmp    $0x2e,%dl",
+          "hex": "80fa2e",
+          "va": 1208748
+        },
+        {
+          "asm": "jne    126ed3 <getcwd@@GLIBC_2.2.5+0x273>",
+          "hex": "0f851efdffff",
+          "va": 1208751
+        },
+        {
+          "asm": "cmpb   $0x0,0x15(%rax)",
+          "hex": "80781500",
+          "va": 1208757
+        },
+        {
+          "asm": "jne    126ed3 <getcwd@@GLIBC_2.2.5+0x273>",
+          "hex": "0f8514fdffff",
+          "va": 1208761
+        },
+        {
+          "asm": "jmp    126eb0 <getcwd@@GLIBC_2.2.5+0x250>",
+          "hex": "e9ecfcffff",
+          "va": 1208767
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f4000",
+          "va": 1208772
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1208776
+        },
+        {
+          "asm": "test   %ebx,%ebx",
+          "hex": "85db",
+          "va": 1208783
+        },
+        {
+          "asm": "jne    127237 <getcwd@@GLIBC_2.2.5+0x5d7>",
+          "hex": "7564",
+          "va": 1208785
+        },
+        {
+          "asm": "movl   $0x2,%fs:(%r14)",
+          "hex": "6441c70602000000",
+          "va": 1208787
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1208795
+        },
+        {
+          "asm": "mov    $0x2,%ebx",
+          "hex": "bb02000000",
+          "va": 1208798
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e8a8f1fcff",
+          "va": 1208803
+        },
+        {
+          "asm": "test   %r13,%r13",
+          "hex": "4d85ed",
+          "va": 1208808
+        },
+        {
+          "asm": "sete   %r12b",
+          "hex": "410f94c4",
+          "va": 1208811
+        },
+        {
+          "asm": "cmpq   $0x0,-0x110(%rbp)",
+          "hex": "4883bdf0feffff00",
+          "va": 1208815
+        },
+        {
+          "asm": "je     1272de <getcwd@@GLIBC_2.2.5+0x67e>",
+          "hex": "0f84e1000000",
+          "va": 1208823
+        },
+        {
+          "asm": "mov    %ebx,%fs:(%r14)",
+          "hex": "6441891e",
+          "va": 1208829
+        },
+        {
+          "asm": "cmpq   $0x0,-0xf8(%rbp)",
+          "hex": "4883bd08ffffff00",
+          "va": 1208833
+        },
+        {
+          "asm": "je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "0f84f7feffff",
+          "va": 1208841
+        },
+        {
+          "asm": "test   %r12b,%r12b",
+          "hex": "4584e4",
+          "va": 1208847
+        },
+        {
+          "asm": "je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "0f84eefeffff",
+          "va": 1208850
+        },
+        {
+          "asm": "mov    -0x110(%rbp),%rdi",
+          "hex": "488bbdf0feffff",
+          "va": 1208856
+        },
+        {
+          "asm": "call   283d0 <free@plt>",
+          "hex": "e8ac11f0ff",
+          "va": 1208863
+        },
+        {
+          "asm": "jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "e9ddfeffff",
+          "va": 1208868
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f8000000000",
+          "va": 1208873
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1208880
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1208887
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e851f1fcff",
+          "va": 1208890
+        },
+        {
+          "asm": "jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>",
+          "hex": "eba7",
+          "va": 1208895
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f8000000000",
+          "va": 1208897
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1208904
+        },
+        {
+          "asm": "call   283d0 <free@plt>",
+          "hex": "e87c11f0ff",
+          "va": 1208911
+        },
+        {
+          "asm": "mov    $0x1000,%edi",
+          "hex": "bf00100000",
+          "va": 1208916
+        },
+        {
+          "asm": "call   283e0 <malloc@plt>",
+          "hex": "e88211f0ff",
+          "va": 1208921
+        },
+        {
+          "asm": "mov    %rax,-0xf0(%rbp)",
+          "hex": "48898510ffffff",
+          "va": 1208926
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1208933
+        },
+        {
+          "asm": "je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "0f8498feffff",
+          "va": 1208936
+        },
+        {
+          "asm": "movq   $0x0,-0x110(%rbp)",
+          "hex": "48c785f0feffff00000000",
+          "va": 1208942
+        },
+        {
+          "asm": "movq   $0x1000,-0x118(%rbp)",
+          "hex": "48c785e8feffff00100000",
+          "va": 1208953
+        },
+        {
+          "asm": "jmp    126d52 <getcwd@@GLIBC_2.2.5+0xf2>",
+          "hex": "e9c9faffff",
+          "va": 1208964
+        },
+        {
+          "asm": "mov    0xeab58(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "4c8b3558ab0e00",
+          "va": 1208969
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1208976
+        },
+        {
+          "asm": "jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>",
+          "hex": "e94fffffff",
+          "va": 1208980
+        },
+        {
+          "asm": "mov    -0xf8(%rbp),%rsi",
+          "hex": "488bb508ffffff",
+          "va": 1208985
+        },
+        {
+          "asm": "or     %r13,%rsi",
+          "hex": "4c09ee",
+          "va": 1208992
+        },
+        {
+          "asm": "je     127319 <getcwd@@GLIBC_2.2.5+0x6b9>",
+          "hex": "7474",
+          "va": 1208995
+        },
+        {
+          "asm": "test   %r13,%r13",
+          "hex": "4d85ed",
+          "va": 1208997
+        },
+        {
+          "asm": "cmove  -0xf0(%rbp),%r13",
+          "hex": "4c0f44ad10ffffff",
+          "va": 1209000
+        },
+        {
+          "asm": "mov    %r13,-0xf0(%rbp)",
+          "hex": "4c89ad10ffffff",
+          "va": 1209008
+        },
+        {
+          "asm": "jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>",
+          "hex": "e955feffff",
+          "va": 1209015
+        },
+        {
+          "asm": "mov    0xeab25(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "4c8b3525ab0e00",
+          "va": 1209020
+        },
+        {
+          "asm": "neg    %eax",
+          "hex": "f7d8",
+          "va": 1209027
+        },
+        {
+          "asm": "mov    %eax,%fs:(%r14)",
+          "hex": "64418906",
+          "va": 1209029
+        },
+        {
+          "asm": "jmp    1270c1 <getcwd@@GLIBC_2.2.5+0x461>",
+          "hex": "e9f3fdffff",
+          "va": 1209033
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1209038
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1209045
+        },
+        {
+          "asm": "jmp    1271cf <getcwd@@GLIBC_2.2.5+0x56f>",
+          "hex": "e9f1feffff",
+          "va": 1209049
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1209054
+        },
+        {
+          "asm": "call   283d0 <free@plt>",
+          "hex": "e8e610f0ff",
+          "va": 1209061
+        },
+        {
+          "asm": "jmp    1271fd <getcwd@@GLIBC_2.2.5+0x59d>",
+          "hex": "e90effffff",
+          "va": 1209066
+        },
+        {
+          "asm": "mov    0xeaaf2(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b05f2aa0e00",
+          "va": 1209071
+        },
+        {
+          "asm": "movl   $0x22,%fs:(%rax)",
+          "hex": "64c70022000000",
+          "va": 1209078
+        },
+        {
+          "asm": "test   %r13,%r13",
+          "hex": "4d85ed",
+          "va": 1209085
+        },
+        {
+          "asm": "jne    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "0f8500feffff",
+          "va": 1209088
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rax",
+          "hex": "488b8510ffffff",
+          "va": 1209094
+        },
+        {
+          "asm": "mov    %rax,-0x110(%rbp)",
+          "hex": "488985f0feffff",
+          "va": 1209101
+        },
+        {
+          "asm": "jmp    127218 <getcwd@@GLIBC_2.2.5+0x5b8>",
+          "hex": "e9fffeffff",
+          "va": 1209108
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1209113
+        },
+        {
+          "asm": "movslq %eax,%rsi",
+          "hex": "4863f0",
+          "va": 1209120
+        },
+        {
+          "asm": "call   28400 <realloc@plt>",
+          "hex": "e8d810f0ff",
+          "va": 1209123
+        },
+        {
+          "asm": "mov    %rax,%r13",
+          "hex": "4989c5",
+          "va": 1209128
+        },
+        {
+          "asm": "jmp    1272a5 <getcwd@@GLIBC_2.2.5+0x645>",
+          "hex": "e975ffffff",
+          "va": 1209131
+        },
+        {
+          "asm": "mov    %r13d,%r12d",
+          "hex": "4589ec",
+          "va": 1209136
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1209139
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1209143
+        },
+        {
+          "asm": "mov    %r12d,%edi",
+          "hex": "4489e7",
+          "va": 1209150
+        },
+        {
+          "asm": "call   128c60 <__close_nocancel_nostatus@@GLIBC_PRIVATE>",
+          "hex": "e81a190000",
+          "va": 1209153
+        },
+        {
+          "asm": "jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>",
+          "hex": "e99dfeffff",
+          "va": 1209158
+        },
+        {
+          "asm": "mov    %r13d,%r12d",
+          "hex": "4589ec",
+          "va": 1209163
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1209166
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1209170
+        },
+        {
+          "asm": "test   %r15,%r15",
+          "hex": "4d85ff",
+          "va": 1209177
+        },
+        {
+          "asm": "je     12733e <getcwd@@GLIBC_2.2.5+0x6de>",
+          "hex": "74e0",
+          "va": 1209180
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1209182
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e82af0fcff",
+          "va": 1209185
+        },
+        {
+          "asm": "jmp    12733e <getcwd@@GLIBC_2.2.5+0x6de>",
+          "hex": "ebd6",
+          "va": 1209190
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1209192
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1209199
+        },
+        {
+          "asm": "test   %r15,%r15",
+          "hex": "4d85ff",
+          "va": 1209203
+        },
+        {
+          "asm": "jne    127237 <getcwd@@GLIBC_2.2.5+0x5d7>",
+          "hex": "0f85bbfeffff",
+          "va": 1209206
+        },
+        {
+          "asm": "jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>",
+          "hex": "e967feffff",
+          "va": 1209212
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f8000000000",
+          "va": 1209217
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1209224
+        },
+        {
+          "asm": "mov    %rax,-0xd8(%rbp)",
+          "hex": "48898528ffffff",
+          "va": 1209227
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1209234
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e8f2effcff",
+          "va": 1209241
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1209246
+        },
+        {
+          "asm": "jne    12746f <getcwd@@GLIBC_2.2.5+0x80f>",
+          "hex": "0f85c9000000",
+          "va": 1209248
+        },
+        {
+          "asm": "mov    -0x118(%rbp),%rsi",
+          "hex": "488bb5e8feffff",
+          "va": 1209254
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rax",
+          "hex": "488b8510ffffff",
+          "va": 1209261
+        },
+        {
+          "asm": "lea    (%rax,%rsi,1),%rbx",
+          "hex": "488d1c30",
+          "va": 1209268
+        },
+        {
+          "asm": "mov    -0xd8(%rbp),%rsi",
+          "hex": "488bb528ffffff",
+          "va": 1209272
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rax",
+          "hex": "488b8510ffffff",
+          "va": 1209279
+        },
+        {
+          "asm": "mov    -0x118(%rbp),%rcx",
+          "hex": "488b8de8feffff",
+          "va": 1209286
+        },
+        {
+          "asm": "lea    -0x1(%rax,%rcx,1),%rax",
+          "hex": "488d4408ff",
+          "va": 1209293
+        },
+        {
+          "asm": "cmp    %rax,%rsi",
+          "hex": "4839c6",
+          "va": 1209298
+        },
+        {
+          "asm": "je     127462 <getcwd@@GLIBC_2.2.5+0x802>",
+          "hex": "0f8487000000",
+          "va": 1209301
+        },
+        {
+          "asm": "sub    %rsi,%rbx",
+          "hex": "4829f3",
+          "va": 1209307
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1209310
+        },
+        {
+          "asm": "mov    %rbx,%rdx",
+          "hex": "4889da",
+          "va": 1209317
+        },
+        {
+          "asm": "call   28480 <*ABS*+0xb9600@plt>",
+          "hex": "e89310f0ff",
+          "va": 1209320
+        },
+        {
+          "asm": "cmpq   $0x0,-0xf8(%rbp)",
+          "hex": "4883bd08ffffff00",
+          "va": 1209325
+        },
+        {
+          "asm": "jne    127413 <getcwd@@GLIBC_2.2.5+0x7b3>",
+          "hex": "751c",
+          "va": 1209333
+        },
+        {
+          "asm": "cmp    -0x118(%rbp),%rbx",
+          "hex": "483b9de8feffff",
+          "va": 1209335
+        },
+        {
+          "asm": "jb     12742b <getcwd@@GLIBC_2.2.5+0x7cb>",
+          "hex": "722b",
+          "va": 1209342
+        },
+        {
+          "asm": "cmpq   $0x0,-0xf0(%rbp)",
+          "hex": "4883bd10ffffff00",
+          "va": 1209344
+        },
+        {
+          "asm": "jne    127111 <getcwd@@GLIBC_2.2.5+0x4b1>",
+          "hex": "0f8503fdffff",
+          "va": 1209352
+        },
+        {
+          "asm": "jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "e9f3fcffff",
+          "va": 1209358
+        },
+        {
+          "asm": "mov    -0x110(%rbp),%rax",
+          "hex": "488b85f0feffff",
+          "va": 1209363
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1209370
+        },
+        {
+          "asm": "je     127450 <getcwd@@GLIBC_2.2.5+0x7f0>",
+          "hex": "7431",
+          "va": 1209373
+        },
+        {
+          "asm": "mov    %rax,-0xf0(%rbp)",
+          "hex": "48898510ffffff",
+          "va": 1209375
+        },
+        {
+          "asm": "jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>",
+          "hex": "e9e6fcffff",
+          "va": 1209382
+        },
+        {
+          "asm": "mov    %rbx,%rsi",
+          "hex": "4889de",
+          "va": 1209387
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rbx",
+          "hex": "488b9d10ffffff",
+          "va": 1209390
+        },
+        {
+          "asm": "mov    %rbx,%rdi",
+          "hex": "4889df",
+          "va": 1209397
+        },
+        {
+          "asm": "call   28400 <realloc@plt>",
+          "hex": "e8c30ff0ff",
+          "va": 1209400
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1209405
+        },
+        {
+          "asm": "cmove  %rbx,%rax",
+          "hex": "480f44c3",
+          "va": 1209408
+        },
+        {
+          "asm": "mov    %rax,-0xf0(%rbp)",
+          "hex": "48898510ffffff",
+          "va": 1209412
+        },
+        {
+          "asm": "jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>",
+          "hex": "e9c1fcffff",
+          "va": 1209419
+        },
+        {
+          "asm": "or     -0xf0(%rbp),%r13",
+          "hex": "4c0bad10ffffff",
+          "va": 1209424
+        },
+        {
+          "asm": "je     127218 <getcwd@@GLIBC_2.2.5+0x5b8>",
+          "hex": "0f84bbfdffff",
+          "va": 1209431
+        },
+        {
+          "asm": "jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>",
+          "hex": "e9affcffff",
+          "va": 1209437
+        },
+        {
+          "asm": "movb   $0x2f,-0x1(%rsi)",
+          "hex": "c646ff2f",
+          "va": 1209442
+        },
+        {
+          "asm": "sub    $0x1,%rsi",
+          "hex": "4883ee01",
+          "va": 1209446
+        },
+        {
+          "asm": "jmp    1273db <getcwd@@GLIBC_2.2.5+0x77b>",
+          "hex": "e96cffffff",
+          "va": 1209450
+        },
+        {
+          "asm": "mov    %fs:(%r14),%ebx",
+          "hex": "64418b1e",
+          "va": 1209455
+        },
+        {
+          "asm": "jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>",
+          "hex": "e970fdffff",
+          "va": 1209459
+        },
+        {
+          "asm": "movl   $0xc,%fs:(%r14)",
+          "hex": "6441c7060c000000",
+          "va": 1209464
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1209472
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e808effcff",
+          "va": 1209475
+        },
+        {
+          "asm": "cmpq   $0x0,-0x110(%rbp)",
+          "hex": "4883bdf0feffff00",
+          "va": 1209480
+        },
+        {
+          "asm": "je     1274c0 <getcwd@@GLIBC_2.2.5+0x860>",
+          "hex": "742e",
+          "va": 1209488
+        },
+        {
+          "asm": "movl   $0xc,%fs:(%r14)",
+          "hex": "6441c7060c000000",
+          "va": 1209490
+        },
+        {
+          "asm": "jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "e967fcffff",
+          "va": 1209498
+        },
+        {
+          "asm": "mov    -0x100(%rbp),%r13",
+          "hex": "4c8bad00ffffff",
+          "va": 1209503
+        },
+        {
+          "asm": "mov    %r15,%rdi",
+          "hex": "4c89ff",
+          "va": 1209510
+        },
+        {
+          "asm": "movl   $0x22,%fs:(%r14)",
+          "hex": "6441c70622000000",
+          "va": 1209513
+        },
+        {
+          "asm": "mov    $0x22,%ebx",
+          "hex": "bb22000000",
+          "va": 1209521
+        },
+        {
+          "asm": "call   f6390 <closedir@@GLIBC_2.2.5>",
+          "hex": "e8d5eefcff",
+          "va": 1209526
+        },
+        {
+          "asm": "jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>",
+          "hex": "e928fdffff",
+          "va": 1209531
+        },
+        {
+          "asm": "mov    -0xf0(%rbp),%rdi",
+          "hex": "488bbd10ffffff",
+          "va": 1209536
+        },
+        {
+          "asm": "call   283d0 <free@plt>",
+          "hex": "e8040ff0ff",
+          "va": 1209543
+        },
+        {
+          "asm": "movl   $0xc,%fs:(%r14)",
+          "hex": "6441c7060c000000",
+          "va": 1209548
+        },
+        {
+          "asm": "jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>",
+          "hex": "e92dfcffff",
+          "va": 1209556
+        },
+        {
+          "asm": "lea    0xbb290(%rip),%rcx        # 1e2770 <__nptl_version@@GLIBC_PRIVATE+0x5993>",
+          "hex": "488d0d90b20b00",
+          "va": 1209561
+        },
+        {
+          "asm": "mov    $0x7b,%edx",
+          "hex": "ba7b000000",
+          "va": 1209568
+        },
+        {
+          "asm": "lea    0xbb22c(%rip),%rsi        # 1e2718 <__nptl_version@@GLIBC_PRIVATE+0x593b>",
+          "hex": "488d352cb20b00",
+          "va": 1209573
+        },
+        {
+          "asm": "lea    0xbb24d(%rip),%rdi        # 1e2740 <__nptl_version@@GLIBC_PRIVATE+0x5963>",
+          "hex": "488d3d4db20b00",
+          "va": 1209580
+        },
+        {
+          "asm": "call   3be60 <__uselocale@@GLIBC_2.3+0x230>",
+          "hex": "e86849f1ff",
+          "va": 1209587
+        },
+        {
+          "asm": "call   145260 <__stack_chk_fail@@GLIBC_2.4>",
+          "hex": "e863dd0100",
+          "va": 1209592
+        }
+      ],
+      "name": "getcwd",
+      "size": 2205,
+      "va": 1207392
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xf63e0",
+        "--stop-address=0xf64bf",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa554889e5415453488db550ffffff4881eca000000064488b1c252800000048895de889fbe803d5020085c078758b8568ffffff2500f000003d00400000755531c0be0300000089dfe86f28030083f8ff7450a900002000755389c283e20383fa017461488d8d50ffffff89c231f689dfe8e7020000488b55e864482b14252800000075524881c4a00000005b415c5dc30f1f4000488b0569b9110064c7001400000031c0ebcf660f1f440000488b0551b9110064c7000900000031c0ebb7660f1f440000488b0539b9110064c7001600000031c0eb9fe8a1ed0400",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1008608
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1008612
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1008613
+        },
+        {
+          "asm": "push   %r12",
+          "hex": "4154",
+          "va": 1008616
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 1008618
+        },
+        {
+          "asm": "lea    -0xb0(%rbp),%rsi",
+          "hex": "488db550ffffff",
+          "va": 1008619
+        },
+        {
+          "asm": "sub    $0xa0,%rsp",
+          "hex": "4881eca0000000",
+          "va": 1008626
+        },
+        {
+          "asm": "mov    %fs:0x28,%rbx",
+          "hex": "64488b1c2528000000",
+          "va": 1008633
+        },
+        {
+          "asm": "mov    %rbx,-0x18(%rbp)",
+          "hex": "48895de8",
+          "va": 1008642
+        },
+        {
+          "asm": "mov    %edi,%ebx",
+          "hex": "89fb",
+          "va": 1008646
+        },
+        {
+          "asm": "call   123910 <__fstat64@@GLIBC_PRIVATE>",
+          "hex": "e803d50200",
+          "va": 1008648
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1008653
+        },
+        {
+          "asm": "js     f6486 <fdopendir@@GLIBC_2.4+0xa6>",
+          "hex": "7875",
+          "va": 1008655
+        },
+        {
+          "asm": "mov    -0x98(%rbp),%eax",
+          "hex": "8b8568ffffff",
+          "va": 1008657
+        },
+        {
+          "asm": "and    $0xf000,%eax",
+          "hex": "2500f00000",
+          "va": 1008663
+        },
+        {
+          "asm": "cmp    $0x4000,%eax",
+          "hex": "3d00400000",
+          "va": 1008668
+        },
+        {
+          "asm": "jne    f6478 <fdopendir@@GLIBC_2.4+0x98>",
+          "hex": "7555",
+          "va": 1008673
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1008675
+        },
+        {
+          "asm": "mov    $0x3,%esi",
+          "hex": "be03000000",
+          "va": 1008677
+        },
+        {
+          "asm": "mov    %ebx,%edi",
+          "hex": "89df",
+          "va": 1008682
+        },
+        {
+          "asm": "call   128ca0 <fallocate64@@GLIBC_2.10+0x30>",
+          "hex": "e86f280300",
+          "va": 1008684
+        },
+        {
+          "asm": "cmp    $0xffffffff,%eax",
+          "hex": "83f8ff",
+          "va": 1008689
+        },
+        {
+          "asm": "je     f6486 <fdopendir@@GLIBC_2.4+0xa6>",
+          "hex": "7450",
+          "va": 1008692
+        },
+        {
+          "asm": "test   $0x200000,%eax",
+          "hex": "a900002000",
+          "va": 1008694
+        },
+        {
+          "asm": "jne    f6490 <fdopendir@@GLIBC_2.4+0xb0>",
+          "hex": "7553",
+          "va": 1008699
+        },
+        {
+          "asm": "mov    %eax,%edx",
+          "hex": "89c2",
+          "va": 1008701
+        },
+        {
+          "asm": "and    $0x3,%edx",
+          "hex": "83e203",
+          "va": 1008703
+        },
+        {
+          "asm": "cmp    $0x1,%edx",
+          "hex": "83fa01",
+          "va": 1008706
+        },
+        {
+          "asm": "je     f64a8 <fdopendir@@GLIBC_2.4+0xc8>",
+          "hex": "7461",
+          "va": 1008709
+        },
+        {
+          "asm": "lea    -0xb0(%rbp),%rcx",
+          "hex": "488d8d50ffffff",
+          "va": 1008711
+        },
+        {
+          "asm": "mov    %eax,%edx",
+          "hex": "89c2",
+          "va": 1008718
+        },
+        {
+          "asm": "xor    %esi,%esi",
+          "hex": "31f6",
+          "va": 1008720
+        },
+        {
+          "asm": "mov    %ebx,%edi",
+          "hex": "89df",
+          "va": 1008722
+        },
+        {
+          "asm": "call   f6740 <opendir@@GLIBC_2.2.5+0x120>",
+          "hex": "e8e7020000",
+          "va": 1008724
+        },
+        {
+          "asm": "mov    -0x18(%rbp),%rdx",
+          "hex": "488b55e8",
+          "va": 1008729
+        },
+        {
+          "asm": "sub    %fs:0x28,%rdx",
+          "hex": "64482b142528000000",
+          "va": 1008733
+        },
+        {
+          "asm": "jne    f64ba <fdopendir@@GLIBC_2.4+0xda>",
+          "hex": "7552",
+          "va": 1008742
+        },
+        {
+          "asm": "add    $0xa0,%rsp",
+          "hex": "4881c4a0000000",
+          "va": 1008744
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 1008751
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 1008752
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 1008754
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1008755
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f4000",
+          "va": 1008756
+        },
+        {
+          "asm": "mov    0x11b969(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b0569b91100",
+          "va": 1008760
+        },
+        {
+          "asm": "movl   $0x14,%fs:(%rax)",
+          "hex": "64c70014000000",
+          "va": 1008767
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1008774
+        },
+        {
+          "asm": "jmp    f6459 <fdopendir@@GLIBC_2.4+0x79>",
+          "hex": "ebcf",
+          "va": 1008776
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f440000",
+          "va": 1008778
+        },
+        {
+          "asm": "mov    0x11b951(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b0551b91100",
+          "va": 1008784
+        },
+        {
+          "asm": "movl   $0x9,%fs:(%rax)",
+          "hex": "64c70009000000",
+          "va": 1008791
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1008798
+        },
+        {
+          "asm": "jmp    f6459 <fdopendir@@GLIBC_2.4+0x79>",
+          "hex": "ebb7",
+          "va": 1008800
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f440000",
+          "va": 1008802
+        },
+        {
+          "asm": "mov    0x11b939(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b0539b91100",
+          "va": 1008808
+        },
+        {
+          "asm": "movl   $0x16,%fs:(%rax)",
+          "hex": "64c70016000000",
+          "va": 1008815
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1008822
+        },
+        {
+          "asm": "jmp    f6459 <fdopendir@@GLIBC_2.4+0x79>",
+          "hex": "eb9f",
+          "va": 1008824
+        },
+        {
+          "asm": "call   145260 <__stack_chk_fail@@GLIBC_2.4>",
+          "hex": "e8a1ed0400",
+          "va": 1008826
+        }
+      ],
+      "name": "fdopendir",
+      "size": 223,
+      "va": 1008608
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xf6740",
+        "--stop-address=0xf6814",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa554889e541544189fc534889cb4084f6757a31c0ba01000000be02000000e83925030085c00f88a1000000488b5b38b8008000004839c3480f42d8b8000010004839c3480f47d8488d7b30e84c1cf3ff4885c074774889580866410f6ec448c740100000000048c740180000000048c7402000000000c7402800000000660fd6005b415c5dc3660f1f440000488b5938b8008000004839c3480f42d8b8000010004839c3480f47d8488d7b30e8eb1bf3ff4885c0759f4489e7e85e2403000f1f0066662e0f1f84000000000031c0ebb1",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1009472
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1009476
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1009477
+        },
+        {
+          "asm": "push   %r12",
+          "hex": "4154",
+          "va": 1009480
+        },
+        {
+          "asm": "mov    %edi,%r12d",
+          "hex": "4189fc",
+          "va": 1009482
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 1009485
+        },
+        {
+          "asm": "mov    %rcx,%rbx",
+          "hex": "4889cb",
+          "va": 1009486
+        },
+        {
+          "asm": "test   %sil,%sil",
+          "hex": "4084f6",
+          "va": 1009489
+        },
+        {
+          "asm": "jne    f67d0 <opendir@@GLIBC_2.2.5+0x1b0>",
+          "hex": "757a",
+          "va": 1009492
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1009494
+        },
+        {
+          "asm": "mov    $0x1,%edx",
+          "hex": "ba01000000",
+          "va": 1009496
+        },
+        {
+          "asm": "mov    $0x2,%esi",
+          "hex": "be02000000",
+          "va": 1009501
+        },
+        {
+          "asm": "call   128ca0 <fallocate64@@GLIBC_2.10+0x30>",
+          "hex": "e839250300",
+          "va": 1009506
+        },
+        {
+          "asm": "test   %eax,%eax",
+          "hex": "85c0",
+          "va": 1009511
+        },
+        {
+          "asm": "js     f6810 <opendir@@GLIBC_2.2.5+0x1f0>",
+          "hex": "0f88a1000000",
+          "va": 1009513
+        },
+        {
+          "asm": "mov    0x38(%rbx),%rbx",
+          "hex": "488b5b38",
+          "va": 1009519
+        },
+        {
+          "asm": "mov    $0x8000,%eax",
+          "hex": "b800800000",
+          "va": 1009523
+        },
+        {
+          "asm": "cmp    %rax,%rbx",
+          "hex": "4839c3",
+          "va": 1009528
+        },
+        {
+          "asm": "cmovb  %rax,%rbx",
+          "hex": "480f42d8",
+          "va": 1009531
+        },
+        {
+          "asm": "mov    $0x100000,%eax",
+          "hex": "b800001000",
+          "va": 1009535
+        },
+        {
+          "asm": "cmp    %rax,%rbx",
+          "hex": "4839c3",
+          "va": 1009540
+        },
+        {
+          "asm": "cmova  %rax,%rbx",
+          "hex": "480f47d8",
+          "va": 1009543
+        },
+        {
+          "asm": "lea    0x30(%rbx),%rdi",
+          "hex": "488d7b30",
+          "va": 1009547
+        },
+        {
+          "asm": "call   283e0 <malloc@plt>",
+          "hex": "e84c1cf3ff",
+          "va": 1009551
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1009556
+        },
+        {
+          "asm": "je     f6810 <opendir@@GLIBC_2.2.5+0x1f0>",
+          "hex": "7477",
+          "va": 1009559
+        },
+        {
+          "asm": "mov    %rbx,0x8(%rax)",
+          "hex": "48895808",
+          "va": 1009561
+        },
+        {
+          "asm": "movd   %r12d,%xmm0",
+          "hex": "66410f6ec4",
+          "va": 1009565
+        },
+        {
+          "asm": "movq   $0x0,0x10(%rax)",
+          "hex": "48c7401000000000",
+          "va": 1009570
+        },
+        {
+          "asm": "movq   $0x0,0x18(%rax)",
+          "hex": "48c7401800000000",
+          "va": 1009578
+        },
+        {
+          "asm": "movq   $0x0,0x20(%rax)",
+          "hex": "48c7402000000000",
+          "va": 1009586
+        },
+        {
+          "asm": "movl   $0x0,0x28(%rax)",
+          "hex": "c7402800000000",
+          "va": 1009594
+        },
+        {
+          "asm": "movq   %xmm0,(%rax)",
+          "hex": "660fd600",
+          "va": 1009601
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 1009605
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 1009606
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 1009608
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1009609
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f440000",
+          "va": 1009610
+        },
+        {
+          "asm": "mov    0x38(%rcx),%rbx",
+          "hex": "488b5938",
+          "va": 1009616
+        },
+        {
+          "asm": "mov    $0x8000,%eax",
+          "hex": "b800800000",
+          "va": 1009620
+        },
+        {
+          "asm": "cmp    %rax,%rbx",
+          "hex": "4839c3",
+          "va": 1009625
+        },
+        {
+          "asm": "cmovb  %rax,%rbx",
+          "hex": "480f42d8",
+          "va": 1009628
+        },
+        {
+          "asm": "mov    $0x100000,%eax",
+          "hex": "b800001000",
+          "va": 1009632
+        },
+        {
+          "asm": "cmp    %rax,%rbx",
+          "hex": "4839c3",
+          "va": 1009637
+        },
+        {
+          "asm": "cmova  %rax,%rbx",
+          "hex": "480f47d8",
+          "va": 1009640
+        },
+        {
+          "asm": "lea    0x30(%rbx),%rdi",
+          "hex": "488d7b30",
+          "va": 1009644
+        },
+        {
+          "asm": "call   283e0 <malloc@plt>",
+          "hex": "e8eb1bf3ff",
+          "va": 1009648
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1009653
+        },
+        {
+          "asm": "jne    f6799 <opendir@@GLIBC_2.2.5+0x179>",
+          "hex": "759f",
+          "va": 1009656
+        },
+        {
+          "asm": "mov    %r12d,%edi",
+          "hex": "4489e7",
+          "va": 1009658
+        },
+        {
+          "asm": "call   128c60 <__close_nocancel_nostatus@@GLIBC_PRIVATE>",
+          "hex": "e85e240300",
+          "va": 1009661
+        },
+        {
+          "asm": "nopl   (%rax)",
+          "hex": "0f1f00",
+          "va": 1009666
+        },
+        {
+          "asm": "data16 cs nopw 0x0(%rax,%rax,1)",
+          "hex": "66662e0f1f840000000000",
+          "va": 1009669
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1009680
+        },
+        {
+          "asm": "jmp    f67c5 <opendir@@GLIBC_2.2.5+0x1a5>",
+          "hex": "ebb1",
+          "va": 1009682
+        }
+      ],
+      "name": "alloc_dir",
+      "size": 212,
+      "va": 1009472
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xf6390",
+        "--stop-address=0xf63c9",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa4885ff741c554889e5534883ec088b1fe82720f3ff89df488b5df8c9e97b280300488b052cba110064c70016000000b8ffffffffc3",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1008528
+        },
+        {
+          "asm": "test   %rdi,%rdi",
+          "hex": "4885ff",
+          "va": 1008532
+        },
+        {
+          "asm": "je     f63b5 <closedir@@GLIBC_2.2.5+0x25>",
+          "hex": "741c",
+          "va": 1008535
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1008537
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1008538
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 1008541
+        },
+        {
+          "asm": "sub    $0x8,%rsp",
+          "hex": "4883ec08",
+          "va": 1008542
+        },
+        {
+          "asm": "mov    (%rdi),%ebx",
+          "hex": "8b1f",
+          "va": 1008546
+        },
+        {
+          "asm": "call   283d0 <free@plt>",
+          "hex": "e82720f3ff",
+          "va": 1008548
+        },
+        {
+          "asm": "mov    %ebx,%edi",
+          "hex": "89df",
+          "va": 1008553
+        },
+        {
+          "asm": "mov    -0x8(%rbp),%rbx",
+          "hex": "488b5df8",
+          "va": 1008555
+        },
+        {
+          "asm": "leave",
+          "hex": "c9",
+          "va": 1008559
+        },
+        {
+          "asm": "jmp    128c30 <__close_nocancel@@GLIBC_PRIVATE>",
+          "hex": "e97b280300",
+          "va": 1008560
+        },
+        {
+          "asm": "mov    0x11ba2c(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b052cba1100",
+          "va": 1008565
+        },
+        {
+          "asm": "movl   $0x16,%fs:(%rax)",
+          "hex": "64c70016000000",
+          "va": 1008572
+        },
+        {
+          "asm": "mov    $0xffffffff,%eax",
+          "hex": "b8ffffffff",
+          "va": 1008579
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1008584
+        }
+      ],
+      "name": "closedir",
+      "size": 57,
+      "va": 1008528
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xf6820",
+        "--stop-address=0xf6931",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa554889f94c8d470431c0ba010000004889e5534883ec28f0410fb110757e488b4118488d740130483b4110732f0fb756104801d048894118488b46084889412031c041870083f8017f72488b5df84889f0c9c3660f1f840000000000488b51088b39488d71304c8945d8488b0553b51100648b1848894de0488975e8e81bfcffff488b75e8488b4de04885c04c8b45d87e4a4889411031c0eb93669048897de04c89c74c8945e8e8c09ffaff488b4de04c8b45e8e965ffffff0f1f004c89c7488975e8e864a0faff488b75e8488b5df8c94889f0c30f1f8000000000741e488b05dfb4110064833802741131f6e94effffff662e0f1f840000000000488b05c1b4110031f6648918e933ffffff",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1009696
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1009700
+        },
+        {
+          "asm": "mov    %rdi,%rcx",
+          "hex": "4889f9",
+          "va": 1009701
+        },
+        {
+          "asm": "lea    0x4(%rdi),%r8",
+          "hex": "4c8d4704",
+          "va": 1009704
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1009708
+        },
+        {
+          "asm": "mov    $0x1,%edx",
+          "hex": "ba01000000",
+          "va": 1009710
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1009715
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 1009718
+        },
+        {
+          "asm": "sub    $0x28,%rsp",
+          "hex": "4883ec28",
+          "va": 1009719
+        },
+        {
+          "asm": "lock cmpxchg %edx,(%r8)",
+          "hex": "f0410fb110",
+          "va": 1009723
+        },
+        {
+          "asm": "jne    f68c0 <readdir@@GLIBC_2.2.5+0xa0>",
+          "hex": "757e",
+          "va": 1009728
+        },
+        {
+          "asm": "mov    0x18(%rcx),%rax",
+          "hex": "488b4118",
+          "va": 1009730
+        },
+        {
+          "asm": "lea    0x30(%rcx,%rax,1),%rsi",
+          "hex": "488d740130",
+          "va": 1009734
+        },
+        {
+          "asm": "cmp    0x10(%rcx),%rax",
+          "hex": "483b4110",
+          "va": 1009739
+        },
+        {
+          "asm": "jae    f6880 <readdir@@GLIBC_2.2.5+0x60>",
+          "hex": "732f",
+          "va": 1009743
+        },
+        {
+          "asm": "movzwl 0x10(%rsi),%edx",
+          "hex": "0fb75610",
+          "va": 1009745
+        },
+        {
+          "asm": "add    %rdx,%rax",
+          "hex": "4801d0",
+          "va": 1009749
+        },
+        {
+          "asm": "mov    %rax,0x18(%rcx)",
+          "hex": "48894118",
+          "va": 1009752
+        },
+        {
+          "asm": "mov    0x8(%rsi),%rax",
+          "hex": "488b4608",
+          "va": 1009756
+        },
+        {
+          "asm": "mov    %rax,0x20(%rcx)",
+          "hex": "48894120",
+          "va": 1009760
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1009764
+        },
+        {
+          "asm": "xchg   %eax,(%r8)",
+          "hex": "418700",
+          "va": 1009766
+        },
+        {
+          "asm": "cmp    $0x1,%eax",
+          "hex": "83f801",
+          "va": 1009769
+        },
+        {
+          "asm": "jg     f68e0 <readdir@@GLIBC_2.2.5+0xc0>",
+          "hex": "7f72",
+          "va": 1009772
+        },
+        {
+          "asm": "mov    -0x8(%rbp),%rbx",
+          "hex": "488b5df8",
+          "va": 1009774
+        },
+        {
+          "asm": "mov    %rsi,%rax",
+          "hex": "4889f0",
+          "va": 1009778
+        },
+        {
+          "asm": "leave",
+          "hex": "c9",
+          "va": 1009781
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1009782
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f840000000000",
+          "va": 1009783
+        },
+        {
+          "asm": "mov    0x8(%rcx),%rdx",
+          "hex": "488b5108",
+          "va": 1009792
+        },
+        {
+          "asm": "mov    (%rcx),%edi",
+          "hex": "8b39",
+          "va": 1009796
+        },
+        {
+          "asm": "lea    0x30(%rcx),%rsi",
+          "hex": "488d7130",
+          "va": 1009798
+        },
+        {
+          "asm": "mov    %r8,-0x28(%rbp)",
+          "hex": "4c8945d8",
+          "va": 1009802
+        },
+        {
+          "asm": "mov    0x11b553(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b0553b51100",
+          "va": 1009806
+        },
+        {
+          "asm": "mov    %fs:(%rax),%ebx",
+          "hex": "648b18",
+          "va": 1009813
+        },
+        {
+          "asm": "mov    %rcx,-0x20(%rbp)",
+          "hex": "48894de0",
+          "va": 1009816
+        },
+        {
+          "asm": "mov    %rsi,-0x18(%rbp)",
+          "hex": "488975e8",
+          "va": 1009820
+        },
+        {
+          "asm": "call   f64c0 <getdents64@@GLIBC_2.30>",
+          "hex": "e81bfcffff",
+          "va": 1009824
+        },
+        {
+          "asm": "mov    -0x18(%rbp),%rsi",
+          "hex": "488b75e8",
+          "va": 1009829
+        },
+        {
+          "asm": "mov    -0x20(%rbp),%rcx",
+          "hex": "488b4de0",
+          "va": 1009833
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1009837
+        },
+        {
+          "asm": "mov    -0x28(%rbp),%r8",
+          "hex": "4c8b45d8",
+          "va": 1009840
+        },
+        {
+          "asm": "jle    f6900 <readdir@@GLIBC_2.2.5+0xe0>",
+          "hex": "7e4a",
+          "va": 1009844
+        },
+        {
+          "asm": "mov    %rax,0x10(%rcx)",
+          "hex": "48894110",
+          "va": 1009846
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1009850
+        },
+        {
+          "asm": "jmp    f6851 <readdir@@GLIBC_2.2.5+0x31>",
+          "hex": "eb93",
+          "va": 1009852
+        },
+        {
+          "asm": "xchg   %ax,%ax",
+          "hex": "6690",
+          "va": 1009854
+        },
+        {
+          "asm": "mov    %rdi,-0x20(%rbp)",
+          "hex": "48897de0",
+          "va": 1009856
+        },
+        {
+          "asm": "mov    %r8,%rdi",
+          "hex": "4c89c7",
+          "va": 1009860
+        },
+        {
+          "asm": "mov    %r8,-0x18(%rbp)",
+          "hex": "4c8945e8",
+          "va": 1009863
+        },
+        {
+          "asm": "call   a0890 <__lll_lock_wait_private@@GLIBC_PRIVATE>",
+          "hex": "e8c09ffaff",
+          "va": 1009867
+        },
+        {
+          "asm": "mov    -0x20(%rbp),%rcx",
+          "hex": "488b4de0",
+          "va": 1009872
+        },
+        {
+          "asm": "mov    -0x18(%rbp),%r8",
+          "hex": "4c8b45e8",
+          "va": 1009876
+        },
+        {
+          "asm": "jmp    f6842 <readdir@@GLIBC_2.2.5+0x22>",
+          "hex": "e965ffffff",
+          "va": 1009880
+        },
+        {
+          "asm": "nopl   (%rax)",
+          "hex": "0f1f00",
+          "va": 1009885
+        },
+        {
+          "asm": "mov    %r8,%rdi",
+          "hex": "4c89c7",
+          "va": 1009888
+        },
+        {
+          "asm": "mov    %rsi,-0x18(%rbp)",
+          "hex": "488975e8",
+          "va": 1009891
+        },
+        {
+          "asm": "call   a0950 <__lll_lock_wake_private@@GLIBC_PRIVATE>",
+          "hex": "e864a0faff",
+          "va": 1009895
+        },
+        {
+          "asm": "mov    -0x18(%rbp),%rsi",
+          "hex": "488b75e8",
+          "va": 1009900
+        },
+        {
+          "asm": "mov    -0x8(%rbp),%rbx",
+          "hex": "488b5df8",
+          "va": 1009904
+        },
+        {
+          "asm": "leave",
+          "hex": "c9",
+          "va": 1009908
+        },
+        {
+          "asm": "mov    %rsi,%rax",
+          "hex": "4889f0",
+          "va": 1009909
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1009912
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f8000000000",
+          "va": 1009913
+        },
+        {
+          "asm": "je     f6920 <readdir@@GLIBC_2.2.5+0x100>",
+          "hex": "741e",
+          "va": 1009920
+        },
+        {
+          "asm": "mov    0x11b4df(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b05dfb41100",
+          "va": 1009922
+        },
+        {
+          "asm": "cmpl   $0x2,%fs:(%rax)",
+          "hex": "64833802",
+          "va": 1009929
+        },
+        {
+          "asm": "je     f6920 <readdir@@GLIBC_2.2.5+0x100>",
+          "hex": "7411",
+          "va": 1009933
+        },
+        {
+          "asm": "xor    %esi,%esi",
+          "hex": "31f6",
+          "va": 1009935
+        },
+        {
+          "asm": "jmp    f6864 <readdir@@GLIBC_2.2.5+0x44>",
+          "hex": "e94effffff",
+          "va": 1009937
+        },
+        {
+          "asm": "cs nopw 0x0(%rax,%rax,1)",
+          "hex": "662e0f1f840000000000",
+          "va": 1009942
+        },
+        {
+          "asm": "mov    0x11b4c1(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b05c1b41100",
+          "va": 1009952
+        },
+        {
+          "asm": "xor    %esi,%esi",
+          "hex": "31f6",
+          "va": 1009959
+        },
+        {
+          "asm": "mov    %ebx,%fs:(%rax)",
+          "hex": "648918",
+          "va": 1009961
+        },
+        {
+          "asm": "jmp    f6864 <readdir@@GLIBC_2.2.5+0x44>",
+          "hex": "e933ffffff",
+          "va": 1009964
+        }
+      ],
+      "name": "readdir",
+      "size": 273,
+      "va": 1009696
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xf6b10",
+        "--stop-address=0xf6b84",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa5531c0ba010000004889e541544c8d6704534889fbf0410fb1142475378b3b31d231f6e8040d0300660fefc031c048c7432000000000c74328000000000f2943104187042483f8017f1a5b415c5dc30f1f4400004c89e7e8209dfaffebbf660f1f4400005b4c89e7415c5de9cc9dfaff",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1010448
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1010452
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1010453
+        },
+        {
+          "asm": "mov    $0x1,%edx",
+          "hex": "ba01000000",
+          "va": 1010455
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1010460
+        },
+        {
+          "asm": "push   %r12",
+          "hex": "4154",
+          "va": 1010463
+        },
+        {
+          "asm": "lea    0x4(%rdi),%r12",
+          "hex": "4c8d6704",
+          "va": 1010465
+        },
+        {
+          "asm": "push   %rbx",
+          "hex": "53",
+          "va": 1010469
+        },
+        {
+          "asm": "mov    %rdi,%rbx",
+          "hex": "4889fb",
+          "va": 1010470
+        },
+        {
+          "asm": "lock cmpxchg %edx,(%r12)",
+          "hex": "f0410fb11424",
+          "va": 1010473
+        },
+        {
+          "asm": "jne    f6b68 <rewinddir@@GLIBC_2.2.5+0x58>",
+          "hex": "7537",
+          "va": 1010479
+        },
+        {
+          "asm": "mov    (%rbx),%edi",
+          "hex": "8b3b",
+          "va": 1010481
+        },
+        {
+          "asm": "xor    %edx,%edx",
+          "hex": "31d2",
+          "va": 1010483
+        },
+        {
+          "asm": "xor    %esi,%esi",
+          "hex": "31f6",
+          "va": 1010485
+        },
+        {
+          "asm": "call   127840 <__lseek@@GLIBC_2.2.5>",
+          "hex": "e8040d0300",
+          "va": 1010487
+        },
+        {
+          "asm": "pxor   %xmm0,%xmm0",
+          "hex": "660fefc0",
+          "va": 1010492
+        },
+        {
+          "asm": "xor    %eax,%eax",
+          "hex": "31c0",
+          "va": 1010496
+        },
+        {
+          "asm": "movq   $0x0,0x20(%rbx)",
+          "hex": "48c7432000000000",
+          "va": 1010498
+        },
+        {
+          "asm": "movl   $0x0,0x28(%rbx)",
+          "hex": "c7432800000000",
+          "va": 1010506
+        },
+        {
+          "asm": "movaps %xmm0,0x10(%rbx)",
+          "hex": "0f294310",
+          "va": 1010513
+        },
+        {
+          "asm": "xchg   %eax,(%r12)",
+          "hex": "41870424",
+          "va": 1010517
+        },
+        {
+          "asm": "cmp    $0x1,%eax",
+          "hex": "83f801",
+          "va": 1010521
+        },
+        {
+          "asm": "jg     f6b78 <rewinddir@@GLIBC_2.2.5+0x68>",
+          "hex": "7f1a",
+          "va": 1010524
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 1010526
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 1010527
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 1010529
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1010530
+        },
+        {
+          "asm": "nopl   0x0(%rax,%rax,1)",
+          "hex": "0f1f440000",
+          "va": 1010531
+        },
+        {
+          "asm": "mov    %r12,%rdi",
+          "hex": "4c89e7",
+          "va": 1010536
+        },
+        {
+          "asm": "call   a0890 <__lll_lock_wait_private@@GLIBC_PRIVATE>",
+          "hex": "e8209dfaff",
+          "va": 1010539
+        },
+        {
+          "asm": "jmp    f6b31 <rewinddir@@GLIBC_2.2.5+0x21>",
+          "hex": "ebbf",
+          "va": 1010544
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f440000",
+          "va": 1010546
+        },
+        {
+          "asm": "pop    %rbx",
+          "hex": "5b",
+          "va": 1010552
+        },
+        {
+          "asm": "mov    %r12,%rdi",
+          "hex": "4c89e7",
+          "va": 1010553
+        },
+        {
+          "asm": "pop    %r12",
+          "hex": "415c",
+          "va": 1010556
+        },
+        {
+          "asm": "pop    %rbp",
+          "hex": "5d",
+          "va": 1010558
+        },
+        {
+          "asm": "jmp    a0950 <__lll_lock_wake_private@@GLIBC_PRIVATE>",
+          "hex": "e9cc9dfaff",
+          "va": 1010559
+        }
+      ],
+      "name": "rewinddir",
+      "size": 116,
+      "va": 1010448
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xf64c0",
+        "--stop-address=0xf64f4",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efab8ffffff7f4839c2480f47d0b8d90000000f05483d00f0ffff7701c3488b1501b91100f7d864890248c7c0ffffffffc3",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1008832
+        },
+        {
+          "asm": "mov    $0x7fffffff,%eax",
+          "hex": "b8ffffff7f",
+          "va": 1008836
+        },
+        {
+          "asm": "cmp    %rax,%rdx",
+          "hex": "4839c2",
+          "va": 1008841
+        },
+        {
+          "asm": "cmova  %rax,%rdx",
+          "hex": "480f47d0",
+          "va": 1008844
+        },
+        {
+          "asm": "mov    $0xd9,%eax",
+          "hex": "b8d9000000",
+          "va": 1008848
+        },
+        {
+          "asm": "syscall",
+          "hex": "0f05",
+          "va": 1008853
+        },
+        {
+          "asm": "cmp    $0xfffffffffffff000,%rax",
+          "hex": "483d00f0ffff",
+          "va": 1008855
+        },
+        {
+          "asm": "ja     f64e0 <getdents64@@GLIBC_2.30+0x20>",
+          "hex": "7701",
+          "va": 1008861
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1008863
+        },
+        {
+          "asm": "mov    0x11b901(%rip),%rdx        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>",
+          "hex": "488b1501b91100",
+          "va": 1008864
+        },
+        {
+          "asm": "neg    %eax",
+          "hex": "f7d8",
+          "va": 1008871
+        },
+        {
+          "asm": "mov    %eax,%fs:(%rdx)",
+          "hex": "648902",
+          "va": 1008873
+        },
+        {
+          "asm": "mov    $0xffffffffffffffff,%rax",
+          "hex": "48c7c0ffffffff",
+          "va": 1008876
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1008883
+        }
+      ],
+      "name": "getdents64",
+      "size": 52,
+      "va": 1008832
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0x12cc70",
+        "--stop-address=0x12cca8",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa488b053d520e00488b40184885c07401c355488d0d0b5c0b00ba1c000000488d35cf5b0b00488d3d09050b004889e5e8b8f1f0ff",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1231984
+        },
+        {
+          "asm": "mov    0xe523d(%rip),%rax        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>",
+          "hex": "488b053d520e00",
+          "va": 1231988
+        },
+        {
+          "asm": "mov    0x18(%rax),%rax",
+          "hex": "488b4018",
+          "va": 1231995
+        },
+        {
+          "asm": "test   %rax,%rax",
+          "hex": "4885c0",
+          "va": 1231999
+        },
+        {
+          "asm": "je     12cc85 <__getpagesize@@GLIBC_2.2.5+0x15>",
+          "hex": "7401",
+          "va": 1232002
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1232004
+        },
+        {
+          "asm": "push   %rbp",
+          "hex": "55",
+          "va": 1232005
+        },
+        {
+          "asm": "lea    0xb5c0b(%rip),%rcx        # 1e2898 <__nptl_version@@GLIBC_PRIVATE+0x5abb>",
+          "hex": "488d0d0b5c0b00",
+          "va": 1232006
+        },
+        {
+          "asm": "mov    $0x1c,%edx",
+          "hex": "ba1c000000",
+          "va": 1232013
+        },
+        {
+          "asm": "lea    0xb5bcf(%rip),%rsi        # 1e2868 <__nptl_version@@GLIBC_PRIVATE+0x5a8b>",
+          "hex": "488d35cf5b0b00",
+          "va": 1232018
+        },
+        {
+          "asm": "lea    0xb0509(%rip),%rdi        # 1dd1a9 <__nptl_version@@GLIBC_PRIVATE+0x3cc>",
+          "hex": "488d3d09050b00",
+          "va": 1232025
+        },
+        {
+          "asm": "mov    %rsp,%rbp",
+          "hex": "4889e5",
+          "va": 1232032
+        },
+        {
+          "asm": "call   3be60 <__uselocale@@GLIBC_2.3+0x230>",
+          "hex": "e8b8f1f0ff",
+          "va": 1232035
+        }
+      ],
+      "name": "getpagesize",
+      "size": 56,
+      "va": 1231984
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0xbc400",
+        "--stop-address=0xbc478",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa488b15ad5a1500488d05becf00008b8ab800000089cef7d681e6280100007404c30f1f00f682dc0000002074f38bb2c4010000f7c60002000074e589caf7d281e2000000c07425488d056e6e0e0080e50875cd81e600080000488d156ccf0000488d0515e30d00480f45c2c3488d0589e50e00c3",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 771072
+        },
+        {
+          "asm": "mov    0x155aad(%rip),%rdx        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>",
+          "hex": "488b15ad5a1500",
+          "va": 771076
+        },
+        {
+          "asm": "lea    0xcfbe(%rip),%rax        # c93d0 <memcpy@GLIBC_2.2.5+0x70e0>",
+          "hex": "488d05becf0000",
+          "va": 771083
+        },
+        {
+          "asm": "mov    0xb8(%rdx),%ecx",
+          "hex": "8b8ab8000000",
+          "va": 771090
+        },
+        {
+          "asm": "mov    %ecx,%esi",
+          "hex": "89ce",
+          "va": 771096
+        },
+        {
+          "asm": "not    %esi",
+          "hex": "f7d6",
+          "va": 771098
+        },
+        {
+          "asm": "and    $0x128,%esi",
+          "hex": "81e628010000",
+          "va": 771100
+        },
+        {
+          "asm": "je     bc428 <strlen@@GLIBC_2.2.5+0x28>",
+          "hex": "7404",
+          "va": 771106
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 771108
+        },
+        {
+          "asm": "nopl   (%rax)",
+          "hex": "0f1f00",
+          "va": 771109
+        },
+        {
+          "asm": "testb  $0x20,0xdc(%rdx)",
+          "hex": "f682dc00000020",
+          "va": 771112
+        },
+        {
+          "asm": "je     bc424 <strlen@@GLIBC_2.2.5+0x24>",
+          "hex": "74f3",
+          "va": 771119
+        },
+        {
+          "asm": "mov    0x1c4(%rdx),%esi",
+          "hex": "8bb2c4010000",
+          "va": 771121
+        },
+        {
+          "asm": "test   $0x200,%esi",
+          "hex": "f7c600020000",
+          "va": 771127
+        },
+        {
+          "asm": "je     bc424 <strlen@@GLIBC_2.2.5+0x24>",
+          "hex": "74e5",
+          "va": 771133
+        },
+        {
+          "asm": "mov    %ecx,%edx",
+          "hex": "89ca",
+          "va": 771135
+        },
+        {
+          "asm": "not    %edx",
+          "hex": "f7d2",
+          "va": 771137
+        },
+        {
+          "asm": "and    $0xc0000000,%edx",
+          "hex": "81e2000000c0",
+          "va": 771139
+        },
+        {
+          "asm": "je     bc470 <strlen@@GLIBC_2.2.5+0x70>",
+          "hex": "7425",
+          "va": 771145
+        },
+        {
+          "asm": "lea    0xe6e6e(%rip),%rax        # 1a32c0 <_dl_mcount_wrapper@GLIBC_2.2.5+0xc2f0>",
+          "hex": "488d056e6e0e00",
+          "va": 771147
+        },
+        {
+          "asm": "and    $0x8,%ch",
+          "hex": "80e508",
+          "va": 771154
+        },
+        {
+          "asm": "jne    bc424 <strlen@@GLIBC_2.2.5+0x24>",
+          "hex": "75cd",
+          "va": 771157
+        },
+        {
+          "asm": "and    $0x800,%esi",
+          "hex": "81e600080000",
+          "va": 771159
+        },
+        {
+          "asm": "lea    0xcf6c(%rip),%rdx        # c93d0 <memcpy@GLIBC_2.2.5+0x70e0>",
+          "hex": "488d156ccf0000",
+          "va": 771165
+        },
+        {
+          "asm": "lea    0xde315(%rip),%rax        # 19a780 <_dl_mcount_wrapper@GLIBC_2.2.5+0x37b0>",
+          "hex": "488d0515e30d00",
+          "va": 771172
+        },
+        {
+          "asm": "cmovne %rdx,%rax",
+          "hex": "480f45c2",
+          "va": 771179
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 771183
+        },
+        {
+          "asm": "lea    0xee589(%rip),%rax        # 1aaa00 <_dl_mcount_wrapper@GLIBC_2.2.5+0x13a30>",
+          "hex": "488d0589e50e00",
+          "va": 771184
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 771191
+        }
+      ],
+      "name": "strlen_resolver",
+      "size": 120,
+      "va": 771072
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--insn-width=16",
+        "--start-address=0x144710",
+        "--stop-address=0x144811",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      "hex": "f30f1efa488b0d9dd70c00488d054edbf7ff8b91c4010000f6c6907403c366908bb1b8000000f7c6000001007432f6c620752d488d05b6e4060085f679df81e600020000488d1575c20600488d05fec10600480f45c2c3660f1f840000000000f6c6027533f6819d00000002740c83e220488d0598ee060074a381e600020000488d1549dbf7ff488d05a2dbf7ff480f44c2c30f1f44000085f6782cf7c6000800007544f6c60875bc81e600020000488d150a320500488d0593310500480f45c2c3660f1f44000081e600020000488d156b310600488d05f4300600480f45c2c30f1f800000000081e600020000488d154bbc0500488d05d4bb0500480f45c2c3",
+      "instructions": [
+        {
+          "asm": "endbr64",
+          "hex": "f30f1efa",
+          "va": 1328912
+        },
+        {
+          "asm": "mov    0xcd79d(%rip),%rcx        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>",
+          "hex": "488b0d9dd70c00",
+          "va": 1328916
+        },
+        {
+          "asm": "lea    -0x824b2(%rip),%rax        # c2270 <__xpg_strerror_r@@GLIBC_2.3.4+0x8e0>",
+          "hex": "488d054edbf7ff",
+          "va": 1328923
+        },
+        {
+          "asm": "mov    0x1c4(%rcx),%edx",
+          "hex": "8b91c4010000",
+          "va": 1328930
+        },
+        {
+          "asm": "test   $0x90,%dh",
+          "hex": "f6c690",
+          "va": 1328936
+        },
+        {
+          "asm": "je     144730 <__memcpy_chk@@GLIBC_2.3.4+0x20>",
+          "hex": "7403",
+          "va": 1328939
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1328941
+        },
+        {
+          "asm": "xchg   %ax,%ax",
+          "hex": "6690",
+          "va": 1328942
+        },
+        {
+          "asm": "mov    0xb8(%rcx),%esi",
+          "hex": "8bb1b8000000",
+          "va": 1328944
+        },
+        {
+          "asm": "test   $0x10000,%esi",
+          "hex": "f7c600000100",
+          "va": 1328950
+        },
+        {
+          "asm": "je     144770 <__memcpy_chk@@GLIBC_2.3.4+0x60>",
+          "hex": "7432",
+          "va": 1328956
+        },
+        {
+          "asm": "test   $0x20,%dh",
+          "hex": "f6c620",
+          "va": 1328958
+        },
+        {
+          "asm": "jne    144770 <__memcpy_chk@@GLIBC_2.3.4+0x60>",
+          "hex": "752d",
+          "va": 1328961
+        },
+        {
+          "asm": "lea    0x6e4b6(%rip),%rax        # 1b2c00 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1bc30>",
+          "hex": "488d05b6e40600",
+          "va": 1328963
+        },
+        {
+          "asm": "test   %esi,%esi",
+          "hex": "85f6",
+          "va": 1328970
+        },
+        {
+          "asm": "jns    14472d <__memcpy_chk@@GLIBC_2.3.4+0x1d>",
+          "hex": "79df",
+          "va": 1328972
+        },
+        {
+          "asm": "and    $0x200,%esi",
+          "hex": "81e600020000",
+          "va": 1328974
+        },
+        {
+          "asm": "lea    0x6c275(%rip),%rdx        # 1b09d0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x19a00>",
+          "hex": "488d1575c20600",
+          "va": 1328980
+        },
+        {
+          "asm": "lea    0x6c1fe(%rip),%rax        # 1b0960 <_dl_mcount_wrapper@GLIBC_2.2.5+0x19990>",
+          "hex": "488d05fec10600",
+          "va": 1328987
+        },
+        {
+          "asm": "cmovne %rdx,%rax",
+          "hex": "480f45c2",
+          "va": 1328994
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1328998
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f840000000000",
+          "va": 1328999
+        },
+        {
+          "asm": "test   $0x2,%dh",
+          "hex": "f6c602",
+          "va": 1329008
+        },
+        {
+          "asm": "jne    1447a8 <__memcpy_chk@@GLIBC_2.3.4+0x98>",
+          "hex": "7533",
+          "va": 1329011
+        },
+        {
+          "asm": "testb  $0x2,0x9d(%rcx)",
+          "hex": "f6819d00000002",
+          "va": 1329013
+        },
+        {
+          "asm": "je     14478a <__memcpy_chk@@GLIBC_2.3.4+0x7a>",
+          "hex": "740c",
+          "va": 1329020
+        },
+        {
+          "asm": "and    $0x20,%edx",
+          "hex": "83e220",
+          "va": 1329022
+        },
+        {
+          "asm": "lea    0x6ee98(%rip),%rax        # 1b3620 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1c650>",
+          "hex": "488d0598ee0600",
+          "va": 1329025
+        },
+        {
+          "asm": "je     14472d <__memcpy_chk@@GLIBC_2.3.4+0x1d>",
+          "hex": "74a3",
+          "va": 1329032
+        },
+        {
+          "asm": "and    $0x200,%esi",
+          "hex": "81e600020000",
+          "va": 1329034
+        },
+        {
+          "asm": "lea    -0x824b7(%rip),%rdx        # c22e0 <__xpg_strerror_r@@GLIBC_2.3.4+0x950>",
+          "hex": "488d1549dbf7ff",
+          "va": 1329040
+        },
+        {
+          "asm": "lea    -0x8245e(%rip),%rax        # c2340 <memcpy@GLIBC_2.2.5+0x50>",
+          "hex": "488d05a2dbf7ff",
+          "va": 1329047
+        },
+        {
+          "asm": "cmove  %rdx,%rax",
+          "hex": "480f44c2",
+          "va": 1329054
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1329058
+        },
+        {
+          "asm": "nopl   0x0(%rax,%rax,1)",
+          "hex": "0f1f440000",
+          "va": 1329059
+        },
+        {
+          "asm": "test   %esi,%esi",
+          "hex": "85f6",
+          "va": 1329064
+        },
+        {
+          "asm": "js     1447d8 <__memcpy_chk@@GLIBC_2.3.4+0xc8>",
+          "hex": "782c",
+          "va": 1329066
+        },
+        {
+          "asm": "test   $0x800,%esi",
+          "hex": "f7c600080000",
+          "va": 1329068
+        },
+        {
+          "asm": "jne    1447f8 <__memcpy_chk@@GLIBC_2.3.4+0xe8>",
+          "hex": "7544",
+          "va": 1329074
+        },
+        {
+          "asm": "test   $0x8,%dh",
+          "hex": "f6c608",
+          "va": 1329076
+        },
+        {
+          "asm": "jne    144775 <__memcpy_chk@@GLIBC_2.3.4+0x65>",
+          "hex": "75bc",
+          "va": 1329079
+        },
+        {
+          "asm": "and    $0x200,%esi",
+          "hex": "81e600020000",
+          "va": 1329081
+        },
+        {
+          "asm": "lea    0x5320a(%rip),%rdx        # 1979d0 <_dl_mcount_wrapper@GLIBC_2.2.5+0xa00>",
+          "hex": "488d150a320500",
+          "va": 1329087
+        },
+        {
+          "asm": "lea    0x53193(%rip),%rax        # 197960 <_dl_mcount_wrapper@GLIBC_2.2.5+0x990>",
+          "hex": "488d0593310500",
+          "va": 1329094
+        },
+        {
+          "asm": "cmovne %rdx,%rax",
+          "hex": "480f45c2",
+          "va": 1329101
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1329105
+        },
+        {
+          "asm": "nopw   0x0(%rax,%rax,1)",
+          "hex": "660f1f440000",
+          "va": 1329106
+        },
+        {
+          "asm": "and    $0x200,%esi",
+          "hex": "81e600020000",
+          "va": 1329112
+        },
+        {
+          "asm": "lea    0x6316b(%rip),%rdx        # 1a7950 <_dl_mcount_wrapper@GLIBC_2.2.5+0x10980>",
+          "hex": "488d156b310600",
+          "va": 1329118
+        },
+        {
+          "asm": "lea    0x630f4(%rip),%rax        # 1a78e0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x10910>",
+          "hex": "488d05f4300600",
+          "va": 1329125
+        },
+        {
+          "asm": "cmovne %rdx,%rax",
+          "hex": "480f45c2",
+          "va": 1329132
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1329136
+        },
+        {
+          "asm": "nopl   0x0(%rax)",
+          "hex": "0f1f8000000000",
+          "va": 1329137
+        },
+        {
+          "asm": "and    $0x200,%esi",
+          "hex": "81e600020000",
+          "va": 1329144
+        },
+        {
+          "asm": "lea    0x5bc4b(%rip),%rdx        # 1a0450 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9480>",
+          "hex": "488d154bbc0500",
+          "va": 1329150
+        },
+        {
+          "asm": "lea    0x5bbd4(%rip),%rax        # 1a03e0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9410>",
+          "hex": "488d05d4bb0500",
+          "va": 1329157
+        },
+        {
+          "asm": "cmovne %rdx,%rax",
+          "hex": "480f45c2",
+          "va": 1329164
+        },
+        {
+          "asm": "ret",
+          "hex": "c3",
+          "va": 1329168
+        }
+      ],
+      "name": "memcpy_chk_resolver",
+      "size": 257,
+      "va": 1328912
+    }
+  ],
+  "target_executed": false
+}

@@ -1,0 +1,62 @@
+{
+  "context_files": {
+    "docs/evidence/retained-server-owned-storage-20261020/native-inputs.json": {
+      "bytes": 42740,
+      "sha256": "6dc7b21949eeac4a3639e5371a2305476067265b84c9b6b863ec78731ee2bbf4"
+    },
+    "docs/evidence/retained-why-server-buffer-copy-20261020/inputs.json": {
+      "bytes": 2345,
+      "sha256": "81c757130fa7ec414fb989ebbdad6423b1912939491362411739f6473a04a240"
+    },
+    "docs/research/retained-server-libc-storage.md": {
+      "bytes": 13247,
+      "sha256": "3ad8ff2d17cef5fb9da81d9b9bb685b5e2463784fb91407a793eda673f7d8e02"
+    },
+    "docs/research/retained-server-owned-storage.md": {
+      "bytes": 15886,
+      "sha256": "661a6a14b672b5d73ad77b43ef16bc9733065baf9a1a0b1e501ff0c619c23efe"
+    },
+    "docs/research/retained-why-server-buffer-copy.md": {
+      "bytes": 7496,
+      "sha256": "228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49"
+    }
+  },
+  "packet_files": {
+    "README.md": {
+      "bytes": 1485,
+      "sha256": "a6c204c5c6f681bce86d6964425282dc379a5e2cab724197cd020eef81e9346b"
+    },
+    "acquisition.json": {
+      "bytes": 2256,
+      "sha256": "a1bff9714e2550e0b65e13a6a52e37bca9fe27010046becd06cbca5a40b96e99"
+    },
+    "check.py": {
+      "bytes": 8094,
+      "sha256": "bfb0b63f0d4959136e8bc35d0c528249b940dd81cb831c6dfcc969069075189a"
+    },
+    "native-disassembly.txt": {
+      "bytes": 75042,
+      "sha256": "75ddb0e9547c1ba7c15d895dd764e15fce114fed7f6c38d4aca955221471a6f8"
+    },
+    "native.json": {
+      "bytes": 112597,
+      "sha256": "d85ab42afcfb7a14f93d55c3c4ffe5b493eef9905110897613549a869cde329c"
+    },
+    "patch-audit.json": {
+      "bytes": 40049,
+      "sha256": "71f9d210d3c6106f503c238217e1cd94f95e72bbabdf181a9e779ecf037aaf2e"
+    },
+    "project.py": {
+      "bytes": 6336,
+      "sha256": "69db71aa7ed86470e13b889eef382dd99559aadf1db8d1b27151a370481caa0a"
+    },
+    "projection.json": {
+      "bytes": 7345,
+      "sha256": "843dcce0f0d1fc4a5480189d3a689a6c24b00b579bc4d399f0e3cecfc4e53a1e"
+    },
+    "source-witnesses.json": {
+      "bytes": 167802,
+      "sha256": "f42028d2750b5a6877a72115c2859d97077f09c9ca6391725033b0088e45c627"
+    }
+  }
+}

@@ -1,0 +1,921 @@
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xbb950 --stop-address=0xbb990 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000bb950 <__strdup@@GLIBC_2.2.5>:
+   bb950:	f3 0f 1e fa                                     	endbr64
+   bb954:	55                                              	push   %rbp
+   bb955:	48 89 e5                                        	mov    %rsp,%rbp
+   bb958:	41 54                                           	push   %r12
+   bb95a:	49 89 fc                                        	mov    %rdi,%r12
+   bb95d:	53                                              	push   %rbx
+   bb95e:	e8 8d cb f6 ff                                  	call   284f0 <*ABS*+0xbc400@plt>
+   bb963:	48 8d 58 01                                     	lea    0x1(%rax),%rbx
+   bb967:	48 89 df                                        	mov    %rbx,%rdi
+   bb96a:	e8 71 ca f6 ff                                  	call   283e0 <malloc@plt>
+   bb96f:	48 85 c0                                        	test   %rax,%rax
+   bb972:	74 15                                           	je     bb989 <__strdup@@GLIBC_2.2.5+0x39>
+   bb974:	48 89 d9                                        	mov    %rbx,%rcx
+   bb977:	48 89 da                                        	mov    %rbx,%rdx
+   bb97a:	4c 89 e6                                        	mov    %r12,%rsi
+   bb97d:	5b                                              	pop    %rbx
+   bb97e:	48 89 c7                                        	mov    %rax,%rdi
+   bb981:	41 5c                                           	pop    %r12
+   bb983:	5d                                              	pop    %rbp
+   bb984:	e9 57 cd f6 ff                                  	jmp    286e0 <*ABS*+0x144710@plt>
+   bb989:	5b                                              	pop    %rbx
+   bb98a:	31 c0                                           	xor    %eax,%eax
+   bb98c:	41 5c                                           	pop    %r12
+   bb98e:	5d                                              	pop    %rbp
+   bb98f:	c3                                              	ret
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0x126c60 --stop-address=0x1274fd /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000126c60 <getcwd@@GLIBC_2.2.5>:
+  126c60:	f3 0f 1e fa                                     	endbr64
+  126c64:	55                                              	push   %rbp
+  126c65:	48 89 e5                                        	mov    %rsp,%rbp
+  126c68:	41 57                                           	push   %r15
+  126c6a:	41 56                                           	push   %r14
+  126c6c:	41 55                                           	push   %r13
+  126c6e:	49 89 fd                                        	mov    %rdi,%r13
+  126c71:	41 54                                           	push   %r12
+  126c73:	53                                              	push   %rbx
+  126c74:	48 81 ec 28 01 00 00                            	sub    $0x128,%rsp
+  126c7b:	48 89 b5 08 ff ff ff                            	mov    %rsi,-0xf8(%rbp)
+  126c82:	64 48 8b 04 25 28 00 00 00                      	mov    %fs:0x28,%rax
+  126c8b:	48 89 45 c8                                     	mov    %rax,-0x38(%rbp)
+  126c8f:	31 c0                                           	xor    %eax,%eax
+  126c91:	48 85 f6                                        	test   %rsi,%rsi
+  126c94:	0f 85 fe 03 00 00                               	jne    127098 <getcwd@@GLIBC_2.2.5+0x438>
+  126c9a:	48 85 ff                                        	test   %rdi,%rdi
+  126c9d:	0f 85 55 04 00 00                               	jne    1270f8 <getcwd@@GLIBC_2.2.5+0x498>
+  126ca3:	e8 c8 5f 00 00                                  	call   12cc70 <__getpagesize@@GLIBC_2.2.5>
+  126ca8:	be 00 10 00 00                                  	mov    $0x1000,%esi
+  126cad:	3d 00 10 00 00                                  	cmp    $0x1000,%eax
+  126cb2:	0f 4d f0                                        	cmovge %eax,%esi
+  126cb5:	48 63 f6                                        	movslq %esi,%rsi
+  126cb8:	48 89 f7                                        	mov    %rsi,%rdi
+  126cbb:	48 89 b5 28 ff ff ff                            	mov    %rsi,-0xd8(%rbp)
+  126cc2:	e8 19 17 f0 ff                                  	call   283e0 <malloc@plt>
+  126cc7:	48 8b b5 28 ff ff ff                            	mov    -0xd8(%rbp),%rsi
+  126cce:	48 85 c0                                        	test   %rax,%rax
+  126cd1:	48 89 85 10 ff ff ff                            	mov    %rax,-0xf0(%rbp)
+  126cd8:	0f 84 28 04 00 00                               	je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  126cde:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  126ce5:	b8 4f 00 00 00                                  	mov    $0x4f,%eax
+  126cea:	0f 05                                           	syscall
+  126cec:	48 3d 00 f0 ff ff                               	cmp    $0xfffffffffffff000,%rax
+  126cf2:	0f 87 c4 05 00 00                               	ja     1272bc <getcwd@@GLIBC_2.2.5+0x65c>
+  126cf8:	85 c0                                           	test   %eax,%eax
+  126cfa:	0f 8e b0 03 00 00                               	jle    1270b0 <getcwd@@GLIBC_2.2.5+0x450>
+  126d00:	48 8b b5 10 ff ff ff                            	mov    -0xf0(%rbp),%rsi
+  126d07:	80 3e 2f                                        	cmpb   $0x2f,(%rsi)
+  126d0a:	0f 84 89 05 00 00                               	je     127299 <getcwd@@GLIBC_2.2.5+0x639>
+  126d10:	48 8b 85 08 ff ff ff                            	mov    -0xf8(%rbp),%rax
+  126d17:	4c 09 e8                                        	or     %r13,%rax
+  126d1a:	0f 84 28 05 00 00                               	je     127248 <getcwd@@GLIBC_2.2.5+0x5e8>
+  126d20:	48 8b 85 08 ff ff ff                            	mov    -0xf8(%rbp),%rax
+  126d27:	48 83 f8 01                                     	cmp    $0x1,%rax
+  126d2b:	0f 84 be 05 00 00                               	je     1272ef <getcwd@@GLIBC_2.2.5+0x68f>
+  126d31:	48 85 c0                                        	test   %rax,%rax
+  126d34:	0f 84 be 03 00 00                               	je     1270f8 <getcwd@@GLIBC_2.2.5+0x498>
+  126d3a:	48 8b b5 10 ff ff ff                            	mov    -0xf0(%rbp),%rsi
+  126d41:	48 89 85 e8 fe ff ff                            	mov    %rax,-0x118(%rbp)
+  126d48:	48 89 b5 f0 fe ff ff                            	mov    %rsi,-0x110(%rbp)
+  126d4f:	48 89 f0                                        	mov    %rsi,%rax
+  126d52:	48 8b b5 e8 fe ff ff                            	mov    -0x118(%rbp),%rsi
+  126d59:	48 8d 3d 9d 63 0b 00                            	lea    0xb639d(%rip),%rdi        # 1dd0fd <__nptl_version@@GLIBC_PRIVATE+0x320>
+  126d60:	48 8d 1c 30                                     	lea    (%rax,%rsi,1),%rbx
+  126d64:	48 8d 85 30 ff ff ff                            	lea    -0xd0(%rbp),%rax
+  126d6b:	c6 43 ff 00                                     	movb   $0x0,-0x1(%rbx)
+  126d6f:	48 89 c6                                        	mov    %rax,%rsi
+  126d72:	48 89 85 28 ff ff ff                            	mov    %rax,-0xd8(%rbp)
+  126d79:	e8 f2 0a 00 00                                  	call   127870 <lstat@@GLIBC_2.33>
+  126d7e:	85 c0                                           	test   %eax,%eax
+  126d80:	0f 88 03 05 00 00                               	js     127289 <getcwd@@GLIBC_2.2.5+0x629>
+  126d86:	48 8b 85 30 ff ff ff                            	mov    -0xd0(%rbp),%rax
+  126d8d:	48 8b b5 28 ff ff ff                            	mov    -0xd8(%rbp),%rsi
+  126d94:	48 8d 3d a2 45 0b 00                            	lea    0xb45a2(%rip),%rdi        # 1db33d <_thread_db_pthread_list@@GLIBC_PRIVATE+0x5435>
+  126d9b:	48 89 85 f8 fe ff ff                            	mov    %rax,-0x108(%rbp)
+  126da2:	48 8b 85 38 ff ff ff                            	mov    -0xc8(%rbp),%rax
+  126da9:	48 89 85 20 ff ff ff                            	mov    %rax,-0xe0(%rbp)
+  126db0:	e8 bb 0a 00 00                                  	call   127870 <lstat@@GLIBC_2.33>
+  126db5:	85 c0                                           	test   %eax,%eax
+  126db7:	0f 88 cc 04 00 00                               	js     127289 <getcwd@@GLIBC_2.2.5+0x629>
+  126dbd:	48 8b 95 38 ff ff ff                            	mov    -0xc8(%rbp),%rdx
+  126dc4:	48 39 95 20 ff ff ff                            	cmp    %rdx,-0xe0(%rbp)
+  126dcb:	48 8d 73 ff                                     	lea    -0x1(%rbx),%rsi
+  126dcf:	40 0f 95 c7                                     	setne  %dil
+  126dd3:	48 8b 85 30 ff ff ff                            	mov    -0xd0(%rbp),%rax
+  126dda:	48 39 85 f8 fe ff ff                            	cmp    %rax,-0x108(%rbp)
+  126de1:	0f 95 c1                                        	setne  %cl
+  126de4:	40 08 cf                                        	or     %cl,%dil
+  126de7:	40 88 bd e7 fe ff ff                            	mov    %dil,-0x119(%rbp)
+  126dee:	0f 84 cb 05 00 00                               	je     1273bf <getcwd@@GLIBC_2.2.5+0x75f>
+  126df4:	48 89 b5 d8 fe ff ff                            	mov    %rsi,-0x128(%rbp)
+  126dfb:	4c 8b 35 e6 af 0e 00                            	mov    0xeafe6(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+  126e02:	45 31 ff                                        	xor    %r15d,%r15d
+  126e05:	48 89 85 c0 fe ff ff                            	mov    %rax,-0x140(%rbp)
+  126e0c:	48 89 95 b8 fe ff ff                            	mov    %rdx,-0x148(%rbp)
+  126e13:	4c 89 ad 00 ff ff ff                            	mov    %r13,-0x100(%rbp)
+  126e1a:	41 bd 9c ff ff ff                               	mov    $0xffffff9c,%r13d
+  126e20:	44 89 ef                                        	mov    %r13d,%edi
+  126e23:	31 d2                                           	xor    %edx,%edx
+  126e25:	48 8d 35 d0 62 0b 00                            	lea    0xb62d0(%rip),%rsi        # 1dd0fc <__nptl_version@@GLIBC_PRIVATE+0x31f>
+  126e2c:	31 c0                                           	xor    %eax,%eax
+  126e2e:	e8 5d 0c 00 00                                  	call   127a90 <openat@@GLIBC_2.4>
+  126e33:	41 89 c5                                        	mov    %eax,%r13d
+  126e36:	85 c0                                           	test   %eax,%eax
+  126e38:	0f 88 2a 05 00 00                               	js     127368 <getcwd@@GLIBC_2.2.5+0x708>
+  126e3e:	48 8b b5 28 ff ff ff                            	mov    -0xd8(%rbp),%rsi
+  126e45:	89 c7                                           	mov    %eax,%edi
+  126e47:	e8 c4 ca ff ff                                  	call   123910 <__fstat64@@GLIBC_PRIVATE>
+  126e4c:	85 c0                                           	test   %eax,%eax
+  126e4e:	0f 85 f7 04 00 00                               	jne    12734b <getcwd@@GLIBC_2.2.5+0x6eb>
+  126e54:	4d 85 ff                                        	test   %r15,%r15
+  126e57:	74 10                                           	je     126e69 <getcwd@@GLIBC_2.2.5+0x209>
+  126e59:	4c 89 ff                                        	mov    %r15,%rdi
+  126e5c:	e8 2f f5 fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  126e61:	85 c0                                           	test   %eax,%eax
+  126e63:	0f 85 c7 04 00 00                               	jne    127330 <getcwd@@GLIBC_2.2.5+0x6d0>
+  126e69:	48 8b 9d 30 ff ff ff                            	mov    -0xd0(%rbp),%rbx
+  126e70:	48 8b 85 38 ff ff ff                            	mov    -0xc8(%rbp),%rax
+  126e77:	44 89 ef                                        	mov    %r13d,%edi
+  126e7a:	48 89 9d d0 fe ff ff                            	mov    %rbx,-0x130(%rbp)
+  126e81:	48 89 85 c8 fe ff ff                            	mov    %rax,-0x138(%rbp)
+  126e88:	e8 53 f5 fc ff                                  	call   f63e0 <fdopendir@@GLIBC_2.4>
+  126e8d:	49 89 c7                                        	mov    %rax,%r15
+  126e90:	48 85 c0                                        	test   %rax,%rax
+  126e93:	0f 84 97 04 00 00                               	je     127330 <getcwd@@GLIBC_2.2.5+0x6d0>
+  126e99:	48 3b 9d f8 fe ff ff                            	cmp    -0x108(%rbp),%rbx
+  126ea0:	44 0f b6 a5 e7 fe ff ff                         	movzbl -0x119(%rbp),%r12d
+  126ea8:	0f 95 85 18 ff ff ff                            	setne  -0xe8(%rbp)
+  126eaf:	90                                              	nop
+  126eb0:	64 41 c7 06 00 00 00 00                         	movl   $0x0,%fs:(%r14)
+  126eb8:	4c 89 ff                                        	mov    %r15,%rdi
+  126ebb:	e8 60 f9 fc ff                                  	call   f6820 <readdir@@GLIBC_2.2.5>
+  126ec0:	48 85 c0                                        	test   %rax,%rax
+  126ec3:	0f 84 77 02 00 00                               	je     127140 <getcwd@@GLIBC_2.2.5+0x4e0>
+  126ec9:	80 78 13 2e                                     	cmpb   $0x2e,0x13(%rax)
+  126ecd:	0f 84 cd 02 00 00                               	je     1271a0 <getcwd@@GLIBC_2.2.5+0x540>
+  126ed3:	45 84 e4                                        	test   %r12b,%r12b
+  126ed6:	74 18                                           	je     126ef0 <getcwd@@GLIBC_2.2.5+0x290>
+  126ed8:	48 8b 8d 20 ff ff ff                            	mov    -0xe0(%rbp),%rcx
+  126edf:	48 39 08                                        	cmp    %rcx,(%rax)
+  126ee2:	0f 94 c2                                        	sete   %dl
+  126ee5:	0a 95 18 ff ff ff                               	or     -0xe8(%rbp),%dl
+  126eeb:	74 c3                                           	je     126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  126eed:	41 89 d4                                        	mov    %edx,%r12d
+  126ef0:	48 8d 58 13                                     	lea    0x13(%rax),%rbx
+  126ef4:	48 8b 95 28 ff ff ff                            	mov    -0xd8(%rbp),%rdx
+  126efb:	b9 00 01 00 00                                  	mov    $0x100,%ecx
+  126f00:	44 89 ef                                        	mov    %r13d,%edi
+  126f03:	48 89 de                                        	mov    %rbx,%rsi
+  126f06:	e8 35 ca ff ff                                  	call   123940 <fstatat@@GLIBC_2.33>
+  126f0b:	85 c0                                           	test   %eax,%eax
+  126f0d:	75 a1                                           	jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  126f0f:	8b 85 48 ff ff ff                               	mov    -0xb8(%rbp),%eax
+  126f15:	25 00 f0 00 00                                  	and    $0xf000,%eax
+  126f1a:	3d 00 40 00 00                                  	cmp    $0x4000,%eax
+  126f1f:	75 8f                                           	jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  126f21:	48 8b 85 f8 fe ff ff                            	mov    -0x108(%rbp),%rax
+  126f28:	48 39 85 30 ff ff ff                            	cmp    %rax,-0xd0(%rbp)
+  126f2f:	0f 85 7b ff ff ff                               	jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  126f35:	48 8b 85 20 ff ff ff                            	mov    -0xe0(%rbp),%rax
+  126f3c:	48 39 85 38 ff ff ff                            	cmp    %rax,-0xc8(%rbp)
+  126f43:	0f 85 67 ff ff ff                               	jne    126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  126f49:	48 8b 95 d8 fe ff ff                            	mov    -0x128(%rbp),%rdx
+  126f50:	48 89 df                                        	mov    %rbx,%rdi
+  126f53:	48 2b 95 10 ff ff ff                            	sub    -0xf0(%rbp),%rdx
+  126f5a:	48 89 95 20 ff ff ff                            	mov    %rdx,-0xe0(%rbp)
+  126f61:	e8 8a 15 f0 ff                                  	call   284f0 <*ABS*+0xbc400@plt>
+  126f66:	48 8b 95 20 ff ff ff                            	mov    -0xe0(%rbp),%rdx
+  126f6d:	49 89 c4                                        	mov    %rax,%r12
+  126f70:	48 39 d0                                        	cmp    %rdx,%rax
+  126f73:	0f 82 ad 00 00 00                               	jb     127026 <getcwd@@GLIBC_2.2.5+0x3c6>
+  126f79:	48 83 bd 08 ff ff ff 00                         	cmpq   $0x0,-0xf8(%rbp)
+  126f81:	0f 85 18 05 00 00                               	jne    12749f <getcwd@@GLIBC_2.2.5+0x83f>
+  126f87:	48 8b 85 e8 fe ff ff                            	mov    -0x118(%rbp),%rax
+  126f8e:	4c 39 e0                                        	cmp    %r12,%rax
+  126f91:	48 89 c1                                        	mov    %rax,%rcx
+  126f94:	49 0f 42 cc                                     	cmovb  %r12,%rcx
+  126f98:	48 01 c8                                        	add    %rcx,%rax
+  126f9b:	48 89 85 20 ff ff ff                            	mov    %rax,-0xe0(%rbp)
+  126fa2:	0f 82 d0 04 00 00                               	jb     127478 <getcwd@@GLIBC_2.2.5+0x818>
+  126fa8:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  126faf:	48 89 c6                                        	mov    %rax,%rsi
+  126fb2:	48 89 8d 18 ff ff ff                            	mov    %rcx,-0xe8(%rbp)
+  126fb9:	48 89 95 f8 fe ff ff                            	mov    %rdx,-0x108(%rbp)
+  126fc0:	e8 3b 14 f0 ff                                  	call   28400 <realloc@plt>
+  126fc5:	48 8b 8d 18 ff ff ff                            	mov    -0xe8(%rbp),%rcx
+  126fcc:	48 8b 95 f8 fe ff ff                            	mov    -0x108(%rbp),%rdx
+  126fd3:	48 85 c0                                        	test   %rax,%rax
+  126fd6:	49 89 c0                                        	mov    %rax,%r8
+  126fd9:	0f 84 99 04 00 00                               	je     127478 <getcwd@@GLIBC_2.2.5+0x818>
+  126fdf:	48 01 d1                                        	add    %rdx,%rcx
+  126fe2:	49 8d 34 10                                     	lea    (%r8,%rdx,1),%rsi
+  126fe6:	4c 89 85 18 ff ff ff                            	mov    %r8,-0xe8(%rbp)
+  126fed:	48 8d 3c 08                                     	lea    (%rax,%rcx,1),%rdi
+  126ff1:	48 8b 85 e8 fe ff ff                            	mov    -0x118(%rbp),%rax
+  126ff8:	48 29 d0                                        	sub    %rdx,%rax
+  126ffb:	48 89 c2                                        	mov    %rax,%rdx
+  126ffe:	e8 9d 16 f0 ff                                  	call   286a0 <*ABS*+0xb8c80@plt>
+  127003:	4c 8b 85 18 ff ff ff                            	mov    -0xe8(%rbp),%r8
+  12700a:	48 89 85 d8 fe ff ff                            	mov    %rax,-0x128(%rbp)
+  127011:	48 8b 85 20 ff ff ff                            	mov    -0xe0(%rbp),%rax
+  127018:	4c 89 85 10 ff ff ff                            	mov    %r8,-0xf0(%rbp)
+  12701f:	48 89 85 e8 fe ff ff                            	mov    %rax,-0x118(%rbp)
+  127026:	48 8b 8d d8 fe ff ff                            	mov    -0x128(%rbp),%rcx
+  12702d:	48 89 de                                        	mov    %rbx,%rsi
+  127030:	4c 89 e2                                        	mov    %r12,%rdx
+  127033:	4c 29 e1                                        	sub    %r12,%rcx
+  127036:	48 89 cf                                        	mov    %rcx,%rdi
+  127039:	e8 62 16 f0 ff                                  	call   286a0 <*ABS*+0xb8c80@plt>
+  12703e:	48 8b b5 d0 fe ff ff                            	mov    -0x130(%rbp),%rsi
+  127045:	48 89 c1                                        	mov    %rax,%rcx
+  127048:	48 8d 40 ff                                     	lea    -0x1(%rax),%rax
+  12704c:	48 89 85 d8 fe ff ff                            	mov    %rax,-0x128(%rbp)
+  127053:	c6 41 ff 2f                                     	movb   $0x2f,-0x1(%rcx)
+  127057:	48 39 b5 c0 fe ff ff                            	cmp    %rsi,-0x140(%rbp)
+  12705e:	75 14                                           	jne    127074 <getcwd@@GLIBC_2.2.5+0x414>
+  127060:	48 8b b5 c8 fe ff ff                            	mov    -0x138(%rbp),%rsi
+  127067:	48 39 b5 b8 fe ff ff                            	cmp    %rsi,-0x148(%rbp)
+  12706e:	0f 84 14 03 00 00                               	je     127388 <getcwd@@GLIBC_2.2.5+0x728>
+  127074:	48 8b 85 d0 fe ff ff                            	mov    -0x130(%rbp),%rax
+  12707b:	48 89 85 f8 fe ff ff                            	mov    %rax,-0x108(%rbp)
+  127082:	48 8b 85 c8 fe ff ff                            	mov    -0x138(%rbp),%rax
+  127089:	48 89 85 20 ff ff ff                            	mov    %rax,-0xe0(%rbp)
+  127090:	e9 8b fd ff ff                                  	jmp    126e20 <getcwd@@GLIBC_2.2.5+0x1c0>
+  127095:	0f 1f 00                                        	nopl   (%rax)
+  127098:	48 89 bd 10 ff ff ff                            	mov    %rdi,-0xf0(%rbp)
+  12709f:	48 85 ff                                        	test   %rdi,%rdi
+  1270a2:	0f 85 36 fc ff ff                               	jne    126cde <getcwd@@GLIBC_2.2.5+0x7e>
+  1270a8:	e9 0b fc ff ff                                  	jmp    126cb8 <getcwd@@GLIBC_2.2.5+0x58>
+  1270ad:	0f 1f 00                                        	nopl   (%rax)
+  1270b0:	0f 84 5a fc ff ff                               	je     126d10 <getcwd@@GLIBC_2.2.5+0xb0>
+  1270b6:	4c 8b 35 2b ad 0e 00                            	mov    0xead2b(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+  1270bd:	64 41 8b 06                                     	mov    %fs:(%r14),%eax
+  1270c1:	83 f8 24                                        	cmp    $0x24,%eax
+  1270c4:	0f 84 46 fc ff ff                               	je     126d10 <getcwd@@GLIBC_2.2.5+0xb0>
+  1270ca:	83 f8 22                                        	cmp    $0x22,%eax
+  1270cd:	75 10                                           	jne    1270df <getcwd@@GLIBC_2.2.5+0x47f>
+  1270cf:	48 8b 85 08 ff ff ff                            	mov    -0xf8(%rbp),%rax
+  1270d6:	4c 09 e8                                        	or     %r13,%rax
+  1270d9:	0f 84 fa 03 00 00                               	je     1274d9 <getcwd@@GLIBC_2.2.5+0x879>
+  1270df:	4d 85 ed                                        	test   %r13,%r13
+  1270e2:	75 22                                           	jne    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  1270e4:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  1270eb:	e8 e0 12 f0 ff                                  	call   283d0 <free@plt>
+  1270f0:	eb 14                                           	jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  1270f2:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+  1270f8:	48 8b 05 e9 ac 0e 00                            	mov    0xeace9(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+  1270ff:	64 c7 00 16 00 00 00                            	movl   $0x16,%fs:(%rax)
+  127106:	48 c7 85 10 ff ff ff 00 00 00 00                	movq   $0x0,-0xf0(%rbp)
+  127111:	48 8b 45 c8                                     	mov    -0x38(%rbp),%rax
+  127115:	64 48 2b 04 25 28 00 00 00                      	sub    %fs:0x28,%rax
+  12711e:	0f 85 d4 03 00 00                               	jne    1274f8 <getcwd@@GLIBC_2.2.5+0x898>
+  127124:	48 8b 85 10 ff ff ff                            	mov    -0xf0(%rbp),%rax
+  12712b:	48 81 c4 28 01 00 00                            	add    $0x128,%rsp
+  127132:	5b                                              	pop    %rbx
+  127133:	41 5c                                           	pop    %r12
+  127135:	41 5d                                           	pop    %r13
+  127137:	41 5e                                           	pop    %r14
+  127139:	41 5f                                           	pop    %r15
+  12713b:	5d                                              	pop    %rbp
+  12713c:	c3                                              	ret
+  12713d:	0f 1f 00                                        	nopl   (%rax)
+  127140:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  127144:	85 db                                           	test   %ebx,%ebx
+  127146:	0f 85 e4 00 00 00                               	jne    127230 <getcwd@@GLIBC_2.2.5+0x5d0>
+  12714c:	45 84 e4                                        	test   %r12b,%r12b
+  12714f:	74 77                                           	je     1271c8 <getcwd@@GLIBC_2.2.5+0x568>
+  127151:	4c 89 ff                                        	mov    %r15,%rdi
+  127154:	e8 b7 f9 fc ff                                  	call   f6b10 <rewinddir@@GLIBC_2.2.5>
+  127159:	4c 89 ff                                        	mov    %r15,%rdi
+  12715c:	e8 bf f6 fc ff                                  	call   f6820 <readdir@@GLIBC_2.2.5>
+  127161:	48 85 c0                                        	test   %rax,%rax
+  127164:	0f 84 64 01 00 00                               	je     1272ce <getcwd@@GLIBC_2.2.5+0x66e>
+  12716a:	45 31 e4                                        	xor    %r12d,%r12d
+  12716d:	80 78 13 2e                                     	cmpb   $0x2e,0x13(%rax)
+  127171:	0f 85 79 fd ff ff                               	jne    126ef0 <getcwd@@GLIBC_2.2.5+0x290>
+  127177:	0f b6 50 14                                     	movzbl 0x14(%rax),%edx
+  12717b:	84 d2                                           	test   %dl,%dl
+  12717d:	0f 84 2d fd ff ff                               	je     126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  127183:	80 fa 2e                                        	cmp    $0x2e,%dl
+  127186:	0f 85 64 fd ff ff                               	jne    126ef0 <getcwd@@GLIBC_2.2.5+0x290>
+  12718c:	80 78 15 00                                     	cmpb   $0x0,0x15(%rax)
+  127190:	0f 85 5a fd ff ff                               	jne    126ef0 <getcwd@@GLIBC_2.2.5+0x290>
+  127196:	e9 15 fd ff ff                                  	jmp    126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  12719b:	0f 1f 44 00 00                                  	nopl   0x0(%rax,%rax,1)
+  1271a0:	0f b6 50 14                                     	movzbl 0x14(%rax),%edx
+  1271a4:	84 d2                                           	test   %dl,%dl
+  1271a6:	0f 84 04 fd ff ff                               	je     126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  1271ac:	80 fa 2e                                        	cmp    $0x2e,%dl
+  1271af:	0f 85 1e fd ff ff                               	jne    126ed3 <getcwd@@GLIBC_2.2.5+0x273>
+  1271b5:	80 78 15 00                                     	cmpb   $0x0,0x15(%rax)
+  1271b9:	0f 85 14 fd ff ff                               	jne    126ed3 <getcwd@@GLIBC_2.2.5+0x273>
+  1271bf:	e9 ec fc ff ff                                  	jmp    126eb0 <getcwd@@GLIBC_2.2.5+0x250>
+  1271c4:	0f 1f 40 00                                     	nopl   0x0(%rax)
+  1271c8:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  1271cf:	85 db                                           	test   %ebx,%ebx
+  1271d1:	75 64                                           	jne    127237 <getcwd@@GLIBC_2.2.5+0x5d7>
+  1271d3:	64 41 c7 06 02 00 00 00                         	movl   $0x2,%fs:(%r14)
+  1271db:	4c 89 ff                                        	mov    %r15,%rdi
+  1271de:	bb 02 00 00 00                                  	mov    $0x2,%ebx
+  1271e3:	e8 a8 f1 fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  1271e8:	4d 85 ed                                        	test   %r13,%r13
+  1271eb:	41 0f 94 c4                                     	sete   %r12b
+  1271ef:	48 83 bd f0 fe ff ff 00                         	cmpq   $0x0,-0x110(%rbp)
+  1271f7:	0f 84 e1 00 00 00                               	je     1272de <getcwd@@GLIBC_2.2.5+0x67e>
+  1271fd:	64 41 89 1e                                     	mov    %ebx,%fs:(%r14)
+  127201:	48 83 bd 08 ff ff ff 00                         	cmpq   $0x0,-0xf8(%rbp)
+  127209:	0f 84 f7 fe ff ff                               	je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  12720f:	45 84 e4                                        	test   %r12b,%r12b
+  127212:	0f 84 ee fe ff ff                               	je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  127218:	48 8b bd f0 fe ff ff                            	mov    -0x110(%rbp),%rdi
+  12721f:	e8 ac 11 f0 ff                                  	call   283d0 <free@plt>
+  127224:	e9 dd fe ff ff                                  	jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  127229:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+  127230:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  127237:	4c 89 ff                                        	mov    %r15,%rdi
+  12723a:	e8 51 f1 fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  12723f:	eb a7                                           	jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>
+  127241:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+  127248:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  12724f:	e8 7c 11 f0 ff                                  	call   283d0 <free@plt>
+  127254:	bf 00 10 00 00                                  	mov    $0x1000,%edi
+  127259:	e8 82 11 f0 ff                                  	call   283e0 <malloc@plt>
+  12725e:	48 89 85 10 ff ff ff                            	mov    %rax,-0xf0(%rbp)
+  127265:	48 85 c0                                        	test   %rax,%rax
+  127268:	0f 84 98 fe ff ff                               	je     127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  12726e:	48 c7 85 f0 fe ff ff 00 00 00 00                	movq   $0x0,-0x110(%rbp)
+  127279:	48 c7 85 e8 fe ff ff 00 10 00 00                	movq   $0x1000,-0x118(%rbp)
+  127284:	e9 c9 fa ff ff                                  	jmp    126d52 <getcwd@@GLIBC_2.2.5+0xf2>
+  127289:	4c 8b 35 58 ab 0e 00                            	mov    0xeab58(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+  127290:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  127294:	e9 4f ff ff ff                                  	jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>
+  127299:	48 8b b5 08 ff ff ff                            	mov    -0xf8(%rbp),%rsi
+  1272a0:	4c 09 ee                                        	or     %r13,%rsi
+  1272a3:	74 74                                           	je     127319 <getcwd@@GLIBC_2.2.5+0x6b9>
+  1272a5:	4d 85 ed                                        	test   %r13,%r13
+  1272a8:	4c 0f 44 ad 10 ff ff ff                         	cmove  -0xf0(%rbp),%r13
+  1272b0:	4c 89 ad 10 ff ff ff                            	mov    %r13,-0xf0(%rbp)
+  1272b7:	e9 55 fe ff ff                                  	jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>
+  1272bc:	4c 8b 35 25 ab 0e 00                            	mov    0xeab25(%rip),%r14        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+  1272c3:	f7 d8                                           	neg    %eax
+  1272c5:	64 41 89 06                                     	mov    %eax,%fs:(%r14)
+  1272c9:	e9 f3 fd ff ff                                  	jmp    1270c1 <getcwd@@GLIBC_2.2.5+0x461>
+  1272ce:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  1272d5:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  1272d9:	e9 f1 fe ff ff                                  	jmp    1271cf <getcwd@@GLIBC_2.2.5+0x56f>
+  1272de:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  1272e5:	e8 e6 10 f0 ff                                  	call   283d0 <free@plt>
+  1272ea:	e9 0e ff ff ff                                  	jmp    1271fd <getcwd@@GLIBC_2.2.5+0x59d>
+  1272ef:	48 8b 05 f2 aa 0e 00                            	mov    0xeaaf2(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+  1272f6:	64 c7 00 22 00 00 00                            	movl   $0x22,%fs:(%rax)
+  1272fd:	4d 85 ed                                        	test   %r13,%r13
+  127300:	0f 85 00 fe ff ff                               	jne    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  127306:	48 8b 85 10 ff ff ff                            	mov    -0xf0(%rbp),%rax
+  12730d:	48 89 85 f0 fe ff ff                            	mov    %rax,-0x110(%rbp)
+  127314:	e9 ff fe ff ff                                  	jmp    127218 <getcwd@@GLIBC_2.2.5+0x5b8>
+  127319:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  127320:	48 63 f0                                        	movslq %eax,%rsi
+  127323:	e8 d8 10 f0 ff                                  	call   28400 <realloc@plt>
+  127328:	49 89 c5                                        	mov    %rax,%r13
+  12732b:	e9 75 ff ff ff                                  	jmp    1272a5 <getcwd@@GLIBC_2.2.5+0x645>
+  127330:	45 89 ec                                        	mov    %r13d,%r12d
+  127333:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  127337:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  12733e:	44 89 e7                                        	mov    %r12d,%edi
+  127341:	e8 1a 19 00 00                                  	call   128c60 <__close_nocancel_nostatus@@GLIBC_PRIVATE>
+  127346:	e9 9d fe ff ff                                  	jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>
+  12734b:	45 89 ec                                        	mov    %r13d,%r12d
+  12734e:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  127352:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  127359:	4d 85 ff                                        	test   %r15,%r15
+  12735c:	74 e0                                           	je     12733e <getcwd@@GLIBC_2.2.5+0x6de>
+  12735e:	4c 89 ff                                        	mov    %r15,%rdi
+  127361:	e8 2a f0 fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  127366:	eb d6                                           	jmp    12733e <getcwd@@GLIBC_2.2.5+0x6de>
+  127368:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  12736f:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  127373:	4d 85 ff                                        	test   %r15,%r15
+  127376:	0f 85 bb fe ff ff                               	jne    127237 <getcwd@@GLIBC_2.2.5+0x5d7>
+  12737c:	e9 67 fe ff ff                                  	jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>
+  127381:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+  127388:	4c 89 ff                                        	mov    %r15,%rdi
+  12738b:	48 89 85 28 ff ff ff                            	mov    %rax,-0xd8(%rbp)
+  127392:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  127399:	e8 f2 ef fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  12739e:	85 c0                                           	test   %eax,%eax
+  1273a0:	0f 85 c9 00 00 00                               	jne    12746f <getcwd@@GLIBC_2.2.5+0x80f>
+  1273a6:	48 8b b5 e8 fe ff ff                            	mov    -0x118(%rbp),%rsi
+  1273ad:	48 8b 85 10 ff ff ff                            	mov    -0xf0(%rbp),%rax
+  1273b4:	48 8d 1c 30                                     	lea    (%rax,%rsi,1),%rbx
+  1273b8:	48 8b b5 28 ff ff ff                            	mov    -0xd8(%rbp),%rsi
+  1273bf:	48 8b 85 10 ff ff ff                            	mov    -0xf0(%rbp),%rax
+  1273c6:	48 8b 8d e8 fe ff ff                            	mov    -0x118(%rbp),%rcx
+  1273cd:	48 8d 44 08 ff                                  	lea    -0x1(%rax,%rcx,1),%rax
+  1273d2:	48 39 c6                                        	cmp    %rax,%rsi
+  1273d5:	0f 84 87 00 00 00                               	je     127462 <getcwd@@GLIBC_2.2.5+0x802>
+  1273db:	48 29 f3                                        	sub    %rsi,%rbx
+  1273de:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  1273e5:	48 89 da                                        	mov    %rbx,%rdx
+  1273e8:	e8 93 10 f0 ff                                  	call   28480 <*ABS*+0xb9600@plt>
+  1273ed:	48 83 bd 08 ff ff ff 00                         	cmpq   $0x0,-0xf8(%rbp)
+  1273f5:	75 1c                                           	jne    127413 <getcwd@@GLIBC_2.2.5+0x7b3>
+  1273f7:	48 3b 9d e8 fe ff ff                            	cmp    -0x118(%rbp),%rbx
+  1273fe:	72 2b                                           	jb     12742b <getcwd@@GLIBC_2.2.5+0x7cb>
+  127400:	48 83 bd 10 ff ff ff 00                         	cmpq   $0x0,-0xf0(%rbp)
+  127408:	0f 85 03 fd ff ff                               	jne    127111 <getcwd@@GLIBC_2.2.5+0x4b1>
+  12740e:	e9 f3 fc ff ff                                  	jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  127413:	48 8b 85 f0 fe ff ff                            	mov    -0x110(%rbp),%rax
+  12741a:	48 85 c0                                        	test   %rax,%rax
+  12741d:	74 31                                           	je     127450 <getcwd@@GLIBC_2.2.5+0x7f0>
+  12741f:	48 89 85 10 ff ff ff                            	mov    %rax,-0xf0(%rbp)
+  127426:	e9 e6 fc ff ff                                  	jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>
+  12742b:	48 89 de                                        	mov    %rbx,%rsi
+  12742e:	48 8b 9d 10 ff ff ff                            	mov    -0xf0(%rbp),%rbx
+  127435:	48 89 df                                        	mov    %rbx,%rdi
+  127438:	e8 c3 0f f0 ff                                  	call   28400 <realloc@plt>
+  12743d:	48 85 c0                                        	test   %rax,%rax
+  127440:	48 0f 44 c3                                     	cmove  %rbx,%rax
+  127444:	48 89 85 10 ff ff ff                            	mov    %rax,-0xf0(%rbp)
+  12744b:	e9 c1 fc ff ff                                  	jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>
+  127450:	4c 0b ad 10 ff ff ff                            	or     -0xf0(%rbp),%r13
+  127457:	0f 84 bb fd ff ff                               	je     127218 <getcwd@@GLIBC_2.2.5+0x5b8>
+  12745d:	e9 af fc ff ff                                  	jmp    127111 <getcwd@@GLIBC_2.2.5+0x4b1>
+  127462:	c6 46 ff 2f                                     	movb   $0x2f,-0x1(%rsi)
+  127466:	48 83 ee 01                                     	sub    $0x1,%rsi
+  12746a:	e9 6c ff ff ff                                  	jmp    1273db <getcwd@@GLIBC_2.2.5+0x77b>
+  12746f:	64 41 8b 1e                                     	mov    %fs:(%r14),%ebx
+  127473:	e9 70 fd ff ff                                  	jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>
+  127478:	64 41 c7 06 0c 00 00 00                         	movl   $0xc,%fs:(%r14)
+  127480:	4c 89 ff                                        	mov    %r15,%rdi
+  127483:	e8 08 ef fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  127488:	48 83 bd f0 fe ff ff 00                         	cmpq   $0x0,-0x110(%rbp)
+  127490:	74 2e                                           	je     1274c0 <getcwd@@GLIBC_2.2.5+0x860>
+  127492:	64 41 c7 06 0c 00 00 00                         	movl   $0xc,%fs:(%r14)
+  12749a:	e9 67 fc ff ff                                  	jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  12749f:	4c 8b ad 00 ff ff ff                            	mov    -0x100(%rbp),%r13
+  1274a6:	4c 89 ff                                        	mov    %r15,%rdi
+  1274a9:	64 41 c7 06 22 00 00 00                         	movl   $0x22,%fs:(%r14)
+  1274b1:	bb 22 00 00 00                                  	mov    $0x22,%ebx
+  1274b6:	e8 d5 ee fc ff                                  	call   f6390 <closedir@@GLIBC_2.2.5>
+  1274bb:	e9 28 fd ff ff                                  	jmp    1271e8 <getcwd@@GLIBC_2.2.5+0x588>
+  1274c0:	48 8b bd 10 ff ff ff                            	mov    -0xf0(%rbp),%rdi
+  1274c7:	e8 04 0f f0 ff                                  	call   283d0 <free@plt>
+  1274cc:	64 41 c7 06 0c 00 00 00                         	movl   $0xc,%fs:(%r14)
+  1274d4:	e9 2d fc ff ff                                  	jmp    127106 <getcwd@@GLIBC_2.2.5+0x4a6>
+  1274d9:	48 8d 0d 90 b2 0b 00                            	lea    0xbb290(%rip),%rcx        # 1e2770 <__nptl_version@@GLIBC_PRIVATE+0x5993>
+  1274e0:	ba 7b 00 00 00                                  	mov    $0x7b,%edx
+  1274e5:	48 8d 35 2c b2 0b 00                            	lea    0xbb22c(%rip),%rsi        # 1e2718 <__nptl_version@@GLIBC_PRIVATE+0x593b>
+  1274ec:	48 8d 3d 4d b2 0b 00                            	lea    0xbb24d(%rip),%rdi        # 1e2740 <__nptl_version@@GLIBC_PRIVATE+0x5963>
+  1274f3:	e8 68 49 f1 ff                                  	call   3be60 <__uselocale@@GLIBC_2.3+0x230>
+  1274f8:	e8 63 dd 01 00                                  	call   145260 <__stack_chk_fail@@GLIBC_2.4>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xf63e0 --stop-address=0xf64bf /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000f63e0 <fdopendir@@GLIBC_2.4>:
+   f63e0:	f3 0f 1e fa                                     	endbr64
+   f63e4:	55                                              	push   %rbp
+   f63e5:	48 89 e5                                        	mov    %rsp,%rbp
+   f63e8:	41 54                                           	push   %r12
+   f63ea:	53                                              	push   %rbx
+   f63eb:	48 8d b5 50 ff ff ff                            	lea    -0xb0(%rbp),%rsi
+   f63f2:	48 81 ec a0 00 00 00                            	sub    $0xa0,%rsp
+   f63f9:	64 48 8b 1c 25 28 00 00 00                      	mov    %fs:0x28,%rbx
+   f6402:	48 89 5d e8                                     	mov    %rbx,-0x18(%rbp)
+   f6406:	89 fb                                           	mov    %edi,%ebx
+   f6408:	e8 03 d5 02 00                                  	call   123910 <__fstat64@@GLIBC_PRIVATE>
+   f640d:	85 c0                                           	test   %eax,%eax
+   f640f:	78 75                                           	js     f6486 <fdopendir@@GLIBC_2.4+0xa6>
+   f6411:	8b 85 68 ff ff ff                               	mov    -0x98(%rbp),%eax
+   f6417:	25 00 f0 00 00                                  	and    $0xf000,%eax
+   f641c:	3d 00 40 00 00                                  	cmp    $0x4000,%eax
+   f6421:	75 55                                           	jne    f6478 <fdopendir@@GLIBC_2.4+0x98>
+   f6423:	31 c0                                           	xor    %eax,%eax
+   f6425:	be 03 00 00 00                                  	mov    $0x3,%esi
+   f642a:	89 df                                           	mov    %ebx,%edi
+   f642c:	e8 6f 28 03 00                                  	call   128ca0 <fallocate64@@GLIBC_2.10+0x30>
+   f6431:	83 f8 ff                                        	cmp    $0xffffffff,%eax
+   f6434:	74 50                                           	je     f6486 <fdopendir@@GLIBC_2.4+0xa6>
+   f6436:	a9 00 00 20 00                                  	test   $0x200000,%eax
+   f643b:	75 53                                           	jne    f6490 <fdopendir@@GLIBC_2.4+0xb0>
+   f643d:	89 c2                                           	mov    %eax,%edx
+   f643f:	83 e2 03                                        	and    $0x3,%edx
+   f6442:	83 fa 01                                        	cmp    $0x1,%edx
+   f6445:	74 61                                           	je     f64a8 <fdopendir@@GLIBC_2.4+0xc8>
+   f6447:	48 8d 8d 50 ff ff ff                            	lea    -0xb0(%rbp),%rcx
+   f644e:	89 c2                                           	mov    %eax,%edx
+   f6450:	31 f6                                           	xor    %esi,%esi
+   f6452:	89 df                                           	mov    %ebx,%edi
+   f6454:	e8 e7 02 00 00                                  	call   f6740 <opendir@@GLIBC_2.2.5+0x120>
+   f6459:	48 8b 55 e8                                     	mov    -0x18(%rbp),%rdx
+   f645d:	64 48 2b 14 25 28 00 00 00                      	sub    %fs:0x28,%rdx
+   f6466:	75 52                                           	jne    f64ba <fdopendir@@GLIBC_2.4+0xda>
+   f6468:	48 81 c4 a0 00 00 00                            	add    $0xa0,%rsp
+   f646f:	5b                                              	pop    %rbx
+   f6470:	41 5c                                           	pop    %r12
+   f6472:	5d                                              	pop    %rbp
+   f6473:	c3                                              	ret
+   f6474:	0f 1f 40 00                                     	nopl   0x0(%rax)
+   f6478:	48 8b 05 69 b9 11 00                            	mov    0x11b969(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f647f:	64 c7 00 14 00 00 00                            	movl   $0x14,%fs:(%rax)
+   f6486:	31 c0                                           	xor    %eax,%eax
+   f6488:	eb cf                                           	jmp    f6459 <fdopendir@@GLIBC_2.4+0x79>
+   f648a:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+   f6490:	48 8b 05 51 b9 11 00                            	mov    0x11b951(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f6497:	64 c7 00 09 00 00 00                            	movl   $0x9,%fs:(%rax)
+   f649e:	31 c0                                           	xor    %eax,%eax
+   f64a0:	eb b7                                           	jmp    f6459 <fdopendir@@GLIBC_2.4+0x79>
+   f64a2:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+   f64a8:	48 8b 05 39 b9 11 00                            	mov    0x11b939(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f64af:	64 c7 00 16 00 00 00                            	movl   $0x16,%fs:(%rax)
+   f64b6:	31 c0                                           	xor    %eax,%eax
+   f64b8:	eb 9f                                           	jmp    f6459 <fdopendir@@GLIBC_2.4+0x79>
+   f64ba:	e8 a1 ed 04 00                                  	call   145260 <__stack_chk_fail@@GLIBC_2.4>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xf6740 --stop-address=0xf6814 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000f6740 <opendir@@GLIBC_2.2.5+0x120>:
+   f6740:	f3 0f 1e fa                                     	endbr64
+   f6744:	55                                              	push   %rbp
+   f6745:	48 89 e5                                        	mov    %rsp,%rbp
+   f6748:	41 54                                           	push   %r12
+   f674a:	41 89 fc                                        	mov    %edi,%r12d
+   f674d:	53                                              	push   %rbx
+   f674e:	48 89 cb                                        	mov    %rcx,%rbx
+   f6751:	40 84 f6                                        	test   %sil,%sil
+   f6754:	75 7a                                           	jne    f67d0 <opendir@@GLIBC_2.2.5+0x1b0>
+   f6756:	31 c0                                           	xor    %eax,%eax
+   f6758:	ba 01 00 00 00                                  	mov    $0x1,%edx
+   f675d:	be 02 00 00 00                                  	mov    $0x2,%esi
+   f6762:	e8 39 25 03 00                                  	call   128ca0 <fallocate64@@GLIBC_2.10+0x30>
+   f6767:	85 c0                                           	test   %eax,%eax
+   f6769:	0f 88 a1 00 00 00                               	js     f6810 <opendir@@GLIBC_2.2.5+0x1f0>
+   f676f:	48 8b 5b 38                                     	mov    0x38(%rbx),%rbx
+   f6773:	b8 00 80 00 00                                  	mov    $0x8000,%eax
+   f6778:	48 39 c3                                        	cmp    %rax,%rbx
+   f677b:	48 0f 42 d8                                     	cmovb  %rax,%rbx
+   f677f:	b8 00 00 10 00                                  	mov    $0x100000,%eax
+   f6784:	48 39 c3                                        	cmp    %rax,%rbx
+   f6787:	48 0f 47 d8                                     	cmova  %rax,%rbx
+   f678b:	48 8d 7b 30                                     	lea    0x30(%rbx),%rdi
+   f678f:	e8 4c 1c f3 ff                                  	call   283e0 <malloc@plt>
+   f6794:	48 85 c0                                        	test   %rax,%rax
+   f6797:	74 77                                           	je     f6810 <opendir@@GLIBC_2.2.5+0x1f0>
+   f6799:	48 89 58 08                                     	mov    %rbx,0x8(%rax)
+   f679d:	66 41 0f 6e c4                                  	movd   %r12d,%xmm0
+   f67a2:	48 c7 40 10 00 00 00 00                         	movq   $0x0,0x10(%rax)
+   f67aa:	48 c7 40 18 00 00 00 00                         	movq   $0x0,0x18(%rax)
+   f67b2:	48 c7 40 20 00 00 00 00                         	movq   $0x0,0x20(%rax)
+   f67ba:	c7 40 28 00 00 00 00                            	movl   $0x0,0x28(%rax)
+   f67c1:	66 0f d6 00                                     	movq   %xmm0,(%rax)
+   f67c5:	5b                                              	pop    %rbx
+   f67c6:	41 5c                                           	pop    %r12
+   f67c8:	5d                                              	pop    %rbp
+   f67c9:	c3                                              	ret
+   f67ca:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+   f67d0:	48 8b 59 38                                     	mov    0x38(%rcx),%rbx
+   f67d4:	b8 00 80 00 00                                  	mov    $0x8000,%eax
+   f67d9:	48 39 c3                                        	cmp    %rax,%rbx
+   f67dc:	48 0f 42 d8                                     	cmovb  %rax,%rbx
+   f67e0:	b8 00 00 10 00                                  	mov    $0x100000,%eax
+   f67e5:	48 39 c3                                        	cmp    %rax,%rbx
+   f67e8:	48 0f 47 d8                                     	cmova  %rax,%rbx
+   f67ec:	48 8d 7b 30                                     	lea    0x30(%rbx),%rdi
+   f67f0:	e8 eb 1b f3 ff                                  	call   283e0 <malloc@plt>
+   f67f5:	48 85 c0                                        	test   %rax,%rax
+   f67f8:	75 9f                                           	jne    f6799 <opendir@@GLIBC_2.2.5+0x179>
+   f67fa:	44 89 e7                                        	mov    %r12d,%edi
+   f67fd:	e8 5e 24 03 00                                  	call   128c60 <__close_nocancel_nostatus@@GLIBC_PRIVATE>
+   f6802:	0f 1f 00                                        	nopl   (%rax)
+   f6805:	66 66 2e 0f 1f 84 00 00 00 00 00                	data16 cs nopw 0x0(%rax,%rax,1)
+   f6810:	31 c0                                           	xor    %eax,%eax
+   f6812:	eb b1                                           	jmp    f67c5 <opendir@@GLIBC_2.2.5+0x1a5>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xf6390 --stop-address=0xf63c9 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000f6390 <closedir@@GLIBC_2.2.5>:
+   f6390:	f3 0f 1e fa                                     	endbr64
+   f6394:	48 85 ff                                        	test   %rdi,%rdi
+   f6397:	74 1c                                           	je     f63b5 <closedir@@GLIBC_2.2.5+0x25>
+   f6399:	55                                              	push   %rbp
+   f639a:	48 89 e5                                        	mov    %rsp,%rbp
+   f639d:	53                                              	push   %rbx
+   f639e:	48 83 ec 08                                     	sub    $0x8,%rsp
+   f63a2:	8b 1f                                           	mov    (%rdi),%ebx
+   f63a4:	e8 27 20 f3 ff                                  	call   283d0 <free@plt>
+   f63a9:	89 df                                           	mov    %ebx,%edi
+   f63ab:	48 8b 5d f8                                     	mov    -0x8(%rbp),%rbx
+   f63af:	c9                                              	leave
+   f63b0:	e9 7b 28 03 00                                  	jmp    128c30 <__close_nocancel@@GLIBC_PRIVATE>
+   f63b5:	48 8b 05 2c ba 11 00                            	mov    0x11ba2c(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f63bc:	64 c7 00 16 00 00 00                            	movl   $0x16,%fs:(%rax)
+   f63c3:	b8 ff ff ff ff                                  	mov    $0xffffffff,%eax
+   f63c8:	c3                                              	ret
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xf6820 --stop-address=0xf6931 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000f6820 <readdir@@GLIBC_2.2.5>:
+   f6820:	f3 0f 1e fa                                     	endbr64
+   f6824:	55                                              	push   %rbp
+   f6825:	48 89 f9                                        	mov    %rdi,%rcx
+   f6828:	4c 8d 47 04                                     	lea    0x4(%rdi),%r8
+   f682c:	31 c0                                           	xor    %eax,%eax
+   f682e:	ba 01 00 00 00                                  	mov    $0x1,%edx
+   f6833:	48 89 e5                                        	mov    %rsp,%rbp
+   f6836:	53                                              	push   %rbx
+   f6837:	48 83 ec 28                                     	sub    $0x28,%rsp
+   f683b:	f0 41 0f b1 10                                  	lock cmpxchg %edx,(%r8)
+   f6840:	75 7e                                           	jne    f68c0 <readdir@@GLIBC_2.2.5+0xa0>
+   f6842:	48 8b 41 18                                     	mov    0x18(%rcx),%rax
+   f6846:	48 8d 74 01 30                                  	lea    0x30(%rcx,%rax,1),%rsi
+   f684b:	48 3b 41 10                                     	cmp    0x10(%rcx),%rax
+   f684f:	73 2f                                           	jae    f6880 <readdir@@GLIBC_2.2.5+0x60>
+   f6851:	0f b7 56 10                                     	movzwl 0x10(%rsi),%edx
+   f6855:	48 01 d0                                        	add    %rdx,%rax
+   f6858:	48 89 41 18                                     	mov    %rax,0x18(%rcx)
+   f685c:	48 8b 46 08                                     	mov    0x8(%rsi),%rax
+   f6860:	48 89 41 20                                     	mov    %rax,0x20(%rcx)
+   f6864:	31 c0                                           	xor    %eax,%eax
+   f6866:	41 87 00                                        	xchg   %eax,(%r8)
+   f6869:	83 f8 01                                        	cmp    $0x1,%eax
+   f686c:	7f 72                                           	jg     f68e0 <readdir@@GLIBC_2.2.5+0xc0>
+   f686e:	48 8b 5d f8                                     	mov    -0x8(%rbp),%rbx
+   f6872:	48 89 f0                                        	mov    %rsi,%rax
+   f6875:	c9                                              	leave
+   f6876:	c3                                              	ret
+   f6877:	66 0f 1f 84 00 00 00 00 00                      	nopw   0x0(%rax,%rax,1)
+   f6880:	48 8b 51 08                                     	mov    0x8(%rcx),%rdx
+   f6884:	8b 39                                           	mov    (%rcx),%edi
+   f6886:	48 8d 71 30                                     	lea    0x30(%rcx),%rsi
+   f688a:	4c 89 45 d8                                     	mov    %r8,-0x28(%rbp)
+   f688e:	48 8b 05 53 b5 11 00                            	mov    0x11b553(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f6895:	64 8b 18                                        	mov    %fs:(%rax),%ebx
+   f6898:	48 89 4d e0                                     	mov    %rcx,-0x20(%rbp)
+   f689c:	48 89 75 e8                                     	mov    %rsi,-0x18(%rbp)
+   f68a0:	e8 1b fc ff ff                                  	call   f64c0 <getdents64@@GLIBC_2.30>
+   f68a5:	48 8b 75 e8                                     	mov    -0x18(%rbp),%rsi
+   f68a9:	48 8b 4d e0                                     	mov    -0x20(%rbp),%rcx
+   f68ad:	48 85 c0                                        	test   %rax,%rax
+   f68b0:	4c 8b 45 d8                                     	mov    -0x28(%rbp),%r8
+   f68b4:	7e 4a                                           	jle    f6900 <readdir@@GLIBC_2.2.5+0xe0>
+   f68b6:	48 89 41 10                                     	mov    %rax,0x10(%rcx)
+   f68ba:	31 c0                                           	xor    %eax,%eax
+   f68bc:	eb 93                                           	jmp    f6851 <readdir@@GLIBC_2.2.5+0x31>
+   f68be:	66 90                                           	xchg   %ax,%ax
+   f68c0:	48 89 7d e0                                     	mov    %rdi,-0x20(%rbp)
+   f68c4:	4c 89 c7                                        	mov    %r8,%rdi
+   f68c7:	4c 89 45 e8                                     	mov    %r8,-0x18(%rbp)
+   f68cb:	e8 c0 9f fa ff                                  	call   a0890 <__lll_lock_wait_private@@GLIBC_PRIVATE>
+   f68d0:	48 8b 4d e0                                     	mov    -0x20(%rbp),%rcx
+   f68d4:	4c 8b 45 e8                                     	mov    -0x18(%rbp),%r8
+   f68d8:	e9 65 ff ff ff                                  	jmp    f6842 <readdir@@GLIBC_2.2.5+0x22>
+   f68dd:	0f 1f 00                                        	nopl   (%rax)
+   f68e0:	4c 89 c7                                        	mov    %r8,%rdi
+   f68e3:	48 89 75 e8                                     	mov    %rsi,-0x18(%rbp)
+   f68e7:	e8 64 a0 fa ff                                  	call   a0950 <__lll_lock_wake_private@@GLIBC_PRIVATE>
+   f68ec:	48 8b 75 e8                                     	mov    -0x18(%rbp),%rsi
+   f68f0:	48 8b 5d f8                                     	mov    -0x8(%rbp),%rbx
+   f68f4:	c9                                              	leave
+   f68f5:	48 89 f0                                        	mov    %rsi,%rax
+   f68f8:	c3                                              	ret
+   f68f9:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+   f6900:	74 1e                                           	je     f6920 <readdir@@GLIBC_2.2.5+0x100>
+   f6902:	48 8b 05 df b4 11 00                            	mov    0x11b4df(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f6909:	64 83 38 02                                     	cmpl   $0x2,%fs:(%rax)
+   f690d:	74 11                                           	je     f6920 <readdir@@GLIBC_2.2.5+0x100>
+   f690f:	31 f6                                           	xor    %esi,%esi
+   f6911:	e9 4e ff ff ff                                  	jmp    f6864 <readdir@@GLIBC_2.2.5+0x44>
+   f6916:	66 2e 0f 1f 84 00 00 00 00 00                   	cs nopw 0x0(%rax,%rax,1)
+   f6920:	48 8b 05 c1 b4 11 00                            	mov    0x11b4c1(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f6927:	31 f6                                           	xor    %esi,%esi
+   f6929:	64 89 18                                        	mov    %ebx,%fs:(%rax)
+   f692c:	e9 33 ff ff ff                                  	jmp    f6864 <readdir@@GLIBC_2.2.5+0x44>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xf6b10 --stop-address=0xf6b84 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000f6b10 <rewinddir@@GLIBC_2.2.5>:
+   f6b10:	f3 0f 1e fa                                     	endbr64
+   f6b14:	55                                              	push   %rbp
+   f6b15:	31 c0                                           	xor    %eax,%eax
+   f6b17:	ba 01 00 00 00                                  	mov    $0x1,%edx
+   f6b1c:	48 89 e5                                        	mov    %rsp,%rbp
+   f6b1f:	41 54                                           	push   %r12
+   f6b21:	4c 8d 67 04                                     	lea    0x4(%rdi),%r12
+   f6b25:	53                                              	push   %rbx
+   f6b26:	48 89 fb                                        	mov    %rdi,%rbx
+   f6b29:	f0 41 0f b1 14 24                               	lock cmpxchg %edx,(%r12)
+   f6b2f:	75 37                                           	jne    f6b68 <rewinddir@@GLIBC_2.2.5+0x58>
+   f6b31:	8b 3b                                           	mov    (%rbx),%edi
+   f6b33:	31 d2                                           	xor    %edx,%edx
+   f6b35:	31 f6                                           	xor    %esi,%esi
+   f6b37:	e8 04 0d 03 00                                  	call   127840 <__lseek@@GLIBC_2.2.5>
+   f6b3c:	66 0f ef c0                                     	pxor   %xmm0,%xmm0
+   f6b40:	31 c0                                           	xor    %eax,%eax
+   f6b42:	48 c7 43 20 00 00 00 00                         	movq   $0x0,0x20(%rbx)
+   f6b4a:	c7 43 28 00 00 00 00                            	movl   $0x0,0x28(%rbx)
+   f6b51:	0f 29 43 10                                     	movaps %xmm0,0x10(%rbx)
+   f6b55:	41 87 04 24                                     	xchg   %eax,(%r12)
+   f6b59:	83 f8 01                                        	cmp    $0x1,%eax
+   f6b5c:	7f 1a                                           	jg     f6b78 <rewinddir@@GLIBC_2.2.5+0x68>
+   f6b5e:	5b                                              	pop    %rbx
+   f6b5f:	41 5c                                           	pop    %r12
+   f6b61:	5d                                              	pop    %rbp
+   f6b62:	c3                                              	ret
+   f6b63:	0f 1f 44 00 00                                  	nopl   0x0(%rax,%rax,1)
+   f6b68:	4c 89 e7                                        	mov    %r12,%rdi
+   f6b6b:	e8 20 9d fa ff                                  	call   a0890 <__lll_lock_wait_private@@GLIBC_PRIVATE>
+   f6b70:	eb bf                                           	jmp    f6b31 <rewinddir@@GLIBC_2.2.5+0x21>
+   f6b72:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+   f6b78:	5b                                              	pop    %rbx
+   f6b79:	4c 89 e7                                        	mov    %r12,%rdi
+   f6b7c:	41 5c                                           	pop    %r12
+   f6b7e:	5d                                              	pop    %rbp
+   f6b7f:	e9 cc 9d fa ff                                  	jmp    a0950 <__lll_lock_wake_private@@GLIBC_PRIVATE>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xf64c0 --stop-address=0xf64f4 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000f64c0 <getdents64@@GLIBC_2.30>:
+   f64c0:	f3 0f 1e fa                                     	endbr64
+   f64c4:	b8 ff ff ff 7f                                  	mov    $0x7fffffff,%eax
+   f64c9:	48 39 c2                                        	cmp    %rax,%rdx
+   f64cc:	48 0f 47 d0                                     	cmova  %rax,%rdx
+   f64d0:	b8 d9 00 00 00                                  	mov    $0xd9,%eax
+   f64d5:	0f 05                                           	syscall
+   f64d7:	48 3d 00 f0 ff ff                               	cmp    $0xfffffffffffff000,%rax
+   f64dd:	77 01                                           	ja     f64e0 <getdents64@@GLIBC_2.30+0x20>
+   f64df:	c3                                              	ret
+   f64e0:	48 8b 15 01 b9 11 00                            	mov    0x11b901(%rip),%rdx        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   f64e7:	f7 d8                                           	neg    %eax
+   f64e9:	64 89 02                                        	mov    %eax,%fs:(%rdx)
+   f64ec:	48 c7 c0 ff ff ff ff                            	mov    $0xffffffffffffffff,%rax
+   f64f3:	c3                                              	ret
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0x12cc70 --stop-address=0x12cca8 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+000000000012cc70 <__getpagesize@@GLIBC_2.2.5>:
+  12cc70:	f3 0f 1e fa                                     	endbr64
+  12cc74:	48 8b 05 3d 52 0e 00                            	mov    0xe523d(%rip),%rax        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>
+  12cc7b:	48 8b 40 18                                     	mov    0x18(%rax),%rax
+  12cc7f:	48 85 c0                                        	test   %rax,%rax
+  12cc82:	74 01                                           	je     12cc85 <__getpagesize@@GLIBC_2.2.5+0x15>
+  12cc84:	c3                                              	ret
+  12cc85:	55                                              	push   %rbp
+  12cc86:	48 8d 0d 0b 5c 0b 00                            	lea    0xb5c0b(%rip),%rcx        # 1e2898 <__nptl_version@@GLIBC_PRIVATE+0x5abb>
+  12cc8d:	ba 1c 00 00 00                                  	mov    $0x1c,%edx
+  12cc92:	48 8d 35 cf 5b 0b 00                            	lea    0xb5bcf(%rip),%rsi        # 1e2868 <__nptl_version@@GLIBC_PRIVATE+0x5a8b>
+  12cc99:	48 8d 3d 09 05 0b 00                            	lea    0xb0509(%rip),%rdi        # 1dd1a9 <__nptl_version@@GLIBC_PRIVATE+0x3cc>
+  12cca0:	48 89 e5                                        	mov    %rsp,%rbp
+  12cca3:	e8 b8 f1 f0 ff                                  	call   3be60 <__uselocale@@GLIBC_2.3+0x230>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0xbc400 --stop-address=0xbc478 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000bc400 <strlen@@GLIBC_2.2.5>:
+   bc400:	f3 0f 1e fa                                     	endbr64
+   bc404:	48 8b 15 ad 5a 15 00                            	mov    0x155aad(%rip),%rdx        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>
+   bc40b:	48 8d 05 be cf 00 00                            	lea    0xcfbe(%rip),%rax        # c93d0 <memcpy@GLIBC_2.2.5+0x70e0>
+   bc412:	8b 8a b8 00 00 00                               	mov    0xb8(%rdx),%ecx
+   bc418:	89 ce                                           	mov    %ecx,%esi
+   bc41a:	f7 d6                                           	not    %esi
+   bc41c:	81 e6 28 01 00 00                               	and    $0x128,%esi
+   bc422:	74 04                                           	je     bc428 <strlen@@GLIBC_2.2.5+0x28>
+   bc424:	c3                                              	ret
+   bc425:	0f 1f 00                                        	nopl   (%rax)
+   bc428:	f6 82 dc 00 00 00 20                            	testb  $0x20,0xdc(%rdx)
+   bc42f:	74 f3                                           	je     bc424 <strlen@@GLIBC_2.2.5+0x24>
+   bc431:	8b b2 c4 01 00 00                               	mov    0x1c4(%rdx),%esi
+   bc437:	f7 c6 00 02 00 00                               	test   $0x200,%esi
+   bc43d:	74 e5                                           	je     bc424 <strlen@@GLIBC_2.2.5+0x24>
+   bc43f:	89 ca                                           	mov    %ecx,%edx
+   bc441:	f7 d2                                           	not    %edx
+   bc443:	81 e2 00 00 00 c0                               	and    $0xc0000000,%edx
+   bc449:	74 25                                           	je     bc470 <strlen@@GLIBC_2.2.5+0x70>
+   bc44b:	48 8d 05 6e 6e 0e 00                            	lea    0xe6e6e(%rip),%rax        # 1a32c0 <_dl_mcount_wrapper@GLIBC_2.2.5+0xc2f0>
+   bc452:	80 e5 08                                        	and    $0x8,%ch
+   bc455:	75 cd                                           	jne    bc424 <strlen@@GLIBC_2.2.5+0x24>
+   bc457:	81 e6 00 08 00 00                               	and    $0x800,%esi
+   bc45d:	48 8d 15 6c cf 00 00                            	lea    0xcf6c(%rip),%rdx        # c93d0 <memcpy@GLIBC_2.2.5+0x70e0>
+   bc464:	48 8d 05 15 e3 0d 00                            	lea    0xde315(%rip),%rax        # 19a780 <_dl_mcount_wrapper@GLIBC_2.2.5+0x37b0>
+   bc46b:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   bc46f:	c3                                              	ret
+   bc470:	48 8d 05 89 e5 0e 00                            	lea    0xee589(%rip),%rax        # 1aaa00 <_dl_mcount_wrapper@GLIBC_2.2.5+0x13a30>
+   bc477:	c3                                              	ret
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --insn-width=16 --start-address=0x144710 --stop-address=0x144811 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000144710 <__memcpy_chk@@GLIBC_2.3.4>:
+  144710:	f3 0f 1e fa                                     	endbr64
+  144714:	48 8b 0d 9d d7 0c 00                            	mov    0xcd79d(%rip),%rcx        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>
+  14471b:	48 8d 05 4e db f7 ff                            	lea    -0x824b2(%rip),%rax        # c2270 <__xpg_strerror_r@@GLIBC_2.3.4+0x8e0>
+  144722:	8b 91 c4 01 00 00                               	mov    0x1c4(%rcx),%edx
+  144728:	f6 c6 90                                        	test   $0x90,%dh
+  14472b:	74 03                                           	je     144730 <__memcpy_chk@@GLIBC_2.3.4+0x20>
+  14472d:	c3                                              	ret
+  14472e:	66 90                                           	xchg   %ax,%ax
+  144730:	8b b1 b8 00 00 00                               	mov    0xb8(%rcx),%esi
+  144736:	f7 c6 00 00 01 00                               	test   $0x10000,%esi
+  14473c:	74 32                                           	je     144770 <__memcpy_chk@@GLIBC_2.3.4+0x60>
+  14473e:	f6 c6 20                                        	test   $0x20,%dh
+  144741:	75 2d                                           	jne    144770 <__memcpy_chk@@GLIBC_2.3.4+0x60>
+  144743:	48 8d 05 b6 e4 06 00                            	lea    0x6e4b6(%rip),%rax        # 1b2c00 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1bc30>
+  14474a:	85 f6                                           	test   %esi,%esi
+  14474c:	79 df                                           	jns    14472d <__memcpy_chk@@GLIBC_2.3.4+0x1d>
+  14474e:	81 e6 00 02 00 00                               	and    $0x200,%esi
+  144754:	48 8d 15 75 c2 06 00                            	lea    0x6c275(%rip),%rdx        # 1b09d0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x19a00>
+  14475b:	48 8d 05 fe c1 06 00                            	lea    0x6c1fe(%rip),%rax        # 1b0960 <_dl_mcount_wrapper@GLIBC_2.2.5+0x19990>
+  144762:	48 0f 45 c2                                     	cmovne %rdx,%rax
+  144766:	c3                                              	ret
+  144767:	66 0f 1f 84 00 00 00 00 00                      	nopw   0x0(%rax,%rax,1)
+  144770:	f6 c6 02                                        	test   $0x2,%dh
+  144773:	75 33                                           	jne    1447a8 <__memcpy_chk@@GLIBC_2.3.4+0x98>
+  144775:	f6 81 9d 00 00 00 02                            	testb  $0x2,0x9d(%rcx)
+  14477c:	74 0c                                           	je     14478a <__memcpy_chk@@GLIBC_2.3.4+0x7a>
+  14477e:	83 e2 20                                        	and    $0x20,%edx
+  144781:	48 8d 05 98 ee 06 00                            	lea    0x6ee98(%rip),%rax        # 1b3620 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1c650>
+  144788:	74 a3                                           	je     14472d <__memcpy_chk@@GLIBC_2.3.4+0x1d>
+  14478a:	81 e6 00 02 00 00                               	and    $0x200,%esi
+  144790:	48 8d 15 49 db f7 ff                            	lea    -0x824b7(%rip),%rdx        # c22e0 <__xpg_strerror_r@@GLIBC_2.3.4+0x950>
+  144797:	48 8d 05 a2 db f7 ff                            	lea    -0x8245e(%rip),%rax        # c2340 <memcpy@GLIBC_2.2.5+0x50>
+  14479e:	48 0f 44 c2                                     	cmove  %rdx,%rax
+  1447a2:	c3                                              	ret
+  1447a3:	0f 1f 44 00 00                                  	nopl   0x0(%rax,%rax,1)
+  1447a8:	85 f6                                           	test   %esi,%esi
+  1447aa:	78 2c                                           	js     1447d8 <__memcpy_chk@@GLIBC_2.3.4+0xc8>
+  1447ac:	f7 c6 00 08 00 00                               	test   $0x800,%esi
+  1447b2:	75 44                                           	jne    1447f8 <__memcpy_chk@@GLIBC_2.3.4+0xe8>
+  1447b4:	f6 c6 08                                        	test   $0x8,%dh
+  1447b7:	75 bc                                           	jne    144775 <__memcpy_chk@@GLIBC_2.3.4+0x65>
+  1447b9:	81 e6 00 02 00 00                               	and    $0x200,%esi
+  1447bf:	48 8d 15 0a 32 05 00                            	lea    0x5320a(%rip),%rdx        # 1979d0 <_dl_mcount_wrapper@GLIBC_2.2.5+0xa00>
+  1447c6:	48 8d 05 93 31 05 00                            	lea    0x53193(%rip),%rax        # 197960 <_dl_mcount_wrapper@GLIBC_2.2.5+0x990>
+  1447cd:	48 0f 45 c2                                     	cmovne %rdx,%rax
+  1447d1:	c3                                              	ret
+  1447d2:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+  1447d8:	81 e6 00 02 00 00                               	and    $0x200,%esi
+  1447de:	48 8d 15 6b 31 06 00                            	lea    0x6316b(%rip),%rdx        # 1a7950 <_dl_mcount_wrapper@GLIBC_2.2.5+0x10980>
+  1447e5:	48 8d 05 f4 30 06 00                            	lea    0x630f4(%rip),%rax        # 1a78e0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x10910>
+  1447ec:	48 0f 45 c2                                     	cmovne %rdx,%rax
+  1447f0:	c3                                              	ret
+  1447f1:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+  1447f8:	81 e6 00 02 00 00                               	and    $0x200,%esi
+  1447fe:	48 8d 15 4b bc 05 00                            	lea    0x5bc4b(%rip),%rdx        # 1a0450 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9480>
+  144805:	48 8d 05 d4 bb 05 00                            	lea    0x5bbd4(%rip),%rax        # 1a03e0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9410>
+  14480c:	48 0f 45 c2                                     	cmovne %rdx,%rax
+  144810:	c3                                              	ret

@@ -1,0 +1,56 @@
+{
+  "archives": {
+    "glibc_2.43-2ubuntu2.4.debian.tar.xz": {
+      "bytes": 530764,
+      "sha256": "28103a7cf808c29901c6053d89a4e8299880abfbb850c0d97a09c8df8533e306",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.43-2ubuntu2.4.debian.tar.xz"
+    },
+    "glibc_2.43-2ubuntu2.4.dsc": {
+      "bytes": 9078,
+      "sha256": "da10d551ca51076bf7bf663de38369d04e267386b8211c283c2814e68e482ed3",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.43-2ubuntu2.4.dsc"
+    },
+    "glibc_2.43.orig.tar.xz": {
+      "bytes": 20297012,
+      "sha256": "d9c86c6b5dbddb43a3e08270c5844fc5177d19442cf5b8df4be7c07cd5fa3831",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.43.orig.tar.xz"
+    },
+    "libc6_2.43-2ubuntu2.4_amd64.deb": {
+      "bytes": 2104056,
+      "sha256": "a613b457f3ff9c84ebd28af8a05afdec22605ad9aed87c71e3a6ae5170aeb9ca",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.43-2ubuntu2.4_amd64.deb"
+    }
+  },
+  "base": "753623d1ce71be87c3ee436fb7f0b3af733434c8",
+  "download_signature_verified": false,
+  "historical_server_library_observation": null,
+  "host": {
+    "machine": "x86_64",
+    "node": "codex-silver",
+    "processor": "",
+    "release": "7.0.14",
+    "system": "Linux",
+    "version": "#1 SMP PREEMPT Mon Oct 12 09:57:07 UTC 2026"
+  },
+  "libc": {
+    "build_id": "066527e430a32768d82741e00b81eebb1a872294",
+    "bytes": 2190608,
+    "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+    "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+  },
+  "objdump": {
+    "bytes": 11286064,
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+    "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+  },
+  "package_query_argv": [
+    "dpkg-query",
+    "-W",
+    "-f=${Package} ${Version} ${Architecture} ${source:Package} ${source:Version}\\n",
+    "libc6",
+    "libc6-dev"
+  ],
+  "package_query_stdout": "libc6 2.43-2ubuntu2.4 amd64 glibc 2.43-2ubuntu2.4\nlibc6-dev 2.43-2ubuntu2.4 amd64 glibc 2.43-2ubuntu2.4\n",
+  "package_source_metadata_is_reproducible_build_proof": false,
+  "target_executions": 0
+}
