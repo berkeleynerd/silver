@@ -1,0 +1,912 @@
+{
+  "schema": "silver.retained-why-library-publication-bound.v1",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "inventory_identity": {
+    "bytes": 815285,
+    "sha256": "d379fa376664972748e2b4a55912d0f17a7342b611e1fde98d66bd2aa50856ac"
+  },
+  "source_file_identities": {
+    "int": {
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    "real": {
+      "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "bytes": 11048,
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    "algebra": {
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "bytes": 4910,
+      "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+    },
+    "relations": {
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "bytes": 4033,
+      "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+    }
+  },
+  "source_bytes_all_files": 38678,
+  "source_bytes_in_module_spans": 38163,
+  "module_recurrence": {
+    "int.Int": {
+      "library": "int",
+      "first_byte": 185,
+      "past_last_byte": 1398,
+      "source_bytes": 1213,
+      "clone_targets": [
+        "algebra.OrderedUnitaryCommutativeRing"
+      ],
+      "meta_head_upper_count": 8,
+      "expanded_source_bytes": 5052,
+      "expanded_marker_upper_count": 33
+    },
+    "int.Abs": {
+      "library": "int",
+      "first_byte": 1398,
+      "past_last_byte": 1806,
+      "source_bytes": 408,
+      "clone_targets": [],
+      "meta_head_upper_count": 2,
+      "expanded_source_bytes": 408,
+      "expanded_marker_upper_count": 2
+    },
+    "int.MinMax": {
+      "library": "int",
+      "first_byte": 1806,
+      "past_last_byte": 2152,
+      "source_bytes": 346,
+      "clone_targets": [
+        "relations.MinMax"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 2021,
+      "expanded_marker_upper_count": 12
+    },
+    "int.Lex2": {
+      "library": "int",
+      "first_byte": 2152,
+      "past_last_byte": 2571,
+      "source_bytes": 419,
+      "clone_targets": [
+        "relations.Lex"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 750,
+      "expanded_marker_upper_count": 1
+    },
+    "int.EuclideanDivision": {
+      "library": "int",
+      "first_byte": 2571,
+      "past_last_byte": 5019,
+      "source_bytes": 2448,
+      "clone_targets": [],
+      "meta_head_upper_count": 16,
+      "expanded_source_bytes": 2448,
+      "expanded_marker_upper_count": 16
+    },
+    "int.Div2": {
+      "library": "int",
+      "first_byte": 5019,
+      "past_last_byte": 5349,
+      "source_bytes": 330,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 330,
+      "expanded_marker_upper_count": 0
+    },
+    "int.ComputerDivision": {
+      "library": "int",
+      "first_byte": 5349,
+      "past_last_byte": 8597,
+      "source_bytes": 3248,
+      "clone_targets": [],
+      "meta_head_upper_count": 28,
+      "expanded_source_bytes": 3248,
+      "expanded_marker_upper_count": 28
+    },
+    "int.Exponentiation": {
+      "library": "int",
+      "first_byte": 8597,
+      "past_last_byte": 9893,
+      "source_bytes": 1296,
+      "clone_targets": [
+        "algebra.Monoid"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1642,
+      "expanded_marker_upper_count": 2
+    },
+    "int.Power": {
+      "library": "int",
+      "first_byte": 9893,
+      "past_last_byte": 10530,
+      "source_bytes": 637,
+      "clone_targets": [
+        "int.Exponentiation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 2279,
+      "expanded_marker_upper_count": 3
+    },
+    "int.NumOf": {
+      "library": "int",
+      "first_byte": 10530,
+      "past_last_byte": 12574,
+      "source_bytes": 2044,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 2044,
+      "expanded_marker_upper_count": 0
+    },
+    "int.Sum": {
+      "library": "int",
+      "first_byte": 12574,
+      "past_last_byte": 13844,
+      "source_bytes": 1270,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1270,
+      "expanded_marker_upper_count": 0
+    },
+    "int.SumParam": {
+      "library": "int",
+      "first_byte": 13844,
+      "past_last_byte": 15626,
+      "source_bytes": 1782,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1782,
+      "expanded_marker_upper_count": 0
+    },
+    "int.Fact": {
+      "library": "int",
+      "first_byte": 15626,
+      "past_last_byte": 15822,
+      "source_bytes": 196,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 196,
+      "expanded_marker_upper_count": 0
+    },
+    "int.Iter": {
+      "library": "int",
+      "first_byte": 15822,
+      "past_last_byte": 16217,
+      "source_bytes": 395,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 395,
+      "expanded_marker_upper_count": 0
+    },
+    "int.IntInf": {
+      "library": "int",
+      "first_byte": 16217,
+      "past_last_byte": 17244,
+      "source_bytes": 1027,
+      "clone_targets": [
+        "relations.TotalOrder"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 2088,
+      "expanded_marker_upper_count": 11
+    },
+    "int.SimpleInduction": {
+      "library": "int",
+      "first_byte": 17244,
+      "past_last_byte": 17441,
+      "source_bytes": 197,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 197,
+      "expanded_marker_upper_count": 0
+    },
+    "int.Induction": {
+      "library": "int",
+      "first_byte": 17441,
+      "past_last_byte": 17796,
+      "source_bytes": 355,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 355,
+      "expanded_marker_upper_count": 0
+    },
+    "int.HOInduction": {
+      "library": "int",
+      "first_byte": 17796,
+      "past_last_byte": 18134,
+      "source_bytes": 338,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 338,
+      "expanded_marker_upper_count": 0
+    },
+    "int.Fibonacci": {
+      "library": "int",
+      "first_byte": 18134,
+      "past_last_byte": 18326,
+      "source_bytes": 192,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 192,
+      "expanded_marker_upper_count": 0
+    },
+    "int.WFltof": {
+      "library": "int",
+      "first_byte": 18326,
+      "past_last_byte": 18687,
+      "source_bytes": 361,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 361,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Real": {
+      "library": "real",
+      "first_byte": 212,
+      "past_last_byte": 1637,
+      "source_bytes": 1425,
+      "clone_targets": [
+        "algebra.OrderedField"
+      ],
+      "meta_head_upper_count": 9,
+      "expanded_source_bytes": 6743,
+      "expanded_marker_upper_count": 40
+    },
+    "real.RealInfix": {
+      "library": "real",
+      "first_byte": 1637,
+      "past_last_byte": 2317,
+      "source_bytes": 680,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 680,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Abs": {
+      "library": "real",
+      "first_byte": 2317,
+      "past_last_byte": 2826,
+      "source_bytes": 509,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 509,
+      "expanded_marker_upper_count": 0
+    },
+    "real.MinMax": {
+      "library": "real",
+      "first_byte": 2826,
+      "past_last_byte": 2983,
+      "source_bytes": 157,
+      "clone_targets": [
+        "relations.MinMax"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1832,
+      "expanded_marker_upper_count": 12
+    },
+    "real.FromInt": {
+      "library": "real",
+      "first_byte": 2983,
+      "past_last_byte": 3643,
+      "source_bytes": 660,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 660,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Truncate": {
+      "library": "real",
+      "first_byte": 3643,
+      "past_last_byte": 5067,
+      "source_bytes": 1424,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1424,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Square": {
+      "library": "real",
+      "first_byte": 5067,
+      "past_last_byte": 5592,
+      "source_bytes": 525,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 525,
+      "expanded_marker_upper_count": 0
+    },
+    "real.ExpLog": {
+      "library": "real",
+      "first_byte": 5592,
+      "past_last_byte": 6637,
+      "source_bytes": 1045,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1045,
+      "expanded_marker_upper_count": 0
+    },
+    "real.PowerInt": {
+      "library": "real",
+      "first_byte": 6637,
+      "past_last_byte": 7013,
+      "source_bytes": 376,
+      "clone_targets": [
+        "int.Exponentiation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 2018,
+      "expanded_marker_upper_count": 3
+    },
+    "real.PowerReal": {
+      "library": "real",
+      "first_byte": 7013,
+      "past_last_byte": 8039,
+      "source_bytes": 1026,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1026,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Trigonometry": {
+      "library": "real",
+      "first_byte": 8039,
+      "past_last_byte": 9881,
+      "source_bytes": 1842,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1842,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Hyperbolic": {
+      "library": "real",
+      "first_byte": 9881,
+      "past_last_byte": 10547,
+      "source_bytes": 666,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 666,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Polar": {
+      "library": "real",
+      "first_byte": 10547,
+      "past_last_byte": 10857,
+      "source_bytes": 310,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 310,
+      "expanded_marker_upper_count": 0
+    },
+    "real.Sum": {
+      "library": "real",
+      "first_byte": 10857,
+      "past_last_byte": 11048,
+      "source_bytes": 191,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 191,
+      "expanded_marker_upper_count": 0
+    },
+    "algebra.Assoc": {
+      "library": "algebra",
+      "first_byte": 62,
+      "past_last_byte": 203,
+      "source_bytes": 141,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 141,
+      "expanded_marker_upper_count": 0
+    },
+    "algebra.Comm": {
+      "library": "algebra",
+      "first_byte": 203,
+      "past_last_byte": 344,
+      "source_bytes": 141,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 141,
+      "expanded_marker_upper_count": 0
+    },
+    "algebra.AC": {
+      "library": "algebra",
+      "first_byte": 344,
+      "past_last_byte": 507,
+      "source_bytes": 163,
+      "clone_targets": [
+        "algebra.Assoc",
+        "algebra.Comm"
+      ],
+      "meta_head_upper_count": 1,
+      "expanded_source_bytes": 445,
+      "expanded_marker_upper_count": 3
+    },
+    "algebra.Monoid": {
+      "library": "algebra",
+      "first_byte": 507,
+      "past_last_byte": 712,
+      "source_bytes": 205,
+      "clone_targets": [
+        "algebra.Assoc"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 346,
+      "expanded_marker_upper_count": 1
+    },
+    "algebra.CommutativeMonoid": {
+      "library": "algebra",
+      "first_byte": 712,
+      "past_last_byte": 926,
+      "source_bytes": 214,
+      "clone_targets": [
+        "algebra.Monoid",
+        "algebra.Comm"
+      ],
+      "meta_head_upper_count": 1,
+      "expanded_source_bytes": 701,
+      "expanded_marker_upper_count": 4
+    },
+    "algebra.Group": {
+      "library": "algebra",
+      "first_byte": 926,
+      "past_last_byte": 1248,
+      "source_bytes": 322,
+      "clone_targets": [
+        "algebra.Monoid"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 668,
+      "expanded_marker_upper_count": 2
+    },
+    "algebra.CommutativeGroup": {
+      "library": "algebra",
+      "first_byte": 1248,
+      "past_last_byte": 1419,
+      "source_bytes": 171,
+      "clone_targets": [
+        "algebra.Group",
+        "algebra.Comm"
+      ],
+      "meta_head_upper_count": 1,
+      "expanded_source_bytes": 980,
+      "expanded_marker_upper_count": 5
+    },
+    "algebra.Ring": {
+      "library": "algebra",
+      "first_byte": 1419,
+      "past_last_byte": 2025,
+      "source_bytes": 606,
+      "clone_targets": [
+        "algebra.CommutativeGroup",
+        "algebra.Assoc"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1727,
+      "expanded_marker_upper_count": 7
+    },
+    "algebra.CommutativeRing": {
+      "library": "algebra",
+      "first_byte": 2025,
+      "past_last_byte": 2222,
+      "source_bytes": 197,
+      "clone_targets": [
+        "algebra.Ring",
+        "algebra.Comm"
+      ],
+      "meta_head_upper_count": 1,
+      "expanded_source_bytes": 2065,
+      "expanded_marker_upper_count": 10
+    },
+    "algebra.UnitaryCommutativeRing": {
+      "library": "algebra",
+      "first_byte": 2222,
+      "past_last_byte": 2439,
+      "source_bytes": 217,
+      "clone_targets": [
+        "algebra.CommutativeRing"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 2282,
+      "expanded_marker_upper_count": 11
+    },
+    "algebra.OrderedUnitaryCommutativeRing": {
+      "library": "algebra",
+      "first_byte": 2439,
+      "past_last_byte": 2935,
+      "source_bytes": 496,
+      "clone_targets": [
+        "algebra.UnitaryCommutativeRing",
+        "relations.TotalOrder"
+      ],
+      "meta_head_upper_count": 1,
+      "expanded_source_bytes": 3839,
+      "expanded_marker_upper_count": 24
+    },
+    "algebra.Field": {
+      "library": "algebra",
+      "first_byte": 2935,
+      "past_last_byte": 4178,
+      "source_bytes": 1243,
+      "clone_targets": [
+        "algebra.UnitaryCommutativeRing"
+      ],
+      "meta_head_upper_count": 6,
+      "expanded_source_bytes": 3525,
+      "expanded_marker_upper_count": 18
+    },
+    "algebra.OrderedField": {
+      "library": "algebra",
+      "first_byte": 4178,
+      "past_last_byte": 4910,
+      "source_bytes": 732,
+      "clone_targets": [
+        "algebra.Field",
+        "relations.TotalOrder"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 5318,
+      "expanded_marker_upper_count": 30
+    },
+    "relations.EndoRelation": {
+      "library": "relations",
+      "first_byte": 56,
+      "past_last_byte": 110,
+      "source_bytes": 54,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 54,
+      "expanded_marker_upper_count": 0
+    },
+    "relations.Reflexive": {
+      "library": "relations",
+      "first_byte": 110,
+      "past_last_byte": 195,
+      "source_bytes": 85,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 139,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Irreflexive": {
+      "library": "relations",
+      "first_byte": 195,
+      "past_last_byte": 288,
+      "source_bytes": 93,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 147,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Transitive": {
+      "library": "relations",
+      "first_byte": 288,
+      "past_last_byte": 401,
+      "source_bytes": 113,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 167,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Symmetric": {
+      "library": "relations",
+      "first_byte": 401,
+      "past_last_byte": 499,
+      "source_bytes": 98,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 152,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Asymmetric": {
+      "library": "relations",
+      "first_byte": 499,
+      "past_last_byte": 603,
+      "source_bytes": 104,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 158,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Antisymmetric": {
+      "library": "relations",
+      "first_byte": 603,
+      "past_last_byte": 718,
+      "source_bytes": 115,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 169,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Total": {
+      "library": "relations",
+      "first_byte": 718,
+      "past_last_byte": 813,
+      "source_bytes": 95,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 149,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.PreOrder": {
+      "library": "relations",
+      "first_byte": 813,
+      "past_last_byte": 951,
+      "source_bytes": 138,
+      "clone_targets": [
+        "relations.Reflexive",
+        "relations.Transitive"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 444,
+      "expanded_marker_upper_count": 4
+    },
+    "relations.Equivalence": {
+      "library": "relations",
+      "first_byte": 951,
+      "past_last_byte": 1102,
+      "source_bytes": 151,
+      "clone_targets": [
+        "relations.PreOrder",
+        "relations.Symmetric"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 747,
+      "expanded_marker_upper_count": 7
+    },
+    "relations.TotalPreOrder": {
+      "library": "relations",
+      "first_byte": 1102,
+      "past_last_byte": 1252,
+      "source_bytes": 150,
+      "clone_targets": [
+        "relations.PreOrder",
+        "relations.Total"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 743,
+      "expanded_marker_upper_count": 7
+    },
+    "relations.PartialOrder": {
+      "library": "relations",
+      "first_byte": 1252,
+      "past_last_byte": 1416,
+      "source_bytes": 164,
+      "clone_targets": [
+        "relations.PreOrder",
+        "relations.Antisymmetric"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 777,
+      "expanded_marker_upper_count": 7
+    },
+    "relations.TotalOrder": {
+      "library": "relations",
+      "first_byte": 1416,
+      "past_last_byte": 1551,
+      "source_bytes": 135,
+      "clone_targets": [
+        "relations.PartialOrder",
+        "relations.Total"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1061,
+      "expanded_marker_upper_count": 10
+    },
+    "relations.PartialStrictOrder": {
+      "library": "relations",
+      "first_byte": 1551,
+      "past_last_byte": 1701,
+      "source_bytes": 150,
+      "clone_targets": [
+        "relations.Transitive",
+        "relations.Asymmetric"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 475,
+      "expanded_marker_upper_count": 4
+    },
+    "relations.TotalStrictOrder": {
+      "library": "relations",
+      "first_byte": 1701,
+      "past_last_byte": 1857,
+      "source_bytes": 156,
+      "clone_targets": [
+        "relations.PartialStrictOrder"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 631,
+      "expanded_marker_upper_count": 5
+    },
+    "relations.Inverse": {
+      "library": "relations",
+      "first_byte": 1857,
+      "past_last_byte": 1967,
+      "source_bytes": 110,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 164,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.ReflClosure": {
+      "library": "relations",
+      "first_byte": 1967,
+      "past_last_byte": 2128,
+      "source_bytes": 161,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 215,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.TransClosure": {
+      "library": "relations",
+      "first_byte": 2128,
+      "past_last_byte": 2399,
+      "source_bytes": 271,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 325,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.ReflTransClosure": {
+      "library": "relations",
+      "first_byte": 2399,
+      "past_last_byte": 2712,
+      "source_bytes": 313,
+      "clone_targets": [
+        "relations.EndoRelation"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 367,
+      "expanded_marker_upper_count": 1
+    },
+    "relations.Lex": {
+      "library": "relations",
+      "first_byte": 2712,
+      "past_last_byte": 3043,
+      "source_bytes": 331,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 331,
+      "expanded_marker_upper_count": 0
+    },
+    "relations.MinMax": {
+      "library": "relations",
+      "first_byte": 3043,
+      "past_last_byte": 3657,
+      "source_bytes": 614,
+      "clone_targets": [
+        "relations.TotalOrder"
+      ],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 1675,
+      "expanded_marker_upper_count": 11
+    },
+    "relations.WellFounded": {
+      "library": "relations",
+      "first_byte": 3657,
+      "past_last_byte": 4033,
+      "source_bytes": 376,
+      "clone_targets": [],
+      "meta_head_upper_count": 0,
+      "expanded_source_bytes": 376,
+      "expanded_marker_upper_count": 0
+    }
+  },
+  "file_recurrence": {
+    "int": {
+      "module_count": 20,
+      "expanded_source_bytes": 27396,
+      "expanded_marker_upper_count": 108
+    },
+    "real": {
+      "module_count": 14,
+      "expanded_source_bytes": 19471,
+      "expanded_marker_upper_count": 55
+    },
+    "algebra": {
+      "module_count": 13,
+      "expanded_source_bytes": 22178,
+      "expanded_marker_upper_count": 115
+    },
+    "relations": {
+      "module_count": 22,
+      "expanded_source_bytes": 9466,
+      "expanded_marker_upper_count": 66
+    }
+  },
+  "external_read_actions": {
+    "int": [
+      "algebra",
+      "relations",
+      "relations",
+      "algebra",
+      "relations",
+      "relations"
+    ],
+    "real": [
+      "algebra",
+      "relations",
+      "int",
+      "int",
+      "int",
+      "int",
+      "int"
+    ],
+    "algebra": [
+      "relations",
+      "relations"
+    ],
+    "relations": []
+  },
+  "direct_root_bounds": {
+    "int": {
+      "whole_file_parse_upper_counts": {
+        "int": 1,
+        "real": 0,
+        "algebra": 2,
+        "relations": 8
+      },
+      "whole_file_parse_upper_total": 11,
+      "expanded_source_bytes": 147480,
+      "declaration_head_upper_count": 589920,
+      "ordinary_theory_close_upper_count": 222,
+      "namespace_clone_path_visit_upper_count": 0,
+      "swallowed_clone_marker_upper_count": 866,
+      "non_tuple_publication_upper_count": 590142,
+      "c_base_constant_excluding_8I": 748326
+    },
+    "real": {
+      "whole_file_parse_upper_counts": {
+        "int": 5,
+        "real": 1,
+        "algebra": 11,
+        "relations": 43
+      },
+      "whole_file_parse_upper_total": 60,
+      "expanded_source_bytes": 807447,
+      "declaration_head_upper_count": 3229788,
+      "ordinary_theory_close_upper_count": 1203,
+      "namespace_clone_path_visit_upper_count": 0,
+      "swallowed_clone_marker_upper_count": 4698,
+      "non_tuple_publication_upper_count": 3230991,
+      "c_base_constant_excluding_8I": 3404503
+    }
+  },
+  "implicit_tuple": {
+    "lexical_arity_ceiling": 38678,
+    "lexical_arity_domain_size": 38679,
+    "initial_arity_domain_cardinality_upper": "2*I",
+    "tuple_module_and_theory_publications_per_key": 4,
+    "global_escaping_signal_exception_upper": 2,
+    "final_escaping_incomplete_construction_allowance": 1,
+    "memo_tables": 2,
+    "resize_assignments_per_table_global_upper": 64,
+    "resize_assignments_both_tables_global_upper": 128,
+    "resize_loss_publication_allowance_global": "4*128*K",
+    "signal_publication_allowance_global": "4*e*(K+1)"
+  },
+  "common_c_base_formula": "3404503 + 8*I",
+  "whole_suffix_writer_formula": "E*(3*T_prepared + 2*C_base) + 4*128*K + 4*e*(K+1)",
+  "C_base_is_not_standalone_C_lib": true,
+  "semantic_transfer_is_not_established_by_lexical_checker": true
+}
