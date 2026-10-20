@@ -1,0 +1,458 @@
+{
+  "drivers": {
+    "cvc5": {
+      "printer": "smtv2.6",
+      "transformations": [
+        {
+          "kind": "transformation",
+          "name": "counterexamples_dependent_intros",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 12
+        },
+        {
+          "kind": "transformation",
+          "name": "inline_trivial",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 14
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_builtin",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 15
+        },
+        {
+          "kind": "transformation",
+          "name": "remove_unused",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 16
+        },
+        {
+          "kind": "transformation",
+          "name": "detect_polymorphism",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 17
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_definition_conditionally",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 18
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_inductive",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 19
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_gnatprove_guard_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 20
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 21
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_literal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 22
+        },
+        {
+          "kind": "transformation",
+          "name": "simplify_formula",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 23
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_projections_sums",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 32
+        },
+        {
+          "kind": "transformation",
+          "name": "discriminate_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 33
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_algebraic_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 34
+        },
+        {
+          "kind": "transformation",
+          "name": "encoding_smt_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 35
+        }
+      ]
+    },
+    "z3": {
+      "printer": "smtv2",
+      "transformations": [
+        {
+          "kind": "transformation",
+          "name": "inline_trivial",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 24
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_builtin",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 25
+        },
+        {
+          "kind": "transformation",
+          "name": "remove_unused",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 26
+        },
+        {
+          "kind": "transformation",
+          "name": "detect_polymorphism",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 27
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_inductive",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 28
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_algebraic_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 29
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_literal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 30
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_gnatprove_guard_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 31
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 32
+        },
+        {
+          "kind": "transformation",
+          "name": "introduce_premises",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 35
+        },
+        {
+          "kind": "transformation",
+          "name": "simplify_formula",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 37
+        },
+        {
+          "kind": "transformation",
+          "name": "discriminate_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 40
+        },
+        {
+          "kind": "transformation",
+          "name": "encoding_smt_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 41
+        }
+      ]
+    },
+    "altergo": {
+      "printer": "smtv2.6par",
+      "transformations": [
+        {
+          "kind": "transformation",
+          "name": "counterexamples_dependent_intros",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 25
+        },
+        {
+          "kind": "transformation",
+          "name": "monomorphise_goal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 27
+        },
+        {
+          "kind": "transformation",
+          "name": "inline_trivial",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 28
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_builtin",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 29
+        },
+        {
+          "kind": "transformation",
+          "name": "remove_unused",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 30
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_recursion",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 31
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_inductive",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 32
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 33
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_algebraic",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 34
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_literal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 35
+        },
+        {
+          "kind": "transformation",
+          "name": "split_premise_right",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 36
+        },
+        {
+          "kind": "transformation",
+          "name": "simplify_formula",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 37
+        }
+      ]
+    }
+  },
+  "registrations": [
+    {
+      "name": "counterexamples_dependent_intros",
+      "member": "why3/src/transform/prepare_for_counterexmp.ml",
+      "line": 33,
+      "member_identity": {
+        "bytes": 1613,
+        "sha256": "3a86fae0c94a4525f36378508b78906637794090f3f253eff9bc9d4f409694f3"
+      }
+    },
+    {
+      "name": "detect_polymorphism",
+      "member": "why3/src/transform/detect_polymorphism.ml",
+      "line": 126,
+      "member_identity": {
+        "bytes": 4555,
+        "sha256": "f8b92b5950e69dd6d56078722d408148709750eb2ee3a21628fd1f4ca40de747"
+      }
+    },
+    {
+      "name": "discriminate_if_poly",
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 474,
+      "member_identity": {
+        "bytes": 19295,
+        "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+      }
+    },
+    {
+      "name": "eliminate_algebraic",
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 656,
+      "member_identity": {
+        "bytes": 28281,
+        "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+      }
+    },
+    {
+      "name": "eliminate_algebraic_if_poly",
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 673,
+      "member_identity": {
+        "bytes": 28281,
+        "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+      }
+    },
+    {
+      "name": "eliminate_builtin",
+      "member": "why3/src/transform/eliminate_definition.ml",
+      "line": 50,
+      "member_identity": {
+        "bytes": 11385,
+        "sha256": "77476152b8d70139491c23233f05bbb439043d2b4195cf31a0641dd4d2dc588e"
+      }
+    },
+    {
+      "name": "eliminate_definition_conditionally",
+      "member": "why3/src/transform/eliminate_definition.ml",
+      "line": 206,
+      "member_identity": {
+        "bytes": 11385,
+        "sha256": "77476152b8d70139491c23233f05bbb439043d2b4195cf31a0641dd4d2dc588e"
+      }
+    },
+    {
+      "name": "eliminate_epsilon",
+      "member": "why3/src/transform/eliminate_epsilon.ml",
+      "line": 223,
+      "member_identity": {
+        "bytes": 9496,
+        "sha256": "c0af90f41ab2e336a4fb0564f547d19c813330646bff2f77d9c670d4ba853445"
+      }
+    },
+    {
+      "name": "eliminate_gnatprove_guard_epsilon",
+      "member": "why3/src/transform/eliminate_gnatprove_guard_epsilon.ml",
+      "line": 116,
+      "member_identity": {
+        "bytes": 4599,
+        "sha256": "a43f9319b1aae028141f67c453ebdc5bad11fc4f1124dd130ad0933011da9393"
+      }
+    },
+    {
+      "name": "eliminate_inductive",
+      "member": "why3/src/transform/eliminate_inductive.ml",
+      "line": 59,
+      "member_identity": {
+        "bytes": 2317,
+        "sha256": "22386b290242deafabe5eb76bac479db36da3791e4cc3386ed473a75fdaff1f9"
+      }
+    },
+    {
+      "name": "eliminate_literal",
+      "member": "why3/src/transform/eliminate_literal.ml",
+      "line": 226,
+      "member_identity": {
+        "bytes": 11782,
+        "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+      }
+    },
+    {
+      "name": "eliminate_projections_sums",
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 660,
+      "member_identity": {
+        "bytes": 28281,
+        "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+      }
+    },
+    {
+      "name": "eliminate_recursion",
+      "member": "why3/src/transform/eliminate_definition.ml",
+      "line": 172,
+      "member_identity": {
+        "bytes": 11385,
+        "sha256": "77476152b8d70139491c23233f05bbb439043d2b4195cf31a0641dd4d2dc588e"
+      }
+    },
+    {
+      "name": "encoding_smt_if_poly",
+      "member": "why3/src/transform/encoding.ml",
+      "line": 136,
+      "member_identity": {
+        "bytes": 5523,
+        "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+      }
+    },
+    {
+      "name": "inline_trivial",
+      "member": "why3/src/transform/inlining.ml",
+      "line": 163,
+      "member_identity": {
+        "bytes": 5891,
+        "sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9"
+      }
+    },
+    {
+      "name": "introduce_premises",
+      "member": "why3/src/transform/introduction.ml",
+      "line": 282,
+      "member_identity": {
+        "bytes": 19948,
+        "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+      }
+    },
+    {
+      "name": "monomorphise_goal",
+      "member": "why3/src/transform/libencoding.ml",
+      "line": 278,
+      "member_identity": {
+        "bytes": 11274,
+        "sha256": "2126add14da88a01e7903196ad067efde5a86cef264b658e06568a4771e60e53"
+      }
+    },
+    {
+      "name": "remove_unused",
+      "member": "why3/src/transform/remove_unused.ml",
+      "line": 296,
+      "member_identity": {
+        "bytes": 11437,
+        "sha256": "c120e2c24ba0bcb266bcbc96399bf7e5b9b2218ed6fd6f0f3f5bff019da515a4"
+      }
+    },
+    {
+      "name": "simplify_formula",
+      "member": "why3/src/transform/simplify_formula.ml",
+      "line": 40,
+      "member_identity": {
+        "bytes": 9492,
+        "sha256": "11ada37c605a5870aa874b299d0da22f6734736f644c46328a38215987c83e8f"
+      }
+    },
+    {
+      "name": "split_premise_right",
+      "member": "why3/src/transform/split_goal.ml",
+      "line": 585,
+      "member_identity": {
+        "bytes": 23450,
+        "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+      }
+    }
+  ],
+  "discrimination_flags": [
+    "ft_select_inst",
+    "ft_select_lskept",
+    "ft_select_lsinst",
+    "ft_select_alginst"
+  ],
+  "choices_per_flag": [
+    "none",
+    "goal",
+    "local",
+    "all"
+  ],
+  "flag_reference_members": [
+    "why3/src/transform/discriminate.ml",
+    "why3/src/transform/discriminate.mli",
+    "why3/src/transform/encoding_select.ml"
+  ]
+}

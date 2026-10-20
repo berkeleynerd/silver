@@ -1,0 +1,1074 @@
+{
+  "environment_construction": [
+    {
+      "member": "why3/src/driver/whyconf.ml",
+      "line": 1202,
+      "text": "    config, Env.create_env lp"
+    },
+    {
+      "member": "why3/src/gnat/gnat_util.ml",
+      "line": 123,
+      "text": "  Env.create_env extended_loadpath"
+    },
+    {
+      "member": "why3/src/jessie/ACSLtoWhy3.ml",
+      "line": 92,
+      "text": "    let env : Env.env = Env.create_env (Whyconf.loadpath main) in"
+    },
+    {
+      "member": "why3/src/jessie/ACSLtoWhy3_Ptree.ml",
+      "line": 58,
+      "text": "    let env : Env.env = Env.create_env (Whyconf.loadpath main) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 382,
+      "text": "let dummy_env = Env.create_env []"
+    },
+    {
+      "member": "why3/src/session/controller_itp.ml",
+      "line": 249,
+      "text": "    c.controller_env <- Env.create_env (Env.get_loadpath c.controller_env);"
+    },
+    {
+      "member": "why3/src/trywhy3/why3_worker.ml",
+      "line": 46,
+      "text": "let env : Env.env = Env.create_env (Whyconf.loadpath main)"
+    }
+  ],
+  "discrimination_flags": [
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 301,
+      "text": "let ft_select_inst ="
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 304,
+      "text": "let ft_select_lskept ="
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 307,
+      "text": "let ft_select_lsinst ="
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 310,
+      "text": "let ft_select_alginst ="
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 410,
+      "text": "    select meta_select_inst    meta_select_inst_default    ft_select_inst   in"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 412,
+      "text": "    select meta_select_lskept  meta_select_lskept_default  ft_select_lskept in"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 414,
+      "text": "    select meta_select_lsinst  meta_select_lsinst_default  ft_select_lsinst in"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 416,
+      "text": "    select meta_select_alginst meta_select_alginst_default ft_select_alginst in"
+    },
+    {
+      "member": "why3/src/transform/discriminate.mli",
+      "line": 23,
+      "text": "val ft_select_inst   : (Env.env,Ty.Sty.t) Trans.flag_trans"
+    },
+    {
+      "member": "why3/src/transform/discriminate.mli",
+      "line": 24,
+      "text": "val ft_select_lskept : (Env.env,Term.Sls.t) Trans.flag_trans"
+    },
+    {
+      "member": "why3/src/transform/discriminate.mli",
+      "line": 25,
+      "text": "val ft_select_lsinst : (Env.env,Lsmap.t) Trans.flag_trans"
+    },
+    {
+      "member": "why3/src/transform/discriminate.mli",
+      "line": 26,
+      "text": "val ft_select_alginst : (Env.env,Styl.t Ty.Mts.t) Trans.flag_trans"
+    },
+    {
+      "member": "why3/src/transform/encoding_select.ml",
+      "line": 73,
+      "text": "  let () = register ft_select_inst kept_none kept_goal kept_local kept_all"
+    },
+    {
+      "member": "why3/src/transform/encoding_select.ml",
+      "line": 116,
+      "text": "    register ft_select_lskept lskept_none lskept_goal lskept_local lskept_all"
+    },
+    {
+      "member": "why3/src/transform/encoding_select.ml",
+      "line": 145,
+      "text": "    register ft_select_lsinst lsinst_none lsinst_goal lsinst_local lsinst_all"
+    },
+    {
+      "member": "why3/src/transform/encoding_select.ml",
+      "line": 190,
+      "text": "    register ft_select_alginst alginst_none alginst_goal alginst_local alginst_all"
+    }
+  ],
+  "meta_registration": [
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 447,
+      "text": "let meta_syntax_type = register_meta \"syntax_type\" [MTtysymbol; MTstring; MTint]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 451,
+      "text": "let meta_syntax_logic = register_meta \"syntax_logic\" [MTlsymbol; MTstring; MTint]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 457,
+      "text": "let meta_syntax_literal = register_meta \"syntax_literal\" [MTtysymbol; MTstring; MTint]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 462,
+      "text": "let meta_remove_prop = register_meta \"remove_prop\" [MTprsymbol]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 466,
+      "text": "let meta_remove_type = register_meta \"remove_type\" [MTtysymbol]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 470,
+      "text": "let meta_remove_logic = register_meta \"remove_logic\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 474,
+      "text": "let meta_remove_def = register_meta \"remove_def\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 478,
+      "text": "let meta_realized_theory = register_meta \"realized_theory\" [MTstring; MTstring]"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 145,
+      "text": "let register_meta ~desc s al excl ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 155,
+      "text": "let register_meta_excl ~desc s al = register_meta ~desc s al true"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 156,
+      "text": "let register_meta      ~desc s al = register_meta ~desc s al false"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 162,
+      "text": "let meta_range = register_meta \"range_type\" [MTtysymbol; MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 165,
+      "text": "let meta_float = register_meta \"float_type\" [MTtysymbol; MTlsymbol; MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 169,
+      "text": "  register_meta \"vc:proved_wf\" [MTlsymbol; MTprsymbol]"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 172,
+      "text": "let meta_model_projection = register_meta \"model_projection\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 175,
+      "text": "let meta_record = register_meta \"model_record\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 392,
+      "text": "let meta_coercion = register_meta ~desc:\"coercion\" \"coercion\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/core/theory.mli",
+      "line": 73,
+      "text": "val register_meta :"
+    },
+    {
+      "member": "why3/src/core/theory.mli",
+      "line": 76,
+      "text": "val register_meta_excl :"
+    },
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 28,
+      "text": "  Theory.register_meta_excl \"get_counterexmp\" []"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 322,
+      "text": "    register_meta"
+    },
+    {
+      "member": "why3/src/printer/alt_ergo.ml",
+      "line": 23,
+      "text": "let meta_ac = Theory.register_meta \"AC\" [Theory.MTlsymbol]"
+    },
+    {
+      "member": "why3/src/printer/alt_ergo.ml",
+      "line": 27,
+      "text": "  Theory.register_meta \"printer_option\" [Theory.MTstring]"
+    },
+    {
+      "member": "why3/src/printer/alt_ergo.ml",
+      "line": 31,
+      "text": "  Theory.register_meta \"invalid trigger\" [Theory.MTlsymbol]"
+    },
+    {
+      "member": "why3/src/printer/gappa.ml",
+      "line": 104,
+      "text": "let arith_meta = register_meta \"gappa arith\""
+    },
+    {
+      "member": "why3/src/printer/mathematica.ml",
+      "line": 65,
+      "text": "let arith_meta = register_meta \"math arith\""
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "line": 941,
+      "text": "  Theory.register_meta_excl \"counterexample_need_smtlib_push\" []"
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "line": 945,
+      "text": "  Theory.register_meta_excl \"meta_incremental\" []"
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "line": 949,
+      "text": "  Theory.register_meta_excl \"supports_smtlib_minimize\" []"
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "line": 955,
+      "text": "  Theory.register_meta_excl \"supports_smt_get_info_unknown_reason\" []"
+    },
+    {
+      "member": "why3/src/transform/compute.ml",
+      "line": 16,
+      "text": "let meta_rewrite = Theory.register_meta \"rewrite\" [Theory.MTprsymbol]"
+    },
+    {
+      "member": "why3/src/transform/compute.ml",
+      "line": 19,
+      "text": "let meta_rewrite_def = Theory.register_meta \"rewrite_def\" [Theory.MTlsymbol]"
+    },
+    {
+      "member": "why3/src/transform/compute.ml",
+      "line": 23,
+      "text": " Theory.register_meta_excl \"compute_max_domain_size\" [Theory.MTint]"
+    },
+    {
+      "member": "why3/src/transform/compute.ml",
+      "line": 27,
+      "text": "let meta_compute_max_steps = Theory.register_meta_excl \"compute_max_steps\""
+    },
+    {
+      "member": "why3/src/transform/compute.ml",
+      "line": 36,
+      "text": "  Theory.register_meta \"begin_compute_context\" []"
+    },
+    {
+      "member": "why3/src/transform/detect_polymorphism.ml",
+      "line": 23,
+      "text": "  register_meta"
+    },
+    {
+      "member": "why3/src/transform/detect_polymorphism.ml",
+      "line": 28,
+      "text": "  register_meta"
+    },
+    {
+      "member": "why3/src/transform/detect_polymorphism.ml",
+      "line": 33,
+      "text": "  register_meta"
+    },
+    {
+      "member": "why3/src/transform/detect_polymorphism.ml",
+      "line": 41,
+      "text": "  register_meta_excl \"encoding:monomorphic_only\" []"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 19,
+      "text": "let meta_inst = register_meta \"encoding:inst\" [MTty]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 23,
+      "text": "let meta_lskept = register_meta \"encoding:lskept\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 30,
+      "text": "let meta_lsinst = register_meta \"encoding:lsinst\" [MTlsymbol;MTlsymbol]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 36,
+      "text": "let meta_alginst = register_meta \"encoding:alginst\" [MTty]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 40,
+      "text": "let meta_lsinst_proj = register_meta \"encoding:lsinst_proj\" [MTlsymbol;MTty]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 43,
+      "text": "let meta_lsinst_constr = register_meta \"encoding:lsinst_contr\" [MTlsymbol;MTty]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 46,
+      "text": "let meta_select_inst = register_meta_excl \"select_inst\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 55,
+      "text": "let meta_select_lskept = register_meta_excl \"select_lskept\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 64,
+      "text": "let meta_select_lsinst = register_meta_excl \"select_lsinst\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 73,
+      "text": "let meta_select_alginst = register_meta_excl \"select_alginst\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 83,
+      "text": "  register_meta_excl \"select_inst_default\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 87,
+      "text": "  register_meta_excl \"select_lskept_default\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 91,
+      "text": "  register_meta_excl \"select_lsinst_default\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/discriminate.ml",
+      "line": 95,
+      "text": "  register_meta_excl \"select_alginst_default\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 21,
+      "text": "let meta_infinite = register_meta \"infinite_type\" [MTtysymbol]"
+    },
+    {
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 25,
+      "text": "let meta_material = register_meta \"material_type_arg\" [MTtysymbol;MTint]"
+    },
+    {
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 29,
+      "text": "let meta_alg_kept = register_meta \"algebraic:kept\" [MTty]"
+    },
+    {
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "line": 542,
+      "text": "let meta_elim = register_meta \"eliminate_algebraic\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/eliminate_literal.ml",
+      "line": 18,
+      "text": "  register_meta \"literal:keep\" [ MTtysymbol ]"
+    },
+    {
+      "member": "why3/src/transform/eliminate_symbol.ml",
+      "line": 15,
+      "text": "let meta_elim_ls = register_meta \"ls:eliminate\" [MTlsymbol]"
+    },
+    {
+      "member": "why3/src/transform/encoding.ml",
+      "line": 19,
+      "text": "let meta_select_kept = register_meta_excl \"select_kept\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/encoding.ml",
+      "line": 28,
+      "text": "  register_meta_excl \"select_kept_default\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/encoding.ml",
+      "line": 31,
+      "text": "let meta_enco_kept = register_meta_excl \"enco_kept\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/encoding.ml",
+      "line": 38,
+      "text": "let meta_enco_poly = register_meta_excl \"enco_poly\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/extensional.ml",
+      "line": 45,
+      "text": "let meta = Theory.register_meta \"extensionality\" [Theory.MTlsymbol]"
+    },
+    {
+      "member": "why3/src/transform/inlining.ml",
+      "line": 89,
+      "text": "let meta = Theory.register_meta \"inline:no\" [Theory.MTlsymbol]"
+    },
+    {
+      "member": "why3/src/transform/instantiate_predicate.ml",
+      "line": 92,
+      "text": "let meta = Theory.register_meta \"instantiate:auto\" [Theory.MTprsymbol]"
+    },
+    {
+      "member": "why3/src/transform/introduction.ml",
+      "line": 23,
+      "text": "let meta_intro_ls = Theory.register_meta"
+    },
+    {
+      "member": "why3/src/transform/introduction.ml",
+      "line": 28,
+      "text": "let meta_intro_pr = Theory.register_meta"
+    },
+    {
+      "member": "why3/src/transform/libencoding.ml",
+      "line": 21,
+      "text": "let meta_kept = register_meta \"encoding:kept\" [MTty]"
+    },
+    {
+      "member": "why3/src/transform/libencoding.ml",
+      "line": 25,
+      "text": "let meta_base = register_meta_excl \"encoding:base\" [MTty]"
+    },
+    {
+      "member": "why3/src/transform/lift_epsilon.ml",
+      "line": 58,
+      "text": "let meta_epsilon = Theory.register_meta_excl \"lift_epsilon\" [MTstring]"
+    },
+    {
+      "member": "why3/src/transform/reflection.ml",
+      "line": 31,
+      "text": "  Theory.register_meta"
+    },
+    {
+      "member": "why3/src/transform/remove_unused.ml",
+      "line": 18,
+      "text": "    register_meta"
+    },
+    {
+      "member": "why3/src/transform/remove_unused.ml",
+      "line": 25,
+      "text": "    register_meta"
+    }
+  ],
+  "counterexample_meta_references": [
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 27,
+      "text": "let meta_get_counterexmp ="
+    },
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 28,
+      "text": "  Theory.register_meta_excl \"get_counterexmp\" []"
+    },
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 31,
+      "text": "let get_counterexmp task ="
+    },
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 32,
+      "text": "  let ce_meta = Task.find_meta_tds task meta_get_counterexmp in"
+    },
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 466,
+      "text": "  let get_model = if get_counterexmp task then Some printing_info else None in"
+    },
+    {
+      "member": "why3/src/driver/driver.mli",
+      "line": 128,
+      "text": "val meta_get_counterexmp : Theory.meta"
+    },
+    {
+      "member": "why3/src/driver/driver.mli",
+      "line": 131,
+      "text": "val get_counterexmp : Task.task -> bool"
+    },
+    {
+      "member": "why3/src/driver/driver.mli",
+      "line": 133,
+      "text": "    [meta_get_counterexmp]. *)"
+    },
+    {
+      "member": "why3/src/printer/alt_ergo.ml",
+      "line": 504,
+      "text": "  let cntexample = Driver.get_counterexmp task in"
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "line": 1004,
+      "text": "  let cntexample = Driver.get_counterexmp task in"
+    },
+    {
+      "member": "why3/src/transform/eliminate_definition.ml",
+      "line": 201,
+      "text": "      | _ -> Trans.on_meta Driver.meta_get_counterexmp (function"
+    },
+    {
+      "member": "why3/src/transform/inlining.ml",
+      "line": 93,
+      "text": "  Trans.bind (Trans.store Driver.get_counterexmp) (fun for_counterexample ->"
+    },
+    {
+      "member": "why3/src/transform/prepare_for_counterexmp.ml",
+      "line": 17,
+      "text": "    if not (Driver.get_counterexmp task) then"
+    }
+  ],
+  "program_restore_clients": [
+    {
+      "member": "why3/plugins/cfg/subregion_analysis.ml",
+      "line": 265,
+      "text": "        List.map (fun i -> t_v_map (fun v -> t_var (FreshNames.pv st (restore_pv v) (restore_pv v)).pv_vs) i) inv"
+    },
+    {
+      "member": "why3/plugins/cfg/subregion_analysis.ml",
+      "line": 269,
+      "text": "          (fun (i, l) -> (t_v_map (fun v -> t_var (FreshNames.pv st (restore_pv v) (restore_pv v)).pv_vs) i, l))"
+    },
+    {
+      "member": "why3/plugins/cfg/subregion_analysis.ml",
+      "line": 320,
+      "text": "        List.map (fun i -> t_v_map (fun v -> t_var (FreshNames.pv st (restore_pv v) (restore_pv v)).pv_vs) i) invs"
+    },
+    {
+      "member": "why3/plugins/cfg/subregion_analysis.ml",
+      "line": 377,
+      "text": "      let t = t_v_map (fun v -> t_var (FreshNames.pv st (restore_pv v) (restore_pv v)).pv_vs) t in"
+    },
+    {
+      "member": "why3/plugins/cfg/subregion_analysis.ml",
+      "line": 383,
+      "text": "      let t = t_v_map (fun v -> t_var (FreshNames.pv st (restore_pv v) (restore_pv v)).pv_vs) t in"
+    },
+    {
+      "member": "why3/src/extract/cakeml.ml",
+      "line": 79,
+      "text": "            let pjl = let rs = restore_rs ls in get_record info rs in"
+    },
+    {
+      "member": "why3/src/extract/compile.ml",
+      "line": 82,
+      "text": "    | Pvar vs when (restore_pv vs).pv_ghost ->"
+    },
+    {
+      "member": "why3/src/extract/compile.ml",
+      "line": 88,
+      "text": "    | Pas (p, vs) when (restore_pv vs).pv_ghost ->"
+    },
+    {
+      "member": "why3/src/extract/compile.ml",
+      "line": 99,
+      "text": "        let rs = restore_rs ls in"
+    },
+    {
+      "member": "why3/src/extract/compile.ml",
+      "line": 788,
+      "text": "          let pv = restore_pv vs in"
+    },
+    {
+      "member": "why3/src/extract/compile.ml",
+      "line": 802,
+      "text": "          let pv = restore_pv vs in"
+    },
+    {
+      "member": "why3/src/extract/compile.ml",
+      "line": 977,
+      "text": "       let pv = restore_pv v in"
+    },
+    {
+      "member": "why3/src/extract/mlinterp.ml",
+      "line": 829,
+      "text": "     let rs = restore_rs ls in"
+    },
+    {
+      "member": "why3/src/extract/mlinterp.ml",
+      "line": 832,
+      "text": "     else Vconstr ((restore_rs ls),"
+    },
+    {
+      "member": "why3/src/extract/ocaml.ml",
+      "line": 341,
+      "text": "            let pjl = let rs = restore_rs ls in get_record info rs in"
+    },
+    {
+      "member": "why3/src/infer/infer_cfg.ml",
+      "line": 409,
+      "text": "               | Pvar vs -> add_variable manpk (restore_pv vs); vs"
+    },
+    {
+      "member": "why3/src/infer/uf_domain.ml",
+      "line": 444,
+      "text": "               let its = restore_its ts in"
+    },
+    {
+      "member": "why3/src/infer/uf_domain0.ml",
+      "line": 366,
+      "text": "                let its = Ity.restore_its tys in"
+    },
+    {
+      "member": "why3/src/mlw/dexpr.ml",
+      "line": 683,
+      "text": "  let fnS s dl = dity_app_fresh (restore_its s) dl in"
+    },
+    {
+      "member": "why3/src/mlw/dexpr.ml",
+      "line": 974,
+      "text": "      begin try match ity.ity_node, restore_rs fs with"
+    },
+    {
+      "member": "why3/src/mlw/dexpr.ml",
+      "line": 981,
+      "text": "      let v = try restore_pv v with Not_found -> quit () in"
+    },
+    {
+      "member": "why3/src/mlw/dexpr.ml",
+      "line": 1653,
+      "text": "        | Pvar v -> Ity.restore_pv v"
+    },
+    {
+      "member": "why3/src/mlw/dexpr.ml",
+      "line": 1657,
+      "text": "            [Ity.restore_pv v], e"
+    },
+    {
+      "member": "why3/src/mlw/eval_match.ml",
+      "line": 21,
+      "text": "  try (restore_rs ls).rs_field <> None"
+    },
+    {
+      "member": "why3/src/mlw/expr.ml",
+      "line": 46,
+      "text": "let mk_rs, restore_rs ="
+    },
+    {
+      "member": "why3/src/mlw/expr.mli",
+      "line": 67,
+      "text": "val restore_rs : lsymbol -> rsymbol"
+    },
+    {
+      "member": "why3/src/mlw/ity.ml",
+      "line": 543,
+      "text": "let mk_its, restore_its ="
+    },
+    {
+      "member": "why3/src/mlw/ity.ml",
+      "line": 566,
+      "text": "      let s = try restore_its s with Not_found ->"
+    },
+    {
+      "member": "why3/src/mlw/ity.ml",
+      "line": 573,
+      "text": "      let s = try restore_its s with Not_found ->"
+    },
+    {
+      "member": "why3/src/mlw/ity.ml",
+      "line": 751,
+      "text": "let create_pvsymbol, restore_pv ="
+    },
+    {
+      "member": "why3/src/mlw/ity.ml",
+      "line": 762,
+      "text": "  Mvs.fold (fun vs _ s -> Spv.add (restore_pv vs) s) vss pvs"
+    },
+    {
+      "member": "why3/src/mlw/ity.mli",
+      "line": 146,
+      "text": "val restore_its : tysymbol -> itysymbol"
+    },
+    {
+      "member": "why3/src/mlw/ity.mli",
+      "line": 300,
+      "text": "val restore_pv : vsymbol -> pvsymbol"
+    },
+    {
+      "member": "why3/src/mlw/pinterp.ml",
+      "line": 598,
+      "text": "        let rs = try restore_rs ls with Not_found -> raise Exit in"
+    },
+    {
+      "member": "why3/src/mlw/pinterp.ml",
+      "line": 808,
+      "text": "  let pv = restore_pv vs in"
+    },
+    {
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "line": 982,
+      "text": "        try let rs = restore_rs ls in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 704,
+      "text": "    try ignore (restore_rs ls);"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 973,
+      "text": "    | Term.Pvar v -> PPvar (id_clone v.vs_name, (restore_pv v).pv_ghost)"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 975,
+      "text": "        PPas (conv_pat p, id_clone v.vs_name, (restore_pv v).pv_ghost)"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 978,
+      "text": "        PPapp (restore_rs (cl_find_ls cl s), List.map conv_pat pl) in"
+    },
+    {
+      "member": "why3/src/mlw/typeinv.ml",
+      "line": 31,
+      "text": "  | Tyapp (s,_) -> not (its_solid (restore_its s))"
+    },
+    {
+      "member": "why3/src/mlw/typeinv.ml",
+      "line": 36,
+      "text": "  try let rs = restore_rs ls in"
+    },
+    {
+      "member": "why3/src/mlw/typeinv.ml",
+      "line": 116,
+      "text": "        let s = restore_its s in"
+    },
+    {
+      "member": "why3/src/mlw/typeinv.ml",
+      "line": 319,
+      "text": "        let s = restore_its s in"
+    },
+    {
+      "member": "why3/src/mlw/vc.ml",
+      "line": 293,
+      "text": "  let itd = find_its_defn env.known_map (restore_its ts) in"
+    },
+    {
+      "member": "why3/src/mlw/vc.ml",
+      "line": 896,
+      "text": "              Kseq (k_expr env lps e0 (restore_pv v) cxmap, 0, k1)"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 313,
+      "text": "  match Expr.restore_rs ls with"
+    }
+  ],
+  "exception_registrations": [
+    {
+      "member": "why3/plugins/ada_terms/ada_lexer.mll",
+      "line": 219,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/ada_terms/ada_parser.mly",
+      "line": 67,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/cfg/cfg_lexer.mll",
+      "line": 292,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/cfg/cfg_paths.ml",
+      "line": 59,
+      "text": "  Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "member": "why3/plugins/cfg/cfg_stackify.ml",
+      "line": 59,
+      "text": "  Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "member": "why3/plugins/cfg/stackify.ml",
+      "line": 70,
+      "text": "  Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "member": "why3/plugins/coma/coma_lexer.mll",
+      "line": 317,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/coma/coma_logic.ml",
+      "line": 955,
+      "text": "let () = Exn_printer.register (fun fmt -> function"
+    },
+    {
+      "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "line": 1430,
+      "text": "  Exn_printer.register"
+    },
+    {
+      "member": "why3/plugins/microc/mc_lexer.mll",
+      "line": 18,
+      "text": "  let () = Why3.Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/microc/mc_parser.mly",
+      "line": 18,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/parser/dimacs.mll",
+      "line": 57,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/plugins/python/py_lexer.mll",
+      "line": 18,
+      "text": "  let () = Why3.Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/python/py_parser.mly",
+      "line": 16,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/tptp/tptp_lexer.mll",
+      "line": 26,
+      "text": "  let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/plugins/tptp/tptp_parser.mly",
+      "line": 20,
+      "text": "let () = Why3.Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/plugins/tptp/tptp_typing.ml",
+      "line": 35,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/core/coercion.ml",
+      "line": 147,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/core/dterm.ml",
+      "line": 724,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/core/env.ml",
+      "line": 250,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/core/pretty.ml",
+      "line": 806,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/core/printer.ml",
+      "line": 620,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/core/task.ml",
+      "line": 364,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/core/trans.ml",
+      "line": 547,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/driver/driver.ml",
+      "line": 501,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/driver/driver_parser.mly",
+      "line": 14,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/driver/prove_client.ml",
+      "line": 252,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "line": 1606,
+      "text": "  Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "member": "why3/src/driver/whyconf.ml",
+      "line": 1085,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/extract/java.ml",
+      "line": 32,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/extract/pdriver.ml",
+      "line": 347,
+      "text": "let () = Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "member": "why3/src/mlw/dexpr.ml",
+      "line": 1847,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/mlw/expr.ml",
+      "line": 1606,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/mlw/ity.ml",
+      "line": 1773,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1734,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/parser/lexer.mll",
+      "line": 207,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/parser/parser_common.mly",
+      "line": 167,
+      "text": "  let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1970,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1566,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/session/strategy.ml",
+      "line": 29,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/tools/why3extract.ml",
+      "line": 243,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/transform/args_wrapper.ml",
+      "line": 27,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/transform/args_wrapper.ml",
+      "line": 278,
+      "text": "let () = Exn_printer.register (fun fmt e ->"
+    },
+    {
+      "member": "why3/src/util/cmdline.ml",
+      "line": 91,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/util/debug.ml",
+      "line": 53,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/util/lexlib.mll",
+      "line": 18,
+      "text": "  let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/util/lexlib.mll",
+      "line": 134,
+      "text": "  let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/util/loc.ml",
+      "line": 343,
+      "text": "let () = Exn_printer.register"
+    },
+    {
+      "member": "why3/src/util/mysexplib-dummy.ml",
+      "line": 18,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/util/mysexplib-real.ml",
+      "line": 32,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/util/number.ml",
+      "line": 571,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    },
+    {
+      "member": "why3/src/util/plugin.ml",
+      "line": 60,
+      "text": "  Exn_printer.register (fun fmt exn ->"
+    },
+    {
+      "member": "why3/src/util/rc.mll",
+      "line": 89,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/util/rc.mll",
+      "line": 413,
+      "text": "let () = Exn_printer.register (fun fmt e -> match e with"
+    },
+    {
+      "member": "why3/src/util/sysutil.ml",
+      "line": 287,
+      "text": "let () = Exn_printer.register (fun fmt exn -> match exn with"
+    }
+  ]
+}

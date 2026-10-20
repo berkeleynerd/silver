@@ -1,0 +1,72 @@
+{
+  "round": 32,
+  "date_UTC": "2026-10-20",
+  "issues": [
+    119,
+    153
+  ],
+  "role": "bounded actual library origins and selected later Theory path-writer closure",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selected_setting_evidence": "Parent delegation and Round 32 continuation authorization",
+  "runtime_settings_confirmed": false,
+  "runtime_setting_confirmation": null,
+  "base_commit": "2866d4642c43444abd18e0b6e9600edaa216b99b",
+  "accepted_predecessor_clarification_commit": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+  "intended_outcome": "discharge actual named-library/declaration origins and complete selected later writer coverage for the accepted 116162-byte normal-service payload bound",
+  "achieved_result": "named structural file/module selection and bounded introduced heads/type-definition graphs close the actual later writer family under the named relation, allowing foreign program-body restoration hits; whole-process R/U remain null pending separately owned joins",
+  "remaining_composition": [
+    "initial selectable table/old-array values",
+    "native attempted list/concat construction",
+    "parent aggregate arithmetic and independent review"
+  ],
+  "excluded_whole_save_obligations": [
+    "failed numeric/allocation services",
+    "formatter work",
+    "stack/GC",
+    "aggregate allocation",
+    "channel/path/error capacity",
+    "full-pipeline closure"
+  ],
+  "significant_review_or_rework": [
+    "Replaced the overstrong blanket body-symbol-locality requirement with bounded introduced heads, type-declaration graphs and namespace units",
+    "Enumerated four additional discrimination flag tables and all 16 registered choices",
+    "Model parser performs other library reads; excluded it through CE-meta input absence and source meta preservation instead of assuming counterexamples-off alone",
+    "Initial raw driver CE-meta check found explanatory comments; reused retained driver comment rules and confirmed zero noncomment occurrences",
+    "Independent reviewer identified nested routine logical heads entering shared clone maps; added their lexical/fixed stem sub-invariant and exact constructor/clone excerpts before freeze"
+  ],
+  "first_observed_clock_UTC": "2026-10-20 11:15:23 UTC",
+  "packaging_clock_UTC": "2026-10-20 11:35:33 UTC",
+  "elapsed_seconds_between_observed_clocks": 1210,
+  "elapsed_scope": "Observed source-argument and packaging interval, including context handoff; not exact agent launch duration or native execution time",
+  "validation": {
+    "host": "Linux x86_64",
+    "checker": "python3 -B docs/evidence/retained-why-path-library-origins-20261020/check.py",
+    "checker_exit_code": 0,
+    "checker_elapsed_seconds": 0.619,
+    "generated_json_comparisons": 7,
+    "source_witnesses": 79,
+    "selected_transforms": 20,
+    "environment_constructor_references": 7,
+    "discrimination_flag_references": 16,
+    "meta_registration_references": 74,
+    "program_restoration_references": 47,
+    "exception_registration_references": 55,
+    "local_markdown_links_checked": 6,
+    "scope": "Retained identity/census and input-absence checks; semantic source effects and lineage argument require independent aggregate review"
+  },
+  "native_runs": 0,
+  "new_captures": 0,
+  "proof_runs": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0,
+  "token_measurement": null,
+  "monetary_cost_measurement": null,
+  "live_harness_goal_visible_to_subthread": null,
+  "lead_owned_actions": [
+    "aggregate composition and independent review",
+    "issue and session-memory updates",
+    "integration and publication",
+    "live goal status"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "scope": "Selected later Theory path writers and named library/declaration origins",
+  "source_argument_machine_checked": false,
+  "environment_constructions_in_selected_lifetime": 2,
+  "environment_tags": [
+    0,
+    1
+  ],
+  "named_file_and_module_keys_are_structural_strings": true,
+  "global_program_restore_caches_proved_collision_free": false,
+  "all_expression_body_symbols_proved_library_local": false,
+  "replacement_invariant": "Named module DAG, bounded declared heads/type-definition graphs/namespace units; expression bodies may contain foreign restored symbols",
+  "later_successfully_constructed_path_payload_bytes_upper": 116162,
+  "later_payload_bytes_upper_under_named_relation": 116162,
+  "complete_selected_later_path_writer_coverage_under_named_relation": true,
+  "named_relation": "Five retained Linux x86_64 processes; fixed inputs/source/runtime relation, selected loading/configuration/root family, valid table operations, and normal numeric/allocation services",
+  "writer_coverage_is_reviewable_source_argument": true,
+  "normal_numeric_and_allocation_services_required": true,
+  "failed_numeric_service_payload_bound": null,
+  "selected_transform_names": 20,
+  "driver_printers": [
+    "smtv2",
+    "smtv2.6",
+    "smtv2.6par"
+  ],
+  "additional_discrimination_flag_choices": 16,
+  "source_witness_count": 79,
+  "exception_registration_census_count": 55,
+  "retained_exception_printer_suffix_count": 41,
+  "actual_initial_selectable_payload_bound": null,
+  "actual_whole_process_R": null,
+  "actual_whole_process_U": null,
+  "initial_old_array_exclusion_in_this_packet": false,
+  "path_native_construction_in_this_packet": false,
+  "complete_save_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "native_runs": 0,
+  "new_captures": 0,
+  "proof_runs": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0
+}

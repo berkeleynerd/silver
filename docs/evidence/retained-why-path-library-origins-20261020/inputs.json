@@ -1,0 +1,66 @@
+{
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz": {
+    "bytes": 444034,
+    "sha256": "d07071aec5033c5b45aeb5e6b41335da3d93a8faa20aa2d2a081038b2a69ed91"
+  },
+  "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz": {
+    "bytes": 341896,
+    "sha256": "9afd21d8b23dc7a58f3c7c536782af03c134bb1358ccc51f7bc24abd0a9f11bc"
+  },
+  "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+    "bytes": 254603,
+    "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+  },
+  "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-inputs.json": {
+    "bytes": 98636,
+    "sha256": "d68efe54cd9b781a6adba17110a9615e2be9ce44c15a778f0d7229d4a9434457"
+  },
+  "docs/reviews/review-save-capacity-round31-20261020.md": {
+    "bytes": 19955,
+    "sha256": "1494167cee55d81146272a3b7c026b1b74dce900f2294e0b611c3fd040552c65"
+  },
+  "docs/research/retained-why-path-payload-bound.md": {
+    "bytes": 17284,
+    "sha256": "db42d2b22ab8fbec0a53e5c5e57083e32c328844b2c21f6a47271c0c67fa8766"
+  },
+  "docs/evidence/retained-why-path-payload-bound-20261020/result.json": {
+    "bytes": 4870,
+    "sha256": "7e77e021cf26207d8bc1fb8c268504cc7626306153f54bc2e9831cffec1c7052"
+  },
+  "docs/evidence/retained-why-path-payload-bound-20261020/source-witnesses.json": {
+    "bytes": 192662,
+    "sha256": "f2d1ef91baf4d5d437c9c90a6a49aff67a23ca37ffd46d6c335a96e3a992a1cc"
+  },
+  "docs/evidence/retained-why-path-input-inventory-20261020/library-inventory.json": {
+    "bytes": 815285,
+    "sha256": "d379fa376664972748e2b4a55912d0f17a7342b611e1fde98d66bd2aa50856ac"
+  },
+  "docs/evidence/retained-producer-fixed-context-20261018/result.json": {
+    "bytes": 160685,
+    "sha256": "75eaf2fe299bb9197c385308af8309d101253c826e1933336debbabf2821ce85"
+  },
+  "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+    "bytes": 17988,
+    "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+  },
+  "docs/research/retained-producer-driver-envelope.md": {
+    "bytes": 14373,
+    "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+  },
+  "docs/evidence/retained-why-native-effect-completeness-20261019/configuration.json": {
+    "bytes": 6355,
+    "sha256": "be30b3aeff964ad27bb5fac79df940e3230428b230afa4a1ec2a9facbb4c0c23"
+  },
+  "docs/evidence/retained-why-native-effect-completeness-20261019/companion-effect-ledger.json": {
+    "bytes": 8471,
+    "sha256": "b28696459a1cf4cee6d2682e25b0b0d9f79db1306303df325d0d2d845bed4775"
+  },
+  "docs/evidence/retained-why-native-effect-completeness-20261019/result.json": {
+    "bytes": 717,
+    "sha256": "0062057cdd1c8b169e5a6b108afaa016a066ae3bdb9529beb5cd45d94ba09a55"
+  }
+}
