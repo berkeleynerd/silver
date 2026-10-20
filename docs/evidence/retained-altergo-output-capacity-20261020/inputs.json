@@ -1,0 +1,215 @@
+{
+  "base": "3042c7431f3f82a4ddde9fd9df56e5729ff7258e",
+  "download": {
+    "url": "https://codeload.github.com/OCamlPro/alt-ergo/tar.gz/80cf48b3b878b416dea7500a060132c024bf69c4",
+    "revision": "80cf48b3b878b416dea7500a060132c024bf69c4",
+    "bytes": 3216563,
+    "sha256": "038d43b05237973ad18873fac844207bc5057bf3fbe1bf7f429f04c4b6cead44",
+    "seconds": 0.8662397330044769
+  },
+  "retained_archive": {
+    "bytes": 38131,
+    "sha256": "84270304215c3a0974b952b2000e571795424432c64f2ce7f4a08950ca14651f"
+  },
+  "sources": [
+    {
+      "path": "src/bin/text/main_text.ml",
+      "bytes": 2571,
+      "sha256": "67cfcf4f2e35c4296c74cb62565584cb7f6800af62ba2fdf6842c635b3f6f8d4"
+    },
+    {
+      "path": "src/bin/common/parse_command.ml",
+      "bytes": 54815,
+      "sha256": "0416b709503f93eaf745cb329313ce96d8525f814c8419a20cf4918851d2879a"
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "bytes": 36060,
+      "sha256": "1ef8f0fad78ce3b54853ba34f59956424cbeddd551282b8bb352dce6ac0aa9b3"
+    },
+    {
+      "path": "src/bin/common/signals_profiling.ml",
+      "bytes": 3660,
+      "sha256": "434dfbbdfaff4a0917029f5210eda5842015dc86b00c1e757f034c2984e1de91"
+    },
+    {
+      "path": "src/lib/frontend/frontend.ml",
+      "bytes": 16819,
+      "sha256": "3da048c5c17ebcfe659332621058a89ebde26cbd5bcc15f192fe395bed720450"
+    },
+    {
+      "path": "src/lib/util/options.ml",
+      "bytes": 22614,
+      "sha256": "3feb749a0e42d49fc56fac3c980df1dcd7d39e0caff8ea07d527035b09277a40"
+    },
+    {
+      "path": "src/lib/util/printer.ml",
+      "bytes": 13819,
+      "sha256": "2331328b70a366a0dd4232f948bb6abeca52d3df6f8f584ac225cf5672c7a490"
+    },
+    {
+      "path": "src/lib/util/loc.ml",
+      "bytes": 2328,
+      "sha256": "231a46e8d5f0ce088cf1701f53c6a43ca0051f953c18300f64c70be3b5d93015"
+    },
+    {
+      "path": "src/lib/util/steps.ml",
+      "bytes": 6357,
+      "sha256": "cb8eefcffb4e0802d60174ed52f5157730b2e5a13e190f4fb7d1b49bf6d9d6c7"
+    },
+    {
+      "path": "src/lib/reasoners/sat_solver_sig.ml",
+      "bytes": 6561,
+      "sha256": "a1891b124f7bc78cd97f16c98475c6abb70a8398b5785452b7469dca973752a8"
+    }
+  ],
+  "excerpts": [
+    {
+      "path": "src/bin/text/main_text.ml",
+      "first": 29,
+      "last": 47
+    },
+    {
+      "path": "src/bin/common/parse_command.ml",
+      "first": 377,
+      "last": 475
+    },
+    {
+      "path": "src/bin/common/parse_command.ml",
+      "first": 943,
+      "last": 987
+    },
+    {
+      "path": "src/bin/common/parse_command.ml",
+      "first": 1147,
+      "last": 1168
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 62,
+      "last": 86
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 149,
+      "last": 200
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 386,
+      "last": 411
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 443,
+      "last": 490
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 532,
+      "last": 578
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 737,
+      "last": 777
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 830,
+      "last": 857
+    },
+    {
+      "path": "src/bin/common/solving_loop.ml",
+      "first": 905,
+      "last": 975
+    },
+    {
+      "path": "src/bin/common/signals_profiling.ml",
+      "first": 28,
+      "last": 83
+    },
+    {
+      "path": "src/lib/frontend/frontend.ml",
+      "first": 50,
+      "last": 122
+    },
+    {
+      "path": "src/lib/util/options.ml",
+      "first": 280,
+      "last": 336
+    },
+    {
+      "path": "src/lib/util/options.ml",
+      "first": 369,
+      "last": 436
+    },
+    {
+      "path": "src/lib/util/options.ml",
+      "first": 628,
+      "last": 644
+    },
+    {
+      "path": "src/lib/util/printer.ml",
+      "first": 151,
+      "last": 205
+    },
+    {
+      "path": "src/lib/util/printer.ml",
+      "first": 209,
+      "last": 253
+    },
+    {
+      "path": "src/lib/util/printer.ml",
+      "first": 298,
+      "last": 399
+    },
+    {
+      "path": "src/lib/util/loc.ml",
+      "first": 28,
+      "last": 37
+    },
+    {
+      "path": "src/lib/util/steps.ml",
+      "first": 28,
+      "last": 52
+    },
+    {
+      "path": "src/lib/util/steps.ml",
+      "first": 75,
+      "last": 122
+    },
+    {
+      "path": "src/lib/util/steps.ml",
+      "first": 156,
+      "last": 179
+    },
+    {
+      "path": "src/lib/reasoners/sat_solver_sig.ml",
+      "first": 28,
+      "last": 65
+    }
+  ],
+  "repository": [
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/identity.json",
+      "bytes": 15399,
+      "sha256": "d270de406db0b641dee37c84ff2ef458f9c5c53bcd5538df033715eebc0eb94a"
+    },
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/proposed-driver-overlay/alt_ergo_gnatprove_smt2.drv",
+      "bytes": 2461,
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    {
+      "path": "docs/evidence/retained-why-server-record-capacity-20261020/attachment.json",
+      "bytes": 15013,
+      "sha256": "0c0649ae653072cc617298642ee2e69aed3809dd60f7c28a68dcb5f42d42d6a2"
+    },
+    {
+      "path": "docs/evidence/retained-why-server-record-capacity-20261020/result.json",
+      "bytes": 2125,
+      "sha256": "43354e6d8a41da734f3fcabc51bdb406ba6caac2bb496477765f42d861e4389f"
+    }
+  ]
+}

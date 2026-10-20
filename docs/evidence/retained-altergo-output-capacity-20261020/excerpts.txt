@@ -1,0 +1,1166 @@
+--- src/bin/text/main_text.ml:29-47 ---
+29:
+30: (* Register input method and parsers *)
+31: let register_input () =
+32:   Input_frontend.register_legacy ()
+33:
+34: (* done here to initialize options,
+35:    before the instantiations of functors *)
+36: let parse_cmdline () =
+37:   try Parse_command.parse_cmdline_arguments ()
+38:   with Parse_command.Exit_parse_command i -> exit i
+39:
+40: let () =
+41:   register_input ();
+42:   parse_cmdline ();
+43:   AltErgoLib.Printer.init_colors ();
+44:   AltErgoLib.Printer.init_output_format ();
+45:   Signals_profiling.init_signals ();
+46:   Logs.set_reporter (AltErgoLib.Printer.reporter);
+47:   Solving_loop.main ()
+--- src/bin/common/parse_command.ml:377-475 ---
+377: let mk_execution_opt input_format parse_only ()
+378:     preludes no_locs_in_answers colors_in_output no_headers_in_output
+379:     no_formatting_in_output no_forced_flush_in_output pretty_output
+380:     type_only type_smt2
+381:   =
+382:   let answers_with_loc = not no_locs_in_answers in
+383:   let output_with_colors = colors_in_output || pretty_output in
+384:   let output_with_headers = (not no_headers_in_output) || pretty_output in
+385:   let output_with_formatting = (not no_formatting_in_output) || pretty_output in
+386:   let output_with_forced_flush =
+387:     (not no_forced_flush_in_output) && (not pretty_output) in
+388:   set_answers_with_loc answers_with_loc;
+389:   set_output_with_colors output_with_colors;
+390:   set_output_with_headers output_with_headers;
+391:   set_output_with_formatting output_with_formatting;
+392:   set_output_with_forced_flush output_with_forced_flush;
+393:   set_input_format input_format;
+394:   set_parse_only parse_only;
+395:   set_type_only type_only;
+396:   set_type_smt2 type_smt2;
+397:   set_preludes preludes;
+398:   `Ok()
+399:
+400: let mk_internal_opt
+401:     disable_weaks enable_assertions warning_as_error continue_on_error gc_policy
+402:   =
+403:   let gc_policy = match gc_policy with
+404:     | 0 | 1 | 2 -> gc_policy
+405:     | _ ->
+406:       Printer.print_wrn "Gc_policy value must be 0[default], 1 or 2";
+407:       0
+408:   in
+409:   set_disable_weaks disable_weaks;
+410:   set_enable_assertions enable_assertions;
+411:   set_warning_as_error warning_as_error;
+412:   set_exit_on_error (not continue_on_error);
+413:   `Ok(gc_policy)
+414:
+415: let mk_limit_opt age_bound fm_cross_limit timelimit_interpretation
+416:     steps_bound timelimit timelimit_per_goal
+417:   =
+418:   let set_limit t d =
+419:     match t with
+420:     | Some t ->
+421:       if Sys.win32 then (
+422:         Printer.print_wrn
+423:           "timelimit not supported on Win32 (ignored)";
+424:         d
+425:       )
+426:       else t
+427:     | None -> d
+428:   in
+429:   if steps_bound < -1 then
+430:     `Error (false, "--steps-bound argument should be positive")
+431:   else
+432:     let fm_cross_limit = Numbers.Q.from_string fm_cross_limit in
+433:     let timelimit = set_limit timelimit 0. in
+434:     let timelimit_interpretation = set_limit timelimit_interpretation 0. in
+435:     set_age_bound age_bound;
+436:     set_fm_cross_limit fm_cross_limit;
+437:     set_timelimit_interpretation timelimit_interpretation;
+438:     set_steps_bound steps_bound;
+439:     Steps.set_steps_bound steps_bound;
+440:     set_timelimit timelimit;
+441:     set_timelimit_per_goal timelimit_per_goal;
+442:     `Ok()
+443:
+444: let mk_output_opt
+445:     interpretation use_underscore objectives_in_interpretation unsat_core
+446:     output_format model_type () () () ()
+447:   =
+448:   set_infer_output_format (Option.is_none output_format);
+449:   let output_format = match output_format with
+450:     | None -> Native
+451:     | Some fmt -> fmt
+452:   in
+453:   let model_type = match model_type with
+454:     | None -> Value
+455:     | Some v -> v
+456:   in
+457:   set_interpretation interpretation;
+458:   set_interpretation_use_underscore use_underscore;
+459:   set_objectives_in_interpretation objectives_in_interpretation;
+460:   set_unsat_core unsat_core;
+461:   set_output_format output_format;
+462:   set_model_type model_type;
+463:   `Ok()
+464:
+465: let mk_profiling_opt cumulative_time_profiling profiling
+466:     profiling_plugin get_verbose
+467:   =
+468:   let profiling, profiling_period = match profiling with
+469:     | Some f -> true, f
+470:     | None -> false, 0.
+471:   in
+472:   set_profiling profiling profiling_period;
+473:   set_profiling_plugin profiling_plugin;
+474:   set_verbose get_verbose;
+475:   set_cumulative_time_profiling cumulative_time_profiling;
+--- src/bin/common/parse_command.ml:943-987 ---
+943:   let interpretation, dump_models, dump_models_on, frontend =
+944:     let interpretation =
+945:       let doc = Format.sprintf
+946:           "Best effort support for counter-example generation. \
+947:            $(docv) must be %s. %s shows the first computed interpretation. \
+948:            %s compute an interpretation before every decision, \
+949:            and %s only before returning unknown. \
+950:            Note that $(b, --max-split) limitation will \
+951:            be ignored in model generation phase."
+952:           (Arg.doc_alts
+953:              ["none"; "first"; "every"; "last"])
+954:           (Arg.doc_quote "first") (Arg.doc_quote "every")
+955:           (Arg.doc_quote "last") in
+956:       let docv = "VAL" in
+957:       let interpretation =
+958:         Arg.enum
+959:           [ "none", INone
+960:           ; "first", IFirst
+961:           ; "every", IEvery
+962:           ; "last", ILast
+963:           ]
+964:       in
+965:       Arg.(value & opt interpretation INone &
+966:            info ["interpretation"] ~docv ~docs:s_models ~doc)
+967:     in
+968:     let produce_models =
+969:       let doc =
+970:         "Enable model generation (equivalent to --interpretation last)."
+971:       in
+972:       Arg.(value & flag & info ["produce-models"] ~doc ~docs:s_models)
+973:     in
+974:
+975:
+976:     let frontend =
+977:       let doc =
+978:         "Select the parsing and typing frontend. Support for non-default \
+979:          frontends is deprecated and will be removed in the next release."
+980:       in
+981:       let docv = "FTD" in
+982:       let deprecated =
+983:         "this option is deprecated and will be ignored in the \
+984:          next version"
+985:       in
+986:       Arg.(value & opt string "dolmen" &
+987:            info ["frontend"] ~docv ~docs:s_execution ~doc ~deprecated)
+--- src/bin/common/parse_command.ml:1147-1168 ---
+1147:   in
+1148:   let unsat_core =
+1149:     let doc = "Experimental support for computing and printing unsat-cores." in
+1150:     Arg.(value & flag & info ["u"; "unsat-core"] ~doc ~docs)
+1151:   in
+1152:   let output_format =
+1153:     let doc =
+1154:       Format.sprintf
+1155:         "Control the output format of the solver, $(docv) must be %s.\
+1156:          The alt-ergo native format outputs Valid/Invalid/I don't know.\
+1157:          The smtlib2 format outputs unsat/sat/unknown.\
+1158:          If left unspecified, Alt-Ergo will use its heuristics to \
+1159:          determine the adequate output format according to the input format.\
+1160:          It must be noticed that not specifying an output \
+1161:          format will let Alt-Ergo set it according to the input file's \
+1162:          extension."
+1163:         (Arg.doc_alts [ "native"; "smtlib2" ])
+1164:     in
+1165:     let docv = "FMT" in
+1166:     Arg.(value & opt (some format_conv) None & info ["o"; "output"] ~docv ~doc)
+1167:   in
+1168:
+--- src/bin/common/solving_loop.ml:62-86 ---
+62: let recoverable_error ?(code = 1) =
+63:   Format.kasprintf (fun msg ->
+64:       let () =
+65:         if msg <> "" then
+66:           match Options.get_output_format () with
+67:           | Smtlib2 _ -> Printer.print_smtlib_err "%s" msg
+68:           | _ -> Printer.print_err "%s" msg
+69:       in
+70:       if Options.get_exit_on_error () then exit code)
+71:
+72: let fatal_error ?(code = 1) =
+73:   Format.kasprintf (fun msg -> recoverable_error ~code "%s" msg; exit code)
+74:
+75: let exit_as_timeout () = fatal_error ~code:142 "timeout"
+76:
+77: let warning (msg : ('a, Format.formatter, unit, unit, unit, 'b) format6) : 'a =
+78:   if Options.get_warning_as_error () then
+79:     recoverable_error msg
+80:   else
+81:     Printer.print_wrn msg
+82:
+83: let unsupported_opt opt =
+84:   let () =
+85:     match Options.get_output_format () with
+86:     | Smtlib2 _ -> Printer.print_std "unsupported"
+--- src/bin/common/solving_loop.ml:149-200 ---
+149:           Options.Time.set_timeout (Options.get_timelimit ());
+150:         end;
+151:       SAT.reset_refs ();
+152:       let ftdn_env = FE.init_env used_context in
+153:       let hook_on_status status i =
+154:         Frontend.print_status status i;
+155:         match status with
+156:         | Timeout _ when not (Options.get_timelimit_per_goal ()) ->
+157:           exit_as_timeout ()
+158:         | _ -> raise StopProcessDecl
+159:       in
+160:       let () =
+161:         try
+162:           List.iter
+163:             (FE.process_decl ~hook_on_status ftdn_env)
+164:             cnf
+165:         with
+166:         | StopProcessDecl -> ()
+167:       in
+168:       if Options.get_timelimit_per_goal() then
+169:         Options.Time.unset_timeout ();
+170:       if Options.get_profiling() then
+171:         Profiling.print true
+172:           (Steps.get_steps ())
+173:           (Options.Output.get_fmt_diagnostic ());
+174:       let partial_model = ftdn_env.sat_env in
+175:       (* If the status of the SAT environment is inconsistent,
+176:          we have to drop the partial model in order to prevent
+177:          printing wrong model. *)
+178:       match ftdn_env.FE.res with
+179:       | `Sat ->
+180:         begin
+181:           let mdl = Model ((module SAT), partial_model) in
+182:           if Options.(get_interpretation () && get_dump_models ()) then begin
+183:             Fmt.pf (Options.Output.get_fmt_models ()) "%a@."
+184:               FE.print_model partial_model
+185:           end;
+186:           Sat mdl
+187:         end
+188:       | `Unknown ->
+189:         begin
+190:           let mdl = Model ((module SAT), partial_model) in
+191:           if Options.(get_interpretation () && get_dump_models ()) then begin
+192:             let ur = SAT.get_unknown_reason partial_model in
+193:             Printer.print_fmt (Options.Output.get_fmt_diagnostic ())
+194:               "@[<v 0>Returned unknown reason = %a@]"
+195:               Sat_solver_sig.pp_ae_unknown_reason_opt ur;
+196:             Fmt.pf (Options.Output.get_fmt_models ()) "%a@."
+197:               FE.print_model partial_model
+198:           end;
+199:           Unknown (Some mdl)
+200:         end
+--- src/bin/common/solving_loop.ml:386-411 ---
+386:   let handle_exn st bt = function
+387:     | Dolmen.Std.Loc.Syntax_error (_, `Regular msg) ->
+388:       recoverable_error "%t" msg; st
+389:     | Util.Timeout ->
+390:       Printer.print_status_timeout None None None None;
+391:       exit_as_timeout ()
+392:     | Errors.Error e ->
+393:       recoverable_error "%a" Errors.report e;
+394:       st
+395:     | Exit -> exit 0
+396:     | _ as exn -> Printexc.raise_with_backtrace exn bt
+397:   in
+398:   let finally ~handle_exn st e =
+399:     match e with
+400:     | Some (bt, exn) -> handle_exn st bt exn
+401:     | _ -> st
+402:   in
+403:   let set_output_format fmt =
+404:     if Options.get_infer_output_format () then
+405:       match fmt with
+406:       | ".ae" -> Options.set_output_format Native
+407:       | ".smt2" -> Options.set_output_format (Smtlib2 `Latest)
+408:       | ".psmt2" -> Options.set_output_format (Smtlib2 `Poly)
+409:       | s ->
+410:         warning
+411:           "The output format %s is not supported by the Dolmen frontend."
+--- src/bin/common/solving_loop.ml:443-490 ---
+443:   let mk_state ?(debug = false) ?(report_style = State.Contextual)
+444:       ?(max_warn = max_int) ?(time_limit = Float.infinity)
+445:       ?(size_limit = Float.infinity) ?(type_check = true)
+446:       ?(solver_ctx = empty_solver_ctx) path =
+447:     let reports =
+448:       Dolmen_loop.Report.Conf.(
+449:         let disable m t =
+450:           match Dolmen_loop.Report.T.find_mnemonic m with
+451:           | Some (`Warning _ as w) -> disable t w
+452:           | _ -> assert false
+453:         in
+454:         mk ~default:Dolmen_loop.Report.Warning.Status.Enabled
+455:         |> disable "unused-type-var"
+456:         |> disable "unused-term-var"
+457:         |> disable "extra-dstr"
+458:         |> disable "shadowing"
+459:       )
+460:     in
+461:     let dir = Filename.dirname path in
+462:     let filename = Filename.basename path in
+463:     let lang =
+464:       match Options.get_input_format () with
+465:       | Some Native -> Some Dl.Logic.Alt_ergo
+466:       | Some Smtlib2 version -> Some (Dl.Logic.Smtlib2 version)
+467:       | Some (Why3 | Unknown _) | None -> None
+468:     in
+469:     let source =
+470:       if Filename.check_suffix path ".zip" then (
+471:         Filename.(chop_extension path |> extension) |> set_output_format;
+472:         let content = AltErgoLib.My_zip.extract_zip_file path in
+473:         `Raw (Filename.chop_extension filename, content))
+474:       else
+475:         let is_stdin = String.equal path "" in
+476:         let is_incremental =
+477:           match lang with
+478:           | Some (Dl.Logic.Smtlib2 _) | None -> true
+479:           | _ -> false
+480:         in
+481:         if is_stdin then (
+482:           if is_incremental then (
+483:             set_output_format ".smt2";
+484:             `Stdin
+485:           ) else (
+486:             `Raw (filename, read_all stdin)
+487:           )
+488:         ) else (
+489:           Filename.extension path |> set_output_format;
+490:           let cin = open_in path in
+--- src/bin/common/solving_loop.ml:532-578 ---
+532:
+533:   let handle_option st_loc name (value : DStd.Term.t) st =
+534:     match name, value.term with
+535:     (* Smtlib2 regular options *)
+536:     | ":regular-output-channel", Symbol { name = Simple name; _ } ->
+537:       Options.Output.create_channel name
+538:       |> Options.Output.set_regular;
+539:       st
+540:     | ":diagnostic-output-channel", Symbol { name = Simple name; _ } ->
+541:       Options.Output.create_channel name
+542:       |> Options.Output.set_diagnostic;
+543:       st
+544:     | ":produce-models", Symbol { name = Simple "true"; _ } ->
+545:       Options.set_interpretation ILast;
+546:       st
+547:     | ":produce-models", Symbol { name = Simple "false"; _ } ->
+548:       Options.set_interpretation INone;
+549:       st
+550:     | ":produce-unsat-cores", Symbol { name = Simple "true"; _ } ->
+551:       (* The generation of unsat core is supported only with the SAT
+552:          solver Tableaux. *)
+553:       if Stdlib.(Options.get_sat_solver () = Tableaux) then
+554:         Options.set_unsat_core true
+555:       else
+556:         warning
+557:           "%a The generation of unsat cores is not \
+558:            supported for the current SAT solver. Please \
+559:            choose the SAT solver Tableaux."
+560:           Loc.report st_loc;
+561:       st
+562:     | ":produce-unsat-cores", Symbol { name = Simple "false"; _ } ->
+563:       Options.set_unsat_core false; st
+564:     | (":produce-models" | ":produce-unsat-cores" as name), _ ->
+565:       print_wrn_opt ~name st_loc "boolean" value; st
+566:     | ":verbosity", Symbol { name = Simple level; _ } ->
+567:       begin
+568:         match int_of_string_opt level with
+569:         | Some i when i > 0 -> Options.set_verbose true
+570:         | Some 0 -> Options.set_verbose false
+571:         | None | Some _ ->
+572:           print_wrn_opt ~name:":verbosity" st_loc "integer" value
+573:       end;
+574:       st
+575:     | ":reproducible-resource-limit", Symbol { name = Simple level; _ } ->
+576:       begin
+577:         if Sys.unix then
+578:           match int_of_string_opt level with
+--- src/bin/common/solving_loop.ml:737-777 ---
+737:   let handle_get_info (st : State.t) (name: string) =
+738:     let print_std =
+739:       fun (type a) (pp :a Fmt.t) (a : a) ->
+740:         Printer.print_std "(%s %a)" name pp a
+741:     in
+742:     let pp_reason_unknown st =
+743:       let err () =
+744:         recoverable_error "Invalid (get-info :reason-unknown)"
+745:       in
+746:       match State.get partial_model_key st with
+747:       | None -> err ()
+748:       | Some Model ((module SAT), sat) ->
+749:         match SAT.get_unknown_reason sat with
+750:         | None -> err ()
+751:         | Some ur ->
+752:           print_std Sat_solver_sig.pp_smt_unknown_reason ur
+753:     in
+754:     match name with
+755:     | ":authors" ->
+756:       print_std (fun fmt -> Fmt.pf fmt "%S") "Alt-Ergo developers"
+757:     | ":error-behavior" ->
+758:       let behavior =
+759:         if Options.get_exit_on_error () then
+760:           "immediate-exit"
+761:         else
+762:           "continued-execution"
+763:       in
+764:       print_std Fmt.string behavior
+765:     | ":name" ->
+766:       print_std (fun fmt -> Fmt.pf fmt "%S") "Alt-Ergo"
+767:     | ":reason-unknown" ->
+768:       pp_reason_unknown st
+769:     | ":version" ->
+770:       print_std Fmt.string Version._version
+771:     | ":all-statistics" ->
+772:       Printer.print_std "%t" Profiling.print_statistics
+773:     | ":assertion-stack-levels" ->
+774:       unsupported_opt name
+775:     | _ ->
+776:       unsupported_opt name
+777:   in
+--- src/bin/common/solving_loop.ml:830-857 ---
+830:         DO.Mode.set Util.Assert st
+831:       (* When the next statement is a goal, the solver is called and provided
+832:          the goal and the current context *)
+833:       | { id; contents = (`Solve _ as contents); loc ; attrs; implicit } ->
+834:         cmd_on_modes st [Assert; Sat; Unsat] "solve";
+835:         let l =
+836:           solver_ctx.local @
+837:           solver_ctx.global @
+838:           solver_ctx.ctx
+839:         in
+840:         let id =
+841:           match (State.get State.logic_file st).lang with
+842:           | Some (Smtlib2 _) ->
+843:             DStd.Id.mk DStd.Namespace.term @@
+844:             "g_" ^ string_of_int (incr goal_cnt; !goal_cnt)
+845:           | _ -> id
+846:         in
+847:         let name =
+848:           match id.name with
+849:           | Simple name -> name
+850:           | _ ->
+851:             let loc = DStd.Loc.loc file_loc loc in
+852:             Fmt.failwith "%a: internal error: goal name should be simple"
+853:               DStd.Loc.fmt loc
+854:         in
+855:         let contents =
+856:           match contents with
+857:           | `Solve (hyps, []) -> `Check hyps
+--- src/bin/common/solving_loop.ml:905-975 ---
+905:         st
+906:
+907:       | {contents = `Get_model; _ } ->
+908:         cmd_on_modes st [Sat] "get-model";
+909:         if Options.get_interpretation () then
+910:           let () = match State.get partial_model_key st with
+911:             | Some (Model ((module SAT), env)) ->
+912:               let module FE = Frontend.Make (SAT) in
+913:               Fmt.pf (Options.Output.get_fmt_regular ()) "%a@."
+914:                 FE.print_model env
+915:             | None ->
+916:               (* TODO: add the location of the statement. *)
+917:               recoverable_error "No model produced."
+918:           in
+919:           st
+920:         else
+921:           begin
+922:             (* TODO: add the location of the statement. *)
+923:             recoverable_error
+924:               "Model generation disabled (try --produce-models)";
+925:             st
+926:           end
+927:
+928:       | {contents = `Reset; _} ->
+929:         st
+930:         |> State.set partial_model_key None
+931:         |> State.set solver_ctx_key empty_solver_ctx
+932:         |> DO.Mode.clear
+933:         |> DO.StrictMode.clear
+934:         |> DO.ProduceAssignment.clear
+935:         |> DO.init
+936:         |> State.set named_terms Util.MS.empty
+937:
+938:       | {contents = `Exit; _} -> raise Exit
+939:
+940:       | {contents = `Echo str; _} ->
+941:         let new_str = String.concat "\"\"" (String.split_on_char '"' str) in
+942:         Fmt.pf
+943:           (Options.Output.get_fmt_regular ())
+944:           "\"%s\"@."
+945:           new_str;
+946:         st
+947:
+948:       | {contents = `Get_info kind; _ } ->
+949:         handle_get_info st kind;
+950:         st
+951:
+952:       | {contents = `Get_assignment; _} ->
+953:         begin
+954:           cmd_on_modes st [Sat] "get-assignment";
+955:           match State.get partial_model_key st with
+956:           | Some Model ((module SAT), partial_model) ->
+957:             if DO.ProduceAssignment.get st then
+958:               handle_get_assignment
+959:                 ~get_value:(SAT.get_value partial_model)
+960:                 st
+961:             else
+962:               recoverable_error
+963:                 "Produce assignments disabled; \
+964:                  add (set-option :produce-assignments true)";
+965:             st
+966:           | None ->
+967:             (* TODO: add the location of the statement. *)
+968:             recoverable_error
+969:               "No model produced, cannot execute get-assignment.";
+970:             st
+971:         end
+972:
+973:       | {contents = `Other (custom, args); loc; _} ->
+974:         handle_custom_statement loc custom args st
+975:
+--- src/bin/common/signals_profiling.ml:28-83 ---
+28: open AltErgoLib
+29:
+30: let init_sigterm_6 () =
+31:   (* what to do with Ctrl+C ? *)
+32:   Sys.set_signal Sys.sigint(*-6*)
+33:     (Sys.Signal_handle (fun _ ->
+34:          if Options.get_profiling() then
+35:            Profiling.switch (Options.Output.get_fmt_diagnostic ())
+36:          else begin
+37:            Printer.print_wrn "User wants me to stop.";
+38:            Printer.print_std "unknown";
+39:            exit 1
+40:          end
+41:        )
+42:     )
+43:
+44: let init_sigterm_11_9 () =
+45:   (* put the test here because Windows does not handle Sys.Signal_handle
+46:      correctly *)
+47:   if Options.get_profiling() then
+48:     List.iter
+49:       (fun sign ->
+50:          Sys.set_signal sign
+51:            (Sys.Signal_handle
+52:               (fun _ ->
+53:                  Profiling.print true (Steps.get_steps ())
+54:                    (Options.Output.get_fmt_diagnostic ());
+55:                  exit 1
+56:               )
+57:            )
+58:       )[ Sys.sigterm (*-11*); Sys.sigquit (*-9*)]
+59:
+60: let init_sigterm_21 () =
+61:   (* put the test here because Windows does not handle Sys.Signal_handle
+62:      correctly *)
+63:   if Options.get_profiling() then
+64:     Sys.set_signal Sys.sigprof (*-21*)
+65:       (Sys.Signal_handle
+66:          (fun _ ->
+67:             Profiling.print false (Steps.get_steps ())
+68:               (Options.Output.get_fmt_diagnostic ());
+69:          )
+70:       )
+71:
+72: let init_sigalarm () =
+73:   try
+74:     Sys.set_signal Sys.sigvtalrm
+75:       (Sys.Signal_handle (fun _ -> Options.exec_timeout ()))
+76:   with Invalid_argument _ -> ()
+77:
+78: let init_profiling () =
+79:   if Options.get_profiling () then begin
+80:     assert (Options.get_timers());
+81:     Profiling.init ();
+82:   end
+83:
+--- src/lib/frontend/frontend.ml:50-122 ---
+50: let print_status status steps =
+51:   let check_status_consistency s =
+52:     let known_status = get_status () in
+53:     match s with
+54:     | Unsat _ ->
+55:       if known_status == Status_Sat then begin
+56:         Printer.print_wrn
+57:           "This file is known to be Sat but Alt-Ergo return Unsat";
+58:         Errors.warning_as_error ()
+59:       end
+60:     | Sat _ ->
+61:       if known_status == Status_Unsat then begin
+62:         Printer.print_wrn
+63:           "This file is known to be Unsat but Alt-Ergo return Sat";
+64:         Errors.warning_as_error ()
+65:       end
+66:     | Inconsistent _ | Unknown _ | Timeout _ | Preprocess ->
+67:       assert false
+68:   in
+69:   let validity_mode =
+70:     match Options.get_output_format () with
+71:     | Smtlib2 _ -> false
+72:     | Native | Why3 | Unknown _ -> true
+73:   in
+74:   let get_goal_name d =
+75:     match d.st_decl with
+76:     | Query(g,_,_) -> Some g
+77:     | _ -> None
+78:   in
+79:
+80:   let time = Time.value() in
+81:   match status with
+82:   | Unsat (d, dep) ->
+83:     let loc = d.st_loc in
+84:     Printer.print_status_unsat ~validity_mode
+85:       (Some loc) (Some time) (Some steps) (get_goal_name d);
+86:     if get_unsat_core() &&
+87:        not (get_debug_unsat_core()) &&
+88:        not (get_save_used_context())
+89:     then
+90:       Printer.print_fmt (Options.Output.get_fmt_regular ())
+91:         "unsat-core:@,%a@."
+92:         (Ex.print_unsat_core ~tab:true) dep;
+93:     check_status_consistency status;
+94:
+95:   | Inconsistent d ->
+96:     let loc = d.st_loc in
+97:     Printer.print_status_inconsistent ~validity_mode
+98:       (Some loc) (Some time) (Some steps) (get_goal_name d);
+99:
+100:   | Sat (d, _) ->
+101:     let loc = d.st_loc in
+102:     Printer.print_status_sat ~validity_mode
+103:       (Some loc) (Some time) (Some steps) (get_goal_name d);
+104:     check_status_consistency status;
+105:
+106:   | Unknown (d, _) ->
+107:     let loc = d.st_loc in
+108:     Printer.print_status_unknown ~validity_mode
+109:       (Some loc) (Some time) (Some steps) (get_goal_name d);
+110:
+111:   | Timeout (Some d) ->
+112:     let loc = d.st_loc in
+113:     Printer.print_status_timeout ~validity_mode
+114:       (Some loc) (Some time) (Some steps) (get_goal_name d);
+115:
+116:   | Timeout None ->
+117:     Printer.print_status_timeout ~validity_mode
+118:       None (Some time) (Some steps) None;
+119:
+120:   | Preprocess ->
+121:     Printer.print_status_preprocess ~validity_mode
+122:       (Some time) (Some steps)
+--- src/lib/util/options.ml:280-336 ---
+280:
+281: let answers_with_loc = ref true
+282: let output_with_colors = ref false
+283: let output_with_headers = ref true
+284: let output_with_formatting = ref true
+285: let output_with_forced_flush = ref true
+286: let frontend = ref "dolmen"
+287: let input_format = ref None
+288: let parse_only = ref false
+289: let preludes = ref []
+290: let theory_preludes = ref Theories.default_preludes
+291: let type_only = ref false
+292: let type_smt2 = ref false
+293:
+294: let set_answers_with_loc b = answers_with_loc := b
+295: let set_output_with_colors b = output_with_colors := b
+296: let set_output_with_headers b = output_with_headers := b
+297: let set_output_with_formatting b = output_with_formatting := b
+298: let set_output_with_forced_flush b = output_with_forced_flush := b
+299: let set_frontend f = frontend := f
+300: let set_input_format f = input_format := f
+301: let set_parse_only b = parse_only := b
+302: let set_preludes p = preludes := p
+303:
+304: let set_theory_preludes t = theory_preludes := t
+305: let set_type_only b = type_only := b
+306: let set_type_smt2 b = type_smt2 := b
+307:
+308: let get_answers_with_locs () = !answers_with_loc
+309: let get_output_with_colors () = !output_with_colors
+310: let get_output_with_headers () = !output_with_headers
+311: let get_output_with_formatting () = !output_with_formatting
+312: let get_output_with_forced_flush () = !output_with_forced_flush
+313: let get_frontend () = !frontend
+314: let get_input_format () = !input_format
+315: let get_parse_only () = !parse_only
+316: let get_preludes () = !preludes
+317: let get_theory_preludes () = !theory_preludes
+318: let get_type_only () = !type_only
+319: let get_type_smt2 () = !type_smt2
+320:
+321: (** Internal options *)
+322:
+323: let disable_weaks = ref false
+324: let enable_assertions = ref false
+325: let warning_as_error = ref false
+326: let exit_on_error = ref true
+327:
+328: let set_disable_weaks b = disable_weaks := b
+329: let set_enable_assertions b = enable_assertions := b
+330: let set_warning_as_error b = warning_as_error := b
+331: let set_exit_on_error b = exit_on_error := b
+332:
+333: let get_disable_weaks () = !disable_weaks
+334: let get_enable_assertions () = !enable_assertions
+335: let get_warning_as_error () = !warning_as_error
+336: let get_exit_on_error () = !exit_on_error
+--- src/lib/util/options.ml:369-436 ---
+369: let output_format = ref Native
+370: let model_type = ref Value
+371: let infer_output_format = ref true
+372: let unsat_core = ref false
+373:
+374: let set_interpretation b = interpretation := b
+375: let set_strict_mode b = strict_mode := b
+376: let set_dump_models b = dump_models := b
+377: let set_interpretation_use_underscore b = interpretation_use_underscore := b
+378: let set_objectives_in_interpretation b = objectives_in_interpretation := b
+379: let set_output_format b = output_format := b
+380: let set_model_type t = model_type := t
+381: let set_infer_output_format b = infer_output_format := b
+382: let set_unsat_core b = unsat_core := b
+383:
+384: let equal_mode a b =
+385:   match a, b with
+386:   | INone, INone -> true
+387:   | INone, _ | _, INone -> false
+388:   | IFirst, IFirst -> true
+389:   | IFirst, _ | _, IFirst -> false
+390:   | IEvery, IEvery -> true
+391:   | IEvery, _ | _, IEvery -> false
+392:   | ILast, ILast -> true
+393:
+394: let equal_mode_type a b =
+395:   match a, b with
+396:   | Constraints, Constraints -> true
+397:   | Constraints, _ | _, Constraints -> false
+398:   | Value, Value -> true
+399:
+400: let get_interpretation () = not @@ equal_mode !interpretation INone
+401: let get_strict_mode () = !strict_mode
+402: let get_dump_models () = !dump_models
+403: let get_first_interpretation () = equal_mode !interpretation IFirst
+404: let get_every_interpretation () = equal_mode !interpretation IEvery
+405: let get_last_interpretation () = equal_mode !interpretation ILast
+406: let get_interpretation_use_underscore () = !interpretation_use_underscore
+407: let get_objectives_in_interpretation () = !objectives_in_interpretation
+408: let get_output_format () = !output_format
+409: let get_output_smtlib () =
+410:   match !output_format with
+411:   | Smtlib2 _ -> true
+412:   | _ -> false
+413: let get_model_type () = !model_type
+414: let get_model_type_constraints () = equal_mode_type !model_type Constraints
+415: let get_infer_output_format () = !infer_output_format
+416: let get_unsat_core () = !unsat_core || !save_used_context || !debug_unsat_core
+417:
+418: (** Profiling options *)
+419:
+420: let cumulative_time_profiling = ref false
+421: let profiling = ref false
+422: let profiling_period = ref 0.
+423: let profiling_plugin = ref ""
+424: let verbose = ref false
+425:
+426: let set_cumulative_time_profiling b = cumulative_time_profiling := b
+427: let set_profiling b f =
+428:   profiling := b;
+429:   profiling_period := if b then f else 0.
+430: let set_profiling_period p = profiling_period := p
+431: let set_profiling_plugin p = profiling_plugin := p
+432: let set_verbose b = verbose := b
+433:
+434: let get_cumulative_time_profiling () = !cumulative_time_profiling
+435: let get_profiling () = !profiling
+436: let get_profiling_period () = !profiling_period
+--- src/lib/util/options.ml:628-644 ---
+628: (** Simple Timer module **)
+629: module Time = struct
+630:
+631:   let u = ref 0.0
+632:
+633:   let start () =
+634:     u := My_unix.cur_time()
+635:
+636:   let value () =
+637:     My_unix.cur_time () -. !u
+638:
+639:   let set_timeout tm = My_unix.set_timeout tm
+640:
+641:   let unset_timeout () =
+642:     if Float.compare (get_timelimit ()) 0. <> 0 then
+643:       My_unix.unset_timeout ()
+644:
+--- src/lib/util/printer.ml:151-205 ---
+151:
+152: let pp_smt clean_print =
+153:   let smt = match Options.get_output_format () with
+154:     | Smtlib2 _ -> true
+155:     | Native | Why3 | Unknown _ -> false
+156:   in Format.sprintf
+157:     (if smt && !clean_print then
+158:        begin clean_print := false; "@,; " end
+159:      else "")
+160:
+161: let pp_std_smt () =
+162:   match !clean_dbg_print, !clean_wrn_print with
+163:   | true, true -> ()
+164:   | false, true ->
+165:     clean_dbg_print := true;
+166:     Format.fprintf (Options.Output.get_fmt_regular ()) "@,"
+167:   | true, false ->
+168:     clean_wrn_print := true;
+169:     Format.fprintf (Options.Output.get_fmt_regular ()) "@,"
+170:   | false, false ->
+171:     clean_dbg_print := true;
+172:     clean_wrn_print := true;
+173:     Format.fprintf (Options.Output.get_fmt_regular ()) "@,"
+174:
+175: let add_smt formatter =
+176:   let old_fs = Format.pp_get_formatter_out_functions formatter () in
+177:   let out_newline () = old_fs.out_string "\n; " 0 3 in
+178:   Format.pp_set_formatter_out_functions formatter
+179:     { old_fs with out_newline }
+180:
+181: let remove_formatting formatter =
+182:   let old_fs = Format.pp_get_formatter_out_functions formatter () in
+183:   let out_newline () = old_fs.out_string "" 0 0 in
+184:   let out_spaces _n = old_fs.out_spaces 0 in
+185:   Format.pp_set_formatter_out_functions formatter
+186:     { old_fs with out_newline; out_spaces }
+187:
+188: (* This function is used to force a newline when the option removing the
+189:    formatting is enable *)
+190: let force_new_line formatter =
+191:   if not (Options.get_output_with_formatting ()) then
+192:     let old_fs = Format.pp_get_formatter_out_functions formatter () in
+193:     let out_newline () = old_fs.out_string "\n" 0 1 in
+194:     Format.pp_set_formatter_out_functions formatter
+195:       { old_fs with out_newline };
+196:     Format.fprintf formatter "@.";
+197:     remove_formatting formatter
+198:
+199: let init_output_format () =
+200:   match Options.get_output_format () with
+201:   | Smtlib2 _ ->
+202:     add_smt (Options.Output.get_fmt_diagnostic ())
+203:   | Native | Why3 | Unknown _ -> ()
+204:
+205:
+--- src/lib/util/printer.ml:209-253 ---
+209: let print_std ?(flushed=true) s =
+210:   pp_std_smt ();
+211:   let fmt = Options.Output.get_fmt_regular () in
+212:   if flushed || Options.get_output_with_forced_flush ()
+213:   then Format.kfprintf flush fmt s else Format.fprintf fmt s
+214:
+215: let print_err ?(flushed=true) ?(header=(Options.get_output_with_headers ()))
+216:     ?(error=true) s =
+217:   if error then begin
+218:     let fmt = Options.Output.get_fmt_diagnostic () in
+219:     Format.fprintf fmt "@[<v 0>";
+220:     if header then
+221:       if Options.get_output_with_colors () then
+222:         Format.fprintf fmt "@[<v 7>@{<fg_red>@{<bold>[Error]@}@}"
+223:       else
+224:         Format.fprintf fmt "@[<v 7>[Error]";
+225:     if flushed || Options.get_output_with_forced_flush ()
+226:     then Format.kfprintf flush fmt s else Format.fprintf fmt s
+227:   end
+228:   else Format.ifprintf Format.err_formatter s
+229:
+230: let print_wrn ?(flushed=true) ?(header=(Options.get_output_with_headers ()))
+231:     ?(warning=true) s =
+232:   if Options.get_warning_as_error () then
+233:     print_err ~flushed ~header ~error:warning s
+234:   else
+235:   if warning then begin
+236:     let fmt = Options.Output.get_fmt_diagnostic () in
+237:     Format.fprintf fmt "@[<v 0>%s" (pp_smt clean_wrn_print);
+238:     if header then
+239:       if Options.get_output_with_colors () then
+240:         Format.fprintf fmt "@[<v 10>@{<fg_orange>@{<bold>[Warning]@}@} "
+241:       else
+242:         Format.fprintf fmt "@[<v 10>[Warning] " ;
+243:     if flushed || Options.get_output_with_forced_flush ()
+244:     then Format.kfprintf flush fmt s else Format.fprintf fmt s
+245:   end
+246:   else Format.ifprintf Format.err_formatter s
+247:
+248: let print_dbg ?(flushed=true) ?(header=(Options.get_output_with_headers ()))
+249:     ?(module_name="") ?(function_name="") s =
+250:   let fmt = Options.Output.get_fmt_diagnostic () in
+251:   if header then
+252:     Format.fprintf fmt "@[%s" (pp_smt clean_dbg_print)
+253:   else
+--- src/lib/util/printer.ml:298-399 ---
+298: let status_time t =
+299:   match t with
+300:     None -> ""
+301:   | Some t -> Format.sprintf " (%2.4f)" t
+302:
+303: let status_steps s =
+304:   match s with
+305:     None -> ""
+306:   | Some s -> Format.sprintf " (%d steps)" s
+307:
+308: let status_goal g =
+309:   match g with
+310:     None -> ""
+311:   | Some g -> Format.sprintf " (goal %s)" g
+312:
+313: let print_status_loc fmt loc =
+314:   match loc with
+315:   | None -> ()
+316:   | Some loc ->
+317:     if Options.get_answers_with_locs () then
+318:       Format.fprintf fmt "%a " Loc.report loc
+319:
+320: let print_status_value fmt (v,color) =
+321:   if Options.get_output_with_colors () then
+322:     Format.fprintf fmt  "@{<%s>@{<bold>%s@}@}" color v
+323:   else
+324:     Format.fprintf fmt "%s" v
+325:
+326: let print_status ?(validity_mode=true)
+327:     ?(formatter=Options.Output.get_fmt_regular ())
+328:     (validity_status,unsat_status,color) loc time steps goal =
+329:   pp_std_smt ();
+330:   let native_output_fmt, comment_if_smt2 =
+331:     if validity_mode then formatter, ""
+332:     else (Options.Output.get_fmt_diagnostic ()), (pp_smt clean_dbg_print)
+333:   in
+334:   (* print validity status. Commented and in debug fmt if in unsat mode *)
+335:   Format.fprintf native_output_fmt
+336:     "%s%a%a%s%s%s@."
+337:     comment_if_smt2
+338:     print_status_loc loc
+339:     print_status_value (validity_status,color)
+340:     (status_time time)
+341:     (status_steps steps)
+342:     (status_goal goal);
+343:   if not validity_mode && String.length unsat_status > 0 then begin
+344:     pp_std_smt ();
+345:     (* print SMT2 status if not in validity mode *)
+346:     Format.fprintf formatter "%a@." print_status_value (unsat_status,color)
+347:   end
+348:
+349: let print_status_unsat ?(validity_mode=true) loc
+350:     time steps goal =
+351:   print_status ~validity_mode ("Valid","unsat","fg_green") loc
+352:     time steps goal
+353:
+354: let print_status_sat ?(validity_mode=true) loc
+355:     time steps goal =
+356:   print_status ~validity_mode ("Invalid","sat","fg_blue") loc
+357:     time steps goal
+358:
+359: let print_status_inconsistent ?(validity_mode=true) loc
+360:     time steps goal =
+361:   print_status ~validity_mode
+362:     ~formatter:(Options.Output.get_fmt_diagnostic ())
+363:     ("Inconsistent assumption","","fg_red") loc
+364:     time steps goal
+365:
+366: let print_status_unknown ?(validity_mode=true) loc
+367:     time steps goal =
+368:   print_status ~validity_mode
+369:     ("I don't know","unknown","fg_cyan") loc
+370:     time steps goal
+371:
+372: (* TODO: The timeout answer doesn't exist in the SMT-LIB standard.
+373:    See issue https://github.com/OCamlPro/alt-ergo/issues/834. *)
+374: let print_status_timeout ?(validity_mode=true) loc
+375:     time steps goal =
+376:   print_status ~validity_mode
+377:     ("Timeout","unknown","fg_orange") loc
+378:     time steps goal
+379:
+380: let print_status_preprocess ?(validity_mode=true)
+381:     time steps =
+382:   print_status ~validity_mode
+383:     ~formatter:(Options.Output.get_fmt_diagnostic ())
+384:     ("Preprocessing","","fg_magenta") None
+385:     time steps None
+386:
+387: let print_smtlib_err ?(flushed=true) s =
+388:   (* The smtlib error messages are printed on the regular output. *)
+389:   pp_std_smt ();
+390:   let fmt = Options.Output.get_fmt_regular () in
+391:   let k fmt =
+392:     if flushed || Options.get_output_with_forced_flush () then
+393:       Format.fprintf fmt "\")@."
+394:     else
+395:       Format.fprintf fmt "\")"
+396:   in
+397:   Format.fprintf fmt "(error \"";
+398:   Format.kfprintf k fmt s
+399:
+--- src/lib/util/loc.ml:28-37 ---
+28: type t = Lexing.position * Lexing.position
+29:
+30: let dummy = Lexing.dummy_pos, Lexing.dummy_pos
+31:
+32: let report fmt ((b, e) : t)  =
+33:   let l = b.pos_lnum in
+34:   let fc = b.pos_cnum - b.pos_bol + 1 in
+35:   let lc = e.pos_cnum - b.pos_bol + 1 in
+36:   Format.fprintf fmt "File \"%s\", line %d, characters %d-%d:"
+37:     (Options.get_file()) l fc lc
+--- src/lib/util/steps.ml:28-52 ---
+28: (* Define the type of increment *)
+29: type incr_kind =
+30:   | Matching           (* Matching step increment *)
+31:   | Interval_Calculus  (* Arith : Interval Calculus increment *)
+32:   | Fourier            (* Arith : FourierMotzkin step increment *)
+33:   | Omega              (* Arith : number of omega procedure on  Real and Int *)
+34:   | Uf                 (* UF step increment *)
+35:   | Ac                 (* AC step reasoning *)
+36:   | CP                 (* Constraint propagation *)
+37:   | Th_assumed of int  (* Increment the counter for each term assumed in the
+38:                           theories environment *)
+39:
+40: let steps_bound = ref (Options.get_steps_bound ())
+41:
+42: let naive_steps = ref 0
+43: let steps = ref 0
+44: let mult_f = ref 0
+45: let mult_m = ref 0
+46: let mult_s = ref 0
+47: let mult_uf = ref 0
+48: let mult_b = ref 0
+49: let mult_a = ref 0
+50: let mult_cp = ref 0
+51:
+52: let all_steps = Stack.create ()
+--- src/lib/util/steps.ml:75-122 ---
+75: (* Multipliers are here to homogeneize the global step counter *)
+76: let incr k =
+77:   begin
+78:     match k with
+79:     | Uf -> mult_uf := !mult_uf + 1;
+80:       if !mult_uf = 500 then
+81:         (steps := !steps + 1;
+82:          mult_uf := 0)
+83:     | Matching -> mult_m := !mult_m + 1;
+84:       if !mult_m = 100 then
+85:         (steps := !steps + 1;
+86:          mult_m := 0)
+87:     | Omega -> mult_s := !mult_s + 1;
+88:       if !mult_s = 2 then
+89:         (steps := !steps + 1;
+90:          mult_s := 0)
+91:     | Ac -> mult_a := !mult_a + 1;
+92:       if !mult_a = 1 then
+93:         (steps := !steps + 1;
+94:          mult_a := 0)
+95:     | Interval_Calculus -> mult_b := !mult_b + 1;
+96:       if !mult_b = 5 then
+97:         (steps := !steps + 1;
+98:          mult_b := 0)
+99:     | Fourier -> mult_f := !mult_f + 1;
+100:       if !mult_f = 40 then
+101:         (steps := !steps + 1;
+102:          mult_f := 0);
+103:     | CP -> mult_cp := !mult_cp + 1;
+104:       if !mult_cp = 100 then
+105:         (steps := !steps + 1;
+106:          mult_cp := 0);
+107:     | Th_assumed n ->
+108:       (* Since n refers to the number of terms sent to the theories no
+109:        * multiplier is needed here *)
+110:       if n < 0 then
+111:         Errors.run_error (Invalid_steps_count n);
+112:       naive_steps := !naive_steps + n;
+113:   end;
+114:   if !steps_bound <> -1
+115:   && (!steps > !steps_bound || !naive_steps > !steps_bound) then
+116:     begin
+117:       let n = max !naive_steps !steps in
+118:       (* CR bclement: This is preserved legacy behavior, but figure out in
+119:          which situation we can have [n <= 0]. *)
+120:       let n = if n > 0 then n else !steps_bound in
+121:       raise (Util.Step_limit_reached n)
+122:     end
+--- src/lib/util/steps.ml:156-179 ---
+156: (* Return the max steps between naive and refine steps counting. Both counter
+157:  * are compute at execution. The first one count the number of terms sent to the
+158:  * theories environment, the second one count steps depending of the theories
+159:  * used *)
+160: let get_steps () =
+161:   max !naive_steps !steps
+162:
+163: (** Functions useful for case-split steps *)
+164: let cs_steps_cpt = ref 0
+165: let cs_steps () = !cs_steps_cpt
+166: let incr_cs_steps () = Stdlib.incr cs_steps_cpt
+167:
+168: let set_steps_bound i =
+169:   if get_steps () > i  && i >= 0 then invalid_arg "Steps.set_steps_bound";
+170:   steps_bound := i
+171:
+172: let get_steps_bound () = !steps_bound
+173:
+174: let apply_without_step_limit cont =
+175:   let bound = !steps_bound in
+176:   steps_bound := -1;
+177:   match cont () with
+178:   | res ->         steps_bound := bound; res
+179:   | exception e -> steps_bound := bound; raise e
+--- src/lib/reasoners/sat_solver_sig.ml:28-65 ---
+28: (* We put an ml file for the module type, to avoid issues when
+29:    building the lib *)
+30:
+31: type timeout_reason =
+32:   | Assume
+33:   | ProofSearch
+34:   | ModelGen
+35:
+36: let pp_smt_timeout_reason ppf = function
+37:   | Assume -> Fmt.pf ppf ":assume"
+38:   | ProofSearch -> Fmt.pf ppf ":proof-search"
+39:   | ModelGen -> Fmt.pf ppf ":model-gen"
+40:
+41: let pp_ae_timeout_reason ppf = function
+42:   | Assume -> Fmt.pf ppf "Assume"
+43:   | ProofSearch -> Fmt.pf ppf "ProofSearch"
+44:   | ModelGen -> Fmt.pf ppf "ModelGen"
+45:
+46: type unknown_reason =
+47:   | Incomplete
+48:   | Memout
+49:   | Step_limit of int
+50:   | Timeout of timeout_reason
+51:
+52: let pp_smt_unknown_reason ppf = function
+53:   | Incomplete -> Fmt.pf ppf "incomplete"
+54:   | Memout -> Fmt.pf ppf "memout"
+55:   | Step_limit i -> Fmt.pf ppf "(:step-limit %i)" i
+56:   | Timeout t -> Fmt.pf ppf "(:timeout %a)" pp_smt_timeout_reason t
+57:
+58: let pp_ae_unknown_reason_opt ppf = function
+59:   | None -> Fmt.pf ppf "Decided"
+60:   | Some Incomplete -> Fmt.pf ppf "Incomplete"
+61:   | Some Memout -> Fmt.pf ppf "Memout"
+62:   | Some Step_limit i -> Fmt.pf ppf "StepLimit:%i" i
+63:   | Some Timeout t -> Fmt.pf ppf "Timeout:%a" pp_ae_timeout_reason t
+64:
+65: module type S = sig

@@ -1,0 +1,30 @@
+{
+  "candidate_revision": "80cf48b3b878b416dea7500a060132c024bf69c4",
+  "source_files": 10,
+  "repository_inputs": 4,
+  "source_excerpts": 25,
+  "payload_constants": {
+    "location_fixed": 29,
+    "location_following_space": 1,
+    "validity_status": 23,
+    "time_wrapper": 3,
+    "steps_wrapper": 9,
+    "goal_wrapper": 8,
+    "smt_status": 7
+  },
+  "status_data_payload_formula": "F + G + 4D + T + 80",
+  "represented_signed_63_bit_D": 20,
+  "represented_smt_goal_G": 22,
+  "conditional_status_payload_formula": "F + T + 182",
+  "includes_formatter_or_other_output": false,
+  "status_occurrences_upper": null,
+  "formatter_H": null,
+  "complete_solver_file_q": null,
+  "actual_O": null,
+  "native_source_correspondence_established": false,
+  "complete_output_family_inventory": false,
+  "global_budget_reset": false,
+  "new_solver_runs": 0,
+  "issue_119_complete": false,
+  "issue_153_complete": false
+}
