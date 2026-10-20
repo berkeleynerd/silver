@@ -1,0 +1,33 @@
+{
+  "archives": {
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96",
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "context_files": {
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43",
+    "docs/evidence/retained-server-request-storage-20261020/native-inputs.json": "01b9f18ea05ac0b626c55c1cdc47bf920c412610de5503c68d842ea19ca48385",
+    "docs/evidence/retained-server-request-storage-20261020/result.json": "e381068a86071ee6b67d07a1b970303856f1ca6864ec495ba6ff96e6f25fcaf6",
+    "docs/evidence/retained-solver-request-bytes-20261020/projection.json": "a081ebf14988d6f4d922c1fbcd8e434e6bb5f30c62bb958c5645b878c58bcf5d",
+    "docs/research/retained-adapter-outcome-interface.md": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3",
+    "docs/research/retained-adapter-protocol-storage.md": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f",
+    "docs/research/retained-server-owned-storage.md": "0f573aaca229276b3651455c167bee507881e7a50e959e61b083a04db5cfbef4",
+    "docs/research/retained-server-request-storage.md": "9c003d63730a4e221f730df61b0081772daf240e43bf94c9835afd1ca8d62dd2",
+    "docs/research/retained-solver-request-bytes.md": "9d722ac0f33e3fb59f5ff5e998bdf31e8cecf826593bd30a6bcb6d7d710337ca",
+    "docs/research/retained-why-server-buffer-copy.md": "228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49"
+  },
+  "packet_files": {
+    "README.md": "7a19134adbacbfd800094addc2c879af97c78b212da6c9a4fddeae42958867e4",
+    "check.py": "8f4923aabc4826de2da570a024e98ae48b4865c76fc56d9757097206e57e90a7",
+    "installed-disassembly.txt": "d764b2b2c17a6dd1d9c9107bcc77bfd9cb3ebb77bd38fc887de73c0fd65cdac9",
+    "native-inputs.json": "6dc7b21949eeac4a3639e5371a2305476067265b84c9b6b863ec78731ee2bbf4",
+    "native-symbol-inventory.json": "fe04c9164d27b88253b9f76f2daa18f275be9a3adf1a27e93650e29835f41d10",
+    "project.py": "70ed927d9734f2b752052f7eff165c96c08e55d5ecdab8e3f2f2218d44015039",
+    "projection.json": "b6d1df587565da1b025c83f5ccb99b3d4586ac6e11fc52c9abceb23f20ef3021",
+    "source-inventory.json": "2e032364ef82797a95a2e1792cfab68a5752a5f87ea19571118fa260e4e2c839",
+    "source-witnesses.json": "e7c55987a6c8bd8b68a61f7adabc432bfe8254f1f8038179e3d4e72030475858"
+  }
+}

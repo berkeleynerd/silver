@@ -1,0 +1,366 @@
+{
+  "backend_response_allocated_C_coefficient": 459,
+  "backend_response_allocated_C_constant": 23628,
+  "complete_q": null,
+  "historical_capture_topology": [
+    {
+      "captured_getcwd": null,
+      "client_socket_argument": "/tmp/silver-r53-rest-20261020/put_line/server.sock",
+      "domain": "put_line",
+      "server_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+        "--socket",
+        "server.sock",
+        "--single-client",
+        "-j",
+        "12"
+      ],
+      "server_pid": 22225,
+      "simultaneous_five_server_capture_claimed": false,
+      "socket_argument_bytes": 11
+    },
+    {
+      "captured_getcwd": null,
+      "client_socket_argument": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/put/server.sock",
+      "domain": "put",
+      "server_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+        "--socket",
+        "server.sock",
+        "--single-client",
+        "-j",
+        "12"
+      ],
+      "server_pid": 22513,
+      "simultaneous_five_server_capture_claimed": false,
+      "socket_argument_bytes": 11
+    },
+    {
+      "captured_getcwd": null,
+      "client_socket_argument": "/tmp/silver-r53-20261020-a3/first_or_default/server.sock",
+      "domain": "first_or_default",
+      "server_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+        "--socket",
+        "server.sock",
+        "--single-client",
+        "-j",
+        "12"
+      ],
+      "server_pid": 21854,
+      "simultaneous_five_server_capture_claimed": false,
+      "socket_argument_bytes": 11
+    },
+    {
+      "captured_getcwd": null,
+      "client_socket_argument": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/is_message/server.sock",
+      "domain": "is_message",
+      "server_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+        "--socket",
+        "server.sock",
+        "--single-client",
+        "-j",
+        "12"
+      ],
+      "server_pid": 22642,
+      "simultaneous_five_server_capture_claimed": false,
+      "socket_argument_bytes": 11
+    },
+    {
+      "captured_getcwd": null,
+      "client_socket_argument": "/tmp/silver-r53-rest-20261020/input_is_valid/server.sock",
+      "domain": "input_is_valid",
+      "server_argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+        "--socket",
+        "server.sock",
+        "--single-client",
+        "-j",
+        "12"
+      ],
+      "server_pid": 22211,
+      "simultaneous_five_server_capture_claimed": false,
+      "socket_argument_bytes": 11
+    }
+  ],
+  "imported_terms_once": {
+    "parent_exec_argv": "8*sum_d N_d*(m_d+2)",
+    "parsed_requests": "sum_d N_d*(L_d+8*m_d)+57714",
+    "receive_backing": "sum_d 2*R(M_d)",
+    "response_allocated_buffers": "sum_d N_d*(C_server(d)+11+2*d_d+35)"
+  },
+  "known_library_owned_payload_only": {
+    "shared_current_dir": "C+1",
+    "shared_socket_copies": "2*(S+1)"
+  },
+  "native_sizes": {
+    "client": 24,
+    "list": 24,
+    "list_key": 4,
+    "pointer": 8,
+    "pollfd": 8,
+    "process": 24,
+    "queue": 24,
+    "readbuf": 24,
+    "writebuf": 32
+  },
+  "no_new_request_ID_copy": true,
+  "no_new_send_buffer_copy": true,
+  "production_adopted": false,
+  "remaining_distinct_owners": [
+    "stock executable/shared-library mappings, loader/runtime baseline and stack/signal-stack envelope",
+    "kernel socket buffers/FD tables/listeners/self-pipes and filesystem metadata",
+    "raw solver/output files (at most one newly created path per run, contents unbounded here)",
+    "child/fork/COW/exec/solver/adapter physical memory",
+    "proxy/control/canonical/log/history SPARK representation and refinement",
+    "Why3-side allocations and captured-single-client to prospective-shared-endpoint successful-prefix transfer"
+  ],
+  "remaining_library_allocation_summands": [
+    "G_getcwd(C) once per server, including returned capacity and call temporaries",
+    "2*D_strdup(S) per server, including both returned copies and call temporaries",
+    "bounded-call library/stdio formatting/error/exit/getopt/native-service storage, with selected library/source correspondence",
+    "allocator metadata, retained arenas, size-class rounding and fragmentation for all charged object families"
+  ],
+  "scope": "selected direct stock C allocation/storage families under fixed intact-owner interface; library service allocations separate",
+  "selected_parallel_control_lines": 0,
+  "shared_direct_allocation_bound": "sum_d N_d*(L_d+8*m_d)+57714 + 8*sum_d N_d*(m_d+2) + sum_d 2*R(M_d) + 41536 + sum_d N_d*(C+11+2*d_d+35) + 1016 + 459*(C+36)",
+  "source_semantics_machine_proved": false,
+  "topologies": {
+    "historical_singletons": {
+      "client_control_bytes": 520,
+      "direct_new_control_and_process_bytes": 14016,
+      "fixed_new_control_bytes": 3000,
+      "getcwd_service_calls": 5,
+      "partition": [
+        [
+          "put_line"
+        ],
+        [
+          "put"
+        ],
+        [
+          "first_or_default"
+        ],
+        [
+          "is_message"
+        ],
+        [
+          "input_is_valid"
+        ]
+      ],
+      "per_client_controls": {
+        "client": 24,
+        "readbuf": 24,
+        "response_queue": 24,
+        "writebuf": 32
+      },
+      "process_record_cumulative_bytes": 11016,
+      "process_record_live_bytes_upper": 1152,
+      "response_ring_capacities": [
+        384,
+        384,
+        192,
+        24,
+        12
+      ],
+      "ring_old_new_backing_bytes": 38336,
+      "server_count": 5,
+      "servers": [
+        {
+          "J": 12,
+          "accepted_connections_upper": 1,
+          "attempts": 192,
+          "client_list_capacity": 12,
+          "current_dir_payload_bytes": "C_s+1",
+          "domains": [
+            "put_line"
+          ],
+          "fixed_controls_and_list_poll_backing_bytes": 496,
+          "getcwd_service_calls": 1,
+          "list_or_poll_resize_entries": 0,
+          "output_path_cumulative_bytes": "192*(C_s+12)",
+          "output_path_live_bytes_upper": "12*(C_s+12)",
+          "poll_capacity": 14,
+          "poll_entries_upper": 3,
+          "process_list_capacity": 12,
+          "process_record_cumulative_bytes": 4608,
+          "process_record_live_bytes_upper": 288,
+          "request_queue_controls_peak": 2,
+          "request_ring_capacity": 200,
+          "socket_copy_payload_bytes": "2*(S_s+1)",
+          "strdup_service_calls": 2,
+          "temporary_request_queue_constructions_upper": 193
+        },
+        {
+          "J": 12,
+          "accepted_connections_upper": 1,
+          "attempts": 159,
+          "client_list_capacity": 12,
+          "current_dir_payload_bytes": "C_s+1",
+          "domains": [
+            "put"
+          ],
+          "fixed_controls_and_list_poll_backing_bytes": 496,
+          "getcwd_service_calls": 1,
+          "list_or_poll_resize_entries": 0,
+          "output_path_cumulative_bytes": "159*(C_s+12)",
+          "output_path_live_bytes_upper": "12*(C_s+12)",
+          "poll_capacity": 14,
+          "poll_entries_upper": 3,
+          "process_list_capacity": 12,
+          "process_record_cumulative_bytes": 3816,
+          "process_record_live_bytes_upper": 288,
+          "request_queue_controls_peak": 2,
+          "request_ring_capacity": 200,
+          "socket_copy_payload_bytes": "2*(S_s+1)",
+          "strdup_service_calls": 2,
+          "temporary_request_queue_constructions_upper": 160
+        },
+        {
+          "J": 12,
+          "accepted_connections_upper": 1,
+          "attempts": 96,
+          "client_list_capacity": 12,
+          "current_dir_payload_bytes": "C_s+1",
+          "domains": [
+            "first_or_default"
+          ],
+          "fixed_controls_and_list_poll_backing_bytes": 496,
+          "getcwd_service_calls": 1,
+          "list_or_poll_resize_entries": 0,
+          "output_path_cumulative_bytes": "96*(C_s+12)",
+          "output_path_live_bytes_upper": "12*(C_s+12)",
+          "poll_capacity": 14,
+          "poll_entries_upper": 3,
+          "process_list_capacity": 12,
+          "process_record_cumulative_bytes": 2304,
+          "process_record_live_bytes_upper": 288,
+          "request_queue_controls_peak": 2,
+          "request_ring_capacity": 100,
+          "socket_copy_payload_bytes": "2*(S_s+1)",
+          "strdup_service_calls": 2,
+          "temporary_request_queue_constructions_upper": 97
+        },
+        {
+          "J": 12,
+          "accepted_connections_upper": 1,
+          "attempts": 9,
+          "client_list_capacity": 12,
+          "current_dir_payload_bytes": "C_s+1",
+          "domains": [
+            "is_message"
+          ],
+          "fixed_controls_and_list_poll_backing_bytes": 496,
+          "getcwd_service_calls": 1,
+          "list_or_poll_resize_entries": 0,
+          "output_path_cumulative_bytes": "9*(C_s+12)",
+          "output_path_live_bytes_upper": "9*(C_s+12)",
+          "poll_capacity": 14,
+          "poll_entries_upper": 3,
+          "process_list_capacity": 12,
+          "process_record_cumulative_bytes": 216,
+          "process_record_live_bytes_upper": 216,
+          "request_queue_controls_peak": 2,
+          "request_ring_capacity": 100,
+          "socket_copy_payload_bytes": "2*(S_s+1)",
+          "strdup_service_calls": 2,
+          "temporary_request_queue_constructions_upper": 10
+        },
+        {
+          "J": 12,
+          "accepted_connections_upper": 1,
+          "attempts": 3,
+          "client_list_capacity": 12,
+          "current_dir_payload_bytes": "C_s+1",
+          "domains": [
+            "input_is_valid"
+          ],
+          "fixed_controls_and_list_poll_backing_bytes": 496,
+          "getcwd_service_calls": 1,
+          "list_or_poll_resize_entries": 0,
+          "output_path_cumulative_bytes": "3*(C_s+12)",
+          "output_path_live_bytes_upper": "3*(C_s+12)",
+          "poll_capacity": 14,
+          "poll_entries_upper": 3,
+          "process_list_capacity": 12,
+          "process_record_cumulative_bytes": 72,
+          "process_record_live_bytes_upper": 72,
+          "request_queue_controls_peak": 2,
+          "request_ring_capacity": 100,
+          "socket_copy_payload_bytes": "2*(S_s+1)",
+          "strdup_service_calls": 2,
+          "temporary_request_queue_constructions_upper": 4
+        }
+      ],
+      "socket_copy_payload_for_S_11": 120,
+      "strdup_service_calls": 10
+    },
+    "prospective_shared": {
+      "client_control_bytes": 520,
+      "direct_new_control_and_process_bytes": 12032,
+      "fixed_new_control_bytes": 1016,
+      "getcwd_service_calls": 1,
+      "partition": [
+        [
+          "put_line",
+          "put",
+          "first_or_default",
+          "is_message",
+          "input_is_valid"
+        ]
+      ],
+      "per_client_controls": {
+        "client": 24,
+        "readbuf": 24,
+        "response_queue": 24,
+        "writebuf": 32
+      },
+      "process_record_cumulative_bytes": 11016,
+      "process_record_live_bytes_upper": 288,
+      "response_ring_capacities": [
+        384,
+        384,
+        192,
+        24,
+        12
+      ],
+      "ring_old_new_backing_bytes": 41536,
+      "server_count": 1,
+      "servers": [
+        {
+          "J": 12,
+          "accepted_connections_upper": 5,
+          "attempts": 459,
+          "client_list_capacity": 12,
+          "current_dir_payload_bytes": "C_s+1",
+          "domains": [
+            "put_line",
+            "put",
+            "first_or_default",
+            "is_message",
+            "input_is_valid"
+          ],
+          "fixed_controls_and_list_poll_backing_bytes": 496,
+          "getcwd_service_calls": 1,
+          "list_or_poll_resize_entries": 0,
+          "output_path_cumulative_bytes": "459*(C_s+12)",
+          "output_path_live_bytes_upper": "12*(C_s+12)",
+          "poll_capacity": 14,
+          "poll_entries_upper": 7,
+          "process_list_capacity": 12,
+          "process_record_cumulative_bytes": 11016,
+          "process_record_live_bytes_upper": 288,
+          "request_queue_controls_peak": 2,
+          "request_ring_capacity": 800,
+          "socket_copy_payload_bytes": "2*(S_s+1)",
+          "strdup_service_calls": 2,
+          "temporary_request_queue_constructions_upper": 464
+        }
+      ],
+      "socket_copy_payload_for_S_11": 24,
+      "strdup_service_calls": 2
+    }
+  },
+  "total_run_entries": 459
+}
