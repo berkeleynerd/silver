@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "target": "f4425cc0b0ae2cf81596354efec38d7ecb8f8385",
+  "base": "1f510363e40a7c18558743bef0c28f41d06f83db",
+  "reviewer_selection": {
+    "model": "GPT-6 Astra",
+    "effort": "Extra High",
+    "runtime_confirmation": false
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "started_UTC": "2026-10-20T07:32:03.671963+00:00",
+  "finished_UTC": "2026-10-20T07:32:04.438362+00:00",
+  "elapsed_seconds": 0.7664217110000209,
+  "exact_target_files": [
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/README.md",
+      "bytes": 2484,
+      "sha256": "489c0646ee4823469b3795d0ffe2b3aaa0c837ac3a9160042a92c4c72b8f93c2"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/build_packet.py",
+      "bytes": 9106,
+      "sha256": "2792277909d680453cc7334c514f1aadc8aabf1a469a8c22aae0a2711d41e46e"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/check.py",
+      "bytes": 11167,
+      "sha256": "924b101c5aad60538409dece87a40efcd53a6cf6a843274a5803c4cfe5b917fb"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/control-ledger.json",
+      "bytes": 4455,
+      "sha256": "865af0548bbd36aa9f5bfe86beb0ab31354872b59e0a97947e5b29c470f7ae48"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/inputs.json",
+      "bytes": 2743,
+      "sha256": "3ea4cb71b85afa8888fb9a7b33b8076defa7706cbd2a1a5b4113e4dae54fefed"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/result.json",
+      "bytes": 997,
+      "sha256": "3c303f3f6fbc2f8ca1572d9bdd0854d9f1f0ed343d37356875dcf5c32f87d508"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/round.json",
+      "bytes": 2476,
+      "sha256": "c0712d904f38006fb58941f060e43bb0865b8755546fb708b0f8527329dbd819"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/source-excerpts.json",
+      "bytes": 112188,
+      "sha256": "52ef66ccebadaa3f9a81489fec9cbc2640447f888d47388df4257ee91da39d9e"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/transfer.py",
+      "bytes": 2113,
+      "sha256": "32c43619937abbcdcc007dad5b676ceb94a5d7dea8530f90f5ed63d5f0872818"
+    },
+    {
+      "path": "docs/research/retained-why-ordinary-ending-control.md",
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    }
+  ],
+  "focused_checker_executions": 1,
+  "focused_checker": {
+    "result": {
+      "scope": "ordinary-ending source/control transfer with uninstantiated forest bounds",
+      "input_files": 14,
+      "source_members": 25,
+      "exact_excerpts": 47,
+      "receiving_families": 20,
+      "source_anchor_checks": 33,
+      "no_receiving_catch_in": [
+        "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+        "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml"
+      ],
+      "protocol_model": {
+        "states": 24,
+        "edges": 48,
+        "maximum_save_callbacks": 2,
+        "handler_normal_return_edges": 0,
+        "simultaneous_signal_saves": 1,
+        "interpretation": "conditional finite model, not machine-checked source refinement"
+      },
+      "transfer_checks": 37,
+      "source_semantics_machine_proved": false,
+      "actual_forest_join_established": false,
+      "source_control_argument_review_status": "pending",
+      "complete_save_capacity_established": false,
+      "shape_dictionary_consistency_established": false,
+      "whole_pipeline_capacity_established": false,
+      "native_target_executions": 0
+    },
+    "check_seconds": 0.6096240800000032
+  },
+  "independent_transfer_cases": 66,
+  "signal_protocol_abstract": {
+    "third_save_reachable": false,
+    "max_saves_observed": 2
+  },
+  "ignore_premise_removed_abstract": {
+    "third_save_reachable": true,
+    "max_saves_observed": 3
+  },
+  "forbidden_Buffer_resumption_counterexample": {
+    "old_position": 100,
+    "nested_post_clear_bytes": 1,
+    "outer_append_bytes": 1,
+    "stale_position": 101,
+    "total_new_bytes": 2,
+    "interpretation": "abstract witness if no-return premise is removed, not an actual execution"
+  },
+  "source_refinement_machine_proved": false,
+  "actual_forest_join_established": false,
+  "complete_save_capacity_established": false,
+  "native_executions": 0,
+  "proof_executions": 0,
+  "broad_suite_executions": 0,
+  "token_and_cost_measurements": null
+}
