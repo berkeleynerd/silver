@@ -8,10 +8,10 @@ premature, the owner instructed **“Please continue.”** Resume
 complete capacity rule. [#153](https://github.com/berkeleynerd/silver/issues/153)
 remains an unfinished scoped child. The restarted live harness targets that
 complete-rule objective. The Round 47
-[stop report](research/retained-tool-capacity-stop.md) and
-[review](reviews/review-cvc5-output-closure-20261020.md) remain interim evidence;
+[stop report](https://github.com/berkeleynerd/silver/blob/651fa8e1a7c7c88dd27828ad8e2219f69b4f9f50/docs/research/retained-tool-capacity-stop.md) and
+[review](https://github.com/berkeleynerd/silver/blob/d15b2d54523904546c80049c344264686d64ae31/docs/reviews/review-cvc5-output-closure-20261020.md) remain interim evidence;
 their accepted findings do not complete #119. This supersedes the completion
-disposition in the historical entry immediately below.
+disposition recorded in the research branch; accepted technical findings remain unchanged.
 
 The next technical checkpoint assesses the complete supported quiet-option
 invocation/response route and independently classifies solver output as
