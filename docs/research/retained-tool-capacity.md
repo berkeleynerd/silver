@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 32 checkpoint](../evidence/retained-tool-rounds.md#round-32--selected-path-and-formatter-input-composition)
+The [Round 33 checkpoint](../evidence/retained-tool-rounds.md#round-33--lookup-formatter-construction-and-conditional-file-capacity)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -75,9 +75,14 @@ existing source/runtime and normal-service relation. The
 existing Format core and attempted String.concat construction; all five
 sentinel/container guards pass. Default usable outputs remain null without
 explicit external premises; service success and complete save capacity are not
-inferred. Whole-post-cut native/frame behavior remains a named external premise;
-restore-table lookup, accumulator/allocation/native layout, stack/GC/channel/path/
-error capacities remain open.
+inferred. Round 33 closes local restored-path traversal/index/frame obligations
+and selected static-format accumulator/annotation subtotals. The file/channel
+result bounds paths, records and offsets only under its explicit service
+contracts; actual positive-write progress attachment remains unestablished,
+and cached initial offsets require normal lseek returning zero. Whole-post-cut
+native/frame behavior remains a named external premise. Actual writer counts,
+writer arithmetic/recursive storage, aggregate allocation/native layout, whole
+stack/GC, service/error/exit capacities and complete save composition remain open.
 Preservation of raw formulas does not establish faithful shape/dictionary/
 prover-ID serialization after a caught nested save, and membership-to-global
 lookup can fail at an interrupted constructor prefix. Those failure paths retain

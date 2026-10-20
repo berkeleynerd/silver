@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 32 checkpoint](docs/evidence/retained-tool-rounds.md#round-32--selected-path-and-formatter-input-composition)
+[Round 33 checkpoint](docs/evidence/retained-tool-rounds.md#round-33--lookup-formatter-construction-and-conditional-file-capacity)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -80,9 +80,13 @@ path bound under the named source/runtime and normal-service relation. The
 attaches actual U at that conditional scope to the existing Format core and
 attempted String.concat construction; all five arithmetic guards pass. This
 does not establish service success or complete formatter/save capacity.
-Whole-interval native/frame behavior remains an explicit premise. Restore-table
-lookup, accumulator/allocation/native layout, stack/GC/channel/path/error capacity
-and complete composition remain open. #153 remains In progress. Later driver
+Round 33 additionally closes local restored-path lookup structure and selected
+static formatter-construction subtotals. Filename/channel/file-offset bounds
+are conditional: actual positive-write progress attachment remains open, and
+fresh cached offsets require normal lseek. Whole-interval native/frame behavior
+remains an explicit premise. Actual table-writer counts and storage, aggregate
+allocation/native layout, whole stack/GC, service/error/exit capacity and complete
+save composition remain open. #153 remains In progress. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups
 have documented resolutions and remain In review pending PR #121's merge.

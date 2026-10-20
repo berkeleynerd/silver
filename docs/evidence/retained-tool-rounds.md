@@ -3251,3 +3251,115 @@ correspondence, useful-domain comparison and final review.
 admission and installed tools/pins remain unchanged; production #88–#94 is
 unstarted and PR #121 remains draft/unmerged. No new owner decision, goal-status
 transition or CLI-memory update is claimed.
+
+## Round 33 — Lookup, formatter construction and conditional file capacity
+
+2026-10-20 UTC; #119 / #153 remain active. This round integrates three
+save-resource components at semantic aggregate `2a202a0407` and exact-input
+reconciliation `7017f71d3e`. It does not combine their subtotals into a complete
+save envelope. All three retain the one global budget of at most three saves
+across the selected post-cut interval, including nested and abandoned attempts.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Static formatter construction | `5ab8c5a72b` | `642bc12620` |
+| Conditional file/channel extents | `27a7786b9c` | Same commit |
+| Direct restored-path lookup | `8b799eeeca` | `2a202a0407` |
+
+The [lookup result](../research/retained-why-path-lookup-capacity.md) proves
+finite acyclic captured chains through every selected mutation prefix, safe
+array/tag indexing independent of stale size, and fixed direct-loop native
+frames. Distinct 32-byte cells imply a deliberately loose representation-only
+L≤2^59 bound. The practical bound L≤min(2^59,7+W) is available, but the actual
+post-cut fresh-publication count W remains unknown. The normal 459-attempt
+preparation envelope, selected key-domain size and path-payload bound cannot
+supply W. Writer arithmetic, recursive clean/copy, retained old arrays and
+allocator/GC capacity remain separate obligations.
+
+The [formatter result](../research/retained-why-save-format-accumulator.md)
+accounts for 29 fixed format sites, at most 26 main accumulator nodes and 27
+including annotations. Weighted call and box counts satisfy C≤8Q and O≤2Q.
+Accumulator/continuation requests are bounded by 128C+192(27C) bytes per save;
+annotation/parser requests by 208O. The output_acc own-frame subtotal is at
+most 6,528 bytes across three nested saves, excluding callers, runtime bridges
+and other frames. Data strings do not enlarge static format chains. Buffer,
+formatter/core, caller-closure and whole-runtime allocation/stack aggregation
+remain open.
+
+The [file/channel result](../research/retained-why-save-file-capacity.md)
+bounds names and backup paths, pathname-copy requests, new channel/descriptor
+attempts and per-description offset/buffer arithmetic. At most six new channel
+records across the global interval contribute 393,696 bytes. Loose shape-file
+totals fit the signed 64-bit offset representation; these are file extents,
+not single-string lengths or evidence that the physical writes succeed.
+
+Review exposed two service joins. A full-buffer Putch flushes only once, and
+the installed write wrapper has no active assertion rejecting a zero return
+for a positive count. The result now explicitly requires positive-write
+progress (or interruption/exception), keeps actual service attachment false,
+and withholds usable bounds without it even if every other premise holds.
+Fresh cached offsets also require normal lseek returning zero; the wrapper
+stores its unchecked result. These conditional-claim repairs do not discharge
+the service obligations or silently add assumptions to completed #119 assurance.
+Global channel-list/refcount, custom wrappers, allocator/GC, failed I/O and
+error/exit capacities remain open.
+
+### Review, verification and cost
+
+The [combined review](../reviews/review-save-capacity-round33-20261020.md)
+accepts all three components at their explicit scoped premises. Its exact
+aggregate and reconciliation inputs are recorded above and in the
+[integration packet](retained-why-save-round33-20261020/README.md).
+Review author freeze `c0b56377ce` is integrated as `524ed5cb80`.
+All **32 author files** reconcile, all **94 native pins** remain unchanged,
+and six new Python sources and 17 local author-document links check.
+The review's write-zero and unchecked-lseek findings were repaired before the
+file/channel author freeze; lookup and accumulator needed no further correction.
+
+Focused component checks retain 16 lookup source excerpts, 25 native bodies
+(5,776 instruction bytes plus a 16-byte closure), five initial topologies,
+378 tagged-index cases and 576 mutation-prefix challenges; 17 formatter source
+witnesses, 31 native bodies (9,072 bytes), 29 literal formats and four generated
+JSON comparisons; and 26 file/channel source witnesses, 19 native bodies
+(2,752 bytes), five cases and 30 missing-premise checks. Successful author
+checks took approximately 4.695 / 0.515 / 0.598 seconds respectively. The one
+combined reviewer checked each new packet once and retained those successes
+for final identity reconciliation. These checks corroborate the reviewed
+source arguments; they are not semantic machine proofs.
+
+No target execution, capture, disassembler, source fetch, solver, GNATprove,
+Lean, full suite or old broad replay occurred. Round-start managed status
+showed zero active runs, zero reserved workers and 745 historical runs.
+The two delegated authors and combined reviewer were selected Astra / Extra
+High; lead live settings and runtime introspection remain unavailable.
+No review subdelegation occurred. The report's substantive interval is
+11:46:19–12:06:29 UTC, 1,210 seconds including 477 seconds of explicit input
+waiting; final report packaging follows it. Per-agent tokens and monetary
+attribution remain unavailable.
+
+The observed harness interval **31,972,971 → 33,388,037 tokens** and
+**32,345 → 33,665 time-counter seconds** gives deltas **1,415,066** and **1,320**.
+It includes author work, integration and ongoing review but ends before final
+publication; it is not full-round or per-agent/input-output usage. These
+observations do not establish causal model efficiency. Compared with Round 32,
+this round closes local lookup structure and formatter construction and makes
+the file/channel service frontier explicit. Complete save composition remains
+the integration target; another inventory of accepted components is unnecessary.
+
+### Next concrete obligations
+
+Derive actual interrupted preparation/writer counts and writer arithmetic/
+recursive-storage bounds; aggregate simultaneous and lifetime allocation,
+native layout, whole stack/GC/runtime, global channels/refcounts, normal and
+failed services, errors and exit. Attach the positive-write and lseek service
+contracts or revise the affected result. Integrate one complete save result
+for #153. The parent still retains downstream driver/printer/solver/server/
+result/report, fixed-library and variable-source/current-grammar coverage,
+decidable whole-rule composition/correspondence, useful-domain comparison and
+final review.
+
+#119/#153 remain active and In progress. The subjective **80–85%** estimate
+(about **82%**) is unchanged and is not a remaining-time forecast. Oracle,
+admission and installed tools/pins remain unchanged; production #88–#94 is
+unstarted and PR #121 remains draft/unmerged. No new owner decision,
+goal-status transition or CLI-memory update is claimed.
