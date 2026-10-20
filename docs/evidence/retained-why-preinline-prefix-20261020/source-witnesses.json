@@ -1,0 +1,338 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 18,
+    "last_line": 39,
+    "text": "  vs_name : ident;\n  vs_ty   : ty;\n}\n\nmodule Vsym = MakeMSHW (struct\n  type t = vsymbol\n  let tag vs = vs.vs_name.id_tag\nend)\n\nmodule Svs = Vsym.S\nmodule Mvs = Vsym.M\nmodule Hvs = Vsym.H\nmodule Wvs = Vsym.W\n\nlet vs_equal : vsymbol -> vsymbol -> bool = (==)\nlet vs_hash vs = id_hash vs.vs_name\nlet vs_compare vs1 vs2 = id_compare vs1.vs_name vs2.vs_name\n\nlet create_vsymbol name ty = {\n  vs_name = id_register name;\n  vs_ty   = ty;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 404,
+    "last_line": 424,
+    "text": "let t_similar t1 t2 =\n  oty_equal t1.t_ty t2.t_ty &&\n  match t1.t_node, t2.t_node with\n    | Tvar v1, Tvar v2 -> vs_equal v1 v2\n    | Tconst c1, Tconst c2 -> Constant.compare_const ~structural:true c1 c2 = 0\n    | Tapp (s1,l1), Tapp (s2,l2) -> ls_equal s1 s2 && Lists.equal (==) l1 l2\n    | Tif (f1,t1,e1), Tif (f2,t2,e2) -> f1 == f2 && t1 == t2 && e1 == e2\n    | Tlet (t1,bv1), Tlet (t2,bv2) -> t1 == t2 && bv1 == bv2\n    | Tcase (t1,bl1), Tcase (t2,bl2) -> t1 == t2 && Lists.equal (==) bl1 bl2\n    | Teps bv1, Teps bv2 -> bv1 == bv2\n    | Tquant (q1,bv1), Tquant (q2,bv2) -> q1 = q2 && bv1 == bv2\n    | Tbinop (o1,f1,g1), Tbinop (o2,f2,g2) -> o1 = o2 && f1 == f2 && g1 == g2\n    | Tnot f1, Tnot f2 -> f1 == f2\n    | Ttrue, Ttrue | Tfalse, Tfalse -> true\n    | _, _ -> false\n\nlet t_hash ~trigger ~attr ~const t =\n  let rec pat_hash bnd bv p = match p.pat_node with\n    | Pwild -> bnd, bv, 0\n    | Pvar v -> bnd + 1, Mvs.add v bnd bv, bnd + 1\n    | Papp (s,l) ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 538,
+    "last_line": 554,
+    "text": "let t_equal_strict t1 t2 =\n  t_compare ~trigger:true ~attr:true ~loc:true ~const:true t1 t2 = 0\nlet t_compare_strict t1 t2 =\n  t_compare ~trigger:true ~attr:true ~loc:true ~const:true t1 t2\n\nmodule Mterm_strict =\n  (val (mterm_generic ~trigger:true ~attr:true ~loc:true ~const:true))\nmodule Sterm_strict =\n  (val (sterm_generic ~trigger:true ~attr:true ~loc:true ~const:true))\nmodule Hterm_strict=\n  (val (hterm_generic ~trigger:true ~attr:true ~loc:true ~const:true))\n\nlet t_hash t =\n  t_hash ~trigger:false ~attr:false ~const:false t\nlet t_equal t1 t2 =\n  t_compare ~trigger:false ~attr:false ~loc:false ~const:false t1 t2 = 0\nlet t_compare t1 t2 =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 597,
+    "last_line": 658,
+    "text": "\nlet bnd_map_fold fn acc bv =\n  let acc,s = Mvs.mapi_fold (fun _ t a -> fn a t) bv.bv_subst acc in\n  acc, { bv with bv_subst = s }\n\n(* hash-consing for terms and formulas *)\n\nlet vars_union s1 s2 = Mvs.union (fun _ m n -> Some (m + n)) s1 s2\n\nlet add_b_vars s (_,b,_) = vars_union s b.bv_vars\n\nlet rec t_vars t = match t.t_node with\n  | Tvar v -> Mvs.singleton v 1\n  | Tconst _ -> Mvs.empty\n  | Tapp (_,tl) -> List.fold_left add_t_vars Mvs.empty tl\n  | Tif (f,t,e) -> add_t_vars (add_t_vars (t_vars f) t) e\n  | Tlet (t,bt) -> add_b_vars (t_vars t) bt\n  | Tcase (t,bl) -> List.fold_left add_b_vars (t_vars t) bl\n  | Teps (_,b,_) -> b.bv_vars\n  | Tquant (_,(_,b,_,_)) -> b.bv_vars\n  | Tbinop (_,f1,f2) -> add_t_vars (t_vars f1) f2\n  | Tnot f -> t_vars f\n  | Ttrue | Tfalse -> Mvs.empty\n\nand add_t_vars s t = vars_union s (t_vars t)\n\nlet add_nt_vars _ n t s = vars_union s\n  (if n = 1 then t_vars t else Mvs.map (( * ) n) (t_vars t))\n\n(* hash-consing constructors for terms *)\n\nlet mk_term n ty = {\n  t_node  = n;\n  t_attrs = Sattr.empty;\n  t_loc   = None;\n  t_ty    = ty;\n}\n\nlet t_var v         = mk_term (Tvar v) (Some v.vs_ty)\nlet t_const c ty    = mk_term (Tconst c) (Some ty)\nlet t_app f tl ty   = mk_term (Tapp (f, tl)) ty\nlet t_if f t1 t2    = mk_term (Tif (f, t1, t2)) t2.t_ty\nlet t_let t1 bt ty  = mk_term (Tlet (t1, bt)) ty\nlet t_case t1 bl ty = mk_term (Tcase (t1, bl)) ty\nlet t_eps bf ty     = mk_term (Teps bf) ty\nlet t_quant q qf    = mk_term (Tquant (q, qf)) None\nlet t_binary op f g = mk_term (Tbinop (op, f, g)) None\nlet t_not f         = mk_term (Tnot f) None\nlet t_true          = mk_term (Ttrue) None\nlet t_false         = mk_term (Tfalse) None\n\nlet t_attr_set ?loc l t = { t with t_attrs = l; t_loc = loc }\n\nlet t_attr_add l t = { t with t_attrs = Sattr.add l t.t_attrs }\n\nlet t_attr_remove l t = { t with t_attrs = Sattr.remove l t.t_attrs }\n\nlet t_attr_copy s t =\n  if s == t then s else\n  if t_similar s t && Sattr.is_empty t.t_attrs && t.t_loc = None then s else\n  let attrs = Sattr.union s.t_attrs t.t_attrs in\n  let loc = if t.t_loc = None then s.t_loc else t.t_loc in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 739,
+    "last_line": 862,
+    "text": "let rec t_subst_unsafe m t =\n  let t_subst t = t_subst_unsafe m t in\n  let b_subst (u,b,e as bv) =\n    if Mvs.set_disjoint m b.bv_vars then bv else\n    (u, bv_subst_unsafe m b, e) in\n  match t.t_node with\n  | Tvar u ->\n      t_attr_copy t (Mvs.find_def t u m)\n  | Tlet (e, bt) ->\n      let d = t_subst e in\n      t_attr_copy t (t_let d (b_subst bt) t.t_ty)\n  | Tcase (e, bl) ->\n      let d = t_subst e in\n      let bl = List.map b_subst bl in\n      t_attr_copy t (t_case d bl t.t_ty)\n  | Teps bf ->\n      t_attr_copy t (t_eps (b_subst bf) t.t_ty)\n  | Tquant (q, (vl,b,tl,f1 as bq)) ->\n      let bq =\n        if Mvs.set_disjoint m b.bv_vars then bq else\n        (vl,bv_subst_unsafe m b,tl,f1) in\n      t_attr_copy t (t_quant q bq)\n  | _ ->\n      t_map_unsafe t_subst t\n\nand bv_subst_unsafe m b =\n  (* restrict m to the variables free in b *)\n  let m = Mvs.set_inter m b.bv_vars in\n  (* if m is empty, return early *)\n  if Mvs.is_empty m then b else\n  (* remove from b.bv_vars the variables replaced by m *)\n  let s = Mvs.set_diff b.bv_vars m in\n  (* add to b.bv_vars the free variables added by m *)\n  let s = Mvs.fold2_inter add_nt_vars b.bv_vars m s in\n  (* apply m to the terms in b.bv_subst *)\n  let h = Mvs.map (t_subst_unsafe m) b.bv_subst in\n  (* join m to b.bv_subst *)\n  let h = Mvs.set_union h m in\n  (* reconstruct b *)\n  { bv_vars = s ; bv_subst = h }\n\nlet t_subst_unsafe m t =\n  if Mvs.is_empty m then t else t_subst_unsafe m t\n\n(* close bindings *)\n\nlet bnd_new s = { bv_vars = s ; bv_subst = Mvs.empty }\n\nlet t_close_bound v t = (v, bnd_new (Mvs.remove v (t_vars t)), t)\n\nlet t_close_branch p t = (p, bnd_new (Mvs.set_diff (t_vars t) p.pat_vars), t)\n\nlet t_close_quant vl tl f =\n  let del_v s v = Mvs.remove v s in\n  let s = tr_fold add_t_vars (t_vars f) tl in\n  let s = List.fold_left del_v s vl in\n  (vl, bnd_new s, tl, t_prop f)\n\n(* open bindings *)\n\nlet fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f\n\nlet t_clone_bound_id ?loc ?attrs (v,_,_) =\n  id_clone ?loc ?attrs v.vs_name\n\n(** open bindings with optimized closing callbacks *)\n\nlet t_open_bound_cb tb =\n  let v, t = t_open_bound tb in\n  let close v' t' =\n    if t == t' && vs_equal v v' then tb else t_close_bound v' t'\n  in\n  v, t, close\n\nlet t_open_branch_cb tbr =\n  let p, t = t_open_branch tbr in\n  let close p' t' =\n    if t == t' && p == p' then tbr else t_close_branch p' t'\n  in\n  p, t, close\n\nlet t_open_quant_cb fq =\n  let vl, tl, f = t_open_quant fq in\n  let close vl' tl' f' =\n    if f == f' &&\n      Lists.equal (Lists.equal ((==) : term -> term -> bool)) tl tl' &&\n      Lists.equal vs_equal vl vl'\n    then fq else t_close_quant vl' tl' f'\n  in\n  vl, tl, f, close\n\n(* retrieve bound identifiers (useful to detect sharing) *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1012,
+    "last_line": 1020,
+    "text": "let ps_equ =\n  let v = ty_var (create_tvsymbol (id_fresh \"a\")) in\n  create_psymbol (id_fresh (op_infix \"=\")) [v; v]\n\nlet ps_ignore =\n  let v = ty_var (create_tvsymbol (id_fresh \"a\")) in\n  create_psymbol (id_fresh \"ignore'term\") [v]\n\nlet t_equ t1 t2 = ps_app ps_equ [t1; t2]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1177,
+    "last_line": 1209,
+    "text": "let rec t_gen_fold fnT fnL acc t =\n  let fn = t_gen_fold fnT fnL in\n  let acc = Opt.fold fnT acc t.t_ty in\n  match t.t_node with\n  | Tconst _ | Tvar _ -> acc\n  | Tapp (f, tl) -> List.fold_left fn (fnL acc f) tl\n  | Tif (f, t1, t2) -> fn (fn (fn acc f) t1) t2\n  | Tlet (t1, (_,b,t2)) -> fn (bnd_fold fn (fn acc t1) b) t2\n  | Tcase (t1, bl) ->\n      let branch acc (p,b,t) =\n        fn (pat_gen_fold fnT fnL (bnd_fold fn acc b) p) t in\n      List.fold_left branch (fn acc t1) bl\n  | Teps (_,b,f) -> fn (bnd_fold fn acc b) f\n  | Tquant (_, (vl,b,tl,f1)) ->\n      (* these variables (and their types) may never appear below *)\n      let acc = List.fold_left (fun a v -> fnT a v.vs_ty) acc vl in\n      fn (tr_fold fn (bnd_fold fn acc b) tl) f1\n  | Tbinop (_, f1, f2) -> fn (fn acc f1) f2\n  | Tnot f1 -> fn acc f1\n  | Ttrue | Tfalse -> acc\n\nlet t_s_fold = t_gen_fold\n\nlet t_s_all prT prL t = Util.alld t_s_fold prT prL t\nlet t_s_any prT prL t = Util.anyd t_s_fold prT prL t\n\n(* map/fold over types in terms and formulas *)\n\nlet t_ty_map fn t = t_s_map fn (fun ls -> ls) t\n\nlet t_ty_fold fn acc t = t_s_fold fn Util.const acc t\n\nlet t_ty_freevars = t_ty_fold ty_freevars\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1247,
+    "last_line": 1294,
+    "text": "let t_map fn t = match t.t_node with\n  | Tlet (t1, b) ->\n      let u,t2 = t_open_bound b in\n      let s1 = fn t1 and s2 = fn t2 in\n      if s2 == t2\n        then if s1 == t1 then t\n          else t_attr_copy t (t_let s1 b)\n        else t_attr_copy t (t_let_close u s1 s2)\n  | Tcase (t1, bl) ->\n      let s1 = fn t1 in\n      let brn same b =\n        let p,t = t_open_branch b in\n        let s = fn t in\n        if s == t then same, b\n          else false, t_close_branch p s\n      in\n      let same, bl = Lists.map_fold_left brn true bl in\n      if s1 == t1 && same then t\n        else t_attr_copy t (t_case s1 bl)\n  | Teps b ->\n      let u,t1 = t_open_bound b in\n      let s1 = fn t1 in\n      if s1 == t1 then t\n        else t_attr_copy t (t_eps_close u s1)\n  | Tquant (q, b) ->\n      let vl,tl,f1 = t_open_quant b in\n      let g1 = fn f1 and sl = tr_map fn tl in\n      if g1 == f1 && List.for_all2 (List.for_all2 (==)) sl tl then t\n        else t_attr_copy t (t_quant_close q vl sl g1)\n  | _ ->\n      t_map_unsafe fn t\n\nlet t_map fn = t_map (fun t ->\n  let res = fn t in t_ty_check res t.t_ty; res)\n\n(* safe opening fold *)\n\nlet t_fold fn acc t = match t.t_node with\n  | Tlet (t1, b) ->\n      let _,t2 = t_open_bound b in fn (fn acc t1) t2\n  | Tcase (t1, bl) ->\n      let brn acc b = let _,t = t_open_branch b in fn acc t in\n      List.fold_left brn (fn acc t1) bl\n  | Teps b ->\n      let _,f = t_open_bound b in fn acc f\n  | Tquant (_, b) ->\n      let _, tl, f1 = t_open_quant b in tr_fold fn (fn acc f1) tl\n  | _ -> t_fold_unsafe fn acc t\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1589,
+    "last_line": 1765,
+    "text": "let t_not_simp f = match f.t_node with\n  | Ttrue  -> t_attr_copy f t_false\n  | Tfalse -> t_attr_copy f t_true\n  | Tnot g -> t_attr_copy f g\n  | _      -> t_not f\n\nlet t_and_simp f1 f2 = match f1.t_node, f2.t_node with\n  | Ttrue, _  -> f2\n  | _, Ttrue  -> t_attr_remove asym_split f1\n  | Tfalse, _ -> t_attr_remove asym_split f1\n  | _, Tfalse -> f2\n  | _, _ when t_equal f1 f2 -> f1\n  | _, _ -> t_and f1 f2\n\nlet t_and_simp_l l = List.fold_right t_and_simp l t_true\n\nlet t_or_simp f1 f2 = match f1.t_node, f2.t_node with\n  | Ttrue, _  -> t_attr_remove asym_split f1\n  | _, Ttrue  -> f2\n  | Tfalse, _ -> f2\n  | _, Tfalse -> t_attr_remove asym_split f1\n  | _, _ when t_equal f1 f2 -> f1\n  | _, _ -> t_or f1 f2\n\nlet t_or_simp_l l = List.fold_right t_or_simp l t_false\n\nlet t_and_asym_simp f1 f2 = match f1.t_node, f2.t_node with\n  | Ttrue, _  -> f2\n  | _, Ttrue  -> t_attr_remove asym_split f1\n  | Tfalse, _ -> t_attr_remove asym_split f1\n  | _, Tfalse -> f2\n  | _, _ when t_equal f1 f2 -> f1\n  | _, _ -> t_and_asym f1 f2\n\nlet t_and_asym_simp_l l = List.fold_right t_and_asym_simp l t_true\n\nlet t_or_asym_simp f1 f2 = match f1.t_node, f2.t_node with\n  | Ttrue, _  -> t_attr_remove asym_split f1\n  | _, Ttrue  -> f2\n  | Tfalse, _ -> f2\n  | _, Tfalse -> t_attr_remove asym_split f1\n  | _, _ when t_equal f1 f2 -> f1\n  | _, _ -> t_or_asym f1 f2\n\nlet t_or_asym_simp_l l = List.fold_right t_or_asym_simp l t_false\n\nlet t_implies_simp f1 f2 = match f1.t_node, f2.t_node with\n  | Ttrue, _  -> f2\n  | _, Ttrue  -> f2\n  | Tfalse, _ -> t_attr_copy f1 t_true\n  | _, Tfalse -> t_not_simp f1\n  | _, _ when t_equal f1 f2 -> t_attr_copy f1 t_true\n  | _, _ -> t_implies f1 f2\n\nlet t_iff_simp f1 f2 = match f1.t_node, f2.t_node with\n  | Ttrue, _  -> f2\n  | _, Ttrue  -> f1\n  | Tfalse, _ -> t_not_simp f2\n  | _, Tfalse -> t_not_simp f1\n  | _, _ when t_equal f1 f2 -> t_attr_copy f1 t_true\n  | _, _ -> t_iff f1 f2\n\nlet t_binary_simp op = match op with\n  | Tand     -> t_and_simp\n  | Tor      -> t_or_simp\n  | Timplies -> t_implies_simp\n  | Tiff     -> t_iff_simp\n\nlet t_if_simp f1 f2 f3 = match f1.t_node, f2.t_node, f3.t_node with\n  | Ttrue, _, _  -> f2\n  | Tfalse, _, _ -> f3\n  | _, Ttrue, _  -> t_implies_simp (t_not_simp f1) f3\n  | _, Tfalse, _ -> t_and_asym_simp (t_not_simp f1) f3\n  | _, _, Ttrue  -> t_implies_simp f1 f2\n  | _, _, Tfalse -> t_and_asym_simp f1 f2\n  | _, _, _ when t_equal f2 f3 -> f2\n  | _, _, _ -> t_if f1 f2 f3\n\n\nlet small t = match t.t_node with\n  | Tvar _ | Tconst _ -> true\n(* NOTE: shouldn't we allow this?\n  | Tapp (_,[]) -> true\n*)\n  | _ -> false\n\nlet v_copy_unused v =\n  let id = v.vs_name in\n  if Sattr.mem Ident.unused_attr id.id_attrs then v else\n  let attrs = Sattr.singleton Ident.unused_attr in\n  let attrs =\n    try\n      ignore (get_model_trace_attr ~attrs:id.id_attrs); attrs\n    with Not_found ->\n      Sattr.add (create_model_trace_attr id.id_string) attrs\n  in\n  let id' = id_derive ~attrs (id.id_string ^ unused_suffix) id in\n  create_vsymbol id' v.vs_ty\n\nlet t_let_simp_keep_var ~keep e ((v,b,t) as bt) =\n  let n = t_v_occurs v t in\n  if n = 0 then\n    let t = t_subst_unsafe b.bv_subst t in\n    if keep then t_let_close (v_copy_unused v) e t else t\n  else\n  if n = 1 || small e then begin\n    vs_check v e;\n    let t = t_subst_unsafe (Mvs.add v e b.bv_subst) t in\n    if keep then t_let_close (v_copy_unused v) e t else t\n  end else\n    t_let e bt\n\nlet t_let_simp = t_let_simp_keep_var ~keep:false\n\nlet t_let_close_simp_keep_var ~keep v e t =\n  let n = t_v_occurs v t in\n  if n = 0 then\n    if keep then t_let_close (v_copy_unused v) e t else t\n  else\n  if n = 1 || small e then\n    let t = t_subst_single v e t in\n    if keep then t_let_close (v_copy_unused v) e t else t\n  else\n    t_let_close v e t\n\nlet t_let_close_simp = t_let_close_simp_keep_var ~keep:false\n\nlet t_case_simp t bl =\n  let e0,tl = match bl with\n    | [] -> raise EmptyCase\n    | (_,_,e0)::tl -> e0,tl in\n  let e0_true = match e0.t_node with\n    | Ttrue -> true | _ -> false in\n  let e0_false = match e0.t_node with\n    | Tfalse -> true | _ -> false in\n  let is_e0 (_,_,e) = match e.t_node with\n    | Ttrue -> e0_true\n    | Tfalse -> e0_false\n    | _ -> t_equal e e0 in\n  if t_closed e0 && List.for_all is_e0 tl then e0\n  else t_case t bl\n\nlet t_case_close_simp t bl =\n  let e0,tl = match bl with\n    | [] -> raise EmptyCase\n    | (_,e0)::tl -> e0,tl in\n  let e0_true = match e0.t_node with\n    | Ttrue -> true | _ -> false in\n  let e0_false = match e0.t_node with\n    | Tfalse -> true | _ -> false in\n  let is_e0 (_,e) = match e.t_node with\n    | Ttrue -> e0_true\n    | Tfalse -> e0_false\n    | _ -> t_equal e e0 in\n  if t_closed e0 && List.for_all is_e0 tl then e0\n  else t_case_close t bl\n\nlet t_quant_simp q ((vl,_,_,f) as qf) =\n  let fvs = t_vars f in\n  let check v = Mvs.mem v fvs in\n  if List.for_all check vl then\n    t_quant q qf\n  else\n    let vl,tl,f = t_open_quant qf in\n    let fvs = t_vars f in\n    let check v = Mvs.mem v fvs in\n    let vl = List.filter check vl in\n    if vl = [] then f\n    else t_quant_close q vl (List.filter (List.for_all (t_v_all check)) tl) f\n\nlet t_quant_close_simp q vl tl f =\n  if vl = [] then f else\n  let fvs = t_vars f in\n  let check v = Mvs.mem v fvs in\n  if List.for_all check vl then\n    t_quant_close q vl tl f\n  else\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1794,
+    "last_line": 1814,
+    "text": "let t_map_simp fn f = t_attr_copy f (match f.t_node with\n  | Tapp (p, [t1;t2]) when ls_equal p ps_equ ->\n      t_equ_simp (fn t1) (fn t2)\n  | Tif (f1, f2, f3) ->\n      t_if_simp (fn f1) (fn f2) (fn f3)\n  | Tlet (t, b) ->\n      let u,t2,close = t_open_bound_cb b in\n      t_let_simp (fn t) (close u (fn t2))\n  | Tquant (q, b) ->\n      let vl,tl,f1,close = t_open_quant_cb b in\n      t_quant_simp q (close vl (tr_map fn tl) (fn f1))\n  | Tbinop (op, f1, f2) ->\n      t_binary_simp op (fn f1) (fn f2)\n  | Tnot f1 ->\n      t_not_simp (fn f1)\n  | _ -> t_map fn f)\n\n\nlet t_map_simp fn = t_map_simp (fun t ->\n  let res = fn t in t_ty_check res t.t_ty; res)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "first_line": 1850,
+    "last_line": 1888,
+    "text": "let rec remove_unused_in_term polarity t =\n  t_attr_copy t (match t.t_node with\n  | Tbinop (Timplies, t1, t2) ->\n      t_implies_simp\n        (remove_unused_in_term (not polarity) t1)\n        (remove_unused_in_term polarity t2)\n  | Tbinop (Tiff, t1, t2) ->\n      let t1p = remove_unused_in_term polarity t1 in\n      let t1n = remove_unused_in_term (not polarity) t1 in\n      let t2p = remove_unused_in_term polarity t2 in\n      let t2n = remove_unused_in_term (not polarity) t2 in\n      if t_equal t1p t1n && t_equal t2p t2n then t_iff_simp t1p t2p\n      else if polarity\n        then t_and_simp (t_implies_simp t1n t2p) (t_implies_simp t2n t1p)\n        else t_implies_simp (t_or_simp t1n t2n) (t_and_simp t1p t2p)\n  | Tnot t1 ->\n      t_not_simp (remove_unused_in_term (not polarity) t1)\n  | Tlet(t,fb) ->\n      let vs, t1, cb = t_open_bound_cb fb in\n      let t1 = t_map_simp (remove_unused_in_term polarity) t1 in\n      if Sattr.mem unused_attr vs.vs_name.id_attrs then t1\n      else\n        t_let_simp_keep_var ~keep:true t (cb vs t1)\n  | (Tapp(ls,[{t_node=Tvar {vs_name = id; _ }; _ } ;_])\n    | Tapp(ls,[{t_node=Tapp({ls_name = id;_} ,[]); _ };_]))\n    when ls_equal ls ps_equ &&\n         Sattr.mem unused_attr id.id_attrs ->\n      if polarity then t_false else t_true\n  | Tif (t1, t2, t3) when t.t_ty = None ->\n      let t1p = remove_unused_in_term polarity t1 in\n      let t1n = remove_unused_in_term (not polarity) t1 in\n      let t2 = remove_unused_in_term polarity t2 in\n      let t3 = remove_unused_in_term polarity t3 in\n      if t_equal t1p t1n then t_if_simp t1p t2 t3 else\n      if polarity\n        then t_and_simp (t_implies_simp t1n t2) (t_implies_simp (t_not_simp t1p) t3)\n        else t_or_simp (t_and_simp t1p t2) (t_and_simp (t_not_simp t1n) t3)\n  | Tif _ | Teps _ -> t\n  | _ -> t_map_simp (remove_unused_in_term polarity) t)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 55,
+    "last_line": 75,
+    "text": "  List.iter2 check_vl ls.ls_args vl;\n  t_ty_check t ls.ls_value;\n  (* return the definition *)\n  ls, (ls, fd, [])\n\nlet open_ls_defn (_,f,_) =\n  let vl,_,f = match f.t_node with\n    | Tquant (Tforall,b) -> t_open_quant b\n    | _ -> [],[],f in\n  match f.t_node with\n    | Tapp (_, [_; f])\n    | Tbinop (_, _, f) -> vl,f\n    | _ -> assert false\n\nlet open_ls_defn_cb ld =\n  let ls,_,_ = ld in\n  let vl,t = open_ls_defn ld in\n  let close ls' vl' t' =\n    if t_equal_strict t t' && Lists.equal vs_equal vl vl' && ls_equal ls ls'\n    then ls,ld else make_ls_defn ls' vl' t'\n  in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 340,
+    "last_line": 419,
+    "text": "module Hsdecl = Hashcons.Make (struct\n\n  type t = decl\n\n  let cs_equal (cs1,pl1) (cs2,pl2) =\n    ls_equal cs1 cs2 && Lists.equal (Option.equal ls_equal) pl1 pl2\n\n  let eq_td (ts1,td1) (ts2,td2) =\n    ts_equal ts1 ts2 && Lists.equal cs_equal td1 td2\n\n  let eq_ld (ls1,(_,f1,_)) (ls2,(_,f2,_)) =\n    ls_equal ls1 ls2 && t_equal_strict f1 f2\n\n  let eq_iax (pr1,fr1) (pr2,fr2) =\n    pr_equal pr1 pr2 && t_equal_strict fr1 fr2\n\n  let eq_ind (ps1,al1) (ps2,al2) =\n    ls_equal ps1 ps2 && Lists.equal eq_iax al1 al2\n\n  let equal d1 d2 = match d1.d_node, d2.d_node with\n    | Dtype  s1, Dtype  s2 -> ts_equal s1 s2\n    | Ddata  l1, Ddata  l2 -> Lists.equal eq_td l1 l2\n    | Dparam s1, Dparam s2 -> ls_equal s1 s2\n    | Dlogic l1, Dlogic l2 -> Lists.equal eq_ld l1 l2\n    | Dind   (s1,l1), Dind (s2,l2) -> s1 = s2 && Lists.equal eq_ind l1 l2\n    | Dprop (k1,pr1,f1), Dprop (k2,pr2,f2) ->\n        k1 = k2 && pr_equal pr1 pr2 && t_equal_strict f1 f2\n    | _,_ -> false\n\n  let cs_hash (cs,pl) =\n    Hashcons.combine_list (Hashcons.combine_option ls_hash) (ls_hash cs) pl\n\n  let hs_td (ts,td) = Hashcons.combine_list cs_hash (ts_hash ts) td\n\n  let hs_ld (ls,(_,f,_)) = Hashcons.combine (ls_hash ls) (t_hash_strict f)\n\n  let hs_prop (pr,f) = Hashcons.combine (pr_hash pr) (t_hash_strict f)\n\n  let hs_ind (ps,al) = Hashcons.combine_list hs_prop (ls_hash ps) al\n\n  let hs_kind = function\n    | Plemma -> 11 | Paxiom -> 13 | Pgoal -> 17\n\n  let hash d = match d.d_node with\n    | Dtype  s -> ts_hash s\n    | Ddata  l -> Hashcons.combine_list hs_td 3 l\n    | Dparam s -> ls_hash s\n    | Dlogic l -> Hashcons.combine_list hs_ld 5 l\n    | Dind (_,l) -> Hashcons.combine_list hs_ind 7 l\n    | Dprop (k,pr,f) -> Hashcons.combine (hs_kind k) (hs_prop (pr,f))\n\n  let tag n d = { d with d_tag = Weakhtbl.create_tag n }\n\nend)\n\nmodule Decl = MakeMSHW (struct\n  type t = decl\n  let tag d = d.d_tag\nend)\n\nmodule Sdecl = Decl.S\nmodule Mdecl = Decl.M\nmodule Wdecl = Decl.W\nmodule Hdecl = Decl.H\n\nlet d_equal : decl -> decl -> bool = (==)\n\nlet d_hash d = Weakhtbl.tag_hash d.d_tag\n\n(** Declaration constructors *)\n\nlet mk_decl node news =\n  let d = {\n      d_node = node;\n      d_news = news;\n      d_tag  = Weakhtbl.dummy_tag;\n    } in\n  match node with\n  | Dprop (Pgoal,_,_) -> Hsdecl.unique d\n  | _ -> Hsdecl.hashcons d\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 604,
+    "last_line": 649,
+    "text": "let create_prop_decl k p f =\n  let news = news_id Sid.empty p.pr_name in\n  mk_decl (Dprop (k,p,check_fvs f)) news\n\nlet get_used_syms_ty ty = syms_ty Sid.empty ty\n\nlet get_used_syms_decl d =\n  match d.d_node with\n  | Dtype ts -> syms_ty_decl ts\n  | Ddata dl -> syms_data_decl dl\n  | Dparam ls -> syms_param_decl ls\n  | Dlogic ldl -> syms_logic_decl ldl\n  | Dind (_, idl) -> syms_ind_decl idl\n  | Dprop (_,_,f) -> syms_prop_decl f\n\n(** Utilities *)\n\nlet decl_map fn d = match d.d_node with\n  | Dtype _ | Ddata _ | Dparam _ -> d\n  | Dlogic l ->\n      let fn (ls,ld) =\n        let vl,e,close = open_ls_defn_cb ld in\n        close ls vl (fn e)\n      in\n      create_logic_decl (List.map fn l)\n  | Dind (s, l) ->\n      let fn (pr,f) = pr, fn f in\n      let fn (ps,l) = ps, List.map fn l in\n      create_ind_decl s (List.map fn l)\n  | Dprop (k,pr,f) ->\n      create_prop_decl k pr (fn f)\n\nlet decl_fold fn acc d = match d.d_node with\n  | Dtype _ | Ddata _ | Dparam _ -> acc\n  | Dlogic l ->\n      let fn acc (_,ld) =\n        let _,e = open_ls_defn ld in\n        fn acc e\n      in\n      List.fold_left fn acc l\n  | Dind (_, l) ->\n      let fn acc (_,f) = fn acc f in\n      let fn acc (_,l) = List.fold_left fn acc l in\n      List.fold_left fn acc l\n  | Dprop (_,_,f) ->\n      fn acc f\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 697,
+    "last_line": 709,
+    "text": "let known_add_decl kn0 decl =\n  let kn = Mid.map (Util.const decl) decl.d_news in\n  let check id decl0 _ =\n    if d_equal decl0 decl\n    then raise (KnownIdent id)\n    else raise (RedeclaredIdent id)\n  in\n  let kn = Mid.union check kn0 kn in\n  let unk = Mid.set_diff (get_used_syms_decl decl) kn in\n  if Sid.is_empty unk then kn\n  else raise (UnknownIdent (Sid.choose unk))\n\nlet find_constructors kn ts =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 743,
+    "last_line": 752,
+    "text": "let check_match kn d =\n  let rec check () t = match t.t_node with\n    | Tcase (t1,bl) ->\n        let get_constructors ts = List.map fst (find_constructors kn ts) in\n        let pl = List.map (fun b -> let p,_ = t_open_branch b in [p]) bl in\n        Loc.try2 ?loc:t.t_loc (Pattern.check_compile ~get_constructors) [t1] pl;\n        t_fold check () t\n    | _ -> t_fold check () t\n  in\n  decl_fold check () d\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "first_line": 830,
+    "last_line": 835,
+    "text": "let known_add_decl kn d =\n  let kn = known_add_decl kn d in\n  check_positivity kn d;\n  check_foundness kn d;\n  check_match kn d;\n  kn\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "first_line": 88,
+    "last_line": 108,
+    "text": "module Hstask = Hashcons.Make (struct\n  type t = task_hd\n\n  let equal t1 t2 = td_equal t1.task_decl t2.task_decl &&\n                  task_equal t1.task_prev t2.task_prev\n\n  let hash t = Hashcons.combine (td_hash t.task_decl) (task_hash t.task_prev)\n\n  let tag i task = { task with task_tag = Weakhtbl.create_tag i }\nend)\n\nlet mk_task decl prev known clone meta = Some (Hstask.hashcons {\n  task_decl  = decl;\n  task_prev  = prev;\n  task_known = known;\n  task_clone = clone;\n  task_meta  = meta;\n  task_tag   = Weakhtbl.dummy_tag;\n})\n\nlet task_known o = Option.fold ~some:(fun t -> t.task_known) ~none:Mid.empty   o\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "first_line": 140,
+    "last_line": 177,
+    "text": "let check_task task = match find_goal task with\n  | Some _  -> raise GoalFound\n  | None    -> task\n\nlet check_decl = function\n  | {d_node = Dprop (Plemma,_,_)} -> raise LemmaFound\n  | d -> d\n\nlet new_decl task d td =\n  let kn = known_add_decl (task_known task) (check_decl d) in\n  mk_task td (check_task task) kn (task_clone task) (task_meta task)\n\nlet new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n\nlet new_clone task th td =\n  let cl = cm_add (task_clone task) th td in\n  mk_task td (check_task task) (task_known task) cl (task_meta task)\n\nlet new_meta task t td =\n  let mt = mm_add (task_meta task) t td in\n  mk_task td (check_task task) (task_known task) (task_clone task) mt\n\n(* declaration constructors + add_decl *)\n\nlet add_decl task d = new_decl task d (create_decl d)\n\nlet add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\nlet add_data_decl tk dl = add_decl tk (create_data_decl dl)\nlet add_param_decl tk ls = add_decl tk (create_param_decl ls)\nlet add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\nlet add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\nlet add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n\n(* task constructors *)\n\nlet add_tdecl task td = match td.td_node with\n  | Decl d -> new_decl task d td\n  | Use th ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 180,
+    "last_line": 203,
+    "text": "type theory = {\n  th_name   : ident;          (* theory name *)\n  th_path   : string list;    (* environment qualifiers *)\n  th_decls  : tdecl list;     (* theory declarations *)\n  th_ranges : tdecl Mts.t;    (* range type projections *)\n  th_floats : tdecl Mts.t;    (* float type projections *)\n  th_crcmap : Coercion.t;     (* implicit coercions *)\n  th_proved_wf : (prsymbol * lsymbol) Mls.t; (* predicates proved well-founded *)\n  th_export : namespace;      (* exported namespace *)\n  th_known  : known_map;      (* known identifiers *)\n  th_local  : Sid.t;          (* locally declared idents *)\n  th_used   : Sid.t;          (* used theories *)\n}\n\nand tdecl = {\n  td_node : tdecl_node;\n  td_tag  : int;\n}\n\nand tdecl_node =\n  | Decl  of decl\n  | Use   of theory\n  | Clone of theory * symbol_map\n  | Meta  of meta * meta_arg list\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 706,
+    "last_line": 711,
+    "text": "let cl_clone_pr cl pr =\n  let attr = Sattr.remove Ident.useraxiom_attr pr.pr_name.id_attrs in\n  let pr' = create_prsymbol (id_attr pr.pr_name attr) in\n  cl.pr_table <- Mpr.add pr pr' cl.pr_table;\n  pr'\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 842,
+    "last_line": 851,
+    "text": "let cl_prop cl inst (k,pr,f) =\n  let k' = match k, Mpr.find_opt pr inst.inst_pr with\n    | Pgoal, _ -> raise EmptyDecl\n    | Plemma, Some Pgoal -> raise EmptyDecl\n    | Plemma, _ -> Plemma\n    | Paxiom, Some k -> k\n    | Paxiom, None -> inst.inst_df in\n  let pr' = cl_clone_pr cl pr in\n  let f' = cl_trans_fmla cl f in\n  create_prop_decl k' pr' f'\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 1020,
+    "last_line": 1029,
+    "text": "let builtin_theory =\n  let uc = empty_theory (id_fresh \"BuiltIn\") [\"why3\";\"BuiltIn\"] in\n  let uc = add_ty_decl uc ts_int in\n  let uc = add_ty_decl uc ts_real in\n  let uc = add_ty_decl uc ts_str in\n  let uc = add_param_decl uc ps_equ in\n  close_theory uc\n\nlet create_theory ?(path=[]) n =\n  use_export (empty_theory n path) builtin_theory\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "first_line": 821,
+    "last_line": 833,
+    "text": "  | Dprop (k,pr,f) ->\n      let skip, k' = match k, Mpr.find_opt pr inst.mi_pk with\n        | Pgoal, _ -> true, Pgoal\n        | Plemma, Some Pgoal -> true, Pgoal\n        | Plemma, _ -> false, Plemma\n        | Paxiom, Some k -> false, k\n        | Paxiom, None -> false, inst.mi_df in\n      if skip then uc else\n      let attr = Sattr.remove Ident.useraxiom_attr pr.pr_name.id_attrs in\n      let pr' = create_prsymbol (id_attr pr.pr_name attr) in\n      cl.pr_table <- Mpr.add pr pr' cl.pr_table;\n      let d = create_prop_decl k' pr' (clone_fmla cl f) in\n      add_pdecl ~warn:false ~vc:false uc (create_pure_decl d)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_literal.ml",
+    "first_line": 193,
+    "last_line": 199,
+    "text": "let eliminate_literal env =\n  (* FIXME: int.Int.le_sym should be imported in the task *)\n  let th = Env.read_theory env [ \"int\" ] \"Int\" in\n  let le_int = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let th = Env.read_theory env [ \"real\" ] \"Real\" in\n  let le_real = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let neg_real = ns_find_ls th.th_export [ op_prefix \"-\" ] in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 51,
+    "last_line": 55,
+    "text": "let store fn = let tr = Wtask.memoize_option 63 fn in fun t -> match t with\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}}} -> fn t\n  | _ -> tr t\n\nlet bind f g = store (fun task -> g (f task) task)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 76,
+    "last_line": 140,
+    "text": "  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n\nlet fold_l fn v = fold (fun task -> Lists.apply (fn task)) [v]\n\nlet fold_decl fn v =\n  fold (fun task v ->\n        match task.task_decl.td_node with\n        | Decl d -> fn d v\n        | _ -> v)\n       v\n\nlet fold_map   fn v t = conv_res snd            (fold   fn (v, t))\nlet fold_map_l fn v t = conv_res (List.map snd) (fold_l fn (v, t))\n(* we use List.map instead of List.map_rev to preserve the order *)\n\nlet store_decl fn = let tr = Wdecl.memoize 63 fn in function\n  | {d_node = Dprop (Pgoal,_,_)} as d -> fn d\n  | d -> tr d\n\nlet gen_decl add fn =\n  let fn = store_decl fn in\n  let fn task acc = match task.task_decl.td_node with\n    | Decl d -> List.fold_left add acc (fn d)\n    | _ -> add_tdecl acc task.task_decl\n  in\n  fold fn\n\nlet gen_decl_l add fn =\n  let fn = store_decl fn in\n  let fn task acc = match task.task_decl.td_node with\n    | Decl d -> List.map (List.fold_left add acc) (fn d)\n    | _ -> [add_tdecl acc task.task_decl]\n  in\n  fold_l fn\n\nlet decl    = gen_decl   Task.add_decl\nlet decl_l  = gen_decl_l Task.add_decl\nlet tdecl   = gen_decl   add_tdecl\nlet tdecl_l = gen_decl_l add_tdecl\n\ntype diff_decl =\n  | Goal_decl of Decl.decl\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "first_line": 195,
+    "last_line": 213,
+    "text": "\n  fold_map_l fn None\n\nlet apply_to_goal fn d = match d.d_node with\n  | Dprop (Pgoal,pr,f) -> fn pr f\n  | _ -> assert false\n\nlet gen_goal add fn = function\n  | Some { task_decl = { td_node = Decl d }; task_prev = prev } ->\n      List.fold_left add prev (apply_to_goal fn d)\n  | _ -> assert false\n\nlet gen_goal_l add fn = function\n  | Some { task_decl = { td_node = Decl d }; task_prev = prev } ->\n      List.map (List.fold_left add prev) (apply_to_goal fn d)\n  | _ -> assert false\n\nlet goal    = gen_goal   Task.add_decl\nlet goal_l  = gen_goal_l Task.add_decl\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 187,
+    "last_line": 217,
+    "text": "let id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n\nlet id_attr id attrs =\n  create_ident id.id_string attrs id.id_loc\n\nlet id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n  in\n  create_ident id.id_string aa loc\n\nlet id_derive ?(attrs = Sattr.empty) nm id =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 368,
+    "last_line": 368,
+    "text": "let create_model_trace_attr s = create_attribute (\"model_trace:\" ^ s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 437,
+    "last_line": 438,
+    "text": "let get_model_trace_attr ~attrs =\n  Sattr.choose (Sattr.filter is_model_trace_attr attrs)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 557,
+    "last_line": 559,
+    "text": "let unused_attr = create_attribute \"id:unused\"\n\nlet unused_suffix = \"'unused\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "first_line": 159,
+    "last_line": 170,
+    "text": "let rec ty_v_map fn ty = match ty.ty_node with\n  | Tyvar v -> fn v\n  | Tyapp (f, tl) -> ty_app f (List.map (ty_v_map fn) tl)\n\nlet rec ty_v_fold fn acc ty = match ty.ty_node with\n  | Tyvar v -> fn acc v\n  | Tyapp (_, tl) -> List.fold_left (ty_v_fold fn) acc tl\n\nlet ty_v_all pr ty = Util.all ty_v_fold pr ty\nlet ty_v_any pr ty = Util.any ty_v_fold pr ty\n\nlet ty_full_inst m ty = ty_v_map (fun v -> Mtv.find v m) ty\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 330,
+    "last_line": 389,
+    "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n\n(* Apply driver's transformations to the task *)\nlet prepare_task drv task =\n  let lookup_transform t =\n    lookup_transform t drv.drv_env, t in\n  let transl = List.map lookup_transform drv.drv_transform in\n  let apply task (tr,name) =\n    let task =\n      Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n        (fun () -> Trans.apply tr task) in\n    Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n      name Pretty.print_task task;\n    task\n  in\n  Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n    Pretty.print_task task;\n  let task = update_task drv task in\n  Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n    Pretty.print_task task;\n  List.fold_left apply task transl\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "first_line": 64,
+    "last_line": 101,
+    "text": "end\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n\n  let copy = H.copy\n\n  let memoize n fn =\n    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/hashcons.ml",
+    "first_line": 34,
+    "last_line": 55,
+    "text": "\n  module WH = Weak.Make (H)\n\n  let next_tag = ref 0\n\n  let htable = WH.create 5003\n\n  let hashcons d =\n    let d = H.tag !next_tag d in\n    let o = WH.merge htable d in\n    if o == d then incr next_tag;\n    o\n\n  let unique d =\n    let d = H.tag !next_tag d in\n    incr next_tag;\n    d\n\n  let iter f = WH.iter f htable\n\n  let stats () = WH.stats htable\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "first_line": 487,
+    "last_line": 489,
+    "text": "    let set_union m1 m2 = union (fun _ x _ -> Some x) m1 m2\n    let set_inter m1 m2 = inter (fun _ x _ -> Some x) m1 m2\n    let set_diff m1 m2 = diff (fun _ _ _ -> None) m1 m2\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pattern.ml",
+    "first_line": 115,
+    "last_line": 156,
+    "text": "            if Mls.mem cs types then comp_cases cs al else comp_wilds ()\n        | _ ->\n            let no_wilds =\n              if bare then\n                let cs,_ = Mls.choose types in\n                Mls.cardinal types = cs.ls_constr\n              else\n                Mls.set_submap css types\n            in\n            let base = if no_wilds then []\n              else [pat_wild ty, comp_wilds ()]\n            in\n            let add acc (cs,ql) =\n              let get_vs q = create_vsymbol (id_fresh \"x\") q.pat_ty in\n              let vl = List.rev_map get_vs ql in\n              let pl = List.rev_map pat_var vl in\n              let al = List.rev_map t_var vl in\n              (pat_app cs pl ty, comp_cases cs al) :: acc\n            in\n            mk_case t (List.fold_left add base cslist)\n  in\n  compile tl rl\n\nlet compile_bare ~mk_case ~mk_let tl rl =\n  let get_constructors _ = raise Bare in\n  try compile ~get_constructors ~mk_case ~mk_let tl rl\n  with NonExhaustive _ -> raise (NonExhaustive [])\n\nlet check_compile ~get_constructors tl = function\n  | [] ->\n      let pl = List.map (fun t -> pat_wild (t_type t)) tl in\n      raise (NonExhaustive pl)\n  | (pl::_) as ppl ->\n      let mkt p = t_var (create_vsymbol (id_fresh \"_\") p.pat_ty) in\n      let tl = if tl = [] then List.map mkt pl else tl in\n      let rl = List.map (fun pl -> pl, ()) ppl in\n      let mk_case _ _ = () and mk_let _ _ _ = () in\n      compile ~get_constructors ~mk_case ~mk_let tl rl\n\nlet is_exhaustive tl = function\n  | [] -> false\n  | (pl::_) as ppl ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/parser/typing.ml",
+    "first_line": 1576,
+    "last_line": 1580,
+    "text": "let add_prop muc k s f =\n  let pr = create_prsymbol (create_user_id s) in\n  let f = type_fmla_pure muc Mstr.empty Dterm.denv_empty f in\n  let muc = if k = Pgoal then muc else create_val muc pr.pr_name f in\n  add_decl muc (create_prop_decl k pr f)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "first_line": 469,
+    "last_line": 482,
+    "text": "let has_been_tried_by s (g: goal_id) (prover: Whyconf.prover) =\n  (* Check whether the goal has been tried already *)\n  let proof_attempt_set = Session_itp.get_proof_attempt_ids s g in\n  try\n    let paid = Whyconf.Hprover.find proof_attempt_set prover in\n    let pa = Session_itp.get_proof_attempt_node s paid in\n    let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind (get_check_of_goal g)) in\n    (* only count non-obsolete proof attempts with identical\n       options *)\n    (not pa.Session_itp.proof_obsolete &&\n     pa.Session_itp.proof_state <> None &&\n     pa.Session_itp.limits =\n       Gnat_config.limit ~prover ~warning:warn)\n  with Not_found -> false\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "first_line": 714,
+    "last_line": 724,
+    "text": "let find_best_untried_prover s g =\n  (* return the manual prover, if there is one. Otherwise, if an obsolete valid\n     proof exists, try that prover first. Otherwise, just try the first not yet\n     tried prover. *)\n  match Gnat_config.manual_prover with\n  | Some p -> p\n  | None ->\n      match find_obsolete_valid_proof s g with\n      | Some p -> p\n      | None ->\n          List.find (fun p -> not (has_been_tried_by s g p)) Gnat_config.provers\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "first_line": 1055,
+    "last_line": 1079,
+    "text": "  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "first_line": 110,
+    "last_line": 114,
+    "text": "   | Controller_itp.InternalFailure e ->\n       let s = Format.asprintf \"Internal Why3 unexpected error during \\\n                                elaboration of prover file:\\n %a\"\n           Exn_printer.exn_printer e in\n       Gnat_report.add_warning s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 520,
+    "last_line": 537,
+    "text": "     number of running provers, then we heuristically decide to add\n     more tasks *)\n  begin\n    try\n      if S.blocking ||\n         (Hashtbl.length prover_tasks_in_progress <\n          S.multiplier * !session_max_tasks)\n      then\n        let spa = Queue.pop scheduled_proof_attempts in\n        try\n          build_prover_call spa;\n          update_observer ()\n        with e when not (Debug.test_flag Debug.stack_trace) ->\n          spa.spa_callback (InternalFailure e)\n    with Queue.Empty -> idle_handler_running := false\n  end;\n  !idle_handler_running\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/introduction.ml",
+    "first_line": 513,
+    "last_line": 524,
+    "text": "let remove_unused_in_decl d =\n  match d.d_node with\n  | Dparam ls | Dlogic [(ls,_)] when Sattr.mem unused_attr ls.ls_name.id_attrs -> []\n  | Ddata _ | Dtype _ | Dparam _ -> [d]\n  | Dlogic _ -> [d]  (* TODO ? *)\n  | Dind _ -> [d] (* TODO ? *)\n  | Dprop(k,pr,f) ->\n      let pol = match k with Pgoal -> true | Paxiom -> false | Plemma -> assert false in\n      let f = remove_unused_in_term pol f in\n      [create_prop_decl k pr f]\n\nlet remove_unused_from_context = Trans.decl remove_unused_in_decl None\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/libencoding.ml",
+    "first_line": 263,
+    "last_line": 276,
+    "text": "(* replace type variables in a goal with fresh type constants *)\nlet ts_of_tv = Htv.memo 63 (fun tv ->\n  create_tysymbol (id_clone tv.tv_name) [] NoDef)\n\nlet monomorphise_goal = Trans.goal (fun pr f ->\n  let stv = t_ty_freevars Stv.empty f in\n  if Stv.is_empty stv then [create_prop_decl Pgoal pr f] else\n  let mty,ltv = Stv.fold (fun tv (mty,ltv) ->\n    let ts = ts_of_tv tv in\n    Mtv.add tv (ty_app ts []) mty, ts::ltv) stv (Mtv.empty,[]) in\n  let f = t_ty_subst mty Mvs.empty f in\n  List.fold_left\n    (fun acc ts -> create_ty_decl ts :: acc)\n    [create_prop_decl Pgoal pr f] ltv)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/prepare_for_counterexmp.ml",
+    "first_line": 15,
+    "last_line": 35,
+    "text": "let counterexamples_dependent_intros task =\n  let trans =\n    if not (Driver.get_counterexmp task) then\n      begin\n        (* Counter-example will not be queried, remove unused symbols,\n           both in the context and in the goal *)\n        Introduction.remove_unused_from_context;\n      end\n    else\n      begin\n        (* Counter-example will be queried, so introduce as much as\n           possible *)\n        Debug.dprintf debug \"Get ce@.\";\n        Introduction.dequantification\n      end\n  in\n  Trans.apply trans task\n\nlet () = Trans.register_transform \"counterexamples_dependent_intros\"\n  (Trans.store counterexamples_dependent_intros)\n  ~desc:\"Manages the extra CE symbols depending on whether CE are \\\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml",
+    "first_line": 272,
+    "last_line": 294,
+    "text": "  let find_or t d ifnotfound =\n    let h = H.hash d in\n    let index = get_index t h in\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then ifnotfound h index\n      else if h = hashes.(i) then begin\n        match get_copy bucket i with\n        | Some v when H.equal v d\n           -> begin match get bucket i with\n              | Some v -> v\n              | None -> loop (i + 1)\n              end\n        | _ -> loop (i + 1)\n      end else loop (i + 1)\n    in\n    loop 0\n\n\n  let merge t d =\n    find_or t d (fun h index -> add_aux t set (Some d) h index; d)\n"
+  }
+]

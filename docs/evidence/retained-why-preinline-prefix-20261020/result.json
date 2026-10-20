@@ -1,0 +1,307 @@
+{
+  "cases": [
+    {
+      "case": "put_line",
+      "ce_goal_type_variables": 0,
+      "common_context_ce_mapping_Ident_upper": 365,
+      "common_logical_declarations": 573,
+      "common_task_prefix_nodes": 1043,
+      "compatible_old_objects": 241,
+      "context_Paxiom_keys": 243,
+      "intended_parallel_seed_closure": false,
+      "mono_new_type_symbols": 0,
+      "observed_input_check": null,
+      "opened_expansion_branches": {
+        "eliminated_let": 2267,
+        "kept_let": 277,
+        "let_substitution": 956
+      },
+      "pid": 17310,
+      "raw_goal_type_variables": 0,
+      "retained_serial_seed_closure_under_named_premises": true,
+      "same_key_old_objects": 243,
+      "selected_altergo_prefix_Ident_max": 1335,
+      "selected_ce_direct_Ident_max": 1269,
+      "selected_ce_direct_Ident_sum": 72593,
+      "selected_ce_goal_binder_sum": 2340,
+      "selected_ce_max_coordinate_sums": {
+        "a": 1836,
+        "b": 441,
+        "n": 4381,
+        "p": 12
+      },
+      "selected_goals": 64,
+      "selected_raw_max_coordinate_sums": {
+        "a": 1882,
+        "b": 612,
+        "n": 4797,
+        "p": 12
+      },
+      "table": {
+        "allocated_slots": 12267,
+        "complete_slot_and_graph_closure": true,
+        "distinct_objects": 6917,
+        "graph_blocks": 328167,
+        "nonempty_slots": 6917
+      },
+      "under_named_episode_and_seed_premises": {
+        "already_completed_cvc5_prefix_allowance": 0,
+        "full_prefix_Ident_upper": 150196,
+        "global_escape_budget": 2,
+        "post_cut_prefix_Ident_upper": 150196
+      },
+      "verified_binding_free_maps": 8143
+    },
+    {
+      "case": "put",
+      "ce_goal_type_variables": 0,
+      "common_context_ce_mapping_Ident_upper": 365,
+      "common_logical_declarations": 573,
+      "common_task_prefix_nodes": 1043,
+      "compatible_old_objects": 241,
+      "context_Paxiom_keys": 243,
+      "intended_parallel_seed_closure": false,
+      "mono_new_type_symbols": 0,
+      "observed_input_check": null,
+      "opened_expansion_branches": {
+        "eliminated_let": 1730,
+        "kept_let": 239,
+        "let_substitution": 749
+      },
+      "pid": 17514,
+      "raw_goal_type_variables": 0,
+      "retained_serial_seed_closure_under_named_premises": true,
+      "same_key_old_objects": 243,
+      "selected_altergo_prefix_Ident_max": 1271,
+      "selected_ce_direct_Ident_max": 1214,
+      "selected_ce_direct_Ident_sum": 59124,
+      "selected_ce_goal_binder_sum": 1743,
+      "selected_ce_max_coordinate_sums": {
+        "a": 1786,
+        "b": 432,
+        "n": 4260,
+        "p": 12
+      },
+      "selected_goals": 53,
+      "selected_raw_max_coordinate_sums": {
+        "a": 1824,
+        "b": 566,
+        "n": 4588,
+        "p": 12
+      },
+      "table": {
+        "allocated_slots": 12251,
+        "complete_slot_and_graph_closure": true,
+        "distinct_objects": 6917,
+        "graph_blocks": 328167,
+        "nonempty_slots": 6917
+      },
+      "under_named_episode_and_seed_premises": {
+        "already_completed_cvc5_prefix_allowance": 0,
+        "full_prefix_Ident_upper": 122533,
+        "global_escape_budget": 2,
+        "post_cut_prefix_Ident_upper": 122533
+      },
+      "verified_binding_free_maps": 6421
+    },
+    {
+      "case": "first_or_default",
+      "ce_goal_type_variables": 0,
+      "common_context_ce_mapping_Ident_upper": 176,
+      "common_logical_declarations": 301,
+      "common_task_prefix_nodes": 535,
+      "compatible_old_objects": 69,
+      "context_Paxiom_keys": 75,
+      "intended_parallel_seed_closure": false,
+      "mono_new_type_symbols": 0,
+      "observed_input_check": null,
+      "opened_expansion_branches": {
+        "eliminated_let": 529,
+        "kept_let": 297,
+        "let_substitution": 327
+      },
+      "pid": 17631,
+      "raw_goal_type_variables": 0,
+      "retained_serial_seed_closure_under_named_premises": true,
+      "same_key_old_objects": 75,
+      "selected_altergo_prefix_Ident_max": 847,
+      "selected_ce_direct_Ident_max": 775,
+      "selected_ce_direct_Ident_sum": 18743,
+      "selected_ce_goal_binder_sum": 747,
+      "selected_ce_max_coordinate_sums": {
+        "a": 994,
+        "b": 240,
+        "n": 2414,
+        "p": 12
+      },
+      "selected_goals": 32,
+      "selected_raw_max_coordinate_sums": {
+        "a": 1013,
+        "b": 352,
+        "n": 2677,
+        "p": 12
+      },
+      "table": {
+        "allocated_slots": 12046,
+        "complete_slot_and_graph_closure": true,
+        "distinct_objects": 6763,
+        "graph_blocks": 327629,
+        "nonempty_slots": 6763
+      },
+      "under_named_episode_and_seed_premises": {
+        "already_completed_cvc5_prefix_allowance": 0,
+        "full_prefix_Ident_upper": 39927,
+        "global_escape_budget": 2,
+        "post_cut_prefix_Ident_upper": 39927
+      },
+      "verified_binding_free_maps": 2657
+    },
+    {
+      "case": "is_message",
+      "ce_goal_type_variables": 0,
+      "common_context_ce_mapping_Ident_upper": 151,
+      "common_logical_declarations": 205,
+      "common_task_prefix_nodes": 367,
+      "compatible_old_objects": 51,
+      "context_Paxiom_keys": 53,
+      "intended_parallel_seed_closure": false,
+      "mono_new_type_symbols": 0,
+      "observed_input_check": null,
+      "opened_expansion_branches": {
+        "eliminated_let": 34,
+        "kept_let": 7,
+        "let_substitution": 20
+      },
+      "pid": 17704,
+      "raw_goal_type_variables": 0,
+      "retained_serial_seed_closure_under_named_premises": true,
+      "same_key_old_objects": 53,
+      "selected_altergo_prefix_Ident_max": 440,
+      "selected_ce_direct_Ident_max": 436,
+      "selected_ce_direct_Ident_sum": 1246,
+      "selected_ce_goal_binder_sum": 6,
+      "selected_ce_max_coordinate_sums": {
+        "a": 520,
+        "b": 148,
+        "n": 1425,
+        "p": 12
+      },
+      "selected_goals": 3,
+      "selected_raw_max_coordinate_sums": {
+        "a": 531,
+        "b": 173,
+        "n": 1496,
+        "p": 12
+      },
+      "table": {
+        "allocated_slots": 11937,
+        "complete_slot_and_graph_closure": true,
+        "distinct_objects": 6672,
+        "graph_blocks": 324785,
+        "nonempty_slots": 6672
+      },
+      "under_named_episode_and_seed_premises": {
+        "already_completed_cvc5_prefix_allowance": 0,
+        "full_prefix_Ident_upper": 3378,
+        "global_escape_budget": 2,
+        "post_cut_prefix_Ident_upper": 3378
+      },
+      "verified_binding_free_maps": 224
+    },
+    {
+      "case": "input_is_valid",
+      "ce_goal_type_variables": 0,
+      "common_context_ce_mapping_Ident_upper": 167,
+      "common_logical_declarations": 243,
+      "common_task_prefix_nodes": 433,
+      "compatible_old_objects": 61,
+      "context_Paxiom_keys": 61,
+      "intended_parallel_seed_closure": false,
+      "mono_new_type_symbols": 0,
+      "observed_input_check": {
+        "all_mapped_roots": 143,
+        "alpha_with_triggers": true,
+        "candidate_and_observed_stored_counts": {
+          "binders": 157,
+          "max_map": 6,
+          "nonempty_maps": 3,
+          "saved_entries": 8,
+          "stored_terms": 1933
+        },
+        "complete_graph_isomorphism_claimed": false
+      },
+      "opened_expansion_branches": {
+        "eliminated_let": 10,
+        "kept_let": 3,
+        "let_substitution": 8
+      },
+      "pid": 17869,
+      "raw_goal_type_variables": 0,
+      "retained_serial_seed_closure_under_named_premises": true,
+      "same_key_old_objects": 64,
+      "selected_altergo_prefix_Ident_max": 477,
+      "selected_ce_direct_Ident_max": 472,
+      "selected_ce_direct_Ident_sum": 472,
+      "selected_ce_goal_binder_sum": 5,
+      "selected_ce_max_coordinate_sums": {
+        "a": 594,
+        "b": 168,
+        "n": 1613,
+        "p": 12
+      },
+      "selected_goals": 1,
+      "selected_raw_max_coordinate_sums": {
+        "a": 596,
+        "b": 179,
+        "n": 1637,
+        "p": 12
+      },
+      "table": {
+        "allocated_slots": 11968,
+        "complete_slot_and_graph_closure": true,
+        "distinct_objects": 6704,
+        "graph_blocks": 326456,
+        "nonempty_slots": 6704
+      },
+      "under_named_episode_and_seed_premises": {
+        "already_completed_cvc5_prefix_allowance": 472,
+        "full_prefix_Ident_upper": 1903,
+        "global_escape_budget": 2,
+        "post_cut_prefix_Ident_upper": 1431
+      },
+      "verified_binding_free_maps": 262
+    }
+  ],
+  "complete_Ident_no_wrap": false,
+  "complete_inline_capacity": false,
+  "direct_opened_charge_scope": "Fixed raw declarations and valid strict-equal representative/cache relation",
+  "drivers": {
+    "altergo": [
+      "counterexamples_dependent_intros",
+      "monomorphise_goal",
+      "inline_trivial"
+    ],
+    "cvc5": [
+      "counterexamples_dependent_intros",
+      "inline_trivial"
+    ],
+    "z3": [
+      "inline_trivial"
+    ]
+  },
+  "episode_composition_scope": "Retained serial R34 continuation only",
+  "includes_R50_update_charge": false,
+  "includes_pending_callback_charge": false,
+  "includes_transform_lookup_initialization": false,
+  "intended_parallel_episode_composition_claimed": false,
+  "intended_parallel_seed_closure": false,
+  "native_runs": 0,
+  "predecessor_replays": 0,
+  "retained_serial_seed_closure_under_named_premises": true,
+  "scope": "Fixed selected raw-task prefixes into inline_trivial; retained serial episode and seed attachment",
+  "source_theorem_machine_checked": false,
+  "under_named_source_cache_episode_and_seed_premises": {
+    "full_five_process_prefix_Ident_upper": 317937,
+    "post_five_cut_prefix_Ident_upper": 317465
+  }
+}
