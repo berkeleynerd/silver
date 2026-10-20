@@ -1,0 +1,78 @@
+{
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/first-or-default-atoms.json.gz": {
+    "bytes": 191987,
+    "sha256": "e9ed2816959694b4a04622c07730bfe73baec4097ea927ab8461a1085facbb2d"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/input-is-valid-atoms.json.gz": {
+    "bytes": 45455,
+    "sha256": "0f7701642784e8aac84ebad5623b83d239fa57492f15257acbfb9bfad743d9ae"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/is-message-atoms.json.gz": {
+    "bytes": 39186,
+    "sha256": "fba5f7e5da8f99d6afccf5ead9730f45147727ac4cc0e26a0d17d74247be80bd"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/put-atoms.json.gz": {
+    "bytes": 770964,
+    "sha256": "181f00ce095b136c90144b8ae04f41e44a7202585eff0fa1174d970c3f2fa4b5"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/put-line-atoms.json.gz": {
+    "bytes": 946806,
+    "sha256": "4f3e4a9da6e591832b6750a3dee2f995e7f6c83918bd15de996f5cb80b169cf6"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json": {
+    "bytes": 804836,
+    "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json": {
+    "bytes": 76267,
+    "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json": {
+    "bytes": 3559217,
+    "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json": {
+    "bytes": 4278229,
+    "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/summary.json": {
+    "bytes": 5547,
+    "sha256": "14a8a8aa44c324cec208036bfab4e2a1fb8337794a02ac38d7fe65f6de18329a"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml": {
+    "bytes": 3138,
+    "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa"
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c": {
+    "bytes": 92312,
+    "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/z.ml": {
+    "bytes": 17756,
+    "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+  },
+  "docs/evidence/retained-why-ordinary-ending-control-20261020/control-ledger.json": {
+    "bytes": 4455,
+    "sha256": "865af0548bbd36aa9f5bfe86beb0ab31354872b59e0a97947e5b29c470f7ae48"
+  },
+  "docs/evidence/retained-why-ordinary-ending-control-20261020/transfer.py": {
+    "bytes": 2113,
+    "sha256": "32c43619937abbcdcc007dad5b676ceb94a5d7dea8530f90f5ed63d5f0872818"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json": {
+    "bytes": 97976,
+    "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+  },
+  "docs/research/retained-why-ordinary-ending-control.md": {
+    "bytes": 16027,
+    "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+  }
+}

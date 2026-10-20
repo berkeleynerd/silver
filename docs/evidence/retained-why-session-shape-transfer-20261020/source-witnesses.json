@@ -1,0 +1,377 @@
+[
+  {
+    "label": "explanation-prefixes-and-selection",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 20,
+    "last": 98,
+    "text": "let expl_prefixes = ref [\"expl:\";\"infer:\"]\n\nlet add_extra_expl_prefix s = expl_prefixes := s :: !expl_prefixes\n\nlet arg_extra_expl_prefix =\n  (\"--extra-expl-prefix\",\n   Arg.String add_extra_expl_prefix,\n   \"<s> register s as an additional prefix for VC explanations\")\n\nlet opt_extra_expl_prefix =\n  let open Getopt in\n  KLong \"extra-expl-prefix\",\n  Hnd1 (AString, add_extra_expl_prefix),\n  \"<expl> register <expl> as an additional prefix\\nfor VC explanations\"\n\nlet match_prefix prefix attr =\n  (* Return the list of all labels that match the given prefix. Raise Not_found\n     if none is found *)\n  let acc =\n    Ident.Sattr.fold\n      (fun attr acc ->\n         try\n           let attr = attr.Ident.attr_string in\n           let s = Strings.remove_prefix ~prefix attr in\n           s :: acc\n         with Not_found -> acc\n      ) attr []\n  in\n  if acc = [] then raise Not_found else acc\n\nlet collect_expls lab =\n  (* return the list of labels that match any of the provided prefixes, but\n     return the empty list if any prefix is not matched at all *)\n  try\n    List.fold_left (fun acc x -> List.rev_append (match_prefix x lab) acc) []\n      !expl_prefixes\n  with Not_found -> []\n\nlet concat_expls = function\n  | [] -> None\n  | [l] -> Some l\n  | l :: ls -> Some (l ^ \" (\" ^ String.concat \". \" ls ^ \")\")\n\nlet search_attrs callback =\n  let rec aux acc f =\n    if f.t_ty <> None then acc\n    else if Ident.Sattr.mem Term.stop_split f.Term.t_attrs then acc\n    else\n      let res = callback f.Term.t_attrs in\n      if res = [] then match f.t_node with\n        | Term.Ttrue | Term.Tfalse | Term.Tapp _ -> acc\n        | Term.Tbinop (Term.Timplies, _, f) -> aux acc f\n        | Term.Tlet _ | Term.Tcase _ | Term.Tquant (Term.Tforall, _) ->\n          Term.t_fold aux acc f\n        | _ -> raise Exit\n      else if acc = [] then res\n      else raise Exit\n  in\n  aux []\n\nlet get_expls_fmla =\n  let search = search_attrs collect_expls in\n  fun f -> try search f with Exit -> []\n\nlet goal_expl_task ~root task =\n  let gid = (Task.task_goal task).Decl.pr_name in\n  let info =\n    let res = get_expls_fmla (Task.task_goal_fmla task) in\n    concat_expls\n      (if res <> [] && not root\n       then res\n       else collect_expls gid.Ident.id_attrs)\n  in\n  let info =\n    match info with\n      | Some i -> i\n      | None -> \"\"\n  in\n  gid, info, task\n",
+    "anchors": [
+      "add_extra_expl_prefix",
+      "with Not_found -> []",
+      "with Exit -> []",
+      "collect_expls gid.Ident.id_attrs"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml"
+  },
+  {
+    "label": "SV6-constant-output",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 220,
+    "last": 228,
+    "text": "let const_v2 fmt c =\n  match c with\n  | ConstInt { il_kind=_; il_int=i } ->\n      Format.pp_print_string fmt (BigInt.to_string i)\n  | ConstReal { rl_kind=_; rl_real={ rv_sig=i; rv_pow2=p2; rv_pow5=p5 } } ->\n      Format.fprintf fmt \"%s.p%se%s\"\n        (BigInt.to_string i) (BigInt.to_string p2) (BigInt.to_string p5)\n  | ConstStr c ->\n      print_string_def fmt c\n",
+    "anchors": [
+      "\"%s.p%se%s\"",
+      "print_string_def"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml"
+  },
+  {
+    "label": "shape-tags-and-name-alpha-output",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 323,
+    "last": 393,
+    "text": "let tag_and = 'A'\nlet tag_app = 'a'\nlet tag_case = 'C'\nlet tag_const = 'c'\nlet tag_exists = 'E'\nlet tag_eps = 'e'\nlet tag_forall = 'F'\nlet tag_false = 'f'\nlet tag_impl = 'I'\nlet tag_if = 'i'\nlet tag_let = 'L'\nlet tag_not = 'N'\nlet tag_or = 'O'\nlet tag_iff = 'q'\nlet tag_true = 't'\nlet tag_var = 'V'\nlet tag_wild = 'w'\nlet tag_as = 'z'\n\nexception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n\n(* Remove infix and mixfix. (prefix should be rare enough) *)\nlet decoded pr id =\n  Ident.(match sn_decode id.id_string with\n  | SNword _ -> Ident.id_unique pr id\n  | SNinfix s | SNtight s | SNprefix s | SNget s | SNset s\n  | SNupdate s | SNcut s | SNlcut s | SNrcut s -> s)\n\nlet ident_v4 h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = id.Ident.id_string in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet ident_v5 pr h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = decoded pr id in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet vs_rename_alpha c h vs =\n  incr c;\n  let s = string_of_int !c in\n  h := Ident.Mid.add vs.vs_name s !h\n\nlet vl_rename_alpha c h vl = List.iter (vs_rename_alpha c h) vl\n\nlet rec pat_rename_alpha c h p = match p.pat_node with\n  | Pvar v -> vs_rename_alpha c h v\n  | Pas (p, v) -> vs_rename_alpha c h v; pat_rename_alpha c h p\n  | Por (p, _) -> pat_rename_alpha c h p\n  | _ -> Term.pat_fold (fun () -> pat_rename_alpha c h) () p\n",
+    "anchors": [
+      "Buffer.add_string shape_buffer s",
+      "SNword _ -> Ident.id_unique pr id",
+      "string_of_int !c",
+      "Por (p, _)"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml"
+  },
+  {
+    "label": "SV6-term-pattern-recursion",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 401,
+    "last": 506,
+    "text": "let const_shape v c =\n  let fmt = Format.formatter_of_buffer shape_buffer in\n  begin match v with\n  | SV1 | SV2 | SV3 | SV4 | SV5 -> Common.const_v1 fmt c\n  | SV6 -> Common.const_v2 fmt c\n  end;\n  Format.pp_print_flush fmt ();\n  check ()\n\nlet ident_shape v pr m id =\n  match v with\n  | SV1 | SV2 | SV3 | SV4 | SV5 -> ident_v4 m id\n  | SV6 -> ident_v5 pr m id\n\nlet rec pat_shape ~version pr c m p : 'a =\n  match p.pat_node with\n    | Pwild -> pushc tag_wild\n    | Pvar _ -> pushc tag_var\n    | Papp (f, l) ->\n        pushc tag_app;\n        ident_shape version pr m f.ls_name;\n        List.iter (pat_shape ~version pr c m) l\n    | Pas (p, _) -> pat_shape ~version pr c m p; pushc tag_as\n    | Por (p, q) ->\n       pat_shape ~version pr c m q; pushc tag_or; pat_shape ~version pr c m p\n\nlet rec t_shape ~version pr c m t =\n  let fn = t_shape ~version pr c m in\n  match t.t_node with\n    | Tconst c -> pushc tag_const; const_shape version c\n    | Tvar v -> pushc tag_var; ident_shape version pr m v.vs_name\n    | Tapp (s,l) ->\n        pushc tag_app;\n        ident_shape version pr m s.ls_name;\n        List.iter fn l\n    | Tif (f,t1,t2) ->\n      begin match version with\n      | SV1 | SV2 -> pushc tag_if; fn f; fn t1; fn t2\n      | SV3 | SV4 | SV5 | SV6 -> pushc tag_if; fn t2; fn t1; fn f\n      end\n    | Tcase (t1,bl) ->\n        let br_shape b =\n          let p,t2 = t_open_branch b in\n          match version with\n          | SV1 | SV2 ->\n            pat_shape ~version pr c m p;\n            pat_rename_alpha c m p;\n            fn t2\n          | SV3 | SV4 | SV5 | SV6 ->\n            pat_rename_alpha c m p;\n            fn t2;\n            pat_shape ~version pr c m p\n        in\n        begin match version with\n        | SV1 | SV2 ->\n                 pushc tag_case;\n                 fn t1;\n                 List.iter br_shape bl\n        | SV3 | SV4 | SV5 | SV6->\n           pushc tag_case;\n           List.iter br_shape bl;\n           fn t1\n        end\n    | Teps b ->\n        pushc tag_eps;\n        let u,f = t_open_bound b in\n        vs_rename_alpha c m u;\n        fn f\n    | Tquant (q,b) ->\n        let vl,triggers,f1 = t_open_quant b in\n        vl_rename_alpha c m vl;\n        (* argument first, intentionally, to give more weight on A in\n           forall x,A *)\n        fn f1;\n        let hq = match q with Tforall -> tag_forall | Texists -> tag_exists in\n        pushc hq;\n        List.iter (fun trigger -> List.iter fn trigger) triggers\n    | Tbinop (o,f,g) ->\n       (* g first, intentionally, to give more weight on B in A->B *)\n       fn g;\n       let tag = match o with\n         | Tand -> tag_and\n         | Tor -> tag_or\n         | Timplies -> tag_impl\n         | Tiff -> tag_iff\n       in\n       pushc tag;\n       fn f\n    | Tlet (t1,b) ->\n        let u,t2 = t_open_bound b in\n        vs_rename_alpha c m u;\n        begin\n          match version with\n            | SV1 ->\n                pushc tag_let; fn t1; fn t2\n            | SV2 | SV3 | SV4 | SV5 | SV6 ->\n                (* t2 first, intentionally *)\n                fn t2; pushc tag_let; fn t1\n        end\n    | Tnot f ->\n      begin match version with\n      | SV1 | SV2 -> fn f; pushc tag_not\n      | SV3 | SV4 | SV5 | SV6 -> pushc tag_not; fn f\n      end\n    | Ttrue -> pushc tag_true\n    | Tfalse -> pushc tag_false\n",
+    "anchors": [
+      "Format.pp_print_flush fmt ()",
+      "Papp (f, l)",
+      "List.iter (fun trigger -> List.iter fn trigger) triggers"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml"
+  },
+  {
+    "label": "shape-insertion-continuation",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 571,
+    "last": 582,
+    "text": "  let add_shape gs s =\n    try Mstr.find s gs.hyp_shape with\n    | Not_found ->\n        gs.hyp_shape <- Mstr.add s gs.n gs.hyp_shape;\n        gs.index_sh  <- Mint.add gs.n s gs.index_sh;\n        gs.n <- gs.n + 1;\n        gs.n - 1\n\n  let add_and_prepend gs current_shape s : unit =\n    (* Do not save empty: could be confused with end of assingments (TODO to be improved)  *)\n    if s = \"\" then () else\n      current_shape := add_shape gs s :: !current_shape\n",
+    "anchors": [
+      "gs.n <- gs.n + 1",
+      "if s = \"\" then ()"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml"
+  },
+  {
+    "label": "SV6-task-and-explanation-insertion",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 601,
+    "last": 628,
+    "text": "  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)\n    !current_shape\n",
+    "anchors": [
+      "Shape.ShapeTooLong",
+      "add_and_prepend gs current_shape sh",
+      "\"empty_shape\"",
+      "add_and_prepend gs current_shape expl"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml"
+  },
+  {
+    "label": "decode-fallbacks",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 113,
+    "last": 152,
+    "text": "let sn_decode s =\n  let len = String.length s in\n  if len <= 6 then SNword s else\n  if s.[5] <> ' ' && s.[6] <> ' ' then SNword s else\n  let k = match String.sub s 0 6 with\n    | \"infix \" -> 6\n    | \"prefix\" -> 7\n    | \"mixfix\" -> (try succ (String.index_from s 7 ']') with Not_found -> 0)\n    | _ -> 0 in\n  if k = 0 then SNword s else\n  let rec skip_opchar i =\n    if i = len then i else match s.[i] with\n      | '@' | '!' | '^' | '$' | '=' | '%' | '>' | '#'\n      | '.' | '<' | '-' | '&' | '/' | '+' | '?' | ':'\n      | '*' | '~' | '|' | '\\\\' -> skip_opchar (succ i)\n      | _ -> i in\n  let l = skip_opchar k in\n  let rec skip_quote i =\n    if i = len then i else\n    if s.[i] = '\\'' then skip_quote (succ i) else\n    if i = l || s.[i] = '_' then i else pred i in\n  let m = skip_quote l in\n  let prefix o =\n    if o.[0] <> '!' && o.[0] <> '?' then SNprefix o\n    else try for i = 1 to l - 8 do match o.[i] with\n      | '!' | '$' | '&' | '?' | '@'\n      | '^' | '.' | ':' | '|' | '#' -> ()\n      | _ -> raise Exit done; SNtight o\n    with Exit -> SNprefix o in\n  if l = k && k < 8 then SNword s (* null infix/prefix *) else\n  let w = if k = 6 then SNinfix (String.sub s 6 (m - 6)) else\n          if k = 7 then prefix (String.sub s 7 (m - 7)) else\n          let p = if l < m then String.sub s l (m - l) else \"\" in\n          match String.sub s 8 (l - 8) with\n          | \"]\"   -> SNget p | \"]<-\"  -> SNset p  | \"<-]\"  -> SNupdate p\n          | \"..]\" -> SNcut p | \".._]\" -> SNlcut p | \"_..]\" -> SNrcut p\n          | _ -> SNword (if m = len then s else String.sub s 0 m) in\n  if m = len then w (* no appended suffix *) else\n  if s.[m] <> '\\'' && s.[m] <> '_' then SNword s else\n  SNword (Format.asprintf \"%a%s\" print_sn w (String.sub s m (len - m)))\n",
+    "anchors": [
+      "String.index_from s 7",
+      "with Not_found -> 0",
+      "SNword (Format.asprintf"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml"
+  },
+  {
+    "label": "cloned-original-names",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 209,
+    "last": 215,
+    "text": "let id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n  in\n  create_ident id.id_string aa loc\n",
+    "anchors": [
+      "create_ident id.id_string",
+      "Sattr.union"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml"
+  },
+  {
+    "label": "private-printer-suffix-search",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 233,
+    "last": 268,
+    "text": "let find_unique indices name =\n  let specname ind =\n    (* If the symbol is infix/prefix *and* the name has not been\n       sanitized for provers, we don't want to disambiguate with\n       a number but with a quote symbol: \"+\" becomes \"+'\" \"+''\" etc.\n       This allows to parse the ident again (for transformations). *)\n    if ind <= 0 then name else\n    match sn_decode name with\n    | SNword _ -> name ^ string_of_int ind\n    | _        -> name ^ String.make ind '\\'' in\n  let testname ind = Hstr.mem indices (specname ind) in\n  let rec advance ind =\n    if testname ind then advance (succ ind) else ind in\n  let rec retreat ind =\n    if ind = 1 || testname (pred ind) then ind else retreat (pred ind) in\n  let fetch ind =\n    if testname ind then advance (succ ind) else retreat ind in\n  let name = try\n    let ind = fetch (succ (Hstr.find indices name)) in\n    Hstr.replace indices name ind;\n    specname ind\n  with Not_found -> name in\n  Hstr.replace indices name 0;\n  name\n\nlet reserve indices name = ignore (find_unique indices name)\n\nlet same x = x\n\nlet create_ident_printer ?(sanitizer = same) sl =\n  let indices = Hstr.create 1997 in\n  List.iter (reserve indices) sl;\n  { indices   = indices;\n    values    = Hid.create 1997;\n    sanitizer = sanitizer;\n    blacklist = sl }\n",
+    "anchors": [
+      "name ^ string_of_int ind",
+      "String.make ind",
+      "Hstr.replace indices name ind",
+      "Hstr.replace indices name 0",
+      "sanitizer = same"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml"
+  },
+  {
+    "label": "id-printer-cache-miss",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 282,
+    "last": 289,
+    "text": "let id_unique printer ?(sanitizer = same) id =\n  try\n    Hid.find printer.values id\n  with Not_found ->\n    let name = sanitizer (printer.sanitizer id.id_string) in\n    let name = find_unique printer.indices name in\n    Hid.replace printer.values id name;\n    name\n",
+    "anchors": [
+      "with Not_found",
+      "find_unique printer.indices name"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml"
+  },
+  {
+    "label": "pattern-structural-renaming",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 139,
+    "last": 188,
+    "text": "let pat_map fn pat = match pat.pat_node with\n  | Pwild | Pvar _ -> pat\n  | Papp (s, pl) -> pat_app s (List.map fn pl) pat.pat_ty\n  | Pas (p, v) -> pat_as (fn p) v\n  | Por (p, q) -> pat_or (fn p) (fn q)\n\nlet pat_map fn = pat_map (fun p ->\n  let res = fn p in ty_equal_check p.pat_ty res.pat_ty; res)\n\nlet pat_fold fn acc pat = match pat.pat_node with\n  | Pwild | Pvar _ -> acc\n  | Papp (_, pl) -> List.fold_left fn acc pl\n  | Pas (p, _) -> fn acc p\n  | Por (p, q) -> fn (fn acc p) q\n\nlet pat_all pr pat = Util.all pat_fold pr pat\nlet pat_any pr pat = Util.any pat_fold pr pat\n\n(* smart constructors for patterns *)\n\nexception BadArity of lsymbol * int\nexception FunctionSymbolExpected of lsymbol\nexception PredicateSymbolExpected of lsymbol\nexception ConstructorExpected of lsymbol\n\nlet pat_app fs pl ty =\n  let s = match fs.ls_value with\n    | Some vty -> ty_match Mtv.empty vty ty\n    | None -> raise (FunctionSymbolExpected fs)\n  in\n  let mtch s ty p = ty_match s ty p.pat_ty in\n  ignore (try List.fold_left2 mtch s fs.ls_args pl with\n    | Invalid_argument _ -> raise (BadArity (fs, List.length pl)));\n  if fs.ls_constr = 0 then raise (ConstructorExpected fs);\n  pat_app fs pl ty\n\nlet pat_as p v =\n  ty_equal_check p.pat_ty v.vs_ty;\n  pat_as p v\n\nlet pat_or p q =\n  ty_equal_check p.pat_ty q.pat_ty;\n  pat_or p q\n\n(* rename all variables in a pattern *)\n\nlet rec pat_rename_all m p = match p.pat_node with\n  | Pvar v -> pat_var (Mvs.find v m)\n  | Pas (p, v) -> pat_as (pat_rename_all m p) (Mvs.find v m)\n  | _ -> pat_map (pat_rename_all m) p\n",
+    "anchors": [
+      "Por (p, q) -> pat_or (fn p) (fn q)",
+      "let rec pat_rename_all"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml"
+  },
+  {
+    "label": "term-attribute-preservation",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 630,
+    "last": 675,
+    "text": "  t_attrs = Sattr.empty;\n  t_loc   = None;\n  t_ty    = ty;\n}\n\nlet t_var v         = mk_term (Tvar v) (Some v.vs_ty)\nlet t_const c ty    = mk_term (Tconst c) (Some ty)\nlet t_app f tl ty   = mk_term (Tapp (f, tl)) ty\nlet t_if f t1 t2    = mk_term (Tif (f, t1, t2)) t2.t_ty\nlet t_let t1 bt ty  = mk_term (Tlet (t1, bt)) ty\nlet t_case t1 bl ty = mk_term (Tcase (t1, bl)) ty\nlet t_eps bf ty     = mk_term (Teps bf) ty\nlet t_quant q qf    = mk_term (Tquant (q, qf)) None\nlet t_binary op f g = mk_term (Tbinop (op, f, g)) None\nlet t_not f         = mk_term (Tnot f) None\nlet t_true          = mk_term (Ttrue) None\nlet t_false         = mk_term (Tfalse) None\n\nlet t_attr_set ?loc l t = { t with t_attrs = l; t_loc = loc }\n\nlet t_attr_add l t = { t with t_attrs = Sattr.add l t.t_attrs }\n\nlet t_attr_remove l t = { t with t_attrs = Sattr.remove l t.t_attrs }\n\nlet t_attr_copy s t =\n  if s == t then s else\n  if t_similar s t && Sattr.is_empty t.t_attrs && t.t_loc = None then s else\n  let attrs = Sattr.union s.t_attrs t.t_attrs in\n  let loc = if t.t_loc = None then s.t_loc else t.t_loc in\n  { t with t_attrs = attrs; t_loc = loc }\n\n(* unsafe map *)\n\nlet bound_map fn (u,b,e) = (u, bnd_map fn b, fn e)\n\nlet t_map_unsafe fn t = t_attr_copy t (match t.t_node with\n  | Tvar _ | Tconst _ -> t\n  | Tapp (f,tl) -> t_app f (List.map fn tl) t.t_ty\n  | Tif (f,t1,t2) -> t_if (fn f) (fn t1) (fn t2)\n  | Tlet (e,b) -> t_let (fn e) (bound_map fn b) t.t_ty\n  | Tcase (e,bl) -> t_case (fn e) (List.map (bound_map fn) bl) t.t_ty\n  | Teps b -> t_eps (bound_map fn b) t.t_ty\n  | Tquant (q,(vl,b,tl,f)) -> t_quant q (vl, bnd_map fn b, tr_map fn tl, fn f)\n  | Tbinop (op,f1,f2) -> t_binary op (fn f1) (fn f2)\n  | Tnot f1 -> t_not (fn f1)\n  | Ttrue | Tfalse -> t)\n",
+    "anchors": [
+      "t_attrs = Sattr.empty",
+      "Sattr.union s.t_attrs t.t_attrs",
+      "t_attr_copy"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml"
+  },
+  {
+    "label": "substitution-and-opening",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 739,
+    "last": 831,
+    "text": "let rec t_subst_unsafe m t =\n  let t_subst t = t_subst_unsafe m t in\n  let b_subst (u,b,e as bv) =\n    if Mvs.set_disjoint m b.bv_vars then bv else\n    (u, bv_subst_unsafe m b, e) in\n  match t.t_node with\n  | Tvar u ->\n      t_attr_copy t (Mvs.find_def t u m)\n  | Tlet (e, bt) ->\n      let d = t_subst e in\n      t_attr_copy t (t_let d (b_subst bt) t.t_ty)\n  | Tcase (e, bl) ->\n      let d = t_subst e in\n      let bl = List.map b_subst bl in\n      t_attr_copy t (t_case d bl t.t_ty)\n  | Teps bf ->\n      t_attr_copy t (t_eps (b_subst bf) t.t_ty)\n  | Tquant (q, (vl,b,tl,f1 as bq)) ->\n      let bq =\n        if Mvs.set_disjoint m b.bv_vars then bq else\n        (vl,bv_subst_unsafe m b,tl,f1) in\n      t_attr_copy t (t_quant q bq)\n  | _ ->\n      t_map_unsafe t_subst t\n\nand bv_subst_unsafe m b =\n  (* restrict m to the variables free in b *)\n  let m = Mvs.set_inter m b.bv_vars in\n  (* if m is empty, return early *)\n  if Mvs.is_empty m then b else\n  (* remove from b.bv_vars the variables replaced by m *)\n  let s = Mvs.set_diff b.bv_vars m in\n  (* add to b.bv_vars the free variables added by m *)\n  let s = Mvs.fold2_inter add_nt_vars b.bv_vars m s in\n  (* apply m to the terms in b.bv_subst *)\n  let h = Mvs.map (t_subst_unsafe m) b.bv_subst in\n  (* join m to b.bv_subst *)\n  let h = Mvs.set_union h m in\n  (* reconstruct b *)\n  { bv_vars = s ; bv_subst = h }\n\nlet t_subst_unsafe m t =\n  if Mvs.is_empty m then t else t_subst_unsafe m t\n\n(* close bindings *)\n\nlet bnd_new s = { bv_vars = s ; bv_subst = Mvs.empty }\n\nlet t_close_bound v t = (v, bnd_new (Mvs.remove v (t_vars t)), t)\n\nlet t_close_branch p t = (p, bnd_new (Mvs.set_diff (t_vars t) p.pat_vars), t)\n\nlet t_close_quant vl tl f =\n  let del_v s v = Mvs.remove v s in\n  let s = tr_fold add_t_vars (t_vars f) tl in\n  let s = List.fold_left del_v s vl in\n  (vl, bnd_new s, tl, t_prop f)\n\n(* open bindings *)\n\nlet fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f\n",
+    "anchors": [
+      "t_attr_copy t (Mvs.find_def t u m)",
+      "let h = Mvs.map (t_subst_unsafe m) b.bv_subst",
+      "id_clone v.vs_name",
+      "pat_rename_all m p"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml"
+  },
+  {
+    "label": "explanation-opening-fold",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 1284,
+    "last": 1296,
+    "text": "let t_fold fn acc t = match t.t_node with\n  | Tlet (t1, b) ->\n      let _,t2 = t_open_bound b in fn (fn acc t1) t2\n  | Tcase (t1, bl) ->\n      let brn acc b = let _,t = t_open_branch b in fn acc t in\n      List.fold_left brn (fn acc t1) bl\n  | Teps b ->\n      let _,f = t_open_bound b in fn acc f\n  | Tquant (_, b) ->\n      let _, tl, f1 = t_open_quant b in tr_fold fn (fn acc f1) tl\n  | _ -> t_fold_unsafe fn acc t\n\nlet t_iter fn t = t_fold (fun () t -> fn t) () t\n",
+    "anchors": [
+      "t_open_branch",
+      "t_open_quant"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml"
+  },
+  {
+    "label": "byte-string-escape",
+    "member_identity": {
+      "bytes": 2699,
+      "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+    },
+    "first": 50,
+    "last": 73,
+    "text": "let default_escape c = match c with\n  | '\\\\' -> \"\\\\\\\\\"\n  | '\\n' -> \"\\\\n\"\n  | '\\r' -> \"\\\\r\"\n  | '\\t' -> \"\\\\t\"\n  | '\\b' -> \"\\\\b\"\n  | '\\\"'  -> \"\\\\\\\"\"\n  | '\\032' .. '\\126' -> Format.sprintf \"%c\" c\n  | '\\000' .. '\\031'\n  | '\\127' .. '\\255' -> Format.sprintf \"\\\\x%02X\" (Char.code c)\n\nlet unsupported_escape = fun _ -> assert false\n\nlet escape f s =\n  let open Buffer in\n  let b = create (String.length s) in\n  String.iter (fun c -> add_string b (f c)) s;\n  contents b\n\nlet print_string_constant string_escape fmt s =\n  Format.fprintf fmt \"\\\"%s\\\"\" (escape string_escape s)\n\nlet print_string_def fmt s =\n  print_string_constant default_escape fmt s\n",
+    "anchors": [
+      "\\x%02X",
+      "String.iter",
+      "print_string_constant default_escape"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/constant.ml"
+  },
+  {
+    "label": "BigInt-decimal-alias",
+    "member_identity": {
+      "bytes": 2000,
+      "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885"
+    },
+    "first": 60,
+    "last": 70,
+    "text": "let abs = abs_big_int\n\nlet num_digits = num_digits_big_int\n\nlet pow_int_pos = power_int_positive_int\nlet pow_int_pos_bigint = power_int_positive_big_int\n\nlet to_string = string_of_big_int\nlet of_string = big_int_of_string\nlet to_int = int_of_big_int\nlet is_int = is_int_big_int\n",
+    "anchors": [
+      "to_string = string_of_big_int"
+    ],
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/bigInt.ml"
+  },
+  {
+    "label": "formatter-string",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 632,
+    "last": 637,
+    "text": "let pp_print_as state isize s =\n  pp_print_as_size state (Size.of_int isize) s\n\n\nlet pp_print_string state s =\n  pp_print_as state (String.length s) s\n",
+    "anchors": [
+      "String.length s"
+    ],
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml"
+  },
+  {
+    "label": "formatter-no-newline-flush",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 665,
+    "last": 676,
+    "text": "(* Printing queued text.\n\n   [pp_print_flush] prints all pending items in the pretty-printer queue and\n   then flushes the low level output device of the formatter to actually\n   display printing material.\n\n   [pp_print_newline] behaves as [pp_print_flush] after printing an additional\n   new line. *)\nlet pp_print_newline state () =\n  pp_flush_queue state true; state.pp_out_flush ()\nand pp_print_flush state () =\n  pp_flush_queue state false; state.pp_out_flush ()\n",
+    "anchors": [
+      "pp_flush_queue state false"
+    ],
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml"
+  },
+  {
+    "label": "formatter-buffer-target",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first": 992,
+    "last": 1007,
+    "text": "let make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n",
+    "anchors": [
+      "Buffer.add_substring b"
+    ],
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml"
+  },
+  {
+    "label": "Big_int_Z-decimal-alias",
+    "member_identity": {
+      "bytes": 3138,
+      "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa"
+    },
+    "first": 95,
+    "last": 101,
+    "text": "let min_big_int = Z.min\n\nlet num_digits_big_int = Z.size\n\nlet string_of_big_int = Z.to_string\n\nlet big_int_of_string = Z.of_string\n",
+    "anchors": [
+      "string_of_big_int = Z.to_string"
+    ],
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml"
+  },
+  {
+    "label": "Zarith-format-external",
+    "member_identity": {
+      "bytes": 17756,
+      "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+    },
+    "first": 225,
+    "last": 231,
+    "text": "external to_nativeint: t -> nativeint = \"ml_z_to_nativeint\"\nexternal to_int32_unsigned: t -> int32 = \"ml_z_to_int32_unsigned\"\nexternal to_int64_unsigned: t -> int64 = \"ml_z_to_int64_unsigned\"\nexternal to_nativeint_unsigned: t -> nativeint = \"ml_z_to_nativeint_unsigned\"\nexternal format: string -> t -> string = \"ml_z_format\"\nexternal of_substring_base: int -> string -> pos:int -> len:int -> t = \"ml_z_of_substring_base\"\nexternal compare: t -> t -> int = \"ml_z_compare\" [@@noalloc]\n",
+    "anchors": [
+      "\"ml_z_format\""
+    ],
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/z.ml"
+  },
+  {
+    "label": "Zarith-decimal-format",
+    "member_identity": {
+      "bytes": 17756,
+      "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+    },
+    "first": 309,
+    "last": 313,
+    "text": "let gt a b = compare a b > 0\n\nlet to_string = format \"%d\"\n\nlet of_string s = of_substring_base 0 s ~pos:0 ~len:(String.length s)\n",
+    "anchors": [
+      "format \"%d\""
+    ],
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/z.ml"
+  },
+  {
+    "label": "Zarith-format-body",
+    "member_identity": {
+      "bytes": 92312,
+      "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    },
+    "first": 989,
+    "last": 1085,
+    "text": "CAMLprim value ml_z_format(value f, value v)\n{\n  CAMLparam2(f,v);\n  Z_DECL(v);\n  const char tab[2][16] =\n    { { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' },\n      { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' } };\n  char* buf, *dst;\n  mp_size_t i, size_dst, max_size;\n  value r;\n  const char* fmt = String_val(f);\n  int base = 10;     /* base */\n  int cas = 0;       /* uppercase X / lowercase x */\n  int width = 0;\n  int alt = 0;       /* alternate # */\n  int dir = 0;       /* right / left adjusted */\n  char sign = 0;     /* sign char */\n  char pad = ' ';    /* padding char */\n  char *prefix = \"\";\n  Z_MARK_OP;\n  Z_CHECK(v);\n  Z_ARG(v);\n  Z_MARK_SLOW;\n\n  /* parse format */\n  while (*fmt == '%') fmt++;\n  for (; ; fmt++) {\n    if (*fmt == '#') alt = 1;\n    else if (*fmt == '0') pad = '0';\n    else if (*fmt == '-') dir = 1;\n    else if (*fmt == ' ' || *fmt == '+') sign = *fmt;\n    else break;\n  }\n  if (sign_v) sign = '-';\n  for (;*fmt>='0' && *fmt<='9';fmt++)\n    width = 10*width + *fmt-'0';\n  switch (*fmt) {\n  case 'i': case 'd': case 'u': break;\n  case 'b': base = 2; if (alt) prefix = \"0b\"; break;\n  case 'o': base = 8; if (alt) prefix = \"0o\"; break;\n  case 'x': base = 16; if (alt) prefix = \"0x\"; cas = 1; break;\n  case 'X': base = 16; if (alt) prefix = \"0X\"; break;\n  default: caml_invalid_argument(\"Z.format: invalid format\");\n  }\n  if (dir) pad = ' ';\n  /* get digits */\n  /*  we need space for sign + prefix + digits + 1 + padding + terminal 0 */\n  max_size = 1 + 2 + Z_LIMB_BITS * size_v + 1 + 2 * width + 1;\n  buf = (char*) malloc(max_size);\n  dst = buf + 1 + 2 + width;\n  if (!size_v) {\n    size_dst = 1;\n    *dst = '0';\n  }\n  else {\n    mp_limb_t* copy_v = ml_z_dup_limb(ptr_v, size_v);\n    size_dst = mpn_get_str((unsigned char*)dst, base, copy_v, size_v);\n    if (dst + size_dst >= buf + max_size)\n      caml_failwith(\"Z.format: internal error\");\n    free(copy_v);\n    while (size_dst && !*dst) { dst++; size_dst--; }\n    for (i = 0; i < size_dst; i++)\n      dst[i] = tab[cas][ (int) dst[i] ];\n  }\n  /* add prefix, sign & padding */\n  if (pad == ' ') {\n    if (dir) {\n      /* left alignment */\n      for (i = strlen(prefix); i > 0; i--, size_dst++)\n        *(--dst) = prefix[i-1];\n      if (sign) { *(--dst) = sign; size_dst++; }\n      for (; size_dst < width; size_dst++)\n        dst[size_dst] = pad;\n    }\n    else {\n      /* right alignment, space padding */\n      for (i = strlen(prefix); i > 0; i--, size_dst++)\n        *(--dst) = prefix[i-1];\n      if (sign) { *(--dst) = sign; size_dst++; }\n      for (; size_dst < width; size_dst++) *(--dst) = pad;\n    }\n  }\n  else {\n    /* right alignment, non-space padding */\n    width -= strlen(prefix) + (sign ? 1 : 0);\n    for (; size_dst < width; size_dst++) *(--dst) = pad;\n    for (i = strlen(prefix); i > 0; i--, size_dst++)\n      *(--dst) = prefix[i-1];\n    if (sign) { *(--dst) = sign; size_dst++; }\n  }\n  dst[size_dst] = 0;\n  if (dst < buf || dst + size_dst >= buf + max_size)\n    caml_failwith(\"Z.format: internal error\");\n  r = caml_copy_string(dst);\n  free(buf);\n  CAMLreturn(r);\n}\n",
+    "anchors": [
+      "int base = 10",
+      "int width = 0",
+      "if (sign_v) sign =",
+      "mpn_get_str",
+      "r = caml_copy_string(dst)"
+    ],
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c"
+  }
+]
