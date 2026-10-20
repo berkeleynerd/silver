@@ -1,0 +1,370 @@
+{
+  "scope": "Retained source-family/runtime/layout premises; no new historical installed-source identity",
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "binary_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "accepted_plan_identity": {
+    "bytes": 83989,
+    "sha256": "30884e50fed9a2e302a27f62b929ab1e43690fc1c3b6ae2ff9dc8b4ded38d558"
+  },
+  "symbols": {
+    "camlWhy3__Termcode__check_2028": {
+      "elf_value": 8299424,
+      "size": 66,
+      "file_offset": 8299424
+    },
+    "caml_ephe_none": {
+      "elf_value": 16427024,
+      "size": 8,
+      "file_offset": 16422928
+    },
+    "camlWhy3__Theory__restore_path_4035": {
+      "elf_value": 5837264,
+      "size": 33,
+      "file_offset": 5837264
+    },
+    "camlWhy3__Theory": {
+      "elf_value": 11932264,
+      "size": 0,
+      "file_offset": 11928168
+    },
+    "camlWhy3__Theory__entry": {
+      "elf_value": 5856896,
+      "size": 4688,
+      "file_offset": 5856896
+    },
+    "camlWhy3__Termcode": {
+      "elf_value": 14679272,
+      "size": 0,
+      "file_offset": 14675176
+    }
+  },
+  "expected_symbols": {
+    "caml_ephe_none": {
+      "elf_value": 16427024
+    },
+    "camlWhy3__Theory__entry": {
+      "elf_value": 5856896
+    },
+    "camlWhy3__Termcode": {
+      "elf_value": 14679272
+    },
+    "camlWhy3__Theory": {
+      "elf_value": 11932264
+    },
+    "camlWhy3__Termcode__check_2028": {
+      "elf_value": 8299424,
+      "code_hex": "4883ec08488d053d596100488b98c0010000488b5b084881fb010800007c19488b80b801000049c786f000000000000000e8829c1f006690b8010000004883c408c3"
+    },
+    "camlWhy3__Theory__restore_path_4035": {
+      "elf_value": 5837264,
+      "code_hex": "4889c6488b4310488d1d520c5b00488b9bc8000000488b7b184889f3e90fee4000"
+    }
+  },
+  "layout_checks": [
+    {
+      "symbol": "camlWhy3__Theory__entry",
+      "offset": 2500,
+      "code_hex": "488d1585a9ffff48891648ba05000000000000014889560848894e10488d56e048c742f8f70c0000488d0d8da9ffff48890a48b9050000000000000148894a0848894210488d05d9a95c00488998380300004889b8400300004889b00001000048899008010000"
+    }
+  ],
+  "root_meanings": {
+    "Shape_buffer": "Termcode module +0x1c0; check_2028 loads it, then Buffer.position at+8; push_2031 confirms append argument",
+    "restore_path": "Theory.entry+2500 creates restore_path_4035 closure with captured id_to_path at field2, then stores closure to Theory module+0x100; restore_path_4035 loads field2 and delegates Wid.find",
+    "weak_container": "Ephemeron.K1 payload fields link,data,key at offsets0,8,16; accepted table-observer.py already retains the same runtime data/key prefix, while this extension follows only the required data strings",
+    "shared_status_tables": "session fields13=file_state,14=th_state,15=tn_state,16=pn_state; all finite chains/capacities retained"
+  },
+  "accepted_weak_layout_witness": {
+    "bytes": 3888,
+    "sha256": "bba1605e03e7396bb53784fabb8b37ab218c91804b868fb1620d77dbe98b2ab5"
+  },
+  "excerpts": [
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 34,
+      "last": 81,
+      "text": "type theory = {\n  theory_name                   : Ident.ident;\n  mutable theory_goals          : proofNodeID list;\n  mutable theory_parent_name    : fileID;\n  mutable theory_is_detached    : bool;\n}\n\nlet theory_name t = t.theory_name\nlet theory_goals t = t.theory_goals\n\ntype proof_parent = Trans of transID | Theory of theory\n\ntype proof_attempt_node = {\n  parent                 : proofNodeID;\n  mutable prover         : Whyconf.prover;\n  limits                 : Call_provers.resource_limits;\n  mutable proof_state    : Call_provers.prover_result option;\n  (* None means that the call was not done or never returned *)\n  mutable proof_obsolete : bool;\n  mutable proof_script   : Sysutil.file_path option;  (* non empty for external ITP *)\n}\n\nlet set_proof_script pa file =\n  assert (pa.proof_script = None);\n  pa.proof_script <- Some file\n\ntype proof_node = {\n  proofn_name                    : Ident.ident;\n  proofn_expl                    : string;\n  proofn_parent                  : proof_parent;\n  proofn_attempts                : proofAttemptID Hprover.t;\n  mutable proofn_transformations : transID list;\n}\n\ntype transformation_node = {\n  transf_name                      : string;\n  transf_args                      : string list;\n  mutable transf_subtasks          : proofNodeID list;\n  transf_parent                    : proofNodeID;\n  transf_is_detached               : bool;\n}\n\ntype file = {\n  file_id                : int;\n  mutable file_path      : Sysutil.file_path;\n  file_format            : Env.fformat;\n  file_is_detached       : bool;\n  mutable file_theories  : theory list;\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 109,
+      "last": 143,
+      "text": "type sshape = {\n  mutable shape_version     : Termcode.sum_shape_version;\n  has_shapes : bool;\n  (* New shapes handling *)\n  (* Global shape declarations *)\n  session_global_shapes     : Termcode.Gshape.gshape;\n  (* New shapes *)\n  session_bound_shape_table : (Termcode.bound_shape) Hpn.t;\n  (* Old shapes (mutually exclusive with session_global_shapes and\n     session_sum_shape_table_new *)\n  session_shape_table       : Termcode.shape Hpn.t;\n  session_sum_table         : Termcode.checksum Hpn.t;\n}\n\ntype session = {\n  proofAttempt_table            : proof_attempt_node Hint.t;\n  mutable next_proofAttemptID   : int;\n  proofNode_table               : proof_node Hint.t;\n  mutable next_proofNodeID      : int;\n  trans_table                   : transformation_node Hint.t;\n  mutable next_transID          : int;\n  mutable next_fileID           : int;\n  session_dir                   : string; (** Absolute path *)\n  session_files                 : file Hfile.t;\n  session_prover_ids            : int Hprover.t;\n  shapes                        : sshape;\n  (* tasks *)\n  session_raw_tasks : Task.task Hpn.t;\n  session_task_tables : Trans.naming_table Hpn.t;\n  (* proved status *)\n  file_state: bool Hfile.t;\n  th_state: bool Ident.Hid.t;\n  tn_state: bool Htn.t;\n  pn_state : bool Hpn.t;\n}\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 2021,
+      "last": 2110,
+      "text": "  | Some s -> fprintf fmt \"@ %s=\\\"%a\\\"\" lab pr s\n\nlet save_prover fmt id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) =\n  let steplimit =\n    if mostfrequent_steplimit < 0 then None else Some mostfrequent_steplimit\n  in\n  fprintf fmt \"@\\n@[<h><prover@ id=\\\"%i\\\"@ name=\\\"%a\\\"@ \\\n               version=\\\"%a\\\"%a@ timelimit=\\\"%g\\\"%a@ memlimit=\\\"%d\\\"/>@]\"\n    id save_string p.Whyconf.prover_name save_string p.Whyconf.prover_version\n    (fun fmt s -> if s <> \"\" then fprintf fmt \"@ alternative=\\\"%a\\\"\"\n        save_string s)\n    p.Whyconf.prover_altern\n    mostfrequent_timelimit\n    (opt pp_print_int \"steplimit\") steplimit\n    mostfrequent_memlimit\n\nlet save_string_attrib name fmt s =\n  if s <> \"\" then fprintf fmt \"@ %s=\\\"%a\\\"\" name save_string s\n\n(*\nlet save_option_def name fmt opt =\n  match opt with\n  | None -> ()\n  | Some s -> save_string_attrib name fmt s\n *)\n\nlet save_bool_def name def fmt b =\n  if b <> def then fprintf fmt \"@ %s=\\\"%b\\\"\" name b\n\nlet save_int_def name def fmt n =\n  if n <> def then fprintf fmt \"@ %s=\\\"%d\\\"\" name n\n\nlet save_float_def name def fmt n =\n  if n <> def then fprintf fmt \"@ %s=\\\"%g\\\"\" name n\n\nlet save_result fmt r =\n  let steps = if  r.Call_provers.pr_steps >= 0 then\n                Some  r.Call_provers.pr_steps\n              else\n                None\n  in\n  fprintf fmt \"<result@ status=\\\"%s\\\"%a/>\"\n    (match r.Call_provers.pr_answer with\n       | Call_provers.Valid -> \"valid\"\n       | Call_provers.Failure _ -> \"failure\"\n       | Call_provers.Unknown _ -> \"unknown\"\n       | Call_provers.HighFailure _ -> \"highfailure\"\n       | Call_provers.Timeout -> \"timeout\"\n       | Call_provers.OutOfMemory -> \"outofmemory\"\n       | Call_provers.StepLimitExceeded -> \"steplimitexceeded\"\n       | Call_provers.Invalid -> \"invalid\")\n    (opt pp_print_int \"steps\") steps\n\nlet save_status fmt s =\n  match s with\n  | Some result -> save_result fmt result\n  | None -> pp_print_string fmt \"<undone/>\"\n\nlet save_file_path fmt p =\n  List.iter\n    (fun s -> fprintf fmt \"@[<hov 1><path name=\\\"%s\\\"/>@]\" s)\n    (Sysutil.decompose_path p)\n\nlet save_proof_attempt fmt ((id,tl,sl,ml),a) =\n  fprintf fmt\n    \"@\\n@[<h><proof@ prover=\\\"%i\\\"%a%a%a%a>\"\n    id\n    (save_float_def \"timelimit\" tl) (a.limits.Call_provers.limit_time)\n    (save_int_def \"steplimit\" sl) (a.limits.Call_provers.limit_steps)\n    (save_int_def \"memlimit\" ml) (a.limits.Call_provers.limit_mem)\n    (save_bool_def \"obsolete\" false) a.proof_obsolete;\n  begin match a.proof_script with\n  | None -> ()\n  | Some p -> save_file_path fmt p\n  end;\n  save_status fmt a.proof_state;\n  fprintf fmt \"</proof>@]\"\n\nlet save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 2110,
+      "last": 2175,
+      "text": "  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n\nand save_trans s ctxt fmt (tid,t) =\n  let arg_id = ref 0 in\n  let save_arg fmt s =\n    arg_id := !arg_id + 1;\n    fprintf fmt \"arg%i=\\\"%a\\\"\" !arg_id save_string s\n  in\n  fprintf fmt \"@\\n@[<hov 1>@[<h><transf@ name=\\\"%a\\\"%a %a>@]\"\n    save_string t.transf_name\n    (save_bool_def \"proved\" false) (tn_proved s tid)\n    (Pp.print_list Pp.space save_arg) t.transf_args;\n  List.iter (save_goal s ctxt fmt) t.transf_subtasks;\n  fprintf fmt \"@]@\\n</transf>\"\n\nlet save_theory s ctxt fmt t =\n  (* Saving empty theories takes space in session files. Not saving them should\n     be harmless. *)\n  if t.theory_goals <> [] then\n  begin\n    fprintf fmt\n      \"@\\n@[<v 1>@[<h><theory@ %a%a>@]\"\n      save_ident t.theory_name\n      (save_bool_def \"proved\" false) (th_proved s t);\n    List.iter (save_goal s ctxt fmt) t.theory_goals;\n    fprintf fmt \"@]@\\n</theory>\"\n  end\n\nlet save_file s ctxt fmt _ f =\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><file%a%a>@]@\\n%a\"\n    (save_string_attrib \"format\") f.file_format\n    (save_bool_def \"proved\" false) (file_proved s f)\n    save_file_path f.file_path;\n  List.iter (save_theory s ctxt fmt) f.file_theories;\n  fprintf fmt \"@]@\\n</file>\"\n\nlet save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/termcode.ml",
+      "member_identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      },
+      "first": 234,
+      "last": 267,
+      "text": "type shape = string\n\ntype bound_shape = int list\n\ntype sum_shape_version = SV1 | SV2 | SV3 | SV4 | SV5 | SV6\n\nlet current_sum_shape_version = SV6\n\nexception InvalidShape\n\nlet string_to_sum_shape_version n =\n  match n with\n  | \"1\" -> SV1 | \"2\" -> SV2 | \"3\" -> SV3 | \"4\" -> SV4 | \"5\" -> SV5 | \"6\" -> SV6\n  | _ -> raise InvalidShape\n\nlet string_of_sum_shape_version n =\n  match n with\n  | SV1 -> \"1\" | SV2 -> \"2\" | SV3 -> \"3\" | SV4 -> \"4\" | SV5 -> \"5\" | SV6 -> \"6\"\n\nlet pp_sum_shape_version fmt v =\n  Format.pp_print_string fmt (string_of_sum_shape_version v)\n\nlet is_bound_sum_shape_version v =\n    match v with\n    | SV1 | SV2 | SV3 | SV4 | SV5 -> false\n    | SV6 -> true\n\ntype shape_v =\n  | Old_shape of shape\n  | Bound_shape of bound_shape\n\nlet string_of_shape sv =\n  match sv with\n  | Old_shape s -> s\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/termcode.ml",
+      "member_identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      },
+      "first": 342,
+      "last": 355,
+      "text": "exception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/termcode.ml",
+      "member_identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      },
+      "first": 545,
+      "last": 559,
+      "text": "module Gshape = struct\n\n  open Wstdlib\n\n  (* [hyp_shape] associate a shape to its index in the file;\n     [index_sh] associate an index to a shape;\n     [n] is the last shape variable *)\n  type gshape = { mutable hyp_shape: int Mstr.t;\n                  mutable index_sh: string Mint.t;\n                  mutable n: int }\n\n  let create () =\n    { hyp_shape = Mstr.empty;\n      index_sh = Mint.empty;\n      n = 0 }\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/session/termcode.ml",
+      "member_identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      },
+      "first": 640,
+      "last": 645,
+      "text": "type checksum = string\nlet print_checksum = Format.pp_print_string\nlet string_of_checksum x = x\nlet checksum_of_string x = x\nlet equal_checksum x y = (x : checksum) = y\nlet dumb_checksum = \"\"\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/core/theory.ml",
+      "member_identity": {
+        "bytes": 35066,
+        "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+      },
+      "first": 470,
+      "last": 494,
+      "text": "(** Declarations *)\n\nlet store_path, store_theory, restore_path, restore_theory =\n  let id_to_path = Wid.create 17 in\n  let id_to_th = Wid.create 17 in\n  let store_path uc path id =\n    (* this symbol already belongs to some theory *)\n    if Wid.mem id_to_path id then () else\n    let prefix = List.rev (id.id_string :: path @ uc.uc_prefix) in\n    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)\n  in\n  let store_theory th =\n    let id = th.th_name in\n    (* this symbol is already a theory *)\n    if Wid.mem id_to_path id then () else begin\n        Wid.set id_to_path id (th.th_path, id.id_string, []);\n        Sid.iter (fun id -> Wid.set id_to_th id th) th.th_local;\n        Wid.set id_to_th id th;\n      end\n  in\n  let restore_path id = Wid.find id_to_path id in\n  let restore_theory id = Wid.find id_to_th id in\n  store_path, store_theory, restore_path, restore_theory\n\nlet close_theory uc =\n"
+    },
+    {
+      "archive": "retained-why-session-save-state-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 122292,
+        "sha256": "edd98368a094044e1b2ffb37ca4507221582b3d8266536b96bdc043e77dbddb3"
+      },
+      "member": "why3/src/core/ident.ml",
+      "member_identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      },
+      "first": 110,
+      "last": 137,
+      "text": "   the closing square bracket, or a mixfix that does not use brackets.\n   Be careful when working with this code, it may eat your brain. *)\n\nlet sn_decode s =\n  let len = String.length s in\n  if len <= 6 then SNword s else\n  if s.[5] <> ' ' && s.[6] <> ' ' then SNword s else\n  let k = match String.sub s 0 6 with\n    | \"infix \" -> 6\n    | \"prefix\" -> 7\n    | \"mixfix\" -> (try succ (String.index_from s 7 ']') with Not_found -> 0)\n    | _ -> 0 in\n  if k = 0 then SNword s else\n  let rec skip_opchar i =\n    if i = len then i else match s.[i] with\n      | '@' | '!' | '^' | '$' | '=' | '%' | '>' | '#'\n      | '.' | '<' | '-' | '&' | '/' | '+' | '?' | ':'\n      | '*' | '~' | '|' | '\\\\' -> skip_opchar (succ i)\n      | _ -> i in\n  let l = skip_opchar k in\n  let rec skip_quote i =\n    if i = len then i else\n    if s.[i] = '\\'' then skip_quote (succ i) else\n    if i = l || s.[i] = '_' then i else pred i in\n  let m = skip_quote l in\n  let prefix o =\n    if o.[0] <> '!' && o.[0] <> '?' then SNprefix o\n    else try for i = 1 to l - 8 do match o.[i] with\n"
+    },
+    {
+      "archive": "retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/driver/whyconf.mli",
+      "member_identity": {
+        "bytes": 12799,
+        "sha256": "69d300a3fe4d8b070ebcaea697295844b2b4295fa22a70173fb6b59ef3b610f2"
+      },
+      "first": 153,
+      "last": 170,
+      "text": "  extra_drivers: (string * string list) list;  (* dirname of extra config file, driver name *)\n  configure_build : string; (* Added for spark, default = \"\" *)\n  build_commands : string list; (* Added for spark, default = [] *)\n}\n\nval get_complete_command : config_prover -> with_steps:bool -> string\n(** add the extra_options to the command *)\n\nval get_provers : config -> config_prover Mprover.t\n(** [get_provers config] get the prover family stored in the Rc file. The\n    keys are the unique ids of the prover (argument of the family) *)\n\nval get_prover_config: config -> prover -> config_prover\n(** [get_prover_config config prover] gets the prover config as stored in\n the config. Raise [Not_found] if the prover does not exists in the config. *)\n\nval set_provers : config ->\n  ?shortcuts:prover Mstr.t -> config_prover Mprover.t -> config\n"
+    },
+    {
+      "archive": "retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/util/extmap.ml",
+      "member_identity": {
+        "bytes": 22508,
+        "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+      },
+      "first": 96,
+      "last": 116,
+      "text": "module type OrderedType = Map.OrderedType\nmodule Make(Ord: OrderedType) = struct\n\n    type key = Ord.t\n\n    type 'a t =\n        Empty\n      | Node of 'a t * key * 'a * 'a t * int\n\n    let height = function\n        Empty -> 0\n      | Node(_,_,_,_,h) -> h\n\n    let create l x d r =\n      let hl = height l and hr = height r in\n      Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let singleton x d = Node(Empty, x, d, Empty, 1)\n\n    let bal l x d r =\n      let hl = match l with Empty -> 0 | Node(_,_,_,_,h) -> h in\n"
+    },
+    {
+      "archive": "retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "ocaml/stdlib/buffer.ml",
+      "member_identity": {
+        "bytes": 13460,
+        "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+      },
+      "first": 29,
+      "last": 53,
+      "text": "   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\nlet sub b ofs len =\n  if ofs < 0 || len < 0 || ofs > b.position - len\n  then invalid_arg \"Buffer.sub\"\n  else Bytes.sub_string b.buffer ofs len\n\n\nlet blit src srcoff dst dstoff len =\n  if len < 0 || srcoff < 0 || srcoff > src.position - len\n             || dstoff < 0 || dstoff > (Bytes.length dst) - len\n  then invalid_arg \"Buffer.blit\"\n  else\n    Bytes.unsafe_blit src.buffer srcoff dst dstoff len\n\n\n"
+    },
+    {
+      "archive": "retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/util/weakhtbl.ml",
+      "member_identity": {
+        "bytes": 2653,
+        "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+      },
+      "first": 65,
+      "last": 105,
+      "text": "\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n\n  let copy = H.copy\n\n  let memoize n fn =\n    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n\n  let memoize_rec n fn =\n    let h = create n in\n    let rec f e =\n"
+    },
+    {
+      "archive": "retained-why-inline-representative-state-20261018/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 112646,
+        "sha256": "2e39166907b080a5816e2cac0d7ead26fc5f58d7865c441c99e1289a7af02cd3"
+      },
+      "member": "ocaml/stdlib/ephemeron.ml",
+      "member_identity": {
+        "bytes": 28831,
+        "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+      },
+      "first": 135,
+      "last": 157,
+      "text": "      let s = power_2_above 16 initial_size in\n      let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n      { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\n    let clear h =\n      h.size <- 0;\n      let len = Array.length h.data in\n      for i = 0 to len - 1 do\n        h.data.(i) <- Empty\n      done\n\n    let reset h =\n      let len = Array.length h.data in\n      if len = h.initial_size then\n        clear h\n      else begin\n        h.size <- 0;\n        h.data <- Array.make h.initial_size Empty\n      end\n\n    let copy h = { h with data = Array.copy h.data }\n\n    let key_index h hkey =\n"
+    },
+    {
+      "archive": "retained-why-inline-representative-state-20261018/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 112646,
+        "sha256": "2e39166907b080a5816e2cac0d7ead26fc5f58d7865c441c99e1289a7af02cd3"
+      },
+      "member": "ocaml/stdlib/ephemeron.ml",
+      "member_identity": {
+        "bytes": 28831,
+        "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+      },
+      "first": 263,
+      "last": 292,
+      "text": "          find_rec key hkey rest\n\n    let find h key =\n      let hkey = H.hash h.seed key in\n      (* TODO inline 3 iterations *)\n      find_rec key hkey (h.data.(key_index h hkey))\n\n    let rec find_rec_opt key hkey = function\n      | Empty ->\n          None\n      | Cons(hk, c, rest) when hkey = hk  ->\n          begin match H.equal c key with\n          | ETrue ->\n              begin match H.get_data c with\n              | None ->\n                  (* This case is not impossible because the gc can run between\n                      H.equal and H.get_data *)\n                  find_rec_opt key hkey rest\n              | Some _ as d -> d\n              end\n          | EFalse -> find_rec_opt key hkey rest\n          | EDead ->\n              find_rec_opt key hkey rest\n          end\n      | Cons(_, _, rest) ->\n          find_rec_opt key hkey rest\n\n    let find_opt h key =\n      let hkey = H.hash h.seed key in\n      (* TODO inline 3 iterations *)\n"
+    },
+    {
+      "archive": "retained-why-inline-representative-state-20261018/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 112646,
+        "sha256": "2e39166907b080a5816e2cac0d7ead26fc5f58d7865c441c99e1289a7af02cd3"
+      },
+      "member": "ocaml/stdlib/ephemeron.ml",
+      "member_identity": {
+        "bytes": 28831,
+        "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+      },
+      "first": 521,
+      "last": 584,
+      "text": "  let query eph key =\n    match get_key eph with\n    | None -> None\n    | Some k when k == key -> get_data eph\n    | Some _ -> None\n\n  module MakeSeeded (H:Hashtbl.SeededHashedType) =\n    GenHashTable.MakeSeeded(struct\n      type 'a container = (H.t,'a) t\n      type t = H.t\n      let create k d =\n        let c = create () in\n        set_data c d;\n        set_key c k;\n        c\n      let hash = H.hash\n      let equal c k =\n        (* {!get_key_copy} is not used because the equality of the user can be\n            the physical equality *)\n        match get_key c with\n        | None -> GenHashTable.EDead\n        | Some k' ->\n            if H.equal k k' then GenHashTable.ETrue else GenHashTable.EFalse\n      let get_data = get_data\n      let get_key = get_key\n      let set_key_data c k d =\n        unset_data c;\n        set_key c k;\n        set_data c d\n      let check_key = check_key\n    end)\n\n  module Make(H: Hashtbl.HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n    let of_seq i =\n      let tbl = create 16 in\n      replace_seq tbl i;\n      tbl\n  end\n\n  module Bucket = struct\n\n    type nonrec ('k, 'd) t = ('k, 'd) t list ref\n    let k1_make = make\n    let make () = ref []\n    let add b k d = b := k1_make k d :: !b\n\n    let test_key k e =\n      match get_key e with\n      | Some x when x == k -> true\n      | _ -> false\n\n    let remove b k =\n      let rec loop l acc =\n        match l with\n        | [] -> ()\n        | h :: t when test_key k h -> b := List.rev_append acc t\n        | h :: t -> loop t (h :: acc)\n"
+    },
+    {
+      "archive": "retained-why-inline-representative-state-20261018/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 112646,
+        "sha256": "2e39166907b080a5816e2cac0d7ead26fc5f58d7865c441c99e1289a7af02cd3"
+      },
+      "member": "ocaml/runtime/weak.c",
+      "member_identity": {
+        "bytes": 20975,
+        "sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c"
+      },
+      "first": 30,
+      "last": 46,
+      "text": "#include \"caml/eventlog.h\"\n\nvalue caml_ephe_list_head = 0;\n\nstatic value ephe_dummy = 0;\nvalue caml_ephe_none = (value) &ephe_dummy;\n\n#define CAMLassert_valid_ephemeron(eph) do{                             \\\n    CAMLassert (Is_in_heap (eph));                                      \\\n    CAMLassert (Tag_val(eph) == Abstract_tag);                          \\\n    CAMLassert (CAML_EPHE_FIRST_KEY <= Wosize_val (eph));               \\\n}while(0)\n\n#define CAMLassert_valid_offset(eph, offset) do{                        \\\n    CAMLassert_valid_ephemeron(eph);                                    \\\n    CAMLassert (0 <= offset);                                           \\\n    CAMLassert (offset < Wosize_val (eph) - CAML_EPHE_FIRST_KEY);       \\\n"
+    },
+    {
+      "archive": "retained-why-inline-representative-state-20261018/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 112646,
+        "sha256": "2e39166907b080a5816e2cac0d7ead26fc5f58d7865c441c99e1289a7af02cd3"
+      },
+      "member": "ocaml/runtime/weak.c",
+      "member_identity": {
+        "bytes": 20975,
+        "sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c"
+      },
+      "first": 110,
+      "last": 132,
+      "text": "\n/* [len] is a number of words (fields) */\nCAMLexport value caml_ephemeron_create (mlsize_t len)\n{\n  mlsize_t size, i;\n  value res;\n\n  CAMLassert(len <= CAML_EPHE_MAX_WOSIZE);\n  size = len + CAML_EPHE_FIRST_KEY;\n  if (size < CAML_EPHE_FIRST_KEY || size > Max_wosize)\n    caml_invalid_argument (\"Weak.create\");\n  res = caml_alloc_shr (size, Abstract_tag);\n  for (i = 1; i < size; i++) Field (res, i) = caml_ephe_none;\n  Field (res, CAML_EPHE_LINK_OFFSET) = caml_ephe_list_head;\n  caml_ephe_list_head = res;\n  return res;\n}\n\nCAMLprim value caml_ephe_create (value len)\n{\n  value res = caml_ephemeron_create(Long_val(len));\n  // run memprof callbacks\n  return caml_process_pending_actions_with_root(res);\n"
+    }
+  ]
+}
