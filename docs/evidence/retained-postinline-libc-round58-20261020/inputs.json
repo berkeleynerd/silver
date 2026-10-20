@@ -1,0 +1,87 @@
+{
+  "components": {
+    "server_libc_storage": {
+      "freeze": "6bb90bc43cc178f9d867aaf91d013323941e5af1",
+      "paths": [
+        "docs/evidence/retained-server-libc-storage-20261020/README.md",
+        "docs/evidence/retained-server-libc-storage-20261020/acquisition.json",
+        "docs/evidence/retained-server-libc-storage-20261020/check-patch-repair-result.json",
+        "docs/evidence/retained-server-libc-storage-20261020/check-result.json",
+        "docs/evidence/retained-server-libc-storage-20261020/check.py",
+        "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.debian.tar.xz",
+        "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.dsc",
+        "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+        "docs/evidence/retained-server-libc-storage-20261020/inputs.json",
+        "docs/evidence/retained-server-libc-storage-20261020/libc6_2.43-2ubuntu2.4_amd64.deb",
+        "docs/evidence/retained-server-libc-storage-20261020/native-disassembly.txt",
+        "docs/evidence/retained-server-libc-storage-20261020/native.json",
+        "docs/evidence/retained-server-libc-storage-20261020/patch-audit-controls.json",
+        "docs/evidence/retained-server-libc-storage-20261020/patch-audit.json",
+        "docs/evidence/retained-server-libc-storage-20261020/patch_audit.py",
+        "docs/evidence/retained-server-libc-storage-20261020/project.py",
+        "docs/evidence/retained-server-libc-storage-20261020/projection.json",
+        "docs/evidence/retained-server-libc-storage-20261020/round.md",
+        "docs/evidence/retained-server-libc-storage-20261020/source-witnesses.json",
+        "docs/research/retained-server-libc-storage.md"
+      ],
+      "first_focused_check_freeze": "6bb90bc43cc178f9d867aaf91d013323941e5af1",
+      "review_key": "server_libc_storage"
+    },
+    "postinline_preparation": {
+      "freeze": "19ad160ab7aa33d1e14a34680cd2b205f56d99ac",
+      "paths": [
+        "docs/evidence/retained-why-postinline-preparation-20261020/README.md",
+        "docs/evidence/retained-why-postinline-preparation-20261020/audit_sources.py",
+        "docs/evidence/retained-why-postinline-preparation-20261020/check-result.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/check.py",
+        "docs/evidence/retained-why-postinline-preparation-20261020/compose.py",
+        "docs/evidence/retained-why-postinline-preparation-20261020/driver-inventory.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/first-or-default-inventory.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/input-is-valid-inventory.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/inputs.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/inventory.py",
+        "docs/evidence/retained-why-postinline-preparation-20261020/is-message-inventory.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/put-inventory.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/put-line-inventory.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/result.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/round.json",
+        "docs/evidence/retained-why-postinline-preparation-20261020/source-witnesses.json",
+        "docs/research/retained-why-postinline-preparation.md"
+      ],
+      "first_focused_check_freeze": "19ad160ab7aa33d1e14a34680cd2b205f56d99ac",
+      "review_key": "post_inline"
+    },
+    "review": {
+      "freeze": "3f6949c95e4d7e2fe948e326761a19e4ea9c3d64",
+      "paths": [
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/README.md",
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/inputs.json",
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/patch-audit-review.json",
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/patch-audit-successor.json",
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/post-inline-check.json",
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/round.json",
+        "docs/evidence/retained-postinline-libc-capacity-review-20261020/server-libc-check.json",
+        "docs/reviews/review-postinline-libc-capacity-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-server-libc-storage-20261020/inputs.json",
+    "docs/evidence/retained-why-postinline-preparation-20261020/inputs.json",
+    "docs/evidence/retained-postinline-libc-capacity-review-20261020/inputs.json",
+    "docs/evidence/retained-server-libc-storage-20261020/acquisition.json",
+    "docs/evidence/retained-returned-server-round57-20261020/inputs.json"
+  ],
+  "review_freeze_pending": false,
+  "review_checks": {
+    "server_libc_storage": "docs/evidence/retained-postinline-libc-capacity-review-20261020/server-libc-check.json",
+    "postinline_preparation": "docs/evidence/retained-postinline-libc-capacity-review-20261020/post-inline-check.json"
+  },
+  "historical_context_successors": {
+    "docs/research/retained-tool-capacity.md": {
+      "freeze": "3f6949c95e4d7e2fe948e326761a19e4ea9c3d64",
+      "old_summary_start": "Next: close the returned stored-map/type/validator producer envelopes and",
+      "unchanged_suffix_start": "The serial configuration result does"
+    }
+  }
+}

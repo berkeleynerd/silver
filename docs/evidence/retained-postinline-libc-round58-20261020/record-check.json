@@ -1,0 +1,51 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 1.2541334859997733,
+  "checked_files": [
+    "RESUME.md",
+    "docs/evidence/retained-postinline-libc-round58-20261020/README.md",
+    "docs/evidence/retained-postinline-libc-round58-20261020/check.py",
+    "docs/evidence/retained-tool-rounds.md",
+    "docs/research/retained-tool-capacity.md",
+    "roadmap.md"
+  ],
+  "local_link_count": 857,
+  "python_parses": [
+    "docs/evidence/retained-postinline-libc-round58-20261020/check.py"
+  ],
+  "native_or_component_replay": false,
+  "local_links_per_file": {
+    "RESUME.md": 101,
+    "docs/evidence/retained-postinline-libc-round58-20261020/README.md": 6,
+    "docs/evidence/retained-tool-rounds.md": 190,
+    "docs/research/retained-tool-capacity.md": 392,
+    "roadmap.md": 168
+  },
+  "checked_file_identities": {
+    "RESUME.md": {
+      "bytes": 61323,
+      "sha256": "4aee59fb252b7a351d29f91012a7a347cea0d6346b27bc3c2f0c2b6a2c7889e9"
+    },
+    "docs/evidence/retained-postinline-libc-round58-20261020/README.md": {
+      "bytes": 6482,
+      "sha256": "d2b44c874f522373de7b5387402355db1d63593df5d01a56a943c3ec3896799e"
+    },
+    "docs/evidence/retained-postinline-libc-round58-20261020/check.py": {
+      "bytes": 10678,
+      "sha256": "b62103528ab6532772cdc7e842487aeb4339295ad5bca2deb1cb5c32a575847c"
+    },
+    "docs/evidence/retained-tool-rounds.md": {
+      "bytes": 371036,
+      "sha256": "4981e6fa7d5d028c7b7dd380b03f16f62ff3872f0105586977c1bd24bb4c210c"
+    },
+    "docs/research/retained-tool-capacity.md": {
+      "bytes": 166521,
+      "sha256": "dbf3de7bee53da06bfa39dc3cc10cde26907f790558d43c70884ce6c0f0a44f6"
+    },
+    "roadmap.md": {
+      "bytes": 63108,
+      "sha256": "4961c06d588a5df9d44ded8461554a1345641bfbea885526f5b70649ecf76601"
+    }
+  },
+  "scope": "Python syntax and existence of local Markdown inline-link file targets; fragment anchors not checked"
+}

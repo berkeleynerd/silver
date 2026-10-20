@@ -91,9 +91,14 @@ successful connection transfer to a shared J12 server. Its validator charge
 is first-inline-only. Corrected residual wording retains the established
 physical-resource trust boundary without adding allocator/kernel-internals
 proof gates; finite representations, request arithmetic and source/caller
-requirements remain. Continue builtin reconstruction/validators, unused-symbol
-folds, type-detection scans and getcwd/strdup request-capacity terms, then later
-preparation/printing/counter/output bounds. These are #119 design obligations,
+requirements remain. The reviewed
+[Round 58 checkpoint](docs/evidence/retained-postinline-libc-round58-20261020/README.md)
+now bounds builtin reconstruction/validators, unused-symbol/dependency folds
+and type detection, and closes the named getcwd/strdup requested-object terms.
+Continue the remaining preparation transformations together through printer
+entry, including generated axioms and introduced premises, alongside the
+separate unsuccessful-comparison interface; then printing/counter/output bounds.
+These are #119 design obligations,
 distinct from future #88 implementation.
 No adapter or changed production route is adopted; full q remains unresolved.
 Remaining preparation/printing/counter and output bounds,

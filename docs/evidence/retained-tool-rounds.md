@@ -5430,3 +5430,68 @@ intended grammar, checked accounting, relevant correspondence/composition,
 useful-domain comparison and final review still govern completion. Estimate
 remains 80–85%, low confidence. Oracle/tools/pins/admission, global process
 budgets, unstarted #88–#94 and draft/unmerged PR #121 are unchanged.
+
+## Round 58 — post-inline preparation and libc requests
+
+2026-10-20 UTC. The [integration packet](retained-postinline-libc-round58-20261020/README.md)
+binds post-inline author `19ad160ab7`, repaired libc author `6bb90bc43c`, and
+independent reviewer `3f6949c95e`; their integration commits are `c962f40dcf`,
+`f167f0caf2`/`9f33e9a96b`, and `4b6c05a3ae`. Both conditional interfaces are
+accepted. #119/#153 remain active and incomplete.
+
+Builtin elimination, unused removal and polymorphism detection now have
+separate source-operation bounds, including both task rebuilds, ground-data
+validation, stored-value/type scans, dependency reinsertion and unique-goal
+validation. The new inventory verifies 561 singleton nonrecursive bodies.
+The additional direct Ident charge is 753,327; source categories and constructor
+requests remain distinct from native cost or successful tag increments. R56
+goal bounds and R57 original-key storage envelopes remain attached. Neither
+the first-inline validator allowance nor the global process escape budget is
+renewed to pay for these stages.
+
+The libc argument closes getcwd and the two strdup requested-object terms.
+Exact source/native operands supply the signed page-size upper bound, generic
+growth/shrink behavior, fixed directory-buffer maximum and caller guards.
+It adds `max(INT_MAX+C+1,2*max(4096,2*C)+1048624)+2*(S+1)` once to the
+one-backend R57 direct equation. C and S are actual backend cwd/socketname
+lengths; no historical page size or frontend-basename substitution is assumed.
+Ordinary successful/noninterposed services, the ancestor-component guard and
+finite representation/request arithmetic remain required. The established
+sufficient-physical-resource/allocator/OS trust boundary is unchanged.
+
+Review repaired the patch filename audit to include old and new endpoints,
+strip options and conservative Index candidates. All 103 exclusions remain
+valid; the fifteen controls cover the repaired scanner. Only the invalidated
+audit was rerun by the author. The independent reviewer first checked that
+successor, preserving the original full author's actual inputs. The post-inline
+source pre-read confirmed that both task rebuilds include datatype positivity
+and foundness; the final freeze contains those charges.
+
+The two first reviewer checks took 5.914558 subprocess seconds within an
+846.070592-second source-review interval, including waiting/coordination.
+Integration passed in 0.590074 seconds: 45 frozen files, 106 retained repository
+identities, 94 unchanged native pins, unchanged Why/server/libc inputs and eight
+Python parses/fourteen frozen-packet links. Its initial historical-context-pin
+failure was repaired by explicitly retaining the reviewed capacity document
+and checking that only progress-summary text changed. No successful component
+or predecessor replay, native target/compiler/solver/proof/capture run occurred.
+
+Research authors and reviewer selected Astra / Extra High. Live lead settings,
+runtime confirmation and isolated round/model token or monetary measurements
+remain unavailable. A late integration goal sample reported 17,225,769 tokens
+and 16,743 time-counter seconds, including overlapping next-round work; this
+is not R58 cost. The round closes two named interfaces and uses one batched
+review. The next preparation packet deliberately groups all remaining selected
+transformations through printer entry; generated axioms/premises and caches
+are the integration challenge. A separate lane closes unsuccessful-comparison
+effects and local representation arithmetic. Finite old-structure traversal
+without numerical growth is not assigned an invented aggregate runtime gate.
+
+Printing/counter/output, startup/failure, complete pipeline/fixed dependencies
+and intended-grammar coverage, checked accounting, relevant correspondence,
+whole-rule composition, useful-domain comparison and final review remain.
+Estimate stays 80–85%, low confidence. Oracle/tools/pins/admission, one global
+two-callback/three-save/e<=2 allowance per process, unstarted #88–#94 and
+draft/unmerged PR #121 are unchanged. The immediately previous status-only
+goal turn made no technical progress; this turn revalidated the live state
+and integrated the accepted technical results without changing the objective.

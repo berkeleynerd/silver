@@ -117,6 +117,11 @@ connection transfer to the shared-server design. Later validators and
 collision/primitive costs remain separate. Physical-memory exclusions retain
 the established sufficient-resource trust boundary; this adds no aggregate
 RAM gate or allocator-internals proof requirement.
+The reviewed [Round 58 checkpoint](docs/evidence/retained-postinline-libc-round58-20261020/README.md)
+bounds the next three preparation stages, including repeated task validation,
+and adds the three named libc allocation terms to the shared-server equation.
+These remain conditional source/representation interfaces; later generated
+formula families, printing, counter totals and complete output remain open.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -134,10 +139,10 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint composes post-inline builtin reconstruction,
-unused-symbol folds and type detection with the accepted stored-data envelope,
-and closes the named libc request-capacity terms. Remaining preparation,
-printing/counter/output and actual launcher/configuration attachment stay
+The next technical checkpoint groups the remaining selected preparation
+transformations through printer entry, including generated axioms and
+introduced premises, alongside the separate unsuccessful-comparison interface.
+Printing/counter/output and actual launcher/configuration attachment stay
 #119 design obligations; subsequent #88
 owns executable SPARK/Lean refinement. No adapter is adopted.
 Remaining preparation/printing/counter and output composition and the original

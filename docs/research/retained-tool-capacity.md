@@ -158,9 +158,19 @@ exclusions within the existing trusted resource boundary; no aggregate RAM
 admission gate or allocator-internals proof is added. Finite representation,
 request arithmetic, caller and source-correspondence requirements remain.
 
-Next: eliminate_builtin reconstruction/validators, remove_unused used-symbol
-folds and polymorphism-detection scans, plus the remaining getcwd/strdup
-request-capacity terms. Then continue remaining preparation/printing/counter,
+Round 58's [post-inline interface](retained-why-postinline-preparation.md)
+now bounds builtin reconstruction/validators, unused-symbol/dependency folds
+and polymorphism detection, adding 753,327 direct Ident registrations without
+reusing first-inline validator charges or renewing the process escape allowance.
+Its [libc interface](retained-server-libc-storage.md) closes the three named
+getcwd/strdup requested-object terms under explicit library/caller/service
+guards. The [reviewed integration](../evidence/retained-postinline-libc-round58-20261020/README.md)
+adds them once to the one-backend direct-server equation; it assumes neither
+a historical page size nor the backend socketname length.
+
+Next: group the remaining selected transformations through printer entry,
+including generated axioms and introduced premises, and close the separate
+unsuccessful-comparison interface. Then continue printing/counter,
 request/response/history and startup/output interfaces.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
