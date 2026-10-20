@@ -1,0 +1,17 @@
+{
+  "date_utc": "2026-10-20",
+  "issues": [119, 153],
+  "round": 38,
+  "author": "lead",
+  "live_lead_model_effort": "unavailable",
+  "actual_command": "python3 -B docs/evidence/retained-why-exit-initial-values-20261020/check.py --write",
+  "author_check_seconds": 26.796356641003513,
+  "cases": 5,
+  "selected_read_spans": [30, 30, 30, 30, 38],
+  "new_native_execution": false,
+  "new_capture": false,
+  "predecessor_checker_replay": false,
+  "independent_review": "pending",
+  "individual_token_and_monetary_measurements": "unavailable",
+  "scope": "Initial values and named-log availability; future state and full capacity remain open"
+}

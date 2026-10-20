@@ -1,0 +1,2306 @@
+{
+  "schema": 1,
+  "manifest_identity": {
+    "bytes": 80360,
+    "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+  },
+  "scope": "Initial values and named-log availability only; no history or future bound inferred",
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "archive": "capture-put-line.tar.gz",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "formatter_address": 140318120744808,
+      "formatter_fields": [
+        {
+          "name": "pp_scan_stack",
+          "raw": 140318120745264,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_format_stack",
+          "raw": 140318120745040,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tbox_stack",
+          "raw": 140318120745064,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tag_stack",
+          "raw": 140318120745088,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_stack",
+          "raw": 140318120745112,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_margin",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_min_space_left",
+          "raw": 21,
+          "immediate": 10
+        },
+        {
+          "name": "pp_max_indent",
+          "raw": 137,
+          "immediate": 68
+        },
+        {
+          "name": "pp_space_left",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_current_indent",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_is_new_line",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_left_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_right_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_curr_depth",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_max_boxes",
+          "raw": 9223372036854775807,
+          "immediate": 4611686018427387903
+        },
+        {
+          "name": "pp_ellipsis",
+          "raw": 94237487831112,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_string",
+          "raw": 140318120745376,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_flush",
+          "raw": 94237487827232,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_newline",
+          "raw": 140318120744608,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_spaces",
+          "raw": 140318120744728,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_indent",
+          "raw": 140318120744688,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_open_tag",
+          "raw": 94237487825672,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_close_tag",
+          "raw": 94237487825696,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_open_tag",
+          "raw": 94237487825720,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_close_tag",
+          "raw": 94237487825744,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_queue",
+          "raw": 140318120745344,
+          "first_byte_covered_in_named_logs": false
+        }
+      ],
+      "timing_table": {
+        "entries": 3,
+        "backing_slots": 64,
+        "seed": 0,
+        "initial_size": 64,
+        "values": [
+          {
+            "bucket": 31,
+            "name": "gnatwhy3.transformations.split_goal_wp_conj",
+            "name_bytes": 43,
+            "count": 1,
+            "binary64_le_hex": "000000502fa43140",
+            "python_float_hex": "0x1.1a42f50000000p+4"
+          },
+          {
+            "bucket": 42,
+            "name": "gnatwhy3.init",
+            "name_bytes": 13,
+            "count": 1,
+            "binary64_le_hex": "000000d0eaed1c40",
+            "python_float_hex": "0x1.cedead0000000p+2"
+          },
+          {
+            "bucket": 58,
+            "name": "gnatwhy3.register_vcs",
+            "name_bytes": 21,
+            "count": 1,
+            "binary64_le_hex": "000000b8e21b3f40",
+            "python_float_hex": "0x1.f1be2b8000000p+4"
+          }
+        ]
+      },
+      "registered_statistics_roots": [],
+      "exit_once_gates_raw": [
+        3,
+        3
+      ],
+      "member_identities": {
+        "registration/put_line/capture/exit-hook-roots.json": {
+          "bytes": 2513,
+          "sha256": "f87c3a499ac43e8cb0ac337422384cd38c8b01190da11d076dfa87a94c7e4b20"
+        },
+        "registration/put_line/capture/process.json": {
+          "bytes": 1011,
+          "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+        },
+        "registration/put_line/capture/timing-values-addresses.jsonl": {
+          "bytes": 142,
+          "sha256": "a1211d96835822d15e6021a919e420c6306855beab6b22b719e83954752e4d72"
+        },
+        "registration/put_line/capture/memory-reads.jsonl": {
+          "bytes": 120979750,
+          "sha256": "6180fd32ea68889103f0d44690dc58a4db8080226f958aece848d1a8212a05e3"
+        },
+        "registration/put_line/capture/save-state-memory-reads.jsonl": {
+          "bytes": 2686419,
+          "sha256": "7207cb9b9a8f435f0047d946fad7df11258e0fc907b8344769c21daea34dde81"
+        }
+      },
+      "selected_reads": [
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771581,
+          "address": 140318123156712,
+          "bytes": 8,
+          "hex": "0010000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771582,
+          "address": 140318123156720,
+          "bytes": 32,
+          "hex": "070000000000000018e5e25b9e7f000001000000000000008100000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771583,
+          "address": 140318120744800,
+          "bytes": 8,
+          "hex": "0070000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771584,
+          "address": 140318120744808,
+          "bytes": 224,
+          "hex": "3019be5b9e7f00005018be5b9e7f00006818be5b9e7f00008018be5b9e7f00009818be5b9e7f00009d00000000000000150000000000000089000000000000009d0000000000000001000000000000000300000000000000030000000000000003000000000000000300000000000000ffffffffffffff7f4898fc5fb5550000a019be5b9e7f00002089fc5fb5550000a016be5b9e7f00001817be5b9e7f0000f016be5b9e7f0000010000000000000001000000000000000883fc5fb55500002083fc5fb55500003883fc5fb55500005083fc5fb55500008019be5b9e7f0000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771585,
+          "address": 140318123156752,
+          "bytes": 8,
+          "hex": "0000010000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771586,
+          "address": 140318123156760,
+          "bytes": 512,
+          "hex": "0100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000a8062b279e7f000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000001000e1329e7f0000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000103ce51e9e7f000001000000000000000100000000000000010000000000000001000000000000000100000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771587,
+          "address": 140317238691488,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771588,
+          "address": 140317238691496,
+          "bytes": 24,
+          "hex": "a029d7329e7f0000c8062b279e7f00000100000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771589,
+          "address": 140317435166728,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771590,
+          "address": 140317435166736,
+          "bytes": 24,
+          "hex": "7878b35fb55500003000e1329e7f00000100000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771591,
+          "address": 140317099899912,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771592,
+          "address": 140317099899920,
+          "bytes": 24,
+          "hex": "5878b35fb5550000303ce51e9e7f00000100000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771593,
+          "address": 140317434522008,
+          "bytes": 8,
+          "hex": "fc18000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771594,
+          "address": 140317434522016,
+          "bytes": 48,
+          "hex": "676e6174776879332e7472616e73666f726d6174696f6e732e73706c69745f676f616c5f77705f636f6e6a0000000004"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771595,
+          "address": 140317238691520,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771596,
+          "address": 140317238691528,
+          "bytes": 16,
+          "hex": "e0062b279e7f00000300000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771597,
+          "address": 140317435166760,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771598,
+          "address": 140317435166768,
+          "bytes": 16,
+          "hex": "4800e1329e7f00000300000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771599,
+          "address": 140317099899944,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771600,
+          "address": 140317099899952,
+          "bytes": 16,
+          "hex": "483ce51e9e7f00000300000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771601,
+          "address": 94237483038800,
+          "bytes": 8,
+          "hex": "fc0f000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771602,
+          "address": 94237483038808,
+          "bytes": 24,
+          "hex": "676e6174776879332e72656769737465725f766373000002"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771603,
+          "address": 94237483038832,
+          "bytes": 8,
+          "hex": "fc0b000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771604,
+          "address": 94237483038840,
+          "bytes": 16,
+          "hex": "676e6174776879332e696e6974000002"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771605,
+          "address": 140317238691544,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771606,
+          "address": 140317238691552,
+          "bytes": 8,
+          "hex": "000000502fa43140"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771607,
+          "address": 140317435166784,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771608,
+          "address": 140317435166792,
+          "bytes": 8,
+          "hex": "000000d0eaed1c40"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771609,
+          "address": 140317099899968,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/put_line/capture/memory-reads.jsonl",
+          "line": 771610,
+          "address": 140317099899976,
+          "bytes": 8,
+          "hex": "000000b8e21b3f40"
+        }
+      ],
+      "complete_formatter_graph": false,
+      "complete_exit_capacity": false,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "archive": "capture-put.tar.gz",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "formatter_address": 140306441734064,
+      "formatter_fields": [
+        {
+          "name": "pp_scan_stack",
+          "raw": 140306441734520,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_format_stack",
+          "raw": 140306441734296,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tbox_stack",
+          "raw": 140306441734320,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tag_stack",
+          "raw": 140306441734344,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_stack",
+          "raw": 140306441734368,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_margin",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_min_space_left",
+          "raw": 21,
+          "immediate": 10
+        },
+        {
+          "name": "pp_max_indent",
+          "raw": 137,
+          "immediate": 68
+        },
+        {
+          "name": "pp_space_left",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_current_indent",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_is_new_line",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_left_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_right_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_curr_depth",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_max_boxes",
+          "raw": 9223372036854775807,
+          "immediate": 4611686018427387903
+        },
+        {
+          "name": "pp_ellipsis",
+          "raw": 94070154688584,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_string",
+          "raw": 140306441734632,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_flush",
+          "raw": 94070154684704,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_newline",
+          "raw": 140306441733864,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_spaces",
+          "raw": 140306441733984,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_indent",
+          "raw": 140306441733944,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_open_tag",
+          "raw": 94070154683144,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_close_tag",
+          "raw": 94070154683168,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_open_tag",
+          "raw": 94070154683192,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_close_tag",
+          "raw": 94070154683216,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_queue",
+          "raw": 140306441734600,
+          "first_byte_covered_in_named_logs": false
+        }
+      ],
+      "timing_table": {
+        "entries": 3,
+        "backing_slots": 64,
+        "seed": 0,
+        "initial_size": 64,
+        "values": [
+          {
+            "bucket": 31,
+            "name": "gnatwhy3.transformations.split_goal_wp_conj",
+            "name_bytes": 43,
+            "count": 1,
+            "binary64_le_hex": "000000c0e6552940",
+            "python_float_hex": "0x1.955e6c0000000p+3"
+          },
+          {
+            "bucket": 42,
+            "name": "gnatwhy3.init",
+            "name_bytes": 13,
+            "count": 1,
+            "binary64_le_hex": "000000b0506d1a40",
+            "python_float_hex": "0x1.a6d50b0000000p+2"
+          },
+          {
+            "bucket": 58,
+            "name": "gnatwhy3.register_vcs",
+            "name_bytes": 21,
+            "count": 1,
+            "binary64_le_hex": "0000006494a73740",
+            "python_float_hex": "0x1.7a79464000000p+4"
+          }
+        ]
+      },
+      "registered_statistics_roots": [],
+      "exit_once_gates_raw": [
+        3,
+        3
+      ],
+      "member_identities": {
+        "registration/put/capture/exit-hook-roots.json": {
+          "bytes": 2513,
+          "sha256": "c6a32e21170a335f860d3fcade60b7207c3ce1a2f69d71a6c95d28bd6f557b90"
+        },
+        "registration/put/capture/process.json": {
+          "bytes": 996,
+          "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+        },
+        "registration/put/capture/timing-values-addresses.jsonl": {
+          "bytes": 142,
+          "sha256": "7913b3d13fc2fde106c03172ada50b6d67c45f8fcd21b2a518cc2f054945f889"
+        },
+        "registration/put/capture/memory-reads.jsonl": {
+          "bytes": 110782236,
+          "sha256": "5b0fb780b21d7168843dc8e2049336dcae02d33ad5b9dc4ca519b5d6d54e72c0"
+        },
+        "registration/put/capture/save-state-memory-reads.jsonl": {
+          "bytes": 2629161,
+          "sha256": "76630310136a9df58a17bcc3e35ba68157bd297f9351327ad4fc13fa8a97552e"
+        }
+      },
+      "selected_reads": [
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641287,
+          "address": 140306444145904,
+          "bytes": 8,
+          "hex": "0010000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641288,
+          "address": 140306444145912,
+          "bytes": 32,
+          "hex": "07000000000000002055c3a39b7f000001000000000000008100000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641289,
+          "address": 140306441734056,
+          "bytes": 8,
+          "hex": "0070000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641290,
+          "address": 140306441734064,
+          "bytes": 224,
+          "hex": "78899ea39b7f000098889ea39b7f0000b0889ea39b7f0000c8889ea39b7f0000e0889ea39b7f00009d00000000000000150000000000000089000000000000009d0000000000000001000000000000000300000000000000030000000000000003000000000000000300000000000000ffffffffffffff7f4878276a8e550000e8899ea39b7f00002069276a8e550000e8869ea39b7f000060879ea39b7f000038879ea39b7f0000010000000000000001000000000000000863276a8e5500002063276a8e5500003863276a8e5500005063276a8e550000c8899ea39b7f0000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641291,
+          "address": 140306444145944,
+          "bytes": 8,
+          "hex": "0000010000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641292,
+          "address": 140306444145952,
+          "bytes": 512,
+          "hex": "0100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000e07a60729b7f000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000070167b9b7f0000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000e075266c9b7f000001000000000000000100000000000000010000000000000001000000000000000100000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641293,
+          "address": 140305615583960,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641294,
+          "address": 140305615583968,
+          "bytes": 24,
+          "hex": "90990c7b9b7f0000007b60729b7f00000100000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641295,
+          "address": 140305761726456,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641296,
+          "address": 140305761726464,
+          "bytes": 24,
+          "hex": "7858de698e5500002070167b9b7f00000100000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641297,
+          "address": 140305511118296,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641298,
+          "address": 140305511118304,
+          "bytes": 24,
+          "hex": "5858de698e5500000076266c9b7f00000100000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641299,
+          "address": 140305615583992,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641300,
+          "address": 140305615584000,
+          "bytes": 16,
+          "hex": "187b60729b7f00000300000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641301,
+          "address": 140305761726488,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641302,
+          "address": 140305761726496,
+          "bytes": 16,
+          "hex": "3870167b9b7f00000300000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641303,
+          "address": 140305511118328,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641304,
+          "address": 140305511118336,
+          "bytes": 16,
+          "hex": "1876266c9b7f00000300000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641305,
+          "address": 140305511118352,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641306,
+          "address": 140305511118360,
+          "bytes": 8,
+          "hex": "0000006494a73740"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641307,
+          "address": 140305761081736,
+          "bytes": 8,
+          "hex": "fc18000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641308,
+          "address": 140305761081744,
+          "bytes": 48,
+          "hex": "676e6174776879332e7472616e73666f726d6174696f6e732e73706c69745f676f616c5f77705f636f6e6a0000000004"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641309,
+          "address": 140305615584016,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641310,
+          "address": 140305615584024,
+          "bytes": 8,
+          "hex": "000000c0e6552940"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641311,
+          "address": 94070149896272,
+          "bytes": 8,
+          "hex": "fc0f000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641312,
+          "address": 94070149896280,
+          "bytes": 24,
+          "hex": "676e6174776879332e72656769737465725f766373000002"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641313,
+          "address": 140305761726512,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641314,
+          "address": 140305761726520,
+          "bytes": 8,
+          "hex": "000000b0506d1a40"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641315,
+          "address": 94070149896304,
+          "bytes": 8,
+          "hex": "fc0b000000000000"
+        },
+        {
+          "member": "registration/put/capture/memory-reads.jsonl",
+          "line": 641316,
+          "address": 94070149896312,
+          "bytes": 16,
+          "hex": "676e6174776879332e696e6974000002"
+        }
+      ],
+      "complete_formatter_graph": false,
+      "complete_exit_capacity": false,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "archive": "capture-first-or-default.tar.gz",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "formatter_address": 140609251460856,
+      "formatter_fields": [
+        {
+          "name": "pp_scan_stack",
+          "raw": 140609251461312,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_format_stack",
+          "raw": 140609251461088,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tbox_stack",
+          "raw": 140609251461112,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tag_stack",
+          "raw": 140609251461136,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_stack",
+          "raw": 140609251461160,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_margin",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_min_space_left",
+          "raw": 21,
+          "immediate": 10
+        },
+        {
+          "name": "pp_max_indent",
+          "raw": 137,
+          "immediate": 68
+        },
+        {
+          "name": "pp_space_left",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_current_indent",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_is_new_line",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_left_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_right_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_curr_depth",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_max_boxes",
+          "raw": 9223372036854775807,
+          "immediate": 4611686018427387903
+        },
+        {
+          "name": "pp_ellipsis",
+          "raw": 94541900851272,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_string",
+          "raw": 140609251461424,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_flush",
+          "raw": 94541900847392,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_newline",
+          "raw": 140609251460656,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_spaces",
+          "raw": 140609251460776,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_indent",
+          "raw": 140609251460736,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_open_tag",
+          "raw": 94541900845832,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_close_tag",
+          "raw": 94541900845856,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_open_tag",
+          "raw": 94541900845880,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_close_tag",
+          "raw": 94541900845904,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_queue",
+          "raw": 140609251461392,
+          "first_byte_covered_in_named_logs": false
+        }
+      ],
+      "timing_table": {
+        "entries": 3,
+        "backing_slots": 64,
+        "seed": 0,
+        "initial_size": 64,
+        "values": [
+          {
+            "bucket": 31,
+            "name": "gnatwhy3.transformations.split_goal_wp_conj",
+            "name_bytes": 43,
+            "count": 1,
+            "binary64_le_hex": "000000803655ed3f",
+            "python_float_hex": "0x1.d553680000000p-1"
+          },
+          {
+            "bucket": 42,
+            "name": "gnatwhy3.init",
+            "name_bytes": 13,
+            "count": 1,
+            "binary64_le_hex": "000000902aa11240",
+            "python_float_hex": "0x1.2a12a90000000p+2"
+          },
+          {
+            "bucket": 58,
+            "name": "gnatwhy3.register_vcs",
+            "name_bytes": 21,
+            "count": 1,
+            "binary64_le_hex": "000000c0be1df73f",
+            "python_float_hex": "0x1.71dbec0000000p+0"
+          }
+        ]
+      },
+      "registered_statistics_roots": [],
+      "exit_once_gates_raw": [
+        3,
+        3
+      ],
+      "member_identities": {
+        "registration/first_or_default/capture/exit-hook-roots.json": {
+          "bytes": 2513,
+          "sha256": "aec2196a0e129945dfe228f0b198aa3124cf76a139be66103723a25aea8bdc45"
+        },
+        "registration/first_or_default/capture/process.json": {
+          "bytes": 1042,
+          "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+        },
+        "registration/first_or_default/capture/timing-values-addresses.jsonl": {
+          "bytes": 142,
+          "sha256": "c2249a0e1f7b056a059f09172d596c7fbee3bd4b258f089f6f039e5b99f10a87"
+        },
+        "registration/first_or_default/capture/memory-reads.jsonl": {
+          "bytes": 77519143,
+          "sha256": "521abcc33406a7883f671a7221924d79b6695ca1d6337f4d67f75e50cce3625f"
+        },
+        "registration/first_or_default/capture/save-state-memory-reads.jsonl": {
+          "bytes": 2494307,
+          "sha256": "7626e4ff23d47e035c39e67945a29a2696e9d406376ea6b5df295d15fa790db2"
+        }
+      },
+      "selected_reads": [
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226311,
+          "address": 140609253872864,
+          "bytes": 8,
+          "hex": "0010000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226312,
+          "address": 140609253872872,
+          "bytes": 32,
+          "hex": "07000000000000001015a124e27f000001000000000000008100000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226313,
+          "address": 140609251460848,
+          "bytes": 8,
+          "hex": "0070000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226314,
+          "address": 140609251460856,
+          "bytes": 224,
+          "hex": "c0487c24e27f0000e0477c24e27f0000f8477c24e27f000010487c24e27f000028487c24e27f00009d00000000000000150000000000000089000000000000009d0000000000000001000000000000000300000000000000030000000000000003000000000000000300000000000000ffffffffffffff7f48a86a40fc55000030497c24e27f000020996a40fc55000030467c24e27f0000a8467c24e27f000080467c24e27f00000100000000000000010000000000000008936a40fc55000020936a40fc55000038936a40fc55000050936a40fc55000010497c24e27f0000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226315,
+          "address": 140609253872904,
+          "bytes": 8,
+          "hex": "0000010000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226316,
+          "address": 140609253872912,
+          "bytes": 512,
+          "hex": "0100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000b0f6dcfbe17f000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000001099cefde17f00000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000003073b6fae17f000001000000000000000100000000000000010000000000000001000000000000000100000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226317,
+          "address": 140608569931432,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226318,
+          "address": 140608569931440,
+          "bytes": 24,
+          "hex": "30d4c6fde17f0000d0f6dcfbe17f00000100000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226319,
+          "address": 140608602544392,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226320,
+          "address": 140608602544400,
+          "bytes": 24,
+          "hex": "78882140fc5500003099cefde17f00000100000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226321,
+          "address": 140608550630184,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226322,
+          "address": 140608550630192,
+          "bytes": 24,
+          "hex": "58882140fc5500005073b6fae17f00000100000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226323,
+          "address": 140608602035240,
+          "bytes": 8,
+          "hex": "fc18000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226324,
+          "address": 140608602035248,
+          "bytes": 48,
+          "hex": "676e6174776879332e7472616e73666f726d6174696f6e732e73706c69745f676f616c5f77705f636f6e6a0000000004"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226325,
+          "address": 140608602544424,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226326,
+          "address": 140608602544432,
+          "bytes": 16,
+          "hex": "4899cefde17f00000300000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226327,
+          "address": 140608569931464,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226328,
+          "address": 140608569931472,
+          "bytes": 16,
+          "hex": "e8f6dcfbe17f00000300000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226329,
+          "address": 140608550630216,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226330,
+          "address": 140608550630224,
+          "bytes": 16,
+          "hex": "6873b6fae17f00000300000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226331,
+          "address": 94541896058960,
+          "bytes": 8,
+          "hex": "fc0f000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226332,
+          "address": 94541896058968,
+          "bytes": 24,
+          "hex": "676e6174776879332e72656769737465725f766373000002"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226333,
+          "address": 94541896058992,
+          "bytes": 8,
+          "hex": "fc0b000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226334,
+          "address": 94541896059000,
+          "bytes": 16,
+          "hex": "676e6174776879332e696e6974000002"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226335,
+          "address": 140608602544448,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226336,
+          "address": 140608602544456,
+          "bytes": 8,
+          "hex": "000000902aa11240"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226337,
+          "address": 140608569931488,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226338,
+          "address": 140608569931496,
+          "bytes": 8,
+          "hex": "000000803655ed3f"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226339,
+          "address": 140608550630240,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/first_or_default/capture/memory-reads.jsonl",
+          "line": 226340,
+          "address": 140608550630248,
+          "bytes": 8,
+          "hex": "000000c0be1df73f"
+        }
+      ],
+      "complete_formatter_graph": false,
+      "complete_exit_capacity": false,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "archive": "capture-is-message.tar.gz",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "formatter_address": 140230002558792,
+      "formatter_fields": [
+        {
+          "name": "pp_scan_stack",
+          "raw": 140230002559248,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_format_stack",
+          "raw": 140230002559024,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tbox_stack",
+          "raw": 140230002559048,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tag_stack",
+          "raw": 140230002559072,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_stack",
+          "raw": 140230002559096,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_margin",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_min_space_left",
+          "raw": 21,
+          "immediate": 10
+        },
+        {
+          "name": "pp_max_indent",
+          "raw": 137,
+          "immediate": 68
+        },
+        {
+          "name": "pp_space_left",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_current_indent",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_is_new_line",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_left_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_right_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_curr_depth",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_max_boxes",
+          "raw": 9223372036854775807,
+          "immediate": 4611686018427387903
+        },
+        {
+          "name": "pp_ellipsis",
+          "raw": 94519462824008,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_string",
+          "raw": 140230002559360,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_flush",
+          "raw": 94519462820128,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_newline",
+          "raw": 140230002558592,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_spaces",
+          "raw": 140230002558712,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_indent",
+          "raw": 140230002558672,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_open_tag",
+          "raw": 94519462818568,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_close_tag",
+          "raw": 94519462818592,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_open_tag",
+          "raw": 94519462818616,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_close_tag",
+          "raw": 94519462818640,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_queue",
+          "raw": 140230002559328,
+          "first_byte_covered_in_named_logs": false
+        }
+      ],
+      "timing_table": {
+        "entries": 3,
+        "backing_slots": 64,
+        "seed": 0,
+        "initial_size": 64,
+        "values": [
+          {
+            "bucket": 31,
+            "name": "gnatwhy3.transformations.split_goal_wp_conj",
+            "name_bytes": 43,
+            "count": 1,
+            "binary64_le_hex": "00000000acedb13f",
+            "python_float_hex": "0x1.1edac00000000p-4"
+          },
+          {
+            "bucket": 42,
+            "name": "gnatwhy3.init",
+            "name_bytes": 13,
+            "count": 1,
+            "binary64_le_hex": "000000a0ec041140",
+            "python_float_hex": "0x1.104eca0000000p+2"
+          },
+          {
+            "bucket": 58,
+            "name": "gnatwhy3.register_vcs",
+            "name_bytes": 21,
+            "count": 1,
+            "binary64_le_hex": "00000000f4abb93f",
+            "python_float_hex": "0x1.9abf400000000p-4"
+          }
+        ]
+      },
+      "registered_statistics_roots": [],
+      "exit_once_gates_raw": [
+        3,
+        3
+      ],
+      "member_identities": {
+        "registration/is_message/capture/exit-hook-roots.json": {
+          "bytes": 2513,
+          "sha256": "5f2a6ad916188c8f267fdcb6d89e9757f97572a92d5a58302466c4d7485c9cc1"
+        },
+        "registration/is_message/capture/process.json": {
+          "bytes": 1024,
+          "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+        },
+        "registration/is_message/capture/timing-values-addresses.jsonl": {
+          "bytes": 142,
+          "sha256": "89e9ff4d53712e8edea0afa5ad8078f350ac0dd08153dea93ac1cc6019fa0fea"
+        },
+        "registration/is_message/capture/memory-reads.jsonl": {
+          "bytes": 62228649,
+          "sha256": "8aae3616008410d91c94ea0e1a78bdc8576befc9a2cb57bcab11b7184ffd0f8e"
+        },
+        "registration/is_message/capture/save-state-memory-reads.jsonl": {
+          "bytes": 2280855,
+          "sha256": "fb8fc14af296659bbdc1c3f9944aedd261b0990bb2fd3b3930f10c4ddb6f760d"
+        }
+      },
+      "selected_reads": [
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40031,
+          "address": 140230004970728,
+          "bytes": 8,
+          "hex": "0010000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40032,
+          "address": 140230004970736,
+          "bytes": 32,
+          "hex": "07000000000000001815a2d7897f000001000000000000008100000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40033,
+          "address": 140230002558784,
+          "bytes": 8,
+          "hex": "0070000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40034,
+          "address": 140230002558792,
+          "bytes": 224,
+          "hex": "10497dd7897f000030487dd7897f000048487dd7897f000060487dd7897f000078487dd7897f00009d00000000000000150000000000000089000000000000009d0000000000000001000000000000000300000000000000030000000000000003000000000000000300000000000000ffffffffffffff7f48880107f755000080497dd7897f000020790107f755000080467dd7897f0000f8467dd7897f0000d0467dd7897f00000100000000000000010000000000000008730107f755000020730107f755000038730107f755000050730107f755000060497dd7897f0000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40035,
+          "address": 140230004970768,
+          "bytes": 8,
+          "hex": "0000010000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40036,
+          "address": 140230004970776,
+          "bytes": 512,
+          "hex": "0100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000909b98b2897f00000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000e0eed3b2897f000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000010e78fb2897f000001000000000000000100000000000000010000000000000001000000000000000100000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40037,
+          "address": 140229383592840,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40038,
+          "address": 140229383592848,
+          "bytes": 24,
+          "hex": "a899cfb2897f0000b09b98b2897f00000100000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40039,
+          "address": 140229387480792,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40040,
+          "address": 140229387480800,
+          "bytes": 24,
+          "hex": "7868b806f755000000efd3b2897f00000100000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40041,
+          "address": 140229383022344,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40042,
+          "address": 140229383022352,
+          "bytes": 24,
+          "hex": "5868b806f755000030e78fb2897f00000100000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40043,
+          "address": 140229387480824,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40044,
+          "address": 140229387480832,
+          "bytes": 16,
+          "hex": "18efd3b2897f00000300000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40045,
+          "address": 140229387196832,
+          "bytes": 8,
+          "hex": "fc18000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40046,
+          "address": 140229387196840,
+          "bytes": 48,
+          "hex": "676e6174776879332e7472616e73666f726d6174696f6e732e73706c69745f676f616c5f77705f636f6e6a0000000004"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40047,
+          "address": 140229383592872,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40048,
+          "address": 140229383592880,
+          "bytes": 16,
+          "hex": "c89b98b2897f00000300000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40049,
+          "address": 140229383022376,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40050,
+          "address": 140229383022384,
+          "bytes": 16,
+          "hex": "48e78fb2897f00000300000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40051,
+          "address": 140229387480848,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40052,
+          "address": 140229387480856,
+          "bytes": 8,
+          "hex": "000000a0ec041140"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40053,
+          "address": 94519458031696,
+          "bytes": 8,
+          "hex": "fc0f000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40054,
+          "address": 94519458031704,
+          "bytes": 24,
+          "hex": "676e6174776879332e72656769737465725f766373000002"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40055,
+          "address": 94519458031728,
+          "bytes": 8,
+          "hex": "fc0b000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40056,
+          "address": 94519458031736,
+          "bytes": 16,
+          "hex": "676e6174776879332e696e6974000002"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40057,
+          "address": 140229383592896,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40058,
+          "address": 140229383592904,
+          "bytes": 8,
+          "hex": "00000000acedb13f"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40059,
+          "address": 140229383022400,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "registration/is_message/capture/memory-reads.jsonl",
+          "line": 40060,
+          "address": 140229383022408,
+          "bytes": 8,
+          "hex": "00000000f4abb93f"
+        }
+      ],
+      "complete_formatter_graph": false,
+      "complete_exit_capacity": false,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "archive": "capture-input-is-valid.tar.gz",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "formatter_address": 140341793268816,
+      "formatter_fields": [
+        {
+          "name": "pp_scan_stack",
+          "raw": 140341793269272,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_format_stack",
+          "raw": 140341793269048,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tbox_stack",
+          "raw": 140341793269072,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_tag_stack",
+          "raw": 140341793269096,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_stack",
+          "raw": 140341793269120,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_margin",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_min_space_left",
+          "raw": 21,
+          "immediate": 10
+        },
+        {
+          "name": "pp_max_indent",
+          "raw": 137,
+          "immediate": 68
+        },
+        {
+          "name": "pp_space_left",
+          "raw": 157,
+          "immediate": 78
+        },
+        {
+          "name": "pp_current_indent",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_is_new_line",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_left_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_right_total",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_curr_depth",
+          "raw": 3,
+          "immediate": 1
+        },
+        {
+          "name": "pp_max_boxes",
+          "raw": 9223372036854775807,
+          "immediate": 4611686018427387903
+        },
+        {
+          "name": "pp_ellipsis",
+          "raw": 94660912707656,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_string",
+          "raw": 140341793269384,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_flush",
+          "raw": 94660912703776,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_newline",
+          "raw": 140341793268616,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_spaces",
+          "raw": 140341793268736,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_out_indent",
+          "raw": 140341793268696,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_tags",
+          "raw": 1,
+          "immediate": 0
+        },
+        {
+          "name": "pp_mark_open_tag",
+          "raw": 94660912702216,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_mark_close_tag",
+          "raw": 94660912702240,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_open_tag",
+          "raw": 94660912702264,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_print_close_tag",
+          "raw": 94660912702288,
+          "first_byte_covered_in_named_logs": false
+        },
+        {
+          "name": "pp_queue",
+          "raw": 140341793269352,
+          "first_byte_covered_in_named_logs": false
+        }
+      ],
+      "timing_table": {
+        "entries": 4,
+        "backing_slots": 64,
+        "seed": 0,
+        "initial_size": 64,
+        "values": [
+          {
+            "bucket": 6,
+            "name": "gnatwhy3.transformations.counterexamples_dependent_intros",
+            "name_bytes": 57,
+            "count": 1,
+            "binary64_le_hex": "000000002013b93f",
+            "python_float_hex": "0x1.9132000000000p-4"
+          },
+          {
+            "bucket": 31,
+            "name": "gnatwhy3.transformations.split_goal_wp_conj",
+            "name_bytes": 43,
+            "count": 1,
+            "binary64_le_hex": "00000000fcffce3f",
+            "python_float_hex": "0x1.efffc00000000p-3"
+          },
+          {
+            "bucket": 42,
+            "name": "gnatwhy3.init",
+            "name_bytes": 13,
+            "count": 1,
+            "binary64_le_hex": "00000080d0131240",
+            "python_float_hex": "0x1.213d080000000p+2"
+          },
+          {
+            "bucket": 58,
+            "name": "gnatwhy3.register_vcs",
+            "name_bytes": 21,
+            "count": 1,
+            "binary64_le_hex": "00000000bfc4e63f",
+            "python_float_hex": "0x1.6c4bf00000000p-1"
+          }
+        ]
+      },
+      "registered_statistics_roots": [],
+      "exit_once_gates_raw": [
+        3,
+        3
+      ],
+      "member_identities": {
+        "inline/input_is_valid/capture/exit-hook-roots.json": {
+          "bytes": 2715,
+          "sha256": "95143d97ccccc0cea56544c69734ce9314dff7d5476036209834f1dec0e9eccc"
+        },
+        "inline/input_is_valid/capture/process.json": {
+          "bytes": 1117,
+          "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+        },
+        "inline/input_is_valid/capture/timing-values-addresses.jsonl": {
+          "bytes": 190,
+          "sha256": "58b5ecccc12a2bc297401a997949a1a83fe239be90eaa9973186bdc412d7eb95"
+        },
+        "inline/input_is_valid/capture/memory-reads.jsonl": {
+          "bytes": 65738519,
+          "sha256": "63c39b372f0ff33a08765fe020ab383b6c33cacf7f3c6956b60d84b607890051"
+        },
+        "inline/input_is_valid/capture/save-state-memory-reads.jsonl": {
+          "bytes": 2310904,
+          "sha256": "12399cc1b4408e5c5ab564e50215c49d517e3ec300901dfab2a280069e5cbe76"
+        }
+      },
+      "selected_reads": [
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781163,
+          "address": 140341795681480,
+          "bytes": 8,
+          "hex": "0010000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781164,
+          "address": 140341795681488,
+          "bytes": 32,
+          "hex": "0900000000000000f8f4e0dea37f000001000000000000008100000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781165,
+          "address": 140341793268808,
+          "bytes": 8,
+          "hex": "0070000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781166,
+          "address": 140341793268816,
+          "bytes": 224,
+          "hex": "1826bcdea37f00003825bcdea37f00005025bcdea37f00006825bcdea37f00008025bcdea37f00009d00000000000000150000000000000089000000000000009d0000000000000001000000000000000300000000000000030000000000000003000000000000000300000000000000ffffffffffffff7f487813f6175600008826bcdea37f0000206913f6175600008823bcdea37f00000024bcdea37f0000d823bcdea37f000001000000000000000100000000000000086313f617560000206313f617560000386313f617560000506313f6175600006826bcdea37f0000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781167,
+          "address": 140341795681520,
+          "bytes": 8,
+          "hex": "0000010000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781168,
+          "address": 140341795681528,
+          "bytes": 512,
+          "hex": "010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000c00a22b9a37f000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000018e762b9a37f00000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000e0deb0b9a37f0000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000186856b9a37f000001000000000000000100000000000000010000000000000001000000000000000100000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781169,
+          "address": 140341162412728,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781170,
+          "address": 140341162412736,
+          "bytes": 24,
+          "hex": "482554b9a37f0000e00a22b9a37f00000100000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781171,
+          "address": 140341166663440,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781172,
+          "address": 140341166663448,
+          "bytes": 24,
+          "hex": "e850acb9a37f000038e762b9a37f00000100000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781173,
+          "address": 140341171773144,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781174,
+          "address": 140341171773152,
+          "bytes": 24,
+          "hex": "7858caf51756000000dfb0b9a37f00000100000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781175,
+          "address": 140341165844496,
+          "bytes": 8,
+          "hex": "000c000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781176,
+          "address": 140341165844504,
+          "bytes": 24,
+          "hex": "5858caf517560000386856b9a37f00000100000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781177,
+          "address": 140341162412760,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781178,
+          "address": 140341162412768,
+          "bytes": 16,
+          "hex": "f80a22b9a37f00000300000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781179,
+          "address": 140341171773176,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781180,
+          "address": 140341171773184,
+          "bytes": 16,
+          "hex": "18dfb0b9a37f00000300000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781181,
+          "address": 140341165696320,
+          "bytes": 8,
+          "hex": "fc20000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781182,
+          "address": 140341165696328,
+          "bytes": 64,
+          "hex": "676e6174776879332e7472616e73666f726d6174696f6e732e636f756e7465726578616d706c65735f646570656e64656e745f696e74726f7300000000000006"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781183,
+          "address": 140341171474656,
+          "bytes": 8,
+          "hex": "fc18000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781184,
+          "address": 140341171474664,
+          "bytes": 48,
+          "hex": "676e6174776879332e7472616e73666f726d6174696f6e732e73706c69745f676f616c5f77705f636f6e6a0000000004"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781185,
+          "address": 140341162412784,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781186,
+          "address": 140341162412792,
+          "bytes": 8,
+          "hex": "000000002013b93f"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781187,
+          "address": 140341171773200,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781188,
+          "address": 140341171773208,
+          "bytes": 8,
+          "hex": "00000080d0131240"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781189,
+          "address": 140341166663472,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781190,
+          "address": 140341166663480,
+          "bytes": 16,
+          "hex": "50e762b9a37f00000300000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781191,
+          "address": 140341165844528,
+          "bytes": 8,
+          "hex": "0008000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781192,
+          "address": 140341165844536,
+          "bytes": 16,
+          "hex": "506856b9a37f00000300000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781193,
+          "address": 94660907915344,
+          "bytes": 8,
+          "hex": "fc0f000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781194,
+          "address": 94660907915352,
+          "bytes": 24,
+          "hex": "676e6174776879332e72656769737465725f766373000002"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781195,
+          "address": 94660907915376,
+          "bytes": 8,
+          "hex": "fc0b000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781196,
+          "address": 94660907915384,
+          "bytes": 16,
+          "hex": "676e6174776879332e696e6974000002"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781197,
+          "address": 140341165844552,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781198,
+          "address": 140341165844560,
+          "bytes": 8,
+          "hex": "00000000bfc4e63f"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781199,
+          "address": 140341166663496,
+          "bytes": 8,
+          "hex": "fd04000000000000"
+        },
+        {
+          "member": "inline/input_is_valid/capture/memory-reads.jsonl",
+          "line": 781200,
+          "address": 140341166663504,
+          "bytes": 8,
+          "hex": "00000000fcffce3f"
+        }
+      ],
+      "complete_formatter_graph": false,
+      "complete_exit_capacity": false,
+      "complete_save_capacity": false
+    }
+  ],
+  "source_witnesses": [
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/util/debug.ml",
+      "member_identity": {
+        "bytes": 6900,
+        "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+      },
+      "first": 65,
+      "last": 78,
+      "text": "let set_debug_formatter f =\n  (* enable the usual behavior of stderr: flush at every new line *)\n  let o = Format.pp_get_formatter_out_functions f () in\n  Format.pp_set_formatter_out_functions f\n    { o with Format.out_newline =\n        (fun () -> o.Format.out_newline (); o.Format.out_flush ()) };\n  formatter := f\n\nlet get_debug_formatter () = !formatter\n\nlet () = set_debug_formatter Format.err_formatter\n\nlet dprintf flag s =\n  if flag.flag_value then\n"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/util/debug.ml",
+      "member_identity": {
+        "bytes": 6900,
+        "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+      },
+      "first": 158,
+      "last": 203,
+      "text": "let timing_map = Hashtbl.create 42\n\nlet get_timings () = timing_map\n\nlet add_timing name time =\n  let old_t, old_n =\n    try Hashtbl.find timing_map name\n    with Not_found -> 0.0, 0 in\n  Hashtbl.replace timing_map name (old_t +. time, old_n + 1)\n\nlet record_timing name f =\n  if test_flag stats then\n    let begin_time = Unix.gettimeofday () in\n    Fun.protect f\n      ~finally:(fun () -> add_timing name (Unix.gettimeofday () -. begin_time))\n  else f ()\n\n  let registered_stats :  (Format.formatter -> unit) list ref = ref []\n\n  let print fmt =\n    List.iter (fun s -> Format.fprintf fmt \"<stats>@[%t@]@.\" s) !registered_stats;\n    Hashtbl.iter (fun s (t, n) ->\n        Format.fprintf fmt \"<stats>@[%s: %f, %d@]@.\" s t n)\n      timing_map\n\n  let () =\n    at_exit (fun () ->\n        if test_flag stats then begin\n            print !formatter;\n            Format.pp_print_flush !formatter ()\n          end)\n\n(* top-level code disabled because issue #383 and nobody knows why this code was for\n\n  (** SIGXCPU cpu time limit reached *)\n  let _ =\n    (* TODO? have a possible callback for printing different message*)\n    Sys.signal Sys.sigint (Sys.Signal_handle (fun _ -> exit 2))\n*)\n\n  let register ~print ~name ~init =\n    let s = {name = name; printer = print; value = init} in\n    registered_stats :=\n      (fun fmt -> Format.fprintf fmt \"%s: %a\" s.name s.printer s.value)\n      :: !registered_stats;\n    s\n"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/gnat/gnat_main.ml",
+      "member_identity": {
+        "bytes": 14829,
+        "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+      },
+      "first": 264,
+      "last": 276,
+      "text": "\n(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "archive_identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "member": "why3/src/gnat/gnat_main.ml",
+      "member_identity": {
+        "bytes": 14829,
+        "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+      },
+      "first": 316,
+      "last": 347,
+      "text": "let _ =\n  if Gnat_config.debug then Debug.(set_flag (lookup_flag \"gnat_ast\"));\n  Debug.set_flag Pinterp.debug_disable_builtin_mach;\n  Debug.set_flag Debug.stats;\n  List.iter Introduction.add_unique_prefix\n    [\"GP_Check:\"; \"GP_Pretty_Ada:\"; \"GP_Shape:\"; \"GP_Sloc:\";\n     \"GP_Already_Proved\"; \"GP_Inline\"; \"GP_Inlined\"];\n  ( try\n      let log = Sys.getenv \"GNATWHY3LOG\" in\n      let out = open_out_gen [Open_text; Open_creat; Open_append] 0o666 log in\n      let fmt = Format.formatter_of_out_channel out in\n      Debug.set_debug_formatter fmt;\n      Format.fprintf fmt \"@.@.===== %s@.\" Gnat_config.filename;\n      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)\n    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "archive_identity": {
+        "bytes": 5510610,
+        "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+      },
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "member_identity": {
+        "bytes": 49497,
+        "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+      },
+      "first": 136,
+      "last": 189,
+      "text": "type formatter = {\n  (* The pretty-printer scanning stack. *)\n  pp_scan_stack : pp_scan_elem Stack.t;\n  (* The pretty-printer formatting stack. *)\n  pp_format_stack : pp_format_elem Stack.t;\n  pp_tbox_stack : tbox Stack.t;\n  (* The pretty-printer semantics tag stack. *)\n  pp_tag_stack : stag Stack.t;\n  pp_mark_stack : stag Stack.t;\n  (* Value of right margin. *)\n  mutable pp_margin : int;\n  (* Minimal space left before margin, when opening a box. *)\n  mutable pp_min_space_left : int;\n  (* Maximum value of indentation:\n     no box can be opened further. *)\n  mutable pp_max_indent : int;\n  (* Space remaining on the current line. *)\n  mutable pp_space_left : int;\n  (* Current value of indentation. *)\n  mutable pp_current_indent : int;\n  (* True when the line has been broken by the pretty-printer. *)\n  mutable pp_is_new_line : bool;\n  (* Total width of tokens already printed. *)\n  mutable pp_left_total : int;\n  (* Total width of tokens ever put in queue. *)\n  mutable pp_right_total : int;\n  (* Current number of open boxes. *)\n  mutable pp_curr_depth : int;\n  (* Maximum number of boxes which can be simultaneously open. *)\n  mutable pp_max_boxes : int;\n  (* Ellipsis string. *)\n  mutable pp_ellipsis : string;\n  (* Output function. *)\n  mutable pp_out_string : string -> int -> int -> unit;\n  (* Flushing function. *)\n  mutable pp_out_flush : unit -> unit;\n  (* Output of new lines. *)\n  mutable pp_out_newline : unit -> unit;\n  (* Output of break hints spaces. *)\n  mutable pp_out_spaces : int -> unit;\n  (* Output of indentation of new lines. *)\n  mutable pp_out_indent : int -> unit;\n  (* Are tags printed ? *)\n  mutable pp_print_tags : bool;\n  (* Are tags marked ? *)\n  mutable pp_mark_tags : bool;\n  (* Find opening and closing markers of tags. *)\n  mutable pp_mark_open_tag : stag -> string;\n  mutable pp_mark_close_tag : stag -> string;\n  mutable pp_print_open_tag : stag -> unit;\n  mutable pp_print_close_tag : stag -> unit;\n  (* The pretty-printer queue. *)\n  pp_queue : pp_queue;\n}\n"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "archive_identity": {
+        "bytes": 5510610,
+        "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+      },
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "member_identity": {
+        "bytes": 18750,
+        "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+      },
+      "first": 20,
+      "last": 45,
+      "text": "\ntype ('a, 'b) t =\n  { mutable size: int;                        (* number of entries *)\n    mutable data: ('a, 'b) bucketlist array;  (* the buckets *)\n    seed: int;                        (* for randomization *)\n    mutable initial_size: int;                (* initial array size *)\n  }\n\nand ('a, 'b) bucketlist =\n    Empty\n  | Cons of { mutable key: 'a;\n              mutable data: 'b;\n              mutable next: ('a, 'b) bucketlist }\n\n(* The sign of initial_size encodes the fact that a traversal is\n   ongoing or not.\n\n   This disables the efficient in place implementation of resizing.\n*)\n\nlet ongoing_traversal h =\n  Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n  || h.initial_size < 0\n\nlet flip_ongoing_traversal h =\n  h.initial_size <- - h.initial_size\n"
+    }
+  ]
+}
