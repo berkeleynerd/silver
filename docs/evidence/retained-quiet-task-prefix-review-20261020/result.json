@@ -1,0 +1,88 @@
+{
+  "allocation_parts_words": {
+    "accepted_positions": 615,
+    "complete_command_growth": 15,
+    "contents_copy_growth": 15,
+    "direct_lexer_tuples": 1476,
+    "new_backings": 55,
+    "resize_refs": 4
+  },
+  "allocation_upper_words": 2180,
+  "complete_O": null,
+  "complete_q": null,
+  "frozen_files_byte_matched": 18,
+  "inherited_inputs_checked": 20,
+  "later_capture_maxima": {
+    "major_words": 945213,
+    "minor_words": 127939731,
+    "table_entries": {
+      "custom_table": 84,
+      "ephe_ref_table": 146291,
+      "ref_table": 68961
+    }
+  },
+  "later_capture_rows": [
+    {
+      "case": "put_line",
+      "major_words": 945213,
+      "minor_words": 127939731,
+      "pid": 17310,
+      "table_entries": {
+        "custom_table": 84,
+        "ephe_ref_table": 146291,
+        "ref_table": 68961
+      }
+    },
+    {
+      "case": "put",
+      "major_words": 889802,
+      "minor_words": 116661081,
+      "pid": 17514,
+      "table_entries": {
+        "custom_table": 84,
+        "ephe_ref_table": 145931,
+        "ref_table": 68640
+      }
+    },
+    {
+      "case": "first_or_default",
+      "major_words": 763834,
+      "minor_words": 87937967,
+      "pid": 17631,
+      "table_entries": {
+        "custom_table": 84,
+        "ephe_ref_table": 138639,
+        "ref_table": 63049
+      }
+    },
+    {
+      "case": "is_message",
+      "major_words": 623202,
+      "minor_words": 77776179,
+      "pid": 17704,
+      "table_entries": {
+        "custom_table": 84,
+        "ephe_ref_table": 133992,
+        "ref_table": 59716
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "major_words": 635870,
+      "minor_words": 79191224,
+      "pid": 17869,
+      "table_entries": {
+        "custom_table": 84,
+        "ephe_ref_table": 137560,
+        "ref_table": 60557
+      }
+    }
+  ],
+  "native_solver_proof_capture_runs": 0,
+  "older_family_B_upper": 131047850,
+  "older_family_W_upper": 128851857,
+  "scope": "Frozen identities, exact source witnesses, five original capture attachments and bounded arithmetic. Source simulation and origin induction are reviewed reasoning, not proved by this script.",
+  "selected_allowance_words": 4096,
+  "source_members_checked": 12,
+  "whole_capacity_goal_complete": false
+}

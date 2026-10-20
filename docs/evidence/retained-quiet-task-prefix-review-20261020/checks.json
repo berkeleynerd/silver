@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/check.py"
+      ],
+      "elapsed_seconds": 4.30131387900019,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\n  \"status\": \"pass\",\n  \"capture_cases\": 5,\n  \"derived_products\": 4,\n  \"elapsed_seconds\": 4.213874680000117,\n  \"native_target_runs\": 0,\n  \"predecessor_checker_replays\": 0\n}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/check.py"
+      ],
+      "elapsed_seconds": 0.6186779330000718,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "checked 18 pinned inputs, 55 archive members; 10 roots, 47 reachable modules, 66 edges; whole q remains null\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/check.py"
+      ],
+      "elapsed_seconds": 3.3150920699999915,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "checked 18 frozen files, 12 source members, 5 original capture attachments; complete q/O remain null\n"
+    }
+  ],
+  "checks_completed_utc": "2026-10-20T19:50:18.410003+00:00",
+  "child_goal_query": null,
+  "combined_review_target": "f9c03cd3b420b7eedac2a5301b6eebf39cfbe819",
+  "disposition": "Accept both exact frozen components at named conditional scopes; continuing counters, exact task identity, q/O and whole capacity goal remain incomplete.",
+  "first_retained_clock_utc": "2026-10-20T19:37:10Z",
+  "full_subthread_elapsed_seconds": null,
+  "github_goal_production_changes": 0,
+  "global_budget": {
+    "e_upper": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "host": {
+    "machine": "x86_64",
+    "release": "7.0.14",
+    "system": "Linux"
+  },
+  "material_finding": "No material defect in final scoped components. Review clarified raw-session/cache-domain reasoning, helper link, nonterminating trace-prefix scope and retained nonzero/open goal-revalidation charge.",
+  "measured_interval_seconds": 882.684198,
+  "native_solver_proof_capture_runs": 0,
+  "parent_reported_goal": "Existing #119 goal remains active and incomplete; owner directed full capacity work to continue",
+  "predecessor_checker_replays": 0,
+  "relative_links_checked": [
+    {
+      "source": "docs/reviews/review-quiet-task-prefix-20261020.md",
+      "target": "../research/retained-quiet-prefix-transfer.md"
+    },
+    {
+      "source": "docs/reviews/review-quiet-task-prefix-20261020.md",
+      "target": "../research/retained-cvc5-task-acceptance.md"
+    },
+    {
+      "source": "docs/reviews/review-quiet-task-prefix-20261020.md",
+      "target": "../evidence/retained-quiet-task-prefix-review-20261020/README.md"
+    },
+    {
+      "source": "docs/evidence/retained-quiet-task-prefix-review-20261020/README.md",
+      "target": "../../reviews/review-quiet-task-prefix-20261020.md"
+    }
+  ],
+  "review_base": "60633f7092c5ecd3ad3d118e031ab2a03e571d15",
+  "review_completed_utc": "2026-10-20T19:51:52.684198+00:00",
+  "reviewer": "/root/quiet_output_review",
+  "round48_unchanged_check": {
+    "base": "60633f7092c5ecd3ad3d118e031ab2a03e571d15",
+    "exit_code": 0
+  },
+  "runtime_model_effort_confirmation": null,
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6-astra",
+  "staged_whitespace_check": {
+    "command": "git diff --cached --check",
+    "exit_code": 0
+  },
+  "timing_scope": "Interval since first retained R49 UTC clock; includes source review, author waits and packet work; full subthread elapsed and team cost unavailable.",
+  "token_cost_telemetry": null
+}

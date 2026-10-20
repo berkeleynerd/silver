@@ -1,0 +1,218 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "bytes": 8151,
+    "excerpts": [
+      {
+        "first": 64,
+        "last": 169,
+        "text": "let engine tbl state buf =\n  let result = c_engine tbl state buf in\n  if result >= 0 && buf.lex_curr_p != dummy_pos then begin\n    buf.lex_start_p <- buf.lex_curr_p;\n    buf.lex_curr_p <- {buf.lex_curr_p\n                       with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n  end;\n  result\n\n\nlet new_engine tbl state buf =\n  let result = c_new_engine tbl state buf in\n  if result >= 0 && buf.lex_curr_p != dummy_pos then begin\n    buf.lex_start_p <- buf.lex_curr_p;\n    buf.lex_curr_p <- {buf.lex_curr_p\n                       with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n  end;\n  result\n\nlet lex_refill read_fun aux_buffer lexbuf =\n  let read =\n    read_fun aux_buffer (Bytes.length aux_buffer) in\n  let n =\n    if read > 0\n    then read\n    else (lexbuf.lex_eof_reached <- true; 0) in\n  (* Current state of the buffer:\n        <-------|---------------------|----------->\n        |  junk |      valid data     |   junk    |\n        ^       ^                     ^           ^\n        0    start_pos             buffer_end    Bytes.length buffer\n  *)\n  if lexbuf.lex_buffer_len + n > Bytes.length lexbuf.lex_buffer then begin\n    (* There is not enough space at the end of the buffer *)\n    if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n\n       <= Bytes.length lexbuf.lex_buffer\n    then begin\n      (* But there is enough space if we reclaim the junk at the beginning\n         of the buffer *)\n      Bytes.blit lexbuf.lex_buffer lexbuf.lex_start_pos\n                  lexbuf.lex_buffer 0\n                  (lexbuf.lex_buffer_len - lexbuf.lex_start_pos)\n    end else begin\n      (* We must grow the buffer.  Doubling its size will provide enough\n         space since n <= String.length aux_buffer <= String.length buffer.\n         Watch out for string length overflow, though. *)\n      let newlen =\n        Int.min (2 * Bytes.length lexbuf.lex_buffer) Sys.max_string_length in\n      if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n > newlen\n      then failwith \"Lexing.lex_refill: cannot grow buffer\";\n      let newbuf = Bytes.create newlen in\n      (* Copy the valid data to the beginning of the new buffer *)\n      Bytes.blit lexbuf.lex_buffer lexbuf.lex_start_pos\n                  newbuf 0\n                  (lexbuf.lex_buffer_len - lexbuf.lex_start_pos);\n      lexbuf.lex_buffer <- newbuf\n    end;\n    (* Reallocation or not, we have shifted the data left by\n       start_pos characters; update the positions *)\n    let s = lexbuf.lex_start_pos in\n    lexbuf.lex_abs_pos <- lexbuf.lex_abs_pos + s;\n    lexbuf.lex_curr_pos <- lexbuf.lex_curr_pos - s;\n    lexbuf.lex_start_pos <- 0;\n    lexbuf.lex_last_pos <- lexbuf.lex_last_pos - s;\n    lexbuf.lex_buffer_len <- lexbuf.lex_buffer_len - s ;\n    let t = lexbuf.lex_mem in\n    for i = 0 to Array.length t-1 do\n      let v = t.(i) in\n      if v >= 0 then\n        t.(i) <- v-s\n    done\n  end;\n  (* There is now enough space at the end of the buffer *)\n  Bytes.blit aux_buffer 0 lexbuf.lex_buffer lexbuf.lex_buffer_len n;\n  lexbuf.lex_buffer_len <- lexbuf.lex_buffer_len + n\n\nlet zero_pos = {\n  pos_fname = \"\";\n  pos_lnum = 1;\n  pos_bol = 0;\n  pos_cnum = 0;\n}\n\nlet from_function ?(with_positions = true) f =\n  { refill_buff = lex_refill f (Bytes.create 512);\n    lex_buffer = Bytes.create 1024;\n    lex_buffer_len = 0;\n    lex_abs_pos = 0;\n    lex_start_pos = 0;\n    lex_curr_pos = 0;\n    lex_last_pos = 0;\n    lex_last_action = 0;\n    lex_mem = [||];\n    lex_eof_reached = false;\n    lex_start_p = if with_positions then zero_pos else dummy_pos;\n    lex_curr_p = if with_positions then zero_pos else dummy_pos;\n  }\n\nlet from_channel ?with_positions ic =\n  from_function ?with_positions (fun buf n -> input ic buf 0 n)\n\nlet from_string ?(with_positions = true) s =\n  { refill_buff = (fun lexbuf -> lexbuf.lex_eof_reached <- true);\n    lex_buffer = Bytes.of_string s; (* have to make a copy for compatibility\n                                       with unsafe-string mode *)\n    lex_buffer_len = String.length s;\n"
+      }
+    ],
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/lexing.ml",
+    "sha256": "9d596e66ad42e03bcee167d3cbbc061a6917f876ea0a050268c6ba131ff1d12a"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "bytes": 13460,
+    "excerpts": [
+      {
+        "first": 77,
+        "last": 102,
+        "text": "let resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n"
+      }
+    ],
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "bytes": 32387,
+    "excerpts": [
+      {
+        "first": 332,
+        "last": 369,
+        "text": "  let rec size_forward pos = function\n    | Empty|Chars (_,true)|Tag _ -> Some pos\n    | Chars (_,false) -> Some (pos+1)\n    | Seq (r1,r2) ->\n        begin match size_forward pos r1 with\n        | None -> None\n        | Some pos  -> size_forward pos r2\n        end\n    | Alt (r1,r2) ->\n        let pos1 = size_forward pos r1\n        and pos2 = size_forward pos r2 in\n        if pos1=pos2 then pos1 else None\n    | Star _ -> None\n    | Action _ -> assert false in\n\n  let rec simple_forward pos r = match r with\n    | Tag n ->\n        if mem_name n.id double_vars then\n          r,Some pos\n        else begin\n          Hashtbl.add env (n.id,n.start) (Sum (Start, pos)) ;\n          Empty,Some pos\n        end\n    | Empty -> r, Some pos\n    | Chars (_,is_eof) ->\n        r,Some (if is_eof then  pos else pos+1)\n    | Seq (r1,r2) ->\n        let r1,pos = simple_forward pos r1 in\n        begin match pos with\n        | None -> mk_seq r1 r2,None\n        | Some pos ->\n            let r2,pos = simple_forward pos r2 in\n            mk_seq r1 r2,pos\n        end\n    | Alt (r1,r2) ->\n        let pos1 = size_forward pos r1\n        and pos2 = size_forward pos r2 in\n        r,(if pos1=pos2 then pos1 else None)\n"
+      }
+    ],
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+    "sha256": "08220628cb1dc28dd2829a4761cc9f5020358b5275e24e5f4358ef00706372bc"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "bytes": 13081,
+    "excerpts": [
+      {
+        "first": 57,
+        "last": 81,
+        "text": "    pr ctx \"  end\\n\";\n    pr ctx \"\\n\";\n  end else begin\n    pr ctx \"\\n\";\n    pr ctx \"let rec __ocaml_lex_refill_buf lexbuf _buf _len _curr _last =\\n\";\n    pr ctx \"  if lexbuf.Lexing.lex_eof_reached then\\n\";\n    pr ctx \"    256, _buf, _len, _curr, _last\\n\";\n    pr ctx \"  else begin\\n\";\n    pr ctx \"    lexbuf.Lexing.lex_curr_pos <- _curr;\\n\";\n    pr ctx \"    lexbuf.Lexing.lex_last_pos <- _last;\\n\";\n    pr ctx \"    lexbuf.Lexing.refill_buff lexbuf;\\n\";\n    pr ctx \"    let _curr = lexbuf.Lexing.lex_curr_pos in\\n\";\n    pr ctx \"    let _last = lexbuf.Lexing.lex_last_pos in\\n\";\n    pr ctx \"    let _len = lexbuf.Lexing.lex_buffer_len in\\n\";\n    pr ctx \"    let _buf = lexbuf.Lexing.lex_buffer in\\n\";\n    pr ctx \"    if _curr < _len then\\n\";\n    pr ctx \"      Char.code (Bytes.unsafe_get _buf _curr), _buf, _len, \\\n                            (_curr + 1), _last\\n\";\n    pr ctx \"    else\\n\";\n    pr ctx \"      __ocaml_lex_refill_buf lexbuf _buf _len _curr _last\\n\";\n    pr ctx \"  end\\n\";\n    pr ctx \"\\n\";\n  end\n\nlet output_memory_actions pref oc = function\n"
+      },
+      {
+        "first": 227,
+        "last": 245,
+        "text": "                %s  __ocaml_lex_refill_buf lexbuf _buf _len _curr _last \\\n                                                  _last_action state k\\n\\\n                %selse\\n\\\n                %s  state lexbuf _last_action _buf _len (_curr + 1) _last k\\n\\\n                %s    (Char.code (Bytes.unsafe_get _buf _curr))\\n\"\n        pref pref pref pref pref pref\n      end\n      else begin\n        pr ctx \"%slet next_char, _buf, _len, _curr, _last =\\n\\\n                %s  if _curr >= _len then\\n\\\n                %s    __ocaml_lex_refill_buf lexbuf _buf _len _curr _last\\n\\\n                %s  else\\n\\\n                %s    Char.code (Bytes.unsafe_get _buf _curr),\\n\\\n                %s    _buf, _len, (_curr + 1), _last\\n\\\n                %sin\\n\\\n                %sbegin match next_char with\\n\"\n          pref pref pref pref pref pref pref pref;\n        output_moves ctx (pref ^ \"  \") move;\n        pr ctx \"%send\\n\" pref\n"
+      }
+    ],
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/outputbis.ml",
+    "sha256": "51d33a22f165e584655d6b0d13147cac356912b9a3765fd5c07c29decd04d9ea"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 35066,
+    "excerpts": [
+      {
+        "first": 214,
+        "last": 240,
+        "text": "module Hstdecl = Hashcons.Make (struct\n\n  type t = tdecl\n\n  let eq_marg a1 a2 = match a1,a2 with\n    | MAty ty1, MAty ty2 -> ty_equal ty1 ty2\n    | MAts ts1, MAts ts2 -> ts_equal ts1 ts2\n    | MAls ls1, MAls ls2 -> ls_equal ls1 ls2\n    | MApr pr1, MApr pr2 -> pr_equal pr1 pr2\n    | MAstr s1, MAstr s2 -> s1 = s2\n    | MAint i1, MAint i2 -> i1 = i2\n    | _,_ -> false\n\n  let eq_smap sm1 sm2 =\n    Mts.equal ty_equal sm1.sm_ty sm2.sm_ty &&\n    Mts.equal ts_equal sm1.sm_ts sm2.sm_ts &&\n    Mls.equal ls_equal sm1.sm_ls sm2.sm_ls &&\n    Mpr.equal pr_equal sm1.sm_pr sm2.sm_pr\n\n  let equal td1 td2 = match td1.td_node, td2.td_node with\n    | Decl d1, Decl d2 -> d_equal d1 d2\n    | Use th1, Use th2 -> id_equal th1.th_name th2.th_name\n    | Clone (th1,sm1), Clone (th2,sm2) ->\n        id_equal th1.th_name th2.th_name && eq_smap sm1 sm2\n    | Meta (t1,al1), Meta (t2,al2) ->\n        t1 = t2 && Lists.equal eq_marg al1 al2\n    | _,_ -> false\n"
+      },
+      {
+        "first": 651,
+        "last": 660,
+        "text": "let rec sm_trans_ty tym tsm ty = match ty.ty_node with\n  | Tyapp (ts, tyl) ->\n      let tyl = List.map (sm_trans_ty tym tsm) tyl in\n      begin match Mts.find_opt ts tsm with\n      | Some ts -> ty_app ts tyl\n      | None -> begin match Mts.find_opt ts tym with\n      | Some ty -> ty_inst (ts_match_args ts tyl) ty\n      | None -> ty_app ts tyl\n      end end\n  | Tyvar _ -> ty\n"
+      },
+      {
+        "first": 999,
+        "last": 1016,
+        "text": "let clone_meta tdt th sm = match tdt.td_node with\n  | Meta (t,al) ->\n      let find_ts ts = if Mid.mem ts.ts_name th.th_local\n        then Mts.find ts sm.sm_ts else ts in\n      let find_ls ls = if Mid.mem ls.ls_name th.th_local\n        then Mls.find ls sm.sm_ls else ls in\n      let find_pr pr = if Mid.mem pr.pr_name th.th_local\n        then Mpr.find pr sm.sm_pr else pr in\n      let cl_marg = function\n        | MAty ty -> MAty (sm_trans_ty sm.sm_ty sm.sm_ts ty)\n        | MAts ts -> MAts (find_ts ts)\n        | MAls ls -> MAls (find_ls ls)\n        | MApr pr -> MApr (find_pr pr)\n        | a -> a\n      in\n      begin try Some (mk_tdecl (Meta (t, List.map cl_marg al)))\n      with Not_found -> None end\n  | _ -> invalid_arg \"Theory.clone_meta\"\n"
+      }
+    ],
+    "member": "why3/src/core/theory.ml",
+    "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 11462,
+    "excerpts": [
+      {
+        "first": 19,
+        "last": 61,
+        "text": "module Stdecl = Hcpt.MakeSet(struct\n  type t = tdecl\n  let id td = td.td_tag\nend)\nmodule HStdecl = Stdecl\n\ntype tdecl_set = Stdecl.t\n\nmodule Wtds = Weakhtbl.Make(struct\n  type t = tdecl_set\n  let tag s = Weakhtbl.create_tag (Stdecl.id s)\nend)\n\n\nlet mk_tds s =\n  Theory.Stdecl.fold Stdecl.add s Stdecl.empty\n\nlet tds_empty = Stdecl.empty\nlet tds_singleton td = Stdecl.singleton td\n\nlet tds_add = Stdecl.add\n\nlet tds_equal = Stdecl.equal\nlet tds_hash = Stdecl.hash\nlet tds_compare = Stdecl.compare\n\ntype clone_map = tdecl_set Mid.t\ntype meta_map = tdecl_set Mmeta.t\n\nlet cm_find cm th = Mid.find_def tds_empty th.th_name cm\nlet mm_find mm t = Mmeta.find_def tds_empty t mm\n\nlet cm_add cm th td = Mid.change (function\n  | None -> Some (tds_singleton td)\n  | Some tds -> Some (tds_add td tds)) th.th_name cm\n\nlet mm_add mm t td = Mmeta.change (function\n  | None -> Some (tds_singleton td)\n  | Some tds -> Some (tds_add td tds)) t mm\n\nlet mm_add mm t td = if t.meta_excl\n  then Mmeta.add t (tds_singleton td) mm\n  else mm_add mm t td\n"
+      },
+      {
+        "first": 88,
+        "last": 113,
+        "text": "module Hstask = Hashcons.Make (struct\n  type t = task_hd\n\n  let equal t1 t2 = td_equal t1.task_decl t2.task_decl &&\n                  task_equal t1.task_prev t2.task_prev\n\n  let hash t = Hashcons.combine (td_hash t.task_decl) (task_hash t.task_prev)\n\n  let tag i task = { task with task_tag = Weakhtbl.create_tag i }\nend)\n\nlet mk_task decl prev known clone meta = Some (Hstask.hashcons {\n  task_decl  = decl;\n  task_prev  = prev;\n  task_known = known;\n  task_clone = clone;\n  task_meta  = meta;\n  task_tag   = Weakhtbl.dummy_tag;\n})\n\nlet task_known o = Option.fold ~some:(fun t -> t.task_known) ~none:Mid.empty   o\nlet task_clone o = Option.fold ~some:(fun t -> t.task_clone) ~none:Mid.empty   o\nlet task_meta  o = Option.fold ~some:(fun t -> t.task_meta)  ~none:Mmeta.empty o\n\nlet find_clone_tds task (th : theory) = cm_find (task_clone task) th\nlet find_meta_tds task (t : meta) = mm_find (task_meta task) t\n"
+      },
+      {
+        "first": 148,
+        "last": 181,
+        "text": "let new_decl task d td =\n  let kn = known_add_decl (task_known task) (check_decl d) in\n  mk_task td (check_task task) kn (task_clone task) (task_meta task)\n\nlet new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n\nlet new_clone task th td =\n  let cl = cm_add (task_clone task) th td in\n  mk_task td (check_task task) (task_known task) cl (task_meta task)\n\nlet new_meta task t td =\n  let mt = mm_add (task_meta task) t td in\n  mk_task td (check_task task) (task_known task) (task_clone task) mt\n\n(* declaration constructors + add_decl *)\n\nlet add_decl task d = new_decl task d (create_decl d)\n\nlet add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\nlet add_data_decl tk dl = add_decl tk (create_data_decl dl)\nlet add_param_decl tk ls = add_decl tk (create_param_decl ls)\nlet add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\nlet add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\nlet add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n\n(* task constructors *)\n\nlet add_tdecl task td = match td.td_node with\n  | Decl d -> new_decl task d td\n  | Use th ->\n      if Stdecl.mem td (find_clone_tds task th) then task else\n      new_clone task th td\n  | Clone (th,_) -> new_clone task th td\n  | Meta (t,_) -> new_meta task t td\n"
+      }
+    ],
+    "member": "why3/src/core/task.ml",
+    "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 18796,
+    "excerpts": [
+      {
+        "first": 330,
+        "last": 369,
+        "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n"
+      },
+      {
+        "first": 490,
+        "last": 494,
+        "text": "let prove_task\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let task = prepare_task drv task in\n  prove_task_prepared\n    ~command ~config ~limits ?interactive ?old ?inplace drv task\n"
+      }
+    ],
+    "member": "why3/src/driver/driver.ml",
+    "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 8518,
+    "excerpts": [
+      {
+        "first": 120,
+        "last": 128,
+        "text": "\nlet ty_var n = Hsty.hashcons (mk_ty (Tyvar n))\nlet ty_app s tl = Hsty.hashcons (mk_ty (Tyapp (s, tl)))\n\n(* generic traversal functions *)\n\nlet ty_map fn ty = match ty.ty_node with\n  | Tyvar _ -> ty\n  | Tyapp (f, tl) -> ty_app f (List.map fn tl)\n"
+      },
+      {
+        "first": 159,
+        "last": 170,
+        "text": "let rec ty_v_map fn ty = match ty.ty_node with\n  | Tyvar v -> fn v\n  | Tyapp (f, tl) -> ty_app f (List.map (ty_v_map fn) tl)\n\nlet rec ty_v_fold fn acc ty = match ty.ty_node with\n  | Tyvar v -> fn acc v\n  | Tyapp (_, tl) -> List.fold_left (ty_v_fold fn) acc tl\n\nlet ty_v_all pr ty = Util.all ty_v_fold pr ty\nlet ty_v_any pr ty = Util.any ty_v_fold pr ty\n\nlet ty_full_inst m ty = ty_v_map (fun v -> Mtv.find v m) ty\n"
+      },
+      {
+        "first": 203,
+        "last": 217,
+        "text": "let ts_match_args s tl =\n  try List.fold_right2 Mtv.add s.ts_args tl Mtv.empty\n  with Invalid_argument _ -> raise (BadTypeArity (s, List.length tl))\n\nlet ty_match_args ty = match ty.ty_node with\n  | Tyapp (s,tl) -> ts_match_args s tl\n  | _ -> invalid_arg \"Ty.ty_match_args\"\n\nlet ty_app s tl = match s.ts_def with\n  | Alias ty ->\n      ty_full_inst (ts_match_args s tl) ty\n  | NoDef | Range _ | Float _ ->\n      if List.length s.ts_args <> List.length tl then\n        raise (BadTypeArity (s, List.length tl));\n      ty_app s tl\n"
+      },
+      {
+        "first": 234,
+        "last": 236,
+        "text": "let rec ty_inst s ty = match ty.ty_node with\n  | Tyvar n -> Mtv.find_def ty n s\n  | _ -> ty_map (ty_inst s) ty\n"
+      }
+    ],
+    "member": "why3/src/core/ty.ml",
+    "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 27862,
+    "excerpts": [
+      {
+        "first": 743,
+        "last": 752,
+        "text": "let check_match kn d =\n  let rec check () t = match t.t_node with\n    | Tcase (t1,bl) ->\n        let get_constructors ts = List.map fst (find_constructors kn ts) in\n        let pl = List.map (fun b -> let p,_ = t_open_branch b in [p]) bl in\n        Loc.try2 ?loc:t.t_loc (Pattern.check_compile ~get_constructors) [t1] pl;\n        t_fold check () t\n    | _ -> t_fold check () t\n  in\n  decl_fold check () d\n"
+      },
+      {
+        "first": 830,
+        "last": 835,
+        "text": "let known_add_decl kn d =\n  let kn = known_add_decl kn d in\n  check_positivity kn d;\n  check_foundness kn d;\n  check_match kn d;\n  kn\n"
+      }
+    ],
+    "member": "why3/src/core/decl.ml",
+    "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 81245,
+    "excerpts": [
+      {
+        "first": 310,
+        "last": 311,
+        "text": "let get_task s id =\n  Hpn.find s.session_raw_tasks id\n"
+      },
+      {
+        "first": 677,
+        "last": 690,
+        "text": "(* [mk_proof_node s n t p id] register in the session [s] a proof node\n   of proofNodeID [id] of parent [p] of task [t] *)\nlet mk_proof_node ~expl (s : session) (n : Ident.ident) (t : Task.task)\n    (parent : proof_parent) (node_id : proofNodeID) =\n  let pn = { proofn_name = n;\n             proofn_expl = expl;\n             proofn_parent = parent;\n             proofn_attempts = Hprover.create 7;\n             proofn_transformations = [] } in\n  Hint.add s.proofNode_table node_id pn;\n  Hpn.add s.session_raw_tasks node_id t;\n  let sum = Termcode.task_checksum ~version:s.shapes.shape_version t in\n  Sshape.add_sum s node_id sum;\n  Sshape.compute_and_add_shape s ~expl node_id t\n"
+      }
+    ],
+    "member": "why3/src/session/session_itp.ml",
+    "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 56291,
+    "excerpts": [
+      {
+        "first": 409,
+        "last": 438,
+        "text": "  else nres\n\n\nlet build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n  | exception Not_found (* goal has no task, it is detached *) ->\n    spa.spa_callback Detached\n  | task ->\n    Debug.dprintf debug_sched \"[build_prover_call] Script file = %a@.\"\n                  (Pp.print_option Pp.string) spa.spa_pr_scr;\n    let inplace = config_pr.Whyconf.in_place in\n    let interactive = config_pr.Whyconf.interactive in\n    let main = Whyconf.get_main c.controller_config in\n    try\n      let call = Driver.prove_task ?old:spa.spa_pr_scr ~inplace ~command\n          ~limits ~interactive ~config:main driver task in\n      let pa =\n        { tp_id       = spa.spa_id;\n          tp_callback = spa.spa_callback;\n          tp_started  = false;\n          tp_call     = call;\n          tp_ores     = spa.spa_ores } in\n      Hashtbl.replace prover_tasks_in_progress call pa\n"
+      }
+    ],
+    "member": "why3/src/session/controller_itp.ml",
+    "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 17258,
+    "excerpts": [
+      {
+        "first": 113,
+        "last": 158,
+        "text": "module MakeMap(X: sig\n  type t\n  val id: t -> int\n  type value\n  val hash: value -> int\n  val equal: value -> value -> bool\nend) = struct\n\n  type key = X.t\n  type value = X.value\n  type uid = int\n\n  type t =\n    | Empty\n    | Leaf of uid * key * value\n    | Branch of uid * int * int * t * t\n\n  (**** hash-consing machinery starts here... ********************************)\n  let hash = function\n    | Empty -> 0\n    | Leaf (id, _, _) | Branch (id, _, _, _, _) -> id\n\n  let equal: t -> t -> bool =\n    (==)\n\n  module H = Ephemeron.K1.Make(struct\n    type nonrec t = t\n    let hash = function\n      | Empty -> 0\n      | Leaf (_, k, v) -> 31 * X.id k + X.hash v\n      | Branch (_, p, _, t0, t1) -> 19 * (19 * p + hash t0) + hash t1\n    let equal t0 t1 = match t0, t1 with\n      | Empty, Empty -> true\n      | Leaf (_, k0, v0), Leaf (_, k1, v1) ->\n          X.id k0 = X.id k1 && X.equal v0 v1\n      | Branch (_, p0, m0, t00, t01), Branch (_, p1, m1, t10, t11) ->\n          p0 == p1 && m0 == m1 && t00 == t10 && t01 == t11\n      | _ -> false\n  end)\n  let table = H.create 8192\n  let nextid = ref 1\n  let hashcons n =\n    try H.find table n\n    with Not_found -> incr nextid; H.add table n n; n\n  let leaf (k, v) = hashcons (Leaf (!nextid, k, v))\n  let branch (p, m, t0, t1) = hashcons (Branch (!nextid, p, m, t0, t1))\n"
+      },
+      {
+        "first": 509,
+        "last": 518,
+        "text": "module MakeSet(X : sig\n  type t\n  val id : t -> int\nend) = struct\n  module M = MakeMap(struct\n    include X\n    type value = unit\n    let hash _ = 42\n    let equal _ _ = true\n  end)\n"
+      }
+    ],
+    "member": "why3/src/util/hcpt.ml",
+    "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+  }
+]
