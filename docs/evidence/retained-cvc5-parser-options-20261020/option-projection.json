@@ -1,0 +1,454 @@
+{
+  "collectPivots": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "collect the pivot history",
+      "long": "collect-pivot-stats",
+      "name": "collectPivots",
+      "type": "bool"
+    },
+    "module": "ARITH",
+    "selected_projection": "false",
+    "source": "src/options/arith_options.toml"
+  },
+  "cumulativeMillisecondLimit": {
+    "declaration": {
+      "category": "common",
+      "default": "0",
+      "help": "set time limit in milliseconds of wall clock time",
+      "long": "tlimit=MS",
+      "name": "cumulativeMillisecondLimit",
+      "type": "uint64_t"
+    },
+    "module": "BASE",
+    "selected_projection": "0",
+    "source": "src/options/base_options.toml"
+  },
+  "doITESimp": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "turn on ite simplification (Kim (and Somenzi) et al., SAT 2009)",
+      "long": "ite-simp",
+      "name": "doITESimp",
+      "type": "bool"
+    },
+    "module": "SMT",
+    "selected_projection": "false",
+    "source": "src/options/smt_options.toml"
+  },
+  "dumpDifficulty": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "dump the difficulty measure after every response to check-sat",
+      "long": "dump-difficulty",
+      "name": "dumpDifficulty",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "dumpInstantiations": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "output instantiations of quantified formulas after every UNSAT/VALID response",
+      "long": "dump-instantiations",
+      "name": "dumpInstantiations",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "dumpInstantiationsDebug": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "output instantiations of quantified formulas after every UNSAT/VALID response, with debug information",
+      "long": "dump-instantiations-debug",
+      "name": "dumpInstantiationsDebug",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "dumpModels": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "output models after every SAT/INVALID/UNKNOWN response",
+      "long": "dump-models",
+      "name": "dumpModels",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "dumpProofs": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "output proofs after every UNSAT/VALID response",
+      "long": "dump-proofs",
+      "name": "dumpProofs",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "dumpUnsatCores": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "output unsat cores after every UNSAT/VALID response",
+      "long": "dump-unsat-cores",
+      "name": "dumpUnsatCores",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "dumpUnsatCoresLemmas": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "output lemmas in unsat cores after every UNSAT/VALID response",
+      "long": "dump-unsat-cores-lemmas",
+      "name": "dumpUnsatCoresLemmas",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "earlyExit": {
+    "declaration": {
+      "category": "common",
+      "default": "true",
+      "help": "do not run destructors at exit; default on except in debug builds",
+      "long": "early-exit",
+      "name": "earlyExit",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "true",
+    "source": "src/options/main_options.toml"
+  },
+  "freshBinders": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "construct fresh variables always when parsing binders",
+      "long": "fresh-binders",
+      "name": "freshBinders",
+      "type": "bool"
+    },
+    "module": "PARSER",
+    "selected_projection": "false",
+    "source": "src/options/parser_options.toml"
+  },
+  "incrementalSolving": {
+    "declaration": {
+      "category": "common",
+      "default": "true",
+      "help": "enable incremental solving",
+      "long": "incremental",
+      "name": "incrementalSolving",
+      "short": "i",
+      "type": "bool"
+    },
+    "module": "BASE",
+    "selected_projection": "false",
+    "source": "src/options/base_options.toml"
+  },
+  "inputLanguage": {
+    "declaration": {
+      "alias": [
+        "input-language"
+      ],
+      "category": "common",
+      "default": "Language::LANG_AUTO",
+      "handler": "stringToLanguage",
+      "help": "force input language (default is \"auto\"; see --lang help)",
+      "includes": [
+        "options/language.h"
+      ],
+      "long": "lang=LANG",
+      "name": "inputLanguage",
+      "predicates": [
+        "setInputLanguage"
+      ],
+      "short": "L",
+      "type": "Language"
+    },
+    "module": "BASE",
+    "selected_projection": "Language::LANG_SMTLIB_V2_6",
+    "source": "src/options/base_options.toml"
+  },
+  "interactive": {
+    "declaration": {
+      "category": "common",
+      "default": "false",
+      "help": "force interactive shell/non-interactive mode",
+      "long": "interactive",
+      "name": "interactive",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "nodeDepth": {
+    "declaration": {
+      "category": "common",
+      "default": "-1",
+      "help": "print exprs to depth N (0 == default, -1 == no limit)",
+      "long": "expr-depth=N",
+      "minimum": "-1",
+      "name": "nodeDepth",
+      "type": "int64_t"
+    },
+    "module": "PRINTER",
+    "selected_projection": "-1",
+    "source": "src/options/printer_options.toml"
+  },
+  "outputLanguage": {
+    "declaration": {
+      "alias": [
+        "output-language"
+      ],
+      "category": "common",
+      "default": "Language::LANG_AUTO",
+      "handler": "stringToLanguage",
+      "help": "force output language (default is \"auto\"; see --output-lang help)",
+      "includes": [
+        "options/language.h"
+      ],
+      "long": "output-lang=LANG",
+      "name": "outputLanguage",
+      "type": "Language"
+    },
+    "module": "PRINTER",
+    "selected_projection": "Language::LANG_SMTLIB_V2_6",
+    "source": "src/options/printer_options.toml"
+  },
+  "outputTagHolder": {
+    "declaration": {
+      "category": "undocumented",
+      "default": "{}",
+      "includes": [
+        "<bitset>"
+      ],
+      "name": "outputTagHolder",
+      "type": "std::bitset<static_cast<size_t>(OutputTag::__MAX_VALUE)+1>"
+    },
+    "module": "BASE",
+    "selected_projection": "{}",
+    "source": "src/options/base_options.toml"
+  },
+  "parseOnly": {
+    "declaration": {
+      "category": "common",
+      "default": "false",
+      "help": "exit after parsing input",
+      "long": "parse-only",
+      "name": "parseOnly",
+      "type": "bool"
+    },
+    "module": "BASE",
+    "selected_projection": "false",
+    "source": "src/options/base_options.toml"
+  },
+  "printArithLitToken": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "print rationals and negative arithmetic literals as lexed tokens, e.g. 1/4, -1.5",
+      "long": "print-arith-lit-token",
+      "name": "printArithLitToken",
+      "type": "bool"
+    },
+    "module": "PRINTER",
+    "selected_projection": "false",
+    "source": "src/options/printer_options.toml"
+  },
+  "printSuccess": {
+    "declaration": {
+      "category": "common",
+      "default": "false",
+      "help": "print the \"success\" output required of SMT-LIBv2",
+      "long": "print-success",
+      "name": "printSuccess",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "proofLog": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "Proof logging mode",
+      "long": "proof-log",
+      "name": "proofLog",
+      "type": "bool"
+    },
+    "module": "PROOF",
+    "selected_projection": "false",
+    "source": "src/options/proof_options.toml"
+  },
+  "satSolver": {
+    "declaration": {
+      "category": "expert",
+      "default": "MINISAT",
+      "help": "choose which sat solver to use, see --sat-solver=help",
+      "help_mode": "CDCL(T) SAT solver backend.",
+      "long": "sat-solver=MODE",
+      "mode": {
+        "CADICAL": [
+          {
+            "name": "cadical"
+          }
+        ],
+        "MINISAT": [
+          {
+            "name": "minisat"
+          }
+        ]
+      },
+      "name": "satSolver",
+      "type": "SatSolverMode"
+    },
+    "module": "PROP",
+    "selected_projection": "MINISAT",
+    "source": "src/options/prop_options.toml"
+  },
+  "segvSpin": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "spin on segfault/other crash waiting for gdb",
+      "long": "segv-spin",
+      "name": "segvSpin",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "statistics": {
+    "declaration": {
+      "category": "common",
+      "default": "false",
+      "help": "give statistics on exit",
+      "long": "stats",
+      "name": "statistics",
+      "predicates": [
+        "setStats"
+      ],
+      "type": "bool"
+    },
+    "module": "BASE",
+    "selected_projection": "true",
+    "source": "src/options/base_options.toml"
+  },
+  "statisticsAll": {
+    "declaration": {
+      "category": "common",
+      "default": "false",
+      "help": "print unchanged (defaulted) statistics as well",
+      "long": "stats-all",
+      "name": "statisticsAll",
+      "predicates": [
+        "setStatsDetail"
+      ],
+      "type": "bool"
+    },
+    "module": "BASE",
+    "selected_projection": "false",
+    "source": "src/options/base_options.toml"
+  },
+  "statisticsEveryQuery": {
+    "declaration": {
+      "category": "regular",
+      "default": "false",
+      "help": "in incremental mode, print stats after every satisfiability or validity query",
+      "long": "stats-every-query",
+      "name": "statisticsEveryQuery",
+      "predicates": [
+        "setStatsDetail"
+      ],
+      "type": "bool"
+    },
+    "module": "BASE",
+    "selected_projection": "false",
+    "source": "src/options/base_options.toml"
+  },
+  "statisticsInternal": {
+    "declaration": {
+      "category": "common",
+      "default": "false",
+      "help": "print internal (non-public) statistics as well",
+      "long": "stats-internal",
+      "name": "statisticsInternal",
+      "predicates": [
+        "setStatsDetail"
+      ],
+      "type": "bool"
+    },
+    "module": "BASE",
+    "selected_projection": "true",
+    "source": "src/options/base_options.toml"
+  },
+  "usePortfolio": {
+    "declaration": {
+      "category": "expert",
+      "default": "false",
+      "help": "Use internal portfolio mode based on the logic",
+      "long": "use-portfolio",
+      "name": "usePortfolio",
+      "type": "bool"
+    },
+    "module": "DRIVER",
+    "selected_projection": "false",
+    "source": "src/options/main_options.toml"
+  },
+  "verbosity": {
+    "declaration": {
+      "category": "common",
+      "default": "0",
+      "help": "the verbosity level of cvc5",
+      "long": "verbosity=N",
+      "name": "verbosity",
+      "predicates": [
+        "setVerbosity"
+      ],
+      "type": "int64_t"
+    },
+    "module": "BASE",
+    "selected_projection": "0",
+    "source": "src/options/base_options.toml"
+  },
+  "wellFormedChecking": {
+    "declaration": {
+      "category": "expert",
+      "default": "true",
+      "help": "check that terms passed to API methods are well formed (default false for text interface)",
+      "long": "wf-checking",
+      "name": "wellFormedChecking",
+      "type": "bool"
+    },
+    "module": "EXPR",
+    "selected_projection": "false",
+    "source": "src/options/expr_options.toml"
+  }
+}

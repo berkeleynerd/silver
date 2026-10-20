@@ -1,0 +1,44 @@
+{
+  "round": 47,
+  "issues": [
+    119,
+    153
+  ],
+  "author_base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_evidence": "Parent bounded lane assignment; runtime model/effort not independently exposed.",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "timed_source_work_start_utc": "2026-10-20 18:33:47 UTC",
+  "timed_source_work_end_utc": "2026-10-20 18:47:10 UTC",
+  "timed_source_work_seconds": 803,
+  "timing_scope": "First recorded clock through successful focused checker; excludes preceding required-document reads and subsequent final record edits/commit.",
+  "platform": "Linux x86_64; uname reports codex-silver kernel 7.0.14.",
+  "objective": "Attach the fixed generated command family to CVC5 file parsing/execution and automatic output-option behavior; export a computable parser/output interface or precise missing premises.",
+  "achieved": [
+    "No file-mode parser recovery or command replay; <=1 check and reason query preserved conditionally.",
+    "Output option projection closes R=0/no-plugin/inactive uint32 ordinary statistics specialization at source scope.",
+    "Parser warning token charges and direct-message rendered-operand interface.",
+    "Existing quiet option suppresses warning bytes while preserving selected result/reason output; variant not adopted."
+  ],
+  "remaining": [
+    "Source-derived file/filename/rendered-operand/exception bounds.",
+    "Generated-name branch or equivalent SMT2 filename launch attachment, including old-script override exclusion where needed.",
+    "Internal cumulative diagnostic output, terminal composition, executable/source refinement and current-grammar attachment."
+  ],
+  "review": "Independent joint review owned by parent; no independent approval claimed at author freeze.",
+  "rework": [
+    "Preparation helper initially requested an out-of-range source witness ending at command_executor.cpp:261; corrected endpoint to :253. First checker then saw incomplete sources.json, before successful setup/check.",
+    "Final source audit corrected option spelling from collect-pivots to collect-pivot-stats; no semantic result change."
+  ],
+  "successful_check_seconds": 1.412482,
+  "native_runs": 0,
+  "network_runs": 0,
+  "proof_runs": 0,
+  "github_writes": 0,
+  "cli_memory_updated": false,
+  "state": "Whole q/O remain null; Oracle, tools, pins, admission and selected command unchanged. Global two callbacks/three saves/e<=2 budget not reset; no serial-state transfer to parallel."
+}

@@ -1,0 +1,16 @@
+{
+  "command": "python3 -B docs/evidence/retained-cvc5-parser-options-20261020/check.py",
+  "result": "pass",
+  "inputs": 15,
+  "complete_cvc5_sources": 51,
+  "foreign_sources": 4,
+  "witnesses": 43,
+  "projected_options": 31,
+  "parser_lexical_sites": 177,
+  "ordinary_statistics_fixed_bytes": 1103886,
+  "q_cvc5": null,
+  "weighted_O": null,
+  "check_seconds": 1.412482,
+  "scope": "Offline source identity, inventory, literal constants and arithmetic; no semantic/native execution or universal capacity proof.",
+  "recording": "Result transcribed from the completed focused checker output; no identical-success rerun to populate this record."
+}

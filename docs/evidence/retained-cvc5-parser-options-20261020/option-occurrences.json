@@ -1,0 +1,2882 @@
+{
+  "field_or_key_occurrences": [
+    {
+      "line": 243,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "   * Export C++ statistics to C API."
+    },
+    {
+      "line": 244,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "   * @param statistics The statistics to export."
+    },
+    {
+      "line": 377,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "  /** Cache of allocated statistics objects. */"
+    },
+    {
+      "line": 627,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "/** Wrapper for cvc5 C++ statistics. */"
+    },
+    {
+      "line": 633,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "   * @param result The wrapped C++ statistics."
+    },
+    {
+      "line": 642,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "   * @param result The wrapped C++ statistics."
+    },
+    {
+      "line": 648,
+      "source": "src/api/c/cvc5_c_structs.h",
+      "text": "  /** The wrapped C++ statistics. */"
+    },
+    {
+      "line": 211,
+      "source": "src/api/c/cvc5_checks.h",
+      "text": "  CVC5_API_CHECK(stat != nullptr) << \"invalid statistics\""
+    },
+    {
+      "line": 6921,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  if (d_slv->getOptions().expr.wellFormedChecking)"
+    },
+    {
+      "line": 6939,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  if (d_slv->getOptions().expr.wellFormedChecking)"
+    },
+    {
+      "line": 7322,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "                 || d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 7325,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 7336,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "                 || d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 7339,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 7352,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "                 || d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 7355,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 8414,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  CVC5_API_CHECK(d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 8416,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 8474,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  CVC5_API_CHECK(d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 8477,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 8529,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  CVC5_API_CHECK(d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 8532,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 8594,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  CVC5_API_CHECK(d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 8596,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 8687,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      option.find(\"command-verbosity\") != std::string::npos"
+    },
+    {
+      "line": 8694,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "                                       \"print-success\","
+    },
+    {
+      "line": 8697,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "                                       \"verbosity\","
+    },
+    {
+      "line": 8888,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "                 || d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 8892,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 8906,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  CVC5_API_CHECK(d_slv->getOptions().base.incrementalSolving)"
+    },
+    {
+      "line": 8910,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "      << internal::options::base::longName::incrementalSolving << \")\";"
+    },
+    {
+      "line": 291,
+      "source": "src/api/java/CMakeLists.txt",
+      "text": "  jni/statistics.cpp"
+    },
+    {
+      "line": 24,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": " * Represents a snapshot of the solver statistics."
+    },
+    {
+      "line": 59,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * Begin iteration over the statistics values."
+    },
+    {
+      "line": 62,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * @param internal If set to true, internal statistics are shown as well."
+    },
+    {
+      "line": 63,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * @param defaulted If set to true, defaulted statistics are shown as well."
+    },
+    {
+      "line": 79,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * An iterator over the statistics entries maintained by the {@code Statistics} class."
+    },
+    {
+      "line": 88,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "     * Constructs a new iterator over the statistics with specific filtering options."
+    },
+    {
+      "line": 90,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "     * @param internal If {@code true}, internal statistics are included in the iteration."
+    },
+    {
+      "line": 91,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "     * @param defaulted If {@code true}, statistics that have default values are included."
+    },
+    {
+      "line": 98,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "     * Constructs a new iterator over the statistics using default visibility options."
+    },
+    {
+      "line": 99,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "     * By default, only public (non-internal) and explicitly set statistics are shown."
+    },
+    {
+      "line": 130,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * Begin iteration over the statistics values."
+    },
+    {
+      "line": 134,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * @param internal If set to {@code true}, internal statistics are shown as well."
+    },
+    {
+      "line": 135,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * @param defaulted If set to {@code true}, defaulted statistics are shown as well."
+    },
+    {
+      "line": 136,
+      "source": "src/api/java/io/github/cvc5/Statistics.java",
+      "text": "   * @return A {@code ConstIterator} over the matching statistics entries."
+    },
+    {
+      "line": 82,
+      "source": "src/api/java/io/github/cvc5/TermManager.java",
+      "text": "   * Term manager statistics are independent from any solver instance. The"
+    },
+    {
+      "line": 1186,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            Term manager statistics are independent from any solver instance."
+    },
+    {
+      "line": 5367,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "        statistics using :meth:`Statistics.get()`."
+    },
+    {
+      "line": 5369,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "        Iterate over all (including internal and unchanged) statistics via (the"
+    },
+    {
+      "line": 5377,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "        # calling __next__() immediately after creation of the statistics"
+    },
+    {
+      "line": 5400,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            Get the statistics information for the statistic called ``name``."
+    },
+    {
+      "line": 5408,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            Iterate over all statistics (including internal and unchanged"
+    },
+    {
+      "line": 5409,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            statistics)."
+    },
+    {
+      "line": 5426,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            Get all statistics as a dictionary."
+    },
+    {
+      "line": 5428,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            :param internal:  True to also inclue internal statistics."
+    },
+    {
+      "line": 5429,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            :param defaulted: True to also include unchanged statistics."
+    },
+    {
+      "line": 5430,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            :return: A dictionary with all available statistics."
+    },
+    {
+      "line": 13,
+      "source": "src/base/modal_exception.h",
+      "text": " * An exception that is thrown when an interactive-only feature while"
+    },
+    {
+      "line": 14,
+      "source": "src/base/modal_exception.h",
+      "text": " * cvc5 is being used in a non-interactive setting (for example, the"
+    },
+    {
+      "line": 232,
+      "source": "src/decision/justification_strategy.h",
+      "text": "  /** The statistics */"
+    },
+    {
+      "line": 71,
+      "source": "src/main/command_executor.cpp",
+      "text": "  d_parseOnly = d_solver->getOptionInfo(\"parse-only\").boolValue();"
+    },
+    {
+      "line": 83,
+      "source": "src/main/command_executor.cpp",
+      "text": "  if (d_solver->getOptionInfo(\"stats\").boolValue())"
+    },
+    {
+      "line": 88,
+      "source": "src/main/command_executor.cpp",
+      "text": "          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),"
+    },
+    {
+      "line": 89,
+      "source": "src/main/command_executor.cpp",
+      "text": "                      d_solver->getOptionInfo(\"stats-all\").boolValue());"
+    },
+    {
+      "line": 98,
+      "source": "src/main/command_executor.cpp",
+      "text": "          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),"
+    },
+    {
+      "line": 99,
+      "source": "src/main/command_executor.cpp",
+      "text": "                      d_solver->getOptionInfo(\"stats-all\").boolValue());"
+    },
+    {
+      "line": 110,
+      "source": "src/main/command_executor.cpp",
+      "text": "  if (d_solver->getOptionInfo(\"stats\").boolValue())"
+    },
+    {
+      "line": 119,
+      "source": "src/main/command_executor.cpp",
+      "text": "  // formerly was guarded by verbosity > 2"
+    },
+    {
+      "line": 163,
+      "source": "src/main/command_executor.cpp",
+      "text": "    if (d_solver->getOptionInfo(\"dump-models\").boolValue()"
+    },
+    {
+      "line": 171,
+      "source": "src/main/command_executor.cpp",
+      "text": "    if (d_solver->getOptionInfo(\"dump-proofs\").boolValue() && isResultUnsat)"
+    },
+    {
+      "line": 176,
+      "source": "src/main/command_executor.cpp",
+      "text": "    if ((d_solver->getOptionInfo(\"dump-instantiations\").boolValue()"
+    },
+    {
+      "line": 177,
+      "source": "src/main/command_executor.cpp",
+      "text": "         || d_solver->getOptionInfo(\"dump-instantiations-debug\").boolValue())"
+    },
+    {
+      "line": 183,
+      "source": "src/main/command_executor.cpp",
+      "text": "    if (d_solver->getOptionInfo(\"dump-unsat-cores\").boolValue()"
+    },
+    {
+      "line": 189,
+      "source": "src/main/command_executor.cpp",
+      "text": "    if (d_solver->getOptionInfo(\"dump-unsat-cores-lemmas\").boolValue()"
+    },
+    {
+      "line": 195,
+      "source": "src/main/command_executor.cpp",
+      "text": "    if (d_solver->getOptionInfo(\"dump-difficulty\").boolValue()"
+    },
+    {
+      "line": 98,
+      "source": "src/main/command_executor.h",
+      "text": "   * Prints statistics to an output stream."
+    },
+    {
+      "line": 99,
+      "source": "src/main/command_executor.h",
+      "text": "   * Checks whether statistics should be printed according to the options."
+    },
+    {
+      "line": 105,
+      "source": "src/main/command_executor.h",
+      "text": "   * Safely prints statistics to a file descriptor."
+    },
+    {
+      "line": 107,
+      "source": "src/main/command_executor.h",
+      "text": "   * Checks whether statistics should be printed according to the options."
+    },
+    {
+      "line": 99,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  auto limit = install_time_limit(solver->getOptionInfo(\"tlimit\").uintValue());"
+    },
+    {
+      "line": 100,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  segvSpin = solver->getOptionInfo(\"segv-spin\").boolValue();"
+    },
+    {
+      "line": 115,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  // If we're reading from stdin, use interactive mode if we are a TTY."
+    },
+    {
+      "line": 116,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  if (!solver->getOptionInfo(\"interactive\").setByUser)"
+    },
+    {
+      "line": 119,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        \"interactive\","
+    },
+    {
+      "line": 130,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  if (solver->getOption(\"input-language\") == \"LANG_AUTO\")"
+    },
+    {
+      "line": 134,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      pExecutor->setOptionInternal(\"input-language\", \"smt2\");"
+    },
+    {
+      "line": 138,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"input-language\", \"smt2\");"
+    },
+    {
+      "line": 142,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"input-language\", \"sygus2\");"
+    },
+    {
+      "line": 146,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  if (solver->getOption(\"input-language\") == \"LANG_SYGUS_V2\")"
+    },
+    {
+      "line": 160,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  if (solver->getOption(\"output-language\") == \"LANG_AUTO\")"
+    },
+    {
+      "line": 162,
+      "source": "src/main/driver_unified.cpp",
+      "text": "    pExecutor->setOptionInternal(\"output-language\","
+    },
+    {
+      "line": 163,
+      "source": "src/main/driver_unified.cpp",
+      "text": "                                 solver->getOption(\"input-language\"));"
+    },
+    {
+      "line": 166,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  // Determine which messages to show based on smtcomp_mode and verbosity"
+    },
+    {
+      "line": 177,
+      "source": "src/main/driver_unified.cpp",
+      "text": "    if (solver->getOptionInfo(\"interactive\").boolValue() && inputFromStdin)"
+    },
+    {
+      "line": 179,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      // We use the interactive shell when piping from stdin, even some cases"
+    },
+    {
+      "line": 182,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      // We compute whether the interactive shell is actually interactive"
+    },
+    {
+      "line": 183,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      // (via isatty). If we are not interactive, we disable certain output"
+    },
+    {
+      "line": 186,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      // set incremental if we are in interactive mode"
+    },
+    {
+      "line": 187,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      if (!solver->getOptionInfo(\"incremental\").setByUser)"
+    },
+    {
+      "line": 189,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"incremental\","
+    },
+    {
+      "line": 223,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      if (!solver->getOptionInfo(\"incremental\").setByUser)"
+    },
+    {
+      "line": 225,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"incremental\", \"false\");"
+    },
+    {
+      "line": 229,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      if (!solver->getOptionInfo(\"wf-checking\").setByUser)"
+    },
+    {
+      "line": 231,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"wf-checking\", \"false\");"
+    },
+    {
+      "line": 262,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      auto info = solver->getOptionInfo(\"early-exit\");"
+    },
+    {
+      "line": 269,
+      "source": "src/main/driver_unified.cpp",
+      "text": "    if (solver->getOptionInfo(\"early-exit\").boolValue())"
+    },
+    {
+      "line": 15,
+      "source": "src/main/interactive_shell.cpp",
+      "text": " * This file is the implementation for the cvc5 interactive shell."
+    },
+    {
+      "line": 96,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "  std::string langs = d_solver->getOption(\"input-language\");"
+    },
+    {
+      "line": 133,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "      if (d_solver->getOptionInfo(\"verbosity\").intValue() >= 1)"
+    },
+    {
+      "line": 153,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "  if (d_solver->getOptionInfo(\"verbosity\").intValue() >= 1)"
+    },
+    {
+      "line": 225,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "    Trace(\"interactive\") << \"Input now '\" << input << line << \"'\" << endl"
+    },
+    {
+      "line": 273,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "      Trace(\"interactive\") << \"Next char is '\" << (char)c << \"'\" << endl"
+    },
+    {
+      "line": 308,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "      Trace(\"interactive\") << \"Leaving input loop.\" << endl << flush;"
+    },
+    {
+      "line": 387,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "    if (d_solver->getOption(\"output-language\") == \"LANG_SMTLIB_V2_6\")"
+    },
+    {
+      "line": 395,
+      "source": "src/main/interactive_shell.cpp",
+      "text": "    // if not interactive, we quit when we encounter a parse error"
+    },
+    {
+      "line": 52,
+      "source": "src/main/interactive_shell.h",
+      "text": "   * Close out the interactive session."
+    },
+    {
+      "line": 57,
+      "source": "src/main/interactive_shell.h",
+      "text": "   * Read a list of commands from the interactive shell. This will read as"
+    },
+    {
+      "line": 64,
+      "source": "src/main/main.cpp",
+      "text": "    if (solver->getOption(\"output-language\") == \"LANG_SMTLIB_V2_6\")"
+    },
+    {
+      "line": 74,
+      "source": "src/main/main.cpp",
+      "text": "    if (solver->getOptionInfo(\"stats\").boolValue() && pExecutor != nullptr)"
+    },
+    {
+      "line": 36,
+      "source": "src/main/main.h",
+      "text": "/** A reference for use by the signal handlers to print statistics */"
+    },
+    {
+      "line": 44,
+      "source": "src/main/main.h",
+      "text": "extern bool segvSpin;"
+    },
+    {
+      "line": 573,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "  bool use_portfolio = solver.getOption(\"use-portfolio\") == \"true\";"
+    },
+    {
+      "line": 588,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "  bool incremental_solving = solver.getOption(\"incremental\") == \"true\";"
+    },
+    {
+      "line": 600,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "  uint64_t total_timeout = ctx.solver().getOptionInfo(\"tlimit\").uintValue();"
+    },
+    {
+      "line": 754,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "        .set(\"ite-simp\")"
+    },
+    {
+      "line": 953,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "        .set(\"ite-simp\")"
+    },
+    {
+      "line": 52,
+      "source": "src/main/signal_handlers.cpp",
+      "text": "bool segvSpin = false;"
+    },
+    {
+      "line": 126,
+      "source": "src/main/signal_handlers.cpp",
+      "text": "  if (!segvSpin)"
+    },
+    {
+      "line": 181,
+      "source": "src/main/signal_handlers.cpp",
+      "text": "  if (!segvSpin)"
+    },
+    {
+      "line": 24,
+      "source": "src/main/signal_handlers.h",
+      "text": " * Prints an appropriate message and solver statistics."
+    },
+    {
+      "line": 72,
+      "source": "src/options/README.md",
+      "text": "* `undocumented`: Such an option is skipped entirely in both the online documentation and the command line help. This should only be used when users don't have a (reasonable) use case for this option (e.g., because it stores data that is added via another option like for `output` and `outputTagHolder`)."
+    },
+    {
+      "line": 212,
+      "source": "src/options/arith_options.toml",
+      "text": "  name       = \"collectPivots\""
+    },
+    {
+      "line": 214,
+      "source": "src/options/arith_options.toml",
+      "text": "  long       = \"collect-pivot-stats\""
+    },
+    {
+      "line": 35,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"inputLanguage\""
+    },
+    {
+      "line": 36,
+      "source": "src/options/base_options.toml",
+      "text": "  alias      = [\"input-language\"]"
+    },
+    {
+      "line": 48,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"verbosity\""
+    },
+    {
+      "line": 49,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"verbosity=N\""
+    },
+    {
+      "line": 54,
+      "source": "src/options/base_options.toml",
+      "text": "  help       = \"the verbosity level of cvc5\""
+    },
+    {
+      "line": 63,
+      "source": "src/options/base_options.toml",
+      "text": "  help       = \"increase verbosity (may be repeated)\""
+    },
+    {
+      "line": 72,
+      "source": "src/options/base_options.toml",
+      "text": "  help       = \"decrease verbosity (may be repeated)\""
+    },
+    {
+      "line": 75,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"incrementalSolving\""
+    },
+    {
+      "line": 78,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"incremental\""
+    },
+    {
+      "line": 84,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"statistics\""
+    },
+    {
+      "line": 85,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"stats\""
+    },
+    {
+      "line": 90,
+      "source": "src/options/base_options.toml",
+      "text": "  help       = \"give statistics on exit\""
+    },
+    {
+      "line": 93,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"statisticsAll\""
+    },
+    {
+      "line": 94,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"stats-all\""
+    },
+    {
+      "line": 99,
+      "source": "src/options/base_options.toml",
+      "text": "  help       = \"print unchanged (defaulted) statistics as well\""
+    },
+    {
+      "line": 102,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"statisticsInternal\""
+    },
+    {
+      "line": 103,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"stats-internal\""
+    },
+    {
+      "line": 108,
+      "source": "src/options/base_options.toml",
+      "text": "  help       = \"print internal (non-public) statistics as well\""
+    },
+    {
+      "line": 111,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"statisticsEveryQuery\""
+    },
+    {
+      "line": 112,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"stats-every-query\""
+    },
+    {
+      "line": 120,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"parseOnly\""
+    },
+    {
+      "line": 122,
+      "source": "src/options/base_options.toml",
+      "text": "  long       = \"parse-only\""
+    },
+    {
+      "line": 284,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"outputTagHolder\""
+    },
+    {
+      "line": 291,
+      "source": "src/options/base_options.toml",
+      "text": "  name       = \"cumulativeMillisecondLimit\""
+    },
+    {
+      "line": 258,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "  a.insert(\"interactive\");"
+    },
+    {
+      "line": 427,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"lang\","
+    },
+    {
+      "line": 428,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"output-lang\","
+    },
+    {
+      "line": 430,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"output-language\","
+    },
+    {
+      "line": 433,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"stats\","
+    },
+    {
+      "line": 435,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"statistics\","
+    },
+    {
+      "line": 436,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"no-statistics\","
+    },
+    {
+      "line": 437,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"stats-every-query\","
+    },
+    {
+      "line": 439,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"statistics-every-query\","
+    },
+    {
+      "line": 440,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"no-statistics-every-query\","
+    },
+    {
+      "line": 441,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"parse-only\","
+    },
+    {
+      "line": 447,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"print-success\","
+    },
+    {
+      "line": 507,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"collect-pivot-stats\","
+    },
+    {
+      "line": 667,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"dump-models\","
+    },
+    {
+      "line": 673,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"dump-proofs\","
+    },
+    {
+      "line": 679,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"interactive\","
+    },
+    {
+      "line": 680,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"no-interactive\","
+    },
+    {
+      "line": 681,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"ite-simp\","
+    },
+    {
+      "line": 696,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"incremental\","
+    },
+    {
+      "line": 702,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"tlimit\","
+    },
+    {
+      "line": 722,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"early-exit\","
+    },
+    {
+      "line": 731,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"no-interactive-prompt\","
+    },
+    {
+      "line": 733,
+      "source": "src/options/didyoumean_test.cpp",
+      "text": "      \"segv-spin\","
+    },
+    {
+      "line": 13,
+      "source": "src/options/expr_options.toml",
+      "text": "  name       = \"wellFormedChecking\""
+    },
+    {
+      "line": 15,
+      "source": "src/options/expr_options.toml",
+      "text": "  long       = \"wf-checking\""
+    },
+    {
+      "line": 85,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"earlyExit\""
+    },
+    {
+      "line": 87,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"early-exit\""
+    },
+    {
+      "line": 93,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"interactive\""
+    },
+    {
+      "line": 95,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"interactive\""
+    },
+    {
+      "line": 98,
+      "source": "src/options/main_options.toml",
+      "text": "  help       = \"force interactive shell/non-interactive mode\""
+    },
+    {
+      "line": 109,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"segvSpin\""
+    },
+    {
+      "line": 111,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"segv-spin\""
+    },
+    {
+      "line": 117,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpModels\""
+    },
+    {
+      "line": 119,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-models\""
+    },
+    {
+      "line": 125,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpProofs\""
+    },
+    {
+      "line": 127,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-proofs\""
+    },
+    {
+      "line": 133,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpInstantiations\""
+    },
+    {
+      "line": 135,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-instantiations\""
+    },
+    {
+      "line": 141,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpInstantiationsDebug\""
+    },
+    {
+      "line": 143,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-instantiations-debug\""
+    },
+    {
+      "line": 149,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpUnsatCores\""
+    },
+    {
+      "line": 151,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-unsat-cores\""
+    },
+    {
+      "line": 157,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpUnsatCoresLemmas\""
+    },
+    {
+      "line": 159,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-unsat-cores-lemmas\""
+    },
+    {
+      "line": 165,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"dumpDifficulty\""
+    },
+    {
+      "line": 167,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"dump-difficulty\""
+    },
+    {
+      "line": 181,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"usePortfolio\""
+    },
+    {
+      "line": 183,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"use-portfolio\""
+    },
+    {
+      "line": 205,
+      "source": "src/options/main_options.toml",
+      "text": "  name       = \"printSuccess\""
+    },
+    {
+      "line": 207,
+      "source": "src/options/main_options.toml",
+      "text": "  long       = \"print-success\""
+    },
+    {
+      "line": 156,
+      "source": "src/options/options_handler.cpp",
+      "text": "    d_options->write_printer().outputLanguage = lang;"
+    },
+    {
+      "line": 177,
+      "source": "src/options/options_handler.cpp",
+      "text": "  d_options->write_base().verbosity -= 1;"
+    },
+    {
+      "line": 178,
+      "source": "src/options/options_handler.cpp",
+      "text": "  setVerbosity(flag, d_options->base.verbosity);"
+    },
+    {
+      "line": 183,
+      "source": "src/options/options_handler.cpp",
+      "text": "  d_options->write_base().verbosity += 1;"
+    },
+    {
+      "line": 184,
+      "source": "src/options/options_handler.cpp",
+      "text": "  setVerbosity(flag, d_options->base.verbosity);"
+    },
+    {
+      "line": 194,
+      "source": "src/options/options_handler.cpp",
+      "text": "       << \"' requires a statistics-enabled build of cvc5; this binary was not \""
+    },
+    {
+      "line": 195,
+      "source": "src/options/options_handler.cpp",
+      "text": "          \"built with statistics support\";"
+    },
+    {
+      "line": 201,
+      "source": "src/options/options_handler.cpp",
+      "text": "    d_options->write_base().statisticsAll = false;"
+    },
+    {
+      "line": 202,
+      "source": "src/options/options_handler.cpp",
+      "text": "    d_options->write_base().statisticsEveryQuery = false;"
+    },
+    {
+      "line": 203,
+      "source": "src/options/options_handler.cpp",
+      "text": "    d_options->write_base().statisticsInternal = false;"
+    },
+    {
+      "line": 214,
+      "source": "src/options/options_handler.cpp",
+      "text": "       << \"' requires a statistics-enabled build of cvc5; this binary was not \""
+    },
+    {
+      "line": 215,
+      "source": "src/options/options_handler.cpp",
+      "text": "          \"built with statistics support\";"
+    },
+    {
+      "line": 221,
+      "source": "src/options/options_handler.cpp",
+      "text": "    d_options->write_base().statistics = true;"
+    },
+    {
+      "line": 256,
+      "source": "src/options/options_handler.cpp",
+      "text": "  Assert(d_options->base.outputTagHolder.size() > tagid)"
+    },
+    {
+      "line": 258,
+      "source": "src/options/options_handler.cpp",
+      "text": "  d_options->write_base().outputTagHolder.set(tagid);"
+    },
+    {
+      "line": 360,
+      "source": "src/options/options_handler.cpp",
+      "text": "  print_config_cond(\"statistics\", configuration::isStatisticsBuild());"
+    },
+    {
+      "line": 82,
+      "source": "src/options/options_handler.h",
+      "text": "  /** Apply verbosity to the different output channels */"
+    },
+    {
+      "line": 84,
+      "source": "src/options/options_handler.h",
+      "text": "  /** Decrease verbosity and call setVerbosity */"
+    },
+    {
+      "line": 86,
+      "source": "src/options/options_handler.h",
+      "text": "  /** Increase verbosity and call setVerbosity */"
+    },
+    {
+      "line": 88,
+      "source": "src/options/options_handler.h",
+      "text": "  /** If statistics are disabled, disable statistics sub-options */"
+    },
+    {
+      "line": 90,
+      "source": "src/options/options_handler.h",
+      "text": "  /** If statistics sub-option is disabled, enable statistics */"
+    },
+    {
+      "line": 53,
+      "source": "src/options/parallel_options.toml",
+      "text": "  name = \"tlimit\""
+    },
+    {
+      "line": 56,
+      "source": "src/options/parser_options.toml",
+      "text": "  name       = \"freshBinders\""
+    },
+    {
+      "line": 58,
+      "source": "src/options/parser_options.toml",
+      "text": "  long       = \"fresh-binders\""
+    },
+    {
+      "line": 5,
+      "source": "src/options/printer_options.toml",
+      "text": "  name       = \"outputLanguage\""
+    },
+    {
+      "line": 6,
+      "source": "src/options/printer_options.toml",
+      "text": "  alias      = [\"output-language\"]"
+    },
+    {
+      "line": 16,
+      "source": "src/options/printer_options.toml",
+      "text": "  name       = \"nodeDepth\""
+    },
+    {
+      "line": 71,
+      "source": "src/options/printer_options.toml",
+      "text": "  name       = \"printArithLitToken\""
+    },
+    {
+      "line": 73,
+      "source": "src/options/printer_options.toml",
+      "text": "  long       = \"print-arith-lit-token\""
+    },
+    {
+      "line": 266,
+      "source": "src/options/proof_options.toml",
+      "text": "  name       = \"proofLog\""
+    },
+    {
+      "line": 268,
+      "source": "src/options/proof_options.toml",
+      "text": "  long       = \"proof-log\""
+    },
+    {
+      "line": 5,
+      "source": "src/options/prop_options.toml",
+      "text": "  name       = \"satSolver\""
+    },
+    {
+      "line": 265,
+      "source": "src/options/smt_options.toml",
+      "text": "  alias      = [\"interactive-mode\"]"
+    },
+    {
+      "line": 270,
+      "source": "src/options/smt_options.toml",
+      "text": "  name       = \"doITESimp\""
+    },
+    {
+      "line": 272,
+      "source": "src/options/smt_options.toml",
+      "text": "  long       = \"ite-simp\""
+    },
+    {
+      "line": 164,
+      "source": "src/parser/commands.cpp",
+      "text": "          && solver->getOption(\"print-success\") == \"true\"))"
+    },
+    {
+      "line": 60,
+      "source": "src/parser/input.h",
+      "text": "   * Is the stream of this input an interactive input? If so, we will read"
+    },
+    {
+      "line": 117,
+      "source": "src/parser/lexer.cpp",
+      "text": "  // This is important for exception handling in interactive mode."
+    },
+    {
+      "line": 186,
+      "source": "src/parser/lexer.h",
+      "text": "  /** True if the input stream is interactive */"
+    },
+    {
+      "line": 48,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      d_parseOnly(d_solver->getOptionInfo(\"parse-only\").boolValue())"
+    },
+    {
+      "line": 412,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      bool freshBinders = d_state.usingFreshBinders();"
+    },
+    {
+      "line": 413,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      // If freshBinders is false, we use fresh=false here to ensure that"
+    },
+    {
+      "line": 417,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "          d_state.bindBoundVars(sortedVarNames, freshBinders);"
+    },
+    {
+      "line": 892,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      else if (key==\"use-portfolio\")"
+    },
+    {
+      "line": 37,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  d_freshBinders = (d_solver->getOption(\"fresh-binders\") == \"true\");"
+    },
+    {
+      "line": 216,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "              bool freshBinders = d_state.usingFreshBinders();"
+    },
+    {
+      "line": 217,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "              // If freshBinders is false, we set fresh to false here. This"
+    },
+    {
+      "line": 225,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "                  sortedVarNames, letBinders, freshBinders);"
+    },
+    {
+      "line": 309,
+      "source": "src/preprocessing/passes/ackermann.cpp",
+      "text": "  AlwaysAssert(!options().base.incrementalSolving);"
+    },
+    {
+      "line": 411,
+      "source": "src/preprocessing/passes/bool_to_bv.cpp",
+      "text": "      // the following two statistics are not correct in the ITE mode, because"
+    },
+    {
+      "line": 111,
+      "source": "src/preprocessing/passes/int_to_bv.cpp",
+      "text": "  AlwaysAssert(!options().base.incrementalSolving);"
+    },
+    {
+      "line": 164,
+      "source": "src/preprocessing/passes/ite_simp.cpp",
+      "text": "      && !options().base.incrementalSolving)"
+    },
+    {
+      "line": 241,
+      "source": "src/preprocessing/passes/ite_simp.cpp",
+      "text": "    : PreprocessingPass(preprocContext, \"ite-simp\"),"
+    },
+    {
+      "line": 202,
+      "source": "src/preprocessing/passes/learned_rewrite.cpp",
+      "text": "      // for statistics"
+    },
+    {
+      "line": 194,
+      "source": "src/preprocessing/passes/miplib_trick.cpp",
+      "text": "  Assert(!options().base.incrementalSolving);"
+    },
+    {
+      "line": 120,
+      "source": "src/preprocessing/passes/normalize.h",
+      "text": "   * Struct for tracking statistics of the normalization pass."
+    },
+    {
+      "line": 126,
+      "source": "src/preprocessing/passes/normalize.h",
+      "text": "    /** Construct statistics and register them. */"
+    },
+    {
+      "line": 129,
+      "source": "src/preprocessing/preprocessing_pass_registry.cpp",
+      "text": "  registerPassInfo(\"ite-simp\", callCtor<ITESimp>);"
+    },
+    {
+      "line": 16,
+      "source": "src/printer/enum_to_string.h",
+      "text": " * that may appear in statistics, for safe printing (src/util/safe_print.h)."
+    },
+    {
+      "line": 132,
+      "source": "src/proof/proof_checker.h",
+      "text": "  /** statistics class */"
+    },
+    {
+      "line": 104,
+      "source": "src/prop/cadical/cadical.h",
+      "text": "   * @param registry  The associated statistics registry."
+    },
+    {
+      "line": 37,
+      "source": "src/prop/cnf_stream.cpp",
+      "text": "                     SatSolver* satSolver,"
+    },
+    {
+      "line": 43,
+      "source": "src/prop/cnf_stream.cpp",
+      "text": "      d_satSolver(satSolver),"
+    },
+    {
+      "line": 86,
+      "source": "src/prop/cnf_stream.h",
+      "text": "   * take ownership of satSolver, registrar, or context."
+    },
+    {
+      "line": 89,
+      "source": "src/prop/cnf_stream.h",
+      "text": "   * @param satSolver the sat solver to use."
+    },
+    {
+      "line": 98,
+      "source": "src/prop/cnf_stream.h",
+      "text": "            SatSolver* satSolver,"
+    },
+    {
+      "line": 150,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "      verbosity(0),"
+    },
+    {
+      "line": 757,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "              options().base.incrementalSolving);"
+    },
+    {
+      "line": 763,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "                                        options().base.incrementalSolving);"
+    },
+    {
+      "line": 816,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "            options().base.incrementalSolving);"
+    },
+    {
+      "line": 822,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "                                      options().base.incrementalSolving);"
+    },
+    {
+      "line": 1209,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "                                       options().base.incrementalSolving);"
+    },
+    {
+      "line": 1308,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "              decisionLevel(), p, d_proxy, options().base.incrementalSolving);"
+    },
+    {
+      "line": 1574,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "        if (verbosity >= 1)"
+    },
+    {
+      "line": 1752,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "    if (verbosity >= 1){"
+    },
+    {
+      "line": 1772,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "    if (verbosity >= 1)"
+    },
+    {
+      "line": 1866,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "    if (verbosity > 0)"
+    },
+    {
+      "line": 1924,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "    if (verbosity >= 2)"
+    },
+    {
+      "line": 2198,
+      "source": "src/prop/minisat/core/Solver.cc",
+      "text": "         && options().base.incrementalSolving;"
+    },
+    {
+      "line": 339,
+      "source": "src/prop/minisat/core/Solver.h",
+      "text": " int verbosity;"
+    },
+    {
+      "line": 125,
+      "source": "src/prop/minisat/minisat.cpp",
+      "text": "                              options().base.incrementalSolving"
+    },
+    {
+      "line": 150,
+      "source": "src/prop/minisat/minisat.cpp",
+      "text": "  // Set up the verbosity"
+    },
+    {
+      "line": 151,
+      "source": "src/prop/minisat/minisat.cpp",
+      "text": "  d_minisat->verbosity = (options().base.verbosity > 0) ? 1 : -1;"
+    },
+    {
+      "line": 150,
+      "source": "src/prop/minisat/simp/SimpSolver.cc",
+      "text": "    else if (verbosity >= 1)"
+    },
+    {
+      "line": 404,
+      "source": "src/prop/minisat/simp/SimpSolver.cc",
+      "text": "        if (verbose && verbosity >= 2 && cnt++ % 1000 == 0)"
+    },
+    {
+      "line": 681,
+      "source": "src/prop/minisat/simp/SimpSolver.cc",
+      "text": "            if (verbosity >= 2 && cnt % 100 == 0)"
+    },
+    {
+      "line": 731,
+      "source": "src/prop/minisat/simp/SimpSolver.cc",
+      "text": "    if (verbosity >= 1 && elimclauses.size() > 0)"
+    },
+    {
+      "line": 789,
+      "source": "src/prop/minisat/simp/SimpSolver.cc",
+      "text": "    if (verbosity >= 2)"
+    },
+    {
+      "line": 45,
+      "source": "src/prop/minisat/utils/System.cc",
+      "text": "            printf(\"ERROR! Failed to parse memory statistics from \\\"/proc\\\".\\n\"), exit(1);"
+    },
+    {
+      "line": 87,
+      "source": "src/prop/prop_engine.cpp",
+      "text": "  if (options().prop.satSolver == options::SatSolverMode::MINISAT)"
+    },
+    {
+      "line": 40,
+      "source": "src/prop/prop_proof_manager.cpp",
+      "text": "                             CDCLTSatSolver* satSolver,"
+    },
+    {
+      "line": 65,
+      "source": "src/prop/prop_proof_manager.cpp",
+      "text": "      d_satSolver(satSolver),"
+    },
+    {
+      "line": 56,
+      "source": "src/prop/prop_proof_manager.h",
+      "text": "   * @param satSolver Pointer to the SAT solver"
+    },
+    {
+      "line": 61,
+      "source": "src/prop/prop_proof_manager.h",
+      "text": "                CDCLTSatSolver* satSolver,"
+    },
+    {
+      "line": 80,
+      "source": "src/smt/assertions.cpp",
+      "text": "  bool maybeHasFv = language::isLangSygus(options().base.inputLanguage);"
+    },
+    {
+      "line": 120,
+      "source": "src/smt/assertions.cpp",
+      "text": "  if (!options().base.incrementalSolving || isFunDef)"
+    },
+    {
+      "line": 216,
+      "source": "src/smt/assertions.cpp",
+      "text": "        if (language::isLangSygus(options().base.inputLanguage))"
+    },
+    {
+      "line": 234,
+      "source": "src/smt/assertions.cpp",
+      "text": "    Assert(!language::isLangSygus(options().base.inputLanguage));"
+    },
+    {
+      "line": 242,
+      "source": "src/smt/assertions.cpp",
+      "text": "    bool maybeHasFv = language::isLangSygus(options().base.inputLanguage);"
+    },
+    {
+      "line": 84,
+      "source": "src/smt/context_manager.cpp",
+      "text": "  while (options().base.incrementalSolving && userContext()->getLevel() > 1)"
+    },
+    {
+      "line": 149,
+      "source": "src/smt/context_manager.cpp",
+      "text": "  if (options().base.incrementalSolving)"
+    },
+    {
+      "line": 162,
+      "source": "src/smt/context_manager.cpp",
+      "text": "  if (options().base.incrementalSolving)"
+    },
+    {
+      "line": 175,
+      "source": "src/smt/context_manager.cpp",
+      "text": "  Assert(d_pendingPops == 0 || options().base.incrementalSolving);"
+    },
+    {
+      "line": 66,
+      "source": "src/smt/env.cpp",
+      "text": "      d_options.base.statisticsInternal, d_options.base.statisticsAll));"
+    },
+    {
+      "line": 97,
+      "source": "src/smt/env.cpp",
+      "text": "  d_statisticsRegistry->setStatsAll(d_options.base.statisticsAll);"
+    },
+    {
+      "line": 98,
+      "source": "src/smt/env.cpp",
+      "text": "  d_statisticsRegistry->setStatsInternal(d_options.base.statisticsInternal);"
+    },
+    {
+      "line": 164,
+      "source": "src/smt/env.cpp",
+      "text": "  return d_options.base.outputTagHolder[static_cast<size_t>(tag)];"
+    },
+    {
+      "line": 186,
+      "source": "src/smt/env.cpp",
+      "text": "  return !Configuration::isMuzzledBuild() && d_options.base.verbosity >= level;"
+    },
+    {
+      "line": 187,
+      "source": "src/smt/env.h",
+      "text": "   * Check whether the verbose output for the given verbosity level is enabled."
+    },
+    {
+      "line": 188,
+      "source": "src/smt/env.h",
+      "text": "   * The verbosity level is raised (or lowered) with the `-v` (or `-q`) option."
+    },
+    {
+      "line": 193,
+      "source": "src/smt/env.h",
+      "text": "   * Return the output stream for the given verbosity level. If the verbosity"
+    },
+    {
+      "line": 395,
+      "source": "src/smt/env.h",
+      "text": "   * The statistics registry owned by this Env."
+    },
+    {
+      "line": 101,
+      "source": "src/smt/env_obj.h",
+      "text": "  /** Get the statistics registry via Env. */"
+    },
+    {
+      "line": 74,
+      "source": "src/smt/preprocessor.cpp",
+      "text": "  if (d_assertionsProcessed && options().base.incrementalSolving)"
+    },
+    {
+      "line": 91,
+      "source": "src/smt/preprocessor.cpp",
+      "text": "  if (options().base.incrementalSolving)"
+    },
+    {
+      "line": 412,
+      "source": "src/smt/process_assertions.cpp",
+      "text": "    if (options().smt.doITESimp"
+    },
+    {
+      "line": 415,
+      "source": "src/smt/process_assertions.cpp",
+      "text": "      PreprocessingPassResult res = applyPass(\"ite-simp\", ap);"
+    },
+    {
+      "line": 79,
+      "source": "src/smt/proof_final_callback.cpp",
+      "text": "      options().base.statisticsInternal || options().proof.checkProofsComplete;"
+    },
+    {
+      "line": 108,
+      "source": "src/smt/proof_final_callback.cpp",
+      "text": "  // if not taking statistics or checking completeness, don't bother computing"
+    },
+    {
+      "line": 98,
+      "source": "src/smt/proof_final_callback.h",
+      "text": "   * Should we check for proof holes? True if statistics are enabled or if"
+    },
+    {
+      "line": 235,
+      "source": "src/smt/proof_manager.cpp",
+      "text": "  if (!options().base.incrementalSolving)"
+    },
+    {
+      "line": 150,
+      "source": "src/smt/proof_manager.h",
+      "text": "   * pedantic failures and takes statistics."
+    },
+    {
+      "line": 192,
+      "source": "src/smt/proof_manager.h",
+      "text": "  /** A proof logger, if proofLog is enabled */"
+    },
+    {
+      "line": 199,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.smt.checkModels || opts.driver.dumpModels)"
+    },
+    {
+      "line": 208,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.driver.dumpDifficulty)"
+    },
+    {
+      "line": 210,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "    SET_AND_NOTIFY(smt, produceDifficulty, true, \"dumpDifficulty\");"
+    },
+    {
+      "line": 212,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.smt.checkUnsatCores || opts.driver.dumpUnsatCores"
+    },
+    {
+      "line": 213,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "      || opts.driver.dumpUnsatCoresLemmas || opts.smt.unsatAssumptions"
+    },
+    {
+      "line": 240,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.driver.dumpProofs)"
+    },
+    {
+      "line": 243,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "    OPTION_EXCEPTION_IF_NOT(proof, proofLog, false, \"dump proofs\");"
+    },
+    {
+      "line": 247,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.smt.checkProofs || opts.driver.dumpProofs"
+    },
+    {
+      "line": 248,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "      || opts.driver.dumpUnsatCoresLemmas"
+    },
+    {
+      "line": 330,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "    if (opts.proof.proofLog)"
+    },
+    {
+      "line": 364,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "      if (opts.prop.satSolver == options::SatSolverMode::CADICAL)"
+    },
+    {
+      "line": 381,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.proof.proofLog)"
+    },
+    {
+      "line": 439,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "           && !opts.base.incrementalSolving)"
+    },
+    {
+      "line": 463,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "    else if (!opts.base.incrementalSolving)"
+    },
+    {
+      "line": 627,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.base.incrementalSolving)"
+    },
+    {
+      "line": 657,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "        && !opts.base.incrementalSolving)"
+    },
+    {
+      "line": 661,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "      bool uncSimp = !opts.base.incrementalSolving && !logic.isQuantified()"
+    },
+    {
+      "line": 719,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.smt.doITESimp)"
+    },
+    {
+      "line": 721,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "    SET_AND_NOTIFY_IF_NOT_USER(smt, earlyIteRemoval, true, \"doITESimp\");"
+    },
+    {
+      "line": 748,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "                       && !opts.base.incrementalSolving;"
+    },
+    {
+      "line": 1099,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.parser.freshBinders)"
+    },
+    {
+      "line": 1102,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "    reason << \"fresh-binders\";"
+    },
+    {
+      "line": 1152,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.prop.satSolver == options::SatSolverMode::CADICAL)"
+    },
+    {
+      "line": 1165,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  else if (opts.prop.satSolver == options::SatSolverMode::MINISAT)"
+    },
+    {
+      "line": 1294,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.proof.proofLog)"
+    },
+    {
+      "line": 1358,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.smt.doITESimp)"
+    },
+    {
+      "line": 1797,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  if (opts.quantifiers.sygusStream || opts.base.incrementalSolving)"
+    },
+    {
+      "line": 1934,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "  opts.write_proof().proofLog = false;"
+    },
+    {
+      "line": 81,
+      "source": "src/smt/smt_solver.cpp",
+      "text": "  /* force destruction of referenced PropEngine to enforce that statistics"
+    },
+    {
+      "line": 94,
+      "source": "src/smt/smt_solver.cpp",
+      "text": "  if (options().proof.proofLog)"
+    },
+    {
+      "line": 109,
+      "source": "src/smt/smt_solver.cpp",
+      "text": "   * statistics are unregistered by the obsolete PropEngine object before"
+    },
+    {
+      "line": 144,
+      "source": "src/smt/smt_solver.h",
+      "text": "  /** Reference to the statistics of SolverEngine */"
+    },
+    {
+      "line": 127,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  // make statistics"
+    },
+    {
+      "line": 365,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "    getOptions().write_base().inputLanguage = Language::LANG_SMTLIB_V2_6;"
+    },
+    {
+      "line": 369,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "      setOption(\"output-language\", \"smtlib2.6\");"
+    },
+    {
+      "line": 381,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  if (key == \"all-statistics\" || key == \"error-behavior\" || key == \"filename\""
+    },
+    {
+      "line": 394,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  if (key == \"all-statistics\")"
+    },
+    {
+      "line": 459,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  // get the options, like all-statistics"
+    },
+    {
+      "line": 849,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  if (d_env->getOptions().base.statisticsEveryQuery)"
+    },
+    {
+      "line": 1904,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "        rinsts, sks, options().driver.dumpInstantiationsDebug);"
+    },
+    {
+      "line": 857,
+      "source": "src/smt/solver_engine.h",
+      "text": "   * Print statistics from the statistics registry in the env object owned by"
+    },
+    {
+      "line": 863,
+      "source": "src/smt/solver_engine.h",
+      "text": "   * Print the changes to the statistics from the statistics registry in the"
+    },
+    {
+      "line": 1155,
+      "source": "src/smt/solver_engine.h",
+      "text": "  /** The statistics class */"
+    },
+    {
+      "line": 56,
+      "source": "src/smt/solver_engine_state.cpp",
+      "text": "  if (d_queryMade && !options().base.incrementalSolving)"
+    },
+    {
+      "line": 161,
+      "source": "src/smt/solver_engine_state.cpp",
+      "text": "  if (!options().base.incrementalSolving)"
+    },
+    {
+      "line": 174,
+      "source": "src/smt/solver_engine_state.cpp",
+      "text": "  if (!options().base.incrementalSolving)"
+    },
+    {
+      "line": 162,
+      "source": "src/smt/solver_engine_state.h",
+      "text": "   * made through the SolverEngine.  If true, and incrementalSolving is false,"
+    },
+    {
+      "line": 13,
+      "source": "src/smt/solver_engine_stats.cpp",
+      "text": " * Implementation of statistics for SMT engine."
+    },
+    {
+      "line": 256,
+      "source": "src/smt/sygus_solver.cpp",
+      "text": "    if (options().quantifiers.sygusStream || options().base.incrementalSolving)"
+    },
+    {
+      "line": 640,
+      "source": "src/smt/sygus_solver.cpp",
+      "text": "  return options().base.incrementalSolving;"
+    },
+    {
+      "line": 315,
+      "source": "src/theory/arith/arith_ite_utils.cpp",
+      "text": "  AlwaysAssert(!options().base.incrementalSolving);"
+    },
+    {
+      "line": 330,
+      "source": "src/theory/arith/arith_ite_utils.cpp",
+      "text": "  AlwaysAssert(!options().base.incrementalSolving);"
+    },
+    {
+      "line": 3205,
+      "source": "src/theory/arith/linear/theory_arith_private.cpp",
+      "text": "    if (useSimplex && options().arith.collectPivots)"
+    },
+    {
+      "line": 3227,
+      "source": "src/theory/arith/linear/theory_arith_private.cpp",
+      "text": "    if (useSimplex && options().arith.collectPivots)"
+    },
+    {
+      "line": 3257,
+      "source": "src/theory/arith/linear/theory_arith_private.cpp",
+      "text": "    if (useSimplex && options().arith.collectPivots)"
+    },
+    {
+      "line": 4139,
+      "source": "src/theory/arith/linear/theory_arith_private.cpp",
+      "text": "  if (!options().base.incrementalSolving)"
+    },
+    {
+      "line": 126,
+      "source": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+      "text": "   * Although this class is short-lived, there is no need to make the statistics"
+    },
+    {
+      "line": 127,
+      "source": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+      "text": "   * static or store them persistently: this is handled by the statistics"
+    },
+    {
+      "line": 128,
+      "source": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+      "text": "   * registry, which recovers statistics from their name."
+    },
+    {
+      "line": 129,
+      "source": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+      "text": "   * This member is mutable to allow collecting statistics from const methods."
+    },
+    {
+      "line": 201,
+      "source": "src/theory/arith/nl/nonlinear_extension.h",
+      "text": "  /** The statistics class */"
+    },
+    {
+      "line": 47,
+      "source": "src/theory/bags/bags_rewriter.cpp",
+      "text": "                           HistogramStat<Rewrite>* statistics)"
+    },
+    {
+      "line": 48,
+      "source": "src/theory/bags/bags_rewriter.cpp",
+      "text": "    : TheoryRewriter(nm), d_rewriter(r), d_statistics(statistics)"
+    },
+    {
+      "line": 47,
+      "source": "src/theory/bags/bags_rewriter.h",
+      "text": "               HistogramStat<Rewrite>* statistics = nullptr);"
+    },
+    {
+      "line": 268,
+      "source": "src/theory/bags/bags_rewriter.h",
+      "text": "  /** Reference to the rewriter statistics. */"
+    },
+    {
+      "line": 276,
+      "source": "src/theory/bags/bags_rewriter.h",
+      "text": "  /** Reference to the rewriter statistics. */"
+    },
+    {
+      "line": 135,
+      "source": "src/theory/bv/theory_bv.h",
+      "text": "  /** TheoryBV statistics. */"
+    },
+    {
+      "line": 378,
+      "source": "src/theory/bv/theory_bv_rewrite_rules.h",
+      "text": "/** Have to list all the rewrite rules to get the statistics out */"
+    },
+    {
+      "line": 22,
+      "source": "src/theory/ff/Readme.md",
+      "text": "* `stats`: statistics"
+    },
+    {
+      "line": 13,
+      "source": "src/theory/ff/stats.cpp",
+      "text": " * Finite fields statistics"
+    },
+    {
+      "line": 176,
+      "source": "src/theory/output_channel.h",
+      "text": "  /** The statistics of the theory interractions. */"
+    },
+    {
+      "line": 277,
+      "source": "src/theory/quantifiers/candidate_rewrite_database.cpp",
+      "text": "    // statistics on number of candidate rewrite rules is"
+    },
+    {
+      "line": 100,
+      "source": "src/theory/quantifiers/ematching/im_generator.h",
+      "text": "   * Get the inference id, for statistics."
+    },
+    {
+      "line": 188,
+      "source": "src/theory/quantifiers/ematching/inst_match_generator.h",
+      "text": "  /** Get the inference id, for statistics. */"
+    },
+    {
+      "line": 56,
+      "source": "src/theory/quantifiers/ematching/inst_match_generator_multi.h",
+      "text": "  /** Get the inference id, for statistics. */"
+    },
+    {
+      "line": 76,
+      "source": "src/theory/quantifiers/ematching/inst_match_generator_multi_linear.h",
+      "text": "  /** Get the inference id, for statistics. */"
+    },
+    {
+      "line": 58,
+      "source": "src/theory/quantifiers/ematching/inst_match_generator_simple.h",
+      "text": "  /** Get the inference id, for statistics. */"
+    },
+    {
+      "line": 65,
+      "source": "src/theory/quantifiers/ematching/relational_match_generator.h",
+      "text": "  /** Get the inference id, for statistics. */"
+    },
+    {
+      "line": 41,
+      "source": "src/theory/quantifiers/ematching/var_match_generator.h",
+      "text": "  /** Get the inference id, for statistics. */"
+    },
+    {
+      "line": 62,
+      "source": "src/theory/quantifiers/fmf/model_builder.h",
+      "text": "  //statistics "
+    },
+    {
+      "line": 196,
+      "source": "src/theory/quantifiers/fmf/model_engine.cpp",
+      "text": "  //for statistics"
+    },
+    {
+      "line": 39,
+      "source": "src/theory/quantifiers/fmf/model_engine.h",
+      "text": "  //temporary statistics"
+    },
+    {
+      "line": 63,
+      "source": "src/theory/quantifiers/instantiate.cpp",
+      "text": "  d_useCdInstTrie = options().base.incrementalSolving;"
+    },
+    {
+      "line": 362,
+      "source": "src/theory/quantifiers/instantiate.cpp",
+      "text": "  // add to temporary debug statistics (# inst on this round)"
+    },
+    {
+      "line": 282,
+      "source": "src/theory/quantifiers/instantiate.h",
+      "text": "  /** statistics class"
+    },
+    {
+      "line": 284,
+      "source": "src/theory/quantifiers/instantiate.h",
+      "text": "   * This tracks statistics on the number of instantiations successfully"
+    },
+    {
+      "line": 342,
+      "source": "src/theory/quantifiers/instantiate.h",
+      "text": "  /** statistics for debugging total instantiations per quantifier per round */"
+    },
+    {
+      "line": 234,
+      "source": "src/theory/quantifiers/quant_conflict_find.h",
+      "text": "  /** statistics class */"
+    },
+    {
+      "line": 89,
+      "source": "src/theory/quantifiers/quantifiers_state.h",
+      "text": "  /** The statistics */"
+    },
+    {
+      "line": 13,
+      "source": "src/theory/quantifiers/quantifiers_statistics.cpp",
+      "text": " * Implementation of quantifiers statistics class."
+    },
+    {
+      "line": 13,
+      "source": "src/theory/quantifiers/quantifiers_statistics.h",
+      "text": " * Quantifiers statistics class."
+    },
+    {
+      "line": 29,
+      "source": "src/theory/quantifiers/quantifiers_statistics.h",
+      "text": " * Statistics class for quantifiers, which contains all statistics that need"
+    },
+    {
+      "line": 83,
+      "source": "src/theory/quantifiers/sygus/enum_value_manager.h",
+      "text": "  /** reference to the statistics of parent */"
+    },
+    {
+      "line": 68,
+      "source": "src/theory/quantifiers/sygus/sygus_enumerator.h",
+      "text": "   * @param s Pointer to the statistics"
+    },
+    {
+      "line": 102,
+      "source": "src/theory/quantifiers/sygus/sygus_enumerator.h",
+      "text": "  /** pointer to the statistics */"
+    },
+    {
+      "line": 192,
+      "source": "src/theory/quantifiers/sygus/sygus_enumerator.h",
+      "text": "    /** reference to the statistics of parent */"
+    },
+    {
+      "line": 76,
+      "source": "src/theory/quantifiers/sygus/sygus_enumerator_callback.h",
+      "text": "  /** pointer to the statistics */"
+    },
+    {
+      "line": 152,
+      "source": "src/theory/quantifiers/sygus/sygus_reconstruct.h",
+      "text": "   * @param s statistics managed for the synth engine"
+    },
+    {
+      "line": 361,
+      "source": "src/theory/quantifiers/sygus/sygus_reconstruct.h",
+      "text": "  /** reference to the statistics of parent */"
+    },
+    {
+      "line": 13,
+      "source": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+      "text": " * A shared statistics class for sygus."
+    },
+    {
+      "line": 13,
+      "source": "src/theory/quantifiers/sygus/sygus_stats.h",
+      "text": " * A shared statistics class for sygus."
+    },
+    {
+      "line": 29,
+      "source": "src/theory/quantifiers/sygus/sygus_stats.h",
+      "text": " * All statistics managed for the synth engine."
+    },
+    {
+      "line": 147,
+      "source": "src/theory/quantifiers/sygus/synth_conjecture.h",
+      "text": "  /** get a reference to the statistics of parent */"
+    },
+    {
+      "line": 181,
+      "source": "src/theory/quantifiers/sygus/synth_conjecture.h",
+      "text": "  /** reference to the statistics of parent */"
+    },
+    {
+      "line": 91,
+      "source": "src/theory/quantifiers/sygus/synth_engine.h",
+      "text": "  /** The statistics */"
+    },
+    {
+      "line": 48,
+      "source": "src/theory/quantifiers/sygus/synth_verify.cpp",
+      "text": "  d_subOptions.write_base().inputLanguage = Language::LANG_SMTLIB_V2_6;"
+    },
+    {
+      "line": 50,
+      "source": "src/theory/shared_terms_database.h",
+      "text": "  /** Some statistics */"
+    },
+    {
+      "line": 41,
+      "source": "src/theory/strings/extf_solver.cpp",
+      "text": "                       SequencesStatistics& statistics)"
+    },
+    {
+      "line": 50,
+      "source": "src/theory/strings/extf_solver.cpp",
+      "text": "      d_statistics(statistics),"
+    },
+    {
+      "line": 51,
+      "source": "src/theory/strings/extf_solver.cpp",
+      "text": "      d_preproc(env, d_termReg.getSkolemCache(), &statistics.d_reductions),"
+    },
+    {
+      "line": 97,
+      "source": "src/theory/strings/extf_solver.h",
+      "text": "             SequencesStatistics& statistics);"
+    },
+    {
+      "line": 261,
+      "source": "src/theory/strings/extf_solver.h",
+      "text": "  /** Reference to the statistics for the theory of strings/sequences. */"
+    },
+    {
+      "line": 69,
+      "source": "src/theory/strings/infer_proof_cons.cpp",
+      "text": "                               SequencesStatistics& statistics)"
+    },
+    {
+      "line": 70,
+      "source": "src/theory/strings/infer_proof_cons.cpp",
+      "text": "    : EnvObj(env), d_lazyFactMap(c), d_statistics(statistics)"
+    },
+    {
+      "line": 60,
+      "source": "src/theory/strings/infer_proof_cons.h",
+      "text": "                 SequencesStatistics& statistics);"
+    },
+    {
+      "line": 233,
+      "source": "src/theory/strings/infer_proof_cons.h",
+      "text": "  /** Reference to the statistics for the theory of strings/sequences. */"
+    },
+    {
+      "line": 38,
+      "source": "src/theory/strings/inference_manager.cpp",
+      "text": "                                   SequencesStatistics& statistics)"
+    },
+    {
+      "line": 43,
+      "source": "src/theory/strings/inference_manager.cpp",
+      "text": "      d_statistics(statistics),"
+    },
+    {
+      "line": 86,
+      "source": "src/theory/strings/inference_manager.h",
+      "text": "                   SequencesStatistics& statistics);"
+    },
+    {
+      "line": 110,
+      "source": "src/theory/strings/inference_manager.h",
+      "text": "   * This is used for debugging and statistics purposes."
+    },
+    {
+      "line": 157,
+      "source": "src/theory/strings/inference_manager.h",
+      "text": "   * debugging. This updates the statistics about the number of inferences made"
+    },
+    {
+      "line": 199,
+      "source": "src/theory/strings/inference_manager.h",
+      "text": "   * debugging. This updates the statistics about the number of"
+    },
+    {
+      "line": 272,
+      "source": "src/theory/strings/inference_manager.h",
+      "text": "  /** Reference to the statistics for the theory of strings/sequences. */"
+    },
+    {
+      "line": 153,
+      "source": "src/theory/strings/regexp_solver.h",
+      "text": "  /** Reference to the statistics for the theory of strings/sequences. */"
+    },
+    {
+      "line": 43,
+      "source": "src/theory/strings/sequences_rewriter.cpp",
+      "text": "                                     HistogramStat<Rewrite>* statistics)"
+    },
+    {
+      "line": 45,
+      "source": "src/theory/strings/sequences_rewriter.cpp",
+      "text": "      d_statistics(statistics),"
+    },
+    {
+      "line": 40,
+      "source": "src/theory/strings/sequences_rewriter.h",
+      "text": "                    HistogramStat<Rewrite>* statistics);"
+    },
+    {
+      "line": 371,
+      "source": "src/theory/strings/sequences_rewriter.h",
+      "text": "  /** Reference to the rewriter statistics. */"
+    },
+    {
+      "line": 33,
+      "source": "src/theory/strings/strings_rewriter.cpp",
+      "text": "                                 HistogramStat<Rewrite>* statistics,"
+    },
+    {
+      "line": 35,
+      "source": "src/theory/strings/strings_rewriter.cpp",
+      "text": "    : SequencesRewriter(nm, ae, se, statistics), d_alphaCard(alphaCard)"
+    },
+    {
+      "line": 38,
+      "source": "src/theory/strings/strings_rewriter.h",
+      "text": "                  HistogramStat<Rewrite>* statistics,"
+    },
+    {
+      "line": 42,
+      "source": "src/theory/strings/term_registry.cpp",
+      "text": "                           SequencesStatistics& statistics)"
+    },
+    {
+      "line": 47,
+      "source": "src/theory/strings/term_registry.cpp",
+      "text": "      d_statistics(statistics),"
+    },
+    {
+      "line": 62,
+      "source": "src/theory/strings/term_registry.h",
+      "text": "               SequencesStatistics& statistics);"
+    },
+    {
+      "line": 273,
+      "source": "src/theory/strings/term_registry.h",
+      "text": "  /** Reference to the statistics for the theory of strings/sequences. */"
+    },
+    {
+      "line": 245,
+      "source": "src/theory/strings/theory_strings.h",
+      "text": "   * Statistics for the theory of strings/sequences. All statistics for these"
+    },
+    {
+      "line": 77,
+      "source": "src/theory/strings/theory_strings_preprocess.h",
+      "text": "   * records statistics."
+    },
+    {
+      "line": 94,
+      "source": "src/theory/strings/theory_strings_preprocess.h",
+      "text": "  /** Reference to the statistics for the theory of strings/sequences. */"
+    },
+    {
+      "line": 107,
+      "source": "src/theory/theory.h",
+      "text": "   * We need this to ensure unique statistics names over multiple theory"
+    },
+    {
+      "line": 13,
+      "source": "src/theory/theory_engine_statistics.cpp",
+      "text": " * Theory engine statistics class."
+    },
+    {
+      "line": 13,
+      "source": "src/theory/theory_engine_statistics.h",
+      "text": " * Theory engine statistics class."
+    },
+    {
+      "line": 28,
+      "source": "src/theory/theory_engine_statistics.h",
+      "text": " * Statistics class for theory engine, which contains all statistics that need"
+    },
+    {
+      "line": 84,
+      "source": "src/theory/theory_inference_manager.h",
+      "text": "   * giving unique names for statistics,"
+    },
+    {
+      "line": 400,
+      "source": "src/theory/uf/cardinality_extension.h",
+      "text": "  /** statistics class */"
+    },
+    {
+      "line": 80,
+      "source": "src/theory/uf/equality_engine.h",
+      "text": "   * @param name The name of this equality engine, for statistics"
+    },
+    {
+      "line": 221,
+      "source": "src/util/resource_manager.h",
+      "text": "  /** The statistics object */"
+    },
+    {
+      "line": 13,
+      "source": "src/util/statistics_public.cpp",
+      "text": " * Registration and documentation for all public statistics."
+    },
+    {
+      "line": 13,
+      "source": "src/util/statistics_public.h",
+      "text": " * Registration and documentation for all public statistics."
+    },
+    {
+      "line": 26,
+      "source": "src/util/statistics_public.h",
+      "text": " * Preregisters all public statistics."
+    },
+    {
+      "line": 13,
+      "source": "src/util/statistics_registry.cpp",
+      "text": " * Central statistics registry."
+    },
+    {
+      "line": 13,
+      "source": "src/util/statistics_registry.h",
+      "text": " * Central statistics registry."
+    },
+    {
+      "line": 19,
+      "source": "src/util/statistics_registry.h",
+      "text": " * On the design of the statistics:"
+    },
+    {
+      "line": 54,
+      "source": "src/util/statistics_registry.h",
+      "text": " * called when statistics are enabled and need no protection."
+    },
+    {
+      "line": 83,
+      "source": "src/util/statistics_registry.h",
+      "text": " * The central registry for statistics."
+    },
+    {
+      "line": 85,
+      "source": "src/util/statistics_registry.h",
+      "text": " * objects to modules that want to expose statistics."
+    },
+    {
+      "line": 88,
+      "source": "src/util/statistics_registry.h",
+      "text": " * The different statistics are explained in more detail in statistics_stats.h"
+    },
+    {
+      "line": 100,
+      "source": "src/util/statistics_registry.h",
+      "text": " * We generally distinguish between public and internal statistics."
+    },
+    {
+      "line": 101,
+      "source": "src/util/statistics_registry.h",
+      "text": " * By default, `--stats` only shows public statistics. Internal"
+    },
+    {
+      "line": 106,
+      "source": "src/util/statistics_registry.h",
+      "text": " * If statistics are disabled entirely (i.e. the cmake option"
+    },
+    {
+      "line": 122,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * If `registerPublic` is true, all statistics that are public are"
+    },
+    {
+      "line": 125,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * @param internal       True to also print internal statistics."
+    },
+    {
+      "line": 126,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * @param all            True to also print statistics that are unchanged"
+    },
+    {
+      "line": 128,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * @param registerPublic True to also register public statistics."
+    },
+    {
+      "line": 209,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * Obtain the current state of all statistics."
+    },
+    {
+      "line": 220,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * Print all statistics to the given output stream."
+    },
+    {
+      "line": 224,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * Print all statistics in a safe manner to the given file descriptor."
+    },
+    {
+      "line": 228,
+      "source": "src/util/statistics_registry.h",
+      "text": "   * Print all statistics as a diff to the last stored snapshot."
+    },
+    {
+      "line": 277,
+      "source": "src/util/statistics_registry.h",
+      "text": "  /** True to also enable internal statistics. */"
+    },
+    {
+      "line": 279,
+      "source": "src/util/statistics_registry.h",
+      "text": "  /** True to enable all statistics, even those that have default values. */"
+    },
+    {
+      "line": 13,
+      "source": "src/util/statistics_stats.cpp",
+      "text": " * Basic statistics representation."
+    },
+    {
+      "line": 15,
+      "source": "src/util/statistics_value.cpp",
+      "text": " * The statistic data classes that actually hold the data for the statistics."
+    },
+    {
+      "line": 15,
+      "source": "src/util/statistics_value.h",
+      "text": " * The statistic data classes that actually hold the data for the statistics."
+    }
+  ],
+  "scan": "Every UTF-8-decodable file in the exact archive's src/ tree; comments and tests retained as lexical occurrences, not value writers.",
+  "setter_and_copy_occurrences": [
+    {
+      "line": 4478,
+      "source": "src/api/c/cvc5.cpp",
+      "text": "  cvc5->d_solver.setOption(option, value);"
+    },
+    {
+      "line": 8681,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "void Solver::setOption(const std::string& option,"
+    },
+    {
+      "line": 8708,
+      "source": "src/api/cpp/cvc5.cpp",
+      "text": "  d_slv->setOption(option, value, true);"
+    },
+    {
+      "line": 2496,
+      "source": "src/api/java/io/github/cvc5/Solver.java",
+      "text": "   * {@link Solver#setOption(String, String)},"
+    },
+    {
+      "line": 3489,
+      "source": "src/api/java/io/github/cvc5/Solver.java",
+      "text": "  public void setOption(String option, String value)"
+    },
+    {
+      "line": 3491,
+      "source": "src/api/java/io/github/cvc5/Solver.java",
+      "text": "    setOption(pointer, option, value);"
+    },
+    {
+      "line": 3494,
+      "source": "src/api/java/io/github/cvc5/Solver.java",
+      "text": "  private native void setOption(long pointer, String option, String value);"
+    },
+    {
+      "line": 1349,
+      "source": "src/api/java/jni/solver.cpp",
+      "text": "  solver->setOption(cOption, cValue);"
+    },
+    {
+      "line": 485,
+      "source": "src/api/python/cvc5.pxd",
+      "text": "        void setOption(const string& option, const string& value) except +"
+    },
+    {
+      "line": 3958,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "            :py:meth:`Solver.setOption()`, :py:meth:`Solver.getOption()`"
+    },
+    {
+      "line": 4560,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "    def setOption(self, str option, str value):"
+    },
+    {
+      "line": 4573,
+      "source": "src/api/python/cvc5.pxi",
+      "text": "        self.csolver.setOption(option.encode(), value.encode())"
+    },
+    {
+      "line": 68,
+      "source": "src/main/command_executor.cpp",
+      "text": "  d_solver->d_originalOptions->copyValues(d_solver->d_slv->getOptions());"
+    },
+    {
+      "line": 74,
+      "source": "src/main/command_executor.cpp",
+      "text": "void CommandExecutor::setOptionInternal(const std::string& key,"
+    },
+    {
+      "line": 78,
+      "source": "src/main/command_executor.cpp",
+      "text": "  d_solver->d_slv->setOption(key, value, false);"
+    },
+    {
+      "line": 95,
+      "source": "src/main/command_executor.h",
+      "text": "  void setOptionInternal(const std::string& key, const std::string& value);"
+    },
+    {
+      "line": 118,
+      "source": "src/main/driver_unified.cpp",
+      "text": "    pExecutor->setOptionInternal("
+    },
+    {
+      "line": 134,
+      "source": "src/main/driver_unified.cpp",
+      "text": "      pExecutor->setOptionInternal(\"input-language\", \"smt2\");"
+    },
+    {
+      "line": 138,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"input-language\", \"smt2\");"
+    },
+    {
+      "line": 142,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"input-language\", \"sygus2\");"
+    },
+    {
+      "line": 152,
+      "source": "src/main/driver_unified.cpp",
+      "text": "    pExecutor->setOptionInternal(\"sygus\", \"true\");"
+    },
+    {
+      "line": 162,
+      "source": "src/main/driver_unified.cpp",
+      "text": "    pExecutor->setOptionInternal(\"output-language\","
+    },
+    {
+      "line": 189,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"incremental\","
+    },
+    {
+      "line": 225,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"incremental\", \"false\");"
+    },
+    {
+      "line": 231,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        pExecutor->setOptionInternal(\"wf-checking\", \"false\");"
+    },
+    {
+      "line": 325,
+      "source": "src/main/options_template.cpp",
+      "text": "  // TraceChannel.on(\"options\");"
+    },
+    {
+      "line": 441,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "      d_ctx.solver().setOption(\"produce-unsat-cores\", produceUnsatCoresValue);"
+    },
+    {
+      "line": 442,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "      d_ctx.solver().setOption(\"produce-models\", produceModelsValue);"
+    },
+    {
+      "line": 144,
+      "source": "src/main/portfolio_driver.h",
+      "text": "      solver.setOption(o.first, o.second);"
+    },
+    {
+      "line": 146,
+      "source": "src/options/README.md",
+      "text": "eager)`, or `options::set(\"bitblast\", \"eager\")`."
+    },
+    {
+      "line": 362,
+      "source": "src/options/mkoptions.py",
+      "text": "    \"\"\"Render handler call for options::set().\"\"\""
+    },
+    {
+      "line": 371,
+      "source": "src/options/mkoptions.py",
+      "text": "    \"\"\"Render predicate calls for options::set().\"\"\""
+    },
+    {
+      "line": 391,
+      "source": "src/options/mkoptions.py",
+      "text": "    \"\"\"Generates the implementation for options::set().\"\"\""
+    },
+    {
+      "line": 665,
+      "source": "src/options/mkoptions.py",
+      "text": "            # there is some way to call it, add call to solver.setOption()"
+    },
+    {
+      "line": 667,
+      "source": "src/options/mkoptions.py",
+      "text": "                code.append('  solver.setOption(\"{}\", \"true\"); break;'.format("
+    },
+    {
+      "line": 671,
+      "source": "src/options/mkoptions.py",
+      "text": "                    '  solver.setOption(\"{}\", optionarg); break;'.format("
+    },
+    {
+      "line": 690,
+      "source": "src/options/mkoptions.py",
+      "text": "            code.append('  solver.setOption(\"{}\", \"false\"); break;'.format("
+    },
+    {
+      "line": 248,
+      "source": "src/options/options_handler.cpp",
+      "text": "    TraceChannel.on(tag);"
+    },
+    {
+      "line": 50,
+      "source": "src/options/options_template.cpp",
+      "text": "  void Options::copyValues(const Options& options)"
+    },
+    {
+      "line": 64,
+      "source": "src/options/options_template.h",
+      "text": "  void copyValues(const Options& options);"
+    },
+    {
+      "line": 174,
+      "source": "src/parser/commands.cpp",
+      "text": "  opts->copyValues(*solver->d_originalOptions);"
+    },
+    {
+      "line": 2628,
+      "source": "src/parser/commands.cpp",
+      "text": "    solver->setOption(d_flag, d_value);"
+    },
+    {
+      "line": 78,
+      "source": "src/smt/abduction_solver.cpp",
+      "text": "  subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 188,
+      "source": "src/smt/abduction_solver.cpp",
+      "text": "  subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 180,
+      "source": "src/smt/check_models.cpp",
+      "text": "            subOptions.copyValues(options());"
+    },
+    {
+      "line": 63,
+      "source": "src/smt/env.cpp",
+      "text": "    d_options.copyValues(*opts);"
+    },
+    {
+      "line": 167,
+      "source": "src/smt/interpolation_solver.cpp",
+      "text": "  subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 276,
+      "source": "src/smt/proof_final_callback.cpp",
+      "text": "        subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 369,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "      setOption(\"output-language\", \"smtlib2.6\");"
+    },
+    {
+      "line": 1272,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "        subOptions.copyValues(d_env->getOptions());"
+    },
+    {
+      "line": 2229,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "void SolverEngine::setOption(const std::string& key,"
+    },
+    {
+      "line": 2315,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  Trace(\"smt\") << \"SMT setOption(\" << key << \", \" << value << \")\" << endl;"
+    },
+    {
+      "line": 2316,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  options::set(getOptions(), key, value);"
+    },
+    {
+      "line": 193,
+      "source": "src/smt/solver_engine.h",
+      "text": "  void setOption(const std::string& key,"
+    },
+    {
+      "line": 254,
+      "source": "src/smt/timeout_core_manager.cpp",
+      "text": "  d_subSolver->setOption(\"produce-models\", \"true\");"
+    },
+    {
+      "line": 188,
+      "source": "src/theory/bags/solver_state.cpp",
+      "text": "  subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 49,
+      "source": "src/theory/quantifiers/candidate_rewrite_database.cpp",
+      "text": "  d_subOptions.copyValues(options());"
+    },
+    {
+      "line": 144,
+      "source": "src/theory/quantifiers/cegqi/nested_qe.cpp",
+      "text": "  subOptions.copyValues(env.getOptions());"
+    },
+    {
+      "line": 62,
+      "source": "src/theory/quantifiers/inst_strategy_mbqi.cpp",
+      "text": "  d_subOptions.copyValues(options());"
+    },
+    {
+      "line": 291,
+      "source": "src/theory/quantifiers/inst_strategy_mbqi.cpp",
+      "text": "  mbqiChecker->setOption(\"produce-models\", \"true\");"
+    },
+    {
+      "line": 40,
+      "source": "src/theory/quantifiers/inst_strategy_sub_conflict.cpp",
+      "text": "  d_subOptions.copyValues(options());"
+    },
+    {
+      "line": 190,
+      "source": "src/theory/quantifiers/mbqi_enum.cpp",
+      "text": "  d_subOptions.copyValues(options());"
+    },
+    {
+      "line": 34,
+      "source": "src/theory/quantifiers/query_generator_unsat.cpp",
+      "text": "  d_subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 36,
+      "source": "src/theory/quantifiers/solution_filter.cpp",
+      "text": "  d_subOptions.copyValues(options());"
+    },
+    {
+      "line": 228,
+      "source": "src/theory/quantifiers/sygus/ce_guided_single_inv.cpp",
+      "text": "  siSmt->setOption(\"dt-share-sel\", \"false\");"
+    },
+    {
+      "line": 689,
+      "source": "src/theory/quantifiers/sygus/cegis_core_connective.cpp",
+      "text": "    checkSol->setOption(\"sygus\", \"false\");"
+    },
+    {
+      "line": 690,
+      "source": "src/theory/quantifiers/sygus/cegis_core_connective.cpp",
+      "text": "    checkSol->setOption(\"produce-unsat-cores\", \"true\");"
+    },
+    {
+      "line": 739,
+      "source": "src/theory/quantifiers/sygus/cegis_core_connective.cpp",
+      "text": "          checkSc->setOption(\"sygus\", \"false\");"
+    },
+    {
+      "line": 740,
+      "source": "src/theory/quantifiers/sygus/cegis_core_connective.cpp",
+      "text": "          checkSc->setOption(\"produce-unsat-cores\", \"true\");"
+    },
+    {
+      "line": 366,
+      "source": "src/theory/quantifiers/sygus/sygus_interpol.cpp",
+      "text": "  subOptions.copyValues(d_env.getOptions());"
+    },
+    {
+      "line": 225,
+      "source": "src/theory/quantifiers/sygus/sygus_repair_const.cpp",
+      "text": "  repcChecker->setOption(\"miniscope-quant\", \"conj-and-fv\");"
+    },
+    {
+      "line": 41,
+      "source": "src/theory/quantifiers/sygus/synth_verify.cpp",
+      "text": "  d_subOptions.copyValues(options());"
+    }
+  ]
+}

@@ -1,0 +1,561 @@
+{
+  "cvc5_sources": {
+    "src/api/cpp/cvc5.cpp": {
+      "bytes": 297919,
+      "sha256": "34d8140256f9a0732d568c1e6ea80ade287be69f99704e41e09cbd55f63351ec"
+    },
+    "src/api/cpp/cvc5_parser.cpp": {
+      "bytes": 13947,
+      "sha256": "271c00c432116db34b9330e6d60f3188278dd7414a0cddff4810a6c6fafe7393"
+    },
+    "src/base/output.cpp": {
+      "bytes": 1015,
+      "sha256": "15eb98df6a34ff502cb83655487415721218143c2ae6ec3024194673afaf7641"
+    },
+    "src/base/output.h": {
+      "bytes": 9805,
+      "sha256": "83d8c83af8feea1ed4946b031a465c204f94af027690e62572fa2fb5a9e24432"
+    },
+    "src/main/command_executor.cpp": {
+      "bytes": 7541,
+      "sha256": "f65bede04067f7e2e98017d877cae584c8d9c73851898499aeec31f64f5eb688"
+    },
+    "src/main/driver_unified.cpp": {
+      "bytes": 8731,
+      "sha256": "37eccbd652830be38074be44b1a0089e4938f7247d42cb87fc85081f44de0e4b"
+    },
+    "src/main/options_template.cpp": {
+      "bytes": 10232,
+      "sha256": "5be0e0e94b9b462e7baee7202c3535ef8b784c8b2164a54ccb119c1c1db24f8a"
+    },
+    "src/main/portfolio_driver.cpp": {
+      "bytes": 26556,
+      "sha256": "534864ad2cbfde47c825ab307aa4a9c85820a27369bdb8b522f091f8dd4ec110"
+    },
+    "src/main/time_limit.cpp": {
+      "bytes": 4154,
+      "sha256": "9581580cac6e20f3940362d1f37c5ce7eedb44baede7e1fadcdd5848aacd1599"
+    },
+    "src/options/arith_options.toml": {
+      "bytes": 19161,
+      "sha256": "494575fd2b97985cf47a7b7a761d73cdf4258614957c679cdc04d9217b6e95be"
+    },
+    "src/options/base_options.toml": {
+      "bytes": 15646,
+      "sha256": "7e21a70b5c326a82e178f49e88ee78d9ee3cb8e78481024f6c5d6b1af2a14595"
+    },
+    "src/options/expr_options.toml": {
+      "bytes": 496,
+      "sha256": "5d0431c0efd7c5b102d420127ce3486c463393346e37c8d99bcf6f349ba03185"
+    },
+    "src/options/language.cpp": {
+      "bytes": 1887,
+      "sha256": "1db6a581dfa16de7afb985dddeb76bf54ac1731fd4cc0c445e773cfb84583eb5"
+    },
+    "src/options/main_options.toml": {
+      "bytes": 5491,
+      "sha256": "4d8b4c5696fd99df1a346592e5b84a4c0297e6a7def517c1e2bb6e3fa2b24b07"
+    },
+    "src/options/mkoptions.py": {
+      "bytes": 44341,
+      "sha256": "b50606446bb5a979f417d2fd8abf25bda83aef3d24d44e12476e24f21c9b0988"
+    },
+    "src/options/options_handler.cpp": {
+      "bytes": 12677,
+      "sha256": "f73197bb966b19c8700a7b4aa73ec9d57d7865b78f7084030eb8fbcdf392d52c"
+    },
+    "src/options/options_public_template.cpp": {
+      "bytes": 7128,
+      "sha256": "78d4d6d5996d74553534b41625a374a4cab553bab20e082a3b433ec2b294c0e8"
+    },
+    "src/options/options_template.cpp": {
+      "bytes": 1464,
+      "sha256": "ce50207c70f884720ccef58e43845fe8cf75de2e42d23056d991500ee9d51bab"
+    },
+    "src/options/options_template.h": {
+      "bytes": 1964,
+      "sha256": "a3936dce37709e0de8dcc428f130e21a0a77c9d0e18ff49d37f169e22776aff4"
+    },
+    "src/options/parser_options.toml": {
+      "bytes": 3537,
+      "sha256": "1af1efcff4465357206cff55ffa54a79272a49b2997ed7bb5a04908ab0f252d2"
+    },
+    "src/options/printer_options.toml": {
+      "bytes": 2803,
+      "sha256": "b47820d70d0411212cbd2a664d377e76702c82ff5889736121d7c7b84c66f69f"
+    },
+    "src/options/proof_options.toml": {
+      "bytes": 8464,
+      "sha256": "402553971543bf98547ef4a6f652198eefb589a8353fe14fba04a398ed11bc1d"
+    },
+    "src/options/prop_options.toml": {
+      "bytes": 3190,
+      "sha256": "fb263736214110f80ab5564d662448ef8c16c7cd8077f451ac7c7d201471e909"
+    },
+    "src/options/smt_options.toml": {
+      "bytes": 17134,
+      "sha256": "d4150efdec08e42e467c10d6feb79377d9bf362bd5e67035091b26ceca37f0fe"
+    },
+    "src/parser/command_status.cpp": {
+      "bytes": 1901,
+      "sha256": "29baf2ebff9fede7bf6f8eb5f4aa28599add019188fbd04dea0411e032f637df"
+    },
+    "src/parser/command_status.h": {
+      "bytes": 3476,
+      "sha256": "b00720f184e1d403d7ca4dc0b15ace591e92e24d78d95407caeb8b95e9544d7c"
+    },
+    "src/parser/commands.cpp": {
+      "bytes": 79188,
+      "sha256": "e15112905fdba8ee33169726c11680e5a9e890f199b03a05bc5510491a24c447"
+    },
+    "src/parser/lexer.cpp": {
+      "bytes": 3454,
+      "sha256": "793bcde6336cb20d731b22f8b3eed5b3da24ff7df01b21943c8864fe91e90ef1"
+    },
+    "src/parser/lexer.h": {
+      "bytes": 5359,
+      "sha256": "b2c098bb2e1c5fc2e6fd47a5e398bf26f5dc9db706eaa7aaa889c598dc85464b"
+    },
+    "src/parser/parser.cpp": {
+      "bytes": 3613,
+      "sha256": "b95f5d6cc3201c0d328538370183c2067374c1cb496e954a0b45e909b7ee3be1"
+    },
+    "src/parser/parser.h": {
+      "bytes": 3440,
+      "sha256": "c04a78b82cd9323210eae8947f325454795f1f80223cd32abd5f74c58be74c1c"
+    },
+    "src/parser/parser_state.cpp": {
+      "bytes": 22183,
+      "sha256": "72dcad31a5576507a458b10a3519594f81f3c3b9ff081076c283553672b12606"
+    },
+    "src/parser/parser_state.h": {
+      "bytes": 21791,
+      "sha256": "3ed30ba75583fbafd4116225e7482c90eda2cc75842ca845dd493713c24cfc7e"
+    },
+    "src/parser/smt2/smt2_cmd_parser.cpp": {
+      "bytes": 32244,
+      "sha256": "0a88268d98f7b3ce50ead35a1b6fae29b57fdda72c2cb3e82b7ee07f8e3753d0"
+    },
+    "src/parser/smt2/smt2_lexer.cpp": {
+      "bytes": 10486,
+      "sha256": "d510bad25f7233a9eebc4028872ba117b849f61b69010cdf5d36bd0ad269cdb4"
+    },
+    "src/parser/smt2/smt2_parser.cpp": {
+      "bytes": 1641,
+      "sha256": "86cc2cdf5a295431460e3b3b84c96141e90aa0183e62146f16278d2e05d8c710"
+    },
+    "src/parser/smt2/smt2_state.cpp": {
+      "bytes": 63019,
+      "sha256": "366f3c2ee8c5c422fdd640d1614fd9664d0e3f63d5100194dac6d819f3de6ef8"
+    },
+    "src/parser/smt2/smt2_state.h": {
+      "bytes": 17727,
+      "sha256": "733cb64476711033797e5f1912f973ff7bcd8267e23c4240381eb96cb397a30e"
+    },
+    "src/parser/smt2/smt2_term_parser.cpp": {
+      "bytes": 46775,
+      "sha256": "e89559403f564830c679cb1e08d34ae80725288ae4af9d21489dff27bd6aa284"
+    },
+    "src/parser/tokens.cpp": {
+      "bytes": 6487,
+      "sha256": "bade59d319abad197c57dee4f518c00951904bc3de8a6f93cc23724cc5b427c7"
+    },
+    "src/preprocessing/passes/ite_simp.cpp": {
+      "bytes": 8730,
+      "sha256": "84658942a44da2deb411a1ba109f5da3be0f06de95c6f994bd919f9d3ef687f1"
+    },
+    "src/preprocessing/preprocessing_pass.cpp": {
+      "bytes": 1710,
+      "sha256": "ef4b808180ad3cd31add455868761e119ff8c4ad4b80e3af0beb19c572e131fd"
+    },
+    "src/preprocessing/preprocessing_pass_registry.cpp": {
+      "bytes": 6411,
+      "sha256": "1f2d02f5da87bae0be3528db75c70f7fb438af83fc75de74418ec4c4ff6cfc09"
+    },
+    "src/preprocessing/util/ite_utilities.cpp": {
+      "bytes": 49209,
+      "sha256": "85f448d3f38a476dccfa4d08c33a051c801075d5adc362e773740afb6b3f80cb"
+    },
+    "src/smt/env.cpp": {
+      "bytes": 11320,
+      "sha256": "81919ffaff275b315f218f20cca71b4f043a6d49389862170db02562f3dca448"
+    },
+    "src/smt/env_obj.cpp": {
+      "bytes": 2778,
+      "sha256": "8af021bbab52d0b8a9b97812aec058cb77d192792d822ec7ab804597c506a2a4"
+    },
+    "src/smt/process_assertions.cpp": {
+      "bytes": 16292,
+      "sha256": "5612a9f16637794434bcc697c5050e5f7f275bbef02c61c2cf01e68e83b6e61f"
+    },
+    "src/smt/set_defaults.cpp": {
+      "bytes": 69893,
+      "sha256": "421f9bfcf934d95776052fe3553fceab802b12eaedd654b2f1bb9e4e8c046759"
+    },
+    "src/smt/solver_engine.cpp": {
+      "bytes": 74031,
+      "sha256": "051cda6c09f7bc69238dbcc5e21543efa80fcf7290880f2d3f36ef466eef2bb3"
+    },
+    "src/theory/arith/linear/theory_arith_private.cpp": {
+      "bytes": 170621,
+      "sha256": "b5fd5988670040419f0f70a305c34f77f0f5082a735d1b0c0a69d502b8913380"
+    },
+    "src/theory/arith/theory_arith.cpp": {
+      "bytes": 19579,
+      "sha256": "c4f9e94dab34f831432dc6a187227b70effddfb64df4d20827f3762a5aef4920"
+    }
+  },
+  "foreign_sources": [
+    {
+      "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      },
+      "member": "overlay/silver_cvc5_no_steps.gen",
+      "required_literals": [
+        "filename \"%f-%t-%g.smt2\"",
+        "printer \"smtv2.6\""
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 23019,
+        "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+      },
+      "member": "why3/src/driver/call_provers.ml",
+      "required_literals": [
+        "Filename.open_temp_file \"why_\" (\"_\" ^ filename)",
+        "Buffer.output_buffer cin buffer; close_out cin;"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 18796,
+        "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+      },
+      "member": "why3/src/driver/driver.ml",
+      "required_literals": [
+        "let file_name_of_task ?old ?inplace ?interactive drv task =",
+        "| Some fn, _ when interactive <> Some true ->"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "identity": {
+        "bytes": 56291,
+        "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+      },
+      "member": "why3/src/session/controller_itp.ml",
+      "required_literals": [
+        "if proof_script_filename = None then",
+        "a.proof_script"
+      ]
+    }
+  ],
+  "witnesses": [
+    {
+      "first": 99,
+      "label": "driver mode and languages",
+      "last": 163,
+      "source": "src/main/driver_unified.cpp",
+      "text": "  auto limit = install_time_limit(solver->getOptionInfo(\"tlimit\").uintValue());\n  segvSpin = solver->getOptionInfo(\"segv-spin\").boolValue();\n\n  // If in competition mode, set output stream option to flush immediately\n#ifdef CVC5_COMPETITION_MODE\n  dopts.out() << unitbuf;\n#endif /* CVC5_COMPETITION_MODE */\n\n  // We only accept one input file\n  if(filenames.size() > 1) {\n    throw Exception(\"Too many input files specified.\");\n  }\n\n  // If no file supplied we will read from standard input\n  const bool inputFromStdin = filenames.empty() || filenames[0] == \"-\";\n\n  // If we're reading from stdin, use interactive mode if we are a TTY.\n  if (!solver->getOptionInfo(\"interactive\").setByUser)\n  {\n    pExecutor->setOptionInternal(\n        \"interactive\",\n        (inputFromStdin && isatty(fileno(stdin))) ? \"true\"  : \"false\");\n  }\n\n  // Auto-detect input language by filename extension\n  std::string filenameStr(\"<stdin>\");\n  if (!inputFromStdin) {\n    filenameStr = std::move(filenames[0]);\n  }\n  const char* filename = filenameStr.c_str();\n  cvc5::modes::InputLanguage ilang;\n  if (solver->getOption(\"input-language\") == \"LANG_AUTO\")\n  {\n    if( inputFromStdin ) {\n      // We can't do any fancy detection on stdin\n      pExecutor->setOptionInternal(\"input-language\", \"smt2\");\n    } else {\n      size_t len = filenameStr.size();\n      if(len >= 5 && !strcmp(\".smt2\", filename + len - 5)) {\n        pExecutor->setOptionInternal(\"input-language\", \"smt2\");\n      } else if((len >= 3 && !strcmp(\".sy\", filename + len - 3))\n                || (len >= 3 && !strcmp(\".sl\", filename + len - 3))) {\n        // version 2 sygus is the default\n        pExecutor->setOptionInternal(\"input-language\", \"sygus2\");\n      }\n    }\n  }\n  if (solver->getOption(\"input-language\") == \"LANG_SYGUS_V2\")\n  {\n    // Enable the sygus API. We set this here instead of in set defaults \n    // to simplify checking at the API level. In particular, the sygus\n    // option is the authority on whether sygus commands are currently\n    // allowed in the API.\n    pExecutor->setOptionInternal(\"sygus\", \"true\");\n    ilang = cvc5::modes::InputLanguage::SYGUS_2_1;\n  }\n  else\n  {\n    ilang = cvc5::modes::InputLanguage::SMT_LIB_2_6;\n  }\n\n  if (solver->getOption(\"output-language\") == \"LANG_AUTO\")\n  {\n    pExecutor->setOptionInternal(\"output-language\",\n                                 solver->getOption(\"input-language\"));"
+    },
+    {
+      "first": 214,
+      "label": "file parser and terminal branch",
+      "last": 275,
+      "source": "src/main/driver_unified.cpp",
+      "text": "        // read and execute all available commands\n        if (!shell.readAndExecCommands())\n        {\n          break;\n        }\n      }\n    }\n    else\n    {\n      if (!solver->getOptionInfo(\"incremental\").setByUser)\n      {\n        pExecutor->setOptionInternal(\"incremental\", \"false\");\n      }\n      // we don't need to check that terms passed to API methods are well\n      // formed, since this should be an invariant of the parser\n      if (!solver->getOptionInfo(\"wf-checking\").setByUser)\n      {\n        pExecutor->setOptionInternal(\"wf-checking\", \"false\");\n      }\n      // now store options as original\n      pExecutor->storeOptionsAsOriginal();\n\n      std::unique_ptr<InputParser> parser(new InputParser(\n          pExecutor->getSolver(), pExecutor->getSymbolManager()));\n      if( inputFromStdin ) {\n        parser->setStreamInput(ilang, cin, filename);\n      }\n      else\n      {\n        parser->setFileInput(ilang, filename);\n      }\n\n      PortfolioDriver driver(parser);\n      returnValue = driver.solve(pExecutor) ? 0 : 1;\n    }\n\n#ifdef CVC5_COMPETITION_MODE\n    dopts.out() << std::flush;\n    // exit, don't return (don't want destructors to run)\n    // _exit() from unistd.h doesn't run global destructors\n    // or other on_exit/atexit stuff.\n    _exit(returnValue);\n#endif /* CVC5_COMPETITION_MODE */\n\n    pExecutor->flushOutputStreams();\n\n#ifdef CVC5_DEBUG\n    {\n      auto info = solver->getOptionInfo(\"early-exit\");\n      if (info.boolValue() && info.setByUser)\n      {\n        _exit(returnValue);\n      }\n    }\n#else  /* CVC5_DEBUG */\n    if (solver->getOptionInfo(\"early-exit\").boolValue())\n    {\n      _exit(returnValue);\n    }\n#endif /* CVC5_DEBUG */\n  }\n"
+    },
+    {
+      "first": 46,
+      "label": "single file loop",
+      "last": 96,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "bool ExecutionContext::solveContinuous(parser::InputParser* parser,\n                                       bool stopAtSetLogic,\n                                       bool stopAtCheckSat)\n{\n  Command cmd;\n  bool interrupted = false;\n  bool status = true;\n  while (status)\n  {\n    if (interrupted)\n    {\n      solver().getDriverOptions().out() << CommandInterrupted();\n      d_executor->reset();\n      break;\n    }\n    cmd = parser->nextCommand();\n    if (cmd.isNull())\n    {\n      break;\n    }\n    Cmd* cc = cmd.d_cmd.get();\n    if (stopAtCheckSat)\n    {\n      if (dynamic_cast<CheckSatCommand*>(cc) != nullptr)\n      {\n        d_hasReadCheckSat = true;\n        break;\n      }\n    }\n    status = d_executor->doCommand(&cmd);\n    if (cc->interrupted() && status == 0)\n    {\n      interrupted = true;\n      break;\n    }\n    if (dynamic_cast<QuitCommand*>(cc) != nullptr)\n    {\n      break;\n    }\n    if (stopAtSetLogic)\n    {\n      auto* slc = dynamic_cast<SetBenchmarkLogicCommand*>(cc);\n      if (slc != nullptr)\n      {\n        d_logic = slc->getLogic();\n        break;\n      }\n    }\n  }\n  return status;\n}"
+    },
+    {
+      "first": 569,
+      "label": "portfolio gate",
+      "last": 577,
+      "source": "src/main/portfolio_driver.cpp",
+      "text": "bool PortfolioDriver::solve(std::unique_ptr<CommandExecutor>& executor)\n{\n  ExecutionContext ctx{executor.get()};\n  Solver& solver = ctx.solver();\n  bool use_portfolio = solver.getOption(\"use-portfolio\") == \"true\";\n  if (!use_portfolio)\n  {\n    return ctx.solveContinuous(d_parser, false);\n  }"
+    },
+    {
+      "first": 98,
+      "label": "status control",
+      "last": 168,
+      "source": "src/parser/commands.cpp",
+      "text": "bool Cmd::ok() const\n{\n  // either we haven't run the command yet, or it ran successfully\n  return d_commandStatus == nullptr\n         || dynamic_cast<const CommandSuccess*>(d_commandStatus) != nullptr;\n}\n\nbool Cmd::fail() const\n{\n  return d_commandStatus != nullptr\n         && dynamic_cast<const CommandFailure*>(d_commandStatus) != nullptr;\n}\n\nbool Cmd::interrupted() const\n{\n  return d_commandStatus != nullptr\n         && dynamic_cast<const CommandInterrupted*>(d_commandStatus) != nullptr;\n}\n\nvoid Cmd::invoke(cvc5::Solver* solver,\n                 parser::SymManager* sm,\n                 std::ostream& out)\n{\n  invoke(solver, sm);\n  if (!ok())\n  {\n    out << *d_commandStatus;\n  }\n  else\n  {\n    printResult(solver, out);\n  }\n  // always flush the output\n  out << std::flush;\n}\n\nvoid Cmd::invokeAndPrintResult(cvc5::Solver* solver,\n                               parser::SymManager* sm)\n{\n  invoke(solver, sm);\n  // the output stream reference is retrieved here since it might change after\n  // invoking a (set-option :out ...) command\n  std::ostream &out = solver->getDriverOptions().out();\n  if (!ok())\n  {\n    out << *d_commandStatus;\n  }\n  else\n  {\n    printResult(solver, out);\n  }\n  // always flush the output\n  out << std::flush;\n}\n\nstd::string Cmd::toString() const\n{\n  std::stringstream ss;\n  toStream(ss);\n  return ss.str();\n}\n\nvoid Cmd::printResult(cvc5::Solver* solver, std::ostream& out) const\n{\n  if (!ok()\n      || (d_commandStatus != nullptr\n          && solver->getOption(\"print-success\") == \"true\"))\n  {\n    out << *d_commandStatus;\n  }\n}"
+    },
+    {
+      "first": 364,
+      "label": "check result",
+      "last": 383,
+      "source": "src/parser/commands.cpp",
+      "text": "void CheckSatCommand::invoke(cvc5::Solver* solver, SymManager* sm)\n{\n  Trace(\"dtview::command\") << \"* ~COMMAND: \" << getCommandName() << \"~\"\n                           << std::endl;\n  try\n  {\n    d_result = solver->checkSat();\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (exception& e)\n  {\n    d_commandStatus = new CommandFailure(e.what());\n  }\n}\n\ncvc5::Result CheckSatCommand::getResult() const { return d_result; }\n\nvoid CheckSatCommand::printResult(cvc5::Solver* solver, std::ostream& out) const\n{\n  out << d_result << endl;"
+    },
+    {
+      "first": 2535,
+      "label": "set-info and get-info statuses",
+      "last": 2607,
+      "source": "src/parser/commands.cpp",
+      "text": "void SetInfoCommand::invoke(cvc5::Solver* solver, SymManager* sm)\n{\n  try\n  {\n    solver->setInfo(d_flag, d_value);\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (cvc5::CVC5ApiUnsupportedException&)\n  {\n    // As per SMT-LIB spec, silently accept unknown set-info keys\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (cvc5::CVC5ApiRecoverableException& e)\n  {\n    d_commandStatus = new CommandRecoverableFailure(e.getMessage());\n  }\n  catch (exception& e)\n  {\n    d_commandStatus = new CommandFailure(e.what());\n  }\n}\n\nstd::string SetInfoCommand::getCommandName() const { return \"set-info\"; }\n\nvoid SetInfoCommand::toStream(std::ostream& out) const\n{\n  internal::Printer::getPrinter(out)->toStreamCmdSetInfo(out, d_flag, d_value);\n}\n\n/* -------------------------------------------------------------------------- */\n/* class GetInfoCommand                                                       */\n/* -------------------------------------------------------------------------- */\n\nGetInfoCommand::GetInfoCommand(std::string flag) : d_flag(flag) {}\nstd::string GetInfoCommand::getFlag() const { return d_flag; }\nvoid GetInfoCommand::invoke(cvc5::Solver* solver, SymManager* sm)\n{\n  try\n  {\n    TermManager& tm = solver->getTermManager();\n    std::vector<cvc5::Term> v;\n    Sort bt = tm.getBooleanSort();\n    v.push_back(tm.mkVar(bt, \":\" + d_flag));\n    v.push_back(tm.mkVar(bt, solver->getInfo(d_flag)));\n    d_result = sexprToString(tm.mkTerm(cvc5::Kind::SEXPR, {v}));\n    d_commandStatus = CommandSuccess::instance();\n  }\n  catch (cvc5::CVC5ApiUnsupportedException&)\n  {\n    d_commandStatus = new CommandUnsupported();\n  }\n  catch (cvc5::CVC5ApiRecoverableException& e)\n  {\n    d_commandStatus = new CommandRecoverableFailure(e.getMessage());\n  }\n  catch (exception& e)\n  {\n    d_commandStatus = new CommandFailure(e.what());\n  }\n}\n\nstd::string GetInfoCommand::getResult() const { return d_result; }\nvoid GetInfoCommand::printResult(cvc5::Solver* solver, std::ostream& out) const\n{\n  if (d_result != \"\")\n  {\n    out << d_result << endl;\n  }\n}\n\nstd::string GetInfoCommand::getCommandName() const { return \"get-info\"; }\n\nvoid GetInfoCommand::toStream(std::ostream& out) const"
+    },
+    {
+      "first": 69,
+      "label": "parser boundary",
+      "last": 89,
+      "source": "src/parser/parser.cpp",
+      "text": "std::unique_ptr<Cmd> Parser::nextCommand()\n{\n  Trace(\"parser\") << \"nextCommand()\" << std::endl;\n  std::unique_ptr<Cmd> cmd;\n  try\n  {\n    cmd = parseNextCommand();\n    setDone(cmd == nullptr);\n  }\n  catch (ParserException& e)\n  {\n    setDone();\n    throw;\n  }\n  catch (std::exception& e)\n  {\n    setDone();\n    parseError(e.what());\n  }\n  Trace(\"parser\") << \"nextCommand() => \" << cmd.get() << std::endl;\n  return cmd;"
+    },
+    {
+      "first": 293,
+      "label": "API parser forwarding",
+      "last": 301,
+      "source": "src/api/cpp/cvc5_parser.cpp",
+      "text": "Command InputParser::nextCommand()\n{\n  CVC5_PARSER_API_CHECK(d_parser != nullptr)\n      << \"Input to parser not initialized\";\n  //////// all checks before this line\n  Trace(\"parser\") << \"nextCommand()\" << std::endl;\n  std::shared_ptr<Cmd> cmd = d_parser->nextCommand();\n  return Command(cmd);\n}"
+    },
+    {
+      "first": 96,
+      "label": "lexer consuming delimiters",
+      "last": 260,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "  bumpSpan();\n  int32_t ch;\n  // skip whitespace and comments\n  for (;;)\n  {\n    do\n    {\n      if ((ch = nextChar()) == EOF)\n      {\n        return Token::EOF_TOK;\n      }\n    } while (isCharacterClass(ch, CharacterClass::WHITESPACE));\n\n    if (ch != ';')\n    {\n      break;\n    }\n    while ((ch = nextChar()) != '\\n')\n    {\n      if (ch == EOF)\n      {\n        return Token::EOF_TOK;\n      }\n    }\n  }\n  bumpSpan();\n  pushToToken(ch);\n  switch (ch)\n  {\n    case '(': return Token::LPAREN_TOK;\n    case ')': return Token::RPAREN_TOK;\n    case '|':\n      do\n      {\n        ch = nextChar();\n        if (ch == EOF)\n        {\n          return Token::UNTERMINATED_QUOTED_SYMBOL;\n        }\n        pushToToken(ch);\n      } while (ch != '|');\n      return Token::QUOTED_SYMBOL;\n    case '#':\n      ch = nextChar();\n      switch (ch)\n      {\n        case 'b':\n          pushToToken(ch);\n          // parse [01]+\n          if (!parseNonEmptyCharList(CharacterClass::BIT))\n          {\n            parseError(\"Error expected bit string\");\n          }\n          return Token::BINARY_LITERAL;\n        case 'x':\n          pushToToken(ch);\n          // parse [0-9a-fA-F]+\n          if (!parseNonEmptyCharList(CharacterClass::HEXADECIMAL_DIGIT))\n          {\n            parseError(\"Error expected hexadecimal string\");\n          }\n          return Token::HEX_LITERAL;\n        case 'f':\n          pushToToken(ch);\n          // parse [0-9]+m[0-9]+\n          if (!parseNonEmptyCharList(CharacterClass::DECIMAL_DIGIT))\n          {\n            parseError(\"Error expected decimal for finite field value\");\n          }\n          if (!parseLiteralChar('m'))\n          {\n            parseError(\"Error bad syntax for finite field value\");\n          }\n          if (!parseNonEmptyCharList(CharacterClass::DECIMAL_DIGIT))\n          {\n            parseError(\"Error expected decimal for finite field size\");\n          }\n          return Token::FIELD_LITERAL;\n        default:\n          // otherwise error\n          parseError(\"Error finding token following #\");\n          break;\n      }\n      break;\n    case '\"':\n      for (;;)\n      {\n        ch = nextChar();\n        if (ch == EOF)\n        {\n          return Token::UNTERMINATED_STRING_LITERAL;\n        }\n        else if (!isCharacterClass(ch, CharacterClass::PRINTABLE))\n        {\n          parseError(\"Non-printable character in string literal\");\n        }\n        else if (ch == '\"')\n        {\n          pushToToken(ch);\n          ch = nextChar();\n          // \"\" denotes the escape sequence for \"\n          if (ch != '\"')\n          {\n            saveChar(ch);\n            return Token::STRING_LITERAL;\n          }\n        }\n        pushToToken(ch);\n      }\n      break;\n    case ':':\n      // parse a simple symbol\n      if (!parseChar(CharacterClass::SYMBOL_START))\n      {\n        parseError(\"Error expected symbol following :\");\n      }\n      parseNonEmptyCharList(CharacterClass::SYMBOL);\n      return Token::KEYWORD;\n    default:\n      if (isCharacterClass(ch, CharacterClass::DECIMAL_DIGIT))\n      {\n        Token res = Token::INTEGER_LITERAL;\n        // parse [0-9]*\n        parseCharList(CharacterClass::DECIMAL_DIGIT);\n        // maybe .[0-9]+\n        ch = nextChar();\n        if (ch == '.')\n        {\n          pushToToken(ch);\n          res = Token::DECIMAL_LITERAL;\n          // parse [0-9]+\n          if (!parseNonEmptyCharList(CharacterClass::DECIMAL_DIGIT))\n          {\n            parseError(\"Error expected decimal string following .\");\n          }\n        }\n        else if (ch == '/')\n        {\n          pushToToken(ch);\n          res = Token::RATIONAL_LITERAL;\n          // parse [0-9]+\n          if (!parseNonEmptyCharList(CharacterClass::DECIMAL_DIGIT))\n          {\n            parseError(\"Error expected decimal string following .\");\n          }\n        }\n        else\n        {\n          // otherwise, undo\n          saveChar(ch);\n        }\n        return res;\n      }\n      else if (isCharacterClass(ch, CharacterClass::SYMBOL_START))\n      {\n        // otherwise, we are a simple symbol or standard alphanumeric token\n        // note that we group the case when `:` is here.\n        parseCharList(CharacterClass::SYMBOL);\n        // tokenize the current symbol, which may be a special case\n        return tokenizeCurrentSymbol();\n      }\n      // otherwise error\n      break;\n  }\n  parseError(\"Error finding token\");"
+    },
+    {
+      "first": 103,
+      "label": "command entry",
+      "last": 130,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "Token Smt2CmdParser::nextCommandToken()\n{\n  Token tok = d_lex.nextToken();\n  // symbols as commands\n  if (tok == Token::SYMBOL)\n  {\n    std::string str(d_lex.tokenStr());\n    std::map<std::string, Token>::iterator it = d_table.find(str);\n    if (it != d_table.end())\n    {\n      return it->second;\n    }\n  }\n  return tok;\n}\n\nstd::unique_ptr<Cmd> Smt2CmdParser::parseNextCommand()\n{\n  // if we are at the end of file, return the null command\n  if (d_lex.eatTokenChoice(Token::EOF_TOK, Token::LPAREN_TOK))\n  {\n    return nullptr;\n  }\n  std::unique_ptr<Cmd> cmd;\n  Token tok = nextCommandToken();\n  switch (tok)\n  {\n    // (assert <term>)"
+    },
+    {
+      "first": 949,
+      "label": "command return",
+      "last": 959,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "    }\n    break;\n    case Token::EOF_TOK:\n      d_lex.parseError(\"Expected SMT-LIBv2 command\", true);\n      break;\n    default:\n      d_lex.unexpectedTokenError(tok, \"Expected SMT-LIBv2 command\");\n      break;\n  }\n  d_lex.eatToken(Token::RPAREN_TOK);\n  return cmd;"
+    },
+    {
+      "first": 42,
+      "label": "lexer error wrapper",
+      "last": 61,
+      "source": "src/parser/lexer.cpp",
+      "text": "void Lexer::warning(const std::string& msg)\n{\n  Warning() << d_inputName << ':' << d_span.d_start.d_line << '.'\n            << d_span.d_start.d_column << \": \" << msg << std::endl;\n}\n\nvoid Lexer::parseError(const std::string& msg, bool eofException)\n{\n  if (eofException)\n  {\n    throw ParserEndOfFileException(\n        msg, d_inputName, d_span.d_start.d_line, d_span.d_start.d_column);\n  }\n  else\n  {\n    throw ParserException(\n        msg, d_inputName, d_span.d_start.d_line, d_span.d_start.d_column);\n  }\n}\n"
+    },
+    {
+      "first": 84,
+      "label": "lookahead and unexpected token",
+      "last": 145,
+      "source": "src/parser/lexer.cpp",
+      "text": "Token Lexer::nextToken()\n{\n  if (d_peeked.empty())\n  {\n    // Call the derived yylex() and convert it to a token\n    return nextTokenInternal();\n  }\n  Token t = d_peeked.back();\n  d_peeked.pop_back();\n  return t;\n}\n\nToken Lexer::peekToken()\n{\n  // since d_peeked is first in, last out, we should not peek more than once\n  // or the order is swapped.\n  Assert(d_peeked.empty());\n  // parse next token\n  Token t = nextTokenInternal();\n  // reinsert it immediately\n  reinsertToken(t);\n  // return it\n  return t;\n}\n\nvoid Lexer::reinsertToken(Token t) { d_peeked.push_back(t); }\n\nvoid Lexer::unexpectedTokenError(Token t, const std::string& info)\n{\n  Assert(d_peeked.empty());\n  std::ostringstream o{};\n  o << info << \", got `\" << tokenStr() << \"` (\" << t << \").\";\n  // Note that we treat this as an EOF exception if the token is EOF_TOK.\n  // This is important for exception handling in interactive mode.\n  parseError(o.str(), t == Token::EOF_TOK);\n}\n\nvoid Lexer::eatToken(Token t)\n{\n  Token tt = nextToken();\n  if (t != tt)\n  {\n    std::ostringstream o{};\n    o << \"Expected a \" << t;\n    unexpectedTokenError(tt, o.str());\n  }\n}\n\nbool Lexer::eatTokenChoice(Token t, Token f)\n{\n  Token tt = nextToken();\n  if (tt == t)\n  {\n    return true;\n  }\n  else if (tt != f)\n  {\n    std::ostringstream o{};\n    o << \"Expected \" << t << \" or \" << f;\n    unexpectedTokenError(tt, o.str());\n  }\n  return false;"
+    },
+    {
+      "first": 207,
+      "label": "binder warning",
+      "last": 275,
+      "source": "src/parser/parser_state.cpp",
+      "text": "std::vector<Term> ParserState::bindBoundVarsCtx(\n    std::vector<std::pair<std::string, Sort>>& sortedVarNames,\n    std::vector<std::vector<std::pair<std::string, Term>>>& letBinders,\n    bool fresh)\n{\n  if (fresh || letBinders.empty())\n  {\n    // does not matter if let binders are empty or if we are constructing fresh\n    return bindBoundVars(sortedVarNames, fresh);\n  }\n  std::vector<Term> vars;\n  for (std::pair<std::string, Sort>& i : sortedVarNames)\n  {\n    std::map<std::pair<std::string, Sort>, Term>::const_iterator itv =\n        d_varCache.find(i);\n    if (itv == d_varCache.end() || !isDeclared(i.first))\n    {\n      // haven't created this variable yet, or its not declared\n      Term v = bindBoundVar(i.first, i.second, fresh);\n      vars.push_back(v);\n      continue;\n    }\n    Term v = itv->second;\n    // If we are here, then:\n    // (1) we are not using fresh declarations\n    // (2) there are let binders present,\n    // (3) the current variable was shadowed.\n    // We must check whether the variable is present in the let bindings.\n    bool reqFresh = false;\n    // a dummy variable used for checking containment below\n    Term vr = d_tm.mkVar(v.getSort(), \"dummy\");\n    // check if it is contained in a let binder, if so, we require making a\n    // fresh variable, despite fresh-binders being false.\n    for (std::vector<std::pair<std::string, Term>>& lbs : letBinders)\n    {\n      for (std::pair<std::string, Term>& lb : lbs)\n      {\n        // To test containment, we use Term::substitute.\n        // If the substitution does anything at all, then we will throw a\n        // warning. We expect this warning to be very rare.\n        Term slbt = lb.second.substitute({v}, {vr});\n        if (slbt != lb.second)\n        {\n          reqFresh = true;\n          break;\n        }\n      }\n      if (reqFresh)\n      {\n        break;\n      }\n    }\n    if (reqFresh)\n    {\n      // Note that if this warning is thrown:\n      // 1. proof reference checking will not be accurate in settings where\n      // variables are parsed as canonical.\n      // 2. the parser will not be deterministic for the same input even when\n      // fresh-binders is false, since we are constructing a fresh variable\n      // below.\n      Warning() << \"Constructing a fresh variable for \" << i.first\n                << \" since this symbol occurs in a let term that is present in \"\n                   \"the current context. Set fresh-binders to true or use -q to avoid \"\n                   \"this warning.\"\n                << std::endl;\n    }\n    v = bindBoundVar(i.first, i.second, reqFresh);\n    vars.push_back(v);\n  }"
+    },
+    {
+      "first": 675,
+      "label": "attribute warning",
+      "last": 684,
+      "source": "src/parser/parser_state.cpp",
+      "text": "void ParserState::attributeNotSupported(const std::string& attr)\n{\n  if (d_attributesWarnedAbout.find(attr) == d_attributesWarnedAbout.end())\n  {\n    stringstream ss;\n    ss << \"warning: Attribute '\" << attr\n       << \"' not supported (ignoring this and all following uses)\";\n    warning(ss.str());\n    d_attributesWarnedAbout.insert(attr);\n  }"
+    },
+    {
+      "first": 204,
+      "label": "binder list consumption",
+      "last": 232,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "            op.d_name = tokenStrToSymbol(tok);\n            std::vector<Term> args;\n            if (d_state.isClosure(op.d_name))\n            {\n              // if it is a closure, immediately read the bound variable list\n              d_state.pushScope();\n              std::vector<std::pair<std::string, Sort>> sortedVarNames =\n                  parseSortedVarList();\n              if (sortedVarNames.empty())\n              {\n                d_lex.parseError(\"Expected non-empty sorted variable list\");\n              }\n              bool freshBinders = d_state.usingFreshBinders();\n              // If freshBinders is false, we set fresh to false here. This\n              // means that (x Int) appearing in a quantified formula always\n              // constructs the same variable.\n              // We use the context-dependent version of this method since we\n              // may have to account for variables that have appeared in let\n              // binders to ensure our let bindings do not lead to variable\n              // capturing.\n              std::vector<Term> vs = d_state.bindBoundVarsCtx(\n                  sortedVarNames, letBinders, freshBinders);\n              Term vl = tm.mkTerm(Kind::VARIABLE_LIST, vs);\n              args.push_back(vl);\n              xstack.emplace_back(ParseCtx::CLOSURE_NEXT_ARG);\n            }\n            else\n            {\n              xstack.emplace_back(ParseCtx::NEXT_ARG);"
+    },
+    {
+      "first": 507,
+      "label": "attribute consumption",
+      "last": 598,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "          if (!ret.isNull())\n          {\n            // if we got here, we either:\n            // (1) parsed a single term (the current ParseOp::d_kind was set)\n            // (2) a list of terms in a nested context.\n            if (tstack.back().first.d_kind != Kind::NULL_TERM)\n            {\n              // if (1), apply d_kind to the argument and reset d_kind\n              ret = tm.mkTerm(tstack.back().first.d_kind, {ret});\n              tstack.back().first.d_kind = Kind::NULL_TERM;\n            }\n            tstack.back().second.push_back(ret);\n            ret = Term();\n          }\n          // see if there is another keyword\n          if (d_lex.eatTokenChoice(Token::KEYWORD, Token::RPAREN_TOK))\n          {\n            std::string key = d_lex.tokenStr();\n            // Based on the keyword, determine the context.\n            // Set needsUpdateCtx to true if we are finished parsing the\n            // current attribute.\n            Kind attrKind = Kind::NULL_TERM;\n            Term attrValue;\n            if (key == \":inst-add-to-pool\")\n            {\n              attrKind = Kind::INST_ADD_TO_POOL;\n            }\n            else if (key == \":quant-inst-max-level\")\n            {\n              // a numeral\n              d_lex.eatToken(Token::INTEGER_LITERAL);\n              attrValue = tm.mkInteger(d_lex.tokenStr());\n            }\n            else if (key == \":named\")\n            {\n              Assert(!tstack.back().first.d_expr.isNull());\n              // expression is the body of the term annotation\n              std::string sym = parseSymbol(CHECK_UNDECLARED, SYM_VARIABLE);\n              d_state.notifyNamedExpression(tstack.back().first.d_expr, sym);\n              needsUpdateCtx = true;\n            }\n            else if (key == \":no-pattern\")\n            {\n              // a single term, set the current kind\n              tstack.back().first.d_kind = Kind::INST_NO_PATTERN;\n            }\n            else if (key == \":pattern\")\n            {\n              attrKind = Kind::INST_PATTERN;\n            }\n            else if (key == \":pool\")\n            {\n              attrKind = Kind::INST_POOL;\n            }\n            else if (key == \":qid\")\n            {\n              std::string sym = parseSymbol(CHECK_NONE, SYM_VARIABLE);\n              // must create a variable whose name is the name of the quantified\n              // formula, not a string.\n              attrValue = tm.mkConst(tm.getBooleanSort(), sym);\n            }\n            else if (key == \":skolem-add-to-pool\")\n            {\n              attrKind = Kind::SKOLEM_ADD_TO_POOL;\n            }\n            else\n            {\n              // warn that the attribute is not supported\n              d_state.attributeNotSupported(d_lex.tokenStr());\n              tok = d_lex.nextToken();\n              // We don't know whether to expect an attribute value. Thus,\n              // we will either see keyword (the next attribute), rparen\n              // (the term annotation is finished), or else parse as generic\n              // symbolic expression for the current attribute.\n              switch (tok)\n              {\n                case Token::KEYWORD:\n                case Token::RPAREN_TOK:\n                  // finished with this attribute, go to the next one if it\n                  // exists.\n                  d_lex.reinsertToken(tok);\n                  break;\n                default:\n                  // ignore the symbolic expression that follows\n                  d_lex.reinsertToken(tok);\n                  parseSymbolicExpr();\n                  // will parse another attribute\n                  break;\n              }\n              needsUpdateCtx = true;\n            }\n            if (attrKind != Kind::NULL_TERM)"
+    },
+    {
+      "first": 579,
+      "label": "ascription error operands",
+      "last": 600,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      std::stringstream ss;\n      ss << \"Type ascription on constructor not satisfied, term \" << t\n         << \" expected sort \" << s << \" but has sort \" << etyped;\n      parseError(ss.str());\n    }\n    return t;\n  }\n  // Otherwise, check that the type is correct. Type ascriptions in SMT-LIB 2.6\n  // referred to the range of function sorts. Note that this is only a check\n  // and does not impact the returned term.\n  Sort checkSort = t.getSort();\n  if (checkSort.isFunction())\n  {\n    checkSort = checkSort.getFunctionCodomainSort();\n  }\n  if (checkSort != s)\n  {\n    std::stringstream ss;\n    ss << \"Type ascription not satisfied, term \" << t\n       << \" expected (codomain) sort \" << s << \" but has sort \" << t.getSort();\n    parseError(ss.str());\n  }"
+    },
+    {
+      "first": 1526,
+      "label": "array error operands",
+      "last": 1533,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      {\n        std::stringstream ss;\n        ss << \"type mismatch inside array constant term:\" << std::endl\n           << \"array type:          \" << sort << std::endl\n           << \"expected const type: \" << sort.getArrayElementSort() << std::endl\n           << \"computed const type: \" << constVal.getSort();\n        parseError(ss.str());\n      }"
+    },
+    {
+      "first": 1930,
+      "label": "no command injection for named expression",
+      "last": 1960,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "{\n  checkUserSymbol(name);\n  // remember the expression name in the symbol manager\n  NamingResult nr = getSymbolManager()->setExpressionName(expr, name, false);\n  if (nr == NamingResult::ERROR_IN_BINDER)\n  {\n    parseError(\n        \"Cannot name a term in a binder (e.g., quantifiers, definitions)\");\n  }\n  // define the variable. This needs to be done here so that in the rest of the\n  // command we can use this name, which is required by the semantics of :named.\n  //\n  // Note that as we are defining the name to the expression here, names never\n  // show up in \"-o raw-benchmark\" nor in proofs. To be able to do it it'd be\n  // necessary to not define this variable here and create a\n  // DefineFunctionCommand with the binding, so that names are handled as\n  // defined functions. However, these commands would need to be processed\n  // *before* the rest of the command in which the :named attribute appears, so\n  // the name can be defined in the rest of the command. This would greatly\n  // complicate the design of the parser and provide little gain, so we opt to\n  // handle :named as a macro processed directly in the parser.\n  defineVar(name, expr);\n  // set the last named term, which ensures that we catch when assertions are\n  // named\n  setLastNamedTerm(expr, name);\n}\n\nTerm Smt2State::mkAnd(const std::vector<Term>& es) const\n{\n  if (es.size() == 0)\n  {"
+    },
+    {
+      "first": 149,
+      "label": "stats predicates and verbosity",
+      "last": 223,
+      "source": "src/options/options_handler.cpp",
+      "text": "{\n  if (lang == Language::LANG_AST)\n  {\n    throw OptionException(\"Language LANG_AST is not allowed for \" + flag);\n  }\n  if (!d_options->printer.outputLanguageWasSetByUser)\n  {\n    d_options->write_printer().outputLanguage = lang;\n    ioutils::setDefaultOutputLanguage(lang);\n  }\n}\n\nvoid OptionsHandler::setVerbosity(const std::string& flag, int value)\n{\n  if(Configuration::isMuzzledBuild()) {\n    TraceChannel.setStream(&cvc5::internal::null_os);\n    WarningChannel.setStream(&cvc5::internal::null_os);\n  } else {\n    if(value < 0) {\n      WarningChannel.setStream(&cvc5::internal::null_os);\n    } else {\n      WarningChannel.setStream(&std::cerr);\n    }\n  }\n}\n\nvoid OptionsHandler::decreaseVerbosity(const std::string& flag, bool value)\n{\n  d_options->write_base().verbosity -= 1;\n  setVerbosity(flag, d_options->base.verbosity);\n}\n\nvoid OptionsHandler::increaseVerbosity(const std::string& flag, bool value)\n{\n  d_options->write_base().verbosity += 1;\n  setVerbosity(flag, d_options->base.verbosity);\n}\n\nvoid OptionsHandler::setStats(const std::string& flag, bool value)\n{\n#ifndef CVC5_STATISTICS_ON\n  if (value)\n  {\n    std::stringstream ss;\n    ss << \"option `\" << flag\n       << \"' requires a statistics-enabled build of cvc5; this binary was not \"\n          \"built with statistics support\";\n    throw OptionException(ss.str());\n  }\n#endif /* CVC5_STATISTICS_ON */\n  if (!value)\n  {\n    d_options->write_base().statisticsAll = false;\n    d_options->write_base().statisticsEveryQuery = false;\n    d_options->write_base().statisticsInternal = false;\n  }\n}\n\nvoid OptionsHandler::setStatsDetail(const std::string& flag, bool value)\n{\n#ifndef CVC5_STATISTICS_ON\n  if (value)\n  {\n    std::stringstream ss;\n    ss << \"option `\" << flag\n       << \"' requires a statistics-enabled build of cvc5; this binary was not \"\n          \"built with statistics support\";\n    throw OptionException(ss.str());\n  }\n#endif /* CVC5_STATISTICS_ON */\n  if (value)\n  {\n    d_options->write_base().statistics = true;\n  }\n}"
+    },
+    {
+      "first": 225,
+      "label": "trace and output-tag predicates",
+      "last": 259,
+      "source": "src/options/options_handler.cpp",
+      "text": "void OptionsHandler::enableTraceTag(const std::string& flag,\n                                    const std::string& optarg)\n{\n  if(!Configuration::isTracingBuild())\n  {\n    throw OptionException(\"trace tags not available in non-tracing builds\");\n  }\n  auto tags = selectTags(Configuration::getTraceTags(), optarg);\n  if (tags.empty())\n  {\n    if (optarg == \"help\")\n    {\n      d_options->write_driver().showTraceTags = true;\n      showTraceTags(\"\", true);\n      return;\n    }\n\n    throw OptionException(\n        std::string(\"no trace tag matching \") + optarg + std::string(\" was found.\")\n        + suggestTags(Configuration::getTraceTags(), optarg, {}));\n  }\n  for (const auto& tag: tags)\n  {\n    TraceChannel.on(tag);\n  }\n}\n\nvoid OptionsHandler::enableOutputTag(const std::string& flag,\n                                     OutputTag optarg)\n{\n  size_t tagid = static_cast<size_t>(optarg);\n  Assert(d_options->base.outputTagHolder.size() > tagid)\n      << \"Output tag is larger than the bitset that holds it.\";\n  d_options->write_base().outputTagHolder.set(tagid);\n}"
+    },
+    {
+      "first": 251,
+      "label": "generated value isolation",
+      "last": 275,
+      "source": "src/options/mkoptions.py",
+      "text": "def generate_holder_mem_inits(modules):\n    \"\"\"Render initializations of holder members of the Option class\"\"\"\n    return concat_format(\n        '        d_{id}(std::make_unique<options::Holder{id_cap}>()),',\n        modules)\n\n\ndef generate_holder_ref_inits(modules):\n    \"\"\"Render initializations of holder references of the Option class\"\"\"\n    return concat_format('        {id}(*d_{id}),', modules)\n\n\ndef generate_write_functions(modules):\n    \"\"\"Render write functions for holders within the Option class\"\"\"\n    return concat_format('''  options::Holder{id_cap}& Options::write_{id}()\n  {{\n    return *d_{id};\n  }}\n''', modules)\n\n\ndef generate_holder_mem_copy(modules):\n    \"\"\"Render copy operation of holder members of the Option class\"\"\"\n    return concat_format('      *d_{id} = *options.d_{id};', modules)\n"
+    },
+    {
+      "first": 360,
+      "label": "generated setters",
+      "last": 416,
+      "source": "src/options/mkoptions.py",
+      "text": "\ndef _set_handlers(option):\n    \"\"\"Render handler call for options::set().\"\"\"\n    if option.handler:\n        return 'opts.handler().{}(name, optionarg)'.format(option.handler)\n    elif option.mode:\n        return 'stringTo{}(optionarg)'.format(option.type)\n    return 'handlers::handleOption<{}>(name, optionarg)'.format(option.type)\n\n\ndef _set_predicates(module, option):\n    \"\"\"Render predicate calls for options::set().\"\"\"\n    res = []\n    if option.minimum:\n        res.append(\n            'opts.handler().checkMinimum(name, value, static_cast<{}>({}));'\n            .format(option.type, option.minimum))\n    if option.maximum:\n        res.append(\n            'opts.handler().checkMaximum(name, value, static_cast<{}>({}));'\n            .format(option.type, option.maximum))\n    res += [\n        'opts.handler().{}(name, value);'.format(x) for x in option.predicates\n    ]\n    if module.id == 'printer':\n        res.append('ioutils::setDefault{}(value);'.format(option.name_capitalized))\n\n    return res\n\n\ndef generate_set_impl(modules):\n    \"\"\"Generates the implementation for options::set().\"\"\"\n    res = []\n    res.append('auto it = NAME_TO_ENUM.find(name);')\n    res.append('if (it == NAME_TO_ENUM.end()) {')\n    res.append('  throw OptionException(\\\"Unrecognized option key or setting: \\\" + name);')\n    res.append('}')\n    res.append('switch (it->second) {')\n    for module, option in all_options(modules, True):\n        if not option.long:\n            continue\n        res.append('  case OptionEnum::{}:'.format(option.enum_name()))\n        res.append('  {')\n        res.append('    auto value = {};'.format(_set_handlers(option)))\n        for pred in _set_predicates(module, option):\n            res.append('    {}'.format(pred))\n        if option.name:\n            res.append('    opts.write_{module}().{name} = value;'.format(\n                module=module.id, name=option.name))\n            res.append('    opts.write_{module}().{name}WasSetByUser = true;'.format(\n                module=module.id, name=option.name))\n        res.append('    break;')\n        res.append('  }')\n    res.append('}')\n    return '\\n    '.join(res)\n\ndef cpp_category(category):"
+    },
+    {
+      "first": 638,
+      "label": "CLI generation",
+      "last": 693,
+      "source": "src/options/mkoptions.py",
+      "text": "    - handler code that turns getopt_long return value to a setOption call\n    \"\"\"\n    short = \"\"\n    opts = []\n    code = []\n    next_id = 256\n    for _, option in all_options(modules, False):\n        needs_impl = False\n        if option.short:  # short option\n            needs_impl = True\n            code.append(\"case '{0}': // -{0}\".format(option.short))\n            short += option.short\n            if option.type != 'bool':\n                short += ':'\n        if option.long:  # long option\n            needs_impl = True\n            _add_cmdoption(option, option.long_name, opts, next_id)\n            code.append('case {}: // --{}'.format(next_id, option.long_name))\n            next_id += 1\n        if option.alias:  # long option aliases\n            needs_impl = True\n            for alias in option.alias:\n                _add_cmdoption(option, alias, opts, next_id)\n                code.append('case {}: // --{}'.format(next_id, alias))\n                next_id += 1\n\n        if needs_impl:\n            # there is some way to call it, add call to solver.setOption()\n            if option.type == 'bool':\n                code.append('  solver.setOption(\"{}\", \"true\"); break;'.format(\n                    option.long_name))\n            else:\n                code.append(\n                    '  solver.setOption(\"{}\", optionarg); break;'.format(\n                        option.long_name))\n\n        if option.alternate:\n            assert option.type == 'bool'\n            # bool option that wants a --no-*\n            needs_impl = False\n            if option.long:  # long option\n                needs_impl = True\n                _add_cmdoption(option, 'no-' + option.long_name, opts, next_id)\n                code.append('case {}: // --no-{}'.format(\n                    next_id, option.long_name))\n                next_id += 1\n            if option.alias:  # long option aliases\n                needs_impl = True\n                for alias in option.alias:\n                    _add_cmdoption(option, 'no-' + alias, opts, next_id)\n                    code.append('case {}: // --no-{}'.format(next_id, alias))\n                    next_id += 1\n            code.append('  solver.setOption(\"{}\", \"false\"); break;'.format(\n                option.long_name))\n\n    return short, '\\n  '.join(opts), '\\n    '.join(code)"
+    },
+    {
+      "first": 30,
+      "label": "default option holder construction",
+      "last": 59,
+      "source": "src/options/options_template.cpp",
+      "text": "      :\n// clang-format off\n${holder_mem_inits}$\n${holder_ref_inits}$\n// clang-format on\n        d_handler(std::make_unique<options::OptionsHandler>(this))\n  {\n#ifdef CVC5_SAFE_MODE\n    d_base->safeMode = options::SafeMode::SAFE;\n#elif CVC5_STABLE_MODE\n    d_base->safeMode = options::SafeMode::STABLE;\n#endif\n  }\n\n  Options::~Options() {}\n\n// clang-format off\n${write_functions}$\n// clang-format on\n\n  void Options::copyValues(const Options& options)\n  {\n    if (this != &options)\n    {\n// clang-format off\n${holder_mem_copy}$\n// clang-format on\n    }\n  }\n"
+    },
+    {
+      "first": 52,
+      "label": "set-defaults macros",
+      "last": 133,
+      "source": "src/smt/set_defaults.cpp",
+      "text": "namespace smt {\n\n/**\n * Throw an option exception if domain.optName is set by the user and not the\n * given value. Give an error message where reason is given.\n * Note this macro should be used if the value is concrete.\n */\n#define OPTION_EXCEPTION_IF_NOT(domain, optName, value, reason)               \\\n  if (opts.write_##domain().optName##WasSetByUser                             \\\n      && opts.write_##domain().optName != value)                              \\\n  {                                                                           \\\n    std::stringstream ss;                                                     \\\n    ss << \"Cannot use --\" << options::domain::longName::optName << \" due to \" \\\n       << reason << \".\";                                                      \\\n    throw FatalOptionException(ss.str());                                     \\\n  }\n/**\n * Set domain.optName to value due to reason. Notify if value changes.\n * Note this macro should be used if the value is concrete.\n */\n#define SET_AND_NOTIFY(domain, optName, value, reason)                      \\\n  if (opts.write_##domain().optName != value)                               \\\n  {                                                                         \\\n    notifyModifyOption(options::domain::longName::optName, #value, reason); \\\n    opts.write_##domain().optName = value;                                  \\\n  }\n/**\n * Set domain.optName to value due to reason. Notify if value changes.\n *\n * Note this macro should be used if the value passed to the macro is not\n * concrete (i.e., stored in a variable).\n */\n#define SET_AND_NOTIFY_VAL_SYM(domain, optName, value, reason)    \\\n  if (opts.write_##domain().optName != value)                     \\\n  {                                                               \\\n    std::stringstream sstmp;                                      \\\n    sstmp << value;                                               \\\n    notifyModifyOption(                                           \\\n        options::domain::longName::optName, sstmp.str(), reason); \\\n    opts.write_##domain().optName = value;                        \\\n  }\n/**\n * Set domain.optName to value due to reason if the option was not already set\n * by the user. Notify if value changes.\n * Note this macro should be used if the value is concrete.\n */\n#define SET_AND_NOTIFY_IF_NOT_USER(domain, optName, value, reason)          \\\n  if (!opts.write_##domain().optName##WasSetByUser                          \\\n      && opts.write_##domain().optName != value)                            \\\n  {                                                                         \\\n    notifyModifyOption(options::domain::longName::optName, #value, reason); \\\n    opts.write_##domain().optName = value;                                  \\\n  }\n/**\n * Set domain.optName to value due to reason if the option was not already set\n * by the user. Notify if value changes.\n */\n#define SET_AND_NOTIFY_IF_NOT_USER_VAL_SYM(domain, optName, value, reason) \\\n  if (!opts.write_##domain().optName##WasSetByUser                         \\\n      && opts.write_##domain().optName != value)                           \\\n  {                                                                        \\\n    std::stringstream sstmp;                                               \\\n    sstmp << value;                                                        \\\n    notifyModifyOption(                                                    \\\n        options::domain::longName::optName, sstmp.str(), reason);          \\\n    opts.write_##domain().optName = value;                                 \\\n  }\n\nSetDefaults::SetDefaults(Env& env, bool isInternalSubsolver)\n    : EnvObj(env), d_isInternalSubsolver(isInternalSubsolver)\n{\n}\n\nvoid SetDefaults::setDefaults(LogicInfo& logic, Options& opts)\n{\n  // initial changes that are independent of logic, and may impact the logic\n  setDefaultsPre(opts);\n  // now, finalize the logic\n  finalizeLogic(logic, opts);\n  // further changes to options based on the logic\n  setDefaultsPost(logic, opts);\n}"
+    },
+    {
+      "first": 157,
+      "label": "solver initialization",
+      "last": 182,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "void SolverEngine::finishInit()\n{\n  if (d_state->isFullyInited())\n  {\n    // already initialized, return\n    return;\n  }\n\n  // Notice that finishInit is called when options are finalized. If we are\n  // parsing smt2, this occurs at the moment we enter \"Assert mode\", page 52 of\n  // SMT-LIB 2.6 standard.\n\n  // set the logic\n  const LogicInfo& logic = getLogicInfo();\n  if (!logic.isLocked())\n  {\n    setLogicInternal();\n  }\n\n  // set the random seed\n  Random::getRandom().setSeed(d_env->getOptions().driver.seed);\n\n  // Call finish init on the set defaults module. This inializes the logic\n  // and the best default options based on our heuristics.\n  SetDefaults sdefaults(*d_env, d_isInternalSubsolver);\n  sdefaults.setDefaults(d_env->d_logic, getOptions());"
+    },
+    {
+      "first": 347,
+      "label": "version info updates",
+      "last": 373,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "void SolverEngine::setInfo(const std::string& key, const std::string& value)\n{\n  Trace(\"smt\") << \"SMT setInfo(\" << key << \", \" << value << \")\" << endl;\n\n  if (key == \"filename\")\n  {\n    d_env->d_options.write_driver().filename = value;\n    d_env->getStatisticsRegistry().registerValue<std::string>(\n        \"driver::filename\", value);\n  }\n  else if (key == \"smt-lib-version\")\n  {\n    if (value != \"2\" && value != \"2.6\")\n    {\n      d_env->warning() << \"SMT-LIB version \" << value\n                << \" unsupported, defaulting to language (and semantics of) \"\n                   \"SMT-LIB 2.6\\n\";\n    }\n    getOptions().write_base().inputLanguage = Language::LANG_SMTLIB_V2_6;\n    // also update the output language\n    if (!getOptions().printer.outputLanguageWasSetByUser)\n    {\n      setOption(\"output-language\", \"smtlib2.6\");\n      getOptions().write_printer().outputLanguageWasSetByUser = false;\n    }\n  }\n  else if (key == \"status\")"
+    },
+    {
+      "first": 840,
+      "label": "stats query gate",
+      "last": 855,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "  if (d_env->getOptions().smt.checkUnsatCores)\n  {\n    if (r.getStatus() == Result::UNSAT)\n    {\n      TimerStat::CodeTimer checkUnsatCoreTimer(d_stats->d_checkUnsatCoreTime);\n      checkUnsatCore();\n    }\n  }\n\n  if (d_env->getOptions().base.statisticsEveryQuery)\n  {\n    printStatisticsDiff();\n  }\n\n  // set the filename on the result\n  const std::string& filename = d_env->getOptions().driver.filename;"
+    },
+    {
+      "first": 2229,
+      "label": "option mutation boundary",
+      "last": 2317,
+      "source": "src/smt/solver_engine.cpp",
+      "text": "void SolverEngine::setOption(const std::string& key,\n                             const std::string& value,\n                             bool fromUser)\n{\n  if (fromUser && options().base.safeMode != options::SafeMode::UNRESTRICTED)\n  {\n    // Note that the text \"in safe mode\" must appear in the error messages or\n    // CI will fail, as it searches for this text.\n    if (key == \"trace\")\n    {\n      throw FatalOptionException(\"cannot use trace messages in safe mode\");\n    }\n    // verify its a regular option\n    options::OptionInfo oinfo = options::getInfo(getOptions(), key);\n    if (oinfo.category == options::OptionInfo::Category::EXPERT)\n    {\n      // option exception\n      std::stringstream ss;\n      ss << \"expert option \" << key\n         << \" cannot be set in safe mode.\";\n      // If we are setting to a default value, the exception can be avoided\n      // by omitting the expert option.\n      if (getOption(key) == value)\n      {\n        // note this is not the case for options which safe mode explicitly\n        // disables.\n        ss << \" The value for \" << key << \" is already its current value (\"\n           << value << \"). Omitting this option may avoid this exception.\";\n      }\n      throw FatalOptionException(ss.str());\n    }\n    else if (oinfo.category == options::OptionInfo::Category::REGULAR)\n    {\n      if (options().base.safeMode == options::SafeMode::SAFE && !oinfo.noSupports.empty())\n      {\n        std::stringstream ss;\n        ss << \"cannot set option \" << key\n           << \" in safe mode, as this option does not support \";\n        bool firstTime = true;\n        for (const std::string& s : oinfo.noSupports)\n        {\n          if (!firstTime)\n          {\n            ss << \", \";\n          }\n          else\n          {\n            firstTime = false;\n          }\n          ss << s;\n        }\n        throw FatalOptionException(ss.str());\n      }\n      if (!d_safeOptsSetRegularOption)\n      {\n        d_safeOptsSetRegularOption = true;\n        d_safeOptsRegularOption = key;\n        d_safeOptsRegularOptionValue = value;\n        d_safeOptsSetRegularOptionToDefault = (getOption(key) == value);\n      }\n      else\n      {\n        // option exception\n        std::stringstream ss;\n        ss << \"cannot set two regular options (\" << d_safeOptsRegularOption\n           << \" and \" << key << \") in safe mode.\";\n        // similar to above, if setting to default value for either of the\n        // regular options.\n        for (size_t i = 0; i < 2; i++)\n        {\n          const std::string& rkey = i == 0 ? d_safeOptsRegularOption : key;\n          const std::string& rvalue = i == 0 ? d_safeOptsRegularOptionValue : value;\n          bool isDefault = i == 0 ? d_safeOptsSetRegularOptionToDefault\n                                  : (getOption(key) == value);\n          if (isDefault)\n          {\n            // note this is not the case for options which safe mode\n            // explicitly disables.\n            ss << \" The value for \" << rkey << \" is already its current value (\"\n               << rvalue << \"). Omitting this option may avoid this exception.\";\n          }\n        }\n        throw FatalOptionException(ss.str());\n      }\n    }\n  }\n  Trace(\"smt\") << \"SMT setOption(\" << key << \", \" << value << \")\" << endl;\n  options::set(getOptions(), key, value);\n}"
+    },
+    {
+      "first": 158,
+      "label": "getter output gates",
+      "last": 216,
+      "source": "src/main/command_executor.cpp",
+      "text": "  // dump the model/proof/unsat core if option is set\n  if (status) {\n    bool isResultUnsat = res.isUnsat();\n    bool isResultSat = res.isSat();\n    std::vector<std::unique_ptr<Cmd> > getterCommands;\n    if (d_solver->getOptionInfo(\"dump-models\").boolValue()\n        && (isResultSat\n            || (res.isUnknown()\n                && res.getUnknownExplanation()\n                       == cvc5::UnknownExplanation::INCOMPLETE)))\n    {\n      getterCommands.emplace_back(new GetModelCommand());\n    }\n    if (d_solver->getOptionInfo(\"dump-proofs\").boolValue() && isResultUnsat)\n    {\n      getterCommands.emplace_back(new GetProofCommand());\n    }\n\n    if ((d_solver->getOptionInfo(\"dump-instantiations\").boolValue()\n         || d_solver->getOptionInfo(\"dump-instantiations-debug\").boolValue())\n        && GetInstantiationsCommand::isEnabled(d_solver.get(), res))\n    {\n      getterCommands.emplace_back(new GetInstantiationsCommand());\n    }\n\n    if (d_solver->getOptionInfo(\"dump-unsat-cores\").boolValue()\n        && isResultUnsat)\n    {\n      getterCommands.emplace_back(new GetUnsatCoreCommand());\n    }\n\n    if (d_solver->getOptionInfo(\"dump-unsat-cores-lemmas\").boolValue()\n        && isResultUnsat)\n    {\n      getterCommands.emplace_back(new GetUnsatCoreLemmasCommand());\n    }\n\n    if (d_solver->getOptionInfo(\"dump-difficulty\").boolValue()\n        && (isResultUnsat || isResultSat || res.isUnknown()))\n    {\n      getterCommands.emplace_back(new GetDifficultyCommand());\n    }\n\n    if (!getterCommands.empty()) {\n      // set no time limit during dumping if applicable\n      if (d_solver->getOptionInfo(\"force-no-limit-cpu-while-dump\").boolValue())\n      {\n        setNoLimitCPU();\n      }\n      for (const auto& getterCommand : getterCommands) {\n        status = doCommandSingleton(getterCommand.get());\n        if (!status)\n        {\n          break;\n        }\n      }\n    }\n  }\n  return status;"
+    },
+    {
+      "first": 81,
+      "label": "ordinary stats dump",
+      "last": 105,
+      "source": "src/main/command_executor.cpp",
+      "text": "void CommandExecutor::printStatistics(std::ostream& out) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    {\n      const auto& stats = d_solver->getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n    {\n      const auto& stats = d_solver->getTermManager().getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n  }"
+    },
+    {
+      "first": 243,
+      "label": "main flush stats",
+      "last": 253,
+      "source": "src/main/command_executor.cpp",
+      "text": "}\n\nvoid CommandExecutor::flushOutputStreams() {\n  printStatistics(d_solver->getDriverOptions().err());\n\n  // make sure out and err streams are flushed too\n  d_solver->getDriverOptions().out() << std::flush;\n  d_solver->getDriverOptions().err() << std::flush;\n}\n\n}  // namespace cvc5::main"
+    },
+    {
+      "first": 410,
+      "label": "ITE pass gate",
+      "last": 423,
+      "source": "src/smt/process_assertions.cpp",
+      "text": "\n    // ITE simplification\n    if (options().smt.doITESimp\n        && (d_simplifyAssertionsDepth <= 1 || options().smt.doITESimpOnRepeat))\n    {\n      PreprocessingPassResult res = applyPass(\"ite-simp\", ap);\n      if (res == PreprocessingPassResult::CONFLICT)\n      {\n        verbose(2) << \"...ITE simplification found unsat...\" << std::endl;\n        return false;\n      }\n    }\n\n    Trace(\"smt\") << \" assertions     : \" << ap.size() << endl;"
+    },
+    {
+      "first": 3205,
+      "label": "pivot insertion gates",
+      "last": 3267,
+      "source": "src/theory/arith/linear/theory_arith_private.cpp",
+      "text": "    if (useSimplex && options().arith.collectPivots)\n    {\n      if (options().arith.useFC)\n      {\n        d_statistics.d_satPivots << d_fcSimplex.getPivots();\n      }\n      else\n      {\n        d_statistics.d_satPivots << d_dualSimplex.getPivots();\n      }\n    }\n    break;\n  case Result::UNKNOWN:\n    ++d_unknownsInARow;\n    ++(d_statistics.d_unknownChecks);\n    Assert(!Theory::fullEffort(effortLevel));\n    Trace(\"arith::bt\") << \"committing unknown\"\n                       << \" \" << d_newFacts << \" \" << d_previousStatus << \" \"\n                       << d_qflraStatus << endl;\n    d_partialModel.commitAssignmentChanges();\n    d_statistics.d_maxUnknownsInARow.maxAssign(d_unknownsInARow);\n\n    if (useSimplex && options().arith.collectPivots)\n    {\n      if (options().arith.useFC)\n      {\n        d_statistics.d_unknownPivots << d_fcSimplex.getPivots();\n      }\n      else\n      {\n        d_statistics.d_unknownPivots << d_dualSimplex.getPivots();\n      }\n    }\n    break;\n  case Result::UNSAT:\n    d_unknownsInARow = 0;\n\n    ++d_statistics.d_commitsOnConflicts;\n\n    Trace(\"arith::bt\") << \"committing on conflict\"\n                       << \" \" << d_newFacts << \" \" << d_previousStatus << \" \"\n                       << d_qflraStatus << endl;\n    d_partialModel.commitAssignmentChanges();\n    revertOutOfConflict();\n\n    if(TraceIsOn(\"arith::consistency::comitonconflict\")){\n      entireStateIsConsistent(\"commit on conflict\");\n    }\n    outputConflicts();\n    emmittedConflictOrSplit = true;\n    Trace(\"arith::conflict\") << \"simplex conflict\" << endl;\n\n    if (useSimplex && options().arith.collectPivots)\n    {\n      if (options().arith.useFC)\n      {\n        d_statistics.d_unsatPivots << d_fcSimplex.getPivots();\n      }\n      else\n      {\n        d_statistics.d_unsatPivots << d_dualSimplex.getPivots();\n      }\n    }"
+    },
+    {
+      "first": 79,
+      "label": "watchdog early return",
+      "last": 133,
+      "source": "src/main/time_limit.cpp",
+      "text": "TimeLimit install_time_limit(uint64_t ms)\n{\n  // Skip if no time limit shall be set.\n  if (ms == 0) {\n    return TimeLimit();\n  }\n\n#if HAVE_SETITIMER\n  // Install a signal handler for SIGALRM\n  struct sigaction sact;\n  sact.sa_sigaction = posix_timeout_handler;\n  sact.sa_flags = SA_SIGINFO;\n  sigemptyset(&sact.sa_mask);\n  if (sigaction(SIGALRM, &sact, NULL))\n  {\n    throw internal::Exception(std::string(\"sigaction(SIGALRM) failure: \")\n                              + strerror(errno));\n  }\n\n  // Check https://linux.die.net/man/2/setitimer\n  // Then time is up, the kernel will send a SIGALRM\n  struct itimerval timerspec;\n  timerspec.it_value.tv_sec = ms / 1000;\n  timerspec.it_value.tv_usec = (ms % 1000) * 1000;\n  timerspec.it_interval.tv_sec = 0;\n  timerspec.it_interval.tv_usec = 0;\n  // Argument 1: which timer to set, we want the real time\n  // Argument 2: timer configuration, relative to current time\n  // Argument 3: old timer configuration, we don't want to know\n  if (setitimer(ITIMER_REAL, &timerspec, nullptr))\n  {\n    throw internal::Exception(std::string(\"timer_settime() failure: \")\n                              + strerror(errno));\n  }\n#else\n  abort_timer_flag.store(false);\n  std::thread t([ms]()\n  {\n    // when to stop\n    auto limit = std::chrono::system_clock::now() + std::chrono::milliseconds(ms);\n    while (limit > std::chrono::system_clock::now())\n    {\n      // check if the main thread is done\n      if (abort_timer_flag.load()) return;\n      std::this_thread::sleep_for(std::chrono::milliseconds(100));\n    }\n    // trigger the timeout handler\n    signal_handlers::timeout_handler();\n  });\n  // detach the thread\n  t.detach();\n#endif\n  return TimeLimit();\n}\n"
+    },
+    {
+      "first": 20,
+      "label": "warning/tracing initial state",
+      "last": 34,
+      "source": "src/base/output.cpp",
+      "text": "namespace cvc5::internal {\n\n/* Definitions of the declared globals from output.h... */\n\nnull_streambuf null_sb;\nstd::ostream null_os(&null_sb);\n\nNullC nullStream;\n\nconst std::string Cvc5ostream::s_tab = \"  \";\nconst int Cvc5ostream::s_indentIosIndex = std::ios_base::xalloc();\n\nWarningC WarningChannel(&std::cerr);\nTraceC TraceChannel(&std::cout);\n"
+    },
+    {
+      "first": 190,
+      "label": "warning/tracing controls",
+      "last": 272,
+      "source": "src/base/output.h",
+      "text": "class WarningC\n{\n  std::set<std::pair<std::string, size_t> > d_alreadyWarned;\n  std::ostream* d_os;\n\npublic:\n  explicit WarningC(std::ostream* os) : d_os(os) {}\n\n  Cvc5ostream operator()() const { return Cvc5ostream(d_os); }\n\n  std::ostream& setStream(std::ostream* os) { d_os = os; return *d_os; }\n  std::ostream& getStream() const { return *d_os; }\n  std::ostream* getStreamPointer() const { return d_os; }\n\n  bool isOn() const { return d_os != &null_os; }\n\n  // This function supports the WarningOnce() macro, which allows you\n  // to easily indicate that a warning should be emitted, but only\n  // once for a given run of cvc5.\n  bool warnOnce(const std::string& file, size_t line)\n  {\n    std::pair<std::string, size_t> pr = std::make_pair(file, line);\n    if(d_alreadyWarned.find(pr) != d_alreadyWarned.end()) {\n      // signal caller not to warn again\n      return false;\n    }\n\n    // okay warn this time, but don't do it again\n    d_alreadyWarned.insert(pr);\n    return true;\n  }\n\n}; /* class WarningC */\n\n/** The trace output class */\nclass TraceC\n{\n  std::ostream* d_os;\n  std::vector<std::string> d_tags;\n\npublic:\n  explicit TraceC(std::ostream* os) : d_os(os) {}\n\n  Cvc5ostream operator()() const\n  {\n    return Cvc5ostream(d_os);\n  }\n  Cvc5ostream operator()(const std::string& tag) const\n  {\n    if (isOn(tag)) {\n      return Cvc5ostream(d_os);\n    } else {\n      return Cvc5ostream();\n    }\n  }\n\n  bool on(const std::string& tag)\n  {\n    d_tags.emplace_back(tag);\n    return true;\n  }\n  bool off(const std::string& tag)\n  {\n    auto it = std::find(d_tags.begin(), d_tags.end(), tag);\n    if (it != d_tags.end())\n    {\n      *it = d_tags.back();\n      d_tags.pop_back();\n    }\n    return false;\n  }\n\n  bool isOn(const std::string& tag) const\n  {\n    // This is faster than using std::set::find() or sorting the vector and\n    // using std::lower_bound.\n    return !d_tags.empty() && std::find(d_tags.begin(), d_tags.end(), tag) != d_tags.end();\n  }\n\n  std::ostream& setStream(std::ostream* os) { d_os = os; return *d_os; }\n  std::ostream& getStream() const { return *d_os; }\n  std::ostream* getStreamPointer() const { return d_os; }\n"
+    },
+    {
+      "first": 184,
+      "label": "verbosity warning gate",
+      "last": 200,
+      "source": "src/smt/env.cpp",
+      "text": "bool Env::isVerboseOn(int64_t level) const\n{\n  return !Configuration::isMuzzledBuild() && d_options.base.verbosity >= level;\n}\n\nstd::ostream& Env::verbose(int64_t level) const\n{\n  if (isVerboseOn(level))\n  {\n    return *d_options.base.err;\n  }\n  return cvc5::internal::null_os;\n}\n\nstd::ostream& Env::warning() const\n{\n  return verbose(0);"
+    },
+    {
+      "first": 84,
+      "label": "EnvObj warning gate",
+      "last": 94,
+      "source": "src/smt/env_obj.cpp",
+      "text": "bool EnvObj::isVerboseOn(int64_t level) const\n{\n  return d_env.isVerboseOn(level);\n}\n\nstd::ostream& EnvObj::verbose(int64_t level) const\n{\n  return d_env.verbose(level);\n}\n\nstd::ostream& EnvObj::warning() const { return verbose(0); }"
+    },
+    {
+      "first": 543,
+      "label": "quiet alternative recurrent warning",
+      "last": 550,
+      "source": "src/theory/arith/theory_arith.cpp",
+      "text": "  for (const auto& p : d_arithModelCacheIllTyped)\n  {\n    Trace(\"arith-check\") << p.first << \" -> \" << p.second << std::endl;\n    Assert(p.first.getType().isInteger() && !p.second.getType().isInteger());\n    warning() << \"TheoryArithPrivate generated a bad model value for \"\n                 \"integer variable \"\n              << p.first << \" : \" << p.second << std::endl;\n    // must branch and bound"
+    }
+  ]
+}

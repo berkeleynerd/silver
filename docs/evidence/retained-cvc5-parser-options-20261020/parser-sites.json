@@ -1,0 +1,903 @@
+{
+  "constants": {
+    "attribute_complete_fixed_excluding_filename_bytes": 99,
+    "attribute_fixed_payload_bytes": 74,
+    "direct_message_fixed_allowance": 256,
+    "direct_message_raw_token_factor": 2,
+    "direct_message_rendered_operand_factor": 3,
+    "fresh_binder_complete_fixed_bytes": 173,
+    "fresh_binder_fixed_payload_bytes": 172,
+    "located_warning_uint32_prefix_and_lf_bytes": 25,
+    "max_valid_token_name_bytes": 29,
+    "normal_result_pair_reused_allowance": 84,
+    "ordinary_statistics_fixed_bytes": 1103886,
+    "parser_wrapper_reused_allowance": 68
+  },
+  "lexical_diagnostic_sites": [
+    {
+      "line": 42,
+      "source": "src/parser/lexer.cpp",
+      "text": "void Lexer::warning(const std::string& msg)"
+    },
+    {
+      "line": 44,
+      "source": "src/parser/lexer.cpp",
+      "text": "  Warning() << d_inputName << ':' << d_span.d_start.d_line << '.'"
+    },
+    {
+      "line": 48,
+      "source": "src/parser/lexer.cpp",
+      "text": "void Lexer::parseError(const std::string& msg, bool eofException)"
+    },
+    {
+      "line": 111,
+      "source": "src/parser/lexer.cpp",
+      "text": "void Lexer::unexpectedTokenError(Token t, const std::string& info)"
+    },
+    {
+      "line": 118,
+      "source": "src/parser/lexer.cpp",
+      "text": "  parseError(o.str(), t == Token::EOF_TOK);"
+    },
+    {
+      "line": 128,
+      "source": "src/parser/lexer.cpp",
+      "text": "    unexpectedTokenError(tt, o.str());"
+    },
+    {
+      "line": 143,
+      "source": "src/parser/lexer.cpp",
+      "text": "    unexpectedTokenError(tt, o.str());"
+    },
+    {
+      "line": 86,
+      "source": "src/parser/lexer.h",
+      "text": "  void warning(const std::string&);"
+    },
+    {
+      "line": 88,
+      "source": "src/parser/lexer.h",
+      "text": "  void parseError(const std::string&, bool eofException = false);"
+    },
+    {
+      "line": 90,
+      "source": "src/parser/lexer.h",
+      "text": "  void unexpectedTokenError(Token t, const std::string& info);"
+    },
+    {
+      "line": 60,
+      "source": "src/parser/parser.cpp",
+      "text": "void Parser::warning(const std::string& msg) { d_lex->warning(msg); }"
+    },
+    {
+      "line": 62,
+      "source": "src/parser/parser.cpp",
+      "text": "void Parser::parseError(const std::string& msg) { d_lex->parseError(msg); }"
+    },
+    {
+      "line": 66,
+      "source": "src/parser/parser.cpp",
+      "text": "  d_lex->parseError(msg, true);"
+    },
+    {
+      "line": 86,
+      "source": "src/parser/parser.cpp",
+      "text": "    parseError(e.what());"
+    },
+    {
+      "line": 111,
+      "source": "src/parser/parser.cpp",
+      "text": "      parseError(e.what());"
+    },
+    {
+      "line": 84,
+      "source": "src/parser/parser.h",
+      "text": "  void warning(const std::string& msg) override;"
+    },
+    {
+      "line": 86,
+      "source": "src/parser/parser.h",
+      "text": "  void parseError(const std::string& msg) override;"
+    },
+    {
+      "line": 82,
+      "source": "src/parser/parser_state.cpp",
+      "text": "        parseError(\"Cannot get overloaded constant for type ascription.\");"
+    },
+    {
+      "line": 87,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      parseError(\"Overloaded constants must be type cast.\");"
+    },
+    {
+      "line": 267,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      Warning() << \"Constructing a fresh variable for \" << i.first"
+    },
+    {
+      "line": 300,
+      "source": "src/parser/parser_state.cpp",
+      "text": "    parseError(ss.str());"
+    },
+    {
+      "line": 520,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 526,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 582,
+      "source": "src/parser/parser_state.cpp",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 599,
+      "source": "src/parser/parser_state.cpp",
+      "text": "    parseError(ss.str());"
+    },
+    {
+      "line": 631,
+      "source": "src/parser/parser_state.cpp",
+      "text": "        parseError(\"Symbol '\" + varName + \"' not declared as a \""
+    },
+    {
+      "line": 640,
+      "source": "src/parser/parser_state.cpp",
+      "text": "        parseError(\"Symbol '\" + varName + \"' previously declared as a \""
+    },
+    {
+      "line": 660,
+      "source": "src/parser/parser_state.cpp",
+      "text": "    parseError(ss.str());"
+    },
+    {
+      "line": 666,
+      "source": "src/parser/parser_state.cpp",
+      "text": "void ParserState::warning(const std::string& msg) { d_psc->warning(msg); }"
+    },
+    {
+      "line": 668,
+      "source": "src/parser/parser_state.cpp",
+      "text": "void ParserState::parseError(const std::string& msg) { d_psc->parseError(msg); }"
+    },
+    {
+      "line": 682,
+      "source": "src/parser/parser_state.cpp",
+      "text": "    warning(ss.str());"
+    },
+    {
+      "line": 739,
+      "source": "src/parser/parser_state.cpp",
+      "text": "    parseError(\"Expected a string delimited by quotes, got invalid string `\" + s"
+    },
+    {
+      "line": 60,
+      "source": "src/parser/parser_state.h",
+      "text": "  virtual void warning(const std::string& msg) = 0;"
+    },
+    {
+      "line": 62,
+      "source": "src/parser/parser_state.h",
+      "text": "  virtual void parseError(const std::string& msg) = 0;"
+    },
+    {
+      "line": 460,
+      "source": "src/parser/parser_state.h",
+      "text": "  void warning(const std::string& msg);"
+    },
+    {
+      "line": 462,
+      "source": "src/parser/parser_state.h",
+      "text": "  void parseError(const std::string& msg);"
+    },
+    {
+      "line": 485,
+      "source": "src/parser/parser_state.h",
+      "text": "    parseError(\"Unimplemented feature: \" + msg);"
+    },
+    {
+      "line": 183,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "        d_lex.parseError(\"Sygus does not support check-sat command.\");"
+    },
+    {
+      "line": 251,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "        d_lex.parseError(\"Empty list of datatypes\");"
+    },
+    {
+      "line": 321,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      d_state.warning(\"Oracles not supported via the text interface in this version\");"
+    },
+    {
+      "line": 357,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      d_state.warning(\"Sort parameters not supported in this version\");"
+    },
+    {
+      "line": 722,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "        d_lex.parseError("
+    },
+    {
+      "line": 761,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "        d_lex.parseError(\"Expected non-empty list of terms for get-value\");"
+    },
+    {
+      "line": 846,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "        d_state.warning(ss.str());"
+    },
+    {
+      "line": 895,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "        d_lex.parseError(\"Can only enable use-portfolio via the command line\");"
+    },
+    {
+      "line": 952,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      d_lex.parseError(\"Expected SMT-LIBv2 command\", true);"
+    },
+    {
+      "line": 955,
+      "source": "src/parser/smt2/smt2_cmd_parser.cpp",
+      "text": "      d_lex.unexpectedTokenError(tok, \"Expected SMT-LIBv2 command\");"
+    },
+    {
+      "line": 147,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error expected bit string\");"
+    },
+    {
+      "line": 155,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error expected hexadecimal string\");"
+    },
+    {
+      "line": 163,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error expected decimal for finite field value\");"
+    },
+    {
+      "line": 167,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error bad syntax for finite field value\");"
+    },
+    {
+      "line": 171,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error expected decimal for finite field size\");"
+    },
+    {
+      "line": 176,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "          parseError(\"Error finding token following #\");"
+    },
+    {
+      "line": 190,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "          parseError(\"Non-printable character in string literal\");"
+    },
+    {
+      "line": 210,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "        parseError(\"Error expected symbol following :\");"
+    },
+    {
+      "line": 229,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error expected decimal string following .\");"
+    },
+    {
+      "line": 239,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "            parseError(\"Error expected decimal string following .\");"
+    },
+    {
+      "line": 260,
+      "source": "src/parser/smt2/smt2_lexer.cpp",
+      "text": "  parseError(\"Error finding token\");"
+    },
+    {
+      "line": 383,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown block models mode `\") + mode + \"'\");"
+    },
+    {
+      "line": 413,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown learned literal type `\") + mode + \"'\");"
+    },
+    {
+      "line": 439,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown proof component `\") + pc + \"'\");"
+    },
+    {
+      "line": 465,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown find synth target `\") + fst + \"'\");"
+    },
+    {
+      "line": 506,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of numerals for +oo.\");"
+    },
+    {
+      "line": 514,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of numerals for -oo.\");"
+    },
+    {
+      "line": 522,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of numerals for NaN.\");"
+    },
+    {
+      "line": 530,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of numerals for +zero.\");"
+    },
+    {
+      "line": 538,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of numerals for -zero.\");"
+    },
+    {
+      "line": 549,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Unexpected number of numerals for bit-vector constant.\");"
+    },
+    {
+      "line": 557,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown indexed literal `\") + name + \"'\");"
+    },
+    {
+      "line": 570,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of indices for char\");"
+    },
+    {
+      "line": 574,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(std::string(\"Unexpected index for char: `\") + symbols[0]"
+    },
+    {
+      "line": 586,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Unexpected number of indices for fmf.card\");"
+    },
+    {
+      "line": 594,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown indexed literal `\") + name + \"'\");"
+    },
+    {
+      "line": 607,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Expected argument to tester/updater\");"
+    },
+    {
+      "line": 622,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Bad syntax for (_ is X), X must be a constructor.\");"
+    },
+    {
+      "line": 636,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Bad syntax for (_ update X), X must be a selector.\");"
+    },
+    {
+      "line": 650,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(ss.str());"
+    },
+    {
+      "line": 661,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown indexed function `\") + name + \"'\");"
+    },
+    {
+      "line": 672,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "  parseError(std::string(\"Unknown closure `\") + name + \"'\");"
+    },
+    {
+      "line": 735,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError("
+    },
+    {
+      "line": 747,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 762,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError(\"Only one set-logic is allowed.\");"
+    },
+    {
+      "line": 772,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      warning(\"Logics in sygus are assumed to contain quantifiers.\");"
+    },
+    {
+      "line": 773,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      warning(\"Omit QF_ from the logic to avoid this warning.\");"
+    },
+    {
+      "line": 1067,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"set-logic must appear before this point.\");"
+    },
+    {
+      "line": 1079,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        warning(\"No set-logic command was given before this point.\");"
+    },
+    {
+      "line": 1080,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        warning(\"cvc5 will make all theories available.\");"
+    },
+    {
+      "line": 1081,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        warning("
+    },
+    {
+      "line": 1084,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        warning(\"To suppress this warning in the future use (set-logic ALL).\");"
+    },
+    {
+      "line": 1108,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseErrorLogic(\"Free sort symbols not allowed in \");"
+    },
+    {
+      "line": 1116,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError("
+    },
+    {
+      "line": 1174,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(ss.str());"
+    },
+    {
+      "line": 1184,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 1200,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError("
+    },
+    {
+      "line": 1274,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(ss.str());"
+    },
+    {
+      "line": 1281,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(ss.str());"
+    },
+    {
+      "line": 1309,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"wrong number of indices for tuple select or update\");"
+    },
+    {
+      "line": 1314,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"wrong number of arguments for tuple select or update\");"
+    },
+    {
+      "line": 1319,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"tuple select or update applied to non-tuple\");"
+    },
+    {
+      "line": 1327,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(ss.str());"
+    },
+    {
+      "line": 1408,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"nullable.some requires exactly one argument.\");"
+    },
+    {
+      "line": 1414,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(ss.str());"
+    },
+    {
+      "line": 1425,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"nullable.val requires exactly one argument.\");"
+    },
+    {
+      "line": 1431,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(ss.str());"
+    },
+    {
+      "line": 1442,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"nullable.is_null requires exactly one argument.\");"
+    },
+    {
+      "line": 1450,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(\"nullable.is_some requires exactly one argument.\");"
+    },
+    {
+      "line": 1456,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError(ss.str());"
+    },
+    {
+      "line": 1493,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError("
+    },
+    {
+      "line": 1511,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"Too many arguments to array constant.\");"
+    },
+    {
+      "line": 1523,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(ss.str());"
+    },
+    {
+      "line": 1532,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(ss.str());"
+    },
+    {
+      "line": 1541,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Could not process internal parsed operator\");"
+    },
+    {
+      "line": 1557,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 1575,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "            parseError("
+    },
+    {
+      "line": 1644,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "            parseError(ss.str());"
+    },
+    {
+      "line": 1667,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "        parseError(\"expected 3 arguments to 'fp', got \""
+    },
+    {
+      "line": 1717,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "          parseError("
+    },
+    {
+      "line": 1735,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError(\"do not know how to process parse op\");"
+    },
+    {
+      "line": 1749,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError("
+    },
+    {
+      "line": 1759,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal array type.\");"
+    },
+    {
+      "line": 1767,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal set type.\");"
+    },
+    {
+      "line": 1775,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal bag type.\");"
+    },
+    {
+      "line": 1784,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal sequence type.\");"
+    },
+    {
+      "line": 1796,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal nullable type.\");"
+    },
+    {
+      "line": 1814,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Arrow types must have at least 2 arguments\");"
+    },
+    {
+      "line": 1836,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal bitvector type.\");"
+    },
+    {
+      "line": 1841,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal bitvector size: 0\");"
+    },
+    {
+      "line": 1849,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal finite field type.\");"
+    },
+    {
+      "line": 1857,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal floating-point type.\");"
+    },
+    {
+      "line": 1863,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal floating-point exponent size\");"
+    },
+    {
+      "line": 1867,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError(\"Illegal floating-point significand size\");"
+    },
+    {
+      "line": 1875,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError(ss.str());"
+    },
+    {
+      "line": 1893,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError("
+    },
+    {
+      "line": 1915,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "      parseError("
+    },
+    {
+      "line": 1936,
+      "source": "src/parser/smt2/smt2_state.cpp",
+      "text": "    parseError("
+    },
+    {
+      "line": 289,
+      "source": "src/parser/smt2/smt2_state.h",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 295,
+      "source": "src/parser/smt2/smt2_state.h",
+      "text": "      parseError(ss.str());"
+    },
+    {
+      "line": 347,
+      "source": "src/parser/smt2/smt2_state.h",
+      "text": "  inline void parseErrorLogic(const std::string& msg)"
+    },
+    {
+      "line": 350,
+      "source": "src/parser/smt2/smt2_state.h",
+      "text": "    parseError(withLogic);"
+    },
+    {
+      "line": 136,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "              d_lex.parseError(\"Unexpected qualified identifier\");"
+    },
+    {
+      "line": 147,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "              d_lex.parseError(\"Unexpected indexed symbol\");"
+    },
+    {
+      "line": 173,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "                d_lex.unexpectedTokenError("
+    },
+    {
+      "line": 214,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "                d_lex.parseError(\"Expected non-empty sorted variable list\");"
+    },
+    {
+      "line": 238,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "            d_lex.parseError(\"Expected SMT-LIBv2 operator\", true);"
+    },
+    {
+      "line": 241,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "            d_lex.unexpectedTokenError(tok, \"Expected SMT-LIBv2 operator\");"
+    },
+    {
+      "line": 253,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "          d_lex.unexpectedTokenError("
+    },
+    {
+      "line": 279,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.parseError(\"Expected SMT-LIBv2 term\", true);"
+    },
+    {
+      "line": 330,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.unexpectedTokenError(tok, \"Expected SMT-LIBv2 term\");"
+    },
+    {
+      "line": 420,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "            d_lex.parseError(\"Cannot match on non-datatype term.\");"
+    },
+    {
+      "line": 500,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "            d_lex.parseError("
+    },
+    {
+      "line": 614,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "                  d_lex.parseError("
+    },
+    {
+      "line": 662,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "                d_lex.parseError("
+    },
+    {
+      "line": 722,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "          d_lex.unexpectedTokenError("
+    },
+    {
+      "line": 732,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.parseError(\"Expected SMT-LIBv2 s-expression\");"
+    },
+    {
+      "line": 798,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "            d_lex.unexpectedTokenError(tok,"
+    },
+    {
+      "line": 809,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "          d_lex.unexpectedTokenError("
+    },
+    {
+      "line": 828,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.unexpectedTokenError(tok, \"Expected SMT-LIBv2 sort\");"
+    },
+    {
+      "line": 948,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(sse.str().c_str());"
+    },
+    {
+      "line": 956,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(sse.str().c_str());"
+    },
+    {
+      "line": 1044,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(\"Numerals with leading zeroes are forbidden\");"
+    },
+    {
+      "line": 1049,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "    d_lex.parseError(\"Negative numerals are forbidden in indices\");"
+    },
+    {
+      "line": 1071,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(\"Expected SMT-LIBv2 symbol\", true);"
+    },
+    {
+      "line": 1074,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.unexpectedTokenError(tok, \"Expected SMT-LIBv2 symbol\");"
+    },
+    {
+      "line": 1129,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(\"Too many datatypes defined in this block.\");"
+    },
+    {
+      "line": 1141,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.parseError(\"Expected non-empty parameter list\");"
+    },
+    {
+      "line": 1167,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(\"Wrong number of parameters for datatype.\");"
+    },
+    {
+      "line": 1180,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "    d_lex.unexpectedTokenError(tok, \"Wrong number of datatypes provided.\");"
+    },
+    {
+      "line": 1232,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError("
+    },
+    {
+      "line": 1285,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.unexpectedTokenError("
+    },
+    {
+      "line": 1293,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "    d_lex.parseError(std::string(\"No indices provided for symbol \" + name));"
+    },
+    {
+      "line": 1331,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(std::string(\"Unexpected indexed symbol \" + name));"
+    },
+    {
+      "line": 1335,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(std::string(\"Unexpected number of indices for \" + name));"
+    },
+    {
+      "line": 1357,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "          d_lex.unexpectedTokenError(tok,"
+    },
+    {
+      "line": 1366,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.parseError(\"Expected identifier while parsing qualified identifier\","
+    },
+    {
+      "line": 1370,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_lex.unexpectedTokenError("
+    },
+    {
+      "line": 1396,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "        d_lex.parseError("
+    },
+    {
+      "line": 1427,
+      "source": "src/parser/smt2/smt2_term_parser.cpp",
+      "text": "      d_state.parseError(\"Too many arguments for pattern.\");"
+    }
+  ]
+}
