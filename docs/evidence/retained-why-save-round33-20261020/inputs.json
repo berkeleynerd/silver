@@ -1,0 +1,10 @@
+{
+  "base": "2cb11d8b5dcb7146694103616d1abea13ab8808d",
+  "review_target": "2a202a040729f73ce30f6da5ca8cc8dd57bea7fc",
+  "freezes": {
+    "format_accumulator": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+    "file_channel": "27a7786b9c8831169dc681d26663eaddb398f988",
+    "path_lookup": "8b799eeeca536aefa18d16c600b493145a9b8965"
+  },
+  "clarifications": []
+}

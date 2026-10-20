@@ -1,0 +1,348 @@
+{
+  "review_target": "2a202a040729f73ce30f6da5ca8cc8dd57bea7fc",
+  "author_files": [
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/README.md",
+      "bytes": 1504,
+      "sha256": "dfcaa15aeddea640f4f9f8548797e68dc011c203533413ac5ec6c43aee203950"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/check.py",
+      "bytes": 12727,
+      "sha256": "1bca4f51277e48d3280c04112951d4837c065e562572d122a69ac814373d318d"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/inputs.json",
+      "bytes": 1749,
+      "sha256": "2e09f0ceb96a07b13330f98662e03d09880df25b2c0a2451a643e954684f244f"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/native-bodies.json",
+      "bytes": 141248,
+      "sha256": "055fef93893248999db77ccef44a8ddcc89d7d99d321bb8a002037012cb814d6"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/native-witnesses.json",
+      "bytes": 597,
+      "sha256": "0fda3082d21f065174ac1f5ea09bf80bc9dc683bb5932223f3677fa24519989a"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/result.json",
+      "bytes": 29716,
+      "sha256": "25a1ab4bbe4892c4bd9ce6e0c9f82b6379d3b200c81c5d1122fa87af70323ecd"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/round.json",
+      "bytes": 3430,
+      "sha256": "d77c54f0289917e3b81252075b5dedc975a4a89cbc783419fb9add8a090aef24"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/source-witnesses.json",
+      "bytes": 47285,
+      "sha256": "66fcf3f50f50a76e8efea27b223739510ccd98b01cb0266ded5442b76282aa98"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/template-census.json",
+      "bytes": 19015,
+      "sha256": "f4598c93f2d05ee6e4e2d09e0a9ff30d5a4fa0d594e297d59af76b208511c744"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/evidence/retained-why-save-format-accumulator-20261020/transfer.py",
+      "bytes": 3693,
+      "sha256": "9374a2401a01b5f0f581f89d03d71362a844b3f02d42ab9e6f716f0a37e7037f"
+    },
+    {
+      "component": "format_accumulator",
+      "author_freeze": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "checked_revision": "5ab8c5a72bea169b13d2a8fc1b6adb451fd5fd1e",
+      "path": "docs/research/retained-why-save-format-accumulator.md",
+      "bytes": 16436,
+      "sha256": "b84c27e3d63bc2e753f145b865f7c517314832ab9fdc917ef7450aeefc2145dd"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/README.md",
+      "bytes": 1650,
+      "sha256": "ab7f9462a8bd33b6538d4389c4f4c276353a66e79cab82a2875cb96469c1c501"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/check-result.json",
+      "bytes": 388,
+      "sha256": "12ef92402d7ae96db3134d0a842edc75a92043bb10411d894145ef9262e9d80b"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/check.py",
+      "bytes": 6566,
+      "sha256": "f80ddd15b0d1c52dc7725410f9043838c25dea54213233393efb0f8b5576f983"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/inputs.json",
+      "bytes": 2855,
+      "sha256": "87d8406a4501b363539a9163ba1ab70f34a751a201781ac7c9f421a6e03f1da5"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/native-bodies.json",
+      "bytes": 44348,
+      "sha256": "881531910a1da1d2313a2663eb6abbc9dca2b1e1d44e8c85247bf4dfd89d1295"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/native-witnesses.json",
+      "bytes": 1353,
+      "sha256": "2f3b2d822c51cf26b3bcd605e5d44df119a93a10c446e47db7421e356cc3c949"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/result.json",
+      "bytes": 35971,
+      "sha256": "7e78aff05c4f2bb744dd0577ee6dbd5040ffea459b9d67ab7cc5cc436652167e"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/source-witnesses.json",
+      "bytes": 35961,
+      "sha256": "3e7bd47f0d47027f4117db1e40ff56139eb264e258fc60934ccfbb23dd76baa0"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/evidence/retained-why-save-file-capacity-20261020/transfer.py",
+      "bytes": 3718,
+      "sha256": "fe676a60b0929ceee6f119752184b3ae70b14ea1f212f481f3bcd72ad8bd316e"
+    },
+    {
+      "component": "file_channel",
+      "author_freeze": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "checked_revision": "27a7786b9c8831169dc681d26663eaddb398f988",
+      "path": "docs/research/retained-why-save-file-capacity.md",
+      "bytes": 11395,
+      "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/README.md",
+      "bytes": 2031,
+      "sha256": "c0d7cc4840fbba983f2cf9a92b91257b9171c07e81a8e94ac4f215272ebc4c8c"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/check.py",
+      "bytes": 13315,
+      "sha256": "792a95316913598ca08caed3c8a353092d2a7133f9f2ff455506a52bd4147019"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/initial-topology.json",
+      "bytes": 25179,
+      "sha256": "27c6a4fbf5e10cedba101a3788ff43f6159d46f116ffb11388dcdef1cc88963f"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/inputs.json",
+      "bytes": 4378,
+      "sha256": "5e200e919046c3bf9fd2f3907dc1eaf275a8164ae9f4c16c97d71b5e645197c8"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/native-bodies.json",
+      "bytes": 81728,
+      "sha256": "262401a647314ebbc1a96f266c055ef9f20176db8df5ff90b833632fa922696c"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/native-witnesses.json",
+      "bytes": 1871,
+      "sha256": "8295cd57883919f5a8a998b99f3b24cf21ecd7cd3f29a3a954cba4235d11ff55"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/result.json",
+      "bytes": 23176,
+      "sha256": "a649650a8dccb9025d38556d869611aa4a9f0063962ec1046705adc01e184c8e"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/round.json",
+      "bytes": 3426,
+      "sha256": "a8cb3d5ce30fda31aabb245209185d94c9e969b32403c74fd532fa7e61c294a3"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/source-witnesses.json",
+      "bytes": 23758,
+      "sha256": "d2a46aa5c7ad2967622164fa738167b500ebaeac87ecfffb4620ab4cb08754e9"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/evidence/retained-why-path-lookup-capacity-20261020/transfer.py",
+      "bytes": 3423,
+      "sha256": "ed22f94be374978c9cdc6ef3397f97fb32e128f123b360921472145b73a2d5eb"
+    },
+    {
+      "component": "path_lookup",
+      "author_freeze": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "checked_revision": "8b799eeeca536aefa18d16c600b493145a9b8965",
+      "path": "docs/research/retained-why-path-lookup-capacity.md",
+      "bytes": 13193,
+      "sha256": "c6ee31fb0671dee4eedd1de856973340eb64a66704309154d1b891a7ba041e1e"
+    }
+  ],
+  "review_clarified_files": {},
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/check.py",
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/transfer.py",
+    "docs/evidence/retained-why-save-file-capacity-20261020/check.py",
+    "docs/evidence/retained-why-save-file-capacity-20261020/transfer.py",
+    "docs/evidence/retained-why-save-format-accumulator-20261020/check.py",
+    "docs/evidence/retained-why-save-format-accumulator-20261020/transfer.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-path-lookup-capacity-20261020/README.md",
+      "target": "../../research/retained-why-path-lookup-capacity.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-file-capacity-20261020/README.md",
+      "target": "../../research/retained-why-save-file-capacity.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-format-accumulator-20261020/README.md",
+      "target": "../../research/retained-why-save-format-accumulator.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-lookup-capacity.md",
+      "target": "../evidence/retained-why-path-lookup-capacity-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-lookup-capacity.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-lookup-capacity.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-file-capacity.md",
+      "target": "retained-why-save-state-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-file-capacity.md",
+      "target": "retained-literal-native-materialization.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-file-capacity.md",
+      "target": "retained-why-save-path-input-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-file-capacity.md",
+      "target": "retained-why-save-operational-bounds.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-file-capacity.md",
+      "target": "../evidence/retained-why-save-file-capacity-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-accumulator.md",
+      "target": "../evidence/retained-why-save-format-accumulator-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-accumulator.md",
+      "target": "retained-why-save-scalar-format.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-accumulator.md",
+      "target": "retained-why-save-operational-bounds.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-accumulator.md",
+      "target": "retained-why-save-path-input-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-accumulator.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-accumulator.md",
+      "target": "retained-why-save-formatter-ownership.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}
