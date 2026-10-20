@@ -3868,3 +3868,135 @@ fixed-library/current-grammar coverage, whole-rule correspondence/decidability,
 useful-domain comparison and final independent review remain parent obligations.
 The subjective estimate remains **80–85%, about 82%**, not a time/token forecast.
 There is no goal pause/completion, new owner decision or CLI-memory update.
+
+## Round 38 — selected save caller-stack composition
+
+2026-10-20 UTC, Linux x86_64. The previous status-only goal turn was **no
+progress**; this continuation integrated and independently reviewed the completed
+source-owned save caller-stack components. The goal remains active. Managed
+status showed zero active runs, zero reserved workers and no required diagnostic
+checkpoint. No new native run was needed for this round.
+
+### Completed result and exact inputs
+
+The [selected save caller-stack join](../research/retained-why-save-owned-stack-join.md)
+replaces the former incomplete save-entry projections with `P=S+T+G+F` once
+per active save. S owns serializer, Shape and private printer callers; T owns
+Task selection; G owns recursive explanation/public binder openings and includes
+collect/concat X; F owns all selected simultaneous private Format, decoded-name
+and constant instances. Exact reciprocal interfaces attach all 24 F printer
+callbacks plus Shape.check to S. Public binder calls include the actual
+tuplify3/4 entries; optional table randomization includes Lazy/Random and failure
+thunks rather than assuming the flag false.
+
+| Component | Author freeze | Integrated commit |
+| --- | --- | --- |
+| Private printer control | `631cfc8acbb397f91d1ac67d2a005194055fe756` | `2a033585c7` |
+| Signal-setter projection | `76197eee3dc69d30428ef1e79b29baccb618b92c` | same |
+| Binder/private formatter stack | `562b9a1d8d18da46e9017c9d49c097d1d9bf64f5` | `825412d96b` |
+| Serializer/Shape/printer stack | `8591cb77ed5a39fda7be0a2d349ebafa1383b076` | `7cede60424` |
+| Exit initial values | `b4c50e2da9a5492316b11711e4ee80a2a01156cf` | same |
+| Selected caller-stack join | `14ba1434a863e37cf4d346914d408b3cb2c0a57e` | same |
+
+The five per-save P bounds are **223,280,056 / 192,863,424 / 81,319,848 /
+46,723,888 / 48,696,440 bytes**, in Put_Line / Put / First_Or_Default /
+Is_Message / Input_Is_Valid order. The existing whole-post-cut allowance gives
+`K_save(r,e)=r*(P+4104)+e*816`, with global r≤3/e≤2. At the maxima the selected
+save-phase projections are **669,854,112 / 578,604,216 / 243,973,488 /
+140,185,608 / 146,103,264 bytes**. These deliberately loose frame bounds are
+not observed stack usage or physical adequacy. Ambient preparation A_pre,
+runtime-service interiors R, setters/exit/global formatters and failure
+diagnostics remain separate. Complete save stack/capacity stays null/false.
+
+The [printer control](../research/retained-why-save-printer-control.md) closes
+the outstanding private-table interrupted-mutation argument. The first trapped
+replacement updates an existing key; insertion/resize occurs outside the miss
+catch and a failure abandons its owner. The private ShapeTooLong producer and
+nearest catches preserve the selected finite tables. Prior candidate, decoded
+name and allocation bounds do not change.
+
+The [signal-setter packet](../research/retained-why-save-signal-setter-capacity.md)
+attaches the portable/native signals and actual POSIX table: six setter entries,
+96 direct normal wrapper-request bytes and a 5,720-byte setter-phase caller
+projection under the continuing successful mask/ignore/native-frame protocol.
+Its 48-byte trapped handler replaces the saving phase's 32-byte handler.
+Arbitrary failed pre-commit retries and complete handler/exit demand are not
+covered; the original save-entering callback bound is not silently broadened.
+
+The [exit initial-value projection](../research/retained-why-exit-initial-values.md)
+extracts existing evidence: initial timing tables have 3/3/3/3/4 entries, all
+counts one, 64 backing slots, maximum key lengths 43/43/43/43/57 bytes. All five
+Debug formatter records supply the same twelve scalar values. GNAT's selected
+destination is its escape Buffer formatter, not Debug's earlier stderr default.
+Neither of the two named raw logs contains the first byte of any of the sixteen
+immediate formatter pointer targets. This does not infer freshness, queue
+contents, Buffer size or output-wrapper depth from scalar defaults. Standard
+stdout/stderr formatter state and later timing growth remain open.
+
+### Reviews, checks and cost
+
+No material defect or required repair remained in these reviewed scopes:
+
+- [Printer control review](../reviews/review-save-printer-control-20261020.md),
+  author `99c33fc0ac`, integrated `b9cd46dc0e`: focused check **0.398429 seconds**,
+  five cases, 18 source ranges, four exception references, 21 bodies / 6,528
+  bytes and 11 control facts. Observed review interval 276 seconds.
+- [Setter review](../reviews/review-save-signal-setter-capacity-20261020.md),
+  author `26f59aab25`, integrated `b4ac81d07f`: focused check **0.317240444
+  seconds**, five source excerpts, actual signal-table data, six bodies /
+  1,020 bytes. Observed semantic review interval 135 seconds.
+- [Combined stack review](../reviews/review-save-stack-round38-20261020.md),
+  author `8bc67d0878`, integrated `fb257fe980`, final target `14ba1434a8`:
+  binder/private formatter check **2.470256234 seconds**, 210 bodies / 51,430
+  bytes; serializer check **2.864876677 seconds**, 47 source excerpts, 220 bodies
+  / 35,960 bytes, 61 application and 87 indirect sites. Each provider ran once.
+  The binder checker regenerates outputs; empty Git status/diff afterward
+  confirmed exact frozen bytes. Root composition received separate identity/
+  arithmetic inspection without provider replay. Observed review interval
+  398 seconds. Counts overlap and are not a sum of unique native bodies.
+- [Initial-value review](../reviews/review-exit-initial-values-20261020.md),
+  author `993cd33b93`, integrated `ab7e43d495`: focused checker **27.356130823
+  seconds**, all five projections; independent source field order and raw
+  scalar/float interpretation agreed. Its observed verification interval was
+  78 seconds, excluding setup/reporting. Author extraction took
+  **26.796356641 seconds**; it is not a new capture or collector replay.
+- [Integration reconciliation](retained-why-save-round38-20261020/README.md)
+  checked **64 frozen files (60 author files, four reports), 94 unchanged native
+  pins, five joined cases, ten Python parses and 35 local links** in
+  **0.459568455 seconds**. It recomputes the join from exact frozen provider
+  results without rerunning their checkers.
+
+The two stack authors, printer author and critical reviews were selected
+**GPT-6 Astra / Extra High**. The directly checkable initial-value review was
+selected **GPT-6.1 Sol / Extra High**. Live lead model/effort and runtime-confirmed
+settings remain unavailable. The partial observed aggregate interval
+**40,716,476 → 42,780,586 tokens** and **42,529 → 44,328 time-counter seconds**
+gives deltas **2,064,110 / 1,799**. It excludes earlier author work and later
+publication, and overlaps follow-on exit-format/timing tasks. It is not isolated
+round, per-agent, input/output or monetary accounting. Both reviewer tiers
+returned accepted bounded work; that observation does not establish a causal
+model-quality or efficiency comparison. The integration closed actual caller
+obligations instead of expanding reviewer count or repeating broad validation.
+
+No target execution, fresh capture/disassembly, source fetch, native audit,
+solver/Lean run, full suite or predecessor checker replay occurred. The
+successful frozen evidence remains retained. There was no Oracle, installed
+tool/pin, production source or admission change.
+
+### Remaining work and next action
+
+The next bounded tasks extend the selected timing format to `%f` and the bare
+box annotation, and bound later Stats update/key/counter growth. They must not
+transfer private formatter assumptions to globals. Attach or derive global
+Debug/stdout/stderr queue, Buffer, output/tag/tab and wrapper state before
+claiming their capacity; first identify the exact missing evidence rather than
+repeating a broad capture. Then close non-save phases, diagnostics, exposed
+counters and ambient/service requirements into complete save capacity.
+
+#119/#153 remain In progress and incomplete; #155 is technically complete and
+In review. Later driver/printer/solver/server/report paths, fixed-library and
+current-grammar coverage, whole-rule correspondence/decidability, useful-domain
+comparison and final independent review remain required. The subjective
+estimate stays **80–85%, about 82%**, not a time/token forecast. Production
+#88–#94 remains unstarted; PR #121 stays draft/unmerged. No goal pause/completion
+or CLI-memory update occurred.

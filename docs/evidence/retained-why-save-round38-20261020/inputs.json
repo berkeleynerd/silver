@@ -1,0 +1,18 @@
+{
+  "base": "455f2ae3e9569b275f6e1044ed9a27f512a36ecb",
+  "review_target": "fb257fe980db8522bd48483cc9779760678e42b3",
+  "author_freezes": {
+    "printer_control": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+    "signal_setter": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+    "binder_formatter_stack": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+    "serializer_stack": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+    "exit_initial_values": "b4c50e2da9a5492316b11711e4ee80a2a01156cf",
+    "save_stack_join": "14ba1434a863e37cf4d346914d408b3cb2c0a57e"
+  },
+  "review_freezes": {
+    "printer_control": "99c33fc0ace306a663fcb3358c08e2910e5cd8c5",
+    "signal_setter": "26f59aab255b9008d827079fd39f0859bbe536ad",
+    "exit_initial_values": "993cd33b9393b35bc8210b38d98d764c43e0a724",
+    "save_stack": "8bc67d0878ad115f4f530d7f97d1af18e7b10c77"
+  }
+}

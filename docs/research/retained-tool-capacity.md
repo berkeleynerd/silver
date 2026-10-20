@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 37 checkpoint](../evidence/retained-tool-rounds.md#round-37--shape-builder-allocation-and-channel-bounds)
+The [Round 38 checkpoint](../evidence/retained-tool-rounds.md#round-38--selected-save-caller-stack-composition)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -96,21 +96,32 @@ are evaluated without claiming complete allocation or whole-stack capacity.
 [structural subtotal](retained-why-save-structural-allocation.md) now composes
 with Round 37's [six shape-builder allocation bounds](retained-why-save-shape-builder-allocation.md).
 All six formerly byte-null families have direct-request accounting; failed-service
-paths, printer control and physical sufficiency remain distinct. The
+paths and physical sufficiency remain distinct. Round 38's reviewed
+[printer control](retained-why-save-printer-control.md) supplies the private
+table interrupted-mutation/lifetime argument. The
 [binder result](retained-why-save-stack-composition.md) preserves variable-only
 substitutions and bounds deferred maps. The
 [new helper closure](retained-why-save-stack-helper-closure.md) closes three Task
 and two explanation-helper roots, adds the 816-byte active-save dispatch shell
-and 4,104-byte bridge high-water allowance. Recursive binder/explanation,
-formatter/serializer and setter/exit instances still need integration; ambient
-preparation and trusted-service demand remain separate.
+and 4,104-byte bridge high-water allowance. The reviewed
+[save caller-stack join](retained-why-save-owned-stack-join.md) now composes
+S/T/G/F once per active save, including recursive binder/explanation and all
+selected private formatter/serializer descendants. Its global three-save,
+two-callback projection replaces the earlier incomplete save-entry projections.
+The [signal-setter result](retained-why-save-signal-setter-capacity.md) is a
+separate protocol-conditional phase. Ambient preparation, trusted-service
+interiors and non-save phases still need the total-stack join.
 The [channel/exit bound](retained-why-channel-exit-bound.md) composes the initial
 prefix charge with selected creator and exit roots: at most six global flush
 entries, bounded output-channel construction and safe refcount increments,
 including abandoned prefixes whose raise path dispatches a nested signal.
 It does not add positive-write behavior for global channels or prove their
-output extents/offsets. Private printer mutation/control, failure diagnostics,
-exposed counters, complete stack and whole-save composition remain.
+output extents/offsets. The reviewed
+[initial exit values](retained-why-exit-initial-values.md) attach timing-table
+entries and Debug formatter scalars to retained reads, while explicitly leaving
+queue/closure descendants and standard formatter state unattached. Subsequent
+timing growth, global formatter/output, failure diagnostics, exposed counters,
+complete stack and whole-save composition remain.
 Existing trusted allocator/GC/OS correctness applies to valid
 represented requests; this work does not require a proof of their entire
 implementation or permit a representation overflow under sufficient resources.

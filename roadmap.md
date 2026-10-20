@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 37 checkpoint](docs/evidence/retained-tool-rounds.md#round-37--shape-builder-allocation-and-channel-bounds)
+[Round 38 checkpoint](docs/evidence/retained-tool-rounds.md#round-38--selected-save-caller-stack-composition)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -102,15 +102,23 @@ left by the structural subtotal; cumulative requests do not establish live
 memory or physical sufficiency. The
 [variable-only binder argument](docs/research/retained-why-save-stack-composition.md)
 and [five helper closures](docs/research/retained-why-save-stack-helper-closure.md)
-bound additional actual call chains, including the signal-save shell and
-transient C/GC bridge probe. Recursive binder/explanation, formatter/serializer,
-setter/exit and ambient/service stack instances still need composition. The
+now join the reviewed binder/private-formatter and serializer components in the
+[selected save caller-stack composition](docs/research/retained-why-save-owned-stack-join.md).
+This replaces the incomplete save-entry projections with explicit S/T/G/F
+components and preserves the global three-save/two-callback budget. The
+[private-printer control](docs/research/retained-why-save-printer-control.md)
+and [signal-setter projection](docs/research/retained-why-save-signal-setter-capacity.md)
+are separately reviewed. Ambient preparation, service interiors and non-save
+phases remain outside the composed caller projection. The
 [channel/exit attachment](docs/research/retained-why-channel-exit-bound.md)
 bounds six global flush roots, later output-channel creation and per-channel
 refcounts, including abandoned allocation prefixes. It adds no global positive-write
-premise. Private printer interrupted-mutation control, global output/offset and
-diagnostic/failure capacity, exposed-counter and complete-save integration remain
-with #153. Trusted allocator/GC/OS correctness for valid requests remains at the
+premise. The [initial exit values](docs/research/retained-why-exit-initial-values.md)
+attach actual timing entries and Debug formatter scalars from the retained logs;
+queue/closure descendants and standard formatter state remain unattached.
+Later timing growth, global output/offset and diagnostic/failure capacity,
+exposed counters and complete-save integration remain with #153.
+Trusted allocator/GC/OS correctness for valid requests remains at the
 existing boundary; it does not
 replace those caller obligations. #153 remains In progress. Later driver
 transforms/printers, solver/server/report transfers and current-grammar

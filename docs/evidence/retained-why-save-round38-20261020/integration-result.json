@@ -1,0 +1,680 @@
+{
+  "review_target": "fb257fe980db8522bd48483cc9779760678e42b3",
+  "frozen_files": [
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/README.md",
+      "bytes": 1321,
+      "sha256": "8ab6dab261a98c7f5ff16ce2cfdfb3ff779ae1358fbb898d8af84e13f3fa4e89"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/check-result.json",
+      "bytes": 295,
+      "sha256": "6184587cb20af9d736ddcd85c9679f8f5b469540d7bde1755fd12190d0ae5902"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/check.py",
+      "bytes": 10596,
+      "sha256": "e8c6bcd45e09dd2fe55bb46524216bb72c7443af1625fed52991a6286afbe0f7"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/inputs.json",
+      "bytes": 2896,
+      "sha256": "e9d4e7640e04a0e0427e94b622a34661cde60d5d9a30f8873331d5ff8b2fefd0"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/native-bodies.json",
+      "bytes": 98227,
+      "sha256": "b9dc2f9d4b27b78b0d7af5e01fe62af478cb498a848a94f6545846ab336c8082"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/native-control-facts.json",
+      "bytes": 2674,
+      "sha256": "d571ea6a3753a645e2a56ab40d837d3594fee7a4b975fc6109e33997d38612c7"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/native-witnesses.json",
+      "bytes": 407,
+      "sha256": "cc0963c15021661a72a3ce0d906b5ff059e7313870ad4f24bc1697470c77a300"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/result.json",
+      "bytes": 21002,
+      "sha256": "892775e8f2a2076e2790ccd7dbb0a8bf8e32b4e2f85ef1bf2337e6eb8421c722"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/round.json",
+      "bytes": 3161,
+      "sha256": "c68c81076d60b3fcc46d831e8fa1e7c02021211880d0cd1bebddf6f011f2991a"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/shape-exception-origins.json",
+      "bytes": 1091,
+      "sha256": "0d329c39484fec75431da75724e6da0314e491cb96430fc528cb878e5f2092ae"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/source-witnesses.json",
+      "bytes": 29269,
+      "sha256": "526176c4d1eb477fe3636f91b8a778bfbe45c480aead91d31cc3e5d9a4d9d91c"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/evidence/retained-why-save-printer-control-20261020/transfer.py",
+      "bytes": 3134,
+      "sha256": "d27d8d119682df80449f93c1b48672f9931b835fca0da55871b45416fea07176"
+    },
+    {
+      "group": "author_freezes",
+      "component": "printer_control",
+      "freeze": "631cfc8acbb397f91d1ac67d2a005194055fe756",
+      "path": "docs/research/retained-why-save-printer-control.md",
+      "bytes": 15836,
+      "sha256": "ce8cf33b1f60634067c5f834d3580b91b18de29ab4b12fc367ad80a410f37e5d"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/README.md",
+      "bytes": 883,
+      "sha256": "3f2df9695fa5578b78b943ce9058e066533f9e64c636f5cba52ddc2d012a71c9"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/check.py",
+      "bytes": 5068,
+      "sha256": "387be0bca02a3eff26570016012eadd023973276815d7e65a46baf74c6f53c11"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/inputs.json",
+      "bytes": 2310,
+      "sha256": "1ca372e3449ab10eb24f6d4bf1fdf153d3d909207602cdf6f43148234541d6a6"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/native-bodies.json",
+      "bytes": 14970,
+      "sha256": "d66a0d83ae66e902b2ada16cdcef1ebdda9c223631ba6db878a1f869a55682ed"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/native-witnesses.json",
+      "bytes": 673,
+      "sha256": "eba31acaff20ad3adf8603052f33a6891f5c2f82956a1256d4245f16fe3badcb"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/result.json",
+      "bytes": 862,
+      "sha256": "a29f33c4975cffff71e422aca21765421c93eafff3509dc22fb5877efa695030"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/selected-closure.json",
+      "bytes": 1376,
+      "sha256": "a28e5424b80c85a4d56d3decc59c1215244db24f4820b278da0c2065560ab527"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/signal-data.json",
+      "bytes": 474,
+      "sha256": "d1f2c2d70b341f60783f5c00d1cd7252ab52f0c424ea47bd2421c03dad961af1"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/source-witnesses.json",
+      "bytes": 8481,
+      "sha256": "a81f2f1fb5e57818c982f44cbd7a486e3850d82202b2929e11645fe0dbb0631e"
+    },
+    {
+      "group": "author_freezes",
+      "component": "signal_setter",
+      "freeze": "76197eee3dc69d30428ef1e79b29baccb618b92c",
+      "path": "docs/research/retained-why-save-signal-setter-capacity.md",
+      "bytes": 7612,
+      "sha256": "5584779a811aa1cba3fab29f90c59b699a45b80531b34066afadd01ca3fda82a"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/README.md",
+      "bytes": 1286,
+      "sha256": "d0e5d164ad730bef9513fa75d249e460dfe44eddb8ad91078ddb7cbe6a9d22a9"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/call-closures.json",
+      "bytes": 70040,
+      "sha256": "a2e6b6b919714dbbef089c229052a87cca7c50cba52b921bcd34906c91a78cba"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/check.py",
+      "bytes": 16576,
+      "sha256": "38cace0aebbdb3a720b4b7ca52b02dc3d67736da2a10aabe28febdd99c73fc71"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-call-closures.json",
+      "bytes": 128941,
+      "sha256": "87ef0f19cef6709d7612ed00bb6a27d15d8abdc351c469ab6c7c7bbf5cc0079d"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json",
+      "bytes": 22277,
+      "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter.py",
+      "bytes": 4347,
+      "sha256": "b7bdcd64d59d4c6060b31daa183d1c2710a6b4a2e0c4ff4f76049c6f2c26e525"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/inputs.json",
+      "bytes": 2705,
+      "sha256": "35fc0bf5588250067cff95ef5335ae4d111c2d5721cf5daacb063a1040ca5271"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/multiplicities.json",
+      "bytes": 10001,
+      "sha256": "973810c2f826d2276eccc58022e2ba3b3a6eae9cae5737591b3e7e353f6e2664"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-bodies.json",
+      "bytes": 744826,
+      "sha256": "5c9a1327f83bc87aff8d0ddf27b47c67ef506dc1aa8757d8797dc6f6d39b5430"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-frames.json",
+      "bytes": 53223,
+      "sha256": "4ab202ae09ad9d70d6ff08cc07896817b5c97bad1503c2e78c661a5557812a9b"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json",
+      "bytes": 3380,
+      "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/round.json",
+      "bytes": 2274,
+      "sha256": "855933e63d641e0bce21e2e8340e3e5f57e420f7df6edd529a3d971f1bf297a7"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/source-witnesses.json",
+      "bytes": 104544,
+      "sha256": "4b8f08c4f30de4c92f25fc73284cdfbdc87bac124add204ce552d4d6a20941f9"
+    },
+    {
+      "group": "author_freezes",
+      "component": "binder_formatter_stack",
+      "freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+      "path": "docs/research/retained-why-save-binder-formatter-stack.md",
+      "bytes": 15448,
+      "sha256": "2aa76442f46c0f98165318b8980f16ae63507cd799cdcb64f562db9826c9dd18"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/README.md",
+      "bytes": 2105,
+      "sha256": "4a493e22c640fb86f40a5ac0e2c74bc692a90fe9db7a3c6baaecf40682a6d3a4"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/call-closures.json",
+      "bytes": 516514,
+      "sha256": "9dfc951adcc3aa6d470685534acf1a6ca1f7e8afa716bf8bb04f62c82b70f7be"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/check-result.json",
+      "bytes": 389,
+      "sha256": "849cf4036fb395f24e42ded0bcc4cb4e83215b2e9b413aec1f8f5b029b793fa3"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/check.py",
+      "bytes": 18391,
+      "sha256": "38607e28055d006229664dca9bcf67607925794ec1f53deedc7dffb9cd634262"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/import-interfaces.json",
+      "bytes": 724,
+      "sha256": "96e496532cebba6a7c40fb80c71236c2ef1dfad4625ff11c7e21d1c0903c9f2b"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/inputs.json",
+      "bytes": 3629,
+      "sha256": "d323b67c6fa145d160f7a4d2b52df55f14c6c5e630bc96d6abfdef2a38364e83"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/interfaces.py",
+      "bytes": 5615,
+      "sha256": "86d86508c828b126c0ac98e6ff55f0a06982aa9ad47b1c9afc2509d54a9ed79c"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/multiplicities.json",
+      "bytes": 9614,
+      "sha256": "26325fc3ba850c12df1af3166196b69cef1341773a2e98e759799b343207579c"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/native-bodies.json",
+      "bytes": 548085,
+      "sha256": "b59ea24f370ca643451215d672c3c9e7aa9816a997e17100202cea8936743951"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/native-frames.json",
+      "bytes": 69370,
+      "sha256": "8fdf5398a8b53e609773bbb08f5e65df3289dea636ad48999c4dd34f71c4fd9a"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/result.json",
+      "bytes": 165136,
+      "sha256": "c7cd34da4277247f509ff42450787c69f32586cab96922747da26e1f3655dcce"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/round.json",
+      "bytes": 3967,
+      "sha256": "b16a3e715953aca0015634ec8945dbecf6ed38fe6a203bcd52f99c2c7fc8bdfe"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/source-witnesses.json",
+      "bytes": 96099,
+      "sha256": "3df0a3d51c0e9f371bacd82f5844818a89ae6a750d050aea03b3074af3515a50"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/evidence/retained-why-save-serializer-stack-20261020/transfer.py",
+      "bytes": 2452,
+      "sha256": "11f38b6e2d22578589f530ca05f031e9d0a2241c79cd3687f0c4fd279548e90e"
+    },
+    {
+      "group": "author_freezes",
+      "component": "serializer_stack",
+      "freeze": "8591cb77ed5a39fda7be0a2d349ebafa1383b076",
+      "path": "docs/research/retained-why-save-serializer-stack.md",
+      "bytes": 15985,
+      "sha256": "eb4f9e3d99002a8c1af812d5a22a1bd828a1803a7d66e28dd8dff1f89186923a"
+    },
+    {
+      "group": "author_freezes",
+      "component": "exit_initial_values",
+      "freeze": "b4c50e2da9a5492316b11711e4ee80a2a01156cf",
+      "path": "docs/evidence/retained-why-exit-initial-values-20261020/README.md",
+      "bytes": 1627,
+      "sha256": "e822e896b1866f7d2b751d60ca05650239a9d7a257f3e042bcf8e3906a570462"
+    },
+    {
+      "group": "author_freezes",
+      "component": "exit_initial_values",
+      "freeze": "b4c50e2da9a5492316b11711e4ee80a2a01156cf",
+      "path": "docs/evidence/retained-why-exit-initial-values-20261020/check.py",
+      "bytes": 10175,
+      "sha256": "dc8a12f880472c83593e3661a0d1ff0f13c3ff33bd805ea726a805c8bfc8c0a9"
+    },
+    {
+      "group": "author_freezes",
+      "component": "exit_initial_values",
+      "freeze": "b4c50e2da9a5492316b11711e4ee80a2a01156cf",
+      "path": "docs/evidence/retained-why-exit-initial-values-20261020/result.json",
+      "bytes": 84474,
+      "sha256": "7376019387ee5b550976071fef83aee4796f3ec6997cc2c16b5d45e4a3355105"
+    },
+    {
+      "group": "author_freezes",
+      "component": "exit_initial_values",
+      "freeze": "b4c50e2da9a5492316b11711e4ee80a2a01156cf",
+      "path": "docs/evidence/retained-why-exit-initial-values-20261020/round.json",
+      "bytes": 641,
+      "sha256": "c503f34792c0da068fa0ec1c5ff4cba7afc59014c12cf8cfd437ea9e89a36775"
+    },
+    {
+      "group": "author_freezes",
+      "component": "exit_initial_values",
+      "freeze": "b4c50e2da9a5492316b11711e4ee80a2a01156cf",
+      "path": "docs/research/retained-why-exit-initial-values.md",
+      "bytes": 5541,
+      "sha256": "e5781e0e025fccce617cccd881923e9b3972d59fe5081e0054fa59e6d29ef7c7"
+    },
+    {
+      "group": "author_freezes",
+      "component": "save_stack_join",
+      "freeze": "14ba1434a863e37cf4d346914d408b3cb2c0a57e",
+      "path": "docs/evidence/retained-why-save-round38-20261020/README.md",
+      "bytes": 688,
+      "sha256": "fee59f20b86410bf0618e2a54ac4c4229c18b44c83ace47636b4cbd8491356ba"
+    },
+    {
+      "group": "author_freezes",
+      "component": "save_stack_join",
+      "freeze": "14ba1434a863e37cf4d346914d408b3cb2c0a57e",
+      "path": "docs/evidence/retained-why-save-round38-20261020/save-stack-join.json",
+      "bytes": 2535,
+      "sha256": "f50171f1260688c442411549f4ea3f363dff6a55b510220c6105cf9ba0daae13"
+    },
+    {
+      "group": "author_freezes",
+      "component": "save_stack_join",
+      "freeze": "14ba1434a863e37cf4d346914d408b3cb2c0a57e",
+      "path": "docs/research/retained-why-save-owned-stack-join.md",
+      "bytes": 4107,
+      "sha256": "d42e3024d2f56a0c307c8c78a3944cc3cdfa421ad70413e7d4a56795dd75f991"
+    },
+    {
+      "group": "review_freezes",
+      "component": "printer_control",
+      "freeze": "99c33fc0ace306a663fcb3358c08e2910e5cd8c5",
+      "path": "docs/reviews/review-save-printer-control-20261020.md",
+      "bytes": 8764,
+      "sha256": "93ea5b8adcded33a9f8ea5b6820ffad5f819c6bba86ad2346180eb5f904772c8"
+    },
+    {
+      "group": "review_freezes",
+      "component": "signal_setter",
+      "freeze": "26f59aab255b9008d827079fd39f0859bbe536ad",
+      "path": "docs/reviews/review-save-signal-setter-capacity-20261020.md",
+      "bytes": 6865,
+      "sha256": "a2740ac8e2976b37727024eb7ac99969b29dc3eef0169f53ee1087bb30024695"
+    },
+    {
+      "group": "review_freezes",
+      "component": "exit_initial_values",
+      "freeze": "993cd33b9393b35bc8210b38d98d764c43e0a724",
+      "path": "docs/reviews/review-exit-initial-values-20261020.md",
+      "bytes": 6018,
+      "sha256": "393cee762675fee9f2aa142ef465483871b5db1dde7f4d6eab36a3bde6d5b8b9"
+    },
+    {
+      "group": "review_freezes",
+      "component": "save_stack",
+      "freeze": "8bc67d0878ad115f4f530d7f97d1af18e7b10c77",
+      "path": "docs/reviews/review-save-stack-round38-20261020.md",
+      "bytes": 11855,
+      "sha256": "d05046eb6b4b4bfedf1a5b416f3ce4d770447d834f1b096ad5c8eb752b8e20a9"
+    }
+  ],
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "joined_save_cases": 5,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-exit-initial-values-20261020/check.py",
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/check.py",
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter.py",
+    "docs/evidence/retained-why-save-printer-control-20261020/check.py",
+    "docs/evidence/retained-why-save-printer-control-20261020/transfer.py",
+    "docs/evidence/retained-why-save-round38-20261020/check.py",
+    "docs/evidence/retained-why-save-serializer-stack-20261020/check.py",
+    "docs/evidence/retained-why-save-serializer-stack-20261020/interfaces.py",
+    "docs/evidence/retained-why-save-serializer-stack-20261020/transfer.py",
+    "docs/evidence/retained-why-save-signal-setter-capacity-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-exit-initial-values-20261020/README.md",
+      "target": "../../research/retained-why-exit-initial-values.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/README.md",
+      "target": "../../research/retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-printer-control-20261020/README.md",
+      "target": "../../research/retained-why-save-printer-control.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-round38-20261020/README.md",
+      "target": "../../research/retained-why-save-owned-stack-join.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-serializer-stack-20261020/README.md",
+      "target": "../../research/retained-why-save-serializer-stack.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-signal-setter-capacity-20261020/README.md",
+      "target": "../../research/retained-why-save-signal-setter-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-initial-values.md",
+      "target": "../evidence/retained-why-exit-initial-values-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-initial-values.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-binder-formatter-stack.md",
+      "target": "../evidence/retained-why-save-binder-formatter-stack-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-owned-stack-join.md",
+      "target": "retained-why-save-serializer-stack.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-owned-stack-join.md",
+      "target": "retained-why-save-stack-helper-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-owned-stack-join.md",
+      "target": "retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-owned-stack-join.md",
+      "target": "../evidence/retained-why-save-round38-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-printer-control.md",
+      "target": "retained-why-save-shape-builder-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-printer-control.md",
+      "target": "../evidence/retained-why-save-printer-control-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-serializer-stack.md",
+      "target": "../evidence/retained-why-save-serializer-stack-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-serializer-stack.md",
+      "target": "retained-why-save-stack-helper-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-serializer-stack.md",
+      "target": "retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-serializer-stack.md",
+      "target": "retained-why-save-printer-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-signal-setter-capacity.md",
+      "target": "../evidence/retained-why-save-signal-setter-capacity-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-signal-setter-capacity.md",
+      "target": "retained-why-save-stack-helper-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-signal-setter-capacity.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-signal-setter-capacity.md",
+      "target": "retained-why-channel-exit-bound.md"
+    },
+    {
+      "file": "docs/reviews/review-exit-initial-values-20261020.md",
+      "target": "../research/retained-why-exit-initial-values.md"
+    },
+    {
+      "file": "docs/reviews/review-exit-initial-values-20261020.md",
+      "target": "../evidence/retained-why-exit-initial-values-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-save-printer-control-20261020.md",
+      "target": "../research/retained-why-save-printer-control.md"
+    },
+    {
+      "file": "docs/reviews/review-save-printer-control-20261020.md",
+      "target": "../evidence/retained-why-save-printer-control-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-save-signal-setter-capacity-20261020.md",
+      "target": "../research/retained-why-save-signal-setter-capacity.md"
+    },
+    {
+      "file": "docs/reviews/review-save-signal-setter-capacity-20261020.md",
+      "target": "../evidence/retained-why-save-signal-setter-capacity-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-save-stack-round38-20261020.md",
+      "target": "../research/retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/reviews/review-save-stack-round38-20261020.md",
+      "target": "../evidence/retained-why-save-binder-formatter-stack-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-save-stack-round38-20261020.md",
+      "target": "../research/retained-why-save-serializer-stack.md"
+    },
+    {
+      "file": "docs/reviews/review-save-stack-round38-20261020.md",
+      "target": "../evidence/retained-why-save-serializer-stack-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-save-stack-round38-20261020.md",
+      "target": "../research/retained-why-save-owned-stack-join.md"
+    },
+    {
+      "file": "docs/reviews/review-save-stack-round38-20261020.md",
+      "target": "../evidence/retained-why-save-round38-20261020/README.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}
