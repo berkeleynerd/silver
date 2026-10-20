@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "review_targets": {
+    "regressions": "64ca2dcdaa96d7addc6370aa80ec1e6630de9c99",
+    "disposition": "6205c920ad"
+  },
+  "reviewer_selection": {
+    "model": "GPT-6 Astra",
+    "effort": "Extra High",
+    "runtime_confirmation": false
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "started_UTC": "2026-10-20T07:19:56.452367+00:00",
+  "finished_UTC": "2026-10-20T07:19:57.803764+00:00",
+  "elapsed_seconds": 1.351381204000063,
+  "frozen_pins_byte_equal_to_target": 94,
+  "frozen_aggregate_files_checked": 3,
+  "focused_check_replays": 1,
+  "focused_check_result": {
+    "status": "passed",
+    "cases": 27,
+    "false_verdict_cases": 19,
+    "malformed_input_cases": 7,
+    "elapsed_seconds": 0.30135043699988273
+  },
+  "public_evaluate_executions": 0,
+  "public_retention_identities_and_summary_verified": true,
+  "public_failed_checks": [
+    "fixed_signed_relocation_reach",
+    "EH_signed_fields"
+  ],
+  "original_probe_byte_equal_to_archive": true,
+  "retained_GCC_files": 2,
+  "existing_source_manifest_matches": 6,
+  "deterministic_archive_rebuilt_from_retained_members": true,
+  "reconciliation_historical_fields": 10,
+  "reconciliation_guard_values": 51,
+  "reconciliation_owner_rows": 7,
+  "current_ledger_owners": 51,
+  "counter_interface_exact_match": true,
+  "remaining_production_and_proof_flags_unchanged": true,
+  "native_tool_executions": 0,
+  "broad_suites_executed": 0,
+  "token_and_monetary_measurements": null
+}
