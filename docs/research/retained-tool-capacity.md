@@ -144,10 +144,24 @@ to arbitrary old returned hidden maps/types or complete validators. The
 [integration packet](../evidence/retained-request-inline-round56-20261020/README.md)
 retains the [independent review](../reviews/review-request-inline-capacity-20261020.md).
 
-Next: close the returned stored-map/type/validator producer envelopes and
-remaining stock-server process/path/control/buffer owners; attach the shared
-server connection boundary, then remaining preparation/printing/counter,
-request/response/history and startup/output owners.
+Round 57's [returned-context argument](retained-why-returned-storage.md)
+closes hidden storage/types for all 1,238 original context keys through the
+selected producer history; its 32-unit validator charge applies to first
+inline only. The [stock-server account](retained-server-owned-storage.md) and
+[connection transfer](retained-shared-server-prefix.md) attach direct requested
+objects and the exact-path successful Why prefix to the prospective shared
+J12 topology. Their [integration](../evidence/retained-returned-server-round57-20261020/README.md)
+composes quiet direct server storage as
+`459*A + sum N_d*tau_d + sum 2*R(M_d) + 918*C + 376401`.
+Review repairs the driver comment/string scanner and keeps physical-memory
+exclusions within the existing trusted resource boundary; no aggregate RAM
+admission gate or allocator-internals proof is added. Finite representation,
+request arithmetic, caller and source-correspondence requirements remain.
+
+Next: eliminate_builtin reconstruction/validators, remove_unused used-symbol
+folds and polymorphism-detection scans, plus the remaining getcwd/strdup
+request-capacity terms. Then continue remaining preparation/printing/counter,
+request/response/history and startup/output interfaces.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
 Why3 parser warnings and `.spark` `warn_error` are distinct channels; the

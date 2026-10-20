@@ -107,9 +107,16 @@ attaches filesystem filenames/argv/request bytes, and bounds first inlining
 over all 118 registered roots. Parser allocation is computable from adapter
 and TMPDIR lengths; direct first-inline Ident registrations are at most
 792,911 across the five processes under their existing global allowances.
-Returned old hidden-map/type/validator envelopes, remaining stock-server
-owners and shared-server launch attachment, later preparation/printing/counters,
-complete storage/output and the full #119 rule remain required.
+That checkpoint left returned old hidden-map/type/validator envelopes,
+stock-server owners and shared-server launch attachment open alongside later
+preparation/printing/counters, complete storage/output and the full #119 rule.
+The reviewed [Round 57 checkpoint](docs/evidence/retained-returned-server-round57-20261020/README.md)
+now closes returned context storage/types at the first-inline interface,
+direct stock-server requested-object families and exact-path successful
+connection transfer to the shared-server design. Later validators and
+collision/primitive costs remain separate. Physical-memory exclusions retain
+the established sufficient-resource trust boundary; this adds no aggregate
+RAM gate or allocator-internals proof requirement.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -127,11 +134,11 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint attaches request/filename bytes and fixed-family
-inline bounds, composes the combined quiet/timeless/J12/logging startup and
-aggregate storage, and continues preparation/printing/counter/output bounds.
-The accepted serial configuration transfer does not by itself cover
-the parallel scheduler or new adapter launch. These remain #119 design obligations; subsequent #88
+The next technical checkpoint composes post-inline builtin reconstruction,
+unused-symbol folds and type detection with the accepted stored-data envelope,
+and closes the named libc request-capacity terms. Remaining preparation,
+printing/counter/output and actual launcher/configuration attachment stay
+#119 design obligations; subsequent #88
 owns executable SPARK/Lean refinement. No adapter is adopted.
 Remaining preparation/printing/counter and output composition and the original
 requirement matrix continue to govern the full #119 objective.

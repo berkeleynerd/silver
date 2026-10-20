@@ -84,10 +84,17 @@ all 118 registered roots. Actual J12 startup histories replace the old serial
 row assumption. Quiet parsed-request bytes are bounded by
 `459*A + sum N_d*tau_d + 234945`; direct first-inline Ident by 792,911 across
 the five processes, retaining their one global e<=2 allowance each.
-Continue source envelopes for returned old hidden maps/types/full validators,
-remaining server/process/path/buffer owners, shared-server connection attachment
-and later preparation/printing/counter/output bounds. These are #119 design
-obligations, distinct from future #88 implementation.
+The reviewed [Round 57 checkpoint](docs/evidence/retained-returned-server-round57-20261020/README.md)
+now supplies returned-context hidden storage/types, first-inline validator
+support, direct stock-server requested-object owners and the exact-path
+successful connection transfer to a shared J12 server. Its validator charge
+is first-inline-only. Corrected residual wording retains the established
+physical-resource trust boundary without adding allocator/kernel-internals
+proof gates; finite representations, request arithmetic and source/caller
+requirements remain. Continue builtin reconstruction/validators, unused-symbol
+folds, type-detection scans and getcwd/strdup request-capacity terms, then later
+preparation/printing/counter/output bounds. These are #119 design obligations,
+distinct from future #88 implementation.
 No adapter or changed production route is adopted; full q remains unresolved.
 Remaining preparation/printing/counter and output bounds,
 required producer/Why3 and fixed-dependency

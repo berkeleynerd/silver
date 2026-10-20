@@ -1,0 +1,80 @@
+{
+  "components": {
+    "server_owned_storage": {
+      "freeze": "d82165ee7b874e65f64be8181de21763d83bda7e",
+      "paths": [
+        "docs/evidence/retained-server-owned-storage-20261020/README.md",
+        "docs/evidence/retained-server-owned-storage-20261020/check-result.json",
+        "docs/evidence/retained-server-owned-storage-20261020/check.py",
+        "docs/evidence/retained-server-owned-storage-20261020/inputs.json",
+        "docs/evidence/retained-server-owned-storage-20261020/installed-disassembly.txt",
+        "docs/evidence/retained-server-owned-storage-20261020/native-inputs.json",
+        "docs/evidence/retained-server-owned-storage-20261020/native-symbol-inventory.json",
+        "docs/evidence/retained-server-owned-storage-20261020/project.py",
+        "docs/evidence/retained-server-owned-storage-20261020/projection.json",
+        "docs/evidence/retained-server-owned-storage-20261020/round.md",
+        "docs/evidence/retained-server-owned-storage-20261020/source-inventory.json",
+        "docs/evidence/retained-server-owned-storage-20261020/source-witnesses.json",
+        "docs/research/retained-server-owned-storage.md"
+      ],
+      "first_focused_check_freeze": "73fe83500c16672716d0045d4b7aab1fda4f4ef1"
+    },
+    "shared_prefix": {
+      "freeze": "ab453599af8bf338ed0de15b2d4ad52b6a22ecf7",
+      "paths": [
+        "docs/evidence/retained-shared-server-prefix-20261020/README.md",
+        "docs/evidence/retained-shared-server-prefix-20261020/check-result.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/check.py",
+        "docs/evidence/retained-shared-server-prefix-20261020/endpoints.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/inputs.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/native-witnesses.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/setter-census.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/source-witnesses.json",
+        "docs/research/retained-shared-server-prefix.md"
+      ],
+      "first_focused_check_freeze": "a1257eb2a3107d227bf09153813f5c057ad77c73"
+    },
+    "returned_storage": {
+      "freeze": "5feafce8f3363e2463da099bda2a115d19dd8050",
+      "paths": [
+        "docs/evidence/retained-why-returned-storage-20261020/README.md",
+        "docs/evidence/retained-why-returned-storage-20261020/audit_sources.py",
+        "docs/evidence/retained-why-returned-storage-20261020/check-result.json",
+        "docs/evidence/retained-why-returned-storage-20261020/check.py",
+        "docs/evidence/retained-why-returned-storage-20261020/compose.py",
+        "docs/evidence/retained-why-returned-storage-20261020/context_model.py",
+        "docs/evidence/retained-why-returned-storage-20261020/driver-connection.json",
+        "docs/evidence/retained-why-returned-storage-20261020/first-or-default-context.json",
+        "docs/evidence/retained-why-returned-storage-20261020/input-is-valid-context.json",
+        "docs/evidence/retained-why-returned-storage-20261020/inputs.json",
+        "docs/evidence/retained-why-returned-storage-20261020/is-message-context.json",
+        "docs/evidence/retained-why-returned-storage-20261020/put-context.json",
+        "docs/evidence/retained-why-returned-storage-20261020/put-line-context.json",
+        "docs/evidence/retained-why-returned-storage-20261020/result.json",
+        "docs/evidence/retained-why-returned-storage-20261020/round.json",
+        "docs/evidence/retained-why-returned-storage-20261020/source-witnesses.json",
+        "docs/research/retained-why-returned-storage.md"
+      ]
+    },
+    "review": {
+      "freeze": "ad156b4b0d55b80dd49005daf197165750a03e00",
+      "paths": [
+        "docs/evidence/retained-returned-server-storage-review-20261020/README.md",
+        "docs/evidence/retained-returned-server-storage-review-20261020/inputs.json",
+        "docs/evidence/retained-returned-server-storage-review-20261020/returned-storage-check.json",
+        "docs/evidence/retained-returned-server-storage-review-20261020/round.json",
+        "docs/evidence/retained-returned-server-storage-review-20261020/scope-correction.json",
+        "docs/evidence/retained-returned-server-storage-review-20261020/server-owner-check.json",
+        "docs/evidence/retained-returned-server-storage-review-20261020/shared-prefix-check.json",
+        "docs/reviews/review-returned-server-storage-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-server-owned-storage-20261020/inputs.json",
+    "docs/evidence/retained-shared-server-prefix-20261020/inputs.json",
+    "docs/evidence/retained-why-returned-storage-20261020/inputs.json",
+    "docs/evidence/retained-returned-server-storage-review-20261020/inputs.json"
+  ],
+  "review_freeze_pending": false
+}

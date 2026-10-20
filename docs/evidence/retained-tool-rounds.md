@@ -5363,3 +5363,70 @@ and intended grammar, checked accounting, source correspondence/composition,
 useful-domain comparison and final review still govern completion. The estimate
 remains 80–85%, low confidence. Global budgets, Oracle/tools/pins/admission,
 unstarted #88–#94 and draft/unmerged PR #121 are unchanged.
+
+## Round 57 — returned context storage and shared-server accounting
+
+2026-10-20 UTC. The [integration packet](retained-returned-server-round57-20261020/README.md)
+binds returned-storage freeze `5feafce8f3`, final server-owner freeze `d82165ee7b`,
+final shared-prefix freeze `ab453599af`, and independent review `ad156b4b0d`.
+All three conditional interfaces are accepted. First reviewer checks remain
+tied to original server/prefix freezes `73fe83500c` / `a1257eb2a3`; exact diff
+review accepts their later resource-scope prose and note-pin changes without
+replaying unchanged numerical/source/native checks. #119/#153 remain active.
+
+The returned-context certificate covers all 1,238 original keys, including dead
+saved-map entries and hidden variable/signature types. Its producer induction
+preserves variable-only images and bounds a binding by
+`K=6+16*(3*n+e)*64` entries, with n registered roots and the existing global e.
+Stored occurrences per first-inline return are at most `99*(1+K)`, maximally
+15,713,973. The context/type/metadata argument excludes CVC5's previously
+conditional polymorphic-encoding branches for these fixed inputs. The 32-unit
+validator support charge is first-inline-only. R56 candidate/goal charges,
+collision comparands, primitive costs and later-stage validators remain.
+
+The server account closes direct requested-object owners with cancellation
+retention and no invented ID/send copies. The successful connection transfer
+preserves each exact R53 client-facing path/cwd/input role behind the proxy,
+adding no Why-prefix allocation or handshake. Shared J12 backend topology is
+prospective; the five historical single-client captures retain their actual
+scope. Quiet request substitution yields
+`459*A + sum N_d*tau_d + sum 2*R(M_d) + 918*C + 376401` direct server bytes,
+including process records and raw pathnames. Here N_d counts run entries,
+distinct from the root count n in the returned-storage equation.
+
+Review caught the driver scanner treating a quoted multiplication string as a
+comment; the author repaired string/nested-comment handling against retained
+lexer sources and added controls before the final check. The lead then found
+that residual prose had promoted physical allocator/kernel overhead to new
+proof gates. Exact successor review restores the established ordinary-service
+and sufficient-physical-resource trust boundary. Finite representations,
+request arithmetic, counters, stack assumptions, caller correctness and source
+correspondence remain required; no aggregate RAM admission gate or allocator
+internals proof is added. These corrections change neither numerical formula.
+
+Three first reviewer checks took 3.185647 subprocess seconds within the
+1,147.234-second retained review interval, including waiting/coordination.
+Integration passed in 0.455625 seconds after correcting its result-reader
+schema assumption: 47 frozen files, 132 retained repository identities,
+94 unchanged native pins, unchanged Why and two server-native inputs, eight
+Python parses/sixteen frozen-record links. No native target/compiler/solver/
+proof/capture or successful component/predecessor replay ran. Static installed
+code inspection supplied new local instruction witnesses.
+
+Research authors and reviewer selected Astra / Extra High. Live lead settings,
+runtime confirmation and isolated model/round token or monetary costs are
+unavailable. At 23:36:11 UTC the aggregate ongoing goal reported 15,670,523
+tokens and 15,690 time-counter seconds, including overlapping R58 work. These
+are not R57 costs or causal evidence about model effectiveness. This round
+closed three named interfaces, repaired evidence extraction and prevented
+scope growth into unnecessary physical-resource proofs.
+
+R58 continues with two bounded author lanes: actual post-inline builtin
+reconstruction/validators, unused-symbol folds and type detection; and the
+three named libc getcwd/strdup request-capacity terms. Independent review uses
+exact freezes and retained successes. Remaining preparation/printing/counters,
+startup/failure/raw output, original complete pipeline/fixed dependencies and
+intended grammar, checked accounting, relevant correspondence/composition,
+useful-domain comparison and final review still govern completion. Estimate
+remains 80–85%, low confidence. Oracle/tools/pins/admission, global process
+budgets, unstarted #88–#94 and draft/unmerged PR #121 are unchanged.
