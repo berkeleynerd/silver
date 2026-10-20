@@ -1,0 +1,11 @@
+{
+  "base": "2866d4642c43444abd18e0b6e9600edaa216b99b",
+  "review_target": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+  "freezes": {
+    "path_construction": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+    "initial_state": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+    "later_writers": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+    "path_input_composition": "e7f203e3bde292c2cd345b966bd3c3600385090c"
+  },
+  "clarifications": []
+}

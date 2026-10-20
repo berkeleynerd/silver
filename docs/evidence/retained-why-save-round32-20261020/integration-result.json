@@ -1,0 +1,399 @@
+{
+  "review_target": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+  "author_files": [
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/README.md",
+      "bytes": 1129,
+      "sha256": "86c650a83c845b5c9ea4d02f7a99202d51cddcdee7a8efac9d0e6452b0aeb263"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/check-result.json",
+      "bytes": 478,
+      "sha256": "a913323a4cf627485b81ac5752d249ca32741cc5c26b9f24bbc338c08bc9e298"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/check.py",
+      "bytes": 5908,
+      "sha256": "26bbb31568519e52ecc5e46a40c5f1f62875885f8001caa660fc9d98b8c8d54b"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/inputs.json",
+      "bytes": 2700,
+      "sha256": "26dcc9905be5de17df6bbfc1ab1be2006945f7019b117e8673c0b17ed6549e55"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/native-bodies.json",
+      "bytes": 17685,
+      "sha256": "11f5be08e07dec5d980eb2db93a7498ec8f033ed04257a9aa4919984b9ff06fb"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/native-witnesses.json",
+      "bytes": 1090,
+      "sha256": "3711770a0eaeac4aea07bd34f1bb28c900ed3a63a25cfdb104e37914c156176d"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/result.json",
+      "bytes": 16615,
+      "sha256": "f68e6d5fd35adbc50dd2296054e83580ce46c0ebf37f08d1896ee17c4b1ca3b6"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/source-witnesses.json",
+      "bytes": 10447,
+      "sha256": "0721966268bf91e8f69eb13639dca8e023946720b443433363bb692cd07ef59b"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/evidence/retained-why-path-construction-20261020/transfer.py",
+      "bytes": 2486,
+      "sha256": "2b1a48db76147592b68bb23f946fbfb13192221ac471f7277fd048848ddd103a"
+    },
+    {
+      "component": "path_construction",
+      "author_freeze": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "checked_revision": "5108d43221cf3e16fdc02abd890af0f4c535efa3",
+      "path": "docs/research/retained-why-path-construction.md",
+      "bytes": 7984,
+      "sha256": "febe7dc477021dbd5b5aa789a0f21ba85c306d49b1f67ddec7a6757497691ffe"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/README.md",
+      "bytes": 1903,
+      "sha256": "98e6cc50142199a0e01b5c41485232cdd977597b13da2d42caf4aa4ecdfb718f"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/check.py",
+      "bytes": 12232,
+      "sha256": "c55934fcda290b93cceb52c7961a82e54fd42dadd57f6f6511d43148cf56bd5a"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/inputs.json",
+      "bytes": 14149,
+      "sha256": "4f1e2036d6c6e8b8b0f94d13caf0d6c7cf29a7e5c8bafb0b1982f42f440c6f22"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json",
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/result.json",
+      "bytes": 3938,
+      "sha256": "0dd741aece9638f14bf65abde52a350ce08d794cca434ef64173c2da98c96461"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/round.json",
+      "bytes": 2757,
+      "sha256": "eaf6a30744d970e37322d332572c7993c7e77847148157992e2314b92b2b25a7"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/evidence/retained-why-path-initial-state-20261020/source-witnesses.json",
+      "bytes": 43752,
+      "sha256": "17bcba2dfaba42ed9faea000a99089efbc2edd77a386e40ff8f587f32e66b44a"
+    },
+    {
+      "component": "initial_state",
+      "author_freeze": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "checked_revision": "9cd8ab6810f59b603da443a69b632304ae1e86fa",
+      "path": "docs/research/retained-why-path-initial-state.md",
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/README.md",
+      "bytes": 1903,
+      "sha256": "bf83974eb4708afb26a280ecc945803ed6491060526df885a9fcf9c74a468482"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/check.py",
+      "bytes": 16646,
+      "sha256": "2dd21ede94642825229f54eff766f11bc0e8bb0de3c4a65b3eeaa04139db5ee4"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/counterexample-meta-inputs.json",
+      "bytes": 8516,
+      "sha256": "91aaacebdf1423d23b69a574ff52705b3da4f6f18a59ea06029aa03759f80e6b"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/exception-printer-suffixes.json",
+      "bytes": 348807,
+      "sha256": "2a02e22f946b940ff1507c8195483d32ce1835a365869c42d1671e91d2ad6494"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/inputs.json",
+      "bytes": 2943,
+      "sha256": "ec797b9e81a3e4c4e9daa32d8a46f24c198673daad1469a3b0a4d9a08cf48192"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/reference-census.json",
+      "bytes": 32379,
+      "sha256": "b1163ab908a1cbba06e6c7f8b5d550e8de1a847d821b00cfb7021e8a89f66f0d"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/result.json",
+      "bytes": 1878,
+      "sha256": "3513cf5d8e2725d8d7f2b4c9a86974897da9165dd75395a99b4e77ef381c78c6"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/round.json",
+      "bytes": 3668,
+      "sha256": "c578ced78d05fb0639c3d57df3ffb954b38fe6af798b5171dfa173c0b7948b90"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/selected-dispatch.json",
+      "bytes": 14559,
+      "sha256": "b66e2c789f2ea7341598e15394a9ee3798f7ffe8e5249a1f52461061a9282f4b"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/source-witnesses.json",
+      "bytes": 545442,
+      "sha256": "361c97353614a624e040a59de6d0316f47c66b737c8040b5df43eb659fd9c9bf"
+    },
+    {
+      "component": "later_writers",
+      "author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "checked_revision": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+      "path": "docs/research/retained-why-path-library-origins.md",
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    {
+      "component": "path_input_composition",
+      "author_freeze": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "checked_revision": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "path": "docs/evidence/retained-why-save-round32-20261020/README.md",
+      "bytes": 2329,
+      "sha256": "4de8ef11aff89d7aebf5c110537ada12dc7f9c7088f5e592ca3761f1c66d167d"
+    },
+    {
+      "component": "path_input_composition",
+      "author_freeze": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "checked_revision": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "path": "docs/evidence/retained-why-save-round32-20261020/check-result.json",
+      "bytes": 167,
+      "sha256": "75304ef240319320d0d05eb94e69e1e1a710e5d54861ecb1953aeab307f5dea5"
+    },
+    {
+      "component": "path_input_composition",
+      "author_freeze": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "checked_revision": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "path": "docs/evidence/retained-why-save-round32-20261020/compose.py",
+      "bytes": 6181,
+      "sha256": "7ad0cc1c5af865b444b493f4735125cd6ce6d1fe938ca735591652447a64a526"
+    },
+    {
+      "component": "path_input_composition",
+      "author_freeze": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "checked_revision": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "path": "docs/evidence/retained-why-save-round32-20261020/result.json",
+      "bytes": 38466,
+      "sha256": "2cccb3c2c424269f6f169b3eb765483019904a26733288d2d2827c6a6151319b"
+    },
+    {
+      "component": "path_input_composition",
+      "author_freeze": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "checked_revision": "e7f203e3bde292c2cd345b966bd3c3600385090c",
+      "path": "docs/research/retained-why-save-path-input-join.md",
+      "bytes": 6097,
+      "sha256": "b8b20f2b1faccde814f52670dfd22dd2a9a0c25d9f9e948bd162d50999a74fdf"
+    }
+  ],
+  "review_clarified_files": {},
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-path-construction-20261020/check.py",
+    "docs/evidence/retained-why-path-construction-20261020/transfer.py",
+    "docs/evidence/retained-why-path-initial-state-20261020/check.py",
+    "docs/evidence/retained-why-path-library-origins-20261020/check.py",
+    "docs/evidence/retained-why-save-round32-20261020/compose.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-path-construction-20261020/README.md",
+      "target": "../../research/retained-why-path-construction.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-path-initial-state-20261020/README.md",
+      "target": "../../research/retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-path-library-origins-20261020/README.md",
+      "target": "../../research/retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-round32-20261020/README.md",
+      "target": "../../research/retained-why-save-path-input-join.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-round32-20261020/README.md",
+      "target": "../retained-tool-rounds.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-construction.md",
+      "target": "../evidence/retained-why-path-construction-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-construction.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-why-path-payload-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "../evidence/retained-why-path-initial-state-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-why-native-effect-completeness.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-why-inline-callback-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-why-save-preservation.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-why-session-formatter-prefix-repair.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-initial-state.md",
+      "target": "retained-why-path-input-inventory.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-library-origins.md",
+      "target": "../reviews/review-save-capacity-round31-20261020.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-library-origins.md",
+      "target": "retained-producer-driver-envelope.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-library-origins.md",
+      "target": "retained-why-path-input-inventory.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-library-origins.md",
+      "target": "retained-why-path-payload-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-library-origins.md",
+      "target": "../evidence/retained-why-path-library-origins-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-path-input-join.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-path-input-join.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-path-input-join.md",
+      "target": "retained-why-save-formatter-ownership.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-path-input-join.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-path-input-join.md",
+      "target": "retained-why-path-construction.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-path-input-join.md",
+      "target": "../evidence/retained-why-save-round32-20261020/README.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}
