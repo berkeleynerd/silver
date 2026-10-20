@@ -107,9 +107,27 @@ source or establish aggregate queues/counter headroom. The
 retains the [independent review](../reviews/review-parallel-attribution-completion-20261020.md)
 and exact conditional scopes. No adapter or configuration is adopted.
 
-Next: complete parallel mutable-state attachment and the actual parallel/logging
-startup/goal-map transfer, then compose request/response/history storage and
-remaining startup/output origins.
+Round 55's [logging prefix](retained-parallel-logging-prefix.md) attaches the
+constructor trace and 118-root map to the five exact R53 J12 invocations with
+one added --logging flag. Review repaired the startup promotion argument and
+corrected GC phase 0 to mark. Its [state companion](retained-why-parallel-state-attachment.md)
+transports the initial representative families and derives arbitrary-order
+continuation under explicit mutation/resource/counter guards, retaining actual
+installed interruption windows and the separate Wtask root. The
+[protocol storage](retained-adapter-protocol-storage.md) bounds 459 run/interrupt
+owners, 918 S/F records and 41,536 bytes of pointer-ring backing at J12;
+paths, native records/argv, logs and raw output remain separate. The
+[integration packet](../evidence/retained-parallel-state-round55-20261020/README.md)
+retains the [independent review](../reviews/review-parallel-state-storage-20261020.md)
+and selects the prospective Why-only SIGINT mask route. Actual #88 spawn,
+PID/group cleanup/fallback/reap and resource/counter attachment remain required;
+stock cancellation can race before child setpgid. No production route changes.
+The combined R52 quiet/timeless plus J12/logging startup is **not** established
+by either component alone; its additive/relocation join remains open.
+
+Next: attach request/filename byte operands and fixed-family inline bounds,
+compose the combined startup and remaining preparation/printing/counter,
+request/response/history and startup/output owners.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
 Why3 parser warnings and `.spark` `warn_error` are distinct channels; the

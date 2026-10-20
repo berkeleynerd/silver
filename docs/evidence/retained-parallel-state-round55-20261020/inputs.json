@@ -1,0 +1,79 @@
+{
+  "base": "6eedb6dea5786c5eea63d9372de89376b11e144b",
+  "review_freeze_pending": false,
+  "components": {
+    "storage": {
+      "freeze": "074ca7919dd3a9528b9fcd047c2e1e928585c854",
+      "paths": [
+        "docs/evidence/retained-adapter-protocol-storage-20261020/README.md",
+        "docs/evidence/retained-adapter-protocol-storage-20261020/check-run.json",
+        "docs/evidence/retained-adapter-protocol-storage-20261020/check.py",
+        "docs/evidence/retained-adapter-protocol-storage-20261020/inputs.json",
+        "docs/evidence/retained-adapter-protocol-storage-20261020/result.json",
+        "docs/evidence/retained-adapter-protocol-storage-20261020/round.json",
+        "docs/evidence/retained-adapter-protocol-storage-20261020/source-witnesses.json",
+        "docs/research/retained-adapter-protocol-storage.md"
+      ]
+    },
+    "logging": {
+      "freeze": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+      "paths": [
+        "docs/evidence/retained-parallel-logging-prefix-20261020/README.md",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/audit_inputs.py",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/check-result.json",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/check.py",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/control-use-scan.json",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/inputs.json",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/installed-byte-witnesses.json",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/installed-startup-disassembly.txt",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/project.py",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/round.md",
+        "docs/evidence/retained-parallel-logging-prefix-20261020/source-witnesses.json",
+        "docs/research/retained-parallel-logging-prefix.md"
+      ]
+    },
+    "state": {
+      "freeze": "99e7bbde5616bb2eaa2fab40b86ff8ad0242585c",
+      "paths": [
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/README.md",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/check-result.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/check.py",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/companion-freeze.tar.gz",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/inputs.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/mask-census.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-mutations.txt",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-query.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-symbols.txt",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-witnesses.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/project.py",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/raw-contexts.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/result.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/round.json",
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/source-witnesses.json",
+        "docs/research/retained-why-parallel-state-attachment.md"
+      ]
+    },
+    "review": {
+      "freeze": "84772fd0bf2bee75296b62d1548e96c777182373",
+      "paths": [
+        "docs/evidence/retained-parallel-state-storage-review-20261020/README.md",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/inputs.json",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/logging-check.json",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/round.json",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/run-focused-check.py",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/state-check-summary.json",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/state-check.json",
+        "docs/evidence/retained-parallel-state-storage-review-20261020/storage-check.json",
+        "docs/reviews/review-parallel-state-storage-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-adapter-protocol-storage-20261020/inputs.json",
+    "docs/evidence/retained-parallel-logging-prefix-20261020/inputs.json",
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/inputs.json",
+    "docs/evidence/retained-parallel-state-storage-review-20261020/inputs.json"
+  ]
+}

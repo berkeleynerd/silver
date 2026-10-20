@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "frozen_files": 47,
+  "retained_inputs": 75,
+  "native_pins_unchanged": 94,
+  "python_parses": 8,
+  "local_links": 18,
+  "elapsed_seconds": 0.6451827389992104,
+  "component_checker_replays": 0,
+  "integration_native_solver_compiler_proof_capture_runs": 0
+}

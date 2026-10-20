@@ -5251,3 +5251,56 @@ counter/startup/output bounds, whole grammar/pipeline and source correspondence,
 checked accounting/composition, useful-domain comparison and final review remain
 required. The estimate stays 80–85%, low confidence. Global save/escape budgets,
 Oracle/tools/admission, unstarted #88–#94 and draft/unmerged PR #121 are unchanged.
+
+## Round 55 — guarded state, logging startup and protocol storage
+
+2026-10-20 UTC. The [integration packet](retained-parallel-state-round55-20261020/README.md)
+binds storage freeze `074ca7919d`, logging freeze `bb9bc85d36`, repaired/pinned
+state freeze `99e7bbde56` and review `84772fd0bf`. #119/#153 remain active and
+incomplete. The initial representative family and arbitrary-order producer
+induction now have a guarded state attachment; the exact R53 J12 inputs plus
+one --logging flag preserve the constructor trace/root map under the recorded
+services/path/callback relation. Protocol owner/history counts and pointer-ring
+storage are bounded. This is not the combined quiet/timeless/J12/logging
+startup or complete q. Their additive/relocation join remains required.
+
+Review materially tightened the same-source-point startup collection argument,
+corrected phase0 to mark, retained Wtask as a second CE root, and distinguished
+installed interruption windows from an observed corrupt execution. It also
+identified the fork/setpgid/ignored group-kill race and required explicit
+termination disposition and PID/group cleanup. The final state packet pins all
+fourteen exact reviewed companion files. The selected continuation design uses
+a prospective Why-only SIGINT mask with default/unblocked SIGTERM and SIGKILL
+fallback/reap; actual launcher/source attachment and resource/counter guards
+remain obligations, including supervisor ownership of the separate server and
+solver groups. This is design selection, not production adoption.
+
+The logging author check passed 1,054 counted checks plus graph/input assertions
+in 7.880s. The repaired state author check passed 44 excerpts/3,082 installed bytes
+in 3.598s before its final companion pin; the reviewer checked the final pin.
+Root's storage check passed 14 excerpts/1,636 pointer positions in 0.078s. The
+reviewer's three first focused checks consumed 12.630s of subprocess time within
+its retained 1,200.263s interval. Integration reconciled 47 frozen files,
+75 retained repository identities, 94 unchanged native source pins and the
+unchanged installed Why executable, plus 8 Python parses / 18 frozen-record links,
+in 0.645s. No native target/compiler/solver/proof/capture or predecessor replay
+ran; target-free disassembly queries supplied new instruction witnesses.
+
+Research authors and independent reviewer selected Astra / Extra High.
+Lead-owned storage/integration followed that project baseline; actual live lead
+settings/runtime confirmation and isolated model/round token or monetary costs
+are unavailable. At 22:37:28 UTC the live aggregate harness reported 12,134,576 tokens
+and 12,165 time-counter seconds across the ongoing goal and overlapping R56 work.
+These are not R55 costs or causal evidence of model quality. The round closed
+specific source/state/ownership obligations and exposed concrete remaining
+configuration and cleanup joins; further fan-out is limited to named gaps.
+
+R56's two author lanes attach solver filenames/argv/request bytes and fixed-family
+inline capacity. The lead adds stock parsing/receive-buffer storage; the reviewer
+checks exact freezes without replaying prior successes. Combined startup,
+remaining preparation/printing/counters, complete storage/output, original
+compiler/producer/consumer/fixed dependencies/current grammar, checked accounting,
+source correspondence/composition, useful-domain comparison and final review
+continue to govern completion. The estimate remains 80–85%, low confidence.
+Global save/escape budgets, Oracle/tools/pins/admission, unstarted #88–#94 and
+unmerged draft PR #121 remain unchanged.

@@ -71,8 +71,14 @@ is still required. It derives the 118-root/47-check map and conditional
 one-F-to-Done association, with parallel/logging startup transfer open. Stock
 completion formatting now has a conditional `D+P+29` wire bound under selected
 Linux/libc/compilation interfaces; aggregate queues/history/counters are separate.
-Continue actual parallel state and startup/map transfer, aggregate storage and
-remaining preparation/counter/output bounds.
+The reviewed [Round 55 checkpoint](docs/evidence/retained-parallel-state-round55-20261020/README.md)
+adds guarded parallel-state induction, exact R53 J12-plus-logging startup/root
+map transfer, and finite protocol/history/ring storage. It selects a prospective
+Why-only SIGINT mask with default/unblocked termination and explicit PID/group
+fallback/reaping obligations; no actual launcher attachment or production change
+is claimed. The combined quiet/timeless/J12/logging startup still needs its own
+additive/relocation join. Continue request/filename operands, fixed-family inline
+and later preparation/counter/output bounds, combined startup and total storage.
 These are #119 design obligations, distinct from future #88 implementation.
 No adapter or changed production route is adopted; full q remains unresolved.
 Remaining preparation/printing/counter and output bounds,
