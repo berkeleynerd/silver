@@ -1,0 +1,223 @@
+{
+  "base_commit": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "files": [
+    {
+      "identity": {
+        "bytes": 17105,
+        "sha256": "08de63be4992e5be44dffb36047a3d0107e3f33c180d15ee36fef39b32a19735"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-atoms-20261020/extract.py"
+    },
+    {
+      "identity": {
+        "bytes": 8921,
+        "sha256": "9bdadcc1944ae0f20da2e07c2ecf84be42a7835639676be14d2e490dbd69bea9"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-atoms-20261020/check.py"
+    },
+    {
+      "identity": {
+        "bytes": 5680,
+        "sha256": "f7b1224b39e90c0c96ad6c6b9cef391a5a26ca35535d8986d13f437af15eb89c"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-atoms-20261020/freeze.py"
+    },
+    {
+      "identity": {
+        "bytes": 9839,
+        "sha256": "5aa80a046c44d87c2d9b59833b2815880802cf109d949550b9e39bd87f7d5b2d"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-atoms-20261020/summary.json"
+    },
+    {
+      "identity": {
+        "bytes": 24544,
+        "sha256": "541a9c882db8f979968763fdd9362d9d46d92902662adc7a8c4a45ff44cd51da"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-atoms-20261020/source-excerpts.json"
+    },
+    {
+      "identity": {
+        "bytes": 16816,
+        "sha256": "856ec648b2197e507eee4da7f8b22c6210526518efc2259b544e854ac275f50c"
+      },
+      "path": "docs/evidence/retained-why-session-save-outcomes-20261019/check.py"
+    },
+    {
+      "identity": {
+        "bytes": 189009,
+        "sha256": "7c3a8f84d3d05d99f7718a1274af6b1f6fd2b41e87559d9fd0a4503526b82915"
+      },
+      "path": "docs/evidence/retained-why-session-save-outcomes-20261019/atom-certificate.json"
+    },
+    {
+      "identity": {
+        "bytes": 97976,
+        "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+      },
+      "path": "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json"
+    },
+    {
+      "identity": {
+        "bytes": 12297103,
+        "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+      },
+      "path": "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 33559,
+        "sha256": "f0171f9941ed9352a868bef841a7eba2d3e1b144e0c8676b33b4ca29285c688d"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-manifest.json"
+    },
+    {
+      "identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 5510610,
+        "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+      },
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 92312,
+        "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+      },
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c"
+    },
+    {
+      "identity": {
+        "bytes": 17756,
+        "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+      },
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/z.ml"
+    },
+    {
+      "identity": {
+        "bytes": 3138,
+        "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa"
+      },
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml"
+    },
+    {
+      "identity": {
+        "bytes": 1436,
+        "sha256": "de1a2bf9e32784e50d66721941a9c4068ebf1e8d290e9eb895eb7cfcea79a177"
+      },
+      "path": "docs/evidence/retained-why-interval-native-effects-20261019/zarith-retrieval.json"
+    },
+    {
+      "identity": {
+        "bytes": 70438,
+        "sha256": "29b599e36c2fc4415e45a1e8f2cae7d1c7e8f116a5fb932850797c754fda208e"
+      },
+      "path": "docs/evidence/retained-why-native-effect-completeness-20261019/source-family.json"
+    },
+    {
+      "identity": {
+        "bytes": 21357322,
+        "sha256": "062b9f0d4b77c1dc3c30da2856beec161493725f920bbbc14d0de73c3d3bd0c5"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put-line.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 4278229,
+        "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json"
+    },
+    {
+      "identity": {
+        "bytes": 19586846,
+        "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 3559217,
+        "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json"
+    },
+    {
+      "identity": {
+        "bytes": 13848736,
+        "sha256": "ce32b1ca869aac10f25da496369c1c72cc366983ec7774196dafa42b72f6ca91"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-first-or-default.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 804836,
+        "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json"
+    },
+    {
+      "identity": {
+        "bytes": 11183347,
+        "sha256": "62996b092f8f6dbf305ab70f7a23fbd7443ea3cfbea8aaa2cfbf105de618393d"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-is-message.tar.gz"
+    },
+    {
+      "identity": {
+        "bytes": 76267,
+        "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+      },
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json"
+    }
+  ],
+  "packets": [
+    {
+      "identity": {
+        "bytes": 946806,
+        "sha256": "4f3e4a9da6e591832b6750a3dee2f995e7f6c83918bd15de996f5cb80b169cf6"
+      },
+      "path": "put-line-atoms.json.gz"
+    },
+    {
+      "identity": {
+        "bytes": 770964,
+        "sha256": "181f00ce095b136c90144b8ae04f41e44a7202585eff0fa1174d970c3f2fa4b5"
+      },
+      "path": "put-atoms.json.gz"
+    },
+    {
+      "identity": {
+        "bytes": 191987,
+        "sha256": "e9ed2816959694b4a04622c07730bfe73baec4097ea927ab8461a1085facbb2d"
+      },
+      "path": "first-or-default-atoms.json.gz"
+    },
+    {
+      "identity": {
+        "bytes": 39186,
+        "sha256": "fba5f7e5da8f99d6afccf5ead9730f45147727ac4cc0e26a0d17d74247be80bd"
+      },
+      "path": "is-message-atoms.json.gz"
+    },
+    {
+      "identity": {
+        "bytes": 45455,
+        "sha256": "0f7701642784e8aac84ebad5623b83d239fa57492f15257acbfb9bfad743d9ae"
+      },
+      "path": "input-is-valid-atoms.json.gz"
+    }
+  ],
+  "schema": 1,
+  "source_revisions": {
+    "ocaml": "8eb41f72ded84df884c3671734c947f612091f84",
+    "why3": "9390baf120ef260547dfa14f08e11c890b203d9c",
+    "zarith": "667d742948914aa1f80d5ad5abb98bc412335e51"
+  }
+}

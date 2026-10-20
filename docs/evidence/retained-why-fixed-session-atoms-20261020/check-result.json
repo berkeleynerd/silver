@@ -1,0 +1,58 @@
+{
+  "alpha_replays": 0,
+  "binder_recomputations": 0,
+  "cases": [
+    {
+      "J": 15925,
+      "attributes": 410,
+      "case": "put_line",
+      "constants": 279,
+      "identifiers": 5721,
+      "read_blocks": 78503,
+      "terms": 22477
+    },
+    {
+      "J": 13230,
+      "attributes": 359,
+      "case": "put",
+      "constants": 272,
+      "identifiers": 4520,
+      "read_blocks": 63068,
+      "terms": 17790
+    },
+    {
+      "J": 2541,
+      "attributes": 345,
+      "case": "first_or_default",
+      "constants": 44,
+      "identifiers": 1795,
+      "read_blocks": 27503,
+      "terms": 7744
+    },
+    {
+      "J": 220,
+      "attributes": 78,
+      "case": "is_message",
+      "constants": 9,
+      "identifiers": 332,
+      "read_blocks": 5226,
+      "terms": 1337
+    },
+    {
+      "J": 315,
+      "attributes": 79,
+      "case": "input_is_valid",
+      "constants": 10,
+      "identifiers": 371,
+      "read_blocks": 5946,
+      "terms": 1545
+    }
+  ],
+  "elapsed_seconds": 5.098657223000373,
+  "native_executions": 0,
+  "passed": true,
+  "platform": "Linux x86_64",
+  "session_replays": 0,
+  "solver_runs": 0,
+  "source_fetches": 0
+}

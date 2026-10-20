@@ -1,0 +1,355 @@
+{
+  "APn_visits": 161,
+  "J_one_save_per_forest": 32231,
+  "cases": [
+    {
+      "APn_visits": 65,
+      "B_binders": 41946,
+      "attributes": 410,
+      "case": "put_line",
+      "constant_kinds": {
+        "int": 279
+      },
+      "constants": 279,
+      "coverage_failures": [],
+      "detached_visits": 0,
+      "elapsed_seconds": 1.4459933339999225,
+      "formula_roots": 308,
+      "goal_identifier_attribute_summary": {
+        "max_count": 1,
+        "max_sum_bytes": 15,
+        "min_count": 1,
+        "min_sum_bytes": 15
+      },
+      "identifiers": 5721,
+      "max_case_pattern_occurrences": 0,
+      "max_numeric_native_buffer_bytes": 133,
+      "max_numeric_native_limb_copy_bytes": 16,
+      "numeric_components_complete": true,
+      "numeric_summary": {
+        "bit_length_max": 65,
+        "component_occurrences": 279,
+        "decimal_bytes_max": 20,
+        "decimal_bytes_min": 1,
+        "maximum_value": "18446744073709551616",
+        "minimum_value": "-1",
+        "representations": {
+          "heap_Zarith_custom": 3,
+          "immediate_OCaml_int": 276
+        },
+        "used_limbs_max": 2
+      },
+      "original_name_bytes_max": 40,
+      "original_name_bytes_min": 1,
+      "pattern_constructor_counts": {},
+      "proposition_and_explanation_requests_per_save": 15925,
+      "shape_attribute_union": {
+        "count": 195,
+        "sum_bytes": 4102
+      },
+      "stored_patterns": 0,
+      "stored_tasks": 65,
+      "stored_terms": 22477,
+      "term_attribute_summary": {
+        "max_count": 8,
+        "max_sum_bytes": 223,
+        "min_count": 0,
+        "min_sum_bytes": 0
+      },
+      "term_constructor_counts": {
+        "Tapp": 4935,
+        "Tbinop": 2469,
+        "Tconst": 314,
+        "Teps": 4,
+        "Tif": 535,
+        "Tlet": 4721,
+        "Tnot": 83,
+        "Tquant": 1206,
+        "Ttrue": 32,
+        "Tvar": 8178
+      },
+      "typed_graph_complete": true,
+      "unsupported_numeric_components": 0
+    },
+    {
+      "APn_visits": 54,
+      "B_binders": 33252,
+      "attributes": 359,
+      "case": "put",
+      "constant_kinds": {
+        "int": 272
+      },
+      "constants": 272,
+      "coverage_failures": [],
+      "detached_visits": 0,
+      "elapsed_seconds": 1.459402713000145,
+      "formula_roots": 297,
+      "goal_identifier_attribute_summary": {
+        "max_count": 1,
+        "max_sum_bytes": 15,
+        "min_count": 1,
+        "min_sum_bytes": 15
+      },
+      "identifiers": 4520,
+      "max_case_pattern_occurrences": 0,
+      "max_numeric_native_buffer_bytes": 133,
+      "max_numeric_native_limb_copy_bytes": 16,
+      "numeric_components_complete": true,
+      "numeric_summary": {
+        "bit_length_max": 65,
+        "component_occurrences": 272,
+        "decimal_bytes_max": 20,
+        "decimal_bytes_min": 1,
+        "maximum_value": "18446744073709551616",
+        "minimum_value": "-1",
+        "representations": {
+          "heap_Zarith_custom": 3,
+          "immediate_OCaml_int": 269
+        },
+        "used_limbs_max": 2
+      },
+      "original_name_bytes_max": 40,
+      "original_name_bytes_min": 1,
+      "pattern_constructor_counts": {},
+      "proposition_and_explanation_requests_per_save": 13230,
+      "shape_attribute_union": {
+        "count": 171,
+        "sum_bytes": 3394
+      },
+      "stored_patterns": 0,
+      "stored_tasks": 54,
+      "stored_terms": 17790,
+      "term_attribute_summary": {
+        "max_count": 8,
+        "max_sum_bytes": 214,
+        "min_count": 0,
+        "min_sum_bytes": 0
+      },
+      "term_constructor_counts": {
+        "Tapp": 3986,
+        "Tbinop": 1916,
+        "Tconst": 295,
+        "Teps": 4,
+        "Tif": 401,
+        "Tlet": 3732,
+        "Tnot": 69,
+        "Tquant": 979,
+        "Ttrue": 28,
+        "Tvar": 6380
+      },
+      "typed_graph_complete": true,
+      "unsupported_numeric_components": 0
+    },
+    {
+      "APn_visits": 33,
+      "B_binders": 10195,
+      "attributes": 345,
+      "case": "first_or_default",
+      "constant_kinds": {
+        "int": 44
+      },
+      "constants": 44,
+      "coverage_failures": [],
+      "detached_visits": 0,
+      "elapsed_seconds": 0.7684322850000171,
+      "formula_roots": 108,
+      "goal_identifier_attribute_summary": {
+        "max_count": 1,
+        "max_sum_bytes": 15,
+        "min_count": 1,
+        "min_sum_bytes": 15
+      },
+      "identifiers": 1795,
+      "max_case_pattern_occurrences": 0,
+      "max_numeric_native_buffer_bytes": 69,
+      "max_numeric_native_limb_copy_bytes": 8,
+      "numeric_components_complete": true,
+      "numeric_summary": {
+        "bit_length_max": 13,
+        "component_occurrences": 44,
+        "decimal_bytes_max": 4,
+        "decimal_bytes_min": 1,
+        "maximum_value": "4096",
+        "minimum_value": "0",
+        "representations": {
+          "immediate_OCaml_int": 44
+        },
+        "used_limbs_max": 1
+      },
+      "original_name_bytes_max": 60,
+      "original_name_bytes_min": 1,
+      "pattern_constructor_counts": {},
+      "proposition_and_explanation_requests_per_save": 2541,
+      "shape_attribute_union": {
+        "count": 193,
+        "sum_bytes": 3470
+      },
+      "stored_patterns": 0,
+      "stored_tasks": 33,
+      "stored_terms": 7744,
+      "term_attribute_summary": {
+        "max_count": 8,
+        "max_sum_bytes": 231,
+        "min_count": 0,
+        "min_sum_bytes": 0
+      },
+      "term_constructor_counts": {
+        "Tapp": 1999,
+        "Tbinop": 960,
+        "Tconst": 78,
+        "Teps": 2,
+        "Tif": 133,
+        "Tlet": 1416,
+        "Tnot": 44,
+        "Tquant": 313,
+        "Ttrue": 27,
+        "Tvar": 2772
+      },
+      "typed_graph_complete": true,
+      "unsupported_numeric_components": 0
+    },
+    {
+      "APn_visits": 4,
+      "B_binders": 744,
+      "attributes": 78,
+      "case": "is_message",
+      "constant_kinds": {
+        "int": 9
+      },
+      "constants": 9,
+      "coverage_failures": [],
+      "detached_visits": 0,
+      "elapsed_seconds": 0.4542315500002587,
+      "formula_roots": 57,
+      "goal_identifier_attribute_summary": {
+        "max_count": 1,
+        "max_sum_bytes": 15,
+        "min_count": 1,
+        "min_sum_bytes": 15
+      },
+      "identifiers": 332,
+      "max_case_pattern_occurrences": 0,
+      "max_numeric_native_buffer_bytes": 69,
+      "max_numeric_native_limb_copy_bytes": 8,
+      "numeric_components_complete": true,
+      "numeric_summary": {
+        "bit_length_max": 13,
+        "component_occurrences": 9,
+        "decimal_bytes_max": 4,
+        "decimal_bytes_min": 1,
+        "maximum_value": "4096",
+        "minimum_value": "0",
+        "representations": {
+          "immediate_OCaml_int": 9
+        },
+        "used_limbs_max": 1
+      },
+      "original_name_bytes_max": 28,
+      "original_name_bytes_min": 1,
+      "pattern_constructor_counts": {},
+      "proposition_and_explanation_requests_per_save": 220,
+      "shape_attribute_union": {
+        "count": 42,
+        "sum_bytes": 679
+      },
+      "stored_patterns": 0,
+      "stored_tasks": 4,
+      "stored_terms": 1337,
+      "term_attribute_summary": {
+        "max_count": 8,
+        "max_sum_bytes": 190,
+        "min_count": 0,
+        "min_sum_bytes": 0
+      },
+      "term_constructor_counts": {
+        "Tapp": 414,
+        "Tbinop": 91,
+        "Tconst": 9,
+        "Tif": 17,
+        "Tlet": 76,
+        "Tnot": 6,
+        "Tquant": 67,
+        "Ttrue": 4,
+        "Tvar": 653
+      },
+      "typed_graph_complete": true,
+      "unsupported_numeric_components": 0
+    },
+    {
+      "APn_visits": 5,
+      "B_binders": 966,
+      "attributes": 79,
+      "case": "input_is_valid",
+      "constant_kinds": {
+        "int": 10
+      },
+      "constants": 10,
+      "coverage_failures": [],
+      "detached_visits": 0,
+      "elapsed_seconds": 0.45506150400024126,
+      "formula_roots": 66,
+      "goal_identifier_attribute_summary": {
+        "max_count": 1,
+        "max_sum_bytes": 15,
+        "min_count": 1,
+        "min_sum_bytes": 15
+      },
+      "identifiers": 371,
+      "max_case_pattern_occurrences": 0,
+      "max_numeric_native_buffer_bytes": 69,
+      "max_numeric_native_limb_copy_bytes": 8,
+      "numeric_components_complete": true,
+      "numeric_summary": {
+        "bit_length_max": 13,
+        "component_occurrences": 10,
+        "decimal_bytes_max": 4,
+        "decimal_bytes_min": 1,
+        "maximum_value": "4096",
+        "minimum_value": "0",
+        "representations": {
+          "immediate_OCaml_int": 10
+        },
+        "used_limbs_max": 1
+      },
+      "original_name_bytes_max": 47,
+      "original_name_bytes_min": 1,
+      "pattern_constructor_counts": {},
+      "proposition_and_explanation_requests_per_save": 315,
+      "shape_attribute_union": {
+        "count": 44,
+        "sum_bytes": 700
+      },
+      "stored_patterns": 0,
+      "stored_tasks": 5,
+      "stored_terms": 1545,
+      "term_attribute_summary": {
+        "max_count": 8,
+        "max_sum_bytes": 183,
+        "min_count": 0,
+        "min_sum_bytes": 0
+      },
+      "term_constructor_counts": {
+        "Tapp": 483,
+        "Tbinop": 135,
+        "Tconst": 16,
+        "Teps": 1,
+        "Tif": 14,
+        "Tlet": 70,
+        "Tnot": 11,
+        "Tquant": 85,
+        "Ttrue": 9,
+        "Tvar": 721
+      },
+      "typed_graph_complete": true,
+      "unsupported_numeric_components": 0
+    }
+  ],
+  "explanation_prefixes_actual": null,
+  "explanation_prefixes_source_defaults": [
+    "expl:",
+    "infer:"
+  ],
+  "extraction_seconds": 4.583121386000585,
+  "scope": "One save per retained logical forest. Input_Is_Valid is prior first cvc5 inline entry; four others are registration cuts. APn domain differs from scheduler task envelope153.",
+  "source_contract_scope": "Retained source-family contracts; not historical installed-source identity."
+}
