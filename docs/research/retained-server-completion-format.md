@@ -54,11 +54,22 @@ returned CPU times as nonnegative would miss that conversion.
 
 For every signed input n in [-2^63,2^63-1], `ns_to_timespec64` at lines 518–538
 computes floor division by 10^9, with remainder in [0,999999999]. The positive,
-zero and negative branches cover the entire range. The negative branch's
-`-n-1` expression uses the selected kernel's signed-wrap compilation behavior;
-the pinned Makefile line 1107 supplies `-fno-strict-overflow`. In particular its
-minimum-input case yields 2^63-1 as the quotient numerator rather than requiring
-a positive signed representation of 2^63. The resulting limits are:
+zero and negative branches cover the entire range. The retained
+`include/linux/math64.h:10–30` selects direct unsigned `/` and `%` in
+`div_u64_rem` when `BITS_PER_LONG == 64`; retained
+`include/asm-generic/bitsperlong.h:8–12` supplies that branch under the selected
+`CONFIG_64BIT` interface. The selected x86_64 non-ILP32 UAPI width is retained
+separately. No installed build configuration is attested by those source files.
+
+The compilation-interface premise includes two's-complement signed wrap for
+`-n-1`, modulo-2^64 unsigned arithmetic, and low-bit-preserving u64-to-s64
+conversion, both at the function argument and when the negative unsigned
+quotient expression is assigned to signed `time64_t`. The pinned Makefile
+line 1107 supplies `-fno-strict-overflow`; finding that flag alone does not prove
+the selected compiler's semantics or the running kernel's compilation. Under
+the stated premise, the minimum-input `-n-1` yields 2^63-1 as the quotient
+numerator, and the negative quotient expression yields the signed floor.
+The resulting limits are:
 
 ```
 -9,223,372,037 <= tv_sec <= 9,223,372,036

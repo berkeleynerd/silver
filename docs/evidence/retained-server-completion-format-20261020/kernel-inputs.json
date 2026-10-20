@@ -92,11 +92,35 @@
       "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/Makefile",
       "bytes": 74500,
       "sha256": "abc5086e7b8003f5442b4c96c8006c020aa3ea04d5ac4be396e5bf6a47560140"
+    },
+    {
+      "source_path": "include/linux/math64.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/linux/math64.h",
+      "bytes": 11048,
+      "sha256": "193b4aa3c54a0dbc68a2ab24e01e86a265ba593987642e37c8fdb4c24544a78a"
+    },
+    {
+      "source_path": "arch/x86/include/uapi/asm/bitsperlong.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/arch/x86/include/uapi/asm/bitsperlong.h",
+      "bytes": 321,
+      "sha256": "8ef5efeb3f25ae47ce03ba892f5caf77631b1257715fc12de72c21e61db17e43"
+    },
+    {
+      "source_path": "include/asm-generic/bitsperlong.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/asm-generic/bitsperlong.h",
+      "bytes": 1207,
+      "sha256": "09c1354e4daa869af60b1b9ae76a0f7a5362bb0fc0be62d64c8ad51e3d19aa87"
+    },
+    {
+      "source_path": "include/uapi/asm-generic/bitsperlong.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/uapi/asm-generic/bitsperlong.h",
+      "bytes": 1107,
+      "sha256": "fa25db88dc972820b72f8baf9cea6f39ca7f5bd0cf39182089409f6676fa90b6"
     }
   ],
   "archive": {
     "path": "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz",
-    "bytes": 87520,
-    "sha256": "87b02f77fb9fef826df32ee3c8cec52347e992f268754093c6c7c21b16559c01"
+    "bytes": 90852,
+    "sha256": "81738c7e43efa78f728a98d6b471d95e38b84492f4e0d80e3fb41718aeeb9a20"
   }
 }

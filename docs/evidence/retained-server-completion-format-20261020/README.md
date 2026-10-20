@@ -15,6 +15,12 @@ the read-only disassembly. `inputs.json` binds repository/local inputs.
 conversion and generic-time64 counterexamples. Boundary examples exercise the
 source argument; they do not establish the universal bound by sampling.
 
+The review repair retains the selected 64-bit `div_u64_rem` helper and width
+selection headers and makes the wrap/conversion compilation-interface premise
+explicit. A source flag alone is not compiler or installed-kernel attestation.
+The bound is unchanged. The initial successful check remains in
+`check-run-initial.json`; `check-run.json` checks the repaired packet.
+
 The code executes only Python arithmetic and file reads, plus read-only objdump
 when preparing evidence. No native target, compiler, solver, proof, capture or
 predecessor checker run is needed. Retained elapsed time is in `check-run.json`.

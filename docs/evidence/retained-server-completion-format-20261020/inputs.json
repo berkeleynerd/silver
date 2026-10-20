@@ -10,28 +10,33 @@
   "packet_files": [
     {
       "path": "docs/evidence/retained-server-completion-format-20261020/README.md",
-      "bytes": 1430,
-      "sha256": "a7c35ae977c003553ed4ce632a26d799abacbe7badc26a70aa8c5af5debce54b"
+      "bytes": 1800,
+      "sha256": "2c7fe09a5611e374b6af3cd737ea3a7de9d7f139d358f0c8ce33afdfe0f435e0"
     },
     {
-      "path": "docs/evidence/retained-server-completion-format-20261020/check-run.json",
+      "path": "docs/evidence/retained-server-completion-format-20261020/check-run-initial.json",
       "bytes": 131,
       "sha256": "3e1564847457330a84fef8e17e00596cbd998472e647ead6b22d312228f541c2"
     },
     {
+      "path": "docs/evidence/retained-server-completion-format-20261020/check-run.json",
+      "bytes": 131,
+      "sha256": "c0d4b9b53bc546ec05ee5fcffa0e3c2698b5ceb0c75c6521f1c40ee772f1538a"
+    },
+    {
       "path": "docs/evidence/retained-server-completion-format-20261020/check.py",
-      "bytes": 6509,
-      "sha256": "d7fe42e6431787ce324275aa3c635d603e0ec5281ad70b48491fd0d31c260a99"
+      "bytes": 7205,
+      "sha256": "66e9ae310549e8b914af90a4a63baf989749d4f2bbe45eb53123f2fe646a96d4"
     },
     {
       "path": "docs/evidence/retained-server-completion-format-20261020/kernel-inputs.json",
-      "bytes": 4768,
-      "sha256": "c6fa86eb68b3f7a30a9b9db99f75aba97bdfd6663d7b9005ca07ec409dd3a24d"
+      "bytes": 6020,
+      "sha256": "6bcd92b91d0f8633d9e5226693bddff30ca7eba54e6e62429d5c35c26073f6e3"
     },
     {
       "path": "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz",
-      "bytes": 87520,
-      "sha256": "87b02f77fb9fef826df32ee3c8cec52347e992f268754093c6c7c21b16559c01"
+      "bytes": 90852,
+      "sha256": "81738c7e43efa78f728a98d6b471d95e38b84492f4e0d80e3fb41718aeeb9a20"
     },
     {
       "path": "docs/evidence/retained-server-completion-format-20261020/kernel-tag.json",
@@ -50,14 +55,14 @@
     },
     {
       "path": "docs/evidence/retained-server-completion-format-20261020/result.json",
-      "bytes": 2713,
-      "sha256": "aaae34534ef0611edce5b73d98d4033e9655d10109ce2172cfaf1932e8c14238"
+      "bytes": 2863,
+      "sha256": "155f71e79d770a4171302242fc2712b5ee4b38a5d3e381c827fb9fc16c4e896f"
     }
   ],
   "argument": {
     "path": "docs/research/retained-server-completion-format.md",
-    "bytes": 6889,
-    "sha256": "2b97f0f36f9ad104026f003301145bf9c3ad65e65a87f48c9b09112ae34a4faa"
+    "bytes": 7568,
+    "sha256": "c181135cf42d7f1fbf0e56fcc6aeb4fa7112faabe4ff49eb78db97f65f47180c"
   },
   "selected_project_baseline": "gpt-6-astra / xhigh",
   "live_lead_setting_confirmed": false,

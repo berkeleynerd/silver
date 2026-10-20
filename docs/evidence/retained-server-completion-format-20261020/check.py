@@ -37,6 +37,12 @@ def check():
     assert 'div_u64_rem(-nsec - 1, NSEC_PER_SEC, &rem) - 1' in conversion
     assert 'tv.tv_usec = (suseconds_t)ts.tv_nsec / 1000;' in conversion
     assert '-fno-strict-overflow' in source_file('Makefile')
+    math64 = source_file('include/linux/math64.h')
+    assert '#if BITS_PER_LONG == 64' in math64
+    assert ('static inline u64 div_u64_rem(u64 dividend, u32 divisor, u32 *remainder)\n'
+            '{\n\t*remainder = dividend % divisor;\n\treturn dividend / divisor;\n}') in math64
+    assert '#ifdef CONFIG_64BIT\n#define BITS_PER_LONG 64' in source_file('include/asm-generic/bitsperlong.h')
+    assert ('#if defined(__x86_64__) && !defined(__ILP32__)\n# define __BITS_PER_LONG 64') in source_file('arch/x86/include/uapi/asm/bitsperlong.h')
     assert '#define NSEC_PER_SEC\t1000000000L' in source_file('include/vdso/time64.h')
     assert '61\tcommon\twait4\t\t\tsys_wait4' in source_file('arch/x86/entry/syscalls/syscall_64.tbl')
 
@@ -102,6 +108,7 @@ def check():
         assert libc[offset:offset+body['size']].hex()==body['bytes_hex']
     return dict(kernel_source_commit=sources['commit'], kernel_source_files=len(sources['inputs']),
         kernel_source_binary_attestation=False, source_archive_identity=identity(archive.read_bytes()),
+        compilation_interface_premise='CONFIG_64BIT; two-complement signed wrap; modulo unsigned arithmetic; low-bit-preserving u64-to-s64 conversions',
         server_source_identity=identity(raw), seconds_min=seconds_lo, seconds_max=seconds_hi,
         microseconds_min=0,microseconds_max=999999,time_field_bytes_upper=time_bytes,
         exit_field_bytes_upper=exit_bytes,F_fixed_bytes=fixed,F_bytes_upper='id_bytes+path_bytes+29',

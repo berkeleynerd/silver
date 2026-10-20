@@ -1,6 +1,6 @@
 {
   "kernel_source_commit": "458c6079fc1d41d564c37679c8ace02cd83ee817",
-  "kernel_source_files": 15,
+  "kernel_source_files": 19,
   "kernel_source_binary_attestation": false,
   "source_archive_identity": {
     "bytes": 1372815,
@@ -108,5 +108,6 @@
   "complete_q": null,
   "production_adopted": false,
   "native_target_solver_proof_runs": 0,
-  "predecessor_checker_replays": 0
+  "predecessor_checker_replays": 0,
+  "compilation_interface_premise": "CONFIG_64BIT; two-complement signed wrap; modulo unsigned arithmetic; low-bit-preserving u64-to-s64 conversions"
 }
