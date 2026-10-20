@@ -1,0 +1,16 @@
+{
+  "reviewed_commit": "057a18abff22617d4adb4d9ed38398ed5a61966d",
+  "command": "python3 -B docs/evidence/retained-why-save-hashtbl-prefix-20261020/check.py",
+  "host": "Linux x86_64",
+  "status": "pass",
+  "source_excerpts": 25,
+  "native_bodies": 20,
+  "native_instruction_bytes_checked": 4316,
+  "retained_disassembly_reprojected": false,
+  "guard_boundary_checks": "pass",
+  "elapsed_seconds": 0.351329770999655,
+  "native_target_runs": 0,
+  "disassembler_runs": 0,
+  "capture_runs": 0,
+  "predecessor_checker_replays": 0
+}

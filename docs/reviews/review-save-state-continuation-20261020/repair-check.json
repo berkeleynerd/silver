@@ -1,0 +1,22 @@
+{
+  "reviewed_base": "057a18abff22617d4adb4d9ed38398ed5a61966d",
+  "reviewed_repair": "af092f2618b893e36907e133a6ea602a95329f28",
+  "source_loaded_directly_from_frozen_git_blob": true,
+  "repair_focused_tests": 3,
+  "repair_focused_test_result": "pass",
+  "full_numeric_join_matches_repair_result": true,
+  "all_prior_results_unchanged_after_removing_new_metadata_certificate": true,
+  "original_negative_probe_rejected": "('overlapping raw input mismatch', 'session-blocks.jsonl')",
+  "fresh_structural_domains": [
+    1,
+    1,
+    1,
+    1,
+    2
+  ],
+  "numeric_table_guards_pass": 203,
+  "numeric_table_applications": 206,
+  "elapsed_seconds": 0.23998509800003376,
+  "native_runs": 0,
+  "old_analysis_replays": 0
+}

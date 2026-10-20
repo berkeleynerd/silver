@@ -1,0 +1,20 @@
+{
+  "scope": "Bounded negative probe of join.py at freeze 057a18abff22617d4adb4d9ed38398ed5a61966d. Parser seam corrupts only two saved replay identities; no capture or implementation file is changed.",
+  "mutated_records": [
+    "put-line-replay.json",
+    "put-replay.json",
+    "first-or-default-replay.json",
+    "is-message-replay.json",
+    "input-is-valid-replay.json"
+  ],
+  "mutated_keys": [
+    "session-blocks.jsonl",
+    "session-root.json"
+  ],
+  "join_output_unchanged": true,
+  "actual_overlapping_identities_match": true,
+  "elapsed_seconds": 0.11628544999985024,
+  "host": "Linux x86_64",
+  "native_target_runs": 0,
+  "old_analysis_replays": 0
+}

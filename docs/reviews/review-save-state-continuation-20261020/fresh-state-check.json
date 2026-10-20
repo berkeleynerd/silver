@@ -1,0 +1,71 @@
+{
+  "scope": "Independent bounded fresh-state check for M1; exact captured projections bound to retained archive manifest, no observer/binder/native replay",
+  "cases": [
+    {
+      "case": "put_line",
+      "projection_identity": {
+        "bytes": 2578459,
+        "sha256": "d8f35cfa3f89bab6106b994c2fa4d8ed7e14376fd7a0475264e7b74e02cddcec"
+      },
+      "archive_manifest_identity_matches": true,
+      "new_structural_domain": 1,
+      "old_domain_upper": 1,
+      "distinct_goal_tables": 65,
+      "goals": 65,
+      "membership_covered": true
+    },
+    {
+      "case": "put",
+      "projection_identity": {
+        "bytes": 2484992,
+        "sha256": "a7fcb1e087dbd4e8d814d53fe744819951000b1910a6814569bd235cd798a9f6"
+      },
+      "archive_manifest_identity_matches": true,
+      "new_structural_domain": 1,
+      "old_domain_upper": 1,
+      "distinct_goal_tables": 54,
+      "goals": 54,
+      "membership_covered": true
+    },
+    {
+      "case": "first_or_default",
+      "projection_identity": {
+        "bytes": 2272146,
+        "sha256": "58873e855437f0dfdb2ec768116ceb901b2368026d2fa9bb8c28c21ff1526dd8"
+      },
+      "archive_manifest_identity_matches": true,
+      "new_structural_domain": 1,
+      "old_domain_upper": 1,
+      "distinct_goal_tables": 33,
+      "goals": 33,
+      "membership_covered": true
+    },
+    {
+      "case": "is_message",
+      "projection_identity": {
+        "bytes": 1943795,
+        "sha256": "bdbe0912e80a19fbcc90d0b43dc07cbf31218abbad430f605344e1d695353ec7"
+      },
+      "archive_manifest_identity_matches": true,
+      "new_structural_domain": 1,
+      "old_domain_upper": 1,
+      "distinct_goal_tables": 4,
+      "goals": 4,
+      "membership_covered": true
+    },
+    {
+      "case": "input_is_valid",
+      "projection_identity": {
+        "bytes": 1990380,
+        "sha256": "a4bc4d1e181fcff680889cd96abfa38063c6aedff04b8a2454fbbb161253d68e"
+      },
+      "archive_manifest_identity_matches": true,
+      "new_structural_domain": 2,
+      "old_domain_upper": 2,
+      "distinct_goal_tables": 5,
+      "goals": 5,
+      "membership_covered": true
+    }
+  ],
+  "elapsed_seconds": 0.07582698099940899
+}
