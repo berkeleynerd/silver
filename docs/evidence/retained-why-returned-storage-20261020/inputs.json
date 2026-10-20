@@ -1,0 +1,350 @@
+{
+  "accepted_R56_implementation": "240b1ca101ec63a332b416469e721d940b527c3b",
+  "author_base": "f306912c98e2449015a0514e0be5c11b99de5be1",
+  "files": {
+    "docs/evidence/retained-solver-request-bytes-20261020/driver-inputs.json": {
+      "bytes": 5346,
+      "sha256": "3ae4d8ce67c421025451242810f681a3a41a430c6c249de03c7d4be5d81ff9a2"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc4_bv.gen": {
+      "bytes": 911,
+      "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/discrimination.gen": {
+      "bytes": 169,
+      "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-bv.gen": {
+      "bytes": 10203,
+      "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-gnatprove.gen": {
+      "bytes": 1815,
+      "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_bv.gen": {
+      "bytes": 793,
+      "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_real.gen": {
+      "bytes": 357,
+      "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats.gen": {
+      "bytes": 8423,
+      "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-gnatprove.gen": {
+      "bytes": 1438,
+      "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_bv.gen": {
+      "bytes": 940,
+      "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/README.md": {
+      "bytes": 2715,
+      "sha256": "0b878da2dfa530b5691102ad919382a8524b00d73e81f40620b2ae0f77926beb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/audit_sources.py": {
+      "bytes": 4028,
+      "sha256": "2e267414ecf5e23f80a12ffad65b5e86d08ddc70b92a43b616e33bb815335063"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check-result.json": {
+      "bytes": 434,
+      "sha256": "757b8624c580e0fbd24c9b62809df1cc2f5880cbb82c6f3099b45ebb90984279"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check.py": {
+      "bytes": 3438,
+      "sha256": "c860f4b23c9eed466a14ca100c617d009bde577726dbd611c1f9dc190757230a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/compose.py": {
+      "bytes": 3552,
+      "sha256": "62913ee76fde89ade79e829ce3219932970141731e607a4708b5a58f8dfe72ac"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/family_model.py": {
+      "bytes": 20161,
+      "sha256": "b3b9a4b14c11bc765a36b08f67749dc6633b1e5229ad395bb70e69266a39aed9"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-details.json.gz": {
+      "bytes": 11720,
+      "sha256": "c75d0c0d7a1264ca97aaea105388e14cec4476ef068110a216a474741e7150c0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json": {
+      "bytes": 157915,
+      "sha256": "ce3491fd5128642fc673b0dd94187306c7ee4537fc95e7743ad015c5b4ea7182"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-details.json.gz": {
+      "bytes": 7909,
+      "sha256": "6baf860f065107e1494f2008b340e9df91c6b7e2a61892606759918e74d72556"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json": {
+      "bytes": 129401,
+      "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/inputs.json": {
+      "bytes": 11925,
+      "sha256": "e73e54f0bd3b480c4a2d88d92fb2c00f087920f6bdc4a24370e786751e1345cb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-details.json.gz": {
+      "bytes": 6787,
+      "sha256": "a96a693a9cb237f894c921f020bd1324ae1d6bbe72ec0b3b10d5ee702dedb796"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json": {
+      "bytes": 109999,
+      "sha256": "f6c7ed268da6b4f25fa307964f27e346bb3551777179a97f94f9191b0dda53d0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/project.py": {
+      "bytes": 8157,
+      "sha256": "9abccf9e586ed2ea46377aa94d8fc1609682a31a65af41d431f7bb45c92d6492"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-details.json.gz": {
+      "bytes": 24963,
+      "sha256": "ce7cb50f4e51dc24b6117cd40aeb756bf7ca19f2df3e73b2eb70071366fe0693"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-details.json.gz": {
+      "bytes": 27354,
+      "sha256": "da5656485c11ba6b1bdb25d1216e2f4db8871d089daf60f52d2b0f62892f409a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json": {
+      "bytes": 257989,
+      "sha256": "aade05387e384a0cb2c5c5ea7121f1235e09190e9e008bf63bfa325fa03b03a5"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json": {
+      "bytes": 256913,
+      "sha256": "57cda072bfa8fb31f98040efcd24b655fa6086e9dc5f6bb045273f15f483671f"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/result.json": {
+      "bytes": 19552,
+      "sha256": "8730f5c947386313a1ac2ae9fc9fca3b784d9c026a56fdef1e7a501469beec87"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/round.json": {
+      "bytes": 3252,
+      "sha256": "b85ab46b70b5852ca60fd7224f294d40da21e3557de6a533b5b65700277ab531"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/source-witnesses.json": {
+      "bytes": 173363,
+      "sha256": "855074879206a96240b3fe8cbf804966641e7ccb581adada5cf43a887d4d3ad9"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/refine.py": {
+      "bytes": 16995,
+      "sha256": "8585ee2a9a1013489bee9c5360cfa3b116f7bd00d1b1786569031ca50578489a"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/README.md": {
+      "bytes": 2603,
+      "sha256": "ace551393c5b26a53b1a7a553101f8f2b97107678746c520ae5460ddb67ceca2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/build-packet.py": {
+      "bytes": 5083,
+      "sha256": "c3ea2b4d7f6d426815827f844da216513019b151172d21ac4664dd90cefd1d28"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check-result.json": {
+      "bytes": 365,
+      "sha256": "9cc0b7ab1268f3668d415c27870c473b5fc355f4cbd314549007008f72700895"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py": {
+      "bytes": 2979,
+      "sha256": "f3a311085f54a62c97ea044b042d47b7205a752b7ffed90cdbeca71b84a4f0d2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-exclusions.py": {
+      "bytes": 11359,
+      "sha256": "9833a03ae31b48f269de799b136ad38c2ed27d83722c94b846febf9b66367cf6"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-metadata.py": {
+      "bytes": 7318,
+      "sha256": "a1ad4a01d9b33877946c96b94a93d36b119ccbb82042ee4f54df6639bf438498"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-exclusions.json": {
+      "bytes": 18111,
+      "sha256": "2b287d9ff87a5510cd08250f93bdd4cdd39dbf2b0b2e39f6c57939352cbfbd79"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-metadata.json": {
+      "bytes": 118402,
+      "sha256": "af267e65b20beb502a17cf227c928d2d96719b0cdeeea16c4239ed6d13f8dcb6"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-exclusions.json": {
+      "bytes": 12422,
+      "sha256": "ed27d9490609f7460b3a37eac7f1c81efa819e524b609d5bc2e45d4295487f4d"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-metadata.json": {
+      "bytes": 101025,
+      "sha256": "2e9615a9572e1e9eca4c259b43a68fa7b4bef99666981678956ae6c46362e6bd"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json": {
+      "bytes": 5800,
+      "sha256": "0973f07aa2fed31710ea2cf80d16e142961cf07768f52437dc89b859fe715eb1"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-exclusions.json": {
+      "bytes": 5515,
+      "sha256": "e73f7b0e0dad5883d27baadbd93e9426080209ca9f136e2063e346efaf38a43a"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-metadata.json": {
+      "bytes": 85236,
+      "sha256": "a5eaba90321dfb89752b83ec4abe7f354c4d77e2f501543239c3a364d1247904"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-exclusions.json": {
+      "bytes": 7208,
+      "sha256": "0f27f73da7340855dbd33e0c0a8af395a66e80946f6f87dde9e929a83da0473c"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-exclusions.json": {
+      "bytes": 7213,
+      "sha256": "faa438eb32bcf678ab850ebe04556b5d3b172cfb2602cc7f3d608ca98ca77102"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-metadata.json": {
+      "bytes": 343960,
+      "sha256": "3dc61380a18e0c478f54502c0cd824a9d17463b3ef2502615ac555654c748e3c"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-metadata.json": {
+      "bytes": 341432,
+      "sha256": "cee43e7db5e27806ecc31898a130244bf4170367bab7adbf5443562f87cb1fb2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json": {
+      "bytes": 2635,
+      "sha256": "528990857262bbcf873700e1e90aaad05810c69dc79b81d893bb3422bac0c92b"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/round.json": {
+      "bytes": 2372,
+      "sha256": "b92070c5e1806db50fd872448edc1ed7afab6f4e4b6af37df9133ca8d8b3d967"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/source-witnesses.json": {
+      "bytes": 76827,
+      "sha256": "ffb32ae0d918bd63faa226ff422254ec5c4548476f973e2bea425320fc97a919"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/model.py": {
+      "bytes": 19152,
+      "sha256": "38b94781bf175df86e3d7f8eff567ab8c3f29340dc61bac896c2b24ddb1fad89"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/README.md": {
+      "bytes": 1705,
+      "sha256": "879ab2645d172eb97078d0e1585f10844da91739454eb2f31dfe3196eaec2775"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/audit_sources.py": {
+      "bytes": 2251,
+      "sha256": "f2ece7cd62cf383d8eceb3d6394ef2c4c30c55077e537be501998c68c8b4f9e8"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/check.py": {
+      "bytes": 3480,
+      "sha256": "98762e4090041565d2b12a09685fbbc519b78ba1a79f240eb5eacaae72bfbe27"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/compose.py": {
+      "bytes": 4799,
+      "sha256": "69fc7594763afa297b5afc4d7d43a422da1d8c3f1dce4b9b048a9f7919f5f6c4"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/context_model.py": {
+      "bytes": 14267,
+      "sha256": "80c128d8965c2ae63152b97bf9a2fd547cd297a45a9fa3c2a1bf51891c057456"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/driver-connection.json": {
+      "bytes": 1933,
+      "sha256": "a9ddfa163da227b65845af7181740475f7b53586f6547bb400befc35e43b9d24"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/first-or-default-context.json": {
+      "bytes": 208759,
+      "sha256": "e7c1ca172a5422360710cbff6b32c1603c7e0b0f67e42c596c08184b2bb0ebd6"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/input-is-valid-context.json": {
+      "bytes": 164046,
+      "sha256": "c031e9a8b8c4c6d25e110adacce9527987a826e3280aa83ab4fa94bd83d889e4"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/is-message-context.json": {
+      "bytes": 94615,
+      "sha256": "d07ac3ce0b14611ef3cb85f649da467533f7c7766bea3358a3077818efca040c"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-context.json": {
+      "bytes": 345641,
+      "sha256": "46411e1017d836ebbdb1e1d16ac95854f074e5815efc9c266fc13e1a3b6b3a13"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-line-context.json": {
+      "bytes": 345640,
+      "sha256": "9492a9a662069afb71d6f362738a72f9c75c3091ef38b453cda6f4cb52cdc383"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+      "bytes": 5640,
+      "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/source-witnesses.json": {
+      "bytes": 162851,
+      "sha256": "d2418a0e44d80707201cea6238d23d6579433f6851cb360d3000207b9d1ebd82"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-fixed-inline-family.md": {
+      "bytes": 15521,
+      "sha256": "8dd942265b1bfa4f2b80fcda52fb60a08972708c441209a51e7084f21fa1a0cd"
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "bytes": 21779,
+      "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+    },
+    "docs/research/retained-why-parallel-symbol-exclusion.md": {
+      "bytes": 15395,
+      "sha256": "0202931a67724ba691197553c67429ce8ffb7eedd83a3de7532c23afe678ca66"
+    },
+    "docs/research/retained-why-returned-storage.md": {
+      "bytes": 19782,
+      "sha256": "b9fbca409fa996f2ec7aae3fbdf453ceab9fcb9444c190e38cd6f0f8cd527028"
+    }
+  }
+}

@@ -1,0 +1,4641 @@
+{
+  "axiom_heads": [
+    {
+      "attributes": [],
+      "prsymbol": 140229982911888
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982867256
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982830696
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982789816
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982749544
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982688232
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982619464
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982561456
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982504632
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982436704
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982383376
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982346224
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982225856
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982145024
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229982056400
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229981971240
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229981927392
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229981883312
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229981826280
+    },
+    {
+      "attributes": [
+        "W:non_conservative_extension:N"
+      ],
+      "prsymbol": 140229404538008
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229402743264
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229402699792
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229402646176
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229402166680
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229402091568
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229402011040
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401890784
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401819616
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401723144
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401621464
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401519464
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401374024
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401252808
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401171832
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229401083384
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229400996880
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229400914192
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229400684976
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229400421400
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229400264480
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229400064896
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229399869448
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229399739704
+    },
+    {
+      "attributes": [
+        "useraxiom"
+      ],
+      "prsymbol": 140229399381744
+    },
+    {
+      "attributes": [
+        "W:non_conservative_extension:N"
+      ],
+      "prsymbol": 140229399020632
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229397978928
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229397933936
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229397877584
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229397172344
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229396453016
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229396414776
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229396377192
+    },
+    {
+      "attributes": [],
+      "prsymbol": 140229396333016
+    }
+  ],
+  "case": "is-message",
+  "declared_names": [
+    {
+      "identifier": 140229394906864,
+      "name": "dynamic_invariant"
+    },
+    {
+      "identifier": 140229395151560,
+      "name": "dynamic_invariant"
+    },
+    {
+      "identifier": 140229395615232,
+      "name": "dynamic_invariant"
+    },
+    {
+      "identifier": 140229395884648,
+      "name": "string____ref_string____content__projection"
+    },
+    {
+      "identifier": 140229396137256,
+      "name": "logic_eq"
+    },
+    {
+      "identifier": 140229396197440,
+      "name": "well_formed"
+    },
+    {
+      "identifier": 140229396306192,
+      "name": "bool_eq"
+    },
+    {
+      "identifier": 140229396333032,
+      "name": "size__of__object_axiom"
+    },
+    {
+      "identifier": 140229396377208,
+      "name": "alignment_axiom"
+    },
+    {
+      "identifier": 140229396414792,
+      "name": "object__size_axiom"
+    },
+    {
+      "identifier": 140229396453032,
+      "name": "value__size_axiom"
+    },
+    {
+      "identifier": 140229396621456,
+      "name": "dynamic_property"
+    },
+    {
+      "identifier": 140229396704680,
+      "name": "length"
+    },
+    {
+      "identifier": 140229396768472,
+      "name": "last"
+    },
+    {
+      "identifier": 140229396831464,
+      "name": "first"
+    },
+    {
+      "identifier": 140229396903536,
+      "name": "of_array"
+    },
+    {
+      "identifier": 140229396956736,
+      "name": "to_array"
+    },
+    {
+      "identifier": 140229397122208,
+      "name": "dynamic_property"
+    },
+    {
+      "identifier": 140229397172360,
+      "name": "mk_def"
+    },
+    {
+      "identifier": 140229397271864,
+      "name": "last"
+    },
+    {
+      "identifier": 140229397315008,
+      "name": "first"
+    },
+    {
+      "identifier": 140229397477600,
+      "name": "index_1_id"
+    },
+    {
+      "identifier": 140229397877600,
+      "name": "coerce_axiom"
+    },
+    {
+      "identifier": 140229397933952,
+      "name": "range_axiom"
+    },
+    {
+      "identifier": 140229397978944,
+      "name": "inversion_axiom"
+    },
+    {
+      "identifier": 140229398147000,
+      "name": "to_rep"
+    },
+    {
+      "identifier": 140229398313032,
+      "name": "positive__ref_positive__content__projection"
+    },
+    {
+      "identifier": 140229398416160,
+      "name": "dynamic_property"
+    },
+    {
+      "identifier": 140229398679168,
+      "name": "bool_eq"
+    },
+    {
+      "identifier": 140229398848208,
+      "name": "in_range"
+    },
+    {
+      "identifier": 140229398886088,
+      "name": "last"
+    },
+    {
+      "identifier": 140229398938360,
+      "name": "first"
+    },
+    {
+      "identifier": 140229399020648,
+      "name": "positive'inj"
+    },
+    {
+      "identifier": 140229399020736,
+      "name": "positive'eq"
+    },
+    {
+      "identifier": 140229399024560,
+      "name": "positive'minInt"
+    },
+    {
+      "identifier": 140229399027760,
+      "name": "positive'maxInt"
+    },
+    {
+      "identifier": 140229399381760,
+      "name": "bool_eq_rev"
+    },
+    {
+      "identifier": 140229399670776,
+      "name": "bool_eq"
+    },
+    {
+      "identifier": 140229399739720,
+      "name": "singleton_bounds"
+    },
+    {
+      "identifier": 140229399869464,
+      "name": "concat_singletons_def"
+    },
+    {
+      "identifier": 140229400064912,
+      "name": "concat_singleton_right_def"
+    },
+    {
+      "identifier": 140229400264496,
+      "name": "concat_singleton_left_def_eq"
+    },
+    {
+      "identifier": 140229400421416,
+      "name": "concat_singleton_left_def"
+    },
+    {
+      "identifier": 140229400684992,
+      "name": "concat_def"
+    },
+    {
+      "identifier": 140229400914208,
+      "name": "slice_extensional"
+    },
+    {
+      "identifier": 140229400996896,
+      "name": "slice_has_bounds"
+    },
+    {
+      "identifier": 140229401083400,
+      "name": "slice_def"
+    },
+    {
+      "identifier": 140229401171848,
+      "name": "slice_slice"
+    },
+    {
+      "identifier": 140229401252824,
+      "name": "slice_eq"
+    },
+    {
+      "identifier": 140229401374040,
+      "name": "const_def"
+    },
+    {
+      "identifier": 140229401519480,
+      "name": "slide_def"
+    },
+    {
+      "identifier": 140229401621480,
+      "name": "slide_eq"
+    },
+    {
+      "identifier": 140229401723160,
+      "name": "set_has_bounds"
+    },
+    {
+      "identifier": 140229401819632,
+      "name": "set_neq"
+    },
+    {
+      "identifier": 140229401890800,
+      "name": "set_eq"
+    },
+    {
+      "identifier": 140229402011056,
+      "name": "extensionality"
+    },
+    {
+      "identifier": 140229402091584,
+      "name": "eq_ext_def"
+    },
+    {
+      "identifier": 140229402166696,
+      "name": "get_proj"
+    },
+    {
+      "identifier": 140229402443208,
+      "name": "index_I1_one"
+    },
+    {
+      "identifier": 140229402646192,
+      "name": "coerce_axiom"
+    },
+    {
+      "identifier": 140229402699808,
+      "name": "range_axiom"
+    },
+    {
+      "identifier": 140229402743280,
+      "name": "inversion_axiom"
+    },
+    {
+      "identifier": 140229403037656,
+      "name": "character__ref_character__content__projection"
+    },
+    {
+      "identifier": 140229403137192,
+      "name": "dynamic_property"
+    },
+    {
+      "identifier": 140229403395296,
+      "name": "bool_eq"
+    },
+    {
+      "identifier": 140229403561904,
+      "name": "in_range"
+    },
+    {
+      "identifier": 140229403598808,
+      "name": "last"
+    },
+    {
+      "identifier": 140229403651176,
+      "name": "first"
+    },
+    {
+      "identifier": 140229403829168,
+      "name": "integer__ref_integer__content__projection"
+    },
+    {
+      "identifier": 140229403932272,
+      "name": "dynamic_property"
+    },
+    {
+      "identifier": 140229404195408,
+      "name": "bool_eq"
+    },
+    {
+      "identifier": 140229404365216,
+      "name": "in_range"
+    },
+    {
+      "identifier": 140229404403304,
+      "name": "last"
+    },
+    {
+      "identifier": 140229404455544,
+      "name": "first"
+    },
+    {
+      "identifier": 140229404538024,
+      "name": "integer'inj"
+    },
+    {
+      "identifier": 140229404538112,
+      "name": "integer'eq"
+    },
+    {
+      "identifier": 140229404541936,
+      "name": "integer'minInt"
+    },
+    {
+      "identifier": 140229404545136,
+      "name": "integer'maxInt"
+    },
+    {
+      "identifier": 140229686909240,
+      "name": "dynamic_property"
+    },
+    {
+      "identifier": 140229687037360,
+      "name": "in_range"
+    },
+    {
+      "identifier": 140229687081056,
+      "name": "first"
+    },
+    {
+      "identifier": 140229687114152,
+      "name": "last"
+    },
+    {
+      "identifier": 140229766611232,
+      "name": "__private__ref___projection"
+    },
+    {
+      "identifier": 140229766695152,
+      "name": "real__ref___projection"
+    },
+    {
+      "identifier": 140229766780104,
+      "name": "bool__ref___projection"
+    },
+    {
+      "identifier": 140229766864600,
+      "name": "__fixed__ref___projection"
+    },
+    {
+      "identifier": 140229766949432,
+      "name": "int__ref___projection"
+    },
+    {
+      "identifier": 140229767687592,
+      "name": "of_int"
+    },
+    {
+      "identifier": 140229767759424,
+      "name": "to_int"
+    },
+    {
+      "identifier": 140229767836936,
+      "name": "bool_ne"
+    },
+    {
+      "identifier": 140229767925336,
+      "name": "bool_eq"
+    },
+    {
+      "identifier": 140229941405144,
+      "name": "ite"
+    },
+    {
+      "identifier": 140229941696864,
+      "name": "implb"
+    },
+    {
+      "identifier": 140229941823616,
+      "name": "xorb"
+    },
+    {
+      "identifier": 140229941945320,
+      "name": "notb"
+    },
+    {
+      "identifier": 140229942061184,
+      "name": "orb"
+    },
+    {
+      "identifier": 140229942181776,
+      "name": "andb"
+    },
+    {
+      "identifier": 140229981826296,
+      "name": "CompatOrderMult"
+    },
+    {
+      "identifier": 140229981883328,
+      "name": "CompatOrderAdd"
+    },
+    {
+      "identifier": 140229981927408,
+      "name": "ZeroLessOne"
+    },
+    {
+      "identifier": 140229981971256,
+      "name": "Total"
+    },
+    {
+      "identifier": 140229982056416,
+      "name": "Antisymm"
+    },
+    {
+      "identifier": 140229982145040,
+      "name": "Trans"
+    },
+    {
+      "identifier": 140229982225872,
+      "name": "Refl"
+    },
+    {
+      "identifier": 140229982346240,
+      "name": "NonTrivialRing"
+    },
+    {
+      "identifier": 140229982383392,
+      "name": "Unitary"
+    },
+    {
+      "identifier": 140229982436720,
+      "name": "Comm"
+    },
+    {
+      "identifier": 140229982504648,
+      "name": "Mul_distr_r"
+    },
+    {
+      "identifier": 140229982561472,
+      "name": "Mul_distr_l"
+    },
+    {
+      "identifier": 140229982619480,
+      "name": "Assoc"
+    },
+    {
+      "identifier": 140229982688248,
+      "name": "Comm"
+    },
+    {
+      "identifier": 140229982749560,
+      "name": "Inv_def_r"
+    },
+    {
+      "identifier": 140229982789832,
+      "name": "Inv_def_l"
+    },
+    {
+      "identifier": 140229982830712,
+      "name": "Unit_def_r"
+    },
+    {
+      "identifier": 140229982867272,
+      "name": "Unit_def_l"
+    },
+    {
+      "identifier": 140229982911904,
+      "name": "Assoc"
+    },
+    {
+      "identifier": 140229999197416,
+      "name": "infix >="
+    },
+    {
+      "identifier": 140229999292672,
+      "name": "infix <="
+    },
+    {
+      "identifier": 140229999392504,
+      "name": "infix >"
+    },
+    {
+      "identifier": 140229999481752,
+      "name": "infix -"
+    },
+    {
+      "identifier": 140229999778640,
+      "name": "one"
+    },
+    {
+      "identifier": 140229999807296,
+      "name": "zero"
+    }
+  ],
+  "original_context_keys": 122,
+  "stages": {
+    "ce": {
+      "bound_plus_formal_slots_max": 8,
+      "context_roots": [
+        {
+          "declaration": 140229942166968,
+          "dimension": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229942046376,
+          "dimension": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229941932992,
+          "dimension": [
+            4,
+            0,
+            2,
+            2
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229941807240,
+          "dimension": [
+            5,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229941682056,
+          "dimension": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229766928416,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766843512,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766758960,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766674280,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766590200,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229999797416,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229999768536,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229999467256,
+          "dimension": [
+            4,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229999380008,
+          "dimension": [
+            3,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229999276696,
+          "dimension": [
+            7,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229999184920,
+          "dimension": [
+            3,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229392192584,
+          "dimension": [
+            12,
+            3,
+            0,
+            5
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392180456,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392172848,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392164072,
+          "dimension": [
+            7,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392155488,
+          "dimension": [
+            7,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392145704,
+          "dimension": [
+            8,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392134096,
+          "dimension": [
+            12,
+            3,
+            0,
+            5
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392121920,
+          "dimension": [
+            14,
+            3,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392109920,
+          "dimension": [
+            14,
+            3,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392096656,
+          "dimension": [
+            8,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392085208,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392077032,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392069960,
+          "dimension": [
+            4,
+            1,
+            0,
+            1
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392061720,
+          "dimension": [
+            12,
+            3,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392048776,
+          "dimension": [
+            12,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392035984,
+          "dimension": [
+            8,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392025888,
+          "dimension": [
+            3,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392020216,
+          "dimension": [
+            12,
+            3,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392009112,
+          "dimension": [
+            16,
+            3,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229941387312,
+          "dimension": [
+            4,
+            0,
+            2,
+            0
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229767897520,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229767808512,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229767737672,
+          "dimension": [
+            6,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229767661600,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229687108824,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229687075728,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229687010696,
+          "dimension": [
+            7,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229686883912,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229404542888,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404539688,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404527032,
+          "dimension": [
+            5,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229404535336,
+          "dimension": [
+            8,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404449816,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404397576,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404336216,
+          "dimension": [
+            7,
+            0,
+            0,
+            4
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229404180736,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229403918920,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229403806216,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229403645448,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229403593080,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229403532648,
+          "dimension": [
+            7,
+            0,
+            0,
+            4
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229403380624,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229403123840,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229403016288,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229391738280,
+          "dimension": [
+            8,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229391728696,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402640976,
+          "dimension": [
+            12,
+            1,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402430576,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402159328,
+          "dimension": [
+            9,
+            2,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402084424,
+          "dimension": [
+            15,
+            4,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401996848,
+          "dimension": [
+            38,
+            5,
+            0,
+            9
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401883624,
+          "dimension": [
+            13,
+            3,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401807016,
+          "dimension": [
+            30,
+            4,
+            0,
+            9
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401711976,
+          "dimension": [
+            28,
+            5,
+            0,
+            7
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401615680,
+          "dimension": [
+            11,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401500288,
+          "dimension": [
+            51,
+            5,
+            0,
+            16
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401360264,
+          "dimension": [
+            36,
+            4,
+            0,
+            10
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401244560,
+          "dimension": [
+            20,
+            3,
+            0,
+            5
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401160648,
+          "dimension": [
+            28,
+            5,
+            0,
+            8
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401070080,
+          "dimension": [
+            33,
+            4,
+            0,
+            10
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400989824,
+          "dimension": [
+            15,
+            3,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400897888,
+          "dimension": [
+            43,
+            5,
+            0,
+            12
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400654552,
+          "dimension": [
+            91,
+            8,
+            0,
+            23
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400395616,
+          "dimension": [
+            72,
+            7,
+            0,
+            19
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400250968,
+          "dimension": [
+            33,
+            6,
+            0,
+            10
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400038592,
+          "dimension": [
+            81,
+            6,
+            0,
+            23
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399854992,
+          "dimension": [
+            40,
+            4,
+            0,
+            12
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399731632,
+          "dimension": [
+            18,
+            2,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399531616,
+          "dimension": [
+            45,
+            1,
+            0,
+            17
+          ],
+          "formal_arity": 6
+        },
+        {
+          "declaration": 140229399191456,
+          "dimension": [
+            52,
+            7,
+            0,
+            18
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399025512,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399022312,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399009624,
+          "dimension": [
+            5,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229399017960,
+          "dimension": [
+            8,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229398932632,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229398880360,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229398819240,
+          "dimension": [
+            7,
+            0,
+            0,
+            4
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229398664496,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229398402808,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229398290032,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229398125520,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229391047984,
+          "dimension": [
+            8,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229391037920,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229397872384,
+          "dimension": [
+            12,
+            1,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229397461496,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229397304976,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229397261880,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229390976928,
+          "dimension": [
+            25,
+            2,
+            0,
+            11
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229397090720,
+          "dimension": [
+            19,
+            0,
+            0,
+            5
+          ],
+          "formal_arity": 4
+        },
+        {
+          "declaration": 140229396946752,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396884568,
+          "dimension": [
+            5,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229396818816,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396755824,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396683208,
+          "dimension": [
+            16,
+            0,
+            0,
+            9
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396601296,
+          "dimension": [
+            5,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 4
+        },
+        {
+          "declaration": 140229396451008,
+          "dimension": [
+            3,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396412720,
+          "dimension": [
+            3,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396375040,
+          "dimension": [
+            3,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396328824,
+          "dimension": [
+            6,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396275248,
+          "dimension": [
+            21,
+            0,
+            0,
+            15
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229396179160,
+          "dimension": [
+            11,
+            0,
+            0,
+            8
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396109296,
+          "dimension": [
+            19,
+            0,
+            0,
+            12
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229395862056,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229395548808,
+          "dimension": [
+            15,
+            0,
+            0,
+            8
+          ],
+          "formal_arity": 5
+        },
+        {
+          "declaration": 140229395111352,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 5
+        },
+        {
+          "declaration": 140229394866656,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 5
+        }
+      ],
+      "features": [
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229942166968,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 2,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 1
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 2
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "False",
+                  "symbol": 140230004879736
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229942046376,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 2,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 3
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 4
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "True",
+                  "symbol": 140230004879872
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941932992,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            2
+          ],
+          "free_occurrences": 1,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 5
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "True",
+                  "symbol": 140230004879872
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "False",
+                  "symbol": 140230004879736
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941807240,
+          "declaration_kind": 3,
+          "dimensions": [
+            5,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 3,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 6
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 7
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [
+                  {
+                    "attributes": [],
+                    "bindings": [],
+                    "children": [],
+                    "key": {
+                      "name": "y",
+                      "variable": 7
+                    },
+                    "kind": "var",
+                    "patterns": [],
+                    "type": [
+                      "a",
+                      140230004920616,
+                      []
+                    ]
+                  }
+                ],
+                "key": {
+                  "name": "notb",
+                  "symbol": 140229941945272
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941682056,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 2,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 8
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "True",
+                  "symbol": 140230004879872
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 9
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941387312,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            0
+          ],
+          "free_occurrences": 3,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "b",
+                  "variable": 58
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 59
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "v",
+                  140230004050648
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 60
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "v",
+                  140230004050648
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ]
+            ],
+            "type": [
+              "v",
+              140230004050648
+            ]
+          }
+        }
+      ],
+      "original_context_formula_mass_max": 99,
+      "seed_storage": {
+        "all_saved_images_are_variables": true,
+        "all_term_variable_key_value_signature_type_mass_max": 3,
+        "attributes": [
+          "GP_Pretty_Ada:-1",
+          "GP_Pretty_Ada:-2",
+          "rac:call_id:1",
+          "rac:call_id:10",
+          "rac:call_id:11",
+          "rac:call_id:12",
+          "rac:call_id:13",
+          "rac:call_id:14",
+          "rac:call_id:15",
+          "rac:call_id:16",
+          "rac:call_id:17",
+          "rac:call_id:18",
+          "rac:call_id:19",
+          "rac:call_id:2",
+          "rac:call_id:20",
+          "rac:call_id:21",
+          "rac:call_id:22",
+          "rac:call_id:23",
+          "rac:call_id:24",
+          "rac:call_id:3",
+          "rac:call_id:4",
+          "rac:call_id:5",
+          "rac:call_id:6",
+          "rac:call_id:7",
+          "rac:call_id:8",
+          "rac:call_id:9"
+        ],
+        "inspected_bindings": 126,
+        "inspected_symbols": 114,
+        "inspected_terms": 1667,
+        "inspected_variables_including_dead_keys": 251,
+        "maximum_binding_saved_entries": 6,
+        "maximum_value_free_occurrences": 1,
+        "nonleaf_keys": [],
+        "nonunary_values": [],
+        "saved_entries": 6,
+        "signature_arity_max": 7,
+        "stored_nodes": 1684,
+        "value_free_variables": [
+          -117,
+          -116,
+          -115,
+          -114,
+          -113,
+          -111
+        ],
+        "value_nodes": 1
+      }
+    },
+    "raw": {
+      "bound_plus_formal_slots_max": 8,
+      "context_roots": [
+        {
+          "declaration": 140229942166968,
+          "dimension": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229942046376,
+          "dimension": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229941932992,
+          "dimension": [
+            4,
+            0,
+            2,
+            2
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229941807240,
+          "dimension": [
+            5,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229941682056,
+          "dimension": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229766928416,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766843512,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766758960,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766674280,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229766590200,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229999797416,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229999768536,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229999467256,
+          "dimension": [
+            4,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229999380008,
+          "dimension": [
+            3,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229999276696,
+          "dimension": [
+            7,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229999184920,
+          "dimension": [
+            3,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229392192584,
+          "dimension": [
+            12,
+            3,
+            0,
+            5
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392180456,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392172848,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392164072,
+          "dimension": [
+            7,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392155488,
+          "dimension": [
+            7,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392145704,
+          "dimension": [
+            8,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392134096,
+          "dimension": [
+            12,
+            3,
+            0,
+            5
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392121920,
+          "dimension": [
+            14,
+            3,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392109920,
+          "dimension": [
+            14,
+            3,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392096656,
+          "dimension": [
+            8,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392085208,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392077032,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392069960,
+          "dimension": [
+            4,
+            1,
+            0,
+            1
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392061720,
+          "dimension": [
+            12,
+            3,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392048776,
+          "dimension": [
+            12,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392035984,
+          "dimension": [
+            8,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392025888,
+          "dimension": [
+            3,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392020216,
+          "dimension": [
+            12,
+            3,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229392009112,
+          "dimension": [
+            16,
+            3,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229941387312,
+          "dimension": [
+            4,
+            0,
+            2,
+            0
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229767897520,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229767808512,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229767737672,
+          "dimension": [
+            6,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229767661600,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229687108824,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229687075728,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229687010696,
+          "dimension": [
+            7,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229686883912,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229404542888,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404539688,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404527032,
+          "dimension": [
+            5,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229404535336,
+          "dimension": [
+            8,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404449816,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404397576,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229404336216,
+          "dimension": [
+            7,
+            0,
+            0,
+            4
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229404180736,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229403918920,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229403806216,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229403645448,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229403593080,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229403532648,
+          "dimension": [
+            7,
+            0,
+            0,
+            4
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229403380624,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229403123840,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229403016288,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229391738280,
+          "dimension": [
+            8,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229391728696,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402640976,
+          "dimension": [
+            12,
+            1,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402430576,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402159328,
+          "dimension": [
+            9,
+            2,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229402084424,
+          "dimension": [
+            15,
+            4,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401996848,
+          "dimension": [
+            38,
+            5,
+            0,
+            9
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401883624,
+          "dimension": [
+            13,
+            3,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401807016,
+          "dimension": [
+            30,
+            4,
+            0,
+            9
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401711976,
+          "dimension": [
+            28,
+            5,
+            0,
+            7
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401615680,
+          "dimension": [
+            11,
+            2,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401500288,
+          "dimension": [
+            51,
+            5,
+            0,
+            16
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401360264,
+          "dimension": [
+            36,
+            4,
+            0,
+            10
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401244560,
+          "dimension": [
+            20,
+            3,
+            0,
+            5
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401160648,
+          "dimension": [
+            28,
+            5,
+            0,
+            8
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229401070080,
+          "dimension": [
+            33,
+            4,
+            0,
+            10
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400989824,
+          "dimension": [
+            15,
+            3,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400897888,
+          "dimension": [
+            43,
+            5,
+            0,
+            12
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400654552,
+          "dimension": [
+            91,
+            8,
+            0,
+            23
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400395616,
+          "dimension": [
+            72,
+            8,
+            0,
+            19
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400250968,
+          "dimension": [
+            33,
+            6,
+            0,
+            10
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229400038592,
+          "dimension": [
+            81,
+            6,
+            0,
+            23
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399854992,
+          "dimension": [
+            40,
+            4,
+            0,
+            12
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399731632,
+          "dimension": [
+            18,
+            2,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399531616,
+          "dimension": [
+            45,
+            1,
+            0,
+            17
+          ],
+          "formal_arity": 6
+        },
+        {
+          "declaration": 140229399191456,
+          "dimension": [
+            53,
+            7,
+            0,
+            18
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399025512,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399022312,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229399009624,
+          "dimension": [
+            5,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229399017960,
+          "dimension": [
+            8,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229398932632,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229398880360,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229398819240,
+          "dimension": [
+            7,
+            0,
+            0,
+            4
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229398664496,
+          "dimension": [
+            6,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229398402808,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229398290032,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229398125520,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229391047984,
+          "dimension": [
+            8,
+            1,
+            0,
+            4
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229391037920,
+          "dimension": [
+            6,
+            1,
+            0,
+            3
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229397872384,
+          "dimension": [
+            12,
+            1,
+            0,
+            6
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229397461496,
+          "dimension": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229397304976,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229397261880,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229390976928,
+          "dimension": [
+            25,
+            2,
+            0,
+            11
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229397090720,
+          "dimension": [
+            19,
+            0,
+            0,
+            5
+          ],
+          "formal_arity": 4
+        },
+        {
+          "declaration": 140229396946752,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396884568,
+          "dimension": [
+            5,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 3
+        },
+        {
+          "declaration": 140229396818816,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396755824,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396683208,
+          "dimension": [
+            16,
+            0,
+            0,
+            9
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396601296,
+          "dimension": [
+            5,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 4
+        },
+        {
+          "declaration": 140229396451008,
+          "dimension": [
+            3,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396412720,
+          "dimension": [
+            3,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396375040,
+          "dimension": [
+            3,
+            0,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396328824,
+          "dimension": [
+            6,
+            2,
+            0,
+            2
+          ],
+          "formal_arity": 0
+        },
+        {
+          "declaration": 140229396275248,
+          "dimension": [
+            21,
+            0,
+            0,
+            15
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229396179160,
+          "dimension": [
+            11,
+            0,
+            0,
+            8
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229396109296,
+          "dimension": [
+            19,
+            0,
+            0,
+            12
+          ],
+          "formal_arity": 2
+        },
+        {
+          "declaration": 140229395862056,
+          "dimension": [
+            2,
+            0,
+            0,
+            1
+          ],
+          "formal_arity": 1
+        },
+        {
+          "declaration": 140229395548808,
+          "dimension": [
+            15,
+            0,
+            0,
+            8
+          ],
+          "formal_arity": 5
+        },
+        {
+          "declaration": 140229395111352,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 5
+        },
+        {
+          "declaration": 140229394866656,
+          "dimension": [
+            4,
+            0,
+            0,
+            3
+          ],
+          "formal_arity": 5
+        }
+      ],
+      "features": [
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229942166968,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 2,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 1
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 2
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "False",
+                  "symbol": 140230004879736
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229942046376,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 2,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 3
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 4
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "True",
+                  "symbol": 140230004879872
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941932992,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            2
+          ],
+          "free_occurrences": 1,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 5
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "True",
+                  "symbol": 140230004879872
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "False",
+                  "symbol": 140230004879736
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0,
+              1
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941807240,
+          "declaration_kind": 3,
+          "dimensions": [
+            5,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 3,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 6
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 7
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [
+                  {
+                    "attributes": [],
+                    "bindings": [],
+                    "children": [],
+                    "key": {
+                      "name": "y",
+                      "variable": 7
+                    },
+                    "kind": "var",
+                    "patterns": [],
+                    "type": [
+                      "a",
+                      140230004920616,
+                      []
+                    ]
+                  }
+                ],
+                "key": {
+                  "name": "notb",
+                  "symbol": 140229941945272
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941682056,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            1
+          ],
+          "free_occurrences": 2,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 8
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "True",
+                  "symbol": 140230004879872
+                },
+                "kind": "app",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 9
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ]
+            ],
+            "type": [
+              "a",
+              140230004920616,
+              []
+            ]
+          }
+        },
+        {
+          "children_dimensions": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          "class": "isolated_two_nullary_branches_leaf_scrutinee",
+          "declaration": 140229941387312,
+          "declaration_kind": 3,
+          "dimensions": [
+            4,
+            0,
+            2,
+            0
+          ],
+          "free_occurrences": 3,
+          "kind": "case",
+          "path": [],
+          "tree": {
+            "attributes": [],
+            "bindings": [
+              [],
+              []
+            ],
+            "children": [
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "b",
+                  "variable": 58
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "a",
+                  140230004920616,
+                  []
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "x",
+                  "variable": 59
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "v",
+                  140230004050648
+                ]
+              },
+              {
+                "attributes": [],
+                "bindings": [],
+                "children": [],
+                "key": {
+                  "name": "y",
+                  "variable": 60
+                },
+                "kind": "var",
+                "patterns": [],
+                "type": [
+                  "v",
+                  140230004050648
+                ]
+              }
+            ],
+            "key": null,
+            "kind": "case",
+            "patterns": [
+              [
+                1,
+                [
+                  140230004879872
+                ]
+              ],
+              [
+                1,
+                [
+                  140230004879736
+                ]
+              ]
+            ],
+            "type": [
+              "v",
+              140230004050648
+            ]
+          }
+        }
+      ],
+      "original_context_formula_mass_max": 99,
+      "seed_storage": {
+        "all_saved_images_are_variables": true,
+        "all_term_variable_key_value_signature_type_mass_max": 3,
+        "attributes": [
+          "GP_Pretty_Ada:-1",
+          "GP_Pretty_Ada:-2",
+          "rac:call_id:1",
+          "rac:call_id:10",
+          "rac:call_id:11",
+          "rac:call_id:12",
+          "rac:call_id:13",
+          "rac:call_id:14",
+          "rac:call_id:15",
+          "rac:call_id:16",
+          "rac:call_id:17",
+          "rac:call_id:18",
+          "rac:call_id:19",
+          "rac:call_id:2",
+          "rac:call_id:20",
+          "rac:call_id:21",
+          "rac:call_id:22",
+          "rac:call_id:23",
+          "rac:call_id:24",
+          "rac:call_id:3",
+          "rac:call_id:4",
+          "rac:call_id:5",
+          "rac:call_id:6",
+          "rac:call_id:7",
+          "rac:call_id:8",
+          "rac:call_id:9"
+        ],
+        "inspected_bindings": 126,
+        "inspected_symbols": 114,
+        "inspected_terms": 1662,
+        "inspected_variables_including_dead_keys": 246,
+        "maximum_binding_saved_entries": 0,
+        "maximum_value_free_occurrences": 0,
+        "nonleaf_keys": [],
+        "nonunary_values": [],
+        "saved_entries": 0,
+        "signature_arity_max": 7,
+        "stored_nodes": 1679,
+        "value_free_variables": [],
+        "value_nodes": 1
+      }
+    }
+  }
+}

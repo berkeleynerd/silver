@@ -1,0 +1,176 @@
+{
+  "all_five_processes": {
+    "free_variable_scan_entries": 49306774040764416,
+    "term_and_opening_entries": 498048222633984,
+    "type_node_entries": 108700861096599552
+  },
+  "complete_returned_storage_under_named_source_and_mutation_premises": true,
+  "conservative_validator_traversals_per_context_declaration": 32,
+  "domains": [
+    {
+      "A": 7,
+      "K0": 6,
+      "M": 99,
+      "P": 8,
+      "T": 5,
+      "V": 1,
+      "case": "put-line",
+      "opened_scratch_map_entries_upper": 158854,
+      "opened_scratch_stored_occurrences_upper": 15726645,
+      "ordinary_episodes": 153,
+      "original_context_keys": 402,
+      "preparation_episodes_upper": 155,
+      "registered_roots": 51,
+      "returned_map_entries_upper": 158726,
+      "returned_stored_occurrences_upper": 15713973,
+      "shared_process_escape_upper": 2,
+      "validator_support_operations": {
+        "free_variable_scan_entries": 27939705292984320,
+        "term_and_opening_entries": 282219245383680,
+        "type_node_entries": 63499330211328000
+      },
+      "validator_sweep_units_upper": 1993920
+    },
+    {
+      "A": 7,
+      "K0": 6,
+      "M": 99,
+      "P": 8,
+      "T": 5,
+      "V": 1,
+      "case": "put",
+      "opened_scratch_map_entries_upper": 131206,
+      "opened_scratch_stored_occurrences_upper": 12989493,
+      "ordinary_episodes": 126,
+      "original_context_keys": 402,
+      "preparation_episodes_upper": 128,
+      "registered_roots": 42,
+      "returned_map_entries_upper": 131078,
+      "returned_stored_occurrences_upper": 12976821,
+      "shared_process_escape_upper": 2,
+      "validator_support_operations": {
+        "free_variable_scan_entries": 19057076312997888,
+        "term_and_opening_entries": 192495720333312,
+        "type_node_entries": 43311537074995200
+      },
+      "validator_sweep_units_upper": 1646592
+    },
+    {
+      "A": 7,
+      "K0": 6,
+      "M": 99,
+      "P": 8,
+      "T": 3,
+      "V": 1,
+      "case": "first-or-default",
+      "opened_scratch_map_entries_upper": 69766,
+      "opened_scratch_stored_occurrences_upper": 6906933,
+      "ordinary_episodes": 66,
+      "original_context_keys": 170,
+      "preparation_episodes_upper": 68,
+      "registered_roots": 22,
+      "returned_map_entries_upper": 69638,
+      "returned_stored_occurrences_upper": 6894261,
+      "shared_process_escape_upper": 2,
+      "validator_support_operations": {
+        "free_variable_scan_entries": 2276519901511680,
+        "term_and_opening_entries": 22995150520320,
+        "type_node_entries": 1862607192145920
+      },
+      "validator_sweep_units_upper": 369920
+    },
+    {
+      "A": 7,
+      "K0": 6,
+      "M": 99,
+      "P": 8,
+      "T": 3,
+      "V": 1,
+      "case": "is-message",
+      "opened_scratch_map_entries_upper": 8326,
+      "opened_scratch_stored_occurrences_upper": 824373,
+      "ordinary_episodes": 6,
+      "original_context_keys": 122,
+      "preparation_episodes_upper": 8,
+      "registered_roots": 2,
+      "returned_map_entries_upper": 8198,
+      "returned_stored_occurrences_upper": 811701,
+      "shared_process_escape_upper": 2,
+      "validator_support_operations": {
+        "free_variable_scan_entries": 22940720529408,
+        "term_and_opening_entries": 231724449792,
+        "type_node_entries": 18769680433152
+      },
+      "validator_sweep_units_upper": 31232
+    },
+    {
+      "A": 7,
+      "K0": 6,
+      "M": 99,
+      "P": 8,
+      "T": 3,
+      "V": 1,
+      "case": "input-is-valid",
+      "opened_scratch_map_entries_upper": 5254,
+      "opened_scratch_stored_occurrences_upper": 520245,
+      "ordinary_episodes": 3,
+      "original_context_keys": 142,
+      "preparation_episodes_upper": 5,
+      "registered_roots": 1,
+      "returned_map_entries_upper": 5126,
+      "returned_stored_occurrences_upper": 507573,
+      "shared_process_escape_upper": 2,
+      "validator_support_operations": {
+        "free_variable_scan_entries": 10531812741120,
+        "term_and_opening_entries": 106381946880,
+        "type_node_entries": 8616937697280
+      },
+      "validator_sweep_units_upper": 22720
+    }
+  ],
+  "episodes": {
+    "escape_is_process_global": true,
+    "fresh_stage_escape_allowance": false,
+    "ordinary": 354,
+    "upper": 364
+  },
+  "goals": {
+    "R56_candidate_charges_must_not_be_discarded": true,
+    "hashcons": "unique",
+    "reuse_R56_candidate_envelope": true
+  },
+  "initial_leaf_images_and_type_inventory_checked": true,
+  "original_context_keys": 1238,
+  "remaining": {
+    "allocation_collection_and_stack": true,
+    "later_stage_and_printer_total_work": true,
+    "map_and_table_primitive_costs": true,
+    "native_counter_initial_values_and_later_demands": true,
+    "unsuccessful_hashcons_collision_comparands": true,
+    "whole_quiet_capacity": true
+  },
+  "source_producer_and_validator_argument_machine_checked": false,
+  "source_productive_sweeps_per_episode": {
+    "algebraic_or_projection_family": 3,
+    "first_inline": 1,
+    "formula_simplification": 2,
+    "general_epsilon": 2,
+    "guard_epsilon": 2,
+    "literal": 1,
+    "raw_or_CE_entry": 1,
+    "singleton_premise_splitting": 4
+  },
+  "validator_traversal_inventory": {
+    "declaration_hash_walk": 1,
+    "definition_callback_comparison_operands": 2,
+    "definition_closure_free_and_type_scans": 3,
+    "inductive_free_and_type_scans": 3,
+    "inductive_prefix_and_positivity_walks": 2,
+    "inline_and_known_map_used_symbol_scans": 2,
+    "inlining_environment_definition_open": 1,
+    "mapper_and_outer_definition_open": 2,
+    "proposition_free_variable_check": 1,
+    "task_match_walk": 1,
+    "termination_definition_open_and_walk": 2
+  }
+}

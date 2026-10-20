@@ -1,0 +1,18 @@
+{
+  "context_feature_occurrences": 98,
+  "context_route_calculations": 10,
+  "controls": 6,
+  "elapsed_seconds": 0.8617582660008338,
+  "machine": "x86_64",
+  "native_runs": 0,
+  "original_context_keys": 1238,
+  "pinned_files": 86,
+  "platform": "Linux",
+  "predecessor_checkers_replayed": 0,
+  "proof_runs": 0,
+  "solver_runs": 0,
+  "source_excerpts": 46,
+  "source_files": 22,
+  "source_theorem_machine_checked": false,
+  "status": "PASS"
+}

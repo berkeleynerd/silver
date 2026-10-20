@@ -1,0 +1,56 @@
+{
+  "common_directives": [
+    "meta \"encoding:ignore_polymorphism_ls\" predicate (=)",
+    "meta \"encoding:ignore_polymorphism_ls\" predicate ignore'term",
+    "meta \"encoding:ignore_polymorphism_ls\" function ite",
+    "meta \"encoding:ignore_polymorphism_ts\" type (->)",
+    "meta \"encoding:ignore_polymorphism_ls\" function (@)",
+    "remove prop ult_wf",
+    "remove prop ugt_wf",
+    "remove prop slt_wf",
+    "remove prop sgt_wf",
+    "meta \"encoding:ignore_polymorphism_ls\" function get",
+    "meta \"encoding:ignore_polymorphism_ls\" function ([])",
+    "meta \"encoding:ignore_polymorphism_ls\" function set",
+    "meta \"encoding:ignore_polymorphism_ls\" function ([<-])"
+  ],
+  "common_file": "smt-libv2.gen",
+  "driver_closures": {
+    "alt_ergo_gnatprove_smt2.drv": [
+      "alt_ergo_gnatprove_smt2.drv",
+      "smt-libv2.gen"
+    ],
+    "cvc5_gnatprove.drv": [
+      "cvc4_bv.gen",
+      "cvc5_gnatprove.drv",
+      "discrimination.gen",
+      "silver_cvc5_no_steps.gen",
+      "smt-libv2-bv.gen",
+      "smt-libv2-floats-gnatprove.gen",
+      "smt-libv2-floats-int_via_real.gen",
+      "smt-libv2-floats.gen",
+      "smt-libv2-gnatprove.gen",
+      "smt-libv2.gen"
+    ],
+    "z3_gnatprove.drv": [
+      "discrimination.gen",
+      "smt-libv2-bv.gen",
+      "smt-libv2-floats-gnatprove.gen",
+      "smt-libv2-floats-int_via_bv.gen",
+      "smt-libv2-floats.gen",
+      "smt-libv2-gnatprove.gen",
+      "smt-libv2.gen",
+      "z3_bv.gen",
+      "z3_gnatprove.drv"
+    ]
+  },
+  "native_CVC5_metadata_projected": false,
+  "no_explicit_wf_component_keep_in_driver_closure": true,
+  "required_ignore_directives": [
+    "meta \"encoding:ignore_polymorphism_ls\" predicate (=)",
+    "meta \"encoding:ignore_polymorphism_ts\" type (->)",
+    "meta \"encoding:ignore_polymorphism_ls\" function (@)",
+    "meta \"encoding:ignore_polymorphism_ls\" function ite"
+  ],
+  "source_loader_connection_machine_checked": false
+}

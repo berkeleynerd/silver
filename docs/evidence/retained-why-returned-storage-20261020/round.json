@@ -1,0 +1,79 @@
+{
+  "accepted_R56_implementation": "240b1ca101ec63a332b416469e721d940b527c3b",
+  "achieved": [
+    "All 1238 original context keys projected; all initial saved images are variable leaves, including dead entries",
+    "All 675 original axiom-head attribute classes and initial identity_def exclusion checked",
+    "Complete selected-producer leaf-image/type transfer, with 16 productive sweeps per existing process preparation episode",
+    "CVC5 encoding alternatives excluded by common retained driver directives and chronological metadata/type induction",
+    "K <= 6 + 16(3N+e)64, R <= 99(1+K), with only the existing e <= 2 per process",
+    "First-inline-only validator inventory totals 20 traversal units and is overcharged to 32; resulting term/free/type categories each below 2^62"
+  ],
+  "author_base": "f306912c98e2449015a0514e0be5c11b99de5be1",
+  "concrete_next_missing_interface": "Compose the returned K/R/type envelope with eliminate_builtin declaration reconstruction and its validators, followed by remove_unused used-symbol folds and detect_polymorphism type scans; preserve R56 goal/candidate charges and the same global episode/e variables. The present 32-unit allowance does not cover these later stages.",
+  "cost_measurement": null,
+  "diagnostic_checkpoints": [
+    {
+      "evidence": "Focused check resolved the predecessor source audit rather than the new source audit",
+      "problem": "Initial import-path setup left the R56 directory first in sys.path",
+      "resolution": "Remove the temporary sys.path insertion immediately after loading Family; no predecessor checker ran"
+    },
+    {
+      "evidence": "The active bool.Ite ignore directive was omitted from the derived common-directive projection",
+      "problem": "Reviewer found regex comment stripping treated an SMT multiplication string as a comment",
+      "resolution": "Replace regex stripping with quoted-string, nested-comment and (*) handling aligned to the exact Why3 lexer slices; retain both .mll sources; assert all four common ignore directives and add two lexer controls"
+    }
+  ],
+  "freeze_preparation_utc": "2026-10-20 23:28:29 UTC",
+  "global_documents_or_memory_changed": false,
+  "intended_outcome": "Discharge the R56 old returned context storage/type boundary through a computable selected-source producer envelope without native or predecessor checker replay",
+  "new_native_runs": 0,
+  "new_proof_runs": 0,
+  "new_solver_runs": 0,
+  "predecessor_checkers_replayed": 0,
+  "preliminary_review": {
+    "disposition": "Exact committed freeze and first reviewer focused check pending",
+    "finding": "Argument provisionally accepted at first-inline returned-context interface; keep 32-unit cut explicit and repair driver lexical projection",
+    "inputs": "Work-in-progress research note, context_model.py, compose.py, check.py, selected producer sources and repaired lexer slices",
+    "reviewer": "/root/quiet_output_review",
+    "runtime_confirmation": null,
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6 Astra"
+  },
+  "publication_authority": "Parent-authorized bounded commit with Refs #119, #153; no GitHub/publication actions in this thread",
+  "remaining": [
+    "Unsuccessful hashcons collision comparands and primitive map/table/backing costs",
+    "Allocation, collection, stack and initial shared counters plus later demands",
+    "All later selected preparation/printing operation and validator totals",
+    "Whole quiet capacity and conditional successful-mutation premises"
+  ],
+  "round": 57,
+  "routine_repairs": [
+    "Normalize tuple-bearing feature projections through JSON before frozen comparison",
+    "Correct the finite residual-property shape assertion to its observed three-node application"
+  ],
+  "runtime_model_confirmation": null,
+  "scope": "First-inline returned original context storage, all hidden key/image/signature types, and first-inline validator support",
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "started_utc": "2026-10-20 22:58:52 UTC",
+  "token_measurement": null,
+  "verification": {
+    "context_feature_occurrences": 98,
+    "context_route_calculations": 10,
+    "controls": 6,
+    "elapsed_seconds": 0.8617582660008338,
+    "machine": "x86_64",
+    "native_runs": 0,
+    "original_context_keys": 1238,
+    "pinned_files": 86,
+    "platform": "Linux",
+    "predecessor_checkers_replayed": 0,
+    "proof_runs": 0,
+    "solver_runs": 0,
+    "source_excerpts": 46,
+    "source_files": 22,
+    "source_theorem_machine_checked": false,
+    "status": "PASS"
+  },
+  "verification_repeat_reason": "Actual import repair, then reviewer-triggered lexer/source-witness/control changes; accepted predecessor checks were not rerun"
+}
