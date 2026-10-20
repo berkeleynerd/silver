@@ -1,0 +1,209 @@
+{
+  "scope": "Independent #150 L4 retained binder-family consumer inventory review",
+  "base_commit": "876330ca6a6edf72503126855cf7cb43a5eeecc1",
+  "original_target": "de84039b49bcfc7e1c3d68bdac824b667dbdb671",
+  "corrected_target": "7ef02819946ad70f70f3dce3d780d6731164d03b",
+  "local_repair_commit": "e1ce40fe3c1b31e31f22f4a63788ca1d53ce93ee",
+  "reviewed_inputs": [
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/README.md",
+      "original": {
+        "bytes": 1730,
+        "sha256": "7deaca06e2c4595bcf6def9d948496c39e52474f2cf5b437380addbb61d29a46"
+      },
+      "reviewed": {
+        "bytes": 1730,
+        "sha256": "7deaca06e2c4595bcf6def9d948496c39e52474f2cf5b437380addbb61d29a46"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/bindgen-occurrences.json",
+      "original": {
+        "bytes": 2932,
+        "sha256": "6740b086216928e16af14f7d3b56be90db43cb8fcccff2ce917e195583945fc5"
+      },
+      "reviewed": {
+        "bytes": 2932,
+        "sha256": "6740b086216928e16af14f7d3b56be90db43cb8fcccff2ce917e195583945fc5"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/build_inventory.py",
+      "original": {
+        "bytes": 12021,
+        "sha256": "433ac8e0078e08be178177cad4e04aa34bfe397d457c4e580209a36ec70fa577"
+      },
+      "reviewed": {
+        "bytes": 12041,
+        "sha256": "f57414799a054f277bddaeb924820dad4c72389a38edae211929e1e756d3e43a"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/check.py",
+      "original": {
+        "bytes": 5099,
+        "sha256": "91cfb61ac7923bc94c910378dc3a9e85e50e6ae0dc6b423fef638a230f7ecec2"
+      },
+      "reviewed": {
+        "bytes": 7259,
+        "sha256": "d7315254f53f425d58c59dd1f72b072c2372fc2ca744a085fa4a1844572cd543"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/consumer-inventory.json",
+      "original": {
+        "bytes": 6461,
+        "sha256": "0a669b10528201426b0242f2ed500c5104ef9773f98b20cbc7ae7bb935352552"
+      },
+      "reviewed": {
+        "bytes": 6481,
+        "sha256": "6362cc3d09386e9377b12e5e0fbb6e0394ba1a66b75ff0f47b7c136bc6ef67af"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/fixed-ali-projection.json",
+      "original": {
+        "bytes": 40634,
+        "sha256": "85ff6402e9c9d3ca10205a4c9b6f8801097b267675aeebdd612c89a32b419a0b"
+      },
+      "reviewed": {
+        "bytes": 40634,
+        "sha256": "85ff6402e9c9d3ca10205a4c9b6f8801097b267675aeebdd612c89a32b419a0b"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/inputs.json",
+      "original": {
+        "bytes": 2911,
+        "sha256": "db4158906b6169aeec925d5ca4bcc82e7fb18186bbaa4e29da4bda22c4053f30"
+      },
+      "reviewed": {
+        "bytes": 2911,
+        "sha256": "db4158906b6169aeec925d5ca4bcc82e7fb18186bbaa4e29da4bda22c4053f30"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/restriction-partition.json",
+      "original": {
+        "bytes": 34948,
+        "sha256": "66c2b171f4ca3f2ed5cd364c8a43c1c7a31bdfa08c96459c4a7cd9002c1932ed"
+      },
+      "reviewed": {
+        "bytes": 34948,
+        "sha256": "66c2b171f4ca3f2ed5cd364c8a43c1c7a31bdfa08c96459c4a7cd9002c1932ed"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/result.json",
+      "original": {
+        "bytes": 555,
+        "sha256": "316041160ef03c11ca84b81b553a70c0cb3afacc3f348a03a0b0e5be287fdf20"
+      },
+      "reviewed": {
+        "bytes": 595,
+        "sha256": "839405cb2300aa5d143e8aeef3235cf73310362544a1ef11cc67813aecae7106"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/round.json",
+      "original": {
+        "bytes": 2379,
+        "sha256": "009859bc1c282771d36a8e2645639f083a97b04dffbecb71e3e9a02234969535"
+      },
+      "reviewed": {
+        "bytes": 3892,
+        "sha256": "c41a1d41d12185a7e599e7e230ed036781f44229599eda6340aa42839666f79e"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/source-excerpts.json",
+      "original": {
+        "bytes": 106034,
+        "sha256": "baadede0d351c5be225f55a97cec640d016af40396c8eec32d91d3362f74869e"
+      },
+      "reviewed": {
+        "bytes": 107023,
+        "sha256": "8b0ed31f0d97cedc972ddbc29e083778d63efd590ed275d70176e1f294825457"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/source-inputs.json",
+      "original": {
+        "bytes": 2098,
+        "sha256": "4caff0cbef6a0573a4bd0525c38bc4b015031376f19f2ca31b595e77c7160f32"
+      },
+      "reviewed": {
+        "bytes": 2098,
+        "sha256": "4caff0cbef6a0573a4bd0525c38bc4b015031376f19f2ca31b595e77c7160f32"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-binder-family-consumer-inventory-20261020/sources.tar.gz",
+      "original": {
+        "bytes": 129114,
+        "sha256": "d327c8fee9351ba572a805201cbd1041ef954c78c41e3b393deade531951ef27"
+      },
+      "reviewed": {
+        "bytes": 129114,
+        "sha256": "d327c8fee9351ba572a805201cbd1041ef954c78c41e3b393deade531951ef27"
+      }
+    },
+    {
+      "path": "docs/research/retained-binder-family-consumer-inventory.md",
+      "original": {
+        "bytes": 12140,
+        "sha256": "5958d3f4ddde69a761732694d6d9258eb72ba041ecb12aada56c31c1554bb87e"
+      },
+      "reviewed": {
+        "bytes": 12258,
+        "sha256": "3b616627ad38a781aa603c99004f5cc1b45e4d12f82be37c21be370469820759"
+      }
+    }
+  ],
+  "repair_changed_paths": [
+    "docs/evidence/retained-binder-family-consumer-inventory-20261020/build_inventory.py",
+    "docs/evidence/retained-binder-family-consumer-inventory-20261020/check.py",
+    "docs/evidence/retained-binder-family-consumer-inventory-20261020/consumer-inventory.json",
+    "docs/evidence/retained-binder-family-consumer-inventory-20261020/result.json",
+    "docs/evidence/retained-binder-family-consumer-inventory-20261020/round.json",
+    "docs/evidence/retained-binder-family-consumer-inventory-20261020/source-excerpts.json",
+    "docs/research/retained-binder-family-consumer-inventory.md"
+  ],
+  "source_capsule_unchanged": true,
+  "preexisting_manifest_inputs_unchanged": 14,
+  "focused_checker_command": "python3 -B docs/evidence/retained-binder-family-consumer-inventory-20261020/check.py",
+  "focused_checker_runs": 1,
+  "focused_checker_exit_code": 0,
+  "focused_checker_subprocess_seconds": 0.4784722080003121,
+  "focused_checker_seconds": 0.412744388000192,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "platform": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "release": "7.0.14",
+    "libc": [
+      "glibc",
+      "2.43"
+    ]
+  },
+  "started_utc": "2026-10-20 07:42:51 UTC",
+  "source_and_check_complete_utc": "2026-10-20 07:49:53 UTC",
+  "elapsed_seconds_through_source_and_check": 422,
+  "elapsed_scope": "Source and range review, consolidated finding, author repair wait and corrected-input verification; excludes final report completion and commit.",
+  "finding": "Several U writer/reader citations missed their intended fields.",
+  "disposition": "Required navigation/correspondence repair applied and independently checked; no material unresolved L4 finding under inherited premises.",
+  "l4_inventory_sufficient": true,
+  "actual_evaluated_binder_measured": false,
+  "source_semantics_machine_proved": false,
+  "new_capacity_derivation": false,
+  "native_executions": 0,
+  "public_evaluator_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_fetches": 0,
+  "token_measurement": null,
+  "cost_measurement": null,
+  "cli_memory_updated": false
+}
