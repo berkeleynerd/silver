@@ -57,10 +57,15 @@ The [Round 52 checkpoint](docs/evidence/retained-config-parallel-round52-2026102
 closes warning-attempt exclusion and actual zero-limit/time-parser configuration
 transfer, including quiet-command composition, for the retained serial domains.
 It reduces the parallel first-fill gap to 13 keys in four formula families.
-Next close their ordered transfer and the actual parallel input/state attachment;
-the serial result does not cover that route or a new adapter launch.
-Warning/outcome/attempt-record binding and pre-entry server/adapter output
-remain #119 design work, distinct from future #88 SPARK/Lean refinement.
+The [Round 53 checkpoint](docs/evidence/retained-metadata-outcome-round53-20261020/README.md)
+adds actual J12 metadata/raw-graph attachments for all five domains, a conditional
+attempt-bound publication protocol with final audit seal, and bounds on direct
+stock-server child diagnostics. The metadata-selected stage/ordered-producer
+argument and complete parallel mutable-state transfer remain open. The protocol
+still needs stock request-to-report-leaf attribution and native/SPARK/Lean
+refinement; direct diagnostics do not cover loader/adapter startup or full q.
+Continue those concrete joins and remaining preparation/counter/output bounds.
+These are #119 design obligations, distinct from future #88 implementation.
 No adapter or changed production route is adopted; full q remains unresolved.
 Remaining preparation/printing/counter and output bounds,
 required producer/Why3 and fixed-dependency

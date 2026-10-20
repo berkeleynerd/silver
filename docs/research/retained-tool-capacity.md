@@ -73,9 +73,26 @@ The conditional direct component is not an attached parallel or retained
 post-cut bound. The [integration packet](../evidence/retained-config-parallel-round52-20261020/README.md)
 retains the exact review and input identities; no production route changes.
 
-Next: close the thirteen-key ordered transfer and actual parallel input/state
-attachment, then the adapter's warning/outcome/attempt-record binding and
-pre-entry server/adapter-startup output. The serial configuration result does
+Round 53's [metadata acquisition](retained-why-parallel-residual-transfer.md)
+retains all five actual J12 registration captures, with 45 exactly replayed
+projection files and sharing-preserving joins to the earlier raw task graphs.
+This supplies previously missing metadata; it does not transfer all mutable
+parallel state or close the thirteen-key ordered producer argument. The
+[outcome interface](retained-adapter-outcome-interface.md) gives a conditional
+attempt-bound complete-file publication protocol and final audit seal. Its
+64-byte frame/65-byte receiver remain a structural model requiring native-fact
+and SPARK/Lean refinement. Stock report-leaf attribution remains open. The
+[launch argument](retained-adapter-launch-output.md) bounds only explicit stock
+child diagnostics under the selected libc/C-locale/service premises, leaving
+loader/adapter startup and complete q open. The
+[integration packet](../evidence/retained-metadata-outcome-round53-20261020/README.md)
+records the exact [review](../reviews/review-metadata-outcome-interface-20261020.md),
+input identities, failed acquisition attempts and successful evidence reuse.
+
+Next: derive the actual metadata-selected stages and thirteen-key ordered
+transfer, complete the parallel input/state attachment, and resolve the
+adapter's request-to-report-leaf association and startup/output origins.
+The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
 Why3 parser warnings and `.spark` `warn_error` are distinct channels; the
 pending warning-policy argument must not assume a blanket existing rejection.

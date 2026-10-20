@@ -5160,3 +5160,48 @@ composition/correspondence, comparison and final review remain required.
 The owner receives no upward estimate revision: 80–85% remains a low-confidence
 planning judgment, not remaining time or tokens. Oracle/tools/admission stay
 unchanged; production #88–#94 is unstarted and PR #121 remains draft/unmerged.
+
+## Round 53 — metadata acquisition and result publication
+
+2026-10-20 UTC. #119/#153 remain active and incomplete. The
+[integration packet](retained-metadata-outcome-round53-20261020/README.md)
+binds metadata freeze `43bbaf6805`, corrected outcome freeze `3754303d59`,
+direct-launch freeze `c12f036793`, and independent review `86ce985168`.
+All five actual J12 metadata/raw-symbol acquisitions now have exact nine-file
+reader replay and sharing-preserving joins. The new data closes a missing-input
+question; stage-selected producer/parallel mutable-state transfer remains open.
+The outcome component supplies conditional complete-file publication with a
+final audit seal; the launch component supplies only direct stock-child message
+terms, with exact libc/C-locale/service premises. No full q or stock report-leaf
+map is established. Native/SPARK/Lean adapter refinement remains future work.
+
+Review found and corrected a final-confirmation race with late duplicate control
+records and an overstatement of native ABI validation by the structural decoder.
+Acquisition preserves the failed base-config copy, the corrected AVL/Patricia
+reader assumption and the /tmp-full batch failure. Only never-started tail
+captures moved to the larger filesystem. Five successful native observations
+took approximately 41 seconds in total, with one managed worker and sequential
+processes; no preparation or solver entry occurred. Initial failed attempts add
+0.354 and 4.082 seconds. Author and reviewer offline replay/source checks have
+their exact retained timings; the reviewer interval was 1,420.231 seconds.
+
+Integration reconciled 131 frozen files, 14 direct repository input identities,
+94 native pins and two launch native inputs, with 25 Python parses and eight
+frozen-record links, in 1.186567306 seconds. It reused successful source/raw
+checks: no component replay, native target/compiler/solver/proof/capture run.
+The acquisition and outcome authors and independent reviewer were selected as
+Astra / Extra High. Lead-owned launch work followed that project baseline;
+the live lead model/effort and runtime confirmation are unavailable. Separate
+component token/monetary telemetry is unavailable. At 21:41:11 UTC the aggregate
+live harness reported 8,808,697 tokens and 8,756 time-counter seconds. This is
+the whole ongoing goal, includes overlapping next-round work, and is not R53
+cost or evidence of model-quality causation.
+
+The next bounded source work uses the new metadata to close thirteen residual
+keys and investigates unchanged-stock result-to-leaf attribution. Their actual
+closures, remaining preparation/counter/output bounds, whole grammar/pipeline,
+checked accounting/composition/correspondence, useful-domain comparison and final
+review still govern completion. The owner's updated estimate remains 80–85%,
+low confidence, not a remaining-time/token forecast. The two-callback/three-save/
+e<=2 budget remains global per process. Oracle/tools/admission stay unchanged;
+production #88–#94 is unstarted and PR #121 stays draft/unmerged.
