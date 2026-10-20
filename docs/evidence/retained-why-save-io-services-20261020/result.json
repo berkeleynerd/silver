@@ -1,0 +1,269 @@
+{
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "descriptors": {
+        "xml": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 588599398,
+            "cached_offset_min": -1,
+            "cached_offset_max": 588599397,
+            "actual_committed_plus_pending_max": 588599398,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 588599398,
+            "cached_offset_min": 0,
+            "cached_offset_max": 588599398,
+            "actual_committed_plus_pending_max": 588599398,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ],
+        "shape": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 459543692845491887,
+            "cached_offset_min": -1,
+            "cached_offset_max": 459543692845491886,
+            "actual_committed_plus_pending_max": 459543692845491887,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 459543692845491887,
+            "cached_offset_min": 0,
+            "cached_offset_max": 459543692845491887,
+            "actual_committed_plus_pending_max": 459543692845491887,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "descriptors": {
+        "xml": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 490581822,
+            "cached_offset_min": -1,
+            "cached_offset_max": 490581821,
+            "actual_committed_plus_pending_max": 490581822,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 490581822,
+            "cached_offset_min": 0,
+            "cached_offset_max": 490581822,
+            "actual_committed_plus_pending_max": 490581822,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ],
+        "shape": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 295636510136143316,
+            "cached_offset_min": -1,
+            "cached_offset_max": 295636510136143315,
+            "actual_committed_plus_pending_max": 295636510136143316,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 295636510136143316,
+            "cached_offset_min": 0,
+            "cached_offset_max": 295636510136143316,
+            "actual_committed_plus_pending_max": 295636510136143316,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "descriptors": {
+        "xml": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 303447466,
+            "cached_offset_min": -1,
+            "cached_offset_max": 303447465,
+            "actual_committed_plus_pending_max": 303447466,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 303447466,
+            "cached_offset_min": 0,
+            "cached_offset_max": 303447466,
+            "actual_committed_plus_pending_max": 303447466,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ],
+        "shape": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 4033425430835237,
+            "cached_offset_min": -1,
+            "cached_offset_max": 4033425430835236,
+            "actual_committed_plus_pending_max": 4033425430835237,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 4033425430835237,
+            "cached_offset_min": 0,
+            "cached_offset_max": 4033425430835237,
+            "actual_committed_plus_pending_max": 4033425430835237,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "descriptors": {
+        "xml": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 44645930,
+            "cached_offset_min": -1,
+            "cached_offset_max": 44645929,
+            "actual_committed_plus_pending_max": 44645930,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 44645930,
+            "cached_offset_min": 0,
+            "cached_offset_max": 44645930,
+            "actual_committed_plus_pending_max": 44645930,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ],
+        "shape": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 11850662528646,
+            "cached_offset_min": -1,
+            "cached_offset_max": 11850662528645,
+            "actual_committed_plus_pending_max": 11850662528646,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 11850662528646,
+            "cached_offset_min": 0,
+            "cached_offset_max": 11850662528646,
+            "actual_committed_plus_pending_max": 11850662528646,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "descriptors": {
+        "xml": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 53513166,
+            "cached_offset_min": -1,
+            "cached_offset_max": 53513165,
+            "actual_committed_plus_pending_max": 53513166,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 53513166,
+            "cached_offset_min": 0,
+            "cached_offset_max": 53513166,
+            "actual_committed_plus_pending_max": 53513166,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ],
+        "shape": [
+          {
+            "initial_cached_offset": -1,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 27551815185207,
+            "cached_offset_min": -1,
+            "cached_offset_max": 27551815185206,
+            "actual_committed_plus_pending_max": 27551815185207,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          },
+          {
+            "initial_cached_offset": 0,
+            "actual_committed_bytes_min": 0,
+            "actual_committed_bytes_max": 27551815185207,
+            "cached_offset_min": 0,
+            "cached_offset_max": 27551815185207,
+            "actual_committed_plus_pending_max": 27551815185207,
+            "guard": true,
+            "successful_initial_lseek_required": false
+          }
+        ]
+      }
+    }
+  ],
+  "zero_return_countermodel": {
+    "buffer_bytes": 65536,
+    "requested_write_bytes": 65536,
+    "returned_write_bytes": 0,
+    "putch_store_index": 65536,
+    "store_is_in_buffer": false,
+    "observed_target_execution": false,
+    "claim": "countermodel to the weaker interface; not an observed OS defect"
+  },
+  "initial_lseek_success_needed_for_offset_representation": false,
+  "ordinary_lseek_result_and_private_descriptor_contract_required": true,
+  "positive_write_service_attachment_established": false,
+  "unconditional_selected_file_bounds": null,
+  "complete_save_capacity_established": false,
+  "whole_pipeline_capacity_established": false
+}

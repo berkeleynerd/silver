@@ -1,0 +1,26 @@
+[
+  {
+    "standard": "The Open Group Base Specifications Issue 8 / IEEE Std 1003.1-2024",
+    "url": "https://pubs.opengroup.org/onlinepubs/9799919799/functions/write.html",
+    "retrieved_utc": "2026-10-20",
+    "section": "RETURN VALUE",
+    "download_identity": {
+      "bytes": 31921,
+      "sha256": "1b45e6a71f8bc9bff702da5633d42c88fd927c1d0efc5bafe7a939d23eb66e6a"
+    },
+    "excerpt": "Upon successful completion, these functions shall return the number of bytes actually written to the file associated with fildes. This number shall never be greater than nbyte.",
+    "retention": "Full downloaded page retained in session scratch only; no normative text beyond this excerpt republished."
+  },
+  {
+    "standard": "The Open Group Base Specifications Issue 8 / IEEE Std 1003.1-2024",
+    "url": "https://pubs.opengroup.org/onlinepubs/9799919799/functions/lseek.html",
+    "retrieved_utc": "2026-10-20",
+    "section": "RETURN VALUE",
+    "download_identity": {
+      "bytes": 13427,
+      "sha256": "594dc386ec5087ab6bae76df7a04dbcfc862b66339aa252a9687576a45a6abf4"
+    },
+    "excerpt": "Otherwise, -1 shall be returned, errno shall be set to indicate the error, and the file offset shall remain unchanged.",
+    "retention": "Full downloaded page retained in session scratch only; no normative text beyond this excerpt republished."
+  }
+]

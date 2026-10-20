@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "cases": 5,
+  "descriptor_initial_outcome_checks": 20,
+  "positive_write_prefix_boundary_checks": 54,
+  "source_witnesses": 6,
+  "elapsed_seconds": 0.1940830220009957,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "positive_write_service_attachment_established": false
+}

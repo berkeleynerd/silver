@@ -1,0 +1,36 @@
+{
+  "base": "79301d13cfac0dafccf9e53b5da17345266d4eca",
+  "files": {
+    "docs/evidence/retained-why-save-file-capacity-20261020/result.json": {
+      "bytes": 35971,
+      "sha256": "7e78aff05c4f2bb744dd0577ee6dbd5040ffea459b9d67ab7cc5cc436652167e"
+    },
+    "docs/evidence/retained-why-save-file-capacity-20261020/native-bodies.json": {
+      "bytes": 44348,
+      "sha256": "881531910a1da1d2313a2663eb6abbc9dca2b1e1d44e8c85247bf4dfd89d1295"
+    },
+    "docs/evidence/retained-why-save-file-capacity-20261020/native-witnesses.json": {
+      "bytes": 1353,
+      "sha256": "2f3b2d822c51cf26b3bcd605e5d44df119a93a10c446e47db7421e356cc3c949"
+    },
+    "docs/research/retained-why-save-file-capacity.md": {
+      "bytes": 11395,
+      "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+    },
+    "docs/reviews/review-save-capacity-round33-20261020.md": {
+      "bytes": 11797,
+      "sha256": "65bd358ad4c377e75f519a7be9588ba81fde044ee727fb8cb6b425f246c96645"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    }
+  },
+  "source_witness_count": 6,
+  "new_native_executions": 0,
+  "new_source_fetches": 2
+}
