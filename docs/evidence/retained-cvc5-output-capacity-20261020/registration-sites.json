@@ -1,0 +1,2834 @@
+[
+  {
+    "file": "src/api/cpp/cvc5.cpp",
+    "line": 5366,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"cvc5::CONSTANT\"",
+    "type": "internal::TypeConstant"
+  },
+  {
+    "file": "src/api/cpp/cvc5.cpp",
+    "line": 5367,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"cvc5::VARIABLE\"",
+    "type": "internal::TypeConstant"
+  },
+  {
+    "file": "src/api/cpp/cvc5.cpp",
+    "line": 5368,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"cvc5::TERM\"",
+    "type": "Kind"
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 23,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"JustifyStrategy::StatusNoDecision\"",
+    "type": null
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 24,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"JustifyStrategy::StatusDecision\"",
+    "type": null
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 25,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"JustifyStrategy::StatusBacktrack\"",
+    "type": null
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 26,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"JustifyStrategy::MaxStackSize\"",
+    "type": null
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 27,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"JustifyStrategy::MaxAssertionsSize\"",
+    "type": null
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 28,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"JustifyStrategy::MaxSkolemDefsSize\"",
+    "type": null
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "line": 29,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"JustifyStrategy::getNextTime\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/bool_to_bv.cpp",
+    "line": 410,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::BoolToBV::NumIteToBvite\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/bool_to_bv.cpp",
+    "line": 415,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes:BoolToBV::NumTermsLowered\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/bool_to_bv.cpp",
+    "line": 416,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::BoolToBV::NumTermsForcedLowered\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/bv_to_bool.cpp",
+    "line": 298,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::BVToBool::NumTermsLifted\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/bv_to_bool.cpp",
+    "line": 300,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::BVToBool::NumAtomsLifted\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/bv_to_bool.cpp",
+    "line": 301,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::BVToBool::NumTermsForcedLifted\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/ite_simp.cpp",
+    "line": 118,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::ITESimp::ArithSubstitutionsAdded\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/learned_rewrite.cpp",
+    "line": 55,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"LearnedRewrite::lrewCount\"",
+    "type": "LearnedRewriteId"
+  },
+  {
+    "file": "src/preprocessing/passes/miplib_trick.cpp",
+    "line": 659,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::MipLibTrick::numMiplibAssertionsRemoved\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/non_clausal_simp.cpp",
+    "line": 43,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessing::passes::NonClausalSimp::NumConstantProps\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/normalize.cpp",
+    "line": 1100,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"Normalize::pass_time\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/passes/unconstrained_simplifier.cpp",
+    "line": 45,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"preprocessor::number of unconstrained elims\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/preprocessing_pass.cpp",
+    "line": 42,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "\"preprocessing::\" + name",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 314,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::compressCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 315,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::skolems\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 704,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::maxNonConstantsFolded\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 705,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::unexpected\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 706,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::unsimplified\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 707,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::exactMatchFold\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 708,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::binaryPredFold\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 709,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::specialEqualityFolds\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 710,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ite-simp::simpITE.visits\"",
+    "type": null
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "line": 715,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"ite-simp::inSmaller\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/proof/proof_checker.cpp",
+    "line": 29,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"ProofCheckerStatistics::ruleChecks\"",
+    "type": "ProofRule"
+  },
+  {
+    "file": "src/proof/proof_checker.cpp",
+    "line": 31,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ProofCheckerStatistics::totalRuleChecks\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "line": 336,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"cadical::calls_to_solve\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "line": 337,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"cadical::variables\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "line": 338,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"cadical::clauses\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "line": 339,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "prefix + \"cadical::solve_time\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 345,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::renotify_fixed\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 347,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::renotify_fixed_lit\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 349,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::notify_assignment\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 350,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::notify_fixed_assignment\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 353,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::notify_new_decision\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 355,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::notify_backtrack\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 357,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::cb_check_found_model\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 358,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::cb_decide\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 359,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::cb_propagate\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 360,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::cb_add_reason_clause_lit\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 363,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::cb_has_external_clause\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "line": 364,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"cadical::propagator::cb_add_external_clause_lit\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cnf_stream.cpp",
+    "line": 775,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"::CnfStream::cnfConversionTime\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cnf_stream.cpp",
+    "line": 776,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"::CnfStream::numAtoms\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "line": 243,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"cryptominisat::calls_to_solve\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "line": 244,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"cryptominisat::xor_clauses\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "line": 245,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"cryptominisat::clauses\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "line": 246,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "prefix + \"cryptominisat::solve_time\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "line": 155,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"Kissat::calls_to_solve\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "line": 156,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"Kissat::variables\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "line": 157,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"Kissat::clauses\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "line": 158,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "prefix + \"Kissat::solve_time\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 332,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::starts\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 333,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::decisions\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 335,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::rnd_decisions\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 337,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::propagations\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 338,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::conflicts\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 340,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::clauses_literals\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 342,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::learnts_literals\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 344,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::max_literals\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "line": 346,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"sat::tot_literals\"",
+    "type": "int64_t"
+  },
+  {
+    "file": "src/prop/prop_engine.cpp",
+    "line": 855,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"prop::PropEngine::numInputAtoms\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/prop_proof_manager.cpp",
+    "line": 76,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"ppm::unsatCoreLemmaIds\"",
+    "type": "theory::InferenceId"
+  },
+  {
+    "file": "src/prop/prop_proof_manager.cpp",
+    "line": 78,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ppm::unsatCoreLemmaSize\"",
+    "type": null
+  },
+  {
+    "file": "src/prop/prop_proof_manager.cpp",
+    "line": 79,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ppm::unsatCoreLemmaCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/rewriter/basic_rewrite_rcons.cpp",
+    "line": 69,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"BasicRewriteRCons::macroExpandCount\"",
+    "type": "ProofRewriteRule"
+  },
+  {
+    "file": "src/rewriter/rewrite_db_proof_cons.cpp",
+    "line": 50,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"RewriteDbProofCons::totalInputs\"",
+    "type": null
+  },
+  {
+    "file": "src/rewriter/rewrite_db_proof_cons.cpp",
+    "line": 51,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"RewriteDbProofCons::totalAttempts\"",
+    "type": null
+  },
+  {
+    "file": "src/rewriter/rewrite_db_proof_cons.cpp",
+    "line": 53,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"RewriteDbProofCons::totalInputSuccess\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/env.cpp",
+    "line": 72,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"global::totalTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 39,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::ruleCount\"",
+    "type": "ProofRule"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 41,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::ruleUnhandledEoCount\"",
+    "type": "ProofRule"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 43,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::instRuleId\"",
+    "type": "theory::InferenceId"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 45,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::dslRuleCount\"",
+    "type": "ProofRewriteRule"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 48,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::theoryRewriteRuleCount\"",
+    "type": "ProofRewriteRule"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 51,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::theoryRewriteRuleUnhandledEoCount\"",
+    "type": "ProofRewriteRule"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 53,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::trustCount\"",
+    "type": "TrustId"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 56,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::trustTheoryRewriteCount\"",
+    "type": "theory::TheoryId"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 59,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"finalProof::trustTheoryLemmaCount\"",
+    "type": "theory::TheoryId"
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 62,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"finalProof::totalRuleCount\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 64,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"finalProof::minPedanticLevel\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "line": 66,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"finalProofs::numFinalProofs\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/proof_post_processor.cpp",
+    "line": 48,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"ProofPostprocessCallback::macroExpandCount\"",
+    "type": "ProofRule"
+  },
+  {
+    "file": "src/smt/solver_engine.cpp",
+    "line": 354,
+    "literal_name": true,
+    "method": "registerValue",
+    "name_expression": "\"driver::filename\"",
+    "type": "std::string"
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 24,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"definitionExpansionTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 25,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"numConstantProps\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 26,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"numAssertionsPreITERemoval\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 27,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"numAssertionsPostITERemoval\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 28,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"checkModelTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 29,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"checkUnsatCoreTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 30,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"solveTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 31,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"pushPopTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 32,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"processAssertionsTime\"",
+    "type": null
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "line": 33,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"simplifiedToFalse\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "line": 3165,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"z::approx::branchMaxDepth\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "line": 3166,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"z::approx::branchesMaxOnAVar\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "line": 3168,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"z::approx::gaussianElimConstruct::time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "line": 3170,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"z::approx::gaussianElimConstruct::calls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "line": 3171,
+    "literal_name": true,
+    "method": "registerAverage",
+    "name_expression": "\"z::approx::averageGuesses\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/arith_static_learner.cpp",
+    "line": 52,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::iteMinMaxApplications\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/arith_static_learner.cpp",
+    "line": 54,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::iteConstantApplications\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/attempt_solution_simplex.cpp",
+    "line": 44,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::attempt::searchTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/attempt_solution_simplex.cpp",
+    "line": 45,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::attempt::queueTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/attempt_solution_simplex.cpp",
+    "line": 46,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::attempt::conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 105,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::watchedVariables\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 107,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::watchedVariableIsZero\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 108,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::watchedVariableIsNotZero\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 111,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::equalsConstantCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 112,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::propagations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 114,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::propagateConstraints\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "line": 115,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::congruence::conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/constraint.cpp",
+    "line": 1042,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::cd::unatePropagateCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/constraint.cpp",
+    "line": 1044,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::cd::unatePropagateImplications\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "line": 62,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dio::conflictCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "line": 63,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dio::cutCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "line": 64,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dio::cuts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "line": 65,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dio::conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "line": 66,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::dio::conflictTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "line": 67,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::dio::cutTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "line": 45,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dual::UpdateConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "line": 47,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::dual::findConflictOnTheQueueTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "line": 49,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dual::simplexConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "line": 51,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::dual::recentViolationCatches\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "line": 52,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::dual::searchTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "line": 53,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"theory::arith::dual::lastPivots\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "line": 150,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pqueue::enqueues\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "line": 152,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pqueue::enqueuesCollection\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "line": 154,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pqueue::enqueuesDiffMode\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "line": 156,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pqueue::enqueuesVarOrderMode\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "line": 157,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pqueue::enqueuesCollectionDuplicates\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "line": 159,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pqueue::enqueuesVarOrderModeDuplicates\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 51,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"initialProcessTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 52,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"UpdateConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 53,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"FoundUnsat\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 54,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"FoundSat\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 55,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"Missed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 56,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"Timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 57,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"Construction\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 59,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"selectUpdateForDualLike\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 60,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"selectUpdateForPrimal\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "line": 62,
+    "literal_name": false,
+    "method": "registerReference",
+    "name_expression": "name + \"lastPivots\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 73,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::pivots\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 74,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::updates\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 75,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::pivotTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 76,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::adjTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 77,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::weakening::attempts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 78,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::weakening::success\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 79,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::weakening::total\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 80,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::weakening::time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "line": 81,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::forcing::time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 51,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"initialProcessTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 52,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"UpdateConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 53,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"FoundUnsat\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 54,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"FoundSat\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 55,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"Missed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 56,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"ConfMin::num\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 57,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"HasToBeMin\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 58,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"MaybeNotMin\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 59,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"Time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 60,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"Construction\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 62,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"Conflict::Minimization\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 63,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"selectSOI\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "line": 65,
+    "literal_name": false,
+    "method": "registerReference",
+    "name_expression": "name + \"lastPivots\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 249,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"AssertUpperConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 251,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"AssertLowerConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 252,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"UserVariables\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 253,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"AuxiliaryVariables\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 254,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"DisequalitySplits\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 256,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"DisequalityConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 257,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"simplifyTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 258,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"staticLearningTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 259,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"presolveTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 260,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"newPropTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 262,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"externalBranchAndBounds\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 263,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"initialTableauSize\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 264,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"currSetToSmaller\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 265,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"smallerSetToCurr\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 266,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"restartTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 267,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"bound::time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 268,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"bound::boundComputations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 269,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"bound::boundPropagations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 270,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"status::unknowns\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 271,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"status::maxUnknownsInARow\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 273,
+    "literal_name": false,
+    "method": "registerAverage",
+    "name_expression": "name + \"status::avgUnknownsInARow\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 275,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"status::revertsOnConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 277,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"status::commitsOnConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 279,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"status::nontrivialSatChecks\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 280,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::rec\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 282,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::rec::escalation\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 284,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::rec::earlyexit\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 285,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::rec::branch::closefailures\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 287,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::rec::leaf::closefailures\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 290,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::rec::branch::skips\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 292,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::mir::attempted\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 294,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::gmi::attempted\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 296,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::branch::attempted\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 298,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::reconstructed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 300,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::reconstructed::failed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 301,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::proofs\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 303,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::cuts::proofs::failed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 305,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::external::calls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 306,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::external::cuts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 308,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::external::branches\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 309,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::inSolverInteger\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 311,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::exhausted::branches\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 312,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::exhausted::exec\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 313,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::exhausted::pivots\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 314,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::paniclemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 315,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::calls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 316,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::feasible::res\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 318,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::feasible::failures\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 319,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::infeasible\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 321,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::infeasible::failures\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 322,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::exhausted\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 323,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::relax::other\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 325,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::arith::cuts::applyRowsDeleted\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 327,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"z::approx::replay::simplex::timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 329,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"z::approx::replay::log::timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 330,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"z::solveInt::timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 332,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"z::solveRealRelax::timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 333,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::solveInt::calls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 335,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::solveInt::calls::standardEffort\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 336,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approxDisabled\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 337,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::replayAttemptFailed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 339,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::replay::cuts::rejected\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 341,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::approx::external::cuts::rejected\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 342,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "name + \"pivots::sat\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 343,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "name + \"pivots::unsat\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 345,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "name + \"pivots::unknown\"",
+    "type": "uint32_t"
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 347,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::solveInt::models::attempts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 349,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"zzz::solveInt::models::successful\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 350,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"z::approx::mip::timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 351,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"z::approx::lp::timer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 352,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::mip::proofs::attempted\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 354,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::mip::proofs::successful\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "line": 356,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"z::mip::branch::proof::failed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "line": 39,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::coverings::lazard-direct\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "line": 41,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::coverings::lazard-rans\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "line": 42,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::coverings::lazard-evals\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "line": 44,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::arith::coverings::lazard-reduce\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/nl/stats.cpp",
+    "line": 24,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"nl::mbrRuns\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/nl/stats.cpp",
+    "line": 25,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"nl::checkRuns\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arith/theory_arith.cpp",
+    "line": 43,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::arith::ppRewriteTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 51,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "statisticsPrefix + \"mergeInfoTimer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 53,
+    "literal_name": false,
+    "method": "registerAverage",
+    "name_expression": "statisticsPrefix + \"avgIndexListLength\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 55,
+    "literal_name": false,
+    "method": "registerAverage",
+    "name_expression": "statisticsPrefix + \"avgStoresListLength\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 57,
+    "literal_name": false,
+    "method": "registerAverage",
+    "name_expression": "statisticsPrefix + \"avgInStoresListLength\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 58,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statisticsPrefix + \"listsCount\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 59,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statisticsPrefix + \"callsMergeInfo\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 60,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statisticsPrefix + \"maxList\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "line": 61,
+    "literal_name": false,
+    "method": "registerSize",
+    "name_expression": "statisticsPrefix + \"infoTableSize\"",
+    "type": "CNodeInfoMap"
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 61,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of Row lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 62,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of Ext lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 64,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of propagations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 66,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of explanations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 67,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of calls to setNonLinear\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 69,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of shared array var splits\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 71,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of getModelVal splits\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 73,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of getModelVal conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 75,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of setModelVal splits\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "line": 77,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"number of setModelVal conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/bags/bags_statistics.cpp",
+    "line": 23,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"theory::bags::rewrites\"",
+    "type": "Rewrite"
+  },
+  {
+    "file": "src/theory/bv/theory_bv.cpp",
+    "line": 424,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"NumSolveSubstitutions\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/conflict_processor.cpp",
+    "line": 392,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ConflictProcessor::init_lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/conflict_processor.cpp",
+    "line": 393,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ConflictProcessor::lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/conflict_processor.cpp",
+    "line": 394,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"ConflictProcessor::min_lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "line": 29,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"num_reductions\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "line": 30,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "prefix + \"reduction_time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "line": 32,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "prefix + \"model_construction_time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "line": 34,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "prefix + \"num_construction_errors\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "line": 29,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statPrefix + \"conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "line": 30,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statPrefix + \"propagations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "line": 31,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statPrefix + \"lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "line": 32,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statPrefix + \"preferPhase\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "line": 33,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statPrefix + \"trustedConflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "line": 34,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "statPrefix + \"trustedLemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "line": 820,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"Instantiate::Instantiations_Total\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "line": 821,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"Instantiate::Duplicate_Inst\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "line": 822,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"Instantiate::Duplicate_Inst_Eq\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "line": 824,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"Instantiate::Duplicate_Inst_Entailed\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quant_conflict_find.cpp",
+    "line": 2644,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantConflictFind::Inst_Rounds\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quant_conflict_find.cpp",
+    "line": 2646,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantConflictFind::Entailment_Checks\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 23,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::QuantifiersEngine::time\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 24,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::QuantifiersEngine::time_conflict_based_inst\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 27,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"theory::QuantifiersEngine::time_ematching\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 28,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Num_Quantifiers\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 30,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Rounds_Instantiation_Full\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 32,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Rounds_Instantiation_Last_Call\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 33,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Triggers\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 34,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Triggers_Simple\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 35,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Triggers_Multi\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "line": 37,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"QuantifiersEngine::Reductions_Alpha_Equivalence\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "line": 23,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"SynthConjecture::solutions\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "line": 25,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"SynthConjecture::filtered_solutions\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "line": 26,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"SygusEnumerator::enumTermsRewrite\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "line": 28,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"SygusEnumerator::enumTermsEvalExamples\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "line": 29,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"SygusEnumerator::enumTerms\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/shared_terms_database.cpp",
+    "line": 31,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::shared_terms\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 23,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::strings::checkRuns\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 24,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::strings::strategyRuns\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 26,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"theory::strings::cdSimplifications\"",
+    "type": "Kind"
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 27,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"theory::strings::reductions\"",
+    "type": "Kind"
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 29,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"theory::strings::regexpUnfoldingsPos\"",
+    "type": "Kind"
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 31,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"theory::strings::regexpUnfoldingsNeg\"",
+    "type": "Kind"
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 32,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"theory::strings::rewrites\"",
+    "type": "Rewrite"
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 33,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::strings::conflictsEqEngine\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 34,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::strings::conflictsEager\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "line": 35,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"theory::strings::conflictsInfer\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory.cpp",
+    "line": 66,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "getStatsPrefix(id) + name + \"checkTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory.cpp",
+    "line": 68,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "getStatsPrefix(id) + name + \"computeCareGraphTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "line": 23,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"TheoryEngine::combineTheoriesTime\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "line": 24,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"TheoryEngine::Checks_Standard\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "line": 25,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"TheoryEngine::Checks_Full\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "line": 27,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"TheoryEngine::combineTheoriesCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "line": 28,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"TheoryEngine::Checks_Last_Call\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/theory_inference_manager.cpp",
+    "line": 52,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "statsName + \"inferencesConflict\"",
+    "type": "InferenceId"
+  },
+  {
+    "file": "src/theory/theory_inference_manager.cpp",
+    "line": 54,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "statsName + \"inferencesFact\"",
+    "type": "InferenceId"
+  },
+  {
+    "file": "src/theory/theory_inference_manager.cpp",
+    "line": 56,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "statsName + \"inferencesLemma\"",
+    "type": "InferenceId"
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "line": 1801,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"CardinalityExtension::Clique_Conflicts\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "line": 1802,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"CardinalityExtension::Clique_Lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "line": 1803,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"CardinalityExtension::Split_Lemmas\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "line": 1804,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"CardinalityExtension::Max_Model_Size\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "line": 33,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"mergesCount\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "line": 34,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"termsCount\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "line": 35,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"functionTermsCount\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "line": 36,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"constantTermsCount\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 805,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"clauses\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 806,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"units\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 808,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"permutationSetsConsidered\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 810,
+    "literal_name": false,
+    "method": "registerInt",
+    "name_expression": "name + \"permutationSetsInvariant\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 812,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"timers::invariantByPermutations\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 813,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"timers::selectTerms\"",
+    "type": null
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "line": 815,
+    "literal_name": false,
+    "method": "registerTimer",
+    "name_expression": "name + \"timers::initNormalization\"",
+    "type": null
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "line": 113,
+    "literal_name": true,
+    "method": "registerReference",
+    "name_expression": "\"resource::resourceUnitsUsed\"",
+    "type": "uint64_t"
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "line": 114,
+    "literal_name": true,
+    "method": "registerInt",
+    "name_expression": "\"resource::spendResourceCalls\"",
+    "type": null
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "line": 115,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"resource::steps::inference-id\"",
+    "type": "theory::InferenceId"
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "line": 118,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"resource::steps::resource\"",
+    "type": "Resource"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 29,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"cvc5::CONSTANT\"",
+    "type": "TypeConstant"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 30,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"cvc5::VARIABLE\"",
+    "type": "TypeConstant"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 31,
+    "literal_name": true,
+    "method": "registerHistogram",
+    "name_expression": "\"cvc5::TERM\"",
+    "type": "cvc5::Kind"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 33,
+    "literal_name": true,
+    "method": "registerValue",
+    "name_expression": "\"driver::filename\"",
+    "type": "std::string"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 34,
+    "literal_name": true,
+    "method": "registerTimer",
+    "name_expression": "\"global::totalTime\"",
+    "type": null
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 40,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "prefix + \"inferencesConflict\"",
+    "type": "theory::InferenceId"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 42,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "prefix + \"inferencesFact\"",
+    "type": "theory::InferenceId"
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "line": 44,
+    "literal_name": false,
+    "method": "registerHistogram",
+    "name_expression": "prefix + \"inferencesLemma\"",
+    "type": "theory::InferenceId"
+  }
+]

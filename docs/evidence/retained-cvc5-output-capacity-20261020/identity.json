@@ -1,0 +1,55 @@
+{
+  "archive": {
+    "bytes": 9262397,
+    "sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c"
+  },
+  "base_commit": "3042c7431f3f82a4ddde9fd9df56e5729ff7258e",
+  "repository": "cvc5/cvc5",
+  "reused_archive": {
+    "bytes": 13620,
+    "sha256": "6b83b581bf3d40b31791cef1b518090eac8153cf37ee9337a6a969a096ae1553"
+  },
+  "reused_members": {
+    "installed/libexec/spark/share/why3/drivers/cvc5.gen": {
+      "bytes": 1898,
+      "sha256": "d27aefff9c747aa78b64d998f34c261b9e778b45aba5c0d986e7d893d54553cf"
+    },
+    "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove.drv": {
+      "bytes": 2226,
+      "sha256": "0bf262eb3e62831c1145776d245695cd9e46dac034c5b199aeada43873deded9"
+    },
+    "installed/libexec/spark/share/why3/drivers/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    "installed/share/spark/config/gnatprove.conf": {
+      "bytes": 3023,
+      "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf"
+    },
+    "why3/src/printer/smtv2.ml": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  "revision": "86cecd83b685f59e884094693b9a4c5c90a62e03",
+  "source_confidence": "Exact pinned candidate source; embedded revision/version consistency is separately inventoried by solver-identity stream, not historical executable-resolution or binary/source behavioral correspondence.",
+  "source_reuse": {
+    "docs/evidence/retained-producer-response-20261018/identity.json": {
+      "bytes": 15399,
+      "sha256": "d270de406db0b641dee37c84ff2ef458f9c5c53bcd5538df033715eebc0eb94a"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz": {
+      "bytes": 158839,
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+      "bytes": 169096,
+      "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  },
+  "source_url": "https://codeload.github.com/cvc5/cvc5/tar.gz/86cecd83b685f59e884094693b9a4c5c90a62e03"
+}

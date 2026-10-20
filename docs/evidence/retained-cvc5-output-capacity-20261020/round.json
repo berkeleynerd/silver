@@ -1,0 +1,41 @@
+{
+  "authorization": "Parent #119/#153 research brief; only this packet and retained-cvc5-output-capacity.md; no native runs/install/config/GitHub writes.",
+  "cost": null,
+  "elapsed_seconds_from_first_recorded_clock": 805.655,
+  "first_recorded_clock_utc": "2026-10-20T17:44:59+00:00",
+  "measurement_scope": "Subthread wall-clock interval from first recorded clock; initial task/read overhead before that clock excluded; not whole-team time or native tool time.",
+  "native_execution": false,
+  "objective": "Bounded source research for selected CVC5 stdout+stderr capacity; close definite output families and expose complete-output gaps.",
+  "publication": "No issue updates or memory edits in this subthread; parent owns integration. No CLI memory update attempted.",
+  "recorded_checkpoint_utc": "2026-10-20T17:58:24.655306+00:00",
+  "remaining": [
+    "Generated task/option and name-domain inclusion proof",
+    "Generated enum/printer domains for Kind/TypeConstant/ProofRule/ProofRewriteRule",
+    "Solver warning, exception and fatal-message payload/multiplicity closure",
+    "Terminal activation and safe-print caller domains; delegated C++ runtime output",
+    "Executable resolution and candidate-source behavior attachment",
+    "Other solvers and >=3-worker intended configuration composition"
+  ],
+  "result": "84-byte selected normal response pair, ordinary stats interface, seven finite histogram tables, conditional exclusion of four uint32 histogram sites, error wrapper and termination-source components; q_cvc5 and O remain null.",
+  "review_inputs": {
+    "check.py": "cff8b420a77e43d7148c0c2882ee6e273dac7fde48d20cbd4b7975b5e9ea3efa",
+    "identity.json": "52ba402c65ea6981eb04ed99863e39af56cf2333d6291b976dac7e09ffff378c",
+    "registration-sites.json": "c6d6ca9a3794ab74b2814c280b562434144690b216c66db23a2a21f7649e53fc",
+    "result.json": "f61517f37ca8912f7134263ce063519a1b9c3868d419fb1c06144e9b5e8fca28",
+    "retained-cvc5-output-capacity.md": "6fcc524b07df3c1731ab257a7da913650e59ab8a018abc496c7cbd474fd3c682"
+  },
+  "review_rework": [
+    "Focused checker corrected early manual response-pair claim from 82 to 84 bytes; sat pair is 82 and unsat pair is 84.",
+    "No independent review performed by this author; lead integrates and reviews exact committed inputs."
+  ],
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "source_archive_sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c",
+  "tokens": null,
+  "validation": [
+    "Offline check.py passed source identities, source anchors/defaults, lexical inventory and component arithmetic.",
+    "git diff --check passed."
+  ]
+}
