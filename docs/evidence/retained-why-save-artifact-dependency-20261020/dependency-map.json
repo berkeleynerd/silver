@@ -1,0 +1,223 @@
+[
+  {
+    "id": "fresh_load",
+    "caller": "Gnat_main initialization",
+    "source_ids": [
+      "fresh_entry",
+      "config_paths",
+      "signal_outer"
+    ],
+    "reads": "force flag, directory existence, input file/configuration",
+    "writes": "new controller/session, or loaded/merged state",
+    "exceptions": "Load errors abort; selected fresh branch performs no load/reload.",
+    "dependency_conclusion": "Current selected input must be fresh; non-replay alone is insufficient."
+  },
+  {
+    "id": "automatic_task",
+    "caller": "controller build_prover_call",
+    "source_ids": [
+      "controller_prove",
+      "driver_prove",
+      "live_getters"
+    ],
+    "reads": "live raw task, controller prover/driver/configuration",
+    "writes": "prepared persistent task, prover call/runtime state",
+    "exceptions": "Preparation errors/interruptions follow actual caller catches; no artifact recovery.",
+    "dependency_conclusion": "Required proof input is the live task, not XML/shapes or serialized prover IDs."
+  },
+  {
+    "id": "ending_order",
+    "caller": "scheduler ending",
+    "source_ids": [
+      "scheduler_ending",
+      "ordinary_report",
+      "save_wrapper"
+    ],
+    "reads": "live session/check registry",
+    "writes": "save state, then report message set",
+    "exceptions": "Escaping timed-save exception prevents report_messages; ending is not retried.",
+    "dependency_conclusion": "Save completion/control is a current dependency even though saved contents are not."
+  },
+  {
+    "id": "shape_state",
+    "caller": "save_session uniformize_shape",
+    "source_ids": [
+      "session_fields",
+      "save_outputs",
+      "shape_maps",
+      "shape_string"
+    ],
+    "reads": "live forest/raw tasks, current shape state during partial/resumed paths",
+    "writes": "shape maps, n, per-goal shapes, shape_version; fresh identifiers/runtime effects",
+    "exceptions": "Nested signal and local catches may leave nontransactional relationships.",
+    "dependency_conclusion": "Semantic inverse/association invariant is for later matching; typed/bounded operations remain current requirements."
+  },
+  {
+    "id": "checksum",
+    "caller": "save_goal and diagnostics",
+    "source_ids": [
+      "session_fields",
+      "save_outputs",
+      "debug_checksum"
+    ],
+    "reads": "per-goal checksum table or dummy default",
+    "writes": "output checksum text; direct save does not modify session_sum_table",
+    "exceptions": "Lookup default may affect output; no current proof-result checksum read.",
+    "dependency_conclusion": "Saved association matters for later matching/obsolescence, not current result projection."
+  },
+  {
+    "id": "upper_status_caches",
+    "caller": "save_theory/save_file",
+    "source_ids": [
+      "save_outputs",
+      "status_caches"
+    ],
+    "reads": "theory/file cache, emptiness of goal/theory lists",
+    "writes": "missing th_state/file_state entries may be populated",
+    "exceptions": "Operations can fail or catch Not_found; raw-forest preservation is not all-state preservation.",
+    "dependency_conclusion": "Current Gnat check validity reads pn_state/tn_state and attempts, not these upper caches."
+  },
+  {
+    "id": "prover_ids",
+    "caller": "save/get_prover_to_save",
+    "source_ids": [
+      "save_prover_ids",
+      "save_outputs"
+    ],
+    "reads": "live proof attempts, separate serialized prover-ID map",
+    "writes": "prover-ID map and local serialization context/header",
+    "exceptions": "Search/allocation/printing can fail; numeric representation must fit.",
+    "dependency_conclusion": "Current reporting uses live prover records/names; correct ID-to-header association is needed on reload."
+  },
+  {
+    "id": "files",
+    "caller": "save_session/save",
+    "source_ids": [
+      "save_outputs",
+      "backup",
+      "compress"
+    ],
+    "reads": "session directory, existing paths, serialization values",
+    "writes": "backups, open/truncated XML/shapes, channel state; session_dir_for_save assignment",
+    "exceptions": "No encompassing cleanup/finally; I/O failure can prevent normal result JSON.",
+    "dependency_conclusion": "Current path does not read contents back; completed files are not thereby certified reusable."
+  },
+  {
+    "id": "current_report",
+    "caller": "report_messages/Save_VCs/Gnat_report",
+    "source_ids": [
+      "ordinary_report",
+      "report_stats",
+      "report_json",
+      "report_validity",
+      "report_register",
+      "report_output",
+      "manual_info"
+    ],
+    "reads": "explmap/check registry, live goal/transform/attempt/status records, prover names; diagnostics/timings",
+    "writes": "msg_set and stdout JSON",
+    "exceptions": "Exceptions or interruption may prevent/alter reporting; no successful-report conclusion follows from artifact nondependence.",
+    "dependency_conclusion": "No saved XML/shape/numeric prover-ID read supplies current proof-result values."
+  },
+  {
+    "id": "consumer",
+    "caller": "GNAT2Why collection and .spark emission",
+    "source_ids": [
+      "producer_spawn",
+      "producer_collect",
+      "producer_parse",
+      "producer_error",
+      "producer_checktree",
+      "producer_spark"
+    ],
+    "reads": "captured result JSON; error/result/coverage fields",
+    "writes": "proof bookkeeping and .spark report, or fatal error",
+    "exceptions": "Wait success alone is not proof; error/invalid response is fatal.",
+    "dependency_conclusion": "Consumes result protocol, not saved session XML/shapes."
+  },
+  {
+    "id": "silver_consumer",
+    "caller": "current Silver proof/build gate",
+    "source_ids": [
+      "silver_workspace",
+      "silver_read",
+      "silver_gate",
+      "silver_library",
+      "silver_native"
+    ],
+    "reads": "fresh workspace, native result/report files, source/library identities",
+    "writes": "strict report audit and build decision",
+    "exceptions": "Missing/incomplete reports and failed proof command reject build.",
+    "dependency_conclusion": "Existing implementation is not future optional confirmation; no saved-session proof audit."
+  },
+  {
+    "id": "future_shapes",
+    "caller": "load_session/reload_files/pairing",
+    "source_ids": [
+      "load_shapes",
+      "bound_pairing",
+      "merge_theory",
+      "controller_reload",
+      "shape_maps"
+    ],
+    "reads": "XML goal order, shape version, dictionary, per-goal checksum/indices",
+    "writes": "loaded/matched/obsolete/detached goal state",
+    "exceptions": "Some shape errors warn/fallback; no general restoration proof.",
+    "dependency_conclusion": "Real dependency for later reuse, including non-replay runs that load an existing directory."
+  },
+  {
+    "id": "future_provers",
+    "caller": "load_file/load_proof_or_transf/merge_goal",
+    "source_ids": [
+      "load_header",
+      "load_attempt",
+      "load_result",
+      "merge_goals",
+      "controller_reload"
+    ],
+    "reads": "numeric header IDs/default limits and serialized proof results",
+    "writes": "reconstructed and merged live prover attempts",
+    "exceptions": "Missing ID errors; malformed/colliding association is not certified safe.",
+    "dependency_conclusion": "Correct correspondence is required before using saved results in a later run."
+  },
+  {
+    "id": "signal_error",
+    "caller": "SIGINT handler, outer exception handler",
+    "source_ids": [
+      "signal_outer",
+      "error_output",
+      "scheduler_ending"
+    ],
+    "reads": "same live controller/session, signal disposition and pending/runtime state",
+    "writes": "save prefix, ignore dispositions, exit gates or error JSON",
+    "exceptions": "Handler exits or raises; higher catches can continue. No no-signal premise and no universal caught-interrupt detector.",
+    "dependency_conclusion": "Can occur during proof; not an automatically observation-only operation."
+  },
+  {
+    "id": "timing_shared",
+    "caller": "record_timing and report output",
+    "source_ids": [
+      "timing",
+      "ordinary_report",
+      "report_output",
+      "shape_maps"
+    ],
+    "reads": "clocks, timing map, term-opening/runtime state",
+    "writes": "timings/diagnostics/shared fresh-identifier and allocation consumption",
+    "exceptions": "Finally may replace the original exception; values/counters need their own bounds.",
+    "dependency_conclusion": "Artifact semantics do not remove these current effects or assure whole JSON equality."
+  },
+  {
+    "id": "private_state_scope",
+    "caller": "Session_itp interface and use census",
+    "source_ids": [
+      "session_private",
+      "session_fields",
+      "new_session"
+    ],
+    "reads": "private field uses and explicit public callers",
+    "writes": "none from the census",
+    "exceptions": "Text search is navigation only, not a reachability/semantic proof.",
+    "dependency_conclusion": "Use the source argument for the selected path; do not generalize to arbitrary controller clients."
+  }
+]

@@ -1,0 +1,406 @@
+{
+  "session_prover_ids": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 133,
+      "text": "  session_prover_ids            : int Hprover.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 593,
+      "text": "    | Some s -> s.session_prover_ids"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 629,
+      "text": "    session_prover_ids = prover_ids;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1420,
+      "text": "         Hprover.replace s.session_prover_ids p id)"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2180,
+      "text": "  let prover_ids = session.session_prover_ids in"
+    }
+  ],
+  "session_global_shapes": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 114,
+      "text": "  session_global_shapes     : Termcode.Gshape.gshape;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 117,
+      "text": "  (* Old shapes (mutually exclusive with session_global_shapes and"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 178,
+      "text": "         let gs = sshapes.session_global_shapes in"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 193,
+      "text": "    Gshape.clear_gs s.shapes.session_global_shapes;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 199,
+      "text": "    Gshape.clear_gs s.shapes.session_global_shapes;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 204,
+      "text": "    Termcode.Gshape.copy from_s.session_global_shapes to_s.session_global_shapes"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 607,
+      "text": "      session_global_shapes = Termcode.Gshape.create ();"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1434,
+      "text": "      Termcode.Gshape.copy gs session.shapes.session_global_shapes;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1472,
+      "text": "      (Termcode.Gshape.goal_and_expl_shapes s.shapes.session_global_shapes li, li)"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2201,
+      "text": "      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;"
+    }
+  ],
+  "session_bound_shape_table": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 116,
+      "text": "  session_bound_shape_table : (Termcode.bound_shape) Hpn.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 156,
+      "text": "        Hpn.add sshape.session_bound_shape_table goal_id shape"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 160,
+      "text": "      Hpn.add s.shapes.session_bound_shape_table goal_id empty_bound_shape"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 166,
+      "text": "         let shape = try Hpn.find s.shapes.session_bound_shape_table goal_id with"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 180,
+      "text": "         Hpn.add sshapes.session_bound_shape_table goal_id shape"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 194,
+      "text": "    Hpn.clear s.shapes.session_bound_shape_table;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 200,
+      "text": "    Hpn.clear s.shapes.session_bound_shape_table;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 608,
+      "text": "      session_bound_shape_table = Hpn.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1471,
+      "text": "      let li = Hpn.find s.shapes.session_bound_shape_table id in"
+    }
+  ],
+  "session_shape_table": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 119,
+      "text": "  session_shape_table       : Termcode.shape Hpn.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 154,
+      "text": "        Hpn.add sshape.session_shape_table goal_id shape"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 162,
+      "text": "      Hpn.add s.shapes.session_shape_table goal_id empty_shape"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 170,
+      "text": "         let shape = try Hpn.find s.shapes.session_shape_table goal_id with"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 183,
+      "text": "         Hpn.add sshapes.session_shape_table goal_id shape"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 195,
+      "text": "    Hpn.clear s.shapes.session_shape_table;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 201,
+      "text": "    Hpn.clear s.shapes.session_shape_table"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 609,
+      "text": "      session_shape_table = Hpn.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1455,
+      "text": "      (Hpn.find s.shapes.session_shape_table id, Termcode.Gshape.empty_bshape)"
+    }
+  ],
+  "session_sum_table": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 120,
+      "text": "  session_sum_table         : Termcode.checksum Hpn.t;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 186,
+      "text": "    try Hpn.find s.shapes.session_sum_table goal_id with"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 190,
+      "text": "    Hpn.add s.shapes.session_sum_table goal_id sum"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 196,
+      "text": "    Hpn.clear s.shapes.session_sum_table"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 610,
+      "text": "      session_sum_table = Hpn.create 97;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1451,
+      "text": "    try Some (Hpn.find s.shapes.session_sum_table id) with"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1467,
+      "text": "    try Some (Hpn.find s.shapes.session_sum_table id) with"
+    }
+  ],
+  "session_dir_for_save": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 966,
+      "text": "let session_dir_for_save = ref \".\""
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2242,
+      "text": "  session_dir_for_save := s.session_dir;"
+    }
+  ],
+  "load_session": [
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 386,
+      "text": "      try false, Session_itp.load_session session_dir"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1256,
+      "text": "    Loc.warning \"Session.load_session: unexpected element '%s'@.\" s;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1422,
+      "text": "    Debug.dprintf debug \"[Info] load_session: done@\\n\""
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1424,
+      "text": "    Loc.warning warn_unexpected_session_element \"Session.load_session: unexpected element '%s'@.\" s"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 1426,
+      "text": "let load_session (dir : string) ="
+    },
+    {
+      "member": "why3/src/session/session_itp.mli",
+      "line": 266,
+      "text": "val load_session : string -> session"
+    },
+    {
+      "member": "why3/src/session/session_itp.mli",
+      "line": 267,
+      "text": "(** [load_session dir] load a session in directory [dir]; all the"
+    }
+  ],
+  "save_session": [
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 752,
+      "text": "let save_session c ="
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 753,
+      "text": "   Session_itp.save_session c.Controller_itp.controller_session"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 274,
+      "text": "  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 308,
+      "text": "  C.save_session c;"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 2212,
+      "text": "let save_session (s : session) ="
+    },
+    {
+      "member": "why3/src/session/session_itp.mli",
+      "line": 259,
+      "text": "val save_session : session -> unit"
+    },
+    {
+      "member": "why3/src/session/session_itp.mli",
+      "line": 260,
+      "text": "(** [save_session s] Save the session [s] *)"
+    }
+  ],
+  "report_messages": [
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 213,
+      "text": "let report_messages c check ="
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 275,
+      "text": "  Gnat_checks.iter (report_messages c);"
+    }
+  ],
+  "Gnat_report": [
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 808,
+      "text": "    stat.Gnat_report.count <- stat.Gnat_report.count + 1;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 809,
+      "text": "    if pr.Call_provers.pr_time > stat.Gnat_report.max_time then"
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 810,
+      "text": "      stat.Gnat_report.max_time <- pr.Call_provers.pr_time;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 811,
+      "text": "    if pr.Call_provers.pr_steps > stat.Gnat_report.max_steps then"
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 812,
+      "text": "      stat.Gnat_report.max_steps <- pr.Call_provers.pr_steps"
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 824,
+      "text": "        Gnat_report.{ count = 1;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "line": 1302,
+      "text": "          Gnat_report.add_warning"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 108,
+      "text": "       Gnat_report.add_warning r.Call_provers.pr_output;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 114,
+      "text": "       Gnat_report.add_warning s"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 218,
+      "text": "      Gnat_report.Proved (stats, stat_checker)"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 262,
+      "text": "      Gnat_report.Not_Proved (extra_info, models, manual_info, answer_status) in"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 263,
+      "text": "  Gnat_report.register check (C.Save_VCs.check_to_json s check) result"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 278,
+      "text": "    Gnat_report.add_warning s;"
+    },
+    {
+      "member": "why3/src/gnat/gnat_main.ml",
+      "line": 279,
+      "text": "  Gnat_report.print_messages ();"
+    }
+  ],
+  "why3session.xml": [
+    {
+      "member": "why3/src/gnat/gnat_config.ml",
+      "line": 712,
+      "text": "let db_filename = \"why3session.xml\""
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 963,
+      "text": "let db_filename = \"why3session.xml\""
+    }
+  ],
+  "why3shapes": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 964,
+      "text": "let shape_filename = \"why3shapes\""
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "line": 965,
+      "text": "let compressed_shape_filename = \"why3shapes.gz\""
+    }
+  ]
+}

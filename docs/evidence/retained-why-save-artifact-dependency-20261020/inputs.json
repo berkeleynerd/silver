@@ -1,0 +1,87 @@
+{
+  "base_commit": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "inputs": [
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "bytes": 3594800,
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    },
+    {
+      "path": "oracle.md",
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    {
+      "path": "docs/unbounded-programs.md",
+      "bytes": 46718,
+      "sha256": "48087d48f7688cf4b32cfdbc09c1e858f578612605a27f1d07eb67ab5a0aa305"
+    },
+    {
+      "path": "docs/research/retained-tool-source-identity.md",
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    {
+      "path": "docs/research/retained-producer-driver-envelope.md",
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    {
+      "path": "docs/research/retained-producer-response.md",
+      "bytes": 16991,
+      "sha256": "6726e87d941735b0765f57396fbb04403242f82412438f47bfb84b1898454847"
+    },
+    {
+      "path": "docs/research/retained-why-ordinary-ending-control.md",
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    {
+      "path": "docs/reviews/review-why-ordinary-ending-control-20261020.md",
+      "bytes": 10736,
+      "sha256": "688cf3b2c75c9bd124c3b3bd214dcf77b84235c575a25cffa05c74bebfee2fbd"
+    },
+    {
+      "path": "docs/research/retained-why-session-save-outcomes.md",
+      "bytes": 15737,
+      "sha256": "8af10d3db23e226d1a73c2453f6c9a7e74d5a929ee7c13fa142bf71210a49a76"
+    },
+    {
+      "path": "docs/research/retained-why-save-preservation.md",
+      "bytes": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/control-ledger.json",
+      "bytes": 4455,
+      "sha256": "865af0548bbd36aa9f5bfe86beb0ab31354872b59e0a97947e5b29c470f7ae48"
+    },
+    {
+      "path": "docs/evidence/retained-why-ordinary-ending-control-20261020/inputs.json",
+      "bytes": 2743,
+      "sha256": "3ea4cb71b85afa8888fb9a7b33b8076defa7706cbd2a1a5b4113e4dae54fefed"
+    },
+    {
+      "path": "src/silver.adb",
+      "bytes": 22598,
+      "sha256": "5b52e3225f359740f04f4dbdf2c85ba2c204916fb0b5092fe983f62e9c30e70f"
+    },
+    {
+      "path": "src/silver_libraries.adb",
+      "bytes": 7638,
+      "sha256": "1f5e1fe3517466c7bd158d017194a7e31f0dfa8b0cd7c1202b67ab65cc3499ea"
+    },
+    {
+      "path": "src/silver_image_adapter.adb",
+      "bytes": 10947,
+      "sha256": "bd8e352d9d40ad6e9c6abfe033cde7056247b268e2cd9a5cd13a4b34b4dc7ca3"
+    }
+  ]
+}

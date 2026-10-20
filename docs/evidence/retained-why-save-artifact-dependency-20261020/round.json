@@ -1,0 +1,39 @@
+{
+  "task": "Author selected fresh save-artifact dependency split; not independent review",
+  "base_commit": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "started_utc": "2026-10-20T07:56:36+00:00",
+  "ended_utc": "2026-10-20T08:10:52.496493+00:00",
+  "elapsed_seconds": 856.496493,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_measurement": null,
+  "cost_measurement": null,
+  "achieved": [
+    "Traced save, current reporting, GNAT2Why and Silver consumers and later load/reuse to separate artifact meaning from required save execution.",
+    "Identified theory/file cache writes and checksum non-clearing; preserved all shared-state, counter, capacity, exception and report obligations.",
+    "Rejected blanket observation-only classification; no detector, no-signal premise or whole-pipeline assurance supplied."
+  ],
+  "focused_static_checker": {
+    "status": "passed",
+    "elapsed_seconds": 0.4496488859999772,
+    "repeated_successful_run": false
+  },
+  "native_runs": 0,
+  "proof_solver_runs": 0,
+  "public_evaluator_runs": 0,
+  "capture_runs": 0,
+  "predecessor_checker_replays": 0,
+  "external_source_fetches": 0,
+  "github_writes": 0,
+  "read_only_issue_inputs": [
+    88,
+    153
+  ],
+  "cli_memory_updated": false,
+  "independent_review": "pending",
+  "remaining": [
+    "Independent source/dependency review.",
+    "Actual-forest numeric charges, complete save representations, caller/error interfaces and later driver/printer, solver/server/result/report obligations."
+  ]
+}
