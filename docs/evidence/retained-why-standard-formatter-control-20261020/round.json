@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-20",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "author_elapsed_seconds": null,
+  "token_usage": null,
+  "cost": null,
+  "focused_check_started_utc": "2026-10-20T15:54:15Z",
+  "focused_check_elapsed_seconds": 19.32842132499718,
+  "intent": "Establish selected standard formatter control and identify exact missing initial state",
+  "achieved": "Fixed callback/settings profile and writer/catch control; initial queue state remains null",
+  "material_findings": [
+    "Gnat_report replaces Loc warning hook after config",
+    "True exit gates do not exclude abandoned pre-cut standard output",
+    "Color/Location linked definitions require selected initializer/loader analysis",
+    "CE-off alone is not a task-meta proof excluding model diagnostic"
+  ],
+  "review": "Parent-owned independent review pending",
+  "setup_failure": "Initial excerpt specification extended Plugin.ml past line 67; corrected to 59\u201367 and bounded plugin tail to actual line 1446 before focused check",
+  "successful_identical_input_reruns": 0,
+  "new_targets": 0,
+  "new_captures": 0,
+  "disassemblers": 0,
+  "source_fetches": 0,
+  "predecessor_checkers": 0
+}

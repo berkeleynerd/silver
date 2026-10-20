@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "scope": "New packet and argument only; no self-hash",
+  "files": {
+    "docs/evidence/retained-why-standard-formatter-control-20261020/README.md": {
+      "bytes": 3343,
+      "sha256": "bcbe025bb9fe1434d741cd46e4a3c512852a0b43d48a178b702a5e8af203b08e"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/check.py": {
+      "bytes": 15243,
+      "sha256": "a82275c4d1db4a024329bcf679e2f63383a6c7e16506dfbd73f4ea6a4191d1a8"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/control-ledger.json": {
+      "bytes": 8385,
+      "sha256": "1d0300a1d456eb104f89769a1d5d994bd830a5084c126010569f3f05cfc03be7"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/initial-inputs.json": {
+      "bytes": 32968,
+      "sha256": "1e457eaf4b57e36ed271cca76eebcdbf8f72d9196c3ce8508b56cd6166539e22"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/initializer-calls.json": {
+      "bytes": 20364,
+      "sha256": "1ee414278738a9f7344293062f427e5860a2cd8ae6e714d3887080a6e5be8a90"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/inputs.json": {
+      "bytes": 14198,
+      "sha256": "3d0c8100750135f1eeea51d96ec105f7023cbebe8e5d09e3576d511de392be4d"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/native-witnesses.json": {
+      "bytes": 1107616,
+      "sha256": "f3334a5e1d1ce79661efa32e21456a92332f92e743c4f366c26d6400277e64b2"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/result.json": {
+      "bytes": 2194,
+      "sha256": "bccf4840085fa1aaf461131476005bab730b8ef6f601c64add534449e5bc261c"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/round.json": {
+      "bytes": 1263,
+      "sha256": "b3b91bb1f9905ad91175defb88b4e88098d9942158b426e2808bb548eb1530bc"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/source-census.json": {
+      "bytes": 89272,
+      "sha256": "e5fbdf46eb6b65e03f2d70cef086255ca47518da87002f66fcca3708c0d7825f"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json": {
+      "bytes": 116266,
+      "sha256": "26c23849e0d8bfb761b3bf9f00da0451656b0380aca5f3514609318f3e06c00f"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    }
+  }
+}

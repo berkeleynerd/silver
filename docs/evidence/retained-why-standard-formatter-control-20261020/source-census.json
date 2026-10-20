@@ -1,0 +1,2992 @@
+[
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 45,
+    "text": "      Format.printf \"Scope( %s = \" lbl.id_str;"
+  },
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 47,
+    "text": "      Format.printf \" in \";"
+  },
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 49,
+    "text": "      Format.printf \")\""
+  },
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 51,
+    "text": "      Format.printf \"Loop[  \";"
+  },
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 53,
+    "text": "      Format.printf \"]\""
+  },
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 54,
+    "text": "  | Block (l, _) -> Format.printf \"Block(%s)\" l.id_str"
+  },
+  {
+    "source": "why3/plugins/cfg/stackify.ml",
+    "line": 78,
+    "text": "          List.iter (fun el -> Format.printf \"%s\" el.id_str) s"
+  },
+  {
+    "source": "why3/plugins/cfg/subregion_analysis.ml",
+    "line": 77,
+    "text": "      Format.eprintf \"Could not find %a\\n \" print_its sym;"
+  },
+  {
+    "source": "why3/plugins/cfg/subregion_analysis.ml",
+    "line": 84,
+    "text": "  (* Format.printf \"merging %a  %a\\n\" print_elt l print_elt r; *)"
+  },
+  {
+    "source": "why3/plugins/cfg/subregion_analysis.ml",
+    "line": 89,
+    "text": "        Format.eprintf \"cannot merge %a with %a\\n\" print_ity ty1 print_ity ty2;"
+  },
+  {
+    "source": "why3/plugins/cfg/subregion_analysis.ml",
+    "line": 101,
+    "text": "  (* Format.printf \"update %a . %a  = %a \\n\" print_elt l print_pv fld print_elt v; *)"
+  },
+  {
+    "source": "why3/plugins/cfg/subregion_analysis.ml",
+    "line": 390,
+    "text": "      (* Format.printf \"BEFORE ==== \\n\\n %a\\n\\n\" Expr.print_expr exp; *)"
+  },
+  {
+    "source": "why3/plugins/cfg/subregion_analysis.ml",
+    "line": 392,
+    "text": "      (* Format.printf \"AFTER ==== \\n\\n %a\\n\\n\" Expr.print_expr exp; *)"
+  },
+  {
+    "source": "why3/plugins/microc/mc_main.ml",
+    "line": 308,
+    "text": "    let print_m _ m = Pmodule.print_module Format.err_formatter m in"
+  },
+  {
+    "source": "why3/plugins/parser/genequlin.ml",
+    "line": 99,
+    "text": "    Printf.eprintf \"error file %s line 1\\n\" filename;"
+  },
+  {
+    "source": "why3/plugins/parser/genequlin.ml",
+    "line": 115,
+    "text": "    with _ -> Printf.eprintf \"Error file %s line %i\" filename !line;exit 1 in"
+  },
+  {
+    "source": "why3/plugins/python/py_main.ml",
+    "line": 577,
+    "text": "    let print_m _ m = Pmodule.print_module Format.err_formatter m in"
+  },
+  {
+    "source": "why3/plugins/tptp/tptp_printer.ml",
+    "line": 257,
+    "text": "    Format.eprintf \"Dprop for %s: rewrite rules:\" pr.pr_name.id_string;"
+  },
+  {
+    "source": "why3/plugins/tptp/tptp_printer.ml",
+    "line": 258,
+    "text": "    Spr.iter (fun pr -> Format.eprintf \" %s\" pr.pr_name.id_string) info.info_rules;"
+  },
+  {
+    "source": "why3/plugins/tptp/tptp_printer.ml",
+    "line": 259,
+    "text": "    Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/plugins/tptp/tptp_printer.ml",
+    "line": 273,
+    "text": "  Format.eprintf \"rewrite rules:\";"
+  },
+  {
+    "source": "why3/plugins/tptp/tptp_printer.ml",
+    "line": 274,
+    "text": "  Spr.iter (fun pr -> Format.eprintf \" %s\" pr.pr_name.id_string) rew_rules;"
+  },
+  {
+    "source": "why3/plugins/tptp/tptp_printer.ml",
+    "line": 275,
+    "text": "  Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 105,
+    "text": "    Format.eprintf \"prenex_fmla: @[%a@]@.\" Pretty.print_term fmla;"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 120,
+    "text": "    Format.eprintf \"transform: @[%a@]@.\" Pretty.print_term fmla;"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 127,
+    "text": "        Format.eprintf \"split: @[%a@]@.\" Util.print_clause clauses;"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 201,
+    "text": "    Format.eprintf \"==>@ @[%a@]@.@.\" Util.print_clauses clauses;"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 215,
+    "text": "    (* Format.eprintf \"generating new vertex: %a@.\""
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 224,
+    "text": "    (* Format.eprintf \"generating new vertex: %a@.\""
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 294,
+    "text": "      Format.eprintf \"invalid formula: \";"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 295,
+    "text": "      Pretty.print_term Format.err_formatter fmla; assert false"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 303,
+    "text": "    (* Format.eprintf \"generating new vertex: %a@.\" Pretty.print_ls x; *)"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 407,
+    "text": "      Format.eprintf \"one step made !@.\";"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 442,
+    "text": "        Format.eprintf \"[control]: fixpoint reached\";"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 463,
+    "text": "        Format.eprintf \"failure finding %a !@.\" Pretty.print_ls x;"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 481,
+    "text": "       then true else begin Format.eprintf \"%a not close enough (dist %d)@.\""
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 510,
+    "text": "          Format.eprintf \"filter: @[%a@]@.\" Pretty.print_term fmla;"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 516,
+    "text": "          if return_value = [] then Format.eprintf \"NO@.@.\""
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 517,
+    "text": "          else Format.eprintf \"YES@.@.\";"
+  },
+  {
+    "source": "why3/plugins/transform/hypothesis_selection.ml",
+    "line": 570,
+    "text": "  Format.eprintf \"graph: @\\n@\\n%a@\\n@.\" Dot_.fprint_graph gc;"
+  },
+  {
+    "source": "why3/src/bddinfer/abstract.ml",
+    "line": 117,
+    "text": "      Format.eprintf \"Abstract.get: index %d not found in ctx@.\" i;"
+  },
+  {
+    "source": "why3/src/bddinfer/abstract.ml",
+    "line": 309,
+    "text": "             Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/abstract.ml",
+    "line": 429,
+    "text": "  (* Format.eprintf \"@[widening, s1:@ @[%a@]@]@.\" print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/abstract.ml",
+    "line": 430,
+    "text": "  (* Format.eprintf \"@[widening, s2:@ @[%a@]@]@.\" print s2; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/abstract.ml",
+    "line": 560,
+    "text": "         Format.eprintf \"[Abstract.mpqf_to_int] couldn't convert Scalar.Float `%f` to integer\" f;"
+  },
+  {
+    "source": "why3/src/bddinfer/abstract.ml",
+    "line": 564,
+    "text": "     Format.eprintf \"[Abstract.mpqf_to_int] couldn't convert a Scalar.Mpfrf to integer\";"
+  },
+  {
+    "source": "why3/src/bddinfer/bddparam.ml",
+    "line": 217,
+    "text": "  if debug then Format.eprintf \"resizing...@.\";"
+  },
+  {
+    "source": "why3/src/bddinfer/bddparam.ml",
+    "line": 533,
+    "text": "          (* Format.eprintf \"[renaming bvar %d into %d@.\" v w; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 80,
+    "text": "             (* Format.eprintf \"user_invariant is: @[%a@]@.\" print_condition i; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 85,
+    "text": "             (* Format.eprintf \"complement as abstract state: @[%a@]@.\" Abstract.print complement; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 113,
+    "text": "                        Format.eprintf \"e = %a@.\" Ast.print_expression e;"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 148,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_let] state with env:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 152,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_let] state after meet lcond:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 155,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_let] state after body:@ @[%a@]@]@.\" Abstract.print s2; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 159,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_let] state final:@ @[%a@]@]@.\" Abstract.print s_final; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 177,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state with env:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 181,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after meet lcond:@ @[%a@]@]@.\" Abstract.print s2; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 183,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after havoc:@ @[%a@]@]@.\" Abstract.print renamed; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 185,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after meet:@ @[%a@]@]@.\" Abstract.print state_meet; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 187,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state final:@ @[%a@]@]@.\" Abstract.print s_final; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 192,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state before:@ @[%a@]@]@.\" Abstract.print state; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 195,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state with res:@ @[%a@]@]@.\" Abstract.print s_with_res; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 199,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state with env:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 203,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after meet:@ @[%a@]@]@.\" Abstract.print s_with_params_and_result; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 205,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after havoc:@ @[%a@]@]@.\" Abstract.print renamed; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 207,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after meet:@ @[%a@]@]@.\" Abstract.print state_meet; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 211,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after restrict:@ @[%a@]@]@.\" Abstract.print after_havoc; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 223,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state after eq_res:@ @[%a@]@]@.\" Abstract.print state_eq; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 228,
+    "text": "            (* Format.eprintf \"@[[Sfcall,Fun_val] state without params:@ @[%a@]@]@.\" Abstract.print state_no_result_no_params; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 233,
+    "text": "             Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 238,
+    "text": "             Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 249,
+    "text": "      (* Format.eprintf \"@[[Site] s1:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 250,
+    "text": "      (* Format.eprintf \"@[[Site] s2:@ @[%a@]@]@.\" Abstract.print s2; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 252,
+    "text": "      (* Format.eprintf \"@[[Site] result:@ @[%a@]@]@.\" Abstract.print result; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 253,
+    "text": "      (* Format.eprintf \"@[[Site] s1':@ @[%a@]@]@.\" Abstract.print s1'; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 254,
+    "text": "      (* Format.eprintf \"@[[Site] s2':@ @[%a@]@]@.\" Abstract.print s2'; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 256,
+    "text": "      (* Format.eprintf \"@[[Site] result':@ @[%a@]@]@.\" Abstract.print result'; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 263,
+    "text": "           (* Format.eprintf \"@[[Sblock] s1:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 264,
+    "text": "           (* Format.eprintf \"@[[Sblock] s1':@ @[%a@]@]@.\" Abstract.print s1'; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 265,
+    "text": "           (* Format.eprintf \"@[[Sblock] s':@ @[%a@]@]@.\" Abstract.print s'; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 267,
+    "text": "           (* Format.eprintf \"@[[Sblock] r:@ @[%a@]@]@.\" Abstract.print r; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 279,
+    "text": "          Format.eprintf \"abs_neg_cond as abstract state: @[%a@]@.\" Abstract.print abs_neg_cond;"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 291,
+    "text": "    (* Format.eprintf \"@[Sassume before [abs_cond]:@ @[%a@]@]@.\" Abstract.print state; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 295,
+    "text": "    (* Format.eprintf \"@[Sassume abs_cond:@ @[%a@]@]@.\" Abstract.print abs_cond; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 299,
+    "text": "     (* Format.eprintf \"@[State before [havoc]:@ @[%a@]@]@.\" Abstract.print state; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 301,
+    "text": "     (* Format.eprintf \"@[State after prepare_havoc:@ @[%a@]@]@.\" Abstract.print renamed; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 302,
+    "text": "     (* Format.eprintf \"@[old after prepare_havoc:@ @[%a@]@]@.\" Abstract.print_env old; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 304,
+    "text": "     (* Format.eprintf \"@[State after meet:@ @[%a@]@]@.\" Abstract.print state_meet; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 306,
+    "text": "     (* Format.eprintf \"@[State after restrict:@ @[%a@]@]@.\" Abstract.print result; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 316,
+    "text": "  (* Format.eprintf \"@[State before [let in]:@ @[%a@]@]@.\" Abstract.print state; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 320,
+    "text": "  (* Format.eprintf \"@[State before [in]:@ @[%a@]@]@.\" Abstract.print state2; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 322,
+    "text": "  (* Format.eprintf \"@[State after [let in]:@ @[%a@]@]@.\" Abstract.print state3; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 323,
+    "text": "  (* Format.eprintf \"@[State after [break]:@ @[%a@]@]@.\" Abstract.print state3'; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 329,
+    "text": "    (* Format.eprintf \"@[interp_loop s:@ @[%a@]@]@.\" Abstract.print s; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 331,
+    "text": "    (* Format.eprintf \"@[interp_loop s1:@ @[%a@]@]@.\" Abstract.print s1; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 333,
+    "text": "    (* Format.eprintf \"@[interp_loop s2:@ @[%a@]@]@.\" Abstract.print s2; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 335,
+    "text": "    (* Format.eprintf \"@[interp_loop s3:@ @[%a@]@]@.\" Abstract.print s3; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 343,
+    "text": "        (* Format.eprintf \"@[interp_loop, before widening:@ @[%a@]@]@.\" Abstract.print s3; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 346,
+    "text": "        (* Format.eprintf \"@[interp_loop, after widening:@ @[%a@]@]@.\" Abstract.print s4; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 348,
+    "text": "        (* Format.eprintf \"@[interp_loop, after meet:@ @[%a@]@]@.\" Abstract.print s5; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 350,
+    "text": "        (* Format.eprintf \"@[interp_loop, after loop iteration:@ @[%a@]@]@.\" Abstract.print s6; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 352,
+    "text": "        (* Format.eprintf \"@[interp_loop, after loop join:@ @[%a@]@]@.\" Abstract.print s7; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 392,
+    "text": "        Format.printf \"@[%s:@ @[<hov 2>{ %a }@]@]@\\n@.\" msg"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 396,
+    "text": "          Format.printf \"@[Domains %s:@ @[<hov 2>{ %a}@]@]@\\n@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 399,
+    "text": "          Format.printf \"@[%s as abstract state is@ @[%a@]@]@.\" msg"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 423,
+    "text": "          Format.printf \"The generated invariant \";"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 425,
+    "text": "            Format.printf \"implies \""
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 427,
+    "text": "            Format.printf \"does not imply \";"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 430,
+    "text": "            | \"\" -> Format.printf \"{ %a }\" print_condition c"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 431,
+    "text": "            | n -> Format.printf \"the invariant [%s]\" n"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 433,
+    "text": "          Format.printf \"@\\n@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 438,
+    "text": "            Format.printf \"Check: assertion [%s] is valid@\\n@.\" n"
+  },
+  {
+    "source": "why3/src/bddinfer/infer.ml",
+    "line": 440,
+    "text": "            Format.printf \"Check: assertion [%s] is NOT valid@\\n@.\" n"
+  },
+  {
+    "source": "why3/src/bddinfer/interp_expression.ml",
+    "line": 33,
+    "text": "     Format.printf \"[Interp_expression.get_var] v = %a env = %a@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/interp_expression.ml",
+    "line": 135,
+    "text": "    (* Format.eprintf \"@[meet_atomic_condition with state:@ @[%a@]@]@.\" Abstract.print state; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/interp_expression.ml",
+    "line": 137,
+    "text": "    (* Format.eprintf \"@[after meet_atomic_condition:@ @[%a@]@]@.\" Abstract.print s; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/interp_expression.ml",
+    "line": 280,
+    "text": "          Format.printf \"@[Converted to integer condition @ @[%a@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/interp_expression.ml",
+    "line": 293,
+    "text": "    Format.printf \"@[Converting to Boolean condition @ @[@]@]@.\";"
+  },
+  {
+    "source": "why3/src/bddinfer/interp_expression.ml",
+    "line": 298,
+    "text": "    Format.printf \"@[Converted to some Boolean condition @ @[@]@]@.\";"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 186,
+    "text": "    (* Format.eprintf \"vs_table: querying %s@.\" vs.Term.vs_name.id_string; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 191,
+    "text": "    (* Format.eprintf \"declare_why_var: adding %a -> %s@.\" print_vs vs n; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 207,
+    "text": "    (* Format.eprintf \"Declaring global variable for %a@.\" print_vs vs; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 230,
+    "text": "    (* Format.eprintf \"rs_table: adding %s -> %s@.\" rs.rs_name.id_string n; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 468,
+    "text": "  Format.printf \"@[mlw_fmla_to_why1_cond:@ `@[%a@]` ->@ `@[%a@]`@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 925,
+    "text": "          Format.eprintf \"@[converting if expression into@ `@[%a@]`@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1087,
+    "text": "  (* Format.printf \"f_decl : %a@.\" print_rs rs; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1109,
+    "text": "  Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1115,
+    "text": "  Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1119,
+    "text": "  Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1129,
+    "text": "  Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1154,
+    "text": "           (* Format.eprintf \"Mutable variable %a is not in eff_writes\" print_pv pv; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1158,
+    "text": "       (* Format.eprintf \"Variable %a is not mutable\" print_pv pv; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1168,
+    "text": "  Format.eprintf"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1188,
+    "text": "             (* Format.eprintf \"result = %a@.\" print_vs v; *)"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1372,
+    "text": "    Format.eprintf \"condition_to_term, condition = %a@.\" print_condition c;"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1400,
+    "text": "        if !verbose_level >= 4 then Format.eprintf \"Here1, condition = %a@.\" print_condition c;"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1402,
+    "text": "        if !verbose_level >= 4 then Format.eprintf \"Here2@.\";"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1442,
+    "text": "        Format.printf \"@[You have triggered BDD-infer loop inference on expression@ @[%a@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1446,
+    "text": "        Format.printf \"@[Here is the simplified expression@ @[%a@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1458,
+    "text": "          Format.printf \"@[Here are the global variables :@ @[[%a]@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1475,
+    "text": "          Format.printf \"@[Here are the variables in the vs_table:@ @[[%a]@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1488,
+    "text": "        Format.printf \"%a@.\" Ast.print_program prog;"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1519,
+    "text": "                Format.printf \"@[Converting state@ @[%a@]@]@.\" print s;"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1522,
+    "text": "                Format.printf \"@[State converted to@ @[%a@]@]@.\" Pretty.print_term inv;"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1567,
+    "text": "     Format.printf \"BDD-infer failure: %s, %s@.\" reason expl"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1573,
+    "text": "             Format.printf \"@[<hov 2>[BDDinfer] inferred invariant for loop [%s] is@ @[%a@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1575,
+    "text": "             Format.printf \"@[<hov 2>[BDDinfer] inferred domains for loop [%s] are@ @[%a@]@]@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1581,
+    "text": "            Format.printf \"[BDDinfer] internal info available (verbosity %d):@.\" verbosity;"
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1583,
+    "text": "            Format.printf \"[BDDinfer] end of internal info.@.\""
+  },
+  {
+    "source": "why3/src/bddinfer/why3infer.ml",
+    "line": 1585,
+    "text": "            Format.printf \"[BDDinfer] no internal info available (verbosity %d).@.\" verbosity"
+  },
+  {
+    "source": "why3/src/core/printer.ml",
+    "line": 227,
+    "text": "    Format.eprintf \"bad argument for int_of_string: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/core/trans.ml",
+    "line": 79,
+    "text": "    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with"
+  },
+  {
+    "source": "why3/src/driver/autodetection.ml",
+    "line": 57,
+    "text": "  then Format.printf fmt"
+  },
+  {
+    "source": "why3/src/driver/smtv2_model_parser.ml",
+    "line": 469,
+    "text": "           Format.eprintf \"se = %a@.\" pp_sexp se;"
+  },
+  {
+    "source": "why3/src/driver/whyconf.ml",
+    "line": 290,
+    "text": "      Format.eprintf \"%s cannot be loaded: %a@.\" x"
+  },
+  {
+    "source": "why3/src/extract/c.ml",
+    "line": 714,
+    "text": "         Format.eprintf"
+  },
+  {
+    "source": "why3/src/extract/c.ml",
+    "line": 1588,
+    "text": "         Format.eprintf"
+  },
+  {
+    "source": "why3/src/extract/mlinterp.ml",
+    "line": 389,
+    "text": "  List.iter (eprintf \"%a@.\" print_value) args;"
+  },
+  {
+    "source": "why3/src/extract/mlinterp.ml",
+    "line": 543,
+    "text": "  Format.eprintf \"%a %d@.\""
+  },
+  {
+    "source": "why3/src/extract/pdriver.ml",
+    "line": 145,
+    "text": "        Format.eprintf \"%s invalid in extraction drivers, use `syntax val' instead.\" syntaxes;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 147,
+    "text": "  Format.printf \"Why3 for gnatprove version %s@.\" Config.version;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 154,
+    "text": "  Format.printf \"@[<hov 2>Known transformations with arguments:@\\n%a@]@\\n@.\""
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 159,
+    "text": "  Format.printf \"enable_ide: %s@.\" Config.enable_ide;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 160,
+    "text": "  Format.printf \"enable_zip: %s@.\" Config.enable_zip;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 161,
+    "text": "  Format.printf \"enable_coq_libs: %s@.\" Config.enable_coq_libs;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 162,
+    "text": "  Format.printf \"enable_coq_fp_libs: %s@.\" Config.enable_coq_fp_libs;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 163,
+    "text": "  Format.printf \"enable_pvs_libs: %s@.\" Config.enable_pvs_libs;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 164,
+    "text": "  Format.printf \"enable_isabelle_libs: %s@.\" Config.enable_isabelle_libs;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 165,
+    "text": "  Format.printf \"enable_hypothesis_selection: %s@.\""
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 167,
+    "text": "  Format.printf \"enable_local: %s@.\" Config.enable_local;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "line": 168,
+    "text": "  Format.printf \"enable_relocation: %s@.\" Config.enable_relocation;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_main.ml",
+    "line": 209,
+    "text": "        (* Format.eprintf \"Model of exec log:@ %a@.\" (Model_parser.print_model ~print_attrs:false) m; *)"
+  },
+  {
+    "source": "why3/src/gnat/gnat_main.ml",
+    "line": 268,
+    "text": "let () = Debug.set_debug_formatter escape_formatter"
+  },
+  {
+    "source": "why3/src/gnat/gnat_main.ml",
+    "line": 327,
+    "text": "      Debug.set_debug_formatter fmt;"
+  },
+  {
+    "source": "why3/src/gnat/gnat_main.ml",
+    "line": 329,
+    "text": "      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)"
+  },
+  {
+    "source": "why3/src/gnat/gnat_report.ml",
+    "line": 46,
+    "text": "let () = Loc.set_warning_hook add_warning"
+  },
+  {
+    "source": "why3/src/gnat/gnat_report.ml",
+    "line": 227,
+    "text": "  print_json_single_line Format.std_formatter ("
+  },
+  {
+    "source": "why3/src/gnat/gnat_util.ml",
+    "line": 5,
+    "text": "  print_json Format.std_formatter "
+  },
+  {
+    "source": "why3/src/ide/gconfig.ml",
+    "line": 21,
+    "text": "    Format.eprintf \"@[Why3ide callback raised an exception:@\\n%a@]@.@.\""
+  },
+  {
+    "source": "why3/src/ide/gconfig.ml",
+    "line": 25,
+    "text": "      Printf.eprintf \"Backtrace:\\n%t\\n%!\" Printexc.print_backtrace"
+  },
+  {
+    "source": "why3/src/ide/gconfig.ml",
+    "line": 1266,
+    "text": "      (fun c -> Format.eprintf \"Gconfig.color_sel: %s@.\""
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 44,
+    "text": "  | _ -> Format.eprintf \"Bad parsing@.\");"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 58,
+    "text": "  | _ -> Format.eprintf \"Bad parsing@.\");"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 126,
+    "text": "      Format.eprintf \"exception '%a' was raised in a LablGtk callback.@.\""
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 130,
+    "text": "      Format.eprintf \"exception '%a' was raised in a LablGtk callback.@.\""
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 132,
+    "text": "      Format.eprintf \"This should not happen. Please report. @.\";"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 192,
+    "text": "    eprintf \"Anomaly while loading configuration: %a@.\" Exn_printer.exn_printer"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 412,
+    "text": "  | None -> Format.eprintf \"Warning: %s@.\" msg"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 413,
+    "text": "  | Some l -> Format.eprintf \"Warning, file %a: %s@.\" Loc.pp_position l msg);"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 417,
+    "text": "  Loc.set_warning_hook record_warning;"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 421,
+    "text": "      Format.eprintf \"Error: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 1809,
+    "text": "      Format.eprintf \"File %a: %s@.\" Loc.pp_position loc s;"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 3102,
+    "text": "  Format.printf \"Cursor is placed at position: (%d, %d)@.\" line column;"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 3104,
+    "text": "  Format.printf \"Recorded colors on the source code are:@.\";"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 3115,
+    "text": "            Format.printf \"Color \\\"%s\\\" from (%d, %d) to (%d, %d)@.\" tag_name"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 3120,
+    "text": "  Format.printf \"End color@.\""
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 3160,
+    "text": "            Printf.eprintf \"Batch command failed: %s\\n%!\" cmd"
+  },
+  {
+    "source": "why3/src/ide/why3ide.ml",
+    "line": 3174,
+    "text": "        | _ -> Printf.eprintf \"Unrecognized batch command: %s\\n%!\" c);"
+  },
+  {
+    "source": "why3/src/ide/why3web.ml",
+    "line": 103,
+    "text": "       eprintf \"addr : %s@.\" (string_of_addr addr);"
+  },
+  {
+    "source": "why3/src/ide/why3web.ml",
+    "line": 104,
+    "text": "       eprintf \"req: @[%a@]@.\" plist req;"
+  },
+  {
+    "source": "why3/src/ide/why3web.ml",
+    "line": 105,
+    "text": "       eprintf \"script: `%s'@.\" script;"
+  },
+  {
+    "source": "why3/src/ide/why3web.ml",
+    "line": 107,
+    "text": "       eprintf \"cont: `%s'@.\" cont;"
+  },
+  {
+    "source": "why3/src/ide/why3web.ml",
+    "line": 109,
+    "text": "       eprintf \"answer: `%s'@.\" ans;"
+  },
+  {
+    "source": "why3/src/ide/why3web.ml",
+    "line": 155,
+    "text": "        Format.eprintf \"Error: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 280,
+    "text": "      eprintf \"Robot request@.\""
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 294,
+    "text": "  (* eprintf \"Unix.select...@.\"; *)"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 296,
+    "text": "  (* eprintf \" done@.\"; *)"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 303,
+    "text": "         eprintf \"got a connection@.\";"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 318,
+    "text": "         eprintf \"connection treated@.\";"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 323,
+    "text": "           eprintf \"got a stdin input@.\";"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 325,
+    "text": "           eprintf \"stdin treated@.\";"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 385,
+    "text": "  eprintf \"Ready %4d-%02d-%02d %02d:%02d port %d...@.\""
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 400,
+    "text": "           eprintf \"check connection for a some delay@.\";"
+  },
+  {
+    "source": "why3/src/ide/wserver.ml",
+    "line": 425,
+    "text": "               | e -> eprintf \"Anomaly: %a@.\" Why3.Exn_printer.exn_printer e"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 121,
+    "text": "      let _ = Format.fprintf Format.std_formatter"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 125,
+    "text": "    else ref err_formatter"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 341,
+    "text": "           Format.eprintf \"warning, condition in while could not be \\"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 379,
+    "text": "            Format.eprintf \"warning, condition in if could not be \\"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 450,
+    "text": "         | _ -> Format.eprintf"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 538,
+    "text": "       Format.eprintf \"expression not handled, will probably lead to \\"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 542,
+    "text": "       | Some l -> Loc.report_position Format.err_formatter l; end;"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 590,
+    "text": "      Fixpoint.print_fmt = Format.std_formatter;"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 635,
+    "text": "    Format.eprintf \"Time elapsed %fs@.\""
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 639,
+    "text": "        Format.printf \"output=%a@.\" (Fixpoint.print_output manager) output;"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 640,
+    "text": "        Format.printf \"\\n\\nRESULT:\\n\";"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 645,
+    "text": "        Format.eprintf \"\\n@.\";"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 655,
+    "text": "        Format.printf \"DOMAIN TERMS (set ai-print-cfg to true and \\"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 663,
+    "text": "        Format.printf \"Loop invariants:@.\";"
+  },
+  {
+    "source": "why3/src/infer/infer_cfg.ml",
+    "line": 666,
+    "text": "            Format.printf \"For: @[%a@]@\\nDOMAIN:@[%a@]@\\nInvariant:@[%a@]@.\""
+  },
+  {
+    "source": "why3/src/infer/infer_loop.ml",
+    "line": 63,
+    "text": "  Format.eprintf \"CFG size: %d nodes, %d hyperedges@.\" n h;"
+  },
+  {
+    "source": "why3/src/infer/infer_loop.ml",
+    "line": 73,
+    "text": "      Format.printf \"### Debug: inferred invariants ###@\\n\";"
+  },
+  {
+    "source": "why3/src/infer/infer_loop.ml",
+    "line": 74,
+    "text": "      let print_i (_,t) = Format.printf \"%a@\\n\" Pretty.print_term t in"
+  },
+  {
+    "source": "why3/src/infer/infer_loop.ml",
+    "line": 76,
+    "text": "      Format.printf \"###@.\""
+  },
+  {
+    "source": "why3/src/infer/infer_why3.ml",
+    "line": 188,
+    "text": "        Format.eprintf \"Couldn't find definition of: %a@.\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 309,
+    "text": "          Format.eprintf \"matching terms %a and %a...@.\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 473,
+    "text": "        Format.eprintf \"Pattern-matching succeeded:@\\nmt' = @[\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 475,
+    "text": "          (fun tv ty -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 478,
+    "text": "        Format.eprintf \"@]@\\n\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 479,
+    "text": "        Format.eprintf \"mv' = @[\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 481,
+    "text": "          (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 484,
+    "text": "        Format.eprintf \"@]@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 485,
+    "text": "        Format.eprintf \"branch before inst: %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 489,
+    "text": "        Format.eprintf \"branch after types inst: %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 490,
+    "text": "        Format.eprintf \"mv'' = @[\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 492,
+    "text": "          (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 495,
+    "text": "        Format.eprintf \"@]@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 527,
+    "text": "          Format.eprintf \"Tvar not found: %a@.\" Pretty.print_vs v;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 703,
+    "text": "            Format.eprintf \"try a rewrite rule on %a@.\" Pretty.print_ls ls;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 707,
+    "text": "            Format.eprintf \"rhs = %a@.\" Pretty.print_term rhs;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 708,
+    "text": "            Format.eprintf \"sigma = \";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 710,
+    "text": "              (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 713,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 714,
+    "text": "            Format.eprintf \"try a type match: %a and %a@.\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 720,
+    "text": "            Format.eprintf \"subst of rhs: \";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 722,
+    "text": "              (fun tv ty -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 725,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 730,
+    "text": "            Format.eprintf \"rhs = %a@.\" Pretty.print_term rhs;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 731,
+    "text": "            Format.eprintf \"sigma = \";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 733,
+    "text": "              (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine.ml",
+    "line": 736,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 312,
+    "text": "          Format.eprintf \"matching terms %a and %a...@.\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 476,
+    "text": "        Format.eprintf \"Pattern-matching succeeded:@\\nmt' = @[\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 478,
+    "text": "          (fun tv ty -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 481,
+    "text": "        Format.eprintf \"@]@\\n\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 482,
+    "text": "        Format.eprintf \"mv' = @[\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 484,
+    "text": "          (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 487,
+    "text": "        Format.eprintf \"@]@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 488,
+    "text": "        Format.eprintf \"branch before inst: %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 492,
+    "text": "        Format.eprintf \"branch after types inst: %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 493,
+    "text": "        Format.eprintf \"mv'' = @[\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 495,
+    "text": "          (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 498,
+    "text": "        Format.eprintf \"@]@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 530,
+    "text": "          Format.eprintf \"Tvar not found: %a@.\" Pretty.print_vs v;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 706,
+    "text": "            Format.eprintf \"try a rewrite rule on %a@.\" Pretty.print_ls ls;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 710,
+    "text": "            Format.eprintf \"rhs = %a@.\" Pretty.print_term rhs;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 711,
+    "text": "            Format.eprintf \"sigma = \";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 713,
+    "text": "              (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 716,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 717,
+    "text": "            Format.eprintf \"try a type match: %a and %a@.\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 723,
+    "text": "            Format.eprintf \"subst of rhs: \";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 725,
+    "text": "              (fun tv ty -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 728,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 733,
+    "text": "            Format.eprintf \"rhs = %a@.\" Pretty.print_term rhs;"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 734,
+    "text": "            Format.eprintf \"sigma = \";"
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 736,
+    "text": "              (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/infer/reduction_engine0.ml",
+    "line": 739,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/trace_partitioning_domain.ml",
+    "line": 23,
+    "text": "      | Node i -> Format.eprintf \"%d@.\" i;"
+  },
+  {
+    "source": "why3/src/infer/trace_partitioning_domain.ml",
+    "line": 24,
+    "text": "      | Star i -> Format.eprintf \"%d*@.\" i;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 353,
+    "text": "          Format.eprintf \"REACHED END OF\u00a0THE\u00a0POOL@.@.@.\";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 377,
+    "text": "    Format.eprintf \"-- warning: %s -- triggered by %a of type %a@.\" s"
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 503,
+    "text": "            Format.eprintf \"Couldn't find variable %a@.\" Var.print v;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 564,
+    "text": "            | None -> Format.eprintf \"Variable undefined: %a@.\""
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 593,
+    "text": "                  Format.eprintf \"REACHED END OF THE POOL@.@.@.@.@.\";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 675,
+    "text": "          Format.eprintf \"Couldn't understand entirely the post \\"
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 790,
+    "text": "       Format.eprintf \"Variable of type %a could not be added properly: %a@.\""
+  },
+  {
+    "source": "why3/src/infer/uf_domain.ml",
+    "line": 812,
+    "text": "         Format.eprintf \"[Uf_domain.adjust_term] Warning: unexpected Boolean term: '%a'@.\""
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 119,
+    "text": "  let p = Pretty.print_term Format.err_formatter"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 195,
+    "text": "                  Pretty.print_term Format.err_formatter v;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 196,
+    "text": "                  Pretty.print_term Format.err_formatter v';"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 197,
+    "text": "                  Format.eprintf \"blip@.\";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 249,
+    "text": "        D.print Format.std_formatter d;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 251,
+    "text": "        Format.printf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 252,
+    "text": "        D.print Format.std_formatter d;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 290,
+    "text": "    Format.eprintf \"-- warning: %s -- triggered by \" s;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 291,
+    "text": "    Pretty.print_term Format.err_formatter t;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 292,
+    "text": "    Format.eprintf \" of type \";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 293,
+    "text": "    Pretty.print_ty Format.err_formatter (Term.t_type t);"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 294,
+    "text": "    Format.eprintf \"@.\""
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 487,
+    "text": "            Format.eprintf \"Couldn't find variable %s@.\" (Var.to_string a);"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 546,
+    "text": "            | None -> Format.eprintf \"Variable undefined: \"; Pretty.print_term Format.err_formatter t; Format.eprintf \"@.\"; failwith \"undefined var\""
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 749,
+    "text": "          Format.eprintf \"Couldn't understand entirely the post condition: \";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 750,
+    "text": "          Pretty.print_term Format.err_formatter t;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 751,
+    "text": "          Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 929,
+    "text": "      Format.eprintf \"Variable could not be added properly: \";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 930,
+    "text": "      Pretty.print_term Format.err_formatter logical_term;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 931,
+    "text": "      Format.eprintf \" of type \";"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 932,
+    "text": "      Ity.print_ity Format.err_formatter variable_type;"
+  },
+  {
+    "source": "why3/src/infer/uf_domain0.ml",
+    "line": 933,
+    "text": "      Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/infer/union_find.ml",
+    "line": 100,
+    "text": "      Format.eprintf \"-- [\";"
+  },
+  {
+    "source": "why3/src/infer/union_find.ml",
+    "line": 102,
+    "text": "          Format.eprintf \"%d, \" i) k;"
+  },
+  {
+    "source": "why3/src/infer/union_find.ml",
+    "line": 103,
+    "text": "      Format.eprintf \"]@.\";"
+  },
+  {
+    "source": "why3/src/infer/union_find.ml",
+    "line": 105,
+    "text": "  Format.eprintf \".@.\""
+  },
+  {
+    "source": "why3/src/isabelle-client/isabelle_client_main.ml",
+    "line": 113,
+    "text": "  List.iter (fun s -> Format.printf \"%s%s\\n\" prfx s)"
+  },
+  {
+    "source": "why3/src/isabelle-client/isabelle_client_main.ml",
+    "line": 145,
+    "text": "             Format.printf \"%s\\n\" (get_string_field r \"session_id\");"
+  },
+  {
+    "source": "why3/src/isabelle-client/isabelle_client_main.ml",
+    "line": 253,
+    "text": "    (fun s -> Format.printf \"Bad option: %s\\n\" s; exit 2)"
+  },
+  {
+    "source": "why3/src/isabelle-client/isabelle_client_main.ml",
+    "line": 274,
+    "text": "          Format.printf \"Bad command\\n\"; 2 in"
+  },
+  {
+    "source": "why3/src/isabelle-client/isabelle_client_main.ml",
+    "line": 279,
+    "text": "      Format.printf \"Environment variables not defined\\n\";"
+  },
+  {
+    "source": "why3/src/mlw/check_ce.ml",
+    "line": 833,
+    "text": "  (* Format.printf \"get_opt_fun_literal (bvar = %a) %a@.\" Pretty.print_vs vs Pretty.print_term t'; *)"
+  },
+  {
+    "source": "why3/src/mlw/check_ce.ml",
+    "line": 858,
+    "text": "  | Some x -> Format.printf \"get_opt_fun_literal: Some@.\"; Some x"
+  },
+  {
+    "source": "why3/src/mlw/check_ce.ml",
+    "line": 859,
+    "text": "  | None -> Format.printf \"get_opt_fun_literal: None@.\"; None *)"
+  },
+  {
+    "source": "why3/src/mlw/check_ce.ml",
+    "line": 936,
+    "text": "  Format.printf \">>>> value: %a@.\" print_value v;"
+  },
+  {
+    "source": "why3/src/mlw/check_ce.ml",
+    "line": 938,
+    "text": "  Format.printf \"<<<< concrete_term: %a@.\" print_concrete_term the_concrete_term;"
+  },
+  {
+    "source": "why3/src/mlw/check_ce.ml",
+    "line": 946,
+    "text": "    (* Format.eprintf \"crafting a me for id %s (attrs: %a)@.\" id.id_string Pretty.print_attrs id.id_attrs; *)"
+  },
+  {
+    "source": "why3/src/mlw/dexpr.ml",
+    "line": 1424,
+    "text": "        (* Format.eprintf \"[Dexpr.mk_proxy_args] e = %a@.\" print_expr e; *)"
+  },
+  {
+    "source": "why3/src/mlw/dexpr.ml",
+    "line": 1436,
+    "text": "    (* Format.eprintf \"[Dexpr.c_app] s = %a@.\" print_rs s; *)"
+  },
+  {
+    "source": "why3/src/mlw/dexpr.ml",
+    "line": 1446,
+    "text": "    (* Format.eprintf \"[Dexpr.c_app] e = %a@.\" (print_cexp true 0) e; *)"
+  },
+  {
+    "source": "why3/src/mlw/dexpr.ml",
+    "line": 1728,
+    "text": "  (* Format.eprintf \"[Dexpr.var_defn] e = %a@.\" print_expr e; *)"
+  },
+  {
+    "source": "why3/src/mlw/expr.ml",
+    "line": 860,
+    "text": "(*  Format.eprintf \"[Expr.mk_proxy_decl] e = %a@.\" !print_expr_hook e; *)"
+  },
+  {
+    "source": "why3/src/mlw/pinterp.ml",
+    "line": 251,
+    "text": "  eval (VTany ^-> VTunit) (fun v -> Format.eprintf \"%a\\n@?\" print_value v)"
+  },
+  {
+    "source": "why3/src/mlw/pinterp_core.ml",
+    "line": 1067,
+    "text": "    Format.eprintf \"RAC not implemented for %a@.\" Pretty.print_ty (t_type t);"
+  },
+  {
+    "source": "why3/src/mlw/pmodule.ml",
+    "line": 1403,
+    "text": "        (* Format.eprintf \"@[%a@]@\\n\" print_cty cty; *)"
+  },
+  {
+    "source": "why3/src/mlw/pmodule.ml",
+    "line": 1404,
+    "text": "        (* Format.eprintf \"@[%a@]@\\n\" print_cty ss.rs_cty; *)"
+  },
+  {
+    "source": "why3/src/mlw/rac.ml",
+    "line": 148,
+    "text": "        (* Format.eprintf \"Rac.add_used Use %s@.\" th.th_name.id_string; *)"
+  },
+  {
+    "source": "why3/src/mlw/rac.ml",
+    "line": 152,
+    "text": "        (* Format.eprintf \"Rac.add_used Clone %s@.\" th.th_name.id_string; *)"
+  },
+  {
+    "source": "why3/src/mlw/rac.ml",
+    "line": 153,
+    "text": "        (* Format.eprintf \"tdecl = %a@.\" Pretty.print_tdecl td; *)"
+  },
+  {
+    "source": "why3/src/mlw/rac.ml",
+    "line": 392,
+    "text": "    (* Format.eprintf \"@[<h>Calling prove_task with steps limit = %d@]@.\" limits.limit_steps; *)"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 600,
+    "text": "  (* Format.eprintf \"[Vc.k_expr] res = %a@.\" print_pv_attr res; *)"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 670,
+    "text": "       (* Format.eprintf \"[Vc.term_of_post/Eexec] e = %a@.\" print_expr e; *)"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 705,
+    "text": "        (* Format.eprintf \"[Vc.term_of_post/Eexec] need_trace = %b@.\" need_trace; *)"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 784,
+    "text": "       (* Format.eprintf \"[Vc.k_expr/Elet] v = %a@.\" print_pv_attr v; *)"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 1310,
+    "text": "  Format.printf \"@[vars = %a@]@.\" (Pp.print_list Pp.space"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 1315,
+    "text": "  Format.printf \"@[regs = %a@]@.\" (Pp.print_list Pp.space"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 1663,
+    "text": "    Format.eprintf \"K @[%a@]@\\n\" k_print k;"
+  },
+  {
+    "source": "why3/src/mlw/vc.ml",
+    "line": 1666,
+    "text": "    Format.eprintf \"R @[%a@]@\\n\" k_print k;"
+  },
+  {
+    "source": "why3/src/printer/coq.ml",
+    "line": 961,
+    "text": "  (* eprintf \"Task:%a@.@.\" Pretty.print_task task; *)"
+  },
+  {
+    "source": "why3/src/printer/coq.ml",
+    "line": 992,
+    "text": "  (* eprintf \"local_decls:%i@.\" (List.length local_decls); *)"
+  },
+  {
+    "source": "why3/src/printer/pvs.ml",
+    "line": 532,
+    "text": "        eprintf \"/edited %s = @[%a@]\" n (print_list newline pp_print_string) s"
+  },
+  {
+    "source": "why3/src/printer/pvs.ml",
+    "line": 533,
+    "text": "    | Other _s -> eprintf \"/other\""
+  },
+  {
+    "source": "why3/src/printer/pvs.ml",
+    "line": 535,
+    "text": "  List.iter dump cl; eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/session/controller_itp.ml",
+    "line": 1020,
+    "text": "    Format.eprintf \"Cleaning error: cleaning attempts to change status of node %a@.\" fprintf_any any"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 112,
+    "text": "      Format.eprintf \"get_server_data(): fatal error, server not yet initialized@.\";"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 478,
+    "text": "      (* Format.eprintf \"relativize: f is `%s`@.\" f; *)"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 479,
+    "text": "      (* Format.eprintf \"relativize: session_dir is `%s`@.\" session_dir; *)"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 481,
+    "text": "      (* Format.eprintf \"relativize: path is `%a`@.\" Sysutil.print_file_path path; *)"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 484,
+    "text": "      (* Format.eprintf \"relativize: g is `%s`@.\" g; *)"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 489,
+    "text": "    (* Format.eprintf \"color_loc: former f is `%s`@.\" f; *)"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 492,
+    "text": "    (* Format.eprintf \"color_loc: latter f is `%s`@.\" f'; *)"
+  },
+  {
+    "source": "why3/src/session/itp_server.ml",
+    "line": 1228,
+    "text": "      Format.eprintf \"Fatal anomaly in Itp_server.notify_change_proved@.\";"
+  },
+  {
+    "source": "why3/src/session/json_util.ml",
+    "line": 545,
+    "text": "    begin Format.eprintf \"BEGIN \\n %s \\nEND\\n@.\" s; raise (NotRequest s); end"
+  },
+  {
+    "source": "why3/src/session/server_utils.ml",
+    "line": 108,
+    "text": "       Format.eprintf \"Fatal: loading strategy '%s' failed: %s \\nSolve this problem in your why3.conf file and retry.@.\" name msg;"
+  },
+  {
+    "source": "why3/src/session/server_utils.ml",
+    "line": 325,
+    "text": "  (* Format.eprintf \"split_args: s = `%S`@.\" s; *)"
+  },
+  {
+    "source": "why3/src/session/server_utils.ml",
+    "line": 332,
+    "text": "        (* Format.eprintf \"split_args: x = `%S`@.\" x; *)"
+  },
+  {
+    "source": "why3/src/session/session_itp.ml",
+    "line": 2264,
+    "text": "  Format.eprintf \"creating archive using@\\n%s@.\" cmd;"
+  },
+  {
+    "source": "why3/src/session/termcode.ml",
+    "line": 129,
+    "text": "    Format.eprintf \"%d -> %s@.\" !dict_count id;"
+  },
+  {
+    "source": "why3/src/session/termcode.ml",
+    "line": 954,
+    "text": "  Format.eprintf \"[Checksum times] %f/%f@.\" tim !time;"
+  },
+  {
+    "source": "why3/src/session/unix_scheduler.ml",
+    "line": 78,
+    "text": "               Format.printf \"%s@?\" !prompt_string;"
+  },
+  {
+    "source": "why3/src/tools/main.ml",
+    "line": 50,
+    "text": "  Format.printf"
+  },
+  {
+    "source": "why3/src/tools/main.ml",
+    "line": 88,
+    "text": "        eprintf \"'%s' is not a Why3 command.@\\n@\\n%a\""
+  },
+  {
+    "source": "why3/src/tools/main.ml",
+    "line": 100,
+    "text": "    Printf.eprintf \"Failed to load %s: %s\\n%!\" cmd (Dynlink.error_message e);"
+  },
+  {
+    "source": "why3/src/tools/main.ml",
+    "line": 106,
+    "text": "      Printf.eprintf \"Command %s not found in %s\\n%!\" sscmd cmd;"
+  },
+  {
+    "source": "why3/src/tools/main.ml",
+    "line": 117,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 48,
+    "text": "        eprintf \"You must specify exactly one session directory@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 55,
+    "text": "        eprintf \"Error: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 63,
+    "text": "      List.iter (fun e -> eprintf \"%a@.\" Exn_printer.exn_printer e) l;"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 66,
+    "text": "  if found_obs then eprintf \"[Warning] session is obsolete@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 68,
+    "text": "    eprintf \"[Warning] found detached goals or theories or transformations@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 76,
+    "text": "        eprintf \"\\nSaving session...%!\";"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 78,
+    "text": "        eprintf \" done.\\n%!\";"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 80,
+    "text": "    eprintf \"Progress: %d/%d/%d                       \\r%!\" w s r"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 99,
+    "text": "      eprintf \"\\nReplay completed, saving session...%!\";"
+  },
+  {
+    "source": "why3/src/tools/why3bench.ml",
+    "line": 101,
+    "text": "      eprintf \" done@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 24,
+    "text": "      Format.eprintf \"warning: cannot read config file %s:@\\n  %s@.\" f s;"
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 50,
+    "text": "    Format.printf \"Save config to %s@.\" (Whyconf.get_conf_file config);"
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 74,
+    "text": "          Printf.eprintf \"%s config add-prover: expected 2 or 3 arguments: <name> <path> [shortcut]\\n%!\""
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 83,
+    "text": "          Printf.eprintf \"Executable %s does not match any prover named %s.\\n%!\" path name;"
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 89,
+    "text": "    Format.printf \"Save config to %s@.\" (Whyconf.get_conf_file config);"
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 107,
+    "text": "    Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 124,
+    "text": "    Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 186,
+    "text": "        Format.eprintf \"'%s' is not a why3config command.@\\n@\\n%t\""
+  },
+  {
+    "source": "why3/src/tools/why3config.ml",
+    "line": 201,
+    "text": "    Format.eprintf \"@.%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3execute.ml",
+    "line": 30,
+    "text": "   *   Format.eprintf \"extra arguments must be of the form 'module.ident'@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3execute.ml",
+    "line": 159,
+    "text": "      eprintf \"%a@.\" Pinterp.report_cntr (ctx, term);"
+  },
+  {
+    "source": "why3/src/tools/why3execute.ml",
+    "line": 164,
+    "text": "      eprintf \"RAC got stuck %s after %a@.\" reason"
+  },
+  {
+    "source": "why3/src/tools/why3execute.ml",
+    "line": 168,
+    "text": "      eprintf \"Execution terminated because %s@.\" reason;"
+  },
+  {
+    "source": "why3/src/tools/why3execute.ml",
+    "line": 175,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 48,
+    "text": "  let invalid_path () = Format.eprintf \"invalid path: %s@.\" x; exit 1 in"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 95,
+    "text": "      eprintf \"Output directory (-o) is required for modular extraction.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 98,
+    "text": "      eprintf \"Option '-o' should be given a directory as argument.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 101,
+    "text": "      eprintf \"Option '-o' should be given a file as argument.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 108,
+    "text": "        eprintf \"Extraction driver (-D) is required.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 113,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 212,
+    "text": "          eprintf \"Driver does not support interface extraction.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 433,
+    "text": "          eprintf \"multiple module '%s'; use -L . instead@.\" s;"
+  },
+  {
+    "source": "why3/src/tools/why3extract.ml",
+    "line": 511,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3pp.ml",
+    "line": 565,
+    "text": "             M.main std_formatter mlw_file paths"
+  },
+  {
+    "source": "why3/src/tools/why3pp.ml",
+    "line": 567,
+    "text": "            Mlw_printer.pp_mlw_file std_formatter mlw_file"
+  },
+  {
+    "source": "why3/src/tools/why3pp.ml",
+    "line": 570,
+    "text": "            deps_file std_formatter true f mlw_file"
+  },
+  {
+    "source": "why3/src/tools/why3pp.ml",
+    "line": 573,
+    "text": "             Mysexplib.output std_formatter sexp"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 209,
+    "text": "  Format.kfprintf (fun _fmt -> exit 1) Format.err_formatter p"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 259,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 447,
+    "text": "        Driver.print_task drv std_formatter task"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 473,
+    "text": "        eprintf \"Goal '%s' not found in theory '%s'.@.\" x tname;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 485,
+    "text": "        eprintf \"Declaration '%s' not found in theory '%s'.@.\" x tname;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 489,
+    "text": "      | None -> eprintf \"Symbol '%s' has no definition in theory '%s'.@.\" x tname;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 500,
+    "text": "          eprintf \"Symbol '%s' is not a constant in theory '%s'.@.\" x tname;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 512,
+    "text": "    eprintf \"Theory '%s' not found in file '%s'.@.\" tname fname;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 549,
+    "text": "      Format.set_formatter_stag_functions Util.ansi_color_tags;"
+  },
+  {
+    "source": "why3/src/tools/why3prove.ml",
+    "line": 557,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3realize.ml",
+    "line": 24,
+    "text": "  eprintf \"Realization only works for theories in the loadpath,@\\n\\"
+  },
+  {
+    "source": "why3/src/tools/why3realize.ml",
+    "line": 37,
+    "text": "      eprintf \"Option '-T'/'--theory' requires a qualified argument.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3realize.ml",
+    "line": 68,
+    "text": "    eprintf \"Output directory (-o) is required.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3realize.ml",
+    "line": 75,
+    "text": "    eprintf \"Realization driver (-D) is required.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3realize.ml",
+    "line": 81,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3realize.ml",
+    "line": 103,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 28,
+    "text": "let () = Loc.set_warning_hook display_warning"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 102,
+    "text": "        Printf.eprintf \"Progress: %d/%d/%d                       \\r%!\" w s r)"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 252,
+    "text": "        eprintf \"Replay failed.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 266,
+    "text": "      Format.eprintf \"Progress: %d/%d/%d                       \\r%!\" w s r"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 343,
+    "text": "  eprintf \"Provers:@ \";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 349,
+    "text": "            eprintf \"%a@ \" Whyconf.print_prover p.Whyconf.prover;"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 354,
+    "text": "  eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 356,
+    "text": "    eprintf \"Saving session...@?\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 358,
+    "text": "    eprintf \" done.@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 364,
+    "text": "  eprintf \"main replayer (in bench mode) exited unexpectedly@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 376,
+    "text": "      Format.eprintf \"Error: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 391,
+    "text": "          List.iter (fun e -> Format.eprintf \"%a@.\" Exn_printer.exn_printer e) l;"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 398,
+    "text": "        eprintf \"Session is not obsolete, hence not replayed@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 403,
+    "text": "    if found_obs then eprintf \"[Warning] session is obsolete@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 404,
+    "text": "    if found_detached then eprintf \"[Warning] found detached goals or theories or transformations@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 418,
+    "text": "       eprintf \"Cannot run smoke detection in presence of obsolete proofs or detached goals@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 426,
+    "text": "    eprintf \"main replayer loop exited unexpectedly@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 430,
+    "text": "      eprintf \"Error while opening session with database '%s': %a@.\""
+  },
+  {
+    "source": "why3/src/tools/why3replay.ml",
+    "line": 433,
+    "text": "      eprintf \"Aborting...@.\";"
+  },
+  {
+    "source": "why3/src/tools/why3shell.ml",
+    "line": 390,
+    "text": "  let fmt = if !quiet then str_formatter else std_formatter in"
+  },
+  {
+    "source": "why3/src/tools/why3shell.ml",
+    "line": 396,
+    "text": "      eprintf \"Error: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 25,
+    "text": "    Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 47,
+    "text": "    Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 73,
+    "text": "    Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 90,
+    "text": "    Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 106,
+    "text": "    Format.printf \"%a@.\" Server_utils.print_list_transforms ()"
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 151,
+    "text": "        Format.eprintf \"'%s' is not a why3show command.@\\n@\\n%t\""
+  },
+  {
+    "source": "why3/src/tools/why3show.ml",
+    "line": 161,
+    "text": "    Format.eprintf \"@.%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/transform/eliminate_definition.ml",
+    "line": 261,
+    "text": "  (* Format.eprintf \"i1: %i, i2: %i@\\nrem:%a@.\" i1 i2 *)"
+  },
+  {
+    "source": "why3/src/transform/eliminate_unknown_lsymbols.ml",
+    "line": 32,
+    "text": "        Format.printf \"eliminate@ %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/transform/encoding_guards_full.ml",
+    "line": 37,
+    "text": "  let debug x = Format.eprintf \"%s@.\" x"
+  },
+  {
+    "source": "why3/src/transform/encoding_guards_full.ml",
+    "line": 188,
+    "text": "    (* Debug.print_list Pretty.print_ty Format.std_formatter type_vars; *)"
+  },
+  {
+    "source": "why3/src/transform/encoding_guards_full.ml",
+    "line": 192,
+    "text": "    (* Debug.print_mtv Pretty.print_ty Format.err_formatter tv_to_ty; *)"
+  },
+  {
+    "source": "why3/src/transform/extensional.ml",
+    "line": 25,
+    "text": "               Format.eprintf \"exception: %a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/transform/extensional.ml",
+    "line": 27,
+    "text": "               Format.eprintf \"ls = %a,@ ls.ls_args = @[%a@]@.\""
+  },
+  {
+    "source": "why3/src/transform/extensional.ml",
+    "line": 30,
+    "text": "               Format.eprintf \"t1 = %a,@ ty1 = %a@.\" Pretty.print_term t1"
+  },
+  {
+    "source": "why3/src/transform/extensional.ml",
+    "line": 32,
+    "text": "               Format.eprintf \"t2 = %a,@ ty2 = %a@.\" Pretty.print_term t2"
+  },
+  {
+    "source": "why3/src/transform/fold_defs.ml",
+    "line": 72,
+    "text": "          Format.printf \"[fold_defs]@ add@ lsym@ %a@.\" Pretty.print_ls l;"
+  },
+  {
+    "source": "why3/src/transform/fold_defs.ml",
+    "line": 79,
+    "text": "                Format.printf \"[fold_defs]@ add@ ax@ %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/transform/fold_defs.ml",
+    "line": 95,
+    "text": "              Format.printf \"[fold_defs]@ found@ l@ :@ %a@; replacing@ it@ with@ %a.\" Pretty.print_ls l"
+  },
+  {
+    "source": "why3/src/transform/fold_defs.ml",
+    "line": 111,
+    "text": "          Format.printf \"[fold_defs]@ remove@ axiom@ %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/transform/fold_defs.ml",
+    "line": 129,
+    "text": "          Format.printf \"[fold_defs]@ gave@ up@ because@ of@ %a@.\""
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 86,
+    "text": "      Format.printf \"@[| %a : @]\" Pretty.print_pat p;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 87,
+    "text": "      Svs.iter (Format.printf \"%a \" Pretty.print_vs) svs;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 88,
+    "text": "      Format.printf \"@.\")"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 94,
+    "text": "    Format.printf \"[ \";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 95,
+    "text": "    List.iter (Format.printf \"%a \" Pretty.print_vs) vl;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 96,
+    "text": "    Format.printf \"] \""
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 98,
+    "text": "  Format.printf \"************** t_candidates_lex *****************\\n\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 99,
+    "text": "  Format.printf \"Candidates found: %d @.\" (Svsl.cardinal vset);"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 100,
+    "text": "  Format.printf \"Candidates: [ \";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 102,
+    "text": "  Format.printf \"]\\n@.\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 108,
+    "text": "  Format.printf \"**************** heuristic_lex ******************\\n\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 109,
+    "text": "  Format.printf \"Induction variables (in lexicographic order): [ \";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 110,
+    "text": "  List.iter (Format.printf \"%a \" Pretty.print_vs) vl;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 111,
+    "text": "  Format.printf \"]@.\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 112,
+    "text": "  Format.printf \"Lex. order map: [ \";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 113,
+    "text": "  Mvs.iter (fun v i -> Format.printf \"%a -> %d; \" Pretty.print_vs v i) ivm;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 114,
+    "text": "  Format.printf \"]\\n@.\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 121,
+    "text": "      Format.printf \"\\n%a : [ \" Pretty.print_vs v.vs;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 122,
+    "text": "      List.iter (Format.printf \"%a \" Pretty.print_vs) v.lq;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 123,
+    "text": "      Format.printf \"] [ \";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 124,
+    "text": "      List.iter (Format.printf \"%a \" Pretty.print_vs) v.rq;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 125,
+    "text": "      Format.printf \"]@.\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 126,
+    "text": "      Format.printf \"--- Type scheme --- \\n\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 128,
+    "text": "      Format.printf \"------------------- \\n\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 131,
+    "text": "  Format.printf \"******************* qsplit_lex ******************\\n\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 132,
+    "text": "  Format.printf \"Induction variables (in the initial order): \";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 133,
+    "text": "  List.iter (fun v -> Format.printf \"%a \" Pretty.print_vs v.vs ) lexl;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 134,
+    "text": "  Format.printf \"@.(Variable) (Introduced) (Generalized)\\n\";"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 324,
+    "text": "      Format.printf \"Old Task: %a \\n@.\" Pretty.print_term t0;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 325,
+    "text": "      Format.printf \"New Task: %a \\n@.\" Pretty.print_term tcase"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 338,
+    "text": "         Format.eprintf \"induction_ty_lex: no candidate variable found in goal %a@.\""
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 472,
+    "text": "\t(Format.printf \"Old Task: %a \\n@.\" Pretty.print_term t0;"
+  },
+  {
+    "source": "why3/src/transform/induction.ml",
+    "line": 473,
+    "text": "\t Format.printf \"New Task: %a \\n@.\" Pretty.print_term t);"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 573,
+    "text": "          Format.eprintf \"matching terms %a and %a...@.\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 948,
+    "text": "        Format.eprintf \"Pattern-matching succeeded:@\\nmt' = @[\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 950,
+    "text": "          (fun tv ty -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 953,
+    "text": "        Format.eprintf \"@]@\\n\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 954,
+    "text": "        Format.eprintf \"mv' = @[\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 956,
+    "text": "          (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 959,
+    "text": "        Format.eprintf \"@]@.\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 960,
+    "text": "        Format.eprintf \"branch before inst: %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 964,
+    "text": "        Format.eprintf \"branch after types inst: %a@.\" Pretty.print_term t;"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 965,
+    "text": "        Format.eprintf \"mv'' = @[\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 967,
+    "text": "          (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 970,
+    "text": "        Format.eprintf \"@]@.\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1030,
+    "text": "          (* Format.eprintf \"Tvar not found: %a@.\" Pretty.print_vs v;"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1262,
+    "text": "      Format.eprintf \"Reduction engine, ident not found: %s@.\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1272,
+    "text": "            Format.eprintf \"try a rewrite rule on %a@.\" Pretty.print_ls ls;"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1276,
+    "text": "            Format.eprintf \"rhs = %a@.\" Pretty.print_term rhs;"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1277,
+    "text": "            Format.eprintf \"sigma = \";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1279,
+    "text": "              (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1282,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1283,
+    "text": "            Format.eprintf \"try a type match: %a and %a@.\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1289,
+    "text": "            Format.eprintf \"subst of rhs: \";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1291,
+    "text": "              (fun tv ty -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1294,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1299,
+    "text": "            Format.eprintf \"rhs = %a@.\" Pretty.print_term rhs;"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1300,
+    "text": "            Format.eprintf \"sigma = \";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1302,
+    "text": "              (fun v t -> Format.eprintf \"%a -> %a,\""
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1305,
+    "text": "            Format.eprintf \"@.\";"
+  },
+  {
+    "source": "why3/src/transform/reduction_engine.ml",
+    "line": 1575,
+    "text": "    Format.eprintf \"%a@\\n%s\" Exn_printer.exn_printer exn"
+  },
+  {
+    "source": "why3/src/transform/reflection.ml",
+    "line": 718,
+    "text": "              Format.eprintf \"Raised %s %a@.\" (xs.xs_name.id_string)"
+  },
+  {
+    "source": "why3/src/transform/simplify_formula.ml",
+    "line": 153,
+    "text": "  Format.eprintf \"@[<hov>%a =>|@\\n\" Pretty.print_fmla f;"
+  },
+  {
+    "source": "why3/src/transform/simplify_formula.ml",
+    "line": 155,
+    "text": "  Format.eprintf \"|=>%a@]@.@.\" Pretty.print_fmla f;"
+  },
+  {
+    "source": "why3/src/trywhy3/why3_worker.ml",
+    "line": 41,
+    "text": "    eprintf \"Prover Alt-Ergo not installed or not configured@.\";"
+  },
+  {
+    "source": "why3/src/trywhy3/why3_worker.ml",
+    "line": 54,
+    "text": "    eprintf \"Failed to load driver for alt-ergo: %a@.%s@.\""
+  },
+  {
+    "source": "why3/src/trywhy3/why3_worker.ml",
+    "line": 108,
+    "text": "      Loc.set_warning_hook"
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "line": 11,
+    "text": "let formatter = ref Format.err_formatter"
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "line": 65,
+    "text": "let set_debug_formatter f ="
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "line": 68,
+    "text": "  Format.pp_set_formatter_out_functions f"
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "line": 75,
+    "text": "let () = set_debug_formatter Format.err_formatter"
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "line": 110,
+    "text": "        Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/util/debug.mli",
+    "line": 40,
+    "text": "val set_debug_formatter : Format.formatter -> unit"
+  },
+  {
+    "source": "why3/src/util/getopt.ml",
+    "line": 196,
+    "text": "  Printf.eprintf \"%s: %s\\nTry '%s --help' for more information.\\n%!\" p err p;"
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "line": 137,
+    "text": "  | None -> eprintf \"Warning: %s@.\" s"
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "line": 138,
+    "text": "  | Some l -> eprintf \"Warning, file %a: %s@.\" pp_position l s"
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "line": 141,
+    "text": "let set_warning_hook = (:=) warning_hook"
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "line": 191,
+    "text": "    pp_set_margin fmt 1000000000;"
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "line": 217,
+    "text": "        Format.printf \"@[<v>%a@]@.\""
+  },
+  {
+    "source": "why3/src/util/loc.mli",
+    "line": 104,
+    "text": "val set_warning_hook: (?loc:position -> string -> unit) -> unit"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 140,
+    "text": "  pp_set_margin fmt margin;"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 184,
+    "text": "    Format.pp_set_ellipsis_text fmt \"...\";"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 185,
+    "text": "    Format.pp_set_max_boxes fmt x) max_boxes;"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 189,
+    "text": "let wnl fmt ="
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 193,
+    "text": "  pp_set_all_formatter_output_functions fmt"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 197,
+    "text": "  pp_set_formatter_out_functions fmt"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 204,
+    "text": "  wnl fmt;"
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "line": 213,
+    "text": "  wnl fmt;"
+  },
+  {
+    "source": "why3/src/util/pp.mli",
+    "line": 120,
+    "text": "val wnl : formatter -> unit"
+  },
+  {
+    "source": "why3/src/why3doc/doc_main.ml",
+    "line": 71,
+    "text": "    eprintf \"error: could not read file '%s'@.\" fname;"
+  },
+  {
+    "source": "why3/src/why3doc/doc_main.ml",
+    "line": 72,
+    "text": "    eprintf \"(%a)@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/why3doc/doc_main.ml",
+    "line": 120,
+    "text": "    eprintf \"%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_create.ml",
+    "line": 61,
+    "text": "        eprintf \"option -o is mandatory@.\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_create.ml",
+    "line": 68,
+    "text": "            eprintf \"session file already exist, aborting.@.\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_create.ml",
+    "line": 75,
+    "text": "            eprintf \"Error: %s@.\" s;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_create.ml",
+    "line": 140,
+    "text": "  | [] -> eprintf \"Session created successfully@.\""
+  },
+  {
+    "source": "why3/src/why3session/why3session_create.ml",
+    "line": 142,
+    "text": "      eprintf \"Session created but with the following errors:@.\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_create.ml",
+    "line": 143,
+    "text": "      List.iter (fun e -> eprintf \"%a@.\" Exn_printer.exn_printer e) !errors"
+  },
+  {
+    "source": "why3/src/why3session/why3session_html.ml",
+    "line": 30,
+    "text": "    eprintf \"Unknown html style, ignored@.\""
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 38,
+    "text": "                         eprintf \"Unknown graph style, using default: all@.\""
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 449,
+    "text": "  eprintf \"Running command %s@.\" cmd;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 452,
+    "text": "    eprintf \"Command %s failed@.\" cmd"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 454,
+    "text": "    eprintf \"See also results in file why3session.pdf@.\""
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 476,
+    "text": "  if all_provers_pairs = [] then eprintf \"Not enough provers in the session@\\n\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 526,
+    "text": "  eprintf \"Running command %s@.\" cmd;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 529,
+    "text": "    eprintf \"Command %s failed@.\" cmd"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 535,
+    "text": "  if all_provers_pairs = [] then eprintf \"Not enough provers in the session. No graph will be produced.@\\n\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 610,
+    "text": "  eprintf \"Running command %s@.\" cmd;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_info.ml",
+    "line": 613,
+    "text": "    eprintf \"Command %s failed@.\" cmd"
+  },
+  {
+    "source": "why3/src/why3session/why3session_latex.ml",
+    "line": 378,
+    "text": "        eprintf \"Warning: only main goals are supported@.:\""
+  },
+  {
+    "source": "why3/src/why3session/why3session_latex.ml",
+    "line": 395,
+    "text": "        eprintf \"Warning: goal not found in path: %s@.\" g"
+  },
+  {
+    "source": "why3/src/why3session/why3session_latex.ml",
+    "line": 409,
+    "text": "        eprintf \"Warning: theory not found in path: %s@.\" th"
+  },
+  {
+    "source": "why3/src/why3session/why3session_latex.ml",
+    "line": 413,
+    "text": "  eprintf \"Element %s@.\" e;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_latex.ml",
+    "line": 429,
+    "text": "        eprintf \"Warning: file not found for element %s@.\" e"
+  },
+  {
+    "source": "why3/src/why3session/why3session_lib.ml",
+    "line": 54,
+    "text": "        List.iter (fun e -> Format.eprintf \"%a@.\" Exn_printer.exn_printer e) l;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_lib.ml",
+    "line": 163,
+    "text": "      Format.eprintf"
+  },
+  {
+    "source": "why3/src/why3session/why3session_lib.ml",
+    "line": 243,
+    "text": "  Format.printf \"(y/n)@.\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_lib.ml",
+    "line": 253,
+    "text": "  Format.printf \"(y/n)@.\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_lib.ml",
+    "line": 269,
+    "text": "            Format.printf \"(y/N)@.\";"
+  },
+  {
+    "source": "why3/src/why3session/why3session_main.ml",
+    "line": 55,
+    "text": "      Format.eprintf \"'%s' is not a why3session command.@\\n@\\n%t\" cmd_name"
+  },
+  {
+    "source": "why3/src/why3session/why3session_main.ml",
+    "line": 72,
+    "text": "    Format.eprintf \"@.%a@.\" Exn_printer.exn_printer e;"
+  },
+  {
+    "source": "why3/src/why3session/why3session_update.ml",
+    "line": 63,
+    "text": "        (* Format.eprintf \"proof id %a marked as obsolete@.\""
+  }
+]

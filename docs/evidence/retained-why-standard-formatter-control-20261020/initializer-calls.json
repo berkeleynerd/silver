@@ -1,0 +1,676 @@
+[
+  {
+    "symbol": "camlDynlink_compilerlibs__Arg_helper__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Ast_helper__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Ast_mapper__entry",
+    "direct_calls": [
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Asttypes__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Attr_helper__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Binutils__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Btype__entry",
+    "direct_calls": [
+      "caml_alloc1",
+      "camlStdlib__Set__fun_1276",
+      "caml_allocN",
+      "camlStdlib__Map__fun_1341",
+      "caml_allocN",
+      "camlStdlib__Hashtbl__Make_1259",
+      "caml_allocN",
+      "camlStdlib__Hashtbl__Make_1259",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Build_path_prefix_map__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Builtin_attributes__entry",
+    "direct_calls": [
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Bytesections__entry",
+    "direct_calls": [
+      "caml_alloc3",
+      "caml_fresh_oo_id",
+      "caml_alloc2"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Clflags__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Arg_helper__fun_946",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Arg_helper__fun_946",
+      "caml_allocN",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Arg_helper__default_377",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Cmi_format__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Cmo_format__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Cmxs_format__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Config__entry",
+    "direct_calls": [
+      "caml_c_call",
+      "caml_c_call",
+      "caml_raise_exn",
+      "caml_raise_exn",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "camlStdlib__$5e_141",
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_bool_506",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_int_502",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_int_502",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Config__p_498",
+      "caml_alloc2"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Consistbl__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Datarepr__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "caml_fresh_oo_id",
+      "caml_alloc2"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Debuginfo__entry",
+    "direct_calls": [
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Dll__entry",
+    "direct_calls": [
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Docstrings__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Env__entry",
+    "direct_calls": [
+      "caml_alloc1",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "caml_allocN",
+      "caml_fresh_oo_id",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "caml_alloc1",
+      "caml_modify",
+      "caml_modify",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Env__add_extension_4099",
+      "camlDynlink_compilerlibs__Env__add_type_4098",
+      "camlDynlink_compilerlibs__Predef__build_initial_env_932",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "caml_alloc3",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": [
+      "8fd364:\tff d7                \tcall   *%rdi"
+    ]
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Ident__entry",
+    "direct_calls": [
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Identifiable__fun_5712"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Identifiable__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Instruct__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Int_replace_polymorphic_compare__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Lambda__entry",
+    "direct_calls": [
+      "camlDynlink_compilerlibs__Lambda__const_int_1048",
+      "caml_alloc3"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Lazy_backtrack__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Load_path__entry",
+    "direct_calls": [
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Local_store__entry",
+    "direct_calls": [
+      "caml_alloc3"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Location__entry",
+    "direct_calls": [
+      "camlDynlink_compilerlibs__Location__in_file_345",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063",
+      "caml_fresh_oo_id",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Longident__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Meta__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Misc__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_allocN",
+      "camlStdlib__Set__fun_1276",
+      "caml_alloc1",
+      "camlStdlib__Map__fun_1341",
+      "caml_alloc2",
+      "camlStdlib__Hashtbl__Make_1259",
+      "caml_allocN",
+      "caml_allocN",
+      "caml_fresh_oo_id",
+      "caml_allocN",
+      "camlStdlib__List__map_482",
+      "camlStdlib__$40_198",
+      "camlStdlib__List__map_482",
+      "camlStdlib__$40_198",
+      "camlStdlib__$40_198",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Numbers__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Identifiable__fun_5712",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Identifiable__fun_5712",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Opcodes__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Outcometree__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Parsetree__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Path__entry",
+    "direct_calls": [
+      "caml_alloc1",
+      "camlStdlib__Set__fun_1276",
+      "camlStdlib__Map__fun_1341"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Persistent_env__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Consistbl__fun_1186",
+      "caml_alloc1",
+      "caml_fresh_oo_id",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Predef__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__newty3_1988",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlDynlink_compilerlibs__Predef__wrap_472",
+      "camlStdlib__List__map_482",
+      "camlStdlib__List__rev_append_308"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Primitive__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_alloc2",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Profile__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "caml_allocN",
+      "camlStdlib__List__map_482",
+      "camlStdlib__String__concat_419",
+      "camlStdlib__Printf__sprintf_453",
+      "camlStdlib__List__map_482"
+    ],
+    "indirect_calls": [
+      "8ade85:\tff d7                \tcall   *%rdi"
+    ]
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Runtimedef__entry",
+    "direct_calls": [
+      "caml_c_call",
+      "caml_c_call"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Shape__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Identifiable__fun_5712",
+      "caml_allocN",
+      "camlStdlib__Map__fun_1341",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Ident__create_local_294",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Shape__Make_reduce_2637",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Subst__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "caml_allocN"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Symtable__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Symtable__Num_tbl_508",
+      "camlDynlink_compilerlibs__Symtable__Num_tbl_508",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Syntaxerr__entry",
+    "direct_calls": [
+      "caml_fresh_oo_id",
+      "caml_alloc2",
+      "caml_fresh_oo_id",
+      "caml_alloc2"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Terminfo__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Type_immediacy__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Types__entry",
+    "direct_calls": [
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Types__single_875",
+      "camlDynlink_compilerlibs__Types__single_875",
+      "camlDynlink_compilerlibs__Types__single_875",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Local_store__s_table_356",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364",
+      "camlDynlink_compilerlibs__Local_store__s_ref_364"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__Warnings__entry",
+    "direct_calls": [
+      "camlStdlib__Hashtbl__create_inner_1743",
+      "caml_alloc3",
+      "camlStdlib__List__iter_507",
+      "caml_alloc3",
+      "caml_c_call",
+      "caml_c_call",
+      "caml_allocN",
+      "camlDynlink_compilerlibs__Warnings__parse_options_1484",
+      "camlDynlink_compilerlibs__Warnings__parse_options_1484",
+      "caml_alloc1",
+      "caml_fresh_oo_id",
+      "caml_alloc2"
+    ],
+    "indirect_calls": []
+  },
+  {
+    "symbol": "camlDynlink_compilerlibs__entry",
+    "direct_calls": [],
+    "indirect_calls": []
+  }
+]

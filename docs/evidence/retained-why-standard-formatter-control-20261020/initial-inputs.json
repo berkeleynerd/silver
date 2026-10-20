@@ -1,0 +1,1006 @@
+[
+  {
+    "case": "put_line",
+    "pid": 17310,
+    "archive": "capture-put-line.tar.gz",
+    "process": {
+      "pid": 17310,
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--entity",
+        "1",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--steps",
+        "0",
+        "--timeout",
+        "0",
+        "--counterexample",
+        "off",
+        "--why3-conf",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+        "--socket",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock",
+        "silver_io__put_line.gnat-json"
+      ],
+      "initial_threads": 1
+    },
+    "selected_members": {
+      "registration/put_line/capture/process.json": {
+        "bytes": 1011,
+        "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+      },
+      "registration/put_line/capture/exit-hook-roots.json": {
+        "bytes": 2513,
+        "sha256": "f87c3a499ac43e8cb0ac337422384cd38c8b01190da11d076dfa87a94c7e4b20"
+      },
+      "registration/put_line/why3.conf": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "registration/put_line/capture/memory-reads.jsonl": {
+        "bytes": 120979750,
+        "sha256": "6180fd32ea68889103f0d44690dc58a4db8080226f958aece848d1a8212a05e3"
+      },
+      "registration/put_line/capture/save-state-memory-reads.jsonl": {
+        "bytes": 2686419,
+        "sha256": "7207cb9b9a8f435f0047d946fad7df11258e0fc907b8344769c21daea34dde81"
+      }
+    },
+    "config_sections": [
+      {
+        "section": "main",
+        "fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      {
+        "section": "editor coqide",
+        "fields": {
+          "name": "\"CoqIDE\"",
+          "command": "\"coqide -I %l/coq-tactic -R %o/why3_libs/coq Why3 %f\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"alt-ergo --max-split 5 --disable-weaks %f\"",
+          "command_steps": "\"alt-ergo --steps-bound %S --max-split 5 --disable-weaks %f\"",
+          "driver": "\"alt_ergo_gnatprove_smt2\"",
+          "name": "\"altergo\"",
+          "shortcut": "\"altergo\"",
+          "version": "\"1.30-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri --memlimit %m %f\"",
+          "command_steps": "\"colibri --steplimit %S --memlimit %m %f\"",
+          "driver": "\"colibri\"",
+          "name": "\"colibri\"",
+          "shortcut": "\"colibri\"",
+          "version": "\"2137\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri2 %f\"",
+          "command_steps": "\"colibri2 --max-steps %S %f\"",
+          "driver": "\"colibri2\"",
+          "name": "\"colibri2\"",
+          "shortcut": "\"colibri2\"",
+          "version": "\"0.3.3\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"gappa -Eprecision=70 %f\"",
+          "command_steps": "\"gappa -Eprecision=70 %f\"",
+          "driver": "\"gappa\"",
+          "name": "\"gappa\"",
+          "shortcut": "\"gappa\"",
+          "version": "\"1.4\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove\"",
+          "name": "\"CVC5\"",
+          "shortcut": "\"cvc5\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove_ce\"",
+          "name": "\"CVC5_CE\"",
+          "shortcut": "\"cvc5_ce\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -smt2 -st smt.arith.solver=6 %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st smt.arith.solver=6 %f\"",
+          "driver": "\"z3_gnatprove\"",
+          "name": "\"Z3\"",
+          "shortcut": "\"z3\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -t:%t -smt2 -st model.compact=false %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st model.compact=false %f\"",
+          "driver": "\"z3_gnatprove_ce\"",
+          "name": "\"z3_ce\"",
+          "shortcut": "\"z3_ce\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"coqtop -batch -I %l/coq-tactic -R %o/why3_libs/coq Why3 -l %f\"",
+          "driver": "\"coq_gnatprove\"",
+          "name": "\"Coq\"",
+          "shortcut": "\"coq\"",
+          "version": "\"8.5pl2\"",
+          "interactive": "true",
+          "editor": "\"coqide\"",
+          "in_place": "false"
+        }
+      }
+    ],
+    "config_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "overlay": {
+      "member": "registration/overlay/why3.conf",
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48",
+      "text": "[main]\nmagic = 14\n"
+    },
+    "load_bias": 94237471531008,
+    "standard_root_slots": {
+      "stdout": 94237487830096,
+      "stderr": 94237487830104
+    },
+    "standard_slot_read_coverage": {
+      "stdout": [],
+      "stderr": []
+    },
+    "observed_debug_formatter": 140318120744808,
+    "persistent_gates": [
+      true,
+      true
+    ],
+    "initial_standard_dynamic_state": null
+  },
+  {
+    "case": "put",
+    "pid": 17514,
+    "archive": "capture-put.tar.gz",
+    "process": {
+      "pid": 17514,
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--entity",
+        "2",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--steps",
+        "0",
+        "--timeout",
+        "0",
+        "--counterexample",
+        "off",
+        "--why3-conf",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+        "--socket",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock",
+        "silver_io__put.gnat-json"
+      ],
+      "initial_threads": 1
+    },
+    "selected_members": {
+      "registration/put/capture/process.json": {
+        "bytes": 996,
+        "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+      },
+      "registration/put/capture/exit-hook-roots.json": {
+        "bytes": 2513,
+        "sha256": "c6a32e21170a335f860d3fcade60b7207c3ce1a2f69d71a6c95d28bd6f557b90"
+      },
+      "registration/put/why3.conf": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "registration/put/capture/memory-reads.jsonl": {
+        "bytes": 110782236,
+        "sha256": "5b0fb780b21d7168843dc8e2049336dcae02d33ad5b9dc4ca519b5d6d54e72c0"
+      },
+      "registration/put/capture/save-state-memory-reads.jsonl": {
+        "bytes": 2629161,
+        "sha256": "76630310136a9df58a17bcc3e35ba68157bd297f9351327ad4fc13fa8a97552e"
+      }
+    },
+    "config_sections": [
+      {
+        "section": "main",
+        "fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      {
+        "section": "editor coqide",
+        "fields": {
+          "name": "\"CoqIDE\"",
+          "command": "\"coqide -I %l/coq-tactic -R %o/why3_libs/coq Why3 %f\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"alt-ergo --max-split 5 --disable-weaks %f\"",
+          "command_steps": "\"alt-ergo --steps-bound %S --max-split 5 --disable-weaks %f\"",
+          "driver": "\"alt_ergo_gnatprove_smt2\"",
+          "name": "\"altergo\"",
+          "shortcut": "\"altergo\"",
+          "version": "\"1.30-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri --memlimit %m %f\"",
+          "command_steps": "\"colibri --steplimit %S --memlimit %m %f\"",
+          "driver": "\"colibri\"",
+          "name": "\"colibri\"",
+          "shortcut": "\"colibri\"",
+          "version": "\"2137\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri2 %f\"",
+          "command_steps": "\"colibri2 --max-steps %S %f\"",
+          "driver": "\"colibri2\"",
+          "name": "\"colibri2\"",
+          "shortcut": "\"colibri2\"",
+          "version": "\"0.3.3\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"gappa -Eprecision=70 %f\"",
+          "command_steps": "\"gappa -Eprecision=70 %f\"",
+          "driver": "\"gappa\"",
+          "name": "\"gappa\"",
+          "shortcut": "\"gappa\"",
+          "version": "\"1.4\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove\"",
+          "name": "\"CVC5\"",
+          "shortcut": "\"cvc5\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove_ce\"",
+          "name": "\"CVC5_CE\"",
+          "shortcut": "\"cvc5_ce\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -smt2 -st smt.arith.solver=6 %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st smt.arith.solver=6 %f\"",
+          "driver": "\"z3_gnatprove\"",
+          "name": "\"Z3\"",
+          "shortcut": "\"z3\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -t:%t -smt2 -st model.compact=false %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st model.compact=false %f\"",
+          "driver": "\"z3_gnatprove_ce\"",
+          "name": "\"z3_ce\"",
+          "shortcut": "\"z3_ce\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"coqtop -batch -I %l/coq-tactic -R %o/why3_libs/coq Why3 -l %f\"",
+          "driver": "\"coq_gnatprove\"",
+          "name": "\"Coq\"",
+          "shortcut": "\"coq\"",
+          "version": "\"8.5pl2\"",
+          "interactive": "true",
+          "editor": "\"coqide\"",
+          "in_place": "false"
+        }
+      }
+    ],
+    "config_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "overlay": {
+      "member": "registration/overlay/why3.conf",
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48",
+      "text": "[main]\nmagic = 14\n"
+    },
+    "load_bias": 94070138388480,
+    "standard_root_slots": {
+      "stdout": 94070154687568,
+      "stderr": 94070154687576
+    },
+    "standard_slot_read_coverage": {
+      "stdout": [],
+      "stderr": []
+    },
+    "observed_debug_formatter": 140306441734064,
+    "persistent_gates": [
+      true,
+      true
+    ],
+    "initial_standard_dynamic_state": null
+  },
+  {
+    "case": "first_or_default",
+    "pid": 17631,
+    "archive": "capture-first-or-default.tar.gz",
+    "process": {
+      "pid": 17631,
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--entity",
+        "2",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--steps",
+        "0",
+        "--timeout",
+        "0",
+        "--counterexample",
+        "off",
+        "--why3-conf",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+        "--socket",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock",
+        "silver_arguments__first_or_default.gnat-json"
+      ],
+      "initial_threads": 1
+    },
+    "selected_members": {
+      "registration/first_or_default/capture/process.json": {
+        "bytes": 1042,
+        "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+      },
+      "registration/first_or_default/capture/exit-hook-roots.json": {
+        "bytes": 2513,
+        "sha256": "aec2196a0e129945dfe228f0b198aa3124cf76a139be66103723a25aea8bdc45"
+      },
+      "registration/first_or_default/why3.conf": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "registration/first_or_default/capture/memory-reads.jsonl": {
+        "bytes": 77519143,
+        "sha256": "521abcc33406a7883f671a7221924d79b6695ca1d6337f4d67f75e50cce3625f"
+      },
+      "registration/first_or_default/capture/save-state-memory-reads.jsonl": {
+        "bytes": 2494307,
+        "sha256": "7626e4ff23d47e035c39e67945a29a2696e9d406376ea6b5df295d15fa790db2"
+      }
+    },
+    "config_sections": [
+      {
+        "section": "main",
+        "fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      {
+        "section": "editor coqide",
+        "fields": {
+          "name": "\"CoqIDE\"",
+          "command": "\"coqide -I %l/coq-tactic -R %o/why3_libs/coq Why3 %f\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"alt-ergo --max-split 5 --disable-weaks %f\"",
+          "command_steps": "\"alt-ergo --steps-bound %S --max-split 5 --disable-weaks %f\"",
+          "driver": "\"alt_ergo_gnatprove_smt2\"",
+          "name": "\"altergo\"",
+          "shortcut": "\"altergo\"",
+          "version": "\"1.30-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri --memlimit %m %f\"",
+          "command_steps": "\"colibri --steplimit %S --memlimit %m %f\"",
+          "driver": "\"colibri\"",
+          "name": "\"colibri\"",
+          "shortcut": "\"colibri\"",
+          "version": "\"2137\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri2 %f\"",
+          "command_steps": "\"colibri2 --max-steps %S %f\"",
+          "driver": "\"colibri2\"",
+          "name": "\"colibri2\"",
+          "shortcut": "\"colibri2\"",
+          "version": "\"0.3.3\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"gappa -Eprecision=70 %f\"",
+          "command_steps": "\"gappa -Eprecision=70 %f\"",
+          "driver": "\"gappa\"",
+          "name": "\"gappa\"",
+          "shortcut": "\"gappa\"",
+          "version": "\"1.4\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove\"",
+          "name": "\"CVC5\"",
+          "shortcut": "\"cvc5\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove_ce\"",
+          "name": "\"CVC5_CE\"",
+          "shortcut": "\"cvc5_ce\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -smt2 -st smt.arith.solver=6 %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st smt.arith.solver=6 %f\"",
+          "driver": "\"z3_gnatprove\"",
+          "name": "\"Z3\"",
+          "shortcut": "\"z3\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -t:%t -smt2 -st model.compact=false %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st model.compact=false %f\"",
+          "driver": "\"z3_gnatprove_ce\"",
+          "name": "\"z3_ce\"",
+          "shortcut": "\"z3_ce\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"coqtop -batch -I %l/coq-tactic -R %o/why3_libs/coq Why3 -l %f\"",
+          "driver": "\"coq_gnatprove\"",
+          "name": "\"Coq\"",
+          "shortcut": "\"coq\"",
+          "version": "\"8.5pl2\"",
+          "interactive": "true",
+          "editor": "\"coqide\"",
+          "in_place": "false"
+        }
+      }
+    ],
+    "config_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "overlay": {
+      "member": "registration/overlay/why3.conf",
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48",
+      "text": "[main]\nmagic = 14\n"
+    },
+    "load_bias": 94541884551168,
+    "standard_root_slots": {
+      "stdout": 94541900850256,
+      "stderr": 94541900850264
+    },
+    "standard_slot_read_coverage": {
+      "stdout": [],
+      "stderr": []
+    },
+    "observed_debug_formatter": 140609251460856,
+    "persistent_gates": [
+      true,
+      true
+    ],
+    "initial_standard_dynamic_state": null
+  },
+  {
+    "case": "is_message",
+    "pid": 17704,
+    "archive": "capture-is-message.tar.gz",
+    "process": {
+      "pid": 17704,
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--entity",
+        "4",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--steps",
+        "0",
+        "--timeout",
+        "0",
+        "--counterexample",
+        "off",
+        "--why3-conf",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+        "--socket",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock",
+        "silver_arguments__is_message.gnat-json"
+      ],
+      "initial_threads": 1
+    },
+    "selected_members": {
+      "registration/is_message/capture/process.json": {
+        "bytes": 1024,
+        "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+      },
+      "registration/is_message/capture/exit-hook-roots.json": {
+        "bytes": 2513,
+        "sha256": "5f2a6ad916188c8f267fdcb6d89e9757f97572a92d5a58302466c4d7485c9cc1"
+      },
+      "registration/is_message/why3.conf": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "registration/is_message/capture/memory-reads.jsonl": {
+        "bytes": 62228649,
+        "sha256": "8aae3616008410d91c94ea0e1a78bdc8576befc9a2cb57bcab11b7184ffd0f8e"
+      },
+      "registration/is_message/capture/save-state-memory-reads.jsonl": {
+        "bytes": 2280855,
+        "sha256": "fb8fc14af296659bbdc1c3f9944aedd261b0990bb2fd3b3930f10c4ddb6f760d"
+      }
+    },
+    "config_sections": [
+      {
+        "section": "main",
+        "fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      {
+        "section": "editor coqide",
+        "fields": {
+          "name": "\"CoqIDE\"",
+          "command": "\"coqide -I %l/coq-tactic -R %o/why3_libs/coq Why3 %f\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"alt-ergo --max-split 5 --disable-weaks %f\"",
+          "command_steps": "\"alt-ergo --steps-bound %S --max-split 5 --disable-weaks %f\"",
+          "driver": "\"alt_ergo_gnatprove_smt2\"",
+          "name": "\"altergo\"",
+          "shortcut": "\"altergo\"",
+          "version": "\"1.30-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri --memlimit %m %f\"",
+          "command_steps": "\"colibri --steplimit %S --memlimit %m %f\"",
+          "driver": "\"colibri\"",
+          "name": "\"colibri\"",
+          "shortcut": "\"colibri\"",
+          "version": "\"2137\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri2 %f\"",
+          "command_steps": "\"colibri2 --max-steps %S %f\"",
+          "driver": "\"colibri2\"",
+          "name": "\"colibri2\"",
+          "shortcut": "\"colibri2\"",
+          "version": "\"0.3.3\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"gappa -Eprecision=70 %f\"",
+          "command_steps": "\"gappa -Eprecision=70 %f\"",
+          "driver": "\"gappa\"",
+          "name": "\"gappa\"",
+          "shortcut": "\"gappa\"",
+          "version": "\"1.4\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove\"",
+          "name": "\"CVC5\"",
+          "shortcut": "\"cvc5\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove_ce\"",
+          "name": "\"CVC5_CE\"",
+          "shortcut": "\"cvc5_ce\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -smt2 -st smt.arith.solver=6 %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st smt.arith.solver=6 %f\"",
+          "driver": "\"z3_gnatprove\"",
+          "name": "\"Z3\"",
+          "shortcut": "\"z3\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -t:%t -smt2 -st model.compact=false %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st model.compact=false %f\"",
+          "driver": "\"z3_gnatprove_ce\"",
+          "name": "\"z3_ce\"",
+          "shortcut": "\"z3_ce\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"coqtop -batch -I %l/coq-tactic -R %o/why3_libs/coq Why3 -l %f\"",
+          "driver": "\"coq_gnatprove\"",
+          "name": "\"Coq\"",
+          "shortcut": "\"coq\"",
+          "version": "\"8.5pl2\"",
+          "interactive": "true",
+          "editor": "\"coqide\"",
+          "in_place": "false"
+        }
+      }
+    ],
+    "config_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "overlay": {
+      "member": "registration/overlay/why3.conf",
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48",
+      "text": "[main]\nmagic = 14\n"
+    },
+    "load_bias": 94519446523904,
+    "standard_root_slots": {
+      "stdout": 94519462822992,
+      "stderr": 94519462823000
+    },
+    "standard_slot_read_coverage": {
+      "stdout": [],
+      "stderr": []
+    },
+    "observed_debug_formatter": 140230002558792,
+    "persistent_gates": [
+      true,
+      true
+    ],
+    "initial_standard_dynamic_state": null
+  },
+  {
+    "case": "input_is_valid",
+    "pid": 17869,
+    "archive": "capture-input-is-valid.tar.gz",
+    "process": {
+      "pid": 17869,
+      "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C",
+        "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/temp",
+        "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+      },
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "--entity",
+        "1",
+        "--prover",
+        "cvc5,z3,altergo",
+        "--proof",
+        "per_check",
+        "--steps",
+        "0",
+        "--timeout",
+        "0",
+        "--counterexample",
+        "off",
+        "--why3-conf",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/overlay/why3.conf",
+        "--socket",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock",
+        "silver_arguments__input_is_valid.gnat-json"
+      ],
+      "initial_threads": 1
+    },
+    "selected_members": {
+      "inline/input_is_valid/capture/process.json": {
+        "bytes": 1117,
+        "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+      },
+      "inline/input_is_valid/capture/exit-hook-roots.json": {
+        "bytes": 2715,
+        "sha256": "95143d97ccccc0cea56544c69734ce9314dff7d5476036209834f1dec0e9eccc"
+      },
+      "inline/input_is_valid/why3.conf": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "inline/input_is_valid/capture/memory-reads.jsonl": {
+        "bytes": 65738519,
+        "sha256": "63c39b372f0ff33a08765fe020ab383b6c33cacf7f3c6956b60d84b607890051"
+      },
+      "inline/input_is_valid/capture/save-state-memory-reads.jsonl": {
+        "bytes": 2310904,
+        "sha256": "12399cc1b4408e5c5ab564e50215c49d517e3ec300901dfab2a280069e5cbe76"
+      },
+      "inline/input_is_valid/capture/session-memory-reads.jsonl": {
+        "bytes": 6088583,
+        "sha256": "a3e2599635226f4af95d4f66708d0f012f6d6e402fcf2a9d6075ff37200d5aba"
+      }
+    },
+    "config_sections": [
+      {
+        "section": "main",
+        "fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      {
+        "section": "editor coqide",
+        "fields": {
+          "name": "\"CoqIDE\"",
+          "command": "\"coqide -I %l/coq-tactic -R %o/why3_libs/coq Why3 %f\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"alt-ergo --max-split 5 --disable-weaks %f\"",
+          "command_steps": "\"alt-ergo --steps-bound %S --max-split 5 --disable-weaks %f\"",
+          "driver": "\"alt_ergo_gnatprove_smt2\"",
+          "name": "\"altergo\"",
+          "shortcut": "\"altergo\"",
+          "version": "\"1.30-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri --memlimit %m %f\"",
+          "command_steps": "\"colibri --steplimit %S --memlimit %m %f\"",
+          "driver": "\"colibri\"",
+          "name": "\"colibri\"",
+          "shortcut": "\"colibri\"",
+          "version": "\"2137\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"colibri2 %f\"",
+          "command_steps": "\"colibri2 --max-steps %S %f\"",
+          "driver": "\"colibri2\"",
+          "name": "\"colibri2\"",
+          "shortcut": "\"colibri2\"",
+          "version": "\"0.3.3\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"gappa -Eprecision=70 %f\"",
+          "command_steps": "\"gappa -Eprecision=70 %f\"",
+          "driver": "\"gappa\"",
+          "name": "\"gappa\"",
+          "shortcut": "\"gappa\"",
+          "version": "\"1.4\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove\"",
+          "name": "\"CVC5\"",
+          "shortcut": "\"cvc5\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"cvc5 --prenex-quant=none --stats-internal %f\"",
+          "command_steps": "\"cvc5 --rlimit=%S --prenex-quant=none --stats-internal %f\"",
+          "driver": "\"cvc5_gnatprove_ce\"",
+          "name": "\"CVC5_CE\"",
+          "shortcut": "\"cvc5_ce\"",
+          "version": "\"0.0.7-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -smt2 -st smt.arith.solver=6 %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st smt.arith.solver=6 %f\"",
+          "driver": "\"z3_gnatprove\"",
+          "name": "\"Z3\"",
+          "shortcut": "\"z3\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"z3 -t:%t -smt2 -st model.compact=false %f\"",
+          "command_steps": "\"z3 rlimit=%S -smt2 -st model.compact=false %f\"",
+          "driver": "\"z3_gnatprove_ce\"",
+          "name": "\"z3_ce\"",
+          "shortcut": "\"z3_ce\"",
+          "version": "\"4.5.1-gnatprove\""
+        }
+      },
+      {
+        "section": "prover",
+        "fields": {
+          "command": "\"coqtop -batch -I %l/coq-tactic -R %o/why3_libs/coq Why3 -l %f\"",
+          "driver": "\"coq_gnatprove\"",
+          "name": "\"Coq\"",
+          "shortcut": "\"coq\"",
+          "version": "\"8.5pl2\"",
+          "interactive": "true",
+          "editor": "\"coqide\"",
+          "in_place": "false"
+        }
+      }
+    ],
+    "config_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "overlay": {
+      "member": "inline/overlay/why3.conf",
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48",
+      "text": "[main]\nmagic = 14\n"
+    },
+    "load_bias": 94660896407552,
+    "standard_root_slots": {
+      "stdout": 94660912706640,
+      "stderr": 94660912706648
+    },
+    "standard_slot_read_coverage": {
+      "stdout": [],
+      "stderr": []
+    },
+    "observed_debug_formatter": 140341793268816,
+    "persistent_gates": [
+      true,
+      true
+    ],
+    "initial_standard_dynamic_state": null
+  }
+]

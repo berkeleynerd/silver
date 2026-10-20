@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "status": "source reasoning for independent review",
+  "global_budget_reset": false,
+  "precut_signal_bound": null,
+  "rows": [
+    {
+      "id": "standard-construction",
+      "source": [
+        "ocaml/stdlib/format.ml:937-1023"
+      ],
+      "owner": "Format",
+      "effect": "Distinct stdout/stderr channel formatter allocations with default settings; no claim those initial queue states reach cuts unchanged."
+    },
+    {
+      "id": "debug-stderr-wrapper",
+      "source": [
+        "why3/src/util/debug.ml:65-75",
+        "why3/src/gnat/gnat_main.ml:265-268,323-330"
+      ],
+      "owner": "Debug",
+      "effect": "One saved newline then saved flush wrapper on stderr during Debug init; later destinations are distinct escape/private channel formatters."
+    },
+    {
+      "id": "private-setters",
+      "source": [
+        "why3/src/util/pp.ml:138-216",
+        "why3/src/util/loc.ml:187-196",
+        "ocaml/stdlib/format.ml:1375-1395"
+      ],
+      "owner": "Pp / Loc / Format",
+      "effect": "All selected margin/ellipsis/maxboxes/wnl consumers own newly allocated formatters; sprintf/asprintf allocate private Buffer512 formatters."
+    },
+    {
+      "id": "misc-init",
+      "source": [
+        "ocaml/utils/misc.ml:670-738,880-909"
+      ],
+      "native": [
+        "camlDynlink_compilerlibs__Misc__entry",
+        "camlDynlink_compilerlibs__Misc__fun_4276",
+        "camlDynlink_compilerlibs__Misc__fun_4278"
+      ],
+      "effect": "Closure/ref/list/functor construction; native List.map callbacks are Cmx/Cmxa constructors. Color.setup closure is not invoked."
+    },
+    {
+      "id": "location-init",
+      "source": [
+        "ocaml/parsing/location.ml:903-952"
+      ],
+      "native": [
+        "camlDynlink_compilerlibs__Location__entry",
+        "camlDynlink_compilerlibs__Location__register_error_of_exn_2063"
+      ],
+      "effect": "in_file construction and error-printer registration only. Private registration prepends; no invocation of supplied callback."
+    },
+    {
+      "id": "other-compiler-init",
+      "source": [
+        "ocaml/utils/profile.ml:316-331",
+        "ocaml/typing/env.ml:2174-2182,2566-2574"
+      ],
+      "native_inventory": "initializer-calls.json",
+      "effect": "Container/functor/local-store, identifier/type/env data, warning option parsing, error-printer registration. Profile indirect call is Printf.sprintf; Env indirect call is add_extension partial application with check=false. No selected Location report/Color setup."
+    },
+    {
+      "id": "native-loader",
+      "source": [
+        "ocaml/otherlibs/dynlink/native/dynlink.ml:18-108",
+        "ocaml/otherlibs/dynlink/dynlink_common.ml:22-145,216-270,322-348",
+        "ocaml/otherlibs/dynlink/dynlink_types.ml:21-95",
+        "why3/src/util/plugin.ml:12-40,59-67"
+      ],
+      "effect": "Header/map consistency checking, fixed selected initializers; private asprintf duplicate-symbol text; initializer exceptions wrap/reraise; no compiler report dispatch."
+    },
+    {
+      "id": "selected-plugins",
+      "source": [
+        "why3/src/gnat/gnat_util.ml:110-137",
+        "why3/plugins/gnat_json/gnat_ast_to_ptree.ml:1425-1446",
+        "why3/plugins/ada_terms/ada_main.ml:188-201"
+      ],
+      "effect": "Builtin branch direct-loads only gnat_json and ada_terms. Initializers register parser/language/exn printer functions; source/typed fixed-code premise supplies alias ownership."
+    },
+    {
+      "id": "warning-hook",
+      "source": [
+        "why3/src/util/loc.ml:134-143,187-196",
+        "why3/src/gnat/gnat_report.ml:34-46"
+      ],
+      "native": [
+        "camlGnat_report__entry",
+        "camlGnat_report__add_warning_738"
+      ],
+      "effect": "Default stderr hook before Gnat_report, then add_warning stores private formatted text in warning_list. No selected later hook replacement."
+    },
+    {
+      "id": "config-warning-prefix",
+      "source": [
+        "why3/src/driver/whyconf.ml:335-552,701-747",
+        "why3/src/gnat/gnat_config.ml:346-410"
+      ],
+      "input": "initial-inputs.json",
+      "effect": "Actual complete config records avoid ordinary warning arms. Read_config catch privately formats and reraises ConfigFailure; GNAT handler aborts, not continuation of config."
+    },
+    {
+      "id": "normal-report",
+      "source": [
+        "why3/src/gnat/gnat_main.ml:270-279",
+        "why3/src/gnat/gnat_report.ml:205-234",
+        "why3/src/util/json_base.ml:12-105"
+      ],
+      "destination": "stdout",
+      "effect": "At most one ordinary ending, then result construction and single-line JSON. No implicit flush/settings/tags/tabs. Escape Buffer.contents creates one string copy; warning_list shares it; JSON escapes bytewise. Complete report/copy payload bound not supplied."
+    },
+    {
+      "id": "abort",
+      "source": [
+        "why3/src/gnat/gnat_util.ml:4-24",
+        "why3/src/gnat/gnat_main.ml:356-360"
+      ],
+      "destination": "stdout",
+      "effect": "Structured JSON before exit; can fail before gate is cleared. GNAT handler privately prints exception then aborts; uncaught handler privately builds exception/backtrace text then aborts. Neither restarts ordinary ending."
+    },
+    {
+      "id": "precut-abandoned-abort",
+      "source": [
+        "why3/src/gnat/gnat_main.ml:48-72,292-295",
+        "why3/src/gnat/gnat_expl.ml:425-457",
+        "why3/src/gnat/gnat_checks.ml:490-499"
+      ],
+      "protected": "iter_leafs protects List.iter including register_goal callback",
+      "catch": "Not_found -> ()",
+      "effect": "A Not_found escaping an earlier partial abort can be consumed and scheduling later reached. Label conversion Failure handlers also select abort; valid text alone does not exclude asynchronous exception transfer. Exact occurrence/eligibility in actual captures remains unknown, not asserted."
+    },
+    {
+      "id": "printer-failure",
+      "source": [
+        "why3/src/core/printer.ml:224-248"
+      ],
+      "protected": "int_of_string conversion",
+      "catch": "all exceptions",
+      "destination": "stderr",
+      "effect": "Diagnostic then assertion, unless output raises. Retained as a possible selected failure writer; no zero diagnostic or bounded frequency claim."
+    },
+    {
+      "id": "model-failure",
+      "source": [
+        "why3/src/driver/driver.ml:27-36,462-473",
+        "why3/src/driver/call_provers.ml:328-338",
+        "why3/src/driver/smtv2_model_parser.ml:457-474"
+      ],
+      "destination": "stderr",
+      "guard": "get_model = Some printing_info, computed from actual task meta",
+      "effect": "Conservative residual; CE-off option alone is not consumed as meta proof. Diagnostic does not mutate settings/callbacks/tags/tabs."
+    },
+    {
+      "id": "excluded-writers",
+      "source": [
+        "why3/src/driver/whyconf.ml:286-295",
+        "why3/src/session/controller_itp.ml:1017-1024",
+        "why3/src/session/session_itp.ml:2212-2270",
+        "why3/src/gnat/gnat_checks.ml:1147-1157"
+      ],
+      "effect": "Builtin plugins bypass catch-and-print loop; ordinary ending uses APa remove_subtree not clean; save_session is not archive_session. CLI display and unselected tool/transform roots remain outside supplied envelope."
+    },
+    {
+      "id": "exit-flush",
+      "source": [
+        "ocaml/stdlib/stdlib.ml:550-570",
+        "ocaml/stdlib/format.ml:1397-1403"
+      ],
+      "destination": "stdout then stderr",
+      "effect": "Once-only gate clears before standard flush starts; first failure may skip second flush; gate says nothing about successful reset. flush_all is a channel owner, not a Format queue producer."
+    },
+    {
+      "id": "interrupted-global-enqueue",
+      "source": [
+        "ocaml/stdlib/format.ml:218-220",
+        "ocaml/stdlib/queue.ml:40-54"
+      ],
+      "native": [
+        "camlStdlib__Format__pp_enqueue_462"
+      ],
+      "effect": "right_total update precedes Queue.add allocation/publication. Nested exit can flush same global partial state. Nonreturning signal does not imply transactional state or prevent later higher-level reuse. Prefix arithmetic remains null."
+    }
+  ],
+  "remaining": [
+    "initial global queue/scan/format graph and dynamic fields8-13",
+    "partial global enqueue/flush invariants and all capacity requests",
+    "actual get_model task-meta guard if model diagnostic is to be excluded"
+  ]
+}

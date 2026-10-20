@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "native_platform": "Linux x86_64",
+  "status": "source-control component; initial standard dynamic graph remains unestablished",
+  "source_files_in_why_census": 528,
+  "source_excerpts": 65,
+  "native_bodies": 87,
+  "native_instruction_bytes": 87617,
+  "compiler_initializer_bodies": 52,
+  "profile_claim": {
+    "scope": "selected source/native behavior relation; review required",
+    "margin": 78,
+    "min_space_left": 10,
+    "max_indent": 68,
+    "max_boxes": 4611686018427387903,
+    "ellipsis": ".",
+    "stdout_newline_wrapper_depth": 0,
+    "stderr_debug_newline_wrapper_depth": 1,
+    "location_output_wrapper_depth": 0,
+    "color_marker_wrapper_depth": 0,
+    "print_tags": false,
+    "mark_tags": false,
+    "tag_mark_tab_stacks_empty": true,
+    "post_cut_setter_preservation": true
+  },
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    }
+  ],
+  "initial_standard_queue_freshness": null,
+  "global_queue_prefix_preservation": null,
+  "model_diagnostic_excluded_by_task_meta": null,
+  "whole_output_capacity": null,
+  "complete_R": null,
+  "complete_U": null,
+  "issue_153_complete": false,
+  "global_budget_reset": false,
+  "assumed_precut_signal_budget": null,
+  "new_targets": 0,
+  "new_captures": 0,
+  "disassemblers": 0,
+  "source_fetches": 0,
+  "predecessor_checkers": 0
+}

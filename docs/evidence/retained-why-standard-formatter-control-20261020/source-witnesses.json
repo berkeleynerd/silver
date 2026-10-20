@@ -1,0 +1,1042 @@
+[
+  {
+    "source": "why3/src/gnat/gnat_util.ml",
+    "first": 1,
+    "last": 24,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_util.ml",
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "excerpt": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n\nlet colon = ':'\n",
+    "excerpt_identity": {
+      "bytes": 662,
+      "sha256": "2c41de4e36ca6ccb5548f7e2a5f1d23d686d7de4d77200a57c9cb08bb4e34cd3"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_util.ml",
+    "first": 110,
+    "last": 137,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_util.ml",
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "excerpt": "let build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n\nlet set_debug_flags_gnatprove () =\n  (* Always set the debug flag that prevents from adding \"model\" labels everywhere\n     during parsing. In SPARK, these labels are inserted during transformations\n     from Ada code.\n  *)\n  (* Set the vc_sp (fast_wp) everywhere. *)\n  let debug_sp = Debug.register_flag \"vc_sp\"\n    ~desc:\"Use@ 'Efficient@ Weakest@ Preconditions'@ for@ verification.\" in\n  Debug.set_flag debug_sp;\n  (* Reduction_engine.warn_reduction_aborted *)\n  let warn_reduction_aborted = Loc.register_warning \"reduction_aborted\" \"\" in\n  (* We should use Typing.warn_useless_at and Typing.warn_unused_expression, but they are not exported*)\n  let warning_useless_at = Loc.register_warning \"useless_at\"\n",
+    "excerpt_identity": {
+      "bytes": 1321,
+      "sha256": "c6c4cb9094ae3336aa990840fc6df60625e818ba5dcc184948a94dea833026f2"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_report.ml",
+    "first": 34,
+    "last": 46,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_report.ml",
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "excerpt": "let warning_list : string list ref = ref []\n\nlet add_warning ?loc s =\n  let s =\n    match loc with\n    | Some loc ->\n        let file, line1, col1, line2, col2 = Loc.get loc in\n        Format.sprintf \"%s:(%d:%d)-(%d:%d): %s\" file line1 col1 line2 col2 s\n    | None -> s\n  in\n  warning_list := s :: !warning_list\n\nlet () = Loc.set_warning_hook add_warning\n",
+    "excerpt_identity": {
+      "bytes": 355,
+      "sha256": "d0e418b512f073f85dd8778e628dab44647f64994688222178c2ddaeab3b74f8"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_report.ml",
+    "first": 205,
+    "last": 234,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_report.ml",
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "excerpt": "let get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n\nlet get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )\n",
+    "excerpt_identity": {
+      "bytes": 889,
+      "sha256": "089ed42c2be6e5b84e68a8034e624768a8e30676fef863a97489c70d6c4cf341"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "first": 12,
+    "last": 68,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_config.ml",
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "excerpt": "let builtin_provers = [\"altergo\"; \"colibri\"; \"cvc5\"; \"z3\"]\n\nlet is_builtin_prover =\n  let builtin_provers_set =\n    List.fold_left (fun acc x -> Sstr.add x acc) Sstr.empty builtin_provers in\n  (fun s ->\n    let s = String.lowercase_ascii s in\n    Sstr.mem s builtin_provers_set)\n\nlet () = Gnat_util.set_debug_flags_gnatprove ()\n\nlet opt_entity : int option ref = ref None\nlet opt_timeout : int option ref = ref None\nlet opt_memlimit : int option ref = ref None\nlet opt_ce_timeout : int option ref = ref None\nlet opt_warn_timeout : int ref = ref 1\nlet opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\nlet opt_proof_dir : string option ref = ref None\nlet opt_ce_mode = ref false\nlet opt_ce_prover = ref \"cvc5_ce\"\nlet opt_warn_prover = ref None\nlet opt_giant_step_rac : bool ref = ref false\nlet opt_rac_timelimit = ref (Some 120)\nlet opt_rac_prover = ref (Some \"cvc5\")\nlet opt_logging = ref false\n\nlet opt_limit_line : Gnat_expl.limit_mode option ref = ref None\nlet opt_limit_lines : string ref = ref \"\"\nlet opt_limit_region : Gnat_loc.region option ref = ref None\nlet opt_socket_name : string ref = ref (match Sys.getenv_opt \"GNATPROVE_SOCKET\" with | Some s -> s | None -> \"\")\nlet opt_standalone = ref false\nlet opt_replay = ref false\n\nlet opt_prepare_shared = ref false\n\nlet opt_why3_conf_file : string option ref = ref None\n\nlet set_why3_conf s =\n  if s != \"\" then\n    opt_why3_conf_file := Some s\n\nlet set_ce_mode s =\n  if s = \"on\" then opt_ce_mode := true\n  else if s = \"off\" then opt_ce_mode := false\n  else\n    Gnat_util.abort_with_message ~internal:true\n        \"argument for option --counterexample should be one of\\\n",
+    "excerpt_identity": {
+      "bytes": 1964,
+      "sha256": "c7a4e1bc9c22cc6f5b955e158008d2f80afb14d220903229fe6042e85a6ed556"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "first": 146,
+    "last": 171,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_config.ml",
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "excerpt": "let print_version_info () =\n  Format.printf \"Why3 for gnatprove version %s@.\" Config.version;\n  exit 0\n\nlet output_list_transforms () =\n  let print_trans_desc fmt (x,r) =\n    Format.fprintf fmt \"@[<hov 2>%s@\\n@[<hov>%a@]@]\" x Pp.formatted r in\n  let transforms = Server_utils.list_transforms () in\n  Format.printf \"@[<hov 2>Known transformations with arguments:@\\n%a@]@\\n@.\"\n    (Pp.print_list Pp.newline2 print_trans_desc) transforms;\n  exit 0\n\nlet show_config () =\n  Format.printf \"enable_ide: %s@.\" Config.enable_ide;\n  Format.printf \"enable_zip: %s@.\" Config.enable_zip;\n  Format.printf \"enable_coq_libs: %s@.\" Config.enable_coq_libs;\n  Format.printf \"enable_coq_fp_libs: %s@.\" Config.enable_coq_fp_libs;\n  Format.printf \"enable_pvs_libs: %s@.\" Config.enable_pvs_libs;\n  Format.printf \"enable_isabelle_libs: %s@.\" Config.enable_isabelle_libs;\n  Format.printf \"enable_hypothesis_selection: %s@.\"\n    Config.enable_hypothesis_selection;\n  Format.printf \"enable_local: %s@.\" Config.enable_local;\n  Format.printf \"enable_relocation: %s@.\" Config.enable_relocation;\n  exit 0\n\nlet options = Arg.align [\n",
+    "excerpt_identity": {
+      "bytes": 1101,
+      "sha256": "2d6fa9cc434310ec0f943f24ad546e4b2a0642958b4f124cd635b8facdf20285"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_config.ml",
+    "first": 346,
+    "last": 410,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_config.ml",
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "excerpt": "let provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n\n  (* now we build the Whyconf.config_prover for all requested provers\n   * and for the prover for counterexample generation *)\n  let base_provers, base_prover_ce, base_prover_warn =\n    compute_base_provers config prover_str_list in\n  let env =\n    Gnat_util.build_env_from_config\n      ~load_plugins:(not builtin_provers_only)\n      ~proof_dir:!opt_proof_dir\n      config in\n  let provers =\n    List.map (fun x -> x.prover) base_provers in\n  let prover_ce =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_ce\n  in\n  let prover_warn =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_warn\n  in\n  provers, prover_ce, prover_warn, config, env\n\n",
+    "excerpt_identity": {
+      "bytes": 2690,
+      "sha256": "8b1e37112b63dbc84275d1a37daf55a627df8a137f6cba2ba7a2b45b86246add"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_main.ml",
+    "first": 48,
+    "last": 72,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_main.ml",
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "excerpt": "let register_goal cont goal_id =\n  (* Register the goal by extracting the explanation and trace. If the goal is\n   * trivial, do not register. For trivial goals, we register a dummy proof\n   * attempt that succeeded. *)\n  let s = cont.Controller_itp.controller_session in\n  let task = Session_itp.get_task s goal_id in\n  let fml = Task.task_goal_fmla task in\n  let is_trivial = is_trivial fml in\n  if is_trivial then Gnat_checks.add_trivial_proof s goal_id;\n  match is_trivial, Gnat_expl.search_labels fml with\n  | true, None ->\n      Gnat_checks.set_not_interesting goal_id\n  | false, None ->\n      let base_msg = \"Task has no tracability label\" in\n      let msg =\n        if Gnat_config.debug then\n          Pp.sprintf \"%s: %a.@.\" base_msg Pretty.print_term fml\n        else base_msg in\n      Gnat_util.abort_with_message ~internal:true msg\n  | _, Some c ->\n      begin\n        if c.Gnat_expl.check.Gnat_expl.already_proved then\n          Gnat_checks.set_not_interesting goal_id\n        else\n          Gnat_checks.add_to_check c goal_id\n",
+    "excerpt_identity": {
+      "bytes": 1039,
+      "sha256": "62c4a045c93ea301ab1b7df9edbc7852f850f4a280972333ca69a2c79057c075"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_main.ml",
+    "first": 264,
+    "last": 360,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_main.ml",
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "excerpt": "\n(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n     several compilation would be written to a single gmon.out file and\n     overwrite each other. When compiled with profiling disabled it has no\n     visible effect. Note: we set the filename just before the program exit\n     to not interfere with profiling of provers.\n   *)\n  let basename =\n    Filename.chop_extension\n      (Filename.basename Gnat_config.filename) in\n  Unix.putenv \"GMON_OUT_PREFIX\" (basename ^ \"_gnatwhy3_gmon.out\")\n\nlet normal_handle_one_subp c subp =\n   C.init_subp_vcs c subp;\n   let s = c.Controller_itp.controller_session in\n   Gnat_checks.iter_leaf_goals s subp (register_goal c)\n\n(* save session on interrupt initiated by the user *)\nlet save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n\n (* This is the main code. We read the file into the session if not already\n    done, we apply the split_goal transformation when needed, and we schedule\n    the first VC of all check. When done, we save the session.\n *)\n\nlet _ =\n  if Gnat_config.debug then Debug.(set_flag (lookup_flag \"gnat_ast\"));\n  Debug.set_flag Pinterp.debug_disable_builtin_mach;\n  Debug.set_flag Debug.stats;\n  List.iter Introduction.add_unique_prefix\n    [\"GP_Check:\"; \"GP_Pretty_Ada:\"; \"GP_Shape:\"; \"GP_Sloc:\";\n     \"GP_Already_Proved\"; \"GP_Inline\"; \"GP_Inlined\"];\n  ( try\n      let log = Sys.getenv \"GNATWHY3LOG\" in\n      let out = open_out_gen [Open_text; Open_creat; Open_append] 0o666 log in\n      let fmt = Format.formatter_of_out_channel out in\n      Debug.set_debug_formatter fmt;\n      Format.fprintf fmt \"@.@.===== %s@.\" Gnat_config.filename;\n      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)\n    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n        end;\n     | Gnat_config.All_Split ->\n        C.iter_subps c (all_split_subp c)\n     | Gnat_config.No_WP ->\n        (* we should never get here *)\n        ()\n    end;\n    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n",
+    "excerpt_identity": {
+      "bytes": 4109,
+      "sha256": "85be04d7bfe08ebfae57e2bb7ccd9bafeb97a2fb06c3dc4fb561cc1c8e5250ff"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_checks.ml",
+    "first": 490,
+    "last": 509,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "excerpt": "let iter_leafs s goal f =\n  let tr_list = Session_itp.get_transformations s goal in\n  (try\n    let tr_gnat_split =\n      List.find (fun x -> Session_itp.get_transf_name s x = first_transform)\n                tr_list\n    in\n    let subsubgoals = Session_itp.get_sub_tasks s tr_gnat_split in\n    List.iter (fun pn -> f (Session_itp.APn pn)) subsubgoals\n  with Not_found -> ())\n\nlet iter_leaf_goals s subp f =\n  let f x = match x with\n  | Session_itp.APn pn -> f pn\n  | _ -> () in\n  iter_leafs s subp.subp_goal f\n\nlet iter f =\n   let check = Gnat_expl.HCheck.fold (fun k _ acc -> k :: acc) explmap [] in\n   List.iter f check\n",
+    "excerpt_identity": {
+      "bytes": 622,
+      "sha256": "384fd90b88c776784a90c65864170e33d8f2f8174733e25bb0ae2a6af6cbbf50"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_checks.ml",
+    "first": 752,
+    "last": 768,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "excerpt": "let save_session c =\n   Session_itp.save_session c.Controller_itp.controller_session\n\nlet mk_subp_goal goal = { subp_goal = goal }\n\nlet iter_subps c f =\n   let s = c.Controller_itp.controller_session in\n   let acc = ref [] in\n   let _: unit =\n     iter_main_goals s (fun g ->\n       let task = Session_itp.get_task s g in\n       if task = None then ()\n       else acc := mk_subp_goal g :: !acc) in\n   List.iter f !acc\n\nmodule Save_VCs = struct\n\n",
+    "excerpt_identity": {
+      "bytes": 445,
+      "sha256": "bb82241bb4c917d57d2eabcdc1a05a81fa225250e44f169bdf1a0d867b96a8e8"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_checks.ml",
+    "first": 1147,
+    "last": 1157,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "excerpt": "let remove_all_valid_ce_attempt s =\n  Session_itp.fold_all_session s\n    (fun () any ->\n      match any with\n      | Session_itp.APa paid ->\n          let pa = Session_itp.get_proof_attempt_node s paid in\n          if is_valid_pa pa && Gnat_config.is_ce_prover s paid then\n            Session_itp.remove_subtree\n              ~notification:(fun _ -> ()) ~removed:(fun _ -> ())\n              s any\n      | _ -> ()) ()\n",
+    "excerpt_identity": {
+      "bytes": 417,
+      "sha256": "33f3ec1c170988da5e29f8a668084589766dc68411ffea6bb4ca2dee80088d70"
+    }
+  },
+  {
+    "source": "why3/src/gnat/gnat_expl.ml",
+    "first": 425,
+    "last": 457,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_expl.ml",
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "excerpt": "  match l with\n  | id::check_kind_string::sloc_rest ->\n    begin try\n      Gp_Check (int_of_string id, check_kind_from_string check_kind_string, Gnat_loc.parse_loc sloc_rest)\n    with e when Debug.test_flag Debug.stack_trace -> raise e\n    | Failure _ ->\n       let s =\n         Format.sprintf \"GP_Check: cannot parse string: %s\" s in\n        Gnat_util.abort_with_message ~internal:true s\n    end\n  | _ ->\n       let s =\n         Format.sprintf \"GP_Check: cannot parse string: %s\" s in\n        Gnat_util.abort_with_message ~internal:true s\n\nlet read_label s =\n    if Strings.has_prefix ~prefix:\"GP_\" s then\n       match Gnat_util.colon_split s with\n       | \"GP_Check\" :: rest ->\n             Some (parse_check_string s rest)\n       | [\"GP_Pretty_Ada\"; msg] ->\n           begin try\n             Some (Gp_Pretty_Ada (int_of_string msg))\n           with e when Debug.test_flag Debug.stack_trace -> raise e\n           | Failure _ ->\n             let s =\n               Format.sprintf \"GP_Pretty_Ada: cannot parse string: %s\" s in\n              Gnat_util.abort_with_message ~internal:true s\n           end\n       | [\"GP_Shape\"; shape ] ->\n          begin\n            Some (Gp_Shape shape)\n          end\n",
+    "excerpt_identity": {
+      "bytes": 1199,
+      "sha256": "3e988e661c3825e0e10b5b7f459dad6ac18c88f8a69272222fe0ed0163429390"
+    }
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "first": 15,
+    "last": 40,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/debug.ml",
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "excerpt": "type flag = { flag_name : string;\n              mutable flag_value : bool }\n\nlet flag_table = Hashtbl.create 17\n\nlet fst3 (flag,_,_) = flag\n\nlet enabled_flags =\n  Wstdlib.Sstr.of_list\n    (match Sys.getenv \"WHY3DEBUG\" with\n     | s -> String.split_on_char ',' s\n     | exception Not_found -> [])\n\nlet gen_register_flag (desc : Pp.formatted) s info =\n  try\n    fst3 (Hashtbl.find flag_table s)\n  with Not_found ->\n    let flag_value = Wstdlib.Sstr.mem s enabled_flags in\n    let flag = { flag_name = s; flag_value } in\n    Hashtbl.replace flag_table s (flag,info,desc);\n    flag\n\nlet register_info_flag ~desc s = gen_register_flag desc s true\nlet register_flag      ~desc s = gen_register_flag desc s false\n\nlet list_flags () =\n",
+    "excerpt_identity": {
+      "bytes": 727,
+      "sha256": "8aafec1ecf1e0dbc283a7c50da7f9d0bea8f5df224a3af123a6f3658d8d8ba45"
+    }
+  },
+  {
+    "source": "why3/src/util/debug.ml",
+    "first": 65,
+    "last": 85,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/debug.ml",
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "excerpt": "let set_debug_formatter f =\n  (* enable the usual behavior of stderr: flush at every new line *)\n  let o = Format.pp_get_formatter_out_functions f () in\n  Format.pp_set_formatter_out_functions f\n    { o with Format.out_newline =\n        (fun () -> o.Format.out_newline (); o.Format.out_flush ()) };\n  formatter := f\n\nlet get_debug_formatter () = !formatter\n\nlet () = set_debug_formatter Format.err_formatter\n\nlet dprintf flag s =\n  if flag.flag_value then\n    begin\n      if timestamp.flag_value then Format.fprintf !formatter \"<%f,%s>\"\n                                        (Unix.gettimeofday () -. time_start) flag.flag_name\n      else Format.fprintf !formatter \"<%s>\" flag.flag_name;\n      Format.fprintf !formatter s\n    end\n  else Format.ifprintf !formatter s\n",
+    "excerpt_identity": {
+      "bytes": 767,
+      "sha256": "a6d8945e1158764566dffdc9e6065a8f2b8b094c16c5b89e99c899b3ebd2ca69"
+    }
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "first": 134,
+    "last": 143,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/loc.ml",
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "excerpt": "let default_hook ?loc s =\n  let open Format in\n  match loc with\n  | None -> eprintf \"Warning: %s@.\" s\n  | Some l -> eprintf \"Warning, file %a: %s@.\" pp_position l s\n\nlet warning_hook = ref default_hook\nlet set_warning_hook = (:=) warning_hook\n\ntype warning_id = string\n",
+    "excerpt_identity": {
+      "bytes": 269,
+      "sha256": "448a968ee2db47ee47ccaa78c4d5fb2d567b245ae732b2ee7298264064b0cd85"
+    }
+  },
+  {
+    "source": "why3/src/util/loc.ml",
+    "first": 187,
+    "last": 196,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/loc.ml",
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "excerpt": "let warning id ?loc p =\n    let open Format in\n    let b = Buffer.create 100 in\n    let fmt = formatter_of_buffer b in\n    pp_set_margin fmt 1000000000;\n    pp_open_box fmt 0;\n    let handle fmt =\n      pp_print_flush fmt (); !warning_hook ?loc (Buffer.contents b) in\n    if warning_active id then kfprintf handle fmt p else ifprintf fmt p\n\n",
+    "excerpt_identity": {
+      "bytes": 341,
+      "sha256": "6f0eb1d450e2ee5da692509ca975a40646dad60ee887db9b4d65741c70ba8eac"
+    }
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "first": 138,
+    "last": 160,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/pp.ml",
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "excerpt": "let open_formatter ?(margin=78) cout =\n  let fmt = formatter_of_out_channel cout in\n  pp_set_margin fmt margin;\n  pp_open_box fmt 0;\n  fmt\n\nlet close_formatter fmt =\n  pp_close_box fmt ();\n  pp_print_flush fmt ()\n\nlet open_file_and_formatter ?(margin=78) f =\n  let cout = open_out f in\n  let fmt = open_formatter ~margin cout in\n  cout,fmt\n\nlet close_file_and_formatter (cout,fmt) =\n  close_formatter fmt;\n  close_out cout\n\nlet print_in_file_no_close ?(margin=78) p f =\n  let cout,fmt = open_file_and_formatter ~margin f in\n  p fmt;\n  close_formatter fmt;\n",
+    "excerpt_identity": {
+      "bytes": 556,
+      "sha256": "90ff956f8ee667e0664ae41988c108ac4b14365056fc19a3d1b53a0575baee74"
+    }
+  },
+  {
+    "source": "why3/src/util/pp.ml",
+    "first": 179,
+    "last": 216,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/pp.ml",
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "excerpt": "\nlet string_of ?max_boxes p x =\n  let b = Buffer.create 100 in\n  let fmt = formatter_of_buffer b in\n  Option.iter (fun x ->\n    Format.pp_set_ellipsis_text fmt \"...\";\n    Format.pp_set_max_boxes fmt x) max_boxes;\n  fprintf fmt \"%a@?\" p x;\n  Buffer.contents b\n\nlet wnl fmt =\n(*\n  let out,flush,_newline,spaces =\n    pp_get_all_formatter_output_functions fmt () in\n  pp_set_all_formatter_output_functions fmt\n    ~out ~flush ~newline:(fun () -> spaces 1) ~spaces\n*)\n  let o = pp_get_formatter_out_functions fmt () in\n  pp_set_formatter_out_functions fmt\n    { o with out_newline = (fun () -> o.out_spaces 1) }\n\n\nlet string_of_wnl p x =\n  let b = Buffer.create 100 in\n  let fmt = formatter_of_buffer b in\n  wnl fmt;\n  fprintf fmt \"%a@?\" p x;\n  Buffer.contents b\n\nlet sprintf = asprintf\n\nlet sprintf_wnl p =\n  let b = Buffer.create 100 in\n  let fmt = formatter_of_buffer b in\n  wnl fmt;\n  kfprintf (fun fmt -> Format.pp_print_flush fmt (); Buffer.contents b) fmt p\n\nlet html_char fmt c =\n",
+    "excerpt_identity": {
+      "bytes": 984,
+      "sha256": "194ff8d1fda195768eb663d3f06a2fe87b97432c3de755a6da2450a66d50ea4d"
+    }
+  },
+  {
+    "source": "why3/src/util/json_base.ml",
+    "first": 12,
+    "last": 105,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/json_base.ml",
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "excerpt": "\nlet char fmt = function\n  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b\nlet float fmt f = fprintf fmt \"%g\" f\nlet standard_float fmt f = fprintf fmt \"%f\" f\n\nlet rec seq pr fmt = function\n  | [] -> ()\n  | [v] -> pr fmt v\n  | h::t ->\n      pr fmt h;\n      Format.fprintf fmt \",@ \";\n      seq pr fmt t\n\nlet list pr fmt l =\n  fprintf fmt \"@[<hv 1>[%a]@]\" (seq pr) l\n\ntype json =\n  | Record of (string * json) list\n  | List of json list\n  | String of string\n  | Int of int\n  | Float of float\n  | StandardFloat of float\n  | Bool of bool\n  | Null\n\nlet rec print_json fmt v =\n  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n  | List l -> no_formatting_list fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt (key, value) =\n  fprintf fmt \"%a:%a\" string key print_json_single_line value\nand map_bindings fmt l =\n  fprintf fmt \"{\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      map_binding fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; map_binding fmt elt) xs\n  end;\n  fprintf fmt \"}\"\nand no_formatting_list fmt l =\n  fprintf fmt \"[\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      print_json_single_line fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; print_json_single_line fmt elt) xs;\n  end;\n  fprintf fmt \"]\"\n\n(* Get json fields. Return Not_found if no fields or field missing *)\n",
+    "excerpt_identity": {
+      "bytes": 2643,
+      "sha256": "edc7c76fc2a66fd93c6a84416574a8bdec3ec36880dda07276c398579b48ff0b"
+    }
+  },
+  {
+    "source": "why3/src/util/plugin.ml",
+    "first": 12,
+    "last": 40,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/plugin.ml",
+      "bytes": 2202,
+      "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+    },
+    "excerpt": "\nlet debug = Debug.register_info_flag \"load_plugin\"\n  ~desc:\"Print@ debugging@ messages@ about@ plugin@ loading.\"\n\nexception Plugin_Not_Found of plugin * string list\n\nlet loadfile f =\n  Debug.dprintf debug \"Plugin loaded: %s@.\" f;\n  Dynlink.loadfile_private f\n\n\nlet add_extension p =\n  if Dynlink.is_native then p^\".cmxs\" else p^\".cma\"\n\nlet load ?dirs p =\n  let p = add_extension p in\n  let f = match dirs with\n    | None -> p\n    | Some ld ->\n      let rec find = function\n        | [] -> raise (Plugin_Not_Found (p,ld))\n        | d::ld ->\n          let f = Filename.concat d p in\n          if Sys.file_exists f then f else find ld in\n      find ld in\n  loadfile f\n\ntype plu =\n  (* not a plugin extension *)\n",
+    "excerpt_identity": {
+      "bytes": 709,
+      "sha256": "277b8f972aea17de8b3547d5cac385aced055e346a63e16e98461678471e6908"
+    }
+  },
+  {
+    "source": "why3/src/util/plugin.ml",
+    "first": 59,
+    "last": 67,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/plugin.ml",
+      "bytes": 2202,
+      "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+    },
+    "excerpt": "let () =\n  Exn_printer.register (fun fmt exn ->\n    match exn with\n      | Plugin_Not_Found (pl,sl) ->\n        Format.fprintf fmt \"The plugin %s can't be found in the directories %a\"\n          pl (Pp.print_list Pp.space Pp.string) sl\n      | Dynlink.Error (error) ->\n        Format.fprintf fmt \"Dynlink error: %s\" (Dynlink.error_message error)\n      | _ -> raise exn)\n",
+    "excerpt_identity": {
+      "bytes": 368,
+      "sha256": "6661a1982a9e8ec802c3c4155e85bf9e3a562ee0167cef66ba232baf81178dd8"
+    }
+  },
+  {
+    "source": "why3/src/core/printer.ml",
+    "first": 224,
+    "last": 248,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/printer.ml",
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    },
+    "excerpt": "let int_of_string s =\n  try int_of_string s\n  with _ ->\n    Format.eprintf \"bad argument for int_of_string: %s@.\" s;\n    assert false\n\nlet iter_on_syntax_parameters s f =\n  let arg s b e =\n    let i = int_of_string (String.sub s b (e-b)) in\n    f i in\n  iter_group opt_search_forward arg s\n\n(** [check_syntax s len] checks that all %i arguments in [s]\n    satisfy [0 < i <= len]. *)\nlet check_syntax s len =\n  iter_on_syntax_parameters s (fun i ->\n    if i <= 0 then raise (BadSyntaxIndex i);\n    if i > len then raise (BadSyntaxArity (len,i));\n    ())\n\nlet syntax_arity s =\n  let arity = ref 0 in\n  iter_on_syntax_parameters s (fun i ->\n    if i <= 0 then raise (BadSyntaxIndex i);\n    arity := max i !arity);\n",
+    "excerpt_identity": {
+      "bytes": 711,
+      "sha256": "f866ace043aff5af21eb0c6296ad2666876093c7d7857e421ce3888afb01f2ca"
+    }
+  },
+  {
+    "source": "why3/src/driver/whyconf.ml",
+    "first": 286,
+    "last": 295,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/whyconf.ml",
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "excerpt": "let load_plugins main =\n  let load x =\n    try Plugin.load x\n    with exn ->\n      Format.eprintf \"%s cannot be loaded: %a@.\" x\n        Exn_printer.exn_printer exn in\n  if main.load_default_plugins then List.iter load (plugins_auto_detection main);\n  List.iter load main.plugins\n\ntype config = {\n",
+    "excerpt_identity": {
+      "bytes": 296,
+      "sha256": "02246a6483f1be12339c88bd7766ba6ff3bfa61b943640c7e5b523800fda5eb5"
+    }
+  },
+  {
+    "source": "why3/src/driver/whyconf.ml",
+    "first": 335,
+    "last": 552,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/whyconf.ml",
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "excerpt": "  let load_prover_id section =\n    let name = get_string section \"name\" in\n    let version = get_string ~default:\"\" section \"version\" in\n    let altern = get_string ~default:\"\" section \"alternative\" in\n    let prover =\n      { prover_name = name;\n        prover_version = version;\n        prover_altern = altern;\n      }\n    in\n    prover\n\n  let load_prover ~config_dir (provers,shortcuts) section =\n    try\n      let prover = load_prover_id section in\n      let info =\n        match Mprover.find_opt prover provers with\n        | None ->\n            let driver = get_string section \"driver\" in\n            Debug.dprintf debug \"Loading a new prover with config_dir = %a, driver = %s@.\"\n              (Pp.print_option Pp.print_string) config_dir driver;\n            { prover  = prover;\n            command = get_string section \"command\";\n\t    command_steps = get_stringo section \"command_steps\";\n            driver  = (config_dir,driver);\n            in_place = get_bool ~default:false section \"in_place\";\n            editor  = get_string ~default:\"\" section \"editor\";\n            interactive = get_bool ~default:false section \"interactive\";\n            extra_options = [];\n            extra_drivers = [];\n            configure_build = get_string ~default:\"\" section \"configure_build\";\n            build_commands = get_stringl section \"build_commands\";\n          }\n        | Some info ->\n            let driver =\n              match get_stringo section \"driver\" with\n                | None -> info.driver\n                | Some d -> (config_dir,d)\n            in\n            Debug.dprintf debug \"Loading a prover extension with config_dir = %a, driver = %s@.\"\n              (Pp.print_option Pp.print_string) (fst driver) (snd driver);\n          { prover  = prover;\n            command = get_string ~default:info.command section \"command\";\n            command_steps =\n              begin match get_stringo section \"command_steps\" with\n              | None -> info.command_steps\n              | c -> c end;\n            driver  = driver;\n            in_place = get_bool ~default:info.in_place section \"in_place\";\n            editor  = get_string ~default:info.editor section \"editor\";\n            interactive = get_bool ~default:info.interactive section \"interactive\";\n            extra_options = info.extra_options;\n            extra_drivers = info.extra_drivers;\n            configure_build = get_string ~default:\"\" section \"configure_build\";\n            build_commands = get_stringl section \"build_commands\";\n          }\n      in\n      let provers = Mprover.add prover info provers in\n      let lshort = get_stringl section \"shortcut\" in\n      let shortcuts = add_prover_shortcuts shortcuts prover lshort in\n      provers,shortcuts\n    with MissingField s ->\n      Loc.warning warn_missing_field \"Missing field '%s' in [prover] section@.\" s;\n      provers,shortcuts\n\n  let load_shortcut acc section =\n    try\n      let prover = load_prover_id section in\n      let shortcuts = get_stringl section \"shortcut\" in\n      add_prover_shortcuts acc prover shortcuts\n    with MissingField s ->\n      Loc.warning warn_missing_field \"Missing field '%s' in [shortcut] section@.\" s;\n      acc\n\n  let load_prover_editor acc section =\n    try\n      let prover = load_prover_id section in\n      let editor = get_string section \"editor\" in\n      Mprover.add prover editor acc\n    with MissingField s ->\n      Loc.warning warn_missing_field \"Missing field '%s' in [prover_editor] section@.\" s;\n      acc\n\n  let load_editor editors (id, section) =\n    try\n      let info = match Meditor.find_opt id editors with\n      | None ->\n          { editor_name = get_string ~default:id section \"name\";\n            editor_command = get_string section \"command\";\n            editor_options = [];\n          }\n      | Some info ->\n          { editor_name = get_string ~default:info.editor_name section \"name\";\n            editor_command = get_string ~default:info.editor_command section \"command\";\n            editor_options = (get_stringl section \"options\")@info.editor_options;\n          }\n      in\n      Meditor.add id info editors\n    with MissingField s ->\n      Loc.warning warn_missing_field \"Missing field '%s' in [editor] section@.\" s;\n      editors\n\n  let load_policy acc (_,section) =\n    try\n      let source = load_prover_id section in\n      try\n        match get_string section \"policy\" with\n        | \"keep\" -> Mprover.add source CPU_keep acc\n        | \"remove\" -> Mprover.add source CPU_remove acc\n        | \"upgrade\" ->\n            let target =\n              { prover_name = get_string section \"target_name\";\n                prover_version = get_string section \"target_version\";\n                prover_altern = get_string ~default:\"\" section \"target_alternative\";\n              }\n            in\n            Mprover.add source (CPU_upgrade target) acc\n        | \"duplicate\" ->\n            let target =\n              { prover_name = get_string section \"target_name\";\n                prover_version = get_string section \"target_version\";\n                prover_altern = get_string ~default:\"\" section \"target_alternative\";\n              }\n            in\n            Mprover.add source (CPU_duplicate target) acc\n        | _ -> raise Not_found\n      with Not_found -> acc\n    with MissingField s ->\n      Loc.warning warn_missing_field \"Missing field '%s' in [uninstalled_prover] section@.\" s;\n      acc\n\n  let warn_replaced_space =\n    Loc.register_warning \"replaced_space\" \"Warn that a space has been replaced by '_' in a strategy name\"\n\n  let load_strategy strategies section =\n    try\n      let name = get_string section \"name\" in\n      let name =\n        try\n          let (_:int) = String.index name ' ' in\n          Loc.warning warn_replaced_space \"Found a space character in strategy name '%s', replaced by '_'@.\" name;\n          String.map (function ' ' -> '_' | c -> c) name\n        with Not_found -> name\n      in\n      let desc = get_string section \"desc\" in\n      let shortcut = get_string ~default:\"\" section \"shortcut\" in\n      let code = get_string section \"code\" in\n      Mstr.add\n        name\n        { strategy_name = name;\n          strategy_desc = desc;\n          strategy_code = code;\n          strategy_shortcut = shortcut;\n        }\n        strategies\n    with\n      MissingField s ->\n        Loc.warning warn_missing_field \"Missing field '%s' in [strategy] section@.\" s;\n        strategies\n\n  let load_main old dirname section =\n    if get_int ~default:0 section \"magic\" <> magicnumber then\n      raise WrongMagicNumber;\n    { libdir    = get_string ~default:old.libdir section \"libdir\";\n      datadir   = get_string ~default:old.datadir section \"datadir\";\n      libobjdir = Config.libobjdir;\n      loadpath  =\n        begin match get_stringl section \"loadpath\" with\n        | [] -> old.loadpath\n        | l -> List.map (Sysutil.concat dirname) l end;\n      stdlib = get_bool ~default:old.stdlib section \"stdlib\";\n      load_default_plugins = get_bool ~default:old.load_default_plugins section \"load_default_plugins\";\n      timelimit = get_float ~default:old.timelimit section \"timelimit\";\n      memlimit  = get_int ~default:old.memlimit section \"memlimit\";\n      running_provers_max = get_int ~default:old.running_provers_max\n          section \"running_provers_max\";\n      plugins =\n        begin match get_stringl section \"plugin\" with\n        | [] -> old.plugins\n        | l -> l end;\n      default_editor = get_string ~default:old.default_editor section \"default_editor\";\n    }\n\n  let get_dirname filename =\n    Filename.dirname (Sysutil.concat (Sys.getcwd ()) filename)\n\n  let config_from_rc config filename rc =\n    Debug.dprintf debug \"[Whyconf.config_from_rc] filename=%s@.\" filename;\n    let dirname = get_dirname filename in\n    let main =\n      match get_section rc \"main\" with\n      | None      -> config.main\n      | Some main -> load_main config.main dirname main\n    in\n    let provers = get_simple_family rc \"prover\" in\n    let provers,shortcuts = List.fold_left (load_prover ~config_dir:None)\n        (config.provers,config.prover_shortcuts) provers in\n    let fam_shortcuts = get_simple_family rc \"shortcut\" in\n    let shortcuts = List.fold_left load_shortcut shortcuts fam_shortcuts in\n    let fam_editors = get_simple_family rc \"prover_editor\" in\n    let prover_editors = List.fold_left load_prover_editor config.prover_editors fam_editors in\n    let editors = get_family rc \"editor\" in\n    let editors = List.fold_left load_editor config.editors editors in\n    let policy = get_family rc \"uninstalled_prover\" in\n    let policy = List.fold_left load_policy config.provers_upgrade_policy policy in\n    let strategies = get_strategies rc in\n    let strategies = List.fold_left load_strategy config.strategies strategies in\n    { conf_file = filename;\n      user_rc    = rc;\n      main      = main;\n      provers   = provers;\n      prover_shortcuts = shortcuts;\n      prover_editors = prover_editors;\n      editors   = editors;\n      provers_upgrade_policy = policy;\n      strategies = strategies;\n    }\n\n",
+    "excerpt_identity": {
+      "bytes": 9027,
+      "sha256": "9a79c206d0b572d128c16e993befcf6e68cc06202d13ec356e7e6285242f2ab5"
+    }
+  },
+  {
+    "source": "why3/src/driver/whyconf.ml",
+    "first": 701,
+    "last": 747,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/whyconf.ml",
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "excerpt": "let read_config_rc conf_file =\n  let read filename =\n    filename,\n    if filename = \"\" then empty_rc\n    else Rc.from_file filename\n  in\n  match conf_file with\n  | Some filename -> read filename\n  | None -> begin try read (Sys.getenv \"WHY3CONFIG\") with Not_found ->\n      if Sys.file_exists default_conf_file then read default_conf_file\n      else default_conf_file, empty_rc\n    end\n\nlet empty_config conf_file =\n  {\n    conf_file;\n    user_rc = Rc.empty;\n    main = empty_main;\n    provers = Mprover.empty;\n    prover_shortcuts = Mstr.empty;\n    prover_editors = Mprover.empty;\n    editors = Meditor.empty;\n    provers_upgrade_policy = Mprover.empty;\n    strategies = Mstr.empty;\n  }\n\nlet default_config conf_file =\n  Debug.dprintf debug \"[Whyconf.default_config] filename=%s@.\" conf_file;\n  RC_load.config_from_rc (empty_config conf_file) conf_file empty_rc\n\nlet read_config_aux config filename rc =\n  try\n    Debug.dprintf debug \"[Whyconf.read_config_aux] filename=%s@.\" filename;\n    RC_load.config_from_rc config filename rc\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    let s = Format.asprintf \"%a\" Exn_printer.exn_printer e in\n    raise (ConfigFailure (filename, s))\n\nlet read_config conf_file =\n  let filename,rc = read_config_rc conf_file in\n  try\n    Debug.dprintf debug \"[Whyconf.read_config] filename=%s@.\" filename;\n    RC_load.config_from_rc (empty_config filename) filename rc\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    let s = Format.asprintf \"%a\" Exn_printer.exn_printer e in\n    raise (ConfigFailure (filename, s))\n\n",
+    "excerpt_identity": {
+      "bytes": 1569,
+      "sha256": "828ce3d8586ccc3889f81dedcbe900838bb6b72976d5733cb8fdd07b19f45789"
+    }
+  },
+  {
+    "source": "why3/src/driver/call_provers.ml",
+    "first": 328,
+    "last": 338,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/call_provers.ml",
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "excerpt": "  and record_model saved_models saved_res res model_str tl =\n    match get_model with\n    | Some printing_info ->\n        let m = res_parser.prp_model_parser printing_info model_str in\n        Debug.dprintf debug \"Call_provers: model:@.\";\n        debug_print_model ~print_attrs:false m;\n        analyse ((res, m) :: saved_models) (Some res) tl\n    | None ->\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n  in\n  analyse [] None result_list\n",
+    "excerpt_identity": {
+      "bytes": 462,
+      "sha256": "19cfc1c7bfa2ff119965c1cbb1f7bbec608c9ae71affe7145e137f4fbed82ca8"
+    }
+  },
+  {
+    "source": "why3/src/driver/driver.ml",
+    "first": 27,
+    "last": 36,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/driver.ml",
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "excerpt": "let meta_get_counterexmp =\n  Theory.register_meta_excl \"get_counterexmp\" []\n  ~desc:\"Set@ when@ counter-example@ should@ be@ get.\"\n\nlet get_counterexmp task =\n  let ce_meta = Task.find_meta_tds task meta_get_counterexmp in\n  not (Task.HStdecl.is_empty ce_meta)\n\n(** drivers *)\n\n",
+    "excerpt_identity": {
+      "bytes": 278,
+      "sha256": "4c9fa86fd68049e29ced502d11ab4583e87362b408cd147c395d12212c0775d7"
+    }
+  },
+  {
+    "source": "why3/src/driver/driver.ml",
+    "first": 462,
+    "last": 473,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/driver.ml",
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "excerpt": "  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n  in\n  Buffer.reset buf;\n",
+    "excerpt_identity": {
+      "bytes": 423,
+      "sha256": "418ea62e07efc3bf9e1229fcabf216bb07b1affa5ca6ce6c24a79fbe830288ff"
+    }
+  },
+  {
+    "source": "why3/src/driver/smtv2_model_parser.ml",
+    "first": 457,
+    "last": 474,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "bytes": 66034,
+      "sha256": "73bd96206522b5ae370ce82e98c5803c5b45ffd4cc8c78e3d2d3d3a86e85aab9"
+    },
+    "excerpt": "    if sexps = [] then []\n    else\n      let model, rest =\n        match sexps with\n        | List (Atom \"model\" :: model) :: rest -> (model, rest)\n        | List [] :: rest -> ([], rest)\n        | List model :: rest when List.exists (Sexp.exists is_model_decl) model\n          ->\n           (model, rest)\n        | [] ->\n           failwith \"Cannot read S-expression as model: empty list\"\n        | se :: _ ->\n           Format.eprintf \"se = %a@.\" pp_sexp se;\n           failwith \"Cannot read the S-expression above as model.\"\n      in\n      if List.exists (Sexp.exists is_model_decl) rest then\n        failwith\n          \"Cannot read S-expression as model: next model not separated \\\n",
+    "excerpt_identity": {
+      "bytes": 686,
+      "sha256": "991e4884ed080654c78a65f939762063eddca07d296e1729af625a2f90664e8e"
+    }
+  },
+  {
+    "source": "why3/src/session/controller_itp.ml",
+    "first": 1017,
+    "last": 1024,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "excerpt": "let clean c ~removed nid =\n  (* clean should not change proved status *)\n  let notification any =\n    Format.eprintf \"Cleaning error: cleaning attempts to change status of node %a@.\" fprintf_any any\n  in\n  let s = c.controller_session in\n  (* This function is applied on leafs first for the case of removes *)\n  let clean_aux () any =\n",
+    "excerpt_identity": {
+      "bytes": 335,
+      "sha256": "1228cc352734110b7659c7ed25cac601ae74494c40bb335115656861dd3171d6"
+    }
+  },
+  {
+    "source": "why3/src/session/session_itp.ml",
+    "first": 2212,
+    "last": 2270,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/session_itp.ml",
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "excerpt": "let save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n\nlet export_as_zip s =\n  let cd = Filename.dirname s.session_dir in\n  let dir = Filename.basename s.session_dir in\n  let archive = dir ^ \".zip\" in\n  let files =\n    Hfile.fold\n      (fun _ f acc ->\n         let l = Sysutil.decompose_path f.file_path in\n         let l =\n           match l with\n           | \"..\" :: r -> r\n           | _ -> dir :: l\n         in\n         let f = String.concat Filename.dir_sep l in\n         acc ^ \" '\" ^ f ^\"'\")\n      s.session_files (\"'\" ^ dir ^ \"'\")\n  in\n  let cmd = \"cd '\" ^ cd ^ \"' ; zip -r '\" ^ archive ^ \"' \" ^ files in\n  Format.eprintf \"creating archive using@\\n%s@.\" cmd;\n  let n = Sys.command cmd in\n  if n = 0 then archive else raise (Sys_error (\"cannot produce archive \" ^ archive))\n\n\n\n\n",
+    "excerpt_identity": {
+      "bytes": 2195,
+      "sha256": "1f34f05dde00b3f86ed06cf47e29fd338a9576ace1226bc8c65fc3fe6fd77e66"
+    }
+  },
+  {
+    "source": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "first": 1425,
+    "last": 1446,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "excerpt": "let () =\n  Env.register_format ~desc:\"Gnat@ AST@ in@ JSON@ format\"\n    Pmodule.mlw_language gnat_json_format [gnat_json_file_ext] read_channel\n\nlet () =\n  Exn_printer.register\n    (fun fmt exn -> match exn with\n       | Unexpected_json (s, path) ->\n           (* Errors in the conversion from JSON to Gnat_ast are reported with their path,\n              because the id is not guaranteed to be available. *)\n           Format.fprintf fmt \"Unexpected Json for %s at path %a@.\"\n             s pp_path path\n       | Conversion_error r ->\n           (* Errors in the conversion from Gnat_ast to Why3 Ptree are reported with their\n              id. *)\n           Format.fprintf fmt \"Conversion error for node with ID %d: %s\" r.node_id r.message\n       | Located_by_marker (filename, e) ->\n           (* Located errors (i.e. typing errors) are reported with an hint on the marker, which\n              is inserted into the mlw file by the mlw-printer. *)\n           Format.fprintf fmt \"File %s, marked by (* ERROR: *)(...):@\\n%a\"\n             filename Exn_printer.exn_printer e\n       | _ -> raise exn)\n",
+    "excerpt_identity": {
+      "bytes": 1095,
+      "sha256": "835edc482f5237637f80ec95178d68eb649379e95337157b5b7b4a8d7602570e"
+    }
+  },
+  {
+    "source": "why3/plugins/ada_terms/ada_main.ml",
+    "first": 188,
+    "last": 201,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/plugins/ada_terms/ada_main.ml",
+      "bytes": 8067,
+      "sha256": "3f8beccb056ecdc9d95a2bbcec2944eefcb83abba43a11d608edefc0c01ce334"
+    },
+    "excerpt": "(* Registration of ada_terms plugin *)\n\nlet () =\n  Env.register_format ~desc:\"WhyML@ for@ Ada\"\n    Pmodule.mlw_language ada_format [\"adb\"] Lexer.read_channel\n\nlet register_ada_terms format =\n  let open Ada_lexer in\n  Args_wrapper.set_argument_parsing_functions format ~parse_term\n    ~parse_term_list ~parse_list_ident ~parse_qualid ~parse_list_qualid\n\nlet () =\n  Itp_server.add_registered_lang ada_format ada_ext_printer;\n  List.iter register_ada_terms [ada_format; \"gnat-json\"]\n",
+    "excerpt_identity": {
+      "bytes": 480,
+      "sha256": "853cd671bf459f386d7ab35baaa876212aeac94c4ba7af253e11e3f08738de25"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 64,
+    "last": 199,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "\n(* The pretty-printing tokens definition:\n   are either text to print or pretty printing\n   elements that drive indentation and line splitting. *)\ntype pp_token =\n  | Pp_text of string          (* normal text *)\n  | Pp_break of {              (* complete break *)\n      fits: string * int * string;   (* line is not split *)\n      breaks: string * int * string; (* line is split *)\n    }\n  | Pp_tbreak of int * int     (* go to next tabulation *)\n  | Pp_stab                    (* set a tabulation *)\n  | Pp_begin of int * box_type (* beginning of a box *)\n  | Pp_end                     (* end of a box *)\n  | Pp_tbegin of tbox          (* beginning of a tabulation box *)\n  | Pp_tend                    (* end of a tabulation box *)\n  | Pp_newline                 (* to force a newline inside a box *)\n  | Pp_if_newline              (* to do something only if this very\n                                  line has been broken *)\n  | Pp_open_tag of stag         (* opening a tag name *)\n  | Pp_close_tag               (* closing the most recently open tag *)\n\nand stag = ..\n\nand tbox = Pp_tbox of int list ref  (* Tabulation box *)\n\ntype tag = string\ntype stag += String_tag of tag\n\n\n(* The pretty-printer queue:\n   pretty-printing material is not written in the output as soon as emitted;\n   instead, the material is simply recorded in the pretty-printer queue,\n   until the enclosing box has a known computed size and proper splitting\n   decisions can be made.\n\n   The pretty-printer queue contains formatting elements to be printed.\n   Each formatting element is a tuple (size, token, length), where\n   - length is the declared length of the token,\n   - size is effective size of the token when it is printed\n     (size is set when the size of the box is known, so that size of break\n      hints are definitive). *)\ntype pp_queue_elem = {\n  mutable size : Size.t;\n  token : pp_token;\n  length : int;\n}\n\n\n(* The pretty-printer queue definition. *)\ntype pp_queue = pp_queue_elem Queue.t\n\n(* The pretty-printer scanning stack. *)\n\n(* The pretty-printer scanning stack: scanning element definition. *)\ntype pp_scan_elem = {\n  left_total : int; (* Value of pp_left_total when the element was enqueued. *)\n  queue_elem : pp_queue_elem\n}\n\n(* The pretty-printer formatting stack:\n   the formatting stack contains the description of all the currently active\n   boxes; the pretty-printer formatting stack is used to split the lines\n   while printing tokens. *)\n\n(* The pretty-printer formatting stack: formatting stack element definition.\n   Each stack element describes a pretty-printing box. *)\ntype pp_format_elem = { box_type : box_type; width : int }\n\n(* The formatter definition.\n   Each formatter value is a pretty-printer instance with all its\n   machinery. *)\ntype formatter = {\n  (* The pretty-printer scanning stack. *)\n  pp_scan_stack : pp_scan_elem Stack.t;\n  (* The pretty-printer formatting stack. *)\n  pp_format_stack : pp_format_elem Stack.t;\n  pp_tbox_stack : tbox Stack.t;\n  (* The pretty-printer semantics tag stack. *)\n  pp_tag_stack : stag Stack.t;\n  pp_mark_stack : stag Stack.t;\n  (* Value of right margin. *)\n  mutable pp_margin : int;\n  (* Minimal space left before margin, when opening a box. *)\n  mutable pp_min_space_left : int;\n  (* Maximum value of indentation:\n     no box can be opened further. *)\n  mutable pp_max_indent : int;\n  (* Space remaining on the current line. *)\n  mutable pp_space_left : int;\n  (* Current value of indentation. *)\n  mutable pp_current_indent : int;\n  (* True when the line has been broken by the pretty-printer. *)\n  mutable pp_is_new_line : bool;\n  (* Total width of tokens already printed. *)\n  mutable pp_left_total : int;\n  (* Total width of tokens ever put in queue. *)\n  mutable pp_right_total : int;\n  (* Current number of open boxes. *)\n  mutable pp_curr_depth : int;\n  (* Maximum number of boxes which can be simultaneously open. *)\n  mutable pp_max_boxes : int;\n  (* Ellipsis string. *)\n  mutable pp_ellipsis : string;\n  (* Output function. *)\n  mutable pp_out_string : string -> int -> int -> unit;\n  (* Flushing function. *)\n  mutable pp_out_flush : unit -> unit;\n  (* Output of new lines. *)\n  mutable pp_out_newline : unit -> unit;\n  (* Output of break hints spaces. *)\n  mutable pp_out_spaces : int -> unit;\n  (* Output of indentation of new lines. *)\n  mutable pp_out_indent : int -> unit;\n  (* Are tags printed ? *)\n  mutable pp_print_tags : bool;\n  (* Are tags marked ? *)\n  mutable pp_mark_tags : bool;\n  (* Find opening and closing markers of tags. *)\n  mutable pp_mark_open_tag : stag -> string;\n  mutable pp_mark_close_tag : stag -> string;\n  mutable pp_print_open_tag : stag -> unit;\n  mutable pp_print_close_tag : stag -> unit;\n  (* The pretty-printer queue. *)\n  pp_queue : pp_queue;\n}\n\n\n(* The formatter specific tag handling functions. *)\ntype formatter_stag_functions = {\n  mark_open_stag : stag -> string;\n  mark_close_stag : stag -> string;\n  print_open_stag : stag -> unit;\n  print_close_stag : stag -> unit;\n}\n\n",
+    "excerpt_identity": {
+      "bytes": 4999,
+      "sha256": "2bbf944ddb3bfaeb894b0b0959a19a846526ab84d8c7db2c188dc199c8fcd97e"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 218,
+    "last": 226,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "let pp_enqueue state token =\n  state.pp_right_total <- state.pp_right_total + token.length;\n  Queue.add token state.pp_queue\n\n\nlet pp_clear_queue state =\n  state.pp_left_total <- 1; state.pp_right_total <- 1;\n  Queue.clear state.pp_queue\n\n",
+    "excerpt_identity": {
+      "bytes": 239,
+      "sha256": "5f332c6cdc94e4919e0ad8a5692a2b3841c6bcf3da3ab1ce787bebf05b37bb3d"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 536,
+    "last": 561,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "\n\n(* Open a tag, pushing it on the tag stack. *)\nlet pp_open_stag state tag_name =\n  if state.pp_print_tags then\n  begin\n    Stack.push tag_name state.pp_tag_stack;\n    state.pp_print_open_tag tag_name\n  end;\n  if state.pp_mark_tags then\n    let token = Pp_open_tag tag_name in\n    pp_enqueue state { size = Size.zero; token; length = 0 }\n\n\n(* Close a tag, popping it from the tag stack. *)\nlet pp_close_stag state () =\n  if state.pp_mark_tags then\n    pp_enqueue state { size = Size.zero; token = Pp_close_tag; length = 0 };\n  if state.pp_print_tags then\n    match Stack.pop_opt state.pp_tag_stack with\n    | None -> () (* No more tag to close. *)\n    | Some tag_name ->\n      state.pp_print_close_tag tag_name\n\nlet pp_open_tag state s = pp_open_stag state (String_tag s)\nlet pp_close_tag state () = pp_close_stag state ()\n",
+    "excerpt_identity": {
+      "bytes": 824,
+      "sha256": "be262e6b6b8cdf46d4e0b0684b32ab247553c0fa58fd159e1dc8506f93a631ea"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 588,
+    "last": 621,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "  state.pp_print_open_tag <- pot;\n  state.pp_print_close_tag <- pct\n\n\n(* Initialize pretty-printer. *)\nlet pp_rinit state =\n  pp_clear_queue state;\n  initialize_scan_stack state.pp_scan_stack;\n  Stack.clear state.pp_format_stack;\n  Stack.clear state.pp_tbox_stack;\n  Stack.clear state.pp_tag_stack;\n  Stack.clear state.pp_mark_stack;\n  state.pp_current_indent <- 0;\n  state.pp_curr_depth <- 0;\n  state.pp_space_left <- state.pp_margin;\n  pp_open_sys_box state\n\nlet clear_tag_stack state =\n  Stack.iter (fun _ -> pp_close_tag state ()) state.pp_tag_stack\n\n\n(* Flushing pretty-printer queue. *)\nlet pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n\n(*\n\n",
+    "excerpt_identity": {
+      "bytes": 836,
+      "sha256": "70c3b2e697b54a95226b53ad7af86c54f05e8000cd3db83d84a7bb70f17e93c4"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 668,
+    "last": 679,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "   then flushes the low level output device of the formatter to actually\n   display printing material.\n\n   [pp_print_newline] behaves as [pp_print_flush] after printing an additional\n   new line. *)\nlet pp_print_newline state () =\n  pp_flush_queue state true; state.pp_out_flush ()\nand pp_print_flush state () =\n  pp_flush_queue state false; state.pp_out_flush ()\n\n\n(* To get a newline when one does not want to close the current box. *)\n",
+    "excerpt_identity": {
+      "bytes": 438,
+      "sha256": "4b3f5c965f04163b545d706bf6f04c47c21a4706cadb8afc503bbf80da7017c7"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 720,
+    "last": 758,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "\n(* Tabulation boxes. *)\nlet pp_open_tbox state () =\n  state.pp_curr_depth <- state.pp_curr_depth + 1;\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.zero in\n    let elem = { size; token = Pp_tbegin (Pp_tbox (ref [])); length = 0 } in\n    enqueue_advance state elem\n\n\n(* Close a tabulation box. *)\nlet pp_close_tbox state () =\n  if state.pp_curr_depth > 1 then\n  begin\n   if state.pp_curr_depth < state.pp_max_boxes then\n     let elem = { size = Size.zero; token = Pp_tend; length = 0 } in\n     enqueue_advance state elem;\n     state.pp_curr_depth <- state.pp_curr_depth - 1\n  end\n\n\n(* Print a tabulation break. *)\nlet pp_print_tbreak state width offset =\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let elem = { size; token = Pp_tbreak (width, offset); length = width } in\n    scan_push state true elem\n\n\nlet pp_print_tab state () = pp_print_tbreak state 0 0\n\nlet pp_set_tab state () =\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let elem = { size = Size.zero; token = Pp_stab; length = 0 } in\n    enqueue_advance state elem\n\n\n(*\n\n",
+    "excerpt_identity": {
+      "bytes": 1133,
+      "sha256": "cd813e207bff13974a0e75f972b44f0ef2a1c560fdbcfcaf9c636399e3f3260b"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 888,
+    "last": 1023,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "\nlet pp_get_formatter_output_functions state () =\n  (state.pp_out_string, state.pp_out_flush)\n\n\n(* The default function to output new lines. *)\nlet display_newline state () = state.pp_out_string \"\\n\" 0  1\n\n(* The default function to output spaces. *)\nlet blank_line = String.make 80 ' '\nlet rec display_blanks state n =\n  if n > 0 then\n  if n <= 80 then state.pp_out_string blank_line 0 n else\n  begin\n    state.pp_out_string blank_line 0 80;\n    display_blanks state (n - 80)\n  end\n\n\n(* The default function to output indentation of new lines. *)\nlet display_indent = display_blanks\n\n(* Setting a formatter basic output functions as printing to a given\n   [Pervasive.out_channel] value. *)\nlet pp_set_formatter_out_channel state oc =\n  state.pp_out_string <- output_substring oc;\n  state.pp_out_flush <- (fun () -> flush oc);\n  state.pp_out_newline <- display_newline state;\n  state.pp_out_spaces <- display_blanks state;\n  state.pp_out_indent <- display_indent state\n\n(*\n\n  Defining specific formatters\n\n*)\n\nlet default_pp_mark_open_tag = function\n  | String_tag s -> \"<\" ^ s ^ \">\"\n  | _ -> \"\"\nlet default_pp_mark_close_tag = function\n  | String_tag s -> \"</\" ^ s ^ \">\"\n  | _ -> \"\"\n\nlet default_pp_print_open_tag = ignore\nlet default_pp_print_close_tag = ignore\n\n(* Building a formatter given its basic output functions.\n   Other fields get reasonable default values. *)\nlet pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n\n\n(* Build a formatter out of its out functions. *)\nlet formatter_of_out_functions out_funs =\n  pp_make_formatter\n    out_funs.out_string\n    out_funs.out_flush\n    out_funs.out_newline\n    out_funs.out_spaces\n    out_funs.out_indent\n\n\n(* Make a formatter with default functions to output spaces,\n  indentation, and new lines. *)\nlet make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n\n\n(* Allocating buffer for pretty-printing purposes.\n   Default buffer size is pp_buffer_size or 512.\n*)\nlet pp_buffer_size = 512\nlet pp_make_buffer () = Buffer.create pp_buffer_size\n\n(* The standard (shared) buffer. *)\nlet stdbuf = pp_make_buffer ()\n\n(* Predefined formatters standard formatter to print\n   to [Stdlib.stdout], [Stdlib.stderr], and {!stdbuf}. *)\nlet std_formatter = formatter_of_out_channel Stdlib.stdout\nand err_formatter = formatter_of_out_channel Stdlib.stderr\nand str_formatter = formatter_of_buffer stdbuf\n",
+    "excerpt_identity": {
+      "bytes": 4140,
+      "sha256": "4d19caa6c2133d4509583dcd2fb68a5b638b8e561c60d492fb69219392e8345f"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/format.ml",
+    "first": 1375,
+    "last": 1403,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "excerpt": "\nlet ksprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    strput_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet sprintf fmt = ksprintf id fmt\n\nlet kasprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    output_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet asprintf fmt = kasprintf id fmt\n\n(* Flushing standard formatters at end of execution. *)\n\nlet flush_standard_formatters () =\n  pp_print_flush std_formatter ();\n  pp_print_flush err_formatter ()\n\n",
+    "excerpt_identity": {
+      "bytes": 664,
+      "sha256": "1a491a8ef99ac8329184a648d3a07d215d0e599778b72a748be3940c225cabca"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/queue.ml",
+    "first": 17,
+    "last": 54,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+      "bytes": 3814,
+      "sha256": "81d5ee63a2783e89ead482eace50aa279704d1074344784244d9c512098266be"
+    },
+    "excerpt": "exception Empty\n\ntype 'a cell =\n  | Nil\n  | Cons of { content: 'a; mutable next: 'a cell }\n\ntype 'a t = {\n  mutable length: int;\n  mutable first: 'a cell;\n  mutable last: 'a cell\n}\n\nlet create () = {\n  length = 0;\n  first = Nil;\n  last = Nil\n}\n\nlet clear q =\n  q.length <- 0;\n  q.first <- Nil;\n  q.last <- Nil\n\nlet add x q =\n  let cell = Cons {\n    content = x;\n    next = Nil\n  } in\n  match q.last with\n  | Nil ->\n    q.length <- 1;\n    q.first <- cell;\n    q.last <- cell\n  | Cons last ->\n    q.length <- q.length + 1;\n    last.next <- cell;\n    q.last <- cell\n\n",
+    "excerpt_identity": {
+      "bytes": 564,
+      "sha256": "affe98741d27fb73925be7ef3d3cffa5d5fdd11a8769206fb58aadb39557adf9"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/stack.ml",
+    "first": 16,
+    "last": 44,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stack.ml",
+      "bytes": 1962,
+      "sha256": "b72a6212344784e171d162243b6becdfaa0dd0ee0b83446e6d1412714ff0d42b"
+    },
+    "excerpt": "type 'a t = { mutable c : 'a list; mutable len : int; }\n\nexception Empty\n\nlet create () = { c = []; len = 0; }\n\nlet clear s = s.c <- []; s.len <- 0\n\nlet copy s = { c = s.c; len = s.len; }\n\nlet push x s = s.c <- x :: s.c; s.len <- s.len + 1\n\nlet pop s =\n  match s.c with\n  | hd::tl -> s.c <- tl; s.len <- s.len - 1; hd\n  | []     -> raise Empty\n\nlet pop_opt s =\n  match s.c with\n  | hd::tl -> s.c <- tl; s.len <- s.len - 1; Some hd\n  | []     -> None\n\nlet top s =\n  match s.c with\n  | hd::_ -> hd\n  | []    -> raise Empty\n\nlet top_opt s =\n  match s.c with\n",
+    "excerpt_identity": {
+      "bytes": 555,
+      "sha256": "5e56368e3b8f82a1f140562241365246f3425f7ed765f0c35b82b57cbce1672d"
+    }
+  },
+  {
+    "source": "ocaml/stdlib/stdlib.ml",
+    "first": 550,
+    "last": 570,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "excerpt": "external sys_exit : int -> 'a = \"caml_sys_exit\"\n\nlet exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode\n",
+    "excerpt_identity": {
+      "bytes": 650,
+      "sha256": "4006c9f49d25667d6d0ee94460a8e3c75fc6b7124b90357533d365e62e1c6508"
+    }
+  },
+  {
+    "source": "ocaml/utils/misc.ml",
+    "first": 670,
+    "last": 738,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+      "bytes": 34344,
+      "sha256": "d13bfe71d818cd561cf72e6b50f57334290add9046acde84a015e594194575b3"
+    },
+    "excerpt": "  (* map a tag to a style, if the tag is known.\n     @raise Not_found otherwise *)\n  let style_of_tag s = match s with\n    | Format.String_tag \"error\" -> (!cur_styles).error\n    | Format.String_tag \"warning\" -> (!cur_styles).warning\n    | Format.String_tag \"loc\" -> (!cur_styles).loc\n    | Style s -> s\n    | _ -> raise Not_found\n\n  let color_enabled = ref true\n\n  (* either prints the tag of [s] or delegates to [or_else] *)\n  let mark_open_tag ~or_else s =\n    try\n      let style = style_of_tag s in\n      if !color_enabled then ansi_of_style_l style else \"\"\n    with Not_found -> or_else s\n\n  let mark_close_tag ~or_else s =\n    try\n      let _ = style_of_tag s in\n      if !color_enabled then ansi_of_style_l [Reset] else \"\"\n    with Not_found -> or_else s\n\n  (* add color handling to formatter [ppf] *)\n  let set_color_tag_handling ppf =\n    let open Format in\n    let functions = pp_get_formatter_stag_functions ppf () in\n    let functions' = {functions with\n      mark_open_stag=(mark_open_tag ~or_else:functions.mark_open_stag);\n      mark_close_stag=(mark_close_tag ~or_else:functions.mark_close_stag);\n    } in\n    pp_set_mark_tags ppf true; (* enable tags *)\n    pp_set_formatter_stag_functions ppf functions';\n    ()\n\n  external isatty : out_channel -> bool = \"caml_sys_isatty\"\n\n  (* reasonable heuristic on whether colors should be enabled *)\n  let should_enable_color () =\n    let term = try Sys.getenv \"TERM\" with Not_found -> \"\" in\n    term <> \"dumb\"\n    && term <> \"\"\n    && isatty stderr\n\n  type setting = Auto | Always | Never\n\n  let default_setting = Auto\n\n  let setup =\n    let first = ref true in (* initialize only once *)\n    let formatter_l =\n      [Format.std_formatter; Format.err_formatter; Format.str_formatter]\n    in\n    let enable_color = function\n      | Auto -> should_enable_color ()\n      | Always -> true\n      | Never -> false\n    in\n    fun o ->\n      if !first then (\n        first := false;\n        Format.set_mark_tags true;\n        List.iter set_color_tag_handling formatter_l;\n        color_enabled := (match o with\n          | Some s -> enable_color s\n          | None -> enable_color default_setting)\n      );\n      ()\n",
+    "excerpt_identity": {
+      "bytes": 2166,
+      "sha256": "e42374cfe5345e9bf66bc00fcaa52f63e1a33e85aed34f2641069994a754fb4a"
+    }
+  },
+  {
+    "source": "ocaml/utils/misc.ml",
+    "first": 880,
+    "last": 909,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+      "bytes": 34344,
+      "sha256": "d13bfe71d818cd561cf72e6b50f57334290add9046acde84a015e594194575b3"
+    },
+    "excerpt": "  let native_obj_config = {\n    flambda = Config.flambda;\n  }\n\n  type version = int\n\n  type kind =\n    | Exec\n    | Cmi | Cmo | Cma\n    | Cmx of native_obj_config | Cmxa of native_obj_config\n    | Cmxs\n    | Cmt\n    | Ast_impl | Ast_intf\n\n  (* please keep up-to-date, this is used for sanity checking *)\n  let all_native_obj_configs = [\n      {flambda = true};\n      {flambda = false};\n    ]\n  let all_kinds = [\n    Exec;\n    Cmi; Cmo; Cma;\n  ]\n  @ List.map (fun conf -> Cmx conf) all_native_obj_configs\n  @ List.map (fun conf -> Cmxa conf) all_native_obj_configs\n  @ [\n    Cmt;\n    Ast_impl; Ast_intf;\n  ]\n\n",
+    "excerpt_identity": {
+      "bytes": 608,
+      "sha256": "f2438210d5568a0f1e85e5e2de61cb9c5e87a6195368a59d768cd4b7332b9030"
+    }
+  },
+  {
+    "source": "ocaml/utils/profile.ml",
+    "first": 316,
+    "last": 331,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/profile.ml",
+      "bytes": 12429,
+      "sha256": "ba3da67b62fa06ea1e8a10e1c78a73735ac8656b115944facdd9610e2ac53030"
+    },
+    "excerpt": "let column_mapping = [\n  \"time\", `Time;\n  \"alloc\", `Alloc;\n  \"top-heap\", `Top_heap;\n  \"absolute-top-heap\", `Abs_top_heap;\n]\n\nlet column_names = List.map fst column_mapping\n\nlet options_doc =\n  Printf.sprintf\n    \" Print performance information for each pass\\\n   \\n    The columns are: %s.\"\n    (String.concat \" \" column_names)\n\nlet all_columns = List.map snd column_mapping\n",
+    "excerpt_identity": {
+      "bytes": 374,
+      "sha256": "43b69a9fdee1023dd4c2bef58c5aa66768bf2c9bcc20df33abbd710622351960"
+    }
+  },
+  {
+    "source": "ocaml/parsing/location.ml",
+    "first": 16,
+    "last": 31,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/parsing/location.ml",
+      "bytes": 30099,
+      "sha256": "2354eb8d74e8286eef4251ace8b50d3cb8b501ddb6444c98e1488a3e501e2891"
+    },
+    "excerpt": "open Lexing\n\ntype t = Warnings.loc =\n  { loc_start: position; loc_end: position; loc_ghost: bool };;\n\nlet in_file name =\n  let loc = { dummy_pos with pos_fname = name } in\n  { loc_start = loc; loc_end = loc; loc_ghost = true }\n;;\n\nlet none = in_file \"_none_\";;\nlet is_none l = (l = none);;\n\nlet curr lexbuf = {\n  loc_start = lexbuf.lex_start_p;\n  loc_end = lexbuf.lex_curr_p;\n",
+    "excerpt_identity": {
+      "bytes": 376,
+      "sha256": "4835b45a76f04f0c756b01e9102e6870bade3908fdec08d707982f201d9a253c"
+    }
+  },
+  {
+    "source": "ocaml/parsing/location.ml",
+    "first": 120,
+    "last": 137,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/parsing/location.ml",
+      "bytes": 30099,
+      "sha256": "2354eb8d74e8286eef4251ace8b50d3cb8b501ddb6444c98e1488a3e501e2891"
+    },
+    "excerpt": "let print_updating_num_loc_lines ppf f arg =\n  let open Format in\n  let out_functions = pp_get_formatter_out_functions ppf () in\n  let out_string str start len =\n    let rec count i c =\n      if i = start + len then c\n      else if String.get str i = '\\n' then count (succ i) (succ c)\n      else count (succ i) c in\n    num_loc_lines := !num_loc_lines + count start 0 ;\n    out_functions.out_string str start len in\n  pp_set_formatter_out_functions ppf\n    { out_functions with out_string } ;\n  f ppf arg ;\n  pp_print_flush ppf ();\n  pp_set_formatter_out_functions ppf out_functions\n\nlet setup_colors () =\n  Misc.Color.setup !Clflags.color\n",
+    "excerpt_identity": {
+      "bytes": 640,
+      "sha256": "1eaa3c743d8759a57801f444d11cb16e23da8414434ef6ac4c747834dbab5806"
+    }
+  },
+  {
+    "source": "ocaml/parsing/location.ml",
+    "first": 706,
+    "last": 757,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/parsing/location.ml",
+      "bytes": 30099,
+      "sha256": "2354eb8d74e8286eef4251ace8b50d3cb8b501ddb6444c98e1488a3e501e2891"
+    },
+    "excerpt": "let batch_mode_printer : report_printer =\n  let pp_loc _self report ppf loc =\n    let tag = match report.kind with\n      | Report_warning_as_error _\n      | Report_alert_as_error _\n      | Report_error -> \"error\"\n      | Report_warning _\n      | Report_alert _ -> \"warning\"\n    in\n    let highlight ppf loc =\n      match error_style () with\n      | Misc.Error_style.Contextual ->\n          if is_quotable_loc loc then\n            highlight_quote ppf\n              ~get_lines:lines_around_from_current_input\n              tag [loc]\n      | Misc.Error_style.Short ->\n          ()\n    in\n    Format.fprintf ppf \"@[<v>%a:@ %a@]\" print_loc loc highlight loc\n  in\n  let pp_txt ppf txt = Format.fprintf ppf \"@[%t@]\" txt in\n  let pp self ppf report =\n    setup_colors ();\n    (* Make sure we keep [num_loc_lines] updated.\n       The tabulation box is here to give submessage the option\n       to be aligned with the main message box\n    *)\n    print_updating_num_loc_lines ppf (fun ppf () ->\n      Format.fprintf ppf \"@[<v>%a%a%a: %a%a%a%a@]@.\"\n      Format.pp_open_tbox ()\n      (self.pp_main_loc self report) report.main.loc\n      (self.pp_report_kind self report) report.kind\n      Format.pp_set_tab ()\n      (self.pp_main_txt self report) report.main.txt\n      (self.pp_submsgs self report) report.sub\n      Format.pp_close_tbox ()\n    ) ()\n  in\n  let pp_report_kind _self _ ppf = function\n    | Report_error -> Format.fprintf ppf \"@{<error>Error@}\"\n    | Report_warning w -> Format.fprintf ppf \"@{<warning>Warning@} %s\" w\n    | Report_warning_as_error w ->\n        Format.fprintf ppf \"@{<error>Error@} (warning %s)\" w\n    | Report_alert w -> Format.fprintf ppf \"@{<warning>Alert@} %s\" w\n    | Report_alert_as_error w ->\n        Format.fprintf ppf \"@{<error>Error@} (alert %s)\" w\n  in\n  let pp_main_loc self report ppf loc =\n    pp_loc self report ppf loc\n  in\n  let pp_main_txt _self _ ppf txt =\n",
+    "excerpt_identity": {
+      "bytes": 1893,
+      "sha256": "0ad7b60e5f7e00806c303c344e40c4af7355fdb0e93b4ba5c6429cb81a751f0f"
+    }
+  },
+  {
+    "source": "ocaml/parsing/location.ml",
+    "first": 903,
+    "last": 952,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/parsing/location.ml",
+      "bytes": 30099,
+      "sha256": "2354eb8d74e8286eef4251ace8b50d3cb8b501ddb6444c98e1488a3e501e2891"
+    },
+    "excerpt": "(******************************************************************************)\n(* Reporting errors on exceptions *)\n\nlet error_of_exn : (exn -> error option) list ref = ref []\n\nlet register_error_of_exn f = error_of_exn := f :: !error_of_exn\n\nexception Already_displayed_error = Warnings.Errors\n\nlet error_of_exn exn =\n  match exn with\n  | Already_displayed_error -> Some `Already_displayed\n  | _ ->\n     let rec loop = function\n       | [] -> None\n       | f :: rest ->\n          match f exn with\n          | Some error -> Some (`Ok error)\n          | None -> loop rest\n     in\n     loop !error_of_exn\n\nlet () =\n  register_error_of_exn\n    (function\n      | Sys_error msg ->\n          Some (errorf ~loc:(in_file !input_name) \"I/O error: %s\" msg)\n      | _ -> None\n    )\n\nexternal reraise : exn -> 'a = \"%reraise\"\n\nlet report_exception ppf exn =\n  let rec loop n exn =\n    match error_of_exn exn with\n    | None -> reraise exn\n    | Some `Already_displayed -> ()\n    | Some (`Ok err) -> report_error ppf err\n    | exception exn when n > 0 -> loop (n-1) exn\n  in\n  loop 5 exn\n\nexception Error of error\n\nlet () =\n  register_error_of_exn\n    (function\n      | Error e -> Some e\n      | _ -> None\n    )\n",
+    "excerpt_identity": {
+      "bytes": 1201,
+      "sha256": "18e49d4f29f1ab28530ca2a5a7aaabf0c00058e7cc7324fb90df4761022f9b64"
+    }
+  },
+  {
+    "source": "ocaml/typing/env.ml",
+    "first": 2174,
+    "last": 2182,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/typing/env.ml",
+      "bytes": 122629,
+      "sha256": "e31198ef1c7a96b72219323378dbe40c742d6205f9e52304c44e1b9c3d43f749"
+    },
+    "excerpt": "let add_type ~check ?shape id info env =\n  let shape = shape_or_leaf info.type_uid shape in\n  store_type ~check id info shape env\n\nand add_extension ~check ?shape ~rebind id ext env =\n  let addr = extension_declaration_address env id ext in\n  let shape = shape_or_leaf ext.ext_uid shape in\n  store_extension ~check ~rebind id addr ext shape env\n\n",
+    "excerpt_identity": {
+      "bytes": 346,
+      "sha256": "088d83808ea8338c994872cb8c6945ddd9848dd7fe9ad0f1a680a3b6c720a31c"
+    }
+  },
+  {
+    "source": "ocaml/typing/env.ml",
+    "first": 2566,
+    "last": 2574,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/typing/env.ml",
+      "bytes": 122629,
+      "sha256": "e31198ef1c7a96b72219323378dbe40c742d6205f9e52304c44e1b9c3d43f749"
+    },
+    "excerpt": "(* Make the initial environment *)\nlet (initial_safe_string, initial_unsafe_string) =\n  Predef.build_initial_env\n    (add_type ~check:false)\n    (add_extension ~check:false ~rebind:false)\n    empty\n\n(* Tracking usage *)\n\n",
+    "excerpt_identity": {
+      "bytes": 221,
+      "sha256": "eae5d8e853d634ce10fa29867ab8e707e4be15beb3ae2f1f24beeca581712c25"
+    }
+  },
+  {
+    "source": "ocaml/otherlibs/dynlink/native/dynlink.ml",
+    "first": 18,
+    "last": 108,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/native/dynlink.ml",
+      "bytes": 4523,
+      "sha256": "56bbc3a1b6adf37888e33a087fe26904767df40cbd3ba4c6fca503ec225b3732"
+    },
+    "excerpt": "\n(* Dynamic loading of .cmx files *)\n\n[@@@ocaml.warning \"+a-4-30-40-41-42\"]\n\nopen! Dynlink_compilerlibs\n\nmodule DC = Dynlink_common\nmodule DT = Dynlink_types\n\ntype global_map = {\n  name : string;\n  crc_intf : Digest.t option;\n  crc_impl : Digest.t option;\n  syms : string list\n}\n\nmodule Native = struct\n  type handle\n\n  external ndl_open : string -> bool -> handle * Cmxs_format.dynheader\n    = \"caml_natdynlink_open\"\n  external ndl_run : handle -> string -> unit = \"caml_natdynlink_run\"\n  external ndl_getmap : unit -> global_map list = \"caml_natdynlink_getmap\"\n  external ndl_globals_inited : unit -> int = \"caml_natdynlink_globals_inited\"\n  external ndl_loadsym : string -> Obj.t = \"caml_natdynlink_loadsym\"\n\n  module Unit_header = struct\n    type t = Cmxs_format.dynunit\n\n    let name (t : t) = t.dynu_name\n    let crc (t : t) = Some t.dynu_crc\n\n    let interface_imports (t : t) = t.dynu_imports_cmi\n    let implementation_imports (t : t) = t.dynu_imports_cmx\n\n    let defined_symbols (t : t) = t.dynu_defines\n    let unsafe_module _t = false\n  end\n\n  let init () = ()\n\n  let is_native = true\n  let adapt_filename f = Filename.chop_extension f ^ \".cmxs\"\n\n  let num_globals_inited () = ndl_globals_inited ()\n\n  let fold_initial_units ~init ~f =\n    let rank = ref 0 in\n    List.fold_left (fun acc { name; crc_intf; crc_impl; syms; } ->\n        rank := !rank + List.length syms;\n        let implementation =\n          match crc_impl with\n          | None -> None\n          | Some _ as crco -> Some (crco, DT.Check_inited !rank)\n        in\n        f acc ~comp_unit:name ~interface:crc_intf\n            ~implementation ~defined_symbols:syms)\n      init\n      (ndl_getmap ())\n\n  let run_shared_startup handle =\n    ndl_run handle \"_shared_startup\"\n\n  let run handle ~unit_header ~priv:_ =\n    List.iter (fun cu ->\n        try ndl_run handle cu\n        with exn ->\n          Printexc.raise_with_backtrace\n            (DT.Error (Library's_module_initializers_failed exn))\n            (Printexc.get_raw_backtrace ()))\n      (Unit_header.defined_symbols unit_header)\n\n  let load ~filename ~priv =\n    let handle, header =\n      try ndl_open filename (not priv)\n      with exn -> raise (DT.Error (Cannot_open_dynamic_library exn))\n    in\n    if header.dynu_magic <> Config.cmxs_magic_number then begin\n      raise (DT.Error (Not_a_bytecode_file filename))\n    end;\n    handle, header.dynu_units\n\n  let unsafe_get_global_value ~bytecode_or_asm_symbol =\n    match ndl_loadsym bytecode_or_asm_symbol with\n    | exception _ -> None\n    | obj -> Some obj\n\n  let finish _handle = ()\nend\n\n",
+    "excerpt_identity": {
+      "bytes": 2577,
+      "sha256": "905ede43271d7b8ee85a1c060efed93423b93487fbcc7203f60f863099182874"
+    }
+  },
+  {
+    "source": "ocaml/otherlibs/dynlink/dynlink_common.ml",
+    "first": 22,
+    "last": 145,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_common.ml",
+      "bytes": 12076,
+      "sha256": "e44fc49221fc7342021c45bfc3d7185772ca7c72795eaff0cf1b175106615bce"
+    },
+    "excerpt": "\nmodule String = struct\n  include Misc.Stdlib.String\n\n  module Map = struct\n    include Map\n\n    let keys t =\n      fold (fun key _data keys -> Set.add key keys) t Set.empty\n  end\nend\n\nmodule Make (P : Dynlink_platform_intf.S) = struct\n  module DT = Dynlink_types\n  module UH = P.Unit_header\n\n  type interface_dep =\n    | Name  (* the only use of the interface can be via a module alias *)\n    | Contents of Digest.t\n\n  type implem = Digest.t option * DT.filename * DT.implem_state\n\n  module State = struct\n    type t = {\n      ifaces : (interface_dep * DT.filename) String.Map.t;\n      (* Interfaces that have been depended upon. *)\n      implems : implem String.Map.t;\n      (* Implementations that exist in the main program or have been\n         dynamically loaded. *)\n      defined_symbols : String.Set.t;\n      (* Symbols corresponding to compilation units or packed modules (cf.\n         [Asmpackager.build_package_cmx]).  Used as a sanity check. *)\n      allowed_units : String.Set.t;\n      (* Units that are allowed to be referenced by a subsequently-loaded\n         dynamic library. *)\n      main_program_units : String.Set.t;\n      (* Units forming part of the main program (i.e. not dynamically\n         linked). *)\n      public_dynamically_loaded_units : String.Set.t;\n      (* All units that have been dynamically linked, not including those that\n         were privately loaded. *)\n    }\n\n    let empty = {\n      ifaces = String.Map.empty;\n      implems = String.Map.empty;\n      defined_symbols = String.Set.empty;\n      allowed_units = String.Set.empty;\n      main_program_units = String.Set.empty;\n      public_dynamically_loaded_units = String.Set.empty;\n    }\n  end\n\n  let global_state = ref State.empty\n\n  let inited = ref false\n\n  let unsafe_allowed = ref false\n\n  let allow_unsafe_modules b =\n    unsafe_allowed := b\n\n  let check_symbols_disjoint ~descr syms1 syms2 =\n    let exe = Sys.executable_name in\n    let overlap = String.Set.inter syms1 syms2 in\n    if not (String.Set.is_empty overlap) then begin\n      let msg =\n        Format.asprintf \"%s: symbols multiply-defined %s: %a\"\n          exe (Lazy.force descr)\n          (Format.pp_print_list ~pp_sep:(fun ppf () -> Format.fprintf ppf \", \")\n            Format.pp_print_string)\n          (String.Set.elements overlap)\n      in\n      failwith msg\n    end\n\n  let default_available_units () =\n    let exe = Sys.executable_name in\n    let ifaces, implems, defined_symbols =\n      P.fold_initial_units\n        ~init:(String.Map.empty, String.Map.empty, String.Set.empty)\n        ~f:(fun (ifaces, implems, defined_symbols)\n                ~comp_unit ~interface ~implementation\n                ~defined_symbols:defined_symbols_this_unit ->\n          let ifaces =\n            match interface with\n            | None -> String.Map.add comp_unit (Name, exe) ifaces\n            | Some crc -> String.Map.add comp_unit (Contents crc, exe) ifaces\n          in\n          let implems =\n            match implementation with\n            | None -> implems\n            | Some (crc, state) ->\n              String.Map.add comp_unit (crc, exe, state) implems\n          in\n          let defined_symbols_this_unit =\n            String.Set.of_list defined_symbols_this_unit\n          in\n          check_symbols_disjoint ~descr:(lazy \"in the executable file\")\n            defined_symbols_this_unit defined_symbols;\n          let defined_symbols =\n            String.Set.union defined_symbols_this_unit defined_symbols\n          in\n          ifaces, implems, defined_symbols)\n    in\n    let main_program_units = String.Map.keys implems in\n    let state : State.t =\n      { ifaces;\n        implems;\n        defined_symbols;\n        allowed_units = main_program_units;\n        main_program_units;\n        public_dynamically_loaded_units = String.Set.empty;\n      }\n    in\n    global_state := state\n\n  let init () =\n    if not !inited then begin\n      P.init ();\n      default_available_units ();\n      inited := true\n    end\n\n",
+    "excerpt_identity": {
+      "bytes": 3975,
+      "sha256": "a6e451141a450762ac99609451528a1269d6cfa4437639183d6fd776b3ea002e"
+    }
+  },
+  {
+    "source": "ocaml/otherlibs/dynlink/dynlink_common.ml",
+    "first": 216,
+    "last": 270,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_common.ml",
+      "bytes": 12076,
+      "sha256": "e44fc49221fc7342021c45bfc3d7185772ca7c72795eaff0cf1b175106615bce"
+    },
+    "excerpt": "  let check filename (units : UH.t list) (state : State.t) ~priv =\n    List.iter (fun ui -> check_unsafe_module ui) units;\n    let new_units =\n      String.Set.of_list (List.map (fun ui -> UH.name ui) units)\n    in\n    let implems =\n      List.fold_left (fun implems ui ->\n          check_name filename ui priv state.ifaces implems)\n        state.implems units\n    in\n    let ifaces =\n      List.fold_left (fun ifaces ui ->\n          check_interface_imports filename ui ifaces)\n        state.ifaces units\n    in\n    let allowed_units = String.Set.union state.allowed_units new_units in\n    let (_ : implem String.Map.t) =\n      List.fold_left\n        (fun acc ui ->\n           check_implementation_imports ~allowed_units filename ui acc;\n           set_loaded_implem filename ui acc)\n        implems units\n    in\n    let defined_symbols =\n      List.fold_left (fun defined_symbols ui ->\n          let descr =\n            lazy (Printf.sprintf \"between the executable file (and any \\\n                existing dynamically-loaded units) and the unit `%s' being \\\n                dynamically loaded from %s\"\n              (UH.name ui)\n              filename)\n          in\n          let symbols = String.Set.of_list (UH.defined_symbols ui) in\n          check_symbols_disjoint ~descr symbols defined_symbols;\n          String.Set.union symbols defined_symbols)\n        state.defined_symbols\n        units\n    in\n    if priv then begin\n      state\n    end else begin\n      let public_dynamically_loaded_units =\n        String.Set.union state.public_dynamically_loaded_units new_units\n      in\n      let state =\n        { state with\n          implems;\n          ifaces;\n          defined_symbols;\n          allowed_units;\n          public_dynamically_loaded_units;\n        }\n      in\n      state\n    end\n",
+    "excerpt_identity": {
+      "bytes": 1795,
+      "sha256": "c2cbe1c5909ea7c2b9e2dff6072a061fb16a3f2ca8735e98ba992f9f21e371b0"
+    }
+  },
+  {
+    "source": "ocaml/otherlibs/dynlink/dynlink_common.ml",
+    "first": 322,
+    "last": 348,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_common.ml",
+      "bytes": 12076,
+      "sha256": "e44fc49221fc7342021c45bfc3d7185772ca7c72795eaff0cf1b175106615bce"
+    },
+    "excerpt": "  let dll_filename fname =\n    if Filename.is_implicit fname then Filename.concat (Sys.getcwd ()) fname\n    else fname\n\n  let load priv filename =\n    init ();\n    let filename = dll_filename filename in\n    match P.load ~filename ~priv with\n    | exception exn -> raise (DT.Error (Cannot_open_dynamic_library exn))\n    | handle, units ->\n      try\n        global_state := check filename units !global_state ~priv;\n        P.run_shared_startup handle;\n        List.iter\n          (fun unit_header ->\n             P.run handle ~unit_header ~priv;\n             if not priv then begin\n               global_state := set_loaded filename unit_header !global_state\n             end)\n          units;\n        P.finish handle\n      with exn ->\n        P.finish handle;\n        raise exn\n\n  let loadfile filename = load false filename\n  let loadfile_private filename = load true filename\n",
+    "excerpt_identity": {
+      "bytes": 879,
+      "sha256": "5b901d86f9274507697cfe99588eca9af48ab8ea4eb4dcc31c7ef066b9796ddd"
+    }
+  },
+  {
+    "source": "ocaml/otherlibs/dynlink/dynlink_types.ml",
+    "first": 21,
+    "last": 95,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+      "bytes": 5068,
+      "sha256": "37bc9929fa6400fc9d5f558992e4a7da140721daa397fa73b82d50d3014c669f"
+    },
+    "excerpt": "[@@@ocaml.warning \"+a-4-30-40-41-42\"]\n\ntype implem_state =\n  | Loaded\n  | Not_initialized\n  | Check_inited of int\n\ntype filename = string\n\ntype linking_error =\n  | Undefined_global of string\n  | Unavailable_primitive of string\n  | Uninitialized_global of string\n\ntype error =\n  | Not_a_bytecode_file of string\n  | Inconsistent_import of string\n  | Unavailable_unit of string\n  | Unsafe_file\n  | Linking_error of string * linking_error\n  | Corrupted_interface of string\n  | Cannot_open_dynamic_library of exn\n  | Library's_module_initializers_failed of exn\n  | Inconsistent_implementation of string\n  | Module_already_loaded of string\n  | Private_library_cannot_implement_interface of string\n\nexception Error of error\n\nlet error_message = function\n  | Not_a_bytecode_file name ->\n    name ^ \" is not an object file\"\n  | Inconsistent_import name ->\n    \"interface mismatch on \" ^ name\n  | Unavailable_unit name ->\n    \"no implementation available for \" ^ name\n  | Unsafe_file ->\n    \"this object file uses unsafe features\"\n  | Linking_error (name, Undefined_global s) ->\n    \"error while linking \" ^ name ^ \".\\n\" ^\n      \"Reference to undefined global `\" ^ s ^ \"'\"\n  | Linking_error (name, Unavailable_primitive s) ->\n    \"error while linking \" ^ name ^ \".\\n\" ^\n      \"The external function `\" ^ s ^ \"' is not available\"\n  | Linking_error (name, Uninitialized_global s) ->\n    \"error while linking \" ^ name ^ \".\\n\" ^\n      \"The module `\" ^ s ^ \"' is not yet initialized\"\n  | Corrupted_interface name ->\n    \"corrupted interface file \" ^ name\n  | Cannot_open_dynamic_library exn ->\n    \"error loading shared library: \" ^ (Printexc.to_string exn)\n  | Inconsistent_implementation name ->\n    \"implementation mismatch on \" ^ name\n  | Library's_module_initializers_failed exn ->\n    \"execution of module initializers in the shared library failed: \"\n      ^ (Printexc.to_string exn)\n  | Module_already_loaded name ->\n    \"The module `\" ^ name ^ \"' is already loaded \\\n      (either by the main program or a previously-dynlinked library)\"\n  | Private_library_cannot_implement_interface name ->\n    \"The interface `\" ^ name ^ \"' cannot be implemented by a \\\n      library loaded privately\"\n\nlet () =\n  Printexc.register_printer (function\n    | Error err ->\n      let msg = match err with\n      | Not_a_bytecode_file s -> Printf.sprintf \"Not_a_bytecode_file %S\" s\n      | Inconsistent_import s -> Printf.sprintf \"Inconsistent_import %S\" s\n      | Unavailable_unit s -> Printf.sprintf \"Unavailable_unit %S\" s\n      | Unsafe_file -> \"Unsafe_file\"\n      | Linking_error (s, Undefined_global s') ->\n        Printf.sprintf \"Linking_error (%S, Dynlink.Undefined_global %S)\"\n          s s'\n      | Linking_error (s, Unavailable_primitive s') ->\n",
+    "excerpt_identity": {
+      "bytes": 2727,
+      "sha256": "848195fb807c4288a9dd45513b71b016cb36281ee44d377716199942974e3c8d"
+    }
+  },
+  {
+    "source": "ocaml/parsing/attr_helper.ml",
+    "first": 47,
+    "last": 54,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/parsing/attr_helper.ml",
+      "bytes": 2180,
+      "sha256": "e8af6ae7f49b9a89d29cd1a995b840308fe7865108ca330368c04fe1bd3a0fa6"
+    },
+    "excerpt": "let () =\n  Location.register_error_of_exn\n    (function\n      | Error (loc, err) ->\n        Some (Location.error_of_printer ~loc report_error err)\n      | _ ->\n        None\n    )\n",
+    "excerpt_identity": {
+      "bytes": 179,
+      "sha256": "c2f5f2660533517cca25a3032aac2e11b4b921e3bf5b3945741aaed986a68a01"
+    }
+  },
+  {
+    "source": "ocaml/typing/primitive.ml",
+    "first": 244,
+    "last": 251,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/typing/primitive.ml",
+      "bytes": 8634,
+      "sha256": "be60e55df8d2ba42a3787430208a09e02badbd15b46f40e82e7bcd28cba9611f"
+    },
+    "excerpt": "let () =\n  Location.register_error_of_exn\n    (function\n      | Error (loc, err) ->\n        Some (Location.error_of_printer ~loc report_error err)\n      | _ ->\n        None\n    )\n",
+    "excerpt_identity": {
+      "bytes": 179,
+      "sha256": "c2f5f2660533517cca25a3032aac2e11b4b921e3bf5b3945741aaed986a68a01"
+    }
+  },
+  {
+    "source": "ocaml/file_formats/cmi_format.ml",
+    "first": 113,
+    "last": 118,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/file_formats/cmi_format.ml",
+      "bytes": 3940,
+      "sha256": "4d5d8565e24311ead6cee92f9b35c214b4ab2e1381ee5c613d16362366d90f94"
+    },
+    "excerpt": "let () =\n  Location.register_error_of_exn\n    (function\n      | Error err -> Some (Location.error_of_printer_file report_error err)\n      | _ -> None\n    )\n",
+    "excerpt_identity": {
+      "bytes": 156,
+      "sha256": "235f04616da376984f02b07dfb06bc04e11add51615def73f4d17695bcce4eea"
+    }
+  },
+  {
+    "source": "ocaml/typing/persistent_env.ml",
+    "first": 367,
+    "last": 373,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/typing/persistent_env.ml",
+      "bytes": 12242,
+      "sha256": "264b42124cfd1b68c9b65769f0f0dba0af6fbed2b854869be51379f4425269cc"
+    },
+    "excerpt": "let () =\n  Location.register_error_of_exn\n    (function\n      | Error err ->\n          Some (Location.error_of_printer_file report_error err)\n      | _ -> None\n    )\n",
+    "excerpt_identity": {
+      "bytes": 166,
+      "sha256": "3240ad16fbb5516640f06cf4d78c62aca82fb6864a812cedc1e0ea15d9135be1"
+    }
+  },
+  {
+    "source": "ocaml/typing/env.ml",
+    "first": 3664,
+    "last": 3682,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/typing/env.ml",
+      "bytes": 122629,
+      "sha256": "e31198ef1c7a96b72219323378dbe40c742d6205f9e52304c44e1b9c3d43f749"
+    },
+    "excerpt": "let () =\n  Location.register_error_of_exn\n    (function\n      | Error err ->\n          let loc =\n            match err with\n            | Missing_module (loc, _, _)\n            | Illegal_value_name (loc, _)\n            | Lookup_error(loc, _, _) -> loc\n          in\n          let error_of_printer =\n            if loc = Location.none\n            then Location.error_of_printer_file\n            else Location.error_of_printer ~loc ?sub:None\n          in\n          Some (error_of_printer report_error err)\n      | _ ->\n          None\n    )\n",
+    "excerpt_identity": {
+      "bytes": 537,
+      "sha256": "6cc87fc561a79bbbbc119806b5b3446daa46c05532409e0626f08db9f7eb64d3"
+    }
+  },
+  {
+    "source": "ocaml/bytecomp/symtable.ml",
+    "first": 415,
+    "last": 425,
+    "source_identity": {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/bytecomp/symtable.ml",
+      "bytes": 12819,
+      "sha256": "0279e9d8eccebdefd8a14f8a6b82b7cd0dd5fdecbb12ecf0ea4fdd54545949a4"
+    },
+    "excerpt": "let () =\n  Location.register_error_of_exn\n    (function\n      | Error err -> Some (Location.error_of_printer_file report_error err)\n      | _ -> None\n    )\n\nlet reset () =\n  global_table := GlobalMap.empty;\n  literal_table := [];\n  c_prim_table := PrimMap.empty\n",
+    "excerpt_identity": {
+      "bytes": 262,
+      "sha256": "ac5ac0b32a3a23993028cf078daedd95a01e80b428ceb27faa8f12310db415a4"
+    }
+  }
+]
