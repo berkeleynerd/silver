@@ -1,0 +1,168 @@
+{
+  "author_freeze": "5feafce8f3363e2463da099bda2a115d19dd8050",
+  "started_utc": "2026-10-20T23:29:59.600060+00:00",
+  "elapsed_seconds": 1.4639131759995507,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-why-returned-storage-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 3480,
+    "sha256": "98762e4090041565d2b12a09685fbbc519b78ba1a79f240eb5eacaae72bfbe27"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-why-returned-storage-20261020/README.md": {
+      "bytes": 1705,
+      "sha256": "879ab2645d172eb97078d0e1585f10844da91739454eb2f31dfe3196eaec2775"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/audit_sources.py": {
+      "bytes": 2251,
+      "sha256": "f2ece7cd62cf383d8eceb3d6394ef2c4c30c55077e537be501998c68c8b4f9e8"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/check-result.json": {
+      "bytes": 442,
+      "sha256": "1ffe74b8679e4d61da0b849ebc21f8dd9fd8cf3bb3ef3c8587c8ea8674310c66"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/check.py": {
+      "bytes": 3480,
+      "sha256": "98762e4090041565d2b12a09685fbbc519b78ba1a79f240eb5eacaae72bfbe27"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/compose.py": {
+      "bytes": 4799,
+      "sha256": "69fc7594763afa297b5afc4d7d43a422da1d8c3f1dce4b9b048a9f7919f5f6c4"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/context_model.py": {
+      "bytes": 14267,
+      "sha256": "80c128d8965c2ae63152b97bf9a2fd547cd297a45a9fa3c2a1bf51891c057456"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/driver-connection.json": {
+      "bytes": 1933,
+      "sha256": "a9ddfa163da227b65845af7181740475f7b53586f6547bb400befc35e43b9d24"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/first-or-default-context.json": {
+      "bytes": 208759,
+      "sha256": "e7c1ca172a5422360710cbff6b32c1603c7e0b0f67e42c596c08184b2bb0ebd6"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/input-is-valid-context.json": {
+      "bytes": 164046,
+      "sha256": "c031e9a8b8c4c6d25e110adacce9527987a826e3280aa83ab4fa94bd83d889e4"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/inputs.json": {
+      "bytes": 17119,
+      "sha256": "475abfabe21759f94a8ba8e1f65b91f6dbcd904086c61c7975f13f86e8fc6cc9"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/is-message-context.json": {
+      "bytes": 94615,
+      "sha256": "d07ac3ce0b14611ef3cb85f649da467533f7c7766bea3358a3077818efca040c"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-context.json": {
+      "bytes": 345641,
+      "sha256": "46411e1017d836ebbdb1e1d16ac95854f074e5815efc9c266fc13e1a3b6b3a13"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-line-context.json": {
+      "bytes": 345640,
+      "sha256": "9492a9a662069afb71d6f362738a72f9c75c3091ef38b453cda6f4cb52cdc383"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+      "bytes": 5640,
+      "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/round.json": {
+      "bytes": 4729,
+      "sha256": "f1da057b1208398c38f9308db1580339ba154f761ad425b3b3cabf1612ba709d"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/source-witnesses.json": {
+      "bytes": 162851,
+      "sha256": "d2418a0e44d80707201cea6238d23d6579433f6851cb360d3000207b9d1ebd82"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-why-returned-storage-20261020/README.md": {
+      "bytes": 1705,
+      "sha256": "879ab2645d172eb97078d0e1585f10844da91739454eb2f31dfe3196eaec2775"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/audit_sources.py": {
+      "bytes": 2251,
+      "sha256": "f2ece7cd62cf383d8eceb3d6394ef2c4c30c55077e537be501998c68c8b4f9e8"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/check-result.json": {
+      "bytes": 442,
+      "sha256": "1ffe74b8679e4d61da0b849ebc21f8dd9fd8cf3bb3ef3c8587c8ea8674310c66"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/check.py": {
+      "bytes": 3480,
+      "sha256": "98762e4090041565d2b12a09685fbbc519b78ba1a79f240eb5eacaae72bfbe27"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/compose.py": {
+      "bytes": 4799,
+      "sha256": "69fc7594763afa297b5afc4d7d43a422da1d8c3f1dce4b9b048a9f7919f5f6c4"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/context_model.py": {
+      "bytes": 14267,
+      "sha256": "80c128d8965c2ae63152b97bf9a2fd547cd297a45a9fa3c2a1bf51891c057456"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/driver-connection.json": {
+      "bytes": 1933,
+      "sha256": "a9ddfa163da227b65845af7181740475f7b53586f6547bb400befc35e43b9d24"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/first-or-default-context.json": {
+      "bytes": 208759,
+      "sha256": "e7c1ca172a5422360710cbff6b32c1603c7e0b0f67e42c596c08184b2bb0ebd6"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/input-is-valid-context.json": {
+      "bytes": 164046,
+      "sha256": "c031e9a8b8c4c6d25e110adacce9527987a826e3280aa83ab4fa94bd83d889e4"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/inputs.json": {
+      "bytes": 17119,
+      "sha256": "475abfabe21759f94a8ba8e1f65b91f6dbcd904086c61c7975f13f86e8fc6cc9"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/is-message-context.json": {
+      "bytes": 94615,
+      "sha256": "d07ac3ce0b14611ef3cb85f649da467533f7c7766bea3358a3077818efca040c"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-context.json": {
+      "bytes": 345641,
+      "sha256": "46411e1017d836ebbdb1e1d16ac95854f074e5815efc9c266fc13e1a3b6b3a13"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-line-context.json": {
+      "bytes": 345640,
+      "sha256": "9492a9a662069afb71d6f362738a72f9c75c3091ef38b453cda6f4cb52cdc383"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+      "bytes": 5640,
+      "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/round.json": {
+      "bytes": 4729,
+      "sha256": "f1da057b1208398c38f9308db1580339ba154f761ad425b3b3cabf1612ba709d"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/source-witnesses.json": {
+      "bytes": 162851,
+      "sha256": "d2418a0e44d80707201cea6238d23d6579433f6851cb360d3000207b9d1ebd82"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\n  \"context_feature_occurrences\": 98,\n  \"context_route_calculations\": 10,\n  \"controls\": 6,\n  \"elapsed_seconds\": 0.8676872730011382,\n  \"machine\": \"x86_64\",\n  \"native_runs\": 0,\n  \"original_context_keys\": 1238,\n  \"pinned_files\": 86,\n  \"platform\": \"Linux\",\n  \"predecessor_checkers_replayed\": 0,\n  \"proof_runs\": 0,\n  \"solver_runs\": 0,\n  \"source_excerpts\": 46,\n  \"source_files\": 22,\n  \"source_theorem_machine_checked\": false,\n  \"status\": \"PASS\"\n}\n",
+  "stderr": "",
+  "result": {
+    "context_feature_occurrences": 98,
+    "context_route_calculations": 10,
+    "controls": 6,
+    "elapsed_seconds": 0.8676872730011382,
+    "machine": "x86_64",
+    "native_runs": 0,
+    "original_context_keys": 1238,
+    "pinned_files": 86,
+    "platform": "Linux",
+    "predecessor_checkers_replayed": 0,
+    "proof_runs": 0,
+    "solver_runs": 0,
+    "source_excerpts": 46,
+    "source_files": 22,
+    "source_theorem_machine_checked": false,
+    "status": "PASS"
+  }
+}

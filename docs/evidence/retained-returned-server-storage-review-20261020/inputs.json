@@ -1,0 +1,567 @@
+{
+  "author_freeze_comparison": "Each complete owned author note/packet file compared byte-for-byte to git show author_freeze:path; inherited pins hash-checked without component replay.",
+  "base": "f306912c98e2449015a0514e0be5c11b99de5be1",
+  "components": {
+    "returned_storage": {
+      "all_files_match_author_freeze": true,
+      "author_freeze": "5feafce8f3363e2463da099bda2a115d19dd8050",
+      "files": {
+        "docs/evidence/retained-why-returned-storage-20261020/README.md": {
+          "bytes": 1705,
+          "sha256": "879ab2645d172eb97078d0e1585f10844da91739454eb2f31dfe3196eaec2775"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/audit_sources.py": {
+          "bytes": 2251,
+          "sha256": "f2ece7cd62cf383d8eceb3d6394ef2c4c30c55077e537be501998c68c8b4f9e8"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/check-result.json": {
+          "bytes": 442,
+          "sha256": "1ffe74b8679e4d61da0b849ebc21f8dd9fd8cf3bb3ef3c8587c8ea8674310c66"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/check.py": {
+          "bytes": 3480,
+          "sha256": "98762e4090041565d2b12a09685fbbc519b78ba1a79f240eb5eacaae72bfbe27"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/compose.py": {
+          "bytes": 4799,
+          "sha256": "69fc7594763afa297b5afc4d7d43a422da1d8c3f1dce4b9b048a9f7919f5f6c4"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/context_model.py": {
+          "bytes": 14267,
+          "sha256": "80c128d8965c2ae63152b97bf9a2fd547cd297a45a9fa3c2a1bf51891c057456"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/driver-connection.json": {
+          "bytes": 1933,
+          "sha256": "a9ddfa163da227b65845af7181740475f7b53586f6547bb400befc35e43b9d24"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/first-or-default-context.json": {
+          "bytes": 208759,
+          "sha256": "e7c1ca172a5422360710cbff6b32c1603c7e0b0f67e42c596c08184b2bb0ebd6"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/input-is-valid-context.json": {
+          "bytes": 164046,
+          "sha256": "c031e9a8b8c4c6d25e110adacce9527987a826e3280aa83ab4fa94bd83d889e4"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/inputs.json": {
+          "bytes": 17119,
+          "sha256": "475abfabe21759f94a8ba8e1f65b91f6dbcd904086c61c7975f13f86e8fc6cc9"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/is-message-context.json": {
+          "bytes": 94615,
+          "sha256": "d07ac3ce0b14611ef3cb85f649da467533f7c7766bea3358a3077818efca040c"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/put-context.json": {
+          "bytes": 345641,
+          "sha256": "46411e1017d836ebbdb1e1d16ac95854f074e5815efc9c266fc13e1a3b6b3a13"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/put-line-context.json": {
+          "bytes": 345640,
+          "sha256": "9492a9a662069afb71d6f362738a72f9c75c3091ef38b453cda6f4cb52cdc383"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+          "bytes": 5640,
+          "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/round.json": {
+          "bytes": 4729,
+          "sha256": "f1da057b1208398c38f9308db1580339ba154f761ad425b3b3cabf1612ba709d"
+        },
+        "docs/evidence/retained-why-returned-storage-20261020/source-witnesses.json": {
+          "bytes": 162851,
+          "sha256": "d2418a0e44d80707201cea6238d23d6579433f6851cb360d3000207b9d1ebd82"
+        },
+        "docs/research/retained-why-returned-storage.md": {
+          "bytes": 19782,
+          "sha256": "b9fbca409fa996f2ec7aae3fbdf453ceab9fcb9444c190e38cd6f0f8cd527028"
+        }
+      },
+      "first_focused_check_freeze": "5feafce8f3363e2463da099bda2a115d19dd8050",
+      "local_import": "81c451a7c036d4af49474e64ea00bbe5d915249f",
+      "note": "docs/research/retained-why-returned-storage.md",
+      "packet": "docs/evidence/retained-why-returned-storage-20261020"
+    },
+    "server_owned_storage": {
+      "all_files_match_author_freeze": true,
+      "author_freeze": "d82165ee7b874e65f64be8181de21763d83bda7e",
+      "files": {
+        "docs/evidence/retained-server-owned-storage-20261020/README.md": {
+          "bytes": 1214,
+          "sha256": "7a19134adbacbfd800094addc2c879af97c78b212da6c9a4fddeae42958867e4"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/check-result.json": {
+          "bytes": 1351,
+          "sha256": "4fa65d1189b735b35fd29230a8d1f819730c7800f347cb7655162df44b7dba21"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/check.py": {
+          "bytes": 5769,
+          "sha256": "8f4923aabc4826de2da570a024e98ae48b4865c76fc56d9757097206e57e90a7"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/inputs.json": {
+          "bytes": 3204,
+          "sha256": "196e647bd2537a7ee1de798df34ff6dbeaab965f9bbd50b937a10683902a3c99"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/installed-disassembly.txt": {
+          "bytes": 42411,
+          "sha256": "d764b2b2c17a6dd1d9c9107bcc77bfd9cb3ebb77bd38fc887de73c0fd65cdac9"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/native-inputs.json": {
+          "bytes": 42740,
+          "sha256": "6dc7b21949eeac4a3639e5371a2305476067265b84c9b6b863ec78731ee2bbf4"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/native-symbol-inventory.json": {
+          "bytes": 1295,
+          "sha256": "fe04c9164d27b88253b9f76f2daa18f275be9a3adf1a27e93650e29835f41d10"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/project.py": {
+          "bytes": 10848,
+          "sha256": "70ed927d9734f2b752052f7eff165c96c08e55d5ecdab8e3f2f2218d44015039"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/projection.json": {
+          "bytes": 12833,
+          "sha256": "b6d1df587565da1b025c83f5ccb99b3d4586ac6e11fc52c9abceb23f20ef3021"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/round.md": {
+          "bytes": 3690,
+          "sha256": "cdba26139cb96a1e59dfc9455ef6379a4412ccf5e9e4395d90b90597a07533b0"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/source-inventory.json": {
+          "bytes": 132799,
+          "sha256": "2e032364ef82797a95a2e1792cfab68a5752a5f87ea19571118fa260e4e2c839"
+        },
+        "docs/evidence/retained-server-owned-storage-20261020/source-witnesses.json": {
+          "bytes": 59005,
+          "sha256": "e7c55987a6c8bd8b68a61f7adabc432bfe8254f1f8038179e3d4e72030475858"
+        },
+        "docs/research/retained-server-owned-storage.md": {
+          "bytes": 15886,
+          "sha256": "661a6a14b672b5d73ad77b43ef16bc9733065baf9a1a0b1e501ff0c619c23efe"
+        }
+      },
+      "first_focused_check_freeze": "73fe83500c16672716d0045d4b7aab1fda4f4ef1",
+      "local_import": "8b1c65f52452a4221d2d7dd8ca19363f50afdbdc",
+      "note": "docs/research/retained-server-owned-storage.md",
+      "packet": "docs/evidence/retained-server-owned-storage-20261020"
+    },
+    "shared_prefix": {
+      "all_files_match_author_freeze": true,
+      "author_freeze": "ab453599af8bf338ed0de15b2d4ad52b6a22ecf7",
+      "files": {
+        "docs/evidence/retained-shared-server-prefix-20261020/README.md": {
+          "bytes": 2348,
+          "sha256": "8d0bded921c7d6e86b4699355ef59ad242eb3e0762410091b2a096d872ac4ddd"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/check-result.json": {
+          "bytes": 589,
+          "sha256": "7aa2a0953f1ccc635b309e755db2eb1ff604fca64b6d9405bdad7d020f30dda6"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/check.py": {
+          "bytes": 5830,
+          "sha256": "d9066632be45d434f037561201c89ba06c075359ae20a586da64bbe56b81f0d3"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/endpoints.json": {
+          "bytes": 6169,
+          "sha256": "b413dd75b3b443328f187342d8e277e7c29108b15b58e33742b5e11616cfebc2"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/inputs.json": {
+          "bytes": 3008,
+          "sha256": "9654923b5c032097cf08cecdaf4c58d8bccc898834b84db9a8f7d3d776ac0ea8"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/native-witnesses.json": {
+          "bytes": 29699,
+          "sha256": "740ccf9bbb1b2f480f0c497a80d8edce428f0e0e7fafaaaf55c55d91b6e0602d"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/setter-census.json": {
+          "bytes": 1037,
+          "sha256": "b1c4b849a03253bcfdfb9394461faef3a2c8fc9ee32c50b68278e5c0482340c7"
+        },
+        "docs/evidence/retained-shared-server-prefix-20261020/source-witnesses.json": {
+          "bytes": 17235,
+          "sha256": "8b84d4283cf04e6e0e29e5c0320e3ebe318e4accf7575e1e72e679c904a3167a"
+        },
+        "docs/research/retained-shared-server-prefix.md": {
+          "bytes": 8443,
+          "sha256": "7739c2c820bc6dea0e4b1801a4b479d1aa07ca14980cc19adf92854e273d9664"
+        }
+      },
+      "first_focused_check_freeze": "a1257eb2a3107d227bf09153813f5c057ad77c73",
+      "local_import": "27f96d3b8e26f2228d87a2762d9dd720b9ee628f",
+      "note": "docs/research/retained-shared-server-prefix.md",
+      "packet": "docs/evidence/retained-shared-server-prefix-20261020"
+    }
+  },
+  "direct_inherited_inputs": {
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json": {
+      "bytes": 1197,
+      "sha256": "31665d8828664e3276915dafc8cac9e67337efd526f5f3365f8d96b58c553732"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+      "bytes": 482672,
+      "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/native-inputs.json": {
+      "bytes": 30737,
+      "sha256": "01b9f18ea05ac0b626c55c1cdc47bf920c412610de5503c68d842ea19ca48385"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/result.json": {
+      "bytes": 7072,
+      "sha256": "e381068a86071ee6b67d07a1b970303856f1ca6864ec495ba6ff96e6f25fcaf6"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/driver-inputs.json": {
+      "bytes": 5346,
+      "sha256": "3ae4d8ce67c421025451242810f681a3a41a430c6c249de03c7d4be5d81ff9a2"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc4_bv.gen": {
+      "bytes": 911,
+      "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/discrimination.gen": {
+      "bytes": 169,
+      "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-bv.gen": {
+      "bytes": 10203,
+      "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-gnatprove.gen": {
+      "bytes": 1815,
+      "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_bv.gen": {
+      "bytes": 793,
+      "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_real.gen": {
+      "bytes": 357,
+      "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats.gen": {
+      "bytes": 8423,
+      "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-gnatprove.gen": {
+      "bytes": 1438,
+      "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_bv.gen": {
+      "bytes": 940,
+      "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/projection.json": {
+      "bytes": 30891,
+      "sha256": "a081ebf14988d6f4d922c1fbcd8e434e6bb5f30c62bb958c5645b878c58bcf5d"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/README.md": {
+      "bytes": 2715,
+      "sha256": "0b878da2dfa530b5691102ad919382a8524b00d73e81f40620b2ae0f77926beb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/audit_sources.py": {
+      "bytes": 4028,
+      "sha256": "2e267414ecf5e23f80a12ffad65b5e86d08ddc70b92a43b616e33bb815335063"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check-result.json": {
+      "bytes": 434,
+      "sha256": "757b8624c580e0fbd24c9b62809df1cc2f5880cbb82c6f3099b45ebb90984279"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check.py": {
+      "bytes": 3438,
+      "sha256": "c860f4b23c9eed466a14ca100c617d009bde577726dbd611c1f9dc190757230a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/compose.py": {
+      "bytes": 3552,
+      "sha256": "62913ee76fde89ade79e829ce3219932970141731e607a4708b5a58f8dfe72ac"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/family_model.py": {
+      "bytes": 20161,
+      "sha256": "b3b9a4b14c11bc765a36b08f67749dc6633b1e5229ad395bb70e69266a39aed9"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-details.json.gz": {
+      "bytes": 11720,
+      "sha256": "c75d0c0d7a1264ca97aaea105388e14cec4476ef068110a216a474741e7150c0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json": {
+      "bytes": 157915,
+      "sha256": "ce3491fd5128642fc673b0dd94187306c7ee4537fc95e7743ad015c5b4ea7182"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-details.json.gz": {
+      "bytes": 7909,
+      "sha256": "6baf860f065107e1494f2008b340e9df91c6b7e2a61892606759918e74d72556"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json": {
+      "bytes": 129401,
+      "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/inputs.json": {
+      "bytes": 11925,
+      "sha256": "e73e54f0bd3b480c4a2d88d92fb2c00f087920f6bdc4a24370e786751e1345cb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-details.json.gz": {
+      "bytes": 6787,
+      "sha256": "a96a693a9cb237f894c921f020bd1324ae1d6bbe72ec0b3b10d5ee702dedb796"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json": {
+      "bytes": 109999,
+      "sha256": "f6c7ed268da6b4f25fa307964f27e346bb3551777179a97f94f9191b0dda53d0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/project.py": {
+      "bytes": 8157,
+      "sha256": "9abccf9e586ed2ea46377aa94d8fc1609682a31a65af41d431f7bb45c92d6492"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-details.json.gz": {
+      "bytes": 24963,
+      "sha256": "ce7cb50f4e51dc24b6117cd40aeb756bf7ca19f2df3e73b2eb70071366fe0693"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-details.json.gz": {
+      "bytes": 27354,
+      "sha256": "da5656485c11ba6b1bdb25d1216e2f4db8871d089daf60f52d2b0f62892f409a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json": {
+      "bytes": 257989,
+      "sha256": "aade05387e384a0cb2c5c5ea7121f1235e09190e9e008bf63bfa325fa03b03a5"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json": {
+      "bytes": 256913,
+      "sha256": "57cda072bfa8fb31f98040efcd24b655fa6086e9dc5f6bb045273f15f483671f"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/result.json": {
+      "bytes": 19552,
+      "sha256": "8730f5c947386313a1ac2ae9fc9fca3b784d9c026a56fdef1e7a501469beec87"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/round.json": {
+      "bytes": 3252,
+      "sha256": "b85ab46b70b5852ca60fd7224f294d40da21e3557de6a533b5b65700277ab531"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/source-witnesses.json": {
+      "bytes": 173363,
+      "sha256": "855074879206a96240b3fe8cbf804966641e7ccb581adada5cf43a887d4d3ad9"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/refine.py": {
+      "bytes": 16995,
+      "sha256": "8585ee2a9a1013489bee9c5360cfa3b116f7bd00d1b1786569031ca50578489a"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": {
+      "bytes": 4703327,
+      "sha256": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": {
+      "bytes": 2028241,
+      "sha256": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": {
+      "bytes": 1845130,
+      "sha256": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": {
+      "bytes": 10939554,
+      "sha256": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": {
+      "bytes": 12917856,
+      "sha256": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/README.md": {
+      "bytes": 2603,
+      "sha256": "ace551393c5b26a53b1a7a553101f8f2b97107678746c520ae5460ddb67ceca2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/build-packet.py": {
+      "bytes": 5083,
+      "sha256": "c3ea2b4d7f6d426815827f844da216513019b151172d21ac4664dd90cefd1d28"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check-result.json": {
+      "bytes": 365,
+      "sha256": "9cc0b7ab1268f3668d415c27870c473b5fc355f4cbd314549007008f72700895"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py": {
+      "bytes": 2979,
+      "sha256": "f3a311085f54a62c97ea044b042d47b7205a752b7ffed90cdbeca71b84a4f0d2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-exclusions.py": {
+      "bytes": 11359,
+      "sha256": "9833a03ae31b48f269de799b136ad38c2ed27d83722c94b846febf9b66367cf6"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-metadata.py": {
+      "bytes": 7318,
+      "sha256": "a1ad4a01d9b33877946c96b94a93d36b119ccbb82042ee4f54df6639bf438498"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-exclusions.json": {
+      "bytes": 18111,
+      "sha256": "2b287d9ff87a5510cd08250f93bdd4cdd39dbf2b0b2e39f6c57939352cbfbd79"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-metadata.json": {
+      "bytes": 118402,
+      "sha256": "af267e65b20beb502a17cf227c928d2d96719b0cdeeea16c4239ed6d13f8dcb6"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-exclusions.json": {
+      "bytes": 12422,
+      "sha256": "ed27d9490609f7460b3a37eac7f1c81efa819e524b609d5bc2e45d4295487f4d"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-metadata.json": {
+      "bytes": 101025,
+      "sha256": "2e9615a9572e1e9eca4c259b43a68fa7b4bef99666981678956ae6c46362e6bd"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json": {
+      "bytes": 5800,
+      "sha256": "0973f07aa2fed31710ea2cf80d16e142961cf07768f52437dc89b859fe715eb1"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-exclusions.json": {
+      "bytes": 5515,
+      "sha256": "e73f7b0e0dad5883d27baadbd93e9426080209ca9f136e2063e346efaf38a43a"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-metadata.json": {
+      "bytes": 85236,
+      "sha256": "a5eaba90321dfb89752b83ec4abe7f354c4d77e2f501543239c3a364d1247904"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-exclusions.json": {
+      "bytes": 7208,
+      "sha256": "0f27f73da7340855dbd33e0c0a8af395a66e80946f6f87dde9e929a83da0473c"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-exclusions.json": {
+      "bytes": 7213,
+      "sha256": "faa438eb32bcf678ab850ebe04556b5d3b172cfb2602cc7f3d608ca98ca77102"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-metadata.json": {
+      "bytes": 343960,
+      "sha256": "3dc61380a18e0c478f54502c0cd824a9d17463b3ef2502615ac555654c748e3c"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-metadata.json": {
+      "bytes": 341432,
+      "sha256": "cee43e7db5e27806ecc31898a130244bf4170367bab7adbf5443562f87cb1fb2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json": {
+      "bytes": 2635,
+      "sha256": "528990857262bbcf873700e1e90aaad05810c69dc79b81d893bb3422bac0c92b"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/round.json": {
+      "bytes": 2372,
+      "sha256": "b92070c5e1806db50fd872448edc1ed7afab6f4e4b6af37df9133ca8d8b3d967"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/source-witnesses.json": {
+      "bytes": 76827,
+      "sha256": "ffb32ae0d918bd63faa226ff422254ec5c4548476f973e2bea425320fc97a919"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/model.py": {
+      "bytes": 19152,
+      "sha256": "38b94781bf175df86e3d7f8eff567ab8c3f29340dc61bac896c2b24ddb1fad89"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-server-request-storage.md": {
+      "bytes": 6871,
+      "sha256": "9c003d63730a4e221f730df61b0081772daf240e43bf94c9835afd1ca8d62dd2"
+    },
+    "docs/research/retained-solver-request-bytes.md": {
+      "bytes": 14979,
+      "sha256": "9d722ac0f33e3fb59f5ff5e998bdf31e8cecf826593bd30a6bcb6d7d710337ca"
+    },
+    "docs/research/retained-why-fixed-inline-family.md": {
+      "bytes": 15521,
+      "sha256": "8dd942265b1bfa4f2b80fcda52fb60a08972708c441209a51e7084f21fa1a0cd"
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "bytes": 21779,
+      "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+    },
+    "docs/research/retained-why-parallel-symbol-exclusion.md": {
+      "bytes": 15395,
+      "sha256": "0202931a67724ba691197553c67429ce8ffb7eedd83a3de7532c23afe678ca66"
+    },
+    "docs/research/retained-why-server-buffer-copy.md": {
+      "bytes": 7496,
+      "sha256": "228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49"
+    },
+    "docs/reviews/review-request-inline-capacity-20261020.md": {
+      "bytes": 17569,
+      "sha256": "1b4bf04d952f2348212a7b00a4a88c425c5557198adbd147d51b0c9aab28d6d5"
+    }
+  },
+  "source_arguments_machine_checked": false
+}

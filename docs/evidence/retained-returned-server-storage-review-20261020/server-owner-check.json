@@ -1,0 +1,161 @@
+{
+  "author_freeze": "73fe83500c16672716d0045d4b7aab1fda4f4ef1",
+  "started_utc": "2026-10-20T23:18:00.469971+00:00",
+  "elapsed_seconds": 1.3766117680006573,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-server-owned-storage-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 5769,
+    "sha256": "8f4923aabc4826de2da570a024e98ae48b4865c76fc56d9757097206e57e90a7"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-server-owned-storage-20261020/README.md": {
+      "bytes": 1214,
+      "sha256": "7a19134adbacbfd800094addc2c879af97c78b212da6c9a4fddeae42958867e4"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/check-result.json": {
+      "bytes": 1351,
+      "sha256": "4fa65d1189b735b35fd29230a8d1f819730c7800f347cb7655162df44b7dba21"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/check.py": {
+      "bytes": 5769,
+      "sha256": "8f4923aabc4826de2da570a024e98ae48b4865c76fc56d9757097206e57e90a7"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/inputs.json": {
+      "bytes": 3204,
+      "sha256": "5e4caa40f36704d58dd0ceb38edfea31778d384317cbf6392ab9c56e231b6ec8"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/installed-disassembly.txt": {
+      "bytes": 42411,
+      "sha256": "d764b2b2c17a6dd1d9c9107bcc77bfd9cb3ebb77bd38fc887de73c0fd65cdac9"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/native-inputs.json": {
+      "bytes": 42740,
+      "sha256": "6dc7b21949eeac4a3639e5371a2305476067265b84c9b6b863ec78731ee2bbf4"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/native-symbol-inventory.json": {
+      "bytes": 1295,
+      "sha256": "fe04c9164d27b88253b9f76f2daa18f275be9a3adf1a27e93650e29835f41d10"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/project.py": {
+      "bytes": 10848,
+      "sha256": "70ed927d9734f2b752052f7eff165c96c08e55d5ecdab8e3f2f2218d44015039"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/projection.json": {
+      "bytes": 12833,
+      "sha256": "b6d1df587565da1b025c83f5ccb99b3d4586ac6e11fc52c9abceb23f20ef3021"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/round.md": {
+      "bytes": 3690,
+      "sha256": "cdba26139cb96a1e59dfc9455ef6379a4412ccf5e9e4395d90b90597a07533b0"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/source-inventory.json": {
+      "bytes": 132799,
+      "sha256": "2e032364ef82797a95a2e1792cfab68a5752a5f87ea19571118fa260e4e2c839"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/source-witnesses.json": {
+      "bytes": 59005,
+      "sha256": "e7c55987a6c8bd8b68a61f7adabc432bfe8254f1f8038179e3d4e72030475858"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-server-owned-storage-20261020/README.md": {
+      "bytes": 1214,
+      "sha256": "7a19134adbacbfd800094addc2c879af97c78b212da6c9a4fddeae42958867e4"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/check-result.json": {
+      "bytes": 1351,
+      "sha256": "4fa65d1189b735b35fd29230a8d1f819730c7800f347cb7655162df44b7dba21"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/check.py": {
+      "bytes": 5769,
+      "sha256": "8f4923aabc4826de2da570a024e98ae48b4865c76fc56d9757097206e57e90a7"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/inputs.json": {
+      "bytes": 3204,
+      "sha256": "5e4caa40f36704d58dd0ceb38edfea31778d384317cbf6392ab9c56e231b6ec8"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/installed-disassembly.txt": {
+      "bytes": 42411,
+      "sha256": "d764b2b2c17a6dd1d9c9107bcc77bfd9cb3ebb77bd38fc887de73c0fd65cdac9"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/native-inputs.json": {
+      "bytes": 42740,
+      "sha256": "6dc7b21949eeac4a3639e5371a2305476067265b84c9b6b863ec78731ee2bbf4"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/native-symbol-inventory.json": {
+      "bytes": 1295,
+      "sha256": "fe04c9164d27b88253b9f76f2daa18f275be9a3adf1a27e93650e29835f41d10"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/project.py": {
+      "bytes": 10848,
+      "sha256": "70ed927d9734f2b752052f7eff165c96c08e55d5ecdab8e3f2f2218d44015039"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/projection.json": {
+      "bytes": 12833,
+      "sha256": "b6d1df587565da1b025c83f5ccb99b3d4586ac6e11fc52c9abceb23f20ef3021"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/round.md": {
+      "bytes": 3690,
+      "sha256": "cdba26139cb96a1e59dfc9455ef6379a4412ccf5e9e4395d90b90597a07533b0"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/source-inventory.json": {
+      "bytes": 132799,
+      "sha256": "2e032364ef82797a95a2e1792cfab68a5752a5f87ea19571118fa260e4e2c839"
+    },
+    "docs/evidence/retained-server-owned-storage-20261020/source-witnesses.json": {
+      "bytes": 59005,
+      "sha256": "e7c55987a6c8bd8b68a61f7adabc432bfe8254f1f8038179e3d4e72030475858"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\n  \"ML_MLI_inventory_members\": 535,\n  \"caller_inventory_sites\": 56,\n  \"checks\": {\n    \"archives\": 6,\n    \"classified_allocation_sites\": 1,\n    \"complete_source_inventory\": 1,\n    \"context_files\": 10,\n    \"fixed_native_guards\": 6,\n    \"gnat_control_sender_inventory\": 1,\n    \"installed_identities\": 2,\n    \"instruction_bytes\": 638,\n    \"native_operands\": 10,\n    \"native_symbols\": 1,\n    \"new_control_arithmetic\": 1,\n    \"new_projection\": 1,\n    \"packet_files\": 9,\n    \"pathname_response_guards\": 6,\n    \"pathname_response_rejection\": 1,\n    \"process_lifecycle_counts\": 1,\n    \"ring_partition_attachment\": 1,\n    \"selected_translation_units\": 1,\n    \"single_charge_integration\": 1,\n    \"source_witnesses\": 22,\n    \"topology_attachment\": 1\n  },\n  \"complete_q\": null,\n  \"direct_allocation_sites\": 28,\n  \"direct_shared_m14_formula\": \"sum_d N_d*L_d + sum_d 2*R(M_d) + 918*C + 250578\",\n  \"elapsed_seconds\": 1.326491,\n  \"installed_function_bodies\": 18,\n  \"installed_instruction_bytes\": 2484,\n  \"library_service_allocations_closed\": false,\n  \"native_operand_witnesses\": 10,\n  \"native_target_solver_proof_runs\": 0,\n  \"platform\": \"Linux x86_64\",\n  \"predecessor_checker_replays\": 0,\n  \"production_adopted\": false,\n  \"shared_endpoint_prefix_transfer_proved_here\": false,\n  \"source_semantics_machine_proved\": false,\n  \"source_witnesses\": 22,\n  \"status\": \"pass\"\n}\n",
+  "stderr": "",
+  "result": {
+    "ML_MLI_inventory_members": 535,
+    "caller_inventory_sites": 56,
+    "checks": {
+      "archives": 6,
+      "classified_allocation_sites": 1,
+      "complete_source_inventory": 1,
+      "context_files": 10,
+      "fixed_native_guards": 6,
+      "gnat_control_sender_inventory": 1,
+      "installed_identities": 2,
+      "instruction_bytes": 638,
+      "native_operands": 10,
+      "native_symbols": 1,
+      "new_control_arithmetic": 1,
+      "new_projection": 1,
+      "packet_files": 9,
+      "pathname_response_guards": 6,
+      "pathname_response_rejection": 1,
+      "process_lifecycle_counts": 1,
+      "ring_partition_attachment": 1,
+      "selected_translation_units": 1,
+      "single_charge_integration": 1,
+      "source_witnesses": 22,
+      "topology_attachment": 1
+    },
+    "complete_q": null,
+    "direct_allocation_sites": 28,
+    "direct_shared_m14_formula": "sum_d N_d*L_d + sum_d 2*R(M_d) + 918*C + 250578",
+    "elapsed_seconds": 1.326491,
+    "installed_function_bodies": 18,
+    "installed_instruction_bytes": 2484,
+    "library_service_allocations_closed": false,
+    "native_operand_witnesses": 10,
+    "native_target_solver_proof_runs": 0,
+    "platform": "Linux x86_64",
+    "predecessor_checker_replays": 0,
+    "production_adopted": false,
+    "shared_endpoint_prefix_transfer_proved_here": false,
+    "source_semantics_machine_proved": false,
+    "source_witnesses": 22,
+    "status": "pass"
+  }
+}

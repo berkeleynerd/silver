@@ -1,0 +1,87 @@
+{
+  "finding_origin": "Lead integration review",
+  "finding": "Residual wording promoted excluded allocator/OS/physical memory owners into mandatory proof gates, contrary to the existing retained capacity design and trusted resource boundary.",
+  "disposition": "Corrected scope in both component notes and this reviewer report; formulas and relevant finite/caller/representation/source obligations unchanged.",
+  "checkers_replayed": false,
+  "successors": {
+    "server_owned_storage": {
+      "first_focused_check_freeze": "73fe83500c16672716d0045d4b7aab1fda4f4ef1",
+      "accepted_author_freeze": "d82165ee7b874e65f64be8181de21763d83bda7e",
+      "local_import": "8b1c65f52452a4221d2d7dd8ca19363f50afdbdc",
+      "changed_paths": [
+        "docs/evidence/retained-server-owned-storage-20261020/inputs.json",
+        "docs/research/retained-server-owned-storage.md"
+      ],
+      "diff": "diff --git a/docs/evidence/retained-server-owned-storage-20261020/inputs.json b/docs/evidence/retained-server-owned-storage-20261020/inputs.json\nindex 8aca2b6ec0..c7463e23c1 100644\n--- a/docs/evidence/retained-server-owned-storage-20261020/inputs.json\n+++ b/docs/evidence/retained-server-owned-storage-20261020/inputs.json\n@@ -14,7 +14,7 @@\n     \"docs/evidence/retained-solver-request-bytes-20261020/projection.json\": \"a081ebf14988d6f4d922c1fbcd8e434e6bb5f30c62bb958c5645b878c58bcf5d\",\n     \"docs/research/retained-adapter-outcome-interface.md\": \"9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3\",\n     \"docs/research/retained-adapter-protocol-storage.md\": \"bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f\",\n-    \"docs/research/retained-server-owned-storage.md\": \"0f573aaca229276b3651455c167bee507881e7a50e959e61b083a04db5cfbef4\",\n+    \"docs/research/retained-server-owned-storage.md\": \"661a6a14b672b5d73ad77b43ef16bc9733065baf9a1a0b1e501ff0c619c23efe\",\n     \"docs/research/retained-server-request-storage.md\": \"9c003d63730a4e221f730df61b0081772daf240e43bf94c9835afd1ca8d62dd2\",\n     \"docs/research/retained-solver-request-bytes.md\": \"9d722ac0f33e3fb59f5ff5e998bdf31e8cecf826593bd30a6bcb6d7d710337ca\",\n     \"docs/research/retained-why-server-buffer-copy.md\": \"228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49\"\ndiff --git a/docs/research/retained-server-owned-storage.md b/docs/research/retained-server-owned-storage.md\nindex 9c4c84938e..1a4484a324 100644\n--- a/docs/research/retained-server-owned-storage.md\n+++ b/docs/research/retained-server-owned-storage.md\n@@ -231,17 +231,28 @@ transient capacity. Leave explicit service allocation envelopes\n internals, rather than adding those known payloads a second time. No selected\n libc source proof of these envelopes is claimed here.\n \n-Remaining storage must therefore include, with actual selected-source/native\n-correspondence: those getcwd/strdup service envelopes; other bounded-call libc\n-formatting, option/error/exit and native-service workspace; allocator metadata,\n-rounding, fragmentation and retained arenas for **all** object families; stock\n-ELF/shared-library/loader/runtime mappings and stack/signal-stack envelopes;\n-kernel socket/listener/self-pipe/descriptor storage and filesystem metadata;\n-raw output file contents; child/fork/COW/exec/solver/adapter memory; and the\n-proxy/control/canonical/log/history and Why-side representations. In particular\n-one newly created raw pathname per run bounds file count, not file contents.\n-The adapter/proxy proof and the shared-endpoint prefix transfer are still\n-required. None of these obligations is silently classified as optional.\n+`B_direct` excludes allocator metadata, rounding, fragmentation and retained\n+arenas; ELF/shared-library/loader/runtime mappings; physical stack/signal-stack\n+space; kernel socket/listener/self-pipe/descriptor and filesystem storage; and\n+physical child/fork/COW/exec/solver/adapter memory. These scope exclusions,\n+including the physical-owner names exported by the projection, do not create\n+new proof gates. The [capacity design contract](retained-tool-capacity.md#comparison-and-next-derivation)\n+supplies ordinary allocator/OS behavior and sufficient physical stack, memory\n+and disk through the existing trusted resource boundary. It requires neither\n+an aggregate RAM admission gate nor a proof of allocator internals; ordinary\n+physical exhaustion remains at that boundary.\n+\n+Required closure still includes the actual relevant source/configuration and\n+source/native correspondence, finite indices and representations, request-size\n+arithmetic, correctness-relevant counters, finite stack/index assumptions and\n+correct callers. The getcwd/strdup request-capacity and arithmetic terms above\n+remain useful source obligations within that scope. Meaningful raw-output,\n+proxy/control/canonical/log/history and Why-side behavior and representations\n+also remain in the accounting: one new raw pathname per run bounds file count,\n+not file contents. The adapter/proxy argument and shared-endpoint prefix\n+transfer remain separate requirements of the composed result. None of these\n+correctness or source-correspondence requirements is waived by the physical\n+resource boundary.\n \n Sufficient native arithmetic guards for the new source uses include\n `1<=J`, `2*J<=INT_MAX`, `J+2<=INT_MAX`, `c_s<=J`, `12*J<=SIZE_MAX`,\n",
+      "unchanged_component_files": [
+        "docs/evidence/retained-server-owned-storage-20261020/README.md",
+        "docs/evidence/retained-server-owned-storage-20261020/check-result.json",
+        "docs/evidence/retained-server-owned-storage-20261020/check.py",
+        "docs/evidence/retained-server-owned-storage-20261020/installed-disassembly.txt",
+        "docs/evidence/retained-server-owned-storage-20261020/native-inputs.json",
+        "docs/evidence/retained-server-owned-storage-20261020/native-symbol-inventory.json",
+        "docs/evidence/retained-server-owned-storage-20261020/project.py",
+        "docs/evidence/retained-server-owned-storage-20261020/projection.json",
+        "docs/evidence/retained-server-owned-storage-20261020/round.md",
+        "docs/evidence/retained-server-owned-storage-20261020/source-inventory.json",
+        "docs/evidence/retained-server-owned-storage-20261020/source-witnesses.json"
+      ],
+      "disposition": "Accepted by exact prose/diff/pin review; successful arithmetic/source/native checker evidence reused at its original freeze."
+    },
+    "shared_prefix": {
+      "first_focused_check_freeze": "a1257eb2a3107d227bf09153813f5c057ad77c73",
+      "accepted_author_freeze": "ab453599af8bf338ed0de15b2d4ad52b6a22ecf7",
+      "local_import": "27f96d3b8e26f2228d87a2762d9dd720b9ee628f",
+      "changed_paths": [
+        "docs/research/retained-shared-server-prefix.md"
+      ],
+      "diff": "diff --git a/docs/research/retained-shared-server-prefix.md b/docs/research/retained-shared-server-prefix.md\nindex ed71608397..32e307757c 100644\n--- a/docs/research/retained-shared-server-prefix.md\n+++ b/docs/research/retained-shared-server-prefix.md\n@@ -117,8 +117,12 @@ bound and does not permit changes to losing-attempt/report semantics.\n \n The proxy's five listeners, ten stream endpoints, backend socket pathname,\n startup/control storage, native descriptor/kernel resources and shared server\n-owners are outside the Why prefix delta. They must be charged once in their\n-own processes. The backend server's actual cwd and child environment also\n+owners are outside the Why prefix delta. Accounting for them belongs to their\n+own processes. The established trusted boundary supplies ordinary allocator/OS\n+behavior and sufficient physical stack/memory/disk; this exclusion adds no\n+aggregate RAM gate or allocator/kernel-internals proof requirement. Finite\n+representation, request-size, counter and caller conditions remain required.\n+The backend server's actual cwd and child environment also\n require the selected launch/configuration relation for later solver execution;\n preserved frontend pathnames do not establish that relation. Failed connection,\n partial startup, termination, proxy refinement, cleanup/reaping, raw output\n",
+      "unchanged_component_files": [
+        "docs/evidence/retained-shared-server-prefix-20261020/README.md",
+        "docs/evidence/retained-shared-server-prefix-20261020/check-result.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/check.py",
+        "docs/evidence/retained-shared-server-prefix-20261020/endpoints.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/inputs.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/native-witnesses.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/setter-census.json",
+        "docs/evidence/retained-shared-server-prefix-20261020/source-witnesses.json"
+      ],
+      "disposition": "Accepted by exact prose/diff/pin review; successful arithmetic/source/native checker evidence reused at its original freeze."
+    }
+  },
+  "governing_inputs_at_base": {
+    "docs/research/retained-tool-capacity.md": {
+      "freeze": "f306912c98e2449015a0514e0be5c11b99de5be1",
+      "identity": {
+        "bytes": 164873,
+        "sha256": "77971a8be3fdb594142a275039e3708c7624990a7f56cd64a7b71c4bd59e1d3f"
+      },
+      "excerpts": [
+        {
+          "first": 2194,
+          "last": 2198,
+          "text": "This checkpoint does **not** complete steps 2\u20133, #119, #91, #93 or milestone 5.\nThe existing trusted boundary supplies ordinary allocator/OS behavior and\nsufficient physical stack/memory/disk; it does not require an aggregate RAM\nadmission gate or a proof of allocator internals. Explicit finite indices,\nrequest-size arithmetic and correctness-relevant counters remain required.\n"
+        }
+      ]
+    },
+    "docs/trusted-boundary.md": {
+      "freeze": "f306912c98e2449015a0514e0be5c11b99de5be1",
+      "identity": {
+        "bytes": 89584,
+        "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+      },
+      "excerpts": [
+        {
+          "first": 40,
+          "last": 51,
+          "text": "| Component | What the assurance argument relies on | Controls and remaining scope |\n| --- | --- | --- |\n| GNAT 16.1 and its Ada runtime | Ada/SPARK frontend meaning, code generation, ABI, binder/startup behavior, runtime checks, and static-ghost erasure | Alire release origins and recorded binary identities; compiler builds retain `-gnata` and `-gnato`. GNAT and runtime bodies are external. |\n| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion for every source schema accepted by Lean's endpoint-discharge checker | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove completion within 100,000 normalized steps and 1,000 MiB per prover process with sufficient environmental resources, and no completeness claim for arbitrary SPARK is made. |\n| GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |\n| SPARKlib shipped with the selected GNATprove release | Sound ghost-container contracts and GNATprove's mathematical interpretation of unbounded integers and sequences | The report-projection model uses these only as Static ghost observations. The reviewed source-only project selects the pinned installation and keeps build objects under the native host's artifact directory. This is part of the GNATprove trust boundary, not new Silver-owned runtime code or a claim that Silver re-proves the vendor library. |\n| Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |\n| OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |\n| Shell and inherited environment | `/bin/sh` interpretation behind `system` for proof/build tools, native utility discovery, dynamic loading, and SDK selection | Setup quotes fixed paths; the driver appends only a checked workspace suffix. Application arguments use direct runtime spawning. Alire/GPR overrides listed below are removed. Other state, including `PATH`, loader settings and macOS developer/SDK settings, remains trusted. |\n| Python setup and generated `Silver_Build`/`Silver_Image_Config` | Correct installation anchoring, byte encoding, shell quoting, external command prefix and original Image support-tool selection | Generated declarations are included in SPARK verification and evidence hashes. Bootstrap and provenance check the private Image overlay and original vendor binding. External-tool selection is reviewed configuration, not a proved property of those tools. Python is not a runtime Silver dispatcher. |\n| Python evidence and replay scripts | Honest collection, comparison, and reporting of inputs, tools, diagnostics and artifacts | Tests and content-bound results detect stale/mismatched evidence; detailed Lean provenance is optional. Scripts are trusted for evidence reporting; hashes do not authenticate against an actor who can rewrite both evidence and manifests. |\n| Lean 4.34.1 kernel, local object cache and source embedding | Kernel checking, correctly built imported objects, source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, source dependencies and fresh actual-import/axiom audit. Separate `leanchecker` replay is optional for investigations and explicit audits. No project-specific axioms or unfinished proofs are permitted. |\n"
+        },
+        {
+          "first": 227,
+          "last": 235,
+          "text": "Existing Ada runtime services, including `Ada.Text_IO` and `Interfaces.C`, and\nGNAT's generated binder, startup, linker, and runtime code remain trusted. There\nis no claim that the imported C bodies or the whole operating system have been\nverified in SPARK. External process completion and successful resource allocation\nare infrastructure conditions rather than new Silver membership restrictions.\nDetected compiler infrastructure failures use the driver's failure status;\napplication process results follow the boundary above. Resource exhaustion\nor external runtime exceptions can still terminate the process outside that\nordinary diagnostic path.\n"
+        }
+      ]
+    }
+  }
+}

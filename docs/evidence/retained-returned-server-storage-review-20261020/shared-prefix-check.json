@@ -1,0 +1,109 @@
+{
+  "author_freeze": "a1257eb2a3107d227bf09153813f5c057ad77c73",
+  "started_utc": "2026-10-20T23:19:00.020219+00:00",
+  "elapsed_seconds": 0.34512214599999425,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-shared-server-prefix-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 5830,
+    "sha256": "d9066632be45d434f037561201c89ba06c075359ae20a586da64bbe56b81f0d3"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-shared-server-prefix-20261020/README.md": {
+      "bytes": 2348,
+      "sha256": "8d0bded921c7d6e86b4699355ef59ad242eb3e0762410091b2a096d872ac4ddd"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/check-result.json": {
+      "bytes": 589,
+      "sha256": "7aa2a0953f1ccc635b309e755db2eb1ff604fca64b6d9405bdad7d020f30dda6"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/check.py": {
+      "bytes": 5830,
+      "sha256": "d9066632be45d434f037561201c89ba06c075359ae20a586da64bbe56b81f0d3"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/endpoints.json": {
+      "bytes": 6169,
+      "sha256": "b413dd75b3b443328f187342d8e277e7c29108b15b58e33742b5e11616cfebc2"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/inputs.json": {
+      "bytes": 3008,
+      "sha256": "9654923b5c032097cf08cecdaf4c58d8bccc898834b84db9a8f7d3d776ac0ea8"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/native-witnesses.json": {
+      "bytes": 29699,
+      "sha256": "740ccf9bbb1b2f480f0c497a80d8edce428f0e0e7fafaaaf55c55d91b6e0602d"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/setter-census.json": {
+      "bytes": 1037,
+      "sha256": "b1c4b849a03253bcfdfb9394461faef3a2c8fc9ee32c50b68278e5c0482340c7"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/source-witnesses.json": {
+      "bytes": 17235,
+      "sha256": "8b84d4283cf04e6e0e29e5c0320e3ebe318e4accf7575e1e72e679c904a3167a"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-shared-server-prefix-20261020/README.md": {
+      "bytes": 2348,
+      "sha256": "8d0bded921c7d6e86b4699355ef59ad242eb3e0762410091b2a096d872ac4ddd"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/check-result.json": {
+      "bytes": 589,
+      "sha256": "7aa2a0953f1ccc635b309e755db2eb1ff604fca64b6d9405bdad7d020f30dda6"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/check.py": {
+      "bytes": 5830,
+      "sha256": "d9066632be45d434f037561201c89ba06c075359ae20a586da64bbe56b81f0d3"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/endpoints.json": {
+      "bytes": 6169,
+      "sha256": "b413dd75b3b443328f187342d8e277e7c29108b15b58e33742b5e11616cfebc2"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/inputs.json": {
+      "bytes": 3008,
+      "sha256": "9654923b5c032097cf08cecdaf4c58d8bccc898834b84db9a8f7d3d776ac0ea8"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/native-witnesses.json": {
+      "bytes": 29699,
+      "sha256": "740ccf9bbb1b2f480f0c497a80d8edce428f0e0e7fafaaaf55c55d91b6e0602d"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/setter-census.json": {
+      "bytes": 1037,
+      "sha256": "b1c4b849a03253bcfdfb9394461faef3a2c8fc9ee32c50b68278e5c0482340c7"
+    },
+    "docs/evidence/retained-shared-server-prefix-20261020/source-witnesses.json": {
+      "bytes": 17235,
+      "sha256": "8b84d4283cf04e6e0e29e5c0320e3ebe318e4accf7575e1e72e679c904a3167a"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\n  \"scope\": \"exact successful fixed-prefix peer substitution\",\n  \"repository_inputs\": 12,\n  \"source_slices\": 12,\n  \"native_functions\": 5,\n  \"native_instruction_bytes\": 1600,\n  \"domains\": 5,\n  \"endpoint_bytes\": [\n    50,\n    89,\n    56,\n    96,\n    56\n  ],\n  \"claimed_why_prefix_allocation_delta\": 0,\n  \"semantic_argument\": \"research note; independent review required\",\n  \"native_target_solver_proof_capture_runs\": 0,\n  \"predecessor_checker_replays\": 0,\n  \"candidate_executed\": false,\n  \"production_adopted\": false,\n  \"full_capacity_rule\": false,\n  \"elapsed_seconds\": 0.29915716299910855\n}\n",
+  "stderr": "",
+  "result": {
+    "scope": "exact successful fixed-prefix peer substitution",
+    "repository_inputs": 12,
+    "source_slices": 12,
+    "native_functions": 5,
+    "native_instruction_bytes": 1600,
+    "domains": 5,
+    "endpoint_bytes": [
+      50,
+      89,
+      56,
+      96,
+      56
+    ],
+    "claimed_why_prefix_allocation_delta": 0,
+    "semantic_argument": "research note; independent review required",
+    "native_target_solver_proof_capture_runs": 0,
+    "predecessor_checker_replays": 0,
+    "candidate_executed": false,
+    "production_adopted": false,
+    "full_capacity_rule": false,
+    "elapsed_seconds": 0.29915716299910855
+  }
+}
