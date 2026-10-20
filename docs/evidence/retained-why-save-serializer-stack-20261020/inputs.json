@@ -1,0 +1,78 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-path-lookup-capacity-20261020/result.json": {
+    "bytes": 23176,
+    "sha256": "a649650a8dccb9025d38556d869611aa4a9f0063962ec1046705adc01e184c8e"
+  },
+  "docs/evidence/retained-why-publication-composition-20261020/result.json": {
+    "bytes": 7646,
+    "sha256": "dfd15c9531a717b31ab537af4c2a21a831b20cd12b595cdd468dc5955d823b16"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/call-closures.json": {
+    "bytes": 70040,
+    "sha256": "a2e6b6b919714dbbef089c229052a87cca7c50cba52b921bcd34906c91a78cba"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-call-closures.json": {
+    "bytes": 128941,
+    "sha256": "87ef0f19cef6709d7612ed00bb6a27d15d8abdc351c469ab6c7c7bbf5cc0079d"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+    "bytes": 3380,
+    "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+  },
+  "docs/evidence/retained-why-save-printer-control-20261020/result.json": {
+    "bytes": 21002,
+    "sha256": "892775e8f2a2076e2790ccd7dbb0a8bf8e32b4e2f85ef1bf2337e6eb8421c722"
+  },
+  "docs/evidence/retained-why-save-serializer-stack-20261020/interfaces.py": {
+    "bytes": 5615,
+    "sha256": "86d86508c828b126c0ac98e6ff55f0a06982aa9ad47b1c9afc2509d54a9ed79c"
+  },
+  "docs/evidence/retained-why-save-serializer-stack-20261020/transfer.py": {
+    "bytes": 2452,
+    "sha256": "11f38b6e2d22578589f530ca05f031e9d0a2241c79cd3687f0c4fd279548e90e"
+  },
+  "docs/evidence/retained-why-save-shape-builder-allocation-20261020/result.json": {
+    "bytes": 72328,
+    "sha256": "8b736f5fabe303e34b6759d6e18e7d1fa9be52e0fcce1b90f3da84ca2715f0d9"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/result.json": {
+    "bytes": 9194,
+    "sha256": "ceb45afe9251a8cb3d86cdc794d2717f27c28718ed23c7a661d4e8b989e5bc13"
+  },
+  "docs/evidence/retained-why-save-stack-helper-closure-20261020/call-closures.json": {
+    "bytes": 28257,
+    "sha256": "5dfb1a889d777aaaf9215afdc73f9735d9721f125881a7716642c0bd4b9c5ae5"
+  },
+  "docs/evidence/retained-why-save-stack-helper-closure-20261020/result.json": {
+    "bytes": 4052,
+    "sha256": "91f5895a52b8b0cadadc5cac6045a5fe08d2eff7198f23c4e004a68eeea06425"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+    "bytes": 332715,
+    "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+  },
+  "docs/evidence/retained-why-save-structural-allocation-20261020/result.json": {
+    "bytes": 70942,
+    "sha256": "22ad31f01c5ef0ee827825a055b36f82845135953c52c246229e09de52e5cdc1"
+  },
+  "docs/evidence/retained-why-save-table-contract-join-20261020/result.json": {
+    "bytes": 123591,
+    "sha256": "eacee1864b7dbb3dcdcde9746f81bce0b2e6611d128fcd99cfdbe130cd23e113"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  }
+}

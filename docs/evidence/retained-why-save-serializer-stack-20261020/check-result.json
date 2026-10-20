@@ -1,0 +1,21 @@
+{
+  "cases": 5,
+  "elapsed_seconds": 2.609540386001754,
+  "mode": "write",
+  "native": {
+    "application_sites": 61,
+    "bodies": 220,
+    "checked_instruction_bytes": 35960,
+    "indirect_sites": 87
+  },
+  "ok": true,
+  "owned_complete_to_imports_bytes": [
+    106788096,
+    89634104,
+    20971856,
+    3420040,
+    4243344
+  ],
+  "platform": "Linux x86_64",
+  "source_excerpts": 47
+}

@@ -1,0 +1,5674 @@
+{
+  "captures": 0,
+  "cases": [
+    {
+      "case": "put_line",
+      "complete_owned_serializer_shape_printer_to_imports_under_premises": true,
+      "complete_save_stack_upper": null,
+      "formatter_name_constant_import_F_bytes": 23008,
+      "fresh_pid": 17310,
+      "goal_explanation_and_opening_import_G_bytes": 22250024,
+      "inputs": {
+        "A": 965,
+        "D": 197,
+        "F": 1,
+        "G": 65,
+        "K": 47841,
+        "M": 104990,
+        "P": 5979,
+        "S": 209,
+        "T": 1,
+        "Th": 46,
+        "V": 6,
+        "Z": 113
+      },
+      "logical_pid": 3085,
+      "native_body_contributions": {
+        "camlCamlinternalLazy__force_lazy_block_362": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlCamlinternalLazy__fun_468": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlCamlinternalLazy__raise_undefined_269": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__$5e_141": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Array__fill_317": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Buffer__add_string_654": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Buffer__resize_482": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Bytes__blit_363": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Bytes__make_279": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Bytes__sub_302": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Digest__string_349": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__equal_1252": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_730": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_rec_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Ephemeron__get_data_1170": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__hash_1334": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Filename__concat_814": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Filename__is_dir_sep_473": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__add_1032": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__add_1277": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__clear_674": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__create_inner_1743": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_734": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_769": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_1059": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_1304": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_rec_1053": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_rec_1298": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__fold_764": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__fun_1739": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__hash_1177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__hash_1261": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__insert_all_buckets_702": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__insert_bucket_710": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__iter_730": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__key_index_1028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__key_index_1273": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__mem_1114": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__mem_in_bucket_1118": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__ongoing_traversal_278": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__power_2_above_598": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__replace_1107": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__replace_1352": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1100": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1345": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__resize_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Int__to_string_303": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__fold_left_521": {
+          "active_instances_upper": 114,
+          "bytes": 3648,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__iter_507": {
+          "active_instances_upper": 511,
+          "bytes": 16352,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__length_aux_270": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_append_308": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_merge_811": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_merge_rev_821": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_sort_832": {
+          "active_instances_upper": 210,
+          "bytes": 10080,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__sort_831": {
+          "active_instances_upper": 210,
+          "bytes": 10080,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__stable_sort_807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__get_key_516": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__raise_if_invalid_offset_510": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Random__bits_484": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Random__full_init_325": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Random__make_self_init_477": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Random__new_state_271": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__compare_594": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__concat_419": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__sum_lengths_403": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__unsafe_blits_410": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__close_out_277": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__failwith_7": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__invalid_arg_10": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__open_out_gen_222": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__output_string_250": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__string_of_int_177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Exthtbl__find_def_548": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__add_397": {
+          "active_instances_upper": 54794,
+          "bytes": 4383520,
+          "own_bytes": 80
+        },
+        "camlWhy3__Extmap__bal_367": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Extmap__create_355": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Extmap__find_409": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__fold_489": {
+          "active_instances_upper": 7,
+          "bytes": 224,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__iter_460": {
+          "active_instances_upper": 47849,
+          "bytes": 1531168,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__advance_3115": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__create_ident_printer_inner_6267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__find_unique_3105": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Ident__fun_6276": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Ident__id_unique_inner_6286": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Ident__retreat_3117": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__same_3128": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__specname_3109": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__tag_2120": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__testname_3112": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Pp__html_char_1049": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Pp__html_string_1054": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_622": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_pre_608": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__space_762": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__clear_only_shape_1665": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__compute_and_add_shape_1642": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__file_proved_2204": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__find_sum_1653": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_1945": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_file_1938": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": {
+          "active_instances_upper": 65,
+          "bytes": 4160,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_theory_1931": {
+          "active_instances_upper": 46,
+          "bytes": 1472,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_transn_1848": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__fold_all_session_1955": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10023": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10033": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10048": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10056": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10064": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10072": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10161": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10169": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10184": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10193": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10198": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10201": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10204": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10211": {
+          "active_instances_upper": 65,
+          "bytes": 1040,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10253": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10269": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10289": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10303": {
+          "active_instances_upper": 46,
+          "bytes": 368,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10321": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10329": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10345": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10364": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10367": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10376": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10389": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10397": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10400": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_8393": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8403": {
+          "active_instances_upper": 65,
+          "bytes": 520,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8412": {
+          "active_instances_upper": 65,
+          "bytes": 1040,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8422": {
+          "active_instances_upper": 46,
+          "bytes": 368,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8437": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8446": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9928": {
+          "active_instances_upper": 1,
+          "bytes": 144,
+          "own_bytes": 144
+        },
+        "camlWhy3__Session_itp__fun_9947": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9949": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9951": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9955": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_9969": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_9980": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__get_proofNode_1718": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_proof_attempt_node_1714": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_prover_to_save_4166": {
+          "active_instances_upper": 1,
+          "bytes": 128,
+          "own_bytes": 128
+        },
+        "camlWhy3__Session_itp__get_shape_1636": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__get_transfNode_1750": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_used_provers_with_stats_4069": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__goal_is_detached_1807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__is_detached_1820": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__opt_4195": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_4319": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_arg_4301": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_bool_def_4219": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_file_4312": {
+          "active_instances_upper": 1,
+          "bytes": 96,
+          "own_bytes": 96
+        },
+        "camlWhy3__Session_itp__save_file_path_4247": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__save_float_def_4231": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_goal_4268": {
+          "active_instances_upper": 65,
+          "bytes": 7280,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_ident_4262": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_int_def_4225": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_proof_attempt_4252": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_prover_4202": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_result_4237": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_session_4339": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_status_4242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__save_string_attrib_4214": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_theory_4306": {
+          "active_instances_upper": 46,
+          "bytes": 3680,
+          "own_bytes": 80
+        },
+        "camlWhy3__Session_itp__save_trans_4269": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__th_proved_2199": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Sysutil__backup_file_267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_and_prepend_2887": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_shape_2883": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__check_2028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__clear_gs_2880": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__decoded_2037": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__do_d_2936": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__fun_9373": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9383": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9435": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9586": {
+          "active_instances_upper": 198,
+          "bytes": 1584,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9731": {
+          "active_instances_upper": 198,
+          "bytes": 1584,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9793": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__ident_v5_2122": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__pp_sum_shape_version_1772": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__pushc_2034": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__string_of_shape_1782": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__t_bound_shape_task_2924": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Termcode__t_shape_2345": {
+          "active_instances_upper": 198,
+          "bytes": 12672,
+          "own_bytes": 64
+        },
+        "camlWhy3__Termcode__vl_rename_alpha_2135": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__vs_rename_alpha_2129": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__write_shape_to_file_2896": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__equal_299": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Weakhtbl__hash_296": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__tag_hash_287": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__compare_1159": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__equal_1165": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__hash_1169": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__compare_1830": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__compare_268": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__equal_1382": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__equal_1826": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__equal_271": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__hash_275": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__tag_2176": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "caml_apply10": {
+          "active_instances_upper": 209982,
+          "bytes": 16798560,
+          "own_bytes": 80
+        },
+        "caml_apply12": {
+          "active_instances_upper": 209982,
+          "bytes": 23517984,
+          "own_bytes": 112
+        },
+        "caml_apply2": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        },
+        "caml_apply3": {
+          "active_instances_upper": 209982,
+          "bytes": 6719424,
+          "own_bytes": 32
+        },
+        "caml_apply4": {
+          "active_instances_upper": 209982,
+          "bytes": 6719424,
+          "own_bytes": 32
+        },
+        "caml_apply5": {
+          "active_instances_upper": 209982,
+          "bytes": 10079136,
+          "own_bytes": 48
+        },
+        "caml_apply7": {
+          "active_instances_upper": 209982,
+          "bytes": 13438848,
+          "own_bytes": 64
+        },
+        "caml_curry2": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        },
+        "caml_curry2_1": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        },
+        "caml_curry3": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        },
+        "caml_curry3_1": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        },
+        "caml_curry3_1_app": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        },
+        "caml_curry3_2": {
+          "active_instances_upper": 209982,
+          "bytes": 3359712,
+          "own_bytes": 16
+        }
+      },
+      "owned_complete_to_imports_bytes": 106788096,
+      "preexisting_stack": null,
+      "printer_binding_bound": 5979,
+      "task_selection_import_T_bytes": 94218928,
+      "trusted_runtime_service_stack": null
+    },
+    {
+      "case": "put",
+      "complete_owned_serializer_shape_printer_to_imports_under_premises": true,
+      "complete_save_stack_upper": null,
+      "formatter_name_constant_import_F_bytes": 23008,
+      "fresh_pid": 17514,
+      "goal_explanation_and_opening_import_G_bytes": 19540616,
+      "inputs": {
+        "A": 879,
+        "D": 197,
+        "F": 1,
+        "G": 54,
+        "K": 39745,
+        "M": 88117,
+        "P": 5531,
+        "S": 174,
+        "T": 1,
+        "Th": 46,
+        "V": 6,
+        "Z": 102
+      },
+      "logical_pid": 3323,
+      "native_body_contributions": {
+        "camlCamlinternalLazy__force_lazy_block_362": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlCamlinternalLazy__fun_468": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlCamlinternalLazy__raise_undefined_269": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__$5e_141": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Array__fill_317": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Buffer__add_string_654": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Buffer__resize_482": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Bytes__blit_363": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Bytes__make_279": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Bytes__sub_302": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Digest__string_349": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__equal_1252": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_730": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_rec_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Ephemeron__get_data_1170": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__hash_1334": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Filename__concat_814": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Filename__is_dir_sep_473": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__add_1032": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__add_1277": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__clear_674": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__create_inner_1743": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_734": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_769": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_1059": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_1304": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_rec_1053": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_rec_1298": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__fold_764": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__fun_1739": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__hash_1177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__hash_1261": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__insert_all_buckets_702": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__insert_bucket_710": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__iter_730": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__key_index_1028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__key_index_1273": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__mem_1114": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__mem_in_bucket_1118": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__ongoing_traversal_278": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__power_2_above_598": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__replace_1107": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__replace_1352": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1100": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1345": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__resize_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Int__to_string_303": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__fold_left_521": {
+          "active_instances_upper": 103,
+          "bytes": 3296,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__iter_507": {
+          "active_instances_upper": 500,
+          "bytes": 16000,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__length_aux_270": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_append_308": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_merge_811": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_merge_rev_821": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_sort_832": {
+          "active_instances_upper": 175,
+          "bytes": 8400,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__sort_831": {
+          "active_instances_upper": 175,
+          "bytes": 8400,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__stable_sort_807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__get_key_516": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__raise_if_invalid_offset_510": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Random__bits_484": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Random__full_init_325": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Random__make_self_init_477": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Random__new_state_271": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__compare_594": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__concat_419": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__sum_lengths_403": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__unsafe_blits_410": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__close_out_277": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__failwith_7": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__invalid_arg_10": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__open_out_gen_222": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__output_string_250": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__string_of_int_177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Exthtbl__find_def_548": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__add_397": {
+          "active_instances_upper": 46164,
+          "bytes": 3693120,
+          "own_bytes": 80
+        },
+        "camlWhy3__Extmap__bal_367": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Extmap__create_355": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Extmap__find_409": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__fold_489": {
+          "active_instances_upper": 7,
+          "bytes": 224,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__iter_460": {
+          "active_instances_upper": 39753,
+          "bytes": 1272096,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__advance_3115": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__create_ident_printer_inner_6267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__find_unique_3105": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Ident__fun_6276": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Ident__id_unique_inner_6286": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Ident__retreat_3117": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__same_3128": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__specname_3109": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__tag_2120": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__testname_3112": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Pp__html_char_1049": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Pp__html_string_1054": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_622": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_pre_608": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__space_762": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__clear_only_shape_1665": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__compute_and_add_shape_1642": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__file_proved_2204": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__find_sum_1653": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_1945": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_file_1938": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": {
+          "active_instances_upper": 54,
+          "bytes": 3456,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_theory_1931": {
+          "active_instances_upper": 46,
+          "bytes": 1472,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_transn_1848": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__fold_all_session_1955": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10023": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10033": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10048": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10056": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10064": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10072": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10161": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10169": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10184": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10193": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10198": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10201": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10204": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10211": {
+          "active_instances_upper": 54,
+          "bytes": 864,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10253": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10269": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10289": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10303": {
+          "active_instances_upper": 46,
+          "bytes": 368,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10321": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10329": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10345": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10364": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10367": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10376": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10389": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10397": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10400": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_8393": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8403": {
+          "active_instances_upper": 54,
+          "bytes": 432,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8412": {
+          "active_instances_upper": 54,
+          "bytes": 864,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8422": {
+          "active_instances_upper": 46,
+          "bytes": 368,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8437": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8446": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9928": {
+          "active_instances_upper": 1,
+          "bytes": 144,
+          "own_bytes": 144
+        },
+        "camlWhy3__Session_itp__fun_9947": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9949": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9951": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9955": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_9969": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_9980": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__get_proofNode_1718": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_proof_attempt_node_1714": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_prover_to_save_4166": {
+          "active_instances_upper": 1,
+          "bytes": 128,
+          "own_bytes": 128
+        },
+        "camlWhy3__Session_itp__get_shape_1636": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__get_transfNode_1750": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_used_provers_with_stats_4069": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__goal_is_detached_1807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__is_detached_1820": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__opt_4195": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_4319": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_arg_4301": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_bool_def_4219": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_file_4312": {
+          "active_instances_upper": 1,
+          "bytes": 96,
+          "own_bytes": 96
+        },
+        "camlWhy3__Session_itp__save_file_path_4247": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__save_float_def_4231": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_goal_4268": {
+          "active_instances_upper": 54,
+          "bytes": 6048,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_ident_4262": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_int_def_4225": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_proof_attempt_4252": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_prover_4202": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_result_4237": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_session_4339": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_status_4242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__save_string_attrib_4214": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_theory_4306": {
+          "active_instances_upper": 46,
+          "bytes": 3680,
+          "own_bytes": 80
+        },
+        "camlWhy3__Session_itp__save_trans_4269": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__th_proved_2199": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Sysutil__backup_file_267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_and_prepend_2887": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_shape_2883": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__check_2028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__clear_gs_2880": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__decoded_2037": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__do_d_2936": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__fun_9373": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9383": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9435": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9586": {
+          "active_instances_upper": 198,
+          "bytes": 1584,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9731": {
+          "active_instances_upper": 198,
+          "bytes": 1584,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9793": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__ident_v5_2122": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__pp_sum_shape_version_1772": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__pushc_2034": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__string_of_shape_1782": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__t_bound_shape_task_2924": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Termcode__t_shape_2345": {
+          "active_instances_upper": 198,
+          "bytes": 12672,
+          "own_bytes": 64
+        },
+        "camlWhy3__Termcode__vl_rename_alpha_2135": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__vs_rename_alpha_2129": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__write_shape_to_file_2896": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__equal_299": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Weakhtbl__hash_296": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__tag_hash_287": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__compare_1159": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__equal_1165": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__hash_1169": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__compare_1830": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__compare_268": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__equal_1382": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__equal_1826": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__equal_271": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__hash_275": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__tag_2176": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "caml_apply10": {
+          "active_instances_upper": 176236,
+          "bytes": 14098880,
+          "own_bytes": 80
+        },
+        "caml_apply12": {
+          "active_instances_upper": 176236,
+          "bytes": 19738432,
+          "own_bytes": 112
+        },
+        "caml_apply2": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        },
+        "caml_apply3": {
+          "active_instances_upper": 176236,
+          "bytes": 5639552,
+          "own_bytes": 32
+        },
+        "caml_apply4": {
+          "active_instances_upper": 176236,
+          "bytes": 5639552,
+          "own_bytes": 32
+        },
+        "caml_apply5": {
+          "active_instances_upper": 176236,
+          "bytes": 8459328,
+          "own_bytes": 48
+        },
+        "caml_apply7": {
+          "active_instances_upper": 176236,
+          "bytes": 11279104,
+          "own_bytes": 64
+        },
+        "caml_curry2": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        },
+        "caml_curry2_1": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        },
+        "caml_curry3": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        },
+        "caml_curry3_1": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        },
+        "caml_curry3_1_app": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        },
+        "caml_curry3_2": {
+          "active_instances_upper": 176236,
+          "bytes": 2819776,
+          "own_bytes": 16
+        }
+      },
+      "owned_complete_to_imports_bytes": 89634104,
+      "preexisting_stack": null,
+      "printer_binding_bound": 5531,
+      "task_selection_import_T_bytes": 83665696,
+      "trusted_runtime_service_stack": null
+    },
+    {
+      "case": "first_or_default",
+      "complete_owned_serializer_shape_printer_to_imports_under_premises": true,
+      "complete_save_stack_upper": null,
+      "formatter_name_constant_import_F_bytes": 23008,
+      "fresh_pid": 17631,
+      "goal_explanation_and_opening_import_G_bytes": 6756712,
+      "inputs": {
+        "A": 541,
+        "D": 89,
+        "F": 1,
+        "G": 33,
+        "K": 7657,
+        "M": 20577,
+        "P": 3352,
+        "S": 109,
+        "T": 1,
+        "Th": 41,
+        "V": 6,
+        "Z": 76
+      },
+      "logical_pid": 3470,
+      "native_body_contributions": {
+        "camlCamlinternalLazy__force_lazy_block_362": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlCamlinternalLazy__fun_468": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlCamlinternalLazy__raise_undefined_269": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__$5e_141": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Array__fill_317": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Buffer__add_string_654": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Buffer__resize_482": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Bytes__blit_363": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Bytes__make_279": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Bytes__sub_302": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Digest__string_349": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__equal_1252": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_730": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_rec_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Ephemeron__get_data_1170": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__hash_1334": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Filename__concat_814": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Filename__is_dir_sep_473": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__add_1032": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__add_1277": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__clear_674": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__create_inner_1743": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_734": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_769": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_1059": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_1304": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_rec_1053": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_rec_1298": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__fold_764": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__fun_1739": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__hash_1177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__hash_1261": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__insert_all_buckets_702": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__insert_bucket_710": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__iter_730": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__key_index_1028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__key_index_1273": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__mem_1114": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__mem_in_bucket_1118": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__ongoing_traversal_278": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__power_2_above_598": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__replace_1107": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__replace_1352": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1100": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1345": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__resize_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Int__to_string_303": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__fold_left_521": {
+          "active_instances_upper": 77,
+          "bytes": 2464,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__iter_507": {
+          "active_instances_upper": 258,
+          "bytes": 8256,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__length_aux_270": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_append_308": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_merge_811": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_merge_rev_821": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_sort_832": {
+          "active_instances_upper": 110,
+          "bytes": 5280,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__sort_831": {
+          "active_instances_upper": 110,
+          "bytes": 5280,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__stable_sort_807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__get_key_516": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__raise_if_invalid_offset_510": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Random__bits_484": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Random__full_init_325": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Random__make_self_init_477": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Random__new_state_271": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__compare_594": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__concat_419": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__sum_lengths_403": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__unsafe_blits_410": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__close_out_277": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__failwith_7": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__invalid_arg_10": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__open_out_gen_222": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__output_string_250": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__string_of_int_177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Exthtbl__find_def_548": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__add_397": {
+          "active_instances_upper": 11559,
+          "bytes": 924720,
+          "own_bytes": 80
+        },
+        "camlWhy3__Extmap__bal_367": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Extmap__create_355": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Extmap__find_409": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__fold_489": {
+          "active_instances_upper": 7,
+          "bytes": 224,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__iter_460": {
+          "active_instances_upper": 7665,
+          "bytes": 245280,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__advance_3115": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__create_ident_printer_inner_6267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__find_unique_3105": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Ident__fun_6276": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Ident__id_unique_inner_6286": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Ident__retreat_3117": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__same_3128": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__specname_3109": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__tag_2120": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__testname_3112": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Pp__html_char_1049": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Pp__html_string_1054": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_622": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_pre_608": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__space_762": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__clear_only_shape_1665": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__compute_and_add_shape_1642": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__file_proved_2204": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__find_sum_1653": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_1945": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_file_1938": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": {
+          "active_instances_upper": 33,
+          "bytes": 2112,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_theory_1931": {
+          "active_instances_upper": 41,
+          "bytes": 1312,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_transn_1848": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__fold_all_session_1955": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10023": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10033": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10048": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10056": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10064": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10072": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10161": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10169": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10184": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10193": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10198": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10201": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10204": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10211": {
+          "active_instances_upper": 33,
+          "bytes": 528,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10253": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10269": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10289": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10303": {
+          "active_instances_upper": 41,
+          "bytes": 328,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10321": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10329": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10345": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10364": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10367": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10376": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10389": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10397": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10400": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_8393": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8403": {
+          "active_instances_upper": 33,
+          "bytes": 264,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8412": {
+          "active_instances_upper": 33,
+          "bytes": 528,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8422": {
+          "active_instances_upper": 41,
+          "bytes": 328,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8437": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8446": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9928": {
+          "active_instances_upper": 1,
+          "bytes": 144,
+          "own_bytes": 144
+        },
+        "camlWhy3__Session_itp__fun_9947": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9949": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9951": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9955": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_9969": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_9980": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__get_proofNode_1718": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_proof_attempt_node_1714": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_prover_to_save_4166": {
+          "active_instances_upper": 1,
+          "bytes": 128,
+          "own_bytes": 128
+        },
+        "camlWhy3__Session_itp__get_shape_1636": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__get_transfNode_1750": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_used_provers_with_stats_4069": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__goal_is_detached_1807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__is_detached_1820": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__opt_4195": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_4319": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_arg_4301": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_bool_def_4219": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_file_4312": {
+          "active_instances_upper": 1,
+          "bytes": 96,
+          "own_bytes": 96
+        },
+        "camlWhy3__Session_itp__save_file_path_4247": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__save_float_def_4231": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_goal_4268": {
+          "active_instances_upper": 33,
+          "bytes": 3696,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_ident_4262": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_int_def_4225": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_proof_attempt_4252": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_prover_4202": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_result_4237": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_session_4339": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_status_4242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__save_string_attrib_4214": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_theory_4306": {
+          "active_instances_upper": 41,
+          "bytes": 3280,
+          "own_bytes": 80
+        },
+        "camlWhy3__Session_itp__save_trans_4269": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__th_proved_2199": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Sysutil__backup_file_267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_and_prepend_2887": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_shape_2883": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__check_2028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__clear_gs_2880": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__decoded_2037": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__do_d_2936": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__fun_9373": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9383": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9435": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9586": {
+          "active_instances_upper": 90,
+          "bytes": 720,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9731": {
+          "active_instances_upper": 90,
+          "bytes": 720,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9793": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__ident_v5_2122": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__pp_sum_shape_version_1772": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__pushc_2034": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__string_of_shape_1782": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__t_bound_shape_task_2924": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Termcode__t_shape_2345": {
+          "active_instances_upper": 90,
+          "bytes": 5760,
+          "own_bytes": 64
+        },
+        "camlWhy3__Termcode__vl_rename_alpha_2135": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__vs_rename_alpha_2129": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__write_shape_to_file_2896": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__equal_299": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Weakhtbl__hash_296": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__tag_hash_287": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__compare_1159": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__equal_1165": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__hash_1169": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__compare_1830": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__compare_268": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__equal_1382": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__equal_1826": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__equal_271": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__hash_275": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__tag_2176": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "caml_apply10": {
+          "active_instances_upper": 41156,
+          "bytes": 3292480,
+          "own_bytes": 80
+        },
+        "caml_apply12": {
+          "active_instances_upper": 41156,
+          "bytes": 4609472,
+          "own_bytes": 112
+        },
+        "caml_apply2": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        },
+        "caml_apply3": {
+          "active_instances_upper": 41156,
+          "bytes": 1316992,
+          "own_bytes": 32
+        },
+        "caml_apply4": {
+          "active_instances_upper": 41156,
+          "bytes": 1316992,
+          "own_bytes": 32
+        },
+        "caml_apply5": {
+          "active_instances_upper": 41156,
+          "bytes": 1975488,
+          "own_bytes": 48
+        },
+        "caml_apply7": {
+          "active_instances_upper": 41156,
+          "bytes": 2633984,
+          "own_bytes": 64
+        },
+        "caml_curry2": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        },
+        "caml_curry2_1": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        },
+        "caml_curry3": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        },
+        "caml_curry3_1": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        },
+        "caml_curry3_1_app": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        },
+        "caml_curry3_2": {
+          "active_instances_upper": 41156,
+          "bytes": 658496,
+          "own_bytes": 16
+        }
+      },
+      "owned_complete_to_imports_bytes": 20971856,
+      "preexisting_stack": null,
+      "printer_binding_bound": 3352,
+      "task_selection_import_T_bytes": 53568272,
+      "trusted_runtime_service_stack": null
+    },
+    {
+      "case": "is_message",
+      "complete_owned_serializer_shape_printer_to_imports_under_premises": true,
+      "complete_save_stack_upper": null,
+      "formatter_name_constant_import_F_bytes": 23008,
+      "fresh_pid": 17704,
+      "goal_explanation_and_opening_import_G_bytes": 2637768,
+      "inputs": {
+        "A": 196,
+        "D": 37,
+        "F": 1,
+        "G": 4,
+        "K": 665,
+        "M": 3343,
+        "P": 1276,
+        "S": 13,
+        "T": 1,
+        "Th": 12,
+        "V": 6,
+        "Z": 18
+      },
+      "logical_pid": 3568,
+      "native_body_contributions": {
+        "camlCamlinternalLazy__force_lazy_block_362": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlCamlinternalLazy__fun_468": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlCamlinternalLazy__raise_undefined_269": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__$5e_141": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Array__fill_317": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Buffer__add_string_654": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Buffer__resize_482": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Bytes__blit_363": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Bytes__make_279": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Bytes__sub_302": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Digest__string_349": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__equal_1252": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_730": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_rec_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Ephemeron__get_data_1170": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__hash_1334": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Filename__concat_814": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Filename__is_dir_sep_473": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__add_1032": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__add_1277": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__clear_674": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__create_inner_1743": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_734": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_769": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_1059": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_1304": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_rec_1053": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_rec_1298": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__fold_764": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__fun_1739": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__hash_1177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__hash_1261": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__insert_all_buckets_702": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__insert_bucket_710": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__iter_730": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__key_index_1028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__key_index_1273": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__mem_1114": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__mem_in_bucket_1118": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__ongoing_traversal_278": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__power_2_above_598": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__replace_1107": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__replace_1352": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1100": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1345": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__resize_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Int__to_string_303": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__fold_left_521": {
+          "active_instances_upper": 19,
+          "bytes": 608,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__iter_507": {
+          "active_instances_upper": 96,
+          "bytes": 3072,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__length_aux_270": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_append_308": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_merge_811": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_merge_rev_821": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_sort_832": {
+          "active_instances_upper": 14,
+          "bytes": 672,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__sort_831": {
+          "active_instances_upper": 14,
+          "bytes": 672,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__stable_sort_807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__get_key_516": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__raise_if_invalid_offset_510": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Random__bits_484": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Random__full_init_325": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Random__make_self_init_477": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Random__new_state_271": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__compare_594": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__concat_419": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__sum_lengths_403": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__unsafe_blits_410": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__close_out_277": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__failwith_7": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__invalid_arg_10": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__open_out_gen_222": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__output_string_250": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__string_of_int_177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Exthtbl__find_def_548": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__add_397": {
+          "active_instances_upper": 2146,
+          "bytes": 171680,
+          "own_bytes": 80
+        },
+        "camlWhy3__Extmap__bal_367": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Extmap__create_355": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Extmap__find_409": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__fold_489": {
+          "active_instances_upper": 7,
+          "bytes": 224,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__iter_460": {
+          "active_instances_upper": 673,
+          "bytes": 21536,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__advance_3115": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__create_ident_printer_inner_6267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__find_unique_3105": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Ident__fun_6276": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Ident__id_unique_inner_6286": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Ident__retreat_3117": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__same_3128": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__specname_3109": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__tag_2120": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__testname_3112": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Pp__html_char_1049": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Pp__html_string_1054": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_622": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_pre_608": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__space_762": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__clear_only_shape_1665": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__compute_and_add_shape_1642": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__file_proved_2204": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__find_sum_1653": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_1945": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_file_1938": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": {
+          "active_instances_upper": 4,
+          "bytes": 256,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_theory_1931": {
+          "active_instances_upper": 12,
+          "bytes": 384,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_transn_1848": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__fold_all_session_1955": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10023": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10033": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10048": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10056": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10064": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10072": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10161": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10169": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10184": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10193": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10198": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10201": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10204": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10211": {
+          "active_instances_upper": 4,
+          "bytes": 64,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10253": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10269": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10289": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10303": {
+          "active_instances_upper": 12,
+          "bytes": 96,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10321": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10329": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10345": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10364": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10367": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10376": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10389": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10397": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10400": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_8393": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8403": {
+          "active_instances_upper": 4,
+          "bytes": 32,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8412": {
+          "active_instances_upper": 4,
+          "bytes": 64,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8422": {
+          "active_instances_upper": 12,
+          "bytes": 96,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8437": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8446": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9928": {
+          "active_instances_upper": 1,
+          "bytes": 144,
+          "own_bytes": 144
+        },
+        "camlWhy3__Session_itp__fun_9947": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9949": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9951": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9955": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_9969": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_9980": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__get_proofNode_1718": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_proof_attempt_node_1714": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_prover_to_save_4166": {
+          "active_instances_upper": 1,
+          "bytes": 128,
+          "own_bytes": 128
+        },
+        "camlWhy3__Session_itp__get_shape_1636": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__get_transfNode_1750": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_used_provers_with_stats_4069": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__goal_is_detached_1807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__is_detached_1820": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__opt_4195": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_4319": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_arg_4301": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_bool_def_4219": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_file_4312": {
+          "active_instances_upper": 1,
+          "bytes": 96,
+          "own_bytes": 96
+        },
+        "camlWhy3__Session_itp__save_file_path_4247": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__save_float_def_4231": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_goal_4268": {
+          "active_instances_upper": 4,
+          "bytes": 448,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_ident_4262": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_int_def_4225": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_proof_attempt_4252": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_prover_4202": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_result_4237": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_session_4339": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_status_4242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__save_string_attrib_4214": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_theory_4306": {
+          "active_instances_upper": 12,
+          "bytes": 960,
+          "own_bytes": 80
+        },
+        "camlWhy3__Session_itp__save_trans_4269": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__th_proved_2199": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Sysutil__backup_file_267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_and_prepend_2887": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_shape_2883": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__check_2028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__clear_gs_2880": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__decoded_2037": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__do_d_2936": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__fun_9373": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9383": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9435": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9586": {
+          "active_instances_upper": 38,
+          "bytes": 304,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9731": {
+          "active_instances_upper": 38,
+          "bytes": 304,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9793": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__ident_v5_2122": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__pp_sum_shape_version_1772": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__pushc_2034": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__string_of_shape_1782": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__t_bound_shape_task_2924": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Termcode__t_shape_2345": {
+          "active_instances_upper": 38,
+          "bytes": 2432,
+          "own_bytes": 64
+        },
+        "camlWhy3__Termcode__vl_rename_alpha_2135": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__vs_rename_alpha_2129": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__write_shape_to_file_2896": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__equal_299": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Weakhtbl__hash_296": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__tag_hash_287": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__compare_1159": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__equal_1165": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__hash_1169": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__compare_1830": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__compare_268": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__equal_1382": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__equal_1826": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__equal_271": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__hash_275": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__tag_2176": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "caml_apply10": {
+          "active_instances_upper": 6688,
+          "bytes": 535040,
+          "own_bytes": 80
+        },
+        "caml_apply12": {
+          "active_instances_upper": 6688,
+          "bytes": 749056,
+          "own_bytes": 112
+        },
+        "caml_apply2": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        },
+        "caml_apply3": {
+          "active_instances_upper": 6688,
+          "bytes": 214016,
+          "own_bytes": 32
+        },
+        "caml_apply4": {
+          "active_instances_upper": 6688,
+          "bytes": 214016,
+          "own_bytes": 32
+        },
+        "caml_apply5": {
+          "active_instances_upper": 6688,
+          "bytes": 321024,
+          "own_bytes": 48
+        },
+        "caml_apply7": {
+          "active_instances_upper": 6688,
+          "bytes": 428032,
+          "own_bytes": 64
+        },
+        "caml_curry2": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        },
+        "caml_curry2_1": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        },
+        "caml_curry3": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        },
+        "caml_curry3_1": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        },
+        "caml_curry3_1_app": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        },
+        "caml_curry3_2": {
+          "active_instances_upper": 6688,
+          "bytes": 107008,
+          "own_bytes": 16
+        }
+      },
+      "owned_complete_to_imports_bytes": 3420040,
+      "preexisting_stack": null,
+      "printer_binding_bound": 1276,
+      "task_selection_import_T_bytes": 40643072,
+      "trusted_runtime_service_stack": null
+    },
+    {
+      "case": "input_is_valid",
+      "complete_owned_serializer_shape_printer_to_imports_under_premises": true,
+      "complete_save_stack_upper": null,
+      "formatter_name_constant_import_F_bytes": 23008,
+      "fresh_pid": 17869,
+      "goal_explanation_and_opening_import_G_bytes": 2777624,
+      "inputs": {
+        "A": 205,
+        "D": 39,
+        "F": 1,
+        "G": 5,
+        "K": 951,
+        "M": 4151,
+        "P": 1435,
+        "S": 10,
+        "T": 1,
+        "Th": 21,
+        "V": 7,
+        "Z": 28
+      },
+      "logical_pid": 97103,
+      "native_body_contributions": {
+        "camlCamlinternalLazy__force_lazy_block_362": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlCamlinternalLazy__fun_468": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlCamlinternalLazy__raise_undefined_269": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__$5e_141": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Array__fill_317": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Buffer__add_string_654": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Buffer__resize_482": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Bytes__blit_363": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Bytes__make_279": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Bytes__sub_302": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Digest__string_349": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__equal_1252": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_730": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Ephemeron__find_rec_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Ephemeron__get_data_1170": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Ephemeron__hash_1334": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Filename__concat_814": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Filename__is_dir_sep_473": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__add_1032": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__add_1277": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__clear_674": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__create_inner_1743": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_734": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__do_bucket_769": {
+          "active_instances_upper": 2,
+          "bytes": 64,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_1059": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_1304": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__find_rec_1053": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__find_rec_1298": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__fold_764": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__fun_1739": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__hash_1177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__hash_1261": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__insert_all_buckets_702": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__insert_bucket_710": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__iter_730": {
+          "active_instances_upper": 2,
+          "bytes": 160,
+          "own_bytes": 80
+        },
+        "camlStdlib__Hashtbl__key_index_1028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__key_index_1273": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__mem_1114": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__mem_in_bucket_1118": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Hashtbl__ongoing_traversal_278": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Hashtbl__power_2_above_598": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Hashtbl__replace_1107": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Hashtbl__replace_1352": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1100": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__replace_bucket_1345": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Hashtbl__resize_721": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__Int__to_string_303": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__fold_left_521": {
+          "active_instances_upper": 29,
+          "bytes": 928,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__iter_507": {
+          "active_instances_upper": 110,
+          "bytes": 3520,
+          "own_bytes": 32
+        },
+        "camlStdlib__List__length_aux_270": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_append_308": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__List__rev_merge_811": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_merge_rev_821": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__List__rev_sort_832": {
+          "active_instances_upper": 11,
+          "bytes": 528,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__sort_831": {
+          "active_instances_upper": 11,
+          "bytes": 528,
+          "own_bytes": 48
+        },
+        "camlStdlib__List__stable_sort_807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__get_key_516": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Obj__raise_if_invalid_offset_510": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlStdlib__Random__bits_484": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__Random__full_init_325": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlStdlib__Random__make_self_init_477": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__Random__new_state_271": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__compare_594": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__String__concat_419": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__sum_lengths_403": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__String__unsafe_blits_410": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlStdlib__close_out_277": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__failwith_7": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__invalid_arg_10": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__open_out_gen_222": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlStdlib__output_string_250": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlStdlib__string_of_int_177": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Exthtbl__find_def_548": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__add_397": {
+          "active_instances_upper": 2601,
+          "bytes": 208080,
+          "own_bytes": 80
+        },
+        "camlWhy3__Extmap__bal_367": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Extmap__create_355": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Extmap__find_409": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__fold_489": {
+          "active_instances_upper": 8,
+          "bytes": 256,
+          "own_bytes": 32
+        },
+        "camlWhy3__Extmap__iter_460": {
+          "active_instances_upper": 960,
+          "bytes": 30720,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__advance_3115": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__create_ident_printer_inner_6267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__find_unique_3105": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Ident__fun_6276": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Ident__id_unique_inner_6286": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Ident__retreat_3117": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__same_3128": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__specname_3109": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Ident__tag_2120": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Ident__testname_3112": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Pp__html_char_1049": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Pp__html_string_1054": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_622": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__print_list_pre_608": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Pp__space_762": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__clear_only_shape_1665": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__compute_and_add_shape_1642": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__file_proved_2204": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__find_sum_1653": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_1945": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_file_1938": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": {
+          "active_instances_upper": 5,
+          "bytes": 320,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_theory_1931": {
+          "active_instances_upper": 21,
+          "bytes": 672,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fold_all_any_of_transn_1848": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__fold_all_session_1955": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10023": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10033": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10048": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10056": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10064": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10072": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10161": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10169": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10184": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10193": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10198": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10201": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_10204": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10211": {
+          "active_instances_upper": 5,
+          "bytes": 80,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10253": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10269": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10289": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10303": {
+          "active_instances_upper": 21,
+          "bytes": 168,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10321": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10329": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10345": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10364": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10367": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10376": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10389": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_10397": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_10400": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_8393": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8403": {
+          "active_instances_upper": 5,
+          "bytes": 40,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8412": {
+          "active_instances_upper": 5,
+          "bytes": 80,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_8422": {
+          "active_instances_upper": 21,
+          "bytes": 168,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8437": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_8446": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9928": {
+          "active_instances_upper": 1,
+          "bytes": 144,
+          "own_bytes": 144
+        },
+        "camlWhy3__Session_itp__fun_9947": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9949": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9951": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__fun_9955": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__fun_9969": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__fun_9980": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__get_proofNode_1718": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_proof_attempt_node_1714": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_prover_to_save_4166": {
+          "active_instances_upper": 1,
+          "bytes": 128,
+          "own_bytes": 128
+        },
+        "camlWhy3__Session_itp__get_shape_1636": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__get_transfNode_1750": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__get_used_provers_with_stats_4069": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__goal_is_detached_1807": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__is_detached_1820": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__opt_4195": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_4319": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_arg_4301": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_bool_def_4219": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_file_4312": {
+          "active_instances_upper": 1,
+          "bytes": 96,
+          "own_bytes": 96
+        },
+        "camlWhy3__Session_itp__save_file_path_4247": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Session_itp__save_float_def_4231": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_goal_4268": {
+          "active_instances_upper": 5,
+          "bytes": 560,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_ident_4262": {
+          "active_instances_upper": 1,
+          "bytes": 64,
+          "own_bytes": 64
+        },
+        "camlWhy3__Session_itp__save_int_def_4225": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_proof_attempt_4252": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_prover_4202": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__save_result_4237": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_session_4339": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Session_itp__save_status_4242": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Session_itp__save_string_attrib_4214": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Session_itp__save_theory_4306": {
+          "active_instances_upper": 21,
+          "bytes": 1680,
+          "own_bytes": 80
+        },
+        "camlWhy3__Session_itp__save_trans_4269": {
+          "active_instances_upper": 1,
+          "bytes": 112,
+          "own_bytes": 112
+        },
+        "camlWhy3__Session_itp__th_proved_2199": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Sysutil__backup_file_267": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_and_prepend_2887": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__add_shape_2883": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__check_2028": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__clear_gs_2880": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__decoded_2037": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__do_d_2936": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__fun_9373": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9383": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9435": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9586": {
+          "active_instances_upper": 40,
+          "bytes": 320,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9731": {
+          "active_instances_upper": 40,
+          "bytes": 320,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__fun_9793": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__ident_v5_2122": {
+          "active_instances_upper": 1,
+          "bytes": 48,
+          "own_bytes": 48
+        },
+        "camlWhy3__Termcode__pp_sum_shape_version_1772": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Termcode__pushc_2034": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__string_of_shape_1782": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__t_bound_shape_task_2924": {
+          "active_instances_upper": 1,
+          "bytes": 80,
+          "own_bytes": 80
+        },
+        "camlWhy3__Termcode__t_shape_2345": {
+          "active_instances_upper": 40,
+          "bytes": 2560,
+          "own_bytes": 64
+        },
+        "camlWhy3__Termcode__vl_rename_alpha_2135": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Termcode__vs_rename_alpha_2129": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Termcode__write_shape_to_file_2896": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__equal_299": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Weakhtbl__hash_296": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Weakhtbl__tag_hash_287": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__compare_1159": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__equal_1165": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Whyconf__hash_1169": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__compare_1830": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__compare_268": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__equal_1382": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "camlWhy3__Wstdlib__equal_1826": {
+          "active_instances_upper": 1,
+          "bytes": 32,
+          "own_bytes": 32
+        },
+        "camlWhy3__Wstdlib__equal_271": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__hash_275": {
+          "active_instances_upper": 1,
+          "bytes": 8,
+          "own_bytes": 8
+        },
+        "camlWhy3__Wstdlib__tag_2176": {
+          "active_instances_upper": 1,
+          "bytes": 16,
+          "own_bytes": 16
+        },
+        "caml_apply10": {
+          "active_instances_upper": 8304,
+          "bytes": 664320,
+          "own_bytes": 80
+        },
+        "caml_apply12": {
+          "active_instances_upper": 8304,
+          "bytes": 930048,
+          "own_bytes": 112
+        },
+        "caml_apply2": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        },
+        "caml_apply3": {
+          "active_instances_upper": 8304,
+          "bytes": 265728,
+          "own_bytes": 32
+        },
+        "caml_apply4": {
+          "active_instances_upper": 8304,
+          "bytes": 265728,
+          "own_bytes": 32
+        },
+        "caml_apply5": {
+          "active_instances_upper": 8304,
+          "bytes": 398592,
+          "own_bytes": 48
+        },
+        "caml_apply7": {
+          "active_instances_upper": 8304,
+          "bytes": 531456,
+          "own_bytes": 64
+        },
+        "caml_curry2": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        },
+        "caml_curry2_1": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        },
+        "caml_curry3": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        },
+        "caml_curry3_1": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        },
+        "caml_curry3_1_app": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        },
+        "caml_curry3_2": {
+          "active_instances_upper": 8304,
+          "bytes": 132864,
+          "own_bytes": 16
+        }
+      },
+      "owned_complete_to_imports_bytes": 4243344,
+      "preexisting_stack": null,
+      "printer_binding_bound": 1435,
+      "task_selection_import_T_bytes": 41652464,
+      "trusted_runtime_service_stack": null
+    }
+  ],
+  "complete_save_capacity_established": false,
+  "handler_setter_exit_and_other_callback_owners_not_in_save_entry_scope": true,
+  "native": {
+    "application_sites": 61,
+    "bodies": 220,
+    "checked_instruction_bytes": 35960,
+    "indirect_sites": 87
+  },
+  "native_target_runs": 0,
+  "new_disassembly_runs": 0,
+  "predecessor_checker_replays": 0,
+  "remaining_save_entry_tool_roots": [
+    "T: task selection",
+    "G: complete goal explanation and public binder openings",
+    "F: selected Format/name-decoder/constant closures"
+  ],
+  "scope": "Complete save_session owned callers, serializer, Shape traversal and private printer to exact imported roots and runtime services",
+  "solver_runs": 0,
+  "source_machine_refinement_proved": false
+}

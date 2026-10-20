@@ -1,0 +1,81 @@
+{
+  "achieved_result": "Complete selected owned 220-body graph to explicit imports/services; all 61 application and 87 indirect sites classified; per-save owned components are numerical for all five cases. Exact frozen imports and reciprocal Format callbacks checked. Complete save remains null until parent composition.",
+  "authorization": "Own new serializer-stack note/packet only; coordinate exact sibling root boundaries; retained read-only source/native/arithmetic; no capture/proof/disassembler/source-fetch/broad replay or GitHub writes; commit Refs #119, #153.",
+  "base_commit": "455f2ae3e9",
+  "captures": 0,
+  "cli_memory_updated": false,
+  "complete_save_capacity_established": false,
+  "date_utc": "2026-10-20",
+  "final_comparison_replay_not_requested_or_run": true,
+  "first_dependency_cherry_pick_commit_time_utc": "2026-10-20T14:34:19Z",
+  "focused_check": {
+    "cases": 5,
+    "elapsed_seconds": 2.609540386001754,
+    "mode": "write",
+    "native": {
+      "application_sites": 61,
+      "bodies": 220,
+      "checked_instruction_bytes": 35960,
+      "indirect_sites": 87
+    },
+    "ok": true,
+    "owned_complete_to_imports_bytes": [
+      106788096,
+      89634104,
+      20971856,
+      3420040,
+      4243344
+    ],
+    "platform": "Linux x86_64",
+    "source_excerpts": 47
+  },
+  "github_writes": 0,
+  "identical_success_reruns": 0,
+  "independent_review": "Parent-owned integrated Round 38 review pending at author freeze; no reviewer metrics invented.",
+  "individual_cost": null,
+  "individual_token_usage": null,
+  "intended_outcome": "Close actual serializer/name-printer/table/path/Shape caller instances and provide native frame multiplicities to exact T/G/F imports.",
+  "issues": [
+    119,
+    153
+  ],
+  "local_dependency_cherry_picks": {
+    "binder_formatter": "4d796d3dc7",
+    "printer_control": "31c2f26b0a31ab88bab08be14d47984b6dd4ad0d"
+  },
+  "native_platform": "Linux x86_64",
+  "native_target_runs": 0,
+  "new_disassembler_runs": 0,
+  "original_dependency_freezes": {
+    "binder_formatter": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+    "printer_control": "631cfc8acbb397f91d1ac67d2a005194055fe756"
+  },
+  "predecessor_checker_replays": 0,
+  "prior_packet_edits": 0,
+  "prior_successes_elapsed_seconds": [
+    2.554430232998129,
+    2.7562135240004864
+  ],
+  "proof_solver_runs": 0,
+  "rework": [
+    "First generator attempt stopped on incorrect archive member path src/util/compress_none.ml; corrected to retained src/session/compress_none.ml. No proof/control obligation failed.",
+    "After initial successful native/closure/arithmetic check, refined source ranges, added explicit C-bridge target lists and bound exact newly frozen sibling imports. Final focused generation checks those changed obligations.",
+    "Final source/graph audit made inherited apply/curry target unions explicit in each indirect-site manifest, including resize key-index partial applications; regenerated changed closure evidence, numerical bounds unchanged."
+  ],
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_reasoning_effort": null,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selection_source": "Explicit parent assignment for serializer/name-printer stack closure",
+  "shared_document_writes": 0,
+  "significant_findings": [
+    "Static ELF closure words expose sort/frequency/prover callback identities.",
+    "Optional randomized table creation includes complete Lazy/Random wrappers and stored-exception/reentrant-force routes.",
+    "Bucket, suffix, path and printable-list loops have constant stack depth; forest/term/map/sort recursion uses represented finite inputs.",
+    "Adapter multiplicities are deliberately loose and charged per actual native body using bounded source activation/application contexts."
+  ],
+  "source_fetches": 0,
+  "source_native_refinement_machine_proved": false,
+  "whole_pipeline_capacity_established": false,
+  "work_started_exact_utc": null
+}

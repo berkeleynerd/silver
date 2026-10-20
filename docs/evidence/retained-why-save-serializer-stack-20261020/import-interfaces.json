@@ -1,0 +1,14 @@
+{
+  "all_formatter_callbacks_provided_here": true,
+  "all_our_imports_provided_by_frozen_packets": true,
+  "binder_formatter_original_freeze": "562b9a1d8d18da46e9017c9d49c097d1d9bf64f5",
+  "binder_formatter_result_identity": {
+    "bytes": 3380,
+    "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+  },
+  "imported_F_already_contains_const_shape_and_sn_decode": true,
+  "imported_G_already_contains_collect_concat_X": true,
+  "multiplicity": "S, T, G and F each once per active save; shared symbols are disjoint call instances.",
+  "parent_complete_save_stack_upper": null,
+  "parent_composition_expression": "r*(S+T+G+F)+r*4104+e*816 plus separately owned handler/exit/callback demand and R"
+}
