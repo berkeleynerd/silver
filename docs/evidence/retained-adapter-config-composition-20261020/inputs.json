@@ -1,0 +1,140 @@
+{
+  "local_files": {
+    "accepted-quiet.json": {
+      "bytes": 2447,
+      "sha256": "5bceceb901c457552ab485c238e591515a4ddb72c1c9854eb668476a837c0267"
+    },
+    "accepted-quiet/candidate-base-why3.conf.gz": {
+      "bytes": 666,
+      "sha256": "ca62ca270948bf1b7e1308a6b11205eece564b14ab442274c4b03a75a9d5212e"
+    },
+    "accepted-quiet/candidate-extra-why3.conf.gz": {
+      "bytes": 38,
+      "sha256": "21738b79db87c45c54c94c6ebbc59c072821674e6007efba98a3f72ce735cb86"
+    },
+    "accepted-quiet/capture-resources.json.gz": {
+      "bytes": 3943,
+      "sha256": "8567d0e69065227267600d53e429b84a7a485ff2885377e1558601aa92d438b1"
+    },
+    "accepted-quiet/lexer-account.json.gz": {
+      "bytes": 546,
+      "sha256": "486d939db3977a3815b9ead6e5bc3b4c2498961fa992dfd6b91d3a61ba39f202"
+    },
+    "accepted-quiet/prefix-inputs.json.gz": {
+      "bytes": 3657,
+      "sha256": "38a6997c687ad795827d076711d362b19f7b3fff51b7cb8f6a692e11c9ff2e88"
+    },
+    "accepted-quiet/prefix-note.md.gz": {
+      "bytes": 6717,
+      "sha256": "d6be7001098c96ce7ce9698c4042f341d38da6fed9b516208cea002c78559470"
+    },
+    "accepted-quiet/prefix-result.json.gz": {
+      "bytes": 1030,
+      "sha256": "00831b2afefc1e10d290d0cc39908f916debca54de96208cbadaae1e05d72a0c"
+    },
+    "check.py": {
+      "bytes": 6722,
+      "sha256": "5e899308456ac237202ee4a925a357f7f95107bde43e81b6619f70130a08aa3a"
+    },
+    "timing-freeze.json": {
+      "bytes": 2866,
+      "sha256": "a3a0014b2ae254c652a90af6d25ebcdeee130e07b3ce0ffb21f757689c89702a"
+    }
+  },
+  "shared_bound_source_and_capture_inputs": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  },
+  "timing_files": {
+    "docs/evidence/retained-response-timing-config-20261020/base-why3.conf": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/capture-resources.json": {
+      "bytes": 33732,
+      "sha256": "f1bb832a1458bf69c609a926636b6802908ef79f28787a5a206a2f75a3424b70"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/check.py": {
+      "bytes": 16152,
+      "sha256": "f1e5b081b760c3fc4b8e35bd881a324d0b98734db20e4338dd4554c98478473a"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/inputs.json": {
+      "bytes": 21215,
+      "sha256": "b06526bbfbc0714c40eb42462864448fd794d34c3605ffb85ad8ca692ad2a2ec"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/invocations.json": {
+      "bytes": 12903,
+      "sha256": "91553236d2eacdb318947f2bb7c1648d6081e4a737514dfd839d00e652a9aaeb"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "cbe7d537cd2e6c6cb480b7794b02ec2828acd0677ac9ee21193855f338f6443c"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/recipe.json": {
+      "bytes": 13356,
+      "sha256": "240fc8dd8a3995eb110ab92d56a1212cc88bac6002b04e36c8dde0440d424649"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/result.json": {
+      "bytes": 3847,
+      "sha256": "414ebae3a19ccc5a0baabd312f2ab2cd6c6f672394def5f7f453fdf7f96734b2"
+    },
+    "docs/research/retained-response-timing-config.md": {
+      "bytes": 23705,
+      "sha256": "a479234a3a7d7d6ab7bb87b39ee20cd13651933d31963d886abd4c469956661e"
+    }
+  }
+}

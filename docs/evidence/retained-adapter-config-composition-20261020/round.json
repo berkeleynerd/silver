@@ -1,0 +1,68 @@
+{
+  "author_checkpoint_utc": "2026-10-20T21:08:10.151989+00:00",
+  "authorization": "Parent assigned new composition note/evidence only; preserve earlier packets. Reuse accepted sources/credits; no native or predecessor replay. No proxy or J>1 dependence.",
+  "base_commit": "b6c0128c1f0669d9a9977eda16f489ee31b4353b",
+  "completed": [
+    "Exact combined configuration fixture/recipe",
+    "Five raw baseline/cut/initial count joins",
+    "Additive minor/major/mutation/registration analysis and arithmetic"
+  ],
+  "cost": null,
+  "depends_on_unreviewed_proxy": false,
+  "elapsed_since_first_recorded_seconds": 209.151989,
+  "first_recorded_scope": "First recorded time after bounded addendum assignment, not exact task start",
+  "first_recorded_utc": "2026-10-20T21:04:41+00:00",
+  "graph_comparison_runs": 0,
+  "independent_review": "Lead-owned same selected Astra/Extra High reviewer; composition and timing review pending at author freeze",
+  "issues": [
+    119,
+    153
+  ],
+  "material_findings": [
+    "Exact base-command and private-driver edits commute; RC and driver lexer scratch are separate.",
+    "Full snapshots, PIDs, invocations and six raw capture archive identities agree across both source inputs.",
+    "Quiet contributes 4,096 minor words, 4,096 remembered entries, zero major words and zero registrations.",
+    "Combined maxima fit minor, major, initial arena and reference thresholds; the FileTags bound is unchanged."
+  ],
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "new_native_runs": 0,
+  "objective": "Compose exact accepted quiet-command and timeless-overlay prefix transfers with raw baseline attachment and additive resource credits.",
+  "predecessor_replays": 0,
+  "production_88_through_94_started": false,
+  "quiet_author_freeze": "e1059f9d97edf6a278c3efab813e196a84f1dbe3",
+  "remaining": [
+    "Independent review and acceptance of timing/composition arguments",
+    "Source/runtime/Re behavior premises",
+    "J > 1 transfer",
+    "Outcome/report/strict-warning binding",
+    "Full q/O and pre-entry bounds",
+    "Future production refinement"
+  ],
+  "retained_budgets": {
+    "per_process_e_upper": 2,
+    "reached_saves_upper": 3,
+    "reset_per_attempt": false,
+    "save_entering_callbacks_upper": 2
+  },
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selection_source": "Parent explicitly retained same setting for bounded composition addendum",
+  "solver_or_proof_runs": 0,
+  "source_fetches": 0,
+  "timing_author_freeze": "b6c0128c1f0669d9a9977eda16f489ee31b4353b",
+  "token_usage": null,
+  "validation": {
+    "command": "python3 -B docs/evidence/retained-adapter-config-composition-20261020/check.py",
+    "elapsed_seconds": 0.06879461700009415,
+    "passed": true,
+    "stdout": {
+      "native_runs": 0,
+      "passed": true,
+      "predecessor_replays": 0,
+      "same_raw_capture_attachments": 5
+    }
+  },
+  "whole_capacity_established": false
+}

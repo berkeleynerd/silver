@@ -1,0 +1,40 @@
+{
+  "base_config": {
+    "bytes": 2069,
+    "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+  },
+  "changed_base_line_after": "command = \"/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f\"",
+  "changed_base_line_before": "command = \"cvc5 --prenex-quant=none --stats-internal %f\"",
+  "extra_config": {
+    "bytes": 18,
+    "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+  },
+  "extra_prover_records_changed": 0,
+  "overlay_files": {
+    "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "cbe7d537cd2e6c6cb480b7794b02ec2828acd0677ac9ee21193855f338f6443c"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    }
+  },
+  "parallelism_or_path_spelling_changed": false
+}

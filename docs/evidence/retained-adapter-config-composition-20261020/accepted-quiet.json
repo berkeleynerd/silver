@@ -1,0 +1,55 @@
+{
+  "author_freeze": "e1059f9d97edf6a278c3efab813e196a84f1dbe3",
+  "files": {
+    "candidate-base-why3.conf": {
+      "bytes": 2069,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/candidate-base-why3.conf.gz",
+      "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f",
+      "source_path": "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base-why3.conf"
+    },
+    "candidate-extra-why3.conf": {
+      "bytes": 18,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/candidate-extra-why3.conf.gz",
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48",
+      "source_path": "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-extra-why3.conf"
+    },
+    "capture-resources.json": {
+      "bytes": 43594,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/capture-resources.json.gz",
+      "sha256": "c2c248eb74646dc4f1482936071ed412aeddf56379fe6c75c9a6a61777e299f0",
+      "source_path": "docs/evidence/retained-quiet-prefix-transfer-20261020/capture-resources.json"
+    },
+    "lexer-account.json": {
+      "bytes": 1640,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/lexer-account.json.gz",
+      "sha256": "8b5de460e90c576d81a0979b864e99041333e102a292a3613cdf89548fd93b46",
+      "source_path": "docs/evidence/retained-quiet-prefix-transfer-20261020/lexer-account.json"
+    },
+    "prefix-inputs.json": {
+      "bytes": 17635,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/prefix-inputs.json.gz",
+      "sha256": "dc5de3d1d0da1f1dade0089585c70be799ca27cf50da85846d1d5039293cf124",
+      "source_path": "docs/evidence/retained-quiet-prefix-transfer-20261020/inputs.json"
+    },
+    "prefix-note.md": {
+      "bytes": 15078,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/prefix-note.md.gz",
+      "sha256": "747ec1afd064e53c7160044da1252c57222b5f0b2bb050a8123e67317448c06f",
+      "source_path": "docs/research/retained-quiet-prefix-transfer.md"
+    },
+    "prefix-result.json": {
+      "bytes": 4645,
+      "encoding": "gzip",
+      "retained_path": "accepted-quiet/prefix-result.json.gz",
+      "sha256": "7319de09e95e06d228c0c7fcdc18c1bac6e6eb3ea4f84c497f007420cbd562d1",
+      "source_path": "docs/evidence/retained-quiet-prefix-transfer-20261020/result.json"
+    }
+  },
+  "status": "Imported immutable accepted quiet source packet; no predecessor checker replay"
+}

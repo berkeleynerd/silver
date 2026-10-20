@@ -1,0 +1,62 @@
+{
+  "author_freeze": "b6c0128c1f0669d9a9977eda16f489ee31b4353b",
+  "files": {
+    "docs/evidence/retained-response-timing-config-20261020/base-why3.conf": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/capture-resources.json": {
+      "bytes": 33732,
+      "sha256": "f1bb832a1458bf69c609a926636b6802908ef79f28787a5a206a2f75a3424b70"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/check.py": {
+      "bytes": 16152,
+      "sha256": "f1e5b081b760c3fc4b8e35bd881a324d0b98734db20e4338dd4554c98478473a"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/inputs.json": {
+      "bytes": 21215,
+      "sha256": "b06526bbfbc0714c40eb42462864448fd794d34c3605ffb85ad8ca692ad2a2ec"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/invocations.json": {
+      "bytes": 12903,
+      "sha256": "91553236d2eacdb318947f2bb7c1648d6081e4a737514dfd839d00e652a9aaeb"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "cbe7d537cd2e6c6cb480b7794b02ec2828acd0677ac9ee21193855f338f6443c"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/recipe.json": {
+      "bytes": 13356,
+      "sha256": "240fc8dd8a3995eb110ab92d56a1212cc88bac6002b04e36c8dde0440d424649"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/result.json": {
+      "bytes": 3847,
+      "sha256": "414ebae3a19ccc5a0baabd312f2ab2cd6c6f672394def5f7f453fdf7f96734b2"
+    },
+    "docs/research/retained-response-timing-config.md": {
+      "bytes": 23705,
+      "sha256": "a479234a3a7d7d6ab7bb87b39ee20cd13651933d31963d886abd4c469956661e"
+    }
+  },
+  "review_status": "Independent review pending at composition authoring"
+}
