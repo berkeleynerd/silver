@@ -1,0 +1,87 @@
+[
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 55,
+    "text": "let ft_select_kept = ((Hstr.create 17) : (Env.env,Sty.t) Trans.flag_trans)"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 56,
+    "text": "let ft_enco_kept   = ((Hstr.create 17) : (Env.env,task)  Trans.flag_trans)"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 57,
+    "text": "let ft_enco_poly   = ((Hstr.create 17) : (Env.env,task)  Trans.flag_trans)"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 60,
+    "text": "  let def = Trans.on_flag meta_select_kept_default ft_select_kept def in"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 61,
+    "text": "  let select = Trans.on_flag_t meta_select_kept ft_select_kept def env in"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 112,
+    "text": "    (Trans.on_flag meta_enco_kept ft_enco_kept def_enco_kept_smt env);"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 113,
+    "text": "  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_smt env]"
+  },
+  {
+    "member": "why3/src/transform/encoding.ml",
+    "line": 118,
+    "text": "  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_tptp env]"
+  },
+  {
+    "member": "why3/src/transform/encoding.mli",
+    "line": 11,
+    "text": "val ft_select_kept : (Env.env,Ty.Sty.t)  Trans.flag_trans"
+  },
+  {
+    "member": "why3/src/transform/encoding.mli",
+    "line": 12,
+    "text": "val ft_enco_kept   : (Env.env,Task.task) Trans.flag_trans"
+  },
+  {
+    "member": "why3/src/transform/encoding.mli",
+    "line": 13,
+    "text": "val ft_enco_poly   : (Env.env,Task.task) Trans.flag_trans"
+  },
+  {
+    "member": "why3/src/transform/encoding_guards.ml",
+    "line": 158,
+    "text": "let () = Wstdlib.Hstr.replace Encoding.ft_enco_poly \"guards\" (fun _ ->"
+  },
+  {
+    "member": "why3/src/transform/encoding_guards_full.ml",
+    "line": 291,
+    "text": "let () = Hstr.replace Encoding.ft_enco_poly \"guards_full\""
+  },
+  {
+    "member": "why3/src/transform/encoding_select.ml",
+    "line": 72,
+    "text": "  let () = register ft_select_kept kept_none kept_goal kept_local kept_all"
+  },
+  {
+    "member": "why3/src/transform/encoding_tags.ml",
+    "line": 158,
+    "text": "let () = Wstdlib.Hstr.replace Encoding.ft_enco_poly \"tags\" (fun _ ->"
+  },
+  {
+    "member": "why3/src/transform/encoding_tags_full.ml",
+    "line": 122,
+    "text": "let () = Hstr.replace Encoding.ft_enco_poly \"tags_full\" (Util.const t)"
+  },
+  {
+    "member": "why3/src/transform/encoding_twin.ml",
+    "line": 118,
+    "text": "let () = Hstr.replace Encoding.ft_enco_kept \"twin\" (Util.const t)"
+  }
+]

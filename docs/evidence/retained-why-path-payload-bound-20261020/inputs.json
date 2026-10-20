@@ -1,0 +1,46 @@
+{
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+    "bytes": 254603,
+    "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+  },
+  "docs/evidence/retained-why-save-serializer-inputs-20261020/result.json": {
+    "bytes": 423804,
+    "sha256": "03f218de4907eca5069ff25a48b6884fe18cb64787027669b229eb9898d4d361"
+  },
+  "docs/evidence/retained-why-save-formatter-core-20261020/result.json": {
+    "bytes": 8508,
+    "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+  },
+  "docs/evidence/retained-why-restored-path-continuation-20261020/result.json": {
+    "bytes": 8865,
+    "sha256": "c39715eb26fd814fbca9e4293fa74c11f9a5e0def0c05ccc063b2298adac787b"
+  },
+  "docs/evidence/retained-why-path-input-inventory-20261020/library-inventory.json": {
+    "bytes": 815285,
+    "sha256": "d379fa376664972748e2b4a55912d0f17a7342b611e1fde98d66bd2aa50856ac"
+  },
+  "docs/evidence/retained-why-path-input-inventory-20261020/capture-inventory.json": {
+    "bytes": 276907,
+    "sha256": "e13bada8972725bbef412b066780f951c7749cac52ea275ba0f1e2e29c44a3eb"
+  },
+  "docs/evidence/retained-why-path-input-inventory-20261020/cut-evidence.json": {
+    "bytes": 12598,
+    "sha256": "3de8c742708f3810aeb8082454cbdbde7cf39c6ffda160fe068e2f7e4ff5896e"
+  },
+  "docs/evidence/retained-why-path-input-inventory-20261020/result.json": {
+    "bytes": 4523,
+    "sha256": "31997f1d7e1b571c34cfb6b1938979f4490e89b337742ea21f85566aa2578e9e"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/runtime-version.json": {
+    "bytes": 466,
+    "sha256": "468e70930fe8ec280cf1cc48a332191c394f31f1fba4be6a340c964c3d5565eb"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "round": 31,
+  "date_UTC": "2026-10-20",
+  "issues": [119, 153],
+  "role": "bounded retained Why path-payload source argument",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selected_setting_evidence": "Parent's delegation record, confirmed by parent message at packaging handoff",
+  "runtime_settings_confirmed": false,
+  "runtime_setting_confirmation": null,
+  "base_commit": "87874f41b44f7abb2d3c4848405b3474a09f51b4",
+  "companion_inventory_author_commit": "d35f7809e5366bbdb4012315de00d7089130233b",
+  "intended_outcome": "a useful uniform qualified-path payload bound, or exact remaining guards, using retained sources and five retained captures",
+  "achieved_result": "tuple paths have one component of at most 25 bytes; fixed encoding helper family has no Theory path registration; conditional library source-origin bound is 116162 bytes; common sentinel arithmetic ceiling is 2162382 bytes; actual whole-process R and U remain null",
+  "remaining_guards": [
+    "initial selectable values include resumable old arrays unless suspended resize is excluded over the actual pre-cut interval",
+    "join the named-module and participating-symbol origin conditions to actual environment and cache lineage",
+    "complete selected preparation, printer, result/error and callback path-writer coverage",
+    "native path construction and remaining Format/save resource contracts"
+  ],
+  "significant_review_or_rework": [
+    "Rejected numeric-tag freshness as a payload argument and retained uniform bounds over possible aliases",
+    "Companion extraction was corrected to retain multiline clone substitutions before consuming its frozen inventory",
+    "Library premise strengthened to corresponding named definitions and dependencies, plus no unrelated cache-origin injection",
+    "Type VC route checked separately because add_types uses vc:true even for library paths",
+    "One witness generation endpoint exceeded vc.ml length; changed to the retained member's EOF and regenerated successfully"
+  ],
+  "first_observed_clock_UTC": "2026-10-20 10:43:12 UTC",
+  "packaging_clock_UTC": "2026-10-20 11:05:13 UTC",
+  "elapsed_seconds_between_observed_clocks": 1321,
+  "elapsed_scope": "Observed source-argument and packaging interval, including context handoff; not a native execution measurement or exact agent launch duration",
+  "validation": {
+    "host": "Linux x86_64",
+    "checker": "python3 -B docs/evidence/retained-why-path-payload-bound-20261020/check.py",
+    "checker_exit_code": 0,
+    "checker_elapsed_seconds": 0.641,
+    "generated_json_comparisons": 4,
+    "source_witnesses": 62,
+    "encoding_registry_references": 17,
+    "cases": 5,
+    "local_markdown_links_checked": 6,
+    "scope": "Retained identities, reference census and exact conditional arithmetic; semantic source effects and lineage argument require aggregate independent review"
+  },
+  "native_runs": 0,
+  "new_captures": 0,
+  "proof_runs": 0,
+  "source_fetches": 0,
+  "token_measurement": null,
+  "monetary_cost_measurement": null,
+  "live_harness_goal_visible_to_subthread": null,
+  "lead_owned_actions": ["aggregate independent review", "issue and session-memory updates", "integration and publication", "live goal status"]
+}
