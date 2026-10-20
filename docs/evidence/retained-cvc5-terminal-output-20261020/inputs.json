@@ -1,0 +1,146 @@
+{
+  "base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+  "archive": {
+    "path": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 9262397,
+    "sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c"
+  },
+  "sources": [
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/signal_handlers.cpp",
+      "bytes": 9355,
+      "sha256": "aec15fd9edcba84f9e0a4ac90b895727a0b29d123e810cfe4267f9cf5143ad0e",
+      "excerpts": [
+        {
+          "first": 56,
+          "last": 96,
+          "text": "void print_statistics()\n{\n  if (pExecutor != nullptr)\n  {\n    pExecutor->printStatisticsSafe(STDERR_FILENO);\n  }\n}\n\nvoid timeout_handler()\n{\n  safe_print(STDERR_FILENO, \"cvc5 interrupted by timeout.\\n\");\n  print_statistics();\n  abort();\n}\n\n#ifndef __WIN32__\n\n#ifdef HAVE_SIGALTSTACK\nsize_t stackSize;\nvoid* stackBase;\n#endif /* HAVE_SIGALTSTACK */\n\n/** Handler for SIGXCPU and SIGALRM, i.e., timeout. */\nvoid timeout_handler(int sig, siginfo_t* info, void*) { timeout_handler(); }\n\n/** Handler for SIGTERM. */\nvoid sigterm_handler(int sig, siginfo_t* info, void*)\n{\n  safe_print(STDERR_FILENO, \"cvc5 interrupted by SIGTERM.\\n\");\n  print_statistics();\n  signal(sig, SIG_DFL);\n  raise(sig);\n}\n\n/** Handler for SIGINT, i.e., when the user hits control C. */\nvoid sigint_handler(int sig, siginfo_t* info, void*)\n{\n  safe_print(STDERR_FILENO, \"cvc5 interrupted by user.\\n\");\n  print_statistics();\n  signal(sig, SIG_DFL);\n  raise(sig);\n"
+        },
+        {
+          "first": 99,
+          "last": 173,
+          "text": "#ifdef HAVE_SIGALTSTACK\n/** Handler for SIGSEGV (segfault). */\nvoid segv_handler(int sig, siginfo_t* info, void* c)\n{\n  uintptr_t extent = reinterpret_cast<uintptr_t>(stackBase) - stackSize;\n  uintptr_t addr = reinterpret_cast<uintptr_t>(info->si_addr);\n#ifdef CVC5_DEBUG\n  safe_print(STDERR_FILENO, \"cvc5 suffered a segfault in DEBUG mode.\\n\");\n  safe_print(STDERR_FILENO, \"Offending address is \");\n  safe_print(STDERR_FILENO, info->si_addr);\n  safe_print(STDERR_FILENO, \"\\n\");\n  // cerr << \"base is \" << (void*)stackBase << endl;\n  // cerr << \"size is \" << stackSize << endl;\n  // cerr << \"extent is \" << (void*)extent << endl;\n  if (addr >= extent && addr <= extent + 10 * 1024)\n  {\n    safe_print(STDERR_FILENO,\n               \"Looks like this is likely due to stack overflow.\\n\");\n    safe_print(STDERR_FILENO,\n               \"You might consider increasing the limit with `ulimit -s' or \"\n               \"equivalent.\\n\");\n  }\n  else if (addr < 10 * 1024)\n  {\n    safe_print(STDERR_FILENO, \"Looks like a NULL pointer was dereferenced.\\n\");\n  }\n\n  if (!segvSpin)\n  {\n    print_statistics();\n    signal(sig, SIG_DFL);\n    raise(sig);\n  }\n  else\n  {\n    safe_print(STDERR_FILENO,\n               \"Spinning so that a debugger can be connected.\\n\");\n    safe_print(STDERR_FILENO, \"Try:  gdb \");\n    safe_print(STDERR_FILENO, progName);\n    safe_print(STDERR_FILENO, \" \");\n    safe_print<int64_t>(STDERR_FILENO, getpid());\n    safe_print(STDERR_FILENO, \"\\n\");\n    safe_print(STDERR_FILENO, \" or:  gdb --pid=\");\n    safe_print<int64_t>(STDERR_FILENO, getpid());\n    safe_print(STDERR_FILENO, \" \");\n    safe_print(STDERR_FILENO, progName);\n    safe_print(STDERR_FILENO, \"\\n\");\n    for (;;)\n    {\n      sleep(60);\n    }\n  }\n#else  /* CVC5_DEBUG */\n  safe_print(STDERR_FILENO, \"cvc5 suffered a segfault.\\n\");\n  safe_print(STDERR_FILENO, \"Offending address is \");\n  safe_print(STDERR_FILENO, info->si_addr);\n  safe_print(STDERR_FILENO, \"\\n\");\n  if (addr >= extent && addr <= extent + 10 * 1024)\n  {\n    safe_print(STDERR_FILENO,\n               \"Looks like this is likely due to stack overflow.\\n\");\n    safe_print(STDERR_FILENO,\n               \"You might consider increasing the limit with `ulimit -s' or \"\n               \"equivalent.\\n\");\n  }\n  else if (addr < 10 * 1024)\n  {\n    safe_print(STDERR_FILENO, \"Looks like a NULL pointer was dereferenced.\\n\");\n  }\n  print_statistics();\n  signal(sig, SIG_DFL);\n  raise(sig);\n#endif /* CVC5_DEBUG */\n}\n#endif /* HAVE_SIGALTSTACK */\n"
+        },
+        {
+          "first": 175,
+          "last": 242,
+          "text": "/** Handler for SIGILL (illegal instruction). */\nvoid ill_handler(int sig, siginfo_t* info, void*)\n{\n#ifdef CVC5_DEBUG\n  safe_print(STDERR_FILENO,\n             \"cvc5 executed an illegal instruction in DEBUG mode.\\n\");\n  if (!segvSpin)\n  {\n    print_statistics();\n    signal(sig, SIG_DFL);\n    raise(sig);\n  }\n  else\n  {\n    safe_print(STDERR_FILENO,\n               \"Spinning so that a debugger can be connected.\\n\");\n    safe_print(STDERR_FILENO, \"Try:  gdb \");\n    safe_print(STDERR_FILENO, progName);\n    safe_print(STDERR_FILENO, \" \");\n    safe_print<int64_t>(STDERR_FILENO, getpid());\n    safe_print(STDERR_FILENO, \"\\n\");\n    safe_print(STDERR_FILENO, \" or:  gdb --pid=\");\n    safe_print<int64_t>(STDERR_FILENO, getpid());\n    safe_print(STDERR_FILENO, \" \");\n    safe_print(STDERR_FILENO, progName);\n    safe_print(STDERR_FILENO, \"\\n\");\n    for (;;)\n    {\n      sleep(60);\n    }\n  }\n#else  /* CVC5_DEBUG */\n  safe_print(STDERR_FILENO, \"cvc5 executed an illegal instruction.\\n\");\n  print_statistics();\n  signal(sig, SIG_DFL);\n  raise(sig);\n#endif /* CVC5_DEBUG */\n}\n\n#endif /* __WIN32__ */\n\nstatic thread_local terminate_handler default_terminator;\n\nvoid cvc5terminate()\n{\n  set_terminate(default_terminator);\n#ifdef CVC5_DEBUG\n  LastExceptionBuffer* current = LastExceptionBuffer::getCurrent();\n  LastExceptionBuffer::setCurrent(NULL);\n  delete current;\n\n  safe_print(STDERR_FILENO,\n             \"\\n\"\n             \"cvc5 was terminated by the C++ runtime.\\n\"\n             \"Perhaps an exception was thrown during stack unwinding.  \"\n             \"(Don't do that.)\\n\");\n  print_statistics();\n  default_terminator();\n#else  /* CVC5_DEBUG */\n  safe_print(STDERR_FILENO,\n             \"cvc5 was terminated by the C++ runtime.\\n\"\n             \"Perhaps an exception was thrown during stack unwinding.\\n\");\n  print_statistics();\n  default_terminator();\n#endif /* CVC5_DEBUG */\n}\n\nvoid install()\n"
+        },
+        {
+          "first": 245,
+          "last": 333,
+          "text": "  LastExceptionBuffer::setCurrent(new LastExceptionBuffer());\n#endif\n\n#ifndef __WIN32__\n  struct rlimit limit;\n  if (getrlimit(RLIMIT_STACK, &limit))\n  {\n    throw Exception(string(\"getrlimit() failure: \") + strerror(errno));\n  }\n  if (limit.rlim_cur != limit.rlim_max)\n  {\n    limit.rlim_cur = limit.rlim_max;\n    if (setrlimit(RLIMIT_STACK, &limit))\n    {\n      throw Exception(string(\"setrlimit() failure: \") + strerror(errno));\n    }\n    if (getrlimit(RLIMIT_STACK, &limit))\n    {\n      throw Exception(string(\"getrlimit() failure: \") + strerror(errno));\n    }\n  }\n\n  struct sigaction act1;\n  act1.sa_sigaction = sigint_handler;\n  act1.sa_flags = SA_SIGINFO;\n  sigemptyset(&act1.sa_mask);\n  if (sigaction(SIGINT, &act1, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGINT) failure: \") + strerror(errno));\n  }\n\n  struct sigaction act2;\n  act2.sa_sigaction = timeout_handler;\n  act2.sa_flags = SA_SIGINFO;\n  sigemptyset(&act2.sa_mask);\n  if (sigaction(SIGXCPU, &act2, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGXCPU) failure: \") + strerror(errno));\n  }\n\n  struct sigaction act3;\n  act3.sa_sigaction = ill_handler;\n  act3.sa_flags = SA_SIGINFO;\n  sigemptyset(&act3.sa_mask);\n  if (sigaction(SIGILL, &act3, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGILL) failure: \") + strerror(errno));\n  }\n\n#ifdef HAVE_SIGALTSTACK\n  stack_t ss;\n  ss.ss_sp = (char*)malloc(SIGSTKSZ);\n  if (ss.ss_sp == NULL)\n  {\n    throw Exception(\"Can't malloc() space for a signal stack\");\n  }\n  ss.ss_size = SIGSTKSZ;\n  ss.ss_flags = 0;\n  /*if (sigaltstack(&ss, NULL) == -1)\n  {\n    throw Exception(string(\"sigaltstack() failure: \") + strerror(errno));\n  }*/\n\n  stackSize = limit.rlim_cur;\n  stackBase = ss.ss_sp;\n\n  struct sigaction act4;\n  act4.sa_sigaction = segv_handler;\n  act4.sa_flags = SA_SIGINFO | SA_ONSTACK;\n  sigemptyset(&act4.sa_mask);\n  if (sigaction(SIGSEGV, &act4, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGSEGV) failure: \") + strerror(errno));\n  }\n#endif /* HAVE_SIGALTSTACK */\n\n  struct sigaction act5;\n  act5.sa_sigaction = sigterm_handler;\n  act5.sa_flags = SA_SIGINFO;\n  sigemptyset(&act5.sa_mask);\n  if (sigaction(SIGTERM, &act5, NULL))\n  {\n    throw Exception(string(\"sigaction(SIGTERM) failure: \") + strerror(errno));\n  }\n\n#endif /* __WIN32__ */\n\n  default_terminator = set_terminate(cvc5terminate);\n}\n"
+        }
+      ]
+    },
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/time_limit.cpp",
+      "bytes": 4154,
+      "sha256": "9581580cac6e20f3940362d1f37c5ce7eedb44baede7e1fadcdd5848aacd1599",
+      "excerpts": [
+        {
+          "first": 81,
+          "last": 113,
+          "text": "  // Skip if no time limit shall be set.\n  if (ms == 0) {\n    return TimeLimit();\n  }\n\n#if HAVE_SETITIMER\n  // Install a signal handler for SIGALRM\n  struct sigaction sact;\n  sact.sa_sigaction = posix_timeout_handler;\n  sact.sa_flags = SA_SIGINFO;\n  sigemptyset(&sact.sa_mask);\n  if (sigaction(SIGALRM, &sact, NULL))\n  {\n    throw internal::Exception(std::string(\"sigaction(SIGALRM) failure: \")\n                              + strerror(errno));\n  }\n\n  // Check https://linux.die.net/man/2/setitimer\n  // Then time is up, the kernel will send a SIGALRM\n  struct itimerval timerspec;\n  timerspec.it_value.tv_sec = ms / 1000;\n  timerspec.it_value.tv_usec = (ms % 1000) * 1000;\n  timerspec.it_interval.tv_sec = 0;\n  timerspec.it_interval.tv_usec = 0;\n  // Argument 1: which timer to set, we want the real time\n  // Argument 2: timer configuration, relative to current time\n  // Argument 3: old timer configuration, we don't want to know\n  if (setitimer(ITIMER_REAL, &timerspec, nullptr))\n  {\n    throw internal::Exception(std::string(\"timer_settime() failure: \")\n                              + strerror(errno));\n  }\n#else\n"
+        },
+        {
+          "first": 114,
+          "last": 132,
+          "text": "  abort_timer_flag.store(false);\n  std::thread t([ms]()\n  {\n    // when to stop\n    auto limit = std::chrono::system_clock::now() + std::chrono::milliseconds(ms);\n    while (limit > std::chrono::system_clock::now())\n    {\n      // check if the main thread is done\n      if (abort_timer_flag.load()) return;\n      std::this_thread::sleep_for(std::chrono::milliseconds(100));\n    }\n    // trigger the timeout handler\n    signal_handlers::timeout_handler();\n  });\n  // detach the thread\n  t.detach();\n#endif\n  return TimeLimit();\n}\n"
+        }
+      ]
+    },
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/driver_unified.cpp",
+      "bytes": 8731,
+      "sha256": "37eccbd652830be38074be44b1a0089e4938f7247d42cb87fc85081f44de0e4b",
+      "excerpts": [
+        {
+          "first": 60,
+          "last": 101,
+          "text": "int runCvc5(int argc, char* argv[], std::unique_ptr<cvc5::Solver>& solver)\n{\n  // Initialize the signal handlers\n  signal_handlers::install();\n\n  progPath = argv[0];\n\n  // Create the command executor to execute the parsed commands\n  pExecutor = std::make_unique<CommandExecutor>(solver);\n  cvc5::DriverOptions dopts = solver->getDriverOptions();\n\n  // Parse the options\n  std::vector<string> filenames = parse(*solver, argc, argv, progName);\n  if (solver->getOptionInfo(\"help\").boolValue())\n  {\n    printUsage(progName, dopts.out());\n    exit(1);\n  }\n  else if (solver->getOptionInfo(\"help-regular\").boolValue())\n  {\n    printUsage(progName, dopts.out(), true);\n    exit(1);\n  }\n  else if (solver->getOptionInfo(\"help-option-categories\").boolValue())\n  {\n    printUsageCategories(*solver.get(), dopts.out());\n    exit(1);\n  }\n  for (const auto& name : {\"show-config\",\n                           \"copyright\",\n                           \"show-trace-tags\",\n                           \"version\"})\n  {\n    if (solver->getOptionInfo(name).boolValue())\n    {\n      std::exit(0);\n    }\n  }\n\n  auto limit = install_time_limit(solver->getOptionInfo(\"tlimit\").uintValue());\n  segvSpin = solver->getOptionInfo(\"segv-spin\").boolValue();\n\n"
+        },
+        {
+          "first": 250,
+          "last": 280,
+          "text": "#ifdef CVC5_COMPETITION_MODE\n    dopts.out() << std::flush;\n    // exit, don't return (don't want destructors to run)\n    // _exit() from unistd.h doesn't run global destructors\n    // or other on_exit/atexit stuff.\n    _exit(returnValue);\n#endif /* CVC5_COMPETITION_MODE */\n\n    pExecutor->flushOutputStreams();\n\n#ifdef CVC5_DEBUG\n    {\n      auto info = solver->getOptionInfo(\"early-exit\");\n      if (info.boolValue() && info.setByUser)\n      {\n        _exit(returnValue);\n      }\n    }\n#else  /* CVC5_DEBUG */\n    if (solver->getOptionInfo(\"early-exit\").boolValue())\n    {\n      _exit(returnValue);\n    }\n#endif /* CVC5_DEBUG */\n  }\n\n  pExecutor.reset();\n\n  signal_handlers::cleanup();\n\n  return returnValue;\n"
+        }
+      ]
+    },
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+      "bytes": 7541,
+      "sha256": "f65bede04067f7e2e98017d877cae584c8d9c73851898499aeec31f64f5eb688",
+      "excerpts": [
+        {
+          "first": 108,
+          "last": 115,
+          "text": "void CommandExecutor::printStatisticsSafe(int fd) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    d_solver->getTermManager().printStatisticsSafe(fd);\n    d_solver->printStatisticsSafe(fd);\n  }\n}\n"
+        }
+      ]
+    },
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/util/safe_print.cpp",
+      "bytes": 4981,
+      "sha256": "8a9fd89b9060524cd4f2d7cd6861a2eb52501e0bffcfe8251904652272c54330",
+      "excerpts": [
+        {
+          "first": 35,
+          "last": 68,
+          "text": "void safe_print(int fd, const std::string& msg) {\n  // Print characters one by one instead of using\n  // string::data()/string::c_str() to avoid allocations (pre-c++11)\n  for (size_t i = 0; i < msg.length(); i++) {\n    if (write(fd, &(msg[i]), 1) != 1) {\n      abort();\n    }\n  }\n}\n\ntemplate <>\nvoid safe_print(int fd, const int64_t& _i) {\n  char buf[BUFFER_SIZE];\n  int64_t i = _i;\n\n  if (i == 0) {\n    safe_print(fd, \"0\");\n    return;\n  } else if (i < 0) {\n    safe_print(fd, \"-\");\n    i *= -1;\n  }\n\n  // This loop fills the buffer from the end. The number of elements in the\n  // buffer is BUFER_SIZE - idx - 1 and they start at position idx + 1.\n  ssize_t idx = BUFFER_SIZE - 1;\n  while (i != 0 && idx >= 0) {\n    buf[idx] = '0' + i % 10;\n    i /= 10;\n    idx--;\n  }\n\n  ssize_t nbyte = BUFFER_SIZE - idx - 1;\n  if (write(fd, buf + idx + 1, nbyte) != nbyte) {\n"
+        },
+        {
+          "first": 122,
+          "last": 157,
+          "text": "\n  safe_print<int64_t>(fd, v);\n  safe_print(fd, \".\");\n\n  // Print decimal digits as long as the remaining value is larger than zero\n  // and print at least one digit.\n  while (i == 0 || (d > 0.0 && i < BUFFER_SIZE)) {\n    d *= 10.0;\n    char c = static_cast<char>(d);\n    buf[i] = '0' + c;\n    d -= c;\n    i++;\n  }\n\n  if (write(fd, buf, i) != i) {\n    abort();\n  }\n}\n\ntemplate <>\nvoid safe_print(int fd, const float& f) {\n  safe_print<double>(fd, (double)f);\n}\n\ntemplate <>\nvoid safe_print(int fd, const bool& b) {\n  if (b) {\n    safe_print(fd, \"true\");\n  } else {\n    safe_print(fd, \"false\");\n  }\n}\n\ntemplate <>\nvoid safe_print(int fd, void* const& addr) {\n  safe_print_hex(fd, (uint64_t)addr);\n"
+        }
+      ]
+    },
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/util/statistics_value.h",
+      "bytes": 10223,
+      "sha256": "6ba23828ef45e8b56e59a878ceba8622cbb18382c6d4a26d2b756cd276d3432a",
+      "excerpts": [
+        {
+          "first": 141,
+          "last": 185,
+          "text": "  void printSafe(int fd) const override\n  {\n    safe_print(fd, \"{ \");\n    bool first = true;\n    for (size_t i = 0, n = d_hist.size(); i < n; ++i)\n    {\n      if (d_hist[i] > 0)\n      {\n        if (first)\n        {\n          first = false;\n        }\n        else\n        {\n          safe_print(fd, \", \");\n        }\n        safe_print<Integral>(fd, static_cast<Integral>(i + d_offset));\n        safe_print(fd, \": \");\n        safe_print<uint64_t>(fd, d_hist[i]);\n      }\n    }\n    safe_print(fd, \" }\");\n  }\n\n  /**\n   * Add `val` to the histogram. Casts `val` to `int64_t`, then resizes and\n   * moves the vector entries as necessary.\n   */\n  void add(Integral val)\n  {\n    int64_t v = static_cast<int64_t>(val);\n    if (d_hist.empty())\n    {\n      d_offset = v;\n    }\n    if (v < d_offset)\n    {\n      d_hist.insert(d_hist.begin(), d_offset - v, 0);\n      d_offset = v;\n    }\n    if (static_cast<size_t>(v - d_offset) >= d_hist.size())\n    {\n      d_hist.resize(v - d_offset + 1);\n    }\n    d_hist[v - d_offset]++;\n"
+        }
+      ]
+    },
+    {
+      "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/util/statistics_value.cpp",
+      "bytes": 3348,
+      "sha256": "3c3173336fefd6897210f615723cedc497437afb67309b84ab2b227868a41809",
+      "excerpts": [
+        {
+          "first": 75,
+          "last": 86,
+          "text": "StatExportData StatisticAverageValue::getViewer() const { return get(); }\n\nbool StatisticAverageValue::isDefault() const { return d_count == 0; }\n\nvoid StatisticAverageValue::printSafe(int fd) const\n{\n  safe_print<double>(fd, get());\n}\n\ndouble StatisticAverageValue::get() const { return d_sum / d_count; }\n\nStatExportData StatisticTimerValue::getViewer() const\n"
+        }
+      ]
+    }
+  ],
+  "repository": [
+    {
+      "path": "docs/evidence/retained-solver-identity-20261020/inventory.json",
+      "bytes": 12802,
+      "sha256": "1723b582c626365205b73bc618ce9f2d2dc13e75fcf4e896ebcd48cd0e4154e3"
+    },
+    {
+      "path": "docs/research/retained-cvc5-output-capacity.md",
+      "bytes": 17878,
+      "sha256": "6fcc524b07df3c1731ab257a7da913650e59ab8a018abc496c7cbd474fd3c682"
+    },
+    {
+      "path": "docs/research/retained-cvc5-enum-output.md",
+      "bytes": 9764,
+      "sha256": "6f9a72d05642614392f393e1bc19095342f57d60c31169d20d58a08dc38da68d"
+    },
+    {
+      "path": "docs/research/retained-solver-launch-profile.md",
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    }
+  ]
+}

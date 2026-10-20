@@ -1,0 +1,21 @@
+{
+  "source_members": 7,
+  "signal_kinds": [
+    "SIGINT",
+    "SIGXCPU",
+    "SIGILL",
+    "SIGSEGV_if_installed",
+    "SIGTERM"
+  ],
+  "conditional_single_thread_CVC5_terminal_activations": 6,
+  "conditional_safe_dump_attempts": 6,
+  "conditional_direct_text_formula": "8688 + 24*P0",
+  "conditional_direct_text_if_P0_is_4": 8784,
+  "single_thread_native_relation_established": false,
+  "all_signal_entry_registry_and_conversion_preconditions_established": false,
+  "saved_native_terminate_payload_bound": null,
+  "complete_safe_dump_bound": null,
+  "complete_solver_q": null,
+  "weighted_O": null,
+  "elapsed_seconds": 0.44614017700223485
+}
