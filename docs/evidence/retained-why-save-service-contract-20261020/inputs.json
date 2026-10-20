@@ -1,0 +1,63 @@
+{
+  "base": "aeafcd179791afc238344cc305e17e8ebb91bfc8",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-save-file-capacity.md": {
+      "bytes": 11395,
+      "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+    },
+    "docs/research/retained-why-save-io-services.md": {
+      "bytes": 6168,
+      "sha256": "d2460ed6ab2c62cfb4652abbac1750c16f034a394028eba042b4e83fc75f9dd7"
+    },
+    "docs/evidence/retained-why-save-file-capacity-20261020/result.json": {
+      "bytes": 35971,
+      "sha256": "7e78aff05c4f2bb744dd0577ee6dbd5040ffea459b9d67ab7cc5cc436652167e"
+    },
+    "docs/evidence/retained-why-save-file-capacity-20261020/native-bodies.json": {
+      "bytes": 44348,
+      "sha256": "881531910a1da1d2313a2663eb6abbc9dca2b1e1d44e8c85247bf4dfd89d1295"
+    },
+    "docs/evidence/retained-why-save-file-capacity-20261020/native-witnesses.json": {
+      "bytes": 1353,
+      "sha256": "2f3b2d822c51cf26b3bcd605e5d44df119a93a10c446e47db7421e356cc3c949"
+    },
+    "docs/evidence/retained-why-save-io-services-20261020/result.json": {
+      "bytes": 9329,
+      "sha256": "635089d8e367f32fc61051e89259a88c1ce8106f7bcf55d6b3eaf47baf6ae885"
+    },
+    "docs/evidence/retained-why-save-io-services-20261020/standards.json": {
+      "bytes": 1351,
+      "sha256": "66cd31755e825610ed52802807a1e2c094b03fe2cbaa22a131cc0e8e3d5779f5"
+    }
+  },
+  "local_files": {
+    "contract.json": {
+      "bytes": 1028,
+      "sha256": "f202b0e7530ada9da3a2bf964d57bb4d9dc7c747474b0645c59e964ccdca310a"
+    },
+    "source-witnesses.json": {
+      "bytes": 14092,
+      "sha256": "a4b8d6480eb7e800e89fbc602f48e6388d56562df35bdc4286d6e52184c70d98"
+    }
+  }
+}

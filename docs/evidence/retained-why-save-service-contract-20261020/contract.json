@@ -1,0 +1,28 @@
+{
+  "status": "explicit_external_service_premise",
+  "service": "write for selected private blocking regular-file XML/shape descriptions",
+  "request_bytes": {
+    "minimum": 1,
+    "maximum": 65536
+  },
+  "ordinary_success_count": "1 <= w <= n",
+  "other_outcomes": [
+    "ordinary error or interruption through the retained runtime route",
+    "nonreturn"
+  ],
+  "proved_for_installed_os": false,
+  "derived_from_POSIX_return_count_excerpt": false,
+  "complete_delivery_or_termination_guaranteed": false,
+  "zero_successful_return": "violates the stated premise; not handled by the installed assertion",
+  "preconditions": {
+    "source_derived": [
+      "open_out selects write/create/truncate, without nonblock/append",
+      "live buffer request length in1..65536",
+      "runtime EINTR and error branches precede successful state commit"
+    ],
+    "inherited_external": [
+      "fresh stable regular-file and private-description relation",
+      "faithful source/native/runtime roots and one-worker behavior"
+    ]
+  }
+}

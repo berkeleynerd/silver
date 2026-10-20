@@ -1,0 +1,18 @@
+{
+  "round": 36,
+  "issues": [
+    119,
+    153
+  ],
+  "base": "aeafcd179791afc238344cc305e17e8ebb91bfc8",
+  "author": "root",
+  "lead_runtime_model_effort": "unavailable",
+  "reviewer_selected": "GPT-6 Astra / Extra High",
+  "author_check_seconds": 0.34050384600050165,
+  "native_runs": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0,
+  "change": "Explicit external positive-write premise plus selected caller attachment; no installed-OS theorem",
+  "review": "pending exact freeze review; preceding read-only advisory accepted legitimacy within existing approved boundary",
+  "token_cost": "Per-agent attribution unavailable; whole-round counters retained by lead"
+}
