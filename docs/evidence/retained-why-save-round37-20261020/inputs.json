@@ -1,0 +1,12 @@
+{
+  "base": "3d08f05cdc2b4aac98523148acd410899b234590",
+  "review_target": "c9c095ab0a",
+  "freezes": {
+    "shape_builder_allocation": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+    "stack_helpers": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+    "channel_exit": "4683db4fd2"
+  },
+  "clarifications": [
+    "c9c095ab0a"
+  ]
+}
